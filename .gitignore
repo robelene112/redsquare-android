@@ -1,0 +1,29 @@
+# Android and Gradle local state
+.gradle/
+.kotlin/
+**/build/
+local.properties
+.idea/
+*.iml
+.externalNativeBuild/
+.cxx/
+
+# Credentials, wallet material and signing keys
+.env
+.env.*
+!.env.example
+*.jks
+*.keystore
+keystore.properties
+signing.properties
+secrets/
+wallets/
+
+# Local artifacts and editor state
+*.apk
+*.aab
+*.apks
+.DS_Store
+*.swp
+.scratch/
+.worktrees/

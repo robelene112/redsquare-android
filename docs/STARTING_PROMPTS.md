@@ -1,0 +1,76 @@
+# Starting prompts
+
+Start the agent in `/home/david/projects/redsquare-android`. If it opens elsewhere,
+include that path in your prompt. The repository's `AGENTS.md` points to the
+workflow, context, tracker and real skill files.
+
+## Initial app scope
+
+```text
+Work in /home/david/projects/redsquare-android.
+Read AGENTS.md and the documents it points to. Use the project-local
+grill-with-docs skill, including its grilling and domain-modeling dependencies,
+to grill me about the first-release scope of the Android app.
+
+Preserve the decisions already recorded in PROJECT_CONTEXT.md. Resolve the
+remaining product decisions with me and research technical facts yourself.
+Keep implementation for the subsequent spec and ticket phases. If planning
+needs several sessions, explain whether Wayfinder would help before starting it.
+```
+
+## A new feature
+
+Replace the final line with the feature you want to discuss.
+
+```text
+Work in /home/david/projects/redsquare-android.
+Read AGENTS.md, the project context and workflow. Inspect relevant existing
+specs, tickets and code before asking me about facts already recorded there.
+Use the project-local grill-with-docs skill and both of its dependencies.
+We implement sequentially and do not use Ralph. Stay in the grilling phase
+until I request to-spec. Explain material conflicts with existing decisions.
+
+Feature to grill: [describe the feature here].
+```
+
+## Turn this conversation into a spec
+
+```text
+Use the project-local to-spec skill on the decisions in this conversation.
+Preserve the agreed behavior, testing boundaries and explicit exclusions.
+Publish the spec to the configured GitHub tracker. Leave undecided choices
+visible rather than inventing answers. Do not start implementation.
+```
+
+## Split a spec into tickets
+
+```text
+Use the project-local to-tickets skill for [spec issue URL or number].
+Propose small, demonstrable vertical slices and their genuine blockers.
+Let me review the breakdown, then publish the agreed tickets to GitHub.
+Execution will be sequential.
+```
+
+## Implement one ticket in a fresh session
+
+```text
+Work in /home/david/projects/redsquare-android and read AGENTS.md.
+Use the project-local implement skill for [ticket issue URL or number].
+Read its originating spec and confirm the blockers are complete. Implement
+this ticket, run the appropriate checks, review the actual diff against the
+starting commit, fix findings and commit the completed change. Update the
+ticket with evidence and close it when its criteria pass. Report what I can
+review on my phone and any remaining limitations. Stop before the next ticket.
+```
+
+## Review or retrospective
+
+```text
+Use code-review for [branch/commit], compared with [base commit], against
+[spec issue URL or number]. Follow the project-local skill and coding standards.
+```
+
+```text
+Use retro for the session that implemented [ticket]. Recommend improvements
+to this project's agent environment based on the actual session evidence.
+```
