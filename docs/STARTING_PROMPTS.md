@@ -11,6 +11,8 @@ Work in /home/david/projects/redsquare-android.
 Read AGENTS.md and the documents it points to. Use the project-local
 grill-with-docs skill, including its grilling and domain-modeling dependencies,
 to grill me about the first-release scope of the Android app.
+Ask one question at a time, give your recommendation, and wait for my answer
+before asking the next question. This overrides upstream batched questions.
 
 Preserve the decisions already recorded in PROJECT_CONTEXT.md. Resolve the
 remaining product decisions with me and research technical facts yourself.
@@ -27,6 +29,8 @@ Work in /home/david/projects/redsquare-android.
 Read AGENTS.md, the project context and workflow. Inspect relevant existing
 specs, tickets and code before asking me about facts already recorded there.
 Use the project-local grill-with-docs skill and both of its dependencies.
+Ask one question at a time, give your recommendation, and wait for my answer
+before asking the next question. This overrides upstream batched questions.
 We implement sequentially and do not use Ralph. Stay in the grilling phase
 until I request to-spec. Explain material conflicts with existing decisions.
 

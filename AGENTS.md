@@ -11,6 +11,8 @@ the skill is absent from its picker, read those files directly and follow them.
 
 - For a requested grill, spec, ticket breakdown, implementation, review or
   retrospective, use the corresponding skill in [the workflow](docs/WORKFLOW.md).
+- During grilling, ask one question at a time, give a recommendation, and wait
+  for the answer. This owner preference overrides upstream batched questions.
 - User-invoked skills (`disable-model-invocation: true`) start when the user asks
   for that phase; explain the next phase rather than silently advancing to it.
 - Implement one ticket at a time. Ralph and parallel ticket implementation are

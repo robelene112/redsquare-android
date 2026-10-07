@@ -42,10 +42,12 @@ Reusable skills such as `tdd` and `domain-modeling` support the relevant phase.
 
 ## Grilling and specifications
 
-Use Matt's current grilling instructions: ask independent, ready questions in
-rounds, provide a recommendation for each, and wait for the owner's decisions.
-Dependent questions belong in subsequent rounds. Research repository facts
-instead of asking the owner to supply information the agent can inspect.
+During grilling, ask exactly one question at a time, provide a recommended
+answer, and wait for the owner's response before asking the next question.
+This explicit owner preference overrides upstream grilling's batched rounds;
+keep the design tree internally and select the next ready question from it.
+Research repository facts instead of asking the owner to supply information
+the agent can inspect.
 
 `grill-with-docs` loads `grilling` and `domain-modeling`. It creates the glossary
 and ADRs lazily. These files do not record every answer, so retain the same
