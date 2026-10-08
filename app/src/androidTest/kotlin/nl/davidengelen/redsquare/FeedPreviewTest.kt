@@ -71,6 +71,9 @@ class FeedPreviewTest {
                     val before = peer.requests.get()
                     ui.onNodeWithText("Refresh").performClick()
                     ui.waitUntil(15_000) { peer.requests.get() > before }
+                    ui.waitUntil(15_000) {
+                        ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty()
+                    }
                     ui.waitForIdle()
                     ui.onNodeWithText("Reference post 05").assertIsDisplayed()
                     activity.recreate()
@@ -78,6 +81,55 @@ class FeedPreviewTest {
                     ui.onNodeWithText("Reference post 05").assertIsDisplayed()
                     ui.onNode(hasScrollAction()).performScrollToIndex(0)
                     waitForText("New reference post")
+                    peer.assertHealthy()
+                }
+            }
+        }
+    }
+
+    @Test fun unavailableCacheWarnsWithoutHidingLivePostsAndCanRecover() {
+        val original = asset("native-feed-reference.json")
+        val updated = asset("native-feed-scroll-reference.json").getAsJsonArray("refreshedRows")[0]
+        val peer = ControlledFeedPeer("[${original.get("archiveRow")}]")
+        val blocked = java.io.File(instrumentation.targetContext.noBackupFilesDir, "feed.owner.v1.new")
+        peer.start().use { server ->
+            ActivityScenario.launch<MainActivity>(intent(server.port)).use {
+                captureFailure {
+                    waitForText("Native Red Square reference post")
+                    check(blocked.mkdir())
+                    val obstruction = java.io.File(blocked, "obstruction").apply { writeText("public fixture") }
+                    try {
+                        peer.rows = "[$updated]"
+                        ui.onNodeWithText("Refresh").performClick()
+                        waitForText("New reference post")
+                        waitForText("Some posts could not be saved or opened for offline reading.")
+                    } finally {
+                        check(obstruction.delete())
+                        check(blocked.delete())
+                    }
+                    ui.onNodeWithText("Refresh").performClick()
+                    ui.waitUntil(15_000) {
+                        ui.onAllNodes(hasText("Some posts could not be saved or opened for offline reading.")).fetchSemanticsNodes().isEmpty()
+                    }
+                    ui.onNodeWithText("New reference post").assertIsDisplayed()
+                    peer.assertHealthy()
+                }
+            }
+        }
+    }
+
+    @Test fun unreadableRefreshExplainsTheProblemWhileKeepingCachedPosts() {
+        val fixture = asset("native-feed-reference.json")
+        val peer = ControlledFeedPeer("[${fixture.get("archiveRow")}]")
+        peer.start().use { server ->
+            ActivityScenario.launch<MainActivity>(intent(server.port)).use {
+                captureFailure {
+                    waitForText("Native Red Square reference post")
+                    val invalid = fixture.getAsJsonObject("archiveRow").deepCopy().apply { addProperty("tx", "{}") }
+                    peer.rows = "[$invalid]"
+                    ui.onNodeWithText("Refresh").performClick()
+                    waitForText("The server returned posts this app could not read.")
+                    ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
                     peer.assertHealthy()
                 }
             }
