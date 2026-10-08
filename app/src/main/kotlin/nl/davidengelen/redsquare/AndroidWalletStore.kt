@@ -28,7 +28,9 @@ class AndroidWalletStore(context: Context) {
             requireNotNull(existingKey) { "Wallet storage key unavailable" }
             readSavedWallet(existingKey)
         } else {
-            val key = existingKey ?: KeyGenerator.getInstance("AES", "AndroidKeyStore").run {
+            require(existingKey == null) { "Saved wallet storage unavailable" }
+            require(!File(file.baseFile.path + ".new").exists()) { "Interrupted wallet storage requires recovery" }
+            val key = KeyGenerator.getInstance("AES", "AndroidKeyStore").run {
                 init(KeyGenParameterSpec.Builder(KEY_ALIAS,
                     KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT)
                     .setKeySize(256).setBlockModes(KeyProperties.BLOCK_MODE_GCM)
