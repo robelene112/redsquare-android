@@ -10,9 +10,15 @@
     <string name="done">Done</string>
     <string name="preview_update_available">Preview update available</string>
     <string name="view_update">View update</string>
-    <string name="feed_title">For you</string>
+    <string name="feed_title">All posts</string>
     <string name="feed_refresh">Refresh</string>
     <string name="feed_loading">Loading posts…</string>
     <string name="feed_error">Posts could not be refreshed. Try again.</string>
     <string name="feed_empty">No posts are available from this server yet.</string>
+    <string name="no_internet">No internet connection</string>
+    <string name="server_unavailable">Server unavailable</string>
+    <string name="back_online">Back online</string>
+    <string name="feed_cache_warning">Some posts could not be saved or opened for offline reading.</string>
+    <string name="feed_offline_empty">Connect to load posts for offline reading.</string>
+    <string name="feed_unreadable">The server returned posts this app could not read.</string>
 </resources>

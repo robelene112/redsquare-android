@@ -93,7 +93,7 @@ class MainActivity : ComponentActivity() {
                             Button(onClick = { failed = false; retry++ }) { Text(stringResource(R.string.retry)) }
                         }
                         if (!(BuildConfig.DEBUG && intent.getBooleanExtra("feedDisabled", false))) {
-                            FeedScreen(wallet, failed, FeedEndpoints.fromIntent(intent), Modifier.weight(1f)) { reportFullyDrawn() }
+                            FeedScreen(wallet, failed, FeedEndpoints.fromIntent(intent), lifecycle, Modifier.weight(1f)) { reportFullyDrawn() }
                         }
                     }
                     if (walletOpen) AlertDialog(

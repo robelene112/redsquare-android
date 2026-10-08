@@ -45,6 +45,17 @@ actual downloaded instrumentation output was inspected: OK (1 test). The peer
 requires a valid signed counter-challenge answer before accepting the Archive
 request. Android 17 and full wallet/update checks were intentionally not run.
 
+Focused run 37854587674 at 06728c0 reached the authenticated feed and then
+failed the newly added reopening check: the visible cached-post wait timed out
+at line 109 after peer shutdown and activity recreation. Its captured public
+screen was inspected and showed an empty feed with the refresh error. This is
+the functional red for persistent cache/outage display. The next implementation
+stores up to 100 recent original public envelopes with a 16 MiB cache budget,
+re-verifies them on load before opening a peer, preserves keyed list position,
+and distinguishes observed internet loss from an unavailable selected backend.
+Write failures retain live reading and show an offline-cache warning. These
+limits are native cache policies, not universal Saito text/image limits.
+
 Cached opening, outage recovery, complete Android 10/17 acceptance and the
 owner's live Archive read are still pending. HTTP 200 from both public Red Square
 pages on 2026-10-08 establishes web readiness only, not native peer success.
