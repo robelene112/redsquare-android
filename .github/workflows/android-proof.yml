@@ -20,6 +20,7 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
+          cache: gradle
       - name: Check runner SDK and acceleration
         run: |
           test -c /dev/kvm
