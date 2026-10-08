@@ -1,0 +1,4 @@
+Run 37857285246, source 4fd87bd. Full Android10/17 source and device checks passed.
+Public reads and synthetic cache fixtures only; no on-chain writes.
+This precedes later cache/connectivity review fixes and expanded UI checks.
+Framework timing lines are emulator diagnostics, not Pixel7 performance acceptance.

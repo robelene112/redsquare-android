@@ -15,6 +15,7 @@ import okio.ByteString.Companion.toByteString
 import org.junit.Rule
 import org.junit.Test
 import org.junit.Before
+import org.junit.rules.TestName
 import org.junit.Assert.assertTrue
 import java.nio.ByteBuffer
 import java.util.concurrent.CountDownLatch
@@ -22,6 +23,7 @@ import java.util.concurrent.TimeUnit
 
 class FeedPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
+    @get:Rule val testName = TestName()
     private val instrumentation get() = InstrumentationRegistry.getInstrumentation()
 
     @Before fun clearPublicFeedCache() {
@@ -91,11 +93,13 @@ class FeedPreviewTest {
         val original = asset("native-feed-reference.json")
         val updated = asset("native-feed-scroll-reference.json").getAsJsonArray("refreshedRows")[0]
         val peer = ControlledFeedPeer("[${original.get("archiveRow")}]")
-        val blocked = java.io.File(instrumentation.targetContext.noBackupFilesDir, "feed.owner.v1.new")
+        val blocked = java.io.File(instrumentation.targetContext.noBackupFilesDir, "feed.owner.v1")
+        val preserved = java.io.File(instrumentation.targetContext.noBackupFilesDir, "feed.test.saved")
         peer.start().use { server ->
             ActivityScenario.launch<MainActivity>(intent(server.port)).use {
                 captureFailure {
                     waitForText("Native Red Square reference post")
+                    check(blocked.renameTo(preserved))
                     check(blocked.mkdir())
                     val obstruction = java.io.File(blocked, "obstruction").apply { writeText("public fixture") }
                     try {
@@ -106,6 +110,7 @@ class FeedPreviewTest {
                     } finally {
                         check(obstruction.delete())
                         check(blocked.delete())
+                        check(preserved.renameTo(blocked))
                     }
                     ui.onNodeWithText("Refresh").performClick()
                     ui.waitUntil(15_000) {
@@ -145,6 +150,7 @@ class FeedPreviewTest {
     }
     private fun captureFailure(check: () -> Unit) {
         try { check() } catch (failure: Throwable) {
+            captureFeedEvidence("feed-ui-failures/${testName.methodName}.png")
             captureFeedEvidence("feed-ui-failure.png")
             throw failure
         }

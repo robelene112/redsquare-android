@@ -99,9 +99,9 @@ independent verified feed envelopes, public-cache cold starts and outage UI
 are implemented through 8e316b1. The two-axis review's cache-commit and
 connectivity races were fixed; a later refresh-position test synchronization
 finding is fixed in c17e0b5. Additional cache-failure and unreadable-refresh UI
-checks are compiled but pending runtime. Full run 37857285246 at 4fd87bd has
-passed Android 10 including separate fresh-owner public reading; Android 17
-remains in progress. Focused run 37857995735 at 8e316b1 covers recovery and
+checks are compiled but pending runtime. Full run 37857285246 at 4fd87bd passed Android 10 and 17 including separate
+fresh-owner public reads; actual artifacts were inspected and durable public
+feed evidence retained under docs/evidence/ticket03/first-full. Focused run 37857995735 at 8e316b1 covers recovery and
 position. Inspect actual artifacts and current GitHub status before claiming
 acceptance. An unreadable refresh with existing cached posts is expected to
 expose a missing warning in the current implementation; obtain its functional

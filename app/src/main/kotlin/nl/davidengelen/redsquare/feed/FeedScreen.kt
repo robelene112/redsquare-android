@@ -116,7 +116,7 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
             failed -> Text(stringResource(R.string.feed_error), style = MaterialTheme.typography.bodySmall)
             posts.isEmpty() && loading && !walletUnavailable -> Text(stringResource(R.string.feed_loading))
             posts.isEmpty() && !internet.available -> Text(stringResource(R.string.feed_offline_empty))
-            posts.isEmpty() && unreadablePage -> Text(stringResource(R.string.feed_unreadable))
+            unreadablePage -> Text(stringResource(R.string.feed_unreadable))
             posts.isEmpty() && !loading && wallet != null -> Text(stringResource(R.string.feed_empty))
         }
         // Keep a restored list position until the asynchronous cache read has finished.

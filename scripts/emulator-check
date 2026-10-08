@@ -52,6 +52,7 @@ adb shell am instrument -w -r \
     > "$evidence/feed-ui.txt"
 if ! grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/feed-ui.txt"; then
     adb exec-out run-as nl.davidengelen.redsquare.dev cat cache/feed-ui-failure.png > "$evidence/feed-ui-failure.png" || true
+    adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - feed-ui-failures > "$evidence/feed-ui-failures.tar" || true
     exit 1
 fi
 python3 "$repo_dir/scripts/feed-device-check" --evidence "$evidence/feed-cold-launch"

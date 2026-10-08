@@ -111,3 +111,34 @@ post is New reference post at 1700000000021, and the last is Reference post 01.
 The focused local RedSquareFeedTest run passed in 25 seconds. This rules out
 failure to decode the fixture's new post in isolation, but not an Android
 request/merge/list-position race.
+
+
+Full run 37857285246 at 4fd87bd passed source assembly, release lint, thirteen
+core tests and both Android 10/17 runtime stages. Downloaded artifacts were
+inspected: fresh owner reads each found three visible post authors; screenshots
+show actual current owner-feed content. Native read instrumentation completed
+in 5.314/24.608 seconds respectively; these are entire test durations, not
+physical app startup benchmarks. Controlled feed reopening, cold-process cache
+recovery, wallet recovery and actual signed 5-to-8 update continuity passed on
+both SDKs. Durable public feed evidence is under
+[the first full evidence](../evidence/ticket03/first-full/provenance.txt).
+Emulator framework logs include approximately 2–3 seconds on API29 and 8.7
+seconds on API37; multiple API29 lines are retained without selecting one as
+an accepted measurement. These logs do not establish either Pixel target.
+This passing baseline predates the later review fixes and expanded UI tests;
+a final reviewed-source run is still required.
+
+
+Focused run 37858491264 at c17e0b5 passed reconnection and the corrected
+multi-post refresh/recreation position test. The unreadable-response test
+failed waiting for the explanatory warning while a good cached post remained.
+The rendering condition incorrectly required an empty feed; that condition is
+now removed. The cache-failure case displayed its new live post but no warning:
+its obstruction used `.new`, which is not the write path used by
+[Android 10 AtomicFile](https://android.googlesource.com/platform/frameworks/base/+/refs/heads/android10-release/core/java/android/util/AtomicFile.java).
+The primary source was retrieved and its startWrite body inspected.
+This was a fixture error, not evidence of a cache-write failure being ignored.
+The corrected fixture preserves the existing public cache elsewhere, obstructs
+its actual base path, and restores it in finally. It leaves wallet storage
+untouched. Future multiple failures retain separate test-named screenshots as
+well as the existing last-failure screenshot.
