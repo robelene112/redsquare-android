@@ -27,7 +27,15 @@ class NativeCompatibilityTest {
     }
 
     @Test fun compatibleWalletRoundTripPreservesModuleDataAndRejectsInvalidIdentity() {
-        val original = JsonParser.parseString(SaitoWallet.fromPrivateKey(syntheticKey).exportJson()).asJsonObject
+        // Envelope fields/defaults independently derived from pinned Saito saveWallet,
+        // not constructed through this implementation's exporter.
+        val original = JsonParser.parseString("""{
+            "wallet": {
+                "publicKey": "$expectedPublicKey", "privateKey": "$syntheticKey",
+                "version": 5.677, "balance": "0", "preferred_crypto": "SAITO",
+                "preferred_txs": [], "default_fee": "0", "slips": []
+            }
+        }""").asJsonObject
         original.add("unknownModule", JsonNull.INSTANCE)
         original.add("keychain", JsonParser.parseString("""{"keys":[{"aes_secret":"public synthetic test state"}]}"""))
         val restored = SaitoWallet.fromBackup(original.toString())

@@ -4,8 +4,12 @@ artifact=/workspace/app/build/outputs/apk/debug/app-debug.apk
 if [[ ! -f "$artifact" ]]; then echo 'Build the diagnostic APK first' >&2; exit 2; fi
 evidence="/workspace/.scratch/device-evidence/api-$TEST_DEVICE_API"
 mkdir -p "$evidence"
-printf 'no\n' | avdmanager create avd --force --name redsquare-proof --package "$TEST_SYSTEM_IMAGE"
-emulator -avd redsquare-proof -accel off -no-window -no-audio -no-snapshot \
+if [[ ! -f "$HOME/.android/avd/redsquare-proof.ini" ]]; then
+    printf 'no\n' | avdmanager create avd --name redsquare-proof --package "$TEST_SYSTEM_IMAGE"
+fi
+acceleration=off
+[[ ! -r /dev/kvm ]] || acceleration=on
+emulator -avd redsquare-proof -accel "$acceleration" -no-window -no-audio -no-snapshot \
     -no-boot-anim -gpu swiftshader_indirect -feature -Vulkan -cores 1 -memory 1024 \
     > "$evidence/emulator.log" 2>&1 &
 emulator_pid=$!
@@ -18,6 +22,9 @@ for ((attempt=0; attempt<120; attempt++)); do
 done
 [[ "$(adb shell getprop sys.boot_completed | tr -d '\r')" == 1 ]] || { echo 'Emulator boot timed out' >&2; exit 1; }
 adb shell input keyevent 82
+for setting in window_animation_scale transition_animation_scale animator_duration_scale; do
+    adb shell settings put global "$setting" 0
+done
 adb install -r "$artifact"
 adb install -r /workspace/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
 adb shell am instrument -w -r \
@@ -26,14 +33,18 @@ adb shell am instrument -w -r \
     > "$evidence/instrumentation.txt"
 grep -q 'OK (2 tests)' "$evidence/instrumentation.txt"
 adb shell am start -n nl.davidengelen.redsquare/.CompatibilityActivity
-sleep 3
-adb shell uiautomator dump /sdcard/redsquare-ui.xml >/dev/null
-adb pull /sdcard/redsquare-ui.xml "$evidence/before.xml" >/dev/null
-# The host extracts the accessibility bounds to avoid display-dependent tap positions.
-bounds=$(sed -n 's/.*text="Run check"[^>]*bounds="\[\([0-9]*\),\([0-9]*\)\]\[\([0-9]*\),\([0-9]*\)\]".*/\1 \2 \3 \4/p' "$evidence/before.xml")
-read -r left top right bottom <<< "$bounds"
-[[ -n "${bottom:-}" ]] || { echo 'Diagnostic action is missing' >&2; exit 1; }
-adb shell input tap "$(( (left+right)/2 ))" "$(( (top+bottom)/2 ))"
+# Software emulation can briefly show a System UI boot ANR. Dismiss only that
+# system dialog; an application ANR remains a failure, never a successful check.
+for ((attempt=0; attempt<12; attempt++)); do
+    sleep 3
+    timeout 60 adb shell uiautomator dump /sdcard/redsquare-ui.xml >/dev/null || continue
+    adb pull /sdcard/redsquare-ui.xml "$evidence/before.xml" >/dev/null
+    action=$(python3 /workspace/scripts/diagnostic-ui.py "$evidence/before.xml")
+    read -r kind x y <<< "$action"
+    if [[ "$kind" == run ]]; then adb shell input tap "$x" "$y"; break; fi
+    if [[ "$kind" == system-wait ]]; then adb shell input tap "$x" "$y"; fi
+done
+[[ "${kind:-}" == run ]] || { echo 'Diagnostic action is missing' >&2; exit 1; }
 for ((attempt=0; attempt<30; attempt++)); do
     adb shell uiautomator dump /sdcard/redsquare-ui.xml >/dev/null
     adb pull /sdcard/redsquare-ui.xml "$evidence/after.xml" >/dev/null

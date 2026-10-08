@@ -11,8 +11,17 @@ if ! docker image inspect "$image" >/dev/null 2>&1; then
     docker build --memory=1g -f "$repo_dir/build-support/Emulator.Dockerfile" -t "$image" "$repo_dir/build-support"
 fi
 mkdir -p "$repo_dir/.scratch/device-evidence"
+device_home="$repo_dir/.scratch/android-devices/api-${1:-29}"
+mkdir -p "$device_home/.android"
+chmod 700 "$device_home"
+devices=()
+if [[ -r /dev/kvm ]]; then devices=(--device /dev/kvm --group-add "$(stat -c %g /dev/kvm)"); fi
 docker run --rm --cpus=2 --memory=2500m --network none \
+    "${devices[@]}" \
     --user "$(id -u):$(id -g)" \
+    -e HOME=/device-home -e ANDROID_USER_HOME=/device-home/.android \
+    -e ANDROID_AVD_HOME=/device-home/.android/avd \
     -e "TEST_SYSTEM_IMAGE=$system_image" -e "TEST_DEVICE_API=${1:-29}" \
     --mount "type=bind,src=$repo_dir,dst=/workspace" \
+    --mount "type=bind,src=$device_home,dst=/device-home" \
     "$image" /workspace/scripts/emulator-check
