@@ -8,7 +8,7 @@ on:
         description: Verification scope
         type: choice
         default: full
-        options: [full, feed]
+        options: [full, feed, feed-android17]
       public_feed_read:
         description: Separately verify the owner's public peer feed
         type: boolean
@@ -72,7 +72,7 @@ jobs:
         env:
           VERIFICATION_SCOPE: ${{ inputs.scope || 'full' }}
         run: |
-          if [[ "$VERIFICATION_SCOPE" == feed ]]; then
+          if [[ "$VERIFICATION_SCOPE" == feed* ]]; then
             ./gradlew --no-daemon --console=plain :core:test :app:assembleDebug :app:assembleDebugAndroidTest
           else
             ./gradlew --no-daemon --console=plain :core:test :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease :app:lintDebug
@@ -84,6 +84,7 @@ jobs:
           path: ${{ steps.cache-path.outputs.home }}/.gradle/caches
           key: ${{ steps.dependencies.outputs.cache-primary-key }}
       - name: Verify Android 10 runtime
+        if: inputs.scope != 'feed-android17'
         env:
           TEST_PUBLIC_SIGNED_UPDATE: '1'
           TEST_PUBLIC_FEED_READ: ${{ inputs.public_feed_read && '1' || '0' }}
@@ -92,6 +93,7 @@ jobs:
       - name: Verify Android 17 runtime
         if: inputs.scope != 'feed'
         env:
+          TEST_SCOPE: ${{ inputs.scope || 'full' }}
           TEST_PUBLIC_SIGNED_UPDATE: '1'
           TEST_PUBLIC_FEED_READ: ${{ inputs.public_feed_read && '1' || '0' }}
         run: scripts/ci-android-device 37.0

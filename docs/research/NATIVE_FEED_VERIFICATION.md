@@ -6,8 +6,9 @@ physical-device acceptance.
 
 Current candidate: 1bcd832. Fourteen core tests, debug/test/release assembly
 and lint pass locally. Earlier full 4fd87bd evidence passes both SDKs, including
-fresh live-owner reads. Final run 37859209011 verifies later review fixes and
-expanded UI checks; it is pending. No feed APK is published and no Pixel timing
+fresh live-owner reads. Run 37859209011 verified Android 10 and all four Android 17 controlled feed
+cases, but its later Android 17 live test crashed during Compose layout. The
+complete final verification did not pass; dependency investigation is active. No feed APK is published and no Pixel timing
 is claimed. The chronological records below describe their own checkpoints.
 
 The initial protocol decoder test failed before implementation
@@ -155,3 +156,20 @@ certificate and monotonic version. Its app/core/scripts/build-support content
 is identical to final runtime candidate 1bcd832 (git diff checked). It remains
 unpublished. Stable preview remains 8; the first complete live-feed/selection/
 import milestone is delivered after #7. No physical review is requested now.
+
+
+Run 37859209011 at 1bcd832 passed all fourteen core tests, source assembly/lint,
+the complete Android 10 runtime, and all four controlled Android 17 feed cases
+(46.308 seconds total). The later fresh live-owner test crashed the process with
+IllegalArgumentException: performMeasureAndLayout called during measure layout,
+in AndroidComposeView.dispatchDraw. Its screenshot shows Loading posts; the
+transport diagnostic includes SocketException without a payload or key. This
+trace establishes the layout crash, not its underlying cause or a server fault.
+[Failure evidence](../evidence/ticket03/failed-final/android17-live-crash.txt)
+and the screenshot are retained. Subsequent Android 17 wallet/update stages did
+not run, so the full candidate is not accepted. Build 9 remains unpublished.
+Primary-source dependency research verifies BOM 2026.06.01/Compose 1.11.4 fit
+the existing SDK 36/AGP 8.10.1/Kotlin 2.1.20. The newer2026.09.00 stack requires
+SDK 37/AGP 9.1.0 and is not selected. A focused Android 17/public-read scope
+checks the compatible update before another full run. No specific crash fix
+is inferred from a version number.

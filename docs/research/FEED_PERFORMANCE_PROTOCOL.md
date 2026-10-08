@@ -33,3 +33,10 @@ Record cache-read and first live-read modes separately.
 Emulator observations are diagnostics of instrumentation and launch behavior.
 They do not establish either physical target. Ordinary app updates must preserve
 wallets and cached data regardless of whether a timing target has been met.
+
+## Scheduling for final owner review
+
+Physical runs are consolidated in issue #35, as explicitly recorded in #4
+and #35, to match the owner's request to review the completed app. Ticket #4
+prepares instrumentation and retains limited emulator diagnostics. This does
+not satisfy or reduce either Pixel target. No physical result has been recorded.

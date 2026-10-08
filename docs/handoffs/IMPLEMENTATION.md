@@ -17,11 +17,12 @@ one question at a time when a material choice really needs the owner.
 - Standards and Spec reviews found no remaining application/security defects
   at 1bcd832. Their stale-handoff finding is corrected by this update. Cache
   commit verification, callback races and refresh-test synchronization are fixed.
-- Final reviewed-source full run **37859209011** is pending. It covers fourteen
-  core tests, debug/test/release assembly, lint, Android 10/17 UI and cold-process
-  checks, separate fresh-owner reads and actual signed update continuity.
-  Inspect actual outputs before closing #4; no ticket acceptance is inferred
-  from a queued run or compilation.
+- Run **37859209011** passed fourteen core tests, assembly/lint, the full
+  Android 10 runtime and all four controlled Android 17 feed cases. The later
+  Android 17 fresh live test crashed during Compose layout; the full candidate
+  did not pass. Retained failure evidence is under docs/evidence/ticket03/failed-final.
+  A compatible Compose update is being checked via focused Android 17/public read,
+  then the final full suite. Do not close #4 or publish build9 on partial evidence.
 - Signed feed build 9 (f71c506) is prepared and signature/package verified,
   but remains unpublished. Stable preview is version 8, wallet foundation.
   Publish the first complete milestone after #7 includes server selection and

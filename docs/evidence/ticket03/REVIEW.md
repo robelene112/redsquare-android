@@ -31,3 +31,9 @@ final results. Pixel measurements remain tracked in #35 and are not claimed.
 
 Standards: 0 findings, no remaining worst issue. Spec: 0 findings, no remaining
 worst issue. Passing review does not replace outstanding runtime verification.
+
+The Spec reviewer also verified the tracker clarification: physical timing
+moves to #35 for the owner's requested final review, retaining all required
+runs and both original targets as unverified. #4 retains measurement
+preparation and emulator observations. Spec findings remain zero; this is
+scheduling, not a claim that either physical target passed.
