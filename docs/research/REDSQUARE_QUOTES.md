@@ -4,7 +4,16 @@ Read-only source inspection on 2026-10-08. No transactions were submitted and
 no saved wallet, private configuration or database contents were inspected.
 The public service's actual posting behavior was not exercised.
 
-## Published Saito implementation
+## Baseline correction
+
+The upstream example below is from the archived repository and represents
+historical behavior. It is not the current official deployment baseline.
+[The subsequent version investigation](SAITO_VERSION_PROVENANCE.md) verified
+that the owner's inspected Red Square files match official upstream, and that
+current official source plus saito.io's served bundle retain the redesigned
+retweet/commentary path. An ordinary node update is not a verified quote fix.
+
+## Historical published Saito implementation
 
 Official SaitoTech/saito-lite-rust source at commit
 `7200a9886f3dd02f66e8d6c146960e2a5402929f` explicitly supports quote posts:
@@ -43,10 +52,11 @@ Static sources under `/opt/saito/node` follow a different path:
 5. `lib/notification.js:61` labels a commented/image repost as quote, but renders
    the referenced original rather than commentary/attachments (`:155` to `:171`).
 6. The nested-post renderer (`lib/tweet.js:206`, `lib/tweet.template.js:120`)
-   expects `data.embedded`, not published upstream's `data.retweet_tx`.
+   expects `data.embedded`, not the archived implementation's `data.retweet_tx`.
 
-This is an apparent deployed compatibility/regression issue. Live posting was
-not performed. Resolve transaction interpretation and any necessary backend
-integration in the implementation work; do not infer feature deferral from an
+This is a compatibility/presentation difference from the archived implementation,
+shared by the inspected current official code. Live posting was not performed.
+Resolve transaction interpretation and any necessary backend integration in the
+implementation work; do not infer feature deferral from an
 incomplete source inventory. The owner confirmed published Red Square feature
 parity as the baseline and rejected deferring quote posts.

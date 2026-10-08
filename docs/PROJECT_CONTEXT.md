@@ -25,11 +25,13 @@ defined in the specification so these targets can be tested consistently.
   Research and compatibility verification are the agent's responsibility.
   Incomplete research alone must not be used to propose feature deferral.
 - Include ordinary reposts and quote posts with commentary/images in the first
-  release. Published Saito Red Square source supports both. Match its transaction
-  and display semantics while accounting for the deployed redesign's different
-  handling; verify native/web interoperability during implementation. Quote-post
-  deferral was rejected by the owner. See
-  [the complete quote-post trace](research/REDSQUARE_QUOTES.md).
+  release. Historical published source supports standalone quotes; current
+  official source and both inspected served bundles use a different retweet/
+  commentary path. Verify native/web transaction and display interoperability
+  against explicit baselines rather than assuming a node update fixes this.
+  Quote-post deferral was rejected by the owner. See
+  [the quote-post trace](research/REDSQUARE_QUOTES.md) and
+  [corrected version provenance](research/SAITO_VERSION_PROVENANCE.md).
 - Include a Following feed showing only accounts the user follows, alongside
   the selected backend's general feed. Both views use that backend's available
   history and respect applicable personal controls and backend moderation.
@@ -227,20 +229,37 @@ safeguards and use this build to start physical-device performance verification.
 This is a delivery priority, not a reduction of the first-release feature scope
 or authorization to bypass the subsequent specification and ticket phases.
 
-## Decisions still open
+## Scope status and remaining planning work
 
-- Attachment details, notification delivery design, search semantics, personal
-  moderation behavior, report handling, Chat feature scope and other individual
-  features need explicit release boundaries.
-- Wallet storage, recovery, import/export format and replacement behavior.
-- Native Saito integration approach and any required backend adapter.
-- Remaining backend switching behavior and selector placement.
-- UI toolkit, architecture and remaining performance targets.
-- Application ID, release signing and review delivery implementation.
+The app-wide product grill has settled the platform, release baseline, wallet
+safeguards, social/Chat capabilities, backend choice, offline behavior, review
+approach and initial delivery priority. On 2026-10-08 the owner requested
+`to-spec` and `to-tickets`. A [release spec review draft](planning/RELEASE_SPEC_REVIEW.md)
+and [proposed feature breakdown](planning/TICKET_BREAKDOWN_REVIEW.md) are ready
+for the skill-required testing-boundary check and ticket-breakdown review, one
+question at a time. No GitHub spec/tickets or Android code have been published.
+
+Resolve the following during specification and technical planning. Research facts
+and propose concrete behavior using the accepted baseline; ask the owner only
+when a remaining choice materially changes product behavior or release scope.
+
+- Attachment limits, archive/search coverage, report acknowledgement and detailed
+  personal-control/history behavior, grounded in the existing Saito capabilities.
+- Secure wallet storage, compatible import/export format, identity-isolated local
+  work, interruption recovery and unavailable-authentication behavior.
+- Native Saito integration, protocol-version differences, any required backend
+  adapter and push delivery while the app is closed.
+- UI toolkit, feature architecture, selector placement and precise performance
+  measurement conditions.
+- Application ID, signing compatibility, build/update automation and phone review
+  evidence. Verify store eligibility when release work begins.
 
 ## Specification authority
 
 GitHub Issues contain approved specifications and implementation tickets.
 This file preserves project-wide context; it is not a substitute for a feature
 specification. On 2026-10-07 there is no approved app spec or implementation
-ticket. Discover current work from the tracker and Git history in later sessions.
+ticket. On 2026-10-08 review drafts exist as described above; they are not an
+approved local work tracker. Discover current work from GitHub and Git history
+in later sessions. After publication, replace the review drafts with pointers
+to the authoritative issues.
