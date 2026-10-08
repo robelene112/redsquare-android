@@ -1,0 +1,12 @@
+instrumentation.txt: OK (2 tests)
+wallet-initialization-ui.txt: OK (1 test)
+wallet-commit-sync-ui.txt: OK (1 test)
+wallet-ui.txt: OK (3 tests)
+preview-update-ui.txt: OK (1 test)
+initialization-incompleteFirstWriteCanResumeCreation.txt: OK (1 test)
+initialization-validSaveBeforePublicationResumesTheSavedIdentity.txt: OK (1 test)
+initialization-unavailablePendingSaveIsPreservedForRetry.txt: OK (1 test)
+5 -> 8
+Certificate SHA-256: 6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2
+PASS: same public identity after cold process launch
+xbX81qo4FHq51ZctijjGRRbBZx7GNZAcDajFnGCD7CP9

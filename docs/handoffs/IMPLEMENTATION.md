@@ -39,24 +39,56 @@ Owner requested app review at the end. Physical Pixel 7 checks are outstanding;
 emulator results never establish physical performance/update/notification
 acceptance. Retain these limits in release verification.
 
-Ticket #3 review base is 34c3704. The first persisted-wallet UI test passed on
-Android 10 in run 37838876059. Android 17 passed crypto but its UI test failed
-inside Espresso 3.6 before executing the test body: InputManager.getInstance
-was removed. AndroidX Test runner 1.7.0, JUnit extension 1.3.0 and Espresso 3.7.0
-contain the documented getSystemService fix and are being verified. The subsequent
-missing-ciphertext recovery test is deliberately red until it has run on a
-device. Interim review found (1) missing ciphertext can create another identity,
-and (2) AtomicFile.finishWrite alone does not prove successful persistence.
-Directory/file sync and reopening/verification address the second finding;
-the first awaits its regression failure before implementation.
+Ticket #3 review base is 34c3704. AndroidX Test runner 1.7.0, JUnit extension
+1.3.0 and Espresso 3.7.0 fix the documented Android 17 InputManager reflection
+failure; actual wallet UI tests now pass on Android 10 and 17. Regression run
+37840610980 exposed replacement identity after missing ciphertext; cb065b5
+preserves it and shows recovery guidance. File/directory sync and reopening
+verification address AtomicFile's swallowed persistence failures. Run 37845030873
+passed Android 10 wallet, cold-process and notice checks. Android 17 wallet UI
+passed, but the later observer failed: retained XML/screenshot proves the exact
+System UI ANR overlay. The observer now records and dismisses only that dialog,
+never an app ANR. Do not claim a retry explains earlier uncaptured failures.
 
 Signing initialization and verified release artifacts work. The private signing
 state is outside Git under the operator's local share directory, with restricted
 permissions. Public certificate SHA-256 is recorded in the update-check script.
 Versions 3 and 4 contain the initial wallet implementation and have NOT been
-published. The publisher, cold-process UI check and signed-update checker are
-committed. The update notice, remaining recovery checks, real signed update
-proof, final reviews and publication still need completion. The stable website
-path responds normally but currently has no published app assets.
+published. Signed versions 5 and 6 are published at
+https://davidengelen.nl/redsquare/ with truthful wallet-foundation build notes.
+Public HTTPS manifests and downloaded APK checksums match verified local
+artifacts. A phone-sized Chromium check verifies the visible version and link.
+Version 6 (d0d3a2f) adds the update notice; neither version is the live-feed/import
+milestone. Ordinary debug tests use a loopback manifest and stub the browser
+boundary. Public signed-update integration is explicitly enabled on hosted
+runners, not the network-disabled local emulator. Run 37846484687 (38d576d)
+passed actual signed 5-to-6 update continuity on Android 10. Android 17 later
+timed out waiting for the reopened wallet; its missing/corrupt-storage cases
+passed. No screenshot was captured for that timeout, so its cause remains
+unknown. Future waits retain a public-screen failure screenshot. KVM images
+now receive two cores/2 GiB; this is a test resource adjustment, not an
+established explanation of the timeout.
+
+Run 37846931132 (add4096, temporary verification/wallet-first-save) reproduced
+failed initial saving followed by permanently failing Retry after storage was
+restored. Fixes through 7e24a03 use a durable nonsecret initialization marker
+before generating an unused key, and remove/sync it before exposing identity.
+Valid pending ciphertext retains its wallet; invalid partial first writes may
+retry only while unpublished. I/O/provider failures preserve pending data.
+Saved-file and directory sync prevent Retry bypassing the publication barrier.
+New controlled application checks cover partial writes, valid interrupted saves,
+temporary unreadability and failed commit sync. The fixtures model crash states;
+they do not reproduce arbitrary physical power cuts. Existing missing/corrupt
+wallets without the initialization marker remain fail closed.
+
+Standards and Spec reviews report zero findings through 7e24a03. Local build/lint
+passed. Signed build 8 (7e24a03) is published and HTTPS metadata/APK checksum
+verified; build 7 is unpublished. Run 37849279965 (35dff32) passed the full
+Android 10/17 recovery and signed 5-to-8 update checks. Downloaded evidence was
+inspected: eleven instrumentation tests on each SDK, cold-process and actual
+signed update continuity. Public wallet screenshots/continuity summaries are
+retained in docs/evidence/ticket02. See
+[wallet delivery verification](../research/WALLET_PREVIEW_VERIFICATION.md).
+Complete the final evidence commit/reviews and close #3 before starting #4.
 
 App state: 1 of 35 tickets complete, #3 in progress. No final app review build yet.

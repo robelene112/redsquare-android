@@ -7,15 +7,18 @@ hostname `v2202609429510531338`, accessed as `david`.
 
 GitHub: `https://github.com/robelene112/redsquare-android`.
 
-The repo has a native Kotlin wallet/signature core, a Compose scaffold and an
-isolated Docker build. The debug APK currently launches a local compatibility
-diagnostic. It is not a live-feed application or a phone review release. There
-is no published review link yet. Check the current handoff for verification.
+The repo has a native Kotlin wallet/signature core, a Compose wallet screen and
+an isolated Docker build. Signed wallet-foundation previews and build notes are
+published at `https://davidengelen.nl/redsquare/`. Debug identity is isolated with
+the `.dev` suffix. The diagnostic is explicit and debug-only. Live feed/import
+and the completed phone review remain subsequent work. Check the handoff for
+current verification and unresolved recovery checks.
 
 The reviewed Android delivery requirement is ordinary in-place updates with
-persistent wallet identity. Package identity, signing keys and monotonically
-increasing versions must be handled by the future build/distribution feature.
-Keep signing secrets outside Git and record their management without their values.
+persistent wallet identity. Package/signing/version handling is implemented in
+the review scripts; actual signed-update runtime acceptance is still pending.
+See [review build operations](REVIEW_BUILDS.md). Keep signing secrets outside Git
+and record their management without their values.
 
 ## Saito authority on this VPS
 
