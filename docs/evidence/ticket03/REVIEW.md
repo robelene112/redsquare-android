@@ -37,3 +37,17 @@ moves to #35 for the owner's requested final review, retaining all required
 runs and both original targets as unverified. #4 retains measurement
 preparation and emulator observations. Spec findings remain zero; this is
 scheduling, not a claim that either physical target passed.
+
+## Compatibility candidate review
+
+Both reviewers rechecked `git diff a1973c2...8060ed2` and the corresponding
+commit inventory, concentrating on changes since f71c506. Standards: zero
+hard violations and zero actionable Fowler heuristics. Spec: zero new
+actionable findings. Matching Compose BOMs, the inspected compatible artifact
+metadata, alignment with resolved Lifecycle 2.9.4, supported v2 factory
+imports and explicit focused/live-read scope preserve the accepted behavior.
+
+The known runtime acceptance blocker remains: old full run 37859209011 crashed
+during its Android 17 fresh live-owner read. Both reviewers explicitly leave
+new-candidate runtime acceptance pending. Neither their review nor successful
+compilation establishes the crash cause, a fix or physical Pixel performance.
