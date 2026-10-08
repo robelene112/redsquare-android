@@ -22,13 +22,17 @@ certificate = "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2"
 apks = []
 for version in [args.older, args.newer]:
     root = f"https://davidengelen.nl/redsquare/releases/{version}/"
-    with urllib.request.urlopen(root + "manifest.json", timeout=30) as response:
+    manifest_request = urllib.request.Request(root + "manifest.json",
+        headers={"User-Agent": "redsquare-review-check/1"})
+    with urllib.request.urlopen(manifest_request, timeout=30) as response:
         manifest = json.loads(response.read(65537))
     if (manifest["applicationId"] != "nl.davidengelen.redsquare"
             or manifest["versionCode"] != version or manifest["certificateSha256"] != certificate):
         raise SystemExit("Preview manifest identity does not match the established application")
     path = downloads / f"{version}.apk"
-    with urllib.request.urlopen(root + "redsquare.apk", timeout=60) as response, path.open("wb") as output:
+    apk_request = urllib.request.Request(root + "redsquare.apk",
+        headers={"User-Agent": "redsquare-review-check/1"})
+    with urllib.request.urlopen(apk_request, timeout=60) as response, path.open("wb") as output:
         while chunk := response.read(1024 * 1024):
             output.write(chunk)
             if output.tell() > 100 * 1024 * 1024:

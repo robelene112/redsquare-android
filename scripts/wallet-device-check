@@ -41,7 +41,18 @@ def tap(node):
 def open_address():
     adb("shell", "am", "start", "-W", "-n", package + "/nl.davidengelen.redsquare.MainActivity")
     for _ in range(20):
-        action = next((node for node in nodes() if node.get("text") == "Wallet"), None)
+        visible = list(nodes())
+        if any(node.get("text") == "System UI isn't responding" for node in visible):
+            # Retain evidence and dismiss only the known emulator system dialog.
+            # Red Square ANRs are never dismissed by this observer.
+            wait = next((node for node in visible if node.get("text") == "Wait"), None)
+            if wait is not None:
+                with (args.evidence / "system-ui-wait.txt").open("a") as log:
+                    log.write("Dismissed exact System UI isn't responding dialog with Wait\n")
+                tap(wait)
+                time.sleep(1)
+                continue
+        action = next((node for node in visible if node.get("text") == "Wallet"), None)
         if action is not None:
             tap(action)
             break
