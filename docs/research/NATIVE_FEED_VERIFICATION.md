@@ -39,6 +39,12 @@ Focused dispatch (`scope=feed`) runs core tests and the actual Android 10 feed
 flow without claiming Android 17, release lint or wallet/update acceptance.
 Default pushes and full dispatch preserve the full two-SDK verification.
 
+Focused run 37853995069 at b196502 passed all thirteen core reference tests,
+debug/test assembly and the authenticated native feed flow on Android 10. The
+actual downloaded instrumentation output was inspected: OK (1 test). The peer
+requires a valid signed counter-challenge answer before accepting the Archive
+request. Android 17 and full wallet/update checks were intentionally not run.
+
 Cached opening, outage recovery, complete Android 10/17 acceptance and the
 owner's live Archive read are still pending. HTTP 200 from both public Red Square
 pages on 2026-10-08 establishes web readiness only, not native peer success.

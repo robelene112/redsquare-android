@@ -109,3 +109,13 @@ Remaining evidence: resolve and build the chosen dependency, test controlled
 binary/TLS failures and reconnect behavior on both supported SDK baselines,
 then perform separately identified live reads against the approved backend.
 This research opened no Saito connection and read no wallet material.
+
+## Implementation follow-up
+
+Ticket #4 declares 5.4.0 normally in Gradle. The actual debug graph selects
+`okhttp-android:5.4.0`, Okio 3.17.0 and Kotlin stdlib 2.2.21. Source assembly
+(debug, test and release) and lint passed locally and in hosted run 37853290748
+at 7837753 without metadata suppression or compiler/SDK upgrades. That run's
+Android feed UI failed its visible-post wait, so it does not establish connected
+transport acceptance. Runtime evidence remains tracked in
+[NATIVE_FEED_VERIFICATION.md](NATIVE_FEED_VERIFICATION.md).

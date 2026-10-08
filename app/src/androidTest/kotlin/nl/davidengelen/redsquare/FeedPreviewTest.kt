@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit
 class FeedPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
 
-    @Test fun authenticatedArchivePostsAppearOnTheNativeFeed() {
+    @Test fun authenticatedFeedSurvivesReopeningWithUnavailablePeer() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val fixture = JsonParser.parseReader(instrumentation.context.assets.open("native-feed-reference.json").reader()).asJsonObject
         val peer = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public test material only.
@@ -86,7 +86,7 @@ class FeedPreviewTest {
         try {
             val intent = Intent(instrumentation.targetContext, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
-            ActivityScenario.launch<MainActivity>(intent).use {
+            ActivityScenario.launch<MainActivity>(intent).use { activity ->
                 try {
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Native Red Square reference post")).fetchSemanticsNodes().isNotEmpty() }
                 } catch (problem: Throwable) {
@@ -103,6 +103,22 @@ class FeedPreviewTest {
                 ui.onNodeWithText("Anon-jesTu2").assertIsDisplayed()
                 assertTrue("Archive request was not observed", received.await(1, TimeUnit.SECONDS))
                 failure?.let { throw AssertionError("Controlled peer rejected the request", it) }
+                server.close()
+                activity.recreate()
+                try {
+                    ui.waitUntil(10_000) { ui.onAllNodes(hasText("Native Red Square reference post")).fetchSemanticsNodes().isNotEmpty() }
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Server unavailable")).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
+                    ui.onNodeWithText("Server unavailable").assertIsDisplayed()
+                } catch (problem: Throwable) {
+                    instrumentation.uiAutomation.takeScreenshot()?.let { bitmap ->
+                        java.io.File(instrumentation.targetContext.cacheDir, "feed-ui-failure.png").outputStream().use {
+                            bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it)
+                        }
+                        bitmap.recycle()
+                    }
+                    throw problem
+                }
             }
         } finally { server.close() }
     }
