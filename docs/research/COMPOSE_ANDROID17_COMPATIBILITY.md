@@ -55,14 +55,35 @@ the Compose compiler plugin version continues to match Kotlin, independently
 of the library BOM. UI's published graph additionally requests Lifecycle
 runtime-compose/viewmodel **2.9.2**, SavedState Compose 1.3.2 and Window 1.5.0.
 Their inspected AARs require at most compileSdk 35/AGP 8.6.0 and minSdk 23.
-Consequently the current direct Lifecycle 2.8.7 declaration will not guarantee
-a wholly 2.8.7 resolved family after a BOM change; inspect/align the resolved
-Lifecycle graph with 2.9.2. Existing activity-compose 1.10.1 exceeds the
-published Compose test/Material3 activity minimums.
+These are published requests, not the final resolved versions. Existing
+activity-compose 1.10.1 exceeds the published Compose test/Material3 activity
+minimums.
 [UI POM](https://dl.google.com/dl/android/maven2/androidx/compose/ui/ui-android/1.11.4/ui-android-1.11.4.pom),
 [test POM](https://dl.google.com/dl/android/maven2/androidx/compose/ui/ui-test-junit4-android/1.11.4/ui-test-junit4-android-1.11.4.pom),
 [test-core POM](https://dl.google.com/dl/android/maven2/androidx/compose/ui/ui-test-android/1.11.4/ui-test-android-1.11.4.pom),
 [Lifecycle AAR](https://dl.google.com/dl/android/maven2/androidx/lifecycle/lifecycle-runtime-compose-android/2.9.2/lifecycle-runtime-compose-android-2.9.2.aar).
+
+**Actual local graph:** the `scripts/android-build` report
+`.scratch/compose-dependencies.txt` resolves the Lifecycle family to **2.9.4**,
+including runtime, runtime-ktx, runtime-compose, viewmodel, common and process;
+the graph shows same-family constraints. The direct 2.8.7 runtime-ktx request
+is upgraded to 2.9.4. Aligning that declaration with **2.9.4**, rather than the
+UI POM's 2.9.2 request, records what the application actually uses. Independently
+inspected 2.9.4 runtime/runtime-ktx/viewmodel AARs require compileSdk 34,
+AGP 8.1.1 and minSdk 21; runtime-compose requires compileSdk 35, AGP 8.6.0 and
+minSdk 21. All fit this project's toolchain.
+[runtime AAR](https://dl.google.com/dl/android/maven2/androidx/lifecycle/lifecycle-runtime-android/2.9.4/lifecycle-runtime-android-2.9.4.aar),
+[runtime-ktx AAR](https://dl.google.com/dl/android/maven2/androidx/lifecycle/lifecycle-runtime-ktx-android/2.9.4/lifecycle-runtime-ktx-android-2.9.4.aar),
+[runtime-compose AAR](https://dl.google.com/dl/android/maven2/androidx/lifecycle/lifecycle-runtime-compose-android/2.9.4/lifecycle-runtime-compose-android-2.9.4.aar),
+[viewmodel AAR](https://dl.google.com/dl/android/maven2/androidx/lifecycle/lifecycle-viewmodel-android/2.9.4/lifecycle-viewmodel-android-2.9.4.aar).
+
+The same graph resolves Kotlin stdlib to **2.2.21**, requested by OkHttp's
+selected Android variant; Compose's 2.1.20 and other lower requests are upgraded.
+This does not change the Kotlin/compiler plugin version, which remains 2.1.20.
+See [transport dependency evidence](NATIVE_TRANSPORT_DEPENDENCY.md). The parent
+agent reports the local upgraded Compose application/test build passed; device
+verification of the final test factory migration remains separate. No resolved
+dependency observation establishes a cause or fix for the layout crash.
 
 Current Runner 1.7.0, AndroidX test JUnit 1.3.0 and Espresso 3.7.0 exceed the
 Compose test POM's declared versions (core 1.5.0, monitor 1.6.1, JUnit 1.1.5,
@@ -136,3 +157,29 @@ observer establishes that launch/read path, but does not retroactively explain
 or erase the failed instrumented path. A test-clock interaction is a plausible
 **hypothesis**, pending reproduction/comparison, not the established cause.
 [UI Automator guidance](https://developer.android.com/training/testing/other-components/ui-automator).
+
+### Exact 1.11.4 empty-rule migration
+
+The published
+[JUnit4 sources](https://dl.google.com/dl/android/maven2/androidx/compose/ui/ui-test-junit4-android/1.11.4/ui-test-junit4-android-1.11.4-sources.jar),
+`androidMain/.../junit4/v2/AndroidComposeTestRule.android.kt:132–169`, define
+`createEmptyComposeRule(effectContext = EmptyCoroutineContext)` without an
+experimental opt-in annotation. It returns the existing
+`androidx.compose.ui.test.junit4.ComposeTestRule`; shared helper/type imports
+remain valid. Only the factory import needs the `.v2` package. The rule provides
+no host or `setContent`; its documented use is launching an Activity after
+dependency injection, so the current manual `ActivityScenario.launch(...).use`
+pattern is compatible.
+
+Keep default clock auto-advance and bounded `waitUntil` for current external
+feed/wallet conditions. In 1.11.4, `waitUntil` runs queued scheduler tasks before
+its first condition evaluation when using StandardTestDispatcher, then advances
+frames and yields to Android/external work. Existing semantic polling already
+provides this synchronization. Immediate assertions on raw asynchronous state
+may need `waitForIdle`/`runOnIdle`; they should not rely on effects completing
+inline. No general additional sleep or clock manipulation is supported by this
+inspection. New `ComposeUiTestConfig` examples in current documentation require
+1.13; they must not be copied into this 1.11.4 migration. The factory change
+retains manual test traversals and is not established as a reentrancy-crash fix.
+[migration guidance](https://developer.android.com/develop/ui/compose/testing/migrate-v2),
+[1.11.4 waitUntil implementation](https://dl.google.com/dl/android/maven2/androidx/compose/ui/ui-test-android/1.11.4/ui-test-android-1.11.4-sources.jar).

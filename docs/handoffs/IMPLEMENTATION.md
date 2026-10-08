@@ -1,6 +1,6 @@
 # Sequential implementation handoff
 
-Updated 2026-10-08, 23:25 UTC. The owner authorized implementing all 35 proposed
+Updated 2026-10-08, 23:48 UTC. The owner authorized implementing all 35 proposed
 tickets sequentially, committing after each, and reviewing the app at the end.
 Continue without routine permission requests or a grill per ticket. Ask only
 one question at a time when a material choice really needs the owner.
@@ -11,7 +11,7 @@ one question at a time when a material choice really needs the owner.
 - Implementation tickets: #2 through #36, with native GitHub dependencies.
 - Two of 35 tickets complete: #2 signature compatibility and #3 persistent wallet
   and signed updates. #4 live feed/cache is active; its review base is a1973c2.
-- Current candidate 1bcd832 implements authenticated owner WSS, independently
+- Feed implementation 1bcd832 implements authenticated owner WSS, independently
   verified public feed posts, persistent public cache, cold starts, refresh,
   keyed scroll position, accurate outage/recovery and unreadable-response copy.
 - Standards and Spec reviews found no remaining application/security defects
@@ -21,8 +21,13 @@ one question at a time when a material choice really needs the owner.
   Android 10 runtime and all four controlled Android 17 feed cases. The later
   Android 17 fresh live test crashed during Compose layout; the full candidate
   did not pass. Retained failure evidence is under docs/evidence/ticket03/failed-final.
-  A compatible Compose update is being checked via focused Android 17/public read,
-  then the final full suite. Do not close #4 or publish build9 on partial evidence.
+  Compose BOM 2026.06.01 (UI 1.11.4) is being checked in focused Android 17/public
+  read run 37861050271 at 1374b1c, without changing its legacy test scheduler.
+  The next candidate aligns Lifecycle to the actual resolved 2.9.4 and migrates
+  test factories to the supported queued v2 scheduler. These are compatibility
+  changes, not an established explanation or fix for the recorded crash.
+  Final full verification remains required. Do not close #4 or publish build9
+  on partial evidence.
 - Signed feed build 9 (f71c506) is prepared and signature/package verified,
   but remains unpublished. Stable preview is version 8, wallet foundation.
   Publish the first complete milestone after #7 includes server selection and
@@ -55,8 +60,9 @@ Focused run 37858491264 at c17e0b5 passed reconnection and corrected refresh/
 recreation position checks. It exposed a missing cached unreadable warning
 (now fixed) and a storage fixture error: `.new` is not Android 10's write path.
 The corrected fixture obstructs the actual public cache base and restores its
-preserved contents in finally, without changing wallet storage. These last
-checks await the final runtime result. See [feed verification](../research/NATIVE_FEED_VERIFICATION.md).
+preserved contents in finally, without changing wallet storage. All four final
+controlled feed cases passed on both SDKs in 37859209011, before its later live
+Android 17 failure. See [feed verification](../research/NATIVE_FEED_VERIFICATION.md).
 
 ## Build and review operations
 

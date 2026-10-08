@@ -169,7 +169,16 @@ trace establishes the layout crash, not its underlying cause or a server fault.
 and the screenshot are retained. Subsequent Android 17 wallet/update stages did
 not run, so the full candidate is not accepted. Build 9 remains unpublished.
 Primary-source dependency research verifies BOM 2026.06.01/Compose 1.11.4 fit
-the existing SDK 36/AGP 8.10.1/Kotlin 2.1.20. The newer2026.09.00 stack requires
+the existing SDK 36/AGP 8.10.1/Kotlin 2.1.20. The newer 2026.09.00 stack requires
 SDK 37/AGP 9.1.0 and is not selected. A focused Android 17/public-read scope
 checks the compatible update before another full run. No specific crash fix
 is inferred from a version number.
+
+The resolved debug graph uses Lifecycle 2.9.4 and Kotlin stdlib 2.2.21; the
+direct Lifecycle declaration is aligned with its existing resolved version.
+Seven instrumentation factories migrate to the supported Compose 1.11.4 v2
+empty rule, retaining their assertions and bounded waits. Local
+`scripts/android-build :app:assembleDebugAndroidTest` passes in 42 seconds
+with these changes. This proves compilation, not device runtime acceptance.
+Focused BOM-only run 37861050271 still uses the legacy scheduler, allowing
+its result to be distinguished from the later v2 candidate.
