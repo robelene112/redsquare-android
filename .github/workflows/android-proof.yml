@@ -67,8 +67,12 @@ jobs:
           path: ${{ steps.cache-path.outputs.home }}/.gradle/caches
           key: ${{ steps.dependencies.outputs.cache-primary-key }}
       - name: Verify Android 10 runtime
+        env:
+          TEST_PUBLIC_SIGNED_UPDATE: '1'
         run: scripts/ci-android-device 29
       - name: Verify Android 17 runtime
+        env:
+          TEST_PUBLIC_SIGNED_UPDATE: '1'
         run: scripts/ci-android-device 37.0
       - name: Retain verification evidence
         if: always()
