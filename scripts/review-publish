@@ -62,6 +62,8 @@ with (destination / ".publish.lock").open("w") as lock:
     try:
         stage.chmod(0o755)
         shutil.copyfile(apk, stage / "redsquare.apk")
+        if hashlib.sha256((stage / "redsquare.apk").read_bytes()).hexdigest() != metadata["sha256"]:
+            raise SystemExit("Artifact changed during publication")
         (stage / "redsquare.apk").chmod(0o644)
         metadata["apkUrl"] = f"https://davidengelen.nl/redsquare/releases/{metadata['versionCode']}/redsquare.apk"
         metadata["notes"] = args.notes
