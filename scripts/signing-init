@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+set -euo pipefail
+umask 077
+signing_dir="${REDSQUARE_SIGNING_DIR:-$HOME/.local/share/redsquare-android/signing}"
+mkdir -p "$signing_dir"
+chmod 700 "$signing_dir"
+exec 9>"$signing_dir/init.lock"
+flock 9
+if [[ -f "$signing_dir/app-signing.p12" ]]; then
+    [[ -f "$signing_dir/signing.env" ]] || { echo 'Signing credentials are missing. Recover them before building.' >&2; exit 1; }
+    echo 'Existing app signing identity retained'
+    exit 0
+fi
+if [[ ! -f "$signing_dir/signing.env" ]]; then
+    python3 - "$signing_dir/signing.env" <<'PY'
+import os
+import secrets
+import sys
+password = secrets.token_hex(32)
+with open(sys.argv[1], 'x') as output:
+    os.chmod(sys.argv[1], 0o600)
+    output.write(f'REDSQUARE_STORE_PASSWORD={password}\nREDSQUARE_KEY_PASSWORD={password}\n')
+PY
+fi
+docker run --rm --user "$(id -u):$(id -g)" \
+    --env-file "$signing_dir/signing.env" \
+    --mount "type=bind,src=$signing_dir,dst=/signing" \
+    redsquare-android-build:agp8.10.1 sh -c \
+    'umask 077; exec keytool -genkeypair -keystore /signing/app-signing.p12 -storetype PKCS12 -alias app-signing -keyalg RSA -keysize 3072 -sigalg SHA256withRSA -validity 10000 -dname "CN=Red Square Android" -storepass:env REDSQUARE_STORE_PASSWORD -keypass:env REDSQUARE_KEY_PASSWORD'
+chmod 600 "$signing_dir/app-signing.p12"
+echo 'App signing identity created in protected local storage'

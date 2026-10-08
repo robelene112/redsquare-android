@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+set -euo pipefail
+umask 077
+repo_dir=$(cd -- "$(dirname -- "$0")/.." && pwd)
+signing_dir="${REDSQUARE_SIGNING_DIR:-$HOME/.local/share/redsquare-android/signing}"
+"$repo_dir/scripts/signing-init"
+review_state="$HOME/.local/share/redsquare-android/review"
+mkdir -p "$review_state"
+exec 9>"$review_state/build.lock"
+flock 9
+previous=1
+if [[ -f "$review_state/version-code" ]]; then previous=$(cat "$review_state/version-code"); fi
+[[ "$previous" =~ ^[0-9]+$ && ${#previous} -le 10 ]] || { echo 'Invalid review version counter' >&2; exit 1; }
+next=$((10#$previous + 1))
+((next <= 2100000000)) || { echo 'Android version limit reached' >&2; exit 1; }
+# Reserve the code before building. Interrupted builds leave harmless version gaps.
+printf '%s\n' "$next" > "$review_state/version-code.new"
+mv "$review_state/version-code.new" "$review_state/version-code"
+version_name="0.1.$next"
+"$repo_dir/scripts/android-build" :app:assembleRelease \
+    "-PreviewVersionCode=$next" "-PreviewVersionName=$version_name"
+artifact_dir="$repo_dir/.scratch/review-builds/$next"
+mkdir -p "$artifact_dir"
+docker run --rm --user "$(id -u):$(id -g)" \
+    --env-file "$signing_dir/signing.env" \
+    --mount "type=bind,src=$signing_dir,dst=/signing,readonly" \
+    --mount "type=bind,src=$repo_dir,dst=/workspace" \
+    redsquare-android-build:agp8.10.1 \
+    /opt/android-sdk/build-tools/35.0.0/apksigner sign \
+    --ks /signing/app-signing.p12 --ks-key-alias app-signing \
+    --ks-pass env:REDSQUARE_STORE_PASSWORD --key-pass env:REDSQUARE_KEY_PASSWORD \
+    --out "/workspace/.scratch/review-builds/$next/redsquare.apk" \
+    /workspace/app/build/outputs/apk/release/app-release-unsigned.apk
+docker run --rm --user "$(id -u):$(id -g)" \
+    --mount "type=bind,src=$artifact_dir,dst=/artifacts,readonly" \
+    redsquare-android-build:agp8.10.1 \
+    /opt/android-sdk/build-tools/35.0.0/apksigner verify --print-certs /artifacts/redsquare.apk \
+    > "$artifact_dir/signature.txt"
+docker run --rm --user "$(id -u):$(id -g)" \
+    --mount "type=bind,src=$artifact_dir,dst=/artifacts,readonly" \
+    redsquare-android-build:agp8.10.1 \
+    /opt/android-sdk/build-tools/35.0.0/aapt dump badging /artifacts/redsquare.apk \
+    > "$artifact_dir/package.txt"
+python3 - "$artifact_dir" "$next" "$version_name" "$repo_dir" <<'PY'
+import hashlib
+import json
+from pathlib import Path
+import re
+import subprocess
+import sys
+directory, code, name, repo = sys.argv[1:]
+artifact = Path(directory)
+fingerprint = re.search(r'certificate SHA-256 digest: ([0-9a-f]+)', (artifact / 'signature.txt').read_text())
+if not fingerprint:
+    raise SystemExit('APK signing certificate could not be verified')
+package = re.search(r"^package: name='([^']+)' versionCode='(\d+)' versionName='([^']+)'", (artifact / 'package.txt').read_text(), re.M)
+if not package or package[1] != 'nl.davidengelen.redsquare' or int(package[2]) != int(code) or package[3] != name:
+    raise SystemExit('APK package/version does not match the reserved preview')
+metadata = dict(versionCode=int(package[2]), versionName=package[3], applicationId=package[1],
+                certificateSha256=fingerprint[1], sha256=hashlib.sha256((artifact / 'redsquare.apk').read_bytes()).hexdigest(),
+                commit=subprocess.check_output(['git', '-C', repo, 'rev-parse', 'HEAD'], text=True).strip())
+(artifact / 'manifest.json').write_text(json.dumps(metadata, indent=2) + '\n')
+PY
+certificate=$(python3 - "$artifact_dir/manifest.json" <<'PY'
+import json
+import sys
+print(json.load(open(sys.argv[1]))['certificateSha256'])
+PY
+)
+if [[ -f "$review_state/certificate.sha256" ]]; then
+    [[ "$(cat "$review_state/certificate.sha256")" == "$certificate" ]] || {
+        echo 'Signing identity differs from the established preview. Recover the original key.' >&2
+        exit 1
+    }
+else
+    printf '%s\n' "$certificate" > "$review_state/certificate.sha256"
+fi
+echo "Signed preview: $artifact_dir/redsquare.apk"

@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Red Square</string>
+    <string name="wallet">Wallet</string>
+    <string name="your_wallet">Your wallet</string>
+    <string name="wallet_address">Wallet address</string>
+    <string name="wallet_opening">Opening your wallet…</string>
+    <string name="wallet_recovery_error">Your saved wallet could not be opened. Your existing data has been kept. Try again. If this continues, keep this app installed until you can restore your wallet from a backup.</string>
+    <string name="wallet_unavailable">Wallet unavailable. Close this window and try again.</string>
+    <string name="retry">Retry</string>
+    <string name="done">Done</string>
 </resources>

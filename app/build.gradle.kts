@@ -10,8 +10,8 @@ android {
         applicationId = "nl.davidengelen.redsquare"
         minSdk = 29
         targetSdk = 36
-        versionCode = 1
-        versionName = "0.1.0"
+        versionCode = providers.gradleProperty("reviewVersionCode").orElse("1").get().toInt()
+        versionName = providers.gradleProperty("reviewVersionName").orElse("0.1.0").get()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildFeatures { compose = true }
