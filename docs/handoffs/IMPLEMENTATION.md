@@ -93,3 +93,17 @@ Final Standards and Spec reviews report zero findings through 1b50e2f. Ticket #3
 is complete; its final evidence/status commit changes only documentation.
 
 App state: 2 of 35 tickets complete. Next ready: #4. No final app review build yet.
+
+Ticket #4 is active, review base a1973c2. Native authenticated owner WSS,
+independent verified feed envelopes, public-cache cold starts and outage UI
+are implemented through 8e316b1. The two-axis review's cache-commit and
+connectivity races were fixed; a later refresh-position test synchronization
+finding is fixed in c17e0b5. Additional cache-failure and unreadable-refresh UI
+checks are compiled but pending runtime. Full run 37857285246 at 4fd87bd has
+passed Android 10 including separate fresh-owner public reading; Android 17
+remains in progress. Focused run 37857995735 at 8e316b1 covers recovery and
+position. Inspect actual artifacts and current GitHub status before claiming
+acceptance. An unreadable refresh with existing cached posts is expected to
+expose a missing warning in the current implementation; obtain its functional
+red before correcting that rendering condition. See NATIVE_FEED_VERIFICATION.
+No feed APK published yet; stable signed review build remains version 8.

@@ -22,6 +22,15 @@ class RedSquareFeedTest {
         assertEquals("", post.parentId)
         assertEquals(fixture.getAsJsonObject("expected").get("threadId").asString, post.threadId)
     }
+    @Test fun `independent multi-post refresh includes the signed newer post`() {
+        val fixture = JsonParser.parseReader(javaClass.getResourceAsStream("/native-feed-scroll-reference.json")!!.reader()).asJsonObject
+        val page = RedSquareFeed.readArchive(fixture.get("refreshedRows").toString())
+        assertEquals(21, page.posts.size)
+        assertEquals(0, page.ignored)
+        assertEquals("New reference post", page.posts.first().text)
+        assertEquals(1700000000021L, page.posts.first().createdAt)
+        assertEquals("Reference post 01", page.posts.last().text)
+    }
     @Test fun `altered and malformed archive rows do not conceal authentic posts`() {
         val fixture = JsonParser.parseReader(javaClass.getResourceAsStream("/native-feed-reference.json")!!.reader()).asJsonObject
         val valid = fixture.getAsJsonObject("archiveRow")

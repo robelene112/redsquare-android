@@ -76,3 +76,38 @@ The first feed implementation has not been published as a signed review build.
 Physical timing uses [the measurement protocol](FEED_PERFORMANCE_PROTOCOL.md).
 Pixel 7 runs remain part of final device acceptance (#35); no emulator timing
 establishes the accepted 2,000/5,000 ms physical targets.
+
+
+Two-axis review of the committed implementation through 4fd87bd found cache
+commit verification and connectivity callback races. Commit 8e316b1 syncs the
+cache directory and reopens the exact committed envelopes before reporting a
+successful save; connectivity state now follows callback-supplied capabilities
+and clears only the tracked lost network. Failure screenshots share a helper
+that preserves the original assertion if evidence capture fails.
+
+The controlled peer now serves independent 20/21-post WASM fixtures for
+position preservation across an inserted newest post and activity recreation.
+It also restarts on the same endpoint to test the green recovery message and
+its disappearance. Follow-up review caught a synchronization gap: observing
+the socket's sent response was not proof that the app merged it. The test now
+waits for the app's Refresh action to become enabled before checking position.
+Additional device cases cover unavailable cache storage and unreadable refresh
+responses while retaining good posts. These tests compile locally; their actual
+runtime outcomes are not yet recorded here.
+
+Focused run 37857995735 at 8e316b1 passed the reconnection UI test: cached
+posts remained visible, the restarted authenticated peer produced Back online,
+and the message disappeared. Its second test failed only at the final
+newest-post wait after recreation and scrolling to index zero. The retained
+screenshot shows Reference post 20 at the top, without an outage/error; the
+exact race cause is not established. The previously identified refresh-wait
+fix is present in c17e0b5. Do not claim the failed run proved insertion-position
+acceptance. Run 37858491264 verifies that correction plus cache failure and
+unreadable refresh behavior.
+
+The independently signed refreshed array was also checked directly through
+the native decoder seam: all 21 posts verify, no rows are ignored, the first
+post is New reference post at 1700000000021, and the last is Reference post 01.
+The focused local RedSquareFeedTest run passed in 25 seconds. This rules out
+failure to decode the fixture's new post in isolation, but not an Android
+request/merge/list-position race.
