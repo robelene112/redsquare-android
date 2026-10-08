@@ -20,16 +20,24 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
+          cache: gradle
+          cache-dependency-path: |
+            settings.gradle.kts
+            build.gradle.kts
+            core/build.gradle.kts
+            app/build.gradle.kts
+            gradle/wrapper/gradle-wrapper.properties
+      - name: Locate dependency cache
+        id: cache-path
+        run: echo "home=$HOME" >> "$GITHUB_OUTPUT"
       - name: Restore verified build dependencies
         id: dependencies
         uses: actions/cache/restore@caa296126883cff596d87d8935842f9db880ef25 # v5
         with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: redsquare-gradle-v1-${{ hashFiles('settings.gradle.kts', 'build.gradle.kts', 'core/build.gradle.kts', 'app/build.gradle.kts', 'gradle/wrapper/gradle-wrapper.properties') }}
+          path: ${{ steps.cache-path.outputs.home }}/.gradle/caches
+          key: redsquare-gradle-v2-${{ hashFiles('settings.gradle.kts', 'build.gradle.kts', 'core/build.gradle.kts', 'app/build.gradle.kts', 'gradle/wrapper/gradle-wrapper.properties') }}
           restore-keys: |
-            redsquare-gradle-v1-
+            redsquare-gradle-v2-
             setup-java-Linux-x64-gradle-
       - name: Check runner SDK and acceleration
         run: |
@@ -49,9 +57,7 @@ jobs:
         if: steps.build.outcome == 'success' && steps.dependencies.outputs.cache-hit != 'true'
         uses: actions/cache/save@caa296126883cff596d87d8935842f9db880ef25 # v5
         with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
+          path: ${{ steps.cache-path.outputs.home }}/.gradle/caches
           key: ${{ steps.dependencies.outputs.cache-primary-key }}
       - name: Verify Android 10 runtime
         run: scripts/ci-android-device 29
