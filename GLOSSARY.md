@@ -12,3 +12,7 @@ import and export. Additional features can be included through separate decision
 **Saito module**:
 A Saito application or capability, such as Red Square, Chat or Stack, that the
 Android app can support through a compatible native feature.
+
+**Saito username**:
+A registered name associated with a Saito wallet's public identity, displayed
+in place of its anonymous name. It is distinct from the profile bio or banner.

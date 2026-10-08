@@ -15,5 +15,6 @@ the Android toolkit and build configuration are chosen.
   Red Square transactions as an explicit integration requirement.
 - Preserve user identity and recoverable work through updates and connection
   failures. Explain unavoidable recovery steps in product language.
+- Use plain punctuation in product text. Do not use em dashes in app strings.
 - Review responsiveness on the target device. Treat mocks and emulator results
   as evidence with limits rather than proof of physical-device performance.

@@ -17,10 +17,36 @@ separately; its target and network test conditions remain to be defined.
   posting/replies, likes/reposts, profiles, following, in-app notifications and
   wallet creation/import/export. Additional features are decided individually;
   selecting this baseline does not automatically exclude them.
+- Users can edit their profile banner, bio and custom profile picture inside
+  the app in the first release. Keep the generated Saito avatar as the default.
+  Preserve compatibility with Saito Profile updates. See
+  [the inspected profile features](research/REDSQUARE_PROFILES.md).
+- Users can optionally choose and register a Saito username inside the app
+  in the first release. Registration must not delay immediate first use.
+  Preserve compatibility with Saito Registry; verify its availability and
+  registration behavior for both supported backends.
 - Attaching and viewing images in posts and replies are included in the first
   release. Attachment formats, limits and other media types remain open.
+- The first release includes the Red Square GIF search and picker supplied by
+  Giphy, for composing posts and replies. See
+  [the inspected web media features](research/REDSQUARE_MEDIA.md).
+- YouTube links in posts support playback inside the app in the first release,
+  preserving the web experience's embedded videos. Playback begins only when
+  the user taps; videos must not autoplay.
 - Offline reading of cached posts and saving drafts are included in the first
-  release. Behavior when Send is pressed while offline remains open.
+  release. Posts and Chat messages explicitly sent while offline queue for
+  automatic delivery when connectivity returns, with a visible Queued status
+  and cancellation before sending. Saved drafts remain unsent until the user
+  presses Send. This decision does not authorize queued SAITO transfers.
+- Queued posts and Chat messages remain tied to the backend selected when
+  the user pressed Send. Switching backends pauses those items until their
+  original backend is selected again; switching must not reroute them.
+- Show a small, non-blocking banner at the top with a red dot while disconnected.
+  On reconnection, briefly show a green dot and "Back online", then hide the
+  banner. Preserve feed position and composed work. Distinguish loss of internet
+  from an unreachable selected backend so the banner describes the actual
+  condition. Report recovery only when that condition has cleared.
+- Product text must not use em dashes. Use plain punctuation throughout the app.
 - Optional Android push notifications for replies and mentions are included in
   the first release, including delivery while the app is closed. The delivery
   infrastructure, permission flow and initial notification defaults remain open.
@@ -76,6 +102,8 @@ separately; its target and network test conditions remain to be defined.
   users cannot configure a custom backend. Wallet imports must not silently
   add or select another backend. Feed switching behavior and control placement
   remain open. Archives and moderation can differ between backends.
+- Keep the selected backend during an outage. Do not automatically fall back
+  to the other server. Users can still choose to switch manually.
 - Block production is deferred and is not an Android backend prerequisite.
 - Use Matt Pocock's project-local skills. Implement tickets sequentially,
   without Ralph or parallel ticket implementation.
@@ -100,7 +128,7 @@ verified against current official sources when release work begins.
   features need explicit release boundaries.
 - Wallet storage, recovery, import/export format and replacement behavior.
 - Native Saito integration approach and any required backend adapter.
-- Backend switching behavior and selector placement.
+- Remaining backend switching behavior and selector placement.
 - Android version support, UI toolkit, architecture and remaining performance targets.
 - App name, application ID, release signing and review distribution mechanism.
 

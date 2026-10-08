@@ -15,7 +15,10 @@ and no wallet keys or balances were read.
   its default arguments.
 - `mods/chat/chat.js::createChatTransaction` explicitly uses zero amount and
   zero fee. Its two-party private-chat path calls `signAndEncryptTransaction`
-  with forced encryption; encryption readiness is separate from key creation.
+  with forced encryption. The keychain can derive an implicit shared secret
+  from wallet identity and the recipient public key without waiting for a key
+  exchange. See [the Chat inspection](REDSQUARE_CHAT.md) for privacy and recovery
+  limits; native interoperability still requires verification.
 - Chat contains an anti-spam restriction on community messages of at least
   1,000 characters when wallet balance is zero. Do not interpret support for
   ordinary unfunded messages as universal permission for all chat payloads.
