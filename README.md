@@ -23,6 +23,20 @@ The core wallet uses native JVM cryptography. The Compose UI is native Android;
 no remote browser page owns wallet keys. Imported wallet options are protected
 backup data, not authority for backend endpoints.
 
+Independent reference tests run in a separate instrumentation APK. To check
+Android 10 or Android 17 without a connected phone:
+
+```sh
+scripts/android-build :app:assembleDebugAndroidTest
+scripts/android-emulator 29
+scripts/android-emulator 37.0
+```
+
+Emulator images and synthetic device state remain in ignored local storage.
+Hardware acceleration is used when `/dev/kvm` is available; software emulation
+on this VPS is slow and does not establish Pixel 7 performance. Device evidence
+is written to `.scratch/device-evidence/`.
+
 - [Start a session](docs/STARTING_PROMPTS.md)
 - [Development workflow and Wayfinder](docs/WORKFLOW.md)
 - [Agreed scope and open decisions](docs/PROJECT_CONTEXT.md)

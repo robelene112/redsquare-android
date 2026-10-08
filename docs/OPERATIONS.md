@@ -7,9 +7,10 @@ hostname `v2202609429510531338`, accessed as `david`.
 
 GitHub: `https://github.com/robelene112/redsquare-android`.
 
-The repo currently has no Android application, build pipeline, review service
-or deployment. Do not describe an APK or preview link as available until it is
-implemented and verified. Recheck installed toolchains when starting build work.
+The repo has a native Kotlin wallet/signature core, a Compose scaffold and an
+isolated Docker build. The debug APK currently launches a local compatibility
+diagnostic. It is not a live-feed application or a phone review release. There
+is no published review link yet. Check the current handoff for verification.
 
 The reviewed Android delivery requirement is ordinary in-place updates with
 persistent wallet identity. Package identity, signing keys and monotonically
@@ -46,8 +47,9 @@ As inspected on 2026-10-07:
   re-read that pin when planning protocol integration.
 
 Do read-only research first. Native signing, wallet export compatibility and
-mobile feed access remain integration work, not demonstrated capabilities of
-an Android implementation.
+mobile feed access require explicit evidence. Wallet/signature reference tests
+now exist in the native implementation; network/feed interoperability remains
+work for the subsequent tickets.
 
 ## Agent workflow provenance
 
