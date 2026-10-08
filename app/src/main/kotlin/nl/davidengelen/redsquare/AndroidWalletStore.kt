@@ -4,6 +4,8 @@ import android.content.Context
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
 import android.util.AtomicFile
+import android.system.Os
+import android.system.OsConstants
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import java.io.File
 import java.security.KeyStore
@@ -24,25 +26,7 @@ class AndroidWalletStore(context: Context) {
         val existingKey = keyStore.getKey(KEY_ALIAS, null) as? SecretKey
         if (exists) {
             requireNotNull(existingKey) { "Wallet storage key unavailable" }
-            val envelope = file.openRead().use { input ->
-                val buffer = ByteArray(MAX_ENVELOPE_BYTES + 1)
-                var size = 0
-                while (size < buffer.size) {
-                    val count = input.read(buffer, size, buffer.size - size)
-                    if (count < 0) break
-                    size += count
-                }
-                val bytes = buffer.copyOf(size)
-                require(bytes.size in 30..MAX_ENVELOPE_BYTES) { "Invalid wallet storage" }
-                bytes
-            }
-            require(envelope[0] == 1.toByte()) { "Unsupported wallet storage" }
-            val cipher = Cipher.getInstance("AES/GCM/NoPadding")
-            cipher.init(Cipher.DECRYPT_MODE, existingKey, GCMParameterSpec(128, envelope.copyOfRange(1, 13)))
-            cipher.updateAAD(associatedData)
-            val plaintext = cipher.doFinal(envelope.copyOfRange(13, envelope.size))
-            try { SaitoWallet.fromBackup(plaintext.toString(Charsets.UTF_8)) }
-            finally { plaintext.fill(0) }
+            readSavedWallet(existingKey)
         } else {
             val key = existingKey ?: KeyGenerator.getInstance("AES", "AndroidKeyStore").run {
                 init(KeyGenParameterSpec.Builder(KEY_ALIAS,
@@ -61,13 +45,42 @@ class AndroidWalletStore(context: Context) {
             val output = file.startWrite()
             try {
                 output.write(envelope)
+                // AtomicFile logs some sync/rename failures rather than throwing.
+                // Propagate sync errors and verify the committed identity below.
+                output.fd.sync()
                 file.finishWrite(output)
             } catch (failure: Exception) {
                 file.failWrite(output)
                 throw failure
             }
-            wallet
+            val directory = Os.open(file.baseFile.parentFile!!.path,
+                OsConstants.O_RDONLY or OsConstants.O_DIRECTORY, 0)
+            try { Os.fsync(directory) } finally { Os.close(directory) }
+            val saved = readSavedWallet(key)
+            check(saved.publicKey == wallet.publicKey) { "Wallet persistence verification failed" }
+            saved
         }
+    }
+
+    private fun readSavedWallet(key: SecretKey): SaitoWallet {
+        val envelope = file.openRead().use { input ->
+            val buffer = ByteArray(MAX_ENVELOPE_BYTES + 1)
+            var size = 0
+            while (size < buffer.size) {
+                val count = input.read(buffer, size, buffer.size - size)
+                if (count < 0) break
+                size += count
+            }
+            require(size in 30..MAX_ENVELOPE_BYTES) { "Invalid wallet storage" }
+            buffer.copyOf(size)
+        }
+        require(envelope[0] == 1.toByte()) { "Unsupported wallet storage" }
+        val cipher = Cipher.getInstance("AES/GCM/NoPadding")
+        cipher.init(Cipher.DECRYPT_MODE, key, GCMParameterSpec(128, envelope.copyOfRange(1, 13)))
+        cipher.updateAAD(associatedData)
+        val plaintext = cipher.doFinal(envelope.copyOfRange(13, envelope.size))
+        return try { SaitoWallet.fromBackup(plaintext.toString(Charsets.UTF_8)) }
+        finally { plaintext.fill(0) }
     }
 
     companion object {
