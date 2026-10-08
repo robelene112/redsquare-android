@@ -1,9 +1,7 @@
 package nl.davidengelen.redsquare
 
 import android.content.Intent
-import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.hasText
-import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
@@ -39,11 +37,7 @@ class WalletInitializationTest {
                 assertTrue(directory.setWritable(true, true))
                 ui.onNodeWithText("Retry").performClick()
                 ui.onNodeWithText("Wallet").performClick()
-                ui.waitUntil(10_000) {
-                    ui.onAllNodes(hasContentDescription("Wallet address")).fetchSemanticsNodes().isNotEmpty()
-                }
-                val address = ui.onNodeWithContentDescription("Wallet address")
-                    .fetchSemanticsNode().config[SemanticsProperties.Text].single().text
+                val address = displayedWalletAddress(ui)
                 assertEquals(44, address.length)
             }
         } finally {

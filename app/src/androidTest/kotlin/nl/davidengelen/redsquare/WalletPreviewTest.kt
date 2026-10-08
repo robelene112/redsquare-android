@@ -1,6 +1,5 @@
 package nl.davidengelen.redsquare
 
-import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
@@ -31,14 +30,7 @@ class WalletPreviewTest {
         assertEquals(address, reopenedAddress)
     }
 
-    private fun displayedAddress(): String {
-        ui.waitUntil(10_000) {
-            ui.onAllNodes(androidx.compose.ui.test.hasContentDescription("Wallet address"))
-                .fetchSemanticsNodes().isNotEmpty()
-        }
-        return ui.onNodeWithContentDescription("Wallet address")
-            .fetchSemanticsNode().config[SemanticsProperties.Text].single().text
-    }
+    private fun displayedAddress(): String = displayedWalletAddress(ui)
 
     @Test fun missingSavedWalletShowsRecoveryInsteadOfCreatingAnotherIdentity() {
         checkStorageRecovery { }

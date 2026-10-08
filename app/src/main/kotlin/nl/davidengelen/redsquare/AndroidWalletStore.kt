@@ -8,6 +8,7 @@ import android.system.Os
 import android.system.OsConstants
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import java.io.File
+import java.io.FileOutputStream
 import java.security.KeyStore
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
@@ -18,18 +19,43 @@ import javax.crypto.spec.GCMParameterSpec
 class AndroidWalletStore(context: Context) {
     private val file = AtomicFile(File(context.noBackupFilesDir, "wallet.v1"))
     private val associatedData = "${context.packageName}:wallet.v1".toByteArray(Charsets.UTF_8)
+    private val initializing = File(context.noBackupFilesDir, "wallet.initializing")
 
     fun loadOrCreate(): SaitoWallet = synchronized(lock) {
         // AtomicFile also recovers an interrupted legacy backup before reading.
         val exists = file.baseFile.exists() || File(file.baseFile.path + ".bak").exists()
         val keyStore = KeyStore.getInstance("AndroidKeyStore").apply { load(null) }
         val existingKey = keyStore.getKey(KEY_ALIAS, null) as? SecretKey
-        if (exists) {
+        if (initializing.exists()) {
+            require(initializing.isFile && initializing.length() == 0L) { "Invalid wallet initialization state" }
+            // The durable marker precedes key generation and is removed before
+            // any identity is exposed. A pending valid save keeps its identity.
+            val saved = if (exists && existingKey != null) {
+                try { readSavedWallet(existingKey) } catch (_: Exception) { null }
+            } else null
+            if (saved != null) {
+                finishInitialization()
+                return@synchronized saved
+            }
+            // Android 10 can leave a partial base file during a first write.
+            // Only this unpublished initialization may discard incomplete data.
+            for (suffix in listOf("", ".bak", ".new")) {
+                val incomplete = File(file.baseFile.path + suffix)
+                require(!incomplete.exists() || incomplete.delete()) { "Incomplete wallet storage unavailable" }
+            }
+            if (existingKey != null) keyStore.deleteEntry(KEY_ALIAS)
+            syncDirectory()
+        } else if (exists) {
             requireNotNull(existingKey) { "Wallet storage key unavailable" }
-            readSavedWallet(existingKey)
+            return@synchronized readSavedWallet(existingKey)
         } else {
             require(existingKey == null) { "Saved wallet storage unavailable" }
             require(!File(file.baseFile.path + ".new").exists()) { "Interrupted wallet storage requires recovery" }
+        }
+        // Persist the publication barrier before creating an unused storage key.
+        FileOutputStream(initializing).use { it.fd.sync() }
+        syncDirectory()
+        run {
             val key = KeyGenerator.getInstance("AES", "AndroidKeyStore").run {
                 init(KeyGenParameterSpec.Builder(KEY_ALIAS,
                     KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT)
@@ -55,13 +81,22 @@ class AndroidWalletStore(context: Context) {
                 file.failWrite(output)
                 throw failure
             }
-            val directory = Os.open(file.baseFile.parentFile!!.path,
-                OsConstants.O_RDONLY, 0)
-            try { Os.fsync(directory) } finally { Os.close(directory) }
+            syncDirectory()
             val saved = readSavedWallet(key)
             check(saved.publicKey == wallet.publicKey) { "Wallet persistence verification failed" }
+            finishInitialization()
             saved
         }
+    }
+
+    private fun finishInitialization() {
+        check(initializing.delete()) { "Wallet initialization could not be committed" }
+        syncDirectory()
+    }
+
+    private fun syncDirectory() {
+        val directory = Os.open(file.baseFile.parentFile!!.path, OsConstants.O_RDONLY, 0)
+        try { Os.fsync(directory) } finally { Os.close(directory) }
     }
 
     private fun readSavedWallet(key: SecretKey): SaitoWallet {

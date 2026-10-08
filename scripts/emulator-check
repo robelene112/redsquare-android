@@ -43,16 +43,40 @@ adb shell am instrument -w -r \
     nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
     > "$evidence/instrumentation.txt"
 grep -q 'OK (2 tests)' "$evidence/instrumentation.txt"
+for scenario in incompleteFirstWriteCanResumeCreation validSaveBeforePublicationResumesTheSavedIdentity; do
+    [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+    adb shell pm clear nl.davidengelen.redsquare.dev > "$evidence/fresh-$scenario.txt"
+    grep -q Success "$evidence/fresh-$scenario.txt"
+    adb shell am instrument -w -r \
+        -e class "nl.davidengelen.redsquare.WalletInterruptedInitializationTest#$scenario" \
+        nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+        > "$evidence/initialization-$scenario.txt"
+    if ! grep -q 'OK (1 test)' "$evidence/initialization-$scenario.txt"; then
+        adb exec-out run-as nl.davidengelen.redsquare.dev cat cache/wallet-ui-failure.png > "$evidence/wallet-ui-failure.png" || true
+        exit 1
+    fi
+done
+# This first-save fault needs a fresh synthetic wallet on repeated local runs.
+# Clear only the .dev test app, never the signed preview or a physical phone.
+[[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+adb shell pm clear nl.davidengelen.redsquare.dev > "$evidence/fresh-install.txt"
+grep -q Success "$evidence/fresh-install.txt"
 adb shell am instrument -w -r \
     -e class nl.davidengelen.redsquare.WalletInitializationTest \
     nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
     > "$evidence/wallet-initialization-ui.txt"
-grep -q 'OK (1 test)' "$evidence/wallet-initialization-ui.txt"
+if ! grep -q 'OK (1 test)' "$evidence/wallet-initialization-ui.txt"; then
+    adb exec-out run-as nl.davidengelen.redsquare.dev cat cache/wallet-ui-failure.png > "$evidence/wallet-ui-failure.png" || true
+    exit 1
+fi
 adb shell am instrument -w -r \
     -e class nl.davidengelen.redsquare.WalletPreviewTest \
     nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
     > "$evidence/wallet-ui.txt"
-grep -q 'OK (3 tests)' "$evidence/wallet-ui.txt"
+if ! grep -q 'OK (3 tests)' "$evidence/wallet-ui.txt"; then
+    adb exec-out run-as nl.davidengelen.redsquare.dev cat cache/wallet-ui-failure.png > "$evidence/wallet-ui-failure.png" || true
+    exit 1
+fi
 python3 "$repo_dir/scripts/wallet-device-check" --evidence "$evidence/wallet-cold-launch"
 adb shell am instrument -w -r \
     -e class nl.davidengelen.redsquare.PreviewUpdateTest \
