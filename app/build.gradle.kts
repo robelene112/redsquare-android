@@ -30,6 +30,8 @@ android {
 }
 dependencies {
     implementation(project(":core"))
+    implementation("com.squareup.okhttp3:okhttp:5.4.0")
+    androidTestImplementation("com.squareup.okhttp3:mockwebserver3:5.4.0")
     implementation("com.google.code.gson:gson:2.12.1")
     implementation(platform("androidx.compose:compose-bom:2025.04.01"))
     implementation("androidx.activity:activity-compose:1.10.1")

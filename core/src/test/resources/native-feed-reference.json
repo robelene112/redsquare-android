@@ -1,0 +1,63 @@
+{
+  "fixtureVersion": 1,
+  "synthetic": true,
+  "reference": {
+    "saitoCommit": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+    "saitoWasmVersion": "0.3.2",
+    "ellipticVersion": "6.6.1",
+    "wasmSha256": "f59be69dbb949368ce1fc7ef47d414cbe0281a86a206fe4bfb1128a4d087e01e"
+  },
+  "archiveRow": {
+    "id": 1,
+    "user_id": 0,
+    "publickey": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+    "owner": "",
+    "sig": "c87f3ca402840cd7add095dbf1fda809f34d9cd3f7dae9af022e2a0f2a631f376beb54dabe886a5a73b02abe79afe51652efa57826ccd2591001d73f90544fd9",
+    "field1": "RedSquare",
+    "field2": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+    "field3": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+    "field4": "",
+    "field5": "c87f3ca402840cd7add095dbf1fda809f34d9cd3f7dae9af022e2a0f2a631f376beb54dabe886a5a73b02abe79afe51652efa57826ccd2591001d73f90544fd9",
+    "block_id": 0,
+    "block_hash": "",
+    "created_at": 1700000000000,
+    "updated_at": 1700000000001,
+    "tx": "{\"t\":\"AAAAAQAAAAEAAAAAAAAAAMh/PKQChAzXrdCV2/H9qAnzTZzT99rprwIuKg8qYx83a+tU2r6IalpzsCq+ea/lFlLvpXgmzNJZEAHXP5BUT9kAAAGLz+VoAAAAAAEAAnm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACeb5mfvncu6xVoGKVzocLBwKb/NstzijZWfKBWxb4F5gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==\",\"m\":\"eyJtb2R1bGUiOiJSZWRTcXVhcmUiLCJyZXF1ZXN0IjoiY3JlYXRlIHR3ZWV0IiwiZGF0YSI6eyJ0ZXh0IjoiTmF0aXZlIFJlZCBTcXVhcmUgcmVmZXJlbmNlIHBvc3QifX0=\",\"opt\":\"eyJudW1fbGlrZXMiOjIsIm51bV9yZXBsaWVzIjowLCJudW1fcmV0d2VldHMiOjEsInVwZGF0ZWRfYXQiOjE3MDAwMDAwMDAwMDEsInJlc2VhcmNoX2V4dGVuc2lvbiI6eyJzeW50aGV0aWMiOnRydWV9fQ==\"}",
+    "tx_size": 596,
+    "flagged": 0,
+    "preserve": 0
+  },
+  "webEnvelope": {
+    "t": "AAAAAQAAAAEAAAAAAAAAAMh/PKQChAzXrdCV2/H9qAnzTZzT99rprwIuKg8qYx83a+tU2r6IalpzsCq+ea/lFlLvpXgmzNJZEAHXP5BUT9kAAAGLz+VoAAAAAAEAAnm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACeb5mfvncu6xVoGKVzocLBwKb/NstzijZWfKBWxb4F5gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+    "m": "eyJtb2R1bGUiOiJSZWRTcXVhcmUiLCJyZXF1ZXN0IjoiY3JlYXRlIHR3ZWV0IiwiZGF0YSI6eyJ0ZXh0IjoiTmF0aXZlIFJlZCBTcXVhcmUgcmVmZXJlbmNlIHBvc3QifX0=",
+    "opt": "eyJudW1fbGlrZXMiOjIsIm51bV9yZXBsaWVzIjowLCJudW1fcmV0d2VldHMiOjEsInVwZGF0ZWRfYXQiOjE3MDAwMDAwMDAwMDEsInJlc2VhcmNoX2V4dGVuc2lvbiI6eyJzeW50aGV0aWMiOnRydWV9fQ=="
+  },
+  "expected": {
+    "author": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+    "text": "Native Red Square reference post",
+    "signature": "c87f3ca402840cd7add095dbf1fda809f34d9cd3f7dae9af022e2a0f2a631f376beb54dabe886a5a73b02abe79afe51652efa57826ccd2591001d73f90544fd9",
+    "timestamp": 1700000000000,
+    "parentId": "",
+    "threadId": "c87f3ca402840cd7add095dbf1fda809f34d9cd3f7dae9af022e2a0f2a631f376beb54dabe886a5a73b02abe79afe51652efa57826ccd2591001d73f90544fd9",
+    "signedMessageUtf8": "{\"module\":\"RedSquare\",\"request\":\"create tweet\",\"data\":{\"text\":\"Native Red Square reference post\"}}",
+    "signedMessageHex": "7b226d6f64756c65223a22526564537175617265222c2272657175657374223a22637265617465207477656574222c2264617461223a7b2274657874223a224e61746976652052656420537175617265207265666572656e636520706f7374227d7d",
+    "signedPreimageHex": "0000018bcfe568000279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798000000000000000000000279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f817980000000000000000000000000001000000007b226d6f64756c65223a22526564537175617265222c2272657175657374223a22637265617465207477656574222c2264617461223a7b2274657874223a224e61746976652052656420537175617265207265666572656e636520706f7374227d7d",
+    "blake3Hex": "523947c5866dd43b70ba9cadf7c1558ce7e9b2bf5c05bd6a9ebeec07426b9682",
+    "signedNetworkHex": "00000001000000010000006200000000c87f3ca402840cd7add095dbf1fda809f34d9cd3f7dae9af022e2a0f2a631f376beb54dabe886a5a73b02abe79afe51652efa57826ccd2591001d73f90544fd90000018bcfe5680000000001000279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f8179800000000000000000000000000000000000000000000000000000279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f8179800000000000000000000000000000000000000000000000000007b226d6f64756c65223a22526564537175617265222c2272657175657374223a22637265617465207477656574222c2264617461223a7b2274657874223a224e61746976652052656420537175617265207265666572656e636520706f7374227d7d",
+    "unsignedOptional": {
+      "num_likes": 2,
+      "num_replies": 0,
+      "num_retweets": 1,
+      "updated_at": 1700000000001,
+      "research_extension": {
+        "synthetic": true
+      }
+    },
+    "verification": {
+      "wasmSignatureValid": true,
+      "ellipticSignatureValid": true,
+      "appendedByteSignatureValid": false,
+      "webReconstructionHashMatches": true
+    }
+  }
+}

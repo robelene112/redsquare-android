@@ -47,6 +47,11 @@ done
 adb install -r "$artifact"
 adb install -r "$repo_dir/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk"
 adb shell am instrument -w -r \
+    -e class nl.davidengelen.redsquare.FeedPreviewTest \
+    nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+    > "$evidence/feed-ui.txt"
+grep -q 'OK (1 test)' "$evidence/feed-ui.txt"
+adb shell am instrument -w -r \
     -e class nl.davidengelen.redsquare.NativeCompatibilityTest \
     nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
     > "$evidence/instrumentation.txt"
