@@ -19,6 +19,12 @@ done
 [[ "$(adb shell getprop sys.boot_completed | tr -d '\r')" == 1 ]] || { echo 'Emulator boot timed out' >&2; exit 1; }
 adb shell input keyevent 82
 adb install -r "$artifact"
+adb install -r /workspace/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
+adb shell am instrument -w -r \
+    -e class nl.davidengelen.redsquare.NativeCompatibilityTest \
+    nl.davidengelen.redsquare.test/androidx.test.runner.AndroidJUnitRunner \
+    > "$evidence/instrumentation.txt"
+grep -q 'OK (2 tests)' "$evidence/instrumentation.txt"
 adb shell am start -n nl.davidengelen.redsquare/.CompatibilityActivity
 sleep 3
 adb shell uiautomator dump /sdcard/redsquare-ui.xml >/dev/null

@@ -94,4 +94,10 @@ class SaitoWalletTest {
         }
         assertFalse(SaitoWallet.fromPrivateKey(syntheticPrivateKey).toString().contains(syntheticPrivateKey))
     }
+    @Test fun `null-valued wallet and module backup fields survive re-export`() {
+        val options = JsonParser.parseString(SaitoWallet.fromPrivateKey(syntheticPrivateKey).exportJson()).asJsonObject
+        options.add("unknownModule", com.google.gson.JsonNull.INSTANCE)
+        options.getAsJsonObject("wallet").add("unknownOption", com.google.gson.JsonNull.INSTANCE)
+        assertEquals(options, JsonParser.parseString(SaitoWallet.fromBackup(options.toString()).exportJson()))
+    }
 }

@@ -9,7 +9,7 @@ cache_dir="$repo_dir/.scratch/gradle-cache"
 mkdir -p "$cache_dir"
 docker run --rm --cpus=2 --memory=2500m \
     --user "$(id -u):$(id -g)" \
-    -e GRADLE_USER_HOME=/gradle-cache \
+    -e GRADLE_USER_HOME=/gradle-cache -e ANDROID_USER_HOME=/gradle-cache/android-user \
     --mount "type=bind,src=$repo_dir,dst=/workspace" \
     --mount "type=bind,src=$cache_dir,dst=/gradle-cache" \
     "$image" gradle --no-daemon --console=plain "$@"

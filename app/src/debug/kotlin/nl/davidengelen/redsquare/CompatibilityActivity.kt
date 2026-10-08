@@ -44,8 +44,10 @@ class CompatibilityActivity : ComponentActivity() {
                                 val checked = withContext(Dispatchers.Default) {
                                     runCatching {
                                         val wallet = SaitoWallet.create()
+                                        val restored = SaitoWallet.fromBackup(wallet.exportJson())
+                                        check(restored.publicKey == wallet.publicKey)
                                         val message = "Red Square local compatibility check".toByteArray(Charsets.UTF_8)
-                                        val verified = SaitoWallet.verify(message, wallet.sign(message), wallet.publicKey)
+                                        val verified = SaitoWallet.verify(message, restored.sign(message), wallet.publicKey)
                                         wallet.publicKey to verified
                                     }.getOrNull()
                                 }

@@ -54,7 +54,7 @@ class SaitoWallet private constructor(
 
     companion object {
         const val MAX_BACKUP_BYTES = 5 * 1024 * 1024
-        private val gson = GsonBuilder().setStrictness(Strictness.STRICT).disableHtmlEscaping().create()
+        private val gson = GsonBuilder().setStrictness(Strictness.STRICT).serializeNulls().disableHtmlEscaping().create()
         private val curve = CustomNamedCurves.getByName("secp256k1")
         private val domain = ECDomainParameters(curve.curve, curve.g, curve.n, curve.h)
 
