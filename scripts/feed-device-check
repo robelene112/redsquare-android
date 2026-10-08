@@ -1,0 +1,48 @@
+#!/usr/bin/env python3
+"""Observe cached feed recovery after actual process termination on an emulator."""
+import argparse
+from pathlib import Path
+import subprocess
+import time
+import xml.etree.ElementTree as ET
+
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("--evidence", type=Path, required=True)
+args = parser.parse_args()
+
+def adb(*arguments):
+    return subprocess.check_output(["adb", *arguments], text=True, timeout=60)
+
+if not adb("get-serialno").strip().startswith("emulator-"):
+    raise SystemExit("This observer is restricted to an isolated emulator")
+package = "nl.davidengelen.redsquare.dev"
+args.evidence.mkdir(parents=True, exist_ok=True)
+adb("logcat", "-c")
+adb("shell", "am", "force-stop", package)
+# An explicit unavailable loopback peer keeps this recovery check off production.
+launch = adb("shell", "am", "start", "-W", "-n", package + "/nl.davidengelen.redsquare.MainActivity",
+             "--es", "feedPeerUrl", "ws://127.0.0.1:1/wsopen")
+(args.evidence / "launch.txt").write_text(launch)
+deadline = time.monotonic() + 30
+try:
+    while time.monotonic() < deadline:
+        adb("shell", "uiautomator", "dump", "/sdcard/feed-check.xml")
+        xml = adb("shell", "cat", "/sdcard/feed-check.xml")
+        (args.evidence / "last-ui.xml").write_text(xml)
+        texts = {node.get("text") for node in ET.fromstring(xml).iter("node")}
+        if "Native Red Square reference post" in texts and "Server unavailable" in texts:
+            break
+        time.sleep(0.5)
+    else:
+        raise AssertionError("Cached reference post and outage state did not survive process termination")
+finally:
+    with (args.evidence / "feed.png").open("wb") as output:
+        subprocess.run(["adb", "exec-out", "screencap", "-p"], stdout=output, check=True, timeout=60)
+# Retain only public framework launch observations, never app/network log payloads.
+logs = adb("logcat", "-d", "-v", "brief", "ActivityTaskManager:I", "ActivityManager:I", "*:S")
+observations = [line for line in logs.splitlines() if "Fully drawn" in line and package in line]
+(args.evidence / "fully-drawn.txt").write_text("\n".join(observations) + "\n")
+(args.evidence / "continuity.txt").write_text(
+    "PASS: signed reference post remains visible after cold process launch with unavailable peer.\n"
+    "This is emulator recovery evidence, not Pixel 7 performance acceptance.\n")
+print("PASS: cached feed after cold process launch")

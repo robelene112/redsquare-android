@@ -9,6 +9,8 @@ import okhttp3.WebSocket
 import okhttp3.WebSocketListener
 import okio.ByteString
 import okio.ByteString.Companion.toByteString
+import nl.davidengelen.redsquare.BuildConfig
+import android.util.Log
 import java.io.Closeable
 import java.io.IOException
 import java.nio.ByteBuffer
@@ -68,14 +70,18 @@ class SaitoPeer(private val wallet: SaitoWallet, endpoint: String) : Closeable {
                         else result.complete(frame.copyOfRange(5, frame.size))
                     }
                 }
-            } catch (_: Exception) {
+            } catch (failure: Exception) {
+                if (BuildConfig.DEBUG) Log.w("RedSquarePeer", "Rejected peer frame (${failure.javaClass.simpleName})")
                 fail()
                 webSocket.cancel()
             }
         }
 
         override fun onMessage(webSocket: WebSocket, text: String) { fail(); webSocket.cancel() }
-        override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) { fail() }
+        override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
+            if (BuildConfig.DEBUG) Log.w("RedSquarePeer", "Connection failed (${t.javaClass.simpleName}, HTTP ${response?.code ?: 0})")
+            fail()
+        }
         override fun onClosing(webSocket: WebSocket, code: Int, reason: String) { fail(); webSocket.close(code, null) }
         override fun onClosed(webSocket: WebSocket, code: Int, reason: String) { fail() }
     })

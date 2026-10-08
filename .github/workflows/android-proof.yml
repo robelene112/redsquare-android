@@ -9,6 +9,10 @@ on:
         type: choice
         default: full
         options: [full, feed]
+      public_feed_read:
+        description: Separately verify the owner's public peer feed
+        type: boolean
+        default: false
 permissions:
   contents: read
 concurrency:
@@ -82,12 +86,14 @@ jobs:
       - name: Verify Android 10 runtime
         env:
           TEST_PUBLIC_SIGNED_UPDATE: '1'
+          TEST_PUBLIC_FEED_READ: ${{ inputs.public_feed_read && '1' || '0' }}
           TEST_SCOPE: ${{ inputs.scope || 'full' }}
         run: scripts/ci-android-device 29
       - name: Verify Android 17 runtime
         if: inputs.scope != 'feed'
         env:
           TEST_PUBLIC_SIGNED_UPDATE: '1'
+          TEST_PUBLIC_FEED_READ: ${{ inputs.public_feed_read && '1' || '0' }}
         run: scripts/ci-android-device 37.0
       - name: Retain verification evidence
         if: always()

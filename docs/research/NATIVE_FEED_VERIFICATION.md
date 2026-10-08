@@ -56,8 +56,20 @@ and distinguishes observed internet loss from an unavailable selected backend.
 Write failures retain live reading and show an offline-cache warning. These
 limits are native cache policies, not universal Saito text/image limits.
 
-Cached opening, outage recovery, complete Android 10/17 acceptance and the
-owner's live Archive read are still pending. HTTP 200 from both public Red Square
+Focused run 37855624594 at c4d4291 passed thirteen core tests and the native
+Android 10 flow: authenticated feed, peer shutdown, activity recreation, cached
+post still visible and Server unavailable. Its actual downloaded output was
+inspected: OK (1 test). A separate emulator-only observer now force-stops and
+cold-launches with an unavailable loopback peer; it records only public UI and
+framework timing lines, never private storage. This additional cold-process
+check has not yet run.
+
+Live-owner verification is a separate `public_feed_read=true` dispatch input.
+It clears only the isolated emulator's .dev installation, launches the real
+owner endpoint, and waits for visible post author identities. It cannot pass
+from a seeded cache. Transport failure diagnostics contain only exception
+class/status, never nonce, key, payload or exception message. Public read,
+Android 17, full update acceptance and recovery timing are still pending. HTTP 200 from both public Red Square
 pages on 2026-10-08 establishes web readiness only, not native peer success.
 The first feed implementation has not been published as a signed review build.
 
