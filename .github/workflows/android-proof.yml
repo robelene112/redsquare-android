@@ -24,7 +24,7 @@ jobs:
         run: |
           test -c /dev/kvm
           sudo chmod a+rw /dev/kvm
-          sdkmanager 'platforms;android-36' 'build-tools;35.0.0' 'emulator'
+          scripts/ci-android-setup
           java -version
           "$ANDROID_HOME/emulator/emulator" -version
       - name: Build and verify native sources

@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+repo_dir=$(cd -- "$(dirname -- "$0")/.." && pwd)
+tools_dir="$repo_dir/.scratch/ci-sdk-tools"
+mkdir -p "$tools_dir"
+curl --fail --location --retry 3 \
+    https://dl.google.com/android/repository/commandlinetools-linux-15859902_latest.zip \
+    -o "$tools_dir/tools.zip"
+printf '%s  %s\n' 4e4c464f145a7512b57d088ac6c278c03c9eea610886b35a5e0804e74eedf583 "$tools_dir/tools.zip" | sha256sum -c -
+unzip -q "$tools_dir/tools.zip" -d "$tools_dir"
+printf '%s\n' "$tools_dir/cmdline-tools/bin" >> "$GITHUB_PATH"
+"$tools_dir/cmdline-tools/bin/sdkmanager" --sdk_root="$ANDROID_HOME" \
+    'platforms;android-36' 'build-tools;35.0.0' 'emulator'

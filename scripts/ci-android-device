@@ -7,7 +7,7 @@ case "$1" in
     37.0) system_image='system-images;android-37.0;google_apis;x86_64' ;;
     *) echo 'Supported diagnostic targets: 29 or 37.0' >&2; exit 2 ;;
 esac
-sdkmanager "$system_image"
+sdkmanager --sdk_root="$ANDROID_HOME" "$system_image"
 export TEST_DEVICE_API="$1" TEST_SYSTEM_IMAGE="$system_image"
 export ANDROID_USER_HOME="$repo_dir/.scratch/android-devices/api-$1"
 export ANDROID_AVD_HOME="$ANDROID_USER_HOME/avd"
