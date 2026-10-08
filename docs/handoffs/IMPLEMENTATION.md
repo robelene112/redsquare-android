@@ -22,9 +22,11 @@ one question at a time when a material choice really needs the owner.
   checks, separate fresh-owner reads and actual signed update continuity.
   Inspect actual outputs before closing #4; no ticket acceptance is inferred
   from a queued run or compilation.
-- No feed APK is published yet. The stable preview remains signed version 8,
-  containing the wallet foundation. Prepare the feed candidate locally and
-  publish only after its verification/review; preserve package and signing.
+- Signed feed build 9 (f71c506) is prepared and signature/package verified,
+  but remains unpublished. Stable preview is version 8, wallet foundation.
+  Publish the first complete milestone after #7 includes server selection and
+  safeguarded import/export; preserve package and signing. The owner reviews
+  the completed app, so no intermediate physical review is required.
 - Next after #4: #5 two fixed backends, then #6 export, #7 guarded import.
   The initial review milestone is completed by #7, not by a basic feed alone.
 

@@ -148,3 +148,10 @@ The corrected fixture preserves the existing public cache elsewhere, obstructs
 its actual base path, and restores it in finally. It leaves wallet storage
 untouched. Future multiple failures retain separate test-named screenshots as
 well as the existing last-failure screenshot.
+
+
+Signed build 9 was prepared locally from f71c506 with the established package,
+certificate and monotonic version. Its app/core/scripts/build-support content
+is identical to final runtime candidate 1bcd832 (git diff checked). It remains
+unpublished. Stable preview remains 8; the first complete live-feed/selection/
+import milestone is delivered after #7. No physical review is requested now.
