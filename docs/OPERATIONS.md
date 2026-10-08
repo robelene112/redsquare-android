@@ -16,7 +16,8 @@ current verification and unresolved recovery checks.
 
 The reviewed Android delivery requirement is ordinary in-place updates with
 persistent wallet identity. Package/signing/version handling is implemented in
-the review scripts; actual signed-update runtime acceptance is still pending.
+the review scripts. Actual signed 5-to-8 updates and identity continuity passed
+on Android 10 and 17; see [verified evidence](research/WALLET_PREVIEW_VERIFICATION.md).
 See [review build operations](REVIEW_BUILDS.md). Keep signing secrets outside Git
 and record their management without their values.
 
