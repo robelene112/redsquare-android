@@ -4,6 +4,12 @@ Ticket #4 is in progress. Review base: a1973c2. This file distinguishes
 independent protocol evidence, controlled Android flows, live read checks and
 physical-device acceptance.
 
+Current candidate: 1bcd832. Fourteen core tests, debug/test/release assembly
+and lint pass locally. Earlier full 4fd87bd evidence passes both SDKs, including
+fresh live-owner reads. Final run 37859209011 verifies later review fixes and
+expanded UI checks; it is pending. No feed APK is published and no Pixel timing
+is claimed. The chronological records below describe their own checkpoints.
+
 The initial protocol decoder test failed before implementation
 (`.scratch/feed-decoder-red.txt`) and passed with the independently signed
 WASM/Elliptic archive fixture. A subsequent independently signed null-field
@@ -62,14 +68,14 @@ post still visible and Server unavailable. Its actual downloaded output was
 inspected: OK (1 test). A separate emulator-only observer now force-stops and
 cold-launches with an unavailable loopback peer; it records only public UI and
 framework timing lines, never private storage. This additional cold-process
-check has not yet run.
+check had not run at that checkpoint; its later full result is below.
 
 Live-owner verification is a separate `public_feed_read=true` dispatch input.
 It clears only the isolated emulator's .dev installation, launches the real
 owner endpoint, and waits for visible post author identities. It cannot pass
 from a seeded cache. Transport failure diagnostics contain only exception
-class/status, never nonce, key, payload or exception message. Public read,
-Android 17, full update acceptance and recovery timing are still pending. HTTP 200 from both public Red Square
+class/status, never nonce, key, payload or exception message. At that checkpoint public reading, Android 17, full update acceptance and
+recovery timing remained pending; later recorded results follow. HTTP 200 from both public Red Square
 pages on 2026-10-08 establishes web readiness only, not native peer success.
 The first feed implementation has not been published as a signed review build.
 
