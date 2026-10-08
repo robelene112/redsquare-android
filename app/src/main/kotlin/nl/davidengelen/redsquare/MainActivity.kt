@@ -43,9 +43,9 @@ class MainActivity : ComponentActivity() {
                 onDispose { lifecycle.removeObserver(observer) }
             }
             LaunchedEffect(updateCheck) {
-                if (BuildConfig.REVIEW_BUILD && updateCheck > 0) {
-                    val endpoint = if (BuildConfig.DEBUG) intent.getStringExtra("reviewManifestUrl") ?: PreviewUpdates.MANIFEST
-                        else PreviewUpdates.MANIFEST
+                val fixtureEndpoint = if (BuildConfig.DEBUG) intent.getStringExtra("reviewManifestUrl") else null
+                if (updateCheck > 0 && (BuildConfig.REVIEW_BUILD || fixtureEndpoint != null)) {
+                    val endpoint = fixtureEndpoint ?: PreviewUpdates.MANIFEST
                     updateAvailable = withContext(Dispatchers.IO) {
                         val version = packageManager.getPackageInfo(packageName, 0).longVersionCode
                         PreviewUpdates.hasNewerBuild(endpoint, version)

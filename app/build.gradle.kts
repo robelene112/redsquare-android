@@ -19,7 +19,6 @@ android {
     buildTypes {
         debug {
             applicationIdSuffix = ".dev"
-            buildConfigField("boolean", "REVIEW_BUILD", "true")
         }
     }
     packaging.resources.excludes += "META-INF/versions/9/OSGI-INF/MANIFEST.MF"
@@ -39,6 +38,7 @@ dependencies {
     androidTestImplementation("androidx.test:runner:1.7.0")
     androidTestImplementation("androidx.test.ext:junit:1.3.0")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.7.0")
+    androidTestImplementation("androidx.test.espresso:espresso-intents:3.7.0")
     androidTestImplementation("com.google.code.gson:gson:2.12.1")
     androidTestImplementation(platform("androidx.compose:compose-bom:2025.04.01"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")

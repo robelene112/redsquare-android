@@ -12,11 +12,11 @@ object PreviewUpdates {
     const val MANIFEST = "${REVIEW_PAGE}latest.json"
 
     fun hasNewerBuild(endpoint: String, installedVersion: Long): Boolean {
-        if (!BuildConfig.REVIEW_BUILD) return false
         return try {
             val uri = URI(endpoint)
             val testEndpoint = BuildConfig.DEBUG && uri.scheme == "http" && uri.host == "127.0.0.1"
                 && uri.port in 1..65535 && uri.path == "/latest.json" && uri.userInfo == null
+            if (!BuildConfig.REVIEW_BUILD && !testEndpoint) return false
             if (endpoint != MANIFEST && !testEndpoint) return false
             val connection = uri.toURL().openConnection() as HttpURLConnection
             connection.connectTimeout = 5_000
