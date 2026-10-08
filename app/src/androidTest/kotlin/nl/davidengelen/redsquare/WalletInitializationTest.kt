@@ -1,7 +1,6 @@
 package nl.davidengelen.redsquare
 
 import android.content.Intent
-import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
@@ -30,7 +29,7 @@ class WalletInitializationTest {
         assertTrue(directory.setWritable(false, false))
         try {
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)).use {
-                ui.waitUntil(10_000) { ui.onAllNodes(hasText("Retry")).fetchSemanticsNodes().isNotEmpty() }
+                waitForWalletRecovery(ui)
                 ui.onNodeWithText("Wallet").performClick()
                 ui.onNodeWithContentDescription("Wallet address").assertDoesNotExist()
                 ui.onNodeWithText("Done").performClick()

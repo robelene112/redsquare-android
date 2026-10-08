@@ -9,14 +9,16 @@ import android.system.OsConstants
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import java.io.File
 import java.io.FileOutputStream
+import java.io.FileDescriptor
 import java.security.KeyStore
 import javax.crypto.Cipher
+import javax.crypto.AEADBadTagException
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
 import javax.crypto.spec.GCMParameterSpec
 
 /** Device-only encrypted Saito options. A failed read must never replace an identity. */
-class AndroidWalletStore(context: Context) {
+class AndroidWalletStore(context: Context, private val directorySync: (FileDescriptor) -> Unit = Os::fsync) {
     private val file = AtomicFile(File(context.noBackupFilesDir, "wallet.v1"))
     private val associatedData = "${context.packageName}:wallet.v1".toByteArray(Charsets.UTF_8)
     private val initializing = File(context.noBackupFilesDir, "wallet.initializing")
@@ -30,8 +32,11 @@ class AndroidWalletStore(context: Context) {
             require(initializing.isFile && initializing.length() == 0L) { "Invalid wallet initialization state" }
             // The durable marker precedes key generation and is removed before
             // any identity is exposed. A pending valid save keeps its identity.
-            val saved = if (exists && existingKey != null) {
-                try { readSavedWallet(existingKey) } catch (_: Exception) { null }
+            val saved = if (exists) {
+                requireNotNull(existingKey) { "Wallet storage key unavailable" }
+                try { readSavedWallet(existingKey) }
+                catch (_: IllegalArgumentException) { null }
+                catch (_: AEADBadTagException) { null }
             } else null
             if (saved != null) {
                 finishInitialization()
@@ -47,7 +52,9 @@ class AndroidWalletStore(context: Context) {
             syncDirectory()
         } else if (exists) {
             requireNotNull(existingKey) { "Wallet storage key unavailable" }
-            return@synchronized readSavedWallet(existingKey)
+            val saved = readSavedWallet(existingKey)
+            syncDirectory()
+            return@synchronized saved
         } else {
             require(existingKey == null) { "Saved wallet storage unavailable" }
             require(!File(file.baseFile.path + ".new").exists()) { "Interrupted wallet storage requires recovery" }
@@ -96,7 +103,7 @@ class AndroidWalletStore(context: Context) {
 
     private fun syncDirectory() {
         val directory = Os.open(file.baseFile.parentFile!!.path, OsConstants.O_RDONLY, 0)
-        try { Os.fsync(directory) } finally { Os.close(directory) }
+        try { directorySync(directory) } finally { Os.close(directory) }
     }
 
     private fun readSavedWallet(key: SecretKey): SaitoWallet {
@@ -109,6 +116,7 @@ class AndroidWalletStore(context: Context) {
                 size += count
             }
             require(size in 30..MAX_ENVELOPE_BYTES) { "Invalid wallet storage" }
+            input.fd.sync()
             buffer.copyOf(size)
         }
         require(envelope[0] == 1.toByte()) { "Unsupported wallet storage" }

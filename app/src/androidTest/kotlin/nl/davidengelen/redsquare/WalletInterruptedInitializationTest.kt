@@ -10,6 +10,8 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
+import androidx.compose.ui.test.onNodeWithContentDescription
 import org.junit.Rule
 import org.junit.Test
 import java.io.File
@@ -29,7 +31,25 @@ class WalletInterruptedInitializationTest {
         checkInterruptedCreation(completeSave = true)
     }
 
-    private fun checkInterruptedCreation(completeSave: Boolean) {
+    @Test fun unavailablePendingSaveIsPreservedForRetry() {
+        val file = preparePendingWallet(completeSave = true)
+        assertTrue(file.setReadable(false, false))
+        try {
+            val context = InstrumentationRegistry.getInstrumentation().targetContext
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)).use {
+                waitForWalletRecovery(ui)
+                ui.onNodeWithText("Wallet").performClick()
+                ui.onNodeWithContentDescription("Wallet address").assertDoesNotExist()
+                ui.onNodeWithText("Done").performClick()
+                assertTrue(file.setReadable(true, true))
+                ui.onNodeWithText("Retry").performClick()
+                ui.onNodeWithText("Wallet").performClick()
+                assertEquals("jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR", displayedWalletAddress(ui))
+            }
+        } finally { assertTrue(file.setReadable(true, true)) }
+    }
+
+    private fun preparePendingWallet(completeSave: Boolean): File {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         assertEquals("nl.davidengelen.redsquare.dev", context.packageName)
         val directory = context.noBackupFilesDir
@@ -52,7 +72,12 @@ class WalletInterruptedInitializationTest {
             cipher.updateAAD("${context.packageName}:wallet.v1".toByteArray())
             byteArrayOf(1) + cipher.iv + cipher.doFinal(backup.toByteArray())
         } else byteArrayOf(1, 0, 0)
-        File(directory, "wallet.v1").writeBytes(envelope)
+        return File(directory, "wallet.v1").apply { writeBytes(envelope) }
+    }
+
+    private fun checkInterruptedCreation(completeSave: Boolean) {
+        preparePendingWallet(completeSave)
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
         ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)).use { activity ->
             ui.onNodeWithText("Wallet").performClick()
             val address = displayedWalletAddress(ui)

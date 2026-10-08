@@ -24,6 +24,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
+import android.system.Os
+import java.io.File
+import java.io.IOException
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,7 +58,17 @@ class MainActivity : ComponentActivity() {
             LaunchedEffect(retry) {
                 failed = false
                 address = withContext(Dispatchers.IO) {
-                    try { AndroidWalletStore(applicationContext).loadOrCreate().publicKey }
+                    try {
+                        val store = if (BuildConfig.DEBUG && intent.getBooleanExtra("walletCommitSyncUnavailable", false)) {
+                            AndroidWalletStore(applicationContext) { descriptor ->
+                                if (!File(noBackupFilesDir, "wallet.initializing").exists()) {
+                                    throw IOException("Controlled filesystem sync failure")
+                                }
+                                Os.fsync(descriptor)
+                            }
+                        } else AndroidWalletStore(applicationContext)
+                        store.loadOrCreate().publicKey
+                    }
                     catch (_: Exception) { null }
                 }
                 failed = address == null
@@ -73,7 +86,7 @@ class MainActivity : ComponentActivity() {
                         TextButton(onClick = { walletOpen = true }) { Text(stringResource(R.string.wallet)) }
                         if (failed) {
                             Text(stringResource(R.string.wallet_recovery_error))
-                            Button(onClick = { retry++ }) { Text(stringResource(R.string.retry)) }
+                            Button(onClick = { failed = false; retry++ }) { Text(stringResource(R.string.retry)) }
                         }
                     }
                     if (walletOpen) AlertDialog(
