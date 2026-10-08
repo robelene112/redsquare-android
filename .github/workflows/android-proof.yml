@@ -3,10 +3,16 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      scope:
+        description: Verification scope
+        type: choice
+        default: full
+        options: [full, feed]
 permissions:
   contents: read
 concurrency:
-  group: android-proof-${{ github.ref }}
+  group: android-proof-${{ github.ref }}-${{ inputs.scope || 'full' }}
   cancel-in-progress: true
 jobs:
   native-proof:
@@ -59,7 +65,14 @@ jobs:
           "$ANDROID_HOME/emulator/emulator" -version
       - name: Build and verify native sources
         id: build
-        run: ./gradlew --no-daemon --console=plain :core:test :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease :app:lintDebug
+        env:
+          VERIFICATION_SCOPE: ${{ inputs.scope || 'full' }}
+        run: |
+          if [[ "$VERIFICATION_SCOPE" == feed ]]; then
+            ./gradlew --no-daemon --console=plain :core:test :app:assembleDebug :app:assembleDebugAndroidTest
+          else
+            ./gradlew --no-daemon --console=plain :core:test :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease :app:lintDebug
+          fi
       - name: Retain dependencies before device tests
         if: steps.build.outcome == 'success' && steps.dependencies.outputs.cache-hit != 'true'
         uses: actions/cache/save@caa296126883cff596d87d8935842f9db880ef25 # v5
@@ -69,8 +82,10 @@ jobs:
       - name: Verify Android 10 runtime
         env:
           TEST_PUBLIC_SIGNED_UPDATE: '1'
+          TEST_SCOPE: ${{ inputs.scope || 'full' }}
         run: scripts/ci-android-device 29
       - name: Verify Android 17 runtime
+        if: inputs.scope != 'feed'
         env:
           TEST_PUBLIC_SIGNED_UPDATE: '1'
         run: scripts/ci-android-device 37.0

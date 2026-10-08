@@ -14,7 +14,7 @@ object FeedEndpoints {
             val uri = URI(fixture)
             if (uri.scheme == "ws" && uri.host == "127.0.0.1" && uri.port in 1..65535 &&
                 uri.path == "/wsopen" && uri.rawUserInfo == null && uri.rawQuery == null && uri.rawFragment == null) fixture
-            else OWNER
-        } catch (_: Exception) { OWNER }
+            else "ws://127.0.0.1:1/wsopen"
+        } catch (_: Exception) { "ws://127.0.0.1:1/wsopen" }
     }
 }

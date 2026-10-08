@@ -27,6 +27,18 @@ and sends the exact unsigned Archive request only after handshake completion.
 Private keys are never in the request. No transactions were broadcast. Reading
 public Archive records does not prove chain inclusion or funded validity.
 
+Run 37853290748 at 7837753 passed source assembly/lint but again timed out at
+the controlled visible-post wait on Android 10. No screenshot or peer trace was
+captured, so the exact failure cause remains unestablished. The fixture now
+binds and names 127.0.0.1 explicitly; default server host names need not meet the
+app's deliberately strict loopback allowlist. Rejected debug fixture URLs fail
+closed at an unavailable loopback endpoint, never fall back to production.
+Future failures retain a public-screen screenshot and any peer assertion.
+
+Focused dispatch (`scope=feed`) runs core tests and the actual Android 10 feed
+flow without claiming Android 17, release lint or wallet/update acceptance.
+Default pushes and full dispatch preserve the full two-SDK verification.
+
 Cached opening, outage recovery, complete Android 10/17 acceptance and the
 owner's live Archive read are still pending. HTTP 200 from both public Red Square
 pages on 2026-10-08 establishes web readiness only, not native peer success.

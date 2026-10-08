@@ -82,12 +82,23 @@ class FeedPreviewTest {
                 } catch (problem: Throwable) { failure = problem; received.countDown() }
             }
         }).build())
-        server.start()
+        server.start(java.net.InetAddress.getByName("127.0.0.1"), 0)
         try {
             val intent = Intent(instrumentation.targetContext, MainActivity::class.java)
-                .putExtra("feedPeerUrl", server.url("/wsopen").toString().replaceFirst("http:", "ws:"))
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
             ActivityScenario.launch<MainActivity>(intent).use {
-                ui.waitUntil(15_000) { ui.onAllNodes(hasText("Native Red Square reference post")).fetchSemanticsNodes().isNotEmpty() }
+                try {
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Native Red Square reference post")).fetchSemanticsNodes().isNotEmpty() }
+                } catch (problem: Throwable) {
+                    instrumentation.uiAutomation.takeScreenshot()?.let { bitmap ->
+                        java.io.File(instrumentation.targetContext.cacheDir, "feed-ui-failure.png").outputStream().use {
+                            bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it)
+                        }
+                        bitmap.recycle()
+                    }
+                    failure?.let { throw AssertionError("Controlled peer rejected the request", it) }
+                    throw problem
+                }
                 ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
                 ui.onNodeWithText("Anon-jesTu2").assertIsDisplayed()
                 assertTrue("Archive request was not observed", received.await(1, TimeUnit.SECONDS))

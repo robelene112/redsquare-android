@@ -50,7 +50,14 @@ adb shell am instrument -w -r \
     -e class nl.davidengelen.redsquare.FeedPreviewTest \
     nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
     > "$evidence/feed-ui.txt"
-grep -q 'OK (1 test)' "$evidence/feed-ui.txt"
+if ! grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/feed-ui.txt"; then
+    adb exec-out run-as nl.davidengelen.redsquare.dev cat cache/feed-ui-failure.png > "$evidence/feed-ui-failure.png" || true
+    exit 1
+fi
+if [[ "${TEST_SCOPE:-full}" == feed ]]; then
+    printf '%s\n' 'Focused feed check only; full Android/wallet/update acceptance not run.' > "$evidence/scope.txt"
+    exit 0
+fi
 adb shell am instrument -w -r \
     -e class nl.davidengelen.redsquare.NativeCompatibilityTest \
     nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
