@@ -128,7 +128,7 @@ to this repository unless the owner explicitly broadens their scope.
 - [Issue tracker](agents/issue-tracker.md): GitHub specs, tickets and dependencies.
 - [Triage labels](agents/triage-labels.md): upstream default role vocabulary.
 - [Domain docs](agents/domain.md): one glossary and qualifying ADRs.
-- [Current handoff](handoffs/BOOTSTRAP.md): starting state, not an active app spec.
+- [Current handoff](handoffs/IMPLEMENTATION.md): authorized sequential delivery and current evidence pointers.
 
 Skills in this repo are available for discovery on the next session/turn. If an
 agent does not surface project-local skills automatically, `AGENTS.md` provides

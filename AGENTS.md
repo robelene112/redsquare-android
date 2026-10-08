@@ -1,7 +1,7 @@
 # Red Square Android
 
 Before planning or implementing, read [project context](docs/PROJECT_CONTEXT.md),
-[workflow](docs/WORKFLOW.md), and the [current handoff](docs/handoffs/BOOTSTRAP.md).
+[workflow](docs/WORKFLOW.md), and the [current handoff](docs/handoffs/IMPLEMENTATION.md).
 
 ## Agent skills
 

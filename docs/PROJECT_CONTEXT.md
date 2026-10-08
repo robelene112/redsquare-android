@@ -233,11 +233,14 @@ or authorization to bypass the subsequent specification and ticket phases.
 
 The app-wide product grill has settled the platform, release baseline, wallet
 safeguards, social/Chat capabilities, backend choice, offline behavior, review
-approach and initial delivery priority. On 2026-10-08 the owner requested
-`to-spec` and `to-tickets`. A [release spec review draft](planning/RELEASE_SPEC_REVIEW.md)
-and [proposed feature breakdown](planning/TICKET_BREAKDOWN_REVIEW.md) are ready
-for the skill-required testing-boundary check and ticket-breakdown review, one
-question at a time. No GitHub spec/tickets or Android code have been published.
+approach and initial delivery priority. On 2026-10-08 the owner authorized
+sequential implementation of the proposed 35 tickets with a commit after each
+completed ticket and final app review. This covers the proposed testing
+boundaries and breakdown; do not request routine approval again.
+[Specification #1](https://github.com/robelene112/redsquare-android/issues/1)
+and its 35 sub-issues (#2 through #36) are published with native dependencies.
+Implementation is starting with wallet/signature compatibility. Discover live
+progress from GitHub and the current handoff.
 
 Resolve the following during specification and technical planning. Research facts
 and propose concrete behavior using the accepted baseline; ask the owner only
@@ -258,8 +261,8 @@ when a remaining choice materially changes product behavior or release scope.
 
 GitHub Issues contain approved specifications and implementation tickets.
 This file preserves project-wide context; it is not a substitute for a feature
-specification. On 2026-10-07 there is no approved app spec or implementation
-ticket. On 2026-10-08 review drafts exist as described above; they are not an
-approved local work tracker. Discover current work from GitHub and Git history
-in later sessions. After publication, replace the review drafts with pointers
-to the authoritative issues.
+specification. As of 2026-10-08 the release specification and all 35 tickets
+are published on GitHub. The planning files contain pointers, not duplicate
+specifications. Discover current work from GitHub and Git history in later
+sessions. Record actual verification limits rather than treating authorization
+as proof that a device check or integration has passed.
