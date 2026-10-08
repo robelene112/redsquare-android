@@ -35,10 +35,15 @@ adb install -r "$artifact"
 adb install -r "$repo_dir/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk"
 adb shell am instrument -w -r \
     -e class nl.davidengelen.redsquare.NativeCompatibilityTest \
-    nl.davidengelen.redsquare.test/androidx.test.runner.AndroidJUnitRunner \
+    nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
     > "$evidence/instrumentation.txt"
 grep -q 'OK (2 tests)' "$evidence/instrumentation.txt"
-adb shell am start -n nl.davidengelen.redsquare/.CompatibilityActivity
+adb shell am instrument -w -r \
+    -e class nl.davidengelen.redsquare.WalletPreviewTest \
+    nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+    > "$evidence/wallet-ui.txt"
+grep -q 'OK (1 test)' "$evidence/wallet-ui.txt"
+adb shell am start -n nl.davidengelen.redsquare.dev/nl.davidengelen.redsquare.CompatibilityActivity
 # Software emulation can briefly show a System UI boot ANR. Dismiss only that
 # system dialog; an application ANR remains a failure, never a successful check.
 for ((attempt=0; attempt<12; attempt++)); do
