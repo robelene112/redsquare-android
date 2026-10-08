@@ -15,8 +15,16 @@ sed -i '/^disk.dataPartition.size=/d' "$avd_home/redsquare-proof.avd/config.ini"
 printf '%s\n' 'disk.dataPartition.size=2G' >> "$avd_home/redsquare-proof.avd/config.ini"
 acceleration=off
 [[ ! -r /dev/kvm ]] || acceleration=on
+test_memory=1536
+test_cores=1
+if [[ "$acceleration" == on ]]; then
+    # Android 17 System UI has hung under the single-core boot allocation.
+    # Hosted KVM runners can give the test image two cores and 2 GiB.
+    test_memory=2048
+    test_cores=2
+fi
 emulator -avd redsquare-proof -accel "$acceleration" -no-window -no-audio -no-snapshot \
-    -no-boot-anim -gpu swiftshader_indirect -feature -Vulkan -cores 1 -memory 1536 \
+    -no-boot-anim -gpu swiftshader_indirect -feature -Vulkan -cores "$test_cores" -memory "$test_memory" \
     > "$evidence/emulator.log" 2>&1 &
 emulator_pid=$!
 trap 'kill "$emulator_pid" 2>/dev/null || true' EXIT
@@ -92,7 +100,7 @@ adb shell am instrument -w -r \
     > "$evidence/preview-update-ui.txt"
 grep -q 'OK (1 test)' "$evidence/preview-update-ui.txt"
 if [[ "${TEST_PUBLIC_SIGNED_UPDATE:-0}" == 1 ]]; then
-    python3 "$repo_dir/scripts/ci-review-update" 5 6 --evidence "$evidence/signed-update"
+    python3 "$repo_dir/scripts/ci-review-update" 5 8 --evidence "$evidence/signed-update"
 fi
 adb shell am start -n nl.davidengelen.redsquare.dev/nl.davidengelen.redsquare.CompatibilityActivity
 # Software emulation can briefly show a System UI boot ANR. Dismiss only that
