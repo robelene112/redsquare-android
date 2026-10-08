@@ -6,8 +6,8 @@ Continue without routine permission requests or a grill per ticket.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Tickets: native sub-issues #2 through #36 with native dependencies.
-- #2 wallet/signature compatibility is verified on Android 10 and Android 17.
-  Active: #3 persistent local wallet and signed preview/update delivery. Inspect
+- #2 wallet/signature compatibility and #3 persistent wallet/signed updates are
+  verified on Android 10 and Android 17. Next: #4 live feed and cached launch. Inspect
   GitHub for the current authoritative ticket status.
 - Use the project-local implement, tdd and two-axis code-review skills.
 - Production mutation and store account/publication boundaries remain those
@@ -89,6 +89,7 @@ inspected: eleven instrumentation tests on each SDK, cold-process and actual
 signed update continuity. Public wallet screenshots/continuity summaries are
 retained in docs/evidence/ticket02. See
 [wallet delivery verification](../research/WALLET_PREVIEW_VERIFICATION.md).
-Complete the final evidence commit/reviews and close #3 before starting #4.
+Final Standards and Spec reviews report zero findings through 1b50e2f. Ticket #3
+is complete; its final evidence/status commit changes only documentation.
 
-App state: 1 of 35 tickets complete, #3 in progress. No final app review build yet.
+App state: 2 of 35 tickets complete. Next ready: #4. No final app review build yet.
