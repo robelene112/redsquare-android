@@ -1,0 +1,82 @@
+#!/usr/bin/env python3
+"""Publish only this app's signed review assets to the existing static website."""
+import argparse
+import fcntl
+import hashlib
+import json
+import os
+from pathlib import Path
+import re
+import shutil
+import subprocess
+import tempfile
+
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("artifact", type=Path)
+parser.add_argument("--notes", required=True)
+args = parser.parse_args()
+artifact = args.artifact.resolve()
+metadata = json.loads((artifact / "manifest.json").read_text())
+apk = artifact / "redsquare.apk"
+if hashlib.sha256(apk.read_bytes()).hexdigest() != metadata["sha256"]:
+    raise SystemExit("APK checksum does not match its build manifest")
+command = ["docker", "run", "--rm", "--user", f"{os.getuid()}:{os.getgid()}",
+           "--mount", f"type=bind,src={artifact},dst=/artifacts,readonly",
+           "redsquare-android-build:agp8.10.1"]
+signature = subprocess.check_output(command + ["/opt/android-sdk/build-tools/35.0.0/apksigner",
+    "verify", "--print-certs", "/artifacts/redsquare.apk"], text=True)
+fingerprint = re.search(r"certificate SHA-256 digest: ([0-9a-f]+)", signature)
+package = subprocess.check_output(command + ["/opt/android-sdk/build-tools/35.0.0/aapt",
+    "dump", "badging", "/artifacts/redsquare.apk"], text=True)
+identity = re.search(r"^package: name='([^']+)' versionCode='(\d+)' versionName='([^']+)'", package, re.M)
+if (not fingerprint or fingerprint[1] != metadata["certificateSha256"] or not identity
+        or identity[1] != "nl.davidengelen.redsquare" or identity[1] != metadata["applicationId"]
+        or int(identity[2]) != metadata["versionCode"] or identity[3] != metadata["versionName"]):
+    raise SystemExit("APK identity, signing certificate or version differs from its manifest")
+ledger = Path.home() / ".local/share/redsquare-android/review/certificate.sha256"
+if not ledger.exists() or ledger.read_text().strip() != fingerprint[1]:
+    raise SystemExit("Recover the established preview signing identity before publishing")
+website = Path("/home/david/projects/docker/website/html")
+destination = website / "redsquare"
+# The existing website root belongs to root. Create/chown only our dedicated
+# directory, without changing the website configuration or other content.
+subprocess.run(["docker", "run", "--rm", "--user", "0:0", "--mount",
+    f"type=bind,src={website},dst=/site", "redsquare-android-build:agp8.10.1", "sh", "-c",
+    'mkdir -p /site/redsquare && chown "$1:$2" /site/redsquare', "sh",
+    str(os.getuid()), str(os.getgid())], check=True)
+with (destination / ".publish.lock").open("w") as lock:
+    fcntl.flock(lock, fcntl.LOCK_EX)
+    latest = destination / "latest.json"
+    if latest.exists():
+        previous = json.loads(latest.read_text())
+        if previous["certificateSha256"] != fingerprint[1]:
+            raise SystemExit("Published preview uses another signing identity")
+        if previous["versionCode"] >= metadata["versionCode"]:
+            raise SystemExit("Publish a higher version code; existing previews are immutable")
+    releases = destination / "releases"
+    releases.mkdir(exist_ok=True)
+    release = releases / str(metadata["versionCode"])
+    if release.exists():
+        raise SystemExit("This preview version is already published")
+    stage = Path(tempfile.mkdtemp(prefix=".stage-", dir=releases))
+    try:
+        stage.chmod(0o755)
+        shutil.copyfile(apk, stage / "redsquare.apk")
+        (stage / "redsquare.apk").chmod(0o644)
+        metadata["apkUrl"] = f"https://davidengelen.nl/redsquare/releases/{metadata['versionCode']}/redsquare.apk"
+        metadata["notes"] = args.notes
+        (stage / "manifest.json").write_text(json.dumps(metadata, indent=2) + "\n")
+        stage.rename(release)
+    finally:
+        if stage.exists():
+            shutil.rmtree(stage)
+    template = Path(__file__).resolve().parent.parent / "build-support/review.html"
+    # Atomic replacements keep a reader on the previous complete release until
+    # the new APK and manifest are both present.
+    for filename, contents in [("index.html", template.read_text()),
+                               ("latest.json", json.dumps(metadata, indent=2) + "\n")]:
+        temporary = destination / f".{filename}.new"
+        temporary.write_text(contents)
+        temporary.chmod(0o644)
+        temporary.replace(destination / filename)
+print("Published review: https://davidengelen.nl/redsquare/")
