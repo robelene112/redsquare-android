@@ -44,6 +44,11 @@ adb shell am instrument -w -r \
     > "$evidence/instrumentation.txt"
 grep -q 'OK (2 tests)' "$evidence/instrumentation.txt"
 adb shell am instrument -w -r \
+    -e class nl.davidengelen.redsquare.WalletInitializationTest \
+    nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+    > "$evidence/wallet-initialization-ui.txt"
+grep -q 'OK (1 test)' "$evidence/wallet-initialization-ui.txt"
+adb shell am instrument -w -r \
     -e class nl.davidengelen.redsquare.WalletPreviewTest \
     nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
     > "$evidence/wallet-ui.txt"
