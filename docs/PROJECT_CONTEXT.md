@@ -15,8 +15,9 @@ defined in the specification so these targets can be tested consistently.
 
 ## Decisions already made
 
-- The app's display name is Red Square. Its application ID and store publisher
-  configuration still need to be settled before distribution.
+- The app's display name is Red Square. The native application ID is
+  `nl.davidengelen.redsquare`. Signing continuity is the next delivery ticket;
+  store publisher configuration remains release work.
 - First-release baseline: the core social experience, including feed, threads,
   posting/replies, likes/reposts, profiles, following, in-app notifications and
   wallet creation/import/export. Additional features are decided individually;
@@ -132,8 +133,9 @@ defined in the specification so these targets can be tested consistently.
   availability or complete recovery after reinstalling or changing phones.
   Guaranteed complete history migration and a separate complete-history backup
   are deferred. Cache retention and identity isolation need specification.
-- Native Android in Kotlin. The UI framework and supporting libraries remain
-  open; Kotlin does not itself settle those choices.
+- Native Android in Kotlin, with Jetpack Compose and a Kotlin/JVM Saito core
+  selected during implementation feasibility. See
+  [the native integration decision](adr/0002-native-kotlin-protocol.md).
 - Support Android 10 and newer in the first release. Verify the minimum version
   alongside the owner's Pixel 7 running Android 17 during the initial milestone.
 - Support light and dark themes, following Android's system setting by default.
