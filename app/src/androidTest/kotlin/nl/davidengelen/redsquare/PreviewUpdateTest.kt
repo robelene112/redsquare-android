@@ -47,7 +47,7 @@ class PreviewUpdateTest {
             Intents.intending(hasAction(Intent.ACTION_VIEW)).respondWith(
                 Instrumentation.ActivityResult(Activity.RESULT_OK, null))
             val context = InstrumentationRegistry.getInstrumentation().targetContext
-            val intent = Intent(context, MainActivity::class.java).putExtra(
+            val intent = Intent(context, MainActivity::class.java).putExtra("feedDisabled", true).putExtra(
                 "reviewManifestUrl", "http://127.0.0.1:${server.localPort}/latest.json")
             ActivityScenario.launch<MainActivity>(intent).use {
                 ui.waitUntil(10_000) {

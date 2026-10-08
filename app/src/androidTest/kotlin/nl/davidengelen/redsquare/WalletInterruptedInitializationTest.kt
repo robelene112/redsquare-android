@@ -36,7 +36,7 @@ class WalletInterruptedInitializationTest {
         assertTrue(file.setReadable(false, false))
         try {
             val context = InstrumentationRegistry.getInstrumentation().targetContext
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)).use {
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("feedDisabled", true)).use {
                 waitForWalletRecovery(ui)
                 ui.onNodeWithText("Wallet").performClick()
                 ui.onNodeWithContentDescription("Wallet address").assertDoesNotExist()
@@ -78,7 +78,7 @@ class WalletInterruptedInitializationTest {
     private fun checkInterruptedCreation(completeSave: Boolean) {
         preparePendingWallet(completeSave)
         val context = InstrumentationRegistry.getInstrumentation().targetContext
-        ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)).use { activity ->
+        ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("feedDisabled", true)).use { activity ->
             ui.onNodeWithText("Wallet").performClick()
             val address = displayedWalletAddress(ui)
             if (completeSave) assertEquals("jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR", address)

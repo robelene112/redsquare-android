@@ -18,7 +18,29 @@ data class FeedPost(
     val envelope: String,
 )
 
+data class ArchiveFeedPage(val posts: List<FeedPost>, val oldestCreatedAt: Long?, val rowCount: Int, val ignored: Int)
+
 object RedSquareFeed {
+    fun readArchive(response: String): ArchiveFeedPage {
+        require(response.toByteArray(Charsets.UTF_8).size <= 16 * 1024 * 1024)
+        val rows = gson.fromJson(response, com.google.gson.JsonArray::class.java)
+            ?: throw IllegalArgumentException("Missing archive response")
+        require(rows.size() <= 100)
+        var oldest: Long? = null
+        var ignored = 0
+        val posts = rows.mapNotNull { row ->
+            try {
+                val item = row.asJsonObject
+                val cursor = item.get("created_at")?.asString?.toLongOrNull()?.takeIf { it >= 0 }
+                if (cursor != null) oldest = minOf(oldest ?: cursor, cursor)
+                decode(item.string("tx")).takeIf { it.parentId.isEmpty() }.also {
+                    if (it == null) ignored++
+                }
+            } catch (_: Exception) { ignored++; null }
+        }
+        return ArchiveFeedPage(posts.distinctBy { it.id }, oldest, rows.size(), ignored)
+    }
+
     private const val MAX_ENVELOPE_BYTES = 8 * 1024 * 1024
     private val gson = GsonBuilder().setStrictness(Strictness.STRICT).create()
 
@@ -34,7 +56,7 @@ object RedSquareFeed {
         val outputs = header.int
         val embeddedLength = header.int
         val hops = header.int
-        require(inputs in 1..1024 && outputs in 0..1024 && hops in 0..1024 && embeddedLength == 0)
+        require(inputs in 1..255 && outputs in 0..255 && hops in 0..1024 && embeddedLength == 0)
         require(binary.size.toLong() == 93L + 59L * (inputs + outputs) + 130L * hops)
         val signature = binary.copyOfRange(16, 80).joinToString("") { "%02x".format(it) }
         val timestamp = header.getLong(80)
@@ -67,5 +89,5 @@ object RedSquareFeed {
         return value.asString
     }
 
-    private fun JsonObject.optionalString(key: String): String = if (!has(key)) "" else string(key)
+    private fun JsonObject.optionalString(key: String): String = if (!has(key) || get(key).isJsonNull) "" else string(key)
 }

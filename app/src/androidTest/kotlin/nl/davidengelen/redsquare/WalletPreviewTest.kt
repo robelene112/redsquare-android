@@ -1,7 +1,12 @@
 package nl.davidengelen.redsquare
 
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.junit4.createEmptyComposeRule
+import android.content.Intent
+import androidx.test.core.app.ActivityScenario
+import androidx.test.platform.app.InstrumentationRegistry
+import org.junit.Before
+import org.junit.After
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -16,14 +21,25 @@ import java.io.File
 /** Runs only against the isolated .dev application, never the signed user preview. */
 @RunWith(AndroidJUnit4::class)
 class WalletPreviewTest {
-    @get:Rule val ui = createAndroidComposeRule<MainActivity>()
+    @get:Rule val ui = createEmptyComposeRule()
+    private lateinit var scenario: ActivityScenario<MainActivity>
+    private lateinit var activity: MainActivity
+
+    @Before fun openWalletTestApp() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        scenario = ActivityScenario.launch(Intent(context, MainActivity::class.java).putExtra("feedDisabled", true))
+        scenario.onActivity { activity = it }
+    }
+
+    @After fun closeWalletTestApp() { scenario.close() }
 
     @Test fun firstLaunchCreatesAnIdentityAndReopeningWalletKeepsIt() {
         ui.onNodeWithText("Wallet").performClick()
         val address = displayedAddress()
         assertTrue(address.length == 44)
         ui.onNodeWithText("Done").performClick()
-        ui.activityRule.scenario.recreate()
+        scenario.recreate()
+        scenario.onActivity { activity = it }
         ui.onNodeWithText("Wallet").performClick()
         val reopenedAddress = displayedAddress()
         ui.onNodeWithContentDescription("Wallet address").assertIsDisplayed()
@@ -47,12 +63,13 @@ class WalletPreviewTest {
         ui.onNodeWithText("Wallet").performClick()
         val address = displayedAddress()
         ui.onNodeWithText("Done").performClick()
-        val file = File(ui.activity.noBackupFilesDir, "wallet.v1")
-        val retained = File(ui.activity.noBackupFilesDir, "wallet.v1.test-retained")
+        val file = File(activity.noBackupFilesDir, "wallet.v1")
+        val retained = File(activity.noBackupFilesDir, "wallet.v1.test-retained")
         assertTrue(file.renameTo(retained))
         try {
             damage(file)
-            ui.activityRule.scenario.recreate()
+            scenario.recreate()
+            scenario.onActivity { activity = it }
             ui.waitUntil(10_000) {
                 ui.onAllNodes(androidx.compose.ui.test.hasText("Retry")).fetchSemanticsNodes().isNotEmpty()
             }

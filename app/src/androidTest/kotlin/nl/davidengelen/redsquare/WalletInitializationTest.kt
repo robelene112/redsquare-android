@@ -28,7 +28,7 @@ class WalletInitializationTest {
             .containsAlias("redsquare.wallet.v1"))
         assertTrue(directory.setWritable(false, false))
         try {
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)).use {
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("feedDisabled", true)).use {
                 waitForWalletRecovery(ui)
                 ui.onNodeWithText("Wallet").performClick()
                 ui.onNodeWithContentDescription("Wallet address").assertDoesNotExist()

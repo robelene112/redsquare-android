@@ -49,6 +49,16 @@ class FeedPreviewTest {
                             require(frame.size == 130)
                             // The following request is accepted only after its counter challenge is answered.
                             require(frame.copyOfRange(98, 130).all { it == 0.toByte() })
+                            var keyNumber = java.math.BigInteger(1, frame.copyOfRange(1, 34))
+                            val alphabet = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
+                            var clientKey = ""
+                            while (keyNumber.signum() > 0) {
+                                val parts = keyNumber.divideAndRemainder(java.math.BigInteger.valueOf(58))
+                                clientKey = alphabet[parts[1].toInt()] + clientKey
+                                keyNumber = parts[0]
+                            }
+                            val answer = frame.copyOfRange(34, 98).joinToString("") { "%02x".format(it) }
+                            require(SaitoWallet.verify(counter, answer, clientKey))
                             authenticated = true
                         }
                         12 -> {

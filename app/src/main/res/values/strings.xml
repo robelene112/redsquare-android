@@ -10,4 +10,9 @@
     <string name="done">Done</string>
     <string name="preview_update_available">Preview update available</string>
     <string name="view_update">View update</string>
+    <string name="feed_title">For you</string>
+    <string name="feed_refresh">Refresh</string>
+    <string name="feed_loading">Loading posts…</string>
+    <string name="feed_error">Posts could not be refreshed. Try again.</string>
+    <string name="feed_empty">No posts are available from this server yet.</string>
 </resources>

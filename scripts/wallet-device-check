@@ -39,7 +39,10 @@ def tap(node):
     adb("shell", "input", "tap", str((left + right) // 2), str((top + bottom) // 2))
 
 def open_address():
-    adb("shell", "am", "start", "-W", "-n", package + "/nl.davidengelen.redsquare.MainActivity")
+    launch = ["shell", "am", "start", "-W", "-n", package + "/nl.davidengelen.redsquare.MainActivity"]
+    if package.endswith(".dev"):
+        launch += ["--ez", "feedDisabled", "true"]
+    adb(*launch)
     for _ in range(20):
         visible = list(nodes())
         if any(node.get("text") == "System UI isn't responding" for node in visible):

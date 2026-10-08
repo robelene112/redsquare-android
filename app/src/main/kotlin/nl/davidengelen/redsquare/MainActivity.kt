@@ -27,12 +27,16 @@ import androidx.lifecycle.LifecycleEventObserver
 import android.system.Os
 import java.io.File
 import java.io.IOException
+import nl.davidengelen.redsquare.saito.SaitoWallet
+import nl.davidengelen.redsquare.feed.FeedScreen
+import nl.davidengelen.redsquare.feed.FeedEndpoints
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            var address by remember { mutableStateOf<String?>(null) }
+            var wallet by remember { mutableStateOf<SaitoWallet?>(null) }
+            val address = wallet?.publicKey
             var failed by remember { mutableStateOf(false) }
             var retry by remember { mutableIntStateOf(0) }
             var walletOpen by remember { mutableStateOf(false) }
@@ -57,7 +61,7 @@ class MainActivity : ComponentActivity() {
             }
             LaunchedEffect(retry) {
                 failed = false
-                address = withContext(Dispatchers.IO) {
+                wallet = withContext(Dispatchers.IO) {
                     try {
                         val store = if (BuildConfig.DEBUG && intent.getBooleanExtra("walletCommitSyncUnavailable", false)) {
                             AndroidWalletStore(applicationContext) { descriptor ->
@@ -67,15 +71,15 @@ class MainActivity : ComponentActivity() {
                                 Os.fsync(descriptor)
                             }
                         } else AndroidWalletStore(applicationContext)
-                        store.loadOrCreate().publicKey
+                        store.loadOrCreate()
                     }
                     catch (_: Exception) { null }
                 }
-                failed = address == null
+                failed = wallet == null
             }
             MaterialTheme {
                 Surface(Modifier.fillMaxSize()) {
-                    Column(Modifier.padding(16.dp)) {
+                    Column(Modifier.fillMaxSize().padding(16.dp)) {
                         Text(stringResource(R.string.app_name), style = MaterialTheme.typography.headlineMedium)
                         if (updateAvailable) {
                             Text(stringResource(R.string.preview_update_available))
@@ -87,6 +91,9 @@ class MainActivity : ComponentActivity() {
                         if (failed) {
                             Text(stringResource(R.string.wallet_recovery_error))
                             Button(onClick = { failed = false; retry++ }) { Text(stringResource(R.string.retry)) }
+                        }
+                        if (!(BuildConfig.DEBUG && intent.getBooleanExtra("feedDisabled", false))) {
+                            FeedScreen(wallet, failed, FeedEndpoints.fromIntent(intent), Modifier.weight(1f)) { reportFullyDrawn() }
                         }
                     }
                     if (walletOpen) AlertDialog(
