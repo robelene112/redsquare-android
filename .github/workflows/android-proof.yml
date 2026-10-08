@@ -14,12 +14,25 @@ jobs:
     timeout-minutes: 40
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Check runner SDK and acceleration
+        run: |
+          test -c /dev/kvm
+          sudo chmod a+rw /dev/kvm
+          sdkmanager 'platforms;android-36' 'build-tools;35.0.0'
+          java -version
+          emulator -version
       - name: Build and verify native sources
-        run: scripts/android-build :core:test :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease :app:lintDebug
+        run: ./gradlew --no-daemon --console=plain :core:test :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease :app:lintDebug
       - name: Verify Android 10 runtime
-        run: scripts/android-emulator 29
+        run: scripts/ci-android-device 29
       - name: Verify Android 17 runtime
-        run: scripts/android-emulator 37.0
+        run: scripts/ci-android-device 37.0
       - name: Retain verification evidence
         if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2

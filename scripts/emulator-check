@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
-artifact=/workspace/app/build/outputs/apk/debug/app-debug.apk
+repo_dir=$(cd -- "$(dirname -- "$0")/.." && pwd)
+artifact="$repo_dir/app/build/outputs/apk/debug/app-debug.apk"
 if [[ ! -f "$artifact" ]]; then echo 'Build the diagnostic APK first' >&2; exit 2; fi
-evidence="/workspace/.scratch/device-evidence/api-$TEST_DEVICE_API"
+evidence="$repo_dir/.scratch/device-evidence/api-$TEST_DEVICE_API"
 mkdir -p "$evidence"
-if [[ ! -f "$HOME/.android/avd/redsquare-proof.ini" ]]; then
+avd_home="${ANDROID_AVD_HOME:-$HOME/.android/avd}"
+if [[ ! -f "$avd_home/redsquare-proof.ini" ]]; then
     printf 'no\n' | avdmanager create avd --name redsquare-proof --package "$TEST_SYSTEM_IMAGE"
 fi
 acceleration=off
@@ -26,7 +28,7 @@ for setting in window_animation_scale transition_animation_scale animator_durati
     adb shell settings put global "$setting" 0
 done
 adb install -r "$artifact"
-adb install -r /workspace/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
+adb install -r "$repo_dir/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk"
 adb shell am instrument -w -r \
     -e class nl.davidengelen.redsquare.NativeCompatibilityTest \
     nl.davidengelen.redsquare.test/androidx.test.runner.AndroidJUnitRunner \
@@ -39,7 +41,7 @@ for ((attempt=0; attempt<12; attempt++)); do
     sleep 3
     timeout 60 adb shell uiautomator dump /sdcard/redsquare-ui.xml >/dev/null || continue
     adb pull /sdcard/redsquare-ui.xml "$evidence/before.xml" >/dev/null
-    action=$(python3 /workspace/scripts/diagnostic-ui.py "$evidence/before.xml")
+    action=$(python3 "$repo_dir/scripts/diagnostic-ui.py" "$evidence/before.xml")
     read -r kind x y <<< "$action"
     if [[ "$kind" == run ]]; then adb shell input tap "$x" "$y"; break; fi
     if [[ "$kind" == system-wait ]]; then adb shell input tap "$x" "$y"; fi

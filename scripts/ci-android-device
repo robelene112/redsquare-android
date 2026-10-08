@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Hosted Linux runner only. Local VPS checks use the isolated Docker script.
+set -euo pipefail
+repo_dir=$(cd -- "$(dirname -- "$0")/.." && pwd)
+case "$1" in
+    29) system_image='system-images;android-29;default;x86_64' ;;
+    37.0) system_image='system-images;android-37.0;google_apis;x86_64' ;;
+    *) echo 'Supported diagnostic targets: 29 or 37.0' >&2; exit 2 ;;
+esac
+sdkmanager "$system_image"
+export TEST_DEVICE_API="$1" TEST_SYSTEM_IMAGE="$system_image"
+export ANDROID_USER_HOME="$repo_dir/.scratch/android-devices/api-$1"
+export ANDROID_AVD_HOME="$ANDROID_USER_HOME/avd"
+mkdir -p "$ANDROID_AVD_HOME"
+export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$PATH"
+exec "$repo_dir/scripts/emulator-check"
