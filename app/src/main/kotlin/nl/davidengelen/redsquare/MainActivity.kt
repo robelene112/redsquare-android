@@ -1,6 +1,8 @@
 package nl.davidengelen.redsquare
 
 import android.os.Bundle
+import android.content.Intent
+import android.net.Uri
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,6 +22,8 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +33,25 @@ class MainActivity : ComponentActivity() {
             var failed by remember { mutableStateOf(false) }
             var retry by remember { mutableIntStateOf(0) }
             var walletOpen by remember { mutableStateOf(false) }
+            var updateAvailable by remember { mutableStateOf(false) }
+            var updateCheck by remember { mutableIntStateOf(0) }
+            DisposableEffect(Unit) {
+                val observer = LifecycleEventObserver { _, event ->
+                    if (event == Lifecycle.Event.ON_RESUME) updateCheck++
+                }
+                lifecycle.addObserver(observer)
+                onDispose { lifecycle.removeObserver(observer) }
+            }
+            LaunchedEffect(updateCheck) {
+                if (BuildConfig.REVIEW_BUILD && updateCheck > 0) {
+                    val endpoint = if (BuildConfig.DEBUG) intent.getStringExtra("reviewManifestUrl") ?: PreviewUpdates.MANIFEST
+                        else PreviewUpdates.MANIFEST
+                    updateAvailable = withContext(Dispatchers.IO) {
+                        val version = packageManager.getPackageInfo(packageName, 0).longVersionCode
+                        PreviewUpdates.hasNewerBuild(endpoint, version)
+                    }
+                }
+            }
             LaunchedEffect(retry) {
                 failed = false
                 address = withContext(Dispatchers.IO) {
@@ -41,6 +64,12 @@ class MainActivity : ComponentActivity() {
                 Surface(Modifier.fillMaxSize()) {
                     Column(Modifier.padding(16.dp)) {
                         Text(stringResource(R.string.app_name), style = MaterialTheme.typography.headlineMedium)
+                        if (updateAvailable) {
+                            Text(stringResource(R.string.preview_update_available))
+                            TextButton(onClick = {
+                                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(PreviewUpdates.REVIEW_PAGE)))
+                            }) { Text(stringResource(R.string.view_update)) }
+                        }
                         TextButton(onClick = { walletOpen = true }) { Text(stringResource(R.string.wallet)) }
                         if (failed) {
                             Text(stringResource(R.string.wallet_recovery_error))

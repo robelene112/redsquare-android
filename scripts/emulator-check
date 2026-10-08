@@ -28,6 +28,11 @@ for ((attempt=0; attempt<120; attempt++)); do
 done
 [[ "$(adb shell getprop sys.boot_completed | tr -d '\r')" == 1 ]] || { echo 'Emulator boot timed out' >&2; exit 1; }
 adb shell input keyevent 82
+# Keep the isolated test display awake while instrumentation hands control back
+# to ordinary cold launches. This does not change the installed app's behavior.
+adb shell settings put system screen_off_timeout 1800000
+adb shell svc power stayon true
+adb shell wm dismiss-keyguard
 for setting in window_animation_scale transition_animation_scale animator_duration_scale; do
     adb shell settings put global "$setting" 0
 done

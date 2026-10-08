@@ -13,10 +13,14 @@ android {
         versionCode = providers.gradleProperty("reviewVersionCode").orElse("1").get().toInt()
         versionName = providers.gradleProperty("reviewVersionName").orElse("0.1.0").get()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("boolean", "REVIEW_BUILD", providers.gradleProperty("reviewBuild").orElse("false").get().toBooleanStrict().toString())
     }
-    buildFeatures { compose = true }
+    buildFeatures { compose = true; buildConfig = true }
     buildTypes {
-        debug { applicationIdSuffix = ".dev" }
+        debug {
+            applicationIdSuffix = ".dev"
+            buildConfigField("boolean", "REVIEW_BUILD", "true")
+        }
     }
     packaging.resources.excludes += "META-INF/versions/9/OSGI-INF/MANIFEST.MF"
     compileOptions {
@@ -27,6 +31,7 @@ android {
 }
 dependencies {
     implementation(project(":core"))
+    implementation("com.google.code.gson:gson:2.12.1")
     implementation(platform("androidx.compose:compose-bom:2025.04.01"))
     implementation("androidx.activity:activity-compose:1.10.1")
     implementation("androidx.compose.material3:material3")

@@ -18,7 +18,7 @@ printf '%s\n' "$next" > "$review_state/version-code.new"
 mv "$review_state/version-code.new" "$review_state/version-code"
 version_name="0.1.$next"
 "$repo_dir/scripts/android-build" :app:assembleRelease \
-    "-PreviewVersionCode=$next" "-PreviewVersionName=$version_name"
+    "-PreviewVersionCode=$next" "-PreviewVersionName=$version_name" "-PreviewBuild=true"
 artifact_dir="$repo_dir/.scratch/review-builds/$next"
 mkdir -p "$artifact_dir"
 docker run --rm --user "$(id -u):$(id -g)" \
