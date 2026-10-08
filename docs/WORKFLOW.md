@@ -49,6 +49,14 @@ keep the design tree internally and select the next ready question from it.
 Research repository facts instead of asking the owner to supply information
 the agent can inspect.
 
+Existing Red Square capabilities are the release baseline within the agreed
+application scope. Research their actual behavior and implement compatible
+native equivalents. Source inspection and interoperability checks belong to the
+agent. Do not turn unfinished research into a request to drop an existing feature.
+Surface a demonstrated incompatibility or blocker with evidence and options.
+This policy does not automatically add other Saito modules or reverse explicit
+scope decisions such as deferred iOS and complete history migration.
+
 `grill-with-docs` loads `grilling` and `domain-modeling`. It creates the glossary
 and ADRs lazily. These files do not record every answer, so retain the same
 conversation when the owner requests `to-spec`. Read the proposed spec against

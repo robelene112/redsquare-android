@@ -13,6 +13,9 @@ the skill is absent from its picker, read those files directly and follow them.
   retrospective, use the corresponding skill in [the workflow](docs/WORKFLOW.md).
 - During grilling, ask one question at a time, give a recommendation, and wait
   for the answer. This owner preference overrides upstream batched questions.
+- Preserve existing Red Square capabilities within the agreed app scope. Source
+  research and compatibility verification are the agent's responsibility;
+  unfinished inspection alone is not grounds to propose deferring a feature.
 - User-invoked skills (`disable-model-invocation: true`) start when the user asks
   for that phase; explain the next phase rather than silently advancing to it.
 - Implement one ticket at a time. Ralph and parallel ticket implementation are

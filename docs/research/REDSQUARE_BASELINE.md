@@ -15,8 +15,10 @@ No runtime state, wallet material or live interactions were inspected.
   broadcasts a signed retweet (`:657`). Receivers archive RedSquareRetweet and
   update original statistics (`redsquare.js:1455` and `:1708`). An embedded-post
   renderer exists (`lib/tweet.js:206`), but a complete normal-feed quote-post path
-  was not established. Do not equate an optional-commentary UI with proven
-  X-style quote-post interoperability.
+  was not established in this initial deployed inventory. The
+  [completed quote-post trace](REDSQUARE_QUOTES.md) confirms published upstream
+  support and identifies differences in the deployed redesign. Quote posts are
+  included in the release scope; the initial incomplete trace is not an exclusion.
 - Author-only editing/deletion actions exist (`lib/ui/overlays/tweet-menu.js:78`).
   Text edits are signed (`compose.js:688`) and author-checked before archival
   metadata is updated (`redsquare.js:1871`). Signed deletion removes the archived

@@ -16,6 +16,9 @@ before asking the next question. This overrides upstream batched questions.
 
 Preserve the decisions already recorded in PROJECT_CONTEXT.md. Resolve the
 remaining product decisions with me and research technical facts yourself.
+Preserve existing Red Square capabilities within the agreed app scope.
+Verify source behavior and interoperability yourself; incomplete research is
+not a reason to ask me to defer a feature.
 Keep implementation for the subsequent spec and ticket phases. If planning
 needs several sessions, explain whether Wayfinder would help before starting it.
 ```
@@ -33,6 +36,9 @@ Ask one question at a time, give your recommendation, and wait for my answer
 before asking the next question. This overrides upstream batched questions.
 We implement sequentially and do not use Ralph. Stay in the grilling phase
 until I request to-spec. Explain material conflicts with existing decisions.
+Preserve existing Red Square capabilities within the agreed app scope.
+Verify source behavior and interoperability yourself; incomplete research is
+not a reason to ask me to defer a feature.
 
 Feature to grill: [describe the feature here].
 ```

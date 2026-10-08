@@ -15,10 +15,26 @@ defined in the specification so these targets can be tested consistently.
 
 ## Decisions already made
 
+- The app's display name is Red Square. Its application ID and store publisher
+  configuration still need to be settled before distribution.
 - First-release baseline: the core social experience, including feed, threads,
   posting/replies, likes/reposts, profiles, following, in-app notifications and
   wallet creation/import/export. Additional features are decided individually;
   selecting this baseline does not automatically exclude them.
+- Preserve existing Red Square capabilities within the agreed app scope.
+  Research and compatibility verification are the agent's responsibility.
+  Incomplete research alone must not be used to propose feature deferral.
+- Include ordinary reposts and quote posts with commentary/images in the first
+  release. Published Saito Red Square source supports both. Match its transaction
+  and display semantics while accounting for the deployed redesign's different
+  handling; verify native/web interoperability during implementation. Quote-post
+  deferral was rejected by the owner. See
+  [the complete quote-post trace](research/REDSQUARE_QUOTES.md).
+- Include a Following feed showing only accounts the user follows, alongside
+  the selected backend's general feed. Both views use that backend's available
+  history and respect applicable personal controls and backend moderation.
+  Native following behavior must be verified rather than inferred from web UI
+  placeholders. See [the inspected baseline](research/REDSQUARE_BASELINE.md).
 - Users can edit the text of their own posts and delete their own posts in the
   first release, using compatible signed Red Square actions. Deletion removes
   the post from normal application views; explain that historical or independent
@@ -54,6 +70,9 @@ defined in the specification so these targets can be tested consistently.
   from an unreachable selected backend so the banner describes the actual
   condition. Report recovery only when that condition has cleared.
 - Product text must not use em dashes. Use plain punctuation throughout the app.
+- The first-release interface is English, structured to add translations later.
+  User posts and messages can use any language and punctuation; the app's copy
+  conventions must not rewrite user content.
 - Optional Android push notifications for replies and mentions are included in
   the first release, including delivery while the app is closed. The delivery
   infrastructure and initial notification defaults remain open.
@@ -113,6 +132,8 @@ defined in the specification so these targets can be tested consistently.
   are deferred. Cache retention and identity isolation need specification.
 - Native Android in Kotlin. The UI framework and supporting libraries remain
   open; Kotlin does not itself settle those choices.
+- Support Android 10 and newer in the first release. Verify the minimum version
+  alongside the owner's Pixel 7 running Android 17 during the initial milestone.
 - Support light and dark themes, following Android's system setting by default.
   Users can override the theme inside the app.
 - Design the app to add further Saito modules, such as Saito Stack, without
@@ -142,8 +163,10 @@ defined in the specification so these targets can be tested consistently.
 - The first-release wallet also displays balances and supports sending and
   receiving SAITO. Sending SAITO and exporting the wallet require system device
   authentication using supported biometrics or the phone's PIN. Transfer
-  confirmation, unavailable-authentication handling and error behavior remain
-  to be defined.
+  sending requires a live connection and a final confirmation showing the
+  recipient, amount and fee before device authentication. SAITO transfers do
+  not use the offline post/Chat queue. Unavailable-authentication handling,
+  transfer status and error behavior still need specification.
 - A fresh installation opens directly into the feed, creates a local wallet
   automatically, and offers a clearly visible import-existing-wallet option.
   Reading does not require completing a setup wizard.
@@ -172,8 +195,8 @@ defined in the specification so these targets can be tested consistently.
 
 ## Review and distribution goals
 
-The owner's primary physical review device is a Google Pixel 7. Its installed
-Android version has not been recorded. Plan for a stable review link with
+The owner's primary physical review device is a Google Pixel 7 running
+Android 17, as reported by the owner. Plan for a stable review link with
 build notes and an installable update; screenshots or video can assist review.
 Updates should install over the same application and preserve its wallet.
 Signing identity, application ID, versioning, backup behavior and device checks
@@ -212,8 +235,8 @@ or authorization to bypass the subsequent specification and ticket phases.
 - Wallet storage, recovery, import/export format and replacement behavior.
 - Native Saito integration approach and any required backend adapter.
 - Remaining backend switching behavior and selector placement.
-- Android version support, UI toolkit, architecture and remaining performance targets.
-- App name, application ID, release signing and review delivery implementation.
+- UI toolkit, architecture and remaining performance targets.
+- Application ID, release signing and review delivery implementation.
 
 ## Specification authority
 
