@@ -24,9 +24,9 @@ jobs:
         run: |
           test -c /dev/kvm
           sudo chmod a+rw /dev/kvm
-          sdkmanager 'platforms;android-36' 'build-tools;35.0.0'
+          sdkmanager 'platforms;android-36' 'build-tools;35.0.0' 'emulator'
           java -version
-          emulator -version
+          "$ANDROID_HOME/emulator/emulator" -version
       - name: Build and verify native sources
         run: ./gradlew --no-daemon --console=plain :core:test :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease :app:lintDebug
       - name: Verify Android 10 runtime
