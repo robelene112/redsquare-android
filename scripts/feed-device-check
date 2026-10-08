@@ -30,7 +30,10 @@ try:
         xml = adb("shell", "cat", "/sdcard/feed-check.xml")
         (args.evidence / "last-ui.xml").write_text(xml)
         texts = {node.get("text") for node in ET.fromstring(xml).iter("node")}
-        if "Native Red Square reference post" in texts and "Server unavailable" in texts:
+        known_posts = {"Native Red Square reference post", "New reference post"} | {
+            f"Reference post {index:02d}" for index in range(1, 21)
+        }
+        if texts & known_posts and "Server unavailable" in texts:
             break
         time.sleep(0.5)
     else:

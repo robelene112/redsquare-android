@@ -15,9 +15,21 @@ class AndroidInternetStatus(context: Context) : Closeable {
     private val observed = MutableStateFlow(snapshot())
     val state = observed.asStateFlow()
     private val callback = object : ConnectivityManager.NetworkCallback() {
-        override fun onAvailable(network: Network) { observed.value = snapshot() }
-        override fun onLost(network: Network) { observed.value = snapshot() }
-        override fun onCapabilitiesChanged(network: Network, capabilities: NetworkCapabilities) { observed.value = snapshot() }
+        private var current: Network? = null
+        override fun onAvailable(network: Network) { current = network }
+        override fun onLost(network: Network) {
+            if (current == network) {
+                current = null
+                observed.value = InternetStatus(false, false, 0)
+            }
+        }
+        override fun onCapabilitiesChanged(network: Network, capabilities: NetworkCapabilities) {
+            if (current == network) observed.value = InternetStatus(
+                capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET),
+                capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED),
+                network.networkHandle,
+            )
+        }
     }
 
     init { manager.registerDefaultNetworkCallback(callback) }

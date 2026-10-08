@@ -2,6 +2,8 @@ package nl.davidengelen.redsquare.feed
 
 import android.content.Context
 import android.util.AtomicFile
+import android.system.Os
+import android.system.OsConstants
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonArray
 import com.google.gson.Strictness
@@ -68,6 +70,19 @@ class AndroidFeedCache(context: Context) {
         } catch (failure: Exception) {
             file.failWrite(output)
             throw failure
+        }
+        val directory = Os.open(file.baseFile.parentFile!!.path, OsConstants.O_RDONLY, 0)
+        try { Os.fsync(directory) } finally { Os.close(directory) }
+        // AtomicFile logs some commit failures instead of throwing. Check the actual file.
+        file.openRead().buffered().use { input ->
+            if (input.read() != '['.code) throw IOException("Post cache commit failed")
+            encoded.forEachIndexed { index, bytes ->
+                if (index > 0 && input.read() != ','.code) throw IOException("Post cache commit failed")
+                for (byte in bytes) {
+                    if (input.read() != (byte.toInt() and 255)) throw IOException("Post cache commit failed")
+                }
+            }
+            if (input.read() != ']'.code || input.read() != -1) throw IOException("Post cache commit failed")
         }
     }
 

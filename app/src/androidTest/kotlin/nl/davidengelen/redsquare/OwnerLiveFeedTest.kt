@@ -1,7 +1,6 @@
 package nl.davidengelen.redsquare
 
 import android.content.Intent
-import android.graphics.Bitmap
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.SemanticsMatcher
@@ -30,10 +29,7 @@ class OwnerLiveFeedTest {
                 val visible = ui.onAllNodes(visibleAuthor).fetchSemanticsNodes().size
                 File(directory, "result.txt").writeText("PASS: $visible visible author identities on the owner's fresh native feed.\nPublic read only; signature verification does not prove chain inclusion.\n")
             } finally {
-                instrumentation.uiAutomation.takeScreenshot()?.let { bitmap ->
-                    File(directory, "screen.png").outputStream().use { bitmap.compress(Bitmap.CompressFormat.PNG, 100, it) }
-                    bitmap.recycle()
-                }
+                captureFeedEvidence("live-feed-evidence/screen.png")
             }
         }
     }
