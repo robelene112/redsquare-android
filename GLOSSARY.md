@@ -16,3 +16,8 @@ Android app can support through a compatible native feature.
 **Saito username**:
 A registered name associated with a Saito wallet's public identity, displayed
 in place of its anonymous name. It is distinct from the profile bio or banner.
+
+**Available chat history**:
+Messages retained on the current device or recoverable from the selected
+backend or compatible peers, which the user's identity can read. Availability
+does not imply permanent storage or complete recovery on another device.

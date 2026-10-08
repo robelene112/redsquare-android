@@ -57,3 +57,42 @@ Diffie-Hellman secrets are additional keychain state (`keychain.ts:673`, saved
 in options at `:464`). LocalForage history does not travel with wallet keys.
 Complete history recovery requires separately defined and verified backup or
 sync behavior. These findings do not establish native cryptographic correctness.
+
+## Blockchain submission does not guarantee complete history recovery
+
+Follow-up static-source verification on 2026-10-08:
+
+- Successfully constructed ordinary private, group and community Chat messages
+  are submitted through `propagateTransaction` and also sent through Relay
+  (`mods/chat/chat.js:1540` to `:1545`). They are not merely local or relay-only
+  messages. Submission alone does not prove block inclusion.
+- Relay receipt can display a message separately from chain confirmation
+  (`chat.js:911` and `:963` to `:965`). Included messages are also handled by
+  `onConfirmation` (`:786` to `:814`).
+- Archive's blockchain indexing is conditional (`mods/archive/archive.js:313`
+  to `:347`), and deletion queries remove unpreserved transactions (`:1349` and
+  `:1359`). Actual availability depends on the archive retaining a message;
+  no live configuration or retention setting was inspected.
+- The pinned Rust core deletes older genesis blocks and transactions
+  (`rust/saito-core/src/core/consensus/blockchain.rs:2323` to `:2334` and
+  `:2416` to `:2419`). Chain synchronization is not a permanent-history promise.
+- A full JSON wallet export copies options excluding games
+  (`lib/saito/wallet.ts:1244` to `:1251`), retaining saved keychain and Chat group
+  IDs. Full import loads that object (`:1392` to `:1404`). This is broader than
+  importing a private key alone (`:1417`).
+- Chat's local group objects and recent messages are in separate LocalForage
+  storage (`mods/chat/chat.js:2402` and `:2453`), not the wallet options export.
+
+Consequently, full wallet backup import can aid conversation discovery and
+decryption, but cannot guarantee every old message will return. Recovering
+available network history and migrating a complete local history are distinct
+product requirements. The user accepted available network history plus local
+cache as the first-release scope, with no expectation of permanent availability.
+See PROJECT_CONTEXT.md for the resulting recovery and migration boundaries.
+
+Official background sources explain Saito's
+[on-chain and off-chain messaging](https://archive.saito.io/org.saito.tech/tutorial-2-chat-notification-application/)
+and [chain pruning design](https://archive.saito.io/saito.tech/index.html%3Fp%3D700.html).
+These are historical explanations; the observations above come from inspected
+source rather than an assumption that the historical tutorials match all current
+runtime behavior.

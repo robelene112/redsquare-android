@@ -9,7 +9,9 @@ polish into measurable acceptance criteria during the scope grill.
 Performance target: on the owner's Google Pixel 7, a cold launch with cached
 posts available reaches an interactive feed within two seconds. Show cached
 content first and refresh in the background. Measure first-ever launch
-separately; its target and network test conditions remain to be defined.
+separately: target an interactive feed within five seconds on the same Pixel 7
+over stable Wi-Fi. Detailed network conditions and timing boundaries must be
+defined in the specification so these targets can be tested consistently.
 
 ## Decisions already made
 
@@ -17,6 +19,11 @@ separately; its target and network test conditions remain to be defined.
   posting/replies, likes/reposts, profiles, following, in-app notifications and
   wallet creation/import/export. Additional features are decided individually;
   selecting this baseline does not automatically exclude them.
+- Users can edit the text of their own posts and delete their own posts in the
+  first release, using compatible signed Red Square actions. Deletion removes
+  the post from normal application views; explain that historical or independent
+  copies may remain. Edit timing, conflict handling and deletion cache behavior
+  need specification. See [the inspected baseline](research/REDSQUARE_BASELINE.md).
 - Users can edit their profile banner, bio and custom profile picture inside
   the app in the first release. Keep the generated Saito avatar as the default.
   Preserve compatibility with Saito Profile updates. See
@@ -49,26 +56,65 @@ separately; its target and network test conditions remain to be defined.
 - Product text must not use em dashes. Use plain punctuation throughout the app.
 - Optional Android push notifications for replies and mentions are included in
   the first release, including delivery while the app is closed. The delivery
-  infrastructure, permission flow and initial notification defaults remain open.
+  infrastructure and initial notification defaults remain open.
+- Ask for notification permission when someone first opens Chat or Notifications,
+  with an option to skip. First launch must still open directly into the feed.
 - New Chat messages also support push notifications, with controls to mute
   individual conversations inside Chat. Android system settings control the
   notification categories, accessible through a shortcut in the app. Categories
   distinguish replies, mentions, private chats and group chats.
+- Private-chat notifications show "New message" by default. Users can opt in
+  to message previews. Verify notification payloads and rendering preserve this
+  privacy choice, including when the app is closed.
 - Searching for posts and people is included in the first release. Search
   coverage and behavior depend on the selected backend's available data and
   still need to be defined.
 - Personal controls to mute or block accounts are included in the first release,
-  alongside backend moderation. Their exact effects and persistence across
-  backends remain open.
+  alongside backend moderation. The active wallet's personal mute and block
+  choices apply on both supported backends; switching servers must not undo
+  them. Backup/recovery behavior and remaining display details need specification.
+- Account muting hides that account's posts and notifications while keeping
+  Chat messages accessible. Account blocking also hides incoming Chat messages
+  from the account. Explain these effects briefly where users choose the action
+  and where they manage muted/blocked accounts. Distinguish account muting from
+  conversation muting, which silences that conversation's notifications while
+  keeping its messages visible. See
+  [the inspected moderation behavior](research/REDSQUARE_MODERATION.md).
 - Reporting posts for moderation is included in the first release. Report
-  recipients and handling remain open; reporting is not an automatic removal rule.
+  to the currently selected backend's moderators, with the destination clearly
+  shown before submission. Submission acknowledgement and handling still need
+  specification; reporting is not an automatic removal rule.
 - Saito Chat integration is included in the first release, preserving its place
   in the familiar web Red Square experience. It includes private one-to-one
-  conversations and group chats. Remaining chat features, history restoration
-  and interoperability requirements still need to be defined. See
+  conversations and group chats. Remaining Chat behavior and native
+  interoperability requirements still need specification. See
   [the inspected chat integration](research/REDSQUARE_CHAT.md).
+- Users can create named group chats, invite people and manage membership inside
+  the first-release app. Follow Saito Chat's existing permissions: members can
+  view membership and leave; admins can remove members and appoint additional
+  admins. Verify invitation and membership-update interoperability. See
+  [the inspected group capabilities](research/REDSQUARE_BASELINE.md).
+- Match Saito Chat's existing privacy model in the first release: encrypted
+  private one-to-one conversations, with group chats clearly labelled as
+  unencrypted. Preserve protocol compatibility and verify native encryption
+  behavior; this decision does not claim forward secrecy or complete history
+  recovery from wallet import.
+- Chat supports sending and viewing image and GIF messages in the first release,
+  preserving compatibility with existing Saito Chat messages. Arbitrary live
+  file transfer is a separate integration, not included by this media decision.
+- First-release Chat history combines locally cached messages with available
+  history recoverable from the selected backend or compatible peers, using the
+  imported wallet's available conversation information and decryption keys.
+  Archives may retain messages beyond active-chain retention. Preserve cached
+  messages through ordinary updates and outages, including messages the backend
+  no longer serves. Explain missing older history without promising permanent
+  availability or complete recovery after reinstalling or changing phones.
+  Guaranteed complete history migration and a separate complete-history backup
+  are deferred. Cache retention and identity isolation need specification.
 - Native Android in Kotlin. The UI framework and supporting libraries remain
   open; Kotlin does not itself settle those choices.
+- Support light and dark themes, following Android's system setting by default.
+  Users can override the theme inside the app.
 - Design the app to add further Saito modules, such as Saito Stack, without
   rebuilding shared wallet identity and backend connectivity. Red Square and
   Chat should have distinct feature boundaries. Stack is a future extension
@@ -77,6 +123,22 @@ separately; its target and network test conditions remain to be defined.
 - iOS is deferred. A later iOS app would be a separate Swift implementation.
 - User wallet creation, import and export are in scope. Wallet identity and
   local data must survive ordinary in-place app updates.
+- The first release supports one active wallet per installation, shared by
+  Red Square and Chat. Importing a replacement wallet requires a clear,
+  explicit confirmation before replacing the active identity.
+- Use the current Snake app's wallet import safeguards as the baseline:
+  validate the file and key pair before mutation, preview a same-wallet restore
+  versus a different-wallet switch, and require a fresh outgoing-wallet backup
+  before replacement when its balance is positive or unknown. With a verified
+  zero balance, strongly recommend backup but allow skipping it. Bind backup
+  confirmation to the outgoing identity and selected import file. Require
+  acknowledgement when a registered name or pending/unknown work belongs to
+  the outgoing identity. Failed imports must preserve or restore the previous
+  wallet, and success must verify the saved and active identities agree.
+  Apply the already-agreed Android device authentication to wallet exports.
+  Snake-specific receipt checks need corresponding Android/Saito checks rather
+  than introducing Snake game features into this app. See
+  [the inspected Snake safeguards](research/SNAKE_WALLET_SAFEGUARDS.md).
 - The first-release wallet also displays balances and supports sending and
   receiving SAITO. Sending SAITO and exporting the wallet require system device
   authentication using supported biometrics or the phone's PIN. Transfer
@@ -117,9 +179,30 @@ Updates should install over the same application and preserve its wallet.
 Signing identity, application ID, versioning, backup behavior and device checks
 must therefore be settled before delivery automation is claimed complete.
 
+The owner delegated the review channel choice to whichever is easiest to iterate
+on. Start with signed APK review builds at a stable link, with build notes and
+an in-app update notice linking to the latest review build. One-time installation
+permission for the browser/download source and ordinary Android installation
+confirmation are acceptable for development review. Keep package identity,
+signing and versioning consistent and verify wallet/local-data continuity.
+Plan signing compatibility for later Google Play distribution before the first
+review installation. Use Play internal testing when its setup makes it useful;
+it is not a prerequisite for the initial development loop. See
+[the reviewed distribution options](research/PLAY_REVIEW_DISTRIBUTION.md).
+
 Google Play is the intended public distribution channel. APK distribution is
 also an option. Store accounts, eligibility and submission policy must be
 verified against current official sources when release work begins.
+
+## Initial review milestone
+
+The first reviewable build prioritizes local wallet creation/import and a live
+Red Square feed from either supported backend, including backend selection.
+Prove native Saito connectivity and identity compatibility before adding posting,
+Chat and the rest of the accepted release scope. Apply the agreed wallet import
+safeguards and use this build to start physical-device performance verification.
+This is a delivery priority, not a reduction of the first-release feature scope
+or authorization to bypass the subsequent specification and ticket phases.
 
 ## Decisions still open
 
@@ -130,7 +213,7 @@ verified against current official sources when release work begins.
 - Native Saito integration approach and any required backend adapter.
 - Remaining backend switching behavior and selector placement.
 - Android version support, UI toolkit, architecture and remaining performance targets.
-- App name, application ID, release signing and review distribution mechanism.
+- App name, application ID, release signing and review delivery implementation.
 
 ## Specification authority
 
