@@ -16,7 +16,7 @@ mkdir -p "$device_home/.android"
 chmod 700 "$device_home"
 devices=()
 if [[ -r /dev/kvm ]]; then devices=(--device /dev/kvm --group-add "$(stat -c %g /dev/kvm)"); fi
-docker run --rm --cpus=2 --memory=2500m --network none \
+docker run --rm --cpus=2 --memory=3g --network none \
     "${devices[@]}" \
     --user "$(id -u):$(id -g)" \
     -e HOME=/device-home -e ANDROID_USER_HOME=/device-home/.android \

@@ -1,0 +1,33 @@
+name: Android native compatibility
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: android-proof-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  native-proof:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Build and verify native sources
+        run: scripts/android-build :core:test :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease :app:lintDebug
+      - name: Verify Android 10 runtime
+        run: scripts/android-emulator 29
+      - name: Verify Android 17 runtime
+        run: scripts/android-emulator 37.0
+      - name: Retain verification evidence
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: android-native-proof
+          path: |
+            .scratch/device-evidence/
+            core/build/reports/tests/
+            app/build/reports/lint-results-debug.html
+          include-hidden-files: true
+          retention-days: 14

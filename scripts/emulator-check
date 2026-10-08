@@ -10,7 +10,7 @@ fi
 acceleration=off
 [[ ! -r /dev/kvm ]] || acceleration=on
 emulator -avd redsquare-proof -accel "$acceleration" -no-window -no-audio -no-snapshot \
-    -no-boot-anim -gpu swiftshader_indirect -feature -Vulkan -cores 1 -memory 1024 \
+    -no-boot-anim -gpu swiftshader_indirect -feature -Vulkan -cores 1 -memory 1536 \
     > "$evidence/emulator.log" 2>&1 &
 emulator_pid=$!
 trap 'kill "$emulator_pid" 2>/dev/null || true' EXIT
