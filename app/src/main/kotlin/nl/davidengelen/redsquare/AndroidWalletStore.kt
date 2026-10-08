@@ -54,7 +54,7 @@ class AndroidWalletStore(context: Context) {
                 throw failure
             }
             val directory = Os.open(file.baseFile.parentFile!!.path,
-                OsConstants.O_RDONLY or OsConstants.O_DIRECTORY, 0)
+                OsConstants.O_RDONLY, 0)
             try { Os.fsync(directory) } finally { Os.close(directory) }
             val saved = readSavedWallet(key)
             check(saved.publicKey == wallet.publicKey) { "Wallet persistence verification failed" }

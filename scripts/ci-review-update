@@ -1,0 +1,48 @@
+#!/usr/bin/env python3
+"""Download two immutable public previews and verify Android update continuity."""
+import argparse
+import hashlib
+import json
+import os
+from pathlib import Path
+import subprocess
+import urllib.request
+
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("older", type=int)
+parser.add_argument("newer", type=int)
+parser.add_argument("--evidence", type=Path, required=True)
+args = parser.parse_args()
+if args.older >= args.newer:
+    parser.error("The second version must be newer")
+repo = Path(__file__).resolve().parent.parent
+downloads = repo / ".scratch/update-artifacts"
+downloads.mkdir(parents=True, exist_ok=True)
+certificate = "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2"
+apks = []
+for version in [args.older, args.newer]:
+    root = f"https://davidengelen.nl/redsquare/releases/{version}/"
+    with urllib.request.urlopen(root + "manifest.json", timeout=30) as response:
+        manifest = json.loads(response.read(65537))
+    if (manifest["applicationId"] != "nl.davidengelen.redsquare"
+            or manifest["versionCode"] != version or manifest["certificateSha256"] != certificate):
+        raise SystemExit("Preview manifest identity does not match the established application")
+    path = downloads / f"{version}.apk"
+    with urllib.request.urlopen(root + "redsquare.apk", timeout=60) as response, path.open("wb") as output:
+        while chunk := response.read(1024 * 1024):
+            output.write(chunk)
+            if output.tell() > 100 * 1024 * 1024:
+                raise SystemExit("Preview APK exceeded the download limit")
+    if hashlib.sha256(path.read_bytes()).hexdigest() != manifest["sha256"]:
+        raise SystemExit("Downloaded APK checksum is invalid")
+    tools = Path(os.environ["ANDROID_HOME"]) / "build-tools/35.0.0"
+    verified = subprocess.check_output([str(tools / "apksigner"), "verify", "--print-certs", str(path)], text=True)
+    if f"certificate SHA-256 digest: {certificate}" not in verified:
+        raise SystemExit("Downloaded APK uses another signing identity")
+    package = subprocess.check_output([str(tools / "aapt"), "dump", "badging", str(path)], text=True)
+    if f"package: name='nl.davidengelen.redsquare' versionCode='{version}'" not in package:
+        raise SystemExit("Downloaded APK package/version is invalid")
+    apks.append(path)
+subprocess.run(["python3", str(repo / "scripts/wallet-device-check"), "--before", str(apks[0]),
+    "--after", str(apks[1]), "--evidence", str(args.evidence)], check=True)
+args.evidence.joinpath("versions.txt").write_text(f"{args.older} -> {args.newer}\nCertificate SHA-256: {certificate}\n")
