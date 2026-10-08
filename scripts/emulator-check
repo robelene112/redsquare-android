@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+set -euo pipefail
+artifact=/workspace/app/build/outputs/apk/debug/app-debug.apk
+if [[ ! -f "$artifact" ]]; then echo 'Build the diagnostic APK first' >&2; exit 2; fi
+evidence="/workspace/.scratch/device-evidence/api-$TEST_DEVICE_API"
+mkdir -p "$evidence"
+printf 'no\n' | avdmanager create avd --force --name redsquare-proof --package "$TEST_SYSTEM_IMAGE"
+emulator -avd redsquare-proof -accel off -no-window -no-audio -no-snapshot \
+    -no-boot-anim -gpu swiftshader_indirect -feature -Vulkan -cores 1 -memory 1024 \
+    > "$evidence/emulator.log" 2>&1 &
+emulator_pid=$!
+trap 'kill "$emulator_pid" 2>/dev/null || true' EXIT
+adb start-server
+for ((attempt=0; attempt<120; attempt++)); do
+    if [[ "$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')" == 1 ]]; then break; fi
+    if ! kill -0 "$emulator_pid" 2>/dev/null; then echo 'Emulator exited before boot' >&2; tail -30 "$evidence/emulator.log"; exit 1; fi
+    sleep 5
+done
+[[ "$(adb shell getprop sys.boot_completed | tr -d '\r')" == 1 ]] || { echo 'Emulator boot timed out' >&2; exit 1; }
+adb shell input keyevent 82
+adb install -r "$artifact"
+adb shell am start -n nl.davidengelen.redsquare/.CompatibilityActivity
+sleep 3
+adb shell uiautomator dump /sdcard/redsquare-ui.xml >/dev/null
+adb pull /sdcard/redsquare-ui.xml "$evidence/before.xml" >/dev/null
+# The host extracts the accessibility bounds to avoid display-dependent tap positions.
+bounds=$(sed -n 's/.*text="Run check"[^>]*bounds="\[\([0-9]*\),\([0-9]*\)\]\[\([0-9]*\),\([0-9]*\)\]".*/\1 \2 \3 \4/p' "$evidence/before.xml")
+read -r left top right bottom <<< "$bounds"
+[[ -n "${bottom:-}" ]] || { echo 'Diagnostic action is missing' >&2; exit 1; }
+adb shell input tap "$(( (left+right)/2 ))" "$(( (top+bottom)/2 ))"
+for ((attempt=0; attempt<30; attempt++)); do
+    adb shell uiautomator dump /sdcard/redsquare-ui.xml >/dev/null
+    adb pull /sdcard/redsquare-ui.xml "$evidence/after.xml" >/dev/null
+    if grep -q 'Identity created and signature verified' "$evidence/after.xml"; then break; fi
+    sleep 1
+done
+grep -q 'Identity created and signature verified' "$evidence/after.xml"
+adb exec-out screencap -p > "$evidence/diagnostic.png"
+adb shell getprop ro.build.version.sdk > "$evidence/sdk.txt"
+echo "PASS: native diagnostic on Android SDK $(tr -d '\r\n' < "$evidence/sdk.txt")"

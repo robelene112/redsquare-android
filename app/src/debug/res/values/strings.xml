@@ -1,0 +1,9 @@
+<resources>
+    <string name="compatibility_title">Saito compatibility check</string>
+    <string name="compatibility_description">Create a temporary local identity and verify a signed message. This screen sends nothing to a server.</string>
+    <string name="compatibility_action">Run check</string>
+    <string name="compatibility_running">Checking</string>
+    <string name="compatibility_pass">Identity created and signature verified</string>
+    <string name="compatibility_fail">The compatibility check failed</string>
+    <string name="compatibility_address">Public address: %1$s</string>
+</resources>
