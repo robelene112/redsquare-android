@@ -1,6 +1,6 @@
 # Sequential implementation handoff
 
-Updated 2026-10-08, 23:48 UTC. The owner authorized implementing all 35 proposed
+Updated 2026-10-08, 23:54 UTC. The owner authorized implementing all 35 proposed
 tickets sequentially, committing after each, and reviewing the app at the end.
 Continue without routine permission requests or a grill per ticket. Ask only
 one question at a time when a material choice really needs the owner.
@@ -21,13 +21,15 @@ one question at a time when a material choice really needs the owner.
   Android 10 runtime and all four controlled Android 17 feed cases. The later
   Android 17 fresh live test crashed during Compose layout; the full candidate
   did not pass. Retained failure evidence is under docs/evidence/ticket03/failed-final.
-  Compose BOM 2026.06.01 (UI 1.11.4) is being checked in focused Android 17/public
-  read run 37861050271 at 1374b1c, without changing its legacy test scheduler.
-  The next candidate aligns Lifecycle to the actual resolved 2.9.4 and migrates
-  test factories to the supported queued v2 scheduler. These are compatibility
-  changes, not an established explanation or fix for the recorded crash.
-  Final full verification remains required. Do not close #4 or publish build9
-  on partial evidence.
+  Focused Android 17/public read run 37861050271 passed at 1374b1c with Compose
+  BOM 2026.06.01 (UI 1.11.4) and the legacy test scheduler; results and public
+  screenshots were inspected and retained in docs/evidence/ticket03/compose-focused-17.
+  Reviewed candidate 8060ed2 aligns Lifecycle with resolved 2.9.4 and migrates
+  test factories to the supported queued v2 scheduler. Both reviews found no
+  new issues. These are compatibility changes, not an established explanation
+  for the crash. Final full run 37861712249 at dec035d is pending on both SDKs,
+  including explicit fresh owner reads. Do not close #4 or publish build9 on
+  partial evidence.
 - Signed feed build 9 (f71c506) is prepared and signature/package verified,
   but remains unpublished. Stable preview is version 8, wallet foundation.
   Publish the first complete milestone after #7 includes server selection and

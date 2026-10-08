@@ -182,3 +182,14 @@ empty rule, retaining their assertions and bounded waits. Local
 with these changes. This proves compilation, not device runtime acceptance.
 Focused BOM-only run 37861050271 still uses the legacy scheduler, allowing
 its result to be distinguished from the later v2 candidate.
+
+Run **37861050271** at **1374b1c** passed the focused Android 17 check with
+Compose 1.11.4 and the legacy test scheduler: all four controlled UI cases
+(52.17 seconds total), unavailable-peer cached cold launch and separate fresh
+owner read (three visible author identities, 30.825 seconds test duration).
+Downloaded results and both screenshots were inspected; durable evidence is
+under `docs/evidence/ticket03/compose-focused-17`. Test duration is not first
+interactive-feed timing. This passing experiment does not establish the prior
+crash cause or final wallet/update acceptance. Full run **37861712249** at
+**dec035d** checks the reviewed v2 scheduler candidate on both SDKs and remains
+pending. No physical timing is claimed.
