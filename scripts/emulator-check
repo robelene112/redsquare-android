@@ -9,6 +9,10 @@ avd_home="${ANDROID_AVD_HOME:-$HOME/.android/avd}"
 if [[ ! -f "$avd_home/redsquare-proof.ini" ]]; then
     printf 'no\n' | avdmanager create avd --name redsquare-proof --package "$TEST_SYSTEM_IMAGE"
 fi
+# The emulator's default 10 GiB data partition is unnecessary for this proof.
+# Bound storage as well as RAM so a hosted runner can fit both system images.
+sed -i '/^disk.dataPartition.size=/d' "$avd_home/redsquare-proof.avd/config.ini"
+printf '%s\n' 'disk.dataPartition.size=2G' >> "$avd_home/redsquare-proof.avd/config.ini"
 acceleration=off
 [[ ! -r /dev/kvm ]] || acceleration=on
 emulator -avd redsquare-proof -accel "$acceleration" -no-window -no-audio -no-snapshot \
