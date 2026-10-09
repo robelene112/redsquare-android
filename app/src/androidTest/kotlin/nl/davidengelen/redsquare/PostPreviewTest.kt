@@ -23,9 +23,9 @@ class PostPreviewTest {
         val root = instrumentation.context.assets.open("native-following-reference.json").bufferedReader().use {
             JsonParser.parseReader(it).asJsonObject.getAsJsonObject("root")
         }
-        var indexed: com.google.gson.JsonObject? = null
+        val indexed = java.util.concurrent.atomic.AtomicReference<com.google.gson.JsonObject?>()
         val peer = ControlledFeedPeer("[$root]", archiveResponse = { criteria ->
-            val current = indexed
+            val current = indexed.get()
             if (criteria.has("sig")) {
                 if (current?.get("sig")?.asString == criteria.get("sig").asString) "[$current]" else "[]"
             } else if (current != null) "[$current,$root]" else "[$root]"
@@ -35,12 +35,12 @@ class PostPreviewTest {
             val transaction = nl.davidengelen.redsquare.saito.SaitoTransaction.restore(java.util.Base64.getEncoder().encodeToString(bytes))
             val envelope = transaction.envelope()
             val post = nl.davidengelen.redsquare.saito.RedSquareFeed.decode(envelope)
-            indexed = com.google.gson.JsonObject().apply {
+            indexed.set(com.google.gson.JsonObject().apply {
                 addProperty("sig", post.id); addProperty("created_at", post.createdAt)
                 addProperty("field1", "RedSquare"); addProperty("field2", post.author)
                 addProperty("field4", ""); addProperty("field5", post.threadId)
                 addProperty("tx", envelope)
-            }
+            })
         })
         peer.start().use { server ->
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
