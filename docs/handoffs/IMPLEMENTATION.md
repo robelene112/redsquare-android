@@ -51,7 +51,18 @@ one question at a time when a material choice really needs the owner.
   signed zero-payment type4 with one hop and report pending server availability,
   not an invented ack. Peer returns empty exact-signature archive results.
   Earlier37965626375 was superseded during setup, not functional proof.
-  No Send implementation yet. Researchf31ed06 records exact reply
+  Corrected actualred37966333736 ate1f628a passes draft case and fails
+  at missing Send (line82),7.388s; inspected public log/composer image retained
+  ticket09/send-red. Minimal41113e1 creates/signs zero-payment Normal bytes,
+  signs routing hop to authenticated peer, submits type4 and reports waiting;
+  encrypted version2 draft record preserves exact pending candidate before
+  submission (v1 text migration retained). Local core/debug/test assembly
+  passes1m47s; no local build active. Two-case green37967156376 is running.
+  Immediate post-submit peer.use/close cancels socket: inspect actual packet
+  result and keep a proper active session before claiming delivery. No archive
+  observation/polling, replies, longer-funded text policy, independent new
+  constructor/hop vectors or final reviews/full proof yet.
+  Researchf31ed06 records exact reply
   recipients, zero-amount construction, hop signing, type4 broadcast without
   RPC ack and web unfunded500 UTF16 threshold (not universalprotocolcap).
   See NATIVE_POSTING_VERIFICATION.md. Continue all35 sequentially.

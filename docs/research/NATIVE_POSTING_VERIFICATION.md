@@ -41,3 +41,21 @@ send-editor-race. Correctede1f628a waits for an enabled editor via visible
 semantics; actual two-case run37966333736 is running.37965626375 superseded during
 setup after completing the controlled peer's pending archive response. No Send
 production implementation yet. This ticket is not complete.
+
+
+Corrected actual red37966333736 ate1f628a passes draft recovery and fails at
+missing Send (line82),7.388seconds. Public log/composer image retained send-red.
+Minimal41113e1 adds immutable zero-payment Normal creation, detached envelope,
+validated restore and peer routing signature; selected authenticated session
+submits type4 with no fabricated RPC acknowledgement. AES encrypted v2 draft
+record contains text and exact original signed candidate before any transmission;
+v1 text-only draft records remain readable. 1MiB text safety limit,5MiB encoded
+record bound. Restoring candidate validates signature, author and text. Local
+core/debug/test assembly passes1m47s. Two-case green37967156376 is running.
+
+Source caveat to resolve before acceptance: current immediate peer.use close
+cancels the socket after enqueue and can race actual outbound delivery. Inspect
+the external packet test and keep a proper session lifetime. Archive observation,
+replies, pending recovery/retry behavior, funded text handling, independent new
+constructor/hop proof and final review/full checks still require work. No ticket
+completion or live publication is claimed.
