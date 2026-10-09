@@ -4,12 +4,14 @@ Ticket #4 is in progress. Review base: a1973c2. This file distinguishes
 independent protocol evidence, controlled Android flows, live read checks and
 physical-device acceptance.
 
-Current candidate: 1bcd832. Fourteen core tests, debug/test/release assembly
-and lint pass locally. Earlier full 4fd87bd evidence passes both SDKs, including
-fresh live-owner reads. Run 37859209011 verified Android 10 and all four Android 17 controlled feed
-cases, but its later Android 17 live test crashed during Compose layout. The
-complete final verification did not pass; dependency investigation is active. No feed APK is published and no Pixel timing
-is claimed. The chronological records below describe their own checkpoints.
+Accepted runtime candidate: **c5953de**. Full run **37863843807** passed on
+2026-10-09: fourteen core tests, debug/test/release assembly and lint, the
+complete Android 10/17 runtime suite, separate fresh owner reads, cached cold
+launches and actual signed 5-to-8 updates. Selected public logs and screenshots
+were downloaded, inspected and retained under `docs/evidence/ticket03/final-full`.
+Both review axes' final code findings are resolved. No feed APK is published;
+Pixel acceptance remains required and unverified in #35. Earlier failed runs
+below are historical checkpoints, not the current acceptance status.
 
 The initial protocol decoder test failed before implementation
 (`.scratch/feed-decoder-red.txt`) and passed with the independently signed
