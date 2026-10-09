@@ -1,0 +1,166 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PostPreviewTest:
+INSTRUMENTATION_STATUS: test=matchingSignedArchiveObservationMakesThePublishedPostAvailableInTheFeed
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=matchingSignedArchiveObservationMakesThePublishedPostAvailableInTheFeed
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=savedDraftSurvivesReopeningAndRemainsUnsent
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=savedDraftSurvivesReopeningAndRemainsUnsent
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=replyingToAnExistingReplyKeepsTheOriginalThreadAndInheritedRecipientOrder
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=replyingToAnExistingReplyKeepsTheOriginalThreadAndInheritedRecipientOrder
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=recoveredPendingPostRetriesItsOriginalSignatureAndClearsOnlyAfterVerifiedAvailability
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=recoveredPendingPostRetriesItsOriginalSignatureAndClearsOnlyAfterVerifiedAvailability
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=replyUsesTheSelectedParentThreadAndIncludesTheParentAuthor
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PostPreviewTest.waitFor(PostPreviewTest.kt:363)
+	at nl.davidengelen.redsquare.PostPreviewTest.replyUsesTheSelectedParentThreadAndIncludesTheParentAuthor(PostPreviewTest.kt:245)
+
+INSTRUMENTATION_STATUS: stream=
+Error in replyUsesTheSelectedParentThreadAndIncludesTheParentAuthor(nl.davidengelen.redsquare.PostPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PostPreviewTest.waitFor(PostPreviewTest.kt:363)
+	at nl.davidengelen.redsquare.PostPreviewTest.replyUsesTheSelectedParentThreadAndIncludesTheParentAuthor(PostPreviewTest.kt:245)
+
+INSTRUMENTATION_STATUS: test=replyUsesTheSelectedParentThreadAndIncludesTheParentAuthor
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=unfinishedCompositionSurvivesBackendNavigationAndActivityRecreationWithoutPublishing
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PostPreviewTest.waitFor(PostPreviewTest.kt:363)
+	at nl.davidengelen.redsquare.PostPreviewTest.unfinishedCompositionSurvivesBackendNavigationAndActivityRecreationWithoutPublishing(PostPreviewTest.kt:107)
+
+INSTRUMENTATION_STATUS: stream=
+Error in unfinishedCompositionSurvivesBackendNavigationAndActivityRecreationWithoutPublishing(nl.davidengelen.redsquare.PostPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PostPreviewTest.waitFor(PostPreviewTest.kt:363)
+	at nl.davidengelen.redsquare.PostPreviewTest.unfinishedCompositionSurvivesBackendNavigationAndActivityRecreationWithoutPublishing(PostPreviewTest.kt:107)
+
+INSTRUMENTATION_STATUS: test=unfinishedCompositionSurvivesBackendNavigationAndActivityRecreationWithoutPublishing
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=explicitSendBroadcastsAZeroPaymentPostWithoutInventingAcknowledgement
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PostPreviewTest.waitFor(PostPreviewTest.kt:363)
+	at nl.davidengelen.redsquare.PostPreviewTest.explicitSendBroadcastsAZeroPaymentPostWithoutInventingAcknowledgement(PostPreviewTest.kt:382)
+
+INSTRUMENTATION_STATUS: stream=
+Error in explicitSendBroadcastsAZeroPaymentPostWithoutInventingAcknowledgement(nl.davidengelen.redsquare.PostPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PostPreviewTest.waitFor(PostPreviewTest.kt:363)
+	at nl.davidengelen.redsquare.PostPreviewTest.explicitSendBroadcastsAZeroPaymentPostWithoutInventingAcknowledgement(PostPreviewTest.kt:382)
+
+INSTRUMENTATION_STATUS: test=explicitSendBroadcastsAZeroPaymentPostWithoutInventingAcknowledgement
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 73.307
+There were 3 failures:
+1) replyUsesTheSelectedParentThreadAndIncludesTheParentAuthor(nl.davidengelen.redsquare.PostPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PostPreviewTest.waitFor(PostPreviewTest.kt:363)
+	at nl.davidengelen.redsquare.PostPreviewTest.replyUsesTheSelectedParentThreadAndIncludesTheParentAuthor(PostPreviewTest.kt:245)
+2) unfinishedCompositionSurvivesBackendNavigationAndActivityRecreationWithoutPublishing(nl.davidengelen.redsquare.PostPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PostPreviewTest.waitFor(PostPreviewTest.kt:363)
+	at nl.davidengelen.redsquare.PostPreviewTest.unfinishedCompositionSurvivesBackendNavigationAndActivityRecreationWithoutPublishing(PostPreviewTest.kt:107)
+3) explicitSendBroadcastsAZeroPaymentPostWithoutInventingAcknowledgement(nl.davidengelen.redsquare.PostPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PostPreviewTest.waitFor(PostPreviewTest.kt:363)
+	at nl.davidengelen.redsquare.PostPreviewTest.explicitSendBroadcastsAZeroPaymentPostWithoutInventingAcknowledgement(PostPreviewTest.kt:382)
+
+FAILURES!!!
+Tests run: 7,  Failures: 3
+
+
+INSTRUMENTATION_CODE: -1

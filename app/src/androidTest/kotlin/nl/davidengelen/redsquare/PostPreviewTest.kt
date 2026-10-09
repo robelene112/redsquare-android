@@ -69,7 +69,7 @@ class PostPreviewTest {
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 try {
-                    waitFor("Native Red Square reference post")
+                    waitForReferencePost()
                     ui.onNodeWithText("Native Red Square reference post").performClick()
                     waitFor("Independent recipient reply")
                     ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("Independent recipient reply"))
@@ -104,7 +104,7 @@ class PostPreviewTest {
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${ownerServer.port}/wsopen")
                     .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${officialServer.port}/wsopen")).use { scenario ->
-                    waitFor("Native Red Square reference post")
+                    waitForReferencePost()
                     ui.onNodeWithText("New post").performClick()
                     ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNode(hasSetTextAction()).performTextReplacement("Unfinished owner draft")
@@ -174,7 +174,7 @@ class PostPreviewTest {
         peer.start().use { server ->
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
-                waitFor("Native Red Square reference post")
+                waitForReferencePost()
                 ui.onNodeWithText("New post").performClick()
                 ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNode(hasSetTextAction()).performTextReplacement("Retry the original signed post")
@@ -184,7 +184,7 @@ class PostPreviewTest {
                 backFromComposer()
                 ui.waitUntil(10_000) { ui.onAllNodes(hasScrollToIndexAction()).fetchSemanticsNodes().isNotEmpty() }
                 scenario.recreate()
-                waitFor("Native Red Square reference post")
+                waitForReferencePost()
                 ui.onNodeWithText("New post").performClick()
                 waitFor("Send requested. Availability on this server is not confirmed.")
                 ui.onNodeWithText("Retry the original signed post").assertTextEquals("Retry the original signed post").assertIsNotEnabled()
@@ -242,7 +242,7 @@ class PostPreviewTest {
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 try {
-                    waitFor("Native Red Square reference post")
+                    waitForReferencePost()
                     ui.onNodeWithText("Native Red Square reference post").performClick()
                     waitFor("Conversation")
                     ui.onNodeWithText("Reply").performClick()
@@ -252,7 +252,7 @@ class PostPreviewTest {
                     waitFor("Available on this server.")
                     backFromComposer()
                     waitFor("Conversation")
-                    waitFor("Reply from the native composer")
+                    waitForVisiblePost("Reply from the native composer")
                     peer.assertHealthy()
                     captureFeedEvidence("posting-evidence/published-reply-in-thread.png")
                 } catch (failure: Throwable) {
@@ -294,7 +294,7 @@ class PostPreviewTest {
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 try {
-                    waitFor("Native Red Square reference post")
+                    waitForReferencePost()
                     ui.onNodeWithText("New post").performClick()
                     ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNode(hasSetTextAction()).performTextReplacement("Observed native publication")
@@ -304,9 +304,7 @@ class PostPreviewTest {
                     backFromComposer()
                     waitFor("New post")
                     ui.waitUntil(10_000) { ui.onAllNodes(hasScrollToIndexAction()).fetchSemanticsNodes().isNotEmpty() }
-                    waitFor("Observed native publication")
-                    ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("Observed native publication"))
-                    ui.onNodeWithText("Observed native publication").assertIsDisplayed()
+                    waitForVisiblePost("Observed native publication")
                     peer.assertHealthy()
                     captureFeedEvidence("posting-evidence/published-post-in-feed.png")
                 } catch (failure: Throwable) {
@@ -330,14 +328,14 @@ class PostPreviewTest {
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
                 try {
-                    waitFor("Native Red Square reference post")
+                    waitForReferencePost()
                     ui.onNodeWithText("New post").performClick()
                     ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNode(hasSetTextAction()).performTextReplacement("Draft kept until Send")
                     ui.onNodeWithText("Save draft").performClick()
-                    waitFor("Native Red Square reference post")
+                    waitForReferencePost()
                     scenario.recreate()
-                    waitFor("Native Red Square reference post")
+                    waitForReferencePost()
                     ui.onNodeWithText("New post").performClick()
                     ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.waitUntil(10_000) {
@@ -352,6 +350,24 @@ class PostPreviewTest {
                     throw failure
                 }
             }
+        }
+    }
+
+    private fun waitForReferencePost() {
+        ui.waitUntil(15_000) {
+            ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() &&
+                ui.onAllNodes(hasScrollToIndexAction()).fetchSemanticsNodes().isNotEmpty()
+        }
+        waitForVisiblePost("Native Red Square reference post")
+    }
+
+    private fun waitForVisiblePost(text: String) {
+        ui.waitUntil(15_000) {
+            try {
+                ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText(text))
+                ui.onNodeWithText(text).assertIsDisplayed()
+                true
+            } catch (_: AssertionError) { false }
         }
     }
 
@@ -379,7 +395,7 @@ class PostPreviewTest {
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 try {
-                    waitFor("Native Red Square reference post")
+                    waitForReferencePost()
                     ui.onNodeWithText("Wallet").performClick()
                     val author = displayedWalletAddress(ui)
                     ui.onNodeWithText("Done").performClick()
