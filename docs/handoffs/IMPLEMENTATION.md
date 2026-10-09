@@ -70,8 +70,11 @@ one question at a time when a material choice really needs the owner.
   current HEAD follows author1, closes, preserves only public follow bytes,
   obstructs that follow file with a public directory fixture, cold launches to
   error/Loading, restores the file and requires a visible Retry to reload and
-  recover Unfollow without another restart. Actual red37956724460 pending on
-  Android10. No load-retry production fix yet. Next after green: partial-results
+  recover Unfollow without another restart. Actual red37956724460 at5d582bc fails only the seventh case: no Retry node
+  (line368), six earlier cases pass. Public log/image inspected and retained
+  load-retry-red. Minimalcc71cb9 adds explicit loading state and shared
+  error/Retry UI in feed and profile. Local core/debug/test assembly passes
+  1m26s. Focused green37957941542 on Android10 is running. Next after green: partial-results
   recovery when another followed-author request fails, rename generic values,
   repeat both source reviews and final full before closing#9.
   Both read-only
@@ -80,9 +83,7 @@ one question at a time when a material choice really needs the owner.
   has no UI retry but says Try again/Loading. Standards also found generic loaded
   values still named envelopes. Another availability edge: a later author timeout
   discards already verified earlier results because publishing waits for all.
-  Wait for seventh actual functional red before implementing load retry; then test/fix
-  full general-cache eviction and transient choices-read recovery at primary UI
-  seams. Consider preserving partial fetched author results incrementally. Share
+  After seventh green, test/fix partial author results at the primary UI seam. Share
   correct bounded public cache storage, keep backend/identity scopes and previous
   on-disk formats. Rename generic values during review. Repeat both source reviews and
   final full; close#9 only on acceptance and continue all35 sequentially.

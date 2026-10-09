@@ -82,12 +82,21 @@ results after a later request fails. These source issues need fixes, observable
 regressions and repeated review. Sixth actual-app regression atc3b88f5 seeds
 only the public general cache with100 independently signed newer unrelated
 roots after establishing a follow through the UI, then requires available older
-followed content after a cold launch. Run37954356779 on Android10 is pending;
+followed content after a cold launch. Run37954356779 on Android10 is an
 actual retention red passes the first five cases and fails at the followed post
 after seeding100 newer unrelated roots (line316). Its inspected image says no
 available posts despite the valid response; public log/image retained retention-red.
 Minimal115fc7a separates Following history by wallet/backend and applies active
 author membership before retention. Local core/debug/test assembly passes1m23s.
 Fresh setup58574e0 additionally clears followingfeed fixtures. Six-case green
-37955584059 is pending; retry-loading and remaining review fixes still need
-implementation. Final full verification remains pending.
+37955584059 at58574e0 passes all six cases on Android10 in16.971 seconds.
+Public log/image inspected and retained retention-green.
+
+Seventh case at5d582bc restores a temporarily unreadable public follow file and
+requires recovery through a visible Retry without another restart. Actual
+red37956724460 passes six cases and fails at the absent Retry node (line368).
+Public log/image inspected and retained load-retry-red. Minimalcc71cb9 adds
+explicit load state and shared error/Retry UI in feed and profile. Local
+core/debug/test assembly passes1m26s. Focused green37957941542 is running.
+Partial author-result recovery, final source reviews and full verification
+remain pending.
