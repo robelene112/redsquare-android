@@ -46,6 +46,18 @@ for setting in window_animation_scale transition_animation_scale animator_durati
 done
 adb install -r "$artifact"
 adb install -r "$repo_dir/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk"
+if [[ "${TEST_SCOPE:-full}" == update-android17 ]]; then
+    adb shell am instrument -w -r \
+        -e class nl.davidengelen.redsquare.PreviewUpdateTest \
+        nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+        > "$evidence/preview-update-ui.txt"
+    mkdir -p "$evidence/preview-update"
+    adb exec-out run-as nl.davidengelen.redsquare.dev cat cache/preview-update-evidence/requests.txt > "$evidence/preview-update/requests.txt" || true
+    adb exec-out run-as nl.davidengelen.redsquare.dev cat cache/preview-update-evidence/screen.png > "$evidence/preview-update/screen.png" || true
+    printf '%s\n' 'Focused update-notice check only; full feed/wallet/signed-update acceptance not run.' > "$evidence/scope.txt"
+    grep -q 'OK (1 test)' "$evidence/preview-update-ui.txt"
+    exit 0
+fi
 adb shell am instrument -w -r \
     -e class nl.davidengelen.redsquare.FeedPreviewTest \
     nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
@@ -127,6 +139,9 @@ adb shell am instrument -w -r \
     -e class nl.davidengelen.redsquare.PreviewUpdateTest \
     nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
     > "$evidence/preview-update-ui.txt"
+mkdir -p "$evidence/preview-update"
+adb exec-out run-as nl.davidengelen.redsquare.dev cat cache/preview-update-evidence/requests.txt > "$evidence/preview-update/requests.txt" || true
+adb exec-out run-as nl.davidengelen.redsquare.dev cat cache/preview-update-evidence/screen.png > "$evidence/preview-update/screen.png" || true
 grep -q 'OK (1 test)' "$evidence/preview-update-ui.txt"
 if [[ "${TEST_PUBLIC_SIGNED_UPDATE:-0}" == 1 ]]; then
     python3 "$repo_dir/scripts/ci-review-update" 5 8 --evidence "$evidence/signed-update"

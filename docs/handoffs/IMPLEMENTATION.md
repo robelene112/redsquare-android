@@ -1,6 +1,6 @@
 # Sequential implementation handoff
 
-Updated 2026-10-08, 23:54 UTC. The owner authorized implementing all 35 proposed
+Updated 2026-10-09, 00:09 UTC. The owner authorized implementing all 35 proposed
 tickets sequentially, committing after each, and reviewing the app at the end.
 Continue without routine permission requests or a grill per ticket. Ask only
 one question at a time when a material choice really needs the owner.
@@ -27,9 +27,13 @@ one question at a time when a material choice really needs the owner.
   Reviewed candidate 8060ed2 aligns Lifecycle with resolved 2.9.4 and migrates
   test factories to the supported queued v2 scheduler. Both reviews found no
   new issues. These are compatibility changes, not an established explanation
-  for the crash. Final full run 37861712249 at dec035d is pending on both SDKs,
-  including explicit fresh owner reads. Do not close #4 or publish build9 on
-  partial evidence.
+  for the crash. Full run 37861712249 at dec035d passed Android 10 completely;
+  Android 17 feed/live-read, wallet recovery and cold continuity passed, then
+  the update-notice test timed out before its signed-update stage. Its one-shot
+  HTTP fixture is being replaced by a multi-request server with diagnostic
+  request counts and a public screenshot, keeping UI/link assertions. App code
+  remains unchanged while this is investigated. Final full acceptance remains
+  pending. Do not close #4 or publish build9 on partial evidence.
 - Signed feed build 9 (f71c506) is prepared and signature/package verified,
   but remains unpublished. Stable preview is version 8, wallet foundation.
   Publish the first complete milestone after #7 includes server selection and

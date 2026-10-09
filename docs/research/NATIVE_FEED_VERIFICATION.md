@@ -193,3 +193,15 @@ interactive-feed timing. This passing experiment does not establish the prior
 crash cause or final wallet/update acceptance. Full run **37861712249** at
 **dec035d** checks the reviewed v2 scheduler candidate on both SDKs and remains
 pending. No physical timing is claimed.
+
+Full run 37861712249 at dec035d passed assembly/lint, all fourteen core tests,
+the full Android 10 stage, all four Android 17 controlled feed cases (44.179
+seconds), fresh live-owner read (three authors, 18.123 seconds test duration),
+wallet recovery and cold identity continuity. It later failed the update-notice
+UI test after ten seconds, before Android 17 signed-update/diagnostic stages.
+This was not the earlier layout crash. The retained trace supplies no request
+count or screen to establish its cause. The one-response HTTP fixture is being
+replaced by a realistic multi-request server, preserving the existing UI/link
+assertions and adding request-count/public-screen evidence. No application
+behavior is changed by that diagnostic candidate; a focused Android 17 check
+will distinguish its result. Final full acceptance remains pending.
