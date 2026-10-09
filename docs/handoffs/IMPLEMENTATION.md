@@ -57,14 +57,22 @@ one question at a time when a material choice really needs the owner.
   cache with100 independently signed newer author2 roots, cold launches and
   requires older author1 content in Following. New pure reference fixture/script
   uses scalar2 only, no node/app/wallet initialization or network. Six-case run
-  37954356779 on Android10 pending. Source remains unchanged from3caa31a.
+  Actual retention red37954356779 atc3b88f5 passes five cases and fails at the
+  older followed post after full general-cache seeding (line316); inspected
+  image says No available posts despite the valid author response. Retained
+  retention-red. Minimal115fc7a gives Following its own wallet/backend public
+  cache and filters active followed authors before100-post retention. Local
+  core/debug/test assembly passes1m23s; no local build active. New fresh-case
+  cleanup58574e0 also clears fixture-owned followingfeed public files. Current
+  six-case green37955584059 on Android10 is pending;37955130341 superseded by
+  that corrected fresh-proof setup. No UI load-retry fix or new seventh test yet.
   Both read-only
   reviews atc14246a found issues, recorded ticket08/INTERIM_REVIEW: general100-post
   retention can evict every older followed result; failed initial choices load
   has no UI retry but says Try again/Loading. Standards also found generic loaded
   values still named envelopes. Another availability edge: a later author timeout
   discards already verified earlier results because publishing waits for all.
-  Wait for actual sixth functional red before fixing retention; then test/fix
+  Wait for sixth-case green before next behavior test; then test/fix
   full general-cache eviction and transient choices-read recovery at primary UI
   seams. Consider preserving partial fetched author results incrementally. Share
   correct bounded public cache storage, keep backend/identity scopes and previous

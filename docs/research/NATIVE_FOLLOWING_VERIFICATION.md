@@ -83,4 +83,11 @@ regressions and repeated review. Sixth actual-app regression atc3b88f5 seeds
 only the public general cache with100 independently signed newer unrelated
 roots after establishing a follow through the UI, then requires available older
 followed content after a cold launch. Run37954356779 on Android10 is pending;
-no production retention fix exists yet. Final full verification remains pending.
+actual retention red passes the first five cases and fails at the followed post
+after seeding100 newer unrelated roots (line316). Its inspected image says no
+available posts despite the valid response; public log/image retained retention-red.
+Minimal115fc7a separates Following history by wallet/backend and applies active
+author membership before retention. Local core/debug/test assembly passes1m23s.
+Fresh setup58574e0 additionally clears followingfeed fixtures. Six-case green
+37955584059 is pending; retry-loading and remaining review fixes still need
+implementation. Final full verification remains pending.
