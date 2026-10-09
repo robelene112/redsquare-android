@@ -98,7 +98,7 @@ adb shell am instrument -w -r \
     -e class nl.davidengelen.redsquare.NativeCompatibilityTest \
     nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
     > "$evidence/instrumentation.txt"
-grep -q 'OK (2 tests)' "$evidence/instrumentation.txt"
+grep -q 'OK (3 tests)' "$evidence/instrumentation.txt"
 retain_wallet_failure() {
     adb exec-out run-as nl.davidengelen.redsquare.dev cat cache/wallet-ui-failure.png > "$evidence/wallet-ui-failure.png" || true
     exit 1

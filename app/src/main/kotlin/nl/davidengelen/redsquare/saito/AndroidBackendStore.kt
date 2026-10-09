@@ -5,9 +5,10 @@ import android.system.Os
 import android.system.OsConstants
 import android.util.AtomicFile
 import java.io.File
+import java.io.FileDescriptor
 
 /** Selection is local app state, independent of portable wallet options. */
-class AndroidBackendStore(context: Context) {
+class AndroidBackendStore(context: Context, private val commitDirectorySync: (FileDescriptor) -> Unit = Os::fsync) {
     private val file = AtomicFile(File(context.noBackupFilesDir, "backend.v1"))
 
     fun load(): SaitoBackend = synchronized(lock) {
@@ -41,7 +42,7 @@ class AndroidBackendStore(context: Context) {
             throw failure
         }
         val directory = Os.open(file.baseFile.parentFile!!.path, OsConstants.O_RDONLY, 0)
-        try { Os.fsync(directory) } finally { Os.close(directory) }
+        try { commitDirectorySync(directory) } finally { Os.close(directory) }
         check(load() == backend)
     }
 

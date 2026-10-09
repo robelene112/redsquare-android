@@ -1,9 +1,12 @@
 package nl.davidengelen.redsquare
 
+import android.content.Intent
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.gson.JsonNull
 import com.google.gson.JsonParser
 import nl.davidengelen.redsquare.saito.SaitoWallet
+import nl.davidengelen.redsquare.saito.SaitoBackend
+import nl.davidengelen.redsquare.feed.FeedEndpoints
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertThrows
@@ -43,5 +46,19 @@ class NativeCompatibilityTest {
         assertEquals(original, JsonParser.parseString(restored.exportJson()))
         original.getAsJsonObject("wallet").addProperty("publicKey", "invalid")
         assertThrows(IllegalArgumentException::class.java) { SaitoWallet.fromBackup(original.toString()) }
+    }
+
+    @Test fun importedPeerOptionsRemainPortableDataWithoutChangingApprovedConnections() {
+        val restored = SaitoWallet.fromBackup("""{
+            "wallet":{"publicKey":"$expectedPublicKey","privateKey":"$syntheticKey"},
+            "peers":[{"host":"unapproved.invalid","port":443,"protocol":"https"}]
+        }""")
+        assertEquals(expectedPublicKey, restored.publicKey)
+        assertEquals("unapproved.invalid", JsonParser.parseString(restored.exportJson())
+            .asJsonObject.getAsJsonArray("peers")[0].asJsonObject.get("host").asString)
+        assertEquals("wss://saito.davidengelen.nl/wsopen", FeedEndpoints.fromIntent(Intent(), SaitoBackend.OWNER))
+        assertEquals("wss://saito.io/wsopen", FeedEndpoints.fromIntent(Intent(), SaitoBackend.OFFICIAL))
+        assertEquals("ws://127.0.0.1:1/wsopen", FeedEndpoints.fromIntent(
+            Intent().putExtra("feedPeerUrl", "wss://unapproved.invalid/wsopen"), SaitoBackend.OWNER))
     }
 }

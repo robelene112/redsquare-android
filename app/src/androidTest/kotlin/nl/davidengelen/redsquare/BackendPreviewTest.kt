@@ -21,7 +21,7 @@ class BackendPreviewTest {
     private val instrumentation get() = InstrumentationRegistry.getInstrumentation()
 
     @Before fun preparePublicState() {
-        listOf("feed.owner.v1", "feed.official.v1", "backend.v1").forEach { name ->
+        listOf("feed.owner.v1", "feed.official.v1", "backend.v1", "backend.pending").forEach { name ->
             listOf("", ".bak", ".new").forEach { suffix ->
                 File(instrumentation.targetContext.noBackupFilesDir, name + suffix).delete()
             }
@@ -32,6 +32,7 @@ class BackendPreviewTest {
         listOf("", ".bak", ".new").forEach {
             File(instrumentation.targetContext.noBackupFilesDir, "backend.v1$it").delete()
         }
+        File(instrumentation.targetContext.noBackupFilesDir, "backend.pending").delete()
     }
 
     @Test fun switchingServersKeepsIdentityAndRestoresSeparateCachesThroughOutage() {
@@ -126,6 +127,41 @@ class BackendPreviewTest {
     private fun captureEvidence() {
         captureFeedEvidence("backend-ui-evidence/${testName.methodName}.png")
         captureFeedEvidence("backend-ui-evidence/screen.png")
+    }
+
+    @Test fun uncertainSelectionCommitStopsConnectionsUntilExplicitRecoveryAfterRestart() {
+        val owner = ControlledFeedPeer("[${asset("native-feed-reference.json").get("archiveRow")}]")
+        val official = ControlledFeedPeer("[${asset("native-feed-scroll-reference.json").getAsJsonArray("refreshedRows")[0]}]")
+        owner.start().use { ownerServer ->
+            official.start().use { officialServer ->
+                val intent = Intent(instrumentation.targetContext, MainActivity::class.java)
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${ownerServer.port}/wsopen")
+                    .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${officialServer.port}/wsopen")
+                ActivityScenario.launch<MainActivity>(intent).use { activity ->
+                    try {
+                        waitForText("Native Red Square reference post")
+                        activity.onActivity { it.intent.putExtra("backendCommitSyncUnavailable", true) }
+                        chooseServer("saito.io")
+                        waitForText("Your server selection could not be saved. Try again.")
+                        ui.onNodeWithText("Done").performClick()
+                        waitForText("Your server selection could not be opened. Choose a server in Settings.")
+                        ui.onNodeWithText("Native Red Square reference post").assertDoesNotExist()
+                        assertTrue(official.clientKeys.isEmpty())
+                        activity.recreate()
+                        waitForText("Your server selection could not be opened. Choose a server in Settings.")
+                        assertTrue(official.clientKeys.isEmpty())
+                        activity.onActivity { it.intent.putExtra("backendCommitSyncUnavailable", false) }
+                        chooseServer("saito.davidengelen.nl")
+                        waitForText("Native Red Square reference post")
+                        activity.recreate()
+                        waitForText("Server: saito.davidengelen.nl")
+                        waitForText("Native Red Square reference post")
+                        assertTrue(official.clientKeys.isEmpty())
+                        owner.assertHealthy()
+                    } finally { captureEvidence() }
+                }
+            }
+        }
     }
 
     @Test fun unreadableSelectionRequiresAnExplicitChoiceBeforeConnecting() {

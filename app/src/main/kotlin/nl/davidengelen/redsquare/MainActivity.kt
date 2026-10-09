@@ -42,7 +42,14 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             var wallet by remember { mutableStateOf<SaitoWallet?>(null) }
-            val backendStore = remember { AndroidBackendStore(applicationContext) }
+            val backendStore = remember {
+                AndroidBackendStore(applicationContext) { descriptor ->
+                    if (BuildConfig.DEBUG && intent.getBooleanExtra("backendCommitSyncUnavailable", false)) {
+                        throw IOException("Controlled selection commit sync failure")
+                    }
+                    Os.fsync(descriptor)
+                }
+            }
             var backend by remember { mutableStateOf<SaitoBackend?>(null) }
             var backendReady by remember { mutableStateOf(false) }
             var settingsOpen by remember { mutableStateOf(false) }
