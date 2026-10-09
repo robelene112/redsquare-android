@@ -19,11 +19,16 @@ class WalletImport(
     private val currentWallet: () -> SaitoWallet?,
     private val chooseDocument: () -> Unit,
 ) {
+    data class Preview(val publicKey: String, val sameIdentity: Boolean)
+
+    var preview by mutableStateOf<Preview?>(null)
+        private set
     var message by mutableStateOf<Int?>(null)
         private set
     var busy by mutableStateOf(false)
         private set
     private var outgoing: SaitoWallet? = null
+    private var candidate: SaitoWallet? = null
     private var readJob: Job? = null
 
     fun clearMessage() { if (!busy) message = null }
@@ -31,6 +36,8 @@ class WalletImport(
     fun start() {
         if (busy) return
         outgoing = currentWallet() ?: return
+        candidate = null
+        preview = null
         message = null
         busy = true
         try { chooseDocument() }
@@ -41,7 +48,7 @@ class WalletImport(
         val original = outgoing ?: return
         if (uri == null) { finish(R.string.wallet_import_cancelled); return }
         readJob = activity.lifecycleScope.launch {
-            val failure = withContext(Dispatchers.IO) {
+            val result = withContext(Dispatchers.IO) {
                 val buffer = ByteArray(SaitoWallet.MAX_BACKUP_BYTES + 1)
                 try {
                     require(uri.scheme == "content")
@@ -57,16 +64,19 @@ class WalletImport(
                         count
                     }
                     require(size in 1..SaitoWallet.MAX_BACKUP_BYTES)
-                    SaitoWallet.fromBackup(String(buffer, 0, size, Charsets.UTF_8))
-                    null
+                    ReadResult(SaitoWallet.fromBackup(String(buffer, 0, size, Charsets.UTF_8)), null)
                 } catch (_: IllegalArgumentException) {
                     // Provider and parser messages can include private file values.
-                    R.string.wallet_import_invalid
+                    ReadResult(null, R.string.wallet_import_invalid)
                 } catch (_: Exception) {
-                    R.string.wallet_import_open_failed
+                    ReadResult(null, R.string.wallet_import_open_failed)
                 } finally { buffer.fill(0) }
             }
-            if (outgoing === original && currentWallet() === original) finish(failure)
+            if (outgoing === original && currentWallet() === original) {
+                candidate = result.wallet
+                preview = result.wallet?.let { Preview(it.publicKey, it.publicKey == original.publicKey) }
+                finish(result.failure)
+            }
         }
     }
 
@@ -78,7 +88,11 @@ class WalletImport(
 
     fun cancel() {
         outgoing = null
+        candidate = null
+        preview = null
         readJob?.cancel()
         busy = false
     }
+
+    private class ReadResult(val wallet: SaitoWallet?, val failure: Int?)
 }

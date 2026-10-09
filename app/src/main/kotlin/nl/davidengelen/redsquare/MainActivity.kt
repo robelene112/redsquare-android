@@ -246,7 +246,7 @@ class MainActivity : ComponentActivity() {
                         title = { Text(stringResource(R.string.your_wallet)) },
                         text = {
                             val addressLabel = stringResource(R.string.wallet_address)
-                            Column {
+                            Column(Modifier.verticalScroll(rememberScrollState())) {
                                 when {
                                     address != null -> Text(address!!, Modifier.semantics { contentDescription = addressLabel })
                                     failed -> Text(stringResource(R.string.wallet_unavailable))
@@ -254,6 +254,13 @@ class MainActivity : ComponentActivity() {
                                 }
                                 walletExport.message?.let { Text(stringResource(it)) }
                                 walletImport.message?.let { Text(stringResource(it)) }
+                                walletImport.preview?.let { preview ->
+                                    Text(stringResource(if (preview.sameIdentity) R.string.wallet_import_restore else R.string.wallet_import_replace),
+                                        style = MaterialTheme.typography.titleMedium)
+                                    val selectedAddressLabel = stringResource(R.string.wallet_import_address)
+                                    Text(preview.publicKey, Modifier.semantics { contentDescription = selectedAddressLabel })
+                                    Text(stringResource(if (preview.sameIdentity) R.string.wallet_import_restore_detail else R.string.wallet_import_replace_detail))
+                                }
                                 TextButton(enabled = wallet != null && !walletExport.busy && !walletImport.busy,
                                     onClick = walletExport::start) { Text(stringResource(R.string.wallet_export)) }
                                 TextButton(enabled = wallet != null && !walletExport.busy && !walletImport.busy,

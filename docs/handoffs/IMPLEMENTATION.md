@@ -55,8 +55,12 @@ one question at a time when a material choice really needs the owner.
   Public images/logs inspected/retained in ticket06/invalid-file-final-green.
   A valid-backup preview test now selects an authenticated same-wallet backup
   and independent published scalar1 fixture; it requires Restore/Replace
-  classification and unchanged active identity. Compile/functional red pending.
-  Do not implement that preview ahead of its observed functional red.
+  classification and unchanged active identity. Actual functional red37898039926
+  at e692da3 selects the authenticated same-wallet backup and times out waiting
+  for Restore this wallet (test line81); invalid-file/recreation still passes.
+  Public log retained in ticket06/valid-preview-red. Minimal preview now keeps
+  the validated candidate private, displays only its address/classification and
+  does not publish a replacement. Focused green checks pending.
   Testing uses approved parent application/failure boundaries, with fixture data
   in the isolated test APK only. Do not claim valid import preview/activation
   from this slice; those remain upcoming within#7.

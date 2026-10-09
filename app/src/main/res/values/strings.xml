@@ -50,4 +50,9 @@
     <string name="wallet_import_invalid">That file is not a valid Saito wallet backup. Your wallet is unchanged.</string>
     <string name="wallet_import_open_failed">Your wallet backup could not be opened. Try again with another file.</string>
     <string name="wallet_import_cancelled">Wallet import canceled. Your wallet is unchanged.</string>
+    <string name="wallet_import_restore">Restore this wallet</string>
+    <string name="wallet_import_replace">Replace your wallet</string>
+    <string name="wallet_import_address">Selected wallet address</string>
+    <string name="wallet_import_restore_detail">This backup belongs to your current identity. Restoring it can update wallet settings. Nothing has changed yet.</string>
+    <string name="wallet_import_replace_detail">This backup belongs to a different identity. Your current wallet is still active. Nothing has changed yet.</string>
 </resources>
