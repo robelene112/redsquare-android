@@ -84,3 +84,24 @@ and reminder green remain pending.
 
 Primary research is in ANDROID_AUTHENTICATED_WALLET_EXPORT.md and
 ANDROID_EXPORT_TEST_HARNESS.md. Pixel biometric/timing review remains #35.
+
+## Current verification, 2026-10-09
+
+The historical pending statements above describe intermediate slices. At
+`1167582`, focused runs `37890457247` (Android 10) and `37890459989`
+(Android 17) pass four export cases plus reminder/recovery. These include actual
+PIN credentials, actual SAF file readback, wrong PIN/cancellation, and a provider
+whose read pipe deliberately stays open for 60 seconds. The latter exposed an
+actual missing terminal failure in `37889746378` before the independent
+30-second deadline was added. Both final public failure screenshots show the
+readable failure and usable Export action. No wallet JSON is retained in
+evidence; see `evidence/ticket05/provider-deadline-green`.
+
+The deadline publishes a terminal result before asynchronous resource cleanup,
+which survives activity destruction. Independent Spec review finds no new
+correctness defect in that fix. Provider write/read/truncation failures with an
+actual authenticated retry were added in `f40cf2c`; actual process loss before
+authentication with cold identity recovery and a new PIN prompt was added in
+`2a5e507`. These additions still await runtime results. Standards review through
+`2a5e507` reports zero remaining findings. Full acceptance and final Spec review
+remain required before closing ticket #6.
