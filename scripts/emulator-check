@@ -46,6 +46,23 @@ for setting in window_animation_scale transition_animation_scale animator_durati
 done
 adb install -r "$artifact"
 adb install -r "$repo_dir/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk"
+verify_wallet_import() {
+    [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+    adb shell run-as nl.davidengelen.redsquare.dev.test mkdir -p files/wallet-test-documents
+    printf '%s' 'not a wallet backup' | adb shell run-as nl.davidengelen.redsquare.dev.test \
+        tee files/wallet-test-documents/invalid-import.json > /dev/null
+    timeout 180 adb shell am instrument -w -r \
+        -e class nl.davidengelen.redsquare.WalletImportPreviewTest \
+        nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+        > "$evidence/wallet-import-ui.txt" || true
+    adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - wallet-import-evidence > "$evidence/wallet-import-evidence.tar" || true
+    grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/wallet-import-ui.txt"
+}
+if [[ "${TEST_SCOPE:-full}" == import* ]]; then
+    verify_wallet_import
+    printf '%s\n' 'Focused wallet-import check only; full acceptance not run.' > "$evidence/scope.txt"
+    exit 0
+fi
 verify_wallet_export() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
     timeout 300 adb shell am instrument -w -r \
@@ -89,6 +106,7 @@ fi
 if [[ "${TEST_SCOPE:-full}" == full ]]; then
     verify_wallet_export
     verify_wallet_backup_reminder
+    verify_wallet_import
 fi
 verify_preview_update() {
     adb shell am instrument -w -r \

@@ -33,7 +33,12 @@ one question at a time when a material choice really needs the owner.
   physical Pixel biometric/performance claim. Pixel acceptance remains #35.
   Lint completes with nine warnings, no errors; release icon/config polish remains
   later work. See research/NATIVE_WALLET_EXPORT_VERIFICATION.md.
-- Next #7 safeguarded import. Its review base is the final #6 completion commit.
+- Active #7 safeguarded import, assigned with blockers #5/#6 closed.
+  Review base9e7f40d. First vertical slice verifies an invalid backup selected
+  through actual Android SAF leaves the public wallet unchanged across recreation.
+  Test and focused import harness added; compile/actual functional red pending.
+  Testing uses approved parent application/failure boundaries, with fixture data
+  in the isolated test APK only. Do not implement ahead of the observed red.
   Read NATIVE_WALLET_IMPORT_ASSESSMENT.md and SNAKE_WALLET_SAFEGUARDS.md.
   Fresh backup proof must bind outgoing wallet and selected candidate/nonce;
   a dismissed reminder or a previous saved-status message is not that proof.
@@ -57,7 +62,7 @@ one question at a time when a material choice really needs the owner.
   Publish the first complete milestone after #7 includes server selection and
   safeguarded import/export; preserve package and signing. The owner reviews
   the completed app, so no intermediate physical review is required.
-- Current: #6 complete. Next: #7 guarded import.
+- Current: #7 guarded import. #6 complete.
   The initial review milestone is completed by #7, not by a basic feed alone.
 
 ## Verification already inspected
