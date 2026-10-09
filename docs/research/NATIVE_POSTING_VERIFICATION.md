@@ -73,3 +73,14 @@ setup clears only synthetic postdraft records between cases, never wallet keys.
 Actual three-case red37968017392 is running.37967863806/37967946413 superseded
 during setup for fixture corrections; neither is functional proof. No archive
 observation production fix yet. Core new constructor/hop vectors still needed.
+
+
+Actual red37968017392 at1094a0a passes the draft case but fails waiting for
+Available (line64), and the previously green explicit-Send case fails waiting
+for any received frame (line145),36.005seconds. Public log/composer image
+inspected and retained observation-red. Minimalfdcc528 holds the authenticated
+peer open through exact-signature Archive queries, retrying6 times at2-second
+intervals. Only a matching verified author/text changes status to Available.
+Back refreshes selected feed and clears a confirmed draft on verified saving.
+Unobserved candidates stay durable. Local core/debug/test assembly passes1m30s.
+Three-case green37968817970 is running. No final acceptance yet.

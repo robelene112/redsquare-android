@@ -64,12 +64,18 @@ one question at a time when a material choice really needs the owner.
   on this server then post in feed. New onTransaction fixture keeps existing
   trailing archive callback syntax; atomic indexed-row visibility; guarded
   emulator-only Before clears synthetic postdraft records, never wallet keys.
-  Actual three-case red37968017392 running.37967863806/37967946413 superseded
+  Actual red37968017392 at1094a0a passes draft case, fails waiting for
+  Available (line64) and exposes absent external Send frame (line145),36.005s.
+  Public log/composer image inspected/retained ticket09/observation-red.
+  Minimalfdcc528 keeps peer open while exact-signature Archive query retries,
+  marks available only after verified matching signer/text, refreshes selected
+  feed on Back and clears completed draft on close. Local core/debug/test
+  assembly passes1m30s; no local build active. Three-case green37968817970
+  running.37967863806/37967946413 superseded
   during setup after fixture corrections; neither supplies functional proof.
-  Immediate post-submit peer.use/close cancels socket: inspect actual packet
-  result and keep a proper active session before claiming delivery. No archive
-  observation/polling, replies, longer-funded text policy, independent new
-  constructor/hop vectors or final reviews/full proof yet.
+  Immediate post-submit peer cancellation is removed by observation lifetime.
+  Replies, pending cold-recovery/retry, longer-funded text policy, independent
+  new constructor/hop vectors and final reviews/full proof remain required.
   Researchf31ed06 records exact reply
   recipients, zero-amount construction, hop signing, type4 broadcast without
   RPC ack and web unfunded500 UTF16 threshold (not universalprotocolcap).
