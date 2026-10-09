@@ -1,7 +1,7 @@
 # Posting review
 
 Review base: `78163d6`. Initial candidate: `6cfa908`; fixes reviewed at `cd1ee24`.
-Runtime acceptance remains pending; source review does not close ticket #10.
+Final reviewed candidate `aec16fc`; both source review and full runtime acceptance pass.
 
 ## Standards
 
@@ -46,22 +46,18 @@ Final Spec: zero actionable findings.
 
 ## Final fixture reviews and acceptance
 
-Both axes approved the fresh-activity cache fixtures at `9aa3884`, Android 17
-keyboard dismissal/explicit picker-root selection at `41b4b26`, and enabled
-New post readiness/host failure reporting at `347e27d`. Production source has
-not changed since `cd1ee24`. Fresh activity recovery is distinct from process
-death. The missing enabled-state guard was observed in source; the failed run
-does not prove the runtime button was disabled.
+Both axes approved fresh-activity cache fixtures at `9aa3884`, Android 17
+keyboard dismissal/explicit picker-root selection at `41b4b26`, enabled
+New post readiness/host failure reporting at `347e27d`, and bounded stale-node
+reacquisition at `aec16fc`. Each delta has zero actionable findings on both axes.
+Production source remains unchanged from `cd1ee24`. Fresh activity recovery is
+distinct from process death; no failed button state is inferred from a missing
+source readiness guard.
 
-Focused `37992419586` passes all 14 posting cases and actual process recovery.
-Full Android 10 in `37994339188` passes 70 completed cases. Full Android 17
-`37998995220` remains pending. Neither source review nor a passing build closes
-#10 before runtime acceptance. Historical fixture failures and retained public
-logs are described in NATIVE_POSTING_VERIFICATION.md and ticket09 evidence.
-
-Full Android17 `37998995220` passes browse/following/process recovery and13/14
-posting cases. The remaining picker click throws StaleObjectException as
-DocumentsUI replaces its tree. The fixture now reacquires nodes within a bounded
-20-second loop, retains real file selection and hard failure diagnostics, and
-compiles locally in48s. Production source is unchanged. Final acceptance retry
-and fixture review remain pending.
+Full Android10 `37994339188` and full Android17 `38000254350` pass70 completed
+cases each, including14 posting cases, plus3 intentional process-kill stages.
+Core19, release/debug/test assembly, lint, both public reads, cold-cache/wallet
+launches and signed5-to-8 continuity pass. The production source diff between
+those candidates is empty. Earlier failed runs are documented in
+NATIVE_POSTING_VERIFICATION.md and retained public evidence. Runtime acceptance
+is satisfied; no new APK or physical Pixel acceptance is claimed.

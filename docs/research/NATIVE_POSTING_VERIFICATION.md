@@ -1,12 +1,15 @@
 # Native posting and drafts
 
-Ticket #10 (delivery 9 of 35), review base `78163d6`. Final reviewed candidate
-`347e27d`; production source is unchanged from `cd1ee24`. Focused Android 10
-run `37992419586` passes 14 posting cases and actual process-death recovery.
-Full Android 10 in `37994339188` passes 70 completed cases, three intentional
-process-kill stages, both public reads and signed 5-to-8 updates. Full Android 17
-run `37998995220` remains pending. Both final review axes report zero actionable
-findings; runtime acceptance is the remaining completion gate.
+Ticket #10 (delivery 9 of 35) is complete. Review base `78163d6`; final reviewed
+candidate `aec16fc`, with production source unchanged from `cd1ee24`.
+Full Android 10 in [37994339188](https://github.com/robelene112/redsquare-android/actions/runs/37994339188)
+and full Android 17 in [38000254350](https://github.com/robelene112/redsquare-android/actions/runs/38000254350)
+pass 70 completed instrumentation cases each, including all 14 posting cases,
+plus three intentional process-kill stages each. Core 19 tests, release/debug/test
+assembly and lint pass. Both public reads, cache/wallet cold launches and signed
+5-to-8 update continuity pass. Both final review axes report zero actionable
+findings. `git diff 9aa3884..aec16fc -- app/src/main core/src/main` is empty,
+so the Android 10 companion evidence covers the same production source.
 
 ## Implemented behavior
 
@@ -83,15 +86,15 @@ preparation before the posting class: its unguarded New post click never opened
 the editor. The fixture now waits for enabled state, without claiming the failed
 runtime button was observed disabled. Host failure reporting preserves the
 actual preparation error. Final fixture compilation and both review axes pass.
-These changes leave production source unchanged; full Android 17 acceptance
-remains pending in `37998995220`.
+These changes leave production source unchanged. Full Android 17 acceptance
+passes in `38000254350`; its posting class completes in62.407s.
 
 ## Review and limits
 
 [Two-axis review](../evidence/ticket09/REVIEW.md) at `6cfa908`: Standards zero
 hard breaches/two possible smells; Spec one P2 draft-data-loss defect. Candidate
 `cd1ee24` addresses the defect and separates composer operations/shared fixture
-helpers. Both fix-review axes pass; do not close #10 before final verification.
+helpers. Both fix-review axes pass. Final full runtime acceptance also passes.
 
 No production transaction, new APK publication, physical Pixel timing or push
 delivery is claimed. The stable review APK remains version10/source5225d06.
@@ -103,9 +106,8 @@ semantics; it is excluded from recovery visual evidence, whose proof is the
 completed UI assertion log. Automatic offline queues
 belong to #11, professional UI and physical performance acceptance to #35.
 
-Full Android17 `37998995220` passes browse/following/process recovery and13/14
-posting cases. The remaining picker click throws StaleObjectException as
-DocumentsUI replaces its tree. The fixture now reacquires nodes within a bounded
-20-second loop, retains real file selection and hard failure diagnostics, and
-compiles locally in48s. Production source is unchanged. Final acceptance retry
-and fixture review remain pending.
+Run `37998995220` passes process recovery and13/14 posting cases, then fails
+on a stale DocumentsUI root node. Bounded node reacquisition fixes this test
+interaction; final full17 passes all14. Selected public acceptance logs and
+two inspected posting/wallet-isolation images are retained in
+`ticket09/full-android10` and `ticket09/full-android17`.

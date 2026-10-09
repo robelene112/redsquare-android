@@ -33,36 +33,32 @@ one question at a time when a material choice really needs the owner.
   excluded from visual acceptance. Controlled switching images are correct.
   Wallet/cache recovery and signed5-to-8 continuity pass. No new APK, private
   uploads, production writes or physical-device/push proof. Continue all35.
-- Active #10, "09: Publish text posts and replies with recoverable drafts".
-  Eight of35 complete;27 remain including active. Review base78163d6;
-  candidate347e27d, production source unchanged fromcd1ee24. Encrypted
-  wallet/backend/parent-scoped drafts, compatible zero-payment root/reply
-  signing, exact-candidate retry/reconciliation, checked navigation saves and
-  activity/process recovery are implemented. No automatic draft publication.
-  Actual invalid-save data-loss red37991336062 is fixed by strict UTF8
-  validation before persistence; focused37992419586 passes14 posting cases
-  plus actual process-death reconciliation. Both source-review axes pass.
-  Full Android10 in37994339188 passes70 completed cases, three intentional
-  process-kill stages, both public reads and signed5-to-8 updates. Android17
-  exposed test-only keyboard/picker/readiness assumptions. Corrected fixtures
-  compile locally and both final review axes pass at347e27d. Full Android17
-  run37998995220 remains active and is the completion gate. Production code
-  has not changed since the passing Android10 companion run. Any production
-  change requires fresh full acceptance on both versions.
-  Detailed red/green evidence and limits: NATIVE_POSTING_VERIFICATION.md,
-  NATIVE_POSTING_CONTRACT.md, NATIVE_POST_TEXT_POLICY.md, ticket09/REVIEW.md.
-  Selected public logs/images retained under ticket09. Inconsistent official
-  backend captions and the focused cold-draft bitmap are excluded from visual
-  acceptance; completed semantics and routing checks remain separate evidence.
-  No new APK, production transaction, physical Pixel or push proof. Next:
-  inspect full17, close#10 only if acceptance passes, then#11 offline queues.
+- Ticket #10, "09: Publish text posts and replies with recoverable drafts", is
+  complete at reviewed candidateaec16fc against base78163d6. Production source
+  unchanged fromcd1ee24. Full Android10 in37994339188 and full Android17 in
+  38000254350 pass70 completed cases each (including14 posting cases), plus3
+  intentional process-kill stages each. Core19/release/debug/test/lint pass;
+  both public reads, cache/wallet cold launches and signed5-to-8 continuity pass.
+  Both final review axes have zero actionable findings. Companion production
+  source equivalence verified. Encrypted wallet/backend/parent-scoped drafts,
+  root/reply signing, original-candidate retry, truthful availability and checked
+  navigation saves are complete. No automatic draft publication. Invalid-save
+  data loss was reproduced and fixed before persistence. Public acceptance logs
+  and selected inspected images: ticket09/full-android10/full-android17.
+  Details NATIVE_POSTING_VERIFICATION.md/NATIVE_POSTING_CONTRACT.md/
+  NATIVE_POST_TEXT_POLICY.md and ticket09/REVIEW.md. Stated bitmap limits remain.
+  No new APK, production transaction, physical Pixel or push proof.
+- Next #11, "10: Queue posts offline and resume on their original backend".
+  Nine of35 complete;26 remain. Read its accepted application-boundary criteria;
+  build durable explicit-Send queueing, cancellability, original wallet/backend
+  resumption and restart/replacement isolation. Drafts remain unsent.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.
-- Eight of35 tickets complete: #2 crypto compatibility, #3 persistent wallet
+- Nine of35 tickets complete: #2 crypto compatibility, #3 persistent wallet
   and signing/updates, #4 feed/cache, #5 fixed backends, #6 authenticated export,
-  #7 safeguarded import, #8 threads/profiles, #9 following. #10 active,27 tickets
-  still open. Preserve all accepted features; no Ralph or parallel implementation.
+  #7 safeguarded import, #8 threads/profiles, #9 following, #10 posting/drafts.
+  #11 next,26 tickets still open. Preserve all accepted features; no Ralph or parallel implementation.
 
 ## Completed foundation references
 
@@ -90,7 +86,7 @@ Initial wallet/live-feed milestone is published as stable signed version10
 Compose bitmaps had inconsistent labels; use each report's stated evidence
 limits. #9 also has official bitmap inconsistencies; no invented cause.
 
-Current next: finish#10 then all remaining tickets sequentially. Owner reviews
+Current next: #11 then all remaining tickets sequentially. Owner reviews
 completed app; no intermediate phone-review gate is required.
 
 ## Verification already inspected
