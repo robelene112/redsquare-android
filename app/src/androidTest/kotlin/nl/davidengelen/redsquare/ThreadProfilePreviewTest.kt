@@ -12,6 +12,75 @@ import org.junit.Test
 class ThreadProfilePreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
 
+    @Test fun olderProfileRepliesAndLikesRemainReachablePastANewerFullPage() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = prepareContext()
+        val fixture = instrumentation.context.assets.open("native-profile-paging-reference.json").bufferedReader().use {
+            JsonParser.parseReader(it).asJsonObject
+        }
+        val root = fixture.getAsJsonArray("olderAuthorPage")[1].asJsonObject
+        val author = root.get("field2").asString
+        val recentPosts = fixture.getAsJsonArray("recentPosts")
+        val peer = ControlledFeedPeer("[$root]") { criteria ->
+            check(criteria.get("field1").asString == "RedSquareLike" || criteria.get("flagged_ne").asInt == 1)
+            when {
+                criteria.has("field4") -> "[$root]"
+                criteria.has("field2") -> {
+                    check(criteria.get("field2").asString == author && criteria.get("limit").asInt == 20)
+                    val cursor = criteria.get("created_earlier_than").asLong
+                    when (criteria.get("field1").asString) {
+                        "RedSquare" -> when {
+                            cursor > 1700000001001L -> recentPosts.toString()
+                            cursor > 1700000000000L -> fixture.get("olderAuthorPage").toString()
+                            else -> "[]"
+                        }
+                        "RedSquareLike" -> when {
+                            cursor > 1700000002001L -> fixture.get("recentLikes").toString()
+                            cursor > 1700000000035L -> fixture.get("olderLikes").toString()
+                            else -> "[]"
+                        }
+                        else -> error("Unexpected paged profile module")
+                    }
+                }
+                criteria.has("sig") -> {
+                    val target = criteria.get("sig").asString
+                    val post = (recentPosts.map { it.asJsonObject } + fixture.getAsJsonObject("likedReply"))
+                        .singleOrNull { it.get("sig").asString == target }
+                        ?: error("Unexpected paged liked target")
+                    "[$post]"
+                }
+                else -> error("Unexpected paged profile query")
+            }
+        }
+        peer.start().use { server ->
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                try {
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText(author)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                    ui.onNodeWithText(author).performClick()
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Profile newer post 20")).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("Replies").performClick()
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("Load older").performClick()
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Nested Saito reply")).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("Nested Saito reply").assertIsDisplayed()
+                    ui.onNodeWithText("Likes").performClick()
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Profile newer post 20")).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("Load older").performClick()
+                    ui.waitUntil(15_000) {
+                        runCatching { ui.onNode(hasScrollAction()).performScrollToNode(hasText("Independent Saito reply")) }.isSuccess
+                    }
+                    ui.onNodeWithText("Independent Saito reply").assertIsDisplayed()
+                    peer.assertHealthy()
+                    captureFeedEvidence("browse-evidence/older-profile-like.png")
+                } catch (failure: Throwable) {
+                    captureFeedEvidence("browse-evidence/profile-paging-first-failure.png")
+                    throw failure
+                }
+            }
+        }
+    }
+
     @Test fun malformedSignedThreadIsRejectedWithoutHidingAnAuthenticConversation() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = prepareContext()

@@ -78,6 +78,11 @@ one question at a time when a material choice really needs the owner.
   malformed-thread-red. Minimal parent/thread signature validation implemented;
   local/device green pending. Pure paging reference generator is uncommitted,
   output in .scratch/native-profile-paging-reference.json for next paging tracer.
+  Malformed-thread green37935302107 at a70e370 passes all five cases on Android10;
+  success image/log inspected/retained malformed-thread-green/api-29. Final full
+  covers SDK17 later. New sixth app case for older Replies/Likes beyond20 rows
+  and independent paging fixtures added. Compile/red pending; no production
+  pagination exists. Then add identity links/test, repeat both reviews and full.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.

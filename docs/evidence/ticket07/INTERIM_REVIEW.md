@@ -52,3 +52,9 @@ existing signed fixture is semantically identical under the independently
 verified reference runner. Fresh browse tests now clear their fixture-owned
 public caches once at setup, preserving the cache during the tested restart.
 Actual runtime for these refactors and specification fixes remains pending.
+
+The four established flows pass at refactored c631f4d in37934353219; its fifth
+case provides the actual malformed-relationship red. Minimal validation a70e370
+passes all five cases in Android10 run37935302107. Public logs/images retained
+in malformed-thread-red/green. Android17/final full and repeated review remain.
+Older profile pages and remaining identity entry points still need fixes.
