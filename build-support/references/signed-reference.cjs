@@ -15,24 +15,28 @@ assert.equal(reference.saitoWasmVersion,'0.3.2');
 assert.equal(reference.ellipticVersion,'6.6.1');
 assert.equal(reference.wasmSha256,'f59be69dbb949368ce1fc7ef47d414cbe0281a86a206fe4bfb1128a4d087e01e');
 
-function signedReference(scalar, body, timestamp) {
+function signedReference(scalar, body, timestamp, recipients = []) {
   assert(['1','2'].includes(scalar)); // Public unsafe test keys. Never fund.
   const privateKey = '0'.repeat(63) + scalar;
   const author = wasm.generate_public_key(privateKey);
   const point = Buffer.from(base58.decode(author));
+  const outputs = [...new Set([author,...recipients])];
+  assert(outputs.length <= 255);
+  assert(outputs.every(key => ['1','2'].some(value => wasm.generate_public_key('0'.repeat(63)+value) === key)));
   const message = Buffer.from(JSON.stringify(body));
   const transaction = new wasm.WasmTransaction();
-  for (const input of [true, false]) {
+  for (const [input,index,key] of [[true,0,author],...outputs.map((key,index) => [false,index,key])]) {
     const slip = new wasm.WasmSlip();
-    slip.public_key=author; slip.amount=0n; slip.block_id=0n; slip.tx_ordinal=0n;
-    slip.slip_index=0; slip.slip_type=0;
+    slip.public_key=key; slip.amount=0n; slip.block_id=0n; slip.tx_ordinal=0n;
+    slip.slip_index=index; slip.slip_type=0;
     if (input) transaction.add_from_slip(slip); else transaction.add_to_slip(slip);
   }
   transaction.timestamp=BigInt(timestamp); transaction.txs_replacements=1;
   transaction.type=0; transaction.data=message;
   const time = Buffer.alloc(8); time.writeBigUInt64BE(BigInt(timestamp));
   const signedSlip = Buffer.concat([point,Buffer.alloc(8),Buffer.from([0,0])]);
-  const preimage = Buffer.concat([time,signedSlip,signedSlip,Buffer.from([0,0,0,1]),Buffer.alloc(4),message]);
+  const outputSlips = outputs.map((key,index) => Buffer.concat([Buffer.from(base58.decode(key)),Buffer.alloc(8),Buffer.from([index,0])]));
+  const preimage = Buffer.concat([time,signedSlip,...outputSlips,Buffer.from([0,0,0,1]),Buffer.alloc(4),message]);
   transaction.generate_hash_for_signature();
   const hash=wasm.hash(preimage);
   assert.equal(Buffer.from(transaction.get_hash_for_signature()).toString('hex'),hash);

@@ -6,6 +6,21 @@ import org.junit.Test
 import java.util.Base64
 
 class SaitoTransactionTest {
+    @Test fun replyRecipientAndOutputIndicesMatchIndependentWasmBytes() {
+        val reference = requireNotNull(javaClass.getResourceAsStream("/native-posting-reference.json")).bufferedReader().use {
+            JsonParser.parseReader(it).asJsonObject.getAsJsonObject("reply")
+        }
+        val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "2") // Public unsafe fixture, never fund.
+        val transaction = SaitoTransaction.create(wallet, reference.getAsJsonObject("body"), reference.get("timestamp").asLong,
+            reference.getAsJsonArray("recipients").map { it.asString })
+        assertEquals(reference.get("id").asString, transaction.id)
+        assertEquals(reference.get("networkBase64").asString, transaction.encoded())
+        assertEquals(reference.get("envelope").asString, transaction.envelope())
+        assertEquals(reference.get("broadcastBase64").asString,
+            Base64.getEncoder().encodeToString(transaction.broadcast(wallet, reference.get("destination").asString)))
+        assertEquals(transaction.encoded(), SaitoTransaction.restore(reference.get("networkBase64").asString).encoded())
+    }
+
     @Test fun rootTransactionAndPeerHopMatchIndependentWasmAndEllipticBytes() {
         val reference = requireNotNull(javaClass.getResourceAsStream("/native-posting-reference.json")).bufferedReader().use {
             JsonParser.parseReader(it).asJsonObject
