@@ -106,4 +106,42 @@ class PostQueuePreviewTest {
             }
         }
     }
+
+    @Test fun queuedPostResumesAfterReconnectionWhileTheAppIsBackgrounded() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val port = java.net.ServerSocket(0, 1, java.net.InetAddress.getByName("127.0.0.1")).use { it.localPort }
+        val indexed = java.util.concurrent.atomic.AtomicReference<com.google.gson.JsonObject?>()
+        val peer = ControlledFeedPeer("[]", onTransaction = { frame ->
+            val transaction = postingTransaction(frame)
+            val post = nl.davidengelen.redsquare.saito.RedSquareFeed.decode(transaction.envelope())
+            org.junit.Assert.assertEquals("Resume while I am away", post.text)
+            indexed.set(postingArchiveRow(transaction))
+        }, archiveResponse = { criteria ->
+            val row = indexed.get()
+            if (criteria.has("sig") && criteria.get("sig").asString != row?.get("sig")?.asString) "[]"
+            else row?.let { "[$it]" } ?: "[]"
+        })
+        ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            .putExtra("feedPeerUrl", "ws://127.0.0.1:$port/wsopen")).use { scenario ->
+            ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+            ui.onNodeWithText("Wallet").performClick()
+            val address = displayedWalletAddress(ui)
+            ui.onNodeWithText("Done").performClick()
+            ui.onNodeWithText("New post").performClick()
+            ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+            ui.onNode(hasSetTextAction()).performTextReplacement("Resume while I am away")
+            ui.onNodeWithText("Send").performClick()
+            ui.waitUntil(20_000) { ui.onAllNodes(hasText("Cancel queued post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+            scenario.moveToState(androidx.lifecycle.Lifecycle.State.CREATED)
+            peer.start(port).use {
+                ui.waitUntil(60_000) { peer.transactions.isNotEmpty() }
+                val post = nl.davidengelen.redsquare.saito.RedSquareFeed.decode(postingTransaction(peer.transactions.single()).envelope())
+                org.junit.Assert.assertEquals(address, post.author)
+                scenario.moveToState(androidx.lifecycle.Lifecycle.State.RESUMED)
+                ui.waitUntil(20_000) { ui.onAllNodes(hasText("Available on this server.")).fetchSemanticsNodes().isNotEmpty() }
+                peer.assertHealthy()
+                captureFeedEvidence("post-queue-evidence/background-resumption-confirmed.png")
+            }
+        }
+    }
 }

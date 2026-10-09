@@ -50,3 +50,8 @@ names and existing encrypted formats remain readable. Local assembly passes
 through final confirmation adjustment (1m24). Focused green pending. Background
 scheduling, uncertain automatic retries, queue-management UI and actual process/
 wallet replacement acceptance remain incomplete.
+
+Focused38005470104 atc3d5643 passes both cancellation and selected-original-
+backend automatic foreground delivery. The emitted transaction retains its
+originating wallet and text; the other peer receives no transaction. Background
+execution remains unimplemented and is the next vertical slice.
