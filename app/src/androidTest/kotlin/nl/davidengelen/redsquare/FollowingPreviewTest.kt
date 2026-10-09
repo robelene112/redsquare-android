@@ -279,6 +279,53 @@ class FollowingPreviewTest {
         }
     }
 
+    @Test fun newerUnrelatedGeneralCacheCannotHideAvailableFollowedAuthorPosts() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        val fixture = instrumentation.context.assets.open("native-following-retention-reference.json").bufferedReader().use {
+            JsonParser.parseReader(it).asJsonObject
+        }
+        val root = fixture.getAsJsonObject("root")
+        val author = root.get("field2").asString
+        val peer = ControlledFeedPeer("[$root]") { criteria ->
+            check(criteria.get("field1").asString == "RedSquare" && criteria.get("flagged_ne").asInt == 1)
+            if (criteria.has("field2")) check(criteria.get("field2").asString == author)
+            "[$root]"
+        }
+        peer.start().use { server ->
+            val intent = Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+            ActivityScenario.launch<MainActivity>(intent).use {
+                waitFor("Native Red Square reference post")
+                ui.onNodeWithText(author).performClick()
+                waitFor("Follow")
+                ui.onNodeWithText("Follow").performClick()
+                waitFor("Unfollow")
+                ui.onNodeWithText("Back").performClick()
+                ui.waitUntil(10_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+            }
+            // Public filesystem fixture: a legitimate full cache, all newer and unfollowed.
+            val cache = com.google.gson.JsonArray().apply {
+                fixture.getAsJsonArray("newerUnrelated").forEach { add(it.asJsonObject.get("tx").asString) }
+            }
+            java.io.File(context.noBackupFilesDir, "feed.owner.v1").writeText(cache.toString())
+            ActivityScenario.launch<MainActivity>(intent).use {
+                try {
+                    waitFor("Newer unrelated cached post 100")
+                    ui.onNodeWithText("Following").performClick()
+                    waitFor("Native Red Square reference post")
+                    ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
+                    ui.onNodeWithText("Newer unrelated cached post 100").assertDoesNotExist()
+                    peer.assertHealthy()
+                    captureFeedEvidence("following-evidence/followed-post-with-full-general-cache.png")
+                } catch (failure: Throwable) {
+                    captureFeedEvidence("following-evidence/retention-first-failure.png")
+                    throw failure
+                }
+            }
+        }
+    }
+
     @Test fun followingAnAccountRestrictsTheFeedAndUnfollowingRemovesItsPosts() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
