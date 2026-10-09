@@ -33,6 +33,15 @@ production configuration, wallet state or on-chain transactions require their
 own explicit authorization. Never copy private options, keys or database content
 into this repository, issue bodies or tool output.
 
+For pinned source-only reads on this host, `david` cannot traverse `/opt/saito`
+directly. An isolated Docker read-only mount succeeds. Use an empty environment,
+disabled network, read-only container and named Git objects, with
+`git --git-dir=/source/.git show <pin>:<source-file>`. Worktree discovery under
+this build image rejected ownership even with per-command `safe.directory`;
+explicit Git-directory reads succeeded. The cause of that difference was not
+investigated. Do not change global Git configuration or mount writable node data
+just to read source. Never use this source-read path for private options/databases.
+
 As inspected on 2026-10-07:
 
 - Production node source/runtime: `/opt/saito/node`, service `saito.service`.

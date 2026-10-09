@@ -58,4 +58,11 @@
     <string name="wallet_import_backup_required">Back up your current wallet before continuing with replacement.</string>
     <string name="wallet_import_backup_verified">Current wallet backed up for this replacement</string>
     <string name="wallet_import_backup">Back up current wallet</string>
+    <string name="wallet_import_balance_checking">Checking current wallet balance</string>
+    <string name="wallet_import_balance_positive">Your current wallet has SAITO</string>
+    <string name="wallet_import_balance_zero">Server reports zero SAITO</string>
+    <string name="wallet_import_balance_unknown">Balance could not be checked</string>
+    <string name="wallet_import_backup_recommended">A backup is strongly recommended, even with zero SAITO.</string>
+    <string name="wallet_import_skip_backup">Skip backup</string>
+    <string name="wallet_import_backup_skipped">Backup skipped for this replacement</string>
 </resources>

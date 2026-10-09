@@ -157,3 +157,28 @@ This is a dated endpoint-format observation, not independent proof of zero
 assets or a guarantee that later responses remain available/fresh. Controlled
 positive/zero/unknown native import behavior still requires implementation and
 verification within#7.
+
+The same pinned Git objects were re-read on this host, through an empty-environment,
+network-disabled read-only Docker mount. Snapshot rows have six fields even
+though an older nearby documentation comment lists five. Slip source confirms
+u64 block IDs/transaction ordinals, u8 slip indices and defined slip types0..10
+(Normal, ATR, VipInput, VipOutput, MinerInput, MinerOutput, RouterInput,
+RouterOutput, BlockStake, Bound, P2SH). Use executable serializer/type definitions
+as authority; unknown type values are invalid. Local HEAD remains9a4ca7e944.
+
+## Native import policy being implemented
+
+The backup-skip exception uses a fresh, complete response from the selected
+approved backend. The native policy accepts a nonzero initialized tip no older
+than15 minutes and no more than1 minute ahead of the device clock. This is a
+conservative application policy, not a Saito protocol guarantee or independent
+chain verification. Incorrect clocks and slower/stale backends therefore keep
+backup mandatory. The UI says "Server reports zero SAITO", not independently
+verified zero. Requests have a10-second deadline and2MiB bound, disable cache
+reuse and redirects, and never fall back to another backend. Parse all rows and
+exact integer amounts for the outgoing identity before offering Skip backup;
+invalid/incomplete/unavailable results remain unknown. Other asset indicators
+must also remain unknown when native code cannot establish their absence.
+Selecting a different file starts a new assessment and clears any skip/backup
+permission. Actual activation must recheck the current condition before mutation.
+This policy is not yet implementation proof; record the test results separately.

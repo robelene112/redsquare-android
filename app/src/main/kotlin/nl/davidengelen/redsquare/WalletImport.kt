@@ -11,6 +11,8 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import nl.davidengelen.redsquare.saito.SaitoWallet
+import nl.davidengelen.redsquare.saito.SaitoBackend
+import nl.davidengelen.redsquare.saito.ImportBalance
 import java.io.IOException
 import java.security.MessageDigest
 
@@ -18,9 +20,12 @@ import java.security.MessageDigest
 class WalletImport(
     private val activity: ComponentActivity,
     private val currentWallet: () -> SaitoWallet?,
+    private val currentBackend: () -> SaitoBackend?,
+    private val balances: WalletBalances,
     private val chooseDocument: () -> Unit,
 ) {
-    data class Preview(val publicKey: String, val sameIdentity: Boolean, val backupVerified: Boolean = false)
+    data class Preview(val publicKey: String, val sameIdentity: Boolean, val backupVerified: Boolean = false,
+        val balance: ImportBalance? = null, val backupSkipped: Boolean = false)
 
     var preview by mutableStateOf<Preview?>(null)
         private set
@@ -31,11 +36,13 @@ class WalletImport(
     private var outgoing: SaitoWallet? = null
     private var candidate: Candidate? = null
     private var readJob: Job? = null
+    private var balanceJob: Job? = null
 
     fun clearMessage() { if (!busy) message = null }
 
     fun start() {
         if (busy) return
+        balanceJob?.cancel()
         outgoing = currentWallet() ?: return
         candidate = null
         preview = null
@@ -47,6 +54,7 @@ class WalletImport(
 
     fun documentChosen(uri: Uri?) {
         val original = outgoing ?: return
+        val selectedBackend = currentBackend()
         if (uri == null) { finish(R.string.wallet_import_cancelled); return }
         readJob = activity.lifecycleScope.launch {
             val result = withContext(Dispatchers.IO) {
@@ -69,7 +77,7 @@ class WalletImport(
                         update(buffer, 0, size)
                         digest()
                     }
-                    ReadResult(Candidate(SaitoWallet.fromBackup(String(buffer, 0, size, Charsets.UTF_8)), original, fingerprint), null)
+                    ReadResult(Candidate(SaitoWallet.fromBackup(String(buffer, 0, size, Charsets.UTF_8)), original, fingerprint, selectedBackend), null)
                 } catch (_: IllegalArgumentException) {
                     // Provider and parser messages can include private file values.
                     ReadResult(null, R.string.wallet_import_invalid)
@@ -81,8 +89,28 @@ class WalletImport(
                 candidate = result.candidate
                 preview = result.candidate?.wallet?.let { Preview(it.publicKey, it.publicKey == original.publicKey) }
                 finish(result.failure)
+                result.candidate?.let { selected ->
+                    if (preview?.sameIdentity == false) assessBalance(selected)
+                }
             }
         }
+    }
+
+    private fun assessBalance(selected: Candidate) {
+        balanceJob = activity.lifecycleScope.launch {
+            val balance = selected.backend?.let { backend ->
+                withContext(Dispatchers.IO) { balances.assess(backend, selected.original.publicKey) }
+            } ?: ImportBalance.UNKNOWN
+            if (candidate === selected && currentWallet() === selected.original && currentBackend() == selected.backend) {
+                preview = preview?.copy(balance = balance, backupSkipped = false)
+            }
+        }
+    }
+
+    fun skipBackup() {
+        val selected = candidate ?: return
+        if (!busy && currentWallet() === selected.original && currentBackend() == selected.backend &&
+            preview?.balance == ImportBalance.ZERO) preview = preview?.copy(backupSkipped = true)
     }
 
     fun backUpCurrentWallet(startExport: ((SaitoWallet) -> Unit) -> Unit) {
@@ -110,9 +138,11 @@ class WalletImport(
         candidate = null
         preview = null
         readJob?.cancel()
+        balanceJob?.cancel()
         busy = false
     }
 
-    private class Candidate(val wallet: SaitoWallet, val original: SaitoWallet, val fingerprint: ByteArray)
+    private class Candidate(val wallet: SaitoWallet, val original: SaitoWallet, val fingerprint: ByteArray,
+        val backend: SaitoBackend?)
     private class ReadResult(val candidate: Candidate?, val failure: Int?)
 }

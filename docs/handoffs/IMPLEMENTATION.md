@@ -77,6 +77,12 @@ one question at a time when a material choice really needs the owner.
   a controlled loopback server and allows an explicit recommended-backup skip
   only for fresh complete outgoing zero. Existing tests now specify unavailable
   loopback balance endpoints so ordinary checks cannot read public balances.
+  Actual functional red37901341544 at fcd1f8f passes the3 existing flows and
+  times out on the missing positive-balance status (test line192). Log retained
+  in ticket06/balance-red. Minimal fixed-host HTTP lookup/strict integer snapshot
+  assessment and explicit zero-only Skip backup are implemented; compile/green
+  pending. Policy is10-second/2MiB bound,15-minute tip age/1-minute future skew,
+  no cache reuse/redirect/fallback. See the research doc for its trust limits.
   No activation is implemented yet.
   Testing uses approved parent application/failure boundaries, with fixture data
   in the isolated test APK only. Do not claim valid import preview/activation

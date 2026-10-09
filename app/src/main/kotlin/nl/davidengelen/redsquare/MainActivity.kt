@@ -36,6 +36,7 @@ import java.io.File
 import java.io.IOException
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.saito.SaitoBackend
+import nl.davidengelen.redsquare.saito.ImportBalance
 import nl.davidengelen.redsquare.saito.AndroidBackendStore
 import nl.davidengelen.redsquare.feed.FeedScreen
 import nl.davidengelen.redsquare.feed.FeedEndpoints
@@ -91,7 +92,8 @@ class MainActivity : ComponentActivity() {
             val backupReminders = remember { getSharedPreferences("wallet-backup-reminders", MODE_PRIVATE) }
             var backupReminder by remember { mutableStateOf(false) }
             val walletExport = remember { WalletExport(this@MainActivity, { wallet }, createWalletDocument::launch) }
-            val walletImport = remember { WalletImport(this@MainActivity, { wallet }) {
+            val balances = remember { WalletBalances.fromIntent(intent) }
+            val walletImport = remember { WalletImport(this@MainActivity, { wallet }, { backend }, balances) {
                 openWalletDocument.launch(arrayOf("*/*"))
             } }
             DisposableEffect(walletExport) {
@@ -261,7 +263,23 @@ class MainActivity : ComponentActivity() {
                                     Text(preview.publicKey, Modifier.semantics { contentDescription = selectedAddressLabel })
                                     Text(stringResource(if (preview.sameIdentity) R.string.wallet_import_restore_detail else R.string.wallet_import_replace_detail))
                                     if (!preview.sameIdentity) {
-                                        Text(stringResource(if (preview.backupVerified) R.string.wallet_import_backup_verified else R.string.wallet_import_backup_required))
+                                        Text(stringResource(when (preview.balance) {
+                                            null -> R.string.wallet_import_balance_checking
+                                            ImportBalance.ZERO -> R.string.wallet_import_balance_zero
+                                            ImportBalance.POSITIVE -> R.string.wallet_import_balance_positive
+                                            ImportBalance.UNKNOWN -> R.string.wallet_import_balance_unknown
+                                        }))
+                                        Text(stringResource(when {
+                                            preview.backupVerified -> R.string.wallet_import_backup_verified
+                                            preview.backupSkipped -> R.string.wallet_import_backup_skipped
+                                            preview.balance == ImportBalance.ZERO -> R.string.wallet_import_backup_recommended
+                                            else -> R.string.wallet_import_backup_required
+                                        }))
+                                        if (preview.balance == ImportBalance.ZERO && !preview.backupVerified && !preview.backupSkipped) {
+                                            TextButton(enabled = !walletExport.busy && !walletImport.busy, onClick = walletImport::skipBackup) {
+                                                Text(stringResource(R.string.wallet_import_skip_backup))
+                                            }
+                                        }
                                         TextButton(enabled = !walletExport.busy && !walletImport.busy,
                                             onClick = { walletImport.backUpCurrentWallet { verified -> walletExport.start(verified) } }) {
                                             Text(stringResource(R.string.wallet_import_backup))
