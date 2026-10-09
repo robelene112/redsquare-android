@@ -106,6 +106,11 @@
     <string name="post_pending">Send requested. Availability on this server is not confirmed.</string>
     <string name="post_network_error">Could not check or send this post with the selected server. Retry checks for it first, then sends the original post if needed.</string>
     <string name="post_available">Available on this server.</string>
+    <string name="post_start_another">Start another draft</string>
+    <string name="post_clear_title">Clear this local posting record?</string>
+    <string name="post_clear_detail">This post may already have reached the server. Clearing removes its saved text and retry record from this composer. It does not remove any published post or copies elsewhere.</string>
+    <string name="post_clear_confirm">Clear local record</string>
+    <string name="post_clear_keep">Keep this post</string>
     <string name="post_save_draft">Save draft</string>
     <string name="post_write">Write a post</string>
     <string name="post_invalid_text">This post needs valid text and must fit within the app\'s 1 MiB encoded message limit. Shorten or correct it, then try again. Your text is still here.</string>

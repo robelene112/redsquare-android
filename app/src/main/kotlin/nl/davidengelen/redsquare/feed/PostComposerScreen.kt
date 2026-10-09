@@ -51,6 +51,7 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
     var available by remember(store) { mutableStateOf(false) }
     var sending by remember(store) { mutableStateOf(false) }
     var reload by remember(store) { mutableIntStateOf(0) }
+    var confirmClear by remember(store) { mutableStateOf(false) }
     LaunchedEffect(store, reload) {
         try {
             val saved = withContext(Dispatchers.IO) { store.load() }
@@ -66,8 +67,10 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
         if (!ready) return@withLock false
         try {
             val snapshot = if (available) PostDraftStore.Saved("") else PostDraftStore.Saved(text, transaction)
-            withContext(NonCancellable + Dispatchers.IO) { store.save(snapshot) }
-            memory.text = snapshot.text
+            withContext(NonCancellable) {
+                withContext(Dispatchers.IO) { store.save(snapshot) }
+                memory.text = snapshot.text
+            }
             error = false
             true
         } catch (cancelled: CancellationException) { throw cancelled }
@@ -149,6 +152,26 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
             finally { sending = false }
         }
     }
+    fun clearAndClose() {
+        if (!ready || saving || sending || transaction == null || available) return
+        confirmClear = false
+        saving = true
+        scope.launch {
+            try {
+                writes.withLock {
+                    withContext(NonCancellable) {
+                        withContext(Dispatchers.IO) { store.save(PostDraftStore.Saved("")) }
+                        memory.text = ""
+                        text = ""
+                        transaction = null
+                    }
+                }
+                onClose()
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { error = true }
+            finally { saving = false }
+        }
+    }
     BackHandler { if (!sending) { if (ready) saveAndClose() else onClose() } }
     Column(modifier.imePadding()) {
         Row {
@@ -169,6 +192,8 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
         if (available) Text(stringResource(R.string.post_available))
         else if (submitted) Text(stringResource(R.string.post_submitted))
         else if (transaction != null) Text(stringResource(R.string.post_pending))
+        if (transaction != null && !available) TextButton(enabled = !saving && !sending,
+            onClick = { confirmClear = true }) { Text(stringResource(R.string.post_start_another)) }
         if (networkError) Text(stringResource(R.string.post_network_error))
         if (validationError) Text(stringResource(R.string.post_invalid_text))
         if (error) {
@@ -178,4 +203,11 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
         OutlinedTextField(value = text, onValueChange = { text = it; memory.text = it; validationError = false }, enabled = ready && !saving && !sending && transaction == null,
             placeholder = { Text(stringResource(R.string.post_write)) }, modifier = Modifier.fillMaxWidth().weight(1f))
     }
+    if (confirmClear) AlertDialog(
+        onDismissRequest = { confirmClear = false },
+        title = { Text(stringResource(R.string.post_clear_title)) },
+        text = { Text(stringResource(R.string.post_clear_detail)) },
+        confirmButton = { TextButton(onClick = ::clearAndClose) { Text(stringResource(R.string.post_clear_confirm)) } },
+        dismissButton = { TextButton(onClick = { confirmClear = false }) { Text(stringResource(R.string.post_clear_keep)) } },
+    )
 }
