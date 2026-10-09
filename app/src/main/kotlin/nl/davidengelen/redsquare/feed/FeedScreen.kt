@@ -92,10 +92,12 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
                 }
                 loading = true
                 try {
-                    val page = withContext(Dispatchers.IO) {
+                    withContext(Dispatchers.IO) {
                         SaitoPeer(wallet, endpoint).use { peer ->
                             val authors = if (followingView) following!!.accounts.sorted() else listOf<String?>(null)
-                            val pages = authors.map { author ->
+                            var rowCount = 0
+                            var validCount = 0
+                            for (author in authors) {
                                 val criteria = com.google.gson.JsonObject().apply {
                                     addProperty("request", "load"); addProperty("field1", "RedSquare")
                                     addProperty("field4", ""); addProperty("flagged_ne", 1); addProperty("limit", 20)
@@ -104,23 +106,25 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
                                 }
                                 val request = com.google.gson.JsonObject().apply { addProperty("request", "archive"); add("data", criteria) }
                                 val response = peer.request(request.toString().toByteArray()).toString(Charsets.UTF_8)
-                                RedSquareFeed.readArchive(response).let { page ->
+                                val page = RedSquareFeed.readArchive(response).let { page ->
                                     if (author == null) page else page.copy(posts = page.posts.filter { it.author == author })
                                 }
+                                rowCount += page.rowCount
+                                validCount += page.posts.size
+                                withContext(Dispatchers.Main.immediate) {
+                                    val merged = (page.posts + posts).distinctBy { it.id }
+                                        .filter { !followingView || it.author in following!!.accounts }
+                                        .sortedByDescending { it.createdAt }
+                                        .take(AndroidFeedCache.MAX_POSTS)
+                                    cacheWarning = withContext(Dispatchers.IO) {
+                                        try { cache.save(merged); false } catch (_: Exception) { true }
+                                    }
+                                    posts = merged
+                                    unreadablePage = rowCount > 0 && validCount == 0
+                                }
                             }
-                            ArchiveFeedPage(pages.flatMap { it.posts }, pages.mapNotNull { it.oldestCreatedAt }.minOrNull(),
-                                pages.sumOf { it.rowCount }, pages.sumOf { it.ignored })
                         }
                     }
-                    val merged = (page.posts + posts).distinctBy { it.id }
-                        .filter { !followingView || it.author in following!!.accounts }
-                        .sortedByDescending { it.createdAt }
-                        .take(AndroidFeedCache.MAX_POSTS)
-                    cacheWarning = withContext(Dispatchers.IO) {
-                        try { cache.save(merged); false } catch (_: Exception) { true }
-                    }
-                    posts = merged
-                    unreadablePage = page.rowCount > 0 && page.posts.isEmpty()
                     failed = false
                     if (hadOutage) { recovered = true; hadOutage = false }
                 } catch (cancelled: CancellationException) { throw cancelled }
