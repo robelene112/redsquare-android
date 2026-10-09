@@ -1,6 +1,6 @@
 # Sequential implementation handoff
 
-Updated 2026-10-09, 00:16 UTC. The owner authorized implementing all 35 proposed
+Updated 2026-10-09, 00:30 UTC. The owner authorized implementing all 35 proposed
 tickets sequentially, committing after each, and reviewing the app at the end.
 Continue without routine permission requests or a grill per ticket. Ask only
 one question at a time when a material choice really needs the owner.
@@ -11,33 +11,18 @@ one question at a time when a material choice really needs the owner.
 - Implementation tickets: #2 through #36, with native GitHub dependencies.
 - Two of 35 tickets complete: #2 signature compatibility and #3 persistent wallet
   and signed updates. #4 live feed/cache is active; its review base is a1973c2.
-- Feed implementation 1bcd832 implements authenticated owner WSS, independently
-  verified public feed posts, persistent public cache, cold starts, refresh,
-  keyed scroll position, accurate outage/recovery and unreadable-response copy.
-- Standards and Spec reviews found no remaining application/security defects
-  at 1bcd832. Their stale-handoff finding is corrected by this update. Cache
-  commit verification, callback races and refresh-test synchronization are fixed.
-- Run **37859209011** passed fourteen core tests, assembly/lint, the full
-  Android 10 runtime and all four controlled Android 17 feed cases. The later
-  Android 17 fresh live test crashed during Compose layout; the full candidate
-  did not pass. Retained failure evidence is under docs/evidence/ticket03/failed-final.
-  Focused Android 17/public read run 37861050271 passed at 1374b1c with Compose
-  BOM 2026.06.01 (UI 1.11.4) and the legacy test scheduler; results and public
-  screenshots were inspected and retained in docs/evidence/ticket03/compose-focused-17.
-  Reviewed candidate 8060ed2 aligns Lifecycle with resolved 2.9.4 and migrates
-  test factories to the supported queued v2 scheduler. Both reviews found no
-  new issues. These are compatibility changes, not an established explanation
-  for the crash. Full run 37861712249 at dec035d passed Android 10 completely;
-  Android 17 feed/live-read, wallet recovery and cold continuity passed, then
-  the update-notice test timed out before its signed-update stage. Its one-shot
-  HTTP fixture is replaced by a multi-request server, preserving UI/link
-  assertions. Focused 37863180844 passed at 3310534 with three manifest requests
-  and an inspected notice screenshot; this supports a fixture mismatch without
-  proving the earlier request sequence. Shared focused/full helper 47ce6df
-  resolves the sole review smell; both axes report no new remaining findings.
-  App code is unchanged. Final full run 37863843807 at c5953de is pending on
-  both SDKs, including fresh owner reads. Do not close #4 or publish build9 on
-  partial evidence.
+- Ticket #4's reviewed implementation passed final full run **37863843807**
+  at c5953de on Android 10 and 17. All fourteen core tests, assembly/lint, four
+  controlled feed cases per SDK, fresh owner reads, wallet recovery/continuity,
+  notice/link assertions and actual signed 5-to-8 updates passed. Downloaded
+  public logs and live/cached screenshots were inspected and retained under
+  docs/evidence/ticket03/final-full. Final status recording/closure is next.
+- Both independent reviews report zero remaining actionable findings after
+  cache/callback/test fixes and the shared update-verification helper. Compatible
+  Compose 1.11.4 and supported v2 tests are selected. Historical layout and
+  update-notice failures are documented; their original causes are not asserted.
+  The realistic update HTTP fixture handles multiple requests, with three
+  observed on both SDKs. Final full acceptance now passes.
 - Signed feed build 9 (f71c506) is prepared and signature/package verified,
   but remains unpublished. Stable preview is version 8, wallet foundation.
   Publish the first complete milestone after #7 includes server selection and

@@ -1,68 +1,45 @@
 # Ticket #4 two-axis review
 
-Fixed base: a1973c2. Final reviewed head: f71c506.
-Review command: git diff a1973c2...f71c506.
-Commit inventory: git log a1973c2..f71c506 --oneline.
-Specification: GitHub issues #4 and #1. Standards: AGENTS.md,
+Fixed base: a1973c2. Reviewed application/test candidate: 3310534, with the
+Standards fix verified at 47ce6df. Review commands were
+`git diff a1973c2...3310534`, `git log a1973c2..3310534 --oneline` and
+`git diff 3310534...47ce6df`. Specification: GitHub issues #4 and #1, with
+physical scheduling preserved in #35. Standards: AGENTS.md,
 CODING_STANDARDS.md, project context/workflow/operations, applicable ADRs and
 the code-review skill's complete Fowler baseline.
 
-Both independent read-only reviewers checked the implementation, then its
-fixes. Findings addressed: cache commit verification, race-prone connectivity
-queries, duplicated evidence capture, refresh-test synchronization and stale
-current handoff. A device test additionally exposed the cached unreadable
-warning and an Android 10 storage-fixture error; both are corrected.
-
 ## Standards
 
-Final Standards findings count at f71c506: **0 hard violations; 0 actionable
-heuristic smells**. The stale handoff is resolved: both current documents identify
-the corrected candidate, distinguish historical results, and explicitly mark
-run 37859209011 as pending. Application code is unchanged from 1bcd832.
-Final runtime acceptance remains pending; physical Pixel performance is not claimed.
+Zero hard violations and zero remaining actionable Fowler heuristics. Earlier
+findings resolved cache commit verification, connectivity callback races,
+duplicated evidence capture, refresh-test synchronization and stale handoffs.
+The final P3 duplicated update-evidence extraction is resolved by the shared
+`verify_preview_update()` helper, with nonfatal evidence pulls preserved.
+
+Matching compatible Compose BOMs, actual Lifecycle alignment and supported v2
+factory imports were reviewed. The multi-request HTTP fixture retains the
+notice/link assertions and captures public UI before activity closure.
 
 ## Spec
 
-Final Spec findings count at f71c506: **0**. The handoff now accurately identifies
-the fixed candidate, distinguishes historical failures from current behavior,
-and explicitly leaves run 37859209011 pending. No application code changed.
-The documentation finding is cleared; ticket #4 runtime acceptance awaits the
-final results. Pixel measurements remain tracked in #35 and are not claimed.
+Zero new actionable findings through 3310534. All application requirements
+retain their scope. Focused scopes explicitly exclude full acceptance, and
+production reads require explicit opt-in. The reviewers correctly left runtime
+acceptance pending until the final complete result below. The actual Pixel
+timing targets remain required and unverified in #35; scheduling did not reduce
+scope or mark emulator timing as physical acceptance.
 
-Standards: 0 findings, no remaining worst issue. Spec: 0 findings, no remaining
-worst issue. Passing review does not replace outstanding runtime verification.
+## Final runtime evidence
 
-The Spec reviewer also verified the tracker clarification: physical timing
-moves to #35 for the owner's requested final review, retaining all required
-runs and both original targets as unverified. #4 retains measurement
-preparation and emulator observations. Spec findings remain zero; this is
-scheduling, not a claim that either physical target passed.
+Run 37863843807 at c5953de passed the full suite on Android 10 and 17, including
+separate fresh native owner reads, controlled feed/cache/recovery/position
+cases, wallet recovery/continuity, notice/link assertions and signed 5-to-8
+updates. Selected public results and screenshots were inspected and retained
+under final-full. The subsequent documentation commits change no app, core,
+test script or build configuration. See
+[verification](../../research/NATIVE_FEED_VERIFICATION.md) for chronological
+failures and measured test durations with their limits.
 
-## Compatibility candidate review
-
-Both reviewers rechecked `git diff a1973c2...8060ed2` and the corresponding
-commit inventory, concentrating on changes since f71c506. Standards: zero
-hard violations and zero actionable Fowler heuristics. Spec: zero new
-actionable findings. Matching Compose BOMs, the inspected compatible artifact
-metadata, alignment with resolved Lifecycle 2.9.4, supported v2 factory
-imports and explicit focused/live-read scope preserve the accepted behavior.
-
-The known runtime acceptance blocker remains: old full run 37859209011 crashed
-during its Android 17 fresh live-owner read. Both reviewers explicitly leave
-new-candidate runtime acceptance pending. Neither their review nor successful
-compilation establishes the crash cause, a fix or physical Pixel performance.
-
-## Update-notice fixture review
-
-Both reviewers checked through 3310534, retaining base a1973c2. Spec found zero
-new actionable findings; the multi-request HTTP fixture retains the visible
-notice and fixed review-link assertions, and diagnostics do not change app
-behavior. Standards found zero hard violations and one P3 possible duplicated
-evidence extraction in the focused/full harness. Commit 47ce6df gathers both
-paths in `verify_preview_update()`; the Standards reviewer verified the fix and
-reports zero hard violations and zero actionable heuristics. Shell syntax passes.
-
-Run 37861712249 passed the feed/live-read and wallet recovery checks on Android
-17 but timed out in the later update-notice test, before its signed-update
-stage. Focused fixture verification remains pending. These reviews do not
-establish the timeout cause or final runtime/physical acceptance.
+Standards: 0 remaining actionable findings. Spec: 0 new actionable findings.
+Final runtime acceptance passes; physical Pixel and later milestone publication
+remain separate requirements. No historical crash cause is asserted.

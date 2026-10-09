@@ -216,3 +216,27 @@ request sequence. App code was unchanged. Evidence is retained under
 `docs/evidence/ticket03/update-focused-17`. Shared harness helper 47ce6df
 keeps full and focused commands identical. Final full run **37863843807** at
 **c5953de** now checks both SDKs, including explicit fresh owner reads; pending.
+
+## Accepted runtime candidate
+
+Full run **37863843807** at **c5953de** passed on **2026-10-09**: all fourteen
+core tests, debug/test/release assembly and lint, sixteen instrumentation cases
+per SDK (four feed, one separate fresh-owner read and eleven wallet/update
+cases), unavailable-peer cached cold launch, wallet cold continuity and actual
+signed **5-to-8** updates. Public logs and live/cached screenshots for both
+SDKs were downloaded and inspected; durable selected evidence is under
+`docs/evidence/ticket03/final-full`. Both fresh reads show three author identities.
+Controlled feed tests took 13.61 seconds on Android 10 and 42.995 on Android 17;
+fresh live tests took 6.921 and 21.994 seconds respectively. These are test
+durations, not physical launch measurements.
+
+The repeated-request fixture observed three manifest requests on both SDKs;
+the unchanged notice/link assertions passed. No layout crash occurred in this
+accepted run. The historical failures remain recorded and their original causes
+are not retroactively established. App/core/scripts/workflow content is unchanged
+by subsequent evidence-only commits, checked with git diff. Both independent
+reviews report zero remaining actionable findings through the reviewed changes.
+
+No production writes occurred. Pixel launch/update acceptance remains required
+and unverified in #35. Build 9 remains unpublished; the next public milestone
+follows #7, including both backends and safeguarded import/export.
