@@ -57,6 +57,9 @@ class PostProcessRecoveryTest {
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 waitFor("New post")
+                ui.waitUntil(20_000) {
+                    ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty()
+                }
                 ui.onNodeWithText("New post").performClick()
                 ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNode(hasSetTextAction()).performTextReplacement(body)

@@ -14,7 +14,11 @@ posting recovery pass; posting12/14, with header visibility and
 file-picker fixture failures. Diagnostic37996950887 at3967eec reproduces12/14: IME pans the header offscreen;
 the picker stays in Recent after false root-selection detection. Tests now
 dismiss the keyboard and explicitly select the test root. Local build53s
-passes; focused17 green pending. Production source remains unchanged fromcd1ee24. Cancelled
+passes. Focused37998134266 stopped in process preparation before the14 cases:
+New post was clicked without waiting for enabled state, and no editor became
+available. The fixture now waits for readiness, and host diagnostics report
+preparation failure directly. Local51s build and Python syntax pass. Final
+full17 next validates fixture fixes and outstanding acceptance together. Production source remains unchanged fromcd1ee24. Cancelled
 37993042535 is superseded. Eight tickets complete.
 
 ## Implemented behavior

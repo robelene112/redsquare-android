@@ -54,6 +54,10 @@ full37994339188 passes Android10 (70 completed cases), then Android17
 posting12/14. Added bounded wait for header visibility after dialog dismissal
 and picker failure diagnostics; diagnostic37996950887 reproduces12/14 and proves IME panning plus a picker
 remaining in Recent. Test-only fixes dismiss the keyboard and explicitly
-select the root; focusedgreen and fix review pending. Full17
+select the root; both fix-review axes at41b4b26 find zero actionable issues. Focusedgreen
+37998134266 stops before the14 cases in startup preparation (enabled editor
+never appears after unguarded New post click). Readiness wait added before
+clicking; preparation failure reported directly. Full17 acceptance and
+readiness-delta review remain pending. Full17
 will be repeated using full-android17 with unchanged production source.
 Cancelled37993042535 is superseded.

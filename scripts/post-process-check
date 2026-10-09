@@ -28,6 +28,8 @@ prepared = adb("shell", "am", "instrument", "-w", "-r", "-e", "class",
                test_class + "#terminateAfterAnUncertainSendBeforeLeavingTheComposer", runner,
                check=False, timeout=120)
 (args.evidence / "interrupted-instrumentation.txt").write_text(prepared.stdout)
+if "FAILURES!!!" in prepared.stdout:
+    raise AssertionError("Posting preparation failed before deliberate termination; see interrupted-instrumentation.txt")
 row = json.loads(adb("exec-out", "run-as", package, "cat", state_path).stdout)
 if not re.fullmatch(r"[1-9A-HJ-NP-Za-km-z]{43,45}", row["field2"]):
     raise AssertionError("Public posting checkpoint identity is invalid")
