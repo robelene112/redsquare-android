@@ -16,9 +16,23 @@ one question at a time when a material choice really needs the owner.
   Both final source-review axes have zero actionable findings. References and
   functional red/green chronology are in thread/profile verification and
   ticket07/INTERIM_REVIEW/REVIEW. No production writes or new APK publication.
-- Next #9, "08: Follow accounts and read a Following feed". Start at the final
-  #8 acceptance commit once its issue is closed. Implement only this next ticket,
-  then continue all35 sequentially. Public unsafe scalar1/2 fixtures only;
+- Active #9, "08: Follow accounts and read a Following feed", assigned @me;
+  #8 is closed, all native blockers complete, review base6dd511d. First app test
+  proves profile Follow/Unfollow and restricted Following/empty state. Actual
+  red37947832357 at8e77779 fails at missing Follow action (line47), after a
+  separately corrected test-import build error. Public image/log retained in
+  ticket08/following-red. Minimal implementation builds locally: wallet-scoped
+  follow choices in shared bounded atomic public storage, profile actions,
+  Following view and exact-author archive reads using only the selected peer.
+  PublicStringStore is the existing envelope cache renamed for its third public
+  string consumer; prior cache formats are unchanged. Green37949419777/37949425181
+  is running on Android10/17. Wait for meaningful green before writing the next
+  behavior test. Then backend/restart/identity/failure checks, both reviews and
+  final full; close#9 only on acceptance and continue all35 sequentially.
+  New references use the pure pinned WASM/Elliptic helper. Direct named deployed
+  public Archive source read confirmed exact field2 criteria; named Git-object
+  reads failed at the old documented Git directory. No Git repair attempted;
+  source hash/provenance in NATIVE_FOLLOWING_VERIFICATION.md. Public scalar1/2 only;
   never read/export real wallet/private material or broadcast production writes.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
