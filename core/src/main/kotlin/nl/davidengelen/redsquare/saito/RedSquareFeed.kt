@@ -1,8 +1,6 @@
 package nl.davidengelen.redsquare.saito
 
-import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
-import com.google.gson.Strictness
 
 /** Original signed content; archive metadata and chain inclusion are separate assertions. */
 data class FeedPost(
@@ -30,26 +28,10 @@ object RedSquareFeed {
         readPosts(response) { it.id == signature }
 
     private fun readPosts(response: String, accepts: (FeedPost) -> Boolean): ArchiveFeedPage {
-        require(response.toByteArray(Charsets.UTF_8).size <= 16 * 1024 * 1024)
-        val rows = gson.fromJson(response, com.google.gson.JsonArray::class.java)
-            ?: throw IllegalArgumentException("Missing archive response")
-        require(rows.size() <= 100)
-        var oldest: Long? = null
-        var ignored = 0
-        val posts = rows.mapNotNull { row ->
-            try {
-                val item = row.asJsonObject
-                val cursor = item.get("created_at")?.asString?.toLongOrNull()?.takeIf { it >= 0 }
-                if (cursor != null) oldest = minOf(oldest ?: cursor, cursor)
-                decode(item.string("tx")).takeIf(accepts).also {
-                    if (it == null) ignored++
-                }
-            } catch (_: Exception) { ignored++; null }
-        }
-        return ArchiveFeedPage(posts.distinctBy { it.id }, oldest, rows.size(), ignored)
+        val page = readArchiveRows(response, ::decode, accepts) { it.id }
+        return ArchiveFeedPage(page.entries, page.oldestCreatedAt, page.rowCount, page.ignored)
     }
 
-    private val gson = GsonBuilder().setStrictness(Strictness.STRICT).create()
     private val signaturePattern = Regex("[0-9a-f]{128}")
 
     /** Reads web Archive envelopes, verifies the original bytes, then exposes post content. */

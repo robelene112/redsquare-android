@@ -49,6 +49,15 @@ docs/evidence/ticket07. The initial profile implementation also regressed feed
 body taps into author navigation; the failed runs and subsequent correction
 are retained. A successful retry does not change what those failed runs show.
 
+Run 37941624799 at a6b9acf adds an eighth case at the existing app/storage/network
+boundaries. A nonempty directory obstructs the synthetic public profile cache;
+the first fetch and its cache warning succeed. After closing the controlled
+server and pressing Refresh, the previously displayed post disappears at line
+46, despite copy saying available posts remain visible. The other seven cases
+pass. Its actual public failure image/log are retained in profile-memory-red.
+Source 4e8bd02 retains the verified profile snapshot across refreshes and tabs;
+its eight-case green run 37942390546 is pending.
+
 Final full Android 10/17 verification remains pending. These emulator results
 do not establish physical Pixel performance or actual closed-app push delivery.
 There has been no production node change or on-chain write for this ticket.

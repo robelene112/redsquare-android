@@ -58,3 +58,28 @@ case provides the actual malformed-relationship red. Minimal validation a70e370
 passes all five cases in Android10 run37935302107. Public logs/images retained
 in malformed-thread-red/green. Android17/final full and repeated review remain.
 Older profile pages and remaining identity entry points still need fixes.
+
+## Repeated review at dfc5000
+
+### Standards
+
+No demonstrated hard breach. Earlier duplicated durability/reference signing
+and contaminated fresh-read setup are resolved. One low-severity heuristic
+Duplicated Code finding remains: Feed and Likes readers repeat bounded archive
+row traversal, cursor extraction, ignored accounting and ID deduplication.
+Share traversal while retaining typed signed decoding and membership rules.
+
+### Specification
+
+The repeated Spec reviewer found zero remaining source issues: signed
+relationships are validated, both profile history paths page, and reply/liked
+authors open profiles with Back restoring the original tab. Full acceptance
+was still pending. The separate Standards reviewer subsequently identified an
+additional specification edge: refreshing after a cache-write failure replaces
+already fetched profile content with an empty disk snapshot, contradicting
+the error message. Actual eight-case run 37941624799 confirms this failure,
+with seven previous cases passing. Source 4e8bd02 retains the verified in-memory
+snapshot; focused green and final full verification remain pending.
+
+Standards: 0 hard breaches and 1 low-severity duplication judgement remaining.
+Spec: 1 subsequently demonstrated recovery issue, fix awaiting device evidence.
