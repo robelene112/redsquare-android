@@ -1,0 +1,66 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NativeCompatibilityTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.NativeCompatibilityTest:
+INSTRUMENTATION_STATUS: test=importedPeerOptionsRemainPortableDataWithoutChangingApprovedConnections
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NativeCompatibilityTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalArgumentException: Invalid wallet backup
+	at nl.davidengelen.redsquare.saito.SaitoWallet$Companion.fromBackup(SaitoWallet.kt:110)
+	at nl.davidengelen.redsquare.NativeCompatibilityTest.importedPeerOptionsRemainPortableDataWithoutChangingApprovedConnections(NativeCompatibilityTest.kt:52)
+
+INSTRUMENTATION_STATUS: stream=
+Error in importedPeerOptionsRemainPortableDataWithoutChangingApprovedConnections(nl.davidengelen.redsquare.NativeCompatibilityTest):
+java.lang.IllegalArgumentException: Invalid wallet backup
+	at nl.davidengelen.redsquare.saito.SaitoWallet$Companion.fromBackup(SaitoWallet.kt:110)
+	at nl.davidengelen.redsquare.NativeCompatibilityTest.importedPeerOptionsRemainPortableDataWithoutChangingApprovedConnections(NativeCompatibilityTest.kt:52)
+
+INSTRUMENTATION_STATUS: test=importedPeerOptionsRemainPortableDataWithoutChangingApprovedConnections
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NativeCompatibilityTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=compatibleWalletRoundTripPreservesModuleDataAndRejectsInvalidIdentity
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NativeCompatibilityTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=compatibleWalletRoundTripPreservesModuleDataAndRejectsInvalidIdentity
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NativeCompatibilityTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=installedAndroidRuntimeMatchesIndependentSaitoIdentityAndSignatures
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NativeCompatibilityTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=installedAndroidRuntimeMatchesIndependentSaitoIdentityAndSignatures
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 0.185
+There was 1 failure:
+1) importedPeerOptionsRemainPortableDataWithoutChangingApprovedConnections(nl.davidengelen.redsquare.NativeCompatibilityTest)
+java.lang.IllegalArgumentException: Invalid wallet backup
+	at nl.davidengelen.redsquare.saito.SaitoWallet$Companion.fromBackup(SaitoWallet.kt:110)
+	at nl.davidengelen.redsquare.NativeCompatibilityTest.importedPeerOptionsRemainPortableDataWithoutChangingApprovedConnections(NativeCompatibilityTest.kt:52)
+
+FAILURES!!!
+Tests run: 3,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

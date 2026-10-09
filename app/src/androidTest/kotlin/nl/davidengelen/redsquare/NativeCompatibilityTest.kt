@@ -50,7 +50,7 @@ class NativeCompatibilityTest {
 
     @Test fun importedPeerOptionsRemainPortableDataWithoutChangingApprovedConnections() {
         val restored = SaitoWallet.fromBackup("""{
-            "wallet":{"publicKey":"$expectedPublicKey","privateKey":"$syntheticKey"},
+            "wallet":{"publicKey":"$expectedPublicKey","privateKey":"$syntheticKey","version":5.677},
             "peers":[{"host":"unapproved.invalid","port":443,"protocol":"https"}]
         }""")
         assertEquals(expectedPublicKey, restored.publicKey)

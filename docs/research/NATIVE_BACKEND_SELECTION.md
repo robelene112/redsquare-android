@@ -60,3 +60,19 @@ no fallible work after removal. A removal that reappears after physical power
 loss conservatively requests another explicit choice; this does not claim a
 physical power-cut test. Pre-write obstruction still retains the previous feed.
 Runtime verification and independent fix review remain pending.
+
+Fix7578661 compiles app/instrumentation locally (57seconds); unchanged core
+checks remain up-to-date. Standards/specification fix reviews each report zero
+remaining findings. Full final candidate run37867977044 is pending. The prior
+full run37867221377 passed Android10 including both public reads before being
+canceled by the workflow's new-candidate concurrency rule during Android17.
+It therefore does not establish complete two-SDK acceptance.
+
+First fix full run37867977044 at7578661 passes all eight controlled Android10
+cases, cached cold launch and both fresh public reads (three visible authors
+each). It then fails the new NativeCompatibility imported-peer case because
+its synthetic wallet omitted the format's required version field. Prior two
+compatibility cases pass. This is an invalid test fixture, not evidence that
+peer options changed connections. Added the independently pinned version5.677
+already present in the accepted backup fixture. Android17/full acceptance was
+not reached; final verification must rerun with the corrected fixture.

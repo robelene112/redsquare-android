@@ -25,3 +25,12 @@ functional red run37867404367 reproduced the expected missing recovery state.
 A durable uncertainty barrier fix is implemented; runtime/fix reviews pending.
 Final Android10/17 acceptance pending; do not close the ticket from an earlier
 passing candidate. Physical Pixel7 acceptance remains ticket #35.
+
+## Fix review at7578661
+
+Standards: zero documented breaches and zero actionable heuristic smells.
+Specification: previousP2 resolved, zero new findings. Marker precedes mutation,
+uncertain saves stop the active feed, startup blocks pending selection, and
+explicit recovery verifies the ID before publication. Imported peer metadata
+remains portable and inert for approved connection selection. Actual import
+activation belongs to #7. Final runtime acceptance remains pending.
