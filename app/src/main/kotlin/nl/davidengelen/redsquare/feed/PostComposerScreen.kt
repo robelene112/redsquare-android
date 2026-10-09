@@ -1,6 +1,8 @@
 package nl.davidengelen.redsquare.feed
 
 import androidx.activity.compose.BackHandler
+import androidx.activity.ComponentActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -29,7 +31,11 @@ import com.google.gson.JsonObject
 internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBackend, modifier: Modifier,
     parent: FeedPost? = null, onClose: () -> Unit) {
     val owner = wallet.publicKey
-    val context = LocalContext.current.applicationContext
+    val activity = LocalContext.current as ComponentActivity
+    val context = activity.applicationContext
+    val memory = remember(activity, owner, backend, parent?.id) {
+        ViewModelProvider(activity)["post:$owner:${backend.id}:${parent?.id.orEmpty()}", PostComposerMemory::class.java]
+    }
     val store = remember(owner, backend, parent?.id) { PostDraftStore(context, owner, backend, parent) }
     val scope = rememberCoroutineScope()
     val writes = remember(store) { Mutex() }
@@ -47,7 +53,8 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
     LaunchedEffect(store, reload) {
         try {
             val saved = withContext(Dispatchers.IO) { store.load() }
-            text = saved.text
+            text = if (saved.transaction != null) saved.text else memory.text ?: saved.text
+            memory.text = text
             transaction = saved.transaction
             ready = true
             error = false
@@ -59,6 +66,7 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
         try {
             val snapshot = if (available) PostDraftStore.Saved("") else PostDraftStore.Saved(text, transaction)
             withContext(NonCancellable + Dispatchers.IO) { store.save(snapshot) }
+            memory.text = snapshot.text
             error = false
             true
         } catch (cancelled: CancellationException) { throw cancelled }
@@ -163,7 +171,7 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
             Text(stringResource(R.string.post_draft_error))
             if (!ready) TextButton(onClick = { reload++ }) { Text(stringResource(R.string.retry)) }
         }
-        OutlinedTextField(value = text, onValueChange = { text = it }, enabled = ready && !saving && !sending && transaction == null,
+        OutlinedTextField(value = text, onValueChange = { text = it; memory.text = it }, enabled = ready && !saving && !sending && transaction == null,
             placeholder = { Text(stringResource(R.string.post_write)) }, modifier = Modifier.fillMaxWidth().weight(1f))
     }
 }

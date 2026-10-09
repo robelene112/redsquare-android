@@ -35,7 +35,11 @@ one question at a time when a material choice really needs the owner.
   uploads, production writes or physical-device/push proof. Continue all35.
 - Active #10, "09: Publish text posts and replies with recoverable drafts".
   Eight of35 complete,27 remaining including active#10. Review base78163d6.
-  Current sourcec71221a, latest test5dbfcb4; seven-case37980600924 running.
+  Current production sourcec71221a, latest regression6149239. Seven-case
+  37982268510 at50692df passes Android10,31.633s; public log and pending
+  availability image inspected/retained ticket09/seven-green. Current
+  37983208565 checks actual process death/reconciliation and a new unsaved
+  activity-recreation case. Local test assembly passes49s, no build active.
   Local debug/test assemblyc71221a passes1m29s; corrected test compile48s.
   Six-case green37977871622 at092a5b6 passes Android10 in19.229s, including
   isolated unfinished drafts through backend navigation and recreation; public
@@ -57,13 +61,15 @@ one question at a time when a material choice really needs the owner.
   Archive before retransmission, and separates transport from storage errors.
   First attempt37979681550 fails only a disabled-editor test selector (SetText
   action unavailable),29.609s; corrected5dbfcb4 selects locked text directly and
-  waits for enabled Back before leaving composers. No full pending proof yet.
+  waits for enabled Back before leaving composers. Pending retry passes;
+  50692df scrolls cached feeds to reference posts instead of assuming they
+  fit the current viewport. Earlier37980600924 failed3 viewport waits while
+  its pending case passed; those were fixture assumptions, not product failures.
   Research NATIVE_POST_TEXT_POLICY.md traces the500 UI-only restriction and
   confirms zero-payment Normal format regardless of holdings. Native complete
   JSON payload bound1MiB is safety policy, not an inferred consensus maximum.
   Both interim source reviews are ticket09/INTERIM_REVIEW.md. Remaining work:
-  truthful recovered pending/error state, same-screen Retry/Check preserving
-  exact ID and reconciliation before rebroadcast, native work in wallet import
+  actual pending cold/reconciliation proof, native work in wallet import
   risk preview, pending cold/fault/isolation/two-backend proof, declared text
   bounds, final two-axis fixes/review/full Android10/17 acceptance. Unsaved
   activity recreation still needs its own actual verification; the new case
