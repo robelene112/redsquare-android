@@ -105,3 +105,10 @@ authentication with cold identity recovery and a new PIN prompt was added in
 `2a5e507`. These additions still await runtime results. Standards review through
 `2a5e507` reports zero remaining findings. Full acceptance and final Spec review
 remain required before closing ticket #6.
+
+Final acceptance: full run37892360326 at7a2ab0b passes both SDKs, core14,
+29 normal instrument cases per SDK plus controlled process-kill preparation,
+both public feeds, cold cache/wallet and signed5-to-8 updates. Both review axes
+have zero findings through that source. Final public evidence is retained in
+evidence/ticket05/final-full. Lint passes with nine warnings/no errors; physical
+Pixel acceptance remains#35. Ticket#6 can be closed; continue#7 and all35.

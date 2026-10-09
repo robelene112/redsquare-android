@@ -1,8 +1,8 @@
 # Ticket #6 review and recovery verification
 
 Review base `2d16be4`, first reviewed HEAD `bd3902b`. Both independent axes
-inspect the actual committed diff. The ticket is still active; this is not
-completed acceptance.
+inspect the actual committed diff. Historical interim findings are retained below. Final acceptance is recorded
+at the end of this document.
 
 ## Standards
 
@@ -80,3 +80,19 @@ Normal real-PIN export and reminder/recovery pass both Android 10 and 17.
 Wrong-PIN/cancel checks pass both SDKs after correcting repeated-picker
 fixture ambiguity by selecting the actual drawer row. No wallet JSON is in evidence.
 Physical Pixel biometric/performance acceptance remains #35.
+
+## Final acceptance
+
+Full run `37892360326` at `7a2ab0b` passes both Android10 and17: core14,
+29 normal instrumentation cases per SDK plus each controlled process-kill
+prepare stage, build/lint, both fresh public feeds, cached cold launches and
+actual signed5-to-8 wallet continuity. Downloaded public logs/images are
+inspected and retained in final-full. Both source review axes have zero
+remaining actionable findings through that tested source. Lint has nine
+warnings and no errors; no claim of warning-free release polish is made.
+
+Export failure coverage is precisely write-open rejection, read-open failure,
+truncated readback and stalled read, with real authentication and a subsequent
+successful retry. Process death occurs before credentials. No arbitrary
+mid-write crash, physical-device biometric or Pixel performance pass is claimed;
+physical acceptance remains #35. No wallet JSON/private key is in evidence.

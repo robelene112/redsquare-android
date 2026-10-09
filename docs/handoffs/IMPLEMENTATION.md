@@ -9,8 +9,9 @@ one question at a time when a material choice really needs the owner.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.
-- Four of35 tickets complete: #2 signature compatibility, #3 persistent wallet
-  and signed updates, #4 authenticated feed/cache, #5 fixed backend selection.
+- Five of35 tickets complete: #2 signature compatibility, #3 persistent wallet
+  and signed updates, #4 authenticated feed/cache, #5 fixed backend selection,
+  #6 authenticated wallet export and backup/recovery guidance.
   Ticket #5 review base7085bcf; reviewed implementation177a647. Full37868642713
   passes Android10/17 all22 instrument cases each, core14, assembly/lint,
   cache/wallet continuity and signed5-to-8 updates. Final focused public-read
@@ -19,47 +20,23 @@ one question at a time when a material choice really needs the owner.
   fails closed with explicit recovery. The invalid fixture and mismatched
   screenshot remain historical evidence, with no asserted screenshot root cause.
   See research/NATIVE_BACKEND_SELECTION.md and evidence/ticket04/REVIEW.md.
-- Active #6 authenticated export/recovery reminder, assigned with blockers closed.
-  Review base2d16be4. Actual PIN/SAF export passes Android10 run37886921271,
-  repeated37888087995; reminder/recovery also passes37888087995. Android17
-  passes both flows in37888321321 at b068d89, with actual Compose credential
-  PIN pad and saved-file readback. Public logs/screenshots are inspected and
-  retained in ticket05/first-pin-green and reminder-green. Test fixture failures
-  are separately retained, not counted as functional app failures.
-  Wrong-PIN/cancel regression first exposed repeated-picker title ambiguity on
-  both SDKs. The actual drawer row is now selected by its resource, with stale
-  controls reacquired. At f095a00, full checks include export and reminder;
-  both Standards findings are resolved through91d7d35. Spec review finds
-  missing failure/interruption coverage and a concrete indefinite-provider-stall
-  defect. New real provider pipe stays open60s and requires failure by40s;
-  functional red run37889746378 at91d7d35 is observed: no failure by40s,
-  while no-lock, normal save and wrong-PIN/cancel all pass. An independent30s
-  deadline now invalidates first and keeps cleanup off the completion path;
-  cleanup also survives activity-scope destruction. Runtime green passes both SDKs in37890457247/37890459989 at1167582;
-  all four export cases and reminder/recovery pass, with public evidence retained.
-  Spec re-review finds no new correctness defects in that deadline fix.
-  Complete other provider faults, lifecycle/process recovery,
-  both SDKs/full checks and review fixes before closing #6. See ticket05/REVIEW.md.
-  At f40cf2c, focused Android10 run37891029657 passes five export cases,
-  including real write/read/truncation failure and fresh authenticated retry,
-  plus reminder/recovery. Process-death host/observer added2a5e507; both
-  source reviews report zero remaining findings, with runtime still required.
-  SDK17 run37891251005 passes original four and all fault responses but cannot
-  observe the final retry PIN: helper wrongly expected a qualified resource ID.
-  Actual observed Compose ID is bare cred_pin_pad; fixed7a2ab0b and compiles.
-  Corrected focused SDK17 run37892237605 is active. Full37891415056 at51d11c1
-  passes core/build/lint and its entire Android10 runtime step, including the
-  process check. Its later SDK17 step uses the known invalid waiting helper,
-  so superseded/canceled after preserving the completed Android10 step.
-  Download/inspect that partial evidence, then obtain corrected SDK17 and
-  final full acceptance. Do not call canceled full acceptance green.
-  Corrected Android17 focused37892237605 at7a2ab0b passes all five export
-  cases, reminder/recovery and actual process interruption/authenticated cold
-  retry. Evidence/images inspected under ticket05/final-focused/api-37.0.
-  Final full37892360326 at7a2ab0b is active; complete/evaluate that run before
-  closing#6. Latest source reviews through7a2ab0b both have zero findings.
-  See research/NATIVE_WALLET_EXPORT_VERIFICATION.md.
-  Then #7 safeguarded import.
+- Ticket #6 reviewed source7a2ab0b passes final full37892360326 on Android10/17:
+  core14, 29 normal instrumentation cases per SDK plus each intentional
+  process-kill stage, assembly/lint, both public feeds, cold cache/wallet and
+  signed5-to-8 update continuity. Actual PIN/SAF verified backup, no-lock,
+  wrong PIN/cancel, provider deadline/write/read/truncation failure and fresh
+  authenticated retry pass. Reminder/recovery and real process-death recovery
+  pass. Both reviews through7a2ab0b have zero remaining findings. Downloaded
+  logs and public images are inspected/retained under evidence/ticket05/final-full.
+  Earlier fixture/functional failures and canceled partial full remain honest
+  historical evidence in ticket05/REVIEW.md. No arbitrary mid-write crash or
+  physical Pixel biometric/performance claim. Pixel acceptance remains #35.
+  Lint completes with nine warnings, no errors; release icon/config polish remains
+  later work. See research/NATIVE_WALLET_EXPORT_VERIFICATION.md.
+- Next #7 safeguarded import. Its review base is the final #6 completion commit.
+  Read NATIVE_WALLET_IMPORT_ASSESSMENT.md and SNAKE_WALLET_SAFEGUARDS.md.
+  Fresh backup proof must bind outgoing wallet and selected candidate/nonce;
+  a dismissed reminder or a previous saved-status message is not that proof.
   The first new phone-review milestone remains after #7, then continue all35.
 
 - Ticket #4's reviewed implementation passed final full run **37863843807**
@@ -80,7 +57,7 @@ one question at a time when a material choice really needs the owner.
   Publish the first complete milestone after #7 includes server selection and
   safeguarded import/export; preserve package and signing. The owner reviews
   the completed app, so no intermediate physical review is required.
-- Current: #6 authenticated export. Next: #7 guarded import.
+- Current: #6 complete. Next: #7 guarded import.
   The initial review milestone is completed by #7, not by a basic feed alone.
 
 ## Verification already inspected
