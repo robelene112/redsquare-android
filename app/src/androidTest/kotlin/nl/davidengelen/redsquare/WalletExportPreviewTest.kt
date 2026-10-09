@@ -161,10 +161,10 @@ class WalletExportPreviewTest {
                 ?: device.findObject(By.pkg("com.android.systemui").clazz("android.widget.EditText"))
             if (entry != null) { entry.text = pin; device.pressEnter(); return }
             device.findObject(By.text("Use PIN"))?.click()
-            if (device.currentPackageName == "com.android.systemui") {
+            if (device.findObject(By.pkg("com.android.systemui").res("cred_pin_pad")) != null) {
                 saveCredentialControlMetadata()
-                // New system credential surfaces can omit legacy View IDs.
-                // Hardware digit events still go to Android's focused input.
+                // Observed Android 17 Compose PIN pad, not a legacy EditText.
+                // Hardware digits go to its focused credential input.
                 pin.forEach { device.pressKeyCode(KeyEvent.KEYCODE_0 + (it - '0')) }
                 device.pressEnter()
                 return
