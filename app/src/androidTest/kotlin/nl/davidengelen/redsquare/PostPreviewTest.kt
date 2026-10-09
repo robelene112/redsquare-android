@@ -180,6 +180,11 @@ class PostPreviewTest {
                 ui.onNodeWithText("New post").performClick()
                 ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNode(hasSetTextAction()).performTextReplacement("Retain work when saving fails")
+                // Platform keyboard dismissal keeps the unchanged server label in view.
+                scenario.onActivity { activity ->
+                    activity.getSystemService(android.view.inputmethod.InputMethodManager::class.java)
+                        .hideSoftInputFromWindow(activity.window.decorView.windowToken, 0)
+                }
                 val obstacle = java.io.File(context.noBackupFilesDir, "postdraft.owner.$address.v1")
                 check(obstacle.mkdir())
                 val child = java.io.File(obstacle, "controlled-obstacle")
@@ -536,19 +541,15 @@ class PostPreviewTest {
 
     private fun chooseReferenceImport(device: androidx.test.uiautomator.UiDevice) {
         val title = androidx.test.uiautomator.By.text(ExportTestDocumentsProvider.TITLE)
-        val row = androidx.test.uiautomator.By.text(ExportTestDocumentsProvider.TITLE).res("android", "title")
-        val deadline = android.os.SystemClock.uptimeMillis() + 30_000
-        var selected = false
-        while (android.os.SystemClock.uptimeMillis() < deadline) {
-            if (!device.hasObject(row) && device.hasObject(title)) { selected = true; break }
-            try {
-                val entry = device.findObject(row)
-                if (entry != null) { entry.click(); device.wait(androidx.test.uiautomator.Until.gone(row), 2_000) }
-                else device.findObject(androidx.test.uiautomator.By.desc("Show roots"))?.click()
-            } catch (_: androidx.test.uiautomator.StaleObjectException) { /* Observe the updated picker. */ }
-            android.os.SystemClock.sleep(100)
+        // A sidebar root label alone does not prove that its folder is selected.
+        // Explicitly select its visible label instead of treating it as a folder header.
+        var entry = device.findObject(title)
+        if (entry == null) {
+            requireNotNull(device.wait(androidx.test.uiautomator.Until.findObject(
+                androidx.test.uiautomator.By.desc("Show roots")), 10_000)).click()
+            entry = device.wait(androidx.test.uiautomator.Until.findObject(title), 10_000)
         }
-        check(selected) { "Test import folder did not become visible" }
+        requireNotNull(entry) { "Test backup folder was not available" }.click()
         val file = androidx.test.uiautomator.By.text("reference-import.json")
         if (device.wait(androidx.test.uiautomator.Until.hasObject(file), 2_000) != true) {
             try { androidx.test.uiautomator.UiScrollable(androidx.test.uiautomator.UiSelector().scrollable(true))

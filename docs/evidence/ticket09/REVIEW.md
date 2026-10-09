@@ -50,5 +50,10 @@ Both fixture-delta review axes at9aa3884 report zero actionable findings.
 Fresh-activity recovery is distinct from process death. Failure screenshots
 for these two cases are captured after the failing activity closes and may
 miss that screen; success captures remain inside the activity. Replacement
-full37994339188 remains pending.
+full37994339188 passes Android10 (70 completed cases), then Android17
+posting12/14. Added bounded wait for header visibility after dialog dismissal
+and picker failure diagnostics; diagnostic37996950887 reproduces12/14 and proves IME panning plus a picker
+remaining in Recent. Test-only fixes dismiss the keyboard and explicitly
+select the root; focusedgreen and fix review pending. Full17
+will be repeated using full-android17 with unchanged production source.
 Cancelled37993042535 is superseded.

@@ -35,7 +35,7 @@ one question at a time when a material choice really needs the owner.
   uploads, production writes or physical-device/push proof. Continue all35.
 - Active #10, "09: Publish text posts and replies with recoverable drafts".
   Eight of35 complete;27 remaining including active. Review base78163d6;
-  current candidate9aa3884 (production source unchanged fromcd1ee24). Focused Android10 37992419586 passes14 cases
+  current candidate3967eec (production source unchanged fromcd1ee24). Focused Android10 37992419586 passes14 cases
   (65.692s) plus actual process-death reconciliation. Full37993042535 was
   cancelled by the documentation push because the push concurrency group still
   defaulted to full. Group corrected to source. Replacementfull37993173583 at4a4b482
@@ -48,7 +48,11 @@ one question at a time when a material choice really needs the owner.
   recovery passed, posting12/14. Failures: server-label visibility immediately
   after failed-save dialog dismissal, and reference file missing from picker.
   Added bounded visibility wait (assertion retained) and picker-failure bitmap/
-  hierarchy diagnostics. Local test assembly passes1m. Focused17 next. CI adds
+  hierarchy diagnostics. Local test assembly passes1m. Focused17 diagnostic37996950887 retains12/14. Screenshot proves IME
+  pans header offscreen; picker hierarchy proves Recent remains selected.
+  Fixes use public Android keyboard dismissal and explicit root-label selection.
+  Assertions retained, production source unchanged. Local test build53s passes;
+  focused17 green next. CI adds
   full-android17 for complete SDK17 retry when production source is unchanged,
   preserving Android10 full9aa3884 as companion evidence. Both
   fixture-delta review axes have zero actionable findings.

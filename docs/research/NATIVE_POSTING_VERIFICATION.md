@@ -8,7 +8,13 @@ fixture (7/8 browse cases pass). Retained navigation preserves Likes, whereas
 the fixture expects default Posts after recreation. Both cached browse tests
 now close and launch a fresh activity, excluding retained history from recovery
 proof. Local test assembly passes1m35. Replacement full37994339188 at9aa3884 has
-passed Android10; Android17 remains active. Cancelled
+passed Android10 (70 completed cases, three intentional process-kill stages,
+both public reads and signed5-to-8 updates). Android17 browse/following and cold
+posting recovery pass; posting12/14, with header visibility and
+file-picker fixture failures. Diagnostic37996950887 at3967eec reproduces12/14: IME pans the header offscreen;
+the picker stays in Recent after false root-selection detection. Tests now
+dismiss the keyboard and explicitly select the test root. Local build53s
+passes; focused17 green pending. Production source remains unchanged fromcd1ee24. Cancelled
 37993042535 is superseded. Eight tickets complete.
 
 ## Implemented behavior
