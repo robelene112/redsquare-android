@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -33,7 +34,7 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
     var unreadable by remember(selected.id) { mutableStateOf(false) }
     var cacheWarning by remember(selected.id) { mutableStateOf(false) }
     var refresh by remember(selected.id) { mutableIntStateOf(0) }
-    var replying by remember(selected.id) { mutableStateOf(false) }
+    var replying by rememberSaveable(selected.id) { mutableStateOf(false) }
     if (replying && wallet != null) {
         PostComposerScreen(wallet, endpoint, backend, modifier, selected) { replying = false; refresh++ }
         return

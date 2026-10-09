@@ -1,5 +1,8 @@
 package nl.davidengelen.redsquare.feed
 
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.LocalActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -15,7 +18,6 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -33,14 +35,10 @@ import java.text.DateFormat
 import java.util.Date
 import java.util.Locale
 
-private sealed interface BrowseDestination {
-    data class Conversation(val post: FeedPost) : BrowseDestination
-    class Profile(val author: String, val view: ProfileViewState = ProfileViewState()) : BrowseDestination
-}
-
 @Composable
 fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: String, backend: SaitoBackend, lifecycle: Lifecycle, modifier: Modifier, onDrawn: () -> Unit) {
-    val context = LocalContext.current.applicationContext
+    val activity = requireNotNull(LocalActivity.current) as ComponentActivity
+    val context = activity.applicationContext
     val scope = rememberCoroutineScope()
     val following = remember(wallet?.publicKey) { wallet?.let { FollowingState(context, it.publicKey, scope) } }
     LaunchedEffect(following) { following?.load() }
@@ -62,7 +60,10 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
     var hadOutage by rememberSaveable { mutableStateOf(false) }
     var refresh by remember { mutableIntStateOf(0) }
     var composing by rememberSaveable { mutableStateOf(false) }
-    val navigation = remember { mutableStateListOf<BrowseDestination>() }
+    val navigationMemory = remember(activity, wallet?.publicKey, backend) {
+        ViewModelProvider(activity)["browse:${wallet?.publicKey.orEmpty()}:${backend.id}", FeedNavigationMemory::class.java]
+    }
+    val navigation = navigationMemory.destinations
     fun openProfile(author: String) {
         if ((navigation.lastOrNull() as? BrowseDestination.Profile)?.author != author) {
             navigation.add(BrowseDestination.Profile(author))
