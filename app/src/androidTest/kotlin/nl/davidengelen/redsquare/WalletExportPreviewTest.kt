@@ -106,19 +106,66 @@ class WalletExportPreviewTest {
         }
     }
 
-    private fun enterRealSystemPin(device: UiDevice) {
+    @Test fun wrongPinAndCancelledAuthenticationLeaveNoBackupAndRetainIdentity() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        val keyguard = context.getSystemService(KeyguardManager::class.java)
+        val device = UiDevice.getInstance(instrumentation)
+        assertFalse(keyguard.isDeviceSecure)
+        device.executeShellCommand("locksettings set-pin --user 0 $TEST_PIN")
+        try {
+            ui.waitUntil(10_000) { keyguard.isDeviceSecure }
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedDisabled", true)).use {
+                ui.onNodeWithText("Wallet").performClick()
+                val address = displayedWalletAddress(ui)
+                val name = "wallet-cancel-${UUID.randomUUID()}.json"
+                val uri = DocumentsContract.buildDocumentUri(ExportTestDocumentsProvider.AUTHORITY, name)
+                ui.onNodeWithText("Export wallet").performClick()
+                chooseTestBackup(device, name)
+                enterRealSystemPin(device, "135790")
+                check(device.wait(Until.hasObject(By.textContains("Wrong PIN")), 10_000))
+                assertEquals(-1, requireNotNull(context.contentResolver.openInputStream(uri)).use { it.read() })
+                val deadline = SystemClock.uptimeMillis() + 10_000
+                while (device.currentPackageName != context.packageName && SystemClock.uptimeMillis() < deadline) {
+                    device.pressBack()
+                    SystemClock.sleep(100)
+                }
+                val cancelled = "Wallet export canceled. Your wallet is unchanged."
+                ui.waitUntil(10_000) { ui.onAllNodes(hasText(cancelled)).fetchSemanticsNodes().isNotEmpty() }
+                ui.onNodeWithText(cancelled).assertIsDisplayed()
+                ui.onNodeWithText("Wallet backup saved").assertDoesNotExist()
+                ui.onNodeWithText("Export wallet").assertIsEnabled()
+                assertEquals(address, displayedWalletAddress(ui))
+                captureFeedEvidence("wallet-export-evidence/authentication-cancelled.png")
+            }
+        } finally { device.executeShellCommand("locksettings clear --old $TEST_PIN --user 0") }
+    }
+
+    private fun chooseTestBackup(device: UiDevice, name: String) {
+        check(device.wait(Until.hasObject(By.res("android", "title")), 15_000))
+        if (device.findObject(By.desc("Show roots")) != null) {
+            operateSystemControl(device, By.desc("Show roots")) { click() }
+        }
+        operateSystemControl(device, By.text(ExportTestDocumentsProvider.TITLE)) { click() }
+        operateSystemControl(device, By.res("android", "title").clazz("android.widget.EditText")) { text = name }
+        operateSystemControl(device, By.res("android", "button1")
+            .pkg(Pattern.compile("com\\.(?:android|google\\.android)\\.documentsui")).enabled(true)) { click() }
+    }
+
+    private fun enterRealSystemPin(device: UiDevice, pin: String = TEST_PIN) {
         val credential = By.res(Pattern.compile("(?:com\\.android\\.settings:id/password_entry|com\\.android\\.systemui:id/lockPassword)"))
         val deadline = SystemClock.uptimeMillis() + 15_000
         while (SystemClock.uptimeMillis() < deadline) {
             val entry = device.findObject(credential)
                 ?: device.findObject(By.pkg("com.android.systemui").clazz("android.widget.EditText"))
-            if (entry != null) { entry.text = TEST_PIN; device.pressEnter(); return }
+            if (entry != null) { entry.text = pin; device.pressEnter(); return }
             device.findObject(By.text("Use PIN"))?.click()
             if (device.currentPackageName == "com.android.systemui") {
                 saveCredentialControlMetadata()
                 // New system credential surfaces can omit legacy View IDs.
                 // Hardware digit events still go to Android's focused input.
-                TEST_PIN.forEach { device.pressKeyCode(KeyEvent.KEYCODE_0 + (it - '0')) }
+                pin.forEach { device.pressKeyCode(KeyEvent.KEYCODE_0 + (it - '0')) }
                 device.pressEnter()
                 return
             }
