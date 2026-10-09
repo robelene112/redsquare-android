@@ -19,7 +19,10 @@ one question at a time when a material choice really needs the owner.
   fails closed with explicit recovery. The invalid fixture and mismatched
   screenshot remain historical evidence, with no asserted screenshot root cause.
   See research/NATIVE_BACKEND_SELECTION.md and evidence/ticket04/REVIEW.md.
-- Next #6 authenticated export/recovery reminder, then #7 safeguarded import.
+- Active #6 authenticated export/recovery reminder, assigned with blockers closed.
+  Review base2d16be4. First no-screen-lock export UI test/fixture is written;
+  functional red pending. See research/NATIVE_WALLET_EXPORT_VERIFICATION.md.
+  Then #7 safeguarded import.
   The first new phone-review milestone remains after #7, then continue all35.
 
 - Ticket #4's reviewed implementation passed final full run **37863843807**
