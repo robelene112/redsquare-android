@@ -1,5 +1,18 @@
 # Native posting and drafts
 
+Recent recovery increments:
+
+| Behavior | Actual failure | Verified correction |
+| --- | --- | --- |
+| Separate unfinished drafts through server navigation | 37976960559 at8ef70f9, owner text missing on return, line127 | 37977871622 at092a5b6, all6 cases pass19.229s. Save-before-switch/identity guard, serialized signed-candidate persistence. Public log/image ticket09/navigation-green. |
+| Recovered pending state and original-ID retry | 37978708226 at1cff5cc, missing pending copy, line189,51.2s | c71221a compiled1m29s. Corrected seven-case37980600924 running at5dbfcb4. No runtime completion claimed yet. |
+
+Initial navigation37976114135 failed a blank-field placeholder assertion;
+pending attempt37979681550 failed a disabled-field selector. These are harness
+failures, not application failures. Corrected tests inspect editable values and
+locked text appropriately and wait for enabled Back. Read-only primary policy
+research is [Native post text policy](NATIVE_POST_TEXT_POLICY.md).
+
 Current five-case green37973493246 at42c5774 passes actual Android10 in14.889s.
 The first attempt37972847178 passed nested replies but failed the existing
 publication visibility assertion by matching the outgoing editor during async

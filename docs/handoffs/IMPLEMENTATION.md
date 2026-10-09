@@ -35,8 +35,11 @@ one question at a time when a material choice really needs the owner.
   uploads, production writes or physical-device/push proof. Continue all35.
 - Active #10, "09: Publish text posts and replies with recoverable drafts".
   Eight of35 complete,27 remaining including active#10. Review base78163d6.
-  Current source092a5b6; six-case green37977871622 running. Local debug/test
-  assembly passes1m27s. Five-case Android10 proof37973493246 at42c5774 passes
+  Current sourcec71221a, latest test5dbfcb4; seven-case37980600924 running.
+  Local debug/test assemblyc71221a passes1m29s; corrected test compile48s.
+  Six-case green37977871622 at092a5b6 passes Android10 in19.229s, including
+  isolated unfinished drafts through backend navigation and recreation; public
+  log/image inspected in ticket09/navigation-green. Five-case proof37973493246 at42c5774 passes
   root/nested replies, draft save/reopen, zero-payment send and verified archive
   availability in14.889s. Public logs/images inspected in ticket09 evidence.
   New actual navigation red37976960559 at8ef70f9 loses unfinished owner text
@@ -48,6 +51,16 @@ one question at a time when a material choice really needs the owner.
   before saving, and disabled Back/Save during Send. Existing draft formats
   retained. Navigation save failure keeps current server and editable work.
   No automatic draft publication. No local build active.
+  Actual seven-case red37978708226 at1cff5c fails recovered pending copy at
+  line189,51.2s; previous6 pass. Minimalc71221a shows recovered Send-requested
+  uncertainty, offers same-screen Retry using the exact saved candidate, checks
+  Archive before retransmission, and separates transport from storage errors.
+  First attempt37979681550 fails only a disabled-editor test selector (SetText
+  action unavailable),29.609s; corrected5dbfcb4 selects locked text directly and
+  waits for enabled Back before leaving composers. No full pending proof yet.
+  Research NATIVE_POST_TEXT_POLICY.md traces the500 UI-only restriction and
+  confirms zero-payment Normal format regardless of holdings. Native complete
+  JSON payload bound1MiB is safety policy, not an inferred consensus maximum.
   Both interim source reviews are ticket09/INTERIM_REVIEW.md. Remaining work:
   truthful recovered pending/error state, same-screen Retry/Check preserving
   exact ID and reconciliation before rebroadcast, native work in wallet import
