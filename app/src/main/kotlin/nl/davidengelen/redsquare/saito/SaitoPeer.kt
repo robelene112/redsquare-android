@@ -100,6 +100,13 @@ class SaitoPeer(private val wallet: SaitoWallet, endpoint: String) : Closeable {
         } finally { pending.remove(index) }
     }
 
+    /** Local socket enqueue only. This protocol provides no per-post acknowledgement. */
+    suspend fun submit(transaction: SaitoTransaction) = withTimeout(12_000) {
+        ready.await()
+        if (disconnected.get()) throw IOException("Peer disconnected")
+        send(socket, transaction.broadcast(wallet, requireNotNull(identifiedKey)))
+    }
+
     private fun send(socket: WebSocket, bytes: ByteArray) {
         if (!socket.send(bytes.toByteString())) { fail(); throw IOException("Peer disconnected") }
     }

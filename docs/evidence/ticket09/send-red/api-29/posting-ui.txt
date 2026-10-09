@@ -1,0 +1,73 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PostPreviewTest:
+INSTRUMENTATION_STATUS: test=savedDraftSurvivesReopeningAndRemainsUnsent
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=savedDraftSurvivesReopeningAndRemainsUnsent
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=explicitSendBroadcastsAZeroPaymentPostWithoutInventingAcknowledgement
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (Text + InputText + EditableText contains 'Send' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:401)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:59)
+	at nl.davidengelen.redsquare.PostPreviewTest.explicitSendBroadcastsAZeroPaymentPostWithoutInventingAcknowledgement(PostPreviewTest.kt:82)
+
+INSTRUMENTATION_STATUS: stream=
+Error in explicitSendBroadcastsAZeroPaymentPostWithoutInventingAcknowledgement(nl.davidengelen.redsquare.PostPreviewTest):
+java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (Text + InputText + EditableText contains 'Send' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:401)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:59)
+	at nl.davidengelen.redsquare.PostPreviewTest.explicitSendBroadcastsAZeroPaymentPostWithoutInventingAcknowledgement(PostPreviewTest.kt:82)
+
+INSTRUMENTATION_STATUS: test=explicitSendBroadcastsAZeroPaymentPostWithoutInventingAcknowledgement
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 7.388
+There was 1 failure:
+1) explicitSendBroadcastsAZeroPaymentPostWithoutInventingAcknowledgement(nl.davidengelen.redsquare.PostPreviewTest)
+java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (Text + InputText + EditableText contains 'Send' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:401)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:59)
+	at nl.davidengelen.redsquare.PostPreviewTest.explicitSendBroadcastsAZeroPaymentPostWithoutInventingAcknowledgement(PostPreviewTest.kt:82)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
