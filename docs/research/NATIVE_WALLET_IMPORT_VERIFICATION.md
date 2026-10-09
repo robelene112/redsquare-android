@@ -32,6 +32,26 @@ See [policy and primary source](NATIVE_WALLET_IMPORT_ASSESSMENT.md).
 
 ## Review fixes and remaining verification
 
+Latest candidate review atd5a2200 has no Standards findings and two Spec
+findings. Encoding regression5462793 reproduces malformed UTF-8 being offered
+as a valid replacement in Android10 run37919371098; its inspected public image
+and log are retained in utf8-red. Minimal correction1b9ab26 uses strict REPORT
+decoding with the existing invalid-backup message. Focused import greens on
+Android10/17 are pending37920272377/37920275953.
+
+Candidate full37918643735 fails the old same-wallet file lookup before restore,
+with the other five import flows passing. Its zero-byte post-run screenshot
+does not diagnose the failure. The lookup now uses the existing scroll/reacquire
+helper, and same-wallet runtime acceptance remains pending.
+
+The second finding requests actual failed-confirmation UI coverage. A new
+verification-only case drives existing MainActivity import/Skip/ack/Confirm
+through a real filesystem failure, temporarily removing write permission solely
+from the isolated .dev no-backup directory. It expects the restored-wallet
+message, enabled import, exact outgoing saved options and recreated public
+identity. Permissions are restored in finally. It adds no production fault
+hook or new recovery behavior; assembly passes, actual runtime remains pending.
+
 Two independent interim reviews at625ed53 found two correctness issues and two
 judgment cleanup findings. See [the review record](../evidence/ticket06/INTERIM_REVIEW.md).
 Cached Bound/special WalletSlip indicators now retain unknown asset risk at

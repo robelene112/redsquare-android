@@ -34,6 +34,18 @@ one question at a time when a material choice really needs the owner.
   Lint completes with nine warnings, no errors; release icon/config polish remains
   later work. See research/NATIVE_WALLET_EXPORT_VERIFICATION.md.
 - Active #7 safeguarded import, assigned with blockers #5/#6 closed.
+  Latest: review of9e7f40d...d5a2200 finds malformed UTF-8 acceptance and partial
+  failed-confirmation UI coverage. No Standards findings. Actual encoding
+  red37919371098 at5462793 shows a malformed-byte document offered as Replace;
+  log/public image retained utf8-red. Strict decoding fix1b9ab26 awaits focused
+  greens37920272377/37920275953. Candidate full37918643735 atd5a2200 fails the
+  old same-wallet visible-file lookup before restoration; five other import
+  flows pass, screenshot is zero bytes and cannot diagnose the cause. Lookup
+  now scrolls/reacquires. New verification-only real-filesystem failure case
+  drives MainActivity Confirm and requires restored status/live+saved options/
+  recreation, restoring isolated .dev directory permissions in finally. It
+  compiles; runtime is pending. No production fault hook. Final full, final
+  independent review and signed milestone publication remain before closure.
   Review base9e7f40d. First vertical slice verifies an invalid backup selected
   through actual Android SAF leaves the public wallet unchanged across recreation.
   Test and focused import harness added; actual functional red37894544199

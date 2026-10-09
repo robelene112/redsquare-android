@@ -4,6 +4,8 @@ import android.content.Intent
 import android.app.KeyguardManager
 import android.os.SystemClock
 import android.provider.DocumentsContract
+import android.system.Os
+import android.system.OsConstants
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
@@ -17,6 +19,7 @@ import androidx.test.uiautomator.UiSelector
 import androidx.test.uiautomator.UiObjectNotFoundException
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import java.util.UUID
@@ -27,6 +30,61 @@ import mockwebserver3.MockResponse
 
 class WalletImportPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
+
+    @Test fun failedSavingThroughConfirmedImportRestoresTheVisibleAndSavedWallet() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        assertEquals("nl.davidengelen.redsquare.dev", context.packageName)
+        val device = UiDevice.getInstance(instrumentation)
+        val directory = context.noBackupFilesDir
+        val originalMode = Os.stat(directory.path).st_mode and 0xfff
+        val server = MockWebServer()
+        server.dispatcher = object : mockwebserver3.Dispatcher() {
+            override fun dispatch(request: mockwebserver3.RecordedRequest) = MockResponse.Builder()
+                .body("${System.currentTimeMillis()}-1234-${"a".repeat(64)}.snap\n").build()
+        }
+        server.start(InetAddress.getByName("127.0.0.1"), 0)
+        try {
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedDisabled", true)
+                .putExtra("balanceApiUrl", "http://127.0.0.1:${server.port}/balance/")).use { scenario ->
+                ui.onNodeWithText("Wallet").performClick()
+                val address = displayedWalletAddress(ui)
+                val previous = AndroidWalletStore(context).loadExisting()
+                ui.onNodeWithText("Import wallet").performClick()
+                selectImportRoot(device)
+                selectVisibleFile(device, "reference-import.json")
+                ui.waitUntil(15_000) { ui.onAllNodes(hasText("Server reports zero SAITO")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                ui.onNodeWithText("Skip backup").performScrollTo().performClick()
+                ui.onNodeWithContentDescription("Replacement risks acknowledged").performScrollTo().performClick()
+                // Fault at the real filesystem boundary, solely in the isolated
+                // app: reads still work, but creation of the recovery file fails.
+                Os.chmod(directory.path, OsConstants.S_IRUSR or OsConstants.S_IXUSR)
+                ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsEnabled().performClick()
+                val failed = "Your wallet could not be imported. Your previous wallet has been restored."
+                try {
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText(failed)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                } catch (failure: Throwable) {
+                    captureFeedEvidence("wallet-import-evidence/failed-save-first-failure.png")
+                    throw failure
+                }
+                ui.onNodeWithText(failed).performScrollTo().assertIsDisplayed()
+                assertEquals(address, displayedWalletAddress(ui))
+                ui.onNodeWithText("Import wallet").performScrollTo().assertIsEnabled()
+                val recovered = AndroidWalletStore(context).loadExisting()
+                assertEquals(address, recovered.publicKey)
+                assertTrue("Recovered options must equal the outgoing options",
+                    previous.exportJson() == recovered.exportJson())
+                captureFeedEvidence("wallet-import-evidence/failed-save-restored.png")
+                Os.chmod(directory.path, originalMode)
+                ui.onNodeWithText("Done").performClick()
+                scenario.recreate()
+                ui.onNodeWithText("Wallet").performClick()
+                assertEquals(address, displayedWalletAddress(ui))
+                captureFeedEvidence("wallet-import-evidence/failed-save-restored-recreated.png")
+            }
+        } finally { Os.chmod(directory.path, originalMode); server.close() }
+    }
 
     @Test fun invalidSelectedBackupShowsRecoveryAndRetainsTheCurrentWallet() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
