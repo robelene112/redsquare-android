@@ -6,20 +6,11 @@ import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.gson.JsonParser
-import mockwebserver3.MockResponse
 import mockwebserver3.MockWebServer
-import nl.davidengelen.redsquare.saito.SaitoWallet
-import okhttp3.WebSocket
-import okhttp3.WebSocketListener
-import okio.ByteString.Companion.toByteString
 import org.junit.Rule
 import org.junit.Test
 import org.junit.Before
 import org.junit.rules.TestName
-import org.junit.Assert.assertTrue
-import java.nio.ByteBuffer
-import java.util.concurrent.CountDownLatch
-import java.util.concurrent.TimeUnit
 
 class FeedPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
@@ -155,74 +146,4 @@ class FeedPreviewTest {
             throw failure
         }
     }
-}
-
-/** Actual binary socket boundary; signed posts are independent WASM fixtures. */
-private class ControlledFeedPeer(@Volatile var rows: String) {
-    private val peer = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public test material only.
-    private val counter = ByteArray(32) { 7 }
-    private val received = CountDownLatch(1)
-    val requests = java.util.concurrent.atomic.AtomicInteger()
-    @Volatile private var failure: Throwable? = null
-
-    fun start(port: Int = 0): MockWebServer {
-        val server = MockWebServer()
-        server.dispatcher = object : mockwebserver3.Dispatcher() {
-            override fun dispatch(request: mockwebserver3.RecordedRequest): MockResponse = response()
-        }
-        server.start(java.net.InetAddress.getByName("127.0.0.1"), port)
-        return server
-    }
-
-    private fun response() = MockResponse.Builder().webSocketUpgrade(object : WebSocketListener() {
-        private var authenticated = false
-        override fun onMessage(webSocket: WebSocket, bytes: okio.ByteString) {
-            try {
-                val frame = bytes.toByteArray()
-                when (frame[0].toInt()) {
-                    1 -> {
-                        require(frame.size == 33)
-                        val key = "0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798".chunked(2).map { it.toInt(16).toByte() }.toByteArray()
-                        val signature = peer.sign(frame.copyOfRange(1, 33)).chunked(2).map { it.toInt(16).toByte() }.toByteArray()
-                        webSocket.send((byteArrayOf(2) + key + signature + counter).toByteString())
-                    }
-                    2 -> {
-                        require(frame.size == 130)
-                        require(frame.copyOfRange(98, 130).all { it == 0.toByte() })
-                        var keyNumber = java.math.BigInteger(1, frame.copyOfRange(1, 34))
-                        val alphabet = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
-                        var clientKey = ""
-                        while (keyNumber.signum() > 0) {
-                            val parts = keyNumber.divideAndRemainder(java.math.BigInteger.valueOf(58))
-                            clientKey = alphabet[parts[1].toInt()] + clientKey
-                            keyNumber = parts[0]
-                        }
-                        val answer = frame.copyOfRange(34, 98).joinToString("") { "%02x".format(it) }
-                        require(SaitoWallet.verify(counter, answer, clientKey))
-                        authenticated = true
-                    }
-                    12 -> {
-                        require(authenticated)
-                        val bodyLength = ByteBuffer.wrap(frame, 13, 4).int
-                        val inputs = ByteBuffer.wrap(frame, 5, 4).int
-                        val outputs = ByteBuffer.wrap(frame, 9, 4).int
-                        val offset = 5 + 93 + 59 * (inputs + outputs)
-                        val body = JsonParser.parseString(String(frame, offset, bodyLength, Charsets.UTF_8)).asJsonObject
-                        require(body.get("request").asString == "archive")
-                        val criteria = body.getAsJsonObject("data")
-                        require(criteria.get("request").asString == "load")
-                        require(criteria.get("field1").asString == "RedSquare")
-                        require(criteria.get("field4").asString == "")
-                        require(criteria.get("flagged_ne").asInt == 1)
-                        webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) + rows.toByteArray()).toByteString())
-                        requests.incrementAndGet()
-                        received.countDown()
-                    }
-                }
-            } catch (problem: Throwable) { failure = problem; received.countDown() }
-        }
-    }).build()
-
-    fun assertRequestObserved() { assertTrue("Archive request was not observed", received.await(5, TimeUnit.SECONDS)); assertHealthy() }
-    fun assertHealthy() { failure?.let { throw AssertionError("Controlled peer rejected the request", it) } }
 }

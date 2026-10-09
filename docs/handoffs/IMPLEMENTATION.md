@@ -12,7 +12,9 @@ one question at a time when a material choice really needs the owner.
 - Three of 35 tickets complete: #2 signature compatibility, #3 persistent wallet
   and signed updates, and #4 authenticated live feed/cache. #5 fixed backend
   selection is active and assigned; its dependencies are closed. Its review
-  base is the final ticket #4 status commit, recorded when #5's first test lands.
+  base is **7085bcf**. First slice tests the visible settings selection, same
+  authenticated identity on both controlled peers, independent feed caches and
+  retained selection/cached posts through a selected-server outage/recreation.
 - Ticket #4's reviewed implementation passed final full run **37863843807**
   at c5953de on Android 10 and 17. All fourteen core tests, assembly/lint, four
   controlled feed cases per SDK, fresh owner reads, wallet recovery/continuity,
