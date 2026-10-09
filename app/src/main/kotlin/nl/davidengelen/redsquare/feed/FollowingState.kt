@@ -21,8 +21,11 @@ internal class FollowingState(context: Context, owner: String, private val scope
         private set
     var error by mutableStateOf(false)
         private set
+    var loading by mutableStateOf(true)
+        private set
 
     suspend fun load() {
+        loading = true
         try {
             val saved = withContext(Dispatchers.IO) { storage.load() }
             require(!saved.unreadable && saved.envelopes.all { it.matches(publicKeyPattern) })
@@ -31,6 +34,13 @@ internal class FollowingState(context: Context, owner: String, private val scope
             error = false
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { error = true }
+        finally { loading = false }
+    }
+
+    fun retry() {
+        if (loading || saving) return
+        loading = true
+        scope.launch { load() }
     }
 
     fun toggle(author: String) {

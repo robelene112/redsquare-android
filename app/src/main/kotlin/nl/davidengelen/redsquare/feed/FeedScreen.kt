@@ -167,12 +167,12 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
             }
         }
         val visiblePosts = if (followingView) posts.filter { it.author in following?.accounts.orEmpty() } else posts
-        if (following?.error == true) Text(stringResource(R.string.following_error), style = MaterialTheme.typography.bodySmall)
+        FollowingStatus(following)
         if (followingView) {
             Text(stringResource(R.string.following_local), style = MaterialTheme.typography.bodySmall)
-            if (following?.ready != true) Text(stringResource(R.string.following_loading))
-            else if (following.accounts.isEmpty()) Text(stringResource(R.string.following_empty))
-            else if (visiblePosts.isEmpty() && !loading) Text(stringResource(R.string.following_no_posts))
+            if (following == null || following.loading) Text(stringResource(R.string.following_loading))
+            else if (following.ready && following.accounts.isEmpty()) Text(stringResource(R.string.following_empty))
+            else if (following.ready && visiblePosts.isEmpty() && !loading) Text(stringResource(R.string.following_no_posts))
         }
         if (cacheWarning) Text(stringResource(R.string.feed_cache_warning), style = MaterialTheme.typography.bodySmall)
         when {

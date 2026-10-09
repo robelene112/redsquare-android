@@ -130,7 +130,7 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
         }
         Text("Anon-${author.take(6)}", style = MaterialTheme.typography.titleMedium)
         Text(author, style = MaterialTheme.typography.labelSmall)
-        if (following?.error == true) Text(stringResource(R.string.following_error), style = MaterialTheme.typography.bodySmall)
+        FollowingStatus(following)
         Row {
             ProfileTab.entries.forEach { item ->
                 TextButton(onClick = { view.tab = item }, modifier = Modifier.weight(1f),
