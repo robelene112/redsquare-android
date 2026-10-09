@@ -10,7 +10,7 @@ on:
         default: full
         options: [full, feed, feed-android17, update-android17]
       public_feed_read:
-        description: Separately verify the owner's public peer feed
+        description: Separately verify both approved public peer feeds
         type: boolean
         default: false
 permissions:

@@ -128,6 +128,34 @@ class BackendPreviewTest {
         captureFeedEvidence("backend-ui-evidence/screen.png")
     }
 
+    @Test fun unreadableSelectionRequiresAnExplicitChoiceBeforeConnecting() {
+        File(instrumentation.targetContext.noBackupFilesDir, "backend.v1")
+            .writeText("https://unapproved.invalid")
+        val owner = ControlledFeedPeer("[${asset("native-feed-reference.json").get("archiveRow")}]")
+        val official = ControlledFeedPeer("[${asset("native-feed-scroll-reference.json").getAsJsonArray("refreshedRows")[0]}]")
+        owner.start().use { ownerServer ->
+            official.start().use { officialServer ->
+                val intent = Intent(instrumentation.targetContext, MainActivity::class.java)
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${ownerServer.port}/wsopen")
+                    .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${officialServer.port}/wsopen")
+                ActivityScenario.launch<MainActivity>(intent).use { activity ->
+                    try {
+                        waitForText("Your server selection could not be opened. Choose a server in Settings.")
+                        assertTrue(owner.clientKeys.isEmpty() && official.clientKeys.isEmpty())
+                        chooseServer("saito.io")
+                        waitForText("New reference post")
+                        activity.recreate()
+                        waitForText("Server: saito.io")
+                        waitForText("New reference post")
+                        ui.onNodeWithText("Native Red Square reference post").assertDoesNotExist()
+                        assertTrue(owner.clientKeys.isEmpty())
+                        official.assertHealthy()
+                    } finally { captureEvidence() }
+                }
+            }
+        }
+    }
+
     private fun chooseServer(domain: String) {
         ui.onNodeWithText("Settings").performClick()
         waitForText(domain)

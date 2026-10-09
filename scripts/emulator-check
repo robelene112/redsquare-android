@@ -75,18 +75,20 @@ fi
 python3 "$repo_dir/scripts/feed-device-check" --evidence "$evidence/feed-cold-launch"
 if [[ "${TEST_PUBLIC_FEED_READ:-0}" == 1 ]]; then
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
-    adb shell pm clear nl.davidengelen.redsquare.dev > "$evidence/fresh-live-feed.txt"
-    grep -q Success "$evidence/fresh-live-feed.txt"
-    adb logcat -c
-    adb shell am instrument -w -r \
-        -e class nl.davidengelen.redsquare.OwnerLiveFeedTest -e publicFeedRead 1 \
-        nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
-        > "$evidence/live-owner-feed.txt"
-    mkdir -p "$evidence/live-owner"
-    adb exec-out run-as nl.davidengelen.redsquare.dev cat cache/live-feed-evidence/screen.png > "$evidence/live-owner/screen.png" || true
-    adb logcat -d -v brief RedSquarePeer:W '*:S' > "$evidence/live-owner/transport-status.txt"
-    grep -q 'OK (1 test)' "$evidence/live-owner-feed.txt"
-    adb exec-out run-as nl.davidengelen.redsquare.dev cat cache/live-feed-evidence/result.txt > "$evidence/live-owner/result.txt"
+    for backend in owner official; do
+        adb shell pm clear nl.davidengelen.redsquare.dev > "$evidence/fresh-live-$backend.txt"
+        grep -q Success "$evidence/fresh-live-$backend.txt"
+        adb logcat -c
+        adb shell am instrument -w -r \
+            -e class nl.davidengelen.redsquare.OwnerLiveFeedTest -e publicFeedRead 1 -e publicBackend "$backend" \
+            nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+            > "$evidence/live-$backend-feed.txt"
+        mkdir -p "$evidence/live-$backend"
+        adb exec-out run-as nl.davidengelen.redsquare.dev cat cache/live-feed-evidence/screen.png > "$evidence/live-$backend/screen.png" || true
+        adb logcat -d -v brief RedSquarePeer:W '*:S' > "$evidence/live-$backend/transport-status.txt"
+        grep -q 'OK (1 test)' "$evidence/live-$backend-feed.txt"
+        adb exec-out run-as nl.davidengelen.redsquare.dev cat cache/live-feed-evidence/result.txt > "$evidence/live-$backend/result.txt"
+    done
 fi
 if [[ "${TEST_SCOPE:-full}" == feed* ]]; then
     printf '%s\n' 'Focused feed check only; full Android/wallet/update acceptance not run.' > "$evidence/scope.txt"
