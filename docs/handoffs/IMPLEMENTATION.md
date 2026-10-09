@@ -36,7 +36,9 @@ one question at a time when a material choice really needs the owner.
 - Active #10, "09: Publish text posts and replies with recoverable drafts".
   Eight of35 complete;27 remaining including active. Review base78163d6;
   current candidatecd1ee24. Focused Android10 37992419586 passes14 cases
-  (65.692s) plus actual process-death reconciliation. Full37993042535 running.
+  (65.692s) plus actual process-death reconciliation. Full37993042535 was
+  cancelled by the documentation push because the push concurrency group still
+  defaulted to full. Group corrected to source; replacement full dispatch next.
   Local core/debug/test/lint passes2m38. Both final source-review axes atcd1ee24
   have zero actionable findings. Runtime acceptance and final full still pending.
   Latest actual red37991336062 at67e883d passes13/14 and actual process-death

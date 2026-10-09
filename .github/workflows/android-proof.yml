@@ -16,7 +16,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: android-proof-${{ github.ref }}-${{ inputs.scope || 'full' }}
+  group: android-proof-${{ github.ref }}-${{ inputs.scope || 'source' }}
   cancel-in-progress: true
 jobs:
   native-proof:
