@@ -412,6 +412,138 @@ class PostPreviewTest {
         }
     }
 
+    @Test fun startingAnotherDraftRequiresConfirmationAndDoesNotClaimToRemoveTheUncertainPost() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        AndroidBackendStore(context).save(SaitoBackend.OWNER)
+        val root = instrumentation.context.assets.open("native-following-reference.json").bufferedReader().use {
+            JsonParser.parseReader(it).asJsonObject.getAsJsonObject("root")
+        }
+        val peer = ControlledFeedPeer("[$root]")
+        peer.start().use { server ->
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
+                waitForReferencePost()
+                ui.onNodeWithText("New post").performClick()
+                ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                ui.onNode(hasSetTextAction()).performTextReplacement("A post whose availability remains uncertain")
+                ui.onNodeWithText("Send").performClick()
+                waitFor("Submitted. Waiting for this server.")
+                ui.waitUntil(20_000) { ui.onAllNodes(hasText("Back") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                ui.onNodeWithText("Start another draft").performClick()
+                waitFor("Clear this local posting record?")
+                ui.onNodeWithText("This post may already have reached the server. Clearing removes its saved text and retry record from this composer. It does not remove any published post or copies elsewhere.").assertIsDisplayed()
+                ui.onNodeWithText("Keep this post").performClick()
+                ui.onNodeWithText("A post whose availability remains uncertain").assertIsNotEnabled()
+                org.junit.Assert.assertEquals(1, peer.transactions.size)
+                ui.onNodeWithText("Start another draft").performClick()
+                ui.onNodeWithText("Clear local record").performClick()
+                ui.waitUntil(10_000) { ui.onAllNodes(hasScrollToIndexAction()).fetchSemanticsNodes().isNotEmpty() }
+                ui.onNodeWithText("New post").performClick()
+                ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                ui.onNode(hasSetTextAction()).assert(hasText(""))
+                scenario.recreate()
+                ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                ui.onNode(hasSetTextAction()).assert(hasText(""))
+                org.junit.Assert.assertEquals(1, peer.transactions.size)
+                peer.assertHealthy()
+                captureFeedEvidence("posting-evidence/confirmed-clear-starts-unsent-draft.png")
+            }
+        }
+    }
+
+    @Test fun walletReplacementExplainsLocalWorkAndNeverPublishesTheOutgoingWalletDraft() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        AndroidBackendStore(context).save(SaitoBackend.OWNER)
+        val root = instrumentation.context.assets.open("native-following-reference.json").bufferedReader().use {
+            JsonParser.parseReader(it).asJsonObject.getAsJsonObject("root")
+        }
+        val device = androidx.test.uiautomator.UiDevice.getInstance(instrumentation)
+        val balances = mockwebserver3.MockWebServer()
+        balances.dispatcher = object : mockwebserver3.Dispatcher() {
+            override fun dispatch(request: mockwebserver3.RecordedRequest) = mockwebserver3.MockResponse.Builder()
+                .body("${System.currentTimeMillis()}-1234-${"a".repeat(64)}.snap\n").build()
+        }
+        balances.start(java.net.InetAddress.getByName("127.0.0.1"), 0)
+        val store = AndroidWalletStore(context)
+        var previous: nl.davidengelen.redsquare.saito.SaitoWallet? = null
+        val peer = ControlledFeedPeer("[$root]")
+        try { peer.start().use { server ->
+            val intent = Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                .putExtra("balanceApiUrl", "http://127.0.0.1:${balances.port}/balance/")
+            ActivityScenario.launch<MainActivity>(intent).use {
+                waitForReferencePost()
+                ui.onNodeWithText("New post").performClick()
+                ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                ui.onNode(hasSetTextAction()).performTextReplacement("Draft belonging to the outgoing wallet")
+                ui.onNodeWithText("Save draft").performClick()
+                ui.waitUntil(10_000) { ui.onAllNodes(hasScrollToIndexAction()).fetchSemanticsNodes().isNotEmpty() }
+                ui.onNodeWithText("Wallet").performClick()
+                previous = store.loadExisting()
+                org.junit.Assert.assertNotEquals("jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR", displayedWalletAddress(ui))
+                ui.onNodeWithText("Import wallet").performClick()
+                chooseReferenceImport(device)
+                waitFor("Server reports zero SAITO")
+                ui.onNodeWithText("Local drafts and posting records stay on this device with your current wallet. They are unavailable while another wallet is active and are not included in wallet exports. A post may already have reached its server even if availability is unconfirmed.")
+                    .performScrollTo().assertIsDisplayed()
+                ui.onNodeWithText("Skip backup").performScrollTo().performClick()
+                ui.onNodeWithContentDescription("Replacement risks acknowledged").performScrollTo().performClick()
+                ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsEnabled().performClick()
+                waitFor("Wallet imported")
+                org.junit.Assert.assertEquals("jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR", displayedWalletAddress(ui))
+                ui.onNodeWithText("Done").performClick()
+                ui.onNodeWithText("New post").performClick()
+                ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                ui.onNode(hasSetTextAction()).assert(hasText(""))
+                assertTrue(peer.transactions.isEmpty())
+                captureFeedEvidence("posting-evidence/replacement-wallet-has-separate-draft.png")
+            }
+            // Restore the original isolated test identity without exporting private material.
+            store.replace(store.loadExisting(), requireNotNull(previous))
+            ActivityScenario.launch<MainActivity>(intent).use {
+                waitForReferencePost()
+                ui.onNodeWithText("New post").performClick()
+                ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and hasText("Draft belonging to the outgoing wallet")).fetchSemanticsNodes().isNotEmpty() }
+                ui.onNode(hasSetTextAction()).assertTextEquals("Draft belonging to the outgoing wallet")
+                assertTrue(peer.transactions.isEmpty())
+                peer.assertHealthy()
+                captureFeedEvidence("posting-evidence/outgoing-draft-retained-after-wallet-restore.png")
+            }
+        } } finally {
+            previous?.let { original ->
+                val current = store.loadExisting()
+                if (current.publicKey != original.publicKey) store.replace(current, original)
+            }
+            balances.close()
+        }
+    }
+
+    private fun chooseReferenceImport(device: androidx.test.uiautomator.UiDevice) {
+        val title = androidx.test.uiautomator.By.text(ExportTestDocumentsProvider.TITLE)
+        val row = androidx.test.uiautomator.By.text(ExportTestDocumentsProvider.TITLE).res("android", "title")
+        val deadline = android.os.SystemClock.uptimeMillis() + 30_000
+        var selected = false
+        while (android.os.SystemClock.uptimeMillis() < deadline) {
+            if (!device.hasObject(row) && device.hasObject(title)) { selected = true; break }
+            try {
+                val entry = device.findObject(row)
+                if (entry != null) { entry.click(); device.wait(androidx.test.uiautomator.Until.gone(row), 2_000) }
+                else device.findObject(androidx.test.uiautomator.By.desc("Show roots"))?.click()
+            } catch (_: androidx.test.uiautomator.StaleObjectException) { /* Observe the updated picker. */ }
+            android.os.SystemClock.sleep(100)
+        }
+        check(selected) { "Test import folder did not become visible" }
+        val file = androidx.test.uiautomator.By.text("reference-import.json")
+        if (device.wait(androidx.test.uiautomator.Until.hasObject(file), 2_000) != true) {
+            try { androidx.test.uiautomator.UiScrollable(androidx.test.uiautomator.UiSelector().scrollable(true))
+                .scrollIntoView(androidx.test.uiautomator.UiSelector().text("reference-import.json")) }
+            catch (_: androidx.test.uiautomator.UiObjectNotFoundException) { /* Keep the picker available for diagnosis. */ }
+        }
+        requireNotNull(device.wait(androidx.test.uiautomator.Until.findObject(file), 10_000)).click()
+    }
+
     @Test fun longerMultilingualPostsPreserveTheirOriginalTextOnBothApprovedBackends() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
