@@ -10,9 +10,9 @@ import com.google.gson.Strictness
 import java.io.File
 import java.io.IOException
 
-/** Atomic bounded public-envelope storage. Feature readers must verify signatures on load. */
-internal class PublicEnvelopeCache(context: Context, name: String, private val maxEntries: Int) {
-    init { require(name.matches(Regex("[a-zA-Z0-9.]+")) && name.length <= 240 && maxEntries in 1..200) }
+/** Atomic bounded public strings. Feature readers validate their own values and signed envelopes. */
+internal class PublicStringStore(context: Context, name: String, private val maxEntries: Int) {
+    init { require(name.matches(Regex("[a-zA-Z0-9.]+")) && name.length <= 240 && maxEntries in 1..1000) }
     private val file = AtomicFile(File(context.noBackupFilesDir, name))
     private val gson = GsonBuilder().setStrictness(Strictness.STRICT).disableHtmlEscaping().create()
     data class Loaded(val envelopes: List<String>, val unreadable: Boolean)

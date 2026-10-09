@@ -5,7 +5,7 @@ import nl.davidengelen.redsquare.saito.*
 
 /** Bounded public posts and signed like records. Never stores wallet or private Chat data. */
 internal class AndroidProfileCache(context: Context, backend: SaitoBackend) {
-    private val storage = PublicEnvelopeCache(context, "profile.${backend.id}.v1", 200)
+    private val storage = PublicStringStore(context, "profile.${backend.id}.v1", 200)
     data class SavedProfile(val posts: List<FeedPost>, val likes: List<ProfileLike>, val unreadable: Boolean)
 
     fun load(): SavedProfile {

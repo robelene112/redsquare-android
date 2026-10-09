@@ -8,7 +8,7 @@ import nl.davidengelen.redsquare.saito.RedSquareFeed
 /** Public post cache. It contains no wallet or private Chat state. */
 class AndroidFeedCache(context: Context, backend: SaitoBackend, private val threadId: String? = null) {
     init { require(threadId == null || threadId.matches(Regex("[0-9a-f]{128}"))) }
-    private val storage = PublicEnvelopeCache(context, if (threadId == null)
+    private val storage = PublicStringStore(context, if (threadId == null)
         "feed.${backend.id}.v1" else "conversation.${backend.id}.$threadId.v1", MAX_POSTS)
     data class SavedPosts(val posts: List<FeedPost>, val unreadable: Boolean)
 

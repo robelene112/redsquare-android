@@ -1,0 +1,43 @@
+# Native following
+
+Ticket #9, delivery slice 8 of 35, is in progress. Review base 6dd511d.
+Parent specification is GitHub issue #1. Do not treat this report as acceptance.
+
+Follow choices are local public account identities associated with the active
+wallet, shared across the two supported backend sessions. They are separate
+from signing material and public-post caches. No on-chain follow transaction
+or cross-device synchronization is claimed. The interface says choices stay
+with this wallet on this device. Reading and caching use the selected backend.
+
+The selected backend Archive accepts exact field2 criteria, not an author-array
+or arbitrary SQL predicate. Following reads use RedSquare, field4 empty,
+flagged_ne1, field2 author, a created-earlier cursor and limit20. Signed decoded
+authors must match the requested followed identity; archive labels alone do not
+authorize content. Available results merge with bounded public post history.
+
+The deployed public Archive source was read without network, write access,
+application initialization or private files on 2026-10-09. Its SHA256 is
+e1bd400f035979461070a34b9887d09b50866417057d06940661b78119d80743.
+Named Git-object reads at the previously documented node Git directory failed
+with "not a git repository"; no Git/config/runtime repair was attempted. This
+source observation is a deployed-file hash, not a newly verified Git pin.
+
+Independently signed scalar1/scalar2 post fixtures use the existing pinned
+reference-only WASM/Elliptic runner, network disabled. See
+NATIVE_FOLLOWING_REFERENCE.json and following-reference.cjs. No production
+wallet or database is read, and no transaction is broadcast.
+
+## Actual implementation check
+
+Initial test commit e2232bf had a missing AndroidBackendStore import and failed
+local compilation. That is a harness/build failure, not a functional red.
+Correction 8e77779 passes local core/debug/test assembly. Actual Android10 run
+37947832357 then reaches the profile and fails at the missing Follow action,
+line47. Public image/log are inspected and retained in
+docs/evidence/ticket08/following-red/api-29.
+
+The first implementation adds the follow action, a Following view, and shared
+bounded atomic storage of account identities. Existing post-cache file formats
+are retained. Confirmation waits for checked persistence; writes and reads run
+off the main thread. Functional green, backend/restart/identity recovery checks,
+both source review axes and final full verification remain pending.

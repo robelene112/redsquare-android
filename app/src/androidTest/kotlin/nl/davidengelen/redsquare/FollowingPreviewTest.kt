@@ -19,9 +19,8 @@ class FollowingPreviewTest {
         val context = instrumentation.targetContext
         check(context.packageName.endsWith(".dev"))
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
-        check(context.getSharedPreferences("redsquare.following.v1", 0).edit().clear().commit())
         context.noBackupFilesDir.listFiles()?.filter {
-            it.name.startsWith("feed.") || it.name.startsWith("conversation.") || it.name.startsWith("profile.")
+            it.name.startsWith("feed.") || it.name.startsWith("conversation.") || it.name.startsWith("profile.") || it.name.startsWith("following.")
         }?.forEach { check(it.delete()) }
         val fixture = instrumentation.context.assets.open("native-following-reference.json").bufferedReader().use {
             JsonParser.parseReader(it).asJsonObject

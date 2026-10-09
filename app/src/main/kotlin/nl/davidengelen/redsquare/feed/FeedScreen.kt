@@ -41,6 +41,10 @@ private sealed interface BrowseDestination {
 @Composable
 fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: String, backend: SaitoBackend, lifecycle: Lifecycle, modifier: Modifier, onDrawn: () -> Unit) {
     val context = LocalContext.current.applicationContext
+    val scope = rememberCoroutineScope()
+    val following = remember(wallet?.publicKey) { wallet?.let { FollowingState(context, it.publicKey, scope) } }
+    LaunchedEffect(following) { following?.load() }
+    var followingView by rememberSaveable { mutableStateOf(false) }
     val cache = remember(backend) { AndroidFeedCache(context, backend) }
     val connection = remember { AndroidInternetStatus(context) }
     DisposableEffect(connection) { onDispose { connection.close() } }
@@ -71,9 +75,11 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
         cacheWarning = saved.unreadable
         cacheReady = true
     }
-    LaunchedEffect(wallet, cacheReady, refresh, internet) {
+    LaunchedEffect(wallet, cacheReady, refresh, internet, followingView, following?.accounts, following?.ready) {
         if (!internet.available) { hadOutage = true; recovered = false }
         if (wallet == null || !cacheReady) return@LaunchedEffect
+        if (followingView && following?.ready != true) { loading = false; return@LaunchedEffect }
+        if (followingView && following?.accounts?.isEmpty() == true) { loading = false; return@LaunchedEffect }
         lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
             while (currentCoroutineContext().isActive) {
                 if (!internet.available) {
@@ -87,8 +93,22 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
                 try {
                     val page = withContext(Dispatchers.IO) {
                         SaitoPeer(wallet, endpoint).use { peer ->
-                            val criteria = """{"request":"archive","data":{"request":"load","field1":"RedSquare","field4":"","flagged_ne":1,"limit":20,"created_earlier_than":${System.currentTimeMillis()}}}"""
-                            RedSquareFeed.readArchive(peer.request(criteria.toByteArray()).toString(Charsets.UTF_8))
+                            val authors = if (followingView) following!!.accounts.sorted() else listOf<String?>(null)
+                            val pages = authors.map { author ->
+                                val criteria = com.google.gson.JsonObject().apply {
+                                    addProperty("request", "load"); addProperty("field1", "RedSquare")
+                                    addProperty("field4", ""); addProperty("flagged_ne", 1); addProperty("limit", 20)
+                                    addProperty("created_earlier_than", System.currentTimeMillis())
+                                    if (author != null) addProperty("field2", author)
+                                }
+                                val request = com.google.gson.JsonObject().apply { addProperty("request", "archive"); add("data", criteria) }
+                                val response = peer.request(request.toString().toByteArray()).toString(Charsets.UTF_8)
+                                RedSquareFeed.readArchive(response).let { page ->
+                                    if (author == null) page else page.copy(posts = page.posts.filter { it.author == author })
+                                }
+                            }
+                            ArchiveFeedPage(pages.flatMap { it.posts }, pages.mapNotNull { it.oldestCreatedAt }.minOrNull(),
+                                pages.sumOf { it.rowCount }, pages.sumOf { it.ignored })
                         }
                     }
                     val merged = (page.posts + posts).distinctBy { it.id }.sortedByDescending { it.createdAt }
@@ -113,7 +133,7 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
     }
     when (val destination = navigation.lastOrNull()) {
         is BrowseDestination.Profile -> {
-            ProfileScreen(wallet, endpoint, backend, destination.author, destination.view, modifier,
+            ProfileScreen(wallet, endpoint, backend, destination.author, destination.view, following, modifier,
                 onBack = { back() }, onPost = { navigation.add(BrowseDestination.Conversation(it)) },
                 onIdentity = { openProfile(it) })
             return
@@ -133,10 +153,23 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
             recovered -> ConnectionBanner(stringResource(R.string.back_online), true)
         }
         Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
-            Text(stringResource(R.string.feed_title), Modifier.weight(1f), style = MaterialTheme.typography.titleLarge)
+            TextButton(onClick = { followingView = false }, modifier = Modifier.weight(1f)) {
+                Text(stringResource(R.string.feed_title), maxLines = 1)
+            }
+            TextButton(onClick = { followingView = true }, modifier = Modifier.weight(1f)) {
+                Text(stringResource(R.string.following_title), maxLines = 1)
+            }
             TextButton(onClick = { refresh++ }, enabled = wallet != null && !loading && internet.available) {
                 Text(stringResource(R.string.feed_refresh))
             }
+        }
+        val visiblePosts = if (followingView) posts.filter { it.author in following?.accounts.orEmpty() } else posts
+        if (following?.error == true) Text(stringResource(R.string.following_error), style = MaterialTheme.typography.bodySmall)
+        if (followingView) {
+            Text(stringResource(R.string.following_local), style = MaterialTheme.typography.bodySmall)
+            if (following?.ready != true) Text(stringResource(R.string.following_loading))
+            else if (following.accounts.isEmpty()) Text(stringResource(R.string.following_empty))
+            else if (visiblePosts.isEmpty() && !loading) Text(stringResource(R.string.following_no_posts))
         }
         if (cacheWarning) Text(stringResource(R.string.feed_cache_warning), style = MaterialTheme.typography.bodySmall)
         when {
@@ -148,7 +181,7 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
         }
         // Keep a restored list position until the asynchronous cache read has finished.
         if (cacheReady) LazyColumn(Modifier.fillMaxSize(), state = position) {
-            items(posts, key = { it.id }) { post ->
+            items(visiblePosts, key = { it.id }) { post ->
                 Column(Modifier.clickable { navigation.add(BrowseDestination.Conversation(post)) }.padding(vertical = 12.dp)) {
                     Text("Anon-${post.author.take(6)}", Modifier.clickable { openProfile(post.author) }, style = MaterialTheme.typography.titleMedium)
                     Text(post.author, Modifier.clickable { openProfile(post.author) }, maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.labelSmall)

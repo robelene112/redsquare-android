@@ -32,7 +32,7 @@ private data class ProfileHistoryPage(val posts: List<FeedPost>, val likes: List
 
 @Composable
 internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: SaitoBackend, author: String,
-    view: ProfileViewState, modifier: Modifier, onBack: () -> Unit, onPost: (FeedPost) -> Unit,
+    view: ProfileViewState, following: FollowingState?, modifier: Modifier, onBack: () -> Unit, onPost: (FeedPost) -> Unit,
     onIdentity: (String) -> Unit) {
     val context = LocalContext.current.applicationContext
     val cache = remember(backend) { AndroidProfileCache(context, backend) }
@@ -121,11 +121,16 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
             TextButton(onClick = onBack) { Text(stringResource(R.string.browse_back)) }
             Text(stringResource(R.string.profile_title), Modifier.weight(1f).padding(vertical = 12.dp),
                 style = MaterialTheme.typography.titleLarge)
+            TextButton(enabled = following?.ready == true && !following.saving,
+                onClick = { following?.toggle(author) }) {
+                Text(stringResource(if (author in following?.accounts.orEmpty()) R.string.unfollow_account else R.string.follow_account))
+            }
             TextButton(enabled = wallet != null && !loading,
                 onClick = { requestedBefore = System.currentTimeMillis() + 1; refresh++ }) { Text(stringResource(R.string.feed_refresh)) }
         }
         Text("Anon-${author.take(6)}", style = MaterialTheme.typography.titleMedium)
         Text(author, style = MaterialTheme.typography.labelSmall)
+        if (following?.error == true) Text(stringResource(R.string.following_error), style = MaterialTheme.typography.bodySmall)
         Row {
             ProfileTab.entries.forEach { item ->
                 TextButton(onClick = { view.tab = item }, modifier = Modifier.weight(1f),
