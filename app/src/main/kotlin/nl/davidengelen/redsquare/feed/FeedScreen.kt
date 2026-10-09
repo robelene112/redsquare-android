@@ -140,7 +140,7 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
         if (posts.isNotEmpty()) { withFrameNanos { }; withFrameNanos { }; onDrawn() }
     }
     if (composing && wallet != null) {
-        PostComposerScreen(wallet, endpoint, backend, modifier) { composing = false }
+        PostComposerScreen(wallet, endpoint, backend, modifier) { composing = false; refresh++ }
         return
     }
     when (val destination = navigation.lastOrNull()) {

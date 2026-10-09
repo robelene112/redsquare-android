@@ -12,11 +12,13 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.delay
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.saito.SaitoTransaction
 import nl.davidengelen.redsquare.saito.SaitoPeer
+import nl.davidengelen.redsquare.saito.RedSquareFeed
 import com.google.gson.JsonObject
 
 @Composable
@@ -31,6 +33,7 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
     var error by remember(store) { mutableStateOf(false) }
     var transaction by remember(store) { mutableStateOf<SaitoTransaction?>(null) }
     var submitted by remember(store) { mutableStateOf(false) }
+    var available by remember(store) { mutableStateOf(false) }
     var sending by remember(store) { mutableStateOf(false) }
     var reload by remember(store) { mutableIntStateOf(0) }
     LaunchedEffect(store, reload) {
@@ -48,7 +51,9 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
         saving = true
         scope.launch {
             try {
-                withContext(Dispatchers.IO) { store.save(PostDraftStore.Saved(text, transaction)) }
+                withContext(Dispatchers.IO) {
+                    store.save(if (available) PostDraftStore.Saved("") else PostDraftStore.Saved(text, transaction))
+                }
                 onClose()
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { error = true }
@@ -69,8 +74,27 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                         store.save(PostDraftStore.Saved(text, it))
                     }
                 }.also { transaction = it }
-                withContext(Dispatchers.IO) { SaitoPeer(wallet, endpoint).use { it.submit(candidate) } }
-                submitted = true
+                withContext(Dispatchers.IO) {
+                    SaitoPeer(wallet, endpoint).use { peer ->
+                        peer.submit(candidate)
+                        withContext(Dispatchers.Main.immediate) { submitted = true }
+                        val criteria = JsonObject().apply {
+                            addProperty("request", "load"); addProperty("field1", "RedSquare")
+                            addProperty("sig", candidate.id); addProperty("flagged_ne", 1)
+                        }
+                        val query = JsonObject().apply { addProperty("request", "archive"); add("data", criteria) }
+                        for (attempt in 0 until 6) {
+                            val response = peer.request(query.toString().toByteArray(Charsets.UTF_8)).toString(Charsets.UTF_8)
+                            val observed = RedSquareFeed.readTarget(response, candidate.id).posts
+                                .any { it.author == owner && it.text == text }
+                            if (observed) {
+                                withContext(Dispatchers.Main.immediate) { available = true }
+                                break
+                            }
+                            if (attempt < 5) delay(2_000)
+                        }
+                    }
+                }
                 error = false
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { error = true }
@@ -93,7 +117,8 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
             }
         }
         Text(stringResource(R.string.post_draft_local), style = MaterialTheme.typography.bodySmall)
-        if (submitted) Text(stringResource(R.string.post_submitted))
+        if (available) Text(stringResource(R.string.post_available))
+        else if (submitted) Text(stringResource(R.string.post_submitted))
         if (error) {
             Text(stringResource(R.string.post_draft_error))
             if (!ready) TextButton(onClick = { reload++ }) { Text(stringResource(R.string.retry)) }
