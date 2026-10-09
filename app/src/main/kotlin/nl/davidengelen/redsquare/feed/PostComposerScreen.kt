@@ -53,9 +53,13 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
             if (transaction == null) Text(stringResource(R.string.post_draft_local), style = MaterialTheme.typography.bodySmall)
             parent?.let { Text(stringResource(R.string.post_reply_to, "Anon-${it.author.take(6)}"), style = MaterialTheme.typography.bodySmall) }
             if (available) Text(stringResource(R.string.post_available))
+            else if (queued) Text(stringResource(R.string.post_queued))
             else if (submitted) Text(stringResource(R.string.post_submitted))
             else if (transaction != null) Text(stringResource(R.string.post_pending))
-            if (transaction != null && !available) TextButton(enabled = !saving && !sending,
+            if (queued) TextButton(enabled = !saving && !sending, onClick = ::cancelQueued) {
+                Text(stringResource(R.string.post_cancel_queued))
+            }
+            if (transaction != null && !available && !queued) TextButton(enabled = !saving && !sending,
                 onClick = { confirmClear = true }) { Text(stringResource(R.string.post_start_another)) }
             if (networkError) Text(stringResource(R.string.post_network_error))
             if (validationError) Text(stringResource(R.string.post_invalid_text))

@@ -162,3 +162,8 @@ and fixture review remain pending.
 Send, durable Queued status on fresh activity launch, cancellation and retained
 unsent draft with no later transmission. Local compilation and actual functional
 red are the next gates. No queue implementation yet.
+
+#11 first functional red38002111207 proves missing Queued status after offline
+Send. Durable queued flag/cancellation implemented in existing encrypted records,
+with authenticated readiness and conservative pre-transmission state. Local
+assembly/lint pass; focused green next. Automatic resumption/recovery remain.

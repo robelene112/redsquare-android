@@ -31,7 +31,7 @@ internal class PostDraftStore(private val context: Context, private val owner: S
         "postdraft.${backend.id}.$owner${parent?.let { ".${it.id}" }.orEmpty()}.v1"))
     private val associatedData = "${context.packageName}:${file.baseFile.name}".toByteArray(Charsets.UTF_8)
 
-    data class Saved(val text: String, val transaction: SaitoTransaction? = null)
+    data class Saved(val text: String, val transaction: SaitoTransaction? = null, val queued: Boolean = false)
     private val gson = GsonBuilder().setStrictness(Strictness.STRICT).create()
 
     fun load(): Saved = synchronized(lock) {
@@ -66,16 +66,23 @@ internal class PostDraftStore(private val context: Context, private val owner: S
                     require(post.author == owner && post.text == content)
                     require(post.parentId == parent?.id.orEmpty() && (parent == null || post.threadId == parent.threadId))
                 }
-                Saved(content, transaction)
+                val queued = record.get("queued")?.let {
+                    require(it.isJsonPrimitive && it.asJsonPrimitive.isBoolean)
+                    it.asBoolean
+                } ?: false
+                require(!queued || transaction != null)
+                Saved(content, transaction, queued)
             }
         } finally { text.fill(0) }
     }
 
     fun save(saved: Saved) = synchronized(lock) {
+        require(!saved.queued || saved.transaction != null)
         require(saved.text.toByteArray(Charsets.UTF_8).size <= 1024 * 1024)
         val record = JsonObject().apply {
             addProperty("text", saved.text)
             saved.transaction?.let { addProperty("transaction", it.encoded()) }
+            addProperty("queued", saved.queued)
         }
         val encoded = Charsets.UTF_8.newEncoder().onMalformedInput(CodingErrorAction.REPORT)
             .onUnmappableCharacter(CodingErrorAction.REPORT).encode(CharBuffer.wrap(record.toString()))
@@ -109,7 +116,7 @@ internal class PostDraftStore(private val context: Context, private val owner: S
         val directory = Os.open(file.baseFile.parentFile!!.path, OsConstants.O_RDONLY, 0)
         try { Os.fsync(directory) } finally { Os.close(directory) }
         val reopened = load()
-        check(reopened.text == saved.text && reopened.transaction?.encoded() == saved.transaction?.encoded()) {
+        check(reopened.text == saved.text && reopened.transaction?.encoded() == saved.transaction?.encoded() && reopened.queued == saved.queued) {
             "Draft persistence verification failed"
         }
     }

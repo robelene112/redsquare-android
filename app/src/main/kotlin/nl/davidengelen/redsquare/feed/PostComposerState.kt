@@ -35,6 +35,7 @@ internal class PostComposerState(
     var networkError by mutableStateOf(false)
     var validationError by mutableStateOf(false)
     var transaction by mutableStateOf<SaitoTransaction?>(null)
+    var queued by mutableStateOf(false)
     var submitted by mutableStateOf(false)
     var available by mutableStateOf(false)
     var sending by mutableStateOf(false)
@@ -46,6 +47,7 @@ internal class PostComposerState(
             text = if (saved.transaction != null) saved.text else memory.text ?: saved.text
             memory.text = text
             transaction = saved.transaction
+            queued = saved.queued
             ready = true
             error = false
         } catch (cancelled: CancellationException) { throw cancelled }
@@ -54,7 +56,7 @@ internal class PostComposerState(
     suspend fun persist(): Boolean = writes.withLock {
         if (!ready) return@withLock false
         try {
-            val snapshot = if (available) PostDraftStore.Saved("") else PostDraftStore.Saved(text, transaction)
+            val snapshot = if (available) PostDraftStore.Saved("") else PostDraftStore.Saved(text, transaction, queued)
             withContext(NonCancellable) {
                 withContext(Dispatchers.IO) { store.save(snapshot) }
                 memory.text = snapshot.text
@@ -95,8 +97,9 @@ internal class PostComposerState(
                         val recipients = parent?.let { (listOf(it.author) + it.recipients).distinct() }.orEmpty()
                         SaitoTransaction.create(wallet, body, System.currentTimeMillis(), recipients)
                     }
+                    if (transaction == null) queued = true
                     transaction = prepared
-                    val snapshot = PostDraftStore.Saved(text, prepared)
+                    val snapshot = PostDraftStore.Saved(text, prepared, queued)
                     withContext(NonCancellable + Dispatchers.IO) { store.save(snapshot) }
                     prepared
                 }
@@ -113,8 +116,19 @@ internal class PostComposerState(
                                 .any { it.author == owner && it.text == text }
                         }
                         if (retrying && observed()) {
-                            withContext(Dispatchers.Main.immediate) { available = true }
+                            withContext(Dispatchers.Main.immediate) { available = true; queued = false }
                             return@use
+                        }
+                        peer.authenticate()
+                        // A crash after this write may have transmitted. It is no longer cancellable queued work.
+                        withContext(Dispatchers.Main.immediate) {
+                            writes.withLock {
+                                withContext(NonCancellable + Dispatchers.IO) {
+                                    try { store.save(PostDraftStore.Saved(text, candidate, false)) }
+                                    catch (failure: Exception) { throw DraftPersistenceFailure(failure) }
+                                }
+                                queued = false
+                            }
                         }
                         peer.submit(candidate)
                         withContext(Dispatchers.Main.immediate) { submitted = true }
@@ -127,12 +141,32 @@ internal class PostComposerState(
                         }
                     }
                 } } catch (cancelled: CancellationException) { throw cancelled }
+                catch (failure: DraftPersistenceFailure) { throw failure }
                 catch (_: Exception) { networkError = true }
                 error = false
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: SaitoTransaction.InvalidMessage) { validationError = true }
             catch (_: Exception) { error = true }
             finally { sending = false }
+        }
+    }
+    fun cancelQueued() {
+        if (!ready || saving || sending || !queued) return
+        saving = true
+        scope.launch {
+            try {
+                writes.withLock {
+                    withContext(NonCancellable) {
+                        withContext(Dispatchers.IO) { store.save(PostDraftStore.Saved(text)) }
+                        transaction = null
+                        queued = false
+                        networkError = false
+                        memory.text = text
+                    }
+                }
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { error = true }
+            finally { saving = false }
         }
     }
     fun clearAndClose(onClose: () -> Unit) {
@@ -160,4 +194,5 @@ internal class PostComposerState(
         memory.text = value
         validationError = false
     }
+    private class DraftPersistenceFailure(cause: Exception) : RuntimeException(cause)
 }
