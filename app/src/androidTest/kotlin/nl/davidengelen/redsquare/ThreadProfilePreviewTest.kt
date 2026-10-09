@@ -12,6 +12,51 @@ import org.junit.Test
 class ThreadProfilePreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
 
+    @Test fun fetchedProfilePostsRemainVisibleAfterCacheWriteFailureAndOfflineRefresh() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = prepareContext()
+        val fixture = instrumentation.context.assets.open("native-thread-reference.json").bufferedReader().use {
+            JsonParser.parseReader(it).asJsonObject
+        }
+        val root = fixture.getAsJsonObject("root")
+        val author = root.get("field2").asString
+        val blockedCache = java.io.File(context.noBackupFilesDir, "profile.owner.v1")
+        check(blockedCache.mkdir())
+        val obstacle = java.io.File(blockedCache, "prevent-file-replacement").apply { writeText("public test fault") }
+        val peer = ControlledFeedPeer("[$root]") { criteria ->
+            check(criteria.get("field1").asString == "RedSquare")
+            if (criteria.has("field2")) check(criteria.get("field2").asString == author)
+            "[$root]"
+        }
+        val server = peer.start()
+        try {
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                try {
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText(author)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                    ui.onNodeWithText(author).performClick()
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Posts")).fetchSemanticsNodes().isNotEmpty() }
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
+                    ui.onNodeWithText(context.getString(R.string.feed_cache_warning)).assertIsDisplayed()
+                    peer.assertHealthy()
+                    server.close()
+                    ui.onNodeWithText("Refresh").performClick()
+                    ui.waitUntil(20_000) { ui.onAllNodes(hasText(context.getString(R.string.profile_error))).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
+                    captureFeedEvidence("browse-evidence/profile-memory-after-write-failure.png")
+                } catch (failure: Throwable) {
+                    captureFeedEvidence("browse-evidence/profile-memory-first-failure.png")
+                    throw failure
+                }
+            }
+        } finally {
+            server.close()
+            check(obstacle.delete())
+            check(blockedCache.delete())
+        }
+    }
+
     @Test fun replyAndLikedPostAuthorsOpenProfilesAndBackReturnsToTheOrigin() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = prepareContext()
