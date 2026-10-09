@@ -140,6 +140,33 @@ class PostPreviewTest {
         }
     }
 
+    @Test fun unfinishedCompositionSurvivesActivityRecreationBeforeAnySaveOrNavigation() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        AndroidBackendStore(context).save(SaitoBackend.OWNER)
+        val root = instrumentation.context.assets.open("native-following-reference.json").bufferedReader().use {
+            JsonParser.parseReader(it).asJsonObject.getAsJsonObject("root")
+        }
+        val peer = ControlledFeedPeer("[$root]")
+        peer.start().use { server ->
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
+                waitForReferencePost()
+                ui.onNodeWithText("New post").performClick()
+                ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                ui.onNode(hasSetTextAction()).performTextReplacement("Keep this unsaved composition")
+                scenario.recreate()
+                ui.waitUntil(10_000) {
+                    ui.onAllNodes(hasSetTextAction() and hasText("Keep this unsaved composition")).fetchSemanticsNodes().isNotEmpty()
+                }
+                ui.onNode(hasSetTextAction()).assertTextEquals("Keep this unsaved composition").assertIsEnabled()
+                assertTrue(peer.transactions.isEmpty())
+                peer.assertHealthy()
+                captureFeedEvidence("posting-evidence/unsaved-composition-recreation.png")
+            }
+        }
+    }
+
     @Test fun recoveredPendingPostRetriesItsOriginalSignatureAndClearsOnlyAfterVerifiedAvailability() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
