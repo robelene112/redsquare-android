@@ -38,6 +38,7 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
     var ready by remember(store) { mutableStateOf(false) }
     var saving by remember(store) { mutableStateOf(false) }
     var error by remember(store) { mutableStateOf(false) }
+    var networkError by remember(store) { mutableStateOf(false) }
     var transaction by remember(store) { mutableStateOf<SaitoTransaction?>(null) }
     var submitted by remember(store) { mutableStateOf(false) }
     var available by remember(store) { mutableStateOf(false) }
@@ -81,6 +82,8 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
     }
     fun send() {
         if (!ready || saving || sending || text.isBlank()) return
+        val retrying = transaction != null
+        networkError = false
         sending = true
         scope.launch {
             try {
@@ -101,27 +104,34 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                     withContext(NonCancellable + Dispatchers.IO) { store.save(snapshot) }
                     prepared
                 }
-                withContext(Dispatchers.IO) {
+                try { withContext(Dispatchers.IO) {
                     SaitoPeer(wallet, endpoint).use { peer ->
-                        peer.submit(candidate)
-                        withContext(Dispatchers.Main.immediate) { submitted = true }
                         val criteria = JsonObject().apply {
                             addProperty("request", "load"); addProperty("field1", "RedSquare")
                             addProperty("sig", candidate.id); addProperty("flagged_ne", 1)
                         }
                         val query = JsonObject().apply { addProperty("request", "archive"); add("data", criteria) }
-                        for (attempt in 0 until 6) {
+                        suspend fun observed(): Boolean {
                             val response = peer.request(query.toString().toByteArray(Charsets.UTF_8)).toString(Charsets.UTF_8)
-                            val observed = RedSquareFeed.readTarget(response, candidate.id).posts
+                            return RedSquareFeed.readTarget(response, candidate.id).posts
                                 .any { it.author == owner && it.text == text }
-                            if (observed) {
+                        }
+                        if (retrying && observed()) {
+                            withContext(Dispatchers.Main.immediate) { available = true }
+                            return@use
+                        }
+                        peer.submit(candidate)
+                        withContext(Dispatchers.Main.immediate) { submitted = true }
+                        for (attempt in 0 until 6) {
+                            if (observed()) {
                                 withContext(Dispatchers.Main.immediate) { available = true }
                                 break
                             }
                             if (attempt < 5) delay(2_000)
                         }
                     }
-                }
+                } } catch (cancelled: CancellationException) { throw cancelled }
+                catch (_: Exception) { networkError = true }
                 error = false
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { error = true }
@@ -139,14 +149,16 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
             TextButton(enabled = ready && !saving && !sending, onClick = ::saveAndClose) {
                 Text(stringResource(R.string.post_save_draft))
             }
-            TextButton(enabled = ready && !saving && !sending && text.isNotBlank() && !submitted, onClick = ::send) {
-                Text(stringResource(R.string.post_send))
+            TextButton(enabled = ready && !saving && !sending && text.isNotBlank() && !available, onClick = ::send) {
+                Text(stringResource(if (transaction == null) R.string.post_send else R.string.retry))
             }
         }
-        Text(stringResource(R.string.post_draft_local), style = MaterialTheme.typography.bodySmall)
+        if (transaction == null) Text(stringResource(R.string.post_draft_local), style = MaterialTheme.typography.bodySmall)
         parent?.let { Text(stringResource(R.string.post_reply_to, "Anon-${it.author.take(6)}"), style = MaterialTheme.typography.bodySmall) }
         if (available) Text(stringResource(R.string.post_available))
         else if (submitted) Text(stringResource(R.string.post_submitted))
+        else if (transaction != null) Text(stringResource(R.string.post_pending))
+        if (networkError) Text(stringResource(R.string.post_network_error))
         if (error) {
             Text(stringResource(R.string.post_draft_error))
             if (!ready) TextButton(onClick = { reload++ }) { Text(stringResource(R.string.retry)) }

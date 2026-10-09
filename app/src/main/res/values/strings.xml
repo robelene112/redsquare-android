@@ -102,6 +102,8 @@
     <string name="post_reply">Reply</string>
     <string name="post_reply_to">Replying to %1$s</string>
     <string name="post_submitted">Submitted. Waiting for this server.</string>
+    <string name="post_pending">Send requested. Availability on this server is not confirmed.</string>
+    <string name="post_network_error">Could not check or send this post with the selected server. Retry checks for it first, then sends the original post if needed.</string>
     <string name="post_available">Available on this server.</string>
     <string name="post_save_draft">Save draft</string>
     <string name="post_write">Write a post</string>
