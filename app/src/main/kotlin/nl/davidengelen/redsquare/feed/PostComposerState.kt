@@ -48,6 +48,7 @@ internal class PostComposerState(
             memory.text = text
             transaction = saved.transaction
             queued = saved.queued
+            available = saved.available
             ready = true
             error = false
         } catch (cancelled: CancellationException) { throw cancelled }
@@ -56,10 +57,10 @@ internal class PostComposerState(
     suspend fun persist(): Boolean = writes.withLock {
         if (!ready) return@withLock false
         try {
-            val snapshot = if (available) PostDraftStore.Saved("") else PostDraftStore.Saved(text, transaction, queued)
+            val snapshot = PostDraftStore.Saved(text, transaction, queued, available)
             withContext(NonCancellable) {
-                withContext(Dispatchers.IO) { store.save(snapshot) }
-                memory.text = snapshot.text
+                val persisted = withContext(Dispatchers.IO) { store.saveComposer(snapshot) }
+                memory.text = persisted.text
             }
             error = false
             true
@@ -100,10 +101,13 @@ internal class PostComposerState(
                     if (transaction == null) queued = true
                     transaction = prepared
                     val snapshot = PostDraftStore.Saved(text, prepared, queued)
-                    withContext(NonCancellable + Dispatchers.IO) { store.save(snapshot) }
+                    val persisted = withContext(NonCancellable + Dispatchers.IO) { store.saveComposer(snapshot) }
+                    queued = persisted.queued
+                    available = persisted.available
                     prepared
                 }
                 try { withContext(Dispatchers.IO) {
+                    PostDeliveryAttempts.run(candidate.id) {
                     SaitoPeer(wallet, endpoint).use { peer ->
                         val criteria = JsonObject().apply {
                             addProperty("request", "load"); addProperty("field1", "RedSquare")
@@ -116,29 +120,42 @@ internal class PostComposerState(
                                 .any { it.author == owner && it.text == text }
                         }
                         if (retrying && observed()) {
+                            try { check(store.confirmAvailable(candidate.id)) }
+                            catch (failure: Exception) { throw DraftPersistenceFailure(failure) }
                             withContext(Dispatchers.Main.immediate) { available = true; queued = false }
                             return@use
                         }
                         peer.authenticate()
                         // A crash after this write may have transmitted. It is no longer cancellable queued work.
-                        withContext(Dispatchers.Main.immediate) {
+                        val permitted = withContext(Dispatchers.Main.immediate) {
                             writes.withLock {
-                                withContext(NonCancellable + Dispatchers.IO) {
-                                    try { store.save(PostDraftStore.Saved(text, candidate, false)) }
+                                val claimed = withContext(NonCancellable + Dispatchers.IO) {
+                                    try {
+                                        val saved = store.load()
+                                        check(saved.transaction?.id == candidate.id)
+                                        if (saved.available) false
+                                        else if (saved.queued) store.claim(saved)
+                                        else true
+                                    }
                                     catch (failure: Exception) { throw DraftPersistenceFailure(failure) }
                                 }
-                                queued = false
+                                if (claimed) queued = false
+                                claimed
                             }
                         }
+                        if (!permitted) return@use
                         peer.submit(candidate)
                         withContext(Dispatchers.Main.immediate) { submitted = true }
                         for (attempt in 0 until 6) {
                             if (observed()) {
+                                try { check(store.confirmAvailable(candidate.id)) }
+                                catch (failure: Exception) { throw DraftPersistenceFailure(failure) }
                                 withContext(Dispatchers.Main.immediate) { available = true }
                                 break
                             }
                             if (attempt < 5) delay(2_000)
                         }
+                    }
                     }
                 } } catch (cancelled: CancellationException) { throw cancelled }
                 catch (failure: DraftPersistenceFailure) { throw failure }
@@ -157,7 +174,11 @@ internal class PostComposerState(
             try {
                 writes.withLock {
                     withContext(NonCancellable) {
-                        withContext(Dispatchers.IO) { store.save(PostDraftStore.Saved(text)) }
+                        withContext(Dispatchers.IO) {
+                            val saved = store.load()
+                            check(saved.queued && saved.transaction?.id == transaction?.id)
+                            check(store.update(saved, PostDraftStore.Saved(text)))
+                        }
                         transaction = null
                         queued = false
                         networkError = false

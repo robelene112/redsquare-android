@@ -24,14 +24,16 @@ import com.google.gson.JsonObject
 import com.google.gson.Strictness
 
 /** Unpublished text stays encrypted on this device, scoped to its wallet and backend. */
-internal class PostDraftStore(private val context: Context, private val owner: String, backend: SaitoBackend,
-    private val parent: FeedPost? = null) {
+internal class PostDraftStore private constructor(private val context: Context, private val owner: String, private val backend: SaitoBackend,
+    private val parentId: String, private val parentThread: String?) {
+    constructor(context: Context, owner: String, backend: SaitoBackend, parent: FeedPost? = null) :
+        this(context, owner, backend, parent?.id.orEmpty(), parent?.threadId)
     init { require(owner.matches(Regex("[1-9A-HJ-NP-Za-km-z]{43,45}"))) }
     private val file = AtomicFile(File(context.noBackupFilesDir,
-        "postdraft.${backend.id}.$owner${parent?.let { ".${it.id}" }.orEmpty()}.v1"))
+        "postdraft.${backend.id}.$owner${parentId.takeIf { it.isNotEmpty() }?.let { ".$it" }.orEmpty()}.v1"))
     private val associatedData = "${context.packageName}:${file.baseFile.name}".toByteArray(Charsets.UTF_8)
 
-    data class Saved(val text: String, val transaction: SaitoTransaction? = null, val queued: Boolean = false)
+    data class Saved(val text: String, val transaction: SaitoTransaction? = null, val queued: Boolean = false, val available: Boolean = false)
     private val gson = GsonBuilder().setStrictness(Strictness.STRICT).create()
 
     fun load(): Saved = synchronized(lock) {
@@ -64,25 +66,32 @@ internal class PostDraftStore(private val context: Context, private val owner: S
                 transaction?.let {
                     val post = RedSquareFeed.decode(it.envelope())
                     require(post.author == owner && post.text == content)
-                    require(post.parentId == parent?.id.orEmpty() && (parent == null || post.threadId == parent.threadId))
+                    require(post.parentId == parentId && (parentThread == null || post.threadId == parentThread))
                 }
                 val queued = record.get("queued")?.let {
                     require(it.isJsonPrimitive && it.asJsonPrimitive.isBoolean)
                     it.asBoolean
                 } ?: false
-                require(!queued || transaction != null)
-                Saved(content, transaction, queued)
+                val available = record.get("available")?.let {
+                    require(it.isJsonPrimitive && it.asJsonPrimitive.isBoolean)
+                    it.asBoolean
+                } ?: false
+                require((!queued && !available) || transaction != null)
+                require(!queued || !available)
+                Saved(content, transaction, queued, available)
             }
         } finally { text.fill(0) }
     }
 
     fun save(saved: Saved) = synchronized(lock) {
         require(!saved.queued || saved.transaction != null)
+        require(!saved.available || (saved.transaction != null && !saved.queued))
         require(saved.text.toByteArray(Charsets.UTF_8).size <= 1024 * 1024)
         val record = JsonObject().apply {
             addProperty("text", saved.text)
             saved.transaction?.let { addProperty("transaction", it.encoded()) }
             addProperty("queued", saved.queued)
+            addProperty("available", saved.available)
         }
         val encoded = Charsets.UTF_8.newEncoder().onMalformedInput(CodingErrorAction.REPORT)
             .onUnmappableCharacter(CodingErrorAction.REPORT).encode(CharBuffer.wrap(record.toString()))
@@ -116,17 +125,64 @@ internal class PostDraftStore(private val context: Context, private val owner: S
         val directory = Os.open(file.baseFile.parentFile!!.path, OsConstants.O_RDONLY, 0)
         try { Os.fsync(directory) } finally { Os.close(directory) }
         val reopened = load()
-        check(reopened.text == saved.text && reopened.transaction?.encoded() == saved.transaction?.encoded() && reopened.queued == saved.queued) {
+        check(same(reopened, saved)) {
             "Draft persistence verification failed"
+        }
+        changes.value += 1
+    }
+
+    /** A mounted editor must preserve delivery progress recorded by another operation. */
+    fun saveComposer(saved: Saved): Saved = synchronized(lock) {
+        val current = load()
+        val replacement = if (current.transaction == null) saved else {
+            check(saved.transaction?.id == current.transaction.id)
+            if (saved.available || current.available) Saved("") else current
+        }
+        save(replacement)
+        replacement
+    }
+
+    /** Compare durable state under the same lock as wallet/backend mutation. */
+    fun update(expected: Saved, replacement: Saved): Boolean = synchronized(lock) {
+        if (!same(load(), expected)) return@synchronized false
+        save(replacement)
+        true
+    }
+
+    fun claim(expected: Saved): Boolean = synchronized(lock) {
+        if (nl.davidengelen.redsquare.saito.AndroidBackendStore(context).load() != backend ||
+            nl.davidengelen.redsquare.AndroidWalletStore(context).loadExisting().publicKey != owner) return@synchronized false
+        update(expected, expected.copy(queued = false))
+    }
+
+    fun confirmAvailable(id: String): Boolean = synchronized(lock) {
+        val saved = load()
+        if (saved.transaction?.id != id) return@synchronized false
+        update(saved, saved.copy(queued = false, available = true))
+    }
+
+    companion object {
+        private const val KEY_ALIAS = "redsquare.postdraft.v1"
+        private const val MAX_BYTES = 5 * 1024 * 1024
+        private val lock = nl.davidengelen.redsquare.saito.SaitoLocalState.lock
+        val changes = kotlinx.coroutines.flow.MutableStateFlow(0L)
+
+        private fun same(first: Saved, second: Saved) = first.text == second.text &&
+            first.transaction?.encoded() == second.transaction?.encoded() &&
+            first.queued == second.queued && first.available == second.available
+
+        fun queued(context: Context, owner: String, backend: SaitoBackend): List<PostDraftStore> {
+            val prefix = "postdraft.${backend.id}.$owner"
+            return requireNotNull(context.noBackupFilesDir.listFiles()).map { it.name.removeSuffix(".bak") }
+                .distinct().filter { it == "$prefix.v1" || it.matches(Regex("${Regex.escape(prefix)}\\.[0-9a-f]{128}\\.v1")) }
+                .map { name ->
+                    val parent = name.removePrefix(prefix).removeSuffix(".v1").removePrefix(".")
+                    PostDraftStore(context, owner, backend, parent, null)
+                }.filter { it.load().queued }
         }
     }
 
     private fun existingKey(): SecretKey? = KeyStore.getInstance("AndroidKeyStore").apply { load(null) }
         .getKey(KEY_ALIAS, null) as? SecretKey
 
-    private companion object {
-        const val KEY_ALIAS = "redsquare.postdraft.v1"
-        const val MAX_BYTES = 5 * 1024 * 1024
-        val lock = Any()
-    }
 }

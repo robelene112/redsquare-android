@@ -167,3 +167,9 @@ red are the next gates. No queue implementation yet.
 Send. Durable queued flag/cancellation implemented in existing encrypted records,
 with authenticated readiness and conservative pre-transmission state. Local
 assembly/lint pass; focused green next. Automatic resumption/recovery remain.
+
+#11 first queue/cancellation green38003662459 passes. Backend-resumption
+red38004250015 passes cancellation but times out waiting for automatic send
+after original-backend selection. Foreground resumer/serialized claims and
+state reconciliation implemented and locally assembled; focused green next.
+Background delivery, uncertain retries and recovery acceptance remain.

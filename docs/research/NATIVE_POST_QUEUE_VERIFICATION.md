@@ -34,3 +34,19 @@ Corrected test assembly passes50s.
 Focused38003662459 at16af65c passes the first complete queue/cancellation
 application case. Durable Queued recovery and cancellation retaining an unsent
 draft are runtime verified. Automatic backend-bound resumption is next.
+
+Actual backend-resumption red38004250015 ate8229a7 passes cancellation,
+then fails waiting for automatic original-backend transmission after switching
+back (line97). No writes occur while the other backend is selected.
+
+A lifecycle-bound foreground resumer now reads only durable queued items for
+the selected identity/backend. It checks exact verified Archive availability
+before transmission, claims the unchanged record under the shared durable
+wallet/backend lock and persists uncertainty before enqueue. Cancellation uses
+a compare-and-save boundary, and manual/automatic attempts cannot overlap for
+the same signature. Composer saves preserve newer delivery state; verified
+availability is durable and visible to an open composer. Root/reply record
+names and existing encrypted formats remain readable. Local assembly passes
+through final confirmation adjustment (1m24). Focused green pending. Background
+scheduling, uncertain automatic retries, queue-management UI and actual process/
+wallet replacement acceptance remain incomplete.

@@ -10,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.flow.first
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.SaitoWallet
@@ -29,6 +30,14 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
     val navigation = requireNotNull(LocalPostNavigation.current)
     val state = remember(store, memory, endpoint) { PostComposerState(store, memory, wallet, endpoint, parent, scope) }
     LaunchedEffect(state, state.reload) { state.load() }
+    LaunchedEffect(state) {
+        PostDraftStore.changes.collect {
+            if (state.transaction != null) {
+                snapshotFlow { !state.sending && !state.saving }.first { it }
+                state.load()
+            }
+        }
+    }
     DisposableEffect(state) {
         val save: suspend () -> Boolean = { state.persist() }
         navigation.saveCurrent = save

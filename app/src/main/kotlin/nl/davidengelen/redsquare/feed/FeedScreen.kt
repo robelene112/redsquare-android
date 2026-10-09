@@ -64,6 +64,20 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
         ViewModelProvider(activity)["browse:${wallet?.publicKey.orEmpty()}:${backend.id}", FeedNavigationMemory::class.java]
     }
     val navigation = navigationMemory.destinations
+    var queueWarning by remember { mutableStateOf(false) }
+    LaunchedEffect(wallet, backend, endpoint) {
+        if (wallet == null) return@LaunchedEffect
+        lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            while (currentCoroutineContext().isActive) {
+                queueWarning = try {
+                    withContext(Dispatchers.IO) { resumeQueuedPosts(context, wallet, backend, endpoint) }
+                    false
+                } catch (cancelled: CancellationException) { throw cancelled }
+                catch (_: Exception) { true }
+                delay(5_000)
+            }
+        }
+    }
     fun openProfile(author: String) {
         if ((navigation.lastOrNull() as? BrowseDestination.Profile)?.author != author) {
             navigation.add(BrowseDestination.Profile(author))
@@ -160,6 +174,7 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
         null -> Unit
     }
     Column(modifier) {
+        if (queueWarning) Text(stringResource(R.string.post_queue_storage_error))
         val noInternet = !internet.available || (failed && !internet.validated)
         when {
             noInternet -> ConnectionBanner(stringResource(R.string.no_internet), false)

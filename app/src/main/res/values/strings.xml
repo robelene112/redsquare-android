@@ -1,5 +1,6 @@
 <resources>
     <string name="post_queued">Queued</string>
+    <string name="post_queue_storage_error">Could not read queued posts. Your saved work remains on this device. Try again.</string>
     <string name="post_cancel_queued">Cancel queued post</string>
     <string name="browse_back">Back</string>
     <string name="conversation_title">Conversation</string>

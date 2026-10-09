@@ -189,7 +189,7 @@ class AndroidWalletStore(context: Context, private val directorySync: (FileDescr
     }
 
     companion object {
-        private val lock = Any()
+        private val lock = nl.davidengelen.redsquare.saito.SaitoLocalState.lock
         private const val KEY_ALIAS = "redsquare.wallet.v1"
         private const val MAX_ENVELOPE_BYTES = 5 * 1024 * 1024 + 29
     }

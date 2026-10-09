@@ -73,5 +73,5 @@ class AndroidBackendStore(context: Context, private val commitDirectorySync: (Fi
 
     class UncertainCommit(cause: Exception) : IOException("Server selection requires explicit recovery", cause)
 
-    companion object { private val lock = Any() }
+    companion object { private val lock = SaitoLocalState.lock }
 }
