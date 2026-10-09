@@ -91,7 +91,15 @@ one question at a time when a material choice really needs the owner.
   flows and times out waiting for terminal failure at40 seconds (test line224).
   Log retained in ticket06/provider-red. Minimal independent30-second main
   deadline, unique read-attempt binding, cancellable descriptor and independent
-  asynchronous cleanup are implemented; compile/green pending. Fixture remains only in the isolated test APK; harness
+  asynchronous cleanup are implemented. Local core/test/debug/test assembly
+  passed. Green37904408242/37904411630 at2047a5a passes all5 import tests on both
+  SDKs, including timeout/retry/new preview retained past the60-second provider
+  release. Two public images inspected and logs retained in ticket06/provider-green.
+  Next test requires explicit risk acknowledgement before replacement, saved/
+  active agreement across recreation and fixed-backend preservation despite
+  imported peer settings, then restores the original identity through the UI.
+  Compile passed; actual red pending. No activation implementation yet.
+  Fixture remains only in the isolated test APK; harness
   timeout increased to300 seconds for the deliberate65-second late-result check.
   No activation is implemented yet.
   Testing uses approved parent application/failure boundaries, with fixture data

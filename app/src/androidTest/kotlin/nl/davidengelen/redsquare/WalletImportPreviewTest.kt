@@ -240,6 +240,84 @@ class WalletImportPreviewTest {
         }
     }
 
+    @Test fun explicitlyConfirmedReplacementPersistsWithoutAdoptingImportedPeers() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        val device = UiDevice.getInstance(instrumentation)
+        val keyguard = context.getSystemService(KeyguardManager::class.java)
+        assertFalse(keyguard.isDeviceSecure)
+        device.executeShellCommand("locksettings set-pin --user 0 $EXPORT_TEST_PIN")
+        val originalFile = "activation-original-${UUID.randomUUID()}.json"
+        val incomingAddress = "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR"
+        val server = MockWebServer()
+        server.dispatcher = object : mockwebserver3.Dispatcher() {
+            override fun dispatch(request: mockwebserver3.RecordedRequest) = MockResponse.Builder()
+                .body("${System.currentTimeMillis()}-1234-${"a".repeat(64)}.snap\n").build()
+        }
+        server.start(InetAddress.getByName("127.0.0.1"), 0)
+        try {
+            ui.waitUntil(10_000) { keyguard.isDeviceSecure }
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedDisabled", true)
+                .putExtra("balanceApiUrl", "http://127.0.0.1:${server.port}/balance/")).use { scenario ->
+                ui.onNodeWithText("Wallet").performClick()
+                val originalAddress = displayedWalletAddress(ui)
+                ui.onNodeWithText("Export wallet").performClick()
+                chooseTestBackup(device, originalFile)
+                enterRealSystemPin(device)
+                ui.waitUntil(15_000) { ui.onAllNodes(hasText("Wallet backup saved")).fetchSemanticsNodes().isNotEmpty() }
+                ui.onNodeWithText("Import wallet").performClick()
+                selectImportRoot(device)
+                requireNotNull(device.wait(Until.findObject(By.text("reference-import.json")), 10_000)).click()
+                ui.waitUntil(15_000) { ui.onAllNodes(hasText("Server reports zero SAITO")).fetchSemanticsNodes().isNotEmpty() }
+                ui.onNodeWithText("Skip backup").performScrollTo().performClick()
+                ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsNotEnabled()
+                assertEquals(originalAddress, displayedWalletAddress(ui))
+                ui.onNodeWithContentDescription("Replacement risks acknowledged").performScrollTo().performClick()
+                ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsEnabled().performClick()
+                ui.waitUntil(15_000) { ui.onAllNodes(hasText("Wallet imported")).fetchSemanticsNodes().isNotEmpty() }
+                assertEquals(incomingAddress, displayedWalletAddress(ui))
+                captureFeedEvidence("wallet-import-evidence/activated-wallet.png")
+                ui.onNodeWithText("Done").performClick()
+                ui.onNodeWithText("Server: saito.davidengelen.nl").assertIsDisplayed()
+                scenario.recreate()
+                ui.onNodeWithText("Wallet").performClick()
+                assertEquals(incomingAddress, displayedWalletAddress(ui))
+                captureFeedEvidence("wallet-import-evidence/activated-wallet-recreated.png")
+                ui.onNodeWithText("Done").performClick()
+                ui.onNodeWithText("Settings").performClick()
+                ui.onNodeWithText("saito.io").performClick()
+                ui.waitUntil(10_000) { ui.onAllNodes(hasText("Server: saito.io")).fetchSemanticsNodes().isNotEmpty() }
+                ui.onNodeWithText("Wallet").performClick()
+                assertEquals(incomingAddress, displayedWalletAddress(ui))
+                // Restore the outgoing identity through the same real UI so this
+                // test leaves subsequent tests' original wallet intact.
+                ui.onNodeWithText("Import wallet").performClick()
+                selectImportRoot(device)
+                requireNotNull(device.wait(Until.findObject(By.text(originalFile)), 10_000)).click()
+                ui.waitUntil(15_000) { ui.onAllNodes(hasText("Server reports zero SAITO")).fetchSemanticsNodes().isNotEmpty() }
+                ui.onNodeWithText("Skip backup").performScrollTo().performClick()
+                ui.onNodeWithContentDescription("Replacement risks acknowledged").performScrollTo().performClick()
+                ui.onNodeWithText("Confirm replacement").performScrollTo().performClick()
+                ui.waitUntil(15_000) { ui.onAllNodes(hasText("Wallet imported")).fetchSemanticsNodes().isNotEmpty() }
+                assertEquals(originalAddress, displayedWalletAddress(ui))
+                ui.onNodeWithText("Done").performClick()
+                scenario.recreate()
+                ui.onNodeWithText("Wallet").performClick()
+                assertEquals(originalAddress, displayedWalletAddress(ui))
+                ui.onNodeWithText("Done").performClick()
+                ui.onNodeWithText("Settings").performClick()
+                ui.onNodeWithText("saito.davidengelen.nl").performClick()
+                ui.waitUntil(10_000) { ui.onAllNodes(hasText("Server: saito.davidengelen.nl")).fetchSemanticsNodes().isNotEmpty() }
+            }
+        } finally {
+            runCatching { DocumentsContract.deleteDocument(context.contentResolver,
+                DocumentsContract.buildDocumentUri(ExportTestDocumentsProvider.AUTHORITY, originalFile)) }
+            device.executeShellCommand("locksettings clear --old $EXPORT_TEST_PIN --user 0")
+            server.close()
+        }
+    }
+
     private fun selectImportRoot(device: UiDevice) {
         val row = By.text(ExportTestDocumentsProvider.TITLE).res("android", "title")
         val title = By.text(ExportTestDocumentsProvider.TITLE)
