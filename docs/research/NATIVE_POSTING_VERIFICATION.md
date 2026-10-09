@@ -100,4 +100,12 @@ post acceptance. No new complete16-case core run yet.
 Fourth UI case at9331e52 replies to the selected root, requires original parent
 and thread IDs and the independently known scalar1 parent point as recipient,
 then signed archive observation and visible reply in Conversation after Back.
-Actual four-case red37969745626 is running. No reply production code yet.
+Actual red37969745626 at9331e52 passes3 cases and fails missing Reply (line70),
+12.732seconds. Public log/Conversation image inspected/retained reply-red.
+Minimal68b7e9d adds Reply/shared composer, signed parent/thread and ordered
+recipients from verified parent output keys, sequential output indices, separate
+reply draft records and zero-only restore guards. Missing FeedPost import caused
+local compile failure, corrected indca6cf1; local core16/debug/test assembly
+passes1m27s. Four-case green37970835482 is running.37970627296 is a build or
+superseded run, not functional proof. No nested reply or independent reply vector
+yet. This ticket remains incomplete.
