@@ -181,20 +181,20 @@ class PostPreviewTest {
                 ui.onNodeWithText("Send").performClick()
                 waitFor("Submitted. Waiting for this server.")
                 ui.waitUntil(20_000) { ui.onAllNodes(hasText("Back") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                ui.onNodeWithText("Back").performClick()
+                backFromComposer()
                 ui.waitUntil(10_000) { ui.onAllNodes(hasScrollToIndexAction()).fetchSemanticsNodes().isNotEmpty() }
                 scenario.recreate()
                 waitFor("Native Red Square reference post")
                 ui.onNodeWithText("New post").performClick()
                 waitFor("Send requested. Availability on this server is not confirmed.")
-                ui.onNode(hasSetTextAction()).assertTextEquals("Retry the original signed post").assertIsNotEnabled()
+                ui.onNodeWithText("Retry the original signed post").assertTextEquals("Retry the original signed post").assertIsNotEnabled()
                 org.junit.Assert.assertEquals(1, received.size)
                 ui.onNodeWithText("Retry").performClick()
                 waitFor("Available on this server.")
                 org.junit.Assert.assertEquals(2, received.size)
                 peer.assertHealthy()
                 captureFeedEvidence("posting-evidence/retried-original-pending-post.png")
-                ui.onNodeWithText("Back").performClick()
+                backFromComposer()
                 ui.waitUntil(10_000) { ui.onAllNodes(hasScrollToIndexAction()).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNodeWithText("New post").performClick()
                 ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
@@ -250,7 +250,7 @@ class PostPreviewTest {
                     ui.onNode(hasSetTextAction()).performTextReplacement("Reply from the native composer")
                     ui.onNodeWithText("Send").performClick()
                     waitFor("Available on this server.")
-                    ui.onNodeWithText("Back").performClick()
+                    backFromComposer()
                     waitFor("Conversation")
                     waitFor("Reply from the native composer")
                     peer.assertHealthy()
@@ -301,7 +301,7 @@ class PostPreviewTest {
                     ui.onNodeWithText("Send").performClick()
                     waitFor("Available on this server.")
                     captureFeedEvidence("posting-evidence/observed-publication.png")
-                    ui.onNodeWithText("Back").performClick()
+                    backFromComposer()
                     waitFor("New post")
                     ui.waitUntil(10_000) { ui.onAllNodes(hasScrollToIndexAction()).fetchSemanticsNodes().isNotEmpty() }
                     waitFor("Observed native publication")
@@ -353,6 +353,11 @@ class PostPreviewTest {
                 }
             }
         }
+    }
+
+    private fun backFromComposer() {
+        ui.waitUntil(20_000) { ui.onAllNodes(hasText("Back") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+        ui.onNodeWithText("Back").performClick()
     }
 
     private fun waitFor(text: String) = ui.waitUntil(15_000) {
