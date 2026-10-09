@@ -62,7 +62,10 @@ replies with refreshed available history. Local/device green is pending.
 
 Android10 green37928478015 at5fc64af passes both conversation cases. Its inspected
 restart/offline image shows the root, direct reply and nested reply retained.
-Evidence is in ticket07/conversation-cache-green/api-29. Android17 remains pending.
+Evidence is in ticket07/conversation-cache-green/api-29. Android17 green37928482438
+passes the same two cases at5fc64af. Its inspected public restart image/log are
+retained in conversation-cache-green/api-37.0. These are controlled emulator
+recreation/outage checks, not arbitrary physical process/power interruption.
 
 ## Profile reference
 
@@ -81,3 +84,12 @@ Likes, excludes other-author/altered content and requires truthful unavailable
 liked-post copy. Author queries and exact liked-target resolution match the
 pinned manager source described above. This test's compile/functional red is
 pending; no production profile navigation or tabs are implemented yet.
+
+Actual profile red37929183997 atcec9c66 passes both established conversation
+cases, reaches/taps the verified feed identity and times out at the missing
+Posts tab (line69). Its inspected screenshot shows a conversation instead.
+Log/image retained in ticket07/profile-red. Minimal native profile navigation
+and author Posts/Replies plus signed-like/exact-target resolution are now added.
+Common verified envelope decoding serves both post and like modules. Cached
+profile views and final acceptance are not implemented yet. Local/device green
+are pending.

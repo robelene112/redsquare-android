@@ -84,4 +84,14 @@
     <string name="wallet_import_other_assets">Other assets could not be checked</string>
     <string name="wallet_import_saved_name">Saved name: %1$s</string>
     <string name="wallet_import_pending_work">Pending work belongs to your current wallet</string>
+    <string name="profile_title">Profile</string>
+    <string name="profile_posts">Posts</string>
+    <string name="profile_replies">Replies</string>
+    <string name="profile_likes">Likes</string>
+    <string name="profile_history">Only available history is shown. Older posts and likes may be missing.</string>
+    <string name="profile_loading">Loading profile history</string>
+    <string name="profile_error">Profile history could not be refreshed. Available posts remain visible.</string>
+    <string name="profile_unreadable">Some profile entries could not be read.</string>
+    <string name="profile_likes_unavailable">Some liked posts are unavailable from this server.</string>
+    <string name="profile_empty">No available posts in this view</string>
 </resources>

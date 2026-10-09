@@ -33,6 +33,17 @@ one question at a time when a material choice really needs the owner.
   shows cached root only with refresh error. Public log/image retained in
   conversation-cache-red. Minimal backend/thread-scoped public conversation
   persistence is now implemented; local/device green pending. Profiles remain.
+  Conversation-cache green37928478015/37928482438 at5fc64af passes both navigation
+  and recreation/offline cases on Android10/17. Public images/logs inspected and
+  retained in conversation-cache-green. New profile tracer atcec9c66 independently
+  verifies author posts/replies and signed like targets, excludes other authors
+  and altered messages and requires unavailable-liked-post copy. Local compile
+  passes; actual profile red37929183997 is pending. No profile production code yet.
+  Actual red37929183997 atcec9c66 passes both conversations but fails after tapping
+  the feed identity at missing Posts (line69); inspected screen shows Conversation.
+  Minimal profile navigation/tabs and signed like-target resolution now exist.
+  Common signed-envelope verification is shared by post/like readers. Local/device
+  green pending. Profile persistence, review and final acceptance remain within#8.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.

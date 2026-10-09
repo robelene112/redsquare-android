@@ -52,6 +52,7 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
     var hadOutage by rememberSaveable { mutableStateOf(false) }
     var refresh by remember { mutableIntStateOf(0) }
     var conversation by remember { mutableStateOf<FeedPost?>(null) }
+    var profile by remember { mutableStateOf<String?>(null) }
     val position = rememberLazyListState()
 
     LaunchedEffect(cache) {
@@ -100,6 +101,11 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
     LaunchedEffect(posts.isNotEmpty()) {
         if (posts.isNotEmpty()) { withFrameNanos { }; withFrameNanos { }; onDrawn() }
     }
+    profile?.let { author ->
+        ProfileScreen(wallet, endpoint, author, modifier, onBack = { profile = null },
+            onPost = { conversation = it; profile = null })
+        return
+    }
     conversation?.let { selected ->
         ConversationScreen(wallet, endpoint, backend, selected, modifier) { conversation = null }
         return
@@ -129,8 +135,8 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
         if (cacheReady) LazyColumn(Modifier.fillMaxSize(), state = position) {
             items(posts, key = { it.id }) { post ->
                 Column(Modifier.clickable { conversation = post }.padding(vertical = 12.dp)) {
-                    Text("Anon-${post.author.take(6)}", style = MaterialTheme.typography.titleMedium)
-                    Text(post.author, maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.labelSmall)
+                    Text("Anon-${post.author.take(6)}", Modifier.clickable { profile = post.author }, style = MaterialTheme.typography.titleMedium)
+                    Text(post.author, Modifier.clickable { profile = post.author }, maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.labelSmall)
                     Text(post.text, Modifier.padding(vertical = 8.dp), style = MaterialTheme.typography.bodyLarge)
                     Text(DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, Locale.ENGLISH)
                         .format(Date(post.createdAt)), style = MaterialTheme.typography.labelSmall)
