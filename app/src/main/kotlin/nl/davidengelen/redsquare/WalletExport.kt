@@ -35,7 +35,7 @@ class WalletExport(
         private set
     @Volatile private var attempt: Attempt? = null
 
-    private class Attempt(val wallet: SaitoWallet) {
+    private class Attempt(val wallet: SaitoWallet, val onVerified: (SaitoWallet) -> Unit) {
         val cancellation = CancellationSignal()
         var uri: Uri? = null
         var authenticating = false
@@ -45,14 +45,14 @@ class WalletExport(
 
     fun clearMessage() { if (!busy) message = null }
 
-    fun start() {
+    fun start(onVerified: (SaitoWallet) -> Unit = {}) {
         if (busy) return
         if (!activity.getSystemService(KeyguardManager::class.java).isDeviceSecure) {
             message = R.string.wallet_auth_setup
             return
         }
         val wallet = currentWallet() ?: return
-        val operation = Attempt(wallet)
+        val operation = Attempt(wallet, onVerified)
         attempt = operation
         busy = true
         message = null
@@ -159,8 +159,10 @@ class WalletExport(
                 }
                 verified
             }
-            if (isCurrent(operation)) finish(operation,
-                if (saved) R.string.wallet_export_saved else R.string.wallet_export_failed)
+            if (isCurrent(operation)) {
+                finish(operation, if (saved) R.string.wallet_export_saved else R.string.wallet_export_failed)
+                if (saved) operation.onVerified(operation.wallet)
+            }
         }
     }
 

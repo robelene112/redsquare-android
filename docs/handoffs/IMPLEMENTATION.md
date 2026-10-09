@@ -64,7 +64,12 @@ one question at a time when a material choice really needs the owner.
   f2d8107 passes both tests on Android10/17. Four public same/different preview
   images inspected and logs retained in ticket06/valid-preview-green. Next
   test requires a freshly authenticated candidate-bound outgoing backup and
-  invalidates proof upon reselection. No activation is implemented yet.
+  invalidates proof upon reselection. Actual functional red37899714481 at
+  997217b passes both earlier flows and fails at the missing required-backup
+  copy (line119). Log retained in ticket06/fresh-backup-red. Minimal backup gate
+  now accepts only the verified authenticated export callback bound to the
+  outgoing wallet and exact selected candidate/nonce. Green checks pending.
+  No activation is implemented yet.
   Testing uses approved parent application/failure boundaries, with fixture data
   in the isolated test APK only. Do not claim valid import preview/activation
   from this slice; those remain upcoming within#7.

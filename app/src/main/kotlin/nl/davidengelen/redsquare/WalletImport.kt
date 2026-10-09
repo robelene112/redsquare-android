@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import java.io.IOException
+import java.security.MessageDigest
 
 /** Selection validates a backup without publishing a replacement identity. */
 class WalletImport(
@@ -19,7 +20,7 @@ class WalletImport(
     private val currentWallet: () -> SaitoWallet?,
     private val chooseDocument: () -> Unit,
 ) {
-    data class Preview(val publicKey: String, val sameIdentity: Boolean)
+    data class Preview(val publicKey: String, val sameIdentity: Boolean, val backupVerified: Boolean = false)
 
     var preview by mutableStateOf<Preview?>(null)
         private set
@@ -28,7 +29,7 @@ class WalletImport(
     var busy by mutableStateOf(false)
         private set
     private var outgoing: SaitoWallet? = null
-    private var candidate: SaitoWallet? = null
+    private var candidate: Candidate? = null
     private var readJob: Job? = null
 
     fun clearMessage() { if (!busy) message = null }
@@ -64,7 +65,11 @@ class WalletImport(
                         count
                     }
                     require(size in 1..SaitoWallet.MAX_BACKUP_BYTES)
-                    ReadResult(SaitoWallet.fromBackup(String(buffer, 0, size, Charsets.UTF_8)), null)
+                    val fingerprint = MessageDigest.getInstance("SHA-256").run {
+                        update(buffer, 0, size)
+                        digest()
+                    }
+                    ReadResult(Candidate(SaitoWallet.fromBackup(String(buffer, 0, size, Charsets.UTF_8)), original, fingerprint), null)
                 } catch (_: IllegalArgumentException) {
                     // Provider and parser messages can include private file values.
                     ReadResult(null, R.string.wallet_import_invalid)
@@ -73,9 +78,23 @@ class WalletImport(
                 } finally { buffer.fill(0) }
             }
             if (outgoing === original && currentWallet() === original) {
-                candidate = result.wallet
-                preview = result.wallet?.let { Preview(it.publicKey, it.publicKey == original.publicKey) }
+                candidate = result.candidate
+                preview = result.candidate?.wallet?.let { Preview(it.publicKey, it.publicKey == original.publicKey) }
                 finish(result.failure)
+            }
+        }
+    }
+
+    fun backUpCurrentWallet(startExport: ((SaitoWallet) -> Unit) -> Unit) {
+        val selected = candidate ?: return
+        if (busy || currentWallet() !== selected.original || preview?.sameIdentity != false) return
+        preview = preview?.copy(backupVerified = false)
+        startExport { exported ->
+            // The selected object is a per-selection nonce bound to the exact file
+            // fingerprint and both wallet objects. Old exports/reselected files
+            // cannot satisfy this gate, even if their public identities match.
+            if (candidate === selected && currentWallet() === selected.original && exported === selected.original) {
+                preview = preview?.copy(backupVerified = true)
             }
         }
     }
@@ -94,5 +113,6 @@ class WalletImport(
         busy = false
     }
 
-    private class ReadResult(val wallet: SaitoWallet?, val failure: Int?)
+    private class Candidate(val wallet: SaitoWallet, val original: SaitoWallet, val fingerprint: ByteArray)
+    private class ReadResult(val candidate: Candidate?, val failure: Int?)
 }

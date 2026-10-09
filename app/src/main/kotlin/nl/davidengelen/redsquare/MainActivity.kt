@@ -260,9 +260,16 @@ class MainActivity : ComponentActivity() {
                                     val selectedAddressLabel = stringResource(R.string.wallet_import_address)
                                     Text(preview.publicKey, Modifier.semantics { contentDescription = selectedAddressLabel })
                                     Text(stringResource(if (preview.sameIdentity) R.string.wallet_import_restore_detail else R.string.wallet_import_replace_detail))
+                                    if (!preview.sameIdentity) {
+                                        Text(stringResource(if (preview.backupVerified) R.string.wallet_import_backup_verified else R.string.wallet_import_backup_required))
+                                        TextButton(enabled = !walletExport.busy && !walletImport.busy,
+                                            onClick = { walletImport.backUpCurrentWallet { verified -> walletExport.start(verified) } }) {
+                                            Text(stringResource(R.string.wallet_import_backup))
+                                        }
+                                    }
                                 }
                                 TextButton(enabled = wallet != null && !walletExport.busy && !walletImport.busy,
-                                    onClick = walletExport::start) { Text(stringResource(R.string.wallet_export)) }
+                                    onClick = { walletExport.start() }) { Text(stringResource(R.string.wallet_export)) }
                                 TextButton(enabled = wallet != null && !walletExport.busy && !walletImport.busy,
                                     onClick = { walletExport.clearMessage(); walletImport.start() }) {
                                     Text(stringResource(R.string.wallet_import))

@@ -55,4 +55,7 @@
     <string name="wallet_import_address">Selected wallet address</string>
     <string name="wallet_import_restore_detail">This backup belongs to your current identity. Restoring it can update wallet settings. Nothing has changed yet.</string>
     <string name="wallet_import_replace_detail">This backup belongs to a different identity. Your current wallet is still active. Nothing has changed yet.</string>
+    <string name="wallet_import_backup_required">Back up your current wallet before continuing with replacement.</string>
+    <string name="wallet_import_backup_verified">Current wallet backed up for this replacement</string>
+    <string name="wallet_import_backup">Back up current wallet</string>
 </resources>
