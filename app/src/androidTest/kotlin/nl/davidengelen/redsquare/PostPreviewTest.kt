@@ -25,6 +25,71 @@ class PostPreviewTest {
             ?.forEach { check(it.delete()) }
     }
 
+    @Test fun replyingToAnExistingReplyKeepsTheOriginalThreadAndInheritedRecipientOrder() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        AndroidBackendStore(context).save(SaitoBackend.OWNER)
+        val root = instrumentation.context.assets.open("native-following-reference.json").bufferedReader().use {
+            JsonParser.parseReader(it).asJsonObject.getAsJsonObject("root")
+        }
+        val reference = instrumentation.context.assets.open("native-posting-reference.json").bufferedReader().use {
+            JsonParser.parseReader(it).asJsonObject.getAsJsonObject("reply")
+        }
+        val parent = com.google.gson.JsonObject().apply {
+            addProperty("sig", reference.get("id").asString); addProperty("created_at", reference.get("timestamp").asLong)
+            addProperty("field1", "RedSquare"); addProperty("field2", reference.get("author").asString)
+            addProperty("field4", root.get("sig").asString); addProperty("field5", root.get("sig").asString)
+            addProperty("tx", reference.get("envelope").asString)
+        }
+        val indexed = java.util.concurrent.atomic.AtomicReference<com.google.gson.JsonObject?>()
+        val peer = ControlledFeedPeer("[$root]", archiveResponse = { criteria ->
+            val reply = indexed.get()
+            when {
+                criteria.has("sig") -> if (reply?.get("sig")?.asString == criteria.get("sig").asString) "[$reply]" else "[]"
+                criteria.has("field5") -> if (reply == null) "[$root,$parent]" else "[$root,$parent,$reply]"
+                else -> "[$root]"
+            }
+        }, onTransaction = { frame ->
+            val bytes = frame.copyOfRange(1, frame.size - 130)
+            java.nio.ByteBuffer.wrap(bytes).putInt(12, 0)
+            val transaction = nl.davidengelen.redsquare.saito.SaitoTransaction.restore(java.util.Base64.getEncoder().encodeToString(bytes))
+            val envelope = transaction.envelope()
+            val post = nl.davidengelen.redsquare.saito.RedSquareFeed.decode(envelope)
+            org.junit.Assert.assertEquals(parent.get("sig").asString, post.parentId)
+            org.junit.Assert.assertEquals(root.get("sig").asString, post.threadId)
+            org.junit.Assert.assertEquals(listOf(post.author, parent.get("field2").asString, root.get("field2").asString), post.recipients)
+            indexed.set(com.google.gson.JsonObject().apply {
+                addProperty("sig", post.id); addProperty("created_at", post.createdAt)
+                addProperty("field1", "RedSquare"); addProperty("field2", post.author)
+                addProperty("field4", post.parentId); addProperty("field5", post.threadId)
+                addProperty("tx", envelope)
+            })
+        })
+        peer.start().use { server ->
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                try {
+                    waitFor("Native Red Square reference post")
+                    ui.onNodeWithText("Native Red Square reference post").performClick()
+                    waitFor("Independent recipient reply")
+                    ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("Independent recipient reply"))
+                    ui.onNodeWithText("Independent recipient reply").performClick()
+                    ui.onNodeWithText("Reply").performClick()
+                    waitFor("Replying to Anon-${parent.get("field2").asString.take(6)}")
+                    ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNode(hasSetTextAction()).performTextReplacement("Nested native reply")
+                    ui.onNodeWithText("Send").performClick()
+                    waitFor("Available on this server.")
+                    peer.assertHealthy()
+                    captureFeedEvidence("posting-evidence/nested-reply-correct-parent.png")
+                } catch (failure: Throwable) {
+                    captureFeedEvidence("posting-evidence/nested-reply-first-failure.png")
+                    throw failure
+                }
+            }
+        }
+    }
+
     @Test fun replyUsesTheSelectedParentThreadAndIncludesTheParentAuthor() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
