@@ -41,7 +41,13 @@ one question at a time when a material choice really needs the owner.
   root composer and AES256GCM AndroidKeystore/noBackup atomic draft storage,
   wallet/backend-scoped, verified save/back and error retention, no Send yet.
   Local core/debug/test assembly passes1m33s; no local build active. Focused
-  Android10 green37964861535 is running. Researchf31ed06 records exact reply
+  Android10 green37964861535 at7360289 passes the draft case in4.772s;
+  inspected public log/recovered text image retained ticket09/draft-green.
+  Next two-case red37965701990 at296d729 is running: actual UI Send must emit
+  signed zero-payment type4 with one hop and report pending server availability,
+  not an invented ack. Peer returns empty exact-signature archive results.
+  Earlier37965626375 was superseded during setup, not functional proof.
+  No Send implementation yet. Researchf31ed06 records exact reply
   recipients, zero-amount construction, hop signing, type4 broadcast without
   RPC ack and web unfunded500 UTF16 threshold (not universalprotocolcap).
   See NATIVE_POSTING_VERIFICATION.md. Continue all35 sequentially.

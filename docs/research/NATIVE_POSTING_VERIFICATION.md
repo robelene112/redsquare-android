@@ -18,9 +18,22 @@ AAD, noBackup storage, AtomicFile/file and directory sync, decrypted readback
 before closing. Missing key with existing drafts fails closed. Loads/saves run
 on IO; failed saving retains editable text and does not confirm persistence.
 Draft safety bound is1MiB of UTF8, not a Saito protocol limit. No Send yet.
-Local core/debug/test assembly passes1m33s. Green37964861535 is running.
+Local core/debug/test assembly passes1m33s. Green37964861535 at7360289 passes the draft case on Android10 in4.772seconds.
+Public log/recovered editable-text image inspected and retained draft-green.
 
 Primary read-only researchf31ed06 is in NATIVE_POSTING_CONTRACT.md. It records
 compatible recipients/hops/transport and practical web validation limits. This
 document does not authorize production writes or prove live delivery.
 
+
+
+Next case at296d729 observes actual Send, the public peer broadcast and pending
+server-availability copy. It requires type4 plus full signed Normal transaction,
+zero-valued input/output, one routing hop, matching displayed wallet author,
+original text and root-thread derivation. Exact-signature archive returns empty;
+no remote acknowledgement or chain proof is invented. Application verification
+uses the previously independently checked decoder; new transaction constructor
+and hop vectors still require explicit independent reference proof later.
+Actual two-case red37965701990 is running.37965626375 was superseded during
+setup after completing the controlled peer's pending archive response. No Send
+production implementation yet. This ticket is not complete.
