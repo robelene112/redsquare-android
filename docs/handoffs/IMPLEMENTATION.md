@@ -40,6 +40,19 @@ one question at a time when a material choice really needs the owner.
   Spec re-review finds no new correctness defects in that deadline fix.
   Complete other provider faults, lifecycle/process recovery,
   both SDKs/full checks and review fixes before closing #6. See ticket05/REVIEW.md.
+  At f40cf2c, focused Android10 run37891029657 passes five export cases,
+  including real write/read/truncation failure and fresh authenticated retry,
+  plus reminder/recovery. Process-death host/observer added2a5e507; both
+  source reviews report zero remaining findings, with runtime still required.
+  SDK17 run37891251005 passes original four and all fault responses but cannot
+  observe the final retry PIN: helper wrongly expected a qualified resource ID.
+  Actual observed Compose ID is bare cred_pin_pad; fixed7a2ab0b and compiles.
+  Corrected focused SDK17 run37892237605 is active. Full37891415056 at51d11c1
+  passes core/build/lint and its entire Android10 runtime step, including the
+  process check. Its later SDK17 step uses the known invalid waiting helper,
+  so superseded/canceled after preserving the completed Android10 step.
+  Download/inspect that partial evidence, then obtain corrected SDK17 and
+  final full acceptance. Do not call canceled full acceptance green.
   See research/NATIVE_WALLET_EXPORT_VERIFICATION.md.
   Then #7 safeguarded import.
   The first new phone-review milestone remains after #7, then continue all35.

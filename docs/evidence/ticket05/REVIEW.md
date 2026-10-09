@@ -54,6 +54,21 @@ The wait now recognizes that exact resource only in Settings/System UI. Original
 logs, public screenshot and control metadata are retained under
 pin-control-fixture-failure; process interruption was not reached in that run.
 
+At `51d11c1`, full run `37891415056` passed core/build/lint and its complete
+Android10 stage, including 29 normal instrumentation cases, available public
+feeds on both backends, cold cache/identity and signed-update continuity.
+The separate export-interruption prepare phase deliberately terminates its own
+process; the host then verifies actual death, an empty test document and a
+passing cold observer. Its public logs and before/after wallet images are
+inspected under process-green/api-29. The full workflow was canceled during
+its later Android17 stage because that commit retained the now diagnosed
+invalid PIN-wait helper. This is partial-stage evidence, not overall acceptance.
+
+Independent Standards and Spec reviews through `7a2ab0b` confirm zero remaining
+source findings in the exact resource correction. Corrected focused Android17
+run `37892237605` and final full `37892360326` remain pending. No production
+export code was changed for the fixture repair.
+
 Normal real-PIN export and reminder/recovery pass both Android 10 and 17.
 Wrong-PIN/cancel checks pass both SDKs after correcting repeated-picker
 fixture ambiguity by selecting the actual drawer row. No wallet JSON is in evidence.
