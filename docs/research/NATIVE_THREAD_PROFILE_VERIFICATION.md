@@ -56,7 +56,12 @@ server and pressing Refresh, the previously displayed post disappears at line
 46, despite copy saying available posts remain visible. The other seven cases
 pass. Its actual public failure image/log are retained in profile-memory-red.
 Source 4e8bd02 retains the verified profile snapshot across refreshes and tabs;
-its eight-case green run 37942390546 is pending.
+run 37942390546 passes all eight cases on Android 10 in 20.365 seconds. Its
+public error/warning/content image and log are retained in profile-memory-green.
+
+Final source c8fe9b7 also shares archive bounds, traversal and cursor accounting
+between typed post/like decoders. Repeated specification source review found
+zero remaining actionable findings. Full run 37943159613 is underway.
 
 Final full Android 10/17 verification remains pending. These emulator results
 do not establish physical Pixel performance or actual closed-app push delivery.

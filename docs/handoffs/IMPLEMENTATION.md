@@ -7,112 +7,23 @@ one question at a time when a material choice really needs the owner.
 
 ## Current work
 
-- Active #8, "07: Open threads and browse user profiles", assigned@me and ready
-  with all native blockers closed. Review base44cae5d. First application tracer
-  opens a feed root and expects independently signed direct/nested replies,
-  rejects tampered content and exposes Back. Pinned WASM/Elliptic references
-  generated without network/app/wallet initialization; see NATIVE_THREAD_REFERENCE.
-  Controlled peer now optionally responds by public archive criteria while its
-  original feed contract remains the default. New browse/browse-android17 focused
-  scopes and full inclusion are added. Local core/debug/test assembly passes;
-  actual functional red pending. No production navigation implementation yet.
-  Actual red37925240595 at39fa942 reaches/taps the verified feed root and cannot
-  find replies (line48); the inspected screen remains All posts. Public log/image
-  retained ticket07/conversation-red. Minimal feed-card navigation/conversation
-  read now uses selected-backend field5 with shared signed-entry validation and
-  Back/refresh/history/error copy. Local build and actual green are pending.
-  Conversation cache and profiles are not implemented yet; continue within#8.
-  First application green37926293893/37926297773 at0c66d5b passes the one
-  conversation flow on Android10/17; two public images/logs inspected and retained
-  ticket07/conversation-green. Core15/debug/test assembly passed. Next test loads
-  replies, stops the peer, recreates, reopens the cached root and requires retained
-  replies plus truthful history/error copy. It compiles; actual cache red pending.
-  No conversation persistence or profile implementation yet. Keep#8 open.
-  Actual cache red37927325694 at7490215 reaches the post-recreation reply wait
-  (line53) after successful first load and server closure. Inspected screenshot
-  shows cached root only with refresh error. Public log/image retained in
-  conversation-cache-red. Minimal backend/thread-scoped public conversation
-  persistence is now implemented; local/device green pending. Profiles remain.
-  Conversation-cache green37928478015/37928482438 at5fc64af passes both navigation
-  and recreation/offline cases on Android10/17. Public images/logs inspected and
-  retained in conversation-cache-green. New profile tracer atcec9c66 independently
-  verifies author posts/replies and signed like targets, excludes other authors
-  and altered messages and requires unavailable-liked-post copy. Local compile
-  passes; actual profile red37929183997 is pending. No profile production code yet.
-  Actual red37929183997 atcec9c66 passes both conversations but fails after tapping
-  the feed identity at missing Posts (line69); inspected screen shows Conversation.
-  Minimal profile navigation/tabs and signed like-target resolution now exist.
-  Common signed-envelope verification is shared by post/like readers. Local/device
-  green pending. Profile persistence, review and final acceptance remain within#8.
-  First profile implementation9eb69e5 runs37930169685/37930173464 pass the profile
-  case but fail both earlier conversations after body taps open Profile instead.
-  Public logs/screens retained in profile-navigation-failure. The body now has
-  its own conversation tap target. Tests unchanged. Local/device correction check
-  pending; no cached profile implementation yet.
-  Corrected tap-target green37931122222 atf8e6b6e passes all three cases on
-  Android10; public screenshots/log inspected and retained in profile-green/api-29.
-  SDK17 pending. New test visits profile tabs, closes the server, recreates and
-  requires cached Posts/Replies/Likes plus history/outage copy. Compile/red pending.
-  Corrected SDK17 green37931125949 passes all three cases atf8e6b6e; public
-  screenshots/log inspected/retained in profile-green/api-37.0. Offline-profile
-  red37931907251 atc2061a3 passes earlier flows and fails at cached Posts after
-  successful first tab loads, peer closure and recreation (line74). Public
-  log/image inspected/retained in profile-cache-red. Minimal backend-scoped
-  bounded public post/like persistence and signature-verified cached tab
-  membership now exist; local/device green pending. Final review/full acceptance
-  still remain within#8.
-  Profile-cache green37932930501/37932934354 at aef6742 passes all four cases on
-  both SDKs; public offline-Likes screenshots/logs inspected/retained in
-  profile-cache-green. Two independent reviews found spec gaps: malformed signed
-  threadId/cache constructor crash, absent older profile pagination, absent
-  identity links in replies/liked posts. Standards found duplicated durability
-  and reference signing. Report in ticket07/INTERIM_REVIEW. Review-stage shared
-  PublicEnvelopeCache and signed-reference helper now preserve on-disk formats
-  and every existing signed fixture; fresh case setup clears only fixture-owned
-  public .dev caches. New app malformed-thread rejection regression/independent
-  fixture added, decoder remains unchanged; local compile/red pending. Continue
-  TDD through these fixes, then repeat both axes and final full. Keep#8 open.
-  Malformed-thread actual red37934353219 atc631f4d passes the four established
-  cases with fresh caches/refactored storage, then fails because the signed
-  malformed-thread post is visible. Public image/log inspected/retained in
-  malformed-thread-red. Minimal parent/thread signature validation implemented;
-  local/device green pending. Pure paging reference generator is uncommitted,
-  output in .scratch/native-profile-paging-reference.json for next paging tracer.
-  Malformed-thread green37935302107 at a70e370 passes all five cases on Android10;
-  success image/log inspected/retained malformed-thread-green/api-29. Final full
-  covers SDK17 later. New sixth app case for older Replies/Likes beyond20 rows
-  and independent paging fixtures added. Compile/red pending; no production
-  pagination exists. Then add identity links/test, repeat both reviews and full.
-  Paging actual red37936418213 at7192ef4 passes five existing cases and fails at
-  missing Load older in empty Replies after20 newer roots. Public failure image/
-  log inspected/retained in profile-paging-red. Minimal per-tab archive cursors
-  and Load older now exist for author history/likes; no-progress full pages
-  give truthful unavailable-paging copy. Local/device green pending. Then fix
-  remaining conversation/liked-author profile links and verify/review/full.
-  Paging green37937666159 at5da990e passes all six cases on Android10. Public
-  older-like image/log inspected/retained profile-paging-green/api-29. Image shows
-  cramped/wrapped Replies label; reduce tab-button horizontal padding in review
-  fixes. Seventh application tracer explores reply/liked-post authors and checks
-  Back restores originating conversation/profile Likes. Compile/red pending;
-  no identity-entry-point/navigation stack fix implemented yet.
-  Identity-navigation actual red37938935880 at8d6ea61 passes six existing cases
-  and fails at profile identity after tapping the direct reply's author (line59).
-  Public image/log inspected/retained identity-navigation-red. Minimal author
-  links in conversations/liked cards and a navigation stack retaining profile
-  tab state now exist. Post bodies remain separate click targets; reduced tab
-  button padding fixes the observed wrapped label. Local/device green pending.
-  Then repeat both independent reviews and run final full on both SDKs, inspect
-  evidence, close#8 only when accepted, and continue#9/all35 sequentially.
-  Identity green37940579836 atdfc5000 passes all seven cases on Android10;
-  image/log inspected and retained identity-navigation-green. Repeated Spec
-  source review found no remaining issues; Standards found low-severity archive
-  traversal duplication and separately flagged an actual profile recovery edge:
-  cache-write failure followed by offline Refresh replaces in-memory posts with
-  an empty cache. Eighth actual-app test obstructs only profile.owner.v1 with a
-  public directory fixture, verifies first fetched content/warning, closes peer
-  and requires retained content after Refresh. Source remains unchanged;
-  actual red37941624799 ata6b9acf pending. Fix it, share duplicated archive reader
-  during review, repeat final reviews and run full both SDKs before closing#8.
+- Active #8, "07: Open threads and browse user profiles", assigned @me.
+  Review base 44cae5d; final source c8fe9b7, pushed main. Threads, verified profile
+  Posts/Replies/Likes, bounded backend-scoped public caches, older-page cursors,
+  author links and Back preserving the originating tab are implemented.
+  Eight actual-app browse cases pass on Android 10 in 37942390546 at 4e8bd02,
+  including cache-write failure followed by offline Refresh retaining fetched
+  content. Shared archive traversal was then extracted at review stage.
+  Both repeated read-only source reviews at c8fe9b7 found zero actionable
+  findings. Final full run 37943159613 with both SDKs/public reads is running.
+  Inspect and retain its full logs/public images; fix any actual failures; close
+  #8 only when accepted. Next #9 follows accounts/Following feed. Continue all
+  35 tickets sequentially. Do not make a partial final or invent completion.
+  Detailed compatibility and actual red/green chronology are in
+  [thread/profile verification](../research/NATIVE_THREAD_PROFILE_VERIFICATION.md),
+  docs/evidence/ticket07/INTERIM_REVIEW.md and REVIEW.md. All synthetic browse
+  fixtures use public unsafe scalar 1/2; real wallet/private data never enters
+  the controlled peer, repository or public evidence. No production writes.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.
