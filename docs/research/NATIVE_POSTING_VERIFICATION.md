@@ -83,4 +83,21 @@ peer open through exact-signature Archive queries, retrying6 times at2-second
 intervals. Only a matching verified author/text changes status to Available.
 Back refreshes selected feed and clears a confirmed draft on verified saving.
 Unobserved candidates stay durable. Local core/debug/test assembly passes1m30s.
-Three-case green37968817970 is running. No final acceptance yet.
+Three-case green37968817970 atfdcc528 passes Android10 in8.119seconds.
+Public Available and actual posted-feed images/log inspected and retained
+observation-green. No final acceptance yet.
+
+
+Independent lower-boundary proof at2e62a19: posting-reference.cjs uses the pure
+network-disabled/read-only reference runner, pinned WASM0.3.2 and Elliptic6.6.1,
+public unsafe scalar1/2, no application/wallet/DB initialization. Both libraries
+verify transaction/hop signatures and WASM serialized roundtrips. New public
+SaitoTransactionTest matches network bytes, compact signature, detached envelope,
+type4/hop bytes, and restored bytes including Unicode/newlines/HTML punctuation.
+Focused core test passes26seconds. This is construction compatibility, not live
+post acceptance. No new complete16-case core run yet.
+
+Fourth UI case at9331e52 replies to the selected root, requires original parent
+and thread IDs and the independently known scalar1 parent point as recipient,
+then signed archive observation and visible reply in Conversation after Back.
+Actual four-case red37969745626 is running. No reply production code yet.

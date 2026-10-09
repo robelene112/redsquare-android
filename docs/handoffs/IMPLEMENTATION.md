@@ -34,52 +34,45 @@ one question at a time when a material choice really needs the owner.
   Wallet/cache recovery and signed5-to-8 continuity pass. No new APK, private
   uploads, production writes or physical-device/push proof. Continue all35.
 - Active #10, "09: Publish text posts and replies with recoverable drafts",
-  assigned@me, all native blockers complete. Review base78163d6; #9 closed
-  with comment6085557419. First actual draft-save/reopen/no-broadcast red37964083012 ateb45228
-  reaches the signed feed and fails at missing New post (line32),3.29s. Public
-  log/image inspected and retained ticket09/draft-red. Minimal7360289 adds
-  root composer and AES256GCM AndroidKeystore/noBackup atomic draft storage,
-  wallet/backend-scoped, verified save/back and error retention, no Send yet.
-  Local core/debug/test assembly passes1m33s; no local build active. Focused
-  Android10 green37964861535 at7360289 passes the draft case in4.772s;
-  inspected public log/recovered text image retained ticket09/draft-green.
-  Two-case run37965701990 at296d729 passes draft recovery but Send case
-  fails before Send because the test edits before async draft load enables the
-  editor (line78). This is a harness timing failure, not functional Send red.
-  Correctede1f628a waits for an enabled editor via actual UI semantics; run
-  37966333736 is running. Next behavior: actual UI Send must emit
-  signed zero-payment type4 with one hop and report pending server availability,
-  not an invented ack. Peer returns empty exact-signature archive results.
-  Earlier37965626375 was superseded during setup, not functional proof.
-  Corrected actualred37966333736 ate1f628a passes draft case and fails
-  at missing Send (line82),7.388s; inspected public log/composer image retained
-  ticket09/send-red. Minimal41113e1 creates/signs zero-payment Normal bytes,
-  signs routing hop to authenticated peer, submits type4 and reports waiting;
-  encrypted version2 draft record preserves exact pending candidate before
-  submission (v1 text migration retained). Local core/debug/test assembly
-  passes1m47s; no local build active. Two-case green37967156376 at41113e1 passes Android10 in10.831s; actual
-  zero-payment signed frame received by peer, waiting status inspected/retained
-  ticket09/send-green. Third case at1094a0a indexes only the actual received
-  native transaction, serves exact-sig Archive results and requires Available
-  on this server then post in feed. New onTransaction fixture keeps existing
-  trailing archive callback syntax; atomic indexed-row visibility; guarded
-  emulator-only Before clears synthetic postdraft records, never wallet keys.
-  Actual red37968017392 at1094a0a passes draft case, fails waiting for
-  Available (line64) and exposes absent external Send frame (line145),36.005s.
-  Public log/composer image inspected/retained ticket09/observation-red.
-  Minimalfdcc528 keeps peer open while exact-signature Archive query retries,
-  marks available only after verified matching signer/text, refreshes selected
-  feed on Back and clears completed draft on close. Local core/debug/test
-  assembly passes1m30s; no local build active. Three-case green37968817970
-  running.37967863806/37967946413 superseded
-  during setup after fixture corrections; neither supplies functional proof.
-  Immediate post-submit peer cancellation is removed by observation lifetime.
-  Replies, pending cold-recovery/retry, longer-funded text policy, independent
-  new constructor/hop vectors and final reviews/full proof remain required.
-  Researchf31ed06 records exact reply
-  recipients, zero-amount construction, hop signing, type4 broadcast without
-  RPC ack and web unfunded500 UTF16 threshold (not universalprotocolcap).
-  See NATIVE_POSTING_VERIFICATION.md. Continue all35 sequentially.
+  assigned@me, review base78163d6, all native blockers complete; #9 closed
+  comment6085557419. Production candidatefdcc528, latest test9331e52. Current
+  actual four-case Android10 red37969745626 is running; no Reply code yet.
+  First3 cases pass8.119s in37968817970 atfdcc528: encrypted draft save/reopen
+  without broadcast; explicit signed zero-payment submission with pending copy;
+  matching verified exact-sig Archive observation marks Available, Back clears
+  completed draft and refreshes selected feed, showing actual new post.
+  Public logs/images inspected and retained ticket09/{draft,send,observation}-green.
+  Actual functional reds37964083012 missing New post,37966333736 missing Send,
+  37968017392 no Available and absent received frame (immediate socket close).
+  Minimalfdcc528 keeps peer open through up to6 exact-sig queries2s apart.
+  Draft storage AES256GCM Keystore/package+filename AAD/noBackup AtomicFile,
+  fd+directory sync/decrypted readback; wallet/backend-specific,1MiB text and
+  5MiB encoded record bounds. v1 raw text migration; v2 text+exact signed Normal
+  candidate persisted before submit, restored signature/author/text verified.
+  SaitoTransaction creates zero-payment root, detached envelope, immutable raw
+  restore; hop signs signature64+destination33, type4 without index or RPC ack.
+  Pure independent posting-reference.cjs verified WASM0.3.2/Elliptic6.6.1 plus
+  serialization roundtrip, public unsafe scalar1/2 only. At2e62a19, new public
+  SaitoTransactionTest matches Unicode root/network/envelope/hop bytes exactly;
+  focused core test passes26s (not yet a new full16-case core run). References
+  docs/research/NATIVE_POSTING_REFERENCE.json and core resource.
+  Fourth test requires Reply from actual Conversation, parent/root thread and
+  parent author output, actual archive observation and reply in thread on Back.
+  Current ControlledFeedPeer has onTransaction before last archiveResponse
+  parameter to preserve existing trailing lambdas; records public frames,
+  atomic indexed-row fixture. Post tests Before guards .dev+ranchu/goldfish and
+  clears synthetic postdraft records only, never wallet keys; no case-order
+  dependence.37965701990 was editor-ready harness timing failure; corrected
+  actualred above.37965626375/37967863806/37967946413 superseded during setup.
+  Local full core/debug/test assembly atfdcc528 passes1m30s, no build active.
+  Remaining: replies (including nested/inherited recipients), draft/pending
+  identity/backend isolation/retry/cold recovery/navigation/save faults, funded
+  text policy (>500 UTF16 web threshold permitted with nonzero balance), both
+  backend fixtures, independent reply vectors, final source axes/full proof.
+  Primary contractf31ed06 in NATIVE_POSTING_CONTRACT.md cites named public
+  deployed files/hash and pinned Rust sources, no new Git revision claim.
+  Never claim socket enqueue as archive availability or archive as chain proof.
+  No production writes, private uploads or new APK. Continue all35 sequentially.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.
