@@ -20,6 +20,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     private val received = CountDownLatch(1)
     val requests = java.util.concurrent.atomic.AtomicInteger()
     val clientKeys = java.util.concurrent.CopyOnWriteArrayList<String>()
+    val transactions = java.util.concurrent.CopyOnWriteArrayList<ByteArray>()
     @Volatile private var failure: Throwable? = null
 
     fun start(port: Int = 0): MockWebServer {
@@ -58,6 +59,10 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                         require(SaitoWallet.verify(counter, answer, clientKey))
                         clientKeys.add(clientKey)
                         authenticated = true
+                    }
+                    4 -> {
+                        require(authenticated)
+                        transactions.add(frame)
                     }
                     12 -> {
                         require(authenticated)

@@ -33,8 +33,13 @@ one question at a time when a material choice really needs the owner.
   excluded from visual acceptance. Controlled switching images are correct.
   Wallet/cache recovery and signed5-to-8 continuity pass. No new APK, private
   uploads, production writes or physical-device/push proof. Continue all35.
-- Next #10, "09: Publish text posts and replies with recoverable drafts".
-  Start after #9 closure; use closure status commit as next review base.
+- Active #10, "09: Publish text posts and replies with recoverable drafts",
+  assigned@me, all native blockers complete. Review base78163d6; #9 closed
+  with comment6085557419. First draft-save/reopen/no-broadcast UI case and
+  focused posting runtime harness ready; actual functional red pending.
+  No composer production code yet. Primary protocol researcher writes only
+  docs/research/NATIVE_POSTING_CONTRACT.md, no implementation or live writes.
+  See NATIVE_POSTING_VERIFICATION.md. Continue all35 sequentially.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.
