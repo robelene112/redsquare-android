@@ -1,6 +1,6 @@
 # Sequential implementation handoff
 
-Updated 2026-10-09, 00:30 UTC. The owner authorized implementing all 35 proposed
+Updated 2026-10-09, 00:32 UTC. The owner authorized implementing all 35 proposed
 tickets sequentially, committing after each, and reviewing the app at the end.
 Continue without routine permission requests or a grill per ticket. Ask only
 one question at a time when a material choice really needs the owner.
@@ -9,14 +9,17 @@ one question at a time when a material choice really needs the owner.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.
-- Two of 35 tickets complete: #2 signature compatibility and #3 persistent wallet
-  and signed updates. #4 live feed/cache is active; its review base is a1973c2.
+- Three of 35 tickets complete: #2 signature compatibility, #3 persistent wallet
+  and signed updates, and #4 authenticated live feed/cache. #5 fixed backend
+  selection is active and assigned; its dependencies are closed. Its review
+  base is the final ticket #4 status commit, recorded when #5's first test lands.
 - Ticket #4's reviewed implementation passed final full run **37863843807**
   at c5953de on Android 10 and 17. All fourteen core tests, assembly/lint, four
   controlled feed cases per SDK, fresh owner reads, wallet recovery/continuity,
   notice/link assertions and actual signed 5-to-8 updates passed. Downloaded
   public logs and live/cached screenshots were inspected and retained under
-  docs/evidence/ticket03/final-full. Final status recording/closure is next.
+  docs/evidence/ticket03/final-full. Ticket #4 is closed with its acceptance
+  checklist checked and linked verification evidence.
 - Both independent reviews report zero remaining actionable findings after
   cache/callback/test fixes and the shared update-verification helper. Compatible
   Compose 1.11.4 and supported v2 tests are selected. Historical layout and
@@ -28,7 +31,7 @@ one question at a time when a material choice really needs the owner.
   Publish the first complete milestone after #7 includes server selection and
   safeguarded import/export; preserve package and signing. The owner reviews
   the completed app, so no intermediate physical review is required.
-- Next after #4: #5 two fixed backends, then #6 export, #7 guarded import.
+- Current: #5 two fixed backends. Next: #6 export, #7 guarded import.
   The initial review milestone is completed by #7, not by a basic feed alone.
 
 ## Verification already inspected

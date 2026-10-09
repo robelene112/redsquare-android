@@ -43,3 +43,8 @@ failures and measured test durations with their limits.
 Standards: 0 remaining actionable findings. Spec: 0 new actionable findings.
 Final runtime acceptance passes; physical Pixel and later milestone publication
 remain separate requirements. No historical crash cause is asserted.
+
+Final documentation audit found one stale leading verification status at
+102ec5c. Commit 2f87fab corrects it to the accepted c5953de/full-run result;
+both reviewers verified the fix. Final Standards: zero hard violations and
+zero actionable heuristics. Final Spec: zero findings. Ticket #4 is closed.

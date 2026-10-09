@@ -1,6 +1,6 @@
 # Native feed verification
 
-Ticket #4 is in progress. Review base: a1973c2. This file distinguishes
+Ticket #4 is complete. Review base: a1973c2. This file distinguishes
 independent protocol evidence, controlled Android flows, live read checks and
 physical-device acceptance.
 
