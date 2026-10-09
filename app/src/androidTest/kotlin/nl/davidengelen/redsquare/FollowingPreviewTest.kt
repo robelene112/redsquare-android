@@ -102,6 +102,58 @@ class FollowingPreviewTest {
         }
     }
 
+    @Test fun failedFollowSaveKeepsTheActionUnconfirmedAndAllowsRetry() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        val fixture = instrumentation.context.assets.open("native-following-reference.json").bufferedReader().use {
+            JsonParser.parseReader(it).asJsonObject
+        }
+        val root = fixture.getAsJsonObject("root")
+        val author = root.get("field2").asString
+        val peer = ControlledFeedPeer("[$root]") { criteria ->
+            check(criteria.get("field1").asString == "RedSquare" && criteria.get("flagged_ne").asInt == 1)
+            if (criteria.has("field2")) check(criteria.get("field2").asString == author)
+            "[$root]"
+        }
+        peer.start().use { server ->
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                waitFor("Native Red Square reference post")
+                ui.onNodeWithText("Wallet").performClick()
+                val address = displayedWalletAddress(ui)
+                ui.onNodeWithText("Done").performClick()
+                val blocked = java.io.File(context.noBackupFilesDir, "following.$address.v1")
+                check(blocked.mkdir())
+                val obstacle = java.io.File(blocked, "public-write-fault").apply { writeText("synthetic test only") }
+                try {
+                    ui.onNodeWithText(author).performClick()
+                    waitFor("Follow")
+                    ui.onNodeWithText("Follow").performClick()
+                    waitFor(context.getString(R.string.following_error))
+                    ui.onNodeWithText("Unfollow").assertDoesNotExist()
+                    ui.onNodeWithText("Follow").assertIsEnabled()
+                    captureFeedEvidence("following-evidence/unconfirmed-follow-write-failure.png")
+                    check(obstacle.delete())
+                    check(blocked.delete())
+                    ui.onNodeWithText("Follow").performClick()
+                    waitFor("Unfollow")
+                    ui.onNodeWithText(context.getString(R.string.following_error)).assertDoesNotExist()
+                    ui.onNodeWithText("Back").performClick()
+                    ui.onNodeWithText("Following").performClick()
+                    waitFor("Native Red Square reference post")
+                    peer.assertHealthy()
+                    captureFeedEvidence("following-evidence/follow-write-retry.png")
+                } catch (failure: Throwable) {
+                    captureFeedEvidence("following-evidence/follow-write-first-failure.png")
+                    throw failure
+                } finally {
+                    if (obstacle.exists()) check(obstacle.delete())
+                    if (blocked.isDirectory) check(blocked.delete())
+                }
+            }
+        }
+    }
+
     @Test fun followingAnAccountRestrictsTheFeedAndUnfollowingRemovesItsPosts() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
