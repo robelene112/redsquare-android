@@ -34,50 +34,40 @@ one question at a time when a material choice really needs the owner.
   Wallet/cache recovery and signed5-to-8 continuity pass. No new APK, private
   uploads, production writes or physical-device/push proof. Continue all35.
 - Active #10, "09: Publish text posts and replies with recoverable drafts".
-  Eight of35 complete,27 remaining including active#10. Review base78163d6.
-  Current production sourcec71221a, latest regression6149239. Seven-case
-  37982268510 at50692df passes Android10,31.633s; public log and pending
-  availability image inspected/retained ticket09/seven-green. Current
-  37983208565 checks actual process death/reconciliation and a new unsaved
-  activity-recreation case. Local test assembly passes49s, no build active.
-  Local debug/test assemblyc71221a passes1m29s; corrected test compile48s.
-  Six-case green37977871622 at092a5b6 passes Android10 in19.229s, including
-  isolated unfinished drafts through backend navigation and recreation; public
-  log/image inspected in ticket09/navigation-green. Five-case proof37973493246 at42c5774 passes
-  root/nested replies, draft save/reopen, zero-payment send and verified archive
-  availability in14.889s. Public logs/images inspected in ticket09 evidence.
-  New actual navigation red37976960559 at8ef70f9 loses unfinished owner text
-  after switching to official and back (line127). A separate feed transition
-  race also failed; the harness now waits for the feed's LazyColumn. Initial
-  37976114135 stopped at a placeholder assertion, not functional recovery proof.
-  Minimal092a5b6 adds mounted-composer save-before-backend/identity navigation,
-  verified encrypted persistence under a Mutex, signed candidate assignment
-  before saving, and disabled Back/Save during Send. Existing draft formats
-  retained. Navigation save failure keeps current server and editable work.
-  No automatic draft publication. No local build active.
-  Actual seven-case red37978708226 at1cff5c fails recovered pending copy at
-  line189,51.2s; previous6 pass. Minimalc71221a shows recovered Send-requested
-  uncertainty, offers same-screen Retry using the exact saved candidate, checks
-  Archive before retransmission, and separates transport from storage errors.
-  First attempt37979681550 fails only a disabled-editor test selector (SetText
-  action unavailable),29.609s; corrected5dbfcb4 selects locked text directly and
-  waits for enabled Back before leaving composers. Pending retry passes;
-  50692df scrolls cached feeds to reference posts instead of assuming they
-  fit the current viewport. Earlier37980600924 failed3 viewport waits while
-  its pending case passed; those were fixture assumptions, not product failures.
-  Research NATIVE_POST_TEXT_POLICY.md traces the500 UI-only restriction and
-  confirms zero-payment Normal format regardless of holdings. Native complete
-  JSON payload bound1MiB is safety policy, not an inferred consensus maximum.
-  Both interim source reviews are ticket09/INTERIM_REVIEW.md. Remaining work:
-  actual pending cold/reconciliation proof, native work in wallet import
-  risk preview, pending cold/fault/isolation/two-backend proof, declared text
-  bounds, final two-axis fixes/review/full Android10/17 acceptance. Unsaved
-  activity recreation still needs its own actual verification; the new case
-  recreates a draft already persisted by backend navigation. Independent root
-  and ordered-reply WASM/Elliptic vectors are implemented in public core tests.
-  Detailed contract/history: NATIVE_POSTING_CONTRACT.md and
-  NATIVE_POSTING_VERIFICATION.md. GitHub#10 reopened after premature closure;
-  do not close it until acceptance. No production writes or new review APK.
+  Eight of35 complete,27 remaining including active. Review base78163d6.
+  Latest source/testsd54d9de. Current37985523535 checks reply recreation,
+  longer multilingual text on both controlled backends and invalid-text UI.
+  Existing process-restart, identity-preserving Retry and storage checks rerun.
+  No local build active. Local core/debug/test build reports SUCCESS1m46s;
+  wrapper exit143, so hosted completion remains authoritative.
+  Seven-case37982268510 passes31.633s. Eight-case37984084989 passes32.613s
+  plus actual process death and cold reconciliation without rebroadcast.
+  Unsaved root-editor recreation actual red37983208565 was fixed by scoped
+  in-memory ViewModel edits. No plaintext saved-state bundles. Saved signed
+  candidates remain authoritative. Ten-case37984759300 passes43.649s plus
+  cold reconciliation: failed save retains server/text; damaged encrypted file
+  stays untouched until repaired, then Retry reloads. Public logs and selected
+  images inspected/retained ticket09/{seven-green,memory-green,storage-green}.
+  Shared root/reply composer uses verified encrypted draft persistence,
+  serialized writes, candidate assignment before save, save-before backend and
+  identity navigation, and disabled Back/Save during Send. Restored candidates
+  show uncertain Send-requested status. Retry checks the exact verified archive
+  signature before resending the original candidate. Storage and network
+  errors differ. No automatic draft publication. Independent root/ordered-reply
+  WASM/Elliptic vectors pass. Existing draft formats retained.
+  Local malformed-Unicode red rejected by strict UTF8 serialization before
+  signing; core green includes independent signatures and JSON escaping bound.
+  Native1MiB complete-message limit is safety policy, not a consensus maximum
+  or universal500-unit cap. Source trace: NATIVE_POST_TEXT_POLICY.md.
+  Wallet replacement explicitly explains that local posting records remain
+  with the outgoing identity and are excluded from wallet exports, and that
+  uncertain publication may already have reached its server.
+  Remaining: reply recreation verification/fix, safe new composition after
+  indefinitely uncertain delivery, wallet-replacement isolation verification,
+  final two-axis review/fixes and full Android10/17 acceptance.
+  Both interim review axes remain ticket09/INTERIM_REVIEW.md. Detailed earlier
+  contract/history: NATIVE_POSTING_CONTRACT.md/NATIVE_POSTING_VERIFICATION.md.
+  #10 reopened after premature closure; keep open until acceptance. No new APK.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.

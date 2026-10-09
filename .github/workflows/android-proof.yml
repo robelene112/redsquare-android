@@ -70,12 +70,12 @@ jobs:
       - name: Build and verify native sources
         id: build
         env:
-          VERIFICATION_SCOPE: ${{ inputs.scope || 'full' }}
+          VERIFICATION_SCOPE: ${{ inputs.scope || 'source' }}
         run: |
-          if [[ "$VERIFICATION_SCOPE" != full ]]; then
-            ./gradlew --no-daemon --console=plain :core:test :app:assembleDebug :app:assembleDebugAndroidTest
-          else
+          if [[ "$VERIFICATION_SCOPE" == full || "$VERIFICATION_SCOPE" == source ]]; then
             ./gradlew --no-daemon --console=plain :core:test :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease :app:lintDebug
+          else
+            ./gradlew --no-daemon --console=plain :core:test :app:assembleDebug :app:assembleDebugAndroidTest
           fi
       - name: Retain dependencies before device tests
         if: steps.build.outcome == 'success' && steps.dependencies.outputs.cache-hit != 'true'
@@ -84,14 +84,14 @@ jobs:
           path: ${{ steps.cache-path.outputs.home }}/.gradle/caches
           key: ${{ steps.dependencies.outputs.cache-primary-key }}
       - name: Verify Android 10 runtime
-        if: inputs.scope != 'feed-android17' && inputs.scope != 'update-android17' && inputs.scope != 'export-android17' && inputs.scope != 'import-android17' && inputs.scope != 'import-risk-android17' && inputs.scope != 'import-storage-android17' && inputs.scope != 'browse-android17' && inputs.scope != 'following-android17'
+        if: github.event_name == 'workflow_dispatch' && inputs.scope != 'feed-android17' && inputs.scope != 'update-android17' && inputs.scope != 'export-android17' && inputs.scope != 'import-android17' && inputs.scope != 'import-risk-android17' && inputs.scope != 'import-storage-android17' && inputs.scope != 'browse-android17' && inputs.scope != 'following-android17' && inputs.scope != 'posting-android17'
         env:
           TEST_PUBLIC_SIGNED_UPDATE: '1'
           TEST_PUBLIC_FEED_READ: ${{ inputs.public_feed_read && '1' || '0' }}
           TEST_SCOPE: ${{ inputs.scope || 'full' }}
         run: scripts/ci-android-device 29
       - name: Verify Android 17 runtime
-        if: inputs.scope != 'feed' && inputs.scope != 'export' && inputs.scope != 'import' && inputs.scope != 'import-risk' && inputs.scope != 'import-storage' && inputs.scope != 'browse' && inputs.scope != 'following' && inputs.scope != 'posting'
+        if: github.event_name == 'workflow_dispatch' && inputs.scope != 'feed' && inputs.scope != 'export' && inputs.scope != 'import' && inputs.scope != 'import-risk' && inputs.scope != 'import-storage' && inputs.scope != 'browse' && inputs.scope != 'following' && inputs.scope != 'posting'
         env:
           TEST_SCOPE: ${{ inputs.scope || 'full' }}
           TEST_PUBLIC_SIGNED_UPDATE: '1'

@@ -1,13 +1,13 @@
 package nl.davidengelen.redsquare.feed
 
 import androidx.activity.compose.BackHandler
+import androidx.activity.compose.LocalActivity
 import androidx.activity.ComponentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.CancellationException
@@ -31,7 +31,7 @@ import com.google.gson.JsonObject
 internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBackend, modifier: Modifier,
     parent: FeedPost? = null, onClose: () -> Unit) {
     val owner = wallet.publicKey
-    val activity = LocalContext.current as ComponentActivity
+    val activity = requireNotNull(LocalActivity.current) as ComponentActivity
     val context = activity.applicationContext
     val memory = remember(activity, owner, backend, parent?.id) {
         ViewModelProvider(activity)["post:$owner:${backend.id}:${parent?.id.orEmpty()}", PostComposerMemory::class.java]

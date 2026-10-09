@@ -96,6 +96,10 @@ the owner chooses whether to start it. It is not required for every app-wide gri
    unless the owner requests another; preserve unrelated changes.
 3. Implement the ticket at its agreed testing boundaries using `tdd`. Run focused
    checks during development and the relevant full suite at completion.
+   Push automation runs core tests, APK assembly (including release) and lint.
+   Dispatch focused device runs during development and one full Android 10/17
+   run for final acceptance. A successful push source check is not runtime
+   acceptance. Avoid duplicating full device runs on every interim commit.
 4. Ensure `code-review` sees the actual changes. Its upstream default compares
    committed `HEAD` against a fixed base, so make an interim implementation
    commit before that review if needed. An empty committed diff is not a review
