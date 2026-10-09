@@ -72,9 +72,15 @@ ticket#7; this case does not claim a new end-to-end import UI flow or physical
 process death. Five-case runs37952728041/37952732559 and both final source-review
 axes were run as recorded in ticket08/INTERIM_REVIEW.md. Both five-case runs
 failed compilation because the fixture called nonexistent importJson. Corrected
-fromBackup runs37953412336/37953417415 are pending; this build failure is not a
+fromBackup runs37953412336/37953417415 pass all five cases on Android10/17;
+public logs and identity images are inspected/retained in identity-green.
+This build failure is not a
 functional red. Review found general-cache eviction of older followed results,
 missing retry after initial choices-read failure, and generic loaded values
 misnamed envelopes. Sequential author requests can also discard earlier verified
 results after a later request fails. These source issues need fixes, observable
-regressions and repeated review. Final full verification remains pending.
+regressions and repeated review. Sixth actual-app regression atc3b88f5 seeds
+only the public general cache with100 independently signed newer unrelated
+roots after establishing a follow through the UI, then requires available older
+followed content after a cold launch. Run37954356779 on Android10 is pending;
+no production retention fix exists yet. Final full verification remains pending.

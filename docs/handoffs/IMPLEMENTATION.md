@@ -50,14 +50,21 @@ one question at a time when a material choice really needs the owner.
   this is identity-isolation evidence, not a new import-UI claim. Five-case runs
   37952728041/37952732559 failed compilation because the fixture used nonexistent
   importJson instead of fromBackup. This is not a functional red. Corrected
-  five-case runs37953412336/37953417415 on Android10/17 are pending; local build
-  session50342 is running, do not edit source until it finishes. Both read-only
+  five-case runs37953412336/37953417415 at0b7d3f7 pass Android10/17; public logs
+  and old/restored/separate identity images inspected/retained identity-green.
+  Local core/debug/test assembly passes52s; no local build active. Sixth actual
+  app regression atc3b88f5 follows author1, closes, seeds only the public general
+  cache with100 independently signed newer author2 roots, cold launches and
+  requires older author1 content in Following. New pure reference fixture/script
+  uses scalar2 only, no node/app/wallet initialization or network. Six-case run
+  37954356779 on Android10 pending. Source remains unchanged from3caa31a.
+  Both read-only
   reviews atc14246a found issues, recorded ticket08/INTERIM_REVIEW: general100-post
   retention can evict every older followed result; failed initial choices load
   has no UI retry but says Try again/Loading. Standards also found generic loaded
   values still named envelopes. Another availability edge: a later author timeout
   discards already verified earlier results because publishing waits for all.
-  Wait for actual five-case green before new tests/source fixes; then test/fix
+  Wait for actual sixth functional red before fixing retention; then test/fix
   full general-cache eviction and transient choices-read recovery at primary UI
   seams. Consider preserving partial fetched author results incrementally. Share
   correct bounded public cache storage, keep backend/identity scopes and previous
