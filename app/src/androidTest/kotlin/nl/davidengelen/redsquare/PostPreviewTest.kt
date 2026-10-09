@@ -25,6 +25,66 @@ class PostPreviewTest {
             ?.forEach { check(it.delete()) }
     }
 
+    @Test fun replyUsesTheSelectedParentThreadAndIncludesTheParentAuthor() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        AndroidBackendStore(context).save(SaitoBackend.OWNER)
+        val root = instrumentation.context.assets.open("native-following-reference.json").bufferedReader().use {
+            JsonParser.parseReader(it).asJsonObject.getAsJsonObject("root")
+        }
+        val indexed = java.util.concurrent.atomic.AtomicReference<com.google.gson.JsonObject?>()
+        val peer = ControlledFeedPeer("[$root]", archiveResponse = { criteria ->
+            val reply = indexed.get()
+            when {
+                criteria.has("sig") -> if (reply?.get("sig")?.asString == criteria.get("sig").asString) "[$reply]" else "[]"
+                criteria.has("field5") -> if (reply == null) "[$root]" else "[$root,$reply]"
+                else -> "[$root]"
+            }
+        }, onTransaction = { frame ->
+            val bytes = frame.copyOfRange(1, frame.size - 130)
+            val header = java.nio.ByteBuffer.wrap(bytes)
+            check(header.getInt(0) == 1 && header.getInt(4) == 2)
+            val parentPoint = "0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798"
+            org.junit.Assert.assertEquals(parentPoint, bytes.copyOfRange(211, 244).joinToString("") { "%02x".format(it) })
+            header.putInt(12, 0)
+            val transaction = nl.davidengelen.redsquare.saito.SaitoTransaction.restore(java.util.Base64.getEncoder().encodeToString(bytes))
+            val envelope = transaction.envelope()
+            val post = nl.davidengelen.redsquare.saito.RedSquareFeed.decode(envelope)
+            org.junit.Assert.assertEquals(root.get("sig").asString, post.parentId)
+            org.junit.Assert.assertEquals(root.get("sig").asString, post.threadId)
+            org.junit.Assert.assertEquals("Reply from the native composer", post.text)
+            indexed.set(com.google.gson.JsonObject().apply {
+                addProperty("sig", post.id); addProperty("created_at", post.createdAt)
+                addProperty("field1", "RedSquare"); addProperty("field2", post.author)
+                addProperty("field4", post.parentId); addProperty("field5", post.threadId)
+                addProperty("tx", envelope)
+            })
+        })
+        peer.start().use { server ->
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                try {
+                    waitFor("Native Red Square reference post")
+                    ui.onNodeWithText("Native Red Square reference post").performClick()
+                    waitFor("Conversation")
+                    ui.onNodeWithText("Reply").performClick()
+                    ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNode(hasSetTextAction()).performTextReplacement("Reply from the native composer")
+                    ui.onNodeWithText("Send").performClick()
+                    waitFor("Available on this server.")
+                    ui.onNodeWithText("Back").performClick()
+                    waitFor("Conversation")
+                    waitFor("Reply from the native composer")
+                    peer.assertHealthy()
+                    captureFeedEvidence("posting-evidence/published-reply-in-thread.png")
+                } catch (failure: Throwable) {
+                    captureFeedEvidence("posting-evidence/reply-first-failure.png")
+                    throw failure
+                }
+            }
+        }
+    }
+
     @Test fun matchingSignedArchiveObservationMakesThePublishedPostAvailableInTheFeed() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
