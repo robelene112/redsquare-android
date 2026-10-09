@@ -143,3 +143,17 @@ assets, unavailable freshness evidence and browser-only pending history;
 they must not silently become zero or clear. This research does not establish
 live balance compatibility, choose a freshness threshold, or change import
 implementation.
+
+## Public endpoint observation, 2026-10-09
+
+At 07:42:23 UTC, separate read-only HTTPS requests for the published scalar1
+reference address returned HTTP200 from both approved hostnames, with no host
+change. Each response was92 bytes, had the source-supported snapshot header,
+height1104228 and tip age28 seconds, with no rows for that address. Requests were
+bounded to2MiB/12 seconds and asked for no-cache. No actual user's saved wallet,
+private options or keys were read; no transaction was sent. Only public status,
+size, header validity/height/age and row counts were recorded, not raw snapshots.
+This is a dated endpoint-format observation, not independent proof of zero
+assets or a guarantee that later responses remain available/fresh. Controlled
+positive/zero/unknown native import behavior still requires implementation and
+verification within#7.

@@ -68,7 +68,15 @@ one question at a time when a material choice really needs the owner.
   997217b passes both earlier flows and fails at the missing required-backup
   copy (line119). Log retained in ticket06/fresh-backup-red. Minimal backup gate
   now accepts only the verified authenticated export callback bound to the
-  outgoing wallet and exact selected candidate/nonce. Green checks pending.
+  outgoing wallet and exact selected candidate/nonce. Green37900484896/
+  37900488420 at4168ac4 passes all3 import tests on both SDKs, including actual
+  SAF/PIN save and reselection invalidation. Four public gate images inspected
+  and logs retained in ticket06/fresh-backup-green. Read-only published scalar1
+  HTTP balance format observed on both public backends; see assessment doc.
+  Next test drives positive/fresh zero/malformed/stale HTTP responses through
+  a controlled loopback server and allows an explicit recommended-backup skip
+  only for fresh complete outgoing zero. Existing tests now specify unavailable
+  loopback balance endpoints so ordinary checks cannot read public balances.
   No activation is implemented yet.
   Testing uses approved parent application/failure boundaries, with fixture data
   in the isolated test APK only. Do not claim valid import preview/activation

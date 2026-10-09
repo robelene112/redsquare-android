@@ -17,6 +17,10 @@ import org.junit.Assert.assertFalse
 import org.junit.Rule
 import org.junit.Test
 import java.util.UUID
+import java.net.InetAddress
+import java.util.concurrent.atomic.AtomicReference
+import mockwebserver3.MockWebServer
+import mockwebserver3.MockResponse
 
 class WalletImportPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
@@ -26,7 +30,7 @@ class WalletImportPreviewTest {
         val context = instrumentation.targetContext
         val device = UiDevice.getInstance(instrumentation)
         ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
-            .putExtra("feedDisabled", true)).use { scenario ->
+            .putExtra("feedDisabled", true).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")).use { scenario ->
             ui.onNodeWithText("Wallet").performClick()
             val address = displayedWalletAddress(ui)
             ui.onNodeWithText("Import wallet").performClick()
@@ -58,7 +62,7 @@ class WalletImportPreviewTest {
         try {
             ui.waitUntil(10_000) { keyguard.isDeviceSecure }
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
-                .putExtra("feedDisabled", true)).use {
+                .putExtra("feedDisabled", true).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")).use {
                 ui.onNodeWithText("Wallet").performClick()
                 val address = displayedWalletAddress(ui)
                 val original = "same-import-${UUID.randomUUID()}.json"
@@ -102,7 +106,7 @@ class WalletImportPreviewTest {
         try {
             ui.waitUntil(10_000) { keyguard.isDeviceSecure }
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
-                .putExtra("feedDisabled", true)).use {
+                .putExtra("feedDisabled", true).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")).use {
                 ui.onNodeWithText("Wallet").performClick()
                 val address = displayedWalletAddress(ui)
                 ui.onNodeWithText("Export wallet").performClick()
@@ -143,6 +147,65 @@ class WalletImportPreviewTest {
             }
             device.executeShellCommand("locksettings clear --old $EXPORT_TEST_PIN --user 0")
         }
+    }
+
+    @Test fun onlyAFreshCompleteOutgoingBalanceAllowsSkippingTheRecommendedBackup() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        val device = UiDevice.getInstance(instrumentation)
+        val kind = AtomicReference("positive")
+        val requestedAddress = AtomicReference<String?>(null)
+        val server = MockWebServer()
+        server.dispatcher = object : mockwebserver3.Dispatcher() {
+            override fun dispatch(request: mockwebserver3.RecordedRequest): MockResponse {
+                val publicKey = request.url.pathSegments.last()
+                requestedAddress.set(publicKey)
+                val timestamp = if (kind.get() == "stale") 1L else System.currentTimeMillis()
+                val header = "$timestamp-1234-${"a".repeat(64)}.snap\n"
+                val body = when (kind.get()) {
+                    "positive" -> header + "$publicKey 1234 0 0 1 0\n"
+                    "malformed" -> header + "not a complete balance row\n"
+                    else -> header
+                }
+                return MockResponse.Builder().body(body).addHeader("Content-Type", "text/plain").build()
+            }
+        }
+        server.start(InetAddress.getByName("127.0.0.1"), 0)
+        try {
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedDisabled", true)
+                .putExtra("balanceApiUrl", "http://127.0.0.1:${server.port}/balance/")).use {
+                ui.onNodeWithText("Wallet").performClick()
+                val address = displayedWalletAddress(ui)
+                val cases = listOf(
+                    Triple("positive", "Your current wallet has SAITO", false),
+                    Triple("zero", "Server reports zero SAITO", true),
+                    Triple("malformed", "Balance could not be checked", false),
+                    Triple("stale", "Balance could not be checked", false),
+                )
+                for ((responseKind, status, skippable) in cases) {
+                    kind.set(responseKind)
+                    requestedAddress.set(null)
+                    ui.onNodeWithText("Import wallet").performScrollTo().performClick()
+                    selectImportRoot(device)
+                    requireNotNull(device.wait(Until.findObject(By.text("reference-import.json")), 10_000)).click()
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText(status)).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText(status).performScrollTo().assertIsDisplayed()
+                    assertEquals(address, requestedAddress.get())
+                    if (skippable) {
+                        ui.onNodeWithText("Skip backup").performScrollTo().assertIsEnabled()
+                        ui.onNodeWithText("A backup is strongly recommended, even with zero SAITO.").assertExists()
+                        ui.onNodeWithText("Skip backup").performClick()
+                        ui.onNodeWithText("Backup skipped for this replacement").assertExists()
+                    } else {
+                        ui.onNodeWithText("Skip backup").assertDoesNotExist()
+                        ui.onNodeWithText("Back up your current wallet before continuing with replacement.").assertExists()
+                    }
+                    assertEquals(address, displayedWalletAddress(ui))
+                    captureFeedEvidence("wallet-import-evidence/balance-$responseKind.png")
+                }
+            }
+        } finally { server.close() }
     }
 
     private fun selectImportRoot(device: UiDevice) {
