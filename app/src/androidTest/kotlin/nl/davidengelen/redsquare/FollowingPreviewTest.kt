@@ -21,7 +21,8 @@ class FollowingPreviewTest {
         check(context.packageName.endsWith(".dev"))
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
         context.noBackupFilesDir.listFiles()?.filter {
-            it.name.startsWith("feed.") || it.name.startsWith("conversation.") || it.name.startsWith("profile.") || it.name.startsWith("following.")
+            it.name.startsWith("feed.") || it.name.startsWith("conversation.") || it.name.startsWith("profile.") ||
+                it.name.startsWith("following.") || it.name.startsWith("followingfeed.")
         }?.forEach { check(it.delete()) }
     }
 
