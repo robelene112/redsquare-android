@@ -55,7 +55,7 @@ class WalletImportPreviewTest {
         }
     }
 
-    @Test fun selectedValidBackupsPreviewSameOrDifferentIdentityWithoutActivation() {
+    @Test fun selectedValidBackupsPreviewIdentityAndRestoreConfirmedSameWallet() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         val device = UiDevice.getInstance(instrumentation)
@@ -90,6 +90,14 @@ class WalletImportPreviewTest {
                     ui.onNodeWithContentDescription("Selected wallet address").assertTextEquals(expected)
                     assertEquals(address, displayedWalletAddress(ui))
                     captureFeedEvidence("wallet-import-evidence/valid-preview-${if (name == original) "same" else "different"}.png")
+                    if (name == original) {
+                        ui.onNodeWithText("Confirm restore").performScrollTo().assertIsNotEnabled()
+                        ui.onNodeWithContentDescription("Replacement risks acknowledged").performScrollTo().performClick()
+                        ui.onNodeWithText("Confirm restore").performScrollTo().assertIsEnabled().performClick()
+                        ui.waitUntil(15_000) { ui.onAllNodes(hasText("Wallet imported")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                        assertEquals(address, displayedWalletAddress(ui))
+                        captureFeedEvidence("wallet-import-evidence/confirmed-same-wallet-restore.png")
+                    }
                 }
                 DocumentsContract.deleteDocument(context.contentResolver,
                     DocumentsContract.buildDocumentUri(ExportTestDocumentsProvider.AUTHORITY, original))

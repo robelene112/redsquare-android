@@ -64,8 +64,18 @@ public images/log are retained under storage-green. This tests the existing
 protected storage operation with real Keystore/AtomicFile, not the import-error
 toast or arbitrary process/power failure.
 
-Actual process termination during replacement, same-wallet restoration and
-identity-isolation acceptance remain unfinished. Final full
+Process-boundary runs37917615664/37917619364 at18016f1 pass bothSDKs, with the
+host requiring the reached post-write/pre-commit checkpoint, a genuinely dead
+process, retained encrypted recovery record and cold app recovery of the outgoing
+identity. Public logs/continuity and two inspected images are retained under
+process-green. This does not establish arbitrary physical power-cut behavior or
+the import-error toast path. Production code has no added test interruption hook.
+
+Same-wallet preview now also explicitly confirms restore, with local assembly
+passing; its first actual runtime is pending. Private wallet options and backup
+reminders are identity-bound. Current feed caches contain public data and remain
+backend-scoped; future drafts, queues and private Chat stores must implement
+their own identity isolation in their authorized later tickets. Final full
 Android10/17 verification, final two-axis review and a new signed review milestone
 must precede ticket closure. Physical Pixel timing/biometric acceptance remains
 later work; emulators do not establish those results.

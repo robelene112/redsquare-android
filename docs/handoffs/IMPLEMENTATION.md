@@ -171,6 +171,18 @@ one question at a time when a material choice really needs the owner.
   write before record removal, then requires checkpoint/public identity, dead
   process, retained encrypted record and cold app recovery. No production hook
   added. Kotlin/test assembly and script syntax pass; actual runtime pending.
+  Actual process runs37917615664/37917619364 at18016f1 pass bothSDKs: checkpoint
+  reached after synced replacement write, instrumented process really killed,
+  encrypted recovery record retained and new cold app recovers outgoing public
+  identity. Two public recovery images/host continuity and both phase logs are
+  inspected/retained in process-green. This is one controlled storage/process
+  boundary, not arbitrary physical power loss or the import-toast path.
+  Same-wallet preview test now also acknowledges/actually confirms restore and
+  verifies the original identity, using an authenticated compatible backup.
+  Local core and app/test assembly pass; its first actual runtime is pending
+  in finalfull. Existing private metadata/reminders remain identity-bound;
+  current feed caches are public and backend-scoped. Drafts/outbox/Chat stores
+  do not yet exist and must keep these identity boundaries in their own tickets.
   Fixture/test bytes remain in private test APK
   storage; each risk run clears only the isolated .dev emulator app first.
   A failed activation uses existing-only reload, never
