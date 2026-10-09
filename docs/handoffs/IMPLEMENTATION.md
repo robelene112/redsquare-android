@@ -64,15 +64,23 @@ one question at a time when a material choice really needs the owner.
   cache and filters active followed authors before100-post retention. Local
   core/debug/test assembly passes1m23s; no local build active. New fresh-case
   cleanup58574e0 also clears fixture-owned followingfeed public files. Current
-  six-case green37955584059 on Android10 is pending;37955130341 superseded by
-  that corrected fresh-proof setup. No UI load-retry fix or new seventh test yet.
+  six-case green37955584059 at58574e0 passes Android10 in16.971s, including all
+  fresh-case setup and full100-root general cache. Public log/image inspected
+  and retained retention-green;37955130341 was superseded. Seventh app case at
+  current HEAD follows author1, closes, preserves only public follow bytes,
+  obstructs that follow file with a public directory fixture, cold launches to
+  error/Loading, restores the file and requires a visible Retry to reload and
+  recover Unfollow without another restart. Actual red37956724460 pending on
+  Android10. No load-retry production fix yet. Next after green: partial-results
+  recovery when another followed-author request fails, rename generic values,
+  repeat both source reviews and final full before closing#9.
   Both read-only
   reviews atc14246a found issues, recorded ticket08/INTERIM_REVIEW: general100-post
   retention can evict every older followed result; failed initial choices load
   has no UI retry but says Try again/Loading. Standards also found generic loaded
   values still named envelopes. Another availability edge: a later author timeout
   discards already verified earlier results because publishing waits for all.
-  Wait for sixth-case green before next behavior test; then test/fix
+  Wait for seventh actual functional red before implementing load retry; then test/fix
   full general-cache eviction and transient choices-read recovery at primary UI
   seams. Consider preserving partial fetched author results incrementally. Share
   correct bounded public cache storage, keep backend/identity scopes and previous
