@@ -59,3 +59,25 @@ Log/image are retained in ticket07/conversation-cache-red. Minimal conversation
 caching reuses bounded, atomic public-envelope persistence, verifies entries on
 reload and keeps separate files for each backend/thread. It merges retained
 replies with refreshed available history. Local/device green is pending.
+
+Android10 green37928478015 at5fc64af passes both conversation cases. Its inspected
+restart/offline image shows the root, direct reply and nested reply retained.
+Evidence is in ticket07/conversation-cache-green/api-29. Android17 remains pending.
+
+## Profile reference
+
+[Independent like fixtures](NATIVE_PROFILE_LIKE_REFERENCE.json) come from the
+[pure generator](../../build-support/references/profile-like-reference.cjs),
+under the same network-none/read-only/env-i constraints. It asserts WASM0.3.2,
+Elliptic6.6.1 and the pinned binary hash before generating anything. Manual
+preimages match WASM hashes, both libraries verify signatures and actual WASM
+serialization round-trips the signed message and signature. No real wallet,
+database or propagation is involved. Scalar1 likes scalar2's direct reply and
+an unavailable signature. A scalar2 like and an altered detached message must
+not appear as scalar1's likes or trigger their target lookups.
+
+The next application tracer taps the feed identity, visits Posts, Replies and
+Likes, excludes other-author/altered content and requires truthful unavailable
+liked-post copy. Author queries and exact liked-target resolution match the
+pinned manager source described above. This test's compile/functional red is
+pending; no production profile navigation or tabs are implemented yet.
