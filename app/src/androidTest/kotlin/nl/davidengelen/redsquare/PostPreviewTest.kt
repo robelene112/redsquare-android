@@ -140,6 +140,69 @@ class PostPreviewTest {
         }
     }
 
+    @Test fun recoveredPendingPostRetriesItsOriginalSignatureAndClearsOnlyAfterVerifiedAvailability() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        AndroidBackendStore(context).save(SaitoBackend.OWNER)
+        val root = instrumentation.context.assets.open("native-following-reference.json").bufferedReader().use {
+            JsonParser.parseReader(it).asJsonObject.getAsJsonObject("root")
+        }
+        val received = java.util.concurrent.CopyOnWriteArrayList<String>()
+        val indexed = java.util.concurrent.atomic.AtomicReference<com.google.gson.JsonObject?>()
+        val peer = ControlledFeedPeer("[$root]", archiveResponse = { criteria ->
+            val row = indexed.get()
+            if (criteria.has("sig")) {
+                if (row?.get("sig")?.asString == criteria.get("sig").asString) "[$row]" else "[]"
+            } else if (row == null) "[$root]" else "[$row,$root]"
+        }, onTransaction = { frame ->
+            val bytes = frame.copyOfRange(1, frame.size - 130)
+            java.nio.ByteBuffer.wrap(bytes).putInt(12, 0)
+            val transaction = nl.davidengelen.redsquare.saito.SaitoTransaction.restore(java.util.Base64.getEncoder().encodeToString(bytes))
+            received.add(transaction.id)
+            if (received.size == 2) {
+                org.junit.Assert.assertEquals(received[0], received[1])
+                val envelope = transaction.envelope()
+                val post = nl.davidengelen.redsquare.saito.RedSquareFeed.decode(envelope)
+                indexed.set(com.google.gson.JsonObject().apply {
+                    addProperty("sig", post.id); addProperty("created_at", post.createdAt)
+                    addProperty("field1", "RedSquare"); addProperty("field2", post.author)
+                    addProperty("field4", ""); addProperty("field5", post.threadId)
+                    addProperty("tx", envelope)
+                })
+            }
+        })
+        peer.start().use { server ->
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
+                waitFor("Native Red Square reference post")
+                ui.onNodeWithText("New post").performClick()
+                ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                ui.onNode(hasSetTextAction()).performTextReplacement("Retry the original signed post")
+                ui.onNodeWithText("Send").performClick()
+                waitFor("Submitted. Waiting for this server.")
+                ui.waitUntil(20_000) { ui.onAllNodes(hasText("Back") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                ui.onNodeWithText("Back").performClick()
+                ui.waitUntil(10_000) { ui.onAllNodes(hasScrollToIndexAction()).fetchSemanticsNodes().isNotEmpty() }
+                scenario.recreate()
+                waitFor("Native Red Square reference post")
+                ui.onNodeWithText("New post").performClick()
+                waitFor("Send requested. Availability on this server is not confirmed.")
+                ui.onNode(hasSetTextAction()).assertTextEquals("Retry the original signed post").assertIsNotEnabled()
+                org.junit.Assert.assertEquals(1, received.size)
+                ui.onNodeWithText("Retry").performClick()
+                waitFor("Available on this server.")
+                org.junit.Assert.assertEquals(2, received.size)
+                peer.assertHealthy()
+                captureFeedEvidence("posting-evidence/retried-original-pending-post.png")
+                ui.onNodeWithText("Back").performClick()
+                ui.waitUntil(10_000) { ui.onAllNodes(hasScrollToIndexAction()).fetchSemanticsNodes().isNotEmpty() }
+                ui.onNodeWithText("New post").performClick()
+                ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                ui.onNode(hasSetTextAction()).assert(hasText(""))
+            }
+        }
+    }
+
     @Test fun replyUsesTheSelectedParentThreadAndIncludesTheParentAuthor() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
