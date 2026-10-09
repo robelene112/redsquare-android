@@ -11,6 +11,9 @@ import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
+import androidx.test.uiautomator.BySelector
+import androidx.test.uiautomator.UiObject2
+import androidx.test.uiautomator.StaleObjectException
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.Until
 import com.google.gson.JsonParser
@@ -68,13 +71,13 @@ class WalletExportPreviewTest {
                 val address = displayedWalletAddress(ui)
                 ui.onNodeWithText("Export wallet").performClick()
                 check(device.wait(Until.hasObject(By.res("android", "title")), 15_000))
-                device.findObject(By.desc("Show roots"))?.click()
-                val root = requireNotNull(device.wait(Until.findObject(By.text(ExportTestDocumentsProvider.TITLE)), 10_000))
-                root.click()
-                val filename = requireNotNull(device.wait(Until.findObject(By.res("android", "title")
-                    .clazz("android.widget.EditText")), 10_000))
-                filename.text = name
-                requireNotNull(device.wait(Until.findObject(By.res("android", "button1")), 10_000)).click()
+                if (device.findObject(By.desc("Show roots")) != null) {
+                    operateSystemControl(device, By.desc("Show roots")) { click() }
+                }
+                operateSystemControl(device, By.text(ExportTestDocumentsProvider.TITLE)) { click() }
+                operateSystemControl(device, By.res("android", "title").clazz("android.widget.EditText")) { text = name }
+                operateSystemControl(device, By.res("android", "button1")
+                    .pkg(Pattern.compile("com\\.(?:android|google\\.android)\\.documentsui")).enabled(true)) { click() }
                 enterRealSystemPin(device)
                 ui.waitUntil(15_000) { ui.onAllNodes(hasText("Wallet backup saved")).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNodeWithText("Wallet backup saved").assertIsDisplayed()
@@ -122,6 +125,16 @@ class WalletExportPreviewTest {
             SystemClock.sleep(100)
         }
         error("Credential entry unavailable in ${device.currentPackageName}")
+    }
+
+    private fun operateSystemControl(device: UiDevice, selector: BySelector, action: UiObject2.() -> Unit) {
+        val deadline = SystemClock.uptimeMillis() + 20_000
+        while (SystemClock.uptimeMillis() < deadline) {
+            val control = device.wait(Until.findObject(selector), 1_000) ?: continue
+            try { control.action(); return }
+            catch (_: StaleObjectException) { /* Query a fresh node after system layout changes. */ }
+        }
+        error("Android system control unavailable")
     }
 
     private fun saveCredentialControlMetadata() {

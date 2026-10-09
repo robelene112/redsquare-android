@@ -1,0 +1,55 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletExportPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.WalletExportPreviewTest:
+INSTRUMENTATION_STATUS: test=unavailableDeviceAuthenticationExplainsSetupWithoutExportingOrChangingIdentity
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletExportPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unavailableDeviceAuthenticationExplainsSetupWithoutExportingOrChangingIdentity
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletExportPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=realPinAuthenticationAndDocumentSaveProduceACompatibleBackup
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletExportPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=androidx.test.uiautomator.StaleObjectException
+	at androidx.test.uiautomator.UiObject2.getAccessibilityNodeInfo(UiObject2.java:1042)
+	at androidx.test.uiautomator.UiObject2.click(UiObject2.java:526)
+	at nl.davidengelen.redsquare.WalletExportPreviewTest.realPinAuthenticationAndDocumentSaveProduceACompatibleBackup(WalletExportPreviewTest.kt:73)
+
+INSTRUMENTATION_STATUS: stream=
+Error in realPinAuthenticationAndDocumentSaveProduceACompatibleBackup(nl.davidengelen.redsquare.WalletExportPreviewTest):
+androidx.test.uiautomator.StaleObjectException
+	at androidx.test.uiautomator.UiObject2.getAccessibilityNodeInfo(UiObject2.java:1042)
+	at androidx.test.uiautomator.UiObject2.click(UiObject2.java:526)
+	at nl.davidengelen.redsquare.WalletExportPreviewTest.realPinAuthenticationAndDocumentSaveProduceACompatibleBackup(WalletExportPreviewTest.kt:73)
+
+INSTRUMENTATION_STATUS: test=realPinAuthenticationAndDocumentSaveProduceACompatibleBackup
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 39.535
+There was 1 failure:
+1) realPinAuthenticationAndDocumentSaveProduceACompatibleBackup(nl.davidengelen.redsquare.WalletExportPreviewTest)
+androidx.test.uiautomator.StaleObjectException
+	at androidx.test.uiautomator.UiObject2.getAccessibilityNodeInfo(UiObject2.java:1042)
+	at androidx.test.uiautomator.UiObject2.click(UiObject2.java:526)
+	at nl.davidengelen.redsquare.WalletExportPreviewTest.realPinAuthenticationAndDocumentSaveProduceACompatibleBackup(WalletExportPreviewTest.kt:73)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
