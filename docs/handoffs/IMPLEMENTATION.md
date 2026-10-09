@@ -31,9 +31,14 @@ one question at a time when a material choice really needs the owner.
   switches owner/official histories, keeps follow choices, closes official and
   recreates, requires only official cached followed posts and no fallback,
   then returns to owner and requires its history/Unfollow. Current two-case
-  run37950206054 on Android10 is pending; no functional failure observed yet.
-  Wait for this meaningful green before the next test. Then identity/failure
-  and targeted author retrieval checks, both reviews and
+  run37950206054 on Android10 passes both cases in9.387s; public official cached
+  followed-feed/outage image and log inspected/retained backend-recovery-green.
+  Third app case obstructs only following.<displayed-own-public-key>.v1 after
+  choices loaded, requires failed Follow remains unconfirmed with error, removes
+  the public filesystem fixture, retries and requires success/Following content.
+  Current run37951108934 on Android10 is pending; source unchanged from3caa31a.
+  Wait for meaningful green before the next test. Then identity and targeted
+  author retrieval checks, both reviews and
   final full; close#9 only on acceptance and continue all35 sequentially.
   New references use the pure pinned WASM/Elliptic helper. Direct named deployed
   public Archive source read confirmed exact field2 criteria; named Git-object

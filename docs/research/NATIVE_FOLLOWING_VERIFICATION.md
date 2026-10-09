@@ -48,5 +48,12 @@ official with different signed content from the same followed author, excludes
 the other author and owner-only history, closes official, recreates and requires
 its cached followed history plus an outage message. Returning to owner must
 restore its separate history while keeping Unfollow. Two-case Android10 run
-37950206054 is pending. Identity, save-failure and targeted retrieval checks,
-both source review axes and final full verification remain pending.
+37950206054 passes both cases in9.387 seconds. Public official cached-followed
+feed/outage image and log are inspected and retained in backend-recovery-green.
+
+A third app case obstructs only the active synthetic wallet's public follow
+file after loading, requires the failed action to remain unconfirmed, removes
+the filesystem fault and retries successfully. Three-case Android10 run
+37951108934 is pending, with production source unchanged. Identity and targeted
+retrieval checks, both source review axes and final full verification remain
+pending.
