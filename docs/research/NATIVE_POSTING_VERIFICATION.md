@@ -1,5 +1,14 @@
 # Native posting and drafts
 
+Current nested regression: actual five-case37971949876 fails only the selected
+reply context at line78,32.55seconds. Clicking an existing reply did not change
+the selected parent before Reply; the public image confirms the original root's
+author in the composer. Public log/image retained ticket09/nested-reply-red.
+Minimal850c098 makes verified conversation post text open that post's context
+through the existing navigation stack. Five-case37972847178 is running; source
+build passed, runtime result pending. Ticket#10 was reopened after premature
+closure without completed acceptance. This remains delivery9 in progress.
+
 Ticket#10, delivery slice9 of35, in progress. Review base78163d6. Parent#1
 approved application, failure/persistence and independent crypto boundaries.
 

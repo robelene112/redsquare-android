@@ -52,7 +52,13 @@ one question at a time when a material choice really needs the owner.
   (new full17-case core run not yet done). Fifth actual UI case c348f14 taps
   independently signed existing reply then Reply, requires its author/parent,
   original root thread and recipient order[self,parentAuthor,ancestorAuthor].
-  Five-case red37971949876 running; no nested-navigation fix yet.
+  Five-case red37971949876 fails only nested selection at line78,32.55s:
+  tapping the existing reply leaves the root selected. Public log and image
+  inspected/retained ticket09/nested-reply-red. Minimal850c098 adds verified
+  post selection through the existing Conversation navigation stack. Five-case
+  green37972847178 is running; build passed, Android10 runtime pending.
+  GitHub #10 had been closed without acceptance evidence by earlier commit
+  4d1e91a; reopened on2026-10-09. It remains in progress, not a ninth delivery.
   First3 cases pass8.119s in37968817970 atfdcc528: encrypted draft save/reopen
   without broadcast; explicit signed zero-payment submission with pending copy;
   matching verified exact-sig Archive observation marks Available, Back clears
