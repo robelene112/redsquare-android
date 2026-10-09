@@ -90,6 +90,61 @@ class WalletImportPreviewTest {
         } finally { device.executeShellCommand("locksettings clear --old $EXPORT_TEST_PIN --user 0") }
     }
 
+    @Test fun replacementRequiresANewBackupBoundToTheCurrentSelection() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        val device = UiDevice.getInstance(instrumentation)
+        val keyguard = context.getSystemService(KeyguardManager::class.java)
+        assertFalse(keyguard.isDeviceSecure)
+        device.executeShellCommand("locksettings set-pin --user 0 $EXPORT_TEST_PIN")
+        val oldBackup = "before-import-${UUID.randomUUID()}.json"
+        val freshBackup = "guarded-import-${UUID.randomUUID()}.json"
+        try {
+            ui.waitUntil(10_000) { keyguard.isDeviceSecure }
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedDisabled", true)).use {
+                ui.onNodeWithText("Wallet").performClick()
+                val address = displayedWalletAddress(ui)
+                ui.onNodeWithText("Export wallet").performClick()
+                chooseTestBackup(device, oldBackup)
+                enterRealSystemPin(device)
+                ui.waitUntil(15_000) { ui.onAllNodes(hasText("Wallet backup saved")).fetchSemanticsNodes().isNotEmpty() }
+                ui.onNodeWithText("Import wallet").performClick()
+                selectImportRoot(device)
+                requireNotNull(device.wait(Until.findObject(By.text("reference-import.json")), 10_000)).click()
+                ui.waitUntil(15_000) { ui.onAllNodes(hasText("Replace your wallet")).fetchSemanticsNodes().isNotEmpty() }
+                // A saved backup made before selection must not authorize replacement.
+                val required = "Back up your current wallet before continuing with replacement."
+                val saved = "Current wallet backed up for this replacement"
+                ui.onNodeWithText(required).performScrollTo().assertIsDisplayed()
+                assertEquals(address, displayedWalletAddress(ui))
+                ui.onNodeWithText("Back up current wallet").performScrollTo().performClick()
+                chooseTestBackup(device, freshBackup)
+                enterRealSystemPin(device)
+                ui.waitUntil(15_000) { ui.onAllNodes(hasText(saved)).fetchSemanticsNodes().isNotEmpty() }
+                ui.onNodeWithText(saved).performScrollTo().assertIsDisplayed()
+                ui.onNodeWithText(required).assertDoesNotExist()
+                assertEquals(address, displayedWalletAddress(ui))
+                captureFeedEvidence("wallet-import-evidence/fresh-candidate-backup.png")
+                // Selecting again invalidates proof even when the file's identity is the same.
+                ui.onNodeWithText("Import wallet").performScrollTo().performClick()
+                selectImportRoot(device)
+                requireNotNull(device.wait(Until.findObject(By.text("reference-import.json")), 10_000)).click()
+                ui.waitUntil(15_000) { ui.onAllNodes(hasText("Replace your wallet")).fetchSemanticsNodes().isNotEmpty() }
+                ui.onNodeWithText(required).performScrollTo().assertIsDisplayed()
+                ui.onNodeWithText(saved).assertDoesNotExist()
+                assertEquals(address, displayedWalletAddress(ui))
+                captureFeedEvidence("wallet-import-evidence/reselected-backup-required.png")
+            }
+        } finally {
+            for (name in listOf(oldBackup, freshBackup)) runCatching {
+                DocumentsContract.deleteDocument(context.contentResolver,
+                    DocumentsContract.buildDocumentUri(ExportTestDocumentsProvider.AUTHORITY, name))
+            }
+            device.executeShellCommand("locksettings clear --old $EXPORT_TEST_PIN --user 0")
+        }
+    }
+
     private fun selectImportRoot(device: UiDevice) {
         val row = By.text(ExportTestDocumentsProvider.TITLE).res("android", "title")
         val title = By.text(ExportTestDocumentsProvider.TITLE)

@@ -60,7 +60,11 @@ one question at a time when a material choice really needs the owner.
   for Restore this wallet (test line81); invalid-file/recreation still passes.
   Public log retained in ticket06/valid-preview-red. Minimal preview now keeps
   the validated candidate private, displays only its address/classification and
-  does not publish a replacement. Focused green checks pending.
+  does not publish a replacement. Focused green37898881744/37898885225 at
+  f2d8107 passes both tests on Android10/17. Four public same/different preview
+  images inspected and logs retained in ticket06/valid-preview-green. Next
+  test requires a freshly authenticated candidate-bound outgoing backup and
+  invalidates proof upon reselection. No activation is implemented yet.
   Testing uses approved parent application/failure boundaries, with fixture data
   in the isolated test APK only. Do not claim valid import preview/activation
   from this slice; those remain upcoming within#7.
