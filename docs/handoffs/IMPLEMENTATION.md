@@ -35,10 +35,15 @@ one question at a time when a material choice really needs the owner.
   uploads, production writes or physical-device/push proof. Continue all35.
 - Active #10, "09: Publish text posts and replies with recoverable drafts",
   assigned@me, all native blockers complete. Review base78163d6; #9 closed
-  with comment6085557419. First draft-save/reopen/no-broadcast UI case and
-  focused posting runtime harness ready; actual functional red pending.
-  No composer production code yet. Primary protocol researcher writes only
-  docs/research/NATIVE_POSTING_CONTRACT.md, no implementation or live writes.
+  with comment6085557419. First actual draft-save/reopen/no-broadcast red37964083012 ateb45228
+  reaches the signed feed and fails at missing New post (line32),3.29s. Public
+  log/image inspected and retained ticket09/draft-red. Minimal7360289 adds
+  root composer and AES256GCM AndroidKeystore/noBackup atomic draft storage,
+  wallet/backend-scoped, verified save/back and error retention, no Send yet.
+  Local core/debug/test assembly passes1m33s; no local build active. Focused
+  Android10 green37964861535 is running. Researchf31ed06 records exact reply
+  recipients, zero-amount construction, hop signing, type4 broadcast without
+  RPC ack and web unfunded500 UTF16 threshold (not universalprotocolcap).
   See NATIVE_POSTING_VERIFICATION.md. Continue all35 sequentially.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
