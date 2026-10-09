@@ -4,16 +4,11 @@ import android.app.KeyguardManager
 import android.content.Intent
 import android.provider.DocumentsContract
 import android.os.SystemClock
-import android.view.KeyEvent
-import android.view.accessibility.AccessibilityNodeInfo
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
-import androidx.test.uiautomator.BySelector
-import androidx.test.uiautomator.UiObject2
-import androidx.test.uiautomator.StaleObjectException
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.Until
 import com.google.gson.JsonParser
@@ -23,8 +18,6 @@ import org.junit.Assert.assertFalse
 import org.junit.Rule
 import org.junit.Test
 import java.util.UUID
-import java.util.regex.Pattern
-import java.io.File
 import java.io.InputStream
 
 class WalletExportPreviewTest {
@@ -60,10 +53,10 @@ class WalletExportPreviewTest {
         assertFalse(keyguard.isDeviceSecure)
         val name = "wallet-test-${UUID.randomUUID()}.json"
         val uri = DocumentsContract.buildDocumentUri(ExportTestDocumentsProvider.AUTHORITY, name)
-        device.executeShellCommand("locksettings set-pin --user 0 $TEST_PIN")
+        device.executeShellCommand("locksettings set-pin --user 0 $EXPORT_TEST_PIN")
         try {
             ui.waitUntil(10_000) { keyguard.isDeviceSecure }
-            check(device.executeShellCommand("locksettings verify --old $TEST_PIN --user 0")
+            check(device.executeShellCommand("locksettings verify --old $EXPORT_TEST_PIN --user 0")
                 .contains("Lock credential verified successfully"))
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedDisabled", true)).use {
@@ -94,7 +87,7 @@ class WalletExportPreviewTest {
                 }
             }
         } finally {
-            device.executeShellCommand("locksettings clear --old $TEST_PIN --user 0")
+            device.executeShellCommand("locksettings clear --old $EXPORT_TEST_PIN --user 0")
         }
     }
 
@@ -104,7 +97,7 @@ class WalletExportPreviewTest {
         val keyguard = context.getSystemService(KeyguardManager::class.java)
         val device = UiDevice.getInstance(instrumentation)
         assertFalse(keyguard.isDeviceSecure)
-        device.executeShellCommand("locksettings set-pin --user 0 $TEST_PIN")
+        device.executeShellCommand("locksettings set-pin --user 0 $EXPORT_TEST_PIN")
         try {
             ui.waitUntil(10_000) { keyguard.isDeviceSecure }
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
@@ -131,7 +124,7 @@ class WalletExportPreviewTest {
                 assertEquals(address, displayedWalletAddress(ui))
                 captureFeedEvidence("wallet-export-evidence/authentication-cancelled.png")
             }
-        } finally { device.executeShellCommand("locksettings clear --old $TEST_PIN --user 0") }
+        } finally { device.executeShellCommand("locksettings clear --old $EXPORT_TEST_PIN --user 0") }
     }
 
     @Test fun stalledProviderReturnsToAReadableFailureAndAllowsAnotherExport() {
@@ -140,7 +133,7 @@ class WalletExportPreviewTest {
         val keyguard = context.getSystemService(KeyguardManager::class.java)
         val device = UiDevice.getInstance(instrumentation)
         assertFalse(keyguard.isDeviceSecure)
-        device.executeShellCommand("locksettings set-pin --user 0 $TEST_PIN")
+        device.executeShellCommand("locksettings set-pin --user 0 $EXPORT_TEST_PIN")
         try {
             ui.waitUntil(10_000) { keyguard.isDeviceSecure }
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
@@ -158,7 +151,7 @@ class WalletExportPreviewTest {
                 assertEquals(address, displayedWalletAddress(ui))
                 captureFeedEvidence("wallet-export-evidence/provider-deadline.png")
             }
-        } finally { device.executeShellCommand("locksettings clear --old $TEST_PIN --user 0") }
+        } finally { device.executeShellCommand("locksettings clear --old $EXPORT_TEST_PIN --user 0") }
     }
 
     @Test fun failedWritesAndInvalidReadbackRequireFreshAuthenticationForSuccessfulRetry() {
@@ -167,7 +160,7 @@ class WalletExportPreviewTest {
         val keyguard = context.getSystemService(KeyguardManager::class.java)
         val device = UiDevice.getInstance(instrumentation)
         assertFalse(keyguard.isDeviceSecure)
-        device.executeShellCommand("locksettings set-pin --user 0 $TEST_PIN")
+        device.executeShellCommand("locksettings set-pin --user 0 $EXPORT_TEST_PIN")
         try {
             ui.waitUntil(10_000) { keyguard.isDeviceSecure }
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
@@ -202,7 +195,7 @@ class WalletExportPreviewTest {
                 captureFeedEvidence("wallet-export-evidence/provider-retry.png")
                 DocumentsContract.deleteDocument(context.contentResolver, uri)
             }
-        } finally { device.executeShellCommand("locksettings clear --old $TEST_PIN --user 0") }
+        } finally { device.executeShellCommand("locksettings clear --old $EXPORT_TEST_PIN --user 0") }
     }
 
     private fun InputStream.readBoundedBackup(): ByteArray {
@@ -220,75 +213,4 @@ class WalletExportPreviewTest {
         } finally { buffer.fill(0) }
     }
 
-    private fun waitForSystemPin(device: UiDevice) {
-        check(device.wait(Until.hasObject(By.res(Pattern.compile(
-            "(?:com\\.android\\.settings:id/password_entry|com\\.android\\.systemui:id/(?:lockPassword|cred_pin_pad))"
-        ))), 15_000))
-    }
-
-    private fun chooseTestBackup(device: UiDevice, name: String) {
-        check(device.wait(Until.hasObject(By.res("android", "title")), 15_000))
-        if (device.findObject(By.desc("Show roots")) != null) {
-            operateSystemControl(device, By.desc("Show roots")) { click() }
-        }
-        // The selected root also appears in the toolbar. Select its drawer row.
-        val root = By.text(ExportTestDocumentsProvider.TITLE).res("android", "title")
-        operateSystemControl(device, root) { click() }
-        check(device.wait(Until.gone(root), 10_000))
-        operateSystemControl(device, By.res("android", "title").clazz("android.widget.EditText")) { text = name }
-        operateSystemControl(device, By.res("android", "button1")
-            .pkg(Pattern.compile("com\\.(?:android|google\\.android)\\.documentsui")).enabled(true)) { click() }
-    }
-
-    private fun enterRealSystemPin(device: UiDevice, pin: String = TEST_PIN) {
-        val credential = By.res(Pattern.compile("(?:com\\.android\\.settings:id/password_entry|com\\.android\\.systemui:id/lockPassword)"))
-        val deadline = SystemClock.uptimeMillis() + 15_000
-        while (SystemClock.uptimeMillis() < deadline) {
-            val entry = device.findObject(credential)
-                ?: device.findObject(By.pkg("com.android.systemui").clazz("android.widget.EditText"))
-            if (entry != null) { entry.text = pin; device.pressEnter(); return }
-            device.findObject(By.text("Use PIN"))?.click()
-            if (device.findObject(By.pkg("com.android.systemui").res("cred_pin_pad")) != null) {
-                saveCredentialControlMetadata()
-                // Observed Android 17 Compose PIN pad, not a legacy EditText.
-                // Hardware digits go to its focused credential input.
-                pin.forEach { device.pressKeyCode(KeyEvent.KEYCODE_0 + (it - '0')) }
-                device.pressEnter()
-                return
-            }
-            SystemClock.sleep(100)
-        }
-        error("Credential entry unavailable in ${device.currentPackageName}")
-    }
-
-    private fun operateSystemControl(device: UiDevice, selector: BySelector, action: UiObject2.() -> Unit) {
-        val deadline = SystemClock.uptimeMillis() + 20_000
-        while (SystemClock.uptimeMillis() < deadline) {
-            val control = device.wait(Until.findObject(selector), 1_000) ?: continue
-            try { control.action(); return }
-            catch (_: StaleObjectException) { /* Query a fresh node after system layout changes. */ }
-        }
-        error("Android system control unavailable")
-    }
-
-    private fun saveCredentialControlMetadata() {
-        val instrumentation = InstrumentationRegistry.getInstrumentation()
-        val publicControls = StringBuilder()
-        var remaining = 500
-        fun visit(node: AccessibilityNodeInfo) {
-            if (remaining-- <= 0) return
-            if (node.packageName?.toString() == "com.android.systemui") {
-                publicControls.append(node.className).append(" id=").append(node.viewIdResourceName)
-                    .append(" editable=").append(node.isEditable).append(" password=").append(node.isPassword)
-                    .append(" focused=").append(node.isFocused).append('\n')
-            }
-            for (index in 0 until node.childCount) node.getChild(index)?.let(::visit)
-        }
-        instrumentation.uiAutomation.rootInActiveWindow?.let(::visit)
-        val output = File(instrumentation.targetContext.cacheDir, "wallet-export-evidence/credential-controls.txt")
-        output.parentFile!!.mkdirs()
-        output.writeText(publicControls.toString())
-    }
-
-    companion object { private const val TEST_PIN = "246813" }
 }

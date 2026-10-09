@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+"""Exercise real process loss during a pending, unauthenticated wallet export."""
+import argparse
+from pathlib import Path
+import re
+import subprocess
+
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("--evidence", type=Path, required=True)
+args = parser.parse_args()
+package = "nl.davidengelen.redsquare.dev"
+test_package = package + ".test"
+runner = test_package + "/androidx.test.runner.AndroidJUnitRunner"
+test_class = "nl.davidengelen.redsquare.WalletExportInterruptionTest"
+# Public synthetic emulator fixture, never an operator credential.
+test_pin = "246813"
+
+def adb(*arguments, check=True, timeout=60):
+    return subprocess.run(["adb", *arguments], text=True, capture_output=True,
+                          check=check, timeout=timeout)
+
+if not adb("get-serialno").stdout.strip().startswith("emulator-"):
+    raise SystemExit("This destructive process check requires an isolated emulator")
+args.evidence.mkdir(parents=True, exist_ok=True)
+state_path = "cache/wallet-export-interruption-state.txt"
+adb("shell", "run-as", package, "rm", "-f", state_path)
+adb("shell", "locksettings", "set-pin", "--user", "0", test_pin)
+try:
+    prepared = adb("shell", "am", "instrument", "-w", "-r", "-e", "class",
+                   test_class + "#prepareExportThenTerminateBeforeAuthentication", runner,
+                   check=False, timeout=150)
+    (args.evidence / "interrupted-instrumentation.txt").write_text(prepared.stdout)
+    # A missing normal test result alone is never treated as successful interruption.
+    state = adb("exec-out", "run-as", package, "cat", state_path).stdout.splitlines()
+    if len(state) != 2 or not re.fullmatch(r"[1-9A-HJ-NP-Za-km-z]{44}", state[0]):
+        raise AssertionError("Authenticated-export interruption was not prepared")
+    if not re.fullmatch(r"interrupted-[0-9a-f-]{36}\.json", state[1]):
+        raise AssertionError("Invalid public interruption fixture")
+    if adb("shell", "pidof", package, check=False).stdout.strip():
+        raise AssertionError("Export process was not actually terminated")
+    document_size = adb("exec-out", "run-as", test_package, "stat", "-c", "%s",
+                        "files/wallet-test-documents/" + state[1]).stdout.strip()
+    if document_size != "0":
+        raise AssertionError("Unauthenticated export wrote private bytes")
+    adb("shell", "am", "force-stop", package)
+    recovered = adb("shell", "am", "instrument", "-w", "-r", "-e", "class",
+                    test_class + "#coldRecoveryRetainsIdentityAndRequiresNewAuthentication", runner,
+                    timeout=150)
+    (args.evidence / "recovered-instrumentation.txt").write_text(recovered.stdout)
+    if "OK (1 test)" not in recovered.stdout:
+        raise AssertionError("Cold export recovery did not pass")
+    for name in ("process-recovery.png", "process-retry.png"):
+        with (args.evidence / name).open("wb") as output:
+            subprocess.run(["adb", "exec-out", "run-as", package, "cat",
+                            "cache/wallet-export-evidence/" + name], stdout=output,
+                           check=True, timeout=60)
+    (args.evidence / "continuity.txt").write_text(
+        "PASS: actual process death before credentials; document has zero bytes; "
+        "cold launch retains identity and retry requires new authentication.\n" + state[0] + "\n")
+finally:
+    adb("shell", "locksettings", "clear", "--old", test_pin, "--user", "0")
+print("PASS: pending export process interruption and authenticated recovery")

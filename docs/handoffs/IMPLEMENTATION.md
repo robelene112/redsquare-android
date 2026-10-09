@@ -35,7 +35,9 @@ one question at a time when a material choice really needs the owner.
   functional red run37889746378 at91d7d35 is observed: no failure by40s,
   while no-lock, normal save and wrong-PIN/cancel all pass. An independent30s
   deadline now invalidates first and keeps cleanup off the completion path;
-  cleanup also survives activity-scope destruction. Runtime green pending.
+  cleanup also survives activity-scope destruction. Runtime green passes both SDKs in37890457247/37890459989 at1167582;
+  all four export cases and reminder/recovery pass, with public evidence retained.
+  Spec re-review finds no new correctness defects in that deadline fix.
   Complete other provider faults, lifecycle/process recovery,
   both SDKs/full checks and review fixes before closing #6. See ticket05/REVIEW.md.
   See research/NATIVE_WALLET_EXPORT_VERIFICATION.md.

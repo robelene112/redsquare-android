@@ -67,6 +67,7 @@ for line in sys.stdin:
 ' > "$evidence/wallet-export-crash-classes.txt"
         return 1
     fi
+    python3 "$repo_dir/scripts/wallet-export-process-check" --evidence "$evidence/wallet-export-process"
 }
 verify_wallet_backup_reminder() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
