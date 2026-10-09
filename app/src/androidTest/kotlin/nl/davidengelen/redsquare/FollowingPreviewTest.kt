@@ -8,6 +8,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.google.gson.JsonParser
 import nl.davidengelen.redsquare.saito.AndroidBackendStore
 import nl.davidengelen.redsquare.saito.SaitoBackend
+import nl.davidengelen.redsquare.saito.SaitoWallet
 import org.junit.Rule
 import org.junit.Test
 import org.junit.Before
@@ -199,6 +200,81 @@ class FollowingPreviewTest {
                     captureFeedEvidence("following-evidence/author-history-first-failure.png")
                     throw failure
                 }
+            }
+        }
+    }
+
+    @Test fun changingWalletKeepsFollowChoicesWithTheirOriginalIdentity() {
+        check(android.os.Build.HARDWARE in setOf("ranchu", "goldfish")) { "Isolated emulator required" }
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        val fixture = instrumentation.context.assets.open("native-following-reference.json").bufferedReader().use {
+            JsonParser.parseReader(it).asJsonObject
+        }
+        val root = fixture.getAsJsonObject("root")
+        val author = root.get("field2").asString
+        val alternatePublicKey = fixture.getAsJsonObject("otherRoot").get("field2").asString
+        // Public unsafe scalar2 fixture. Never fund or use on a real phone.
+        val alternate = SaitoWallet.importJson("""{"wallet":{"version":5.677,"publicKey":"$alternatePublicKey","privateKey":"${"0".repeat(63)}2"}}""")
+        val peer = ControlledFeedPeer("[$root]") { criteria ->
+            check(criteria.get("field1").asString == "RedSquare" && criteria.get("flagged_ne").asInt == 1)
+            if (criteria.has("field2")) check(criteria.get("field2").asString == author)
+            "[$root]"
+        }
+        peer.start().use { server ->
+            fun withApp(action: () -> Unit) {
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                    try { action() }
+                    catch (failure: Throwable) {
+                        captureFeedEvidence("following-evidence/identity-following-first-failure.png")
+                        throw failure
+                    }
+                }
+            }
+            val store = AndroidWalletStore(context)
+            lateinit var original: SaitoWallet
+            var alternateActive = false
+            try {
+                withApp {
+                    waitFor("Native Red Square reference post")
+                    ui.onNodeWithText(author).performClick()
+                    waitFor("Follow")
+                    ui.onNodeWithText("Follow").performClick()
+                    waitFor("Unfollow")
+                }
+                original = store.loadExisting()
+                // Filesystem fixture between cold launches, not an import-UI claim.
+                store.replace(original, alternate)
+                alternateActive = true
+                withApp {
+                    waitFor("Native Red Square reference post")
+                    ui.onNodeWithText("Wallet").performClick()
+                    org.junit.Assert.assertEquals(alternatePublicKey, displayedWalletAddress(ui))
+                    ui.onNodeWithText("Done").performClick()
+                    ui.onNodeWithText("Following").performClick()
+                    waitFor("Follow accounts to see their posts here.")
+                    ui.onNodeWithText("Native Red Square reference post").assertDoesNotExist()
+                    ui.onNodeWithText("All posts").performClick()
+                    waitFor("Native Red Square reference post")
+                    ui.onNodeWithText(author).performClick()
+                    waitFor("Follow")
+                    ui.onNodeWithText("Unfollow").assertDoesNotExist()
+                    captureFeedEvidence("following-evidence/replacement-wallet-separate-following.png")
+                }
+                store.replace(alternate, original)
+                alternateActive = false
+                withApp {
+                    waitFor("Native Red Square reference post")
+                    ui.onNodeWithText("Following").performClick()
+                    waitFor("Native Red Square reference post")
+                    ui.onNodeWithText(author).performClick()
+                    waitFor("Unfollow")
+                    peer.assertHealthy()
+                    captureFeedEvidence("following-evidence/original-wallet-following-restored.png")
+                }
+            } finally {
+                if (alternateActive) store.replace(alternate, original)
             }
         }
     }
