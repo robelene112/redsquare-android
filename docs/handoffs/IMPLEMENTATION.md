@@ -20,16 +20,24 @@ one question at a time when a material choice really needs the owner.
   screenshot remain historical evidence, with no asserted screenshot root cause.
   See research/NATIVE_BACKEND_SELECTION.md and evidence/ticket04/REVIEW.md.
 - Active #6 authenticated export/recovery reminder, assigned with blockers closed.
-  Review base2d16be4. First no-screen-lock flow reproduces functional red
-  run37870867861 atfbf75e0 (missing Export wallet control); minimal availability
-  gate/setup guidance passes run37871388107 at91d3a1a on Android 10, with the
-  public screenshot inspected. Corrected real-PIN run37885541772 reproduces
-  functional red at the missing picker. Platform authentication and exact SAF
-  write/readback are implemented at2d467b5. First retries fail inside the test
-  document provider, before authentication, on both versions; Android 17 shows
-  the test APK crashing. Platform-only Java fixture correction at a071b6b is
-  checking in37886921271/37886923608. Authentication/save runtime green,
-  cancellation/fault checks and backup reminder/recovery copy are still pending.
+  Review base2d16be4. Actual PIN/SAF export passes Android10 run37886921271,
+  repeated37888087995; reminder/recovery also passes37888087995. Android17
+  passes both flows in37888321321 at b068d89, with actual Compose credential
+  PIN pad and saved-file readback. Public logs/screenshots are inspected and
+  retained in ticket05/first-pin-green and reminder-green. Test fixture failures
+  are separately retained, not counted as functional app failures.
+  Wrong-PIN/cancel regression first exposed repeated-picker title ambiguity on
+  both SDKs. The actual drawer row is now selected by its resource, with stale
+  controls reacquired. At f095a00, full checks include export and reminder;
+  both Standards findings are resolved through91d7d35. Spec review finds
+  missing failure/interruption coverage and a concrete indefinite-provider-stall
+  defect. New real provider pipe stays open60s and requires failure by40s;
+  functional red run37889746378 at91d7d35 is observed: no failure by40s,
+  while no-lock, normal save and wrong-PIN/cancel all pass. An independent30s
+  deadline now invalidates first and keeps cleanup off the completion path;
+  cleanup also survives activity-scope destruction. Runtime green pending.
+  Complete other provider faults, lifecycle/process recovery,
+  both SDKs/full checks and review fixes before closing #6. See ticket05/REVIEW.md.
   See research/NATIVE_WALLET_EXPORT_VERIFICATION.md.
   Then #7 safeguarded import.
   The first new phone-review milestone remains after #7, then continue all35.

@@ -10,7 +10,9 @@ Two findings: full verification omitted export/reminder tests, and the success
 test duplicated its existing picker helper. Both are corrected in `f095a00`:
 full now calls the flows, and the shared helper selects the drawer row by its
 Android title resource instead of the identically named toolbar title. Runtime
-validation and review of fixes remain pending.
+validation remains pending. Independent Standards re-review through `91d7d35`
+confirms both fixes and zero remaining source findings; this does not establish
+runtime acceptance.
 
 ## Specification
 
@@ -19,7 +21,12 @@ stalled provider can keep Export disabled indefinitely. Blocking best-effort
 deletion also delays failure completion. A controlled Android provider read
 pipe now stays open for 60 seconds, with a test requiring a readable failure
 within 40 seconds, unchanged identity and a retryable Export action. Its actual
-functional red must be observed before implementing the independent deadline.
+functional red is observed in Android10 run `37889746378` at `91d7d35`:
+no readable terminal failure by40s. The no-lock, normal PIN/save and wrong-PIN/
+cancel tests all pass in that same run. The implementation now schedules an
+independent30s deadline, invalidates the operation before publishing failure,
+and keeps provider cancellation/closure/deletion outside its completion path.
+Runtime green and review of the fix remain pending.
 Additional write/readback and lifecycle/process recovery checks remain pending.
 
 Normal real-PIN export and reminder/recovery pass both Android 10 and 17.

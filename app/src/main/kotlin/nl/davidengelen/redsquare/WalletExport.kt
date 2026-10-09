@@ -14,6 +14,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import nl.davidengelen.redsquare.saito.SaitoWallet
@@ -24,6 +28,7 @@ class WalletExport(
     private val currentWallet: () -> SaitoWallet?,
     private val chooseDocument: (String) -> Unit,
 ) {
+    private val documents = activity.applicationContext.contentResolver
     var message by mutableStateOf<Int?>(null)
         private set
     var busy by mutableStateOf(false)
@@ -34,6 +39,7 @@ class WalletExport(
         val cancellation = CancellationSignal()
         var uri: Uri? = null
         var authenticating = false
+        var deadline: Job? = null
         @Volatile var descriptor: ParcelFileDescriptor? = null
     }
 
@@ -95,6 +101,14 @@ class WalletExport(
     }
 
     private fun save(operation: Attempt, uri: Uri) {
+        operation.deadline = activity.lifecycleScope.launch {
+            delay(SAVE_TIMEOUT_MILLIS)
+            if (isCurrent(operation)) {
+                // Publish the terminal state without awaiting a remote provider.
+                finish(operation, R.string.wallet_export_failed)
+                discard(operation)
+            }
+        }
         activity.lifecycleScope.launch {
             val saved = withContext(Dispatchers.IO) {
                 var verified = false
@@ -105,7 +119,7 @@ class WalletExport(
                     bytes = backup
                     require(backup.size in 1..SaitoWallet.MAX_BACKUP_BYTES)
                     check(isCurrent(operation))
-                    val output = requireNotNull(activity.contentResolver.openFileDescriptor(uri, "wt", operation.cancellation))
+                    val output = requireNotNull(documents.openFileDescriptor(uri, "wt", operation.cancellation))
                     operation.descriptor = output
                     ParcelFileDescriptor.AutoCloseOutputStream(output).use { stream ->
                         check(isCurrent(operation))
@@ -115,7 +129,7 @@ class WalletExport(
                     }
                     operation.descriptor = null
                     check(isCurrent(operation))
-                    val input = requireNotNull(activity.contentResolver.openFileDescriptor(uri, "r", operation.cancellation))
+                    val input = requireNotNull(documents.openFileDescriptor(uri, "r", operation.cancellation))
                     operation.descriptor = input
                     val readback = ByteArray(backup.size + 1)
                     try {
@@ -141,7 +155,7 @@ class WalletExport(
                 } finally {
                     operation.descriptor = null
                     bytes?.fill(0)
-                    if (!verified) deleteDocument(uri)
+                    if (!verified) discard(operation)
                 }
                 verified
             }
@@ -156,27 +170,34 @@ class WalletExport(
     private fun finish(operation: Attempt, result: Int) {
         if (attempt !== operation) return
         attempt = null
-        operation.cancellation.cancel()
+        operation.deadline?.cancel()
         busy = false
         message = result
+        stopResources(operation)
     }
 
     fun cancel() {
         val operation = attempt ?: return
-        attempt = null
-        operation.cancellation.cancel()
-        runCatching { operation.descriptor?.close() }
+        finish(operation, R.string.wallet_export_cancelled)
         discard(operation)
-        busy = false
-        message = R.string.wallet_export_cancelled
+    }
+
+    private fun stopResources(operation: Attempt) {
+        cleanupScope.launch {
+            runCatching { operation.cancellation.cancel() }
+            runCatching { operation.descriptor?.close() }
+        }
     }
 
     private fun discard(operation: Attempt) {
         val uri = operation.uri ?: return
-        activity.lifecycleScope.launch(Dispatchers.IO) { deleteDocument(uri) }
+        val resolver = documents
+        cleanupScope.launch { runCatching { DocumentsContract.deleteDocument(resolver, uri) } }
     }
 
-    private fun deleteDocument(uri: Uri) {
-        runCatching { DocumentsContract.deleteDocument(activity.contentResolver, uri) }
+    companion object {
+        private const val SAVE_TIMEOUT_MILLIS = 30_000L
+        // Resource cleanup must still run after the activity scope is destroyed.
+        private val cleanupScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     }
 }
