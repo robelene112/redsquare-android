@@ -188,10 +188,14 @@ class PostPreviewTest {
                     ui.onNodeWithText("Settings").performClick()
                     ui.onNodeWithText("saito.io").performClick()
                     waitFor("Could not load or confirm the saved draft. Your current text remains here. Try again.")
+                    ui.waitUntil(10_000) { ui.onNodeWithText("Server: saito.davidengelen.nl").isDisplayed() }
                     ui.onNodeWithText("Server: saito.davidengelen.nl").assertIsDisplayed()
                     ui.onNode(hasSetTextAction()).assertTextEquals("Retain work when saving fails").assertIsEnabled()
                     assertTrue(owner.transactions.isEmpty() && official.transactions.isEmpty())
                     captureFeedEvidence("posting-evidence/failed-save-keeps-server-and-text.png")
+                } catch (failure: Throwable) {
+                    captureFeedEvidence("posting-evidence/failed-save-navigation-failure.png")
+                    throw failure
                 } finally { check(child.delete()); check(obstacle.delete()) }
                 ui.onNodeWithText("Settings").performClick()
                 ui.onNodeWithText("saito.io").performClick()
@@ -551,7 +555,14 @@ class PostPreviewTest {
                 .scrollIntoView(androidx.test.uiautomator.UiSelector().text("reference-import.json")) }
             catch (_: androidx.test.uiautomator.UiObjectNotFoundException) { /* Keep the picker available for diagnosis. */ }
         }
-        requireNotNull(device.wait(androidx.test.uiautomator.Until.findObject(file), 10_000)).click()
+        val selectedFile = device.wait(androidx.test.uiautomator.Until.findObject(file), 10_000)
+        if (selectedFile == null) {
+            captureFeedEvidence("posting-evidence/import-picker-failure.png")
+            val evidence = java.io.File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
+                "posting-evidence/import-picker-failure.xml")
+            device.dumpWindowHierarchy(evidence)
+        }
+        requireNotNull(selectedFile) { "Reference import was not visible in the selected test folder" }.click()
     }
 
     @Test fun longerMultilingualPostsPreserveTheirOriginalTextOnBothApprovedBackends() {

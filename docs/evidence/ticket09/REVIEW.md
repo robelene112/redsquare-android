@@ -46,5 +46,9 @@ Final Spec: zero actionable findings. Focused green37992419586 passes14 cases pl
 Final37993173583 passes source checks, then browse7/8 reveals an outdated
 recreation assumption in the cache fixture. The app retains Likes correctly;
 fresh activity launches now ensure disk-only profile/conversation recovery.
-Replacement full acceptance and review of this fixture delta remain pending.
+Both fixture-delta review axes at9aa3884 report zero actionable findings.
+Fresh-activity recovery is distinct from process death. Failure screenshots
+for these two cases are captured after the failing activity closes and may
+miss that screen; success captures remain inside the activity. Replacement
+full37994339188 remains pending.
 Cancelled37993042535 is superseded.

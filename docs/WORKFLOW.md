@@ -100,6 +100,11 @@ the owner chooses whether to start it. It is not required for every app-wide gri
    Dispatch focused device runs during development and one full Android 10/17
    run for final acceptance. A successful push source check is not runtime
    acceptance. Avoid duplicating full device runs on every interim commit.
+   If production source is unchanged and Android 10 has passed full verification,
+   a test-fixture correction can use `full-android17` for the outstanding full
+   Android 17 check. It runs release assembly/lint and the entire device suite;
+   record both runs and their source equivalence. Production changes require
+   fresh full acceptance on both versions.
 4. Ensure `code-review` sees the actual changes. Its upstream default compares
    committed `HEAD` against a fixed base, so make an interim implementation
    commit before that review if needed. An empty committed diff is not a review

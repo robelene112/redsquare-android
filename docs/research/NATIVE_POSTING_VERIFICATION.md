@@ -7,7 +7,8 @@ Full37993173583 passes source checks then stops at an outdated cached-profile
 fixture (7/8 browse cases pass). Retained navigation preserves Likes, whereas
 the fixture expects default Posts after recreation. Both cached browse tests
 now close and launch a fresh activity, excluding retained history from recovery
-proof. Local test assembly passes1m35; replacement full dispatch next. Cancelled
+proof. Local test assembly passes1m35. Replacement full37994339188 at9aa3884 has
+passed Android10; Android17 remains active. Cancelled
 37993042535 is superseded. Eight tickets complete.
 
 ## Implemented behavior
