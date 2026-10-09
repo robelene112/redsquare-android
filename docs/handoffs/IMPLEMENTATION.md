@@ -36,9 +36,14 @@ one question at a time when a material choice really needs the owner.
   Third app case obstructs only following.<displayed-own-public-key>.v1 after
   choices loaded, requires failed Follow remains unconfirmed with error, removes
   the public filesystem fixture, retries and requires success/Following content.
-  Current run37951108934 on Android10 is pending; source unchanged from3caa31a.
-  Wait for meaningful green before the next test. Then identity and targeted
-  author retrieval checks, both reviews and
+  Run37951108934 at65e4ba5 passes all three cases on Android10 in11.747s;
+  public failure-with-unconfirmed-Follow and successful retry images/log
+  inspected/retained save-retry-green. Fourth app case follows author1 and
+  requires a newer signed post absent from the general page, excluding a valid
+  author2 post whose archive field2 misleadingly claims author1. Current run
+  37951927215 on Android10 is pending; source unchanged from3caa31a. Wait for
+  meaningful green before the next test. Then an actual-app identity isolation
+  check using only synthetic wallet fixtures between cold launches, both reviews and
   final full; close#9 only on acceptance and continue all35 sequentially.
   New references use the pure pinned WASM/Elliptic helper. Direct named deployed
   public Archive source read confirmed exact field2 criteria; named Git-object
