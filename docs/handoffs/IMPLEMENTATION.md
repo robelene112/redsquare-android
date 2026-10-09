@@ -33,82 +33,32 @@ one question at a time when a material choice really needs the owner.
   excluded from visual acceptance. Controlled switching images are correct.
   Wallet/cache recovery and signed5-to-8 continuity pass. No new APK, private
   uploads, production writes or physical-device/push proof. Continue all35.
-- Active #10, "09: Publish text posts and replies with recoverable drafts",
-  assigned@me, review base78163d6, all native blockers complete; #9 closed
-  comment6085557419. Production candidatedca6cf1, latest reply test9331e52. Actual four-case
-  red37969745626 passes the first3 and fails missing Reply (line70),12.732s;
-  inspected public log/Conversation image retained ticket09/reply-red.
-  Minimal68b7e9d adds Conversation Reply/shared composer, separate parent
-  drafts, signed parent/root thread, ordered parent-author+inherited recipients,
-  sequential output indices and zero-only restore guards. Verified envelopes
-  expose signed output recipients. Local build failed missing FeedPost import;
-  correcteddca6cf1 passes core16/debug/test assembly1m27s, no local build active.
-  Four-case green37970835482 atdca6cf1 passes Android10 in10.785s; public
-  log/reply-in-Conversation image inspected/retained ticket09/reply-green.
-  37970627296 canceled after import failure; not runtime proof. At23f163a,
-  pure reference helper now supports ordered public scalar1/2 output recipients;
-  WASM signature preimage checks/serialization and Elliptic independently verify
-  recipient reply/output index1/hop. Both public root/reply core tests pass24s
-  (new full17-case core run not yet done). Fifth actual UI case c348f14 taps
-  independently signed existing reply then Reply, requires its author/parent,
-  original root thread and recipient order[self,parentAuthor,ancestorAuthor].
-  Five-case red37971949876 fails only nested selection at line78,32.55s:
-  tapping the existing reply leaves the root selected. Public log and image
-  inspected/retained ticket09/nested-reply-red. Minimal850c098 adds verified
-  post selection through the existing Conversation navigation stack. Five-case
-  green37972847178 is running; build passed, Android10 runtime pending.
-  GitHub #10 had been closed without acceptance evidence by earlier commit
-  4d1e91a; reopened on2026-10-09. It remains in progress, not a ninth delivery.
-  Run37972847178 passes nested/root replies, drafts and explicit Send; the
-  publication-to-feed case raced its asynchronous Back transition and matched
-  the outgoing editor before feed navigation completed. It fails visibility
-  at line193,18.208s. Public log/nested-success image inspected and retained
-  ticket09/nested-reply-transition. Corrected42c5774 waits New post and scrolls
-  the feed to the observed publication. Five-case37973493246 passes Android10
-  at42c5774,14.889s; public log/nested parent/visible feed images inspected and
-  retained ticket09/nested-reply-green. No Android17/final full acceptance yet.
-  Both interim source reviews at42c5774 are in ticket09/INTERIM_REVIEW.md.
-  Three hard Standards and six Spec findings remain: unsaved navigation loss,
-  concurrent Save/Send candidate overwrite, inaccurate recovered pending/error
-  state, absent same-screen retry/reconciliation, native work missing from
-  wallet replacement warning, pending/fault/isolation/two-backend proof, and
-  declared text policy. Do not close #10 before fixes/review/full evidence.
-  First3 cases pass8.119s in37968817970 atfdcc528: encrypted draft save/reopen
-  without broadcast; explicit signed zero-payment submission with pending copy;
-  matching verified exact-sig Archive observation marks Available, Back clears
-  completed draft and refreshes selected feed, showing actual new post.
-  Public logs/images inspected and retained ticket09/{draft,send,observation}-green.
-  Actual functional reds37964083012 missing New post,37966333736 missing Send,
-  37968017392 no Available and absent received frame (immediate socket close).
-  Minimalfdcc528 keeps peer open through up to6 exact-sig queries2s apart.
-  Draft storage AES256GCM Keystore/package+filename AAD/noBackup AtomicFile,
-  fd+directory sync/decrypted readback; wallet/backend-specific,1MiB text and
-  5MiB encoded record bounds. v1 raw text migration; v2 text+exact signed Normal
-  candidate persisted before submit, restored signature/author/text verified.
-  SaitoTransaction creates zero-payment root, detached envelope, immutable raw
-  restore; hop signs signature64+destination33, type4 without index or RPC ack.
-  Pure independent posting-reference.cjs verified WASM0.3.2/Elliptic6.6.1 plus
-  serialization roundtrip, public unsafe scalar1/2 only. At2e62a19, new public
-  SaitoTransactionTest matches Unicode root/network/envelope/hop bytes exactly;
-  focused root core test passed26s; full16 cases now pass at68b7e9d. References
-  docs/research/NATIVE_POSTING_REFERENCE.json and core resource.
-  Fourth test requires Reply from actual Conversation, parent/root thread and
-  parent author output, actual archive observation and reply in thread on Back.
-  Current ControlledFeedPeer has onTransaction before last archiveResponse
-  parameter to preserve existing trailing lambdas; records public frames,
-  atomic indexed-row fixture. Post tests Before guards .dev+ranchu/goldfish and
-  clears synthetic postdraft records only, never wallet keys; no case-order
-  dependence.37965701990 was editor-ready harness timing failure; corrected
-  actualred above.37965626375/37967863806/37967946413 superseded during setup.
-  Local full core/debug/test assembly atfdcc528 passes1m30s, no build active.
-  Remaining: replies (including nested/inherited recipients), draft/pending
-  identity/backend isolation/retry/cold recovery/navigation/save faults, funded
-  text policy (>500 UTF16 web threshold permitted with nonzero balance), both
-  backend fixtures, independent reply vectors, final source axes/full proof.
-  Primary contractf31ed06 in NATIVE_POSTING_CONTRACT.md cites named public
-  deployed files/hash and pinned Rust sources, no new Git revision claim.
-  Never claim socket enqueue as archive availability or archive as chain proof.
-  No production writes, private uploads or new APK. Continue all35 sequentially.
+- Active #10, "09: Publish text posts and replies with recoverable drafts".
+  Eight of35 complete,27 remaining including active#10. Review base78163d6.
+  Current source092a5b6; six-case green37977871622 running. Local debug/test
+  assembly passes1m27s. Five-case Android10 proof37973493246 at42c5774 passes
+  root/nested replies, draft save/reopen, zero-payment send and verified archive
+  availability in14.889s. Public logs/images inspected in ticket09 evidence.
+  New actual navigation red37976960559 at8ef70f9 loses unfinished owner text
+  after switching to official and back (line127). A separate feed transition
+  race also failed; the harness now waits for the feed's LazyColumn. Initial
+  37976114135 stopped at a placeholder assertion, not functional recovery proof.
+  Minimal092a5b6 adds mounted-composer save-before-backend/identity navigation,
+  verified encrypted persistence under a Mutex, signed candidate assignment
+  before saving, and disabled Back/Save during Send. Existing draft formats
+  retained. Navigation save failure keeps current server and editable work.
+  No automatic draft publication. No local build active.
+  Both interim source reviews are ticket09/INTERIM_REVIEW.md. Remaining work:
+  truthful recovered pending/error state, same-screen Retry/Check preserving
+  exact ID and reconciliation before rebroadcast, native work in wallet import
+  risk preview, pending cold/fault/isolation/two-backend proof, declared text
+  bounds, final two-axis fixes/review/full Android10/17 acceptance. Unsaved
+  activity recreation still needs its own actual verification; the new case
+  recreates a draft already persisted by backend navigation. Independent root
+  and ordered-reply WASM/Elliptic vectors are implemented in public core tests.
+  Detailed contract/history: NATIVE_POSTING_CONTRACT.md and
+  NATIVE_POSTING_VERIFICATION.md. GitHub#10 reopened after premature closure;
+  do not close it until acceptance. No production writes or new review APK.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.
