@@ -154,6 +154,55 @@ class FollowingPreviewTest {
         }
     }
 
+    @Test fun followingLoadsAuthorHistoryBeyondTheGeneralPageAndRejectsOtherSigners() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        val fixture = instrumentation.context.assets.open("native-following-reference.json").bufferedReader().use {
+            JsonParser.parseReader(it).asJsonObject
+        }
+        val paging = instrumentation.context.assets.open("native-profile-paging-reference.json").bufferedReader().use {
+            JsonParser.parseReader(it).asJsonObject
+        }
+        val root = fixture.getAsJsonObject("root")
+        val other = fixture.getAsJsonObject("otherRoot")
+        val author = root.get("field2").asString
+        val newer = paging.getAsJsonArray("recentPosts")[0]
+        val misleading = other.deepCopy().apply { addProperty("field2", author) }
+        val peer = ControlledFeedPeer("[$root,$other]") { criteria ->
+            check(criteria.get("field1").asString == "RedSquare" && criteria.get("flagged_ne").asInt == 1)
+            when {
+                criteria.has("field2") -> {
+                    check(criteria.get("field2").asString == author)
+                    "[$newer,$misleading]"
+                }
+                else -> "[$root,$other]"
+            }
+        }
+        peer.start().use { server ->
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                try {
+                    waitFor("Native Red Square reference post")
+                    ui.onNodeWithText("Profile newer post 20").assertDoesNotExist()
+                    ui.onNodeWithText(author).performClick()
+                    waitFor("Follow")
+                    ui.onNodeWithText("Follow").performClick()
+                    waitFor("Unfollow")
+                    ui.onNodeWithText("Back").performClick()
+                    ui.onNodeWithText("Following").performClick()
+                    waitFor("Profile newer post 20")
+                    ui.onNodeWithText("Profile newer post 20").assertIsDisplayed()
+                    ui.onNodeWithText("Another account reference post").assertDoesNotExist()
+                    peer.assertHealthy()
+                    captureFeedEvidence("following-evidence/available-author-history.png")
+                } catch (failure: Throwable) {
+                    captureFeedEvidence("following-evidence/author-history-first-failure.png")
+                    throw failure
+                }
+            }
+        }
+    }
+
     @Test fun followingAnAccountRestrictsTheFeedAndUnfollowingRemovesItsPosts() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
