@@ -10,6 +10,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.delay
@@ -29,6 +32,8 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
     val context = LocalContext.current.applicationContext
     val store = remember(owner, backend, parent?.id) { PostDraftStore(context, owner, backend, parent) }
     val scope = rememberCoroutineScope()
+    val writes = remember(store) { Mutex() }
+    val navigation = requireNotNull(LocalPostNavigation.current)
     var text by remember(store) { mutableStateOf("") }
     var ready by remember(store) { mutableStateOf(false) }
     var saving by remember(store) { mutableStateOf(false) }
@@ -48,15 +53,27 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { error = true }
     }
+    suspend fun persist(): Boolean = writes.withLock {
+        if (!ready) return@withLock false
+        try {
+            val snapshot = if (available) PostDraftStore.Saved("") else PostDraftStore.Saved(text, transaction)
+            withContext(NonCancellable + Dispatchers.IO) { store.save(snapshot) }
+            error = false
+            true
+        } catch (cancelled: CancellationException) { throw cancelled }
+        catch (_: Exception) { error = true; false }
+    }
+    DisposableEffect(store) {
+        val save: suspend () -> Boolean = { persist() }
+        navigation.saveCurrent = save
+        onDispose { if (navigation.saveCurrent === save) navigation.saveCurrent = null }
+    }
     fun saveAndClose() {
-        if (!ready || saving) return
+        if (!ready || saving || sending) return
         saving = true
         scope.launch {
             try {
-                withContext(Dispatchers.IO) {
-                    store.save(if (available) PostDraftStore.Saved("") else PostDraftStore.Saved(text, transaction))
-                }
-                onClose()
+                if (persist()) onClose()
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { error = true }
             finally { saving = false }
@@ -67,7 +84,8 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
         sending = true
         scope.launch {
             try {
-                val candidate = transaction ?: withContext(Dispatchers.IO) {
+                val candidate = writes.withLock {
+                    val prepared = transaction ?: withContext(Dispatchers.IO) {
                     val body = JsonObject().apply {
                         addProperty("module", "RedSquare"); addProperty("request", "create tweet")
                         add("data", JsonObject().apply {
@@ -76,10 +94,13 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                         })
                     }
                     val recipients = parent?.let { (listOf(it.author) + it.recipients).distinct() }.orEmpty()
-                    SaitoTransaction.create(wallet, body, System.currentTimeMillis(), recipients).also {
-                        store.save(PostDraftStore.Saved(text, it))
+                        SaitoTransaction.create(wallet, body, System.currentTimeMillis(), recipients)
                     }
-                }.also { transaction = it }
+                    transaction = prepared
+                    val snapshot = PostDraftStore.Saved(text, prepared)
+                    withContext(NonCancellable + Dispatchers.IO) { store.save(snapshot) }
+                    prepared
+                }
                 withContext(Dispatchers.IO) {
                     SaitoPeer(wallet, endpoint).use { peer ->
                         peer.submit(candidate)
@@ -107,15 +128,15 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
             finally { sending = false }
         }
     }
-    BackHandler { if (ready) saveAndClose() else onClose() }
+    BackHandler { if (!sending) { if (ready) saveAndClose() else onClose() } }
     Column(modifier.imePadding()) {
         Row {
-            TextButton(enabled = !saving, onClick = { if (ready) saveAndClose() else onClose() }) {
+            TextButton(enabled = !saving && !sending, onClick = { if (ready) saveAndClose() else onClose() }) {
                 Text(stringResource(R.string.browse_back))
             }
             Text(stringResource(if (parent == null) R.string.post_new else R.string.post_reply), Modifier.weight(1f).padding(vertical = 12.dp),
                 style = MaterialTheme.typography.titleLarge)
-            TextButton(enabled = ready && !saving, onClick = ::saveAndClose) {
+            TextButton(enabled = ready && !saving && !sending, onClick = ::saveAndClose) {
                 Text(stringResource(R.string.post_save_draft))
             }
             TextButton(enabled = ready && !saving && !sending && text.isNotBlank() && !submitted, onClick = ::send) {

@@ -41,6 +41,8 @@ import nl.davidengelen.redsquare.saito.ImportBalance
 import nl.davidengelen.redsquare.saito.AndroidBackendStore
 import nl.davidengelen.redsquare.feed.FeedScreen
 import nl.davidengelen.redsquare.feed.FeedEndpoints
+import nl.davidengelen.redsquare.feed.LocalPostNavigation
+import nl.davidengelen.redsquare.feed.PostNavigation
 
 class MainActivity : ComponentActivity() {
     private var walletExports: WalletExport? = null
@@ -79,6 +81,7 @@ class MainActivity : ComponentActivity() {
             var backendSaveError by remember { mutableStateOf(false) }
             val backendStates = rememberSaveableStateHolder()
             val scope = rememberCoroutineScope()
+            val postNavigation = remember { PostNavigation() }
             LaunchedEffect(Unit) {
                 backend = withContext(Dispatchers.IO) {
                     try { backendStore.load() } catch (_: Exception) { null }
@@ -95,7 +98,8 @@ class MainActivity : ComponentActivity() {
             val walletExport = remember { WalletExport(this@MainActivity, { wallet }, createWalletDocument::launch) }
             val balances = remember { WalletBalances.fromIntent(intent) }
             val walletImport = remember { WalletImport(this@MainActivity, { wallet }, { backend }, balances,
-                activate = { previous, incoming ->
+                activate = activate@ { previous, incoming ->
+                    if (!postNavigation.save()) return@activate WalletImport.Activation(previous, false)
                     wallet = null
                     val result = withContext(Dispatchers.IO) {
                         val store = AndroidWalletStore(applicationContext)
@@ -216,8 +220,10 @@ class MainActivity : ComponentActivity() {
                             val selected = backend
                             if (selected != null) backendStates.SaveableStateProvider(selected.id) {
                                 key(selected) {
+                                    CompositionLocalProvider(LocalPostNavigation provides postNavigation) {
                                     FeedScreen(wallet, failed, FeedEndpoints.fromIntent(intent, selected), selected,
                                         lifecycle, Modifier.weight(1f)) { reportFullyDrawn() }
+                                    }
                                 }
                             } else if (!backendReady) Text(stringResource(R.string.feed_loading))
                         }
@@ -238,6 +244,10 @@ class MainActivity : ComponentActivity() {
                                             backendSaveError = false
                                             scope.launch {
                                                 try {
+                                                    if (!postNavigation.save()) {
+                                                        settingsOpen = false
+                                                        return@launch
+                                                    }
                                                     val outcome = withContext(Dispatchers.IO) {
                                                         try { backendStore.save(choice); Result.success(Unit) }
                                                         catch (failure: Exception) { Result.failure(failure) }

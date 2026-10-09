@@ -240,6 +240,7 @@ class PostPreviewTest {
                     captureFeedEvidence("posting-evidence/observed-publication.png")
                     ui.onNodeWithText("Back").performClick()
                     waitFor("New post")
+                    ui.waitUntil(10_000) { ui.onAllNodes(hasScrollToIndexAction()).fetchSemanticsNodes().isNotEmpty() }
                     waitFor("Observed native publication")
                     ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("Observed native publication"))
                     ui.onNodeWithText("Observed native publication").assertIsDisplayed()
