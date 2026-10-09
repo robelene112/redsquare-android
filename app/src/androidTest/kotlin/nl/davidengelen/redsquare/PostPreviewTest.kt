@@ -11,9 +11,19 @@ import nl.davidengelen.redsquare.saito.SaitoBackend
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
+import org.junit.Before
 
 class PostPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
+
+    @Before fun prepareIsolatedDraftFixtures() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        check(context.packageName.endsWith(".dev"))
+        check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
+        // Clear only synthetic draft records between cases. Never touch wallet keys.
+        context.noBackupFilesDir.listFiles()?.filter { it.name.startsWith("postdraft.") }
+            ?.forEach { check(it.delete()) }
+    }
 
     @Test fun matchingSignedArchiveObservationMakesThePublishedPostAvailableInTheFeed() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
