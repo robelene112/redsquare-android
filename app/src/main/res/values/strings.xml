@@ -27,4 +27,7 @@
     <string name="server_history_hint">Each server has its own available history and moderation. Your wallet stays the same.</string>
     <string name="backend_load_error">Your server selection could not be opened. Choose a server in Settings.</string>
     <string name="backend_save_error">Your server selection could not be saved. Try again.</string>
+    <string name="wallet_export">Export wallet</string>
+    <string name="wallet_auth_setup">Set a screen lock in Android settings to export your wallet.</string>
+    <string name="wallet_auth_unavailable">Device authentication could not start. Try again.</string>
 </resources>

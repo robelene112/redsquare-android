@@ -20,8 +20,10 @@ one question at a time when a material choice really needs the owner.
   screenshot remain historical evidence, with no asserted screenshot root cause.
   See research/NATIVE_BACKEND_SELECTION.md and evidence/ticket04/REVIEW.md.
 - Active #6 authenticated export/recovery reminder, assigned with blockers closed.
-  Review base2d16be4. First no-screen-lock export UI test/fixture is written;
-  functional red pending. See research/NATIVE_WALLET_EXPORT_VERIFICATION.md.
+  Review base2d16be4. First no-screen-lock flow reproduces functional red
+  run37870867861 atfbf75e0 (missing Export wallet control); minimal availability
+  gate/setup guidance implemented, runtime green pending. Authentication and
+  actual SAF write/readback remain subsequent slices. See research/NATIVE_WALLET_EXPORT_VERIFICATION.md.
   Then #7 safeguarded import.
   The first new phone-review milestone remains after #7, then continue all35.
 

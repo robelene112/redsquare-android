@@ -1,6 +1,7 @@
 package nl.davidengelen.redsquare
 
 import android.os.Bundle
+import android.app.KeyguardManager
 import android.content.Intent
 import android.net.Uri
 import androidx.activity.ComponentActivity
@@ -67,6 +68,7 @@ class MainActivity : ComponentActivity() {
             var failed by remember { mutableStateOf(false) }
             var retry by remember { mutableIntStateOf(0) }
             var walletOpen by remember { mutableStateOf(false) }
+            var walletExportError by remember { mutableStateOf<Int?>(null) }
             var updateAvailable by remember { mutableStateOf(false) }
             var updateCheck by remember { mutableIntStateOf(0) }
             DisposableEffect(Unit) {
@@ -115,7 +117,7 @@ class MainActivity : ComponentActivity() {
                             }) { Text(stringResource(R.string.view_update)) }
                         }
                         Row {
-                            TextButton(onClick = { walletOpen = true }) { Text(stringResource(R.string.wallet)) }
+                            TextButton(onClick = { walletExportError = null; walletOpen = true }) { Text(stringResource(R.string.wallet)) }
                             TextButton(onClick = { settingsOpen = true }, enabled = backendReady && !savingBackend) {
                                 Text(stringResource(R.string.settings))
                             }
@@ -179,10 +181,17 @@ class MainActivity : ComponentActivity() {
                         title = { Text(stringResource(R.string.your_wallet)) },
                         text = {
                             val addressLabel = stringResource(R.string.wallet_address)
-                            when {
-                                address != null -> Text(address!!, Modifier.semantics { contentDescription = addressLabel })
-                                failed -> Text(stringResource(R.string.wallet_unavailable))
-                                else -> Text(stringResource(R.string.wallet_opening))
+                            Column {
+                                when {
+                                    address != null -> Text(address!!, Modifier.semantics { contentDescription = addressLabel })
+                                    failed -> Text(stringResource(R.string.wallet_unavailable))
+                                    else -> Text(stringResource(R.string.wallet_opening))
+                                }
+                                walletExportError?.let { Text(stringResource(it)) }
+                                TextButton(enabled = wallet != null, onClick = {
+                                    val secure = getSystemService(KeyguardManager::class.java).isDeviceSecure
+                                    walletExportError = if (secure) R.string.wallet_auth_unavailable else R.string.wallet_auth_setup
+                                }) { Text(stringResource(R.string.wallet_export)) }
                             }
                         },
                         confirmButton = { TextButton(onClick = { walletOpen = false }) { Text(stringResource(R.string.done)) } }
