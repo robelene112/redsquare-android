@@ -95,6 +95,14 @@ one question at a time when a material choice really needs the owner.
   fixes. Seventh application tracer explores reply/liked-post authors and checks
   Back restores originating conversation/profile Likes. Compile/red pending;
   no identity-entry-point/navigation stack fix implemented yet.
+  Identity-navigation actual red37938935880 at8d6ea61 passes six existing cases
+  and fails at profile identity after tapping the direct reply's author (line59).
+  Public image/log inspected/retained identity-navigation-red. Minimal author
+  links in conversations/liked cards and a navigation stack retaining profile
+  tab state now exist. Post bodies remain separate click targets; reduced tab
+  button padding fixes the observed wrapped label. Local/device green pending.
+  Then repeat both independent reviews and run final full on both SDKs, inspect
+  evidence, close#8 only when accepted, and continue#9/all35 sequentially.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.

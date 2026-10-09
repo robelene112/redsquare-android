@@ -33,6 +33,11 @@ import java.text.DateFormat
 import java.util.Date
 import java.util.Locale
 
+private sealed interface BrowseDestination {
+    data class Conversation(val post: FeedPost) : BrowseDestination
+    class Profile(val author: String, val view: ProfileViewState = ProfileViewState()) : BrowseDestination
+}
+
 @Composable
 fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: String, backend: SaitoBackend, lifecycle: Lifecycle, modifier: Modifier, onDrawn: () -> Unit) {
     val context = LocalContext.current.applicationContext
@@ -51,8 +56,13 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
     var recovered by remember { mutableStateOf(false) }
     var hadOutage by rememberSaveable { mutableStateOf(false) }
     var refresh by remember { mutableIntStateOf(0) }
-    var conversation by remember { mutableStateOf<FeedPost?>(null) }
-    var profile by remember { mutableStateOf<String?>(null) }
+    val navigation = remember { mutableStateListOf<BrowseDestination>() }
+    fun openProfile(author: String) {
+        if ((navigation.lastOrNull() as? BrowseDestination.Profile)?.author != author) {
+            navigation.add(BrowseDestination.Profile(author))
+        }
+    }
+    fun back() { if (navigation.isNotEmpty()) navigation.removeAt(navigation.lastIndex) }
     val position = rememberLazyListState()
 
     LaunchedEffect(cache) {
@@ -101,14 +111,19 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
     LaunchedEffect(posts.isNotEmpty()) {
         if (posts.isNotEmpty()) { withFrameNanos { }; withFrameNanos { }; onDrawn() }
     }
-    profile?.let { author ->
-        ProfileScreen(wallet, endpoint, backend, author, modifier, onBack = { profile = null },
-            onPost = { conversation = it; profile = null })
-        return
-    }
-    conversation?.let { selected ->
-        ConversationScreen(wallet, endpoint, backend, selected, modifier) { conversation = null }
-        return
+    when (val destination = navigation.lastOrNull()) {
+        is BrowseDestination.Profile -> {
+            ProfileScreen(wallet, endpoint, backend, destination.author, destination.view, modifier,
+                onBack = { back() }, onPost = { navigation.add(BrowseDestination.Conversation(it)) },
+                onIdentity = { openProfile(it) })
+            return
+        }
+        is BrowseDestination.Conversation -> {
+            ConversationScreen(wallet, endpoint, backend, destination.post, modifier,
+                onBack = { back() }, onIdentity = { openProfile(it) })
+            return
+        }
+        null -> Unit
     }
     Column(modifier) {
         val noInternet = !internet.available || (failed && !internet.validated)
@@ -134,10 +149,10 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
         // Keep a restored list position until the asynchronous cache read has finished.
         if (cacheReady) LazyColumn(Modifier.fillMaxSize(), state = position) {
             items(posts, key = { it.id }) { post ->
-                Column(Modifier.clickable { conversation = post }.padding(vertical = 12.dp)) {
-                    Text("Anon-${post.author.take(6)}", Modifier.clickable { profile = post.author }, style = MaterialTheme.typography.titleMedium)
-                    Text(post.author, Modifier.clickable { profile = post.author }, maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.labelSmall)
-                    Text(post.text, Modifier.clickable { conversation = post }.padding(vertical = 8.dp),
+                Column(Modifier.clickable { navigation.add(BrowseDestination.Conversation(post)) }.padding(vertical = 12.dp)) {
+                    Text("Anon-${post.author.take(6)}", Modifier.clickable { openProfile(post.author) }, style = MaterialTheme.typography.titleMedium)
+                    Text(post.author, Modifier.clickable { openProfile(post.author) }, maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.labelSmall)
+                    Text(post.text, Modifier.clickable { navigation.add(BrowseDestination.Conversation(post)) }.padding(vertical = 8.dp),
                         style = MaterialTheme.typography.bodyLarge)
                     Text(DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, Locale.ENGLISH)
                         .format(Date(post.createdAt)), style = MaterialTheme.typography.labelSmall)

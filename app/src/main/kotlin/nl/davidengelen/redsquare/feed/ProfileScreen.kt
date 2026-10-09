@@ -18,19 +18,24 @@ import kotlinx.coroutines.withContext
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.*
 
-private enum class ProfileTab(val label: Int) {
+internal enum class ProfileTab(val label: Int) {
     POSTS(R.string.profile_posts), REPLIES(R.string.profile_replies), LIKES(R.string.profile_likes)
+}
+
+internal class ProfileViewState {
+    var tab by mutableStateOf(ProfileTab.POSTS)
 }
 
 private data class ProfileHistoryPage(val posts: List<FeedPost>, val likes: List<ProfileLike>, val unreadable: Boolean,
     val oldestCreatedAt: Long?, val rowCount: Int)
 
 @Composable
-internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: SaitoBackend, author: String, modifier: Modifier,
-    onBack: () -> Unit, onPost: (FeedPost) -> Unit) {
+internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: SaitoBackend, author: String,
+    view: ProfileViewState, modifier: Modifier, onBack: () -> Unit, onPost: (FeedPost) -> Unit,
+    onIdentity: (String) -> Unit) {
     val context = LocalContext.current.applicationContext
     val cache = remember(backend) { AndroidProfileCache(context, backend) }
-    var tab by remember(author) { mutableStateOf(ProfileTab.POSTS) }
+    val tab = view.tab
     var posts by remember(author, tab) { mutableStateOf<List<FeedPost>>(emptyList()) }
     var loading by remember(author, tab) { mutableStateOf(true) }
     var failed by remember(author, tab) { mutableStateOf(false) }
@@ -118,13 +123,16 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
         Text(author, style = MaterialTheme.typography.labelSmall)
         Row {
             ProfileTab.entries.forEach { item ->
-                TextButton(onClick = { tab = item }, modifier = Modifier.weight(1f)) {
-                    Text(stringResource(item.label), color = if (item == tab) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface)
+                TextButton(onClick = { view.tab = item }, modifier = Modifier.weight(1f),
+                    contentPadding = PaddingValues(horizontal = 8.dp)) {
+                    Text(stringResource(item.label), maxLines = 1,
+                        color = if (item == tab) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface)
                 }
             }
             TextButton(enabled = wallet != null && !loading && nextBefore != null,
-                onClick = { nextBefore?.let { requestedBefore = it; refresh++ } }) {
-                Text(stringResource(R.string.profile_load_older))
+                onClick = { nextBefore?.let { requestedBefore = it; refresh++ } },
+                contentPadding = PaddingValues(horizontal = 8.dp)) {
+                Text(stringResource(R.string.profile_load_older), maxLines = 1)
             }
         }
         Text(stringResource(R.string.profile_history), style = MaterialTheme.typography.bodySmall)
@@ -138,8 +146,10 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
         LazyColumn(Modifier.fillMaxSize()) {
             items(posts, key = { it.id }) { post ->
                 Column(Modifier.clickable { onPost(post) }.padding(vertical = 12.dp)) {
-                    Text("Anon-${post.author.take(6)}", style = MaterialTheme.typography.titleMedium)
-                    Text(post.text, Modifier.padding(vertical = 8.dp), style = MaterialTheme.typography.bodyLarge)
+                    Text("Anon-${post.author.take(6)}", Modifier.clickable { onIdentity(post.author) },
+                        style = MaterialTheme.typography.titleMedium)
+                    Text(post.text, Modifier.clickable { onPost(post) }.padding(vertical = 8.dp),
+                        style = MaterialTheme.typography.bodyLarge)
                 }
                 HorizontalDivider()
             }

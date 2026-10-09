@@ -1,6 +1,7 @@
 package nl.davidengelen.redsquare.feed
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -23,7 +24,7 @@ import nl.davidengelen.redsquare.saito.SaitoBackend
 
 @Composable
 internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend: SaitoBackend, selected: FeedPost,
-    modifier: Modifier, onBack: () -> Unit) {
+    modifier: Modifier, onBack: () -> Unit, onIdentity: (String) -> Unit) {
     val context = LocalContext.current.applicationContext
     val cache = remember(backend, selected.threadId) { AndroidFeedCache(context, backend, selected.threadId) }
     var posts by remember(selected.id) { mutableStateOf(listOf(selected)) }
@@ -81,7 +82,8 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
         LazyColumn(Modifier.fillMaxSize()) {
             items(posts, key = { it.id }) { post ->
                 Column(Modifier.padding(vertical = 12.dp)) {
-                    Text("Anon-${post.author.take(6)}", style = MaterialTheme.typography.titleMedium)
+                    Text("Anon-${post.author.take(6)}", Modifier.clickable { onIdentity(post.author) },
+                        style = MaterialTheme.typography.titleMedium)
                     Text(post.text, Modifier.padding(vertical = 8.dp), style = MaterialTheme.typography.bodyLarge)
                 }
                 HorizontalDivider()

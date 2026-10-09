@@ -191,3 +191,13 @@ Likes and requires Back to restore the originating profile/Likes view. The
 fixture peer supports both verified authors and their correct source queries.
 Compile/red pending. Remaining author links/navigation history are unimplemented
 at this test point.
+
+Identity-navigation actual red37938935880 at8d6ea61 passes all six earlier
+cases. After loading the conversation and tapping scalar2's author label, the
+seventh times out waiting for the profile identity at line59. The inspected
+image remains Conversation. Public log/image retained in identity-navigation-red.
+Minimal reply/liked-post author actions and a browse navigation stack now
+preserve the originating profile tab through nested identity/post exploration.
+Both post-body and author actions have distinct click targets. Reduced profile
+tab-button horizontal padding fixes the observed wrapped label without reducing
+button minimum touch height. Local/device green and repeated review/full pending.
