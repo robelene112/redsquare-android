@@ -1,0 +1,35 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletImportPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.WalletImportPreviewTest:
+INSTRUMENTATION_STATUS: test=invalidSelectedBackupShowsRecoveryAndRetainsTheCurrentWallet
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletImportPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.WalletImportPreviewTest.invalidSelectedBackupShowsRecoveryAndRetainsTheCurrentWallet(WalletImportPreviewTest.kt:34)
+
+INSTRUMENTATION_STATUS: stream=
+Error in invalidSelectedBackupShowsRecoveryAndRetainsTheCurrentWallet(nl.davidengelen.redsquare.WalletImportPreviewTest):
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.WalletImportPreviewTest.invalidSelectedBackupShowsRecoveryAndRetainsTheCurrentWallet(WalletImportPreviewTest.kt:34)
+
+INSTRUMENTATION_STATUS: test=invalidSelectedBackupShowsRecoveryAndRetainsTheCurrentWallet
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 38.568
+There was 1 failure:
+1) invalidSelectedBackupShowsRecoveryAndRetainsTheCurrentWallet(nl.davidengelen.redsquare.WalletImportPreviewTest)
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.WalletImportPreviewTest.invalidSelectedBackupShowsRecoveryAndRetainsTheCurrentWallet(WalletImportPreviewTest.kt:34)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

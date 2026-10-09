@@ -56,7 +56,12 @@ verify_wallet_import() {
         nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
         > "$evidence/wallet-import-ui.txt" || true
     adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - wallet-import-evidence > "$evidence/wallet-import-evidence.tar" || true
-    grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/wallet-import-ui.txt"
+    if ! grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/wallet-import-ui.txt"; then
+        adb exec-out screencap -p > "$evidence/wallet-import-system-screen.png" || true
+        adb exec-out run-as nl.davidengelen.redsquare.dev.test stat -c '%s' \
+            files/wallet-test-documents/invalid-import.json > "$evidence/wallet-import-fixture-size.txt" || true
+        return 1
+    fi
 }
 if [[ "${TEST_SCOPE:-full}" == import* ]]; then
     verify_wallet_import

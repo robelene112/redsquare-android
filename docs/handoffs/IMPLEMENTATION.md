@@ -39,7 +39,13 @@ one question at a time when a material choice really needs the owner.
   Test and focused import harness added; actual functional red37894544199
   at2e3f491 reaches the Wallet screen and cannot find Import wallet (before
   picker selection). Log retained in ticket06/invalid-file-red. Minimal file
-  selection/bounded validation now implemented; compile/actual green pending.
+  selection/bounded validation implemented2a934aa. Actual Android10 green
+  37895348266 passes invalid file and recreated identity; public image inspected
+  and retained in ticket06/invalid-file-green/api-29. Android17 run37895351707
+  cannot find invalid-import.json after choosing the root (line34), before
+  validation. Cause not established: only log was retained, no picker image.
+  Failure observer now captures system screen and synthetic file size; obtain
+  actual evidence before guessing/fixing the filename/root selection.
   Testing uses approved parent application/failure boundaries, with fixture data
   in the isolated test APK only. Do not claim valid import preview/activation
   from this slice; those remain upcoming within#7.
