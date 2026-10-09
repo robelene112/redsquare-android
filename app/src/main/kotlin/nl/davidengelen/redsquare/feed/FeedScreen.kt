@@ -45,16 +45,17 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
     val following = remember(wallet?.publicKey) { wallet?.let { FollowingState(context, it.publicKey, scope) } }
     LaunchedEffect(following) { following?.load() }
     var followingView by rememberSaveable { mutableStateOf(false) }
-    val cache = remember(backend) { AndroidFeedCache(context, backend) }
+    val followingOwner = if (followingView) wallet?.publicKey else null
+    val cache = remember(backend, followingOwner) { AndroidFeedCache(context, backend, followingOwner = followingOwner) }
     val connection = remember { AndroidInternetStatus(context) }
     DisposableEffect(connection) { onDispose { connection.close() } }
     val observedInternet by connection.state.collectAsState()
     // A controlled loopback peer does not depend on the emulator's public internet.
     val internet = if (endpoint.startsWith("ws://127.0.0.1:")) InternetStatus(true, true, 0) else observedInternet
-    var posts by remember { mutableStateOf<List<FeedPost>>(emptyList()) }
-    var cacheReady by remember { mutableStateOf(false) }
-    var cacheWarning by remember { mutableStateOf(false) }
-    var loading by remember { mutableStateOf(true) }
+    var posts by remember(cache) { mutableStateOf<List<FeedPost>>(emptyList()) }
+    var cacheReady by remember(cache) { mutableStateOf(false) }
+    var cacheWarning by remember(cache) { mutableStateOf(false) }
+    var loading by remember(cache) { mutableStateOf(true) }
     var failed by remember { mutableStateOf(false) }
     var unreadablePage by remember { mutableStateOf(false) }
     var recovered by remember { mutableStateOf(false) }
@@ -111,7 +112,9 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
                                 pages.sumOf { it.rowCount }, pages.sumOf { it.ignored })
                         }
                     }
-                    val merged = (page.posts + posts).distinctBy { it.id }.sortedByDescending { it.createdAt }
+                    val merged = (page.posts + posts).distinctBy { it.id }
+                        .filter { !followingView || it.author in following!!.accounts }
+                        .sortedByDescending { it.createdAt }
                         .take(AndroidFeedCache.MAX_POSTS)
                     cacheWarning = withContext(Dispatchers.IO) {
                         try { cache.save(merged); false } catch (_: Exception) { true }
