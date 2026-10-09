@@ -1,6 +1,7 @@
 package nl.davidengelen.redsquare.feed
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.lazy.LazyColumn
@@ -50,6 +51,7 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
     var recovered by remember { mutableStateOf(false) }
     var hadOutage by rememberSaveable { mutableStateOf(false) }
     var refresh by remember { mutableIntStateOf(0) }
+    var conversation by remember { mutableStateOf<FeedPost?>(null) }
     val position = rememberLazyListState()
 
     LaunchedEffect(cache) {
@@ -98,6 +100,10 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
     LaunchedEffect(posts.isNotEmpty()) {
         if (posts.isNotEmpty()) { withFrameNanos { }; withFrameNanos { }; onDrawn() }
     }
+    conversation?.let { selected ->
+        ConversationScreen(wallet, endpoint, selected, modifier) { conversation = null }
+        return
+    }
     Column(modifier) {
         val noInternet = !internet.available || (failed && !internet.validated)
         when {
@@ -122,7 +128,7 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
         // Keep a restored list position until the asynchronous cache read has finished.
         if (cacheReady) LazyColumn(Modifier.fillMaxSize(), state = position) {
             items(posts, key = { it.id }) { post ->
-                Column(Modifier.padding(vertical = 12.dp)) {
+                Column(Modifier.clickable { conversation = post }.padding(vertical = 12.dp)) {
                     Text("Anon-${post.author.take(6)}", style = MaterialTheme.typography.titleMedium)
                     Text(post.author, maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.labelSmall)
                     Text(post.text, Modifier.padding(vertical = 8.dp), style = MaterialTheme.typography.bodyLarge)

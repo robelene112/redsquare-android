@@ -1,4 +1,10 @@
 <resources>
+    <string name="browse_back">Back</string>
+    <string name="conversation_title">Conversation</string>
+    <string name="conversation_history">Only available history is shown. Older replies may be missing.</string>
+    <string name="conversation_loading">Loading replies</string>
+    <string name="conversation_error">Replies could not be refreshed. Available posts remain visible.</string>
+    <string name="conversation_unreadable">Some conversation entries could not be read.</string>
     <string name="app_name">Red Square</string>
     <string name="wallet">Wallet</string>
     <string name="your_wallet">Your wallet</string>

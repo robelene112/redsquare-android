@@ -16,6 +16,12 @@ one question at a time when a material choice really needs the owner.
   original feed contract remains the default. New browse/browse-android17 focused
   scopes and full inclusion are added. Local core/debug/test assembly passes;
   actual functional red pending. No production navigation implementation yet.
+  Actual red37925240595 at39fa942 reaches/taps the verified feed root and cannot
+  find replies (line48); the inspected screen remains All posts. Public log/image
+  retained ticket07/conversation-red. Minimal feed-card navigation/conversation
+  read now uses selected-backend field5 with shared signed-entry validation and
+  Back/refresh/history/error copy. Local build and actual green are pending.
+  Conversation cache and profiles are not implemented yet; continue within#8.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.

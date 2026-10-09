@@ -30,3 +30,13 @@ The first Android regression opens the root through the actual feed and expects
 both valid replies, rejects the altered reply, and exposes Back navigation.
 It uses a controlled authenticated peer, not an internal module mock. No production
 navigation is implemented at this test commit; actual functional red is pending.
+
+Actual Android10 red37925240595 at39fa942 reaches the verified feed root, taps
+its body and times out at the reply wait (test line48). The inspected screenshot
+still shows All posts with the root. Public log/image retained in
+ticket07/conversation-red. Minimal implementation now makes feed cards open a
+conversation, reads selected-backend field5 history and verifies each entry
+through the existing signed-envelope decoder. It retains the selected post,
+rejects altered/unrelated entries and adds Back, refresh and truthful bounded
+history/error copy. Cache persistence and profiles remain upcoming within#8;
+actual green and final acceptance are pending.

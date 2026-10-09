@@ -21,7 +21,12 @@ data class FeedPost(
 data class ArchiveFeedPage(val posts: List<FeedPost>, val oldestCreatedAt: Long?, val rowCount: Int, val ignored: Int)
 
 object RedSquareFeed {
-    fun readArchive(response: String): ArchiveFeedPage {
+    fun readArchive(response: String): ArchiveFeedPage = readPosts(response) { it.parentId.isEmpty() }
+
+    fun readConversation(response: String, threadId: String): ArchiveFeedPage =
+        readPosts(response) { it.threadId == threadId }
+
+    private fun readPosts(response: String, accepts: (FeedPost) -> Boolean): ArchiveFeedPage {
         require(response.toByteArray(Charsets.UTF_8).size <= 16 * 1024 * 1024)
         val rows = gson.fromJson(response, com.google.gson.JsonArray::class.java)
             ?: throw IllegalArgumentException("Missing archive response")
@@ -33,7 +38,7 @@ object RedSquareFeed {
                 val item = row.asJsonObject
                 val cursor = item.get("created_at")?.asString?.toLongOrNull()?.takeIf { it >= 0 }
                 if (cursor != null) oldest = minOf(oldest ?: cursor, cursor)
-                decode(item.string("tx")).takeIf { it.parentId.isEmpty() }.also {
+                decode(item.string("tx")).takeIf(accepts).also {
                     if (it == null) ignored++
                 }
             } catch (_: Exception) { ignored++; null }
