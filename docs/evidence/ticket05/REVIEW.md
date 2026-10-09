@@ -45,6 +45,15 @@ identity continuity plus a new authenticated retry. Its runtime result and
 the later full run remain pending. This proves only its specified interruption
 stage, not arbitrary process loss midway through saving.
 
+Android17 run `37891251005` at `2a5e507` passes the original four export
+cases and all three provider-failure responses, but its final retry test cannot
+observe the PIN prompt: the new waiting helper expected a qualified XML resource
+name, while the already observed Compose PIN pad exposes bare `cred_pin_pad`.
+This is a fixture failure before retry credentials, not a functional export red.
+The wait now recognizes that exact resource only in Settings/System UI. Original
+logs, public screenshot and control metadata are retained under
+pin-control-fixture-failure; process interruption was not reached in that run.
+
 Normal real-PIN export and reminder/recovery pass both Android 10 and 17.
 Wrong-PIN/cancel checks pass both SDKs after correcting repeated-picker
 fixture ambiguity by selecting the actual drawer row. No wallet JSON is in evidence.

@@ -17,9 +17,11 @@ import java.util.regex.Pattern
 internal const val EXPORT_TEST_PIN = "246813"
 
 internal fun waitForSystemPin(device: UiDevice) {
-    check(device.wait(Until.hasObject(By.res(Pattern.compile(
-        "(?:com\\.android\\.settings:id/password_entry|com\\.android\\.systemui:id/(?:lockPassword|cred_pin_pad))"
-    ))), 15_000))
+    // Compose exposes a bare test-tag resource, unlike the legacy XML controls.
+    check(device.wait(Until.hasObject(By.pkg(Pattern.compile("com\\.android\\.(?:settings|systemui)"))
+        .res(Pattern.compile(
+            "(?:com\\.android\\.settings:id/password_entry|com\\.android\\.systemui:id/lockPassword|cred_pin_pad)"
+        ))), 15_000))
 }
 
 internal fun chooseTestBackup(device: UiDevice, name: String) {
