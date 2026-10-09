@@ -14,8 +14,10 @@ import java.io.File
 import java.io.IOException
 
 /** Public post cache. It contains no wallet or private Chat state. */
-class AndroidFeedCache(context: Context, backend: SaitoBackend) {
-    private val file = AtomicFile(File(context.noBackupFilesDir, "feed.${backend.id}.v1"))
+class AndroidFeedCache(context: Context, backend: SaitoBackend, private val threadId: String? = null) {
+    init { require(threadId == null || threadId.matches(Regex("[0-9a-f]{128}"))) }
+    private val file = AtomicFile(File(context.noBackupFilesDir, if (threadId == null)
+        "feed.${backend.id}.v1" else "conversation.${backend.id}.$threadId.v1"))
     private val gson = GsonBuilder().setStrictness(Strictness.STRICT).disableHtmlEscaping().create()
 
     data class SavedPosts(val posts: List<FeedPost>, val unreadable: Boolean)
@@ -40,7 +42,9 @@ class AndroidFeedCache(context: Context, backend: SaitoBackend) {
             require(envelopes.size() <= MAX_POSTS)
             var unreadable = false
             val posts = envelopes.mapNotNull {
-                try { RedSquareFeed.decode(it.asString).takeIf { post -> post.parentId.isEmpty() } }
+                try { RedSquareFeed.decode(it.asString).takeIf { post ->
+                    if (threadId == null) post.parentId.isEmpty() else post.threadId == threadId
+                } }
                 catch (_: Exception) { unreadable = true; null }
             }
             SavedPosts(posts.distinctBy { it.id }.sortedByDescending { it.createdAt }, unreadable)

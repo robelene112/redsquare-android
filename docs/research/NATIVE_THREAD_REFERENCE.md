@@ -50,3 +50,12 @@ stops its controlled server, recreates the activity, reopens the cached feed roo
 and requires the replies plus truthful available-history/refresh-failure copy.
 It compiles; actual persistence red is pending. No conversation cache is yet
 implemented at this test commit.
+
+The persistence test's actual Android10 red37927325694 at7490215 loads both
+replies successfully, closes its server, recreates the activity and reopens the
+cached root. It then times out waiting for the direct reply at line53. The
+inspected failure screenshot shows only the root and the truthful refresh error.
+Log/image are retained in ticket07/conversation-cache-red. Minimal conversation
+caching reuses bounded, atomic public-envelope persistence, verifies entries on
+reload and keeps separate files for each backend/thread. It merges retained
+replies with refreshed available history. Local/device green is pending.

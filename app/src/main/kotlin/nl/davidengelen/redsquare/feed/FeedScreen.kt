@@ -101,7 +101,7 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
         if (posts.isNotEmpty()) { withFrameNanos { }; withFrameNanos { }; onDrawn() }
     }
     conversation?.let { selected ->
-        ConversationScreen(wallet, endpoint, selected, modifier) { conversation = null }
+        ConversationScreen(wallet, endpoint, backend, selected, modifier) { conversation = null }
         return
     }
     Column(modifier) {

@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.google.gson.JsonObject
@@ -18,19 +19,26 @@ import nl.davidengelen.redsquare.saito.FeedPost
 import nl.davidengelen.redsquare.saito.RedSquareFeed
 import nl.davidengelen.redsquare.saito.SaitoPeer
 import nl.davidengelen.redsquare.saito.SaitoWallet
+import nl.davidengelen.redsquare.saito.SaitoBackend
 
 @Composable
-internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, selected: FeedPost,
+internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend: SaitoBackend, selected: FeedPost,
     modifier: Modifier, onBack: () -> Unit) {
+    val context = LocalContext.current.applicationContext
+    val cache = remember(backend, selected.threadId) { AndroidFeedCache(context, backend, selected.threadId) }
     var posts by remember(selected.id) { mutableStateOf(listOf(selected)) }
     var loading by remember(selected.id) { mutableStateOf(true) }
     var failed by remember(selected.id) { mutableStateOf(false) }
     var unreadable by remember(selected.id) { mutableStateOf(false) }
+    var cacheWarning by remember(selected.id) { mutableStateOf(false) }
     var refresh by remember(selected.id) { mutableIntStateOf(0) }
     BackHandler(onBack = onBack)
     LaunchedEffect(wallet, endpoint, selected.id, refresh) {
         if (wallet == null) { loading = false; return@LaunchedEffect }
         loading = true
+        val saved = withContext(Dispatchers.IO) { cache.load() }
+        posts = (posts + saved.posts).distinctBy { it.id }.sortedBy { it.createdAt }
+        cacheWarning = saved.unreadable
         try {
             val page = withContext(Dispatchers.IO) {
                 val criteria = JsonObject().apply {
@@ -46,7 +54,10 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, selected
                         .toString(Charsets.UTF_8), selected.threadId)
                 }
             }
-            posts = (listOf(selected) + page.posts).distinctBy { it.id }.sortedBy { it.createdAt }
+            posts = (posts + page.posts).distinctBy { it.id }.sortedBy { it.createdAt }
+            cacheWarning = withContext(Dispatchers.IO) {
+                try { cache.save(posts); false } catch (_: Exception) { true }
+            }
             unreadable = page.ignored > 0
             failed = false
         } catch (cancelled: CancellationException) { throw cancelled }
@@ -66,6 +77,7 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, selected
         if (loading) Text(stringResource(R.string.conversation_loading))
         if (failed) Text(stringResource(R.string.conversation_error))
         if (unreadable) Text(stringResource(R.string.conversation_unreadable))
+        if (cacheWarning) Text(stringResource(R.string.feed_cache_warning), style = MaterialTheme.typography.bodySmall)
         LazyColumn(Modifier.fillMaxSize()) {
             items(posts, key = { it.id }) { post ->
                 Column(Modifier.padding(vertical = 12.dp)) {

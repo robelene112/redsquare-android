@@ -28,6 +28,11 @@ one question at a time when a material choice really needs the owner.
   replies, stops the peer, recreates, reopens the cached root and requires retained
   replies plus truthful history/error copy. It compiles; actual cache red pending.
   No conversation persistence or profile implementation yet. Keep#8 open.
+  Actual cache red37927325694 at7490215 reaches the post-recreation reply wait
+  (line53) after successful first load and server closure. Inspected screenshot
+  shows cached root only with refresh error. Public log/image retained in
+  conversation-cache-red. Minimal backend/thread-scoped public conversation
+  persistence is now implemented; local/device green pending. Profiles remain.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.
