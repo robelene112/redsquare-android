@@ -170,3 +170,12 @@ Archive timestamps match the independently signed timestamps. The next app trace
 requires Load older from Replies even when the first author page contains only
 roots, then reaches an older liked reply beyond20 newer likes. It compiles/red
 pending; profile pagination is still unimplemented at this test point.
+
+Paging actual red37936418213 at7192ef4 passes the five established cases. The
+sixth loads20 newer authored roots, changes to Replies, and fails because Load
+older is absent. Inspected image shows Replies empty. Public log/image retained
+in ticket07/profile-paging-red. Minimal per-tab strict earlier-than cursors and
+Load older are now added for authored posts/replies and signed likes. Cursor
+progress includes ignored/other-tab rows; full pages without a usable advancing
+cursor explain that more history could not be requested. Refresh starts again
+at the newest page. Local/device green pending; identity entry-point fix remains.

@@ -22,7 +22,8 @@ private enum class ProfileTab(val label: Int) {
     POSTS(R.string.profile_posts), REPLIES(R.string.profile_replies), LIKES(R.string.profile_likes)
 }
 
-private data class ProfileHistoryPage(val posts: List<FeedPost>, val likes: List<ProfileLike>, val unreadable: Boolean)
+private data class ProfileHistoryPage(val posts: List<FeedPost>, val likes: List<ProfileLike>, val unreadable: Boolean,
+    val oldestCreatedAt: Long?, val rowCount: Int)
 
 @Composable
 internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: SaitoBackend, author: String, modifier: Modifier,
@@ -37,10 +38,14 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
     var unavailableLikes by remember(author, tab) { mutableStateOf(false) }
     var cacheWarning by remember(author, tab) { mutableStateOf(false) }
     var refresh by remember(author) { mutableIntStateOf(0) }
+    var requestedBefore by remember(author, tab) { mutableLongStateOf(System.currentTimeMillis() + 1) }
+    var nextBefore by remember(author, tab) { mutableStateOf<Long?>(null) }
+    var pagingUnavailable by remember(author, tab) { mutableStateOf(false) }
     BackHandler(onBack = onBack)
     LaunchedEffect(wallet, endpoint, author, tab, refresh) {
         if (wallet == null) { loading = false; return@LaunchedEffect }
         loading = true
+        val pageCursor = requestedBefore
         fun show(snapshot: AndroidProfileCache.SavedProfile) {
             val likedTargets = snapshot.likes.filter { it.author == author }.map { it.target }.toSet()
             posts = snapshot.posts.filter { post -> when (tab) {
@@ -64,13 +69,13 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
                     val criteria = JsonObject().apply {
                         addProperty("field1", if (tab == ProfileTab.LIKES) "RedSquareLike" else "RedSquare")
                         addProperty("field2", author)
-                        addProperty("created_earlier_than", System.currentTimeMillis())
+                        addProperty("created_earlier_than", pageCursor)
                         addProperty("limit", 20)
                         if (tab != ProfileTab.LIKES) addProperty("flagged_ne", 1)
                     }
                     if (tab != ProfileTab.LIKES) {
                         val page = RedSquareFeed.readAuthor(archive(criteria), author)
-                        ProfileHistoryPage(page.posts, emptyList(), page.ignored > 0)
+                        ProfileHistoryPage(page.posts, emptyList(), page.ignored > 0, page.oldestCreatedAt, page.rowCount)
                     } else {
                         val page = RedSquareLikes.readArchive(archive(criteria), author)
                         var ignored = page.ignored > 0
@@ -83,7 +88,7 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
                             targets.addAll(targetPage.posts)
                             if (targetPage.ignored > 0) ignored = true
                         }
-                        ProfileHistoryPage(targets, page.likes, ignored)
+                        ProfileHistoryPage(targets, page.likes, ignored, page.oldestCreatedAt, page.rowCount)
                     }
                 }
             }
@@ -94,6 +99,8 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
             }
             show(merged)
             unreadable = result.unreadable
+            nextBefore = result.oldestCreatedAt?.takeIf { result.rowCount >= 20 && it < pageCursor }
+            pagingUnavailable = result.rowCount >= 20 && nextBefore == null
             failed = false
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { failed = true }
@@ -104,7 +111,8 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
             TextButton(onClick = onBack) { Text(stringResource(R.string.browse_back)) }
             Text(stringResource(R.string.profile_title), Modifier.weight(1f).padding(vertical = 12.dp),
                 style = MaterialTheme.typography.titleLarge)
-            TextButton(enabled = wallet != null && !loading, onClick = { refresh++ }) { Text(stringResource(R.string.feed_refresh)) }
+            TextButton(enabled = wallet != null && !loading,
+                onClick = { requestedBefore = System.currentTimeMillis() + 1; refresh++ }) { Text(stringResource(R.string.feed_refresh)) }
         }
         Text("Anon-${author.take(6)}", style = MaterialTheme.typography.titleMedium)
         Text(author, style = MaterialTheme.typography.labelSmall)
@@ -114,6 +122,10 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
                     Text(stringResource(item.label), color = if (item == tab) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface)
                 }
             }
+            TextButton(enabled = wallet != null && !loading && nextBefore != null,
+                onClick = { nextBefore?.let { requestedBefore = it; refresh++ } }) {
+                Text(stringResource(R.string.profile_load_older))
+            }
         }
         Text(stringResource(R.string.profile_history), style = MaterialTheme.typography.bodySmall)
         if (loading) Text(stringResource(R.string.profile_loading))
@@ -121,6 +133,7 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
         if (unreadable) Text(stringResource(R.string.profile_unreadable), style = MaterialTheme.typography.bodySmall)
         if (unavailableLikes) Text(stringResource(R.string.profile_likes_unavailable), style = MaterialTheme.typography.bodySmall)
         if (cacheWarning) Text(stringResource(R.string.feed_cache_warning), style = MaterialTheme.typography.bodySmall)
+        if (pagingUnavailable) Text(stringResource(R.string.profile_paging_unavailable), style = MaterialTheme.typography.bodySmall)
         if (!loading && !failed && posts.isEmpty()) Text(stringResource(R.string.profile_empty))
         LazyColumn(Modifier.fillMaxSize()) {
             items(posts, key = { it.id }) { post ->

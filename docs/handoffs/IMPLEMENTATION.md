@@ -83,6 +83,12 @@ one question at a time when a material choice really needs the owner.
   covers SDK17 later. New sixth app case for older Replies/Likes beyond20 rows
   and independent paging fixtures added. Compile/red pending; no production
   pagination exists. Then add identity links/test, repeat both reviews and full.
+  Paging actual red37936418213 at7192ef4 passes five existing cases and fails at
+  missing Load older in empty Replies after20 newer roots. Public failure image/
+  log inspected/retained in profile-paging-red. Minimal per-tab archive cursors
+  and Load older now exist for author history/likes; no-progress full pages
+  give truthful unavailable-paging copy. Local/device green pending. Then fix
+  remaining conversation/liked-author profile links and verify/review/full.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.
