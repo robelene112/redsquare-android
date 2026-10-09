@@ -26,8 +26,14 @@ one question at a time when a material choice really needs the owner.
   Following view and exact-author archive reads using only the selected peer.
   PublicStringStore is the existing envelope cache renamed for its third public
   string consumer; prior cache formats are unchanged. Green37949419777/37949425181
-  is running on Android10/17. Wait for meaningful green before writing the next
-  behavior test. Then backend/restart/identity/failure checks, both reviews and
+  at3caa31a passes the first actual follow/unfollow case on Android10/17; public
+  logs/images inspected/retained following-green. Second app case at40136c5
+  switches owner/official histories, keeps follow choices, closes official and
+  recreates, requires only official cached followed posts and no fallback,
+  then returns to owner and requires its history/Unfollow. Current two-case
+  run37950206054 on Android10 is pending; no functional failure observed yet.
+  Wait for this meaningful green before the next test. Then identity/failure
+  and targeted author retrieval checks, both reviews and
   final full; close#9 only on acceptance and continue all35 sequentially.
   New references use the pure pinned WASM/Elliptic helper. Direct named deployed
   public Archive source read confirmed exact field2 criteria; named Git-object

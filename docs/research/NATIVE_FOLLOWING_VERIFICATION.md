@@ -39,5 +39,14 @@ docs/evidence/ticket08/following-red/api-29.
 The first implementation adds the follow action, a Following view, and shared
 bounded atomic storage of account identities. Existing post-cache file formats
 are retained. Confirmation waits for checked persistence; writes and reads run
-off the main thread. Functional green, backend/restart/identity recovery checks,
+off the main thread. First functional green at3caa31a passes on Android10/17 in
+runs37949419777/37949425181, 7.004/24.019 seconds. Public logs and empty-after-
+unfollow images are inspected and retained in ticket08/following-green.
+
+The second app case at40136c5 follows on the owner's backend, switches to
+official with different signed content from the same followed author, excludes
+the other author and owner-only history, closes official, recreates and requires
+its cached followed history plus an outage message. Returning to owner must
+restore its separate history while keeping Unfollow. Two-case Android10 run
+37950206054 is pending. Identity, save-failure and targeted retrieval checks,
 both source review axes and final full verification remain pending.
