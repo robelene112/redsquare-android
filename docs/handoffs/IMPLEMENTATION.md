@@ -87,8 +87,11 @@ one question at a time when a material choice really needs the owner.
   no cache reuse/redirect/fallback. See the research doc for its trust limits.
   A new stalled-provider test requires control to return within40 seconds and
   a fresh preview to remain intact past the controlled pipe's60-second release.
-  Compile passed. Actual red pending; do not implement its deadline ahead of
-  observing that failure. Fixture remains only in the isolated test APK; harness
+  Compile passed. Actual functional red37903379772 at8f01d88 passes the4 earlier
+  flows and times out waiting for terminal failure at40 seconds (test line224).
+  Log retained in ticket06/provider-red. Minimal independent30-second main
+  deadline, unique read-attempt binding, cancellable descriptor and independent
+  asynchronous cleanup are implemented; compile/green pending. Fixture remains only in the isolated test APK; harness
   timeout increased to300 seconds for the deliberate65-second late-result check.
   No activation is implemented yet.
   Testing uses approved parent application/failure boundaries, with fixture data
