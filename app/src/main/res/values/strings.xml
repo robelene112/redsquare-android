@@ -97,6 +97,11 @@
     <string name="profile_load_older">Load older</string>
     <string name="profile_paging_unavailable">More history could not be requested. Refresh to try again.</string>
     <string name="following_title">Following</string>
+    <string name="post_new">New post</string>
+    <string name="post_save_draft">Save draft</string>
+    <string name="post_write">Write a post</string>
+    <string name="post_draft_local">Drafts stay with this wallet and server on this device. They remain unsent until you press Send.</string>
+    <string name="post_draft_error">Could not load or confirm the saved draft. Your current text remains here. Try again.</string>
     <string name="follow_account">Follow</string>
     <string name="unfollow_account">Unfollow</string>
     <string name="following_empty">Follow accounts to see their posts here.</string>
