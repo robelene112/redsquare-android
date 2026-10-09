@@ -12,14 +12,11 @@ import com.google.gson.JsonParser
 import nl.davidengelen.redsquare.saito.AndroidBackendStore
 import nl.davidengelen.redsquare.saito.RedSquareFeed
 import nl.davidengelen.redsquare.saito.SaitoBackend
-import nl.davidengelen.redsquare.saito.SaitoTransaction
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import java.io.File
-import java.nio.ByteBuffer
-import java.util.Base64
 import java.util.concurrent.atomic.AtomicReference
 
 /** The host runs these phases in separate processes. All captured data is public. */
@@ -50,18 +47,11 @@ class PostProcessRecoveryTest {
             ?.forEach { check(it.delete()) }
         val observed = AtomicReference<JsonObject?>()
         val peer = ControlledFeedPeer("[${root()}]", onTransaction = { frame ->
-            val bytes = frame.copyOfRange(1, frame.size - 130)
-            ByteBuffer.wrap(bytes).putInt(12, 0)
-            val candidate = SaitoTransaction.restore(Base64.getEncoder().encodeToString(bytes))
+            val candidate = postingTransaction(frame)
             val envelope = candidate.envelope()
             val post = RedSquareFeed.decode(envelope)
             assertEquals(body, post.text)
-            observed.set(JsonObject().apply {
-                addProperty("sig", post.id); addProperty("created_at", post.createdAt)
-                addProperty("field1", "RedSquare"); addProperty("field2", post.author)
-                addProperty("field4", ""); addProperty("field5", post.threadId)
-                addProperty("tx", envelope)
-            })
+            observed.set(postingArchiveRow(candidate))
         }, archiveResponse = { criteria -> if (criteria.has("sig")) "[]" else "[${root()}]" })
         peer.start().use { server ->
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)

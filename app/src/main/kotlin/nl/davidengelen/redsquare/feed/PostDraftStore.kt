@@ -8,6 +8,7 @@ import android.system.OsConstants
 import android.util.AtomicFile
 import java.io.File
 import java.nio.ByteBuffer
+import java.nio.CharBuffer
 import java.nio.charset.CodingErrorAction
 import java.security.KeyStore
 import javax.crypto.Cipher
@@ -76,7 +77,9 @@ internal class PostDraftStore(private val context: Context, private val owner: S
             addProperty("text", saved.text)
             saved.transaction?.let { addProperty("transaction", it.encoded()) }
         }
-        val plaintext = record.toString().toByteArray(Charsets.UTF_8)
+        val encoded = Charsets.UTF_8.newEncoder().onMalformedInput(CodingErrorAction.REPORT)
+            .onUnmappableCharacter(CodingErrorAction.REPORT).encode(CharBuffer.wrap(record.toString()))
+        val plaintext = ByteArray(encoded.remaining()).also { encoded.get(it) }
         val encrypted = try {
             require(plaintext.size <= MAX_BYTES)
             val key = existingKey() ?: run {

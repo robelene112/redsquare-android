@@ -50,20 +50,13 @@ class PostPreviewTest {
                 else -> "[$root]"
             }
         }, onTransaction = { frame ->
-            val bytes = frame.copyOfRange(1, frame.size - 130)
-            java.nio.ByteBuffer.wrap(bytes).putInt(12, 0)
-            val transaction = nl.davidengelen.redsquare.saito.SaitoTransaction.restore(java.util.Base64.getEncoder().encodeToString(bytes))
+            val transaction = postingTransaction(frame)
             val envelope = transaction.envelope()
             val post = nl.davidengelen.redsquare.saito.RedSquareFeed.decode(envelope)
             org.junit.Assert.assertEquals(parent.get("sig").asString, post.parentId)
             org.junit.Assert.assertEquals(root.get("sig").asString, post.threadId)
             org.junit.Assert.assertEquals(listOf(post.author, parent.get("field2").asString, root.get("field2").asString), post.recipients)
-            indexed.set(com.google.gson.JsonObject().apply {
-                addProperty("sig", post.id); addProperty("created_at", post.createdAt)
-                addProperty("field1", "RedSquare"); addProperty("field2", post.author)
-                addProperty("field4", post.parentId); addProperty("field5", post.threadId)
-                addProperty("tx", envelope)
-            })
+            indexed.set(postingArchiveRow(transaction))
         })
         peer.start().use { server ->
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
@@ -273,20 +266,11 @@ class PostPreviewTest {
                 if (row?.get("sig")?.asString == criteria.get("sig").asString) "[$row]" else "[]"
             } else if (row == null) "[$root]" else "[$row,$root]"
         }, onTransaction = { frame ->
-            val bytes = frame.copyOfRange(1, frame.size - 130)
-            java.nio.ByteBuffer.wrap(bytes).putInt(12, 0)
-            val transaction = nl.davidengelen.redsquare.saito.SaitoTransaction.restore(java.util.Base64.getEncoder().encodeToString(bytes))
+            val transaction = postingTransaction(frame)
             received.add(transaction.id)
             if (received.size == 2) {
                 org.junit.Assert.assertEquals(received[0], received[1])
-                val envelope = transaction.envelope()
-                val post = nl.davidengelen.redsquare.saito.RedSquareFeed.decode(envelope)
-                indexed.set(com.google.gson.JsonObject().apply {
-                    addProperty("sig", post.id); addProperty("created_at", post.createdAt)
-                    addProperty("field1", "RedSquare"); addProperty("field2", post.author)
-                    addProperty("field4", ""); addProperty("field5", post.threadId)
-                    addProperty("tx", envelope)
-                })
+                indexed.set(postingArchiveRow(transaction))
             }
         })
         peer.start().use { server ->
@@ -342,19 +326,13 @@ class PostPreviewTest {
             check(header.getInt(0) == 1 && header.getInt(4) == 2)
             val parentPoint = "0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798"
             org.junit.Assert.assertEquals(parentPoint, bytes.copyOfRange(211, 244).joinToString("") { "%02x".format(it) })
-            header.putInt(12, 0)
-            val transaction = nl.davidengelen.redsquare.saito.SaitoTransaction.restore(java.util.Base64.getEncoder().encodeToString(bytes))
+            val transaction = postingTransaction(frame)
             val envelope = transaction.envelope()
             val post = nl.davidengelen.redsquare.saito.RedSquareFeed.decode(envelope)
             org.junit.Assert.assertEquals(root.get("sig").asString, post.parentId)
             org.junit.Assert.assertEquals(root.get("sig").asString, post.threadId)
             org.junit.Assert.assertEquals("Reply from the native composer", post.text)
-            indexed.set(com.google.gson.JsonObject().apply {
-                addProperty("sig", post.id); addProperty("created_at", post.createdAt)
-                addProperty("field1", "RedSquare"); addProperty("field2", post.author)
-                addProperty("field4", post.parentId); addProperty("field5", post.threadId)
-                addProperty("tx", envelope)
-            })
+            indexed.set(postingArchiveRow(transaction))
         })
         peer.start().use { server ->
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
@@ -592,19 +570,12 @@ class PostPreviewTest {
                     if (row?.get("sig")?.asString == criteria.get("sig").asString) "[$row]" else "[]"
                 } else "[$root]"
             }, onTransaction = { frame ->
-                val bytes = frame.copyOfRange(1, frame.size - 130)
-                java.nio.ByteBuffer.wrap(bytes).putInt(12, 0)
-                val transaction = nl.davidengelen.redsquare.saito.SaitoTransaction.restore(java.util.Base64.getEncoder().encodeToString(bytes))
+                val transaction = postingTransaction(frame)
                 val envelope = transaction.envelope()
                 val post = nl.davidengelen.redsquare.saito.RedSquareFeed.decode(envelope)
                 org.junit.Assert.assertEquals(text + backend.id, post.text)
                 org.junit.Assert.assertEquals(listOf(post.author), post.recipients)
-                indexed.set(com.google.gson.JsonObject().apply {
-                    addProperty("sig", post.id); addProperty("created_at", post.createdAt)
-                    addProperty("field1", "RedSquare"); addProperty("field2", post.author)
-                    addProperty("field4", ""); addProperty("field5", post.threadId)
-                    addProperty("tx", envelope)
-                })
+                indexed.set(postingArchiveRow(transaction))
             })
         }
         val owner = peerFor(SaitoBackend.OWNER)
@@ -651,17 +622,8 @@ class PostPreviewTest {
                 if (current?.get("sig")?.asString == criteria.get("sig").asString) "[$current]" else "[]"
             } else if (current != null) "[$current,$root]" else "[$root]"
         }, onTransaction = { frame ->
-            val bytes = frame.copyOfRange(1, frame.size - 130)
-            java.nio.ByteBuffer.wrap(bytes).putInt(12, 0)
-            val transaction = nl.davidengelen.redsquare.saito.SaitoTransaction.restore(java.util.Base64.getEncoder().encodeToString(bytes))
-            val envelope = transaction.envelope()
-            val post = nl.davidengelen.redsquare.saito.RedSquareFeed.decode(envelope)
-            indexed.set(com.google.gson.JsonObject().apply {
-                addProperty("sig", post.id); addProperty("created_at", post.createdAt)
-                addProperty("field1", "RedSquare"); addProperty("field2", post.author)
-                addProperty("field4", ""); addProperty("field5", post.threadId)
-                addProperty("tx", envelope)
-            })
+            val transaction = postingTransaction(frame)
+            indexed.set(postingArchiveRow(transaction))
         })
         peer.start().use { server ->
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)

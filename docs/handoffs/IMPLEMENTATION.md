@@ -35,15 +35,15 @@ one question at a time when a material choice really needs the owner.
   uploads, production writes or physical-device/push proof. Continue all35.
 - Active #10, "09: Publish text posts and replies with recoverable drafts".
   Eight of35 complete,27 remaining including active. Review base78163d6.
-  Latest implementation candidate6cfa908. Focused14-case37990196219 passes13;
-  local clearing reaches blank persisted editor but its fixture rejects exact-sig
-  archive queries (missing field4). Fixture corrected; do not count this as a
-  production failure. Local debug/test/lint passes2m40s. Expanded malformed-text
-  cold-draft regression compiles (1m33s), functional red pending next dispatch.
-  Final reviews at6cfa908: Standards0 hard violations/2 possible smells;
-  Spec1 P2: lossy UTF8 draft encoding commits changed text before verification
-  reports failure, discarding the last good draft. Reproduce through UI before
-  strict prewrite encoding fix. Full acceptance pending.
+  Focused14-case37991336062 at67e883d:13 pass, only invalidUnicode cold
+  draft recovery fails (previous valid record replaced by "Keep ? as entered").
+  Actual process-death reconciliation and confirmed clearing pass. Strict UTF8
+  encoding now rejects malformed records before any key/file mutation.
+  Review refactors separate composer operations and share posting fixture/vector
+  helpers; case-specific assertions retained. Local core/debug/test/lint passes
+  2m38s. Next: focused green, two-axis fix review, full Android10/17 acceptance.
+  Prior candidate6cfa908 review: Standards0 hard/2 possible smells;
+  Spec1 P2 failed-save overwrite; report ticket09/REVIEW.md. Do not close#10.
   Reply recreation actual red37985523535 fixed6abdc11 by wallet/backend-scoped
   navigation ViewModel and retained reply mode. Twelve-case37987683585 passes
   49.873s plus cold reconciliation, including Unicode UI and longer preserved
