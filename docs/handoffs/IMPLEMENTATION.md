@@ -48,7 +48,7 @@ one question at a time when a material choice really needs the owner.
   Details NATIVE_POSTING_VERIFICATION.md/NATIVE_POSTING_CONTRACT.md/
   NATIVE_POST_TEXT_POLICY.md and ticket09/REVIEW.md. Stated bitmap limits remain.
   No new APK, production transaction, physical Pixel or push proof.
-- Next #11, "10: Queue posts offline and resume on their original backend".
+- Active #11, "10: Queue posts offline and resume on their original backend".
   Nine of35 complete;26 remain. Read its accepted application-boundary criteria;
   build durable explicit-Send queueing, cancellability, original wallet/backend
   resumption and restart/replacement isolation. Drafts remain unsent.
@@ -58,7 +58,7 @@ one question at a time when a material choice really needs the owner.
 - Nine of35 tickets complete: #2 crypto compatibility, #3 persistent wallet
   and signing/updates, #4 feed/cache, #5 fixed backends, #6 authenticated export,
   #7 safeguarded import, #8 threads/profiles, #9 following, #10 posting/drafts.
-  #11 next,26 tickets still open. Preserve all accepted features; no Ralph or parallel implementation.
+  #11 active,26 tickets still open. Preserve all accepted features; no Ralph or parallel implementation.
 
 ## Completed foundation references
 
@@ -157,3 +157,8 @@ DocumentsUI replaces its tree. The fixture now reacquires nodes within a bounded
 20-second loop, retains real file selection and hard failure diagnostics, and
 compiles locally in48s. Production source is unchanged. Final acceptance retry
 and fixture review remain pending.
+
+#11 review base4bc4cd6. First application-boundary test covers explicit offline
+Send, durable Queued status on fresh activity launch, cancellation and retained
+unsent draft with no later transmission. Local compilation and actual functional
+red are the next gates. No queue implementation yet.
