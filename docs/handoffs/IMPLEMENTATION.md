@@ -64,7 +64,9 @@ one question at a time when a material choice really needs the owner.
   the outgoing editor before feed navigation completed. It fails visibility
   at line193,18.208s. Public log/nested-success image inspected and retained
   ticket09/nested-reply-transition. Corrected42c5774 waits New post and scrolls
-  the feed to the observed publication. Five-case37973493246 is running.
+  the feed to the observed publication. Five-case37973493246 passes Android10
+  at42c5774,14.889s; public log/nested parent/visible feed images inspected and
+  retained ticket09/nested-reply-green. No Android17/final full acceptance yet.
   Both interim source reviews at42c5774 are in ticket09/INTERIM_REVIEW.md.
   Three hard Standards and six Spec findings remain: unsaved navigation loss,
   concurrent Save/Send candidate overwrite, inaccurate recovered pending/error

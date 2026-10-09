@@ -1,5 +1,14 @@
 # Native posting and drafts
 
+Current five-case green37973493246 at42c5774 passes actual Android10 in14.889s.
+The first attempt37972847178 passed nested replies but failed the existing
+publication visibility assertion by matching the outgoing editor during async
+Back. The corrected harness waits New post then scrolls the actual feed to the
+observed publication. Public logs/nested-success/feed images inspected and
+retained ticket09/nested-reply-{transition,green}. These are focused checks,
+not final acceptance. Both interim review axes identify unresolved recovery
+work in ticket09/INTERIM_REVIEW.md. Eight of35 complete; #10 remains active.
+
 Current nested regression: actual five-case37971949876 fails only the selected
 reply context at line78,32.55seconds. Clicking an existing reply did not change
 the selected parent before Reply; the public image confirms the original root's
