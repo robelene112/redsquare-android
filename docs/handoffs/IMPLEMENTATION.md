@@ -131,7 +131,12 @@ one question at a time when a material choice really needs the owner.
   Bound-slip regression actually fails atcore SaitoWalletTest line24 before
   minimal classification, then focused core green passes. Its final device
   integration and other review fixes remain pending. Current uncommitted source
-  includes this source-supported numeric WalletSlip.slipType classification.
+  included this source-supported numeric WalletSlip.slipType classification,
+  committed4ba48ad. Reminder regression4276194 is dispatched37913759494 (scope
+  import-risk, actual red pending); focused risk scopes avoid rerunning all6
+  established flows, while full acceptance still includes them. Review-stage
+  unused-hash removal and shared encrypted save are locally built/tested; final
+  device regression and review remain pending. No reminder fix implemented yet.
   Fixture/test bytes remain in private test APK
   storage; each risk run clears only the isolated .dev emulator app first.
   A failed activation uses existing-only reload, never

@@ -34,6 +34,13 @@ Total: Standards two judgment findings, zero hard breaches; Spec two correctness
 findings in addition to known unfinished acceptance. All findings remain open
 until their fixes and verification are recorded.
 
+Review-stage cleanup removes the unused fingerprint/hash and describes the
+candidate object nonce as holding the validated file contents. Initialization
+now uses the same bounded encrypted-save/sync/readback operation as replacement,
+with the existing publication barrier still preceding creation and completing
+after verification. Core tests and debug/test assembly pass. Final Android
+initialization/recovery regression and independent fix review remain pending.
+
 ## Bound-slip source and first regression
 
 Pinned source `9a4ca7e9442eb5e872168ced361ce741d7d139d7`:

@@ -19,7 +19,6 @@ import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.ImportBalance
 import java.io.IOException
-import java.security.MessageDigest
 
 /** Selection validates a backup without publishing a replacement identity. */
 class WalletImport(
@@ -98,11 +97,7 @@ class WalletImport(
                     operation.descriptor = null
                     check(isCurrent(operation))
                     require(size in 1..SaitoWallet.MAX_BACKUP_BYTES)
-                    val fingerprint = MessageDigest.getInstance("SHA-256").run {
-                        update(buffer, 0, size)
-                        digest()
-                    }
-                    ReadResult(Candidate(SaitoWallet.fromBackup(String(buffer, 0, size, Charsets.UTF_8)), operation.original, fingerprint, operation.backend), null)
+                    ReadResult(Candidate(SaitoWallet.fromBackup(String(buffer, 0, size, Charsets.UTF_8)), operation.original, operation.backend), null)
                 } catch (_: IllegalArgumentException) {
                     // Provider and parser messages can include private file values.
                     ReadResult(null, R.string.wallet_import_invalid)
@@ -184,8 +179,8 @@ class WalletImport(
         if (busy || currentWallet() !== selected.original || preview?.sameIdentity != false) return
         preview = preview?.copy(backupVerified = false)
         startExport { exported ->
-            // The selected object is a per-selection nonce bound to the exact file
-            // fingerprint and both wallet objects. Old exports/reselected files
+            // The selected object is a per-selection nonce holding the validated
+            // file contents and both wallet objects. Old exports/reselected files
             // cannot satisfy this gate, even if their public identities match.
             if (candidate === selected && currentWallet() === selected.original && exported === selected.original) {
                 preview = preview?.copy(backupVerified = true)
@@ -228,7 +223,7 @@ class WalletImport(
         @Volatile var descriptor: ParcelFileDescriptor? = null
     }
 
-    private class Candidate(val wallet: SaitoWallet, val original: SaitoWallet, val fingerprint: ByteArray,
+    private class Candidate(val wallet: SaitoWallet, val original: SaitoWallet,
         val backend: SaitoBackend?) {
         // Candidate construction runs on IO, keeping large imported metadata off the UI thread.
         val risks = original.replacementRisks()

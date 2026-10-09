@@ -76,26 +76,7 @@ class AndroidWalletStore(context: Context, private val directorySync: (FileDescr
                 generateKey()
             }
             val wallet = SaitoWallet.create()
-            val plaintext = wallet.exportJson().toByteArray(Charsets.UTF_8)
-            val cipher = Cipher.getInstance("AES/GCM/NoPadding")
-            cipher.init(Cipher.ENCRYPT_MODE, key)
-            cipher.updateAAD(associatedData)
-            val envelope = try { byteArrayOf(1) + cipher.iv + cipher.doFinal(plaintext) }
-            finally { plaintext.fill(0) }
-            val output = file.startWrite()
-            try {
-                output.write(envelope)
-                // AtomicFile logs some sync/rename failures rather than throwing.
-                // Propagate sync errors and verify the committed identity below.
-                output.fd.sync()
-                file.finishWrite(output)
-            } catch (failure: Exception) {
-                file.failWrite(output)
-                throw failure
-            }
-            syncDirectory()
-            val saved = readSavedWallet(key)
-            check(saved.publicKey == wallet.publicKey) { "Wallet persistence verification failed" }
+            val saved = writeVerified(file, wallet, key)
             finishInitialization()
             saved
         }
@@ -161,6 +142,8 @@ class AndroidWalletStore(context: Context, private val directorySync: (FileDescr
         val output = target.startWrite()
         try {
             output.write(envelope)
+            // AtomicFile logs some failures instead of throwing. Explicit sync
+            // and exact decrypted readback precede publication or commit.
             output.fd.sync()
             target.finishWrite(output)
         } catch (failure: Exception) {
