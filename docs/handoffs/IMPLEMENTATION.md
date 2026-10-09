@@ -80,9 +80,16 @@ one question at a time when a material choice really needs the owner.
   Actual functional red37901341544 at fcd1f8f passes the3 existing flows and
   times out on the missing positive-balance status (test line192). Log retained
   in ticket06/balance-red. Minimal fixed-host HTTP lookup/strict integer snapshot
-  assessment and explicit zero-only Skip backup are implemented; compile/green
-  pending. Policy is10-second/2MiB bound,15-minute tip age/1-minute future skew,
+  assessment and explicit zero-only Skip backup are implemented. Local core/test
+  and debug/test assembly pass. Green37902481094/37902485519 at d4b0954 passes
+  all4 import tests on both SDKs; eight public balance images inspected and logs
+  retained in ticket06/balance-green. Policy is10-second/2MiB bound,15-minute tip age/1-minute future skew,
   no cache reuse/redirect/fallback. See the research doc for its trust limits.
+  A new stalled-provider test requires control to return within40 seconds and
+  a fresh preview to remain intact past the controlled pipe's60-second release.
+  Compile passed. Actual red pending; do not implement its deadline ahead of
+  observing that failure. Fixture remains only in the isolated test APK; harness
+  timeout increased to300 seconds for the deliberate65-second late-result check.
   No activation is implemented yet.
   Testing uses approved parent application/failure boundaries, with fixture data
   in the isolated test APK only. Do not claim valid import preview/activation

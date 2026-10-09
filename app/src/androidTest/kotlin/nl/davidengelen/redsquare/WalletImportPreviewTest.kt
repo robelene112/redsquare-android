@@ -208,6 +208,38 @@ class WalletImportPreviewTest {
         } finally { server.close() }
     }
 
+    @Test fun aStalledBackupProviderReturnsControlAndCannotOverwriteAFreshPreview() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        val device = UiDevice.getInstance(instrumentation)
+        ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            .putExtra("feedDisabled", true).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")).use {
+            ui.onNodeWithText("Wallet").performClick()
+            val address = displayedWalletAddress(ui)
+            ui.onNodeWithText("Import wallet").performClick()
+            selectImportRoot(device)
+            requireNotNull(device.wait(Until.findObject(By.text("stalled-read-import.json")), 10_000)).click()
+            val chosenAt = SystemClock.uptimeMillis()
+            val failure = "Your wallet backup could not be opened. Try again with another file."
+            ui.waitUntil(40_000) { ui.onAllNodes(hasText(failure)).fetchSemanticsNodes().isNotEmpty() }
+            ui.onNodeWithText(failure).assertIsDisplayed()
+            assertEquals(address, displayedWalletAddress(ui))
+            ui.onNodeWithText("Import wallet").assertIsEnabled().performClick()
+            selectImportRoot(device)
+            requireNotNull(device.wait(Until.findObject(By.text("reference-import.json")), 10_000)).click()
+            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Replace your wallet")).fetchSemanticsNodes().isNotEmpty() }
+            // The controlled provider releases its stalled pipe after60 seconds.
+            // Observe the new selection past that point, never the private bytes.
+            ui.waitUntil(70_000) { SystemClock.uptimeMillis() >= chosenAt + 65_000 }
+            ui.onNodeWithText("Replace your wallet").assertExists()
+            ui.onNodeWithContentDescription("Selected wallet address")
+                .assertTextEquals("jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR")
+            ui.onNodeWithText(failure).assertDoesNotExist()
+            assertEquals(address, displayedWalletAddress(ui))
+            captureFeedEvidence("wallet-import-evidence/stalled-provider-fresh-preview.png")
+        }
+    }
+
     private fun selectImportRoot(device: UiDevice) {
         val row = By.text(ExportTestDocumentsProvider.TITLE).res("android", "title")
         val title = By.text(ExportTestDocumentsProvider.TITLE)
