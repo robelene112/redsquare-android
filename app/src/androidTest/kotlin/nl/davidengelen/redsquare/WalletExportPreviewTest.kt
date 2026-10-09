@@ -2,14 +2,21 @@ package nl.davidengelen.redsquare
 
 import android.app.KeyguardManager
 import android.content.Intent
+import android.provider.DocumentsContract
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.uiautomator.By
+import androidx.test.uiautomator.UiDevice
+import androidx.test.uiautomator.Until
+import com.google.gson.JsonParser
+import nl.davidengelen.redsquare.saito.SaitoWallet
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Rule
 import org.junit.Test
+import java.util.UUID
 
 class WalletExportPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
@@ -35,4 +42,58 @@ class WalletExportPreviewTest {
             } finally { captureFeedEvidence("wallet-export-evidence/screen.png") }
         }
     }
+
+    @Test fun realPinAuthenticationAndDocumentSaveProduceACompatibleBackup() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        val keyguard = context.getSystemService(KeyguardManager::class.java)
+        val device = UiDevice.getInstance(instrumentation)
+        assertFalse(keyguard.isDeviceSecure)
+        val name = "wallet-test-${UUID.randomUUID()}.json"
+        val uri = DocumentsContract.buildDocumentUri(ExportTestDocumentsProvider.AUTHORITY, name)
+        device.executeShellCommand("locksettings set-pin --user 0 $TEST_PIN")
+        try {
+            ui.waitUntil(10_000) { keyguard.isDeviceSecure }
+            check(device.executeShellCommand("locksettings verify --old $TEST_PIN --user 0")
+                .contains("Credential verified successfully"))
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedDisabled", true)).use {
+                ui.onNodeWithText("Wallet").performClick()
+                val address = displayedWalletAddress(ui)
+                ui.onNodeWithText("Export wallet").performClick()
+                check(device.wait(Until.hasObject(By.res("android", "title")), 15_000))
+                device.findObject(By.desc("Show roots"))?.click()
+                val root = requireNotNull(device.wait(Until.findObject(By.text(ExportTestDocumentsProvider.TITLE)), 10_000))
+                root.click()
+                val filename = requireNotNull(device.wait(Until.findObject(By.res("android", "title")), 10_000))
+                filename.text = name
+                requireNotNull(device.wait(Until.findObject(By.res("android", "button1")), 10_000)).click()
+                val entry = requireNotNull(device.wait(Until.findObject(
+                    By.res("com.android.settings", "password_entry")), 15_000))
+                entry.text = TEST_PIN
+                device.pressEnter()
+                ui.waitUntil(15_000) { ui.onAllNodes(hasText("Wallet backup saved")).fetchSemanticsNodes().isNotEmpty() }
+                ui.onNodeWithText("Wallet backup saved").assertIsDisplayed()
+                val bytes = requireNotNull(context.contentResolver.openInputStream(uri)).use {
+                    val content = it.readBytes()
+                    check(content.size in 1..SaitoWallet.MAX_BACKUP_BYTES)
+                    content
+                }
+                try {
+                    val json = bytes.toString(Charsets.UTF_8)
+                    assertEquals(address, SaitoWallet.fromBackup(json).publicKey)
+                    val wallet = JsonParser.parseString(json).asJsonObject.getAsJsonObject("wallet")
+                    assertEquals("5.677", wallet.get("version").asString)
+                    assertEquals(address, wallet.get("publicKey").asString)
+                    assertEquals(address, displayedWalletAddress(ui))
+                } finally { bytes.fill(0) }
+                captureFeedEvidence("wallet-export-evidence/real-pin-success.png")
+                DocumentsContract.deleteDocument(context.contentResolver, uri)
+            }
+        } finally {
+            device.executeShellCommand("locksettings clear --old $TEST_PIN --user 0")
+        }
+    }
+
+    companion object { private const val TEST_PIN = "246813" }
 }

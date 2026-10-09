@@ -10,7 +10,10 @@ export. It uses real KeyguardManager availability, not a stubbed authentication
 success. Run37870867861 atfbf75e0 compiled and reproduced the expected functional red:
 Export wallet node missing. The real unsecured-device precondition passed and
 the current wallet was displayed. Durable evidence: ticket05/no-lock-red.
-Minimal affordance/setup error is implemented; its runtime green is pending.
+Minimal affordance/setup error passes Android 10 run37871388107 at91d3a1a:
+one actual UI test, unchanged identity and the expected setup guidance. The
+public screenshot was downloaded and inspected. This verifies availability
+handling only.
 There is no authenticated document export yet and #6 is not complete.
 
 Next slices verify real system PIN authentication/cancellation and SAF document
@@ -18,6 +21,13 @@ save/readback, lifecycle interruption and provider failures. Compatible options
 must remain intact, while secret JSON stays off logs/screenshots/evidence.
 A successful picker URI is not a successful backup. Dismissible reminder and
 recovery guidance must preserve immediate first use.
+
+Second slice adds a real PIN credential and Android DocumentsProvider in the
+test APK only. The system file picker grants access to a real JSON file; the
+test independently reopens it and checks compatible wallet identity/version.
+UiAutomator 2.4.0 resolves and the instrumentation Kotlin compilation passes.
+The actual authentication/export implementation is still absent, so this
+test is expected to reproduce a functional red before that implementation.
 
 Primary research is in ANDROID_AUTHENTICATED_WALLET_EXPORT.md and
 ANDROID_EXPORT_TEST_HARNESS.md. Pixel biometric/timing review remains #35.

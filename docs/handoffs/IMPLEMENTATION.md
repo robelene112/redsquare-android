@@ -1,6 +1,6 @@
 # Sequential implementation handoff
 
-Updated 2026-10-09, 01:40 UTC. The owner authorized implementing all 35 proposed
+Updated 2026-10-09. The owner authorized implementing all 35 proposed
 tickets sequentially, committing after each, and reviewing the app at the end.
 Continue without routine permission requests or a grill per ticket. Ask only
 one question at a time when a material choice really needs the owner.
@@ -22,8 +22,10 @@ one question at a time when a material choice really needs the owner.
 - Active #6 authenticated export/recovery reminder, assigned with blockers closed.
   Review base2d16be4. First no-screen-lock flow reproduces functional red
   run37870867861 atfbf75e0 (missing Export wallet control); minimal availability
-  gate/setup guidance implemented, runtime green pending. Authentication and
-  actual SAF write/readback remain subsequent slices. See research/NATIVE_WALLET_EXPORT_VERIFICATION.md.
+  gate/setup guidance passes run37871388107 at91d3a1a on Android 10, with the
+  public screenshot inspected. A real PIN/SAF save test compiles; its functional
+  red is next. Authentication and actual SAF write/readback remain to implement.
+  See research/NATIVE_WALLET_EXPORT_VERIFICATION.md.
   Then #7 safeguarded import.
   The first new phone-review milestone remains after #7, then continue all35.
 
