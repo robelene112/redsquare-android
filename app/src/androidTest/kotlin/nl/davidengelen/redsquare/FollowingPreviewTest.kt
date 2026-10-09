@@ -215,7 +215,7 @@ class FollowingPreviewTest {
         val author = root.get("field2").asString
         val alternatePublicKey = fixture.getAsJsonObject("otherRoot").get("field2").asString
         // Public unsafe scalar2 fixture. Never fund or use on a real phone.
-        val alternate = SaitoWallet.importJson("""{"wallet":{"version":5.677,"publicKey":"$alternatePublicKey","privateKey":"${"0".repeat(63)}2"}}""")
+        val alternate = SaitoWallet.fromBackup("""{"wallet":{"version":5.677,"publicKey":"$alternatePublicKey","privateKey":"${"0".repeat(63)}2"}}""")
         val peer = ControlledFeedPeer("[$root]") { criteria ->
             check(criteria.get("field1").asString == "RedSquare" && criteria.get("flagged_ne").asInt == 1)
             if (criteria.has("field2")) check(criteria.get("field2").asString == author)
