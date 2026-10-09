@@ -32,6 +32,19 @@ zero new correctness findings in the deadline fix. Evidence is retained in
 provider-deadline-green. Other failure/interruption checks remain pending.
 Additional write/readback and lifecycle/process recovery checks remain pending.
 
+At `f40cf2c`, Android10 run `37891029657` passes all five export cases and
+reminder/recovery. The new case exercises write-open rejection, read-open
+failure and truncated readback, followed by a fresh actual PIN prompt and a
+successfully reimported file with the unchanged identity. Public retry evidence
+is inspected and retained under provider-faults-green/api-29.
+
+Both independent source reviews through `2a5e507` report zero remaining
+actionable findings. The interruption harness kills the real test process
+before credentials, checks the created file has zero bytes and verifies cold
+identity continuity plus a new authenticated retry. Its runtime result and
+the later full run remain pending. This proves only its specified interruption
+stage, not arbitrary process loss midway through saving.
+
 Normal real-PIN export and reminder/recovery pass both Android 10 and 17.
 Wrong-PIN/cancel checks pass both SDKs after correcting repeated-picker
 fixture ambiguity by selecting the actual drawer row. No wallet JSON is in evidence.
