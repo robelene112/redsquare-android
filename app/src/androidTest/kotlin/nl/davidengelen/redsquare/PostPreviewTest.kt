@@ -167,6 +167,97 @@ class PostPreviewTest {
         }
     }
 
+    @Test fun failedDraftSavingPreventsBackendNavigationAndRetainsEditableWork() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        AndroidBackendStore(context).save(SaitoBackend.OWNER)
+        val root = instrumentation.context.assets.open("native-following-reference.json").bufferedReader().use {
+            JsonParser.parseReader(it).asJsonObject.getAsJsonObject("root")
+        }
+        val owner = ControlledFeedPeer("[$root]")
+        val official = ControlledFeedPeer("[$root]")
+        owner.start().use { ownerServer -> official.start().use { officialServer ->
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${ownerServer.port}/wsopen")
+                .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${officialServer.port}/wsopen")).use { scenario ->
+                waitForReferencePost()
+                ui.onNodeWithText("Wallet").performClick()
+                val address = displayedWalletAddress(ui)
+                ui.onNodeWithText("Done").performClick()
+                ui.onNodeWithText("New post").performClick()
+                ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                ui.onNode(hasSetTextAction()).performTextReplacement("Retain work when saving fails")
+                val obstacle = java.io.File(context.noBackupFilesDir, "postdraft.owner.$address.v1")
+                check(obstacle.mkdir())
+                val child = java.io.File(obstacle, "controlled-obstacle")
+                child.writeText("Synthetic storage obstruction")
+                try {
+                    ui.onNodeWithText("Settings").performClick()
+                    ui.onNodeWithText("saito.io").performClick()
+                    waitFor("Could not load or confirm the saved draft. Your current text remains here. Try again.")
+                    ui.onNodeWithText("Server: saito.davidengelen.nl").assertIsDisplayed()
+                    ui.onNode(hasSetTextAction()).assertTextEquals("Retain work when saving fails").assertIsEnabled()
+                    assertTrue(owner.transactions.isEmpty() && official.transactions.isEmpty())
+                    captureFeedEvidence("posting-evidence/failed-save-keeps-server-and-text.png")
+                } finally { check(child.delete()); check(obstacle.delete()) }
+                ui.onNodeWithText("Settings").performClick()
+                ui.onNodeWithText("saito.io").performClick()
+                waitFor("Server: saito.io")
+                waitFor("New post")
+                ui.onNodeWithText("Settings").performClick()
+                ui.onNodeWithText("saito.davidengelen.nl").performClick()
+                ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and hasText("Retain work when saving fails")).fetchSemanticsNodes().isNotEmpty() }
+                scenario.recreate()
+                ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and hasText("Retain work when saving fails")).fetchSemanticsNodes().isNotEmpty() }
+                assertTrue(owner.transactions.isEmpty() && official.transactions.isEmpty())
+                owner.assertHealthy(); official.assertHealthy()
+            }
+        } }
+    }
+
+    @Test fun damagedEncryptedDraftRemainsUntouchedUntilStorageIsRepairedAndRetried() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        AndroidBackendStore(context).save(SaitoBackend.OWNER)
+        val root = instrumentation.context.assets.open("native-following-reference.json").bufferedReader().use {
+            JsonParser.parseReader(it).asJsonObject.getAsJsonObject("root")
+        }
+        val peer = ControlledFeedPeer("[$root]")
+        peer.start().use { server ->
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                waitForReferencePost()
+                ui.onNodeWithText("Wallet").performClick()
+                val address = displayedWalletAddress(ui)
+                ui.onNodeWithText("Done").performClick()
+                ui.onNodeWithText("New post").performClick()
+                ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                ui.onNode(hasSetTextAction()).performTextReplacement("Recover the encrypted draft")
+                ui.onNodeWithText("Save draft").performClick()
+                ui.waitUntil(10_000) { ui.onAllNodes(hasScrollToIndexAction()).fetchSemanticsNodes().isNotEmpty() }
+                val file = java.io.File(context.noBackupFilesDir, "postdraft.owner.$address.v1")
+                val original = file.readBytes()
+                val damaged = original.copyOf().apply { this[lastIndex] = (this[lastIndex].toInt() xor 1).toByte() }
+                file.writeBytes(damaged)
+                try {
+                    ui.onNodeWithText("New post").performClick()
+                    waitFor("Could not load or confirm the saved draft. Your current text remains here. Try again.")
+                    ui.onNodeWithText("Save draft").assertIsNotEnabled()
+                    ui.onNodeWithText("Send").assertIsNotEnabled()
+                    assertTrue(file.readBytes().contentEquals(damaged))
+                    assertTrue(peer.transactions.isEmpty())
+                    captureFeedEvidence("posting-evidence/damaged-draft-recovery.png")
+                    file.writeBytes(original)
+                    ui.onNodeWithText("Retry").performClick()
+                    ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and hasText("Recover the encrypted draft")).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNode(hasSetTextAction()).assertTextEquals("Recover the encrypted draft").assertIsEnabled()
+                    assertTrue(peer.transactions.isEmpty())
+                    peer.assertHealthy()
+                } finally { file.writeBytes(original); original.fill(0); damaged.fill(0) }
+            }
+        }
+    }
+
     @Test fun recoveredPendingPostRetriesItsOriginalSignatureAndClearsOnlyAfterVerifiedAvailability() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
