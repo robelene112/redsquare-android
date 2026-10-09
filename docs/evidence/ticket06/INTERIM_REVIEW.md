@@ -50,6 +50,14 @@ under reminder-before-selection-green. The corrected regression performs an
 authenticated outgoing export after selecting the candidate and checks the
 incoming reminder after recreation; actual result remains pending.
 
+Corrected actual red: Android10 run37914569104 at982206e successfully backs up
+the outgoing wallet for the selected candidate, confirms replacement and
+verifies the incoming public address. After recreation it times out at
+RiskPreviewTest line68 waiting for the backup reminder. The point-of-failure
+public image shows the feed header with no reminder. Log/image inspected and
+retained under reminder-red. Minimal fix clears the outgoing export message
+before publishing a successfully imported wallet; device green remains pending.
+
 ## Bound-slip source and first regression
 
 Pinned source `9a4ca7e9442eb5e872168ced361ce741d7d139d7`:

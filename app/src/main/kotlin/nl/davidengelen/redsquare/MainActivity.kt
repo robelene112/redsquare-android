@@ -106,6 +106,9 @@ class MainActivity : ComponentActivity() {
                             WalletImport.Activation(restored, false)
                         }
                     }
+                    // An outgoing export cannot claim that a newly imported
+                    // wallet is backed up or dismiss that identity's reminder.
+                    if (result.successful) walletExport.clearMessage()
                     wallet = result.wallet
                     failed = result.wallet == null
                     result

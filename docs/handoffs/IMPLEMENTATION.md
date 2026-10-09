@@ -136,7 +136,13 @@ one question at a time when a material choice really needs the owner.
   import-risk, actual red pending); focused risk scopes avoid rerunning all6
   established flows, while full acceptance still includes them. Review-stage
   unused-hash removal and shared encrypted save are locally built/tested; final
-  device regression and review remain pending. No reminder fix implemented yet.
+  device regression and review remain pending. Reminder first run37913759494
+  passes, but exports before selection and misses the reported trigger. Corrected
+  test982206e actual red37914569104 fails atline68 after authenticated
+  candidate-bound export/replacement and recreation; inspected point-of-failure
+  image/log retained in reminder-red. Minimal correction clears outgoing export
+  status before successful identity publication; local build/device green pending.
+  Consolidated current evidence is research/NATIVE_WALLET_IMPORT_VERIFICATION.md.
   Fixture/test bytes remain in private test APK
   storage; each risk run clears only the isolated .dev emulator app first.
   A failed activation uses existing-only reload, never
