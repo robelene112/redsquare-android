@@ -104,6 +104,15 @@ Eighth case atcbfa5d9 follows both fixture authors via actual profile actions.
 The first author supplies a valid newer post unavailable in general/profile
 responses; the second supplies malformed archive JSON. The first result must
 remain available immediately and after recreation with the peer closed.
-Actual red37958609488 is running. No partial-result fix is implemented yet.
-Partial author-result recovery, final source reviews and full verification
-remain pending.
+Actual red37958609488 atcbfa5d9 passes seven cases and fails waiting for
+the newer first-author post (line426). Inspected image shows server error and
+empty Following; public proof retained partial-results-red. Minimal e9aa1fb
+publishes and caches each verified page before continuing to the next author.
+Local core/debug/test assembly passes1m22s. Actual green37959292042 passes all
+eight cases on Android10 in19.051 seconds. Public in-memory and offline cached
+images/log inspected and retained partial-results-green.
+
+Review refactor74b515f names generic Loaded.values and save values accurately
+without changing public cache formats. Both final source axes review this SHA
+against6dd511d. Full37959992336 is running, with separate approved public reads.
+Do not treat pending final checks as acceptance.

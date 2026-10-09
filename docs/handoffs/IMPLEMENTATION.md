@@ -16,87 +16,36 @@ one question at a time when a material choice really needs the owner.
   Both final source-review axes have zero actionable findings. References and
   functional red/green chronology are in thread/profile verification and
   ticket07/INTERIM_REVIEW/REVIEW. No production writes or new APK publication.
-- Active #9, "08: Follow accounts and read a Following feed", assigned @me;
-  #8 is closed, all native blockers complete, review base6dd511d. First app test
-  proves profile Follow/Unfollow and restricted Following/empty state. Actual
-  red37947832357 at8e77779 fails at missing Follow action (line47), after a
-  separately corrected test-import build error. Public image/log retained in
-  ticket08/following-red. Minimal implementation builds locally: wallet-scoped
-  follow choices in shared bounded atomic public storage, profile actions,
-  Following view and exact-author archive reads using only the selected peer.
-  PublicStringStore is the existing envelope cache renamed for its third public
-  string consumer; prior cache formats are unchanged. Green37949419777/37949425181
-  at3caa31a passes the first actual follow/unfollow case on Android10/17; public
-  logs/images inspected/retained following-green. Second app case at40136c5
-  switches owner/official histories, keeps follow choices, closes official and
-  recreates, requires only official cached followed posts and no fallback,
-  then returns to owner and requires its history/Unfollow. Current two-case
-  run37950206054 on Android10 passes both cases in9.387s; public official cached
-  followed-feed/outage image and log inspected/retained backend-recovery-green.
-  Third app case obstructs only following.<displayed-own-public-key>.v1 after
-  choices loaded, requires failed Follow remains unconfirmed with error, removes
-  the public filesystem fixture, retries and requires success/Following content.
-  Run37951108934 at65e4ba5 passes all three cases on Android10 in11.747s;
-  public failure-with-unconfirmed-Follow and successful retry images/log
-  inspected/retained save-retry-green. Fourth app case follows author1 and
-  requires a newer signed post absent from the general page, excluding a valid
-  author2 post whose archive field2 misleadingly claims author1. Current run
-  37951927215 at72530fb passes all four cases on Android10 in12.586s; public
-  author-history image/log inspected/retained author-history-green. Fifth case
-  atc14246a establishes follow choices for the current emulator wallet, swaps
-  only a public unsafe scalar2 wallet fixture via protected store between cold
-  actual-app launches, requires no inherited choices/Follow for the new identity,
-  restores the original wallet and requires its Unfollow. Guarded .dev/emulator;
-  this is identity-isolation evidence, not a new import-UI claim. Five-case runs
-  37952728041/37952732559 failed compilation because the fixture used nonexistent
-  importJson instead of fromBackup. This is not a functional red. Corrected
-  five-case runs37953412336/37953417415 at0b7d3f7 pass Android10/17; public logs
-  and old/restored/separate identity images inspected/retained identity-green.
-  Local core/debug/test assembly passes52s; no local build active. Sixth actual
-  app regression atc3b88f5 follows author1, closes, seeds only the public general
-  cache with100 independently signed newer author2 roots, cold launches and
-  requires older author1 content in Following. New pure reference fixture/script
-  uses scalar2 only, no node/app/wallet initialization or network. Six-case run
-  Actual retention red37954356779 atc3b88f5 passes five cases and fails at the
-  older followed post after full general-cache seeding (line316); inspected
-  image says No available posts despite the valid author response. Retained
-  retention-red. Minimal115fc7a gives Following its own wallet/backend public
-  cache and filters active followed authors before100-post retention. Local
-  core/debug/test assembly passes1m23s; no local build active. New fresh-case
-  cleanup58574e0 also clears fixture-owned followingfeed public files. Current
-  six-case green37955584059 at58574e0 passes Android10 in16.971s, including all
-  fresh-case setup and full100-root general cache. Public log/image inspected
-  and retained retention-green;37955130341 was superseded. Seventh app case at
-  current HEAD follows author1, closes, preserves only public follow bytes,
-  obstructs that follow file with a public directory fixture, cold launches to
-  error/Loading, restores the file and requires a visible Retry to reload and
-  recover Unfollow without another restart. Actual red37956724460 at5d582bc fails only the seventh case: no Retry node
-  (line368), six earlier cases pass. Public log/image inspected and retained
-  load-retry-red. Minimalcc71cb9 adds explicit loading state and shared
-  error/Retry UI in feed and profile. Local core/debug/test assembly passes
-  1m26s. Focused green37957941542 atcc71cb9 passes all seven on Android10 in23.684s;
-  public log/recovered Unfollow image inspected and retained load-retry-green.
-  Eighth case atcbfa5d9 follows two authors through the UI, serves a new valid
-  first-author post and malformed second-author archive JSON, then requires
-  that first post immediately and after cached recreation with peer closed.
-  Actual red37958609488 is running; no partial-result source fix yet. Next after green: partial-results
-  recovery when another followed-author request fails, rename generic values,
-  repeat both source reviews and final full before closing#9.
-  Both read-only
-  reviews atc14246a found issues, recorded ticket08/INTERIM_REVIEW: general100-post
-  retention can evict every older followed result; failed initial choices load
-  has no UI retry but says Try again/Loading. Standards also found generic loaded
-  values still named envelopes. Another availability edge: a later author timeout
-  discards already verified earlier results because publishing waits for all.
-  After seventh green, test/fix partial author results at the primary UI seam. Share
-  correct bounded public cache storage, keep backend/identity scopes and previous
-  on-disk formats. Rename generic values during review. Repeat both source reviews and
-  final full; close#9 only on acceptance and continue all35 sequentially.
-  New references use the pure pinned WASM/Elliptic helper. Direct named deployed
-  public Archive source read confirmed exact field2 criteria; named Git-object
-  reads failed at the old documented Git directory. No Git repair attempted;
-  source hash/provenance in NATIVE_FOLLOWING_VERIFICATION.md. Public scalar1/2 only;
-  never read/export real wallet/private material or broadcast production writes.
+- Active #9, "08: Follow accounts and read a Following feed", review base
+  6dd511d, final source candidate74b515f. #8 closed; all blockers complete.
+  Wallet-scoped local follow choices shared across fixed backend sessions,
+  profile Follow/Unfollow, selected-backend signed-author Following reads,
+  independent wallet/backend public Following cache, membership before bounded
+  retention. Exact-author archive queries; no on-chain following or cross-device
+  promise. PublicStringStore is the prior cache generalized for its third public
+  strings consumer; cache formats unchanged and values named accurately.
+  Actual eight-case Android10 green37959292042 ate9aa1fb passes19.051s.
+  Earlier five-case Android17 green37953417415 at0b7d3f7 passes85.443s;
+  remaining cases await full37 run. Final full37959992336 at74b515f is running,
+  including separate authorized public reads on both approved backends.
+  Two independent final source axes are reviewing74b515f against6dd511d.
+  Do not close#9 until full proof and both reviews pass.
+  Eight actual-app cases: Follow/Unfollow filter; backend-switch/offline cache;
+  unconfirmed failed-save retry; author history beyond general page plus signer
+  filtering; identity replacement/restore fixture; full100-root unrelated cache;
+  transient choices-read Retry; retain valid earlier author response after later
+  malformed response, including offline recreation. Last three functional reds
+  37954356779/37956724460/37958609488 reproduced actual source defects, then fixes
+  115fc7a/cc71cb9/e9aa1fb pass. Seven-case green37957941542 passes23.684s;
+  eight-case green above. Local core/debug/test assembly at e9aa1fb passes1m22s.
+  Public logs/images inspected and retained docs/evidence/ticket08; detailed
+  chronology in NATIVE_FOLLOWING_VERIFICATION.md and INTERIM_REVIEW.md.
+  Safe independent reference scripts use public unsafe scalar1/2, pinned
+  WASM/Elliptic, no network/app/wallet/DB initialization. Deployed public Archive
+  file confirms exact field2 criteria. Named Git-object reads failed at the old
+  documented Git directory; no repair attempted. Hash/provenance in report.
+  No production writes, private uploads, new review APK or physical proof.
+  Continue all35 sequentially after acceptance. Next #10 posts/replies/drafts.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.
