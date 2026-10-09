@@ -1,6 +1,6 @@
 # Sequential implementation handoff
 
-Updated 2026-10-09, 00:59 UTC. The owner authorized implementing all 35 proposed
+Updated 2026-10-09, 01:20 UTC. The owner authorized implementing all 35 proposed
 tickets sequentially, committing after each, and reviewing the app at the end.
 Continue without routine permission requests or a grill per ticket. Ask only
 one question at a time when a material choice really needs the owner.
@@ -15,14 +15,15 @@ one question at a time when a material choice really needs the owner.
   base is **7085bcf**. First slice tests the visible settings selection, same
   authenticated identity on both controlled peers, independent feed caches and
   retained selection/cached posts through a selected-server outage/recreation.
-  Functional red run37865535083 failed at the absent Settings control.
-  Android 10 controlled switching/save-failure/retry six cases pass in
-  37866857744 at73f4579. Both reviews7085bcf...1b39936 found a P2 post-write
-  save failure that can change the choice after restart. Regression at0966d9b
-  reproduces functional red37867404367. Durable pending-marker fix now blocks
-  uncertain choices until explicit recovery; runtime/fix reviews pending. Full
-  pre-fix run37867221377 includes both explicit public reads and Android10/17.
-  Final acceptance remains pending. See NATIVE_BACKEND_SELECTION.md.
+  Initial functional red37865535083 failed at the absent Settings control.
+  Eight controlled Android10 cases pass after the pending-marker fix7578661.
+  Both reviews report zero through444f290. The first fixed run stopped on a
+  missing-version synthetic import fixture;444f290 corrects it without an app
+  change. Final full run37868642713 passes complete Android10 acceptance,
+  including both public reads, native compatibility3, wallet recovery/cold
+  continuity and signed5-to-8 update. Android17 is running. Do not close #5
+  until final evidence is downloaded/inspected. Original base7085bcf remains.
+  See research/NATIVE_BACKEND_SELECTION.md and evidence/ticket04/REVIEW.md.
 
 - Ticket #4's reviewed implementation passed final full run **37863843807**
   at c5953de on Android 10 and 17. All fourteen core tests, assembly/lint, four

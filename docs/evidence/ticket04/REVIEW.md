@@ -34,3 +34,10 @@ uncertain saves stop the active feed, startup blocks pending selection, and
 explicit recovery verifies the ID before publication. Imported peer metadata
 remains portable and inert for approved connection selection. Actual import
 activation belongs to #7. Final runtime acceptance remains pending.
+
+## Fixture delta review at444f290
+
+Both axes report zero new findings for7578661..444f290, retaining overall
+base7085bcf. The required pinned version corrects a synthetic fixture without
+changing the app or endpoint-isolation assertions. Final full run37868642713
+passes Android10; Android17/downloaded evidence remain pending.

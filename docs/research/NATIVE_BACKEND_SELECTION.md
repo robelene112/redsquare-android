@@ -76,3 +76,15 @@ compatibility cases pass. This is an invalid test fixture, not evidence that
 peer options changed connections. Added the independently pinned version5.677
 already present in the accepted backup fixture. Android17/full acceptance was
 not reached; final verification must rerun with the corrected fixture.
+
+Full run37868642713 at444f290 passes all22 instrumentation cases per SDK,
+core14, release/debug assembly and lint, cached cold feed, wallet continuity
+and signed5-to-8 updates. Public reads each report three author identities.
+Downloaded logs and four public screenshots were inspected. The Android17
+capture for the official read showed Loading despite its successful semantics
+assertion. This discrepancy prevents treating that image as visual proof.
+App source is unchanged; live-read setup is strengthened to persist the requested
+approved backend before launch (avoiding any initial owner connection), require
+its displayed label/author and enabled Refresh after loading, and capture the
+Compose root as well as the system surface. Focused live-read checks on both
+SDKs will resolve this evidence concern; original full source acceptance remains.
