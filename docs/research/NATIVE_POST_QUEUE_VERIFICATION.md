@@ -30,3 +30,7 @@ Focused38003100661 reaches Queued, then the fixture incorrectly asks for
 SetText on a disabled field. Select its text while preserving the disabled-state
 assertion. This is a fixture failure; restart/cancellation have not passed yet.
 Corrected test assembly passes50s.
+
+Focused38003662459 at16af65c passes the first complete queue/cancellation
+application case. Durable Queued recovery and cancellation retaining an unsent
+draft are runtime verified. Automatic backend-bound resumption is next.
