@@ -29,12 +29,8 @@ class FollowingPreviewTest {
     @Test fun followingChoicesSurviveBackendSwitchAndOfflineRestartWithSeparateHistory() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
-        val fixture = instrumentation.context.assets.open("native-following-reference.json").bufferedReader().use {
-            JsonParser.parseReader(it).asJsonObject
-        }
-        val paging = instrumentation.context.assets.open("native-profile-paging-reference.json").bufferedReader().use {
-            JsonParser.parseReader(it).asJsonObject
-        }
+        val fixture = readReference("native-following-reference.json")
+        val paging = readReference("native-profile-paging-reference.json")
         val root = fixture.getAsJsonObject("root")
         val other = fixture.getAsJsonObject("otherRoot")
         val newer = paging.getAsJsonArray("recentPosts")[0].asJsonObject
@@ -107,9 +103,7 @@ class FollowingPreviewTest {
     @Test fun failedFollowSaveKeepsTheActionUnconfirmedAndAllowsRetry() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
-        val fixture = instrumentation.context.assets.open("native-following-reference.json").bufferedReader().use {
-            JsonParser.parseReader(it).asJsonObject
-        }
+        val fixture = readReference("native-following-reference.json")
         val root = fixture.getAsJsonObject("root")
         val author = root.get("field2").asString
         val peer = ControlledFeedPeer("[$root]") { criteria ->
@@ -159,12 +153,8 @@ class FollowingPreviewTest {
     @Test fun followingLoadsAuthorHistoryBeyondTheGeneralPageAndRejectsOtherSigners() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
-        val fixture = instrumentation.context.assets.open("native-following-reference.json").bufferedReader().use {
-            JsonParser.parseReader(it).asJsonObject
-        }
-        val paging = instrumentation.context.assets.open("native-profile-paging-reference.json").bufferedReader().use {
-            JsonParser.parseReader(it).asJsonObject
-        }
+        val fixture = readReference("native-following-reference.json")
+        val paging = readReference("native-profile-paging-reference.json")
         val root = fixture.getAsJsonObject("root")
         val other = fixture.getAsJsonObject("otherRoot")
         val author = root.get("field2").asString
@@ -209,9 +199,7 @@ class FollowingPreviewTest {
         check(android.os.Build.HARDWARE in setOf("ranchu", "goldfish")) { "Isolated emulator required" }
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
-        val fixture = instrumentation.context.assets.open("native-following-reference.json").bufferedReader().use {
-            JsonParser.parseReader(it).asJsonObject
-        }
+        val fixture = readReference("native-following-reference.json")
         val root = fixture.getAsJsonObject("root")
         val author = root.get("field2").asString
         val alternatePublicKey = fixture.getAsJsonObject("otherRoot").get("field2").asString
@@ -283,9 +271,7 @@ class FollowingPreviewTest {
     @Test fun newerUnrelatedGeneralCacheCannotHideAvailableFollowedAuthorPosts() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
-        val fixture = instrumentation.context.assets.open("native-following-retention-reference.json").bufferedReader().use {
-            JsonParser.parseReader(it).asJsonObject
-        }
+        val fixture = readReference("native-following-retention-reference.json")
         val root = fixture.getAsJsonObject("root")
         val author = root.get("field2").asString
         val peer = ControlledFeedPeer("[$root]") { criteria ->
@@ -330,9 +316,7 @@ class FollowingPreviewTest {
     @Test fun restoredFollowChoiceStorageCanBeRetriedWithoutRestarting() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
-        val fixture = instrumentation.context.assets.open("native-following-reference.json").bufferedReader().use {
-            JsonParser.parseReader(it).asJsonObject
-        }
+        val fixture = readReference("native-following-reference.json")
         val root = fixture.getAsJsonObject("root")
         val author = root.get("field2").asString
         val peer = ControlledFeedPeer("[$root]") { criteria ->
@@ -389,12 +373,8 @@ class FollowingPreviewTest {
     @Test fun validFollowedAuthorResultsRemainAvailableWhenAnotherAuthorFails() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
-        val fixture = instrumentation.context.assets.open("native-following-reference.json").bufferedReader().use {
-            JsonParser.parseReader(it).asJsonObject
-        }
-        val paging = instrumentation.context.assets.open("native-profile-paging-reference.json").bufferedReader().use {
-            JsonParser.parseReader(it).asJsonObject
-        }
+        val fixture = readReference("native-following-reference.json")
+        val paging = readReference("native-profile-paging-reference.json")
         val root = fixture.getAsJsonObject("root")
         val other = fixture.getAsJsonObject("otherRoot")
         val newer = paging.getAsJsonArray("recentPosts")[0].asJsonObject
@@ -444,9 +424,7 @@ class FollowingPreviewTest {
     @Test fun followingAnAccountRestrictsTheFeedAndUnfollowingRemovesItsPosts() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
-        val fixture = instrumentation.context.assets.open("native-following-reference.json").bufferedReader().use {
-            JsonParser.parseReader(it).asJsonObject
-        }
+        val fixture = readReference("native-following-reference.json")
         val root = fixture.getAsJsonObject("root")
         val other = fixture.getAsJsonObject("otherRoot")
         val author = root.get("field2").asString
@@ -487,6 +465,11 @@ class FollowingPreviewTest {
             }
         }
     }
+
+    private fun readReference(name: String): com.google.gson.JsonObject =
+        InstrumentationRegistry.getInstrumentation().context.assets.open(name).bufferedReader().use {
+            JsonParser.parseReader(it).asJsonObject
+        }
 
     private fun waitFor(text: String) = ui.waitUntil(15_000) {
         ui.onAllNodes(hasText(text)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
