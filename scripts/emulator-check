@@ -51,6 +51,10 @@ verify_wallet_import() {
     adb shell run-as nl.davidengelen.redsquare.dev.test mkdir -p files/wallet-test-documents
     printf '%s' 'not a wallet backup' | adb shell run-as nl.davidengelen.redsquare.dev.test \
         tee files/wallet-test-documents/invalid-import.json > /dev/null
+    # Published scalar1 and its independent Saito public address, test-only.
+    # The known unsafe identity must never hold real funds. Do not print JSON.
+    printf '%s' '{"wallet":{"version":5.677,"publicKey":"jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR","privateKey":"0000000000000000000000000000000000000000000000000000000000000001"},"opaque_module":{"enabled":true}}' | \
+        adb shell run-as nl.davidengelen.redsquare.dev.test tee files/wallet-test-documents/reference-import.json > /dev/null
     timeout 180 adb shell am instrument -w -r \
         -e class nl.davidengelen.redsquare.WalletImportPreviewTest \
         nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \

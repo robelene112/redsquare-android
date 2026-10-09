@@ -50,7 +50,13 @@ one question at a time when a material choice really needs the owner.
   is correct, and post-failure picker image shows Downloads, not the test root.
   This does not prove the exact cause. Selection now rechecks the visible test
   folder header and reacquires/retries root controls instead of assuming a
-  closed drawer means the requested folder was selected. Runtime pending.
+  closed drawer means the requested folder was selected. Actual green
+  37897188055/37897191325 at1bfa635 now passes this flow on both SDKs.
+  Public images/logs inspected/retained in ticket06/invalid-file-final-green.
+  A valid-backup preview test now selects an authenticated same-wallet backup
+  and independent published scalar1 fixture; it requires Restore/Replace
+  classification and unchanged active identity. Compile/functional red pending.
+  Do not implement that preview ahead of its observed functional red.
   Testing uses approved parent application/failure boundaries, with fixture data
   in the isolated test APK only. Do not claim valid import preview/activation
   from this slice; those remain upcoming within#7.
