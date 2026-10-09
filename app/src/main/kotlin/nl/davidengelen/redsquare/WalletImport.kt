@@ -27,16 +27,20 @@ class WalletImport(
     private val currentWallet: () -> SaitoWallet?,
     private val currentBackend: () -> SaitoBackend?,
     private val balances: WalletBalances,
+    private val activate: suspend (SaitoWallet, SaitoWallet) -> Activation,
     private val chooseDocument: () -> Unit,
 ) {
     data class Preview(val publicKey: String, val sameIdentity: Boolean, val backupVerified: Boolean = false,
-        val balance: ImportBalance? = null, val backupSkipped: Boolean = false)
+        val balance: ImportBalance? = null, val backupSkipped: Boolean = false, val acknowledged: Boolean = false)
+    class Activation(val wallet: SaitoWallet?, val successful: Boolean)
 
     var preview by mutableStateOf<Preview?>(null)
         private set
     var message by mutableStateOf<Int?>(null)
         private set
     var busy by mutableStateOf(false)
+        private set
+    var activating by mutableStateOf(false)
         private set
     private val documents = activity.applicationContext.contentResolver
     @Volatile private var readingAttempt: ReadAttempt? = null
@@ -131,6 +135,45 @@ class WalletImport(
         val selected = candidate ?: return
         if (!busy && currentWallet() === selected.original && currentBackend() == selected.backend &&
             preview?.balance == ImportBalance.ZERO) preview = preview?.copy(backupSkipped = true)
+    }
+
+    fun acknowledge(checked: Boolean) { if (!busy) preview = preview?.copy(acknowledged = checked) }
+
+    fun confirm() {
+        val selected = candidate ?: return
+        val view = preview ?: return
+        if (busy || !view.acknowledged || currentWallet() !== selected.original || currentBackend() != selected.backend ||
+            (!view.sameIdentity && !view.backupVerified && !(view.balance == ImportBalance.ZERO && view.backupSkipped))) return
+        busy = true
+        activating = true
+        balanceJob?.cancel()
+        activity.lifecycleScope.launch {
+            if (!view.sameIdentity && !view.backupVerified) {
+                val balance = selected.backend?.let {
+                    withContext(Dispatchers.IO) { balances.assess(it, selected.original.publicKey) }
+                } ?: ImportBalance.UNKNOWN
+                if (candidate !== selected || currentWallet() !== selected.original || currentBackend() != selected.backend) {
+                    cancel(); activating = false; return@launch
+                }
+                if (balance != ImportBalance.ZERO) {
+                    preview = preview?.copy(balance = balance, backupSkipped = false)
+                    message = R.string.wallet_import_balance_changed
+                    busy = false
+                    activating = false
+                    return@launch
+                }
+            }
+            if (candidate !== selected || currentWallet() !== selected.original || currentBackend() != selected.backend) {
+                cancel(); activating = false; return@launch
+            }
+            val result = activate(selected.original, selected.wallet)
+            candidate = null
+            preview = null
+            busy = false
+            activating = false
+            message = if (result.successful) R.string.wallet_import_saved
+                else if (result.wallet != null) R.string.wallet_import_failed else R.string.wallet_import_recovery_needed
+        }
     }
 
     fun backUpCurrentWallet(startExport: ((SaitoWallet) -> Unit) -> Unit) {

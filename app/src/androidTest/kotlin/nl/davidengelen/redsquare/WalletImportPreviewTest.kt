@@ -77,7 +77,7 @@ class WalletImportPreviewTest {
                     Triple("reference-import.json", "Replace your wallet", "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR"),
                 )
                 for ((name, title, expected) in cases) {
-                    ui.onNodeWithText("Import wallet").performClick()
+                    ui.onNodeWithText("Import wallet").performScrollTo().performClick()
                     selectImportRoot(device)
                     val file = By.text(name)
                     check(device.wait(Until.hasObject(file), 10_000))

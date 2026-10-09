@@ -22,12 +22,17 @@ class AndroidWalletStore(context: Context, private val directorySync: (FileDescr
     private val file = AtomicFile(File(context.noBackupFilesDir, "wallet.v1"))
     private val associatedData = "${context.packageName}:wallet.v1".toByteArray(Charsets.UTF_8)
     private val initializing = File(context.noBackupFilesDir, "wallet.initializing")
+    private val recovery = AtomicFile(File(context.noBackupFilesDir, "wallet.recovery.v1"))
 
     fun loadOrCreate(): SaitoWallet = synchronized(lock) {
         // AtomicFile also recovers an interrupted legacy backup before reading.
         val exists = file.baseFile.exists() || File(file.baseFile.path + ".bak").exists()
         val keyStore = KeyStore.getInstance("AndroidKeyStore").apply { load(null) }
         val existingKey = keyStore.getKey(KEY_ALIAS, null) as? SecretKey
+        if (hasRecovery()) {
+            require(!initializing.exists()) { "Conflicting wallet recovery state" }
+            return@synchronized recover(requireNotNull(existingKey) { "Wallet storage key unavailable" })
+        }
         if (initializing.exists()) {
             require(initializing.isFile && initializing.length() == 0L) { "Invalid wallet initialization state" }
             // The durable marker precedes key generation and is removed before
@@ -96,6 +101,78 @@ class AndroidWalletStore(context: Context, private val directorySync: (FileDescr
         }
     }
 
+    /** The recovery record remains authoritative until a verified commit removes it. */
+    fun loadExisting(): SaitoWallet = synchronized(lock) {
+        require(!initializing.exists()) { "Wallet initialization is incomplete" }
+        val key = requireNotNull(KeyStore.getInstance("AndroidKeyStore").apply { load(null) }
+            .getKey(KEY_ALIAS, null) as? SecretKey) { "Wallet storage key unavailable" }
+        if (hasRecovery()) recover(key) else readSavedWallet(key).also { syncDirectory() }
+    }
+
+    /** The recovery record remains authoritative until a verified commit removes it. */
+    fun replace(expected: SaitoWallet, replacement: SaitoWallet): SaitoWallet = synchronized(lock) {
+        require(!initializing.exists()) { "Wallet initialization is incomplete" }
+        val key = requireNotNull(KeyStore.getInstance("AndroidKeyStore").apply { load(null) }
+            .getKey(KEY_ALIAS, null) as? SecretKey) { "Wallet storage key unavailable" }
+        val previous = if (hasRecovery()) recover(key) else readSavedWallet(key)
+        check(previous.exportJson() == expected.exportJson()) { "Active wallet changed" }
+        try {
+            writeVerified(recovery, previous, key)
+            val saved = writeVerified(file, replacement, key)
+            removeRecovery()
+            saved
+        } catch (_: Exception) {
+            // Restoring must itself be durable and verified. A failure retains
+            // recovery data and the caller must withhold a live signing wallet.
+            try {
+                writeVerified(recovery, previous, key)
+                recover(key)
+            } catch (_: Exception) { throw IllegalStateException("Wallet recovery required") }
+            throw IllegalStateException("Wallet replacement failed")
+        }
+    }
+
+    private fun hasRecovery() = recovery.baseFile.exists() || File(recovery.baseFile.path + ".bak").exists()
+
+    private fun recover(key: SecretKey): SaitoWallet {
+        val previous = readSavedWallet(key, recovery)
+        val saved = writeVerified(file, previous, key)
+        removeRecovery()
+        return saved
+    }
+
+    private fun removeRecovery() {
+        recovery.delete()
+        check(listOf("", ".bak", ".new").none { File(recovery.baseFile.path + it).exists() }) {
+            "Wallet recovery could not be committed"
+        }
+        syncDirectory()
+    }
+
+    private fun writeVerified(target: AtomicFile, wallet: SaitoWallet, key: SecretKey): SaitoWallet {
+        val plaintext = wallet.exportJson().toByteArray(Charsets.UTF_8)
+        val envelope = try {
+            require(plaintext.size in 1..SaitoWallet.MAX_BACKUP_BYTES)
+            val cipher = Cipher.getInstance("AES/GCM/NoPadding")
+            cipher.init(Cipher.ENCRYPT_MODE, key)
+            cipher.updateAAD(associatedData)
+            byteArrayOf(1) + cipher.iv + cipher.doFinal(plaintext)
+        } finally { plaintext.fill(0) }
+        val output = target.startWrite()
+        try {
+            output.write(envelope)
+            output.fd.sync()
+            target.finishWrite(output)
+        } catch (failure: Exception) {
+            target.failWrite(output)
+            throw failure
+        }
+        syncDirectory()
+        val saved = readSavedWallet(key, target)
+        check(saved.exportJson() == wallet.exportJson()) { "Wallet persistence verification failed" }
+        return saved
+    }
+
     private fun finishInitialization() {
         check(initializing.delete()) { "Wallet initialization could not be committed" }
         syncDirectory()
@@ -106,8 +183,8 @@ class AndroidWalletStore(context: Context, private val directorySync: (FileDescr
         try { directorySync(directory) } finally { Os.close(directory) }
     }
 
-    private fun readSavedWallet(key: SecretKey): SaitoWallet {
-        val envelope = file.openRead().use { input ->
+    private fun readSavedWallet(key: SecretKey, source: AtomicFile = file): SaitoWallet {
+        val envelope = source.openRead().use { input ->
             val buffer = ByteArray(MAX_ENVELOPE_BYTES + 1)
             var size = 0
             while (size < buffer.size) {

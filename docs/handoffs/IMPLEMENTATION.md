@@ -98,7 +98,15 @@ one question at a time when a material choice really needs the owner.
   Next test requires explicit risk acknowledgement before replacement, saved/
   active agreement across recreation and fixed-backend preservation despite
   imported peer settings, then restores the original identity through the UI.
-  Compile passed; actual red pending. No activation implementation yet.
+  Compile passed. Actual functional red37905541570 at04bf0a0 reaches fresh-zero
+  Skip backup and fails at missing Confirm replacement (test line274); all5
+  earlier flows still pass. Log retained in ticket06/activation-red. Minimal
+  acknowledgement/confirm flow, activation-time zero recheck and encrypted
+  durable recovery record/full saved-options verification are implemented;
+  compile/green pending. A failed activation uses existing-only reload, never
+  creation. Main withholds the live signing wallet during persistence. Actual
+  failure, process interruption, metadata/identity-isolation and same-wallet
+  restoration verification still remain within#7; do not claim those complete.
   Fixture remains only in the isolated test APK; harness
   timeout increased to300 seconds for the deliberate65-second late-result check.
   No activation is implemented yet.

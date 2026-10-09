@@ -65,4 +65,14 @@
     <string name="wallet_import_backup_recommended">A backup is strongly recommended, even with zero SAITO.</string>
     <string name="wallet_import_skip_backup">Skip backup</string>
     <string name="wallet_import_backup_skipped">Backup skipped for this replacement</string>
+    <string name="wallet_import_work_warning">Names and pending work stay with your current wallet. Pending work could not be fully checked. Wallet backups may not include all pending work or local Chat history.</string>
+    <string name="wallet_import_restore_warning">Restoring this backup can replace wallet settings. It does not restore all local Chat history.</string>
+    <string name="wallet_import_acknowledge">I understand the recovery limits and the effect on my current wallet.</string>
+    <string name="wallet_import_ack_label">Replacement risks acknowledged</string>
+    <string name="wallet_import_confirm_replace">Confirm replacement</string>
+    <string name="wallet_import_confirm_restore">Confirm restore</string>
+    <string name="wallet_import_saved">Wallet imported</string>
+    <string name="wallet_import_failed">Your wallet could not be imported. Your previous wallet has been restored.</string>
+    <string name="wallet_import_recovery_needed">Your wallet needs recovery. Close this window and tap Retry.</string>
+    <string name="wallet_import_balance_changed">Your current wallet needs a backup before replacement. Review the latest balance information.</string>
 </resources>
