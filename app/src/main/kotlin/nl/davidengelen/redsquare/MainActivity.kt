@@ -152,11 +152,15 @@ class MainActivity : ComponentActivity() {
                                             backendSaveError = false
                                             scope.launch {
                                                 try {
-                                                    val saved = withContext(Dispatchers.IO) {
-                                                        try { backendStore.save(choice); true } catch (_: Exception) { false }
+                                                    val outcome = withContext(Dispatchers.IO) {
+                                                        try { backendStore.save(choice); Result.success(Unit) }
+                                                        catch (failure: Exception) { Result.failure(failure) }
                                                     }
-                                                    if (saved) { backend = choice; settingsOpen = false }
-                                                    else backendSaveError = true
+                                                    if (outcome.isSuccess) { backend = choice; settingsOpen = false }
+                                                    else {
+                                                        if (outcome.exceptionOrNull() is AndroidBackendStore.UncertainCommit) backend = null
+                                                        backendSaveError = true
+                                                    }
                                                 } finally { savingBackend = false }
                                             }
                                         }) { Text(choice.domain) }

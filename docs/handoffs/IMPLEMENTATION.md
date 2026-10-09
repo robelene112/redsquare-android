@@ -1,6 +1,6 @@
 # Sequential implementation handoff
 
-Updated 2026-10-09, 00:44 UTC. The owner authorized implementing all 35 proposed
+Updated 2026-10-09, 00:59 UTC. The owner authorized implementing all 35 proposed
 tickets sequentially, committing after each, and reviewing the app at the end.
 Continue without routine permission requests or a grill per ticket. Ask only
 one question at a time when a material choice really needs the owner.
@@ -15,10 +15,15 @@ one question at a time when a material choice really needs the owner.
   base is **7085bcf**. First slice tests the visible settings selection, same
   authenticated identity on both controlled peers, independent feed caches and
   retained selection/cached posts through a selected-server outage/recreation.
-  Functional red run37865535083 at39cd843 failed at the missing Settings control;
-  four prior feed cases passed. First implementation compiles/core14 pass locally.
-  Fixed enum/atomic selection store/per-server cache/settings UI await runtime
-  verification. No official live-read acceptance or completed #5 is claimed.
+  Functional red run37865535083 failed at the absent Settings control.
+  Android 10 controlled switching/save-failure/retry six cases pass in
+  37866857744 at73f4579. Both reviews7085bcf...1b39936 found a P2 post-write
+  save failure that can change the choice after restart. Regression at0966d9b
+  reproduces functional red37867404367. Durable pending-marker fix now blocks
+  uncertain choices until explicit recovery; runtime/fix reviews pending. Full
+  pre-fix run37867221377 includes both explicit public reads and Android10/17.
+  Final acceptance remains pending. See NATIVE_BACKEND_SELECTION.md.
+
 - Ticket #4's reviewed implementation passed final full run **37863843807**
   at c5953de on Android 10 and 17. All fourteen core tests, assembly/lint, four
   controlled feed cases per SDK, fresh owner reads, wallet recovery/continuity,
