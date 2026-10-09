@@ -53,6 +53,11 @@ one question at a time when a material choice really needs the owner.
   so superseded/canceled after preserving the completed Android10 step.
   Download/inspect that partial evidence, then obtain corrected SDK17 and
   final full acceptance. Do not call canceled full acceptance green.
+  Corrected Android17 focused37892237605 at7a2ab0b passes all five export
+  cases, reminder/recovery and actual process interruption/authenticated cold
+  retry. Evidence/images inspected under ticket05/final-focused/api-37.0.
+  Final full37892360326 at7a2ab0b is active; complete/evaluate that run before
+  closing#6. Latest source reviews through7a2ab0b both have zero findings.
   See research/NATIVE_WALLET_EXPORT_VERIFICATION.md.
   Then #7 safeguarded import.
   The first new phone-review milestone remains after #7, then continue all35.

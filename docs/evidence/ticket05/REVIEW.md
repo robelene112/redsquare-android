@@ -69,6 +69,13 @@ source findings in the exact resource correction. Corrected focused Android17
 run `37892237605` and final full `37892360326` remain pending. No production
 export code was changed for the fixture repair.
 
+Corrected Android17 focused run `37892237605` at `7a2ab0b` passes all five
+export cases, reminder/recovery and the actual process-death/recovery phases.
+Its public retry and cold-recovery images/logs are inspected and retained in
+final-focused/api-37.0. Both SDKs now have actual provider-failure and fresh-PIN
+retry evidence, plus a terminated-before-authentication process check. Only
+final full `37892360326` remains pending; no extra source change is proposed.
+
 Normal real-PIN export and reminder/recovery pass both Android 10 and 17.
 Wrong-PIN/cancel checks pass both SDKs after correcting repeated-picker
 fixture ambiguity by selecting the actual drawer row. No wallet JSON is in evidence.
