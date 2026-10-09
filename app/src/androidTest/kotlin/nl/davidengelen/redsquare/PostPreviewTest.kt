@@ -63,7 +63,9 @@ class PostPreviewTest {
         val root = instrumentation.context.assets.open("native-following-reference.json").bufferedReader().use {
             JsonParser.parseReader(it).asJsonObject.getAsJsonObject("root")
         }
-        val peer = ControlledFeedPeer("[$root]")
+        val peer = ControlledFeedPeer("[$root]") { criteria ->
+            if (criteria.has("sig")) "[]" else "[$root]"
+        }
         peer.start().use { server ->
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
