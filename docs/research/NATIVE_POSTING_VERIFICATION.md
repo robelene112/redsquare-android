@@ -106,6 +106,22 @@ Minimal68b7e9d adds Reply/shared composer, signed parent/thread and ordered
 recipients from verified parent output keys, sequential output indices, separate
 reply draft records and zero-only restore guards. Missing FeedPost import caused
 local compile failure, corrected indca6cf1; local core16/debug/test assembly
-passes1m27s. Four-case green37970835482 is running.37970627296 is a build or
-superseded run, not functional proof. No nested reply or independent reply vector
-yet. This ticket remains incomplete.
+passes1m27s. Four-case green37970835482 atdca6cf1 passes Android10 in10.785seconds; public
+log/reply-in-thread image inspected and retained reply-green.37970627296 was
+canceled after the missing import failure and is not runtime proof. This ticket
+remains incomplete.
+
+
+At23f163a the pure reference helper supports ordered scalar1/2 recipient outputs,
+checks each manual preimage against WASM-generated signature hash, independently
+signs/verifies with WASM+Elliptic and serialized roundtrips. Existing root vector
+remains valid; new recipient reply with output index1 plus hop matches the native
+public constructor/restore/envelope/broadcast. Both focused core tests pass24s.
+New complete17-case core run is pending.
+
+Fifth UI case c348f14 selects an independently signed existing reply from a root
+conversation, then presses Reply. It requires that reply's author as context,
+its signature as parent, the original root as thread and output order of self,
+parent author, inherited root author. It verifies actual received bytes and
+archive availability. Five-case red37971949876 is running; no nested-navigation
+fix yet. Existing Conversation text currently has no post-selection action.

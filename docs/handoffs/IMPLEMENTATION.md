@@ -43,8 +43,16 @@ one question at a time when a material choice really needs the owner.
   sequential output indices and zero-only restore guards. Verified envelopes
   expose signed output recipients. Local build failed missing FeedPost import;
   correcteddca6cf1 passes core16/debug/test assembly1m27s, no local build active.
-  Four-case green37970835482 running;37970627296 build/superseded, not runtime
-  proof. No nested reply test or independent new reply vector yet.
+  Four-case green37970835482 atdca6cf1 passes Android10 in10.785s; public
+  log/reply-in-Conversation image inspected/retained ticket09/reply-green.
+  37970627296 canceled after import failure; not runtime proof. At23f163a,
+  pure reference helper now supports ordered public scalar1/2 output recipients;
+  WASM signature preimage checks/serialization and Elliptic independently verify
+  recipient reply/output index1/hop. Both public root/reply core tests pass24s
+  (new full17-case core run not yet done). Fifth actual UI case c348f14 taps
+  independently signed existing reply then Reply, requires its author/parent,
+  original root thread and recipient order[self,parentAuthor,ancestorAuthor].
+  Five-case red37971949876 running; no nested-navigation fix yet.
   First3 cases pass8.119s in37968817970 atfdcc528: encrypted draft save/reopen
   without broadcast; explicit signed zero-payment submission with pending copy;
   matching verified exact-sig Archive observation marks Available, Back clears
@@ -62,7 +70,7 @@ one question at a time when a material choice really needs the owner.
   Pure independent posting-reference.cjs verified WASM0.3.2/Elliptic6.6.1 plus
   serialization roundtrip, public unsafe scalar1/2 only. At2e62a19, new public
   SaitoTransactionTest matches Unicode root/network/envelope/hop bytes exactly;
-  focused core test passes26s (not yet a new full16-case core run). References
+  focused root core test passed26s; full16 cases now pass at68b7e9d. References
   docs/research/NATIVE_POSTING_REFERENCE.json and core resource.
   Fourth test requires Reply from actual Conversation, parent/root thread and
   parent author output, actual archive observation and reply in thread on Back.
