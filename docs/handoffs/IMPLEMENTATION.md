@@ -7,6 +7,16 @@ one question at a time when a material choice really needs the owner.
 
 ## Current work
 
+- Active #8, "07: Open threads and browse user profiles", assigned@me and ready
+  with all native blockers closed. Review base44cae5d. First application tracer
+  opens a feed root and expects independently signed direct/nested replies,
+  rejects tampered content and exposes Back. Pinned WASM/Elliptic references
+  generated without network/app/wallet initialization; see NATIVE_THREAD_REFERENCE.
+  Controlled peer now optionally responds by public archive criteria while its
+  original feed contract remains the default. New browse/browse-android17 focused
+  scopes and full inclusion are added. Local core/debug/test assembly passes;
+  actual functional red pending. No production navigation implementation yet.
+
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.
 - Six of35 tickets complete: #2 signature compatibility, #3 persistent wallet

@@ -13,7 +13,8 @@ import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 
 /** Actual binary socket boundary; signed posts are independent WASM fixtures. */
-internal class ControlledFeedPeer(@Volatile var rows: String) {
+internal class ControlledFeedPeer(@Volatile var rows: String,
+    private val archiveResponse: ((com.google.gson.JsonObject) -> String)? = null) {
     private val peer = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public test material only.
     private val counter = ByteArray(32) { 7 }
     private val received = CountDownLatch(1)
@@ -68,10 +69,13 @@ internal class ControlledFeedPeer(@Volatile var rows: String) {
                         require(body.get("request").asString == "archive")
                         val criteria = body.getAsJsonObject("data")
                         require(criteria.get("request").asString == "load")
-                        require(criteria.get("field1").asString == "RedSquare")
-                        require(criteria.get("field4").asString == "")
-                        require(criteria.get("flagged_ne").asInt == 1)
-                        webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) + rows.toByteArray()).toByteString())
+                        val response = archiveResponse?.invoke(criteria) ?: run {
+                            require(criteria.get("field1").asString == "RedSquare")
+                            require(criteria.get("field4").asString == "")
+                            require(criteria.get("flagged_ne").asInt == 1)
+                            rows
+                        }
+                        webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) + response.toByteArray()).toByteString())
                         requests.incrementAndGet()
                         received.countDown()
                     }
