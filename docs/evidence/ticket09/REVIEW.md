@@ -43,5 +43,8 @@ composer extraction preserves existing behavior; no remaining source omission,
 scope creep or wrong implementation was found within #10.
 
 Final Spec: zero actionable findings. Focused green37992419586 passes14 cases plus actual process-death recovery.
-Final Android10/17 run37993042535 remains pending separately from these
-read-only reviews.
+Final37993173583 passes source checks, then browse7/8 reveals an outdated
+recreation assumption in the cache fixture. The app retains Likes correctly;
+fresh activity launches now ensure disk-only profile/conversation recovery.
+Replacement full acceptance and review of this fixture delta remain pending.
+Cancelled37993042535 is superseded.

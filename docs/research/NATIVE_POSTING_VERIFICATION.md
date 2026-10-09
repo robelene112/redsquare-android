@@ -3,8 +3,12 @@
 Ticket #10 (delivery 9 of 35), review base `78163d6`. Candidate `cd1ee24`.
 Focused Android10 `37992419586` passes14 cases (65.692s) plus actual process
 death recovery. Both final source-review axes find zero actionable issues.
-Full Android10/17 `37993042535` is running; acceptance remains pending. Eight
-tickets complete.
+Full37993173583 passes source checks then stops at an outdated cached-profile
+fixture (7/8 browse cases pass). Retained navigation preserves Likes, whereas
+the fixture expects default Posts after recreation. Both cached browse tests
+now close and launch a fresh activity, excluding retained history from recovery
+proof. Local test assembly passes1m35; replacement full dispatch next. Cancelled
+37993042535 is superseded. Eight tickets complete.
 
 ## Implemented behavior
 

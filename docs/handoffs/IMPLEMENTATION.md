@@ -38,7 +38,12 @@ one question at a time when a material choice really needs the owner.
   current candidatecd1ee24. Focused Android10 37992419586 passes14 cases
   (65.692s) plus actual process-death reconciliation. Full37993042535 was
   cancelled by the documentation push because the push concurrency group still
-  defaulted to full. Group corrected to source; replacement full dispatch next.
+  defaulted to full. Group corrected to source. Replacementfull37993173583 at4a4b482
+  passes source checks but browse7/8: the profile-cache test expects default
+  Posts after recreation, while retained navigation correctly preserves Likes.
+  Screenshot confirms Likes. Both cached browse cases now close activity and
+  launch a fresh one so retained history cannot hide disk recovery failures.
+  Local instrumentation compilation passes1m35. New full dispatch next.
   Local core/debug/test/lint passes2m38. Both final source-review axes atcd1ee24
   have zero actionable findings. Runtime acceptance and final full still pending.
   Latest actual red37991336062 at67e883d passes13/14 and actual process-death
