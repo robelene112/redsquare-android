@@ -42,13 +42,19 @@ import nl.davidengelen.redsquare.feed.FeedEndpoints
 
 class MainActivity : ComponentActivity() {
     private var walletExports: WalletExport? = null
+    private var walletImports: WalletImport? = null
     private val createWalletDocument = registerForActivityResult(ActivityResultContracts.CreateDocument("application/json")) {
         walletExports?.documentChosen(it)
+    }
+    private val openWalletDocument = registerForActivityResult(ActivityResultContracts.OpenDocument()) {
+        walletImports?.documentChosen(it)
     }
 
     override fun onDestroy() {
         walletExports?.cancel()
         walletExports = null
+        walletImports?.cancel()
+        walletImports = null
         super.onDestroy()
     }
 
@@ -85,9 +91,16 @@ class MainActivity : ComponentActivity() {
             val backupReminders = remember { getSharedPreferences("wallet-backup-reminders", MODE_PRIVATE) }
             var backupReminder by remember { mutableStateOf(false) }
             val walletExport = remember { WalletExport(this@MainActivity, { wallet }, createWalletDocument::launch) }
+            val walletImport = remember { WalletImport(this@MainActivity, { wallet }) {
+                openWalletDocument.launch(arrayOf("*/*"))
+            } }
             DisposableEffect(walletExport) {
                 walletExports = walletExport
                 onDispose { walletExport.cancel(); if (walletExports === walletExport) walletExports = null }
+            }
+            DisposableEffect(walletImport) {
+                walletImports = walletImport
+                onDispose { walletImport.cancel(); if (walletImports === walletImport) walletImports = null }
             }
             val dismissBackupReminder = {
                 address?.let { backupReminders.edit().putBoolean("hidden:$it", true).apply() }
@@ -153,7 +166,9 @@ class MainActivity : ComponentActivity() {
                             }) { Text(stringResource(R.string.view_update)) }
                         }
                         Row {
-                            TextButton(onClick = { walletExport.clearMessage(); walletOpen = true }) { Text(stringResource(R.string.wallet)) }
+                            TextButton(onClick = { walletExport.clearMessage(); walletImport.clearMessage(); walletOpen = true }) {
+                                Text(stringResource(R.string.wallet))
+                            }
                             TextButton(onClick = { settingsOpen = true }, enabled = backendReady && !savingBackend) {
                                 Text(stringResource(R.string.settings))
                             }
@@ -163,10 +178,14 @@ class MainActivity : ComponentActivity() {
                             Text(stringResource(R.string.wallet_backup_reminder), style = MaterialTheme.typography.titleSmall)
                             Text(stringResource(R.string.wallet_backup_reminder_detail), style = MaterialTheme.typography.bodySmall)
                             Row {
-                                TextButton(onClick = { walletExport.clearMessage(); walletOpen = true }) {
+                                TextButton(onClick = { walletExport.clearMessage(); walletImport.clearMessage(); walletOpen = true }) {
                                     Text(stringResource(R.string.wallet_back_up))
                                 }
                                 TextButton(onClick = dismissBackupReminder) { Text(stringResource(R.string.later)) }
+                            }
+                            TextButton(enabled = wallet != null && !walletExport.busy && !walletImport.busy,
+                                onClick = { walletExport.clearMessage(); walletOpen = true; walletImport.start() }) {
+                                Text(stringResource(R.string.wallet_import_existing))
                             }
                         }
                         if (backendReady && backend == null) Text(stringResource(R.string.backend_load_error))
@@ -223,7 +242,7 @@ class MainActivity : ComponentActivity() {
                         }
                     )
                     if (walletOpen) AlertDialog(
-                        onDismissRequest = { walletExport.cancel(); walletOpen = false },
+                        onDismissRequest = { walletExport.cancel(); walletImport.cancel(); walletOpen = false },
                         title = { Text(stringResource(R.string.your_wallet)) },
                         text = {
                             val addressLabel = stringResource(R.string.wallet_address)
@@ -234,13 +253,20 @@ class MainActivity : ComponentActivity() {
                                     else -> Text(stringResource(R.string.wallet_opening))
                                 }
                                 walletExport.message?.let { Text(stringResource(it)) }
-                                TextButton(enabled = wallet != null && !walletExport.busy,
+                                walletImport.message?.let { Text(stringResource(it)) }
+                                TextButton(enabled = wallet != null && !walletExport.busy && !walletImport.busy,
                                     onClick = walletExport::start) { Text(stringResource(R.string.wallet_export)) }
+                                TextButton(enabled = wallet != null && !walletExport.busy && !walletImport.busy,
+                                    onClick = { walletExport.clearMessage(); walletImport.start() }) {
+                                    Text(stringResource(R.string.wallet_import))
+                                }
                                 Text(stringResource(R.string.wallet_backup_private), style = MaterialTheme.typography.bodySmall)
                                 TextButton(onClick = { recoveryGuideOpen = true }) { Text(stringResource(R.string.wallet_recovery_guide)) }
                             }
                         },
-                        confirmButton = { TextButton(onClick = { walletExport.cancel(); walletOpen = false }) { Text(stringResource(R.string.done)) } }
+                        confirmButton = { TextButton(onClick = { walletExport.cancel(); walletImport.cancel(); walletOpen = false }) {
+                            Text(stringResource(R.string.done))
+                        } }
                     )
                     if (recoveryGuideOpen) AlertDialog(
                         onDismissRequest = { recoveryGuideOpen = false },

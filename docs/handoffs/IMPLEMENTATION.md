@@ -36,9 +36,13 @@ one question at a time when a material choice really needs the owner.
 - Active #7 safeguarded import, assigned with blockers #5/#6 closed.
   Review base9e7f40d. First vertical slice verifies an invalid backup selected
   through actual Android SAF leaves the public wallet unchanged across recreation.
-  Test and focused import harness added; compile/actual functional red pending.
+  Test and focused import harness added; actual functional red37894544199
+  at2e3f491 reaches the Wallet screen and cannot find Import wallet (before
+  picker selection). Log retained in ticket06/invalid-file-red. Minimal file
+  selection/bounded validation now implemented; compile/actual green pending.
   Testing uses approved parent application/failure boundaries, with fixture data
-  in the isolated test APK only. Do not implement ahead of the observed red.
+  in the isolated test APK only. Do not claim valid import preview/activation
+  from this slice; those remain upcoming within#7.
   Read NATIVE_WALLET_IMPORT_ASSESSMENT.md and SNAKE_WALLET_SAFEGUARDS.md.
   Fresh backup proof must bind outgoing wallet and selected candidate/nonce;
   a dismissed reminder or a previous saved-status message is not that proof.
