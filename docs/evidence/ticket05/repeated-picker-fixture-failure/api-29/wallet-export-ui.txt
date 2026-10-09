@@ -1,0 +1,66 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletExportPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.WalletExportPreviewTest:
+INSTRUMENTATION_STATUS: test=unavailableDeviceAuthenticationExplainsSetupWithoutExportingOrChangingIdentity
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletExportPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unavailableDeviceAuthenticationExplainsSetupWithoutExportingOrChangingIdentity
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletExportPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=realPinAuthenticationAndDocumentSaveProduceACompatibleBackup
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletExportPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=realPinAuthenticationAndDocumentSaveProduceACompatibleBackup
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletExportPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=wrongPinAndCancelledAuthenticationLeaveNoBackupAndRetainIdentity
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletExportPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Credential entry unavailable in com.android.documentsui
+	at nl.davidengelen.redsquare.WalletExportPreviewTest.enterRealSystemPin(WalletExportPreviewTest.kt:174)
+	at nl.davidengelen.redsquare.WalletExportPreviewTest.wrongPinAndCancelledAuthenticationLeaveNoBackupAndRetainIdentity(WalletExportPreviewTest.kt:126)
+
+INSTRUMENTATION_STATUS: stream=
+Error in wrongPinAndCancelledAuthenticationLeaveNoBackupAndRetainIdentity(nl.davidengelen.redsquare.WalletExportPreviewTest):
+java.lang.IllegalStateException: Credential entry unavailable in com.android.documentsui
+	at nl.davidengelen.redsquare.WalletExportPreviewTest.enterRealSystemPin(WalletExportPreviewTest.kt:174)
+	at nl.davidengelen.redsquare.WalletExportPreviewTest.wrongPinAndCancelledAuthenticationLeaveNoBackupAndRetainIdentity(WalletExportPreviewTest.kt:126)
+
+INSTRUMENTATION_STATUS: test=wrongPinAndCancelledAuthenticationLeaveNoBackupAndRetainIdentity
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 35.477
+There was 1 failure:
+1) wrongPinAndCancelledAuthenticationLeaveNoBackupAndRetainIdentity(nl.davidengelen.redsquare.WalletExportPreviewTest)
+java.lang.IllegalStateException: Credential entry unavailable in com.android.documentsui
+	at nl.davidengelen.redsquare.WalletExportPreviewTest.enterRealSystemPin(WalletExportPreviewTest.kt:174)
+	at nl.davidengelen.redsquare.WalletExportPreviewTest.wrongPinAndCancelledAuthenticationLeaveNoBackupAndRetainIdentity(WalletExportPreviewTest.kt:126)
+
+FAILURES!!!
+Tests run: 3,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

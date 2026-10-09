@@ -85,6 +85,10 @@ if [[ "${TEST_SCOPE:-full}" == export* ]]; then
     printf '%s\n' 'Focused wallet-export check only; full feed/wallet/update acceptance not run.' > "$evidence/scope.txt"
     exit 0
 fi
+if [[ "${TEST_SCOPE:-full}" == full ]]; then
+    verify_wallet_export
+    verify_wallet_backup_reminder
+fi
 verify_preview_update() {
     adb shell am instrument -w -r \
         -e class nl.davidengelen.redsquare.PreviewUpdateTest \

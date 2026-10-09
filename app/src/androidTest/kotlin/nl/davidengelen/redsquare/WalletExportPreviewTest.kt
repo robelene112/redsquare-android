@@ -70,14 +70,7 @@ class WalletExportPreviewTest {
                 ui.onNodeWithText("Wallet").performClick()
                 val address = displayedWalletAddress(ui)
                 ui.onNodeWithText("Export wallet").performClick()
-                check(device.wait(Until.hasObject(By.res("android", "title")), 15_000))
-                if (device.findObject(By.desc("Show roots")) != null) {
-                    operateSystemControl(device, By.desc("Show roots")) { click() }
-                }
-                operateSystemControl(device, By.text(ExportTestDocumentsProvider.TITLE)) { click() }
-                operateSystemControl(device, By.res("android", "title").clazz("android.widget.EditText")) { text = name }
-                operateSystemControl(device, By.res("android", "button1")
-                    .pkg(Pattern.compile("com\\.(?:android|google\\.android)\\.documentsui")).enabled(true)) { click() }
+                chooseTestBackup(device, name)
                 enterRealSystemPin(device)
                 ui.waitUntil(15_000) { ui.onAllNodes(hasText("Wallet backup saved")).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNodeWithText("Wallet backup saved").assertIsDisplayed()
@@ -147,7 +140,10 @@ class WalletExportPreviewTest {
         if (device.findObject(By.desc("Show roots")) != null) {
             operateSystemControl(device, By.desc("Show roots")) { click() }
         }
-        operateSystemControl(device, By.text(ExportTestDocumentsProvider.TITLE)) { click() }
+        // The selected root also appears in the toolbar. Select its drawer row.
+        val root = By.text(ExportTestDocumentsProvider.TITLE).res("android", "title")
+        operateSystemControl(device, root) { click() }
+        check(device.wait(Until.gone(root), 10_000))
         operateSystemControl(device, By.res("android", "title").clazz("android.widget.EditText")) { text = name }
         operateSystemControl(device, By.res("android", "button1")
             .pkg(Pattern.compile("com\\.(?:android|google\\.android)\\.documentsui")).enabled(true)) { click() }
