@@ -115,7 +115,7 @@ class PostPreviewTest {
                     waitFor("New post")
                     ui.onNodeWithText("New post").performClick()
                     ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNode(hasSetTextAction()).assertTextEquals("")
+                    ui.onNode(hasSetTextAction()).assert(hasText(""))
                     ui.onNode(hasSetTextAction()).performTextReplacement("Separate official draft")
                     ui.onNodeWithText("Save draft").performClick()
                     waitFor("New post")
