@@ -36,17 +36,22 @@ class WalletImportPreviewTest {
             .putExtra("feedDisabled", true).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")).use { scenario ->
             ui.onNodeWithText("Wallet").performClick()
             val address = displayedWalletAddress(ui)
-            ui.onNodeWithText("Import wallet").performClick()
-            selectImportRoot(device)
-            val file = By.text("invalid-import.json")
-            check(device.wait(Until.hasObject(file), 10_000))
-            requireNotNull(device.findObject(file)).click()
             val failed = "That file is not a valid Saito wallet backup. Your wallet is unchanged."
-            ui.waitUntil(15_000) { ui.onAllNodes(hasText(failed)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
-            ui.onNodeWithText(failed).assertIsDisplayed()
-            assertEquals(address, displayedWalletAddress(ui))
-            ui.onNodeWithText("Import wallet").assertIsEnabled()
-            captureFeedEvidence("wallet-import-evidence/invalid-backup.png")
+            for (name in listOf("invalid-import.json", "malformed-utf8-import.json")) {
+                ui.onNodeWithText("Import wallet").performClick()
+                selectImportRoot(device)
+                selectVisibleFile(device, name)
+                try {
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText(failed)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                } catch (failure: Throwable) {
+                    captureFeedEvidence("wallet-import-evidence/invalid-encoding-first-failure.png")
+                    throw failure
+                }
+                ui.onNodeWithText(failed).assertIsDisplayed()
+                assertEquals(address, displayedWalletAddress(ui))
+                ui.onNodeWithText("Import wallet").assertIsEnabled()
+                captureFeedEvidence("wallet-import-evidence/$name-rejected.png")
+            }
             ui.onNodeWithText("Done").performClick()
             scenario.recreate()
             ui.onNodeWithText("Wallet").performClick()

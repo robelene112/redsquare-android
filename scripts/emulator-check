@@ -72,6 +72,10 @@ verify_wallet_import() {
         tee files/wallet-test-documents/invalid-import.json > /dev/null
     printf '%s' 'not a wallet backup' | adb shell run-as nl.davidengelen.redsquare.dev.test \
         tee files/wallet-test-documents/stalled-read-import.json > /dev/null
+    # A valid synthetic keypair with an invalid UTF-8 byte in opaque metadata.
+    # The file boundary must reject it rather than silently changing its contents.
+    printf '%s\200%s' '{"wallet":{"version":5.677,"publicKey":"jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR","privateKey":"0000000000000000000000000000000000000000000000000000000000000001"},"opaque_module":{"text":"' '"}}' | \
+        adb shell run-as nl.davidengelen.redsquare.dev.test tee files/wallet-test-documents/malformed-utf8-import.json > /dev/null
     # Published scalar1 and its independent Saito public address, test-only.
     # The known unsafe identity must never hold real funds. Do not print JSON.
     printf '%s' '{"wallet":{"version":5.677,"publicKey":"jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR","privateKey":"0000000000000000000000000000000000000000000000000000000000000001"},"opaque_module":{"enabled":true},"peers":[{"host":"unapproved.invalid","port":1234,"protocol":"http"}]}' | \
