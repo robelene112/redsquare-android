@@ -70,4 +70,11 @@ between cold launches. Its choices must be separate; restoring the outgoing
 wallet must recover its prior choices. Wallet replacement UI was verified in
 ticket#7; this case does not claim a new end-to-end import UI flow or physical
 process death. Five-case runs37952728041/37952732559 and both final source-review
-axes are pending. Final full verification remains pending.
+axes were run as recorded in ticket08/INTERIM_REVIEW.md. Both five-case runs
+failed compilation because the fixture called nonexistent importJson. Corrected
+fromBackup runs37953412336/37953417415 are pending; this build failure is not a
+functional red. Review found general-cache eviction of older followed results,
+missing retry after initial choices-read failure, and generic loaded values
+misnamed envelopes. Sequential author requests can also discard earlier verified
+results after a later request fails. These source issues need fixes, observable
+regressions and repeated review. Final full verification remains pending.

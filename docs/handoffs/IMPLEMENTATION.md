@@ -48,10 +48,20 @@ one question at a time when a material choice really needs the owner.
   actual-app launches, requires no inherited choices/Follow for the new identity,
   restores the original wallet and requires its Unfollow. Guarded .dev/emulator;
   this is identity-isolation evidence, not a new import-UI claim. Five-case runs
-  37952728041/37952732559 pending on Android10/17. Both read-only review agents
-  are reviewing the complete6dd511d...c14246a ticket diff along separate axes.
-  Wait for green before new behavior tests or source fixes, then fix findings,
-  repeat source reviews if needed and
+  37952728041/37952732559 failed compilation because the fixture used nonexistent
+  importJson instead of fromBackup. This is not a functional red. Corrected
+  five-case runs37953412336/37953417415 on Android10/17 are pending; local build
+  session50342 is running, do not edit source until it finishes. Both read-only
+  reviews atc14246a found issues, recorded ticket08/INTERIM_REVIEW: general100-post
+  retention can evict every older followed result; failed initial choices load
+  has no UI retry but says Try again/Loading. Standards also found generic loaded
+  values still named envelopes. Another availability edge: a later author timeout
+  discards already verified earlier results because publishing waits for all.
+  Wait for actual five-case green before new tests/source fixes; then test/fix
+  full general-cache eviction and transient choices-read recovery at primary UI
+  seams. Consider preserving partial fetched author results incrementally. Share
+  correct bounded public cache storage, keep backend/identity scopes and previous
+  on-disk formats. Rename generic values during review. Repeat both source reviews and
   final full; close#9 only on acceptance and continue all35 sequentially.
   New references use the pure pinned WASM/Elliptic helper. Direct named deployed
   public Archive source read confirmed exact field2 criteria; named Git-object
