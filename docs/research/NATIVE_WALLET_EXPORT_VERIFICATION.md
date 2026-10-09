@@ -28,6 +28,10 @@ test independently reopens it and checks compatible wallet identity/version.
 UiAutomator 2.4.0 resolves and the instrumentation Kotlin compilation passes.
 The actual authentication/export implementation is still absent, so this
 test is expected to reproduce a functional red before that implementation.
+Run37885161740 failed at credential-setup verification, before app export:
+the test expected the wrong capitalization/text. Android 10 source prints
+`Lock credential verified successfully`. The fixture is corrected to that
+literal; this failed setup is not a functional authentication/export red.
 
 Primary research is in ANDROID_AUTHENTICATED_WALLET_EXPORT.md and
 ANDROID_EXPORT_TEST_HARNESS.md. Pixel biometric/timing review remains #35.

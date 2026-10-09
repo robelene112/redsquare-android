@@ -55,7 +55,7 @@ class WalletExportPreviewTest {
         try {
             ui.waitUntil(10_000) { keyguard.isDeviceSecure }
             check(device.executeShellCommand("locksettings verify --old $TEST_PIN --user 0")
-                .contains("Credential verified successfully"))
+                .contains("Lock credential verified successfully"))
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedDisabled", true)).use {
                 ui.onNodeWithText("Wallet").performClick()
