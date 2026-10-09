@@ -25,3 +25,8 @@ compiles1m44. Focused runtime green pending. Automatic selected-backend resumpti
 queue visibility outside the composer and actual process/wallet replacement
 recovery remain subsequent slices. No production transaction, new APK or
 completion claim.
+
+Focused38003100661 reaches Queued, then the fixture incorrectly asks for
+SetText on a disabled field. Select its text while preserving the disabled-state
+assertion. This is a fixture failure; restart/cancellation have not passed yet.
+Corrected test assembly passes50s.

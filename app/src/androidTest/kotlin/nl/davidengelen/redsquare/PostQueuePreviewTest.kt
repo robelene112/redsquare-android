@@ -36,7 +36,7 @@ class PostQueuePreviewTest {
             ui.onNode(hasSetTextAction()).performTextReplacement("Keep my explicitly queued post")
             ui.onNodeWithText("Send").performClick()
             ui.waitUntil(20_000) { ui.onAllNodes(hasText("Queued")).fetchSemanticsNodes().isNotEmpty() }
-            ui.onNode(hasSetTextAction()).assertTextEquals("Keep my explicitly queued post").assertIsNotEnabled()
+            ui.onNodeWithText("Keep my explicitly queued post").assertIsNotEnabled()
         }
         ActivityScenario.launch<MainActivity>(intent).use {
             ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
