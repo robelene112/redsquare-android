@@ -35,4 +35,14 @@
     <string name="wallet_export_saved">Wallet backup saved</string>
     <string name="wallet_export_failed">Your wallet backup could not be saved and verified. Try again with another save location.</string>
     <string name="wallet_export_cancelled">Wallet export canceled. Your wallet is unchanged.</string>
+    <string name="wallet_backup_reminder">Back up your wallet</string>
+    <string name="wallet_backup_reminder_detail">Save a private backup so you can recover this identity if you lose your phone.</string>
+    <string name="wallet_back_up">Back up</string>
+    <string name="later">Later</string>
+    <string name="wallet_backup_private">Your backup contains private keys. Choose a save location you trust and never share the file.</string>
+    <string name="wallet_recovery_guide">Recovery guide</string>
+    <string name="wallet_close_guide">Close guide</string>
+    <string name="wallet_recovery_private">Anyone with your backup can control your wallet. The saved JSON file is not encrypted. Android authentication protects the export step, not the saved file. Keep a safe copy and never share it.</string>
+    <string name="wallet_recovery_restore">Import the JSON backup into a compatible Saito wallet to restore your identity and wallet settings. If you lose this phone or uninstall the app without a backup, you may permanently lose access. Your signing keys are stored on this device, not our server.</string>
+    <string name="wallet_recovery_history">A wallet backup does not include all cached Chat history. Available history depends on the selected server and compatible peers. Some older messages may be unavailable after restoring on another device.</string>
 </resources>

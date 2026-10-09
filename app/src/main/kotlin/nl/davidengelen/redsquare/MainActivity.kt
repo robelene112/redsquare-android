@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.RadioButton
@@ -79,10 +81,29 @@ class MainActivity : ComponentActivity() {
             var failed by remember { mutableStateOf(false) }
             var retry by remember { mutableIntStateOf(0) }
             var walletOpen by remember { mutableStateOf(false) }
+            var recoveryGuideOpen by remember { mutableStateOf(false) }
+            val backupReminders = remember { getSharedPreferences("wallet-backup-reminders", MODE_PRIVATE) }
+            var backupReminder by remember { mutableStateOf(false) }
             val walletExport = remember { WalletExport(this@MainActivity, { wallet }, createWalletDocument::launch) }
             DisposableEffect(walletExport) {
                 walletExports = walletExport
                 onDispose { walletExport.cancel(); if (walletExports === walletExport) walletExports = null }
+            }
+            val dismissBackupReminder = {
+                address?.let { backupReminders.edit().putBoolean("hidden:$it", true).apply() }
+                backupReminder = false
+            }
+            LaunchedEffect(address) {
+                backupReminder = false
+                address?.let { identity ->
+                    backupReminder = withContext(Dispatchers.IO) {
+                        try { !backupReminders.getBoolean("hidden:$identity", false) }
+                        catch (_: Exception) { true }
+                    }
+                }
+            }
+            LaunchedEffect(address, walletExport.message) {
+                if (address != null && walletExport.message == R.string.wallet_export_saved) dismissBackupReminder()
             }
             var updateAvailable by remember { mutableStateOf(false) }
             var updateCheck by remember { mutableIntStateOf(0) }
@@ -138,6 +159,16 @@ class MainActivity : ComponentActivity() {
                             }
                         }
                         backend?.let { Text(stringResource(R.string.selected_server, it.domain), style = MaterialTheme.typography.labelSmall) }
+                        if (backupReminder) {
+                            Text(stringResource(R.string.wallet_backup_reminder), style = MaterialTheme.typography.titleSmall)
+                            Text(stringResource(R.string.wallet_backup_reminder_detail), style = MaterialTheme.typography.bodySmall)
+                            Row {
+                                TextButton(onClick = { walletExport.clearMessage(); walletOpen = true }) {
+                                    Text(stringResource(R.string.wallet_back_up))
+                                }
+                                TextButton(onClick = dismissBackupReminder) { Text(stringResource(R.string.later)) }
+                            }
+                        }
                         if (backendReady && backend == null) Text(stringResource(R.string.backend_load_error))
                         if (failed) {
                             Text(stringResource(R.string.wallet_recovery_error))
@@ -205,9 +236,25 @@ class MainActivity : ComponentActivity() {
                                 walletExport.message?.let { Text(stringResource(it)) }
                                 TextButton(enabled = wallet != null && !walletExport.busy,
                                     onClick = walletExport::start) { Text(stringResource(R.string.wallet_export)) }
+                                Text(stringResource(R.string.wallet_backup_private), style = MaterialTheme.typography.bodySmall)
+                                TextButton(onClick = { recoveryGuideOpen = true }) { Text(stringResource(R.string.wallet_recovery_guide)) }
                             }
                         },
                         confirmButton = { TextButton(onClick = { walletExport.cancel(); walletOpen = false }) { Text(stringResource(R.string.done)) } }
+                    )
+                    if (recoveryGuideOpen) AlertDialog(
+                        onDismissRequest = { recoveryGuideOpen = false },
+                        title = { Text(stringResource(R.string.wallet_recovery_guide)) },
+                        text = {
+                            Column(Modifier.verticalScroll(rememberScrollState())) {
+                                Text(stringResource(R.string.wallet_recovery_private))
+                                Text(stringResource(R.string.wallet_recovery_restore), Modifier.padding(top = 12.dp))
+                                Text(stringResource(R.string.wallet_recovery_history), Modifier.padding(top = 12.dp))
+                            }
+                        },
+                        confirmButton = { TextButton(onClick = { recoveryGuideOpen = false }) {
+                            Text(stringResource(R.string.wallet_close_guide))
+                        } }
                     )
                 }
             }

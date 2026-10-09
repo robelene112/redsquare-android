@@ -63,5 +63,24 @@ provider is packaged and `kotlin.jvm.internal.Intrinsics` is not. This supports
 the dependency diagnosis; it does not retrospectively supply the missing
 original runtime exception trace.
 
+Android 10 run37886921271 at a071b6b passes both no-lock and real PIN/save
+tests. The saved file is independently reopened, imported and checked for the
+displayed public key/version5.677; its bytes are cleared and the test file
+deleted. The public success screenshot was inspected and retained under
+first-pin-green/api-29. Repeated Android 10 run37887432827 also passes those
+two tests, then reproduces the reminder functional red: fresh installation
+does not show Back up your wallet. The reminder failure is retained separately.
+The reminder now persists a per-public-identity dismissal preference, remains
+nonblocking and disappears after a verified export. This preference is never
+proof of a fresh outgoing backup. A scrollable recovery guide describes private
+keys, an unencrypted JSON file, identity recovery and available Chat history.
+
+Android 17 run37886923608 reaches System UI after the picker, but cannot find
+legacy credential field IDs. Its protected-screen screenshot is black, so it
+does not establish the screen's contents. Test interaction is being adapted
+using public control metadata and actual hardware key events; this does not
+stub authentication or change production export. Runtime green on Android 17
+and reminder green remain pending.
+
 Primary research is in ANDROID_AUTHENTICATED_WALLET_EXPORT.md and
 ANDROID_EXPORT_TEST_HARNESS.md. Pixel biometric/timing review remains #35.
