@@ -46,6 +46,11 @@ one question at a time when a material choice really needs the owner.
   validation. Cause not established: only log was retained, no picker image.
   Failure observer now captures system screen and synthetic file size; obtain
   actual evidence before guessing/fixing the filename/root selection.
+  Observer run37896128323 at5ab92ce reproduces failure; synthetic file size19
+  is correct, and post-failure picker image shows Downloads, not the test root.
+  This does not prove the exact cause. Selection now rechecks the visible test
+  folder header and reacquires/retries root controls instead of assuming a
+  closed drawer means the requested folder was selected. Runtime pending.
   Testing uses approved parent application/failure boundaries, with fixture data
   in the isolated test APK only. Do not claim valid import preview/activation
   from this slice; those remain upcoming within#7.
