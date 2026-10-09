@@ -47,5 +47,17 @@ the operation on dismissal/destruction without saved authentication state.
 Runtime green, cancellation/fault coverage and reminder/recovery copy remain
 pending. This is an intermediate slice, not completed ticket acceptance.
 
+Runs37886184520 (Android 10) and37886187308 (Android 17), source2d467b5,
+both reach the real picker but cannot find the test provider root. The
+Android 17 screenshot shows the test APK repeatedly crashing. Registration
+is present in the merged test manifest. The standalone Kotlin provider may
+depend on a Kotlin runtime normally supplied by the target APK's instrumentation
+classloader; the provider's separate process cannot assume that classloader.
+That cause is suspected, not established by the retained logs. Replacing the
+fixture with platform-only Java removes the runtime dependency, while leaving
+production export code unchanged. Crash diagnostics now whitelist only class
+names and stack locations, never raw messages/backup contents. Both original
+logs and public screenshots are retained under provider-fixture-failure.
+
 Primary research is in ANDROID_AUTHENTICATED_WALLET_EXPORT.md and
 ANDROID_EXPORT_TEST_HARNESS.md. Pixel biometric/timing review remains #35.

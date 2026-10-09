@@ -17,6 +17,7 @@ import org.junit.Assert.assertFalse
 import org.junit.Rule
 import org.junit.Test
 import java.util.UUID
+import java.util.regex.Pattern
 
 class WalletExportPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
@@ -66,11 +67,14 @@ class WalletExportPreviewTest {
                 device.findObject(By.desc("Show roots"))?.click()
                 val root = requireNotNull(device.wait(Until.findObject(By.text(ExportTestDocumentsProvider.TITLE)), 10_000))
                 root.click()
-                val filename = requireNotNull(device.wait(Until.findObject(By.res("android", "title")), 10_000))
+                val filename = requireNotNull(device.wait(Until.findObject(By.res("android", "title")
+                    .clazz("android.widget.EditText")), 10_000))
                 filename.text = name
                 requireNotNull(device.wait(Until.findObject(By.res("android", "button1")), 10_000)).click()
                 val entry = requireNotNull(device.wait(Until.findObject(
-                    By.res("com.android.settings", "password_entry")), 15_000))
+                    By.res(Pattern.compile("(?:com\\.android\\.settings:id/password_entry|com\\.android\\.systemui:id/lockPassword)"))), 15_000)) {
+                    "Credential entry unavailable in ${device.currentPackageName}"
+                }
                 entry.text = TEST_PIN
                 device.pressEnter()
                 ui.waitUntil(15_000) { ui.onAllNodes(hasText("Wallet backup saved")).fetchSemanticsNodes().isNotEmpty() }

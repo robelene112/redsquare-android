@@ -53,7 +53,19 @@ verify_wallet_export() {
         nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
         > "$evidence/wallet-export-ui.txt"
     adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - wallet-export-evidence > "$evidence/wallet-export-evidence.tar" || true
-    grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/wallet-export-ui.txt"
+    if ! grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/wallet-export-ui.txt"; then
+        # Only exception class names and stack locations. Error messages can
+        # contain provider contents, so never retain raw crash messages.
+        adb logcat -d -v brief AndroidRuntime:E '*:S' | python3 -c '
+import re,sys
+for line in sys.stdin:
+    error = re.search(r"((?:[A-Za-z_$][\w$]*\.)+[A-Za-z_$][\w$]*(?:Exception|Error))", line)
+    frame = re.search(r"\bat ((?:[A-Za-z_$][\w$]*\.)+[A-Za-z_$][\w$]*\([A-Za-z0-9_. :]+\))", line)
+    if error: print(error.group(1))
+    if frame: print("at " + frame.group(1))
+' > "$evidence/wallet-export-crash-classes.txt"
+        return 1
+    fi
 }
 if [[ "${TEST_SCOPE:-full}" == export* ]]; then
     verify_wallet_export
