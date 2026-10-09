@@ -103,7 +103,22 @@ one question at a time when a material choice really needs the owner.
   earlier flows still pass. Log retained in ticket06/activation-red. Minimal
   acknowledgement/confirm flow, activation-time zero recheck and encrypted
   durable recovery record/full saved-options verification are implemented;
-  compile/green pending. A failed activation uses existing-only reload, never
+  first compile passed and first green37907126447 at5d669bf passes all6 flows on
+  Android10, including actual replacement/recreation/backend preservation and
+  restoration of the original wallet. Two public activated/recreated images
+  inspected and log retained in ticket06/activation-first-green/api-29.
+  Android17 run37907129890 fails before activation: no Compose hierarchy during
+  the post-picker predicate (line272), then missing reference file at line136
+  in backup-binding. Log retained in ticket06/activation-failure/api-37.0.
+  Exact causes unconfirmed; no process-crash result, later tests still ran.
+  Wait predicates now allow temporarily absent roots while waiting and file
+  selection scrolls/reacquires before requiring a visible item, capturing the
+  picker at the point of absence. Rerun required before SDK17 activation claim.
+  New isolated metadata-risk test first imports synthetic other-asset/name/
+  pending indicators, then requires outgoing backup despite fresh SAITO zero.
+  Its actual red remains pending. Fixture/test bytes remain in private test APK
+  storage; each risk run clears only the isolated .dev emulator app first.
+  A failed activation uses existing-only reload, never
   creation. Main withholds the live signing wallet during persistence. Actual
   failure, process interruption, metadata/identity-isolation and same-wallet
   restoration verification still remain within#7; do not claim those complete.
