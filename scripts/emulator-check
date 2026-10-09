@@ -67,8 +67,20 @@ for line in sys.stdin:
         return 1
     fi
 }
+verify_wallet_backup_reminder() {
+    [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+    adb shell pm clear nl.davidengelen.redsquare.dev > "$evidence/fresh-backup-reminder.txt"
+    grep -q Success "$evidence/fresh-backup-reminder.txt"
+    adb shell am instrument -w -r \
+        -e class nl.davidengelen.redsquare.BackupRecoveryPreviewTest \
+        nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+        > "$evidence/wallet-backup-ui.txt"
+    adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - wallet-backup-evidence > "$evidence/wallet-backup-evidence.tar" || true
+    grep -q 'OK (1 test)' "$evidence/wallet-backup-ui.txt"
+}
 if [[ "${TEST_SCOPE:-full}" == export* ]]; then
     verify_wallet_export
+    verify_wallet_backup_reminder
     printf '%s\n' 'Focused wallet-export check only; full feed/wallet/update acceptance not run.' > "$evidence/scope.txt"
     exit 0
 fi

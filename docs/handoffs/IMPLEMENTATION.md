@@ -23,8 +23,13 @@ one question at a time when a material choice really needs the owner.
   Review base2d16be4. First no-screen-lock flow reproduces functional red
   run37870867861 atfbf75e0 (missing Export wallet control); minimal availability
   gate/setup guidance passes run37871388107 at91d3a1a on Android 10, with the
-  public screenshot inspected. A real PIN/SAF save test compiles; its functional
-  red is next. Authentication and actual SAF write/readback remain to implement.
+  public screenshot inspected. Corrected real-PIN run37885541772 reproduces
+  functional red at the missing picker. Platform authentication and exact SAF
+  write/readback are implemented at2d467b5. First retries fail inside the test
+  document provider, before authentication, on both versions; Android 17 shows
+  the test APK crashing. Platform-only Java fixture correction at a071b6b is
+  checking in37886921271/37886923608. Authentication/save runtime green,
+  cancellation/fault checks and backup reminder/recovery copy are still pending.
   See research/NATIVE_WALLET_EXPORT_VERIFICATION.md.
   Then #7 safeguarded import.
   The first new phone-review milestone remains after #7, then continue all35.

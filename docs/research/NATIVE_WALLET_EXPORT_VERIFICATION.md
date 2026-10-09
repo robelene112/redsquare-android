@@ -58,6 +58,10 @@ fixture with platform-only Java removes the runtime dependency, while leaving
 production export code unchanged. Crash diagnostics now whitelist only class
 names and stack locations, never raw messages/backup contents. Both original
 logs and public screenshots are retained under provider-fixture-failure.
+Local assembled test APK class-definition inspection confirms the Java
+provider is packaged and `kotlin.jvm.internal.Intrinsics` is not. This supports
+the dependency diagnosis; it does not retrospectively supply the missing
+original runtime exception trace.
 
 Primary research is in ANDROID_AUTHENTICATED_WALLET_EXPORT.md and
 ANDROID_EXPORT_TEST_HARNESS.md. Pixel biometric/timing review remains #35.
