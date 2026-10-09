@@ -133,3 +133,19 @@ atomically saves/verifies the file and re-verifies every signature on reload.
 Tab membership derives from signed authors/parents and signed like references,
 including cache restoration. Cached entries merge with available refreshed
 history. Local/device green and final review remain pending.
+
+Profile-cache green37932930501/37932934354 at aef6742 passes all four application
+cases on Android10/17. Inspected public offline-Likes images/logs are retained
+in ticket07/profile-cache-green. The Android10 viewport shows the reply at the
+bottom of its scrollable content; Pixel performance/polish is not claimed.
+Independent review at this source found three spec gaps and two duplication
+judgements; see ticket07/INTERIM_REVIEW. Cache durability and pure reference
+signing have now been shared without changing either cache's on-disk format
+or any existing signed fixture. Fresh test setup clears only fixture-owned
+public caches in the isolated .dev app, preventing retained text from satisfying
+fresh-read waits. These changes need final runtime verification.
+
+The next app regression rejects an independently valid signature whose signed
+thread_id is malformed, while preserving an authentic conversation. Its fixture
+uses the same shared WASM/Elliptic reference checks, not a native self-generated
+expectation. The decoder is unchanged at this test point; compile/red pending.

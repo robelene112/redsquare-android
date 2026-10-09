@@ -12,15 +12,43 @@ import org.junit.Test
 class ThreadProfilePreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
 
+    @Test fun malformedSignedThreadIsRejectedWithoutHidingAnAuthenticConversation() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = prepareContext()
+        val fixture = instrumentation.context.assets.open("native-thread-reference.json").bufferedReader().use {
+            JsonParser.parseReader(it).asJsonObject
+        }
+        val root = fixture.getAsJsonObject("root")
+        val peer = ControlledFeedPeer("[$root,${fixture.get("malformedThread")}]") { criteria ->
+            check(criteria.get("field1").asString == "RedSquare" && criteria.get("flagged_ne").asInt == 1)
+            if (criteria.has("field4")) "[$root,${fixture.get("malformedThread")}]"
+            else {
+                check(criteria.get("field5").asString == root.get("sig").asString)
+                "[$root,${fixture.get("firstReply")},${fixture.get("nestedReply")}]"
+            }
+        }
+        peer.start().use { server ->
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                try {
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Native Red Square reference post")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                    ui.onNodeWithText("Malformed reference thread").assertDoesNotExist()
+                    ui.onNodeWithText("Native Red Square reference post").performClick()
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Independent Saito reply")).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("Independent Saito reply").assertIsDisplayed()
+                    peer.assertHealthy()
+                    captureFeedEvidence("browse-evidence/malformed-thread-rejected.png")
+                } catch (failure: Throwable) {
+                    captureFeedEvidence("browse-evidence/malformed-thread-first-failure.png")
+                    throw failure
+                }
+            }
+        }
+    }
+
     @Test fun profilePostsRepliesAndLikesRemainReadableAfterRestartWithoutTheirServer() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
-        val context = instrumentation.targetContext
-        check(context.packageName == "nl.davidengelen.redsquare.dev")
-        nl.davidengelen.redsquare.saito.AndroidBackendStore(context)
-            .save(nl.davidengelen.redsquare.saito.SaitoBackend.OWNER)
-        listOf("feed.owner.v1", "profile.owner.v1").flatMap { name ->
-            listOf(name, "$name.bak", "$name.new")
-        }.forEach { java.io.File(context.noBackupFilesDir, it).delete() }
+        val context = prepareContext()
         val thread = instrumentation.context.assets.open("native-thread-reference.json").bufferedReader().use {
             JsonParser.parseReader(it).asJsonObject
         }
@@ -92,13 +120,7 @@ class ThreadProfilePreviewTest {
 
     @Test fun openingAnIdentityShowsItsSignedPostsRepliesAndAvailableLikedPosts() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
-        val context = instrumentation.targetContext
-        check(context.packageName == "nl.davidengelen.redsquare.dev")
-        nl.davidengelen.redsquare.saito.AndroidBackendStore(context)
-            .save(nl.davidengelen.redsquare.saito.SaitoBackend.OWNER)
-        listOf("feed.owner.v1", "feed.owner.v1.bak", "feed.owner.v1.new").forEach {
-            java.io.File(context.noBackupFilesDir, it).delete()
-        }
+        val context = prepareContext()
         val thread = instrumentation.context.assets.open("native-thread-reference.json").bufferedReader().use {
             JsonParser.parseReader(it).asJsonObject
         }
@@ -172,13 +194,7 @@ class ThreadProfilePreviewTest {
 
     @Test fun availableConversationRemainsReadableAfterRestartWithoutItsServer() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
-        val context = instrumentation.targetContext
-        check(context.packageName == "nl.davidengelen.redsquare.dev")
-        nl.davidengelen.redsquare.saito.AndroidBackendStore(context)
-            .save(nl.davidengelen.redsquare.saito.SaitoBackend.OWNER)
-        listOf("feed.owner.v1", "feed.owner.v1.bak", "feed.owner.v1.new").forEach {
-            java.io.File(context.noBackupFilesDir, it).delete()
-        }
+        val context = prepareContext()
         val fixture = instrumentation.context.assets.open("native-thread-reference.json").bufferedReader().use {
             JsonParser.parseReader(it).asJsonObject
         }
@@ -225,13 +241,7 @@ class ThreadProfilePreviewTest {
 
     @Test fun openingAFeedPostShowsAvailableVerifiedConversationReplies() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
-        val context = instrumentation.targetContext
-        check(context.packageName == "nl.davidengelen.redsquare.dev")
-        nl.davidengelen.redsquare.saito.AndroidBackendStore(context)
-            .save(nl.davidengelen.redsquare.saito.SaitoBackend.OWNER)
-        listOf("feed.owner.v1", "feed.owner.v1.bak", "feed.owner.v1.new").forEach {
-            java.io.File(context.noBackupFilesDir, it).delete()
-        }
+        val context = prepareContext()
         val fixture = instrumentation.context.assets.open("native-thread-reference.json").bufferedReader().use {
             JsonParser.parseReader(it).asJsonObject
         }
@@ -270,5 +280,16 @@ class ThreadProfilePreviewTest {
                 }
             }
         }
+    }
+
+    private fun prepareContext(): android.content.Context {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        check(context.packageName == "nl.davidengelen.redsquare.dev")
+        nl.davidengelen.redsquare.saito.AndroidBackendStore(context)
+            .save(nl.davidengelen.redsquare.saito.SaitoBackend.OWNER)
+        context.noBackupFilesDir.listFiles()?.filter {
+            it.name.startsWith("feed.") || it.name.startsWith("conversation.") || it.name.startsWith("profile.")
+        }?.forEach { check(it.delete()) { "Fixture public cache could not be cleared" } }
+        return context
     }
 }

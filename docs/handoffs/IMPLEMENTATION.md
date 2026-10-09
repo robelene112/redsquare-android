@@ -61,6 +61,17 @@ one question at a time when a material choice really needs the owner.
   bounded public post/like persistence and signature-verified cached tab
   membership now exist; local/device green pending. Final review/full acceptance
   still remain within#8.
+  Profile-cache green37932930501/37932934354 at aef6742 passes all four cases on
+  both SDKs; public offline-Likes screenshots/logs inspected/retained in
+  profile-cache-green. Two independent reviews found spec gaps: malformed signed
+  threadId/cache constructor crash, absent older profile pagination, absent
+  identity links in replies/liked posts. Standards found duplicated durability
+  and reference signing. Report in ticket07/INTERIM_REVIEW. Review-stage shared
+  PublicEnvelopeCache and signed-reference helper now preserve on-disk formats
+  and every existing signed fixture; fresh case setup clears only fixture-owned
+  public .dev caches. New app malformed-thread rejection regression/independent
+  fixture added, decoder remains unchanged; local compile/red pending. Continue
+  TDD through these fixes, then repeat both axes and final full. Keep#8 open.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.
