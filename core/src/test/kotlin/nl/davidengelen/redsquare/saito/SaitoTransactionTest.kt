@@ -6,6 +6,25 @@ import org.junit.Test
 import java.util.Base64
 
 class SaitoTransactionTest {
+    @Test(expected = SaitoTransaction.InvalidMessage::class)
+    fun jsonEscapingCountsTowardTheCompleteEncodedMessageLimit() {
+        val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe fixture, never fund.
+        // Quotes require two bytes each in JSON, before the surrounding metadata.
+        val body = com.google.gson.JsonObject().apply { addProperty("text", "\"".repeat(524_288)) }
+        SaitoTransaction.create(wallet, body, 1)
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun malformedUnicodeIsRejectedBeforeSigningInsteadOfChangingThePublishedText() {
+        val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe fixture, never fund.
+        val body = com.google.gson.JsonObject().apply {
+            addProperty("module", "RedSquare")
+            addProperty("request", "create tweet")
+            add("data", com.google.gson.JsonObject().apply { addProperty("text", "Broken \uD800 text") })
+        }
+        SaitoTransaction.create(wallet, body, 1)
+    }
+
     @Test fun replyRecipientAndOutputIndicesMatchIndependentWasmBytes() {
         val reference = requireNotNull(javaClass.getResourceAsStream("/native-posting-reference.json")).bufferedReader().use {
             JsonParser.parseReader(it).asJsonObject.getAsJsonObject("reply")

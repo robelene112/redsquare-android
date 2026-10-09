@@ -321,7 +321,7 @@ class PostPreviewTest {
         }
     }
 
-    @Test fun replyUsesTheSelectedParentThreadAndIncludesTheParentAuthor() {
+    @Test fun replyKeepsItsSelectedParentThreadAndTextThroughActivityRecreation() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
@@ -358,7 +358,7 @@ class PostPreviewTest {
         })
         peer.start().use { server ->
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
-                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
                 try {
                     waitForReferencePost()
                     ui.onNodeWithText("Native Red Square reference post").performClick()
@@ -366,6 +366,11 @@ class PostPreviewTest {
                     ui.onNodeWithText("Reply").performClick()
                     ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNode(hasSetTextAction()).performTextReplacement("Reply from the native composer")
+                    scenario.recreate()
+                    ui.waitUntil(10_000) {
+                        ui.onAllNodes(hasSetTextAction() and hasText("Reply from the native composer")).fetchSemanticsNodes().isNotEmpty()
+                    }
+                    ui.onNodeWithText("Replying to Anon-${root.get("field2").asString.take(6)}").assertIsDisplayed()
                     ui.onNodeWithText("Send").performClick()
                     waitFor("Available on this server.")
                     backFromComposer()
@@ -379,6 +384,92 @@ class PostPreviewTest {
                 }
             }
         }
+    }
+
+    @Test fun invalidUnicodeShowsAValidationErrorAndKeepsEditableTextWithoutPublishing() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        AndroidBackendStore(context).save(SaitoBackend.OWNER)
+        val root = instrumentation.context.assets.open("native-following-reference.json").bufferedReader().use {
+            JsonParser.parseReader(it).asJsonObject.getAsJsonObject("root")
+        }
+        val peer = ControlledFeedPeer("[$root]")
+        peer.start().use { server ->
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                waitForReferencePost()
+                ui.onNodeWithText("New post").performClick()
+                ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                val invalid = "Keep \uD800 as entered"
+                ui.onNode(hasSetTextAction()).performTextReplacement(invalid)
+                ui.onNodeWithText("Send").performClick()
+                waitFor("This post needs valid text and must fit within the app's 1 MiB encoded message limit. Shorten or correct it, then try again. Your text is still here.")
+                ui.onNode(hasSetTextAction()).assertTextEquals(invalid).assertIsEnabled()
+                assertTrue(peer.transactions.isEmpty())
+                peer.assertHealthy()
+                captureFeedEvidence("posting-evidence/invalid-text-retained.png")
+            }
+        }
+    }
+
+    @Test fun longerMultilingualPostsPreserveTheirOriginalTextOnBothApprovedBackends() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        AndroidBackendStore(context).save(SaitoBackend.OWNER)
+        val root = instrumentation.context.assets.open("native-following-reference.json").bufferedReader().use {
+            JsonParser.parseReader(it).asJsonObject.getAsJsonObject("root")
+        }
+        val text = "  Multilingual: 日本語 🙂 \"quoted\" \\ path\n".repeat(25)
+        fun peerFor(backend: SaitoBackend): ControlledFeedPeer {
+            val indexed = java.util.concurrent.atomic.AtomicReference<com.google.gson.JsonObject?>()
+            return ControlledFeedPeer("[$root]", archiveResponse = { criteria ->
+                val row = indexed.get()
+                if (criteria.has("sig")) {
+                    if (row?.get("sig")?.asString == criteria.get("sig").asString) "[$row]" else "[]"
+                } else "[$root]"
+            }, onTransaction = { frame ->
+                val bytes = frame.copyOfRange(1, frame.size - 130)
+                java.nio.ByteBuffer.wrap(bytes).putInt(12, 0)
+                val transaction = nl.davidengelen.redsquare.saito.SaitoTransaction.restore(java.util.Base64.getEncoder().encodeToString(bytes))
+                val envelope = transaction.envelope()
+                val post = nl.davidengelen.redsquare.saito.RedSquareFeed.decode(envelope)
+                org.junit.Assert.assertEquals(text + backend.id, post.text)
+                org.junit.Assert.assertEquals(listOf(post.author), post.recipients)
+                indexed.set(com.google.gson.JsonObject().apply {
+                    addProperty("sig", post.id); addProperty("created_at", post.createdAt)
+                    addProperty("field1", "RedSquare"); addProperty("field2", post.author)
+                    addProperty("field4", ""); addProperty("field5", post.threadId)
+                    addProperty("tx", envelope)
+                })
+            })
+        }
+        val owner = peerFor(SaitoBackend.OWNER)
+        val official = peerFor(SaitoBackend.OFFICIAL)
+        owner.start().use { ownerServer -> official.start().use { officialServer ->
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${ownerServer.port}/wsopen")
+                .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${officialServer.port}/wsopen")).use {
+                for (backend in SaitoBackend.entries) {
+                    if (backend == SaitoBackend.OFFICIAL) {
+                        ui.onNodeWithText("Settings").performClick()
+                        ui.onNodeWithText(backend.domain).performClick()
+                        waitFor("Server: ${backend.domain}")
+                    }
+                    waitForReferencePost()
+                    ui.onNodeWithText("New post").performClick()
+                    ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNode(hasSetTextAction()).performTextReplacement(text + backend.id)
+                    ui.onNodeWithText("Send").performClick()
+                    waitFor("Available on this server.")
+                    captureFeedEvidence("posting-evidence/long-multilingual-${backend.id}.png")
+                    backFromComposer()
+                    ui.waitUntil(10_000) { ui.onAllNodes(hasScrollToIndexAction()).fetchSemanticsNodes().isNotEmpty() }
+                }
+                org.junit.Assert.assertEquals(1, owner.transactions.size)
+                org.junit.Assert.assertEquals(1, official.transactions.size)
+                owner.assertHealthy(); official.assertHealthy()
+            }
+        } }
     }
 
     @Test fun matchingSignedArchiveObservationMakesThePublishedPostAvailableInTheFeed() {

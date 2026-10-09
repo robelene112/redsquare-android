@@ -45,6 +45,7 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
     var saving by remember(store) { mutableStateOf(false) }
     var error by remember(store) { mutableStateOf(false) }
     var networkError by remember(store) { mutableStateOf(false) }
+    var validationError by remember(store) { mutableStateOf(false) }
     var transaction by remember(store) { mutableStateOf<SaitoTransaction?>(null) }
     var submitted by remember(store) { mutableStateOf(false) }
     var available by remember(store) { mutableStateOf(false) }
@@ -92,6 +93,7 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
         if (!ready || saving || sending || text.isBlank()) return
         val retrying = transaction != null
         networkError = false
+        validationError = false
         sending = true
         scope.launch {
             try {
@@ -142,6 +144,7 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                 catch (_: Exception) { networkError = true }
                 error = false
             } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: SaitoTransaction.InvalidMessage) { validationError = true }
             catch (_: Exception) { error = true }
             finally { sending = false }
         }
@@ -167,11 +170,12 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
         else if (submitted) Text(stringResource(R.string.post_submitted))
         else if (transaction != null) Text(stringResource(R.string.post_pending))
         if (networkError) Text(stringResource(R.string.post_network_error))
+        if (validationError) Text(stringResource(R.string.post_invalid_text))
         if (error) {
             Text(stringResource(R.string.post_draft_error))
             if (!ready) TextButton(onClick = { reload++ }) { Text(stringResource(R.string.retry)) }
         }
-        OutlinedTextField(value = text, onValueChange = { text = it; memory.text = it }, enabled = ready && !saving && !sending && transaction == null,
+        OutlinedTextField(value = text, onValueChange = { text = it; memory.text = it; validationError = false }, enabled = ready && !saving && !sending && transaction == null,
             placeholder = { Text(stringResource(R.string.post_write)) }, modifier = Modifier.fillMaxWidth().weight(1f))
     }
 }

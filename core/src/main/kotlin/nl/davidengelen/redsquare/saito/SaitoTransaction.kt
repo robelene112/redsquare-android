@@ -6,6 +6,8 @@ import java.util.Base64
 
 /** Immutable zero-payment Normal transaction; routing never changes its signed identity. */
 class SaitoTransaction private constructor(private val bytes: ByteArray) {
+    class InvalidMessage : IllegalArgumentException("Message must be valid Unicode within the native size limit")
+
     val id: String get() = bytes.copyOfRange(16, 80).joinToString("") { "%02x".format(it) }
     fun encoded(): String = Base64.getEncoder().encodeToString(bytes)
 
@@ -35,10 +37,18 @@ class SaitoTransaction private constructor(private val bytes: ByteArray) {
     }
 
     companion object {
+        const val MAX_MESSAGE_BYTES = 1024 * 1024
+
         fun create(wallet: SaitoWallet, body: JsonObject, timestamp: Long, recipients: List<String> = emptyList()): SaitoTransaction {
             require(timestamp >= 0)
-            val message = body.toString().toByteArray(Charsets.UTF_8)
-            require(message.size <= 1024 * 1024)
+            val message = try {
+                val encoded = Charsets.UTF_8.newEncoder()
+                    .onMalformedInput(java.nio.charset.CodingErrorAction.REPORT)
+                    .onUnmappableCharacter(java.nio.charset.CodingErrorAction.REPORT)
+                    .encode(java.nio.CharBuffer.wrap(body.toString()))
+                ByteArray(encoded.remaining()).also { encoded.get(it) }
+            } catch (_: java.nio.charset.CharacterCodingException) { throw InvalidMessage() }
+            if (message.size > MAX_MESSAGE_BYTES) throw InvalidMessage()
             val publicKey = Base58.decode(wallet.publicKey)
             val outputs = (listOf(wallet.publicKey) + recipients).distinct().map { address ->
                 val point = Base58.decode(address)
