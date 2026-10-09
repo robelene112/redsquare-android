@@ -1,6 +1,6 @@
 # Sequential implementation handoff
 
-Updated 2026-10-09, 00:09 UTC. The owner authorized implementing all 35 proposed
+Updated 2026-10-09, 00:16 UTC. The owner authorized implementing all 35 proposed
 tickets sequentially, committing after each, and reviewing the app at the end.
 Continue without routine permission requests or a grill per ticket. Ask only
 one question at a time when a material choice really needs the owner.
@@ -30,10 +30,14 @@ one question at a time when a material choice really needs the owner.
   for the crash. Full run 37861712249 at dec035d passed Android 10 completely;
   Android 17 feed/live-read, wallet recovery and cold continuity passed, then
   the update-notice test timed out before its signed-update stage. Its one-shot
-  HTTP fixture is being replaced by a multi-request server with diagnostic
-  request counts and a public screenshot, keeping UI/link assertions. App code
-  remains unchanged while this is investigated. Final full acceptance remains
-  pending. Do not close #4 or publish build9 on partial evidence.
+  HTTP fixture is replaced by a multi-request server, preserving UI/link
+  assertions. Focused 37863180844 passed at 3310534 with three manifest requests
+  and an inspected notice screenshot; this supports a fixture mismatch without
+  proving the earlier request sequence. Shared focused/full helper 47ce6df
+  resolves the sole review smell; both axes report no new remaining findings.
+  App code is unchanged. Final full run 37863843807 at c5953de is pending on
+  both SDKs, including fresh owner reads. Do not close #4 or publish build9 on
+  partial evidence.
 - Signed feed build 9 (f71c506) is prepared and signature/package verified,
   but remains unpublished. Stable preview is version 8, wallet foundation.
   Publish the first complete milestone after #7 includes server selection and

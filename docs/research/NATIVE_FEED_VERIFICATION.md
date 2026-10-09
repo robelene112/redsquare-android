@@ -205,3 +205,14 @@ replaced by a realistic multi-request server, preserving the existing UI/link
 assertions and adding request-count/public-screen evidence. No application
 behavior is changed by that diagnostic candidate; a focused Android 17 check
 will distinguish its result. Final full acceptance remains pending.
+
+Focused run **37863180844** at **3310534** passed the Android 17 notice/link
+assertions with the multi-request fixture (16.743 seconds test duration). The
+server recorded **three** manifest requests; the inspected screenshot shows
+Preview update available and View update. This demonstrates multiple requests
+in that passing flow and the fixture's ability to serve them, supporting the
+one-shot mismatch hypothesis without retrospectively proving the failed run's
+request sequence. App code was unchanged. Evidence is retained under
+`docs/evidence/ticket03/update-focused-17`. Shared harness helper 47ce6df
+keeps full and focused commands identical. Final full run **37863843807** at
+**c5953de** now checks both SDKs, including explicit fresh owner reads; pending.
