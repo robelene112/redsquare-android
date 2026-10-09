@@ -149,3 +149,12 @@ The next app regression rejects an independently valid signature whose signed
 thread_id is malformed, while preserving an authentic conversation. Its fixture
 uses the same shared WASM/Elliptic reference checks, not a native self-generated
 expectation. The decoder is unchanged at this test point; compile/red pending.
+
+Malformed relationship actual red37934353219 atc631f4d passes all four established
+flows after storage/reference refactoring and fresh-cache isolation. The new
+case fails assertDoesNotExist because the signed malformed thread is shown in
+the feed. Inspected failure image/log retained in ticket07/malformed-thread-red.
+The decoder now validates nonempty parent and thread identifiers as compact
+signature strings before exposing the post. Minimal local/device green pending.
+This regression proves rejection at the app boundary, not an observed process
+crash; the crash risk was diagnosed from the decoder/cache source mismatch.

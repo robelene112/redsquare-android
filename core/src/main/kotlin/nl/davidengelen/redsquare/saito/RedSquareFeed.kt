@@ -50,6 +50,7 @@ object RedSquareFeed {
     }
 
     private val gson = GsonBuilder().setStrictness(Strictness.STRICT).create()
+    private val signaturePattern = Regex("[0-9a-f]{128}")
 
     /** Reads web Archive envelopes, verifies the original bytes, then exposes post content. */
     fun decode(envelope: String): FeedPost {
@@ -59,6 +60,8 @@ object RedSquareFeed {
         val data = body.getAsJsonObject("data") ?: throw IllegalArgumentException("Missing post data")
         val parent = data.optionalString("parent_id")
         val thread = data.optionalString("thread_id").ifEmpty { signed.id }
+        require(parent.isEmpty() || parent.matches(signaturePattern)) { "Invalid parent signature" }
+        require(thread.matches(signaturePattern)) { "Invalid thread signature" }
         return FeedPost(signed.id, signed.author, data.optionalString("text"), signed.createdAt, parent, thread, envelope)
     }
 

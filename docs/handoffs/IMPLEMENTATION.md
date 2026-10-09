@@ -72,6 +72,12 @@ one question at a time when a material choice really needs the owner.
   public .dev caches. New app malformed-thread rejection regression/independent
   fixture added, decoder remains unchanged; local compile/red pending. Continue
   TDD through these fixes, then repeat both axes and final full. Keep#8 open.
+  Malformed-thread actual red37934353219 atc631f4d passes the four established
+  cases with fresh caches/refactored storage, then fails because the signed
+  malformed-thread post is visible. Public image/log inspected/retained in
+  malformed-thread-red. Minimal parent/thread signature validation implemented;
+  local/device green pending. Pure paging reference generator is uncommitted,
+  output in .scratch/native-profile-paging-reference.json for next paging tracer.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.
