@@ -16,36 +16,25 @@ one question at a time when a material choice really needs the owner.
   Both final source-review axes have zero actionable findings. References and
   functional red/green chronology are in thread/profile verification and
   ticket07/INTERIM_REVIEW/REVIEW. No production writes or new APK publication.
-- Active #9, "08: Follow accounts and read a Following feed", review base
-  6dd511d, final source candidate6d5d9da. #8 closed; all blockers complete.
-  Wallet-scoped local follow choices shared across fixed backend sessions,
-  profile Follow/Unfollow, selected-backend signed-author Following reads,
-  independent wallet/backend public Following cache, membership before bounded
-  retention. Exact-author archive queries; no on-chain following or cross-device
-  promise. PublicStringStore is the prior cache generalized for its third public
-  strings consumer; cache formats unchanged and values named accurately.
-  Actual eight-case Android10 green37959292042 ate9aa1fb passes19.051s.
-  Earlier five-case Android17 green37953417415 at0b7d3f7 passes85.443s;
-  remaining cases await full37 run. Final full37960235937 at6d5d9da is running,
-  including separate authorized public reads on both approved backends.
-  Two independent final source axes are reviewing6d5d9da against6dd511d.
-  Do not close#9 until full proof and both reviews pass.
-  Eight actual-app cases: Follow/Unfollow filter; backend-switch/offline cache;
-  unconfirmed failed-save retry; author history beyond general page plus signer
-  filtering; identity replacement/restore fixture; full100-root unrelated cache;
-  transient choices-read Retry; retain valid earlier author response after later
-  malformed response, including offline recreation. Last three functional reds
-  37954356779/37956724460/37958609488 reproduced actual source defects, then fixes
-  115fc7a/cc71cb9/e9aa1fb pass. Seven-case green37957941542 passes23.684s;
-  eight-case green above. Local core/debug/test assembly at e9aa1fb passes1m22s.
-  Public logs/images inspected and retained docs/evidence/ticket08; detailed
-  chronology in NATIVE_FOLLOWING_VERIFICATION.md and INTERIM_REVIEW.md.
-  Safe independent reference scripts use public unsafe scalar1/2, pinned
-  WASM/Elliptic, no network/app/wallet/DB initialization. Deployed public Archive
-  file confirms exact field2 criteria. Named Git-object reads failed at the old
-  documented Git directory; no repair attempted. Hash/provenance in report.
-  No production writes, private uploads, new review APK or physical proof.
-  Continue all35 sequentially after acceptance. Next #10 posts/replies/drafts.
+- Ticket #9, "08: Follow accounts and read a Following feed", complete at
+  reviewed source6d5d9da against base6dd511d. Final full37960235937 passes:
+  core15, release/debug/test assembly/lint,55 completed instrument cases each
+  SDK (53 top-level+2 recovered process cases),2 additional intentional
+  process-kill stages each. All8 Following cases pass19.341/44.848s on29/37.
+  Both source-review axes have zero actionable findings. Public logs and
+  representative Following/recovery images inspected/retained ticket08/final-full.
+  Wallet-scoped follow choices shared across backend sessions; selected-peer
+  signed-author queries; independent wallet/backend Following cache; Retry after
+  temporary choices-read failure; preserve verified partial pages before later
+  author failures. No cross-device/on-chain following promise. Prior cache
+  formats unchanged. Details NATIVE_FOLLOWING_VERIFICATION.md/REVIEW.md.
+  Both native public reads pass selected-label semantics. Official bitmap
+  captures display owner's label despite assertions; cause uninvestigated,
+  excluded from visual acceptance. Controlled switching images are correct.
+  Wallet/cache recovery and signed5-to-8 continuity pass. No new APK, private
+  uploads, production writes or physical-device/push proof. Continue all35.
+- Next #10, "09: Publish text posts and replies with recoverable drafts".
+  Start after #9 closure; use closure status commit as next review base.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.

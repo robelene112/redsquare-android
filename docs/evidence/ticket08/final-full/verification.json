@@ -1,0 +1,32 @@
+{
+  "run": 37960235937,
+  "source": "6d5d9dadf17da6bc0dcff27ea2846760c6738bab",
+  "coreTests": 15,
+  "coreFailures": 0,
+  "releaseAndDebugAssembly": "passed",
+  "lintDebug": "passed",
+  "sdk": {
+    "api-29": {
+      "completedInstrumentationCases": 55,
+      "topLevelCases": 53,
+      "recoveredProcessCases": 2,
+      "additionalIntentionalProcessKillStages": 2,
+      "followingCases": 8
+    },
+    "api-37.0": {
+      "completedInstrumentationCases": 55,
+      "topLevelCases": 53,
+      "recoveredProcessCases": 2,
+      "additionalIntentionalProcessKillStages": 2,
+      "followingCases": 8
+    }
+  },
+  "limits": [
+    "Emulators are not Pixel 7 performance or physical update/push proof.",
+    "Signed update proof is5-to-8, not8-to-10.",
+    "Public read signatures do not prove chain inclusion.",
+    "Live official read semantics assert selected server, but captured bitmap labels show owner on both SDKs; cause uninvestigated, not visual proof of official label."
+  ],
+  "noProductionWrites": true,
+  "newReviewApkPublished": false
+}

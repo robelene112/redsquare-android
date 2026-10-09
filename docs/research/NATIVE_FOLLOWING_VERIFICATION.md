@@ -1,7 +1,7 @@
 # Native following
 
-Ticket #9, delivery slice 8 of 35, is in progress. Review base 6dd511d.
-Parent specification is GitHub issue #1. Do not treat this report as acceptance.
+Ticket #9, delivery slice 8 of 35, is complete at reviewed source6d5d9da
+against base6dd511d. Parent specification is GitHub issue #1.
 
 Follow choices are local public account identities associated with the active
 wallet, shared across the two supported backend sessions. They are separate
@@ -119,4 +119,27 @@ heuristic. Refactor6d5d9da extracts only asset-reading helper, preserving all
 peer/UI/assertions. Both axes repeat at6d5d9da. Final full37960235937 is running
 with approved public reads. Earlier37959992336 was superseded/canceled during
 build so acceptance verifies the final source and test cleanup.
-Do not treat pending final checks as acceptance.
+Final results are recorded below.
+
+
+## Final acceptance
+
+Full run37960235937 at6d5d9da passes core15, debug/test/release assembly and lint.
+Each SDK passes55 completed instrument cases (53 top-level plus2 recovered
+process cases), with2 additional intentional process-kill stages. Following
+passes all8 cases in19.341/44.848 seconds on Android10/17. Public proof and
+representative Following/recovery images are inspected and retained final-full.
+Wallet/cache cold launches, authenticated export/import recovery, update notice
+and signed5-to-8 identity continuity pass. Both final source axes report zero
+hard/heuristic/actionable findings; see ticket08/REVIEW.md.
+
+Separately enabled fresh native public reads pass for both approved backends,
+including semantics assertions of each selected-server label. Official bitmap
+captures nevertheless display the owner's label on both SDKs. Cause is
+uninvestigated; those bitmaps are not visual proof of the official label and
+are excluded from retained visual acceptance. Controlled backend-switch and
+Following screenshots show correct official labels and isolated histories.
+No false visual, chain-inclusion, physical performance or closed-app push claim.
+
+No production node/config/wallet writer changes, live broadcasts, private
+uploads or new review APK publication. Pixel7 acceptance remains ticket#35.

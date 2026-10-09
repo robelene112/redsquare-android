@@ -5,7 +5,7 @@ Two independent read-only agents reviewed the whole ticket against fixed base
 6d5d9dadf17da6bc0dcff27ea2846760c6738bab, with30 commits captured by
 `git log base..candidate --oneline`. Source comparison is `git diff base...candidate`.
 Originating requirements are GitHub issue #9 and parent #1. Full runtime run
-37960235937 is pending; these source reviews are not acceptance on their own.
+37960235937 passes and inspected public evidence is retained final-full.
 
 ## Standards
 
@@ -42,5 +42,5 @@ missing Retry and discarded partial-results defects are fixed. No scope creep.
 The final asset-reader refactor preserves observable behavior.
 
 Standards: 0 hard, 0 actionable heuristics. Spec: 0 actionable findings.
-Final full proof and inspection remain required before closure. Superseded
+Final full proof and inspection passed. Superseded
 37959992336 was canceled during build and supplies no acceptance evidence.
