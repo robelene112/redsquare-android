@@ -30,12 +30,14 @@ class PostPreviewTest {
                 try {
                     waitFor("Native Red Square reference post")
                     ui.onNodeWithText("New post").performClick()
+                    ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNode(hasSetTextAction()).performTextReplacement("Draft kept until Send")
                     ui.onNodeWithText("Save draft").performClick()
                     waitFor("Native Red Square reference post")
                     scenario.recreate()
                     waitFor("Native Red Square reference post")
                     ui.onNodeWithText("New post").performClick()
+                    ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.waitUntil(10_000) {
                         ui.onAllNodes(hasSetTextAction() and hasText("Draft kept until Send")).fetchSemanticsNodes().isNotEmpty()
                     }
@@ -75,6 +77,7 @@ class PostPreviewTest {
                     val author = displayedWalletAddress(ui)
                     ui.onNodeWithText("Done").performClick()
                     ui.onNodeWithText("New post").performClick()
+                    ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNode(hasSetTextAction()).performTextReplacement("Explicit unfunded native post")
                     ui.onNodeWithText("Send").performClick()
                     waitFor("Submitted. Waiting for this server.")
