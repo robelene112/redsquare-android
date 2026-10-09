@@ -7,9 +7,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -17,10 +19,12 @@ import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -28,6 +32,8 @@ import android.system.Os
 import java.io.File
 import java.io.IOException
 import nl.davidengelen.redsquare.saito.SaitoWallet
+import nl.davidengelen.redsquare.saito.SaitoBackend
+import nl.davidengelen.redsquare.saito.AndroidBackendStore
 import nl.davidengelen.redsquare.feed.FeedScreen
 import nl.davidengelen.redsquare.feed.FeedEndpoints
 
@@ -36,6 +42,20 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             var wallet by remember { mutableStateOf<SaitoWallet?>(null) }
+            val backendStore = remember { AndroidBackendStore(applicationContext) }
+            var backend by remember { mutableStateOf<SaitoBackend?>(null) }
+            var backendReady by remember { mutableStateOf(false) }
+            var settingsOpen by remember { mutableStateOf(false) }
+            var savingBackend by remember { mutableStateOf(false) }
+            var backendSaveError by remember { mutableStateOf(false) }
+            val backendStates = rememberSaveableStateHolder()
+            val scope = rememberCoroutineScope()
+            LaunchedEffect(Unit) {
+                backend = withContext(Dispatchers.IO) {
+                    try { backendStore.load() } catch (_: Exception) { null }
+                }
+                backendReady = true
+            }
             val address = wallet?.publicKey
             var failed by remember { mutableStateOf(false) }
             var retry by remember { mutableIntStateOf(0) }
@@ -87,15 +107,62 @@ class MainActivity : ComponentActivity() {
                                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(PreviewUpdates.REVIEW_PAGE)))
                             }) { Text(stringResource(R.string.view_update)) }
                         }
-                        TextButton(onClick = { walletOpen = true }) { Text(stringResource(R.string.wallet)) }
+                        Row {
+                            TextButton(onClick = { walletOpen = true }) { Text(stringResource(R.string.wallet)) }
+                            TextButton(onClick = { settingsOpen = true }, enabled = backendReady && !savingBackend) {
+                                Text(stringResource(R.string.settings))
+                            }
+                        }
+                        backend?.let { Text(stringResource(R.string.selected_server, it.domain), style = MaterialTheme.typography.labelSmall) }
+                        if (backendReady && backend == null) Text(stringResource(R.string.backend_load_error))
                         if (failed) {
                             Text(stringResource(R.string.wallet_recovery_error))
                             Button(onClick = { failed = false; retry++ }) { Text(stringResource(R.string.retry)) }
                         }
                         if (!(BuildConfig.DEBUG && intent.getBooleanExtra("feedDisabled", false))) {
-                            FeedScreen(wallet, failed, FeedEndpoints.fromIntent(intent), lifecycle, Modifier.weight(1f)) { reportFullyDrawn() }
+                            val selected = backend
+                            if (selected != null) backendStates.SaveableStateProvider(selected.id) {
+                                key(selected) {
+                                    FeedScreen(wallet, failed, FeedEndpoints.fromIntent(intent, selected), selected,
+                                        lifecycle, Modifier.weight(1f)) { reportFullyDrawn() }
+                                }
+                            } else if (!backendReady) Text(stringResource(R.string.feed_loading))
                         }
                     }
+                    if (settingsOpen) AlertDialog(
+                        onDismissRequest = { if (!savingBackend) settingsOpen = false },
+                        title = { Text(stringResource(R.string.settings)) },
+                        text = {
+                            Column {
+                                Text(stringResource(R.string.server_choice))
+                                Text(stringResource(R.string.server_history_hint), style = MaterialTheme.typography.bodySmall)
+                                if (backendSaveError) Text(stringResource(R.string.backend_save_error))
+                                SaitoBackend.entries.forEach { choice ->
+                                    Row {
+                                        RadioButton(selected = backend == choice, onClick = null)
+                                        TextButton(enabled = !savingBackend, onClick = {
+                                            savingBackend = true
+                                            backendSaveError = false
+                                            scope.launch {
+                                                try {
+                                                    val saved = withContext(Dispatchers.IO) {
+                                                        try { backendStore.save(choice); true } catch (_: Exception) { false }
+                                                    }
+                                                    if (saved) { backend = choice; settingsOpen = false }
+                                                    else backendSaveError = true
+                                                } finally { savingBackend = false }
+                                            }
+                                        }) { Text(choice.domain) }
+                                    }
+                                }
+                            }
+                        },
+                        confirmButton = {
+                            TextButton(enabled = !savingBackend, onClick = { settingsOpen = false }) {
+                                Text(stringResource(R.string.done))
+                            }
+                        }
+                    )
                     if (walletOpen) AlertDialog(
                         onDismissRequest = { walletOpen = false },
                         title = { Text(stringResource(R.string.your_wallet)) },

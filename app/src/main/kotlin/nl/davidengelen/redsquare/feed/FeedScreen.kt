@@ -33,9 +33,9 @@ import java.util.Date
 import java.util.Locale
 
 @Composable
-fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: String, lifecycle: Lifecycle, modifier: Modifier, onDrawn: () -> Unit) {
+fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: String, backend: SaitoBackend, lifecycle: Lifecycle, modifier: Modifier, onDrawn: () -> Unit) {
     val context = LocalContext.current.applicationContext
-    val cache = remember { AndroidFeedCache(context) }
+    val cache = remember(backend) { AndroidFeedCache(context, backend) }
     val connection = remember { AndroidInternetStatus(context) }
     DisposableEffect(connection) { onDispose { connection.close() } }
     val observedInternet by connection.state.collectAsState()

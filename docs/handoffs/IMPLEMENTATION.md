@@ -1,6 +1,6 @@
 # Sequential implementation handoff
 
-Updated 2026-10-09, 00:32 UTC. The owner authorized implementing all 35 proposed
+Updated 2026-10-09, 00:44 UTC. The owner authorized implementing all 35 proposed
 tickets sequentially, committing after each, and reviewing the app at the end.
 Continue without routine permission requests or a grill per ticket. Ask only
 one question at a time when a material choice really needs the owner.
@@ -15,6 +15,10 @@ one question at a time when a material choice really needs the owner.
   base is **7085bcf**. First slice tests the visible settings selection, same
   authenticated identity on both controlled peers, independent feed caches and
   retained selection/cached posts through a selected-server outage/recreation.
+  Functional red run37865535083 at39cd843 failed at the missing Settings control;
+  four prior feed cases passed. First implementation compiles/core14 pass locally.
+  Fixed enum/atomic selection store/per-server cache/settings UI await runtime
+  verification. No official live-read acceptance or completed #5 is claimed.
 - Ticket #4's reviewed implementation passed final full run **37863843807**
   at c5953de on Android 10 and 17. All fourteen core tests, assembly/lint, four
   controlled feed cases per SDK, fresh owner reads, wallet recovery/continuity,

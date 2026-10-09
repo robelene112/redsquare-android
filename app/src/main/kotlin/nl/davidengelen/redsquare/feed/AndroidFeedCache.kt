@@ -7,14 +7,15 @@ import android.system.OsConstants
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonArray
 import com.google.gson.Strictness
+import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.FeedPost
 import nl.davidengelen.redsquare.saito.RedSquareFeed
 import java.io.File
 import java.io.IOException
 
 /** Public post cache. It contains no wallet or private Chat state. */
-class AndroidFeedCache(context: Context) {
-    private val file = AtomicFile(File(context.noBackupFilesDir, "feed.owner.v1"))
+class AndroidFeedCache(context: Context, backend: SaitoBackend) {
+    private val file = AtomicFile(File(context.noBackupFilesDir, "feed.${backend.id}.v1"))
     private val gson = GsonBuilder().setStrictness(Strictness.STRICT).disableHtmlEscaping().create()
 
     data class SavedPosts(val posts: List<FeedPost>, val unreadable: Boolean)

@@ -21,4 +21,10 @@
     <string name="feed_cache_warning">Some posts could not be saved or opened for offline reading.</string>
     <string name="feed_offline_empty">Connect to load posts for offline reading.</string>
     <string name="feed_unreadable">The server returned posts this app could not read.</string>
+    <string name="settings">Settings</string>
+    <string name="selected_server">Server: %1$s</string>
+    <string name="server_choice">Server</string>
+    <string name="server_history_hint">Each server has its own available history and moderation. Your wallet stays the same.</string>
+    <string name="backend_load_error">Your server selection could not be opened. Choose a server in Settings.</string>
+    <string name="backend_save_error">Your server selection could not be saved. Try again.</string>
 </resources>
