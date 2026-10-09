@@ -17,6 +17,7 @@ import javax.crypto.spec.GCMParameterSpec
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.SaitoTransaction
 import nl.davidengelen.redsquare.saito.RedSquareFeed
+import nl.davidengelen.redsquare.saito.FeedPost
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
 import com.google.gson.Strictness
