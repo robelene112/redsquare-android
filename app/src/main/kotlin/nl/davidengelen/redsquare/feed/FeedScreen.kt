@@ -67,6 +67,9 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
     var queueWarning by remember { mutableStateOf(false) }
     LaunchedEffect(wallet, backend, endpoint) {
         if (wallet == null) return@LaunchedEffect
+        try { withContext(Dispatchers.IO) { PostQueueScheduling.enqueue(context, wallet.publicKey, backend, endpoint) } }
+        catch (cancelled: CancellationException) { throw cancelled }
+        catch (_: Exception) { queueWarning = true }
         lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
             while (currentCoroutineContext().isActive) {
                 queueWarning = try {

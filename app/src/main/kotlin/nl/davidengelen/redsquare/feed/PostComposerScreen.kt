@@ -11,6 +11,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.CancellationException
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.SaitoWallet
@@ -30,6 +33,13 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
     val navigation = requireNotNull(LocalPostNavigation.current)
     val state = remember(store, memory, endpoint) { PostComposerState(store, memory, wallet, endpoint, parent, scope) }
     LaunchedEffect(state, state.reload) { state.load() }
+    LaunchedEffect(state, state.queued, state.sending) {
+        if (state.queued && !state.sending) {
+            try { withContext(Dispatchers.IO) { PostQueueScheduling.enqueue(context, owner, backend, endpoint) } }
+            catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { state.error = true }
+        }
+    }
     LaunchedEffect(state) {
         PostDraftStore.changes.collect {
             if (state.transaction != null) {

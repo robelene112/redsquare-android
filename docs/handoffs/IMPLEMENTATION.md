@@ -173,3 +173,8 @@ red38004250015 passes cancellation but times out waiting for automatic send
 after original-backend selection. Foreground resumer/serialized claims and
 state reconciliation implemented and locally assembled; focused green next.
 Background delivery, uncertain retries and recovery acceptance remain.
+
+#11 foreground green38005470104 passes2/2. Background red38006073973
+passes2/3; missing background TX is reproduced after activity stops. WorkManager
+2.12.0 scheduling/worker implemented, local debug/test build2m20 passes. Focused
+green next. Original-wallet/backend claims remain shared and atomic.

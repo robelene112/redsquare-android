@@ -55,3 +55,17 @@ Focused38005470104 atc3d5643 passes both cancellation and selected-original-
 backend automatic foreground delivery. The emitted transaction retains its
 originating wallet and text; the other peer receives no transaction. Background
 execution remains unimplemented and is the next vertical slice.
+
+Actual background red38006073973 at3301f11 passes2/3 cases. The background
+case stops the foreground activity before reconnecting, then times out waiting
+for transmission (line137). WorkManager2.12.0 now schedules unique connected
+work for persisted explicit intent. Worker inputs contain public identifiers and
+an endpoint, never plaintext posts or private signing material. The worker
+rereads selected backend/active identity; the existing atomic claim rechecks
+both before transmission. Paused/cancelled records are not redirected. Debug
+fixture endpoints remain loopback-only; release workers use fixed backends.
+Startup repairs the persistence/scheduling gap; retries before the sending
+claim retain Queued. OS delays/force-stop limits are documented in
+ANDROID_POST_QUEUE_BACKGROUND.md. Local debug/test assembly passes2m20.
+Focused background green pending; uncertain automatic retries and actual process/
+replacement acceptance remain incomplete.

@@ -9,12 +9,13 @@ import nl.davidengelen.redsquare.saito.SaitoPeer
 import nl.davidengelen.redsquare.saito.SaitoWallet
 
 /** Deliver only persisted explicit intent belonging to this selected session. */
-internal suspend fun resumeQueuedPosts(context: Context, wallet: SaitoWallet, backend: SaitoBackend, endpoint: String) {
+internal suspend fun resumeQueuedPosts(context: Context, wallet: SaitoWallet, backend: SaitoBackend, endpoint: String, onlyId: String? = null) {
     for (store in PostDraftStore.queued(context, wallet.publicKey, backend)) {
         try {
             val saved = store.load()
             if (!saved.queued) continue
             val candidate = requireNotNull(saved.transaction)
+            if (onlyId != null && candidate.id != onlyId) continue
             PostDeliveryAttempts.run(candidate.id) {
             SaitoPeer(wallet, endpoint).use { peer ->
                 val query = JsonObject().apply {
