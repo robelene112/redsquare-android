@@ -15,6 +15,57 @@ import org.junit.Test
 class PostPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
 
+    @Test fun matchingSignedArchiveObservationMakesThePublishedPostAvailableInTheFeed() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        check(context.packageName.endsWith(".dev"))
+        AndroidBackendStore(context).save(SaitoBackend.OWNER)
+        val root = instrumentation.context.assets.open("native-following-reference.json").bufferedReader().use {
+            JsonParser.parseReader(it).asJsonObject.getAsJsonObject("root")
+        }
+        var indexed: com.google.gson.JsonObject? = null
+        val peer = ControlledFeedPeer("[$root]", archiveResponse = { criteria ->
+            val current = indexed
+            if (criteria.has("sig")) {
+                if (current?.get("sig")?.asString == criteria.get("sig").asString) "[$current]" else "[]"
+            } else if (current != null) "[$current,$root]" else "[$root]"
+        }, onTransaction = { frame ->
+            val bytes = frame.copyOfRange(1, frame.size - 130)
+            java.nio.ByteBuffer.wrap(bytes).putInt(12, 0)
+            val transaction = nl.davidengelen.redsquare.saito.SaitoTransaction.restore(java.util.Base64.getEncoder().encodeToString(bytes))
+            val envelope = transaction.envelope()
+            val post = nl.davidengelen.redsquare.saito.RedSquareFeed.decode(envelope)
+            indexed = com.google.gson.JsonObject().apply {
+                addProperty("sig", post.id); addProperty("created_at", post.createdAt)
+                addProperty("field1", "RedSquare"); addProperty("field2", post.author)
+                addProperty("field4", ""); addProperty("field5", post.threadId)
+                addProperty("tx", envelope)
+            }
+        })
+        peer.start().use { server ->
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                try {
+                    waitFor("Native Red Square reference post")
+                    ui.onNodeWithText("New post").performClick()
+                    ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNode(hasSetTextAction()).performTextReplacement("Observed native publication")
+                    ui.onNodeWithText("Send").performClick()
+                    waitFor("Available on this server.")
+                    captureFeedEvidence("posting-evidence/observed-publication.png")
+                    ui.onNodeWithText("Back").performClick()
+                    waitFor("Observed native publication")
+                    ui.onNodeWithText("Observed native publication").assertIsDisplayed()
+                    peer.assertHealthy()
+                    captureFeedEvidence("posting-evidence/published-post-in-feed.png")
+                } catch (failure: Throwable) {
+                    captureFeedEvidence("posting-evidence/observation-first-failure.png")
+                    throw failure
+                }
+            }
+        }
+    }
+
     @Test fun savedDraftSurvivesReopeningAndRemainsUnsent() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext

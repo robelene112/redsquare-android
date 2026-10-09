@@ -14,7 +14,8 @@ import java.util.concurrent.TimeUnit
 
 /** Actual binary socket boundary; signed posts are independent WASM fixtures. */
 internal class ControlledFeedPeer(@Volatile var rows: String,
-    private val archiveResponse: ((com.google.gson.JsonObject) -> String)? = null) {
+    private val archiveResponse: ((com.google.gson.JsonObject) -> String)? = null,
+    private val onTransaction: ((ByteArray) -> Unit)? = null) {
     private val peer = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public test material only.
     private val counter = ByteArray(32) { 7 }
     private val received = CountDownLatch(1)
@@ -63,6 +64,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                     4 -> {
                         require(authenticated)
                         transactions.add(frame)
+                        onTransaction?.invoke(frame)
                     }
                     12 -> {
                         require(authenticated)
