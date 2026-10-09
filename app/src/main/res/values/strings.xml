@@ -30,4 +30,9 @@
     <string name="wallet_export">Export wallet</string>
     <string name="wallet_auth_setup">Set a screen lock in Android settings to export your wallet.</string>
     <string name="wallet_auth_unavailable">Device authentication could not start. Try again.</string>
+    <string name="wallet_auth_title">Export wallet</string>
+    <string name="wallet_auth_subtitle">Confirm it is you to save your private wallet backup.</string>
+    <string name="wallet_export_saved">Wallet backup saved</string>
+    <string name="wallet_export_failed">Your wallet backup could not be saved and verified. Try again with another save location.</string>
+    <string name="wallet_export_cancelled">Wallet export canceled. Your wallet is unchanged.</string>
 </resources>

@@ -1,10 +1,10 @@
 package nl.davidengelen.redsquare
 
 import android.os.Bundle
-import android.app.KeyguardManager
 import android.content.Intent
 import android.net.Uri
 import androidx.activity.ComponentActivity
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.Column
@@ -39,6 +39,17 @@ import nl.davidengelen.redsquare.feed.FeedScreen
 import nl.davidengelen.redsquare.feed.FeedEndpoints
 
 class MainActivity : ComponentActivity() {
+    private var walletExports: WalletExport? = null
+    private val createWalletDocument = registerForActivityResult(ActivityResultContracts.CreateDocument("application/json")) {
+        walletExports?.documentChosen(it)
+    }
+
+    override fun onDestroy() {
+        walletExports?.cancel()
+        walletExports = null
+        super.onDestroy()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -68,7 +79,11 @@ class MainActivity : ComponentActivity() {
             var failed by remember { mutableStateOf(false) }
             var retry by remember { mutableIntStateOf(0) }
             var walletOpen by remember { mutableStateOf(false) }
-            var walletExportError by remember { mutableStateOf<Int?>(null) }
+            val walletExport = remember { WalletExport(this@MainActivity, { wallet }, createWalletDocument::launch) }
+            DisposableEffect(walletExport) {
+                walletExports = walletExport
+                onDispose { walletExport.cancel(); if (walletExports === walletExport) walletExports = null }
+            }
             var updateAvailable by remember { mutableStateOf(false) }
             var updateCheck by remember { mutableIntStateOf(0) }
             DisposableEffect(Unit) {
@@ -117,7 +132,7 @@ class MainActivity : ComponentActivity() {
                             }) { Text(stringResource(R.string.view_update)) }
                         }
                         Row {
-                            TextButton(onClick = { walletExportError = null; walletOpen = true }) { Text(stringResource(R.string.wallet)) }
+                            TextButton(onClick = { walletExport.clearMessage(); walletOpen = true }) { Text(stringResource(R.string.wallet)) }
                             TextButton(onClick = { settingsOpen = true }, enabled = backendReady && !savingBackend) {
                                 Text(stringResource(R.string.settings))
                             }
@@ -177,7 +192,7 @@ class MainActivity : ComponentActivity() {
                         }
                     )
                     if (walletOpen) AlertDialog(
-                        onDismissRequest = { walletOpen = false },
+                        onDismissRequest = { walletExport.cancel(); walletOpen = false },
                         title = { Text(stringResource(R.string.your_wallet)) },
                         text = {
                             val addressLabel = stringResource(R.string.wallet_address)
@@ -187,14 +202,12 @@ class MainActivity : ComponentActivity() {
                                     failed -> Text(stringResource(R.string.wallet_unavailable))
                                     else -> Text(stringResource(R.string.wallet_opening))
                                 }
-                                walletExportError?.let { Text(stringResource(it)) }
-                                TextButton(enabled = wallet != null, onClick = {
-                                    val secure = getSystemService(KeyguardManager::class.java).isDeviceSecure
-                                    walletExportError = if (secure) R.string.wallet_auth_unavailable else R.string.wallet_auth_setup
-                                }) { Text(stringResource(R.string.wallet_export)) }
+                                walletExport.message?.let { Text(stringResource(it)) }
+                                TextButton(enabled = wallet != null && !walletExport.busy,
+                                    onClick = walletExport::start) { Text(stringResource(R.string.wallet_export)) }
                             }
                         },
-                        confirmButton = { TextButton(onClick = { walletOpen = false }) { Text(stringResource(R.string.done)) } }
+                        confirmButton = { TextButton(onClick = { walletExport.cancel(); walletOpen = false }) { Text(stringResource(R.string.done)) } }
                     )
                 }
             }

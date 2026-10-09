@@ -58,6 +58,7 @@ class WalletExportPreviewTest {
                 .contains("Lock credential verified successfully"))
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedDisabled", true)).use {
+                try {
                 ui.onNodeWithText("Wallet").performClick()
                 val address = displayedWalletAddress(ui)
                 ui.onNodeWithText("Export wallet").performClick()
@@ -89,6 +90,10 @@ class WalletExportPreviewTest {
                 } finally { bytes.fill(0) }
                 captureFeedEvidence("wallet-export-evidence/real-pin-success.png")
                 DocumentsContract.deleteDocument(context.contentResolver, uri)
+                } catch (failure: Throwable) {
+                    captureFeedEvidence("wallet-export-evidence/real-pin-failure.png")
+                    throw failure
+                }
             }
         } finally {
             device.executeShellCommand("locksettings clear --old $TEST_PIN --user 0")
