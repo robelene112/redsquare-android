@@ -59,16 +59,18 @@ verify_wallet_import() {
         adb shell run-as nl.davidengelen.redsquare.dev.test tee files/wallet-test-documents/reference-import.json > /dev/null
     printf '%s' '{"wallet":{"version":5.677,"publicKey":"jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR","privateKey":"0000000000000000000000000000000000000000000000000000000000000001"},"keys":[{"publicKey":"jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR","identifier":"reference@saito"}],"pending_txs":[{}],"crypto":{"OTHER":{"isActivated":true,"address":"unverified","balance":"0"}}}' | \
         adb shell run-as nl.davidengelen.redsquare.dev.test tee files/wallet-test-documents/risk-import.json > /dev/null
-    timeout 300 adb shell am instrument -w -r \
-        -e class nl.davidengelen.redsquare.WalletImportPreviewTest \
-        nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
-        > "$evidence/wallet-import-ui.txt" || true
-    adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - wallet-import-evidence > "$evidence/wallet-import-evidence.tar" || true
-    if ! grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/wallet-import-ui.txt"; then
-        adb exec-out screencap -p > "$evidence/wallet-import-system-screen.png" || true
-        adb exec-out run-as nl.davidengelen.redsquare.dev.test stat -c '%s' \
-            files/wallet-test-documents/invalid-import.json > "$evidence/wallet-import-fixture-size.txt" || true
-        return 1
+    if [[ "${TEST_SCOPE:-full}" != import-risk* ]]; then
+        timeout 300 adb shell am instrument -w -r \
+            -e class nl.davidengelen.redsquare.WalletImportPreviewTest \
+            nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+            > "$evidence/wallet-import-ui.txt" || true
+        adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - wallet-import-evidence > "$evidence/wallet-import-evidence.tar" || true
+        if ! grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/wallet-import-ui.txt"; then
+            adb exec-out screencap -p > "$evidence/wallet-import-system-screen.png" || true
+            adb exec-out run-as nl.davidengelen.redsquare.dev.test stat -c '%s' \
+                files/wallet-test-documents/invalid-import.json > "$evidence/wallet-import-fixture-size.txt" || true
+            return 1
+        fi
     fi
     # A failed replacement-risk test may intentionally leave its synthetic
     # imported identity active. Isolate it from the earlier preview scenarios.
@@ -79,7 +81,10 @@ verify_wallet_import() {
         nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
         > "$evidence/wallet-risk-ui.txt" || true
     adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - wallet-risk-evidence > "$evidence/wallet-risk-evidence.tar" || true
-    grep -q 'OK (1 test)' "$evidence/wallet-risk-ui.txt" || return 1
+    if ! grep -q 'OK (1 test)' "$evidence/wallet-risk-ui.txt"; then
+        adb exec-out screencap -p > "$evidence/wallet-risk-system-screen.png" || true
+        return 1
+    fi
 }
 if [[ "${TEST_SCOPE:-full}" == import* ]]; then
     verify_wallet_import

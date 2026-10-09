@@ -8,7 +8,7 @@ on:
         description: Verification scope
         type: choice
         default: full
-        options: [full, feed, feed-android17, update-android17, export, export-android17, import, import-android17]
+        options: [full, feed, feed-android17, update-android17, export, export-android17, import, import-android17, import-risk, import-risk-android17]
       public_feed_read:
         description: Separately verify both approved public peer feeds
         type: boolean
@@ -84,14 +84,14 @@ jobs:
           path: ${{ steps.cache-path.outputs.home }}/.gradle/caches
           key: ${{ steps.dependencies.outputs.cache-primary-key }}
       - name: Verify Android 10 runtime
-        if: inputs.scope != 'feed-android17' && inputs.scope != 'update-android17' && inputs.scope != 'export-android17' && inputs.scope != 'import-android17'
+        if: inputs.scope != 'feed-android17' && inputs.scope != 'update-android17' && inputs.scope != 'export-android17' && inputs.scope != 'import-android17' && inputs.scope != 'import-risk-android17'
         env:
           TEST_PUBLIC_SIGNED_UPDATE: '1'
           TEST_PUBLIC_FEED_READ: ${{ inputs.public_feed_read && '1' || '0' }}
           TEST_SCOPE: ${{ inputs.scope || 'full' }}
         run: scripts/ci-android-device 29
       - name: Verify Android 17 runtime
-        if: inputs.scope != 'feed' && inputs.scope != 'export' && inputs.scope != 'import'
+        if: inputs.scope != 'feed' && inputs.scope != 'export' && inputs.scope != 'import' && inputs.scope != 'import-risk'
         env:
           TEST_SCOPE: ${{ inputs.scope || 'full' }}
           TEST_PUBLIC_SIGNED_UPDATE: '1'

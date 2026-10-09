@@ -57,6 +57,12 @@ class WalletImportRiskPreviewTest {
                 ui.onNodeWithText("Confirm replacement").performScrollTo().performClick()
                 ui.waitUntil(15_000) { ui.onAllNodes(hasText("Wallet imported")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                 assertEquals("jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR", displayedWalletAddress(ui))
+                // The earlier export protected the outgoing wallet, not this incoming identity.
+                ui.onNodeWithText("Done").performClick()
+                ui.waitUntil(15_000) { ui.onAllNodes(hasText("Back up your wallet")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                ui.onNodeWithText("Back up your wallet").assertIsDisplayed()
+                captureFeedEvidence("wallet-risk-evidence/incoming-wallet-needs-own-backup.png")
+                ui.onNodeWithText("Wallet").performClick()
                 select(device, originalFile)
                 ui.waitUntil(15_000) { ui.onAllNodes(hasText("Other assets could not be checked")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                 ui.onNodeWithText("Other assets could not be checked").assertExists()
