@@ -61,5 +61,13 @@ retained in save-retry-green.
 A fourth app case at72530fb requires a newer followed-author post absent from
 the general page and excludes a signed post from another author even when its
 archive field2 claims the followed identity. Four-case Android10 run37951927215
-is pending. Production source remains3caa31a. Identity isolation, both source
-review axes and final full verification remain pending.
+passes all four cases in12.586 seconds; public author-history image/log inspected
+and retained in author-history-green. Production source remains3caa31a.
+
+Fifth case atc14246a checks wallet isolation at actual MainActivity launches,
+using an isolated-emulator-only synthetic scalar2 wallet filesystem fixture
+between cold launches. Its choices must be separate; restoring the outgoing
+wallet must recover its prior choices. Wallet replacement UI was verified in
+ticket#7; this case does not claim a new end-to-end import UI flow or physical
+process death. Five-case runs37952728041/37952732559 and both final source-review
+axes are pending. Final full verification remains pending.

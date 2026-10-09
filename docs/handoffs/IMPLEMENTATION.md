@@ -41,9 +41,17 @@ one question at a time when a material choice really needs the owner.
   inspected/retained save-retry-green. Fourth app case follows author1 and
   requires a newer signed post absent from the general page, excluding a valid
   author2 post whose archive field2 misleadingly claims author1. Current run
-  37951927215 on Android10 is pending; source unchanged from3caa31a. Wait for
-  meaningful green before the next test. Then an actual-app identity isolation
-  check using only synthetic wallet fixtures between cold launches, both reviews and
+  37951927215 at72530fb passes all four cases on Android10 in12.586s; public
+  author-history image/log inspected/retained author-history-green. Fifth case
+  atc14246a establishes follow choices for the current emulator wallet, swaps
+  only a public unsafe scalar2 wallet fixture via protected store between cold
+  actual-app launches, requires no inherited choices/Follow for the new identity,
+  restores the original wallet and requires its Unfollow. Guarded .dev/emulator;
+  this is identity-isolation evidence, not a new import-UI claim. Five-case runs
+  37952728041/37952732559 pending on Android10/17. Both read-only review agents
+  are reviewing the complete6dd511d...c14246a ticket diff along separate axes.
+  Wait for green before new behavior tests or source fixes, then fix findings,
+  repeat source reviews if needed and
   final full; close#9 only on acceptance and continue all35 sequentially.
   New references use the pure pinned WASM/Elliptic helper. Direct named deployed
   public Archive source read confirmed exact field2 criteria; named Git-object
