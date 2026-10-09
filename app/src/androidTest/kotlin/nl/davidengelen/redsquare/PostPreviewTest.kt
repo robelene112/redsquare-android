@@ -386,7 +386,7 @@ class PostPreviewTest {
         }
     }
 
-    @Test fun invalidUnicodeShowsAValidationErrorAndKeepsEditableTextWithoutPublishing() {
+    @Test fun invalidUnicodeNeverPublishesOrOverwritesTheLastSavedDraft() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
@@ -395,9 +395,15 @@ class PostPreviewTest {
         }
         val peer = ControlledFeedPeer("[$root]")
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
-                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+            val intent = Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+            ActivityScenario.launch<MainActivity>(intent).use {
                 waitForReferencePost()
+                ui.onNodeWithText("New post").performClick()
+                ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                ui.onNode(hasSetTextAction()).performTextReplacement("Last recoverable valid draft")
+                ui.onNodeWithText("Save draft").performClick()
+                ui.waitUntil(10_000) { ui.onAllNodes(hasScrollToIndexAction()).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNodeWithText("New post").performClick()
                 ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 val invalid = "Keep \uD800 as entered"
@@ -408,6 +414,26 @@ class PostPreviewTest {
                 assertTrue(peer.transactions.isEmpty())
                 peer.assertHealthy()
                 captureFeedEvidence("posting-evidence/invalid-text-retained.png")
+                ui.onNodeWithText("Save draft").performClick()
+                waitFor("Could not load or confirm the saved draft. Your current text remains here. Try again.")
+                ui.onNode(hasSetTextAction()).assertTextEquals(invalid)
+            }
+            // A new activity has no previous ViewModel edits to hide a disk overwrite.
+            ActivityScenario.launch<MainActivity>(intent).use {
+                waitForReferencePost()
+                ui.onNodeWithText("New post").performClick()
+                try {
+                    ui.waitUntil(10_000) {
+                        ui.onAllNodes(hasSetTextAction() and hasText("Last recoverable valid draft")).fetchSemanticsNodes().isNotEmpty()
+                    }
+                } catch (failure: Throwable) {
+                    captureFeedEvidence("posting-evidence/invalid-save-cold-recovery-failure.png")
+                    throw failure
+                }
+                ui.onNode(hasSetTextAction()).assertTextEquals("Last recoverable valid draft")
+                assertTrue(peer.transactions.isEmpty())
+                peer.assertHealthy()
+                captureFeedEvidence("posting-evidence/invalid-save-keeps-last-good-draft.png")
             }
         }
     }
@@ -419,7 +445,13 @@ class PostPreviewTest {
         val root = instrumentation.context.assets.open("native-following-reference.json").bufferedReader().use {
             JsonParser.parseReader(it).asJsonObject.getAsJsonObject("root")
         }
-        val peer = ControlledFeedPeer("[$root]")
+        val peer = ControlledFeedPeer("[$root]", archiveResponse = { criteria ->
+            require(criteria.get("field1").asString == "RedSquare" && criteria.get("flagged_ne").asInt == 1)
+            if (criteria.has("sig")) "[]" else {
+                require(criteria.get("field4").asString == "")
+                "[$root]"
+            }
+        })
         peer.start().use { server ->
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->

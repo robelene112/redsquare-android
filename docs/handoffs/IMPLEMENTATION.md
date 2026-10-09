@@ -35,11 +35,33 @@ one question at a time when a material choice really needs the owner.
   uploads, production writes or physical-device/push proof. Continue all35.
 - Active #10, "09: Publish text posts and replies with recoverable drafts".
   Eight of35 complete,27 remaining including active. Review base78163d6.
-  Latest source/testsd54d9de. Current37985523535 checks reply recreation,
-  longer multilingual text on both controlled backends and invalid-text UI.
-  Existing process-restart, identity-preserving Retry and storage checks rerun.
-  No local build active. Local core/debug/test build reports SUCCESS1m46s;
-  wrapper exit143, so hosted completion remains authoritative.
+  Latest implementation candidate6cfa908. Focused14-case37990196219 passes13;
+  local clearing reaches blank persisted editor but its fixture rejects exact-sig
+  archive queries (missing field4). Fixture corrected; do not count this as a
+  production failure. Local debug/test/lint passes2m40s. Expanded malformed-text
+  cold-draft regression compiles (1m33s), functional red pending next dispatch.
+  Final reviews at6cfa908: Standards0 hard violations/2 possible smells;
+  Spec1 P2: lossy UTF8 draft encoding commits changed text before verification
+  reports failure, discarding the last good draft. Reproduce through UI before
+  strict prewrite encoding fix. Full acceptance pending.
+  Reply recreation actual red37985523535 fixed6abdc11 by wallet/backend-scoped
+  navigation ViewModel and retained reply mode. Twelve-case37987683585 passes
+  49.873s plus cold reconciliation, including Unicode UI and longer preserved
+  multilingual text through both controlled backends. Fourteen-case red
+  37988651709 passes13 cases,69.856s; only Start another draft action absent.
+  Real SAF wallet replacement warning/isolation and outgoing-draft restoration
+  pass. Minimal6cfa908 confirms local clear, never claims server deletion, and
+  verifies encrypted empty record before clearing text/candidate. Persistence
+  and memory update complete together under NonCancellable across recreation.
+  Original candidate remains after cancellation or failed save.
+  ff55aab fixes LocalActivity lint, makes push checks source/core/debug/test/
+  release/lint only, and correctly limits posting-android17 to SDK37. Actual
+  push37987142391 and37987683472 pass with both device stages skipped. Full
+  manual Android10/17 acceptance still required; CI parallelization unimplemented.
+  Timing report ANDROID_CI_TIMING.md. Longer-run37985523535 spent minutes
+  unpacking system image; cause beyond stage timing unproven. Its official
+  controlled bitmap still has an owner caption despite correct semantics and
+  separate fixture broadcasts; exclude that bitmap from visual backend proof.
   Seven-case37982268510 passes31.633s. Eight-case37984084989 passes32.613s
   plus actual process death and cold reconciliation without rebroadcast.
   Unsaved root-editor recreation actual red37983208565 was fixed by scoped
@@ -62,9 +84,8 @@ one question at a time when a material choice really needs the owner.
   Wallet replacement explicitly explains that local posting records remain
   with the outgoing identity and are excluded from wallet exports, and that
   uncertain publication may already have reached its server.
-  Remaining: reply recreation verification/fix, safe new composition after
-  indefinitely uncertain delivery, wallet-replacement isolation verification,
-  final two-axis review/fixes and full Android10/17 acceptance.
+  Remaining: confirmed local clear green, final two-axis review/fixes and full
+  Android10/17 acceptance. Review fixes may require focused rechecks.
   Both interim review axes remain ticket09/INTERIM_REVIEW.md. Detailed earlier
   contract/history: NATIVE_POSTING_CONTRACT.md/NATIVE_POSTING_VERIFICATION.md.
   #10 reopened after premature closure; keep open until acceptance. No new APK.
