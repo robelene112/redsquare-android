@@ -386,6 +386,61 @@ class FollowingPreviewTest {
         }
     }
 
+    @Test fun validFollowedAuthorResultsRemainAvailableWhenAnotherAuthorFails() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        val fixture = instrumentation.context.assets.open("native-following-reference.json").bufferedReader().use {
+            JsonParser.parseReader(it).asJsonObject
+        }
+        val paging = instrumentation.context.assets.open("native-profile-paging-reference.json").bufferedReader().use {
+            JsonParser.parseReader(it).asJsonObject
+        }
+        val root = fixture.getAsJsonObject("root")
+        val other = fixture.getAsJsonObject("otherRoot")
+        val newer = paging.getAsJsonArray("recentPosts")[0].asJsonObject
+        val firstAuthor = root.get("field2").asString
+        val secondAuthor = other.get("field2").asString
+        check(firstAuthor < secondAuthor)
+        val peer = ControlledFeedPeer("[$root,$other]") { criteria ->
+            check(criteria.get("field1").asString == "RedSquare" && criteria.get("flagged_ne").asInt == 1)
+            when (criteria.get("field2")?.asString) {
+                firstAuthor -> if (criteria.has("field4")) "[$newer]" else "[$root]"
+                secondAuthor -> if (criteria.has("field4")) "{" else "[$other]"
+                null -> "[$root,$other]"
+                else -> error("Unexpected archive author")
+            }
+        }
+        peer.start().use { server ->
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
+                try {
+                    waitFor("Native Red Square reference post")
+                    for (author in listOf(firstAuthor, secondAuthor)) {
+                        ui.onNodeWithText(author).performClick()
+                        waitFor("Follow")
+                        ui.onNodeWithText("Follow").performClick()
+                        waitFor("Unfollow")
+                        ui.onNodeWithText("Back").performClick()
+                    }
+                    ui.onNodeWithText("Following").performClick()
+                    waitFor("Profile newer post 20")
+                    waitFor("Server unavailable")
+                    peer.assertHealthy()
+                    captureFeedEvidence("following-evidence/partial-author-results.png")
+                    server.close()
+                    scenario.recreate()
+                    waitFor("Profile newer post 20")
+                    waitFor("Server unavailable")
+                    ui.onNodeWithText("Profile newer post 20").assertIsDisplayed()
+                    captureFeedEvidence("following-evidence/partial-author-results-cached.png")
+                } catch (failure: Throwable) {
+                    captureFeedEvidence("following-evidence/partial-author-first-failure.png")
+                    throw failure
+                }
+            }
+        }
+    }
+
     @Test fun followingAnAccountRestrictsTheFeedAndUnfollowingRemovesItsPosts() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
