@@ -12,6 +12,77 @@ import org.junit.Test
 class ThreadProfilePreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
 
+    @Test fun replyAndLikedPostAuthorsOpenProfilesAndBackReturnsToTheOrigin() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = prepareContext()
+        val thread = instrumentation.context.assets.open("native-thread-reference.json").bufferedReader().use {
+            JsonParser.parseReader(it).asJsonObject
+        }
+        val likes = instrumentation.context.assets.open("native-profile-like-reference.json").bufferedReader().use {
+            JsonParser.parseReader(it).asJsonObject
+        }
+        val root = thread.getAsJsonObject("root")
+        val author = root.get("field2").asString
+        val reply = thread.getAsJsonObject("firstReply")
+        val replyAuthor = reply.get("field2").asString
+        val peer = ControlledFeedPeer("[$root]") { criteria ->
+            when {
+                criteria.has("field4") -> "[$root]"
+                criteria.has("field5") -> {
+                    check(criteria.get("field5").asString == root.get("sig").asString)
+                    "[$root,$reply,${thread.get("nestedReply")}]"
+                }
+                criteria.has("field2") -> when (criteria.get("field2").asString) {
+                    author -> when (criteria.get("field1").asString) {
+                        "RedSquare" -> "[$root,${thread.get("nestedReply")}]"
+                        "RedSquareLike" -> "[${likes.get("likedReply")}]"
+                        else -> error("Unexpected origin-profile module")
+                    }
+                    replyAuthor -> {
+                        check(criteria.get("field1").asString == "RedSquare")
+                        "[$reply]"
+                    }
+                    else -> error("Unexpected explored identity")
+                }
+                criteria.has("sig") -> { check(criteria.get("sig").asString == reply.get("sig").asString); "[$reply]" }
+                else -> error("Unexpected identity-navigation query")
+            }
+        }
+        peer.start().use { server ->
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                try {
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Native Red Square reference post")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                    ui.onNodeWithText("Native Red Square reference post").performClick()
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Independent Saito reply")).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("Anon-${replyAuthor.take(6)}").performClick()
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText(replyAuthor)).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("Profile").assertIsDisplayed()
+                    ui.onNodeWithText("Back").performClick()
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Conversation")).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("Back").performClick()
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText(author)).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText(author).performClick()
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Likes")).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("Likes").performClick()
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Independent Saito reply")).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("Anon-${replyAuthor.take(6)}").performClick()
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText(replyAuthor)).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("Back").performClick()
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText(author)).fetchSemanticsNodes().isNotEmpty() }
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Independent Saito reply")).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("Profile").assertIsDisplayed()
+                    ui.onNodeWithText("Independent Saito reply").assertIsDisplayed()
+                    peer.assertHealthy()
+                    captureFeedEvidence("browse-evidence/profile-origin-restored.png")
+                } catch (failure: Throwable) {
+                    captureFeedEvidence("browse-evidence/identity-navigation-first-failure.png")
+                    throw failure
+                }
+            }
+        }
+    }
+
     @Test fun olderProfileRepliesAndLikesRemainReachablePastANewerFullPage() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = prepareContext()

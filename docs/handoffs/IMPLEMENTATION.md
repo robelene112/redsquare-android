@@ -89,6 +89,12 @@ one question at a time when a material choice really needs the owner.
   and Load older now exist for author history/likes; no-progress full pages
   give truthful unavailable-paging copy. Local/device green pending. Then fix
   remaining conversation/liked-author profile links and verify/review/full.
+  Paging green37937666159 at5da990e passes all six cases on Android10. Public
+  older-like image/log inspected/retained profile-paging-green/api-29. Image shows
+  cramped/wrapped Replies label; reduce tab-button horizontal padding in review
+  fixes. Seventh application tracer explores reply/liked-post authors and checks
+  Back restores originating conversation/profile Likes. Compile/red pending;
+  no identity-entry-point/navigation stack fix implemented yet.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.

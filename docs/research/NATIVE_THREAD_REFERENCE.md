@@ -179,3 +179,15 @@ Load older are now added for authored posts/replies and signed likes. Cursor
 progress includes ignored/other-tab rows; full pages without a usable advancing
 cursor explain that more history could not be requested. Refresh starts again
 at the newest page. Local/device green pending; identity entry-point fix remains.
+
+Paging green37937666159 at5da990e passes all six cases on Android10. Its inspected
+public older-like image/log are retained in profile-paging-green/api-29. The
+image exposes a wrapped Replies tab label; reduce tab-button padding during
+review fixes, without reducing touch targets. SDK17 coverage remains for final.
+
+The seventh application tracer explores the scalar2 reply author from the
+conversation, returns through Back, then explores that same author from scalar1's
+Likes and requires Back to restore the originating profile/Likes view. The
+fixture peer supports both verified authors and their correct source queries.
+Compile/red pending. Remaining author links/navigation history are unimplemented
+at this test point.
