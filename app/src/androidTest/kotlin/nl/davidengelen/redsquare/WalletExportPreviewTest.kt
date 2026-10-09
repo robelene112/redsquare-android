@@ -135,6 +135,33 @@ class WalletExportPreviewTest {
         } finally { device.executeShellCommand("locksettings clear --old $TEST_PIN --user 0") }
     }
 
+    @Test fun stalledProviderReturnsToAReadableFailureAndAllowsAnotherExport() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        val keyguard = context.getSystemService(KeyguardManager::class.java)
+        val device = UiDevice.getInstance(instrumentation)
+        assertFalse(keyguard.isDeviceSecure)
+        device.executeShellCommand("locksettings set-pin --user 0 $TEST_PIN")
+        try {
+            ui.waitUntil(10_000) { keyguard.isDeviceSecure }
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedDisabled", true)).use {
+                ui.onNodeWithText("Wallet").performClick()
+                val address = displayedWalletAddress(ui)
+                ui.onNodeWithText("Export wallet").performClick()
+                chooseTestBackup(device, "stalled-read-${UUID.randomUUID()}.json")
+                enterRealSystemPin(device)
+                val failed = "Your wallet backup could not be saved and verified. Try again with another save location."
+                ui.waitUntil(40_000) { ui.onAllNodes(hasText(failed)).fetchSemanticsNodes().isNotEmpty() }
+                ui.onNodeWithText(failed).assertIsDisplayed()
+                ui.onNodeWithText("Wallet backup saved").assertDoesNotExist()
+                ui.onNodeWithText("Export wallet").assertIsEnabled()
+                assertEquals(address, displayedWalletAddress(ui))
+                captureFeedEvidence("wallet-export-evidence/provider-deadline.png")
+            }
+        } finally { device.executeShellCommand("locksettings clear --old $TEST_PIN --user 0") }
+    }
+
     private fun chooseTestBackup(device: UiDevice, name: String) {
         check(device.wait(Until.hasObject(By.res("android", "title")), 15_000))
         if (device.findObject(By.desc("Show roots")) != null) {

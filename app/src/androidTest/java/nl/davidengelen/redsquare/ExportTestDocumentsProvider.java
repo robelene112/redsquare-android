@@ -77,6 +77,17 @@ public final class ExportTestDocumentsProvider extends DocumentsProvider {
 
     @Override public ParcelFileDescriptor openDocument(String id, String mode, CancellationSignal signal)
         throws FileNotFoundException {
+        if (mode.equals("r") && id.startsWith("stalled-read-")) {
+            try {
+                ParcelFileDescriptor[] pipe = ParcelFileDescriptor.createPipe();
+                new Thread(() -> {
+                    try { Thread.sleep(60_000); }
+                    catch (InterruptedException failure) { Thread.currentThread().interrupt(); }
+                    finally { try { pipe[1].close(); } catch (IOException ignored) { } }
+                }, "test-stalled-document").start();
+                return pipe[0];
+            } catch (IOException failure) { throw new FileNotFoundException("Test read pipe unavailable"); }
+        }
         return ParcelFileDescriptor.open(document(id), ParcelFileDescriptor.parseMode(mode));
     }
 
