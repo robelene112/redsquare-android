@@ -12,6 +12,19 @@ class SaitoWalletTest {
     // Published scalar-one curve fixture, never a user's wallet.
     private val syntheticPrivateKey = "0".repeat(63) + "1"
 
+    @Test fun `cached Bound slips remain unknown assets even without separate NFT module metadata`() {
+        // WalletSlip.toJson at pinned saito-js wallet.ts uses numeric slipType, not type.
+        // A synthetic cached indicator, not a live NFT or chain inclusion claim.
+        val options = JsonParser.parseString(SaitoWallet.fromPrivateKey(syntheticPrivateKey).exportJson()).asJsonObject
+        options.getAsJsonObject("wallet").add("slips", JsonParser.parseString("""[
+            {"utxokey":"0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f817980000000000000001000000000000000000000000000000000109",
+             "lc":true,"spent":false,"blockId":1,"txIndex":0,"slipIndex":0,"amount":1,"slipType":9}
+        ]"""))
+        val restored = SaitoWallet.fromBackup(options.toString())
+        assertTrue(restored.replacementRisks().otherAssetsUnknown)
+        assertEquals(options, JsonParser.parseString(restored.exportJson()))
+    }
+
     @Test fun `an existing Saito private key restores its independently verified public identity`() {
         assertEquals(
             "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",

@@ -123,7 +123,15 @@ one question at a time when a material choice really needs the owner.
   Other assets could not be checked (line61). Logs retained in metadata-red.
   No successful risk screenshots exist at this failing point. Minimal outgoing
   cached-name/pending/unsupported-assets indicators and conservative unknown
-  gate are being implemented; device green remains pending.
+  gate implemented625ed53. Green37912307057/37912310729 passes all6 earlier
+  import flows plus the isolated risk flow on bothSDKs. Four public risk/restore
+  images inspected; logs/images retained in metadata-green. Interim two-axis
+  review at625ed53 identifies outgoing-export reminder leakage and cached Bound
+  slip indicators plus two code-smell judgments; see ticket06/INTERIM_REVIEW.md.
+  Bound-slip regression actually fails atcore SaitoWalletTest line24 before
+  minimal classification, then focused core green passes. Its final device
+  integration and other review fixes remain pending. Current uncommitted source
+  includes this source-supported numeric WalletSlip.slipType classification.
   Fixture/test bytes remain in private test APK
   storage; each risk run clears only the isolated .dev emulator app first.
   A failed activation uses existing-only reload, never

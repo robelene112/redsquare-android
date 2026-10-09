@@ -40,7 +40,17 @@ class SaitoWallet private constructor(
             if (!value.isJsonObject) populated(value)
             else value.asJsonObject.entrySet().any { (ticker, data) -> ticker != "SAITO" && populated(data) }
         } ?: false
-        val otherAssets = otherCrypto ||
+        val specialSlips = wallet.get("slips")?.let { value ->
+            if (!value.isJsonArray) populated(value)
+            else value.asJsonArray.any { slip ->
+                val type = slip.takeIf { it.isJsonObject }?.asJsonObject?.get("slipType")
+                // WalletSlip.toJson emits this numeric enum. A SAITO snapshot
+                // excludes Bound/NFT slips and cannot clear cached special assets.
+                type == null || !type.isJsonPrimitive || !type.asJsonPrimitive.isNumber ||
+                    type.asString !in listOf("0", "1", "5", "7")
+            }
+        } ?: false
+        val otherAssets = specialSlips || otherCrypto ||
             (preferred != null && !(preferred.isJsonPrimitive && preferred.asJsonPrimitive.isString && preferred.asString == "SAITO")) ||
             listOf("mixin", "mixin_legacy", "nfts", "nft").any { populated(options.get(it)) || populated(wallet.get(it)) }
         val pending = listOf(options.get("pending_txs"), wallet.get("pending_txs"), wallet.get("pending")).any(::populated)
