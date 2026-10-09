@@ -54,6 +54,12 @@ feed/outage image and log are inspected and retained in backend-recovery-green.
 A third app case obstructs only the active synthetic wallet's public follow
 file after loading, requires the failed action to remain unconfirmed, removes
 the filesystem fault and retries successfully. Three-case Android10 run
-37951108934 is pending, with production source unchanged. Identity and targeted
-retrieval checks, both source review axes and final full verification remain
-pending.
+37951108934 at65e4ba5 passes all three cases in11.747 seconds. Its public
+unconfirmed-action/error and successful-retry images/log are inspected and
+retained in save-retry-green.
+
+A fourth app case at72530fb requires a newer followed-author post absent from
+the general page and excludes a signed post from another author even when its
+archive field2 claims the followed identity. Four-case Android10 run37951927215
+is pending. Production source remains3caa31a. Identity isolation, both source
+review axes and final full verification remain pending.
