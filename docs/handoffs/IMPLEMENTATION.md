@@ -151,6 +151,15 @@ one question at a time when a material choice really needs the owner.
   unestablished. Log/image retained under reminder-pre-preview-failure.
   New observer captures that first-preview failure and controlled request count
   at the actual failure point, before closing the screen; compile/rerun pending.
+  Observerc86bffc compiles and is dispatched37916458311 (SDK17 risk-only);
+  inspect result/image/request count before diagnosing the pre-preview failure.
+  Verification-only WalletImportStorageRecoveryTest exercises the existing
+  public storage operation with real Keystore/AtomicFile and a one-time second
+  OS directory-sync failure, then checks exact outgoing options and recreated
+  UI identity. No production recovery implementation/hook changed. New focused
+  import-storage scopes and finalfull inclusion added; first actual result is
+  pending. This adapter/failure + cold-UI evidence does not prove an import-toast
+  path or arbitrary process/power interruption. Actual process-kill proof remains.
   Fixture/test bytes remain in private test APK
   storage; each risk run clears only the isolated .dev emulator app first.
   A failed activation uses existing-only reload, never
