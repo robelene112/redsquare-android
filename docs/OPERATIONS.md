@@ -10,9 +10,9 @@ GitHub: `https://github.com/robelene112/redsquare-android`.
 The repo has a native Kotlin wallet/signature core, a Compose wallet screen and
 an isolated Docker build. Signed wallet-foundation previews and build notes are
 published at `https://davidengelen.nl/redsquare/`. Debug identity is isolated with
-the `.dev` suffix. The diagnostic is explicit and debug-only. Live feed/import
-and the completed phone review remain subsequent work. Check the handoff for
-current verification and unresolved recovery checks.
+the `.dev` suffix. The diagnostic is explicit and debug-only. Live feeds and
+safeguarded wallet import/export have emulator verification; see the current
+handoff for accepted slices and remaining completed-app physical review.
 
 The reviewed Android delivery requirement is ordinary in-place updates with
 persistent wallet identity. Package/signing/version handling is implemented in
@@ -40,7 +40,14 @@ disabled network, read-only container and named Git objects, with
 this build image rejected ownership even with per-command `safe.directory`;
 explicit Git-directory reads succeeded. The cause of that difference was not
 investigated. Do not change global Git configuration or mount writable node data
-just to read source. Never use this source-read path for private options/databases.
+just to read source. Never use this source-read path for private options/databases. Named Git-object reads at
+that directory failed with "not a git repository" on 2026-10-09. No repair was
+attempted. A named public deployed Archive file was instead read through an
+isolated network-disabled/read-only chroot and recorded by file hash in
+[Following verification](research/NATIVE_FOLLOWING_VERIFICATION.md). This proves
+a deployed-file observation, not a newly verified Git revision. Do not repeat
+old Git reads or change live ownership/configuration without first checking
+the maintained Snake operations entry point.
 
 As inspected on 2026-10-07:
 

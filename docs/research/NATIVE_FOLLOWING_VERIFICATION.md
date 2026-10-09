@@ -113,6 +113,10 @@ eight cases on Android10 in19.051 seconds. Public in-memory and offline cached
 images/log inspected and retained partial-results-green.
 
 Review refactor74b515f names generic Loaded.values and save values accurately
-without changing public cache formats. Both final source axes review this SHA
-against6dd511d. Full37959992336 is running, with separate approved public reads.
+without changing public cache formats. Both final source axes initially reviewed this SHA
+against6dd511d: Spec0; Standards0 hard and one low duplicated test setup
+heuristic. Refactor6d5d9da extracts only asset-reading helper, preserving all
+peer/UI/assertions. Both axes repeat at6d5d9da. Final full37960235937 is running
+with approved public reads. Earlier37959992336 was superseded/canceled during
+build so acceptance verifies the final source and test cleanup.
 Do not treat pending final checks as acceptance.

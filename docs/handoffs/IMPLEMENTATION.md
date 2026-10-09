@@ -17,7 +17,7 @@ one question at a time when a material choice really needs the owner.
   functional red/green chronology are in thread/profile verification and
   ticket07/INTERIM_REVIEW/REVIEW. No production writes or new APK publication.
 - Active #9, "08: Follow accounts and read a Following feed", review base
-  6dd511d, final source candidate74b515f. #8 closed; all blockers complete.
+  6dd511d, final source candidate6d5d9da. #8 closed; all blockers complete.
   Wallet-scoped local follow choices shared across fixed backend sessions,
   profile Follow/Unfollow, selected-backend signed-author Following reads,
   independent wallet/backend public Following cache, membership before bounded
@@ -26,9 +26,9 @@ one question at a time when a material choice really needs the owner.
   strings consumer; cache formats unchanged and values named accurately.
   Actual eight-case Android10 green37959292042 ate9aa1fb passes19.051s.
   Earlier five-case Android17 green37953417415 at0b7d3f7 passes85.443s;
-  remaining cases await full37 run. Final full37959992336 at74b515f is running,
+  remaining cases await full37 run. Final full37960235937 at6d5d9da is running,
   including separate authorized public reads on both approved backends.
-  Two independent final source axes are reviewing74b515f against6dd511d.
+  Two independent final source axes are reviewing6d5d9da against6dd511d.
   Do not close#9 until full proof and both reviews pass.
   Eight actual-app cases: Follow/Unfollow filter; backend-switch/offline cache;
   unconfirmed failed-save retry; author history beyond general page plus signer
