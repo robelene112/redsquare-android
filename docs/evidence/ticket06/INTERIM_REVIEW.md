@@ -41,6 +41,15 @@ with the existing publication barrier still preceding creation and completing
 after verification. Core tests and debug/test assembly pass. Final Android
 initialization/recovery regression and independent fix review remain pending.
 
+The first reminder regression4276194 passes focused Android10 run37913759494.
+It exports before selecting the import, so the existing Import action clears
+that Saved message and it does not exercise the reported candidate-bound
+export trigger. This is not a reproduction or a diagnosis disproving the
+review finding. Its log and public reminder screenshot are retained separately
+under reminder-before-selection-green. The corrected regression performs an
+authenticated outgoing export after selecting the candidate and checks the
+incoming reminder after recreation; actual result remains pending.
+
 ## Bound-slip source and first regression
 
 Pinned source `9a4ca7e9442eb5e872168ced361ce741d7d139d7`:

@@ -30,6 +30,7 @@ class WalletImportRiskPreviewTest {
         assertFalse(keyguard.isDeviceSecure)
         device.executeShellCommand("locksettings set-pin --user 0 $EXPORT_TEST_PIN")
         val originalFile = "risk-original-${UUID.randomUUID()}.json"
+        val beforeSwitchBackup = "risk-before-switch-${UUID.randomUUID()}.json"
         val currentBackup = "risk-outgoing-${UUID.randomUUID()}.json"
         val server = MockWebServer()
         server.dispatcher = object : mockwebserver3.Dispatcher() {
@@ -41,7 +42,7 @@ class WalletImportRiskPreviewTest {
             ui.waitUntil(10_000) { keyguard.isDeviceSecure }
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedDisabled", true)
-                .putExtra("balanceApiUrl", "http://127.0.0.1:${server.port}/balance/")).use {
+                .putExtra("balanceApiUrl", "http://127.0.0.1:${server.port}/balance/")).use { scenario ->
                 ui.onNodeWithText("Wallet").performClick()
                 val originalAddress = displayedWalletAddress(ui)
                 ui.onNodeWithText("Export wallet").performClick()
@@ -52,14 +53,23 @@ class WalletImportRiskPreviewTest {
                 ui.waitUntil(15_000) { ui.onAllNodes(hasText("Server reports zero SAITO")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                 // The incoming metadata must not describe the outgoing native wallet.
                 ui.onNodeWithText("Saved name: reference").assertDoesNotExist()
-                ui.onNodeWithText("Skip backup").performScrollTo().performClick()
+                ui.onNodeWithText("Back up current wallet").performScrollTo().performClick()
+                chooseTestBackup(device, beforeSwitchBackup)
+                enterRealSystemPin(device)
+                ui.waitUntil(15_000) { ui.onAllNodes(hasText("Current wallet backed up for this replacement")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                 ui.onNodeWithContentDescription("Replacement risks acknowledged").performScrollTo().performClick()
                 ui.onNodeWithText("Confirm replacement").performScrollTo().performClick()
                 ui.waitUntil(15_000) { ui.onAllNodes(hasText("Wallet imported")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                 assertEquals("jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR", displayedWalletAddress(ui))
                 // The earlier export protected the outgoing wallet, not this incoming identity.
                 ui.onNodeWithText("Done").performClick()
-                ui.waitUntil(15_000) { ui.onAllNodes(hasText("Back up your wallet")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                scenario.recreate()
+                try {
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Back up your wallet")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                } catch (failure: Throwable) {
+                    captureFeedEvidence("wallet-risk-evidence/incoming-reminder-failure.png")
+                    throw failure
+                }
                 ui.onNodeWithText("Back up your wallet").assertIsDisplayed()
                 captureFeedEvidence("wallet-risk-evidence/incoming-wallet-needs-own-backup.png")
                 ui.onNodeWithText("Wallet").performClick()
@@ -82,7 +92,7 @@ class WalletImportRiskPreviewTest {
                 captureFeedEvidence("wallet-risk-evidence/original-wallet-restored.png")
             }
         } finally {
-            for (name in listOf(originalFile, currentBackup)) runCatching {
+            for (name in listOf(originalFile, beforeSwitchBackup, currentBackup)) runCatching {
                 DocumentsContract.deleteDocument(context.contentResolver,
                     DocumentsContract.buildDocumentUri(ExportTestDocumentsProvider.AUTHORITY, name))
             }
