@@ -1,6 +1,10 @@
 # Ticket #5 review
 
-Base7085bcf; first review candidate1b39936.
+Base7085bcf; final reviewed candidate177a647.
+
+Final status: zero remaining actionable findings on either axis. Full and
+focused runtime evidence is accepted; physical Pixel verification remains #35.
+The following sections retain the historical finding and resolution.
 
 ## Standards
 
@@ -20,11 +24,11 @@ endpoint isolation belongs here; actual import activation is ticket #7.
 
 ## Resolution status
 
-Post-write directory-sync injection and restart regression committed0966d9b;
-functional red run37867404367 reproduced the expected missing recovery state.
-A durable uncertainty barrier fix is implemented; runtime/fix reviews pending.
-Final Android10/17 acceptance pending; do not close the ticket from an earlier
-passing candidate. Physical Pixel7 acceptance remains ticket #35.
+Post-write regression0966d9b reproduced red37867404367. Fix7578661 resolves
+the uncertainty gap. Later fixture444f290 and live-read harness177a647 were
+reviewed. Both axes have zero remaining implementation findings. OneP3 stale
+handoff status is corrected. Full37868642713 and rendered37870028403 /
+37870030262 results/logs/images were inspected; all required source checks pass.
 
 ## Fix review at7578661
 
@@ -41,3 +45,20 @@ Both axes report zero new findings for7578661..444f290, retaining overall
 base7085bcf. The required pinned version corrects a synthetic fixture without
 changing the app or endpoint-isolation assertions. Final full run37868642713
 passes Android10; Android17/downloaded evidence remain pending.
+
+## Live-read delta review at177a647
+
+Standards: zero new documented breaches or actionable smells. Specification:
+zero new implementation findings; oneP3 stale current-handoff status (it still
+said Android17 running after the full run completed). Corrected to full-source
+results and pending focused visual evidence. No app code changed. The original
+screenshot discrepancy remains visibly recorded and is not accepted as visual
+proof; focused runs37870028403/37870030262 pending.
+
+## Final evidence
+
+Full37868642713: Android10/17,22 instrumentation each, core14, release/debug
+assembly/lint, cache/wallet cold continuity and signed5-to-8 updates. Stronger
+live-read harness177a647: focused37870028403/37870030262 pass, four rendered
+feed images inspected with correct backend label/content. Earlier mismatched
+system screenshot remains retained as historical evidence, not visual proof.

@@ -1,6 +1,6 @@
 # Sequential implementation handoff
 
-Updated 2026-10-09, 01:20 UTC. The owner authorized implementing all 35 proposed
+Updated 2026-10-09, 01:40 UTC. The owner authorized implementing all 35 proposed
 tickets sequentially, committing after each, and reviewing the app at the end.
 Continue without routine permission requests or a grill per ticket. Ask only
 one question at a time when a material choice really needs the owner.
@@ -9,21 +9,18 @@ one question at a time when a material choice really needs the owner.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.
-- Three of 35 tickets complete: #2 signature compatibility, #3 persistent wallet
-  and signed updates, and #4 authenticated live feed/cache. #5 fixed backend
-  selection is active and assigned; its dependencies are closed. Its review
-  base is **7085bcf**. First slice tests the visible settings selection, same
-  authenticated identity on both controlled peers, independent feed caches and
-  retained selection/cached posts through a selected-server outage/recreation.
-  Initial functional red37865535083 failed at the absent Settings control.
-  Eight controlled Android10 cases pass after the pending-marker fix7578661.
-  Both reviews report zero through444f290. The first fixed run stopped on a
-  missing-version synthetic import fixture;444f290 corrects it without an app
-  change. Final full run37868642713 passes complete Android10 acceptance,
-  including both public reads, native compatibility3, wallet recovery/cold
-  continuity and signed5-to-8 update. Android17 is running. Do not close #5
-  until final evidence is downloaded/inspected. Original base7085bcf remains.
+- Four of35 tickets complete: #2 signature compatibility, #3 persistent wallet
+  and signed updates, #4 authenticated feed/cache, #5 fixed backend selection.
+  Ticket #5 review base7085bcf; reviewed implementation177a647. Full37868642713
+  passes Android10/17 all22 instrument cases each, core14, assembly/lint,
+  cache/wallet continuity and signed5-to-8 updates. Final focused public-read
+  harness passes37870028403/37870030262; four rendered feed images inspected.
+  Both reviews have zero remaining findings; the post-write uncertainty gap
+  fails closed with explicit recovery. The invalid fixture and mismatched
+  screenshot remain historical evidence, with no asserted screenshot root cause.
   See research/NATIVE_BACKEND_SELECTION.md and evidence/ticket04/REVIEW.md.
+- Next #6 authenticated export/recovery reminder, then #7 safeguarded import.
+  The first new phone-review milestone remains after #7, then continue all35.
 
 - Ticket #4's reviewed implementation passed final full run **37863843807**
   at c5953de on Android 10 and 17. All fourteen core tests, assembly/lint, four
@@ -43,7 +40,7 @@ one question at a time when a material choice really needs the owner.
   Publish the first complete milestone after #7 includes server selection and
   safeguarded import/export; preserve package and signing. The owner reviews
   the completed app, so no intermediate physical review is required.
-- Current: #5 two fixed backends. Next: #6 export, #7 guarded import.
+- Current: #6 authenticated export. Next: #7 guarded import.
   The initial review milestone is completed by #7, not by a basic feed alone.
 
 ## Verification already inspected

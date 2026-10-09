@@ -3,6 +3,19 @@
 Ticket #5, review base 7085bcf. Approved application and protocol boundaries
 are the parent specification's observable Android flows with controlled peers.
 
+Accepted evidence: full37868642713 at444f290 passes bothSDKs, all22
+instrumentation cases each plus core14/build/lint/cold/signed updates. Final
+live-read harness177a647 passes focused37870028403 (Android10) and37870030262
+(Android17), including the unchanged eight controlled cases per SDK, cached
+cold launch and both fresh public reads. All four rendered feed images were
+inspected and show correct selected domains and loaded posts. This resolves
+the earlier screenshot discrepancy without claiming its root cause. Evidence:
+docs/evidence/ticket04/final-full and final-rendered. Both review axes report
+zero implementation findings through177a647; stale status documentation fixed.
+Physical Pixel timing remains #35; no production transaction was broadcast.
+
+Historical development and failures follow.
+
 First slice: choose either fixed server in Settings, preserve wallet identity,
 isolate public caches, persist selection and keep the selected server during
 an outage/recreation without contacting the other backend. Shared fixture
@@ -16,7 +29,7 @@ docs/evidence/ticket04/red. Implementation now adds a fixed core backend enum,
 a small atomic selection store and per-server public cache names, preserving
 the existing owner cache. Malformed saved selection requires explicit choice
 and does not silently introduce a server. Wallet options/peers never configure
-selection. First controlled Android 10 checks pass; final acceptance remains pending.
+selection. First controlled Android10 checks passed; final acceptance is recorded above.
 
 Focused run 37866242352 at d08c5c7 passes all five controlled Android 10 cases
 and cached cold launch; the new switching/identity/cache/outage test passes.
@@ -88,3 +101,9 @@ approved backend before launch (avoiding any initial owner connection), require
 its displayed label/author and enabled Refresh after loading, and capture the
 Compose root as well as the system surface. Focused live-read checks on both
 SDKs will resolve this evidence concern; original full source acceptance remains.
+
+Final focused runs37870028403/37870030262 each pass eight controlled cases,
+cached cold launch, owner and official fresh reads. Each read shows three
+visible authors; directly captured Compose roots were inspected on bothSDKs.
+Full app source remains unchanged from the accepted full run. There is no
+additional full-suite rerun for this public-test-only capture/setup correction.
