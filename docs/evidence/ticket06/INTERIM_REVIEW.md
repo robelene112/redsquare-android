@@ -1,5 +1,43 @@
 # Interim review at 625ed53
 
+## Latest review at d5a2200
+
+Independent final-candidate review of `9e7f40d...d5a2200` reports no Standards
+findings and two actionable Spec findings:
+
+- Raw SAF bytes currently use replacement decoding for malformed UTF-8.
+  A valid keypair with an invalid byte inside opaque metadata can preview with
+  silently changed metadata. Reject malformed encoding at the document boundary.
+- Existing failed-save verification proves protected-store rollback and recreated
+  identity, but does not drive confirmation through MainActivity's failed
+  activation handler and visible recovery status. Add that application-flow check.
+
+Both remain open. Actual same-wallet restoration, final full regression and
+signed milestone publication remain acceptance work. The previous correctness
+and cleanup findings are resolved; no scope creep was found.
+
+Regression `5462793` adds a malformed-byte synthetic document selected through
+real Android SAF alongside the existing invalid-file case. Actual red is pending
+run `37919371098`; production decoding is unchanged at this test commit.
+
+Actual red `37919371098` selects the malformed encoding fixture and times out
+at the invalid-file status assertion (line45). The inspected point-of-failure
+image shows Replace your wallet with the published scalar1 address. The earlier
+invalid-JSON case passes; four other import scenarios pass. The same-wallet
+case separately fails its old visible-row lookup at line91. Encoding red log
+and public image are retained under utf8-red. Strict UTF-8 REPORT decoding and
+the existing invalid-file status are the minimal production correction; actual
+green remains pending.
+
+The full run `37918643735` checks the earlier candidate `d5a2200`. Its results
+cannot establish final acceptance after these pending review fixes.
+It fails on Android10 in the same-wallet test at line86 locating the selected
+file, before restore/confirmation. The other five import flows pass. Its
+post-run screenshot is zero bytes and cannot diagnose the picker failure.
+Public log is retained under candidate-full-picker-failure. The test now uses
+the existing scrolling/reacquisition helper rather than a single visible-row
+lookup; actual same-wallet restoration remains pending the new final run.
+
 Fixed base: `9e7f40d`. This is an interim review, not ticket completion or final
 review. Two independent read-only agents reviewed `9e7f40d...625ed53`.
 

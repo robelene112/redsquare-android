@@ -87,9 +87,7 @@ class WalletImportPreviewTest {
                 for ((name, title, expected) in cases) {
                     ui.onNodeWithText("Import wallet").performScrollTo().performClick()
                     selectImportRoot(device)
-                    val file = By.text(name)
-                    check(device.wait(Until.hasObject(file), 10_000))
-                    requireNotNull(device.findObject(file)).click()
+                    selectVisibleFile(device, name)
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText(title)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     ui.onNodeWithText(title).assertIsDisplayed()
                     ui.onNodeWithContentDescription("Selected wallet address").assertTextEquals(expected)

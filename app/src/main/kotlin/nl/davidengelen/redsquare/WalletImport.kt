@@ -19,6 +19,9 @@ import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.ImportBalance
 import java.io.IOException
+import java.nio.ByteBuffer
+import java.nio.charset.CharacterCodingException
+import java.nio.charset.CodingErrorAction
 
 /** Selection validates a backup without publishing a replacement identity. */
 class WalletImport(
@@ -97,7 +100,13 @@ class WalletImport(
                     operation.descriptor = null
                     check(isCurrent(operation))
                     require(size in 1..SaitoWallet.MAX_BACKUP_BYTES)
-                    ReadResult(Candidate(SaitoWallet.fromBackup(String(buffer, 0, size, Charsets.UTF_8)), operation.original, operation.backend), null)
+                    val json = Charsets.UTF_8.newDecoder()
+                        .onMalformedInput(CodingErrorAction.REPORT)
+                        .onUnmappableCharacter(CodingErrorAction.REPORT)
+                        .decode(ByteBuffer.wrap(buffer, 0, size)).toString()
+                    ReadResult(Candidate(SaitoWallet.fromBackup(json), operation.original, operation.backend), null)
+                } catch (_: CharacterCodingException) {
+                    ReadResult(null, R.string.wallet_import_invalid)
                 } catch (_: IllegalArgumentException) {
                     // Provider and parser messages can include private file values.
                     ReadResult(null, R.string.wallet_import_invalid)
