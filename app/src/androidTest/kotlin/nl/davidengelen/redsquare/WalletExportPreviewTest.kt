@@ -25,6 +25,7 @@ import org.junit.Test
 import java.util.UUID
 import java.util.regex.Pattern
 import java.io.File
+import java.io.InputStream
 
 class WalletExportPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
@@ -75,9 +76,7 @@ class WalletExportPreviewTest {
                 ui.waitUntil(15_000) { ui.onAllNodes(hasText("Wallet backup saved")).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNodeWithText("Wallet backup saved").assertIsDisplayed()
                 val bytes = requireNotNull(context.contentResolver.openInputStream(uri)).use {
-                    val content = it.readBytes()
-                    check(content.size in 1..SaitoWallet.MAX_BACKUP_BYTES)
-                    content
+                    it.readBoundedBackup()
                 }
                 try {
                     val json = bytes.toString(Charsets.UTF_8)
@@ -160,6 +159,71 @@ class WalletExportPreviewTest {
                 captureFeedEvidence("wallet-export-evidence/provider-deadline.png")
             }
         } finally { device.executeShellCommand("locksettings clear --old $TEST_PIN --user 0") }
+    }
+
+    @Test fun failedWritesAndInvalidReadbackRequireFreshAuthenticationForSuccessfulRetry() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        val keyguard = context.getSystemService(KeyguardManager::class.java)
+        val device = UiDevice.getInstance(instrumentation)
+        assertFalse(keyguard.isDeviceSecure)
+        device.executeShellCommand("locksettings set-pin --user 0 $TEST_PIN")
+        try {
+            ui.waitUntil(10_000) { keyguard.isDeviceSecure }
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedDisabled", true)).use {
+                ui.onNodeWithText("Wallet").performClick()
+                val address = displayedWalletAddress(ui)
+                for (fault in listOf("write-fails", "read-fails", "truncated-read")) {
+                    ui.onNodeWithText("Export wallet").performClick()
+                    chooseTestBackup(device, "$fault-${UUID.randomUUID()}.json")
+                    enterRealSystemPin(device)
+                    val failed = "Your wallet backup could not be saved and verified. Try again with another save location."
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText(failed)).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText(failed).assertIsDisplayed()
+                    ui.onNodeWithText("Wallet backup saved").assertDoesNotExist()
+                    ui.onNodeWithText("Export wallet").assertIsEnabled()
+                    assertEquals(address, displayedWalletAddress(ui))
+                    captureFeedEvidence("wallet-export-evidence/$fault.png")
+                }
+                val name = "retry-${UUID.randomUUID()}.json"
+                val uri = DocumentsContract.buildDocumentUri(ExportTestDocumentsProvider.AUTHORITY, name)
+                ui.onNodeWithText("Export wallet").performClick()
+                chooseTestBackup(device, name)
+                // Previous successful credentials must not authorize this attempt.
+                waitForSystemPin(device)
+                assertEquals(-1, requireNotNull(context.contentResolver.openInputStream(uri)).use { it.read() })
+                enterRealSystemPin(device)
+                ui.waitUntil(15_000) { ui.onAllNodes(hasText("Wallet backup saved")).fetchSemanticsNodes().isNotEmpty() }
+                val bytes = requireNotNull(context.contentResolver.openInputStream(uri)).use { it.readBoundedBackup() }
+                try { assertEquals(address, SaitoWallet.fromBackup(bytes.toString(Charsets.UTF_8)).publicKey) }
+                finally { bytes.fill(0) }
+                assertEquals(address, displayedWalletAddress(ui))
+                captureFeedEvidence("wallet-export-evidence/provider-retry.png")
+                DocumentsContract.deleteDocument(context.contentResolver, uri)
+            }
+        } finally { device.executeShellCommand("locksettings clear --old $TEST_PIN --user 0") }
+    }
+
+    private fun InputStream.readBoundedBackup(): ByteArray {
+        val buffer = ByteArray(SaitoWallet.MAX_BACKUP_BYTES + 1)
+        try {
+            var size = 0
+            while (size < buffer.size) {
+                val count = read(buffer, size, buffer.size - size)
+                if (count < 0) break
+                check(count > 0)
+                size += count
+            }
+            check(size in 1..SaitoWallet.MAX_BACKUP_BYTES)
+            return buffer.copyOf(size)
+        } finally { buffer.fill(0) }
+    }
+
+    private fun waitForSystemPin(device: UiDevice) {
+        check(device.wait(Until.hasObject(By.res(Pattern.compile(
+            "(?:com\\.android\\.settings:id/password_entry|com\\.android\\.systemui:id/(?:lockPassword|cred_pin_pad))"
+        ))), 15_000))
     }
 
     private fun chooseTestBackup(device: UiDevice, name: String) {

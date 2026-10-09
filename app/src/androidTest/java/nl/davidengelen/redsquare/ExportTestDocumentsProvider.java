@@ -77,6 +77,20 @@ public final class ExportTestDocumentsProvider extends DocumentsProvider {
 
     @Override public ParcelFileDescriptor openDocument(String id, String mode, CancellationSignal signal)
         throws FileNotFoundException {
+        if ((mode.contains("w") && id.startsWith("write-fails-")) ||
+            (mode.equals("r") && id.startsWith("read-fails-"))) {
+            throw new FileNotFoundException("Controlled test document failure");
+        }
+        if (mode.equals("r") && id.startsWith("truncated-read-")) {
+            try {
+                ParcelFileDescriptor[] pipe = ParcelFileDescriptor.createPipe();
+                try (ParcelFileDescriptor.AutoCloseOutputStream stream =
+                    new ParcelFileDescriptor.AutoCloseOutputStream(pipe[1])) {
+                    stream.write('{');
+                }
+                return pipe[0];
+            } catch (IOException failure) { throw new FileNotFoundException("Test read pipe unavailable"); }
+        }
         if (mode.equals("r") && id.startsWith("stalled-read-")) {
             try {
                 ParcelFileDescriptor[] pipe = ParcelFileDescriptor.createPipe();
