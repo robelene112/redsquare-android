@@ -34,6 +34,10 @@ original text and root-thread derivation. Exact-signature archive returns empty;
 no remote acknowledgement or chain proof is invented. Application verification
 uses the previously independently checked decoder; new transaction constructor
 and hop vectors still require explicit independent reference proof later.
-Actual two-case red37965701990 is running.37965626375 was superseded during
+Two-case37965701990 at296d729 passes draft recovery but fails before Send at
+text entry (line78): async draft load has not yet enabled the editor. This is
+a harness timing failure, not an actual functional Send red. Public log retained
+send-editor-race. Correctede1f628a waits for an enabled editor via visible
+semantics; actual two-case run37966333736 is running.37965626375 superseded during
 setup after completing the controlled peer's pending archive response. No Send
 production implementation yet. This ticket is not complete.

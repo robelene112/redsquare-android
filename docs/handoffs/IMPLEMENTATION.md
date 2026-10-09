@@ -43,7 +43,11 @@ one question at a time when a material choice really needs the owner.
   Local core/debug/test assembly passes1m33s; no local build active. Focused
   Android10 green37964861535 at7360289 passes the draft case in4.772s;
   inspected public log/recovered text image retained ticket09/draft-green.
-  Next two-case red37965701990 at296d729 is running: actual UI Send must emit
+  Two-case run37965701990 at296d729 passes draft recovery but Send case
+  fails before Send because the test edits before async draft load enables the
+  editor (line78). This is a harness timing failure, not functional Send red.
+  Correctede1f628a waits for an enabled editor via actual UI semantics; run
+  37966333736 is running. Next behavior: actual UI Send must emit
   signed zero-payment type4 with one hop and report pending server availability,
   not an invented ack. Peer returns empty exact-signature archive results.
   Earlier37965626375 was superseded during setup, not functional proof.
