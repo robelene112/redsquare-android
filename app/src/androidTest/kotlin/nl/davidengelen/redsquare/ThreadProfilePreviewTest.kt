@@ -12,6 +12,84 @@ import org.junit.Test
 class ThreadProfilePreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
 
+    @Test fun profilePostsRepliesAndLikesRemainReadableAfterRestartWithoutTheirServer() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        check(context.packageName == "nl.davidengelen.redsquare.dev")
+        nl.davidengelen.redsquare.saito.AndroidBackendStore(context)
+            .save(nl.davidengelen.redsquare.saito.SaitoBackend.OWNER)
+        listOf("feed.owner.v1", "profile.owner.v1").flatMap { name ->
+            listOf(name, "$name.bak", "$name.new")
+        }.forEach { java.io.File(context.noBackupFilesDir, it).delete() }
+        val thread = instrumentation.context.assets.open("native-thread-reference.json").bufferedReader().use {
+            JsonParser.parseReader(it).asJsonObject
+        }
+        val likes = instrumentation.context.assets.open("native-profile-like-reference.json").bufferedReader().use {
+            JsonParser.parseReader(it).asJsonObject
+        }
+        val root = thread.getAsJsonObject("root")
+        val author = root.get("field2").asString
+        val peer = ControlledFeedPeer("[$root]") { criteria ->
+            when {
+                criteria.has("field4") -> {
+                    check(criteria.get("field1").asString == "RedSquare" && criteria.get("field4").asString.isEmpty())
+                    "[$root]"
+                }
+                criteria.has("field2") -> {
+                    check(criteria.get("field2").asString == author)
+                    when (criteria.get("field1").asString) {
+                        "RedSquare" -> "[$root,${thread.get("nestedReply")}]"
+                        "RedSquareLike" -> "[${likes.get("likedReply")},${likes.get("unavailableLike")}]"
+                        else -> error("Unexpected cached-profile archive module")
+                    }
+                }
+                criteria.has("sig") -> when (criteria.get("sig").asString) {
+                    thread.getAsJsonObject("firstReply").get("sig").asString -> "[${thread.get("firstReply")}]"
+                    "a".repeat(128) -> "[]"
+                    else -> error("Unexpected cached-profile target")
+                }
+                else -> error("Unexpected cached-profile query")
+            }
+        }
+        val server = peer.start()
+        try {
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
+                try {
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText(author)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                    ui.onNodeWithText(author).performClick()
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Posts")).fetchSemanticsNodes().isNotEmpty() }
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Native Red Square reference post")).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("Replies").performClick()
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Nested Saito reply")).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("Likes").performClick()
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Independent Saito reply")).fetchSemanticsNodes().isNotEmpty() }
+                    ui.waitUntil(10_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    peer.assertHealthy()
+                    server.close()
+                    scenario.recreate()
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText(author)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                    ui.onNodeWithText(author).performClick()
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Posts")).fetchSemanticsNodes().isNotEmpty() }
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Native Red Square reference post")).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
+                    ui.onNodeWithText("Replies").performClick()
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Nested Saito reply")).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("Nested Saito reply").assertIsDisplayed()
+                    ui.onNodeWithText("Likes").performClick()
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Independent Saito reply")).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("Independent Saito reply").assertIsDisplayed()
+                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("Profile history could not be refreshed. Available posts remain visible.")).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("Only available history is shown. Older posts and likes may be missing.").assertIsDisplayed()
+                    captureFeedEvidence("browse-evidence/cached-profile-likes-after-restart.png")
+                } catch (failure: Throwable) {
+                    captureFeedEvidence("browse-evidence/cached-profile-first-failure.png")
+                    throw failure
+                }
+            }
+        } finally { server.close() }
+    }
+
     @Test fun openingAnIdentityShowsItsSignedPostsRepliesAndAvailableLikedPosts() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext

@@ -108,3 +108,11 @@ Android17 first run37930173464 reproduces the same two conversation failures
 and passes the profile flow at9eb69e5. Inspected conversation failure and profile
 Likes success images, plus the remaining failure image/log, are retained in
 profile-navigation-failure/api-37.0. Neither first run is an overall pass.
+
+Corrected tap-target green37931122222 atf8e6b6e passes all three application
+cases on Android10. Public success screenshots/log inspected and retained in
+ticket07/profile-green/api-29. Android17 is pending. New primary-application
+tracer visits all three profile tabs, closes the server, recreates, reopens the
+identity and requires cached Posts, Replies and Likes with honest outage/history
+copy. Its compile and functional red are pending. No profile persistence exists
+yet; this is the next slice within#8, not acceptance of the ticket.

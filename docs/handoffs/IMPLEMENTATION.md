@@ -49,6 +49,10 @@ one question at a time when a material choice really needs the owner.
   Public logs/screens retained in profile-navigation-failure. The body now has
   its own conversation tap target. Tests unchanged. Local/device correction check
   pending; no cached profile implementation yet.
+  Corrected tap-target green37931122222 atf8e6b6e passes all three cases on
+  Android10; public screenshots/log inspected and retained in profile-green/api-29.
+  SDK17 pending. New test visits profile tabs, closes the server, recreates and
+  requires cached Posts/Replies/Likes plus history/outage copy. Compile/red pending.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.
