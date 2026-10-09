@@ -2,7 +2,7 @@
 
 Two independent read-only reviewers compared 44cae5d...c8fe9b7, using GitHub
 issues #8 and #1 and the repository standards plus the documented heuristic
-smell baseline. Final runtime acceptance is separate and remains pending.
+smell baseline. Final runtime acceptance is recorded separately in final-full/provenance.txt.
 
 ## Standards
 
@@ -24,5 +24,7 @@ creep found within this approved slice.
 Standards: 0 actionable findings. Spec: 0 actionable source findings.
 
 Earlier findings and fixes are retained in INTERIM_REVIEW.md and the separate
-actual failure/green evidence directories. Final full run 37943159613 is
-underway; source review alone does not establish completion.
+actual failure/green evidence directories. Final full run 37943159613 passes on both SDKs, with 47 completed
+instrumentation cases each, including all eight browse cases and two additional
+intentional process-kill stages per SDK. Source review and runtime evidence
+together establish this ticket acceptance, with the stated emulator limits.

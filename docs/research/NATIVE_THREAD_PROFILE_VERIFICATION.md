@@ -1,7 +1,7 @@
 # Native threads and profiles
 
 Ticket #8, delivery slice 7 of 35. Parent specification is GitHub issue #1.
-This report remains provisional until final full verification and review.
+Final source review and full device verification are complete.
 
 The native client verifies detached Saito transactions before displaying post
 content or like associations. Archive metadata supplies pagination hints, not
@@ -61,8 +61,14 @@ public error/warning/content image and log are retained in profile-memory-green.
 
 Final source c8fe9b7 also shares archive bounds, traversal and cursor accounting
 between typed post/like decoders. Repeated specification source review found
-zero remaining actionable findings. Full run 37943159613 is underway.
+zero remaining actionable findings. Full run 37943159613 passes as recorded below.
 
-Final full Android 10/17 verification remains pending. These emulator results
+Final full run 37943159613 passes at c8fe9b7 on Android 10 and 17, with
+47 completed instrumentation cases each, including all eight browse cases,
+and two intentional process-kill recovery stages each. Core tests, release
+assembly, lint, fresh reads of both approved public peers, cache/wallet cold
+launches and actual signed 5-to-8 updates also pass. Public logs and representative
+device images are inspected and retained in docs/evidence/ticket07/final-full.
+Both final source-review axes found zero actionable findings. These emulator results
 do not establish physical Pixel performance or actual closed-app push delivery.
 There has been no production node change or on-chain write for this ticket.

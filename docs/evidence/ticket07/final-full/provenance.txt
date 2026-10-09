@@ -1,0 +1,9 @@
+Workflow: https://github.com/robelene112/redsquare-android/actions/runs/37943159613
+Source: c8fe9b71d30ecea6592f007047bb08fbf90b8347
+Scope: full, separately enabled public_feed_read=true
+Build/core, release assembly, lint and both runtime steps: success.
+Android10 API29 and Android17 API37: 47 normal completed instrumentation cases each, including 8 browse cases; two intentional process-kill stages each.
+Both approved public peers return verified signed content on fresh native reads. Device screenshots show the correct selected backend.
+Public logs and representative navigation/cache/recovery/backend screenshots inspected.
+Actual signed-update regression remains5-to-8. No new review APK publication, production node change or on-chain write.
+Emulator checks do not establish physical Pixel timing, arbitrary physical power cuts or closed-app push delivery.

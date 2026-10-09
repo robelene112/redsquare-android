@@ -7,30 +7,27 @@ one question at a time when a material choice really needs the owner.
 
 ## Current work
 
-- Active #8, "07: Open threads and browse user profiles", assigned @me.
-  Review base 44cae5d; final source c8fe9b7, pushed main. Threads, verified profile
-  Posts/Replies/Likes, bounded backend-scoped public caches, older-page cursors,
-  author links and Back preserving the originating tab are implemented.
-  Eight actual-app browse cases pass on Android 10 in 37942390546 at 4e8bd02,
-  including cache-write failure followed by offline Refresh retaining fetched
-  content. Shared archive traversal was then extracted at review stage.
-  Both repeated read-only source reviews at c8fe9b7 found zero actionable
-  findings. Final full run 37943159613 with both SDKs/public reads is running.
-  Inspect and retain its full logs/public images; fix any actual failures; close
-  #8 only when accepted. Next #9 follows accounts/Following feed. Continue all
-  35 tickets sequentially. Do not make a partial final or invent completion.
-  Detailed compatibility and actual red/green chronology are in
-  [thread/profile verification](../research/NATIVE_THREAD_PROFILE_VERIFICATION.md),
-  docs/evidence/ticket07/INTERIM_REVIEW.md and REVIEW.md. All synthetic browse
-  fixtures use public unsafe scalar 1/2; real wallet/private data never enters
-  the controlled peer, repository or public evidence. No production writes.
+- Ticket #8, "07: Open threads and browse user profiles", is complete at final
+  source c8fe9b7 against base 44cae5d. Full run 37943159613 passes both SDKs:
+  core15, release/debug/test assembly and lint, 47 completed instrument cases
+  each including8 browse cases, plus two intentional process-kill stages each.
+  Both public feeds, cache/wallet cold launches and signed5-to-8 updates pass.
+  Public logs and representative images inspected/retained ticket07/final-full.
+  Both final source-review axes have zero actionable findings. References and
+  functional red/green chronology are in thread/profile verification and
+  ticket07/INTERIM_REVIEW/REVIEW. No production writes or new APK publication.
+- Next #9, "08: Follow accounts and read a Following feed". Start at the final
+  #8 acceptance commit once its issue is closed. Implement only this next ticket,
+  then continue all35 sequentially. Public unsafe scalar1/2 fixtures only;
+  never read/export real wallet/private material or broadcast production writes.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.
-- Six of35 tickets complete: #2 signature compatibility, #3 persistent wallet
+- Seven of35 tickets complete: #2 signature compatibility, #3 persistent wallet
   and signed updates, #4 authenticated feed/cache, #5 fixed backend selection,
   #6 authenticated wallet export and backup/recovery guidance, #7 safeguarded
-  wallet import/recovery and the first live-feed review milestone.
+  wallet import/recovery and the first live-feed review milestone; #8 threads
+  and profiles with available-history paging and recovery.
   Ticket #5 review base7085bcf; reviewed implementation177a647. Full37868642713
   passes Android10/17 all22 instrument cases each, core14, assembly/lint,
   cache/wallet continuity and signed5-to-8 updates. Final focused public-read
@@ -252,7 +249,7 @@ one question at a time when a material choice really needs the owner.
   now completes the initial wallet/live-feed milestone with both fixed backends
   and safeguarded import/export. Preserve package/signing and use higher versions.
   The owner reviews the completed app; no intermediate physical review is required.
-- Current next: #8 threads/profiles. #7 complete. Continue all35 sequentially.
+- Current next: #9 following. #8 complete. Continue all35 sequentially.
 
 ## Verification already inspected
 
