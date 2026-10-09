@@ -327,6 +327,65 @@ class FollowingPreviewTest {
         }
     }
 
+    @Test fun restoredFollowChoiceStorageCanBeRetriedWithoutRestarting() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        val fixture = instrumentation.context.assets.open("native-following-reference.json").bufferedReader().use {
+            JsonParser.parseReader(it).asJsonObject
+        }
+        val root = fixture.getAsJsonObject("root")
+        val author = root.get("field2").asString
+        val peer = ControlledFeedPeer("[$root]") { criteria ->
+            check(criteria.get("field1").asString == "RedSquare" && criteria.get("flagged_ne").asInt == 1)
+            if (criteria.has("field2")) check(criteria.get("field2").asString == author)
+            "[$root]"
+        }
+        peer.start().use { server ->
+            val intent = Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+            lateinit var choices: java.io.File
+            ActivityScenario.launch<MainActivity>(intent).use {
+                waitFor("Native Red Square reference post")
+                ui.onNodeWithText("Wallet").performClick()
+                choices = java.io.File(context.noBackupFilesDir, "following.${displayedWalletAddress(ui)}.v1")
+                ui.onNodeWithText("Done").performClick()
+                ui.onNodeWithText(author).performClick()
+                waitFor("Follow")
+                ui.onNodeWithText("Follow").performClick()
+                waitFor("Unfollow")
+            }
+            val savedPublicChoices = choices.readBytes()
+            check(choices.delete() && choices.mkdir())
+            val obstacle = java.io.File(choices, "public-read-fault").apply { writeText("synthetic test only") }
+            try {
+                ActivityScenario.launch<MainActivity>(intent).use {
+                    try {
+                        waitFor("Native Red Square reference post")
+                        ui.onNodeWithText("Following").performClick()
+                        waitFor(context.getString(R.string.following_error))
+                        check(obstacle.delete() && choices.delete())
+                        choices.writeBytes(savedPublicChoices)
+                        ui.onNodeWithText("Retry").performClick()
+                        waitFor("Native Red Square reference post")
+                        ui.onNodeWithText(context.getString(R.string.following_error)).assertDoesNotExist()
+                        ui.onNodeWithText("Loading follow choices").assertDoesNotExist()
+                        ui.onNodeWithText(author).performClick()
+                        waitFor("Unfollow")
+                        peer.assertHealthy()
+                        captureFeedEvidence("following-evidence/follow-choice-read-retry.png")
+                    } catch (failure: Throwable) {
+                        captureFeedEvidence("following-evidence/choice-read-first-failure.png")
+                        throw failure
+                    }
+                }
+            } finally {
+                if (obstacle.exists()) check(obstacle.delete())
+                if (choices.isDirectory) check(choices.delete())
+                if (!choices.exists()) choices.writeBytes(savedPublicChoices)
+            }
+        }
+    }
+
     @Test fun followingAnAccountRestrictsTheFeedAndUnfollowingRemovesItsPosts() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
