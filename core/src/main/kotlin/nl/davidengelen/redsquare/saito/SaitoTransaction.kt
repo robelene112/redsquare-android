@@ -35,19 +35,28 @@ class SaitoTransaction private constructor(private val bytes: ByteArray) {
     }
 
     companion object {
-        fun create(wallet: SaitoWallet, body: JsonObject, timestamp: Long): SaitoTransaction {
+        fun create(wallet: SaitoWallet, body: JsonObject, timestamp: Long, recipients: List<String> = emptyList()): SaitoTransaction {
             require(timestamp >= 0)
             val message = body.toString().toByteArray(Charsets.UTF_8)
             require(message.size <= 1024 * 1024)
             val publicKey = Base58.decode(wallet.publicKey)
-            val signatureSlip = publicKey + ByteArray(10)
-            val preimage = ByteBuffer.allocate(16 + 2 * 43 + message.size)
-                .putLong(timestamp).put(signatureSlip).put(signatureSlip).putInt(1).putInt(0).put(message).array()
-            val signature = wallet.sign(preimage).hexBytes()
-            val network = ByteBuffer.allocate(93 + 2 * 59 + message.size)
-                .putInt(1).putInt(1).putInt(message.size).putInt(0).put(signature)
+            val outputs = (listOf(wallet.publicKey) + recipients).distinct().map { address ->
+                val point = Base58.decode(address)
+                require(point.size == 33 && point[0] in 2.toByte()..3.toByte())
+                org.bouncycastle.crypto.ec.CustomNamedCurves.getByName("secp256k1").curve.decodePoint(point)
+                point
+            }
+            require(outputs.size <= 255)
+            val preimage = ByteBuffer.allocate(16 + (1 + outputs.size) * 43 + message.size)
+                .putLong(timestamp).put(publicKey).put(ByteArray(10))
+            outputs.forEachIndexed { index, point -> preimage.put(point).putLong(0).put(index.toByte()).put(0) }
+            preimage.putInt(1).putInt(0).put(message)
+            val signature = wallet.sign(preimage.array()).hexBytes()
+            val network = ByteBuffer.allocate(93 + (1 + outputs.size) * 59 + message.size)
+                .putInt(1).putInt(outputs.size).putInt(message.size).putInt(0).put(signature)
                 .putLong(timestamp).putInt(1).put(0)
-            repeat(2) { network.put(publicKey).put(ByteArray(26)) }
+            network.put(publicKey).put(ByteArray(26))
+            outputs.forEachIndexed { index, point -> network.put(point).put(ByteArray(24)).put(index.toByte()).put(0) }
             network.put(message)
             return SaitoTransaction(network.array())
         }
@@ -55,10 +64,18 @@ class SaitoTransaction private constructor(private val bytes: ByteArray) {
         fun restore(encoded: String): SaitoTransaction {
             require(encoded.length <= 2 * 1024 * 1024)
             val bytes = Base64.getDecoder().decode(encoded)
-            require(bytes.size in 211..(1024 * 1024 + 211))
+            require(bytes.size in 211..(1024 * 1024 + 93 + 256 * 59))
             val header = ByteBuffer.wrap(bytes)
-            require(header.getInt(0) == 1 && header.getInt(4) == 1 && header.getInt(12) == 0)
-            require(header.getInt(8) == bytes.size - 211)
+            val outputs = header.getInt(4)
+            require(header.getInt(0) == 1 && outputs in 1..255 && header.getInt(12) == 0)
+            require(header.getInt(8) in 0..1024 * 1024 && header.getInt(8) == bytes.size - 93 - 59 * (1 + outputs))
+            require(header.getInt(88) == 1)
+            repeat(1 + outputs) { index ->
+                val offset = 93 + 59 * index
+                require(bytes.copyOfRange(offset + 33, offset + 57).all { it == 0.toByte() })
+                require(bytes[offset + 57] == (if (index == 0) 0 else index - 1).toByte() && bytes[offset + 58] == 0.toByte())
+            }
+            require(bytes.copyOfRange(93, 126).contentEquals(bytes.copyOfRange(152, 185)))
             return SaitoTransaction(bytes).also { SaitoEnvelope.decode(it.envelope()) }
         }
 

@@ -19,13 +19,15 @@ import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.saito.SaitoTransaction
 import nl.davidengelen.redsquare.saito.SaitoPeer
 import nl.davidengelen.redsquare.saito.RedSquareFeed
+import nl.davidengelen.redsquare.saito.FeedPost
 import com.google.gson.JsonObject
 
 @Composable
-internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBackend, modifier: Modifier, onClose: () -> Unit) {
+internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBackend, modifier: Modifier,
+    parent: FeedPost? = null, onClose: () -> Unit) {
     val owner = wallet.publicKey
     val context = LocalContext.current.applicationContext
-    val store = remember(owner, backend) { PostDraftStore(context, owner, backend) }
+    val store = remember(owner, backend, parent?.id) { PostDraftStore(context, owner, backend, parent) }
     val scope = rememberCoroutineScope()
     var text by remember(store) { mutableStateOf("") }
     var ready by remember(store) { mutableStateOf(false) }
@@ -68,9 +70,13 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                 val candidate = transaction ?: withContext(Dispatchers.IO) {
                     val body = JsonObject().apply {
                         addProperty("module", "RedSquare"); addProperty("request", "create tweet")
-                        add("data", JsonObject().apply { addProperty("text", text) })
+                        add("data", JsonObject().apply {
+                            addProperty("text", text)
+                            parent?.let { addProperty("parent_id", it.id); addProperty("thread_id", it.threadId) }
+                        })
                     }
-                    SaitoTransaction.create(wallet, body, System.currentTimeMillis()).also {
+                    val recipients = parent?.let { (listOf(it.author) + it.recipients).distinct() }.orEmpty()
+                    SaitoTransaction.create(wallet, body, System.currentTimeMillis(), recipients).also {
                         store.save(PostDraftStore.Saved(text, it))
                     }
                 }.also { transaction = it }
@@ -107,7 +113,7 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
             TextButton(enabled = !saving, onClick = { if (ready) saveAndClose() else onClose() }) {
                 Text(stringResource(R.string.browse_back))
             }
-            Text(stringResource(R.string.post_new), Modifier.weight(1f).padding(vertical = 12.dp),
+            Text(stringResource(if (parent == null) R.string.post_new else R.string.post_reply), Modifier.weight(1f).padding(vertical = 12.dp),
                 style = MaterialTheme.typography.titleLarge)
             TextButton(enabled = ready && !saving, onClick = ::saveAndClose) {
                 Text(stringResource(R.string.post_save_draft))
@@ -117,6 +123,7 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
             }
         }
         Text(stringResource(R.string.post_draft_local), style = MaterialTheme.typography.bodySmall)
+        parent?.let { Text(stringResource(R.string.post_reply_to, "Anon-${it.author.take(6)}"), style = MaterialTheme.typography.bodySmall) }
         if (available) Text(stringResource(R.string.post_available))
         else if (submitted) Text(stringResource(R.string.post_submitted))
         if (error) {

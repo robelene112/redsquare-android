@@ -33,6 +33,11 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
     var unreadable by remember(selected.id) { mutableStateOf(false) }
     var cacheWarning by remember(selected.id) { mutableStateOf(false) }
     var refresh by remember(selected.id) { mutableIntStateOf(0) }
+    var replying by remember(selected.id) { mutableStateOf(false) }
+    if (replying && wallet != null) {
+        PostComposerScreen(wallet, endpoint, backend, modifier, selected) { replying = false; refresh++ }
+        return
+    }
     BackHandler(onBack = onBack)
     LaunchedEffect(wallet, endpoint, selected.id, refresh) {
         if (wallet == null) { loading = false; return@LaunchedEffect }
@@ -70,6 +75,7 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
             TextButton(onClick = onBack) { Text(stringResource(R.string.browse_back)) }
             Text(stringResource(R.string.conversation_title), Modifier.weight(1f).padding(vertical = 12.dp),
                 style = MaterialTheme.typography.titleLarge)
+            TextButton(enabled = wallet != null, onClick = { replying = true }) { Text(stringResource(R.string.post_reply)) }
             TextButton(enabled = wallet != null && !loading, onClick = { refresh++ }) {
                 Text(stringResource(R.string.feed_refresh))
             }

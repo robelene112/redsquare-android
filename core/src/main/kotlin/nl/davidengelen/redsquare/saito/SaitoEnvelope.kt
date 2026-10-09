@@ -7,7 +7,8 @@ import java.nio.ByteBuffer
 import java.nio.charset.CodingErrorAction
 import java.util.Base64
 
-data class SignedSaitoMessage(val id: String, val author: String, val createdAt: Long, val body: JsonObject)
+data class SignedSaitoMessage(val id: String, val author: String, val createdAt: Long, val body: JsonObject,
+    val recipients: List<String>)
 
 /** Verifies detached web Archive message bytes before exposing any module content. */
 object SaitoEnvelope {
@@ -45,6 +46,10 @@ object SaitoEnvelope {
             .onUnmappableCharacter(CodingErrorAction.REPORT).decode(ByteBuffer.wrap(message)).toString()
         val body = gson.fromJson(utf8, JsonObject::class.java)
             ?: throw IllegalArgumentException("Missing transaction message")
-        return SignedSaitoMessage(signature, author, timestamp, body)
+        val recipients = (0 until outputs).map { index ->
+            val offset = 93 + 59 * (inputs + index)
+            Base58.encode(binary.copyOfRange(offset, offset + 33))
+        }
+        return SignedSaitoMessage(signature, author, timestamp, body, recipients)
     }
 }

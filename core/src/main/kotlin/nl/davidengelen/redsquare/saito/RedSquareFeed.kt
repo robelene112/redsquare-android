@@ -11,6 +11,7 @@ data class FeedPost(
     val parentId: String,
     val threadId: String,
     val envelope: String,
+    val recipients: List<String>,
 )
 
 data class ArchiveFeedPage(val posts: List<FeedPost>, val oldestCreatedAt: Long?, val rowCount: Int, val ignored: Int)
@@ -44,7 +45,7 @@ object RedSquareFeed {
         val thread = data.optionalString("thread_id").ifEmpty { signed.id }
         require(parent.isEmpty() || parent.matches(signaturePattern)) { "Invalid parent signature" }
         require(thread.matches(signaturePattern)) { "Invalid thread signature" }
-        return FeedPost(signed.id, signed.author, data.optionalString("text"), signed.createdAt, parent, thread, envelope)
+        return FeedPost(signed.id, signed.author, data.optionalString("text"), signed.createdAt, parent, thread, envelope, signed.recipients)
     }
 
     private fun JsonObject.string(key: String): String {

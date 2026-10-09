@@ -22,9 +22,11 @@ import com.google.gson.JsonObject
 import com.google.gson.Strictness
 
 /** Unpublished text stays encrypted on this device, scoped to its wallet and backend. */
-internal class PostDraftStore(private val context: Context, private val owner: String, backend: SaitoBackend) {
+internal class PostDraftStore(private val context: Context, private val owner: String, backend: SaitoBackend,
+    private val parent: FeedPost? = null) {
     init { require(owner.matches(Regex("[1-9A-HJ-NP-Za-km-z]{43,45}"))) }
-    private val file = AtomicFile(File(context.noBackupFilesDir, "postdraft.${backend.id}.$owner.v1"))
+    private val file = AtomicFile(File(context.noBackupFilesDir,
+        "postdraft.${backend.id}.$owner${parent?.let { ".${it.id}" }.orEmpty()}.v1"))
     private val associatedData = "${context.packageName}:${file.baseFile.name}".toByteArray(Charsets.UTF_8)
 
     data class Saved(val text: String, val transaction: SaitoTransaction? = null)
@@ -60,6 +62,7 @@ internal class PostDraftStore(private val context: Context, private val owner: S
                 transaction?.let {
                     val post = RedSquareFeed.decode(it.envelope())
                     require(post.author == owner && post.text == content)
+                    require(post.parentId == parent?.id.orEmpty() && (parent == null || post.threadId == parent.threadId))
                 }
                 Saved(content, transaction)
             }
