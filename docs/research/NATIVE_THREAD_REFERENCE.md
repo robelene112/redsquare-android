@@ -116,3 +116,20 @@ tracer visits all three profile tabs, closes the server, recreates, reopens the
 identity and requires cached Posts, Replies and Likes with honest outage/history
 copy. Its compile and functional red are pending. No profile persistence exists
 yet; this is the next slice within#8, not acceptance of the ticket.
+
+Android17 corrected green37931125949 atf8e6b6e also passes all three cases.
+Public success screenshots/log inspected and retained in profile-green/api-37.0.
+The new offline-profile tracer compiles atc2061a3; its first actual red is
+37931907251. Inspect its failure point before changing persistence. Profiles
+still have no persistent cache, and the ticket remains open.
+
+Actual offline-profile red37931907251 atc2061a3 passes the three earlier flows.
+The new case successfully loads all tabs, stops the peer and recreates. It
+reopens the profile and times out on its cached Posts entry at line74. The
+inspected image shows Profile/Posts empty with the truthful outage message.
+Public log/image retained in ticket07/profile-cache-red. Minimal backend-scoped
+profile persistence now keeps at most200 public post/like envelopes within16MiB,
+atomically saves/verifies the file and re-verifies every signature on reload.
+Tab membership derives from signed authors/parents and signed like references,
+including cache restoration. Cached entries merge with available refreshed
+history. Local/device green and final review remain pending.

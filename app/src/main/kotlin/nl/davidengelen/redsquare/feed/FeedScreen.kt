@@ -102,7 +102,7 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
         if (posts.isNotEmpty()) { withFrameNanos { }; withFrameNanos { }; onDrawn() }
     }
     profile?.let { author ->
-        ProfileScreen(wallet, endpoint, author, modifier, onBack = { profile = null },
+        ProfileScreen(wallet, endpoint, backend, author, modifier, onBack = { profile = null },
             onPost = { conversation = it; profile = null })
         return
     }

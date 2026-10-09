@@ -53,6 +53,14 @@ one question at a time when a material choice really needs the owner.
   Android10; public screenshots/log inspected and retained in profile-green/api-29.
   SDK17 pending. New test visits profile tabs, closes the server, recreates and
   requires cached Posts/Replies/Likes plus history/outage copy. Compile/red pending.
+  Corrected SDK17 green37931125949 passes all three cases atf8e6b6e; public
+  screenshots/log inspected/retained in profile-green/api-37.0. Offline-profile
+  red37931907251 atc2061a3 passes earlier flows and fails at cached Posts after
+  successful first tab loads, peer closure and recreation (line74). Public
+  log/image inspected/retained in profile-cache-red. Minimal backend-scoped
+  bounded public post/like persistence and signature-verified cached tab
+  membership now exist; local/device green pending. Final review/full acceptance
+  still remain within#8.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.

@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.google.gson.JsonObject
@@ -21,20 +22,37 @@ private enum class ProfileTab(val label: Int) {
     POSTS(R.string.profile_posts), REPLIES(R.string.profile_replies), LIKES(R.string.profile_likes)
 }
 
+private data class ProfileHistoryPage(val posts: List<FeedPost>, val likes: List<ProfileLike>, val unreadable: Boolean)
+
 @Composable
-internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, author: String, modifier: Modifier,
+internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: SaitoBackend, author: String, modifier: Modifier,
     onBack: () -> Unit, onPost: (FeedPost) -> Unit) {
+    val context = LocalContext.current.applicationContext
+    val cache = remember(backend) { AndroidProfileCache(context, backend) }
     var tab by remember(author) { mutableStateOf(ProfileTab.POSTS) }
     var posts by remember(author, tab) { mutableStateOf<List<FeedPost>>(emptyList()) }
     var loading by remember(author, tab) { mutableStateOf(true) }
     var failed by remember(author, tab) { mutableStateOf(false) }
     var unreadable by remember(author, tab) { mutableStateOf(false) }
     var unavailableLikes by remember(author, tab) { mutableStateOf(false) }
+    var cacheWarning by remember(author, tab) { mutableStateOf(false) }
     var refresh by remember(author) { mutableIntStateOf(0) }
     BackHandler(onBack = onBack)
     LaunchedEffect(wallet, endpoint, author, tab, refresh) {
         if (wallet == null) { loading = false; return@LaunchedEffect }
         loading = true
+        fun show(snapshot: AndroidProfileCache.SavedProfile) {
+            val likedTargets = snapshot.likes.filter { it.author == author }.map { it.target }.toSet()
+            posts = snapshot.posts.filter { post -> when (tab) {
+                ProfileTab.POSTS -> post.author == author && post.parentId.isEmpty()
+                ProfileTab.REPLIES -> post.author == author && post.parentId.isNotEmpty()
+                ProfileTab.LIKES -> post.id in likedTargets
+            } }.sortedByDescending { it.createdAt }
+            unavailableLikes = tab == ProfileTab.LIKES && likedTargets.any { target -> snapshot.posts.none { it.id == target } }
+        }
+        val saved = withContext(Dispatchers.IO) { cache.load() }
+        show(saved)
+        cacheWarning = saved.unreadable
         try {
             val result = withContext(Dispatchers.IO) {
                 SaitoPeer(wallet, endpoint).use { peer ->
@@ -52,10 +70,9 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, author: Strin
                     }
                     if (tab != ProfileTab.LIKES) {
                         val page = RedSquareFeed.readAuthor(archive(criteria), author)
-                        Triple(page.posts.filter { (it.parentId.isEmpty()) == (tab == ProfileTab.POSTS) }, page.ignored > 0, false)
+                        ProfileHistoryPage(page.posts, emptyList(), page.ignored > 0)
                     } else {
                         val page = RedSquareLikes.readArchive(archive(criteria), author)
-                        var missing = false
                         var ignored = page.ignored > 0
                         val targets = mutableListOf<FeedPost>()
                         for (target in page.likes.map { it.target }.distinct()) {
@@ -64,16 +81,19 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, author: Strin
                             }
                             val targetPage = RedSquareFeed.readTarget(archive(query), target)
                             targets.addAll(targetPage.posts)
-                            if (targetPage.posts.isEmpty()) missing = true
                             if (targetPage.ignored > 0) ignored = true
                         }
-                        Triple(targets, ignored, missing)
+                        ProfileHistoryPage(targets, page.likes, ignored)
                     }
                 }
             }
-            posts = (result.first + posts).distinctBy { it.id }.sortedByDescending { it.createdAt }
-            unreadable = result.second
-            unavailableLikes = result.third
+            val merged = AndroidProfileCache.SavedProfile((result.posts + saved.posts).distinctBy { it.id },
+                (result.likes + saved.likes).distinctBy { it.id }, false)
+            cacheWarning = withContext(Dispatchers.IO) {
+                try { cache.save(merged.posts, merged.likes); false } catch (_: Exception) { true }
+            }
+            show(merged)
+            unreadable = result.unreadable
             failed = false
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { failed = true }
@@ -100,6 +120,7 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, author: Strin
         if (failed) Text(stringResource(R.string.profile_error))
         if (unreadable) Text(stringResource(R.string.profile_unreadable), style = MaterialTheme.typography.bodySmall)
         if (unavailableLikes) Text(stringResource(R.string.profile_likes_unavailable), style = MaterialTheme.typography.bodySmall)
+        if (cacheWarning) Text(stringResource(R.string.feed_cache_warning), style = MaterialTheme.typography.bodySmall)
         if (!loading && !failed && posts.isEmpty()) Text(stringResource(R.string.profile_empty))
         LazyColumn(Modifier.fillMaxSize()) {
             items(posts, key = { it.id }) { post ->
