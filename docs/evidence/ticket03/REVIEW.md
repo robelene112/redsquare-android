@@ -51,3 +51,18 @@ The known runtime acceptance blocker remains: old full run 37859209011 crashed
 during its Android 17 fresh live-owner read. Both reviewers explicitly leave
 new-candidate runtime acceptance pending. Neither their review nor successful
 compilation establishes the crash cause, a fix or physical Pixel performance.
+
+## Update-notice fixture review
+
+Both reviewers checked through 3310534, retaining base a1973c2. Spec found zero
+new actionable findings; the multi-request HTTP fixture retains the visible
+notice and fixed review-link assertions, and diagnostics do not change app
+behavior. Standards found zero hard violations and one P3 possible duplicated
+evidence extraction in the focused/full harness. Commit 47ce6df gathers both
+paths in `verify_preview_update()`; the Standards reviewer verified the fix and
+reports zero hard violations and zero actionable heuristics. Shell syntax passes.
+
+Run 37861712249 passed the feed/live-read and wallet recovery checks on Android
+17 but timed out in the later update-notice test, before its signed-update
+stage. Focused fixture verification remains pending. These reviews do not
+establish the timeout cause or final runtime/physical acceptance.
