@@ -52,11 +52,20 @@ Android10 green37915303490 passes, with three inspected public reminder/risk/
 restore images and log retained in reminder-green. Android17 run37915307638
 fails earlier, at the first zero-preview wait line53, before the reminder path.
 Its post-close launcher image does not establish the cause. A point-of-failure
-observer is added; rerun pending. Both independent source-fix reviews through
+observer is added; run37916458311 atc86bffc passes SDK17 risk/reminder/restore,
+with three inspected public images/log retained. This retry does not establish
+the earlier failure's cause. Both independent source-fix reviews through
 669e3da report zero remaining actionable findings in the fixes.
 
-Actual failed-save recovery, process termination during replacement, same-wallet
-restoration and identity-isolation acceptance remain unfinished. Final full
+Storage-interface runs37916685526/37916689763 at73bd65a pass Android10/17 a
+controlled second OS directory-sync failure after replacement write, restoration
+of exact outgoing options and identity in the recreated app. Two inspected
+public images/log are retained under storage-green. This tests the existing
+protected storage operation with real Keystore/AtomicFile, not the import-error
+toast or arbitrary process/power failure.
+
+Actual process termination during replacement, same-wallet restoration and
+identity-isolation acceptance remain unfinished. Final full
 Android10/17 verification, final two-axis review and a new signed review milestone
 must precede ticket closure. Physical Pixel timing/biometric acceptance remains
 later work; emulators do not establish those results.

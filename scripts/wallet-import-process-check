@@ -1,0 +1,54 @@
+#!/usr/bin/env python3
+"""Terminate a real replacement before commit and observe the app's cold recovery."""
+import argparse
+from pathlib import Path
+import re
+import subprocess
+
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("--evidence", type=Path, required=True)
+args = parser.parse_args()
+package = "nl.davidengelen.redsquare.dev"
+runner = package + ".test/androidx.test.runner.AndroidJUnitRunner"
+test_class = "nl.davidengelen.redsquare.WalletImportInterruptionTest"
+
+
+def adb(*arguments, check=True, timeout=60):
+    return subprocess.run(["adb", *arguments], text=True, capture_output=True,
+                          check=check, timeout=timeout)
+
+
+if not adb("get-serialno").stdout.strip().startswith("emulator-"):
+    raise SystemExit("This process check requires an isolated emulator")
+args.evidence.mkdir(parents=True, exist_ok=True)
+state_path = "cache/wallet-import-interruption-state.txt"
+adb("shell", "run-as", package, "rm", "-f", state_path)
+prepared = adb("shell", "am", "instrument", "-w", "-r", "-e", "class",
+               test_class + "#terminateAfterReplacementWriteBeforeRecoveryCommit", runner,
+               check=False, timeout=120)
+(args.evidence / "interrupted-instrumentation.txt").write_text(prepared.stdout)
+# Only a reached checkpoint plus a dead process establishes the interruption.
+address = adb("exec-out", "run-as", package, "cat", state_path).stdout.strip()
+if not re.fullmatch(r"[1-9A-HJ-NP-Za-km-z]{44}", address):
+    raise AssertionError("Replacement interruption checkpoint not reached")
+if adb("shell", "pidof", package, check=False).stdout.strip():
+    raise AssertionError("Replacement process was not actually terminated")
+recovery_size = adb("exec-out", "run-as", package, "stat", "-c", "%s",
+                    "no_backup/wallet.recovery.v1").stdout.strip()
+if not recovery_size.isdigit() or int(recovery_size) < 30:
+    raise AssertionError("Authoritative recovery record is unavailable")
+adb("shell", "am", "force-stop", package)
+recovered = adb("shell", "am", "instrument", "-w", "-r", "-e", "class",
+                test_class + "#coldStartupRecoversTheOutgoingPublishedIdentity", runner,
+                timeout=120)
+(args.evidence / "recovered-instrumentation.txt").write_text(recovered.stdout)
+if "OK (1 test)" not in recovered.stdout:
+    raise AssertionError("Cold replacement recovery did not pass")
+with (args.evidence / "cold-recovery.png").open("wb") as output:
+    subprocess.run(["adb", "exec-out", "run-as", package, "cat",
+                    "cache/wallet-import-process-evidence/cold-recovery.png"],
+                   stdout=output, check=True, timeout=60)
+(args.evidence / "continuity.txt").write_text(
+    "PASS: actual process death after replacement write before recovery commit; "
+    "cold app startup restores outgoing public identity.\n" + address + "\n")
+print("PASS: replacement process interruption and cold wallet recovery")

@@ -160,6 +160,17 @@ one question at a time when a material choice really needs the owner.
   import-storage scopes and finalfull inclusion added; first actual result is
   pending. This adapter/failure + cold-UI evidence does not prove an import-toast
   path or arbitrary process/power interruption. Actual process-kill proof remains.
+  Observer run37916458311 atc86bffc passes SDK17 risk/reminder/restore; three
+  public images/log inspected and retained under reminder-green/api-37.0.
+  Its retry does not diagnose37915307638's earlier first-preview failure.
+  Storage-only runs37916685526/37916689763 at73bd65a pass Android10/17 actual
+  injected second directory-sync failure, exact restored full options and
+  recreated UI identity. Two public images/logs inspected/retained in storage-green.
+  New verification-only WalletImportInterruptionTest plus host process checker
+  terminates the actual process from the existing OS-sync seam after replacement
+  write before record removal, then requires checkpoint/public identity, dead
+  process, retained encrypted record and cold app recovery. No production hook
+  added. Kotlin/test assembly and script syntax pass; actual runtime pending.
   Fixture/test bytes remain in private test APK
   storage; each risk run clears only the isolated .dev emulator app first.
   A failed activation uses existing-only reload, never

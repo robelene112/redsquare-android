@@ -58,6 +58,7 @@ verify_wallet_storage_recovery() {
         adb exec-out screencap -p > "$evidence/wallet-storage-recovery-system-screen.png" || true
         return 1
     fi
+    python3 "$repo_dir/scripts/wallet-import-process-check" --evidence "$evidence/wallet-import-process"
 }
 if [[ "${TEST_SCOPE:-full}" == import-storage* ]]; then
     verify_wallet_storage_recovery
