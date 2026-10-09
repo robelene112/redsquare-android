@@ -15,7 +15,7 @@ internal class PublicStringStore(context: Context, name: String, private val max
     init { require(name.matches(Regex("[a-zA-Z0-9.]+")) && name.length <= 240 && maxEntries in 1..1000) }
     private val file = AtomicFile(File(context.noBackupFilesDir, name))
     private val gson = GsonBuilder().setStrictness(Strictness.STRICT).disableHtmlEscaping().create()
-    data class Loaded(val envelopes: List<String>, val unreadable: Boolean)
+    data class Loaded(val values: List<String>, val unreadable: Boolean)
 
     fun load(): Loaded = synchronized(lock) {
         if (!file.baseFile.exists() && !File(file.baseFile.path + ".bak").exists()) {
@@ -33,10 +33,10 @@ internal class PublicStringStore(context: Context, name: String, private val max
                 }
                 collected.toByteArray()
             }
-            val envelopes = gson.fromJson(bytes.toString(Charsets.UTF_8), JsonArray::class.java)
-            require(envelopes.size() <= maxEntries)
+            val entries = gson.fromJson(bytes.toString(Charsets.UTF_8), JsonArray::class.java)
+            require(entries.size() <= maxEntries)
             var unreadable = false
-            val values = envelopes.mapNotNull { entry ->
+            val values = entries.mapNotNull { entry ->
                 if (entry.isJsonPrimitive && entry.asJsonPrimitive.isString) entry.asString
                 else { unreadable = true; null }
             }
@@ -44,17 +44,17 @@ internal class PublicStringStore(context: Context, name: String, private val max
         } catch (_: Exception) { Loaded(emptyList(), true) }
     }
 
-    fun save(envelopes: List<String>) = synchronized(lock) {
+    fun save(values: List<String>) = synchronized(lock) {
         require(!file.baseFile.exists() || file.baseFile.isFile)
         var remaining = MAX_BYTES - 2
         val encoded = mutableListOf<ByteArray>()
-        for (envelope in envelopes.take(maxEntries)) {
-            val item = gson.toJson(envelope).toByteArray(Charsets.UTF_8)
+        for (value in values.take(maxEntries)) {
+            val item = gson.toJson(value).toByteArray(Charsets.UTF_8)
             if (item.size + 1 > remaining) break
             encoded.add(item)
             remaining -= item.size + 1
         }
-        if (envelopes.isNotEmpty() && encoded.isEmpty()) throw IOException("Public cache is too large")
+        if (values.isNotEmpty() && encoded.isEmpty()) throw IOException("Public cache is too large")
         val output = file.startWrite()
         try {
             output.write('['.code)

@@ -21,7 +21,7 @@ class AndroidFeedCache(context: Context, backend: SaitoBackend, private val thre
     fun load(): SavedPosts {
         val saved = storage.load()
         var unreadable = saved.unreadable
-        val posts = saved.envelopes.mapNotNull { envelope ->
+        val posts = saved.values.mapNotNull { envelope ->
             try { RedSquareFeed.decode(envelope).takeIf { post ->
                 if (threadId == null) post.parentId.isEmpty() else post.threadId == threadId
             } } catch (_: Exception) { unreadable = true; null }

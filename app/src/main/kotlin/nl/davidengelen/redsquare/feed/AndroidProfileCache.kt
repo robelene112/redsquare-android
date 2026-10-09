@@ -13,7 +13,7 @@ internal class AndroidProfileCache(context: Context, backend: SaitoBackend) {
         val posts = mutableListOf<FeedPost>()
         val likes = mutableListOf<ProfileLike>()
         var unreadable = saved.unreadable
-        for (envelope in saved.envelopes) {
+        for (envelope in saved.values) {
             try { posts.add(RedSquareFeed.decode(envelope)) }
             catch (_: Exception) {
                 try { likes.add(RedSquareLikes.decode(envelope)) }

@@ -28,8 +28,8 @@ internal class FollowingState(context: Context, owner: String, private val scope
         loading = true
         try {
             val saved = withContext(Dispatchers.IO) { storage.load() }
-            require(!saved.unreadable && saved.envelopes.all { it.matches(publicKeyPattern) })
-            accounts = saved.envelopes.toSet()
+            require(!saved.unreadable && saved.values.all { it.matches(publicKeyPattern) })
+            accounts = saved.values.toSet()
             ready = true
             error = false
         } catch (cancelled: CancellationException) { throw cancelled }
