@@ -24,6 +24,7 @@ internal enum class ProfileTab(val label: Int) {
 
 internal class ProfileViewState {
     var tab by mutableStateOf(ProfileTab.POSTS)
+    var history = AndroidProfileCache.SavedProfile(emptyList(), emptyList(), false)
 }
 
 private data class ProfileHistoryPage(val posts: List<FeedPost>, val likes: List<ProfileLike>, val unreadable: Boolean,
@@ -60,7 +61,10 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
             } }.sortedByDescending { it.createdAt }
             unavailableLikes = tab == ProfileTab.LIKES && likedTargets.any { target -> snapshot.posts.none { it.id == target } }
         }
-        val saved = withContext(Dispatchers.IO) { cache.load() }
+        val cached = withContext(Dispatchers.IO) { cache.load() }
+        val saved = AndroidProfileCache.SavedProfile(
+            (view.history.posts + cached.posts).distinctBy { it.id },
+            (view.history.likes + cached.likes).distinctBy { it.id }, cached.unreadable)
         show(saved)
         cacheWarning = saved.unreadable
         try {
@@ -99,6 +103,7 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
             }
             val merged = AndroidProfileCache.SavedProfile((result.posts + saved.posts).distinctBy { it.id },
                 (result.likes + saved.likes).distinctBy { it.id }, false)
+            view.history = merged
             cacheWarning = withContext(Dispatchers.IO) {
                 try { cache.save(merged.posts, merged.likes); false } catch (_: Exception) { true }
             }

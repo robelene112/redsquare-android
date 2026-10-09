@@ -103,6 +103,16 @@ one question at a time when a material choice really needs the owner.
   button padding fixes the observed wrapped label. Local/device green pending.
   Then repeat both independent reviews and run final full on both SDKs, inspect
   evidence, close#8 only when accepted, and continue#9/all35 sequentially.
+  Identity green37940579836 atdfc5000 passes all seven cases on Android10;
+  image/log inspected and retained identity-navigation-green. Repeated Spec
+  source review found no remaining issues; Standards found low-severity archive
+  traversal duplication and separately flagged an actual profile recovery edge:
+  cache-write failure followed by offline Refresh replaces in-memory posts with
+  an empty cache. Eighth actual-app test obstructs only profile.owner.v1 with a
+  public directory fixture, verifies first fetched content/warning, closes peer
+  and requires retained content after Refresh. Source remains unchanged;
+  actual red37941624799 ata6b9acf pending. Fix it, share duplicated archive reader
+  during review, repeat final reviews and run full both SDKs before closing#8.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.
