@@ -59,6 +59,18 @@ one question at a time when a material choice really needs the owner.
   green37972847178 is running; build passed, Android10 runtime pending.
   GitHub #10 had been closed without acceptance evidence by earlier commit
   4d1e91a; reopened on2026-10-09. It remains in progress, not a ninth delivery.
+  Run37972847178 passes nested/root replies, drafts and explicit Send; the
+  publication-to-feed case raced its asynchronous Back transition and matched
+  the outgoing editor before feed navigation completed. It fails visibility
+  at line193,18.208s. Public log/nested-success image inspected and retained
+  ticket09/nested-reply-transition. Corrected42c5774 waits New post and scrolls
+  the feed to the observed publication. Five-case37973493246 is running.
+  Both interim source reviews at42c5774 are in ticket09/INTERIM_REVIEW.md.
+  Three hard Standards and six Spec findings remain: unsaved navigation loss,
+  concurrent Save/Send candidate overwrite, inaccurate recovered pending/error
+  state, absent same-screen retry/reconciliation, native work missing from
+  wallet replacement warning, pending/fault/isolation/two-backend proof, and
+  declared text policy. Do not close #10 before fixes/review/full evidence.
   First3 cases pass8.119s in37968817970 atfdcc528: encrypted draft save/reopen
   without broadcast; explicit signed zero-payment submission with pending copy;
   matching verified exact-sig Archive observation marks Available, Back clears
