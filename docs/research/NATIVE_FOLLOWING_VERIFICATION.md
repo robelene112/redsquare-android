@@ -97,6 +97,13 @@ requires recovery through a visible Retry without another restart. Actual
 red37956724460 passes six cases and fails at the absent Retry node (line368).
 Public log/image inspected and retained load-retry-red. Minimalcc71cb9 adds
 explicit load state and shared error/Retry UI in feed and profile. Local
-core/debug/test assembly passes1m26s. Focused green37957941542 is running.
+core/debug/test assembly passes1m26s. Focused green37957941542 passes all seven cases on Android10 in23.684 seconds;
+public log/recovered Unfollow image inspected and retained load-retry-green.
+
+Eighth case atcbfa5d9 follows both fixture authors via actual profile actions.
+The first author supplies a valid newer post unavailable in general/profile
+responses; the second supplies malformed archive JSON. The first result must
+remain available immediately and after recreation with the peer closed.
+Actual red37958609488 is running. No partial-result fix is implemented yet.
 Partial author-result recovery, final source reviews and full verification
 remain pending.

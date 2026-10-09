@@ -74,7 +74,12 @@ one question at a time when a material choice really needs the owner.
   (line368), six earlier cases pass. Public log/image inspected and retained
   load-retry-red. Minimalcc71cb9 adds explicit loading state and shared
   error/Retry UI in feed and profile. Local core/debug/test assembly passes
-  1m26s. Focused green37957941542 on Android10 is running. Next after green: partial-results
+  1m26s. Focused green37957941542 atcc71cb9 passes all seven on Android10 in23.684s;
+  public log/recovered Unfollow image inspected and retained load-retry-green.
+  Eighth case atcbfa5d9 follows two authors through the UI, serves a new valid
+  first-author post and malformed second-author archive JSON, then requires
+  that first post immediately and after cached recreation with peer closed.
+  Actual red37958609488 is running; no partial-result source fix yet. Next after green: partial-results
   recovery when another followed-author request fails, rename generic values,
   repeat both source reviews and final full before closing#9.
   Both read-only
