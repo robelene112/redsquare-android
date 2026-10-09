@@ -17,3 +17,11 @@ a small atomic selection store and per-server public cache names, preserving
 the existing owner cache. Malformed saved selection requires explicit choice
 and does not silently introduce a server. Wallet options/peers never configure
 selection. Verification of the implementation is pending.
+
+Focused run 37866242352 at d08c5c7 passes all five controlled Android 10 cases
+and cached cold launch; the new switching/identity/cache/outage test passes.
+This is not full Android 17 or official live-read acceptance. The next slice
+exercises a real selection-file obstruction: failed saving must retain the
+current server and avoid contacting the new one, then succeed after recovery.
+The fixture preserves and restores only the small public selection file, never
+wallet state. Per-test public screenshots are retained on both success/failure.
