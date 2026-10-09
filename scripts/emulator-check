@@ -64,7 +64,22 @@ if [[ "${TEST_SCOPE:-full}" == browse* ]]; then
     printf '%s\n' 'Focused conversation/profile check only; full acceptance not run.' > "$evidence/scope.txt"
     exit 0
 fi
-if [[ "${TEST_SCOPE:-full}" == full ]]; then verify_browse; fi
+verify_following() {
+    [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+    timeout 180 adb shell am instrument -w -r \
+        -e class nl.davidengelen.redsquare.FollowingPreviewTest \
+        nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+        > "$evidence/following-ui.txt" || true
+    adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - following-evidence \
+        > "$evidence/following-evidence.tar" || true
+    grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/following-ui.txt"
+}
+if [[ "${TEST_SCOPE:-full}" == following* ]]; then
+    verify_following
+    printf '%s\n' 'Focused following check only; full acceptance not run.' > "$evidence/scope.txt"
+    exit 0
+fi
+if [[ "${TEST_SCOPE:-full}" == full ]]; then verify_browse; verify_following; fi
 verify_wallet_storage_recovery() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
     timeout 90 adb shell am instrument -w -r \
