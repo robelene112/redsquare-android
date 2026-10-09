@@ -90,6 +90,56 @@ class PostPreviewTest {
         }
     }
 
+    @Test fun unfinishedCompositionSurvivesBackendNavigationAndActivityRecreationWithoutPublishing() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        AndroidBackendStore(context).save(SaitoBackend.OWNER)
+        val root = instrumentation.context.assets.open("native-following-reference.json").bufferedReader().use {
+            JsonParser.parseReader(it).asJsonObject.getAsJsonObject("root")
+        }
+        val owner = ControlledFeedPeer("[$root]")
+        val official = ControlledFeedPeer("[$root]")
+        owner.start().use { ownerServer ->
+            official.start().use { officialServer ->
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${ownerServer.port}/wsopen")
+                    .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${officialServer.port}/wsopen")).use { scenario ->
+                    waitFor("Native Red Square reference post")
+                    ui.onNodeWithText("New post").performClick()
+                    ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNode(hasSetTextAction()).performTextReplacement("Unfinished owner draft")
+                    ui.onNodeWithText("Settings").performClick()
+                    waitFor("saito.io")
+                    ui.onNodeWithText("saito.io").performClick()
+                    waitFor("Server: saito.io")
+                    waitFor("New post")
+                    ui.onNodeWithText("New post").performClick()
+                    ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNode(hasSetTextAction()).assertTextEquals("")
+                    ui.onNode(hasSetTextAction()).performTextReplacement("Separate official draft")
+                    ui.onNodeWithText("Save draft").performClick()
+                    waitFor("New post")
+                    ui.onNodeWithText("Settings").performClick()
+                    waitFor("saito.davidengelen.nl")
+                    ui.onNodeWithText("saito.davidengelen.nl").performClick()
+                    waitFor("Server: saito.davidengelen.nl")
+                    ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.waitUntil(10_000) {
+                        ui.onAllNodes(hasSetTextAction() and hasText("Unfinished owner draft")).fetchSemanticsNodes().isNotEmpty()
+                    }
+                    scenario.recreate()
+                    ui.waitUntil(10_000) {
+                        ui.onAllNodes(hasSetTextAction() and hasText("Unfinished owner draft")).fetchSemanticsNodes().isNotEmpty()
+                    }
+                    ui.onNode(hasSetTextAction()).assertTextEquals("Unfinished owner draft")
+                    assertTrue(owner.transactions.isEmpty() && official.transactions.isEmpty())
+                    owner.assertHealthy(); official.assertHealthy()
+                    captureFeedEvidence("posting-evidence/unfinished-draft-backend-recreation.png")
+                }
+            }
+        }
+    }
+
     @Test fun replyUsesTheSelectedParentThreadAndIncludesTheParentAuthor() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
