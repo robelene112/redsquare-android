@@ -143,6 +143,14 @@ one question at a time when a material choice really needs the owner.
   image/log retained in reminder-red. Minimal correction clears outgoing export
   status before successful identity publication; local build/device green pending.
   Consolidated current evidence is research/NATIVE_WALLET_IMPORT_VERIFICATION.md.
+  Reminder fix669e3da has zero actionable findings in both independent fix
+  reviews, and passes Android10 run37915303490. Three public reminder/risk/
+  restoration images/log inspected/retained under reminder-green/api-29.
+  Android17 run37915307638 fails earlier atline53 waiting for first zero preview,
+  before the new reminder trigger. Post-close screen is launcher; exactcause
+  unestablished. Log/image retained under reminder-pre-preview-failure.
+  New observer captures that first-preview failure and controlled request count
+  at the actual failure point, before closing the screen; compile/rerun pending.
   Fixture/test bytes remain in private test APK
   storage; each risk run clears only the isolated .dev emulator app first.
   A failed activation uses existing-only reload, never

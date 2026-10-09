@@ -48,7 +48,12 @@ missing reminder at line68, after actual authenticated backup/replacement and
 address verification. The inspected point-of-failure image/log are retained in
 [reminder red](../evidence/ticket06/reminder-red). Minimal correction clears the
 outgoing export message before publishing a successfully imported wallet;
-device green remains pending.
+Android10 green37915303490 passes, with three inspected public reminder/risk/
+restore images and log retained in reminder-green. Android17 run37915307638
+fails earlier, at the first zero-preview wait line53, before the reminder path.
+Its post-close launcher image does not establish the cause. A point-of-failure
+observer is added; rerun pending. Both independent source-fix reviews through
+669e3da report zero remaining actionable findings in the fixes.
 
 Actual failed-save recovery, process termination during replacement, same-wallet
 restoration and identity-isolation acceptance remain unfinished. Final full

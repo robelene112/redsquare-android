@@ -17,6 +17,7 @@ import org.junit.Rule
 import org.junit.Test
 import java.net.InetAddress
 import java.util.UUID
+import java.io.File
 
 /** Actual file/import/export UI; the known scalar1 fixture must never be funded. */
 class WalletImportRiskPreviewTest {
@@ -50,7 +51,14 @@ class WalletImportRiskPreviewTest {
                 enterRealSystemPin(device)
                 ui.waitUntil(15_000) { ui.onAllNodes(hasText("Wallet backup saved")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                 select(device, "risk-import.json")
-                ui.waitUntil(15_000) { ui.onAllNodes(hasText("Server reports zero SAITO")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                try {
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Server reports zero SAITO")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                } catch (failure: Throwable) {
+                    captureFeedEvidence("wallet-risk-evidence/first-preview-failure.png")
+                    File(context.cacheDir, "wallet-risk-evidence/first-preview-state.txt")
+                        .writeText("Controlled balance requests: ${server.requestCount}\n")
+                    throw failure
+                }
                 // The incoming metadata must not describe the outgoing native wallet.
                 ui.onNodeWithText("Saved name: reference").assertDoesNotExist()
                 ui.onNodeWithText("Back up current wallet").performScrollTo().performClick()

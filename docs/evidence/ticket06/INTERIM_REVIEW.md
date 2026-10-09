@@ -58,6 +58,23 @@ public image shows the feed header with no reminder. Log/image inspected and
 retained under reminder-red. Minimal fix clears the outgoing export message
 before publishing a successfully imported wallet; device green remains pending.
 
+Both independent axes reviewed fixes625ed53...669e3da and report zero remaining
+actionable findings in those fixes. Standards confirms both cleanup findings
+resolved; Spec confirms both correctness findings addressed. This is a source
+fix review, not completed ticket acceptance. Final full verification must retain
+initialization/failure/recovery and signed-update regressions because the common
+save function now also serves initialization. Reminder green and known remaining
+ticket work are still pending.
+
+Reminder correction669e3da passes Android10 focused run37915303490: actual
+candidate-bound export/replacement, reminder after recreation, outgoing asset
+gate and original-wallet restoration. Three public images/log inspected and
+retained in reminder-green/api-29. Android17 run37915307638 fails atline53
+waiting for the first zero-SAITO preview, before the corrected export/reminder
+path. Its post-close screen is the launcher and does not diagnose the cause;
+log/image retained in reminder-pre-preview-failure. A point-of-failure preview
+image and controlled balance request count observer are added; rerun pending.
+
 ## Bound-slip source and first regression
 
 Pinned source `9a4ca7e9442eb5e872168ced361ce741d7d139d7`:
