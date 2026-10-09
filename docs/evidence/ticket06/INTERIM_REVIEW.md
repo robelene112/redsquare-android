@@ -1,5 +1,33 @@
 # Interim review at 625ed53
 
+## Final source review at 5225d06
+
+Both independent read-only axes reviewed `9e7f40d...5225d06`.
+
+### Standards
+
+Zero documented-standard breaches and zero actionable code smells. Strict
+UTF-8 decoding rejects malformed bytes before candidate publication with a
+sanitized error. The real chmod fault restricts itself to isolated .dev storage,
+restores permissions in finally and verifies old options without printing them.
+File reacquisition replaces the same-wallet visible-row lookup. No production
+hooks were introduced. This is source review, not runtime acceptance.
+
+### Spec
+
+Zero remaining actionable source findings and no scope creep. Strict REPORT
+decoding addresses malformed-byte validation. The new actual-confirmation
+test addresses the missing application flow: SAF, zero-balance Skip, acknowledgement,
+Confirm, MainActivity's existing-only recovery, restored message, enabled import,
+exact outgoing options and recreated identity. Its pre-write filesystem failure
+complements the prior post-write rollback/process checks. Previous reminder and
+special-slip corrections remain intact; identity-scoped private options/reminders
+and backend-scoped public feed cache retain their intended boundaries.
+
+Both axes explicitly retain pending acceptance: corrected encoding/same-restore/
+failed-confirmation runtime evidence, final full Android10/17 regression and signed
+milestone publication. Do not close #7 solely from this source review.
+
 ## Latest review at d5a2200
 
 Independent final-candidate review of `9e7f40d...d5a2200` reports no Standards

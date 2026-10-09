@@ -1,8 +1,35 @@
 # Native wallet import verification
 
 Ticket [#7](https://github.com/robelene112/redsquare-android/issues/7), approved
-slice6 of35, remains open. Review base `9e7f40d`. This document records inspected
-partial evidence, not completed acceptance.
+slice6 of35, is complete. Review base `9e7f40d`; accepted source `5225d06`.
+
+Final full run [37921133133](https://github.com/robelene112/redsquare-android/actions/runs/37921133133)
+passes core checks, debug/test/release assembly and lint, plus 39 normal
+instrumentation cases per SDK on Android10/17 and both intentional process-kill
+stages. All seven import flows pass, including actual malformed-byte rejection,
+same-wallet restoration and failed-confirmation recovery through MainActivity.
+The latter proves pre-write filesystem failure handling; the separate second-sync
+test proves post-write rollback, and the process test proves its specific
+post-write/pre-commit interruption and cold recovery. None claims arbitrary
+physical power-cut behavior.
+
+Downloaded public logs and eight inspected wallet-recovery/backend images are
+retained under [final-full](../evidence/ticket06/final-full). Both fresh backend
+reads, cache/wallet cold continuity, update notice and actual signed5-to-8 update
+checks pass. Their results do not establish an actual signed8-to-10 or Pixel
+update. The official Compose feed captures show an owner label despite the
+successful official-label assertion; the separately inspected device screenshots
+correctly show saito.io on bothSDKs. Both captures are retained, and the
+capture mismatch's cause remains unestablished.
+
+Both final source review axes report zero remaining actionable findings at
+5225d06. Signed version10 source5225d06 is published at
+https://davidengelen.nl/redsquare/ with the existing application ID/certificate.
+The public manifest and downloaded APK match the locally verified package,
+version, source and SHA-256. See final-full/publication.json. The requested first
+wallet/live-feed milestone is complete; other social/Chat features and physical
+Pixel acceptance remain their later tickets. The following chronological records
+preserve earlier failures and pending statements at their historical checkpoints.
 
 ## Verified application behavior
 
@@ -38,6 +65,18 @@ as a valid replacement in Android10 run37919371098; its inspected public image
 and log are retained in utf8-red. Minimal correction1b9ab26 uses strict REPORT
 decoding with the existing invalid-backup message. Focused import greens on
 Android10/17 are pending37920272377/37920275953.
+
+Both focused runs now pass at1b9ab26: six ordinary import flows, isolated
+metadata/reminder flow, post-write directory-sync rollback and actual pre-commit
+process death/cold recovery. Four inspected public images demonstrate invalid
+encoding rejection and confirmed same-wallet restoration on bothSDKs. Logs/images
+are retained under utf8-green. These runs predate the new failed-confirmation
+test; final full37921133133 at5225d06 is running with that case, both public
+backend reads and existing update/feed/wallet regressions.
+
+Final source reviews of9e7f40d...5225d06 report zero remaining actionable
+Standards or Spec findings. Signed version10 source5225d06 is prepared and
+package/certificate/checksum verified, but unpublished pending final full.
 
 Candidate full37918643735 fails the old same-wallet file lookup before restore,
 with the other five import flows passing. Its zero-byte post-run screenshot

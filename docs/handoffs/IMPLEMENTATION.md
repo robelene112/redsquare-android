@@ -9,9 +9,10 @@ one question at a time when a material choice really needs the owner.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.
-- Five of35 tickets complete: #2 signature compatibility, #3 persistent wallet
+- Six of35 tickets complete: #2 signature compatibility, #3 persistent wallet
   and signed updates, #4 authenticated feed/cache, #5 fixed backend selection,
-  #6 authenticated wallet export and backup/recovery guidance.
+  #6 authenticated wallet export and backup/recovery guidance, #7 safeguarded
+  wallet import/recovery and the first live-feed review milestone.
   Ticket #5 review base7085bcf; reviewed implementation177a647. Full37868642713
   passes Android10/17 all22 instrument cases each, core14, assembly/lint,
   cache/wallet continuity and signed5-to-8 updates. Final focused public-read
@@ -33,19 +34,23 @@ one question at a time when a material choice really needs the owner.
   physical Pixel biometric/performance claim. Pixel acceptance remains #35.
   Lint completes with nine warnings, no errors; release icon/config polish remains
   later work. See research/NATIVE_WALLET_EXPORT_VERIFICATION.md.
-- Active #7 safeguarded import, assigned with blockers #5/#6 closed.
-  Latest: review of9e7f40d...d5a2200 finds malformed UTF-8 acceptance and partial
-  failed-confirmation UI coverage. No Standards findings. Actual encoding
-  red37919371098 at5462793 shows a malformed-byte document offered as Replace;
-  log/public image retained utf8-red. Strict decoding fix1b9ab26 awaits focused
-  greens37920272377/37920275953. Candidate full37918643735 atd5a2200 fails the
-  old same-wallet visible-file lookup before restoration; five other import
-  flows pass, screenshot is zero bytes and cannot diagnose the cause. Lookup
-  now scrolls/reacquires. New verification-only real-filesystem failure case
-  drives MainActivity Confirm and requires restored status/live+saved options/
-  recreation, restoring isolated .dev directory permissions in finally. It
-  compiles; runtime is pending. No production fault hook. Final full, final
-  independent review and signed milestone publication remain before closure.
+- #7 complete, accepted source5225d06, review base9e7f40d. Final full37921133133
+  passes core/assembly/lint and Android10/17 all39 normal cases each, plus both
+  actual intentional process-kill stages. Seven import flows include strict
+  malformed-byte rejection, explicit same-wallet restoration and MainActivity
+  failed-confirmation recovery through a real isolated filesystem fault. Separate
+  post-write sync rollback and pre-commit process/cold recovery pass. Both public
+  backends, cache/wallet cold continuity and signed5-to-8 updates pass. Public
+  logs/images inspected and retained ticket06/final-full. Official Compose captures
+  mismatch the server label, with cause unestablished; separate device screenshots
+  correctly show saito.io and are retained alongside them. Final source reviews
+  report zero actionable findings. Version10 source5225d06 is published, and its
+  public manifest/downloaded APK match the verified signing/package/SHA identity.
+  Physical Pixel checks remain#35; no actual8-to-10 update or arbitrary power-cut
+  claim. Current next ticket#8 threads/profiles is ready; implement sequentially.
+  See research/NATIVE_WALLET_IMPORT_VERIFICATION.md for final acceptance.
+  The following #7 checkpoints are historical; their pending statements describe
+  the checkpoint, not current acceptance.
   Review base9e7f40d. First vertical slice verifies an invalid backup selected
   through actual Android SAF leaves the public wallet unchanged across recreation.
   Test and focused import harness added; actual functional red37894544199
@@ -225,13 +230,11 @@ one question at a time when a material choice really needs the owner.
   update-notice failures are documented; their original causes are not asserted.
   The realistic update HTTP fixture handles multiple requests, with three
   observed on both SDKs. Final full acceptance now passes.
-- Signed feed build 9 (f71c506) is prepared and signature/package verified,
-  but remains unpublished. Stable preview is version 8, wallet foundation.
-  Publish the first complete milestone after #7 includes server selection and
-  safeguarded import/export; preserve package and signing. The owner reviews
-  the completed app, so no intermediate physical review is required.
-- Current: #7 guarded import. #6 complete.
-  The initial review milestone is completed by #7, not by a basic feed alone.
+- Signed feed build9 (f71c506) remains unpublished. Stable version10 source5225d06
+  now completes the initial wallet/live-feed milestone with both fixed backends
+  and safeguarded import/export. Preserve package/signing and use higher versions.
+  The owner reviews the completed app; no intermediate physical review is required.
+- Current next: #8 threads/profiles. #7 complete. Continue all35 sequentially.
 
 ## Verification already inspected
 
@@ -270,8 +273,8 @@ Hosted KVM provides actual Android 10/17 runtime verification. Intermediate
 focused checks do not replace final full verification. Capture failures and
 separate functional failures from fixture/build/emulator setup errors.
 
-Stable review: https://davidengelen.nl/redsquare/. Versions 5, 6 and 8 published;
-2, 3, 4 and 7 remain unpublished. Version 8 source is 7e24a03. Signing state
+Stable review: https://davidengelen.nl/redsquare/. Versions5,6,8,10 published;
+2,3,4,7,9 remain unpublished. Version10 source is5225d06. Signing state
 is private under the operator's local share directory, outside Git/public
 hosting; never print or copy its contents. Public certificate fingerprint and
 publication/update checks are documented in [review operations](../REVIEW_BUILDS.md).

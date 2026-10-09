@@ -1,0 +1,9 @@
+Workflow: https://github.com/robelene112/redsquare-android/actions/runs/37921133133
+Source: 5225d0608125f7fa2a382865a2abc446aa7d28cd
+Scope: full, separately enabled public_feed_read=true
+Android10 API29 and Android17 API37: 39 normal completed instrumentation cases each; two intentional process-kill stages each.
+Build/core checks and both runtime steps: success.
+Public logs and recovery/device backend screenshots inspected.
+Official Compose feed capture retains an owner label; device screen correctly shows saito.io on bothSDKs. Cause unestablished.
+Local signed preview10 and downloaded public manifest/APK verified against established package/certificate/source/checksum.
+Actual signed-update regression is5-to-8, not8-to-10. Pixel acceptance and arbitrary physical power cuts are not established.

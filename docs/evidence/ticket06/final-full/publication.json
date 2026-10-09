@@ -1,0 +1,10 @@
+{
+  "versionCode": 10,
+  "versionName": "0.1.10",
+  "applicationId": "nl.davidengelen.redsquare",
+  "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+  "sha256": "925ec641eb6a23b17fbc765865a9819ca355ef941dc827dbda5960d7f7d6d99c",
+  "commit": "5225d0608125f7fa2a382865a2abc446aa7d28cd",
+  "apkUrl": "https://davidengelen.nl/redsquare/releases/10/redsquare.apk",
+  "notes": "Wallet and live feed milestone. Read Red Square on either approved server, with separate cached feeds and outage status. Create a local wallet, make an authenticated backup, or preview and confirm a guarded import with recovery. Install over the previous build to keep your wallet. Posting, profiles and Chat are still being implemented."
+}
