@@ -113,10 +113,18 @@ one question at a time when a material choice really needs the owner.
   Exact causes unconfirmed; no process-crash result, later tests still ran.
   Wait predicates now allow temporarily absent roots while waiting and file
   selection scrolls/reacquires before requiring a visible item, capturing the
-  picker at the point of absence. Rerun required before SDK17 activation claim.
+  picker at the point of absence. Later18f87d3 runs37910062409/37910066475
+  pass all6 earlier flows on both SDKs, including SDK17 activation.
   New isolated metadata-risk test first imports synthetic other-asset/name/
   pending indicators, then requires outgoing backup despite fresh SAITO zero.
-  Its actual red remains pending. Fixture/test bytes remain in private test APK
+  Actual red37910062409/37910066475 at18f87d3 passes all6 earlier import flows
+  on Android10/17, including SDK17 activation. Metadata risk test activates the
+  synthetic wallet, then selects the original backup and times out at missing
+  Other assets could not be checked (line61). Logs retained in metadata-red.
+  No successful risk screenshots exist at this failing point. Minimal outgoing
+  cached-name/pending/unsupported-assets indicators and conservative unknown
+  gate are being implemented; device green remains pending.
+  Fixture/test bytes remain in private test APK
   storage; each risk run clears only the isolated .dev emulator app first.
   A failed activation uses existing-only reload, never
   creation. Main withholds the live signing wallet during persistence. Actual
@@ -124,7 +132,7 @@ one question at a time when a material choice really needs the owner.
   restoration verification still remain within#7; do not claim those complete.
   Fixture remains only in the isolated test APK; harness
   timeout increased to300 seconds for the deliberate65-second late-result check.
-  No activation is implemented yet.
+  Activation is implemented; failure and actual process-interruption proof remain.
   Testing uses approved parent application/failure boundaries, with fixture data
   in the isolated test APK only. Do not claim valid import preview/activation
   from this slice; those remain upcoming within#7.

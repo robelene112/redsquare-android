@@ -279,6 +279,9 @@ class MainActivity : ComponentActivity() {
                                     Text(preview.publicKey, Modifier.semantics { contentDescription = selectedAddressLabel })
                                     Text(stringResource(if (preview.sameIdentity) R.string.wallet_import_restore_detail else R.string.wallet_import_replace_detail))
                                     if (!preview.sameIdentity) {
+                                        if (preview.risks?.otherAssetsUnknown == true) Text(stringResource(R.string.wallet_import_other_assets))
+                                        preview.risks?.savedName?.let { Text(stringResource(R.string.wallet_import_saved_name, it)) }
+                                        if (preview.risks?.pendingWork == true) Text(stringResource(R.string.wallet_import_pending_work))
                                         Text(stringResource(when (preview.balance) {
                                             null -> R.string.wallet_import_balance_checking
                                             ImportBalance.ZERO -> R.string.wallet_import_balance_zero

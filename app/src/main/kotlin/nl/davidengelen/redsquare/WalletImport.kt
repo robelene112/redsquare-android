@@ -31,7 +31,8 @@ class WalletImport(
     private val chooseDocument: () -> Unit,
 ) {
     data class Preview(val publicKey: String, val sameIdentity: Boolean, val backupVerified: Boolean = false,
-        val balance: ImportBalance? = null, val backupSkipped: Boolean = false, val acknowledged: Boolean = false)
+        val balance: ImportBalance? = null, val backupSkipped: Boolean = false, val acknowledged: Boolean = false,
+        val risks: SaitoWallet.ReplacementRisks? = null)
     class Activation(val wallet: SaitoWallet?, val successful: Boolean)
 
     var preview by mutableStateOf<Preview?>(null)
@@ -111,7 +112,8 @@ class WalletImport(
             }
             if (isCurrent(operation)) {
                 candidate = result.candidate
-                preview = result.candidate?.wallet?.let { Preview(it.publicKey, it.publicKey == operation.original.publicKey) }
+                preview = result.candidate?.wallet?.let { Preview(it.publicKey, it.publicKey == operation.original.publicKey,
+                    risks = result.candidate.risks) }
                 finish(operation, result.failure)
                 result.candidate?.let { selected ->
                     if (preview?.sameIdentity == false) assessBalance(selected)
@@ -126,7 +128,8 @@ class WalletImport(
                 withContext(Dispatchers.IO) { balances.assess(backend, selected.original.publicKey) }
             } ?: ImportBalance.UNKNOWN
             if (candidate === selected && currentWallet() === selected.original && currentBackend() == selected.backend) {
-                preview = preview?.copy(balance = balance, backupSkipped = false)
+                preview = preview?.copy(balance = if (selected.risks.otherAssetsUnknown)
+                    ImportBalance.UNKNOWN else balance, backupSkipped = false)
             }
         }
     }
@@ -155,7 +158,7 @@ class WalletImport(
                 if (candidate !== selected || currentWallet() !== selected.original || currentBackend() != selected.backend) {
                     cancel(); activating = false; return@launch
                 }
-                if (balance != ImportBalance.ZERO) {
+                if (balance != ImportBalance.ZERO || selected.risks.otherAssetsUnknown) {
                     preview = preview?.copy(balance = balance, backupSkipped = false)
                     message = R.string.wallet_import_balance_changed
                     busy = false
@@ -226,7 +229,10 @@ class WalletImport(
     }
 
     private class Candidate(val wallet: SaitoWallet, val original: SaitoWallet, val fingerprint: ByteArray,
-        val backend: SaitoBackend?)
+        val backend: SaitoBackend?) {
+        // Candidate construction runs on IO, keeping large imported metadata off the UI thread.
+        val risks = original.replacementRisks()
+    }
     private class ReadResult(val candidate: Candidate?, val failure: Int?)
 
     companion object {

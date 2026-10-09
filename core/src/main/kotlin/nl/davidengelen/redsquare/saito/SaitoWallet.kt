@@ -5,6 +5,7 @@ import java.security.SecureRandom
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
+import com.google.gson.JsonElement
 import com.google.gson.Strictness
 import org.bouncycastle.crypto.ec.CustomNamedCurves
 import org.bouncycastle.crypto.digests.Blake3Digest
@@ -21,6 +22,41 @@ class SaitoWallet private constructor(
     private val backupOptions: JsonObject? = null,
 ) {
     val publicKey: String = Base58.encode(curve.g.multiply(scalar).getEncoded(true))
+
+    /** Safe, cached indicators only. No module execution or asset balance claim. */
+    data class ReplacementRisks(val savedName: String?, val otherAssetsUnknown: Boolean, val pendingWork: Boolean)
+
+    fun replacementRisks(): ReplacementRisks {
+        val options = backupOptions ?: return ReplacementRisks(null, false, false)
+        fun populated(value: JsonElement?): Boolean = when {
+            value == null || value.isJsonNull -> false
+            value.isJsonArray -> !value.asJsonArray.isEmpty
+            value.isJsonObject -> value.asJsonObject.size() > 0
+            else -> true // Malformed or unsupported values are not evidence of absence.
+        }
+        val wallet = options.getAsJsonObject("wallet")
+        val preferred = wallet.get("preferred_crypto")
+        val otherCrypto = options.get("crypto")?.let { value ->
+            if (!value.isJsonObject) populated(value)
+            else value.asJsonObject.entrySet().any { (ticker, data) -> ticker != "SAITO" && populated(data) }
+        } ?: false
+        val otherAssets = otherCrypto ||
+            (preferred != null && !(preferred.isJsonPrimitive && preferred.asJsonPrimitive.isString && preferred.asString == "SAITO")) ||
+            listOf("mixin", "mixin_legacy", "nfts", "nft").any { populated(options.get(it)) || populated(wallet.get(it)) }
+        val pending = listOf(options.get("pending_txs"), wallet.get("pending_txs"), wallet.get("pending")).any(::populated)
+        val name = options.get("keys")?.takeIf { it.isJsonArray }?.asJsonArray?.firstNotNullOfOrNull { entry ->
+            if (!entry.isJsonObject) return@firstNotNullOfOrNull null
+            val key = entry.asJsonObject
+            if (key.get("publicKey")?.takeIf { it.isJsonPrimitive && it.asJsonPrimitive.isString }?.asString != publicKey)
+                return@firstNotNullOfOrNull null
+            val identifier = key.get("identifier")?.takeIf { it.isJsonPrimitive && it.asJsonPrimitive.isString }?.asString
+                ?: return@firstNotNullOfOrNull null
+            val local = identifier.lastIndexOf('@').let { if (it > 0) identifier.substring(0, it) else identifier }
+                .trim().replace(Regex("\\s+"), " ")
+            local.takeIf { it.codePointCount(0, it.length) in 1..16 && it.matches(Regex("[\\p{L}\\p{N} _-]+")) }
+        }
+        return ReplacementRisks(name, otherAssets, pending)
+    }
 
     fun sign(message: ByteArray): String {
         val digest = hash(message)

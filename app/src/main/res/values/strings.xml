@@ -75,4 +75,7 @@
     <string name="wallet_import_failed">Your wallet could not be imported. Your previous wallet has been restored.</string>
     <string name="wallet_import_recovery_needed">Your wallet needs recovery. Close this window and tap Retry.</string>
     <string name="wallet_import_balance_changed">Your current wallet needs a backup before replacement. Review the latest balance information.</string>
+    <string name="wallet_import_other_assets">Other assets could not be checked</string>
+    <string name="wallet_import_saved_name">Saved name: %1$s</string>
+    <string name="wallet_import_pending_work">Pending work belongs to your current wallet</string>
 </resources>
