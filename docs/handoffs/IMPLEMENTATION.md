@@ -57,7 +57,15 @@ one question at a time when a material choice really needs the owner.
   signs routing hop to authenticated peer, submits type4 and reports waiting;
   encrypted version2 draft record preserves exact pending candidate before
   submission (v1 text migration retained). Local core/debug/test assembly
-  passes1m47s; no local build active. Two-case green37967156376 is running.
+  passes1m47s; no local build active. Two-case green37967156376 at41113e1 passes Android10 in10.831s; actual
+  zero-payment signed frame received by peer, waiting status inspected/retained
+  ticket09/send-green. Third case at1094a0a indexes only the actual received
+  native transaction, serves exact-sig Archive results and requires Available
+  on this server then post in feed. New onTransaction fixture keeps existing
+  trailing archive callback syntax; atomic indexed-row visibility; guarded
+  emulator-only Before clears synthetic postdraft records, never wallet keys.
+  Actual three-case red37968017392 running.37967863806/37967946413 superseded
+  during setup after fixture corrections; neither supplies functional proof.
   Immediate post-submit peer.use/close cancels socket: inspect actual packet
   result and keep a proper active session before claiming delivery. No archive
   observation/polling, replies, longer-funded text policy, independent new

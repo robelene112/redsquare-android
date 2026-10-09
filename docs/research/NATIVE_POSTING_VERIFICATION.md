@@ -51,7 +51,9 @@ submits type4 with no fabricated RPC acknowledgement. AES encrypted v2 draft
 record contains text and exact original signed candidate before any transmission;
 v1 text-only draft records remain readable. 1MiB text safety limit,5MiB encoded
 record bound. Restoring candidate validates signature, author and text. Local
-core/debug/test assembly passes1m47s. Two-case green37967156376 is running.
+core/debug/test assembly passes1m47s. Two-case green37967156376 at41113e1 passes Android10 in10.831seconds; the
+peer receives the signed zero-payment type4 frame, pending copy inspected and
+public log/image retained send-green.
 
 Source caveat to resolve before acceptance: current immediate peer.use close
 cancels the socket after enqueue and can race actual outbound delivery. Inspect
@@ -59,3 +61,15 @@ the external packet test and keep a proper session lifetime. Archive observation
 replies, pending recovery/retry behavior, funded text handling, independent new
 constructor/hop proof and final review/full checks still require work. No ticket
 completion or live publication is claimed.
+
+
+Third case at1094a0a adds actual observed availability and subsequent feed
+visibility. Controlled external peer indexes the exact received signed native
+transaction, serves it only for a matching signature, and supplies it on general
+reads. It verifies through the app, not an internal persistence assertion. A
+new onTransaction fixture callback preserves existing trailing archive callbacks;
+AtomicReference safely publishes across socket threads. Guarded .dev/emulator
+setup clears only synthetic postdraft records between cases, never wallet keys.
+Actual three-case red37968017392 is running.37967863806/37967946413 superseded
+during setup for fixture corrections; neither is functional proof. No archive
+observation production fix yet. Core new constructor/hop vectors still needed.
