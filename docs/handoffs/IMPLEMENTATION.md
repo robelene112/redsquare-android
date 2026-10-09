@@ -34,61 +34,29 @@ one question at a time when a material choice really needs the owner.
   Wallet/cache recovery and signed5-to-8 continuity pass. No new APK, private
   uploads, production writes or physical-device/push proof. Continue all35.
 - Active #10, "09: Publish text posts and replies with recoverable drafts".
-  Eight of35 complete,27 remaining including active. Review base78163d6.
-  Focused14-case37991336062 at67e883d:13 pass, only invalidUnicode cold
-  draft recovery fails (previous valid record replaced by "Keep ? as entered").
-  Actual process-death reconciliation and confirmed clearing pass. Strict UTF8
-  encoding now rejects malformed records before any key/file mutation.
-  Review refactors separate composer operations and share posting fixture/vector
-  helpers; case-specific assertions retained. Local core/debug/test/lint passes
-  2m38s. Next: focused green, two-axis fix review, full Android10/17 acceptance.
-  Prior candidate6cfa908 review: Standards0 hard/2 possible smells;
-  Spec1 P2 failed-save overwrite; report ticket09/REVIEW.md. Do not close#10.
-  Reply recreation actual red37985523535 fixed6abdc11 by wallet/backend-scoped
-  navigation ViewModel and retained reply mode. Twelve-case37987683585 passes
-  49.873s plus cold reconciliation, including Unicode UI and longer preserved
-  multilingual text through both controlled backends. Fourteen-case red
-  37988651709 passes13 cases,69.856s; only Start another draft action absent.
-  Real SAF wallet replacement warning/isolation and outgoing-draft restoration
-  pass. Minimal6cfa908 confirms local clear, never claims server deletion, and
-  verifies encrypted empty record before clearing text/candidate. Persistence
-  and memory update complete together under NonCancellable across recreation.
-  Original candidate remains after cancellation or failed save.
-  ff55aab fixes LocalActivity lint, makes push checks source/core/debug/test/
-  release/lint only, and correctly limits posting-android17 to SDK37. Actual
-  push37987142391 and37987683472 pass with both device stages skipped. Full
-  manual Android10/17 acceptance still required; CI parallelization unimplemented.
-  Timing report ANDROID_CI_TIMING.md. Longer-run37985523535 spent minutes
-  unpacking system image; cause beyond stage timing unproven. Its official
-  controlled bitmap still has an owner caption despite correct semantics and
-  separate fixture broadcasts; exclude that bitmap from visual backend proof.
-  Seven-case37982268510 passes31.633s. Eight-case37984084989 passes32.613s
-  plus actual process death and cold reconciliation without rebroadcast.
-  Unsaved root-editor recreation actual red37983208565 was fixed by scoped
-  in-memory ViewModel edits. No plaintext saved-state bundles. Saved signed
-  candidates remain authoritative. Ten-case37984759300 passes43.649s plus
-  cold reconciliation: failed save retains server/text; damaged encrypted file
-  stays untouched until repaired, then Retry reloads. Public logs and selected
-  images inspected/retained ticket09/{seven-green,memory-green,storage-green}.
-  Shared root/reply composer uses verified encrypted draft persistence,
-  serialized writes, candidate assignment before save, save-before backend and
-  identity navigation, and disabled Back/Save during Send. Restored candidates
-  show uncertain Send-requested status. Retry checks the exact verified archive
-  signature before resending the original candidate. Storage and network
-  errors differ. No automatic draft publication. Independent root/ordered-reply
-  WASM/Elliptic vectors pass. Existing draft formats retained.
-  Local malformed-Unicode red rejected by strict UTF8 serialization before
-  signing; core green includes independent signatures and JSON escaping bound.
-  Native1MiB complete-message limit is safety policy, not a consensus maximum
-  or universal500-unit cap. Source trace: NATIVE_POST_TEXT_POLICY.md.
-  Wallet replacement explicitly explains that local posting records remain
-  with the outgoing identity and are excluded from wallet exports, and that
-  uncertain publication may already have reached its server.
-  Remaining: confirmed local clear green, final two-axis review/fixes and full
-  Android10/17 acceptance. Review fixes may require focused rechecks.
-  Both interim review axes remain ticket09/INTERIM_REVIEW.md. Detailed earlier
-  contract/history: NATIVE_POSTING_CONTRACT.md/NATIVE_POSTING_VERIFICATION.md.
-  #10 reopened after premature closure; keep open until acceptance. No new APK.
+  Eight of35 complete;27 remaining including active. Review base78163d6;
+  current candidatecd1ee24. Focused Android10 37992419586 passes14 cases
+  (65.692s) plus actual process-death reconciliation. Full37993042535 running.
+  Local core/debug/test/lint passes2m38. Both final source-review axes atcd1ee24
+  have zero actionable findings. Runtime acceptance and final full still pending.
+  Latest actual red37991336062 at67e883d passes13/14 and actual process-death
+  reconciliation. Only invalid draft saving overwrites the last good record;
+  screenshot confirms rewritten text. Strict UTF8 prewrite validation fixes it
+  before any key/file mutation. Local clear and wallet replacement isolation
+  pass that red run. Composer state and shared fixtures address review smells.
+  Existing signed draft formats remain readable. Retry checks verified exact
+  availability before resending the original candidate. No automatic draft Send.
+  Save-before wallet/backend navigation, serialized encrypted persistence,
+  activity memory and retained reply navigation protect composed work.
+  Source trace and all significant red/green references:
+  NATIVE_POSTING_VERIFICATION.md/NATIVE_POSTING_CONTRACT.md/
+  NATIVE_POST_TEXT_POLICY.md. Public evidence ticket09; final REVIEW.md keeps
+  Standards and Spec separate. Full Android10/17 required before closing#10.
+  Push checks are source/core/debug/test/release/lint only, not device acceptance.
+  Official controlled bitmaps with inconsistent backend captions are excluded
+  from visual backend proof despite correct semantics/routing. Cause unproved.
+  No new APK publication, production writes or physical Pixel/push proof.
+  Next: finish final full, close#10 with evidence, then#11 offline queues.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.
