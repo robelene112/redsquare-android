@@ -42,22 +42,26 @@ The Spec reviewer confirms the previous saved record remains untouched. The
 composer extraction preserves existing behavior; no remaining source omission,
 scope creep or wrong implementation was found within #10.
 
-Final Spec: zero actionable findings. Focused green37992419586 passes14 cases plus actual process-death recovery.
-Final37993173583 passes source checks, then browse7/8 reveals an outdated
-recreation assumption in the cache fixture. The app retains Likes correctly;
-fresh activity launches now ensure disk-only profile/conversation recovery.
-Both fixture-delta review axes at9aa3884 report zero actionable findings.
-Fresh-activity recovery is distinct from process death. Failure screenshots
-for these two cases are captured after the failing activity closes and may
-miss that screen; success captures remain inside the activity. Replacement
-full37994339188 passes Android10 (70 completed cases), then Android17
-posting12/14. Added bounded wait for header visibility after dialog dismissal
-and picker failure diagnostics; diagnostic37996950887 reproduces12/14 and proves IME panning plus a picker
-remaining in Recent. Test-only fixes dismiss the keyboard and explicitly
-select the root; both fix-review axes at41b4b26 find zero actionable issues. Focusedgreen
-37998134266 stops before the14 cases in startup preparation (enabled editor
-never appears after unguarded New post click). Readiness wait added before
-clicking; preparation failure reported directly. Full17 acceptance and
-readiness-delta review remain pending. Full17
-will be repeated using full-android17 with unchanged production source.
-Cancelled37993042535 is superseded.
+Final Spec: zero actionable findings.
+
+## Final fixture reviews and acceptance
+
+Both axes approved the fresh-activity cache fixtures at `9aa3884`, Android 17
+keyboard dismissal/explicit picker-root selection at `41b4b26`, and enabled
+New post readiness/host failure reporting at `347e27d`. Production source has
+not changed since `cd1ee24`. Fresh activity recovery is distinct from process
+death. The missing enabled-state guard was observed in source; the failed run
+does not prove the runtime button was disabled.
+
+Focused `37992419586` passes all 14 posting cases and actual process recovery.
+Full Android 10 in `37994339188` passes 70 completed cases. Full Android 17
+`37998995220` remains pending. Neither source review nor a passing build closes
+#10 before runtime acceptance. Historical fixture failures and retained public
+logs are described in NATIVE_POSTING_VERIFICATION.md and ticket09 evidence.
+
+Full Android17 `37998995220` passes browse/following/process recovery and13/14
+posting cases. The remaining picker click throws StaleObjectException as
+DocumentsUI replaces its tree. The fixture now reacquires nodes within a bounded
+20-second loop, retains real file selection and hard failure diagnostics, and
+compiles locally in48s. Production source is unchanged. Final acceptance retry
+and fixture review remain pending.

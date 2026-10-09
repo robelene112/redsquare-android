@@ -1,25 +1,12 @@
 # Native posting and drafts
 
-Ticket #10 (delivery 9 of 35), review base `78163d6`. Candidate `cd1ee24`.
-Focused Android10 `37992419586` passes14 cases (65.692s) plus actual process
-death recovery. Both final source-review axes find zero actionable issues.
-Full37993173583 passes source checks then stops at an outdated cached-profile
-fixture (7/8 browse cases pass). Retained navigation preserves Likes, whereas
-the fixture expects default Posts after recreation. Both cached browse tests
-now close and launch a fresh activity, excluding retained history from recovery
-proof. Local test assembly passes1m35. Replacement full37994339188 at9aa3884 has
-passed Android10 (70 completed cases, three intentional process-kill stages,
-both public reads and signed5-to-8 updates). Android17 browse/following and cold
-posting recovery pass; posting12/14, with header visibility and
-file-picker fixture failures. Diagnostic37996950887 at3967eec reproduces12/14: IME pans the header offscreen;
-the picker stays in Recent after false root-selection detection. Tests now
-dismiss the keyboard and explicitly select the test root. Local build53s
-passes. Focused37998134266 stopped in process preparation before the14 cases:
-New post was clicked without waiting for enabled state, and no editor became
-available. The fixture now waits for readiness, and host diagnostics report
-preparation failure directly. Local51s build and Python syntax pass. Final
-full17 next validates fixture fixes and outstanding acceptance together. Production source remains unchanged fromcd1ee24. Cancelled
-37993042535 is superseded. Eight tickets complete.
+Ticket #10 (delivery 9 of 35), review base `78163d6`. Final reviewed candidate
+`347e27d`; production source is unchanged from `cd1ee24`. Focused Android 10
+run `37992419586` passes 14 posting cases and actual process-death recovery.
+Full Android 10 in `37994339188` passes 70 completed cases, three intentional
+process-kill stages, both public reads and signed 5-to-8 updates. Full Android 17
+run `37998995220` remains pending. Both final review axes report zero actionable
+findings; runtime acceptance is the remaining completion gate.
 
 ## Implemented behavior
 
@@ -85,6 +72,20 @@ Public logs and selected images live under `docs/evidence/ticket09/`. The invali
 save screenshot confirms `Keep ? as entered` replaced the last valid draft.
 Earlier detailed checkpoints remain available in Git history at `67e883d`.
 
+Full-suite fixture corrections are separate from functional fixes. Run
+`37993173583` exposed a cached-profile test expecting Posts after recreation
+although navigation correctly retained Likes. Fresh activity launches now test
+disk recovery. Android 17 runs `37994339188` and `37996950887` passed 12/14
+posting cases; retained diagnostics show the keyboard panning the header
+offscreen and DocumentsUI remaining in Recent. Tests dismiss the keyboard and
+explicitly select the provider root. Run `37998134266` stopped in process
+preparation before the posting class: its unguarded New post click never opened
+the editor. The fixture now waits for enabled state, without claiming the failed
+runtime button was observed disabled. Host failure reporting preserves the
+actual preparation error. Final fixture compilation and both review axes pass.
+These changes leave production source unchanged; full Android 17 acceptance
+remains pending in `37998995220`.
+
 ## Review and limits
 
 [Two-axis review](../evidence/ticket09/REVIEW.md) at `6cfa908`: Standards zero
@@ -101,3 +102,10 @@ draft bitmap also shows a blank/not-ready editor despite passing subsequent
 semantics; it is excluded from recovery visual evidence, whose proof is the
 completed UI assertion log. Automatic offline queues
 belong to #11, professional UI and physical performance acceptance to #35.
+
+Full Android17 `37998995220` passes browse/following/process recovery and13/14
+posting cases. The remaining picker click throws StaleObjectException as
+DocumentsUI replaces its tree. The fixture now reacquires nodes within a bounded
+20-second loop, retains real file selection and hard failure diagnostics, and
+compiles locally in48s. Production source is unchanged. Final acceptance retry
+and fixture review remain pending.

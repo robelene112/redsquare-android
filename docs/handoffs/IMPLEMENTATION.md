@@ -34,53 +34,28 @@ one question at a time when a material choice really needs the owner.
   Wallet/cache recovery and signed5-to-8 continuity pass. No new APK, private
   uploads, production writes or physical-device/push proof. Continue all35.
 - Active #10, "09: Publish text posts and replies with recoverable drafts".
-  Eight of35 complete;27 remaining including active. Review base78163d6;
-  current candidate41b4b26 (production source unchanged fromcd1ee24). Focused Android10 37992419586 passes14 cases
-  (65.692s) plus actual process-death reconciliation. Full37993042535 was
-  cancelled by the documentation push because the push concurrency group still
-  defaulted to full. Group corrected to source. Replacementfull37993173583 at4a4b482
-  passes source checks but browse7/8: the profile-cache test expects default
-  Posts after recreation, while retained navigation correctly preserves Likes.
-  Screenshot confirms Likes. Both cached browse cases now close activity and
-  launch a fresh one so retained history cannot hide disk recovery failures.
-  Local instrumentation compilation passes1m35. Full37994339188 now running
-  at9aa3884: full Android10 passed; Android17 browse/following/process
-  recovery passed, posting12/14. Failures: server-label visibility immediately
-  after failed-save dialog dismissal, and reference file missing from picker.
-  Added bounded visibility wait (assertion retained) and picker-failure bitmap/
-  hierarchy diagnostics. Local test assembly passes1m. Focused17 diagnostic37996950887 retains12/14. Screenshot proves IME
-  pans header offscreen; picker hierarchy proves Recent remains selected.
-  Fixes use public Android keyboard dismissal and explicit root-label selection.
-  Assertions retained, production source unchanged. Local test build53s passes;
-  Focused37998134266 stopped before the14-case class: process preparation
-  clicked New post without requiring it enabled, then editor wait timed out.
-  Added readiness wait before clicking and clearer host failure reporting;
-  local test assembly51s/host Python syntax pass. No production source changes.
-  Full17 next will validate both fixture fixes and complete outstanding
-  acceptance. Both keyboard/picker fix-review axes pass. CI adds
-  full-android17 for complete SDK17 retry when production source is unchanged,
-  preserving Android10 full9aa3884 as companion evidence. Both
-  fixture-delta review axes have zero actionable findings.
-  Local core/debug/test/lint passes2m38. Both final source-review axes atcd1ee24
-  have zero actionable findings. Runtime acceptance and final full still pending.
-  Latest actual red37991336062 at67e883d passes13/14 and actual process-death
-  reconciliation. Only invalid draft saving overwrites the last good record;
-  screenshot confirms rewritten text. Strict UTF8 prewrite validation fixes it
-  before any key/file mutation. Local clear and wallet replacement isolation
-  pass that red run. Composer state and shared fixtures address review smells.
-  Existing signed draft formats remain readable. Retry checks verified exact
-  availability before resending the original candidate. No automatic draft Send.
-  Save-before wallet/backend navigation, serialized encrypted persistence,
-  activity memory and retained reply navigation protect composed work.
-  Source trace and all significant red/green references:
-  NATIVE_POSTING_VERIFICATION.md/NATIVE_POSTING_CONTRACT.md/
-  NATIVE_POST_TEXT_POLICY.md. Public evidence ticket09; final REVIEW.md keeps
-  Standards and Spec separate. Full Android10/17 required before closing#10.
-  Push checks are source/core/debug/test/release/lint only, not device acceptance.
-  Official controlled bitmaps with inconsistent backend captions are excluded
-  from visual backend proof despite correct semantics/routing. Cause unproved.
-  No new APK publication, production writes or physical Pixel/push proof.
-  Next: finish final full, close#10 with evidence, then#11 offline queues.
+  Eight of35 complete;27 remain including active. Review base78163d6;
+  candidate347e27d, production source unchanged fromcd1ee24. Encrypted
+  wallet/backend/parent-scoped drafts, compatible zero-payment root/reply
+  signing, exact-candidate retry/reconciliation, checked navigation saves and
+  activity/process recovery are implemented. No automatic draft publication.
+  Actual invalid-save data-loss red37991336062 is fixed by strict UTF8
+  validation before persistence; focused37992419586 passes14 posting cases
+  plus actual process-death reconciliation. Both source-review axes pass.
+  Full Android10 in37994339188 passes70 completed cases, three intentional
+  process-kill stages, both public reads and signed5-to-8 updates. Android17
+  exposed test-only keyboard/picker/readiness assumptions. Corrected fixtures
+  compile locally and both final review axes pass at347e27d. Full Android17
+  run37998995220 remains active and is the completion gate. Production code
+  has not changed since the passing Android10 companion run. Any production
+  change requires fresh full acceptance on both versions.
+  Detailed red/green evidence and limits: NATIVE_POSTING_VERIFICATION.md,
+  NATIVE_POSTING_CONTRACT.md, NATIVE_POST_TEXT_POLICY.md, ticket09/REVIEW.md.
+  Selected public logs/images retained under ticket09. Inconsistent official
+  backend captions and the focused cold-draft bitmap are excluded from visual
+  acceptance; completed semantics and routing checks remain separate evidence.
+  No new APK, production transaction, physical Pixel or push proof. Next:
+  inspect full17, close#10 only if acceptance passes, then#11 offline queues.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.
@@ -179,3 +154,10 @@ Closed-app notifications require Firebase access and a gateway. A prior optional
 one-question prompt asked dedicated versus existing Firebase project; no answer
 has arrived. Continue independent work and never invent credentials or upload
 wallet private keys. Source research is documented, not implemented delivery.
+
+Full Android17 `37998995220` passes browse/following/process recovery and13/14
+posting cases. The remaining picker click throws StaleObjectException as
+DocumentsUI replaces its tree. The fixture now reacquires nodes within a bounded
+20-second loop, retains real file selection and hard failure diagnostics, and
+compiles locally in48s. Production source is unchanged. Final acceptance retry
+and fixture review remain pending.

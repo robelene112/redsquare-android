@@ -541,29 +541,29 @@ class PostPreviewTest {
 
     private fun chooseReferenceImport(device: androidx.test.uiautomator.UiDevice) {
         val title = androidx.test.uiautomator.By.text(ExportTestDocumentsProvider.TITLE)
-        // A sidebar root label alone does not prove that its folder is selected.
-        // Explicitly select its visible label instead of treating it as a folder header.
-        var entry = device.findObject(title)
-        if (entry == null) {
-            requireNotNull(device.wait(androidx.test.uiautomator.Until.findObject(
-                androidx.test.uiautomator.By.desc("Show roots")), 10_000)).click()
-            entry = device.wait(androidx.test.uiautomator.Until.findObject(title), 10_000)
-        }
-        requireNotNull(entry) { "Test backup folder was not available" }.click()
         val file = androidx.test.uiautomator.By.text("reference-import.json")
-        if (device.wait(androidx.test.uiautomator.Until.hasObject(file), 2_000) != true) {
-            try { androidx.test.uiautomator.UiScrollable(androidx.test.uiautomator.UiSelector().scrollable(true))
-                .scrollIntoView(androidx.test.uiautomator.UiSelector().text("reference-import.json")) }
-            catch (_: androidx.test.uiautomator.UiObjectNotFoundException) { /* Keep the picker available for diagnosis. */ }
+        val deadline = android.os.SystemClock.uptimeMillis() + 20_000
+        while (android.os.SystemClock.uptimeMillis() < deadline) {
+            try {
+                // Reacquire nodes after DocumentsUI replaces its accessibility tree.
+                device.findObject(file)?.let { it.click(); return }
+                val root = device.findObject(title)
+                if (root != null) {
+                    root.click()
+                    if (device.wait(androidx.test.uiautomator.Until.hasObject(file), 1_000) != true) {
+                        try { androidx.test.uiautomator.UiScrollable(androidx.test.uiautomator.UiSelector().scrollable(true))
+                            .scrollIntoView(androidx.test.uiautomator.UiSelector().text("reference-import.json")) }
+                        catch (_: androidx.test.uiautomator.UiObjectNotFoundException) { /* Retry the current picker tree. */ }
+                    }
+                } else device.findObject(androidx.test.uiautomator.By.desc("Show roots"))?.click()
+            } catch (_: androidx.test.uiautomator.StaleObjectException) { /* Observe the replacement tree on the next iteration. */ }
+            android.os.SystemClock.sleep(100)
         }
-        val selectedFile = device.wait(androidx.test.uiautomator.Until.findObject(file), 10_000)
-        if (selectedFile == null) {
-            captureFeedEvidence("posting-evidence/import-picker-failure.png")
-            val evidence = java.io.File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
-                "posting-evidence/import-picker-failure.xml")
-            device.dumpWindowHierarchy(evidence)
-        }
-        requireNotNull(selectedFile) { "Reference import was not visible in the selected test folder" }.click()
+        captureFeedEvidence("posting-evidence/import-picker-failure.png")
+        val evidence = java.io.File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
+            "posting-evidence/import-picker-failure.xml")
+        device.dumpWindowHierarchy(evidence)
+        error("Reference import was not visible in the selected test folder")
     }
 
     @Test fun longerMultilingualPostsPreserveTheirOriginalTextOnBothApprovedBackends() {
