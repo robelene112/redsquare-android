@@ -40,3 +40,13 @@ through the existing signed-envelope decoder. It retains the selected post,
 rejects altered/unrelated entries and adds Back, refresh and truthful bounded
 history/error copy. Cache persistence and profiles remain upcoming within#8;
 actual green and final acceptance are pending.
+
+First application green:37926293893/37926297773 at0c66d5b pass the one conversation
+flow on Android10/17, with the direct and nested independently signed replies,
+altered reply exclusion and Back control. Two inspected public screenshots/logs
+are retained under ticket07/conversation-green. Core15/debug/test assembly passes.
+This does not complete#8. A new primary-application case loads the conversation,
+stops its controlled server, recreates the activity, reopens the cached feed root
+and requires the replies plus truthful available-history/refresh-failure copy.
+It compiles; actual persistence red is pending. No conversation cache is yet
+implemented at this test commit.

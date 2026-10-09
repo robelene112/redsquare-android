@@ -12,6 +12,59 @@ import org.junit.Test
 class ThreadProfilePreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
 
+    @Test fun availableConversationRemainsReadableAfterRestartWithoutItsServer() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        check(context.packageName == "nl.davidengelen.redsquare.dev")
+        nl.davidengelen.redsquare.saito.AndroidBackendStore(context)
+            .save(nl.davidengelen.redsquare.saito.SaitoBackend.OWNER)
+        listOf("feed.owner.v1", "feed.owner.v1.bak", "feed.owner.v1.new").forEach {
+            java.io.File(context.noBackupFilesDir, it).delete()
+        }
+        val fixture = instrumentation.context.assets.open("native-thread-reference.json").bufferedReader().use {
+            JsonParser.parseReader(it).asJsonObject
+        }
+        val root = fixture.getAsJsonObject("root")
+        val peer = ControlledFeedPeer("[$root]") { criteria ->
+            check(criteria.get("field1").asString == "RedSquare")
+            check(criteria.get("flagged_ne").asInt == 1)
+            if (criteria.has("field4")) {
+                check(criteria.get("field4").asString.isEmpty())
+                "[$root]"
+            } else {
+                check(criteria.get("field5").asString == root.get("sig").asString)
+                "[$root,${fixture.get("firstReply")},${fixture.get("nestedReply")}]"
+            }
+        }
+        val server = peer.start()
+        try {
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
+                try {
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Native Red Square reference post")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                    ui.onNodeWithText("Native Red Square reference post").performClick()
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Independent Saito reply")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                    ui.waitUntil(10_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    peer.assertHealthy()
+                    server.close()
+                    scenario.recreate()
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Native Red Square reference post")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                    ui.onNodeWithText("Native Red Square reference post").performClick()
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Independent Saito reply")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                    ui.onNodeWithText("Independent Saito reply").assertIsDisplayed()
+                    ui.onNode(hasScrollAction()).performScrollToNode(hasText("Nested Saito reply"))
+                    ui.onNodeWithText("Nested Saito reply").assertIsDisplayed()
+                    ui.onNodeWithText("Only available history is shown. Older replies may be missing.").assertIsDisplayed()
+                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("Replies could not be refreshed. Available posts remain visible.")).fetchSemanticsNodes().isNotEmpty() }
+                    captureFeedEvidence("browse-evidence/cached-conversation-after-restart.png")
+                } catch (failure: Throwable) {
+                    captureFeedEvidence("browse-evidence/cached-conversation-first-failure.png")
+                    throw failure
+                }
+            }
+        } finally { server.close() }
+    }
+
     @Test fun openingAFeedPostShowsAvailableVerifiedConversationReplies() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext

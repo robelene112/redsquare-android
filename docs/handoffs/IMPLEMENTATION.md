@@ -22,6 +22,12 @@ one question at a time when a material choice really needs the owner.
   read now uses selected-backend field5 with shared signed-entry validation and
   Back/refresh/history/error copy. Local build and actual green are pending.
   Conversation cache and profiles are not implemented yet; continue within#8.
+  First application green37926293893/37926297773 at0c66d5b passes the one
+  conversation flow on Android10/17; two public images/logs inspected and retained
+  ticket07/conversation-green. Core15/debug/test assembly passed. Next test loads
+  replies, stops the peer, recreates, reopens the cached root and requires retained
+  replies plus truthful history/error copy. It compiles; actual cache red pending.
+  No conversation persistence or profile implementation yet. Keep#8 open.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.
