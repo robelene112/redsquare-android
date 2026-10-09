@@ -44,6 +44,11 @@ one question at a time when a material choice really needs the owner.
   Minimal profile navigation/tabs and signed like-target resolution now exist.
   Common signed-envelope verification is shared by post/like readers. Local/device
   green pending. Profile persistence, review and final acceptance remain within#8.
+  First profile implementation9eb69e5 runs37930169685/37930173464 pass the profile
+  case but fail both earlier conversations after body taps open Profile instead.
+  Public logs/screens retained in profile-navigation-failure. The body now has
+  its own conversation tap target. Tests unchanged. Local/device correction check
+  pending; no cached profile implementation yet.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.

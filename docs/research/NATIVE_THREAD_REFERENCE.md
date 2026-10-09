@@ -93,3 +93,18 @@ and author Posts/Replies plus signed-like/exact-target resolution are now added.
 Common verified envelope decoding serves both post and like modules. Cached
 profile views and final acceptance are not implemented yet. Local/device green
 are pending.
+
+First implementation run37930169685 at9eb69e5 passes the new profile case but
+fails both earlier conversation cases at their first reply waits (lines181/126).
+Both inspected failure screens show Profile after tapping the post body; its
+merged card target overlaps separately clickable identity text. The profile
+success image shows only the verified scalar2 reply in Likes and the truthful
+unavailable-target warning. All three images/log are retained in
+ticket07/profile-navigation-failure/api-29. The post body now has its own
+conversation tap target, without weakening or changing the tests. Local/device
+verification of that correction remains pending.
+
+Android17 first run37930173464 reproduces the same two conversation failures
+and passes the profile flow at9eb69e5. Inspected conversation failure and profile
+Likes success images, plus the remaining failure image/log, are retained in
+profile-navigation-failure/api-37.0. Neither first run is an overall pass.

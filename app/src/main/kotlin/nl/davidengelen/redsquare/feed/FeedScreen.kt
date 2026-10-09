@@ -137,7 +137,8 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
                 Column(Modifier.clickable { conversation = post }.padding(vertical = 12.dp)) {
                     Text("Anon-${post.author.take(6)}", Modifier.clickable { profile = post.author }, style = MaterialTheme.typography.titleMedium)
                     Text(post.author, Modifier.clickable { profile = post.author }, maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.labelSmall)
-                    Text(post.text, Modifier.padding(vertical = 8.dp), style = MaterialTheme.typography.bodyLarge)
+                    Text(post.text, Modifier.clickable { conversation = post }.padding(vertical = 8.dp),
+                        style = MaterialTheme.typography.bodyLarge)
                     Text(DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, Locale.ENGLISH)
                         .format(Date(post.createdAt)), style = MaterialTheme.typography.labelSmall)
                 }
