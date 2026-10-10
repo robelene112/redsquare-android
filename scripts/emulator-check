@@ -154,7 +154,22 @@ if [[ "${TEST_SCOPE:-full}" == quotes* ]]; then
     printf '%s\n' 'Focused quote check only; full acceptance not run.' > "$evidence/scope.txt"
     exit 0
 fi
-if [[ "${TEST_SCOPE:-full}" == full ]]; then verify_browse; verify_following; verify_posting; verify_post_queue; verify_social; verify_quotes; fi
+verify_author_posts() {
+    [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+    timeout 180 adb shell am instrument -w -r \
+        -e class nl.davidengelen.redsquare.AuthorPostPreviewTest \
+        nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+        > "$evidence/author-post-ui.txt" || true
+    adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - author-post-evidence \
+        > "$evidence/author-post-evidence.tar" || true
+    grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/author-post-ui.txt"
+}
+if [[ "${TEST_SCOPE:-full}" == author* ]]; then
+    verify_author_posts
+    printf '%s\n' 'Focused author action check only; full acceptance not run.' > "$evidence/scope.txt"
+    exit 0
+fi
+if [[ "${TEST_SCOPE:-full}" == full ]]; then verify_browse; verify_following; verify_posting; verify_post_queue; verify_social; verify_quotes; verify_author_posts; fi
 verify_wallet_storage_recovery() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
     timeout 90 adb shell am instrument -w -r \

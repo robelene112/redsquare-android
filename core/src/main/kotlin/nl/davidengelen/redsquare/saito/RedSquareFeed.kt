@@ -14,6 +14,7 @@ data class FeedPost(
     val recipients: List<String>,
     val quoted: FeedPost? = null,
     val quoteTarget: String = quoted?.id.orEmpty(),
+    val edit: AuthorAction? = null,
 )
 
 data class ArchiveFeedPage(val posts: List<FeedPost>, val oldestCreatedAt: Long?, val rowCount: Int, val ignored: Int)
@@ -83,7 +84,8 @@ object RedSquareFeed {
                 }
             } } catch (_: Exception) { null }
         } else null
-        return FeedPost(signed.id, signed.author, text, signed.createdAt, parent, thread, envelope, signed.recipients, original, target)
+        val edit = RedSquareAuthorActions.edit(signed, envelope)
+        return FeedPost(signed.id, signed.author, edit?.text ?: text, signed.createdAt, parent, thread, envelope, signed.recipients, original, target, edit)
     }
 
     private fun JsonObject.string(key: String): String {

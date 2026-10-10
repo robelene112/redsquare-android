@@ -92,8 +92,13 @@ one question at a time when a material choice really needs the owner.
   bitmap lacks header fields despite semantic pass; cause unestablished, excluded
   from visual acceptance. Functional quote images correct; polish remains#35.
   No newAPK, productionwrites, Pixel/push/force-stop-delivery proof.
-- Next #14, "13: Edit and delete the author's posts". Primary-source research
-  NATIVE_EDIT_DELETE_CONTRACT.md inspected; no implementation yet. Twelve of35
+- Active #14, "13: Edit and delete the author's posts", fixedbase6c657d4.
+  NATIVE_EDIT_DELETE_CONTRACT.md inspected. Pure pinnedWASM/Elliptic public
+  edit/delete reference vectors generated network-none with named readonly
+  mounts, no Saito init. First edit-reader tracer actually red25s/green43s;
+  author/target/signature/unsigned-order regressions pass with local fullcore
+  debug/test assembly1m48s. UI edit tracer prepared, actual first red pending.
+  Twelve of35
   complete;23 remain. Continue sequentially without routine permission.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
