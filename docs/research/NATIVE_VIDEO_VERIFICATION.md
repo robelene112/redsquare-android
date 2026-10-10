@@ -308,3 +308,19 @@ removed entirely. Only the existing native UI test captures PNGs. The changed to
 remains a diagnostic, separate from the unchanged native acceptance assertions.
 Immutable5771d9d run38086007749 predates that removal; it must not be cited as
 runtime proof of the screenshot boundary fix.
+
+Diagnostic run38086007749 at5771d9d fails the same unchanged public Play
+assertion, one case39.469s. Allowed-frame DOM records now establish a layout
+defect: completed .dev wrapper viewport296×448, but body and player/iframe
+height0; the YouTube child viewport is296×0. Its public Play video button exists
+at y=-36 with72px height, clipped by the zero-height frame. The video remains
+paused with readyState0. This is concrete zero-height rendering evidence,
+not successful playback. Retained public-zero-height/android17 JSONL, test log
+and WebView145 metadata. The old diagnostic also attempted page screenshots;
+those PNGs are not retained or used as proof, and current23eea43 omits that call.
+Both bounded review axes through23eea43 report0 residual findings.
+Minimal production fix uses viewport-relative100vh instead of a percentage
+height chain, and displays the iframe as a block to remove inline baseline
+spacing. The existing actual-provider test is the acceptance RED; its trusted
+Play/control and native Playing assertions remain unchanged. Build and actual
+provider GREEN are pending. No autoplay or provider/wallet capability was added.
