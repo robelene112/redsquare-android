@@ -294,3 +294,13 @@ cancellation, closes its active socket, removes its owned forward and stops
 polling. This changes only the optional diagnostic; application/test acceptance
 assertions remain unchanged. SyntaxPASS; the current immutableec6d437 diagnostic
 run38085634358 still uses the earlier tool, and is not proof of the cleanup fix.
+
+Standards re-reviewec6d437...d1c70a7 reports0 residual cleanup findings.
+Diagnostic Android17 run38085634358 at ec6d437 fails the same public Play
+assertion after38.23s. Its three diagnostic records are generic read failures;
+no frame geometry or browser screenshot was captured. This does not establish
+the player dimensions or the provider failure cause. Discovery now records
+only stage names and page/frame counts, and connects to a page in the isolated
+.dev process before filtering each frame by the existing allowed origins.
+No DOM read or screenshot occurs for an unapproved frame. The changed tool
+remains a diagnostic, separate from the unchanged native acceptance assertions.

@@ -54,6 +54,7 @@ async function inspect(target) {
     const frames = [];
     const visit = entry => { if (allowed(entry.frame.url)) frames.push(entry.frame); for(const child of entry.childFrames || []) visit(child); };
     visit(tree.frameTree);
+    output({allowedFrames:frames.length});
     for (const frame of frames.slice(0, 3)) {
       const world = await call('Page.createIsolatedWorld', {frameId:frame.id, worldName:'public-video-layout-diagnostic'});
       const result = await call('Runtime.evaluate', {contextId:world.executionContextId, returnByValue:true, expression:`(() => {
@@ -83,23 +84,32 @@ async function inspect(target) {
 async function main() {
 for(let attempt=0; attempt<12 && !stopped; attempt++) {
   let port;
+  let stage = 'app-process';
   try {
     const pid = execFileSync('adb',['shell','pidof','nl.davidengelen.redsquare.dev'],{encoding:'utf8',timeout:3000}).trim();
     if (!/^\d+$/.test(pid)) throw Error('No isolated app process');
+    stage = 'owned-forward';
     port = execFileSync('adb',['forward','tcp:0',`localabstract:webview_devtools_remote_${pid}`],{encoding:'utf8',timeout:3000}).trim();
     if (!/^\d+$/.test(port)) throw Error('No diagnostic port');
     ownedPort = port;
+    stage = 'target-discovery';
     const response = await fetch(`http://127.0.0.1:${port}/json/list`,{signal:AbortSignal.timeout(3000)});
     const targets = await response.json();
-    for(const target of targets.filter(t=>t.type==='page' && allowed(t.url)).slice(0,1)) {
+    // Discovery is already restricted to this .dev process. Wrapper target URLs
+    // can differ from loadDataWithBaseURL; inspect only explicitly allowed frames.
+    const pages = targets.filter(t=>t.type==='page');
+    output({pageTargets:pages.length,allowedTargetUrls:pages.filter(t=>allowed(t.url)).length});
+    for(const target of pages.slice(0,1)) {
+      stage = 'local-endpoint';
       const endpoint = new URL(target.webSocketDebuggerUrl);
       if (!['127.0.0.1','localhost'].includes(endpoint.hostname) || endpoint.protocol!=='ws:' ||
           !endpoint.pathname.startsWith('/devtools/page/')) throw Error('Unexpected diagnostic endpoint');
       endpoint.hostname='127.0.0.1'; endpoint.port=port;
       target.webSocketDebuggerUrl=endpoint.toString();
+      stage = 'frame-layout';
       await inspect(target);
     }
-  } catch { output({diagnostic:'Player debug endpoint not ready or read failed'}); }
+  } catch { output({diagnostic:'Player debug endpoint not ready or read failed',stage}); }
   finally {if(port)removeForward(port);ownedPort=undefined;}
   if (!stopped) await sleep(5000);
 }
