@@ -86,3 +86,32 @@ frame network error-2; the verified API response/readiness still passed. The
 next fixture gives controlled text visible contrast. Prior failure's actual
 hostname/cause remains unproved. Retained tap-green-android10 is intermediate
 acceptance only; landscape/recovery/thread/full checks remain pending.
+
+Focused17 run38079974731 was superseded by05f89ef's two-case size checks,
+not accepted. Its retained local job log shows slow Android Emulator download
+progress from10% at19:30:56 to15% at19:38:14, then cancellation19:39:09.
+It never reached the source/device checks. No app-loading failure is inferred.
+Focused size checks38080627218/38080629357 at05f89ef are pending.
+
+A separate public read of YouTube's oEmbed endpoint returned metadata for the
+documented exampleM7lc1UVf-VE, titled YouTube Developers Live: Embedded Web
+Player Customization, authored by Google for Developers. This confirms a
+public metadata response, not native playback or attestation. The ordinary
+controlled tests do not contact that live endpoint.
+
+Size checks38080627218/38080629357 at05f89ef did not complete their first case
+within the180s harness limit. Both logs contain a start record and no completed
+case, failure stack or OK result; no size assertion is accepted. Available
+captures do not locate the stalled operation. A collapsed landscape feed is a
+source-supported possibility, not an established cause. Preserve the incomplete
+logs under ticket16/size-incomplete. The fixture now records stages, and the
+harness retains an independent last-window screenshot even on timeout.
+
+Supplemental Spec review found an actual target-identity gap: cached text-link
+and explicit-link posts share the generic Watch button and video ID. Both tests
+now bind the tap to the expected signed post's own card, preserving the cache.
+That adjustment compiles56s. The next rotation tracer starts with an opened
+portrait video, then requires selected-video recovery with no additional
+provider contact in an undersized landscape window, visible close/external
+controls and a fresh portrait tap with actual minimum bounds. This avoids
+scrolling a cramped landscape feed; rotation recovery remains to be proved.

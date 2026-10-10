@@ -44,10 +44,8 @@ class VideoPreviewTest {
                     .putExtra("youtubeFixtureUrl", "http://127.0.0.1:${api.port}/iframe_api")).use {
                     try {
                         ui.waitUntil(20_000) { peer.requests.get() > 0 && ui.onAllNodesWithText("Video reference https://youtu.be/M7lc1UVf-VE").fetchSemanticsNodes().isNotEmpty() }
-                        ui.onNode(hasScrollAction()).performScrollToNode(hasText("Watch on YouTube"))
-                        ui.onNodeWithText("Watch on YouTube").assertIsDisplayed()
                         assertEquals(0, api.requestCount)
-                        ui.onNodeWithText("Watch on YouTube").performClick()
+                        watch("Video reference https://youtu.be/M7lc1UVf-VE")
                         ui.waitUntil(20_000) { ui.onAllNodesWithText("Use the player controls to start playback.").fetchSemanticsNodes().isNotEmpty() }
                         assertEquals(1, api.requestCount)
                         val request = requireNotNull(api.takeRequest(5, java.util.concurrent.TimeUnit.SECONDS))
@@ -67,7 +65,7 @@ class VideoPreviewTest {
         }
     }
 
-    @Test fun smallLandscapeWindowOffersExternalPlaybackBeforeLoadingAndPortraitPlayerHasMinimumSpace() {
+    @Test fun selectedVideoSurvivesRotationWithAnExternalFallbackInSmallWindows() {
         val reference = instrumentation.context.assets.open("native-video-reference.json").bufferedReader()
             .use { com.google.gson.JsonParser.parseReader(it).asJsonObject }
         val row = reference.getAsJsonObject("linked")
@@ -86,30 +84,36 @@ class VideoPreviewTest {
             val api = MockWebServer()
             api.use {
                 api.enqueue(readyResponse())
+                api.enqueue(readyResponse())
                 api.start(java.net.InetAddress.getByName("127.0.0.1"), 0)
                 peer.start().use { server ->
                     ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                         .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                         .putExtra("youtubeFixtureUrl", "http://127.0.0.1:${api.port}/iframe_api")).use {
                         try {
+                            stage("size: launched")
                             ui.waitUntil(20_000) { peer.requests.get() > 0 && ui.onAllNodesWithText("Explicit signed YouTube link").fetchSemanticsNodes().isNotEmpty() }
                             if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
-                            device.setOrientationLeft()
-                            ui.waitUntil(10_000) { device.displayWidth > device.displayHeight && ui.onAllNodesWithText("Explicit signed YouTube link").fetchSemanticsNodes().isNotEmpty() }
-                            ui.onNode(hasScrollAction()).performScrollToNode(hasText("Watch on YouTube"))
-                            ui.onNodeWithText("Watch on YouTube").assertIsDisplayed().performClick()
-                            ui.waitUntil(10_000) { ui.onAllNodesWithText("Open this video in YouTube or use a larger window.").fetchSemanticsNodes().isNotEmpty() }
                             assertEquals(0, api.requestCount)
+                            watch("Explicit signed YouTube link")
+                            ui.waitUntil(20_000) { ui.onAllNodesWithText("Use the player controls to start playback.").fetchSemanticsNodes().isNotEmpty() }
+                            assertEquals(1, api.requestCount)
+                            stage("size: portrait player ready, rotating")
+                            device.setOrientationLeft()
+                            ui.waitUntil(10_000) { device.displayWidth > device.displayHeight }
+                            stage("size: landscape display, waiting for fallback")
+                            ui.waitUntil(10_000) { ui.onAllNodesWithText("Open this video in YouTube or use a larger window.").fetchSemanticsNodes().isNotEmpty() }
+                            assertEquals(1, api.requestCount)
                             assertFalse(device.hasObject(By.desc("YouTube player")))
                             ui.onNodeWithText("Open in YouTube").assertIsDisplayed()
                             ui.onNodeWithText("Close video").assertIsDisplayed()
                             capture("video-evidence/small-window.png")
                             ui.onNodeWithText("Close video").performClick()
+                            stage("size: closed fallback, returning to portrait")
                             device.setOrientationNatural()
                             ui.waitUntil(10_000) { device.displayHeight > device.displayWidth && ui.onAllNodesWithText("Explicit signed YouTube link").fetchSemanticsNodes().isNotEmpty() }
-                            assertEquals(0, api.requestCount)
-                            ui.onNode(hasScrollAction()).performScrollToNode(hasText("Watch on YouTube"))
-                            ui.onNodeWithText("Watch on YouTube").assertIsDisplayed().performClick()
+                            assertEquals(1, api.requestCount)
+                            watch("Explicit signed YouTube link")
                             ui.waitUntil(20_000) { ui.onAllNodesWithText("Use the player controls to start playback.").fetchSemanticsNodes().isNotEmpty() }
                             val player = requireNotNull(device.wait(Until.findObject(By.desc("YouTube player")), 5_000))
                             val density = context.resources.displayMetrics.density
@@ -121,7 +125,7 @@ class VideoPreviewTest {
                             val bounds = player.visibleBounds
                             assertTrue("Player width ${bounds.width()}px, density $density", bounds.width() / density >= 200)
                             assertTrue("Player height ${bounds.height()}px, density $density", bounds.height() / density >= 200)
-                            assertEquals(1, api.requestCount)
+                            assertEquals(2, api.requestCount)
                             capture("video-evidence/portrait-bounds.png")
                             ui.onNodeWithText("Close video").performClick()
                             assertTrue(peer.transactions.isEmpty())
@@ -149,6 +153,17 @@ class VideoPreviewTest {
         }};
         onYouTubeIframeAPIReady();
     """.trimIndent()).build()
+
+    private fun watch(postText: String) {
+        val button = hasText("Watch on YouTube") and hasAnyAncestor(hasAnyChild(hasText(postText) and hasClickAction()))
+        ui.onNode(hasScrollAction()).performScrollToNode(button)
+        ui.onNode(button).assertIsDisplayed().performClick()
+    }
+
+    private fun stage(message: String) {
+        File(context.cacheDir, "video-evidence/stages.txt").apply { parentFile?.mkdirs() }
+            .appendText("${android.os.SystemClock.elapsedRealtime()} $message\n")
+    }
 
     private fun capture(name: String) {
         val file = File(context.cacheDir, name).apply { parentFile?.mkdirs() }
