@@ -11,12 +11,20 @@ data class YouTubeVideo(val id: String) {
 }
 
 object RedSquareVideo {
-    private val firstLink = Regex("https?://[^\\s<>\"']+", RegexOption.IGNORE_CASE)
+    // Pinned Browser.urlRegexp recognizes optional schemes; its helper consumes
+    // matches from the end and skips numeric strings before selecting a URL.
+    private val textLink = Regex("""\b(?:https?://)?([\w-]+[.:])+[\w-]{2,}(/[\w/.-]*)?(\?[^<\s]*)?(?![^<]*>)""", RegexOption.IGNORE_CASE)
+    private val numericLink = Regex("""^\d+[.:]?\d*$""")
     private val youtubeHosts = setOf("youtube.com", "www.youtube.com", "m.youtube.com", "music.youtube.com")
 
-    /** Match vanilla's signed-link priority and first-link behavior. */
+    /** Match vanilla's signed-link priority and last recognized text URL. */
     fun youtube(text: String, link: String = ""): YouTubeVideo? {
-        val source = link.trim().ifEmpty { firstLink.find(text)?.value?.trimEnd('.', ',', ';', '!', ')', ']', '}').orEmpty() }
+        val source = link.trim().ifEmpty {
+            val candidate = textLink.findAll(text).map { it.value }.filterNot { numericLink.matches(it) }
+                .lastOrNull()?.trimEnd('.', ',', ';', '!', ')', ']', '}') ?: return null
+            if (candidate.startsWith("http://", true) || candidate.startsWith("https://", true)) candidate
+            else "http://$candidate"
+        }
         if (source.length > 8192) return null
         return try {
             val uri = URI(source)

@@ -234,3 +234,24 @@ the repeated primary-preserving diagnostic capture, keeping scenario-specific
 checks and request diagnostics local. Full acceptance and actual media remain open.
 Full Spec review separately confirmed optional-scheme/last-text-URL semantics
 in both pinned Browser helpers; the native first-URL assumption needs correction.
+
+Text candidate compatibility RED28s: five focused core cases, two failures.
+The new independently WASM/Elliptic-signed text row without an explicit scheme
+expects M7lc1UVf-VE but receives null; the corrected trailing-YouTube expectation
+also receives null. Retained text-candidate-red XML/log. The independent offline
+proof now invokes unchanged Browser extractFirstValidURL/urlRegexp/numberFilter
+and Tweet extractYoutubeId from both pins, with four literal text cases: omitted
+scheme; generic URL then YouTube; reverse order; two different YouTube IDs.
+Results are M7, M7, null and bHQqvYy5KYo, respectively, at both pins. Original
+signed text/link/quote/malformed reference rows remain byte-equivalent as parsed
+objects; four new public unsafe scalar1 references are appended. Read-only
+network-disabled pure crypto used the named pinned dependency entry points only;
+no initialized Saito app, private options or node state was accessed. Source
+provenance now corrects the prior first-link assumption. Native candidate
+selection mirrors the helper, retaining strict URI host/port/ID validation and
+canonical HTTPS targets. Focused GREEN/core/debug/test compilation is pending.
+
+Text candidate GREEN: full44 core cases0 failures/0 errors/0 skipped; all five
+video-core cases pass. Native debug/test assembly succeeds2m21s. This includes
+unchanged provider hardening and explicit-link/verified-quote tests, plus the
+four independently signed candidate rows. It is not device or live-media proof.

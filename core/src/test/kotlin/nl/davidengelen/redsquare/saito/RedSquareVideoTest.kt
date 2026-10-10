@@ -4,7 +4,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class RedSquareVideoTest {
-    @Test fun `a compatible first YouTube link yields a canonical tap target`() {
+    @Test fun `a compatible YouTube link yields a canonical tap target`() {
         val video = RedSquareVideo.youtube("Watch https://www.youtube.com/watch?v=M7lc1UVf-VE&t=20 now")!!
         assertEquals("M7lc1UVf-VE", video.id)
         assertEquals("https://www.youtube.com/watch?v=M7lc1UVf-VE", video.url)
@@ -29,8 +29,18 @@ class RedSquareVideoTest {
             "https://youtu.be:444/M7lc1UVf-VE", "https://youtu.be/M7lc1UVf-VE/extra", "https://youtube.com/watch?v=short")) {
             assertEquals(url, null, RedSquareVideo.youtube("", url))
         }
-        assertEquals(null, RedSquareVideo.youtube("https://example.test/first https://youtu.be/M7lc1UVf-VE"))
+        assertEquals("M7lc1UVf-VE", RedSquareVideo.youtube("https://example.test/first https://youtu.be/M7lc1UVf-VE")?.id)
         assertEquals(null, RedSquareVideo.youtube("https://youtu.be/M7lc1UVf-VE", "https://example.test/signed"))
+    }
+
+    @Test fun `signed text posts select the same last recognized URL as both pinned clients`() {
+        val reference = com.google.gson.JsonParser.parseReader(javaClass.getResourceAsStream("/native-video-reference.json")!!.reader()).asJsonObject
+        for (row in reference.getAsJsonArray("candidates")) {
+            val fixture = row.asJsonObject
+            val post = RedSquareFeed.decode(fixture.get("tx").asString)
+            val expected = fixture.get("videoId").takeUnless { it.isJsonNull }?.asString
+            assertEquals(post.text, expected, RedSquareVideo.youtube(post.text, post.link)?.id)
+        }
     }
 
     @Test fun `independent signed web video posts and dual quotes retain exact provider identities`() {

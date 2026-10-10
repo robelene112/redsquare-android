@@ -124,12 +124,16 @@ obtain credentials.
 
 ## Existing YouTube link behavior
 
-A/B find the first link in post text (or signed `data.link`), recognize watch
+A/B prefer signed `data.link`. Otherwise their Browser helper selects the last
+recognized non-numeric URL in post text, permits omitted HTTP(S) schemes and
+normalizes the selected URL before Tweet extraction. They recognize watch
 `v=`, youtu.be, `/shorts/` and `/live/`, strip query/fragment from the ID and
 render `https://www.youtube.com/embed/<id>` in an iframe. The extractor uses
 substring host checks and does not enforce ID length; native should parse real
 host boundaries and require `[A-Za-z0-9_-]{11}`. Generic Open Graph video links
 are not this playback path; direct video-file upload is not established.
+[A Browser helper:2001](https://github.com/SaitoTech/saito/blob/9a4ca7e9442eb5e872168ced361ce741d7d139d7/node/lib/saito/browser.ts#L2001),
+[B Browser helper:2022](https://github.com/SaitoTech/saito/blob/214504ecece76d1cd20a245fe4468eccbfca2951/node/lib/saito/browser.ts#L2022),
 [A extraction:306–357](https://github.com/SaitoTech/saito/blob/9a4ca7e9442eb5e872168ced361ce741d7d139d7/node/mods/redsquare/lib/tweet.js#L306),
 [B iframe:109–113](https://github.com/SaitoTech/saito/blob/214504ecece76d1cd20a245fe4468eccbfca2951/node/mods/redsquare/lib/tweet.template.js#L109).
 
