@@ -82,6 +82,7 @@
     <string name="wallet_import_existing">Import an existing wallet</string>
     <string name="wallet_import_invalid">That file is not a valid Saito wallet backup. Your wallet is unchanged.</string>
     <string name="wallet_import_open_failed">Your wallet backup could not be opened. Try again with another file.</string>
+    <string name="wallet_import_work_save_failed">Could not save your local work. Import has not started.</string>
     <string name="wallet_import_cancelled">Wallet import canceled. Your wallet is unchanged.</string>
     <string name="wallet_import_restore">Restore this wallet</string>
     <string name="wallet_import_replace">Replace your wallet</string>

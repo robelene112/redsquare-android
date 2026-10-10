@@ -101,6 +101,7 @@ class MainActivity : ComponentActivity() {
             val walletExport = remember { WalletExport(this@MainActivity, { wallet }, createWalletDocument::launch) }
             val balances = remember { WalletBalances.fromIntent(intent) }
             val walletImport = remember { WalletImport(this@MainActivity, { wallet }, { backend }, balances,
+                beforeSelection = { postNavigation.save() },
                 activate = activate@ { previous, incoming ->
                     if (!postNavigation.save()) return@activate WalletImport.Activation(previous, false)
                     wallet = null

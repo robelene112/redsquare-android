@@ -44,8 +44,13 @@ Next tracer added: unsaved bio must show pending-work warning in actual
 SAF import preview before confirmation. Controlled fresh disposable wallet avoids
 unrelated pending risks, preserved original identity restored in finally; harness
 provisions public scalar1 backup in document-provider UID and test checks size.
-Initial test assemblyPASS1m3s before provisioning adjustment; final RED pending.
-Then persist before document selection and refuse selection on failed save. Preserve outgoing draft isolation. Saved profile
+Final f141190 native17 RED38094856188:5cases/1failure62.919s, missing specific
+pending-work warning after positive actual selected backup. Other4pass. Original
+failure PNG/XML inspected and retained; source38094855735 PASS, both reviews0.
+WalletImport now awaits mounted editor save before selection, binds it to same
+wallet/backend, and refuses picker on failure/cancellation with truthful copy.
+Final activation retains save guard. Local debug/testPASS1m54s before last
+cancellation guard; fresh dual GREEN and bounded review pending. Preserve outgoing draft isolation. Saved profile
 work is already included across both backends; unreadable means unknown.
 Then publishing/candidates, media, recovery, cross-client verification and final
 full checks/reviews remain. No APK or production node/on-chain write.

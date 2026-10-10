@@ -12,6 +12,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -29,6 +32,7 @@ class WalletImport(
     private val currentWallet: () -> SaitoWallet?,
     private val currentBackend: () -> SaitoBackend?,
     private val balances: WalletBalances,
+    private val beforeSelection: suspend () -> Boolean,
     private val activate: suspend (SaitoWallet, SaitoWallet) -> Activation,
     private val chooseDocument: () -> Unit,
 ) {
@@ -57,14 +61,33 @@ class WalletImport(
         if (busy) return
         balanceJob?.cancel()
         readJob?.cancel()
-        val operation = ReadAttempt(currentWallet() ?: return, currentBackend())
-        readingAttempt = operation
+        val original = currentWallet() ?: return
+        val backend = currentBackend()
         candidate = null
         preview = null
         message = null
         busy = true
-        try { chooseDocument() }
-        catch (_: Exception) { finish(operation, R.string.wallet_import_open_failed) }
+        readJob = activity.lifecycleScope.launch {
+            try {
+                // Preview must assess durable outgoing work before the user confirms replacement.
+                val saved = beforeSelection()
+                currentCoroutineContext().ensureActive()
+                if (!saved || currentWallet() !== original || currentBackend() != backend) {
+                    busy = false
+                    message = R.string.wallet_import_work_save_failed
+                    return@launch
+                }
+                val operation = ReadAttempt(original, backend)
+                readingAttempt = operation
+                try { chooseDocument() }
+                catch (_: Exception) { finish(operation, R.string.wallet_import_open_failed) }
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) {
+                currentCoroutineContext().ensureActive()
+                busy = false
+                message = R.string.wallet_import_work_save_failed
+            }
+        }
     }
 
     fun documentChosen(uri: Uri?) {

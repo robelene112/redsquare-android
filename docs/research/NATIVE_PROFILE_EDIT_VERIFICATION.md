@@ -277,3 +277,22 @@ check precedes UI launch. Picker waits for the exact file, not an ambiguous
 provider title, and never uses an unscoped scroll. Initial test assembly PASS
 1m3s before final provider-UID provisioning adjustment; final compilation/RED
 runtime pending. No import preparation fix is implemented yet.
+
+Atf141190 Android17 38094856188 gives intended RED:5 cases/one failure62.919s
+atline275, pending-work warning absent after actual SAF selection and exact
+incoming public-address verification. Other four profile cases pass. Original
+in-scope failure PNG individually inspected shows active outgoing public address,
+correct selected scalar1 backup, replacement detail and required-backup copy,
+with no specific pending-work warning. Separate XML agrees; retained
+profile-import-preview-red/android17. Source38094855735 PASS. Both bounded
+5bbf7d1...f141190 review axes0 findings.
+
+WalletImport now reserves busy state and awaits the mounted editor's durable
+save before document selection. It checks the same wallet object/backend before
+opening SAF, and cancellation cannot launch a picker or reset newer attempt UI.
+Failure reports that local work could not be saved and import has not started.
+Final activation keeps its existing save check. This protects the real existing
+post/profile consumers without copying their persistence logic into wallet UI.
+Local debug/test assembly PASS1m54s before final cancellation guard in the
+exception path; fresh dual final-source runtime and bounded review pending.
+No wallet replacement or on-chain action occurred during the RED tracer.
