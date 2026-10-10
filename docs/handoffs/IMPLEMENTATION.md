@@ -83,7 +83,9 @@ one question at a time when a material choice really needs the owner.
   in38027130575; current discovery actually red. Minimal stream/lookup source
   passes local core/debug/test2m1s; discovery green38027654477 passes2 cases9.894s.
   Invalid-original signed-commentary tracer red27s/green32s. Profile tracer
-  compiles1m5s; focused profile red pending. Quote screenshots now use Compose
+  red38028351952: missing profile quote, publication passes. Compose images
+  show feed original correctly. Minimal dual-stream profile source compiles1m38s;
+  profile green pending. Quote screenshots now use Compose
   forceRedraw/PixelCopy after stale discovery bitmap (not visual acceptance).
   New focused quotes/quotes-android17 scopes and full inclusion are prepared.
   Eleven of35 complete;24 remain. Continue #13 through #36 sequentially without routine

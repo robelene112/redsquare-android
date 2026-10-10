@@ -67,6 +67,16 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
             (view.history.likes + cached.likes).distinctBy { it.id }, cached.unreadable)
         show(saved)
         cacheWarning = saved.unreadable
+        suspend fun publish(freshPosts: List<FeedPost>, freshLikes: List<ProfileLike>) {
+            val merged = AndroidProfileCache.SavedProfile(
+                (freshPosts + view.history.posts + saved.posts).distinctBy { it.id },
+                (freshLikes + view.history.likes + saved.likes).distinctBy { it.id }, false)
+            view.history = merged
+            show(merged)
+            cacheWarning = withContext(Dispatchers.IO) {
+                try { cache.save(merged.posts, merged.likes); false } catch (_: Exception) { true }
+            }
+        }
         try {
             val result = withContext(Dispatchers.IO) {
                 SaitoPeer(wallet, endpoint).use { peer ->
@@ -84,7 +94,17 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
                     }
                     if (tab != ProfileTab.LIKES) {
                         val page = RedSquareFeed.readAuthor(archive(criteria), author)
-                        ProfileHistoryPage(page.posts, emptyList(), page.ignored > 0, page.oldestCreatedAt, page.rowCount)
+                        if (tab == ProfileTab.POSTS) {
+                            withContext(Dispatchers.Main.immediate) { publish(page.posts, emptyList()) }
+                            val quotesCriteria = criteria.deepCopy().apply { addProperty("field1", "RedSquareRetweet") }
+                            val quotePage = RedSquareFeed.readCurrentQuotes(archive(quotesCriteria))
+                            val quotePosts = quotePage.posts.filter { it.author == author }
+                            // A sparse stream must not advance past unread rows in a fuller stream.
+                            val pages = listOf(page, quotePage)
+                            val cursor = pages.filter { it.rowCount >= 20 }.mapNotNull { it.oldestCreatedAt }.maxOrNull()
+                            ProfileHistoryPage(page.posts + quotePosts, emptyList(), page.ignored > 0 || quotePage.ignored > 0,
+                                cursor, maxOf(page.rowCount, quotePage.rowCount))
+                        } else ProfileHistoryPage(page.posts, emptyList(), page.ignored > 0, page.oldestCreatedAt, page.rowCount)
                     } else {
                         val page = RedSquareLikes.readArchive(archive(criteria), author)
                         var ignored = page.ignored > 0
@@ -102,13 +122,7 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
                 }
             }
             social?.observe(result.posts)
-            val merged = AndroidProfileCache.SavedProfile((result.posts + saved.posts).distinctBy { it.id },
-                (result.likes + saved.likes).distinctBy { it.id }, false)
-            view.history = merged
-            cacheWarning = withContext(Dispatchers.IO) {
-                try { cache.save(merged.posts, merged.likes); false } catch (_: Exception) { true }
-            }
-            show(merged)
+            publish(result.posts, result.likes)
             unreadable = result.unreadable
             nextBefore = result.oldestCreatedAt?.takeIf { result.rowCount >= 20 && it < pageCursor }
             pagingUnavailable = result.rowCount >= 20 && nextBefore == null

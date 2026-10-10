@@ -44,3 +44,11 @@ Independent invalid-original tracer actually fails27s, then passes32s after
 retaining independently authenticated commentary while withholding the invalid
 original. Profile discovery tracer and empty quote histories in legacy controlled
 servers prepared; actual profile red pending.
+
+Profile red38028351952 at58d0da3: two cases28.323s, current flow reaches
+Profile but finds no quote atline65; publication still passes. Compose
+forceRedraw/PixelCopy images now visibly show current commentary plus complete
+original in feed, and the empty profile. Actual hosted build1m24s restores
+compilation/resource outputs FROM-CACHE; emulator cases still execute. Saved
+logs/images ticket12/profile-red. Minimal profile quote stream and safe shared
+cursor for sparse/full streams implemented; green pending.
