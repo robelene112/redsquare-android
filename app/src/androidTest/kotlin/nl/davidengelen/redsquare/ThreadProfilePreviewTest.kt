@@ -413,8 +413,12 @@ class ThreadProfilePreviewTest {
                 }
                 // Fresh activity, without retained navigation/history ViewModels.
                 ActivityScenario.launch<MainActivity>(intent).use {
+                    try {
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Native Red Square reference post")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                    ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
                     ui.onNodeWithText("Native Red Square reference post").performClick()
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Conversation")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Independent Saito reply")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     ui.onNodeWithText("Independent Saito reply").assertIsDisplayed()
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText("Nested Saito reply"))
@@ -422,6 +426,10 @@ class ThreadProfilePreviewTest {
                     ui.onNodeWithText("Only available history is shown. Older replies may be missing.").assertIsDisplayed()
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText("Replies could not be refreshed. Available posts remain visible.")).fetchSemanticsNodes().isNotEmpty() }
                     captureFeedEvidence("browse-evidence/cached-conversation-after-restart.png")
+                    } catch (failure: Throwable) {
+                        captureFeedEvidence("browse-evidence/cached-conversation-recovery-first-failure.png")
+                        throw failure
+                    }
                 }
             } catch (failure: Throwable) {
                 captureFeedEvidence("browse-evidence/cached-conversation-first-failure.png")

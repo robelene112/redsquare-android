@@ -49,38 +49,22 @@ one question at a time when a material choice really needs the owner.
   NATIVE_POST_TEXT_POLICY.md and ticket09/REVIEW.md. Stated bitmap limits remain.
   No new APK, production transaction, physical Pixel or push proof.
 - Active #11, "10: Queue posts offline and resume on their original backend".
-  Nine of35 complete;26 remain including active. Review base4bc4cd6;
-  current candidate96d602b (production9ca2205). Existing encrypted records now retain Queued state,
-  exact signed identity and durable availability. Shared local-state lock guards
-  cancellation/delivery claims against wallet/backend changes. Foreground
-  selected-session resumption and WorkManager2.12.0 background scheduling are
-  implemented. Same-signature manual/automatic attempts cannot overlap; an open
-  composer observes authoritative durable progress. Legacy drafts remain readable.
-  Focused38006955485 at6603f2f passes3/3: durable queue/cancel, original-backend
-  resumption and stopped-activity background delivery. Failed-save red38007571494
-  at35287be passes3/4 but exposes false Queued after disk failure. Candidate
-  497920d requires verified queue saving for status, cancellation and scheduling;
-  local debug/test assembly1m29 passes. Focused38008231610 passes4/4, including no false Queued/no transmission after
-  failed saving and repaired Retry. New uncertain-reconciliation test compiles56s;
-  38008923408 was a disconnect-fixture failure (cancel threw NPE). Corrected
-  fixture compiles55s; actual red38009504360 proves missing uncertain reconciliation. A second
-  backend case transmits then times out after unguarded Refresh; readiness wait
-  and failure capture preserve its assertion. Automatic signed-work intent now
-  persists through uncertainty, enabling exact-availability checks and original
-  candidate retries. Local assembly1m30 passes; focused38010212716 passes4/5 including uncertainty reconciliation. Backend
-  feed visibility still fails; inspected image shows older cached posts at the
-  retained list position. Bounded scroll requires target displayed, preserving
-  the assertion. Fixture build54s passes; focused38010789123 passes5/5. Management red38011274167 passes5/6 and
-  proves missing Queued posts entry. Wallet-scoped two-backend overview and atomic
-  queued cancellation implemented; local assembly1m36 passes, focused38011852811 passes6/6 including management/cancellation. Actual queue
-  process-death regression compiles52s; focused38012413217 is pending.
-  Actual process interruption and wallet replacement acceptance plus final full
-  Android10/17/reviews remain incomplete.
-  Details NATIVE_POST_QUEUE_VERIFICATION.md; WorkManager primary-source research
-  ANDROID_POST_QUEUE_BACKGROUND.md; public logs ticket10. Background flow is
-  controlled emulator evidence, not immediate OS/force-stop delivery. No new APK,
-  production transaction or physical Pixel proof. Continue this ticket, then all
-  remaining tickets sequentially.
+  Nine of35 complete;26 remain including active. Base4bc4cd6, reviewed source
+  f03832a. Durable explicit-send intent, safe cancellation, original-wallet/
+  backend delivery, foreground/background recovery and exact original-candidate
+  uncertain reconciliation are implemented. Drafts remain unsent. Focused
+  38013042673 passes7 normal cases54.743s plus actual queue process death/cold
+  delivery. Real SAF wallet replacement pauses outgoing work; test-only original
+  wallet restoration resumes it. Both review axes now0 actionable findings;
+  localcore/debug/test/release/lint4m25s PASS. Full38013725295 passes Android10:78 cases,4 additional intentional kills,
+  posting15/15/queue6/6, both public reads and signed5-to-8. Android17 passes7/8
+  browse then cached-reply timeout; causeunestablished, screenshotafterdisposal.
+  Fixture-only readiness/navigation/in-activity diagnostics compiled1m13s;
+  productionunchanged. FullAndroid17 companion/review required. Do not close.
+  Details NATIVE_POST_QUEUE_VERIFICATION.md, background research and ticket10/
+  REVIEW.md. Cold-recovery image inspected; wallet replacement/restoration
+  bitmaps stale, excluded from visual acceptance. No newAPK, productionTX,
+  physicalPixel or force-stop delivery proof. Continue#11 then#12 through#36.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.

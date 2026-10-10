@@ -14,7 +14,8 @@ No documented-standard violations. Two judgment findings:
   once through the posting class in full verification.
 
 `PostAvailability.kt` and the scope-dependent queue case selection address both.
-Fix review and final runtime acceptance remain pending.
+Both fix-review axes approve `f03832a` with zero actionable findings. Final
+runtime acceptance remains pending.
 
 ## Spec
 
@@ -35,5 +36,10 @@ and retained. Replacement/restoration bitmaps show stale UI despite passing
 identity assertions, so they are excluded from visual acceptance.
 
 Cleanup local core/debug/test/release/lint checks pass in 4m25s. Final full
-Android 10/17 acceptance is pending. No new APK, production transaction or
+Android10 acceptance `38013725295` passes78 completed cases plus4 intentional
+process-kill stages. Android17 stops at cached-thread recovery (7/8 browse
+cases), before queue acceptance. Cause unestablished: failure image captures
+the launcher after disposal. Fixture-only readiness/navigation checks and
+in-activity diagnostics preserve all existing assertions; local assembly1m13s
+passes. Companion full Android17 acceptance remains required. No new APK, production transaction or
 physical Pixel verification is claimed.
