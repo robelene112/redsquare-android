@@ -200,6 +200,7 @@ PY
         adb pull /sdcard/images-failure.xml "$evidence/images-failure.xml" >/dev/null 2>&1 || true
         return 1
     fi
+    python3 "$repo_dir/scripts/image-process-check" --evidence "$evidence/image-process"
 }
 if [[ "${TEST_SCOPE:-full}" == images* ]]; then
     verify_images

@@ -38,7 +38,9 @@ class ImagePostingTest {
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
-        context.noBackupFilesDir.listFiles()?.filter { it.name.startsWith("postdraft.") }
+        context.noBackupFilesDir.listFiles()?.filter { it.name.startsWith("postdraft.") ||
+            it.name.startsWith("feed.") || it.name.startsWith("conversation.") ||
+            it.name.startsWith("profile.") || it.name.startsWith("quoteoriginal.") }
             ?.forEach { check(it.delete()) }
     }
 
@@ -121,6 +123,8 @@ class ImagePostingTest {
                     ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                         .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                         try {
+                            ui.waitUntil(20_000) { peer.requests.get() > 0 &&
+                                ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                             waitFor("Signed image reference")
                             when (kind) {
                                 "post" -> ui.onNode(hasText("New post") and hasClickAction()).performClick()
@@ -138,7 +142,10 @@ class ImagePostingTest {
                             ui.waitUntil(20_000) { ui.onAllNodes(hasText("Remove image 1") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                             assertTrue(peer.transactions.isEmpty())
                             ui.onNode(hasText("Send") and isEnabled()).performClick()
-                            waitFor("Available on this server.")
+                            ui.waitUntil(20_000) {
+                                peer.assertHealthy()
+                                ui.onAllNodesWithText("Available on this server.").fetchSemanticsNodes().isNotEmpty()
+                            }
                             assertEquals(1, peer.transactions.size)
                             peer.assertHealthy()
                             capture("$kind-published.png")
@@ -149,9 +156,11 @@ class ImagePostingTest {
                                 ui.onNodeWithText(text).assertIsDisplayed()
                             } else {
                                 ui.waitUntil(20_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                                val previousRequests = peer.requests.get()
                                 ui.onNodeWithText("Refresh").performClick()
+                                ui.waitUntil(20_000) { peer.requests.get() > previousRequests &&
+                                    ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                                 if (text.isNotEmpty()) {
-                                    waitFor(text)
                                     ui.onNode(hasScrollAction()).performScrollToNode(hasText(text))
                                     ui.onNodeWithText(text).assertIsDisplayed()
                                 }

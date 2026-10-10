@@ -153,3 +153,26 @@ waits for UI idle, captures the drawer hierarchy, reacquires the title and retri
 selection within the original10-second navigation deadline until the same positive
 provider-toolbar observation. In-scope failure XML is retained before cleanup.
 No file timeout, prepared-pixel or zero-transaction assertion was weakened.
+
+Sending checkpoint d8d6bbf: local core/debug/test/release/lint build PASS4m16s
+before the final fixture field/selector adjustments; hosted exact-candidate
+checks remain authoritative. Android10 38063744722 image-only signed post and
+existing display/draft PASS. Real-picker diagnostic XML failed because its parent
+directory did not yet exist; fixed before navigation retry. Quote availability
+passed, then text-only feed wait timed out with viewport on the original's second
+image. Reply timed out at availability; no reply frame capture exists, indicating
+its peer assertion did not finish. Previous cached quote roots can expose the
+same original text before current refresh. Fixture now clears only synthetic
+feed/conversation/profile/quote-original/postdraft records and waits current peer
+requests plus enabled Refresh. Availability wait checks peer failures directly.
+Post-refresh waits current requests and explicitly scrolls the lazy list to the
+quote text. These observations do not establish a production defect or complete
+root cause. Original failed logs/captures remain in GitHub artifacts/scratch.
+
+Recovery tracer uses three real processes: prepare and persist, delete source and
+kill; cold restore pixels/text then uncertain Send and kill; cold recover exact
+candidate, reconcile verified archive without broadcast, clear only after success.
+Local build PASS2m04s; runtime pending. Supplemental spec review0 findings.
+Standards review found early process failures could lose in-scope screenshots;
+fixed by finally capture for all phases and retaining partial stdout/stderr on
+instrumentation errors/timeouts. This is failure observability, not relaxed gates.

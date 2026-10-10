@@ -160,7 +160,7 @@ class ImagePreviewTest {
                         if (android.os.Build.VERSION.SDK_INT < 33) {
                             requireNotNull(device.wait(androidx.test.uiautomator.Until.findObject(androidx.test.uiautomator.By.desc("Show roots")), 10_000)).click()
                             device.waitForIdle(1_000)
-                            device.dumpWindowHierarchy(File(context.cacheDir, "images-evidence/system-picker-drawer.xml"))
+                            device.dumpWindowHierarchy(File(context.cacheDir, "images-evidence/system-picker-drawer.xml").apply { parentFile?.mkdirs() })
                             val title = androidx.test.uiautomator.By.text(ImageTestDocumentsProvider.TITLE)
                             val selectedRoot = androidx.test.uiautomator.By.res("com.android.documentsui", "toolbar")
                                 .hasDescendant(title)
