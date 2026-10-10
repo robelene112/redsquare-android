@@ -39,9 +39,14 @@ then requires its verified snapshot bio and generated avatar with no transaction
 The controlled peer's explicit Profile archive boundary is separate from the
 existing Red Square callbacks; existing trailing-lambda callers retain their
 archive callback. New focused profiles/profiles-android17 scopes do not contact
-public services. Native header implementation is absent; runtimeRED is pending.
+public services. Android17 run38089539658 at73f0e17 fails the exact signed-bio wait32.732s.
+Its original in-scope bitmap and separate XML establish the correct author
+profile, with bio/avatar absent. Retained ticket17/profile-reader-red/android17.
+The minimal native signed-details/header implementation is now being built;
+no runtimeGREEN or editor/image UI proof yet.
 
 #17 remains open with an unresolved actual-provider playback blocker. Its two
-immutable full regression runs at534330e are pending; continuing this independent
-ticket does not accept #17 or its earlier failed full runs. No review APK or
+immutable full regression runs38088542044/38088569769 at534330e PASS127 cases
+each; continuing this independent ticket does not accept #17 or its earlier
+failed full runs and those old runs do not prove the new profile implementation. No review APK or
 node/wallet/store change.

@@ -48,7 +48,32 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
     var requestedBefore by remember(author, tab) { mutableLongStateOf(System.currentTimeMillis() + 1) }
     var nextBefore by remember(author, tab) { mutableStateOf<Long?>(null) }
     var pagingUnavailable by remember(author, tab) { mutableStateOf(false) }
+    var profile by remember(author, backend) { mutableStateOf<SaitoProfile?>(null) }
+    var profileLoading by remember(author, backend) { mutableStateOf(false) }
+    var profileFailed by remember(author, backend) { mutableStateOf(false) }
     BackHandler(onBack = onBack)
+    LaunchedEffect(wallet, endpoint, author, refresh) {
+        if (wallet == null) return@LaunchedEffect
+        profileLoading = true
+        try {
+            profile = withContext(Dispatchers.IO) {
+                SaitoPeer(wallet, endpoint).use { peer ->
+                    val request = JsonObject().apply {
+                        addProperty("request", "archive")
+                        add("data", JsonObject().apply {
+                            addProperty("request", "load"); addProperty("field1", "Profile")
+                            addProperty("field2", author); addProperty("limit", 100)
+                        })
+                    }
+                    SaitoProfiles.readArchive(peer.request(request.toString().toByteArray(Charsets.UTF_8))
+                        .toString(Charsets.UTF_8), author)
+                }
+            }
+            profileFailed = false
+        } catch (cancelled: CancellationException) { throw cancelled }
+        catch (_: Exception) { profileFailed = true }
+        finally { profileLoading = false }
+    }
     LaunchedEffect(wallet, endpoint, author, tab, refresh) {
         if (wallet == null) { loading = false; return@LaunchedEffect }
         loading = true
@@ -148,8 +173,18 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
             TextButton(enabled = wallet != null && !loading,
                 onClick = { requestedBefore = System.currentTimeMillis() + 1; refresh++ }) { Text(stringResource(R.string.feed_refresh)) }
         }
-        Text("Anon-${author.take(6)}", style = MaterialTheme.typography.titleMedium)
-        Text(author, style = MaterialTheme.typography.labelSmall)
+        Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            GeneratedProfilePicture(author, Modifier.size(48.dp))
+            Column(Modifier.weight(1f)) {
+                Text("Anon-${author.take(6)}", style = MaterialTheme.typography.titleMedium)
+                Text(author, style = MaterialTheme.typography.labelSmall)
+            }
+        }
+        profile?.description?.takeIf { it.isNotEmpty() }?.let {
+            Text(it, Modifier.padding(vertical = 8.dp), style = MaterialTheme.typography.bodyMedium)
+        }
+        if (profileLoading) Text(stringResource(R.string.profile_details_loading))
+        if (profileFailed) Text(stringResource(R.string.profile_details_error))
         FollowingStatus(following)
         Row {
             ProfileTab.entries.forEach { item ->

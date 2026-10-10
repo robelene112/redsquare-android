@@ -13,11 +13,14 @@ Use NATIVE_PROFILE_EDIT_CONTRACT.md and NATIVE_PROFILE_EDIT_VERIFICATION.md.
 First independent signed-snapshot tracer is compileRED22s because reader absent;
 minimal reader focusedGREEN42s; complete-snapshot senderGREEN40s, numeric marker
 reconstructionRED25s/GREEN30s, pinned-avatarRED20s/GREEN43s. All48core/debug/test
-assemblyPASS1m58s. First Android profile header/bio/avatar runtimeRED pending;
-native profile metadata/editor/image UI is not implemented yet.
+assemblyPASS1m58s. First Android profile reader run38089539658 at73f0e17 is runtimeRED32.732s
+at the exact signed-bio wait, with the correct author profile visible in the
+original in-scope bitmap. Native header implementation/build is in progress;
+editor/image UI is not implemented yet.
 Only profile fields and public reference inputs;
 no production publication or app/node wallet reads. #17 stays open with actual
-provider acceptance unproved; its immutable full534330e pair remains pending.
+provider acceptance unproved. Its immutable full534330e pair PASS127 cases
+each; this does not prove subsequent #18 changes or real provider playback.
 
 Ticket #15 is complete after final source/fixture/evidence reviews: both axes
 zero remaining findings through2829329. Full Android10 38075318198 atd35f965
@@ -68,8 +71,12 @@ Android10 companion38087989539 also fails the same pre-scroll first case,
 3/4 videos pass40.199s; browse8/8 pass15.281s. Its original PNG likewise shows
 cached queued content. Corrected focused17 run38088217096 at534330e PASS4
 cases66.007s. Original tapped-player PNG shows ready controlled-provider text,
-not real media. New full17/10 runs38088542044/38088569769 at534330e are pending,
-with public Saito reads enabled; neither prior failed full run is accepted.
+not real media. New full17/10 runs38088542044/38088569769 at534330e PASS127 completed
+cases/36 records/11 actual interruptions each, core44/build/release/lint,
+both public Saito reads, cached cold launches and signed5-to8 continuity.
+Selected originals individually inspected; incomplete official-feed bitmaps on
+both versions and10 player header are excluded from visual acceptance, cause
+unestablished. Neither prior failed full run is accepted.
 Both source/fixture review axes0 through534330e. No further #17 source edits are
 planned without new evidence. Continue the independently unblocked #18 next,
 while those immutable regression runs finish. CDP reads only allowed public frame DOM;
