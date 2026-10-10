@@ -57,7 +57,10 @@ other4pass. Captured Downloads/Show roots, not app preview. Test now positively
 waits provider drawer row and reobserves state, unchanged30s bound/assertions.
 Corrected17 runtime pending. Preserve outgoing draft isolation. Saved profile
 work is already included across both backends; unreadable means unknown.
-Then publishing/candidates, media, recovery, cross-client verification and final
+Added failed-save import regression: preserve encrypted file, obstruct actual
+base directory after editor loads, assert picker stays closed and text retained,
+repair then actual SAF retry/fresh-Activity restoration. Local buildPASS1m52s;
+six-case native run and bounded review pending. Then publishing/candidates, media, recovery, cross-client verification and final
 full checks/reviews remain. No APK or production node/on-chain write.
 
 #17 remains open for actual YouTube provider playback acceptance. Its full

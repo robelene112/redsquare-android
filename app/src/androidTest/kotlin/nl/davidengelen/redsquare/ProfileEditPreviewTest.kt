@@ -322,6 +322,107 @@ class ProfileEditPreviewTest {
         error("Profile reference import document was not displayed")
     }
 
+    @Test fun failedBioSavingKeepsWalletImportClosedAndCanBeRetriedWithoutLosingWork() {
+        val device = UiDevice.getInstance(instrumentation)
+        check(device.executeShellCommand("run-as nl.davidengelen.redsquare.dev.test stat -c %s files/wallet-test-documents/00-profile-import.json")
+            .trim().toLongOrNull()?.let { it > 0 } == true) { "Profile import fixture was not provisioned" }
+        val owner = AndroidWalletStore(context).loadOrCreate().publicKey
+        val initial = "Previously saved bio"
+        val edited = "Keep this newer bio 🌱\nA failed save must not start import"
+        val draft = File(context.noBackupFilesDir, "profiledraft.owner.$owner.v1")
+        val preserved = File(context.cacheDir, "profile-import-preserved-draft")
+        check(!preserved.exists()) { "Previous storage fixture was not restored" }
+        val peer = ControlledFeedPeer("[]", profileArchiveResponse = { "[]" }, archiveResponse = { "[]" })
+        peer.start().use { server ->
+            val intent = Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                .putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
+            ActivityScenario.launch<MainActivity>(intent).use {
+                var primary: Throwable? = null
+                try {
+                    ui.waitUntil(20_000) { peer.requests.get() >= 2 &&
+                        ui.onAllNodesWithText(context.getString(R.string.feed_loading)).fetchSemanticsNodes().isEmpty() &&
+                        ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
+                    ui.onNodeWithText("Your profile").performClick()
+                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("Edit profile") and hasClickAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("Edit profile").performClick()
+                    ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNode(hasSetTextAction()).performTextReplacement(initial)
+                    ui.onNodeWithText("Save draft").performClick()
+                    ui.waitUntil(10_000) { ui.onAllNodes(hasText("Edit profile") and hasClickAction()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("Edit profile").performClick()
+                    ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNode(hasSetTextAction()).assert(
+                        SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(initial)))
+                    ui.onNode(hasSetTextAction()).performTextReplacement(edited)
+                    // Obstruct the actual AtomicFile base after loading. Preserve the previous encrypted file.
+                    check(draft.isFile && draft.renameTo(preserved))
+                    check(draft.mkdir())
+                    ui.onNodeWithText("Wallet").performClick()
+                    ui.onNodeWithText("Import wallet").performScrollTo().performClick()
+                    val failed = context.getString(R.string.wallet_import_work_save_failed)
+                    ui.waitUntil(10_000) { ui.onAllNodesWithText(failed).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText(failed).performScrollTo().assertIsDisplayed()
+                    ui.onNodeWithText("Import wallet").assertIsEnabled()
+                    assertEquals(context.packageName, device.currentPackageName)
+                    ui.onAllNodesWithContentDescription(context.getString(R.string.wallet_import_address)).assertCountEquals(0)
+                    assertEquals(owner, displayedWalletAddress(ui))
+                    capture("failed-bio-save-import-blocked.png")
+                    ui.onNodeWithText("Done").performClick()
+                    ui.onNode(hasSetTextAction()).assert(
+                        SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(edited)))
+                    check(draft.delete() && preserved.renameTo(draft))
+                    ui.onNodeWithText("Wallet").performClick()
+                    ui.onNodeWithText("Import wallet").performScrollTo().performClick()
+                    chooseProfileImport("00-profile-import.json")
+                    val selected = context.getString(R.string.wallet_import_address)
+                    ui.waitUntil(15_000) { ui.onAllNodesWithContentDescription(selected).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithContentDescription(selected).assertTextEquals("jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR")
+                    assertEquals(owner, displayedWalletAddress(ui))
+                    ui.onNodeWithText("Done").performClick()
+                    ui.onNode(hasSetTextAction()).assert(
+                        SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(edited)))
+                    assertTrue(peer.transactions.isEmpty())
+                    peer.assertHealthy()
+                } catch (failure: Throwable) {
+                    primary = failure
+                    try { capture("failed-bio-save-import-failure.png") }
+                    catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
+                    throw failure
+                } finally {
+                    try {
+                        if (preserved.exists()) {
+                            check(!draft.exists() || draft.isDirectory && draft.delete())
+                            check(preserved.renameTo(draft))
+                        }
+                    } catch (cleanup: Throwable) {
+                        if (primary != null) primary.addSuppressed(cleanup) else throw cleanup
+                    }
+                }
+            }
+            ActivityScenario.launch<MainActivity>(intent).use {
+                try {
+                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("Your profile").performClick()
+                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("Edit profile") and hasClickAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("Edit profile").performClick()
+                    ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNode(hasSetTextAction()).assert(
+                        SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(edited)))
+                    assertEquals(owner, AndroidWalletStore(context).loadExisting().publicKey)
+                    capture("failed-bio-save-import-recovered.png")
+                    assertTrue(peer.transactions.isEmpty())
+                    peer.assertHealthy()
+                } catch (failure: Throwable) {
+                    try { capture("failed-bio-save-import-recovery-failure.png") }
+                    catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
+                    throw failure
+                }
+            }
+        }
+    }
+
     private fun openReferenceAuthor(author: String) {
         if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
         val post = hasText("Native Red Square reference post")

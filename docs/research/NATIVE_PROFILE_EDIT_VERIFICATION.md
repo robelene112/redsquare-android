@@ -312,3 +312,17 @@ The helper no longer remembers an attempted drawer click as successful forever.
 It waits for the exact provider row after Show roots, reobserves actual picker
 state within the same30s bound, and succeeds only on the exact document click.
 No production code or acceptance assertion changed; corrected17 runtime pending.
+
+Next native regression covers a real save failure at the agreed filesystem/UI
+boundaries. It first saves and reloads an older bio, types newer work, preserves
+the actual encrypted draft file and obstructs its AtomicFile base with a
+directory. Import must show the save-failed message without opening SAF or
+exposing a selected identity. Cancelling retains the exact edited Unicode bio.
+After repairing storage, the same Import action must open actual SAF, show the
+independent scalar1 public address and leave the outgoing identity unchanged.
+A fresh Activity must restore the newer bio saved during retry. All obstruction
+cleanup preserves the primary assertion failure. Guards restrict this to the
+dev package/emulator; no wallet is replaced or transaction broadcast. Local
+debug/test assembly PASS1m52s; six-case native runtime and bounded review pending.
+This is a failure/recovery regression for the existing3d8c9db save guard, not
+a new publishing behavior.
