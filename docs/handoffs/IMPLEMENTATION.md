@@ -22,12 +22,13 @@ focused38083557172 passes all4 controlled UI cases24.422s: tap-only provider
 contact, rotation/size recovery, thread/error/retry/external recovery, trusted
 play/background pause/cue-only recreation. Native status observes documented
 provider events without starting playback or exposing wallet capabilities.
-Original paused/recreated PNGs show black surfaces; separate later XML exposes
-controlled buttons. Retained lifecycle-green-android10; no actual media claim.
+Original paused PNG shows ready copy and a black surface; recreation PNG shows
+a black app window/status bar. Separate later XML exposes controlled buttons. Retained lifecycle-green-android10; no actual media claim.
 Bounded Standards review0; Spec found later ready/state events can erase an
 error before polling. Existing recovery fixture is strengthened to emit153,
-state5 and ready in one callback tick. Production stays unchanged for the next
-RED. Fix/review/controlled GREEN, separate opt-in real provider read, final
+state5 and ready in one callback tick. Actual RED38083896709 at688aefa fails the153 observation after20s with native
+ready in later XML. Guards now keep errors terminal until explicit Retry; local
+compile and focused GREEN are pending. Fix/review/controlled GREEN, separate opt-in real provider read, final
 full10/17 acceptance and final two-axis review remain required. Earlier failed
 and incomplete runs are recorded in NATIVE_VIDEO_VERIFICATION.md. No new APK.
 

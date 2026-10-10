@@ -205,11 +205,22 @@ Background/recreation GREEN remains pending.
 Lifecycle GREEN38083557172 at16b97ba: four Android10 cases24.422s, including
 trusted provider tap, native playing, background pause without a new request,
 and cue-only recreation with exactly two requests. Original paused/recreated
-PNGs were inspected separately and show black player surfaces with native ready
-copy; their later XML captures expose Paused controlled video and Play controlled
-video respectively. The assertions establish the controlled lifecycle behavior;
+PNGs were inspected separately: paused-player shows a black player surface
+with native ready copy; recreated-player shows a black app window with the system
+status bar. Its cause is unestablished. Later XML captures expose Paused
+controlled video and Play controlled video respectively; recreation readiness
+is established by the successful assertions and later XML, not its bitmap. The assertions establish the controlled lifecycle behavior;
 the bitmaps do not depict real YouTube media. Evidence: lifecycle-green-android10.
 Bounded93d582a...16b97ba Standards review0; Spec identified a provider error
 that subsequent state/ready events could erase before the500ms native poll.
 The existing recovery tracer now emits153, then state5 and ready in one callback
 tick, requiring the same error/Retry UI. Production is unchanged for this RED.
+
+Sticky-error RED38083896709 at688aefa: four Android10 cases41.672s, three
+pass. Thread recovery fails line205 after20s waiting for153, with two provider
+requests and one thread read. Original failure PNG is mostly black with an
+external-link control; separately captured XML reports native ready copy, no
+error/Retry. Retained sticky-error-red. The minimal source fix guards state
+updates after error and guards ready both before and after cueVideoById, preserving
+a synchronous cue error too. Explicit Retry creates a fresh browser attempt.
+Actual GREEN is pending; no automatic play or private bridge was added.

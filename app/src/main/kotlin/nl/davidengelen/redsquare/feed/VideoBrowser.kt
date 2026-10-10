@@ -130,8 +130,14 @@ internal class VideoBrowser(context: Context, video: YouTubeVideo, fixture: Stri
             function onYouTubeIframeAPIReady(){
               try { window.rsPlayer=new YT.Player('player',{width:'100%',height:'100%',videoId:'${video.id}',
                 playerVars:{autoplay:0,playsinline:1,origin:'$origin'},events:{
-                  onReady:function(e){try{e.target.cueVideoById('${video.id}');window.rsVideo={state:'ready',code:0}}catch(err){window.rsVideo={state:'error',code:5}}},
+                  onReady:function(e){
+                    if(window.rsVideo.state==='error')return;
+                    try{e.target.cueVideoById('${video.id}');
+                      if(window.rsVideo.state!=='error'){window.rsVideo={state:'ready',code:0}}
+                    }catch(err){window.rsVideo={state:'error',code:5}}
+                  },
                   onStateChange:function(e){
+                    if(window.rsVideo.state==='error')return;
                     if(e.data===1){window.rsVideo={state:'playing',code:0}}
                     else if(e.data===0||e.data===2||e.data===5){window.rsVideo={state:'ready',code:0}}
                   },

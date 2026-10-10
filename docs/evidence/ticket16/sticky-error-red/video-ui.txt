@@ -1,0 +1,90 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.VideoPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.VideoPreviewTest:
+INSTRUMENTATION_STATUS: test=videoContactsProviderOnlyAfterTapAndClosingPreservesThePost
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.VideoPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=videoContactsProviderOnlyAfterTapAndClosingPreservesThePost
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.VideoPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=selectedVideoSurvivesRotationWithAnExternalFallbackInSmallWindows
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.VideoPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=selectedVideoSurvivesRotationWithAnExternalFallbackInSmallWindows
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.VideoPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aThreadVideoCanRetryProviderFailuresAndOpenItsCanonicalExternalLink
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.VideoPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.VideoPreviewTest.aThreadVideoCanRetryProviderFailuresAndOpenItsCanonicalExternalLink(VideoPreviewTest.kt:205)
+	Suppressed: java.lang.AssertionError: Provider requests 2; thread reads 1
+		at nl.davidengelen.redsquare.VideoPreviewTest.aThreadVideoCanRetryProviderFailuresAndOpenItsCanonicalExternalLink(VideoPreviewTest.kt:221)
+
+INSTRUMENTATION_STATUS: stream=
+Error in aThreadVideoCanRetryProviderFailuresAndOpenItsCanonicalExternalLink(nl.davidengelen.redsquare.VideoPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.VideoPreviewTest.aThreadVideoCanRetryProviderFailuresAndOpenItsCanonicalExternalLink(VideoPreviewTest.kt:205)
+	Suppressed: java.lang.AssertionError: Provider requests 2; thread reads 1
+		at nl.davidengelen.redsquare.VideoPreviewTest.aThreadVideoCanRetryProviderFailuresAndOpenItsCanonicalExternalLink(VideoPreviewTest.kt:221)
+
+INSTRUMENTATION_STATUS: test=aThreadVideoCanRetryProviderFailuresAndOpenItsCanonicalExternalLink
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.VideoPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=userPlaybackPausesInTheBackgroundAndRecreationDoesNotAutoplay
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.VideoPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=userPlaybackPausesInTheBackgroundAndRecreationDoesNotAutoplay
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 41.672
+There was 1 failure:
+1) aThreadVideoCanRetryProviderFailuresAndOpenItsCanonicalExternalLink(nl.davidengelen.redsquare.VideoPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.VideoPreviewTest.aThreadVideoCanRetryProviderFailuresAndOpenItsCanonicalExternalLink(VideoPreviewTest.kt:205)
+	Suppressed: java.lang.AssertionError: Provider requests 2; thread reads 1
+		at nl.davidengelen.redsquare.VideoPreviewTest.aThreadVideoCanRetryProviderFailuresAndOpenItsCanonicalExternalLink(VideoPreviewTest.kt:221)
+		... 65 more
+
+FAILURES!!!
+Tests run: 4,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
