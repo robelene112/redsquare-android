@@ -150,6 +150,47 @@ class SocialPreviewTest {
         recoverUncertainAction("like tweet", "RedSquareLike", "Like", "Retry like", "Liked")
     }
 
+    @Test fun unavailableFreshCountsDoNotTurnAVerifiedLikeIntoAnImpossibleRetry() {
+        val root = InstrumentationRegistry.getInstrumentation().context.assets.open("native-feed-reference.json")
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow") }
+        val indexed = AtomicReference<JsonObject?>()
+        val peer = ControlledFeedPeer("[]", onTransaction = { frame ->
+            val candidate = postingTransaction(frame)
+            val action = SaitoEnvelope.decode(candidate.envelope())
+            indexed.set(JsonObject().apply {
+                addProperty("sig", action.id); addProperty("field1", "RedSquareLike")
+                addProperty("field2", action.author); addProperty("field4", root.get("sig").asString)
+                addProperty("created_at", action.createdAt); addProperty("tx", candidate.envelope())
+            })
+        }, archiveResponse = { criteria ->
+            when {
+                criteria.get("field1").asString == "RedSquareLike" -> indexed.get()?.let { "[$it]" } ?: "[]"
+                criteria.has("sig") -> "not an archive response"
+                else -> "[$root]"
+            }
+        })
+        peer.start().use { server ->
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                try {
+                    waitFor("Native Red Square reference post")
+                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("Like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("Like").performClick()
+                    waitFor("Liked")
+                    waitFor("Could not refresh counts. Refresh this view to try again.")
+                    ui.onNodeWithText("Could not finish this action. Retry checks the original action before sending it again.").assertDoesNotExist()
+                    ui.onNodeWithText("Liked").assertIsNotEnabled()
+                    assertEquals(1, peer.transactions.size)
+                    peer.assertHealthy()
+                    captureFeedEvidence("social-evidence/verified-like-count-refresh-warning.png")
+                } catch (failure: Throwable) {
+                    captureFeedEvidence("social-evidence/count-refresh-failure.png")
+                    throw failure
+                }
+            }
+        }
+    }
+
     @Test fun uncertainRepostRetryAfterReopeningChecksTheOriginalActionWithoutRebroadcast() {
         recoverUncertainAction("retweet", "RedSquareRetweet", "Repost", "Retry repost", "Reposted")
     }
