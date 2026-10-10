@@ -15,8 +15,9 @@ Quote deletion preserves commentary and displays Original unavailable. Edit/dele
 cold recovery shows truthful reconciled status. Both current public screenshots
 show their correct selected server labels; public availability is not chain proof.
 
-Companion Android10 full38056769062 failed before its cache obstruction at an
-unscrolled retained-history root assertion. Test-only2f50ac6 waits for that peer's
+Companion Android10 full38056769062 failed before its cache obstruction at its
+initial root lookup amid newer retained history. An offscreen root is a supported
+explanation, without an independent request/cache trace. Test-only2f50ac6 waits for that peer's
 response and enabled Refresh, then scrolls the exact root before the unchanged
 assertion. All downstream failure/recovery assertions remain. Production source,
 build configuration, scripts and workflow are identical between4513c4b and2f50ac6.

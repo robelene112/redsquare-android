@@ -11,7 +11,8 @@ intentional process interruptions, both public reads, cold-cache/wallet recovery
 and signed5-to-8 continuity. Downloaded logs counted and selected images inspected;
 retained full-android17/ with explicit bitmap limits. Android10 full38056769062
 passed author6/quotes7 and all process recoveries, then failed before the cache
-obstruction because the requested authentic root was outside the lazy viewport.
+obstruction: initial root lookup timed out amid newer retained cached history.
+An offscreen root is the supported explanation, without an independent trace.
 2f50ac6 waits for the controlled peer and enabled Refresh, scrolls the exact root,
 then retains all original display/warning/recovery assertions. Both fixture review
 axes0, local test compilation PASS1m. Source evidence supports retained-history

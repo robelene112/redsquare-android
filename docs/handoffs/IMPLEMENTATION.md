@@ -119,7 +119,8 @@ one question at a time when a material choice really needs the owner.
   cases in31 logs, eight intentional process interruptions, both public reads,
   cold-cache/wallet and signed5-to-8 continuity. Logs counted/images inspected
   and retained full-android17/ with bitmap limits. Android10 full38056769062
-  fails before its cache obstruction on an offscreen root amid retained history.
+  fails before its cache obstruction at initial root lookup amid retained history.
+  An offscreen root is the supported explanation, without independent tracing.
   Fixture-only2f50ac6 waits for this peer/refresh readiness and scrolls the exact
   root before unchanged display/warning/recovery assertions. Bothreviewaxes0,
   local compile PASS1m. Repopulation hypothesis unproved. Production/build/
