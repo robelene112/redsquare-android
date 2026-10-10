@@ -45,3 +45,18 @@ acceptance remains required at ticket completion. It also excludes
 `posting-android17` from the SDK29 stage. Device-job parallelization is still
 a proposal, not implemented or verified. No emulator timeout or success gate
 was relaxed. Verify the actual source-only push and later full dispatch.
+
+## Split full scopes, 2026-10-10
+
+Commit7dcea19 adds `full-android10`, mapping to the unchanged harness `full`
+scope and excluding SDK37.0. Existing `full` still runs both SDKs sequentially;
+`full-android17` still runs only37.0. This smaller option allows concurrent same-
+commit full runs without the APK-transfer architecture proposed above. Each
+runner separately checks core/source/debug/test/release/lint and its complete
+device suite. It may duplicate build minutes; no byte-identical runner APK claim.
+All28 declared scope SDK selections were checked, YAML parses and whitespace
+checks pass. Both supplemental review axes0 actionable.
+
+Full pair38056259800 (Android10) and38056261794 (Android17), same7dcea19 SHA,
+was dispatched with public_feed_read=true. Actual both-SDK acceptance, cases,
+recoveries, public reads and observed elapsed savings remain pending.

@@ -350,3 +350,14 @@ title/list assertions before scrolling. This is an app layout correction, not
 another fixture-only change. Prior focused author source remains historical;
 new source needs focused and full Android10/17 acceptance. Captures and static
 progress retained in ticket13/own-conversation-layout-failure/. No ticket closure.
+
+The layout sourcea545b94 passes local core/debug/test/release/lint4m27s and
+both supplemental review axes0. Focused quotes38055970805/38055973203 PASS
+seven cases15.585/62.655s and real cold recovery3.906/3.642s on Android10/17.
+All publication phase markers complete; both inspected conversation images show
+title, commentary and quoted original. Evidence conversation-layout-android10-
+green/conversation-layout-android17-green. CI7dcea19 adds full-android10 mapped
+to harnessfull, enabling concurrent full10/17 without removing checks. All28
+scope mappings/YAML/whitespace pass; both CI review axes0. Full pair38056259800/
+38056261794 sameSHA7dcea19 dispatched with both public reads enabled. Pending
+actual case/recovery/public-read/source acceptance, no closure/newAPK.
