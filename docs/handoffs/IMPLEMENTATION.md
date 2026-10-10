@@ -100,7 +100,22 @@ one question at a time when a material choice really needs the owner.
   debug/test assembly1m48s. UI actuallyred38034150449 after3 fixture navigation
   failures; log and inspected own-conversation screenshot retained ticket13.
   Native author-only edit screen/candidate storage/retry/reconciliation at
-  a2f50e6 passes localcore28/debug/test1m48s; focusedfirstgreen38034593176pending.
+  a2f50e6 passes localcore28/debug/test1m48s; focusedfirstgreen38034593176PASS
+  Android10 6.178s, inspectedprofileeditedtextcorrect. Saving/callback guards and
+  immutable snapshot reviewfixes in0650743 confirmedresolved. StalecacheRED
+  38034937825;322177c newest signededit merges pass localcore29/debug/test2m6s.
+  CacheGREEN38035438325 andpush38035437877 refusedbeforestart dueGitHubbilling.
+  Owneraskedasyncbillingfix; do not change spending/accounts/repo visibility.
+  BoundedlocalsoftwareAndroid10fallback endedexit1 afterinstrumentation timeout:
+  bothAPKsinstalled,0testoutput,noproof. Containerremoved,about13min, noKVM,
+ 1.5CPU/3GiB/networknone,noconcurrentbuild. Do not use asordinarytestloop.
+  AtomicPublicStringStore.update cache-racefix reviewed0, buildcore30/debug/test
+ 1m52s afteremulatorterminated. Delete-reader actualRED27s expected0ignored/actual2,
+  GREEN41s; commands separatedwithouttargetremoval. Author/target pairing API
+  initialcompilationRED22s missingAPI; fullcore32/debug/testGREEN1m58s after
+  verifier. UI deletion/tombstones/reconciliation remainincomplete.
+  Preparednativeframeverifier/receivermode unexecuted. Details
+  NATIVE_AUTHOR_ACTIONS_VERIFICATION.md. Ticket14 stillincomplete.
   PostDraftStore author factory validates signedowner/target/kind/text before
   write, rejects queued/automatic author operations; preliminaryreviewfinding
   fixed/confirmed0. Offline pinned A/B server receivers pass referenceedit/delete

@@ -81,6 +81,9 @@ internal class PublicStringStore(context: Context, name: String, private val max
         }
     }
 
+    /** Serialize read, feature validation/merge and commit across all store instances. */
+    fun update(merge: (Loaded) -> List<String>) = synchronized(lock) { save(merge(load())) }
+
     companion object {
         private const val MAX_BYTES = 16 * 1024 * 1024
         private val lock = Any()

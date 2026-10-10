@@ -18,8 +18,9 @@ class AndroidFeedCache(context: Context, backend: SaitoBackend, private val thre
     }, MAX_POSTS)
     data class SavedPosts(val posts: List<FeedPost>, val unreadable: Boolean)
 
-    fun load(): SavedPosts {
-        val saved = storage.load()
+    fun load(): SavedPosts = decode(storage.load())
+
+    private fun decode(saved: PublicStringStore.Loaded): SavedPosts {
         var unreadable = saved.unreadable
         val posts = saved.values.mapNotNull { envelope ->
             try { RedSquareFeed.decode(envelope).takeIf { post ->
@@ -29,8 +30,9 @@ class AndroidFeedCache(context: Context, backend: SaitoBackend, private val thre
         return SavedPosts(RedSquareFeed.newest(posts).sortedByDescending { it.createdAt }, unreadable)
     }
 
-    fun save(posts: List<FeedPost>) = storage.save(
-        RedSquareFeed.newest(posts + load().posts).sortedByDescending { it.createdAt }.map { it.envelope })
+    fun save(posts: List<FeedPost>) = storage.update { saved ->
+        RedSquareFeed.newest(posts + decode(saved).posts).sortedByDescending { it.createdAt }.map { it.envelope }
+    }
 
     companion object { const val MAX_POSTS = 100 }
 }

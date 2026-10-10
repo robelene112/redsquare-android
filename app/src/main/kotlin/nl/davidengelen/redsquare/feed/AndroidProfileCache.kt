@@ -8,8 +8,9 @@ internal class AndroidProfileCache(context: Context, backend: SaitoBackend) {
     private val storage = PublicStringStore(context, "profile.${backend.id}.v1", 200)
     data class SavedProfile(val posts: List<FeedPost>, val likes: List<ProfileLike>, val unreadable: Boolean)
 
-    fun load(): SavedProfile {
-        val saved = storage.load()
+    fun load(): SavedProfile = decode(storage.load())
+
+    private fun decode(saved: PublicStringStore.Loaded): SavedProfile {
         val posts = mutableListOf<FeedPost>()
         val likes = mutableListOf<ProfileLike>()
         var unreadable = saved.unreadable
@@ -23,8 +24,9 @@ internal class AndroidProfileCache(context: Context, backend: SaitoBackend) {
         return SavedProfile(RedSquareFeed.newest(posts), likes.distinctBy { it.id }, unreadable)
     }
 
-    fun save(posts: List<FeedPost>, likes: List<ProfileLike>) = storage.save(
-        (RedSquareFeed.newest(posts + load().posts).map { it.createdAt to it.envelope } +
+    fun save(posts: List<FeedPost>, likes: List<ProfileLike>) = storage.update { saved ->
+        (RedSquareFeed.newest(posts + decode(saved).posts).map { it.createdAt to it.envelope } +
             likes.distinctBy { it.id }.map { it.createdAt to it.envelope })
-            .sortedByDescending { it.first }.map { it.second })
+            .sortedByDescending { it.first }.map { it.second }
+    }
 }

@@ -38,4 +38,11 @@ object RedSquareAuthorActions {
         decode(nested.asString).takeIf { it.kind == AuthorActionKind.EDIT && it.author == original.author &&
             it.target == original.id && it.createdAt > 0 }
     } catch (_: Exception) { null }
+
+    /** Archive command presence supplies intent, authorized only by the original signed identity. */
+    fun deletion(originalEnvelope: String, commandEnvelope: String): AuthorAction? = try {
+        val original = RedSquareFeed.decode(originalEnvelope)
+        decode(commandEnvelope).takeIf { it.kind == AuthorActionKind.DELETE &&
+            it.author == original.author && it.target == original.id }
+    } catch (_: Exception) { null }
 }

@@ -17,7 +17,8 @@ data class FeedPost(
     val edit: AuthorAction? = null,
 )
 
-data class ArchiveFeedPage(val posts: List<FeedPost>, val oldestCreatedAt: Long?, val rowCount: Int, val ignored: Int)
+data class ArchiveFeedPage(val posts: List<FeedPost>, val oldestCreatedAt: Long?, val rowCount: Int, val ignored: Int,
+    val deletions: List<AuthorAction> = emptyList())
 
 object RedSquareFeed {
     /** Keep the newest authenticated edit; equal versions retain incoming archive metadata. */
@@ -54,8 +55,17 @@ object RedSquareFeed {
         readPosts(response) { it.id == signature }
 
     private fun readPosts(response: String, accepts: (FeedPost) -> Boolean): ArchiveFeedPage {
-        val page = readArchiveRows(response, ::decode, accepts) { it.id }
-        return ArchiveFeedPage(page.entries, page.oldestCreatedAt, page.rowCount, page.ignored)
+        data class Row(val post: FeedPost? = null, val deletion: AuthorAction? = null)
+        val page = readArchiveRows(response, { envelope ->
+            try { Row(post = decode(envelope)) }
+            catch (_: Exception) {
+                val action = RedSquareAuthorActions.decode(envelope)
+                require(action.kind == AuthorActionKind.DELETE)
+                Row(deletion = action)
+            }
+        }, { row -> row.post?.let(accepts) ?: true }, { row -> row.post?.id ?: row.deletion!!.id })
+        return ArchiveFeedPage(page.entries.mapNotNull { it.post }, page.oldestCreatedAt, page.rowCount, page.ignored,
+            page.entries.mapNotNull { it.deletion })
     }
 
     private val signaturePattern = Regex("[0-9a-f]{128}")

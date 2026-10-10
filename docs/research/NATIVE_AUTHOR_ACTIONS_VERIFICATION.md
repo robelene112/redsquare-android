@@ -30,8 +30,58 @@ a2f50e6 adds author-only editing in the conversation, encrypted candidate storag
 active identity/backend checks before transmission, exact nested-edit observation
 and original-candidate retries. Newer conflicting edits retain authored text and
 show explicit conflict status; resolution controls remain planned. Local core28,
-debug/test assembly pass1m48s; focused first-green38034593176 pending. Deletion,
+debug/test assembly pass1m48s; focused first-green38034593176 passes6.178s on
+Android10. The thread/feed/profile text and original identity checks pass;
+inspected profile screenshot shows edited text. Retained ticket13/edit-first-green.
+Navigation-save reviewfinding fixed in8a680d9/0650743: saving gates input and
+actions, callback itself rejects queued input, immutable snapshot precedes IO.
+Both source axes confirm resolved. This firstgreen predates those fixes.
+Deletion,
 global cache ordering, recovery and final acceptance remain incomplete.
+
+Stale-cache tracer38034937825 actually fails after an older response replaces
+newer verified text, while the own-edit tracer still passes (suite8.439s).
+322177c applies newest signed-edit merging in feed/thread/profile/cache; local
+core29/debug/test assembly pass2m6s. Native edit/delete signatures match the
+independent vectors; focused core regression26s. Invalid encrypted author records
+and queue/backend isolation regression added, Android execution pending.
+
+First cache-green38035438325 and source run38035437877 were refused before any
+runner step: GitHub reports recent payments failed or spending limit needs
+increasing. This establishes neither a test failure nor a green. Owner notified
+and billing question pending. No billing/spending/repository-visibility change.
+
+Bounded Android10 software-emulator attempt started locally at about07:47UTC:
+network-none,1.5CPU/3GiB limits, isolated AVD/dev packages, no concurrent build.
+Current /dev/kvm absent, host had4.7GiB available and low load before start.
+Unlike the earlier unmeasured speed proposal, this is a temporary verification
+fallback after hosted execution became unavailable. Stop at the existing bounded
+boot/test limits; no persistent emulator or speed/performance claim. Result
+ended with exit1 at instrumentation timeout, about13 minutes after start. Both
+APKs installed, but instrumentation produced0 bytes and no test result. Container
+removed; no persistent emulator. Logs retained ticket13/local-software-attempt.
+This provides no cache/flow green. Do not retry unsupported software emulation
+as the ordinary development loop. Hosted Android verification remains blocked.
+
+Standards found one cache read/merge/write race in322177c. Working-tree fix adds
+PublicStringStore.update under the shared lock, decoding and merging the latest
+committed values before save. Sourcefixreview confirms0 outstandingfindings;
+build passed after local emulator ended: core30/debug/test1m52s. Dedicated core
+history regression preserves the independently signed newer edit against stale
+and damaged/unrelated nested edits. This is core ordering proof, not Android
+cache recovery acceptance.
+Independent actual-native-frame verifier and pinned-receiver native mode prepared,
+unexecuted until public controlled frames are retained; no new frame proof claim.
+
+Deletion reader tracer actually RED27s: valid archived delete commands counted
+as unreadable posts (expected0,actual2). Minimal reader separates signed deletion
+commands without deleting target posts; GREEN41s. A follow-on original-author/
+target pairing API tracer initially fails compilation22s because deletion()
+does not exist, not an executed authorization failure. New deletion verifier
+independently verifies original and command, requires matching author/target
+and delete kind; unrelated/wrong-target/edit-command negatives rejected. Full
+core32/debug/test assembly GREEN1m58s. No Android deletion screen, removal,
+tombstone or server-reconciliation acceptance yet.
 
 Pinned A/B unmodified edit/delete receiver methods executed offline using the
 independently verified public reference vectors and an in-memory Archive boundary
