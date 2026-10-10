@@ -84,8 +84,11 @@ one question at a time when a material choice really needs the owner.
   includes social cases plus actual process-death recovery; wallet replacement
   regression compiles52s. Focused38020050365 at3f95442 pending. Separate
   verified-action/count-refresh-failure tracer529a768 compiles56s; Android17
-  run38020139458 pending. ImpossibleRetry finding not yet fixed. Both review
-  agents are reviewing completed refresh/harness fixes. No full acceptance yet.
+  run38020139458 fails1/8/90.235s atmissingcountwarningafterLiked, other7 and
+  actualprocessrecoveryPASS. InspectedbitmapconfirmsimpossibleRetry. Separate
+  countwarningfix preservesverifiedaction/clearsuponfreshobservation; local
+  core/debug/test1m38sPASS. PIDguardfix7191fa7 reviewed0findings. Finalfull
+  Android10/17 and finalbothaxes next. No full acceptance yet.
   Ten of35 complete;
  25 remain. Read-only primary-source contract prepared in
   NATIVE_SOCIAL_INTERACTIONS_CONTRACT.md. Ordinaryreposts/recovery/fullacceptance/reviews incomplete.

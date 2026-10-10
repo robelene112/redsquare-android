@@ -15,7 +15,8 @@ import nl.davidengelen.redsquare.saito.*
 internal data class PostActionKey(val target: String, val kind: RedSquareActionKind)
 
 internal data class ActionStatus(val candidate: SaitoTransaction? = null, val available: Boolean = false,
-    val ready: Boolean = false, val busy: Boolean = false, val failed: Boolean = false)
+    val ready: Boolean = false, val busy: Boolean = false, val failed: Boolean = false,
+    val countsUnavailable: Boolean = false)
 
 /** One selected wallet/backend's social operations, shared across its visible post views. */
 internal class SocialState(private val context: Context, private val wallet: SaitoWallet,
@@ -24,7 +25,12 @@ internal class SocialState(private val context: Context, private val wallet: Sai
     val observedPosts = mutableStateMapOf<String, FeedPost>()
     /** Called only for fresh server responses, never when reopening older cached views. */
     fun observe(posts: List<FeedPost>) {
-        posts.forEach { observedPosts[it.id] = it }
+        posts.forEach { post ->
+            observedPosts[post.id] = post
+            actions.keys.filter { it.target == post.id }.forEach { key ->
+                actions[key]?.let { actions[key] = it.copy(countsUnavailable = false) }
+            }
+        }
     }
     private fun store(key: PostActionKey) = PublicStringStore(context, "social.${backend.id}.${wallet.publicKey}.${key.target}.${key.kind.storageId}.v1", 1)
 
@@ -116,15 +122,16 @@ internal class SocialState(private val context: Context, private val wallet: Sai
                                 addProperty("sig", post.id); addProperty("flagged_ne", 1)
                             })
                         }
-                        val served = RedSquareFeed.readTarget(peer.request(query.toString().toByteArray(Charsets.UTF_8))
-                            .toString(Charsets.UTF_8), post.id).posts.singleOrNull()
-                        if (served != null) withContext(Dispatchers.Main.immediate) { observe(listOf(served)) }
+                        val served = requireNotNull(RedSquareFeed.readTarget(peer.request(query.toString().toByteArray(Charsets.UTF_8))
+                            .toString(Charsets.UTF_8), post.id).posts.singleOrNull())
+                        withContext(Dispatchers.Main.immediate) { observe(listOf(served)) }
                     }
                 }
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) {
                 val current = actions[key] ?: status
-                actions[key] = current.copy(candidate = candidate, failed = true)
+                actions[key] = current.copy(candidate = candidate, failed = !current.available,
+                    countsUnavailable = current.available)
             } finally {
                 actions[key]?.let { actions[key] = it.copy(busy = false) }
             }

@@ -78,3 +78,21 @@ Fresh server responses now update the shared observation in all three views;
 cache reopening does not supersede it. Conversation refresh prefers fresh rows
 when merging by identity. Local debug/test assembly passes 1m32s. Actual process
 recovery and wallet replacement regressions are also included in the next run.
+
+Focused Android10 `38020050365` at `3f95442` passes all seven cases in18.809s,
+plus cold reconciliation after actual process death with no retransmission.
+Wallet replacement/restoration and original action recovery pass. Inspected
+Profile image shows nine likes after refresh; cold recovery image shows Liked.
+Public logs/images retained in ticket11/refresh-green. The subsequent reviewed
+PID guard correction avoids rejecting a new WorkManager process; final full
+acceptance must exercise that corrected fixture. Count-warning red is pending
+in Android17 `38020139458` at `529a768`.
+
+Actual Android17 `38020139458` at `529a768` fails 1 of8 cases in90.235s
+waiting for the count-refresh warning after Liked (line180). The inspected
+bitmap shows a disabled Liked and impossible action Retry instruction. Other
+seven cases and actual process recovery pass. Public reproduction retained in
+ticket11/count-warning-red. The fix preserves verified availability and reports
+count-refresh failure separately; any fresh served observation clears that
+warning. Missing target data also produces a count warning. Local core and
+debug/test assembly passes1m38s. Final full Android10/17 and source reviews next.
