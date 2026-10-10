@@ -287,3 +287,10 @@ enable debugging for debuggable builds; no production source or debugging flag
 was changed. [Android primary reference](https://developer.android.com/reference/android/webkit/WebView#setWebContentsDebuggingEnabled(boolean)).
 Syntax checks pass; actual captured browser geometry remains pending. Existing
 UI/playing acceptance gates are unchanged.
+
+Diagnostic reviews5454618...ec6d437: Spec0; Standards noted SIGTERM could
+bypass normal finally cleanup of an owned ADB forward. The tool now handles
+cancellation, closes its active socket, removes its owned forward and stops
+polling. This changes only the optional diagnostic; application/test acceptance
+assertions remain unchanged. SyntaxPASS; the current immutableec6d437 diagnostic
+run38085634358 still uses the earlier tool, and is not proof of the cleanup fix.

@@ -7,6 +7,17 @@ const directory = process.argv[2];
 if (!directory || typeof WebSocket !== 'function') throw Error('Node with native WebSocket and evidence directory required');
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 const output = value => fs.appendFileSync(path.join(directory, 'video-browser.jsonl'), JSON.stringify({time:new Date().toISOString(), ...value})+'\n');
+let stopped = false;
+let ownedPort;
+let activeSocket;
+function removeForward(port) {
+  try {execFileSync('adb',['forward','--remove',`tcp:${port}`],{timeout:3000,stdio:'ignore'});} catch { }
+}
+process.once('SIGTERM', () => {
+  stopped = true;
+  try {activeSocket?.close();} catch { }
+  if (ownedPort) {removeForward(ownedPort);ownedPort=undefined;}
+});
 const allowed = value => {
   try {
     const url = new URL(value);
@@ -17,6 +28,7 @@ const allowed = value => {
 
 async function inspect(target) {
   const socket = new WebSocket(target.webSocketDebuggerUrl);
+  activeSocket = socket;
   let next = 0;
   const pending = new Map();
   socket.addEventListener('message', event => {
@@ -63,18 +75,20 @@ async function inspect(target) {
     }
   } finally {
     socket.close();
+    activeSocket = undefined;
     for(const request of pending.values()){clearTimeout(request.timer);request.reject(Error('CDP disconnected'));}
   }
 }
 
 async function main() {
-for(let attempt=0; attempt<12; attempt++) {
+for(let attempt=0; attempt<12 && !stopped; attempt++) {
   let port;
   try {
     const pid = execFileSync('adb',['shell','pidof','nl.davidengelen.redsquare.dev'],{encoding:'utf8',timeout:3000}).trim();
     if (!/^\d+$/.test(pid)) throw Error('No isolated app process');
     port = execFileSync('adb',['forward','tcp:0',`localabstract:webview_devtools_remote_${pid}`],{encoding:'utf8',timeout:3000}).trim();
     if (!/^\d+$/.test(port)) throw Error('No diagnostic port');
+    ownedPort = port;
     const response = await fetch(`http://127.0.0.1:${port}/json/list`,{signal:AbortSignal.timeout(3000)});
     const targets = await response.json();
     for(const target of targets.filter(t=>t.type==='page' && allowed(t.url)).slice(0,1)) {
@@ -86,8 +100,8 @@ for(let attempt=0; attempt<12; attempt++) {
       await inspect(target);
     }
   } catch { output({diagnostic:'Player debug endpoint not ready or read failed'}); }
-  finally {if(port)try{execFileSync('adb',['forward','--remove',`tcp:${port}`],{timeout:3000,stdio:'ignore'});}catch{}}
-  await sleep(5000);
+  finally {if(port)removeForward(port);ownedPort=undefined;}
+  if (!stopped) await sleep(5000);
 }
 }
 main().catch(() => {output({diagnostic:'Diagnostic runner failed'});process.exitCode=1;});
