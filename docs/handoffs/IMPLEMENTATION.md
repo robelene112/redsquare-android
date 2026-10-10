@@ -14,10 +14,20 @@ each, core39/build/release/lint, both public reads, cold recovery and signed
 updates. Productioncb3d9c3 is identical across accepted candidates. Evidence
 final-android10/final-android17/final-interop; details NATIVE_IMAGES_VERIFICATION.
 
-Next: #16 Giphy requires an Android-authorized key and clarification of provider
-URL retention. The prior owner question is unanswered; do not reuse backend web
-credentials. Record the actual external blocker, keep16 open, and continue the
-independently ready #17 YouTube slice sequentially. No new APK has been published.
+Active: #17 YouTube at21f6b97, fixed review base711e42e. Tap-only provider-isolated
+playback is implemented across feed/thread/profile/verified quote originals,
+with bounded authenticated link parsing and an external fallback for windows
+under200dp on either axis. Four core video cases pass; first Android10/17 player
+runs failed readiness at18027d6, with actual failure screenshots retained.
+The controlled endpoint now uses explicit numeric loopback after a source-based
+MockWebServer hostname hypothesis. Focused17 run38079974731 is pending.
+Bounded source-fix reviews both0, but runtime recovery cases and full10/17
+acceptance remain required. See NATIVE_VIDEO_VERIFICATION.md. No new APK.
+
+#16 Giphy remains open: an Android-authorized key and clarification of provider
+URL retention are unresolved. Blocker recorded on issue16. The prior owner
+question is unanswered; do not reuse backend web credentials or repeat routinely.
+Continue independently ready work sequentially.
 
 - Ticket #8, "07: Open threads and browse user profiles", is complete at final
   source c8fe9b7 against base 44cae5d. Full run 37943159613 passes both SDKs:

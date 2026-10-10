@@ -168,6 +168,14 @@ wallet/UI logic; retain native feed and compose screens.
 [autoplay/origin parameters](https://developers.google.com/youtube/player_parameters),
 [WebView gesture gate](https://developer.android.com/reference/android/webkit/WebSettings#setMediaPlaybackRequiresUserGesture(boolean)).
 
+Current IFrame documentation also describes automatic Android WebView Media
+Integrity integration: the provider can receive app identity/version/signing
+certificate metadata and a Google Play services attestation token. This does
+not involve Saito wallet keys. Record provider data handling in release privacy
+work; a controlled replacement API cannot prove real provider attestation or
+media playback. Rechecked2026-10-10 against the
+[official integration section](https://developers.google.com/youtube/iframe_api_reference#android-webview-media-integrity-api-integration).
+
 Validate schemes/hosts before deriving IDs; allow genuine youtube.com,
 www.youtube.com, m.youtube.com, music.youtube.com and youtu.be links, then build
 a fixed HTTPS embed URL yourself. Never inject arbitrary post HTML/URL into a

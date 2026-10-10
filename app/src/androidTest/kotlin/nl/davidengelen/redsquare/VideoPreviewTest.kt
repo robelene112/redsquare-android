@@ -5,6 +5,9 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.uiautomator.By
+import androidx.test.uiautomator.UiDevice
+import androidx.test.uiautomator.Until
 import com.google.gson.JsonObject
 import mockwebserver3.MockResponse
 import mockwebserver3.MockWebServer
@@ -32,17 +35,7 @@ class VideoPreviewTest {
         val row = JsonObject().apply { addProperty("tx", tx.envelope()); addProperty("created_at", 1700000900000L) }
         val peer = ControlledFeedPeer("[$row]")
         val api = MockWebServer()
-        api.enqueue(MockResponse.Builder().setHeader("Content-Type", "application/javascript").body("""
-            window.YT={Player:function(element,options){
-              var target=this;
-              if(options.playerVars.autoplay!==0){options.events.onError({data:2});return;}
-              target.cueVideoById=function(id){if(id!=='M7lc1UVf-VE')throw Error('Wrong video');window.referenceCued=id};
-              target.pauseVideo=function(){};
-              document.getElementById(element).innerText='Controlled YouTube player';
-              setTimeout(function(){options.events.onReady({target:target})},20);
-            }};
-            onYouTubeIframeAPIReady();
-        """.trimIndent()).build())
+        api.enqueue(readyResponse())
         api.use {
             api.start(java.net.InetAddress.getByName("127.0.0.1"), 0)
             peer.start().use { server ->
@@ -73,6 +66,89 @@ class VideoPreviewTest {
             }
         }
     }
+
+    @Test fun smallLandscapeWindowOffersExternalPlaybackBeforeLoadingAndPortraitPlayerHasMinimumSpace() {
+        val reference = instrumentation.context.assets.open("native-video-reference.json").bufferedReader()
+            .use { com.google.gson.JsonParser.parseReader(it).asJsonObject }
+        val row = reference.getAsJsonObject("linked")
+        val peer = ControlledFeedPeer("[$row]")
+        val device = UiDevice.getInstance(instrumentation)
+        val rotation = AutoCloseable {
+            var failure: Throwable? = null
+            for (restore in listOf<() -> Unit>({ device.setOrientationNatural() }, { device.unfreezeRotation() })) {
+                try { restore() } catch (problem: Throwable) {
+                    if (failure == null) failure = problem else failure.addSuppressed(problem)
+                }
+            }
+            failure?.let { throw it }
+        }
+        rotation.use {
+            val api = MockWebServer()
+            api.use {
+                api.enqueue(readyResponse())
+                api.start(java.net.InetAddress.getByName("127.0.0.1"), 0)
+                peer.start().use { server ->
+                    ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                        .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                        .putExtra("youtubeFixtureUrl", "http://127.0.0.1:${api.port}/iframe_api")).use {
+                        try {
+                            ui.waitUntil(20_000) { peer.requests.get() > 0 && ui.onAllNodesWithText("Explicit signed YouTube link").fetchSemanticsNodes().isNotEmpty() }
+                            if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
+                            device.setOrientationLeft()
+                            ui.waitUntil(10_000) { device.displayWidth > device.displayHeight && ui.onAllNodesWithText("Explicit signed YouTube link").fetchSemanticsNodes().isNotEmpty() }
+                            ui.onNode(hasScrollAction()).performScrollToNode(hasText("Watch on YouTube"))
+                            ui.onNodeWithText("Watch on YouTube").assertIsDisplayed().performClick()
+                            ui.waitUntil(10_000) { ui.onAllNodesWithText("Open this video in YouTube or use a larger window.").fetchSemanticsNodes().isNotEmpty() }
+                            assertEquals(0, api.requestCount)
+                            assertFalse(device.hasObject(By.desc("YouTube player")))
+                            ui.onNodeWithText("Open in YouTube").assertIsDisplayed()
+                            ui.onNodeWithText("Close video").assertIsDisplayed()
+                            capture("video-evidence/small-window.png")
+                            ui.onNodeWithText("Close video").performClick()
+                            device.setOrientationNatural()
+                            ui.waitUntil(10_000) { device.displayHeight > device.displayWidth && ui.onAllNodesWithText("Explicit signed YouTube link").fetchSemanticsNodes().isNotEmpty() }
+                            assertEquals(0, api.requestCount)
+                            ui.onNode(hasScrollAction()).performScrollToNode(hasText("Watch on YouTube"))
+                            ui.onNodeWithText("Watch on YouTube").assertIsDisplayed().performClick()
+                            ui.waitUntil(20_000) { ui.onAllNodesWithText("Use the player controls to start playback.").fetchSemanticsNodes().isNotEmpty() }
+                            val player = requireNotNull(device.wait(Until.findObject(By.desc("YouTube player")), 5_000))
+                            val density = context.resources.displayMetrics.density
+                            ui.waitUntil(5_000) {
+                                device.findObject(By.desc("YouTube player"))?.visibleBounds?.let {
+                                    it.width() / density >= 200 && it.height() / density >= 200
+                                } == true
+                            }
+                            val bounds = player.visibleBounds
+                            assertTrue("Player width ${bounds.width()}px, density $density", bounds.width() / density >= 200)
+                            assertTrue("Player height ${bounds.height()}px, density $density", bounds.height() / density >= 200)
+                            assertEquals(1, api.requestCount)
+                            capture("video-evidence/portrait-bounds.png")
+                            ui.onNodeWithText("Close video").performClick()
+                            assertTrue(peer.transactions.isEmpty())
+                            peer.assertHealthy()
+                        } catch (failure: Throwable) {
+                            failure.addSuppressed(AssertionError("Controlled provider requests: ${api.requestCount}"))
+                            try { capture("video-evidence/size-failure.png") } catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
+                            throw failure
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun readyResponse() = MockResponse.Builder().setHeader("Content-Type", "application/javascript").body("""
+        window.YT={Player:function(element,options){
+          var target=this;
+          if(options.playerVars.autoplay!==0){options.events.onError({data:2});return;}
+          target.cueVideoById=function(id){if(id!=='M7lc1UVf-VE')throw Error('Wrong video');window.referenceCued=id};
+          target.pauseVideo=function(){};
+          document.getElementById(element).style.color='white';
+          document.getElementById(element).innerText='Controlled YouTube player';
+          setTimeout(function(){options.events.onReady({target:target})},20);
+        }};
+        onYouTubeIframeAPIReady();
+    """.trimIndent()).build()
 
     private fun capture(name: String) {
         val file = File(context.cacheDir, name).apply { parentFile?.mkdirs() }

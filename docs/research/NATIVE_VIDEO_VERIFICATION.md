@@ -64,3 +64,25 @@ a source-supported hypothesis; the earlier runs do not prove their actual
 supplied host or the failure cause. Viewport/core/test compile passes1m40s;
 four video-core cases pass, including independent WASM/Elliptic signed posts
 and quote commentary/original IDs. No runtime success is claimed here.
+
+Bounded source-fix reviews of18027d6...21f6b97: Standards0 residual findings;
+Spec confirms the viewport guard fixes its finding. The prior18027d6 review
+remains interim and neither review establishes runtime acceptance. Focused17
+run38079974731 checks the unchanged tap flow at21f6b97.
+
+Hosted source-only run38079974479 at21f6b97 PASS: independently inspected report
+43 core tests/0 failures/0 ignored, debug/test/release assembly and lint. Both
+runtime steps were skipped by design; this does not establish device playback.
+Focused Android10 companion38080279091 checks the same unchanged tap flow.
+
+First tap-flow GREEN: Android10 run38080279091 at21f6b97, one case4.842s.
+Actual provider request count and installed-app Referer assertions pass, along
+with no contact before tap, provider readiness, close to the retained post and
+no emitted transaction. The individually inspected original PNG shows ready
+instructions above a black controlled-player surface, with Close and external
+navigation. Its fake provider text is not visible against that background; no
+actual YouTube media playback is shown or claimed. Scoped log has one non-main
+frame network error-2; the verified API response/readiness still passed. The
+next fixture gives controlled text visible contrast. Prior failure's actual
+hostname/cause remains unproved. Retained tap-green-android10 is intermediate
+acceptance only; landscape/recovery/thread/full checks remain pending.
