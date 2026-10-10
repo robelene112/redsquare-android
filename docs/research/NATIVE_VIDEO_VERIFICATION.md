@@ -255,3 +255,15 @@ Text candidate GREEN: full44 core cases0 failures/0 errors/0 skipped; all five
 video-core cases pass. Native debug/test assembly succeeds2m21s. This includes
 unchanged provider hardening and explicit-link/verified-quote tests, plus the
 four independently signed candidate rows. It is not device or live-media proof.
+
+Bounded text-selection fix reviewsbb491bb...32e28c4 Spec0 and
+2a99f86...32e28c4 Standards0 (including shared diagnostic helper). Both verify
+source hashes and unchanged old signed references. Separate PublicYouTubeReadTest
+is now explicitly enabled only through video-public/video-public-android17
+scopes and publicVideoRead=1. Normal/full controlled checks cannot select it.
+Its Saito archive stays controlled; the player loads the real API/iframe without
+a provider fixture, requires visible ready before a trusted provider Play tap,
+then requires native playing from the real documented state event. It captures
+ready/playing/failure PNGs and separate XML, plus actual WebView provider metadata.
+No private browser method, account login, Saito write or credential is used.
+Test assemblyPASS; actual provider playback is pending, not inferred from compile.
