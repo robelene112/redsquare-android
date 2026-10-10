@@ -15,11 +15,10 @@ pending. Deleted-post-profile.png shows the feed rather than Profile; excluded
 from profile visual acceptance, cause unestablished. Conflict bitmap shows final
 explicit resolution rather than intermediate choices. Quote deletion retains
 commentary and Original unavailable, with explanation partly below viewport.
-Edit/delete cold recovery statuses correct. Owner public bitmap correct; official
-bitmap shows owner's server label despite passing selected-server assertions.
-Exclude official bitmap from backend visual acceptance; cause unestablished.
-Current accepted17 public bitmaps have correct server labels. Controlled backend
-switching remains covered by runtime assertions. These image limits do not
+Edit/delete cold recovery statuses correct. Both public bitmaps show their correct selected-server labels. The official
+bitmap was initially misdescribed during a grouped inspection; an independent
+review and a separate reinspection of the exact retained file confirm saito.io.
+Controlled backend switching remains covered by runtime assertions. These image limits do not
 substitute for the passing functional checks.
 
 Controlled writes only. No production transaction, chain-inclusion, deployed

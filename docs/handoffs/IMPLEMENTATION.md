@@ -108,8 +108,8 @@ one question at a time when a material choice really needs the owner.
   overflow found/fixed during full regression. Earlier viewport/readiness
   fixture failures retained without claiming unproved causes.
   Counted logs/selected inspected images ticket13/full-android10/full-android17;
-  official10 bitmap wrong label and deleted-profile bitmaps excluded from visual
-  acceptance with causes unestablished.17 public labels correct. Details
+  deleted-profile bitmaps excluded from visual acceptance, causes unestablished.
+  Public backend labels correct on10/17 after exact-file reinspection. Details
   NATIVE_AUTHOR_ACTIONS_VERIFICATION.md and ticket13/REVIEW.md.
   Known upstream current-retweet archive lookup bug recorded; native quotes use
   working create-tweet path. No node repair, live write, chain, Pixel or push claim.

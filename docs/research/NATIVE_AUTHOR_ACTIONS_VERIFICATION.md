@@ -23,13 +23,13 @@ Android10 full38057998966 at2f50ac6 PASS core35/build/release/lint,103 completed
 cases in31 logs, eight actual process-death recoveries, both public reads,
 cold-cache/wallet and signed5-to8 continuity. Author6 takes25.052s on10 and22.561s
 on17; quotes7 takes15.199s/14.2s. Logs counted and selected images inspected,
-retained full-android10/. Official10 bitmap has owner's label despite semantic
-pass; excluded from backend visual acceptance, cause unestablished. Both deleted
+retained full-android10/. Both10 public bitmaps have correct backend labels,
+confirmed by independent review and separate exact-file reinspection. Both deleted
 profile captures show feed rather than Profile and are excluded from profile
 visual acceptance; functional assertions pass.17 public labels are correct.
 Production source/build/scripts/workflow diff between accepted candidates is empty.
-Both source and supplemental review axes0 remaining actionable findings. One
-minor causal-wording finding was corrected/reviewed in0e0bf9b. Ticket14 acceptance
+Both source and supplemental review axes0 remaining actionable findings. Minor causal-wording and screenshot-description findings were corrected/reviewed
+in0e0bf9b and the final documentation fix. Ticket14 acceptance
 complete; physical Pixel checks and final app review remain later release work.
 
 The chronology below records earlier source and runtime checkpoints. Their pending

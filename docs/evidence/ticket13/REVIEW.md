@@ -12,7 +12,10 @@ candidates, explicit conflict choices, identity isolation, bounded observed dele
 success and repaired own-post conversation layout. Fixture readiness/scrolling
 fixes retain acceptance assertions. CI split full scopes preserve complete checks.
 One minor causal-wording finding in05352c3 was corrected and independently
-verified in0e0bf9b. Baseline review records remain source-checkpoint/ and
+verified in0e0bf9b. Final evidence review also corrected an inaccurately described
+Android10 official screenshot: exact-file reinspection shows saito.io, matching
+its passing assertions. Deleted-profile capture exclusions remain. Baseline review
+records remain source-checkpoint/ and
 recovery-source/; their earlier pending runtime statements are historical.
 
 ## Specification
