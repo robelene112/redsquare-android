@@ -101,6 +101,7 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
                     }
                 }
             }
+            social?.observe(result.posts)
             val merged = AndroidProfileCache.SavedProfile((result.posts + saved.posts).distinctBy { it.id },
                 (result.likes + saved.likes).distinctBy { it.id }, false)
             view.history = merged

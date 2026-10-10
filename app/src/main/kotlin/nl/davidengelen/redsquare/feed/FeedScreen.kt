@@ -133,6 +133,7 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
                                 rowCount += page.rowCount
                                 validCount += page.posts.size
                                 withContext(Dispatchers.Main.immediate) {
+                                    social?.observe(page.posts)
                                     val merged = (page.posts + posts).distinctBy { it.id }
                                         .filter { !followingView || it.author in following!!.accounts }
                                         .sortedByDescending { it.createdAt }

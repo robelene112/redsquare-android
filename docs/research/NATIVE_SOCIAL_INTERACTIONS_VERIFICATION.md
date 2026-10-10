@@ -70,3 +70,11 @@ counter overlays, an impossible retry instruction after verified success, and
 the missing social suite in full acceptance. The next regression refreshes a
 profile after the backend changes its served count from five to nine. Test
 assembly passes 53s; production is unchanged while reproducing the finding.
+
+Actual `38019559322` at `323c17f` fails 1 of 6 cases in 34.04s at the
+required nine-like count after Profile Refresh (line84). The inspected screenshot
+still displays five likes. Public log/image retained in ticket11/refresh-red.
+Fresh server responses now update the shared observation in all three views;
+cache reopening does not supersede it. Conversation refresh prefers fresh rows
+when merging by identity. Local debug/test assembly passes 1m32s. Actual process
+recovery and wallet replacement regressions are also included in the next run.

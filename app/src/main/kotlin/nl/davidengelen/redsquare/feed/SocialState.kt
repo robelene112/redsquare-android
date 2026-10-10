@@ -22,6 +22,10 @@ internal class SocialState(private val context: Context, private val wallet: Sai
     private val backend: SaitoBackend, private val endpoint: String, private val scope: CoroutineScope) {
     val actions = mutableStateMapOf<PostActionKey, ActionStatus>()
     val observedPosts = mutableStateMapOf<String, FeedPost>()
+    /** Called only for fresh server responses, never when reopening older cached views. */
+    fun observe(posts: List<FeedPost>) {
+        posts.forEach { observedPosts[it.id] = it }
+    }
     private fun store(key: PostActionKey) = PublicStringStore(context, "social.${backend.id}.${wallet.publicKey}.${key.target}.${key.kind.storageId}.v1", 1)
 
     suspend fun load(post: FeedPost, kind: RedSquareActionKind) {
@@ -114,7 +118,7 @@ internal class SocialState(private val context: Context, private val wallet: Sai
                         }
                         val served = RedSquareFeed.readTarget(peer.request(query.toString().toByteArray(Charsets.UTF_8))
                             .toString(Charsets.UTF_8), post.id).posts.singleOrNull()
-                        if (served != null) withContext(Dispatchers.Main.immediate) { observedPosts[post.id] = served }
+                        if (served != null) withContext(Dispatchers.Main.immediate) { observe(listOf(served)) }
                     }
                 }
             } catch (cancelled: CancellationException) { throw cancelled }

@@ -62,7 +62,8 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
                         .toString(Charsets.UTF_8), selected.threadId)
                 }
             }
-            posts = (posts + page.posts).distinctBy { it.id }.sortedBy { it.createdAt }
+            social?.observe(page.posts)
+            posts = (page.posts + posts).distinctBy { it.id }.sortedBy { it.createdAt }
             cacheWarning = withContext(Dispatchers.IO) {
                 try { cache.save(posts); false } catch (_: Exception) { true }
             }
