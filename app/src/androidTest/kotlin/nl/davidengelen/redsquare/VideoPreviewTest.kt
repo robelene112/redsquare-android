@@ -92,7 +92,7 @@ class VideoPreviewTest {
                         .putExtra("youtubeFixtureUrl", "http://127.0.0.1:${api.port}/iframe_api")).use {
                         try {
                             stage("size: launched")
-                            ui.waitUntil(20_000) { peer.requests.get() > 0 && ui.onAllNodesWithText("Explicit signed YouTube link").fetchSemanticsNodes().isNotEmpty() }
+                            ui.waitUntil(20_000) { peer.requests.get() >= 2 && ui.onAllNodesWithText("Loading posts…").fetchSemanticsNodes().isEmpty() }
                             if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
                             assertEquals(0, api.requestCount)
                             watch("Explicit signed YouTube link")
@@ -111,7 +111,7 @@ class VideoPreviewTest {
                             ui.onNodeWithText("Close video").performClick()
                             stage("size: closed fallback, returning to portrait")
                             device.setOrientationNatural()
-                            ui.waitUntil(10_000) { device.displayHeight > device.displayWidth && ui.onAllNodesWithText("Explicit signed YouTube link").fetchSemanticsNodes().isNotEmpty() }
+                            ui.waitUntil(10_000) { device.displayHeight > device.displayWidth && ui.onAllNodes(hasScrollAction()).fetchSemanticsNodes().isNotEmpty() }
                             assertEquals(1, api.requestCount)
                             watch("Explicit signed YouTube link")
                             ui.waitUntil(20_000) { ui.onAllNodesWithText("Use the player controls to start playback.").fetchSemanticsNodes().isNotEmpty() }
