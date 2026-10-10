@@ -115,3 +115,15 @@ portrait video, then requires selected-video recovery with no additional
 provider contact in an undersized landscape window, visible close/external
 controls and a fresh portrait tap with actual minimum bounds. This avoids
 scrolling a cramped landscape feed; rotation recovery remains to be proved.
+
+Rotation run38081332636 at911e87f completes two cases26.176s: the first tap
+passes, the rotation case fails atline95 before tapping with0 provider requests.
+Its stage log contains only launch. The individually inspected original failure
+PNG shows the previously cached text-link post and backup reminder in portrait;
+the explicit-link post was not visible. No rotation behavior is established.
+Artifacts include hidden .scratch directories, which must be inspected directly.
+Atff12bd6, the setup waits for both archive responses and loading completion,
+then the existing scoped helper scrolls to the signed explicit-link card. The
+portrait return likewise waits for a scrollable feed before locating that card.
+Spec review of911e87f...ff12bd6 has0 actionable findings. FocusedRED38081746532
+is pending; the accepted rotation assertions and production code are unchanged.

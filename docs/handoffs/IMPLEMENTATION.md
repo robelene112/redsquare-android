@@ -14,13 +14,21 @@ each, core39/build/release/lint, both public reads, cold recovery and signed
 updates. Productioncb3d9c3 is identical across accepted candidates. Evidence
 final-android10/final-android17/final-interop; details NATIVE_IMAGES_VERIFICATION.
 
-Active: #17 YouTube at21f6b97, fixed review base711e42e. Tap-only provider-isolated
+Active: #17 YouTube atff12bd6, fixed review base711e42e. Tap-only provider-isolated
 playback is implemented across feed/thread/profile/verified quote originals,
 with bounded authenticated link parsing and an external fallback for windows
 under200dp on either axis. Four core video cases pass; first Android10/17 player
 runs failed readiness at18027d6, with actual failure screenshots retained.
 The controlled endpoint now uses explicit numeric loopback after a source-based
-MockWebServer hostname hypothesis. Focused17 run38079974731 is pending.
+MockWebServer hostname hypothesis. Android10 first tap GREEN38080279091;
+old17 setup run38079974731 was superseded, not accepted. Size runs at05f89ef
+were incomplete. Rotation tracer38081332636 at911e87f passed first tap but
+failed before its second tap: cached viewport hid the expected explicit-link
+post. Newff12bd6 waits for both archive responses and scrolls the scoped card;
+Spec fixture review0. FocusedRED38081746532 is pending. Row-owned playback
+state remains unchanged until that tracer reaches rotation. Root-host design
+review supports retaining validated public selection above scrolling rows,
+clearing actual identity/backend changes without clearing temporary cold load.
 Bounded source-fix reviews both0, but runtime recovery cases and full10/17
 acceptance remain required. See NATIVE_VIDEO_VERIFICATION.md. No new APK.
 
