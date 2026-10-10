@@ -335,3 +335,14 @@ and full10/17 acceptance remain required.
 
 Scoped gallery/read-only field correction narrow build PASS1m14s. Both exact
 SDK runs and bounded review pending.
+
+4808761 focused Android10 38068060875 PASS all20 completed cases plus3 actual
+process deaths:6 basic,5 preparation/loading,7 lifecycle,1 cold candidate and
+1 cold image queue. Both bounded source-review axes report0 findings.
+Android17 38068063232 still running. Full-order review found the text/image
+backend-queue variants shared one body while producing distinct cached signed
+posts. The image variant now uses its own literal body consistently in compose,
+frame validation, exact visible post and scoped pixels. Cache history is retained.
+Narrow compile PASS1m07s. Full-script author process checks clear prior synthetic
+revision/media caches before image viewing; arbitrary manual partial reordering
+is not covered by that isolation. Final full10/17 acceptance remains pending.

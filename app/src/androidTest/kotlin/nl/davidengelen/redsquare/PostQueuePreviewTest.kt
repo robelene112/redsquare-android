@@ -69,12 +69,13 @@ class PostQueuePreviewTest {
 
     private fun originalBackendQueue(withImage: Boolean) {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val body = if (withImage) "Send the image on the original server" else "Send on the original server"
         val port = java.net.ServerSocket(0, 1, java.net.InetAddress.getByName("127.0.0.1")).use { it.localPort }
         val indexed = java.util.concurrent.atomic.AtomicReference<com.google.gson.JsonObject?>()
         val owner = ControlledFeedPeer("[]", onTransaction = { frame ->
             val transaction = postingTransaction(frame)
             val post = nl.davidengelen.redsquare.saito.RedSquareFeed.decode(transaction.envelope())
-            org.junit.Assert.assertEquals("Send on the original server", post.text)
+            org.junit.Assert.assertEquals(body, post.text)
             org.junit.Assert.assertEquals(if (withImage) 1 else 0, post.images.size)
             indexed.set(postingArchiveRow(transaction))
         }, archiveResponse = { criteria ->
@@ -93,7 +94,7 @@ class PostQueuePreviewTest {
                 ui.onNodeWithText("Done").performClick()
                 ui.onNodeWithText("New post").performClick()
                 ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                ui.onNode(hasSetTextAction()).performTextReplacement("Send on the original server")
+                ui.onNode(hasSetTextAction()).performTextReplacement(body)
                 if (withImage) ui.attachSyntheticImage()
                 ui.onNodeWithText("Send").performClick()
                 ui.waitUntil(20_000) { ui.onAllNodes(hasText("Cancel queued post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
@@ -116,12 +117,12 @@ class PostQueuePreviewTest {
                         ui.onNodeWithText("Refresh").performClick()
                         ui.waitUntil(20_000) {
                             try {
-                                ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("Send on the original server"))
-                                ui.onNodeWithText("Send on the original server").assertIsDisplayed()
+                                ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText(body))
+                                ui.onNodeWithText(body).assertIsDisplayed()
                                 true
                             } catch (_: AssertionError) { false }
                         }
-                        if (withImage) ui.assertSyntheticRedImage(postText = "Send on the original server")
+                        if (withImage) ui.assertSyntheticRedImage(postText = body)
                     } catch (failure: Throwable) {
                         captureFeedEvidence("post-queue-evidence/backend-refresh-failure.png")
                         throw failure

@@ -120,13 +120,14 @@ one question at a time when a material choice really needs the owner.
   Approved parent seams1–4 apply. Production312f58c implements bounded galleries,
   viewer, image-only composition, worker normalization and encrypted image drafts.
   Core39 passes independent signed ordering/dual-quote image authentication.
-  Latestc3 focused38065815558 Android10 passes6 initial and4/5prep/loading;
-  negative count fixture supplied duplicate URIs deduped by AndroidX, now5distinct.
-  Android17 38065817557 passes5 initial; empty-focused image-only fixture now skips
-  unnecessary text edit and positively verifies picker launch. All supplemental
-  wallet/author/queue/storage failures and media quote revisions implemented in
-  fixtures, runtime pending. Local core/debug/test/release/lint PASS2m08s plus
-  cold-cache fixture guard recompile PASS1m06s. Both bounded review axes0 residual.
+  Focused4808761 Android10 38068060875 PASS20 cases and3 real process deaths.
+  Android17 38068063232 ongoing. Both bounded reviews0 findings; full source
+  review354a1c7 also0. Earlier fe1 runs10/17 passed6 basic/5 preparation and
+  cold queue, but disabled-text selector and generic gallery collisions failed;
+  both are corrected without production changes. Wallet/author/queue/storage
+  failure media fixtures now pass10. Full-order queue text/image variants now
+  use distinct exact body literals to retain cached history without ambiguity.
+  Local narrow compile PASS1m07s. Full10/17 acceptance is the next gate.
   Actual post/reply/quote frames independently verified; A/B unchanged templates
   and offline Chromium decode gallery order/pixels. Public synthetic proof retained
   docs/evidence/ticket14/interop. Cold recovery first phase now clears synthetic
