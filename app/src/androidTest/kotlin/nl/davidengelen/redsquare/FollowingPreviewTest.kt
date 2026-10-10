@@ -64,8 +64,8 @@ class FollowingPreviewTest {
                         waitFor("Profile newer post 20")
                         ui.onNodeWithText("Following").performClick()
                         waitFor("Profile newer post 20")
-                        ui.onNodeWithText("Another account reference post").assertDoesNotExist()
-                        ui.onNodeWithText("Native Red Square reference post").assertDoesNotExist()
+                        assertPostAbsent("Another account reference post", "Profile newer post 20")
+                        assertPostAbsent("Native Red Square reference post", "Profile newer post 20")
                         ui.onNodeWithText(author).performClick()
                         waitFor("Unfollow")
                         ui.onNodeWithText("Back").performClick()
@@ -78,16 +78,16 @@ class FollowingPreviewTest {
                         waitFor("Server: saito.io")
                         waitFor("Profile newer post 20")
                         waitFor("Server unavailable")
-                        ui.onNodeWithText("Another account reference post").assertDoesNotExist()
-                        ui.onNodeWithText("Native Red Square reference post").assertDoesNotExist()
+                        assertPostAbsent("Another account reference post", "Profile newer post 20")
+                        assertPostAbsent("Native Red Square reference post", "Profile newer post 20")
                         captureFeedEvidence("following-evidence/official-following-after-offline-restart.png")
                         ui.onNodeWithText("Settings").performClick()
                         waitFor("saito.davidengelen.nl")
                         ui.onNodeWithText("saito.davidengelen.nl").performClick()
                         ui.onNodeWithText("Following").performClick()
                         waitFor("Native Red Square reference post")
-                        ui.onNodeWithText("Profile newer post 20").assertDoesNotExist()
-                        ui.onNodeWithText("Another account reference post").assertDoesNotExist()
+                        assertPostAbsent("Profile newer post 20", "Native Red Square reference post")
+                        assertPostAbsent("Another account reference post", "Native Red Square reference post")
                         ui.onNodeWithText(author).performClick()
                         waitFor("Unfollow")
                         owner.assertHealthy()
@@ -175,7 +175,7 @@ class FollowingPreviewTest {
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 try {
                     waitFor("Native Red Square reference post")
-                    ui.onNodeWithText("Profile newer post 20").assertDoesNotExist()
+                    assertPostAbsent("Profile newer post 20", "Native Red Square reference post")
                     ui.onNodeWithText(author).performClick()
                     waitFor("Follow")
                     ui.onNodeWithText("Follow").performClick()
@@ -184,7 +184,7 @@ class FollowingPreviewTest {
                     ui.onNodeWithText("Following").performClick()
                     waitFor("Profile newer post 20")
                     ui.onNodeWithText("Profile newer post 20").assertIsDisplayed()
-                    ui.onNodeWithText("Another account reference post").assertDoesNotExist()
+                    assertPostAbsent("Another account reference post", "Profile newer post 20")
                     peer.assertHealthy()
                     captureFeedEvidence("following-evidence/available-author-history.png")
                 } catch (failure: Throwable) {
@@ -243,7 +243,7 @@ class FollowingPreviewTest {
                     ui.onNodeWithText("Done").performClick()
                     ui.onNodeWithText("Following").performClick()
                     waitFor("Follow accounts to see their posts here.")
-                    ui.onNodeWithText("Native Red Square reference post").assertDoesNotExist()
+                    assertPostAbsent("Native Red Square reference post")
                     ui.onNodeWithText("All posts").performClick()
                     waitFor("Native Red Square reference post")
                     ui.onNodeWithText(author).performClick()
@@ -302,7 +302,7 @@ class FollowingPreviewTest {
                     ui.onNodeWithText("Following").performClick()
                     waitFor("Native Red Square reference post")
                     ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
-                    ui.onNodeWithText("Newer unrelated cached post 100").assertDoesNotExist()
+                    assertPostAbsent("Newer unrelated cached post 100", "Native Red Square reference post")
                     peer.assertHealthy()
                     captureFeedEvidence("following-evidence/followed-post-with-full-general-cache.png")
                 } catch (failure: Throwable) {
@@ -451,14 +451,14 @@ class FollowingPreviewTest {
                     ui.onNodeWithText("Back").performClick()
                     ui.onNodeWithText("Following").performClick()
                     waitFor("Native Red Square reference post")
-                    ui.onNodeWithText("Another account reference post").assertDoesNotExist()
+                    assertPostAbsent("Another account reference post", "Native Red Square reference post")
                     ui.onNodeWithText(author).performClick()
                     waitFor("Unfollow")
                     ui.onNodeWithText("Unfollow").performClick()
                     waitFor("Follow")
                     ui.onNodeWithText("Back").performClick()
                     waitFor("Follow accounts to see their posts here.")
-                    ui.onNodeWithText("Native Red Square reference post").assertDoesNotExist()
+                    assertPostAbsent("Native Red Square reference post")
                     peer.assertHealthy()
                     captureFeedEvidence("following-evidence/unfollowed-empty-feed.png")
                 } catch (failure: Throwable) {
@@ -473,6 +473,16 @@ class FollowingPreviewTest {
         InstrumentationRegistry.getInstrumentation().context.assets.open(name).bufferedReader().use {
             JsonParser.parseReader(it).asJsonObject
         }
+
+    private fun assertPostAbsent(text: String, returnTo: String? = null) {
+        val list = ui.onNode(hasScrollAction())
+        val failure = org.junit.Assert.assertThrows(AssertionError::class.java) {
+            list.performScrollToNode(hasText(text))
+        }
+        org.junit.Assert.assertTrue("The complete list search must finish without this post",
+            failure.message?.contains("No node found that matches") == true)
+        returnTo?.let { list.performScrollToNode(hasText(it)) }
+    }
 
     private fun waitFor(text: String) {
         if (text in setOf("Native Red Square reference post", "Profile newer post 20")) {

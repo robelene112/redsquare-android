@@ -35,3 +35,14 @@ actionable findings. Scrolling exercises the actual conversation UI without
 removing or weakening content, cache, forged-reply or recovery assertions.
 Production source equivalence with `76197a4` verified by empty diff. Fresh
 full run `38021449614` is pending.
+
+Second fixture review at `49d34a0`: Spec reports zero new findings. Standards
+finds that old negative post checks only inspect composed nodes, so taller cards
+can make exclusion assertions insensitive. Those post checks now search the full
+scrollable list and require the specific missing-node AssertionError. Other
+scroll/layout errors fail. Known positive anchors are restored where needed.
+Official AndroidX Actions.kt documents full-list search; the pinned Compose
+1.11.4 binary contains the expected failure marker. Test assembly52sPASS.
+Runtime validation and fix review remain pending.
+
+Reference: https://github.com/androidx/androidx/blob/androidx-main/compose/ui/ui-test/src/commonMain/kotlin/androidx/compose/ui/test/Actions.kt
