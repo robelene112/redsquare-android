@@ -127,4 +127,22 @@ lookup copy plus cached bio/avatar and unchanged backend, with no live writes.
 Only public profilemeta fixture files are reset between emulator cases. Online
 baseline waits both metadata/history completion and enabled Refresh before
 closing the Activity and peer. Local test assemblyPASS1m2s before the added
-capture-idle call. Runtime RED pending; production cache remains absent.
+capture-idle call. Android10 run38091914532 and17 run38091916534 at41f5d8e
+produce the intended missing-cached-bio RED atline170, three cases/one failure
+9.177s/19.868s. Both original in-scope failure bitmaps individually inspected:
+correct author/defaultavatar, failed profile lookup/history and cached reference
+post, absent bio. Separate XML matches those observations. Other two flows pass
+with corrected resource-based loading checks. Retained profile-cache-red/android10
+andandroid17; push source38091914178 succeeds.
+
+Minimal Android public metadata cache now revalidates stored signed envelopes,
+namespaces author/backend, loads before the peer request and merges fresh data
+through the already tested newest-snapshot rule. Bounded100 entries/16MiB public
+store uses atomic fsync/verified commits. Concurrent older saves cannot replace
+a newer snapshot. Verified remote data remains visible if disk persistence fails,
+with cache warning; rejected remote rows have an unreadable warning. Failed
+requests preserve cached metadata; internal request timeout becomes failed-lookup
+copy while parent cancellation still propagates. Local debug/test assemblyPASS
+1m58s before the final profile-specific warning resource replaces misleading
+posts wording; final-source compilation and fresh dual runtimeGREEN pending.
+No encrypted editor, custom images or recovery completion.

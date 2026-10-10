@@ -37,6 +37,12 @@ Review caught vacuous ASCII loading gates, now actual feed_loading resource.
 Fresh-Activity outage/cache tracer added, runtime RED pending; only profilemeta
 public fixture state reset. No production disk cache yet. Capture now waits
 Compose idle, without claiming prior bitmap timing root cause.
+41f cache runs38091914532/38091916534 intendedREDcachedbio line170,
+3cases/1fail9.177s/19.868s. Both originals/XMLshowcorrectauthor/avatar,
+lookup/historyerrors+cachedpost,nobio; other2pass. Source38091914178 PASS.
+AndroidProfileDetailsCache now keeps verified public metadata scopedauthor/backend,
+atomicboundedstore; ProfileScreen load/merge/save with warnings and properinternal
+timeout failure. Localbuild/freshdualGREEN pending; no editor/image/recovery yet.
 Only profile fields and public reference inputs;
 no production publication or app/node wallet reads. #17 stays open with actual
 provider acceptance unproved. Its immutable full534330e pair PASS127 cases

@@ -14,6 +14,9 @@ import androidx.compose.ui.unit.dp
 import com.google.gson.JsonObject
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.TimeoutCancellationException
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.*
@@ -36,6 +39,7 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
     onIdentity: (String) -> Unit, social: SocialState? = null, quotes: QuoteState? = null, onQuote: ((FeedPost) -> Unit)? = null) {
     val context = LocalContext.current.applicationContext
     val cache = remember(backend) { AndroidProfileCache(context, backend) }
+    val detailsCache = remember(backend, author) { AndroidProfileDetailsCache(context, backend, author) }
     val revisions = remember(backend) { AndroidPostRevisions(context, backend) }
     val tab = view.tab
     var posts by remember(author, tab) { mutableStateOf<List<FeedPost>>(emptyList()) }
@@ -51,12 +55,20 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
     var profile by remember(author, backend) { mutableStateOf<SaitoProfile?>(null) }
     var profileLoading by remember(author, backend) { mutableStateOf(false) }
     var profileFailed by remember(author, backend) { mutableStateOf(false) }
+    var profileCacheWarning by remember(author, backend) { mutableStateOf(false) }
+    var profileUnreadable by remember(author, backend) { mutableStateOf(false) }
     BackHandler(onBack = onBack)
     LaunchedEffect(wallet, endpoint, author, refresh) {
         if (wallet == null) return@LaunchedEffect
         profileLoading = true
         try {
-            profile = withContext(Dispatchers.IO) {
+            val cached = withContext(Dispatchers.IO) { detailsCache.load() }
+            val known = withContext(Dispatchers.IO) {
+                profile?.let { SaitoProfiles.merge(cached.profile, it) } ?: cached.profile
+            }
+            profile = known
+            profileCacheWarning = cached.unreadable
+            val observed = withContext(Dispatchers.IO) {
                 SaitoPeer(wallet, endpoint).use { peer ->
                     val request = JsonObject().apply {
                         addProperty("request", "archive")
@@ -69,7 +81,17 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
                         .toString(Charsets.UTF_8), author)
                 }
             }
+            val merged = withContext(Dispatchers.IO) { SaitoProfiles.merge(known, observed) }
+            // Display verified data even when local persistence fails.
+            profile = merged
+            profileUnreadable = observed.ignored > 0
             profileFailed = false
+            try { profile = withContext(Dispatchers.IO) { detailsCache.save(merged) } }
+            catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { profileCacheWarning = true }
+        } catch (_: TimeoutCancellationException) {
+            currentCoroutineContext().ensureActive()
+            profileFailed = true
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { profileFailed = true }
         finally { profileLoading = false }
@@ -188,6 +210,8 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
                     }
                     if (profileLoading) Text(stringResource(R.string.profile_details_loading))
                     if (profileFailed) Text(stringResource(R.string.profile_details_error))
+                    if (profileUnreadable) Text(stringResource(R.string.profile_unreadable), style = MaterialTheme.typography.bodySmall)
+                    if (profileCacheWarning) Text(stringResource(R.string.profile_details_cache_warning), style = MaterialTheme.typography.bodySmall)
                     FollowingStatus(following)
                     Row {
                         ProfileTab.entries.forEach { item ->
