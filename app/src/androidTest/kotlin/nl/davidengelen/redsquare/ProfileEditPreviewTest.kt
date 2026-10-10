@@ -1,8 +1,10 @@
 package nl.davidengelen.redsquare
 
 import android.content.Intent
+import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
+import androidx.compose.ui.text.AnnotatedString
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
@@ -216,7 +218,8 @@ class ProfileEditPreviewTest {
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText("Edit profile") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNodeWithText("Edit profile").performClick()
                     ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNode(hasSetTextAction()).assertTextEquals(bio)
+                    ui.onNode(hasSetTextAction()).assert(
+                        SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(bio)))
                     ui.onNodeWithText("Save draft").assertIsEnabled()
                     capture("restored-bio-draft.png")
                     assertTrue(peer.transactions.isEmpty())

@@ -183,3 +183,23 @@ for saved profile work on either backend and treats unreadable work as unknown.
 No Save profile/publishing/candidate/media behavior implemented yet. Encrypted
 file logic initially duplicates the existing post adapter; shared extraction
 belongs to the review stage after both real consumers pass their native flow.
+
+Bounded846bd54...f6593cf Spec review identifies unsaved-editor work missing
+from the wallet-import preview: current nativeWork reads disk before final
+activation invokes navigation persistence. A newly typed unsaved bio can therefore
+miss the required pending-work warning. Resolve with a native typed-without-Save
+draft import-preview tracer; persist successfully before import selection or
+include live intent, refuse the transition on failure, retain outgoing identity
+isolation. Standards:0 hard breaches, duplicated encrypted-file handling is one
+actionable judgement concern for the already planned shared extraction. Other
+reviewed source/evidence0 findings; no ticket acceptance.
+
+At f6593cf Android10 run38093238455 and17 run38093240150 each complete four
+cases with one fixture assertion failure atline219,15.422s/48.374s. Both expose
+the exact saved Unicode multiline bio as EditableText; Text also includes the
+field label Bio, so assertTextEquals incorrectly compares their combined set.
+Original restoration-failure PNGs individually inspected show the restored
+two-line draft in the editor; separate XML and captured semantics agree.
+Retained profile-bio-draft-label-failure/android10 andandroid17. Change only
+the assertion to exact EditableText on the editable node; no product edit or
+relaxation of private-only/no-transaction requirements. Fresh dual proof pending.
