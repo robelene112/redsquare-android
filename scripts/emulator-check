@@ -178,6 +178,16 @@ if [[ "${TEST_SCOPE:-full}" == author* ]]; then
 fi
 verify_images() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+    # Separate synthetic SAF image root in the test APK's own UID, never wallet documents.
+    python3 - "$repo_dir/app/src/androidTest/assets/native-images-reference.json" "$evidence/picker-reference.png" <<'PY'
+import base64, json, pathlib, sys
+fixture = json.loads(pathlib.Path(sys.argv[1]).read_text())
+pathlib.Path(sys.argv[2]).write_bytes(base64.b64decode(fixture['images']['green'].split(',', 1)[1], validate=True))
+PY
+    adb shell run-as nl.davidengelen.redsquare.dev.test mkdir -p files/image-test-documents
+    adb shell -T run-as nl.davidengelen.redsquare.dev.test tee files/image-test-documents/redsquare-system-picker-reference.png \
+        < "$evidence/picker-reference.png" >/dev/null
+    adb shell run-as nl.davidengelen.redsquare.dev.test test -s files/image-test-documents/redsquare-system-picker-reference.png
     timeout 180 adb shell am instrument -w -r \
         -e class nl.davidengelen.redsquare.ImagePreviewTest \
         nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \

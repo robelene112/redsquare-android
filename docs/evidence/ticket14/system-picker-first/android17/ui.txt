@@ -1,0 +1,88 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImagePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ImagePreviewTest:
+INSTRUMENTATION_STATUS: test=systemImagePickerReturnsAnOwnedSyntheticImageToTheDraft
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImagePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Synthetic image should be visible in the system picker
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertNotNull(Assert.java:713)
+	at nl.davidengelen.redsquare.ImagePreviewTest.systemImagePickerReturnsAnOwnedSyntheticImageToTheDraft(ImagePreviewTest.kt:165)
+
+INSTRUMENTATION_STATUS: stream=
+Error in systemImagePickerReturnsAnOwnedSyntheticImageToTheDraft(nl.davidengelen.redsquare.ImagePreviewTest):
+java.lang.AssertionError: Synthetic image should be visible in the system picker
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertNotNull(Assert.java:713)
+	at nl.davidengelen.redsquare.ImagePreviewTest.systemImagePickerReturnsAnOwnedSyntheticImageToTheDraft(ImagePreviewTest.kt:165)
+
+INSTRUMENTATION_STATUS: test=systemImagePickerReturnsAnOwnedSyntheticImageToTheDraft
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImagePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=selectedImageAndTextSurviveSavingAndRecreationWithoutPublishing
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImagePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ImagePreviewTest.selectedImageAndTextSurviveSavingAndRecreationWithoutPublishing(ImagePreviewTest.kt:76)
+
+INSTRUMENTATION_STATUS: stream=
+Error in selectedImageAndTextSurviveSavingAndRecreationWithoutPublishing(nl.davidengelen.redsquare.ImagePreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ImagePreviewTest.selectedImageAndTextSurviveSavingAndRecreationWithoutPublishing(ImagePreviewTest.kt:76)
+
+INSTRUMENTATION_STATUS: test=selectedImageAndTextSurviveSavingAndRecreationWithoutPublishing
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImagePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=signedImagesDisplayInTheirOriginalOrderAndOpenAnImageViewer
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImagePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=signedImagesDisplayInTheirOriginalOrderAndOpenAnImageViewer
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 59.909
+There were 2 failures:
+1) systemImagePickerReturnsAnOwnedSyntheticImageToTheDraft(nl.davidengelen.redsquare.ImagePreviewTest)
+java.lang.AssertionError: Synthetic image should be visible in the system picker
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertNotNull(Assert.java:713)
+	at nl.davidengelen.redsquare.ImagePreviewTest.systemImagePickerReturnsAnOwnedSyntheticImageToTheDraft(ImagePreviewTest.kt:165)
+2) selectedImageAndTextSurviveSavingAndRecreationWithoutPublishing(nl.davidengelen.redsquare.ImagePreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ImagePreviewTest.selectedImageAndTextSurviveSavingAndRecreationWithoutPublishing(ImagePreviewTest.kt:76)
+
+FAILURES!!!
+Tests run: 3,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

@@ -5,7 +5,6 @@ import android.content.ContentValues
 import android.app.Activity
 import android.app.Instrumentation
 import android.provider.MediaStore
-import android.graphics.Bitmap
 import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
@@ -69,10 +68,10 @@ class ImagePreviewTest {
                             ui.waitUntil(15_000) { ui.onAllNodesWithContentDescription("Image 1 of 1").fetchSemanticsNodes().isNotEmpty() }
                             ui.onNodeWithContentDescription("Image 1 of 1").performScrollTo().assertIsDisplayed()
                             ui.onNodeWithText("Save draft").performClick()
-                            ui.waitUntil(10_000) { ui.onAllNodesWithText("New post").fetchSemanticsNodes().isNotEmpty() }
+                            ui.waitUntil(10_000) { ui.onAllNodes(hasText("New post") and hasClickAction()).fetchSemanticsNodes().isNotEmpty() }
                             scenario.recreate()
-                            ui.waitUntil(10_000) { ui.onAllNodesWithText("New post").fetchSemanticsNodes().isNotEmpty() }
-                            ui.onNodeWithText("New post").performClick()
+                            ui.waitUntil(10_000) { ui.onAllNodes(hasText("New post") and hasClickAction()).fetchSemanticsNodes().isNotEmpty() }
+                            ui.onNode(hasText("New post") and hasClickAction()).assertIsDisplayed().performClick()
                             ui.waitUntil(15_000) { ui.onAllNodesWithContentDescription("Image 1 of 1").fetchSemanticsNodes().isNotEmpty() }
                             ui.onNode(hasSetTextAction()).assert(hasText("Saved image draft"))
                             val bitmap = ui.onNodeWithContentDescription("Image 1 of 1").performScrollTo().assertIsDisplayed().captureToImage().asAndroidBitmap()
@@ -158,13 +157,26 @@ class ImagePreviewTest {
                         ui.waitUntil(10_000) { ui.onAllNodes(hasText("Add images") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                         ui.onNodeWithText("Add images").performClick()
                         val device = androidx.test.uiautomator.UiDevice.getInstance(instrumentation)
-                        val file = device.wait(androidx.test.uiautomator.Until.findObject(androidx.test.uiautomator.By.text(name)), 15_000)
+                        if (android.os.Build.VERSION.SDK_INT < 33) {
+                            requireNotNull(device.wait(androidx.test.uiautomator.Until.findObject(androidx.test.uiautomator.By.desc("Show roots")), 10_000)).click()
+                            requireNotNull(device.wait(androidx.test.uiautomator.Until.findObject(androidx.test.uiautomator.By.text(ImageTestDocumentsProvider.TITLE)), 10_000)).click()
+                            assertTrue(device.wait(androidx.test.uiautomator.Until.hasObject(androidx.test.uiautomator.By.res("com.android.documentsui", "toolbar")
+                                .hasDescendant(androidx.test.uiautomator.By.text(ImageTestDocumentsProvider.TITLE))), 10_000))
+                        }
+                        val selector = if (android.os.Build.VERSION.SDK_INT < 33) androidx.test.uiautomator.By.text(name)
+                            else androidx.test.uiautomator.By.descStartsWith("Photo taken on ")
+                        val file = device.wait(androidx.test.uiautomator.Until.findObject(selector), 15_000)
                         capture("images-evidence/system-picker.png")
                         val xml = File(context.cacheDir, "images-evidence/system-picker.xml")
                         device.dumpWindowHierarchy(xml)
                         assertNotNull("Synthetic image should be visible in the system picker", file)
+                        assertEquals(1, device.findObjects(selector).size)
                         file!!.click()
-                        device.findObject(androidx.test.uiautomator.By.text("OPEN"))?.click()
+                        capture("images-evidence/system-picker-selected.png")
+                        device.dumpWindowHierarchy(File(context.cacheDir, "images-evidence/system-picker-selected.xml"))
+                        val confirm = if (android.os.Build.VERSION.SDK_INT < 33) androidx.test.uiautomator.By.text("OPEN").enabled(true)
+                            else androidx.test.uiautomator.By.textStartsWith("Add").enabled(true)
+                        requireNotNull(device.wait(androidx.test.uiautomator.Until.findObject(confirm), 5_000)).click()
                         ui.waitUntil(20_000) { ui.onAllNodesWithContentDescription("Image 1 of 1").fetchSemanticsNodes().isNotEmpty() }
                         val bitmap = ui.onNodeWithContentDescription("Image 1 of 1").performScrollTo().assertIsDisplayed().captureToImage().asAndroidBitmap()
                         val pixel = bitmap.getPixel(bitmap.width / 2, bitmap.height / 2)
@@ -181,7 +193,11 @@ class ImagePreviewTest {
                     }
                 }
             }
-        } finally { context.contentResolver.delete(uri, null, null) }
+        } finally {
+            context.contentResolver.delete(uri, null, null)
+            val device = androidx.test.uiautomator.UiDevice.getInstance(instrumentation)
+            if (device.currentPackageName in listOf("com.android.documentsui", "com.google.android.providers.media.module")) device.pressBack()
+        }
     }
 
     private fun capture(name: String) {

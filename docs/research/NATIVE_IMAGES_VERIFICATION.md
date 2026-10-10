@@ -107,3 +107,23 @@ Next tracer opens the real system picker against an owned MediaStore green PNG.
 Initial filename selection is a fixture observation pending10/17 hierarchy
 inspection; an absent filename on a modern picker does not prove an app defect.
 Picker PNG/XML and failure captures are retained to adapt selectors from facts.
+
+First real-picker runs41459dc: Android10 38062146694 and Android17 38062148656
+failed the filename-selection fixture. Android10's Recent view was empty;
+Android17's actual Photo Picker contained one green photo described by its date,
+with no filename node. The legacy listing cause is not established. Android10
+display/draft cases passed; Android17 display passed and draft reopen timed out
+after the second New post click. Its failure screenshot shows the feed. The
+fixture's text-only wait could match the composer header instead of the feed
+button; this is an observed selector ambiguity, not a proven source defect or
+complete root-cause account. Logs/captures retained system-picker-first/.
+
+Corrected test waits for the clickable feed New post control before recreation
+and reopening. Legacy real SAF uses a separate read-only synthetic image
+DocumentsProvider root, with positive selected-provider toolbar observation;
+wallet documents/provider remain untouched. Modern Photo Picker selection uses
+the observed date description and requires exactly one matching photo. Selected
+picker hierarchy capture precedes a bounded enabled confirmation-button wait.
+Prepared-image pixels, image-only Send enabled and zero-transaction assertions
+remain unchanged. Corrected focused10/17 runs are pending, production source is
+unchanged from312f58c. No longer file timeouts or acceptance relaxation applied.
