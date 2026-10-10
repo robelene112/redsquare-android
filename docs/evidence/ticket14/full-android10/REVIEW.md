@@ -25,11 +25,11 @@ such as quote-published do not by themselves prove completed navigation.
 Acceptance also requires the passing exact text, pixel, transaction and recovery
 assertions in the retained logs.
 
-Both public-feed reads pass. The owner actual-window image shows its backend
-and a public post. The official actual-window capture still shows the prior owner
-label despite the passing fresh official request/assertions; retain this known
-bitmap inconsistency without claiming its cause or treating it as visual proof
-of the official backend. No live publication was performed.
+Both public-feed reads pass. Fresh individual inspection of the retained
+actual-window images confirms the owner label saito.davidengelen.nl and official
+label saito.io, each with a public post. The initial report misread the official
+image; both review axes caught the inaccurate caption, and reinspection confirmed
+the correct backend. No live publication was performed.
 
 Signed 5-to-8 update and cached-feed/wallet cold continuity pass. Actual frames
 from this run replace the synthetic proof under ../interop: independently pinned
