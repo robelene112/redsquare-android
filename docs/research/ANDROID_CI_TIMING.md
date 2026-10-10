@@ -60,3 +60,8 @@ checks pass. Both supplemental review axes0 actionable.
 Full pair38056259800 (Android10) and38056261794 (Android17), same7dcea19 SHA,
 was dispatched with public_feed_read=true. Actual both-SDK acceptance, cases,
 recoveries, public reads and observed elapsed savings remain pending.
+
+First split pair outcome:10 run38056259800 build PASS then browse7/8 with one
+reply visibility fixture failure.17 run38056261794 was superseded/cancelled,
+not accepted. Corrected final pair38056769062/38056770920 at the same4513c4b
+SHA, public reads enabled, is pending. No measured full wall-time saving yet.

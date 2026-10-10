@@ -92,60 +92,43 @@ one question at a time when a material choice really needs the owner.
   bitmap lacks header fields despite semantic pass; cause unestablished, excluded
   from visual acceptance. Functional quote images correct; polish remains#35.
   No newAPK, productionwrites, Pixel/push/force-stop-delivery proof.
-- Active #14, "13: Edit and delete the author's posts", fixedbase6c657d4.
-  Latest source checkpoint3132404 implements shared public per-target/backend
-  edit/deletion proofs, cache propagation, explicit deletion confirmation and
-  exact-command plus dual-stream target-absence reconciliation. Encrypted
-  original candidates and their reviewed edit baselines survive recovery;
-  explicit conflict choices preserve text. Saved post changes opens work without
-  sending, and wallet import includes pending native author work. Mounted and
-  keyless quote previews apply proofs; profile likes merge atomically.
-  Local core35/debug/test/release/lint PASS3m55s after reviewed prefill fix. Both final source review axes
-  have no actionable source findings; this is NOT runtime acceptance or closure.
-  Public logs: ticket13/source-checkpoint. Details NATIVE_AUTHOR_ACTIONS_VERIFICATION.md.
-  Public publication restored hosted runners without billing/spending changes.
-  At f177057, focused author Android10 run38052021331 and Android17 run38052279137
-  PASS all six UI cases plus real edit/delete process-death recoveries each.
-  Original wallet/candidate retained; explicit Retry observes availability with
-  zero rebroadcast. Actual native create/edit/delete frames independently verify
-  with pinned WASM/Elliptic and apply correctly under both unchanged A/B receiver
-  methods with controlled Archive. No initialized node or live write used.
-  Full38052234326 passes build/lint/core35/browse8, then fails three Following
-  profile transitions on Android10. Screenshots show author links above the
-  viewport despite visible post bodies. f26d3bb corrects only test navigation:
-  scroll author, assert displayed, click, observe Profile, all acceptance checks
-  retained. Local test compilation passes; both fixture review axes0 actionable.
-  Focused Following38052915840/38052917663 PASS eight cases each on Android10/17.
-  Full38053152722 passes core/build/release/lint then browse7/8; older-profile
-  likes times out after clicking Load older before checking enabled readiness.
-  Retained bitmap shows recentlikes/noerrors/Loadolderenabled after timeout.
-  Source serves cached rows before network completion; button disabled whileloading.
-  Focused corrected browse38053551818/38053553901 PASS eight each on10/17.
-  Full38053764214 then passes browse8/Following8/posting15/queue6 and three cold
-  recoveries on10, but social6/8: Repost below viewport in both failure images.
-  Shared test-only clickVisiblePostContent now waits enabled unique target,
-  scrolls it, asserts visible/enabled, clicks. Social actions/body/author and
-  analogous Quote buttons/feed author links plus one Author link use it.
-  Source audit avoids repeatedly discovering the same offscreen-tap pattern.
-  Test compilation PASS52s; supplemental review axes0. Application unchanged.
-  Fixture candidate16ac9b0: focused social38054544113, quotes38054546080 and
-  author38054547958 PASS8/social and6/author plus respective processrecoveries.
-  Quotes38054546080 first4pass, fifth Retry timesout, sixthpublication starts but
-  overall180s timeout; no failure bitmap or later-hang cause yet. Two original
-  Retry taps and separate PostProcess Quote tap guarded; static phase file plus
-  host PNG/boundedXML capture added. Both review axes0, compilation in progress.
-  Rerun focusedquotes then finalfull bothSDKs; keep14open.
-  Evidence ticket13/social-viewport-fixture-failure; keep14open. Native application source remains3132404.
-  Evidence ticket13/first-current-android10, author-android10-green,
-  author-android17-green, following-fixture-failure. Keep #14 open until full
-  acceptance passes. No local build/emulator remains running.
-  Known A/B web commentary-retweet archive bug remains visible: target stored in
-  RedSquareRetweet can evade receiver RedSquare-only author lookups. Native
-  create-tweet quotes use the working archive path and retain original quote
-  fields. Corrected spec review finds this upstream limitation does not mandate
-  a production patch or native quote exclusion for #14. No false-success claims;
-  no backend repair, deployment, DOM, chain inclusion or live-write proof.
-  Twelve complete;23 remain. Continue sequentially. No new APK publication.
+- Active #14, "13: Edit and delete the author's posts", fixed base6c657d4.
+  Application sourcea545b94; final device-fixture candidate4513c4b. Shared public
+  per-target/backend edit/deletion proofs propagate across feed/Following/thread/
+  profile/likes/quotes. Encrypted original candidates and reviewed baselines
+  survive recovery; explicit conflict choices preserve text. Deletion success
+  requires the exact command plus verified target absence across both streams.
+  Saved post changes opens without sending; import includes pending author work.
+  Focused author on Android10/17 passes six cases and real edit/delete process
+  recovery each. Actual native create/edit/delete frames independently verify
+  with pinned WASM/Elliptic and unchanged A/B receivers under controlled Archive.
+  No initialized node or live write. Prior runtime evidence predates the final
+  small conversation layout correction; full checks must cover latest source.
+  Quote timeout diagnostics exposed an actual own-post conversation header
+  overflow. a545b94 separates Back/title/Refresh from Reply/Edit/Delete. Local
+  core35/debug/test/release/lint PASS4m27s. Both supplemental review axes0.
+  Focused quotes38055970805/38055973203 PASS seven cases15.585/62.655s plus real
+  cold candidate recovery3.906/3.642s on10/17. Both inspected images show title,
+  commentary and verified original. All static publication phases complete.
+  Full10 run38056259800 passes build/core/release/lint and browse7/8; authentic
+  reply below viewport in malformed-thread fixture.4513c4b adds actual reply
+  scrolling before unchanged display assertion. Local test compile PASS59s,
+  both review axes0. Production diff from7dcea19 empty. Earlier full17 companion
+  38056261794 was superseded/cancelled, not accepted.
+  Current final pair38056769062 (full-android10)/38056770920 (full-android17),
+  same4513c4b SHA, public_feed_read=true. Both pending. CI7dcea19 provides full10
+  scope mapped to unchanged harnessfull; both independent complete suites can
+  run concurrently. YAML/all28 SDK mappings pass; both CI review axes0.
+  Inspect downloaded case counts, eight intentional process interruptions,
+  public reads, cold-cache/wallet and signed5-to-8 continuity before closing14.
+  Expected103 completed cases per SDK, but count actual results.
+  Detailed chronology/review/limits: NATIVE_AUTHOR_ACTIONS_VERIFICATION.md and
+  docs/evidence/ticket13/. No current local build/emulator running.
+  Known A/B web commentary-retweet bug: RedSquareRetweet targets can evade
+  RedSquare-only receiver author lookups. Native create-tweet quotes use the
+  working path and retain quote fields. Corrected spec review does not require
+  a production patch or native quote exclusion. No false-success/deployment/DOM/
+  chain-inclusion/live-write claim. Twelve complete;23 remain. No new APK.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.
@@ -260,27 +243,3 @@ NATIVE_SAITO_TRANSFER_CONTRACT, NATIVE_PRIVATE_CHAT_CONTRACT and
 NATIVE_GROUP_CHAT_CONTRACT (all .md under docs/research). They are uncommitted
 and must be included with their own relevant tickets, not the #12 closure.
 They establish source contracts, not runtime or feature completion.
-
-## Own-post conversation layout correction, 2026-10-10
-
-Focused quotes38055428901 at8b3b898 passes its first five cases, including both
-original Retry stages. Publication hangs after opening Conversation, at the first
-commentary scroll. Inspected host PNG/XML show Back/Reply/Edit/Delete/Refresh,
-but no visible title/history/post list. The single header row now contains too
-many fixed-width actions alongside a weighted title. The production correction
-separates Back/title/Refresh from Reply/Edit/Delete; the test adds displayed
-title/list assertions before scrolling. This is an app layout correction, not
-another fixture-only change. Prior focused author source remains historical;
-new source needs focused and full Android10/17 acceptance. Captures and static
-progress retained in ticket13/own-conversation-layout-failure/. No ticket closure.
-
-The layout sourcea545b94 passes local core/debug/test/release/lint4m27s and
-both supplemental review axes0. Focused quotes38055970805/38055973203 PASS
-seven cases15.585/62.655s and real cold recovery3.906/3.642s on Android10/17.
-All publication phase markers complete; both inspected conversation images show
-title, commentary and quoted original. Evidence conversation-layout-android10-
-green/conversation-layout-android17-green. CI7dcea19 adds full-android10 mapped
-to harnessfull, enabling concurrent full10/17 without removing checks. All28
-scope mappings/YAML/whitespace pass; both CI review axes0. Full pair38056259800/
-38056261794 sameSHA7dcea19 dispatched with both public reads enabled. Pending
-actual case/recovery/public-read/source acceptance, no closure/newAPK.

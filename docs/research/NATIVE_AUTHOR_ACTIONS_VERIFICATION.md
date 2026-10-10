@@ -3,7 +3,24 @@
 Active #14, fixed base `6c657d4`; boundaries #1 seams1–4. Primary source contract
 NATIVE_EDIT_DELETE_CONTRACT.md. No production writes or node mutation authorized.
 
-## Latest source checkpoint: 3132404
+## Current acceptance checkpoint
+
+Applicationa545b94, device fixtures4513c4b. Full pair38056769062/38056770920
+at the same4513c4b SHA has both public reads enabled and is pending. Expected
+103 completed cases and eight deliberate process interruptions per SDK; count
+actual logs before acceptance. Local test compilation PASS59s for the last
+reply-scroll correction; both supplemental review axes0. Previous full10
+38056259800 passes core/build/release/lint/browse7 of8, then fails an authentic-
+reply visibility assertion without scrolling. The inspected screenshot shows
+root/social controls filling the viewport.4513c4b scrolls the authentic reply
+before the unchanged display assertion, retaining malformed rejection and waits.
+Evidence conversation-reply-viewport-failure/. Previous full17 companion
+38056261794 was superseded/cancelled by the new final same-SHA pair, not accepted.
+
+The chronology below records earlier source and runtime checkpoints. #14 remains
+open. No production write or new APK publication.
+
+## Earlier source checkpoint: 3132404
 
 ### Hosted execution restored; Android10/17 focused GREEN
 
