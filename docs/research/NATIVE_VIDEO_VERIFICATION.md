@@ -386,3 +386,11 @@ inside the fresh scenario on failure. All cached posts/replies/likes/outage
 assertions and15s waits remain. This is a bounded startup-session hypothesis,
 not a proven cause. Production is unchangedc6113d2. Full17 companion38087176435
 at e8fafd9 remains pending; focused browse10 and outstanding full10 are required.
+
+Reviewe8fafd9...d22c2a2 confirmed the readiness/assertion boundary and corrected
+handoff, but Standards noted the touched case's enclosing diagnostic capture
+and manual server cleanup could still replace the primary error. The case now
+uses AutoCloseable.use for primary-preserving cleanup and shares a small scoped
+primary-preserving capture helper for its inner/outer diagnostics. This is a
+source-observed cleanup risk, not an observed masking incident. No production
+or cached recovery acceptance assertions changed; runtime proof remains pending.

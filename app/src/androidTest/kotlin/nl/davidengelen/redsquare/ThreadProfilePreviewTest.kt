@@ -271,8 +271,7 @@ class ThreadProfilePreviewTest {
                 else -> error("Unexpected cached-profile query")
             }
         }
-        val server = peer.start()
-        try {
+        peer.start().use { server ->
             val intent = Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
             try {
@@ -308,16 +307,15 @@ class ThreadProfilePreviewTest {
                     ui.onNodeWithText("Only available history is shown. Older posts and likes may be missing.").assertIsDisplayed()
                     captureFeedEvidence("browse-evidence/cached-profile-likes-after-restart.png")
                     } catch (failure: Throwable) {
-                        try { captureFeedEvidence("browse-evidence/cached-profile-recovery-first-failure.png") }
-                        catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
+                        captureProfileFailure(failure, "cached-profile-recovery-first-failure")
                         throw failure
                     }
                 }
             } catch (failure: Throwable) {
-                captureFeedEvidence("browse-evidence/cached-profile-first-failure.png")
+                captureProfileFailure(failure, "cached-profile-first-failure")
                 throw failure
             }
-        } finally { server.close() }
+        }
     }
 
     @Test fun openingAnIdentityShowsItsSignedPostsRepliesAndAvailableLikedPosts() {
@@ -499,6 +497,11 @@ class ThreadProfilePreviewTest {
                 }
             }
         }
+    }
+
+    private fun captureProfileFailure(failure: Throwable, name: String) {
+        try { captureFeedEvidence("browse-evidence/$name.png") }
+        catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
     }
 
     private fun prepareContext(): android.content.Context {
