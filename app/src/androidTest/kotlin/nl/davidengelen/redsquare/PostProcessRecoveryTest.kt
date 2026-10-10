@@ -23,8 +23,9 @@ import java.util.concurrent.atomic.AtomicReference
 class PostProcessRecoveryTest {
     @get:Rule val ui = createEmptyComposeRule()
     private val context get() = InstrumentationRegistry.getInstrumentation().targetContext
-    private val checkpoint get() = File(context.cacheDir, "post-process-checkpoint.json")
-    private val body = "Recover this uncertain post after process death"
+    private val quote get() = InstrumentationRegistry.getArguments().getString("quote") == "true"
+    private val checkpoint get() = File(context.cacheDir, if (quote) "quote-process-checkpoint.json" else "post-process-checkpoint.json")
+    private val body get() = if (quote) "Recover this uncertain quote after process death" else "Recover this uncertain post after process death"
 
     private fun prepare() {
         check(context.packageName == "nl.davidengelen.redsquare.dev")
@@ -37,13 +38,21 @@ class PostProcessRecoveryTest {
             JsonParser.parseReader(it).asJsonObject.getAsJsonObject("root")
         }
 
+    private fun openComposer() {
+        if (quote) {
+            waitFor("Native Red Square reference post")
+            ui.onNodeWithText("Quote").performClick()
+            waitFor("Quote post")
+        } else ui.onNodeWithText("New post").performClick()
+    }
+
     private fun waitFor(text: String) = ui.waitUntil(20_000) {
         ui.onAllNodesWithText(text).fetchSemanticsNodes().isNotEmpty()
     }
 
     @Test fun terminateAfterAnUncertainSendBeforeLeavingTheComposer() {
         prepare()
-        context.noBackupFilesDir.listFiles()?.filter { it.name.startsWith("postdraft.") }
+        context.noBackupFilesDir.listFiles()?.filter { it.name.startsWith("postdraft.") || it.name.startsWith("feed.") }
             ?.forEach { check(it.delete()) }
         val observed = AtomicReference<JsonObject?>()
         val peer = ControlledFeedPeer("[${root()}]", onTransaction = { frame ->
@@ -51,6 +60,7 @@ class PostProcessRecoveryTest {
             val envelope = candidate.envelope()
             val post = RedSquareFeed.decode(envelope)
             assertEquals(body, post.text)
+            if (quote) assertEquals(root().get("sig").asString, post.quoted!!.id)
             observed.set(postingArchiveRow(candidate))
         }, archiveResponse = { criteria -> if (criteria.has("sig")) "[]" else "[${root()}]" })
         peer.start().use { server ->
@@ -60,7 +70,7 @@ class PostProcessRecoveryTest {
                 ui.waitUntil(20_000) {
                     ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty()
                 }
-                ui.onNodeWithText("New post").performClick()
+                openComposer()
                 ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNode(hasSetTextAction()).performTextReplacement(body)
                 ui.onNodeWithText("Send").performClick()
@@ -68,7 +78,8 @@ class PostProcessRecoveryTest {
                 ui.waitUntil(10_000) { observed.get() != null }
                 peer.assertHealthy()
                 checkpoint.outputStream().use { output ->
-                    output.write(requireNotNull(observed.get()).toString().toByteArray())
+                    val row = requireNotNull(observed.get()).deepCopy().apply { addProperty("pid", Process.myPid()) }
+                    output.write(row.toString().toByteArray())
                     output.fd.sync()
                 }
                 Process.killProcess(Process.myPid())
@@ -92,7 +103,7 @@ class PostProcessRecoveryTest {
                 assertEquals(row.get("field2").asString, displayedWalletAddress(ui))
                 ui.onNodeWithText("Done").performClick()
                 waitFor("New post")
-                ui.onNodeWithText("New post").performClick()
+                openComposer()
                 waitFor("Send requested. Availability on this server is not confirmed.")
                 ui.onNodeWithText(body).assertTextEquals(body).assertIsNotEnabled()
                 assertTrue(peer.transactions.isEmpty())
@@ -104,7 +115,7 @@ class PostProcessRecoveryTest {
                 captureFeedEvidence("post-process-evidence/reconciled-without-rebroadcast.png")
                 ui.onNodeWithText("Back").performClick()
                 ui.waitUntil(10_000) { ui.onAllNodes(hasScrollToIndexAction()).fetchSemanticsNodes().isNotEmpty() }
-                ui.onNodeWithText("New post").performClick()
+                openComposer()
                 ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNode(hasSetTextAction()).assert(hasText(""))
             }

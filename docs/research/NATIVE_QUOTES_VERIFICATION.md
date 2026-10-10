@@ -62,3 +62,13 @@ candidate uncertain-send reconciliation, failed/unavailable-original Retry and
 backend-isolated verified original cache regressions. Existing historical/dual
 and embedded-only public vector readers checked directly. Local initial batch
 core/debug/test assembly passes1m41s; expanded runtime checks pending.
+
+Recovery batch38029461509 at68c2a27: Android10 seven cases23.284s, five
+pass including failed/unavailable Retry, backend-original cache isolation and
+partial profile counts. Two fixture assertions fail: disabled fields have no
+SetText action, and assertTextEquals on the empty editable field includes its
+placeholder. Corrected to disabled commentary node and editable empty hasText,
+retaining the recovery/isolation requirements. Log retained recovery-fixture-red.
+Actual quote candidate process termination/cold reconciliation extends the
+existing host/process boundary with a separate public checkpoint; compiled55s,
+runtime pending. No process-death acceptance claimed yet.

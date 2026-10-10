@@ -169,7 +169,7 @@ class QuotePreviewTest {
                 waitFor("New post")
                 ui.onNodeWithText("New post").performClick()
                 readyComposer()
-                ui.onNode(hasSetTextAction()).assertTextEquals("")
+                ui.onNode(hasSetTextAction()).assert(hasText(""))
                 ui.onNode(hasSetTextAction()).performTextReplacement("Separate root draft")
                 ui.onNodeWithText("Save draft").performClick()
                 waitFor("New post")
@@ -216,7 +216,7 @@ class QuotePreviewTest {
                 waitFor(originalText)
                 ui.onNodeWithText("Quote").performClick()
                 waitFor("Uncertain quote commentary")
-                ui.onNode(hasSetTextAction()).assertIsNotEnabled()
+                ui.onNodeWithText("Uncertain quote commentary").assertIsNotEnabled()
                 ui.waitUntil(20_000) { ui.onAllNodes(hasText("Retry") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNodeWithText("Retry").performClick()
                 waitFor("Available on this server.")
