@@ -33,7 +33,7 @@ private data class ProfileHistoryPage(val posts: List<FeedPost>, val likes: List
 @Composable
 internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: SaitoBackend, author: String,
     view: ProfileViewState, following: FollowingState?, modifier: Modifier, onBack: () -> Unit, onPost: (FeedPost) -> Unit,
-    onIdentity: (String) -> Unit) {
+    onIdentity: (String) -> Unit, social: SocialState? = null) {
     val context = LocalContext.current.applicationContext
     val cache = remember(backend) { AndroidProfileCache(context, backend) }
     val tab = view.tab
@@ -160,6 +160,7 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
                         style = MaterialTheme.typography.titleMedium)
                     Text(post.text, Modifier.clickable { onPost(post) }.padding(vertical = 8.dp),
                         style = MaterialTheme.typography.bodyLarge)
+                    SocialActions(post, social)
                 }
                 HorizontalDivider()
             }

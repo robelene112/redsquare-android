@@ -1,4 +1,10 @@
 <resources>
+    <string name="social_like">Like</string>
+    <string name="social_liked">Liked</string>
+    <string name="social_retry_like">Retry like</string>
+    <string name="social_like_count">%1$d likes</string>
+    <string name="social_pending">Pending. Availability on this server has not been verified.</string>
+    <string name="social_error">Could not finish this action. Retry checks the original action before sending it again.</string>
     <string name="post_queued">Queued</string>
     <string name="post_queue_title">Queued posts</string>
     <string name="post_queue_empty">No queued posts</string>

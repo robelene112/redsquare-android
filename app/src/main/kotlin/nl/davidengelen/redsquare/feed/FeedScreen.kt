@@ -40,6 +40,7 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
     val activity = requireNotNull(LocalActivity.current) as ComponentActivity
     val context = activity.applicationContext
     val scope = rememberCoroutineScope()
+    val social = remember(wallet, backend, endpoint) { wallet?.let { SocialState(context, it, backend, endpoint, scope) } }
     val following = remember(wallet?.publicKey) { wallet?.let { FollowingState(context, it.publicKey, scope) } }
     LaunchedEffect(following) { following?.load() }
     var followingView by rememberSaveable { mutableStateOf(false) }
@@ -170,13 +171,13 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
         is BrowseDestination.Profile -> {
             ProfileScreen(wallet, endpoint, backend, destination.author, destination.view, following, modifier,
                 onBack = { back() }, onPost = { navigation.add(BrowseDestination.Conversation(it)) },
-                onIdentity = { openProfile(it) })
+                onIdentity = { openProfile(it) }, social = social)
             return
         }
         is BrowseDestination.Conversation -> {
             ConversationScreen(wallet, endpoint, backend, destination.post, modifier,
                 onBack = { back() }, onIdentity = { openProfile(it) },
-                onPost = { navigation.add(BrowseDestination.Conversation(it)) })
+                onPost = { navigation.add(BrowseDestination.Conversation(it)) }, social = social)
             return
         }
         null -> Unit
@@ -228,6 +229,7 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
                         style = MaterialTheme.typography.bodyLarge)
                     Text(DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, Locale.ENGLISH)
                         .format(Date(post.createdAt)), style = MaterialTheme.typography.labelSmall)
+                    SocialActions(post, social)
                 }
                 HorizontalDivider()
             }

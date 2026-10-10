@@ -64,10 +64,13 @@ one question at a time when a material choice really needs the owner.
 - Active #12, "11: Like posts and perform ordinary reposts". Base58aed22.
   First application seam: like a reference post, observe only served counts,
   verify original action/signature and coherent feed/thread/profile state.
-  Focused social harness and first test added; no implementation yet.
+  First red38016710571 fails24.504s at missing4likes after rootshown.
+  Selected-wallet/backend like state, durableoriginalcandidate and exact
+  availabilityretry with sharedfeed/thread/profiledisplay implemented; local
+  debug/testassembly1m41sPASS. Focusedgreen next.
   Ten of35 complete;
  25 remain. Read-only primary-source contract prepared in
-  NATIVE_SOCIAL_INTERACTIONS_CONTRACT.md. No #12 production implementation yet.
+  NATIVE_SOCIAL_INTERACTIONS_CONTRACT.md. Ordinaryreposts/recovery/fullacceptance/reviews incomplete.
   Continue sequentially through #36 without routine permission requests.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
