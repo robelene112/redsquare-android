@@ -22,7 +22,7 @@ const allowed = value => {
   try {
     const url = new URL(value);
     return url.origin === 'https://nl.davidengelen.redsquare.dev' ||
-      (url.origin === 'https://www.youtube.com' && url.pathname === '/embed/M7lc1UVf-VE');
+      (url.origin === 'https://www.youtube.com' && ['/embed/M7lc1UVf-VE','/embed/bHQqvYy5KYo'].includes(url.pathname));
   } catch { return false; }
 };
 

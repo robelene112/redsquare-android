@@ -342,3 +342,22 @@ loading and restores relative100% CSS height, keeping block iframe display.
 The existing live acceptance RED/Play/Playing assertions remain unchanged;
 this explanation is a source-supported diagnosis to verify with fresh geometry
 and trusted playback, not a passed result.
+
+Native sizing is verified atc6113d2: Android10 run38086674099 and Android17
+run38086671894 show completed296×448 wrapper/body/iframe and YouTube child
+viewports. The zero-height defect is corrected. Both trusted Play/control gates
+are reached, but native Playing still fails after30s, one51.91/56.76s respectively.
+Individually inspected original failure PNGs both show the native embed-disabled
+explanation, Retry and Open in YouTube. This maps to101/150; the exact numeric
+provider code was not captured. Retained public-provider-refusal/android10/17.
+The documented M7 example is therefore refused in these runs; no real-media
+success, general provider outage or attestation/network cause is established.
+Local debug/test buildPASS1m44s; both native-layout source review axes0.
+An explicit public_video_reference option selects the existing independently
+signed last-text candidate bHQqvYy5KYo for a second public probe, without changing
+the original M7 default or its Play/Playing assertions. YouTube's public oEmbed
+read returned its Google for Developers title, "Google I/O 2011: YouTube's iframe
+Player: The Future of Embedding" and typevideo on2026-10-10. This is metadata,
+not embedding/playback proof. No signed fixture is altered. CDP allows only the
+two selected public embed paths and retains the same frame-only DOM boundary.
+The second probe is pending and is not a provider-refusal-as-success test.

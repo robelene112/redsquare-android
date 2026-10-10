@@ -13,6 +13,10 @@ on:
         description: Separately verify both approved public peer feeds
         type: boolean
         default: false
+      public_video_reference:
+        description: Use the second signed public YouTube reference in opt-in video reads
+        type: boolean
+        default: false
 permissions:
   contents: read
 concurrency:
@@ -102,6 +106,7 @@ jobs:
         env:
           TEST_PUBLIC_SIGNED_UPDATE: '1'
           TEST_PUBLIC_FEED_READ: ${{ inputs.public_feed_read && '1' || '0' }}
+          TEST_PUBLIC_VIDEO_REFERENCE: ${{ inputs.public_video_reference && '1' || '0' }}
           TEST_SCOPE: ${{ inputs.scope == 'full-android10' && 'full' || inputs.scope || 'full' }}
         run: scripts/ci-android-device 29
       - name: Verify Android 17 runtime
@@ -110,6 +115,7 @@ jobs:
           TEST_SCOPE: ${{ inputs.scope == 'full-android17' && 'full' || inputs.scope || 'full' }}
           TEST_PUBLIC_SIGNED_UPDATE: '1'
           TEST_PUBLIC_FEED_READ: ${{ inputs.public_feed_read && '1' || '0' }}
+          TEST_PUBLIC_VIDEO_REFERENCE: ${{ inputs.public_video_reference && '1' || '0' }}
         run: scripts/ci-android-device 37.0
       - name: Retain verification evidence
         if: always()

@@ -14,7 +14,7 @@ each, core39/build/release/lint, both public reads, cold recovery and signed
 updates. Productioncb3d9c3 is identical across accepted candidates. Evidence
 final-android10/final-android17/final-interop; details NATIVE_IMAGES_VERIFICATION.
 
-Active: #17 YouTube, production32e28c4, last source/test candidate5454618,
+Active: #17 YouTube, production/source candidatec6113d2,
 fixed review base711e42e. Root-owned viewer survives rotation/recreation; small
 windows use external fallback. Sticky errors persist until Retry. Text selection
 now matches both original Browser/Tweet helpers, including omitted schemes and
@@ -25,9 +25,15 @@ Full711e42e...5454618 source reviewsboth0. Actual public playback is unproved:
 10 run38084979254 one30.203s and17 run38084966811 one45.588s reach native ready
 but no public Play control. Individually inspected PNGs and separate XML are
 retained public-no-control. WebView74/145 respectively; cause unestablished.
-An opt-in-only read-only DevTools geometry/control diagnostic is now prepared,
-with no production changes/private globals/playback calls. Syntax checks pass;
-next public17 diagnostic run pending. Full10/17 acceptance remains required.
+Opt-in read-only DevTools diagnostics established a zero-height iframe despite
+a296×448 native viewport in38086007749. A CSS-only correction8e46329 still
+fails both public runs38086337225/38086335271 with the same zero-height frames.
+Nativec6113d2 now explicitly sets MATCH_PARENT layout parameters before HTML
+loading, following Android's WebView layout-size contract, and restores relative
+CSS height. Local debug/test buildPASS1m44s; both bounded source review axes0.
+Fresh public17/10 runs38086671894/38086674099 are pending. Real playback is still
+unproved. CDP reads only allowed public frame DOM; page screenshots were removed
+at23eea43. Full10/17 acceptance remains required after runtime GREEN.
 See NATIVE_VIDEO_VERIFICATION.md. No ticket closure or new APK.
 
 #16 Giphy remains open: an Android-authorized key and clarification of provider

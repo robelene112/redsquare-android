@@ -31,10 +31,12 @@ class PublicYouTubeReadTest {
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
     }
 
-    @Test fun trustedProviderPlayControlStartsTheDocumentedPublicExample() {
+    @Test fun trustedProviderPlayControlStartsTheSelectedPublicReference() {
         val reference = instrumentation.context.assets.open("native-video-reference.json").bufferedReader()
             .use { com.google.gson.JsonParser.parseReader(it).asJsonObject }
-        val row = reference.getAsJsonObject("linked")
+        val alternate = InstrumentationRegistry.getArguments().getString("publicVideoReference") == "1"
+        val row = if (alternate) reference.getAsJsonArray("candidates")[3].asJsonObject else reference.getAsJsonObject("linked")
+        val postText = if (alternate) "https://youtu.be/M7lc1UVf-VE https://youtu.be/bHQqvYy5KYo" else "Explicit signed YouTube link"
         val peer = ControlledFeedPeer("[$row]")
         val device = UiDevice.getInstance(instrumentation)
         peer.start().use { server ->
@@ -45,7 +47,7 @@ class PublicYouTubeReadTest {
                     ui.waitUntil(20_000) { peer.requests.get() >= 2 && ui.onAllNodesWithText("Loading posts…").fetchSemanticsNodes().isEmpty() }
                     if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
                     val button = hasText("Watch on YouTube") and hasAnyAncestor(
-                        hasAnyChild(hasText("Explicit signed YouTube link") and hasClickAction()))
+                        hasAnyChild(hasText(postText) and hasClickAction()))
                     ui.onNode(hasScrollAction()).performScrollToNode(button)
                     ui.onNode(button).assertIsDisplayed().performClick()
                     ui.waitUntil(30_000) {

@@ -251,6 +251,7 @@ verify_videos() {
     fi
     timeout 180 adb shell am instrument -w -r \
         -e class "$video_class" -e publicVideoRead "$public_video_read" \
+        -e publicVideoReference "${TEST_PUBLIC_VIDEO_REFERENCE:-0}" \
         nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
         > "$evidence/video-ui.txt" || true
     if [[ -n "$video_diagnostic_pid" ]]; then
