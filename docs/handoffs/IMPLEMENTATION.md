@@ -115,6 +115,13 @@ one question at a time when a material choice really needs the owner.
   working create-tweet path. No node repair, live write, chain, Pixel or push claim.
   No newAPK. Next ready#15: bounded image composition/viewing with recovery.
 
+- Active#15, "14: Attach and view images in posts, replies and quotes", assigned
+  after14 closure. Fixed review base3d47253. Both native blockers#10/#13 closed.
+  Approved parent seams1–4 apply. Current first protocol tracer checks independently
+  signed image ordering via pinned WASM/Elliptic fixture; no runtime/feature
+  completion yet. Read NATIVE_IMAGES_CONTRACT.md and ignored scratch preparation
+  .scratch/image-next-plan.md. Preserve future untracked research by ticket.
+
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.
 - Thirteen of35 tickets complete: #2 crypto compatibility, #3 persistent wallet

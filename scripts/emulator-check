@@ -176,7 +176,27 @@ if [[ "${TEST_SCOPE:-full}" == author* ]]; then
     printf '%s\n' 'Focused author action check only; full acceptance not run.' > "$evidence/scope.txt"
     exit 0
 fi
-if [[ "${TEST_SCOPE:-full}" == full ]]; then verify_browse; verify_following; verify_posting; verify_post_queue; verify_social; verify_quotes; verify_author_posts; fi
+verify_images() {
+    [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+    timeout 180 adb shell am instrument -w -r \
+        -e class nl.davidengelen.redsquare.ImagePreviewTest \
+        nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+        > "$evidence/images-ui.txt" || true
+    adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - images-evidence \
+        > "$evidence/images-evidence.tar" || true
+    if ! grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/images-ui.txt"; then
+        adb exec-out screencap -p > "$evidence/images-system-screen.png" || true
+        timeout 10 adb shell uiautomator dump /sdcard/images-failure.xml > "$evidence/images-dump.txt" 2>&1 || true
+        adb pull /sdcard/images-failure.xml "$evidence/images-failure.xml" >/dev/null 2>&1 || true
+        return 1
+    fi
+}
+if [[ "${TEST_SCOPE:-full}" == images* ]]; then
+    verify_images
+    printf '%s\n' 'Focused image check only; full acceptance not run.' > "$evidence/scope.txt"
+    exit 0
+fi
+if [[ "${TEST_SCOPE:-full}" == full ]]; then verify_browse; verify_following; verify_posting; verify_post_queue; verify_social; verify_quotes; verify_author_posts; verify_images; fi
 verify_wallet_storage_recovery() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
     timeout 90 adb shell am instrument -w -r \

@@ -15,6 +15,7 @@ data class FeedPost(
     val quoted: FeedPost? = null,
     val quoteTarget: String = quoted?.id.orEmpty(),
     val edit: AuthorAction? = null,
+    val images: List<String> = emptyList(),
 )
 
 data class ArchiveFeedPage(val posts: List<FeedPost>, val oldestCreatedAt: Long?, val rowCount: Int, val ignored: Int,
@@ -100,11 +101,17 @@ object RedSquareFeed {
                 data.getAsJsonObject("embedded")?.let { embedded ->
                     require(embedded.string("signature") == it.id && embedded.string("publicKey") == it.author &&
                         embedded.string("text") == it.text) { "Conflicting quote presentation" }
+                    val originalData = SaitoEnvelope.decode(it.envelope).body.getAsJsonObject("data")
+                    val originalImages = originalData.get("images")?.takeIf { value -> value.isJsonArray } ?: com.google.gson.JsonArray()
+                    require((embedded.get("images") ?: com.google.gson.JsonArray()) == originalImages) {
+                        "Conflicting quote images"
+                    }
                 }
             } } catch (_: Exception) { null }
         } else null
         val edit = RedSquareAuthorActions.edit(signed, envelope)
-        return FeedPost(signed.id, signed.author, edit?.text ?: text, signed.createdAt, parent, thread, envelope, signed.recipients, original, target, edit)
+        return FeedPost(signed.id, signed.author, edit?.text ?: text, signed.createdAt, parent, thread, envelope, signed.recipients, original, target, edit,
+            RedSquareImages.read(data))
     }
 
     private fun JsonObject.string(key: String): String {
