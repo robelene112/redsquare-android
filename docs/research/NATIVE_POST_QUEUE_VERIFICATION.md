@@ -116,3 +116,9 @@ does not prove the target exists elsewhere. The fixture now searches the lazy
 list through bounded scrolling and requires the target displayed, preserving
 the actual feed assertion and failure capture. Local assembly passes54s.
 Production unchanged; five-case focused retry next.
+
+Focused38010789123 atb6ec690 passes5/5, including bounded scrolling to the
+resumed post, original-backend/identity delivery, automatic uncertain reconciliation
+without rebroadcast, background delivery, cancellation and failed-save repair.
+Queue management outside the composer and actual process/wallet replacement
+acceptance remain next.

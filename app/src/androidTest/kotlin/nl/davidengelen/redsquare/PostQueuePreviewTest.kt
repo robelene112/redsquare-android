@@ -229,4 +229,38 @@ class PostQueuePreviewTest {
             }
         }
     }
+
+    @Test fun queuedWorkCanBeReviewedAndCancelledFromTheFeed() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val port = java.net.ServerSocket(0, 1, java.net.InetAddress.getByName("127.0.0.1")).use { it.localPort }
+        ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            .putExtra("feedPeerUrl", "ws://127.0.0.1:$port/wsopen")).use {
+            ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+            ui.onNodeWithText("New post").performClick()
+            ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+            ui.onNode(hasSetTextAction()).performTextReplacement("Manage this queued work from the feed")
+            ui.onNodeWithText("Send").performClick()
+            ui.waitUntil(20_000) { ui.onAllNodes(hasText("Cancel queued post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+            ui.onNodeWithText("Back").performClick()
+            ui.waitUntil(10_000) { ui.onAllNodes(hasText("Queued posts")).fetchSemanticsNodes().isNotEmpty() }
+            ui.onNodeWithText("Queued posts").performClick()
+            ui.waitUntil(10_000) { ui.onAllNodes(hasText("Manage this queued work from the feed")).fetchSemanticsNodes().isNotEmpty() }
+            ui.onNodeWithText("Queued").assertExists()
+            ui.onNodeWithText("saito.davidengelen.nl").assertExists()
+            ui.onNodeWithText("Cancel queued post").performClick()
+            ui.waitUntil(10_000) { ui.onAllNodes(hasText("No queued posts")).fetchSemanticsNodes().isNotEmpty() }
+            ui.onNodeWithText("Back").performClick()
+            ui.onNodeWithText("New post").performClick()
+            ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+            ui.onNode(hasSetTextAction()).assertTextEquals("Manage this queued work from the feed")
+            val peer = ControlledFeedPeer("[]")
+            peer.start(port).use {
+                ui.onNodeWithText("Save draft").performClick()
+                ui.waitUntil(20_000) { peer.requests.get() > 0 }
+                assertTrue(peer.transactions.isEmpty())
+                peer.assertHealthy()
+                captureFeedEvidence("post-queue-evidence/feed-managed-cancellation-retains-draft.png")
+            }
+        }
+    }
 }
