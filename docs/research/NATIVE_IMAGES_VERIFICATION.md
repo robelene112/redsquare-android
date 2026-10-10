@@ -218,3 +218,32 @@ recovers one valid red image, and leaving two stalled requests via Settings to
 select the other approved backend allows blue pixels before obsolete12s HTTP
 timeouts. Emulator timing bounds check cancellation capacity only, not Pixel
 performance. Production image source is unchanged from312f58c; runtime pending.
+
+
+6972766 focused38064903068 Android10 and38064905862 Android17 each pass5/6
+initial cases. Android10 sole failure waits for OPEN after the file tap; captured
+selected/failure XML positively shows the app already resumed. The fixture now
+accepts positive app return or an enabled confirmation, then still requires
+prepared green pixels, enabled Send and zero transactions. Android17 reply fails
+scrolling before cold thread refresh finished; capture shows Loading replies and
+disabled Refresh. Fixture waits enabled Refresh before unchanged displayed-reply
+assertion. Neither run reached supplemental preparation/loading/process checks.
+
+New wallet replacement/restoration, author edit/deletion, queued cancellation and
+original-backend variants include a normalized red image. The shared selection
+helper requires source deletion==1 before returning; lifecycle assertions require
+retained pixels. Image queue process mode uses an actual kill and cold delivery;
+pre-interruption timestamp/identity plus decoded image/pixel assertions are not a
+claim of externally captured pre-send byte equality. Queue host captures synthetic
+evidence in finally. Focused images also exercises the four lifecycle variants;
+full scope runs those through their existing classes. Runtime remains pending.
+
+Review follow-up: both axes report0 residual findings after shared cleanup keeps
+primary failures, suppresses cleanup errors and attempts all owned URI deletions,
+and stalled-download timing starts before activity launch/any request. Local
+core/debug/test/release/lint build PASS2m16s on these Kotlin fixture changes.
+Independent WASM0.3.2/Elliptic6.6.1 checks pass all three actual Android10 frames
+from697. Unmodified A/B constructor/template graphs render outer green JPEG then
+original red/blue PNG sources in exact order; gallery negative controls reject
+unsafe sources and cap4 safe entries. Controlled template proof has no browser
+DOM, network, node initialization or current served-revision acceptance claim.

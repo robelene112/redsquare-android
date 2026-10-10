@@ -24,7 +24,11 @@ class PostQueuePreviewTest {
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
     }
 
-    @Test fun explicitOfflineSendIsDurableAndCanBeCancelledBeforeTransmission() {
+    @Test fun explicitOfflineSendIsDurableAndCanBeCancelledBeforeTransmission() = offlineCancellation(false)
+
+    @Test fun cancelledImageQueueKeepsItsPreparedDraftAfterItsSourceDisappears() = offlineCancellation(true)
+
+    private fun offlineCancellation(withImage: Boolean) {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val port = java.net.ServerSocket(0, 1, java.net.InetAddress.getByName("127.0.0.1")).use { it.localPort }
         val intent = Intent(context, MainActivity::class.java)
@@ -34,6 +38,7 @@ class PostQueuePreviewTest {
             ui.onNodeWithText("New post").performClick()
             ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
             ui.onNode(hasSetTextAction()).performTextReplacement("Keep my explicitly queued post")
+            if (withImage) ui.attachSyntheticImage()
             ui.onNodeWithText("Send").performClick()
             ui.waitUntil(20_000) { ui.onAllNodes(hasText("Queued")).fetchSemanticsNodes().isNotEmpty() }
             ui.onNodeWithText("Keep my explicitly queued post").assertIsNotEnabled()
@@ -42,9 +47,11 @@ class PostQueuePreviewTest {
             ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
             ui.onNodeWithText("New post").performClick()
             ui.waitUntil(10_000) { ui.onAllNodes(hasText("Queued")).fetchSemanticsNodes().isNotEmpty() }
-            ui.onNodeWithText("Cancel queued post").performClick()
+            if (withImage) ui.assertSyntheticRedImage()
+            ui.onNodeWithText("Cancel queued post").performScrollTo().assertIsDisplayed().performClick()
             ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
             ui.onNode(hasSetTextAction()).assertTextEquals("Keep my explicitly queued post")
+            if (withImage) ui.assertSyntheticRedImage()
             val peer = ControlledFeedPeer("[]")
             peer.start(port).use {
                 ui.onNodeWithText("Save draft").performClick()
@@ -56,7 +63,11 @@ class PostQueuePreviewTest {
         }
     }
 
-    @Test fun queuedPostResumesOnlyWhenItsOriginalBackendIsSelected() {
+    @Test fun queuedPostResumesOnlyWhenItsOriginalBackendIsSelected() = originalBackendQueue(false)
+
+    @Test fun queuedImageUsesOnlyItsOriginalBackendAndRetainsPreparedPixels() = originalBackendQueue(true)
+
+    private fun originalBackendQueue(withImage: Boolean) {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val port = java.net.ServerSocket(0, 1, java.net.InetAddress.getByName("127.0.0.1")).use { it.localPort }
         val indexed = java.util.concurrent.atomic.AtomicReference<com.google.gson.JsonObject?>()
@@ -64,6 +75,7 @@ class PostQueuePreviewTest {
             val transaction = postingTransaction(frame)
             val post = nl.davidengelen.redsquare.saito.RedSquareFeed.decode(transaction.envelope())
             org.junit.Assert.assertEquals("Send on the original server", post.text)
+            org.junit.Assert.assertEquals(if (withImage) 1 else 0, post.images.size)
             indexed.set(postingArchiveRow(transaction))
         }, archiveResponse = { criteria ->
             val row = indexed.get()
@@ -82,6 +94,7 @@ class PostQueuePreviewTest {
                 ui.onNodeWithText("New post").performClick()
                 ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNode(hasSetTextAction()).performTextReplacement("Send on the original server")
+                if (withImage) ui.attachSyntheticImage()
                 ui.onNodeWithText("Send").performClick()
                 ui.waitUntil(20_000) { ui.onAllNodes(hasText("Cancel queued post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNodeWithText("Back").performClick()
@@ -112,6 +125,7 @@ class PostQueuePreviewTest {
                         captureFeedEvidence("post-queue-evidence/backend-refresh-failure.png")
                         throw failure
                     }
+                    if (withImage) ui.assertSyntheticRedImage(inPostList = true)
                     owner.assertHealthy(); official.assertHealthy()
                     captureFeedEvidence("post-queue-evidence/original-backend-resumed-post.png")
                 }

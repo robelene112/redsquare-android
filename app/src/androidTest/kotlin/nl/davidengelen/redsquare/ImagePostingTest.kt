@@ -152,6 +152,7 @@ class ImagePostingTest {
                             ui.onNodeWithText("Back").performClick()
                             if (kind == "reply") {
                                 waitFor("Conversation")
+                                ui.waitUntil(20_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                                 ui.onNode(hasScrollAction()).performScrollToNode(hasText(text))
                                 ui.onNodeWithText(text).assertIsDisplayed()
                             } else {

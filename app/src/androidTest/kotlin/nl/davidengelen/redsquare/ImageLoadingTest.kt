@@ -96,6 +96,8 @@ class ImageLoadingTest {
             val owner = ControlledFeedPeer("[${fixture.getAsJsonObject("remoteSlow")}]")
             val official = ControlledFeedPeer("[${fixture.getAsJsonObject("remoteFast")}]")
             owner.start().use { ownerServer -> official.start().use { officialServer ->
+                // Start before either call can begin, excluding a natural timeout as a pass.
+                val began = SystemClock.uptimeMillis()
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${ownerServer.port}/wsopen")
                     .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${officialServer.port}/wsopen")).use {
@@ -103,11 +105,9 @@ class ImageLoadingTest {
                         ui.waitUntil(10_000) { requests.get() == 2 }
                         ui.onNode(hasScrollAction()).performScrollToNode(hasText("Slow images keep navigation usable"))
                         ui.onNodeWithText("Slow images keep navigation usable").assertIsDisplayed()
-                        val began = SystemClock.uptimeMillis()
                         ui.onNodeWithText("Settings").performClick()
                         ui.waitUntil(5_000) { ui.onAllNodesWithText("saito.io").fetchSemanticsNodes().isNotEmpty() }
                         ui.onNodeWithText("saito.io").performClick()
-                        ui.onNodeWithText("Done").performClick()
                         ui.waitUntil(8_000) { ui.onAllNodesWithContentDescription("Image 1 of 1").fetchSemanticsNodes().isNotEmpty() }
                         assertTrue("New image must not wait for obsolete 12-second HTTP timeouts", SystemClock.uptimeMillis() - began < 10_000)
                         assertColor("Image 1 of 1", intArrayOf(20,60,220))

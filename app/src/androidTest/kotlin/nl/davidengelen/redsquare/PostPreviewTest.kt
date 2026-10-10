@@ -471,7 +471,11 @@ class PostPreviewTest {
         }
     }
 
-    @Test fun walletReplacementExplainsLocalWorkAndNeverPublishesTheOutgoingWalletDraft() {
+    @Test fun walletReplacementExplainsLocalWorkAndNeverPublishesTheOutgoingWalletDraft() = walletDraftReplacement(false)
+
+    @Test fun walletReplacementIsolatesAndRestoresPreparedImageDraftWithoutItsSource() = walletDraftReplacement(true)
+
+    private fun walletDraftReplacement(withImage: Boolean) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
@@ -497,6 +501,7 @@ class PostPreviewTest {
                 ui.onNodeWithText("New post").performClick()
                 ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNode(hasSetTextAction()).performTextReplacement("Draft belonging to the outgoing wallet")
+                if (withImage) ui.attachSyntheticImage()
                 ui.onNodeWithText("Save draft").performClick()
                 ui.waitUntil(10_000) { ui.onAllNodes(hasScrollToIndexAction()).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNodeWithText("Wallet").performClick()
@@ -516,6 +521,7 @@ class PostPreviewTest {
                 ui.onNodeWithText("New post").performClick()
                 ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNode(hasSetTextAction()).assert(hasText(""))
+                if (withImage) ui.onAllNodesWithContentDescription("Image 1 of 1").assertCountEquals(0)
                 assertTrue(peer.transactions.isEmpty())
                 captureFeedEvidence("posting-evidence/replacement-wallet-has-separate-draft.png")
             }
@@ -526,6 +532,7 @@ class PostPreviewTest {
                 ui.onNodeWithText("New post").performClick()
                 ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and hasText("Draft belonging to the outgoing wallet")).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNode(hasSetTextAction()).assertTextEquals("Draft belonging to the outgoing wallet")
+                if (withImage) ui.assertSyntheticRedImage()
                 assertTrue(peer.transactions.isEmpty())
                 peer.assertHealthy()
                 captureFeedEvidence("posting-evidence/outgoing-draft-retained-after-wallet-restore.png")

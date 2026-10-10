@@ -188,7 +188,14 @@ class ImagePreviewTest {
                         device.dumpWindowHierarchy(File(context.cacheDir, "images-evidence/system-picker-selected.xml"))
                         val confirm = if (android.os.Build.VERSION.SDK_INT < 33) androidx.test.uiautomator.By.text("OPEN").enabled(true)
                             else androidx.test.uiautomator.By.textStartsWith("Add").enabled(true)
-                        requireNotNull(device.wait(androidx.test.uiautomator.Until.findObject(confirm), 5_000)).click()
+                        // Legacy document providers can finish immediately when the sole file is tapped.
+                        val returnedOrConfirmed = android.os.SystemClock.uptimeMillis() + 10_000
+                        while (!device.hasObject(confirm) && !device.hasObject(androidx.test.uiautomator.By.pkg(context.packageName)) &&
+                            android.os.SystemClock.uptimeMillis() < returnedOrConfirmed) {
+                            device.waitForIdle(250)
+                        }
+                        if (device.hasObject(confirm)) requireNotNull(device.findObject(confirm)).click()
+                        else assertTrue("Picker should return to the app", device.hasObject(androidx.test.uiautomator.By.pkg(context.packageName)))
                         ui.waitUntil(20_000) { ui.onAllNodesWithContentDescription("Image 1 of 1").fetchSemanticsNodes().isNotEmpty() }
                         val bitmap = ui.onNodeWithContentDescription("Image 1 of 1").performScrollTo().assertIsDisplayed().captureToImage().asAndroidBitmap()
                         val pixel = bitmap.getPixel(bitmap.width / 2, bitmap.height / 2)

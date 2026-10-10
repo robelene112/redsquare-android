@@ -22,7 +22,8 @@ import java.util.concurrent.atomic.AtomicReference
 class PostQueueProcessRecoveryTest {
     @get:Rule val ui = createEmptyComposeRule()
     private val context get() = InstrumentationRegistry.getInstrumentation().targetContext
-    private val checkpoint get() = File(context.cacheDir, "post-queue-process-checkpoint.json")
+    private val images get() = InstrumentationRegistry.getArguments().getString("images") == "true"
+    private val checkpoint get() = File(context.cacheDir, if (images) "image-queue-process-checkpoint.json" else "post-queue-process-checkpoint.json")
     private val body = "Resume the queued post after process death"
 
     private fun prepare() {
@@ -45,6 +46,7 @@ class PostQueueProcessRecoveryTest {
             ui.onNodeWithText("New post").performClick()
             ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
             ui.onNode(hasSetTextAction()).performTextReplacement(body)
+            if (images) ui.attachSyntheticImage()
             ui.onNodeWithText("Send").performClick()
             ui.waitUntil(20_000) { ui.onAllNodes(hasText("Cancel queued post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
             val publicState = JsonObject().apply {
@@ -75,6 +77,8 @@ class PostQueueProcessRecoveryTest {
                 val post = RedSquareFeed.decode(candidate.envelope())
                 assertEquals(expected.get("owner").asString, post.author)
                 assertEquals(body, post.text)
+                assertEquals(if (images) 1 else 0, post.images.size)
+                if (images) assertTrue(post.images.single().startsWith("data:image/jpeg;base64,"))
                 assertTrue("Recovery must retain the pre-interruption signed operation", post.createdAt in
                     expected.get("started").asLong..expected.get("queued_at").asLong)
                 ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
@@ -89,10 +93,11 @@ class PostQueueProcessRecoveryTest {
                         ui.onNodeWithText(body).assertIsDisplayed(); true
                     } catch (_: AssertionError) { false }
                 }
+                if (images) ui.assertSyntheticRedImage(inPostList = true)
                 assertEquals(1, peer.transactions.size)
                 peer.assertHealthy()
                 captureFeedEvidence("post-queue-process-evidence/cold-delivery.png")
-                File(context.cacheDir, "post-queue-process-result.json").writeText(JsonObject().apply {
+                File(context.cacheDir, if (images) "image-queue-process-result.json" else "post-queue-process-result.json").writeText(JsonObject().apply {
                     addProperty("owner", post.author); addProperty("signature", candidate.id)
                     addProperty("created_at", post.createdAt)
                 }.toString())

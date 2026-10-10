@@ -7,8 +7,9 @@ const crypto = require('node:crypto');
 const assert = require('node:assert/strict');
 const proof = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
 assert.equal(proof.result, 'PASS');
-assert.equal(proof.outer.body.data.text, 'Native quote commentary');
-assert.equal(proof.original.body.data.text, 'Native Red Square reference post');
+const images = process.argv[5] === '--images';
+assert.equal(proof.outer.body.data.text, images ? 'Native image quote' : 'Native quote commentary');
+assert.equal(proof.original.body.data.text, images ? 'Signed image reference' : 'Native Red Square reference post');
 const sourceDir = path.resolve(process.argv[3]);
 const childDir = path.resolve(process.argv[4]);
 const pins = {A: '9a4ca7e9442eb5e872168ced361ce741d7d139d7', B: '214504ecece76d1cd20a245fe4468eccbfca2951'};
@@ -57,6 +58,20 @@ for (const pin of ['A', 'B']) {
   assert.equal(tweet.embedded.signature, proof.original.signature);
   assert.equal(tweet.embedded.publicKey, proof.original.author);
   assert.equal(tweet.embedded.text, proof.original.body.data.text);
+  if (images) {
+    assert.equal(tweet.images.length, 1);
+    assert.deepEqual(Array.from(tweet.images), proof.outer.body.data.images);
+    assert.deepEqual(Array.from(tweet.embedded.images), proof.original.body.data.images);
+    const renderedImages = [...html.matchAll(/<img\b[^>]*src="([^"]*)"/g)].map(match => match[1])
+      .filter(src => src.startsWith('data:image/'));
+    assert.deepEqual(renderedImages, [...proof.outer.body.data.images, ...proof.original.body.data.images]);
+    const gallery = load('./tweet-gallery.template');
+    const safe = proof.original.body.data.images;
+    const hostile = gallery({images: ['javascript:alert(1)', '//evil.example/a.png',
+      'data:image/svg+xml;base64,PHN2Zz4=', '<unsafe>', ...safe, ...safe, ...safe]});
+    const safeImages = [...hostile.matchAll(/<img\b[^>]*src="([^"]*)"/g)].map(match => match[1]);
+    assert.deepEqual(safeImages, [...safe, ...safe]);
+  }
   const negative = new Tweet(app, {}, {...tx, msg: {...tx.msg, data: {text: tx.msg.data.text}}});
   const negativeHtml = negative.renderHTML();
   assert(!negativeHtml.includes(`data-id="${proof.original.signature}"`));
@@ -66,7 +81,7 @@ for (const pin of ['A', 'B']) {
     originalIdentityRendered: html.includes(`data-id="${proof.original.signature}"`),
     originalTextRendered: html.includes(proof.original.body.data.text),
     normalizedOriginalHasApp: Object.hasOwn(tweet.embedded, 'app'),
-    negativeControlExcludesOriginal: true, html});
+    negativeControlExcludesOriginal: true, imageOrderAndSafetyChecked: images, html});
 }
 console.log(JSON.stringify({nodeVersion: process.version, frameSha256: proof.frameSha256,
   boundary: 'Verified decoded data adapter plus unmodified pinned constructor/template graph; no DOM/network acceptance proof',

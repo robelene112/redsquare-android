@@ -208,6 +208,22 @@ PY
         > "$evidence/images-preparation-evidence.tar" || true
     grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/images-preparation-ui.txt" || return 1
     python3 "$repo_dir/scripts/image-process-check" --evidence "$evidence/image-process"
+    python3 "$repo_dir/scripts/post-queue-process-check" --images --evidence "$evidence/image-queue-process"
+    if [[ "${TEST_SCOPE:-full}" == images* ]]; then
+        # Public unsafe scalar1 wallet fixture for the image-isolation SAF flow.
+        adb shell run-as nl.davidengelen.redsquare.dev.test mkdir -p files/wallet-test-documents
+        printf '%s' '{"wallet":{"version":5.677,"publicKey":"jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR","privateKey":"0000000000000000000000000000000000000000000000000000000000000001"}}' | \
+            adb shell run-as nl.davidengelen.redsquare.dev.test tee files/wallet-test-documents/reference-import.json > /dev/null
+        timeout 180 adb shell am instrument -w -r \
+            -e class nl.davidengelen.redsquare.PostPreviewTest#walletReplacementIsolatesAndRestoresPreparedImageDraftWithoutItsSource,nl.davidengelen.redsquare.AuthorPostPreviewTest#authorImageEditsRetainPixelsAndDeletionRemovesTheGallery,nl.davidengelen.redsquare.PostQueuePreviewTest#cancelledImageQueueKeepsItsPreparedDraftAfterItsSourceDisappears,nl.davidengelen.redsquare.PostQueuePreviewTest#queuedImageUsesOnlyItsOriginalBackendAndRetainsPreparedPixels \
+            nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+            > "$evidence/images-lifecycle-ui.txt" || true
+        for directory in posting-evidence author-evidence post-queue-evidence; do
+            adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - "$directory" \
+                > "$evidence/images-$directory.tar" || true
+        done
+        grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/images-lifecycle-ui.txt" || return 1
+    fi
 }
 if [[ "${TEST_SCOPE:-full}" == images* ]]; then
     verify_images

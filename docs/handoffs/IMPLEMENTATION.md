@@ -120,16 +120,16 @@ one question at a time when a material choice really needs the owner.
   Approved parent seams1–4 apply. Production312f58c implements bounded galleries,
   viewer, image-only composition, worker normalization and encrypted image drafts.
   Core39 passes independent signed ordering/dual-quote image authentication.
-  Android17 focused38062884910 at847190c passes all3 display/draft/real-picker
-  cases in28.679s, with core/build/release/lint. Actual-window green image-only
-  draft inspected. Recreation is not cold process recovery proof. Android10
-  companion38062883051 stopped before instrumentation: run-as could not execute
-  the standalone test command. da084d5 uses the shell builtin; focused rerun
-  38063402024 pending. New ImagePostingTest covers actual signed image-only post,
-  reply and dual quote at the controlled socket; local build pending. Ticket
-  remains open: preparation/failure bounds, media recovery/queue and isolation,
-  remote failure/responsiveness, author revisions, independent actual frames
-  and final full10/17 acceptance remain. Read NATIVE_IMAGES_CONTRACT.md and
+  Latest697 focused38064903068/38064905862 each pass5/6 initial cases; Android10
+  auto-return picker and Android17 pending-thread scroll fixtures corrected from
+  positive in-scope captures. Supplemental preparation/loading/process checks
+  were not reached. New image wallet/author/queue lifecycle and actual cold queue
+  recovery variants compiled with core/debug/test/release/lint PASS2m16s. Both
+  review axes0 residual findings on bounded corrections. Independently verified
+  actual post/reply/quote frames and A/B image gallery order/safety. Runtime final
+  acceptance pending. Ticket remains open: source/format/failure bounds, process
+  media recovery and isolation, remote responsiveness, author revisions, browser
+  gallery proof and final full10/17. Read NATIVE_IMAGES_CONTRACT.md and
   NATIVE_IMAGES_VERIFICATION.md. Preserve future untracked research by ticket.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1

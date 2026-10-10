@@ -29,7 +29,11 @@ class AuthorPostPreviewTest {
             it.name.startsWith("quoteoriginal.") }?.forEach { check(it.delete()) }
     }
 
-    @Test fun authorChangesRetainOriginalIdentityRecoverDeletionAndRefreshNormalViews() {
+    @Test fun authorChangesRetainOriginalIdentityRecoverDeletionAndRefreshNormalViews() = authorChanges(false)
+
+    @Test fun authorImageEditsRetainPixelsAndDeletionRemovesTheGallery() = authorChanges(true)
+
+    private fun authorChanges(withImage: Boolean) {
         val reference = InstrumentationRegistry.getInstrumentation().context.assets.open("native-feed-reference.json")
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow") }
         val own = AtomicReference<JsonObject?>()
@@ -46,6 +50,7 @@ class AuthorPostPreviewTest {
                     assertEquals("Native author's original post", signed.body.getAsJsonObject("data").get("text").asString)
                     originalId.set(signed.id)
                     originalAuthor.set(signed.author)
+                    assertEquals(if (withImage) 1 else 0, signed.body.getAsJsonObject("data").getAsJsonArray("images").size())
                     own.set(postingArchiveRow(candidate))
                 }
                 "edit tweet" -> {
@@ -97,6 +102,7 @@ class AuthorPostPreviewTest {
                     ui.onNodeWithText("New post").performClick()
                     ui.waitUntil(20_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNode(hasSetTextAction()).performTextReplacement("Native author's original post")
+                    if (withImage) ui.attachSyntheticImage()
                     ui.onNodeWithText("Send").performClick()
                     waitFor("Available on this server.")
                     ui.onNodeWithText("Back").performClick()
@@ -125,16 +131,17 @@ class AuthorPostPreviewTest {
                     ui.clickVisiblePostContent(own.get()!!.get("field2").asString)
                     waitFor("Profile")
                     waitFor("Native author's edited post")
+                    if (withImage) ui.assertSyntheticRedImage(inPostList = true)
                     assertEquals(2, peer.transactions.size)
                     peer.assertHealthy()
-                    java.io.File(context.cacheDir, "author-post-evidence/native-author-frames.json").apply {
+                    java.io.File(context.cacheDir, "author-post-evidence/${if (withImage) "image" else "native"}-author-frames.json").apply {
                         parentFile!!.mkdirs()
                         writeText(com.google.gson.JsonArray().apply {
                             peer.transactions.forEach { add(Base64.getEncoder().encodeToString(it)) }
                         }.toString())
                     }
                     captureFeedEvidence("author-post-evidence/edited-post-profile.png")
-                    ui.onNodeWithText("Native author's edited post").performClick()
+                    ui.clickVisiblePostContent("Native author's edited post")
                     waitFor("Conversation")
                     ui.onNodeWithText("Delete").performClick()
                     waitFor("Delete post")
@@ -170,9 +177,10 @@ class AuthorPostPreviewTest {
                     waitFor("New post")
                     waitForRefresh()
                     ui.onNodeWithText("Native author's edited post").assertDoesNotExist()
+                    if (withImage) ui.onAllNodesWithContentDescription("Image 1 of 1").assertCountEquals(0)
                     assertEquals(4, peer.transactions.size)
                     peer.assertHealthy()
-                    java.io.File(context.cacheDir, "author-post-evidence/native-author-delete-frames.json").writeText(
+                    java.io.File(context.cacheDir, "author-post-evidence/${if (withImage) "image" else "native"}-author-delete-frames.json").writeText(
                         com.google.gson.JsonArray().apply {
                             peer.transactions.take(3).forEach { add(Base64.getEncoder().encodeToString(it)) }
                         }.toString())

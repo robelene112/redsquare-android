@@ -153,7 +153,9 @@ class ImagePreparationTest {
             .use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("ordinary") }
         val peer = ControlledFeedPeer("[$fixture]", onTransaction = { frame -> sent.set(postingArchiveRow(postingTransaction(frame))) },
             archiveResponse = { criteria -> if (criteria.has("sig")) sent.get()?.let { "[$it]" } ?: "[]" else "[$fixture]" })
-        try {
+        withImageFixtureCleanup({
+            try { cleanupSyntheticImages(context.contentResolver, owned.toList()) } finally { owned.clear() }
+        }) {
             peer.start().use { server ->
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
@@ -173,7 +175,7 @@ class ImagePreparationTest {
                     }
                 }
             }
-        } finally { owned.forEach { context.contentResolver.delete(it, null, null) }; owned.clear() }
+        }
     }
 
     private fun select(uris: List<Uri>) {
