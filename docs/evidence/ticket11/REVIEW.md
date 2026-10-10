@@ -38,10 +38,19 @@ images are retained in following-strong-green10/17. AndroidX's source documents
 complete-list search, and the pinned Compose1.11.4 binary has the expected
 failure marker: [Actions.kt](https://github.com/androidx/androidx/blob/androidx-main/compose/ui/ui-test/src/commonMain/kotlin/androidx/compose/ui/test/Actions.kt).
 
-Full `38022793183` passes source/core21 and all social cases plus cold process
-recovery on Android10, then fails the feed cache-fault visibility assertion.
-A fixture-only follow-up waits for refresh and scrolls to the new post before
-unchanged content/warning checks. The position-preservation test remains intact.
-Local assembly50sPASS. Fix review and fresh full acceptance pending; #12 open.
-Earlier failure and functional red/green evidence remains in the verification
-report and sibling directories. Source review is not runtime acceptance.
+Fixture `5ab2481` has zero actionable findings on both axes. It preserves the
+cache fault, repair and visibility/warning assertions, while the separate
+position-preservation test remains unchanged. Local assembly50sPASS.
+
+Final full **38023863701** at `5ab2481` passes both SDKs: core21,
+debug/test/release/lint,87 completed instrument cases plus five actual intentional
+process kills each; social8 and cold action reconciliation, both public reads,
+cache/wallet cold recovery and signed5-to-8 updates. Downloaded logs counted and
+representative images inspected. Production equivalence with reviewed76197a4
+is verified. Safe final evidence and stated visual/physical/live-write limits
+are in final-full and NATIVE_SOCIAL_INTERACTIONS_VERIFICATION.md. In particular,
+Android17's owner bitmap has a stale official label despite passing semantic
+assertions; it is excluded from visual acceptance, with no invented cause.
+
+Standards:0 actionable findings. Specification:0 actionable findings.
+Runtime acceptance:passed on Android10/17. Ticket #12 ready for closure.

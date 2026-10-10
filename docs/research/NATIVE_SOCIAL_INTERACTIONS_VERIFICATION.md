@@ -63,18 +63,33 @@ actionable findings; see [the review](../evidence/ticket11/REVIEW.md).
 
 ## Final acceptance and limits
 
-Full `38022793183` at `13107f2` passes core21, assembly/lint, browse8,
-Following8, posting15, queue6, social8 and all five actual process recovery
-stages on Android10. Social cases take18.469s; cold reconciliation2.885s.
-Feed/backend then fails1/8: the cache-fault test demands a newly inserted post
-be visible while the list correctly retains the older post's position. The
-inspected image shows the cache warning and preserved older post, with the new
-card above the viewport. The fixture now waits for refresh completion and scrolls
-to the new post before its unchanged content/warning assertions. The distinct
-position-preservation test is unchanged. Test assembly50sPASS; production source
-unchanged. Safe failure logs and inspected images are retained in
-`ticket11/full-fourth-failure`. The passing count-warning bitmap is partly
-clipped and does not establish layout acceptance. Fresh full acceptance pending.
+Full [38023863701](https://github.com/robelene112/redsquare-android/actions/runs/38023863701)
+at `5ab2481` passes both Android10/17: core21, debug/test/release assembly and
+lint, **87 completed instrument cases and five additional intentional process
+kills per SDK**, both public feed reads, cache/wallet cold recovery and actual
+signed5-to-8 identity continuity. Counted from the downloaded logs, not inferred
+from a green workflow badge. Social8 takes15.452/15.749s; cold social recovery
+2.356/3.424s. Following8, browse8, posting15 and queue6 all pass.
 
-No new review APK, physical Pixel performance, force-stop delivery or live
-production-write acceptance is claimed.
+The fourth full run `38022793183` had passed social8 and all five cold-process
+recoveries before the feed cache-fault case failed visibility. Inspected capture
+showed the inserted post above the preserved older-post position. Fixture5ab2481
+waits for refresh completion and scrolls to that post; content/warning/repair
+assertions and the separate position-preservation case remain unchanged.
+Both fix reviews have zero actionable findings. Production equivalence with
+reviewed76197a4 is verified by empty `app/src/main`/`core/src/main` diff.
+
+Safe acceptance logs and selected inspected images are retained in
+`ticket11/final-full/android10` and `android17`. Both inspected Profile images
+show nine served likes. Android17 shows verified Liked plus the count warning,
+and cold recovery retains Liked. Some Android10 content is clipped, so those
+captures do not establish layout acceptance. Both official-feed images and the
+Android10 owner image show correct selected labels. Android17 owner bitmap
+shows the official label despite passing owner-label assertions; cause remains
+uninvestigated and that bitmap is excluded from visual acceptance. Public-read
+semantic/protocol results pass; do not infer the bitmap discrepancy's cause.
+
+Both final source review axes and all fixture fix reviews have zero actionable
+findings. #12 acceptance is satisfied. No new review APK, physical Pixel
+performance, force-stop delivery, live production-write or web visual acceptance
+is claimed. UI polish and physical checks remain #35.

@@ -61,32 +61,32 @@ one question at a time when a material choice really needs the owner.
   priorcauseunestablished. Publiclogs/inspectedimages ticket10/full-android10/
   full-android17; details NATIVE_POST_QUEUE_VERIFICATION.md/REVIEW.md.
   No newAPK, productionTX, physicalPixel or force-stop delivery proof.
-- Active #12, "11: Like posts and perform ordinary reposts", base `58aed22`.
-  Production `76197a4` implements durable signed candidates, exact availability
-  retries, wallet/backend isolation and coherent served counts across views.
-  Actual functional reds and passing regressions are recorded in
-  NATIVE_SOCIAL_INTERACTIONS_VERIFICATION.md. Independent actual Android frames
-  pass pinned WASM/Elliptic transaction and routing-hop signature verification.
-  Both final production review axes and all fixture fix reviews have zero
-  actionable findings. Production has not changed after `76197a4`.
-  Full runs exposed offscreen lazy-list waits and inherited public fixture cache;
-  reviewed fixture corrections preserve all assertions and cold recovery state.
-  Strong complete-list Following checks pass both Android10/17 in 38022220807
-  and 38022557015. Full **38022793183** at `13107f2` passes core21, social8 and all five
-  process recovery stages, but feed cache-fault visibility fails1/8. Inspected
-  capture shows the inserted post above the preserved position. Fixture now
-  scrolls to that post after refresh; separate position test unchanged. Local
-  assembly50sPASS. Fix review and fresh full acceptance pending. Ten of35 complete; 25 remain including #12.
-  Untracked `NATIVE_QUOTES_CONTRACT.md` is read-only #13 research, kept out of
-  #12 completion. No new APK or production transaction. Continue #13 through
-  #36 sequentially without routine permission requests.
+- Ticket #12, "11: Like posts and perform ordinary reposts", complete at
+  reviewed production `76197a4` against base `58aed22`; final accepted fixture
+  `5ab2481` has identical production source. Full **38023863701** passes
+  Android10/17: core21, debug/test/release/lint,87 completed instrument cases
+  and five intentional process-kill stages each. Social8 takes15.452/15.749s;
+  cold recovery2.356/3.424s. Both public feeds, cache/wallet cold recovery and
+  signed5-to-8 identity continuity pass. Downloaded logs counted and selected
+  images inspected/retained in ticket11/final-full. Both source and fixture
+  review axes have zero actionable findings. Original signed candidates,
+  exact availability retry, wallet/backend isolation and truthful served counts
+  across feed/thread/profile are complete. Prior full fixture failures and
+  independent WASM/Elliptic frame proofs remain in
+  NATIVE_SOCIAL_INTERACTIONS_VERIFICATION.md/REVIEW.md. Android17 owner bitmap
+  has stale official label despite passing assertions, excluded from visual
+  acceptance; cause uninvestigated. No new APK or production write.
+- Next #13, "12: Publish and display quote posts across supported formats".
+  Read untracked NATIVE_QUOTES_CONTRACT.md before implementation. Eleven of35
+  complete;24 remain. Continue #13 through #36 sequentially without routine
+  permission requests. Future research notes are not completed features.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.
-- Ten of35 tickets complete: #2 crypto compatibility, #3 persistent wallet
+- Eleven of35 tickets complete: #2 crypto compatibility, #3 persistent wallet
   and signing/updates, #4 feed/cache, #5 fixed backends, #6 authenticated export,
   #7 safeguarded import, #8 threads/profiles, #9 following, #10 posting/drafts.
-  #11 queues.25 tickets still open. Preserve all accepted features; no Ralph or parallel implementation.
+  #11 queues; #12 likes/reposts.24 tickets still open. Preserve all accepted features; no Ralph or parallel implementation.
 
 ## Completed foundation references
 
@@ -114,7 +114,7 @@ Initial wallet/live-feed milestone is published as stable signed version10
 Compose bitmaps had inconsistent labels; use each report's stated evidence
 limits. #9 also has official bitmap inconsistencies; no invented cause.
 
-Current next: #12 then all remaining tickets sequentially. Owner reviews
+Current next: #13 then all remaining tickets sequentially. Owner reviews
 completed app; no intermediate phone-review gate is required.
 
 ## Verification already inspected
@@ -178,3 +178,19 @@ Closed-app notifications require Firebase access and a gateway. A prior optional
 one-question prompt asked dedicated versus existing Firebase project; no answer
 has arrived. Continue independent work and never invent credentials or upload
 wallet private keys. Source research is documented, not implemented delivery.
+
+Giphy Android credentials are also unresolved. An optional single question on
+2026-10-10 asked whether an existing Android-authorized key is available and
+where configured; no response yet. Do not ask again routinely, invent a key or
+assume a backend's browser key is authorized for Android. Source contract is in
+NATIVE_GIF_VIDEO_CONTRACT.md. Continue independent tickets and controlled
+implementation while external configuration remains pending.
+
+Read-only research notes for later tickets were prepared during hosted checks:
+NATIVE_QUOTES_CONTRACT, NATIVE_EDIT_DELETE_CONTRACT, NATIVE_IMAGES_CONTRACT,
+NATIVE_GIF_VIDEO_CONTRACT, NATIVE_PROFILE_EDIT_CONTRACT, NATIVE_USERNAME_CONTRACT,
+NATIVE_DISCOVERY_MODERATION_CONTRACT, NATIVE_NOTIFICATIONS_CONTRACT,
+NATIVE_SAITO_TRANSFER_CONTRACT, NATIVE_PRIVATE_CHAT_CONTRACT and
+NATIVE_GROUP_CHAT_CONTRACT (all .md under docs/research). They are uncommitted
+and must be included with their own relevant tickets, not the #12 closure.
+They establish source contracts, not runtime or feature completion.
