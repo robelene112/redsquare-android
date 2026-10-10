@@ -33,5 +33,7 @@ Both axes report0 remaining source findings. Source acceptance is separate from 
 full runtime checks. Android10 run38068713412 atad4a8c0 passes123 cases,
 35 records and11 deliberate process deaths, independently recounted by both
 review axes. Its production/build/scripts/workflow equivalence to4dd0d3d is
-verified. Android17 companion38069923347 remains pending. Physical Pixel timing and owner review
+verified. Android17 companion38069923347 passes all media flows reached but
+fails an older unreadable-refresh fixture. Its bounded readiness correction
+and focused/full17 runtime verification remain pending review/acceptance. Physical Pixel timing and owner review
 remain later tickets. No production writes, store release or new preview APK.

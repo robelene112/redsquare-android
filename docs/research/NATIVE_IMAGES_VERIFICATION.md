@@ -12,7 +12,9 @@ selected PNGs and limits: ../evidence/ticket14/full-android10/REVIEW.md.
 Actual frames from this final10 run independently pass pinned WASM/Elliptic
 verification, A/B unchanged templates and offline Chromium image-order/raster
 checks; retained ../evidence/ticket14/interop. Full17 companion38069923347
-at4dd0d3d is still running; production/build/scripts/workflow unchanged.
+at4dd0d3d passes media but fails an older unreadable-refresh feed fixture.
+The corrected readiness guard compiles at8ffe1c4; focused feed17 and another
+full17 companion remain required. Production/build/scripts/workflow unchanged.
 Do not close #15 until that remaining full result is inspected and accepted.
 The checkpoints below preserve chronological red/green evidence and historical
 pending statuses rather than claiming each old candidate is final.
