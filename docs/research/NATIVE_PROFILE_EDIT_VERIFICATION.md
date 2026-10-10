@@ -326,3 +326,32 @@ dev package/emulator; no wallet is replaced or transaction broadcast. Local
 debug/test assembly PASS1m52s; six-case native runtime and bounded review pending.
 This is a failure/recovery regression for the existing3d8c9db save guard, not
 a new publishing behavior.
+
+Corrected c5e44a6 Android17 38095803727 PASS5 cases57.64s. Original unsaved
+bio preview PNG individually inspected shows the specific pending-work warning,
+backup requirement and disabled confirmation; separate XML retained under
+profile-import-picker-corrected/android17. Together with immutable3d8c9db
+Android10 this establishes the save-before-preview behavior on both versions.
+Both bounded3d8c9db...c5e44a6 review axes0; production identical.
+
+Failed-save regression495bc97: Android10 38095985570 PASS6 cases21.46s.
+Individually inspected original blocked-import PNG shows the app wallet dialog,
+truthful save-failed/import-not-started copy and usable import action. Fresh
+Activity recovery PNG shows exact newer Unicode multiline bio; separate XMLs
+and raw log retained profile-import-save-failure/android10. Native assertions
+require real SAF retry, selected independent address, unchanged outgoing wallet
+and zero transactions. Both bounded c5e44a6...495bc97 review axes0. Android17
+38096072885 pending; no actual process-death/publishing claim.
+
+Next publishing tracer replaces only the disposable dev wallet with public unsafe
+scalar1, restoring its previous identity in finally. It loads the independently
+signed withMedia profile, edits the bio and presses Save profile. The controlled
+peer inspects an actual signed self-recipient Profile full snapshot and checks
+unchanged avatar/banner/archive/extension literals. Only verified server
+availability may show Profile available on this server, and closing the editor
+must expose the new public bio. Real frames are retained for later independent
+WASM/web receiver verification; this first tracer is not that cross-client proof.
+Source fixture checks verify zero-value transaction decoding, but independent
+wire verification remains required. Local test assembly PASS1m5s; intended
+Save-profile-missing RED and bounded review pending. Harness includes the new
+ProfilePublishingPreviewTest alongside existing six native flows.

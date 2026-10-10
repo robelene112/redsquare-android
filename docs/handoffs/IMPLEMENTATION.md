@@ -55,12 +55,16 @@ PASS5 cases17.174s including unsaved preview; original PNG/XML inspected.
 Android17 38095431855 FAIL5/1 cases64.357s before SAF document selection,
 other4pass. Captured Downloads/Show roots, not app preview. Test now positively
 waits provider drawer row and reobserves state, unchanged30s bound/assertions.
-Corrected17 runtime pending. Preserve outgoing draft isolation. Saved profile
+Corrected c5e44a6 Android17 38095803727 PASS5 cases57.64s. Original warning
+PNG/XML inspected/retained. Both fixture review axes0. Preserve outgoing draft isolation. Saved profile
 work is already included across both backends; unreadable means unknown.
 Added failed-save import regression: preserve encrypted file, obstruct actual
 base directory after editor loads, assert picker stays closed and text retained,
 repair then actual SAF retry/fresh-Activity restoration. Local buildPASS1m52s;
-six-case native run and bounded review pending. Then publishing/candidates, media, recovery, cross-client verification and final
+Both bounded review axes0; Android10 38095985570 PASS6 cases21.46s. Blocked
+import and fresh-Activity recovery original PNG/XML inspected/retained. Android17
+38096072885 pending. New complete-snapshot bio publishing tracer added; test
+assemblyPASS1m5s, intended missing Save profile RED and review pending. Then publishing/candidates, media, recovery, cross-client verification and final
 full checks/reviews remain. No APK or production node/on-chain write.
 
 #17 remains open for actual YouTube provider playback acceptance. Its full
