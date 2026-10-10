@@ -41,6 +41,7 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
     val context = activity.applicationContext
     val scope = rememberCoroutineScope()
     val social = remember(wallet, backend, endpoint) { wallet?.let { SocialState(context, it, backend, endpoint, scope) } }
+    val quotes = remember(wallet, backend, endpoint) { wallet?.let { QuoteState(context, it, backend, endpoint, scope) } }
     val following = remember(wallet?.publicKey) { wallet?.let { FollowingState(context, it.publicKey, scope) } }
     LaunchedEffect(following) { following?.load() }
     var followingView by rememberSaveable { mutableStateOf(false) }
@@ -127,23 +128,29 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
                                 }
                                 val request = com.google.gson.JsonObject().apply { addProperty("request", "archive"); add("data", criteria) }
                                 val response = peer.request(request.toString().toByteArray()).toString(Charsets.UTF_8)
-                                val page = RedSquareFeed.readArchive(response).let { page ->
-                                    if (author == null) page else page.copy(posts = page.posts.filter { it.author == author })
-                                }
-                                rowCount += page.rowCount
-                                validCount += page.posts.size
-                                withContext(Dispatchers.Main.immediate) {
-                                    social?.observe(page.posts)
-                                    val merged = (page.posts + posts).distinctBy { it.id }
-                                        .filter { !followingView || it.author in following!!.accounts }
-                                        .sortedByDescending { it.createdAt }
-                                        .take(AndroidFeedCache.MAX_POSTS)
-                                    cacheWarning = withContext(Dispatchers.IO) {
-                                        try { cache.save(merged); false } catch (_: Exception) { true }
+                                suspend fun publish(page: ArchiveFeedPage) {
+                                    val accepted = if (author == null) page else page.copy(posts = page.posts.filter { it.author == author })
+                                    rowCount += accepted.rowCount
+                                    validCount += accepted.posts.size
+                                    withContext(Dispatchers.Main.immediate) {
+                                        social?.observe(accepted.posts)
+                                        val merged = (accepted.posts + posts).distinctBy { it.id }
+                                            .filter { !followingView || it.author in following!!.accounts }
+                                            .sortedByDescending { it.createdAt }.take(AndroidFeedCache.MAX_POSTS)
+                                        cacheWarning = withContext(Dispatchers.IO) {
+                                            try { cache.save(merged); false } catch (_: Exception) { true }
+                                        }
+                                        posts = merged
+                                        unreadablePage = rowCount > 0 && validCount == 0
                                     }
-                                    posts = merged
-                                    unreadablePage = rowCount > 0 && validCount == 0
                                 }
+                                publish(RedSquareFeed.readArchive(response))
+                                val quoteCriteria = criteria.deepCopy().apply {
+                                    addProperty("field1", "RedSquareRetweet"); remove("field4")
+                                }
+                                val quoteRequest = com.google.gson.JsonObject().apply { addProperty("request", "archive"); add("data", quoteCriteria) }
+                                val quoteResponse = peer.request(quoteRequest.toString().toByteArray(Charsets.UTF_8)).toString(Charsets.UTF_8)
+                                publish(RedSquareFeed.readCurrentQuotes(quoteResponse))
                             }
                         }
                     }
@@ -172,13 +179,13 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
         is BrowseDestination.Profile -> {
             ProfileScreen(wallet, endpoint, backend, destination.author, destination.view, following, modifier,
                 onBack = { back() }, onPost = { navigation.add(BrowseDestination.Conversation(it)) },
-                onIdentity = { openProfile(it) }, social = social, onQuote = { navigation.add(BrowseDestination.Quote(it)) })
+                onIdentity = { openProfile(it) }, social = social, quotes = quotes, onQuote = { navigation.add(BrowseDestination.Quote(it)) })
             return
         }
         is BrowseDestination.Conversation -> {
             ConversationScreen(wallet, endpoint, backend, destination.post, modifier,
                 onBack = { back() }, onIdentity = { openProfile(it) },
-                onPost = { navigation.add(BrowseDestination.Conversation(it)) }, social = social, onQuote = { navigation.add(BrowseDestination.Quote(it)) })
+                onPost = { navigation.add(BrowseDestination.Conversation(it)) }, social = social, quotes = quotes, onQuote = { navigation.add(BrowseDestination.Quote(it)) })
             return
         }
         is BrowseDestination.Quote -> {
@@ -236,7 +243,7 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
                         style = MaterialTheme.typography.bodyLarge)
                     Text(DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, Locale.ENGLISH)
                         .format(Date(post.createdAt)), style = MaterialTheme.typography.labelSmall)
-                    post.quoted?.let { QuotedPost(it) }
+                    QuoteContent(post, quotes)
                     SocialActions(post, social) { navigation.add(BrowseDestination.Quote(it)) }
                 }
                 HorizontalDivider()

@@ -143,4 +143,8 @@
     <string name="post_quote">Quote post</string>
     <string name="social_quote">Quote</string>
     <string name="quote_original">Quoted original</string>
+    <string name="quote_loading">Loading original.</string>
+    <string name="quote_failed">Could not load the original.</string>
+    <string name="quote_unavailable">Original unavailable. Commentary is still available.</string>
+    <string name="quote_cache_warning">The original could not be saved for offline reading.</string>
 </resources>

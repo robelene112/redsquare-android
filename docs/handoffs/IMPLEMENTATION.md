@@ -77,8 +77,11 @@ one question at a time when a material choice really needs the owner.
   has stale official label despite passing assertions, excluded from visual
   acceptance; cause uninvestigated. No new APK or production write.
 - Active #13, "12: Publish and display quote posts across supported formats".
-  Base1b7f0f6. Primary-source NATIVE_QUOTES_CONTRACT.md read. First controlled
-  Android publication/feed/thread tracer compiles57s; actual red pending.
+  Base1b7f0f6. Primary-source NATIVE_QUOTES_CONTRACT.md read. First publication tracer red38025957239 and green38026569765; independent
+  actual frame verifies. A/B real constructor/templates lose original text,
+  partial interoperability retained. Strong publication relation assertion passes
+  in38027130575; current discovery actually red. Minimal stream/lookup source
+  passes local core/debug/test2m1s; focused green pending.
   New focused quotes/quotes-android17 scopes and full inclusion are prepared.
   Eleven of35 complete;24 remain. Continue #13 through #36 sequentially without routine
   permission requests. Future research notes are not completed features.

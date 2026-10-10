@@ -26,3 +26,11 @@ assertion; fixes plus a stronger accessible nested-original assertion prepared.
 Current commentary-retweet protocol tracer actually fails locally26s before
 implementation, then passes39s after retaining its signed quote identity.
 Current archive discovery/original lookup Android tracer added; runtime red pending.
+
+Discovery red38027130575 atf889755: stronger publication case passes; current
+retweet discovery times out20s (two cases24.645s total). Log and failure image
+retained ticket12/discovery-red. Bounded current stream and independently signed
+original lookup implemented; local core/debug/test pass2m1s. Actual green pending.
+Standard Gradle task caching enabled with rolling hosted task-output cache;
+source/toolchain input checks remain Gradle-owned and emulator cases still run
+afresh. No speed improvement measured yet.

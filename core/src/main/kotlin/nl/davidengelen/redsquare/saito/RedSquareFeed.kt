@@ -14,12 +14,24 @@ data class FeedPost(
     val recipients: List<String>,
     val quoted: FeedPost? = null,
     val quoteTarget: String = quoted?.id.orEmpty(),
-    val quoteLookupFailed: Boolean = false,
 )
 
 data class ArchiveFeedPage(val posts: List<FeedPost>, val oldestCreatedAt: Long?, val rowCount: Int, val ignored: Int)
 
 object RedSquareFeed {
+    /** Ordinary reposts are valid interactions, but do not create commentary cards. */
+    fun readCurrentQuotes(response: String): ArchiveFeedPage {
+        data class QuoteRow(val id: String, val post: FeedPost?)
+        val page = readArchiveRows(response, { envelope ->
+            val action = RedSquareActions.decode(envelope)
+            require(action.kind == RedSquareActionKind.REPOST)
+            val data = SaitoEnvelope.decode(envelope).body.getAsJsonObject("data")
+            val hasCommentary = data.optionalString("text").isNotBlank() || data.getAsJsonArray("images")?.size()?.let { it > 0 } == true
+            QuoteRow(action.id, if (hasCommentary) decode(envelope) else null)
+        }, { true }, { it.id })
+        return ArchiveFeedPage(page.entries.mapNotNull { it.post }, page.oldestCreatedAt, page.rowCount, page.ignored)
+    }
+
     fun readArchive(response: String): ArchiveFeedPage = readPosts(response) { it.parentId.isEmpty() }
 
     fun readConversation(response: String, threadId: String): ArchiveFeedPage =
