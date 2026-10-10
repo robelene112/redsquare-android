@@ -406,6 +406,8 @@ class ThreadProfilePreviewTest {
                 ActivityScenario.launch<MainActivity>(intent).use {
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Native Red Square reference post")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     ui.onNodeWithText("Native Red Square reference post").performClick()
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNode(hasScrollAction()).performScrollToNode(hasText("Independent Saito reply"))
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Independent Saito reply")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     ui.waitUntil(10_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     peer.assertHealthy()
@@ -419,6 +421,8 @@ class ThreadProfilePreviewTest {
                     ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
                     ui.onNodeWithText("Native Red Square reference post").performClick()
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Conversation")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNode(hasScrollAction()).performScrollToNode(hasText("Independent Saito reply"))
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Independent Saito reply")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     ui.onNodeWithText("Independent Saito reply").assertIsDisplayed()
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText("Nested Saito reply"))
@@ -465,6 +469,8 @@ class ThreadProfilePreviewTest {
                 try {
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Native Red Square reference post")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     ui.onNodeWithText("Native Red Square reference post").performClick()
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNode(hasScrollAction()).performScrollToNode(hasText("Independent Saito reply"))
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Independent Saito reply")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     ui.onNodeWithText("Independent Saito reply").assertIsDisplayed()
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText("Nested Saito reply"))

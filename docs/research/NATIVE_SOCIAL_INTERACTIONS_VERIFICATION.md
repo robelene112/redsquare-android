@@ -96,3 +96,13 @@ ticket11/count-warning-red. The fix preserves verified availability and reports
 count-refresh failure separately; any fresh served observation clears that
 warning. Missing target data also produces a count warning. Local core and
 debug/test assembly passes1m38s. Final full Android10/17 and source reviews next.
+
+First full `38020831495` at `76197a4` passes core/release/debug/test/lint,
+then stops at Android10 browse6/8 in51.587s: two Independent Saito reply waits
+time out at lines468/422. Inspected conversation images show the original and
+new social rows filling the viewport. The old lazy-list fixture did not scroll
+to materialize the reply rows. Three corresponding live/cached reply checks now
+wait for refresh completion and scroll to the same reply before their unchanged
+content/history assertions. Local test assembly54sPASS. Production unchanged.
+Both final production-source review axes have zero actionable findings. Fixture
+fix review and fresh full acceptance next; no runtime fix success claimed yet.
