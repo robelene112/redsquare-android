@@ -40,7 +40,7 @@ internal class AuthorEditState(private val store: PostDraftStore, private val me
             candidate = saved.transaction
             available = saved.available
             text = if (kind == AuthorActionKind.DELETE) "" else
-                if (saved.transaction != null) saved.text else memory.text ?: saved.text.ifEmpty { original.text }
+                if (saved.transaction != null) saved.text else memory.text ?: saved.text.ifEmpty { baseline.text }
             memory.text = text
             ready = true
             error = false
