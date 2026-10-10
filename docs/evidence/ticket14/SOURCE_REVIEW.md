@@ -1,7 +1,7 @@
 # Image source review
 
 Fixed base `3d47253`. Full committed review through `354a1c7`, followed by
-bounded corrections through `4dd0d3d`. Production Android/core source is unchanged
+bounded corrections through `65469a7`. Production Android/core source is unchanged
 from `312f58c`; later commits change fixtures, verification tooling and evidence.
 
 ## Standards
@@ -16,7 +16,10 @@ aggregation with a strict final gate, disabled text without SetText action,
 exact post-card image scope, distinct text/image queue bodies, and keyboard
 dismissal before positively displayed picker navigation. The shared navigation
 helper preserves visible/enabled clicks; confirmation accepts both observed
-Add/Done variants only within the launched system picker package.
+Add/Done variants only within the launched system picker package. Automatic
+return requires the picker package to disappear. The unreadable-refresh test
+positively observes initial loading, visible/enabled Refresh and a new request
+without removing its exact warning/retained-post assertions.
 
 ## Specification
 
@@ -34,6 +37,7 @@ full runtime checks. Android10 run38068713412 atad4a8c0 passes123 cases,
 35 records and11 deliberate process deaths, independently recounted by both
 review axes. Its production/build/scripts/workflow equivalence to4dd0d3d is
 verified. Android17 companion38069923347 passes all media flows reached but
-fails an older unreadable-refresh fixture. Its bounded readiness correction
-and focused/full17 runtime verification remain pending review/acceptance. Physical Pixel timing and owner review
+fails an older unreadable-refresh fixture. Both bounded correction reviews0;
+focused feed1738071460383 passes8 cases and cold cache recovery. Final full17
+companion38071834163 at65469a7 remains pending acceptance. Physical Pixel timing and owner review
 remain later tickets. No production writes, store release or new preview APK.

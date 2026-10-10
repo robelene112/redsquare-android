@@ -13,8 +13,10 @@ Actual frames from this final10 run independently pass pinned WASM/Elliptic
 verification, A/B unchanged templates and offline Chromium image-order/raster
 checks; retained ../evidence/ticket14/interop. Full17 companion38069923347
 at4dd0d3d passes media but fails an older unreadable-refresh feed fixture.
-The corrected readiness guard compiles at8ffe1c4; focused feed17 and another
-full17 companion remain required. Production/build/scripts/workflow unchanged.
+The corrected readiness guard passes all8 focused feed/backend cases and cold
+cache recovery in38071460383 atc73fc13. Full17 companion38071834163 at65469a7
+is underway, including the stricter picker-closed helper and both public reads.
+Production/build/scripts/workflow unchanged.
 Do not close #15 until that remaining full result is inspected and accepted.
 The checkpoints below preserve chronological red/green evidence and historical
 pending statuses rather than claiming each old candidate is final.
@@ -419,3 +421,10 @@ Confirmation still accepts only the observed launched-package labels, and exact
 prepared pixels/Send enabled/zero transactions remain required. This is a source
 hardening, not an established cause of any earlier failure. Narrow compile
 PASS1m01s. Full17 companion will cover the final helper; production unchanged.
+
+Focusedfeed17 c73fc13/run38071460383 PASS8 cases/64.029s and cold cached-feed
+continuity; exact warning/post assertions and observed refreshed request pass.
+Retained feed-readiness-green logs/report. Both bounded review axes0 at65469a7.
+Pushsourcecheck38071676327 PASS. Full17 companion38071834163 dispatched with
+public_feed_read=true; unchanged production/build/scripts/workflow relative to
+successful full10ad4a8c0 explicitly checked again. No final acceptance yet.

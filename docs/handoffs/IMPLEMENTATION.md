@@ -141,7 +141,12 @@ one question at a time when a material choice really needs the owner.
   cases/24 passing records/11 actual kills,1 failure. New fixture waits both
   initial archive streams plus enabled Refresh, then verifies a new request;
   exact warning/post assertions unchanged. Narrow compile PASS. Production
-  unchanged. Focused feed17 and full17 companion/evidence/review still required.
+  unchanged. Focused feed17c73fc13/run38071460383 PASS8 cases/64.029s and
+  cold cache continuity. Picker automatic return now requires actual package
+  disappearance; compile1m01s/both bounded reviews0 at65469a7. Final full17
+  companion38071834163 at65469a7 running with public reads enabled. Production/
+  build/scripts/workflow equivalence to accepted full10 verified again; final
+  evidence/review/closure still required.
   Full10 evidence retained6853de3, corrected official caption0c5b7fd; both
   bounded evidence review axes0 residual findings.
   Actual post/reply/quote frames independently verified; A/B unchanged templates
