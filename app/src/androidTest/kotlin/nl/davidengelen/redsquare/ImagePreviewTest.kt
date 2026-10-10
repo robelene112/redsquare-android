@@ -192,12 +192,14 @@ class ImagePreviewTest {
                                 .enabled(true).pkg(pickerPackage)
                         // Legacy document providers can finish immediately when the sole file is tapped.
                         val returnedOrConfirmed = android.os.SystemClock.uptimeMillis() + 10_000
-                        while (!device.hasObject(confirm) && !device.hasObject(androidx.test.uiautomator.By.pkg(context.packageName)) &&
+                        fun pickerClosed() = !device.hasObject(androidx.test.uiautomator.By.pkg(pickerPackage)) &&
+                            device.hasObject(androidx.test.uiautomator.By.pkg(context.packageName))
+                        while (!device.hasObject(confirm) && !pickerClosed() &&
                             android.os.SystemClock.uptimeMillis() < returnedOrConfirmed) {
                             device.waitForIdle(250)
                         }
                         if (device.hasObject(confirm)) requireNotNull(device.findObject(confirm)).click()
-                        else assertTrue("Picker should return to the app", device.hasObject(androidx.test.uiautomator.By.pkg(context.packageName)))
+                        else assertTrue("Picker should return to the app", pickerClosed())
                         ui.waitUntil(20_000) { ui.onAllNodesWithContentDescription("Image 1 of 1").fetchSemanticsNodes().isNotEmpty() }
                         val bitmap = ui.onNodeWithContentDescription("Image 1 of 1").performScrollTo().assertIsDisplayed().captureToImage().asAndroidBitmap()
                         val pixel = bitmap.getPixel(bitmap.width / 2, bitmap.height / 2)

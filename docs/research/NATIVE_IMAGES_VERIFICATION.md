@@ -410,3 +410,12 @@ not require enabled Refresh. Corrected fixture awaits both initial archive
 streams/positive enabled navigation and a subsequent observed request; unchanged
 exact warning/cached-post checks remain required. Narrow compile PASS. Production
 unchanged; focused feed17 then complete17 companion verification remain needed.
+
+Bounded readiness review8ffe1c4: both axes0 actionable findings and independent
+108/24/11/1 recount. Focused feed17 run38071460383 atc73fc13 underway.
+Additional picker-return hardening replaces underlying-app presence alone with
+positive picker-package absence plus app presence on the automatic-return path.
+Confirmation still accepts only the observed launched-package labels, and exact
+prepared pixels/Send enabled/zero transactions remain required. This is a source
+hardening, not an established cause of any earlier failure. Narrow compile
+PASS1m01s. Full17 companion will cover the final helper; production unchanged.

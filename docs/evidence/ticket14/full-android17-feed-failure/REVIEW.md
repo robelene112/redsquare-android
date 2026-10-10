@@ -7,7 +7,10 @@ and one failed feed case. This is a failed full run, not final acceptance.
 
 All6 image composition/viewing and5 preparation/loading cases pass, as do both
 cold media recoveries and all earlier media lifecycle cases in posting/queue/
-author classes. All wallet export/import/storage cases reached also pass.
+author classes. All wallet export/import/storage cases reached also pass. Individually inspected
+media PNGs show the prepared green attachment with enabled Send and the red
+first image in the two-image viewer. These passing media flows do not turn the
+failed full regression run into acceptance.
 
 FeedPreviewTest.unreadableRefreshExplainsTheProblemWhileKeepingCachedPosts
 fails waiting for the unreadable-response warning. The individually inspected
