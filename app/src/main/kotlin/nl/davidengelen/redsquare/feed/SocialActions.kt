@@ -53,7 +53,7 @@ private fun SocialAction(post: FeedPost, state: SocialState?, kind: RedSquareAct
             }))
         }
         count?.let { Text(stringResource(labels[3], it)) }
-        if (kind == RedSquareActionKind.REPOST && onQuote != null) TextButton(onClick = { onQuote(post) }) {
+        if (kind == RedSquareActionKind.REPOST && onQuote != null) TextButton(enabled = state != null, onClick = { onQuote(post) }) {
             Text(stringResource(R.string.social_quote))
         }
     }

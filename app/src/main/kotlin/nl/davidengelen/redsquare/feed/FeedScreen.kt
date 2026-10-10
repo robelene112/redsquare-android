@@ -182,8 +182,10 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
             return
         }
         is BrowseDestination.Quote -> {
-            PostComposerScreen(wallet ?: return, endpoint, backend, modifier, quote = destination.post) { back(); refresh++ }
-            return
+            if (wallet != null) {
+                PostComposerScreen(wallet, endpoint, backend, modifier, quote = destination.post) { back(); refresh++ }
+                return
+            }
         }
         null -> Unit
     }

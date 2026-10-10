@@ -1,0 +1,47 @@
+{
+  "result": "PASS",
+  "frameSha256": "f7fd7dff2a4153f414fca13af93cfca7379f44b9603085dfb68f490828b379d7",
+  "outer": {
+    "signature": "f2c849085b88ff7a7cca9ef87f6724457008bdcc50193e0fa710842964f9e8460031d5a804ce47404c42822e949dfd8a56718af3f69ae152a8b2b2f6c5ada98a",
+    "author": "uhJu99cLPjko4jKgDUmkvnCzTdvmdRvxDwJGJT9GpGN2",
+    "timestamp": 1791609281790,
+    "body": {
+      "module": "RedSquare",
+      "request": "create tweet",
+      "data": {
+        "text": "Native quote commentary",
+        "signature": "c87f3ca402840cd7add095dbf1fda809f34d9cd3f7dae9af022e2a0f2a631f376beb54dabe886a5a73b02abe79afe51652efa57826ccd2591001d73f90544fd9",
+        "retweet_tx": "{\"t\":\"AAAAAQAAAAEAAAAAAAAAAMh/PKQChAzXrdCV2/H9qAnzTZzT99rprwIuKg8qYx83a+tU2r6IalpzsCq+ea/lFlLvpXgmzNJZEAHXP5BUT9kAAAGLz+VoAAAAAAEAAnm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACeb5mfvncu6xVoGKVzocLBwKb/NstzijZWfKBWxb4F5gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==\",\"m\":\"eyJtb2R1bGUiOiJSZWRTcXVhcmUiLCJyZXF1ZXN0IjoiY3JlYXRlIHR3ZWV0IiwiZGF0YSI6eyJ0ZXh0IjoiTmF0aXZlIFJlZCBTcXVhcmUgcmVmZXJlbmNlIHBvc3QifX0=\",\"opt\":\"eyJudW1fbGlrZXMiOjIsIm51bV9yZXBsaWVzIjowLCJudW1fcmV0d2VldHMiOjEsInVwZGF0ZWRfYXQiOjE3MDAwMDAwMDAwMDEsInJlc2VhcmNoX2V4dGVuc2lvbiI6eyJzeW50aGV0aWMiOnRydWV9fQ==\"}",
+        "embedded": {
+          "signature": "c87f3ca402840cd7add095dbf1fda809f34d9cd3f7dae9af022e2a0f2a631f376beb54dabe886a5a73b02abe79afe51652efa57826ccd2591001d73f90544fd9",
+          "publicKey": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+          "created_at": 1700000000000,
+          "text": "Native Red Square reference post",
+          "images": []
+        }
+      }
+    }
+  },
+  "original": {
+    "signature": "c87f3ca402840cd7add095dbf1fda809f34d9cd3f7dae9af022e2a0f2a631f376beb54dabe886a5a73b02abe79afe51652efa57826ccd2591001d73f90544fd9",
+    "author": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+    "timestamp": 1700000000000,
+    "body": {
+      "module": "RedSquare",
+      "request": "create tweet",
+      "data": {
+        "text": "Native Red Square reference post"
+      }
+    }
+  },
+  "recipients": [
+    "uhJu99cLPjko4jKgDUmkvnCzTdvmdRvxDwJGJT9GpGN2",
+    "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR"
+  ],
+  "reference": {
+    "saitoCommit": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+    "saitoWasmVersion": "0.3.2",
+    "ellipticVersion": "6.6.1",
+    "wasmSha256": "f59be69dbb949368ce1fc7ef47d414cbe0281a86a206fe4bfb1128a4d087e01e"
+  }
+}

@@ -13,6 +13,8 @@ data class FeedPost(
     val envelope: String,
     val recipients: List<String>,
     val quoted: FeedPost? = null,
+    val quoteTarget: String = quoted?.id.orEmpty(),
+    val quoteLookupFailed: Boolean = false,
 )
 
 data class ArchiveFeedPage(val posts: List<FeedPost>, val oldestCreatedAt: Long?, val rowCount: Int, val ignored: Int)
@@ -42,8 +44,20 @@ object RedSquareFeed {
     private fun decode(envelope: String, includeOriginal: Boolean): FeedPost {
         val signed = SaitoEnvelope.decode(envelope)
         val body = signed.body
-        require(body.string("module") == "RedSquare" && body.string("request") == "create tweet")
+        require(body.string("module") == "RedSquare")
+        val request = body.string("request")
+        require(request == "create tweet" || request == "retweet")
         val data = body.getAsJsonObject("data") ?: throw IllegalArgumentException("Missing post data")
+        val text = data.optionalString("text")
+        if (request == "retweet") require(text.isNotBlank() || data.getAsJsonArray("images")?.size()?.let { it > 0 } == true) {
+            "Ordinary repost is not a quote post"
+        }
+        val target = when {
+            data.has("retweet_tx") || request == "retweet" -> data.string("signature")
+            data.has("embedded") -> data.getAsJsonObject("embedded").string("signature")
+            else -> ""
+        }
+        require(target.isEmpty() || target.matches(signaturePattern)) { "Invalid quote target" }
         val parent = data.optionalString("parent_id")
         val thread = data.optionalString("thread_id").ifEmpty { signed.id }
         require(parent.isEmpty() || parent.matches(signaturePattern)) { "Invalid parent signature" }
@@ -57,7 +71,7 @@ object RedSquareFeed {
                 }
             }
         } else null
-        return FeedPost(signed.id, signed.author, data.optionalString("text"), signed.createdAt, parent, thread, envelope, signed.recipients, original)
+        return FeedPost(signed.id, signed.author, text, signed.createdAt, parent, thread, envelope, signed.recipients, original, target)
     }
 
     private fun JsonObject.string(key: String): String {

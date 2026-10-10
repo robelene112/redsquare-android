@@ -28,7 +28,42 @@ class QuotePreviewTest {
         context.noBackupFilesDir.listFiles()?.filter {
             it.name.startsWith("feed.") || it.name.startsWith("conversation.") ||
                 it.name.startsWith("profile.") || it.name.startsWith("postdraft.")
+                || it.name.startsWith("quoteoriginal.")
         }?.forEach { check(it.delete()) }
+    }
+
+    @Test fun currentCommentaryRetweetLoadsItsVerifiedOriginalFromTheSelectedArchive() {
+        val fixture = InstrumentationRegistry.getInstrumentation().context.assets.open("native-quote-reference.json")
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
+        val current = fixture.getAsJsonObject("current").deepCopy().apply {
+            addProperty("field1", "RedSquareRetweet")
+            addProperty("field4", fixture.getAsJsonObject("original").get("sig").asString)
+        }
+        val original = fixture.getAsJsonObject("original")
+        val peer = ControlledFeedPeer("[]", archiveResponse = { criteria ->
+            when {
+                criteria.get("field1").asString == "RedSquareRetweet" -> "[$current]"
+                criteria.get("sig")?.asString == original.get("sig").asString -> "[$original]"
+                else -> "[]"
+            }
+        })
+        peer.start().use { server ->
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                try {
+                    waitFor("Current commentary retweet")
+                    val embeddedOriginal = hasText(originalText) and hasAnyAncestor(hasContentDescription("Quoted original"))
+                    ui.onNode(hasScrollAction(), useUnmergedTree = true).performScrollToNode(embeddedOriginal)
+                    ui.onNode(embeddedOriginal, useUnmergedTree = true).assertIsDisplayed()
+                    assertTrue(peer.transactions.isEmpty())
+                    peer.assertHealthy()
+                    captureFeedEvidence("quote-evidence/current-commentary-retweet.png")
+                } catch (failure: Throwable) {
+                    captureFeedEvidence("quote-evidence/current-retweet-failure.png")
+                    throw failure
+                }
+            }
+        }
     }
 
     @Test fun publishAQuoteWithCommentaryAndAnOriginalVisibleInFeedAndConversation() {
@@ -82,8 +117,9 @@ class QuotePreviewTest {
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText(commentary))
                     ui.onNodeWithText(commentary).assertIsDisplayed()
-                    ui.onNode(hasScrollAction()).performScrollToNode(hasText(originalText))
-                    ui.onAllNodes(hasText(originalText))[0].assertIsDisplayed()
+                    val embeddedOriginal = hasText(originalText) and hasAnyAncestor(hasContentDescription("Quoted original"))
+                    ui.onNode(hasScrollAction(), useUnmergedTree = true).performScrollToNode(embeddedOriginal)
+                    ui.onNode(embeddedOriginal, useUnmergedTree = true).assertIsDisplayed()
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText(commentary))
                     ui.onNodeWithText(commentary).performClick()
                     waitFor("Conversation")

@@ -13,3 +13,16 @@ is completed by #15. Local debug/test assembly passes57s. Actual Android10 red i
 4.833s. Downloaded log and inspected inside-activity image retained under
 ticket12/first-red. First minimal implementation is in progress; no completion
 claim.
+
+First publication green:38026569765 atc0f356a, Android10 one case6.867s.
+Actual public frame independently passes pinned WASM/Elliptic outer/original
+and routing-hop checks. Both unmodified A/B constructor/template graphs render
+commentary and original identity but omit original text; saved HTML/source hashes
+and negative controls establish this partial interoperability limitation. No DOM,
+network inclusion or current-deployment visual proof. Inspected native image
+shows both texts, with the original's last characters clipped at the bitmap edge.
+Review found a wallet-unavailable Quote navigation bug and weak feed relation
+assertion; fixes plus a stronger accessible nested-original assertion prepared.
+Current commentary-retweet protocol tracer actually fails locally26s before
+implementation, then passes39s after retaining its signed quote identity.
+Current archive discovery/original lookup Android tracer added; runtime red pending.
