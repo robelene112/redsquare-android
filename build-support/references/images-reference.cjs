@@ -6,4 +6,7 @@ const body={module:'RedSquare',request:'create tweet',data:{text:'Image quote co
 const dual=signedReference('2',body,1700000080001,[ordinary.field2]);
 const conflicting=signedReference('2',{...body,data:{...body.data,embedded:{...body.data.embedded,images:[images.blue,images.red]}}},1700000080002,[ordinary.field2]);
 const malformed=signedReference('1',{module:'RedSquare',request:'create tweet',data:{text:'Text survives unsafe image entries',images:[7,null,{},'file:///private/secret','data:image/svg+xml;base64,PHN2Zz4=','//unsafe.test/image.png',' https://example.test/image.png ', '/media/reference.png',images.red]}},1700000080003);
-console.log(JSON.stringify({synthetic:true,reference,images,ordinary,dual,conflicting,malformed},null,2));
+const remoteFailure=signedReference('1',{module:'RedSquare',request:'create tweet',data:{text:'Remote image failures keep this post readable',images:['http://127.0.0.1:19125/missing.png','http://127.0.0.1:19125/oversize.png','http://127.0.0.1:19125/malformed.png']}},1700000080004);
+const remoteSlow=signedReference('1',{module:'RedSquare',request:'create tweet',data:{text:'Slow images keep navigation usable',images:['http://127.0.0.1:19125/slow-a.png','http://127.0.0.1:19125/slow-b.png']}},1700000080005);
+const remoteFast=signedReference('2',{module:'RedSquare',request:'create tweet',data:{text:'Selected server image is ready',images:[images.blue]}},1700000080006);
+console.log(JSON.stringify({synthetic:true,reference,images,ordinary,dual,conflicting,malformed,remoteFailure,remoteSlow,remoteFast},null,2));

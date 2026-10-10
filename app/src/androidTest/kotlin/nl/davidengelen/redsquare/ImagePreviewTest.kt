@@ -175,7 +175,7 @@ class ImagePreviewTest {
                             assertTrue(device.wait(androidx.test.uiautomator.Until.hasObject(androidx.test.uiautomator.By.res("com.android.documentsui", "toolbar")
                                 .hasDescendant(androidx.test.uiautomator.By.text(ImageTestDocumentsProvider.TITLE))), 10_000))
                         }
-                        val selector = if (android.os.Build.VERSION.SDK_INT < 33) androidx.test.uiautomator.By.text(name)
+                        val selector = if (android.os.Build.VERSION.SDK_INT < 33) androidx.test.uiautomator.By.descStartsWith("$name,")
                             else androidx.test.uiautomator.By.descStartsWith("Photo taken on ")
                         val file = device.wait(androidx.test.uiautomator.Until.findObject(selector), 15_000)
                         capture("images-evidence/system-picker.png")

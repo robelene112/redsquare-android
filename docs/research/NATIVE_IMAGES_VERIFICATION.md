@@ -203,3 +203,18 @@ batch, missing/deleted source, five fallback selections and32MiB+1 source must
 leave previous image/text intact and broadcast nothing until explicit Send.
 These fixtures await runtime; input compression uses Android Bitmap but EXIF
 bytes and expected orientation mappings are literal, independent of preparation.
+
+9662864 Android10 38064524729 again PASS all5 other cases. Scoped drawer click
+now successfully selects the image provider: toolbar positive, file provisioned
+and visible. Captured grid XML exposes filename/size/date in a content-description,
+with empty text. Changed legacy file selection to that observed description prefix,
+requiring exactly one match as before. Provider listing is present; the earlier
+filename-text absence is not missing fixture data. Screenshot shows the image tile.
+
+Remote fixtures append independently signed public unsafe1/2 posts at fixed
+loopback19125; all earlier vectors are unchanged. Controlled HTTP cases assert
+404/2MiB+1/invalid raster placeholders preserve verified text, explicit retry
+recovers one valid red image, and leaving two stalled requests via Settings to
+select the other approved backend allows blue pixels before obsolete12s HTTP
+timeouts. Emulator timing bounds check cancellation capacity only, not Pixel
+performance. Production image source is unchanged from312f58c; runtime pending.

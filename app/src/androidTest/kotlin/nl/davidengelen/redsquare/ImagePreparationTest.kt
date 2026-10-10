@@ -119,7 +119,10 @@ class ImagePreparationTest {
     @Test fun failedAndExcessSelectionsPreservePriorTextAndImagesWithoutPartialBatches() {
         val original = write(raster(Bitmap.CompressFormat.PNG), "image/png")
         val malformed = write("not an image".toByteArray(), "image/png")
-        val missing = write(byteArrayOf(1), "image/png").also { assertEquals(1, context.contentResolver.delete(it, null, null)) }
+        val missing = write(byteArrayOf(1), "image/png").also {
+            assertEquals(1, context.contentResolver.delete(it, null, null))
+            owned.remove(it)
+        }
         val oversized = write(byteArrayOf(1), "image/png").also { uri ->
             context.contentResolver.openOutputStream(uri, "w")!!.use { output ->
                 val block = ByteArray(8192)
@@ -160,6 +163,9 @@ class ImagePreparationTest {
                         ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                         ui.onNode(hasSetTextAction()).performTextReplacement("Image preparation fixture")
                         block(peer, sent)
+                        ui.waitUntil(10_000) { ui.onAllNodes(hasText("Back") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                        ui.onNodeWithText("Back").performClick()
+                        ui.waitUntil(10_000) { ui.onAllNodes(hasText("New post") and hasClickAction()).fetchSemanticsNodes().isNotEmpty() }
                     } catch (failure: Throwable) {
                         val file = File(context.cacheDir, "images-evidence/preparation-failure.png").apply { parentFile?.mkdirs() }
                         androidx.test.uiautomator.UiDevice.getInstance(instrumentation).takeScreenshot(file)
