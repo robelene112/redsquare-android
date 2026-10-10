@@ -355,3 +355,39 @@ Source fixture checks verify zero-value transaction decoding, but independent
 wire verification remains required. Local test assembly PASS1m5s; intended
 Save-profile-missing RED and bounded review pending. Harness includes the new
 ProfilePublishingPreviewTest alongside existing six native flows.
+
+Failed-save495bc97 Android17 38096072885 PASS6 cases71.054s. Exact original
+blocked-import and fresh-Activity recovery PNGs individually inspected, matching
+truthful save-failure/no picker and newer Unicode bio; separate XML/raw log
+retained profile-import-save-failure/android17. This completes dual focused
+save-failure/retry proof, not actual process-death or full18 acceptance.
+
+Publishing601e518 Android10 38096204770 yields intended RED: seven cases,
+one failure25.828s atline92 because Save profile is missing. Other six pass.
+Original in-scope PNG individually inspected shows exact edited bio, old Save
+draft action and no Save profile; XML/raw log retained profile-publishing-red/
+android10. Source38096204586 PASS. Bounded Spec0; Standards one verification
+gap: a single premature auto-send could satisfy the later one-TX assertion.
+Added zero-TX assertion immediately after typing and before explicit Save.
+This strengthens the subsequent GREEN tracer without changing the RED's
+missing-Save diagnosis. No production publication existed in that RED source.
+
+First publisher implementation: explicit Save profile merges a successful fresh
+own lookup with verified known/cached state, preserving all existing fields.
+Edits are durably encrypted before lookup and complete signed candidate before
+submission. Retry uses the retained candidate; reopening checks it read-only.
+Current wallet/backend and durable candidate identity must still agree before
+broadcast. Exact signed author/body/time/recipients and latest snapshot ordering
+are checked before availability; newer verified snapshots stop older retries.
+Full-profile message cap and zero-payment self recipient use the established
+shared signing interface. Profile draft v2 adds candidate/availability record;
+v1 direct changes remain readable with unchanged filename/AAD/key alias.
+Wallet import checks pending profile work through that record and treats read
+failure as unknown. UI keeps pending fields immutable and reports uncertainty.
+
+Local debug/test assembly PASS2m4s; dual seven-case GREEN and bounded review
+pending. Independent actual-frame verifier added, syntax checked using isolated
+Node24; no specimen exists yet, so it is not runtime compatibility evidence.
+Avatar/banner selection/display, richer candidate recovery/conflict handling,
+failure traces, true process death, cross-client receiving proof and final full
+verification remain unfinished. No APK, node change or on-chain write.

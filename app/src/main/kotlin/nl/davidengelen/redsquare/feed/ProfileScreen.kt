@@ -185,7 +185,7 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
         finally { loading = false }
     }
     if (view.editing && wallet?.publicKey == author) {
-        ProfileEditorScreen(requireNotNull(wallet), backend, profile, modifier) { view.editing = false; refresh++ }
+        ProfileEditorScreen(requireNotNull(wallet), backend, endpoint, profile, modifier) { view.editing = false; refresh++ }
         return
     }
     Column(modifier) {

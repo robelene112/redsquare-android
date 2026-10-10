@@ -89,6 +89,7 @@ class ProfilePublishingPreviewTest {
                         ui.onNode(hasSetTextAction()).assert(
                             SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString("Original bio")))
                         ui.onNode(hasSetTextAction()).performTextReplacement(bio)
+                        assertTrue(peer.transactions.isEmpty())
                         ui.onNodeWithText("Save profile").assertIsEnabled().performClick()
                         ui.waitUntil(25_000) { ui.onAllNodesWithText("Profile available on this server.").fetchSemanticsNodes().isNotEmpty() }
                         ui.onNodeWithText("Profile available on this server.").assertIsDisplayed()

@@ -16,7 +16,8 @@ identicon, stale-read protection, public metadata cache, one scrollable profile
 header/history, own-profile entry and encrypted private bio drafts. Own draft
 restores exactly after a fresh Activity on both Android versions with no TX.
 Untouched or loading baseline fields do not become edit intent. Cache retains
-verified bio through selected-server outage. No publisher/candidate/media yet.
+verified bio through selected-server outage. First publisher/candidate now implemented; avatar/banner selection/display still
+unimplemented, new publication runtime pending.
 
 Latest profile baseline 35cd09b: Android10 38093681635 PASS four cases 10.545s.
 Android17 38093683708 completes four cases, one cached-author navigation failure
@@ -63,8 +64,16 @@ base directory after editor loads, assert picker stays closed and text retained,
 repair then actual SAF retry/fresh-Activity restoration. Local buildPASS1m52s;
 Both bounded review axes0; Android10 38095985570 PASS6 cases21.46s. Blocked
 import and fresh-Activity recovery original PNG/XML inspected/retained. Android17
-38096072885 pending. New complete-snapshot bio publishing tracer added; test
-assemblyPASS1m5s, intended missing Save profile RED and review pending. Then publishing/candidates, media, recovery, cross-client verification and final
+38096072885 PASS6 cases71.054s; original blocked/recovered PNG/XML inspected.
+Publishing601e518 Android10 38096204770 intended RED7/1 cases25.828s, missing
+Save profile after exact typed bio, other6pass; inspected/retained. SourcePASS.
+Spec0; Standards pre-submit zero-TX gap fixed in new assertion. First explicit
+publisher saves edits before fresh baseline, candidate before broadcast, retains
+original retries, reads on reopen without send and stops superseded retries.
+Exact author/body/time/recipient lookup proves availability. Draftv2 candidate
+record keeps v1 direct changes/alias/AAD; import uses hasWork/failure unknown.
+Local buildPASS2m4s; dual7-case GREEN and bounded review pending. Independent
+wire verifier syntax only; actual specimen/cross-client proof still pending. Then publishing/candidates, media, recovery, cross-client verification and final
 full checks/reviews remain. No APK or production node/on-chain write.
 
 #17 remains open for actual YouTube provider playback acceptance. Its full
