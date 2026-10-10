@@ -12,7 +12,8 @@ PASS pinned crypto, A/B templates and offline Chromium ordered-raster checks.
 Evidence final-android10 and final-interop. Full17d35/run38075319784 rejected
 only actual picker lookup: observed first-use notice occupies landscape grid.
 Fixture-only correction23d7202 dismisses that observed package control within
-unchanged15s. Focused17images38076217862 pending; full17 companion still required.
+unchanged15s. Focused17images38076217862 PASS20 cases/five records/three deaths using the
+media-module picker. Final full17 companion38076602854 at23d7202 remains pending.
 Production/core/build/scripts/workflow unchanged between accepted10 and23d7202.
 No #15 closure, physical Pixel/UI-polish acceptance, live write or new APK.
 
