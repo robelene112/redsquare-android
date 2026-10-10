@@ -25,7 +25,10 @@ class SocialPreviewTest {
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
-        context.noBackupFilesDir.listFiles()?.filter { it.name.startsWith("social.") }?.forEach { check(it.delete()) }
+        context.noBackupFilesDir.listFiles()?.filter {
+            it.name.startsWith("social.") || it.name.startsWith("feed.") ||
+                it.name.startsWith("conversation.") || it.name.startsWith("profile.")
+        }?.forEach { check(it.delete()) }
     }
 
     @Test fun aVerifiedLikeAndServedCountStayCoherentAcrossFeedThreadAndProfile() {

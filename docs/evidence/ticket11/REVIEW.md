@@ -46,3 +46,9 @@ Official AndroidX Actions.kt documents full-list search; the pinned Compose
 Runtime validation and fix review remain pending.
 
 Reference: https://github.com/androidx/androidx/blob/androidx-main/compose/ui/ui-test/src/commonMain/kotlin/androidx/compose/ui/test/Actions.kt
+
+Negative filtering fix at `afaf68c`: both reviewers report zero actionable
+findings. Focused Android10 `38022220807` passes8/8 in21.698s, including complete
+list exclusion searches. Public log and inspected author-history image retained
+in following-strong-green10. Android17 counterpart38022557015 pending; full
+38022046842 at production-equivalent49d34a0 remains running.

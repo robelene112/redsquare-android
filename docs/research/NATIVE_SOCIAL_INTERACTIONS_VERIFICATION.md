@@ -115,3 +115,14 @@ refresh completion and scrolls to known post content. Multi-author and two-post
 checks explicitly scroll to each target; filtering/persistence/error assertions
 remain unchanged. Local test assembly50sPASS. Production unchanged; fixture
 review and fresh full acceptance next. No success for this fixture claimed yet.
+
+Third full `38022046842` at `49d34a0` passes source checks, browse8/8/24.186s,
+Following8/8/25.232s, posting15/15/92.707s and queue6/6/32.943s, including both
+post process recoveries. Social process preparation fails21.346s waiting for
+its reference post before the intentional kill. Its feed inherited newer cache
+rows from earlier cases. Social normal-case setup and only the first process
+preparation now clear public feed/conversation/profile test caches, matching
+browse isolation. Wallets and pending-work storage remain intact; cold recovery
+setup does not clear the pending social action or feed cache. Test assembly55s
+PASS. Public logs retained in ticket11/full-third-failure. No new production
+source; fixture review and fresh full acceptance next.

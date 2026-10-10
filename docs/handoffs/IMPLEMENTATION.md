@@ -93,8 +93,19 @@ one question at a time when a material choice really needs the owner.
   Fixture3824286 waits Refresh enabled and scrolls to replies before unchanged
   content/history assertions; assembly54sPASS. Both finalsource76197a4 and
   fixture3824286 reviewaxes0findings. Productiondiffempty. Freshfull38021449614
-  pending. Untracked #13 quote research note prepared by read-only agent; do not
-  include it in #12 completion commit. No full acceptance yet.
+  fails laterFollowing4/8/71.24s at oldoffscreenrootwaits; browse8/8/15.909sPASS.
+  Fixture49d34a0 scrolls to posts/authors; assembly50sPASS. Review found weak
+  negativepostchecks; afaf68c strengthens complete-list exclusion searches with
+  specific missing-node result. Bothfixreviews0; assembly52sPASS. Focused
+  Following10 38022220807 passes8/8/21.698s. Following17 38022557015 pending.
+  Full38022046842 at49d34a0 fails social process preparation rootwait beforekill;
+  browse8/8, following8/8, posting15/15, queue6/6 and bothpriorprocesschecksPASS.
+  Firstsocialsetup now isolates publicfeed/thread/profilecaches; coldrecovery
+  keepspendingstate. Assembly55sPASS. Newfullacceptance/fixreviews next.
+  No production changes
+  after76197a4. Finalproductionreviews0. Untracked #13 NATIVE_QUOTES_CONTRACT.md
+  prepared by read-only research agent; keep out of #12 completion. No full
+  acceptance yet.
   Ten of35 complete;
  25 remain. Read-only primary-source contract prepared in
   NATIVE_SOCIAL_INTERACTIONS_CONTRACT.md. Ordinaryreposts/recovery/fullacceptance/reviews incomplete.

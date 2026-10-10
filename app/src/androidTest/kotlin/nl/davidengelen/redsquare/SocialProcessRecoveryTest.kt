@@ -41,7 +41,10 @@ class SocialProcessRecoveryTest {
 
     @Test fun terminateAfterAnUncertainLike() {
         prepare()
-        context.noBackupFilesDir.listFiles()?.filter { it.name.startsWith("social.") }
+        context.noBackupFilesDir.listFiles()?.filter {
+            it.name.startsWith("social.") || it.name.startsWith("feed.") ||
+                it.name.startsWith("conversation.") || it.name.startsWith("profile.")
+        }
             ?.forEach { check(it.delete()) }
         val observed = AtomicReference<JsonObject?>()
         val peer = ControlledFeedPeer("[${root()}]", onTransaction = { frame ->
