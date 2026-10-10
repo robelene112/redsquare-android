@@ -184,4 +184,37 @@ class PostQueuePreviewTest {
             }
         }
     }
+
+    @Test fun automaticRetryReconcilesAnUncertainQueuedPostWithoutRebroadcast() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val port = java.net.ServerSocket(0, 1, java.net.InetAddress.getByName("127.0.0.1")).use { it.localPort }
+        val indexed = java.util.concurrent.atomic.AtomicReference<com.google.gson.JsonObject?>()
+        val exactQueries = java.util.concurrent.CopyOnWriteArrayList<String>()
+        val peer = ControlledFeedPeer("[]", onTransaction = { frame -> indexed.set(postingArchiveRow(postingTransaction(frame))) },
+            archiveResponse = { criteria ->
+                val row = indexed.get()
+                if (criteria.has("sig")) {
+                    exactQueries.add(criteria.get("sig").asString)
+                    if (criteria.get("sig").asString == row?.get("sig")?.asString) "[$row]" else "[]"
+                } else row?.let { "[$it]" } ?: "[]"
+            }).apply { disconnectAfterTransaction = true }
+        ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            .putExtra("feedPeerUrl", "ws://127.0.0.1:$port/wsopen")).use {
+            ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+            ui.onNodeWithText("New post").performClick()
+            ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+            ui.onNode(hasSetTextAction()).performTextReplacement("Reconcile this same queued transaction")
+            ui.onNodeWithText("Send").performClick()
+            ui.waitUntil(20_000) { ui.onAllNodes(hasText("Cancel queued post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+            peer.start(port).use {
+                ui.waitUntil(60_000) { ui.onAllNodes(hasText("Available on this server.")).fetchSemanticsNodes().isNotEmpty() }
+                val candidate = postingTransaction(peer.transactions.single())
+                assertTrue("Recovery must query the original transaction identity", exactQueries.count { it == candidate.id } >= 2)
+                val post = nl.davidengelen.redsquare.saito.RedSquareFeed.decode(candidate.envelope())
+                org.junit.Assert.assertEquals("Reconcile this same queued transaction", post.text)
+                peer.assertHealthy()
+                captureFeedEvidence("post-queue-evidence/uncertain-queue-reconciled-without-rebroadcast.png")
+            }
+        }
+    }
 }

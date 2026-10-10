@@ -49,9 +49,25 @@ one question at a time when a material choice really needs the owner.
   NATIVE_POST_TEXT_POLICY.md and ticket09/REVIEW.md. Stated bitmap limits remain.
   No new APK, production transaction, physical Pixel or push proof.
 - Active #11, "10: Queue posts offline and resume on their original backend".
-  Nine of35 complete;26 remain. Read its accepted application-boundary criteria;
-  build durable explicit-Send queueing, cancellability, original wallet/backend
-  resumption and restart/replacement isolation. Drafts remain unsent.
+  Nine of35 complete;26 remain including active. Review base4bc4cd6;
+  current candidate497920d. Existing encrypted records now retain Queued state,
+  exact signed identity and durable availability. Shared local-state lock guards
+  cancellation/delivery claims against wallet/backend changes. Foreground
+  selected-session resumption and WorkManager2.12.0 background scheduling are
+  implemented. Same-signature manual/automatic attempts cannot overlap; an open
+  composer observes authoritative durable progress. Legacy drafts remain readable.
+  Focused38006955485 at6603f2f passes3/3: durable queue/cancel, original-backend
+  resumption and stopped-activity background delivery. Failed-save red38007571494
+  at35287be passes3/4 but exposes false Queued after disk failure. Candidate
+  497920d requires verified queue saving for status, cancellation and scheduling;
+  local debug/test assembly1m29 passes. Focused38008231610 remains pending.
+  Actual process interruption, wallet replacement, uncertain automatic retries,
+  queue-management UI and final full Android10/17/reviews remain incomplete.
+  Details NATIVE_POST_QUEUE_VERIFICATION.md; WorkManager primary-source research
+  ANDROID_POST_QUEUE_BACKGROUND.md; public logs ticket10. Background flow is
+  controlled emulator evidence, not immediate OS/force-stop delivery. No new APK,
+  production transaction or physical Pixel proof. Continue this ticket, then all
+  remaining tickets sequentially.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.
@@ -150,36 +166,3 @@ Closed-app notifications require Firebase access and a gateway. A prior optional
 one-question prompt asked dedicated versus existing Firebase project; no answer
 has arrived. Continue independent work and never invent credentials or upload
 wallet private keys. Source research is documented, not implemented delivery.
-
-Full Android17 `37998995220` passes browse/following/process recovery and13/14
-posting cases. The remaining picker click throws StaleObjectException as
-DocumentsUI replaces its tree. The fixture now reacquires nodes within a bounded
-20-second loop, retains real file selection and hard failure diagnostics, and
-compiles locally in48s. Production source is unchanged. Final acceptance retry
-and fixture review remain pending.
-
-#11 review base4bc4cd6. First application-boundary test covers explicit offline
-Send, durable Queued status on fresh activity launch, cancellation and retained
-unsent draft with no later transmission. Local compilation and actual functional
-red are the next gates. No queue implementation yet.
-
-#11 first functional red38002111207 proves missing Queued status after offline
-Send. Durable queued flag/cancellation implemented in existing encrypted records,
-with authenticated readiness and conservative pre-transmission state. Local
-assembly/lint pass; focused green next. Automatic resumption/recovery remain.
-
-#11 first queue/cancellation green38003662459 passes. Backend-resumption
-red38004250015 passes cancellation but times out waiting for automatic send
-after original-backend selection. Foreground resumer/serialized claims and
-state reconciliation implemented and locally assembled; focused green next.
-Background delivery, uncertain retries and recovery acceptance remain.
-
-#11 foreground green38005470104 passes2/2. Background red38006073973
-passes2/3; missing background TX is reproduced after activity stops. WorkManager
-2.12.0 scheduling/worker implemented, local debug/test build2m20 passes. Focused
-green next. Original-wallet/backend claims remain shared and atomic.
-
-#11 background green38006955485 passes3/3. Failed-save red38007571494
-passes3/4 and proves false Queued despite storage failure. Status/cancel/schedule
-now require verified durable queue save; local assembly1m29 passes. Focused
-green next. Actual process/wallet replacement/uncertain retries remain.

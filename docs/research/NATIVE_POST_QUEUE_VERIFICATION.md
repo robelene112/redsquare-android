@@ -81,3 +81,7 @@ Queued (line174). It aborts before its no-transmission and repaired-retry
 assertions, so those are not claimed passed in that run. A separate verified
 queue-save flag now gates Queued, cancellation and scheduling. Local debug/test
 assembly passes1m29; focused green next.
+
+Focused38008231610 at497920d passes4/4 cases, including failed persistence
+truthfulness, retained work, no transmission before saving and successful repaired
+Retry. Uncertain queued-delivery reconciliation is the next slice.

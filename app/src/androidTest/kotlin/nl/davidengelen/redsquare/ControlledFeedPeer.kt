@@ -16,6 +16,7 @@ import java.util.concurrent.TimeUnit
 internal class ControlledFeedPeer(@Volatile var rows: String,
     private val onTransaction: ((ByteArray) -> Unit)? = null,
     private val archiveResponse: ((com.google.gson.JsonObject) -> String)? = null) {
+    @Volatile var disconnectAfterTransaction = false
     private val peer = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public test material only.
     private val counter = ByteArray(32) { 7 }
     private val received = CountDownLatch(1)
@@ -65,6 +66,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                         require(authenticated)
                         transactions.add(frame)
                         onTransaction?.invoke(frame)
+                        if (disconnectAfterTransaction) webSocket.cancel()
                     }
                     12 -> {
                         require(authenticated)
