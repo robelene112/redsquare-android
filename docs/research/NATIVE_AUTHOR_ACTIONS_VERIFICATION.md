@@ -76,6 +76,27 @@ receiver limitation below remains separately visible. Keep #14 open until
 applicable acceptance is satisfied. Earlier billing/unexecuted statements below
 are historical checkpoints, superseded by this section.
 
+### Post-control viewport correction
+
+At5d73bf9, focused browse38053551818/38053553901 pass eight cases17.08/37.352s
+on Android10/17, including older reply/like pagination. Logs/inspected images
+retained in profile-paging-android10-green/profile-paging-android17-green.
+Full38053764214 passes core35/build/release/lint and Android10 browse8,
+Following8, posting15, queue6, plus posting/queue/social cold recovery. It then
+fails two of eight social cases at repost action taps. Both inspected screenshots
+show Like visible and Repost below the viewport. Logs and screenshots retained
+in `social-viewport-fixture-failure/`.
+
+A shared test-only post-list helper waits for an enabled unique text target,
+scrolls that actual target into view, asserts visibility/enabled state, then
+clicks. Social action/retry/body/author clicks use it. Auditing analogous quote
+and author fixtures found unguarded Quote buttons and feed author links; they
+now use the same helper. Existing transaction/count/identity/backend/no-rebroadcast
+and displayed-state assertions remain intact. No production source or existing
+acceptance timeout changes. Local test compilation passes52s; both supplemental
+review axes0 actionable. Focused social/quote/author and final full acceptance
+of this correction are pending. No #14 closure or new APK publication.
+
 ### Recovery-test checkpoint: 1f4703f
 
 Application source remains3132404. Six author Android UI cases now compile,

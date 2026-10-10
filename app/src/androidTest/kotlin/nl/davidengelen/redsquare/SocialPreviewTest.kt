@@ -66,17 +66,17 @@ class SocialPreviewTest {
                 try {
                     waitFor("Native Red Square reference post")
                     waitFor("4 likes")
-                    ui.onNodeWithText("Like").performClick()
+                    ui.clickVisiblePostContent("Like")
                     waitFor("Liked")
                     waitFor("5 likes")
                     assertEquals(1, peer.transactions.size)
-                    ui.onNodeWithText("Native Red Square reference post").performClick()
+                    ui.clickVisiblePostContent("Native Red Square reference post")
                     waitFor("Conversation")
                     ui.onNodeWithText("Liked").assertIsDisplayed()
                     ui.onNodeWithText("5 likes").assertIsDisplayed()
                     ui.onNodeWithText("Back").performClick()
                     waitFor("New post")
-                    ui.onNodeWithText(root.get("field2").asString).performClick()
+                    ui.clickVisiblePostContent(root.get("field2").asString)
                     waitFor("Profile")
                     waitFor("Liked")
                     ui.onNodeWithText("5 likes").assertIsDisplayed()
@@ -130,11 +130,11 @@ class SocialPreviewTest {
                 try {
                     waitFor("Native Red Square reference post")
                     waitFor("2 reposts")
-                    ui.onNodeWithText("Repost").performClick()
+                    ui.clickVisiblePostContent("Repost")
                     waitFor("Reposted")
                     ui.onNodeWithText("2 reposts").assertIsDisplayed()
                     assertEquals(1, peer.transactions.size)
-                    ui.onNodeWithText("Native Red Square reference post").performClick()
+                    ui.clickVisiblePostContent("Native Red Square reference post")
                     waitFor("Conversation")
                     ui.onNodeWithText("Reposted").assertIsDisplayed()
                     ui.onNodeWithText("2 reposts").assertIsDisplayed()
@@ -178,7 +178,7 @@ class SocialPreviewTest {
                 try {
                     waitFor("Native Red Square reference post")
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText("Like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNodeWithText("Like").performClick()
+                    ui.clickVisiblePostContent("Like")
                     waitFor("Liked")
                     waitFor("Could not refresh counts. Refresh this view to try again.")
                     ui.onNodeWithText("Could not finish this action. Retry checks the original action before sending it again.").assertDoesNotExist()
@@ -219,7 +219,7 @@ class SocialPreviewTest {
             ActivityScenario.launch<MainActivity>(intent).use {
                 waitFor("Native Red Square reference post")
                 ui.waitUntil(20_000) { ui.onAllNodes(hasText("Like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                ui.onNodeWithText("Like").performClick()
+                ui.clickVisiblePostContent("Like")
                 ui.waitUntil(20_000) { ui.onAllNodes(hasText("Retry like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
             }
             val original = store.loadExisting()
@@ -239,7 +239,7 @@ class SocialPreviewTest {
                 ActivityScenario.launch<MainActivity>(intent).use {
                     waitFor("Native Red Square reference post")
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText("Retry like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNodeWithText("Retry like").performClick()
+                    ui.clickVisiblePostContent("Retry like")
                     waitFor("Liked")
                     assertEquals(1, peer.transactions.size)
                     assertEquals(original.publicKey, indexed.get()!!.get("field2").asString)
@@ -281,7 +281,7 @@ class SocialPreviewTest {
                 try {
                     waitFor("Native Red Square reference post")
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText(initial) and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNodeWithText(initial).performClick()
+                    ui.clickVisiblePostContent(initial)
                     waitFor("Pending. Availability on this server has not been verified.")
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText(retry) and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     assertEquals(1, peer.transactions.size)
@@ -297,7 +297,7 @@ class SocialPreviewTest {
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     waitFor("Native Red Square reference post")
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText(retry) and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNodeWithText(retry).performClick()
+                    ui.clickVisiblePostContent(retry)
                     waitFor(available)
                     assertEquals(1, peer.transactions.size)
                     assertEquals(original, indexed.get()!!.get("sig").asString)
@@ -342,11 +342,11 @@ class SocialPreviewTest {
                 check(blocked.mkdir())
                 val obstacle = java.io.File(blocked, "retain-public-save-fault").apply { writeText("public test fault") }
                 try {
-                    ui.onNodeWithText("Like").performClick()
+                    ui.clickVisiblePostContent("Like")
                     waitFor("Could not finish this action. Retry checks the original action before sending it again.")
                     assertTrue(peer.transactions.isEmpty())
                 } finally { check(obstacle.delete()); check(blocked.delete()) }
-                ui.onNodeWithText("Retry like").performClick()
+                ui.clickVisiblePostContent("Retry like")
                 waitFor("Liked")
                 assertEquals(1, peer.transactions.size)
                 val action = SaitoEnvelope.decode(postingTransaction(peer.transactions.single()).envelope())
@@ -384,7 +384,7 @@ class SocialPreviewTest {
                     waitFor("Native Red Square reference post")
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText("Like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     firstOwner.close()
-                    ui.onNodeWithText("Like").performClick()
+                    ui.clickVisiblePostContent("Like")
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText("Retry like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNodeWithText("Settings").performClick()
                     waitFor("saito.io")
@@ -401,7 +401,7 @@ class SocialPreviewTest {
                         ui.onNodeWithText("saito.davidengelen.nl").performClick()
                         waitFor("Server: saito.davidengelen.nl")
                         ui.waitUntil(20_000) { ui.onAllNodes(hasText("Retry like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                        ui.onNodeWithText("Retry like").performClick()
+                        ui.clickVisiblePostContent("Retry like")
                         waitFor("Liked")
                         assertEquals(1, owner.transactions.size)
                         assertTrue(official.transactions.isEmpty())

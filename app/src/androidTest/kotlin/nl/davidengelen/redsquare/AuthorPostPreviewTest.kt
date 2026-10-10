@@ -122,7 +122,7 @@ class AuthorPostPreviewTest {
                     waitFor("New post")
                     waitForRefresh()
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText("Native author's edited post"))
-                    ui.onNodeWithText(own.get()!!.get("field2").asString).performClick()
+                    ui.clickVisiblePostContent(own.get()!!.get("field2").asString)
                     waitFor("Profile")
                     waitFor("Native author's edited post")
                     assertEquals(2, peer.transactions.size)

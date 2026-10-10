@@ -61,7 +61,7 @@ class QuotePreviewTest {
                     ui.onNode(hasScrollAction(), useUnmergedTree = true).performScrollToNode(embeddedOriginal)
                     ui.onNode(embeddedOriginal, useUnmergedTree = true).assertIsDisplayed()
                     captureQuoteEvidence("quote-evidence/current-commentary-retweet.png")
-                    ui.onNodeWithText(current.get("field2").asString).performClick()
+                    ui.clickVisiblePostContent(current.get("field2").asString)
                     waitFor("Profile")
                     waitFor("Current commentary retweet")
                     ui.onNode(hasScrollAction(), useUnmergedTree = true).performScrollToNode(embeddedOriginal)
@@ -118,7 +118,7 @@ class QuotePreviewTest {
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 try {
                     waitFor(originalText)
-                    ui.onNodeWithText("Quote").performClick()
+                    ui.clickVisiblePostContent("Quote")
                     waitFor("Quote post")
                     ui.onNode(hasSetTextAction()).performTextInput(commentary)
                     ui.onNodeWithText("Send").performClick()
@@ -161,7 +161,7 @@ class QuotePreviewTest {
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
             ActivityScenario.launch<MainActivity>(intent).use { scenario ->
                 waitFor(originalText)
-                ui.onNodeWithText("Quote").performClick()
+                ui.clickVisiblePostContent("Quote")
                 readyComposer()
                 ui.onNode(hasSetTextAction()).performTextReplacement("Recover this quote draft")
                 scenario.recreate()
@@ -177,7 +177,7 @@ class QuotePreviewTest {
             }
             ActivityScenario.launch<MainActivity>(intent).use {
                 waitFor(originalText)
-                ui.onNodeWithText("Quote").performClick()
+                ui.clickVisiblePostContent("Quote")
                 waitFor("Recover this quote draft")
                 ui.onNode(hasSetTextAction()).assertTextEquals("Recover this quote draft")
                 ui.onNodeWithContentDescription("Quoted original").assertIsDisplayed()
@@ -205,7 +205,7 @@ class QuotePreviewTest {
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
             ActivityScenario.launch<MainActivity>(intent).use {
                 waitFor(originalText)
-                ui.onNodeWithText("Quote").performClick()
+                ui.clickVisiblePostContent("Quote")
                 readyComposer()
                 ui.onNode(hasSetTextAction()).performTextReplacement("Uncertain quote commentary")
                 ui.onNodeWithText("Send").performClick()
@@ -215,7 +215,7 @@ class QuotePreviewTest {
             peer.disconnectAfterTransaction = false
             ActivityScenario.launch<MainActivity>(intent).use {
                 waitFor(originalText)
-                ui.onNodeWithText("Quote").performClick()
+                ui.clickVisiblePostContent("Quote")
                 waitFor("Uncertain quote commentary")
                 ui.onNodeWithText("Uncertain quote commentary").assertIsNotEnabled()
                 ui.waitUntil(20_000) { ui.onAllNodes(hasText("Retry") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
@@ -274,7 +274,7 @@ class QuotePreviewTest {
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 waitFor("4 likes")
                 count.set(9)
-                ui.onNodeWithText(original.get("field2").asString).performClick()
+                ui.clickVisiblePostContent(original.get("field2").asString)
                 waitFor("Profile history could not be refreshed. Available posts remain visible.")
                 waitFor("9 likes")
                 ui.onNodeWithText("9 likes").assertIsDisplayed()

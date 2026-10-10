@@ -120,10 +120,16 @@ one question at a time when a material choice really needs the owner.
   likes times out after clicking Load older before checking enabled readiness.
   Retained bitmap shows recentlikes/noerrors/Loadolderenabled after timeout.
   Source serves cached rows before network completion; button disabled whileloading.
-  Bounded fixture adds enabled wait/assert before both paging taps; keep timing
-  diagnosis qualified until runtime verification. Local compilation in progress,
-  reviews requested. Evidence ticket13/profile-paging-fixture-failure.
-  Run focused browse then final full on both SDKs before closure. Native application source remains3132404.
+  Focused corrected browse38053551818/38053553901 PASS eight each on10/17.
+  Full38053764214 then passes browse8/Following8/posting15/queue6 and three cold
+  recoveries on10, but social6/8: Repost below viewport in both failure images.
+  Shared test-only clickVisiblePostContent now waits enabled unique target,
+  scrolls it, asserts visible/enabled, clicks. Social actions/body/author and
+  analogous Quote buttons/feed author links plus one Author link use it.
+  Source audit avoids repeatedly discovering the same offscreen-tap pattern.
+  Test compilation PASS52s; supplemental review axes0. Application unchanged.
+  Focused social/quote/author then final full both SDKs remain required.
+  Evidence ticket13/social-viewport-fixture-failure; keep14open. Native application source remains3132404.
   Evidence ticket13/first-current-android10, author-android10-green,
   author-android17-green, following-fixture-failure. Keep #14 open until full
   acceptance passes. No local build/emulator remains running.
