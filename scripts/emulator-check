@@ -271,6 +271,10 @@ if [[ "${TEST_SCOPE:-full}" == videos* || "${TEST_SCOPE:-full}" == video-public*
 fi
 verify_profiles() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+    # Public unsafe scalar1 backup, owned by the real test document-provider UID.
+    adb shell run-as nl.davidengelen.redsquare.dev.test mkdir -p files/wallet-test-documents
+    printf '%s' '{"wallet":{"version":5.677,"publicKey":"jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR","privateKey":"0000000000000000000000000000000000000000000000000000000000000001"}}' | \
+        adb shell run-as nl.davidengelen.redsquare.dev.test tee files/wallet-test-documents/00-profile-import.json > /dev/null
     timeout 180 adb shell am instrument -w -r \
         -e class nl.davidengelen.redsquare.ProfileEditPreviewTest \
         nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \

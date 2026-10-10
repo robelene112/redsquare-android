@@ -1,6 +1,7 @@
 package nl.davidengelen.redsquare
 
 import android.content.Intent
+import android.os.SystemClock
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
@@ -8,10 +9,14 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
+import androidx.test.uiautomator.By
+import androidx.test.uiautomator.StaleObjectException
+import androidx.test.uiautomator.Until
 import com.google.gson.JsonArray
 import com.google.gson.JsonParser
 import nl.davidengelen.redsquare.saito.AndroidBackendStore
 import nl.davidengelen.redsquare.saito.SaitoBackend
+import nl.davidengelen.redsquare.saito.SaitoWallet
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
@@ -230,6 +235,91 @@ class ProfileEditPreviewTest {
                 }
             }
         }
+    }
+
+    @Test fun walletImportPreviewWarnsAboutAFreshlyTypedBioBeforeAnySaveOrReplacement() {
+        val filename = "00-profile-import.json"
+        val device = UiDevice.getInstance(instrumentation)
+        check(device.executeShellCommand("run-as nl.davidengelen.redsquare.dev.test stat -c %s files/wallet-test-documents/00-profile-import.json")
+            .trim().toLongOrNull()?.let { it > 0 } == true) { "Profile import fixture was not provisioned" }
+        val store = AndroidWalletStore(context)
+        val original = store.loadOrCreate()
+        val outgoing = store.replace(original, SaitoWallet.create())
+        val incoming = "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR" // Independently pinned public scalar1 fixture.
+        val bio = "Fresh unsaved bio 🌱\nKeep with my original wallet"
+        var primary: Throwable? = null
+        try {
+            assertNotEquals(outgoing.publicKey, incoming)
+            val peer = ControlledFeedPeer("[]", profileArchiveResponse = { "[]" }, archiveResponse = { "[]" })
+            peer.start().use { server ->
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                    .putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")).use {
+                    try {
+                        ui.waitUntil(20_000) { peer.requests.get() >= 2 &&
+                            ui.onAllNodesWithText(context.getString(R.string.feed_loading)).fetchSemanticsNodes().isEmpty() &&
+                            ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                        if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
+                        ui.onNodeWithText("Your profile").performClick()
+                        ui.waitUntil(20_000) { ui.onAllNodes(hasText("Edit profile") and hasClickAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                        ui.onNodeWithText("Edit profile").performClick()
+                        ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                        ui.onNode(hasSetTextAction()).performTextReplacement(bio)
+                        ui.onNodeWithText("Wallet").performClick()
+                        assertEquals(outgoing.publicKey, displayedWalletAddress(ui))
+                        ui.onNodeWithText("Import wallet").performScrollTo().performClick()
+                        chooseProfileImport(filename)
+                        val selected = context.getString(R.string.wallet_import_address)
+                        ui.waitUntil(15_000) { ui.onAllNodesWithContentDescription(selected).fetchSemanticsNodes().isNotEmpty() }
+                        ui.onNodeWithContentDescription(selected).assertTextEquals(incoming)
+                        ui.onNodeWithText(context.getString(R.string.wallet_import_pending_work)).performScrollTo().assertIsDisplayed()
+                        ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsNotEnabled()
+                        capture("unsaved-bio-import-preview.png")
+                        assertEquals(outgoing.publicKey, displayedWalletAddress(ui))
+                        ui.onNodeWithText("Done").performClick()
+                        ui.onNode(hasSetTextAction()).assert(
+                            SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(bio)))
+                        assertTrue(peer.transactions.isEmpty())
+                        peer.assertHealthy()
+                    } catch (failure: Throwable) {
+                        try { capture("unsaved-bio-import-preview-failure.png") }
+                        catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
+                        throw failure
+                    }
+                }
+            }
+        } catch (failure: Throwable) { primary = failure; throw failure }
+        finally {
+            try {
+                val active = store.loadExisting()
+                if (active.publicKey != original.publicKey) {
+                    check(active.publicKey == outgoing.publicKey)
+                    store.replace(active, original)
+                }
+            } catch (cleanup: Throwable) {
+                if (primary != null) primary.addSuppressed(cleanup) else throw cleanup
+            }
+        }
+    }
+
+    private fun chooseProfileImport(filename: String) {
+        val device = UiDevice.getInstance(instrumentation)
+        val row = By.text(ExportTestDocumentsProvider.TITLE).res("android", "title")
+        val deadline = SystemClock.uptimeMillis() + 30_000
+        var rootsOpened = false
+        while (SystemClock.uptimeMillis() < deadline) {
+            try {
+                val file = device.findObject(By.text(filename))
+                if (file != null) { file.click(); return }
+                val root = device.findObject(row)
+                if (root != null) { root.click(); device.wait(Until.gone(row), 2_000) }
+                else if (!rootsOpened) device.findObject(By.desc("Show roots"))?.let {
+                    it.click(); rootsOpened = true
+                }
+            } catch (_: StaleObjectException) { /* Reobserve the actual picker. */ }
+            SystemClock.sleep(100)
+        }
+        error("Profile reference import document was not displayed")
     }
 
     private fun openReferenceAuthor(author: String) {

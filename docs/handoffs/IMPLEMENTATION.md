@@ -34,12 +34,18 @@ Current production 95eda3c consolidates encrypted files in EncryptedLocalFile.
 Post/Profile retain separate key aliases, families, unchanged filename AAD and
 wire meanings (Post v1 raw, v2 JSON; Profile v1 changes JSON). Both adapters retain
 feature validation and shared identity lock. Local debug/test assembly PASS
-1m56s; no local compiler active. Fresh post runtime38094236367/38094238073 and
-profile38094240194/38094242194 plus bounded review pending.
+1m56s; no local compiler active. Fresh post runtime38094236367/38094238073
+PASS18 cases85.755s/97.012s; profile38094240194/38094242194 PASS4 cases
+10.421s/41.835s. Both original bio drafts and legacy post PNGs individually
+inspected; retained shared-encryption-green. Both bounded review axes0.
+Source38094278321 PASS49core/debug/test/release/lint.
 
-Next: fix Spec finding that unsaved bio is missed by import preview. Add a native
-typed-without-Save import-preview tracer, persist before document selection and
-refuse selection on failed save. Preserve outgoing draft isolation. Saved profile
+Next tracer added: unsaved bio must show pending-work warning in actual
+SAF import preview before confirmation. Controlled fresh disposable wallet avoids
+unrelated pending risks, preserved original identity restored in finally; harness
+provisions public scalar1 backup in document-provider UID and test checks size.
+Initial test assemblyPASS1m3s before provisioning adjustment; final RED pending.
+Then persist before document selection and refuse selection on failed save. Preserve outgoing draft isolation. Saved profile
 work is already included across both backends; unreadable means unknown.
 Then publishing/candidates, media, recovery, cross-client verification and final
 full checks/reviews remain. No APK or production node/on-chain write.

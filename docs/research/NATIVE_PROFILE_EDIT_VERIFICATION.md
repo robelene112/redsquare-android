@@ -254,3 +254,26 @@ replace a missing key when draft files exist. Local debug/test assembly PASS
 1m56s (.scratch/profile-shared-encryption-build.log). Fresh post runtime
 38094236367/38094238073 and profile38094240194/38094242194 pending, as is bounded
 review. This is a review refactor, not feature completion.
+
+Shared storage95eda3c focused GREEN: Android10 posting38094236367 PASS18
+cases85.755s;17 posting38094238073 PASS18 cases97.012s. Profiles10
+38094240194 PASS4 cases10.421s;17 38094242194 PASS4 cases41.835s. Both original
+restored bio drafts and both legacy post PNGs individually inspected; profile
+captures additionally have XML, posting captures PNG only. Retained
+shared-encryption-green/profile-shared-encryption andprofile-shared-post with
+Android10/17 raw UI logs. Bounded1963c0e...5bbf7d1 Spec0, Standards0 hard/0
+heuristic findings: duplication resolved. Source38094278321 at5bbf7d1 PASS
+49core/debug/test/release/lint; no final full18 or APK claim.
+
+Next tracer requires the pending-work warning before wallet replacement for
+a freshly typed Unicode multiline bio, with no Save draft/navigation beforehand.
+It selects an independently pinned scalar1 backup using actual SAF and verifies
+the selected public address, visible pending-work warning, disabled confirmation,
+unchanged outgoing identity and retained editor text after cancelling. A fresh
+disposable dev/emulator wallet avoids unrelated pending-work false positives;
+it is restored in finally without printing private data. The harness provisions
+the public backup under the standalone document-provider UID; a positive size
+check precedes UI launch. Picker waits for the exact file, not an ambiguous
+provider title, and never uses an unscoped scroll. Initial test assembly PASS
+1m3s before final provider-UID provisioning adjustment; final compilation/RED
+runtime pending. No import preparation fix is implemented yet.
