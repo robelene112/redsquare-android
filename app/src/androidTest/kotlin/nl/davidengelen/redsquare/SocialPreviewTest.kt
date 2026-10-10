@@ -78,6 +78,12 @@ class SocialPreviewTest {
                     waitFor("Liked")
                     ui.onNodeWithText("5 likes").assertIsDisplayed()
                     assertEquals(1, peer.transactions.size)
+                    served.set(countedRoot(9))
+                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("Refresh").performClick()
+                    waitFor("9 likes")
+                    ui.onNodeWithText("Liked").assertIsDisplayed()
+                    assertEquals(1, peer.transactions.size)
                     peer.assertHealthy()
                     captureFeedEvidence("social-evidence/verified-like-across-views.png")
                 } catch (failure: Throwable) {

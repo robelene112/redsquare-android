@@ -63,3 +63,10 @@ and routing-hop signatures. This is cross-runtime protocol evidence, not live
 server receipt or web visual acceptance. Public proofs are retained in
  ticket11/four-green. Failed saving/no-transmission/repaired Retry and pending
 original-backend isolation regressions compile55s; focused six-case run is next.
+
+Focused `38019199079` at `26ee962` passes all six cases in 17.241s, including
+failed saving and original-backend isolation. Interim review found stale served
+counter overlays, an impossible retry instruction after verified success, and
+the missing social suite in full acceptance. The next regression refreshes a
+profile after the backend changes its served count from five to nine. Test
+assembly passes 53s; production is unchanged while reproducing the finding.
