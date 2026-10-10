@@ -100,11 +100,11 @@ the owner chooses whether to start it. It is not required for every app-wide gri
    Dispatch focused device runs during development and one full Android 10/17
    run for final acceptance. A successful push source check is not runtime
    acceptance. Avoid duplicating full device runs on every interim commit.
-   If production source is unchanged and Android 10 has passed full verification,
-   a test-fixture correction can use `full-android17` for the outstanding full
-   Android 17 check. It runs release assembly/lint and the entire device suite;
-   record both runs and their source equivalence. Production changes require
-   fresh full acceptance on both versions.
+   If production source is unchanged and one SDK has passed full verification,
+   a test-fixture correction can run the outstanding SDK's full scope. It runs
+   release assembly/lint and the entire device suite; record both runs, unchanged
+   acceptance assertions and production source equivalence. Production changes
+   require fresh full acceptance on both versions.
    Alternatively, dispatch `full-android10` and `full-android17` for the same
    commit concurrently. Each runs source/core/release/lint and the complete
    selected SDK suite, mapped to the harness's `full` scope. Record and inspect

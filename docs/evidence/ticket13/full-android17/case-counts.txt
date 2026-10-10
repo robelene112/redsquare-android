@@ -1,0 +1,35 @@
+author-delete-process/recovered-instrumentation.txt: 1 PASS
+author-edit-process/recovered-instrumentation.txt: 1 PASS
+author-post-ui.txt: 6 PASS
+browse-ui.txt: 8 PASS
+feed-ui.txt: 8 PASS
+following-ui.txt: 8 PASS
+initialization-incompleteFirstWriteCanResumeCreation.txt: 1 PASS
+initialization-unavailablePendingSaveIsPreservedForRetry.txt: 1 PASS
+initialization-validSaveBeforePublicationResumesTheSavedIdentity.txt: 1 PASS
+instrumentation.txt: 3 PASS
+live-official-feed.txt: 1 PASS
+live-owner-feed.txt: 1 PASS
+post-process/recovered-instrumentation.txt: 1 PASS
+post-queue-process/recovered-instrumentation.txt: 1 PASS
+post-queue-ui.txt: 6 PASS
+posting-ui.txt: 15 PASS
+preview-update-ui.txt: 1 PASS
+quote-process/recovered-instrumentation.txt: 1 PASS
+quote-ui.txt: 7 PASS
+social-process/recovered-instrumentation.txt: 1 PASS
+social-ui.txt: 8 PASS
+wallet-backup-ui.txt: 1 PASS
+wallet-commit-sync-ui.txt: 1 PASS
+wallet-export-process/recovered-instrumentation.txt: 1 PASS
+wallet-export-ui.txt: 5 PASS
+wallet-import-process/recovered-instrumentation.txt: 1 PASS
+wallet-import-ui.txt: 7 PASS
+wallet-initialization-ui.txt: 1 PASS
+wallet-risk-ui.txt: 1 PASS
+wallet-storage-recovery-ui.txt: 1 PASS
+wallet-ui.txt: 3 PASS
+{
+  "completed_cases": 103,
+  "suites": 31
+}

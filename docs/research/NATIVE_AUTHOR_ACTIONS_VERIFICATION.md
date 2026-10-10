@@ -5,17 +5,22 @@ NATIVE_EDIT_DELETE_CONTRACT.md. No production writes or node mutation authorized
 
 ## Current acceptance checkpoint
 
-Applicationa545b94, device fixtures4513c4b. Full pair38056769062/38056770920
-at the same4513c4b SHA has both public reads enabled and is pending. Expected
-103 completed cases and eight deliberate process interruptions per SDK; count
-actual logs before acceptance. Local test compilation PASS59s for the last
-reply-scroll correction; both supplemental review axes0. Previous full10
-38056259800 passes core/build/release/lint/browse7 of8, then fails an authentic-
-reply visibility assertion without scrolling. The inspected screenshot shows
-root/social controls filling the viewport.4513c4b scrolls the authentic reply
-before the unchanged display assertion, retaining malformed rejection and waits.
-Evidence conversation-reply-viewport-failure/. Previous full17 companion
-38056261794 was superseded/cancelled by the new final same-SHA pair, not accepted.
+Applicationa545b94, latest device fixtures2f50ac6. Android17 full38056770920
+at4513c4b PASS: core35/build/release/lint,103 completed cases in31 logs, eight
+intentional process interruptions, both public reads, cold-cache/wallet recovery
+and signed5-to-8 continuity. Downloaded logs counted and selected images inspected;
+retained full-android17/ with explicit bitmap limits. Android10 full38056769062
+passed author6/quotes7 and all process recoveries, then failed before the cache
+obstruction because the requested authentic root was outside the lazy viewport.
+2f50ac6 waits for the controlled peer and enabled Refresh, scrolls the exact root,
+then retains all original display/warning/recovery assertions. Both fixture review
+axes0, local test compilation PASS1m. Source evidence supports retained-history
+viewport failure; cache repopulation remains an unproved hypothesis. Failure logs,
+bitmap and review: cache-history-root-fixture-failure/. No production change.
+
+Android10 full38057998966 at2f50ac6 is pending, public reads enabled. Production
+source/build/scripts/workflow diff from the passing Android17 candidate is empty.
+Inspect all103 actual cases, eight process stages and continuity before closure.
 
 The chronology below records earlier source and runtime checkpoints. #14 remains
 open. No production write or new APK publication.

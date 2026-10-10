@@ -93,7 +93,7 @@ one question at a time when a material choice really needs the owner.
   from visual acceptance. Functional quote images correct; polish remains#35.
   No newAPK, productionwrites, Pixel/push/force-stop-delivery proof.
 - Active #14, "13: Edit and delete the author's posts", fixed base6c657d4.
-  Application sourcea545b94; final device-fixture candidate4513c4b. Shared public
+  Application sourcea545b94; final device-fixture candidate2f50ac6. Shared public
   per-target/backend edit/deletion proofs propagate across feed/Following/thread/
   profile/likes/quotes. Encrypted original candidates and reviewed baselines
   survive recovery; explicit conflict choices preserve text. Deletion success
@@ -115,13 +115,17 @@ one question at a time when a material choice really needs the owner.
   scrolling before unchanged display assertion. Local test compile PASS59s,
   both review axes0. Production diff from7dcea19 empty. Earlier full17 companion
   38056261794 was superseded/cancelled, not accepted.
-  Current final pair38056769062 (full-android10)/38056770920 (full-android17),
-  same4513c4b SHA, public_feed_read=true. Both pending. CI7dcea19 provides full10
-  scope mapped to unchanged harnessfull; both independent complete suites can
-  run concurrently. YAML/all28 SDK mappings pass; both CI review axes0.
-  Inspect downloaded case counts, eight intentional process interruptions,
-  public reads, cold-cache/wallet and signed5-to-8 continuity before closing14.
-  Expected103 completed cases per SDK, but count actual results.
+  Android17 full38056770920 at4513c4b PASS core35/build/release/lint,103 completed
+  cases in31 logs, eight intentional process interruptions, both public reads,
+  cold-cache/wallet and signed5-to-8 continuity. Logs counted/images inspected
+  and retained full-android17/ with bitmap limits. Android10 full38056769062
+  fails before its cache obstruction on an offscreen root amid retained history.
+  Fixture-only2f50ac6 waits for this peer/refresh readiness and scrolls the exact
+  root before unchanged display/warning/recovery assertions. Bothreviewaxes0,
+  local compile PASS1m. Repopulation hypothesis unproved. Production/build/
+  scripts/workflow unchanged from passing17. Android10 full38057998966 pending,
+  public reads enabled. Inspect103 actual cases and all continuity before closure.
+  CI7dcea19 allows independent complete SDK scopes; YAML/all28 mappings PASS.
   Detailed chronology/review/limits: NATIVE_AUTHOR_ACTIONS_VERIFICATION.md and
   docs/evidence/ticket13/. No current local build/emulator running.
   Known A/B web commentary-retweet bug: RedSquareRetweet targets can evade
