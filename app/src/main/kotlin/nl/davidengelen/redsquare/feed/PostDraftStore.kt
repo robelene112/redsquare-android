@@ -19,18 +19,21 @@ import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.SaitoTransaction
 import nl.davidengelen.redsquare.saito.RedSquareFeed
 import nl.davidengelen.redsquare.saito.FeedPost
+import nl.davidengelen.redsquare.saito.AuthorActionKind
+import nl.davidengelen.redsquare.saito.RedSquareAuthorActions
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
 import com.google.gson.Strictness
 
 /** Unpublished text stays encrypted on this device, scoped to its wallet and backend. */
 internal class PostDraftStore private constructor(private val context: Context, private val owner: String, private val backend: SaitoBackend,
-    private val parentId: String, private val parentThread: String?, private val quoteId: String = "") {
+    private val parentId: String, private val parentThread: String?, private val quoteId: String = "",
+    private val authorTarget: String = "", private val authorKind: AuthorActionKind? = null) {
     constructor(context: Context, owner: String, backend: SaitoBackend, parent: FeedPost? = null, quote: FeedPost? = null) :
         this(context, owner, backend, parent?.id.orEmpty(), parent?.threadId, quote?.id.orEmpty())
     init { require(owner.matches(Regex("[1-9A-HJ-NP-Za-km-z]{43,45}"))) }
     private val file = AtomicFile(File(context.noBackupFilesDir,
-        "postdraft.${backend.id}.$owner${if (quoteId.isNotEmpty()) ".quote.$quoteId" else parentId.takeIf { it.isNotEmpty() }?.let { ".$it" }.orEmpty()}.v1"))
+        "postdraft.${backend.id}.$owner${if (authorKind != null) ".author.${authorKind.storageId}.$authorTarget" else if (quoteId.isNotEmpty()) ".quote.$quoteId" else parentId.takeIf { it.isNotEmpty() }?.let { ".$it" }.orEmpty()}.v1"))
     private val associatedData = "${context.packageName}:${file.baseFile.name}".toByteArray(Charsets.UTF_8)
 
     data class Saved(val text: String, val transaction: SaitoTransaction? = null, val queued: Boolean = false,
@@ -64,12 +67,7 @@ internal class PostDraftStore private constructor(private val context: Context, 
                 val record = gson.fromJson(decoded, JsonObject::class.java)
                 val content = record.get("text").asString
                 val transaction = record.get("transaction")?.takeUnless { it.isJsonNull }?.asString?.let(SaitoTransaction::restore)
-                transaction?.let {
-                    val post = RedSquareFeed.decode(it.envelope())
-                    require(post.author == owner && post.text == content)
-                    require(post.parentId == parentId && (parentThread == null || post.threadId == parentThread))
-                    require(post.quoted?.id.orEmpty() == quoteId)
-                }
+                validateTransaction(transaction, content)
                 val queued = record.get("queued")?.let {
                     require(it.isJsonPrimitive && it.asJsonPrimitive.isBoolean)
                     it.asBoolean
@@ -85,12 +83,15 @@ internal class PostDraftStore private constructor(private val context: Context, 
                     it.asBoolean
                 } ?: false
                 require(!automatic || transaction != null)
+                require(authorKind == null || (!queued && !automatic))
                 Saved(content, transaction, queued, available, automatic)
             }
         } finally { text.fill(0) }
     }
 
     fun save(saved: Saved) = synchronized(lock) {
+        validateTransaction(saved.transaction, saved.text)
+        require(authorKind == null || (!saved.queued && !saved.automatic))
         require(!saved.queued || saved.transaction != null)
         require(!saved.available || (saved.transaction != null && !saved.queued))
         require(!saved.automatic || saved.transaction != null)
@@ -140,6 +141,21 @@ internal class PostDraftStore private constructor(private val context: Context, 
         changes.value += 1
     }
 
+    private fun validateTransaction(transaction: SaitoTransaction?, content: String) {
+        transaction?.let {
+            if (authorKind != null) {
+                val action = RedSquareAuthorActions.decode(it.envelope())
+                require(action.author == owner && action.target == authorTarget && action.kind == authorKind)
+                require(action.text == content)
+            } else {
+                val post = RedSquareFeed.decode(it.envelope())
+                require(post.author == owner && post.text == content)
+                require(post.parentId == parentId && (parentThread == null || post.threadId == parentThread))
+                require(post.quoted?.id.orEmpty() == quoteId)
+            }
+        }
+    }
+
     /** A mounted editor must preserve delivery progress recorded by another operation. */
     fun saveComposer(saved: Saved): Saved = synchronized(lock) {
         val current = load()
@@ -176,6 +192,10 @@ internal class PostDraftStore private constructor(private val context: Context, 
     }
 
     companion object {
+        fun author(context: Context, owner: String, backend: SaitoBackend, target: String, kind: AuthorActionKind): PostDraftStore {
+            require(target.matches(Regex("[0-9a-f]{128}")))
+            return PostDraftStore(context, owner, backend, "", null, authorTarget = target, authorKind = kind)
+        }
         private const val KEY_ALIAS = "redsquare.postdraft.v1"
         private const val MAX_BYTES = 5 * 1024 * 1024
         private val lock = nl.davidengelen.redsquare.saito.SaitoLocalState.lock
