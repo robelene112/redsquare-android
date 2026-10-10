@@ -104,7 +104,7 @@ class VideoPreviewTest {
                             stage("size: landscape display, waiting for fallback")
                             ui.waitUntil(10_000) { ui.onAllNodesWithText("Open this video in YouTube or use a larger window.").fetchSemanticsNodes().isNotEmpty() }
                             assertEquals(1, api.requestCount)
-                            assertFalse(device.hasObject(By.desc("YouTube player")))
+                            assertFalse(device.hasObject(By.clazz("android.webkit.WebView")))
                             ui.onNodeWithText("Open in YouTube").assertIsDisplayed()
                             ui.onNodeWithText("Close video").assertIsDisplayed()
                             capture("video-evidence/small-window.png")
@@ -115,10 +115,10 @@ class VideoPreviewTest {
                             assertEquals(1, api.requestCount)
                             watch("Explicit signed YouTube link")
                             ui.waitUntil(20_000) { ui.onAllNodesWithText("Use the player controls to start playback.").fetchSemanticsNodes().isNotEmpty() }
-                            val player = requireNotNull(device.wait(Until.findObject(By.desc("YouTube player")), 5_000))
+                            val player = requireNotNull(device.wait(Until.findObject(By.clazz("android.webkit.WebView")), 5_000))
                             val density = context.resources.displayMetrics.density
                             ui.waitUntil(5_000) {
-                                device.findObject(By.desc("YouTube player"))?.visibleBounds?.let {
+                                device.findObject(By.clazz("android.webkit.WebView"))?.visibleBounds?.let {
                                     it.width() / density >= 200 && it.height() / density >= 200
                                 } == true
                             }
