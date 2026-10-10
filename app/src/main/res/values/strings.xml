@@ -1,4 +1,10 @@
 <resources>
+    <string name="image_position">Image %1$d of %2$d</string>
+    <string name="image_close">Close image</string>
+    <string name="image_previous">Previous image</string>
+    <string name="image_next">Next image</string>
+    <string name="image_loading">Loading image</string>
+    <string name="image_unavailable">Image unavailable</string>
     <string name="social_like">Like</string>
     <string name="social_liked">Liked</string>
     <string name="social_retry_like">Retry like</string>

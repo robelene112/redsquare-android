@@ -16,16 +16,17 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.FeedPost
+import nl.davidengelen.redsquare.saito.SaitoBackend
 
 @Composable
-internal fun QuoteContent(post: FeedPost, state: QuoteState?) {
+internal fun QuoteContent(post: FeedPost, state: QuoteState?, backend: SaitoBackend) {
     if (post.quoteTarget.isEmpty()) return
     val revisions by AndroidPostRevisions.changes.collectAsState()
     LaunchedEffect(post.quoteTarget, state, post.quoted, revisions) { state?.load(post.quoteTarget, post.quoted, refresh = true) }
     val status = state?.originals?.get(post.quoteTarget)
     val original = if (state == null) post.quoted else status?.post
     if (status?.cacheWarning == true) Text(stringResource(R.string.quote_cache_warning))
-    if (original != null) QuotedPost(original)
+    if (original != null) QuotedPost(original, backend)
     else {
         Text(stringResource(when {
             status?.loading == true -> R.string.quote_loading
@@ -40,12 +41,13 @@ internal fun QuoteContent(post: FeedPost, state: QuoteState?) {
 
 /** One original level, attributed only after independent signature verification. */
 @Composable
-internal fun QuotedPost(original: FeedPost) {
+internal fun QuotedPost(original: FeedPost, backend: SaitoBackend) {
     val label = stringResource(R.string.quote_original)
     OutlinedCard(Modifier.fillMaxWidth().semantics { contentDescription = label }) {
         Column {
             Text("Anon-${original.author.take(6)}", style = MaterialTheme.typography.labelMedium)
             Text(original.text, style = MaterialTheme.typography.bodyMedium)
+            PostImages(original.images, backend)
         }
     }
 }

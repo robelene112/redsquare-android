@@ -72,7 +72,7 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
             }
             if (transaction == null) Text(stringResource(R.string.post_draft_local), style = MaterialTheme.typography.bodySmall)
             parent?.let { Text(stringResource(R.string.post_reply_to, "Anon-${it.author.take(6)}"), style = MaterialTheme.typography.bodySmall) }
-            quote?.let { QuotedPost(it) }
+            quote?.let { QuotedPost(it, backend) }
             if (available) Text(stringResource(R.string.post_available))
             else if (queued && queueSaved) Text(stringResource(R.string.post_queued))
             else if (submitted) Text(stringResource(R.string.post_submitted))

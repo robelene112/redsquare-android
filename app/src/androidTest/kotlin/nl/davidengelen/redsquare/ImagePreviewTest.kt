@@ -65,7 +65,7 @@ class ImagePreviewTest {
     }
 
     private fun capture(name: String) {
-        val image = ui.onRoot().captureToImage().asAndroidBitmap()
+        val image = ui.onAllNodes(isRoot()).onLast().captureToImage().asAndroidBitmap()
         File(context.cacheDir, name).apply { parentFile?.mkdirs() }.outputStream().use {
             check(image.compress(Bitmap.CompressFormat.PNG, 100, it))
         }

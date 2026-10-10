@@ -120,7 +120,8 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
                         style = MaterialTheme.typography.titleMedium)
                     Text(post.text, Modifier.clickable { onPost(post) }.padding(vertical = 8.dp),
                         style = MaterialTheme.typography.bodyLarge)
-                    QuoteContent(post, quotes)
+                    PostImages(post.images, backend)
+                    QuoteContent(post, quotes, backend)
                     SocialActions(post, social, onQuote)
                 }
                 HorizontalDivider()

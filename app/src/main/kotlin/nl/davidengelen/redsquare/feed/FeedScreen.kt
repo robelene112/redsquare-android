@@ -256,7 +256,8 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
                         style = MaterialTheme.typography.bodyLarge)
                     Text(DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, Locale.ENGLISH)
                         .format(Date(post.createdAt)), style = MaterialTheme.typography.labelSmall)
-                    QuoteContent(post, quotes)
+                    PostImages(post.images, backend)
+                    QuoteContent(post, quotes, backend)
                     SocialActions(post, social) { navigation.add(BrowseDestination.Quote(it)) }
                 }
                 HorizontalDivider()

@@ -25,9 +25,25 @@ Protocol tracers, all logs retained protocol-checkpoint/:
 
 Source/debug/test APK build PASS1m53s, core39 zero failures. First Android UI
 tracer checks displayed image pixels/order and full-screen viewing against the
-controlled peer; it is compiled but awaits its expected missing-display RED run.
+controlled peer. Expected RED run38060039219 confirmed the post text displayed
+before the image-descriptor wait failed after15seconds (ImagePreviewTest:45).
+Retained display/android10-red.txt. No cause inference is needed: the gallery
+was absent from this source.
 Images/images-android17 scopes mapped correctly among all30 declared SDK choices;
 shell/whitespace checks pass. No Android media runtime or feature completion claim.
+
+## Display checkpoint in progress
+
+Native feed/thread/profile and verified-original galleries now share bounded
+asynchronous loading: two concurrent jobs,2MiB compressed image bodies,
+16,384-axis/100M-pixel source guards,1024-axis sampled software bitmaps and16MiB
+public bitmap cache. Remote reads have12second whole-call timeout; relative
+paths resolve to the selected approved backend. No authentication/wallet state
+is attached to image requests. Release cleartext policy remains unchanged.
+Loading/unavailable states preserve text; manual retry and fullscreen viewer
+provide close/previous/next/zoom. These are implementation limits, awaiting
+runtime acceptance. Incoming GIF currently decodes a static first frame;
+animated remote/Giphy rendering belongs next#16.
 
 ## Remaining acceptance
 
