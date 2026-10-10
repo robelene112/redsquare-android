@@ -37,10 +37,10 @@ internal fun AuthorEditScreen(wallet: SaitoWallet, endpoint: String, backend: Sa
     with(state) {
         Column(modifier.imePadding()) {
             Row {
-                TextButton(enabled = !busy, onClick = { close(onClose) }) { Text(stringResource(R.string.browse_back)) }
+                TextButton(enabled = !busy && !saving, onClick = { close(onClose) }) { Text(stringResource(R.string.browse_back)) }
                 Text(stringResource(R.string.author_edit_title), Modifier.weight(1f).padding(vertical = 12.dp),
                     style = MaterialTheme.typography.titleLarge)
-                TextButton(enabled = ready && !busy && !available && !conflict && text.isNotBlank(), onClick = ::send) {
+                TextButton(enabled = ready && !busy && !saving && !available && !conflict && text.isNotBlank(), onClick = ::send) {
                     Text(stringResource(if (candidate == null) R.string.author_edit_save else R.string.retry))
                 }
             }
@@ -51,7 +51,7 @@ internal fun AuthorEditScreen(wallet: SaitoWallet, endpoint: String, backend: Sa
             if (error) Text(stringResource(R.string.post_draft_error))
             if (!ready && error) TextButton(onClick = { reload++ }) { Text(stringResource(R.string.retry)) }
             OutlinedTextField(value = text, onValueChange = ::edit,
-                enabled = ready && !busy && candidate == null, modifier = Modifier.fillMaxWidth().weight(1f))
+                enabled = ready && !busy && !saving && candidate == null, modifier = Modifier.fillMaxWidth().weight(1f))
         }
     }
 }

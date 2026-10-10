@@ -19,8 +19,19 @@ race: it scrolled before the saved composer closed. This does not establish the
 missing edit control. A bounded New post readiness wait was added in7ce6f6b;
 run38033592630 also failed before reaching Edit because New post labels both
 composer and feed. Retained failure screenshot confirms composer still visible.
-527184d now waits for list semantics, run38033860604 pending. No UI, deletion or
-recovery completion claim.
+527184d waited for list semantics; run38033860604 then waited for a new post
+above the retained list position.1f54664 uses the previously verified quote
+fixture pattern: wait for Refresh enabled, then scroll to the post. Run38034150449
+actually reaches the own conversation and fails at missing Edit (7.402s).
+Retained log and inspected screenshot: ticket13/edit-control-red. This establishes
+the intended UI red. Three preceding navigation failures establish no product red.
+
+a2f50e6 adds author-only editing in the conversation, encrypted candidate storage,
+active identity/backend checks before transmission, exact nested-edit observation
+and original-candidate retries. Newer conflicting edits retain authored text and
+show explicit conflict status; resolution controls remain planned. Local core28,
+debug/test assembly pass1m48s; focused first-green38034593176 pending. Deletion,
+global cache ordering, recovery and final acceptance remain incomplete.
 
 Pinned A/B unmodified edit/delete receiver methods executed offline using the
 independently verified public reference vectors and an in-memory Archive boundary

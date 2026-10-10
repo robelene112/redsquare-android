@@ -15,6 +15,7 @@ internal class AuthorEditState(private val store: PostDraftStore, private val me
     var text by mutableStateOf("")
     var ready by mutableStateOf(false)
     var busy by mutableStateOf(false)
+    var saving by mutableStateOf(false)
     var error by mutableStateOf(false)
     var networkError by mutableStateOf(false)
     var conflict by mutableStateOf(false)
@@ -37,7 +38,8 @@ internal class AuthorEditState(private val store: PostDraftStore, private val me
     }
 
     suspend fun persist(): Boolean = writes.withLock {
-        if (!ready || busy) return@withLock false
+        if (!ready || busy || saving) return@withLock false
+        saving = true
         try {
             withContext(NonCancellable + Dispatchers.IO) {
                 store.save(if (available) PostDraftStore.Saved("") else PostDraftStore.Saved(text, candidate))
@@ -46,10 +48,11 @@ internal class AuthorEditState(private val store: PostDraftStore, private val me
             true
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { error = true; false }
+        finally { saving = false }
     }
 
     fun close(onClose: () -> Unit) {
-        if (busy) return
+        if (busy || saving) return
         if (!ready) { onClose(); return }
         scope.launch { if (persist()) onClose() }
     }
@@ -57,7 +60,7 @@ internal class AuthorEditState(private val store: PostDraftStore, private val me
     fun edit(value: String) { text = value; memory.text = value }
 
     fun send() {
-        if (!ready || busy || available || conflict || text.isBlank()) return
+        if (!ready || busy || saving || available || conflict || text.isBlank()) return
         busy = true
         error = false
         networkError = false

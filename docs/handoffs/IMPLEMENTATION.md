@@ -97,7 +97,15 @@ one question at a time when a material choice really needs the owner.
   edit/delete reference vectors generated network-none with named readonly
   mounts, no Saito init. First edit-reader tracer actually red25s/green43s;
   author/target/signature/unsigned-order regressions pass with local fullcore
-  debug/test assembly1m48s. UI edit tracer prepared, actual first red pending.
+  debug/test assembly1m48s. UI actuallyred38034150449 after3 fixture navigation
+  failures; log and inspected own-conversation screenshot retained ticket13.
+  Native author-only edit screen/candidate storage/retry/reconciliation at
+  a2f50e6 passes localcore28/debug/test1m48s; focusedfirstgreen38034593176pending.
+  PostDraftStore author factory validates signedowner/target/kind/text before
+  write, rejects queued/automatic author operations; preliminaryreviewfinding
+  fixed/confirmed0. Offline pinned A/B server receivers pass referenceedit/delete
+  adapterchecks, notnative/deployment/DOMproof. Deletion/globalnewestcache,
+  conflictresolution/recovery/finalreviews/fullacceptance remain incomplete.
   Twelve of35
   complete;23 remain. Continue sequentially without routine permission.
 
