@@ -29,6 +29,14 @@ Debug/testPASS1m51s; fresh dual checks pending. New core stale-read protection
 compileRED22s/GREEN43s four cases; retains newest verified fullsnapshot and all
 fields, bounded legacy history100/16MiB. Disk cache/editor/media/recovery remain
 unimplemented. Active18 not accepted.
+New2f runs38091561793/38091563516 PASS two native cases6.764s/19.285s;
+source38091561542 PASS. Long-bio originals individually inspected show full
+beginning and reachable final lines/tabs/history. Both short-bio PNGs omit the
+separately passing bio and remain excluded from bio visual acceptance.
+Review caught vacuous ASCII loading gates, now actual feed_loading resource.
+Fresh-Activity outage/cache tracer added, runtime RED pending; only profilemeta
+public fixture state reset. No production disk cache yet. Capture now waits
+Compose idle, without claiming prior bitmap timing root cause.
 Only profile fields and public reference inputs;
 no production publication or app/node wallet reads. #17 stays open with actual
 provider acceptance unproved. Its immutable full534330e pair PASS127 cases

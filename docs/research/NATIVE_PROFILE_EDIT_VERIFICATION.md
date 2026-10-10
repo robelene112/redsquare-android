@@ -107,3 +107,24 @@ legacy cache inputs are bounded to100 newest rows/16MiB, matching available
 history limits; older legacy-only fields may be unavailable after pruning. The
 ignored count describes the latest read; Android cache errors will have their
 own warning. No disk cache or editor behavior is implemented yet.
+
+Android10 run38091561793 and17 run38091563516 at2f0295a PASS two cases,
+6.764s and19.285s respectively. Both original long-bio screens individually
+inspected: beginning lines with identicon, then final lines33–40 (10) or32–40
+(17), displayed tabs and the reference post. Short-bio semantic gates pass,
+but both short-bio bitmaps show Loading profile details without the bio and
+are excluded from bio visual acceptance. XML is a separate later observation.
+Retained profile-scroll-clock-green/android10 andandroid17. Push source run
+38091561542 also succeeds. These runs precede the following fixture fixes:
+two readiness literals used ASCII periods while feed_loading uses U+2026;
+both reviewers caught the vacuous absence gate. Now use the actual resource,
+keeping archive/readiness/display gates. Captures now await Compose idle;
+no claim that this proves the prior bitmap timing cause.
+
+Next Android tracer reloads the same author's signed short bio in a fresh
+Activity after the controlled selected server closes. Require actual failed
+lookup copy plus cached bio/avatar and unchanged backend, with no live writes.
+Only public profilemeta fixture files are reset between emulator cases. Online
+baseline waits both metadata/history completion and enabled Refresh before
+closing the Activity and peer. Local test assemblyPASS1m2s before the added
+capture-idle call. Runtime RED pending; production cache remains absent.
