@@ -129,3 +129,18 @@ overview now lists pending work for both fixed backends, labels paused items and
 permits cancellation only while the unchanged durable record is Queued. Cancelling
 retains its unsent text; claimed uncertainty cannot be cancelled as unpublished.
 Local debug/test assembly passes1m36. Focused management green pending.
+
+Focused38011852811 at9ca2205 passes6/6 cases including feed management,
+server/status disclosure, safe cancellation, retained unsent draft and no later
+transmission. Actual process-death and wallet-replacement regressions are next.
+
+Actual offline queue process regression added through separate instrumentation
+phases. Phase one verifies visible durable Queue, captures only public wallet/
+text/signing-time bounds and original PID, then kills the process. WorkManager
+may restart it; the host requires the original PID gone, then holds recovery
+with force-stop. A cold user interaction restores the same original loopback
+endpoint and requires one verified transaction with the pre-kill signing time,
+identity/text and visible feed result. No private material is captured. This
+verifies pre-interruption operation recovery, not arbitrary power loss or
+force-stop execution. Local test assembly52s, shell/Python syntax pass; actual
+runtime regression next.

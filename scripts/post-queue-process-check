@@ -1,0 +1,64 @@
+#!/usr/bin/env python3
+"""Kill a real offline queue and verify delivery of its pre-interruption signed intent."""
+import argparse
+import json
+from pathlib import Path
+import re
+import subprocess
+
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("--evidence", type=Path, required=True)
+args = parser.parse_args()
+package = "nl.davidengelen.redsquare.dev"
+runner = package + ".test/androidx.test.runner.AndroidJUnitRunner"
+test_class = "nl.davidengelen.redsquare.PostQueueProcessRecoveryTest"
+
+
+def adb(*arguments, check=True, timeout=60):
+    return subprocess.run(["adb", *arguments], text=True, capture_output=True,
+                          check=check, timeout=timeout)
+
+
+if not adb("get-serialno").stdout.strip().startswith("emulator-"):
+    raise SystemExit("This process check requires an isolated emulator")
+args.evidence.mkdir(parents=True, exist_ok=True)
+state_path = "cache/post-queue-process-checkpoint.json"
+adb("shell", "run-as", package, "rm", "-f", state_path)
+prepared = adb("shell", "am", "instrument", "-w", "-r", "-e", "class",
+               test_class + "#terminateAfterDurableOfflineQueueing", runner,
+               check=False, timeout=120)
+(args.evidence / "interrupted-instrumentation.txt").write_text(prepared.stdout)
+if "FAILURES!!!" in prepared.stdout:
+    raise AssertionError("Posting preparation failed before deliberate termination; see interrupted-instrumentation.txt")
+row = json.loads(adb("exec-out", "run-as", package, "cat", state_path).stdout)
+if not re.fullmatch(r"[1-9A-HJ-NP-Za-km-z]{43,45}", row["owner"]):
+    raise AssertionError("Public queue checkpoint identity is invalid")
+if not 1 <= row["port"] <= 65535 or row["started"] > row["queued_at"]:
+    raise AssertionError("Public queue checkpoint bounds are invalid")
+# WorkManager may restart a killed process. The original PID must be gone;
+# force-stop below holds recovery until the deliberate cold user interaction.
+current = adb("shell", "pidof", package, check=False).stdout.split()
+if str(row["pid"]) in current:
+    raise AssertionError("Original queued-post process was not terminated")
+adb("shell", "am", "force-stop", package)
+recovered = adb("shell", "am", "instrument", "-w", "-r", "-e", "class",
+                test_class + "#coldStartupDeliversThePreviouslySignedQueuedPost", runner,
+                timeout=120)
+(args.evidence / "recovered-instrumentation.txt").write_text(recovered.stdout)
+if "OK (1 test)" not in recovered.stdout:
+    raise AssertionError("Cold posting reconciliation did not pass")
+with (args.evidence / "cold-delivery.png").open("wb") as output:
+    subprocess.run(["adb", "exec-out", "run-as", package, "cat",
+                    "cache/post-queue-process-evidence/cold-delivery.png"],
+                   stdout=output, check=True, timeout=60)
+result = json.loads(adb("exec-out", "run-as", package, "cat", "cache/post-queue-process-result.json").stdout)
+if result["owner"] != row["owner"] or not row["started"] <= result["created_at"] <= row["queued_at"]:
+    raise AssertionError("Cold queue delivery changed the originating identity or signed time")
+if not re.fullmatch(r"[0-9a-f]{128}", result["signature"]):
+    raise AssertionError("Cold queue delivery signature is invalid")
+(args.evidence / "continuity.txt").write_text(
+    "PASS: real process death after durable offline Queue; cold startup automatically "
+    "delivers one pre-interruption signed transaction with the same wallet and text.\n"
+    "The deliberate force-stop holds the cold launch; this is not force-stop delivery proof.\n"
+    + result["owner"] + "\n" + result["signature"] + "\n")
+print("PASS: queued posting process interruption and cold delivery")
