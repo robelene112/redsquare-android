@@ -36,6 +36,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
 
     private fun response() = MockResponse.Builder().webSocketUpgrade(object : WebSocketListener() {
         private var authenticated = false
+        private var interrupted = false
         override fun onMessage(webSocket: WebSocket, bytes: okio.ByteString) {
             try {
                 val frame = bytes.toByteArray()
@@ -66,9 +67,13 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                         require(authenticated)
                         transactions.add(frame)
                         onTransaction?.invoke(frame)
-                        if (disconnectAfterTransaction) webSocket.cancel()
+                        if (disconnectAfterTransaction) {
+                            interrupted = true
+                            webSocket.close(1001, "Controlled post interruption")
+                        }
                     }
                     12 -> {
+                        if (interrupted) return
                         require(authenticated)
                         val bodyLength = ByteBuffer.wrap(frame, 13, 4).int
                         val inputs = ByteBuffer.wrap(frame, 5, 4).int

@@ -50,7 +50,7 @@ one question at a time when a material choice really needs the owner.
   No new APK, production transaction, physical Pixel or push proof.
 - Active #11, "10: Queue posts offline and resume on their original backend".
   Nine of35 complete;26 remain including active. Review base4bc4cd6;
-  current candidate497920d. Existing encrypted records now retain Queued state,
+  current candidate7f288f7 (production497920d). Existing encrypted records now retain Queued state,
   exact signed identity and durable availability. Shared local-state lock guards
   cancellation/delivery claims against wallet/backend changes. Foreground
   selected-session resumption and WorkManager2.12.0 background scheduling are
@@ -60,7 +60,9 @@ one question at a time when a material choice really needs the owner.
   resumption and stopped-activity background delivery. Failed-save red38007571494
   at35287be passes3/4 but exposes false Queued after disk failure. Candidate
   497920d requires verified queue saving for status, cancellation and scheduling;
-  local debug/test assembly1m29 passes. Focused38008231610 remains pending.
+  local debug/test assembly1m29 passes. Focused38008231610 passes4/4, including no false Queued/no transmission after
+  failed saving and repaired Retry. New uncertain-reconciliation test compiles56s;
+  actual red38008923408 is pending. No automatic uncertainty fix yet.
   Actual process interruption, wallet replacement, uncertain automatic retries,
   queue-management UI and final full Android10/17/reviews remain incomplete.
   Details NATIVE_POST_QUEUE_VERIFICATION.md; WorkManager primary-source research

@@ -1,0 +1,154 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostQueuePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PostQueuePreviewTest:
+INSTRUMENTATION_STATUS: test=explicitOfflineSendIsDurableAndCanBeCancelledBeforeTransmission
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostQueuePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=explicitOfflineSendIsDurableAndCanBeCancelledBeforeTransmission
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostQueuePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=queuedPostResumesAfterReconnectionWhileTheAppIsBackgrounded
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostQueuePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=queuedPostResumesAfterReconnectionWhileTheAppIsBackgrounded
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostQueuePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=automaticRetryReconcilesAnUncertainQueuedPostWithoutRebroadcast
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostQueuePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Controlled peer rejected the request
+	at nl.davidengelen.redsquare.ControlledFeedPeer.assertHealthy(ControlledFeedPeer.kt:97)
+	at nl.davidengelen.redsquare.PostQueuePreviewTest.automaticRetryReconcilesAnUncertainQueuedPostWithoutRebroadcast(PostQueuePreviewTest.kt:215)
+	... 64 trimmed
+Caused by: java.lang.NullPointerException
+	at okhttp3.internal.ws.RealWebSocket.cancel(RealWebSocket.kt:144)
+	at nl.davidengelen.redsquare.ControlledFeedPeer$response$1.onMessage(ControlledFeedPeer.kt:69)
+	at okhttp3.internal.ws.RealWebSocket.onReadMessage(RealWebSocket.kt:399)
+	at okhttp3.internal.ws.WebSocketReader.readMessageFrame(WebSocketReader.kt:265)
+	at okhttp3.internal.ws.WebSocketReader.processNextFrame(WebSocketReader.kt:115)
+	at okhttp3.internal.ws.RealWebSocket.loopReader(RealWebSocket.kt:317)
+	at mockwebserver3.MockWebServer.handleWebSocketUpgrade(MockWebServer.kt:845)
+	at mockwebserver3.MockWebServer.access$handleWebSocketUpgrade(MockWebServer.kt:97)
+	at mockwebserver3.MockWebServer$SocketHandler.processOneRequest(MockWebServer.kt:607)
+	at mockwebserver3.MockWebServer$SocketHandler.handle(MockWebServer.kt:533)
+	at mockwebserver3.MockWebServer.serveConnection$lambda$0(MockWebServer.kt:427)
+	at mockwebserver3.MockWebServer.$r8$lambda$_0q0B2jgUDqJDX0aEHSRVLAAlhA(Unknown Source:0)
+	at mockwebserver3.MockWebServer$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at okhttp3.internal.concurrent.TaskQueue$execute$1.runOnce(TaskQueue.kt:112)
+	at okhttp3.internal.concurrent.TaskRunner$runnable$1.run(TaskRunner.kt:81)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:641)
+	at java.lang.Thread.run(Thread.java:919)
+
+INSTRUMENTATION_STATUS: stream=
+Error in automaticRetryReconcilesAnUncertainQueuedPostWithoutRebroadcast(nl.davidengelen.redsquare.PostQueuePreviewTest):
+java.lang.AssertionError: Controlled peer rejected the request
+	at nl.davidengelen.redsquare.ControlledFeedPeer.assertHealthy(ControlledFeedPeer.kt:97)
+	at nl.davidengelen.redsquare.PostQueuePreviewTest.automaticRetryReconcilesAnUncertainQueuedPostWithoutRebroadcast(PostQueuePreviewTest.kt:215)
+	... 64 trimmed
+Caused by: java.lang.NullPointerException
+	at okhttp3.internal.ws.RealWebSocket.cancel(RealWebSocket.kt:144)
+	at nl.davidengelen.redsquare.ControlledFeedPeer$response$1.onMessage(ControlledFeedPeer.kt:69)
+	at okhttp3.internal.ws.RealWebSocket.onReadMessage(RealWebSocket.kt:399)
+	at okhttp3.internal.ws.WebSocketReader.readMessageFrame(WebSocketReader.kt:265)
+	at okhttp3.internal.ws.WebSocketReader.processNextFrame(WebSocketReader.kt:115)
+	at okhttp3.internal.ws.RealWebSocket.loopReader(RealWebSocket.kt:317)
+	at mockwebserver3.MockWebServer.handleWebSocketUpgrade(MockWebServer.kt:845)
+	at mockwebserver3.MockWebServer.access$handleWebSocketUpgrade(MockWebServer.kt:97)
+	at mockwebserver3.MockWebServer$SocketHandler.processOneRequest(MockWebServer.kt:607)
+	at mockwebserver3.MockWebServer$SocketHandler.handle(MockWebServer.kt:533)
+	at mockwebserver3.MockWebServer.serveConnection$lambda$0(MockWebServer.kt:427)
+	at mockwebserver3.MockWebServer.$r8$lambda$_0q0B2jgUDqJDX0aEHSRVLAAlhA(Unknown Source:0)
+	at mockwebserver3.MockWebServer$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at okhttp3.internal.concurrent.TaskQueue$execute$1.runOnce(TaskQueue.kt:112)
+	at okhttp3.internal.concurrent.TaskRunner$runnable$1.run(TaskRunner.kt:81)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:641)
+	at java.lang.Thread.run(Thread.java:919)
+
+INSTRUMENTATION_STATUS: test=automaticRetryReconcilesAnUncertainQueuedPostWithoutRebroadcast
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostQueuePreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=failedQueueSavingRetainsWorkWithoutClaimingQueuedOrTransmitting
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostQueuePreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=failedQueueSavingRetainsWorkWithoutClaimingQueuedOrTransmitting
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostQueuePreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=queuedPostResumesOnlyWhenItsOriginalBackendIsSelected
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostQueuePreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=queuedPostResumesOnlyWhenItsOriginalBackendIsSelected
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 58.763
+There was 1 failure:
+1) automaticRetryReconcilesAnUncertainQueuedPostWithoutRebroadcast(nl.davidengelen.redsquare.PostQueuePreviewTest)
+java.lang.AssertionError: Controlled peer rejected the request
+	at nl.davidengelen.redsquare.ControlledFeedPeer.assertHealthy(ControlledFeedPeer.kt:97)
+	at nl.davidengelen.redsquare.PostQueuePreviewTest.automaticRetryReconcilesAnUncertainQueuedPostWithoutRebroadcast(PostQueuePreviewTest.kt:215)
+	... 64 trimmed
+Caused by: java.lang.NullPointerException
+	at okhttp3.internal.ws.RealWebSocket.cancel(RealWebSocket.kt:144)
+	at nl.davidengelen.redsquare.ControlledFeedPeer$response$1.onMessage(ControlledFeedPeer.kt:69)
+	at okhttp3.internal.ws.RealWebSocket.onReadMessage(RealWebSocket.kt:399)
+	at okhttp3.internal.ws.WebSocketReader.readMessageFrame(WebSocketReader.kt:265)
+	at okhttp3.internal.ws.WebSocketReader.processNextFrame(WebSocketReader.kt:115)
+	at okhttp3.internal.ws.RealWebSocket.loopReader(RealWebSocket.kt:317)
+	at mockwebserver3.MockWebServer.handleWebSocketUpgrade(MockWebServer.kt:845)
+	at mockwebserver3.MockWebServer.access$handleWebSocketUpgrade(MockWebServer.kt:97)
+	at mockwebserver3.MockWebServer$SocketHandler.processOneRequest(MockWebServer.kt:607)
+	at mockwebserver3.MockWebServer$SocketHandler.handle(MockWebServer.kt:533)
+	at mockwebserver3.MockWebServer.serveConnection$lambda$0(MockWebServer.kt:427)
+	at mockwebserver3.MockWebServer.$r8$lambda$_0q0B2jgUDqJDX0aEHSRVLAAlhA(Unknown Source:0)
+	at mockwebserver3.MockWebServer$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at okhttp3.internal.concurrent.TaskQueue$execute$1.runOnce(TaskQueue.kt:112)
+	at okhttp3.internal.concurrent.TaskRunner$runnable$1.run(TaskRunner.kt:81)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:641)
+	at java.lang.Thread.run(Thread.java:919)
+
+FAILURES!!!
+Tests run: 5,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

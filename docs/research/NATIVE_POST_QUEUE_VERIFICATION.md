@@ -85,3 +85,11 @@ assembly passes1m29; focused green next.
 Focused38008231610 at497920d passes4/4 cases, including failed persistence
 truthfulness, retained work, no transmission before saving and successful repaired
 Retry. Uncertain queued-delivery reconciliation is the next slice.
+
+Run38008923408 at7f288f7 passes4/5; the uncertainty case reaches availability
+but fails peer-health checking because MockWebServer WebSocket.cancel() throws
+NullPointerException instead of establishing the intended interruption. This is
+a fixture failure, not a functional red. The fixture now sends a normal1001
+close and ignores subsequent Archive requests only on that interrupted session.
+Later connections can serve the accepted original transaction. Local assembly
+passes55s; actual uncertainty red is still pending.
