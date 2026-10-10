@@ -68,6 +68,7 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
         show(saved)
         cacheWarning = saved.unreadable
         suspend fun publish(freshPosts: List<FeedPost>, freshLikes: List<ProfileLike>) {
+            social?.observe(freshPosts)
             val merged = AndroidProfileCache.SavedProfile(
                 (freshPosts + view.history.posts + saved.posts).distinctBy { it.id },
                 (freshLikes + view.history.likes + saved.likes).distinctBy { it.id }, false)
@@ -121,7 +122,6 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
                     }
                 }
             }
-            social?.observe(result.posts)
             publish(result.posts, result.likes)
             unreadable = result.unreadable
             nextBefore = result.oldestCreatedAt?.takeIf { result.rowCount >= 20 && it < pageCursor }

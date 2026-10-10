@@ -5,6 +5,26 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class RedSquareQuotesTest {
+    @Test fun `historical and dual quotes preserve separately authenticated originals`() {
+        val fixture = JsonParser.parseReader(javaClass.getResourceAsStream("/native-quote-reference.json")!!.reader()).asJsonObject
+        for (format in listOf("legacy", "dual")) {
+            val row = fixture.getAsJsonObject(format)
+            val post = RedSquareFeed.decode(row.get("tx").asString)
+            assertEquals(row.get("sig").asString, post.id)
+            assertEquals("Native Red Square reference post", post.quoted!!.text)
+            assertEquals(fixture.getAsJsonObject("original").get("field2").asString, post.quoted!!.author)
+            assertEquals(fixture.getAsJsonObject("original").get("sig").asString, post.quoteTarget)
+        }
+    }
+
+    @Test fun `embedded presentation alone is not original author authentication`() {
+        val fixture = JsonParser.parseReader(javaClass.getResourceAsStream("/native-quote-reference.json")!!.reader()).asJsonObject
+        val post = RedSquareFeed.decode(fixture.getAsJsonObject("embedded").get("tx").asString)
+        assertEquals("Embedded quote commentary", post.text)
+        assertEquals(null, post.quoted)
+        assertEquals(fixture.getAsJsonObject("original").get("sig").asString, post.quoteTarget)
+    }
+
     @Test fun `authenticated commentary survives an original with an invalid signature`() {
         val fixture = JsonParser.parseReader(javaClass.getResourceAsStream("/native-quote-reference.json")!!.reader()).asJsonObject
         val post = RedSquareFeed.decode(fixture.getAsJsonObject("invalidOriginal").get("tx").asString)

@@ -52,3 +52,13 @@ original in feed, and the empty profile. Actual hosted build1m24s restores
 compilation/resource outputs FROM-CACHE; emulator cases still execute. Saved
 logs/images ticket12/profile-red. Minimal profile quote stream and safe shared
 cursor for sparse/full streams implemented; green pending.
+
+Profile green38028808825 at721e397: Android10 two cases5.954s. Downloaded
+log and inspected Compose profile image retain both complete texts in
+ticket12/profile-green. Review caught stale shared social counts when normal
+profile history succeeded but the quote stream failed; observation now happens
+at each partial publication. Added quote draft reopening/root isolation, original
+candidate uncertain-send reconciliation, failed/unavailable-original Retry and
+backend-isolated verified original cache regressions. Existing historical/dual
+and embedded-only public vector readers checked directly. Local initial batch
+core/debug/test assembly passes1m41s; expanded runtime checks pending.
