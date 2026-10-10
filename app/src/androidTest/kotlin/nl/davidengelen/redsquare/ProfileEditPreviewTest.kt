@@ -306,15 +306,15 @@ class ProfileEditPreviewTest {
         val device = UiDevice.getInstance(instrumentation)
         val row = By.text(ExportTestDocumentsProvider.TITLE).res("android", "title")
         val deadline = SystemClock.uptimeMillis() + 30_000
-        var rootsOpened = false
         while (SystemClock.uptimeMillis() < deadline) {
             try {
                 val file = device.findObject(By.text(filename))
                 if (file != null) { file.click(); return }
                 val root = device.findObject(row)
                 if (root != null) { root.click(); device.wait(Until.gone(row), 2_000) }
-                else if (!rootsOpened) device.findObject(By.desc("Show roots"))?.let {
-                    it.click(); rootsOpened = true
+                else device.findObject(By.desc("Show roots"))?.let {
+                    it.click()
+                    device.wait(Until.hasObject(row), 2_000)
                 }
             } catch (_: StaleObjectException) { /* Reobserve the actual picker. */ }
             SystemClock.sleep(100)

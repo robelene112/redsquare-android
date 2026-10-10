@@ -296,3 +296,19 @@ post/profile consumers without copying their persistence logic into wallet UI.
 Local debug/test assembly PASS1m54s before final cancellation guard in the
 exception path; fresh dual final-source runtime and bounded review pending.
 No wallet replacement or on-chain action occurred during the RED tracer.
+
+Final source3d8c9db: source38095429841 PASS; bounded f141190...3d8c9db
+Spec0, Standards0 hard/0 heuristic findings. Android10 38095429957 PASS all
+five cases17.174s, including actual SAF selection, fresh typed-bio pending
+warning, blocked confirmation and retained editor after cancelling. Original
+PNG individually inspected shows the specific pending-work warning, current
+wallet recovery explanation and disabled confirmation; separate XML retained.
+Android17 38095431855 completes five cases with one picker-navigation failure
+64.357s atchooseProfileImport before the selected-address/pending assertions.
+Other four pass. Original failure PNG and XML show Downloads, Show roots and
+no document; they do not establish the state of each earlier click or root cause.
+Retained profile-import-preview-first-green/android10 andandroid17.
+The helper no longer remembers an attempted drawer click as successful forever.
+It waits for the exact provider row after Show roots, reobserves actual picker
+state within the same30s bound, and succeeds only on the exact document click.
+No production code or acceptance assertion changed; corrected17 runtime pending.

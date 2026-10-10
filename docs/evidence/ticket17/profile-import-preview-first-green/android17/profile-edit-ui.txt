@@ -1,0 +1,94 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ProfileEditPreviewTest:
+INSTRUMENTATION_STATUS: test=walletImportPreviewWarnsAboutAFreshlyTypedBioBeforeAnySaveOrReplacement
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Profile reference import document was not displayed
+	at nl.davidengelen.redsquare.ProfileEditPreviewTest.chooseProfileImport(ProfileEditPreviewTest.kt:322)
+	at nl.davidengelen.redsquare.ProfileEditPreviewTest.walletImportPreviewWarnsAboutAFreshlyTypedBioBeforeAnySaveOrReplacement(ProfileEditPreviewTest.kt:271)
+
+INSTRUMENTATION_STATUS: stream=
+Error in walletImportPreviewWarnsAboutAFreshlyTypedBioBeforeAnySaveOrReplacement(nl.davidengelen.redsquare.ProfileEditPreviewTest):
+java.lang.IllegalStateException: Profile reference import document was not displayed
+	at nl.davidengelen.redsquare.ProfileEditPreviewTest.chooseProfileImport(ProfileEditPreviewTest.kt:322)
+	at nl.davidengelen.redsquare.ProfileEditPreviewTest.walletImportPreviewWarnsAboutAFreshlyTypedBioBeforeAnySaveOrReplacement(ProfileEditPreviewTest.kt:271)
+
+INSTRUMENTATION_STATUS: test=walletImportPreviewWarnsAboutAFreshlyTypedBioBeforeAnySaveOrReplacement
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=profileHistoryRemainsReachableWithAFullMultilineBio
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=profileHistoryRemainsReachableWithAFullMultilineBio
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=cachedProfileBioSurvivesAFreshActivityWhenSelectedBackendIsUnavailable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=cachedProfileBioSurvivesAFreshActivityWhenSelectedBackendIsUnavailable
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aSavedOwnBioDraftReturnsAfterAFreshActivityWithoutPublishing
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aSavedOwnBioDraftReturnsAfterAFreshActivityWithoutPublishing
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=viewingAProfileShowsItsVerifiedBioAndGeneratedSaitoAvatar
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=viewingAProfileShowsItsVerifiedBioAndGeneratedSaitoAvatar
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 64.357
+There was 1 failure:
+1) walletImportPreviewWarnsAboutAFreshlyTypedBioBeforeAnySaveOrReplacement(nl.davidengelen.redsquare.ProfileEditPreviewTest)
+java.lang.IllegalStateException: Profile reference import document was not displayed
+	at nl.davidengelen.redsquare.ProfileEditPreviewTest.chooseProfileImport(ProfileEditPreviewTest.kt:322)
+	at nl.davidengelen.redsquare.ProfileEditPreviewTest.walletImportPreviewWarnsAboutAFreshlyTypedBioBeforeAnySaveOrReplacement(ProfileEditPreviewTest.kt:271)
+
+FAILURES!!!
+Tests run: 5,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

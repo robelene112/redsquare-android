@@ -50,7 +50,12 @@ failure PNG/XML inspected and retained; source38094855735 PASS, both reviews0.
 WalletImport now awaits mounted editor save before selection, binds it to same
 wallet/backend, and refuses picker on failure/cancellation with truthful copy.
 Final activation retains save guard. Local debug/testPASS1m54s before last
-cancellation guard; fresh dual GREEN and bounded review pending. Preserve outgoing draft isolation. Saved profile
+cancellation guard; Both bounded review axes0; source38095429841 PASS. Android10 38095429957
+PASS5 cases17.174s including unsaved preview; original PNG/XML inspected.
+Android17 38095431855 FAIL5/1 cases64.357s before SAF document selection,
+other4pass. Captured Downloads/Show roots, not app preview. Test now positively
+waits provider drawer row and reobserves state, unchanged30s bound/assertions.
+Corrected17 runtime pending. Preserve outgoing draft isolation. Saved profile
 work is already included across both backends; unreadable means unknown.
 Then publishing/candidates, media, recovery, cross-client verification and final
 full checks/reviews remain. No APK or production node/on-chain write.
