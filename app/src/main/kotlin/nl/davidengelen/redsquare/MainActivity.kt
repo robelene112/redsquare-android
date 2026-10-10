@@ -43,6 +43,9 @@ import nl.davidengelen.redsquare.feed.FeedScreen
 import nl.davidengelen.redsquare.feed.FeedEndpoints
 import nl.davidengelen.redsquare.feed.LocalPostNavigation
 import nl.davidengelen.redsquare.feed.PostNavigation
+import nl.davidengelen.redsquare.feed.LocalVideoFixture
+import nl.davidengelen.redsquare.feed.VideoFixture
+import nl.davidengelen.redsquare.feed.VideoPlaybackHost
 
 class MainActivity : ComponentActivity() {
     private var walletExports: WalletExport? = null
@@ -179,6 +182,8 @@ class MainActivity : ComponentActivity() {
                 failed = wallet == null
             }
             MaterialTheme {
+                CompositionLocalProvider(LocalVideoFixture provides VideoFixture.fromIntent(intent)) {
+                VideoPlaybackHost(address, backend) {
                 Surface(Modifier.fillMaxSize()) {
                     Column(Modifier.fillMaxSize().padding(16.dp)) {
                         Text(stringResource(R.string.app_name), style = MaterialTheme.typography.headlineMedium)
@@ -220,8 +225,7 @@ class MainActivity : ComponentActivity() {
                             val selected = backend
                             if (selected != null) backendStates.SaveableStateProvider(selected.id) {
                                 key(selected) {
-                                    CompositionLocalProvider(LocalPostNavigation provides postNavigation,
-                                        nl.davidengelen.redsquare.feed.LocalVideoFixture provides nl.davidengelen.redsquare.feed.VideoFixture.fromIntent(intent)) {
+                                    CompositionLocalProvider(LocalPostNavigation provides postNavigation) {
                                     FeedScreen(wallet, failed, FeedEndpoints.fromIntent(intent, selected), selected,
                                         lifecycle, Modifier.weight(1f)) { reportFullyDrawn() }
                                     }
@@ -362,6 +366,8 @@ class MainActivity : ComponentActivity() {
                             Text(stringResource(R.string.wallet_close_guide))
                         } }
                     )
+                }
+                }
                 }
             }
         }

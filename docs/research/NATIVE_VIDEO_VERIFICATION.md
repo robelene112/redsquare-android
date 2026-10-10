@@ -127,3 +127,15 @@ then the existing scoped helper scrolls to the signed explicit-link card. The
 portrait return likewise waits for a scrollable feed before locating that card.
 Spec review of911e87f...ff12bd6 has0 actionable findings. FocusedRED38081746532
 is pending; the accepted rotation assertions and production code are unchanged.
+
+Rotation RED38081746532 atff12bd6 reaches portrait readiness, with exactly one
+provider request, then landscape display. It fails line105 after10s waiting for
+the selected-video fallback; two cases18.652s total, first tap passes. Retained
+stages and individually inspected original PNG show the landscape app without
+the video dialog. Evidence: ticket16/rotation-red. The minimal production fix
+moves validated public selection into a saveable root playback host outside
+lazy rows and backend-specific navigation. Activity-bound browsers are recreated,
+never retained; actual wallet/backend changes close the selection. Temporary
+nulls during recreation hide it until verified session loading completes.
+Only public owner/backend/video identifiers are saved; no wallet capability is
+passed to provider content. Runtime GREEN remains pending.

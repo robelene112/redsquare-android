@@ -1,0 +1,62 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.VideoPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.VideoPreviewTest:
+INSTRUMENTATION_STATUS: test=videoContactsProviderOnlyAfterTapAndClosingPreservesThePost
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.VideoPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=videoContactsProviderOnlyAfterTapAndClosingPreservesThePost
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.VideoPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=selectedVideoSurvivesRotationWithAnExternalFallbackInSmallWindows
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.VideoPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.VideoPreviewTest.selectedVideoSurvivesRotationWithAnExternalFallbackInSmallWindows(VideoPreviewTest.kt:105)
+	Suppressed: java.lang.AssertionError: Controlled provider requests: 1
+		at nl.davidengelen.redsquare.VideoPreviewTest.selectedVideoSurvivesRotationWithAnExternalFallbackInSmallWindows(VideoPreviewTest.kt:134)
+
+INSTRUMENTATION_STATUS: stream=
+Error in selectedVideoSurvivesRotationWithAnExternalFallbackInSmallWindows(nl.davidengelen.redsquare.VideoPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.VideoPreviewTest.selectedVideoSurvivesRotationWithAnExternalFallbackInSmallWindows(VideoPreviewTest.kt:105)
+	Suppressed: java.lang.AssertionError: Controlled provider requests: 1
+		at nl.davidengelen.redsquare.VideoPreviewTest.selectedVideoSurvivesRotationWithAnExternalFallbackInSmallWindows(VideoPreviewTest.kt:134)
+
+INSTRUMENTATION_STATUS: test=selectedVideoSurvivesRotationWithAnExternalFallbackInSmallWindows
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 18.652
+There was 1 failure:
+1) selectedVideoSurvivesRotationWithAnExternalFallbackInSmallWindows(nl.davidengelen.redsquare.VideoPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.VideoPreviewTest.selectedVideoSurvivesRotationWithAnExternalFallbackInSmallWindows(VideoPreviewTest.kt:105)
+	Suppressed: java.lang.AssertionError: Controlled provider requests: 1
+		at nl.davidengelen.redsquare.VideoPreviewTest.selectedVideoSurvivesRotationWithAnExternalFallbackInSmallWindows(VideoPreviewTest.kt:134)
+		... 65 more
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

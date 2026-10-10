@@ -6,6 +6,8 @@ import android.net.Uri
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.listSaver
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -23,22 +25,62 @@ import nl.davidengelen.redsquare.saito.RedSquareVideo
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.YouTubeVideo
 
+private data class VideoSelection(val owner: String?, val backend: SaitoBackend, val video: YouTubeVideo)
+
+private val videoSelectionSaver = listSaver<VideoSelection?, String>(
+    save = { selection -> selection?.let { listOf(it.owner.orEmpty(), it.backend.id, it.video.id) } ?: emptyList() },
+    restore = { saved ->
+        if (saved.size != 3) null else try {
+            val backend = SaitoBackend.entries.firstOrNull { it.id == saved[1] }
+            backend?.let { VideoSelection(saved[0].ifEmpty { null }, it, YouTubeVideo(saved[2])) }
+        } catch (_: IllegalArgumentException) { null }
+    }
+)
+
+private val LocalVideoPlayback = staticCompositionLocalOf<(YouTubeVideo, SaitoBackend) -> Unit> {
+    { _, _ -> error("Video playback requires its feature host") }
+}
+
+/** Keep public selection above lazy rows and backend-specific navigation state. */
+@Composable
+internal fun VideoPlaybackHost(owner: String?, backend: SaitoBackend?, content: @Composable () -> Unit) {
+    var selection by rememberSaveable(stateSaver = videoSelectionSaver) { mutableStateOf<VideoSelection?>(null) }
+    LaunchedEffect(owner, backend) {
+        selection?.let { selected ->
+            // A temporary null during cold wallet/backend loading is not a session switch.
+            if ((owner != null && selected.owner != owner) || (backend != null && selected.backend != backend)) {
+                selection = null
+            }
+        }
+    }
+    CompositionLocalProvider(LocalVideoPlayback provides { video, selectedBackend ->
+        if (selectedBackend == backend) selection = VideoSelection(owner, selectedBackend, video)
+    }) { content() }
+    selection?.takeIf { it.owner == owner && it.backend == backend }?.let { selected ->
+        VideoDialog(selected.video) { selection = null }
+    }
+}
+
 @Composable
 internal fun PostVideo(post: FeedPost, backend: SaitoBackend) {
     val video = remember(post.text, post.link) { RedSquareVideo.youtube(post.text, post.link) } ?: return
-    var open by remember(post.id, video, backend) { mutableStateOf(false) }
+    val open = LocalVideoPlayback.current
     OutlinedCard(Modifier.fillMaxWidth()) {
         Row(Modifier.fillMaxWidth().padding(horizontal = 8.dp), horizontalArrangement = Arrangement.SpaceBetween) {
             Text(stringResource(R.string.video_provider), Modifier.padding(vertical = 12.dp))
-            TextButton(onClick = { open = true }) { Text(stringResource(R.string.video_watch)) }
+            TextButton(onClick = { open(video, backend) }) { Text(stringResource(R.string.video_watch)) }
         }
     }
-    if (open) Dialog(onDismissRequest = { open = false }, properties = DialogProperties(usePlatformDefaultWidth = false)) {
+}
+
+@Composable
+private fun VideoDialog(video: YouTubeVideo, close: () -> Unit) {
+    Dialog(onDismissRequest = close, properties = DialogProperties(usePlatformDefaultWidth = false)) {
         Surface(Modifier.fillMaxSize()) {
             Column(Modifier.fillMaxSize().padding(12.dp)) {
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                     Text(stringResource(R.string.video_provider), Modifier.padding(vertical = 12.dp))
-                    TextButton(onClick = { open = false }) { Text(stringResource(R.string.video_close)) }
+                    TextButton(onClick = close) { Text(stringResource(R.string.video_close)) }
                 }
                 VideoPlayer(video, Modifier.weight(1f).fillMaxWidth())
             }
