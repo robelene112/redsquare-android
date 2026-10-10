@@ -1,0 +1,55 @@
+#!/usr/bin/env python3
+"""Kill a real uncertain send and verify cold reconciliation without a new like."""
+import argparse
+import json
+from pathlib import Path
+import re
+import subprocess
+
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("--evidence", type=Path, required=True)
+args = parser.parse_args()
+package = "nl.davidengelen.redsquare.dev"
+runner = package + ".test/androidx.test.runner.AndroidJUnitRunner"
+test_class = "nl.davidengelen.redsquare.SocialProcessRecoveryTest"
+
+
+def adb(*arguments, check=True, timeout=60):
+    return subprocess.run(["adb", *arguments], text=True, capture_output=True,
+                          check=check, timeout=timeout)
+
+
+if not adb("get-serialno").stdout.strip().startswith("emulator-"):
+    raise SystemExit("This process check requires an isolated emulator")
+args.evidence.mkdir(parents=True, exist_ok=True)
+state_path = "cache/social-process-checkpoint.json"
+adb("shell", "run-as", package, "rm", "-f", state_path)
+prepared = adb("shell", "am", "instrument", "-w", "-r", "-e", "class",
+               test_class + "#terminateAfterAnUncertainLike", runner,
+               check=False, timeout=120)
+(args.evidence / "interrupted-instrumentation.txt").write_text(prepared.stdout)
+if "FAILURES!!!" in prepared.stdout:
+    raise AssertionError("Social action preparation failed before deliberate termination; see interrupted-instrumentation.txt")
+row = json.loads(adb("exec-out", "run-as", package, "cat", state_path).stdout)
+if not re.fullmatch(r"[1-9A-HJ-NP-Za-km-z]{43,45}", row["field2"]):
+    raise AssertionError("Public social action checkpoint identity is invalid")
+if not re.fullmatch(r"[0-9a-f]{128}", row["sig"]):
+    raise AssertionError("Public social action checkpoint signature is invalid")
+if adb("shell", "pidof", package, check=False).stdout.strip():
+    raise AssertionError("Social action process was not actually terminated")
+adb("shell", "am", "force-stop", package)
+recovered = adb("shell", "am", "instrument", "-w", "-r", "-e", "class",
+                test_class + "#coldStartupReconcilesTheOriginalLikeWithoutRebroadcasting", runner,
+                timeout=120)
+(args.evidence / "recovered-instrumentation.txt").write_text(recovered.stdout)
+if "OK (1 test)" not in recovered.stdout:
+    raise AssertionError("Cold social action reconciliation did not pass")
+with (args.evidence / "reconciled-without-rebroadcast.png").open("wb") as output:
+    subprocess.run(["adb", "exec-out", "run-as", package, "cat",
+                    "cache/social-process-evidence/reconciled-without-rebroadcast.png"],
+                   stdout=output, check=True, timeout=60)
+(args.evidence / "continuity.txt").write_text(
+    "PASS: process death after uncertain send; cold app startup retains the original "
+    "signed candidate, checks exact verified availability, and does not rebroadcast.\n"
+    + row["field2"] + "\n" + row["sig"] + "\n")
+print("PASS: social action process interruption and cold reconciliation")

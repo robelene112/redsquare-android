@@ -124,6 +124,7 @@ if [[ "${TEST_SCOPE:-full}" == queue* ]]; then
 fi
 verify_social() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+    python3 "$repo_dir/scripts/social-process-check" --evidence "$evidence/social-process"
     timeout 180 adb shell am instrument -w -r \
         -e class nl.davidengelen.redsquare.SocialPreviewTest \
         nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
@@ -137,7 +138,7 @@ if [[ "${TEST_SCOPE:-full}" == social* ]]; then
     printf '%s\n' 'Focused social interaction check only; full acceptance not run.' > "$evidence/scope.txt"
     exit 0
 fi
-if [[ "${TEST_SCOPE:-full}" == full ]]; then verify_browse; verify_following; verify_posting; verify_post_queue; fi
+if [[ "${TEST_SCOPE:-full}" == full ]]; then verify_browse; verify_following; verify_posting; verify_post_queue; verify_social; fi
 verify_wallet_storage_recovery() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
     timeout 90 adb shell am instrument -w -r \
