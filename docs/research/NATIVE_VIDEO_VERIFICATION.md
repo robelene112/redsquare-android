@@ -190,3 +190,14 @@ API onStateChange documentation was rechecked2026-10-10; state1 is playing and
 state2 paused. The native playing observation is not implemented yet.
 FocusedRED38083125042 is pending. A separate opt-in live provider read remains
 planned so controlled readiness is not confused with actual YouTube playback.
+
+Lifecycle RED38083125042 ata3647ad: four cases29.266s, first three pass.
+The new tracer taps its trusted public provider button then fails line272's
+native playing observation after10s, with one API request. Individually
+inspected original PNG and separate XML expose Playing controlled video while
+the native label remains ready. Evidence: ticket16/lifecycle-red. The minimal
+fix subscribes to documented onStateChange events:1 reports playing;0/2/5
+restore ready without starting playback. Native polling maps the new state to
+plain product copy. No playVideo invocation or wallet bridge is introduced.
+[Primary state-event reference](https://developers.google.com/youtube/iframe_api_reference#Events).
+Background/recreation GREEN remains pending.

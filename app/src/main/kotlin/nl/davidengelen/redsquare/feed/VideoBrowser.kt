@@ -34,7 +34,7 @@ internal object VideoFixture {
 }
 
 internal enum class VideoStatus(val message: Int, val failed: Boolean = false) {
-    LOADING(R.string.video_loading), READY(R.string.video_ready),
+    LOADING(R.string.video_loading), READY(R.string.video_ready), PLAYING(R.string.video_playing),
     INVALID(R.string.video_invalid, true), UNAVAILABLE(R.string.video_unavailable, true),
     EMBED_DISABLED(R.string.video_embed_disabled, true), IDENTITY_FAILURE(R.string.video_identity_failure, true),
     PLAYBACK_FAILURE(R.string.video_playback_failure, true), NETWORK_FAILURE(R.string.video_network_failure, true);
@@ -131,6 +131,10 @@ internal class VideoBrowser(context: Context, video: YouTubeVideo, fixture: Stri
               try { window.rsPlayer=new YT.Player('player',{width:'100%',height:'100%',videoId:'${video.id}',
                 playerVars:{autoplay:0,playsinline:1,origin:'$origin'},events:{
                   onReady:function(e){try{e.target.cueVideoById('${video.id}');window.rsVideo={state:'ready',code:0}}catch(err){window.rsVideo={state:'error',code:5}}},
+                  onStateChange:function(e){
+                    if(e.data===1){window.rsVideo={state:'playing',code:0}}
+                    else if(e.data===0||e.data===2||e.data===5){window.rsVideo={state:'ready',code:0}}
+                  },
                   onError:function(e){window.rsVideo={state:'error',code:e.data}}
                 }});
               } catch(err){window.rsVideo={state:'error',code:5}}
@@ -153,6 +157,7 @@ internal class VideoBrowser(context: Context, video: YouTubeVideo, fixture: Stri
             val status = JsonParser.parseString(JsonParser.parseString(result).asString).asJsonObject
             when (status.get("state")?.asString) {
                 "ready" -> VideoStatus.READY
+                "playing" -> VideoStatus.PLAYING
                 "error" -> VideoStatus.error(status.get("code")?.asInt ?: 5)
                 else -> null
             }
