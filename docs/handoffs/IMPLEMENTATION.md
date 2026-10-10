@@ -76,9 +76,11 @@ one question at a time when a material choice really needs the owner.
   NATIVE_SOCIAL_INTERACTIONS_VERIFICATION.md/REVIEW.md. Android17 owner bitmap
   has stale official label despite passing assertions, excluded from visual
   acceptance; cause uninvestigated. No new APK or production write.
-- Next #13, "12: Publish and display quote posts across supported formats".
-  Read untracked NATIVE_QUOTES_CONTRACT.md before implementation. Eleven of35
-  complete;24 remain. Continue #13 through #36 sequentially without routine
+- Active #13, "12: Publish and display quote posts across supported formats".
+  Base1b7f0f6. Primary-source NATIVE_QUOTES_CONTRACT.md read. First controlled
+  Android publication/feed/thread tracer compiles57s; actual red pending.
+  New focused quotes/quotes-android17 scopes and full inclusion are prepared.
+  Eleven of35 complete;24 remain. Continue #13 through #36 sequentially without routine
   permission requests. Future research notes are not completed features.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
