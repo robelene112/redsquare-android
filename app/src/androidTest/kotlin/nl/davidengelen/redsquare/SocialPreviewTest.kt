@@ -15,6 +15,8 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import java.util.Base64
+import java.net.InetAddress
+import java.net.ServerSocket
 import java.util.concurrent.atomic.AtomicReference
 
 class SocialPreviewTest {
@@ -374,8 +376,9 @@ class SocialPreviewTest {
             if (criteria.get("field1").asString == "RedSquareLike") indexed.get()?.let { "[$it]" } ?: "[]" else "[$root]"
         })
         val official = ControlledFeedPeer("[$root]")
-        val firstOwner = owner.start()
-        val originalPort = firstOwner.port
+        // Use an explicit port for both listeners so MockWebServer enables reuse before bind.
+        val originalPort = ServerSocket(0, 1, InetAddress.getByName("127.0.0.1")).use { it.localPort }
+        val firstOwner = owner.start(originalPort)
         try {
             official.start().use { officialServer ->
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)

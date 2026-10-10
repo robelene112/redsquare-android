@@ -7,6 +7,17 @@ one question at a time when a material choice really needs the owner.
 
 ## Current work
 
+Latest #15 checkpoint: full1d12a94 rejected on both SDKs. Android10
+38073794569 fails prepared-image visibility in landscape after actual picker
+return; Android17 38073796590 stops earlier at social original-port EADDRINUSE.
+Fixture correction returns to portrait only after asserting new Activity and
+prepared result in landscape; #35 retains landscape header/layout limitation.
+Social fixture uses existing explicit OS-selected loopback port reservation
+for both same-endpoint listeners, enabling MockWebServer reuse-before-bind.
+No retry/fallback port. Retained logs/actual failure image and honest counts:
+ticket14/picker-full-fixture-failures. Both fresh full runs remain required.
+
+
 - Ticket #8, "07: Open threads and browse user profiles", is complete at final
   source c8fe9b7 against base 44cae5d. Full run 37943159613 passes both SDKs:
   core15, release/debug/test assembly and lint, 47 completed instrument cases

@@ -54,3 +54,18 @@ established. New positive foreground/rotation/refusal assertions at1d12a94 have
 cleanup, now fixed and compiled in the working tree. Fresh full10/17 and bounded
 cleanup review remain pending. Physical Pixel timing and owner review
 remain later tickets. No production writes, store release or new preview APK.
+
+
+Latest full candidate1d12a94 is rejected on both SDKs. Android10
+38073794569 passes83 individual cases/16 completion records/nine actual deaths,
+then fails image visibility in the cramped landscape development header.
+The real picker returns a prepared result; recovery verification now observes
+that result/new Activity before returning to portrait for unchanged pixel/text/
+Send/no-TX assertions. Landscape polish remains #35. Android17 38073796590
+passes52 individual cases/seven records/three deaths, then an existing social
+fixture cannot rebind its original port (EADDRINUSE), before image tests.
+Exact MockWebServer5.4.0 reuse-before-bind source supports using the existing
+explicit OS-selected port reservation idiom for both listeners, without retries
+or endpoint changes. Unique socket-state cause is unproved. Logs and inspected
+Android10 failure bitmap/XML retained in picker-full-fixture-failures/REVIEW.md.
+Fresh complete acceptance remains required; production unchanged sincecb3d9c3.

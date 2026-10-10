@@ -1,0 +1,175 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.SocialPreviewTest:
+INSTRUMENTATION_STATUS: test=pendingLikeStaysOnItsOriginalBackendAndDoesNotFollowAServerSwitch
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stack=java.net.BindException: bind failed: EADDRINUSE (Address already in use)
+	at libcore.io.IoBridge.bind(IoBridge.java:149)
+	at java.net.PlainSocketImpl.socketBind(PlainSocketImpl.java:162)
+	at java.net.AbstractPlainSocketImpl.bind(AbstractPlainSocketImpl.java:427)
+	at java.net.ServerSocket.bind(ServerSocket.java:399)
+	at mockwebserver3.MockWebServer.start(MockWebServer.kt:340)
+	at mockwebserver3.MockWebServer.start(MockWebServer.kt:303)
+	at nl.davidengelen.redsquare.ControlledFeedPeer.start(ControlledFeedPeer.kt:34)
+	at nl.davidengelen.redsquare.SocialPreviewTest.pendingLikeStaysOnItsOriginalBackendAndDoesNotFollowAServerSwitch(SocialPreviewTest.kt:398)
+	... 64 trimmed
+Caused by: android.system.ErrnoException: bind failed: EADDRINUSE (Address already in use)
+	at libcore.io.Linux.bind(Native Method)
+	at libcore.io.ForwardingOs.bind(ForwardingOs.java:139)
+	at libcore.io.ForwardingOs.bind(ForwardingOs.java:139)
+	at libcore.io.IoBridge.bind(IoBridge.java:145)
+	... 72 more
+
+INSTRUMENTATION_STATUS: stream=
+Error in pendingLikeStaysOnItsOriginalBackendAndDoesNotFollowAServerSwitch(nl.davidengelen.redsquare.SocialPreviewTest):
+java.net.BindException: bind failed: EADDRINUSE (Address already in use)
+	at libcore.io.IoBridge.bind(IoBridge.java:149)
+	at java.net.PlainSocketImpl.socketBind(PlainSocketImpl.java:162)
+	at java.net.AbstractPlainSocketImpl.bind(AbstractPlainSocketImpl.java:427)
+	at java.net.ServerSocket.bind(ServerSocket.java:399)
+	at mockwebserver3.MockWebServer.start(MockWebServer.kt:340)
+	at mockwebserver3.MockWebServer.start(MockWebServer.kt:303)
+	at nl.davidengelen.redsquare.ControlledFeedPeer.start(ControlledFeedPeer.kt:34)
+	at nl.davidengelen.redsquare.SocialPreviewTest.pendingLikeStaysOnItsOriginalBackendAndDoesNotFollowAServerSwitch(SocialPreviewTest.kt:398)
+	... 64 trimmed
+Caused by: android.system.ErrnoException: bind failed: EADDRINUSE (Address already in use)
+	at libcore.io.Linux.bind(Native Method)
+	at libcore.io.ForwardingOs.bind(ForwardingOs.java:139)
+	at libcore.io.ForwardingOs.bind(ForwardingOs.java:139)
+	at libcore.io.IoBridge.bind(IoBridge.java:145)
+	... 72 more
+
+INSTRUMENTATION_STATUS: test=pendingLikeStaysOnItsOriginalBackendAndDoesNotFollowAServerSwitch
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=uncertainRepostRetryAfterReopeningChecksTheOriginalActionWithoutRebroadcast
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=uncertainRepostRetryAfterReopeningChecksTheOriginalActionWithoutRebroadcast
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anOrdinaryRepostPreservesItsTargetAndDoesNotInventAServerCountIncrease
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anOrdinaryRepostPreservesItsTargetAndDoesNotInventAServerCountIncrease
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=failedSavingPreventsTransmissionAndRepairedRetryKeepsTheOriginalWallet
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=failedSavingPreventsTransmissionAndRepairedRetryKeepsTheOriginalWallet
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=replacingTheWalletHidesItsPendingLikeAndRestoringItRecoversTheOriginal
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=replacingTheWalletHidesItsPendingLikeAndRestoringItRecoversTheOriginal
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aVerifiedLikeAndServedCountStayCoherentAcrossFeedThreadAndProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aVerifiedLikeAndServedCountStayCoherentAcrossFeedThreadAndProfile
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=uncertainLikeRetryAfterReopeningChecksTheOriginalActionWithoutRebroadcast
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=uncertainLikeRetryAfterReopeningChecksTheOriginalActionWithoutRebroadcast
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=unavailableFreshCountsDoNotTurnAVerifiedLikeIntoAnImpossibleRetry
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unavailableFreshCountsDoNotTurnAVerifiedLikeIntoAnImpossibleRetry
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 15.87
+There was 1 failure:
+1) pendingLikeStaysOnItsOriginalBackendAndDoesNotFollowAServerSwitch(nl.davidengelen.redsquare.SocialPreviewTest)
+java.net.BindException: bind failed: EADDRINUSE (Address already in use)
+	at libcore.io.IoBridge.bind(IoBridge.java:149)
+	at java.net.PlainSocketImpl.socketBind(PlainSocketImpl.java:162)
+	at java.net.AbstractPlainSocketImpl.bind(AbstractPlainSocketImpl.java:427)
+	at java.net.ServerSocket.bind(ServerSocket.java:399)
+	at mockwebserver3.MockWebServer.start(MockWebServer.kt:340)
+	at mockwebserver3.MockWebServer.start(MockWebServer.kt:303)
+	at nl.davidengelen.redsquare.ControlledFeedPeer.start(ControlledFeedPeer.kt:34)
+	at nl.davidengelen.redsquare.SocialPreviewTest.pendingLikeStaysOnItsOriginalBackendAndDoesNotFollowAServerSwitch(SocialPreviewTest.kt:398)
+	... 64 trimmed
+Caused by: android.system.ErrnoException: bind failed: EADDRINUSE (Address already in use)
+	at libcore.io.Linux.bind(Native Method)
+	at libcore.io.ForwardingOs.bind(ForwardingOs.java:139)
+	at libcore.io.ForwardingOs.bind(ForwardingOs.java:139)
+	at libcore.io.IoBridge.bind(IoBridge.java:145)
+	... 72 more
+
+FAILURES!!!
+Tests run: 8,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

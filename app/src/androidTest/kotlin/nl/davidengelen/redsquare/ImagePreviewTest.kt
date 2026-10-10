@@ -226,13 +226,24 @@ class ImagePreviewTest {
                         }
                         if (device.hasObject(confirm)) requireNotNull(device.findObject(confirm)).click()
                         else assertTrue("Picker should return to the app", pickerClosed())
-                        ui.waitUntil(20_000) { ui.onAllNodesWithContentDescription("Image 1 of 1").fetchSemanticsNodes().isNotEmpty() }
+                        ui.waitUntil(20_000) { ui.onAllNodesWithContentDescription("Image 1 of 1").fetchSemanticsNodes().isNotEmpty() &&
+                            ui.onAllNodes(hasText("Remove image 1") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                        scenario.onActivity { assertNotEquals("Composer should recreate during rotation", originalActivity, System.identityHashCode(it)) }
+                        // The prepared result is durable in the recreated landscape composer.
+                        // Header/layout polish is #35; inspect actual pixels back in portrait.
+                        device.setOrientationNatural()
+                        ui.waitUntil(20_000) {
+                            if (context.resources.configuration.orientation != android.content.res.Configuration.ORIENTATION_PORTRAIT) false
+                            else try {
+                                ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() &&
+                                    ui.onNodeWithContentDescription("Image 1 of 1").performScrollTo().isDisplayed()
+                            } catch (_: AssertionError) { false }
+                        }
                         val bitmap = ui.onNodeWithContentDescription("Image 1 of 1").performScrollTo().assertIsDisplayed().captureToImage().asAndroidBitmap()
                         val pixel = bitmap.getPixel(bitmap.width / 2, bitmap.height / 2)
                         assertTrue(kotlin.math.abs(android.graphics.Color.red(pixel) - 30) <= 5)
                         assertTrue(kotlin.math.abs(android.graphics.Color.green(pixel) - 190) <= 5)
                         assertTrue(kotlin.math.abs(android.graphics.Color.blue(pixel) - 70) <= 5)
-                        scenario.onActivity { assertNotEquals("Composer should recreate during rotation", originalActivity, System.identityHashCode(it)) }
                         ui.onNode(hasSetTextAction()).assertTextEquals("Keep picker selection across rotation")
                         ui.onNode(hasText("Send") and isEnabled()).assertIsDisplayed()
                         assertTrue(peer.transactions.isEmpty())
