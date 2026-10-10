@@ -207,6 +207,26 @@ class PostPreviewTest {
                     cleanupFailure?.let { throw it }
                 }) {
                     try {
+                        if (withImage) {
+                            val pickerActions = listOf(Intent.ACTION_OPEN_DOCUMENT, Intent.ACTION_GET_CONTENT,
+                                "android.provider.action.PICK_IMAGES", "androidx.activity.result.contract.action.PICK_IMAGES",
+                                "com.google.android.gms.provider.action.PICK_IMAGES")
+                            androidx.test.espresso.intent.Intents.init()
+                            try {
+                                // Any mistaken external launch returns cancellation rather than
+                                // hiding the failed-save assertions behind another Android window.
+                                androidx.test.espresso.intent.Intents.intending(org.hamcrest.CoreMatchers.anyOf(
+                                    pickerActions.map { androidx.test.espresso.intent.matcher.IntentMatchers.hasAction(it) }))
+                                    .respondWith(android.app.Instrumentation.ActivityResult(android.app.Activity.RESULT_CANCELED, null))
+                                ui.clickImagePicker()
+                                waitFor("Could not load or confirm the saved draft. Your current text remains here. Try again.")
+                                assertTrue("A failed draft save must not open an external picker",
+                                    androidx.test.espresso.intent.Intents.getIntents().none { it.action in pickerActions })
+                                ui.onNode(hasSetTextAction()).assertTextEquals("Retain work when saving fails").assertIsEnabled()
+                                ui.assertSyntheticRedImage()
+                                assertTrue(owner.transactions.isEmpty() && official.transactions.isEmpty())
+                            } finally { androidx.test.espresso.intent.Intents.release() }
+                        }
                         ui.onNodeWithText("Settings").performClick()
                         ui.onNodeWithText("saito.io").performClick()
                         waitFor("Could not load or confirm the saved draft. Your current text remains here. Try again.")

@@ -28,8 +28,14 @@ then require the new text and existing prepared image on cold recovery. RED
 while red pixels remain. Logs and inspected PNG/XML limits are retained at
 ../evidence/ticket14/picker-navigation-red/REVIEW.md. The correction adds a
 state-owned verified save before launch, active-session cancellation and
-saveable domain-bound pending results. Local compile and GREEN remain pending,
-including save-failure refusal and recreation. This production correction requires fresh
+saveable domain-bound pending results atcb3d9c3. Local compile PASS1m46s;
+both bounded source-review axes have0 actionable findings. Focused GREEN17
+38073556210 remains pending. Existing storage-obstruction coverage now requires
+no external picker intent and preserved editable text/red pixels. The real
+system-picker flow now rotates the external window, requires a new composer
+activity, and verifies the returned green media and exact text with no send.
+Its narrow compile PASS1m01s. No new cases or artificial process kills were
+added. This production correction requires fresh
 full Android10 and17 acceptance; the running companion is a regression baseline,
 not final acceptance. Do not close #15 until the correction and both results
 are reviewed and accepted.

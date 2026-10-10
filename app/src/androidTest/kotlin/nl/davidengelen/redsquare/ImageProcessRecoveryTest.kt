@@ -206,7 +206,7 @@ class ImageProcessRecoveryTest {
     private fun capture(name: String) {
         val file = File(context.cacheDir, "image-process-evidence/$name").apply { parentFile?.mkdirs() }
         val device = UiDevice.getInstance(instrumentation)
-        check(device.takeScreenshot(file))
         device.dumpWindowHierarchy(File(file.parentFile, name.removeSuffix(".png") + ".xml"))
+        check(device.takeScreenshot(file))
     }
 }

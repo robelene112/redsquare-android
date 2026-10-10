@@ -160,9 +160,13 @@ one question at a time when a material choice really needs the owner.
   loss of final text after actual process death: preliminary text recovers,
   prepared red pixels survive. Retained picker-navigation-red logs/PNG/XML with
   explicit viewport/transition limits. Production correction now being compiled:
-  synchronous saving gate, verified persistence, session-cancelled scope,
-  saveable full-domain pending marker and keyed launchers. GREEN, failed-save
-  refusal, recreation and fresh full10/17 gates remain; no closure yet.
+  cb3d9c3: synchronous saving gate, verified persistence, session-cancelled scope,
+  saveable full-domain pending marker and keyed launchers. Narrow compile1m46s
+  PASS and both bounded source-review axes0. FocusedGREEN17 38073556210 pending.
+  Existing storage-obstruction case now requires no picker intent; real system
+  picker case rotates externally, requires activity recreation and exact draft
+  text/green returned pixels without publication. Fixture compile PASS1m01s;
+  process diagnostics dump XML before bitmap. Fresh full10/17 remain; no closure.
   Full10 evidence retained6853de3, corrected official caption0c5b7fd; both
   bounded evidence review axes0 residual findings.
   Actual post/reply/quote frames independently verified; A/B unchanged templates

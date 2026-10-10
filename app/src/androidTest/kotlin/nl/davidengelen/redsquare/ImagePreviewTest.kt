@@ -149,14 +149,22 @@ class ImagePreviewTest {
             val peer = ControlledFeedPeer("[${fixture.getAsJsonObject("ordinary")}]")
             peer.start().use { server ->
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
-                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
                     try {
+                        var originalActivity = 0
+                        scenario.onActivity { originalActivity = System.identityHashCode(it) }
                         ui.waitUntil(20_000) { peer.requests.get() > 0 &&
                             ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                         ui.onNodeWithText("New post").performClick()
                         ui.waitUntil(10_000) { ui.onAllNodes(hasText("Add images") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                        ui.onNode(hasSetTextAction()).performTextReplacement("Keep picker selection across rotation")
                         ui.clickImagePicker()
                         val device = androidx.test.uiautomator.UiDevice.getInstance(instrumentation)
+                        ui.waitUntil(15_000) { device.currentPackageName in listOf("com.android.documentsui",
+                            "com.google.android.photopicker", "com.google.android.providers.media.module", "com.android.providers.media.module") }
+                        // Rotate the actual external window. The stopped composer must recreate
+                        // and still receive its owned result, rather than launching a second picker.
+                        device.setOrientationLeft()
                         if (android.os.Build.VERSION.SDK_INT < 33) {
                             requireNotNull(device.wait(androidx.test.uiautomator.Until.findObject(androidx.test.uiautomator.By.desc("Show roots")), 10_000)).click()
                             device.waitForIdle(1_000)
@@ -206,6 +214,8 @@ class ImagePreviewTest {
                         assertTrue(kotlin.math.abs(android.graphics.Color.red(pixel) - 30) <= 5)
                         assertTrue(kotlin.math.abs(android.graphics.Color.green(pixel) - 190) <= 5)
                         assertTrue(kotlin.math.abs(android.graphics.Color.blue(pixel) - 70) <= 5)
+                        scenario.onActivity { assertNotEquals("Composer should recreate during rotation", originalActivity, System.identityHashCode(it)) }
+                        ui.onNode(hasSetTextAction()).assertTextEquals("Keep picker selection across rotation")
                         ui.onNode(hasText("Send") and isEnabled()).assertIsDisplayed()
                         assertTrue(peer.transactions.isEmpty())
                         peer.assertHealthy()
@@ -223,6 +233,8 @@ class ImagePreviewTest {
             val device = androidx.test.uiautomator.UiDevice.getInstance(instrumentation)
             if (device.currentPackageName in listOf("com.android.documentsui", "com.google.android.providers.media.module",
                     "com.android.providers.media.module", "com.google.android.photopicker")) device.pressBack()
+            device.setOrientationNatural()
+            device.unfreezeRotation()
         }
     }
 
