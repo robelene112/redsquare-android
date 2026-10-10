@@ -7,4 +7,5 @@ const foreign = signedReference('2', {module:'Profile',request:'update profile',
 const withMedia = signedReference('1', {module:'Profile',request:'update profile',snapshot:true,data:{description:'Original bio',image:'https://images.example.test/avatar.png',banner:'https://images.example.test/banner.png',archive:['https://archive.example.test'],extension:{theme:'blue'}}}, 1700001000004);
 // JavaScript decodes 1.0 as numeric1, which the pinned client treats as a snapshot.
 const numericSnapshot = signedReference('1', {module:'Profile',request:'update profile',snapshot:JSON.rawJSON('1.0'),data:{description:'Numeric snapshot'}}, 1700001000001);
-process.stdout.write(JSON.stringify({synthetic:true,reference,legacy,snapshot,newerLegacy,foreign,withMedia,numericSnapshot},null,2)+'\n');
+const longBio = signedReference('1', {module:'Profile',request:'update profile',snapshot:1,data:{description:Array.from({length:40},(_,index)=>`Public biography line ${index+1}`).join('\n')}}, 1700001000006);
+process.stdout.write(JSON.stringify({synthetic:true,reference,legacy,snapshot,newerLegacy,foreign,withMedia,numericSnapshot,longBio},null,2)+'\n');

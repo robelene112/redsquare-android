@@ -67,6 +67,46 @@ class ProfileEditPreviewTest {
         }
     }
 
+    @Test fun profileHistoryRemainsReachableWithAFullMultilineBio() {
+        val feed = instrumentation.context.assets.open("native-feed-reference.json").bufferedReader()
+            .use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow") }
+        val row = instrumentation.context.assets.open("native-profile-reference.json").bufferedReader()
+            .use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("longBio") }
+        val author = row.get("field2").asString
+        val bio = (1..40).joinToString("\n") { "Public biography line $it" }
+        val peer = ControlledFeedPeer("[$feed]", profileArchiveResponse = { "[$row]" }, archiveResponse = { criteria ->
+            assertEquals("RedSquare", criteria.get("field1").asString)
+            if (criteria.has("field2")) assertEquals(author, criteria.get("field2").asString)
+            "[$feed]"
+        })
+        peer.start().use { server ->
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                try {
+                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
+                    val post = hasText("Native Red Square reference post")
+                    ui.onNode(hasScrollAction()).performScrollToNode(post)
+                    ui.onNode(hasText(author) and hasAnyAncestor(hasAnyChild(post))).performClick()
+                    ui.waitUntil(20_000) { ui.onAllNodesWithText(bio).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText(bio).assertExists()
+                    ui.onNode(hasScrollAction()).performScrollToNode(hasText("Posts"))
+                    ui.onNodeWithText("Posts").assertIsDisplayed()
+                    ui.onNodeWithText("Replies").assertIsDisplayed()
+                    ui.onNodeWithText("Likes").assertIsDisplayed()
+                    ui.onNode(hasScrollAction()).performScrollToNode(post)
+                    ui.onNode(post).assertIsDisplayed()
+                    capture("long-bio-reachable-history.png")
+                    assertTrue(peer.transactions.isEmpty())
+                    peer.assertHealthy()
+                } catch (failure: Throwable) {
+                    try { capture("long-bio-first-failure.png") } catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
+                    throw failure
+                }
+            }
+        }
+    }
+
     private fun capture(name: String) {
         val file = File(context.cacheDir, "profile-edit-evidence/$name").apply { parentFile?.mkdirs() }
         val device = UiDevice.getInstance(instrumentation)
