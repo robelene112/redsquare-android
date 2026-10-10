@@ -21,3 +21,12 @@ transmission, validates exact availability on retry, and shares observed action/
 count state across feed/thread/profile. Counts remain unsigned backend metadata,
 never local increments. Unavailable/failed state retains the original candidate
 and offers Retry. Local debug/test assembly passes1m41s; runtime green is next. No production transactions, private wallet uploads or new APK.
+
+
+Focused `38017288554` at `94a7afc` passes1/1 in6.12s: one compatible signed like,
+exact availability and served4-to-5 count coherent across feed/thread/profile.
+Public logs and inspected Profile image are retained in ticket11/first-green.
+The ordinary-repost tracer requires signature-only data, original recipients,
+verified availability and an unchanged served2 count. This models archived
+availability without implying a timestamp-sensitive receiver counter increased.
+Local test assembly51s passes; focused ordinary-repost red is next.
