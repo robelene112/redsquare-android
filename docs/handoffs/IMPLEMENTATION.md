@@ -48,30 +48,30 @@ one question at a time when a material choice really needs the owner.
   Details NATIVE_POSTING_VERIFICATION.md/NATIVE_POSTING_CONTRACT.md/
   NATIVE_POST_TEXT_POLICY.md and ticket09/REVIEW.md. Stated bitmap limits remain.
   No new APK, production transaction, physical Pixel or push proof.
-- Active #11, "10: Queue posts offline and resume on their original backend".
-  Nine of35 complete;26 remain including active. Base4bc4cd6, reviewed source
-  f03832a. Durable explicit-send intent, safe cancellation, original-wallet/
-  backend delivery, foreground/background recovery and exact original-candidate
-  uncertain reconciliation are implemented. Drafts remain unsent. Focused
-  38013042673 passes7 normal cases54.743s plus actual queue process death/cold
-  delivery. Real SAF wallet replacement pauses outgoing work; test-only original
-  wallet restoration resumes it. Both review axes now0 actionable findings;
-  localcore/debug/test/release/lint4m25s PASS. Full38013725295 passes Android10:78 cases,4 additional intentional kills,
-  posting15/15/queue6/6, both public reads and signed5-to-8. Android17 passes7/8
-  browse then cached-reply timeout; causeunestablished, screenshotafterdisposal.
-  Fixture-only readiness/navigation/in-activity diagnostics compiled1m13s;
-  productionunchanged. FullAndroid17 companion/review required. Do not close.
-  Details NATIVE_POST_QUEUE_VERIFICATION.md, background research and ticket10/
-  REVIEW.md. Cold-recovery image inspected; wallet replacement/restoration
-  bitmaps stale, excluded from visual acceptance. No newAPK, productionTX,
-  physicalPixel or force-stop delivery proof. Continue#11 then#12 through#36.
+- Ticket #11, "10: Queue posts offline and resume on their original backend",
+  complete at reviewed candidateb628a81, productionf03832a, base4bc4cd6.
+  FullAndroid10 in38013725295 and fullAndroid17 companion38015116524 pass78
+  completed cases each plus4 intentional process-kill stages. Core19,
+  debug/test/release/lint,15 posting/6 queue cases, both public feeds,
+  cold-cache/wallet recovery and signed5-to-8 continuity pass. Actual queue
+  process death, realSAF identity replacement, backend pause/cancel/retry and
+  foreground/background uncertainty reconciliation verified. Bothreviewaxes0
+  actionable. Productiondiffbetweenacceptedcandidates empty. ExistingAndroid17
+  thread-recovery timeout corrected with fixture readiness/navigation/capture;
+  priorcauseunestablished. Publiclogs/inspectedimages ticket10/full-android10/
+  full-android17; details NATIVE_POST_QUEUE_VERIFICATION.md/REVIEW.md.
+  No newAPK, productionTX, physicalPixel or force-stop delivery proof.
+- Next #12, "11: Like posts and perform ordinary reposts". Ten of35 complete;
+ 25 remain. Read-only primary-source contract prepared in
+  NATIVE_SOCIAL_INTERACTIONS_CONTRACT.md. No #12 source/test implementation yet.
+  Continue sequentially through #36 without routine permission requests.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.
-- Nine of35 tickets complete: #2 crypto compatibility, #3 persistent wallet
+- Ten of35 tickets complete: #2 crypto compatibility, #3 persistent wallet
   and signing/updates, #4 feed/cache, #5 fixed backends, #6 authenticated export,
   #7 safeguarded import, #8 threads/profiles, #9 following, #10 posting/drafts.
-  #11 active,26 tickets still open. Preserve all accepted features; no Ralph or parallel implementation.
+  #11 queues.25 tickets still open. Preserve all accepted features; no Ralph or parallel implementation.
 
 ## Completed foundation references
 
@@ -99,7 +99,7 @@ Initial wallet/live-feed milestone is published as stable signed version10
 Compose bitmaps had inconsistent labels; use each report's stated evidence
 limits. #9 also has official bitmap inconsistencies; no invented cause.
 
-Current next: #11 then all remaining tickets sequentially. Owner reviews
+Current next: #12 then all remaining tickets sequentially. Owner reviews
 completed app; no intermediate phone-review gate is required.
 
 ## Verification already inspected

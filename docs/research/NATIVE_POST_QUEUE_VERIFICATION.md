@@ -4,7 +4,7 @@ Ticket #11, review base `4bc4cd6`, reviewed source `f03832a`.
 Accepted seams: observable Android flows against controlled authenticated peers,
 persistence/recovery and compatible transactions (specification #1 boundaries 1–3).
 Full `38013725295` passes Android 10. Android 17 stops at an existing
-thread-recovery test, before queue acceptance. Companion full acceptance is next.
+thread-recovery test, before queue acceptance. Companion full Android17 `38015116524` at `b628a81` passes.
 
 ## Behavior
 
@@ -76,7 +76,7 @@ lint checks pass in 4m25s. See `docs/evidence/ticket10/REVIEW.md`.
 The inspected cold-recovery bitmap shows the recovered post and is retained.
 Replacement/restoration captures show stale UI despite passing identity
 assertions; exclude those bitmaps from visual acceptance. Final full runtime
-acceptance remains pending. No new APK, production transaction, immediate OS
+acceptance passes on both SDKs. No new APK, production transaction, immediate OS
 execution guarantee or physical Pixel proof is claimed.
 
 
@@ -92,4 +92,11 @@ after activity disposal and shows the launcher, so the cause is unestablished.
 The fixture now requires enabled feed readiness, displayed root and actual
 Conversation navigation, and captures inside the recovery activity. Original
 reply/history assertions remain. Production source is unchanged; local test
-assembly passes1m13s. A full Android17 companion run remains required.
+assembly passes1m13s. Full Android17 companion `38015116524` at `b628a81` passes78 completed
+cases plus4 intentional process-kill stages. Posting15/15 passes85.574s;
+queue6/6 passes66.238s. Core19, release/debug/test/lint, both public feeds,
+cache/wallet cold launches and signed5-to-8 continuity pass. Production source
+diff against `f03832a` is empty. Both fixture-review axes have0 actionable
+findings. Inspected safe cold-queue, uncertain-availability and cached-thread
+images plus selected logs are retained in ticket10/full-android17. The guard
+correction passes without establishing the earlier timeout's cause.

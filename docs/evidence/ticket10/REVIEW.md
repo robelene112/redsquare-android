@@ -15,7 +15,7 @@ No documented-standard violations. Two judgment findings:
 
 `PostAvailability.kt` and the scope-dependent queue case selection address both.
 Both fix-review axes approve `f03832a` with zero actionable findings. Final
-runtime acceptance remains pending.
+runtime acceptance passes on both SDKs.
 
 ## Spec
 
@@ -41,5 +41,11 @@ process-kill stages. Android17 stops at cached-thread recovery (7/8 browse
 cases), before queue acceptance. Cause unestablished: failure image captures
 the launcher after disposal. Fixture-only readiness/navigation checks and
 in-activity diagnostics preserve all existing assertions; local assembly1m13s
-passes. Companion full Android17 acceptance remains required. No new APK, production transaction or
+passes. Both fixture-review axes approve `b628a81` with zero actionable findings.
+Companion full Android17 `38015116524` passes78 completed cases plus4
+intentional process-kill stages; production source matches `f03832a` exactly.
+Posting15/15, queue6/6, core19, release/debug/test/lint, both public feeds,
+cache/wallet recovery and signed5-to-8 continuity pass. Selected public logs
+and inspected queue/recovery images are retained. The earlier timeout cause
+remains unestablished. Final Standards and Spec: zero actionable findings. No new APK, production transaction or
 physical Pixel verification is claimed.
