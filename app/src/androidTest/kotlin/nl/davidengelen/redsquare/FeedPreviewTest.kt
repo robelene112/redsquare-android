@@ -89,6 +89,12 @@ class FeedPreviewTest {
         peer.start().use { server ->
             ActivityScenario.launch<MainActivity>(intent(server.port)).use {
                 captureFailure {
+                    ui.waitUntil(15_000) {
+                        peer.requests.get() > 0 &&
+                            ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty()
+                    }
+                    peer.assertHealthy()
+                    ui.onNode(hasScrollAction()).performScrollToNode(hasText("Native Red Square reference post"))
                     waitForText("Native Red Square reference post")
                     check(blocked.renameTo(preserved))
                     check(blocked.mkdir())
