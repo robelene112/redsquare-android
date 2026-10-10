@@ -170,7 +170,13 @@ class VideoPreviewTest {
             api.enqueue(MockResponse.Builder().code(503).build())
             api.enqueue(MockResponse.Builder().setHeader("Content-Type", "application/javascript").body("""
                 window.YT={Player:function(element,options){
-                  setTimeout(function(){options.events.onError({data:153})},20);
+                  this.cueVideoById=function(id){if(id!=='M7lc1UVf-VE')throw Error('Wrong reference')};
+                  var player=this;
+                  setTimeout(function(){
+                    options.events.onError({data:153});
+                    options.events.onStateChange({data:5});
+                    options.events.onReady({target:player});
+                  },20);
                 }};
                 onYouTubeIframeAPIReady();
             """.trimIndent()).build())

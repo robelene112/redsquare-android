@@ -201,3 +201,15 @@ restore ready without starting playback. Native polling maps the new state to
 plain product copy. No playVideo invocation or wallet bridge is introduced.
 [Primary state-event reference](https://developers.google.com/youtube/iframe_api_reference#Events).
 Background/recreation GREEN remains pending.
+
+Lifecycle GREEN38083557172 at16b97ba: four Android10 cases24.422s, including
+trusted provider tap, native playing, background pause without a new request,
+and cue-only recreation with exactly two requests. Original paused/recreated
+PNGs were inspected separately and show black player surfaces with native ready
+copy; their later XML captures expose Paused controlled video and Play controlled
+video respectively. The assertions establish the controlled lifecycle behavior;
+the bitmaps do not depict real YouTube media. Evidence: lifecycle-green-android10.
+Bounded93d582a...16b97ba Standards review0; Spec identified a provider error
+that subsequent state/ready events could erase before the500ms native poll.
+The existing recovery tracer now emits153, then state5 and ready in one callback
+tick, requiring the same error/Retry UI. Production is unchanged for this RED.
