@@ -16,6 +16,7 @@ import java.util.concurrent.TimeUnit
 internal class ControlledFeedPeer(@Volatile var rows: String,
     private val onTransaction: ((ByteArray) -> Unit)? = null,
     private val quoteArchiveResponse: ((com.google.gson.JsonObject) -> String)? = null,
+    private val profileArchiveResponse: ((com.google.gson.JsonObject) -> String)? = null,
     private val archiveResponse: ((com.google.gson.JsonObject) -> String)? = null) {
     @Volatile var disconnectAfterTransaction = false
     private val peer = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public test material only.
@@ -84,7 +85,11 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                         require(body.get("request").asString == "archive")
                         val criteria = body.getAsJsonObject("data")
                         require(criteria.get("request").asString == "load")
-                        val response = if (criteria.get("field1").asString == "RedSquareRetweet" && !criteria.has("sig")) {
+                        val response = if (criteria.get("field1").asString == "Profile") {
+                            require(criteria.get("field2").asString.matches(Regex("[1-9A-HJ-NP-Za-km-z]{43,45}")))
+                            require(criteria.get("limit").asInt in 1..100)
+                            profileArchiveResponse?.invoke(criteria) ?: "[]"
+                        } else if (criteria.get("field1").asString == "RedSquareRetweet" && !criteria.has("sig")) {
                             require(criteria.get("flagged_ne").asInt == 1)
                             require(criteria.get("limit").asInt in 1..100)
                             quoteArchiveResponse?.invoke(criteria) ?: "[]"

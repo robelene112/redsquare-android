@@ -1,0 +1,278 @@
+{
+  "synthetic": true,
+  "reference": {
+    "saitoCommit": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+    "saitoWasmVersion": "0.3.2",
+    "ellipticVersion": "6.6.1",
+    "wasmSha256": "f59be69dbb949368ce1fc7ef47d414cbe0281a86a206fe4bfb1128a4d087e01e"
+  },
+  "identiconVersion": "2.3.3",
+  "identiconSha256": "17994ee41aae1f7057151524517f74a3489b58ea08f56c1cff33992774262e68",
+  "vectors": [
+    {
+      "address": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+      "hash": "ac585b8949ca8a638f2532f5926c81459e8c719bd4de6ef7d105e6597da5cfba",
+      "foreground": "rgba(163,41,149,1)",
+      "background": "rgba(240,240,240,1)",
+      "rectangles": [
+        {
+          "x": 168,
+          "y": 0,
+          "w": 84,
+          "h": 84,
+          "color": "rgba(163,41,149,1)"
+        },
+        {
+          "x": 168,
+          "y": 84,
+          "w": 84,
+          "h": 84,
+          "color": "rgba(163,41,149,1)"
+        },
+        {
+          "x": 168,
+          "y": 252,
+          "w": 84,
+          "h": 84,
+          "color": "rgba(163,41,149,1)"
+        },
+        {
+          "x": 84,
+          "y": 84,
+          "w": 84,
+          "h": 84,
+          "color": "rgba(163,41,149,1)"
+        },
+        {
+          "x": 252,
+          "y": 84,
+          "w": 84,
+          "h": 84,
+          "color": "rgba(163,41,149,1)"
+        },
+        {
+          "x": 84,
+          "y": 252,
+          "w": 84,
+          "h": 84,
+          "color": "rgba(163,41,149,1)"
+        },
+        {
+          "x": 252,
+          "y": 252,
+          "w": 84,
+          "h": 84,
+          "color": "rgba(163,41,149,1)"
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "w": 84,
+          "h": 84,
+          "color": "rgba(163,41,149,1)"
+        },
+        {
+          "x": 336,
+          "y": 0,
+          "w": 84,
+          "h": 84,
+          "color": "rgba(163,41,149,1)"
+        },
+        {
+          "x": 0,
+          "y": 84,
+          "w": 84,
+          "h": 84,
+          "color": "rgba(163,41,149,1)"
+        },
+        {
+          "x": 336,
+          "y": 84,
+          "w": 84,
+          "h": 84,
+          "color": "rgba(163,41,149,1)"
+        },
+        {
+          "x": 0,
+          "y": 168,
+          "w": 84,
+          "h": 84,
+          "color": "rgba(163,41,149,1)"
+        },
+        {
+          "x": 336,
+          "y": 168,
+          "w": 84,
+          "h": 84,
+          "color": "rgba(163,41,149,1)"
+        },
+        {
+          "x": 0,
+          "y": 252,
+          "w": 84,
+          "h": 84,
+          "color": "rgba(163,41,149,1)"
+        },
+        {
+          "x": 336,
+          "y": 252,
+          "w": 84,
+          "h": 84,
+          "color": "rgba(163,41,149,1)"
+        },
+        {
+          "x": 0,
+          "y": 336,
+          "w": 84,
+          "h": 84,
+          "color": "rgba(163,41,149,1)"
+        },
+        {
+          "x": 336,
+          "y": 336,
+          "w": 84,
+          "h": 84,
+          "color": "rgba(163,41,149,1)"
+        }
+      ],
+      "svg": "<svg xmlns='http://www.w3.org/2000/svg' width='420' height='420' style='background-color:rgba(240,240,240,1);'><g style='fill:rgba(163,41,149,1); stroke:rgba(163,41,149,1); stroke-width:2.1;'><rect  x='168' y='0' width='84' height='84'/><rect  x='168' y='84' width='84' height='84'/><rect  x='168' y='252' width='84' height='84'/><rect  x='84' y='84' width='84' height='84'/><rect  x='252' y='84' width='84' height='84'/><rect  x='84' y='252' width='84' height='84'/><rect  x='252' y='252' width='84' height='84'/><rect  x='0' y='0' width='84' height='84'/><rect  x='336' y='0' width='84' height='84'/><rect  x='0' y='84' width='84' height='84'/><rect  x='336' y='84' width='84' height='84'/><rect  x='0' y='168' width='84' height='84'/><rect  x='336' y='168' width='84' height='84'/><rect  x='0' y='252' width='84' height='84'/><rect  x='336' y='252' width='84' height='84'/><rect  x='0' y='336' width='84' height='84'/><rect  x='336' y='336' width='84' height='84'/></g></svg>"
+    },
+    {
+      "address": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+      "hash": "79e7bf39aa57341738dc2f2ef662d125d2d7ad9a536823d25e7a287cab7e69bd",
+      "foreground": "rgba(79,41,163,1)",
+      "background": "rgba(240,240,240,1)",
+      "rectangles": [
+        {
+          "x": 168,
+          "y": 168,
+          "w": 84,
+          "h": 84,
+          "color": "rgba(79,41,163,1)"
+        },
+        {
+          "x": 84,
+          "y": 252,
+          "w": 84,
+          "h": 84,
+          "color": "rgba(79,41,163,1)"
+        },
+        {
+          "x": 252,
+          "y": 252,
+          "w": 84,
+          "h": 84,
+          "color": "rgba(79,41,163,1)"
+        },
+        {
+          "x": 84,
+          "y": 336,
+          "w": 84,
+          "h": 84,
+          "color": "rgba(79,41,163,1)"
+        },
+        {
+          "x": 252,
+          "y": 336,
+          "w": 84,
+          "h": 84,
+          "color": "rgba(79,41,163,1)"
+        },
+        {
+          "x": 0,
+          "y": 252,
+          "w": 84,
+          "h": 84,
+          "color": "rgba(79,41,163,1)"
+        },
+        {
+          "x": 336,
+          "y": 252,
+          "w": 84,
+          "h": 84,
+          "color": "rgba(79,41,163,1)"
+        }
+      ],
+      "svg": "<svg xmlns='http://www.w3.org/2000/svg' width='420' height='420' style='background-color:rgba(240,240,240,1);'><g style='fill:rgba(79,41,163,1); stroke:rgba(79,41,163,1); stroke-width:2.1;'><rect  x='168' y='168' width='84' height='84'/><rect  x='84' y='252' width='84' height='84'/><rect  x='252' y='252' width='84' height='84'/><rect  x='84' y='336' width='84' height='84'/><rect  x='252' y='336' width='84' height='84'/><rect  x='0' y='252' width='84' height='84'/><rect  x='336' y='252' width='84' height='84'/></g></svg>"
+    },
+    {
+      "address": "yeMGUPYnH8HDFbBAHbGuTtftXdJUVv5aEsS4bUXrgRg7",
+      "hash": "0e91bab943c72552fb1c9f1f2ab23f7d90694db03cd590c67a362afea4798306",
+      "foreground": "rgba(80,163,41,1)",
+      "background": "rgba(240,240,240,1)",
+      "rectangles": [
+        {
+          "x": 168,
+          "y": 0,
+          "w": 84,
+          "h": 84,
+          "color": "rgba(80,163,41,1)"
+        },
+        {
+          "x": 168,
+          "y": 84,
+          "w": 84,
+          "h": 84,
+          "color": "rgba(80,163,41,1)"
+        },
+        {
+          "x": 84,
+          "y": 0,
+          "w": 84,
+          "h": 84,
+          "color": "rgba(80,163,41,1)"
+        },
+        {
+          "x": 252,
+          "y": 0,
+          "w": 84,
+          "h": 84,
+          "color": "rgba(80,163,41,1)"
+        },
+        {
+          "x": 84,
+          "y": 252,
+          "w": 84,
+          "h": 84,
+          "color": "rgba(80,163,41,1)"
+        },
+        {
+          "x": 252,
+          "y": 252,
+          "w": 84,
+          "h": 84,
+          "color": "rgba(80,163,41,1)"
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "w": 84,
+          "h": 84,
+          "color": "rgba(80,163,41,1)"
+        },
+        {
+          "x": 336,
+          "y": 0,
+          "w": 84,
+          "h": 84,
+          "color": "rgba(80,163,41,1)"
+        },
+        {
+          "x": 0,
+          "y": 168,
+          "w": 84,
+          "h": 84,
+          "color": "rgba(80,163,41,1)"
+        },
+        {
+          "x": 336,
+          "y": 168,
+          "w": 84,
+          "h": 84,
+          "color": "rgba(80,163,41,1)"
+        }
+      ],
+      "svg": "<svg xmlns='http://www.w3.org/2000/svg' width='420' height='420' style='background-color:rgba(240,240,240,1);'><g style='fill:rgba(80,163,41,1); stroke:rgba(80,163,41,1); stroke-width:2.1;'><rect  x='168' y='0' width='84' height='84'/><rect  x='168' y='84' width='84' height='84'/><rect  x='84' y='0' width='84' height='84'/><rect  x='252' y='0' width='84' height='84'/><rect  x='84' y='252' width='84' height='84'/><rect  x='252' y='252' width='84' height='84'/><rect  x='0' y='0' width='84' height='84'/><rect  x='336' y='0' width='84' height='84'/><rect  x='0' y='168' width='84' height='84'/><rect  x='336' y='168' width='84' height='84'/></g></svg>"
+    }
+  ]
+}

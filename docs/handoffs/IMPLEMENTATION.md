@@ -7,6 +7,18 @@ one question at a time when a material choice really needs the owner.
 
 ## Current work
 
+Active #18, "Edit profile bio, avatar and banner", claimed after confirming
+native blocked_by0. Review baseafce6610e4c78a2183bf154ac99cc35d7917b03c.
+Use NATIVE_PROFILE_EDIT_CONTRACT.md and NATIVE_PROFILE_EDIT_VERIFICATION.md.
+First independent signed-snapshot tracer is compileRED22s because reader absent;
+minimal reader focusedGREEN42s; complete-snapshot senderGREEN40s, numeric marker
+reconstructionRED25s/GREEN30s, pinned-avatarRED20s/GREEN43s. All48core/debug/test
+assemblyPASS1m58s. First Android profile header/bio/avatar runtimeRED pending;
+native profile metadata/editor/image UI is not implemented yet.
+Only profile fields and public reference inputs;
+no production publication or app/node wallet reads. #17 stays open with actual
+provider acceptance unproved; its immutable full534330e pair remains pending.
+
 Ticket #15 is complete after final source/fixture/evidence reviews: both axes
 zero remaining findings through2829329. Full Android10 38075318198 atd35f965
 and Android17 38076602854 at23d7202 PASS123 cases/35 records/11 actual deaths

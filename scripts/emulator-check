@@ -269,7 +269,22 @@ if [[ "${TEST_SCOPE:-full}" == videos* || "${TEST_SCOPE:-full}" == video-public*
     printf '%s\n' "Focused ${TEST_SCOPE:-videos} check only; full acceptance not run." > "$evidence/scope.txt"
     exit 0
 fi
-if [[ "${TEST_SCOPE:-full}" == full ]]; then verify_browse; verify_following; verify_posting; verify_post_queue; verify_social; verify_quotes; verify_author_posts; verify_images; verify_videos; fi
+verify_profiles() {
+    [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+    timeout 180 adb shell am instrument -w -r \
+        -e class nl.davidengelen.redsquare.ProfileEditPreviewTest \
+        nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+        > "$evidence/profile-edit-ui.txt" || true
+    adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - profile-edit-evidence \
+        > "$evidence/profile-edit-evidence.tar" || true
+    grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/profile-edit-ui.txt"
+}
+if [[ "${TEST_SCOPE:-full}" == profiles* ]]; then
+    verify_profiles
+    printf '%s\n' 'Focused profile editing check only; full acceptance not run.' > "$evidence/scope.txt"
+    exit 0
+fi
+if [[ "${TEST_SCOPE:-full}" == full ]]; then verify_browse; verify_following; verify_posting; verify_post_queue; verify_social; verify_quotes; verify_author_posts; verify_images; verify_videos; verify_profiles; fi
 verify_wallet_storage_recovery() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
     timeout 90 adb shell am instrument -w -r \
