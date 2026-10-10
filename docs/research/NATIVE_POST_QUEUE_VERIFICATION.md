@@ -122,3 +122,10 @@ resumed post, original-backend/identity delivery, automatic uncertain reconcilia
 without rebroadcast, background delivery, cancellation and failed-save repair.
 Queue management outside the composer and actual process/wallet replacement
 acceptance remain next.
+
+Management red38011274167 at853747f passes5/6. Queued work persists and
+returns to the feed, but Queued posts entry is absent (line245). A wallet-scoped
+overview now lists pending work for both fixed backends, labels paused items and
+permits cancellation only while the unchanged durable record is Queued. Cancelling
+retains its unsent text; claimed uncertainty cannot be cancelled as unpublished.
+Local debug/test assembly passes1m36. Focused management green pending.

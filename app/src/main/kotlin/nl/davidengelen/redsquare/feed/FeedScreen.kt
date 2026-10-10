@@ -60,6 +60,7 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
     var hadOutage by rememberSaveable { mutableStateOf(false) }
     var refresh by remember { mutableIntStateOf(0) }
     var composing by rememberSaveable { mutableStateOf(false) }
+    var reviewingQueue by rememberSaveable { mutableStateOf(false) }
     val navigationMemory = remember(activity, wallet?.publicKey, backend) {
         ViewModelProvider(activity)["browse:${wallet?.publicKey.orEmpty()}:${backend.id}", FeedNavigationMemory::class.java]
     }
@@ -157,6 +158,10 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
     LaunchedEffect(posts.isNotEmpty()) {
         if (posts.isNotEmpty()) { withFrameNanos { }; withFrameNanos { }; onDrawn() }
     }
+    if (reviewingQueue && wallet != null) {
+        QueuedPostsScreen(wallet.publicKey, backend, modifier) { reviewingQueue = false }
+        return
+    }
     if (composing && wallet != null) {
         PostComposerScreen(wallet, endpoint, backend, modifier) { composing = false; refresh++ }
         return
@@ -196,6 +201,7 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
             }
         }
         TextButton(enabled = wallet != null, onClick = { composing = true }) { Text(stringResource(R.string.post_new)) }
+        TextButton(enabled = wallet != null, onClick = { reviewingQueue = true }) { Text(stringResource(R.string.post_queue_title)) }
         val visiblePosts = if (followingView) posts.filter { it.author in following?.accounts.orEmpty() } else posts
         FollowingStatus(following)
         if (followingView) {

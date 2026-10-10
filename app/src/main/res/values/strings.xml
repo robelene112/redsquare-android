@@ -1,5 +1,8 @@
 <resources>
     <string name="post_queued">Queued</string>
+    <string name="post_queue_title">Queued posts</string>
+    <string name="post_queue_empty">No queued posts</string>
+    <string name="post_queue_paused">Paused. Select this server to continue delivery.</string>
     <string name="post_queue_storage_error">Could not read queued posts. Your saved work remains on this device. Try again.</string>
     <string name="post_cancel_queued">Cancel queued post</string>
     <string name="browse_back">Back</string>

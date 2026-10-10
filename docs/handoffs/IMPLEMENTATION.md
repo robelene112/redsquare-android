@@ -50,7 +50,7 @@ one question at a time when a material choice really needs the owner.
   No new APK, production transaction, physical Pixel or push proof.
 - Active #11, "10: Queue posts offline and resume on their original backend".
   Nine of35 complete;26 remain including active. Review base4bc4cd6;
-  current candidateb6ec690 (production8257bfb). Existing encrypted records now retain Queued state,
+  current candidate853747f plus overview implementation awaiting commit. Existing encrypted records now retain Queued state,
   exact signed identity and durable availability. Shared local-state lock guards
   cancellation/delivery claims against wallet/backend changes. Foreground
   selected-session resumption and WorkManager2.12.0 background scheduling are
@@ -70,7 +70,9 @@ one question at a time when a material choice really needs the owner.
   candidate retries. Local assembly1m30 passes; focused38010212716 passes4/5 including uncertainty reconciliation. Backend
   feed visibility still fails; inspected image shows older cached posts at the
   retained list position. Bounded scroll requires target displayed, preserving
-  the assertion. Fixture build54s passes; focused38010789123 pending.
+  the assertion. Fixture build54s passes; focused38010789123 passes5/5. Management red38011274167 passes5/6 and
+  proves missing Queued posts entry. Wallet-scoped two-backend overview and atomic
+  queued cancellation implemented; local assembly1m36 passes, focused green next.
   Actual process interruption, wallet replacement, uncertain automatic retries,
   queue-management UI and final full Android10/17/reviews remain incomplete.
   Details NATIVE_POST_QUEUE_VERIFICATION.md; WorkManager primary-source research

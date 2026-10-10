@@ -169,6 +169,11 @@ internal class PostDraftStore private constructor(private val context: Context, 
         update(saved, saved.copy(queued = false, available = true))
     }
 
+    fun cancelQueued(expected: Saved): Boolean = synchronized(lock) {
+        if (!expected.queued) return@synchronized false
+        update(expected, Saved(expected.text))
+    }
+
     companion object {
         private const val KEY_ALIAS = "redsquare.postdraft.v1"
         private const val MAX_BYTES = 5 * 1024 * 1024
