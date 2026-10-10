@@ -187,7 +187,7 @@ PY
     adb shell run-as nl.davidengelen.redsquare.dev.test mkdir -p files/image-test-documents
     adb shell -T run-as nl.davidengelen.redsquare.dev.test tee files/image-test-documents/redsquare-system-picker-reference.png \
         < "$evidence/picker-reference.png" >/dev/null
-    adb shell run-as nl.davidengelen.redsquare.dev.test test -s files/image-test-documents/redsquare-system-picker-reference.png
+    adb shell "run-as nl.davidengelen.redsquare.dev.test sh -c '[ -s files/image-test-documents/redsquare-system-picker-reference.png ]'"
     timeout 180 adb shell am instrument -w -r \
         -e class nl.davidengelen.redsquare.ImagePreviewTest \
         nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
