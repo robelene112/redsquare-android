@@ -79,6 +79,7 @@ class AuthorPostPreviewTest {
                     ui.onNodeWithText("Send").performClick()
                     waitFor("Available on this server.")
                     ui.onNodeWithText("Back").performClick()
+                    waitFor("New post")
                     waitFor("Native author's original post")
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText("Native author's original post"))
                     ui.onNodeWithText("Native author's original post").performClick()
