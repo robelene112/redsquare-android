@@ -14,7 +14,7 @@ each, core39/build/release/lint, both public reads, cold recovery and signed
 updates. Productioncb3d9c3 is identical across accepted candidates. Evidence
 final-android10/final-android17/final-interop; details NATIVE_IMAGES_VERIFICATION.
 
-Active: #17 YouTube, production/source candidatec6113d2,
+Active: #17 YouTube, productionc6113d2, test/evidence candidatee8fafd9,
 fixed review base711e42e. Root-owned viewer survives rotation/recreation; small
 windows use external fallback. Sticky errors persist until Retry. Text selection
 now matches both original Browser/Tweet helpers, including omitted schemes and
@@ -31,9 +31,14 @@ fails both public runs38086337225/38086335271 with the same zero-height frames.
 Nativec6113d2 now explicitly sets MATCH_PARENT layout parameters before HTML
 loading, following Android's WebView layout-size contract, and restores relative
 CSS height. Local debug/test buildPASS1m44s; both bounded source review axes0.
-Fresh public17/10 runs38086671894/38086674099 are pending. Real playback is still
-unproved. CDP reads only allowed public frame DOM; page screenshots were removed
-at23eea43. Full10/17 acceptance remains required after runtime GREEN.
+Public17/10 runs38086671894/38086674099 establish corrected296×448 iframe/body
+dimensions and reach trusted Play, then fail native Playing with provider
+embed-disabled copy/Retry/external fallback. Exact101vs150/cause unestablished;
+actual media remains unproved. Alternate existing signedbHQ probes38087138529/38087140673
+are pending at e8fafd9 with unchanged positive Play/Playing gates and M7 default.
+Full10/17 regression pair38087174575/38087176435 is also pending at e8fafd9,
+including both public Saito reads. CDP reads only allowed public frame DOM;
+page screenshots were removed at23eea43. No ticket closure until acceptance.
 See NATIVE_VIDEO_VERIFICATION.md. No ticket closure or new APK.
 
 #16 Giphy remains open: an Android-authorized key and clarification of provider

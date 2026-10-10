@@ -291,6 +291,8 @@ class ThreadProfilePreviewTest {
                 }
                 // Fresh activity, without retained navigation/history ViewModels.
                 ActivityScenario.launch<MainActivity>(intent).use {
+                    try {
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText(author)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     ui.onNodeWithText(author).performClick()
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Posts")).fetchSemanticsNodes().isNotEmpty() }
@@ -305,6 +307,11 @@ class ThreadProfilePreviewTest {
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText("Profile history could not be refreshed. Available posts remain visible.")).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNodeWithText("Only available history is shown. Older posts and likes may be missing.").assertIsDisplayed()
                     captureFeedEvidence("browse-evidence/cached-profile-likes-after-restart.png")
+                    } catch (failure: Throwable) {
+                        try { captureFeedEvidence("browse-evidence/cached-profile-recovery-first-failure.png") }
+                        catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
+                        throw failure
+                    }
                 }
             } catch (failure: Throwable) {
                 captureFeedEvidence("browse-evidence/cached-profile-first-failure.png")

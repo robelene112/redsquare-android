@@ -361,3 +361,28 @@ Player: The Future of Embedding" and typevideo on2026-10-10. This is metadata,
 not embedding/playback proof. No signed fixture is altered. CDP allows only the
 two selected public embed paths and retains the same frame-only DOM boundary.
 The second probe is pending and is not a provider-refusal-as-success test.
+
+Alternate bHQ probee8fafd9 also fails positive Playing after trusted Play on both
+versions: Android10 run38087140673 one51.691s; Android17 run38087138529 one51.313s.
+Both original PNGs individually inspected show the same native embed-disabled
+copy/Retry/external escape. Retained public-alternate-refusal/android10/17.
+Separately, unauthenticated public watch metadata from this VPS for both IDs
+returned LOGIN_REQUIRED with a bot-check reason. That read used a generic
+Mozilla/5.0 user agent, no login/cookies or media extraction; it is a different
+host/client from the emulator and does not establish the emulator refusal cause.
+Public YouTube acceptance remains unresolved. Do not label either refusal as
+successful media playback or invent an attestation credential requirement.
+
+Full Android10 run38087174575 at e8fafd9 stops in the existing eight-case browse
+group: seven pass, one31.662s overall failure atcached-profile line296 waiting
+for Posts after a fresh activity click. The only failure PNG is captured after
+ActivityScenario disposal and shows a blank app/status bar; it does not establish
+the active failure screen or cause. Retained full-browse-red/android10. Feed
+navigation memory changes from the temporary null-wallet key to the loaded
+identity key; cached rows can arrive before that load. The corrected fixture
+waits for existing public New post enabled readiness before its author tap,
+matching the accepted cached-conversation recovery precondition, and captures
+inside the fresh scenario on failure. All cached posts/replies/likes/outage
+assertions and15s waits remain. This is a bounded startup-session hypothesis,
+not a proven cause. Production is unchangedc6113d2. Full17 companion38087176435
+at e8fafd9 remains pending; focused browse10 and outstanding full10 are required.
