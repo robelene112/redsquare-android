@@ -102,33 +102,38 @@ one question at a time when a material choice really needs the owner.
   keyless quote previews apply proofs; profile likes merge atomically.
   Local core35/debug/test/release/lint PASS3m55s after reviewed prefill fix. Both final source review axes
   have no actionable source findings; this is NOT runtime acceptance or closure.
-  Public logs: ticket13/source-checkpoint. Detailed chronology/limits:
-  NATIVE_AUTHOR_ACTIONS_VERIFICATION.md. Initial own-edit Android10 GREEN
-  38034593176 predates the new source; stale-cache RED38034937825 remains without
-  a new Android GREEN. Test checkpoint1f4703f adds a sixth UI case covering both
-  explicit conflict choices, plus host-driven real-process-death EDIT/DELETE
-  recovery stages. Final test APK assembly passes1m; device cases unexecuted.
-  Both stages are wired into focused/full checks. Bounded support review and
-  an isolated synthetic-object A/B receiver diagnostic reproduce the second-stream
-  quote lookup gap; ordinary targets succeed, retweet targets remain unchanged
-  while deletion commands archive. Not signature/native/live/deployment proof.
-  Logs/results: ticket13/recovery-source; application source unchanged3132404.
-  Actual author recovery/conflict/failure runtime acceptance remains outstanding.
-  Private-repository GitHub runs were refused before starting, including38051349925.
-  The owner then authorized public publication. GitHub confirms PUBLIC visibility;
-  focused author Android10 run38051764840 has started at f8060cb, restoring hosted
-  execution. Inspect its results before further dispatch/final acceptance; no
-  test pass is claimed yet. No billing/spending settings were changed. Prior bounded local
-  software attempt produced0 test output and was stopped/removed; do not repeat
-  it as the ordinary test loop. No emulator/build running at handoff.
-  Pinned A/B reference-only receivers pass; new native-frame scripts syntax pass
-  but actual Android frames have not been captured. Current-format quotes may
-  remain pending because pinned receivers query RedSquare while their originals
-  can remain in RedSquareRetweet. Dual-stream absence checks avoid false success;
-  no backend repair, deployment, DOM, live-write or current deployment proof.
-  Hosted runners are available again after authorized public publication. Inspect failed artifacts,
-  fix findings and run final full Android10/17 before closing14. Continue all35
-  sequentially. Twelve complete;23 remain. No new APK publication/production write.
+  Public logs: ticket13/source-checkpoint. Details NATIVE_AUTHOR_ACTIONS_VERIFICATION.md.
+  Public publication restored hosted runners without billing/spending changes.
+  At f177057, focused author Android10 run38052021331 and Android17 run38052279137
+  PASS all six UI cases plus real edit/delete process-death recoveries each.
+  Original wallet/candidate retained; explicit Retry observes availability with
+  zero rebroadcast. Actual native create/edit/delete frames independently verify
+  with pinned WASM/Elliptic and apply correctly under both unchanged A/B receiver
+  methods with controlled Archive. No initialized node or live write used.
+  Full38052234326 passes build/lint/core35/browse8, then fails three Following
+  profile transitions on Android10. Screenshots show author links above the
+  viewport despite visible post bodies. f26d3bb corrects only test navigation:
+  scroll author, assert displayed, click, observe Profile, all acceptance checks
+  retained. Local test compilation passes; both fixture review axes0 actionable.
+  Focused Following38052915840/38052917663 PASS eight cases each on Android10/17.
+  Full38053152722 passes core/build/release/lint then browse7/8; older-profile
+  likes times out after clicking Load older before checking enabled readiness.
+  Retained bitmap shows recentlikes/noerrors/Loadolderenabled after timeout.
+  Source serves cached rows before network completion; button disabled whileloading.
+  Bounded fixture adds enabled wait/assert before both paging taps; keep timing
+  diagnosis qualified until runtime verification. Local compilation in progress,
+  reviews requested. Evidence ticket13/profile-paging-fixture-failure.
+  Run focused browse then final full on both SDKs before closure. Native application source remains3132404.
+  Evidence ticket13/first-current-android10, author-android10-green,
+  author-android17-green, following-fixture-failure. Keep #14 open until full
+  acceptance passes. No local build/emulator remains running.
+  Known A/B web commentary-retweet archive bug remains visible: target stored in
+  RedSquareRetweet can evade receiver RedSquare-only author lookups. Native
+  create-tweet quotes use the working archive path and retain original quote
+  fields. Corrected spec review finds this upstream limitation does not mandate
+  a production patch or native quote exclusion for #14. No false-success claims;
+  no backend repair, deployment, DOM, chain inclusion or live-write proof.
+  Twelve complete;23 remain. Continue sequentially. No new APK publication.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.

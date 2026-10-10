@@ -177,12 +177,18 @@ class ThreadProfilePreviewTest {
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Profile newer post 20")).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNodeWithText("Replies").performClick()
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNodeWithText("Load older").performClick()
+                    ui.waitUntil(15_000) {
+                        ui.onAllNodes(hasText("Load older") and isEnabled()).fetchSemanticsNodes().isNotEmpty()
+                    }
+                    ui.onNodeWithText("Load older").assertIsEnabled().performClick()
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Nested Saito reply")).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNodeWithText("Nested Saito reply").assertIsDisplayed()
                     ui.onNodeWithText("Likes").performClick()
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Profile newer post 20")).fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNodeWithText("Load older").performClick()
+                    ui.waitUntil(15_000) {
+                        ui.onAllNodes(hasText("Load older") and isEnabled()).fetchSemanticsNodes().isNotEmpty()
+                    }
+                    ui.onNodeWithText("Load older").assertIsEnabled().performClick()
                     ui.waitUntil(15_000) {
                         runCatching { ui.onNode(hasScrollAction()).performScrollToNode(hasText("Independent Saito reply")) }.isSuccess
                     }

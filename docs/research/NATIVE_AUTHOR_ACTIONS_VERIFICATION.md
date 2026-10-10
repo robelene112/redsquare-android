@@ -55,7 +55,22 @@ fixture correction explicitly scrolls each feed author link into view, asserts
 it is displayed, clicks, then observes Profile before unchanged follow assertions.
 No timeout extension or application change. Failure log/image retained in
 `docs/evidence/ticket13/following-fixture-failure/`. Focused and final full
-verification of this correction remain pending. Both review axes previously
+verification of this correction were pending at dispatch. Focused Following
+run38052915840 passes all eight cases22.384s on Android10; run38052917663 passes
+eight66.312s on Android17. Logs and unfollowed-empty-feed images retained in
+`following-android10-green/` and `following-android17-green/`. Both fixture-review
+axes have zero actionable findings. Full38053152722 at f26d3bb passes core35/build/release/lint, then seven of eight
+browse cases on Android10. Profile older-likes lookup times out after clicking
+Load older. Inspected screenshot shows recent likes, no error and enabled Load
+older after the timeout. Profile source publishes cached rows before completing
+the new tab's network request and disables pagination during that request. The
+fixture waited for cached rows but not enabled pagination, permitting a lost
+disabled-button tap. This is a timing hypothesis supported by source and bitmap,
+not an independently traced request sequence. The bounded fixture correction
+waits for and asserts enabled Load older before both existing paging clicks,
+retaining all older reply/like assertions and15s timeouts. Failure log/bitmap:
+`profile-paging-fixture-failure/`. Focused browse and final full acceptance of
+this correction are pending; public reads had not yet executed. Both review axes previously
 confirmed the disabled-field selector fix; application source remains3132404. The current-retweet quote
 receiver limitation below remains separately visible. Keep #14 open until
 applicable acceptance is satisfied. Earlier billing/unexecuted statements below
@@ -183,9 +198,13 @@ A/B archive current commentary retweets under `RedSquareRetweet`, while edit
 fallbacks and deletion lookups use only `RedSquare`. They can archive a delete
 command without removing the target in that second stream. Dual-stream native
 lookups prevent false success, but do not repair that receiver behavior.
-Archive-only current-format quote actions may remain pending. This source fact
-does not establish deployed behavior or authorize a node patch. Verify against
-actual controlled receiving baselines before claiming complete compatibility.
+Archive-only current-format quote actions may remain pending. Native quote
+composition emits create tweet with both original references and uses the
+working RedSquare archive path; author edits preserve the original quote fields.
+Final source specification review corrected an earlier overbroad prerequisite:
+this known upstream limitation does not require a node patch to close #14 or
+justify excluding native quotes. It does not establish deployed behavior or
+authorize production mutation. No successful web-retweet repair is claimed.
 
 ## Earlier verification chronology
 
