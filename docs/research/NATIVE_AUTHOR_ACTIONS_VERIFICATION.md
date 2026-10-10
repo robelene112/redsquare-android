@@ -337,3 +337,16 @@ Standards preliminary review found one author-store issue: signed binding was
 checked on reopen after committing. It is now checked before any write, including
 ordinary composer records. This preserves prior work on candidate validation
 failure. Final review and Android recovery regression remain pending.
+
+## Own-post conversation layout correction, 2026-10-10
+
+Focused quotes38055428901 at8b3b898 passes its first five cases, including both
+original Retry stages. Publication hangs after opening Conversation, at the first
+commentary scroll. Inspected host PNG/XML show Back/Reply/Edit/Delete/Refresh,
+but no visible title/history/post list. The single header row now contains too
+many fixed-width actions alongside a weighted title. The production correction
+separates Back/title/Refresh from Reply/Edit/Delete; the test adds displayed
+title/list assertions before scrolling. This is an app layout correction, not
+another fixture-only change. Prior focused author source remains historical;
+new source needs focused and full Android10/17 acceptance. Captures and static
+progress retained in ticket13/own-conversation-layout-failure/. No ticket closure.

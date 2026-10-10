@@ -260,3 +260,16 @@ NATIVE_SAITO_TRANSFER_CONTRACT, NATIVE_PRIVATE_CHAT_CONTRACT and
 NATIVE_GROUP_CHAT_CONTRACT (all .md under docs/research). They are uncommitted
 and must be included with their own relevant tickets, not the #12 closure.
 They establish source contracts, not runtime or feature completion.
+
+## Own-post conversation layout correction, 2026-10-10
+
+Focused quotes38055428901 at8b3b898 passes its first five cases, including both
+original Retry stages. Publication hangs after opening Conversation, at the first
+commentary scroll. Inspected host PNG/XML show Back/Reply/Edit/Delete/Refresh,
+but no visible title/history/post list. The single header row now contains too
+many fixed-width actions alongside a weighted title. The production correction
+separates Back/title/Refresh from Reply/Edit/Delete; the test adds displayed
+title/list assertions before scrolling. This is an app layout correction, not
+another fixture-only change. Prior focused author source remains historical;
+new source needs focused and full Android10/17 acceptance. Captures and static
+progress retained in ticket13/own-conversation-layout-failure/. No ticket closure.

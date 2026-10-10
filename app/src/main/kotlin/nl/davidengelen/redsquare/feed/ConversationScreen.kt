@@ -97,13 +97,15 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
             TextButton(onClick = onBack) { Text(stringResource(R.string.browse_back)) }
             Text(stringResource(R.string.conversation_title), Modifier.weight(1f).padding(vertical = 12.dp),
                 style = MaterialTheme.typography.titleLarge)
+            TextButton(enabled = wallet != null && !loading, onClick = { refresh++ }) {
+                Text(stringResource(R.string.feed_refresh))
+            }
+        }
+        Row {
             TextButton(enabled = wallet != null && posts.any { it.id == selected.id }, onClick = { replying = true }) { Text(stringResource(R.string.post_reply)) }
             if (wallet != null && selected.author == wallet.publicKey && posts.any { it.id == selected.id }) {
                 TextButton(onClick = { editing = true }) { Text(stringResource(R.string.author_edit)) }
                 TextButton(onClick = { deleting = true }) { Text(stringResource(R.string.author_delete)) }
-            }
-            TextButton(enabled = wallet != null && !loading, onClick = { refresh++ }) {
-                Text(stringResource(R.string.feed_refresh))
             }
         }
         Text(stringResource(R.string.conversation_history), style = MaterialTheme.typography.bodySmall)

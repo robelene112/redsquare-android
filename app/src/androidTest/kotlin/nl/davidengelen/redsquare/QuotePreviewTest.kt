@@ -150,6 +150,8 @@ class QuotePreviewTest {
                     ui.onNodeWithText(commentary).performClick()
                     quotePhase("open conversation: done")
                     waitFor("Conversation")
+                    ui.onNodeWithText("Conversation").assertIsDisplayed()
+                    ui.onNode(hasScrollAction()).assertIsDisplayed()
                     quotePhase("scroll commentary: start")
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText(commentary))
                     quotePhase("scroll commentary: done")
