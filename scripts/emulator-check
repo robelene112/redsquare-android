@@ -105,8 +105,12 @@ verify_post_queue() {
     printf '%s' '{"wallet":{"version":5.677,"publicKey":"jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR","privateKey":"0000000000000000000000000000000000000000000000000000000000000001"}}' | \
         adb shell run-as nl.davidengelen.redsquare.dev.test tee files/wallet-test-documents/reference-import.json > /dev/null
     python3 "$repo_dir/scripts/post-queue-process-check" --evidence "$evidence/post-queue-process"
+    local queue_cases=nl.davidengelen.redsquare.PostQueuePreviewTest
+    if [[ "${TEST_SCOPE:-full}" == queue* ]]; then
+        queue_cases+=,nl.davidengelen.redsquare.PostPreviewTest#walletReplacementPausesQueuedWorkAndRestoringItsOwnerResumesTheOriginalIdentity
+    fi
     timeout 180 adb shell am instrument -w -r \
-        -e class 'nl.davidengelen.redsquare.PostQueuePreviewTest,nl.davidengelen.redsquare.PostPreviewTest#walletReplacementPausesQueuedWorkAndRestoringItsOwnerResumesTheOriginalIdentity' \
+        -e class "$queue_cases" \
         nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
         > "$evidence/post-queue-ui.txt" || true
     adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - post-queue-evidence \

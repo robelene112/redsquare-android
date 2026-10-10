@@ -12,7 +12,6 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import nl.davidengelen.redsquare.saito.FeedPost
-import nl.davidengelen.redsquare.saito.RedSquareFeed
 import nl.davidengelen.redsquare.saito.SaitoPeer
 import nl.davidengelen.redsquare.saito.SaitoTransaction
 import nl.davidengelen.redsquare.saito.SaitoWallet
@@ -113,17 +112,7 @@ internal class PostComposerState(
                 try { withContext(Dispatchers.IO) {
                     PostDeliveryAttempts.run(candidate.id) {
                     SaitoPeer(wallet, endpoint).use { peer ->
-                        val criteria = JsonObject().apply {
-                            addProperty("request", "load"); addProperty("field1", "RedSquare")
-                            addProperty("sig", candidate.id); addProperty("flagged_ne", 1)
-                        }
-                        val query = JsonObject().apply { addProperty("request", "archive"); add("data", criteria) }
-                        suspend fun observed(): Boolean {
-                            val response = peer.request(query.toString().toByteArray(Charsets.UTF_8)).toString(Charsets.UTF_8)
-                            return RedSquareFeed.readTarget(response, candidate.id).posts
-                                .any { it.author == owner && it.text == text }
-                        }
-                        if (retrying && observed()) {
+                        if (retrying && peer.hasPost(candidate, owner, text)) {
                             try { check(store.confirmAvailable(candidate.id)) }
                             catch (failure: Exception) { throw DraftPersistenceFailure(failure) }
                             withContext(Dispatchers.Main.immediate) { available = true; queued = false }
@@ -151,7 +140,7 @@ internal class PostComposerState(
                         peer.submit(candidate)
                         withContext(Dispatchers.Main.immediate) { submitted = true }
                         for (attempt in 0 until 6) {
-                            if (observed()) {
+                            if (peer.hasPost(candidate, owner, text)) {
                                 try { check(store.confirmAvailable(candidate.id)) }
                                 catch (failure: Exception) { throw DraftPersistenceFailure(failure) }
                                 withContext(Dispatchers.Main.immediate) { available = true }
