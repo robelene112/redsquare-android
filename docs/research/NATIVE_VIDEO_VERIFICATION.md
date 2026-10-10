@@ -37,3 +37,30 @@ InputStream.readNBytes was replaced with bounded Okio buffering for Android10.
 Provider failure releases the WebView; renderer-crash cleanup avoids querying a
 dead renderer. The unchanged tap tracer additionally requires the actual API
 request Referer to identify the installed .dev package and autoplay0/correct ID.
+
+First player runtime at18027d6 did not pass: Android10 run38079399700 and
+Android17 run38079401831 both timed out waiting for provider readiness
+(22.570s/31.930s test totals). Individually inspected original failure images
+show the YouTube dialog with the load-failure explanation, Retry, Close video
+and Open in YouTube. They establish the visible failure state, not the cause of
+loading failure or successful playback. No provider request count or scoped
+console capture was retained in those runs. Logs/images are retained under
+ticket16/first-player-failure, with these limits.
+
+Interim two-axis source review at18027d6 found an unenforced minimum player
+viewport in both axes and a primary-error masking fixture cleanup in Standards.
+The next candidate measures the actual remaining viewport before creating a
+WebView, offers external playback in windows below200dp on either axis, and
+uses primary-preserving fixture cleanup. Controlled-provider-only diagnostics
+record request count, console severity/line and network error codes, never user
+content or wallet information. Its runtime checks remain pending.
+
+Read-only support traced MockWebServer3.5.4.0 URL construction to
+InetAddress.getHostName, which can turn a numeric loopback bind into localhost.
+The debug provider deliberately accepts only literal127.0.0.1 and otherwise
+fails closed to port1. The fixture now constructs its allowed numeric URL
+explicitly, retaining that restriction and the Referer/tap assertions. This is
+a source-supported hypothesis; the earlier runs do not prove their actual
+supplied host or the failure cause. Viewport/core/test compile passes1m40s;
+four video-core cases pass, including independent WASM/Elliptic signed posts
+and quote commentary/original IDs. No runtime success is claimed here.

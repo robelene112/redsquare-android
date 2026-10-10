@@ -49,13 +49,37 @@ internal fun PostVideo(post: FeedPost, backend: SaitoBackend) {
 @Composable
 private fun VideoPlayer(video: YouTubeVideo, modifier: Modifier) {
     val context = LocalContext.current
-    val lifecycle = LocalLifecycleOwner.current.lifecycle
-    val fixture = LocalVideoFixture.current
     var attempt by remember(video) { mutableIntStateOf(0) }
     var status by remember(video, attempt) { mutableStateOf(VideoStatus.LOADING) }
     var externalUnavailable by remember(video) { mutableStateOf(false) }
+    Column(modifier) {
+        Text(stringResource(status.message))
+        BoxWithConstraints(Modifier.weight(1f).fillMaxWidth()) {
+            when {
+                maxWidth < 200.dp || maxHeight < 200.dp -> Text(stringResource(R.string.video_small_window))
+                status.failed -> TextButton(onClick = { attempt++ }) { Text(stringResource(R.string.retry)) }
+                else -> EmbeddedVideo(video, attempt, Modifier.fillMaxSize()) { status = it }
+            }
+        }
+        TextButton(onClick = {
+            try {
+                context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(video.url)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                externalUnavailable = false
+            } catch (_: ActivityNotFoundException) { externalUnavailable = true }
+        }) { Text(stringResource(R.string.video_open_external)) }
+        if (externalUnavailable) Text(stringResource(R.string.video_external_unavailable))
+    }
+}
+
+@Composable
+private fun EmbeddedVideo(video: YouTubeVideo, attempt: Int, modifier: Modifier, report: (VideoStatus) -> Unit) {
+    val context = LocalContext.current
+    val lifecycle = LocalLifecycleOwner.current.lifecycle
+    val fixture = LocalVideoFixture.current
+    val currentReport by rememberUpdatedState(report)
+    var status by remember(video, attempt, fixture) { mutableStateOf(VideoStatus.LOADING) }
     val browser = remember(video, attempt, fixture) {
-        VideoBrowser(context, video, fixture) { status = it }
+        VideoBrowser(context, video, fixture) { status = it; currentReport(it) }
     }
     DisposableEffect(browser, lifecycle) {
         val observer = LifecycleEventObserver { _, event ->
@@ -68,8 +92,8 @@ private fun VideoPlayer(video: YouTubeVideo, modifier: Modifier) {
         lifecycle.addObserver(observer)
         onDispose { lifecycle.removeObserver(observer); browser.close() }
     }
-    LaunchedEffect(browser, status.failed) { if (status.failed) browser.close() }
     LaunchedEffect(browser, lifecycle) {
+        currentReport(VideoStatus.LOADING)
         var loadingTime = 0L
         var previous = android.os.SystemClock.elapsedRealtime()
         while (!browser.closed) {
@@ -77,26 +101,14 @@ private fun VideoPlayer(video: YouTubeVideo, modifier: Modifier) {
             val now = android.os.SystemClock.elapsedRealtime()
             if (lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
                 if (status == VideoStatus.LOADING) loadingTime += now - previous
-                browser.readStatus()?.let { status = it }
-                if (status == VideoStatus.LOADING && loadingTime >= 20_000) status = VideoStatus.NETWORK_FAILURE
+                browser.readStatus()?.let { status = it; currentReport(it) }
+                if (status == VideoStatus.LOADING && loadingTime >= 20_000) {
+                    status = VideoStatus.NETWORK_FAILURE
+                    currentReport(status)
+                }
             }
             previous = now
         }
     }
-    Column(modifier) {
-        Text(stringResource(status.message))
-        if (status.failed) {
-            Spacer(Modifier.weight(1f))
-            TextButton(onClick = { attempt++ }) { Text(stringResource(R.string.retry)) }
-        } else {
-            AndroidView(factory = { browser.view }, modifier = Modifier.weight(1f).fillMaxWidth().heightIn(min = 200.dp))
-        }
-        TextButton(onClick = {
-            try {
-                context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(video.url)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
-                externalUnavailable = false
-            } catch (_: ActivityNotFoundException) { externalUnavailable = true }
-        }) { Text(stringResource(R.string.video_open_external)) }
-        if (externalUnavailable) Text(stringResource(R.string.video_external_unavailable))
-    }
+    AndroidView(factory = { browser.view }, modifier = modifier)
 }

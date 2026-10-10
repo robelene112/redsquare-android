@@ -235,10 +235,12 @@ if [[ "${TEST_SCOPE:-full}" == images* ]]; then
 fi
 verify_videos() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+    adb logcat -c
     timeout 180 adb shell am instrument -w -r \
         -e class nl.davidengelen.redsquare.VideoPreviewTest \
         nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
         > "$evidence/video-ui.txt" || true
+    adb logcat -d -v brief RedSquareVideo:W '*:S' > "$evidence/video-status.txt"
     adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - video-evidence \
         > "$evidence/video-evidence.tar" || true
     grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/video-ui.txt"

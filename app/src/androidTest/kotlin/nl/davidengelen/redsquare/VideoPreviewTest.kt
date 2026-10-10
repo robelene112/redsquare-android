@@ -43,12 +43,12 @@ class VideoPreviewTest {
             }};
             onYouTubeIframeAPIReady();
         """.trimIndent()).build())
-        api.start(java.net.InetAddress.getByName("127.0.0.1"), 0)
-        try {
+        api.use {
+            api.start(java.net.InetAddress.getByName("127.0.0.1"), 0)
             peer.start().use { server ->
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
-                    .putExtra("youtubeFixtureUrl", api.url("/iframe_api").toString())).use {
+                    .putExtra("youtubeFixtureUrl", "http://127.0.0.1:${api.port}/iframe_api")).use {
                     try {
                         ui.waitUntil(20_000) { peer.requests.get() > 0 && ui.onAllNodesWithText("Video reference https://youtu.be/M7lc1UVf-VE").fetchSemanticsNodes().isNotEmpty() }
                         ui.onNode(hasScrollAction()).performScrollToNode(hasText("Watch on YouTube"))
@@ -65,16 +65,18 @@ class VideoPreviewTest {
                         assertTrue(peer.transactions.isEmpty())
                         peer.assertHealthy()
                     } catch (failure: Throwable) {
+                        failure.addSuppressed(AssertionError("Controlled provider requests: ${api.requestCount}"))
                         try { capture("video-evidence/tap-failure.png") } catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
                         throw failure
                     }
                 }
             }
-        } finally { api.close() }
+        }
     }
 
     private fun capture(name: String) {
         val file = File(context.cacheDir, name).apply { parentFile?.mkdirs() }
         check(androidx.test.uiautomator.UiDevice.getInstance(instrumentation).takeScreenshot(file))
+        androidx.test.uiautomator.UiDevice.getInstance(instrumentation).dumpWindowHierarchy(File(file.parentFile, file.nameWithoutExtension + ".xml"))
     }
 }

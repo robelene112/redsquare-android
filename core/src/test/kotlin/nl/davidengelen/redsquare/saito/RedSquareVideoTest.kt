@@ -32,4 +32,21 @@ class RedSquareVideoTest {
         assertEquals(null, RedSquareVideo.youtube("https://example.test/first https://youtu.be/M7lc1UVf-VE"))
         assertEquals(null, RedSquareVideo.youtube("https://youtu.be/M7lc1UVf-VE", "https://example.test/signed"))
     }
+
+    @Test fun `independent signed web video posts and dual quotes retain exact provider identities`() {
+        val reference = com.google.gson.JsonParser.parseReader(javaClass.getResourceAsStream("/native-video-reference.json")!!.reader()).asJsonObject
+        for (name in listOf("text", "linked")) {
+            val row = reference.getAsJsonObject(name)
+            val post = RedSquareFeed.decode(row.get("tx").asString)
+            assertEquals(row.get("sig").asString, post.id)
+            assertEquals("M7lc1UVf-VE", RedSquareVideo.youtube(post.text, post.link)?.id)
+        }
+        val quote = RedSquareFeed.decode(reference.getAsJsonObject("quote").get("tx").asString)
+        assertEquals("bHQqvYy5KYo", RedSquareVideo.youtube(quote.text, quote.link)?.id)
+        val original = requireNotNull(quote.quoted)
+        assertEquals("M7lc1UVf-VE", RedSquareVideo.youtube(original.text, original.link)?.id)
+        val malformed = RedSquareFeed.decode(reference.getAsJsonObject("malformed").get("tx").asString)
+        assertEquals("Readable post with malformed link", malformed.text)
+        assertEquals(null, RedSquareVideo.youtube(malformed.text, malformed.link))
+    }
 }

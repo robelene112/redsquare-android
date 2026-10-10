@@ -70,6 +70,10 @@ internal class VideoBrowser(context: Context, video: YouTubeVideo, fixture: Stri
         CookieManager.getInstance().setAcceptThirdPartyCookies(view, false)
         view.webChromeClient = object : WebChromeClient() {
             override fun onPermissionRequest(request: PermissionRequest) { request.deny() }
+            override fun onConsoleMessage(message: ConsoleMessage): Boolean {
+                if (BuildConfig.DEBUG && fixture != null) android.util.Log.w("RedSquareVideo", "Controlled player console ${message.messageLevel()} at line ${message.lineNumber()}")
+                return true
+            }
         }
         view.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(web: WebView, request: WebResourceRequest): Boolean {
@@ -82,6 +86,7 @@ internal class VideoBrowser(context: Context, video: YouTubeVideo, fixture: Stri
                 return true
             }
             override fun onReceivedError(web: WebView, request: WebResourceRequest, error: WebResourceError) {
+                if (BuildConfig.DEBUG && fixture != null) android.util.Log.w("RedSquareVideo", "Controlled player network error ${error.errorCode}, main=${request.isForMainFrame}")
                 if (request.isForMainFrame && !closed) report(VideoStatus.NETWORK_FAILURE)
             }
             override fun onReceivedHttpError(web: WebView, request: WebResourceRequest, response: WebResourceResponse) {
@@ -111,6 +116,7 @@ internal class VideoBrowser(context: Context, video: YouTubeVideo, fixture: Stri
                         WebResourceResponse("application/javascript", "UTF-8", ByteArrayInputStream(bytes))
                     }
                 } catch (_: Exception) {
+                    if (BuildConfig.DEBUG) android.util.Log.w("RedSquareVideo", "Controlled player API fetch failed")
                     WebResourceResponse("application/javascript", "UTF-8", ByteArrayInputStream("window.rsVideo={state:'error',code:-1};".toByteArray()))
                 }
             }
