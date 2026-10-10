@@ -61,9 +61,13 @@ one question at a time when a material choice really needs the owner.
   priorcauseunestablished. Publiclogs/inspectedimages ticket10/full-android10/
   full-android17; details NATIVE_POST_QUEUE_VERIFICATION.md/REVIEW.md.
   No newAPK, productionTX, physicalPixel or force-stop delivery proof.
-- Next #12, "11: Like posts and perform ordinary reposts". Ten of35 complete;
+- Active #12, "11: Like posts and perform ordinary reposts". Base58aed22.
+  First application seam: like a reference post, observe only served counts,
+  verify original action/signature and coherent feed/thread/profile state.
+  Focused social harness and first test added; no implementation yet.
+  Ten of35 complete;
  25 remain. Read-only primary-source contract prepared in
-  NATIVE_SOCIAL_INTERACTIONS_CONTRACT.md. No #12 source/test implementation yet.
+  NATIVE_SOCIAL_INTERACTIONS_CONTRACT.md. No #12 production implementation yet.
   Continue sequentially through #36 without routine permission requests.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
