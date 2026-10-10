@@ -172,13 +172,17 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
         is BrowseDestination.Profile -> {
             ProfileScreen(wallet, endpoint, backend, destination.author, destination.view, following, modifier,
                 onBack = { back() }, onPost = { navigation.add(BrowseDestination.Conversation(it)) },
-                onIdentity = { openProfile(it) }, social = social)
+                onIdentity = { openProfile(it) }, social = social, onQuote = { navigation.add(BrowseDestination.Quote(it)) })
             return
         }
         is BrowseDestination.Conversation -> {
             ConversationScreen(wallet, endpoint, backend, destination.post, modifier,
                 onBack = { back() }, onIdentity = { openProfile(it) },
-                onPost = { navigation.add(BrowseDestination.Conversation(it)) }, social = social)
+                onPost = { navigation.add(BrowseDestination.Conversation(it)) }, social = social, onQuote = { navigation.add(BrowseDestination.Quote(it)) })
+            return
+        }
+        is BrowseDestination.Quote -> {
+            PostComposerScreen(wallet ?: return, endpoint, backend, modifier, quote = destination.post) { back(); refresh++ }
             return
         }
         null -> Unit
@@ -230,7 +234,8 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
                         style = MaterialTheme.typography.bodyLarge)
                     Text(DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, Locale.ENGLISH)
                         .format(Date(post.createdAt)), style = MaterialTheme.typography.labelSmall)
-                    SocialActions(post, social)
+                    post.quoted?.let { QuotedPost(it) }
+                    SocialActions(post, social) { navigation.add(BrowseDestination.Quote(it)) }
                 }
                 HorizontalDivider()
             }

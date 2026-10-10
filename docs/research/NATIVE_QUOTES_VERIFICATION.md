@@ -9,5 +9,7 @@ First tracer publishes one quote with commentary, exact signed original plus
 current embedded presentation, then reads both commentary and original in feed
 and the quote's own conversation. Peer checks request, reference, recipient
 ordering, both nested representations and one transmission. Image composition
-is completed by #15. Local debug/test assembly passes57s. Actual runtime red is pending; no
-feature completion claim.
+is completed by #15. Local debug/test assembly passes57s. Actual Android10 red in38025957239 atabb9d85: missing Quote action,
+4.833s. Downloaded log and inspected inside-activity image retained under
+ticket12/first-red. First minimal implementation is in progress; no completion
+claim.

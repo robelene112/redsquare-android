@@ -26,7 +26,7 @@ import nl.davidengelen.redsquare.saito.SaitoBackend
 @Composable
 internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend: SaitoBackend, selected: FeedPost,
     modifier: Modifier, onBack: () -> Unit, onIdentity: (String) -> Unit, onPost: (FeedPost) -> Unit,
-    social: SocialState? = null) {
+    social: SocialState? = null, onQuote: ((FeedPost) -> Unit)? = null) {
     val context = LocalContext.current.applicationContext
     val cache = remember(backend, selected.threadId) { AndroidFeedCache(context, backend, selected.threadId) }
     var posts by remember(selected.id) { mutableStateOf(listOf(selected)) }
@@ -95,7 +95,8 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
                         style = MaterialTheme.typography.titleMedium)
                     Text(post.text, Modifier.clickable { onPost(post) }.padding(vertical = 8.dp),
                         style = MaterialTheme.typography.bodyLarge)
-                    SocialActions(post, social)
+                    post.quoted?.let { QuotedPost(it) }
+                    SocialActions(post, social, onQuote)
                 }
                 HorizontalDivider()
             }

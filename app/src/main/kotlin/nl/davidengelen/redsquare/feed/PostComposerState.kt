@@ -24,6 +24,7 @@ internal class PostComposerState(
     private val endpoint: String,
     private val parent: FeedPost?,
     private val scope: CoroutineScope,
+    private val quote: FeedPost? = null,
 ) {
     private val owner = wallet.publicKey
     private val writes = Mutex()
@@ -95,9 +96,21 @@ internal class PostComposerState(
                             add("data", JsonObject().apply {
                                 addProperty("text", text)
                                 parent?.let { addProperty("parent_id", it.id); addProperty("thread_id", it.threadId) }
+                                quote?.let { original ->
+                                    val verified = nl.davidengelen.redsquare.saito.RedSquareFeed.decode(original.envelope)
+                                    check(verified.id == original.id)
+                                    addProperty("signature", verified.id)
+                                    addProperty("retweet_tx", verified.envelope)
+                                    add("embedded", JsonObject().apply {
+                                        addProperty("signature", verified.id); addProperty("publicKey", verified.author)
+                                        addProperty("created_at", verified.createdAt); addProperty("text", verified.text)
+                                        val originalData = nl.davidengelen.redsquare.saito.SaitoEnvelope.decode(verified.envelope).body.getAsJsonObject("data")
+                                        add("images", originalData.getAsJsonArray("images")?.deepCopy() ?: com.google.gson.JsonArray())
+                                    })
+                                }
                             })
                         }
-                        val recipients = parent?.let { (listOf(it.author) + it.recipients).distinct() }.orEmpty()
+                        val recipients = (parent ?: quote)?.let { (listOf(it.author) + it.recipients).distinct() }.orEmpty()
                         SaitoTransaction.create(wallet, body, System.currentTimeMillis(), recipients)
                     }
                     if (transaction == null) queued = true

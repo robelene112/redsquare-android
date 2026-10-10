@@ -26,14 +26,14 @@ private fun servedCount(post: FeedPost, field: String): Long? = try {
 } catch (_: Exception) { null }
 
 @Composable
-internal fun SocialActions(post: FeedPost, state: SocialState?) {
+internal fun SocialActions(post: FeedPost, state: SocialState?, onQuote: ((FeedPost) -> Unit)? = null) {
     RedSquareActionKind.entries.forEach { kind ->
-        SocialAction(post, state, kind)
+        SocialAction(post, state, kind, onQuote)
     }
 }
 
 @Composable
-private fun SocialAction(post: FeedPost, state: SocialState?, kind: RedSquareActionKind) {
+private fun SocialAction(post: FeedPost, state: SocialState?, kind: RedSquareActionKind, onQuote: ((FeedPost) -> Unit)?) {
     LaunchedEffect(state, post.id, kind) { state?.load(post, kind) }
     val status = state?.actions?.get(PostActionKey(post.id, kind))
     val observed = state?.observedPosts?.get(post.id) ?: post
@@ -53,6 +53,9 @@ private fun SocialAction(post: FeedPost, state: SocialState?, kind: RedSquareAct
             }))
         }
         count?.let { Text(stringResource(labels[3], it)) }
+        if (kind == RedSquareActionKind.REPOST && onQuote != null) TextButton(onClick = { onQuote(post) }) {
+            Text(stringResource(R.string.social_quote))
+        }
     }
     if (status?.candidate != null && !status.available) Text(stringResource(R.string.social_pending))
     if (status?.countsUnavailable == true) Text(stringResource(R.string.social_counts_unavailable))

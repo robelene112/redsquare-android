@@ -25,12 +25,12 @@ import com.google.gson.Strictness
 
 /** Unpublished text stays encrypted on this device, scoped to its wallet and backend. */
 internal class PostDraftStore private constructor(private val context: Context, private val owner: String, private val backend: SaitoBackend,
-    private val parentId: String, private val parentThread: String?) {
-    constructor(context: Context, owner: String, backend: SaitoBackend, parent: FeedPost? = null) :
-        this(context, owner, backend, parent?.id.orEmpty(), parent?.threadId)
+    private val parentId: String, private val parentThread: String?, private val quoteId: String = "") {
+    constructor(context: Context, owner: String, backend: SaitoBackend, parent: FeedPost? = null, quote: FeedPost? = null) :
+        this(context, owner, backend, parent?.id.orEmpty(), parent?.threadId, quote?.id.orEmpty())
     init { require(owner.matches(Regex("[1-9A-HJ-NP-Za-km-z]{43,45}"))) }
     private val file = AtomicFile(File(context.noBackupFilesDir,
-        "postdraft.${backend.id}.$owner${parentId.takeIf { it.isNotEmpty() }?.let { ".$it" }.orEmpty()}.v1"))
+        "postdraft.${backend.id}.$owner${if (quoteId.isNotEmpty()) ".quote.$quoteId" else parentId.takeIf { it.isNotEmpty() }?.let { ".$it" }.orEmpty()}.v1"))
     private val associatedData = "${context.packageName}:${file.baseFile.name}".toByteArray(Charsets.UTF_8)
 
     data class Saved(val text: String, val transaction: SaitoTransaction? = null, val queued: Boolean = false,
@@ -68,6 +68,7 @@ internal class PostDraftStore private constructor(private val context: Context, 
                     val post = RedSquareFeed.decode(it.envelope())
                     require(post.author == owner && post.text == content)
                     require(post.parentId == parentId && (parentThread == null || post.threadId == parentThread))
+                    require(post.quoted?.id.orEmpty() == quoteId)
                 }
                 val queued = record.get("queued")?.let {
                     require(it.isJsonPrimitive && it.asJsonPrimitive.isBoolean)
@@ -187,10 +188,11 @@ internal class PostDraftStore private constructor(private val context: Context, 
         fun pendingDelivery(context: Context, owner: String, backend: SaitoBackend): List<PostDraftStore> {
             val prefix = "postdraft.${backend.id}.$owner"
             return requireNotNull(context.noBackupFilesDir.listFiles()).map { it.name.removeSuffix(".bak") }
-                .distinct().filter { it == "$prefix.v1" || it.matches(Regex("${Regex.escape(prefix)}\\.[0-9a-f]{128}\\.v1")) }
+                .distinct().filter { it == "$prefix.v1" || it.matches(Regex("${Regex.escape(prefix)}\\.(quote\\.)?[0-9a-f]{128}\\.v1")) }
                 .map { name ->
                     val parent = name.removePrefix(prefix).removeSuffix(".v1").removePrefix(".")
-                    PostDraftStore(context, owner, backend, parent, null)
+                    if (parent.startsWith("quote.")) PostDraftStore(context, owner, backend, "", null, parent.removePrefix("quote."))
+                    else PostDraftStore(context, owner, backend, parent, null)
                 }.filter { store -> store.load().let { !it.available && (it.queued || it.automatic) } }
         }
     }

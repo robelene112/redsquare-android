@@ -21,17 +21,18 @@ import nl.davidengelen.redsquare.saito.FeedPost
 
 @Composable
 internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBackend, modifier: Modifier,
-    parent: FeedPost? = null, onClose: () -> Unit) {
+    parent: FeedPost? = null, quote: FeedPost? = null, onClose: () -> Unit) {
+    require(parent == null || quote == null)
     val owner = wallet.publicKey
     val activity = requireNotNull(LocalActivity.current) as ComponentActivity
     val context = activity.applicationContext
-    val memory = remember(activity, owner, backend, parent?.id) {
-        ViewModelProvider(activity)["post:$owner:${backend.id}:${parent?.id.orEmpty()}", PostComposerMemory::class.java]
+    val memory = remember(activity, owner, backend, parent?.id, quote?.id) {
+        ViewModelProvider(activity)["post:$owner:${backend.id}:${parent?.id.orEmpty()}:quote:${quote?.id.orEmpty()}", PostComposerMemory::class.java]
     }
-    val store = remember(owner, backend, parent?.id) { PostDraftStore(context, owner, backend, parent) }
+    val store = remember(owner, backend, parent?.id, quote?.id) { PostDraftStore(context, owner, backend, parent, quote) }
     val scope = rememberCoroutineScope()
     val navigation = requireNotNull(LocalPostNavigation.current)
-    val state = remember(store, memory, endpoint) { PostComposerState(store, memory, wallet, endpoint, parent, scope) }
+    val state = remember(store, memory, endpoint) { PostComposerState(store, memory, wallet, endpoint, parent, scope, quote) }
     LaunchedEffect(state, state.reload) { state.load() }
     LaunchedEffect(state, state.queued, state.queueSaved, state.sending) {
         if (state.queued && state.queueSaved && !state.sending) {
@@ -60,7 +61,7 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                 TextButton(enabled = !saving && !sending, onClick = { if (ready) saveAndClose(onClose) else onClose() }) {
                     Text(stringResource(R.string.browse_back))
                 }
-                Text(stringResource(if (parent == null) R.string.post_new else R.string.post_reply), Modifier.weight(1f).padding(vertical = 12.dp),
+                Text(stringResource(if (quote != null) R.string.post_quote else if (parent == null) R.string.post_new else R.string.post_reply), Modifier.weight(1f).padding(vertical = 12.dp),
                     style = MaterialTheme.typography.titleLarge)
                 TextButton(enabled = ready && !saving && !sending, onClick = { saveAndClose(onClose) }) {
                     Text(stringResource(R.string.post_save_draft))
@@ -71,6 +72,7 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
             }
             if (transaction == null) Text(stringResource(R.string.post_draft_local), style = MaterialTheme.typography.bodySmall)
             parent?.let { Text(stringResource(R.string.post_reply_to, "Anon-${it.author.take(6)}"), style = MaterialTheme.typography.bodySmall) }
+            quote?.let { QuotedPost(it) }
             if (available) Text(stringResource(R.string.post_available))
             else if (queued && queueSaved) Text(stringResource(R.string.post_queued))
             else if (submitted) Text(stringResource(R.string.post_submitted))

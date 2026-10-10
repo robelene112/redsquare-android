@@ -12,6 +12,7 @@ data class FeedPost(
     val threadId: String,
     val envelope: String,
     val recipients: List<String>,
+    val quoted: FeedPost? = null,
 )
 
 data class ArchiveFeedPage(val posts: List<FeedPost>, val oldestCreatedAt: Long?, val rowCount: Int, val ignored: Int)
@@ -36,7 +37,9 @@ object RedSquareFeed {
     private val signaturePattern = Regex("[0-9a-f]{128}")
 
     /** Reads web Archive envelopes, verifies the original bytes, then exposes post content. */
-    fun decode(envelope: String): FeedPost {
+    fun decode(envelope: String): FeedPost = decode(envelope, true)
+
+    private fun decode(envelope: String, includeOriginal: Boolean): FeedPost {
         val signed = SaitoEnvelope.decode(envelope)
         val body = signed.body
         require(body.string("module") == "RedSquare" && body.string("request") == "create tweet")
@@ -45,7 +48,16 @@ object RedSquareFeed {
         val thread = data.optionalString("thread_id").ifEmpty { signed.id }
         require(parent.isEmpty() || parent.matches(signaturePattern)) { "Invalid parent signature" }
         require(thread.matches(signaturePattern)) { "Invalid thread signature" }
-        return FeedPost(signed.id, signed.author, data.optionalString("text"), signed.createdAt, parent, thread, envelope, signed.recipients)
+        val original = if (includeOriginal && data.has("retweet_tx")) {
+            decode(data.string("retweet_tx"), false).also {
+                require(data.string("signature") == it.id) { "Conflicting quote reference" }
+                data.getAsJsonObject("embedded")?.let { embedded ->
+                    require(embedded.string("signature") == it.id && embedded.string("publicKey") == it.author &&
+                        embedded.string("text") == it.text) { "Conflicting quote presentation" }
+                }
+            }
+        } else null
+        return FeedPost(signed.id, signed.author, data.optionalString("text"), signed.createdAt, parent, thread, envelope, signed.recipients, original)
     }
 
     private fun JsonObject.string(key: String): String {
