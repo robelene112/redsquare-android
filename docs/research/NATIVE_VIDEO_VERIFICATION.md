@@ -1,5 +1,24 @@
 # Native YouTube verification
 
+FullAndroid10 companion38087989539 at383caac also fails the same pre-scroll
+first video case with0 provider requests:3/4 video cases pass40.199s. Browse
+8/8 passes15.281s. The original in-scope failure PNG, individually inspected,
+again shows cached queued content without a visible target video post. Retained
+full-video-red/android10. No old full candidate is accepted.
+
+Corrected focusedAndroid17 run38088217096 at534330e is GREEN: all4 video cases
+66.007s, including exact-post scroll/tap, installed-app Referer and close, rotation,
+provider recovery and trusted controlled playback/background/recreation. The
+individually inspected original tapped-player PNG visibly shows the controlled
+provider text and native ready instructions; it is not real YouTube media.
+Raw log and that PNG retained scroll-green/android17. Local test assemblyPASS
+1m1s; both bounded review axes0 through534330e. FullAndroid17/10 runs
+38088542044/38088569769 at534330e are pending with public Saito reads enabled.
+Production remainsc6113d2. Actual public playback remains blocked by the observed
+provider refusal; underlying cause unestablished. Keep #17 open while continuing
+independently ready work sequentially. No further speculative provider changes
+are planned; immutable regression results must still be inspected and recorded.
+
 FullAndroid17 run38087176435 at e8fafd9 FAILS in controlled videos before the
 later foundation/public-read groups. Three of4 video cases pass,44.025s total;
 the first case times out atline50 before tap with0 provider requests. The

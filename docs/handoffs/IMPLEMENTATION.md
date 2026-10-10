@@ -14,7 +14,8 @@ each, core39/build/release/lint, both public reads, cold recovery and signed
 updates. Productioncb3d9c3 is identical across accepted candidates. Evidence
 final-android10/final-android17/final-interop; details NATIVE_IMAGES_VERIFICATION.
 
-Active: #17 YouTube, productionc6113d2, test/evidence candidate383caac,
+#17 YouTube has an unresolved public-playback verification blocker; keep open.
+Productionc6113d2, test/evidence candidate534330e,
 fixed review base711e42e. Root-owned viewer survives rotation/recreation; small
 windows use external fallback. Sticky errors persist until Retry. Text selection
 now matches both original Browser/Tweet helpers, including omitted schemes and
@@ -51,7 +52,15 @@ Original in-scope PNG shows a cached queued post, not the selected video post.
 The fixture now waits the same completed archive/loading condition as its other
 cases and uses the existing scoped scroll/tap helper; positive readiness,
 Referer/no-autoplay/no-transaction and close assertions remain. Runtime pending.
-CDP reads only allowed public frame DOM;
+Android10 companion38087989539 also fails the same pre-scroll first case,
+3/4 videos pass40.199s; browse8/8 pass15.281s. Its original PNG likewise shows
+cached queued content. Corrected focused17 run38088217096 at534330e PASS4
+cases66.007s. Original tapped-player PNG shows ready controlled-provider text,
+not real media. New full17/10 runs38088542044/38088569769 at534330e are pending,
+with public Saito reads enabled; neither prior failed full run is accepted.
+Both source/fixture review axes0 through534330e. No further #17 source edits are
+planned without new evidence. Continue the independently unblocked #18 next,
+while those immutable regression runs finish. CDP reads only allowed public frame DOM;
 page screenshots were removed at23eea43. No ticket closure until acceptance.
 See NATIVE_VIDEO_VERIFICATION.md. No ticket closure or new APK.
 
