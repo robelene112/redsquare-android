@@ -7,19 +7,14 @@ one question at a time when a material choice really needs the owner.
 
 ## Current work
 
-Latest #15 checkpoint: HEAD23d7202 pushed. Full10 atd35f965/run38075318198
-PASS123 cases/35 records/11 actual deaths; full17 38075319784 rejected only realpicker synthetic-photo
-lookup (83 successes/16 passing logs/nine deaths). Actual landscape Googlepicker
-PNG/XML show first-use access notice + Dismiss occupying media grid; no proof
-of missing photo. Fixture now dismisses only observed external-package control
-within unchanged15s lookup, preserving all selection/recreation/pixel/text gates.
-CompilePASS1m; boundedSpec0/Standards0source, docstatus ambiguity corrected; evidence review finds Playwright version-label
-issue now fixed in workingtree. Focusedimages17 38076217862 PASS20/5/3 using
-media-module picker; Google first-use Dismiss coverage unproved there. Final
-full17 companion38076602854 at23d7202 running withpublicreads. Retain accepted
-full10 under unchanged production equivalence rule.
-Evidence picker-full-fixture-failures, picker-fixtures-green, and
-full-android17-first-use-failure. Production remainscb3d9c3. No #15 closure.
+Latest #15 checkpoint: final full Android10 38075318198 atd35f965 and Android17
+38076602854 at23d7202 PASS123 cases/35 records/11 actual deaths each; core39,
+release/lint, both public reads, cold recovery and signed updates pass.
+Production remainscb3d9c3; production/core/build-support/scripts/workflow
+unchanged between accepted candidates. Fresh frame crypto/A/B controlled browser
+proof retained final-interop. Final17 logs and individually inspected originals
+retained final-android17. Final evidence/status review and push remain before
+closure. Prior fixture failures retained with limits; landscape polish #35.
 
 - Ticket #8, "07: Open threads and browse user profiles", is complete at final
   source c8fe9b7 against base 44cae5d. Full run 37943159613 passes both SDKs:

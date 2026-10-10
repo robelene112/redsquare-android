@@ -5,17 +5,28 @@ Source contract NATIVE_IMAGES_CONTRACT.md. Ticket14 is complete.
 
 ## Current acceptance
 
-Fresh corrected productioncb3d9c3/full10d35f965/run38075318198 PASS123 completed
-cases/35 records/11 deliberate deaths, core39/build/release/lint, both public
-reads, cold-cache/wallet and signed5-to8 continuity. New actual frames independently
-PASS pinned crypto, A/B templates and offline Chromium ordered-raster checks.
-Evidence final-android10 and final-interop. Full17d35/run38075319784 rejected
-only actual picker lookup: observed first-use notice occupies landscape grid.
-Fixture-only correction23d7202 dismisses that observed package control within
-unchanged15s. Focused17images38076217862 PASS20 cases/five records/three deaths using the
-media-module picker. Final full17 companion38076602854 at23d7202 remains pending.
-Production/core/build/scripts/workflow unchanged between accepted10 and23d7202.
-No #15 closure, physical Pixel/UI-polish acceptance, live write or new APK.
+Corrected production `cb3d9c3` has full Android 10 acceptance at `d35f965`
+(run38075318198) and full Android 17 at `23d7202` (run38076602854). Each PASS:
+123 completed cases, 35 passing records, 11 deliberate process deaths, core39
+with zero failures/ignored, debug/test/release assembly, lint, both public feed
+reads, cold-cache/wallet recovery and signed5-to8 identity continuity.
+Production/core/build-support/scripts/workflow unchanged between candidates;
+only bounded picker fixtures differ, with acceptance assertions retained.
+
+Actual current-production frames independently PASS pinned crypto, A/B exact
+unchanged templates and offline Chromium ordered-raster checks. Evidence:
+final-android10, final-android17 and final-interop under ../evidence/ticket14.
+Newest text and prepared images survive actual death while the picker is open;
+failed persistence prevents launch. Original candidate reconciliation, backend/
+wallet isolation, actual picker rotation, image-only posting and dual quotes pass.
+Full Android17 uses the Google picker with a visible green thumbnail; focused
+17 used the media-module picker. Neither independently proves Dismiss execution
+or a unique cause of the earlier rejected first-use lookup.
+
+Source/fixture/evidence reviews have zero remaining actionable findings through
+226626f; the final Android17 evidence and status update are awaiting bounded
+review. Ticket remains open until that review and push. No physical Pixel/UI
+polish acceptance, live write or new APK.
 
 ## Earlier acceptance checkpoints
 

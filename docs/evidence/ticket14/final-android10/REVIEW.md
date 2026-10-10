@@ -37,6 +37,6 @@ This is controlled cross-client presentation, not initialized Saito app/current
 served revision/live broadcast acceptance. Physical Pixel performance/UI review
 remains later work. No production write or new APK publication.
 
-Android17 full acceptance remains pending. The later fixture-only first-use
-notice correction23d7202 leaves production/core/build/scripts/workflow unchanged,
-so this Android10 result may pair with a successful final Android17 companion.
+Android 17 full companion 38076602854 at23d7202 PASS123/35/11. The fixture-only
+first-use notice correction leaves production/core/build/scripts/workflow unchanged.
+The accepted pair and Android 17 evidence are recorded in ../final-android17/REVIEW.md.

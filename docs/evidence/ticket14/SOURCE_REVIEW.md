@@ -125,3 +125,15 @@ the media-module picker, so it does not establish runtime coverage of failed
 full17's Googlepicker first-use Dismiss. Retained picker-first-use-green.
 Final full17 companion38076602854 at23d7202 withpublicreads underway; full10d35
 38075318198 accepted, unchanged production/core/build/scripts/workflow verified.
+
+
+Bounded committed evidence review f899368..226626f: Spec0 and Standards0
+remaining findings. Corrected Playwright version labels and focused17 provider
+limits independently verified by both reviewers.
+Final full Android17 companion38076602854 at23d7202 PASS123 completed cases/
+35 records/11 actual deaths, core39/0/0, release/lint, both public feed reads,
+cold-cache/wallet and signed5-to8 identity continuity. Original Googlepicker,
+quote and cold-draft images inspected individually at original resolution;
+exact newest text verified in XML/semantic checks, not inferred from bitmap.
+Production/core/build-support/scripts/workflow equivalence to accepted10d35
+is empty. Retained final-android17, final evidence review remains required.
