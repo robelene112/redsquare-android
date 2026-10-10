@@ -65,7 +65,7 @@ class ImageProcessRecoveryTest {
                 launch(peer) {
                     openComposer()
                     ui.onNode(hasSetTextAction()).performTextReplacement(text)
-                    ui.onNodeWithText("Add images").performClick()
+                    ui.onNodeWithText("Add images").performScrollTo().assertIsDisplayed().performClick()
                     waitForPreparedImage()
                     assertEquals(1, context.contentResolver.delete(uri, null, null))
                     assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()

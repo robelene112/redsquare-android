@@ -200,6 +200,13 @@ PY
         adb pull /sdcard/images-failure.xml "$evidence/images-failure.xml" >/dev/null 2>&1 || true
         return 1
     fi
+    timeout 180 adb shell am instrument -w -r \
+        -e class nl.davidengelen.redsquare.ImagePreparationTest \
+        nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+        > "$evidence/images-preparation-ui.txt" || true
+    adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - images-evidence \
+        > "$evidence/images-preparation-evidence.tar" || true
+    grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/images-preparation-ui.txt" || return 1
     python3 "$repo_dir/scripts/image-process-check" --evidence "$evidence/image-process"
 }
 if [[ "${TEST_SCOPE:-full}" == images* ]]; then

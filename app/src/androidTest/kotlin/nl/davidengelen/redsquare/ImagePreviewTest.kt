@@ -162,11 +162,13 @@ class ImagePreviewTest {
                             device.waitForIdle(1_000)
                             device.dumpWindowHierarchy(File(context.cacheDir, "images-evidence/system-picker-drawer.xml").apply { parentFile?.mkdirs() })
                             val title = androidx.test.uiautomator.By.text(ImageTestDocumentsProvider.TITLE)
+                            val drawerTitle = androidx.test.uiautomator.By.text(ImageTestDocumentsProvider.TITLE)
+                                .hasAncestor(androidx.test.uiautomator.By.res("com.android.documentsui", "roots_list"))
                             val selectedRoot = androidx.test.uiautomator.By.res("com.android.documentsui", "toolbar")
                                 .hasDescendant(title)
                             val deadline = android.os.SystemClock.uptimeMillis() + 10_000
                             while (!device.hasObject(selectedRoot) && android.os.SystemClock.uptimeMillis() < deadline) {
-                                try { device.findObject(title)?.click() }
+                                try { device.findObject(drawerTitle)?.click() }
                                 catch (_: androidx.test.uiautomator.StaleObjectException) { /* Reacquire after transition. */ }
                                 device.wait(androidx.test.uiautomator.Until.hasObject(selectedRoot), 1_000)
                             }

@@ -176,3 +176,30 @@ Local build PASS2m04s; runtime pending. Supplemental spec review0 findings.
 Standards review found early process failures could lose in-scope screenshots;
 fixed by finally capture for all phases and retaining partial stdout/stderr on
 instrumentation errors/timeouts. This is failure observability, not relaxed gates.
+
+1e56a14 Android10 focused38064108916: all5 display/draft/signed image post/reply/
+quote cases PASS; only actual SAF selected-root assertion fails. In-scope XML now
+proves two title matches: a Recent-view app tile under apps_group behind the
+roots drawer, and the intended row under roots_list. Generic findObject(title)
+can hit the background tile; the failed screenshot shows Recent remains selected.
+Selection is now scoped to the observed roots_list ancestor, retaining the
+positive toolbar requirement. This captured ambiguity is more specific than
+an unproved transition-timing explanation; no longer timeout applied.
+
+Android17 38064111383 at1e56a14 PASS all6 picker/display/draft/actual sending cases
+in45.906s. Recovery first preparation phase times out before an image appears;
+in-scope capture shows keyboard and focused text field with Add images outside
+viewport. The recovery fixture's Add images click lacked the scroll/display check
+already used by the sending fixture. Added explicit scroll and visible assertion.
+No process death occurred in this failed phase. Its finally capture works and
+retains failure.png; no application data-loss or complete timing cause is claimed.
+
+Preparation checkpoint local build PASS2m13s. New external-picker/socket tests
+use hand-written TIFF orientation/GPS tags with known colored quadrants for all8
+orientations; normalized JPEG pixels/dimensions and omitted APP1/source marker are
+asserted. Transparent PNG→white,4000x2000 WebP→1920x960, one-pixel local GIF and
+JPEG are sent together under four-image/per-URI/whole-message bounds. Invalid
+batch, missing/deleted source, five fallback selections and32MiB+1 source must
+leave previous image/text intact and broadcast nothing until explicit Send.
+These fixtures await runtime; input compression uses Android Bitmap but EXIF
+bytes and expected orientation mappings are literal, independent of preparation.
