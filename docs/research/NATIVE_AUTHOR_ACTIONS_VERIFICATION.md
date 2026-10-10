@@ -1,6 +1,6 @@
 # Native author actions verification
 
-Active #14, fixed base `6c657d4`; boundaries #1 seams1–4. Primary source contract
+Completed #14, fixed base `6c657d4`; boundaries #1 seams1–4. Primary source contract
 NATIVE_EDIT_DELETE_CONTRACT.md. No production writes or node mutation authorized.
 
 ## Current acceptance checkpoint
@@ -19,12 +19,22 @@ axes0, local test compilation PASS1m. Source evidence supports retained-history
 viewport failure; cache repopulation remains an unproved hypothesis. Failure logs,
 bitmap and review: cache-history-root-fixture-failure/. No production change.
 
-Android10 full38057998966 at2f50ac6 is pending, public reads enabled. Production
-source/build/scripts/workflow diff from the passing Android17 candidate is empty.
-Inspect all103 actual cases, eight process stages and continuity before closure.
+Android10 full38057998966 at2f50ac6 PASS core35/build/release/lint,103 completed
+cases in31 logs, eight actual process-death recoveries, both public reads,
+cold-cache/wallet and signed5-to8 continuity. Author6 takes25.052s on10 and22.561s
+on17; quotes7 takes15.199s/14.2s. Logs counted and selected images inspected,
+retained full-android10/. Official10 bitmap has owner's label despite semantic
+pass; excluded from backend visual acceptance, cause unestablished. Both deleted
+profile captures show feed rather than Profile and are excluded from profile
+visual acceptance; functional assertions pass.17 public labels are correct.
+Production source/build/scripts/workflow diff between accepted candidates is empty.
+Both source and supplemental review axes0 remaining actionable findings. One
+minor causal-wording finding was corrected/reviewed in0e0bf9b. Ticket14 acceptance
+complete; physical Pixel checks and final app review remain later release work.
 
-The chronology below records earlier source and runtime checkpoints. #14 remains
-open. No production write or new APK publication.
+The chronology below records earlier source and runtime checkpoints. Their pending
+statements describe those attempts; current completion is established above.
+No production write or new APK publication.
 
 ## Earlier source checkpoint: 3132404
 

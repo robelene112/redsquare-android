@@ -65,3 +65,13 @@ First split pair outcome:10 run38056259800 build PASS then browse7/8 with one
 reply visibility fixture failure.17 run38056261794 was superseded/cancelled,
 not accepted. Corrected final pair38056769062/38056770920 at the same4513c4b
 SHA, public reads enabled, is pending. No measured full wall-time saving yet.
+
+Accepted companion full checks:17 run38056770920 completes15m02s, device stage
+13m22s/source43s;10 run38057998966 completes14m02s, device11m57s/source1m15s.
+Both core35/release/lint and103 device cases/eight process interruptions/public
+reads/cold continuity/signed updates pass. Production source/build/scripts/
+workflow identical; latest10 has a reviewed fixture-only scrolling correction.
+The first pair needed reruns, so these individual durations do not establish a
+measured end-to-end saving for a clean parallel pair. Earlier 26–29 minute
+sequential full runs cover fewer cases. Same-commit split full scopes are now
+available and individually accepted; source/APK transfer remains unimplemented.

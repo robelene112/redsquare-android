@@ -92,55 +92,35 @@ one question at a time when a material choice really needs the owner.
   bitmap lacks header fields despite semantic pass; cause unestablished, excluded
   from visual acceptance. Functional quote images correct; polish remains#35.
   No newAPK, productionwrites, Pixel/push/force-stop-delivery proof.
-- Active #14, "13: Edit and delete the author's posts", fixed base6c657d4.
-  Application sourcea545b94; final device-fixture candidate2f50ac6. Shared public
-  per-target/backend edit/deletion proofs propagate across feed/Following/thread/
-  profile/likes/quotes. Encrypted original candidates and reviewed baselines
-  survive recovery; explicit conflict choices preserve text. Deletion success
-  requires the exact command plus verified target absence across both streams.
-  Saved post changes opens without sending; import includes pending author work.
-  Focused author on Android10/17 passes six cases and real edit/delete process
-  recovery each. Actual native create/edit/delete frames independently verify
-  with pinned WASM/Elliptic and unchanged A/B receivers under controlled Archive.
-  No initialized node or live write. Prior runtime evidence predates the final
-  small conversation layout correction; full checks must cover latest source.
-  Quote timeout diagnostics exposed an actual own-post conversation header
-  overflow. a545b94 separates Back/title/Refresh from Reply/Edit/Delete. Local
-  core35/debug/test/release/lint PASS4m27s. Both supplemental review axes0.
-  Focused quotes38055970805/38055973203 PASS seven cases15.585/62.655s plus real
-  cold candidate recovery3.906/3.642s on10/17. Both inspected images show title,
-  commentary and verified original. All static publication phases complete.
-  Full10 run38056259800 passes build/core/release/lint and browse7/8; authentic
-  reply below viewport in malformed-thread fixture.4513c4b adds actual reply
-  scrolling before unchanged display assertion. Local test compile PASS59s,
-  both review axes0. Production diff from7dcea19 empty. Earlier full17 companion
-  38056261794 was superseded/cancelled, not accepted.
-  Android17 full38056770920 at4513c4b PASS core35/build/release/lint,103 completed
-  cases in31 logs, eight intentional process interruptions, both public reads,
-  cold-cache/wallet and signed5-to-8 continuity. Logs counted/images inspected
-  and retained full-android17/ with bitmap limits. Android10 full38056769062
-  fails before its cache obstruction at initial root lookup amid retained history.
-  An offscreen root is the supported explanation, without independent tracing.
-  Fixture-only2f50ac6 waits for this peer/refresh readiness and scrolls the exact
-  root before unchanged display/warning/recovery assertions. Bothreviewaxes0,
-  local compile PASS1m. Repopulation hypothesis unproved. Production/build/
-  scripts/workflow unchanged from passing17. Android10 full38057998966 pending,
-  public reads enabled. Inspect103 actual cases and all continuity before closure.
-  CI7dcea19 allows independent complete SDK scopes; YAML/all28 mappings PASS.
-  Detailed chronology/review/limits: NATIVE_AUTHOR_ACTIONS_VERIFICATION.md and
-  docs/evidence/ticket13/. No current local build/emulator running.
-  Known A/B web commentary-retweet bug: RedSquareRetweet targets can evade
-  RedSquare-only receiver author lookups. Native create-tweet quotes use the
-  working path and retain quote fields. Corrected spec review does not require
-  a production patch or native quote exclusion. No false-success/deployment/DOM/
-  chain-inclusion/live-write claim. Twelve complete;23 remain. No new APK.
+- Ticket #14, "13: Edit and delete the author's posts", complete at accepted
+  device2f50ac6, applicationa545b94, fixedbase6c657d4. Shared public verified
+  edit/deletion proofs update feed/Following/thread/profile/likes/quotes.
+  Encrypted candidates/reviewed baselines survive recovery; conflicts require
+  explicit choices. Delete success requires exact command and verified absence
+  across both archive streams; historical-copy explanation retained.
+  FullAndroid10 38057998966 and Android17 38056770920 PASS core35/build/release/
+  lint,103 completed cases in31 logs each, eight actual process-death recovery
+  stages each. Both public feeds, cached cold launches and signed5-to8 identity
+  continuity PASS. Production/build/scripts/workflow equivalence between
+  accepted2f50ac6/4513c4b verified. All source/supplementalreviewaxes0 remaining.
+  Actual native create/edit/delete frames independently verify pinned WASM/
+  Elliptic and unchanged A/B controlled receivers. Small conversation header
+  overflow found/fixed during full regression. Earlier viewport/readiness
+  fixture failures retained without claiming unproved causes.
+  Counted logs/selected inspected images ticket13/full-android10/full-android17;
+  official10 bitmap wrong label and deleted-profile bitmaps excluded from visual
+  acceptance with causes unestablished.17 public labels correct. Details
+  NATIVE_AUTHOR_ACTIONS_VERIFICATION.md and ticket13/REVIEW.md.
+  Known upstream current-retweet archive lookup bug recorded; native quotes use
+  working create-tweet path. No node repair, live write, chain, Pixel or push claim.
+  No newAPK. Next ready#15: bounded image composition/viewing with recovery.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.
-- Twelve of35 tickets complete: #2 crypto compatibility, #3 persistent wallet
+- Thirteen of35 tickets complete: #2 crypto compatibility, #3 persistent wallet
   and signing/updates, #4 feed/cache, #5 fixed backends, #6 authenticated export,
   #7 safeguarded import, #8 threads/profiles, #9 following, #10 posting/drafts.
-  #11 queues; #12 likes/reposts; #13 quotes.23 tickets still open. Preserve all accepted features; no Ralph or parallel implementation.
+  #11 queues; #12 likes/reposts; #13 quotes; #14 author edits/deletion.22 tickets still open. Preserve all accepted features; no Ralph or parallel implementation.
 
 ## Completed foundation references
 

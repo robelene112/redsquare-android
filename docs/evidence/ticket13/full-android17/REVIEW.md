@@ -21,5 +21,6 @@ explanation, without an independent request/cache trace. Test-only2f50ac6 waits 
 response and enabled Refresh, then scrolls the exact root before the unchanged
 assertion. All downstream failure/recovery assertions remain. Production source,
 build configuration, scripts and workflow are identical between4513c4b and2f50ac6.
-Android10 full38057998966 is pending. This log does not close ticket14 by itself.
+Android10 full38057998966 passes103 cases and all continuity checks; its companion
+review records separate screenshot limits. Together these cover current source.
 Physical Pixel speed, current preview installation and push remain separate.
