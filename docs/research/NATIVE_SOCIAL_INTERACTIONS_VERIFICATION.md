@@ -1,128 +1,80 @@
 # Native likes and ordinary reposts
 
-Ticket #12, review base `58aed22`. Accepted seams: observable Android flows
-against controlled compatible peers and independent protocol vectors, including
-failure, retry and identity/backend recovery (specification #1 boundaries 1–4).
-The primary-source contract is in NATIVE_SOCIAL_INTERACTIONS_CONTRACT.md.
+Ticket #12, review base `58aed22`; final production source `76197a4`.
+Accepted seams are specification #1 boundaries 1–4: observable Android flows
+against controlled compatible peers, independent protocol vectors, and recovery.
+See [the source contract](NATIVE_SOCIAL_INTERACTIONS_CONTRACT.md).
 
-First flow: like a signed reference post, verify compatible request/target and
-recipient order, observe only backend-served counts, and retain coherent action
-state across feed, thread and profile. The fixture serves four likes initially
-and five only after receiving the signed operation. It requires one transaction.
+## Delivered behavior
 
-Test candidate `789ff6d`; local debug/test assembly passes58s. Focused Android10
-run `38016710571` fails24.504s waiting for served "4 likes" at line65, after
-the signed root appears. Its inspected screenshot shows no like/count controls.
-This is missing behavior, not a build or fixture failure. Public evidence is
-retained in ticket11/first-red.
+Likes and signature-only ordinary reposts share selected-wallet/backend state
+across feed, thread and profile. The original signed candidate is saved and
+reopened before any transmission. Retry first checks exact verified availability;
+accepted-but-disconnected operations retain their identity rather than generating
+another action. Failed saving prevents transmission. Wallet replacement and
+backend selection isolate pending actions; returning permits original recovery.
+A separate host-controlled process kill verifies cold recovery with no resend.
 
-A shared selected-wallet/backend state now persists original signed likes before
-transmission, validates exact availability on retry, and shares observed action/
-count state across feed/thread/profile. Counts remain unsigned backend metadata,
-never local increments. Unavailable/failed state retains the original candidate
-and offers Retry. Local debug/test assembly passes1m41s; runtime green is next. No production transactions, private wallet uploads or new APK.
+Counts are unsigned backend metadata, never fabricated local increments. Fresh
+responses update all views; old cached rows cannot overwrite newer observations.
+An archived repost can remain available without increasing its served count.
+Count-refresh failure preserves verified action success and offers a view refresh,
+rather than an impossible disabled action retry.
 
+## Observable red/green evidence
 
-Focused `38017288554` at `94a7afc` passes1/1 in6.12s: one compatible signed like,
-exact availability and served4-to-5 count coherent across feed/thread/profile.
-Public logs and inspected Profile image are retained in ticket11/first-green.
-The ordinary-repost tracer requires signature-only data, original recipients,
-verified availability and an unchanged served2 count. This models archived
-availability without implying a timestamp-sensitive receiver counter increased.
-Local test assembly51s passes; focused ordinary-repost red is next.
+| Behavior | Actual failing run | Passing run |
+| --- | --- | --- |
+| Like controls and served count across three views | 38016710571: missing four-like control | 38017288554: 1/1, 6.12s |
+| Ordinary repost with unchanged served count | 38017707757: missing two-repost control | 38018201097: 2/2, 7.646s |
+| Fresh profile count replaces stale overlay | 38019559322: five remains after refresh to nine | 38020050365: 7/7, 18.809s, inspected nine-like image |
+| Verified action with failed count refresh | 38020139458: missing warning, impossible Retry | 38022793183: 8/8, 18.469s; inspected warning |
 
+Additional regressions passed without fabricated reds: 38018695180 (4/4,
+12.883s) covers both accepted-disconnect retries; 38019199079 (6/6, 17.241s)
+adds failed saving and backend isolation. 38020050365 also covers wallet
+replacement/restoration and actual cold-process reconciliation. Safe logs and
+inspected images are retained under `docs/evidence/ticket11/`.
 
-Actual ordinary-repost red `38017707757` at `dc2914b` passes the like case,
-then fails at missing served "2 reposts" (line123); total24.926s,2 cases/1 failure.
-A verified action-kind decoder now distinguishes like tweet/RedSquareLike from
-retweet/RedSquareRetweet. Original candidate persistence, exact availability,
-selected identity/backend checks and shared display state cover both actions.
-Ordinary repost data contains only the original signature. No local count
-increments. Local core/debug/test assembly passes1m59s; two-case green is next.
+Independent pinned WASM/Elliptic vectors pass two core cases. Actual Android
+like/repost frames from 38018695180 independently pass deserialization, exact
+request/target/recipient checks, and transaction/routing-hop signature checks.
+Public frames and verification JSON are retained in `ticket11/four-green`.
+These establish cross-runtime protocol compatibility, not live server receipt
+or web visual acceptance. No production transaction or private material uploaded.
 
+## Full-suite fixture failures and corrections
 
-Focused `38018201097` at `183b264` passes2/2 in7.646s, including ordinary repost
-availability with unchanged served count2. Inspected Conversation image and
-public logs are retained in ticket11/two-green. Pure pinned WASM/Elliptic
-fixtures generated through the network-disabled/read-only/empty-environment
-runner prove exact native like/repost signed bytes; both lower-boundary cases
-pass locally25s. They are regression proof, not fabricated functional reds.
+Production source is unchanged after `76197a4`. Three full runs exposed existing
+fixture assumptions after the taller social rows were introduced:
 
-Accepted-then-disconnected recovery regressions now reopen the real activity and
-require Retry to query the original action, retain the original signature and
-transmit exactly once. Both kinds are exercised. Public frame captures contain
-only controlled zero-payment operations for independent WASM/Elliptic checking.
-Local test assembly53s passes; focused four-case regression is next.
+| Run | Actual failure | Reviewed fixture correction |
+| --- | --- | --- |
+| 38020831495 | Android10 browse 6/8: two offscreen reply waits | 3824286 waits for refresh and scrolls to unchanged reply assertions |
+| 38021449614 | Browse 8/8; Following 4/8: offscreen root waits | 49d34a0 scrolls to each post/author |
+| 38022046842 | Browse 8/8, Following 8/8, posting 15/15, queue 6/6; social preparation misses inherited cached root before kill | 13107f2 clears only public fixture caches during preparation; cold recovery retains pending state |
 
+Review additionally strengthened excluded-post assertions at `afaf68c`: search
+the complete list and require the specific missing-node result, rejecting other
+scroll/layout failures. Focused Following passes Android10 38022220807 (8/8,
+21.698s) and Android17 38022557015 (8/8, 130.472s). Both logs and inspected
+history images are retained. All production and fixture review axes report zero
+actionable findings; see [the review](../evidence/ticket11/REVIEW.md).
 
-Focused `38018695180` at `f2fce96` passes4/4 in12.883s. Both accepted-disconnect
-cases reopen and reconcile the original action without a second transmission.
-Their actual public Android frames independently pass pinned WASM deserialization,
-exact request/target/recipient checks and Elliptic verification of the transaction
-and routing-hop signatures. This is cross-runtime protocol evidence, not live
-server receipt or web visual acceptance. Public proofs are retained in
- ticket11/four-green. Failed saving/no-transmission/repaired Retry and pending
-original-backend isolation regressions compile55s; focused six-case run is next.
+## Final acceptance and limits
 
-Focused `38019199079` at `26ee962` passes all six cases in 17.241s, including
-failed saving and original-backend isolation. Interim review found stale served
-counter overlays, an impossible retry instruction after verified success, and
-the missing social suite in full acceptance. The next regression refreshes a
-profile after the backend changes its served count from five to nine. Test
-assembly passes 53s; production is unchanged while reproducing the finding.
+Full `38022793183` at `13107f2` passes core21, assembly/lint, browse8,
+Following8, posting15, queue6, social8 and all five actual process recovery
+stages on Android10. Social cases take18.469s; cold reconciliation2.885s.
+Feed/backend then fails1/8: the cache-fault test demands a newly inserted post
+be visible while the list correctly retains the older post's position. The
+inspected image shows the cache warning and preserved older post, with the new
+card above the viewport. The fixture now waits for refresh completion and scrolls
+to the new post before its unchanged content/warning assertions. The distinct
+position-preservation test is unchanged. Test assembly50sPASS; production source
+unchanged. Safe failure logs and inspected images are retained in
+`ticket11/full-fourth-failure`. The passing count-warning bitmap is partly
+clipped and does not establish layout acceptance. Fresh full acceptance pending.
 
-Actual `38019559322` at `323c17f` fails 1 of 6 cases in 34.04s at the
-required nine-like count after Profile Refresh (line84). The inspected screenshot
-still displays five likes. Public log/image retained in ticket11/refresh-red.
-Fresh server responses now update the shared observation in all three views;
-cache reopening does not supersede it. Conversation refresh prefers fresh rows
-when merging by identity. Local debug/test assembly passes 1m32s. Actual process
-recovery and wallet replacement regressions are also included in the next run.
-
-Focused Android10 `38020050365` at `3f95442` passes all seven cases in18.809s,
-plus cold reconciliation after actual process death with no retransmission.
-Wallet replacement/restoration and original action recovery pass. Inspected
-Profile image shows nine likes after refresh; cold recovery image shows Liked.
-Public logs/images retained in ticket11/refresh-green. The subsequent reviewed
-PID guard correction avoids rejecting a new WorkManager process; final full
-acceptance must exercise that corrected fixture. Count-warning red is pending
-in Android17 `38020139458` at `529a768`.
-
-Actual Android17 `38020139458` at `529a768` fails 1 of8 cases in90.235s
-waiting for the count-refresh warning after Liked (line180). The inspected
-bitmap shows a disabled Liked and impossible action Retry instruction. Other
-seven cases and actual process recovery pass. Public reproduction retained in
-ticket11/count-warning-red. The fix preserves verified availability and reports
-count-refresh failure separately; any fresh served observation clears that
-warning. Missing target data also produces a count warning. Local core and
-debug/test assembly passes1m38s. Final full Android10/17 and source reviews next.
-
-First full `38020831495` at `76197a4` passes core/release/debug/test/lint,
-then stops at Android10 browse6/8 in51.587s: two Independent Saito reply waits
-time out at lines468/422. Inspected conversation images show the original and
-new social rows filling the viewport. The old lazy-list fixture did not scroll
-to materialize the reply rows. Three corresponding live/cached reply checks now
-wait for refresh completion and scroll to the same reply before their unchanged
-content/history assertions. Local test assembly54sPASS. Production unchanged.
-Both final production-source review axes have zero actionable findings. Fixture
-fix review and fresh full acceptance next; no runtime fix success claimed yet.
-
-Second full `38021449614` at `3824286` passes source checks and browse8/8
-in15.909s, then Following4/8 in71.24s: four old waits for the Native reference
-post timeout behind the first feed card. Inspected bitmap shows that first
-card filling the viewport. Following's shared post-wait helper now waits for
-refresh completion and scrolls to known post content. Multi-author and two-post
-checks explicitly scroll to each target; filtering/persistence/error assertions
-remain unchanged. Local test assembly50sPASS. Production unchanged; fixture
-review and fresh full acceptance next. No success for this fixture claimed yet.
-
-Third full `38022046842` at `49d34a0` passes source checks, browse8/8/24.186s,
-Following8/8/25.232s, posting15/15/92.707s and queue6/6/32.943s, including both
-post process recoveries. Social process preparation fails21.346s waiting for
-its reference post before the intentional kill. Its feed inherited newer cache
-rows from earlier cases. Social normal-case setup and only the first process
-preparation now clear public feed/conversation/profile test caches, matching
-browse isolation. Wallets and pending-work storage remain intact; cold recovery
-setup does not clear the pending social action or feed cache. Test assembly55s
-PASS. Public logs retained in ticket11/full-third-failure. No new production
-source; fixture review and fresh full acceptance next.
+No new review APK, physical Pixel performance, force-stop delivery or live
+production-write acceptance is claimed.

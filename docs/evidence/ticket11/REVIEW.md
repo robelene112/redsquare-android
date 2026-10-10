@@ -20,35 +20,28 @@ transmission, remain wallet/backend scoped, and are checked for exact availabili
 on retry. Served counts are not fabricated local increments. The process harness
 checks the original PID correctly.
 
-## Acceptance status
+## Fixture reviews and acceptance status
 
-First full `38020831495` passes source checks but fails two Android10 browse
-reply visibility waits. The follow-up fixture scrolls to those replies while
-retaining content/history assertions. Production is unchanged. Fresh full
-acceptance and fixture fix review are pending.
-Source review does not establish runtime acceptance. Earlier runtime chronology
-and public protocol proofs are in NATIVE_SOCIAL_INTERACTIONS_VERIFICATION.md and
-sibling evidence directories. Ticket #12 remains open until full acceptance.
+Production source remains identical from `76197a4` through `13107f2`.
+All fixture fixes also have zero actionable findings on both review axes:
 
-Fixture follow-up at `3824286`: both independent review axes report zero
-actionable findings. Scrolling exercises the actual conversation UI without
-removing or weakening content, cache, forged-reply or recovery assertions.
-Production source equivalence with `76197a4` verified by empty diff. Fresh
-full run `38021449614` is pending.
+- `3824286`: wait for refresh and scroll to unchanged reply/cache assertions.
+- `49d34a0`: scroll to positive Following posts and authors.
+- `afaf68c`: excluded posts are searched across the complete list, requiring
+  the specific missing-node result; other scroll/layout errors fail.
+- `13107f2`: clear only public fixture caches during guarded social preparation;
+  cold recovery keeps the original pending record and cache.
 
-Second fixture review at `49d34a0`: Spec reports zero new findings. Standards
-finds that old negative post checks only inspect composed nodes, so taller cards
-can make exclusion assertions insensitive. Those post checks now search the full
-scrollable list and require the specific missing-node AssertionError. Other
-scroll/layout errors fail. Known positive anchors are restored where needed.
-Official AndroidX Actions.kt documents full-list search; the pinned Compose
-1.11.4 binary contains the expected failure marker. Test assembly52sPASS.
-Runtime validation and fix review remain pending.
+Focused strong Following passes Android10 38022220807 (8/8, 21.698s) and
+Android17 38022557015 (8/8, 130.472s). Public logs and inspected author-history
+images are retained in following-strong-green10/17. AndroidX's source documents
+complete-list search, and the pinned Compose1.11.4 binary has the expected
+failure marker: [Actions.kt](https://github.com/androidx/androidx/blob/androidx-main/compose/ui/ui-test/src/commonMain/kotlin/androidx/compose/ui/test/Actions.kt).
 
-Reference: https://github.com/androidx/androidx/blob/androidx-main/compose/ui/ui-test/src/commonMain/kotlin/androidx/compose/ui/test/Actions.kt
-
-Negative filtering fix at `afaf68c`: both reviewers report zero actionable
-findings. Focused Android10 `38022220807` passes8/8 in21.698s, including complete
-list exclusion searches. Public log and inspected author-history image retained
-in following-strong-green10. Android17 counterpart38022557015 pending; full
-38022046842 at production-equivalent49d34a0 remains running.
+Full `38022793183` passes source/core21 and all social cases plus cold process
+recovery on Android10, then fails the feed cache-fault visibility assertion.
+A fixture-only follow-up waits for refresh and scrolls to the new post before
+unchanged content/warning checks. The position-preservation test remains intact.
+Local assembly50sPASS. Fix review and fresh full acceptance pending; #12 open.
+Earlier failure and functional red/green evidence remains in the verification
+report and sibling directories. Source review is not runtime acceptance.

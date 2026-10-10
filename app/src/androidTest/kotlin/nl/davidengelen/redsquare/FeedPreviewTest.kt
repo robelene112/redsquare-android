@@ -96,6 +96,10 @@ class FeedPreviewTest {
                     try {
                         peer.rows = "[$updated]"
                         ui.onNodeWithText("Refresh").performClick()
+                        ui.waitUntil(15_000) {
+                            ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty()
+                        }
+                        ui.onNode(hasScrollAction()).performScrollToNode(hasText("New reference post"))
                         waitForText("New reference post")
                         waitForText("Some posts could not be saved or opened for offline reading.")
                     } finally {

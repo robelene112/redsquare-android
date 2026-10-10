@@ -61,55 +61,25 @@ one question at a time when a material choice really needs the owner.
   priorcauseunestablished. Publiclogs/inspectedimages ticket10/full-android10/
   full-android17; details NATIVE_POST_QUEUE_VERIFICATION.md/REVIEW.md.
   No newAPK, productionTX, physicalPixel or force-stop delivery proof.
-- Active #12, "11: Like posts and perform ordinary reposts". Base58aed22.
-  First application seam: like a reference post, observe only served counts,
-  verify original action/signature and coherent feed/thread/profile state.
-  First red38016710571 fails24.504s at missing4likes after rootshown.
-  Selected-wallet/backend like state, durableoriginalcandidate and exact
-  availabilityretry with sharedfeed/thread/profiledisplay implemented; local
-  debug/testassembly1m41sPASS. Firstgreen38017288554 passes1/1/6.12s.
-  Ordinaryrepostred38017707757 passeslike, failsmissing2reposts(2/1).
-  Actionkinddecoder/sharedsignedlikeandrepostpathimplemented; local
-  core/debug/test1m59sPASS. Twogreen38018201097 passes2/2/7.646s.
-  Independentlike/repostWASM/Ellipticvectors generated; local2corecases25sPASS.
-  Accepted-disconnect/fresh-activity original retry regressionscompiled53s;
-  Fourgreen38018695180 passes4/4/12.883s inclfreshactivityuncertainretry.
-  ActualAndroidframes independentlyWASM/Ellipticverifiedinclroutinghops, retained
-  ticket11/four-green. Failedsave/backendisolationregressionscompiled55s;
-  Six-case run38019199079 passes6/6/17.241s. Interim source reviews find stale
-  count overlays, impossible Retry copy after verified availability and a full
-  harness omission. Refresh red38019559322 at323c17f fails1/6/34.04s at9likes;
-  inspectedimage shows5. Fix3f95442 updates shared observations on fresh responses
-  only and prefers fresh thread rows. Localdebug/test1m32sPASS. Full harness now
-  includes social cases plus actual process-death recovery; wallet replacement
-  regression compiles52s. Focused38020050365 at3f95442 pending. Separate
-  verified-action/count-refresh-failure tracer529a768 compiles56s; Android17
-  run38020139458 fails1/8/90.235s atmissingcountwarningafterLiked, other7 and
-  actualprocessrecoveryPASS. InspectedbitmapconfirmsimpossibleRetry. Separate
-  countwarningfix preservesverifiedaction/clearsuponfreshobservation; local
-  core/debug/test1m38sPASS. PIDguardfix7191fa7 reviewed0findings. Finalfull
-  Android10/17 firstfull38020831495 sourcechecksPASS thenbrowse6/8/51.587s
-  fails two offscreenreplywaits. Inspected images root/action rows fillviewport.
-  Fixture3824286 waits Refresh enabled and scrolls to replies before unchanged
-  content/history assertions; assembly54sPASS. Both finalsource76197a4 and
-  fixture3824286 reviewaxes0findings. Productiondiffempty. Freshfull38021449614
-  fails laterFollowing4/8/71.24s at oldoffscreenrootwaits; browse8/8/15.909sPASS.
-  Fixture49d34a0 scrolls to posts/authors; assembly50sPASS. Review found weak
-  negativepostchecks; afaf68c strengthens complete-list exclusion searches with
-  specific missing-node result. Bothfixreviews0; assembly52sPASS. Focused
-  Following10 38022220807 passes8/8/21.698s. Following17 38022557015 pending.
-  Full38022046842 at49d34a0 fails social process preparation rootwait beforekill;
-  browse8/8, following8/8, posting15/15, queue6/6 and bothpriorprocesschecksPASS.
-  Firstsocialsetup now isolates publicfeed/thread/profilecaches; coldrecovery
-  keepspendingstate. Assembly55sPASS. Newfullacceptance/fixreviews next.
-  No production changes
-  after76197a4. Finalproductionreviews0. Untracked #13 NATIVE_QUOTES_CONTRACT.md
-  prepared by read-only research agent; keep out of #12 completion. No full
-  acceptance yet.
-  Ten of35 complete;
- 25 remain. Read-only primary-source contract prepared in
-  NATIVE_SOCIAL_INTERACTIONS_CONTRACT.md. Ordinaryreposts/recovery/fullacceptance/reviews incomplete.
-  Continue sequentially through #36 without routine permission requests.
+- Active #12, "11: Like posts and perform ordinary reposts", base `58aed22`.
+  Production `76197a4` implements durable signed candidates, exact availability
+  retries, wallet/backend isolation and coherent served counts across views.
+  Actual functional reds and passing regressions are recorded in
+  NATIVE_SOCIAL_INTERACTIONS_VERIFICATION.md. Independent actual Android frames
+  pass pinned WASM/Elliptic transaction and routing-hop signature verification.
+  Both final production review axes and all fixture fix reviews have zero
+  actionable findings. Production has not changed after `76197a4`.
+  Full runs exposed offscreen lazy-list waits and inherited public fixture cache;
+  reviewed fixture corrections preserve all assertions and cold recovery state.
+  Strong complete-list Following checks pass both Android10/17 in 38022220807
+  and 38022557015. Full **38022793183** at `13107f2` passes core21, social8 and all five
+  process recovery stages, but feed cache-fault visibility fails1/8. Inspected
+  capture shows the inserted post above the preserved position. Fixture now
+  scrolls to that post after refresh; separate position test unchanged. Local
+  assembly50sPASS. Fix review and fresh full acceptance pending. Ten of35 complete; 25 remain including #12.
+  Untracked `NATIVE_QUOTES_CONTRACT.md` is read-only #13 research, kept out of
+  #12 completion. No new APK or production transaction. Continue #13 through
+  #36 sequentially without routine permission requests.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.
