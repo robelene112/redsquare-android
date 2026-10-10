@@ -105,9 +105,16 @@ one question at a time when a material choice really needs the owner.
   Public logs: ticket13/source-checkpoint. Detailed chronology/limits:
   NATIVE_AUTHOR_ACTIONS_VERIFICATION.md. Initial own-edit Android10 GREEN
   38034593176 predates the new source; stale-cache RED38034937825 remains without
-  a new Android GREEN. Five prepared Android cases compile but are unexecuted.
-  Actual author process-kill recovery and broader conflict/failure checks remain.
-  GitHub billing refuses runners before starting, including38036925480; owner
+  a new Android GREEN. Test checkpoint1f4703f adds a sixth UI case covering both
+  explicit conflict choices, plus host-driven real-process-death EDIT/DELETE
+  recovery stages. Final test APK assembly passes1m; device cases unexecuted.
+  Both stages are wired into focused/full checks. Bounded support review and
+  an isolated synthetic-object A/B receiver diagnostic reproduce the second-stream
+  quote lookup gap; ordinary targets succeed, retweet targets remain unchanged
+  while deletion commands archive. Not signature/native/live/deployment proof.
+  Logs/results: ticket13/recovery-source; application source unchanged3132404.
+  Actual author recovery/conflict/failure runtime acceptance remains outstanding.
+  GitHub billing refuses runners before starting, including38039739303; owner
   already asked, do not change accounts/spending/visibility. Prior bounded local
   software attempt produced0 test output and was stopped/removed; do not repeat
   it as the ordinary test loop. No emulator/build running at handoff.

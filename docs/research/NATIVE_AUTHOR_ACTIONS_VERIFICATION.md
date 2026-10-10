@@ -5,6 +5,51 @@ NATIVE_EDIT_DELETE_CONTRACT.md. No production writes or node mutation authorized
 
 ## Latest source checkpoint: 3132404
 
+### Recovery-test checkpoint: 1f4703f
+
+Application source remains3132404. Six author Android UI cases now compile,
+including a competing-edit flow that exercises both Keep my text and Use latest
+text. Each choice must leave transmission unchanged until explicit Save changes;
+the emitted signed text and three distinct edit candidates are checked.
+Two separate host-driven process-death stages prepare an uncertain EDIT or DELETE,
+kill the actual application process, cold-launch with the same wallet and
+candidate, open Saved post changes without transmission, then verify the exact
+observed candidate on explicit Retry without rebroadcast. Both stages are wired
+into focused author checks and final full acceptance. Timeout/failure output is
+retained by their host script.
+
+Final test APK assembly passes in1m. Shell syntax, Python parsing and whitespace
+checks pass. This establishes compilation only: all six current-source UI cases
+and both process-death recovery stages still await Android execution. No runtime
+RED/GREEN or recovery success is claimed from their preparation.
+Logs: `docs/evidence/ticket13/recovery-source/test-assembly.txt`.
+
+A bounded support agent identified the current-quote receiver target-discovery
+gap and reviewed recovery/conflict fixture semantics. The separate
+`quote-author-receiver-diagnostic.cjs` executes unchanged, hash-checked A/B
+receiver methods with synthetic transaction objects and a stream-aware in-memory
+Archive adapter. Under isolated network-disabled/read-only Node24.20.0, both
+receivers apply/remove an ordinary RedSquare target but leave a current retweet
+target under RedSquareRetweet unchanged while archiving its delete command.
+Result: `recovery-source/quote-receiver-diagnostic.json`.
+Public action object signer/target fields are adapted for this lookup experiment;
+they are not re-signed. This is receiver control-flow reproduction, not signature,
+native-frame, deployed-server, DOM or live-write evidence.
+
+The smallest source correction would resolve author targets across both streams,
+validate exact target/message/author before mutation, and reuse Archive's
+signature-based update/delete while retaining original index fields. Current
+quote counters use data.signature rather than older data.embedded.signature;
+repeat retweet archival must also be checked for overwritten edit metadata and
+deleted-row resurrection. getTweet/profile caches accepting only create tweet
+do not normally rescue current retweet targets. A separate server change needs
+an isolated controlled implementation, scoped ticket and its own deployment
+authorization; none was deployed here. Details in the author-actions contract.
+
+Latest checked hosted run38039739303 was likewise refused before startup for
+failed payments/spending limit. No new device dispatch was attempted during
+this checkpoint. Billing remains an external prerequisite, not a test failure.
+
 The owner resumed sequential work on 2026-10-10. This is an implementation
 checkpoint, not ticket completion. Local core35 (zero failures/errors/skips),
 debug APK, test APK, release APK and lint pass in3m55s after the final prefill fix. Logs and counts are

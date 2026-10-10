@@ -95,6 +95,29 @@ These are pinned source facts, not a current-deployment observation or approval
 to change a node. Verification remains outstanding; see
 [NATIVE_AUTHOR_ACTIONS_VERIFICATION.md](NATIVE_AUTHOR_ACTIONS_VERIFICATION.md).
 
+The unchanged A/B receiving methods reproduce this limitation with a stream-aware
+in-memory Archive adapter in `build-support/references/quote-author-receiver-diagnostic.cjs`.
+Its adapted synthetic transaction objects are not cryptographic evidence.
+Ordinary targets update/delete; current quote targets do neither even though
+the deletion command is saved. Exact source hashes and bounded offline result
+are in `docs/evidence/ticket13/recovery-source/quote-receiver-diagnostic.json`.
+
+Memory does not normally supply the missing quote target: A getTweet2272 reads
+tweets/profile_tweets, but Tweets.isValidTweetMessage100 and profile caching2529
+accept create tweet; receiveRetweet1716–1721 stores the interaction and then
+looks up the referenced original signature. Archive load combines field filters
+by AND (A Archive822–826), while update674/delete1139 operate by signature;
+storage.updateTransaction227–230 delegates directly. These pinned source facts
+support a shared dual-stream target resolver without a schema change.
+
+An isolated receiving correction must check original author and exact target
+before memory/DOM or archive mutation, retain the original stream/index fields,
+handle current data.signature for quote counters (the existing delete fallback
+uses data.embedded.signature), and verify repeated retweet receipt does not
+erase edit metadata or recreate a deleted quote. saveRetweet1486–1487 currently
+rewrites an existing row from its incoming original. No receiving correction,
+scoped node rollout or live behavior is established by this diagnostic.
+
 ## Recommended native behavior, inferred
 
 Persist original signed candidates before sending, bound to wallet/backend/target.

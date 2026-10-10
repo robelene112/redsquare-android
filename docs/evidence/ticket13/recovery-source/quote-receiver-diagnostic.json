@@ -1,0 +1,55 @@
+{
+  "result": "KNOWN_LIMITATION_REPRODUCED",
+  "nodeVersion": "v24.20.0",
+  "boundary": "Unmodified pinned receiver methods with synthetic transaction objects and a stream-aware in-memory Archive adapter. No signature, native-frame, live-node, DOM or deployed-behavior proof.",
+  "observations": [
+    {
+      "pin": "A",
+      "sourceSha256": "e2cf08d95ed0cebc4b4e1106134ccc13c83b2a5814f1b0e9b31579a4c14a7ca8",
+      "targetStream": "RedSquare",
+      "targetRequest": "create tweet",
+      "editApplied": true,
+      "originalRemoved": true,
+      "deleteCommandArchived": true,
+      "lookupStreams": [
+        "RedSquare"
+      ]
+    },
+    {
+      "pin": "A",
+      "sourceSha256": "e2cf08d95ed0cebc4b4e1106134ccc13c83b2a5814f1b0e9b31579a4c14a7ca8",
+      "targetStream": "RedSquareRetweet",
+      "targetRequest": "retweet",
+      "editApplied": false,
+      "originalRemoved": false,
+      "deleteCommandArchived": true,
+      "lookupStreams": [
+        "RedSquare"
+      ]
+    },
+    {
+      "pin": "B",
+      "sourceSha256": "2a83af18010fc4fc044aabec2741ff401c93b4672decdd5d78e1db5f81d4c5b0",
+      "targetStream": "RedSquare",
+      "targetRequest": "create tweet",
+      "editApplied": true,
+      "originalRemoved": true,
+      "deleteCommandArchived": true,
+      "lookupStreams": [
+        "RedSquare"
+      ]
+    },
+    {
+      "pin": "B",
+      "sourceSha256": "2a83af18010fc4fc044aabec2741ff401c93b4672decdd5d78e1db5f81d4c5b0",
+      "targetStream": "RedSquareRetweet",
+      "targetRequest": "retweet",
+      "editApplied": false,
+      "originalRemoved": false,
+      "deleteCommandArchived": true,
+      "lookupStreams": [
+        "RedSquare"
+      ]
+    }
+  ]
+}

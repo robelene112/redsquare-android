@@ -20,6 +20,11 @@ async function main() {
   const observations = [];
   for (const pin of ['A', 'B']) {
     const source = fs.readFileSync(path.join(sourceDirectory, `${pin}-node_mods_redsquare_redsquare.js`), 'utf8');
+    const sourceSha256 = crypto.createHash('sha256').update(source).digest('hex');
+    assert.equal(sourceSha256, {
+      A: 'e2cf08d95ed0cebc4b4e1106134ccc13c83b2a5814f1b0e9b31579a4c14a7ca8',
+      B: '2a83af18010fc4fc044aabec2741ff401c93b4672decdd5d78e1db5f81d4c5b0'
+    }[pin]);
     const start = source.indexOf('  async receiveEditTweetTransaction(');
     const end = source.indexOf('\n  async ', source.indexOf('  async receiveDeleteTweetTransaction(', start) + 1);
     assert(start > 0 && end > start);
@@ -62,7 +67,7 @@ async function main() {
         assert.equal(updates, 0); assert.equal(present, true);
         assert(lookups.every(query => query.stream === 'RedSquare'));
       }
-      observations.push({pin, sourceSha256: crypto.createHash('sha256').update(source).digest('hex'),
+      observations.push({pin, sourceSha256,
         targetStream: stream, targetRequest: target.msg.request,
         editApplied: updates === 1, originalRemoved: !present,
         deleteCommandArchived: true, lookupStreams: [...new Set(lookups.map(query => query.stream))]});
