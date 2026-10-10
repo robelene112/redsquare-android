@@ -144,3 +144,16 @@ identity/text and visible feed result. No private material is captured. This
 verifies pre-interruption operation recovery, not arbitrary power loss or
 force-stop execution. Local test assembly52s, shell/Python syntax pass; actual
 runtime regression next.
+
+Focused38012413217 at96d602b passes actual offline queue process death/cold
+delivery plus6/6 normal cases. Restored transaction retains original identity,
+text and pre-interruption signing time, with one transmission. Public logs and
+continuity record are retained in ticket10/process-green.
+
+Wallet-replacement regression uses real SAF import of the public unsafe scalar1
+fixture, existing zero-balance/acknowledgement safeguards and a reachable original
+peer while the replacement is active. It requires no outgoing queue in that
+identity and no transmission. Test-only restoration then closes/reopens the
+activity and requires one transaction signed by the original wallet. No private
+material is exported/captured. Local final assembly55s and shell syntax pass;
+runtime regression next.

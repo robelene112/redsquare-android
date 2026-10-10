@@ -539,6 +539,83 @@ class PostPreviewTest {
         }
     }
 
+    @Test fun walletReplacementPausesQueuedWorkAndRestoringItsOwnerResumesTheOriginalIdentity() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        AndroidBackendStore(context).save(SaitoBackend.OWNER)
+        val port = java.net.ServerSocket(0, 1, java.net.InetAddress.getByName("127.0.0.1")).use { it.localPort }
+        val indexed = java.util.concurrent.atomic.AtomicReference<com.google.gson.JsonObject?>()
+        val peer = ControlledFeedPeer("[]", onTransaction = { frame -> indexed.set(postingArchiveRow(postingTransaction(frame))) },
+            archiveResponse = { criteria ->
+                val row = indexed.get()
+                if (criteria.has("sig") && criteria.get("sig").asString != row?.get("sig")?.asString) "[]"
+                else row?.let { "[$it]" } ?: "[]"
+            })
+        val balances = mockwebserver3.MockWebServer()
+        balances.dispatcher = object : mockwebserver3.Dispatcher() {
+            override fun dispatch(request: mockwebserver3.RecordedRequest) = mockwebserver3.MockResponse.Builder()
+                .body("${System.currentTimeMillis()}-1234-${"a".repeat(64)}.snap\n").build()
+        }
+        balances.start(java.net.InetAddress.getByName("127.0.0.1"), 0)
+        val walletStore = AndroidWalletStore(context)
+        var original: nl.davidengelen.redsquare.saito.SaitoWallet? = null
+        var serving: mockwebserver3.MockWebServer? = null
+        try {
+            val intent = Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:$port/wsopen")
+                .putExtra("balanceApiUrl", "http://127.0.0.1:${balances.port}/balance/")
+            ActivityScenario.launch<MainActivity>(intent).use {
+                ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                original = walletStore.loadExisting()
+                org.junit.Assert.assertNotEquals("jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR", original!!.publicKey)
+                ui.onNodeWithText("New post").performClick()
+                ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                ui.onNode(hasSetTextAction()).performTextReplacement("Queued work belongs to the outgoing wallet")
+                ui.onNodeWithText("Send").performClick()
+                ui.waitUntil(20_000) { ui.onAllNodes(hasText("Cancel queued post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                ui.onNodeWithText("Back").performClick()
+                ui.onNodeWithText("Wallet").performClick()
+                ui.onNodeWithText("Import wallet").performClick()
+                chooseReferenceImport(androidx.test.uiautomator.UiDevice.getInstance(instrumentation))
+                waitFor("Server reports zero SAITO")
+                ui.onNodeWithText("Skip backup").performScrollTo().performClick()
+                ui.onNodeWithContentDescription("Replacement risks acknowledged").performScrollTo().performClick()
+                ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsEnabled().performClick()
+                waitFor("Wallet imported")
+                org.junit.Assert.assertEquals("jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR", displayedWalletAddress(ui))
+                ui.onNodeWithText("Done").performClick()
+                ui.onNodeWithText("Queued posts").performClick()
+                waitFor("No queued posts")
+                ui.onNodeWithText("Back").performClick()
+                serving = peer.start(port)
+                ui.waitUntil(15_000) { peer.requests.get() > 0 }
+                android.os.SystemClock.sleep(7_000)
+                assertTrue("A replacement identity must not send the outgoing wallet's queue", peer.transactions.isEmpty())
+                captureFeedEvidence("post-queue-evidence/replacement-wallet-has-no-outgoing-queue.png")
+            }
+            walletStore.replace(walletStore.loadExisting(), requireNotNull(original))
+            // A fresh activity reloads the restored test identity from durable storage.
+            ActivityScenario.launch<MainActivity>(intent).use {
+                        ui.waitUntil(60_000) { peer.transactions.isNotEmpty() }
+                        val post = nl.davidengelen.redsquare.saito.RedSquareFeed.decode(postingTransaction(peer.transactions.single()).envelope())
+                        org.junit.Assert.assertEquals(requireNotNull(original).publicKey, post.author)
+                        org.junit.Assert.assertEquals("Queued work belongs to the outgoing wallet", post.text)
+                        ui.onNodeWithText("Wallet").performClick()
+                        org.junit.Assert.assertEquals(requireNotNull(original).publicKey, displayedWalletAddress(ui))
+                        ui.onNodeWithText("Done").performClick()
+                        peer.assertHealthy()
+                        captureFeedEvidence("post-queue-evidence/restored-wallet-resumes-original-queue.png")
+            }
+        } finally {
+            original?.let { previous ->
+                val current = walletStore.loadExisting()
+                if (current.publicKey != previous.publicKey) walletStore.replace(current, previous)
+            }
+            serving?.close()
+            balances.close()
+        }
+    }
+
     private fun chooseReferenceImport(device: androidx.test.uiautomator.UiDevice) {
         val title = androidx.test.uiautomator.By.text(ExportTestDocumentsProvider.TITLE)
         val file = androidx.test.uiautomator.By.text("reference-import.json")
