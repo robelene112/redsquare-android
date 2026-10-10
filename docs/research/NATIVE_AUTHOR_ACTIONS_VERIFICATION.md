@@ -94,8 +94,22 @@ and author fixtures found unguarded Quote buttons and feed author links; they
 now use the same helper. Existing transaction/count/identity/backend/no-rebroadcast
 and displayed-state assertions remain intact. No production source or existing
 acceptance timeout changes. Local test compilation passes52s; both supplemental
-review axes0 actionable. Focused social/quote/author and final full acceptance
-of this correction are pending. No #14 closure or new APK publication.
+review axes0 actionable. At16ac9b0, focused social38054544113, quotes38054546080
+and author38054547958 were dispatched. Social PASS8 in13.767s plus real cold
+recovery2.877s; author PASS6 in27.413s plus edit/delete cold recoveries. Logs and
+selected inspected images retained in visible-controls-social-android10-green/
+visible-controls-author-android10-green.
+
+Quote38054546080 passes the first four cases, then original-recovery times out
+at line251 after the second raw Retry. Its later publication case starts, but
+the suite180s timeout interrupts it without a result. No failure bitmap was
+captured in that run; no later-hang cause established. The two preview Retry
+buttons now use positive visibility/enabled navigation. A source audit also
+caught a raw Quote tap in the separate host process-death fixture; it uses the
+same helper. Static publication step markers and host screenshot/bounded10s XML
+capture improve timeout evidence without extending180s or removing assertions.
+Both supplemental review axes0 actionable. Corrected quote runtime and final
+full acceptance remain pending. Evidence quote-viewport-fixture-failure/. No #14 closure or new APK publication.
 
 ### Recovery-test checkpoint: 1f4703f
 

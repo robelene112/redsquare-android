@@ -146,7 +146,12 @@ verify_quotes() {
         > "$evidence/quote-ui.txt" || true
     adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - quote-evidence \
         > "$evidence/quote-evidence.tar" || true
-    grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/quote-ui.txt"
+    if ! grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/quote-ui.txt"; then
+        adb exec-out screencap -p > "$evidence/quote-system-screen.png" || true
+        timeout 10 adb shell uiautomator dump /data/local/tmp/quote-failure.xml >/dev/null 2>&1 || true
+        adb pull /data/local/tmp/quote-failure.xml "$evidence/quote-system-window.xml" >/dev/null 2>&1 || true
+        return 1
+    fi
     python3 "$repo_dir/scripts/post-process-check" --quote --evidence "$evidence/quote-process"
 }
 if [[ "${TEST_SCOPE:-full}" == quotes* ]]; then

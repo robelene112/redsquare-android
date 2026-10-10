@@ -128,7 +128,13 @@ one question at a time when a material choice really needs the owner.
   analogous Quote buttons/feed author links plus one Author link use it.
   Source audit avoids repeatedly discovering the same offscreen-tap pattern.
   Test compilation PASS52s; supplemental review axes0. Application unchanged.
-  Focused social/quote/author then final full both SDKs remain required.
+  Fixture candidate16ac9b0: focused social38054544113, quotes38054546080 and
+  author38054547958 PASS8/social and6/author plus respective processrecoveries.
+  Quotes38054546080 first4pass, fifth Retry timesout, sixthpublication starts but
+  overall180s timeout; no failure bitmap or later-hang cause yet. Two original
+  Retry taps and separate PostProcess Quote tap guarded; static phase file plus
+  host PNG/boundedXML capture added. Both review axes0, compilation in progress.
+  Rerun focusedquotes then finalfull bothSDKs; keep14open.
   Evidence ticket13/social-viewport-fixture-failure; keep14open. Native application source remains3132404.
   Evidence ticket13/first-current-android10, author-android10-green,
   author-android17-green, following-fixture-failure. Keep #14 open until full

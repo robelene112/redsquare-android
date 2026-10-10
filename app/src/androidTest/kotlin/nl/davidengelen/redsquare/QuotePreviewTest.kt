@@ -117,30 +117,52 @@ class QuotePreviewTest {
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 try {
+                    quotePhase("original loaded: start")
                     waitFor(originalText)
+                    quotePhase("original loaded: done")
+                    quotePhase("open quote: start")
                     ui.clickVisiblePostContent("Quote")
+                    quotePhase("open quote: done")
                     waitFor("Quote post")
                     ui.onNode(hasSetTextAction()).performTextInput(commentary)
                     ui.onNodeWithText("Send").performClick()
+                    quotePhase("quote available: start")
                     waitFor("Available on this server.")
+                    quotePhase("quote available: done")
                     assertEquals(1, peer.transactions.size)
+                    quotePhase("return to feed: start")
                     ui.onNodeWithText("Back").performClick()
+                    quotePhase("return to feed: done")
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    quotePhase("scroll commentary: start")
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText(commentary))
+                    quotePhase("scroll commentary: done")
                     ui.onNodeWithText(commentary).assertIsDisplayed()
                     val embeddedOriginal = hasText(originalText) and hasAnyAncestor(hasContentDescription("Quoted original"))
+                    quotePhase("scroll embedded original: start")
                     ui.onNode(hasScrollAction(), useUnmergedTree = true).performScrollToNode(embeddedOriginal)
+                    quotePhase("scroll embedded original: done")
                     ui.onNode(embeddedOriginal, useUnmergedTree = true).assertIsDisplayed()
+                    quotePhase("scroll commentary: start")
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText(commentary))
+                    quotePhase("scroll commentary: done")
+                    quotePhase("open conversation: start")
                     ui.onNodeWithText(commentary).performClick()
+                    quotePhase("open conversation: done")
                     waitFor("Conversation")
+                    quotePhase("scroll commentary: start")
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText(commentary))
+                    quotePhase("scroll commentary: done")
                     ui.onNodeWithText(commentary).assertIsDisplayed()
+                    quotePhase("scroll conversation original: start")
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText(originalText))
+                    quotePhase("scroll conversation original: done")
                     ui.onNodeWithText(originalText).assertIsDisplayed()
                     assertEquals(1, peer.transactions.size)
                     peer.assertHealthy()
+                    quotePhase("capture conversation: start")
                     captureQuoteEvidence("quote-evidence/published-quote-conversation.png")
+                    quotePhase("capture conversation: done")
                     val proof = java.io.File(context.cacheDir, "quote-evidence/native-quote-frame.base64")
                     proof.parentFile?.mkdirs()
                     proof.writeText(java.util.Base64.getEncoder().encodeToString(peer.transactions.single()))
@@ -242,11 +264,11 @@ class QuotePreviewTest {
                 waitFor("Embedded quote commentary")
                 waitFor("Could not load the original.")
                 availability.set(1)
-                ui.onNodeWithText("Retry").performClick()
+                ui.clickVisiblePostContent("Retry")
                 waitFor("Original unavailable. Commentary is still available.")
                 ui.onAllNodesWithText(originalText, useUnmergedTree = true).assertCountEquals(0)
                 availability.set(2)
-                ui.onNodeWithText("Retry").performClick()
+                ui.clickVisiblePostContent("Retry")
                 val embeddedOriginal = hasText(originalText) and hasAnyAncestor(hasContentDescription("Quoted original"))
                 ui.waitUntil(20_000) { ui.onAllNodes(embeddedOriginal, useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNode(hasScrollAction(), useUnmergedTree = true).performScrollToNode(embeddedOriginal)
@@ -325,6 +347,13 @@ class QuotePreviewTest {
                 captureQuoteEvidence("quote-evidence/backend-isolated-original-cache.png")
             }
         } }
+    }
+
+    private fun quotePhase(label: String) {
+        java.io.File(context.cacheDir, "quote-evidence/publication-progress.txt").apply {
+            parentFile?.mkdirs()
+            appendText("$label\n")
+        }
     }
 
     private fun readyComposer() {

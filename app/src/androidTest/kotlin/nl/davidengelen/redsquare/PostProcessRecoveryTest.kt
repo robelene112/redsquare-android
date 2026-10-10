@@ -41,7 +41,7 @@ class PostProcessRecoveryTest {
     private fun openComposer() {
         if (quote) {
             waitFor("Native Red Square reference post")
-            ui.onNodeWithText("Quote").performClick()
+            ui.clickVisiblePostContent("Quote")
             waitFor("Quote post")
         } else ui.onNodeWithText("New post").performClick()
     }
