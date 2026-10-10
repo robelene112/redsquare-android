@@ -61,7 +61,7 @@ class VideoPreviewTest {
                         peer.assertHealthy()
                     } catch (failure: Throwable) {
                         failure.addSuppressed(AssertionError("Controlled provider requests: ${api.requestCount}"))
-                        try { capture("video-evidence/tap-failure.png") } catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
+                        captureFailure(failure, "video-evidence/tap-failure.png")
                         throw failure
                     }
                 }
@@ -136,7 +136,7 @@ class VideoPreviewTest {
                             peer.assertHealthy()
                         } catch (failure: Throwable) {
                             failure.addSuppressed(AssertionError("Controlled provider requests: ${api.requestCount}"))
-                            try { capture("video-evidence/size-failure.png") } catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
+                            captureFailure(failure, "video-evidence/size-failure.png")
                             throw failure
                         }
                     }
@@ -219,7 +219,7 @@ class VideoPreviewTest {
                             peer.assertHealthy()
                         } catch (failure: Throwable) {
                             failure.addSuppressed(AssertionError("Provider requests ${api.requestCount}; thread reads ${threadReads.get()}"))
-                            try { capture("video-evidence/provider-failure.png") } catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
+                            captureFailure(failure, "video-evidence/provider-failure.png")
                             throw failure
                         }
                     }
@@ -294,7 +294,7 @@ class VideoPreviewTest {
                         peer.assertHealthy()
                     } catch (failure: Throwable) {
                         failure.addSuppressed(AssertionError("Controlled provider requests: ${api.requestCount}"))
-                        try { capture("video-evidence/lifecycle-failure.png") } catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
+                        captureFailure(failure, "video-evidence/lifecycle-failure.png")
                         throw failure
                     }
                 }
@@ -324,6 +324,10 @@ class VideoPreviewTest {
     private fun stage(message: String) {
         File(context.cacheDir, "video-evidence/stages.txt").apply { parentFile?.mkdirs() }
             .appendText("${android.os.SystemClock.elapsedRealtime()} $message\n")
+    }
+
+    private fun captureFailure(failure: Throwable, name: String) {
+        try { capture(name) } catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
     }
 
     private fun capture(name: String) {

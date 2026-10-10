@@ -224,3 +224,13 @@ error/Retry. Retained sticky-error-red. The minimal source fix guards state
 updates after error and guards ready both before and after cueVideoById, preserving
 a synchronous cue error too. Explicit Retry creates a fresh browser attempt.
 Actual GREEN is pending; no automatic play or private bridge was added.
+
+Sticky-error GREEN38084273614 at2a99f86: four Android10 cases23.724s. The
+original error PNG clearly shows the153 explanation and Retry/external/Close
+controls after error, state5 and ready in the same callback tick; unchanged
+external/retry/navigation assertions also pass. Retained sticky-error-green-android10.
+Both bounded review axes0 residual hard findings. Review cleanup shares only
+the repeated primary-preserving diagnostic capture, keeping scenario-specific
+checks and request diagnostics local. Full acceptance and actual media remain open.
+Full Spec review separately confirmed optional-scheme/last-text-URL semantics
+in both pinned Browser helpers; the native first-URL assumption needs correction.
