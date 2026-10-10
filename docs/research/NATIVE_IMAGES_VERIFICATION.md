@@ -32,7 +32,7 @@ was absent from this source.
 Images/images-android17 scopes mapped correctly among all30 declared SDK choices;
 shell/whitespace checks pass. No Android media runtime or feature completion claim.
 
-## Display checkpoint in progress
+## Display checkpoint
 
 Native feed/thread/profile and verified-original galleries now share bounded
 asynchronous loading: two concurrent jobs,2MiB compressed image bodies,
@@ -44,6 +44,16 @@ Loading/unavailable states preserve text; manual retry and fullscreen viewer
 provide close/previous/next/zoom. These are implementation limits, awaiting
 runtime acceptance. Incoming GIF currently decodes a static first frame;
 animated remote/Giphy rendering belongs next#16.
+
+Focused Android10 run38060625794 at1d6dbb8 PASS: ordered distinct red/blue raster
+pixels, opening/closing fullscreen viewer and zero submitted transactions.
+Source/core/debug/test/release/lint checks also pass. The interim standards
+review found abandoned synchronous downloads could hold slots until timeout;
+the correction cancels OkHttp calls when the image coroutine is cancelled and
+checks activity before decode/cache. It awaits verification. Spec review0.
+Next tracer selects a synthetic image through a controlled picker-result
+boundary and verifies saved/recreated draft text/media without publication.
+This first tracer does not claim actual system picker UI or process-death proof.
 
 ## Remaining acceptance
 

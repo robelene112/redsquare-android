@@ -5,17 +5,26 @@ import android.graphics.ImageDecoder
 import android.util.Base64
 import android.util.LruCache
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withPermit
 import kotlinx.coroutines.withContext
 import nl.davidengelen.redsquare.saito.RedSquareImages
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import okhttp3.OkHttpClient
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.Response
 import okhttp3.Request
 import java.nio.ByteBuffer
 import java.io.ByteArrayOutputStream
+import java.io.IOException
 import java.security.MessageDigest
 import java.util.concurrent.TimeUnit
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
 
 /** Public post media only. No wallet, draft or authenticated HTTP state. */
 internal object PostImageLoader {
@@ -32,11 +41,18 @@ internal object PostImageLoader {
             .joinToString("") { "%02x".format(it) }
         val key = "${backend.id}:$digest"
         cache.get(key) ?: slots.withPermit {
-            cache.get(key) ?: decode(bytes(source, backend)).also { cache.put(key, it) }
+            cache.get(key) ?: run {
+                val bytes = bytes(source, backend)
+                currentCoroutineContext().ensureActive()
+                val bitmap = decode(bytes)
+                currentCoroutineContext().ensureActive()
+                cache.put(key, bitmap)
+                bitmap
+            }
         }
     }
 
-    private fun bytes(source: String, backend: SaitoBackend): ByteArray {
+    private suspend fun bytes(source: String, backend: SaitoBackend): ByteArray {
         require(RedSquareImages.safeSource(source) == source)
         if (source.startsWith("data:", ignoreCase = true)) {
             val payload = source.substringAfter(',')
@@ -44,21 +60,37 @@ internal object PostImageLoader {
             return Base64.decode(payload, Base64.NO_WRAP).also { require(it.size <= MAX_BYTES) }
         }
         val url = if (source.startsWith('/')) backend.webUrl + source else source
-        return client.newCall(Request.Builder().url(url).build()).execute().use { response ->
-            check(response.isSuccessful)
-            val body = requireNotNull(response.body)
-            require(body.contentLength() <= MAX_BYTES)
-            body.byteStream().use { stream ->
-                val output = ByteArrayOutputStream()
-                val buffer = ByteArray(8192)
-                while (true) {
-                    val count = stream.read(buffer)
-                    if (count < 0) break
-                    require(output.size() + count <= MAX_BYTES)
-                    output.write(buffer, 0, count)
+        return suspendCancellableCoroutine { continuation ->
+            val call = client.newCall(Request.Builder().url(url).build())
+            continuation.invokeOnCancellation { call.cancel() }
+            call.enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+                    if (continuation.isActive) continuation.resumeWithException(e)
                 }
-                output.toByteArray()
-            }
+                override fun onResponse(call: Call, response: Response) {
+                    try {
+                        val data = response.use {
+                            check(it.isSuccessful)
+                            val body = requireNotNull(it.body)
+                            require(body.contentLength() <= MAX_BYTES)
+                            body.byteStream().use { stream ->
+                                val output = ByteArrayOutputStream()
+                                val buffer = ByteArray(8192)
+                                while (true) {
+                                    val count = stream.read(buffer)
+                                    if (count < 0) break
+                                    require(output.size() + count <= MAX_BYTES)
+                                    output.write(buffer, 0, count)
+                                }
+                                output.toByteArray()
+                            }
+                        }
+                        if (continuation.isActive) continuation.resume(data)
+                    } catch (failure: Exception) {
+                        if (continuation.isActive) continuation.resumeWithException(failure)
+                    }
+                }
+            })
         }
     }
 
