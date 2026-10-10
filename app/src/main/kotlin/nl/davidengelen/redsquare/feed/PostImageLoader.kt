@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
-/** Public post media only. No wallet, draft or authenticated HTTP state. */
+/** Bounded in-memory raster loading. No wallet state, authenticated HTTP or image files. */
 internal object PostImageLoader {
     private const val MAX_BYTES = 2 * 1024 * 1024
     private val slots = Semaphore(2)

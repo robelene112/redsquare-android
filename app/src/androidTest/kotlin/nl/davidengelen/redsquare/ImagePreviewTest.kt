@@ -67,7 +67,7 @@ class ImagePreviewTest {
                             ui.onNode(hasSetTextAction()).performTextReplacement("Saved image draft")
                             ui.onNodeWithText("Add images").assertIsDisplayed().performClick()
                             ui.waitUntil(15_000) { ui.onAllNodesWithContentDescription("Image 1 of 1").fetchSemanticsNodes().isNotEmpty() }
-                            ui.onNodeWithContentDescription("Image 1 of 1").assertIsDisplayed()
+                            ui.onNodeWithContentDescription("Image 1 of 1").performScrollTo().assertIsDisplayed()
                             ui.onNodeWithText("Save draft").performClick()
                             ui.waitUntil(10_000) { ui.onAllNodesWithText("New post").fetchSemanticsNodes().isNotEmpty() }
                             scenario.recreate()
@@ -75,7 +75,7 @@ class ImagePreviewTest {
                             ui.onNodeWithText("New post").performClick()
                             ui.waitUntil(15_000) { ui.onAllNodesWithContentDescription("Image 1 of 1").fetchSemanticsNodes().isNotEmpty() }
                             ui.onNode(hasSetTextAction()).assert(hasText("Saved image draft"))
-                            val bitmap = ui.onNodeWithContentDescription("Image 1 of 1").captureToImage().asAndroidBitmap()
+                            val bitmap = ui.onNodeWithContentDescription("Image 1 of 1").performScrollTo().assertIsDisplayed().captureToImage().asAndroidBitmap()
                             val pixel = bitmap.getPixel(bitmap.width / 2, bitmap.height / 2)
                             assertTrue(kotlin.math.abs(android.graphics.Color.red(pixel) - 220) <= 5)
                             assertTrue(kotlin.math.abs(android.graphics.Color.green(pixel) - 30) <= 5)
@@ -131,9 +131,7 @@ class ImagePreviewTest {
     }
 
     private fun capture(name: String) {
-        val image = ui.onAllNodes(isRoot()).onLast().captureToImage().asAndroidBitmap()
-        File(context.cacheDir, name).apply { parentFile?.mkdirs() }.outputStream().use {
-            check(image.compress(Bitmap.CompressFormat.PNG, 100, it))
-        }
+        val file = File(context.cacheDir, name).apply { parentFile?.mkdirs() }
+        check(androidx.test.uiautomator.UiDevice.getInstance(instrumentation).takeScreenshot(file))
     }
 }

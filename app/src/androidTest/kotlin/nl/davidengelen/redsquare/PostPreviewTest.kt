@@ -396,7 +396,7 @@ class PostPreviewTest {
                 val invalid = "Keep \uD800 as entered"
                 ui.onNode(hasSetTextAction()).performTextReplacement(invalid)
                 ui.onNodeWithText("Send").performClick()
-                waitFor("This post needs valid text and must fit within the app's 1 MiB encoded message limit. Shorten or correct it, then try again. Your text is still here.")
+                waitFor("This post is too large or contains invalid text. Shorten it or remove an image, then try again. Your draft is still here.")
                 ui.onNode(hasSetTextAction()).assertTextEquals(invalid).assertIsEnabled()
                 assertTrue(peer.transactions.isEmpty())
                 peer.assertHealthy()

@@ -5,6 +5,10 @@
     <string name="image_next">Next image</string>
     <string name="image_loading">Loading image</string>
     <string name="image_unavailable">Image unavailable</string>
+    <string name="image_add">Add images</string>
+    <string name="image_remove">Remove image %1$d</string>
+    <string name="image_prepare_failed">Could not prepare or save the images. Your draft is still here.</string>
+    <string name="image_preparing">Preparing images...</string>
     <string name="social_like">Like</string>
     <string name="social_liked">Liked</string>
     <string name="social_retry_like">Retry like</string>
@@ -136,7 +140,7 @@
     <string name="post_clear_keep">Keep this post</string>
     <string name="post_save_draft">Save draft</string>
     <string name="post_write">Write a post</string>
-    <string name="post_invalid_text">This post needs valid text and must fit within the app\'s 1 MiB encoded message limit. Shorten or correct it, then try again. Your text is still here.</string>
+    <string name="post_invalid_text">This post is too large or contains invalid text. Shorten it or remove an image, then try again. Your draft is still here.</string>
     <string name="post_draft_local">Drafts stay with this wallet and server on this device. They remain unsent until you press Send.</string>
     <string name="post_draft_error">Could not load or confirm the saved draft. Your current text remains here. Try again.</string>
     <string name="follow_account">Follow</string>

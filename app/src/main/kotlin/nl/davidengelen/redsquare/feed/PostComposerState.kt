@@ -1,7 +1,8 @@
 package nl.davidengelen.redsquare.feed
 
 import androidx.compose.runtime.*
-import com.google.gson.JsonObject
+import android.content.ContentResolver
+import android.net.Uri
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -15,6 +16,8 @@ import nl.davidengelen.redsquare.saito.FeedPost
 import nl.davidengelen.redsquare.saito.SaitoPeer
 import nl.davidengelen.redsquare.saito.SaitoTransaction
 import nl.davidengelen.redsquare.saito.SaitoWallet
+import nl.davidengelen.redsquare.saito.RedSquarePosts
+import nl.davidengelen.redsquare.saito.RedSquareImages
 
 /** Composer operations live for this visible wallet/backend session. */
 internal class PostComposerState(
@@ -29,6 +32,9 @@ internal class PostComposerState(
     private val owner = wallet.publicKey
     private val writes = Mutex()
     var text by mutableStateOf("")
+    var images by mutableStateOf<List<String>>(emptyList())
+    var imageError by mutableStateOf(false)
+    var preparingImages by mutableStateOf(false)
     var ready by mutableStateOf(false)
     var saving by mutableStateOf(false)
     var error by mutableStateOf(false)
@@ -46,7 +52,9 @@ internal class PostComposerState(
         try {
             val saved = withContext(Dispatchers.IO) { store.load() }
             text = if (saved.transaction != null) saved.text else memory.text ?: saved.text
+            images = if (saved.transaction != null) saved.images else memory.images ?: saved.images
             memory.text = text
+            memory.images = images
             transaction = saved.transaction
             queued = saved.queued
             queueSaved = saved.queued
@@ -59,10 +67,11 @@ internal class PostComposerState(
     suspend fun persist(): Boolean = writes.withLock {
         if (!ready) return@withLock false
         try {
-            val snapshot = PostDraftStore.Saved(text, transaction, queued, available)
+            val snapshot = PostDraftStore.Saved(text, transaction, queued, available, images = images)
             withContext(NonCancellable) {
                 val persisted = withContext(Dispatchers.IO) { store.saveComposer(snapshot) }
                 memory.text = persisted.text
+                memory.images = persisted.images
                 queueSaved = persisted.queued
             }
             error = false
@@ -82,7 +91,7 @@ internal class PostComposerState(
         }
     }
     fun send() {
-        if (!ready || saving || sending || text.isBlank()) return
+        if (!ready || saving || sending || (text.isBlank() && images.isEmpty())) return
         val retrying = transaction != null
         networkError = false
         validationError = false
@@ -91,31 +100,13 @@ internal class PostComposerState(
             try {
                 val candidate = writes.withLock {
                     val prepared = transaction ?: withContext(Dispatchers.IO) {
-                        val body = JsonObject().apply {
-                            addProperty("module", "RedSquare"); addProperty("request", "create tweet")
-                            add("data", JsonObject().apply {
-                                addProperty("text", text)
-                                parent?.let { addProperty("parent_id", it.id); addProperty("thread_id", it.threadId) }
-                                quote?.let { original ->
-                                    val verified = nl.davidengelen.redsquare.saito.RedSquareFeed.decode(original.envelope)
-                                    check(verified.id == original.id)
-                                    addProperty("signature", verified.id)
-                                    addProperty("retweet_tx", verified.envelope)
-                                    add("embedded", JsonObject().apply {
-                                        addProperty("signature", verified.id); addProperty("publicKey", verified.author)
-                                        addProperty("created_at", verified.createdAt); addProperty("text", verified.text)
-                                        val originalData = nl.davidengelen.redsquare.saito.SaitoEnvelope.decode(verified.envelope).body.getAsJsonObject("data")
-                                        add("images", originalData.getAsJsonArray("images")?.deepCopy() ?: com.google.gson.JsonArray())
-                                    })
-                                }
-                            })
-                        }
+                        val body = RedSquarePosts.message(text, images, parent, quote)
                         val recipients = (parent ?: quote)?.let { (listOf(it.author) + it.recipients).distinct() }.orEmpty()
                         SaitoTransaction.create(wallet, body, System.currentTimeMillis(), recipients)
                     }
                     if (transaction == null) queued = true
                     transaction = prepared
-                    val snapshot = PostDraftStore.Saved(text, prepared, queued)
+                    val snapshot = PostDraftStore.Saved(text, prepared, queued, images = images)
                     val persisted = withContext(NonCancellable + Dispatchers.IO) { store.saveComposer(snapshot) }
                     queued = persisted.queued
                     queueSaved = persisted.queued
@@ -183,13 +174,14 @@ internal class PostComposerState(
                         withContext(Dispatchers.IO) {
                             val saved = store.load()
                             check(saved.queued && saved.transaction?.id == transaction?.id)
-                            check(store.update(saved, PostDraftStore.Saved(text)))
+                            check(store.update(saved, PostDraftStore.Saved(text, images = images)))
                         }
                         transaction = null
                         queued = false
                         queueSaved = false
                         networkError = false
                         memory.text = text
+                        memory.images = images
                     }
                 }
             } catch (cancelled: CancellationException) { throw cancelled }
@@ -207,7 +199,9 @@ internal class PostComposerState(
                     withContext(NonCancellable) {
                         withContext(Dispatchers.IO) { store.save(PostDraftStore.Saved("")) }
                         memory.text = ""
+                        memory.images = emptyList()
                         text = ""
+                        images = emptyList()
                         transaction = null
                     }
                 }
@@ -221,6 +215,70 @@ internal class PostComposerState(
         text = value
         memory.text = value
         validationError = false
+    }
+
+    fun addImages(resolver: ContentResolver, uris: List<Uri>) {
+        if (!ready || saving || sending || transaction != null || uris.isEmpty()) return
+        if (uris.size > RedSquareImages.MAX_COUNT - images.size) { imageError = true; return }
+        saving = true
+        imageError = false
+        preparingImages = true
+        scope.launch {
+            try {
+                writes.withLock {
+                    // Preserve current work before any provider read or pixel allocation.
+                    val prior = PostDraftStore.Saved(text, images = images)
+                    val persistedPrior = withContext(NonCancellable + Dispatchers.IO) { store.saveComposer(prior) }
+                    memory.text = persistedPrior.text
+                    memory.images = persistedPrior.images
+                    val remaining = withContext(Dispatchers.IO) {
+                        SaitoTransaction.MAX_MESSAGE_BYTES - RedSquarePosts.message(text, images, parent, quote)
+                            .toString().toByteArray(Charsets.UTF_8).size - 8 * uris.size
+                    }
+                    val perImage = minOf(RedSquarePosts.MAX_IMAGE_CHARS, remaining / uris.size)
+                    require(perImage >= 1024)
+                    val prepared = mutableListOf<String>()
+                    for (uri in uris) prepared.add(PostImagePreparation.normalize(resolver, uri, perImage))
+                    val combined = images + prepared
+                    val finalSize = withContext(Dispatchers.IO) { RedSquarePosts.message(text, combined, parent, quote).toString().toByteArray(Charsets.UTF_8).size }
+                    require(finalSize <= SaitoTransaction.MAX_MESSAGE_BYTES)
+                    val snapshot = PostDraftStore.Saved(text, images = combined)
+                    withContext(NonCancellable) {
+                        val persisted = withContext(Dispatchers.IO) { store.saveComposer(snapshot) }
+                        images = persisted.images
+                        memory.images = persisted.images
+                        memory.text = persisted.text
+                    }
+                    error = false
+                    validationError = false
+                }
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { imageError = true }
+            finally { saving = false; preparingImages = false }
+        }
+    }
+
+    fun removeImage(index: Int) {
+        if (!ready || saving || sending || transaction != null || index !in images.indices) return
+        saving = true
+        scope.launch {
+            try {
+                writes.withLock {
+                    val replacement = images.filterIndexed { position, _ -> position != index }
+                    withContext(NonCancellable) {
+                        val persisted = withContext(Dispatchers.IO) { store.saveComposer(PostDraftStore.Saved(text, images = replacement)) }
+                        images = persisted.images
+                        memory.images = persisted.images
+                        memory.text = persisted.text
+                    }
+                    imageError = false
+                    error = false
+                    validationError = false
+                }
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { imageError = true }
+            finally { saving = false }
+        }
     }
     private class DraftPersistenceFailure(cause: Exception) : RuntimeException(cause)
 }

@@ -21,11 +21,14 @@ import nl.davidengelen.redsquare.saito.RedSquareFeed
 import nl.davidengelen.redsquare.saito.FeedPost
 import nl.davidengelen.redsquare.saito.AuthorActionKind
 import nl.davidengelen.redsquare.saito.RedSquareAuthorActions
+import nl.davidengelen.redsquare.saito.RedSquareImages
+import nl.davidengelen.redsquare.saito.RedSquarePosts
+import nl.davidengelen.redsquare.saito.SaitoEnvelope
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
 import com.google.gson.Strictness
 
-/** Unpublished text stays encrypted on this device, scoped to its wallet and backend. */
+/** Unpublished text and normalized media stay encrypted, scoped to wallet and backend. */
 internal class PostDraftStore private constructor(private val context: Context, private val owner: String, private val backend: SaitoBackend,
     private val parentId: String, private val parentThread: String?, private val quoteId: String = "",
     private val authorTarget: String = "", private val authorKind: AuthorActionKind? = null) {
@@ -37,7 +40,8 @@ internal class PostDraftStore private constructor(private val context: Context, 
     private val associatedData = "${context.packageName}:${file.baseFile.name}".toByteArray(Charsets.UTF_8)
 
     data class Saved(val text: String, val transaction: SaitoTransaction? = null, val queued: Boolean = false,
-        val available: Boolean = false, val automatic: Boolean = false, val authorBaseline: String? = null)
+        val available: Boolean = false, val automatic: Boolean = false, val authorBaseline: String? = null,
+        val images: List<String> = emptyList())
     data class AuthorWork(val target: String, val kind: AuthorActionKind, val saved: Saved)
     private val gson = GsonBuilder().setStrictness(Strictness.STRICT).create()
 
@@ -68,7 +72,14 @@ internal class PostDraftStore private constructor(private val context: Context, 
                 val record = gson.fromJson(decoded, JsonObject::class.java)
                 val content = record.get("text").asString
                 val transaction = record.get("transaction")?.takeUnless { it.isJsonNull }?.asString?.let(SaitoTransaction::restore)
-                validateTransaction(transaction, content)
+                val images = record.get("images")?.let { values ->
+                    require(values.isJsonArray)
+                    values.asJsonArray.map { value ->
+                        require(value.isJsonPrimitive && value.asJsonPrimitive.isString)
+                        value.asString
+                    }
+                }.orEmpty()
+                validateTransaction(transaction, content, images)
                 val queued = record.get("queued")?.let {
                     require(it.isJsonPrimitive && it.asJsonPrimitive.isBoolean)
                     it.asBoolean
@@ -90,13 +101,13 @@ internal class PostDraftStore private constructor(private val context: Context, 
                     it.asString
                 }
                 validateBaseline(baseline)
-                Saved(content, transaction, queued, available, automatic, baseline)
+                Saved(content, transaction, queued, available, automatic, baseline, images)
             }
         } finally { text.fill(0) }
     }
 
     fun save(saved: Saved) = synchronized(lock) {
-        validateTransaction(saved.transaction, saved.text)
+        validateTransaction(saved.transaction, saved.text, saved.images)
         validateBaseline(saved.authorBaseline)
         require(authorKind == null || (!saved.queued && !saved.automatic))
         require(!saved.queued || saved.transaction != null)
@@ -105,6 +116,7 @@ internal class PostDraftStore private constructor(private val context: Context, 
         require(saved.text.toByteArray(Charsets.UTF_8).size <= 1024 * 1024)
         val record = JsonObject().apply {
             addProperty("text", saved.text)
+            add("images", com.google.gson.JsonArray().apply { saved.images.forEach(::add) })
             saved.transaction?.let { addProperty("transaction", it.encoded()) }
             addProperty("queued", saved.queued)
             addProperty("available", saved.available)
@@ -149,7 +161,11 @@ internal class PostDraftStore private constructor(private val context: Context, 
         changes.value += 1
     }
 
-    private fun validateTransaction(transaction: SaitoTransaction?, content: String) {
+    private fun validateTransaction(transaction: SaitoTransaction?, content: String, images: List<String>) {
+        require(images.size <= RedSquareImages.MAX_COUNT && images.all {
+            it.length <= RedSquarePosts.MAX_IMAGE_CHARS && RedSquareImages.safeSource(it) == it
+        })
+        require(authorKind == null || images.isEmpty())
         transaction?.let {
             if (authorKind != null) {
                 val action = RedSquareAuthorActions.decode(it.envelope())
@@ -160,6 +176,9 @@ internal class PostDraftStore private constructor(private val context: Context, 
                 require(post.author == owner && post.text == content)
                 require(post.parentId == parentId && (parentThread == null || post.threadId == parentThread))
                 require(post.quoted?.id.orEmpty() == quoteId)
+                val signedImages = SaitoEnvelope.decode(it.envelope()).body.getAsJsonObject("data").get("images")
+                    ?: com.google.gson.JsonArray()
+                require(signedImages == com.google.gson.JsonArray().apply { images.forEach(::add) })
             }
         }
     }
@@ -203,7 +222,7 @@ internal class PostDraftStore private constructor(private val context: Context, 
 
     fun cancelQueued(expected: Saved): Boolean = synchronized(lock) {
         if (!expected.queued) return@synchronized false
-        update(expected, Saved(expected.text))
+        update(expected, Saved(expected.text, images = expected.images))
     }
 
     companion object {
@@ -232,7 +251,7 @@ internal class PostDraftStore private constructor(private val context: Context, 
         private fun same(first: Saved, second: Saved) = first.text == second.text &&
             first.transaction?.encoded() == second.transaction?.encoded() &&
             first.queued == second.queued && first.available == second.available && first.automatic == second.automatic &&
-            first.authorBaseline == second.authorBaseline
+            first.authorBaseline == second.authorBaseline && first.images == second.images
 
         fun pendingDelivery(context: Context, owner: String, backend: SaitoBackend): List<PostDraftStore> {
             val prefix = "postdraft.${backend.id}.$owner"

@@ -54,6 +54,10 @@ checks activity before decode/cache. It awaits verification. Spec review0.
 Next tracer selects a synthetic image through a controlled picker-result
 boundary and verifies saved/recreated draft text/media without publication.
 This first tracer does not claim actual system picker UI or process-death proof.
+The first retained image-viewer.png captures the underlying feed root, not the
+dialog, despite successful viewer assertions. It is excluded from viewer visual
+acceptance. Corrected capture uses the actual Android window screenshot; this
+does not change the runtime assertions or establish a different failure cause.
 
 ## Remaining acceptance
 
@@ -62,3 +66,29 @@ work across save/restart/queue/import/backend changes, remote failure placeholde
 quote/media author edit/deletion propagation, real process interruption and
 native-frame/current-client image presentation proof. Focused checks then full
 Android10/17 acceptance, two-axis review, commit/push. Pixel timing remains#35.
+
+## Selection/draft checkpoint in progress
+
+Expected RED38060848742 at07cbfde confirmed the selected-image tracer fails
+on the absent Add images UI; the signed-image display case remains PASS.
+Retained selection/android10-red.txt. Controlled picker results use an owned
+synthetic MediaStore PNG, not a real account/photo or broad storage permission.
+
+Composer now uses AndroidX image-only single/multiple visual selection and
+enforces four results including fallback providers. Selected content is read
+with32MiB byte cap,15second provider deadline, bounded read/cleanup pools and
+cancellation/descriptor closure off the UI thread. Decode rejects unsupported
+input MIME/axis/pixel bounds and targets1920x1024 software pixels. JPEG encoding
+flattens alpha to white, emits no source metadata, and has finite quality/resize
+attempts under380KiB JPEG/512KiB URI and remaining whole-message budget. Actual
+format/orientation/metadata/failure fixtures remain pending.
+
+The previous text/media draft is verified in encrypted storage before provider
+reads. A prepared batch appears only after encrypted save/reopen verification;
+failed preparation/save retains previous media and composed text. Saved records
+append default-empty images for legacy drafts and compare exact raw own signed
+data.images to stored images. Memory, queue cancellation, queue display and
+exact-candidate persistence preserve them. Composition uses the independently
+verified core builder; image-only Send is enabled. The scrollable composer keeps
+media accessible in constrained viewports. These changes await focused runtime
+and broader recovery acceptance; the ticket remains open.

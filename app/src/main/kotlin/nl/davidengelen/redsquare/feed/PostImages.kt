@@ -26,13 +26,16 @@ import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.SaitoBackend
 
 @Composable
-internal fun PostImages(images: List<String>, backend: SaitoBackend) {
+internal fun PostImages(images: List<String>, backend: SaitoBackend, onRemove: ((Int) -> Unit)? = null, removalEnabled: Boolean = true) {
     if (images.isEmpty()) return
     var selected by remember(images) { mutableStateOf<Int?>(null) }
     Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
         images.forEachIndexed { index, source ->
             PostImage(source, backend, stringResource(R.string.image_position, index + 1, images.size),
                 Modifier.fillMaxWidth().height(180.dp).clickable { selected = index })
+            if (onRemove != null) TextButton(enabled = removalEnabled, onClick = { onRemove(index) }) {
+                Text(stringResource(R.string.image_remove, index + 1))
+            }
         }
     }
     selected?.let { index ->

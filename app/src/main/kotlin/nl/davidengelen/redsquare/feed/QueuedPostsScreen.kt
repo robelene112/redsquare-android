@@ -59,6 +59,7 @@ internal fun QueuedPostsScreen(owner: String, selected: SaitoBackend, modifier: 
                 Column(Modifier.fillMaxWidth().padding(vertical = 12.dp)) {
                     Text(row.backend.domain, style = MaterialTheme.typography.labelMedium)
                     Text(row.saved.text, Modifier.padding(vertical = 8.dp))
+                    PostImages(row.saved.images, row.backend)
                     Text(stringResource(if (row.saved.queued) R.string.post_queued else R.string.post_pending))
                     if (row.backend != selected) Text(stringResource(R.string.post_queue_paused))
                     if (row.saved.queued) TextButton(enabled = saving == null, onClick = {

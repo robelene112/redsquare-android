@@ -2,7 +2,12 @@ package nl.davidengelen.redsquare.feed
 
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.LocalActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.ComponentActivity
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.lifecycle.ViewModelProvider
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -18,6 +23,8 @@ import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.saito.FeedPost
+import nl.davidengelen.redsquare.saito.RedSquareImages
+import android.net.Uri
 
 @Composable
 internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBackend, modifier: Modifier,
@@ -33,6 +40,18 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
     val scope = rememberCoroutineScope()
     val navigation = requireNotNull(LocalPostNavigation.current)
     val state = remember(store, memory, endpoint) { PostComposerState(store, memory, wallet, endpoint, parent, scope, quote) }
+    var selectedImages by remember(state) { mutableStateOf<List<Uri>>(emptyList()) }
+    val singlePicker = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) {
+        selectedImages = listOfNotNull(it)
+    }
+    val multiplePicker = rememberLauncherForActivityResult(ActivityResultContracts.PickMultipleVisualMedia(
+        maxOf(2, RedSquareImages.MAX_COUNT - state.images.size))) { selectedImages = it }
+    LaunchedEffect(state.ready, selectedImages) {
+        if (state.ready && selectedImages.isNotEmpty()) {
+            state.addImages(context.contentResolver, selectedImages)
+            selectedImages = emptyList()
+        }
+    }
     LaunchedEffect(state, state.reload) { state.load() }
     LaunchedEffect(state, state.queued, state.queueSaved, state.sending) {
         if (state.queued && state.queueSaved && !state.sending) {
@@ -66,30 +85,41 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                 TextButton(enabled = ready && !saving && !sending, onClick = { saveAndClose(onClose) }) {
                     Text(stringResource(R.string.post_save_draft))
                 }
-                TextButton(enabled = ready && !saving && !sending && text.isNotBlank() && !available, onClick = ::send) {
+                TextButton(enabled = ready && !saving && !sending && (text.isNotBlank() || images.isNotEmpty()) && !available, onClick = ::send) {
                     Text(stringResource(if (transaction == null) R.string.post_send else R.string.retry))
                 }
             }
-            if (transaction == null) Text(stringResource(R.string.post_draft_local), style = MaterialTheme.typography.bodySmall)
-            parent?.let { Text(stringResource(R.string.post_reply_to, "Anon-${it.author.take(6)}"), style = MaterialTheme.typography.bodySmall) }
-            quote?.let { QuotedPost(it, backend) }
-            if (available) Text(stringResource(R.string.post_available))
-            else if (queued && queueSaved) Text(stringResource(R.string.post_queued))
-            else if (submitted) Text(stringResource(R.string.post_submitted))
-            else if (transaction != null) Text(stringResource(R.string.post_pending))
-            if (queued && queueSaved) TextButton(enabled = !saving && !sending, onClick = ::cancelQueued) {
-                Text(stringResource(R.string.post_cancel_queued))
+            Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState())) {
+                if (transaction == null) Text(stringResource(R.string.post_draft_local), style = MaterialTheme.typography.bodySmall)
+                parent?.let { Text(stringResource(R.string.post_reply_to, "Anon-${it.author.take(6)}"), style = MaterialTheme.typography.bodySmall) }
+                quote?.let { QuotedPost(it, backend) }
+                if (available) Text(stringResource(R.string.post_available))
+                else if (queued && queueSaved) Text(stringResource(R.string.post_queued))
+                else if (submitted) Text(stringResource(R.string.post_submitted))
+                else if (transaction != null) Text(stringResource(R.string.post_pending))
+                if (queued && queueSaved) TextButton(enabled = !saving && !sending, onClick = ::cancelQueued) {
+                    Text(stringResource(R.string.post_cancel_queued))
+                }
+                if (transaction != null && !available && !queued) TextButton(enabled = !saving && !sending,
+                    onClick = { confirmClear = true }) { Text(stringResource(R.string.post_start_another)) }
+                if (networkError) Text(stringResource(R.string.post_network_error))
+                if (validationError) Text(stringResource(R.string.post_invalid_text))
+                if (error) {
+                    Text(stringResource(R.string.post_draft_error))
+                    if (!ready) TextButton(onClick = { reload++ }) { Text(stringResource(R.string.retry)) }
+                }
+                TextButton(enabled = ready && !saving && !sending && transaction == null && images.size < RedSquareImages.MAX_COUNT,
+                    onClick = {
+                        val request = PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                        if (images.size == RedSquareImages.MAX_COUNT - 1) singlePicker.launch(request)
+                        else multiplePicker.launch(request)
+                    }) { Text(stringResource(R.string.image_add)) }
+                if (imageError) Text(stringResource(R.string.image_prepare_failed))
+                if (preparingImages) Text(stringResource(R.string.image_preparing))
+                OutlinedTextField(value = text, onValueChange = ::edit, enabled = ready && !saving && !sending && transaction == null,
+                    placeholder = { Text(stringResource(R.string.post_write)) }, modifier = Modifier.fillMaxWidth().heightIn(min = 160.dp, max = 280.dp))
+                PostImages(images, backend, onRemove = if (transaction == null) ::removeImage else null, removalEnabled = !saving && !sending)
             }
-            if (transaction != null && !available && !queued) TextButton(enabled = !saving && !sending,
-                onClick = { confirmClear = true }) { Text(stringResource(R.string.post_start_another)) }
-            if (networkError) Text(stringResource(R.string.post_network_error))
-            if (validationError) Text(stringResource(R.string.post_invalid_text))
-            if (error) {
-                Text(stringResource(R.string.post_draft_error))
-                if (!ready) TextButton(onClick = { reload++ }) { Text(stringResource(R.string.retry)) }
-            }
-            OutlinedTextField(value = text, onValueChange = ::edit, enabled = ready && !saving && !sending && transaction == null,
-                placeholder = { Text(stringResource(R.string.post_write)) }, modifier = Modifier.fillMaxWidth().weight(1f))
         }
         if (confirmClear) AlertDialog(
             onDismissRequest = { confirmClear = false },
