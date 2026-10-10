@@ -166,3 +166,27 @@ after5s; two cases40.405s, first tap passes. Its individually inspected original
 PNG visibly shows white controlled-provider text on black, ready/close/external
 controls. No real media is depicted. The corrected class selector addresses
 actual WebView nodes rather than a native label that Chromium can replace.
+
+Corrected rotation GREEN38082402358 at6fd854c: two Android10 cases10.825s,
+including actual WebView absence in the undersized window and visible portrait
+bounds at least200dp. Individually inspected original fallback and portrait PNGs
+show the external message and a black controlled-player surface respectively,
+with visible close/external/ready copy. No real media is depicted.
+
+Thread/provider recovery GREEN38082750948 atbc35794: three Android10 cases
+16.916s. Its independent signed text row is positively opened as a conversation;
+the controlled archive validates the selected field5 thread ID. HTTP503, Retry
+to provider153, canonical external ACTION_VIEW stub, Retry to ready, Close to
+conversation and Back to feed all pass with exact1/2/3 API requests and no
+transaction. The individually inspected error PNG displays the expected153
+explanation and escape/retry controls. Retained recovery-green-android10 is
+intermediate only. Bounded fixture Spec review6c2186e...bc35794 has0 findings.
+
+The next lifecycle tracer ata3647ad uses trusted public WebView button taps and
+documented YouTube state events, rather than invoking private browser methods.
+It requires native observed playing, pause after backgrounding with no automatic
+resume, and cue-only reconstruction after Activity recreation. Primary IFrame
+API onStateChange documentation was rechecked2026-10-10; state1 is playing and
+state2 paused. The native playing observation is not implemented yet.
+FocusedRED38083125042 is pending. A separate opt-in live provider read remains
+planned so controlled readiness is not confused with actual YouTube playback.
