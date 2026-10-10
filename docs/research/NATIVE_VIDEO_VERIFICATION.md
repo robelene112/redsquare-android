@@ -302,5 +302,9 @@ no frame geometry or browser screenshot was captured. This does not establish
 the player dimensions or the provider failure cause. Discovery now records
 only stage names and page/frame counts, and connects to a page in the isolated
 .dev process before filtering each frame by the existing allowed origins.
-No DOM read or screenshot occurs for an unapproved frame. The changed tool
+DOM reads are filtered per allowed frame. Review found that the optional page
+screenshot could include other frames after broadened discovery, so it has been
+removed entirely. Only the existing native UI test captures PNGs. The changed tool
 remains a diagnostic, separate from the unchanged native acceptance assertions.
+Immutable5771d9d run38086007749 predates that removal; it must not be cited as
+runtime proof of the screenshot boundary fix.

@@ -67,13 +67,6 @@ async function inspect(target) {
       })()`});
       if (result.result?.value) output({frame:result.result.value});
     }
-    if (frames.length) {
-      const screenshot = await call('Page.captureScreenshot', {format:'png'});
-      if (screenshot.data && screenshot.data.length < 4*1024*1024) {
-        fs.writeFileSync(path.join(directory, 'video-browser-last.png'), Buffer.from(screenshot.data,'base64'));
-        output({browserScreenshot:'video-browser-last.png'});
-      }
-    }
   } finally {
     socket.close();
     activeSocket = undefined;
