@@ -8,6 +8,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -215,6 +216,21 @@ internal class PostComposerState(
         text = value
         memory.text = value
         validationError = false
+    }
+
+    fun openImagePicker(onLaunch: () -> Unit) {
+        if (!ready || saving || sending || transaction != null || images.size >= RedSquareImages.MAX_COUNT) return
+        saving = true
+        scope.launch {
+            try {
+                if (!persist()) return@launch
+                // Persistence finishes even during disposal. External navigation must not.
+                ensureActive()
+                onLaunch()
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { imageError = true }
+            finally { saving = false }
+        }
     }
 
     fun addImages(resolver: ContentResolver, uris: List<Uri>) {

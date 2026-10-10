@@ -156,8 +156,13 @@ one question at a time when a material choice really needs the owner.
   Test first, then add a state-owned verified save-before-launch guard and bind
   delayed results to their originating composer. Save failure must launch no
   picker. This production change needs fresh full10 AND17 acceptance; successful
-  654 baseline cannot close15. RED tracer c3b2aaa in run38072955931 pending.
-  No production fix yet at this checkpoint.
+  654 baseline cannot close15. RED tracer c3b2aaa in run38072955931 reproduces
+  loss of final text after actual process death: preliminary text recovers,
+  prepared red pixels survive. Retained picker-navigation-red logs/PNG/XML with
+  explicit viewport/transition limits. Production correction now being compiled:
+  synchronous saving gate, verified persistence, session-cancelled scope,
+  saveable full-domain pending marker and keyed launchers. GREEN, failed-save
+  refusal, recreation and fresh full10/17 gates remain; no closure yet.
   Full10 evidence retained6853de3, corrected official caption0c5b7fd; both
   bounded evidence review axes0 residual findings.
   Actual post/reply/quote frames independently verified; A/B unchanged templates

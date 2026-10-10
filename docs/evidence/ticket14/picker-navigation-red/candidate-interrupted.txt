@@ -1,0 +1,98 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImageProcessRecoveryTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ImageProcessRecoveryTest:
+INSTRUMENTATION_STATUS: test=coldDraftKeepsPixelsWithoutSourceAndTerminatesAfterUncertainSend
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImageProcessRecoveryTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (Text + InputText + EditableText contains 'Recover prepared image after its source disappears' (ignoreCase: false))
+Semantics of the node:
+Node #90 at (l=16.0, t=284.0, r=304.0, b=444.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = 'Prepared image before opening another picker'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@4204b38'
+Focused = 'false'
+ImeAction = 'Default'
+InputText = 'Prepared image before opening another picker'
+IsEditable = 'true'
+TextSelectionRange = 'TextRange(0, 0)'
+Actions = [GetTextLayoutResult, InsertTextAtCursor, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText]
+MergeDescendants = 'true'
+Has 4 siblings
+Selector used: (SetText is defined)
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at nl.davidengelen.redsquare.ImageProcessRecoveryTest.coldDraftKeepsPixelsWithoutSourceAndTerminatesAfterUncertainSend$lambda$14(ImageProcessRecoveryTest.kt:114)
+	at nl.davidengelen.redsquare.ImageProcessRecoveryTest.$r8$lambda$IfVA-q8pkOv6a-BB49O9nmG6KBk(ImageProcessRecoveryTest.kt:0)
+	at nl.davidengelen.redsquare.ImageProcessRecoveryTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ImageProcessRecoveryTest.launch(ImageProcessRecoveryTest.kt:155)
+	at nl.davidengelen.redsquare.ImageProcessRecoveryTest.coldDraftKeepsPixelsWithoutSourceAndTerminatesAfterUncertainSend(ImageProcessRecoveryTest.kt:109)
+
+INSTRUMENTATION_STATUS: stream=
+Error in coldDraftKeepsPixelsWithoutSourceAndTerminatesAfterUncertainSend(nl.davidengelen.redsquare.ImageProcessRecoveryTest):
+java.lang.AssertionError: Failed to assert the following: (Text + InputText + EditableText contains 'Recover prepared image after its source disappears' (ignoreCase: false))
+Semantics of the node:
+Node #90 at (l=16.0, t=284.0, r=304.0, b=444.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = 'Prepared image before opening another picker'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@4204b38'
+Focused = 'false'
+ImeAction = 'Default'
+InputText = 'Prepared image before opening another picker'
+IsEditable = 'true'
+TextSelectionRange = 'TextRange(0, 0)'
+Actions = [GetTextLayoutResult, InsertTextAtCursor, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText]
+MergeDescendants = 'true'
+Has 4 siblings
+Selector used: (SetText is defined)
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at nl.davidengelen.redsquare.ImageProcessRecoveryTest.coldDraftKeepsPixelsWithoutSourceAndTerminatesAfterUncertainSend$lambda$14(ImageProcessRecoveryTest.kt:114)
+	at nl.davidengelen.redsquare.ImageProcessRecoveryTest.$r8$lambda$IfVA-q8pkOv6a-BB49O9nmG6KBk(ImageProcessRecoveryTest.kt:0)
+	at nl.davidengelen.redsquare.ImageProcessRecoveryTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ImageProcessRecoveryTest.launch(ImageProcessRecoveryTest.kt:155)
+	at nl.davidengelen.redsquare.ImageProcessRecoveryTest.coldDraftKeepsPixelsWithoutSourceAndTerminatesAfterUncertainSend(ImageProcessRecoveryTest.kt:109)
+
+INSTRUMENTATION_STATUS: test=coldDraftKeepsPixelsWithoutSourceAndTerminatesAfterUncertainSend
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 3.293
+There was 1 failure:
+1) coldDraftKeepsPixelsWithoutSourceAndTerminatesAfterUncertainSend(nl.davidengelen.redsquare.ImageProcessRecoveryTest)
+java.lang.AssertionError: Failed to assert the following: (Text + InputText + EditableText contains 'Recover prepared image after its source disappears' (ignoreCase: false))
+Semantics of the node:
+Node #90 at (l=16.0, t=284.0, r=304.0, b=444.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = 'Prepared image before opening another picker'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@4204b38'
+Focused = 'false'
+ImeAction = 'Default'
+InputText = 'Prepared image before opening another picker'
+IsEditable = 'true'
+TextSelectionRange = 'TextRange(0, 0)'
+Actions = [GetTextLayoutResult, InsertTextAtCursor, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText]
+MergeDescendants = 'true'
+Has 4 siblings
+Selector used: (SetText is defined)
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at nl.davidengelen.redsquare.ImageProcessRecoveryTest.coldDraftKeepsPixelsWithoutSourceAndTerminatesAfterUncertainSend$lambda$14(ImageProcessRecoveryTest.kt:114)
+	at nl.davidengelen.redsquare.ImageProcessRecoveryTest.$r8$lambda$IfVA-q8pkOv6a-BB49O9nmG6KBk(ImageProcessRecoveryTest.kt:0)
+	at nl.davidengelen.redsquare.ImageProcessRecoveryTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ImageProcessRecoveryTest.launch(ImageProcessRecoveryTest.kt:155)
+	at nl.davidengelen.redsquare.ImageProcessRecoveryTest.coldDraftKeepsPixelsWithoutSourceAndTerminatesAfterUncertainSend(ImageProcessRecoveryTest.kt:109)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -37,15 +38,45 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
         ViewModelProvider(activity)["post:$owner:${backend.id}:${parent?.id.orEmpty()}:quote:${quote?.id.orEmpty()}", PostComposerMemory::class.java]
     }
     val store = remember(owner, backend, parent?.id, quote?.id) { PostDraftStore(context, owner, backend, parent, quote) }
-    val scope = rememberCoroutineScope()
     val navigation = requireNotNull(LocalPostNavigation.current)
-    val state = remember(store, memory, endpoint) { PostComposerState(store, memory, wallet, endpoint, parent, scope, quote) }
-    var selectedImages by remember(state) { mutableStateOf<List<Uri>>(emptyList()) }
-    val singlePicker = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) {
-        selectedImages = listOfNotNull(it)
+    val session = "$owner:${backend.id}:${parent?.id.orEmpty()}:quote:${quote?.id.orEmpty()}:$endpoint"
+    val state = key(session) {
+        val scope = rememberCoroutineScope()
+        remember(store, memory) { PostComposerState(store, memory, wallet, endpoint, parent, scope, quote) }
     }
-    val multiplePicker = rememberLauncherForActivityResult(ActivityResultContracts.PickMultipleVisualMedia(
-        maxOf(2, RedSquareImages.MAX_COUNT - state.images.size))) { selectedImages = it }
+    var selectedImages by remember(state) { mutableStateOf<List<Uri>>(emptyList()) }
+    // Only public session metadata enters saved state. Wallet material and draft
+    // contents remain in their existing private stores.
+    var pickingFor by rememberSaveable(session) { mutableStateOf<String?>(null) }
+    val launchImagePicker: () -> Unit = key(session) {
+        val singlePicker = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) {
+            if (pickingFor == session) {
+                pickingFor = null
+                selectedImages = listOfNotNull(it)
+            }
+        }
+        val multiplePicker = rememberLauncherForActivityResult(ActivityResultContracts.PickMultipleVisualMedia(
+            maxOf(2, RedSquareImages.MAX_COUNT - state.images.size))) {
+            if (pickingFor == session) {
+                pickingFor = null
+                selectedImages = it
+            }
+        }
+        val launch: () -> Unit = {
+            if (pickingFor != session) state.openImagePicker {
+                pickingFor = session
+                try {
+                    val request = PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                    if (state.images.size == RedSquareImages.MAX_COUNT - 1) singlePicker.launch(request)
+                    else multiplePicker.launch(request)
+                } catch (failure: Exception) {
+                    pickingFor = null
+                    throw failure
+                }
+            }
+        }
+        launch
+    }
     LaunchedEffect(state.ready, selectedImages) {
         if (state.ready && selectedImages.isNotEmpty()) {
             state.addImages(context.contentResolver, selectedImages)
@@ -108,12 +139,8 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                     Text(stringResource(R.string.post_draft_error))
                     if (!ready) TextButton(onClick = { reload++ }) { Text(stringResource(R.string.retry)) }
                 }
-                TextButton(enabled = ready && !saving && !sending && transaction == null && images.size < RedSquareImages.MAX_COUNT,
-                    onClick = {
-                        val request = PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
-                        if (images.size == RedSquareImages.MAX_COUNT - 1) singlePicker.launch(request)
-                        else multiplePicker.launch(request)
-                    }) { Text(stringResource(R.string.image_add)) }
+                TextButton(enabled = ready && !saving && !sending && transaction == null && images.size < RedSquareImages.MAX_COUNT && pickingFor != session,
+                    onClick = launchImagePicker) { Text(stringResource(R.string.image_add)) }
                 if (imageError) Text(stringResource(R.string.image_prepare_failed))
                 if (preparingImages) Text(stringResource(R.string.image_preparing))
                 OutlinedTextField(value = text, onValueChange = ::edit, enabled = ready && !saving && !sending && transaction == null,

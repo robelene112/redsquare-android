@@ -23,9 +23,13 @@ Source review additionally confirmed a preservation gap: opening the external
 picker precedes durable saving of newly typed text. Existing process recovery
 starts after preparation and does not cover death while the picker is open.
 Extend that tracer to kill the actual process with a real picker foreground,
-then require the new text and existing prepared image on cold recovery. Fix
-the launch boundary only after observing red, including save-failure refusal
-and originating-session ownership. This production correction requires fresh
+then require the new text and existing prepared image on cold recovery. RED
+38072955931 reproduces lost final text: cold UI restores the preliminary text
+while red pixels remain. Logs and inspected PNG/XML limits are retained at
+../evidence/ticket14/picker-navigation-red/REVIEW.md. The correction adds a
+state-owned verified save before launch, active-session cancellation and
+saveable domain-bound pending results. Local compile and GREEN remain pending,
+including save-failure refusal and recreation. This production correction requires fresh
 full Android10 and17 acceptance; the running companion is a regression baseline,
 not final acceptance. Do not close #15 until the correction and both results
 are reviewed and accepted.
