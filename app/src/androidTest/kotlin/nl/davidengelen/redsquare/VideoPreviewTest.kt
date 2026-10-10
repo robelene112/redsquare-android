@@ -4,6 +4,9 @@ import android.content.Intent
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
+import androidx.test.espresso.intent.Intents
+import androidx.test.espresso.intent.matcher.IntentMatchers.hasAction
+import androidx.test.espresso.intent.matcher.IntentMatchers.hasData
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
@@ -16,6 +19,7 @@ import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.hamcrest.CoreMatchers.allOf
 import java.io.File
 
 class VideoPreviewTest {
@@ -133,6 +137,83 @@ class VideoPreviewTest {
                         } catch (failure: Throwable) {
                             failure.addSuppressed(AssertionError("Controlled provider requests: ${api.requestCount}"))
                             try { capture("video-evidence/size-failure.png") } catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
+                            throw failure
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test fun aThreadVideoCanRetryProviderFailuresAndOpenItsCanonicalExternalLink() {
+        val reference = instrumentation.context.assets.open("native-video-reference.json").bufferedReader()
+            .use { com.google.gson.JsonParser.parseReader(it).asJsonObject }
+        val row = reference.getAsJsonObject("text")
+        val postText = "Signed YouTube reference https://www.youtube.com/watch?v=M7lc1UVf-VE"
+        val threadReads = java.util.concurrent.atomic.AtomicInteger()
+        val peer = ControlledFeedPeer("[$row]", archiveResponse = { criteria ->
+            check(criteria.get("field1").asString == "RedSquare")
+            check(criteria.get("flagged_ne").asInt == 1)
+            check(criteria.get("limit").asInt in 1..100)
+            when {
+                criteria.has("field4") -> check(criteria.get("field4").asString == "")
+                criteria.has("field5") -> {
+                    check(criteria.get("field5").asString == row.get("sig").asString)
+                    threadReads.incrementAndGet()
+                }
+                else -> error("Unexpected video archive query")
+            }
+            "[$row]"
+        })
+        val api = MockWebServer()
+        api.use {
+            api.enqueue(MockResponse.Builder().code(503).build())
+            api.enqueue(MockResponse.Builder().setHeader("Content-Type", "application/javascript").body("""
+                window.YT={Player:function(element,options){
+                  setTimeout(function(){options.events.onError({data:153})},20);
+                }};
+                onYouTubeIframeAPIReady();
+            """.trimIndent()).build())
+            api.enqueue(readyResponse())
+            api.start(java.net.InetAddress.getByName("127.0.0.1"), 0)
+            peer.start().use { server ->
+                Intents.init()
+                val intents = AutoCloseable { Intents.release() }
+                intents.use {
+                    Intents.intending(hasAction(Intent.ACTION_VIEW)).respondWith(
+                        android.app.Instrumentation.ActivityResult(android.app.Activity.RESULT_OK, null))
+                    ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                        .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                        .putExtra("youtubeFixtureUrl", "http://127.0.0.1:${api.port}/iframe_api")).use {
+                        try {
+                            ui.waitUntil(20_000) { peer.requests.get() >= 2 && ui.onAllNodesWithText("Loading posts…").fetchSemanticsNodes().isEmpty() }
+                            if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
+                            ui.onNode(hasScrollAction()).performScrollToNode(hasText(postText))
+                            ui.onNodeWithText(postText).performClick()
+                            ui.waitUntil(20_000) { threadReads.get() > 0 && ui.onAllNodesWithText("Conversation").fetchSemanticsNodes().isNotEmpty() }
+                            assertEquals(0, api.requestCount)
+                            watch(postText)
+                            ui.waitUntil(20_000) { ui.onAllNodesWithText("YouTube could not load. Retry or open the video in YouTube.").fetchSemanticsNodes().isNotEmpty() }
+                            assertEquals(1, api.requestCount)
+                            ui.onNodeWithText("Retry").performClick()
+                            ui.waitUntil(20_000) { ui.onAllNodesWithText("YouTube could not verify this player. Try opening the video in YouTube.").fetchSemanticsNodes().isNotEmpty() }
+                            assertEquals(2, api.requestCount)
+                            capture("video-evidence/provider-error.png")
+                            ui.onNodeWithText("Open in YouTube").performClick()
+                            Intents.intended(allOf(hasAction(Intent.ACTION_VIEW), hasData("https://www.youtube.com/watch?v=M7lc1UVf-VE")))
+                            ui.onNodeWithText("Retry").performClick()
+                            ui.waitUntil(20_000) { ui.onAllNodesWithText("Use the player controls to start playback.").fetchSemanticsNodes().isNotEmpty() }
+                            assertEquals(3, api.requestCount)
+                            ui.onNodeWithText("Close video").performClick()
+                            ui.onNodeWithText("Conversation").assertIsDisplayed()
+                            ui.onNodeWithText(postText).assertExists()
+                            ui.onNodeWithText("Back").performClick()
+                            ui.onNodeWithText("All posts").assertIsDisplayed()
+                            assertTrue(peer.transactions.isEmpty())
+                            peer.assertHealthy()
+                        } catch (failure: Throwable) {
+                            failure.addSuppressed(AssertionError("Provider requests ${api.requestCount}; thread reads ${threadReads.get()}"))
+                            try { capture("video-evidence/provider-failure.png") } catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
                             throw failure
                         }
                     }
