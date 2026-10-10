@@ -396,6 +396,7 @@ class FollowingPreviewTest {
                 try {
                     waitFor("Native Red Square reference post")
                     for (author in listOf(firstAuthor, secondAuthor)) {
+                        ui.onNode(hasScrollAction()).performScrollToNode(hasText(author))
                         ui.onNodeWithText(author).performClick()
                         waitFor("Follow")
                         ui.onNodeWithText("Follow").performClick()
@@ -440,7 +441,9 @@ class FollowingPreviewTest {
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 try {
                     waitFor("Native Red Square reference post")
+                    ui.onNode(hasScrollAction()).performScrollToNode(hasText("Another account reference post"))
                     ui.onNodeWithText("Another account reference post").assertIsDisplayed()
+                    ui.onNode(hasScrollAction()).performScrollToNode(hasText(author))
                     ui.onNodeWithText(author).performClick()
                     waitFor("Profile")
                     ui.onNodeWithText("Follow").performClick()
@@ -471,7 +474,13 @@ class FollowingPreviewTest {
             JsonParser.parseReader(it).asJsonObject
         }
 
-    private fun waitFor(text: String) = ui.waitUntil(15_000) {
-        ui.onAllNodes(hasText(text)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+    private fun waitFor(text: String) {
+        if (text in setOf("Native Red Square reference post", "Profile newer post 20")) {
+            ui.waitUntil(20_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.onNode(hasScrollAction()).performScrollToNode(hasText(text))
+        }
+        ui.waitUntil(15_000) {
+            ui.onAllNodes(hasText(text)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+        }
     }
 }

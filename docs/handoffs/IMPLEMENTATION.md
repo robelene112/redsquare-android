@@ -88,7 +88,13 @@ one question at a time when a material choice really needs the owner.
   actualprocessrecoveryPASS. InspectedbitmapconfirmsimpossibleRetry. Separate
   countwarningfix preservesverifiedaction/clearsuponfreshobservation; local
   core/debug/test1m38sPASS. PIDguardfix7191fa7 reviewed0findings. Finalfull
-  Android10/17 and finalbothaxes next. No full acceptance yet.
+  Android10/17 firstfull38020831495 sourcechecksPASS thenbrowse6/8/51.587s
+  fails two offscreenreplywaits. Inspected images root/action rows fillviewport.
+  Fixture3824286 waits Refresh enabled and scrolls to replies before unchanged
+  content/history assertions; assembly54sPASS. Both finalsource76197a4 and
+  fixture3824286 reviewaxes0findings. Productiondiffempty. Freshfull38021449614
+  pending. Untracked #13 quote research note prepared by read-only agent; do not
+  include it in #12 completion commit. No full acceptance yet.
   Ten of35 complete;
  25 remain. Read-only primary-source contract prepared in
   NATIVE_SOCIAL_INTERACTIONS_CONTRACT.md. Ordinaryreposts/recovery/fullacceptance/reviews incomplete.

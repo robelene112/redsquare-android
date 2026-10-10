@@ -29,3 +29,9 @@ acceptance and fixture fix review are pending.
 Source review does not establish runtime acceptance. Earlier runtime chronology
 and public protocol proofs are in NATIVE_SOCIAL_INTERACTIONS_VERIFICATION.md and
 sibling evidence directories. Ticket #12 remains open until full acceptance.
+
+Fixture follow-up at `3824286`: both independent review axes report zero
+actionable findings. Scrolling exercises the actual conversation UI without
+removing or weakening content, cache, forged-reply or recovery assertions.
+Production source equivalence with `76197a4` verified by empty diff. Fresh
+full run `38021449614` is pending.

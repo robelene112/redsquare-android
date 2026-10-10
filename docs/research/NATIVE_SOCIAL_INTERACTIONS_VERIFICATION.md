@@ -106,3 +106,12 @@ wait for refresh completion and scroll to the same reply before their unchanged
 content/history assertions. Local test assembly54sPASS. Production unchanged.
 Both final production-source review axes have zero actionable findings. Fixture
 fix review and fresh full acceptance next; no runtime fix success claimed yet.
+
+Second full `38021449614` at `3824286` passes source checks and browse8/8
+in15.909s, then Following4/8 in71.24s: four old waits for the Native reference
+post timeout behind the first feed card. Inspected bitmap shows that first
+card filling the viewport. Following's shared post-wait helper now waits for
+refresh completion and scrolls to known post content. Multi-author and two-post
+checks explicitly scroll to each target; filtering/persistence/error assertions
+remain unchanged. Local test assembly50sPASS. Production unchanged; fixture
+review and fresh full acceptance next. No success for this fixture claimed yet.
