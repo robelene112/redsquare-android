@@ -118,6 +118,24 @@ class AuthorPostPreviewTest {
     private fun waitFor(text: String) {
         ui.waitUntil(20_000) { ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
     }
+
+    @Test fun cachedVerifiedEditSurvivesStaleServerHistoryAndColdLaunch() {
+        val fixture = InstrumentationRegistry.getInstrumentation().context.assets.open("native-author-actions-reference.json")
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
+        val newer = RedSquareFeed.decode(fixture.getAsJsonObject("newerEdited").get("tx").asString)
+        nl.davidengelen.redsquare.feed.AndroidFeedCache(context, SaitoBackend.OWNER).save(listOf(newer))
+        ControlledFeedPeer("[${fixture.getAsJsonObject("original")}]").start().use { server ->
+            repeat(2) {
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                    waitFor("A newer verified edit")
+                    waitForRefresh()
+                    ui.onNodeWithText("A newer verified edit").assertIsDisplayed()
+                    ui.onNodeWithText("Native Red Square reference post").assertDoesNotExist()
+                }
+            }
+        }
+    }
     private fun waitForList() {
         ui.waitUntil(20_000) { ui.onAllNodes(hasScrollAction()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
     }

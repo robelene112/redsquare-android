@@ -41,8 +41,9 @@ internal class AuthorEditState(private val store: PostDraftStore, private val me
         if (!ready || busy || saving) return@withLock false
         saving = true
         try {
+            val snapshot = if (available) PostDraftStore.Saved("") else PostDraftStore.Saved(text, candidate)
             withContext(NonCancellable + Dispatchers.IO) {
-                store.save(if (available) PostDraftStore.Saved("") else PostDraftStore.Saved(text, candidate))
+                store.save(snapshot)
             }
             memory.text = if (available) null else text
             true
@@ -57,7 +58,10 @@ internal class AuthorEditState(private val store: PostDraftStore, private val me
         scope.launch { if (persist()) onClose() }
     }
 
-    fun edit(value: String) { text = value; memory.text = value }
+    fun edit(value: String) {
+        if (!ready || saving || busy || candidate != null) return
+        text = value; memory.text = value
+    }
 
     fun send() {
         if (!ready || busy || saving || available || conflict || text.isBlank()) return
