@@ -1,0 +1,72 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImagePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ImagePreviewTest:
+INSTRUMENTATION_STATUS: test=systemImagePickerReturnsAnOwnedSyntheticImageToTheDraft
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImagePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertTrue(Assert.java:53)
+	at nl.davidengelen.redsquare.ImagePreviewTest.systemImagePickerReturnsAnOwnedSyntheticImageToTheDraft(ImagePreviewTest.kt:163)
+
+INSTRUMENTATION_STATUS: stream=
+Error in systemImagePickerReturnsAnOwnedSyntheticImageToTheDraft(nl.davidengelen.redsquare.ImagePreviewTest):
+java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertTrue(Assert.java:53)
+	at nl.davidengelen.redsquare.ImagePreviewTest.systemImagePickerReturnsAnOwnedSyntheticImageToTheDraft(ImagePreviewTest.kt:163)
+
+INSTRUMENTATION_STATUS: test=systemImagePickerReturnsAnOwnedSyntheticImageToTheDraft
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImagePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=selectedImageAndTextSurviveSavingAndRecreationWithoutPublishing
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImagePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=selectedImageAndTextSurviveSavingAndRecreationWithoutPublishing
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImagePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=signedImagesDisplayInTheirOriginalOrderAndOpenAnImageViewer
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImagePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=signedImagesDisplayInTheirOriginalOrderAndOpenAnImageViewer
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 20.55
+There was 1 failure:
+1) systemImagePickerReturnsAnOwnedSyntheticImageToTheDraft(nl.davidengelen.redsquare.ImagePreviewTest)
+java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertTrue(Assert.java:53)
+	at nl.davidengelen.redsquare.ImagePreviewTest.systemImagePickerReturnsAnOwnedSyntheticImageToTheDraft(ImagePreviewTest.kt:163)
+
+FAILURES!!!
+Tests run: 3,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

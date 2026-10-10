@@ -117,10 +117,20 @@ one question at a time when a material choice really needs the owner.
 
 - Active#15, "14: Attach and view images in posts, replies and quotes", assigned
   after14 closure. Fixed review base3d47253. Both native blockers#10/#13 closed.
-  Approved parent seams1–4 apply. Current first protocol tracer checks independently
-  signed image ordering via pinned WASM/Elliptic fixture; no runtime/feature
-  completion yet. Read NATIVE_IMAGES_CONTRACT.md and ignored scratch preparation
-  .scratch/image-next-plan.md. Preserve future untracked research by ticket.
+  Approved parent seams1–4 apply. Production312f58c implements bounded galleries,
+  viewer, image-only composition, worker normalization and encrypted image drafts.
+  Core39 passes independent signed ordering/dual-quote image authentication.
+  Android17 focused38062884910 at847190c passes all3 display/draft/real-picker
+  cases in28.679s, with core/build/release/lint. Actual-window green image-only
+  draft inspected. Recreation is not cold process recovery proof. Android10
+  companion38062883051 stopped before instrumentation: run-as could not execute
+  the standalone test command. da084d5 uses the shell builtin; focused rerun
+  38063402024 pending. New ImagePostingTest covers actual signed image-only post,
+  reply and dual quote at the controlled socket; local build pending. Ticket
+  remains open: preparation/failure bounds, media recovery/queue and isolation,
+  remote failure/responsiveness, author revisions, independent actual frames
+  and final full10/17 acceptance remain. Read NATIVE_IMAGES_CONTRACT.md and
+  NATIVE_IMAGES_VERIFICATION.md. Preserve future untracked research by ticket.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.
@@ -155,7 +165,7 @@ Initial wallet/live-feed milestone is published as stable signed version10
 Compose bitmaps had inconsistent labels; use each report's stated evidence
 limits. #9 also has official bitmap inconsistencies; no invented cause.
 
-Current next: #14 then all remaining tickets sequentially. Owner reviews
+Current next: finish #15 then all remaining tickets sequentially. Owner reviews
 completed app; no intermediate phone-review gate is required.
 
 ## Verification already inspected

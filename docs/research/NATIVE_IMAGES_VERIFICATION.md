@@ -127,3 +127,29 @@ picker hierarchy capture precedes a bounded enabled confirmation-button wait.
 Prepared-image pixels, image-only Send enabled and zero-transaction assertions
 remain unchanged. Corrected focused10/17 runs are pending, production source is
 unchanged from312f58c. No longer file timeouts or acceptance relaxation applied.
+
+Corrected Android17 focused38062884910 at847190c PASS all3 cases in28.679s,
+core39/debug/test/release/lint. Retained logs and actual-window captures under
+system-picker-corrected/android17. Exact draft screenshot inspected: blank text,
+green prepared image, enabled Send. No transaction sent in this picker case.
+Android10 companion38062883051 never reached instrumentation: `run-as ... test`
+failed with Permission denied. da084d5 checks positive size using Android's shell
+builtin instead; focused38063402024 pending. This is a host fixture correction,
+not evidence of an application image defect. Production unchanged from312f58c.
+
+Next controlled-socket cases compose and Send an image-only ordered red/blue
+post, a green image reply and a green image quote of the authenticated red/blue
+original. Assertions inspect actual signed JPEG dimensions/colors/count/order,
+whole message size, reply routing/recipients and exact dual original image data.
+Actual public test frames are captured for independent WASM/Elliptic verification.
+These cases are pending and do not establish compatibility yet.
+
+Android10 da084d5 focused38063402024 reaches instrumentation: display and
+saved/recreated draft PASS; real SAF test fails selected-provider toolbar at163.
+In-scope screenshot shows roots drawer still open with Recent selected and the
+synthetic root visible. End-of-run host XML shows Launcher, so it cannot explain
+that in-scope state. Drawer click/navigation cause remains unproved. Fixture now
+waits for UI idle, captures the drawer hierarchy, reacquires the title and retries
+selection within the original10-second navigation deadline until the same positive
+provider-toolbar observation. In-scope failure XML is retained before cleanup.
+No file timeout, prepared-pixel or zero-transaction assertion was weakened.
