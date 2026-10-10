@@ -178,6 +178,7 @@ if [[ "${TEST_SCOPE:-full}" == author* ]]; then
 fi
 verify_images() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+    local image_failed=0
     # Separate synthetic SAF image root in the test APK's own UID, never wallet documents.
     python3 - "$repo_dir/app/src/androidTest/assets/native-images-reference.json" "$evidence/picker-reference.png" <<'PY'
 import base64, json, pathlib, sys
@@ -198,7 +199,7 @@ PY
         adb exec-out screencap -p > "$evidence/images-system-screen.png" || true
         timeout 10 adb shell uiautomator dump /sdcard/images-failure.xml > "$evidence/images-dump.txt" 2>&1 || true
         adb pull /sdcard/images-failure.xml "$evidence/images-failure.xml" >/dev/null 2>&1 || true
-        return 1
+        image_failed=1
     fi
     timeout 180 adb shell am instrument -w -r \
         -e class nl.davidengelen.redsquare.ImagePreparationTest,nl.davidengelen.redsquare.ImageLoadingTest \
@@ -206,9 +207,9 @@ PY
         > "$evidence/images-preparation-ui.txt" || true
     adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - images-evidence \
         > "$evidence/images-preparation-evidence.tar" || true
-    grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/images-preparation-ui.txt" || return 1
-    python3 "$repo_dir/scripts/image-process-check" --evidence "$evidence/image-process"
-    python3 "$repo_dir/scripts/post-queue-process-check" --images --evidence "$evidence/image-queue-process"
+    grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/images-preparation-ui.txt" || image_failed=1
+    python3 "$repo_dir/scripts/image-process-check" --evidence "$evidence/image-process" || image_failed=1
+    python3 "$repo_dir/scripts/post-queue-process-check" --images --evidence "$evidence/image-queue-process" || image_failed=1
     if [[ "${TEST_SCOPE:-full}" == images* ]]; then
         # Public unsafe scalar1 wallet fixture for the image-isolation SAF flow.
         adb shell run-as nl.davidengelen.redsquare.dev.test mkdir -p files/wallet-test-documents
@@ -222,8 +223,10 @@ PY
             adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - "$directory" \
                 > "$evidence/images-$directory.tar" || true
         done
-        grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/images-lifecycle-ui.txt" || return 1
+        grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/images-lifecycle-ui.txt" || image_failed=1
     fi
+    # Every group retains its own gates; any failure still rejects the whole scope.
+    [[ "$image_failed" == 0 ]]
 }
 if [[ "${TEST_SCOPE:-full}" == images* ]]; then
     verify_images

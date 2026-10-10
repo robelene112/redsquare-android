@@ -136,7 +136,8 @@ class ImagePostingTest {
                                 "quote" -> ui.clickVisiblePostContent("Quote")
                             }
                             ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                            if (text.isEmpty()) ui.onNode(hasSetTextAction()).assertTextEquals("")
+                            if (text.isEmpty()) ui.onNode(hasSetTextAction()).assert(SemanticsMatcher.expectValue(
+                                androidx.compose.ui.semantics.SemanticsProperties.EditableText, androidx.compose.ui.text.AnnotatedString("")))
                             else ui.onNode(hasSetTextAction()).performTextReplacement(text)
                             ui.onNodeWithText("Add images").performScrollTo().assertIsDisplayed().performClick()
                             Intents.intended(anyOf(hasAction(Intent.ACTION_OPEN_DOCUMENT), hasAction(Intent.ACTION_GET_CONTENT),

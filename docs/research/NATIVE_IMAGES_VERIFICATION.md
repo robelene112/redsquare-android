@@ -304,3 +304,18 @@ acceptance authority. Both earlier bounded review-fix follow-ups report0.
 
 Cold-cache guard recompile PASS1m06s. Both bounded review axes0 residual actionable
 findings. Final focused10/17 candidate dispatch pending; ticket is still open.
+
+354a1c7 focused10/17 stop in initial image-only field assertion: captured semantics
+shows EditableText/InputText empty, with merged Text=[Write a post]. The new
+assertTextEquals incorrectly included placeholder copy. Fixture now specifically
+asserts empty EditableText, still avoids unnecessary keyboard focus and verifies
+picker launch and prepared/signed image behavior. This is an assertion correction,
+not an established production defect. Independent image groups now continue after
+one fails to retain more diagnostic evidence; any group failure still rejects
+scope acceptance. Both complete final source-review axes at354 report0 actionable
+findings; this subsequent bounded fixture change still needs review/runtime.
+
+Placeholder correction narrow build PASS1m07s. Both bounded review axes0 findings
+on editable-value assertion and independent diagnostic groups with strict final
+failure aggregation. Complete source-review acceptance remains at354a1c7 plus
+this reviewed fixture-only correction; runtime/full acceptance still pending.
