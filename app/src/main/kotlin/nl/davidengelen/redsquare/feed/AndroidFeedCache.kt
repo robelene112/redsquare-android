@@ -26,11 +26,11 @@ class AndroidFeedCache(context: Context, backend: SaitoBackend, private val thre
                 if (threadId == null) post.parentId.isEmpty() else post.threadId == threadId
             } } catch (_: Exception) { unreadable = true; null }
         }
-        return SavedPosts(posts.distinctBy { it.id }.sortedByDescending { it.createdAt }, unreadable)
+        return SavedPosts(RedSquareFeed.newest(posts).sortedByDescending { it.createdAt }, unreadable)
     }
 
     fun save(posts: List<FeedPost>) = storage.save(
-        posts.distinctBy { it.id }.sortedByDescending { it.createdAt }.map { it.envelope })
+        RedSquareFeed.newest(posts + load().posts).sortedByDescending { it.createdAt }.map { it.envelope })
 
     companion object { const val MAX_POSTS = 100 }
 }

@@ -52,7 +52,7 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
         if (wallet == null) { loading = false; return@LaunchedEffect }
         loading = true
         val saved = withContext(Dispatchers.IO) { cache.load() }
-        posts = (posts + saved.posts).distinctBy { it.id }.sortedBy { it.createdAt }
+        posts = RedSquareFeed.newest(posts + saved.posts).sortedBy { it.createdAt }
         cacheWarning = saved.unreadable
         try {
             val page = withContext(Dispatchers.IO) {
@@ -70,7 +70,7 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
                 }
             }
             social?.observe(page.posts)
-            posts = (page.posts + posts).distinctBy { it.id }.sortedBy { it.createdAt }
+            posts = RedSquareFeed.newest(page.posts + posts).sortedBy { it.createdAt }
             cacheWarning = withContext(Dispatchers.IO) {
                 try { cache.save(posts); false } catch (_: Exception) { true }
             }

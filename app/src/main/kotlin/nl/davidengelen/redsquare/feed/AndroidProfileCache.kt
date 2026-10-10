@@ -20,11 +20,11 @@ internal class AndroidProfileCache(context: Context, backend: SaitoBackend) {
                 catch (_: Exception) { unreadable = true }
             }
         }
-        return SavedProfile(posts.distinctBy { it.id }, likes.distinctBy { it.id }, unreadable)
+        return SavedProfile(RedSquareFeed.newest(posts), likes.distinctBy { it.id }, unreadable)
     }
 
     fun save(posts: List<FeedPost>, likes: List<ProfileLike>) = storage.save(
-        (posts.distinctBy { it.id }.map { it.createdAt to it.envelope } +
+        (RedSquareFeed.newest(posts + load().posts).map { it.createdAt to it.envelope } +
             likes.distinctBy { it.id }.map { it.createdAt to it.envelope })
             .sortedByDescending { it.first }.map { it.second })
 }

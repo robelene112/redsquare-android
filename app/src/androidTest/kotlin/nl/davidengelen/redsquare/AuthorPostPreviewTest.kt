@@ -106,6 +106,12 @@ class AuthorPostPreviewTest {
                     waitFor("Native author's edited post")
                     assertEquals(2, peer.transactions.size)
                     peer.assertHealthy()
+                    java.io.File(context.cacheDir, "author-post-evidence/native-author-frames.json").apply {
+                        parentFile!!.mkdirs()
+                        writeText(com.google.gson.JsonArray().apply {
+                            peer.transactions.forEach { add(Base64.getEncoder().encodeToString(it)) }
+                        }.toString())
+                    }
                     captureFeedEvidence("author-post-evidence/edited-post-profile.png")
                 } catch (failure: Throwable) {
                     captureFeedEvidence("author-post-evidence/edit-first-failure.png")
@@ -135,6 +141,38 @@ class AuthorPostPreviewTest {
                 }
             }
         }
+    }
+
+    @Test fun invalidAuthorRecordsPreservePriorEncryptedWorkAndNeverEnterPostQueue() {
+        val fixture = InstrumentationRegistry.getInstrumentation().context.assets.open("native-author-actions-reference.json")
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
+        fun candidate(name: String): SaitoTransaction {
+            val outer = JsonParser.parseString(fixture.getAsJsonObject(name).get("tx").asString).asJsonObject
+            val message = Base64.getDecoder().decode(outer.get("m").asString)
+            val bytes = Base64.getDecoder().decode(outer.get("t").asString) + message
+            java.nio.ByteBuffer.wrap(bytes).putInt(8, message.size)
+            return SaitoTransaction.restore(Base64.getEncoder().encodeToString(bytes))
+        }
+        val original = fixture.getAsJsonObject("original")
+        val owner = original.get("field2").asString
+        val store = nl.davidengelen.redsquare.feed.PostDraftStore.author(context, owner, SaitoBackend.OWNER,
+            original.get("sig").asString, AuthorActionKind.EDIT)
+        val saved = nl.davidengelen.redsquare.feed.PostDraftStore.Saved("Independently edited original text", candidate("edit"))
+        store.save(saved)
+        for (replacement in listOf(
+            saved.copy(transaction = candidate("unrelated"), text = "An unrelated signer must not replace this text"),
+            saved.copy(transaction = candidate("wrongTarget"), text = "Wrong target text"),
+            saved.copy(transaction = candidate("deleted"), text = ""), saved.copy(text = "Changed after signing"),
+            saved.copy(queued = true), saved.copy(automatic = true))) {
+            assertThrows(IllegalArgumentException::class.java) { store.save(replacement) }
+            assertEquals(saved.text, store.load().text)
+            assertEquals(saved.transaction!!.id, store.load().transaction!!.id)
+        }
+        assertTrue(nl.davidengelen.redsquare.feed.PostDraftStore.pendingDelivery(context, owner, SaitoBackend.OWNER).isEmpty())
+        val other = nl.davidengelen.redsquare.feed.PostDraftStore.author(context, owner, SaitoBackend.OFFICIAL,
+            original.get("sig").asString, AuthorActionKind.EDIT)
+        assertEquals("", other.load().text)
+        assertEquals(null, other.load().transaction)
     }
     private fun waitForList() {
         ui.waitUntil(20_000) { ui.onAllNodes(hasScrollAction()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }

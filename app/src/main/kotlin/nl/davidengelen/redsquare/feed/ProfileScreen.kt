@@ -63,14 +63,14 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
         }
         val cached = withContext(Dispatchers.IO) { cache.load() }
         val saved = AndroidProfileCache.SavedProfile(
-            (view.history.posts + cached.posts).distinctBy { it.id },
+            RedSquareFeed.newest(view.history.posts + cached.posts),
             (view.history.likes + cached.likes).distinctBy { it.id }, cached.unreadable)
         show(saved)
         cacheWarning = saved.unreadable
         suspend fun publish(freshPosts: List<FeedPost>, freshLikes: List<ProfileLike>) {
             social?.observe(freshPosts)
             val merged = AndroidProfileCache.SavedProfile(
-                (freshPosts + view.history.posts + saved.posts).distinctBy { it.id },
+                RedSquareFeed.newest(freshPosts + view.history.posts + saved.posts),
                 (freshLikes + view.history.likes + saved.likes).distinctBy { it.id }, false)
             view.history = merged
             show(merged)

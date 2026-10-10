@@ -20,6 +20,15 @@ data class FeedPost(
 data class ArchiveFeedPage(val posts: List<FeedPost>, val oldestCreatedAt: Long?, val rowCount: Int, val ignored: Int)
 
 object RedSquareFeed {
+    /** Keep the newest authenticated edit; equal versions retain incoming archive metadata. */
+    fun newest(posts: List<FeedPost>): List<FeedPost> {
+        val chosen = linkedMapOf<String, FeedPost>()
+        for (post in posts) {
+            val previous = chosen[post.id]
+            if (previous == null || (post.edit?.createdAt ?: 0) > (previous.edit?.createdAt ?: 0)) chosen[post.id] = post
+        }
+        return chosen.values.toList()
+    }
     /** Ordinary reposts are valid interactions, but do not create commentary cards. */
     fun readCurrentQuotes(response: String): ArchiveFeedPage {
         data class QuoteRow(val id: String, val post: FeedPost?)

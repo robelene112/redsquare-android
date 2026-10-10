@@ -1,0 +1,52 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AuthorPostPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.AuthorPostPreviewTest:
+INSTRUMENTATION_STATUS: test=cachedVerifiedEditSurvivesStaleServerHistoryAndColdLaunch
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AuthorPostPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'A newer verified edit' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.AuthorPostPreviewTest.cachedVerifiedEditSurvivesStaleServerHistoryAndColdLaunch(AuthorPostPreviewTest.kt:133)
+
+INSTRUMENTATION_STATUS: stream=
+Error in cachedVerifiedEditSurvivesStaleServerHistoryAndColdLaunch(nl.davidengelen.redsquare.AuthorPostPreviewTest):
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'A newer verified edit' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.AuthorPostPreviewTest.cachedVerifiedEditSurvivesStaleServerHistoryAndColdLaunch(AuthorPostPreviewTest.kt:133)
+
+INSTRUMENTATION_STATUS: test=cachedVerifiedEditSurvivesStaleServerHistoryAndColdLaunch
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AuthorPostPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=authorEditsPreserveOriginalIdentityAndRefreshFeedThreadAndProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AuthorPostPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=authorEditsPreserveOriginalIdentityAndRefreshFeedThreadAndProfile
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 8.439
+There was 1 failure:
+1) cachedVerifiedEditSurvivesStaleServerHistoryAndColdLaunch(nl.davidengelen.redsquare.AuthorPostPreviewTest)
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'A newer verified edit' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.AuthorPostPreviewTest.cachedVerifiedEditSurvivesStaleServerHistoryAndColdLaunch(AuthorPostPreviewTest.kt:133)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

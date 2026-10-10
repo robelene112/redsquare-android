@@ -134,7 +134,7 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
                                     validCount += accepted.posts.size
                                     withContext(Dispatchers.Main.immediate) {
                                         social?.observe(accepted.posts)
-                                        val merged = (accepted.posts + posts).distinctBy { it.id }
+                                        val merged = RedSquareFeed.newest(accepted.posts + posts)
                                             .filter { !followingView || it.author in following!!.accounts }
                                             .sortedByDescending { it.createdAt }.take(AndroidFeedCache.MAX_POSTS)
                                         cacheWarning = withContext(Dispatchers.IO) {

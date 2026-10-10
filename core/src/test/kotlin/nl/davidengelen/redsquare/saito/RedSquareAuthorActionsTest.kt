@@ -5,6 +5,17 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class RedSquareAuthorActionsTest {
+    @Test fun `native edit and delete signatures match independently signed vectors`() {
+        val fixture = JsonParser.parseReader(javaClass.getResourceAsStream("/native-author-actions-reference.json")!!.reader()).asJsonObject
+        val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe fixture key only.
+        for (name in listOf("edit", "deleted")) {
+            val vector = fixture.getAsJsonObject(name)
+            val signed = SaitoEnvelope.decode(vector.get("tx").asString)
+            val candidate = SaitoTransaction.create(wallet, signed.body, signed.createdAt, signed.recipients)
+            assertEquals(vector.get("sig").asString, candidate.id)
+            assertEquals(JsonParser.parseString(vector.get("tx").asString), JsonParser.parseString(candidate.envelope()))
+        }
+    }
     @Test fun `independently signed authorized edit changes display without replacing original identity`() {
         val fixture = JsonParser.parseReader(javaClass.getResourceAsStream("/native-author-actions-reference.json")!!.reader()).asJsonObject
         val original = fixture.getAsJsonObject("original")
