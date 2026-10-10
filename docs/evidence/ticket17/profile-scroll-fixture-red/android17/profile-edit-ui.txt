@@ -1,0 +1,82 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ProfileEditPreviewTest:
+INSTRUMENTATION_STATUS: test=profileHistoryRemainsReachableWithAFullMultilineBio
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: No node found that matches Text + InputText + EditableText contains 'Native Red Square reference post' (ignoreCase: false) in scrollable container
+Semantics of the node:
+Node #35 at (l=16.0, t=332.0, r=304.0, b=624.0)px
+CollectionInfo = 'CollectionInfo(rowCount=0, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@e41ce74'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 11 siblings
+Selector used: (ScrollBy is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.ProfileEditPreviewTest.profileHistoryRemainsReachableWithAFullMultilineBio(ProfileEditPreviewTest.kt:100)
+
+INSTRUMENTATION_STATUS: stream=
+Error in profileHistoryRemainsReachableWithAFullMultilineBio(nl.davidengelen.redsquare.ProfileEditPreviewTest):
+java.lang.AssertionError: No node found that matches Text + InputText + EditableText contains 'Native Red Square reference post' (ignoreCase: false) in scrollable container
+Semantics of the node:
+Node #35 at (l=16.0, t=332.0, r=304.0, b=624.0)px
+CollectionInfo = 'CollectionInfo(rowCount=0, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@e41ce74'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 11 siblings
+Selector used: (ScrollBy is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.ProfileEditPreviewTest.profileHistoryRemainsReachableWithAFullMultilineBio(ProfileEditPreviewTest.kt:100)
+
+INSTRUMENTATION_STATUS: test=profileHistoryRemainsReachableWithAFullMultilineBio
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=viewingAProfileShowsItsVerifiedBioAndGeneratedSaitoAvatar
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=viewingAProfileShowsItsVerifiedBioAndGeneratedSaitoAvatar
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 16.229
+There was 1 failure:
+1) profileHistoryRemainsReachableWithAFullMultilineBio(nl.davidengelen.redsquare.ProfileEditPreviewTest)
+java.lang.AssertionError: No node found that matches Text + InputText + EditableText contains 'Native Red Square reference post' (ignoreCase: false) in scrollable container
+Semantics of the node:
+Node #35 at (l=16.0, t=332.0, r=304.0, b=624.0)px
+CollectionInfo = 'CollectionInfo(rowCount=0, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@e41ce74'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 11 siblings
+Selector used: (ScrollBy is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.ProfileEditPreviewTest.profileHistoryRemainsReachableWithAFullMultilineBio(ProfileEditPreviewTest.kt:100)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

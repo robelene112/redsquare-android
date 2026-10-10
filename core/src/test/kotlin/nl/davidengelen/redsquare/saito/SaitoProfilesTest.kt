@@ -6,6 +6,22 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class SaitoProfilesTest {
+    @Test fun `stale reads cannot replace a newer verified snapshot or remove its preserved fields`() {
+        val reference = JsonParser.parseReader(javaClass.getResourceAsStream("/native-profile-reference.json")!!.reader()).asJsonObject
+        val author = reference.getAsJsonObject("withMedia").get("field2").asString
+        val known = SaitoProfiles.readArchive(JsonArray().apply { add(reference.getAsJsonObject("withMedia")) }.toString(), author)
+        val stale = SaitoProfiles.readArchive(JsonArray().apply {
+            add(reference.getAsJsonObject("newerLegacy")); add(reference.getAsJsonObject("snapshot"))
+        }.toString(), author)
+        val merged = SaitoProfiles.merge(known, stale)
+        assertEquals("Original bio", merged.description)
+        val fields = JsonParser.parseString(merged.fields).asJsonObject
+        assertEquals("https://images.example.test/avatar.png", fields.get("image").asString)
+        assertEquals("https://images.example.test/banner.png", fields.get("banner").asString)
+        assertEquals("blue", fields.getAsJsonObject("extension").get("theme").asString)
+        assertEquals("https://archive.example.test", fields.getAsJsonArray("archive")[0].asString)
+    }
+
     @Test fun `numeric one is authoritative regardless of JSON decimal scale`() {
         val reference = JsonParser.parseReader(javaClass.getResourceAsStream("/native-profile-reference.json")!!.reader()).asJsonObject
         val rows = JsonArray().apply {

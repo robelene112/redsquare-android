@@ -6,10 +6,6 @@ import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
-import androidx.test.uiautomator.By
-import androidx.test.uiautomator.Until
-import androidx.test.uiautomator.UiScrollable
-import androidx.test.uiautomator.UiSelector
 import com.google.gson.JsonArray
 import com.google.gson.JsonParser
 import nl.davidengelen.redsquare.saito.AndroidBackendStore
@@ -57,6 +53,7 @@ class ProfileEditPreviewTest {
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 try {
                     ui.waitUntil(20_000) { peer.requests.get() >= 2 &&
+                        ui.onAllNodesWithText("Loading posts...").fetchSemanticsNodes().isEmpty() &&
                         ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
                     val post = hasText("Native Red Square reference post")
@@ -94,20 +91,21 @@ class ProfileEditPreviewTest {
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 try {
-                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.waitUntil(20_000) { peer.requests.get() >= 2 &&
+                        ui.onAllNodesWithText("Loading posts...").fetchSemanticsNodes().isEmpty() &&
+                        ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
                     val post = hasText("Native Red Square reference post")
                     ui.onNode(hasScrollAction()).performScrollToNode(post)
                     ui.onNode(hasText(author) and hasAnyAncestor(hasAnyChild(post))).performClick()
-                    val device = UiDevice.getInstance(instrumentation)
-                    assertTrue("Full signed bio was not exposed", device.wait(Until.hasObject(By.text(bio)), 20_000))
+                    ui.waitUntil(20_000) { ui.onAllNodesWithText(bio).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText(bio).assertExists()
                     capture("long-bio-before-scroll.png")
-                    val list = UiScrollable(UiSelector().scrollable(true)).setMaxSearchSwipes(10)
-                    assertTrue("Profile tabs are unreachable", list.scrollIntoView(UiSelector().text("Posts")))
+                    scrollUntilDisplayed("Posts")
                     ui.onNodeWithText("Posts").assertIsDisplayed()
                     ui.onNodeWithText("Replies").assertIsDisplayed()
                     ui.onNodeWithText("Likes").assertIsDisplayed()
-                    assertTrue("Profile post is unreachable", list.scrollIntoView(UiSelector().text("Native Red Square reference post")))
+                    scrollUntilDisplayed("Native Red Square reference post")
                     ui.onNode(post).assertIsDisplayed()
                     capture("long-bio-reachable-history.png")
                     assertTrue(peer.transactions.isEmpty())
@@ -118,6 +116,14 @@ class ProfileEditPreviewTest {
                 }
             }
         }
+    }
+
+    private fun scrollUntilDisplayed(text: String) {
+        repeat(10) {
+            if (ui.onAllNodesWithText(text).fetchSemanticsNodes().isNotEmpty() && ui.onNodeWithText(text).isDisplayed()) return
+            ui.onNode(hasScrollAction()).performTouchInput { swipeUp() }
+        }
+        ui.onNodeWithText(text).assertIsDisplayed()
     }
 
     private fun capture(name: String) {

@@ -13,20 +13,22 @@ Use NATIVE_PROFILE_EDIT_CONTRACT.md and NATIVE_PROFILE_EDIT_VERIFICATION.md.
 First independent signed-snapshot tracer is compileRED22s because reader absent;
 minimal reader focusedGREEN42s; complete-snapshot senderGREEN40s, numeric marker
 reconstructionRED25s/GREEN30s, pinned-avatarRED20s/GREEN43s. All48core/debug/test
-assemblyPASS1m58s. First Android profile reader run38089539658 at73f0e17 is runtimeRED32.732s
-at the exact signed-bio wait, with the correct author profile visible in the
-original in-scope bitmap. Native header583c0cc debug/testPASS1m56s. First17 run38090029603 reaches
-positive signed bio/avatar gates, then fails peer health17.755s due fixture
-expecting feed field4 on a valid author-history field2 request. Explicit fixture
-repair debug/testPASS1m1s, assertions retained. Both review axes flag unscrollable
-long-bio/header consuming tabs/history. Independent40line run38090221063 at
-ad4e5bf times out180s on10, with no assertion result or valid in-scope bitmap;
-cause not proven. Bounded native scroll and pre-scroll capture now replace the
-automatic Compose scroll; positive fullbio/tabs/post assertions remain. Native
-header/tabs/history share one weighted scrollable list; debug/testPASS1m49s,
-only subsequent whitespace formatting. Fresh dual runtimeGREEN pending.
-Harness retains a native system capture and filtered errors on failure. Editor/media/cache/
-recovery UI is not implemented yet.
+assemblyPASS1m58s. First Android reader73f0e17 run38089539658 RED32.732s at missing bio. Header
+583c0cc appears with verifiedbio/identicon, then17 fixture-healthFAIL17.755s;
+explicit feed/author callback fixed. Both reviews flag unscrollable long header;
+independent40linead4e5bf run38090221063 times out180s/0 completed checks/invalid
+image archive, no cause claim. Header/tabs/history now share weighted LazyColumn
+3ec9cb7; both bounded review axes0. Native runs38090924525/38090927117 short
+bio/avatar/noTX/healthy pass; longcasefails24.859s overall10 and16.229s17:
+10 waits without Compose synchronization and stays feed;17 initialscrollbefore
+feedload fails. Originals inspected/retained;10 shortbio bitmap lacks separately
+passing bio and is excluded from bio visual acceptance. Fixture now waits two
+archive replies/no Loading posts/localwalletreadiness; exactbio Compose wait,
+max10 synchronized Compose swipes, all displayed tabs/post gates intact.
+Debug/testPASS1m51s; fresh dual checks pending. New core stale-read protection
+compileRED22s/GREEN43s four cases; retains newest verified fullsnapshot and all
+fields, bounded legacy history100/16MiB. Disk cache/editor/media/recovery remain
+unimplemented. Active18 not accepted.
 Only profile fields and public reference inputs;
 no production publication or app/node wallet reads. #17 stays open with actual
 provider acceptance unproved. Its immutable full534330e pair PASS127 cases

@@ -77,3 +77,33 @@ immutable full regression runs38088542044/38088569769 at534330e PASS127 cases
 each; continuing this independent ticket does not accept #17 or its earlier
 failed full runs and those old runs do not prove the new profile implementation. No review APK or
 node/wallet/store change.
+
+Both source-review axes confirm the weighted shared list resolves the header
+layout finding at3ec9cb7,0 remaining bounded findings. Dual runs38090924525/
+38090927117 still fail the long-bio fixture, while shortbio/avatar/healthy/noTX
+passes both. Overall2 cases/1 failure24.859s on10 and16.229s on17. Original10
+long-case bitmap stays on the feed after unsynchronized UiDevice wait;17 stays
+on Loading posts and fails its initial scroll before any profile/bio lookup.
+Original17 shortbio bitmap visibly includes bio/identicon;10 shortbio bitmap
+shows identicon/loading but omits the separately passing bio, excluded from bio
+visual acceptance. XML is a separate later observation. Retained
+profile-scroll-fixture-red/android10 andandroid17.
+
+The fixture now waits two archive responses, enabled New post and absent Loading
+posts before its author tap. Full-bio lookup returns to Compose waitUntil, and
+scroll gestures use at most10 synchronized Compose touch swipes with displayed
+target checks. Positive fullbio/three tabs/post/zeroTX/healthy gates remain.
+[Android synchronization contract](https://developer.android.com/develop/ui/compose/testing/synchronization)
+requires synchronized test methods to drive recomposition and gestures; a raw
+Android wait can leave Compose paused. This supports a synchronization hypothesis
+for10, not a demonstrated production defect. Local debug/testPASS1m51s.
+
+Next pure state tracer requires older verified reads to preserve a newer signed
+snapshot and its avatar/banner/archive/extensions. Missing merge compileRED22s;
+focused four profile casesGREEN43s,0 failures/ignored. Native merge revalidates
+retained envelopes, keeps the newest authoritative snapshot even ahead of later
+legacy rows, and preserves it through stale/empty reads. Without a snapshot,
+legacy cache inputs are bounded to100 newest rows/16MiB, matching available
+history limits; older legacy-only fields may be unavailable after pruning. The
+ignored count describes the latest read; Android cache errors will have their
+own warning. No disk cache or editor behavior is implemented yet.

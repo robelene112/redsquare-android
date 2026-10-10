@@ -17,6 +17,26 @@ class SaitoProfile internal constructor(val author: String, val fields: String,
 }
 
 object SaitoProfiles {
+    /** Retain the newest signed snapshot through stale/empty reads. Legacy history stays bounded. */
+    fun merge(known: SaitoProfile, observed: SaitoProfile): SaitoProfile {
+        require(known.author == observed.author)
+        val updates = (observed.updates + known.updates).distinctBy { it.id }.sortedByDescending { it.createdAt }
+        val snapshot = updates.firstOrNull { it.snapshot }
+        val retained = snapshot?.let { listOf(it) } ?: updates.take(100)
+        val rows = com.google.gson.JsonArray()
+        var bytes = 2
+        for (update in retained) {
+            val row = JsonObject().apply { addProperty("tx", update.envelope) }
+            val size = row.toString().toByteArray(Charsets.UTF_8).size + 1
+            if (bytes + size > 16 * 1024 * 1024) break
+            rows.add(row)
+            bytes += size
+        }
+        val merged = readArchive(rows.toString(), known.author)
+        // Rejected rows describe this read; cache corruption is reported by the Android store.
+        return SaitoProfile(merged.author, merged.fields, merged.updates, observed.ignored)
+    }
+
     /** A partial local edit is merged into the complete verified profile before signing. */
     fun message(profile: SaitoProfile, changes: JsonObject): JsonObject {
         val fields = JsonParser.parseString(profile.fields).asJsonObject
