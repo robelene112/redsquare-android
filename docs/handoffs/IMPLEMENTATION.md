@@ -356,3 +356,14 @@ NATIVE_SAITO_TRANSFER_CONTRACT, NATIVE_PRIVATE_CHAT_CONTRACT and
 NATIVE_GROUP_CHAT_CONTRACT (all .md under docs/research). They are uncommitted
 and must be included with their own relevant tickets, not the #12 closure.
 They establish source contracts, not runtime or feature completion.
+
+Latest profile35cd09b: Android10 38093681635 PASS4 cases10.545s;17
+38093683708 FAIL4/1 26.104s on cached-author scroll lookup before opening
+profile. Own bio draft restoration passes both; exact originals individually
+inspected, retained profile-bio-draft-value. Cached author helper now positively
+waits displayed scoped identity, scrolls only if needed; fresh17 pending.
+Legacy Post raw-v1 UI regression bb668c6 local assemblyPASS1m4s;
+38093829543/38093831384 baseline pending. Review found matching New post
+composer title could satisfy after-save wait; corrected to clickable enabled
+feed button. No local compiler active. Storage duplication/import preview
+review fixes remain, followed by publishing/media/recovery.

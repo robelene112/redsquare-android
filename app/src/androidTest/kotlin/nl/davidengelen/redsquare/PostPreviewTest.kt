@@ -68,7 +68,9 @@ class PostPreviewTest {
                     ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNode(hasSetTextAction()).assertTextEquals(text)
                     ui.onNodeWithText("Save draft").performClick()
-                    waitFor("New post")
+                    ui.waitUntil(10_000) {
+                        ui.onAllNodes(hasText("New post") and hasClickAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty()
+                    }
                     assertTrue(peer.transactions.isEmpty())
                     peer.assertHealthy()
                 } catch (failure: Throwable) {

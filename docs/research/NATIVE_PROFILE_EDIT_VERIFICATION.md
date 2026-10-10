@@ -211,3 +211,22 @@ then actual New post UI must expose exact Unicode multiline text. Save draft
 through UI and require it again after a fresh Activity, with no transmission.
 This is a preservation regression, not a new feature RED. Assembly PASS1m4s
 (.scratch/profile-legacy-regression-build.log); runtime baseline pending.
+
+Exact-value candidate35cd09b: Android10 38093681635 PASS4 cases10.545s.
+Android17 38093683708 finishes4 cases/one failure26.104s; own bio restoration
+and other two cases pass. Originals restored-bio-draft.png inspected individually
+on both show exact private two-line bio; separate XML agrees.17 failure occurs
+before opening the cached author atline170: merged ScrollBy finder has no node.
+In-scope post-failure original shows cached reference post and author already
+visible in the feed; this does not prove the exact state at the failed action.
+No profile read/retention assertion was reached on that attempt. Helper now
+waits bounded for the positively displayed scoped author, scrolling only if
+the reference post is offscreen. Exact cached bio/outage assertions unchanged.
+Retained profile-bio-draft-value/android10 andandroid17; fresh17 proof pending.
+
+Bounded f6593cf...bb668c6 review: Spec0 new findings; Standards0 hard and
+one fixture readiness concern. The historical post check waited New post text,
+which also matches the composer title. It now requires the enabled clickable
+feed button after saving before closing the first Activity. Exact old-format
+text restoration and no-transaction requirements remain. Other pending review
+findings (encrypted duplication and unsaved import preview) are still unresolved.

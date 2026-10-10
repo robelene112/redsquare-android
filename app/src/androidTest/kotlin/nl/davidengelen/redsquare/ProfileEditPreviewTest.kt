@@ -235,8 +235,15 @@ class ProfileEditPreviewTest {
     private fun openReferenceAuthor(author: String) {
         if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
         val post = hasText("Native Red Square reference post")
-        ui.onNode(hasScrollAction()).performScrollToNode(post)
-        ui.onNode(hasText(author) and hasAnyAncestor(hasAnyChild(post))).assertIsDisplayed().performClick()
+        val identity = hasText(author) and hasAnyAncestor(hasAnyChild(post))
+        ui.waitUntil(15_000) {
+            try {
+                if (!ui.onNode(post).isDisplayed()) ui.onNode(hasScrollAction()).performScrollToNode(post)
+                ui.onNode(identity).assertIsDisplayed()
+                true
+            } catch (_: AssertionError) { false }
+        }
+        ui.onNode(identity).performClick()
     }
 
     private fun scrollUntilDisplayed(text: String) {
