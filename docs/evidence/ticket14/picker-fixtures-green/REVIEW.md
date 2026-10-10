@@ -21,6 +21,8 @@ exactly-one-owner/zero-official action pass with the explicit-port fixture.
 This successful run does not prove TIME_WAIT caused the earlier EADDRINUSE.
 
 Retained instrumentation/continuity logs support these counts. Focused scopes
-are development checks, not final acceptance. Fresh fullAndroid10 38075318198
-and fullAndroid17 38075319784 at the same source are running with public reads.
+are development checks, not final acceptance. At the historical dispatch checkpoint, fullAndroid10 38075318198
+and fullAndroid17 38075319784 started at the same source with public reads.
+The latter subsequently failed the first-use picker lookup; see
+[that rejected gate](../full-android17-first-use-failure/REVIEW.md).
 No production write, real transaction, physical-device acceptance or new APK.

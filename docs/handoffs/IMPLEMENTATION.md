@@ -7,16 +7,17 @@ one question at a time when a material choice really needs the owner.
 
 ## Current work
 
-Latest #15 checkpoint: full1d12a94 rejected on both SDKs. Android10
-38073794569 fails prepared-image visibility in landscape after actual picker
-return; Android17 38073796590 stops earlier at social original-port EADDRINUSE.
-Fixture correction returns to portrait only after asserting new Activity and
-prepared result in landscape; #35 retains landscape header/layout limitation.
-Social fixture uses existing explicit OS-selected loopback port reservation
-for both same-endpoint listeners, enabling MockWebServer reuse-before-bind.
-No retry/fallback port. Retained logs/actual failure image and honest counts:
-ticket14/picker-full-fixture-failures. Both fresh full runs remain required.
-
+Latest #15 checkpoint: HEAD23d7202 pushed. Full10 atd35f965/run38075318198
+PASS123 cases/35 records/11 actual deaths; full17 38075319784 rejected only realpicker synthetic-photo
+lookup (83 successes/16 passing logs/nine deaths). Actual landscape Googlepicker
+PNG/XML show first-use access notice + Dismiss occupying media grid; no proof
+of missing photo. Fixture now dismisses only observed external-package control
+within unchanged15s lookup, preserving all selection/recreation/pixel/text gates.
+CompilePASS1m; boundedSpec0/Standards0source, one docstatus ambiguity corrected
+in workingtree. Focusedimages17 38076217862 pending. Preserve full10 ifpasses
+and run outstanding17 companion under unchanged production equivalence rule.
+Evidence picker-full-fixture-failures, picker-fixtures-green, and
+full-android17-first-use-failure. Production remainscb3d9c3. No #15 closure.
 
 - Ticket #8, "07: Open threads and browse user profiles", is complete at final
   source c8fe9b7 against base 44cae5d. Full run 37943159613 passes both SDKs:

@@ -1,0 +1,162 @@
+{
+  "source": "d35f96575be60108c8cc0144828624a6483e79a8",
+  "run": 38075318198,
+  "completedCases": 123,
+  "completionRecords": 35,
+  "actualDeathStages": 11,
+  "records": [
+    {
+      "log": "author-delete-process/recovered-instrumentation.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "author-edit-process/recovered-instrumentation.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "author-post-ui.txt",
+      "completedCases": 8
+    },
+    {
+      "log": "browse-ui.txt",
+      "completedCases": 8
+    },
+    {
+      "log": "feed-ui.txt",
+      "completedCases": 8
+    },
+    {
+      "log": "following-ui.txt",
+      "completedCases": 8
+    },
+    {
+      "log": "image-process/recovered-instrumentation.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "image-queue-process/recovered-instrumentation.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "images-preparation-ui.txt",
+      "completedCases": 5
+    },
+    {
+      "log": "images-ui.txt",
+      "completedCases": 6
+    },
+    {
+      "log": "initialization-incompleteFirstWriteCanResumeCreation.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "initialization-unavailablePendingSaveIsPreservedForRetry.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "initialization-validSaveBeforePublicationResumesTheSavedIdentity.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "instrumentation.txt",
+      "completedCases": 3
+    },
+    {
+      "log": "live-official-feed.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "live-owner-feed.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "post-process/recovered-instrumentation.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "post-queue-process/recovered-instrumentation.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "post-queue-ui.txt",
+      "completedCases": 9
+    },
+    {
+      "log": "posting-ui.txt",
+      "completedCases": 17
+    },
+    {
+      "log": "preview-update-ui.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "quote-process/recovered-instrumentation.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "quote-ui.txt",
+      "completedCases": 7
+    },
+    {
+      "log": "social-process/recovered-instrumentation.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "social-ui.txt",
+      "completedCases": 8
+    },
+    {
+      "log": "wallet-backup-ui.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "wallet-commit-sync-ui.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "wallet-export-process/recovered-instrumentation.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "wallet-export-ui.txt",
+      "completedCases": 5
+    },
+    {
+      "log": "wallet-import-process/recovered-instrumentation.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "wallet-import-ui.txt",
+      "completedCases": 7
+    },
+    {
+      "log": "wallet-initialization-ui.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "wallet-risk-ui.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "wallet-storage-recovery-ui.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "wallet-ui.txt",
+      "completedCases": 3
+    }
+  ],
+  "deathLogs": [
+    "author-delete-process/interrupted-instrumentation.txt",
+    "author-edit-process/interrupted-instrumentation.txt",
+    "image-process/candidate-interrupted.txt",
+    "image-process/draft-interrupted.txt",
+    "image-queue-process/interrupted-instrumentation.txt",
+    "post-process/interrupted-instrumentation.txt",
+    "post-queue-process/interrupted-instrumentation.txt",
+    "quote-process/interrupted-instrumentation.txt",
+    "social-process/interrupted-instrumentation.txt",
+    "wallet-export-process/interrupted-instrumentation.txt",
+    "wallet-import-process/interrupted-instrumentation.txt"
+  ]
+}

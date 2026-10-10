@@ -5,6 +5,19 @@ Source contract NATIVE_IMAGES_CONTRACT.md. Ticket14 is complete.
 
 ## Current acceptance
 
+Fresh corrected productioncb3d9c3/full10d35f965/run38075318198 PASS123 completed
+cases/35 records/11 deliberate deaths, core39/build/release/lint, both public
+reads, cold-cache/wallet and signed5-to8 continuity. New actual frames independently
+PASS pinned crypto, A/B templates and offline Chromium ordered-raster checks.
+Evidence final-android10 and final-interop. Full17d35/run38075319784 rejected
+only actual picker lookup: observed first-use notice occupies landscape grid.
+Fixture-only correction23d7202 dismisses that observed package control within
+unchanged15s. Focused17images38076217862 pending; full17 companion still required.
+Production/core/build/scripts/workflow unchanged between accepted10 and23d7202.
+No #15 closure, physical Pixel/UI-polish acceptance, live write or new APK.
+
+## Earlier acceptance checkpoints
+
 Android10 full38068713412 atad4a8c0 PASS123 completed cases/35 records/11 actual
 process deaths; core39/build/release/lint and both public reads/cold/update
 continuity pass. Retained logs, independently recounted two-axis reviews, inspected

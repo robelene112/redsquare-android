@@ -96,3 +96,21 @@ No proof of missing MediaStore data. Fixture now dismisses only that observed
 external-package control within the unchanged15-second search window and retains
 all selection/recreation/pixel/text/no-TX assertions. Logs/captures/limits in
 full-android17-first-use-failure. Runtime confirmation/full acceptance pending.
+
+
+Bounded d35f965..23d7202 reviews: Spec0; Standards0 source findings plus one
+historical/current status ambiguity in focused-green report. Its dispatch status
+now explicitly historical, linked to the subsequent rejected full17 gate.
+Both reviewers independently verify83/16/9 and20/5/3+9/2/1, actual original-size
+first-use notice capture and empty production/core/build/scripts/workflow diff.
+Narrow compile PASS1m. Focusedimages17 38076217862 at23d7202 pending, full10d35
+38075318198 remains pending. No complete acceptance yet.
+
+
+Fresh fullAndroid10 d35f965/run38075318198 PASS123/35/11, core39/no failed or
+ignored cases, release/lint/public reads/cold/update continuity. Logs, core HTML,
+selected individually inspected original bitmaps/XML retained final-android10.
+Fresh actual post/reply/quote frames independently PASS pure pinned WASM/Elliptic,
+A/B exact-template rendering and offline Chromium3 ordered12x8 rasters per pin.
+Proofs/public frames retained final-interop. No physical/live/initialized-node
+claim. Full17 companion after23d7202 fixture correction remains required.
