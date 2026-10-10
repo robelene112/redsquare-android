@@ -243,10 +243,20 @@ verify_videos() {
     fi
     adb shell dumpsys webviewupdate > "$evidence/video-webview.txt"
     adb logcat -c
+    local video_diagnostic_pid=
+    if [[ "$public_video_read" == 1 ]]; then
+        timeout 90 node "$repo_dir/build-support/video-browser-diagnostics.cjs" "$evidence" \
+            > "$evidence/video-browser-tool.txt" 2>&1 &
+        video_diagnostic_pid=$!
+    fi
     timeout 180 adb shell am instrument -w -r \
         -e class "$video_class" -e publicVideoRead "$public_video_read" \
         nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
         > "$evidence/video-ui.txt" || true
+    if [[ -n "$video_diagnostic_pid" ]]; then
+        kill "$video_diagnostic_pid" 2>/dev/null || true
+        wait "$video_diagnostic_pid" || true
+    fi
     adb logcat -d -v brief RedSquareVideo:W '*:S' > "$evidence/video-status.txt"
     adb exec-out screencap -p > "$evidence/video-last-window.png" || true
     adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - video-evidence \

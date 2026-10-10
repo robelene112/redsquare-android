@@ -14,23 +14,21 @@ each, core39/build/release/lint, both public reads, cold recovery and signed
 updates. Productioncb3d9c3 is identical across accepted candidates. Evidence
 final-android10/final-android17/final-interop; details NATIVE_IMAGES_VERIFICATION.
 
-Active: #17 YouTube, production2a99f86 plus pending text-candidate fix,
-fixed review base711e42e. Root-owned public video selection survives rotation/
-recreation; windows below200dp use external fallback. Independently signed
-WASM/Elliptic text/link/quote references verify provider identities. Android10
-focused38083557172 at16b97ba passes4 cases24.422s. Strengthened provider-order
-tracer RED38083896709 reproduces error erasure; guarded source2a99f86 GREEN
-38084273614 passes4 cases23.724s, including error/Retry after immediate ready/
-state events. Both bounded review axes0; narrow failure-capture helper review
-cleanup committedbb491bb. Retained original PNGs and separate later XML have
-explicit limits, including black recreation frames. Full Spec additionally found
-optional-scheme/last-text-URL mismatch at both source pins. New independently
-signed four-case reference tracer RED28s, then native candidate selection is
-corrected while preserving strict provider URI/ID validation. Full44 core cases and debug/test assembly PASS2m21s, including all five
-video-core cases; no runtime/live-media acceptance is inferred. Corrected pinned-link proof now invokes original
-Browser helpers and Tweet extraction together. Runtime controlled recovery,
-separate opt-in real provider read, final full10/17 acceptance and final two-axis
-review remain required. See NATIVE_VIDEO_VERIFICATION.md. No new APK.
+Active: #17 YouTube, production32e28c4, last source/test candidate5454618,
+fixed review base711e42e. Root-owned viewer survives rotation/recreation; small
+windows use external fallback. Sticky errors persist until Retry. Text selection
+now matches both original Browser/Tweet helpers, including omitted schemes and
+last recognized non-numeric URL. Strict provider URI/ID validation remains.
+Full44 core/debug/test buildPASS; reviewed signed fixtures/proof retain original
+objects. ControlledAndroid10 four-caseGREEN38084273614 at2a99f86 passes23.724s.
+Full711e42e...5454618 source reviewsboth0. Actual public playback is unproved:
+10 run38084979254 one30.203s and17 run38084966811 one45.588s reach native ready
+but no public Play control. Individually inspected PNGs and separate XML are
+retained public-no-control. WebView74/145 respectively; cause unestablished.
+An opt-in-only read-only DevTools geometry/control diagnostic is now prepared,
+with no production changes/private globals/playback calls. Syntax checks pass;
+next public17 diagnostic run pending. Full10/17 acceptance remains required.
+See NATIVE_VIDEO_VERIFICATION.md. No ticket closure or new APK.
 
 #16 Giphy remains open: an Android-authorized key and clarification of provider
 URL retention are unresolved. Blocker recorded on issue16. The prior owner

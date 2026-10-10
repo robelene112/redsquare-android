@@ -267,3 +267,23 @@ then requires native playing from the real documented state event. It captures
 ready/playing/failure PNGs and separate XML, plus actual WebView provider metadata.
 No private browser method, account login, Saito write or credential is used.
 Test assemblyPASS; actual provider playback is pending, not inferred from compile.
+
+Full source reviews711e42e...5454618: Spec0 actionable source/evidence findings;
+Standards0 hard breaches/0 actionable smells. This does not establish runtime.
+Public checks at5454618 do not pass: Android10 run38084979254 one case30.203s;
+Android17 run38084966811 one case45.588s. Both reach native ready then fail
+line61 because the public Play control is absent. Individually inspected original
+failure PNGs show a mostly black app/external control on10 and a visible native
+ready header/black player on17. Separate XMLs expose no provider controls. Actual
+WebViews are74.0.3729.185 and145.0.7632.218 respectively. No cause is established,
+and the current17 provider prevents attributing both failures to10's older
+WebView. Evidence: public-no-control/android10 andandroid17. No real playback
+claim, no full acceptance or ticket closure.
+A bounded read-only DevTools diagnostic is added only to opt-in public scopes:
+it inspects numeric DOM geometry and public controls of the .dev wrapper and
+documented M7 example, not private application globals/cookies/storage/headers.
+It makes no playback call or acceptance assertion. Recent WebViews automatically
+enable debugging for debuggable builds; no production source or debugging flag
+was changed. [Android primary reference](https://developer.android.com/reference/android/webkit/WebView#setWebContentsDebuggingEnabled(boolean)).
+Syntax checks pass; actual captured browser geometry remains pending. Existing
+UI/playing acceptance gates are unchanged.
