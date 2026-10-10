@@ -256,7 +256,7 @@ class AuthorPostPreviewTest {
                     ui.onNodeWithText("Save changes").performClick()
                     waitFor("Another edit is available. Your text is saved on this device.")
                     ui.onNodeWithText("Edit available on this server.").assertDoesNotExist()
-                    ui.onNode(hasSetTextAction()).assertTextEquals("My retained text").assertIsNotEnabled()
+                    ui.onNodeWithText("My retained text").assertTextEquals("My retained text").assertIsNotEnabled()
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText("Keep my text") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNodeWithText("Keep my text").performClick()
                     ui.waitUntil(20_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }

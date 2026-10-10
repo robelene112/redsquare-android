@@ -151,7 +151,7 @@ class AuthorProcessRecoveryTest {
                 assertTrue(peer.transactions.isEmpty())
                 ui.onNodeWithText(if (delete) "Delete post" else "Edit post").performClick()
                 enabled("Retry")
-                if (!delete) ui.onNode(hasSetTextAction()).assertTextEquals(editedText).assertIsNotEnabled()
+                if (!delete) ui.onNodeWithText(editedText).assertTextEquals(editedText).assertIsNotEnabled()
                 assertTrue(peer.transactions.isEmpty())
                 ui.onNodeWithText("Retry").performClick()
                 waitFor(if (delete) "Post removed on this server." else "Edit available on this server.")
