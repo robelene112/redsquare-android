@@ -7,14 +7,17 @@ one question at a time when a material choice really needs the owner.
 
 ## Current work
 
-Latest #15 checkpoint: final full Android10 38075318198 atd35f965 and Android17
-38076602854 at23d7202 PASS123 cases/35 records/11 actual deaths each; core39,
-release/lint, both public reads, cold recovery and signed updates pass.
-Production remainscb3d9c3; production/core/build-support/scripts/workflow
-unchanged between accepted candidates. Fresh frame crypto/A/B controlled browser
-proof retained final-interop. Final17 logs and individually inspected originals
-retained final-android17. Final evidence/status review and push remain before
-closure. Prior fixture failures retained with limits; landscape polish #35.
+Ticket #15 is complete after final source/fixture/evidence reviews: both axes
+zero remaining findings through2829329. Full Android10 38075318198 atd35f965
+and Android17 38076602854 at23d7202 PASS123 cases/35 records/11 actual deaths
+each, core39/build/release/lint, both public reads, cold recovery and signed
+updates. Productioncb3d9c3 is identical across accepted candidates. Evidence
+final-android10/final-android17/final-interop; details NATIVE_IMAGES_VERIFICATION.
+
+Next: #16 Giphy requires an Android-authorized key and clarification of provider
+URL retention. The prior owner question is unanswered; do not reuse backend web
+credentials. Record the actual external blocker, keep16 open, and continue the
+independently ready #17 YouTube slice sequentially. No new APK has been published.
 
 - Ticket #8, "07: Open threads and browse user profiles", is complete at final
   source c8fe9b7 against base 44cae5d. Full run 37943159613 passes both SDKs:
@@ -124,83 +127,26 @@ closure. Prior fixture failures retained with limits; landscape polish #35.
   working create-tweet path. No node repair, live write, chain, Pixel or push claim.
   No newAPK. Next ready#15: bounded image composition/viewing with recovery.
 
-- Active#15, "14: Attach and view images in posts, replies and quotes", assigned
-  after14 closure. Fixed review base3d47253. Both native blockers#10/#13 closed.
-  Approved parent seams1–4 apply. Production312f58c implements bounded galleries,
-  viewer, image-only composition, worker normalization and encrypted image drafts.
-  Core39 passes independent signed ordering/dual-quote image authentication.
-  Focused4808761 Android10 38068060875 PASS20 cases and3 real process deaths.
-  Android17 38068063232 passes19/20; quote Add images visibility with IME open
-  fails. Fixture now dismisses keyboard and awaits visible scroll before launch. Both bounded reviews0 findings; full source
-  review354a1c7 also0. Earlier fe1 runs10/17 passed6 basic/5 preparation and
-  cold queue, but disabled-text selector and generic gallery collisions failed;
-  both are corrected without production changes. Wallet/author/queue/storage
-  failure media fixtures now pass10. Full-order queue text/image variants now
-  use distinct exact body literals to retain cached history without ambiguity.
-  Local narrow compile PASS1m07s and keyboard correction PASS1m09s.
-  Fullad4a8c0 Android10 38068713412 PASS123 cases/35 records/11 actual kills,
-  both public feeds and cold/signed update continuity. Full17 38068715154 passes
-  prior features and signed media, but system picker Done label differs from
-  older Add (1), plus saved-draft picker visibility with IME open. Fixture fixes
-  share bounded keyboard dismissal/visible navigation and scope both observed
-  labels to the launched picker package. Narrow compile PASS1m10s. Production
-  unchanged; retain successful10 and rerun only outstanding17 full perWORKFLOW.
-  Bounded4dd fix reviews0. Full17 run38069923347 passes all media and wallet
-  flows reached, then fails old unreadable-feed refresh fixture:108 successful
-  cases/24 passing records/11 actual kills,1 failure. New fixture waits both
-  initial archive streams plus enabled Refresh, then verifies a new request;
-  exact warning/post assertions unchanged. Narrow compile PASS. Production
-  unchanged. Focused feed17c73fc13/run38071460383 PASS8 cases/64.029s and
-  cold cache continuity. Picker automatic return now requires actual package
-  disappearance; compile1m01s/both bounded reviews0 at65469a7. Final full17
-  companion38071834163 at65469a7 PASS123 cases/35 logs/11 actual deaths with
-  public reads enabled, retained full-android17-picker-baseline. Production/
-  build/scripts/workflow equivalence to accepted full10 verified again; final
-  evidence/review/closure still required. A subsequent targeted review confirmed
-  a production preservation gap: Add images opens the picker before saving new
-  text; addImages saves only after a result. Both review axes confirm this is
-  within the approved navigation/recovery contract. Extend the existing actual
-  process-death tracer to edit text after preparation, open the real picker with
-  no result, kill and cold-recover exact new text plus the source-deleted image.
-  Test first, then add a state-owned verified save-before-launch guard and bind
-  delayed results to their originating composer. Save failure must launch no
-  picker. This production change needs fresh full10 AND17 acceptance; successful
-  654 baseline cannot close15. RED tracer c3b2aaa in run38072955931 reproduces
-  loss of final text after actual process death: preliminary text recovers,
-  prepared red pixels survive. Retained picker-navigation-red logs/PNG/XML with
-  explicit viewport/transition limits. Production correction now being compiled:
-  cb3d9c3: synchronous saving gate, verified persistence, session-cancelled scope,
-  saveable full-domain pending marker and keyed launchers. Narrow compile1m46s
-  PASS and both bounded source-review axes0. Focused17 38073556210 verifies
-  new final-text/red-media recovery after actual external-picker process death,
-  exact candidate reconciliation and3 total media kills; overall FAILS separate
-  system-picker synthetic-image lookup. Its XML has nativeapp at timeout; a
-  Compose scheduler hypothesis is unproved. New foreground wait in1d12a94
-  drives Compose until external picker is observed. Recovery evidence retained
-  picker-navigation-recovery-green; full1d12 runs10/17 still pending.
-  Existing storage-obstruction case now requires no picker intent; real system
-  picker case rotates externally, requires activity recreation and exact draft
-  text/green returned pixels without publication. Fixture compile PASS1m01s;
-  process diagnostics dump XML before bitmap. Both fixture spec axes0;
-  standards requests independent primary-preserving rotation cleanup. Fixed
-  with existing helper, all4 cleanup actions attempted and diagnostic failures
-  suppressed. Compile PASS59s. Fresh full10/17 remain; no closure.
-  Full10 evidence retained6853de3, corrected official caption0c5b7fd; both
-  bounded evidence review axes0 residual findings.
-  Actual post/reply/quote frames independently verified; A/B unchanged templates
-  and offline Chromium decode gallery order/pixels. Public synthetic proof retained
-  docs/evidence/ticket14/interop. Cold recovery first phase now clears synthetic
-  feed caches and identifies Signed image reference uniquely; cold peer serves[].
-  Ticket remains open until exact focused and full10/17 acceptance, final two-axis
-  review and retained device evidence. Read NATIVE_IMAGES_CONTRACT.md and
-  NATIVE_IMAGES_VERIFICATION.md. Preserve future untracked research by ticket.
+- Ticket #15, "14: Attach and view images in posts, replies and quotes", is
+  complete at productioncb3d9c3, accepted fixturesd35f965/23d7202, base3d47253.
+  Bounded asynchronous galleries/viewer and off-UI normalization, image-only
+  composition, authenticated dual-quote image order and encrypted media drafts
+  complete. Verified saving precedes external picker launch; failed saving
+  preserves work and launches no picker. Newest text/source-deleted prepared
+  image and exact signed candidates survive real process death. Backend/wallet
+  isolation, queue and author actions preserve media. Full10/17 each123 cases/
+  35 logs/11 deaths; both review axes0. Current actual frames independently
+  verify pinned WASM/Elliptic and controlled unchanged A/B templates/browser.
+  Retained failures have explicit cause/viewport limits; landscape polish #35.
+  No live publication, physical Pixel/push or new APK claim. Full chronology
+  remains NATIVE_IMAGES_VERIFICATION.md and ticket14/SOURCE_REVIEW.md.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.
-- Thirteen of35 tickets complete: #2 crypto compatibility, #3 persistent wallet
+- Fourteen of35 tickets complete: #2 crypto compatibility, #3 persistent wallet
   and signing/updates, #4 feed/cache, #5 fixed backends, #6 authenticated export,
   #7 safeguarded import, #8 threads/profiles, #9 following, #10 posting/drafts.
-  #11 queues; #12 likes/reposts; #13 quotes; #14 author edits/deletion.22 tickets still open. Preserve all accepted features; no Ralph or parallel implementation.
+  #11 queues; #12 likes/reposts; #13 quotes; #14 author edits/deletion; #15 images.21 tickets still open. Preserve all accepted features; no Ralph or parallel implementation.
 
 ## Completed foundation references
 
@@ -228,7 +174,7 @@ Initial wallet/live-feed milestone is published as stable signed version10
 Compose bitmaps had inconsistent labels; use each report's stated evidence
 limits. #9 also has official bitmap inconsistencies; no invented cause.
 
-Current next: finish #15 then all remaining tickets sequentially. Owner reviews
+Current next: record #16 external credential blocker, then #17 and remaining ready tickets sequentially. Owner reviews
 completed app; no intermediate phone-review gate is required.
 
 ## Verification already inspected

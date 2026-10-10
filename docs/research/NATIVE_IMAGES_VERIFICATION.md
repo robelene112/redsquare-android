@@ -1,6 +1,6 @@
 # Native image verification
 
-Active #15, fixed base3d47253. Parent seams1–4. No live transactions or node writes.
+Completed #15, fixed base3d47253. Parent seams1–4. No live transactions or node writes.
 Source contract NATIVE_IMAGES_CONTRACT.md. Ticket14 is complete.
 
 ## Current acceptance
@@ -24,8 +24,8 @@ Full Android17 uses the Google picker with a visible green thumbnail; focused
 or a unique cause of the earlier rejected first-use lookup.
 
 Source/fixture/evidence reviews have zero remaining actionable findings through
-226626f; the final Android17 evidence and status update are awaiting bounded
-review. Ticket remains open until that review and push. No physical Pixel/UI
+2829329. Both axes independently recount the final logs, inspect original-size
+captures and confirm source equivalence. Ticket acceptance is complete. No physical Pixel/UI
 polish acceptance, live write or new APK.
 
 ## Earlier acceptance checkpoints
