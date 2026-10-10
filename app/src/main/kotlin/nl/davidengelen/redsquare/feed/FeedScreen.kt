@@ -257,6 +257,7 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
                     Text(DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, Locale.ENGLISH)
                         .format(Date(post.createdAt)), style = MaterialTheme.typography.labelSmall)
                     PostImages(post.images, backend)
+                    PostVideo(post, backend)
                     QuoteContent(post, quotes, backend)
                     SocialActions(post, social) { navigation.add(BrowseDestination.Quote(it)) }
                 }

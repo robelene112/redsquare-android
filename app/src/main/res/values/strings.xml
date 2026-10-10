@@ -176,4 +176,18 @@
     <string name="author_edit_keep_text">Keep my text</string>
     <string name="author_edit_use_latest">Use latest text</string>
     <string name="author_action_network_error">Could not verify this change on the selected server. Your original attempt is saved.</string>
+    <string name="video_provider">YouTube</string>
+    <string name="video_watch">Watch on YouTube</string>
+    <string name="video_close">Close video</string>
+    <string name="video_player">YouTube player</string>
+    <string name="video_loading">Loading YouTube...</string>
+    <string name="video_ready">Use the player controls to start playback.</string>
+    <string name="video_open_external">Open in YouTube</string>
+    <string name="video_external_unavailable">No app can open this video link.</string>
+    <string name="video_invalid">This video link is invalid.</string>
+    <string name="video_unavailable">This video is unavailable or private.</string>
+    <string name="video_embed_disabled">This video can only be watched on YouTube.</string>
+    <string name="video_identity_failure">YouTube could not verify this player. Try opening the video in YouTube.</string>
+    <string name="video_playback_failure">YouTube could not play this video.</string>
+    <string name="video_network_failure">YouTube could not load. Retry or open the video in YouTube.</string>
 </resources>

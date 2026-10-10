@@ -35,7 +35,8 @@ class VideoPreviewTest {
         api.enqueue(MockResponse.Builder().setHeader("Content-Type", "application/javascript").body("""
             window.YT={Player:function(element,options){
               var target=this;
-              target.cueVideoById=function(id){window.referenceCued=id};
+              if(options.playerVars.autoplay!==0){options.events.onError({data:2});return;}
+              target.cueVideoById=function(id){if(id!=='M7lc1UVf-VE')throw Error('Wrong video');window.referenceCued=id};
               target.pauseVideo=function(){};
               document.getElementById(element).innerText='Controlled YouTube player';
               setTimeout(function(){options.events.onReady({target:target})},20);
@@ -56,6 +57,8 @@ class VideoPreviewTest {
                         ui.onNodeWithText("Watch on YouTube").performClick()
                         ui.waitUntil(20_000) { ui.onAllNodesWithText("Use the player controls to start playback.").fetchSemanticsNodes().isNotEmpty() }
                         assertEquals(1, api.requestCount)
+                        val request = requireNotNull(api.takeRequest(5, java.util.concurrent.TimeUnit.SECONDS))
+                        assertEquals("https://${context.packageName}/", request.headers["Referer"])
                         capture("video-evidence/tapped-player.png")
                         ui.onNodeWithText("Close video").performClick()
                         ui.onNodeWithText("Video reference https://youtu.be/M7lc1UVf-VE").assertExists()

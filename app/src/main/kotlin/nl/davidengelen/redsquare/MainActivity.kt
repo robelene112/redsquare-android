@@ -220,7 +220,8 @@ class MainActivity : ComponentActivity() {
                             val selected = backend
                             if (selected != null) backendStates.SaveableStateProvider(selected.id) {
                                 key(selected) {
-                                    CompositionLocalProvider(LocalPostNavigation provides postNavigation) {
+                                    CompositionLocalProvider(LocalPostNavigation provides postNavigation,
+                                        nl.davidengelen.redsquare.feed.LocalVideoFixture provides nl.davidengelen.redsquare.feed.VideoFixture.fromIntent(intent)) {
                                     FeedScreen(wallet, failed, FeedEndpoints.fromIntent(intent, selected), selected,
                                         lifecycle, Modifier.weight(1f)) { reportFullyDrawn() }
                                     }

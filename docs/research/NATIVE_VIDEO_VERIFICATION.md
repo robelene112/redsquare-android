@@ -19,3 +19,21 @@ has no playVideo implementation, so automatic playback cannot pass readiness.
 An initial local test-compile attempt used a nonexistent transaction timestamp
 property; corrected to the fixture's explicit public timestamp. No runtime
 result is claimed until the hosted tracer completes.
+
+
+Explicit signed-link tracer RED23s (property absent), GREEN46s. Verified archive
+content now exposes only bounded string links; malformed link metadata does not
+replace authenticated text. Real host/path boundaries and 11-character IDs are
+required before constructing a fixed HTTPS playback target. Primary YouTube
+IFrame/client-identity/security documentation rechecked2026-10-10, including
+installed package name as base URL and error153. Source note has direct links.
+
+
+Android17 RED38078560019 at64bab9c reaches the controlled signed post then fails
+because Watch on YouTube is absent (9.924s). Original screenshot shows its link,
+with leading text clipped in the small development viewport; retained with that
+limit. First player/core/test compilation PASS; before runtime, API33-only
+InputStream.readNBytes was replaced with bounded Okio buffering for Android10.
+Provider failure releases the WebView; renderer-crash cleanup avoids querying a
+dead renderer. The unchanged tap tracer additionally requires the actual API
+request Referer to identify the installed .dev package and autoplay0/correct ID.

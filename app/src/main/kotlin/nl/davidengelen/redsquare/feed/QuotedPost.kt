@@ -48,6 +48,7 @@ internal fun QuotedPost(original: FeedPost, backend: SaitoBackend) {
             Text("Anon-${original.author.take(6)}", style = MaterialTheme.typography.labelMedium)
             Text(original.text, style = MaterialTheme.typography.bodyMedium)
             PostImages(original.images, backend)
+            PostVideo(original, backend)
         }
     }
 }

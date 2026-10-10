@@ -17,6 +17,7 @@ object RedSquareVideo {
     /** Match vanilla's signed-link priority and first-link behavior. */
     fun youtube(text: String, link: String = ""): YouTubeVideo? {
         val source = link.trim().ifEmpty { firstLink.find(text)?.value?.trimEnd('.', ',', ';', '!', ')', ']', '}').orEmpty() }
+        if (source.length > 8192) return null
         return try {
             val uri = URI(source)
             val scheme = uri.scheme?.lowercase(Locale.ROOT)

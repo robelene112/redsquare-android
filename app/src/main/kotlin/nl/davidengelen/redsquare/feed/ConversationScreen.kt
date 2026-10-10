@@ -121,6 +121,7 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
                     Text(post.text, Modifier.clickable { onPost(post) }.padding(vertical = 8.dp),
                         style = MaterialTheme.typography.bodyLarge)
                     PostImages(post.images, backend)
+                    PostVideo(post, backend)
                     QuoteContent(post, quotes, backend)
                     SocialActions(post, social, onQuote)
                 }

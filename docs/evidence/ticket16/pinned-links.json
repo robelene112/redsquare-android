@@ -1,0 +1,41 @@
+{
+  "scope": "unchanged pinned method only; no initialized client or live playback",
+  "results": [
+    {
+      "baseline": "A-9a4ca7e",
+      "sourceSha256": "07ea0b50eac7c21ac8452b51fdb7bdda27efb5de7c62e5288a220ffaf23bf908",
+      "urls": [
+        "https://www.youtube.com/watch?v=M7lc1UVf-VE&t=20",
+        "https://youtu.be/M7lc1UVf-VE?si=public",
+        "https://youtube.com/shorts/M7lc1UVf-VE",
+        "https://m.youtube.com/live/M7lc1UVf-VE#t=2",
+        "https://music.youtube.com/watch?v=M7lc1UVf-VE"
+      ],
+      "ids": [
+        "M7lc1UVf-VE",
+        "M7lc1UVf-VE",
+        "M7lc1UVf-VE",
+        "M7lc1UVf-VE",
+        "M7lc1UVf-VE"
+      ]
+    },
+    {
+      "baseline": "B-214504ec",
+      "sourceSha256": "5cd07031e4af6bf57415543ec77ea67b6ad4e9ba3aed48e97b5969c97380be4a",
+      "urls": [
+        "https://www.youtube.com/watch?v=M7lc1UVf-VE&t=20",
+        "https://youtu.be/M7lc1UVf-VE?si=public",
+        "https://youtube.com/shorts/M7lc1UVf-VE",
+        "https://m.youtube.com/live/M7lc1UVf-VE#t=2",
+        "https://music.youtube.com/watch?v=M7lc1UVf-VE"
+      ],
+      "ids": [
+        "M7lc1UVf-VE",
+        "M7lc1UVf-VE",
+        "M7lc1UVf-VE",
+        "M7lc1UVf-VE",
+        "M7lc1UVf-VE"
+      ]
+    }
+  ]
+}

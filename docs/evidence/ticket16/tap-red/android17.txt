@@ -1,0 +1,68 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.VideoPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.VideoPreviewTest:
+INSTRUMENTATION_STATUS: test=videoContactsProviderOnlyAfterTapAndClosingPreservesThePost
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.VideoPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: No node found that matches Text + InputText + EditableText contains 'Watch on YouTube' (ignoreCase: false) in scrollable container
+Semantics of the node:
+Node #35 at (l=16.0, t=456.0, r=304.0, b=624.0)px
+CollectionInfo = 'CollectionInfo(rowCount=1, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@44bb7a8'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=73.0, maxValue=73.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 1 child, 15 siblings
+Selector used: (ScrollBy is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.VideoPreviewTest.videoContactsProviderOnlyAfterTapAndClosingPreservesThePost(VideoPreviewTest.kt:53)
+
+INSTRUMENTATION_STATUS: stream=
+Error in videoContactsProviderOnlyAfterTapAndClosingPreservesThePost(nl.davidengelen.redsquare.VideoPreviewTest):
+java.lang.AssertionError: No node found that matches Text + InputText + EditableText contains 'Watch on YouTube' (ignoreCase: false) in scrollable container
+Semantics of the node:
+Node #35 at (l=16.0, t=456.0, r=304.0, b=624.0)px
+CollectionInfo = 'CollectionInfo(rowCount=1, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@44bb7a8'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=73.0, maxValue=73.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 1 child, 15 siblings
+Selector used: (ScrollBy is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.VideoPreviewTest.videoContactsProviderOnlyAfterTapAndClosingPreservesThePost(VideoPreviewTest.kt:53)
+
+INSTRUMENTATION_STATUS: test=videoContactsProviderOnlyAfterTapAndClosingPreservesThePost
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 9.924
+There was 1 failure:
+1) videoContactsProviderOnlyAfterTapAndClosingPreservesThePost(nl.davidengelen.redsquare.VideoPreviewTest)
+java.lang.AssertionError: No node found that matches Text + InputText + EditableText contains 'Watch on YouTube' (ignoreCase: false) in scrollable container
+Semantics of the node:
+Node #35 at (l=16.0, t=456.0, r=304.0, b=624.0)px
+CollectionInfo = 'CollectionInfo(rowCount=1, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@44bb7a8'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=73.0, maxValue=73.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 1 child, 15 siblings
+Selector used: (ScrollBy is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.VideoPreviewTest.videoContactsProviderOnlyAfterTapAndClosingPreservesThePost(VideoPreviewTest.kt:53)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
