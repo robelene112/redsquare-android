@@ -144,4 +144,44 @@ class PostQueuePreviewTest {
             }
         }
     }
+
+    @Test fun failedQueueSavingRetainsWorkWithoutClaimingQueuedOrTransmitting() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val indexed = java.util.concurrent.atomic.AtomicReference<com.google.gson.JsonObject?>()
+        val peer = ControlledFeedPeer("[]", onTransaction = { frame -> indexed.set(postingArchiveRow(postingTransaction(frame))) },
+            archiveResponse = { criteria ->
+                val row = indexed.get()
+                if (criteria.has("sig") && criteria.get("sig").asString != row?.get("sig")?.asString) "[]"
+                else row?.let { "[$it]" } ?: "[]"
+            })
+        peer.start().use { server ->
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                ui.onNodeWithText("Wallet").performClick()
+                val address = displayedWalletAddress(ui)
+                ui.onNodeWithText("Done").performClick()
+                ui.onNodeWithText("New post").performClick()
+                ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                ui.onNode(hasSetTextAction()).performTextReplacement("Retain work until it can be saved")
+                val obstacle = java.io.File(context.noBackupFilesDir, "postdraft.owner.$address.v1")
+                check(obstacle.mkdir())
+                val child = java.io.File(obstacle, "controlled-obstacle").apply { writeText("Synthetic write obstruction") }
+                try {
+                    ui.onNodeWithText("Send").performClick()
+                    ui.waitUntil(10_000) { ui.onAllNodes(hasText("Could not load or confirm the saved draft. Your current text remains here. Try again.")).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("Retain work until it can be saved").assertExists()
+                    ui.onAllNodes(hasText("Queued")).assertCountEquals(0)
+                    assertTrue("Failed persistence must prevent transmission", peer.transactions.isEmpty())
+                } finally { check(child.delete()); check(obstacle.delete()) }
+                ui.onNodeWithText("Retry").performClick()
+                ui.waitUntil(20_000) { ui.onAllNodes(hasText("Available on this server.")).fetchSemanticsNodes().isNotEmpty() }
+                val post = nl.davidengelen.redsquare.saito.RedSquareFeed.decode(postingTransaction(peer.transactions.single()).envelope())
+                org.junit.Assert.assertEquals(address, post.author)
+                org.junit.Assert.assertEquals("Retain work until it can be saved", post.text)
+                peer.assertHealthy()
+                captureFeedEvidence("post-queue-evidence/failed-save-repaired-without-losing-work.png")
+            }
+        }
+    }
 }

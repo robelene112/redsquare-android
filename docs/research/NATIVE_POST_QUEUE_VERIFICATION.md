@@ -69,3 +69,8 @@ claim retain Queued. OS delays/force-stop limits are documented in
 ANDROID_POST_QUEUE_BACKGROUND.md. Local debug/test assembly passes2m20.
 Focused background green pending; uncertain automatic retries and actual process/
 replacement acceptance remain incomplete.
+
+Focused38006955485 at6603f2f passes3/3 application cases, including background
+reconnection with original identity and verified availability on return. This
+proves the controlled background flow, not immediate OS delivery or force-stop
+execution. Failed-persistence truthfulness is next.
