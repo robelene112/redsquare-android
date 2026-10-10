@@ -30,7 +30,17 @@ private draft adapter not implemented yet. Emulator fixture cleanup additionally
 resets only profiledraft files, alongside public profilemeta, after dev/emulator
 guards; no wallet files or unrelated work touched. Avatar/banner selection,
 publishing, retry/reconciliation, broader recovery and final full reviews remain.
-No local compiler active. No APK publication or production node/on-chain write.
+No APK publication or production node/on-chain write.
+
+Latest17 draftRED38092752725 at846bd54:4cases1failure37.9s missingYourprofile
+line195; other3pass. Originalin-scopefeedPNGinspected/retained, source38092752140
+PASS. Test post-save transition now requires clickableEditprofile, not title.
+Ownentry+bioeditor+ProfileDraftStore encryptedowner/backend privatechanges now
+implemented; localdebug/testPASS2m4s `.scratch/profile-bio-draft-green-build.log`.
+No localcompileractive; freshdualGREENpending.
+WalletImport pendingwork includesprofiledraftallbackends, unreadable=>unknown.
+No publisher/candidate/media yet. Duplicateencryptedfilelogic deliberatelyawaits
+reviewstage sharedextraction after real nativeGREEN; preservePostlegacyformats.
 
 #17 remains open for actual YouTube provider playback acceptance. Its full
 immutable534330e pair passed127 cases each; that is not acceptance of later

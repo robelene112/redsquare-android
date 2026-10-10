@@ -27,6 +27,7 @@ internal enum class ProfileTab(val label: Int) {
 
 internal class ProfileViewState {
     var tab by mutableStateOf(ProfileTab.POSTS)
+    var editing by mutableStateOf(false)
     var history = AndroidProfileCache.SavedProfile(emptyList(), emptyList(), false)
 }
 
@@ -183,6 +184,10 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
         catch (_: Exception) { failed = true }
         finally { loading = false }
     }
+    if (view.editing && wallet?.publicKey == author) {
+        ProfileEditorScreen(requireNotNull(wallet), backend, profile, modifier) { view.editing = false; refresh++ }
+        return
+    }
     Column(modifier) {
         Row {
             TextButton(onClick = onBack) { Text(stringResource(R.string.browse_back)) }
@@ -207,6 +212,9 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
                     }
                     profile?.description?.takeIf { it.isNotEmpty() }?.let {
                         Text(it, Modifier.padding(vertical = 8.dp), style = MaterialTheme.typography.bodyMedium)
+                    }
+                    if (wallet?.publicKey == author) TextButton(onClick = { view.editing = true }) {
+                        Text(stringResource(R.string.profile_edit))
                     }
                     if (profileLoading) Text(stringResource(R.string.profile_details_loading))
                     if (profileFailed) Text(stringResource(R.string.profile_details_error))

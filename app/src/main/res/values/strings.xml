@@ -113,6 +113,11 @@
     <string name="wallet_import_saved_name">Saved name: %1$s</string>
     <string name="wallet_import_pending_work">Pending work belongs to your current wallet</string>
     <string name="profile_title">Profile</string>
+    <string name="profile_own">Your profile</string>
+    <string name="profile_edit">Edit profile</string>
+    <string name="profile_bio">Bio</string>
+    <string name="profile_draft_local">Your draft stays on this device until you save the profile.</string>
+    <string name="profile_draft_error">Could not open or save your profile draft. Try again.</string>
     <string name="profile_generated_picture">Generated profile picture</string>
     <string name="profile_details_loading">Loading profile details...</string>
     <string name="profile_details_error">Could not refresh profile details. Try Refresh.</string>

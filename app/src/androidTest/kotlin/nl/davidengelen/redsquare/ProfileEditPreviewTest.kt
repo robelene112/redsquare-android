@@ -198,7 +198,9 @@ class ProfileEditPreviewTest {
                     ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNode(hasSetTextAction()).performTextReplacement(bio)
                     ui.onNodeWithText("Save draft").performClick()
-                    ui.waitUntil(10_000) { ui.onAllNodesWithText("Edit profile").fetchSemanticsNodes().isNotEmpty() }
+                    ui.waitUntil(10_000) {
+                        ui.onAllNodes(hasText("Edit profile") and hasClickAction()).fetchSemanticsNodes().isNotEmpty()
+                    }
                     ui.onAllNodesWithText(bio).assertCountEquals(0)
                     assertTrue(peer.transactions.isEmpty())
                     peer.assertHealthy()

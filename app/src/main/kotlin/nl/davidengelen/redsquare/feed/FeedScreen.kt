@@ -227,7 +227,12 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
                 Text(stringResource(R.string.feed_refresh))
             }
         }
-        TextButton(enabled = wallet != null, onClick = { composing = true }) { Text(stringResource(R.string.post_new)) }
+        Row {
+            TextButton(enabled = wallet != null, onClick = { composing = true }) { Text(stringResource(R.string.post_new)) }
+            TextButton(enabled = wallet != null, onClick = { wallet?.let { openProfile(it.publicKey) } }) {
+                Text(stringResource(R.string.profile_own))
+            }
+        }
         TextButton(enabled = wallet != null, onClick = { reviewingQueue = true }) { Text(stringResource(R.string.post_queue_title)) }
         TextButton(enabled = wallet != null, onClick = { reviewingChanges = true }) { Text(stringResource(R.string.author_saved_changes)) }
         val visiblePosts = if (followingView) posts.filter { it.author in following?.accounts.orEmpty() } else posts

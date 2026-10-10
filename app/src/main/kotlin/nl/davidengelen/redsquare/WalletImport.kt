@@ -107,7 +107,9 @@ class WalletImport(
                     val nativeWork = try {
                         SaitoBackend.entries.any { backend ->
                             nl.davidengelen.redsquare.feed.PostDraftStore.authorWork(activity.applicationContext,
-                                operation.original.publicKey, backend).isNotEmpty()
+                                operation.original.publicKey, backend).isNotEmpty() ||
+                                nl.davidengelen.redsquare.feed.ProfileDraftStore(activity.applicationContext,
+                                    operation.original.publicKey, backend).load().size() > 0
                         }
                     } catch (_: Exception) { true }
                     ReadResult(Candidate(SaitoWallet.fromBackup(json), operation.original, operation.backend, nativeWork), null)

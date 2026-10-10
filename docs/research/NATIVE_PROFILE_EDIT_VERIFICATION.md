@@ -162,3 +162,24 @@ No transaction may be transmitted or draft bio shown on the public profile.
 Only disposable dev/emulator profiledraft fixtures are additionally reset;
 wallet and unrelated work stay untouched. Local test assemblyPASS1m45s. Intended runtimeRED pending, with own
 entry/editor/private draft storage still absent.
+
+Android17 run38092752725 at846bd54 yields intended missing-Your-profile RED
+atline195, four cases/one failure37.9s. Other three profile flows pass. Original
+in-scope bitmap individually inspected: feed with existing cached reference
+post, no own-profile entry. Controlled empty feed responses do not erase cached
+posts. Retained profile-bio-draft-red/android17. Source38092752140 succeeds.
+The next fixture waits for the clickable Edit profile button after saving,
+not its matching editor title; original private-bio absence/noTX assertions stay.
+
+Minimal own-profile entry and bio draft editor debug/test assemblyPASS2m4s;
+fresh dual nativeGREEN pending. Private changes use AES-256-GCM with app/filename associated data,
+Android Keystore, owner/backend-scoped no-backup file, strict UTF-8/JSON and
+5MiB local bound, atomic write/fsync/reopened equality verification. Missing key
+with existing drafts refuses a fresh key. Editor memory uses a scoped ViewModel,
+not saved-state content; Back/Save draft and navigation persist under the shared
+wallet/backend lock. Failed saves keep the editor open with truthful copy.
+Untouched baseline bio does not become edit intent. Wallet replacement accounts
+for saved profile work on either backend and treats unreadable work as unknown.
+No Save profile/publishing/candidate/media behavior implemented yet. Encrypted
+file logic initially duplicates the existing post adapter; shared extraction
+belongs to the review stage after both real consumers pass their native flow.
