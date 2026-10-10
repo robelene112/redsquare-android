@@ -346,3 +346,18 @@ frame validation, exact visible post and scoped pixels. Cache history is retaine
 Narrow compile PASS1m07s. Full-script author process checks clear prior synthetic
 revision/media caches before image viewing; arbitrary manual partial reordering
 is not covered by that isolation. Final full10/17 acceptance remains pending.
+
+4808761 Android17 38068063232 passes19/20 completed cases plus3 process deaths.
+All7 lifecycle, both cold recoveries and5 preparation/loading pass. Sole failure
+is quote Add images visibility immediately after performScrollTo with the IME
+open. Actual-window quote-publish-failure.png shows the focused field and keyboard
+with the window panned upward; no picker launch occurred. This proves the observed
+window/visibility failure, not an established application defect or unique timing
+cause. Fixture now uses Espresso's keyboard dismissal before a bounded scroll/
+displayed wait, then still requires the visible click, actual external picker
+intent, prepared bytes and exact signed quote. Production source unchanged.
+Final full10/17 will cover this correction and the distinct queue body together;
+no further duplicate focused dispatch is required before that complete gate.
+
+Keyboard visibility correction narrow compile PASS1m09s. Final full device
+checks and bounded review pending.

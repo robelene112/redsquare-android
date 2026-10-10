@@ -139,7 +139,13 @@ class ImagePostingTest {
                             if (text.isEmpty()) ui.onNode(hasSetTextAction()).assert(SemanticsMatcher.expectValue(
                                 androidx.compose.ui.semantics.SemanticsProperties.EditableText, androidx.compose.ui.text.AnnotatedString("")))
                             else ui.onNode(hasSetTextAction()).performTextReplacement(text)
-                            ui.onNodeWithText("Add images").performScrollTo().assertIsDisplayed().performClick()
+                            androidx.test.espresso.Espresso.closeSoftKeyboard()
+                            ui.waitUntil(10_000) {
+                                try {
+                                    ui.onNodeWithText("Add images").performScrollTo().isDisplayed()
+                                } catch (_: AssertionError) { false }
+                            }
+                            ui.onNodeWithText("Add images").assertIsDisplayed().performClick()
                             Intents.intended(anyOf(hasAction(Intent.ACTION_OPEN_DOCUMENT), hasAction(Intent.ACTION_GET_CONTENT),
                                 hasAction("android.provider.action.PICK_IMAGES"), hasAction("androidx.activity.result.contract.action.PICK_IMAGES"),
                                 hasAction("com.google.android.gms.provider.action.PICK_IMAGES")))

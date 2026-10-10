@@ -121,7 +121,8 @@ one question at a time when a material choice really needs the owner.
   viewer, image-only composition, worker normalization and encrypted image drafts.
   Core39 passes independent signed ordering/dual-quote image authentication.
   Focused4808761 Android10 38068060875 PASS20 cases and3 real process deaths.
-  Android17 38068063232 ongoing. Both bounded reviews0 findings; full source
+  Android17 38068063232 passes19/20; quote Add images visibility with IME open
+  fails. Fixture now dismisses keyboard and awaits visible scroll before launch. Both bounded reviews0 findings; full source
   review354a1c7 also0. Earlier fe1 runs10/17 passed6 basic/5 preparation and
   cold queue, but disabled-text selector and generic gallery collisions failed;
   both are corrected without production changes. Wallet/author/queue/storage
