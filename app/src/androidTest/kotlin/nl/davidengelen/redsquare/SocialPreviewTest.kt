@@ -140,6 +140,76 @@ class SocialPreviewTest {
         }
     }
 
+    @Test fun uncertainLikeRetryAfterReopeningChecksTheOriginalActionWithoutRebroadcast() {
+        recoverUncertainAction("like tweet", "RedSquareLike", "Like", "Retry like", "Liked")
+    }
+
+    @Test fun uncertainRepostRetryAfterReopeningChecksTheOriginalActionWithoutRebroadcast() {
+        recoverUncertainAction("retweet", "RedSquareRetweet", "Repost", "Retry repost", "Reposted")
+    }
+
+    private fun recoverUncertainAction(request: String, archiveKind: String, initial: String, retry: String, available: String) {
+        val root = InstrumentationRegistry.getInstrumentation().context.assets.open("native-feed-reference.json")
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow") }
+        val indexed = AtomicReference<JsonObject?>()
+        val exactQueries = java.util.concurrent.atomic.AtomicInteger()
+        val peer = ControlledFeedPeer("[]", onTransaction = { frame ->
+            val candidate = postingTransaction(frame)
+            val action = SaitoEnvelope.decode(candidate.envelope())
+            assertEquals(request, action.body.get("request").asString)
+            assertEquals(root.get("sig").asString, action.body.getAsJsonObject("data").get("signature").asString)
+            indexed.set(JsonObject().apply {
+                addProperty("sig", action.id); addProperty("field1", archiveKind)
+                addProperty("field2", action.author); addProperty("field4", root.get("sig").asString)
+                addProperty("created_at", action.createdAt); addProperty("tx", candidate.envelope())
+            })
+        }, archiveResponse = { criteria ->
+            if (criteria.get("field1").asString == archiveKind) {
+                if (criteria.has("sig")) exactQueries.incrementAndGet()
+                indexed.get()?.takeIf { !criteria.has("sig") || criteria.get("sig").asString == it.get("sig").asString }
+                    ?.let { "[$it]" } ?: "[]"
+            } else "[$root]"
+        }).apply { disconnectAfterTransaction = true }
+        peer.start().use { server ->
+            val intent = Intent(context, MainActivity::class.java).putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+            ActivityScenario.launch<MainActivity>(intent).use {
+                try {
+                    waitFor("Native Red Square reference post")
+                    ui.waitUntil(20_000) { ui.onAllNodes(hasText(initial) and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText(initial).performClick()
+                    waitFor("Pending. Availability on this server has not been verified.")
+                    ui.waitUntil(20_000) { ui.onAllNodes(hasText(retry) and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    assertEquals(1, peer.transactions.size)
+                } catch (failure: Throwable) {
+                    captureFeedEvidence("social-evidence/uncertain-$archiveKind-preparation-failure.png")
+                    throw failure
+                }
+            }
+            val original = postingTransaction(peer.transactions.single()).id
+            peer.disconnectAfterTransaction = false
+            ActivityScenario.launch<MainActivity>(intent).use {
+                try {
+                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    waitFor("Native Red Square reference post")
+                    ui.waitUntil(20_000) { ui.onAllNodes(hasText(retry) and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText(retry).performClick()
+                    waitFor(available)
+                    assertEquals(1, peer.transactions.size)
+                    assertEquals(original, indexed.get()!!.get("sig").asString)
+                    assertTrue("Retry must query the original signed action", exactQueries.get() >= 2)
+                    peer.assertHealthy()
+                    captureFeedEvidence("social-evidence/recovered-$archiveKind-without-rebroadcast.png")
+                    val proof = java.io.File(context.cacheDir, "social-evidence/native-$archiveKind-frame.base64")
+                    proof.parentFile?.mkdirs()
+                    proof.writeText(Base64.getEncoder().encodeToString(peer.transactions.single()))
+                } catch (failure: Throwable) {
+                    captureFeedEvidence("social-evidence/uncertain-$archiveKind-recovery-failure.png")
+                    throw failure
+                }
+            }
+        }
+    }
+
     private fun waitFor(text: String) {
         ui.waitUntil(20_000) { ui.onAllNodes(hasText(text)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
     }

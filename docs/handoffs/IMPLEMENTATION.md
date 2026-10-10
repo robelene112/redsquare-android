@@ -70,7 +70,10 @@ one question at a time when a material choice really needs the owner.
   debug/testassembly1m41sPASS. Firstgreen38017288554 passes1/1/6.12s.
   Ordinaryrepostred38017707757 passeslike, failsmissing2reposts(2/1).
   Actionkinddecoder/sharedsignedlikeandrepostpathimplemented; local
-  core/debug/test1m59sPASS. Focusedtwocasegreen next.
+  core/debug/test1m59sPASS. Twogreen38018201097 passes2/2/7.646s.
+  Independentlike/repostWASM/Ellipticvectors generated; local2corecases25sPASS.
+  Accepted-disconnect/fresh-activity original retry regressionscompiled53s;
+  focused4caseacceptance next. Actualpublicframeverifier prepared.
   Ten of35 complete;
  25 remain. Read-only primary-source contract prepared in
   NATIVE_SOCIAL_INTERACTIONS_CONTRACT.md. Ordinaryreposts/recovery/fullacceptance/reviews incomplete.

@@ -39,3 +39,17 @@ retweet/RedSquareRetweet. Original candidate persistence, exact availability,
 selected identity/backend checks and shared display state cover both actions.
 Ordinary repost data contains only the original signature. No local count
 increments. Local core/debug/test assembly passes1m59s; two-case green is next.
+
+
+Focused `38018201097` at `183b264` passes2/2 in7.646s, including ordinary repost
+availability with unchanged served count2. Inspected Conversation image and
+public logs are retained in ticket11/two-green. Pure pinned WASM/Elliptic
+fixtures generated through the network-disabled/read-only/empty-environment
+runner prove exact native like/repost signed bytes; both lower-boundary cases
+pass locally25s. They are regression proof, not fabricated functional reds.
+
+Accepted-then-disconnected recovery regressions now reopen the real activity and
+require Retry to query the original action, retain the original signature and
+transmit exactly once. Both kinds are exercised. Public frame captures contain
+only controlled zero-payment operations for independent WASM/Elliptic checking.
+Local test assembly53s passes; focused four-case regression is next.
