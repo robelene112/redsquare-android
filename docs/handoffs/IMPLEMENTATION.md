@@ -114,8 +114,11 @@ one question at a time when a material choice really needs the owner.
   while deletion commands archive. Not signature/native/live/deployment proof.
   Logs/results: ticket13/recovery-source; application source unchanged3132404.
   Actual author recovery/conflict/failure runtime acceptance remains outstanding.
-  GitHub billing refuses runners before starting, including38039739303; owner
-  already asked, do not change accounts/spending/visibility. Prior bounded local
+  Private-repository GitHub runs were refused before starting, including38051349925.
+  The owner then authorized public publication. GitHub confirms PUBLIC visibility;
+  focused author Android10 run38051764840 has started at f8060cb, restoring hosted
+  execution. Inspect its results before further dispatch/final acceptance; no
+  test pass is claimed yet. No billing/spending settings were changed. Prior bounded local
   software attempt produced0 test output and was stopped/removed; do not repeat
   it as the ordinary test loop. No emulator/build running at handoff.
   Pinned A/B reference-only receivers pass; new native-frame scripts syntax pass
@@ -123,7 +126,7 @@ one question at a time when a material choice really needs the owner.
   remain pending because pinned receivers query RedSquare while their originals
   can remain in RedSquareRetweet. Dual-stream absence checks avoid false success;
   no backend repair, deployment, DOM, live-write or current deployment proof.
-  Resume device verification when runners return; inspect failed artifacts,
+  Hosted runners are available again after authorized public publication. Inspect failed artifacts,
   fix findings and run final full Android10/17 before closing14. Continue all35
   sequentially. Twelve complete;23 remain. No new APK publication/production write.
 
@@ -193,7 +196,7 @@ Android 17 failure. See [feed verification](../research/NATIVE_FEED_VERIFICATION
 
 ## Build and review operations
 
-Repo: /home/david/projects/redsquare-android, private GitHub robelene112/redsquare-android,
+Repo: /home/david/projects/redsquare-android, public GitHub robelene112/redsquare-android,
 main branch. Kotlin/JVM core plus Compose Android app, Android 10+; Docker
 supplies Java 17, Gradle and SDK. Run scripts/android-build for local checks.
 Hosted KVM provides actual Android 10/17 runtime verification. Intermediate

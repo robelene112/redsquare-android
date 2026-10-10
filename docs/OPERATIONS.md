@@ -7,6 +7,18 @@ hostname `v2202609429510531338`, accessed as `david`.
 
 GitHub: `https://github.com/robelene112/redsquare-android`.
 
+The owner authorized making this repository public on2026-10-10. GitHub confirms
+PUBLIC visibility. Before publication, Gitleaks8.30.1 scanned all308 reachable
+commits and the text of36 issues/16 comments. Three historical detections were
+reviewed: two known public secp256k1 generator points and one published unsafe
+scalar1 reference key, with no unexpected credential finding. No tracked signing
+keystore or production wallet file was identified. The scanner and raw reports
+remain local under ignored `.scratch/publication-audit/`. This records the scan's
+scope, not a guarantee covering every binary artifact or remote Actions log.
+Signing secrets stay outside Git. Public visibility does not publish the app to
+Google Play or change any node. Standard GitHub-hosted runner minutes are free
+for public repositories; normal execution limits still apply.
+
 The repo has a native Kotlin wallet/signature core, a Compose wallet screen and
 an isolated Docker build. Signed wallet-foundation previews and build notes are
 published at `https://davidengelen.nl/redsquare/`. Debug identity is isolated with
