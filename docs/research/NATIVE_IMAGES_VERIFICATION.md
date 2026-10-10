@@ -3,6 +3,20 @@
 Active #15, fixed base3d47253. Parent seams1–4. No live transactions or node writes.
 Source contract NATIVE_IMAGES_CONTRACT.md. Ticket14 is complete.
 
+## Current acceptance
+
+Android10 full38068713412 atad4a8c0 PASS123 completed cases/35 records/11 actual
+process deaths; core39/build/release/lint and both public reads/cold/update
+continuity pass. Retained logs, independently recounted two-axis reviews, inspected
+selected PNGs and limits: ../evidence/ticket14/full-android10/REVIEW.md.
+Actual frames from this final10 run independently pass pinned WASM/Elliptic
+verification, A/B unchanged templates and offline Chromium image-order/raster
+checks; retained ../evidence/ticket14/interop. Full17 companion38069923347
+at4dd0d3d is still running; production/build/scripts/workflow unchanged.
+Do not close #15 until that remaining full result is inspected and accepted.
+The checkpoints below preserve chronological red/green evidence and historical
+pending statuses rather than claiming each old candidate is final.
+
 ## Protocol checkpoint
 
 Independent public unsafe scalar1/2 references generated with pinned WASM0.3.2,

@@ -1,11 +1,11 @@
 {
   "result": "PASS",
   "kind": "post",
-  "frameSha256": "f369029b4e98fcdfa83bee4ac057ea8209fe34b85ffe133afdbe4a4fbffaaa25",
+  "frameSha256": "973ed2e3b2dd8c6f96fa3070c763a275839e5716d83dc12722773182ac0f5219",
   "outer": {
-    "signature": "319c7ab80999e6dfb0cd8c21647a94a8f7ada223289e50dd5f2378896732653a7e49c34c678eeb88972d0bc5c6aef7ac7fe6237ce7fa02cf69cf73bb443fcc49",
-    "author": "sMXyJ1SW9PCocd5ahgCrnMZaokVbfLEscU27J4PrRZ2g",
-    "timestamp": 1791647311559,
+    "signature": "6ac43f6a93a3fd285db2ade2e4d4c48b8b6220b8c8f3e193e7f9c4dedba728933030029724654d04c350a2ff7ba23c2d5dd200a1b7ad3f07c18a6946935f00f1",
+    "author": "e8qHVopNi2v3Tk62tkr9jVeXfMr9qbsEWzv3FyubtKgZ",
+    "timestamp": 1791651050168,
     "body": {
       "module": "RedSquare",
       "request": "create tweet",
@@ -20,7 +20,7 @@
   },
   "original": null,
   "recipients": [
-    "sMXyJ1SW9PCocd5ahgCrnMZaokVbfLEscU27J4PrRZ2g"
+    "e8qHVopNi2v3Tk62tkr9jVeXfMr9qbsEWzv3FyubtKgZ"
   ],
   "reference": {
     "saitoCommit": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",

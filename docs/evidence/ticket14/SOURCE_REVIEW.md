@@ -1,7 +1,7 @@
 # Image source review
 
 Fixed base `3d47253`. Full committed review through `354a1c7`, followed by
-bounded corrections through `ad4a8c0`. Production Android/core source is unchanged
+bounded corrections through `4dd0d3d`. Production Android/core source is unchanged
 from `312f58c`; later commits change fixtures, verification tooling and evidence.
 
 ## Standards
@@ -14,7 +14,9 @@ cache identity and media quote revision evidence. Bounded corrections preserve
 acceptance: EditableText-specific empty assertion, independent diagnostic group
 aggregation with a strict final gate, disabled text without SetText action,
 exact post-card image scope, distinct text/image queue bodies, and keyboard
-dismissal before positively displayed picker navigation.
+dismissal before positively displayed picker navigation. The shared navigation
+helper preserves visible/enabled clicks; confirmation accepts both observed
+Add/Done variants only within the launched system picker package.
 
 ## Specification
 
@@ -27,6 +29,9 @@ require exact text, pixels, visible clicks and actual signed operations.
 The pinned source/browser compatibility evidence does not establish current
 served revisions, live publication or permanent archive retention.
 
-Both axes report0 remaining findings. Source acceptance is separate from the
-pending full Android10/17 runtime checks. Physical Pixel timing and owner review
+Both axes report0 remaining source findings. Source acceptance is separate from the
+full runtime checks. Android10 run38068713412 atad4a8c0 passes123 cases,
+35 records and11 deliberate process deaths, independently recounted by both
+review axes. Its production/build/scripts/workflow equivalence to4dd0d3d is
+verified. Android17 companion38069923347 remains pending. Physical Pixel timing and owner review
 remain later tickets. No production writes, store release or new preview APK.

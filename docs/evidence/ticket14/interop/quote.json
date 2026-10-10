@@ -1,11 +1,11 @@
 {
   "result": "PASS",
   "kind": "quote",
-  "frameSha256": "f5221ce4404ff96ea95d44502a4f7a87f4ca133753fd24d65f3dd8180009bf6d",
+  "frameSha256": "c1a451cf2f295bf32c0d5a209b55bbdf562b1bc81a8b7135df58419b99f113c7",
   "outer": {
-    "signature": "ac3bcda2ce344be0ce37e5c435a26fba3d9cf19faf08059634b226468f3ecb2852a9b11f9d361fe1a12ec343a6750ebf939f3809ef71e48f686f1ac997f9c11f",
-    "author": "sMXyJ1SW9PCocd5ahgCrnMZaokVbfLEscU27J4PrRZ2g",
-    "timestamp": 1791647306033,
+    "signature": "bced65308ca9a206bd23a3070d442cbf586972cf1b49c45b09f9949224b7357c6b5265ed7043797ddf566aad7b444b2d0c77f17e529e763bc9c22e6f7cf48e1a",
+    "author": "e8qHVopNi2v3Tk62tkr9jVeXfMr9qbsEWzv3FyubtKgZ",
+    "timestamp": 1791651044956,
     "body": {
       "module": "RedSquare",
       "request": "create tweet",
@@ -46,7 +46,7 @@
     }
   },
   "recipients": [
-    "sMXyJ1SW9PCocd5ahgCrnMZaokVbfLEscU27J4PrRZ2g",
+    "e8qHVopNi2v3Tk62tkr9jVeXfMr9qbsEWzv3FyubtKgZ",
     "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR"
   ],
   "reference": {
