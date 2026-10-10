@@ -104,7 +104,13 @@ class WalletImport(
                         .onMalformedInput(CodingErrorAction.REPORT)
                         .onUnmappableCharacter(CodingErrorAction.REPORT)
                         .decode(ByteBuffer.wrap(buffer, 0, size)).toString()
-                    ReadResult(Candidate(SaitoWallet.fromBackup(json), operation.original, operation.backend), null)
+                    val nativeWork = try {
+                        SaitoBackend.entries.any { backend ->
+                            nl.davidengelen.redsquare.feed.PostDraftStore.authorWork(activity.applicationContext,
+                                operation.original.publicKey, backend).isNotEmpty()
+                        }
+                    } catch (_: Exception) { true }
+                    ReadResult(Candidate(SaitoWallet.fromBackup(json), operation.original, operation.backend, nativeWork), null)
                 } catch (_: CharacterCodingException) {
                     ReadResult(null, R.string.wallet_import_invalid)
                 } catch (_: IllegalArgumentException) {
@@ -233,9 +239,9 @@ class WalletImport(
     }
 
     private class Candidate(val wallet: SaitoWallet, val original: SaitoWallet,
-        val backend: SaitoBackend?) {
+        val backend: SaitoBackend?, nativeWork: Boolean) {
         // Candidate construction runs on IO, keeping large imported metadata off the UI thread.
-        val risks = original.replacementRisks()
+        val risks = original.replacementRisks().let { it.copy(pendingWork = it.pendingWork || nativeWork) }
     }
     private class ReadResult(val candidate: Candidate?, val failure: Int?)
 

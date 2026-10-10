@@ -22,6 +22,7 @@ import nl.davidengelen.redsquare.saito.RedSquareFeed
 import nl.davidengelen.redsquare.saito.SaitoPeer
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.saito.SaitoBackend
+import nl.davidengelen.redsquare.saito.AuthorActionKind
 
 @Composable
 internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend: SaitoBackend, selected: FeedPost,
@@ -29,6 +30,7 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
     social: SocialState? = null, quotes: QuoteState? = null, onQuote: ((FeedPost) -> Unit)? = null) {
     val context = LocalContext.current.applicationContext
     val cache = remember(backend, selected.threadId) { AndroidFeedCache(context, backend, selected.threadId) }
+    val revisions = remember(backend) { AndroidPostRevisions(context, backend) }
     var posts by remember(selected.id) { mutableStateOf(listOf(selected)) }
     var loading by remember(selected.id) { mutableStateOf(true) }
     var failed by remember(selected.id) { mutableStateOf(false) }
@@ -37,9 +39,11 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
     var refresh by remember(selected.id) { mutableIntStateOf(0) }
     var replying by rememberSaveable(selected.id) { mutableStateOf(false) }
     var editing by rememberSaveable(selected.id) { mutableStateOf(false) }
-    if (editing && wallet != null && selected.author == wallet.publicKey) {
-        AuthorEditScreen(wallet, endpoint, backend, posts.firstOrNull { it.id == selected.id } ?: selected, modifier) {
-            editing = false; refresh++
+    var deleting by rememberSaveable(selected.id) { mutableStateOf(false) }
+    if ((editing || deleting) && wallet != null && selected.author == wallet.publicKey) {
+        AuthorEditScreen(wallet, endpoint, backend, posts.firstOrNull { it.id == selected.id } ?: selected, modifier,
+            if (deleting) AuthorActionKind.DELETE else AuthorActionKind.EDIT) {
+            editing = false; deleting = false; refresh++
         }
         return
     }
@@ -52,8 +56,9 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
         if (wallet == null) { loading = false; return@LaunchedEffect }
         loading = true
         val saved = withContext(Dispatchers.IO) { cache.load() }
-        posts = RedSquareFeed.newest(posts + saved.posts).sortedBy { it.createdAt }
-        cacheWarning = saved.unreadable
+        val cached = withContext(Dispatchers.IO) { revisions.apply(RedSquareFeed.newest(posts + saved.posts)) }
+        posts = cached.posts.sortedBy { it.createdAt }
+        cacheWarning = saved.unreadable || cached.unreadable
         try {
             val page = withContext(Dispatchers.IO) {
                 val criteria = JsonObject().apply {
@@ -64,15 +69,22 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
                     addProperty("limit", 100)
                 }
                 val request = JsonObject().apply { addProperty("request", "archive"); add("data", criteria) }
+                val known = posts.toList()
                 SaitoPeer(wallet, endpoint).use { peer ->
                     RedSquareFeed.readConversation(peer.request(request.toString().toByteArray(Charsets.UTF_8))
-                        .toString(Charsets.UTF_8), selected.threadId)
+                        .toString(Charsets.UTF_8), selected.threadId).also { page ->
+                        revisions.reconcileDeletions(peer, page.deletions, page.posts + known)
+                    }
                 }
             }
             social?.observe(page.posts)
-            posts = RedSquareFeed.newest(page.posts + posts).sortedBy { it.createdAt }
+            val applied = withContext(Dispatchers.IO) {
+                page.posts.forEach(revisions::observe)
+                revisions.apply(RedSquareFeed.newest(page.posts + posts))
+            }
+            posts = applied.posts.sortedBy { it.createdAt }
             cacheWarning = withContext(Dispatchers.IO) {
-                try { cache.save(posts); false } catch (_: Exception) { true }
+                try { cache.save(posts); applied.unreadable } catch (_: Exception) { true }
             }
             unreadable = page.ignored > 0
             failed = false
@@ -85,9 +97,10 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
             TextButton(onClick = onBack) { Text(stringResource(R.string.browse_back)) }
             Text(stringResource(R.string.conversation_title), Modifier.weight(1f).padding(vertical = 12.dp),
                 style = MaterialTheme.typography.titleLarge)
-            TextButton(enabled = wallet != null, onClick = { replying = true }) { Text(stringResource(R.string.post_reply)) }
-            if (wallet != null && selected.author == wallet.publicKey) {
+            TextButton(enabled = wallet != null && posts.any { it.id == selected.id }, onClick = { replying = true }) { Text(stringResource(R.string.post_reply)) }
+            if (wallet != null && selected.author == wallet.publicKey && posts.any { it.id == selected.id }) {
                 TextButton(onClick = { editing = true }) { Text(stringResource(R.string.author_edit)) }
+                TextButton(onClick = { deleting = true }) { Text(stringResource(R.string.author_delete)) }
             }
             TextButton(enabled = wallet != null && !loading, onClick = { refresh++ }) {
                 Text(stringResource(R.string.feed_refresh))

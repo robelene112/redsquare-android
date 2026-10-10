@@ -7,6 +7,7 @@ const crypto = require('node:crypto');
 const assert = require('node:assert/strict');
 const fixture = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
 const directory = process.argv[3];
+if (fixture.native) assert.equal(fixture.result, 'PASS');
 function transaction(row) {
   const outer = JSON.parse(row.tx);
   const msg = JSON.parse(Buffer.from(outer.m, 'base64').toString('utf8'));
@@ -47,6 +48,19 @@ async function main() {
     await receiver.receiveEditTweetTransaction(transaction(fixture.edit));
     assert.equal(root.optional.update_tx, fixture.edit.tx);
     assert.equal(root.signature, fixture.original.sig);
+    if (fixture.native) {
+      await receiver.receiveEditTweetTransaction(transaction(fixture.edit));
+      assert.equal(updates, 1);
+      if (fixture.deleted) {
+        await receiver.receiveDeleteTweetTransaction(transaction(fixture.deleted));
+        assert.equal(present, false);
+        assert(commands.includes(fixture.deleted.sig));
+      }
+      observations.push({pin, sourceSha256: crypto.createHash('sha256').update(source).digest('hex'),
+        actualNativeEditApplied: true, duplicateEditIdempotent: true, originalIdentityPreserved: true,
+        actualNativeDeleteRemovesOriginal: fixture.deleted ? true : undefined});
+      continue;
+    }
     await receiver.receiveEditTweetTransaction(transaction(fixture.newer));
     await receiver.receiveEditTweetTransaction(transaction(fixture.edit));
     await receiver.receiveEditTweetTransaction(transaction(fixture.unrelated));
@@ -64,6 +78,7 @@ async function main() {
       unrelatedDeleteKeepsOriginalButIsArchived: true, authorizedDeleteRemovesOriginal: true});
   }
   console.log(JSON.stringify({result: 'PASS', nodeVersion: process.version,
-    boundary: 'Pinned server receiving methods with independently verified reference vectors and in-memory Archive adapter. No deployment, DOM or native-write proof.', observations}, null, 2));
+    boundary: fixture.native ? 'Pinned server edit receiver with independently verified actual Android frames and in-memory Archive adapter. No deployment, DOM or chain inclusion proof.' :
+      'Pinned server receiving methods with independently verified reference vectors and in-memory Archive adapter. No deployment, DOM or native-write proof.', observations}, null, 2));
 }
 main().catch(() => { process.stderr.write('Author receiver verification failed\n'); process.exitCode = 1; });

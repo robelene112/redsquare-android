@@ -6,6 +6,7 @@ import nl.davidengelen.redsquare.saito.*
 /** Bounded public posts and signed like records. Never stores wallet or private Chat data. */
 internal class AndroidProfileCache(context: Context, backend: SaitoBackend) {
     private val storage = PublicStringStore(context, "profile.${backend.id}.v1", 200)
+    private val revisions = AndroidPostRevisions(context, backend)
     data class SavedProfile(val posts: List<FeedPost>, val likes: List<ProfileLike>, val unreadable: Boolean)
 
     fun load(): SavedProfile = decode(storage.load())
@@ -21,12 +22,19 @@ internal class AndroidProfileCache(context: Context, backend: SaitoBackend) {
                 catch (_: Exception) { unreadable = true }
             }
         }
-        return SavedProfile(RedSquareFeed.newest(posts), likes.distinctBy { it.id }, unreadable)
+        val applied = revisions.apply(RedSquareFeed.newest(posts))
+        return SavedProfile(applied.posts, likes.distinctBy { it.id }, unreadable || applied.unreadable)
     }
 
-    fun save(posts: List<FeedPost>, likes: List<ProfileLike>) = storage.update { saved ->
-        (RedSquareFeed.newest(posts + decode(saved).posts).map { it.createdAt to it.envelope } +
-            likes.distinctBy { it.id }.map { it.createdAt to it.envelope })
-            .sortedByDescending { it.first }.map { it.second }
+    fun save(posts: List<FeedPost>, likes: List<ProfileLike>) {
+        posts.forEach(revisions::observe)
+        storage.update { saved ->
+            val previous = decode(saved)
+            val applied = revisions.apply(RedSquareFeed.newest(posts + previous.posts))
+            check(!applied.unreadable)
+            (applied.posts.map { it.createdAt to it.envelope } +
+                (likes + previous.likes).distinctBy { it.id }.map { it.createdAt to it.envelope })
+                .sortedByDescending { it.first }.map { it.second }
+        }
     }
 }

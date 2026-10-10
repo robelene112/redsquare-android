@@ -148,10 +148,22 @@
     <string name="quote_unavailable">Original unavailable. Commentary is still available.</string>
     <string name="quote_cache_warning">The original could not be saved for offline reading.</string>
     <string name="author_edit">Edit</string>
+    <string name="author_delete">Delete</string>
+    <string name="author_saved_changes">Saved post changes</string>
+    <string name="author_saved_empty">No saved changes on this server.</string>
+    <string name="author_saved_manual">These changes stay on this device until you open them and choose to send or retry. Switching servers does not move them.</string>
+    <string name="author_delete_title">Delete post</string>
+    <string name="author_delete_confirm">Confirm delete</string>
+    <string name="author_delete_explanation">Remove this post from normal views on the selected server and this device? Historical and independent copies may remain.</string>
+    <string name="author_delete_available">Post removed on this server.</string>
+    <string name="author_delete_pending">Removal not yet verified. Retry checks the original attempt first.</string>
     <string name="author_edit_title">Edit post</string>
     <string name="author_edit_save">Save changes</string>
     <string name="author_edit_available">Edit available on this server.</string>
     <string name="author_edit_pending">Edit not yet verified. Retry checks the original attempt first.</string>
     <string name="author_edit_conflict">Another edit is available. Your text is saved on this device.</string>
+    <string name="author_edit_conflict_resolution">Choose text for a new attempt, then press Save changes. An earlier sent attempt may still arrive.</string>
+    <string name="author_edit_keep_text">Keep my text</string>
+    <string name="author_edit_use_latest">Use latest text</string>
     <string name="author_action_network_error">Could not verify this change on the selected server. Your original attempt is saved.</string>
 </resources>

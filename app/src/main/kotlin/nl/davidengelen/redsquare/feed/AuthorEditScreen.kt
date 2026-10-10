@@ -15,17 +15,19 @@ import nl.davidengelen.redsquare.saito.*
 
 @Composable
 internal fun AuthorEditScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBackend, post: FeedPost,
-    modifier: Modifier, onClose: () -> Unit) {
+    modifier: Modifier, kind: AuthorActionKind = AuthorActionKind.EDIT, onClose: () -> Unit) {
     require(wallet.publicKey == post.author)
     val activity = requireNotNull(LocalActivity.current) as ComponentActivity
-    val memory = remember(activity, wallet.publicKey, backend, post.id) {
-        ViewModelProvider(activity)["edit:${wallet.publicKey}:${backend.id}:${post.id}", PostComposerMemory::class.java]
+    val memory = remember(activity, wallet.publicKey, backend, post.id, kind) {
+        ViewModelProvider(activity)["${kind.storageId}:${wallet.publicKey}:${backend.id}:${post.id}", PostComposerMemory::class.java]
     }
-    val store = remember(wallet.publicKey, backend, post.id) {
-        PostDraftStore.author(activity.applicationContext, wallet.publicKey, backend, post.id, AuthorActionKind.EDIT)
+    val store = remember(wallet.publicKey, backend, post.id, kind) {
+        PostDraftStore.author(activity.applicationContext, wallet.publicKey, backend, post.id, kind)
     }
     val scope = rememberCoroutineScope()
-    val state = remember(store, memory, endpoint) { AuthorEditState(store, memory, wallet, endpoint, post, scope) }
+    val state = remember(store, memory, endpoint) {
+        AuthorEditState(store, memory, wallet, endpoint, post, scope, AndroidPostRevisions(activity.applicationContext, backend), kind)
+    }
     val navigation = requireNotNull(LocalPostNavigation.current)
     LaunchedEffect(state, state.reload) { state.load() }
     DisposableEffect(state) {
@@ -38,20 +40,38 @@ internal fun AuthorEditScreen(wallet: SaitoWallet, endpoint: String, backend: Sa
         Column(modifier.imePadding()) {
             Row {
                 TextButton(enabled = !busy && !saving, onClick = { close(onClose) }) { Text(stringResource(R.string.browse_back)) }
-                Text(stringResource(R.string.author_edit_title), Modifier.weight(1f).padding(vertical = 12.dp),
+                Text(stringResource(if (kind == AuthorActionKind.EDIT) R.string.author_edit_title else R.string.author_delete_title), Modifier.weight(1f).padding(vertical = 12.dp),
                     style = MaterialTheme.typography.titleLarge)
-                TextButton(enabled = ready && !busy && !saving && !available && !conflict && text.isNotBlank(), onClick = ::send) {
-                    Text(stringResource(if (candidate == null) R.string.author_edit_save else R.string.retry))
+                TextButton(enabled = ready && !busy && !saving && !available && !conflict &&
+                    (kind == AuthorActionKind.DELETE || text.isNotBlank()), onClick = ::send) {
+                    Text(stringResource(if (candidate != null) R.string.retry else
+                        if (kind == AuthorActionKind.EDIT) R.string.author_edit_save else R.string.author_delete_confirm))
                 }
             }
-            if (available) Text(stringResource(R.string.author_edit_available))
+            if (available) Text(stringResource(if (kind == AuthorActionKind.EDIT) R.string.author_edit_available else R.string.author_delete_available))
             else if (conflict) Text(stringResource(R.string.author_edit_conflict))
-            else if (candidate != null) Text(stringResource(R.string.author_edit_pending))
+            else if (candidate != null) Text(stringResource(if (kind == AuthorActionKind.EDIT) R.string.author_edit_pending else R.string.author_delete_pending))
+            if (conflict) {
+                Text(stringResource(R.string.author_edit_conflict_resolution))
+                Row {
+                    TextButton(enabled = !busy && !saving, onClick = { resolveConflict(false) }) {
+                        Text(stringResource(R.string.author_edit_keep_text))
+                    }
+                    TextButton(enabled = !busy && !saving, onClick = { resolveConflict(true) }) {
+                        Text(stringResource(R.string.author_edit_use_latest))
+                    }
+                }
+            }
             if (networkError) Text(stringResource(R.string.author_action_network_error))
             if (error) Text(stringResource(R.string.post_draft_error))
             if (!ready && error) TextButton(onClick = { reload++ }) { Text(stringResource(R.string.retry)) }
-            OutlinedTextField(value = text, onValueChange = ::edit,
-                enabled = ready && !busy && !saving && candidate == null, modifier = Modifier.fillMaxWidth().weight(1f))
+            if (kind == AuthorActionKind.EDIT) {
+                OutlinedTextField(value = text, onValueChange = ::edit,
+                    enabled = ready && !busy && !saving && candidate == null, modifier = Modifier.fillMaxWidth().weight(1f))
+            } else {
+                Text(stringResource(R.string.author_delete_explanation))
+                Text(post.text, Modifier.padding(vertical = 16.dp))
+            }
         }
     }
 }

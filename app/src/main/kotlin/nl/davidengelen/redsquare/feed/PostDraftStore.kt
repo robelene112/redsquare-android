@@ -37,7 +37,8 @@ internal class PostDraftStore private constructor(private val context: Context, 
     private val associatedData = "${context.packageName}:${file.baseFile.name}".toByteArray(Charsets.UTF_8)
 
     data class Saved(val text: String, val transaction: SaitoTransaction? = null, val queued: Boolean = false,
-        val available: Boolean = false, val automatic: Boolean = false)
+        val available: Boolean = false, val automatic: Boolean = false, val authorBaseline: String? = null)
+    data class AuthorWork(val target: String, val kind: AuthorActionKind, val saved: Saved)
     private val gson = GsonBuilder().setStrictness(Strictness.STRICT).create()
 
     fun load(): Saved = synchronized(lock) {
@@ -84,13 +85,19 @@ internal class PostDraftStore private constructor(private val context: Context, 
                 } ?: false
                 require(!automatic || transaction != null)
                 require(authorKind == null || (!queued && !automatic))
-                Saved(content, transaction, queued, available, automatic)
+                val baseline = record.get("authorBaseline")?.let {
+                    require(it.isJsonPrimitive && it.asJsonPrimitive.isString)
+                    it.asString
+                }
+                validateBaseline(baseline)
+                Saved(content, transaction, queued, available, automatic, baseline)
             }
         } finally { text.fill(0) }
     }
 
     fun save(saved: Saved) = synchronized(lock) {
         validateTransaction(saved.transaction, saved.text)
+        validateBaseline(saved.authorBaseline)
         require(authorKind == null || (!saved.queued && !saved.automatic))
         require(!saved.queued || saved.transaction != null)
         require(!saved.available || (saved.transaction != null && !saved.queued))
@@ -102,6 +109,7 @@ internal class PostDraftStore private constructor(private val context: Context, 
             addProperty("queued", saved.queued)
             addProperty("available", saved.available)
             addProperty("automatic", saved.automatic)
+            saved.authorBaseline?.let { addProperty("authorBaseline", it) }
         }
         val encoded = Charsets.UTF_8.newEncoder().onMalformedInput(CodingErrorAction.REPORT)
             .onUnmappableCharacter(CodingErrorAction.REPORT).encode(CharBuffer.wrap(record.toString()))
@@ -156,6 +164,13 @@ internal class PostDraftStore private constructor(private val context: Context, 
         }
     }
 
+    private fun validateBaseline(envelope: String?) {
+        if (envelope == null) return
+        require(authorKind == AuthorActionKind.EDIT)
+        val baseline = RedSquareFeed.decode(envelope)
+        require(baseline.author == owner && baseline.id == authorTarget)
+    }
+
     /** A mounted editor must preserve delivery progress recorded by another operation. */
     fun saveComposer(saved: Saved): Saved = synchronized(lock) {
         val current = load()
@@ -192,6 +207,19 @@ internal class PostDraftStore private constructor(private val context: Context, 
     }
 
     companion object {
+        fun authorWork(context: Context, owner: String, backend: SaitoBackend): List<AuthorWork> {
+            val prefix = "postdraft.${backend.id}.$owner.author."
+            val pattern = Regex("${Regex.escape(prefix)}(edit|delete)\\.([0-9a-f]{128})\\.v1")
+            return requireNotNull(context.noBackupFilesDir.listFiles()).map { it.name.removeSuffix(".bak") }
+                .distinct().mapNotNull { name ->
+                    val match = pattern.matchEntire(name) ?: return@mapNotNull null
+                    val kind = AuthorActionKind.entries.single { it.storageId == match.groupValues[1] }
+                    val target = match.groupValues[2]
+                    val saved = author(context, owner, backend, target, kind).load()
+                    if (!saved.available && (saved.transaction != null || saved.text.isNotEmpty())) AuthorWork(target, kind, saved)
+                    else null
+                }
+        }
         fun author(context: Context, owner: String, backend: SaitoBackend, target: String, kind: AuthorActionKind): PostDraftStore {
             require(target.matches(Regex("[0-9a-f]{128}")))
             return PostDraftStore(context, owner, backend, "", null, authorTarget = target, authorKind = kind)
@@ -203,7 +231,8 @@ internal class PostDraftStore private constructor(private val context: Context, 
 
         private fun same(first: Saved, second: Saved) = first.text == second.text &&
             first.transaction?.encoded() == second.transaction?.encoded() &&
-            first.queued == second.queued && first.available == second.available && first.automatic == second.automatic
+            first.queued == second.queued && first.available == second.available && first.automatic == second.automatic &&
+            first.authorBaseline == second.authorBaseline
 
         fun pendingDelivery(context: Context, owner: String, backend: SaitoBackend): List<PostDraftStore> {
             val prefix = "postdraft.${backend.id}.$owner"

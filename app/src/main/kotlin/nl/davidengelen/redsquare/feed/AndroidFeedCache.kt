@@ -16,6 +16,7 @@ class AndroidFeedCache(context: Context, backend: SaitoBackend, private val thre
         threadId != null -> "conversation.${backend.id}.$threadId.v1"
         else -> "feed.${backend.id}.v1"
     }, MAX_POSTS)
+    private val revisions = AndroidPostRevisions(context, backend)
     data class SavedPosts(val posts: List<FeedPost>, val unreadable: Boolean)
 
     fun load(): SavedPosts = decode(storage.load())
@@ -27,11 +28,18 @@ class AndroidFeedCache(context: Context, backend: SaitoBackend, private val thre
                 if (threadId == null) post.parentId.isEmpty() else post.threadId == threadId
             } } catch (_: Exception) { unreadable = true; null }
         }
-        return SavedPosts(RedSquareFeed.newest(posts).sortedByDescending { it.createdAt }, unreadable)
+        val applied = revisions.apply(RedSquareFeed.newest(posts))
+        return SavedPosts(applied.posts.sortedByDescending { it.createdAt }, unreadable || applied.unreadable)
     }
 
-    fun save(posts: List<FeedPost>) = storage.update { saved ->
-        RedSquareFeed.newest(posts + decode(saved).posts).sortedByDescending { it.createdAt }.map { it.envelope }
+    fun save(posts: List<FeedPost>) {
+        posts.forEach(revisions::observe)
+        storage.update { saved ->
+            revisions.apply(RedSquareFeed.newest(posts + decode(saved).posts)).let { applied ->
+                check(!applied.unreadable)
+                applied.posts.sortedByDescending { it.createdAt }.map { it.envelope }
+            }
+        }
     }
 
     companion object { const val MAX_POSTS = 100 }

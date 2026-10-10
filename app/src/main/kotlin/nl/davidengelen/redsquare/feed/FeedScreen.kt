@@ -41,12 +41,13 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
     val context = activity.applicationContext
     val scope = rememberCoroutineScope()
     val social = remember(wallet, backend, endpoint) { wallet?.let { SocialState(context, it, backend, endpoint, scope) } }
-    val quotes = remember(wallet, backend, endpoint) { wallet?.let { QuoteState(context, it, backend, endpoint, scope) } }
+    val quotes = remember(wallet, backend, endpoint) { QuoteState(context, wallet, backend, endpoint, scope) }
     val following = remember(wallet?.publicKey) { wallet?.let { FollowingState(context, it.publicKey, scope) } }
     LaunchedEffect(following) { following?.load() }
     var followingView by rememberSaveable { mutableStateOf(false) }
     val followingOwner = if (followingView) wallet?.publicKey else null
     val cache = remember(backend, followingOwner) { AndroidFeedCache(context, backend, followingOwner = followingOwner) }
+    val revisions = remember(backend) { AndroidPostRevisions(context, backend) }
     val connection = remember { AndroidInternetStatus(context) }
     DisposableEffect(connection) { onDispose { connection.close() } }
     val observedInternet by connection.state.collectAsState()
@@ -63,6 +64,7 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
     var refresh by remember { mutableIntStateOf(0) }
     var composing by rememberSaveable { mutableStateOf(false) }
     var reviewingQueue by rememberSaveable { mutableStateOf(false) }
+    var reviewingChanges by rememberSaveable { mutableStateOf(false) }
     val navigationMemory = remember(activity, wallet?.publicKey, backend) {
         ViewModelProvider(activity)["browse:${wallet?.publicKey.orEmpty()}:${backend.id}", FeedNavigationMemory::class.java]
     }
@@ -132,13 +134,19 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
                                     val accepted = if (author == null) page else page.copy(posts = page.posts.filter { it.author == author })
                                     rowCount += accepted.rowCount
                                     validCount += accepted.posts.size
+                                    val known = withContext(Dispatchers.Main.immediate) { posts.toList() }
+                                    revisions.reconcileDeletions(peer, accepted.deletions, accepted.posts + known)
                                     withContext(Dispatchers.Main.immediate) {
                                         social?.observe(accepted.posts)
-                                        val merged = RedSquareFeed.newest(accepted.posts + posts)
+                                        val applied = withContext(Dispatchers.IO) {
+                                            accepted.posts.forEach(revisions::observe)
+                                            revisions.apply(RedSquareFeed.newest(accepted.posts + posts))
+                                        }
+                                        val merged = applied.posts
                                             .filter { !followingView || it.author in following!!.accounts }
                                             .sortedByDescending { it.createdAt }.take(AndroidFeedCache.MAX_POSTS)
                                         cacheWarning = withContext(Dispatchers.IO) {
-                                            try { cache.save(merged); false } catch (_: Exception) { true }
+                                            try { cache.save(merged); applied.unreadable } catch (_: Exception) { true }
                                         }
                                         posts = merged
                                         unreadablePage = rowCount > 0 && validCount == 0
@@ -169,6 +177,10 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
     }
     if (reviewingQueue && wallet != null) {
         QueuedPostsScreen(wallet.publicKey, backend, modifier) { reviewingQueue = false }
+        return
+    }
+    if (reviewingChanges && wallet != null) {
+        SavedAuthorActionsScreen(wallet, endpoint, backend, modifier) { reviewingChanges = false; refresh++ }
         return
     }
     if (composing && wallet != null) {
@@ -217,6 +229,7 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
         }
         TextButton(enabled = wallet != null, onClick = { composing = true }) { Text(stringResource(R.string.post_new)) }
         TextButton(enabled = wallet != null, onClick = { reviewingQueue = true }) { Text(stringResource(R.string.post_queue_title)) }
+        TextButton(enabled = wallet != null, onClick = { reviewingChanges = true }) { Text(stringResource(R.string.author_saved_changes)) }
         val visiblePosts = if (followingView) posts.filter { it.author in following?.accounts.orEmpty() } else posts
         FollowingStatus(following)
         if (followingView) {

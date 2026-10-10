@@ -36,6 +36,7 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
     onIdentity: (String) -> Unit, social: SocialState? = null, quotes: QuoteState? = null, onQuote: ((FeedPost) -> Unit)? = null) {
     val context = LocalContext.current.applicationContext
     val cache = remember(backend) { AndroidProfileCache(context, backend) }
+    val revisions = remember(backend) { AndroidPostRevisions(context, backend) }
     val tab = view.tab
     var posts by remember(author, tab) { mutableStateOf<List<FeedPost>>(emptyList()) }
     var loading by remember(author, tab) { mutableStateOf(true) }
@@ -62,20 +63,23 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
             unavailableLikes = tab == ProfileTab.LIKES && likedTargets.any { target -> snapshot.posts.none { it.id == target } }
         }
         val cached = withContext(Dispatchers.IO) { cache.load() }
-        val saved = AndroidProfileCache.SavedProfile(
-            RedSquareFeed.newest(view.history.posts + cached.posts),
-            (view.history.likes + cached.likes).distinctBy { it.id }, cached.unreadable)
+        val retained = withContext(Dispatchers.IO) { revisions.apply(RedSquareFeed.newest(view.history.posts + cached.posts)) }
+        val saved = AndroidProfileCache.SavedProfile(retained.posts,
+            (view.history.likes + cached.likes).distinctBy { it.id }, cached.unreadable || retained.unreadable)
         show(saved)
         cacheWarning = saved.unreadable
         suspend fun publish(freshPosts: List<FeedPost>, freshLikes: List<ProfileLike>) {
             social?.observe(freshPosts)
-            val merged = AndroidProfileCache.SavedProfile(
-                RedSquareFeed.newest(freshPosts + view.history.posts + saved.posts),
-                (freshLikes + view.history.likes + saved.likes).distinctBy { it.id }, false)
+            val applied = withContext(Dispatchers.IO) {
+                freshPosts.forEach(revisions::observe)
+                revisions.apply(RedSquareFeed.newest(freshPosts + view.history.posts + saved.posts))
+            }
+            val merged = AndroidProfileCache.SavedProfile(applied.posts,
+                (freshLikes + view.history.likes + saved.likes).distinctBy { it.id }, applied.unreadable)
             view.history = merged
             show(merged)
             cacheWarning = withContext(Dispatchers.IO) {
-                try { cache.save(merged.posts, merged.likes); false } catch (_: Exception) { true }
+                try { cache.save(merged.posts, merged.likes); applied.unreadable } catch (_: Exception) { true }
             }
         }
         try {
@@ -95,6 +99,7 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
                     }
                     if (tab != ProfileTab.LIKES) {
                         val page = RedSquareFeed.readAuthor(archive(criteria), author)
+                        revisions.reconcileDeletions(peer, page.deletions, page.posts + saved.posts)
                         if (tab == ProfileTab.POSTS) {
                             withContext(Dispatchers.Main.immediate) { publish(page.posts, emptyList()) }
                             val quotesCriteria = criteria.deepCopy().apply { addProperty("field1", "RedSquareRetweet") }

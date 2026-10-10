@@ -8,6 +8,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
@@ -18,9 +20,10 @@ import nl.davidengelen.redsquare.saito.FeedPost
 @Composable
 internal fun QuoteContent(post: FeedPost, state: QuoteState?) {
     if (post.quoteTarget.isEmpty()) return
-    LaunchedEffect(post.quoteTarget, state) { if (post.quoted == null) state?.load(post.quoteTarget) }
+    val revisions by AndroidPostRevisions.changes.collectAsState()
+    LaunchedEffect(post.quoteTarget, state, post.quoted, revisions) { state?.load(post.quoteTarget, post.quoted, refresh = true) }
     val status = state?.originals?.get(post.quoteTarget)
-    val original = post.quoted ?: status?.post
+    val original = if (state == null) post.quoted else status?.post
     if (status?.cacheWarning == true) Text(stringResource(R.string.quote_cache_warning))
     if (original != null) QuotedPost(original)
     else {

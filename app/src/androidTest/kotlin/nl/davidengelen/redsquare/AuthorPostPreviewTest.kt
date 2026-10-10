@@ -25,14 +25,19 @@ class AuthorPostPreviewTest {
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
         context.noBackupFilesDir.listFiles()?.filter { it.name.startsWith("feed.") ||
             it.name.startsWith("conversation.") || it.name.startsWith("profile.") ||
-            it.name.startsWith("postdraft.") || it.name.startsWith("authorposts.") }?.forEach { check(it.delete()) }
+            it.name.startsWith("postdraft.") || it.name.startsWith("authorposts.") ||
+            it.name.startsWith("quoteoriginal.") }?.forEach { check(it.delete()) }
     }
 
-    @Test fun authorEditsPreserveOriginalIdentityAndRefreshFeedThreadAndProfile() {
+    @Test fun authorChangesRetainOriginalIdentityRecoverDeletionAndRefreshNormalViews() {
         val reference = InstrumentationRegistry.getInstrumentation().context.assets.open("native-feed-reference.json")
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow") }
         val own = AtomicReference<JsonObject?>()
         val originalId = AtomicReference<String?>()
+        val originalAuthor = AtomicReference<String?>()
+        val deletion = AtomicReference<JsonObject?>()
+        val alternateArchive = AtomicReference<JsonObject?>()
+        val removeOnDelivery = java.util.concurrent.atomic.AtomicBoolean(false)
         val peer = ControlledFeedPeer("[]", onTransaction = { frame ->
             val candidate = postingTransaction(frame)
             val signed = SaitoEnvelope.decode(candidate.envelope())
@@ -40,6 +45,7 @@ class AuthorPostPreviewTest {
                 "create tweet" -> {
                     assertEquals("Native author's original post", signed.body.getAsJsonObject("data").get("text").asString)
                     originalId.set(signed.id)
+                    originalAuthor.set(signed.author)
                     own.set(postingArchiveRow(candidate))
                 }
                 "edit tweet" -> {
@@ -57,11 +63,26 @@ class AuthorPostPreviewTest {
                         addProperty("tx", envelope.toString())
                     })
                 }
+                "delete tweet" -> {
+                    assertEquals(originalId.get(), signed.body.getAsJsonObject("data").get("tweet_id").asString)
+                    assertEquals(originalAuthor.get(), signed.author)
+                    deletion.set(JsonObject().apply {
+                        addProperty("sig", signed.id); addProperty("created_at", signed.createdAt)
+                        addProperty("field1", "RedSquare"); addProperty("field2", signed.author)
+                        addProperty("tx", candidate.envelope())
+                    })
+                    alternateArchive.set(if (removeOnDelivery.get()) null else own.get() ?: alternateArchive.get())
+                    own.set(null)
+                }
                 else -> error("Unexpected author action")
             }
         }, archiveResponse = { criteria ->
-            if (criteria.get("field1").asString != "RedSquare") "[]"
-            else listOfNotNull(own.get(), reference).filter { row ->
+            if (criteria.get("field1").asString == "RedSquareRetweet") {
+                listOfNotNull(alternateArchive.get()).filter { row ->
+                    criteria.has("sig") && criteria.get("sig").asString == row.get("sig").asString
+                }.joinToString(prefix = "[", postfix = "]")
+            } else if (criteria.get("field1").asString != "RedSquare") "[]"
+            else listOfNotNull(own.get(), deletion.get(), reference).filter { row ->
                 (!criteria.has("sig") || criteria.get("sig").asString == row.get("sig").asString) &&
                     (!criteria.has("field2") || criteria.get("field2").asString == row.get("field2").asString) &&
                     (!criteria.has("field5") || criteria.get("field5").asString == row.get("field5")?.asString)
@@ -113,6 +134,49 @@ class AuthorPostPreviewTest {
                         }.toString())
                     }
                     captureFeedEvidence("author-post-evidence/edited-post-profile.png")
+                    ui.onNodeWithText("Native author's edited post").performClick()
+                    waitFor("Conversation")
+                    ui.onNodeWithText("Delete").performClick()
+                    waitFor("Delete post")
+                    ui.onNodeWithText("Remove this post from normal views on the selected server and this device? Historical and independent copies may remain.").assertIsDisplayed()
+                    ui.onNodeWithText("Confirm delete").performClick()
+                    waitFor("Removal not yet verified. Retry checks the original attempt first.")
+                    ui.waitUntil(25_000) {
+                        ui.onAllNodes(hasText("Retry") and isEnabled()).fetchSemanticsNodes().isNotEmpty()
+                    }
+                    ui.onNodeWithText("Post removed on this server.").assertDoesNotExist()
+                    val deletionId = deletion.get()!!.get("sig").asString
+                    ui.onNodeWithText("Back").performClick()
+                    waitFor("Conversation")
+                    waitFor("Native author's edited post")
+                    ui.onNodeWithText("Back").performClick()
+                    waitFor("Profile")
+                    ui.onNodeWithText("Back").performClick()
+                    waitFor("New post")
+                    ui.onNodeWithText("Saved post changes").performClick()
+                    waitFor("Delete post")
+                    assertEquals(3, peer.transactions.size)
+                    ui.onNodeWithText("Delete post").performClick()
+                    ui.waitUntil(20_000) {
+                        ui.onAllNodes(hasText("Retry") and isEnabled()).fetchSemanticsNodes().isNotEmpty()
+                    }
+                    removeOnDelivery.set(true)
+                    ui.onNodeWithText("Retry").performClick()
+                    waitFor("Post removed on this server.")
+                    assertEquals(deletionId, deletion.get()!!.get("sig").asString)
+                    ui.onNodeWithText("Back").performClick()
+                    waitFor("No saved changes on this server.")
+                    ui.onNodeWithText("Back").performClick()
+                    waitFor("New post")
+                    waitForRefresh()
+                    ui.onNodeWithText("Native author's edited post").assertDoesNotExist()
+                    assertEquals(4, peer.transactions.size)
+                    peer.assertHealthy()
+                    java.io.File(context.cacheDir, "author-post-evidence/native-author-delete-frames.json").writeText(
+                        com.google.gson.JsonArray().apply {
+                            peer.transactions.take(3).forEach { add(Base64.getEncoder().encodeToString(it)) }
+                        }.toString())
+                    captureFeedEvidence("author-post-evidence/deleted-post-profile.png")
                 } catch (failure: Throwable) {
                     captureFeedEvidence("author-post-evidence/edit-first-failure.png")
                     throw failure
@@ -157,22 +221,86 @@ class AuthorPostPreviewTest {
         val owner = original.get("field2").asString
         val store = nl.davidengelen.redsquare.feed.PostDraftStore.author(context, owner, SaitoBackend.OWNER,
             original.get("sig").asString, AuthorActionKind.EDIT)
-        val saved = nl.davidengelen.redsquare.feed.PostDraftStore.Saved("Independently edited original text", candidate("edit"))
+        val saved = nl.davidengelen.redsquare.feed.PostDraftStore.Saved("Independently edited original text", candidate("edit"),
+            authorBaseline = original.get("tx").asString)
         store.save(saved)
         for (replacement in listOf(
             saved.copy(transaction = candidate("unrelated"), text = "An unrelated signer must not replace this text"),
             saved.copy(transaction = candidate("wrongTarget"), text = "Wrong target text"),
             saved.copy(transaction = candidate("deleted"), text = ""), saved.copy(text = "Changed after signing"),
-            saved.copy(queued = true), saved.copy(automatic = true))) {
+            saved.copy(queued = true), saved.copy(automatic = true), saved.copy(authorBaseline = fixture.getAsJsonObject("deleted").get("tx").asString))) {
             assertThrows(IllegalArgumentException::class.java) { store.save(replacement) }
             assertEquals(saved.text, store.load().text)
             assertEquals(saved.transaction!!.id, store.load().transaction!!.id)
+            assertEquals(saved.authorBaseline, store.load().authorBaseline)
         }
         assertTrue(nl.davidengelen.redsquare.feed.PostDraftStore.pendingDelivery(context, owner, SaitoBackend.OWNER).isEmpty())
         val other = nl.davidengelen.redsquare.feed.PostDraftStore.author(context, owner, SaitoBackend.OFFICIAL,
             original.get("sig").asString, AuthorActionKind.EDIT)
         assertEquals("", other.load().text)
         assertEquals(null, other.load().transaction)
+    }
+
+    @Test fun authorProofsPropagateAcrossIndependentCachesAndSurviveStaleResaves() {
+        val fixture = InstrumentationRegistry.getInstrumentation().context.assets.open("native-author-actions-reference.json")
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
+        val original = RedSquareFeed.decode(fixture.getAsJsonObject("original").get("tx").asString)
+        val newer = RedSquareFeed.decode(fixture.getAsJsonObject("newerEdited").get("tx").asString)
+        val feed = nl.davidengelen.redsquare.feed.AndroidFeedCache(context, SaitoBackend.OWNER)
+        val thread = nl.davidengelen.redsquare.feed.AndroidFeedCache(context, SaitoBackend.OWNER, original.threadId)
+        val profile = nl.davidengelen.redsquare.feed.AndroidProfileCache(context, SaitoBackend.OWNER)
+        feed.save(listOf(original)); thread.save(listOf(original)); profile.save(listOf(original), emptyList())
+        val revisions = nl.davidengelen.redsquare.feed.AndroidPostRevisions(context, SaitoBackend.OWNER)
+        revisions.observe(newer)
+        assertEquals("A newer verified edit", feed.load().posts.single().text)
+        assertEquals("A newer verified edit", thread.load().posts.single().text)
+        assertEquals("A newer verified edit", profile.load().posts.single().text)
+        revisions.confirmDeletion(original, RedSquareAuthorActions.decode(fixture.getAsJsonObject("deleted").get("tx").asString))
+        feed.save(listOf(original)); thread.save(listOf(newer)); profile.save(listOf(original), emptyList())
+        assertTrue(feed.load().posts.isEmpty()); assertTrue(thread.load().posts.isEmpty()); assertTrue(profile.load().posts.isEmpty())
+        assertTrue(nl.davidengelen.redsquare.feed.AndroidPostRevisions(context, SaitoBackend.OWNER)
+            .apply(listOf(original)).deleted)
+        assertEquals(original.id, nl.davidengelen.redsquare.feed.AndroidPostRevisions(context, SaitoBackend.OFFICIAL)
+            .apply(listOf(original)).posts.single().id)
+        ControlledFeedPeer("[${fixture.getAsJsonObject("original")}]").start().use { server ->
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                waitForRefresh()
+                ui.onNodeWithText("Native Red Square reference post").assertDoesNotExist()
+                ui.onNodeWithText("A newer verified edit").assertDoesNotExist()
+            }
+        }
+    }
+
+    @Test fun mountedQuoteKeepsCommentaryWhileOriginalFollowsVerifiedEditAndDeletion() {
+        fun fixture(name: String) = InstrumentationRegistry.getInstrumentation().context.assets.open(name)
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
+        val quotes = fixture("native-quote-reference.json")
+        val actions = fixture("native-author-actions-reference.json")
+        val original = RedSquareFeed.decode(actions.getAsJsonObject("original").get("tx").asString)
+        ControlledFeedPeer("[${quotes.getAsJsonObject("legacy")}]").start().use { server ->
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                waitFor("Historical quote commentary")
+                waitFor("Native Red Square reference post")
+                val revisions = nl.davidengelen.redsquare.feed.AndroidPostRevisions(context, SaitoBackend.OWNER)
+                revisions.observe(RedSquareFeed.decode(actions.getAsJsonObject("newerEdited").get("tx").asString))
+                waitFor("A newer verified edit")
+                ui.onNodeWithText("Native Red Square reference post").assertDoesNotExist()
+                revisions.confirmDeletion(original, RedSquareAuthorActions.decode(actions.getAsJsonObject("deleted").get("tx").asString))
+                waitFor("Original unavailable. Commentary is still available.")
+                ui.onNodeWithText("Historical quote commentary").assertIsDisplayed()
+                ui.onNodeWithText("A newer verified edit").assertDoesNotExist()
+                captureFeedEvidence("author-post-evidence/quote-deleted-original.png")
+                kotlinx.coroutines.runBlocking {
+                    val cachedOnly = nl.davidengelen.redsquare.feed.QuoteState(context, null, SaitoBackend.OWNER,
+                        "ws://127.0.0.1:1/wsopen", this)
+                    cachedOnly.load(original.id, original)
+                    assertTrue(cachedOnly.originals[original.id]!!.deleted)
+                    assertNull(cachedOnly.originals[original.id]!!.post)
+                }
+            }
+        }
     }
     private fun waitForList() {
         ui.waitUntil(20_000) { ui.onAllNodes(hasScrollAction()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }

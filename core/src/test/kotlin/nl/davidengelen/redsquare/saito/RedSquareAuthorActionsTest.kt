@@ -2,9 +2,42 @@ package nl.davidengelen.redsquare.saito
 
 import com.google.gson.JsonParser
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertThrows
 import org.junit.Test
 
 class RedSquareAuthorActionsTest {
+    @Test fun `explicitly rebased edit can proceed past the same conflicting server version`() {
+        val fixture = JsonParser.parseReader(javaClass.getResourceAsStream("/native-author-actions-reference.json")!!.reader()).asJsonObject
+        val original = RedSquareFeed.decode(fixture.getAsJsonObject("original").get("tx").asString)
+        val latest = RedSquareFeed.decode(fixture.getAsJsonObject("newerEdited").get("tx").asString)
+        val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe fixture key.
+        val body = SaitoEnvelope.decode(fixture.getAsJsonObject("edit").get("tx").asString).body
+        val candidate = RedSquareAuthorActions.decode(SaitoTransaction.create(wallet, body, 1700000070007L).envelope())
+        assertEquals(AuthorEditStatus.CONFLICT, RedSquareAuthorActions.editStatus(original, candidate, latest))
+        assertEquals(AuthorEditStatus.PENDING, RedSquareAuthorActions.editStatus(latest, candidate, latest))
+    }
+    @Test fun `restored verified edit updates stale views without adding unrelated history`() {
+        val fixture = JsonParser.parseReader(javaClass.getResourceAsStream("/native-author-actions-reference.json")!!.reader()).asJsonObject
+        val original = RedSquareFeed.decode(fixture.getAsJsonObject("original").get("tx").asString)
+        val revision = PostRevision.restore(PostRevision.observed(fixture.getAsJsonObject("newerEdited").get("tx").asString).encode())
+        assertEquals("A newer verified edit", revision.apply(listOf(original)).single().text)
+        assertEquals(emptyList<FeedPost>(), revision.apply(emptyList()))
+        val damaged = JsonParser.parseString(revision.encode()).asJsonObject.apply {
+            addProperty("delete", fixture.getAsJsonObject("unrelatedDelete").get("tx").asString)
+        }
+        assertThrows(IllegalArgumentException::class.java) { PostRevision.restore(damaged.toString()) }
+    }
+    @Test fun `restored authorized deletion prevents stale history from resurrecting the original`() {
+        val fixture = JsonParser.parseReader(javaClass.getResourceAsStream("/native-author-actions-reference.json")!!.reader()).asJsonObject
+        val original = fixture.getAsJsonObject("original").get("tx").asString
+        val deleted = fixture.getAsJsonObject("deleted").get("tx").asString
+        val revision = PostRevision.deleted(original, deleted)
+        val restored = PostRevision.restore(revision.encode())
+        assertEquals(emptyList<FeedPost>(), restored.apply(listOf(RedSquareFeed.decode(original))))
+        org.junit.Assert.assertThrows(IllegalArgumentException::class.java) {
+            PostRevision.deleted(original, fixture.getAsJsonObject("unrelatedDelete").get("tx").asString)
+        }
+    }
     @Test fun `native edit and delete signatures match independently signed vectors`() {
         val fixture = JsonParser.parseReader(javaClass.getResourceAsStream("/native-author-actions-reference.json")!!.reader()).asJsonObject
         val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe fixture key only.

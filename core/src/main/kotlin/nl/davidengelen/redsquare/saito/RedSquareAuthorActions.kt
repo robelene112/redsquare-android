@@ -12,9 +12,22 @@ enum class AuthorActionKind(val request: String, val storageId: String) {
 data class AuthorAction(val id: String, val author: String, val target: String, val kind: AuthorActionKind,
     val text: String, val createdAt: Long, val envelope: String)
 
+enum class AuthorEditStatus { PENDING, AVAILABLE, CONFLICT }
+
 /** An author command is authenticated intent; application or removal requires a separate observation. */
 object RedSquareAuthorActions {
     private val gson = GsonBuilder().setStrictness(Strictness.STRICT).create()
+
+    fun editStatus(base: FeedPost, candidate: AuthorAction, served: FeedPost?): AuthorEditStatus {
+        require(candidate.kind == AuthorActionKind.EDIT && candidate.author == base.author && candidate.target == base.id)
+        if (served == null) return AuthorEditStatus.PENDING
+        require(served.id == base.id && served.author == base.author)
+        val edit = served.edit ?: return AuthorEditStatus.PENDING
+        if (edit.id == candidate.id) return AuthorEditStatus.AVAILABLE
+        return if (edit.createdAt >= candidate.createdAt ||
+            (edit.id != base.edit?.id && edit.createdAt > (base.edit?.createdAt ?: 0))) AuthorEditStatus.CONFLICT
+        else AuthorEditStatus.PENDING
+    }
 
     fun decode(envelope: String): AuthorAction {
         val signed = SaitoEnvelope.decode(envelope)
