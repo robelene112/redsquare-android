@@ -222,6 +222,80 @@ class VideoPreviewTest {
         }
     }
 
+    @Test fun userPlaybackPausesInTheBackgroundAndRecreationDoesNotAutoplay() {
+        val reference = instrumentation.context.assets.open("native-video-reference.json").bufferedReader()
+            .use { com.google.gson.JsonParser.parseReader(it).asJsonObject }
+        val row = reference.getAsJsonObject("linked")
+        val peer = ControlledFeedPeer("[$row]")
+        val device = UiDevice.getInstance(instrumentation)
+        val response = MockResponse.Builder().setHeader("Content-Type", "application/javascript").body("""
+            window.YT={Player:function(element,options){
+              var target=this,permission=false;
+              if(options.playerVars.autoplay!==0){options.events.onError({data:2});return;}
+              var button=document.createElement('button');
+              button.innerText='Play controlled video';
+              document.getElementById(element).appendChild(button);
+              target.cueVideoById=function(id){if(id!=='M7lc1UVf-VE')throw Error('Wrong video');};
+              target.playVideo=function(){
+                if(!permission){options.events.onError({data:5});return;}
+                permission=false;button.innerText='Playing controlled video';
+                options.events.onStateChange({data:1});
+              };
+              target.pauseVideo=function(){
+                permission=false;
+                if(button.innerText==='Playing controlled video'){
+                  button.innerText='Paused controlled video';options.events.onStateChange({data:2});
+                }
+              };
+              button.onclick=function(event){if(event.isTrusted){permission=true;target.playVideo();}};
+              setTimeout(function(){options.events.onReady({target:target})},20);
+            }};
+            onYouTubeIframeAPIReady();
+        """.trimIndent()).build()
+        val api = MockWebServer()
+        api.use {
+            api.enqueue(response)
+            api.enqueue(response)
+            api.start(java.net.InetAddress.getByName("127.0.0.1"), 0)
+            peer.start().use { server ->
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                    .putExtra("youtubeFixtureUrl", "http://127.0.0.1:${api.port}/iframe_api")).use { scenario ->
+                    try {
+                        ui.waitUntil(20_000) { peer.requests.get() >= 2 && ui.onAllNodesWithText("Loading posts…").fetchSemanticsNodes().isEmpty() }
+                        if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
+                        assertEquals(0, api.requestCount)
+                        watch("Explicit signed YouTube link")
+                        ui.waitUntil(20_000) { ui.onAllNodesWithText("Use the player controls to start playback.").fetchSemanticsNodes().isNotEmpty() }
+                        assertEquals(1, api.requestCount)
+                        requireNotNull(device.wait(Until.findObject(By.text("Play controlled video")), 10_000)).click()
+                        ui.waitUntil(10_000) { ui.onAllNodesWithText("Playing YouTube video.").fetchSemanticsNodes().isNotEmpty() }
+                        assertTrue(device.hasObject(By.text("Playing controlled video")))
+                        scenario.moveToState(androidx.lifecycle.Lifecycle.State.CREATED)
+                        scenario.moveToState(androidx.lifecycle.Lifecycle.State.RESUMED)
+                        assertTrue(device.wait(Until.hasObject(By.text("Paused controlled video")), 10_000))
+                        ui.waitUntil(10_000) { ui.onAllNodesWithText("Use the player controls to start playback.").fetchSemanticsNodes().isNotEmpty() }
+                        assertEquals(1, api.requestCount)
+                        capture("video-evidence/paused-player.png")
+                        scenario.recreate()
+                        ui.waitUntil(20_000) { ui.onAllNodesWithText("Use the player controls to start playback.").fetchSemanticsNodes().isNotEmpty() }
+                        assertTrue(device.wait(Until.hasObject(By.text("Play controlled video")), 10_000))
+                        assertFalse(device.hasObject(By.text("Playing controlled video")))
+                        assertEquals(2, api.requestCount)
+                        capture("video-evidence/recreated-player.png")
+                        ui.onNodeWithText("Close video").performClick()
+                        assertTrue(peer.transactions.isEmpty())
+                        peer.assertHealthy()
+                    } catch (failure: Throwable) {
+                        failure.addSuppressed(AssertionError("Controlled provider requests: ${api.requestCount}"))
+                        try { capture("video-evidence/lifecycle-failure.png") } catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
+                        throw failure
+                    }
+                }
+            }
+        }
+    }
+
     private fun readyResponse() = MockResponse.Builder().setHeader("Content-Type", "application/javascript").body("""
         window.YT={Player:function(element,options){
           var target=this;
