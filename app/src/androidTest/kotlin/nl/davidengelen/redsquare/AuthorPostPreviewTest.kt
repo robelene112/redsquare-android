@@ -79,7 +79,7 @@ class AuthorPostPreviewTest {
                     ui.onNodeWithText("Send").performClick()
                     waitFor("Available on this server.")
                     ui.onNodeWithText("Back").performClick()
-                    waitFor("New post")
+                    waitForList()
                     waitFor("Native author's original post")
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText("Native author's original post"))
                     ui.onNodeWithText("Native author's original post").performClick()
@@ -92,10 +92,12 @@ class AuthorPostPreviewTest {
                     ui.onNodeWithText("Save changes").performClick()
                     waitFor("Edit available on this server.")
                     ui.onNodeWithText("Back").performClick()
+                    waitForList()
                     waitFor("Native author's edited post")
                     ui.onNodeWithText("Native author's original post").assertDoesNotExist()
                     assertEquals(originalId.get(), own.get()!!.get("sig").asString)
                     ui.onNodeWithText("Back").performClick()
+                    waitForList()
                     waitFor("New post")
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText("Native author's edited post"))
                     ui.onNodeWithText(own.get()!!.get("field2").asString).performClick()
@@ -114,5 +116,8 @@ class AuthorPostPreviewTest {
 
     private fun waitFor(text: String) {
         ui.waitUntil(20_000) { ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+    }
+    private fun waitForList() {
+        ui.waitUntil(20_000) { ui.onAllNodes(hasScrollAction()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
     }
 }
