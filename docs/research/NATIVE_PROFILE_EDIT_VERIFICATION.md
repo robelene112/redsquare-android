@@ -203,3 +203,11 @@ two-line draft in the editor; separate XML and captured semantics agree.
 Retained profile-bio-draft-label-failure/android10 andandroid17. Change only
 the assertion to exact EditableText on the editable node; no product edit or
 relaxation of private-only/no-transaction requirements. Fresh dual proof pending.
+
+Before the review-stage encrypted-file extraction, add a native regression
+for the historical post v1 raw-text format. An independent disposable emulator
+fixture writes the original AES-GCM framing/AAD with existing post key alias,
+then actual New post UI must expose exact Unicode multiline text. Save draft
+through UI and require it again after a fresh Activity, with no transmission.
+This is a preservation regression, not a new feature RED. Assembly PASS1m4s
+(.scratch/profile-legacy-regression-build.log); runtime baseline pending.

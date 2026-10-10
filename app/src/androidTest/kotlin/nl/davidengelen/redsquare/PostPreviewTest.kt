@@ -25,6 +25,76 @@ class PostPreviewTest {
             ?.forEach { check(it.delete()) }
     }
 
+    @Test fun aLegacyEncryptedTextDraftCanBeOpenedSavedAndRestoredWithoutPublishing() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        AndroidBackendStore(context).save(SaitoBackend.OWNER)
+        val owner = AndroidWalletStore(context).loadOrCreate().publicKey
+        val text = "Legacy local draft 🌱\nStill unsent"
+        // Independently reproduce the original v1 raw-text format, before JSON drafts.
+        // The disposable app/emulator guards and draft-only reset above apply here too.
+        val alias = "redsquare.postdraft.v1"
+        val keyStore = java.security.KeyStore.getInstance("AndroidKeyStore").apply { load(null) }
+        val key = keyStore.getKey(alias, null) as? javax.crypto.SecretKey ?: run {
+            check(context.noBackupFilesDir.listFiles()?.none { it.name.startsWith("postdraft.") } == true)
+            javax.crypto.KeyGenerator.getInstance("AES", "AndroidKeyStore").run {
+                init(android.security.keystore.KeyGenParameterSpec.Builder(alias,
+                    android.security.keystore.KeyProperties.PURPOSE_ENCRYPT or android.security.keystore.KeyProperties.PURPOSE_DECRYPT)
+                    .setKeySize(256).setBlockModes(android.security.keystore.KeyProperties.BLOCK_MODE_GCM)
+                    .setEncryptionPaddings(android.security.keystore.KeyProperties.ENCRYPTION_PADDING_NONE).build())
+                generateKey()
+            }
+        }
+        val filename = "postdraft.owner.$owner.v1"
+        val cipher = javax.crypto.Cipher.getInstance("AES/GCM/NoPadding").apply {
+            init(javax.crypto.Cipher.ENCRYPT_MODE, key)
+            updateAAD("${context.packageName}:$filename".toByteArray(Charsets.UTF_8))
+        }
+        java.io.FileOutputStream(java.io.File(context.noBackupFilesDir, filename)).use {
+            it.write(byteArrayOf(1) + cipher.iv + cipher.doFinal(text.toByteArray(Charsets.UTF_8)))
+            it.fd.sync()
+        }
+        val root = instrumentation.context.assets.open("native-following-reference.json").bufferedReader().use {
+            JsonParser.parseReader(it).asJsonObject.getAsJsonObject("root")
+        }
+        val peer = ControlledFeedPeer("[$root]")
+        peer.start().use { server ->
+            val intent = Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+            ActivityScenario.launch<MainActivity>(intent).use {
+                try {
+                    waitForReferencePost()
+                    ui.onNodeWithText("New post").performClick()
+                    ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNode(hasSetTextAction()).assertTextEquals(text)
+                    ui.onNodeWithText("Save draft").performClick()
+                    waitFor("New post")
+                    assertTrue(peer.transactions.isEmpty())
+                    peer.assertHealthy()
+                } catch (failure: Throwable) {
+                    try { captureFeedEvidence("posting-evidence/legacy-draft-first-failure.png") }
+                    catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
+                    throw failure
+                }
+            }
+            ActivityScenario.launch<MainActivity>(intent).use {
+                try {
+                    waitForReferencePost()
+                    ui.onNodeWithText("New post").performClick()
+                    ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNode(hasSetTextAction()).assertTextEquals(text)
+                    captureFeedEvidence("posting-evidence/restored-legacy-draft.png")
+                    assertTrue(peer.transactions.isEmpty())
+                    peer.assertHealthy()
+                } catch (failure: Throwable) {
+                    try { captureFeedEvidence("posting-evidence/legacy-draft-restoration-failure.png") }
+                    catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
+                    throw failure
+                }
+            }
+        }
+    }
+
     @Test fun replyingToAnExistingReplyKeepsTheOriginalThreadAndInheritedRecipientOrder() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
