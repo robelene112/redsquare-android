@@ -9,4 +9,9 @@ const malformed=signedReference('1',{module:'RedSquare',request:'create tweet',d
 const remoteFailure=signedReference('1',{module:'RedSquare',request:'create tweet',data:{text:'Remote image failures keep this post readable',images:['http://127.0.0.1:19125/missing.png','http://127.0.0.1:19125/oversize.png','http://127.0.0.1:19125/malformed.png']}},1700000080004);
 const remoteSlow=signedReference('1',{module:'RedSquare',request:'create tweet',data:{text:'Slow images keep navigation usable',images:['http://127.0.0.1:19125/slow-a.png','http://127.0.0.1:19125/slow-b.png']}},1700000080005);
 const remoteFast=signedReference('2',{module:'RedSquare',request:'create tweet',data:{text:'Selected server image is ready',images:[images.blue]}},1700000080006);
-console.log(JSON.stringify({synthetic:true,reference,images,ordinary,dual,conflicting,malformed,remoteFailure,remoteSlow,remoteFast},null,2));
+const mediaEdit=signedReference('1',{module:'RedSquare',request:'edit tweet',data:{tweet_id:ordinary.sig,text:'A newer verified image edit'}},1700000080007);
+const revisedEnvelope=JSON.parse(ordinary.tx);
+revisedEnvelope.opt=Buffer.from(JSON.stringify({update_tx:mediaEdit.tx,edit_ts:mediaEdit.created_at,updated_at:mediaEdit.created_at})).toString('base64');
+const mediaAuthor={original:ordinary,newerEdited:{...ordinary,tx:JSON.stringify(revisedEnvelope)},
+  deleted:signedReference('1',{module:'RedSquare',request:'delete tweet',data:{tweet_id:ordinary.sig}},1700000080008)};
+console.log(JSON.stringify({synthetic:true,reference,images,ordinary,dual,conflicting,malformed,remoteFailure,remoteSlow,remoteFast,mediaAuthor},null,2));

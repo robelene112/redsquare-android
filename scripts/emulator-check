@@ -215,10 +215,10 @@ PY
         printf '%s' '{"wallet":{"version":5.677,"publicKey":"jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR","privateKey":"0000000000000000000000000000000000000000000000000000000000000001"}}' | \
             adb shell run-as nl.davidengelen.redsquare.dev.test tee files/wallet-test-documents/reference-import.json > /dev/null
         timeout 180 adb shell am instrument -w -r \
-            -e class nl.davidengelen.redsquare.PostPreviewTest#walletReplacementIsolatesAndRestoresPreparedImageDraftWithoutItsSource,nl.davidengelen.redsquare.AuthorPostPreviewTest#authorImageEditsRetainPixelsAndDeletionRemovesTheGallery,nl.davidengelen.redsquare.PostQueuePreviewTest#cancelledImageQueueKeepsItsPreparedDraftAfterItsSourceDisappears,nl.davidengelen.redsquare.PostQueuePreviewTest#queuedImageUsesOnlyItsOriginalBackendAndRetainsPreparedPixels \
+            -e class nl.davidengelen.redsquare.PostPreviewTest#walletReplacementIsolatesAndRestoresPreparedImageDraftWithoutItsSource,nl.davidengelen.redsquare.AuthorPostPreviewTest#authorImageEditsRetainPixelsAndDeletionRemovesTheGallery,nl.davidengelen.redsquare.PostQueuePreviewTest#cancelledImageQueueKeepsItsPreparedDraftAfterItsSourceDisappears,nl.davidengelen.redsquare.PostQueuePreviewTest#queuedImageUsesOnlyItsOriginalBackendAndRetainsPreparedPixels,nl.davidengelen.redsquare.PostPreviewTest#failedImageDraftSavingKeepsItsPixelsAndServerUntilStorageRecovers,nl.davidengelen.redsquare.PostQueuePreviewTest#failedImageQueueSavingRetainsPixelsAndCannotTransmitBeforeRepair,nl.davidengelen.redsquare.AuthorPostPreviewTest#imageQuoteKeepsOwnGalleryWhileOriginalImagesFollowEditAndRemoval \
             nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
             > "$evidence/images-lifecycle-ui.txt" || true
-        for directory in posting-evidence author-evidence post-queue-evidence; do
+        for directory in posting-evidence author-post-evidence post-queue-evidence; do
             adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - "$directory" \
                 > "$evidence/images-$directory.tar" || true
         done

@@ -160,7 +160,11 @@ class PostPreviewTest {
         }
     }
 
-    @Test fun failedDraftSavingPreventsBackendNavigationAndRetainsEditableWork() {
+    @Test fun failedDraftSavingPreventsBackendNavigationAndRetainsEditableWork() = failedDraftSaving(false)
+
+    @Test fun failedImageDraftSavingKeepsItsPixelsAndServerUntilStorageRecovers() = failedDraftSaving(true)
+
+    private fun failedDraftSaving(withImage: Boolean) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
@@ -180,28 +184,43 @@ class PostPreviewTest {
                 ui.onNodeWithText("New post").performClick()
                 ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNode(hasSetTextAction()).performTextReplacement("Retain work when saving fails")
+                if (withImage) ui.attachSyntheticImage()
                 // Platform keyboard dismissal keeps the unchanged server label in view.
                 scenario.onActivity { activity ->
                     activity.getSystemService(android.view.inputmethod.InputMethodManager::class.java)
                         .hideSoftInputFromWindow(activity.window.decorView.windowToken, 0)
                 }
                 val obstacle = java.io.File(context.noBackupFilesDir, "postdraft.owner.$address.v1")
+                if (withImage) check(obstacle.delete()) // Obstruct only this synthetic draft after preparation.
                 check(obstacle.mkdir())
                 val child = java.io.File(obstacle, "controlled-obstacle")
                 child.writeText("Synthetic storage obstruction")
-                try {
-                    ui.onNodeWithText("Settings").performClick()
-                    ui.onNodeWithText("saito.io").performClick()
-                    waitFor("Could not load or confirm the saved draft. Your current text remains here. Try again.")
-                    ui.waitUntil(10_000) { ui.onNodeWithText("Server: saito.davidengelen.nl").isDisplayed() }
-                    ui.onNodeWithText("Server: saito.davidengelen.nl").assertIsDisplayed()
-                    ui.onNode(hasSetTextAction()).assertTextEquals("Retain work when saving fails").assertIsEnabled()
-                    assertTrue(owner.transactions.isEmpty() && official.transactions.isEmpty())
-                    captureFeedEvidence("posting-evidence/failed-save-keeps-server-and-text.png")
-                } catch (failure: Throwable) {
-                    captureFeedEvidence("posting-evidence/failed-save-navigation-failure.png")
-                    throw failure
-                } finally { check(child.delete()); check(obstacle.delete()) }
+                withImageFixtureCleanup({
+                    var cleanupFailure: Throwable? = null
+                    for (entry in listOf(child, obstacle)) {
+                        try { check(entry.delete()) }
+                        catch (problem: Throwable) {
+                            val previous = cleanupFailure
+                            if (previous == null) cleanupFailure = problem else previous.addSuppressed(problem)
+                        }
+                    }
+                    cleanupFailure?.let { throw it }
+                }) {
+                    try {
+                        ui.onNodeWithText("Settings").performClick()
+                        ui.onNodeWithText("saito.io").performClick()
+                        waitFor("Could not load or confirm the saved draft. Your current text remains here. Try again.")
+                        ui.waitUntil(10_000) { ui.onNodeWithText("Server: saito.davidengelen.nl").isDisplayed() }
+                        ui.onNodeWithText("Server: saito.davidengelen.nl").assertIsDisplayed()
+                        ui.onNode(hasSetTextAction()).assertTextEquals("Retain work when saving fails").assertIsEnabled()
+                        if (withImage) ui.assertSyntheticRedImage()
+                        assertTrue(owner.transactions.isEmpty() && official.transactions.isEmpty())
+                        captureFeedEvidence("posting-evidence/failed-save-keeps-server-and-text.png")
+                    } catch (failure: Throwable) {
+                        captureFeedEvidence("posting-evidence/failed-save-navigation-failure.png")
+                        throw failure
+                    }
+                }
                 ui.onNodeWithText("Settings").performClick()
                 ui.onNodeWithText("saito.io").performClick()
                 waitFor("Server: saito.io")
@@ -211,6 +230,7 @@ class PostPreviewTest {
                 ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and hasText("Retain work when saving fails")).fetchSemanticsNodes().isNotEmpty() }
                 scenario.recreate()
                 ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and hasText("Retain work when saving fails")).fetchSemanticsNodes().isNotEmpty() }
+                if (withImage) ui.assertSyntheticRedImage()
                 assertTrue(owner.transactions.isEmpty() && official.transactions.isEmpty())
                 owner.assertHealthy(); official.assertHealthy()
             }

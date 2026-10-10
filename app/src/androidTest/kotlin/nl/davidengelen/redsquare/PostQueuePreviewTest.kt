@@ -171,7 +171,11 @@ class PostQueuePreviewTest {
         }
     }
 
-    @Test fun failedQueueSavingRetainsWorkWithoutClaimingQueuedOrTransmitting() {
+    @Test fun failedQueueSavingRetainsWorkWithoutClaimingQueuedOrTransmitting() = failedQueueSaving(false)
+
+    @Test fun failedImageQueueSavingRetainsPixelsAndCannotTransmitBeforeRepair() = failedQueueSaving(true)
+
+    private fun failedQueueSaving(withImage: Boolean) {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val indexed = java.util.concurrent.atomic.AtomicReference<com.google.gson.JsonObject?>()
         val peer = ControlledFeedPeer("[]", onTransaction = { frame -> indexed.set(postingArchiveRow(postingTransaction(frame))) },
@@ -190,21 +194,36 @@ class PostQueuePreviewTest {
                 ui.onNodeWithText("New post").performClick()
                 ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNode(hasSetTextAction()).performTextReplacement("Retain work until it can be saved")
+                if (withImage) ui.attachSyntheticImage()
                 val obstacle = java.io.File(context.noBackupFilesDir, "postdraft.owner.$address.v1")
+                if (withImage) check(obstacle.delete()) // Only the synthetic prepared draft.
                 check(obstacle.mkdir())
                 val child = java.io.File(obstacle, "controlled-obstacle").apply { writeText("Synthetic write obstruction") }
-                try {
+                withImageFixtureCleanup({
+                    var cleanupFailure: Throwable? = null
+                    for (entry in listOf(child, obstacle)) {
+                        try { check(entry.delete()) }
+                        catch (problem: Throwable) {
+                            val previous = cleanupFailure
+                            if (previous == null) cleanupFailure = problem else previous.addSuppressed(problem)
+                        }
+                    }
+                    cleanupFailure?.let { throw it }
+                }) {
                     ui.onNodeWithText("Send").performClick()
                     ui.waitUntil(10_000) { ui.onAllNodes(hasText("Could not load or confirm the saved draft. Your current text remains here. Try again.")).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNodeWithText("Retain work until it can be saved").assertExists()
                     ui.onAllNodes(hasText("Queued")).assertCountEquals(0)
+                    if (withImage) ui.assertSyntheticRedImage()
                     assertTrue("Failed persistence must prevent transmission", peer.transactions.isEmpty())
-                } finally { check(child.delete()); check(obstacle.delete()) }
+                }
                 ui.onNodeWithText("Retry").performClick()
                 ui.waitUntil(20_000) { ui.onAllNodes(hasText("Available on this server.")).fetchSemanticsNodes().isNotEmpty() }
                 val post = nl.davidengelen.redsquare.saito.RedSquareFeed.decode(postingTransaction(peer.transactions.single()).envelope())
                 org.junit.Assert.assertEquals(address, post.author)
                 org.junit.Assert.assertEquals("Retain work until it can be saved", post.text)
+                org.junit.Assert.assertEquals(if (withImage) 1 else 0, post.images.size)
+                if (withImage) ui.assertSyntheticRedImage()
                 peer.assertHealthy()
                 captureFeedEvidence("post-queue-evidence/failed-save-repaired-without-losing-work.png")
             }

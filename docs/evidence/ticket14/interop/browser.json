@@ -1,0 +1,73 @@
+{
+  "result": "PASS",
+  "frameSha256": "f5221ce4404ff96ea95d44502a4f7a87f4ca133753fd24d65f3dd8180009bf6d",
+  "boundary": "Offline Chromium DOM and raster decode of pinned template output; no Saito app/network/node acceptance",
+  "observations": [
+    {
+      "pin": "A",
+      "commit": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+      "pixels": [
+        {
+          "width": 12,
+          "height": 8,
+          "rgb": [
+            30,
+            189,
+            70
+          ]
+        },
+        {
+          "width": 12,
+          "height": 8,
+          "rgb": [
+            220,
+            30,
+            40
+          ]
+        },
+        {
+          "width": 12,
+          "height": 8,
+          "rgb": [
+            20,
+            60,
+            220
+          ]
+        }
+      ]
+    },
+    {
+      "pin": "B",
+      "commit": "214504ecece76d1cd20a245fe4468eccbfca2951",
+      "pixels": [
+        {
+          "width": 12,
+          "height": 8,
+          "rgb": [
+            30,
+            189,
+            70
+          ]
+        },
+        {
+          "width": 12,
+          "height": 8,
+          "rgb": [
+            220,
+            30,
+            40
+          ]
+        },
+        {
+          "width": 12,
+          "height": 8,
+          "rgb": [
+            20,
+            60,
+            220
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -58,7 +58,7 @@ class ImagePostingTest {
         }
         val indexed = AtomicReference<JsonObject?>()
         val uris = mutableListOf<Uri>()
-        try {
+        withImageFixtureCleanup({ cleanupSyntheticImages(context.contentResolver, uris.toList()) }) {
             colors.forEachIndexed { index, color ->
                 val uri = requireNotNull(context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, ContentValues().apply {
                     put(MediaStore.Images.Media.DISPLAY_NAME, "redsquare-$kind-$index.png")
@@ -136,8 +136,12 @@ class ImagePostingTest {
                                 "quote" -> ui.clickVisiblePostContent("Quote")
                             }
                             ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                            ui.onNode(hasSetTextAction()).performTextReplacement(text)
-                            ui.onNodeWithText("Add images").performScrollTo().performClick()
+                            if (text.isEmpty()) ui.onNode(hasSetTextAction()).assertTextEquals("")
+                            else ui.onNode(hasSetTextAction()).performTextReplacement(text)
+                            ui.onNodeWithText("Add images").performScrollTo().assertIsDisplayed().performClick()
+                            Intents.intended(anyOf(hasAction(Intent.ACTION_OPEN_DOCUMENT), hasAction(Intent.ACTION_GET_CONTENT),
+                                hasAction("android.provider.action.PICK_IMAGES"), hasAction("androidx.activity.result.contract.action.PICK_IMAGES"),
+                                hasAction("com.google.android.gms.provider.action.PICK_IMAGES")))
                             // Quoted original has its own gallery; wait for the preparation control to settle.
                             ui.waitUntil(20_000) { ui.onAllNodes(hasText("Remove image 1") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                             assertTrue(peer.transactions.isEmpty())
@@ -175,7 +179,7 @@ class ImagePostingTest {
                     }
                 }
             } finally { Intents.release() }
-        } finally { uris.forEach { context.contentResolver.delete(it, null, null) } }
+        }
     }
 
     private fun assertPreparedColor(uri: String, color: String) {

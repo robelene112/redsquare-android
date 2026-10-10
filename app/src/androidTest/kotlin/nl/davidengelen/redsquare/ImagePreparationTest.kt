@@ -130,13 +130,21 @@ class ImagePreparationTest {
                 output.write(0)
             }
         }
+        val fiveDistinct = (1..5).map { write(raster(Bitmap.CompressFormat.PNG), "image/png") }
         withComposer { peer, sent ->
             select(listOf(original)); waitForCount(1)
             val before = ui.onNode(hasSetTextAction()).fetchSemanticsNode().config[androidx.compose.ui.semantics.SemanticsProperties.EditableText].text
-            for (selection in listOf(listOf(original, malformed), listOf(missing), List(5) { original }, listOf(oversized))) {
-                select(selection)
-                ui.waitUntil(20_000) { ui.onAllNodesWithText("Could not prepare or save the images. Your draft is still here.").fetchSemanticsNodes().isNotEmpty() &&
-                    ui.onAllNodes(hasText("Add images") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+            for ((label, selection) in listOf("malformed" to listOf(original, malformed), "missing" to listOf(missing),
+                "too-many" to fiveDistinct, "oversized" to listOf(oversized))) {
+                try {
+                    select(selection)
+                    ui.waitUntil(20_000) { ui.onAllNodesWithText("Could not prepare or save the images. Your draft is still here.").fetchSemanticsNodes().isNotEmpty() &&
+                        ui.onAllNodes(hasText("Add images") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                } catch (failure: Throwable) {
+                    val file = File(context.cacheDir, "images-evidence/preparation-$label-failure.png").apply { parentFile?.mkdirs() }
+                    androidx.test.uiautomator.UiDevice.getInstance(instrumentation).takeScreenshot(file)
+                    throw AssertionError("Selection rejection failed: $label", failure)
+                }
                 ui.onNodeWithText("Remove image 1").assertExists()
                 ui.onAllNodesWithText("Remove image 2").assertCountEquals(0)
                 ui.onNode(hasSetTextAction()).assert(hasText(before))

@@ -247,3 +247,60 @@ from697. Unmodified A/B constructor/template graphs render outer green JPEG then
 original red/blue PNG sources in exact order; gallery negative controls reject
 unsafe sources and cap4 safe entries. Controlled template proof has no browser
 DOM, network, node initialization or current served-revision acceptance claim.
+
+
+c3ff0f2 Android10 focused38065815558:6/6 initial image cases PASS18.184s;
+8 EXIF orientations, four-format fitting, remote failure/retry and two-stall
+cancellation PASS. Only failed/excess selection test fails. Its count-negative
+used the same URI five times; AndroidX1.10.1 GetMultipleContents parser bytecode
+uses LinkedHashSet.add for data/ClipData, collapsing those entries. Fixture now
+returns five distinct owned URIs and labels each rejection failure. Original
+assertions retain prior1 image/text and zero transmission until Send. The earlier
+capture does not identify the failing selection conclusively; do not treat this
+source-confirmed fixture defect as a proven complete runtime cause.
+
+Android17 c3 focused38065817557 passes5/6 initial cases; image-only posting times
+out before Remove image1 appears. In-scope capture shows focused empty text field
+and keyboard without prepared image. It does not prove a provider/preparation
+failure; no preparation or recovery phases reached. More positive launch/state
+observations are needed before claiming a cause.
+
+Supplemental storage-obstruction variants add image pixels to prior text recovery
+checks. A mounted media quote variant seeds verified author edit/deletion records
+and observes original red/blue media retained through edit and removed after
+deletion, with own green media/commentary retained and cached deletion honored.
+It complements actual UI author commands and is not an end-to-end quote author
+command claim. Independent mediaAuthor commands append to the reference set;
+every existing reference field was compared unchanged. Local first supplemental
+build PASS2m19s before cleanup/capture/rejection fixes; exact corrected build and
+runtime pending. Both axes requested follow-up for corrected cleanup/capture
+and non-vacuous browser pin requirements.
+
+Offline Chromium1.63.0 decoded actual quote template DOM images on both pinned
+A/B graphs: own green JPEG RGB30/189/70, original red PNG220/30/40 and blue
+PNG20/60/220, each12x8 in correct order. Browser blocks external requests; source
+hashes and decoded public frames retained in ticket14/interop. This proves a
+controlled presentation adapter, not initialized node/current deployed revision,
+live publication or a physical performance result. Browser proof requires exactly
+the two expected pinned revisions before it can emit PASS.
+
+
+Corrected selection and failure-observability local build PASS2m15s. Final
+supplement skips unnecessary empty-text replacement in image-only posting,
+asserts visible Add and actual picker Intent before preparation wait. It adds
+cold feed red/blue pixel assertions across the first real process death: cold
+peer returns no rows, so cached signed envelopes and a new bitmap cache must
+supply both original images. Image queue failures now capture in-scope screens;
+host retains partial instrumentation output on timeout/nonzero. These added
+assertions await the exact final focused candidate runtime.
+
+Final supplemental core/debug/test/release/lint build PASS2m08s. Review found the
+cold-cache image labels/colors could match earlier cached image-only posts;
+first phase now explicitly clears only synthetic public feed caches alongside
+its synthetic drafts, and both phases require Signed image reference and unique
+gallery nodes. This establishes fixture identity before pixel assertions. Final
+small fixture guard recompile pending; hosted exact-candidate checks remain
+acceptance authority. Both earlier bounded review-fix follow-ups report0.
+
+Cold-cache guard recompile PASS1m06s. Both bounded review axes0 residual actionable
+findings. Final focused10/17 candidate dispatch pending; ticket is still open.

@@ -2,6 +2,7 @@ package nl.davidengelen.redsquare
 
 import android.content.Intent
 import androidx.compose.ui.test.*
+import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
@@ -375,35 +376,72 @@ class AuthorPostPreviewTest {
         }
     }
 
-    @Test fun mountedQuoteKeepsCommentaryWhileOriginalFollowsVerifiedEditAndDeletion() {
+    @Test fun mountedQuoteKeepsCommentaryWhileOriginalFollowsVerifiedEditAndDeletion() = mountedQuoteRevisions(false)
+
+    @Test fun imageQuoteKeepsOwnGalleryWhileOriginalImagesFollowEditAndRemoval() = mountedQuoteRevisions(true)
+
+    private fun mountedQuoteRevisions(withImages: Boolean) {
         fun fixture(name: String) = InstrumentationRegistry.getInstrumentation().context.assets.open(name)
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
         val quotes = fixture("native-quote-reference.json")
-        val actions = fixture("native-author-actions-reference.json")
+        val media = if (withImages) fixture("native-images-reference.json") else null
+        val actions = media?.getAsJsonObject("mediaAuthor") ?: fixture("native-author-actions-reference.json")
+        val row = media?.getAsJsonObject("dual") ?: quotes.getAsJsonObject("legacy")
+        val commentary = if (withImages) "Image quote commentary" else "Historical quote commentary"
+        val originalText = if (withImages) "Signed image reference" else "Native Red Square reference post"
+        val editedText = if (withImages) "A newer verified image edit" else "A newer verified edit"
         val original = RedSquareFeed.decode(actions.getAsJsonObject("original").get("tx").asString)
-        ControlledFeedPeer("[${quotes.getAsJsonObject("legacy")}]").start().use { server ->
+        ControlledFeedPeer("[$row]").start().use { server ->
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
-                waitFor("Historical quote commentary")
-                waitFor("Native Red Square reference post")
-                val revisions = nl.davidengelen.redsquare.feed.AndroidPostRevisions(context, SaitoBackend.OWNER)
-                revisions.observe(RedSquareFeed.decode(actions.getAsJsonObject("newerEdited").get("tx").asString))
-                waitFor("A newer verified edit")
-                ui.onNodeWithText("Native Red Square reference post").assertDoesNotExist()
-                revisions.confirmDeletion(original, RedSquareAuthorActions.decode(actions.getAsJsonObject("deleted").get("tx").asString))
-                waitFor("Original unavailable. Commentary is still available.")
-                ui.onNodeWithText("Historical quote commentary").assertIsDisplayed()
-                ui.onNodeWithText("A newer verified edit").assertDoesNotExist()
-                captureFeedEvidence("author-post-evidence/quote-deleted-original.png")
-                kotlinx.coroutines.runBlocking {
-                    val cachedOnly = nl.davidengelen.redsquare.feed.QuoteState(context, null, SaitoBackend.OWNER,
-                        "ws://127.0.0.1:1/wsopen", this)
-                    cachedOnly.load(original.id, original)
-                    assertTrue(cachedOnly.originals[original.id]!!.deleted)
-                    assertNull(cachedOnly.originals[original.id]!!.post)
+                try {
+                    waitFor(commentary)
+                    waitFor(originalText)
+                    if (withImages) assertQuotedRedImage()
+                    val revisions = nl.davidengelen.redsquare.feed.AndroidPostRevisions(context, SaitoBackend.OWNER)
+                    revisions.observe(RedSquareFeed.decode(actions.getAsJsonObject("newerEdited").get("tx").asString))
+                    waitFor(editedText)
+                    ui.onNodeWithText(originalText).assertDoesNotExist()
+                    if (withImages) assertQuotedRedImage()
+                    revisions.confirmDeletion(original, RedSquareAuthorActions.decode(actions.getAsJsonObject("deleted").get("tx").asString))
+                    waitFor("Original unavailable. Commentary is still available.")
+                    ui.onNode(hasScrollAction()).performScrollToNode(hasText(commentary))
+                    ui.onNodeWithText(commentary).assertIsDisplayed()
+                    if (withImages) {
+                        ui.onAllNodesWithContentDescription("Image 1 of 2").assertCountEquals(0)
+                        ui.onAllNodesWithContentDescription("Image 2 of 2").assertCountEquals(0)
+                        ui.onNode(hasScrollAction()).performScrollToNode(hasContentDescription("Image 1 of 1"))
+                        val bitmap = ui.onNodeWithContentDescription("Image 1 of 1").assertIsDisplayed().captureToImage()
+                            .asAndroidBitmap()
+                        val color = bitmap.getPixel(bitmap.width / 2, bitmap.height / 2)
+                        assertTrue(kotlin.math.abs(android.graphics.Color.green(color) - 190) <= 5)
+                        assertTrue(kotlin.math.abs(android.graphics.Color.red(color) - 30) <= 5)
+                        assertTrue(kotlin.math.abs(android.graphics.Color.blue(color) - 70) <= 5)
+                    }
+                    ui.onNodeWithText(editedText).assertDoesNotExist()
+                    captureFeedEvidence("author-post-evidence/${if (withImages) "image-quote" else "quote"}-deleted-original.png")
+                    kotlinx.coroutines.runBlocking {
+                        val cachedOnly = nl.davidengelen.redsquare.feed.QuoteState(context, null, SaitoBackend.OWNER,
+                            "ws://127.0.0.1:1/wsopen", this)
+                        cachedOnly.load(original.id, original)
+                        assertTrue(cachedOnly.originals[original.id]!!.deleted)
+                        assertNull(cachedOnly.originals[original.id]!!.post)
+                    }
+                } catch (failure: Throwable) {
+                    captureFeedEvidence("author-post-evidence/${if (withImages) "image-quote" else "quote"}-revision-failure.png")
+                    throw failure
                 }
             }
         }
+    }
+    private fun assertQuotedRedImage() {
+        ui.waitUntil(15_000) { ui.onAllNodesWithContentDescription("Image 1 of 2").fetchSemanticsNodes().isNotEmpty() }
+        ui.onNode(hasScrollAction()).performScrollToNode(hasContentDescription("Image 1 of 2"))
+        val bitmap = ui.onNodeWithContentDescription("Image 1 of 2").assertIsDisplayed().captureToImage().asAndroidBitmap()
+        val pixel = bitmap.getPixel(bitmap.width / 2, bitmap.height / 2)
+        assertTrue(kotlin.math.abs(android.graphics.Color.red(pixel) - 220) <= 5)
+        assertTrue(kotlin.math.abs(android.graphics.Color.green(pixel) - 30) <= 5)
+        assertTrue(kotlin.math.abs(android.graphics.Color.blue(pixel) - 40) <= 5)
     }
     private fun waitForList() {
         ui.waitUntil(20_000) { ui.onAllNodes(hasScrollAction()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }

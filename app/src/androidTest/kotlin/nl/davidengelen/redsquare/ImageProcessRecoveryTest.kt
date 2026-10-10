@@ -44,7 +44,7 @@ class ImageProcessRecoveryTest {
 
     @Test fun terminateWithDurableImageDraftAfterDeletingItsSource() {
         prepare()
-        context.noBackupFilesDir.listFiles()?.filter { it.name.startsWith("postdraft.") }?.forEach { check(it.delete()) }
+        context.noBackupFilesDir.listFiles()?.filter { it.name.startsWith("postdraft.") || it.name.startsWith("feed.") }?.forEach { check(it.delete()) }
         val fixture = fixture()
         val uri = requireNotNull(context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, ContentValues().apply {
             put(MediaStore.Images.Media.DISPLAY_NAME, "redsquare-cold-image.png")
@@ -63,6 +63,8 @@ class ImageProcessRecoveryTest {
                         .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)))
                 val peer = ControlledFeedPeer("[${fixture.getAsJsonObject("ordinary")}]")
                 launch(peer) {
+                    ui.waitUntil(20_000) { peer.requests.get() > 0 && ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    assertCachedOriginalImages()
                     openComposer()
                     ui.onNode(hasSetTextAction()).performTextReplacement(text)
                     ui.onNodeWithText("Add images").performScrollTo().assertIsDisplayed().performClick()
@@ -79,9 +81,8 @@ class ImageProcessRecoveryTest {
     @Test fun coldDraftKeepsPixelsWithoutSourceAndTerminatesAfterUncertainSend() {
         prepare()
         assertEquals("draft", JsonParser.parseString(checkpoint.readText()).asJsonObject.get("phase").asString)
-        val fixture = fixture()
         val observed = AtomicReference<JsonObject?>()
-        val rows = "[${fixture.getAsJsonObject("ordinary")}]"
+        val rows = "[]" // The cold process must recover the original images from its signed cache.
         // The archive intentionally never confirms the candidate during this process.
         val serving = ControlledFeedPeer(rows, onTransaction = { frame ->
             val candidate = postingTransaction(frame)
@@ -92,6 +93,8 @@ class ImageProcessRecoveryTest {
             observed.set(postingArchiveRow(candidate))
         }, archiveResponse = { criteria -> if (criteria.has("sig")) "[]" else rows })
         launch(serving) {
+            ui.waitUntil(20_000) { serving.requests.get() > 0 && ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+            assertCachedOriginalImages()
             openComposer()
             waitForPreparedImage()
             ui.onNode(hasSetTextAction()).assert(hasText(text)).assertIsEnabled()
@@ -137,6 +140,22 @@ class ImageProcessRecoveryTest {
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 try { block() }
                 catch (failure: Throwable) { capture("failure.png"); throw failure }
+            }
+        }
+    }
+
+    private fun assertCachedOriginalImages() {
+        ui.onNode(hasScrollAction()).performScrollToNode(hasText("Signed image reference"))
+        ui.onNodeWithText("Signed image reference").assertIsDisplayed()
+        for ((index, expected) in listOf(intArrayOf(220, 30, 40), intArrayOf(20, 60, 220)).withIndex()) {
+            val label = "Image ${index + 1} of 2"
+            ui.waitUntil(15_000) { ui.onAllNodesWithContentDescription(label).fetchSemanticsNodes().isNotEmpty() }
+            ui.onAllNodesWithContentDescription(label).assertCountEquals(1)
+            ui.onNode(hasScrollAction()).performScrollToNode(hasContentDescription(label))
+            val bitmap = ui.onNodeWithContentDescription(label).assertIsDisplayed().captureToImage().asAndroidBitmap()
+            val pixel = bitmap.getPixel(bitmap.width / 2, bitmap.height / 2)
+            listOf(Color.red(pixel), Color.green(pixel), Color.blue(pixel)).forEachIndexed { channel, value ->
+                assertTrue(kotlin.math.abs(value - expected[channel]) <= 5)
             }
         }
     }

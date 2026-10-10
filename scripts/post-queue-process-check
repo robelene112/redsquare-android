@@ -20,6 +20,19 @@ def adb(*arguments, check=True, timeout=60):
                           check=check, timeout=timeout)
 
 
+def instrument(method, log_name, check=True):
+    try:
+        result = adb("shell", "am", "instrument", "-w", "-r", *mode_arguments, "-e", "class",
+                     test_class + "#" + method, runner, check=check, timeout=120)
+        (args.evidence / log_name).write_text(result.stdout + result.stderr)
+        return result
+    except (subprocess.TimeoutExpired, subprocess.CalledProcessError) as failure:
+        def decoded(value):
+            return value.decode("utf-8", errors="replace") if isinstance(value, bytes) else (value or "")
+        (args.evidence / log_name).write_text(decoded(failure.stdout) + decoded(failure.stderr))
+        raise
+
+
 if not adb("get-serialno").stdout.strip().startswith("emulator-"):
     raise SystemExit("This process check requires an isolated emulator")
 args.evidence.mkdir(parents=True, exist_ok=True)
@@ -27,10 +40,7 @@ state_path = "cache/image-queue-process-checkpoint.json" if args.images else "ca
 mode_arguments = ["-e", "images", "true"] if args.images else []
 adb("shell", "run-as", package, "rm", "-f", state_path)
 try:
-    prepared = adb("shell", "am", "instrument", "-w", "-r", *mode_arguments, "-e", "class",
-                   test_class + "#terminateAfterDurableOfflineQueueing", runner,
-                   check=False, timeout=120)
-    (args.evidence / "interrupted-instrumentation.txt").write_text(prepared.stdout)
+    prepared = instrument("terminateAfterDurableOfflineQueueing", "interrupted-instrumentation.txt", check=False)
     if "FAILURES!!!" in prepared.stdout:
         raise AssertionError("Posting preparation failed before deliberate termination; see interrupted-instrumentation.txt")
     row = json.loads(adb("exec-out", "run-as", package, "cat", state_path).stdout)
@@ -44,10 +54,7 @@ try:
     if str(row["pid"]) in current:
         raise AssertionError("Original queued-post process was not terminated")
     adb("shell", "am", "force-stop", package)
-    recovered = adb("shell", "am", "instrument", "-w", "-r", *mode_arguments, "-e", "class",
-                    test_class + "#coldStartupDeliversThePreviouslySignedQueuedPost", runner,
-                    timeout=120)
-    (args.evidence / "recovered-instrumentation.txt").write_text(recovered.stdout)
+    recovered = instrument("coldStartupDeliversThePreviouslySignedQueuedPost", "recovered-instrumentation.txt")
     if "OK (1 test)" not in recovered.stdout:
         raise AssertionError("Cold posting reconciliation did not pass")
     with (args.evidence / "cold-delivery.png").open("wb") as output:

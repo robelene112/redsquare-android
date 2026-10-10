@@ -120,16 +120,19 @@ one question at a time when a material choice really needs the owner.
   Approved parent seams1–4 apply. Production312f58c implements bounded galleries,
   viewer, image-only composition, worker normalization and encrypted image drafts.
   Core39 passes independent signed ordering/dual-quote image authentication.
-  Latest697 focused38064903068/38064905862 each pass5/6 initial cases; Android10
-  auto-return picker and Android17 pending-thread scroll fixtures corrected from
-  positive in-scope captures. Supplemental preparation/loading/process checks
-  were not reached. New image wallet/author/queue lifecycle and actual cold queue
-  recovery variants compiled with core/debug/test/release/lint PASS2m16s. Both
-  review axes0 residual findings on bounded corrections. Independently verified
-  actual post/reply/quote frames and A/B image gallery order/safety. Runtime final
-  acceptance pending. Ticket remains open: source/format/failure bounds, process
-  media recovery and isolation, remote responsiveness, author revisions, browser
-  gallery proof and final full10/17. Read NATIVE_IMAGES_CONTRACT.md and
+  Latestc3 focused38065815558 Android10 passes6 initial and4/5prep/loading;
+  negative count fixture supplied duplicate URIs deduped by AndroidX, now5distinct.
+  Android17 38065817557 passes5 initial; empty-focused image-only fixture now skips
+  unnecessary text edit and positively verifies picker launch. All supplemental
+  wallet/author/queue/storage failures and media quote revisions implemented in
+  fixtures, runtime pending. Local core/debug/test/release/lint PASS2m08s plus
+  cold-cache fixture guard recompile PASS1m06s. Both bounded review axes0 residual.
+  Actual post/reply/quote frames independently verified; A/B unchanged templates
+  and offline Chromium decode gallery order/pixels. Public synthetic proof retained
+  docs/evidence/ticket14/interop. Cold recovery first phase now clears synthetic
+  feed caches and identifies Signed image reference uniquely; cold peer serves[].
+  Ticket remains open until exact focused and full10/17 acceptance, final two-axis
+  review and retained device evidence. Read NATIVE_IMAGES_CONTRACT.md and
   NATIVE_IMAGES_VERIFICATION.md. Preserve future untracked research by ticket.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
