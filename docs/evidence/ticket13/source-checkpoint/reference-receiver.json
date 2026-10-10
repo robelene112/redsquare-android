@@ -1,0 +1,25 @@
+{
+  "result": "PASS",
+  "nodeVersion": "v24.20.0",
+  "boundary": "Pinned server receiving methods with independently verified reference vectors and in-memory Archive adapter. No deployment, DOM or native-write proof.",
+  "observations": [
+    {
+      "pin": "A",
+      "sourceSha256": "e2cf08d95ed0cebc4b4e1106134ccc13c83b2a5814f1b0e9b31579a4c14a7ca8",
+      "authorizedEditPreservesOriginal": true,
+      "newestEditWins": true,
+      "unrelatedEditRejected": true,
+      "unrelatedDeleteKeepsOriginalButIsArchived": true,
+      "authorizedDeleteRemovesOriginal": true
+    },
+    {
+      "pin": "B",
+      "sourceSha256": "2a83af18010fc4fc044aabec2741ff401c93b4672decdd5d78e1db5f81d4c5b0",
+      "authorizedEditPreservesOriginal": true,
+      "newestEditWins": true,
+      "unrelatedEditRejected": true,
+      "unrelatedDeleteKeepsOriginalButIsArchived": true,
+      "authorizedDeleteRemovesOriginal": true
+    }
+  ]
+}

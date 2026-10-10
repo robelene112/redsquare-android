@@ -93,36 +93,32 @@ one question at a time when a material choice really needs the owner.
   from visual acceptance. Functional quote images correct; polish remains#35.
   No newAPK, productionwrites, Pixel/push/force-stop-delivery proof.
 - Active #14, "13: Edit and delete the author's posts", fixedbase6c657d4.
-  NATIVE_EDIT_DELETE_CONTRACT.md inspected. Pure pinnedWASM/Elliptic public
-  edit/delete reference vectors generated network-none with named readonly
-  mounts, no Saito init. First edit-reader tracer actually red25s/green43s;
-  author/target/signature/unsigned-order regressions pass with local fullcore
-  debug/test assembly1m48s. UI actuallyred38034150449 after3 fixture navigation
-  failures; log and inspected own-conversation screenshot retained ticket13.
-  Native author-only edit screen/candidate storage/retry/reconciliation at
-  a2f50e6 passes localcore28/debug/test1m48s; focusedfirstgreen38034593176PASS
-  Android10 6.178s, inspectedprofileeditedtextcorrect. Saving/callback guards and
-  immutable snapshot reviewfixes in0650743 confirmedresolved. StalecacheRED
-  38034937825;322177c newest signededit merges pass localcore29/debug/test2m6s.
-  CacheGREEN38035438325 andpush38035437877 refusedbeforestart dueGitHubbilling.
-  Owneraskedasyncbillingfix; do not change spending/accounts/repo visibility.
-  BoundedlocalsoftwareAndroid10fallback endedexit1 afterinstrumentation timeout:
-  bothAPKsinstalled,0testoutput,noproof. Containerremoved,about13min, noKVM,
- 1.5CPU/3GiB/networknone,noconcurrentbuild. Do not use asordinarytestloop.
-  AtomicPublicStringStore.update cache-racefix reviewed0, buildcore30/debug/test
- 1m52s afteremulatorterminated. Delete-reader actualRED27s expected0ignored/actual2,
-  GREEN41s; commands separatedwithouttargetremoval. Author/target pairing API
-  initialcompilationRED22s missingAPI; fullcore32/debug/testGREEN1m58s after
-  verifier. UI deletion/tombstones/reconciliation remainincomplete.
-  Preparednativeframeverifier/receivermode unexecuted. Details
-  NATIVE_AUTHOR_ACTIONS_VERIFICATION.md. Ticket14 stillincomplete.
-  PostDraftStore author factory validates signedowner/target/kind/text before
-  write, rejects queued/automatic author operations; preliminaryreviewfinding
-  fixed/confirmed0. Offline pinned A/B server receivers pass referenceedit/delete
-  adapterchecks, notnative/deployment/DOMproof. Deletion/globalnewestcache,
-  conflictresolution/recovery/finalreviews/fullacceptance remain incomplete.
-  Twelve of35
-  complete;23 remain. Continue sequentially without routine permission.
+  Latest source checkpoint3132404 implements shared public per-target/backend
+  edit/deletion proofs, cache propagation, explicit deletion confirmation and
+  exact-command plus dual-stream target-absence reconciliation. Encrypted
+  original candidates and their reviewed edit baselines survive recovery;
+  explicit conflict choices preserve text. Saved post changes opens work without
+  sending, and wallet import includes pending native author work. Mounted and
+  keyless quote previews apply proofs; profile likes merge atomically.
+  Local core35/debug/test/release/lint PASS3m55s after reviewed prefill fix. Both final source review axes
+  have no actionable source findings; this is NOT runtime acceptance or closure.
+  Public logs: ticket13/source-checkpoint. Detailed chronology/limits:
+  NATIVE_AUTHOR_ACTIONS_VERIFICATION.md. Initial own-edit Android10 GREEN
+  38034593176 predates the new source; stale-cache RED38034937825 remains without
+  a new Android GREEN. Five prepared Android cases compile but are unexecuted.
+  Actual author process-kill recovery and broader conflict/failure checks remain.
+  GitHub billing refuses runners before starting, including38036925480; owner
+  already asked, do not change accounts/spending/visibility. Prior bounded local
+  software attempt produced0 test output and was stopped/removed; do not repeat
+  it as the ordinary test loop. No emulator/build running at handoff.
+  Pinned A/B reference-only receivers pass; new native-frame scripts syntax pass
+  but actual Android frames have not been captured. Current-format quotes may
+  remain pending because pinned receivers query RedSquare while their originals
+  can remain in RedSquareRetweet. Dual-stream absence checks avoid false success;
+  no backend repair, deployment, DOM, live-write or current deployment proof.
+  Resume device verification when runners return; inspect failed artifacts,
+  fix findings and run final full Android10/17 before closing14. Continue all35
+  sequentially. Twelve complete;23 remain. No new APK publication/production write.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.

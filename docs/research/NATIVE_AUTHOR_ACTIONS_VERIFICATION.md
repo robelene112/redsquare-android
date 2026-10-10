@@ -3,6 +3,91 @@
 Active #14, fixed base `6c657d4`; boundaries #1 seams1–4. Primary source contract
 NATIVE_EDIT_DELETE_CONTRACT.md. No production writes or node mutation authorized.
 
+## Latest source checkpoint: 3132404
+
+The owner resumed sequential work on 2026-10-10. This is an implementation
+checkpoint, not ticket completion. Local core35 (zero failures/errors/skips),
+debug APK, test APK, release APK and lint pass in3m55s after the final prefill fix. Logs and counts are
+retained in `docs/evidence/ticket13/source-checkpoint/`. The full source review at0129dac and the final prefill fix have zero outstanding
+source findings on both axes. Default editor text comes from the reviewed baseline;
+explicit drafts remain intact. The chronology below describes earlier checks; their limited Android results do not cover this source.
+
+Verified public per-target/backend author proofs now propagate newer edits and
+confirmed deletions across feed, Following, thread, profile, liked-post and quote
+cache readers. Original signatures and identity remain stable. Tombstones retain
+the independently verified original and authorized delete command separately
+from bounded view caches, preventing stale responses from resurrecting a known
+deleted post. Unreadable proof records hide the affected content with a cache
+warning and are preserved for recovery. Records are not automatically pruned
+with individual view caches. They contain public signed envelopes, never wallet
+or private Chat data.
+
+The core restore-deletion tracer first failed compilation22s because its API did
+not exist, then passed39s. An added restore-edit regression checks newer text,
+no injection of unseen history and rejection of unrelated delete proofs. The
+rebased-conflict tracer likewise first failed compilation22s for a missing API,
+then core35/debug/test assembly passed2m8s. These are API-shape RED stages, not
+executed application failures.
+
+Own edit/delete actions share encrypted candidate recovery and explicit retry.
+Deletion has an explicit historical-copy confirmation and acknowledges removal
+only after observing the exact authorized command plus successful empty target
+queries in both `RedSquare` and `RedSquareRetweet`. Target lookups do not filter
+moderated content and reject unreadable, unrelated, duplicate or command rows as
+absence. Archive command presence alone, disappearance alone and request-handler
+acknowledgements cannot confirm deletion. New actions never enter the automatic
+post queue. A Saved post changes screen opens retained work without transmitting;
+identity/backend changes keep it scoped to its original owner and server.
+
+Conflict choices retain the user's text or explicitly select the latest text for
+a new attempt. The original reviewed baseline stays in the encrypted record,
+independently bound to its author/target, including across recovery. Public cache
+updates cannot silently rebase an existing signed attempt. Legacy candidates
+without a baseline conservatively require resolution when another edit is served.
+Wallet import now includes pending/unknown native author work in its risk preview.
+
+Mounted quote previews reload when proofs change, retain commentary when the
+original becomes unavailable, and use cached proofs even without an active
+wallet. An unreadable preview cache does not prevent a bounded healthy-server
+lookup. Profile updates atomically merge prior likes as well as prior posts.
+
+Five Android cases are prepared: extended author edit/pending-delete/recovery/
+same-candidate retry flow, stale-cache cold launches, rejected encrypted records
+and baseline preservation, cross-cache deletion with stale resaves/backend
+isolation, and mounted quote edit/deletion/commentary plus keyless proof reading.
+They compile but have NOT executed at this checkpoint. The extended deletion
+fixture keeps the original in the second archive stream after recording a command;
+this is synthetic branch coverage, not evidence that a server migrates posts.
+Actual process-kill author recovery and further conflict/failure runtime checks
+still need verification. No fresh phone review APK was published.
+
+Native public-frame verification/receiver scripts now support create/edit/delete
+frames; syntax checks pass. No public Android frames from the new capture have
+been produced, so native-frame interoperability remains pending. Re-executed
+reference-only A/B receivers pass under isolated Node24.20.0 with unchanged source
+hashes, public previously verified vectors and an in-memory Archive boundary.
+Result retained in source-checkpoint/reference-receiver.json. This is not a live
+write, DOM or actual Android-frame result.
+
+Hosted execution remains blocked: push38036925480 at92a4a7e was also refused
+before starting, with the same failed-payment/spending-limit annotation as
+38035438325. The owner was already asked about billing. No spending, billing,
+visibility or account settings were changed and no unsupported local-emulator
+retry was attempted. Resume focused Android10/17 and final full acceptance after
+runner access is restored. Do not close #14 on local assembly alone.
+
+## Known pinned receiver limitation
+
+A/B archive current commentary retweets under `RedSquareRetweet`, while edit
+fallbacks and deletion lookups use only `RedSquare`. They can archive a delete
+command without removing the target in that second stream. Dual-stream native
+lookups prevent false success, but do not repair that receiver behavior.
+Archive-only current-format quote actions may remain pending. This source fact
+does not establish deployed behavior or authorize a node patch. Verify against
+actual controlled receiving baselines before claiming complete compatibility.
+
+## Earlier verification chronology
+
 Independent public vectors use existing pinned WASM0.3.2/Elliptic6.6.1 reference
 crypto, unsafe scalar1/2, original signed feed fixture. Named read-only runtime,
 dependency, generator and public fixture mounts; network-none/read-only/cap-drop/

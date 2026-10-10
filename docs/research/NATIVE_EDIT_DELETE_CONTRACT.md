@@ -82,6 +82,19 @@ target lookup, with original author known from verified content. If a successful
 lookup still serves the original, remain pending; on lookup failure retain an
 uncertain status. Do not promise historical erasure.
 
+## Archive-stream limitation confirmed during implementation
+
+Pinned A/B save current commentary retweets under `RedSquareRetweet` (A1469,
+B1265), but their edit archive fallbacks and delete target lookups use only
+`RedSquare`. Delete commands can still be archived when that lookup finds no
+original. Native absence reconciliation therefore queries both streams without
+moderation filtering and accepts absence only after both valid empty responses.
+A target retained in either stream keeps deletion pending. This does not repair
+archive-only author actions on current-format quotes, which may remain pending.
+These are pinned source facts, not a current-deployment observation or approval
+to change a node. Verification remains outstanding; see
+[NATIVE_AUTHOR_ACTIONS_VERIFICATION.md](NATIVE_AUTHOR_ACTIONS_VERIFICATION.md).
+
 ## Recommended native behavior, inferred
 
 Persist original signed candidates before sending, bound to wallet/backend/target.
