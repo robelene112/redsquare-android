@@ -67,7 +67,8 @@ class SocialProcessRecoveryTest {
                 assertEquals(1, peer.transactions.size)
                 peer.assertHealthy()
                 checkpoint.outputStream().use { output ->
-                    output.write(requireNotNull(observed.get()).toString().toByteArray())
+                    val row = requireNotNull(observed.get()).deepCopy().apply { addProperty("pid", Process.myPid()) }
+                    output.write(row.toString().toByteArray())
                     output.fd.sync()
                 }
                 Process.killProcess(Process.myPid())

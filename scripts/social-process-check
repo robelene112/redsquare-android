@@ -35,7 +35,7 @@ if not re.fullmatch(r"[1-9A-HJ-NP-Za-km-z]{43,45}", row["field2"]):
     raise AssertionError("Public social action checkpoint identity is invalid")
 if not re.fullmatch(r"[0-9a-f]{128}", row["sig"]):
     raise AssertionError("Public social action checkpoint signature is invalid")
-if adb("shell", "pidof", package, check=False).stdout.strip():
+if str(row["pid"]) in adb("shell", "pidof", package, check=False).stdout.split():
     raise AssertionError("Social action process was not actually terminated")
 adb("shell", "am", "force-stop", package)
 recovered = adb("shell", "am", "instrument", "-w", "-r", "-e", "class",

@@ -21,3 +21,12 @@ replacement are verification gates, not proven source failures.
 Count-refresh reproduction candidate `323c17f` is running in `38019559322`.
 No production fix or runtime reproduction is claimed yet. Final review must
 include the fixes and completed acceptance evidence.
+
+## Follow-up at 529a768
+
+Standards: both earlier findings addressed, zero new findings. Specification:
+stale counts addressed in source; impossible Retry remains pending its actual
+red. One new harness finding: WorkManager may restart a new process after the
+deliberate kill. The recovery checkpoint now records the original PID and the
+host rejects only that surviving original PID, matching the queue harness.
+Test assembly passes 54s; runtime verification remains pending.

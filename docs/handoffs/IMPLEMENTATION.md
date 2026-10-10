@@ -76,7 +76,16 @@ one question at a time when a material choice really needs the owner.
   Fourgreen38018695180 passes4/4/12.883s inclfreshactivityuncertainretry.
   ActualAndroidframes independentlyWASM/Ellipticverifiedinclroutinghops, retained
   ticket11/four-green. Failedsave/backendisolationregressionscompiled55s;
-  focusedsixcaseacceptance next.
+  Six-case run38019199079 passes6/6/17.241s. Interim source reviews find stale
+  count overlays, impossible Retry copy after verified availability and a full
+  harness omission. Refresh red38019559322 at323c17f fails1/6/34.04s at9likes;
+  inspectedimage shows5. Fix3f95442 updates shared observations on fresh responses
+  only and prefers fresh thread rows. Localdebug/test1m32sPASS. Full harness now
+  includes social cases plus actual process-death recovery; wallet replacement
+  regression compiles52s. Focused38020050365 at3f95442 pending. Separate
+  verified-action/count-refresh-failure tracer529a768 compiles56s; Android17
+  run38020139458 pending. ImpossibleRetry finding not yet fixed. Both review
+  agents are reviewing completed refresh/harness fixes. No full acceptance yet.
   Ten of35 complete;
  25 remain. Read-only primary-source contract prepared in
   NATIVE_SOCIAL_INTERACTIONS_CONTRACT.md. Ordinaryreposts/recovery/fullacceptance/reviews incomplete.
