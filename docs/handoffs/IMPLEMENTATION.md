@@ -7,46 +7,34 @@ one question at a time when a material choice really needs the owner.
 
 ## Current work
 
-Active #18, "Edit profile bio, avatar and banner", claimed after confirming
-native blocked_by0. Review baseafce6610e4c78a2183bf154ac99cc35d7917b03c.
-Use NATIVE_PROFILE_EDIT_CONTRACT.md and NATIVE_PROFILE_EDIT_VERIFICATION.md.
-First independent signed-snapshot tracer is compileRED22s because reader absent;
-minimal reader focusedGREEN42s; complete-snapshot senderGREEN40s, numeric marker
-reconstructionRED25s/GREEN30s, pinned-avatarRED20s/GREEN43s. All48core/debug/test
-assemblyPASS1m58s. First Android reader73f0e17 run38089539658 RED32.732s at missing bio. Header
-583c0cc appears with verifiedbio/identicon, then17 fixture-healthFAIL17.755s;
-explicit feed/author callback fixed. Both reviews flag unscrollable long header;
-independent40linead4e5bf run38090221063 times out180s/0 completed checks/invalid
-image archive, no cause claim. Header/tabs/history now share weighted LazyColumn
-3ec9cb7; both bounded review axes0. Native runs38090924525/38090927117 short
-bio/avatar/noTX/healthy pass; longcasefails24.859s overall10 and16.229s17:
-10 waits without Compose synchronization and stays feed;17 initialscrollbefore
-feedload fails. Originals inspected/retained;10 shortbio bitmap lacks separately
-passing bio and is excluded from bio visual acceptance. Fixture now waits two
-archive replies/no Loading posts/localwalletreadiness; exactbio Compose wait,
-max10 synchronized Compose swipes, all displayed tabs/post gates intact.
-Debug/testPASS1m51s; fresh dual checks pending. New core stale-read protection
-compileRED22s/GREEN43s four cases; retains newest verified fullsnapshot and all
-fields, bounded legacy history100/16MiB. Disk cache/editor/media/recovery remain
-unimplemented. Active18 not accepted.
-New2f runs38091561793/38091563516 PASS two native cases6.764s/19.285s;
-source38091561542 PASS. Long-bio originals individually inspected show full
-beginning and reachable final lines/tabs/history. Both short-bio PNGs omit the
-separately passing bio and remain excluded from bio visual acceptance.
-Review caught vacuous ASCII loading gates, now actual feed_loading resource.
-Fresh-Activity outage/cache tracer added, runtime RED pending; only profilemeta
-public fixture state reset. No production disk cache yet. Capture now waits
-Compose idle, without claiming prior bitmap timing root cause.
-41f cache runs38091914532/38091916534 intendedREDcachedbio line170,
-3cases/1fail9.177s/19.868s. Both originals/XMLshowcorrectauthor/avatar,
-lookup/historyerrors+cachedpost,nobio; other2pass. Source38091914178 PASS.
-AndroidProfileDetailsCache now keeps verified public metadata scopedauthor/backend,
-atomicboundedstore; ProfileScreen load/merge/save with warnings and properinternal
-timeout failure. Localbuild/freshdualGREEN pending; no editor/image/recovery yet.
-Only profile fields and public reference inputs;
-no production publication or app/node wallet reads. #17 stays open with actual
-provider acceptance unproved. Its immutable full534330e pair PASS127 cases
-each; this does not prove subsequent #18 changes or real provider playback.
+Active #18, "Edit profile bio, avatar and banner", assigned and independently
+unblocked. Review baseafce6610e4c78a2183bf154ac99cc35d7917b03c. Source contract
+and detailed RED/GREEN records: NATIVE_PROFILE_EDIT_CONTRACT.md and
+NATIVE_PROFILE_EDIT_VERIFICATION.md under docs/research.
+
+Current productiona60c425: core verified Profile reader, complete-snapshot
+partial-edit merge, pinned default identicon and newest-snapshot stale-read
+protection. Native header/bio/tabs/history share one scrollable list. Public
+metadata cache revalidates signed envelopes, scopes author/backend and retains
+latest metadata through outages and concurrent stale saves; warnings preserve
+truthful lookup/storage status. Android10 38092322711 and17 38092324241 PASS
+three native cases8.844s/36.901s. Both cached-offline originals individually
+inspected show retained signed bio/avatar and cached post with refresh errors.
+Source38092322568 PASS49 core0fail0ignored/debug/test/release/lint. Both bounded
+review axes0 througha60c425. Focused checks do not replace final full proof.
+
+Next tracer: Your profile entry before any own posting, edit Unicode multiline
+bio, save local draft, fresh Activity restores it, no public bio or transaction.
+Local test assemblyPASS1m45s. Runtime RED pending; own entry/editor/encrypted
+private draft adapter not implemented yet. Emulator fixture cleanup additionally
+resets only profiledraft files, alongside public profilemeta, after dev/emulator
+guards; no wallet files or unrelated work touched. Avatar/banner selection,
+publishing, retry/reconciliation, broader recovery and final full reviews remain.
+No local compiler active. No APK publication or production node/on-chain write.
+
+#17 remains open for actual YouTube provider playback acceptance. Its full
+immutable534330e pair passed127 cases each; that is not acceptance of later
+#18 changes. #16 provider credential/retention blockers remain below.
 
 Ticket #15 is complete after final source/fixture/evidence reviews: both axes
 zero remaining findings through2829329. Full Android10 38075318198 atd35f965

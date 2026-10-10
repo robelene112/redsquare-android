@@ -24,8 +24,10 @@ class ProfileEditPreviewTest {
     @Before fun prepare() {
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
-        context.noBackupFilesDir.listFiles()?.filter { it.name.startsWith("profilemeta.") }?.forEach {
-            check(it.delete()) { "Could not reset public profile metadata fixture" }
+        context.noBackupFilesDir.listFiles()?.filter {
+            it.name.startsWith("profilemeta.") || it.name.startsWith("profiledraft.")
+        }?.forEach {
+            check(it.delete()) { "Could not reset emulator profile fixtures" }
         }
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
     }
@@ -174,6 +176,53 @@ class ProfileEditPreviewTest {
             } catch (failure: Throwable) {
                 try { capture("cache-offline-failure.png") } catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
                 throw failure
+            }
+        }
+    }
+
+    @Test fun aSavedOwnBioDraftReturnsAfterAFreshActivityWithoutPublishing() {
+        val bio = "A private draft 🌱\nNot published yet"
+        val peer = ControlledFeedPeer("[]", profileArchiveResponse = { "[]" }, archiveResponse = { "[]" })
+        peer.start().use { server ->
+            val intent = Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+            ActivityScenario.launch<MainActivity>(intent).use {
+                try {
+                    ui.waitUntil(20_000) { peer.requests.get() >= 2 &&
+                        ui.onAllNodesWithText(context.getString(R.string.feed_loading)).fetchSemanticsNodes().isEmpty() &&
+                        ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
+                    ui.onNodeWithText("Your profile").assertIsDisplayed().performClick()
+                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("Edit profile") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("Edit profile").performClick()
+                    ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNode(hasSetTextAction()).performTextReplacement(bio)
+                    ui.onNodeWithText("Save draft").performClick()
+                    ui.waitUntil(10_000) { ui.onAllNodesWithText("Edit profile").fetchSemanticsNodes().isNotEmpty() }
+                    ui.onAllNodesWithText(bio).assertCountEquals(0)
+                    assertTrue(peer.transactions.isEmpty())
+                    peer.assertHealthy()
+                } catch (failure: Throwable) {
+                    try { capture("bio-draft-first-failure.png") } catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
+                    throw failure
+                }
+            }
+            ActivityScenario.launch<MainActivity>(intent).use {
+                try {
+                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("Your profile").performClick()
+                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("Edit profile") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("Edit profile").performClick()
+                    ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNode(hasSetTextAction()).assertTextEquals(bio)
+                    ui.onNodeWithText("Save draft").assertIsEnabled()
+                    capture("restored-bio-draft.png")
+                    assertTrue(peer.transactions.isEmpty())
+                    peer.assertHealthy()
+                } catch (failure: Throwable) {
+                    try { capture("bio-draft-restoration-failure.png") } catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
+                    throw failure
+                }
             }
         }
     }

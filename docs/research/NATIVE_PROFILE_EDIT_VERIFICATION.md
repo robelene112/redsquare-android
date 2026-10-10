@@ -146,3 +146,19 @@ copy while parent cancellation still propagates. Local debug/test assemblyPASS
 1m58s before the final profile-specific warning resource replaces misleading
 posts wording; final-source compilation and fresh dual runtimeGREEN pending.
 No encrypted editor, custom images or recovery completion.
+
+Final-sourcea60c425 focused Android10 run38092322711 and17 run38092324241
+PASS three cases8.844s/36.901s, including fresh-Activity cached metadata after
+the controlled selected server closes. Both original outage screenshots viewed
+individually show correct author/identicon, retained signed two-line bio, failed
+metadata/history refresh copy and cached reference post. Retained
+profile-cache-green/android10 andandroid17. Source38092322568 PASS build/release/
+lint. Both bounded source review axes0 findings througha60c425. These focused
+runs are not final full ticket verification.
+
+Next Android tracer opens Your profile before any own posting, edits a Unicode
+multiline bio, saves a draft, then requires the same draft in a fresh Activity.
+No transaction may be transmitted or draft bio shown on the public profile.
+Only disposable dev/emulator profiledraft fixtures are additionally reset;
+wallet and unrelated work stay untouched. Local test assemblyPASS1m45s. Intended runtimeRED pending, with own
+entry/editor/private draft storage still absent.
