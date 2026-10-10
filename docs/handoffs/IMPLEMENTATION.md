@@ -14,7 +14,7 @@ each, core39/build/release/lint, both public reads, cold recovery and signed
 updates. Productioncb3d9c3 is identical across accepted candidates. Evidence
 final-android10/final-android17/final-interop; details NATIVE_IMAGES_VERIFICATION.
 
-Active: #17 YouTube, productionc6113d2, test/evidence candidatee8fafd9,
+Active: #17 YouTube, productionc6113d2, test/evidence candidatef6c016e,
 fixed review base711e42e. Root-owned viewer survives rotation/recreation; small
 windows use external fallback. Sticky errors persist until Retry. Text selection
 now matches both original Browser/Tweet helpers, including omitted schemes and
@@ -35,9 +35,14 @@ Public17/10 runs38086671894/38086674099 establish corrected296×448 iframe/body
 dimensions and reach trusted Play, then fail native Playing with provider
 embed-disabled copy/Retry/external fallback. Exact101vs150/cause unestablished;
 actual media remains unproved. Alternate existing signedbHQ probes38087138529/38087140673
-are pending at e8fafd9 with unchanged positive Play/Playing gates and M7 default.
-Full10/17 regression pair38087174575/38087176435 is also pending at e8fafd9,
-including both public Saito reads. CDP reads only allowed public frame DOM;
+also fail Playing after trusted Play with the same native refusal; no broader
+cause established. Full10 run38087174575 at e8fafd9 stops before video in cached
+profile recovery,7/8 browse cases pass. Failure bitmap is after scenario disposal,
+so active state/cause unproved. Fixturef6c016e waits existing New post enabled
+readiness before the fresh cached author tap and captures inside the scenario;
+original cached-history/error assertions unchanged. Focused browse10 run38087621645
+pending; outstanding full10 required. Full17 companion38087176435 remains pending
+at e8fafd9, with public Saito reads enabled. CDP reads only allowed public frame DOM;
 page screenshots were removed at23eea43. No ticket closure until acceptance.
 See NATIVE_VIDEO_VERIFICATION.md. No ticket closure or new APK.
 
