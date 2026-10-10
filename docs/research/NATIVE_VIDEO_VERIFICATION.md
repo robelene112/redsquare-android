@@ -448,3 +448,20 @@ uses AutoCloseable.use for primary-preserving cleanup and shares a small scoped
 primary-preserving capture helper for its inner/outer diagnostics. This is a
 source-observed cleanup risk, not an observed masking incident. No production
 or cached recovery acceptance assertions changed; runtime proof remains pending.
+
+Final immutable regression candidate534330e: Android10 run38088569769 and
+Android17 run38088542044 both PASS. Retained raw results count127 completed
+instrumented cases in36 records each, including four controlled video cases
+23.302/28.207s, eight browse cases, all eleven actual process interruptions,
+both public Saito reads, cached cold launches and signed5-to8 update continuity.
+Both core reports contain44 cases,0failures,0ignored; build/release/lint passed.
+Evidence retained ticket16/final-full/android10 andandroid17. Native controlled
+player originals were individually inspected:17 shows the correctly sized
+controlled wrapper;10 shows controlled text on a black viewport and external
+control, with header fields absent despite passing semantic assertions. Both
+owner-feed originals show public content. Both official-feed originals lack an
+author despite passing the separate semantics/read gate. Those incomplete
+bitmaps are excluded from visual acceptance; their cause is unestablished.
+This evidence proves the534330e regression candidate, not subsequent #18 edits,
+actual YouTube media playback, physical Pixel7 performance or production writes.
+Public provider playback remains blocked as recorded on #17; keep the issue open.
