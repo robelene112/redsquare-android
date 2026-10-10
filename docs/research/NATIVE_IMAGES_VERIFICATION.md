@@ -30,7 +30,12 @@ while red pixels remain. Logs and inspected PNG/XML limits are retained at
 state-owned verified save before launch, active-session cancellation and
 saveable domain-bound pending results atcb3d9c3. Local compile PASS1m46s;
 both bounded source-review axes have0 actionable findings. Focused GREEN17
-38073556210 remains pending. Existing storage-obstruction coverage now requires
+38073556210 passes new two-death recovery/reconciliation, but overall FAILS the
+separate actual-picker synthetic-image lookup. At timeout its XML observes
+native app, not picker; scheduling cause remains a hypothesis. The stronger
+fixture positively waits for external foreground through Compose. Recovery
+logs and limits: ../evidence/ticket14/picker-navigation-recovery-green/REVIEW.md.
+Existing storage-obstruction coverage now requires
 no external picker intent and preserved editable text/red pixels. The real
 system-picker flow now rotates the external window, requires a new composer
 activity, and verifies the returned green media and exact text with no send.

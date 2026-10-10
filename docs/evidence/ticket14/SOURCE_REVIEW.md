@@ -1,8 +1,14 @@
 # Image source review
 
 Fixed base `3d47253`. Full committed review through `354a1c7`, followed by
-bounded corrections through `65469a7`. Production Android/core source is unchanged
-from `312f58c`; later commits change fixtures, verification tooling and evidence.
+bounded corrections through `65469a7`. A subsequent targeted audit identified
+an external-picker navigation preservation gap, independently reproduced RED
+in38072955931. Both axes reviewed the production correctioncb3d9c3 against
+11b7c2f with0 actionable source findings. Its state-owned synchronous saving
+gate verifies existing encrypted persistence before launch, checks cancellation,
+and binds scope/launcher/pending results to the complete public composer session.
+This avoids per-keystroke autosave and retains Android recreation ownership.
+Production is nowcb3d9c3; its fresh full acceptance remains required.
 
 ## Standards
 
@@ -39,5 +45,12 @@ review axes. Its production/build/scripts/workflow equivalence to4dd0d3d is
 verified. Android17 companion38069923347 passes all media flows reached but
 fails an older unreadable-refresh fixture. Both bounded correction reviews0;
 focused feed1738071460383 passes8 cases and cold cache recovery. Final full17
-companion38071834163 at65469a7 remains pending acceptance. Physical Pixel timing and owner review
+companion38071834163 at65469a7 PASS123/35/11, retained as a regression baseline
+before the newly identified preservation correction. Focusedcb3 run38073556210
+passes the strengthened real-picker two-death recovery/reconciliation tracer
+but fails the separate real-picker synthetic-image lookup. No unique cause is
+established. New positive foreground/rotation/refusal assertions at1d12a94 have
+0 spec findings; standards requests primary-preserving independent rotation
+cleanup, now fixed and compiled in the working tree. Fresh full10/17 and bounded
+cleanup review remain pending. Physical Pixel timing and owner review
 remain later tickets. No production writes, store release or new preview APK.

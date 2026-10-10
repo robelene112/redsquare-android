@@ -162,11 +162,20 @@ one question at a time when a material choice really needs the owner.
   explicit viewport/transition limits. Production correction now being compiled:
   cb3d9c3: synchronous saving gate, verified persistence, session-cancelled scope,
   saveable full-domain pending marker and keyed launchers. Narrow compile1m46s
-  PASS and both bounded source-review axes0. FocusedGREEN17 38073556210 pending.
+  PASS and both bounded source-review axes0. Focused17 38073556210 verifies
+  new final-text/red-media recovery after actual external-picker process death,
+  exact candidate reconciliation and3 total media kills; overall FAILS separate
+  system-picker synthetic-image lookup. Its XML has nativeapp at timeout; a
+  Compose scheduler hypothesis is unproved. New foreground wait in1d12a94
+  drives Compose until external picker is observed. Recovery evidence retained
+  picker-navigation-recovery-green; full1d12 runs10/17 still pending.
   Existing storage-obstruction case now requires no picker intent; real system
   picker case rotates externally, requires activity recreation and exact draft
   text/green returned pixels without publication. Fixture compile PASS1m01s;
-  process diagnostics dump XML before bitmap. Fresh full10/17 remain; no closure.
+  process diagnostics dump XML before bitmap. Both fixture spec axes0;
+  standards requests independent primary-preserving rotation cleanup. Fixed
+  with existing helper, all4 cleanup actions attempted and diagnostic failures
+  suppressed. Compile PASS59s. Fresh full10/17 remain; no closure.
   Full10 evidence retained6853de3, corrected official caption0c5b7fd; both
   bounded evidence review axes0 residual findings.
   Actual post/reply/quote frames independently verified; A/B unchanged templates

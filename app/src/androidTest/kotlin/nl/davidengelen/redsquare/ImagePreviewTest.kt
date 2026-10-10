@@ -141,7 +141,25 @@ class ImagePreviewTest {
             put(MediaStore.Images.Media.DATE_TAKEN, 1_700_000_080_000L)
             put(MediaStore.Images.Media.IS_PENDING, 1)
         }))
-        try {
+        withImageFixtureCleanup({
+            val device = androidx.test.uiautomator.UiDevice.getInstance(instrumentation)
+            val cleanup = listOf<() -> Unit>(
+                { cleanupSyntheticImages(context.contentResolver, listOf(uri)) },
+                { if (device.currentPackageName in listOf("com.android.documentsui", "com.google.android.providers.media.module",
+                        "com.android.providers.media.module", "com.google.android.photopicker")) device.pressBack() },
+                { device.setOrientationNatural() },
+                { device.unfreezeRotation() },
+            )
+            var failure: Throwable? = null
+            cleanup.forEach { action ->
+                try { action() }
+                catch (problem: Throwable) {
+                    val previous = failure
+                    if (previous == null) failure = problem else previous.addSuppressed(problem)
+                }
+            }
+            failure?.let { throw it }
+        }) {
             context.contentResolver.openOutputStream(uri)!!.use { output ->
                 output.write(android.util.Base64.decode(fixture.getAsJsonObject("images").get("green").asString.substringAfter(','), android.util.Base64.NO_WRAP))
             }
@@ -221,20 +239,15 @@ class ImagePreviewTest {
                         peer.assertHealthy()
                         capture("images-evidence/system-picker-draft.png")
                     } catch (failure: Throwable) {
-                        capture("images-evidence/system-picker-failure.png")
-                        androidx.test.uiautomator.UiDevice.getInstance(instrumentation)
-                            .dumpWindowHierarchy(File(context.cacheDir, "images-evidence/system-picker-failure.xml"))
+                        try {
+                            capture("images-evidence/system-picker-failure.png")
+                            androidx.test.uiautomator.UiDevice.getInstance(instrumentation)
+                                .dumpWindowHierarchy(File(context.cacheDir, "images-evidence/system-picker-failure.xml"))
+                        } catch (captureFailure: Throwable) { failure.addSuppressed(captureFailure) }
                         throw failure
                     }
                 }
             }
-        } finally {
-            context.contentResolver.delete(uri, null, null)
-            val device = androidx.test.uiautomator.UiDevice.getInstance(instrumentation)
-            if (device.currentPackageName in listOf("com.android.documentsui", "com.google.android.providers.media.module",
-                    "com.android.providers.media.module", "com.google.android.photopicker")) device.pressBack()
-            device.setOrientationNatural()
-            device.unfreezeRotation()
         }
     }
 
