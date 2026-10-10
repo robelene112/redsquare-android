@@ -1,5 +1,32 @@
 # Native quote verification
 
+Complete at accepted candidate `4e9fe23`, fixed base `1b7f0f6`. Full run
+`38030511763` passes Android10/17: core25, debug/test/release assembly and lint,
+95 completed instrumented cases and six intentional process interruptions per
+SDK. Quote7 takes22.353/24.087s; actual cold quote reconciliation
+5.127/5.838s. Both approved public feeds, cached cold launches, wallet recovery
+and signed5-to-8 update continuity pass. Downloaded logs counted and selected
+images inspected/retained under ticket12/final-full. Both final review axes0.
+
+Publication preserves exact original signed bytes and quote identity, draft
+isolation and original-candidate retry. Current commentary-retweets and
+historical/dual/embedded presentations are recognized. Embedded-only snapshots
+are never original-author authentication; bounded verified lookup/cache supplies
+the original. Missing/failed originals retain commentary with truthful status
+and Retry. Backend-isolated public original cache survives reopening. Profile
+partial success refreshes social observations even when quote history fails.
+Image composition/viewing remains the expressly assigned #15 media slice.
+
+Native captures show commentary and full originals. Conversation capture still
+shows Loading replies, so it proves displayed quote content, not settled thread
+loading. Android17 owner public-feed bitmap omits header fields despite passing
+selected-label semantics; cause unestablished and excluded from visual
+acceptance. Current pinned A/B actual templates omit original text; retained
+interop is partial. No current DOM/live-write, physical Pixel, notification or
+force-stop-delivery proof; no new APK or production-node change.
+
+## Verification checkpoints
+
 Ticket #13; review base `1b7f0f6`. Accepted boundaries are #1 seams1–4:
 observable Android flows with controlled compatible peers, independent signed
 vectors, recovery/failure and cross-client representations. The primary-source
@@ -87,3 +114,9 @@ already used by other quote regressions. No production change. Earlier browse8,
 Following8, posting15, queue6 and social8 cases plus their three process-recovery
 stages pass. Quote process stage and later wallet/live/update checks were not
 reached; Android17 skipped. Log/image retained full-first-lookup-race.
+
+Full rerun38030511763 at4e9fe23: Android10 runtime stage reports success
+06:35:40UTC (13m31s), including the quote process check invoked by the
+accepted harness. Android17 running. Detailed artifacts/counts/images remain
+uninspected until the job completes. Both axes accept the fixture adjustment.
+Production code is identical to8778664.

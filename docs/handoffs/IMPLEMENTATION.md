@@ -76,35 +76,32 @@ one question at a time when a material choice really needs the owner.
   NATIVE_SOCIAL_INTERACTIONS_VERIFICATION.md/REVIEW.md. Android17 owner bitmap
   has stale official label despite passing assertions, excluded from visual
   acceptance; cause uninvestigated. No new APK or production write.
-- Active #13, "12: Publish and display quote posts across supported formats".
-  Base1b7f0f6. Primary-source NATIVE_QUOTES_CONTRACT.md read. First publication tracer red38025957239 and green38026569765; independent
-  actual frame verifies. A/B real constructor/templates lose original text,
-  partial interoperability retained. Strong publication relation assertion passes
-  in38027130575; current discovery actually red. Minimal stream/lookup source
-  passes local core/debug/test2m1s; discovery green38027654477 passes2 cases9.894s.
-  Invalid-original signed-commentary tracer red27s/green32s. Profile tracer
-  red38028351952: missing profile quote, publication passes. Compose images
-  show feed original correctly. Minimal dual-stream profile source compiles1m38s;
-  profile green38028808825 passes2 cases5.954s; inspected profile image shows
-  both texts. Added recovery regressions at68c2a27: five ofseven pass, two
-  fixture selector issues corrected. Final source8778664 adds original-PID
-  process-death quote recovery; bothfinalreviewaxes0. FullAndroid10/17 plus
-  bothpublicreads38029859030 stopped at one asynchronous original fixture
-  race; six quote cases and earlier feature suites pass. Exact original
-  readiness wait added, local assembly54s, bothreviewaxes0. Full rerun next.
-  Ticket remains open until acceptance.
-  Quote screenshots now use Compose
-  forceRedraw/PixelCopy after stale discovery bitmap (not visual acceptance).
-  New focused quotes/quotes-android17 scopes and full inclusion are prepared.
-  Eleven of35 complete;24 remain. Continue #13 through #36 sequentially without routine
-  permission requests. Future research notes are not completed features.
+- Ticket #13, "12: Publish and display quote posts across supported formats",
+  complete at accepted4e9fe23, fixedbase1b7f0f6. Full38030511763 passes
+  Android10/17: core25, debug/test/release/lint,95 completed instrumented cases
+  and six deliberate process interruptions each. Quote7 takes22.353/24.087s;
+  actual cold quote reconciliation5.127/5.838s. Both public reads, cached cold
+  launches, wallet recovery and signed5-to-8 continuity pass. Logs counted and
+  selected images inspected/retained ticket12/final-full. Bothreviewaxes0.
+  Independent WASM/Elliptic actual-frame checks and A/B actual-template proof
+  retained: current web original-text omission means partial interop, no DOM or
+  live-write proof. Bounded original lookups/cache, current/history/profile
+  discovery, quote drafts/candidate recovery and partial social counts complete.
+  Failed original signatures retain authenticated commentary. Image composition
+  explicitly assigned #15, whose dependencies include #13. Final17 public owner
+  bitmap lacks header fields despite semantic pass; cause unestablished, excluded
+  from visual acceptance. Functional quote images correct; polish remains#35.
+  No newAPK, productionwrites, Pixel/push/force-stop-delivery proof.
+- Next #14, "13: Edit and delete the author's posts". Primary-source research
+  NATIVE_EDIT_DELETE_CONTRACT.md inspected; no implementation yet. Twelve of35
+  complete;23 remain. Continue sequentially without routine permission.
 
 - Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
 - Implementation tickets: #2 through #36, with native GitHub dependencies.
-- Eleven of35 tickets complete: #2 crypto compatibility, #3 persistent wallet
+- Twelve of35 tickets complete: #2 crypto compatibility, #3 persistent wallet
   and signing/updates, #4 feed/cache, #5 fixed backends, #6 authenticated export,
   #7 safeguarded import, #8 threads/profiles, #9 following, #10 posting/drafts.
-  #11 queues; #12 likes/reposts.24 tickets still open. Preserve all accepted features; no Ralph or parallel implementation.
+  #11 queues; #12 likes/reposts; #13 quotes.23 tickets still open. Preserve all accepted features; no Ralph or parallel implementation.
 
 ## Completed foundation references
 
@@ -132,7 +129,7 @@ Initial wallet/live-feed milestone is published as stable signed version10
 Compose bitmaps had inconsistent labels; use each report's stated evidence
 limits. #9 also has official bitmap inconsistencies; no invented cause.
 
-Current next: #13 then all remaining tickets sequentially. Owner reviews
+Current next: #14 then all remaining tickets sequentially. Owner reviews
 completed app; no intermediate phone-review gate is required.
 
 ## Verification already inspected

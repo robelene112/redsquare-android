@@ -23,8 +23,10 @@ Android restarts the app. Image composition remains assigned to #15 as specified
 
 Full-first run `38029859030` stopped at a quote-original fixture readiness race.
 The bounded exact-original await preserves the displayed-content assertion and
-passes both review axes. Six other quote cases pass; full rerun is pending. Review does not establish runtime
-acceptance. Actual unmodified pinned A/B web constructors/templates omit original
+passes both review axes. Six other quote cases passed that attempt. Final rerun `38030511763` at
+`4e9fe23` passes95 instrumented cases plus six intentional process interruptions
+each on Android10/17. Core25, assembly/lint, both public reads, cold recovery
+and signed update continuity pass. Logs counted and selected images inspected. Runtime acceptance comes from the retained final-full evidence. Actual unmodified pinned A/B web constructors/templates omit original
 text, while showing commentary and original identity. Cross-client evidence is
 partial; it proves neither current web DOM behavior nor live delivery. No
 production write, node modification, physical Pixel or notification proof.
