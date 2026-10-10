@@ -43,7 +43,34 @@ public services. Android17 run38089539658 at73f0e17 fails the exact signed-bio w
 Its original in-scope bitmap and separate XML establish the correct author
 profile, with bio/avatar absent. Retained ticket17/profile-reader-red/android17.
 The minimal native signed-details/header implementation is now being built;
-no runtimeGREEN or editor/image UI proof yet.
+no editor/image UI proof yet. Local header debug/test assemblyPASS1m56s.
+Android17 run38090029603 at583c0cc passes the exact signed bio/avatar display
+gates, then fails17.755s at peer health: the generic controlled callback expects
+feed field4 but receives the valid author-history field2 query. Its original
+in-scope bitmap visibly shows the matching native identicon and signed two-line
+bio, with loading history. Retained profile-reader-fixture-red/android17. This
+is a fixture defect, not full runtimeGREEN. The fixture now explicitly validates
+feed/author-history requests and serves the same independently signed post.
+Positive bio/avatar/no-transaction and peer-health assertions are retained.
+
+Both interim review axes identify the same functional layout finding: unrestricted
+bio sits before tabs/history in a non-scrollable Column. Long signed multiline
+bios can make history inaccessible. Independent longBio reference adds40 lines;
+all pre-existing reference objects were asserted identical. New Android flow
+requires the full bio, then reachable Posts/Replies/Likes and post after scrolling.
+Long-bio run38090221063 atad4e5bf times out at the180s harness boundary on10.
+It records the first case starting, with no completed assertion result or valid
+in-scope screenshot archive. This is a failed runtime check, not proof of a
+specific scroll failure or root cause. Retained profile-long-bio-timeout/android10.
+The original Compose automatic scroll could loop on a zero-height history list;
+this remains a hypothesis. The tracer now uses bounded native Android scrolling
+and captures the full-bio state before its gesture, retaining positive visible
+Posts/Replies/Likes/post checks and complete authored bio text. The harness also
+captures the original Android system screen and narrowly filtered runtime errors
+on failure. Based on both source-review findings, the native header, tabs, status
+and history now share one weighted scrollable profile list. No truncation or
+stored-user-text rewriting. Debug/test assemblyPASS1m49s; only whitespace formatting afterward. Fresh
+Android10/17 runtimeGREEN pending; no header acceptance or ticket closure yet.
 
 #17 remains open with an unresolved actual-provider playback blocker. Its two
 immutable full regression runs38088542044/38088569769 at534330e PASS127 cases

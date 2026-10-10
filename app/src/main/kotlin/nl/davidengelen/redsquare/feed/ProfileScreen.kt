@@ -173,42 +173,46 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
             TextButton(enabled = wallet != null && !loading,
                 onClick = { requestedBefore = System.currentTimeMillis() + 1; refresh++ }) { Text(stringResource(R.string.feed_refresh)) }
         }
-        Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-            GeneratedProfilePicture(author, Modifier.size(48.dp))
-            Column(Modifier.weight(1f)) {
-                Text("Anon-${author.take(6)}", style = MaterialTheme.typography.titleMedium)
-                Text(author, style = MaterialTheme.typography.labelSmall)
-            }
-        }
-        profile?.description?.takeIf { it.isNotEmpty() }?.let {
-            Text(it, Modifier.padding(vertical = 8.dp), style = MaterialTheme.typography.bodyMedium)
-        }
-        if (profileLoading) Text(stringResource(R.string.profile_details_loading))
-        if (profileFailed) Text(stringResource(R.string.profile_details_error))
-        FollowingStatus(following)
-        Row {
-            ProfileTab.entries.forEach { item ->
-                TextButton(onClick = { view.tab = item }, modifier = Modifier.weight(1f),
-                    contentPadding = PaddingValues(horizontal = 8.dp)) {
-                    Text(stringResource(item.label), maxLines = 1,
-                        color = if (item == tab) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface)
+        LazyColumn(Modifier.weight(1f).fillMaxWidth()) {
+            item(key = "profile-details") {
+                Column {
+                    Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                        GeneratedProfilePicture(author, Modifier.size(48.dp))
+                        Column(Modifier.weight(1f)) {
+                            Text("Anon-${author.take(6)}", style = MaterialTheme.typography.titleMedium)
+                            Text(author, style = MaterialTheme.typography.labelSmall)
+                        }
+                    }
+                    profile?.description?.takeIf { it.isNotEmpty() }?.let {
+                        Text(it, Modifier.padding(vertical = 8.dp), style = MaterialTheme.typography.bodyMedium)
+                    }
+                    if (profileLoading) Text(stringResource(R.string.profile_details_loading))
+                    if (profileFailed) Text(stringResource(R.string.profile_details_error))
+                    FollowingStatus(following)
+                    Row {
+                        ProfileTab.entries.forEach { item ->
+                            TextButton(onClick = { view.tab = item }, modifier = Modifier.weight(1f),
+                                contentPadding = PaddingValues(horizontal = 8.dp)) {
+                                Text(stringResource(item.label), maxLines = 1,
+                                    color = if (item == tab) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface)
+                            }
+                        }
+                        TextButton(enabled = wallet != null && !loading && nextBefore != null,
+                            onClick = { nextBefore?.let { requestedBefore = it; refresh++ } },
+                            contentPadding = PaddingValues(horizontal = 8.dp)) {
+                            Text(stringResource(R.string.profile_load_older), maxLines = 1)
+                        }
+                    }
+                    Text(stringResource(R.string.profile_history), style = MaterialTheme.typography.bodySmall)
+                    if (loading) Text(stringResource(R.string.profile_loading))
+                    if (failed) Text(stringResource(R.string.profile_error))
+                    if (unreadable) Text(stringResource(R.string.profile_unreadable), style = MaterialTheme.typography.bodySmall)
+                    if (unavailableLikes) Text(stringResource(R.string.profile_likes_unavailable), style = MaterialTheme.typography.bodySmall)
+                    if (cacheWarning) Text(stringResource(R.string.feed_cache_warning), style = MaterialTheme.typography.bodySmall)
+                    if (pagingUnavailable) Text(stringResource(R.string.profile_paging_unavailable), style = MaterialTheme.typography.bodySmall)
+                    if (!loading && !failed && posts.isEmpty()) Text(stringResource(R.string.profile_empty))
                 }
             }
-            TextButton(enabled = wallet != null && !loading && nextBefore != null,
-                onClick = { nextBefore?.let { requestedBefore = it; refresh++ } },
-                contentPadding = PaddingValues(horizontal = 8.dp)) {
-                Text(stringResource(R.string.profile_load_older), maxLines = 1)
-            }
-        }
-        Text(stringResource(R.string.profile_history), style = MaterialTheme.typography.bodySmall)
-        if (loading) Text(stringResource(R.string.profile_loading))
-        if (failed) Text(stringResource(R.string.profile_error))
-        if (unreadable) Text(stringResource(R.string.profile_unreadable), style = MaterialTheme.typography.bodySmall)
-        if (unavailableLikes) Text(stringResource(R.string.profile_likes_unavailable), style = MaterialTheme.typography.bodySmall)
-        if (cacheWarning) Text(stringResource(R.string.feed_cache_warning), style = MaterialTheme.typography.bodySmall)
-        if (pagingUnavailable) Text(stringResource(R.string.profile_paging_unavailable), style = MaterialTheme.typography.bodySmall)
-        if (!loading && !failed && posts.isEmpty()) Text(stringResource(R.string.profile_empty))
-        LazyColumn(Modifier.fillMaxSize()) {
             items(posts, key = { it.id }) { post ->
                 Column(Modifier.clickable { onPost(post) }.padding(vertical = 12.dp)) {
                     Text("Anon-${post.author.take(6)}", Modifier.clickable { onIdentity(post.author) },

@@ -15,8 +15,18 @@ minimal reader focusedGREEN42s; complete-snapshot senderGREEN40s, numeric marker
 reconstructionRED25s/GREEN30s, pinned-avatarRED20s/GREEN43s. All48core/debug/test
 assemblyPASS1m58s. First Android profile reader run38089539658 at73f0e17 is runtimeRED32.732s
 at the exact signed-bio wait, with the correct author profile visible in the
-original in-scope bitmap. Native header implementation/build is in progress;
-editor/image UI is not implemented yet.
+original in-scope bitmap. Native header583c0cc debug/testPASS1m56s. First17 run38090029603 reaches
+positive signed bio/avatar gates, then fails peer health17.755s due fixture
+expecting feed field4 on a valid author-history field2 request. Explicit fixture
+repair debug/testPASS1m1s, assertions retained. Both review axes flag unscrollable
+long-bio/header consuming tabs/history. Independent40line run38090221063 at
+ad4e5bf times out180s on10, with no assertion result or valid in-scope bitmap;
+cause not proven. Bounded native scroll and pre-scroll capture now replace the
+automatic Compose scroll; positive fullbio/tabs/post assertions remain. Native
+header/tabs/history share one weighted scrollable list; debug/testPASS1m49s,
+only subsequent whitespace formatting. Fresh dual runtimeGREEN pending.
+Harness retains a native system capture and filtered errors on failure. Editor/media/cache/
+recovery UI is not implemented yet.
 Only profile fields and public reference inputs;
 no production publication or app/node wallet reads. #17 stays open with actual
 provider acceptance unproved. Its immutable full534330e pair PASS127 cases
