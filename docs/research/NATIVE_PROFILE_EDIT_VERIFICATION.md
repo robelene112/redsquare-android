@@ -230,3 +230,27 @@ which also matches the composer title. It now requires the enabled clickable
 feed button after saving before closing the first Activity. Exact old-format
 text restoration and no-transaction requirements remain. Other pending review
 findings (encrypted duplication and unsaved import preview) are still unresolved.
+
+Legacy baseline bb668c6: Android10 38093829543 PASS18 posting cases80.974s;
+Android17 38093831384 PASS18 cases95.052s. Both original restored-legacy-draft
+PNGs individually inspected show the exact two-line unsent legacy text fixture
+in New post. Existing posting screenshot helper captures PNG only; no separate
+XML exists for these legacy captures. Retained profile-legacy-baseline/android10
+andandroid17. These baseline results precede the stronger reviewed clickable
+New post post-save readiness gate.
+
+Corrected profile navigation at1963c0e: Android17 38093960556 PASS4 native
+cases50.57s. All original profile assertions remain; fresh cache-outage/bio-draft
+checks pass. Original captures and detailed logs remain in ignored downloaded
+artifact .scratch/profile-positive-navigation17-proof; acceptance is focused.
+
+Review-stage extraction95eda3c: EncryptedLocalFile owns common bounded strict
+UTF-8 AES-GCM framing, Android Keystore guard, atomic fsync and verified reopen.
+Post and Profile adapters keep separate key aliases/families and feature payload
+validation. Exact filenames and package/filename associated data are unchanged;
+Post raw v1 and JSON v2 meanings and Profile changes-only v1 remain unchanged.
+All calls retain the shared wallet/backend lock and family-wide refusal to
+replace a missing key when draft files exist. Local debug/test assembly PASS
+1m56s (.scratch/profile-shared-encryption-build.log). Fresh post runtime
+38094236367/38094238073 and profile38094240194/38094242194 pending, as is bounded
+review. This is a review refactor, not feature completion.

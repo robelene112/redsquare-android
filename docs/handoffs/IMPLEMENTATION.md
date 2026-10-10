@@ -7,49 +7,42 @@ one question at a time when a material choice really needs the owner.
 
 ## Current work
 
-Active #18, "Edit profile bio, avatar and banner", assigned and independently
-unblocked. Review baseafce6610e4c78a2183bf154ac99cc35d7917b03c. Source contract
-and detailed RED/GREEN records: NATIVE_PROFILE_EDIT_CONTRACT.md and
-NATIVE_PROFILE_EDIT_VERIFICATION.md under docs/research.
+Active #18, "Edit profile bio, avatar and banner", assigned and unblocked.
+Review base afce6610e4c78a2183bf154ac99cc35d7917b03c. Source contract and detailed
+runtime records: NATIVE_PROFILE_EDIT_CONTRACT.md and NATIVE_PROFILE_EDIT_VERIFICATION.md.
 
-Current productiona60c425: core verified Profile reader, complete-snapshot
-partial-edit merge, pinned default identicon and newest-snapshot stale-read
-protection. Native header/bio/tabs/history share one scrollable list. Public
-metadata cache revalidates signed envelopes, scopes author/backend and retains
-latest metadata through outages and concurrent stale saves; warnings preserve
-truthful lookup/storage status. Android10 38092322711 and17 38092324241 PASS
-three native cases8.844s/36.901s. Both cached-offline originals individually
-inspected show retained signed bio/avatar and cached post with refresh errors.
-Source38092322568 PASS49 core0fail0ignored/debug/test/release/lint. Both bounded
-review axes0 througha60c425. Focused checks do not replace final full proof.
+Implemented: verified Profile reader/full-snapshot partial-edit merge, default
+identicon, stale-read protection, public metadata cache, one scrollable profile
+header/history, own-profile entry and encrypted private bio drafts. Own draft
+restores exactly after a fresh Activity on both Android versions with no TX.
+Untouched or loading baseline fields do not become edit intent. Cache retains
+verified bio through selected-server outage. No publisher/candidate/media yet.
 
-Next tracer: Your profile entry before any own posting, edit Unicode multiline
-bio, save local draft, fresh Activity restores it, no public bio or transaction.
-Local test assemblyPASS1m45s. Runtime RED pending; own entry/editor/encrypted
-private draft adapter not implemented yet. Emulator fixture cleanup additionally
-resets only profiledraft files, alongside public profilemeta, after dev/emulator
-guards; no wallet files or unrelated work touched. Avatar/banner selection,
-publishing, retry/reconciliation, broader recovery and final full reviews remain.
-No APK publication or production node/on-chain write.
+Latest profile baseline 35cd09b: Android10 38093681635 PASS four cases 10.545s.
+Android17 38093683708 completes four cases, one cached-author navigation failure
+before profile opening (26.104s); bio draft and other two cases pass. Both draft
+originals individually inspected. The helper now positively waits displayed
+scoped author and scrolls only if needed, preserving all acceptance assertions.
+Corrected Android17 1963c0e run 38093960556 PASS four cases 50.57s.
 
-Latest17 draftRED38092752725 at846bd54:4cases1failure37.9s missingYourprofile
-line195; other3pass. Originalin-scopefeedPNGinspected/retained, source38092752140
-PASS. Test post-save transition now requires clickableEditprofile, not title.
-Ownentry+bioeditor+ProfileDraftStore encryptedowner/backend privatechanges now
-implemented; localdebug/testPASS2m4s `.scratch/profile-bio-draft-green-build.log`.
-No localcompileractive; freshdualGREENpending.
-WalletImport pendingwork includesprofiledraftallbackends, unreadable=>unknown.
-No publisher/candidate/media yet. Duplicateencryptedfilelogic deliberatelyawaits
-reviewstage sharedextraction after real nativeGREEN; preservePostlegacyformats.
-Boundedreview:Spec1unsavedbio missingpreviewpendingworkwarning (diskcheckedbefore
-activationpersist); fixwithtyped-without-Savedraft nativeimport-previewtracer,
-persistbeforeimportselectionorinclude liveintent, failclosedonsavefailure.
-Standards0hard/1duplicatedencryptedfilejudgement; sharedextractionstillrequired.
-Atf659 dualruns38093238455/38093240150 finish4cases1fixturefailure each:
-assertTextEquals counted Bio label plus exact restored EditableText,15.422s/48.374s.
-Both original restoration PNGs individually inspected show exact two-line draft.
-Retained label-failure evidence; exact EditableText assertion replaces combined
-Text comparison only. Source38093237929 PASS. Fresh dual proof pending.
+Legacy Post raw-v1 regression at bb668c6: Android10 38093829543 and Android17
+38093831384 PASS all 18 posting cases, 80.974s/95.052s. Exact original legacy
+restoration PNGs individually inspected. The later reviewed after-save gate
+requires clickable/enabled New post instead of its matching composer title.
+
+Current production 95eda3c consolidates encrypted files in EncryptedLocalFile.
+Post/Profile retain separate key aliases, families, unchanged filename AAD and
+wire meanings (Post v1 raw, v2 JSON; Profile v1 changes JSON). Both adapters retain
+feature validation and shared identity lock. Local debug/test assembly PASS
+1m56s; no local compiler active. Fresh post runtime38094236367/38094238073 and
+profile38094240194/38094242194 plus bounded review pending.
+
+Next: fix Spec finding that unsaved bio is missed by import preview. Add a native
+typed-without-Save import-preview tracer, persist before document selection and
+refuse selection on failed save. Preserve outgoing draft isolation. Saved profile
+work is already included across both backends; unreadable means unknown.
+Then publishing/candidates, media, recovery, cross-client verification and final
+full checks/reviews remain. No APK or production node/on-chain write.
 
 #17 remains open for actual YouTube provider playback acceptance. Its full
 immutable534330e pair passed127 cases each; that is not acceptance of later
@@ -356,14 +349,3 @@ NATIVE_SAITO_TRANSFER_CONTRACT, NATIVE_PRIVATE_CHAT_CONTRACT and
 NATIVE_GROUP_CHAT_CONTRACT (all .md under docs/research). They are uncommitted
 and must be included with their own relevant tickets, not the #12 closure.
 They establish source contracts, not runtime or feature completion.
-
-Latest profile35cd09b: Android10 38093681635 PASS4 cases10.545s;17
-38093683708 FAIL4/1 26.104s on cached-author scroll lookup before opening
-profile. Own bio draft restoration passes both; exact originals individually
-inspected, retained profile-bio-draft-value. Cached author helper now positively
-waits displayed scoped identity, scrolls only if needed; fresh17 pending.
-Legacy Post raw-v1 UI regression bb668c6 local assemblyPASS1m4s;
-38093829543/38093831384 baseline pending. Review found matching New post
-composer title could satisfy after-save wait; corrected to clickable enabled
-feed button. No local compiler active. Storage duplication/import preview
-review fixes remain, followed by publishing/media/recovery.
