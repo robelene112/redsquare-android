@@ -32,7 +32,7 @@ Fresh actual post/reply/quote socket frames independently PASS pinned WASM0.3.2/
 Elliptic6.6.1 signature, recipient, route, JPEG metadata/size, dual quote and exact
 original-image checks; ../final-interop contains public frames and decoded proofs.
 Both unmodified pinned A/B template graphs render own green and original red/blue
-in exact order; offline Chromium1.63.0 decodes all three12x8 rasters on both pins.
+in exact order; offline Chromium through Playwright1.63.0 decodes all three12x8 rasters on both pins.
 This is controlled cross-client presentation, not initialized Saito app/current
 served revision/live broadcast acceptance. Physical Pixel performance/UI review
 remains later work. No production write or new APK publication.

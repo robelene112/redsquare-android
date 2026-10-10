@@ -114,3 +114,14 @@ Fresh actual post/reply/quote frames independently PASS pure pinned WASM/Ellipti
 A/B exact-template rendering and offline Chromium3 ordered12x8 rasters per pin.
 Proofs/public frames retained final-interop. No physical/live/initialized-node
 claim. Full17 companion after23d7202 fixture correction remains required.
+
+
+Committed evidence review23d7202..f899368: Spec0; Standards one documentation
+version-label correction (1.63.0 is Playwright, not Chromium) now fixed. Both
+axes independently verify123/35/11, core39/0/0, exact frame/proof/source hashes,
+controlled A/B browser results and limited bitmap captions. No source findings.
+Focusedimages17 38076217862 at23d7202 PASS20/5/3. Its actual XML/bitmap identifies
+the media-module picker, so it does not establish runtime coverage of failed
+full17's Googlepicker first-use Dismiss. Retained picker-first-use-green.
+Final full17 companion38076602854 at23d7202 withpublicreads underway; full10d35
+38075318198 accepted, unchanged production/core/build/scripts/workflow verified.

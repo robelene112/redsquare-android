@@ -333,7 +333,7 @@ build PASS2m19s before cleanup/capture/rejection fixes; exact corrected build an
 runtime pending. Both axes requested follow-up for corrected cleanup/capture
 and non-vacuous browser pin requirements.
 
-Offline Chromium1.63.0 decoded actual quote template DOM images on both pinned
+Offline Chromium through Playwright1.63.0 decoded actual quote template DOM images on both pinned
 A/B graphs: own green JPEG RGB30/189/70, original red PNG220/30/40 and blue
 PNG20/60/220, each12x8 in correct order. Browser blocks external requests; source
 hashes and decoded public frames retained in ticket14/interop. This proves a

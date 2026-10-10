@@ -10,7 +10,7 @@ modules and public fixture files are mounted read-only.
 
 Unmodified A/B Tweet/template graphs are pinned to9a4ca7e9442eb5e872168ced361ce741d7d139d7
 and214504ecece76d1cd20a245fe4468eccbfca2951. web-render.json records template hashes
-and own green JPEG/original red+blue PNG order. Offline Chromium1.63.0 decodes
+and own green JPEG/original red+blue PNG order. Offline Chromium through Playwright1.63.0 decodes
 three12x8 images in that order on each pin with RGB tolerance5. External network
 requests are blocked. browser.json shares the exact quote frame hash.
 

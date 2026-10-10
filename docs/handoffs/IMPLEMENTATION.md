@@ -13,9 +13,11 @@ lookup (83 successes/16 passing logs/nine deaths). Actual landscape Googlepicker
 PNG/XML show first-use access notice + Dismiss occupying media grid; no proof
 of missing photo. Fixture now dismisses only observed external-package control
 within unchanged15s lookup, preserving all selection/recreation/pixel/text gates.
-CompilePASS1m; boundedSpec0/Standards0source, one docstatus ambiguity corrected
-in workingtree. Focusedimages17 38076217862 pending. Preserve full10 ifpasses
-and run outstanding17 companion under unchanged production equivalence rule.
+CompilePASS1m; boundedSpec0/Standards0source, docstatus ambiguity corrected; evidence review finds Playwright version-label
+issue now fixed in workingtree. Focusedimages17 38076217862 PASS20/5/3 using
+media-module picker; Google first-use Dismiss coverage unproved there. Final
+full17 companion38076602854 at23d7202 running withpublicreads. Retain accepted
+full10 under unchanged production equivalence rule.
 Evidence picker-full-fixture-failures, picker-fixtures-green, and
 full-android17-first-use-failure. Production remainscb3d9c3. No #15 closure.
 
