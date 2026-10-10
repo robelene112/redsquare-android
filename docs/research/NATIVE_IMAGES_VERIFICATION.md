@@ -92,3 +92,18 @@ exact-candidate persistence preserve them. Composition uses the independently
 verified core builder; image-only Send is enabled. The scrollable composer keeps
 media accessible in constrained viewports. These changes await focused runtime
 and broader recovery acceptance; the ticket remains open.
+
+Focused Android10 GREEN38061594037 at312f58c PASS both display and controlled
+selection/draft cases in7.016seconds, core39/source/debug/test/release/lint.
+Text matches after saving/reopening and activity recreation; rendered normalized
+JPEG pixels match the independent red fixture, zero transactions. This is not
+process-death/disk-only recovery proof. Actual-window viewer screenshot inspected
+and shows the red image, index/close/previous/next controls. The saved-draft
+capture shows the image after scrolling; text is above the captured viewport,
+so semantic text assertion and visual attachment evidence are distinct.
+Both interim source-review axes0 findings at312f58c.
+
+Next tracer opens the real system picker against an owned MediaStore green PNG.
+Initial filename selection is a fixture observation pending10/17 hierarchy
+inspection; an absent filename on a modern picker does not prove an app defect.
+Picker PNG/XML and failure captures are retained to adapt selectors from facts.

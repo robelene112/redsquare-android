@@ -130,6 +130,60 @@ class ImagePreviewTest {
         }
     }
 
+    @Test fun systemImagePickerReturnsAnOwnedSyntheticImageToTheDraft() {
+        val fixture = instrumentation.context.assets.open("native-images-reference.json").bufferedReader()
+            .use { JsonParser.parseReader(it).asJsonObject }
+        val name = "redsquare-system-picker-reference.png"
+        val uri = requireNotNull(context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, ContentValues().apply {
+            put(MediaStore.Images.Media.DISPLAY_NAME, name)
+            put(MediaStore.Images.Media.MIME_TYPE, "image/png")
+            put(MediaStore.Images.Media.WIDTH, 12)
+            put(MediaStore.Images.Media.HEIGHT, 8)
+            put(MediaStore.Images.Media.DATE_TAKEN, 1_700_000_080_000L)
+            put(MediaStore.Images.Media.IS_PENDING, 1)
+        }))
+        try {
+            context.contentResolver.openOutputStream(uri)!!.use { output ->
+                output.write(android.util.Base64.decode(fixture.getAsJsonObject("images").get("green").asString.substringAfter(','), android.util.Base64.NO_WRAP))
+            }
+            context.contentResolver.update(uri, ContentValues().apply { put(MediaStore.Images.Media.IS_PENDING, 0) }, null, null)
+            val peer = ControlledFeedPeer("[${fixture.getAsJsonObject("ordinary")}]")
+            peer.start().use { server ->
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                    try {
+                        ui.waitUntil(20_000) { peer.requests.get() > 0 &&
+                            ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                        ui.onNodeWithText("New post").performClick()
+                        ui.waitUntil(10_000) { ui.onAllNodes(hasText("Add images") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                        ui.onNodeWithText("Add images").performClick()
+                        val device = androidx.test.uiautomator.UiDevice.getInstance(instrumentation)
+                        val file = device.wait(androidx.test.uiautomator.Until.findObject(androidx.test.uiautomator.By.text(name)), 15_000)
+                        capture("images-evidence/system-picker.png")
+                        val xml = File(context.cacheDir, "images-evidence/system-picker.xml")
+                        device.dumpWindowHierarchy(xml)
+                        assertNotNull("Synthetic image should be visible in the system picker", file)
+                        file!!.click()
+                        device.findObject(androidx.test.uiautomator.By.text("OPEN"))?.click()
+                        ui.waitUntil(20_000) { ui.onAllNodesWithContentDescription("Image 1 of 1").fetchSemanticsNodes().isNotEmpty() }
+                        val bitmap = ui.onNodeWithContentDescription("Image 1 of 1").performScrollTo().assertIsDisplayed().captureToImage().asAndroidBitmap()
+                        val pixel = bitmap.getPixel(bitmap.width / 2, bitmap.height / 2)
+                        assertTrue(kotlin.math.abs(android.graphics.Color.red(pixel) - 30) <= 5)
+                        assertTrue(kotlin.math.abs(android.graphics.Color.green(pixel) - 190) <= 5)
+                        assertTrue(kotlin.math.abs(android.graphics.Color.blue(pixel) - 70) <= 5)
+                        ui.onNode(hasText("Send") and isEnabled()).assertIsDisplayed()
+                        assertTrue(peer.transactions.isEmpty())
+                        peer.assertHealthy()
+                        capture("images-evidence/system-picker-draft.png")
+                    } catch (failure: Throwable) {
+                        capture("images-evidence/system-picker-failure.png")
+                        throw failure
+                    }
+                }
+            }
+        } finally { context.contentResolver.delete(uri, null, null) }
+    }
+
     private fun capture(name: String) {
         val file = File(context.cacheDir, name).apply { parentFile?.mkdirs() }
         check(androidx.test.uiautomator.UiDevice.getInstance(instrumentation).takeScreenshot(file))
