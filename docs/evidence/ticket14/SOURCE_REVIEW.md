@@ -69,3 +69,30 @@ explicit OS-selected port reservation idiom for both listeners, without retries
 or endpoint changes. Unique socket-state cause is unproved. Logs and inspected
 Android10 failure bitmap/XML retained in picker-full-fixture-failures/REVIEW.md.
 Fresh complete acceptance remains required; production unchanged sincecb3d9c3.
+
+
+Bounded committed fixture review9bcdeb8..d35f965: Standards0, Spec0 actionable
+findings. Both reviewers independently recount rejected runs83/16/9 and52/7/3,
+inspect the original-size failure image and rotation1 XML, and verify empty
+production/core/build/scripts/workflow diff. Positive landscape preparation/
+new-Activity observation and exact portrait pixels/text/Send/no-TX remain;
+original-endpoint outage/rebind and exact-one-owner/zero-official remain.
+Local narrow compile PASS57s. Focused Android10 images38074958417 and Android17
+social38074960026 dispatched atd35f965; results/fresh full acceptance pending.
+
+
+Focused d35f965 gates PASS: images10 38074958417 completed20 cases/five records/
+three deaths, social17 38074960026 completednine/two/one. Retained logs and actual
+individually inspected portrait green-image bitmap in picker-fixtures-green.
+Fresh full10 38075318198 and full17 38075319784 atsamecandidate underway with
+public reads. No complete acceptance or new publication yet.
+
+
+Full17 d35f965/run38075319784 is rejected:83 successful cases/16 records/nine
+actual deaths. Original-port social recovery passes; actual system picker lookup
+fails. Actual individually inspected landscape PNG/XML show the first-use access
+notice occupying the media grid with a Dismiss control, no visible photo node.
+No proof of missing MediaStore data. Fixture now dismisses only that observed
+external-package control within the unchanged15-second search window and retains
+all selection/recreation/pixel/text/no-TX assertions. Logs/captures/limits in
+full-android17-first-use-failure. Runtime confirmation/full acceptance pending.

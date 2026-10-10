@@ -469,3 +469,13 @@ explicit OS-selected port reservation idiom for both listeners, without retries
 or endpoint changes. Unique socket-state cause is unproved. Logs and inspected
 Android10 failure bitmap/XML retained in picker-full-fixture-failures/REVIEW.md.
 Fresh complete acceptance remains required; production unchanged sincecb3d9c3.
+
+
+Full17 d35f965/run38075319784 is rejected:83 successful cases/16 records/nine
+actual deaths. Original-port social recovery passes; actual system picker lookup
+fails. Actual individually inspected landscape PNG/XML show the first-use access
+notice occupying the media grid with a Dismiss control, no visible photo node.
+No proof of missing MediaStore data. Fixture now dismisses only that observed
+external-package control within the unchanged15-second search window and retains
+all selection/recreation/pixel/text/no-TX assertions. Logs/captures/limits in
+full-android17-first-use-failure. Runtime confirmation/full acceptance pending.

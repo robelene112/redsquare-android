@@ -180,6 +180,7 @@ class ImagePreviewTest {
                         val device = androidx.test.uiautomator.UiDevice.getInstance(instrumentation)
                         ui.waitUntil(15_000) { device.currentPackageName in listOf("com.android.documentsui",
                             "com.google.android.photopicker", "com.google.android.providers.media.module", "com.android.providers.media.module") }
+                        val externalPackage = requireNotNull(device.currentPackageName)
                         // Rotate the actual external window. The stopped composer must recreate
                         // and still receive its owned result, rather than launching a second picker.
                         device.setOrientationLeft()
@@ -203,7 +204,19 @@ class ImagePreviewTest {
                         }
                         val selector = if (android.os.Build.VERSION.SDK_INT < 33) androidx.test.uiautomator.By.descStartsWith("$name,")
                             else androidx.test.uiautomator.By.descStartsWith("Photo taken on ")
-                        val file = device.wait(androidx.test.uiautomator.Until.findObject(selector), 15_000)
+                        // The Google picker's first-use notice fills its landscape grid.
+                        // Dismiss only that external package's observed control before selection.
+                        val imageDeadline = android.os.SystemClock.uptimeMillis() + 15_000
+                        var file: androidx.test.uiautomator.UiObject2? = null
+                        while (file == null && android.os.SystemClock.uptimeMillis() < imageDeadline) {
+                            if (android.os.Build.VERSION.SDK_INT >= 33) {
+                                try {
+                                    device.findObject(androidx.test.uiautomator.By.text("Dismiss").pkg(externalPackage))?.click()
+                                } catch (_: androidx.test.uiautomator.StaleObjectException) { /* Reacquire after rotation. */ }
+                            }
+                            file = device.wait(androidx.test.uiautomator.Until.findObject(selector),
+                                minOf(1_000L, maxOf(1L, imageDeadline - android.os.SystemClock.uptimeMillis())))
+                        }
                         capture("images-evidence/system-picker.png")
                         val xml = File(context.cacheDir, "images-evidence/system-picker.xml")
                         device.dumpWindowHierarchy(xml)
