@@ -361,3 +361,25 @@ no further duplicate focused dispatch is required before that complete gate.
 
 Keyboard visibility correction narrow compile PASS1m09s. Final full device
 checks and bounded review pending.
+
+Final candidatead4a8c0: both bounded review axes0 findings. FullAndroid10
+38068713412 and fullAndroid17 38068715154 dispatched with public_feed_read=true.
+Both source/core/debug/test/release/lint stages PASS; device stages ongoing as
+of2026-10-10 16:50UTC. Push sourcecheck38068712976 also PASS. Runtime results
+must still be inspected and retained before #15 closure.
+
+Fullad4a8c0 Android10 38068713412 PASS:123 completed cases across35 records,
+11 deliberate process-death stages; both public feeds, signed5-to8 continuity
+and cached feed/wallet cold launches. Android17 38068715154 passes earlier
+browse/follow/posting17/queue9/social8/quotes7/author8 and all signed image
+publication, prep/loading and both image cold recoveries. ImagePreview fails2
+cases: saved-draft Add visibility with IME open, and system picker confirmation.
+The failure XML shows com.google.android.photopicker with selected owned image
+and enabled Done; earlier focused XML uses com.google.android.providers.media.module
+and Add (1). Cause of system implementation selection unestablished.
+Fixture now accepts both observed labels scoped to the launched package and
+recognizes both in cleanup. Shared visible picker navigation dismisses IME and
+requires bounded scroll/displayed/enabled click. Signed frame/pixel/identity gates
+are unchanged. Local narrow compile PASS1m10s. Keep successful10 acceptance and
+run outstanding17 full under WORKFLOW's fixture-only equivalence rule; verify
+production/build/scripts/workflow unchanged before closure.

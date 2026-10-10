@@ -128,7 +128,15 @@ one question at a time when a material choice really needs the owner.
   both are corrected without production changes. Wallet/author/queue/storage
   failure media fixtures now pass10. Full-order queue text/image variants now
   use distinct exact body literals to retain cached history without ambiguity.
-  Local narrow compile PASS1m07s. Full10/17 acceptance is the next gate.
+  Local narrow compile PASS1m07s and keyboard correction PASS1m09s.
+  Fullad4a8c0 Android10 38068713412 PASS123 cases/35 records/11 actual kills,
+  both public feeds and cold/signed update continuity. Full17 38068715154 passes
+  prior features and signed media, but system picker Done label differs from
+  older Add (1), plus saved-draft picker visibility with IME open. Fixture fixes
+  share bounded keyboard dismissal/visible navigation and scope both observed
+  labels to the launched picker package. Narrow compile PASS1m10s. Production
+  unchanged; retain successful10 and rerun only outstanding17 full perWORKFLOW.
+  Bounded fix review and complete17 evidence still required before closure.
   Actual post/reply/quote frames independently verified; A/B unchanged templates
   and offline Chromium decode gallery order/pixels. Public synthetic proof retained
   docs/evidence/ticket14/interop. Cold recovery first phase now clears synthetic

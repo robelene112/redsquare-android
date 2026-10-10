@@ -64,7 +64,7 @@ class ImagePreviewTest {
                             ui.onNodeWithText("New post").performClick()
                             ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                             ui.onNode(hasSetTextAction()).performTextReplacement("Saved image draft")
-                            ui.onNodeWithText("Add images").assertIsDisplayed().performClick()
+                            ui.clickImagePicker()
                             ui.waitUntil(15_000) { ui.onAllNodesWithContentDescription("Image 1 of 1").fetchSemanticsNodes().isNotEmpty() }
                             ui.onNodeWithContentDescription("Image 1 of 1").performScrollTo().assertIsDisplayed()
                             ui.onNodeWithText("Save draft").performClick()
@@ -155,7 +155,7 @@ class ImagePreviewTest {
                             ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                         ui.onNodeWithText("New post").performClick()
                         ui.waitUntil(10_000) { ui.onAllNodes(hasText("Add images") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                        ui.onNodeWithText("Add images").performClick()
+                        ui.clickImagePicker()
                         val device = androidx.test.uiautomator.UiDevice.getInstance(instrumentation)
                         if (android.os.Build.VERSION.SDK_INT < 33) {
                             requireNotNull(device.wait(androidx.test.uiautomator.Until.findObject(androidx.test.uiautomator.By.desc("Show roots")), 10_000)).click()
@@ -183,11 +183,13 @@ class ImagePreviewTest {
                         device.dumpWindowHierarchy(xml)
                         assertNotNull("Synthetic image should be visible in the system picker", file)
                         assertEquals(1, device.findObjects(selector).size)
-                        file!!.click()
+                        val pickerPackage = file!!.applicationPackage
+                        file.click()
                         capture("images-evidence/system-picker-selected.png")
                         device.dumpWindowHierarchy(File(context.cacheDir, "images-evidence/system-picker-selected.xml"))
-                        val confirm = if (android.os.Build.VERSION.SDK_INT < 33) androidx.test.uiautomator.By.text("OPEN").enabled(true)
-                            else androidx.test.uiautomator.By.textStartsWith("Add").enabled(true)
+                        val confirm = if (android.os.Build.VERSION.SDK_INT < 33) androidx.test.uiautomator.By.text("OPEN").enabled(true).pkg(pickerPackage)
+                            else androidx.test.uiautomator.By.text(java.util.regex.Pattern.compile("(?:Add(?: \\(\\d+\\))?|Done)"))
+                                .enabled(true).pkg(pickerPackage)
                         // Legacy document providers can finish immediately when the sole file is tapped.
                         val returnedOrConfirmed = android.os.SystemClock.uptimeMillis() + 10_000
                         while (!device.hasObject(confirm) && !device.hasObject(androidx.test.uiautomator.By.pkg(context.packageName)) &&
@@ -217,7 +219,8 @@ class ImagePreviewTest {
         } finally {
             context.contentResolver.delete(uri, null, null)
             val device = androidx.test.uiautomator.UiDevice.getInstance(instrumentation)
-            if (device.currentPackageName in listOf("com.android.documentsui", "com.google.android.providers.media.module")) device.pressBack()
+            if (device.currentPackageName in listOf("com.android.documentsui", "com.google.android.providers.media.module",
+                    "com.android.providers.media.module", "com.google.android.photopicker")) device.pressBack()
         }
     }
 

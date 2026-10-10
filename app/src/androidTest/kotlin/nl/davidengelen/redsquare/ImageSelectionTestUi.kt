@@ -39,11 +39,21 @@ internal fun ComposeTestRule.attachSyntheticImage() {
                 hasAction("com.google.android.gms.provider.action.PICK_IMAGES")))
                 .respondWith(Instrumentation.ActivityResult(Activity.RESULT_OK, Intent().setData(uri)
                     .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)))
-            onNodeWithText("Add images").performScrollTo().assertIsDisplayed().performClick()
+            clickImagePicker()
             waitUntil(20_000) { onAllNodes(hasText("Remove image 1") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
             assertSyntheticRedImage()
         } finally { Intents.release() }
     }
+}
+
+/** Dismiss the IME and require the attachment control in the actual viewport. */
+internal fun ComposeTestRule.clickImagePicker() {
+    androidx.test.espresso.Espresso.closeSoftKeyboard()
+    waitUntil(10_000) {
+        try { onNodeWithText("Add images").performScrollTo().isDisplayed() }
+        catch (_: AssertionError) { false }
+    }
+    onNodeWithText("Add images").assertIsDisplayed().assertIsEnabled().performClick()
 }
 
 internal fun ComposeTestRule.assertSyntheticRedImage(postText: String? = null) {

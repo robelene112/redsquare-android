@@ -1,0 +1,15 @@
+INSTRUMENTATION_RESULT: stream=
+
+Time: 41.656
+There was 1 failure:
+1) imageQuoteKeepsItsOwnImagesAndExactAuthenticatedOriginal(nl.davidengelen.redsquare.ImagePostingTest)
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Add images' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ImagePostingTest.publish(ImagePostingTest.kt:142)
+	at nl.davidengelen.redsquare.ImagePostingTest.imageQuoteKeepsItsOwnImagesAndExactAuthenticatedOriginal(ImagePostingTest.kt:49)
+
+FAILURES!!!
+Tests run: 6,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

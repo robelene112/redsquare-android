@@ -1,0 +1,18 @@
+INSTRUMENTATION_RESULT: stream=
+
+Time: 45.02
+There was 1 failure:
+1) queuedImageUsesOnlyItsOriginalBackendAndRetainsPreparedPixels(nl.davidengelen.redsquare.PostQueuePreviewTest)
+java.lang.AssertionError: Failed to perform checkIsDisplayed check: Expected at most 1 node but found 2 nodes that satisfy (ContentDescription = 'Image 1 of 1' (ignoreCase: false))
+	at androidx.compose.ui.test.AndroidAssertions_androidKt.checkIsDisplayed(AndroidAssertions.android.kt:35)
+	at androidx.compose.ui.test.AssertionsKt.isDisplayed(Assertions.kt:351)
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:33)
+	at nl.davidengelen.redsquare.ImageSelectionTestUiKt.assertSyntheticRedImage(ImageSelectionTestUi.kt:53)
+	at nl.davidengelen.redsquare.PostQueuePreviewTest.originalBackendQueue(PostQueuePreviewTest.kt:128)
+	at nl.davidengelen.redsquare.PostQueuePreviewTest.queuedImageUsesOnlyItsOriginalBackendAndRetainsPreparedPixels(PostQueuePreviewTest.kt:68)
+
+FAILURES!!!
+Tests run: 7,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

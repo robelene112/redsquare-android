@@ -1,0 +1,24 @@
+INSTRUMENTATION_RESULT: stream=
+
+Time: 1.601
+There was 1 failure:
+1) coldCandidateReconcilesWithoutRebroadcastingOrLosingItsImage(nl.davidengelen.redsquare.ImageProcessRecoveryTest)
+java.lang.AssertionError: Failed to assert the following: (Text + InputText + EditableText contains 'Recover prepared image after its source disappears' (ignoreCase: false))
+Reason: Expected exactly '1' node but could not find any node that satisfies: (SetText is defined)
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:262)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at nl.davidengelen.redsquare.ImageProcessRecoveryTest.coldCandidateReconcilesWithoutRebroadcastingOrLosingItsImage$lambda$15(ImageProcessRecoveryTest.kt:124)
+	at nl.davidengelen.redsquare.ImageProcessRecoveryTest.$r8$lambda$9oEcqJrgZg02VXHhCTfPvIgiyRw(Unknown Source:0)
+	at nl.davidengelen.redsquare.ImageProcessRecoveryTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ImageProcessRecoveryTest.launch(ImageProcessRecoveryTest.kt:141)
+	at nl.davidengelen.redsquare.ImageProcessRecoveryTest.coldCandidateReconcilesWithoutRebroadcastingOrLosingItsImage(ImageProcessRecoveryTest.kt:120)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
