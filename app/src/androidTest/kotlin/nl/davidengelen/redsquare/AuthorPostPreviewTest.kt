@@ -80,7 +80,7 @@ class AuthorPostPreviewTest {
                     waitFor("Available on this server.")
                     ui.onNodeWithText("Back").performClick()
                     waitForList()
-                    waitFor("Native author's original post")
+                    waitForRefresh()
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText("Native author's original post"))
                     ui.onNodeWithText("Native author's original post").performClick()
                     waitFor("Conversation")
@@ -99,6 +99,7 @@ class AuthorPostPreviewTest {
                     ui.onNodeWithText("Back").performClick()
                     waitForList()
                     waitFor("New post")
+                    waitForRefresh()
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText("Native author's edited post"))
                     ui.onNodeWithText(own.get()!!.get("field2").asString).performClick()
                     waitFor("Profile")
@@ -119,5 +120,8 @@ class AuthorPostPreviewTest {
     }
     private fun waitForList() {
         ui.waitUntil(20_000) { ui.onAllNodes(hasScrollAction()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+    }
+    private fun waitForRefresh() {
+        ui.waitUntil(20_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
     }
 }
