@@ -315,7 +315,23 @@ one fails to retain more diagnostic evidence; any group failure still rejects
 scope acceptance. Both complete final source-review axes at354 report0 actionable
 findings; this subsequent bounded fixture change still needs review/runtime.
 
-Placeholder correction narrow build PASS1m07s. Both bounded review axes0 findings
+Placeholder correction narrow build PASS1m06s. Both bounded review axes0 findings
 on editable-value assertion and independent diagnostic groups with strict final
 failure aggregation. Complete source-review acceptance remains at354a1c7 plus
 this reviewed fixture-only correction; runtime/full acceptance still pending.
+
+fe1be79 focused Android10 38067303565 / Android17 38067305720 each pass6 initial
+image cases and5 preparation/loading cases, plus cold queued-image delivery.
+Lifecycle passes6/7 each, including source-deleted wallet replacement, author
+edit/delete, mounted quote revision/removal, cancelled queue and both failed
+storage flows. Two reproducible fixture assertions still fail: disabled text
+fields omit SetText semantics, and retained queue history gives two generic
+Image1of1 matches. Cold recovery now asserts exact disabled text without an
+editing action. Shared list-gallery pixels now scope to the card containing the
+exact clickable post text, preserving history and positive pixel assertions.
+Failure capture encloses the scoped queue image assertion. Production source
+remains unchanged. Narrow compile and bounded review pending, then exact focused
+and full10/17 acceptance remain required.
+
+Scoped gallery/read-only field correction narrow build PASS1m14s. Both exact
+SDK runs and bounded review pending.

@@ -121,7 +121,7 @@ class ImageProcessRecoveryTest {
             openComposer(waitForEditable = false)
             waitFor("Send requested. Availability on this server is not confirmed.")
             waitForPreparedImage(editable = false)
-            ui.onNode(hasSetTextAction()).assert(hasText(text)).assertIsNotEnabled()
+            ui.onNodeWithText(text).assertTextEquals(text).assertIsNotEnabled()
             assertTrue(peer.transactions.isEmpty())
             ui.onNodeWithText("Retry").performClick()
             waitFor("Available on this server.")

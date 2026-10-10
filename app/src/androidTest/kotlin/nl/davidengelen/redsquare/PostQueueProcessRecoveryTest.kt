@@ -96,7 +96,7 @@ class PostQueueProcessRecoveryTest {
                             ui.onNodeWithText(body).assertIsDisplayed(); true
                         } catch (_: AssertionError) { false }
                     }
-                    if (images) ui.assertSyntheticRedImage(inPostList = true)
+                    if (images) ui.assertSyntheticRedImage(postText = body)
                     assertEquals(1, peer.transactions.size)
                     peer.assertHealthy()
                     captureFeedEvidence("post-queue-process-evidence/cold-delivery.png")

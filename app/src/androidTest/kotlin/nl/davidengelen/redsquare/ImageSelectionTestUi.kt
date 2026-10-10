@@ -46,11 +46,15 @@ internal fun ComposeTestRule.attachSyntheticImage() {
     }
 }
 
-internal fun ComposeTestRule.assertSyntheticRedImage(inPostList: Boolean = false) {
-    waitUntil(15_000) { onAllNodesWithContentDescription("Image 1 of 1").fetchSemanticsNodes().isNotEmpty() }
-    if (inPostList) onNode(hasScrollAction()).performScrollToNode(hasContentDescription("Image 1 of 1"))
-    else onNodeWithContentDescription("Image 1 of 1").performScrollTo()
-    val bitmap = onNodeWithContentDescription("Image 1 of 1").assertIsDisplayed().captureToImage().asAndroidBitmap()
+internal fun ComposeTestRule.assertSyntheticRedImage(postText: String? = null) {
+    val image = hasContentDescription("Image 1 of 1").let { label ->
+        if (postText == null) label
+        else label and hasAnyAncestor(hasAnyChild(hasText(postText) and hasClickAction()))
+    }
+    waitUntil(15_000) { onAllNodes(image).fetchSemanticsNodes().isNotEmpty() }
+    if (postText != null) onNode(hasScrollAction()).performScrollToNode(image)
+    else onNode(image).performScrollTo()
+    val bitmap = onNode(image).assertIsDisplayed().captureToImage().asAndroidBitmap()
     val pixel = bitmap.getPixel(bitmap.width / 2, bitmap.height / 2)
     assertTrue(kotlin.math.abs(Color.red(pixel) - 220) <= 5)
     assertTrue(kotlin.math.abs(Color.green(pixel) - 30) <= 5)

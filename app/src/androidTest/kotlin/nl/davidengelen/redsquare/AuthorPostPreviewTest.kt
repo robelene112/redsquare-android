@@ -132,7 +132,7 @@ class AuthorPostPreviewTest {
                     ui.clickVisiblePostContent(own.get()!!.get("field2").asString)
                     waitFor("Profile")
                     waitFor("Native author's edited post")
-                    if (withImage) ui.assertSyntheticRedImage(inPostList = true)
+                    if (withImage) ui.assertSyntheticRedImage(postText = "Native author's edited post")
                     assertEquals(2, peer.transactions.size)
                     peer.assertHealthy()
                     java.io.File(context.cacheDir, "author-post-evidence/${if (withImage) "image" else "native"}-author-frames.json").apply {

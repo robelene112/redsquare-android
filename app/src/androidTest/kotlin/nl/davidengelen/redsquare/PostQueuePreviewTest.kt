@@ -121,11 +121,11 @@ class PostQueuePreviewTest {
                                 true
                             } catch (_: AssertionError) { false }
                         }
+                        if (withImage) ui.assertSyntheticRedImage(postText = "Send on the original server")
                     } catch (failure: Throwable) {
                         captureFeedEvidence("post-queue-evidence/backend-refresh-failure.png")
                         throw failure
                     }
-                    if (withImage) ui.assertSyntheticRedImage(inPostList = true)
                     owner.assertHealthy(); official.assertHealthy()
                     captureFeedEvidence("post-queue-evidence/original-backend-resumed-post.png")
                 }
