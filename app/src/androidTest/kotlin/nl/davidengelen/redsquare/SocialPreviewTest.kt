@@ -210,6 +210,104 @@ class SocialPreviewTest {
         }
     }
 
+    @Test fun failedSavingPreventsTransmissionAndRepairedRetryKeepsTheOriginalWallet() {
+        val root = InstrumentationRegistry.getInstrumentation().context.assets.open("native-feed-reference.json")
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow") }
+        val indexed = AtomicReference<JsonObject?>()
+        val peer = ControlledFeedPeer("[]", onTransaction = { frame ->
+            val candidate = postingTransaction(frame)
+            val action = SaitoEnvelope.decode(candidate.envelope())
+            indexed.set(JsonObject().apply {
+                addProperty("sig", action.id); addProperty("created_at", action.createdAt)
+                addProperty("field1", "RedSquareLike"); addProperty("field2", action.author)
+                addProperty("field4", root.get("sig").asString); addProperty("tx", candidate.envelope())
+            })
+        }, archiveResponse = { criteria ->
+            if (criteria.get("field1").asString == "RedSquareLike") indexed.get()?.let { "[$it]" } ?: "[]" else "[$root]"
+        })
+        peer.start().use { server ->
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                waitFor("Native Red Square reference post")
+                ui.waitUntil(20_000) { ui.onAllNodes(hasText("Like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                ui.onNodeWithText("Wallet").performClick()
+                val author = displayedWalletAddress(ui)
+                ui.onNodeWithText("Done").performClick()
+                val blocked = java.io.File(context.noBackupFilesDir, "social.owner.$author.${root.get("sig").asString}.like.v1")
+                check(blocked.mkdir())
+                val obstacle = java.io.File(blocked, "retain-public-save-fault").apply { writeText("public test fault") }
+                try {
+                    ui.onNodeWithText("Like").performClick()
+                    waitFor("Could not finish this action. Retry checks the original action before sending it again.")
+                    assertTrue(peer.transactions.isEmpty())
+                } finally { check(obstacle.delete()); check(blocked.delete()) }
+                ui.onNodeWithText("Retry like").performClick()
+                waitFor("Liked")
+                assertEquals(1, peer.transactions.size)
+                val action = SaitoEnvelope.decode(postingTransaction(peer.transactions.single()).envelope())
+                assertEquals(author, action.author)
+                assertEquals(root.get("sig").asString, action.body.getAsJsonObject("data").get("signature").asString)
+                peer.assertHealthy()
+                captureFeedEvidence("social-evidence/repaired-saving-retains-wallet-and-target.png")
+            }
+        }
+    }
+
+    @Test fun pendingLikeStaysOnItsOriginalBackendAndDoesNotFollowAServerSwitch() {
+        val root = InstrumentationRegistry.getInstrumentation().context.assets.open("native-feed-reference.json")
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow") }
+        val indexed = AtomicReference<JsonObject?>()
+        val owner = ControlledFeedPeer("[]", onTransaction = { frame ->
+            val candidate = postingTransaction(frame)
+            val action = SaitoEnvelope.decode(candidate.envelope())
+            indexed.set(JsonObject().apply {
+                addProperty("sig", action.id); addProperty("created_at", action.createdAt)
+                addProperty("field1", "RedSquareLike"); addProperty("field2", action.author)
+                addProperty("field4", root.get("sig").asString); addProperty("tx", candidate.envelope())
+            })
+        }, archiveResponse = { criteria ->
+            if (criteria.get("field1").asString == "RedSquareLike") indexed.get()?.let { "[$it]" } ?: "[]" else "[$root]"
+        })
+        val official = ControlledFeedPeer("[$root]")
+        val firstOwner = owner.start()
+        val originalPort = firstOwner.port
+        try {
+            official.start().use { officialServer ->
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:$originalPort/wsopen")
+                    .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${officialServer.port}/wsopen")).use {
+                    waitFor("Native Red Square reference post")
+                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("Like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    firstOwner.close()
+                    ui.onNodeWithText("Like").performClick()
+                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("Retry like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("Settings").performClick()
+                    waitFor("saito.io")
+                    ui.onNodeWithText("saito.io").performClick()
+                    waitFor("Server: saito.io")
+                    waitFor("Native Red Square reference post")
+                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("Like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("Retry like").assertDoesNotExist()
+                    assertTrue(official.transactions.isEmpty())
+                    assertTrue(owner.transactions.isEmpty())
+                    owner.start(originalPort).use {
+                        ui.onNodeWithText("Settings").performClick()
+                        waitFor("saito.davidengelen.nl")
+                        ui.onNodeWithText("saito.davidengelen.nl").performClick()
+                        waitFor("Server: saito.davidengelen.nl")
+                        ui.waitUntil(20_000) { ui.onAllNodes(hasText("Retry like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                        ui.onNodeWithText("Retry like").performClick()
+                        waitFor("Liked")
+                        assertEquals(1, owner.transactions.size)
+                        assertTrue(official.transactions.isEmpty())
+                        owner.assertHealthy(); official.assertHealthy()
+                        captureFeedEvidence("social-evidence/pending-like-retains-original-backend.png")
+                    }
+                }
+            }
+        } finally { firstOwner.close() }
+    }
+
     private fun waitFor(text: String) {
         ui.waitUntil(20_000) { ui.onAllNodes(hasText(text)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
     }

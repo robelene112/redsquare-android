@@ -53,3 +53,13 @@ require Retry to query the original action, retain the original signature and
 transmit exactly once. Both kinds are exercised. Public frame captures contain
 only controlled zero-payment operations for independent WASM/Elliptic checking.
 Local test assembly53s passes; focused four-case regression is next.
+
+
+Focused `38018695180` at `f2fce96` passes4/4 in12.883s. Both accepted-disconnect
+cases reopen and reconcile the original action without a second transmission.
+Their actual public Android frames independently pass pinned WASM deserialization,
+exact request/target/recipient checks and Elliptic verification of the transaction
+and routing-hop signatures. This is cross-runtime protocol evidence, not live
+server receipt or web visual acceptance. Public proofs are retained in
+ ticket11/four-green. Failed saving/no-transmission/repaired Retry and pending
+original-backend isolation regressions compile55s; focused six-case run is next.

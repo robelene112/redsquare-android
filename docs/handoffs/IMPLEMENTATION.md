@@ -73,7 +73,10 @@ one question at a time when a material choice really needs the owner.
   core/debug/test1m59sPASS. Twogreen38018201097 passes2/2/7.646s.
   Independentlike/repostWASM/Ellipticvectors generated; local2corecases25sPASS.
   Accepted-disconnect/fresh-activity original retry regressionscompiled53s;
-  focused4caseacceptance next. Actualpublicframeverifier prepared.
+  Fourgreen38018695180 passes4/4/12.883s inclfreshactivityuncertainretry.
+  ActualAndroidframes independentlyWASM/Ellipticverifiedinclroutinghops, retained
+  ticket11/four-green. Failedsave/backendisolationregressionscompiled55s;
+  focusedsixcaseacceptance next.
   Ten of35 complete;
  25 remain. Read-only primary-source contract prepared in
   NATIVE_SOCIAL_INTERACTIONS_CONTRACT.md. Ordinaryreposts/recovery/fullacceptance/reviews incomplete.
