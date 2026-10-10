@@ -107,3 +107,12 @@ exact verified availability first and retry the same transaction if needed.
 Scheduling marks automatic intent before enqueue; legacy/manual pending records
 remain nonautomatic. Candidate state is preserved by composer saves. Local
 debug/test assembly passes1m30; focused five-case green next.
+
+Focused38010212716 at8257bfb passes4/5, including actual uncertain automatic
+reconciliation without rebroadcast. The backend case passes transmission and
+identity checks, then fails feed visibility even after enabled Refresh. Its
+inspected image shows older cached posts at the retained list position; this
+does not prove the target exists elsewhere. The fixture now searches the lazy
+list through bounded scrolling and requires the target displayed, preserving
+the actual feed assertion and failure capture. Local assembly passes54s.
+Production unchanged; five-case focused retry next.

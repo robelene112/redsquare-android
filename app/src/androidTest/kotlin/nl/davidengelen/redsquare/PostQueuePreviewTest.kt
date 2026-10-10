@@ -101,7 +101,13 @@ class PostQueuePreviewTest {
                     try {
                         ui.waitUntil(10_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                         ui.onNodeWithText("Refresh").performClick()
-                        ui.waitUntil(20_000) { ui.onAllNodes(hasText("Send on the original server")).fetchSemanticsNodes().isNotEmpty() }
+                        ui.waitUntil(20_000) {
+                            try {
+                                ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("Send on the original server"))
+                                ui.onNodeWithText("Send on the original server").assertIsDisplayed()
+                                true
+                            } catch (_: AssertionError) { false }
+                        }
                     } catch (failure: Throwable) {
                         captureFeedEvidence("post-queue-evidence/backend-refresh-failure.png")
                         throw failure
