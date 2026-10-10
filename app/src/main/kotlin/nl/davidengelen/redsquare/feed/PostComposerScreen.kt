@@ -33,8 +33,8 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
     val navigation = requireNotNull(LocalPostNavigation.current)
     val state = remember(store, memory, endpoint) { PostComposerState(store, memory, wallet, endpoint, parent, scope) }
     LaunchedEffect(state, state.reload) { state.load() }
-    LaunchedEffect(state, state.queued, state.sending) {
-        if (state.queued && !state.sending) {
+    LaunchedEffect(state, state.queued, state.queueSaved, state.sending) {
+        if (state.queued && state.queueSaved && !state.sending) {
             try { withContext(Dispatchers.IO) { PostQueueScheduling.enqueue(context, owner, backend, endpoint) } }
             catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { state.error = true }
@@ -72,10 +72,10 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
             if (transaction == null) Text(stringResource(R.string.post_draft_local), style = MaterialTheme.typography.bodySmall)
             parent?.let { Text(stringResource(R.string.post_reply_to, "Anon-${it.author.take(6)}"), style = MaterialTheme.typography.bodySmall) }
             if (available) Text(stringResource(R.string.post_available))
-            else if (queued) Text(stringResource(R.string.post_queued))
+            else if (queued && queueSaved) Text(stringResource(R.string.post_queued))
             else if (submitted) Text(stringResource(R.string.post_submitted))
             else if (transaction != null) Text(stringResource(R.string.post_pending))
-            if (queued) TextButton(enabled = !saving && !sending, onClick = ::cancelQueued) {
+            if (queued && queueSaved) TextButton(enabled = !saving && !sending, onClick = ::cancelQueued) {
                 Text(stringResource(R.string.post_cancel_queued))
             }
             if (transaction != null && !available && !queued) TextButton(enabled = !saving && !sending,

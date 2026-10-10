@@ -1,0 +1,101 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostQueuePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PostQueuePreviewTest:
+INSTRUMENTATION_STATUS: test=explicitOfflineSendIsDurableAndCanBeCancelledBeforeTransmission
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostQueuePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=explicitOfflineSendIsDurableAndCanBeCancelledBeforeTransmission
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostQueuePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=queuedPostResumesAfterReconnectionWhileTheAppIsBackgrounded
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostQueuePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=queuedPostResumesAfterReconnectionWhileTheAppIsBackgrounded
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostQueuePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=failedQueueSavingRetainsWorkWithoutClaimingQueuedOrTransmitting
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostQueuePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert count of nodes.
+Reason: Did not expect any node but found '1' node that satisfies: (Text + InputText + EditableText contains 'Queued' (ignoreCase: false))
+Node found:
+Node #364 at (l=16.0, t=368.0, r=77.0, b=392.0)px
+Text = '[Queued]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+Has 16 siblings
+
+	at androidx.compose.ui.test.AssertionsKt.assertCountEquals(Assertions.kt:282)
+	at nl.davidengelen.redsquare.PostQueuePreviewTest.failedQueueSavingRetainsWorkWithoutClaimingQueuedOrTransmitting(PostQueuePreviewTest.kt:174)
+
+INSTRUMENTATION_STATUS: stream=
+Error in failedQueueSavingRetainsWorkWithoutClaimingQueuedOrTransmitting(nl.davidengelen.redsquare.PostQueuePreviewTest):
+java.lang.AssertionError: Failed to assert count of nodes.
+Reason: Did not expect any node but found '1' node that satisfies: (Text + InputText + EditableText contains 'Queued' (ignoreCase: false))
+Node found:
+Node #364 at (l=16.0, t=368.0, r=77.0, b=392.0)px
+Text = '[Queued]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+Has 16 siblings
+
+	at androidx.compose.ui.test.AssertionsKt.assertCountEquals(Assertions.kt:282)
+	at nl.davidengelen.redsquare.PostQueuePreviewTest.failedQueueSavingRetainsWorkWithoutClaimingQueuedOrTransmitting(PostQueuePreviewTest.kt:174)
+
+INSTRUMENTATION_STATUS: test=failedQueueSavingRetainsWorkWithoutClaimingQueuedOrTransmitting
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostQueuePreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=queuedPostResumesOnlyWhenItsOriginalBackendIsSelected
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostQueuePreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=queuedPostResumesOnlyWhenItsOriginalBackendIsSelected
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 57.267
+There was 1 failure:
+1) failedQueueSavingRetainsWorkWithoutClaimingQueuedOrTransmitting(nl.davidengelen.redsquare.PostQueuePreviewTest)
+java.lang.AssertionError: Failed to assert count of nodes.
+Reason: Did not expect any node but found '1' node that satisfies: (Text + InputText + EditableText contains 'Queued' (ignoreCase: false))
+Node found:
+Node #364 at (l=16.0, t=368.0, r=77.0, b=392.0)px
+Text = '[Queued]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+Has 16 siblings
+
+	at androidx.compose.ui.test.AssertionsKt.assertCountEquals(Assertions.kt:282)
+	at nl.davidengelen.redsquare.PostQueuePreviewTest.failedQueueSavingRetainsWorkWithoutClaimingQueuedOrTransmitting(PostQueuePreviewTest.kt:174)
+
+FAILURES!!!
+Tests run: 4,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

@@ -74,3 +74,10 @@ Focused38006955485 at6603f2f passes3/3 application cases, including background
 reconnection with original identity and verified availability on return. This
 proves the controlled background flow, not immediate OS delivery or force-stop
 execution. Failed-persistence truthfulness is next.
+
+Actual failed-save red38007571494 at35287be passes3/4 cases. The failing
+case retains text and shows the storage error, but incorrectly still displays
+Queued (line174). It aborts before its no-transmission and repaired-retry
+assertions, so those are not claimed passed in that run. A separate verified
+queue-save flag now gates Queued, cancellation and scheduling. Local debug/test
+assembly passes1m29; focused green next.

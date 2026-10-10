@@ -1,6 +1,6 @@
 # Sequential implementation handoff
 
-Updated 2026-10-09. The owner authorized implementing all 35 proposed
+Updated 2026-10-10. The owner authorized implementing all 35 proposed
 tickets sequentially, committing after each, and reviewing the app at the end.
 Continue without routine permission requests or a grill per ticket. Ask only
 one question at a time when a material choice really needs the owner.
@@ -178,3 +178,8 @@ Background delivery, uncertain retries and recovery acceptance remain.
 passes2/3; missing background TX is reproduced after activity stops. WorkManager
 2.12.0 scheduling/worker implemented, local debug/test build2m20 passes. Focused
 green next. Original-wallet/backend claims remain shared and atomic.
+
+#11 background green38006955485 passes3/3. Failed-save red38007571494
+passes3/4 and proves false Queued despite storage failure. Status/cancel/schedule
+now require verified durable queue save; local assembly1m29 passes. Focused
+green next. Actual process/wallet replacement/uncertain retries remain.

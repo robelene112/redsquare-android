@@ -36,6 +36,7 @@ internal class PostComposerState(
     var validationError by mutableStateOf(false)
     var transaction by mutableStateOf<SaitoTransaction?>(null)
     var queued by mutableStateOf(false)
+    var queueSaved by mutableStateOf(false)
     var submitted by mutableStateOf(false)
     var available by mutableStateOf(false)
     var sending by mutableStateOf(false)
@@ -48,6 +49,7 @@ internal class PostComposerState(
             memory.text = text
             transaction = saved.transaction
             queued = saved.queued
+            queueSaved = saved.queued
             available = saved.available
             ready = true
             error = false
@@ -61,6 +63,7 @@ internal class PostComposerState(
             withContext(NonCancellable) {
                 val persisted = withContext(Dispatchers.IO) { store.saveComposer(snapshot) }
                 memory.text = persisted.text
+                queueSaved = persisted.queued
             }
             error = false
             true
@@ -103,6 +106,7 @@ internal class PostComposerState(
                     val snapshot = PostDraftStore.Saved(text, prepared, queued)
                     val persisted = withContext(NonCancellable + Dispatchers.IO) { store.saveComposer(snapshot) }
                     queued = persisted.queued
+                    queueSaved = persisted.queued
                     available = persisted.available
                     prepared
                 }
@@ -168,7 +172,7 @@ internal class PostComposerState(
         }
     }
     fun cancelQueued() {
-        if (!ready || saving || sending || !queued) return
+        if (!ready || saving || sending || !queued || !queueSaved) return
         saving = true
         scope.launch {
             try {
@@ -181,6 +185,7 @@ internal class PostComposerState(
                         }
                         transaction = null
                         queued = false
+                        queueSaved = false
                         networkError = false
                         memory.text = text
                     }
