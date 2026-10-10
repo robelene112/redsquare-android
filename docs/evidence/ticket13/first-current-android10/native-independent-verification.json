@@ -1,0 +1,63 @@
+{
+  "result": "PASS",
+  "native": true,
+  "reference": {
+    "saitoCommit": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+    "saitoWasmVersion": "0.3.2",
+    "ellipticVersion": "6.6.1",
+    "wasmSha256": "f59be69dbb949368ce1fc7ef47d414cbe0281a86a206fe4bfb1128a4d087e01e"
+  },
+  "boundary": "Actual controlled Android post/edit frames, independently verified with pinned WASM and Elliptic. No live write or chain inclusion proof.",
+  "original": {
+    "sig": "5ed668a29d35b3f07d42f3b50d4ef880e2553d2f8b450ecdd863c66041fe5d326c93c3e4c8f10f1ca0d122c41f4a4d0da784340548f91e8b6a9063d6407b01f4",
+    "created_at": 1791635163199,
+    "field2": "wFaDF2gBKQj6PmReM8Psvt53MUcXQ8Cmtdh7nbVCvCK2",
+    "tx": "{\"t\":\"AAAAAQAAAAEAAAAAAAAAAF7WaKKdNbPwfULztQ1O+IDiVT0vi0UOzdhjxmBB/l0ybJPD5MjxDxyg0SLEH0pNDaeENAVI+R6LapBj1kB7AfQAAAGhJccIPwAAAAEAAyYSxvgXk2O1t+nE4BkDftBmuWz5lEqqf0R+FblmI3cZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADJhLG+BeTY7W36cTgGQN+0Ga5bPmUSqp/RH4VuWYjdxkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==\",\"m\":\"eyJtb2R1bGUiOiJSZWRTcXVhcmUiLCJyZXF1ZXN0IjoiY3JlYXRlIHR3ZWV0IiwiZGF0YSI6eyJ0ZXh0IjoiTmF0aXZlIGF1dGhvcidzIG9yaWdpbmFsIHBvc3QifX0=\",\"opt\":\"e30=\"}",
+    "body": {
+      "module": "RedSquare",
+      "request": "create tweet",
+      "data": {
+        "text": "Native author's original post"
+      }
+    },
+    "recipients": [
+      "wFaDF2gBKQj6PmReM8Psvt53MUcXQ8Cmtdh7nbVCvCK2"
+    ],
+    "frameSha256": "7cc37338860b5403f1afda2e2d623d048e0c31d80badea5926d68d5b14fc5e97"
+  },
+  "edit": {
+    "sig": "3904c740dccfa66fa8ce8e73a41a0153509f686135a51eefc39e5afc0c5dc3d4347a0aa130bcd6ac4528d68f1d19d207b155ffe7eafbcc5757581b69f9e90f8a",
+    "created_at": 1791635164666,
+    "field2": "wFaDF2gBKQj6PmReM8Psvt53MUcXQ8Cmtdh7nbVCvCK2",
+    "tx": "{\"t\":\"AAAAAQAAAAEAAAAAAAAAADkEx0Dcz6ZvqM6Oc6QaAVNQn2hhNaUe78OeWvwMXcPUNHoKoTC81qxFKNaPHRnSB7FV/+fq+8xXV1gbafnpD4oAAAGhJccN+gAAAAEAAyYSxvgXk2O1t+nE4BkDftBmuWz5lEqqf0R+FblmI3cZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADJhLG+BeTY7W36cTgGQN+0Ga5bPmUSqp/RH4VuWYjdxkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==\",\"m\":\"eyJtb2R1bGUiOiJSZWRTcXVhcmUiLCJyZXF1ZXN0IjoiZWRpdCB0d2VldCIsImRhdGEiOnsidHdlZXRfaWQiOiI1ZWQ2NjhhMjlkMzViM2YwN2Q0MmYzYjUwZDRlZjg4MGUyNTUzZDJmOGI0NTBlY2RkODYzYzY2MDQxZmU1ZDMyNmM5M2MzZTRjOGYxMGYxY2EwZDEyMmM0MWY0YTRkMGRhNzg0MzQwNTQ4ZjkxZThiNmE5MDYzZDY0MDdiMDFmNCIsInRleHQiOiJOYXRpdmUgYXV0aG9yJ3MgZWRpdGVkIHBvc3QifX0=\",\"opt\":\"e30=\"}",
+    "body": {
+      "module": "RedSquare",
+      "request": "edit tweet",
+      "data": {
+        "tweet_id": "5ed668a29d35b3f07d42f3b50d4ef880e2553d2f8b450ecdd863c66041fe5d326c93c3e4c8f10f1ca0d122c41f4a4d0da784340548f91e8b6a9063d6407b01f4",
+        "text": "Native author's edited post"
+      }
+    },
+    "recipients": [
+      "wFaDF2gBKQj6PmReM8Psvt53MUcXQ8Cmtdh7nbVCvCK2"
+    ],
+    "frameSha256": "cfcca51c85acdc7e1cb3650f9d601b6645c0c7f8e9b788744fc1157c6c283bd3"
+  },
+  "deleted": {
+    "sig": "18a90acfb55dd9395d977ef99dcb856df5a8bad8ad39088d4f01f4ceaac79dce68afb0bdb9fc6b5ba4f7f09b397264dcfc10c26f9a864b5c5ab4e9547510d733",
+    "created_at": 1791635166079,
+    "field2": "wFaDF2gBKQj6PmReM8Psvt53MUcXQ8Cmtdh7nbVCvCK2",
+    "tx": "{\"t\":\"AAAAAQAAAAEAAAAAAAAAABipCs+1Xdk5XZd++Z3LhW31qLrYrTkIjU8B9M6qx53OaK+wvbn8a1uk9/CbOXJk3PwQwm+ahktcWrTpVHUQ1zMAAAGhJccTfwAAAAEAAyYSxvgXk2O1t+nE4BkDftBmuWz5lEqqf0R+FblmI3cZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADJhLG+BeTY7W36cTgGQN+0Ga5bPmUSqp/RH4VuWYjdxkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==\",\"m\":\"eyJtb2R1bGUiOiJSZWRTcXVhcmUiLCJyZXF1ZXN0IjoiZGVsZXRlIHR3ZWV0IiwiZGF0YSI6eyJ0d2VldF9pZCI6IjVlZDY2OGEyOWQzNWIzZjA3ZDQyZjNiNTBkNGVmODgwZTI1NTNkMmY4YjQ1MGVjZGQ4NjNjNjYwNDFmZTVkMzI2YzkzYzNlNGM4ZjEwZjFjYTBkMTIyYzQxZjRhNGQwZGE3ODQzNDA1NDhmOTFlOGI2YTkwNjNkNjQwN2IwMWY0In19\",\"opt\":\"e30=\"}",
+    "body": {
+      "module": "RedSquare",
+      "request": "delete tweet",
+      "data": {
+        "tweet_id": "5ed668a29d35b3f07d42f3b50d4ef880e2553d2f8b450ecdd863c66041fe5d326c93c3e4c8f10f1ca0d122c41f4a4d0da784340548f91e8b6a9063d6407b01f4"
+      }
+    },
+    "recipients": [
+      "wFaDF2gBKQj6PmReM8Psvt53MUcXQ8Cmtdh7nbVCvCK2"
+    ],
+    "frameSha256": "e8af835e442b7731ca5550cdb182afe638ff727b8611f1cf049ad50a4fa264d8"
+  }
+}

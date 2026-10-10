@@ -5,6 +5,62 @@ NATIVE_EDIT_DELETE_CONTRACT.md. No production writes or node mutation authorized
 
 ## Latest source checkpoint: 3132404
 
+### Hosted execution restored; Android10/17 focused GREEN
+
+On2026-10-10 the owner authorized public repository publication after a tracked
+history and issue/comment credential scan. GitHub PUBLIC visibility and anonymous
+access were verified; runners execute again without changing billing/spending.
+
+First current Android10 run38051764840 at f8060cb executed all six author UI cases
+in22.742s. Five passed, including stale-cache protection, edit/pending-delete/
+same-candidate retry, proof propagation and mounted quote deletion. Conflict
+failed at a fixture selector requiring SetText on a disabled field, not an
+application failure. Inspected screenshot shows retained text/disabled editor
+and conflict choices. f177057 selects displayed text instead, retaining exact
+text and disabled assertions; the same correction covers cold edit recovery.
+
+Focused Android10 run38052021331 at f177057 passes all six cases24.655s, plus
+actual process-death cold recovery for edit2.942s and delete2.835s. Both retain
+the wallet and original candidate, open saved work without transmission, then
+observe availability on explicit Retry with zero rebroadcast. Inspected conflict
+and recovery screenshots support those statuses. Logs and images retained in
+`docs/evidence/ticket13/author-android10-green/`; first failure/public captures
+in `first-current-android10/`.
+
+The actual native create/edit/delete frames captured by the passing author-flow
+case in38051764840 independently verify with pinned WASM0.3.2/Elliptic6.6.1,
+including signatures, routing hop, target, author and recipient ordering. Both
+unchanged A/B receiver methods apply the native edit, ignore its repeat, preserve
+the original signature and remove it on the native delete under an in-memory
+Archive adapter. Native-mode results retained in `first-current-android10/`.
+Executed network-none/read-only/cap-drop/no-new-privileges/env-i, named public
+dependency/script/frame/source mounts. Initial read failed because the pulled
+Android frame file was mode0600; a readable copy of that public synthetic frame
+input fixed the diagnostic. No signing keys/options/databases were loaded and
+no initialized Saito application or production transaction was used.
+This establishes native transaction/server-receiver interoperability at the
+controlled boundary, not DOM, live deployment or chain inclusion.
+
+Focused Android17 run38052279137 passes all six cases74.175s, edit recovery3.388s
+and delete recovery3.322s. Continuity logs and inspected recovery images retained
+in `docs/evidence/ticket13/author-android17-green/`.
+
+Full run38052234326 passes core35/debug/test/release/lint and eight browse cases,
+then fails three of eight Following cases on Android10. All three time out after
+attempting a feed author click. Inspected screenshots show the post body visible
+but its author link above the viewport. `waitFor` and `assertPostAbsent` scroll
+by body text; a body being visible does not imply that its author link is visible.
+The added Saved post changes header reduces the feed viewport. The bounded
+fixture correction explicitly scrolls each feed author link into view, asserts
+it is displayed, clicks, then observes Profile before unchanged follow assertions.
+No timeout extension or application change. Failure log/image retained in
+`docs/evidence/ticket13/following-fixture-failure/`. Focused and final full
+verification of this correction remain pending. Both review axes previously
+confirmed the disabled-field selector fix; application source remains3132404. The current-retweet quote
+receiver limitation below remains separately visible. Keep #14 open until
+applicable acceptance is satisfied. Earlier billing/unexecuted statements below
+are historical checkpoints, superseded by this section.
+
 ### Recovery-test checkpoint: 1f4703f
 
 Application source remains3132404. Six author Android UI cases now compile,

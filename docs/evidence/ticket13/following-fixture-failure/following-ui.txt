@@ -1,0 +1,180 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FollowingPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.FollowingPreviewTest:
+INSTRUMENTATION_STATUS: test=validFollowedAuthorResultsRemainAvailableWhenAnotherAuthorFails
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FollowingPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=validFollowedAuthorResultsRemainAvailableWhenAnotherAuthorFails
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FollowingPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=followingAnAccountRestrictsTheFeedAndUnfollowingRemovesItsPosts
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FollowingPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.FollowingPreviewTest.waitFor(FollowingPreviewTest.kt:492)
+	at nl.davidengelen.redsquare.FollowingPreviewTest.followingAnAccountRestrictsTheFeedAndUnfollowingRemovesItsPosts(FollowingPreviewTest.kt:456)
+
+INSTRUMENTATION_STATUS: stream=
+Error in followingAnAccountRestrictsTheFeedAndUnfollowingRemovesItsPosts(nl.davidengelen.redsquare.FollowingPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.FollowingPreviewTest.waitFor(FollowingPreviewTest.kt:492)
+	at nl.davidengelen.redsquare.FollowingPreviewTest.followingAnAccountRestrictsTheFeedAndUnfollowingRemovesItsPosts(FollowingPreviewTest.kt:456)
+
+INSTRUMENTATION_STATUS: test=followingAnAccountRestrictsTheFeedAndUnfollowingRemovesItsPosts
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FollowingPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=followingLoadsAuthorHistoryBeyondTheGeneralPageAndRejectsOtherSigners
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FollowingPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.FollowingPreviewTest.waitFor(FollowingPreviewTest.kt:492)
+	at nl.davidengelen.redsquare.FollowingPreviewTest.followingLoadsAuthorHistoryBeyondTheGeneralPageAndRejectsOtherSigners(FollowingPreviewTest.kt:180)
+
+INSTRUMENTATION_STATUS: stream=
+Error in followingLoadsAuthorHistoryBeyondTheGeneralPageAndRejectsOtherSigners(nl.davidengelen.redsquare.FollowingPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.FollowingPreviewTest.waitFor(FollowingPreviewTest.kt:492)
+	at nl.davidengelen.redsquare.FollowingPreviewTest.followingLoadsAuthorHistoryBeyondTheGeneralPageAndRejectsOtherSigners(FollowingPreviewTest.kt:180)
+
+INSTRUMENTATION_STATUS: test=followingLoadsAuthorHistoryBeyondTheGeneralPageAndRejectsOtherSigners
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FollowingPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=failedFollowSaveKeepsTheActionUnconfirmedAndAllowsRetry
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FollowingPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=failedFollowSaveKeepsTheActionUnconfirmedAndAllowsRetry
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FollowingPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=followingChoicesSurviveBackendSwitchAndOfflineRestartWithSeparateHistory
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FollowingPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.FollowingPreviewTest.waitFor(FollowingPreviewTest.kt:492)
+	at nl.davidengelen.redsquare.FollowingPreviewTest.followingChoicesSurviveBackendSwitchAndOfflineRestartWithSeparateHistory(FollowingPreviewTest.kt:70)
+
+INSTRUMENTATION_STATUS: stream=
+Error in followingChoicesSurviveBackendSwitchAndOfflineRestartWithSeparateHistory(nl.davidengelen.redsquare.FollowingPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.FollowingPreviewTest.waitFor(FollowingPreviewTest.kt:492)
+	at nl.davidengelen.redsquare.FollowingPreviewTest.followingChoicesSurviveBackendSwitchAndOfflineRestartWithSeparateHistory(FollowingPreviewTest.kt:70)
+
+INSTRUMENTATION_STATUS: test=followingChoicesSurviveBackendSwitchAndOfflineRestartWithSeparateHistory
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FollowingPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=changingWalletKeepsFollowChoicesWithTheirOriginalIdentity
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FollowingPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=changingWalletKeepsFollowChoicesWithTheirOriginalIdentity
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FollowingPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=newerUnrelatedGeneralCacheCannotHideAvailableFollowedAuthorPosts
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FollowingPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=newerUnrelatedGeneralCacheCannotHideAvailableFollowedAuthorPosts
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FollowingPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=restoredFollowChoiceStorageCanBeRetriedWithoutRestarting
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FollowingPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=restoredFollowChoiceStorageCanBeRetriedWithoutRestarting
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 60.553
+There were 3 failures:
+1) followingAnAccountRestrictsTheFeedAndUnfollowingRemovesItsPosts(nl.davidengelen.redsquare.FollowingPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.FollowingPreviewTest.waitFor(FollowingPreviewTest.kt:492)
+	at nl.davidengelen.redsquare.FollowingPreviewTest.followingAnAccountRestrictsTheFeedAndUnfollowingRemovesItsPosts(FollowingPreviewTest.kt:456)
+2) followingLoadsAuthorHistoryBeyondTheGeneralPageAndRejectsOtherSigners(nl.davidengelen.redsquare.FollowingPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.FollowingPreviewTest.waitFor(FollowingPreviewTest.kt:492)
+	at nl.davidengelen.redsquare.FollowingPreviewTest.followingLoadsAuthorHistoryBeyondTheGeneralPageAndRejectsOtherSigners(FollowingPreviewTest.kt:180)
+3) followingChoicesSurviveBackendSwitchAndOfflineRestartWithSeparateHistory(nl.davidengelen.redsquare.FollowingPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.FollowingPreviewTest.waitFor(FollowingPreviewTest.kt:492)
+	at nl.davidengelen.redsquare.FollowingPreviewTest.followingChoicesSurviveBackendSwitchAndOfflineRestartWithSeparateHistory(FollowingPreviewTest.kt:70)
+
+FAILURES!!!
+Tests run: 8,  Failures: 3
+
+
+INSTRUMENTATION_CODE: -1

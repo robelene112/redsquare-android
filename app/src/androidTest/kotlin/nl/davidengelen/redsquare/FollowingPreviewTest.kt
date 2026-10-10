@@ -51,7 +51,7 @@ class FollowingPreviewTest {
                     .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${officialServer.port}/wsopen")).use { scenario ->
                     try {
                         waitFor("Native Red Square reference post")
-                        ui.onNodeWithText(author).performClick()
+                        openFeedProfile(author)
                         waitFor("Follow")
                         ui.onNodeWithText("Follow").performClick()
                         waitFor("Unfollow")
@@ -66,7 +66,7 @@ class FollowingPreviewTest {
                         waitFor("Profile newer post 20")
                         assertPostAbsent("Another account reference post", "Profile newer post 20")
                         assertPostAbsent("Native Red Square reference post", "Profile newer post 20")
-                        ui.onNodeWithText(author).performClick()
+                        openFeedProfile(author)
                         waitFor("Unfollow")
                         ui.onNodeWithText("Back").performClick()
                         waitFor("Refresh")
@@ -88,7 +88,7 @@ class FollowingPreviewTest {
                         waitFor("Native Red Square reference post")
                         assertPostAbsent("Profile newer post 20", "Native Red Square reference post")
                         assertPostAbsent("Another account reference post", "Native Red Square reference post")
-                        ui.onNodeWithText(author).performClick()
+                        openFeedProfile(author)
                         waitFor("Unfollow")
                         owner.assertHealthy()
                     } catch (failure: Throwable) {
@@ -122,7 +122,7 @@ class FollowingPreviewTest {
                 check(blocked.mkdir())
                 val obstacle = java.io.File(blocked, "public-write-fault").apply { writeText("synthetic test only") }
                 try {
-                    ui.onNodeWithText(author).performClick()
+                    openFeedProfile(author)
                     waitFor("Follow")
                     ui.onNodeWithText("Follow").performClick()
                     waitFor(context.getString(R.string.following_error))
@@ -176,7 +176,7 @@ class FollowingPreviewTest {
                 try {
                     waitFor("Native Red Square reference post")
                     assertPostAbsent("Profile newer post 20", "Native Red Square reference post")
-                    ui.onNodeWithText(author).performClick()
+                    openFeedProfile(author)
                     waitFor("Follow")
                     ui.onNodeWithText("Follow").performClick()
                     waitFor("Unfollow")
@@ -227,7 +227,7 @@ class FollowingPreviewTest {
             try {
                 withApp {
                     waitFor("Native Red Square reference post")
-                    ui.onNodeWithText(author).performClick()
+                    openFeedProfile(author)
                     waitFor("Follow")
                     ui.onNodeWithText("Follow").performClick()
                     waitFor("Unfollow")
@@ -246,7 +246,7 @@ class FollowingPreviewTest {
                     assertPostAbsent("Native Red Square reference post")
                     ui.onNodeWithText("All posts").performClick()
                     waitFor("Native Red Square reference post")
-                    ui.onNodeWithText(author).performClick()
+                    openFeedProfile(author)
                     waitFor("Follow")
                     ui.onNodeWithText("Unfollow").assertDoesNotExist()
                     captureFeedEvidence("following-evidence/replacement-wallet-separate-following.png")
@@ -257,7 +257,7 @@ class FollowingPreviewTest {
                     waitFor("Native Red Square reference post")
                     ui.onNodeWithText("Following").performClick()
                     waitFor("Native Red Square reference post")
-                    ui.onNodeWithText(author).performClick()
+                    openFeedProfile(author)
                     waitFor("Unfollow")
                     peer.assertHealthy()
                     captureFeedEvidence("following-evidence/original-wallet-following-restored.png")
@@ -284,7 +284,7 @@ class FollowingPreviewTest {
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
             ActivityScenario.launch<MainActivity>(intent).use {
                 waitFor("Native Red Square reference post")
-                ui.onNodeWithText(author).performClick()
+                openFeedProfile(author)
                 waitFor("Follow")
                 ui.onNodeWithText("Follow").performClick()
                 waitFor("Unfollow")
@@ -333,7 +333,7 @@ class FollowingPreviewTest {
                 ui.onNodeWithText("Wallet").performClick()
                 choices = java.io.File(context.noBackupFilesDir, "following.${displayedWalletAddress(ui)}.v1")
                 ui.onNodeWithText("Done").performClick()
-                ui.onNodeWithText(author).performClick()
+                openFeedProfile(author)
                 waitFor("Follow")
                 ui.onNodeWithText("Follow").performClick()
                 waitFor("Unfollow")
@@ -353,7 +353,7 @@ class FollowingPreviewTest {
                         waitFor("Native Red Square reference post")
                         ui.onNodeWithText(context.getString(R.string.following_error)).assertDoesNotExist()
                         ui.onNodeWithText("Loading follow choices").assertDoesNotExist()
-                        ui.onNodeWithText(author).performClick()
+                        openFeedProfile(author)
                         waitFor("Unfollow")
                         peer.assertHealthy()
                         captureFeedEvidence("following-evidence/follow-choice-read-retry.png")
@@ -396,8 +396,7 @@ class FollowingPreviewTest {
                 try {
                     waitFor("Native Red Square reference post")
                     for (author in listOf(firstAuthor, secondAuthor)) {
-                        ui.onNode(hasScrollAction()).performScrollToNode(hasText(author))
-                        ui.onNodeWithText(author).performClick()
+                        openFeedProfile(author)
                         waitFor("Follow")
                         ui.onNodeWithText("Follow").performClick()
                         waitFor("Unfollow")
@@ -443,8 +442,7 @@ class FollowingPreviewTest {
                     waitFor("Native Red Square reference post")
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText("Another account reference post"))
                     ui.onNodeWithText("Another account reference post").assertIsDisplayed()
-                    ui.onNode(hasScrollAction()).performScrollToNode(hasText(author))
-                    ui.onNodeWithText(author).performClick()
+                    openFeedProfile(author)
                     waitFor("Profile")
                     ui.onNodeWithText("Follow").performClick()
                     waitFor("Unfollow")
@@ -452,7 +450,7 @@ class FollowingPreviewTest {
                     ui.onNodeWithText("Following").performClick()
                     waitFor("Native Red Square reference post")
                     assertPostAbsent("Another account reference post", "Native Red Square reference post")
-                    ui.onNodeWithText(author).performClick()
+                    openFeedProfile(author)
                     waitFor("Unfollow")
                     ui.onNodeWithText("Unfollow").performClick()
                     waitFor("Follow")
@@ -467,6 +465,13 @@ class FollowingPreviewTest {
                 }
             }
         }
+    }
+
+    private fun openFeedProfile(author: String) {
+        // A visible post body does not guarantee its author link is in the viewport.
+        ui.onNode(hasScrollAction()).performScrollToNode(hasText(author))
+        ui.onNodeWithText(author).assertIsDisplayed().performClick()
+        waitFor("Profile")
     }
 
     private fun readReference(name: String): com.google.gson.JsonObject =
