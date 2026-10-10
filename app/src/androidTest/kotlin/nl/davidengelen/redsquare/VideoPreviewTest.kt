@@ -47,7 +47,8 @@ class VideoPreviewTest {
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("youtubeFixtureUrl", "http://127.0.0.1:${api.port}/iframe_api")).use {
                     try {
-                        ui.waitUntil(20_000) { peer.requests.get() > 0 && ui.onAllNodesWithText("Video reference https://youtu.be/M7lc1UVf-VE").fetchSemanticsNodes().isNotEmpty() }
+                        ui.waitUntil(20_000) { peer.requests.get() >= 2 && ui.onAllNodesWithText("Loading posts…").fetchSemanticsNodes().isEmpty() }
+                        if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
                         assertEquals(0, api.requestCount)
                         watch("Video reference https://youtu.be/M7lc1UVf-VE")
                         ui.waitUntil(20_000) { ui.onAllNodesWithText("Use the player controls to start playback.").fetchSemanticsNodes().isNotEmpty() }

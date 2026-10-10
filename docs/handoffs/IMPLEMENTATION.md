@@ -44,8 +44,14 @@ original cached-history/error assertions unchanged. Focused browse10 run38087621
 PASS8 cases15.376s atf6c016e; individually inspected cached-Likes bitmap shows the
 retained liked post and outage/history warnings. Cleanup383caac preserves the
 primary failure through captures/server close; both bounded reviews0. Outstanding
-full10 run38087989539 at383caac is pending. Full17 companion38087176435 remains pending
-at e8fafd9, with public Saito reads enabled. CDP reads only allowed public frame DOM;
+full10 run38087989539 at383caac is pending. Full17 companion38087176435 FAILS
+at e8fafd9 before later foundation/public-read groups: video3/4 pass44.025s,
+first tap case times out atline50 before scrolling/tap with0 provider requests.
+Original in-scope PNG shows a cached queued post, not the selected video post.
+The fixture now waits the same completed archive/loading condition as its other
+cases and uses the existing scoped scroll/tap helper; positive readiness,
+Referer/no-autoplay/no-transaction and close assertions remain. Runtime pending.
+CDP reads only allowed public frame DOM;
 page screenshots were removed at23eea43. No ticket closure until acceptance.
 See NATIVE_VIDEO_VERIFICATION.md. No ticket closure or new APK.
 

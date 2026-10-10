@@ -1,5 +1,21 @@
 # Native YouTube verification
 
+FullAndroid17 run38087176435 at e8fafd9 FAILS in controlled videos before the
+later foundation/public-read groups. Three of4 video cases pass,44.025s total;
+the first case times out atline50 before tap with0 provider requests. The
+individually inspected original in-scope PNG shows the feed's cached queued
+post and backup reminder, with no visible target video post. The pre-scroll
+wait required the older selected post to be composed already; a LazyColumn
+need not compose offscreen posts. Other cases instead wait both archive reads
+and loading completion, then scroll the exact signed post into view. The first
+fixture now uses that same setup and dismisses the existing Later reminder
+before the unchanged scoped scroll/tap. All positive provider readiness,
+installed-app Referer, no-autoplay/no-write and close assertions remain.
+This is a source-supported setup correction; its new runtime result is pending.
+Retained full-video-red/android17 has the raw video result and original PNG/XML.
+FullAndroid10 companion38087989539 remains pending at383caac. Neither full
+candidate is accepted; the actual public provider refusal remains separate.
+
 Focused browse recovery run38087621645 atf6c016e is GREEN: all8 cases15.376s,
 including cached profile Posts/Replies/Likes after the controlled server stops.
 The individually inspected original cached-Likes PNG shows the retained liked
