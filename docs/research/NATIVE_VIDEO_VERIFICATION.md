@@ -324,3 +324,21 @@ height chain, and displays the iframe as a block to remove inline baseline
 spacing. The existing actual-provider test is the acceptance RED; its trusted
 Play/control and native Playing assertions remain unchanged. Build and actual
 provider GREEN are pending. No autoplay or provider/wallet capability was added.
+
+CSS-only8e46329 is not GREEN. Android10 run38086337225 fails native Playing
+after a trusted control click, one case51.545s; Android17 run38086335271 fails
+the missing Play assertion, one43.16s. Both captured completed wrapper296×448
+with body/iframe0 and YouTube viewport296×0. The CSS viewport-height attempt
+therefore did not correct the underlying sizing mode. Android10's original
+failure PNG remains mostly black/external control; separate XML exposes a tiny
+Play control and Unable to play media. No media success claim. Evidence retained
+public-content-height/android10 andandroid17. Native/debug-test buildPASS1m6s;
+both bounded CSS source review axes0, but runtime acceptance fails.
+Android's primary WebView documentation explains that content-height layout
+fixes the HTML body height and can break relative sizing. The next minimal
+correction explicitly sets MATCH_PARENT native layout parameters before HTML
+loading and restores relative100% CSS height, keeping block iframe display.
+[Primary layout-size contract](https://android.googlesource.com/platform/frameworks/base/+/9f52b4aa3b0cf720b67f9f7c7ccaafba4eac4367/core/java/android/webkit/WebView.java#289).
+The existing live acceptance RED/Play/Playing assertions remain unchanged;
+this explanation is a source-supported diagnosis to verify with fresh geometry
+and trusted playback, not a passed result.

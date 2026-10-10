@@ -3,6 +3,7 @@ package nl.davidengelen.redsquare.feed
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.view.ViewGroup
 import android.webkit.*
 import androidx.compose.runtime.staticCompositionLocalOf
 import com.google.gson.JsonParser
@@ -56,6 +57,8 @@ internal class VideoBrowser(context: Context, video: YouTubeVideo, fixture: Stri
     val view = WebView(context)
 
     init {
+        // WebView's content-height mode collapses relative HTML/iframe heights.
+        view.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         view.contentDescription = context.getString(R.string.video_player)
         view.settings.apply {
             javaScriptEnabled = true
@@ -124,7 +127,7 @@ internal class VideoBrowser(context: Context, video: YouTubeVideo, fixture: Stri
         view.loadDataWithBaseURL("$origin/", """
             <!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1">
             <meta name="referrer" content="strict-origin-when-cross-origin">
-            <style>html,body,#player{margin:0;width:100%;height:100vh;background:#000}iframe{border:0;display:block}</style></head>
+            <style>html,body,#player{margin:0;width:100%;height:100%;background:#000}iframe{border:0;display:block}</style></head>
             <body><div id="player"></div><script>
             window.rsVideo={state:'loading',code:0};
             function onYouTubeIframeAPIReady(){
