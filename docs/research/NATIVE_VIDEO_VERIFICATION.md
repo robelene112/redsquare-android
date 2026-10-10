@@ -143,3 +143,26 @@ closes when a real owner arrives. This does not restore a previous owner's
 selection or provide any signing capability to the player.
 Only public owner/backend/video identifiers are saved; no wallet capability is
 passed to provider content. Runtime GREEN remains pending.
+
+Root-host source compiles1m41s. Bounded d8e9869...f8f22d4 Spec review0;
+Standards flagged an overly broad description of null-session loading, resolved
+by6c2186e's distinction above, with0 residual findings. No wallet gate was added.
+
+Focused10 run38082111356 atf8f22d4 reaches landscape fallback, unchanged request
+count and visible close/external controls, then fresh portrait readiness with2
+requests. It fails the final widget lookup atline118: Chromium's accessibility
+WebView nodes have no content description, despite the native property. Original
+failure PNG is a black player surface with ready/close/external text; separately
+captured XML exposes two WebView nodes at[12,132][288,580] and the controlled
+provider text. These are different frames, not real media playback. Small-window
+XML has no WebView. At6fd854c, both positive viewport measurement and negative
+undersized-window assertion use the actual android.webkit.WebView class. This
+strengthens the absence check and preserves the200dp bounds requirement.
+Focused10 run38082402358 is pending; production source remainsf8f22d4.
+
+The companion17 run38082113563 also reaches landscape fallback and fresh
+portrait readiness with2 requests, then fails line120's repeated label lookup
+after5s; two cases40.405s, first tap passes. Its individually inspected original
+PNG visibly shows white controlled-provider text on black, ready/close/external
+controls. No real media is depicted. The corrected class selector addresses
+actual WebView nodes rather than a native label that Chromium can replace.
