@@ -93,3 +93,17 @@ a fixture failure, not a functional red. The fixture now sends a normal1001
 close and ignores subsequent Archive requests only on that interrupted session.
 Later connections can serve the accepted original transaction. Local assembly
 passes55s; actual uncertainty red is still pending.
+
+Actual uncertainty red38009504360 at92b643a times out waiting for automatic
+availability after the correctly interrupted accepted transaction (line210).
+Three other cases pass. The backend case completes transmission/identity checks
+but then times out waiting for refreshed feed content (line102); it clicked
+Refresh without requiring enabled state. No screenshot proves that failed button
+state. A readiness wait and failure capture now preserve the same feed assertion.
+
+Durable automatic-delivery intent now survives the Queued-to-uncertain claim.
+The foreground and worker resumers include those original signed records, query
+exact verified availability first and retry the same transaction if needed.
+Scheduling marks automatic intent before enqueue; legacy/manual pending records
+remain nonautomatic. Candidate state is preserved by composer saves. Local
+debug/test assembly passes1m30; focused five-case green next.

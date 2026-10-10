@@ -37,7 +37,7 @@ class PostQueueWorker(context: Context, parameters: WorkerParameters) : Coroutin
                 FeedEndpoints.fromIntent(Intent().putExtra(extra, requested), backend)
             }
             resumeQueuedPosts(applicationContext, wallet, backend, endpoint, id)
-            if (PostDraftStore.queued(applicationContext, wallet.publicKey, backend).any { it.load().transaction?.id == id })
+            if (PostDraftStore.pendingDelivery(applicationContext, wallet.publicKey, backend).any { it.load().transaction?.id == id })
                 Result.retry() else Result.success()
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { Result.retry() }
@@ -46,8 +46,11 @@ class PostQueueWorker(context: Context, parameters: WorkerParameters) : Coroutin
 
 internal object PostQueueScheduling {
     fun enqueue(context: Context, owner: String, backend: SaitoBackend, endpoint: String) {
-        for (store in PostDraftStore.queued(context, owner, backend)) {
-            val candidate = requireNotNull(store.load().transaction)
+        for (store in PostDraftStore.pendingDelivery(context, owner, backend)) {
+            val saved = store.load()
+            if (saved.available || (!saved.queued && !saved.automatic)) continue
+            if (!saved.automatic && !store.update(saved, saved.copy(automatic = true))) continue
+            val candidate = requireNotNull(saved.transaction)
             val request = OneTimeWorkRequestBuilder<PostQueueWorker>()
                 .setConstraints(Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
                 .setInputData(workDataOf("transaction" to candidate.id, "owner" to owner,

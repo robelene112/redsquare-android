@@ -33,7 +33,8 @@ internal class PostDraftStore private constructor(private val context: Context, 
         "postdraft.${backend.id}.$owner${parentId.takeIf { it.isNotEmpty() }?.let { ".$it" }.orEmpty()}.v1"))
     private val associatedData = "${context.packageName}:${file.baseFile.name}".toByteArray(Charsets.UTF_8)
 
-    data class Saved(val text: String, val transaction: SaitoTransaction? = null, val queued: Boolean = false, val available: Boolean = false)
+    data class Saved(val text: String, val transaction: SaitoTransaction? = null, val queued: Boolean = false,
+        val available: Boolean = false, val automatic: Boolean = false)
     private val gson = GsonBuilder().setStrictness(Strictness.STRICT).create()
 
     fun load(): Saved = synchronized(lock) {
@@ -78,7 +79,12 @@ internal class PostDraftStore private constructor(private val context: Context, 
                 } ?: false
                 require((!queued && !available) || transaction != null)
                 require(!queued || !available)
-                Saved(content, transaction, queued, available)
+                val automatic = record.get("automatic")?.let {
+                    require(it.isJsonPrimitive && it.asJsonPrimitive.isBoolean)
+                    it.asBoolean
+                } ?: false
+                require(!automatic || transaction != null)
+                Saved(content, transaction, queued, available, automatic)
             }
         } finally { text.fill(0) }
     }
@@ -86,12 +92,14 @@ internal class PostDraftStore private constructor(private val context: Context, 
     fun save(saved: Saved) = synchronized(lock) {
         require(!saved.queued || saved.transaction != null)
         require(!saved.available || (saved.transaction != null && !saved.queued))
+        require(!saved.automatic || saved.transaction != null)
         require(saved.text.toByteArray(Charsets.UTF_8).size <= 1024 * 1024)
         val record = JsonObject().apply {
             addProperty("text", saved.text)
             saved.transaction?.let { addProperty("transaction", it.encoded()) }
             addProperty("queued", saved.queued)
             addProperty("available", saved.available)
+            addProperty("automatic", saved.automatic)
         }
         val encoded = Charsets.UTF_8.newEncoder().onMalformedInput(CodingErrorAction.REPORT)
             .onUnmappableCharacter(CodingErrorAction.REPORT).encode(CharBuffer.wrap(record.toString()))
@@ -169,16 +177,16 @@ internal class PostDraftStore private constructor(private val context: Context, 
 
         private fun same(first: Saved, second: Saved) = first.text == second.text &&
             first.transaction?.encoded() == second.transaction?.encoded() &&
-            first.queued == second.queued && first.available == second.available
+            first.queued == second.queued && first.available == second.available && first.automatic == second.automatic
 
-        fun queued(context: Context, owner: String, backend: SaitoBackend): List<PostDraftStore> {
+        fun pendingDelivery(context: Context, owner: String, backend: SaitoBackend): List<PostDraftStore> {
             val prefix = "postdraft.${backend.id}.$owner"
             return requireNotNull(context.noBackupFilesDir.listFiles()).map { it.name.removeSuffix(".bak") }
                 .distinct().filter { it == "$prefix.v1" || it.matches(Regex("${Regex.escape(prefix)}\\.[0-9a-f]{128}\\.v1")) }
                 .map { name ->
                     val parent = name.removePrefix(prefix).removeSuffix(".v1").removePrefix(".")
                     PostDraftStore(context, owner, backend, parent, null)
-                }.filter { it.load().queued }
+                }.filter { store -> store.load().let { !it.available && (it.queued || it.automatic) } }
         }
     }
 

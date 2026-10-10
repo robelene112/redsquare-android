@@ -98,8 +98,14 @@ class PostQueuePreviewTest {
                     val post = nl.davidengelen.redsquare.saito.RedSquareFeed.decode(postingTransaction(owner.transactions.single()).envelope())
                     org.junit.Assert.assertEquals(address, post.author)
                     assertTrue(official.transactions.isEmpty())
-                    ui.onNodeWithText("Refresh").performClick()
-                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("Send on the original server")).fetchSemanticsNodes().isNotEmpty() }
+                    try {
+                        ui.waitUntil(10_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                        ui.onNodeWithText("Refresh").performClick()
+                        ui.waitUntil(20_000) { ui.onAllNodes(hasText("Send on the original server")).fetchSemanticsNodes().isNotEmpty() }
+                    } catch (failure: Throwable) {
+                        captureFeedEvidence("post-queue-evidence/backend-refresh-failure.png")
+                        throw failure
+                    }
                     owner.assertHealthy(); official.assertHealthy()
                     captureFeedEvidence("post-queue-evidence/original-backend-resumed-post.png")
                 }
