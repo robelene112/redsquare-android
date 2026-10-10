@@ -1,0 +1,155 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.FeedPreviewTest:
+INSTRUMENTATION_STATUS: test=unreadableRefreshExplainsTheProblemWhileKeepingCachedPosts
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.FeedPreviewTest.waitForText(FeedPreviewTest.kt:149)
+	at nl.davidengelen.redsquare.FeedPreviewTest.unreadableRefreshExplainsTheProblemWhileKeepingCachedPosts$lambda$19$lambda$18$lambda$17(FeedPreviewTest.kt:137)
+	at nl.davidengelen.redsquare.FeedPreviewTest.$r8$lambda$QBgfmchxLrA6c2eL5i74H9PV8u4(FeedPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.FeedPreviewTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.FeedPreviewTest.captureFailure(FeedPreviewTest.kt:153)
+	at nl.davidengelen.redsquare.FeedPreviewTest.unreadableRefreshExplainsTheProblemWhileKeepingCachedPosts(FeedPreviewTest.kt:132)
+
+INSTRUMENTATION_STATUS: stream=
+Error in unreadableRefreshExplainsTheProblemWhileKeepingCachedPosts(nl.davidengelen.redsquare.FeedPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.FeedPreviewTest.waitForText(FeedPreviewTest.kt:149)
+	at nl.davidengelen.redsquare.FeedPreviewTest.unreadableRefreshExplainsTheProblemWhileKeepingCachedPosts$lambda$19$lambda$18$lambda$17(FeedPreviewTest.kt:137)
+	at nl.davidengelen.redsquare.FeedPreviewTest.$r8$lambda$QBgfmchxLrA6c2eL5i74H9PV8u4(FeedPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.FeedPreviewTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.FeedPreviewTest.captureFailure(FeedPreviewTest.kt:153)
+	at nl.davidengelen.redsquare.FeedPreviewTest.unreadableRefreshExplainsTheProblemWhileKeepingCachedPosts(FeedPreviewTest.kt:132)
+
+INSTRUMENTATION_STATUS: test=unreadableRefreshExplainsTheProblemWhileKeepingCachedPosts
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=authenticatedFeedSurvivesReopeningAndRecoversWithoutLosingPosts
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=authenticatedFeedSurvivesReopeningAndRecoversWithoutLosingPosts
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=refreshAndRecreationKeepTheVisiblePostWhenNewPostsArrive
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=refreshAndRecreationKeepTheVisiblePostWhenNewPostsArrive
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=unavailableCacheWarnsWithoutHidingLivePostsAndCanRecover
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unavailableCacheWarnsWithoutHidingLivePostsAndCanRecover
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.BackendPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.BackendPreviewTest:
+INSTRUMENTATION_STATUS: test=unreadableSelectionRequiresAnExplicitChoiceBeforeConnecting
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.BackendPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unreadableSelectionRequiresAnExplicitChoiceBeforeConnecting
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.BackendPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=uncertainSelectionCommitStopsConnectionsUntilExplicitRecoveryAfterRestart
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.BackendPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=uncertainSelectionCommitStopsConnectionsUntilExplicitRecoveryAfterRestart
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.BackendPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=failedSelectionSaveKeepsTheCurrentServerAndCanBeRetried
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.BackendPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=failedSelectionSaveKeepsTheCurrentServerAndCanBeRetried
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.BackendPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=switchingServersKeepsIdentityAndRestoresSeparateCachesThroughOutage
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.BackendPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=switchingServersKeepsIdentityAndRestoresSeparateCachesThroughOutage
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 34.156
+There was 1 failure:
+1) unreadableRefreshExplainsTheProblemWhileKeepingCachedPosts(nl.davidengelen.redsquare.FeedPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.FeedPreviewTest.waitForText(FeedPreviewTest.kt:149)
+	at nl.davidengelen.redsquare.FeedPreviewTest.unreadableRefreshExplainsTheProblemWhileKeepingCachedPosts$lambda$19$lambda$18$lambda$17(FeedPreviewTest.kt:137)
+	at nl.davidengelen.redsquare.FeedPreviewTest.$r8$lambda$QBgfmchxLrA6c2eL5i74H9PV8u4(FeedPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.FeedPreviewTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.FeedPreviewTest.captureFailure(FeedPreviewTest.kt:153)
+	at nl.davidengelen.redsquare.FeedPreviewTest.unreadableRefreshExplainsTheProblemWhileKeepingCachedPosts(FeedPreviewTest.kt:132)
+
+FAILURES!!!
+Tests run: 8,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

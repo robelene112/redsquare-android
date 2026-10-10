@@ -131,9 +131,17 @@ class FeedPreviewTest {
             ActivityScenario.launch<MainActivity>(intent(server.port)).use {
                 captureFailure {
                     waitForText("Native Red Square reference post")
+                    // Feed rows appear before the initial two archive streams finish.
+                    // Observe a completed load before asking the UI to refresh it.
+                    ui.waitUntil(15_000) {
+                        peer.requests.get() >= 2 &&
+                            ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty()
+                    }
                     val invalid = fixture.getAsJsonObject("archiveRow").deepCopy().apply { addProperty("tx", "{}") }
                     peer.rows = "[$invalid]"
-                    ui.onNodeWithText("Refresh").performClick()
+                    val before = peer.requests.get()
+                    ui.onNodeWithText("Refresh").assertIsDisplayed().assertIsEnabled().performClick()
+                    ui.waitUntil(15_000) { peer.requests.get() > before }
                     waitForText("The server returned posts this app could not read.")
                     ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
                     peer.assertHealthy()

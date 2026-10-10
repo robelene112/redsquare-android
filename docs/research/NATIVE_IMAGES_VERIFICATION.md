@@ -397,3 +397,14 @@ requires bounded scroll/displayed/enabled click. Signed frame/pixel/identity gat
 are unchanged. Local narrow compile PASS1m10s. Keep successful10 acceptance and
 run outstanding17 full under WORKFLOW's fixture-only equivalence rule; verify
 production/build/scripts/workflow unchanged before closure.
+
+Full174dd0d3d/run38069923347 passes all image/picker/preparation/lifecycle and
+both image cold recoveries, then fails an older unreadable-refresh fixture.
+108 successful individual cases/24 passing records/11 real process deaths,
+one failure. Exact logs/inspected PNG/limits retained full-android17-feed-failure.
+Warning absence is observed, not a proven application defect or unique cause.
+Initial feed text can publish before loading finishes, while that fixture did
+not require enabled Refresh. Corrected fixture awaits both initial archive
+streams/positive enabled navigation and a subsequent observed request; unchanged
+exact warning/cached-post checks remain required. Narrow compile PASS. Production
+unchanged; focused feed17 then complete17 companion verification remain needed.

@@ -136,7 +136,14 @@ one question at a time when a material choice really needs the owner.
   share bounded keyboard dismissal/visible navigation and scope both observed
   labels to the launched picker package. Narrow compile PASS1m10s. Production
   unchanged; retain successful10 and rerun only outstanding17 full perWORKFLOW.
-  Bounded fix review and complete17 evidence still required before closure.
+  Bounded4dd fix reviews0. Full17 run38069923347 passes all media and wallet
+  flows reached, then fails old unreadable-feed refresh fixture:108 successful
+  cases/24 passing records/11 actual kills,1 failure. New fixture waits both
+  initial archive streams plus enabled Refresh, then verifies a new request;
+  exact warning/post assertions unchanged. Narrow compile PASS. Production
+  unchanged. Focused feed17 and full17 companion/evidence/review still required.
+  Full10 evidence retained6853de3, corrected official caption0c5b7fd; both
+  bounded evidence review axes0 residual findings.
   Actual post/reply/quote frames independently verified; A/B unchanged templates
   and offline Chromium decode gallery order/pixels. Public synthetic proof retained
   docs/evidence/ticket14/interop. Cold recovery first phase now clears synthetic
