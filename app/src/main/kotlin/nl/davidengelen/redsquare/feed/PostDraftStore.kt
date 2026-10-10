@@ -1,20 +1,7 @@
 package nl.davidengelen.redsquare.feed
 
 import android.content.Context
-import android.security.keystore.KeyGenParameterSpec
-import android.security.keystore.KeyProperties
-import android.system.Os
-import android.system.OsConstants
-import android.util.AtomicFile
-import java.io.File
-import java.nio.ByteBuffer
-import java.nio.CharBuffer
-import java.nio.charset.CodingErrorAction
-import java.security.KeyStore
-import javax.crypto.Cipher
-import javax.crypto.KeyGenerator
-import javax.crypto.SecretKey
-import javax.crypto.spec.GCMParameterSpec
+import nl.davidengelen.redsquare.saito.EncryptedLocalFile
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.SaitoTransaction
 import nl.davidengelen.redsquare.saito.RedSquareFeed
@@ -35,9 +22,8 @@ internal class PostDraftStore private constructor(private val context: Context, 
     constructor(context: Context, owner: String, backend: SaitoBackend, parent: FeedPost? = null, quote: FeedPost? = null) :
         this(context, owner, backend, parent?.id.orEmpty(), parent?.threadId, quote?.id.orEmpty())
     init { require(owner.matches(Regex("[1-9A-HJ-NP-Za-km-z]{43,45}"))) }
-    private val file = AtomicFile(File(context.noBackupFilesDir,
-        "postdraft.${backend.id}.$owner${if (authorKind != null) ".author.${authorKind.storageId}.$authorTarget" else if (quoteId.isNotEmpty()) ".quote.$quoteId" else parentId.takeIf { it.isNotEmpty() }?.let { ".$it" }.orEmpty()}.v1"))
-    private val associatedData = "${context.packageName}:${file.baseFile.name}".toByteArray(Charsets.UTF_8)
+    private val file = EncryptedLocalFile(context,
+        "postdraft.${backend.id}.$owner${if (authorKind != null) ".author.${authorKind.storageId}.$authorTarget" else if (quoteId.isNotEmpty()) ".quote.$quoteId" else parentId.takeIf { it.isNotEmpty() }?.let { ".$it" }.orEmpty()}.v1", "redsquare.postdraft.v1", "postdraft.")
 
     data class Saved(val text: String, val transaction: SaitoTransaction? = null, val queued: Boolean = false,
         val available: Boolean = false, val automatic: Boolean = false, val authorBaseline: String? = null,
@@ -46,64 +32,43 @@ internal class PostDraftStore private constructor(private val context: Context, 
     private val gson = GsonBuilder().setStrictness(Strictness.STRICT).create()
 
     fun load(): Saved = synchronized(lock) {
-        if (!file.baseFile.exists() && !File(file.baseFile.path + ".bak").exists()) return@synchronized Saved("")
-        val key = requireNotNull(existingKey()) { "Draft storage key unavailable" }
-        val encrypted = file.openRead().use { input ->
-            val buffer = ByteArray(MAX_BYTES + 30)
-            var size = 0
-            while (size < buffer.size) {
-                val count = input.read(buffer, size, buffer.size - size)
-                if (count < 0) break
-                size += count
-            }
-            require(size in 29 until buffer.size && buffer[0] in 1.toByte()..2.toByte())
-            buffer.copyOf(size)
-        }
-        val cipher = Cipher.getInstance("AES/GCM/NoPadding").apply {
-            init(Cipher.DECRYPT_MODE, key, GCMParameterSpec(128, encrypted.copyOfRange(1, 13)))
-            updateAAD(associatedData)
-        }
-        val text = cipher.doFinal(encrypted.copyOfRange(13, encrypted.size))
-        try {
-            val decoded = Charsets.UTF_8.newDecoder().onMalformedInput(CodingErrorAction.REPORT)
-                .onUnmappableCharacter(CodingErrorAction.REPORT).decode(ByteBuffer.wrap(text)).toString()
-            if (encrypted[0] == 1.toByte()) Saved(decoded)
-            else {
-                val record = gson.fromJson(decoded, JsonObject::class.java)
-                val content = record.get("text").asString
-                val transaction = record.get("transaction")?.takeUnless { it.isJsonNull }?.asString?.let(SaitoTransaction::restore)
-                val images = record.get("images")?.let { values ->
-                    require(values.isJsonArray)
-                    values.asJsonArray.map { value ->
-                        require(value.isJsonPrimitive && value.asJsonPrimitive.isString)
-                        value.asString
-                    }
-                }.orEmpty()
-                validateTransaction(transaction, content, images)
-                val queued = record.get("queued")?.let {
-                    require(it.isJsonPrimitive && it.asJsonPrimitive.isBoolean)
-                    it.asBoolean
-                } ?: false
-                val available = record.get("available")?.let {
-                    require(it.isJsonPrimitive && it.asJsonPrimitive.isBoolean)
-                    it.asBoolean
-                } ?: false
-                require((!queued && !available) || transaction != null)
-                require(!queued || !available)
-                val automatic = record.get("automatic")?.let {
-                    require(it.isJsonPrimitive && it.asJsonPrimitive.isBoolean)
-                    it.asBoolean
-                } ?: false
-                require(!automatic || transaction != null)
-                require(authorKind == null || (!queued && !automatic))
-                val baseline = record.get("authorBaseline")?.let {
-                    require(it.isJsonPrimitive && it.asJsonPrimitive.isString)
-                    it.asString
+        val contents = file.load() ?: return@synchronized Saved("")
+        if (contents.version == 1.toByte()) Saved(contents.text)
+        else {
+            val record = gson.fromJson(contents.text, JsonObject::class.java)
+            val content = record.get("text").asString
+            val transaction = record.get("transaction")?.takeUnless { it.isJsonNull }?.asString?.let(SaitoTransaction::restore)
+            val images = record.get("images")?.let { values ->
+                require(values.isJsonArray)
+                values.asJsonArray.map { value ->
+                    require(value.isJsonPrimitive && value.asJsonPrimitive.isString)
+                    value.asString
                 }
-                validateBaseline(baseline)
-                Saved(content, transaction, queued, available, automatic, baseline, images)
+            }.orEmpty()
+            validateTransaction(transaction, content, images)
+            val queued = record.get("queued")?.let {
+                require(it.isJsonPrimitive && it.asJsonPrimitive.isBoolean)
+                it.asBoolean
+            } ?: false
+            val available = record.get("available")?.let {
+                require(it.isJsonPrimitive && it.asJsonPrimitive.isBoolean)
+                it.asBoolean
+            } ?: false
+            require((!queued && !available) || transaction != null)
+            require(!queued || !available)
+            val automatic = record.get("automatic")?.let {
+                require(it.isJsonPrimitive && it.asJsonPrimitive.isBoolean)
+                it.asBoolean
+            } ?: false
+            require(!automatic || transaction != null)
+            require(authorKind == null || (!queued && !automatic))
+            val baseline = record.get("authorBaseline")?.let {
+                require(it.isJsonPrimitive && it.asJsonPrimitive.isString)
+                it.asString
             }
-        } finally { text.fill(0) }
+            validateBaseline(baseline)
+            Saved(content, transaction, queued, available, automatic, baseline, images)
+        }
     }
 
     fun save(saved: Saved) = synchronized(lock) {
@@ -123,37 +88,7 @@ internal class PostDraftStore private constructor(private val context: Context, 
             addProperty("automatic", saved.automatic)
             saved.authorBaseline?.let { addProperty("authorBaseline", it) }
         }
-        val encoded = Charsets.UTF_8.newEncoder().onMalformedInput(CodingErrorAction.REPORT)
-            .onUnmappableCharacter(CodingErrorAction.REPORT).encode(CharBuffer.wrap(record.toString()))
-        val plaintext = ByteArray(encoded.remaining()).also { encoded.get(it) }
-        val encrypted = try {
-            require(plaintext.size <= MAX_BYTES)
-            val key = existingKey() ?: run {
-                require(context.noBackupFilesDir.listFiles()?.none { it.name.startsWith("postdraft.") } == true) {
-                    "Existing drafts require recovery"
-                }
-                KeyGenerator.getInstance("AES", "AndroidKeyStore").run {
-                    init(KeyGenParameterSpec.Builder(KEY_ALIAS, KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT)
-                        .setKeySize(256).setBlockModes(KeyProperties.BLOCK_MODE_GCM)
-                        .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE).build())
-                    generateKey()
-                }
-            }
-            val cipher = Cipher.getInstance("AES/GCM/NoPadding").apply {
-                init(Cipher.ENCRYPT_MODE, key)
-                updateAAD(associatedData)
-            }
-            byteArrayOf(2) + cipher.iv + cipher.doFinal(plaintext)
-        } finally { plaintext.fill(0) }
-        require(!file.baseFile.exists() || file.baseFile.isFile)
-        val output = file.startWrite()
-        try {
-            output.write(encrypted)
-            output.fd.sync()
-            file.finishWrite(output)
-        } catch (failure: Exception) { file.failWrite(output); throw failure }
-        val directory = Os.open(file.baseFile.parentFile!!.path, OsConstants.O_RDONLY, 0)
-        try { Os.fsync(directory) } finally { Os.close(directory) }
+        file.save(EncryptedLocalFile.Contents(2, record.toString()))
         val reopened = load()
         check(same(reopened, saved)) {
             "Draft persistence verification failed"
@@ -243,8 +178,6 @@ internal class PostDraftStore private constructor(private val context: Context, 
             require(target.matches(Regex("[0-9a-f]{128}")))
             return PostDraftStore(context, owner, backend, "", null, authorTarget = target, authorKind = kind)
         }
-        private const val KEY_ALIAS = "redsquare.postdraft.v1"
-        private const val MAX_BYTES = 5 * 1024 * 1024
         private val lock = nl.davidengelen.redsquare.saito.SaitoLocalState.lock
         val changes = kotlinx.coroutines.flow.MutableStateFlow(0L)
 
@@ -264,8 +197,5 @@ internal class PostDraftStore private constructor(private val context: Context, 
                 }.filter { store -> store.load().let { !it.available && (it.queued || it.automatic) } }
         }
     }
-
-    private fun existingKey(): SecretKey? = KeyStore.getInstance("AndroidKeyStore").apply { load(null) }
-        .getKey(KEY_ALIAS, null) as? SecretKey
 
 }
