@@ -1,5 +1,24 @@
 # Native YouTube verification
 
+Focused browse recovery run38087621645 atf6c016e is GREEN: all8 cases15.376s,
+including cached profile Posts/Replies/Likes after the controlled server stops.
+The individually inspected original cached-Likes PNG shows the retained liked
+post, missing-history explanation and refresh failure warning. Acceptance log
+and that PNG are retained in ticket16/browse-readiness-green/android10. The pass
+does not establish the cause of the earlier failed navigation. Cleanup383caac
+compiles and has0 residual findings on both review axes. FullAndroid10 companion
+38087989539 at383caac is pending; fullAndroid17 38087176435 remains pending at
+e8fafd9. Production source is identical between both full candidates andc6113d2.
+
+An additional read-only source/provider review found no evidence-supported app
+fix for the observed public refusals. The documented installed-package identity,
+relative origin/referrer policy and corrected minimum viewport are present.
+The native refusal maps provider101/150, separately from missing identity153;
+the actual code and underlying provider reason are not distinguished by the
+retained probes. Automatic Media Integrity documentation does not establish
+that these failures need credentials or manual configuration. Actual playback
+acceptance remains unresolved, and #17 stays open.
+
 Active #17, fixed review base711e42e. Parent approved seams1–4 apply: observable
 native feed/thread flows against controlled Saito and provider boundaries;
 verified signed content, failure/lifecycle recovery and pinned web behavior.

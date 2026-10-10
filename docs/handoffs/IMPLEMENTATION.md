@@ -14,7 +14,7 @@ each, core39/build/release/lint, both public reads, cold recovery and signed
 updates. Productioncb3d9c3 is identical across accepted candidates. Evidence
 final-android10/final-android17/final-interop; details NATIVE_IMAGES_VERIFICATION.
 
-Active: #17 YouTube, productionc6113d2, test/evidence candidatef6c016e,
+Active: #17 YouTube, productionc6113d2, test/evidence candidate383caac,
 fixed review base711e42e. Root-owned viewer survives rotation/recreation; small
 windows use external fallback. Sticky errors persist until Retry. Text selection
 now matches both original Browser/Tweet helpers, including omitted schemes and
@@ -41,7 +41,10 @@ profile recovery,7/8 browse cases pass. Failure bitmap is after scenario disposa
 so active state/cause unproved. Fixturef6c016e waits existing New post enabled
 readiness before the fresh cached author tap and captures inside the scenario;
 original cached-history/error assertions unchanged. Focused browse10 run38087621645
-pending; outstanding full10 required. Full17 companion38087176435 remains pending
+PASS8 cases15.376s atf6c016e; individually inspected cached-Likes bitmap shows the
+retained liked post and outage/history warnings. Cleanup383caac preserves the
+primary failure through captures/server close; both bounded reviews0. Outstanding
+full10 run38087989539 at383caac is pending. Full17 companion38087176435 remains pending
 at e8fafd9, with public Saito reads enabled. CDP reads only allowed public frame DOM;
 page screenshots were removed at23eea43. No ticket closure until acceptance.
 See NATIVE_VIDEO_VERIFICATION.md. No ticket closure or new APK.
