@@ -30,3 +30,12 @@ The ordinary-repost tracer requires signature-only data, original recipients,
 verified availability and an unchanged served2 count. This models archived
 availability without implying a timestamp-sensitive receiver counter increased.
 Local test assembly51s passes; focused ordinary-repost red is next.
+
+
+Actual ordinary-repost red `38017707757` at `dc2914b` passes the like case,
+then fails at missing served "2 reposts" (line123); total24.926s,2 cases/1 failure.
+A verified action-kind decoder now distinguishes like tweet/RedSquareLike from
+retweet/RedSquareRetweet. Original candidate persistence, exact availability,
+selected identity/backend checks and shared display state cover both actions.
+Ordinary repost data contains only the original signature. No local count
+increments. Local core/debug/test assembly passes1m59s; two-case green is next.

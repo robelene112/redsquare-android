@@ -67,7 +67,10 @@ one question at a time when a material choice really needs the owner.
   First red38016710571 fails24.504s at missing4likes after rootshown.
   Selected-wallet/backend like state, durableoriginalcandidate and exact
   availabilityretry with sharedfeed/thread/profiledisplay implemented; local
-  debug/testassembly1m41sPASS. Focusedgreen next.
+  debug/testassembly1m41sPASS. Firstgreen38017288554 passes1/1/6.12s.
+  Ordinaryrepostred38017707757 passeslike, failsmissing2reposts(2/1).
+  Actionkinddecoder/sharedsignedlikeandrepostpathimplemented; local
+  core/debug/test1m59sPASS. Focusedtwocasegreen next.
   Ten of35 complete;
  25 remain. Read-only primary-source contract prepared in
   NATIVE_SOCIAL_INTERACTIONS_CONTRACT.md. Ordinaryreposts/recovery/fullacceptance/reviews incomplete.

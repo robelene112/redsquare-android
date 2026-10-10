@@ -12,82 +12,87 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import nl.davidengelen.redsquare.saito.*
 
-internal data class LikeStatus(val candidate: SaitoTransaction? = null, val available: Boolean = false,
+internal data class PostActionKey(val target: String, val kind: RedSquareActionKind)
+
+internal data class ActionStatus(val candidate: SaitoTransaction? = null, val available: Boolean = false,
     val ready: Boolean = false, val busy: Boolean = false, val failed: Boolean = false)
 
 /** One selected wallet/backend's social operations, shared across its visible post views. */
 internal class SocialState(private val context: Context, private val wallet: SaitoWallet,
     private val backend: SaitoBackend, private val endpoint: String, private val scope: CoroutineScope) {
-    val likes = mutableStateMapOf<String, LikeStatus>()
+    val actions = mutableStateMapOf<PostActionKey, ActionStatus>()
     val observedPosts = mutableStateMapOf<String, FeedPost>()
-    private fun store(target: String) = PublicStringStore(context, "social.${backend.id}.${wallet.publicKey}.$target.like.v1", 1)
+    private fun store(key: PostActionKey) = PublicStringStore(context, "social.${backend.id}.${wallet.publicKey}.${key.target}.${key.kind.storageId}.v1", 1)
 
-    suspend fun load(post: FeedPost) {
-        if (likes.containsKey(post.id)) return
-        likes[post.id] = LikeStatus()
+    suspend fun load(post: FeedPost, kind: RedSquareActionKind) {
+        val key = PostActionKey(post.id, kind)
+        if (actions.containsKey(key)) return
+        actions[key] = ActionStatus()
         try {
             val status = withContext(Dispatchers.IO) {
-                val saved = store(post.id).load()
+                val saved = store(key).load()
                 require(!saved.unreadable)
                 saved.values.singleOrNull()?.let { value ->
                     val record = JsonParser.parseString(value).asJsonObject
                     val candidate = SaitoTransaction.restore(record.get("transaction").asString)
-                    val like = RedSquareLikes.decode(candidate.envelope())
-                    require(like.author == wallet.publicKey && like.target == post.id)
+                    val action = RedSquareActions.decode(candidate.envelope())
+                    require(action.author == wallet.publicKey && action.target == post.id && action.kind == kind)
                     val available = record.get("available").asJsonPrimitive
                     require(available.isBoolean)
-                    LikeStatus(candidate, available.asBoolean, ready = true)
-                } ?: LikeStatus(ready = true)
+                    ActionStatus(candidate, available.asBoolean, ready = true)
+                } ?: ActionStatus(ready = true)
             }
-            likes[post.id] = status
-        } catch (cancelled: CancellationException) { likes.remove(post.id); throw cancelled }
-        catch (_: Exception) { likes[post.id] = LikeStatus(failed = true) }
+            actions[key] = status
+        } catch (cancelled: CancellationException) { actions.remove(key); throw cancelled }
+        catch (_: Exception) { actions[key] = ActionStatus(failed = true) }
     }
 
-    private fun save(target: String, candidate: SaitoTransaction, available: Boolean) {
+    private fun save(key: PostActionKey, candidate: SaitoTransaction, available: Boolean) {
         val record = JsonObject().apply {
             addProperty("transaction", candidate.encoded()); addProperty("available", available)
         }.toString()
-        val storage = store(target)
+        val storage = store(key)
         storage.save(listOf(record))
         check(storage.load().let { !it.unreadable && it.values == listOf(record) })
     }
 
-    fun retryLoad(post: FeedPost) {
-        likes.remove(post.id)
-        scope.launch { load(post) }
+    fun retryLoad(post: FeedPost, kind: RedSquareActionKind) {
+        val key = PostActionKey(post.id, kind)
+        actions.remove(key)
+        scope.launch { load(post, kind) }
     }
 
-    fun like(post: FeedPost) {
-        val status = likes[post.id] ?: return
+    fun send(post: FeedPost, kind: RedSquareActionKind) {
+        val key = PostActionKey(post.id, kind)
+        val status = actions[key] ?: return
         if (!status.ready || status.busy || status.available) return
-        likes[post.id] = status.copy(busy = true, failed = false)
+        actions[key] = status.copy(busy = true, failed = false)
         scope.launch {
             var candidate = status.candidate
             try {
                 if (candidate == null) candidate = withContext(Dispatchers.IO) {
                     val body = JsonObject().apply {
-                        addProperty("module", "RedSquare"); addProperty("request", "like tweet")
+                        addProperty("module", "RedSquare"); addProperty("request", kind.request)
                         add("data", JsonObject().apply { addProperty("signature", post.id) })
                     }
                     SaitoTransaction.create(wallet, body, System.currentTimeMillis(), (listOf(post.author) + post.recipients).distinct())
                 }
                 val original = requireNotNull(candidate)
-                withContext(NonCancellable + Dispatchers.IO) { save(post.id, original, false) }
-                likes[post.id] = LikeStatus(original, ready = true, busy = true)
+                withContext(NonCancellable + Dispatchers.IO) { save(key, original, false) }
+                actions[key] = ActionStatus(original, ready = true, busy = true)
                 withContext(Dispatchers.IO) {
                     SaitoPeer(wallet, endpoint).use { peer ->
                         suspend fun observed(): Boolean {
                             val query = JsonObject().apply {
                                 addProperty("request", "archive")
                                 add("data", JsonObject().apply {
-                                    addProperty("request", "load"); addProperty("field1", "RedSquareLike")
+                                    addProperty("request", "load"); addProperty("field1", kind.archiveKind)
                                     addProperty("sig", original.id)
                                 })
                             }
-                            val page = RedSquareLikes.readArchive(peer.request(query.toString().toByteArray(Charsets.UTF_8))
-                                .toString(Charsets.UTF_8), wallet.publicKey)
-                            return page.likes.any { it.id == original.id && it.target == post.id }
+                            val actions = RedSquareActions.readArchive(peer.request(query.toString().toByteArray(Charsets.UTF_8))
+                                .toString(Charsets.UTF_8), wallet.publicKey, kind)
+                            return actions.any { it.id == original.id && it.target == post.id }
                         }
                         if (!observed()) {
                             val permitted = synchronized(SaitoLocalState.lock) {
@@ -98,8 +103,8 @@ internal class SocialState(private val context: Context, private val wallet: Sai
                             peer.submit(original)
                         }
                         if (!observed()) throw IllegalStateException("Interaction availability unknown")
-                        withContext(NonCancellable) { save(post.id, original, true) }
-                        withContext(Dispatchers.Main.immediate) { likes[post.id] = LikeStatus(original, available = true, ready = true) }
+                        withContext(NonCancellable) { save(key, original, true) }
+                        withContext(Dispatchers.Main.immediate) { actions[key] = ActionStatus(original, available = true, ready = true) }
                         val query = JsonObject().apply {
                             addProperty("request", "archive")
                             add("data", JsonObject().apply {
@@ -114,10 +119,10 @@ internal class SocialState(private val context: Context, private val wallet: Sai
                 }
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) {
-                val current = likes[post.id] ?: status
-                likes[post.id] = current.copy(candidate = candidate, failed = true)
+                val current = actions[key] ?: status
+                actions[key] = current.copy(candidate = candidate, failed = true)
             } finally {
-                likes[post.id]?.let { likes[post.id] = it.copy(busy = false) }
+                actions[key]?.let { actions[key] = it.copy(busy = false) }
             }
         }
     }
