@@ -163,6 +163,8 @@ verify_author_posts() {
     adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - author-post-evidence \
         > "$evidence/author-post-evidence.tar" || true
     grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/author-post-ui.txt"
+    python3 "$repo_dir/scripts/author-process-check" --kind edit --evidence "$evidence/author-edit-process"
+    python3 "$repo_dir/scripts/author-process-check" --kind delete --evidence "$evidence/author-delete-process"
 }
 if [[ "${TEST_SCOPE:-full}" == author* ]]; then
     verify_author_posts

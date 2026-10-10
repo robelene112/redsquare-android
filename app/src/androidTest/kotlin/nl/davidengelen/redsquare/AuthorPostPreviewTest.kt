@@ -189,6 +189,101 @@ class AuthorPostPreviewTest {
         ui.waitUntil(20_000) { ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
     }
 
+    @Test fun competingEditsRequireAnExplicitTextChoiceAndANewSend() {
+        val own = AtomicReference<JsonObject?>()
+        val editAttempts = java.util.concurrent.atomic.AtomicInteger()
+        val peer = ControlledFeedPeer("[]", onTransaction = { frame ->
+            val candidate = postingTransaction(frame)
+            val signed = SaitoEnvelope.decode(candidate.envelope())
+            if (signed.body.get("request").asString == "create tweet") {
+                own.set(postingArchiveRow(candidate))
+            } else {
+                val action = RedSquareAuthorActions.decode(candidate.envelope())
+                assertEquals(AuthorActionKind.EDIT, action.kind)
+                assertEquals(own.get()!!.get("sig").asString, action.target)
+                assertEquals(own.get()!!.get("field2").asString, action.author)
+                val attempt = editAttempts.incrementAndGet()
+                val observed = if (attempt <= 2) {
+                    assertEquals("My retained text", action.text)
+                    // A second device with this synthetic wallet signs a competing, newer edit.
+                    SaitoTransaction.create(AndroidWalletStore(context).loadExisting(), JsonObject().apply {
+                        addProperty("module", "RedSquare"); addProperty("request", "edit tweet")
+                        add("data", JsonObject().apply {
+                            addProperty("tweet_id", action.target)
+                            addProperty("text", "Competing text $attempt")
+                        })
+                    }, action.createdAt + 1, signed.recipients)
+                } else {
+                    assertEquals("Competing text 2", action.text)
+                    candidate
+                }
+                own.set(own.get()!!.deepCopy().apply {
+                    val envelope = JsonParser.parseString(get("tx").asString).asJsonObject
+                    val options = JsonObject().apply {
+                        addProperty("update_tx", observed.envelope())
+                        addProperty("edit_ts", SaitoEnvelope.decode(observed.envelope()).createdAt)
+                    }
+                    envelope.addProperty("opt", Base64.getEncoder().encodeToString(options.toString().toByteArray()))
+                    addProperty("tx", envelope.toString())
+                })
+            }
+        }, archiveResponse = { criteria ->
+            if (criteria.get("field1").asString != "RedSquare") "[]"
+            else listOfNotNull(own.get()).filter { row ->
+                (!criteria.has("sig") || criteria.get("sig").asString == row.get("sig").asString) &&
+                    (!criteria.has("field2") || criteria.get("field2").asString == row.get("field2").asString) &&
+                    (!criteria.has("field5") || criteria.get("field5").asString == row.get("field5")?.asString)
+            }.joinToString(prefix = "[", postfix = "]")
+        })
+        peer.start().use { server ->
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                try {
+                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("New post").performClick()
+                    ui.waitUntil(20_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNode(hasSetTextAction()).performTextReplacement("Original before competing edits")
+                    ui.onNodeWithText("Send").performClick()
+                    waitFor("Available on this server.")
+                    ui.onNodeWithText("Back").performClick()
+                    waitForList(); waitForRefresh()
+                    ui.onNode(hasScrollAction()).performScrollToNode(hasText("Original before competing edits"))
+                    ui.onNodeWithText("Original before competing edits").performClick()
+                    waitFor("Edit")
+                    ui.onNodeWithText("Edit").performClick()
+                    ui.waitUntil(20_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNode(hasSetTextAction()).performTextReplacement("My retained text")
+                    ui.onNodeWithText("Save changes").performClick()
+                    waitFor("Another edit is available. Your text is saved on this device.")
+                    ui.onNodeWithText("Edit available on this server.").assertDoesNotExist()
+                    ui.onNode(hasSetTextAction()).assertTextEquals("My retained text").assertIsNotEnabled()
+                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("Keep my text") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("Keep my text").performClick()
+                    ui.waitUntil(20_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNode(hasSetTextAction()).assertTextEquals("My retained text")
+                    assertEquals(2, peer.transactions.size)
+                    ui.onNodeWithText("Save changes").performClick()
+                    waitFor("Another edit is available. Your text is saved on this device.")
+                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("Use latest text") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("Use latest text").performClick()
+                    ui.waitUntil(20_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNode(hasSetTextAction()).assertTextEquals("Competing text 2")
+                    assertEquals(3, peer.transactions.size)
+                    ui.onNodeWithText("Save changes").performClick()
+                    waitFor("Edit available on this server.")
+                    assertEquals(4, peer.transactions.size)
+                    val sent = peer.transactions.drop(1).map { postingTransaction(it).id }
+                    assertEquals(3, sent.toSet().size)
+                    peer.assertHealthy()
+                    captureFeedEvidence("author-post-evidence/explicit-conflict-resolution.png")
+                } catch (failure: Throwable) {
+                    captureFeedEvidence("author-post-evidence/conflict-failure.png")
+                    throw failure
+                }
+            }
+        }
+    }
+
     @Test fun cachedVerifiedEditSurvivesStaleServerHistoryAndColdLaunch() {
         val fixture = InstrumentationRegistry.getInstrumentation().context.assets.open("native-author-actions-reference.json")
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject }

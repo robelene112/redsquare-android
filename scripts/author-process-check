@@ -1,0 +1,69 @@
+#!/usr/bin/env python3
+"""Verify real process death and explicit recovery of an uncertain author change."""
+import argparse
+import json
+from pathlib import Path
+import re
+import subprocess
+
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("--evidence", type=Path, required=True)
+parser.add_argument("--kind", choices=("edit", "delete"), required=True)
+args = parser.parse_args()
+package = "nl.davidengelen.redsquare.dev"
+runner = package + ".test/androidx.test.runner.AndroidJUnitRunner"
+test_class = "nl.davidengelen.redsquare.AuthorProcessRecoveryTest"
+
+
+def adb(*arguments, check=True, timeout=60):
+    return subprocess.run(["adb", *arguments], text=True, capture_output=True,
+                          check=check, timeout=timeout)
+
+
+def instrument(method, evidence_name, check):
+    try:
+        result = adb("shell", "am", "instrument", "-w", "-r", *mode, "-e", "class",
+                     test_class + "#" + method, runner, check=check, timeout=120)
+    except (subprocess.TimeoutExpired, subprocess.CalledProcessError) as failure:
+        output = failure.stdout or ""
+        if isinstance(output, bytes):
+            output = output.decode("utf-8", errors="replace")
+        (args.evidence / evidence_name).write_text(output)
+        raise
+    (args.evidence / evidence_name).write_text(result.stdout)
+    return result
+
+
+if not adb("get-serialno").stdout.strip().startswith("emulator-"):
+    raise SystemExit("This process check requires an isolated emulator")
+args.evidence.mkdir(parents=True, exist_ok=True)
+state_path = "cache/author-process-checkpoint.json"
+mode = ["-e", "authorKind", args.kind]
+adb("shell", "run-as", package, "rm", "-f", state_path)
+prepared = instrument("terminateAfterAnUncertainAuthorChange", "interrupted-instrumentation.txt", False)
+if "FAILURES!!!" in prepared.stdout:
+    raise AssertionError("Author preparation failed before termination; see interrupted-instrumentation.txt")
+saved = json.loads(adb("exec-out", "run-as", package, "cat", state_path).stdout)
+if saved["kind"] != args.kind:
+    raise AssertionError("Author checkpoint kind is invalid")
+for row in (saved["original"], saved["action"]):
+    if not re.fullmatch(r"[1-9A-HJ-NP-Za-km-z]{43,45}", row["field2"]):
+        raise AssertionError("Public author checkpoint identity is invalid")
+    if not re.fullmatch(r"[0-9a-f]{128}", row["sig"]):
+        raise AssertionError("Public author checkpoint signature is invalid")
+if str(saved["pid"]) in adb("shell", "pidof", package, check=False).stdout.split():
+    raise AssertionError("Author process was not actually terminated")
+adb("shell", "am", "force-stop", package)
+recovered = instrument("coldRecoveryChecksTheOriginalAuthorChangeWithoutRebroadcasting",
+                       "recovered-instrumentation.txt", True)
+if "OK (1 test)" not in recovered.stdout:
+    raise AssertionError("Cold author reconciliation did not pass")
+with (args.evidence / "reconciled-without-rebroadcast.png").open("wb") as output:
+    subprocess.run(["adb", "exec-out", "run-as", package, "cat",
+                    "cache/author-process-evidence/reconciled-without-rebroadcast.png"],
+                   stdout=output, check=True, timeout=60)
+(args.evidence / "continuity.txt").write_text(
+    "PASS: process death after uncertain " + args.kind + "; cold startup preserves "
+    "the original candidate and wallet, requires explicit recovery and verifies "
+    "availability without rebroadcast.\n" + saved["action"]["sig"] + "\n")
+print("PASS: author " + args.kind + " process interruption and cold reconciliation")
