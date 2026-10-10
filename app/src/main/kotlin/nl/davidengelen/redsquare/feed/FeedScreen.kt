@@ -184,7 +184,7 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
         }
         is BrowseDestination.Conversation -> {
             ConversationScreen(wallet, endpoint, backend, destination.post, modifier,
-                onBack = { back() }, onIdentity = { openProfile(it) },
+                onBack = { back(); refresh++ }, onIdentity = { openProfile(it) },
                 onPost = { navigation.add(BrowseDestination.Conversation(it)) }, social = social, quotes = quotes, onQuote = { navigation.add(BrowseDestination.Quote(it)) })
             return
         }

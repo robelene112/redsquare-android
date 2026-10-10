@@ -147,4 +147,11 @@
     <string name="quote_failed">Could not load the original.</string>
     <string name="quote_unavailable">Original unavailable. Commentary is still available.</string>
     <string name="quote_cache_warning">The original could not be saved for offline reading.</string>
+    <string name="author_edit">Edit</string>
+    <string name="author_edit_title">Edit post</string>
+    <string name="author_edit_save">Save changes</string>
+    <string name="author_edit_available">Edit available on this server.</string>
+    <string name="author_edit_pending">Edit not yet verified. Retry checks the original attempt first.</string>
+    <string name="author_edit_conflict">Another edit is available. Your text is saved on this device.</string>
+    <string name="author_action_network_error">Could not verify this change on the selected server. Your original attempt is saved.</string>
 </resources>

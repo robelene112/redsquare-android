@@ -36,6 +36,13 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
     var cacheWarning by remember(selected.id) { mutableStateOf(false) }
     var refresh by remember(selected.id) { mutableIntStateOf(0) }
     var replying by rememberSaveable(selected.id) { mutableStateOf(false) }
+    var editing by rememberSaveable(selected.id) { mutableStateOf(false) }
+    if (editing && wallet != null && selected.author == wallet.publicKey) {
+        AuthorEditScreen(wallet, endpoint, backend, posts.firstOrNull { it.id == selected.id } ?: selected, modifier) {
+            editing = false; refresh++
+        }
+        return
+    }
     if (replying && wallet != null) {
         PostComposerScreen(wallet, endpoint, backend, modifier, selected) { replying = false; refresh++ }
         return
@@ -79,6 +86,9 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
             Text(stringResource(R.string.conversation_title), Modifier.weight(1f).padding(vertical = 12.dp),
                 style = MaterialTheme.typography.titleLarge)
             TextButton(enabled = wallet != null, onClick = { replying = true }) { Text(stringResource(R.string.post_reply)) }
+            if (wallet != null && selected.author == wallet.publicKey) {
+                TextButton(onClick = { editing = true }) { Text(stringResource(R.string.author_edit)) }
+            }
             TextButton(enabled = wallet != null && !loading, onClick = { refresh++ }) {
                 Text(stringResource(R.string.feed_refresh))
             }
