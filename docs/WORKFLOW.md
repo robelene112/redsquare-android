@@ -105,6 +105,10 @@ the owner chooses whether to start it. It is not required for every app-wide gri
    Android 17 check. It runs release assembly/lint and the entire device suite;
    record both runs and their source equivalence. Production changes require
    fresh full acceptance on both versions.
+   Alternatively, dispatch `full-android10` and `full-android17` for the same
+   commit concurrently. Each runs source/core/release/lint and the complete
+   selected SDK suite, mapped to the harness's `full` scope. Record and inspect
+   both runs, including separately enabled public reads, before acceptance.
 4. Ensure `code-review` sees the actual changes. Its upstream default compares
    committed `HEAD` against a fixed base, so make an interim implementation
    commit before that review if needed. An empty committed diff is not a review
