@@ -153,7 +153,11 @@ class ImageProcessRecoveryTest {
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 try { block() }
-                catch (failure: Throwable) { capture("failure.png"); throw failure }
+                catch (failure: Throwable) {
+                    try { capture("failure.png") }
+                    catch (captureFailure: Throwable) { failure.addSuppressed(captureFailure) }
+                    throw failure
+                }
             }
         }
     }

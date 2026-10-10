@@ -15,7 +15,9 @@ checks; retained ../evidence/ticket14/interop. Full17 companion38069923347
 at4dd0d3d passes media but fails an older unreadable-refresh feed fixture.
 The corrected readiness guard passes all8 focused feed/backend cases and cold
 cache recovery in38071460383 atc73fc13. Full17 companion38071834163 at65469a7
-is underway, including the stricter picker-closed helper and both public reads.
+PASS123 cases/35 passing records/11 actual deaths, including the stricter
+picker-closed helper and both public reads. Counted logs are retained in
+../evidence/ticket14/full-android17-picker-baseline/REVIEW.md.
 Production/build/scripts/workflow unchanged.
 Source review additionally confirmed a preservation gap: opening the external
 picker precedes durable saving of newly typed text. Existing process recovery
