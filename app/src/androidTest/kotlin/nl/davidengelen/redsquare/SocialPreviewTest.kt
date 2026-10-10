@@ -154,6 +154,61 @@ class SocialPreviewTest {
         recoverUncertainAction("retweet", "RedSquareRetweet", "Repost", "Retry repost", "Reposted")
     }
 
+    @Test fun replacingTheWalletHidesItsPendingLikeAndRestoringItRecoversTheOriginal() {
+        val root = InstrumentationRegistry.getInstrumentation().context.assets.open("native-feed-reference.json")
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow") }
+        val indexed = AtomicReference<JsonObject?>()
+        val peer = ControlledFeedPeer("[]", onTransaction = { frame ->
+            val candidate = postingTransaction(frame)
+            val action = SaitoEnvelope.decode(candidate.envelope())
+            indexed.set(JsonObject().apply {
+                addProperty("sig", action.id); addProperty("field1", "RedSquareLike")
+                addProperty("field2", action.author); addProperty("field4", root.get("sig").asString)
+                addProperty("created_at", action.createdAt); addProperty("tx", candidate.envelope())
+            })
+        }, archiveResponse = { criteria ->
+            if (criteria.get("field1").asString == "RedSquareLike") indexed.get()?.let { "[$it]" } ?: "[]" else "[$root]"
+        }).apply { disconnectAfterTransaction = true }
+        peer.start().use { server ->
+            val intent = Intent(context, MainActivity::class.java).putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+            val store = AndroidWalletStore(context)
+            ActivityScenario.launch<MainActivity>(intent).use {
+                waitFor("Native Red Square reference post")
+                ui.waitUntil(20_000) { ui.onAllNodes(hasText("Like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                ui.onNodeWithText("Like").performClick()
+                ui.waitUntil(20_000) { ui.onAllNodes(hasText("Retry like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+            }
+            val original = store.loadExisting()
+            val replacement = nl.davidengelen.redsquare.saito.SaitoWallet.create()
+            try {
+                store.replace(original, replacement)
+                peer.disconnectAfterTransaction = false
+                ActivityScenario.launch<MainActivity>(intent).use {
+                    waitFor("Native Red Square reference post")
+                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("Like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("Retry like").assertDoesNotExist()
+                    ui.onNodeWithText("Wallet").performClick()
+                    assertEquals(replacement.publicKey, displayedWalletAddress(ui))
+                    assertEquals(1, peer.transactions.size)
+                }
+                store.replace(store.loadExisting(), original)
+                ActivityScenario.launch<MainActivity>(intent).use {
+                    waitFor("Native Red Square reference post")
+                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("Retry like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("Retry like").performClick()
+                    waitFor("Liked")
+                    assertEquals(1, peer.transactions.size)
+                    assertEquals(original.publicKey, indexed.get()!!.get("field2").asString)
+                    peer.assertHealthy()
+                    captureFeedEvidence("social-evidence/restored-wallet-original-like.png")
+                }
+            } finally {
+                val current = store.loadExisting()
+                if (current.publicKey != original.publicKey) store.replace(current, original)
+            }
+        }
+    }
+
     private fun recoverUncertainAction(request: String, archiveKind: String, initial: String, retry: String, available: String) {
         val root = InstrumentationRegistry.getInstrumentation().context.assets.open("native-feed-reference.json")
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow") }
