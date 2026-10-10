@@ -226,6 +226,7 @@ class ThreadProfilePreviewTest {
                     ui.onNodeWithText("Malformed reference thread").assertDoesNotExist()
                     ui.onNodeWithText("Native Red Square reference post").performClick()
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Independent Saito reply")).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNode(hasScrollAction()).performScrollToNode(hasText("Independent Saito reply"))
                     ui.onNodeWithText("Independent Saito reply").assertIsDisplayed()
                     peer.assertHealthy()
                     captureFeedEvidence("browse-evidence/malformed-thread-rejected.png")
