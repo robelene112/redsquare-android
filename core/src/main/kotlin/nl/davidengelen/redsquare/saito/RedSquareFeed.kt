@@ -75,13 +75,13 @@ object RedSquareFeed {
         require(parent.isEmpty() || parent.matches(signaturePattern)) { "Invalid parent signature" }
         require(thread.matches(signaturePattern)) { "Invalid thread signature" }
         val original = if (includeOriginal && data.has("retweet_tx")) {
-            decode(data.string("retweet_tx"), false).also {
+            try { decode(data.string("retweet_tx"), false).also {
                 require(data.string("signature") == it.id) { "Conflicting quote reference" }
                 data.getAsJsonObject("embedded")?.let { embedded ->
                     require(embedded.string("signature") == it.id && embedded.string("publicKey") == it.author &&
                         embedded.string("text") == it.text) { "Conflicting quote presentation" }
                 }
-            }
+            } } catch (_: Exception) { null }
         } else null
         return FeedPost(signed.id, signed.author, text, signed.createdAt, parent, thread, envelope, signed.recipients, original, target)
     }

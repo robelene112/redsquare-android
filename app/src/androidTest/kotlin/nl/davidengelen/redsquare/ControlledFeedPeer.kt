@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit
 /** Actual binary socket boundary; signed posts are independent WASM fixtures. */
 internal class ControlledFeedPeer(@Volatile var rows: String,
     private val onTransaction: ((ByteArray) -> Unit)? = null,
+    private val quoteArchiveResponse: ((com.google.gson.JsonObject) -> String)? = null,
     private val archiveResponse: ((com.google.gson.JsonObject) -> String)? = null) {
     @Volatile var disconnectAfterTransaction = false
     private val peer = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public test material only.
@@ -83,7 +84,11 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                         require(body.get("request").asString == "archive")
                         val criteria = body.getAsJsonObject("data")
                         require(criteria.get("request").asString == "load")
-                        val response = archiveResponse?.invoke(criteria) ?: run {
+                        val response = if (criteria.get("field1").asString == "RedSquareRetweet" && !criteria.has("sig")) {
+                            require(criteria.get("flagged_ne").asInt == 1)
+                            require(criteria.get("limit").asInt in 1..100)
+                            quoteArchiveResponse?.invoke(criteria) ?: "[]"
+                        } else archiveResponse?.invoke(criteria) ?: run {
                             require(criteria.get("field1").asString == "RedSquare")
                             require(criteria.get("field4").asString == "")
                             require(criteria.get("flagged_ne").asInt == 1)

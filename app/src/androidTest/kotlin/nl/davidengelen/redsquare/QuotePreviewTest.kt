@@ -3,6 +3,7 @@ package nl.davidengelen.redsquare
 import android.content.Intent
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
+import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.gson.JsonObject
@@ -40,7 +41,10 @@ class QuotePreviewTest {
             addProperty("field4", fixture.getAsJsonObject("original").get("sig").asString)
         }
         val original = fixture.getAsJsonObject("original")
-        val peer = ControlledFeedPeer("[]", archiveResponse = { criteria ->
+        val peer = ControlledFeedPeer("[]", quoteArchiveResponse = { criteria ->
+            if (criteria.has("field2")) assertEquals(current.get("field2").asString, criteria.get("field2").asString)
+            "[$current]"
+        }, archiveResponse = { criteria ->
             when {
                 criteria.get("field1").asString == "RedSquareRetweet" -> "[$current]"
                 criteria.get("sig")?.asString == original.get("sig").asString -> "[$original]"
@@ -55,11 +59,17 @@ class QuotePreviewTest {
                     val embeddedOriginal = hasText(originalText) and hasAnyAncestor(hasContentDescription("Quoted original"))
                     ui.onNode(hasScrollAction(), useUnmergedTree = true).performScrollToNode(embeddedOriginal)
                     ui.onNode(embeddedOriginal, useUnmergedTree = true).assertIsDisplayed()
+                    captureQuoteEvidence("quote-evidence/current-commentary-retweet.png")
+                    ui.onNodeWithText(current.get("field2").asString).performClick()
+                    waitFor("Profile")
+                    waitFor("Current commentary retweet")
+                    ui.onNode(hasScrollAction(), useUnmergedTree = true).performScrollToNode(embeddedOriginal)
+                    ui.onNode(embeddedOriginal, useUnmergedTree = true).assertIsDisplayed()
                     assertTrue(peer.transactions.isEmpty())
                     peer.assertHealthy()
-                    captureFeedEvidence("quote-evidence/current-commentary-retweet.png")
+                    captureQuoteEvidence("quote-evidence/current-retweet-profile.png")
                 } catch (failure: Throwable) {
-                    captureFeedEvidence("quote-evidence/current-retweet-failure.png")
+                    captureQuoteEvidence("quote-evidence/current-retweet-failure.png")
                     throw failure
                 }
             }
@@ -129,12 +139,12 @@ class QuotePreviewTest {
                     ui.onNodeWithText(originalText).assertIsDisplayed()
                     assertEquals(1, peer.transactions.size)
                     peer.assertHealthy()
-                    captureFeedEvidence("quote-evidence/published-quote-conversation.png")
+                    captureQuoteEvidence("quote-evidence/published-quote-conversation.png")
                     val proof = java.io.File(context.cacheDir, "quote-evidence/native-quote-frame.base64")
                     proof.parentFile?.mkdirs()
                     proof.writeText(java.util.Base64.getEncoder().encodeToString(peer.transactions.single()))
                 } catch (failure: Throwable) {
-                    captureFeedEvidence("quote-evidence/publish-quote-failure.png")
+                    captureQuoteEvidence("quote-evidence/publish-quote-failure.png")
                     throw failure
                 }
             }
@@ -143,5 +153,16 @@ class QuotePreviewTest {
 
     private fun waitFor(text: String) {
         ui.waitUntil(20_000) { ui.onAllNodes(hasText(text)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+    }
+
+    private fun captureQuoteEvidence(path: String) {
+        try {
+            val bitmap = ui.onRoot().captureToImage().asAndroidBitmap()
+            try {
+                val file = java.io.File(context.cacheDir, path)
+                file.parentFile?.mkdirs()
+                file.outputStream().use { bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it) }
+            } finally { bitmap.recycle() }
+        } catch (_: Exception) { captureFeedEvidence(path) }
     }
 }

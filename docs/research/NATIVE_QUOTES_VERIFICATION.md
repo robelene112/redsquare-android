@@ -34,3 +34,13 @@ original lookup implemented; local core/debug/test pass2m1s. Actual green pendin
 Standard Gradle task caching enabled with rolling hosted task-output cache;
 source/toolchain input checks remain Gradle-owned and emulator cases still run
 afresh. No speed improvement measured yet.
+
+Discovery green38027654477 at8c60406: Android10 two cases9.894s.
+Both review axes0 new actionable findings for that slice. Downloaded logs pass;
+current-retweet UIAutomation bitmap still shows Loading original despite passing
+original assertions. Cause unverified; excluded from visual acceptance. Next
+quote captures use official Compose captureToImage (forceRedraw/PixelCopy).
+Independent invalid-original tracer actually fails27s, then passes32s after
+retaining independently authenticated commentary while withholding the invalid
+original. Profile discovery tracer and empty quote histories in legacy controlled
+servers prepared; actual profile red pending.
