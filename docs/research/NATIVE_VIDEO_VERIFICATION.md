@@ -135,7 +135,11 @@ stages and individually inspected original PNG show the landscape app without
 the video dialog. Evidence: ticket16/rotation-red. The minimal production fix
 moves validated public selection into a saveable root playback host outside
 lazy rows and backend-specific navigation. Activity-bound browsers are recreated,
-never retained; actual wallet/backend changes close the selection. Temporary
-nulls during recreation hide it until verified session loading completes.
+never retained; actual wallet/backend changes close the selection. A restored
+selection belonging to a real owner stays hidden while that owner/backend
+loads. A new deliberate tap on public cached content without a loaded wallet
+can open an anonymous selection, preserving public reading without setup; it
+closes when a real owner arrives. This does not restore a previous owner's
+selection or provide any signing capability to the player.
 Only public owner/backend/video identifiers are saved; no wallet capability is
 passed to provider content. Runtime GREEN remains pending.
