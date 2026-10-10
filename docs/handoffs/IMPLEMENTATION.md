@@ -85,7 +85,15 @@ one question at a time when a material choice really needs the owner.
   Invalid-original signed-commentary tracer red27s/green32s. Profile tracer
   red38028351952: missing profile quote, publication passes. Compose images
   show feed original correctly. Minimal dual-stream profile source compiles1m38s;
-  profile green pending. Quote screenshots now use Compose
+  profile green38028808825 passes2 cases5.954s; inspected profile image shows
+  both texts. Added recovery regressions at68c2a27: five ofseven pass, two
+  fixture selector issues corrected. Final source8778664 adds original-PID
+  process-death quote recovery; bothfinalreviewaxes0. FullAndroid10/17 plus
+  bothpublicreads38029859030 stopped at one asynchronous original fixture
+  race; six quote cases and earlier feature suites pass. Exact original
+  readiness wait added, local assembly54s, bothreviewaxes0. Full rerun next.
+  Ticket remains open until acceptance.
+  Quote screenshots now use Compose
   forceRedraw/PixelCopy after stale discovery bitmap (not visual acceptance).
   New focused quotes/quotes-android17 scopes and full inclusion are prepared.
   Eleven of35 complete;24 remain. Continue #13 through #36 sequentially without routine

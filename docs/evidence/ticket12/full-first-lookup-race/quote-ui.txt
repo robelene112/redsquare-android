@@ -1,0 +1,152 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.QuotePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.QuotePreviewTest:
+INSTRUMENTATION_STATUS: test=uncertainQuoteReopeningReconcilesTheOriginalCandidateWithoutSendingTwice
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.QuotePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=uncertainQuoteReopeningReconcilesTheOriginalCandidateWithoutSendingTwice
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.QuotePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=successfulNormalProfileRefreshUpdatesCountsEvenWhenQuoteHistoryFails
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.QuotePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=successfulNormalProfileRefreshUpdatesCountsEvenWhenQuoteHistoryFails
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.QuotePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=currentCommentaryRetweetLoadsItsVerifiedOriginalFromTheSelectedArchive
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.QuotePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: No node found that matches (Text + InputText + EditableText contains 'Native Red Square reference post' (ignoreCase: false)) && (hasAnyAncestorThat(ContentDescription = 'Quoted original' (ignoreCase: false))) in scrollable container
+Semantics of the node:
+Node #343 at (l=16.0, t=432.0, r=304.0, b=624.0)px
+CollectionInfo = 'CollectionInfo(rowCount=1, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@153490'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=49.0, maxValue=49.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 1 child, 14 siblings
+Selector used: (ScrollBy is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.QuotePreviewTest.currentCommentaryRetweetLoadsItsVerifiedOriginalFromTheSelectedArchive(QuotePreviewTest.kt:60)
+
+INSTRUMENTATION_STATUS: stream=
+Error in currentCommentaryRetweetLoadsItsVerifiedOriginalFromTheSelectedArchive(nl.davidengelen.redsquare.QuotePreviewTest):
+java.lang.AssertionError: No node found that matches (Text + InputText + EditableText contains 'Native Red Square reference post' (ignoreCase: false)) && (hasAnyAncestorThat(ContentDescription = 'Quoted original' (ignoreCase: false))) in scrollable container
+Semantics of the node:
+Node #343 at (l=16.0, t=432.0, r=304.0, b=624.0)px
+CollectionInfo = 'CollectionInfo(rowCount=1, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@153490'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=49.0, maxValue=49.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 1 child, 14 siblings
+Selector used: (ScrollBy is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.QuotePreviewTest.currentCommentaryRetweetLoadsItsVerifiedOriginalFromTheSelectedArchive(QuotePreviewTest.kt:60)
+
+INSTRUMENTATION_STATUS: test=currentCommentaryRetweetLoadsItsVerifiedOriginalFromTheSelectedArchive
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.QuotePreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=quoteDraftSurvivesReopeningWithoutMixingWithARootDraft
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.QuotePreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=quoteDraftSurvivesReopeningWithoutMixingWithARootDraft
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.QuotePreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=failedAndUnavailableOriginalKeepCommentaryUntilRetryRecoversAVerifiedOriginal
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.QuotePreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=failedAndUnavailableOriginalKeepCommentaryUntilRetryRecoversAVerifiedOriginal
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.QuotePreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=publishAQuoteWithCommentaryAndAnOriginalVisibleInFeedAndConversation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.QuotePreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=publishAQuoteWithCommentaryAndAnOriginalVisibleInFeedAndConversation
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.QuotePreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=verifiedOriginalCacheSurvivesReopeningAndStaysWithItsBackend
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.QuotePreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=verifiedOriginalCacheSurvivesReopeningAndStaysWithItsBackend
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 14.898
+There was 1 failure:
+1) currentCommentaryRetweetLoadsItsVerifiedOriginalFromTheSelectedArchive(nl.davidengelen.redsquare.QuotePreviewTest)
+java.lang.AssertionError: No node found that matches (Text + InputText + EditableText contains 'Native Red Square reference post' (ignoreCase: false)) && (hasAnyAncestorThat(ContentDescription = 'Quoted original' (ignoreCase: false))) in scrollable container
+Semantics of the node:
+Node #343 at (l=16.0, t=432.0, r=304.0, b=624.0)px
+CollectionInfo = 'CollectionInfo(rowCount=1, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@153490'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=49.0, maxValue=49.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 1 child, 14 siblings
+Selector used: (ScrollBy is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.QuotePreviewTest.currentCommentaryRetweetLoadsItsVerifiedOriginalFromTheSelectedArchive(QuotePreviewTest.kt:60)
+
+FAILURES!!!
+Tests run: 7,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

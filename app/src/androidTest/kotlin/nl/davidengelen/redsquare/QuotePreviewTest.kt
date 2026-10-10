@@ -57,6 +57,7 @@ class QuotePreviewTest {
                 try {
                     waitFor("Current commentary retweet")
                     val embeddedOriginal = hasText(originalText) and hasAnyAncestor(hasContentDescription("Quoted original"))
+                    ui.waitUntil(20_000) { ui.onAllNodes(embeddedOriginal, useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNode(hasScrollAction(), useUnmergedTree = true).performScrollToNode(embeddedOriginal)
                     ui.onNode(embeddedOriginal, useUnmergedTree = true).assertIsDisplayed()
                     captureQuoteEvidence("quote-evidence/current-commentary-retweet.png")
