@@ -14,6 +14,7 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasAction
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.uiautomator.UiDevice
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import nl.davidengelen.redsquare.saito.AndroidBackendStore
@@ -55,6 +56,7 @@ class ImageProcessRecoveryTest {
                 it.write(android.util.Base64.decode(fixture.getAsJsonObject("images").get("red").asString.substringAfter(','), android.util.Base64.NO_WRAP))
             }
             Intents.init()
+            var interceptingPicker = true
             try {
                 Intents.intending(anyOf(hasAction(Intent.ACTION_OPEN_DOCUMENT), hasAction(Intent.ACTION_GET_CONTENT),
                     hasAction("android.provider.action.PICK_IMAGES"), hasAction("androidx.activity.result.contract.action.PICK_IMAGES"),
@@ -66,15 +68,27 @@ class ImageProcessRecoveryTest {
                     ui.waitUntil(20_000) { peer.requests.get() > 0 && ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     assertCachedOriginalImages()
                     openComposer()
-                    ui.onNode(hasSetTextAction()).performTextReplacement(text)
-                    ui.onNodeWithText("Add images").performScrollTo().assertIsDisplayed().performClick()
+                    ui.onNode(hasSetTextAction()).performTextReplacement("Prepared image before opening another picker")
+                    ui.clickImagePicker()
                     waitForPreparedImage()
                     assertEquals(1, context.contentResolver.delete(uri, null, null))
                     assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
                     capture("durable-draft.png")
+                    // No result is returned by this second, real external picker. The newly
+                    // typed text must already be durable when Android kills the app here.
+                    Intents.release()
+                    interceptingPicker = false
+                    ui.onNode(hasSetTextAction()).performTextReplacement(text)
+                    ui.clickImagePicker()
+                    val device = UiDevice.getInstance(instrumentation)
+                    ui.waitUntil(15_000) { device.currentPackageName in setOf(
+                        "com.android.documentsui", "com.google.android.photopicker",
+                        "com.google.android.providers.media.module", "com.android.providers.media.module") }
+                    assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
+                    capture("picker-before-process-death.png")
                     terminate(JsonObject().apply { addProperty("phase", "draft") })
                 }
-            } finally { Intents.release() }
+            } finally { if (interceptingPicker) Intents.release() }
         } finally { context.contentResolver.delete(uri, null, null) }
     }
 
@@ -187,6 +201,8 @@ class ImageProcessRecoveryTest {
 
     private fun capture(name: String) {
         val file = File(context.cacheDir, "image-process-evidence/$name").apply { parentFile?.mkdirs() }
-        check(androidx.test.uiautomator.UiDevice.getInstance(instrumentation).takeScreenshot(file))
+        val device = UiDevice.getInstance(instrumentation)
+        check(device.takeScreenshot(file))
+        device.dumpWindowHierarchy(File(file.parentFile, name.removeSuffix(".png") + ".xml"))
     }
 }

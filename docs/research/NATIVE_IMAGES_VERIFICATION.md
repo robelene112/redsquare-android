@@ -17,7 +17,16 @@ The corrected readiness guard passes all8 focused feed/backend cases and cold
 cache recovery in38071460383 atc73fc13. Full17 companion38071834163 at65469a7
 is underway, including the stricter picker-closed helper and both public reads.
 Production/build/scripts/workflow unchanged.
-Do not close #15 until that remaining full result is inspected and accepted.
+Source review additionally confirmed a preservation gap: opening the external
+picker precedes durable saving of newly typed text. Existing process recovery
+starts after preparation and does not cover death while the picker is open.
+Extend that tracer to kill the actual process with a real picker foreground,
+then require the new text and existing prepared image on cold recovery. Fix
+the launch boundary only after observing red, including save-failure refusal
+and originating-session ownership. This production correction requires fresh
+full Android10 and17 acceptance; the running companion is a regression baseline,
+not final acceptance. Do not close #15 until the correction and both results
+are reviewed and accepted.
 The checkpoints below preserve chronological red/green evidence and historical
 pending statuses rather than claiming each old candidate is final.
 

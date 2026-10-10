@@ -146,7 +146,16 @@ one question at a time when a material choice really needs the owner.
   disappearance; compile1m01s/both bounded reviews0 at65469a7. Final full17
   companion38071834163 at65469a7 running with public reads enabled. Production/
   build/scripts/workflow equivalence to accepted full10 verified again; final
-  evidence/review/closure still required.
+  evidence/review/closure still required. A subsequent targeted review confirmed
+  a production preservation gap: Add images opens the picker before saving new
+  text; addImages saves only after a result. Both review axes confirm this is
+  within the approved navigation/recovery contract. Extend the existing actual
+  process-death tracer to edit text after preparation, open the real picker with
+  no result, kill and cold-recover exact new text plus the source-deleted image.
+  Test first, then add a state-owned verified save-before-launch guard and bind
+  delayed results to their originating composer. Save failure must launch no
+  picker. This production change needs fresh full10 AND17 acceptance; current
+  654 companion results cannot close15. No production fix yet at this checkpoint.
   Full10 evidence retained6853de3, corrected official caption0c5b7fd; both
   bounded evidence review axes0 residual findings.
   Actual post/reply/quote frames independently verified; A/B unchanged templates
