@@ -346,6 +346,13 @@ runtime predates those assertions, next focused/final runs must execute them.
 Next actual process fixture/hostdriver kills pending report after receipt,
 checks old PID absent/newPID and exact cold explicitretry without resets.
 Process runtime still pending; no success inferred from fixture source.
+Process-first38174505849 at0d59cd3: ordinary7PASS50.598s including
+stronger signer/displayed/savedwallet assertions. Processphase1FAIL8.22s59
+blocking5sreceipt wait; root original/separateXML still showconfirmation.
+No pendingkill/coldrecovery reached. process-fixture-red5hashes retained.
+Earlier source-supported7ab3387 correction uses Composewaitsame5s instead
+ofblockinglatch; bothfixreviews0. Cause remains timinghypothesis; corrected
+runtime next, product unchanged.
 Ticket22 remains incomplete: failure/durability/identity/backend isolation,
 actual process interruption and final both-SDK acceptance/reviews still required.
 Its source contract is prepared in NATIVE_DISCOVERY_MODERATION_CONTRACT.md and

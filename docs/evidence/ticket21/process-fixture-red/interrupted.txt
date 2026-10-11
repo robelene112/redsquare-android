@@ -1,0 +1,53 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ReportProcessRecoveryTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ReportProcessRecoveryTest:
+INSTRUMENTATION_STATUS: test=terminateAfterReceiptBeforeAcknowledgement
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ReportProcessRecoveryTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Report did not reach the controlled peer
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.ReportProcessRecoveryTest.terminateAfterReceiptBeforeAcknowledgement$lambda$11$lambda$10$lambda$9(ReportProcessRecoveryTest.kt:59)
+	at nl.davidengelen.redsquare.ReportProcessRecoveryTest.$r8$lambda$Aj3CdWnlRpIObep4YuI-3q-8kfA(Unknown Source:0)
+	at nl.davidengelen.redsquare.ReportProcessRecoveryTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ReportProcessRecoveryTest.terminateAfterReceiptBeforeAcknowledgement(ReportProcessRecoveryTest.kt:56)
+
+INSTRUMENTATION_STATUS: stream=
+Error in terminateAfterReceiptBeforeAcknowledgement(nl.davidengelen.redsquare.ReportProcessRecoveryTest):
+java.lang.AssertionError: Report did not reach the controlled peer
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.ReportProcessRecoveryTest.terminateAfterReceiptBeforeAcknowledgement$lambda$11$lambda$10$lambda$9(ReportProcessRecoveryTest.kt:59)
+	at nl.davidengelen.redsquare.ReportProcessRecoveryTest.$r8$lambda$Aj3CdWnlRpIObep4YuI-3q-8kfA(Unknown Source:0)
+	at nl.davidengelen.redsquare.ReportProcessRecoveryTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ReportProcessRecoveryTest.terminateAfterReceiptBeforeAcknowledgement(ReportProcessRecoveryTest.kt:56)
+
+INSTRUMENTATION_STATUS: test=terminateAfterReceiptBeforeAcknowledgement
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 8.22
+There was 1 failure:
+1) terminateAfterReceiptBeforeAcknowledgement(nl.davidengelen.redsquare.ReportProcessRecoveryTest)
+java.lang.AssertionError: Report did not reach the controlled peer
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.ReportProcessRecoveryTest.terminateAfterReceiptBeforeAcknowledgement$lambda$11$lambda$10$lambda$9(ReportProcessRecoveryTest.kt:59)
+	at nl.davidengelen.redsquare.ReportProcessRecoveryTest.$r8$lambda$Aj3CdWnlRpIObep4YuI-3q-8kfA(Unknown Source:0)
+	at nl.davidengelen.redsquare.ReportProcessRecoveryTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ReportProcessRecoveryTest.terminateAfterReceiptBeforeAcknowledgement(ReportProcessRecoveryTest.kt:56)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

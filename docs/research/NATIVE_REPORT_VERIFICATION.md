@@ -239,3 +239,14 @@ fixture synchronization risk. Replace blocking latch await after asynchronous
 Send with bounded Compose ui.waitUntil observing the same real receipt latch,
 keeping the5s deadline. No receipt timeout is claimed observed. Current
 38174505849 at0d59cd3 predates this preventive fixture correction.
+
+## Actual process fixture first run stopped before kill
+
+Run38174505849 at0d59cd3: ordinary7PASS50.598s, now including
+stronger4a3ebee signer/active-wallet assertions. Process first phase1FAIL8.22s
+at59 blocking5s receipt wait. Root original/separateXML show confirmation
+still present; receipt checkpoint/pending kill/cold recovery not reached.
+Durable ticket21/process-fixture-red5hashes. This supports the reviewed timing
+hypothesis but does not establish its cause or a production defect. Both
+7ab3387 bounded synchronization-fix review axes0; rerun corrected fixture
+with same5s receipt deadline. Product unchanged.
