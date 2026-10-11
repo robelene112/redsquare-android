@@ -163,10 +163,18 @@ class UsernamePreviewTest {
                         ui.onAllNodesWithText("Retry registration").assertCountEquals(0)
                         assertTrue(peer.transactions.isEmpty())
                         capture("username-confirmed.png", "NativeCase7@saito")
+                        fun observedChecks() = peer.registryQueries.count {
+                            it.get("request").asString == "registry namecheck" &&
+                                it.get("identifier")?.asString == "NativeCase7@saito"
+                        }
+                        val checksBeforeRecovery = observedChecks()
+                        assertTrue("Signed ownership must follow an actual namecheck", checksBeforeRecovery > 0)
                         unavailable.set(true)
                         scenario.recreate()
                         openUsername()
                         waitForText("Username could not be checked. Try again.")
+                        assertTrue("Recovery must actually observe the unavailable Registry response",
+                            observedChecks() > checksBeforeRecovery)
                         ui.onNodeWithText("Saved username: NativeCase7@saito").assertIsDisplayed()
                         ui.onAllNodesWithText("This username is registered to your wallet.").assertCountEquals(0)
                         ui.onAllNodesWithText("Register name").assertCountEquals(0)
