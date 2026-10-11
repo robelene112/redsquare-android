@@ -38,9 +38,12 @@ class ProfilePublishingPreviewTest {
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
     }
 
-    private enum class Scenario { AVAILABLE, PREVIOUSLY_AVAILABLE, NEWER_PROFILE, NEWER_PROFILE_CACHE_FAILURE }
+    private enum class Scenario { AVAILABLE, PREVIOUSLY_AVAILABLE, NEWER_PROFILE, NEWER_PROFILE_CACHE_FAILURE, CANCELLED_IMPORT }
 
     @Test fun savingBioPublishesACompleteSnapshotAndPreservesOtherVerifiedFields() = publishAndReopen(Scenario.AVAILABLE)
+
+    @Test fun cancelledWalletImportAfterConfirmationKeepsNewProfileEditingAndDraftRecoveryAvailable() =
+        publishAndReopen(Scenario.CANCELLED_IMPORT)
 
     @Test fun previouslyAvailableProfileSurvivesEmptyReadsAndNavigationWithoutPublishingAgain() =
         publishAndReopen(Scenario.PREVIOUSLY_AVAILABLE)
@@ -58,6 +61,8 @@ class ProfilePublishingPreviewTest {
         val supersession = scenario == Scenario.NEWER_PROFILE || scenario == Scenario.NEWER_PROFILE_CACHE_FAILURE
         val historical = scenario == Scenario.PREVIOUSLY_AVAILABLE
         val cacheFailure = scenario == Scenario.NEWER_PROFILE_CACHE_FAILURE
+        val cancelledImport = scenario == Scenario.CANCELLED_IMPORT
+        val nextBio = "My next unsent profile bio 🌱"
         val reference = instrumentation.context.assets.open("native-profile-reference.json").bufferedReader()
             .use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("withMedia") }
         val owner = "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR"
@@ -177,6 +182,26 @@ class ProfilePublishingPreviewTest {
                                 addProperty("frame", Base64.getEncoder().encodeToString(peer.transactions.single()))
                                 addProperty("envelope", requireNotNull(indexed.get()).get("tx").asString)
                             }.toString())
+                        if (cancelledImport) {
+                            ui.waitUntil(20_000) { ui.onAllNodes(hasText("Back") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                            ui.onNodeWithText("Wallet").performClick()
+                            ui.onNodeWithText("Import wallet").performScrollTo().performClick()
+                            val device = UiDevice.getInstance(instrumentation)
+                            ui.waitUntil(15_000) { device.currentPackageName == "com.android.documentsui" }
+                            device.pressBack()
+                            ui.waitUntil(15_000) { ui.onAllNodesWithText(context.getString(R.string.wallet_import_cancelled)).fetchSemanticsNodes().isNotEmpty() }
+                            ui.onNodeWithText(context.getString(R.string.wallet_import_cancelled)).assertIsDisplayed()
+                            ui.onNodeWithText("Done").performClick()
+                            ui.onNode(hasSetTextAction()).assertIsEnabled().performTextReplacement(nextBio)
+                            ui.onNodeWithText("Save profile").assertIsEnabled()
+                            ui.onNodeWithText("Profile available on this server.").assertDoesNotExist()
+                            assertEquals(1, peer.transactions.size)
+                            capture("profile-import-cancel-new-edit.png", nextBio)
+                            ui.onNodeWithText("Save draft").performClick()
+                            ui.waitUntil(20_000) { ui.onAllNodes(hasText("Edit profile") and hasClickAction()).fetchSemanticsNodes().isNotEmpty() }
+                            ui.onNodeWithText(bio).assertIsDisplayed()
+                            ui.onNodeWithText(nextBio).assertDoesNotExist()
+                        }
                         if (scenario == Scenario.AVAILABLE) {
                             ui.onNodeWithText("Back").performClick()
                             ui.waitUntil(20_000) { ui.onAllNodesWithText(bio).fetchSemanticsNodes().isNotEmpty() &&
@@ -191,6 +216,29 @@ class ProfilePublishingPreviewTest {
                             else if (supersession) "superseded-profile-first-failure.png" else "bio-snapshot-first-failure.png") }
                         catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
                         throw failure
+                    }
+                }
+                if (cancelledImport) {
+                    ActivityScenario.launch<MainActivity>(intent).use {
+                        try {
+                            ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                            ui.onNodeWithText("Your profile").performClick()
+                            ui.waitUntil(20_000) { ui.onAllNodes(hasText("Edit profile") and hasClickAction()).fetchSemanticsNodes().isNotEmpty() &&
+                                ui.onAllNodesWithText(context.getString(R.string.profile_details_loading)).fetchSemanticsNodes().isEmpty() }
+                            ui.onNodeWithText(bio).assertIsDisplayed()
+                            ui.onNodeWithText("Edit profile").performClick()
+                            ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                            ui.onNode(hasSetTextAction()).assert(SemanticsMatcher.expectValue(
+                                SemanticsProperties.EditableText, AnnotatedString(nextBio))).assertIsEnabled()
+                            ui.onNodeWithText("Save profile").assertIsEnabled()
+                            capture("profile-import-cancel-recovered-draft.png", nextBio)
+                            assertEquals(1, peer.transactions.size)
+                            assertEquals(owner, store.loadExisting().publicKey); peer.assertHealthy()
+                        } catch (failure: Throwable) {
+                            try { capture("profile-import-cancel-recovery-failure.png") }
+                            catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
+                            throw failure
+                        }
                     }
                 }
                 if (historical) {

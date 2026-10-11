@@ -747,3 +747,30 @@ No new internal-state test or race reproduction claim; local build, committed
 review and native regression pending. Actual recreation/interruption still required
 for ticket acceptance.
 Local progress-preservation debug/test assembly PASS2m2s, retained exit0.
+
+Bounded16f...b93 review: one Standards residual clear/re-edit edge; Spec review
+pending. Once a confirmed candidate is deliberately cleared, an old mounted save
+sees transaction=null and could resurrect it over newer plain edits. Source
+interleaving only, no runtime claim. Tighten expected-record comparison with a
+nonnegative encrypted revision retained through empty clears. Legacy v1/v2
+without the optional revision read as0; subsequent saves increment under lock.
+Different no-candidate revisions/plain drafts reject stale writes; same frozen
+candidate can still merge monotonic confirmation/newer guards. Mounted editor
+tracks returned revision, confirmation returns its exact saved record, and clear
+compares the mounted expected record before removal. No private SavedState/new
+file family/key alias/AAD. Local build, committed review and runtime pending.
+
+Next ONE native tracer at the existing app/persistence seams exercises confirmed
+publication → real SAF wallet import → Back cancellation → dismiss wallet → type
+a new bio. Require Save profile enabled, no old current-availability claim, one
+TX only, then Save draft and fresh Activity recovery of that exact unsent bio,
+without public publication. Expected RED is disabled Save after retain cleared
+the candidate without resetting live availability. The expected-record revision
+fix is included but does not fix that separate live-state bug yet.
+
+Bounded16f...b93 Spec: one actionable live-availability finding, confirmed
+publication → import beforeSelection → persist clears candidate → cancel/dismiss
+wallet leaves editor mounted. retain cleared candidate/changes but not available,
+so editing becomes enabled while Save stays disabled. This is the new native
+tracer's expected failure; not an observed runtime result yet.
+Expected-record revision plus tracer local debug/test assembly PASS2m1s.

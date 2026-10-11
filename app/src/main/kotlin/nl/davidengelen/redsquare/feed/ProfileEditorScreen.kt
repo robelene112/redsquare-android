@@ -32,6 +32,7 @@ internal class ProfileDraftMemory : ViewModel() {
 private class ProfileEditorState(private val store: ProfileDraftStore, private val memory: ProfileDraftMemory,
     private val scope: CoroutineScope, private val wallet: SaitoWallet, private val endpoint: String,
     private val cache: AndroidProfileDetailsCache) {
+    private var durable = ProfileDraftStore.Saved()
     var changes by mutableStateOf(JsonObject())
     var ready by mutableStateOf(false)
     var busy by mutableStateOf(false)
@@ -49,6 +50,7 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
     suspend fun load() {
         try {
             val saved = withContext(Dispatchers.IO) { store.load() }
+            durable = saved
             changes = (if (saved.transaction != null) saved.changes else memory.changes ?: saved.changes).deepCopy()
             memory.changes = changes.deepCopy()
             candidate = saved.transaction
@@ -73,7 +75,11 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
         catch (_: Exception) { error = true }
     }
 
+    private suspend fun save(saved: ProfileDraftStore.Saved): ProfileDraftStore.Saved =
+        store.save(saved, durable).also { durable = it }
+
     private fun retain(saved: ProfileDraftStore.Saved) {
+        durable = saved
         changes = saved.changes.deepCopy()
         memory.changes = changes.takeIf { it.size() > 0 }?.deepCopy()
         candidate = saved.transaction
@@ -112,7 +118,7 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
                 val prior = changes.deepCopy()
                 withContext(Dispatchers.IO) {
                     // Preserve all prior work before provider reads or pixel allocation.
-                    withContext(NonCancellable) { store.save(ProfileDraftStore.Saved(prior)) }
+                    withContext(NonCancellable) { save(ProfileDraftStore.Saved(prior)) }
                     val cached = cache.load()
                     check(!cached.unreadable)
                     val baseline = known?.let { SaitoProfiles.merge(cached.profile, it) } ?: cached.profile
@@ -125,7 +131,7 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
                     require(SaitoProfiles.message(baseline, prepared).toString().toByteArray(Charsets.UTF_8).size <=
                         SaitoTransaction.MAX_MESSAGE_BYTES)
                     withContext(NonCancellable) {
-                        store.save(ProfileDraftStore.Saved(prepared))
+                        save(ProfileDraftStore.Saved(prepared))
                         withContext(Dispatchers.Main.immediate) {
                             changes = prepared; memory.changes = prepared.deepCopy(); error = false
                         }
@@ -142,8 +148,8 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
         busy = true
         return try {
             val saved = withContext(NonCancellable + Dispatchers.IO) {
-                if (available && !networkError && !superseded) store.clearAvailable(requireNotNull(candidate).id)
-                else store.save(ProfileDraftStore.Saved(changes, candidate, previouslyAvailable, superseding))
+                if (available && !networkError && !superseded) store.clearAvailable(requireNotNull(candidate).id, durable)
+                else save(ProfileDraftStore.Saved(changes, candidate, previouslyAvailable, superseding))
             }
             retain(saved)
             error = false
@@ -169,7 +175,7 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
                 withContext(Dispatchers.IO) {
                     // Save local edits even when the required fresh baseline lookup fails.
                     withContext(NonCancellable) {
-                        val saved = store.save(ProfileDraftStore.Saved(changes, candidate, previouslyAvailable, superseding))
+                        val saved = save(ProfileDraftStore.Saved(changes, candidate, previouslyAvailable, superseding))
                         withContext(Dispatchers.Main.immediate) { retain(saved) }
                     }
                     SaitoPeer(wallet, endpoint).use { peer ->
@@ -183,7 +189,7 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
                             val timestamp = maxOf(System.currentTimeMillis(), Math.addExact(
                                 baseline.updates.maxOfOrNull { it.createdAt } ?: 0, 1))
                             val prepared = SaitoTransaction.create(wallet, SaitoProfiles.message(baseline, changes), timestamp)
-                            withContext(NonCancellable) { store.save(ProfileDraftStore.Saved(changes, prepared)) }
+                            withContext(NonCancellable) { save(ProfileDraftStore.Saved(changes, prepared)) }
                             withContext(Dispatchers.Main.immediate) { candidate = prepared }
                             prepared
                         }
@@ -226,7 +232,7 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
             }
             // Navigation must retain this verified guard even if public-cache saving fails.
             withContext(NonCancellable) {
-                val saved = store.save(ProfileDraftStore.Saved(changes, transaction, superseding = latest))
+                val saved = save(ProfileDraftStore.Saved(changes, transaction, superseding = latest))
                 withContext(Dispatchers.Main.immediate) { retain(saved) }
                 cache.save(requireNotNull(saved.superseding))
             }
@@ -242,7 +248,8 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
             observed.recipients == expected.recipients)
         withContext(NonCancellable) {
             cache.save(latest)
-            check(store.confirmAvailable(transaction.id))
+            val saved = checkNotNull(store.confirmAvailable(transaction.id))
+            withContext(Dispatchers.Main.immediate) { retain(saved) }
         }
         withContext(Dispatchers.Main.immediate) { available = true; previouslyAvailable = true; networkError = false }
         return true

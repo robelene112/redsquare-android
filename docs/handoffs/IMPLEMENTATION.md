@@ -128,8 +128,13 @@ stale mounted saves can erase concurrently persisted availability/supersession.
 Progress-preserving saves now retain same-candidate historical/newer guards,
 reject different candidates/frozen edits, and explicitly clear only this
 confirmed non-superseded candidate. Mounted state adopts retained progress.
-Local debug/test PASS2m2s; committed review/runtime pending. No runtime race
-reproduction claimed.
+Local debug/test PASS2m2s; bounded16f...b93 Standards1 residualclear/re-edit
+edge, Spec1 clearedcandidate leavesliveavailability true afterimportcancel.
+Expected-record revision now preserves empty clears and rejects stale no-candidate
+writes; revisionlessv1/v2 readas0. Localrevision/newtracer buildPASS2m1s.
+Newsingle realSAF importcancel/newedit/recovery tracer expects Save-disabledRED;
+that separate live-state fix not yet implemented. Committedreview/runtimepending;
+no scheduler-race reproduction claimed.
 Recovery/process/full acceptance remains open.
 Then candidate failures/recovery,
 actual process death, media, cross-client, full checks/reviews remain. No APK or

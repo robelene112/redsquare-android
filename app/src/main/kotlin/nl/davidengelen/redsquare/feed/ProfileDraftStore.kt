@@ -22,7 +22,7 @@ internal class ProfileDraftStore(private val context: Context, private val owner
 
     // available records a past exact confirmation, not current server retention.
     data class Saved(val changes: JsonObject = JsonObject(), val transaction: SaitoTransaction? = null,
-        val available: Boolean = false, val superseding: SaitoProfile? = null) {
+        val available: Boolean = false, val superseding: SaitoProfile? = null, val revision: Long = 0) {
         val hasWork: Boolean get() = !available && (changes.size() > 0 || transaction != null)
     }
 
@@ -32,7 +32,7 @@ internal class ProfileDraftStore(private val context: Context, private val owner
         val saved = when (contents.version) {
             1.toByte() -> Saved(record) // Existing v1 contains changes directly, not a wrapper.
             2.toByte() -> {
-                require(record.keySet().all { it in setOf("changes", "transaction", "available", "superseding") })
+                require(record.keySet().all { it in setOf("changes", "transaction", "available", "superseding", "revision") })
                 val transaction = record.get("transaction")?.let {
                     require(it.isJsonPrimitive && it.asJsonPrimitive.isString)
                     SaitoTransaction.restore(it.asString)
@@ -43,7 +43,11 @@ internal class ProfileDraftStore(private val context: Context, private val owner
                     require(it.isJsonPrimitive && it.asJsonPrimitive.isString)
                     readSuperseding(it.asString)
                 }
-                Saved(record.getAsJsonObject("changes"), transaction, flag.asBoolean, superseding)
+                val revision = record.get("revision")?.let {
+                    require(it.isJsonPrimitive && it.asJsonPrimitive.isNumber)
+                    it.asString.toBigDecimal().longValueExact().also { value -> require(value >= 0) }
+                } ?: 0
+                Saved(record.getAsJsonObject("changes"), transaction, flag.asBoolean, superseding, revision)
             }
             else -> error("Unknown profile draft version")
         }
@@ -51,10 +55,15 @@ internal class ProfileDraftStore(private val context: Context, private val owner
     }
 
     /** A mounted editor cannot replace another candidate or regress durable delivery progress. */
-    fun save(saved: Saved): Saved = synchronized(SaitoLocalState.lock) {
+    fun save(saved: Saved, expected: Saved): Saved = synchronized(SaitoLocalState.lock) {
         validate(saved)
         val current = load()
-        val replacement = if (current.transaction == null) saved else {
+        // Revision survives clears, distinguishing a new empty draft from an old mounted one.
+        if (!same(current, expected)) {
+            check(current.transaction != null && expected.transaction?.encoded() == current.transaction.encoded() &&
+                expected.changes == current.changes)
+        }
+        val replacement = (if (current.transaction == null) saved else {
             check(saved.transaction?.encoded() == current.transaction.encoded() && saved.changes == current.changes)
             val superseding = when {
                 current.superseding == null -> saved.superseding
@@ -62,17 +71,17 @@ internal class ProfileDraftStore(private val context: Context, private val owner
                 else -> SaitoProfiles.merge(current.superseding, saved.superseding)
             }
             saved.copy(available = superseding == null && (current.available || saved.available), superseding = superseding)
-        }
+        }).copy(revision = Math.addExact(current.revision, 1))
         write(replacement)
         replacement
     }
 
     /** Clear only this confirmed candidate; preserve progress a stale editor has not observed. */
-    fun clearAvailable(id: String): Saved = synchronized(SaitoLocalState.lock) {
+    fun clearAvailable(id: String, expected: Saved): Saved = synchronized(SaitoLocalState.lock) {
         val current = load()
         check(current.transaction?.id == id)
-        if (!current.available || current.superseding != null) return@synchronized current
-        Saved().also(::write)
+        if (!same(current, expected) || !current.available || current.superseding != null) return@synchronized current
+        Saved(revision = Math.addExact(current.revision, 1)).also(::write)
     }
 
     private fun write(saved: Saved) {
@@ -81,6 +90,7 @@ internal class ProfileDraftStore(private val context: Context, private val owner
             add("changes", saved.changes.deepCopy())
             saved.transaction?.let { addProperty("transaction", it.encoded()) }
             addProperty("available", saved.available)
+            addProperty("revision", saved.revision)
             saved.superseding?.let { addProperty("superseding", it.updates.single().envelope) }
         }
         file.save(EncryptedLocalFile.Contents(2, record.toString()))
@@ -94,16 +104,15 @@ internal class ProfileDraftStore(private val context: Context, private val owner
         saved.transaction?.id == id && !saved.available && saved.superseding == null
     }
 
-    fun confirmAvailable(id: String): Boolean = synchronized(SaitoLocalState.lock) {
+    fun confirmAvailable(id: String): Saved? = synchronized(SaitoLocalState.lock) {
         val saved = load()
-        if (saved.transaction?.id != id || saved.superseding != null) return@synchronized false
-        save(saved.copy(available = true))
-        true
+        if (saved.transaction?.id != id || saved.superseding != null) return@synchronized null
+        save(saved.copy(available = true), saved)
     }
 
     private fun same(a: Saved, b: Saved): Boolean = a.changes == b.changes &&
         a.transaction?.encoded() == b.transaction?.encoded() && a.available == b.available &&
-        a.superseding?.updates == b.superseding?.updates
+        a.superseding?.updates == b.superseding?.updates && a.revision == b.revision
 
     private fun readSuperseding(envelope: String): SaitoProfile {
         val rows = JsonArray().apply { add(JsonObject().apply { addProperty("tx", envelope) }) }
@@ -113,6 +122,7 @@ internal class ProfileDraftStore(private val context: Context, private val owner
     }
 
     private fun validate(saved: Saved) {
+        require(saved.revision >= 0)
         require(saved.changes.keySet().all { it in setOf("description", "image", "banner") })
         saved.changes.get("description")?.let { require(it.isJsonPrimitive && it.asJsonPrimitive.isString) }
         for (name in listOf("image", "banner")) saved.changes.get(name)?.let {
