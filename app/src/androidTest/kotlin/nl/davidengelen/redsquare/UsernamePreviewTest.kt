@@ -351,6 +351,54 @@ class UsernamePreviewTest {
         }
     }
 
+    @Test fun anUnsavedVerifiedOwnNameIsNeverOfferedForRegistrationAgain() = withRegistryWallet { fixture ->
+        val reference = instrumentation.context.assets.open("native-registry-reference.json").bufferedReader()
+            .use { JsonParser.parseReader(it).asJsonObject }
+        val response = java.util.concurrent.atomic.AtomicReference(reference.getAsJsonArray("rows").toString())
+        val peer = ControlledFeedPeer("[]", registryResponse = { criteria ->
+            if (criteria.get("request").asString == "registry query") "{}" else response.get()
+        })
+        val obstruction = File(context.noBackupFilesDir, "namemap.${fixture.publicKey}.v1")
+        var primary: Throwable? = null
+        try {
+            peer.start().use { server ->
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                    .putExtra("feedDisabled", true)
+                    .putExtra("usernameFixtureRegistrar", true)).use {
+                    withFailureCapture({ capture("username-unsaved-own-name-failure.png") }) {
+                        waitForEnabled("Settings")
+                        if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
+                        ui.onNodeWithText("Settings").performClick()
+                        ui.onNodeWithText("Saito username").performClick()
+                        waitForEnabled("Check name")
+                        check(!obstruction.exists() && obstruction.mkdir())
+                        ui.onNode(hasSetTextAction()).performTextReplacement("NativeCase7")
+                        ui.onNodeWithText("Check name").performClick()
+                        waitForText("This username is registered to your wallet.")
+                        val warning = "Your username was verified but could not be saved. Recovery on this device is not yet verified."
+                        waitForText(warning)
+                        ui.onNodeWithText("NativeCase7@saito").assertIsDisplayed()
+                        response.set("[]")
+                        val checks = peer.registryQueries.size
+                        ui.onNodeWithText("Check name").performClick()
+                        waitForEnabled("Check name")
+                        assertTrue(peer.registryQueries.size > checks)
+                        ui.onAllNodesWithText("Register name").assertCountEquals(0)
+                        ui.onNodeWithText(warning).assertIsDisplayed()
+                        ui.onNode(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString("NativeCase7")))
+                            .assertIsNotEnabled()
+                        ui.onAllNodesWithText("This username is registered to your wallet.").assertCountEquals(0)
+                        assertTrue(peer.transactions.isEmpty())
+                        assertEquals(fixture.publicKey, AndroidWalletStore(context).loadExisting().publicKey)
+                        peer.assertHealthy()
+                    }
+                }
+            }
+        } catch (failure: Throwable) { primary = failure; throw failure }
+        finally { cleanupAfterTest(primary, { if (obstruction.isDirectory) check(obstruction.delete()) }) }
+    }
+
     @Test fun anUnavailableUsernameCheckDoesNotBlockPostingOrChangeTheWallet() {
         val peer = ControlledFeedPeer("[]", registryResponse = response@ { criteria ->
             if (criteria.get("request").asString == "registry query") return@response "{}"
@@ -510,7 +558,7 @@ class UsernamePreviewTest {
     }
 
     @Test fun losingARegistrationRaceNeverNamesTheWrongWalletOrResendsItsRequest() = withRegistryWallet(
-        SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
+        SaitoWallet.fromPrivateKey("0".repeat(63) + "3") // Distinct from both proof owner and synthetic registrar.
     ) { fixture ->
         val reference = instrumentation.context.assets.open("native-registry-reference.json").bufferedReader()
             .use { JsonParser.parseReader(it).asJsonObject }

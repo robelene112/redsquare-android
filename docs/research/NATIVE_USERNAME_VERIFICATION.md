@@ -567,3 +567,14 @@ work, fails closed without lookup/send, restores and reconciles read-only, then
 retries identical bytes only on explicit action. Debug/test assembly1m17s PASS
 before bounded feed-isolation and disabled-field selector corrections. Corrected
 runtime and applicable full acceptance remain pending. #19 open.
+
+Cumulative source review finds Settings failed-cache save followed by [] can
+forget verified own identity and offer Register again. New isolated native RED
+tracer now exercises this exact flow, using username_cache_error after obstruction
+created AFTER initial load. No app correction/runtime is claimed yet.
+Race17e9ab465 run38126094002 has12/13PASS146.555s; root PNG/XML show request-save
+error before taken wait. Fixture writer2 collides with syntheticregistrar2 and
+core outputdedup/requeststore2recipient validation. Corrected writer3 is distinct;
+no production fix or corrected acceptance inferred. Four hashed failure originals
+retained in race-fixture-recipient-collision. A verified conflict also needs an
+explicit safe new-name path; cumulative Spec finding remains for the next slice.
