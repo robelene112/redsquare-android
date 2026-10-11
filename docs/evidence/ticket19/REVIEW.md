@@ -245,3 +245,18 @@ No final #20 acceptance or live/physical claim.
 
 Fixed cache-failure fixture952fb55 compiles PASS1m18s; both bounded axes0.
 First focused native verification of the eight search journeys is next.
+
+
+Cache-save recovery GREEN38144386270 atfcfb404:8PASS78.271s, focused source/core/
+debug/test PASS; push38144377059 release/lintPASS. Root individually viewed
+both new originals and separate XMLs, rawlog/pairs retained ticket19/save-green.
+Live results/savewarning, repair/fresh offline Activity, wallet/allauth/noTX PASS.
+No manufactured RED, actualprocessdeath/live/physical/final acceptance.
+Author revision journey d1785e5 compiledPASS1m19s. Both axes found final-query
+falsepass if edit survives but deletion does not; fixed5302544 query'ed' matches
+both original'Red' and'edited'. FixedcompilePASS1m19s/bothboundedaxes0.
+New optedpublicreads fd35b02 inside existing live-feed journey check both search
+streams with fixed100/flaggedne1/timestamp/no field4 criteria and strictsigned
+readers; allow validempty and retain rejected-row counts, require harnessreport.
+CompilationPASS1m28s. Whole-ticket Spec0 source findings; Standards pending.
+First author native/publicreads and final full10/17 pending.
