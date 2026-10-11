@@ -57,9 +57,13 @@ Native second RED38134147254 atcc590f0 fails only at missing Retry,45.209s,
 replytracerPASS withguard. Original log/PNG/XML ticket19/paging-red.
 Paging/retry implemented locally at42ebbb8, compilePASS2m58s; source fixes f1ebc3e
 prioritize matchingposts/stopat1000 with explicitlimit and scrollprependedquote.
-Both source axes clear f1ebc3e; updatedcompile/firstpagingGREEN pending.
+Both source axes clear f1ebc3e; combinedcompilePASS2m43s. Focused
+Android17GREEN38135039545 at54e806f:2PASS40.598s, original log and
+three separately inspected PNG/XML pairs ticket19/paging-green.
 Review chronology ticket19/REVIEW.md.
-People, paging and durable search cache still pending; no #20 acceptance yet.
+Next single tracer: durable search cache on offline Activity reopen, real Settings
+backend isolation and same wallet. People/durable cache/full acceptance pending;
+no #20 acceptance yet.
 Accepted seams1–4 unchanged.
 Search preparation ignored .scratch/search-design.md plus protected contract.
 Owner reviews completed app, no intermediate phone gate.

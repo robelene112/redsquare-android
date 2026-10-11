@@ -28,7 +28,9 @@ visibility, because a keyed list can retain the prior first-item anchor.
 Fixed at `f1ebc3e` without reducing the exact display/cursor/count gates.
 
 Re-review `42ebbb8…f1ebc3e`: zero residual documented breaches or actionable
-Fowler smells. First paging GREEN remains pending.
+Fowler smells. Focused paging GREEN38135039545 at54e806f now passes2tests/40.598s;
+original artifacts and inspection limits are recorded in paging-green.
+No1,000-row runtime or final ticket acceptance claim.
 
 ## Specification
 

@@ -17,6 +17,83 @@ import java.util.concurrent.atomic.AtomicInteger
 class SearchPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
 
+    @Test fun reopeningOfflineKeepsSearchHistoryIsolatedBetweenSelectedServers() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        check(context.packageName == "nl.davidengelen.redsquare.dev")
+        check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
+        AndroidBackendStore(context).save(SaitoBackend.OWNER)
+        context.noBackupFilesDir.listFiles()?.filter {
+            listOf("feed.", "conversation.", "profile.", "search.", "authorposts.").any(it.name::startsWith)
+        }?.forEach { check(it.delete()) { "Could not reset public search fixtures" } }
+        val reply = instrumentation.context.assets.open("native-thread-reference.json").bufferedReader()
+            .use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("firstReply") }
+        val owner = ControlledFeedPeer("[]", archiveResponse = { criteria ->
+            if (criteria.has("field4")) "[]" else {
+                check(criteria.keySet() == setOf("request", "field1", "flagged_ne", "limit", "created_earlier_than"))
+                check(criteria.get("limit").asInt == 100 && criteria.get("flagged_ne").asInt == 1)
+                "[$reply]"
+            }
+        })
+        val official = ControlledFeedPeer("[]")
+        owner.start().use { ownerServer ->
+            official.start().use { officialServer ->
+                val intent = Intent(context, MainActivity::class.java)
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${ownerServer.port}/wsopen")
+                    .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${officialServer.port}/wsopen")
+                var address = ""
+                ActivityScenario.launch<MainActivity>(intent).use {
+                    withFailureCapture({ captureNativeScreen(File(context.cacheDir, "search-evidence/cache-online-failure.png")) }) {
+                        waitForEnabled("New post")
+                        if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
+                        ui.onNodeWithText("Wallet").performClick()
+                        address = displayedWalletAddress(ui)
+                        ui.onNodeWithText("Done").performClick()
+                        ui.onNodeWithText("Search").performClick()
+                        ui.onNode(hasSetTextAction()).performTextInput("Independent")
+                        ui.onNodeWithText("Search history").performClick()
+                        waitForText("Independent Saito reply")
+                        waitForEnabled("Search history")
+                    }
+                }
+                ownerServer.close()
+                ActivityScenario.launch<MainActivity>(intent).use {
+                    withFailureCapture({ captureNativeScreen(File(context.cacheDir, "search-evidence/cache-offline-failure.png")) }) {
+                        waitForEnabled("New post")
+                        ui.onNodeWithText("Search").performClick()
+                        ui.onNode(hasSetTextAction()).performTextInput("Independent")
+                        ui.onNodeWithText("Search history").performClick()
+                        waitForText("Some history could not be searched. Available results are still shown. Try again.")
+                        ui.onNodeWithText("Independent Saito reply").assertIsDisplayed()
+                        ui.onAllNodesWithText("No matching posts in the history searched so far.").assertCountEquals(0)
+                        ui.onNodeWithText("Server: saito.davidengelen.nl").assertIsDisplayed()
+                        assertTrue("No automatic fallback is permitted", official.clientKeys.isEmpty())
+                        captureNativeScreen(File(context.cacheDir, "search-evidence/cache-offline-retained.png"), "Independent Saito reply")
+                        chooseServer("saito.io")
+                        waitForText("Server: saito.io")
+                        ui.onNodeWithText("Search").performClick()
+                        ui.onNode(hasSetTextAction()).performTextInput("Independent")
+                        ui.onNodeWithText("Search history").performClick()
+                        waitForText("No matching posts in the history searched so far.")
+                        ui.onAllNodesWithText("Independent Saito reply").assertCountEquals(0)
+                        captureNativeScreen(File(context.cacheDir, "search-evidence/cache-official-isolated.png"))
+                        chooseServer("saito.davidengelen.nl")
+                        waitForText("Server: saito.davidengelen.nl")
+                        ui.onNode(hasSetTextAction()).assertTextContains("Independent")
+                        ui.onNodeWithText("Independent Saito reply").assertIsDisplayed()
+                        ui.onNodeWithText("Wallet").performClick()
+                        assertEquals(address, displayedWalletAddress(ui))
+                        assertTrue(owner.clientKeys.isNotEmpty() && official.clientKeys.isNotEmpty())
+                        assertTrue((owner.clientKeys + official.clientKeys).all { it == address })
+                        assertTrue(owner.transactions.isEmpty() && official.transactions.isEmpty())
+                        owner.assertHealthy()
+                        official.assertHealthy()
+                    }
+                }
+            }
+        }
+    }
+
     @Test fun partialHistoryCanBeRetriedAndPagedWithoutLosingVerifiedResults() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
@@ -201,6 +278,12 @@ class SearchPreviewTest {
                 }
             }
         }
+    }
+
+    private fun chooseServer(domain: String) {
+        ui.onNodeWithText("Settings").performClick()
+        waitForText(domain)
+        ui.onNodeWithText(domain).performClick()
     }
 
     private fun waitForText(text: String) {

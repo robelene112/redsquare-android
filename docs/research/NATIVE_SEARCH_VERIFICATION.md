@@ -89,3 +89,29 @@ prepended quote may leave the keyed list anchored to the previous first result.
 The test now scrolls to the exact quote before its unchanged display assertion.
 This is source-supported fixture navigation, not a reproduced runtime failure.
 Combined debug/test compilation is underway; paging GREEN remains pending.
+
+## Paging GREEN
+
+Combined source/test compilation PASS2m43s at f1ebc3e. Focused Android17
+38135039545 at54e806f passes both native journeys,2PASS/40.598s. Hosted
+source/core/debug/test assembly PASS. Original log and three PNG/XML pairs
+retained in ticket19/paging-green. Root viewed each image separately and its
+separate XML. Runtime verifies retention, exact stream reads/cursors, successful
+empty versus unavailable and unchanged wallet/noTX. No1000-row/full/live/Pixel
+claim. Next single tracer: reopening with unavailable owner server retains
+public search results; Settings switching isolates each backend with same wallet.
+
+## Offline cache and backend isolation tracer
+
+One new primary test closes the first Activity after a successful selected-owner
+reply search, stops that controlled peer, and opens a fresh Activity. Explicit
+same-query search must retain the signed reply while qualifying the failure.
+Saito remains untouched until the user switches through actual Settings; its
+empty search must not borrow owner history. Returning restores owner query and
+results, with the same exact wallet/authenticated client keys and zero TX.
+No wallet reset/private writes or actual process-death claim. Initial compile
+and native RED are pending; production cache is still absent.
+
+First cache-tracer compile failed57s: the failure-capture helper returns Unit,
+so the address capture was corrected to assign the outer test value. Assertions
+and production source are unchanged. Corrected compilation pending.
