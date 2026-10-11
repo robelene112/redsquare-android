@@ -145,7 +145,15 @@ Newcancel/newedit/recoverypasses; failurePNG/XMLalreadyshow correctreturned
 walletpreview. Threeoriginals inspected/retainedprofile-import-cancel-first.
 Helper nowrecognizesreturnedapp+exactselectedaddress oneachloopiteration
 withsamefilename/provider/deadline and strongerpostclickpositive gate.
-No productionchange; localfixturebuild/corrected10/reviewpending.
+No productionchange; localfixturebuildPASS1m9s,boundedreviewsbothzero;
+source38103756099 PASS49/release/lint; corrected10 38103756457 FAIL12:
+ninepass/skip/twoolderpickerhelpers, newcancel/mediaPASS. Both failureimages
+show correctpreview onlyafterComposesync. Foreground-onlyComposewaitForIdle
+added beforeexactreturnedaddress check; sharperhypothesis, no causalproof.
+New single media-removal tracer and per-class180s instrumentation harness
+written, no removal production yet. Expected RED missing reset/remove controls;
+initiallocalassemblyPASS1m9s; freshhelperbuildPASS1m6s,exit0.
+Canonical chronology in verification document.
 No scheduler-race reproduction claimed.
 Recovery/process/full acceptance remains open.
 Then candidate failures/recovery,

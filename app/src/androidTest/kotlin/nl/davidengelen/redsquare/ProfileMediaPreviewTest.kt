@@ -29,6 +29,7 @@ import org.junit.Rule
 import org.junit.Test
 import java.io.File
 import java.util.Base64
+import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicReference
 
 /** Real image preparation, encrypted drafts, signing and profile pixels; only picker results are supplied. */
@@ -37,7 +38,13 @@ class ProfileMediaPreviewTest {
     private val instrumentation get() = InstrumentationRegistry.getInstrumentation()
     private val context get() = instrumentation.targetContext
 
-    @Test fun selectedPictureAndBannerSurviveDeletedSourcesAndPublishWithTheRetainedBioAndIdentity() {
+    @Test fun selectedPictureAndBannerSurviveDeletedSourcesAndPublishWithTheRetainedBioAndIdentity() =
+        selectAndPublish(removeAfterPublication = false)
+
+    @Test fun removingSelectedPictureAndBannerSurvivesDraftRecoveryAndPublishesGeneratedDefaults() =
+        selectAndPublish(removeAfterPublication = true)
+
+    private fun selectAndPublish(removeAfterPublication: Boolean) {
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
         context.noBackupFilesDir.listFiles()?.filter {
@@ -53,6 +60,8 @@ class ProfileMediaPreviewTest {
         if (original.publicKey != owner) store.replace(original, SaitoWallet.fromPrivateKey("0".repeat(63) + "1"))
         val owned = mutableListOf<Uri>()
         val indexed = AtomicReference<JsonObject?>()
+        val publications = AtomicInteger()
+        val prefix = if (removeAfterPublication) "removal-" else ""
         val bio = "My selected profile 🌱\nKeep this bio and my identity"
         val peer = ControlledFeedPeer("[]", onTransaction = { frame ->
             val transaction = postingTransaction(frame)
@@ -67,8 +76,18 @@ class ProfileMediaPreviewTest {
             assertEquals(bio, fields.get("description").asString)
             assertEquals(JsonParser.parseString("[\"https://archive.example.test\"]"), fields.get("archive"))
             assertEquals(JsonParser.parseString("{\"theme\":\"blue\"}"), fields.get("extension"))
-            assertPreparedPixels(fields.get("image").asString, intArrayOf(220, 30, 40), 1)
-            assertPreparedPixels(fields.get("banner").asString, intArrayOf(20, 60, 220), 3)
+            when (publications.incrementAndGet()) {
+                1 -> {
+                    assertEquals(setOf("description", "archive", "extension", "image", "banner"), fields.keySet())
+                    assertPreparedPixels(fields.get("image").asString, intArrayOf(220, 30, 40), 1)
+                    assertPreparedPixels(fields.get("banner").asString, intArrayOf(20, 60, 220), 3)
+                }
+                2 -> {
+                    assertTrue(removeAfterPublication)
+                    assertEquals(setOf("description", "archive", "extension"), fields.keySet())
+                }
+                else -> fail("Unexpected extra profile publication")
+            }
             indexed.set(JsonObject().apply {
                 addProperty("sig", transaction.id); addProperty("created_at", signed.createdAt)
                 addProperty("field1", "Profile"); addProperty("field2", owner); addProperty("tx", transaction.envelope())
@@ -91,7 +110,7 @@ class ProfileMediaPreviewTest {
                         selectImage("Change profile picture", "red", "Profile picture", intArrayOf(220, 30, 40), owned)
                         selectImage("Change banner", "blue", "Profile banner", intArrayOf(20, 60, 220), owned)
                         assertTrue(peer.transactions.isEmpty())
-                        capture("selected-profile-media.png")
+                        capture("${prefix}selected-profile-media.png")
                         ui.onNodeWithText("Save draft").assertIsEnabled().performClick()
                         ui.waitUntil(20_000) { ui.onAllNodes(hasText("Edit profile") and hasClickAction()).fetchSemanticsNodes().isNotEmpty() }
                         owned.toList().forEach { uri ->
@@ -112,22 +131,59 @@ class ProfileMediaPreviewTest {
                         ui.waitUntil(25_000) { ui.onAllNodesWithText(status).fetchSemanticsNodes().isNotEmpty() }
                         ui.onNodeWithText(status).assertIsDisplayed()
                         assertEquals(1, peer.transactions.size)
-                        File(context.cacheDir, "profile-edit-evidence/profile-media-frames.json").writeText(JsonObject().apply {
-                            addProperty("synthetic", true)
-                            addProperty("frame", Base64.getEncoder().encodeToString(peer.transactions.single()))
-                            addProperty("envelope", requireNotNull(indexed.get()).get("tx").asString)
-                        }.toString())
-                        capture("selected-profile-media-available.png", status)
+                        exportFrame("${prefix}profile-media-frames.json", peer.transactions.single(), requireNotNull(indexed.get()))
+                        capture("${prefix}selected-profile-media-available.png", status)
                         ui.onNodeWithText("Back").performClick()
                         ui.waitUntil(20_000) { ui.onAllNodes(hasText("Edit profile") and hasClickAction()).fetchSemanticsNodes().isNotEmpty() &&
                             ui.onAllNodesWithText(context.getString(R.string.profile_details_loading)).fetchSemanticsNodes().isEmpty() }
                         ui.onNodeWithText(bio).assertIsDisplayed()
                         assertVisiblePixels("Profile picture", intArrayOf(220, 30, 40))
                         assertVisiblePixels("Profile banner", intArrayOf(20, 60, 220))
-                        capture("selected-profile-media-public.png")
+                        capture("${prefix}selected-profile-media-public.png")
                         assertEquals(owner, store.loadExisting().publicKey)
                         assertEquals(SaitoBackend.OWNER, AndroidBackendStore(context).load())
                         assertEquals(1, peer.transactions.size); peer.assertHealthy()
+                        if (removeAfterPublication) {
+                            ui.onNodeWithText("Edit profile").performClick()
+                            ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                            ui.onNodeWithText("Use generated profile picture").performScrollTo().assertIsEnabled().performClick()
+                            ui.onNodeWithText("Remove banner").performScrollTo().assertIsEnabled().performClick()
+                            assertGeneratedDefaults()
+                            ui.onNode(hasSetTextAction()).assert(SemanticsMatcher.expectValue(
+                                SemanticsProperties.EditableText, AnnotatedString(bio)))
+                            assertEquals(1, peer.transactions.size)
+                            capture("profile-removed-media-draft.png")
+                            ui.onNodeWithText("Save draft").assertIsEnabled().performClick()
+                            ui.waitUntil(20_000) { ui.onAllNodes(hasText("Edit profile") and hasClickAction()).fetchSemanticsNodes().isNotEmpty() }
+                            assertVisiblePixels("Profile picture", intArrayOf(220, 30, 40))
+                            assertVisiblePixels("Profile banner", intArrayOf(20, 60, 220))
+                            assertEquals(1, peer.transactions.size)
+                        }
+                    }
+                }
+                if (removeAfterPublication) ActivityScenario.launch<MainActivity>(intent).use {
+                    captureFailures {
+                        openEditor()
+                        ui.onNode(hasSetTextAction()).assert(SemanticsMatcher.expectValue(
+                            SemanticsProperties.EditableText, AnnotatedString(bio))).assertIsEnabled()
+                        assertGeneratedDefaults()
+                        assertEquals(1, peer.transactions.size)
+                        ui.onNodeWithText("Save profile").assertIsEnabled().performClick()
+                        val status = "Profile available on this server."
+                        ui.waitUntil(25_000) { ui.onAllNodesWithText(status).fetchSemanticsNodes().isNotEmpty() }
+                        ui.onNodeWithText(status).assertIsDisplayed()
+                        assertEquals(2, peer.transactions.size)
+                        exportFrame("profile-removed-media-frames.json", peer.transactions.last(), requireNotNull(indexed.get()))
+                        capture("profile-removed-media-available.png", status)
+                        ui.onNodeWithText("Back").performClick()
+                        ui.waitUntil(20_000) { ui.onAllNodes(hasText("Edit profile") and hasClickAction()).fetchSemanticsNodes().isNotEmpty() &&
+                            ui.onAllNodesWithText(context.getString(R.string.profile_details_loading)).fetchSemanticsNodes().isEmpty() }
+                        ui.onNodeWithText(bio).assertIsDisplayed()
+                        assertGeneratedDefaults()
+                        capture("profile-removed-media-public.png")
+                        assertEquals(owner, store.loadExisting().publicKey)
+                        assertEquals(SaitoBackend.OWNER, AndroidBackendStore(context).load())
+                        assertEquals(2, peer.transactions.size); peer.assertHealthy()
                     }
                 }
             }
@@ -181,6 +237,21 @@ class ProfileMediaPreviewTest {
             assertVisiblePixels(label, expected)
             ui.waitUntil(20_000) { ui.onAllNodes(hasText("Save draft") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
         } finally { Intents.release() }
+    }
+
+    private fun assertGeneratedDefaults() {
+        ui.onNodeWithContentDescription(context.getString(R.string.profile_generated_picture))
+            .performScrollTo().assertIsDisplayed()
+        ui.onAllNodesWithContentDescription("Profile picture").assertCountEquals(0)
+        ui.onAllNodesWithContentDescription("Profile banner").assertCountEquals(0)
+    }
+
+    private fun exportFrame(name: String, frame: ByteArray, indexed: JsonObject) {
+        File(context.cacheDir, "profile-edit-evidence/$name").writeText(JsonObject().apply {
+            addProperty("synthetic", true)
+            addProperty("frame", Base64.getEncoder().encodeToString(frame))
+            addProperty("envelope", indexed.get("tx").asString)
+        }.toString())
     }
 
     private fun assertVisiblePixels(label: String, expected: IntArray) {

@@ -311,8 +311,11 @@ class ProfileEditPreviewTest {
         val deadline = SystemClock.uptimeMillis() + 30_000
         while (SystemClock.uptimeMillis() < deadline) {
             try {
-                // A slow window transition can complete after the post-click wait returns.
-                if (device.hasObject(By.pkg(context.packageName)) && device.hasObject(selected)) return
+                // Synchronize the Compose test clock only after the external picker has returned.
+                if (device.currentPackageName == context.packageName) {
+                    ui.waitForIdle()
+                    if (device.hasObject(selected)) return
+                }
                 val opened = device.findObject(drawer)
                 if (opened != null) {
                     opened.findObject(row)?.click()

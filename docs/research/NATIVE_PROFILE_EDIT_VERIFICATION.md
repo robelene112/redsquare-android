@@ -839,3 +839,44 @@ includes revision/picker packages/current-availability production corrections.
 Current picker-helper correction changes tests only and strengthens final return
 recognition; corrected outstanding10 pending. No full/process acceptance yet.
 Picker return fixture local debug/test assembly PASS1m9s, retained exit0.
+
+Bounded eb8646c...edc39c3 committed review: Standards0/Spec0. Each reviewer
+individually inspected all five original images and counts. Failed10 capture
+proves the correct preview existed at capture time, not exactly when it appeared
+during polling. Source38103756099 PASS core49/debug/test/release/lint.
+
+Next ONE native removal tracer reuses the actual selection/publication flow:
+first publish square red avatar/3:1 blue banner with retained literal Unicode bio,
+then choose generated picture/remove banner, save without a second publication,
+require unchanged public custom images, cold Activity reopen with both removals
+retained, and explicitly publish a second full snapshot omitting image/banner.
+Retain bio/archive/extension, identity/backend, exact two-publication boundary
+and visible generated fallback. External picker results remain the only supplied
+UI outcomes. Existing selected-media tracer remains independently named and
+its captures are prefixed separately from removal preparation. No production
+removal implementation yet; expected RED is missing removal control.
+Profile harness now runs its three existing classes separately with unchanged
+180s bound per class, checks EVERY class result and retains separate raw logs
+plus concatenated legacy log. This avoids accumulating all expanded profile
+cases under one deadline; it does not weaken assertions or hide a failed class.
+Local tracer assembly and corrected10 runtime pending.
+
+Corrected10 edc39c3/38103756457 still FAIL12/108.84s: nine applicable passes,
+one API30+ skip/two older picker helper failures. New cancellation and original
+selected-media flows pass. Both original failure PNGs individually inspected,
+with exact XML showing returned correct selected wallet preview. They are
+captured only AFTER ui.waitForIdle, so cannot prove visibility during the failed
+native-only loop. Matching cached official Compose1.11.4 ui-test source:
+ComposeUiTest.android.kt waitForIdle runs composition to idle and awaits draw;
+its waitUntil advances the test clock, whereas a native UiDevice polling loop
+does not. Sharper synchronization hypothesis, not instrumented causal proof.
+Helper now checks foreground currentPackageName (rather than any behind-window
+app node), synchronizes Compose ONLY after return, then still requires exact
+selected description/address. Same provider/file/deadline and downstream
+identity/no-publication/backup gates. No production change.
+Removal tracer initial local debug/test assembly PASS1m9s, exit0; helper addition
+requires fresh assembly before dispatch. This combines ONE new removal tracer
+with a repair to an older existing fixture, not another behavior slice.
+Fresh helper/removal debug/test assembly PASS1m6s, retained exit0. Four original
+corrected10 failure/new-edit/recovered images inspected and retained verbatim
+with exact XML/rawlog under profile-picker-return-first/android10.

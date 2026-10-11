@@ -275,13 +275,20 @@ verify_profiles() {
     adb shell run-as nl.davidengelen.redsquare.dev.test mkdir -p files/wallet-test-documents
     printf '%s' '{"wallet":{"version":5.677,"publicKey":"jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR","privateKey":"0000000000000000000000000000000000000000000000000000000000000001"}}' | \
         adb shell run-as nl.davidengelen.redsquare.dev.test tee files/wallet-test-documents/00-profile-import.json > /dev/null
-    timeout 180 adb shell am instrument -w -r \
-        -e class nl.davidengelen.redsquare.ProfileEditPreviewTest,nl.davidengelen.redsquare.ProfilePublishingPreviewTest,nl.davidengelen.redsquare.ProfileMediaPreviewTest \
-        nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
-        > "$evidence/profile-edit-ui.txt" || true
+    local profile_failed=0 profile_class profile_log
+    : > "$evidence/profile-edit-ui.txt"
+    for profile_class in ProfileEditPreviewTest ProfilePublishingPreviewTest ProfileMediaPreviewTest; do
+        profile_log="$evidence/${profile_class}-ui.txt"
+        timeout 180 adb shell am instrument -w -r \
+            -e class "nl.davidengelen.redsquare.$profile_class" \
+            nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+            > "$profile_log" || true
+        cat "$profile_log" >> "$evidence/profile-edit-ui.txt"
+        grep -Eq 'OK \([1-9][0-9]* tests?\)' "$profile_log" || profile_failed=1
+    done
     adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - profile-edit-evidence \
         > "$evidence/profile-edit-evidence.tar" || true
-    if ! grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/profile-edit-ui.txt"; then
+    if (( profile_failed )); then
         adb exec-out screencap -p > "$evidence/profile-edit-system-screen.png" || true
         adb logcat -d -v brief AndroidRuntime:E RedSquarePeer:W '*:S' > "$evidence/profile-edit-runtime.txt" || true
         return 1
