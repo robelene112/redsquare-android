@@ -23,6 +23,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     @Volatile var disconnectAfterTransaction = false
     @Volatile var disconnectAfterReport = false
     @Volatile var withholdReportReply = false
+    @Volatile var reportReplyIsError = false
     private val peer = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public test material only.
     private val counter = ByteArray(32) { 7 }
     private val received = CountDownLatch(1)
@@ -100,7 +101,8 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                                 return
                             }
                             if (withholdReportReply) return
-                            webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) + response.toByteArray()).toByteString())
+                            webSocket.send((byteArrayOf(if (reportReplyIsError) 14.toByte() else 13.toByte()) +
+                                frame.copyOfRange(1, 5) + response.toByteArray()).toByteString())
                             return
                         }
                         if (body.get("request").asString == "registry query") {

@@ -368,6 +368,14 @@ originalbackup, isolatesincomingreport state/reopening, restoresoriginalviaSAF
 and explicitlyretriesoriginalsignedreport. Onlypublicscalar2/3fixtures
 provisioned; privateoriginalbackupmemory/filesnever retainedinevidence.
 Wallet runtimepending, newclassbudget180s for53.327s8cases+auth/imports.
+Wallet38175754741 at79cd07c passesordinary9cases77.701s pluscold1case
+4.248s. Root4originals/separate4XMLs showbackupgate/incomingindependentreport/
+restoredoriginalunknown/exactexplicitack. ActualSAFfullopts restoration,
+opaqueincomingopts/noauto/type4 assertions pass. wallet-green11hashes.
+Bothd251807 sanitized-parserfixreviews0; runtimepredatesthatfixtureonlyfix.
+Nextsingleinvalidreplyjourney coverswire14/app.err/empty/malformed asunknown
+thenvalidexplicitexactsignedretry. FocusedAndroid17 next includesallcasesand
+process/sanitizedparser. FinalpairedbothSDK/source/publicreads stillpending.
 Ticket22 remains incomplete: failure/durability/identity/backend isolation,
 actual process interruption and final both-SDK acceptance/reviews still required.
 Its source contract is prepared in NATIVE_DISCOVERY_MODERATION_CONTRACT.md and

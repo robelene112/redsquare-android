@@ -624,6 +624,56 @@ class ReportPreviewTest {
         }
     }
 
+    @Test fun invalidAndFailedRepliesNeverAcknowledgeAndEveryExplicitRetryKeepsTheOriginalReport() {
+        val root = InstrumentationRegistry.getInstrumentation().context.assets.open("native-feed-reference.json")
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow") }
+        data class InvalidReply(val label: String, val wireError: Boolean, val text: String)
+        val variants = listOf(
+            InvalidReply("peer-error", true, "{}"),
+            InvalidReply("application-error", false, "{\"err\":\"controlled rejection\"}"),
+            InvalidReply("empty", false, ""),
+            InvalidReply("malformed", false, "{"))
+        val reply = AtomicReference("{}")
+        val peer = ControlledFeedPeer("[$root]", reportResponse = { reply.get() })
+        peer.start().use { server ->
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                withFailureCapture({ capture("invalid-acknowledgement-failure.png") }) {
+                    var original: ByteArray? = null
+                    val unknown = "Report delivery to saito.davidengelen.nl is unknown. Try again to send the same report."
+                    val acknowledged = "Report acknowledged by saito.davidengelen.nl. Moderator review is separate."
+                    variants.forEachIndexed { index, variant ->
+                        reply.set(variant.text); peer.reportReplyIsError = variant.wireError
+                        ui.clickVisiblePostContent(if (index == 0) "Report" else "Retry report")
+                        ui.onNodeWithText("Report to saito.davidengelen.nl?").assertIsDisplayed()
+                        assertEquals(index, peer.reports.size)
+                        ui.onNodeWithText("Send report").performClick()
+                        waitFor(unknown)
+                        capture("invalid-ack-${variant.label}.png", unknown)
+                        ui.onNodeWithText(acknowledged).assertDoesNotExist()
+                        assertEquals(index + 1, peer.reports.size)
+                        val frame = peer.reports.last()
+                        val bytes = frame.copyOfRange(5, frame.size)
+                        if (original == null) original = bytes else assertArrayEquals(requireNotNull(original), bytes)
+                        assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
+                        ui.onNodeWithText("Done").performClick()
+                    }
+                    reply.set("{}"); peer.reportReplyIsError = false
+                    ui.clickVisiblePostContent("Retry report")
+                    waitFor(unknown)
+                    assertEquals(variants.size, peer.reports.size)
+                    ui.onNodeWithText("Send report").performClick()
+                    waitFor(acknowledged)
+                    capture("invalid-ack-explicit-acknowledged.png", acknowledged)
+                    assertEquals(variants.size + 1, peer.reports.size)
+                    val final = peer.reports.last()
+                    assertArrayEquals(requireNotNull(original), final.copyOfRange(5, final.size))
+                    assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
+                }
+            }
+        }
+    }
+
     private fun waitFor(text: String) = ui.waitUntil(20_000) {
         ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
     }

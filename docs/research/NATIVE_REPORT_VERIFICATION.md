@@ -285,3 +285,18 @@ validates raw private backup JSON through SaitoWallet.fromBackup before comparin
 full exported options, so malformed backup input cannot expose a Gson fragment
 in a failure log. Validated export preserves all opaque options; byte buffers
 are still cleared. Runtime38175754741 predates this fixture-only tightening.
+
+## Safeguarded wallet isolation GREEN and invalid replies next
+
+Run38175754741 at79cd07c:ordinary9PASS77.701s plus cold1PASS4.248s.
+Root4unchanged originals/separate4XMLs show authenticated backup gate, incoming
+independent report, restored original unknown and exact explicit ack. Actual
+SAF full-options restore/no automatic send/type4/opaque options assertions pass.
+Durable ticket21/wallet-green11hashes. Both d251807 privacy-fix review axes0;
+this runtime predates that fixture-only tightening. Next single native journey
+checks correlated wire error14, application-error JSON, empty and malformed
+replies as unknown rather than acknowledgement, then valid explicit retry of
+exact original bytes. Controlled transport adds error-type selection for reports
+only. Product handling unchanged; no presumed defect. Next focused Android17
+run executes all current cases, process recovery and sanitized fixture parser.
+Final paired full/source/public-read acceptance remains pending.
