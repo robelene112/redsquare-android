@@ -346,5 +346,7 @@ without resetting wallet/backend/work. It performs a real read-only namecheck
 with zero automatic broadcasts, then explicit Retry emits the exact original
 frame. Root individually viewed both PNGs and inspected XMLs. Independent
 pinned WASM/Elliptic verifies the actual published-registrar frame/routing
-signatures. Verbatim public evidence is in first-process-recovery-green.
+signatures. Cold PNG renders inconsistently across root/Spec and Standards views; XML and
+runtime assertions support recovery, without a consistent bitmap or proven
+rendering-cause claim. Verbatim public evidence is in first-process-recovery-green.
 Controlled peer only; no live namespace, power-cut or physical-device proof.

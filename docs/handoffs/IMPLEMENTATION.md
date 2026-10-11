@@ -120,7 +120,7 @@ assertions. Verbatim evidence is in first-pending-import-green. Both source
 review axes pass; this checkpoint fixes the stale handoff status identified by
 Standards. Profile shared-helper regression and actual replacement/discovery
 remain for later acceptance. Actual-process tracer8eae1ad plus bounded framework-aware correctionce9740a
-is now dispatched as focused10 run38119168208, superseding38119056454.
+completed as focused10 run38119168208, superseding38119056454.
 Preparation writes only public checkpoint/frame data and kills the PID; cold
 recovery never resets identity/backend/work and must read-only reconcile before
 exact explicit Retry. Host verifies old PID absence and the fresh positive
@@ -129,7 +129,9 @@ stops it then). Focused10 run38119168208 on ce9740a passes all six ordinary case
 in44.07s plus actual cold recovery in7.033s. PID4222 is killed/absent; native
 recovery records PID4324 with unchanged wallet/backend/frame, a real read-only
 namecheck, zero automatic sends and exact explicit Retry. Root individually
-viewed both original PNGs/XML; pinned WASM/Elliptic independently verify the
+viewed both original PNGs/XML. Cold bitmap renders inconsistently across views
+(status strip in root/Spec, full UI in Standards); XML/runtime support the
+functional result, with no proven rendering cause. Pinned WASM/Elliptic verify the
 published-registrar request and routing signatures. Durable public evidence:
 ticket18/first-process-recovery-green. Both correction review axes pass.
 

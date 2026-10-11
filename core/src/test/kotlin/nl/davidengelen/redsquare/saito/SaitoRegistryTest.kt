@@ -1,10 +1,24 @@
 package nl.davidengelen.redsquare.saito
 
 import com.google.gson.JsonParser
+import com.google.gson.JsonParseException
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertThrows
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class SaitoRegistryTest {
+    @Test fun `excessively nested unsigned metadata is rejected within the response byte limit`() {
+        val reference = JsonParser.parseReader(javaClass.getResourceAsStream("/native-registry-reference.json")!!.reader()).asJsonObject
+        val row = reference.getAsJsonArray("rows")[0].asJsonObject.toString()
+        val response = "[" + row.dropLast(1) + ",\"metadata\":" +
+            "[".repeat(15000) + "0" + "]".repeat(15000) + "}]"
+        assertTrue(response.toByteArray(Charsets.UTF_8).size < 64 * 1024)
+        assertThrows(JsonParseException::class.java) {
+            SaitoRegistry.readNamecheck(response, "NativeCase7@saito", reference.get("registrar").asString)
+        }
+    }
+
     @Test fun `a saved registrar directed request restores the exact original signed bytes`() {
         val reference = JsonParser.parseReader(javaClass.getResourceAsStream("/native-registry-reference.json")!!.reader()).asJsonObject
             .getAsJsonObject("registration")

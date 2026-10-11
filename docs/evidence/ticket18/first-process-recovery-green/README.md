@@ -2,7 +2,7 @@
 
 Android 10 run38119168208 on ce9740a57ec0201512b0f339d35ba9a98e13cf76 passes six ordinary username cases in44.07s and the cold recovery case in7.033s. Preparation deliberately kills the actual app process after one persisted controlled Registry request. Its `Process crashed` output is expected and is not a normal passing instrumentation completion. The host verifies the old PID4222 is absent; native recovery records a distinct PID4324 before instrumentation completion. Recovery does not reset the wallet, backend or private request. The same public author/backend/request survives. A real namecheck occurs with zero automatic sends; only explicit Retry emits the exact original frame. Checkpoints differ only in phase and recovered PID.
 
-Root individually viewed both original PNGs and inspected their XML: selected owner backend, locked NativeCase7, pending status and explicit Retry are visible in both. Pinned WASM0.3.2/Elliptic6.6.1 independently verify the actual request and routing signatures against the published registrar. Frame SHA256 is9d4d79728800c89d2c5bb39d80a81abdf548c3e1c0d015b779ffe53a23a9faf3. No live namespace registration, ownership, chain inclusion, arbitrary power-cut or physical-device claim. Writes target a controlled loopback peer only.
+Root individually viewed both original PNGs and inspected their XML. The before-death bitmap shows selected owner backend, locked NativeCase7, pending status and explicit Retry. The cold bitmap renders only a status strip in repeated root/Spec views, while Standards reports the full screen; its XML contains the expected controls. The cause of this rendering discrepancy is unestablished. Cold recovery assertions and the XML support the functional result; no consistent cold bitmap visibility is claimed. Pinned WASM0.3.2/Elliptic6.6.1 independently verify the actual request and routing signatures against the published registrar. Frame SHA256 is9d4d79728800c89d2c5bb39d80a81abdf548c3e1c0d015b779ffe53a23a9faf3. No live namespace registration, ownership, chain inclusion, arbitrary power-cut or physical-device claim. Writes target a controlled loopback peer only.
 
 Original evidence SHA256:
 
@@ -17,3 +17,7 @@ Original evidence SHA256:
 - `recovered-checkpoint.json`: `ba68653a534677b1809ddaba017ca5a7766524c364a6bb281ab2b0140f56f570`
 - `recovered.txt`: `7e52704e6f81e66cc56c1e7250e4fe59cd17cff733b53d04512dce323aabcd22`
 - `username-ui.txt`: `29c4f782e85f45fd15ee785398c45ae79093014536d897992490542320845c1d`
+
+Derived independent verification report (network disabled, pinned WASM/Elliptic; not an original emulator artifact):
+
+- `independent-frame.json`: `2c8d0bea62e94ea38de892772103bf81fd3cf2c37d635892bd8bb822e55a658a`
