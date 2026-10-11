@@ -94,18 +94,21 @@ Accepted checkpoints:
   the missing verified label at line93; original PNG/XML show anonymous fallback.
   Corrected unavailable capture fully passes. first-name-save-red retains it.
 
-Current correction cf18e3c passes seven cases in focused10 run38120689654;
-new eighth reaches mounted verified name/save warning and repaired fresh lookup,
-then fails a home-only button assumption after recreation (54.28s). The selected
-Profile is intentionally preserved by FeedNavigationMemory. Original PNG/XML
-show name/warning during failure, repaired name and preserved named Profile;
-name-save-recreation-fixture-failure retains them. Later cached-name/no-warning/
-no-send assertions and process stage are not reached. Bounded fixture correction
-waits for preserved Profile and keeps those assertions, without an app change.
-Both source correction axes have zero residual findings; the earlier evidence
-line93 citation is corrected. Current documentation consolidates older chronology
-into canonical verification/evidence pointers. Corrected native GREEN remains
-pending.
+Latest source c91877c is pushed. Focused Android10 run38120998143 passes all
+eight cases in38.502s plus actual cold recovery in3.283s. Cache-save correction
+shows verified mounted name/generic warning during obstruction, repairs via a
+fresh lookup and restores cached name after Activity recreation with unavailable
+namecheck. Final no-send/identity/peer-health checks pass. Root viewed all three
+original PNG/XML pairs; cached XML also shows independent profile loading.
+Process stage kills PID4339 and recovers PID4426 with exact unchanged request,
+wallet and backend, read-only reconciliation then explicit exact Retry. Pinned
+WASM/Elliptic independently verifies the actual published-registrar frame.
+Durable originals/report: first-name-save-green. Both bounded correction source
+axes pass. Prior home-only recreation fixture failure is preserved in
+name-save-recreation-fixture-failure; selected Profile is intentionally retained.
+The later bitmap renders inconsistently across reviewers, with no cause claimed.
+The current handoff condenses older chronology into canonical verification and
+evidence pointers. Full #19 and shared display/import acceptance remain pending.
 Excessive unsigned nesting below64KiB already safely rejects at the parser limit;
 the four-case focused protocol suite passes32s. No crash fix was necessary.
 

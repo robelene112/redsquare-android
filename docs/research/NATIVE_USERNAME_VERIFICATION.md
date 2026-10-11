@@ -386,3 +386,18 @@ recreation show named selected profile without warning. Durable originals in
 name-save-recreation-fixture-failure. Bounded test correction waits for preserved
 Profile and retains cached-name/public-key/no-warning/no-send checks. Both prior
 source axes pass; corrected runtime acceptance remains pending.
+
+Corrected Android10 run38120998143 on c91877c passes eight ordinary cases in
+38.502s and actual cold-process recovery in3.283s. Name-save failure now retains
+verified name/generic warning/public key without a transaction; repaired fresh
+lookup saves, and recreation with unavailable proof reads restores the cached
+name without warning. Final no-send/identity/peer-health assertions pass. Root
+individually viewed all three PNG/XML pairs; cached XML has independent profile
+loading alongside the restored name. Actual process stage kills PID4339 and
+recovers PID4426 with only phase/PID checkpoint changes, original wallet/backend,
+read-only namecheck and exact explicit Retry. Independent pinned WASM/Elliptic
+verifies the actual published-registrar frame. Raw evidence/derived report are
+retained first-name-save-green; current process bitmaps are not claimed here.
+Both prior bounded source axes pass, latest evidence audit pending. #19 remains
+open for shared names, Settings-first discovery, actual replacement and remaining
+negative/persistence/public-readiness/final full acceptance.
