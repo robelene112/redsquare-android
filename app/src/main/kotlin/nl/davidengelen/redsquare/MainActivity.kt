@@ -194,6 +194,10 @@ class MainActivity : ComponentActivity() {
                 CompositionLocalProvider(LocalVideoFixture provides VideoFixture.fromIntent(intent)) {
                 VideoPlaybackHost(address, backend) {
                 PersonalControlsScope(address, commitDirectorySync = { descriptor ->
+                    if (BuildConfig.DEBUG && intent.getBooleanExtra("personalCommitTerminate", false)) {
+                        android.os.Process.killProcess(android.os.Process.myPid())
+                        error("Expected controlled process termination")
+                    }
                     if (BuildConfig.DEBUG && intent.getBooleanExtra("personalCommitSyncUnavailable", false)) {
                         throw IOException("Controlled personal filesystem sync failure")
                     }

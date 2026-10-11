@@ -375,6 +375,7 @@ verify_personal_controls() {
         adb exec-out screencap -p > "$evidence/personal-controls-system-screen.png" || true
         return 1
     fi
+    python3 "$repo_dir/scripts/personal-controls-process-check" --evidence "$evidence/personal-controls-process"
 }
 if [[ "${TEST_SCOPE:-full}" == controls* ]]; then
     verify_personal_controls

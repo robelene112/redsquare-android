@@ -284,3 +284,14 @@ secondaryerrors, deletesguardasfinalpublication. NormalOSsyncforrestoration;
 corruptguardfailclosed. Physicalpowerlossnotclaimed. Compile/same6caseGREENnext.
 
 Guard/independentrestorationfix compilationPASS2m5s. Same6caseGREENnext.
+
+Guardfix boundedreviews09f3f4f...2473000: Spec0, Standards0source residual,
+1stalehandoffdocumentationfinding correctedhistorical/currentwording. Actual
+6caseGREEN38158906379 runtimeactive. Separateactualprocessverification now
+compilesPASS2m17s: nativeUI savesdistinctMute/Block, checkpointpublicowner/accounts/
+backend/PID, DEBUGactivepost-writeOSsynckillsprocess witholdguardpending; host
+requiresoldPIDgoneandpositiveguardmetadata beforecoldnormalnewprocess; UIboth
+choices retained, explicitUnblockkeepsMute/filter, explicitUnmuterestorespost,
+samewallet/backend/authenticatedpeer/zeroTX. Recoverydoesnotresetchoicesorwallet.
+No walletcontentreadintoartifacts. This isverificationofimplementedrecovery, not
+manufacturedRED; nativeprobe notyetdispatched/passed. Same6caseGREENfirst.

@@ -149,10 +149,10 @@ restoration. NewSINGLEnativeobstruction/repair/coldold-policytracer beforefix,
 DEBUGpersonalremovalOSseam, compilePASS2m25s. Preliminary6caseattempt38157802202
 cancelledbeforebothSDKruntime steps: reviewfoundUnmuteactions absentwhenreadyfalse,
 notdisabled. Correct toabsence+positiveRetry withothergates unchanged. Compile
-PASS1m16s; firstactual6caseRED next. Underlyingrestorationfinding remainsopen.
-Identity/processdeath/
-corruption probes and final pairedSDKacceptance remainpending. Block, other-view filters and late-save recovery still require further
-vertical journeys; no final #21 acceptance/new APK claimed. Scope/verification plan: NATIVE_PERSONAL_CONTROLS_VERIFICATION.md.
+PASS1m16s. This is the historical pre-09f3f4f checkpoint; observed RED and
+guard fix are recorded in the active recovery checkpoint below. Block, other-view
+filters and late-save journeys have passed their focused checks. Identity/process
+death/corruption and final paired SDK acceptance remain pending; no final #21 acceptance/new APK claimed. Scope/verification plan: NATIVE_PERSONAL_CONTROLS_VERIFICATION.md.
 Read-only source preparation is ignored .scratch/personal-controls-plan.md.
 Preserve the seven future research files below.
 
