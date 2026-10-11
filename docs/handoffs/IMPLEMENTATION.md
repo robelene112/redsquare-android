@@ -119,11 +119,23 @@ viewed the pending-preview PNG/XML; scrolled addresses are proven by runtime
 assertions. Verbatim evidence is in first-pending-import-green. Both source
 review axes pass; this checkpoint fixes the stale handoff status identified by
 Standards. Profile shared-helper regression and actual replacement/discovery
-remain for later acceptance. Next check is actual process termination/recovery.
+remain for later acceptance. Actual-process tracer8eae1ad plus bounded framework-aware correctionce9740a
+is now dispatched as focused10 run38119168208, superseding38119056454.
+Preparation writes only public checkpoint/frame data and kills the PID; cold
+recovery never resets identity/backend/work and must read-only reconcile before
+exact explicit Retry. Host verifies old PID absence and the fresh positive
+recorded native PID, not survival after instrumentation completion (Android
+stops it then). Focused10 run38119168208 on ce9740a passes all six ordinary cases
+in44.07s plus actual cold recovery in7.033s. PID4222 is killed/absent; native
+recovery records PID4324 with unchanged wallet/backend/frame, a real read-only
+namecheck, zero automatic sends and exact explicit Retry. Root individually
+viewed both original PNGs/XML; pinned WASM/Elliptic independently verify the
+published-registrar request and routing signatures. Durable public evidence:
+ticket18/first-process-recovery-green. Both correction review axes pass.
 
 #19 remains open. Pending import previews/backend isolation now pass focused10;
 remaining work includes actual replacement and imported identity discovery and broader shared name display, malformed/taken/inactive
-and persistence failures, actual process death, public Android read-only readiness
+and persistence failures, public Android read-only readiness
 and applicable full10/17 acceptance. Do not repeat unaffected #18 full checks
 without a relevant change. Owner reviews the completed app.
 

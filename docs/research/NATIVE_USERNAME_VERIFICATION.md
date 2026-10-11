@@ -322,3 +322,29 @@ Verbatim evidence retained at first-pending-import-green. Both code axes have
 zero source findings; Standards caught a stale handoff status, corrected in
 this checkpoint. Shared username picker/error scroll pass; profile caller
 regression, actual replacement/discovery and process death remain incomplete.
+
+Actual-process recovery tracer8eae1ad prepares one controlled request, captures
+a public checkpoint, fsyncs it and kills the native PID. Its recovery method
+never resets wallet/backend/request, requires a fresh Process.myPid(), a real
+read-only namecheck and no automatic send, then an exact explicit Retry.
+The host verifies the old PID is absent and the checkpoint remains identical
+except the recovery phase/PID. Both axes initially report zero findings; no
+actual process-death proof is established by that source review.
+
+The root caught an invalid extra host requirement: the recovered PID was
+required to remain running after instrumentation finished. Android10's
+[finishInstrumentationLocked implementation](https://android.googlesource.com/platform/frameworks/base/+/refs/tags/android-10.0.0_r1/services/core/java/com/android/server/am/ActivityManagerService.java)
+stops the target on completion. Correctionce9740a keeps the actual native
+pre-completion PID assertion/checkpoint, validates its positive distinct ID
+and removes post-completion liveness. It also waits for enabled Check name
+before typing and preserves primary failures even if diagnostic storage fails.
+Current focused10 run38119168208 supersedes38119056454 under the existing
+same-scope cancellation policy. Both correction review axes report zero actionable findings. Actual Android10
+run38119168208 on ce9740a passes six ordinary cases in44.07s and cold recovery
+in7.033s. Host confirms old PID4222 absent; native recovery records PID4324
+without resetting wallet/backend/work. It performs a real read-only namecheck
+with zero automatic broadcasts, then explicit Retry emits the exact original
+frame. Root individually viewed both PNGs and inspected XMLs. Independent
+pinned WASM/Elliptic verifies the actual published-registrar frame/routing
+signatures. Verbatim public evidence is in first-process-recovery-green.
+Controlled peer only; no live namespace, power-cut or physical-device proof.
