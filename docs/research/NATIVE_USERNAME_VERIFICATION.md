@@ -220,3 +220,22 @@ Next tracer: native wallet import must warn about the outgoing wallet's verified
 name/pending Registry work. Its cache/request cannot describe a replacement
 identity. Actual process death, invalid/unavailable responses, broader shared
 names, public Android reads and final full10/17 acceptance remain incomplete.
+
+Both review axes for the frame/receiver helpers and retained profile GREEN
+report0 actionable findings. Root and both reviewers independently reran the
+synthetic frame, published-default pending frame and pinned A/B receiver helper
+read-only/network-none/env-i; all PASS. Original PNG/XML/log/hashes match.
+Review-stage refactor centralizes identical unsafe-wallet replacement/restoration
+for the confirmed fixtures without changing their acceptance assertions.
+
+Next one native tracer previews a real provider wallet import after a signed
+namecheck. It requires the outgoing verified full name, incoming public key,
+unselected replacement-risk acknowledgement, disabled confirmation and unchanged
+outgoing wallet/name after cancelling, with no broadcasts. Its document contains
+only public unsafe scalar2 fixture data and is created on the isolated emulator,
+never copied from a live wallet. Existing positive drawer-closed/file/returned
+preview observations are reused; no ambiguous provider-title selection gate.
+Expected absent-native-name warning RED pending.
+
+Import-preview tracer and wallet-fixture refactor debug/test compile1m14s PASS;
+actual native RED remains pending. No production implementation changed.
