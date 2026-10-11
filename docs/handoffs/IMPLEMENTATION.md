@@ -111,7 +111,7 @@ save/removal/recreation defect. Root inspected the final six identity/corruption
 and four process original PNGs, then separately parsed all ten XMLs. See
 NATIVE_PERSONAL_CONTROLS_VERIFICATION.md and ticket20/identity-green/28hashes
 for the full qualified chronology. Whole source and bounded focused reviews are
-clear; final full Android10/17 acceptance and artifact review remain required.
+clear. Full Android17 is accepted; outstanding Android10 acceptance is below.
 
 Current final acceptance runs and fixture interruptions are below. Preserve the
 seven future research files; continue one ticket at a time. No new phone APK.
@@ -205,51 +205,48 @@ ordinary controlled tests; no production transaction was broadcast.
 
 ## Active personal-controls acceptance checkpoint
 
-#21 remains OPEN/assigned;16/35 tickets closed. Do not repeat passed focused
-journeys or claim final acceptance before inspecting the full pair.
+#21 remains OPEN/assigned;16/35 closed. Final product checkpoint aa91ff2,
+whole-ticket review base99e58c6. Subsequent changes correct existing fixtures
+and retain evidence; production/core/build/reference source is unchanged.
 
-- Android17 full38161793299 at781bd1a PASSES with opted-in public reads.
-  All179casesPASS/46records/15actual deaths; core55/release/lint/signed5→8/cold
-  continuity pass. Personal8PASS82.867s, actual death10423→10513/cold1PASS6.65s.
-  Root29originalPNG/separate29XML plus2publicscreen originals inspected.
-  Durable final-full/android17 retains162hashes; bounded evidence review pending.
-- Android10 full38163120112 atf0c6191 FAILS later in author-post:8reported/
-  7PASS1failure58.215s at151 after Confirm delete. Corrected browse passed.
-  Source-supported disabled-before-load tap risk, not proved scheduling cause.
-  OriginalPNG only; full10-delete-confirmation-failure retains3hashes.
-  Fixture waits bounded20s for shown/enabled Confirm delete, captures PNG/XML
-  then taps once; case-specific live failure diagnostics preserve primary.
-  Compile/review/new full10 remain required; no product change.
-- Product source/core/build/reference/scripts/workflow are unchanged between
-  these checkpoints. Only existing offline-profile fixture and evidence/docs
-  differ. WORKFLOW.md permits outstanding-SDK full acceptance after this fix.
-- Source push38162581617 passes ataa2cf36. Latest source push38163113907 passes.
+- Full Android17 run38161793299 at781bd1a PASSES:179cases/46records/15actual
+  process deaths; core55/release/lint/signed5→8/cold continuity and both public
+  reads pass. Personal8PASS82.867s, death10423→10513/cold1PASS6.65s. Root all29
+  original personal PNG/separate29XML plus2public originals inspected. Durable
+  final-full/android17 retains162hashes; both evidence review axes0final findings.
+- Android10 full38163120112 atf0c6191 stops in the existing author delete
+  fixture. Corrected offline profile tests pass. Fixture732e67f waits for
+  displayed/enabled Confirm delete and captures live PNG/XML before one click,
+  keeping all subsequent assertions. Focused author38164253681 PASSES
+  ordinary8cases46.026s plus2independent cold cases/2actual deaths:10/3/2.
+  Root2readiness originals/separate2XML; author10-ready-green retains13hashes.
+- Focused controls38164297170 at732e67f passes all8ordinary cases74.394s but
+  host metadata check stops before cold recovery. Discarded command output
+  prevents proving cause or guard absence. Corrected host fixturefe710dd uses
+  established stat positive-size gate and retains metadata only. Retry
+  38164957454 PASSES8ordinary73.893s and actualdeath4897→5093/cold1case5.679s:
+  9/2/1, guard return0/213bytes. Same wallet/backend, independent choices,
+  actual peer keys and zero transactions pass. Root4process originals and
+  separate4XML inspected. controls10-metadata-green retains18hashes.
+- Both bounded focused review axes clear througha43e046. One evidence-index
+  finding fixed by retaining process logs under their counts.json paths; root
+  and reviewers reproduce exact durable9/2/1 and all18hashes. Sourcepush
+  38164949469 passes. Python harness compile passes. No product/acceptance
+  predicate changes; WORKFLOW permits retaining full17 after fixture correction.
+- **Outstanding full Android10 run38165304273 atfe710dd is ACTIVE**, opted
+  into public reads. Inspect actual results, all critical original personal
+  PNG/separate XML, public originals, raw counts, releases/lint and signed/cold
+  continuity; retain evidence and complete bounded review before closing21.
 
-Original Android10 full38161791197 at781bd1a stops in browse:8reported,
-7PASS/1failure35.513s at300, waiting for a lazy post before scrolling. The
-in-scope header fills the viewport; outer launcher capture follows Activity
-closure. Root viewed both originals and separately parsed both XMLs; durable
-full10-browse-failure retains6hashes. The corrected root scroll/display passes
-in subsequent full38162586525 ataa2cf36, but the same old pre-scroll wait fails
-on Replies at307:8reported/7PASS/1failure34.331s. Root views all3originals and
-separate3XML; full10-replies-failure retains8hashes. Neither failure establishes
-an offscreen reply exists or a production/cache defect. Later full stages were
-not reached. Intermediate38162365495 atce1acdc was explicitly cancelled during
-setup, not accepted or failed.
+Failure chronology and qualified retained captures: NATIVE_PERSONAL_CONTROLS_VERIFICATION.md
+and ticket20/REVIEW.md. Earlier full10 stopped at existing lazy-profile
+pre-scroll/readiness fixtures; finalf0c6191 corrects all3tabs. No offscreen
+cache/deletion/timing cause was inferred. Preserve already accepted full17.
 
-Final fixture f0c6191 consistently waits bounded15s for enabled Profile Refresh
-(history loading settled), searches the lazy list and asserts the exact cached
-Posts/Replies/Likes text is displayed. It changes no product, cache, identity,
-peer or timeout. Local test compile PASS1m12s; both bounded review axes0findings.
-Earlier Standards readiness finding is resolved. Android17 passed all full
-checks; latest author-confirmation fixture and Android10 remain pending.
-
-Next: inspect actual final paired results, raw completion/death logs, critical
-personal originals and separate XMLs, public read evidence, release/lint and
-signed update/cold continuity. Retain durable evidence, complete bounded evidence
-reviews, update ticket checkboxes and close only if all acceptance gates pass.
-Then claim ready #22, Report posts to the selected backend. No parallel ticket
-implementation or new phone-review gate is required.
+Next after21acceptance: claim ready #22, Report posts to the selected backend.
+Its source contract is prepared in NATIVE_DISCOVERY_MODERATION_CONTRACT.md and
+NATIVE_MODERATION_CONTRACTS.md. No parallel implementation or intermediate phone
+review gate. No new APK; stable version10/source5225d06 remains current.
 
 ## Outstanding external acceptance
 
@@ -278,24 +275,3 @@ NATIVE_GROUP_CHAT_CONTRACT (all .md under docs/research). The protected future n
 their own relevant tickets; earlier contracts are already committed.
 They establish source contracts, not runtime or feature completion.
 
-Author confirmation fixture compiles PASS1m10s. Both bounded review axes
-and focused Android10 author38164253681 and controls38164297170 verification
-are active at732e67f; then rerun outstanding
-Android10 full scope. Android17 acceptance is preserved at unchanged product
-source, with its durable evidence review also next. #21 remains open.
-
-Bounded f0c6191...732e67f reviews clear both axes: zero residual source/fixture/
-evidence findings. Both verify162final17hashes/3failurehashes, independent
-179/46/15 recount and qualified originals/XML. Spec initially reported a
-differing reading of official public screenshot; a fresh single original-detail
-view of the exact verified22fa30a69c02762af911c04fc9c0c70b73e8b1e8d7f71ee5dcb43ef79b593a31
-file confirms Server:saito.io and withdraws the proposed caption finding. Root
-fresh single view agrees; no cause inferred for the earlier differing reading.
-Focused Android10 author38164253681/controls38164297170 at732e67f are active;
-passing focused and outstanding full Android10 remain required.
-
-Focused Android10 author38164253681 at732e67f PASSES; ordinary8PASS46.026s and separate actual process/recovery logs remain to inspect. Controls38164297170 ordinary8PASS74.394s, including actual wallet/PIN roundtrip, but its separate process stage stops at host `run-as test -s` metadata check before recovery. Native phase reports Process crashed and public checkpoint validated, but discarded command output prevents proving cause/guard absence. Root original pre-death PNG and separate XML show both saved choices. Durable controls10-metadata-failure retains5hashes. Harness uses established stat positive-size gate and retains metadata only; product/acceptance assertions unchanged. Focused retry required before outstanding full10.
-
-Portable metadata fixture fe710dd compiles with Python; bounded 732e67f...fe710dd reviews: Spec0, Standards0. Both independently verify5failure hashes and qualify pre-death original/XML; unchanged positive-size/PID/identity/policy assertions permit retaining passed full17 under WORKFLOW. Focused controls29retry38164957454 atfe710dd active; sourcepush38164949469 active. Root author29recount10completed/3records/2actualdeathstages, individually views image/native positive readiness originals and separately parses2XML(enabled Confirm delete); author10-ready-green retains13hashes and raw continuity logs. No timing-cause inference.
-
-Focused controls10retry38164957454 atfe710dd PASSES:8ordinary73.893s plusactualdeath4897→5093/cold1case5.679s;9completed/2records/1death/noassumptions. Portable guard metadata returns0/213bytes; no ciphertext read. Sameowner/backend/independentchoices/actualpeerkeys/zeroTX assertions pass. Root individually views4originalprocessPNG and separately parses4XML. controls10-metadata-green retains18hashes including rawlogs/checkpoints/counts and metadata. Full10run38165304273 atfe710dd withpublicreads active; sourcepush38164949469PASS. Author13hashes and this bounded evidence need review; final full10 remainsrequired.
