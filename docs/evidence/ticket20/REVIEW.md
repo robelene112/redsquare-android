@@ -125,3 +125,15 @@ Author confirmation fixture compiles PASS1m10s. Both bounded review axes
 and focused Android10 author verification are next; then rerun outstanding
 Android10 full scope. Android17 acceptance is preserved at unchanged product
 source, with its durable evidence review also next. #21 remains open.
+
+Bounded f0c6191...732e67f reviews clear both axes: zero residual source/fixture/
+evidence findings. Both verify162final17hashes/3failurehashes, independent
+179/46/15 recount and qualified originals/XML. Spec initially reported a
+differing reading of official public screenshot; a fresh single original-detail
+view of the exact verified22fa30a69c02762af911c04fc9c0c70b73e8b1e8d7f71ee5dcb43ef79b593a31
+file confirms Server:saito.io and withdraws the proposed caption finding. Root
+fresh single view agrees; no cause inferred for the earlier differing reading.
+Focused Android10 author38164253681/controls38164297170 at732e67f are active;
+passing focused and outstanding full Android10 remain required.
+
+Focused Android10 author38164253681 at732e67f PASSES; ordinary8PASS46.026s and separate actual process/recovery logs remain to inspect. Controls38164297170 ordinary8PASS74.394s, including actual wallet/PIN roundtrip, but its separate process stage stops at host `run-as test -s` metadata check before recovery. Native phase reports Process crashed and public checkpoint validated, but discarded command output prevents proving cause/guard absence. Root original pre-death PNG and separate XML show both saved choices. Durable controls10-metadata-failure retains5hashes. Harness uses established stat positive-size gate and retains metadata only; product/acceptance assertions unchanged. Focused retry required before outstanding full10.

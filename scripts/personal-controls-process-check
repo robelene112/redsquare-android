@@ -50,7 +50,11 @@ try:
         raise AssertionError('Mute and Block require distinct fixture accounts')
     # Metadata only: encrypted policy and private wallet contents are never read or retained.
     guard = 'no_backup/personal.' + row['owner'] + '.guard.v1'
-    if adb('shell', 'run-as', package, 'test', '-s', guard, check=False).returncode != 0:
+    metadata = adb('exec-out', 'run-as', package, 'stat', '-c', '%s', guard, check=False)
+    (args.evidence / 'guard-metadata.txt').write_text(
+        f'returncode={metadata.returncode}\n' + metadata.stdout + metadata.stderr)
+    size = metadata.stdout.strip()
+    if metadata.returncode != 0 or not size.isdecimal() or int(size) <= 0:
         raise AssertionError('Termination did not leave a durable pending old-policy guard')
     if not isinstance(row['pid'], int) or row['pid'] <= 0:
         raise AssertionError('Invalid original Personal-controls process ID')
