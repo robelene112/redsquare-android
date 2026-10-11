@@ -444,3 +444,12 @@ separate. Durable full10-posting-viewport-failure3hashes. Correction reuses exis
 waitForVisiblePost helper for actual scroll/exact display within unchanged15s,
 preserving parent/thread/inherited recipient/send/reconciliation predicates.
 Product unchanged; full17run38179608252 remains active. Fixreview and full10 retry next.
+
+Full17run38179608252 subsequently stops at the same139 nested reply wait:
+corrected browse8PASS67.398s, posting18/17PASS1FAIL122.129s; root unchanged
+original also shows root/Report occupying the viewport, no legacyXML. Durable
+full17-posting-viewport-failure3hashes. Both bounded reviews5b36d1b...709b58d
+are0, independently verifying23focusedGREEN hashes/12cases2records1death,
+three full10 failure hashes and unchanged predicates. New full10run38180155391/
+full17run38180252201 both pin709b58d68da1b773050b33e4e459343500fa9c96 with
+public_feed_read=true. Runtime/evidence acceptance remains pending.
