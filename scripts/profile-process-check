@@ -1,0 +1,85 @@
+#!/usr/bin/env python3
+"""Recover profile edits after death in a picker, then reconcile a retained signed candidate read-only."""
+import argparse
+import json
+from pathlib import Path
+import re
+import subprocess
+
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--evidence', type=Path, required=True)
+args = parser.parse_args()
+package = 'nl.davidengelen.redsquare.dev'
+runner = package + '.test/androidx.test.runner.AndroidJUnitRunner'
+test_class = 'nl.davidengelen.redsquare.ProfileProcessRecoveryTest'
+checkpoint = 'cache/profile-process-checkpoint.json'
+
+
+def adb(*arguments, check=True, timeout=60):
+    return subprocess.run(['adb', *arguments], capture_output=True, text=True, check=check, timeout=timeout)
+
+
+if not adb('get-serialno').stdout.strip().startswith('emulator-'):
+    raise SystemExit('This process check requires an isolated emulator')
+args.evidence.mkdir(parents=True, exist_ok=True)
+adb('shell', 'run-as', package, 'rm', '-f', checkpoint)
+
+
+def instrument(name, log_name, check=True):
+    try:
+        result = adb('shell', 'am', 'instrument', '-w', '-r', '-e', 'class',
+                     test_class + '#' + name, runner, check=check, timeout=120)
+        (args.evidence / log_name).write_text(result.stdout + result.stderr)
+        return result
+    except (subprocess.TimeoutExpired, subprocess.CalledProcessError) as error:
+        def decoded(value):
+            return value.decode('utf-8', errors='replace') if isinstance(value, bytes) else (value or '')
+        (args.evidence / log_name).write_text(decoded(error.stdout) + decoded(error.stderr))
+        raise
+
+
+try:
+    author = None
+    for name, expected in [
+            ('terminateInARealPickerWithLatestBioAndDurableImagesWhoseSourcesWereDeleted', 'draft'),
+            ('coldDraftRecoversLatestBioAndDeletedSourcePixelsThenTerminatesAfterUncertainPublication', 'candidate')]:
+        result = instrument(name, expected + '-interrupted.txt', check=False)
+        if 'FAILURES!!!' in result.stdout:
+            raise AssertionError('Profile phase failed before deliberate termination: ' + name)
+        row = json.loads(adb('exec-out', 'run-as', package, 'cat', checkpoint).stdout)
+        if row['phase'] != expected or row['backend'] != 'owner':
+            raise AssertionError('Missing current profile checkpoint/backend')
+        if not re.fullmatch(r'[1-9A-HJ-NP-Za-km-z]{43,45}', row['author']):
+            raise AssertionError('Invalid public profile owner')
+        if author is None:
+            author = row['author']
+        elif author != row['author']:
+            raise AssertionError('Profile identity changed across process death')
+        if str(row['pid']) in adb('shell', 'pidof', package, check=False).stdout.split():
+            raise AssertionError('Profile process was not actually terminated')
+        if expected == 'candidate' and not re.fullmatch(r'[0-9a-f]{128}', row['sig']):
+            raise AssertionError('Profile candidate signature is invalid')
+        (args.evidence / (expected + '-checkpoint.json')).write_text(json.dumps(row, indent=2) + '\n')
+        adb('shell', 'am', 'force-stop', package)
+    result = instrument('coldCandidateReconcilesReadOnlyAndVerifiedClearingKeepsPublicBioAndPixels',
+                        'recovered-instrumentation.txt')
+    if 'OK (1 test)' not in result.stdout:
+        raise AssertionError('Cold profile candidate reconciliation did not pass')
+    (args.evidence / 'continuity.txt').write_text(
+        'PASS: two actual process deaths; same wallet/backend without resetting either on recovery; '
+        'latest bio recovers after death in a real external picker; '
+        'prepared avatar/banner recover after source deletion; '
+        'cold exact signed candidate reconciles read-only without rebroadcast, '
+        'then verified clearing retains public bio and pixels.\n')
+    print('PASS: profile draft and candidate process recovery')
+finally:
+    # Best-effort diagnostics preserve the original assertion or runtime failure.
+    try:
+        with (args.evidence / 'images.tar').open('wb') as output:
+            captured = subprocess.run(['adb', 'exec-out', 'run-as', package, 'tar', '-C', 'cache',
+                                      '-cf', '-', 'profile-process-evidence'], stdout=output,
+                                     stderr=subprocess.PIPE, timeout=10)
+        (args.evidence / 'capture-status.txt').write_text(str(captured.returncode) + '\n' +
+                                                       captured.stderr.decode('utf-8', errors='replace'))
+    except (OSError, subprocess.TimeoutExpired) as failure:
+        (args.evidence / 'capture-status.txt').write_text('Synthetic evidence capture failed: ' + str(failure))

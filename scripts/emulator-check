@@ -293,6 +293,7 @@ verify_profiles() {
         adb logcat -d -v brief AndroidRuntime:E RedSquarePeer:W '*:S' > "$evidence/profile-edit-runtime.txt" || true
         return 1
     fi
+    python3 "$repo_dir/scripts/profile-process-check" --evidence "$evidence/profile-process"
 }
 if [[ "${TEST_SCOPE:-full}" == profiles* ]]; then
     verify_profiles

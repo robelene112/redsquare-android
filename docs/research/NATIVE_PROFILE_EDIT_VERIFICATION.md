@@ -1150,3 +1150,32 @@ Frozen preview uses exactcandidate only. Local build, source review and GREEN pe
 
 Preview remedy local debug/test assembly PASS2m5s, exit0, retained rawlog.
 Intended native dual GREEN and committed review pending.
+
+Preview remedy boundeda0d3f1b...3c66ec1 Spec0/Standards0 residual/new actionable;
+both reviewers individually inspected RED originals/logs, verified IO candidate
+snapshot derivation/exact omissions and keyed editable merge lifecycle.
+Actual dual GREEN3c66ec1: Android10 38108650553 editor7/36.785s,
+publisher5/26.866s (fourpass/oneAPI30+skip),media2/18.505s,new2/26.4s;
+Android17 38108651990 editor7/80.66s,publisher5/32.455s,media2/21.248s,
+new2/28.834s all16PASS. Source38108635640 PASS49/debug/test/release/lint.
+Six originals individually viewed; parsed XML/rawclass+combined logs retained
+profile-preview-green/android10|17. Generated defaults and no resetcontrols,
+exact frozenbio/oneTX across cold and read-onlyexact confirmation PASS. Available
+PNG/XML both show Checkprofile on both SDKs; originalsunchanged. No atomiccapture
+or process-death claim from these Activity-only tests.
+
+Next ONE native process recovery tracer now written with three host-separated
+stages: latestbio persisted before actual external picker, prepared avatar/banner
+sources deleted before first real processkill; cold latestbio/pixels recovers with
+zero broadcasts until explicit Saveprofile; uncertain exact candidate retained
+before second processkill; next cold app reads exact availability without submit,
+then verified clear retains public bio/pixels as an editable baseline. Same
+actual publicwallet/backend checked from public checkpoint and never reset in
+recovery stages. Checkpoint/frame contain only public synthetic data. Existing
+four UI classes must pass before host starts; unchanged120s per-phase bounds,
+two actual PID deaths checked, phase logs/checkpoints/tar retained. No production
+changes for this proof tracer; tests validate existing implementation, no RED is
+invented. Local test assembly running, Python/shell syntax PASS; runtime unproved.
+
+Process tracer local debug/test assembly PASS1m11s, exit0, retained rawlog.
+Host Python and harness shell syntax PASS. Actual two-death proof pending.
