@@ -78,7 +78,7 @@ internal class ReportState(private val context: Context, private val wallet: Sai
     }
 
     private fun save(target: String, candidate: SaitoTransaction, acknowledged: Boolean, attempted: Boolean,
-        backendError: Boolean, startingAttempt: Boolean = false): ReportStatus {
+        backendError: Boolean, startingAttempt: Boolean = false): ReportStatus = synchronized(SaitoLocalState.lock) {
         var committed: ReportStatus? = null
         store(target).update { saved ->
             val previous = decode(target, saved)
@@ -95,8 +95,9 @@ internal class ReportState(private val context: Context, private val wallet: Sai
             committed = progress
             listOf(record)
         }
+        // Receipt writers share the peer's identity lock through physical enqueue.
         // PublicStringStore verifies and syncs the commit before returning from update.
-        return requireNotNull(committed)
+        requireNotNull(committed)
     }
 
     fun send(post: FeedPost) {

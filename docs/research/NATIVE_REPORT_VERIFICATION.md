@@ -381,3 +381,11 @@ Check same durablehead bothbeforeauthentication and under original identity/
 backend lock beforeenqueue. Old backenderror clears only at conservative
 pre-enqueue marker; validACK dominates errors. Unreadable state stillfailsclosed.
 Source review and final paired acceptance next; no GREEN yet.
+
+Source guard tightening: all report commits acquire the existing shared identity
+lock before PublicStringStore.update. A late receipt writer cannot commit between
+the guarded pre-enqueue head check and physical enqueue, because SaitoPeer keeps
+that same reentrant lock through send. No inverse store-to-identity acquisition
+appears in the existing public-cache merge callbacks inspected. This closes a
+source window; no physical scheduler race is claimed reproduced. Latest source
+review and paired acceptance must include this change.
