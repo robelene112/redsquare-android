@@ -7,8 +7,8 @@ one question at a time when a material choice really needs the owner.
 
 ## Current work
 
-Profile #18 is closed, final evidence commit ed5742f pushed. Fifteen of35 tickets
-are complete (#2–#15 and #18). Parked #19, "Register an optional Saito username",
+Profile #18 is closed, final evidence commit ed5742f pushed. Sixteen of35 tickets
+are complete (#2–#15, #18 and #20). Parked #19, "Register an optional Saito username",
 parked on the external Registry prerequisite, review base ed5742fd0f57958d284073b7145f1844b72b1dbd. #16 Giphy still awaits
 Android-authorized credentials; #17 actual YouTube provider playback remains
 unproved. Do not close those from controlled source/layout successes.
@@ -42,8 +42,8 @@ known/unknown namechecks unusable21bytes; fresh host09:53:48Z onboth returns
 {"err":"no response"} despite authenticated archive/key-map reads. Host helper
 filtererror is its own summary defect, not server key-map failure. Source/host/
 native observations remain distinct. No node changes/trust fallback/livewrites.
-#20, "Search posts and people in available backend history", remains assigned
-and OPEN with acceptance complete; closure next. Review base is
+#20, "Search posts and people in available backend history", is CLOSED.
+Final evidence commit99e58c6 is pushed; closure comment6110277037 records proof. Review base is
 3be555be85586b68c0d05c2c8e69d3976bbffe89. Accepted seams 1–4 apply.
 No additional owner grill or intermediate phone gate is required.
 
@@ -81,7 +81,7 @@ countable completion/death logs. Root recomputed durable counts equal to the
 original artifacts. Android17 bounded evidence reviews: both axes0 findings.
 Android10/final evidence review also complete: both axes0 findings or closure
 blockers. Both independently verify119hashes, counts, originals and paired source
-equivalence. Close #20 after pushing the final acceptance record.
+equivalence. No need to repeat accepted #20 verification.
 
 Two earlier full10 failures remain in full10-first-failure and
 full10-second-failure. The first stopped at an old wallet-picker selector; exact
@@ -94,9 +94,14 @@ identical between successful full17 and full10, as allowed by WORKFLOW.md.
 
 No new phone APK, actual Search process-death, Pixel performance or live write
 claim. Stable review remains version10/source5225d06. #19 remains externally
-parked. Finish tracker closure, then recheck/claim #21 sequentially. Its
-read-only preparation is ignored .scratch/personal-controls-plan.md; no #21
-implementation or claim yet. Preserve the seven future research files below.
+parked. #21, "Mute and block accounts across backend sessions", is ACTIVE/assigned.
+All blockers complete (closed#8). Review base99e58c6a49f5a10ee630f948ad3a18c9f5fb5592.
+The primary native tracer is mute in Profile, switch approved backends, fresh
+offline Activity, manage/unmute and restore cached posts with the same wallet and
+zero transactions. Test compilationPASS1m20s; native RED pending. Product implementation
+not added yet. Scope/verification plan: NATIVE_PERSONAL_CONTROLS_VERIFICATION.md.
+Read-only source preparation is ignored .scratch/personal-controls-plan.md.
+Preserve the seven future research files below.
 
 Protected future untracked: build-support/references/private-chat-reference.cjs;
 NATIVE_NOTIFICATIONS_CONTRACT,
@@ -131,7 +136,7 @@ Initial wallet/live-feed milestone is published as stable signed version10
 Compose bitmaps had inconsistent labels; use each report's stated evidence
 limits. #9 also has official bitmap inconsistencies; no invented cause.
 
-Next: finish #20 final acceptance, then recheck and claim #21 sequentially. Owner
+Next: implement active #21 sequentially. Owner
 reviews the completed app; no intermediate phone-review gate is required.
 
 ## Verification already inspected
