@@ -55,8 +55,8 @@ class ImagePreparationTest {
             listOf(0,2,1,3), listOf(2,0,3,1), listOf(3,1,2,0), listOf(1,3,0,2))
         val jpeg = raster(Bitmap.CompressFormat.JPEG)
         for (batch in listOf(1..4, 5..8)) {
-            val selected = batch.map { write(withExif(jpeg, it), "image/jpeg") }
             withComposer { peer, sent ->
+                val selected = batch.map { write(withExif(jpeg, it), "image/jpeg") }
                 select(selected)
                 waitForCount(4)
                 ui.onNodeWithText("Send").performClick()
@@ -92,9 +92,9 @@ class ImagePreparationTest {
         // GIF89a, one green pixel. LZW clear/index/end codes are 4,1,5.
         val gif = "4749463839610100010080000000000000ff002c00000000010001000002024c01003b"
             .chunked(2).map { it.toInt(16).toByte() }.toByteArray()
-        val selected = listOf(write(withExif(raster(Bitmap.CompressFormat.JPEG), 1), "image/jpeg"),
-            write(png, "image/png"), write(webp, "image/webp"), write(gif, "image/gif"))
         withComposer { peer, sent ->
+            val selected = listOf(write(withExif(raster(Bitmap.CompressFormat.JPEG), 1), "image/jpeg"),
+                write(png, "image/png"), write(webp, "image/webp"), write(gif, "image/gif"))
             select(selected)
             waitForCount(4)
             ui.onNodeWithText("Add images").assertIsNotEnabled()
@@ -117,21 +117,25 @@ class ImagePreparationTest {
     }
 
     @Test fun failedAndExcessSelectionsPreservePriorTextAndImagesWithoutPartialBatches() {
-        val original = write(raster(Bitmap.CompressFormat.PNG), "image/png")
-        val malformed = write("not an image".toByteArray(), "image/png")
-        val missing = write(byteArrayOf(1), "image/png").also {
-            assertEquals(1, context.contentResolver.delete(it, null, null))
-            owned.remove(it)
-        }
-        val oversized = write(byteArrayOf(1), "image/png").also { uri ->
-            context.contentResolver.openOutputStream(uri, "w")!!.use { output ->
+        withComposer { peer, sent ->
+            val png = raster(Bitmap.CompressFormat.PNG)
+            val original = write(png, "image/png")
+            val malformed = write("not an image".toByteArray(), "image/png")
+            val missing = write(png, "image/png").also {
+                assertEquals(1, context.contentResolver.delete(it, null, null))
+                owned.remove(it)
+            }
+            val oversized = write("image/png") { output ->
+                // Recognizable image, fully written before publication, over the literal 32 MiB limit.
+                output.write(png)
                 val block = ByteArray(8192)
                 repeat(4096) { output.write(block) }
                 output.write(0)
             }
-        }
-        val fiveDistinct = (1..5).map { write(raster(Bitmap.CompressFormat.PNG), "image/png") }
-        withComposer { peer, sent ->
+            context.contentResolver.openFileDescriptor(oversized, "r")!!.use {
+                assertEquals(png.size.toLong() + 32L * 1024 * 1024 + 1, it.statSize)
+            }
+            val fiveDistinct = (1..5).map { write(png, "image/png") }
             select(listOf(original)); waitForCount(1)
             val before = ui.onNode(hasSetTextAction()).fetchSemanticsNode().config[androidx.compose.ui.semantics.SemanticsProperties.EditableText].text
             for ((label, selection) in listOf("malformed" to listOf(original, malformed), "missing" to listOf(missing),
@@ -207,13 +211,19 @@ class ImagePreparationTest {
     private fun waitForCount(count: Int) = ui.waitUntil(20_000) { ui.onAllNodes(hasText("Remove image $count") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
     private fun waitForAvailable(peer: ControlledFeedPeer) = ui.waitUntil(20_000) { peer.assertHealthy(); ui.onAllNodesWithText("Available on this server.").fetchSemanticsNodes().isNotEmpty() }
 
-    private fun write(bytes: ByteArray, mime: String): Uri {
+    private fun write(bytes: ByteArray, mime: String): Uri = write(mime) { it.write(bytes) }
+
+    private fun write(mime: String, write: (java.io.OutputStream) -> Unit): Uri {
         val uri = requireNotNull(context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, ContentValues().apply {
-            put(MediaStore.Images.Media.DISPLAY_NAME, "redsquare-preparation-${owned.size}")
+            put(MediaStore.Images.Media.DISPLAY_NAME, "redsquare-preparation-${java.util.UUID.randomUUID()}")
             put(MediaStore.Images.Media.MIME_TYPE, mime)
+            put(MediaStore.Images.Media.IS_PENDING, 1)
         }))
         owned.add(uri)
-        context.contentResolver.openOutputStream(uri)!!.use { it.write(bytes) }
+        context.contentResolver.openOutputStream(uri, "w")!!.use(write)
+        assertEquals(1, context.contentResolver.update(uri, ContentValues().apply {
+            put(MediaStore.Images.Media.IS_PENDING, 0)
+        }, null, null))
         return uri
     }
 

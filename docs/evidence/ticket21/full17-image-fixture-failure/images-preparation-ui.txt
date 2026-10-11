@@ -1,0 +1,104 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImagePreparationTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ImagePreparationTest:
+INSTRUMENTATION_STATUS: test=allEightExifOrientationsBecomeUprightPixelsWithoutSourceMetadata
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImagePreparationTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=allEightExifOrientationsBecomeUprightPixelsWithoutSourceMetadata
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImagePreparationTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=failedAndExcessSelectionsPreservePriorTextAndImagesWithoutPartialBatches
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImagePreparationTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stack=java.io.FileNotFoundException: java.io.FileNotFoundException: No item at content://media/external/images/media/42
+	at android.database.DatabaseUtils.readExceptionWithFileNotFoundExceptionFromParcel(DatabaseUtils.java:186)
+	at android.content.ContentProviderProxy.openAssetFile(ContentProviderNative.java:739)
+	at android.content.ContentResolver.openAssetFileDescriptor(ContentResolver.java:1930)
+	at android.content.ContentResolver.openOutputStream(ContentResolver.java:1622)
+	at nl.davidengelen.redsquare.ImagePreparationTest.failedAndExcessSelectionsPreservePriorTextAndImagesWithoutPartialBatches(ImagePreparationTest.kt:127)
+
+INSTRUMENTATION_STATUS: stream=
+Error in failedAndExcessSelectionsPreservePriorTextAndImagesWithoutPartialBatches(nl.davidengelen.redsquare.ImagePreparationTest):
+java.io.FileNotFoundException: java.io.FileNotFoundException: No item at content://media/external/images/media/42
+	at android.database.DatabaseUtils.readExceptionWithFileNotFoundExceptionFromParcel(DatabaseUtils.java:186)
+	at android.content.ContentProviderProxy.openAssetFile(ContentProviderNative.java:739)
+	at android.content.ContentResolver.openAssetFileDescriptor(ContentResolver.java:1930)
+	at android.content.ContentResolver.openOutputStream(ContentResolver.java:1622)
+	at nl.davidengelen.redsquare.ImagePreparationTest.failedAndExcessSelectionsPreservePriorTextAndImagesWithoutPartialBatches(ImagePreparationTest.kt:127)
+
+INSTRUMENTATION_STATUS: test=failedAndExcessSelectionsPreservePriorTextAndImagesWithoutPartialBatches
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImagePreparationTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=pngAlphaWebpGifAndJpegAreFlattenedAndFittedWithinTheMessageBudget
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImagePreparationTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=pngAlphaWebpGifAndJpegAreFlattenedAndFittedWithinTheMessageBudget
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImageLoadingTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ImageLoadingTest:
+INSTRUMENTATION_STATUS: test=remoteFailuresKeepVerifiedTextReadableAndRetryCanRecoverOneImage
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImageLoadingTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=remoteFailuresKeepVerifiedTextReadableAndRetryCanRecoverOneImage
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImageLoadingTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=leavingStalledDownloadsKeepsNavigationUsableAndReleasesImageCapacity
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImageLoadingTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=leavingStalledDownloadsKeepsNavigationUsableAndReleasesImageCapacity
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 13.502
+There was 1 failure:
+1) failedAndExcessSelectionsPreservePriorTextAndImagesWithoutPartialBatches(nl.davidengelen.redsquare.ImagePreparationTest)
+java.io.FileNotFoundException: java.io.FileNotFoundException: No item at content://media/external/images/media/42
+	at android.database.DatabaseUtils.readExceptionWithFileNotFoundExceptionFromParcel(DatabaseUtils.java:186)
+	at android.content.ContentProviderProxy.openAssetFile(ContentProviderNative.java:739)
+	at android.content.ContentResolver.openAssetFileDescriptor(ContentResolver.java:1930)
+	at android.content.ContentResolver.openOutputStream(ContentResolver.java:1622)
+	at nl.davidengelen.redsquare.ImagePreparationTest.failedAndExcessSelectionsPreservePriorTextAndImagesWithoutPartialBatches(ImagePreparationTest.kt:127)
+
+FAILURES!!!
+Tests run: 5,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

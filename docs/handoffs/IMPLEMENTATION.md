@@ -436,7 +436,15 @@ Full17run38179608252 subsequently fails the same139: browse8PASS67.398s,
 posting18/17PASS1FAIL122.129s, rootoriginalroot/Reportviewport/nolegacyXML;
 full17-posting-viewport-failure3hashes. Both5b36d1b...709b58d reviews0;
 paired full10retry38180155391/full17retry38180252201 pin709b58d68da1b773050b33e4e459343500fa9c96,
-bothpublic_feed_read=true. Finalruntime/evidencepending. Originalcoroutineschedulingnotclaimed
+bothpublic_feed_read=true. Full17retry38180252201 stops later at existing
+ImagePreparationTest127:5cases4PASS1FAIL13.502s, reopening a publishedonebyte
+oversizedfixture raisesFileNotFoundException Noitemmedia42 beforecomposer;
+noscopedPNG/XML. Correctedbrowse/posting/intermediatespass, reportslaterunreached.
+full17-image-fixture-failure3hashes. Source supportsproviderscan hypothesis,
+notproven cause. Currentfixture usespending singlecompletewrite→publish,
+UUIDnames/recognizablePNGpadding/exactpositivesize/missingvalidPNGthenexplicitdelete;
+allownedallocationsinsideexistingprimarysafecleanup. Product/predicatesunchanged;
+focus17images/review next. Full10retry38180155391 stillactive. Originalcoroutineschedulingnotclaimed
 reproduced. No nextticket
 claimed; #23 is balances/receiving/authenticated SAITO transfers, not filtering.
 Ticket22 remains incomplete: failure/durability/identity/backend isolation,

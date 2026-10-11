@@ -453,3 +453,16 @@ are0, independently verifying23focusedGREEN hashes/12cases2records1death,
 three full10 failure hashes and unchanged predicates. New full10run38180155391/
 full17run38180252201 both pin709b58d68da1b773050b33e4e459343500fa9c96 with
 public_feed_read=true. Runtime/evidence acceptance remains pending.
+
+Full17retry38180252201 at709b58d stops later in existing oversized image fixture
+setup: images-preparation5cases/4PASS/1FAIL13.502s atImagePreparationTest127,
+FileNotFoundException No item at media/42 when reopening published one-byte
+placeholder before composer. Corrected browse/posting and intermediate social/
+image/process stages pass; reporting/later scopes remain unreached. No in-scope
+PNG/XML exists for this setup failure. Durable full17-image-fixture-failure3hashes.
+Source supports a provider-scan/reclassification hypothesis, not proved cause.
+Correction uses Android's documented pending-write/publish sequence, UUID names,
+one streamed recognizable oversized PNG with literal positive size check, valid
+PNG then explicit deletion for missing, and moves all owned allocations inside
+existing primary-safe cleanup. Acceptance predicates/product unchanged. Focused
+Android17 image verification and review next; full10 remains active.
