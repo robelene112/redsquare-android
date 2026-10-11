@@ -349,3 +349,11 @@ card bounds could count as visible while the copy itself is offscreen. Test
 now scrolls to the qualification and asserts its unmerged Text bounds; negative
 copy checks also use unmerged nodes. No observed viewport failure or acceptance
 weakening. Testcompile/re-review/first qualification GREEN pending.
+
+Visibility fixturefixf1f7a6f bothboundedaxes0 residual findings. Copy gates
+measure actual Text bounds; error/person/recovery/wallet/nosend assertions
+remain. Testcompile active, first qualification GREEN pending.
+
+Visibilityfixturefix compilationPASS1m19s; sourceper-card confirmation
+compiledPASS2m20s, bothboundedreviewaxes0 residual. First native qualification
+GREEN pending; setupduplication remains post-GREEN review cleanup.

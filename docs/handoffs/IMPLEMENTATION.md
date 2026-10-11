@@ -108,7 +108,8 @@ added653367d, compilePASS2m17s. Both reviewers found query-wide confirmation
 can hide a different cached owner qualifier; sourcefix now makes qualification
 per person card474e01f, compilePASS2m20s; Spec0/Standards sourceedgeclosed.
 Fixture precision now scrolls and checks actual unmerged qualification Text,
-not mergedcard bounds. Testcompile/re-review/GREEN pending; no runtimeviewport
+not mergedcard boundsf1f7a6f; bothboundedaxes0 residual, testcompilePASS1m19s.
+First qualification GREEN pending; no runtimeviewport
 failure claim.
 Push38142377442 release/lintPASS. Compile container0/daemonPASS1m19s despite
 terminal143; packaging confirmationPASS20s(all50up-to-date), cause not
