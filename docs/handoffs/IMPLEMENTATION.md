@@ -269,11 +269,20 @@ zero transactions. Root inspected all4originalPNG/separate4XML; process-green
 retains16hashes. Cold peer is online; offline retention is separate earlier proof.
 No physical power-loss claim. Both bounded process review axes have zero findings.
 
-Corrupt-policy/repair probe8d45dfc compiled PASS in1m16s and both bounded reviews
-are clear; native verification is pending. Real SAF identity roundtrip compiled PASS in1m27s
-after a test import correction; eight-case native check plus process probe is next. Whole-ticket review and final
-paired full Android10/17 acceptance remain. Preserve seven future research files.
-No new APK or ticket closure.
+Expanded run38160012441 at13943cc: eight reported cases, seven PASS and one
+identity-fixture error before first Activity launch;101.282s. Corruption/repair
+passes all final gates, with two originals and separate XMLs inspected by root in
+identity-bootstrap-failure/six hashes. Identity ran first on a fresh focused
+installation and tried loadExisting before normal app wallet creation. Correction
+opens actual first-launch Wallet UI first, then reads existing options; no direct
+wallet creation/reset and no weakened import assertions. Correction compile PASS in1m16s; expanded8case retry is next.
+Separate process probe was not reached in this run; prior process proof remains.
+Source push38159998964 passes core/debug/test/release/lint.
+
+Whole-ticket reviews99e58c6...13943cc: both axes zero source/fixture findings.
+Real SAF identity runtime, corrected focused check and final paired full Android
+10/17 acceptance remain. Preserve seven future research files. No new APK or
+#21 closure; still16/35 tickets are closed.
 
 ## Outstanding external acceptance
 

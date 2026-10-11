@@ -638,8 +638,19 @@ class PersonalControlsPreviewTest {
         val device = UiDevice.getInstance(instrumentation)
         val keyguard = context.getSystemService(KeyguardManager::class.java)
         assertFalse(keyguard.isDeviceSecure)
+        var originalAddress = ""
+        // This may be the first test on a fresh focused installation. Let the
+        // actual first-launch UI create its wallet before inspecting saved options.
+        withOpenApp(Intent(context, MainActivity::class.java).putExtra("feedDisabled", true),
+            "personal-identity-bootstrap-failure") {
+            waitFor("Wallet")
+            ui.onNodeWithText("Wallet").performClick()
+            originalAddress = displayedWalletAddress(ui)
+            ui.onNodeWithText("Done").performClick()
+        }
         val store = AndroidWalletStore(context)
         val original = store.loadExisting()
+        assertEquals(originalAddress, original.publicKey)
         val scalar = if (original.publicKey == "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR") "2" else "1"
         val incoming = SaitoWallet.fromPrivateKey("0".repeat(63) + scalar) // Public unsafe fixture only.
         assertNotEquals(original.publicKey, incoming.publicKey)
