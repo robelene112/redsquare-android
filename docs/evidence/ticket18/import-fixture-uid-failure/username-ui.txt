@@ -1,0 +1,103 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.UsernamePreviewTest:
+INSTRUMENTATION_STATUS: test=aRegistrarSignedNameIsDisplayedAndRetainedWhenLaterChecksAreUnavailable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aRegistrarSignedNameIsDisplayedAndRetainedWhenLaterChecksAreUnavailable
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anUnavailableUsernameCheckDoesNotBlockPostingOrChangeTheWallet
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anUnavailableUsernameCheckDoesNotBlockPostingOrChangeTheWallet
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aConfirmedRegistrationIsNotResentAndNamesTheOwnProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aConfirmedRegistrationIsNotResentAndNamesTheOwnProfile
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=walletImportIdentifiesTheVerifiedNameThatBelongsToTheOutgoingWallet
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.UsernamePreviewTest.walletImportIdentifiesTheVerifiedNameThatBelongsToTheOutgoingWallet$lambda$42(UsernamePreviewTest.kt:264)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.$r8$lambda$j6OBhzKtdi5ByhPttE8x1_1h5ug(Unknown Source:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.withRegistryWallet(UsernamePreviewTest.kt:361)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.walletImportIdentifiesTheVerifiedNameThatBelongsToTheOutgoingWallet(UsernamePreviewTest.kt:257)
+
+INSTRUMENTATION_STATUS: stream=
+Error in walletImportIdentifiesTheVerifiedNameThatBelongsToTheOutgoingWallet(nl.davidengelen.redsquare.UsernamePreviewTest):
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.UsernamePreviewTest.walletImportIdentifiesTheVerifiedNameThatBelongsToTheOutgoingWallet$lambda$42(UsernamePreviewTest.kt:264)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.$r8$lambda$j6OBhzKtdi5ByhPttE8x1_1h5ug(Unknown Source:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.withRegistryWallet(UsernamePreviewTest.kt:361)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.walletImportIdentifiesTheVerifiedNameThatBelongsToTheOutgoingWallet(UsernamePreviewTest.kt:257)
+
+INSTRUMENTATION_STATUS: test=walletImportIdentifiesTheVerifiedNameThatBelongsToTheOutgoingWallet
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aPendingRegistrationSurvivesReopeningAndRetriesTheExactSignedRequest
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aPendingRegistrationSurvivesReopeningAndRetriesTheExactSignedRequest
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 20.776
+There was 1 failure:
+1) walletImportIdentifiesTheVerifiedNameThatBelongsToTheOutgoingWallet(nl.davidengelen.redsquare.UsernamePreviewTest)
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.UsernamePreviewTest.walletImportIdentifiesTheVerifiedNameThatBelongsToTheOutgoingWallet$lambda$42(UsernamePreviewTest.kt:264)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.$r8$lambda$j6OBhzKtdi5ByhPttE8x1_1h5ug(Unknown Source:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.withRegistryWallet(UsernamePreviewTest.kt:361)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.walletImportIdentifiesTheVerifiedNameThatBelongsToTheOutgoingWallet(UsernamePreviewTest.kt:257)
+
+FAILURES!!!
+Tests run: 5,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

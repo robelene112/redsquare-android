@@ -302,6 +302,10 @@ if [[ "${TEST_SCOPE:-full}" == profiles* ]]; then
 fi
 verify_usernames() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+    # Public unsafe scalar2 backup, owned by the real test document-provider UID.
+    adb shell run-as nl.davidengelen.redsquare.dev.test mkdir -p files/wallet-test-documents
+    printf '%s' '{"wallet":{"version":5.677,"publicKey":"pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU","privateKey":"0000000000000000000000000000000000000000000000000000000000000002"}}' | \
+        adb shell run-as nl.davidengelen.redsquare.dev.test tee files/wallet-test-documents/00-username-import.json > /dev/null
     timeout 180 adb shell am instrument -w -r \
         -e class nl.davidengelen.redsquare.UsernamePreviewTest \
         nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \

@@ -260,12 +260,10 @@ class UsernamePreviewTest {
         val proof = reference.getAsJsonArray("rows").toString()
         val incoming = SaitoWallet.fromPrivateKey("0".repeat(63) + "2") // Another public unsafe fixture only.
         assertNotEquals(fixture.publicKey, incoming.publicKey)
-        val directory = File(instrumentation.context.filesDir, "wallet-test-documents")
-        check(directory.isDirectory || directory.mkdirs())
-        val document = File(directory, "00-username-import.json")
-        check(!document.exists())
-        document.writeText(incoming.exportJson())
-        check(document.length() > 0)
+        val filename = "00-username-import.json"
+        val device = UiDevice.getInstance(instrumentation)
+        check(device.executeShellCommand("run-as nl.davidengelen.redsquare.dev.test stat -c %s files/wallet-test-documents/00-username-import.json")
+            .trim().toLongOrNull()?.let { it > 0 } == true) { "Username import fixture was not provisioned" }
         val peer = ControlledFeedPeer("[]", registryResponse = { criteria ->
             assertEquals("registry namecheck", criteria.get("request").asString)
             assertEquals("NativeCase7@saito", criteria.get("identifier").asString)
@@ -293,7 +291,7 @@ class UsernamePreviewTest {
                         ui.onNodeWithText("Wallet").performClick()
                         assertEquals(fixture.publicKey, displayedWalletAddress(ui))
                         ui.onNodeWithText("Import wallet").performScrollTo().performClick()
-                        chooseUsernameImport(document.name, incoming.publicKey)
+                        chooseUsernameImport(filename, incoming.publicKey)
                         val selected = context.getString(R.string.wallet_import_address)
                         ui.waitUntil(15_000) { ui.onAllNodesWithContentDescription(selected).fetchSemanticsNodes().isNotEmpty() }
                         ui.onNodeWithContentDescription(selected).assertTextEquals(incoming.publicKey)
@@ -313,7 +311,7 @@ class UsernamePreviewTest {
             }
         } catch (failure: Throwable) { primary = failure; throw failure }
         finally {
-            if (!document.delete()) {
+            if (device.executeShellCommand("run-as nl.davidengelen.redsquare.dev.test rm files/wallet-test-documents/00-username-import.json").isNotBlank()) {
                 val cleanup = IllegalStateException("Could not clear the public username import fixture")
                 if (primary != null) primary.addSuppressed(cleanup) else throw cleanup
             }
