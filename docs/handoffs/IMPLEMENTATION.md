@@ -444,7 +444,7 @@ full17-image-fixture-failure3hashes. Source supportsproviderscan hypothesis,
 notproven cause. Currentfixture usespending singlecompletewrite→publish,
 UUIDnames/recognizablePNGpadding/exactpositivesize/missingvalidPNGthenexplicitdelete;
 allownedallocationsinsideexistingprimarysafecleanup. Product/predicatesunchanged;
-focus17images/review next. Full10retry38180155391 stillactive. Originalcoroutineschedulingnotclaimed
+focus17images38181457132 at367cba4/review pending. Full10retry38180155391 stillactive. Originalcoroutineschedulingnotclaimed
 reproduced. No nextticket
 claimed; #23 is balances/receiving/authenticated SAITO transfers, not filtering.
 Ticket22 remains incomplete: failure/durability/identity/backend isolation,

@@ -59,8 +59,18 @@ native bytes and both pinned handlers, not deployed moderation behavior.
 The first full pair stopped at old browse pre-scroll assumptions. The next pair
 passed corrected browse and stopped at the nested-reply pre-scroll assumption.
 Original failed captures and raw counts are retained with their limits. The
-reviewed correction is now running full10run38180155391 and full17run38180252201
-at the same`709b58d68da1b773050b33e4e459343500fa9c96`, both public_feed_read=true.
-Final full acceptance, artifact inspection and evidence review remain pending.
+reviewed reply correction was exercised by full10run38180155391 and
+full17run38180252201 at the same`709b58d68da1b773050b33e4e459343500fa9c96`,
+both public_feed_read=true. Android10 remains active. Android17 passes corrected
+browse8cases69.827s/posting18cases104.96s, then stops before the rejection
+composer while reopening a published one-byte oversized image fixture:
+preparation5cases/4PASS/1FAIL13.502s, FileNotFoundException at127. Reporting and
+later full17 scopes are unreached, with no in-scope PNG/XML for setup failure.
+Durable full17-image-fixture-failure retains3hashes. The current fixture
+correction publishes one complete pending write under a unique name, checks
+the recognizable oversized source's exact positive size and begins owned
+cleanup before allocation. Provider reclassification remains a hypothesis.
+Focused images17run38181457132 at`367cba4` and fix review are pending. Final
+full acceptance, artifact inspection and evidence review remain pending.
 Ticket22 stays open. No new phone APK, physical Pixel, live report, moderator
 decision, arbitrary power-loss or permanent-history claim.

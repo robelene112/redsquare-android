@@ -465,4 +465,6 @@ Correction uses Android's documented pending-write/publish sequence, UUID names,
 one streamed recognizable oversized PNG with literal positive size check, valid
 PNG then explicit deletion for missing, and moves all owned allocations inside
 existing primary-safe cleanup. Acceptance predicates/product unchanged. Focused
-Android17 image verification and review next; full10 remains active.
+Android17 image verification38181457132 at367cba4 and review pending;
+full10 remains active. REVIEW.md's stale paired-running paragraph is corrected
+to the actual stopped17/active10/focused-image-pending status.
