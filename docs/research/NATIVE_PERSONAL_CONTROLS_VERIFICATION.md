@@ -191,3 +191,21 @@ Offline/end gates unreached. Separatepush38155113301 source/release/lintPASS.
 No production source change; corrected fixture compile and fulljourney GREEN next.
 
 Corrected exact-person selector compilation PASS1m14s; unchanged4journey GREEN next.
+
+Selector/evidence reviewc89a099...17104b8: both axes0 new actionable findings,
+12retainedhashes independentlyverified. Corrected4journey GREEN38155702778
+at17104b8 active; pendinglatergates are not claimed passed.
+
+Corrected cross-view GREEN38155702778 at17104b8:4PASS61.642s, all endgates.
+Rootviews14originalPNG/separate14XML; views-green30hashes. No actual processdeath
+or finalacceptance claimed. Review-stage repeated explained-Mute UI steps now
+extracted into one narrow helper, preserving positive copy/confirm/active gates.
+Next SINGLE native failed-save tracer added before rollback product code: save
+Mute/filteredfeed, inject only active encrypted-write OS directorysync after
+AtomicFilefinishWrite, explicitUnmuteerror/oldUI, freshnormalActivity filtering
+and savedMute, successfulexplicitUnmute/cache restoration, samewallet/noTX.
+EncryptedLocalFile now accepts the real OSsync seam; DEBUG intent drives only
+personalwrites, wallet/read behavior unchanged. No recovery anchor implemented
+before observed RED. Compile/focused5journey RED next.
+
+Late-save tracer and narrow Mute-helper refactor compilePASS2m7s; native5caseRED next.

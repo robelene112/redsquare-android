@@ -132,7 +132,13 @@ filters compilePASS2m22s. FirstGREENattempt38155113079 passes new product
 gates through Search-post filters then fails fixtureline388: long editablequery
 also scrolls, so ambiguouslistselector. Rootviews5new originals/separateXML;
 views-selector-failure12hashes. Exclude editablefield frompersonlistselector,
-acceptanceassertions unchanged. CompilePASS1m14s; corrected4journey GREEN next. Block, other-view filters and late-save recovery still require further
+acceptanceassertions unchanged. CompilePASS1m14s; correctedGREEN38155702778
+at17104b8 passes4cases61.642s/allendgates. Rootviews14originals/separate14XML;
+views-green30hashes. RepeatedexplainedMute steps extractedafterGREEN. NextSINGLE
+late-save tracer added before rollback implementation: postfinishWrite personal
+OSsyncfault, UIerror/oldMute, freshnormalActivity mustretainfilteredpost/Mute,
+explicitrepair/restoration/samewallet/noTX. CompilePASS2m7s; first5caseRED next.
+Noanchor/rollback fix yet. Block, other-view filters and late-save recovery still require further
 vertical journeys; no final #21 acceptance/new APK claimed. Scope/verification plan: NATIVE_PERSONAL_CONTROLS_VERIFICATION.md.
 Read-only source preparation is ignored .scratch/personal-controls-plan.md.
 Preserve the seven future research files below.

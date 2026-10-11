@@ -1,6 +1,8 @@
 package nl.davidengelen.redsquare.moderation
 
 import android.content.Context
+import android.system.Os
+import java.io.FileDescriptor
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.rememberScrollState
@@ -30,8 +32,9 @@ internal data class PersonalPolicy(val muted: Set<String> = emptySet(), val bloc
 }
 
 /** Device-local personal choices for one public identity, shared by both servers. */
-internal class PersonalControls(private val context: Context, private val owner: String?, private val scope: CoroutineScope) {
-    private val storage = owner?.let { EncryptedLocalFile(context, "personal.$it.v1", "personal.$it", "personal.$it.") }
+internal class PersonalControls(private val context: Context, private val owner: String?, private val scope: CoroutineScope,
+    commitDirectorySync: (FileDescriptor) -> Unit = Os::fsync) {
+    private val storage = owner?.let { EncryptedLocalFile(context, "personal.$it.v1", "personal.$it", "personal.$it.", commitDirectorySync) }
     val ownerAvailable get() = owner != null
     var policy by mutableStateOf(PersonalPolicy())
         private set
@@ -123,10 +126,11 @@ internal class PersonalControls(private val context: Context, private val owner:
 internal val LocalPersonalControls = staticCompositionLocalOf<PersonalControls?> { null }
 
 @Composable
-internal fun PersonalControlsScope(owner: String?, content: @Composable () -> Unit) {
+internal fun PersonalControlsScope(owner: String?, commitDirectorySync: (FileDescriptor) -> Unit = Os::fsync,
+    content: @Composable () -> Unit) {
     val context = LocalContext.current.applicationContext
     val scope = rememberCoroutineScope()
-    val controls = remember(owner) { PersonalControls(context, owner, scope) }
+    val controls = remember(owner) { PersonalControls(context, owner, scope, commitDirectorySync) }
     LaunchedEffect(controls) { controls.load() }
     CompositionLocalProvider(LocalPersonalControls provides controls, content = content)
 }

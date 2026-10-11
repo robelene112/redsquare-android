@@ -193,7 +193,12 @@ class MainActivity : ComponentActivity() {
             MaterialTheme {
                 CompositionLocalProvider(LocalVideoFixture provides VideoFixture.fromIntent(intent)) {
                 VideoPlaybackHost(address, backend) {
-                PersonalControlsScope(address) {
+                PersonalControlsScope(address, commitDirectorySync = { descriptor ->
+                    if (BuildConfig.DEBUG && intent.getBooleanExtra("personalCommitSyncUnavailable", false)) {
+                        throw IOException("Controlled personal filesystem sync failure")
+                    }
+                    Os.fsync(descriptor)
+                }) {
                 Surface(Modifier.fillMaxSize()) {
                     Column(Modifier.fillMaxSize().padding(16.dp)) {
                         Text(stringResource(R.string.app_name), style = MaterialTheme.typography.headlineMedium)

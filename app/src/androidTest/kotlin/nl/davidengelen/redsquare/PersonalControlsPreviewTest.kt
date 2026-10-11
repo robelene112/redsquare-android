@@ -69,10 +69,7 @@ class PersonalControlsPreviewTest {
                     ui.onNodeWithText(author).assertIsDisplayed().performClick()
                     waitFor("Profile")
                     waitFor("Mute account")
-                    ui.onNodeWithText("Mute account").performClick()
-                    waitFor("Mute hides this account's posts and social notifications. Chat messages remain available.")
-                    ui.onNodeWithText("Mute", substring = false).performClick()
-                    waitFor("Unmute account")
+                    muteAccount()
                     ui.onNodeWithText("Back").performClick()
                     showPost("Another account reference post")
                     assertPostAbsent("Native Red Square reference post", "Another account reference post")
@@ -162,10 +159,7 @@ class PersonalControlsPreviewTest {
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText(author))
                     ui.onNodeWithText(author).performClick()
                     waitFor("Mute account")
-                    ui.onNodeWithText("Mute account").performClick()
-                    waitFor("Mute hides this account's posts and social notifications. Chat messages remain available.")
-                    ui.onNodeWithText("Mute", substring = false).performClick()
-                    waitFor("Unmute account")
+                    muteAccount()
                 }
             }
             ActivityScenario.launch<MainActivity>(unavailable).use { activity ->
@@ -221,10 +215,7 @@ class PersonalControlsPreviewTest {
                 ui.onNode(hasScrollAction()).performScrollToNode(hasText(author))
                 ui.onNodeWithText(author).performClick()
                 waitFor("Mute account")
-                ui.onNodeWithText("Mute account").performClick()
-                waitFor("Mute hides this account's posts and social notifications. Chat messages remain available.")
-                ui.onNodeWithText("Mute", substring = false).performClick()
-                waitFor("Unmute account")
+                muteAccount()
                 waitFor("Block account")
                 ui.onNodeWithText("Block account").performClick()
                 waitFor("Block hides this account's posts, social notifications and incoming Chat messages.")
@@ -242,10 +233,7 @@ class PersonalControlsPreviewTest {
                 waitFor("Unblock account")
                 ui.onAllNodesWithText("Unmute account").assertCountEquals(0)
                 captureNativeScreen(File(context.cacheDir, "personal-controls-evidence/blocked-without-mute.png"), "Unblock account")
-                ui.onNodeWithText("Mute account").performClick()
-                waitFor("Mute hides this account's posts and social notifications. Chat messages remain available.")
-                ui.onNodeWithText("Mute", substring = false).performClick()
-                waitFor("Unmute account")
+                muteAccount()
                 ui.onNodeWithText("Done").performClick()
                 ui.onNodeWithText("Settings").performClick()
                 waitFor("saito.io")
@@ -347,10 +335,7 @@ class PersonalControlsPreviewTest {
                 waitFor("Profile")
                 waitFor(author)
                 waitFor("Mute account")
-                ui.onNodeWithText("Mute account").performClick()
-                waitFor("Mute hides this account's posts and social notifications. Chat messages remain available.")
-                ui.onNodeWithText("Mute", substring = false).performClick()
-                waitFor("Unmute account")
+                muteAccount()
                 assertPostAbsent("Native Red Square reference post", "Unmute account")
                 waitFor("Posts from muted or blocked accounts are hidden.")
                 captureNativeScreen(File(context.cacheDir, "personal-controls-evidence/profile-personal-filter.png"), "Unmute account")
@@ -414,6 +399,83 @@ class PersonalControlsPreviewTest {
             assertTrue(peer.transactions.isEmpty())
             peer.assertHealthy()
         }
+    }
+
+    @Test fun aLateFailedUnmuteRetainsSavedFilteringAfterReopeningAndAllowsExplicitRepair() {
+        val reference = readReference("native-following-reference.json")
+        val root = reference.getAsJsonObject("root")
+        val other = reference.getAsJsonObject("otherRoot")
+        val author = root.get("field2").asString
+        val peer = ControlledFeedPeer("[$root,$other]", archiveResponse = { criteria ->
+            check(criteria.get("field1").asString == "RedSquare" && criteria.get("flagged_ne").asInt == 1)
+            when (criteria.get("field2")?.asString) {
+                null -> "[$root,$other]"
+                author -> "[$root]"
+                else -> error("Unexpected author")
+            }
+        })
+        peer.start().use { server ->
+            val intent = Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+            var address = ""
+            withOpenApp(intent, "failed-save-seed-failure") {
+                waitForEnabled("Refresh")
+                showPost("Native Red Square reference post")
+                ui.onNodeWithText("Wallet").performClick()
+                address = displayedWalletAddress(ui)
+                ui.onNodeWithText("Done").performClick()
+                ui.onNode(hasScrollAction()).performScrollToNode(hasText(author))
+                ui.onNodeWithText(author).assertIsDisplayed().performClick()
+                waitFor("Profile")
+                muteAccount()
+                ui.onNodeWithText("Back").performClick()
+                showPost("Another account reference post")
+                assertPostAbsent("Native Red Square reference post", "Another account reference post")
+            }
+            // Fault the OS directory sync after AtomicFile finishes the active write.
+            // Reading, wallet storage and later recovery use the ordinary filesystem.
+            withOpenApp(Intent(intent).putExtra("personalCommitSyncUnavailable", true), "late-save-failure") {
+                waitForEnabled("Refresh")
+                showPost("Another account reference post")
+                assertPostAbsent("Native Red Square reference post", "Another account reference post")
+                ui.onNodeWithText("Settings").performClick()
+                ui.onNodeWithText("Muted and blocked accounts").performClick()
+                waitFor("Unmute account")
+                ui.onNodeWithText("Unmute account").performClick()
+                waitFor("Your change could not be saved. Try again.")
+                waitForEnabled("Unmute account")
+                captureNativeScreen(File(context.cacheDir, "personal-controls-evidence/late-save-retained-mute.png"), "Your change could not be saved. Try again.")
+            }
+            withOpenApp(intent, "late-save-reopening-failure") {
+                waitForEnabled("Refresh")
+                showPost("Another account reference post")
+                assertPostAbsent("Native Red Square reference post", "Another account reference post")
+                ui.onNodeWithText("Settings").performClick()
+                ui.onNodeWithText("Muted and blocked accounts").performClick()
+                waitFor(author)
+                waitFor("Unmute account")
+                captureNativeScreen(File(context.cacheDir, "personal-controls-evidence/late-save-reopened-mute.png"), "Unmute account")
+                ui.onNodeWithText("Unmute account").performClick()
+                waitFor("No muted or blocked accounts.")
+                ui.onNodeWithText("Done").performClick()
+                showPost("Native Red Square reference post")
+                captureNativeScreen(File(context.cacheDir, "personal-controls-evidence/late-save-repaired-post.png"), "Native Red Square reference post")
+                ui.onNodeWithText("Wallet").performClick()
+                assertEquals(address, displayedWalletAddress(ui))
+                ui.onNodeWithText("Done").performClick()
+            }
+            assertTrue(peer.clientKeys.isNotEmpty() && peer.clientKeys.all { it == address })
+            assertTrue(peer.transactions.isEmpty())
+            peer.assertHealthy()
+        }
+    }
+
+    private fun muteAccount() {
+        waitFor("Mute account")
+        ui.onNodeWithText("Mute account").performClick()
+        waitFor("Mute hides this account's posts and social notifications. Chat messages remain available.")
+        ui.onNodeWithText("Mute", substring = false).performClick()
+        waitFor("Unmute account")
     }
 
     private fun showStandalonePost(text: String): SemanticsNodeInteraction {

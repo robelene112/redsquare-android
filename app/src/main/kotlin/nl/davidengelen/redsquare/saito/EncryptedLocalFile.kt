@@ -7,6 +7,7 @@ import android.system.Os
 import android.system.OsConstants
 import android.util.AtomicFile
 import java.io.File
+import java.io.FileDescriptor
 import java.nio.ByteBuffer
 import java.nio.CharBuffer
 import java.nio.charset.CodingErrorAction
@@ -18,7 +19,8 @@ import javax.crypto.spec.GCMParameterSpec
 
 /** Device-only draft bytes. Feature adapters own their version and payload validation. */
 internal class EncryptedLocalFile(private val context: Context, filename: String,
-    private val keyAlias: String, private val familyPrefix: String) {
+    private val keyAlias: String, private val familyPrefix: String,
+    private val directorySync: (FileDescriptor) -> Unit = Os::fsync) {
     private val file = AtomicFile(File(context.noBackupFilesDir, filename))
     private val associatedData = "${context.packageName}:$filename".toByteArray(Charsets.UTF_8)
 
@@ -89,7 +91,7 @@ internal class EncryptedLocalFile(private val context: Context, filename: String
             file.finishWrite(output)
         } catch (failure: Exception) { file.failWrite(output); throw failure }
         val directory = Os.open(file.baseFile.parentFile!!.path, OsConstants.O_RDONLY, 0)
-        try { Os.fsync(directory) } finally { Os.close(directory) }
+        try { directorySync(directory) } finally { Os.close(directory) }
         check(load() == contents) { "Draft persistence verification failed" }
     }
 
