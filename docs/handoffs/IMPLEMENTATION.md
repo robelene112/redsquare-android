@@ -118,7 +118,18 @@ Raise fixed candidate-status paint order; same scrolling/nativeBy.textgates.
 Hypothesis until runtime. Export actualframe before capture; helperselected-media
 mode independently checks crypto+canonicalJPEG/literal8x8,12x4+unchangedmetadata.
 Existing actual bioframe stillPASS; current media specimens unavailable.
-Local build/dualruntime/committedreview pending.
+Local buildPASS1m55s, bounded d7...16f23ec reviews both zero.
+DualGREEN10 38101974487 OK11/44.276s (tenpass/oneAPI30skip),17
+38101974419 all11/65.943s. Source38101971926 PASS49/release/lint.
+Six originals individually inspected, exact XML/log/actualframes retained
+profile-media-green. Bothmediaframes independentlyPASS pinnedcrypto/JPEG/
+A/B receiving/reconstruction. IntegrationSpec0; Standards1 source race:
+stale mounted saves can erase concurrently persisted availability/supersession.
+Progress-preserving saves now retain same-candidate historical/newer guards,
+reject different candidates/frozen edits, and explicitly clear only this
+confirmed non-superseded candidate. Mounted state adopts retained progress.
+Local debug/test PASS2m2s; committed review/runtime pending. No runtime race
+reproduction claimed.
 Recovery/process/full acceptance remains open.
 Then candidate failures/recovery,
 actual process death, media, cross-client, full checks/reviews remain. No APK or

@@ -705,3 +705,45 @@ supports the bounded zIndex candidate. XML field bounds are Android10 y272..360
 versus scroll viewport296..624, Android17 y248..360 versus viewport272..624.
 The overlap is observed; attribution of the omission to it remains a hypothesis
 until fresh native verification. Retained local debug/test assembly PASS1m55s.
+
+Bounded d7e522f...16f23ec committed source reviews: Standards zero documented
+breaches/actionable smells; Spec zero findings. Exact native gates preserved;
+selected-media checks fix known dimensions/metadata independently, with native
+pixel checks separate. Runtime10 38101974487 and17 38101974419 pending.
+
+Status-layer candidate16f23ec dual focused GREEN: Android10 38101974487
+OK11 in44.276s (ten applicable pass/one explicit API30+ assumption skip);
+Android17 38101974419 all11 pass65.943s. Source38101971926 PASS49 core,
+debug/test/release/lint. All six original media PNGs individually viewed: prepared
+red avatar/blue banner, native available status, public media with exact Unicode
+bio and owner. Exact PNG/XML/rawlogs/actualframes retained profile-media-green.
+The unchanged exact By.text gate now passes on both SDKs; overlap/traversal was
+the supported correction hypothesis, not a separate instrumented causal proof.
+Both actualframes PASS selected-media pinned WASM/Elliptic/hop/envelope/JPEG
+verification, SHA10 e567cf350e1dff90a25a3467c2f8368ba13fa967f57e3de362d9b7ef88ad9516,
+SHA17 701c79eed96d2f0e23a821057ab37a12f6b0595d708cd8e7443eb14508b8d414.
+Hash-pinned A/B server/browser receive/reconstruction PASS four observations for
+each; reports retained. No DOM pixels, live-chain/production-write acceptance.
+
+Integration review afce661...16f23ec: Spec zero new source findings; Standards
+one progress-preservation concern. Source interleaving: old non-cancellable
+confirmation can finish after a recreated editor loaded an unconfirmed record;
+stale mounted saves then replace its new historical flag (or superseding guard).
+The shared lock serializes writes but does not preserve previous progress. This
+is a source finding, not a reproduced runtime failure. Protect mounted saves
+against replacing another candidate, and retain monotonic confirmation/newer
+barriers for the same candidate, including deliberate clear semantics.
+Removal/reset, discard/new editing, failure/session/migration/process and full
+acceptance remain open.
+
+Review-stage progress preservation correction: mounted saves reject a different
+durable candidate or altered frozen changes, merge the same candidate's historical
+confirmation and newest verified superseding snapshot under the shared lock, and
+return that retained progress to the mounted editor. Deliberate clear has an exact
+candidate-ID operation which clears only a confirmed, non-superseded record;
+a stale clear preserves newer durable guards. Reconciliation stores the returned
+newest guard in the public cache. Existing exact-byte/claim gates remain.
+No new internal-state test or race reproduction claim; local build, committed
+review and native regression pending. Actual recreation/interruption still required
+for ticket acceptance.
+Local progress-preservation debug/test assembly PASS2m2s, retained exit0.

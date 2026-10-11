@@ -73,6 +73,14 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
         catch (_: Exception) { error = true }
     }
 
+    private fun retain(saved: ProfileDraftStore.Saved) {
+        changes = saved.changes.deepCopy()
+        memory.changes = changes.takeIf { it.size() > 0 }?.deepCopy()
+        candidate = saved.transaction
+        previouslyAvailable = saved.available
+        superseding = saved.superseding
+    }
+
     fun editBio(text: String) {
         if (!ready || busy || candidate != null) return
         changes = changes.deepCopy().apply { addProperty("description", text) }
@@ -133,10 +141,11 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
         if (!ready || busy) return false
         busy = true
         return try {
-            val saved = if (available && !networkError && !superseded) ProfileDraftStore.Saved()
-                else ProfileDraftStore.Saved(changes, candidate, previouslyAvailable, superseding)
-            withContext(NonCancellable + Dispatchers.IO) { store.save(saved) }
-            memory.changes = if (saved.changes.size() == 0) null else saved.changes.deepCopy()
+            val saved = withContext(NonCancellable + Dispatchers.IO) {
+                if (available && !networkError && !superseded) store.clearAvailable(requireNotNull(candidate).id)
+                else store.save(ProfileDraftStore.Saved(changes, candidate, previouslyAvailable, superseding))
+            }
+            retain(saved)
             error = false
             true
         } catch (cancelled: CancellationException) { throw cancelled }
@@ -159,7 +168,10 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
             try {
                 withContext(Dispatchers.IO) {
                     // Save local edits even when the required fresh baseline lookup fails.
-                    withContext(NonCancellable) { store.save(ProfileDraftStore.Saved(changes, candidate, previouslyAvailable)) }
+                    withContext(NonCancellable) {
+                        val saved = store.save(ProfileDraftStore.Saved(changes, candidate, previouslyAvailable, superseding))
+                        withContext(Dispatchers.Main.immediate) { retain(saved) }
+                    }
                     SaitoPeer(wallet, endpoint).use { peer ->
                         val transaction = candidate ?: run {
                             val fresh = peer.profile(wallet.publicKey)
@@ -214,8 +226,9 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
             }
             // Navigation must retain this verified guard even if public-cache saving fails.
             withContext(NonCancellable) {
-                store.save(ProfileDraftStore.Saved(changes, transaction, superseding = latest))
-                cache.save(latest)
+                val saved = store.save(ProfileDraftStore.Saved(changes, transaction, superseding = latest))
+                withContext(Dispatchers.Main.immediate) { retain(saved) }
+                cache.save(requireNotNull(saved.superseding))
             }
             return true // Never rebroadcast an older update over a newer verified snapshot.
         }

@@ -50,7 +50,32 @@ internal class ProfileDraftStore(private val context: Context, private val owner
         saved.also(::validate)
     }
 
-    fun save(saved: Saved) = synchronized(SaitoLocalState.lock) {
+    /** A mounted editor cannot replace another candidate or regress durable delivery progress. */
+    fun save(saved: Saved): Saved = synchronized(SaitoLocalState.lock) {
+        validate(saved)
+        val current = load()
+        val replacement = if (current.transaction == null) saved else {
+            check(saved.transaction?.encoded() == current.transaction.encoded() && saved.changes == current.changes)
+            val superseding = when {
+                current.superseding == null -> saved.superseding
+                saved.superseding == null -> current.superseding
+                else -> SaitoProfiles.merge(current.superseding, saved.superseding)
+            }
+            saved.copy(available = superseding == null && (current.available || saved.available), superseding = superseding)
+        }
+        write(replacement)
+        replacement
+    }
+
+    /** Clear only this confirmed candidate; preserve progress a stale editor has not observed. */
+    fun clearAvailable(id: String): Saved = synchronized(SaitoLocalState.lock) {
+        val current = load()
+        check(current.transaction?.id == id)
+        if (!current.available || current.superseding != null) return@synchronized current
+        Saved().also(::write)
+    }
+
+    private fun write(saved: Saved) {
         validate(saved)
         val record = JsonObject().apply {
             add("changes", saved.changes.deepCopy())
