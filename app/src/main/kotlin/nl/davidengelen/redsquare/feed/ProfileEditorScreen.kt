@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.google.gson.JsonNull
 import com.google.gson.JsonObject
 import kotlinx.coroutines.*
 import nl.davidengelen.redsquare.R
@@ -94,8 +95,17 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
         memory.changes = changes.deepCopy()
     }
 
-    fun image(kind: ProfileImageKind, profile: SaitoProfile?): String? = changes.get(kind.field)?.asString
-        ?: if (kind == ProfileImageKind.PICTURE) profile?.image else profile?.banner
+    fun image(kind: ProfileImageKind, profile: SaitoProfile?): String? {
+        val changed = changes.get(kind.field)
+        return if (changed != null) changed.takeUnless { it.isJsonNull }?.asString
+        else if (kind == ProfileImageKind.PICTURE) profile?.image else profile?.banner
+    }
+
+    fun removeImage(kind: ProfileImageKind) {
+        if (!ready || busy || candidate != null) return
+        changes = changes.deepCopy().apply { add(kind.field, JsonNull.INSTANCE) }
+        memory.changes = changes.deepCopy()
+    }
 
     fun openImagePicker(onLaunch: () -> Unit) {
         if (!ready || busy || candidate != null) return
@@ -352,6 +362,8 @@ internal fun ProfileEditorScreen(wallet: SaitoWallet, backend: SaitoBackend, end
                     TextButton(enabled = ready && !busy && candidate == null && picking == null,
                         onClick = { chooseImage(kind) }) { Text(stringResource(kind.changeLabel)) }
                     val source = image(kind, profile)
+                    if (source != null) TextButton(enabled = ready && !busy && candidate == null && picking == null,
+                        onClick = { removeImage(kind) }) { Text(stringResource(kind.removeLabel)) }
                     if (kind == ProfileImageKind.PICTURE) ProfileImage(source, kind, owner, backend, Modifier.size(96.dp))
                     else if (source != null) ProfileImage(source, kind, owner, backend, Modifier.fillMaxWidth().aspectRatio(3f))
                 }

@@ -880,3 +880,33 @@ with a repair to an older existing fixture, not another behavior slice.
 Fresh helper/removal debug/test assembly PASS1m6s, retained exit0. Four original
 corrected10 failure/new-edit/recovered images inspected and retained verbatim
 with exact XML/rawlog under profile-picker-return-first/android10.
+
+Bounded edc...3b0b234 Standards0/Spec0; all four originals independently
+inspected. Source38104185958 PASS49/debug/test/release/lint.
+Interim full afce661...3b0b234 Standards1/Spec1, same newly actionable source
+finding: AtomicFile commit can precede directory fsync/reopen failure; mounted
+expected revision remains old. Repaired-storage retries then reject the newly
+committed plain record (or candidate/clear), although cold recovery retains
+work. Reconcile exact attempted outcomes without accepting unrelated stale
+writes; next failure slice must include late-commit handling. No runtime
+interleaving reproduction. Remaining previously acknowledged scope unchanged.
+
+Actual Android10 3b0b234/38104185964: editor OK6/36.997s (all six including
+both repaired import helpers PASS); publisher OK5/32.842s (four PASS/oneAPI30+
+assumption skip); media two cases/19.215s, existing selected-media PASS and new
+removal expected RED at149, missing Use generated profile picture control.
+Original failure PNG individually inspected: unchanged published red picture,
+bio retained, empty new draft/disabled Save; reset/remove controls absent.
+Exact XML/separate class logs/combined rawlog retained profile-media-removal-red.
+Native result supports fixture repair; it is not isolated causal proof of the
+prior helper's clock issue.
+Minimal removal adds editor null overrides, enabled reset/remove controls only
+for existing media and unfrozen editable drafts. Encrypted validation permits
+image/banner null removal markers; signed candidate validation requires those
+fields OMITTED from its complete snapshot. Existing SaitoProfiles.message
+already implements removal. UI respects null rather than falling back to old
+public media. Independent removed-media verifier requires literal bio/archive/
+extension and exact absence of image/banner, with unchanged crypto/envelope/hop
+checks. Local build/current dual-native GREEN pending.
+Removal local core/debug/test build PASS2m4s, retained exit0; core49 unchanged.
+Independent verifier syntax check PASS; no actual removal frame produced yet.

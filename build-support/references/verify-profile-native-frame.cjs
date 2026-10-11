@@ -38,7 +38,8 @@ assert(new EC('secp256k1').verify(wasm.hash(Buffer.concat([Buffer.from(signature
   {r: hopSignature.slice(0, 64), s: hopSignature.slice(64)}, authorPoint.toString('hex'), 'hex'));
 const body = JSON.parse(Buffer.from(transaction.data).toString('utf8'));
 const selectedMedia = process.argv[3] === 'selected-media';
-assert(process.argv[3] === undefined || selectedMedia, 'Unknown Profile specimen scenario');
+const removedMedia = process.argv[3] === 'removed-media';
+assert(process.argv[3] === undefined || selectedMedia || removedMedia, 'Unknown Profile specimen scenario');
 function jpegDimensions(source, width, height) {
   assert.equal(typeof source, 'string');
   assert(source.length <= 512 * 1024);
@@ -74,9 +75,11 @@ if (selectedMedia) {
   jpegDimensions(body.data.banner, 12, 4);
 }
 assert.deepEqual(body, {module: 'Profile', request: 'update profile', snapshot: 1, data: {
-  description: selectedMedia ? 'My selected profile 🌱\nKeep this bio and my identity' : 'A newly published bio 🌱\nKeep my other profile fields',
-  image: selectedMedia ? body.data.image : 'https://images.example.test/avatar.png',
-  banner: selectedMedia ? body.data.banner : 'https://images.example.test/banner.png',
+  description: selectedMedia || removedMedia ? 'My selected profile 🌱\nKeep this bio and my identity' : 'A newly published bio 🌱\nKeep my other profile fields',
+  ...(removedMedia ? {} : {
+    image: selectedMedia ? body.data.image : 'https://images.example.test/avatar.png',
+    banner: selectedMedia ? body.data.banner : 'https://images.example.test/banner.png'
+  }),
   archive: ['https://archive.example.test'], extension: {theme: 'blue'}
 }});
 assert(Number(transaction.timestamp) > 1700001000004);
@@ -86,7 +89,7 @@ const envelope = {t: detached.toString('base64'), m: bytes.subarray(messageOffse
   opt: Buffer.from('{}').toString('base64')};
 assert.deepEqual(JSON.parse(specimen.envelope), envelope);
 console.log(JSON.stringify({result: 'PASS', native: true, reference,
-  scenario: selectedMedia ? 'selected-media' : 'retained-media-bio',
+  scenario: removedMedia ? 'removed-media' : selectedMedia ? 'selected-media' : 'retained-media-bio',
   boundary: 'Actual controlled Android Profile frame independently verified with pinned WASM/Elliptic. No live write, deployment, DOM or chain inclusion proof.',
   frameSha256: crypto.createHash('sha256').update(frame).digest('hex'),
   profile: {sig: signature, created_at: Number(transaction.timestamp), field2: owner, tx: JSON.stringify(envelope), body}}, null, 2));

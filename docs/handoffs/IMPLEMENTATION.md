@@ -154,6 +154,12 @@ New single media-removal tracer and per-class180s instrumentation harness
 written, no removal production yet. Expected RED missing reset/remove controls;
 initiallocalassemblyPASS1m9s; freshhelperbuildPASS1m6s,exit0.
 Canonical chronology in verification document.
+Removal RED38104185964: separateeditor6PASS/publisher4PASS+skip/media1PASS+
+expectedmissingresetcontrol. All existingflowsincludinghelperrepairPASS.
+Minimalnull-marker/reset/remove source written; localcore49/buildPASS2m4s;
+dualGREENpending.
+Interimfullafce...3b0b234 reviews1eachsame latecommitrevisionretryfinding,
+notruntimeproof. Fix after currentremovalloop, before ticketacceptance.
 No scheduler-race reproduction claimed.
 Recovery/process/full acceptance remains open.
 Then candidate failures/recovery,

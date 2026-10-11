@@ -125,7 +125,7 @@ internal class ProfileDraftStore(private val context: Context, private val owner
         require(saved.revision >= 0)
         require(saved.changes.keySet().all { it in setOf("description", "image", "banner") })
         saved.changes.get("description")?.let { require(it.isJsonPrimitive && it.asJsonPrimitive.isString) }
-        for (name in listOf("image", "banner")) saved.changes.get(name)?.let {
+        for (name in listOf("image", "banner")) saved.changes.get(name)?.takeUnless { it.isJsonNull }?.let {
             require(it.isJsonPrimitive && it.asJsonPrimitive.isString)
             val source = it.asString
             require(source.length <= 512 * 1024 && source.startsWith("data:image/jpeg;base64,") &&
@@ -147,7 +147,9 @@ internal class ProfileDraftStore(private val context: Context, private val owner
             val marker = signed.body.get("snapshot")
             require(marker.isJsonPrimitive && marker.asJsonPrimitive.isNumber && marker.asString.toBigDecimal().compareTo(java.math.BigDecimal.ONE) == 0)
             val fields = signed.body.getAsJsonObject("data")
-            saved.changes.entrySet().forEach { (name, value) -> require(fields.get(name) == value) }
+            saved.changes.entrySet().forEach { (name, value) ->
+                if (value.isJsonNull) require(!fields.has(name)) else require(fields.get(name) == value)
+            }
         }
     }
 }

@@ -17,9 +17,9 @@ import kotlinx.coroutines.CancellationException
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.SaitoBackend
 
-internal enum class ProfileImageKind(val field: String, val ratio: Int, val label: Int, val changeLabel: Int) {
-    PICTURE("image", 1, R.string.profile_picture, R.string.profile_picture_change),
-    BANNER("banner", 3, R.string.profile_banner, R.string.profile_banner_change)
+internal enum class ProfileImageKind(val field: String, val ratio: Int, val label: Int, val changeLabel: Int, val removeLabel: Int) {
+    PICTURE("image", 1, R.string.profile_picture, R.string.profile_picture_change, R.string.profile_picture_remove),
+    BANNER("banner", 3, R.string.profile_banner, R.string.profile_banner_change, R.string.profile_banner_remove)
 }
 
 /** Profile and editor share the bounded raster loader; signed fields never execute HTML/SVG. */
