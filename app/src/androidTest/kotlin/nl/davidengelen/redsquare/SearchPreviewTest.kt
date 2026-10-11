@@ -35,7 +35,13 @@ class SearchPreviewTest {
                 "[$reply]"
             }
         })
-        val official = ControlledFeedPeer("[]")
+        val official = ControlledFeedPeer("[]", archiveResponse = { criteria ->
+            if (!criteria.has("field4")) {
+                check(criteria.keySet() == setOf("request", "field1", "flagged_ne", "limit", "created_earlier_than"))
+                check(criteria.get("limit").asInt == 100 && criteria.get("flagged_ne").asInt == 1)
+            }
+            "[]"
+        })
         owner.start().use { ownerServer ->
             official.start().use { officialServer ->
                 val intent = Intent(context, MainActivity::class.java)

@@ -48,3 +48,11 @@ slice. Independent stream cursors/pending targets, successful-read retention,
 strict progression and explicit retained-history limit are coherent. People,
 durable cache, broader failures/recovery and final native/public acceptance
 remain known unfinished work.
+
+## Offline cache tracer review
+
+Both axes at7c897e1 identified OFFICIAL's default ordinary Archive callback
+rejecting search without field4. Test-only fix supplies explicit healthy empty
+fixed-criteria search responses. The primary app assertions are unchanged.
+Other recovery/selection/identity/nosend gates are coherent in source. Native
+cache RED and production implementation remain pending.

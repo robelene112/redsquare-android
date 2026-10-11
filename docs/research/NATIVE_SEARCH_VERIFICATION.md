@@ -115,3 +115,9 @@ and native RED are pending; production cache is still absent.
 First cache-tracer compile failed57s: the failure-capture helper returns Unit,
 so the address capture was corrected to assign the outer test value. Assertions
 and production source are unchanged. Corrected compilation pending.
+
+Corrected address capture compiled PASS1m27s. Both review axes found one
+source-supported fixture defect: OFFICIAL's default peer handler required the
+root-only field4, rejecting valid search. Added an explicit healthy empty search
+handler, preserving positive empty/isolation/wallet/nosend assertions. This later
+path was not runtime-reproduced; cache RED precedes it. Fixture compile pending.
