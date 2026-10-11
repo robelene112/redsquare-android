@@ -288,9 +288,17 @@ isDeviceSecure=false. Root viewed4identity originals/separate4XML;
 identity-cleanup-failure retains10hashes. Process probe not reached this run.
 Correction compiled PASS in1m12s; rerun next. Do not call the identity test passing yet.
 
+Complete focused GREEN38161237509 ataa91ff2: all8ordinary cases PASS111.163s,
+including actual SAF/PIN/opaque and full original options, real wallet roundtrip,
+cold identity/filtering and actual credential cleanup. Separate actual pending
+save death PID5044→5131, cold1PASS6.427s with unchanged wallet/backend and no reset.
+Root viewed all6new identity/corruption plus4process originalPNG/separate10XML;
+identity-green retains28hashes. Both final fixture review axes clear. Next: same
+source full Android10/17 acceptance with separately opted-in public reads.
+
 Whole-ticket reviews99e58c6...13943cc: both axes zero source/fixture findings.
-Real SAF identity runtime, corrected focused check and final paired full Android
-10/17 acceptance remain. Preserve seven future research files. No new APK or
+Focused identity/process runtime now passes; final paired full Android
+10/17 acceptance remains. Preserve seven future research files. No new APK or
 #21 closure; still16/35 tickets are closed.
 
 ## Outstanding external acceptance

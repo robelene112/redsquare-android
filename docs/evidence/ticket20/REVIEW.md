@@ -49,9 +49,11 @@ The correction opens actual first-launch Wallet UI and requires displayed and
 saved identity to agree. It never directly creates/resets the wallet or weakens
 later backup/import/restoration assertions.
 
-Corrected eight-case run38160579644 at58426cd reaches all identity body assertions
-but errors at the PIN-clear output-string cleanup check. It is not a passing
-identity test. The fixture now checks actual KeyguardManager device-security state
-after the same clear command; compilation passed in1m12s and retry is pending. Wallet roundtrip runtime
-and final paired full Android10/17 acceptance remain pending. No physical device,
-power-loss, live write, final ticket acceptance or new preview APK is claimed.
+Corrected focused run38161237509 ataa91ff2 passes all8ordinary cases111.163s,
+including wallet roundtrip and positive actual PIN removal. The separate actual
+death is PID5044→5131; cold1PASS6.427s with same identity/backend and no reset.
+Both final fixture review axes have zero findings. Root individually inspected
+six identity/corruption and four process original PNGs, then separately parsed
+all ten XMLs retained in identity-green. Final paired full Android10/17 acceptance
+remains pending. No physical device, power-loss, live write, final ticket
+acceptance or new preview APK is claimed.
