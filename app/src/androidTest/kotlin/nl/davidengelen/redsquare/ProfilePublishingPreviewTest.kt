@@ -72,7 +72,7 @@ class ProfilePublishingPreviewTest {
         val stale = AtomicBoolean(false)
         val exactProfileReads = AtomicInteger()
         val newerBio = "Newer profile from another device"
-        val supersededStatus = "A newer verified profile is available on this server. This older update will not be sent again."
+        val supersededStatus = "A newer verified profile supersedes this update. This older update will not be sent again."
         val cacheWriteBlock = File(context.noBackupFilesDir, "profilemeta.owner.$owner.v1.new")
         val blockMarker = File(cacheWriteBlock, "controlled-write-failure")
         var cacheBlocked = false

@@ -604,3 +604,20 @@ review pending; fuller profile recovery/media acceptance still open.
 Historical fix local debug/test assembly PASS2m14s, retained container exit0.
 Only the subsequent fixture counter tightened to the exact indexed candidate ID;
 hosted assembly/runtime will verify that final fixture.
+
+Historical fix494a180 focused dual GREEN: Android10 38100143700 nine applicable
+cases PASS plus one explicit API30+ assumption skip, runnerOK10 in38.625s;
+Android17 38100145537 all10 PASS92.885s. Source38100140888 PASS core49/debug/
+test/release/lint. Four original historical PNGs individually viewed: qualified
+previous availability, Check profile and exact frozen bio before/after navigation
+on both SDKs. Separate XML/rawlogs retained profile-history-green. Exact
+candidate read count and no additional TX asserted; ordinary public cached bio
+remains visible through successful empty server history. Bounded review Spec1
+remaining status-copy edge, Standards0. Superseded wording claimed current
+server availability from a retained barrier alone. Correct resource and the
+existing exact positive supersession test literal to qualify newer verified
+supersession without claiming current availability. Historical retained images
+keep their original wording; no evidence rewrites or rendering-cause inference.
+Copy-only committed review/source checks pending; next media tracer will run
+existing supersession cases with that corrected wording. #18 recovery/media/full
+acceptance still open; no ticket closure or APK.

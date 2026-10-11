@@ -122,7 +122,7 @@
     <string name="profile_check">Check profile</string>
     <string name="profile_available">Profile available on this server.</string>
     <string name="profile_pending">Save requested. Profile availability on this server is not confirmed.</string>
-    <string name="profile_superseded">A newer verified profile is available on this server. This older update will not be sent again.</string>
+    <string name="profile_superseded">A newer verified profile supersedes this update. This older update will not be sent again.</string>
     <string name="profile_previous_available">This profile was previously available. Current availability is not confirmed.</string>
     <string name="profile_publish_error">Could not finish checking or saving the profile. Your edits remain here. Try again before leaving.</string>
     <string name="profile_draft_local">Your draft stays on this device until you save the profile.</string>
