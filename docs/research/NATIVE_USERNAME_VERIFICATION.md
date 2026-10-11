@@ -239,3 +239,26 @@ Expected absent-native-name warning RED pending.
 
 Import-preview tracer and wallet-fixture refactor debug/test compile1m14s PASS;
 actual native RED remains pending. No production implementation changed.
+
+Import tracer run38116827086 on11e92b9 failed during fixture setup, before
+Activity launch: the target instrumentation process could not create the
+separate test-provider files directory. Four other cases passed; five cases
+total in20.776s. No import acceptance assertion or screenshot was reached.
+Original raw output/hash is retained at import-fixture-uid-failure. Fixture
+provisioning now uses host adb run-as for the provider UID, with only public
+unsafe scalar2 data. Both review axes inspected24d5705; Standards found one
+cleanup exception path that could replace the primary failure. Correction
+a6a4faa wraps the entire shell cleanup and has zero residual findings.
+Focused Android10 run38117224099 tests24d5705, so its result does not verify
+that later cleanup correction. Intended missing-name RED remains pending.
+
+Corrected import fixture run38117224099 on24d5705 reaches the real provider
+selection and verifies the incoming public key, then fails at missing
+Saved name: NativeCase7@saito (line298). Four other cases pass, total28.851s.
+Root individually viewed the original PNG and inspected its XML; outgoing
+scalar1 remains active, with no saved-name warning. Later acknowledgement,
+confirmation and cancellation assertions were not reached. Original evidence
+is retained at first-import-name-red. Minimal implementation now reads and
+revalidates the outgoing native name cache on IO and merges only that name
+into existing replacement risks. Unreadable cache keeps unknown-work warning.
+Native GREEN and code review remain pending.
