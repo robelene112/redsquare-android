@@ -295,6 +295,7 @@
     <string name="report_sending">Sending report to %1$s...</string>
     <string name="report_acknowledged">Report acknowledged by %1$s. Moderator review is separate.</string>
     <string name="report_uncertain">Report delivery to %1$s is unknown. Try again to send the same report.</string>
+    <string name="report_not_sent">Report was not sent to %1$s. Try again when this server is available.</string>
     <string name="report_retry">Retry report</string>
     <string name="report_details">Report details</string>
     <string name="report_result_title">Report to %1$s</string>

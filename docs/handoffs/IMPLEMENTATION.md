@@ -324,6 +324,14 @@ under primary failure. No physical restoration failure is claimed exercised.
 Pre-send failures still need acceptance; corrected fixture compile/runtime pending. Load ownership review clear
 throughc10de10, with0residual Standards findings. Pre-transmission, interrupted-save/isolation and
 final paired acceptance remain incomplete. These checkpoints are not acceptance.
+Pre-send RED38173313832 at6957f47:6cases/5PASS/1FAIL58.246s at294;
+root original/separateXML show incorrect unknown delivery before any send.
+Recreation/repair unreached; not-sent-red4hashes. Other5pass, including cleanup
+on successful chmod path. Both bounded cleanup reviews clear. Current source
+persists a conservative attempted marker and keeps original wallet/backend
+authority locked through signed enqueue. Legacy records stay unknown; explicit
+retry retains uncertainty. Cleanup clears saved mode with set after success.
+Correction runtime pending; no atomic-switch/process acceptance claimed.
 Ticket22 remains incomplete: failure/durability/identity/backend isolation,
 actual process interruption and final both-SDK acceptance/reviews still required.
 Its source contract is prepared in NATIVE_DISCOVERY_MODERATION_CONTRACT.md and

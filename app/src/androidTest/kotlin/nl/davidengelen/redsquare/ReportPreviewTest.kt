@@ -208,7 +208,7 @@ class ReportPreviewTest {
                 try {
                     mode.get()?.let {
                         android.system.Os.chmod(requireNotNull(file).path, it)
-                        mode.compareAndSet(it, null)
+                        mode.set(null)
                     }
                 } catch (cleanup: Throwable) {
                     val earlier = failure

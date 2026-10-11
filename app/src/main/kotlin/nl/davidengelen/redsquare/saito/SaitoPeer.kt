@@ -2,6 +2,9 @@ package nl.davidengelen.redsquare.saito
 
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.withTimeout
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.job
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
@@ -91,12 +94,12 @@ class SaitoPeer(private val wallet: SaitoWallet, endpoint: String) : Closeable {
     }
 
     /** Exact signed application transaction, never wrapped in an unsigned request. */
-    suspend fun request(transaction: SaitoTransaction): ByteArray {
+    suspend fun request(transaction: SaitoTransaction, beforeSend: () -> Unit): ByteArray {
         require(SaitoEnvelope.decode(transaction.envelope()).author == wallet.publicKey)
-        return requestFrame(transaction::applicationRequest)
+        return requestFrame(beforeSend, transaction::applicationRequest)
     }
 
-    private suspend fun requestFrame(frame: (Int) -> ByteArray): ByteArray = withTimeout(12_000) {
+    private suspend fun requestFrame(beforeSend: (() -> Unit)? = null, frame: (Int) -> ByteArray): ByteArray = withTimeout(12_000) {
         ready.await()
         if (disconnected.get()) throw IOException("Peer disconnected")
         val index = nextIndex.incrementAndGet()
@@ -105,7 +108,15 @@ class SaitoPeer(private val wallet: SaitoWallet, endpoint: String) : Closeable {
         pending[index] = response
         try {
             if (disconnected.get()) throw IOException("Peer disconnected")
-            send(socket, frame(index))
+            val bytes = frame(index)
+            val job = currentCoroutineContext().job
+            if (beforeSend == null) send(socket, bytes)
+            else synchronized(SaitoLocalState.lock) {
+                job.ensureActive()
+                beforeSend()
+                job.ensureActive()
+                send(socket, bytes)
+            }
             response.await()
         } finally { pending.remove(index) }
     }

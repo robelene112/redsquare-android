@@ -176,3 +176,20 @@ It requires known not-sent wording, the same state after recreation, no report
 or type4 transaction, and only an explicit retry after server repair. Production
 classification remains unchanged for RED. This also compiles/runs the corrected
 receipt fixture; it does not inject a chmod restoration failure.
+
+## Pre-transmission failure RED and minimal durable classification
+
+Android10 run38173313832 at6957f47:6cases/5PASS/1FAIL58.246s.
+New case fails294 waiting for not-sent wording; root original/separateXML
+show unknown. Reopening/repair remain unreached. Other five pass, including
+corrected cleanup on the actual successful restore path. Both cleanup review
+axes clear. Durable ticket21/not-sent-red4hashes.
+Current correction persists attempted=false before connecting, then true before
+possible signed enqueue. Older two-key records remain conservatively unknown.
+Retries retain previous uncertainty. The signed request executes the durable
+marker and original wallet/backend check under the selection/identity lock
+through actual socket enqueue; cancellation is checked before and after saving.
+Unsigned requests retain their existing flow. Cleanup uses set(null) after
+successful chmod, avoiding boxed-Int reference equality. No restoration-failure
+injection or atomic switch/isolation/process acceptance is claimed. Runtime and
+whole-ticket acceptance remain pending.

@@ -11,7 +11,7 @@ import nl.davidengelen.redsquare.saito.*
 
 internal data class ReportStatus(val candidate: SaitoTransaction? = null,
     val busy: Boolean = false, val acknowledged: Boolean = false, val failed: Boolean = false,
-    val ready: Boolean = false, val saveFailed: Boolean = false)
+    val ready: Boolean = false, val saveFailed: Boolean = false, val attempted: Boolean = false)
 
 /** One wallet and selected backend's reports, shared by every post view. */
 internal class ReportState(private val context: Context, private val wallet: SaitoWallet,
@@ -37,7 +37,8 @@ internal class ReportState(private val context: Context, private val wallet: Sai
                 require(!saved.unreadable)
                 saved.values.singleOrNull()?.let { value ->
                     val record = gson.fromJson(value, JsonObject::class.java)
-                    require(record.keySet() == setOf("transaction", "acknowledged"))
+                    require(record.keySet() == setOf("transaction", "acknowledged") ||
+                        record.keySet() == setOf("transaction", "acknowledged", "attempted"))
                     val candidate = SaitoTransaction.restore(record.get("transaction").asString)
                     val signed = SaitoEnvelope.decode(candidate.envelope())
                     require(signed.author == wallet.publicKey && signed.recipients == listOf(wallet.publicKey))
@@ -47,8 +48,13 @@ internal class ReportState(private val context: Context, private val wallet: Sai
                     require(data.keySet() == setOf("signature") && data.get("signature").asString == post.id)
                     val acknowledgement = record.get("acknowledged").asJsonPrimitive
                     require(acknowledgement.isBoolean)
+                    // Older records cannot prove that no transmission was attempted.
+                    val attempted = record.get("attempted")?.asJsonPrimitive?.let {
+                        require(it.isBoolean); it.asBoolean
+                    } ?: true
+                    require(!acknowledgement.asBoolean || attempted)
                     ReportStatus(candidate, acknowledged = acknowledgement.asBoolean,
-                        failed = !acknowledgement.asBoolean, ready = true)
+                        failed = !acknowledgement.asBoolean, ready = true, attempted = attempted)
                 } ?: ReportStatus(ready = true)
             }
             statuses[post.id] = loaded
@@ -62,9 +68,10 @@ internal class ReportState(private val context: Context, private val wallet: Sai
         load(post)
     }
 
-    private fun save(target: String, candidate: SaitoTransaction, acknowledged: Boolean) {
+    private fun save(target: String, candidate: SaitoTransaction, acknowledged: Boolean, attempted: Boolean) {
         val record = JsonObject().apply {
             addProperty("transaction", candidate.encoded()); addProperty("acknowledged", acknowledged)
+            addProperty("attempted", attempted)
         }.toString()
         val storage = store(target)
         storage.save(listOf(record))
@@ -80,6 +87,7 @@ internal class ReportState(private val context: Context, private val wallet: Sai
             var candidate = status.candidate
             var acknowledged = false
             var savingDetails = false
+            var attempted = status.attempted
             try {
                 if (candidate == null) candidate = withContext(Dispatchers.IO) {
                     val body = JsonObject().apply {
@@ -91,32 +99,34 @@ internal class ReportState(private val context: Context, private val wallet: Sai
                 val original = requireNotNull(candidate)
                 // Retain the exact signed intent before any possible transmission.
                 savingDetails = true
-                withContext(NonCancellable + Dispatchers.IO) { save(post.id, original, false) }
+                withContext(NonCancellable + Dispatchers.IO) { save(post.id, original, false, attempted) }
                 savingDetails = false
-                statuses[post.id] = ReportStatus(original, busy = true, ready = true)
+                statuses[post.id] = ReportStatus(original, busy = true, ready = true, attempted = attempted)
                 withContext(Dispatchers.IO) {
                     SaitoPeer(wallet, endpoint).use { peer ->
                         peer.authenticate()
-                        val permitted = synchronized(SaitoLocalState.lock) {
-                            AndroidBackendStore(context).load() == backend &&
-                                AndroidWalletStore(context).loadExisting().publicKey == wallet.publicKey
-                        }
-                        check(permitted)
-                        val reply = peer.request(original).toString(Charsets.UTF_8)
+                        val reply = peer.request(original) {
+                            check(AndroidBackendStore(context).load() == backend &&
+                                AndroidWalletStore(context).loadExisting().publicKey == wallet.publicKey)
+                            savingDetails = true
+                            save(post.id, original, false, true)
+                            savingDetails = false
+                            attempted = true
+                        }.toString(Charsets.UTF_8)
                         val acknowledgement = gson.fromJson(reply, JsonObject::class.java)
                         require(acknowledgement != null && acknowledgement.size() == 0)
                         acknowledged = true
                         savingDetails = true
-                        withContext(NonCancellable) { save(post.id, original, true) }
+                        withContext(NonCancellable) { save(post.id, original, true, true) }
                         savingDetails = false
                     }
                 }
-                statuses[post.id] = ReportStatus(original, acknowledged = true, ready = true)
+                statuses[post.id] = ReportStatus(original, acknowledged = true, ready = true, attempted = true)
             } catch (failure: Exception) {
                 if (failure is CancellationException && failure !is TimeoutCancellationException) throw failure
                 statuses[post.id] = ReportStatus(candidate,
                     acknowledged = acknowledged, failed = !acknowledged, ready = true,
-                    saveFailed = savingDetails)
+                    saveFailed = savingDetails, attempted = attempted)
             }
             finally { statuses[post.id]?.let { statuses[post.id] = it.copy(busy = false) } }
         }
