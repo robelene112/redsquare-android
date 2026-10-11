@@ -184,7 +184,14 @@ Minimal anchored previous/intended exact-own-attempt fix nowwritten, internal
 pre-write callback after codec/encryption/file validation, clears only on verified
 success. Frozen/current-progress guards retained; exact-own clear retry supported;
 prepared candidate RAM frozen before save, network still waits verified persistence.
-Localcore/debug/testbuildPASS1m57s exit0; reviews/dualGREEN pending.
+Localcore/debug/testbuildPASS1m57s exit0; bounded reviews0/0.
+CorrecteddualGREEN10 38106287107 (7+5+2, oneAPI30skip),17 38106288790
+all14PASS. Four original late-save images/XML/logs retained profile-late-save-green;
+valid same-mountedretry andcoldbio recovery proof, source38106287358 PASS49/lint.
+Scope audit: superseded/never-returning candidates permanently freeze editing.
+NextONE native start-new confirmation/cancel/newestbaseline/draftcoldrecovery/
+explicit newpublication tracer written, localbuildPASS1m10s; expectedRED pending.
+Then minimal retirement implementation and actualprocessdeaths.
 No scheduler-race reproduction claimed.
 Recovery/process/full acceptance remains open.
 Then candidate failures/recovery,

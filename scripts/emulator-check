@@ -277,7 +277,7 @@ verify_profiles() {
         adb shell run-as nl.davidengelen.redsquare.dev.test tee files/wallet-test-documents/00-profile-import.json > /dev/null
     local profile_failed=0 profile_class profile_log
     : > "$evidence/profile-edit-ui.txt"
-    for profile_class in ProfileEditPreviewTest ProfilePublishingPreviewTest ProfileMediaPreviewTest; do
+    for profile_class in ProfileEditPreviewTest ProfilePublishingPreviewTest ProfileMediaPreviewTest ProfileNewEditPreviewTest; do
         profile_log="$evidence/${profile_class}-ui.txt"
         timeout 180 adb shell am instrument -w -r \
             -e class "nl.davidengelen.redsquare.$profile_class" \

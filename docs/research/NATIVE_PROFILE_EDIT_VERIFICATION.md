@@ -1017,3 +1017,37 @@ verified candidate persistence. Local build/review/dual GREEN pending.
 
 Late-retry local core/debug/test build PASS1m57s, exit0, retained rawlog.
 Core49 unchanged; corrected native dual GREEN and committed review pending.
+
+Late-retry bounded3c757d6...c8af00f Standards0/Spec0; both independent reviews
+address original late-commit source finding without claiming full acceptance.
+Actual corrected dual GREEN c8af00f: Android10 38106287107 editor7/36.683s,
+publisher5/26.721s (fourpass/oneAPI30+skip), media2/18.209s; Android17
+38106288790 editor7/73.061s,publisher5/31.788s,media2/20.704s, all14PASS.
+Source38106287358 PASS49/debug/test/release/lint. Four original late-save PNGs
+individually inspected; matching XML/class+combined logs retained under
+profile-late-save-green/android10|17. First truthful failure and same-mounted
+verified retry/public return/no editor/no error and fresh exact Unicode bio
+recovery all PASS with zero transactions and unchanged public owner/backend.
+Bounded scope audit found a usability gap: retained superseded/never-returning
+candidate freezes profile editing indefinitely. Spec does not prescribe a
+Discard button but requires profile editing to remain usable. Next ONE native
+slice exercises supersession → explicit start-new confirmation/cancel → editable
+newest verified baseline → unsent draft save/cold Activity recovery → explicit
+new signed update, preserving latest untouched fields and never resending the
+retired candidate. Explain retirement cannot undo an update received elsewhere.
+Actual process-death proof remains next after this capability, not deferred.
+Shared completed#15 provider/size proofs need not be duplicated wholesale.
+
+Next ONE Start-new tracer now written in its own bounded native class. Controlled
+first publication is superseded by a signed own snapshot with changed archive/
+extension and later timestamp. Require cancel preserves frozen status/oneTX,
+confirm returns editable newer bio/no old status/no candidate, unsent new-bio
+draft survives fresh Activity with stale responses, then explicit second
+publication preserves latest media/archive/extension and has a newer signature/
+timestamp with exact twoTX. Capture actual second frame for independent receiver
+proof. Harness adds this fourth class with unchanged180s per-class bounds and
+checks every class. No retirement production code yet; expected RED is missing
+Start new edit control. Local build pending. Actual process-death tracer follows.
+
+Single Start-new tracer local debug/test assembly PASS1m10s, retained exit0.
+Harness shell syntax PASS. Expected native RED and bounded review pending.
