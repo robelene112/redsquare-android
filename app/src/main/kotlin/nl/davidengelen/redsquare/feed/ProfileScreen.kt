@@ -19,6 +19,7 @@ import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
 import nl.davidengelen.redsquare.R
+import nl.davidengelen.redsquare.registry.registeredIdentityName
 import nl.davidengelen.redsquare.saito.*
 
 internal enum class ProfileTab(val label: Int) {
@@ -209,7 +210,7 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
                     Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                         ProfileImage(profile?.image, ProfileImageKind.PICTURE, author, backend, Modifier.size(48.dp))
                         Column(Modifier.weight(1f)) {
-                            Text("Anon-${author.take(6)}", style = MaterialTheme.typography.titleMedium)
+                            Text(registeredIdentityName(author), style = MaterialTheme.typography.titleMedium)
                             Text(author, style = MaterialTheme.typography.labelSmall)
                         }
                     }

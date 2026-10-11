@@ -175,3 +175,23 @@ fixture corrections: existing Your profile label and explicit zero-publication
 assertion before Register tap. Both fixes reviewed with0 residual hard findings;
 localized wallet-fixture duplication is a review-stage refactor after GREEN.
 Focused10 run38115737996 dispatched; expected absent-profile-name RED pending.
+
+Actual profile-name RED38115737996 oncb6ffd5: four cases, previous threePASS;
+new flow confirms the actual unsafe2-directed request, verified ownership, then
+new empty read after recreation with saved knowledge/no resend. It times out at
+full profile-name line256, total39.573s/one failure. Source/core/debug/test54s.
+Root individually viewed registration/failure PNGs and inspected separate XMLs;
+profile still shows Anon-jesTu2 and unchanged public key. Raw originals/hashes
+retained at first-profile-name-red. No final profile acceptance reached; actual
+synthetic request frame was not retained at that source. No independent frame/
+receiver acceptance, namespace ownership or actual process-death claim follows.
+Minimal off-main-thread revalidated cached profile label is now being compiled.
+A common registrar context retains published production authority and propagates
+only the already-bounded debug fixture authority. No network lookup delays the
+cached identity label; an unreadable/absent cache keeps the existing fallback.
+
+Profile-label debug/test compile2m14s PASS. The new captured actual registration
+frame report is written after its in-scope screenshot creates the evidence
+folder, so it does not depend on test ordering. Hosted build/runtime will verify
+that bounded capture-order correction. Existing profile history and public-key
+rendering stay unchanged; only the header uses the verified cached label.

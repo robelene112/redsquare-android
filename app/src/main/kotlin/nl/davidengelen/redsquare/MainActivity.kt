@@ -48,6 +48,7 @@ import nl.davidengelen.redsquare.feed.VideoFixture
 import nl.davidengelen.redsquare.feed.VideoPlaybackHost
 import nl.davidengelen.redsquare.registry.UsernameScreen
 import nl.davidengelen.redsquare.registry.RegistryAuthority
+import nl.davidengelen.redsquare.registry.LocalRegistryAuthority
 
 class MainActivity : ComponentActivity() {
     private var walletExports: WalletExport? = null
@@ -239,8 +240,10 @@ class MainActivity : ComponentActivity() {
                             val selected = backend
                             if (selected != null) backendStates.SaveableStateProvider(selected.id) {
                                 key(selected) {
-                                    CompositionLocalProvider(LocalPostNavigation provides postNavigation) {
-                                    FeedScreen(wallet, failed, FeedEndpoints.fromIntent(intent, selected), selected,
+                                    val feedEndpoint = FeedEndpoints.fromIntent(intent, selected)
+                                    CompositionLocalProvider(LocalPostNavigation provides postNavigation,
+                                        LocalRegistryAuthority provides RegistryAuthority.fromIntent(intent, feedEndpoint)) {
+                                    FeedScreen(wallet, failed, feedEndpoint, selected,
                                         lifecycle, Modifier.weight(1f)) { reportFullyDrawn() }
                                     }
                                 }

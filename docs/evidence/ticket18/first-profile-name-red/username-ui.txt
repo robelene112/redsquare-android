@@ -1,0 +1,98 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.UsernamePreviewTest:
+INSTRUMENTATION_STATUS: test=aRegistrarSignedNameIsDisplayedAndRetainedWhenLaterChecksAreUnavailable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aRegistrarSignedNameIsDisplayedAndRetainedWhenLaterChecksAreUnavailable
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anUnavailableUsernameCheckDoesNotBlockPostingOrChangeTheWallet
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anUnavailableUsernameCheckDoesNotBlockPostingOrChangeTheWallet
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aConfirmedRegistrationIsNotResentAndNamesTheOwnProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.waitForText(UsernamePreviewTest.kt:286)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aConfirmedRegistrationIsNotResentAndNamesTheOwnProfile$lambda$31$lambda$30$lambda$29(UsernamePreviewTest.kt:256)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.$r8$lambda$Y2Db9rJ-S45meDgkwEIEz43sl7Y(Unknown Source:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aConfirmedRegistrationIsNotResentAndNamesTheOwnProfile(UsernamePreviewTest.kt:231)
+
+INSTRUMENTATION_STATUS: stream=
+Error in aConfirmedRegistrationIsNotResentAndNamesTheOwnProfile(nl.davidengelen.redsquare.UsernamePreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.waitForText(UsernamePreviewTest.kt:286)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aConfirmedRegistrationIsNotResentAndNamesTheOwnProfile$lambda$31$lambda$30$lambda$29(UsernamePreviewTest.kt:256)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.$r8$lambda$Y2Db9rJ-S45meDgkwEIEz43sl7Y(Unknown Source:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aConfirmedRegistrationIsNotResentAndNamesTheOwnProfile(UsernamePreviewTest.kt:231)
+
+INSTRUMENTATION_STATUS: test=aConfirmedRegistrationIsNotResentAndNamesTheOwnProfile
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aPendingRegistrationSurvivesReopeningAndRetriesTheExactSignedRequest
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aPendingRegistrationSurvivesReopeningAndRetriesTheExactSignedRequest
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 39.573
+There was 1 failure:
+1) aConfirmedRegistrationIsNotResentAndNamesTheOwnProfile(nl.davidengelen.redsquare.UsernamePreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.waitForText(UsernamePreviewTest.kt:286)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aConfirmedRegistrationIsNotResentAndNamesTheOwnProfile$lambda$31$lambda$30$lambda$29(UsernamePreviewTest.kt:256)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.$r8$lambda$Y2Db9rJ-S45meDgkwEIEz43sl7Y(Unknown Source:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aConfirmedRegistrationIsNotResentAndNamesTheOwnProfile(UsernamePreviewTest.kt:231)
+
+FAILURES!!!
+Tests run: 4,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

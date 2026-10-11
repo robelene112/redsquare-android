@@ -240,6 +240,11 @@ class UsernamePreviewTest {
                         ui.onNodeWithText("NativeCase7@saito").assertIsDisplayed()
                         assertEquals(1, peer.transactions.size)
                         capture("username-registered.png", "NativeCase7@saito")
+                        File(context.cacheDir, "username-evidence/username-registration-native-frame.json").writeText(JsonObject().apply {
+                            addProperty("native", true)
+                            addProperty("frame", java.util.Base64.getEncoder().encodeToString(peer.transactions.single()))
+                            addProperty("envelope", postingTransaction(peer.transactions.single()).envelope())
+                        }.toString())
                         missing.set(true)
                         val checks = peer.registryQueries.size
                         scenario.recreate()
