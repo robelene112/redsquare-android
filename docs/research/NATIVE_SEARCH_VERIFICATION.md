@@ -255,3 +255,17 @@ After GREEN review cleanup shares a private wallet point decoder across key
 admission/signature verification, reuses boolean admission for Registry owner
 and transaction recipient checks. No new speculative public interface.
 Cleanup compile/re-review pending; regression joins next focused native proof.
+
+Next known-prefix tracer being prepared: signed root/reply public history,
+partial author key, separately verified name prefix, actual follow, Activity
+close/offline reopen of cached known name. Native RED/production handling absent.
+An incorrectly copied reply author literal was caught against canonical
+NATIVE_THREAD_REFERENCE.json before dispatch; correction waits for the active
+compiler to finish. No native failure or acceptance inferred from that typo.
+
+Shared point cleanup plus initial tracer compile PASS2m42s. Corrected the
+reply author to canonical pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU,
+then explicitly modelled absent public history between Activities while
+retaining actual Follow preference and verified public name cache. This isolates
+followed known people as the offline source, preserving wallet. Correctedtracer
+compile/RED pending; no native run was dispatched with the wrong copied address.

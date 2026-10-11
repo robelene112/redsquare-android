@@ -17,6 +17,118 @@ import java.util.concurrent.atomic.AtomicInteger
 class SearchPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
 
+    @Test fun knownAuthorsAndVerifiedNamesRemainSearchableByPrefixAfterReopeningOffline() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        check(context.packageName == "nl.davidengelen.redsquare.dev")
+        check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
+        AndroidBackendStore(context).save(SaitoBackend.OWNER)
+        context.noBackupFilesDir.listFiles()?.filter {
+            listOf("feed.", "conversation.", "profile.", "search.", "authorposts.").any(it.name::startsWith)
+        }?.forEach { check(it.delete()) { "Could not reset public search fixtures" } }
+        val thread = instrumentation.context.assets.open("native-thread-reference.json").bufferedReader()
+            .use { JsonParser.parseReader(it).asJsonObject }
+        val names = instrumentation.context.assets.open("native-registry-reference.json").bufferedReader()
+            .use { JsonParser.parseReader(it).asJsonObject.getAsJsonArray("rows") }
+        val author = "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU"
+        val named = "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR"
+        listOf("", ".bak", ".new").forEach { suffix ->
+            File(context.noBackupFilesDir, "namemap.$named.v1$suffix").takeIf { it.exists() }?.let { check(it.delete()) }
+        }
+        val peer = ControlledFeedPeer("[]", archiveResponse = { criteria ->
+            when {
+                criteria.has("field4") -> "[]"
+                criteria.has("field2") -> {
+                    check(criteria.get("field2").asString in setOf(author, named))
+                    "[]"
+                }
+                else -> {
+                    check(criteria.keySet() == setOf("request", "field1", "flagged_ne", "limit", "created_earlier_than"))
+                    "[${thread.get("root")},${thread.get("firstReply")}]"
+                }
+            }
+        }, registryResponse = { criteria ->
+            if (criteria.get("request").asString == "registry namecheck") {
+                check(criteria.get("identifier").asString == "NativeCase7@saito")
+                names.toString()
+            } else com.google.gson.JsonObject().apply {
+                if (criteria.getAsJsonArray("keys").any { it.asString == named }) addProperty(named, "NativeCase7@saito")
+            }.toString()
+        })
+        peer.start().use { server ->
+            val intent = Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                .putExtra("usernameFixtureRegistrar", true)
+            var owner = ""
+            ActivityScenario.launch<MainActivity>(intent).use {
+                withFailureCapture({ captureNativeScreen(File(context.cacheDir, "search-evidence/people-prefix-online-failure.png")) }) {
+                    waitForEnabled("New post")
+                    if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
+                    ui.onNodeWithText("Wallet").performClick()
+                    owner = displayedWalletAddress(ui)
+                    ui.onNodeWithText("Done").performClick()
+                    ui.onNodeWithText("Search").performClick()
+                    ui.onNode(hasSetTextAction()).performTextInput("Independent")
+                    waitForEnabled("Search history")
+                    ui.onNodeWithText("Search history").performClick()
+                    waitForEnabled("Search history")
+                    ui.onNodeWithText("Independent Saito reply").assertIsDisplayed()
+                    ui.onNode(hasSetTextAction()).performTextReplacement("pncSjs")
+                    ui.onNodeWithText("Search history").performClick()
+                    waitForEnabled("Search history")
+                    ui.onNode(hasText(author) and hasClickAction() and !hasSetTextAction()).assertIsDisplayed()
+                    captureNativeScreen(File(context.cacheDir, "search-evidence/people-author-prefix.png"), author)
+                    ui.onNode(hasSetTextAction()).performTextReplacement(named)
+                    ui.onNodeWithText("Search history").performClick()
+                    waitForEnabled("Search history")
+                    ui.onNode(hasText(named) and hasClickAction() and !hasSetTextAction()).performClick()
+                    waitForText("Profile")
+                    waitForText("NativeCase7@saito")
+                    ui.onNodeWithText(named).assertIsDisplayed()
+                    if (ui.onAllNodesWithText("Unfollow").fetchSemanticsNodes().isEmpty()) {
+                        waitForEnabled("Follow")
+                        ui.onNodeWithText("Follow").performClick()
+                    }
+                    waitForEnabled("Unfollow")
+                    ui.onNodeWithText("Back").performClick()
+                    ui.onNode(hasSetTextAction()).performTextReplacement("NativeCase7")
+                    ui.onNodeWithText("Search history").performClick()
+                    waitForEnabled("Search history")
+                    waitForText("NativeCase7@saito")
+                    ui.onNode(hasText(named) and hasClickAction() and !hasSetTextAction()).assertIsDisplayed()
+                    assertTrue(peer.registryQueries.any { it.get("request").asString == "registry namecheck" &&
+                        it.get("identifier").asString == "NativeCase7@saito" })
+                    peer.assertHealthy()
+                }
+            }
+            server.close()
+            // Model unavailable public post history. Keep the real Follow choice
+            // and verified public name cache; the wallet is never cleared.
+            context.noBackupFilesDir.listFiles()?.filter {
+                listOf("feed.", "conversation.", "profile.", "search.", "authorposts.").any(it.name::startsWith)
+            }?.forEach { check(it.delete()) { "Could not reset public history fixture" } }
+            ActivityScenario.launch<MainActivity>(intent).use {
+                withFailureCapture({ captureNativeScreen(File(context.cacheDir, "search-evidence/people-prefix-offline-failure.png")) }) {
+                    waitForEnabled("New post")
+                    ui.onNodeWithText("Search").performClick()
+                    ui.onNode(hasSetTextAction()).performTextInput("NativeCase7")
+                    waitForEnabled("Search history")
+                    ui.onNodeWithText("Search history").performClick()
+                    waitForText("Some history could not be searched. Available results are still shown. Try again.")
+                    waitForText("NativeCase7@saito")
+                    ui.onNode(hasText(named) and hasClickAction() and !hasSetTextAction()).assertIsDisplayed()
+                    ui.onNodeWithText("Server: saito.davidengelen.nl").assertIsDisplayed()
+                    captureNativeScreen(File(context.cacheDir, "search-evidence/people-offline-name-prefix.png"), named)
+                    ui.onNodeWithText("Wallet").performClick()
+                    assertEquals(owner, displayedWalletAddress(ui))
+                    assertTrue(peer.clientKeys.isNotEmpty() && peer.clientKeys.all { it == owner })
+                    assertTrue(peer.transactions.isEmpty())
+                    peer.assertHealthy()
+                }
+            }
+        }
+    }
+
     @Test fun anExactPublicKeyOpensItsProfileButAnInvalidCurvePointDoesNotBecomeAPerson() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext

@@ -86,7 +86,10 @@ originalinspectedkeyPNG/XML/log ticket19/key-red. Validcompressedcurvepoint
 exactkey path addedbfe8a76, combinedcompilePASS2m47s; Spec0/Standards0hard,
 possiblepointvalidationduplication cleanupafterfirstGREEN. KeyGREEN38139610537 at75aec86:5PASS82.727s; two neworiginalinspected
 PNG/XML/log ticket19/key-green. Push38139610540 release/lintPASS.
-Pointvalidation cleanup added afterGREEN; compile/re-reviewpending.
+Pointvalidation cleanupdd00cc3 compilePASS2m42s/bothaxes0.
+Next knownkey/nameprefix/follow/offline primarytracer added; copiedauthor
+fixture corrected beforedispatch, correctedcompile/nativeREDpending.
+No knownpeople productionhandling yet.
 Knownpeople/namefailuresstillpending. People/durable cache/full acceptance pending;
 no #20 acceptance yet.
 Accepted seams1–4 unchanged.

@@ -126,3 +126,9 @@ After GREEN review cleanup shares a private wallet point decoder across key
 admission/signature verification, reuses boolean admission for Registry owner
 and transaction recipient checks. No new speculative public interface.
 Cleanup compile/re-review pending; regression joins next focused native proof.
+
+Point cleanup75aec86…dd00cc3: both axes0 hard/findings/smells. Registry
+owner and outgoing-recipient checks reuse canonical point admission; wallet
+verify and admission share private decoder. Serialization/preimages/output
+ordering unchanged. Six keyGREEN hashes/raw5PASS82.727s/images/XML agree.
+Cleanup regression joins next known-prefix tracer.
