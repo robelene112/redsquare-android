@@ -344,6 +344,25 @@ if [[ "${TEST_SCOPE:-full}" == usernames* ]]; then
     exit 0
 fi
 if [[ "${TEST_SCOPE:-full}" == full ]]; then verify_browse; verify_following; verify_posting; verify_post_queue; verify_social; verify_quotes; verify_author_posts; verify_images; verify_videos; verify_profiles; verify_usernames; fi
+verify_search() {
+    [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+    timeout 180 adb shell am instrument -w -r \
+        -e class nl.davidengelen.redsquare.SearchPreviewTest \
+        nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+        > "$evidence/search-ui.txt" || true
+    adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - search-evidence \
+        > "$evidence/search-evidence.tar" || true
+    if ! grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/search-ui.txt"; then
+        adb exec-out screencap -p > "$evidence/search-system-screen.png" || true
+        return 1
+    fi
+}
+if [[ "${TEST_SCOPE:-full}" == search* ]]; then
+    verify_search
+    printf '%s\n' 'Focused search check only; full acceptance not run.' > "$evidence/scope.txt"
+    exit 0
+fi
+if [[ "${TEST_SCOPE:-full}" == full ]]; then verify_search; fi
 verify_wallet_storage_recovery() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
     timeout 90 adb shell am instrument -w -r \

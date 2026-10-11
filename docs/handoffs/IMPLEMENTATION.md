@@ -8,7 +8,7 @@ one question at a time when a material choice really needs the owner.
 ## Current work
 
 Profile #18 is closed, final evidence commit ed5742f pushed. Fifteen of35 tickets
-are complete (#2–#15 and #18). Active #19, "Register an optional Saito username",
+are complete (#2–#15 and #18). Parked #19, "Register an optional Saito username",
 parked on the external Registry prerequisite, review base ed5742fd0f57958d284073b7145f1844b72b1dbd. #16 Giphy still awaits
 Android-authorized credentials; #17 actual YouTube provider playback remains
 unproved. Do not close those from controlled source/layout successes.
@@ -42,12 +42,18 @@ known/unknown namechecks unusable21bytes; fresh host09:53:48Z onboth returns
 {"err":"no response"} despite authenticated archive/key-map reads. Host helper
 filtererror is its own summary defect, not server key-map failure. Source/host/
 native observations remain distinct. No node changes/trust fallback/livewrites.
-Next: claim independent unblocked#20 after this parked native checkpoint.
+Active #20, Search posts and people in available backend history, assigned and
+blocked_by0 verified. Review base3be555be85586b68c0d05c2c8e69d3976bbffe89.
+First primary tracer reads a signed reply omitted from general feed, navigates
+conversation/profile/back, recreates retainedquery/results, and checks samewallet/
+zeroTX. New focused search scopes and full harness stage. No production search
+implementation yet; testAPKcompile PASS1m23s, initial native RED pending.
+Accepted seams1–4 unchanged.
 Search preparation ignored .scratch/search-design.md plus protected contract.
 Owner reviews completed app, no intermediate phone gate.
 
 Protected future untracked: build-support/references/private-chat-reference.cjs;
-NATIVE_DISCOVERY_MODERATION_CONTRACT, NATIVE_NOTIFICATIONS_CONTRACT,
+NATIVE_NOTIFICATIONS_CONTRACT,
 NATIVE_SAITO_TRANSFER_CONTRACT, NATIVE_PRIVATE_CHAT_CONTRACT,
 NATIVE_GROUP_CHAT_CONTRACT, NATIVE_PRIVATE_CHAT_REFERENCE(.json/.md).
 Include only the relevant research with its ticket. Review agents inspect only;
@@ -154,7 +160,7 @@ implementation while external configuration remains pending.
 Read-only research notes for later tickets were prepared during hosted checks:
 NATIVE_QUOTES_CONTRACT, NATIVE_EDIT_DELETE_CONTRACT, NATIVE_IMAGES_CONTRACT,
 NATIVE_GIF_VIDEO_CONTRACT, NATIVE_PROFILE_EDIT_CONTRACT, NATIVE_USERNAME_CONTRACT,
-NATIVE_DISCOVERY_MODERATION_CONTRACT, NATIVE_NOTIFICATIONS_CONTRACT,
+NATIVE_NOTIFICATIONS_CONTRACT,
 NATIVE_SAITO_TRANSFER_CONTRACT, NATIVE_PRIVATE_CHAT_CONTRACT and
 NATIVE_GROUP_CHAT_CONTRACT (all .md under docs/research). The protected future notes remain uncommitted and must be included only with
 their own relevant tickets; earlier contracts are already committed.
