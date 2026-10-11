@@ -8,7 +8,7 @@ on:
         description: Verification scope
         type: choice
         default: full
-        options: [full, full-android10, full-android17, feed, feed-android17, update-android17, export, export-android17, import, import-android17, import-risk, import-risk-android17, import-storage, import-storage-android17, browse, browse-android17, following, following-android17, posting, posting-android17, queue, queue-android17, social, social-android17, quotes, quotes-android17, author, author-android17, images, images-android17, videos, videos-android17, profiles, profiles-android17, usernames, usernames-android17, video-public, video-public-android17]
+        options: [full, full-android10, full-android17, feed, feed-android17, update-android17, export, export-android17, import, import-android17, import-risk, import-risk-android17, import-storage, import-storage-android17, browse, browse-android17, following, following-android17, posting, posting-android17, queue, queue-android17, social, social-android17, quotes, quotes-android17, author, author-android17, images, images-android17, videos, videos-android17, profiles, profiles-android17, usernames, usernames-android17, video-public, video-public-android17, registry-public, registry-public-android17]
       public_feed_read:
         description: Separately verify both approved public peer feeds
         type: boolean
@@ -102,7 +102,7 @@ jobs:
           path: ${{ steps.cache-path.outputs.home }}/.gradle/caches
           key: ${{ steps.dependencies.outputs.cache-primary-key }}
       - name: Verify Android 10 runtime
-        if: github.event_name == 'workflow_dispatch' && inputs.scope != 'full-android17' && inputs.scope != 'feed-android17' && inputs.scope != 'update-android17' && inputs.scope != 'export-android17' && inputs.scope != 'import-android17' && inputs.scope != 'import-risk-android17' && inputs.scope != 'import-storage-android17' && inputs.scope != 'browse-android17' && inputs.scope != 'following-android17' && inputs.scope != 'posting-android17' && inputs.scope != 'queue-android17' && inputs.scope != 'social-android17' && inputs.scope != 'quotes-android17' && inputs.scope != 'author-android17' && inputs.scope != 'images-android17' && inputs.scope != 'videos-android17' && inputs.scope != 'profiles-android17' && inputs.scope != 'usernames-android17' && inputs.scope != 'video-public-android17'
+        if: github.event_name == 'workflow_dispatch' && inputs.scope != 'full-android17' && inputs.scope != 'feed-android17' && inputs.scope != 'update-android17' && inputs.scope != 'export-android17' && inputs.scope != 'import-android17' && inputs.scope != 'import-risk-android17' && inputs.scope != 'import-storage-android17' && inputs.scope != 'browse-android17' && inputs.scope != 'following-android17' && inputs.scope != 'posting-android17' && inputs.scope != 'queue-android17' && inputs.scope != 'social-android17' && inputs.scope != 'quotes-android17' && inputs.scope != 'author-android17' && inputs.scope != 'images-android17' && inputs.scope != 'videos-android17' && inputs.scope != 'profiles-android17' && inputs.scope != 'usernames-android17' && inputs.scope != 'video-public-android17' && inputs.scope != 'registry-public-android17'
         env:
           TEST_PUBLIC_SIGNED_UPDATE: '1'
           TEST_PUBLIC_FEED_READ: ${{ inputs.public_feed_read && '1' || '0' }}
@@ -110,7 +110,7 @@ jobs:
           TEST_SCOPE: ${{ inputs.scope == 'full-android10' && 'full' || inputs.scope || 'full' }}
         run: scripts/ci-android-device 29
       - name: Verify Android 17 runtime
-        if: github.event_name == 'workflow_dispatch' && inputs.scope != 'full-android10' && inputs.scope != 'feed' && inputs.scope != 'export' && inputs.scope != 'import' && inputs.scope != 'import-risk' && inputs.scope != 'import-storage' && inputs.scope != 'browse' && inputs.scope != 'following' && inputs.scope != 'posting' && inputs.scope != 'queue' && inputs.scope != 'social' && inputs.scope != 'quotes' && inputs.scope != 'author' && inputs.scope != 'images' && inputs.scope != 'videos' && inputs.scope != 'profiles' && inputs.scope != 'usernames' && inputs.scope != 'video-public'
+        if: github.event_name == 'workflow_dispatch' && inputs.scope != 'full-android10' && inputs.scope != 'feed' && inputs.scope != 'export' && inputs.scope != 'import' && inputs.scope != 'import-risk' && inputs.scope != 'import-storage' && inputs.scope != 'browse' && inputs.scope != 'following' && inputs.scope != 'posting' && inputs.scope != 'queue' && inputs.scope != 'social' && inputs.scope != 'quotes' && inputs.scope != 'author' && inputs.scope != 'images' && inputs.scope != 'videos' && inputs.scope != 'profiles' && inputs.scope != 'usernames' && inputs.scope != 'video-public' && inputs.scope != 'registry-public'
         env:
           TEST_SCOPE: ${{ inputs.scope == 'full-android17' && 'full' || inputs.scope || 'full' }}
           TEST_PUBLIC_SIGNED_UPDATE: '1'

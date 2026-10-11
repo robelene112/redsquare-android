@@ -225,8 +225,21 @@ its own key hint, verify signed ownership, show no Register/Retry, recheck after
 recreation, keep incoming wallet and emit zero transactions. Both bounded source
 reviews clear; debug/test assembly1m20s passes. Controlled runtime pending.
 
-#19 stays open. Next: verify pending-work actual replacement,
-then imported-wallet discovery
+Pending replacementf800e9f Android10 run38125102237 PASS11cases58.498s.
+Original OWNER read-only reconciliation/explicit identicalRetry are preserved,
+then actual SAF replacement keeps incoming Settings clean onbothbackends and
+afterrecreation, both incominghandshakes/savedwallet pass, OWNER2exactoriginal
+frames/OFFICIAL0 remain. Root viewed emptyOFFICIALform PNG/XML; othergates runtime.
+Durable first-pending-replacement-green. Coldstage3.794s hostedPASS noextraaudit.
+Opt-in native public Registry probe now measures approved endpoints with real
+authentication/keymap and known/unknown namechecks, publishedverifier, truthful
+unavailable outcomes and no submit/registration/export path. First compile1m27s
+before bounded review fixes: report per-backend failures without skipping the
+other endpoint; preserve primary errors during diagnostic export. Corrected
+hosted build/runtime pending. It measures availability, never infers service
+readiness from a successful test or supplies live UI/ownership/chain proof.
+
+#19 stays open. Next: verify imported-wallet discovery and native public readiness
 isolation, malformed/taken/inactive and persistence failures, native public
 readiness and applicable final full Android10/17 acceptance. Shared SAF profile
 helper callers need affected regression checks. Do not repeat unaffected #18 full

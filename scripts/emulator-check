@@ -59,6 +59,19 @@ verify_browse() {
         return 1
     fi
 }
+if [[ "${TEST_SCOPE:-full}" == registry-public* ]]; then
+    [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+    timeout 180 adb shell am instrument -w -r \
+        -e class nl.davidengelen.redsquare.PublicRegistryReadTest -e publicRegistryRead 1 \
+        nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+        > "$evidence/public-registry.txt" || true
+    mkdir -p "$evidence/public-registry"
+    adb exec-out run-as nl.davidengelen.redsquare.dev cat cache/public-registry-evidence/readiness.json \
+        > "$evidence/public-registry/readiness.json" || true
+    grep -q 'OK (1 test)' "$evidence/public-registry.txt"
+    printf '%s\n' 'Opt-in native public Registry read only; an unavailable outcome does not establish readiness.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == browse* ]]; then
     verify_browse
     printf '%s\n' 'Focused conversation/profile check only; full acceptance not run.' > "$evidence/scope.txt"
