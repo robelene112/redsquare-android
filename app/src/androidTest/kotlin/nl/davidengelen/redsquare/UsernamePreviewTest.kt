@@ -566,6 +566,84 @@ class UsernamePreviewTest {
         }
     }
 
+    @Test fun aRequestIsSavedBeforeSendingAndUnreadableRecoveryNeverReplaysIt() = withRegistryWallet { fixture ->
+        val peer = ControlledFeedPeer("[]", registryResponse = { criteria ->
+            if (criteria.get("request").asString == "registry query") "{}" else "[]"
+        })
+        val requestFile = File(context.noBackupFilesDir, "namerequest.owner.${fixture.publicKey}.v1")
+        var originalBytes: ByteArray? = null
+        var primary: Throwable? = null
+        fun openSettingsName() {
+            waitForEnabled("Settings")
+            if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
+            ui.onNodeWithText("Settings").performClick()
+            ui.onNodeWithText("Saito username").performClick()
+        }
+        try {
+            peer.start().use { server ->
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                    .putExtra("feedDisabled", true)).use { scenario ->
+                    withFailureCapture({ capture("username-request-storage-failure.png") }) {
+                        openSettingsName()
+                        waitForEnabled("Check name")
+                        ui.onNode(hasSetTextAction()).performTextReplacement("NativeCase7")
+                        ui.onNodeWithText("Check name").performClick()
+                        waitForText("This username is currently available. Checking does not reserve it.")
+                        check(!requestFile.exists() && requestFile.mkdir())
+                        ui.onNodeWithText("Register name").performClick()
+                        val error = "Username request could not be saved. Nothing new was sent. Try again."
+                        waitForText(error)
+                        ui.onNodeWithText(error).performScrollTo().assertIsDisplayed()
+                        assertTrue("Unpersisted registration must never reach the peer", peer.transactions.isEmpty())
+                        ui.onNode(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString("NativeCase7")))
+                            .assertIsNotEnabled()
+                        capture("username-request-save-error.png", error)
+                        check(requestFile.delete())
+                        ui.onNodeWithText("Retry registration").performScrollTo().assertIsEnabled().performClick()
+                        waitForEnabled("Retry registration")
+                        waitForText("Registration requested. Confirmation is still pending.")
+                        assertEquals(1, peer.transactions.size)
+                        assertEquals(fixture.publicKey, SaitoEnvelope.decode(postingTransaction(peer.transactions.single()).envelope()).author)
+                        check(requestFile.isFile)
+                        originalBytes = requestFile.readBytes()
+                        // The external encrypted-file boundary becomes unreadable between app sessions.
+                        requestFile.writeBytes(byteArrayOf(0, 1, 2))
+                        val checks = peer.registryQueries.size
+                        scenario.recreate()
+                        openSettingsName()
+                        val unreadable = "Saved username request could not be opened. Try again."
+                        waitForText(unreadable)
+                        ui.onNodeWithText("Check name").assertIsNotEnabled()
+                        ui.onAllNodesWithText("Register name").assertCountEquals(0)
+                        ui.onAllNodesWithText("Retry registration").assertCountEquals(0)
+                        assertEquals("Unreadable work must fail closed before lookup or signing", checks, peer.registryQueries.size)
+                        assertEquals(1, peer.transactions.size)
+                        capture("username-request-unreadable.png", unreadable)
+                        requestFile.writeBytes(requireNotNull(originalBytes))
+                        ui.onNodeWithText("Retry", useUnmergedTree = true).performClick()
+                        waitForEnabled("Retry registration")
+                        assertTrue(peer.registryQueries.size > checks)
+                        assertEquals("Repair only reconciles the original request", 1, peer.transactions.size)
+                        ui.onNodeWithText("Retry registration").performClick()
+                        waitForEnabled("Retry registration")
+                        assertEquals(2, peer.transactions.size)
+                        assertArrayEquals(peer.transactions.first(), peer.transactions.last())
+                        assertEquals(fixture.publicKey, AndroidWalletStore(context).loadExisting().publicKey)
+                        assertTrue(peer.clientKeys.isNotEmpty() && peer.clientKeys.all { it == fixture.publicKey })
+                        peer.assertHealthy()
+                    }
+                }
+            }
+        } catch (failure: Throwable) { primary = failure; throw failure }
+        finally {
+            cleanupAfterTest(primary, {
+                if (requestFile.isDirectory) check(requestFile.delete())
+                originalBytes?.let { requestFile.writeBytes(it) }
+            })
+        }
+    }
+
     @Test fun aConfirmedRegistrationIsNotResentAndNamesTheOwnProfile() = withRegistryWallet { fixture ->
         val reference = instrumentation.context.assets.open("native-registry-reference.json").bufferedReader()
             .use { JsonParser.parseReader(it).asJsonObject }

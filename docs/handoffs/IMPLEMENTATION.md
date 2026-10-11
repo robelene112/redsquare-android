@@ -223,7 +223,7 @@ from a wallet-only public fixture without an imported name hint. Feed is disable
 and pre-import Registry queries must be empty. Optional Settings must discover
 its own key hint, verify signed ownership, show no Register/Retry, recheck after
 recreation, keep incoming wallet and emit zero transactions. Both bounded source
-reviews clear; debug/test assembly1m20s passes. Controlled runtime pending.
+reviews clear; debug/test assembly1m20s passes. Controlled runtime is verified below.
 
 Pending replacementf800e9f Android10 run38125102237 PASS11cases58.498s.
 Original OWNER read-only reconciliation/explicit identicalRetry are preserved,
@@ -239,16 +239,43 @@ other endpoint; preserve primary errors during diagnostic export. Corrected
 hosted build/runtime pending. It measures availability, never infers service
 readiness from a successful test or supplies live UI/ownership/chain proof.
 
-#19 stays open. Next: verify imported-wallet discovery and native public readiness
-isolation, malformed/taken/inactive and persistence failures, native public
-readiness and applicable final full Android10/17 acceptance. Shared SAF profile
-helper callers need affected regression checks. Do not repeat unaffected #18 full
-checks without a relevant change. The owner reviews the completed app.
+#19 stays open. Next: verify race/storage failure recovery, then applicable final
+full Android10/17 acceptance. Shared SAF/profile callers need affected regression
+checks. Public native readiness is now measured unavailable; backend/registrar
+repair is outside this app ticket. Continue another ready ticket after bounded
+native acceptance, recording this blocker without closing #19. Owner reviews
+completed app; no intermediate phone gate.
 
 Protected untracked future research must stay out of #19 commits:
 discovery/moderation, notifications, transfers, private/group Chat contracts and
 private-chat reference helper/JSON/Markdown. Include only the relevant research
 with its own ticket. Review agents inspect; they never claim another ticket.
+
+Named-import source4ee7718 Android17 run38125286144 PASS12cases121.71s;
+actual SAF replacement, no imported hint/pre-import Registry seed, optional
+own-key signed discovery, recreation recheck/incoming identity and zero sends.
+Root and both reviewers viewed original named-import PNG/XML: owner backend,
+NativeCase7@saito and owned status. Four hashed originals/report retained in
+first-named-import-green. Unchanged coldstage hosted PASS4.28s, no extraaudit.
+Race tracer now checks available→explicit request→different valid owner, disabled
+Retry, read-only recreation/no resend and anonymous own profile. Debug/test
+assembly PASS1m17s before bounded empty-profile Archive fixture correction;
+corrected hosted runtime and final full acceptance remain pending. #19 open.
+
+
+Native public sourcea46759e Android10 run38125890744 PASS1measurement1.954s,
+Android17 run38125892625 PASS1measurement4.093s. Both endpoints authenticate
+and answer own-key hints; both known/unknown namechecks give21bytes rejected
+by the published signed-record verifier. Unavailable onboth, not namespace-ready.
+Five hashed public logs/reports/README in native-public-registry-unavailable.
+Raw response bodies are not retained by this probe, so no error-string/cause
+claim. No submit/node change. Live registration remains an external blocker.
+Storage tracer obstructs the actual request path after availability, asserts
+zero send on save error, repairs then sends once, corrupts encrypted persisted
+work, fails closed without lookup/send, restores and reconciles read-only, then
+retries identical bytes only on explicit action. Debug/test assembly1m17s PASS
+before bounded feed-isolation and disabled-field selector corrections. Corrected
+runtime and applicable full acceptance remain pending. #19 open.
 
 ## Completed foundation references
 
@@ -365,14 +392,3 @@ known fixture identities may be restored in cleanup; all owned cleanup attempts
 preserve the primary failure. First debug/test compile passes1m19s before bounded
 review cleanup/sensitivity corrections; hosted build/runtime still pending.
 No actual replacement or new discovery acceptance is claimed from source alone.
-
-Named-import source4ee7718 Android17 run38125286144 PASS12cases121.71s;
-actual SAF replacement, no imported hint/pre-import Registry seed, optional
-own-key signed discovery, recreation recheck/incoming identity and zero sends.
-Root and both reviewers viewed original named-import PNG/XML: owner backend,
-NativeCase7@saito and owned status. Four hashed originals/report retained in
-first-named-import-green. Unchanged coldstage hosted PASS4.28s, no extraaudit.
-Race tracer now checks available→explicit request→different valid owner, disabled
-Retry, read-only recreation/no resend and anonymous own profile. Debug/test
-assembly PASS1m17s before bounded empty-profile Archive fixture correction;
-corrected hosted runtime and final full acceptance remain pending. #19 open.

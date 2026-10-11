@@ -553,3 +553,17 @@ Race tracer now checks available→explicit request→different valid owner, dis
 Retry, read-only recreation/no resend and anonymous own profile. Debug/test
 assembly PASS1m17s before bounded empty-profile Archive fixture correction;
 corrected hosted runtime and final full acceptance remain pending. #19 open.
+
+Native public sourcea46759e Android10 run38125890744 PASS1measurement1.954s,
+Android17 run38125892625 PASS1measurement4.093s. Both endpoints authenticate
+and answer own-key hints; both known/unknown namechecks give21bytes rejected
+by the published signed-record verifier. Unavailable onboth, not namespace-ready.
+Five hashed public logs/reports/README in native-public-registry-unavailable.
+Raw response bodies are not retained by this probe, so no error-string/cause
+claim. No submit/node change. Live registration remains an external blocker.
+Storage tracer obstructs the actual request path after availability, asserts
+zero send on save error, repairs then sends once, corrupts encrypted persisted
+work, fails closed without lookup/send, restores and reconciles read-only, then
+retries identical bytes only on explicit action. Debug/test assembly1m17s PASS
+before bounded feed-isolation and disabled-field selector corrections. Corrected
+runtime and applicable full acceptance remain pending. #19 open.
