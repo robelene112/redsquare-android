@@ -193,3 +193,10 @@ Unsigned requests retain their existing flow. Cleanup uses set(null) after
 successful chmod, avoiding boxed-Int reference equality. No restoration-failure
 injection or atomic switch/isolation/process acceptance is claimed. Runtime and
 whole-ticket acceptance remain pending.
+
+Bounded correction review: Spec0; Standards1 fixture rebinding concern. First
+listener used port0, repeating the earlier Android17 EADDRINUSE pattern fixed
+in SocialPreviewTest. Reserve an explicit numeric port before both listener
+lifetimes so MockWebServer enables reuse. Consent, endpoint and acceptance
+assertions unchanged. No report rebinding failure is claimed observed. Current
+38173684709 predates this fixture-only correction; runtime still pending.

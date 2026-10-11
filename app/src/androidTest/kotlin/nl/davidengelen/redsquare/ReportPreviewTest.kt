@@ -280,8 +280,9 @@ class ReportPreviewTest {
         val root = InstrumentationRegistry.getInstrumentation().context.assets.open("native-feed-reference.json")
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow") }
         val peer = ControlledFeedPeer("[$root]")
-        peer.start().use { server ->
-            val port = server.port
+        // Explicit port enables reuse for both listener lifetimes.
+        val port = java.net.ServerSocket(0, 1, java.net.InetAddress.getByName("127.0.0.1")).use { it.localPort }
+        peer.start(port).use { server ->
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:$port/wsopen")).use { activity ->
                 withFailureCapture({ capture("unavailable-before-send-failure.png") }) {
