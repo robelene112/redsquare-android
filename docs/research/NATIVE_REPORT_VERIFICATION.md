@@ -365,3 +365,19 @@ actual observedpublicbytes in localAtomicReference then requiringthem afterthe
 firstActivitycloses. Acceptance/deadlines/productunchanged. Buildfailure retained
 restored-receipt-compile-failure1hash. Bothtracersource/evidenceaxesclear; stale
 GREENpending wording corrected in activehandoff. Corrected nativeREDnext.
+
+## Restored observed receipt RED and atomic reconciliation
+
+Android10 focused38177781221 at1617197:11cases/10PASS/1FAIL103.565s
+at773 expected1report actual2 after staleviewRetry. Root4unchangedoriginals/
+separate4XMLs show initialACK/staleunknown/ACK after unwantedsecondreport;
+adopted filename doesnotproveadoption. Finalrecreation/processunreached.
+Durable restored-receipt-red9hashes. Other10passincludingcleanuphappy path;
+no injectedcleanupfailure or coroutineinterleaving reproduction. Bothfixturefix
+reviews0. Current minimal correction reuses strict record validation inside
+PublicStringStore.update, compares exactcandidate, preserves attempted/ACK
+progress, and adopts a retained differentcandidate or ACK without physicalsend.
+Check same durablehead bothbeforeauthentication and under original identity/
+backend lock beforeenqueue. Old backenderror clears only at conservative
+pre-enqueue marker; validACK dominates errors. Unreadable state stillfailsclosed.
+Source review and final paired acceptance next; no GREEN yet.

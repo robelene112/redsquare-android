@@ -404,7 +404,13 @@ oldNonCancellable timing reproduction. First38177595073 ateca518a stoppedat
 instrumentationcompile26s: UnitcapturehelpermisusedasByteArray. Native/process
 unreached, notproductRED; compilefailure1hash. Fixtureonlycorrection stores real
 receipt outsidehelper, acceptance/deadlinesunchanged. Bothtracer/evidenceaxesclear;
-productunchangedpendingcorrectedRED. Finalpairedboth-SDK/source/publicreadspending.
+Corrected38177781221 at1617197:11cases/10PASS/1FAIL103.565s at773 reportcount
+expected1actual2 afterstaleRetry. Root4originals/separate4XMLs, restored-receipt-red
+9hashes; finalrecreation/processunreached. Other10pass inclcleanuphappy path.
+Current minimal atomicupdate shares strictrecorddecode, retains attempted/ACK,
+rejects conflictingcandidate byadoptingdurablehead, checks beforeauth/beforeenqueue
+and adoptsACK withoutsend. Sourcefixreview/finalpairedacceptance pending; noGREEN.
+Originalcoroutinescheduling notclaimedreproduced. Bothfixturefixreviews0.
 Ticket22 remains incomplete: failure/durability/identity/backend isolation,
 actual process interruption and final both-SDK acceptance/reviews still required.
 Its source contract is prepared in NATIVE_DISCOVERY_MODERATION_CONTRACT.md and
