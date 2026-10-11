@@ -57,10 +57,8 @@ class SaitoTransaction private constructor(private val bytes: ByteArray) {
             if (message.size > MAX_MESSAGE_BYTES) throw InvalidMessage()
             val publicKey = Base58.decode(wallet.publicKey)
             val outputs = addresses.map { address ->
-                val point = Base58.decode(address)
-                require(point.size == 33 && point[0] in 2.toByte()..3.toByte())
-                org.bouncycastle.crypto.ec.CustomNamedCurves.getByName("secp256k1").curve.decodePoint(point)
-                point
+                require(SaitoWallet.isPublicKey(address))
+                Base58.decode(address)
             }
             require(outputs.size <= 255)
             val preimage = ByteBuffer.allocate(16 + (1 + outputs.size) * 43 + message.size)

@@ -118,3 +118,11 @@ a judgment cleanup for after first key GREEN, not a correctness blocker.
 Both reviewers validate keyRED rawlog/hashes/original PNG/separateXML; screen
 shows horizontally-scrolled input, XML establishes full literal key.
 Combined compile/keyGREEN/knownpeople/failure/full checks remain pending.
+
+Key GREEN38139610537 at75aec86:5PASS82.727s, focused source/core/debug/test
+PASS; push38139610540 source/core/debug/test/release/lint PASS. Rawlog plus
+two new individually viewed PNG/separateXML pairs retained ticket19/key-green.
+After GREEN review cleanup shares a private wallet point decoder across key
+admission/signature verification, reuses boolean admission for Registry owner
+and transaction recipient checks. No new speculative public interface.
+Cleanup compile/re-review pending; regression joins next focused native proof.

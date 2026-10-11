@@ -247,3 +247,11 @@ query with no person. Initial compile/review/nativeGREEN pending.
 Exactkey source bfe8a76 combinedcompile PASS2m47s. Spec0/Standards0 hard
 findings; possible duplicatepointvalidation is reviewcleanupafter firstGREEN.
 New exactkey nativeGREEN and broader #20 acceptance remain pending.
+
+Key GREEN38139610537 at75aec86:5PASS82.727s, focused source/core/debug/test
+PASS; push38139610540 source/core/debug/test/release/lint PASS. Rawlog plus
+two new individually viewed PNG/separateXML pairs retained ticket19/key-green.
+After GREEN review cleanup shares a private wallet point decoder across key
+admission/signature verification, reuses boolean admission for Registry owner
+and transaction recipient checks. No new speculative public interface.
+Cleanup compile/re-review pending; regression joins next focused native proof.

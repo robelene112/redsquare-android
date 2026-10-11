@@ -4,7 +4,6 @@ import com.google.gson.GsonBuilder
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.Strictness
-import org.bouncycastle.crypto.ec.CustomNamedCurves
 import java.math.BigInteger
 
 /** Registrar-signed ownership, with a separate unsigned server chain-state hint. */
@@ -36,9 +35,7 @@ object SaitoRegistry {
         val row = rows[0].asJsonObject
         require(string(row, "identifier") == identifier)
         val owner = string(row, "publickey")
-        val point = Base58.decode(owner)
-        require(point.size == 33 && point[0] in 2.toByte()..3.toByte())
-        CustomNamedCurves.getByName("secp256k1").curve.decodePoint(point)
+        require(SaitoWallet.isPublicKey(owner))
         val bid = row.get("bid").let { value ->
             require(value.isJsonPrimitive && (value.asJsonPrimitive.isNumber || value.asJsonPrimitive.isString))
             value.asBigDecimal.toBigIntegerExact().also {

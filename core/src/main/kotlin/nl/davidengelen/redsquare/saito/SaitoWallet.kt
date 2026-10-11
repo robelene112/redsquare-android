@@ -15,6 +15,7 @@ import org.bouncycastle.crypto.params.ECPrivateKeyParameters
 import org.bouncycastle.crypto.params.ECPublicKeyParameters
 import org.bouncycastle.crypto.signers.ECDSASigner
 import org.bouncycastle.crypto.signers.HMacDSAKCalculator
+import org.bouncycastle.math.ec.ECPoint
 
 /** Saito-compatible identity. toString intentionally never exposes signing material. */
 class SaitoWallet private constructor(
@@ -109,12 +110,16 @@ class SaitoWallet private constructor(
 
         /** A canonical compressed Saito address must encode an actual curve point. */
         fun isPublicKey(publicKey: String): Boolean = try {
-            val encoded = Base58.decode(publicKey)
-            encoded.size == 33 && encoded[0] in listOf(2.toByte(), 3.toByte()) &&
-                Base58.encode(encoded) == publicKey && curve.curve.decodePoint(encoded).let {
-                    !it.isInfinity && it.isValid
-                }
+            publicPoint(publicKey)
+            true
         } catch (_: IllegalArgumentException) { false }
+
+        private fun publicPoint(publicKey: String): ECPoint {
+            val encoded = Base58.decode(publicKey)
+            require(encoded.size == 33 && encoded[0] in listOf(2.toByte(), 3.toByte()))
+            require(Base58.encode(encoded) == publicKey)
+            return curve.curve.decodePoint(encoded).also { require(!it.isInfinity && it.isValid) }
+        }
 
         fun verify(message: ByteArray, signature: String, publicKey: String): Boolean {
             if (!signature.matches(Regex("[0-9a-fA-F]{128}"))) return false
@@ -122,9 +127,7 @@ class SaitoWallet private constructor(
                 val r = BigInteger(signature.substring(0, 64), 16)
                 val s = BigInteger(signature.substring(64), 16)
                 if (r.signum() <= 0 || r >= curve.n || s.signum() <= 0 || s > curve.n.shiftRight(1)) return false
-                val encoded = Base58.decode(publicKey)
-                if (encoded.size != 33 || encoded[0] !in listOf(2.toByte(), 3.toByte())) return false
-                val point = curve.curve.decodePoint(encoded)
+                val point = publicPoint(publicKey)
                 val signer = ECDSASigner()
                 signer.init(false, ECPublicKeyParameters(point, domain))
                 signer.verifySignature(hash(message), r, s)
