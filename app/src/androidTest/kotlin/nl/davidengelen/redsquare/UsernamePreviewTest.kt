@@ -38,19 +38,7 @@ class UsernamePreviewTest {
     @Test fun anExistingWalletDiscoversItsVerifiedNameWithoutRegisteringAgain() = withRegistryWallet { fixture ->
         val reference = instrumentation.context.assets.open("native-registry-reference.json").bufferedReader()
             .use { JsonParser.parseReader(it).asJsonObject }
-        val peer = ControlledFeedPeer("[]", registryResponse = { criteria ->
-            when (criteria.get("request").asString) {
-                "registry query" -> {
-                    assertEquals(listOf(fixture.publicKey), criteria.getAsJsonArray("keys").map { it.asString })
-                    JsonObject().apply { addProperty(fixture.publicKey, "NativeCase7@saito") }.toString()
-                }
-                "registry namecheck" -> {
-                    assertEquals("NativeCase7@saito", criteria.get("identifier").asString)
-                    reference.getAsJsonArray("rows").toString()
-                }
-                else -> error("Unexpected discovery request")
-            }
-        }, archiveResponse = { "[]" })
+        val peer = discoveryPeer(fixture.publicKey, reference.getAsJsonArray("rows").toString())
         peer.start().use { server ->
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
@@ -84,6 +72,55 @@ class UsernamePreviewTest {
         }
     }
 
+    @Test fun aVerifiedProfileNameRemainsVisibleWhenItsLocalCacheCannotBeSaved() = withRegistryWallet { fixture ->
+        val reference = instrumentation.context.assets.open("native-registry-reference.json").bufferedReader()
+            .use { JsonParser.parseReader(it).asJsonObject }
+        val peer = discoveryPeer(fixture.publicKey, reference.getAsJsonArray("rows").toString())
+        val obstruction = File(context.noBackupFilesDir, "namemap.${fixture.publicKey}.v1")
+        check(!obstruction.exists() && obstruction.mkdir())
+        var primary: Throwable? = null
+        try {
+            peer.start().use { server ->
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                    .putExtra("usernameFixtureRegistrar", true)).use {
+                    withFailureCapture({ capture("username-name-save-failure.png") }) {
+                        waitForEnabled("Your profile")
+                        if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
+                        ui.onNodeWithText("Your profile").performClick()
+                        ui.waitUntil(20_000) { peer.registryQueries.any { it.get("request").asString == "registry namecheck" } }
+                        assertTrue("Fixture must obstruct only the local public-name cache", obstruction.isDirectory)
+                        waitForText("NativeCase7@saito")
+                        val warning = "Name verified, but could not be saved on this device."
+                        waitForText(warning)
+                        ui.onNodeWithText("NativeCase7@saito").assertIsDisplayed()
+                        ui.onNodeWithText(warning).assertIsDisplayed()
+                        ui.onNodeWithText(fixture.publicKey).assertIsDisplayed()
+                        assertTrue(peer.transactions.isEmpty())
+                        capture("username-name-save-error.png", warning)
+                        check(obstruction.delete())
+                        val checks = peer.registryQueries.count { it.get("request").asString == "registry namecheck" }
+                        ui.onNodeWithText("Back").performClick()
+                        waitForEnabled("Your profile")
+                        ui.onNodeWithText("Your profile").performClick()
+                        waitForText("NativeCase7@saito")
+                        ui.waitUntil(20_000) {
+                            peer.registryQueries.count { it.get("request").asString == "registry namecheck" } > checks
+                        }
+                        ui.onAllNodesWithText(warning).assertCountEquals(0)
+                        capture("username-name-save-recovered.png", "NativeCase7@saito")
+                        assertTrue(peer.clientKeys.all { it == fixture.publicKey })
+                        assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
+                    }
+                }
+            }
+        } catch (failure: Throwable) { primary = failure; throw failure }
+        finally {
+            try { if (obstruction.isDirectory) check(obstruction.delete()) }
+            catch (cleanup: Throwable) { if (primary != null) primary.addSuppressed(cleanup) else throw cleanup }
+        }
+    }
+
     @Test fun anUnavailableUsernameCheckDoesNotBlockPostingOrChangeTheWallet() {
         val peer = ControlledFeedPeer("[]", registryResponse = { criteria ->
             assertEquals("registry namecheck", criteria.get("request").asString)
@@ -109,6 +146,11 @@ class UsernamePreviewTest {
                     ui.onNodeWithText("Check name").performClick()
                     val error = "Username could not be checked. Try again."
                     ui.waitUntil(20_000) { ui.onAllNodesWithText(error).fetchSemanticsNodes().isNotEmpty() }
+                    val device = UiDevice.getInstance(instrumentation)
+                    if (device.hasObject(By.pkg("com.android.inputmethod.latin"))) {
+                        check(device.pressBack()) // Hide the positively observed emulator IME, preserving this screen.
+                        check(device.wait(Until.gone(By.pkg("com.android.inputmethod.latin")), 5_000))
+                    }
                     ui.onNodeWithText(error).performScrollTo().assertIsDisplayed()
                     assertEquals("The native flow must actually check with Registry", 1, peer.registryQueries.size)
                     capture("username-unavailable.png", error)
@@ -470,6 +512,20 @@ class UsernamePreviewTest {
             } catch (cleanup: Throwable) { if (primary != null) primary.addSuppressed(cleanup) else throw cleanup }
         }
     }
+
+    private fun discoveryPeer(publicKey: String, proof: String) = ControlledFeedPeer("[]", registryResponse = { criteria ->
+        when (criteria.get("request").asString) {
+            "registry query" -> {
+                assertEquals(listOf(publicKey), criteria.getAsJsonArray("keys").map { it.asString })
+                JsonObject().apply { addProperty(publicKey, "NativeCase7@saito") }.toString()
+            }
+            "registry namecheck" -> {
+                assertEquals("NativeCase7@saito", criteria.get("identifier").asString)
+                proof
+            }
+            else -> error("Unexpected discovery request")
+        }
+    }, archiveResponse = { "[]" })
 
     private fun withRegistryWallet(block: (SaitoWallet) -> Unit) {
         val fixture = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe fixture only.

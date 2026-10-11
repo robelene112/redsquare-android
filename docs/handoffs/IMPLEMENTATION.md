@@ -58,7 +58,21 @@ compile RED23s, focused GREEN45s (one case). Directed registration-byte tracer c
 RED28s at the old first-output requirement, followed by all52 core cases and
 debug/test assembly GREEN2m18s. New internal directed constructor preserves old
 social bytes; restore still requires an own output, zero amounts and a verified
-signature. Core milestone only; later native checkpoints are described below. #19 remains open. Both
+signature. Core milestone only; later native checkpoints are described below. Existing-wallet discovery tracer41f93e7 is actual RED38119739548 at missing
+profile name (six previous pass,51.71s); original retained first-discovery-red.
+Minimal profile-only lookup e162fce passes its complete discovery journey in
+38120023255, but whole seven-case run fails another unavailable native capture
+after Compose visibility (six pass,42.417s). IME covers error in captured
+PNG/XML. Discovery PNG renders only status strip in root; XML/runtime prove
+name/address, no consistent bitmap claim. Retained first-discovery-green.
+Both source axes reviewed; Spec identifies verified name lost on cache-save
+failure and Standards duplicated namecheck/decoder. Next tracer obstructs
+only the public name-cache path and must preserve verified mounted name with
+a truthful save warning, then recover after obstruction removal. Bounded
+unavailable fixture correction hides only positively observed emulator IME.
+Actual-process stage was not reached in these failed ordinary runs.
+
+#19 remains open. Both
 reference generators run pure pinned WASM/Elliptic with public unsafe fixtures.
 Registry core production default is the published registrar; an explicitly
 supplied scalar2 test authority is not actual Saito namespace ownership.

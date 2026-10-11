@@ -350,3 +350,18 @@ signatures. Cold PNG renders inconsistently across root/Spec and Standards views
 runtime assertions support recovery, without a consistent bitmap or proven
 rendering-cause claim. Verbatim public evidence is in first-process-recovery-green.
 Controlled peer only; no live namespace, power-cut or physical-device proof.
+
+Existing-wallet discovery tracer41f93e7 is actual RED38119739548 at missing
+profile name (six previous pass,51.71s); original retained first-discovery-red.
+Minimal profile-only lookup e162fce passes its complete discovery journey in
+38120023255, but whole seven-case run fails another unavailable native capture
+after Compose visibility (six pass,42.417s). IME covers error in captured
+PNG/XML. Discovery PNG renders only status strip in root; XML/runtime prove
+name/address, no consistent bitmap claim. Retained first-discovery-green.
+Both source axes reviewed; Spec identifies verified name lost on cache-save
+failure and Standards duplicated namecheck/decoder. Next tracer obstructs
+only the public name-cache path and must preserve verified mounted name with
+a truthful save warning, then recover after obstruction removal. Bounded
+unavailable fixture correction hides only positively observed emulator IME.
+Actual-process stage was not reached in these failed ordinary runs.
+
