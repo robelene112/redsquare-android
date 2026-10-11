@@ -1130,3 +1130,23 @@ final local assembly running. No success claimed for canceled attempts.
 
 Final inline-image discriminator fixture local debug/test assembly PASS1m6s,
 exit0, rawlog retained. Intended native RED pending. No production changes.
+
+Inline-image discriminator boundedffed71f...a0d3f1b Spec0/Standards0.
+Actual intended Android10 RED38108180468 at268: cold pending exact signed media
+omissions incorrectly expose Use generated profile picture from stale public
+cache. Mounted generated defaults/control absence/exact disabled bio/oneTX pass;
+cold exact frozen bio/oneTX pass before omission failure. Newclass2/25.125s exactly
+one fail (retirement PASS); editor7/36.5s,publisher5/27.082s (fourpass/oneAPI30+skip),
+media2/18.313s PASS. Source38108169898 PASS49/debug/test/release/lint. Both originals
+individually viewed and XML/rawlogs retained profile-preview-red/android10. Cold
+custom picture is below viewport; resetcontrol proves field presentation, not
+pixel comparison. Confirmation unreachable in RED.
+Minimal remedy now written: IO load reconstructs frozen editor from exact verified
+candidate fullsnapshot, including signed omissions. Editable preview merges private
+and public on IO in a keyed produceState, reset for exact input/state changes;
+unmatched merge displays progress and disables publication/hides edit/media actions.
+No restarting load/observe due public changes, no UI-thread cryptographic work.
+Frozen preview uses exactcandidate only. Local build, source review and GREEN pending.
+
+Preview remedy local debug/test assembly PASS2m5s, exit0, retained rawlog.
+Intended native dual GREEN and committed review pending.

@@ -1,0 +1,100 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileNewEditPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ProfileNewEditPreviewTest:
+INSTRUMENTATION_STATUS: test=aSupersededUpdateCanBeRetiredForANewDurableEditWithoutResendingIt
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileNewEditPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aSupersededUpdateCanBeRetiredForANewDurableEditWithoutResendingIt
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileNewEditPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aColdPendingBioUpdateShowsItsSignedMediaOmissionsInsteadOfStalePublicImages
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileNewEditPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert count of nodes.
+Reason: Did not expect any node but found '1' node that satisfies: (Text + InputText + EditableText contains 'Use generated profile picture' (ignoreCase: false))
+Node found:
+Node #848 at (l=16.0, t=580.0, r=226.0, b=620.0)px
+Role = 'Button'
+Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+Text = '[Use generated profile picture]'
+[Disabled]
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 6 siblings
+
+	at androidx.compose.ui.test.AssertionsKt.assertCountEquals(Assertions.kt:282)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest.assertGeneratedDefaults(ProfileNewEditPreviewTest.kt:292)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest.aColdPendingBioUpdateShowsItsSignedMediaOmissionsInsteadOfStalePublicImages$lambda$39$lambda$38$lambda$37(ProfileNewEditPreviewTest.kt:268)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest.$r8$lambda$nZ4cw4xiirkf5wudXTYa8-kCjrI(Unknown Source:0)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest.captureFailure(ProfileNewEditPreviewTest.kt:317)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest.aColdPendingBioUpdateShowsItsSignedMediaOmissionsInsteadOfStalePublicImages(ProfileNewEditPreviewTest.kt:261)
+
+INSTRUMENTATION_STATUS: stream=
+Error in aColdPendingBioUpdateShowsItsSignedMediaOmissionsInsteadOfStalePublicImages(nl.davidengelen.redsquare.ProfileNewEditPreviewTest):
+java.lang.AssertionError: Failed to assert count of nodes.
+Reason: Did not expect any node but found '1' node that satisfies: (Text + InputText + EditableText contains 'Use generated profile picture' (ignoreCase: false))
+Node found:
+Node #848 at (l=16.0, t=580.0, r=226.0, b=620.0)px
+Role = 'Button'
+Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+Text = '[Use generated profile picture]'
+[Disabled]
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 6 siblings
+
+	at androidx.compose.ui.test.AssertionsKt.assertCountEquals(Assertions.kt:282)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest.assertGeneratedDefaults(ProfileNewEditPreviewTest.kt:292)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest.aColdPendingBioUpdateShowsItsSignedMediaOmissionsInsteadOfStalePublicImages$lambda$39$lambda$38$lambda$37(ProfileNewEditPreviewTest.kt:268)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest.$r8$lambda$nZ4cw4xiirkf5wudXTYa8-kCjrI(Unknown Source:0)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest.captureFailure(ProfileNewEditPreviewTest.kt:317)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest.aColdPendingBioUpdateShowsItsSignedMediaOmissionsInsteadOfStalePublicImages(ProfileNewEditPreviewTest.kt:261)
+
+INSTRUMENTATION_STATUS: test=aColdPendingBioUpdateShowsItsSignedMediaOmissionsInsteadOfStalePublicImages
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 25.125
+There was 1 failure:
+1) aColdPendingBioUpdateShowsItsSignedMediaOmissionsInsteadOfStalePublicImages(nl.davidengelen.redsquare.ProfileNewEditPreviewTest)
+java.lang.AssertionError: Failed to assert count of nodes.
+Reason: Did not expect any node but found '1' node that satisfies: (Text + InputText + EditableText contains 'Use generated profile picture' (ignoreCase: false))
+Node found:
+Node #848 at (l=16.0, t=580.0, r=226.0, b=620.0)px
+Role = 'Button'
+Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+Text = '[Use generated profile picture]'
+[Disabled]
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 6 siblings
+
+	at androidx.compose.ui.test.AssertionsKt.assertCountEquals(Assertions.kt:282)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest.assertGeneratedDefaults(ProfileNewEditPreviewTest.kt:292)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest.aColdPendingBioUpdateShowsItsSignedMediaOmissionsInsteadOfStalePublicImages$lambda$39$lambda$38$lambda$37(ProfileNewEditPreviewTest.kt:268)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest.$r8$lambda$nZ4cw4xiirkf5wudXTYa8-kCjrI(Unknown Source:0)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest.captureFailure(ProfileNewEditPreviewTest.kt:317)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest.aColdPendingBioUpdateShowsItsSignedMediaOmissionsInsteadOfStalePublicImages(ProfileNewEditPreviewTest.kt:261)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

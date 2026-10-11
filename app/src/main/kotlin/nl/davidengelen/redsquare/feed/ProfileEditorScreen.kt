@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.google.gson.JsonArray
 import com.google.gson.JsonNull
 import com.google.gson.JsonObject
 import kotlinx.coroutines.*
@@ -34,7 +35,8 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
     private val scope: CoroutineScope, private val wallet: SaitoWallet, private val endpoint: String,
     private val cache: AndroidProfileDetailsCache) {
     private var durable = ProfileDraftStore.Saved()
-    private var startingProfile by mutableStateOf<SaitoProfile?>(null)
+    var startingProfile by mutableStateOf<SaitoProfile?>(null)
+        private set
     var changes by mutableStateOf(JsonObject())
     var ready by mutableStateOf(false)
     var busy by mutableStateOf(false)
@@ -51,9 +53,19 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
 
     suspend fun load() {
         try {
-            val saved = withContext(Dispatchers.IO) { store.load() }
+            val (saved, preview) = withContext(Dispatchers.IO) {
+                val record = store.load()
+                val snapshot = record.transaction?.let { transaction ->
+                    val rows = JsonArray().apply { add(JsonObject().apply { addProperty("tx", transaction.envelope()) }) }
+                    SaitoProfiles.readArchive(rows.toString(), wallet.publicKey).also {
+                        check(it.ignored == 0 && it.updates.size == 1 && it.updates.single().snapshot &&
+                            it.updates.single().id == transaction.id)
+                    }
+                } ?: record.baseline
+                record to snapshot
+            }
             durable = saved
-            startingProfile = saved.baseline
+            startingProfile = preview
             changes = (if (saved.transaction != null) saved.changes else memory.changes ?: saved.changes).deepCopy()
             memory.changes = changes.deepCopy()
             candidate = saved.transaction
@@ -101,11 +113,11 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
     fun image(kind: ProfileImageKind, profile: SaitoProfile?): String? {
         val changed = changes.get(kind.field)
         return if (changed != null) changed.takeUnless { it.isJsonNull }?.asString
-        else if (kind == ProfileImageKind.PICTURE) (startingProfile ?: profile)?.image else (startingProfile ?: profile)?.banner
+        else if (kind == ProfileImageKind.PICTURE) profile?.image else profile?.banner
     }
 
     fun bio(profile: SaitoProfile?): String = changes.get("description")?.asString ?:
-        (startingProfile ?: profile)?.description.orEmpty()
+        profile?.description.orEmpty()
 
     fun removeImage(kind: ProfileImageKind) {
         if (!ready || busy || candidate != null) return
@@ -322,6 +334,21 @@ internal fun ProfileEditorScreen(wallet: SaitoWallet, backend: SaitoBackend, end
     val cache = remember(owner, backend) { AndroidProfileDetailsCache(activity.applicationContext, backend, owner) }
     val scope = rememberCoroutineScope()
     val state = remember(store, memory, wallet, endpoint, cache) { ProfileEditorState(store, memory, scope, wallet, endpoint, cache) }
+    val privateProfile = state.startingProfile
+    val frozen = state.candidate != null
+    val preview = when {
+        frozen -> privateProfile // Exact signed omissions must never fall back to public fields.
+        privateProfile == null -> profile
+        profile == null -> privateProfile
+        else -> key(state, privateProfile, profile) {
+            // New inputs create a new value, so an obsolete merge cannot be displayed or edited.
+            val merged by produceState<SaitoProfile?>(initialValue = null) {
+                value = withContext(Dispatchers.IO) { SaitoProfiles.merge(privateProfile, profile) }
+            }
+            merged
+        }
+    }
+    val previewReady = if (frozen) preview != null else privateProfile == null || profile == null || preview != null
     val session = "$owner:${backend.id}:$endpoint"
     var confirmingNewEdit by remember(session) { mutableStateOf(false) }
     var picking by rememberSaveable(session) { mutableStateOf<String?>(null) }
@@ -375,7 +402,7 @@ internal fun ProfileEditorScreen(wallet: SaitoWallet, backend: SaitoBackend, end
                 TextButton(enabled = ready && !busy, onClick = { close(onClose) }) { Text(stringResource(R.string.post_save_draft)) }
             }
             Text(stringResource(R.string.profile_draft_local), style = MaterialTheme.typography.bodySmall)
-            Button(enabled = ready && !busy && !available && !superseded && changes.size() > 0,
+            Button(enabled = ready && previewReady && !busy && !available && !superseded && changes.size() > 0,
                 onClick = { send(profile) }, modifier = Modifier.fillMaxWidth()) {
                 Text(stringResource(when {
                     candidate == null -> R.string.profile_save
@@ -396,17 +423,19 @@ internal fun ProfileEditorScreen(wallet: SaitoWallet, backend: SaitoBackend, end
                 Text(stringResource(R.string.profile_draft_error))
                 if (!ready) TextButton(onClick = { reload++ }) { Text(stringResource(R.string.retry)) }
             }
-            Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState())) {
+            if (!previewReady) Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = androidx.compose.ui.Alignment.Center) {
+                CircularProgressIndicator()
+            } else Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState())) {
                 if (imageError) Text(stringResource(R.string.image_prepare_failed))
                 if (preparingImage) Text(stringResource(R.string.image_preparing))
-                OutlinedTextField(value = bio(profile),
+                OutlinedTextField(value = bio(preview),
                     onValueChange = ::editBio, enabled = ready && !busy && candidate == null,
                     label = { Text(stringResource(R.string.profile_bio)) },
                     modifier = Modifier.fillMaxWidth().heightIn(min = 160.dp, max = 280.dp))
                 for (kind in ProfileImageKind.entries) {
                     TextButton(enabled = ready && !busy && candidate == null && picking == null,
                         onClick = { chooseImage(kind) }) { Text(stringResource(kind.changeLabel)) }
-                    val source = image(kind, profile)
+                    val source = image(kind, preview)
                     if (source != null) TextButton(enabled = ready && !busy && candidate == null && picking == null,
                         onClick = { removeImage(kind) }) { Text(stringResource(kind.removeLabel)) }
                     if (kind == ProfileImageKind.PICTURE) ProfileImage(source, kind, owner, backend, Modifier.size(96.dp))
