@@ -594,7 +594,6 @@ class PostPreviewTest {
         val root = instrumentation.context.assets.open("native-following-reference.json").bufferedReader().use {
             JsonParser.parseReader(it).asJsonObject.getAsJsonObject("root")
         }
-        val device = androidx.test.uiautomator.UiDevice.getInstance(instrumentation)
         val balances = mockwebserver3.MockWebServer()
         balances.dispatcher = object : mockwebserver3.Dispatcher() {
             override fun dispatch(request: mockwebserver3.RecordedRequest) = mockwebserver3.MockResponse.Builder()
@@ -620,7 +619,7 @@ class PostPreviewTest {
                 previous = store.loadExisting()
                 org.junit.Assert.assertNotEquals("jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR", displayedWalletAddress(ui))
                 ui.onNodeWithText("Import wallet").performClick()
-                chooseReferenceImport(device)
+                chooseReferenceImport()
                 waitFor("Server reports zero SAITO")
                 ui.onNodeWithText("Local drafts and posting records stay on this device with your current wallet. They are unavailable while another wallet is active and are not included in wallet exports. A post may already have reached its server even if availability is unconfirmed.")
                     .performScrollTo().assertIsDisplayed()
@@ -695,7 +694,7 @@ class PostPreviewTest {
                 ui.onNodeWithText("Back").performClick()
                 ui.onNodeWithText("Wallet").performClick()
                 ui.onNodeWithText("Import wallet").performClick()
-                chooseReferenceImport(androidx.test.uiautomator.UiDevice.getInstance(instrumentation))
+                chooseReferenceImport()
                 waitFor("Server reports zero SAITO")
                 ui.onNodeWithText("Skip backup").performScrollTo().performClick()
                 ui.onNodeWithContentDescription("Replacement risks acknowledged").performScrollTo().performClick()
@@ -735,31 +734,14 @@ class PostPreviewTest {
         }
     }
 
-    private fun chooseReferenceImport(device: androidx.test.uiautomator.UiDevice) {
-        val title = androidx.test.uiautomator.By.text(ExportTestDocumentsProvider.TITLE)
-        val file = androidx.test.uiautomator.By.text("reference-import.json")
-        val deadline = android.os.SystemClock.uptimeMillis() + 20_000
-        while (android.os.SystemClock.uptimeMillis() < deadline) {
-            try {
-                // Reacquire nodes after DocumentsUI replaces its accessibility tree.
-                device.findObject(file)?.let { it.click(); return }
-                val root = device.findObject(title)
-                if (root != null) {
-                    root.click()
-                    if (device.wait(androidx.test.uiautomator.Until.hasObject(file), 1_000) != true) {
-                        try { androidx.test.uiautomator.UiScrollable(androidx.test.uiautomator.UiSelector().scrollable(true))
-                            .scrollIntoView(androidx.test.uiautomator.UiSelector().text("reference-import.json")) }
-                        catch (_: androidx.test.uiautomator.UiObjectNotFoundException) { /* Retry the current picker tree. */ }
-                    }
-                } else device.findObject(androidx.test.uiautomator.By.desc("Show roots"))?.click()
-            } catch (_: androidx.test.uiautomator.StaleObjectException) { /* Observe the replacement tree on the next iteration. */ }
-            android.os.SystemClock.sleep(100)
+    private fun chooseReferenceImport() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        withFailureCapture({ captureNativeScreen(java.io.File(instrumentation.targetContext.cacheDir,
+            "posting-evidence/import-picker-failure.png")) }) {
+            val reference = java.io.File(instrumentation.context.filesDir, "wallet-test-documents/reference-import.json")
+            check(reference.isFile && reference.length() > 0) { "Reference import fixture was not provisioned" }
+            chooseWalletImport(ui, "reference-import.json", "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR")
         }
-        captureFeedEvidence("posting-evidence/import-picker-failure.png")
-        val evidence = java.io.File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
-            "posting-evidence/import-picker-failure.xml")
-        device.dumpWindowHierarchy(evidence)
-        error("Reference import was not visible in the selected test folder")
     }
 
     @Test fun longerMultilingualPostsPreserveTheirOriginalTextOnBothApprovedBackends() {
