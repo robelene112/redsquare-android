@@ -268,4 +268,15 @@
     <string name="search_limit">Search reached the local history limit. Only retained results are shown.</string>
     <string name="search_save_error">Some results could not be saved on this phone. They may be missing after closing the app.</string>
     <string name="search_username_error">Usernames could not be checked. Try Search history again.</string>
+    <string name="personal_title">Muted and blocked accounts</string>
+    <string name="personal_mute_account">Mute account</string>
+    <string name="personal_unmute_account">Unmute account</string>
+    <string name="personal_mute">Mute</string>
+    <string name="personal_cancel">Cancel</string>
+    <string name="personal_mute_detail">Mute hides this account\'s posts and social notifications. Chat messages remain available.</string>
+    <string name="personal_local_detail">These choices apply to your current wallet on both servers. They are saved only on this device. Importing a wallet on another device does not restore them.</string>
+    <string name="personal_empty">No muted or blocked accounts.</string>
+    <string name="personal_loading">Loading personal controls…</string>
+    <string name="personal_load_error">Personal controls could not be opened. Hidden content stays hidden. Retry to recover your saved choices.</string>
+    <string name="personal_save_error">Your change could not be saved. Try again.</string>
 </resources>

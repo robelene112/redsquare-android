@@ -50,6 +50,8 @@ import nl.davidengelen.redsquare.registry.UsernameScreen
 import nl.davidengelen.redsquare.registry.RegistryAuthority
 import nl.davidengelen.redsquare.registry.RegisteredIdentityScope
 import nl.davidengelen.redsquare.registry.LocalRegistryAuthority
+import nl.davidengelen.redsquare.moderation.PersonalControlsScope
+import nl.davidengelen.redsquare.moderation.PersonalControlsDialog
 
 class MainActivity : ComponentActivity() {
     private var walletExports: WalletExport? = null
@@ -84,6 +86,7 @@ class MainActivity : ComponentActivity() {
             var backend by remember { mutableStateOf<SaitoBackend?>(null) }
             var backendReady by remember { mutableStateOf(false) }
             var settingsOpen by remember { mutableStateOf(false) }
+            var personalControlsOpen by remember { mutableStateOf(false) }
             var usernameOpen by remember { mutableStateOf(false) }
             var savingBackend by remember { mutableStateOf(false) }
             var backendSaveError by remember { mutableStateOf(false) }
@@ -190,6 +193,7 @@ class MainActivity : ComponentActivity() {
             MaterialTheme {
                 CompositionLocalProvider(LocalVideoFixture provides VideoFixture.fromIntent(intent)) {
                 VideoPlaybackHost(address, backend) {
+                PersonalControlsScope(address) {
                 Surface(Modifier.fillMaxSize()) {
                     Column(Modifier.fillMaxSize().padding(16.dp)) {
                         Text(stringResource(R.string.app_name), style = MaterialTheme.typography.headlineMedium)
@@ -258,6 +262,10 @@ class MainActivity : ComponentActivity() {
                         title = { Text(stringResource(R.string.settings)) },
                         text = {
                             Column {
+                                TextButton(enabled = wallet != null, onClick = {
+                                    settingsOpen = false
+                                    personalControlsOpen = true
+                                }) { Text(stringResource(R.string.personal_title)) }
                                 TextButton(enabled = wallet != null && backend != null && !savingBackend, onClick = {
                                     savingBackend = true
                                     scope.launch {
@@ -304,6 +312,7 @@ class MainActivity : ComponentActivity() {
                             }
                         }
                     )
+                    if (personalControlsOpen) PersonalControlsDialog { personalControlsOpen = false }
                     if (walletOpen) AlertDialog(
                         onDismissRequest = { if (!walletImport.activating) {
                             walletExport.cancel(); walletImport.cancel(); walletOpen = false
@@ -395,6 +404,7 @@ class MainActivity : ComponentActivity() {
                             Text(stringResource(R.string.wallet_close_guide))
                         } }
                     )
+                }
                 }
                 }
                 }

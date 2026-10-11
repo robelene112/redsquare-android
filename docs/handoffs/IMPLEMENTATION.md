@@ -101,8 +101,11 @@ The primary native tracer is mute in Profile, switch approved backends, fresh
 offline Activity, manage/unmute and restore cached posts with the same wallet and
 zero transactions. Test compilationPASS1m20s. First RED38149454797 fails at missing Mute wait, but
 its capture ran after Activity closed. Corrected live-Activity capture compiles
-PASS1m16s; corrected native RED dispatch next. Product implementation
-not added yet. Scope/verification plan: NATIVE_PERSONAL_CONTROLS_VERIFICATION.md.
+PASS1m16s; corrected RED38150093643 fails at missing Mute on captured native
+Profile (1FAIL31.11s). Root views original/independent XML; both fixture review
+axes0 findings. Minimal saved-Mute/feed/Settings implementation compilesPASS2m14s;
+focused GREEN attempt next. Block, other-view filters and late-save recovery
+still require subsequent vertical journeys. Scope/verification plan: NATIVE_PERSONAL_CONTROLS_VERIFICATION.md.
 Read-only source preparation is ignored .scratch/personal-controls-plan.md.
 Preserve the seven future research files below.
 

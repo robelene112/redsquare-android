@@ -1,5 +1,7 @@
 package nl.davidengelen.redsquare.feed
 
+import nl.davidengelen.redsquare.moderation.AccountControls
+
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -228,6 +230,7 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
                     if (profileUnreadable) Text(stringResource(R.string.profile_unreadable), style = MaterialTheme.typography.bodySmall)
                     if (profileCacheWarning) Text(stringResource(R.string.profile_details_cache_warning), style = MaterialTheme.typography.bodySmall)
                     FollowingStatus(following)
+                    AccountControls(author)
                     Row {
                         ProfileTab.entries.forEach { item ->
                             TextButton(onClick = { view.tab = item }, modifier = Modifier.weight(1f),

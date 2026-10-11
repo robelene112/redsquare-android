@@ -1,6 +1,8 @@
 package nl.davidengelen.redsquare.feed
 
 import nl.davidengelen.redsquare.registry.registeredIdentity
+import nl.davidengelen.redsquare.moderation.LocalPersonalControls
+import nl.davidengelen.redsquare.moderation.PersonalControlsStatus
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.LocalActivity
 import androidx.lifecycle.ViewModelProvider
@@ -41,6 +43,7 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
     val activity = requireNotNull(LocalActivity.current) as ComponentActivity
     val context = activity.applicationContext
     val scope = rememberCoroutineScope()
+    val personal = LocalPersonalControls.current
     val social = remember(wallet, backend, endpoint) { wallet?.let { SocialState(context, it, backend, endpoint, scope) } }
     val quotes = remember(wallet, backend, endpoint) { QuoteState(context, wallet, backend, endpoint, scope) }
     val following = remember(wallet?.publicKey) { wallet?.let { FollowingState(context, it.publicKey, scope) } }
@@ -177,8 +180,8 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
         }
     }
     LaunchedEffect(recovered) { if (recovered) { delay(3_000); recovered = false } }
-    LaunchedEffect(posts.isNotEmpty()) {
-        if (posts.isNotEmpty()) { withFrameNanos { }; withFrameNanos { }; onDrawn() }
+    LaunchedEffect(posts.isNotEmpty(), personal?.ready) {
+        if (posts.isNotEmpty() && personal?.ready == true) { withFrameNanos { }; withFrameNanos { }; onDrawn() }
     }
     if (reviewingQueue && wallet != null) {
         QueuedPostsScreen(wallet.publicKey, backend, modifier) { reviewingQueue = false }
@@ -251,7 +254,9 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
         }
         TextButton(enabled = wallet != null, onClick = { reviewingQueue = true }) { Text(stringResource(R.string.post_queue_title)) }
         TextButton(enabled = wallet != null, onClick = { reviewingChanges = true }) { Text(stringResource(R.string.author_saved_changes)) }
-        val visiblePosts = if (followingView) posts.filter { it.author in following?.accounts.orEmpty() } else posts
+        val visiblePosts = posts.filter { post -> personal?.hidesPosts(post.author) == false &&
+            (!followingView || post.author in following?.accounts.orEmpty()) }
+        PersonalControlsStatus(personal)
         FollowingStatus(following)
         if (followingView) {
             Text(stringResource(R.string.following_local), style = MaterialTheme.typography.bodySmall)

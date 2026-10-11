@@ -53,3 +53,15 @@ corrected focused RED before adding product code. No visible-Profile/GREEN claim
 Capture-scoped fixture compilation PASS1m16s. No product source added. Corrected
 focused Android17 RED dispatch next; successful first source push38149448583 also
 passes core/debug/test/release/lint.
+
+Corrected native RED38150093643 atd4bf054:1FAIL31.11s at missing Mute account.
+Root views original native Profile bitmap and separately parses the hierarchy:
+actual author/reference post/Follow/Refresh present, Mute absent. Durable
+ ticket20/captured-red retains raw log/originals/4hashes. Both initial fixture
+review axes0 actionable findings. Later assertions remain unreached.
+First product tracer now implements only saved Mute, profile confirmation,
+feed filtering, backend-independent scope and Settings Unmute. Block, other-view
+filtering and durable late-save recovery follow further vertical native tests.
+
+First Mute implementation compile PASS2m14s. Focused native GREEN attempt next;
+no runtime acceptance asserted. No wallet options or transaction path modified.
