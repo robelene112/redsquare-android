@@ -245,17 +245,31 @@ ordinary controlled tests; no production transaction was broadcast.
 
 ## Active personal-controls recovery checkpoint
 
-Corrected six-case removal/recreation RED38158038045 at09f3f4f proves the
-Standards sequencing finding: five existing journeys pass; repaired fresh Activity
-exposes failed Unmute at526. Root inspected2originalPNG/separate2XML; durable
- ticket20/removal-red has6hashes. New journey repair/end gates not reached.
-Minimal fix retains encryptedowner-boundprevious-policyguard across all fallible
-writes/removal-sync, honors guardfirstonload, attempts guard/anchor/normalactive
-restoration independently preservingsecondaryerrors, deletesguardlast. Corrupt
-guard cannot fall back to updatedactive. CompilePASS2m5s; same unchanged6case
-Android17 GREEN next. No physicalpowerloss guarantee. After GREEN: actualpending
-save process-death, realSAF identityroundtrip, corruptpolicy/repair, whole-ticket
-review and pairedfull10/17 remain. #21 stays ACTIVE; no new APK or ticket closure.
+#21 remains active. Corrected removal/recreation RED38158038045 at09f3f4f
+reported six cases, five passes and one failure: repaired fresh Activity exposed
+failed Unmute at526. Root inspected both originals and separate XMLs;
+ ticket20/removal-red retains six hashes. The guard fix2473000 now passes the
+unchanged six-case GREEN38158906379 in95.631s with all final identity/no-TX gates.
+ ticket20/removal-green retains six hashes and both new original PNG/XML pairs
+individually inspected by root. Earlier five journeys retain their preceding
+captures. Source push38158898547 also passes. This proves controlled recovery
+failure and Activity reopening, not actual process death or physical power loss.
+
+The encrypted previous-policy guard remains authoritative through all fallible
+writes/removal sync. Guard, anchor and active restoration run independently;
+secondary errors remain attached. The guard is removed only at final publication.
+Both bounded reviews find no source defect; stale handoff wording is corrected.
+
+Actual pending-save process-death verification dd40a2c compiled in2m17s; both
+bounded review axes have zero findings. Run38159358286 is active. It requires an
+actual old-PID death, surviving encrypted guard metadata and new-process native
+UI recovery of distinct Mute/Block, independent explicit removals, unchanged
+wallet/backend/authenticated controlled peer and zero transactions. No recovery
+reset or private wallet content in artifacts. Runtime is not yet proved.
+
+Corrupt-policy/repair probe compiled PASS in1m16s; real SAF identity roundtrip, whole-ticket
+review and final paired full Android10/17 acceptance remain. Preserve seven future
+research files. No new APK or ticket closure.
 
 ## Outstanding external acceptance
 

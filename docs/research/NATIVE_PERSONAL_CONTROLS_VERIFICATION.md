@@ -295,3 +295,23 @@ choices retained, explicitUnblockkeepsMute/filter, explicitUnmuterestorespost,
 samewallet/backend/authenticatedpeer/zeroTX. Recoverydoesnotresetchoicesorwallet.
 No walletcontentreadintoartifacts. This isverificationofimplementedrecovery, not
 manufacturedRED; nativeprobe notyetdispatched/passed. Same6caseGREENfirst.
+
+Removed-anchor GREEN38158906379 at2473000:6PASS95.631s/allendgates including
+samewallet/authpeer/zeroTX. Rootviews2new originalPNG/separate2XML; removal-green
+6hashes. The unchangednewjourney nowretainsMute/filter afterrepairedfreshActivity,
+explicitUnmuterestorescachedroot. This remainsActivityreopeningnotprocessdeath.
+Sourcepush38158898547 at2473000 SUCCESS, verified actualrunlist.
+Separateactualprocessprobe38159358286 atdd40a2c active. BoundedStandardsprocess
+review0sourcefindings/stalehandofffixed; Specreviewpending. Lateridentity/corrupt/
+whole-review/finalpairedacceptancepending; #21ACTIVE/noAPK.
+
+Processprobe boundedreviews2473000...dd40a2c: both axes0 findings.
+Corruptactivepolicy/retryprobe is nextverificationofexistinggate; noforcedRED.
+
+Corruptpolicyprobe compilePASS1m16s. Sevenordinarycases nowinclude actualencrypted
+active-record authentication damage afterUI-savedMute; fresh knownowner UIerror,
+no authoredlist/content, boundedoriginalciphertext repairthenRetry, retainedMute/
+filter, explicitUnmute/samewallet/controlledkeys/noTX. Bytesstayboundedmemoryand
+cleared; cleanuprestoresonlyownedrecord/preservesprimary. Productunchanged;
+verificationprobe notforcedRED/no runtimeclaimyet. Processprobe38159358286atdd40
+stillruntimeactive; awaitbeforeexpandedfocuseddispatch. Identityroundtripnext.
