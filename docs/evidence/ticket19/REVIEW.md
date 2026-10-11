@@ -313,3 +313,19 @@ Existingimportfixture15a3986 compilationPASS1m24s, both bounded axes0 findings.
 Both reviewers verify failure4hashes and native-dialog observation; no exact
 timing cause claimed. Production/app/core/build-support/scripts/workflow diff
 since6c489bf is empty. Dispatch corrected outstanding full10; Android17continues.
+
+Corrected outstanding full10run38146223301 ACTIVE at0caebdac92af2e5104844034ba183b5ae97e4087.
+Android17full38145373388 still active at6c489bf; production/harness identical.
+No final acceptance yet.
+
+
+Second outstandingfull10run38146223301 at0caebda FAILED beforeSearch: posting
+18cases15PASS3FAIL76.329s, all atintroduceddirectFile metadata guard, before
+sharedchooserexecutes. Root viewedoriginalPNG(nativewalletmodal) andseparate
+XML(DocumentsUIRecent/testproviderentries); non-atomicwindowtransition, not
+provenmissingfile/provider. Rawlog/pair/README4hashes ticket19/full10-second-failure.
+Directinstrumentationprocess probe unreliableforotherappprivateproviderdir;
+ee70a83 uses establishedfixedrun-asstatpositiveSizeasusername/profilefixtures.
+Correction ee70a83 compiles PASS1m30s. Both bounded review axes report0
+residual findings and verify all4 second-failure hashes. No product changes;
+exactfirstcauseunproved. Dispatch the outstanding full10 after pushing.

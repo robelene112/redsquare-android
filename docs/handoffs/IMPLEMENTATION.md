@@ -90,7 +90,13 @@ posting process-death/cold PASS. Captured nativewalletdialog, no external picker
 or validated preview; exact timing cause unproved. Durable full10-first-failure.
 Fixture correction15a3986 reuses maintained chooseWalletImport with native
 Compose synchronization/scoped drawer/positive incoming preview and provisioned
-file/size check; all wallet/queue assertions remain. CompilationPASS1m24s/bothboundedaxes0; corrected outstanding full10 next.
+file/size check; all wallet/queue assertions remain. CompilationPASS1m24s/bothboundedaxes0; corrected outstanding full10run38146223301 FAILED at0caebda:
+posting18cases15PASS3FAIL76.329s, all at new direct File diagnostic before
+shared chooser executes. Second PNG(nativewallet)/XML(DocumentsUIRecent) are
+separate transition observations, not missing-file proof. Corrected ee70a83
+uses existing fixed run-as stat size under the .dev.test provider identity.
+CompilationPASS1m30s; both bounded axes0 residual findings and4hashes verified.
+Durable full10-second-failure. Corrected outstanding full10 dispatch next.
 Android17run38145373388 remains ACTIVE. Both full runs optedpublic reads.
 Do not cancel the unaudited Android17 run. After fix review/compile, dispatch the
 outstanding full10 scope; product source remains unchanged. Inspect retained full

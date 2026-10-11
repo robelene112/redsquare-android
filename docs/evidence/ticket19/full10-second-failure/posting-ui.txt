@@ -1,0 +1,344 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=18
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PostPreviewTest:
+INSTRUMENTATION_STATUS: test=matchingSignedArchiveObservationMakesThePublishedPostAvailableInTheFeed
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=18
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=matchingSignedArchiveObservationMakesThePublishedPostAvailableInTheFeed
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=18
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=failedImageDraftSavingKeepsItsPixelsAndServerUntilStorageRecovers
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=18
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=failedImageDraftSavingKeepsItsPixelsAndServerUntilStorageRecovers
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=18
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=replyKeepsItsSelectedParentThreadAndTextThroughActivityRecreation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=18
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=replyKeepsItsSelectedParentThreadAndTextThroughActivityRecreation
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=18
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=walletReplacementIsolatesAndRestoresPreparedImageDraftWithoutItsSource
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=18
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Reference import fixture was not provisioned
+	at nl.davidengelen.redsquare.PostPreviewTest.chooseReferenceImport$lambda$116(PostPreviewTest.kt:742)
+	at nl.davidengelen.redsquare.PostPreviewTest.$r8$lambda$qadL35HFv_wfYs7VfvCyRACygB0(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostPreviewTest$$ExternalSyntheticLambda70.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostPreviewTest.chooseReferenceImport(PostPreviewTest.kt:739)
+	at nl.davidengelen.redsquare.PostPreviewTest.walletDraftReplacement(PostPreviewTest.kt:622)
+	at nl.davidengelen.redsquare.PostPreviewTest.walletReplacementIsolatesAndRestoresPreparedImageDraftWithoutItsSource(PostPreviewTest.kt:588)
+
+INSTRUMENTATION_STATUS: stream=
+Error in walletReplacementIsolatesAndRestoresPreparedImageDraftWithoutItsSource(nl.davidengelen.redsquare.PostPreviewTest):
+java.lang.IllegalStateException: Reference import fixture was not provisioned
+	at nl.davidengelen.redsquare.PostPreviewTest.chooseReferenceImport$lambda$116(PostPreviewTest.kt:742)
+	at nl.davidengelen.redsquare.PostPreviewTest.$r8$lambda$qadL35HFv_wfYs7VfvCyRACygB0(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostPreviewTest$$ExternalSyntheticLambda70.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostPreviewTest.chooseReferenceImport(PostPreviewTest.kt:739)
+	at nl.davidengelen.redsquare.PostPreviewTest.walletDraftReplacement(PostPreviewTest.kt:622)
+	at nl.davidengelen.redsquare.PostPreviewTest.walletReplacementIsolatesAndRestoresPreparedImageDraftWithoutItsSource(PostPreviewTest.kt:588)
+
+INSTRUMENTATION_STATUS: test=walletReplacementIsolatesAndRestoresPreparedImageDraftWithoutItsSource
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=18
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=savedDraftSurvivesReopeningAndRemainsUnsent
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=18
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=savedDraftSurvivesReopeningAndRemainsUnsent
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=18
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=failedDraftSavingPreventsBackendNavigationAndRetainsEditableWork
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=18
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=failedDraftSavingPreventsBackendNavigationAndRetainsEditableWork
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=18
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=damagedEncryptedDraftRemainsUntouchedUntilStorageIsRepairedAndRetried
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=18
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=damagedEncryptedDraftRemainsUntouchedUntilStorageIsRepairedAndRetried
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=18
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=unfinishedCompositionSurvivesActivityRecreationBeforeAnySaveOrNavigation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=18
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unfinishedCompositionSurvivesActivityRecreationBeforeAnySaveOrNavigation
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=18
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=startingAnotherDraftRequiresConfirmationAndDoesNotClaimToRemoveTheUncertainPost
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=18
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=startingAnotherDraftRequiresConfirmationAndDoesNotClaimToRemoveTheUncertainPost
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=18
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aLegacyEncryptedTextDraftCanBeOpenedSavedAndRestoredWithoutPublishing
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=18
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aLegacyEncryptedTextDraftCanBeOpenedSavedAndRestoredWithoutPublishing
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=18
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=longerMultilingualPostsPreserveTheirOriginalTextOnBothApprovedBackends
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=18
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=longerMultilingualPostsPreserveTheirOriginalTextOnBothApprovedBackends
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=18
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=replyingToAnExistingReplyKeepsTheOriginalThreadAndInheritedRecipientOrder
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=18
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=replyingToAnExistingReplyKeepsTheOriginalThreadAndInheritedRecipientOrder
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=13
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=18
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=recoveredPendingPostRetriesItsOriginalSignatureAndClearsOnlyAfterVerifiedAvailability
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=13
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=18
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=recoveredPendingPostRetriesItsOriginalSignatureAndClearsOnlyAfterVerifiedAvailability
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=14
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=18
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=walletReplacementPausesQueuedWorkAndRestoringItsOwnerResumesTheOriginalIdentity
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=14
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=18
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Reference import fixture was not provisioned
+	at nl.davidengelen.redsquare.PostPreviewTest.chooseReferenceImport$lambda$116(PostPreviewTest.kt:742)
+	at nl.davidengelen.redsquare.PostPreviewTest.$r8$lambda$qadL35HFv_wfYs7VfvCyRACygB0(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostPreviewTest$$ExternalSyntheticLambda70.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostPreviewTest.chooseReferenceImport(PostPreviewTest.kt:739)
+	at nl.davidengelen.redsquare.PostPreviewTest.walletReplacementPausesQueuedWorkAndRestoringItsOwnerResumesTheOriginalIdentity(PostPreviewTest.kt:697)
+
+INSTRUMENTATION_STATUS: stream=
+Error in walletReplacementPausesQueuedWorkAndRestoringItsOwnerResumesTheOriginalIdentity(nl.davidengelen.redsquare.PostPreviewTest):
+java.lang.IllegalStateException: Reference import fixture was not provisioned
+	at nl.davidengelen.redsquare.PostPreviewTest.chooseReferenceImport$lambda$116(PostPreviewTest.kt:742)
+	at nl.davidengelen.redsquare.PostPreviewTest.$r8$lambda$qadL35HFv_wfYs7VfvCyRACygB0(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostPreviewTest$$ExternalSyntheticLambda70.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostPreviewTest.chooseReferenceImport(PostPreviewTest.kt:739)
+	at nl.davidengelen.redsquare.PostPreviewTest.walletReplacementPausesQueuedWorkAndRestoringItsOwnerResumesTheOriginalIdentity(PostPreviewTest.kt:697)
+
+INSTRUMENTATION_STATUS: test=walletReplacementPausesQueuedWorkAndRestoringItsOwnerResumesTheOriginalIdentity
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=15
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=18
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=walletReplacementExplainsLocalWorkAndNeverPublishesTheOutgoingWalletDraft
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=15
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=18
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Reference import fixture was not provisioned
+	at nl.davidengelen.redsquare.PostPreviewTest.chooseReferenceImport$lambda$116(PostPreviewTest.kt:742)
+	at nl.davidengelen.redsquare.PostPreviewTest.$r8$lambda$qadL35HFv_wfYs7VfvCyRACygB0(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostPreviewTest$$ExternalSyntheticLambda70.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostPreviewTest.chooseReferenceImport(PostPreviewTest.kt:739)
+	at nl.davidengelen.redsquare.PostPreviewTest.walletDraftReplacement(PostPreviewTest.kt:622)
+	at nl.davidengelen.redsquare.PostPreviewTest.walletReplacementExplainsLocalWorkAndNeverPublishesTheOutgoingWalletDraft(PostPreviewTest.kt:586)
+
+INSTRUMENTATION_STATUS: stream=
+Error in walletReplacementExplainsLocalWorkAndNeverPublishesTheOutgoingWalletDraft(nl.davidengelen.redsquare.PostPreviewTest):
+java.lang.IllegalStateException: Reference import fixture was not provisioned
+	at nl.davidengelen.redsquare.PostPreviewTest.chooseReferenceImport$lambda$116(PostPreviewTest.kt:742)
+	at nl.davidengelen.redsquare.PostPreviewTest.$r8$lambda$qadL35HFv_wfYs7VfvCyRACygB0(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostPreviewTest$$ExternalSyntheticLambda70.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostPreviewTest.chooseReferenceImport(PostPreviewTest.kt:739)
+	at nl.davidengelen.redsquare.PostPreviewTest.walletDraftReplacement(PostPreviewTest.kt:622)
+	at nl.davidengelen.redsquare.PostPreviewTest.walletReplacementExplainsLocalWorkAndNeverPublishesTheOutgoingWalletDraft(PostPreviewTest.kt:586)
+
+INSTRUMENTATION_STATUS: test=walletReplacementExplainsLocalWorkAndNeverPublishesTheOutgoingWalletDraft
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=16
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=18
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=invalidUnicodeNeverPublishesOrOverwritesTheLastSavedDraft
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=16
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=18
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=invalidUnicodeNeverPublishesOrOverwritesTheLastSavedDraft
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=17
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=18
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=unfinishedCompositionSurvivesBackendNavigationAndActivityRecreationWithoutPublishing
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=17
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=18
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unfinishedCompositionSurvivesBackendNavigationAndActivityRecreationWithoutPublishing
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=18
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=18
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=explicitSendBroadcastsAZeroPaymentPostWithoutInventingAcknowledgement
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPreviewTest
+INSTRUMENTATION_STATUS: current=18
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=18
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=explicitSendBroadcastsAZeroPaymentPostWithoutInventingAcknowledgement
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 76.329
+There were 3 failures:
+1) walletReplacementIsolatesAndRestoresPreparedImageDraftWithoutItsSource(nl.davidengelen.redsquare.PostPreviewTest)
+java.lang.IllegalStateException: Reference import fixture was not provisioned
+	at nl.davidengelen.redsquare.PostPreviewTest.chooseReferenceImport$lambda$116(PostPreviewTest.kt:742)
+	at nl.davidengelen.redsquare.PostPreviewTest.$r8$lambda$qadL35HFv_wfYs7VfvCyRACygB0(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostPreviewTest$$ExternalSyntheticLambda70.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostPreviewTest.chooseReferenceImport(PostPreviewTest.kt:739)
+	at nl.davidengelen.redsquare.PostPreviewTest.walletDraftReplacement(PostPreviewTest.kt:622)
+	at nl.davidengelen.redsquare.PostPreviewTest.walletReplacementIsolatesAndRestoresPreparedImageDraftWithoutItsSource(PostPreviewTest.kt:588)
+2) walletReplacementPausesQueuedWorkAndRestoringItsOwnerResumesTheOriginalIdentity(nl.davidengelen.redsquare.PostPreviewTest)
+java.lang.IllegalStateException: Reference import fixture was not provisioned
+	at nl.davidengelen.redsquare.PostPreviewTest.chooseReferenceImport$lambda$116(PostPreviewTest.kt:742)
+	at nl.davidengelen.redsquare.PostPreviewTest.$r8$lambda$qadL35HFv_wfYs7VfvCyRACygB0(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostPreviewTest$$ExternalSyntheticLambda70.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostPreviewTest.chooseReferenceImport(PostPreviewTest.kt:739)
+	at nl.davidengelen.redsquare.PostPreviewTest.walletReplacementPausesQueuedWorkAndRestoringItsOwnerResumesTheOriginalIdentity(PostPreviewTest.kt:697)
+3) walletReplacementExplainsLocalWorkAndNeverPublishesTheOutgoingWalletDraft(nl.davidengelen.redsquare.PostPreviewTest)
+java.lang.IllegalStateException: Reference import fixture was not provisioned
+	at nl.davidengelen.redsquare.PostPreviewTest.chooseReferenceImport$lambda$116(PostPreviewTest.kt:742)
+	at nl.davidengelen.redsquare.PostPreviewTest.$r8$lambda$qadL35HFv_wfYs7VfvCyRACygB0(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostPreviewTest$$ExternalSyntheticLambda70.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostPreviewTest.chooseReferenceImport(PostPreviewTest.kt:739)
+	at nl.davidengelen.redsquare.PostPreviewTest.walletDraftReplacement(PostPreviewTest.kt:622)
+	at nl.davidengelen.redsquare.PostPreviewTest.walletReplacementExplainsLocalWorkAndNeverPublishesTheOutgoingWalletDraft(PostPreviewTest.kt:586)
+
+FAILURES!!!
+Tests run: 18,  Failures: 3
+
+
+INSTRUMENTATION_CODE: -1
