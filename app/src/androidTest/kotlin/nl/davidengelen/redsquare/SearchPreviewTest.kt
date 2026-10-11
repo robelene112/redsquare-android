@@ -85,10 +85,13 @@ class SearchPreviewTest {
                     waitForText("Profile")
                     waitForText("NativeCase7@saito")
                     ui.onNodeWithText(named).assertIsDisplayed()
-                    if (ui.onAllNodesWithText("Unfollow").fetchSemanticsNodes().isEmpty()) {
-                        waitForEnabled("Follow")
-                        ui.onNodeWithText("Follow").performClick()
+                    ui.waitUntil(20_000) {
+                        ui.onAllNodes((hasText("Follow") or hasText("Unfollow")) and isEnabled()).fetchSemanticsNodes().isNotEmpty()
                     }
+                    if (ui.onAllNodes(hasText("Unfollow") and isEnabled()).fetchSemanticsNodes().isNotEmpty())
+                        ui.onNodeWithText("Unfollow").performClick()
+                    waitForEnabled("Follow")
+                    ui.onNodeWithText("Follow").performClick()
                     waitForEnabled("Unfollow")
                     ui.onNodeWithText("Back").performClick()
                     ui.onNode(hasSetTextAction()).performTextReplacement("NativeCase7")

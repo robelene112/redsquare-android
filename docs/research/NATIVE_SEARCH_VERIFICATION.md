@@ -269,3 +269,9 @@ then explicitly modelled absent public history between Activities while
 retaining actual Follow preference and verified public name cache. This isolates
 followed known people as the offline source, preserving wallet. Correctedtracer
 compile/RED pending; no native run was dispatched with the wrong copied address.
+
+Known-prefix traceredd3e21 corrected-literal compilation PASS1m19s. Spec0;
+Standards1 fixture sensitivity: prior Unfollow state could skip a fresh Follow
+action. Fix waits for an enabled loaded Follow/Unfollow, explicitly unfollows
+if necessary, then always Follow and requires enabled Unfollow after persistence.
+No runtime failure claim. Fix compile/re-review and native RED pending.

@@ -132,3 +132,9 @@ owner and outgoing-recipient checks reuse canonical point admission; wallet
 verify and admission share private decoder. Serialization/preimages/output
 ordering unchanged. Six keyGREEN hashes/raw5PASS82.727s/images/XML agree.
 Cleanup regression joins next known-prefix tracer.
+
+Known-prefix traceredd3e21 corrected-literal compilation PASS1m19s. Spec0;
+Standards1 fixture sensitivity: prior Unfollow state could skip a fresh Follow
+action. Fix waits for an enabled loaded Follow/Unfollow, explicitly unfollows
+if necessary, then always Follow and requires enabled Unfollow after persistence.
+No runtime failure claim. Fix compile/re-review and native RED pending.
