@@ -47,7 +47,7 @@ class ReportPreviewTest {
                     ui.onNodeWithText("Send report").assertIsEnabled().performClick()
                     ui.waitUntil(20_000) { ui.onAllNodesWithText("Report acknowledged by saito.davidengelen.nl. Moderator review is separate.").fetchSemanticsNodes().isNotEmpty() }
                     ui.onNodeWithText("Report acknowledged by saito.davidengelen.nl. Moderator review is separate.").assertIsDisplayed()
-                    capture("acknowledged-feed.png")
+                    capture("acknowledged-feed.png", "Report acknowledged by saito.davidengelen.nl. Moderator review is separate.")
                     peer.assertHealthy()
                     val frame = peer.reports.single()
                     assertEquals(12, frame[0].toInt())
@@ -90,7 +90,7 @@ class ReportPreviewTest {
                     ui.onNodeWithText(uncertain).assertIsDisplayed()
                     peer.assertHealthy()
                     val original = peer.reports.single().copyOfRange(5, peer.reports.single().size)
-                    capture("lost-acknowledgement.png")
+                    capture("lost-acknowledgement.png", uncertain)
                     activity.recreate()
                     waitFor(uncertain)
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText(uncertain))
@@ -119,5 +119,5 @@ class ReportPreviewTest {
         ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
     }
 
-    private fun capture(name: String) = captureNativeScreen(File(context.cacheDir, "report-evidence/$name"))
+    private fun capture(name: String, expectedText: String? = null) = captureNativeScreen(File(context.cacheDir, "report-evidence/$name"), expectedText)
 }

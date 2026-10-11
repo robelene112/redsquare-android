@@ -249,7 +249,23 @@ and ticket20/REVIEW.md. Earlier full10 stopped at existing lazy-profile
 pre-scroll/readiness fixtures; finalf0c6191 corrects all3tabs. No offscreen
 cache/deletion/timing cause was inferred. Preserve already accepted full17.
 
-#21 closed2026-10-11T19:17:39Z; final commit9ecb97b pushed. #22, Report posts to the selected backend, is ACTIVE/assigned. All blockers complete; review base9ecb97b. First TDD slice tests named confirmation, selected-peer signed RPC acknowledgement and retained post, at parent agreed seams1–4.
+#21 closed2026-10-11T19:17:39Z; final commit9ecb97b pushed. #22, Report posts
+to the selected backend, is ACTIVE/assigned. All blockers complete; review
+base9ecb97b. Parent agreed seams1–4 apply. First actual RED38167998216 atb4be908
+fails missing Report control with loaded root; root originalPNG/separateXML
+inspected. First GREEN38168632919 at567a8a9 passes1case2.999s: named confirmation,
+selected-peer signed type12/no broadcast/self output, strict correlated{} and
+retained post. Root2originals/separate2XML inspected. Actual native frame passes
+pinnedWASM/Elliptic and both pinned extracted handlers against resident/archive/
+absent adapters; even absent-target returns{}. No deployed/moderator/chain proof.
+Both bounded first-slice review axes0findings through567a8a9.
+
+Current HEAD0378129 introduces second vertical RED: lost acknowledgement then
+Activity.recreate must retain uncertainty, no auto send, and explicit exact-byte
+retry. Run38169041012 fails recovery at95:2cases/1PASS/1FAIL27.207s. Root3originals/separate3XML reveal acknowledged/unknown status text absent from native viewport despite Compose assertion passing. A new native text-presence gate is added before UI correction. No persistence product changes yet. Contracts and
+chronology NATIVE_REPORT_VERIFICATION.md; durable ticket21/first-red/first-green.
+Ticket22 remains incomplete: failure/durability/identity/backend isolation,
+actual process interruption and final both-SDK acceptance/reviews still required.
 Its source contract is prepared in NATIVE_DISCOVERY_MODERATION_CONTRACT.md and
 NATIVE_MODERATION_CONTRACTS.md. No parallel implementation or intermediate phone
 review gate. No new APK; stable version10/source5225d06 remains current.

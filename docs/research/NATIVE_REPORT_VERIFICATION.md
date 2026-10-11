@@ -39,3 +39,13 @@ raw runtime and independent frame/receiver results. Both first-slice source axes
 0findings. This proves the first success slice only, not durable failure/recovery.
 Next RED: lose acknowledgement after controlled peer receives the signed report,
 reopen, retain uncertainty with no auto-send and explicitly retry exact bytes.
+
+## Reopening RED and observed feedback visibility gap
+
+Android10 run38169041012 at0378129:2cases/1PASS/1FAIL27.207s. Recovery case
+fails at95 after Activity.recreate: unknown report state absent. Root separately
+inspected3originalPNG/3XML. Lost-acknowledgement and acknowledged-feed pixels
+and XML do not show status text even though Compose assertIsDisplayed passed.
+Added native UiDevice text-presence capture gate, before product correction.
+First GREEN does not establish visually available feedback. Recovery and native
+visibility are both still incomplete; exact layout cause remains undiagnosed.
