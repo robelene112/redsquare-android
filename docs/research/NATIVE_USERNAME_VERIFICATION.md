@@ -109,3 +109,34 @@ request is validated against author/registrar/module/name and saved/verified
 before send. Reopening is read-only; Retry first rechecks ownership and only sends
 the original candidate when still available. Native GREEN and review pending.
 No actual process-death, identity replacement, proof-cache or name-display claim.
+
+Both review axes for6bd3cb1...11348ee found one fixture selector issue: a disabled
+OutlinedTextField exposes its value without SetTextAction. Correction5bc5de4
+checks exact EditableText NativeCase7 and disabled state in both phases; reviewed
+with0 residual findings. Original run38114449227 on11348ee retained the actual
+failure: unavailablePASS, pending reached one emitted request/exact message/
+pending status before failing SetTextAction lookup at line102, total2cases,
+1failure/8.549s. Original failure PNG individually viewed and XML inspected show
+locked NativeCase7, Retry registration and pending message. It did not reach
+recreation/retry or frame-report persistence, so those remain unproved. Corrected
+focused10 dispatch on5bc5de4 pending; no production change or weakened value gate.
+
+Corrected5bc5de4 focused Android10 run38114695697 PASS2cases/8.858s, source/core/
+debug/test build37s. Pending exact locked name survives Activity recreation;
+reopening performs no broadcast, explicit Retry emits identical original frame,
+same public wallet. Actual captured frame independently verifies with pinned
+WASM0.3.2/hash + Elliptic6.6.1: transaction/routing signatures, one zero input,
+registrar-first/self-second zero outputs and exact detached envelope/top-level
+Registry message. It uses the generated emulator wallet, whose public identity
+and signatures are safe to retain. No namespace ownership/live inclusion follows.
+Raw log/PNGs/XML/public frame/independent report retained at first-pending-green.
+Both pending PNGs are byte-identical320x640, hash46dca2f6...e93014a0. First
+pending/full unavailable images individually viewed; reopened-path tool display
+was truncated despite byte identity. All three XMLs inspected. File identity
+establishes identical original pixels; no renderer/capture-timing cause claimed.
+
+Next tracer5c07260 uses the independent public unsafe1/2 proof to require exact
+confirmed name display, then cached-name recovery after unavailable checks with
+zero broadcasts. The explicit emulator-only fixture authority is not implemented
+yet and never implies actual Saito namespace ownership. Focused10 run38114940866
+awaits its native RED. Current production still trusts the published registrar.
