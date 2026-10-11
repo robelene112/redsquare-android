@@ -53,7 +53,12 @@ Android17 focused38133595364,1PASS14.052s, original log/PNG/XML ticket19/first-g
 Interim Standards1 stale-revision publication race guarded atcc590f0, final recheck
 pending; Spec1 next-tracer retention assertion gap corrected in working tests.
 Second partial-retry/paging tracer uses100 unique independent WASM posts plusolder/quote.
-Native second RED38134147254 atcc590f0 pending, Retry/paging intentionally absent.
+Native second RED38134147254 atcc590f0 fails only at missing Retry,45.209s,
+replytracerPASS withguard. Original log/PNG/XML ticket19/paging-red.
+Paging/retry implemented locally at42ebbb8, compilePASS2m58s; source fixes f1ebc3e
+prioritize matchingposts/stopat1000 with explicitlimit and scrollprependedquote.
+Both source axes clear f1ebc3e; updatedcompile/firstpagingGREEN pending.
+Review chronology ticket19/REVIEW.md.
 People, paging and durable search cache still pending; no #20 acceptance yet.
 Accepted seams1–4 unchanged.
 Search preparation ignored .scratch/search-design.md plus protected contract.
