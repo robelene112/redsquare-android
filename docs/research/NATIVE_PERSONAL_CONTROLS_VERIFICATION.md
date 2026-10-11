@@ -175,3 +175,19 @@ quote commentary and people/account-management access remain available. Known
 policy must be ready before authored content appears. Filtered Profile/root/quote
 copy explains why content is absent. No outgoing transaction path changed.
 Compile PASS2m22s; unchanged four-journey Android17 GREEN attempt next.
+
+Cross-view source review3aec9fa...c89a099: Spec0 actionable; Standards0 new
+hard/heuristic findings, prior Mute-helper judgment reserved for postGREEN.
+Both independently verify6REDhashes/originals. Unchanged four-test GREEN
+38155113079 atc89a099 is active. Source review is not runtime acceptance.
+
+First views GREEN attempt38155113079 atc89a099:4reported/3PASS1FAIL75.649s.
+Product gates pass through Profile/thread/quote/Search-post filtering, then exact
+person navigation fails atline388 because long editable query also scrolls.
+Root views5originalPNG/separate5XML; views-selector-failure12hashes. The actual
+person result is present. Exclude editable fields from that list selector;
+positive exact-person/display/navigation/end assertions remain unchanged.
+Offline/end gates unreached. Separatepush38155113301 source/release/lintPASS.
+No production source change; corrected fixture compile and fulljourney GREEN next.
+
+Corrected exact-person selector compilation PASS1m14s; unchanged4journey GREEN next.

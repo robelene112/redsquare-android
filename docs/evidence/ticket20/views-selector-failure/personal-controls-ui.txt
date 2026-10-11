@@ -1,0 +1,176 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PersonalControlsPreviewTest:
+INSTRUMENTATION_STATUS: test=unavailableWalletPreservesAnonymousReadingButDoesNotBypassSavedPersonalChoices
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unavailableWalletPreservesAnonymousReadingButDoesNotBypassSavedPersonalChoices
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=mutingSurvivesBackendChangesAndOfflineReopeningAndUnmutingRestoresCachedPosts
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=mutingSurvivesBackendChangesAndOfflineReopeningAndUnmutingRestoresCachedPosts
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=unblockingKeepsAnIntentionalMuteAcrossBackendChangesAndOfflineReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unblockingKeepsAnIntentionalMuteAcrossBackendChangesAndOfflineReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=mutedContentStaysHiddenAcrossProfileThreadQuotesSearchAndOfflineReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed: performScrollToNode((Text + InputText + EditableText contains 'jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR' (ignoreCase: false)) && (NOT (SetText is defined)))
+Reason: Expected exactly '1' node but found '2' nodes that satisfy: (ScrollBy is defined)
+Nodes found:
+1) Node #2148 at (l=16.0, t=316.0, r=304.0, b=380.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = 'jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@9cec9e0'
+Focused = 'true'
+ImeAction = 'Default'
+InputText = 'jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR'
+IsEditable = 'true'
+Text = '[Posts and people]'
+TextSelectionRange = 'TextRange(44, 44)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, MagnifierPositionInRoot, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, ScrollBy, ScrollByOffset, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 17 siblings
+2) Node #2167 at (l=16.0, t=540.0, r=304.0, b=624.0)px
+CollectionInfo = 'CollectionInfo(rowCount=1, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@ec3d2c7'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 1 child, 17 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.scrollToMatchingDescendantOrReturnScrollable(Actions.kt:276)
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:235)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.mutedContentStaysHiddenAcrossProfileThreadQuotesSearchAndOfflineReopening$lambda$37$lambda$34(PersonalControlsPreviewTest.kt:388)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.$r8$lambda$SQepGCD5bvjoxzoKLZS19qQp5TM(PersonalControlsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.withOpenApp(PersonalControlsPreviewTest.kt:427)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.mutedContentStaysHiddenAcrossProfileThreadQuotesSearchAndOfflineReopening(PersonalControlsPreviewTest.kt:325)
+
+INSTRUMENTATION_STATUS: stream=
+Error in mutedContentStaysHiddenAcrossProfileThreadQuotesSearchAndOfflineReopening(nl.davidengelen.redsquare.PersonalControlsPreviewTest):
+java.lang.AssertionError: Failed: performScrollToNode((Text + InputText + EditableText contains 'jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR' (ignoreCase: false)) && (NOT (SetText is defined)))
+Reason: Expected exactly '1' node but found '2' nodes that satisfy: (ScrollBy is defined)
+Nodes found:
+1) Node #2148 at (l=16.0, t=316.0, r=304.0, b=380.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = 'jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@9cec9e0'
+Focused = 'true'
+ImeAction = 'Default'
+InputText = 'jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR'
+IsEditable = 'true'
+Text = '[Posts and people]'
+TextSelectionRange = 'TextRange(44, 44)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, MagnifierPositionInRoot, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, ScrollBy, ScrollByOffset, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 17 siblings
+2) Node #2167 at (l=16.0, t=540.0, r=304.0, b=624.0)px
+CollectionInfo = 'CollectionInfo(rowCount=1, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@ec3d2c7'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 1 child, 17 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.scrollToMatchingDescendantOrReturnScrollable(Actions.kt:276)
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:235)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.mutedContentStaysHiddenAcrossProfileThreadQuotesSearchAndOfflineReopening$lambda$37$lambda$34(PersonalControlsPreviewTest.kt:388)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.$r8$lambda$SQepGCD5bvjoxzoKLZS19qQp5TM(PersonalControlsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.withOpenApp(PersonalControlsPreviewTest.kt:427)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.mutedContentStaysHiddenAcrossProfileThreadQuotesSearchAndOfflineReopening(PersonalControlsPreviewTest.kt:325)
+
+INSTRUMENTATION_STATUS: test=mutedContentStaysHiddenAcrossProfileThreadQuotesSearchAndOfflineReopening
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 75.649
+There was 1 failure:
+1) mutedContentStaysHiddenAcrossProfileThreadQuotesSearchAndOfflineReopening(nl.davidengelen.redsquare.PersonalControlsPreviewTest)
+java.lang.AssertionError: Failed: performScrollToNode((Text + InputText + EditableText contains 'jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR' (ignoreCase: false)) && (NOT (SetText is defined)))
+Reason: Expected exactly '1' node but found '2' nodes that satisfy: (ScrollBy is defined)
+Nodes found:
+1) Node #2148 at (l=16.0, t=316.0, r=304.0, b=380.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = 'jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@9cec9e0'
+Focused = 'true'
+ImeAction = 'Default'
+InputText = 'jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR'
+IsEditable = 'true'
+Text = '[Posts and people]'
+TextSelectionRange = 'TextRange(44, 44)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, MagnifierPositionInRoot, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, ScrollBy, ScrollByOffset, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 17 siblings
+2) Node #2167 at (l=16.0, t=540.0, r=304.0, b=624.0)px
+CollectionInfo = 'CollectionInfo(rowCount=1, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@ec3d2c7'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 1 child, 17 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.scrollToMatchingDescendantOrReturnScrollable(Actions.kt:276)
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:235)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.mutedContentStaysHiddenAcrossProfileThreadQuotesSearchAndOfflineReopening$lambda$37$lambda$34(PersonalControlsPreviewTest.kt:388)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.$r8$lambda$SQepGCD5bvjoxzoKLZS19qQp5TM(PersonalControlsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.withOpenApp(PersonalControlsPreviewTest.kt:427)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.mutedContentStaysHiddenAcrossProfileThreadQuotesSearchAndOfflineReopening(PersonalControlsPreviewTest.kt:325)
+
+FAILURES!!!
+Tests run: 4,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
