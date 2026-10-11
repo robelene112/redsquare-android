@@ -49,3 +49,14 @@ and XML do not show status text even though Compose assertIsDisplayed passed.
 Added native UiDevice text-presence capture gate, before product correction.
 First GREEN does not establish visually available feedback. Recovery and native
 visibility are both still incomplete; exact layout cause remains undiagnosed.
+
+## Actual native-feedback RED and correction
+
+Android10 run38169454650 at6160165:2FAIL24.452s, NativeScreenEvidence.kt:12
+text gate after Compose assertions. Root2originals/separate2XML inspected:
+required feedback absent. Earlier reopening RED remains separately valid.
+Result dialog correction is now implemented; native visible message gate and
+routing/receipt/retained-post assertions remain. Done dismisses result before
+navigation. Recovery opens its details via explicit Retry report, still requires
+retained unknown state and exact bytes/no auto send. Persistence is unchanged
+and expected to remain RED until its own next implementation slice.

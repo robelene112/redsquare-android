@@ -65,6 +65,7 @@ class ReportPreviewTest {
                     // Public signed transaction only, never wallet storage or private signing material.
                     File(context.cacheDir, "report-evidence/acknowledged-frame.b64").writeText(Base64.getEncoder().encodeToString(frame))
                     File(context.cacheDir, "report-evidence/acknowledged-envelope.json").writeText(candidate.envelope())
+                    ui.onNodeWithText("Done").performClick()
                     ui.clickVisiblePostContent("Native Red Square reference post")
                     ui.onNodeWithText("Conversation").assertIsDisplayed()
                     ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
@@ -86,30 +87,28 @@ class ReportPreviewTest {
                     ui.onNodeWithText("Send report").performClick()
                     val uncertain = "Report delivery to saito.davidengelen.nl is unknown. Try again to send the same report."
                     waitFor(uncertain)
-                    ui.onNode(hasScrollAction()).performScrollToNode(hasText(uncertain))
                     ui.onNodeWithText(uncertain).assertIsDisplayed()
                     peer.assertHealthy()
                     val original = peer.reports.single().copyOfRange(5, peer.reports.single().size)
                     capture("lost-acknowledgement.png", uncertain)
+                    ui.onNodeWithText("Done").performClick()
                     activity.recreate()
+                    ui.clickVisiblePostContent("Retry report")
                     waitFor(uncertain)
-                    ui.onNode(hasScrollAction()).performScrollToNode(hasText(uncertain))
                     ui.onNodeWithText(uncertain).assertIsDisplayed()
                     assertEquals(1, peer.reports.size)
-                    capture("reopened-uncertain.png")
+                    capture("reopened-uncertain.png", uncertain)
                     peer.disconnectAfterReport = false
-                    ui.clickVisiblePostContent("Retry report")
                     ui.onNodeWithText("Report to saito.davidengelen.nl?").assertIsDisplayed()
                     ui.onNodeWithText("Send report").performClick()
                     val acknowledged = "Report acknowledged by saito.davidengelen.nl. Moderator review is separate."
                     waitFor(acknowledged)
-                    ui.onNode(hasScrollAction()).performScrollToNode(hasText(acknowledged))
                     ui.onNodeWithText(acknowledged).assertIsDisplayed()
                     assertEquals(2, peer.reports.size)
                     val retry = peer.reports.last()
                     assertArrayEquals(original, retry.copyOfRange(5, retry.size))
                     assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
-                    capture("retry-acknowledged.png")
+                    capture("retry-acknowledged.png", acknowledged)
                 }
             }
         }
