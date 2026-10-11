@@ -266,15 +266,28 @@ fails recovery at95:2cases/1PASS/1FAIL27.207s. Root3originals/separate3XML revea
 acknowledged/unknown text absent from native viewport despite Compose assertion.
 Native text-presence gate6160165 then fails both cases in38169454650,24.452s;
 root2originals/separate2XML confirm absence. No exact layout cause is claimed.
-Latest product checkpoint75cd94b displays named result dialogs with Done and
-uncertainty in explicit Retry confirmation. Pending38169816452 verifies actual
-native visibility; persistence is intentionally unchanged/unfinished. Changed
+Product checkpoint75cd94b displays named result dialogs with Done and
+uncertainty in explicit Retry confirmation. Run38169816452 passes actual
+native visibility, then fails reopening at96:2cases/1PASS/1FAIL27.857s. Root
+individually inspected3originals and separate3XMLs. Changed
 test interaction dismisses a result before navigation and opens Retry details;
 all routing/receipt/no-removal/no-auto/exact-byte criteria stay in place.
 Contracts/chronology NATIVE_REPORT_VERIFICATION.md; durable ticket21/first-red,
-first-green, reopen-red and native-feedback-red. Both bounded correction review
-axes are in progress. One handoff stale-current-checkpoint finding is corrected
-here; code/source findings still pending.
+first-green, reopen-red, native-feedback-red and feedback-green-recovery-red.
+Both bounded correction review axes clear through887ba8c after correcting the
+stale handoff and a Buffer.slice alias in the independent negative check.
+Original native signature validation was valid, but the helper printed the
+modified specimen's hash. Buffer.from fixes the alias; both helpers rerun on
+the unchanged retained native frame pass, with independently checked original
+SHA2565b3f37002502f603c4456ff0646b7e18d56308d4fb826b197fec944e61eeeef6.
+
+Current minimal recovery implementation saves the exact signed intent before
+possible transmission, persists acknowledgement and reloads validated report
+state scoped to the original wallet/backend/post. It never resends on load.
+Unreadable details fail closed with reload rather than another intent. Local
+core/debug/instrumentation assembly passed in2m47s; focused runtime verification
+is next. Timeout/pre-transmission distinctions and interrupted-save/isolation
+coverage remain incomplete. These are development checkpoints, not acceptance.
 Ticket22 remains incomplete: failure/durability/identity/backend isolation,
 actual process interruption and final both-SDK acceptance/reviews still required.
 Its source contract is prepared in NATIVE_DISCOVERY_MODERATION_CONTRACT.md and

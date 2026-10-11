@@ -1,0 +1,70 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ReportPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ReportPreviewTest:
+INSTRUMENTATION_STATUS: test=lostAcknowledgementSurvivesReopeningAndRetryUsesTheSameSignedReport
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ReportPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PostListTestUiKt.clickVisiblePostContent(PostListTestUi.kt:8)
+	at nl.davidengelen.redsquare.ReportPreviewTest.lostAcknowledgementSurvivesReopeningAndRetryUsesTheSameSignedReport$lambda$14$lambda$13$lambda$12(ReportPreviewTest.kt:96)
+	at nl.davidengelen.redsquare.ReportPreviewTest.$r8$lambda$qn4nisJo00_OP7ZdSVx_SXxquyo(Unknown Source:0)
+	at nl.davidengelen.redsquare.ReportPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ReportPreviewTest.lostAcknowledgementSurvivesReopeningAndRetryUsesTheSameSignedReport(ReportPreviewTest.kt:85)
+
+INSTRUMENTATION_STATUS: stream=
+Error in lostAcknowledgementSurvivesReopeningAndRetryUsesTheSameSignedReport(nl.davidengelen.redsquare.ReportPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PostListTestUiKt.clickVisiblePostContent(PostListTestUi.kt:8)
+	at nl.davidengelen.redsquare.ReportPreviewTest.lostAcknowledgementSurvivesReopeningAndRetryUsesTheSameSignedReport$lambda$14$lambda$13$lambda$12(ReportPreviewTest.kt:96)
+	at nl.davidengelen.redsquare.ReportPreviewTest.$r8$lambda$qn4nisJo00_OP7ZdSVx_SXxquyo(Unknown Source:0)
+	at nl.davidengelen.redsquare.ReportPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ReportPreviewTest.lostAcknowledgementSurvivesReopeningAndRetryUsesTheSameSignedReport(ReportPreviewTest.kt:85)
+
+INSTRUMENTATION_STATUS: test=lostAcknowledgementSurvivesReopeningAndRetryUsesTheSameSignedReport
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ReportPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=confirmedReportGoesOnlyToNamedBackendAndAcknowledgementDoesNotRemovePost
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ReportPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=confirmedReportGoesOnlyToNamedBackendAndAcknowledgementDoesNotRemovePost
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 27.857
+There was 1 failure:
+1) lostAcknowledgementSurvivesReopeningAndRetryUsesTheSameSignedReport(nl.davidengelen.redsquare.ReportPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PostListTestUiKt.clickVisiblePostContent(PostListTestUi.kt:8)
+	at nl.davidengelen.redsquare.ReportPreviewTest.lostAcknowledgementSurvivesReopeningAndRetryUsesTheSameSignedReport$lambda$14$lambda$13$lambda$12(ReportPreviewTest.kt:96)
+	at nl.davidengelen.redsquare.ReportPreviewTest.$r8$lambda$qn4nisJo00_OP7ZdSVx_SXxquyo(Unknown Source:0)
+	at nl.davidengelen.redsquare.ReportPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ReportPreviewTest.lostAcknowledgementSurvivesReopeningAndRetryUsesTheSameSignedReport(ReportPreviewTest.kt:85)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

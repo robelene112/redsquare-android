@@ -68,3 +68,19 @@ PASS; independent Python SHA matches both corrected reports (5b3f3700...eeeef6).
 Original signature validation preceded tampering and was valid; original output
 hash was defective, not evidence that a different specimen was sent. No native
 source or routing assertion changed. See corrected first-green README/manifests.
+
+## Feedback GREEN, recovery RED, next durable correction
+
+Android10 run38169816452 at75cd94b:2cases/1PASS/1FAIL27.857s. Native ack and
+unknown text gates now pass. Reopening still fails at96 waiting for Retry report.
+Root3originals/separate3XML prove both complete named feedback dialogs and the
+reopened ordinary Report action. Durable feedback-green-recovery-red retains
+qualified raw evidence. Bounded UI/evidence review axes clear through887ba8c
+after2Standards fixes. This is not whole ticket acceptance.
+
+Next minimal correction saves exact signed candidate before possible send,
+records handler acknowledgement, reloads validated wallet/backend/post-scoped
+state and requires explicit Retry after reopening. Unreadable saved details
+fail closed with reload, without silently creating another signed intent.
+Timeout/pre-transmission distinctions, interrupted saving, identity/backend
+isolation, actual process death and paired full acceptance remain unfinished.

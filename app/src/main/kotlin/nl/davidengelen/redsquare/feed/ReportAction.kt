@@ -13,11 +13,12 @@ import nl.davidengelen.redsquare.saito.FeedPost
 @Composable
 internal fun ReportAction(post: FeedPost, state: ReportState?) {
     if (state == null || !state.canReport(post)) return
+    LaunchedEffect(state, post.id) { state.load(post) }
     val status = state.statuses[post.id]
     var confirming by rememberSaveable(post.id) { mutableStateOf(false) }
     var showingResult by rememberSaveable(post.id) { mutableStateOf(false) }
-    TextButton(enabled = status?.busy != true, onClick = {
-        if (status?.acknowledged == true) showingResult = true else confirming = true
+    TextButton(enabled = (status?.ready == true || status?.failed == true) && status?.busy != true, onClick = {
+        if (status?.acknowledged == true || status?.ready != true) showingResult = true else confirming = true
     }) { Text(stringResource(when {
         status?.acknowledged == true -> R.string.report_details
         status?.candidate != null -> R.string.report_retry
@@ -36,10 +37,17 @@ internal fun ReportAction(post: FeedPost, state: ReportState?) {
     if (showingResult) AlertDialog(onDismissRequest = { showingResult = false },
         title = { Text(stringResource(R.string.report_result_title, state.backend.domain)) },
         text = { Text(stringResource(when {
+            status?.ready != true && status?.failed == true -> R.string.report_load_error
+            status?.ready != true -> R.string.report_loading
             status?.acknowledged == true -> R.string.report_acknowledged
             status?.failed == true -> R.string.report_uncertain
             else -> R.string.report_sending
         }, state.backend.domain)) },
-        confirmButton = { TextButton(enabled = status?.busy != true,
-            onClick = { showingResult = false }) { Text(stringResource(R.string.done)) } })
+        confirmButton = { Column {
+            if (status?.ready != true && status?.failed == true) TextButton(onClick = { state.retryLoad(post) }) {
+                Text(stringResource(R.string.retry))
+            }
+            TextButton(enabled = status?.busy != true,
+                onClick = { showingResult = false }) { Text(stringResource(R.string.done)) }
+        } })
 }

@@ -298,4 +298,6 @@
     <string name="report_retry">Retry report</string>
     <string name="report_details">Report details</string>
     <string name="report_result_title">Report to %1$s</string>
+    <string name="report_load_error">Report details for %1$s could not be opened. Retry to reload them. Nothing new has been sent.</string>
+    <string name="report_loading">Opening report details for %1$s...</string>
 </resources>
