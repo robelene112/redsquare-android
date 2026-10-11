@@ -58,7 +58,7 @@ compile RED23s, focused GREEN45s (one case). Directed registration-byte tracer c
 RED28s at the old first-output requirement, followed by all52 core cases and
 debug/test assembly GREEN2m18s. New internal directed constructor preserves old
 social bytes; restore still requires an own output, zero amounts and a verified
-signature. No native username UI/persistence or feature completion yet. Both
+signature. Core milestone only; later native checkpoints are described below. #19 remains open. Both
 reference generators run pure pinned WASM/Elliptic with public unsafe fixtures.
 Registry core production default is the published registrar; an explicitly
 supplied scalar2 test authority is not actual Saito namespace ownership.
@@ -68,6 +68,18 @@ but read-only namechecks for valid unknown and known names returned
 no registrar connectivity cause is proven and no node change is authorized.
 Exact scratch read-only results/client are preserved. Implement controlled
 compatible registration and truthful unresolved recovery; no live registration.
+
+#19 native checkpoints: unavailable flow PASS38113786054; pending immutable
+request/recreation/read-only reopen/exact retry PASS38114695697, with actual
+frame independently verified by pinned WASM/Elliptic. Confirmation tracer
+RED38114940866 rejects synthetic proof under the production authority as expected.
+Current minimal cache/authority implementation compiles debug/test in2m9s;
+review/focused runtime pending. Verified-name cache is separate from immutable
+request state and preserves saved knowledge through unavailable checks. Emulator
+fixture authority is strictly debug/loopback/explicit, never real namespace proof.
+See username verification and ticket18 evidence. Remaining #19 work includes
+actual-send confirmation, failure/isolation/import safeguards, shared display,
+actual process death and applicable cross-client/full SDK acceptance.
 
 Protected untracked future research must stay out of #19 commits:
 discovery/moderation, notifications, transfers, private/group Chat contracts and

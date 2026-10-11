@@ -8,7 +8,7 @@ import nl.davidengelen.redsquare.saito.*
 
 /** One immutable signed request per wallet/server. Reopening cannot sign a replacement. */
 internal class UsernameRequestStore(private val context: Context, private val owner: String,
-    private val backend: SaitoBackend) {
+    private val backend: SaitoBackend, private val registrar: String = SaitoRegistry.REGISTRAR) {
     init { require(owner.matches(Regex("[1-9A-HJ-NP-Za-km-z]{43,45}"))) }
     private val file = EncryptedLocalFile(context, "namerequest.${backend.id}.$owner.v1",
         "redsquare.namerequest.v1", "namerequest.")
@@ -37,7 +37,7 @@ internal class UsernameRequestStore(private val context: Context, private val ow
 
     private fun validate(transaction: SaitoTransaction) {
         val signed = SaitoEnvelope.decode(transaction.envelope())
-        require(signed.author == owner && signed.recipients == listOf(SaitoRegistry.REGISTRAR, owner))
+        require(signed.author == owner && signed.recipients == listOf(registrar, owner))
         require(signed.body.keySet() == setOf("module", "request", "identifier"))
         require(signed.body.get("module").asString == "Registry" && signed.body.get("request").asString == "register")
         val identifier = signed.body.get("identifier")

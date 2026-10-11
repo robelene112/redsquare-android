@@ -240,4 +240,7 @@
     <string name="username_pending_unavailable">Registration confirmation could not be checked. Your saved request is retained. Try again.</string>
     <string name="username_save_error">Username request could not be saved. Nothing new was sent. Try again.</string>
     <string name="username_load_error">Saved username request could not be opened. Try again.</string>
+    <string name="username_cached">Saved username: %1$s</string>
+    <string name="username_cache_error">Your username was verified but could not be saved. Recovery on this device is not yet verified.</string>
+    <string name="username_not_reconfirmed">Your saved username was not found on this server. It has been kept on this device.</string>
 </resources>

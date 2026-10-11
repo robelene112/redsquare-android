@@ -47,6 +47,7 @@ import nl.davidengelen.redsquare.feed.LocalVideoFixture
 import nl.davidengelen.redsquare.feed.VideoFixture
 import nl.davidengelen.redsquare.feed.VideoPlaybackHost
 import nl.davidengelen.redsquare.registry.UsernameScreen
+import nl.davidengelen.redsquare.registry.RegistryAuthority
 
 class MainActivity : ComponentActivity() {
     private var walletExports: WalletExport? = null
@@ -227,7 +228,9 @@ class MainActivity : ComponentActivity() {
                         if (usernameOpen && wallet != null && backend != null) {
                             key(wallet!!.publicKey, backend) {
                                 CompositionLocalProvider(LocalPostNavigation provides postNavigation) {
-                                UsernameScreen(wallet!!, backend!!, FeedEndpoints.fromIntent(intent, backend!!), Modifier.weight(1f)) {
+                                val usernameEndpoint = FeedEndpoints.fromIntent(intent, backend!!)
+                                UsernameScreen(wallet!!, backend!!, usernameEndpoint,
+                                    RegistryAuthority.fromIntent(intent, usernameEndpoint), Modifier.weight(1f)) {
                                     usernameOpen = false
                                 }
                                 }

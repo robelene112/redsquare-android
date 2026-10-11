@@ -140,3 +140,20 @@ confirmed name display, then cached-name recovery after unavailable checks with
 zero broadcasts. The explicit emulator-only fixture authority is not implemented
 yet and never implies actual Saito namespace ownership. Focused10 run38114940866
 awaits its native RED. Current production still trusts the published registrar.
+
+Confirmation tracer actual RED38114940866 on5c07260: three cases, existing two
+PASS, confirmation times out at owned status line160; total32.8s/one failure.
+Original PNG individually viewed/XML inspected show unavailable response. The
+published authority correctly rejects the synthetic scalar2 proof; no ownership
+or cache-recovery assertion reached. Verbatim log/PNG/XML with hashes retained
+at first-confirmation-red. Sensitivity fixac30571 additionally requires a real
+namecheck before and after recovery; review reports0 residual findings.
+
+Minimal confirmation implementation now compiles: debug/test assembly2m9s.
+Production retains the published registrar. An explicit debug-emulator loopback
+fixture can use only the independent public scalar2 authority. Verified own active
+proofs are saved encrypted with source/time metadata and revalidated when loaded.
+Reopening checks read-only, retains the saved name during unavailable checks and
+never describes an unavailable check as current ownership confirmation. Native
+GREEN, review and actual-send confirmation remain pending. Other wallet-import,
+process-death and name-display acceptance remains incomplete; #19 stays open.

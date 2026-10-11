@@ -18,12 +18,13 @@ import nl.davidengelen.redsquare.saito.SaitoWallet
 
 /** Optional Registry UI. Opening it only loads and reconciles existing work. */
 @Composable
-internal fun UsernameScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: String,
+internal fun UsernameScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: String, registrar: String,
     modifier: Modifier, onClose: () -> Unit) {
     val context = LocalContext.current.applicationContext
     val scope = rememberCoroutineScope()
-    val state = remember(wallet, backend, endpoint) {
-        UsernameState(wallet, endpoint, UsernameRequestStore(context, wallet.publicKey, backend), scope)
+    val state = remember(wallet, backend, endpoint, registrar) {
+        UsernameState(wallet, endpoint, backend, registrar, UsernameRequestStore(context, wallet.publicKey, backend, registrar),
+            RegisteredNameStore(context, wallet.publicKey, registrar), scope)
     }
     val navigation = requireNotNull(LocalPostNavigation.current)
     DisposableEffect(state) {
@@ -42,18 +43,24 @@ internal fun UsernameScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint
                 Text(stringResource(R.string.username_load_error))
                 Button(onClick = { scope.launch { load() } }) { Text(stringResource(R.string.retry)) }
             }
-            OutlinedTextField(value = name, enabled = ready && !busy && candidate == null, singleLine = true,
+            if (currentName?.publicKey == wallet.publicKey && currentName?.active == true) {
+                Text(currentName!!.identifier)
+            } else savedName?.let { Text(stringResource(R.string.username_cached, it.name.identifier)) }
+            if (cacheError) Text(stringResource(R.string.username_cache_error))
+            OutlinedTextField(value = name, enabled = ready && !busy && candidate == null && savedName == null, singleLine = true,
                 onValueChange = ::edit, label = { Text(stringResource(R.string.username_label)) },
                 supportingText = { Text(stringResource(R.string.username_rules)) }, modifier = Modifier.fillMaxWidth())
             if (candidate == null) {
                 Button(enabled = ready && !busy, onClick = ::check) {
                     Text(stringResource(if (busy) R.string.username_checking else R.string.username_check))
                 }
-                if (available) Button(enabled = ready && !busy, onClick = ::register) {
+                if (available && savedName == null) Button(enabled = ready && !busy, onClick = ::register) {
                     Text(stringResource(R.string.username_register))
                 }
+            } else if (savedName == null) {
+                Button(enabled = ready && !busy && currentName == null, onClick = ::register) { Text(stringResource(R.string.username_retry)) }
             } else {
-                Button(enabled = ready && !busy, onClick = ::register) { Text(stringResource(R.string.username_retry)) }
+                Button(enabled = ready && !busy, onClick = ::check) { Text(stringResource(R.string.username_check)) }
             }
             status?.let { Text(stringResource(it)) }
         }
