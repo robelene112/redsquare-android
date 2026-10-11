@@ -360,6 +360,14 @@ process-green15hashes. Earlier waitcause remainshypothesis. Both bounded
 sourcefix/evidence reviews0. Nextsinglecorruptionfixture requires failclosed
 reload/repair/originalexplicitretry; runtimepending. Walletreplacement and
 finalpairedacceptance stillrequired.
+Corruption38175250800 ate37305e passesordinary8cases53.327s plus
+coldrecovery1case5.071s. Root3corruption originals/separate3XMLs show
+failclosed/repairedunknown/exactexplicitack; corrupt-green9hashes. Both
+boundedreviews0. NextsingleactualSAFwalletreplacementcase authenticates
+originalbackup, isolatesincomingreport state/reopening, restoresoriginalviaSAF
+and explicitlyretriesoriginalsignedreport. Onlypublicscalar2/3fixtures
+provisioned; privateoriginalbackupmemory/filesnever retainedinevidence.
+Wallet runtimepending, newclassbudget180s for53.327s8cases+auth/imports.
 Ticket22 remains incomplete: failure/durability/identity/backend isolation,
 actual process interruption and final both-SDK acceptance/reviews still required.
 Its source contract is prepared in NATIVE_DISCOVERY_MODERATION_CONTRACT.md and

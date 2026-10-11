@@ -393,7 +393,14 @@ fi
 if [[ "${TEST_SCOPE:-full}" == full ]]; then verify_personal_controls; fi
 verify_reports() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
-    timeout 90 adb shell am instrument -w -r \
+    # Public unsafe fixtures in the actual document-provider UID, never owner wallets.
+    adb shell run-as nl.davidengelen.redsquare.dev.test mkdir -p files/wallet-test-documents
+    printf '%s' '{"wallet":{"version":5.677,"publicKey":"pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU","privateKey":"0000000000000000000000000000000000000000000000000000000000000002"},"reportFixtureExtension":{"opaque":"retain-this-opaque-option"}}' | \
+        adb shell run-as nl.davidengelen.redsquare.dev.test tee files/wallet-test-documents/00-report-import-2.json > /dev/null
+    printf '%s' '{"wallet":{"version":5.677,"publicKey":"tENBoQttzyKaCW6d61tQjceaVA3GsZ2WrBLngrYHcXEx","privateKey":"0000000000000000000000000000000000000000000000000000000000000003"},"reportFixtureExtension":{"opaque":"retain-this-opaque-option"}}' | \
+        adb shell run-as nl.davidengelen.redsquare.dev.test tee files/wallet-test-documents/00-report-import-3.json > /dev/null
+    # Eight cases take53.327s; add authenticated backup and two real SAF imports.
+    timeout 180 adb shell am instrument -w -r \
         -e class nl.davidengelen.redsquare.ReportPreviewTest \
         nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
         > "$evidence/reports-ui.txt" || true

@@ -1,10 +1,13 @@
 package nl.davidengelen.redsquare
 
 import android.content.Intent
+import android.app.KeyguardManager
+import android.provider.DocumentsContract
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.uiautomator.UiDevice
 import com.google.gson.JsonParser
 import nl.davidengelen.redsquare.saito.*
 import org.junit.Assert.*
@@ -14,6 +17,7 @@ import org.junit.Test
 import java.io.File
 import java.nio.ByteBuffer
 import java.util.Base64
+import java.util.UUID
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicReference
 
@@ -451,6 +455,168 @@ class ReportPreviewTest {
                     finally { repair(failure) }
                 }
             }
+        }
+    }
+
+    @Test fun authenticatedWalletReplacementIsolatesReportsAndRestorationRecoversTheOriginalRetry() {
+        val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+        val keyguard = context.getSystemService(KeyguardManager::class.java)
+        assertFalse(keyguard.isDeviceSecure)
+        val root = InstrumentationRegistry.getInstrumentation().context.assets.open("native-feed-reference.json")
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow") }
+        // Bootstrap through the real app if this case is first on a focused installation.
+        ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            .putExtra("feedDisabled", true)).use {
+            withFailureCapture({ capture("identity-bootstrap-failure.png") }) {
+                waitFor("Wallet")
+                ui.onNodeWithText("Wallet").performClick()
+                displayedWalletAddress(ui)
+                ui.onNodeWithText("Done").performClick()
+            }
+        }
+        val walletStore = AndroidWalletStore(context)
+        val originalWallet = walletStore.loadExisting()
+        val scalar = if (originalWallet.publicKey == "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU") "3" else "2"
+        val incoming = SaitoWallet.fromPrivateKey("0".repeat(63) + scalar) // Public unsafe fixture only.
+        assertNotEquals(originalWallet.publicKey, incoming.publicKey)
+        assertNotEquals(root.get("field2").asString, incoming.publicKey)
+        val incomingFile = "00-report-import-$scalar.json"
+        check(device.executeShellCommand("run-as nl.davidengelen.redsquare.dev.test stat -c %s files/wallet-test-documents/$incomingFile")
+            .trim().toLongOrNull()?.let { it > 0 } == true)
+        val backupFile = "00-report-original-${UUID.randomUUID()}.json"
+        val backupUri = DocumentsContract.buildDocumentUri(ExportTestDocumentsProvider.AUTHORITY, backupFile)
+        val peer = ControlledFeedPeer("[$root]").apply { disconnectAfterReport = true }
+        val balanceServer = mockwebserver3.MockWebServer().apply {
+            dispatcher = object : mockwebserver3.Dispatcher() {
+                override fun dispatch(request: mockwebserver3.RecordedRequest) = mockwebserver3.MockResponse.Builder()
+                    .body("${System.currentTimeMillis()}-1234-${"a".repeat(64)}.snap\n").build()
+            }
+            start(java.net.InetAddress.getByName("127.0.0.1"), 0)
+        }
+        var failure: Throwable? = null
+        try {
+            device.executeShellCommand("locksettings set-pin --user 0 $EXPORT_TEST_PIN")
+            ui.waitUntil(10_000) { keyguard.isDeviceSecure }
+            peer.start().use { server ->
+                val intent = Intent(context, MainActivity::class.java)
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                    .putExtra("balanceApiUrl", "http://127.0.0.1:${balanceServer.port}/balance/")
+                ActivityScenario.launch<MainActivity>(intent).use {
+                    withFailureCapture({ capture("identity-replacement-failure.png") }) {
+                        ui.clickVisiblePostContent("Report")
+                        ui.onNodeWithText("Send report").performClick()
+                        val unknown = "Report delivery to saito.davidengelen.nl is unknown. Try again to send the same report."
+                        waitFor(unknown)
+                        val frame = peer.reports.single()
+                        val original = frame.copyOfRange(5, frame.size)
+                        assertEquals(originalWallet.publicKey, SaitoEnvelope.decode(SaitoTransaction.restore(
+                            Base64.getEncoder().encodeToString(original)).envelope()).author)
+                        ui.onNodeWithText("Done").performClick()
+                        ui.onNodeWithText("Wallet").performClick()
+                        assertEquals(originalWallet.publicKey, displayedWalletAddress(ui))
+                        ui.onNodeWithText("Import wallet").performScrollTo().performClick()
+                        chooseWalletImport(ui, incomingFile, incoming.publicKey)
+                        ui.onNodeWithContentDescription("Replacement risks acknowledged").performScrollTo().assertIsOff()
+                        ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsNotEnabled()
+                        ui.onNodeWithText("Back up current wallet").performScrollTo().performClick()
+                        chooseTestBackup(device, backupFile)
+                        enterRealSystemPin(device)
+                        waitFor("Current wallet backed up for this replacement")
+                        // Keep private backup bytes only in bounded memory, never logs/artifacts.
+                        val bytes = requireNotNull(context.contentResolver.openInputStream(backupUri)).use { stream ->
+                            val buffer = ByteArray(SaitoWallet.MAX_BACKUP_BYTES + 1)
+                            try {
+                                var size = 0
+                                while (size < buffer.size) {
+                                    val count = stream.read(buffer, size, buffer.size - size)
+                                    if (count < 0) break
+                                    check(count > 0); size += count
+                                }
+                                check(size in 1..SaitoWallet.MAX_BACKUP_BYTES)
+                                buffer.copyOf(size)
+                            } finally { buffer.fill(0) }
+                        }
+                        try { assertTrue("Authenticated backup must retain all original options",
+                            JsonParser.parseString(originalWallet.exportJson()) == JsonParser.parseString(bytes.toString(Charsets.UTF_8))) }
+                        finally { bytes.fill(0) }
+                        ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsNotEnabled()
+                        capture("identity-backed-up-consent.png", "Current wallet backed up for this replacement")
+                        ui.onNodeWithContentDescription("Replacement risks acknowledged").performScrollTo().performClick()
+                        ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsEnabled().performClick()
+                        waitFor("Wallet imported")
+                        assertEquals(incoming.publicKey, displayedWalletAddress(ui))
+                        assertEquals("retain-this-opaque-option", JsonParser.parseString(walletStore.loadExisting().exportJson())
+                            .asJsonObject.getAsJsonObject("reportFixtureExtension").get("opaque").asString)
+                        ui.onNodeWithText("Done").performClick()
+                        ui.clickVisiblePostContent("Report")
+                        ui.onNodeWithText("Report to saito.davidengelen.nl?").assertIsDisplayed()
+                        ui.onNodeWithText(unknown).assertDoesNotExist()
+                        capture("identity-incoming-independent-report.png", "Report to saito.davidengelen.nl?")
+                        assertEquals(1, peer.reports.size)
+                        ui.onNodeWithText("Cancel").performClick()
+                    }
+                }
+                ActivityScenario.launch<MainActivity>(intent).use {
+                    withFailureCapture({ capture("identity-restoration-failure.png") }) {
+                        ui.clickVisiblePostContent("Report")
+                        ui.onNodeWithText("Report to saito.davidengelen.nl?").assertIsDisplayed()
+                        assertEquals(1, peer.reports.size)
+                        ui.onNodeWithText("Cancel").performClick()
+                        ui.onNodeWithText("Wallet").performClick()
+                        assertEquals(incoming.publicKey, displayedWalletAddress(ui))
+                        ui.onNodeWithText("Import wallet").performScrollTo().performClick()
+                        chooseWalletImport(ui, backupFile, originalWallet.publicKey)
+                        waitFor("Server reports zero SAITO")
+                        ui.onNodeWithText("Skip backup").performScrollTo().performClick()
+                        ui.onNodeWithContentDescription("Replacement risks acknowledged").performScrollTo().assertIsOff().performClick()
+                        ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsEnabled().performClick()
+                        waitFor("Wallet imported")
+                        assertEquals(originalWallet.publicKey, displayedWalletAddress(ui))
+                        assertTrue("Restoration must retain all original options",
+                            JsonParser.parseString(originalWallet.exportJson()) == JsonParser.parseString(walletStore.loadExisting().exportJson()))
+                        ui.onNodeWithText("Done").performClick()
+                        ui.clickVisiblePostContent("Retry report")
+                        val unknown = "Report delivery to saito.davidengelen.nl is unknown. Try again to send the same report."
+                        waitFor(unknown)
+                        capture("identity-original-restored-unknown.png", unknown)
+                        assertEquals(1, peer.reports.size)
+                        peer.disconnectAfterReport = false
+                        ui.onNodeWithText("Send report").performClick()
+                        val acknowledged = "Report acknowledged by saito.davidengelen.nl. Moderator review is separate."
+                        waitFor(acknowledged)
+                        capture("identity-original-explicit-acknowledged.png", acknowledged)
+                        assertEquals(2, peer.reports.size)
+                        val first = peer.reports.first(); val retry = peer.reports.last()
+                        assertArrayEquals(first.copyOfRange(5, first.size), retry.copyOfRange(5, retry.size))
+                        assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
+                        assertTrue(peer.clientKeys.contains(originalWallet.publicKey) && peer.clientKeys.contains(incoming.publicKey))
+                        assertTrue(peer.clientKeys.all { it == originalWallet.publicKey || it == incoming.publicKey })
+                        assertEquals(SaitoBackend.OWNER, AndroidBackendStore(context).load())
+                    }
+                }
+            }
+        } catch (primary: Throwable) { failure = primary; throw primary }
+        finally {
+            var cleanupFailure = failure
+            val cleanups: List<() -> Unit> = listOf({
+                val active = walletStore.loadExisting()
+                check(active.publicKey == originalWallet.publicKey || active.publicKey == incoming.publicKey)
+                // Emergency isolated-fixture cleanup only; successful restore is proved through SAF.
+                if (active.publicKey == incoming.publicKey) walletStore.replace(active, originalWallet)
+            }, {
+                device.executeShellCommand("locksettings clear --old $EXPORT_TEST_PIN --user 0")
+                ui.waitUntil(10_000) { !keyguard.isDeviceSecure }
+            }, {
+                check(device.executeShellCommand("run-as nl.davidengelen.redsquare.dev.test rm -f files/wallet-test-documents/$backupFile files/wallet-test-documents/00-report-import-2.json files/wallet-test-documents/00-report-import-3.json").isBlank())
+            }, { balanceServer.close() })
+            cleanups.forEach { cleanup ->
+                try { cleanup() }
+                catch (secondary: Throwable) {
+                    val earlier = cleanupFailure
+                    if (earlier == null) cleanupFailure = secondary else if (earlier !== secondary) earlier.addSuppressed(secondary)
+                }
+            }
+            if (failure == null && cleanupFailure != null) throw requireNotNull(cleanupFailure)
         }
     }
 

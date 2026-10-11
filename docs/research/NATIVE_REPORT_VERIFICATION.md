@@ -263,3 +263,19 @@ corrupts only the known public report record after controlled receipt, requires
 fail-closed error/no Send, then repairs the original public bytes and requires
 unknown/no auto send/exact explicit retry. Fixture restoration preserves primary
 failure and cannot overwrite a later acknowledgement. Product unchanged.
+
+## Unreadable report recovery GREEN and wallet boundary next
+
+Run38175250800 ate37305e:ordinary8PASS53.327s, process cold recovery
+also1PASS5.071s. Root3corruption originals/separate3XMLs show closed/no Send,
+repaired unknown and explicit ack; exact original bytes/no auto/type4 guards
+pass. Durable ticket21/corrupt-green9hashes. Both bounded reviews0.
+Next single native case uses real SAF incoming-wallet import after authenticated
+backup, explicit replacement-risk consent, independent incoming report/reopening,
+and SAF original-wallet restore followed by original exact explicit report retry.
+Private backup bytes remain bounded memory only, cleared after comparison;
+files are deleted in isolated fixture cleanup, never evidence. Opaque incoming
+options are preserved. Provider fixtures are public unsafe scalars2/3 only,
+provisioned by host under actual .dev.test UID. Eight cases take53.327s; class
+budget180s accommodates backup and two imports without changing any individual
+observation deadlines. Production source unchanged, no presumed defect.
