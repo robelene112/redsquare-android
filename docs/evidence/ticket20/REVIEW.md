@@ -57,3 +57,17 @@ six identity/corruption and four process original PNGs, then separately parsed
 all ten XMLs retained in identity-green. Final paired full Android10/17 acceptance
 remains pending. No physical device, power-loss, live write, final ticket
 acceptance or new preview APK is claimed.
+
+Final same-source full acceptance started at781bd1a: Android10run38161791197 and
+Android17run38161793299, with separately enabled public-feed reads. Results and
+both SDK artifact inspections are pending. Source afteraa91ff2 is unchanged.
+
+Final Android10 run38161791197 at781bd1a stops in existing browse verification:
+eight cases, seven PASS and one fresh offline profile timeout at300 in35.513s.
+Root viewed both original failure screenshots and separately parsed both XMLs;
+full10-browse-failure retains six hashes. The in-scope profile header fills the
+small screen; its post is awaited before scrolling the lazy list. Fixture-only
+correction scrolls first and retains the exact displayed-post assertion. No
+production source or timeout change. Remaining full stages were not reached.
+Android17run38161793299 is still active. Compile/review and Android10 retry are
+next; #21 remains open.

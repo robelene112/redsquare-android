@@ -1,0 +1,5 @@
+# Android 10 full acceptance interruption
+
+Run38161791197 at781bd1af8e4b8bea82d3b414c6ecb6dd9948c1c2 passed core/build/release/lint, then reported eight browse cases, seven passes and one failure in35.513s. The failure is at ThreadProfilePreviewTest.kt:300 in fresh offline profile reading: waiting for the reference post semantics before scrolling its lazy list. The rest of the full device suite, including personal controls, was not reached.
+
+Root individually inspected both original failure PNGs and separately parsed both XMLs. The in-scope profile capture shows its header and offline warnings filling the small screen. The outer capture, taken after ActivityScenario closes, shows the launcher and is not evidence of in-app state. These captures do not independently prove an offscreen post exists. The corrected fixture scrolls the list and still asserts the exact reference post is displayed; it does not extend timeouts or bypass caching/filtering. A passing rerun is required. Android17 acceptance at the same production source remains independently pending. No ticket closure, new APK, physical-device or live-write claim.

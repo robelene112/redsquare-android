@@ -296,6 +296,12 @@ Root viewed all6new identity/corruption plus4process originalPNG/separate10XML;
 identity-green retains28hashes. Both final fixture review axes clear. Next: same
 source full Android10/17 acceptance with separately opted-in public reads.
 
+Final same-source acceptance is active at781bd1af8e4b8bea82d3b414c6ecb6dd9948c1c2:
+Android10run38161791197 and Android17run38161793299, both full scopes with
+public_feed_read=true. Inspect both final results/artifacts before closing #21.
+Native source is unchanged from the complete focused proof aa91ff2. No full-suite
+acceptance is established yet. Preserve private backups outside artifacts.
+
 Whole-ticket reviews99e58c6...13943cc: both axes zero source/fixture findings.
 Focused identity/process runtime now passes; final paired full Android
 10/17 acceptance remains. Preserve seven future research files. No new APK or
@@ -327,3 +333,13 @@ NATIVE_SAITO_TRANSFER_CONTRACT, NATIVE_PRIVATE_CHAT_CONTRACT and
 NATIVE_GROUP_CHAT_CONTRACT (all .md under docs/research). The protected future notes remain uncommitted and must be included only with
 their own relevant tickets; earlier contracts are already committed.
 They establish source contracts, not runtime or feature completion.
+
+Final Android10 run38161791197 at781bd1a stops in existing browse verification:
+eight cases, seven PASS and one fresh offline profile timeout at300 in35.513s.
+Root viewed both original failure screenshots and separately parsed both XMLs;
+full10-browse-failure retains six hashes. The in-scope profile header fills the
+small screen; its post is awaited before scrolling the lazy list. Fixture-only
+correction scrolls first and retains the exact displayed-post assertion. No
+production source or timeout change. Remaining full stages were not reached.
+Android17run38161793299 is still active. Compile/review and Android10 retry are
+next; #21 remains open.

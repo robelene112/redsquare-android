@@ -297,7 +297,7 @@ class ThreadProfilePreviewTest {
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText(author)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     ui.onNodeWithText(author).performClick()
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Posts")).fetchSemanticsNodes().isNotEmpty() }
-                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Native Red Square reference post")).fetchSemanticsNodes().isNotEmpty() }
+                    // The offline header can fill a small screen before this lazy row is composed.
                     scrollProfileTo("Native Red Square reference post")
                     captureProfileObservation("cached-profile-posts-after-restart", "Native Red Square reference post")
                     scrollProfileTo("Replies")

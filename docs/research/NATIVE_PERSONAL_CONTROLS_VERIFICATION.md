@@ -371,3 +371,20 @@ corruptoriginalPNG+4processoriginalPNG/separate10XML; identity-green28hashes.
 Bothcleanupfixboundedaxes0 findings. Previouswhole99...13943cc bothaxes0;
 584/aa fixturecorrectionsclear. Finalpairedfull10/17same-source next withopted-in
 publicreads. No finalacceptance/physicalpowerloss/newAPK/ticketclosureclaimyet.
+
+Finalpairedsame-source acceptance dispatch: fullAndroid10 38161791197 and
+fullAndroid17 38161793299 at781bd1af8e4b8bea82d3b414c6ecb6dd9948c1c2, both
+public_feed_read=true. Fullscope/source/core/release/lint/device/signing/cold /
+publicreadsrequired. Runtimepending; collectactualcounts/rawdeathlogs/newpersonal
+nativeoriginalsandseparateXML onbothSDKs beforeclosure. No production source
+changedafteraa91ff2completefocusedproof. Evidence-only781 boundedreviewsactive.
+
+Final Android10 run38161791197 at781bd1a stops in existing browse verification:
+eight cases, seven PASS and one fresh offline profile timeout at300 in35.513s.
+Root viewed both original failure screenshots and separately parsed both XMLs;
+full10-browse-failure retains six hashes. The in-scope profile header fills the
+small screen; its post is awaited before scrolling the lazy list. Fixture-only
+correction scrolls first and retains the exact displayed-post assertion. No
+production source or timeout change. Remaining full stages were not reached.
+Android17run38161793299 is still active. Compile/review and Android10 retry are
+next; #21 remains open.
