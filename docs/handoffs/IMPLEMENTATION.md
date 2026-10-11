@@ -243,6 +243,20 @@ submission require their own explicit authorization. No production writer was
 changed for the Android app. Read-only public integration is separate from
 ordinary controlled tests; no production transaction was broadcast.
 
+## Active personal-controls recovery checkpoint
+
+Corrected six-case removal/recreation RED38158038045 at09f3f4f proves the
+Standards sequencing finding: five existing journeys pass; repaired fresh Activity
+exposes failed Unmute at526. Root inspected2originalPNG/separate2XML; durable
+ ticket20/removal-red has6hashes. New journey repair/end gates not reached.
+Minimal fix retains encryptedowner-boundprevious-policyguard across all fallible
+writes/removal-sync, honors guardfirstonload, attempts guard/anchor/normalactive
+restoration independently preservingsecondaryerrors, deletesguardlast. Corrupt
+guard cannot fall back to updatedactive. CompilePASS2m5s; same unchanged6case
+Android17 GREEN next. No physicalpowerloss guarantee. After GREEN: actualpending
+save process-death, realSAF identityroundtrip, corruptpolicy/repair, whole-ticket
+review and pairedfull10/17 remain. #21 stays ACTIVE; no new APK or ticket closure.
+
 ## Outstanding external acceptance
 
 Owner requested physical app review at completion. Pixel 7 Android 17 checks

@@ -1,0 +1,129 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PersonalControlsPreviewTest:
+INSTRUMENTATION_STATUS: test=unavailableWalletPreservesAnonymousReadingButDoesNotBypassSavedPersonalChoices
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unavailableWalletPreservesAnonymousReadingButDoesNotBypassSavedPersonalChoices
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=failedAnchorRemovalAndRecreationStillRestoresMuteAfterStorageRepair
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: expected java.lang.AssertionError to be thrown, but nothing was thrown
+	at org.junit.Assert.assertThrows(Assert.java:1028)
+	at org.junit.Assert.assertThrows(Assert.java:981)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.assertPostAbsent(PersonalControlsPreviewTest.kt:604)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.failedAnchorRemovalAndRecreationStillRestoresMuteAfterStorageRepair$lambda$49$lambda$47(PersonalControlsPreviewTest.kt:526)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.$r8$lambda$0UskNppLXrv8aF633WnP7S2lTaE(PersonalControlsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest$$ExternalSyntheticLambda20.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.withOpenApp(PersonalControlsPreviewTest.kt:575)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.failedAnchorRemovalAndRecreationStillRestoresMuteAfterStorageRepair(PersonalControlsPreviewTest.kt:523)
+
+INSTRUMENTATION_STATUS: stream=
+Error in failedAnchorRemovalAndRecreationStillRestoresMuteAfterStorageRepair(nl.davidengelen.redsquare.PersonalControlsPreviewTest):
+java.lang.AssertionError: expected java.lang.AssertionError to be thrown, but nothing was thrown
+	at org.junit.Assert.assertThrows(Assert.java:1028)
+	at org.junit.Assert.assertThrows(Assert.java:981)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.assertPostAbsent(PersonalControlsPreviewTest.kt:604)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.failedAnchorRemovalAndRecreationStillRestoresMuteAfterStorageRepair$lambda$49$lambda$47(PersonalControlsPreviewTest.kt:526)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.$r8$lambda$0UskNppLXrv8aF633WnP7S2lTaE(PersonalControlsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest$$ExternalSyntheticLambda20.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.withOpenApp(PersonalControlsPreviewTest.kt:575)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.failedAnchorRemovalAndRecreationStillRestoresMuteAfterStorageRepair(PersonalControlsPreviewTest.kt:523)
+
+INSTRUMENTATION_STATUS: test=failedAnchorRemovalAndRecreationStillRestoresMuteAfterStorageRepair
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=mutingSurvivesBackendChangesAndOfflineReopeningAndUnmutingRestoresCachedPosts
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=mutingSurvivesBackendChangesAndOfflineReopeningAndUnmutingRestoresCachedPosts
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aLateFailedUnmuteRetainsSavedFilteringAfterReopeningAndAllowsExplicitRepair
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aLateFailedUnmuteRetainsSavedFilteringAfterReopeningAndAllowsExplicitRepair
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=unblockingKeepsAnIntentionalMuteAcrossBackendChangesAndOfflineReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unblockingKeepsAnIntentionalMuteAcrossBackendChangesAndOfflineReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=mutedContentStaysHiddenAcrossProfileThreadQuotesSearchAndOfflineReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=mutedContentStaysHiddenAcrossProfileThreadQuotesSearchAndOfflineReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 88.615
+There was 1 failure:
+1) failedAnchorRemovalAndRecreationStillRestoresMuteAfterStorageRepair(nl.davidengelen.redsquare.PersonalControlsPreviewTest)
+java.lang.AssertionError: expected java.lang.AssertionError to be thrown, but nothing was thrown
+	at org.junit.Assert.assertThrows(Assert.java:1028)
+	at org.junit.Assert.assertThrows(Assert.java:981)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.assertPostAbsent(PersonalControlsPreviewTest.kt:604)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.failedAnchorRemovalAndRecreationStillRestoresMuteAfterStorageRepair$lambda$49$lambda$47(PersonalControlsPreviewTest.kt:526)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.$r8$lambda$0UskNppLXrv8aF633WnP7S2lTaE(PersonalControlsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest$$ExternalSyntheticLambda20.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.withOpenApp(PersonalControlsPreviewTest.kt:575)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.failedAnchorRemovalAndRecreationStillRestoresMuteAfterStorageRepair(PersonalControlsPreviewTest.kt:523)
+
+FAILURES!!!
+Tests run: 6,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

@@ -262,3 +262,25 @@ RecompileanddispatchcorrectedfirstRED beforeproductfix. No appsource change.
 
 38157802202 confirmedcancelled; bothSDKruntime stepsskipped. Correctedmissing
 Unmute/positiveRetry fixture compilePASS1m16s. Firstactual6caseRED next.
+
+Correctedfixture reviewb8bf2cd...09f3f4f: both axes0 residualfixturefindings.
+Actualfirst6caseRED38158038045 at09f3f4f active. ProductrestorationfindingOPEN.
+Read-only Standardsaudit recommends independentlyattemptingnormalactiveold
+restoration evenifanchorrecreationfails, plus proportionateowner-bound encrypted
+old-policy guard ifretainingpost-deletion syncprotocol. Guard isverifiedbefore
+activechange, honoredonload, retainedthrougheveryfalliblerecovery/removal, then
+removedonlyasfinalpublication withno subsequentfalliblework. This follows the
+conservativepublicationbarrierconvention; physicalpowerloss/guardreappearance
+isnotclaimedproved. ApplyonlyafterobservedRED; lateractualprocesskill mustprobe
+pendingold-policy guard recovery, not merelyordinaryActivity reopening.
+
+Corrected removed-anchor RED38158038045 at09f3f4f:6reported/5PASS1FAIL88.615s.
+Mounted uncertain-policy checks pass; repaired freshActivity exposes failedUnmute,
+full-listabsencefails526. Rootviews2originalPNG/separate2XML; removal-red6hashes.
+ExplicitUnmute/endgates in newjourneyunreached. Product now keeps owner-bound
+encryptedold-policyguard across allfallibleactive/recovery writes andremoval-sync,
+honors guard firstonload, restores guard/anchor/active independently preserving
+secondaryerrors, deletesguardasfinalpublication. NormalOSsyncforrestoration;
+corruptguardfailclosed. Physicalpowerlossnotclaimed. Compile/same6caseGREENnext.
+
+Guard/independentrestorationfix compilationPASS2m5s. Same6caseGREENnext.

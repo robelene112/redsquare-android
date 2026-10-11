@@ -22,12 +22,14 @@ internal class AndroidPersonalControls(private val context: Context, private val
     private val alias = "personal.$owner"
     private val activeFile = File(context.noBackupFilesDir, "${prefix}v1")
     private val recoveryFile = File(context.noBackupFilesDir, "${prefix}recovery.v1")
+    private val guardFile = File(context.noBackupFilesDir, "${prefix}guard.v1")
     private val active = EncryptedLocalFile(context, activeFile.name, alias, prefix)
     private val commit = EncryptedLocalFile(context, activeFile.name, alias, prefix, commitDirectorySync)
     private val recovery = EncryptedLocalFile(context, recoveryFile.name, alias, prefix)
+    private val guard = EncryptedLocalFile(context, guardFile.name, alias, prefix)
 
     fun load(): PersonalPolicy = synchronized(SaitoLocalState.lock) {
-        if (hasRecovery()) return@synchronized recover()
+        if (hasRecord(guardFile) || hasRecovery()) return@synchronized recover()
         active.load()?.let(::decode) ?: run {
             check(!File(activeFile.path + ".new").exists()) { "Personal controls require recovery" }
             PersonalPolicy()
@@ -40,35 +42,56 @@ internal class AndroidPersonalControls(private val context: Context, private val
         if (previous != expected) throw RecoveryRequired(IOException("Saved personal choices changed"))
         val anchor = encode(previous)
         try {
+            // This verified copy survives deletion of the recovery anchor and
+            // every fallible commit step. Startup treats it as authoritative.
+            guard.save(anchor)
             recovery.save(anchor)
             commit.save(encode(updated))
             removeRecovery()
+            removeGuard()
             updated
         } catch (failure: Exception) {
-            try {
-                // Anchor removal may itself fail after deletion. Re-establish the
-                // previous policy before restoring active bytes in that case too.
-                recovery.save(anchor)
-                check(recover() == previous)
-            } catch (restoreFailure: Exception) { throw RecoveryRequired(restoreFailure) }
+            try { restore(previous) }
+            catch (restoreFailure: Exception) {
+                failure.addSuppressed(restoreFailure)
+                throw RecoveryRequired(failure)
+            }
             throw failure
         }
     }
 
-    private fun hasRecovery() = listOf("", ".bak", ".new").any { File(recoveryFile.path + it).exists() }
+    private fun hasRecord(file: File) = listOf("", ".bak", ".new").any { File(file.path + it).exists() }
+    private fun hasRecovery() = hasRecord(recoveryFile)
 
     private fun recover(): PersonalPolicy {
-        val previous = decode(requireNotNull(recovery.load()) { "Personal recovery record unavailable" })
-        // Recovery bypasses only the injected commit fault, never real OS errors.
-        val anchor = encode(previous)
-        active.save(anchor)
-        try { removeRecovery() }
-        catch (failure: Exception) {
-            // A failed deletion sync must not discard the recovery instruction.
-            recovery.save(anchor)
-            throw failure
-        }
+        val record = if (hasRecord(guardFile)) guard.load() else recovery.load()
+        val previous = decode(requireNotNull(record) { "Personal recovery record unavailable" })
+        restore(previous)
         return previous
+    }
+
+    private fun restore(previous: PersonalPolicy) {
+        val anchor = encode(previous)
+        var restorationFailure: Exception? = null
+        // A failed anchor recreation must not skip normal active restoration.
+        // Each attempt uses real OS sync, independently of injected commit faults.
+        for (store in listOf(guard, recovery, active)) {
+            try { store.save(anchor) }
+            catch (failure: Exception) {
+                val first = restorationFailure
+                if (first == null) restorationFailure = failure else first.addSuppressed(failure)
+            }
+        }
+        restorationFailure?.let { throw it }
+        removeRecovery()
+        removeGuard()
+    }
+
+    private fun removeGuard() {
+        AtomicFile(guardFile).delete()
+        // No fallible work follows publication. Reappearance after physical
+        // power loss conservatively restores previous choices on startup.
+        check(!hasRecord(guardFile)) { "Personal choices require recovery" }
     }
 
     private fun removeRecovery() {
