@@ -43,7 +43,7 @@ readiness. Public-read reconnect diagnostics are not acceptance failures.
 This full17 includes the reviewed image fixture-only correction. Full10run
 38180155391 at709b58d already passed; production/core/reference/build/harness/
 workflow unchanged709→92, with original image acceptance assertions preserved.
-See source-equivalence.txt and WORKFLOW's companion rule. Both final10 evidence
-axes0; final17 bounded evidence review remains pending before #22 closure.
+See source-equivalence.txt and WORKFLOW's companion rule. Both final10/final17 evidence
+axes0 through6d3888a; #22 acceptance is complete.
 No new phone APK, physical Pixel, original coroutine scheduling reproduction,
 arbitrary power-loss, moderator decision, permanent history or live write claim.

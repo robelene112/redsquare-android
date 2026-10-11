@@ -46,6 +46,6 @@ source-equivalence.txt records that comparison. Original image acceptance gates
 remain; the revised17 fixture adds an exact positive-size setup guard. WORKFLOW
 allows an outstanding SDK's full rerun after a fixture correction. Full17run
 38181575469 at92d80f3 now passes191cases/48records/16interrupted stages; see
-its separate retained evidence. Both final10 evidence axes0; final17 bounded
-evidence review remains pending before Ticket22 closure. No new phone APK, physical Pixel, original coroutine scheduling race,
+its separate retained evidence. Both final10 and final17 bounded evidence axes0 through6d3888a.
+Ticket22 acceptance is complete. No new phone APK, physical Pixel, original coroutine scheduling race,
 arbitrary power-loss, moderator decision, permanent history or live write claim.
