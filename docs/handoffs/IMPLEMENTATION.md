@@ -96,10 +96,14 @@ shared chooser executes. Second PNG(nativewallet)/XML(DocumentsUIRecent) are
 separate transition observations, not missing-file proof. Corrected ee70a83
 uses existing fixed run-as stat size under the .dev.test provider identity.
 CompilationPASS1m30s; both bounded axes0 residual findings and4hashes verified.
-Durable full10-second-failure. Corrected outstanding full10 dispatch next.
-Android17run38145373388 remains ACTIVE. Both full runs optedpublic reads.
-Do not cancel the unaudited Android17 run. After fix review/compile, dispatch the
-outstanding full10 scope; product source remains unchanged. Inspect retained full
+Durable full10-second-failure. Corrected outstanding full10run38147131217
+at7b4dd1498f7e5c085ac854af80f7b60ea7759746 ACTIVE, optedpublic reads.
+Android17run38145373388 SUCCESS:170reported/allPASS,44completion records/14actual
+processdeaths; core55/0/0, source/release/lint, signed5-to-8/cold continuity PASS.
+Search9PASS58.789s; publicowner/official1PASS9.678s/7.672s andboth Search metadata
+reads PASS. Root viewed15SearchPNG+15separateXML+2publicfeed originals. Durable
+final-full/android17 retains93hashes. Outstanding full10run38147131217 continues;
+production/Search/harness unchanged. Both full runs optedpublic reads. Inspect retained full
 logs/counts/critical originals after completion, record applicable assumptions,
 and finish final evidence/review before closing#20. No final acceptance yet.
 Production/app/core/scripts/build/workflow unchanged afterfd35b02; later commits

@@ -466,3 +466,13 @@ ee70a83 uses establishedfixedrun-asstatpositiveSizeasusername/profilefixtures.
 Correction ee70a83 compiles PASS1m30s. Both bounded review axes report0
 residual findings and verify all4 second-failure hashes. No product changes;
 exactfirstcauseunproved. Dispatch the outstanding full10 after pushing.
+
+Final Android17run38145373388 at6c489bf SUCCESS:170reported cases/allPASS,
+44completion records/14actual process-death stages, core55/0/0, source/debug/test/
+release/lint PASS. Search9PASS58.789s; optedpublicowner1PASS9.678s/official1PASS7.672s,
+ordinary100rows/90posts/0ignored andquote4rows/0commentaryposts/0ignored each.
+Root individually viewed15original Search PNGs and parsed15separateXML, plus2fresh
+publicfeed originals. Durable final-full/android17 retains93hashes, rawlogs,
+counts, observations and continuity. No Search process-death/physical/chain claim.
+Outstanding full10run38147131217 ACTIVE at7b4dd14, product/Search/harness unchanged.
+Both SDK acceptance/finalreview still pending; #20 remains OPEN.
