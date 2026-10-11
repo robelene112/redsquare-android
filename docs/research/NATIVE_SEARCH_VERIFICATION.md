@@ -29,3 +29,26 @@ Initial test APK compilation PASS1m23s. Native RED run38132968601 at511a214
 fails only at the missing Search action,12.99s, before any search request.
 Original log/PNG/XML retained in ticket19/first-red; root inspected the in-scope
 bitmap and separate XML. First implementation is underway, no acceptance yet.
+
+## First tracer GREEN
+
+Android17 focused38133595364 at eceb9d6:1PASS/14.052s; hosted core/debug/test
+assembly pass. Original log/PNG/XML retained ticket19/first-green; root individually
+viewed recreated reply/query/server/coverage and separate XML. Runtime verifies
+conversation/profile/back, recreation, same exact identity and zero transactions.
+Interim Spec0 source findings; Standards1 source race, guarded in working source
+but not yet device-verified. People/paging/cache/full acceptance still pending.
+
+## Partial history and paging tracer
+
+The next primary Android test uses100 distinct independent WASM first-page
+posts, an older post and a separate commentary repost (NATIVE_SEARCH_REFERENCE).
+Ordinary stream succeeds, quote stream fails. Assert retained visible results
+and no empty claim; recreation must not repeat completed reads. Explicit Retry
+search reads only the failed quote cursor, then Load more reads only the remaining
+ordinary cursor and finds the older post; exhausted streams stay stopped.
+A subsequent nonmatching query distinguishes verified empty from unavailable,
+with same wallet/authenticated client keys and zero transactions.
+The reviewer-found old-revision publication race is guarded by captured-list
+identity plus revision stamp before assignment. First tracer acceptance assertions
+are unchanged. This second test is compiling; native RED pending.

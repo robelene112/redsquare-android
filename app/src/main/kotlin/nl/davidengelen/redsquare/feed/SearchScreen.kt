@@ -47,9 +47,13 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
     BackHandler(onBack = onBack)
     LaunchedEffect(view, revision, view.posts) {
         val known = view.posts
+        val checkedRevision = AndroidPostRevisions.changes.value
         val applied = withContext(Dispatchers.IO) { revisions.apply(known) }
-        view.posts = applied.posts
-        view.unreadable = view.unreadable || applied.unreadable
+        // A newer archive page or proof can arrive while disk validation is suspended.
+        if (view.posts === known && AndroidPostRevisions.changes.value == checkedRevision) {
+            view.posts = applied.posts
+            view.unreadable = view.unreadable || applied.unreadable
+        }
     }
     LaunchedEffect(wallet, endpoint, view.request) {
         if (wallet == null || view.request == 0 || view.completed == view.request) return@LaunchedEffect

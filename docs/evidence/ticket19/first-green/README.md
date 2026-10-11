@@ -1,0 +1,5 @@
+# First search tracer GREEN
+
+Android17 focused search [38133595364](https://github.com/robelene112/redsquare-android/actions/runs/38133595364), committed sourceeceb9d6. Native1PASS/14.052s, hosted core/debug/test assembly pass. Runtime proves independently signed reply search beyond the general root feed, conversation/profile/back navigation, retained query/results on recreation, exact same wallet/client keys and zero submitted transactions. Root individually viewed recreated-search PNG and separate XML: selected owner server, retained Independent query, coverage copy, anonymous reply author and Independent Saito reply. No public peer or physical-device acceptance.
+
+Interim Spec review:0 first-slice source findings. Standards:1 source-reachable race in the original revision effect, not runtime reproduced; working fix guards captured-list identity and revision stamp before publish and is still awaiting its committed device verification. People, paging, durable search cache and broader failure/full verification remain pending. This is not ticket closure.
