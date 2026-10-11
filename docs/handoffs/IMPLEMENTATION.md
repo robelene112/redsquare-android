@@ -412,8 +412,15 @@ rejects conflictingcandidate byadoptingdurablehead, checks beforeauth/beforeenqu
 and adoptsACK withoutsend. All report commits now share identitylock through
 guardedphysicalenqueue (ac808f9); fullsource review9ecb97b...ac808f9 bothaxes0.
 Paired full10run38178423900/full17run38178425725 dispatched atsameac808f9,
-both public_feed_read=true. RuntimeGREEN/finalacceptance pending. Original
-coroutinescheduling notclaimedreproduced. Bothfixturefixreviews0. No nextticket
+both public_feed_read=true. Both stopfirstbrowse8cases/6PASS/2FAIL50.026s/
+82.318s atThreadProfile102/228 waitoffscreenreplywithoutscroll. Core/release/lint
+pass; reports/process/laternative/update/publicreadsunreached. Rootoriginal
+legacycapturesroot/Reportatbottom(noXML); existingactualscrollcasepasses.
+Viewportfixturecausesupported, notprovenproduct/datafault. final-browse-failure
+3hashes perSDK. Fixturefixonlytwo affectedtransitions waitunchanged15sRefresh
+thenactualLazyListscroll/visibleauthenticreply, retainalllaterassertions. Fixreview/
+newpairedacceptancepending, noReportfixGREEN. Originalcoroutineschedulingnotclaimed
+reproduced. Bothfixturefixreviews0. No nextticket
 claimed; #23 is balances/receiving/authenticated SAITO transfers, not filtering.
 Ticket22 remains incomplete: failure/durability/identity/backend isolation,
 actual process interruption and final both-SDK acceptance/reviews still required.

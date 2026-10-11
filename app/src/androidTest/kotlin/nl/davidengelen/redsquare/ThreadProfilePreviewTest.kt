@@ -99,7 +99,9 @@ class ThreadProfilePreviewTest {
                 try {
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Native Red Square reference post")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     ui.onNodeWithText("Native Red Square reference post").performClick()
-                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Independent Saito reply")).fetchSemanticsNodes().isNotEmpty() }
+                    waitForProfileHistory()
+                    ui.onNode(hasScrollAction()).performScrollToNode(hasText("Independent Saito reply"))
+                    ui.onNodeWithText("Independent Saito reply").assertIsDisplayed()
                     ui.onNodeWithText("Anon-${replyAuthor.take(6)}").performClick()
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText(replyAuthor)).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNodeWithText("Profile").assertIsDisplayed()
@@ -225,7 +227,9 @@ class ThreadProfilePreviewTest {
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Native Red Square reference post")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     ui.onNodeWithText("Malformed reference thread").assertDoesNotExist()
                     ui.onNodeWithText("Native Red Square reference post").performClick()
-                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Independent Saito reply")).fetchSemanticsNodes().isNotEmpty() }
+                    waitForProfileHistory()
+                    ui.onNode(hasScrollAction()).performScrollToNode(hasText("Independent Saito reply"))
+                    ui.onNodeWithText("Independent Saito reply").assertIsDisplayed()
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText("Independent Saito reply"))
                     ui.onNodeWithText("Independent Saito reply").assertIsDisplayed()
                     peer.assertHealthy()

@@ -400,3 +400,16 @@ both pinac808f9a870c22aafcad938377e54933552813d8 with separately enabled
 public_feed_read=true. Source/core/release/lint, full native suite, actual report
 process recovery, signed5→8 update/cold continuity and both approved public reads
 must all be inspected. No runtime GREEN or ticket acceptance inferred from dispatch.
+
+## First paired full runs stop at existing browse viewport assumptions
+
+Full10run38178423900/full17run38178425725 atsameac808f9 bothpass source/core/
+release/lint butfirst browse scope8cases/6PASS/2FAIL50.026s/82.318s at102/228.
+Legacy cases wait for offscreenreply semantics before scrolling; root original
+captures show root/Reportatbottom, no separateXML in theselegacy failurecaptures.
+Existing actual-scroll conversationcase passes. This supports viewport fixture
+cause, not application/data defect or successfulreportfix. Reporting and later
+suites/updates/publicreads entirelyunreached. Durable final-browse-failure3hashes
+perSDK. Correct onlytwo affected transitions: wait unchanged15s refreshcompletion,
+scroll actual lazylist to authenticreply, require displayed then retain author/
+Back/forgery assertions. No timeout extension/productchange. Fixreview/rerun next.
