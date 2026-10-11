@@ -189,6 +189,13 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
         return
     }
     when (val destination = navigation.lastOrNull()) {
+        is BrowseDestination.Search -> {
+            SearchScreen(wallet, endpoint, backend, destination.view, modifier,
+                onBack = { back() }, onPost = { navigation.add(BrowseDestination.Conversation(it)) },
+                onIdentity = { openProfile(it) }, social = social, quotes = quotes,
+                onQuote = { navigation.add(BrowseDestination.Quote(it)) })
+            return
+        }
         is BrowseDestination.Profile -> {
             ProfileScreen(wallet, endpoint, backend, destination.author, destination.view, following, modifier,
                 onBack = { back() }, onPost = { navigation.add(BrowseDestination.Conversation(it)) },
@@ -232,6 +239,9 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
             TextButton(enabled = wallet != null, onClick = { composing = true }) { Text(stringResource(R.string.post_new)) }
             TextButton(enabled = wallet != null, onClick = { wallet?.let { openProfile(it.publicKey) } }) {
                 Text(stringResource(R.string.profile_own))
+            }
+            TextButton(enabled = wallet != null, onClick = { navigation.add(BrowseDestination.Search()) }) {
+                Text(stringResource(R.string.search_title))
             }
         }
         TextButton(enabled = wallet != null, onClick = { reviewingQueue = true }) { Text(stringResource(R.string.post_queue_title)) }

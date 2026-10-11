@@ -1,0 +1,50 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SearchPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.SearchPreviewTest:
+INSTRUMENTATION_STATUS: test=anArchivedReplyCanBeFoundAndExploredWithoutLosingTheSearchOrWallet
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SearchPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Search' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.SearchPreviewTest.anArchivedReplyCanBeFoundAndExploredWithoutLosingTheSearchOrWallet$lambda$9$lambda$8$lambda$7(SearchPreviewTest.kt:65)
+	at nl.davidengelen.redsquare.SearchPreviewTest.$r8$lambda$OEbWqUs6nYx6d1BujaZAd3zk5fI(SearchPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.SearchPreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.SearchPreviewTest.anArchivedReplyCanBeFoundAndExploredWithoutLosingTheSearchOrWallet(SearchPreviewTest.kt:58)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anArchivedReplyCanBeFoundAndExploredWithoutLosingTheSearchOrWallet(nl.davidengelen.redsquare.SearchPreviewTest):
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Search' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.SearchPreviewTest.anArchivedReplyCanBeFoundAndExploredWithoutLosingTheSearchOrWallet$lambda$9$lambda$8$lambda$7(SearchPreviewTest.kt:65)
+	at nl.davidengelen.redsquare.SearchPreviewTest.$r8$lambda$OEbWqUs6nYx6d1BujaZAd3zk5fI(SearchPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.SearchPreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.SearchPreviewTest.anArchivedReplyCanBeFoundAndExploredWithoutLosingTheSearchOrWallet(SearchPreviewTest.kt:58)
+
+INSTRUMENTATION_STATUS: test=anArchivedReplyCanBeFoundAndExploredWithoutLosingTheSearchOrWallet
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 12.99
+There was 1 failure:
+1) anArchivedReplyCanBeFoundAndExploredWithoutLosingTheSearchOrWallet(nl.davidengelen.redsquare.SearchPreviewTest)
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Search' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.SearchPreviewTest.anArchivedReplyCanBeFoundAndExploredWithoutLosingTheSearchOrWallet$lambda$9$lambda$8$lambda$7(SearchPreviewTest.kt:65)
+	at nl.davidengelen.redsquare.SearchPreviewTest.$r8$lambda$OEbWqUs6nYx6d1BujaZAd3zk5fI(SearchPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.SearchPreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.SearchPreviewTest.anArchivedReplyCanBeFoundAndExploredWithoutLosingTheSearchOrWallet(SearchPreviewTest.kt:58)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

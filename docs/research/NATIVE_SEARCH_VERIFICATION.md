@@ -25,5 +25,7 @@ Only public emulator caches are reset, not a production wallet or live history.
 
 Focused search/search-android17 scopes retain raw logs and original captures;
 full harness also runs this class. Existing scopes/gates are preserved.
-Initial test APK compilation PASS1m23s. Native RED pending; no production search
-implementation or feature acceptance claimed yet.
+Initial test APK compilation PASS1m23s. Native RED run38132968601 at511a214
+fails only at the missing Search action,12.99s, before any search request.
+Original log/PNG/XML retained in ticket19/first-red; root inspected the in-scope
+bitmap and separate XML. First implementation is underway, no acceptance yet.

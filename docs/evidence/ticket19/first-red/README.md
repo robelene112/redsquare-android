@@ -1,0 +1,3 @@
+# First search tracer RED
+
+Android17 focused search run [38132968601](https://github.com/robelene112/redsquare-android/actions/runs/38132968601), source511a2143db0b4f95256453d8626cb79a518d1dec. Test APK compiled locally and hosted core/debug/test assembly passed. One native test fails at SearchPreviewTest.kt:65, the absent Search entry, before any search assertion. Root inspected original in-scope PNG and independent XML: empty owner feed, normal wallet/settings and existing feed controls, no Search action. This is the intended missing-feature RED, not feature acceptance or a public peer write.

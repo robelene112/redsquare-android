@@ -46,8 +46,10 @@ Active #20, Search posts and people in available backend history, assigned and
 blocked_by0 verified. Review base3be555be85586b68c0d05c2c8e69d3976bbffe89.
 First primary tracer reads a signed reply omitted from general feed, navigates
 conversation/profile/back, recreates retainedquery/results, and checks samewallet/
-zeroTX. New focused search scopes and full harness stage. No production search
-implementation yet; testAPKcompile PASS1m23s, initial native RED pending.
+zeroTX. New focused search scopes and full harness stage. Native RED38132968601
+at511a214 fails only at absent Search entry,12.99s; original evidence ticket19/first-red.
+First native screen/selected Archive reads/retained navigation under implementation.
+People, paging and durable search cache still pending; no #20 acceptance yet.
 Accepted seams1–4 unchanged.
 Search preparation ignored .scratch/search-design.md plus protected contract.
 Owner reviews completed app, no intermediate phone gate.

@@ -47,6 +47,9 @@ object RedSquareFeed {
 
     fun readArchive(response: String): ArchiveFeedPage = readPosts(response) { it.parentId.isEmpty() }
 
+    /** Available history includes replies as well as root posts. */
+    fun readSearch(response: String): ArchiveFeedPage = readPosts(response) { true }
+
     fun readConversation(response: String, threadId: String): ArchiveFeedPage =
         readPosts(response) { it.threadId == threadId }
 

@@ -252,4 +252,12 @@
     <string name="username_new_error">Could not save this change. No new request was sent. Try again.</string>
     <string name="identity_name_save_error">Name verified, but could not be saved on this device.</string>
     <string name="username_not_reconfirmed">Your saved username was not found on this server. It has been kept on this device.</string>
+    <string name="search_title">Search</string>
+    <string name="search_query">Posts and people</string>
+    <string name="search_history">Search history</string>
+    <string name="search_coverage">Only available history is searched. Older posts and people may be missing.</string>
+    <string name="search_loading">Searching available history…</string>
+    <string name="search_error">Some history could not be searched. Available results are still shown. Try again.</string>
+    <string name="search_empty">No matching posts in the history searched so far.</string>
+    <string name="search_unreadable">Some records could not be verified and were skipped.</string>
 </resources>
