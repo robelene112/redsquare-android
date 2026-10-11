@@ -17,6 +17,67 @@ import java.util.concurrent.atomic.AtomicInteger
 class SearchPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
 
+    @Test fun anExactPublicKeyOpensItsProfileButAnInvalidCurvePointDoesNotBecomeAPerson() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        check(context.packageName == "nl.davidengelen.redsquare.dev")
+        check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
+        AndroidBackendStore(context).save(SaitoBackend.OWNER)
+        context.noBackupFilesDir.listFiles()?.filter {
+            listOf("feed.", "conversation.", "profile.", "search.", "authorposts.").any(it.name::startsWith)
+        }?.forEach { check(it.delete()) { "Could not reset public search fixtures" } }
+        // Independent published scalar1 key. The invalid key encodes 02 followed
+        // by 32 FF bytes: its x coordinate is outside the secp256k1 field.
+        val person = "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR"
+        val invalid = "tgx7VNFoP9DJiFMFgXXtafQZkUvyEdDHT9ryamHJYrjp"
+        val peer = ControlledFeedPeer("[]", archiveResponse = { criteria ->
+            if (criteria.has("field2")) check(criteria.get("field2").asString == person)
+            "[]"
+        })
+        peer.start().use { server ->
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
+                withFailureCapture({ captureNativeScreen(File(context.cacheDir, "search-evidence/people-key-failure.png")) }) {
+                    waitForEnabled("New post")
+                    if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
+                    ui.onNodeWithText("Wallet").performClick()
+                    val owner = displayedWalletAddress(ui)
+                    ui.onNodeWithText("Done").performClick()
+                    ui.onNodeWithText("Search").performClick()
+                    ui.onNode(hasSetTextAction()).performTextInput(person)
+                    waitForEnabled("Search history")
+                    ui.onNodeWithText("Search history").performClick()
+                    waitForEnabled("Search history")
+                    // The editable query itself is never proof of a result.
+                    val result = hasText(person) and hasClickAction() and !hasSetTextAction()
+                    ui.onNode(result).assertIsDisplayed().performClick()
+                    waitForText("Profile")
+                    ui.onNodeWithText(person).assertIsDisplayed()
+                    ui.onNodeWithText("Back").performClick()
+                    ui.onNode(result).assertIsDisplayed()
+                    scenario.recreate()
+                    ui.waitUntil(20_000) { ui.onAllNodes(result).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNode(result).assertIsDisplayed()
+                    ui.onNode(hasSetTextAction()).assertTextContains(person)
+                    captureNativeScreen(File(context.cacheDir, "search-evidence/people-key-recreated.png"), person)
+                    ui.onNode(hasSetTextAction()).performTextReplacement(invalid)
+                    waitForEnabled("Search history")
+                    ui.onNodeWithText("Search history").performClick()
+                    waitForEnabled("Search history")
+                    ui.onAllNodes(hasText(invalid) and !hasSetTextAction()).assertCountEquals(0)
+                    ui.onAllNodes(result).assertCountEquals(0)
+                    ui.onNodeWithText("No matching posts in the history searched so far.").assertIsDisplayed()
+                    captureNativeScreen(File(context.cacheDir, "search-evidence/people-invalid-key.png"))
+                    ui.onNodeWithText("Wallet").performClick()
+                    assertEquals(owner, displayedWalletAddress(ui))
+                    assertTrue(peer.clientKeys.isNotEmpty() && peer.clientKeys.all { it == owner })
+                    assertTrue(peer.transactions.isEmpty())
+                    peer.assertHealthy()
+                }
+            }
+        }
+    }
+
     @Test fun anExactSignedUsernameOpensTheCorrectProfileAndRetainsTheSearch() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext

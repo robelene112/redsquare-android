@@ -100,3 +100,9 @@ and native GREEN pending. No runtime reproduction of the source finding.
 
 Stale-warning fix7417559 combinedcompile PASS2m14s; bounded Standards0/Spec0
 residual findings. First exact-name native GREEN pending.
+
+Exact-name GREEN38138427233 at e505de2:4PASS83.402s, focused source/core/
+debug/testPASS; push38138427894 source/core/debug/test/release/lintPASS.
+Original log and one new individually viewed PNG/separateXML retained in
+ticket19/people-green. Exact signed namecheck/Profile/back/recreation/wallet/
+allclientkeys/noTX PASS. No liveRegistry/physical/full acceptance.

@@ -214,3 +214,17 @@ release/lint completed PASS.
 
 Stale-warning fix7417559 combinedcompile PASS2m14s; bounded Standards0/Spec0
 residual findings. First exact-name native GREEN pending.
+
+Exact-name GREEN38138427233 at e505de2:4PASS83.402s, focused source/core/
+debug/testPASS; push38138427894 source/core/debug/test/release/lintPASS.
+Original log and one new individually viewed PNG/separateXML retained in
+ticket19/people-green. Exact signed namecheck/Profile/back/recreation/wallet/
+allclientkeys/noTX PASS. No liveRegistry/physical/full acceptance.
+
+Next single primary tracer: empty public archives, exact independent scalar1
+publickey selects correct Profile and retains query/result through recreation.
+Its result matcher explicitly excludes the editable query, which otherwise
+could falsely satisfy a missing-result assertion. The later invalid-point key
+is Base58 of compressed02+32FF, x outside the field; cannot become a person.
+Wallet/clientkeys/noTX gates unchanged. Compile/nativeRED pending; no exact
+publickey production handling yet. Accepted seams1–4 unchanged.
