@@ -36,6 +36,7 @@ internal class SearchViewState {
     var cursors by mutableStateOf<Map<String, Long?>>(emptyMap())
     var pending by mutableStateOf<List<String>>(emptyList())
     var pagingUnavailable by mutableStateOf(false)
+    var limitReached by mutableStateOf(false)
 
     fun search() {
         searchedQuery = query.trim()
@@ -43,6 +44,7 @@ internal class SearchViewState {
         cursors = listOf("RedSquare", "RedSquareRetweet").associateWith { before }
         pending = cursors.keys.toList()
         pagingUnavailable = false
+        limitReached = false
         request++
     }
 
@@ -82,6 +84,7 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
             withContext(Dispatchers.IO) {
                 SaitoPeer(wallet, endpoint).use { peer ->
                     for ((stream, before) in pages) {
+                        if (withContext(Dispatchers.Main.immediate) { view.limitReached }) break
                         val criteria = JsonObject().apply {
                             addProperty("request", "load"); addProperty("field1", stream)
                             addProperty("flagged_ne", 1); addProperty("limit", 100)
@@ -97,12 +100,20 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
                         val applied = revisions.apply(RedSquareFeed.newest(page.posts + known))
                         withContext(Dispatchers.Main.immediate) {
                             social?.observe(page.posts)
-                            view.posts = applied.posts.sortedByDescending { it.createdAt }.take(1000)
+                            // Preserve discovered matches before filling the bounded history with other posts.
+                            view.posts = applied.posts.sortedWith(compareByDescending<FeedPost> {
+                                it.text.contains(view.searchedQuery, ignoreCase = true)
+                            }.thenByDescending { it.createdAt }).take(1000)
                             view.unreadable = view.unreadable || applied.unreadable || page.ignored > 0
                             val next = page.oldestCreatedAt?.takeIf { page.rowCount == 100 && it < before }
                             view.pagingUnavailable = view.pagingUnavailable || (page.rowCount == 100 && next == null)
                             view.cursors = view.cursors + (stream to next)
                             view.pending = view.pending - stream
+                            if (applied.posts.size >= 1000) {
+                                view.limitReached = true
+                                view.cursors = view.cursors.mapValues { null }
+                                view.pending = emptyList()
+                            }
                         }
                     }
                 }
@@ -143,6 +154,7 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
         if (view.failed) Text(stringResource(R.string.search_error))
         if (view.unreadable) Text(stringResource(R.string.search_unreadable), style = MaterialTheme.typography.bodySmall)
         if (view.pagingUnavailable) Text(stringResource(R.string.search_paging_unavailable), style = MaterialTheme.typography.bodySmall)
+        if (view.limitReached) Text(stringResource(R.string.search_limit), style = MaterialTheme.typography.bodySmall)
         if (view.request > 0 && !loading && !view.failed && matches.isEmpty()) Text(stringResource(R.string.search_empty))
         LazyColumn(Modifier.weight(1f).fillMaxWidth()) {
             if (view.request > 0) items(matches, key = { it.id }) { post ->

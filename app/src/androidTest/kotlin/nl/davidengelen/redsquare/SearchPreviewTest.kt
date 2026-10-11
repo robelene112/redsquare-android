@@ -84,6 +84,7 @@ class SearchPreviewTest {
                     quoteAvailable.set(true)
                     ui.onNodeWithText("Retry search").assertIsEnabled().performClick()
                     waitForEnabled("Load more")
+                    ui.onNode(hasScrollAction(), useUnmergedTree = true).performScrollToNode(hasText("Available quote result"))
                     ui.onNodeWithText("Available quote result").assertIsDisplayed()
                     assertEquals("Retry must not repeat the successful ordinary stream", 1, postReads.get())
                     assertEquals(2, quoteReads.get())

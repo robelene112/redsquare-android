@@ -73,3 +73,19 @@ search. Earlier positive newest-result/error/no-empty/recreation/read-count gate
 pass. Root viewed original failure bitmap and separate XML; artifacts retained
 in ticket19/paging-red. Reviewed test-only sensitivity/lazy reachability fixes
 are after the observed failure point and precede paging implementation.
+
+## Paging source and interim review fixes
+
+First paging implementation at local commit 42ebbb8 compiled debug/test APKs
+in 2m58s. Retained independent cursors and pending streams advance only after
+validated publication. Retry resumes failed/unattempted reads; Load more skips
+exhausted streams; each action reads at most one 100-row page per stream.
+
+Interim Standards identified continued paging after the 1,000-post retention
+bound could discard older matches. Working fix prioritizes discovered matches
+within the bound, stops paging at capacity and explicitly explains retained-only
+coverage. No 1,000-row runtime claim yet. Both review axes identified that a
+prepended quote may leave the keyed list anchored to the previous first result.
+The test now scrolls to the exact quote before its unchanged display assertion.
+This is source-supported fixture navigation, not a reproduced runtime failure.
+Combined debug/test compilation is underway; paging GREEN remains pending.
