@@ -17,6 +17,90 @@ import java.util.concurrent.atomic.AtomicInteger
 class SearchPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
 
+    @Test fun failedSearchSavingKeepsLiveResultsAndRepairRestoresOfflineReading() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        check(context.packageName == "nl.davidengelen.redsquare.dev")
+        check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
+        AndroidBackendStore(context).save(SaitoBackend.OWNER)
+        clearPublicSearchHistory(context)
+        val thread = instrumentation.context.assets.open("native-thread-reference.json").bufferedReader()
+            .use { JsonParser.parseReader(it).asJsonObject }
+        val includeReply = AtomicInteger(0)
+        val warning = "Some results could not be saved on this phone. They may be missing after closing the app."
+        val peer = ControlledFeedPeer("[]", archiveResponse = { criteria ->
+            if (criteria.has("field4")) "[]"
+            else {
+                check(criteria.keySet() == setOf("request", "field1", "flagged_ne", "limit", "created_earlier_than"))
+                if (includeReply.get() == 0) "[${thread.get("root")}]"
+                else "[${thread.get("root")},${thread.get("firstReply")}]"
+            }
+        })
+        peer.start().use { server ->
+            val intent = Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+            var owner = ""
+            ActivityScenario.launch<MainActivity>(intent).use {
+                withFailureCapture({ captureNativeScreen(File(context.cacheDir, "search-evidence/cache-save-failure.png")) }) {
+                    waitForEnabled("New post")
+                    if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
+                    ui.onNodeWithText("Wallet").performClick()
+                    owner = displayedWalletAddress(ui)
+                    ui.onNodeWithText("Done").performClick()
+                    ui.onNodeWithText("Search").performClick()
+                    ui.onNode(hasSetTextAction()).performTextInput("reference")
+                    waitForEnabled("Search history")
+                    ui.onNodeWithText("Search history").performClick()
+                    waitForEnabled("Search history")
+                    ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
+                    val base = File(context.noBackupFilesDir, "search.owner.v1")
+                    val preserved = File(context.noBackupFilesDir, "search.fixture.saved")
+                    check(base.renameTo(preserved))
+                    check(base.mkdir())
+                    val obstruction = File(base, "obstruction").apply { writeText("public search fixture") }
+                    try {
+                        includeReply.set(1)
+                        ui.onNode(hasSetTextAction()).performTextReplacement("Independent")
+                        ui.onNodeWithText("Search history").performClick()
+                        waitForEnabled("Search history")
+                        ui.onNodeWithText(warning).assertIsDisplayed()
+                        ui.onNodeWithText("Independent Saito reply").assertIsDisplayed()
+                        ui.onAllNodesWithText("No matching posts in the history searched so far.").assertCountEquals(0)
+                        captureNativeScreen(File(context.cacheDir, "search-evidence/cache-save-warning.png"), warning)
+                    } finally {
+                        check(obstruction.delete())
+                        check(base.delete())
+                        check(preserved.renameTo(base))
+                    }
+                    ui.onNodeWithText("Search history").performClick()
+                    waitForEnabled("Search history")
+                    ui.onNodeWithText("Independent Saito reply").assertIsDisplayed()
+                    ui.onAllNodesWithText(warning).assertCountEquals(0)
+                    peer.assertHealthy()
+                }
+            }
+            server.close()
+            ActivityScenario.launch<MainActivity>(intent).use {
+                withFailureCapture({ captureNativeScreen(File(context.cacheDir, "search-evidence/cache-save-reopen-failure.png")) }) {
+                    waitForEnabled("New post")
+                    ui.onNodeWithText("Search").performClick()
+                    ui.onNode(hasSetTextAction()).performTextInput("Independent")
+                    waitForEnabled("Search history")
+                    ui.onNodeWithText("Search history").performClick()
+                    waitForText("Some history could not be searched. Available results are still shown. Try again.")
+                    ui.onNodeWithText("Independent Saito reply").assertIsDisplayed()
+                    ui.onAllNodesWithText(warning).assertCountEquals(0)
+                    captureNativeScreen(File(context.cacheDir, "search-evidence/cache-save-repaired-offline.png"), "Independent Saito reply")
+                    ui.onNodeWithText("Wallet").performClick()
+                    assertEquals(owner, displayedWalletAddress(ui))
+                    assertTrue(peer.clientKeys.isNotEmpty() && peer.clientKeys.all { it == owner })
+                    assertTrue(peer.transactions.isEmpty())
+                    peer.assertHealthy()
+                }
+            }
+        }
+    }
+
     @Test fun cachedExactNamesAreQualifiedWhenFreshChecksFailAndForgedNamesCannotResolve() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
