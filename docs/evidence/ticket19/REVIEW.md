@@ -260,3 +260,29 @@ streams with fixed100/flaggedne1/timestamp/no field4 criteria and strictsigned
 readers; allow validempty and retain rejected-row counts, require harnessreport.
 CompilationPASS1m28s. Whole-ticket Spec0 source findings; Standards pending.
 First author native/publicreads and final full10/17 pending.
+
+
+Whole-ticket review3be555be...fd35b02: Spec0 actionable source/fixture findings;
+Standards0 residual hard violations/0 actionable heuristic smells. Existing
+fixes remain intact. Both reviewers validate save-green six hashes/raw8PASS.
+At34c4c67, focused author/search9run38144936110 and optedpublicfeed17
+run38144937787 are active. Author/source and publicreadfixturecompiled as
+recorded; no new runtime acceptance or finalfull10/17 claim yet.
+
+
+Author-revision GREEN38144936110 at34c4c67:9PASS70.297s, all existing8PASS
+plus independentedit/stale-reopen/deletion/exact2streamabsence/freshstaleempty
+journey. Root individually viewed2neworiginalPNGs/separateXML; unchangedrawlog/
+pairs retained ticket19/author-green. Wallet/allauth/noTX/peerhealthy PASS.
+Focused source/core/debug/test PASS. Optedpublicread38144937787 remains active.
+Finalfull10/17 notyetdispatched. No manufacturedRED/processdeath/physicalclaim.
+
+
+Opted public search GREEN38144937787 at34c4c67: OWNER1PASS9.214s/
+OFFICIAL1PASS7.759s. Both ordinary100rows/90posts/0ignored and currentquote
+4rows/0commentaryposts/0ignored respond to fixed100/flaggedne1/currentcursor/
+no-field4 criteria. Root inspected rawnative logs/metadatareports retained
+ticket19/public-green. No new searchbitmap/directread UIclaim; no livewrites.
+Wallet/selectedbackend continuity PASS. Push38144926841 release/lintPASS.
+Bothwhole source axes0. Finalsame-sourcefull10/17 next. Registry limitation
+remains explicit; no final #20, chain or physical claim.
