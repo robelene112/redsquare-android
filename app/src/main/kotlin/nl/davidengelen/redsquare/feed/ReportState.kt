@@ -75,7 +75,7 @@ internal class ReportState(private val context: Context, private val wallet: Sai
         if (!canReport(post)) return
         val status = statuses[post.id] ?: return
         if (!status.ready || status.busy || status.acknowledged) return
-        statuses[post.id] = status.copy(busy = true, failed = false)
+        statuses[post.id] = status.copy(busy = true, failed = false, saveFailed = false)
         scope.launch {
             var candidate = status.candidate
             var acknowledged = false

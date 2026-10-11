@@ -309,7 +309,12 @@ Correction38172025405 atb867022 passes4cases32.465s. Root2affected
 originals/separate2XMLs inspected; save-green6hashes. Both bounded source axes0.
 Next single receipt-save permission fault preserves the public candidate and
 restores exact modes in finally, requiring ack plus storage warning and explicit
-identical retry after reopening. Production warning unchanged for RED. Post-ack save warning and other pre-send
+identical retry after reopening. Run38172502009 at1055657 reproduces missing-warning RED:5cases/4PASS/1FAIL
+53.629s at239 after acknowledgement/one-report guards pass. Root live original
+and separateXML show ack without warning; receipt-save-red4hashes. Modes
+restored in finally, no wallet data changed. Current product adds secondary
+phone-save warning, retains acknowledgement and clears old save marker on Retry.
+Correction runtime next; recovery segment not yet reached. Post-ack save warning and other pre-send
 failures still need their own acceptance. Load ownership review clear
 throughc10de10, with0residual Standards findings. Pre-transmission, interrupted-save/isolation and
 final paired acceptance remain incomplete. These checkpoints are not acceptance.

@@ -146,3 +146,14 @@ report receipt, preserving the public candidate and restoring exact modes in
 finally. It requires acknowledgement plus persistence warning, then recovered
 unknown and explicit identical retry after repair. Legacy/new AtomicFile paths
 are both blocked. Production warning remains unchanged for RED.
+
+## Receipt-save warning RED and minimal correction
+
+Android10 run38172502009 at1055657:5cases/4PASS/1FAIL53.629s, new case
+fails239 for warning after acknowledgement and one-report guards pass. Root
+live original/separateXML show named acknowledgement without required warning.
+Exact OS modes are restored in finally; no production permissions change.
+Durable ticket21/receipt-save-red4hashes. Current source adds secondary phone
+save warning while retaining acknowledgement, and clears old save marker on
+new explicit retry. Recovery/retry segment remains unproved until correction
+runtime. Other pre-send, authority/isolation/process/final checks stay pending.

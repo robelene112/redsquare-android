@@ -37,14 +37,16 @@ internal fun ReportAction(post: FeedPost, state: ReportState?) {
         dismissButton = { TextButton(onClick = { confirming = false }) { Text(stringResource(R.string.report_cancel)) } })
     if (showingResult) AlertDialog(onDismissRequest = { showingResult = false },
         title = { Text(stringResource(R.string.report_result_title, state.backend.domain)) },
-        text = { Text(stringResource(when {
+        text = { Column { Text(stringResource(when {
             status?.ready != true && status?.failed == true -> R.string.report_load_error
             status?.ready != true -> R.string.report_loading
             status?.acknowledged == true -> R.string.report_acknowledged
             status?.saveFailed == true -> R.string.report_save_error
             status?.failed == true -> R.string.report_uncertain
             else -> R.string.report_sending
-        }, state.backend.domain)) },
+        }, state.backend.domain))
+            if (status?.acknowledged == true && status.saveFailed) Text(stringResource(R.string.report_receipt_save_error))
+        } },
         confirmButton = { Column {
             if (status?.ready != true && status?.failed == true) TextButton(onClick = { state.retryLoad(post) }) {
                 Text(stringResource(R.string.retry))
