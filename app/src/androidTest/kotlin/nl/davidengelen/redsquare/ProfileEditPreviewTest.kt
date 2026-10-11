@@ -2,6 +2,8 @@ package nl.davidengelen.redsquare
 
 import android.content.Intent
 import android.os.SystemClock
+import android.system.Os
+import android.system.OsConstants
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
@@ -38,6 +40,81 @@ class ProfileEditPreviewTest {
             check(it.delete()) { "Could not reset emulator profile fixtures" }
         }
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
+    }
+
+    @Test fun aLateDraftSaveFailureCanBeRetriedInTheSameEditorAfterStorageRecovers() {
+        val owner = AndroidWalletStore(context).loadOrCreate().publicKey
+        val directory = context.noBackupFilesDir
+        val original = Os.stat(directory.path)
+        check(original.st_uid == android.os.Process.myUid())
+        val permissions = original.st_mode and 0xfff
+        val draft = File(directory, "profiledraft.${SaitoBackend.OWNER.id}.$owner.v1")
+        val initial = "My original unsent profile draft"
+        val edited = "My recovered profile draft 🌱"
+        val digest = java.security.MessageDigest.getInstance("SHA-256")
+        val peer = ControlledFeedPeer("[]", profileArchiveResponse = { "[]" }, archiveResponse = { "[]" })
+        fun openOwnEditor() {
+            ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+            if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
+            ui.onNodeWithText("Your profile").performClick()
+            ui.waitUntil(20_000) { ui.onAllNodes(hasText("Edit profile") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+            ui.onNodeWithText("Edit profile").performClick()
+            ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+        }
+        peer.start().use { server ->
+            val intent = Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+            ActivityScenario.launch<MainActivity>(intent).use {
+                try {
+                    openOwnEditor()
+                    ui.onNode(hasSetTextAction()).performTextReplacement(initial)
+                    ui.onNodeWithText("Save draft").performClick()
+                    ui.waitUntil(10_000) { ui.onAllNodes(hasText("Edit profile") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    check(draft.isFile && draft.length() > 0)
+                    val prior = digest.digest(draft.readBytes())
+                    ui.onNodeWithText("Edit profile").performClick()
+                    ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNode(hasSetTextAction()).performTextReplacement(edited)
+                    var primary: Throwable? = null
+                    try {
+                        // Known files remain readable/writable; only the later directory O_RDONLY open fails.
+                        Os.chmod(directory.path, OsConstants.S_IWUSR or OsConstants.S_IXUSR)
+                        ui.onNodeWithText("Save draft").performClick()
+                        val error = context.getString(R.string.profile_draft_error)
+                        ui.waitUntil(10_000) { ui.onAllNodesWithText(error).fetchSemanticsNodes().isNotEmpty() }
+                        ui.onNodeWithText(error).assertIsDisplayed()
+                        ui.onNode(hasSetTextAction()).assert(SemanticsMatcher.expectValue(
+                            SemanticsProperties.EditableText, AnnotatedString(edited))).assertIsEnabled()
+                        ui.onNodeWithText("Save draft").assertIsEnabled()
+                        // A generic pre-write failure is insufficient: the owned synthetic record changed.
+                        assertFalse(prior.contentEquals(digest.digest(draft.readBytes())))
+                        assertTrue(peer.transactions.isEmpty())
+                        capture("profile-late-save-failed.png")
+                    } catch (failure: Throwable) { primary = failure; throw failure }
+                    finally {
+                        try { Os.chmod(directory.path, permissions) }
+                        catch (cleanup: Throwable) { if (primary != null) primary.addSuppressed(cleanup) else throw cleanup }
+                    }
+                    ui.onNodeWithText("Save draft").assertIsEnabled().performClick()
+                    ui.waitUntil(10_000) { ui.onAllNodes(hasText("Edit profile") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    assertEquals(owner, AndroidWalletStore(context).loadExisting().publicKey)
+                    assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
+                } catch (failure: Throwable) {
+                    try { capture("profile-late-save-retry-failure.png") }
+                    catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
+                    throw failure
+                }
+            }
+            ActivityScenario.launch<MainActivity>(intent).use {
+                openOwnEditor()
+                ui.onNode(hasSetTextAction()).assert(SemanticsMatcher.expectValue(
+                    SemanticsProperties.EditableText, AnnotatedString(edited))).assertIsEnabled()
+                capture("profile-late-save-recovered.png")
+                assertEquals(owner, AndroidWalletStore(context).loadExisting().publicKey)
+                assertEquals(SaitoBackend.OWNER, AndroidBackendStore(context).load())
+                assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
+            }
+        }
     }
 
     @Test fun viewingAProfileShowsItsVerifiedBioAndGeneratedSaitoAvatar() {

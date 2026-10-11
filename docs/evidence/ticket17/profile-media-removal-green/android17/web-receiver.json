@@ -1,0 +1,48 @@
+{
+  "result": "PASS",
+  "nodeVersion": "v24.13.0",
+  "nativeFrameSha256": "73010a8e6d6685bfe78ef601e156e9d3abe99d0aa7478e768eda7460e8345eb8",
+  "boundary": "Pinned A/B Profile receiving/reconstruction methods with independently verified actual native frame and in-memory Archive/keychain/UI adapters. No live write, deployment, DOM pixels or chain inclusion proof.",
+  "observations": [
+    {
+      "pin": "A",
+      "browser": false,
+      "sourceSha256": "15777808a5e4e88603b87dec7c28af177b418a9a46d0d8278ed569a25fc23d93",
+      "actualNativeSnapshotAcceptedAtConfirmationZero": true,
+      "completeFieldsPreserved": true,
+      "archivePreserved": true,
+      "newestSnapshotReconstructed": true,
+      "ownBrowserOptionsAndProfileEventUpdated": false
+    },
+    {
+      "pin": "A",
+      "browser": true,
+      "sourceSha256": "15777808a5e4e88603b87dec7c28af177b418a9a46d0d8278ed569a25fc23d93",
+      "actualNativeSnapshotAcceptedAtConfirmationZero": true,
+      "completeFieldsPreserved": true,
+      "archivePreserved": true,
+      "newestSnapshotReconstructed": true,
+      "ownBrowserOptionsAndProfileEventUpdated": true
+    },
+    {
+      "pin": "B",
+      "browser": false,
+      "sourceSha256": "3839e35cbdf330fae46b5a6d92b71802b801054bbcbc8589aa0718e539d6aad3",
+      "actualNativeSnapshotAcceptedAtConfirmationZero": true,
+      "completeFieldsPreserved": true,
+      "archivePreserved": true,
+      "newestSnapshotReconstructed": true,
+      "ownBrowserOptionsAndProfileEventUpdated": false
+    },
+    {
+      "pin": "B",
+      "browser": true,
+      "sourceSha256": "3839e35cbdf330fae46b5a6d92b71802b801054bbcbc8589aa0718e539d6aad3",
+      "actualNativeSnapshotAcceptedAtConfirmationZero": true,
+      "completeFieldsPreserved": true,
+      "archivePreserved": true,
+      "newestSnapshotReconstructed": true,
+      "ownBrowserOptionsAndProfileEventUpdated": true
+    }
+  ]
+}

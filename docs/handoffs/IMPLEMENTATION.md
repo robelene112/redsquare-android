@@ -157,9 +157,15 @@ Canonical chronology in verification document.
 Removal RED38104185964: separateeditor6PASS/publisher4PASS+skip/media1PASS+
 expectedmissingresetcontrol. All existingflowsincludinghelperrepairPASS.
 Minimalnull-marker/reset/remove source written; localcore49/buildPASS2m4s;
-dualGREENpending.
+dualGREEN10 38104649088/17 38104651018, separate6+5+2cases each,
+10 oneAPI30skip/17all13PASS. Six originals individuallyinspected and bothactual
+removalframes independentlyPASS pinnedcrypto/exactbody/A/Breceivers; retained
+profile-media-removal-green. Source38104649178 PASS49/release/lint.
 Interimfullafce...3b0b234 reviews1eachsame latecommitrevisionretryfinding,
-notruntimeproof. Fix after currentremovalloop, before ticketacceptance.
+notruntimeproof. NextONE late-save failure tracer nowwritten; exactowned
+noBackup permission fault, changedsyntheticciphertext andsamemountedretry.
+Restoreexactpermissionsbeforecleanup/no processkill. ExpectedREDstuckretry;
+localbuildPASS1m8s; native/reviewpending, no productionretryfixyet.
 No scheduler-race reproduction claimed.
 Recovery/process/full acceptance remains open.
 Then candidate failures/recovery,

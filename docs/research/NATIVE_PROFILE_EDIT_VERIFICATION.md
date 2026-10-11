@@ -910,3 +910,39 @@ extension and exact absence of image/banner, with unchanged crypto/envelope/hop
 checks. Local build/current dual-native GREEN pending.
 Removal local core/debug/test build PASS2m4s, retained exit0; core49 unchanged.
 Independent verifier syntax check PASS; no actual removal frame produced yet.
+
+Removal source bounded3b0b234...412d0e3 Standards0/Spec0. Actual dual GREEN:
+Android10 38104649088 editor6/29.809s,publisher5/25.803s (fourpass/oneAPI30+
+skip),media2/19.826s. Android17 38104651018 editor6/58.153s,publisher5/29.053s,
+media2/18.681s, all13PASS. Six original draft/available/public PNGs individually
+inspected: default generated avatar/absent banner/exact retained Unicode bio,
+public profile identity and available status. Exact XML/class+combined logs and
+actual second native frames retained profile-media-removal-green/android10|17.
+Both actual removal frames independently PASS pinned WASM/Elliptic/hop/envelope/
+exactliteralbody without image/banner; four A/B browser/server receiver and
+reconstruction observations each PASS. SHA10 c710f98f399ab373b17932bbb879b73d07eedebc048b186d4fa3c244dc2b98cf;
+SHA17 73010a8e6d6685bfe78ef601e156e9d3abe99d0aa7478e768eda7460e8345eb8.
+Source38104649178 PASS49/debug/test/release/lint. These are controlled native
+and in-memory receiver proofs, not live-chain, web DOM or deployment evidence.
+
+Next ONE late-save tracer uses the agreed native UI/filesystem recovery seam.
+Seed actual encrypted draft/key, type new literal bio, restrict only the owned
+isolated emulator noBackup directory to owner write+execute, Save draft and
+require truthful visible error/retained editable bio/zeroTX plus changed encrypted
+synthetic record digest (not generic pre-write failure). Restore exact original
+permissions in primary-preserving finally BEFORE retry/cleanup, then require
+same-mounted-editor Save succeeds and fresh Activity recovers exact bio/identity.
+No wallet-key reads/exports or process termination while permissions restricted.
+[Linux open permissions](https://www.man7.org/linux/man-pages/man2/open.2.html)
+and local shared writer order support the inferred fault: AtomicFile finishes
+before fresh O_RDONLY directory verification. Disposable ordinary-user host
+experiment independently confirmed replacement/known-file read succeeds and
+directory O_RDONLY fails; original permissions restored and fixture removed.
+Android feasibility and expected stuck retry RED are not observed yet.
+Proposed recovery is anchored to the exact mounted expected record and exact
+validated previous/intended own write outcomes, preserving a previous committed
+witness when a subsequent retry fails pre-commit. Candidate/frozen/newer guards
+must remain; readable unsynced bytes are not success. No production retry fix
+written yet. Initial single-marker proposal had a repeated-failure gap found by
+review; refined bounded previous/intended proposal is still only a plan.
+Late-save tracer local debug/test assembly PASS1m8s, retained exit0.

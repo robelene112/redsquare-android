@@ -1,0 +1,33 @@
+{
+  "result": "PASS",
+  "native": true,
+  "reference": {
+    "saitoCommit": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+    "saitoWasmVersion": "0.3.2",
+    "ellipticVersion": "6.6.1",
+    "wasmSha256": "f59be69dbb949368ce1fc7ef47d414cbe0281a86a206fe4bfb1128a4d087e01e"
+  },
+  "scenario": "removed-media",
+  "boundary": "Actual controlled Android Profile frame independently verified with pinned WASM/Elliptic. No live write, deployment, DOM or chain inclusion proof.",
+  "frameSha256": "c710f98f399ab373b17932bbb879b73d07eedebc048b186d4fa3c244dc2b98cf",
+  "profile": {
+    "sig": "c1dc4ce140b960c9706b9ec06a033b6856cf81b734b538b80fcc49d7efef9e2a01578b7aa7c57c9f92acc76f5c8e322cce094bec6e8e1cd9092b11912261436f",
+    "created_at": 1791685290303,
+    "field2": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+    "tx": "{\"t\":\"AAAAAQAAAAEAAAAAAAAAAMHcTOFAuWDJcGuewGoDO2hWz4G3NLU4uA/MSdfv754qAVeLeqfFfJ+SrMdvXI4yLM4JS+xujhzZCSsRkSJhQ28AAAGhKMPpPwAAAAEAAnm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACeb5mfvncu6xVoGKVzocLBwKb/NstzijZWfKBWxb4F5gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==\",\"m\":\"eyJtb2R1bGUiOiJQcm9maWxlIiwicmVxdWVzdCI6InVwZGF0ZSBwcm9maWxlIiwic25hcHNob3QiOjEsImRhdGEiOnsiZGVzY3JpcHRpb24iOiJNeSBzZWxlY3RlZCBwcm9maWxlIPCfjLFcbktlZXAgdGhpcyBiaW8gYW5kIG15IGlkZW50aXR5IiwiYXJjaGl2ZSI6WyJodHRwczovL2FyY2hpdmUuZXhhbXBsZS50ZXN0Il0sImV4dGVuc2lvbiI6eyJ0aGVtZSI6ImJsdWUifX19\",\"opt\":\"e30=\"}",
+    "body": {
+      "module": "Profile",
+      "request": "update profile",
+      "snapshot": 1,
+      "data": {
+        "description": "My selected profile 🌱\nKeep this bio and my identity",
+        "archive": [
+          "https://archive.example.test"
+        ],
+        "extension": {
+          "theme": "blue"
+        }
+      }
+    }
+  }
+}
