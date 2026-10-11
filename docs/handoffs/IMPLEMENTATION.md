@@ -132,9 +132,13 @@ Local debug/test PASS2m2s; bounded16f...b93 Standards1 residualclear/re-edit
 edge, Spec1 clearedcandidate leavesliveavailability true afterimportcancel.
 Expected-record revision now preserves empty clears and rejects stale no-candidate
 writes; revisionlessv1/v2 readas0. Localrevision/newtracer buildPASS2m1s.
-Newsingle realSAF importcancel/newedit/recovery tracer expects Save-disabledRED;
-that separate live-state fix not yet implemented. Committedreview/runtimepending;
-no scheduler-race reproduction claimed.
+Actual10 38102826915 RED12cases51.01s,tenpass/oneAPI30skip/one
+expecteddisabledSave at196 afterrealSAFcancel/newedit. OriginalPNG inspected,
+XML/log retainedprofile-import-cancel-red. ExistingrevisionflowsPASS.
+Livecurrentavailability nowclears for nocandidate/different/supersedingrecord.
+FixtureacceptsbothobservedDocumentsUI packages,boundedBackthroughdrawer and
+positivereturnedapp/cancelmessage. Localbuild/dualruntime/reviewpending.
+No scheduler-race reproduction claimed.
 Recovery/process/full acceptance remains open.
 Then candidate failures/recovery,
 actual process death, media, cross-client, full checks/reviews remain. No APK or

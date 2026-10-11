@@ -79,6 +79,7 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
         store.save(saved, durable).also { durable = it }
 
     private fun retain(saved: ProfileDraftStore.Saved) {
+        if (saved.transaction == null || saved.transaction.id != candidate?.id || saved.superseding != null) available = false
         durable = saved
         changes = saved.changes.deepCopy()
         memory.changes = changes.takeIf { it.size() > 0 }?.deepCopy()

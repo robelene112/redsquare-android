@@ -187,8 +187,16 @@ class ProfilePublishingPreviewTest {
                             ui.onNodeWithText("Wallet").performClick()
                             ui.onNodeWithText("Import wallet").performScrollTo().performClick()
                             val device = UiDevice.getInstance(instrumentation)
-                            ui.waitUntil(15_000) { device.currentPackageName == "com.android.documentsui" }
-                            device.pressBack()
+                            val pickerPackages = setOf("com.android.documentsui", "com.google.android.documentsui")
+                            ui.waitUntil(15_000) { device.currentPackageName in pickerPackages }
+                            // Back may first close the provider drawer before canceling selection.
+                            repeat(3) {
+                                if (device.currentPackageName in pickerPackages) {
+                                    device.pressBack()
+                                    device.wait(Until.hasObject(By.pkg(context.packageName)), 2_000)
+                                }
+                            }
+                            check(device.wait(Until.hasObject(By.pkg(context.packageName)), 10_000))
                             ui.waitUntil(15_000) { ui.onAllNodesWithText(context.getString(R.string.wallet_import_cancelled)).fetchSemanticsNodes().isNotEmpty() }
                             ui.onNodeWithText(context.getString(R.string.wallet_import_cancelled)).assertIsDisplayed()
                             ui.onNodeWithText("Done").performClick()

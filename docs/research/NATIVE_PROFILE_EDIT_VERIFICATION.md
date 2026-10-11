@@ -774,3 +774,44 @@ wallet leaves editor mounted. retain cleared candidate/changes but not available
 so editing becomes enabled while Save stays disabled. This is the new native
 tracer's expected failure; not an observed runtime result yet.
 Expected-record revision plus tracer local debug/test assembly PASS2m1s.
+
+Bounded b93...493 committed review: Spec zero new findings (known live
+availability bug remains intentionally unfixed); Standards resolves stale-clear
+source protection, one fixture package finding. New cancellation gate accepts
+only com.android.documentsui, but retained original17 SAF XML at
+profile-cache-failure-red/android17/import-transition-failure-38098588719.xml
+identifies com.google.android.documentsui. Accept both observed DocumentsUI
+packages before running17, retaining actual external cancellation/no-TX/new-bio
+assertions. No runtime scheduler-race proof. Current10 RED run38102826915 pending.
+
+Planned actual-interruption tracer reuses the existing host-separated image
+recovery boundary and isolated .dev emulator. Phase1 prepares square avatar and
+3:1 banner through controlled picker results, deletes owned sources, changes the
+bio, opens the real external picker (saving first), and kills its own PID after
+a public-only checkpoint. Phase2 requires cold recovered pixels/newest bio, zero
+TX until explicit Save, then retains a signed candidate while Archive returns
+empty and kills again. Phase3 serves that exact candidate, requires read-only
+reconciliation/current availability/frozen media and zero new TX, then normal
+Back and new editing without a pending record. Host validates both dead PIDs
+and current phase/signature, force-stops between phases and retains diagnostics.
+Use the emulator's current local wallet (assert public identity continuity),
+never export its private key or mutate production state; checkpoints contain
+only public synthetic signed profile data. Sources must be deleted before
+kill because finally blocks cannot run after actual death. No tests/harness
+written or executed for this plan yet.
+
+Actual Android10 cancellation RED493948d/38102826915: twelve cases51.01s,
+ten applicable pass/one API30+ assumption skip/one expected disabled Save
+profile at196 after real SAF cancellation and editing. Original PNG individually
+viewed: enabled bio contains My next unsent profile bio plus seedling, Save
+profile grey/disabled, no candidate availability label. Exact PNG/XML/rawlog
+retained profile-import-cancel-red/android10. Revision protection's existing
+flows pass; this is not deterministic scheduler-race proof.
+Minimal fix clears live current-availability when retain adopts no candidate,
+a different candidate or a superseding record. Historical qualification remains
+derived from the durable record. Fixture supports both observed DocumentsUI
+packages and bounded Back through a drawer; positively require returned app
+window and exact cancellation message before unchanged new-edit/no-TX/recovery
+assertions. Local assembly/dual native GREEN/committed review pending.
+Source493948d/38102826875 PASS core49/debug/test/release/lint, including revision and cancellation tracer.
+Cancellation fix local debug/test assembly PASS1m53s, retained exit0.
