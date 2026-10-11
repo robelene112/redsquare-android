@@ -103,15 +103,23 @@ Expected loaded head plus exact owned late-write witness blocks stale request
 revival. Both bounded source reviews have zero residual findings. First local
 compile found undefined Cancel; resource corrected, debug/test compile PASS2m14s.
 Two bounded success captures compile in the hosted focused run38128516957
-on e29604e (runtime pending). Source review subsequently identifies identical
-v1/v2 ciphertext payloads permitting a header-only retirement change. Working
+on e29604e (runtime pending). Source review subsequently identifies the same
+v1/v2 decrypted string payload format permitting a header-only retirement change. Working
 fix authenticates the v2 marker inside its exact JSON payload while preserving
 v1; shared encryption unchanged. Both bounded axes clear; debug/test build
 PASS2m7s. Existing race tracer now also checks retired-header corruption and
 primary-safe repair/read-only empty form. Fixture compilation PASS1m17s; native
 acceptance pending. The older e29604e run cannot verify this correction.
 
-Next: verify retirement recovery, applicable final full10/17 acceptance,
+Intermediate e29604e17 run38128516957 PASS15cases126.964s plus actual cold
+recovery1PASS4.449s, PID5146→5226 with samewallet/backend/frame. Root/both
+reviewers inspect original blank/newcandidate PNG/XML and raw records. Durable
+first-conflict-retirement-green. No marker95d1811/full/live readiness claim.
+
+Final full10run38129052913 and17run38129053893 both target95d1811 with
+public-feed reads enabled. All final runtime/source/update checks are pending.
+
+Next: inspect applicable final full10/17 acceptance,
 then record/park external live Registry blocker and continue independent #20
 (unblocked/unassigned checked2026-10-11), one ticket at a time. #19 stays open.
 Owner reviews completed app, no intermediate phone gate.

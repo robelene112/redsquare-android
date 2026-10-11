@@ -631,3 +631,19 @@ reopens a blank form without send. No native RED/GREEN for that extension yet.
 
 Marker-corruption application tracer compiles PASS1m17s. Both bounded source
 axes report zero residual findings; no native marker acceptance yet.
+
+Intermediate retirement GREEN: Android17 run38128516957/e29604e passes15 UI
+cases126.964s plus actual cold recovery1case4.449s. Root/both reviewers inspect
+blank reopened form and new pending NativeOther9 original PNG/XML, log and
+checkpoints. Actual PID5146→5226 retains author/backend/signature/frame/envelope;
+reconciliation is read-only and exact resend needs explicit Retry. The cold
+case retains a pending request, not a retired marker. No extra independent-WASM
+check of this intermediate frame is claimed. Durable hashed originals are in
+first-conflict-retirement-green. This older source does not verify the marker
+correction95d1811, whose source/fixture reviews have zero residual findings.
+
+Final full-android10 run38129052913 and full-android17 run38129053893 are
+concurrently dispatched for identical95d1811d9f3729353bf86204e8a235a18ff5661d
+with separate public-feed reads enabled. Assembly/release/lint, all applicable
+native regressions, actual process recovery, signed updates and current marker
+corruption/repair are pending. No final acceptance or live Registry success yet.
