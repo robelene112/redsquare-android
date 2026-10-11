@@ -198,6 +198,81 @@ class UsernamePreviewTest {
         }
     }
 
+    @Test fun aConfirmedRegistrationIsNotResentAndNamesTheOwnProfile() {
+        val reference = instrumentation.context.assets.open("native-registry-reference.json").bufferedReader()
+            .use { JsonParser.parseReader(it).asJsonObject }
+        val proof = reference.getAsJsonArray("rows").toString()
+        val fixture = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe fixture only.
+        val walletStore = AndroidWalletStore(context)
+        val original = walletStore.loadOrCreate()
+        if (original.publicKey != fixture.publicKey) walletStore.replace(original, fixture)
+        val registered = java.util.concurrent.atomic.AtomicBoolean(false)
+        val missing = java.util.concurrent.atomic.AtomicBoolean(false)
+        val peer = ControlledFeedPeer("[]", onTransaction = { frame ->
+            val signed = SaitoEnvelope.decode(postingTransaction(frame).envelope())
+            assertEquals(fixture.publicKey, signed.author)
+            assertEquals(listOf(reference.get("registrar").asString, fixture.publicKey), signed.recipients)
+            assertEquals("Registry", signed.body.get("module").asString)
+            assertEquals("register", signed.body.get("request").asString)
+            assertEquals("NativeCase7@saito", signed.body.get("identifier").asString)
+            registered.set(true)
+        }, registryResponse = { criteria ->
+            assertEquals("registry namecheck", criteria.get("request").asString)
+            assertEquals("NativeCase7@saito", criteria.get("identifier").asString)
+            if (registered.get() && !missing.get()) proof else "[]"
+        }, archiveResponse = { "[]" })
+        var primary: Throwable? = null
+        try {
+            peer.start().use { server ->
+                val intent = Intent(context, MainActivity::class.java)
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                    .putExtra("usernameFixtureRegistrar", true)
+                ActivityScenario.launch<MainActivity>(intent).use { scenario ->
+                    withFailureCapture({ capture("username-profile-failure.png") }) {
+                        openUsername()
+                        waitForEnabled("Check name")
+                        ui.onNode(hasSetTextAction()).performTextReplacement("NativeCase7")
+                        ui.onNodeWithText("Check name").performClick()
+                        waitForText("This username is currently available. Checking does not reserve it.")
+                        ui.onNodeWithText("Register name").performClick()
+                        waitForText("This username is registered to your wallet.")
+                        ui.onNodeWithText("NativeCase7@saito").assertIsDisplayed()
+                        assertEquals(1, peer.transactions.size)
+                        capture("username-registered.png", "NativeCase7@saito")
+                        missing.set(true)
+                        val checks = peer.registryQueries.size
+                        scenario.recreate()
+                        openUsername()
+                        waitForText("Your saved username was not found on this server. It has been kept on this device.")
+                        assertTrue(peer.registryQueries.size > checks)
+                        ui.onNodeWithText("Saved username: NativeCase7@saito").assertIsDisplayed()
+                        ui.onAllNodesWithText("Retry registration").assertCountEquals(0)
+                        ui.onAllNodesWithText("Register name").assertCountEquals(0)
+                        assertEquals("Confirmed work must never be resent", 1, peer.transactions.size)
+                        ui.onNodeWithText("Back").performClick()
+                        waitForEnabled("My profile")
+                        ui.onNodeWithText("My profile").performClick()
+                        waitForText("NativeCase7@saito")
+                        ui.onNodeWithText("NativeCase7@saito").assertIsDisplayed()
+                        ui.onNodeWithText(fixture.publicKey).assertIsDisplayed()
+                        ui.onAllNodesWithText("Anon-${fixture.publicKey.take(6)}").assertCountEquals(0)
+                        capture("username-profile.png", "NativeCase7@saito")
+                        assertEquals(1, peer.transactions.size)
+                        assertTrue(peer.clientKeys.all { it == fixture.publicKey })
+                        peer.assertHealthy()
+                    }
+                }
+            }
+        } catch (failure: Throwable) { primary = failure; throw failure }
+        finally {
+            try {
+                val active = walletStore.loadExisting()
+                check(active.publicKey == fixture.publicKey)
+                if (original.publicKey != fixture.publicKey) walletStore.replace(active, original)
+            } catch (cleanup: Throwable) { if (primary != null) primary.addSuppressed(cleanup) else throw cleanup }
+        }
+    }
+
     private fun openUsername() {
         waitForEnabled("New post")
         if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
