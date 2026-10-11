@@ -314,8 +314,14 @@ identical retry after reopening. Run38172502009 at1055657 reproduces missing-war
 and separateXML show ack without warning; receipt-save-red4hashes. Modes
 restored in finally, no wallet data changed. Current product adds secondary
 phone-save warning, retains acknowledgement and clears old save marker on Retry.
-Correction runtime next; recovery segment not yet reached. Post-ack save warning and other pre-send
-failures still need their own acceptance. Load ownership review clear
+Correction38172869855 atc6f7148 passes5cases36.278s, including reopened
+unknown/no automatic send/exact explicit retry. Root3unchanged originals and
+separate3XMLs inspected; receipt-save-green8hashes. Both review axes found
+the same cleanup defect: modes cleared before successful restoration, skipped
+second restore, potential masking of primary failure. Current correction keeps
+modes until successful chmod, tries both independently and suppresses cleanup
+under primary failure. No physical restoration failure is claimed exercised.
+Pre-send failures still need acceptance; corrected fixture compile/runtime pending. Load ownership review clear
 throughc10de10, with0residual Standards findings. Pre-transmission, interrupted-save/isolation and
 final paired acceptance remain incomplete. These checkpoints are not acceptance.
 Ticket22 remains incomplete: failure/durability/identity/backend isolation,

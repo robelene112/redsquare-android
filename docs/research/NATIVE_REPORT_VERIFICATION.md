@@ -157,3 +157,16 @@ Durable ticket21/receipt-save-red4hashes. Current source adds secondary phone
 save warning while retaining acknowledgement, and clears old save marker on
 new explicit retry. Recovery/retry segment remains unproved until correction
 runtime. Other pre-send, authority/isolation/process/final checks stay pending.
+
+## Receipt-save warning GREEN and fixture review correction
+
+Android10 run38172869855 atc6f7148:5PASS36.278s. Root3unchanged
+originals/separate3XMLs show ack plus warning, reopened unknown and repaired
+explicit ack. Exact signed retry/no automatic send assertions pass. Durable
+ticket21/receipt-save-green8hashes. This is Activity recreation, not process death.
+Both review axes identified the same fixture cleanup defect: saved modes were
+consumed before chmod success, one restore could skip the other, and finally
+could mask the primary failure. Correction retains each mode until success,
+tries both independently and suppresses cleanup failures onto a primary. No
+restoration failure was injected; new fixture source verification is pending.
+Other pre-send/authority/isolation/process/final acceptance remains incomplete.

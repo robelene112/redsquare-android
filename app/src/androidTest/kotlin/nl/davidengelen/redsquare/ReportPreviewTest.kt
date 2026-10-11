@@ -202,9 +202,21 @@ class ReportPreviewTest {
         val blockOnce = AtomicBoolean(true)
         val fileMode = AtomicReference<Int?>()
         val directoryMode = AtomicReference<Int?>()
-        fun repairSaving() {
-            directoryMode.getAndSet(null)?.let { android.system.Os.chmod(context.noBackupFilesDir.path, it) }
-            fileMode.getAndSet(null)?.let { android.system.Os.chmod(requireNotNull(savePath.get()).path, it) }
+        fun repairSaving(primary: Throwable? = null) {
+            var failure = primary
+            listOf(directoryMode to context.noBackupFilesDir, fileMode to savePath.get()).forEach { (mode, file) ->
+                try {
+                    mode.get()?.let {
+                        android.system.Os.chmod(requireNotNull(file).path, it)
+                        mode.compareAndSet(it, null)
+                    }
+                } catch (cleanup: Throwable) {
+                    val earlier = failure
+                    if (earlier == null) failure = cleanup
+                    else if (earlier !== cleanup) earlier.addSuppressed(cleanup)
+                }
+            }
+            if (primary == null && failure != null) throw requireNotNull(failure)
         }
         val peer = ControlledFeedPeer("[$root]", reportResponse = {
             if (blockOnce.compareAndSet(true, false)) {
@@ -222,6 +234,7 @@ class ReportPreviewTest {
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { activity ->
                 withFailureCapture({ capture("receipt-save-failure.png") }) {
+                    var failure: Throwable? = null
                     try {
                         ui.clickVisiblePostContent("Report")
                         ui.onNodeWithText("Cancel").performClick()
@@ -254,7 +267,10 @@ class ReportPreviewTest {
                         val retry = peer.reports.last()
                         assertArrayEquals(original, retry.copyOfRange(5, retry.size))
                         assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
-                    } finally { repairSaving() }
+                    } catch (primary: Throwable) {
+                        failure = primary
+                        throw primary
+                    } finally { repairSaving(failure) }
                 }
             }
         }
