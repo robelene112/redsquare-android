@@ -476,3 +476,8 @@ publicfeed originals. Durable final-full/android17 retains119hashes, rawlogs,
 counts, observations and continuity. No Search process-death/physical/chain claim.
 Outstanding full10run38147131217 ACTIVE at7b4dd14, product/Search/harness unchanged.
 Both SDK acceptance/finalreview still pending; #20 remains OPEN.
+
+Bounded Android17 evidence review7b4dd14...7cf208d: both axes0 residual findings.
+Each independently verifies119hashes,170cases/44records/14deathlogs, core55/0/0,
+Search/publictimings/counts and source equivalence. Selected original PNGs/separate
+XML agree; Android10 remains outstanding, no final closure inferred.

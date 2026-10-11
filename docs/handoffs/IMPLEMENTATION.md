@@ -102,7 +102,8 @@ Android17run38145373388 SUCCESS:170reported/allPASS,44completion records/14actua
 processdeaths; core55/0/0, source/release/lint, signed5-to-8/cold continuity PASS.
 Search9PASS58.789s; publicowner/official1PASS9.678s/7.672s andboth Search metadata
 reads PASS. Root viewed15SearchPNG+15separateXML+2publicfeed originals. Durable
-final-full/android17 retains119hashes. Outstanding full10run38147131217 continues;
+final-full/android17 retains119hashes; both bounded axes0 findings with independent
+counts/hash/original checks. Outstanding full10run38147131217 continues;
 production/Search/harness unchanged. Both full runs optedpublic reads. Inspect retained full
 logs/counts/critical originals after completion, record applicable assumptions,
 and finish final evidence/review before closing#20. No final acceptance yet.
