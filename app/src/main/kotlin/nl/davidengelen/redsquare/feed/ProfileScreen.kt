@@ -210,7 +210,7 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
                     Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                         ProfileImage(profile?.image, ProfileImageKind.PICTURE, author, backend, Modifier.size(48.dp))
                         Column(Modifier.weight(1f)) {
-                            Text(registeredIdentityName(author), style = MaterialTheme.typography.titleMedium)
+                            Text(registeredIdentityName(author, wallet, endpoint, backend), style = MaterialTheme.typography.titleMedium)
                             Text(author, style = MaterialTheme.typography.labelSmall)
                         }
                     }
