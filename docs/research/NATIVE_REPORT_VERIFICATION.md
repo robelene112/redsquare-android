@@ -211,3 +211,10 @@ fixture-only3609e3b. Next single native case exercises independent reports
 to both approved destinations, official receipt recreation and owner unknown
 recovery/exact retry, with no automatic reroute or resend. Production unchanged
 for this additional acceptance case; no deliberate RED defect is presumed.
+
+Bounded isolation Spec review adds a fixture sensitivity check: both destination
+reports must have the same signer, self-only recipients and original target;
+final displayed and saved wallet must retain that signer. Earlier bytes-only
+distinction could miss an identity-change regression. No production identity
+defect is claimed. Current runtime38174100403 predates these added assertions;
+final paired runs must execute them.
