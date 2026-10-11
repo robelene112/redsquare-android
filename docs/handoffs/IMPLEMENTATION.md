@@ -238,3 +238,20 @@ NATIVE_SAITO_TRANSFER_CONTRACT, NATIVE_PRIVATE_CHAT_CONTRACT and
 NATIVE_GROUP_CHAT_CONTRACT (all .md under docs/research). The protected future notes remain uncommitted and must be included only with
 their own relevant tickets; earlier contracts are already committed.
 They establish source contracts, not runtime or feature completion.
+
+
+Save-failure recovery tracer aa112f4 compiles PASS1m17s. It exercises existing
+live-result/savewarning behavior through the actual public-cache obstruction,
+repair and a fresh offline Activity, with same-wallet/all-client-key/no-TX gates.
+No manufactured missing-feature RED. Bounded review found setup outside protected
+cleanup and sequential restoration that could mask the primary failure. Fixed
+952fb55: protect setup immediately after successful rename, reject stale preserved
+fixture, attempt all cleanup operations and suppress secondary errors. Both
+bounded axes now0 residual findings; fixed test compilation/native pending.
+Post-GREEN fixture cleanup6d22b40 shares unchanged guarded public-history reset.
+One remaining consequential integration journey: independently signed author
+edit and confirmed deletion must affect search and survive stale Archive reopen.
+No final #20 acceptance or live/physical claim.
+
+Fixed cache-failure fixture952fb55 compiles PASS1m18s; both bounded axes0.
+First focused native verification of the eight search journeys is next.

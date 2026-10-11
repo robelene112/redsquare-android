@@ -365,3 +365,20 @@ allclientkeys/noTX gatesPASS. Root individuallyviewed neworiginalPNG and
 separateXML; rawlog/pair ticket19/name-qualified-green. Different-owner edge
 is source-reviewed, not a separate runtimefixture. No final#20/live/physical
 claim. Next verify existing savewarning/repair at primary application seam.
+
+
+Save-failure recovery tracer aa112f4 compiles PASS1m17s. It exercises existing
+live-result/savewarning behavior through the actual public-cache obstruction,
+repair and a fresh offline Activity, with same-wallet/all-client-key/no-TX gates.
+No manufactured missing-feature RED. Bounded review found setup outside protected
+cleanup and sequential restoration that could mask the primary failure. Fixed
+952fb55: protect setup immediately after successful rename, reject stale preserved
+fixture, attempt all cleanup operations and suppress secondary errors. Both
+bounded axes now0 residual findings; fixed test compilation/native pending.
+Post-GREEN fixture cleanup6d22b40 shares unchanged guarded public-history reset.
+One remaining consequential integration journey: independently signed author
+edit and confirmed deletion must affect search and survive stale Archive reopen.
+No final #20 acceptance or live/physical claim.
+
+Fixed cache-failure fixture952fb55 compiles PASS1m18s; both bounded axes0.
+First focused native verification of the eight search journeys is next.
