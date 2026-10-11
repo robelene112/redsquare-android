@@ -195,3 +195,28 @@ frame report is written after its in-scope screenshot creates the evidence
 folder, so it does not depend on test ordering. Hosted build/runtime will verify
 that bounded capture-order correction. Existing profile history and public-key
 rendering stay unchanged; only the header uses the verified cached label.
+
+Both review axes for8b18b1f...eecb19a report0 actionable findings. Focused10
+run38116194012/eecb19a PASS4cases/17.036s; source/core/debug/test1m29s. Actual
+registration receives the independent ownership proof; after recreation a new
+empty check retains saved knowledge and cannot resend. Own profile displays the
+full identifier and unchanged public key. Root individually viewed both original
+registration/profile PNGs and inspected their XMLs. Retained verbatim with raw
+log, actual frame and independent/pinned receiver outputs at first-profile-name-green.
+
+Actual unsafe1/2 native registration frame independently verifies transaction
+and route with pinned WASM/Elliptic, hashc9f6e6af...52f2d5b1. Explicit verifier
+synthetic-registrar mode requires those identities; published-default prior
+pending specimen still PASS. Both pinned Registry bodies accept the verified
+request under explicit unsafe2 local authority and produce proof matching the
+independent vector. Nonzero-conf/relay/wrong-recipient/duplicate gates pass;
+constructed namecheck/key-map queries and original keychain display bodies
+return the full identifier. TypeScript signatures alone are removed for the
+keychain VM. These are in-memory adapters, not a real browser wallet, served DOM,
+chain inclusion or captured native read frames. Email hash overwrite is observed
+without relaxing proof verification. New helpers/evidence review pending.
+
+Next tracer: native wallet import must warn about the outgoing wallet's verified
+name/pending Registry work. Its cache/request cannot describe a replacement
+identity. Actual process death, invalid/unavailable responses, broader shared
+names, public Android reads and final full10/17 acceptance remain incomplete.

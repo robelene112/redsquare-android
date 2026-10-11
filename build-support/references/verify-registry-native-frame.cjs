@@ -8,6 +8,8 @@ const base58 = require('/opt/saito/node/node_modules/base-58');
 const EC = require('/opt/saito/node/node_modules/elliptic').ec;
 const specimen = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
 assert.equal(specimen.native, true);
+const syntheticRegistrar = process.argv[3] === 'synthetic-registrar';
+assert(process.argv[3] === undefined || syntheticRegistrar, 'Unknown Registry specimen scenario');
 const frame = Buffer.from(specimen.frame, 'base64');
 assert.equal(frame[0], 4);
 const bytes = frame.subarray(1);
@@ -21,8 +23,10 @@ assert(messageLength > 0 && messageLength <= 1024);
 const hopOffset = messageOffset + messageLength;
 assert.equal(bytes.length, hopOffset + 130);
 const authorPoint = bytes.subarray(93, 126), author = base58.encode(authorPoint);
+if (syntheticRegistrar) assert.equal(author, 'jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR');
 assert(bytes.subarray(126, 152).equals(Buffer.alloc(26)));
-const registrar = 'sFQuGQ6teVaHs6AAtBBWeDwtGMCGCPNyhTJqYDXCvvVK';
+const registrar = syntheticRegistrar ? 'pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU' :
+  'sFQuGQ6teVaHs6AAtBBWeDwtGMCGCPNyhTJqYDXCvvVK';
 assert.equal(base58.encode(bytes.subarray(152, 185)), registrar);
 assert(bytes.subarray(185, 211).equals(Buffer.alloc(26)));
 assert(bytes.subarray(211, 244).equals(authorPoint));
@@ -46,7 +50,7 @@ detached.writeUInt32BE(0, 8); detached.writeUInt32BE(0, 12);
 const envelope = {t: detached.toString('base64'), m: bytes.subarray(messageOffset, hopOffset).toString('base64'),
   opt: Buffer.from('{}').toString('base64')};
 assert.deepEqual(JSON.parse(specimen.envelope), envelope);
-console.log(JSON.stringify({result: 'PASS', native: true, reference,
+console.log(JSON.stringify({result: 'PASS', native: true, syntheticRegistrar, reference,
   boundary: 'Actual controlled Android zero-payment Registry request and routing signatures independently verified with pinned WASM/Elliptic. No live registration, namespace ownership or chain inclusion proof.',
   frameSha256: crypto.createHash('sha256').update(frame).digest('hex'),
   registration: {author, registrar, signature, timestamp: Number(transaction.timestamp), body,

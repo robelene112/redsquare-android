@@ -1,0 +1,59 @@
+{
+  "result": "PASS",
+  "native": true,
+  "synthetic": true,
+  "frameSha256": "c9f6e6afb8335db90fa19a291ab4a8f94ed5a7a0e8a507b1c9d4ba2352f2d5b1",
+  "boundary": "Actual independently verified Android unsafe1/2 registration passed pinned A/B Registry bodies and keychain display bodies with in-memory adapters. Lookup and browser construction requests are adapter inputs. No live node, actual browser wallet/DOM or chain inclusion proof.",
+  "observations": [
+    {
+      "pin": "A",
+      "commit": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+      "registry": "25b7a20074b8465ab5f2119dafb8136e276fd71ee0d02b6485650213cd92e576",
+      "keychain": "caf919428572e7525e86405876519a2c8a20a67a6f3f8ef712a0b93f5ca1565d",
+      "record": {
+        "identifier": "NativeCase7@saito",
+        "publickey": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+        "unixtime": 1700002000000,
+        "bid": 17,
+        "bsh": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "lock_block": 0,
+        "sig": "4e4ff9182cc075d593921a510f3eb5b93be0da581080e4ff824f61dae29095ec42e9bd71d621138d6a7dbdffe1a95bf8bbddfb0189691bbc5aa1f7b4a34c967c",
+        "signer": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+        "lc": 1
+      },
+      "display": "NativeCase7@saito",
+      "gates": [
+        "nonzero confirmation",
+        "relay node",
+        "wrong recipient",
+        "unique identifier retry"
+      ],
+      "emailBlockHashOverwritten": true
+    },
+    {
+      "pin": "B",
+      "commit": "214504ecece76d1cd20a245fe4468eccbfca2951",
+      "registry": "b069f0ba1f9f9408102f9e144d71840086cc1262b4a7994b718e72176623351d",
+      "keychain": "ad57a2848e77ee7c763a5e157fb7d391ed6e36fbe17663430e2509104867907c",
+      "record": {
+        "identifier": "NativeCase7@saito",
+        "publickey": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+        "unixtime": 1700002000000,
+        "bid": 17,
+        "bsh": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "lock_block": 0,
+        "sig": "4e4ff9182cc075d593921a510f3eb5b93be0da581080e4ff824f61dae29095ec42e9bd71d621138d6a7dbdffe1a95bf8bbddfb0189691bbc5aa1f7b4a34c967c",
+        "signer": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+        "lc": 1
+      },
+      "display": "NativeCase7@saito",
+      "gates": [
+        "nonzero confirmation",
+        "relay node",
+        "wrong recipient",
+        "unique identifier retry"
+      ],
+      "emailBlockHashOverwritten": true
+    }
+  ]
+}
