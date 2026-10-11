@@ -14,6 +14,8 @@ import org.junit.Test
 import java.io.File
 import java.nio.ByteBuffer
 import java.util.Base64
+import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.atomic.AtomicReference
 
 class ReportPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
@@ -188,6 +190,71 @@ class ReportPreviewTest {
                     assertEquals(root.get("sig").asString, signed.body.getAsJsonObject("data").get("signature").asString)
                     assertEquals(listOf(author), signed.recipients)
                     assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
+                }
+            }
+        }
+    }
+
+    @Test fun acknowledgedReportWithFailedReceiptSavingWarnsAndReopensTheSameUnknownIntent() {
+        val root = InstrumentationRegistry.getInstrumentation().context.assets.open("native-feed-reference.json")
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow") }
+        val savePath = AtomicReference<File>()
+        val blockOnce = AtomicBoolean(true)
+        val fileMode = AtomicReference<Int?>()
+        val directoryMode = AtomicReference<Int?>()
+        fun repairSaving() {
+            directoryMode.getAndSet(null)?.let { android.system.Os.chmod(context.noBackupFilesDir.path, it) }
+            fileMode.getAndSet(null)?.let { android.system.Os.chmod(requireNotNull(savePath.get()).path, it) }
+        }
+        val peer = ControlledFeedPeer("[$root]", reportResponse = {
+            if (blockOnce.compareAndSet(true, false)) {
+                val saved = requireNotNull(savePath.get())
+                fileMode.set(android.system.Os.stat(saved.path).st_mode and 0x1ff)
+                directoryMode.set(android.system.Os.stat(context.noBackupFilesDir.path).st_mode and 0x1ff)
+                // Block both legacy base-file writing and newer temporary-file commits.
+                // The original public record remains intact. Always restore these modes.
+                android.system.Os.chmod(saved.path, 0x100)
+                android.system.Os.chmod(context.noBackupFilesDir.path, 0x140)
+            }
+            "{}"
+        })
+        peer.start().use { server ->
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { activity ->
+                withFailureCapture({ capture("receipt-save-failure.png") }) {
+                    try {
+                        ui.clickVisiblePostContent("Report")
+                        ui.onNodeWithText("Cancel").performClick()
+                        ui.onNodeWithText("Wallet").performClick()
+                        val author = displayedWalletAddress(ui)
+                        ui.onNodeWithText("Done").performClick()
+                        savePath.set(File(context.noBackupFilesDir, "report.owner.$author.${root.get("sig").asString}.v1"))
+                        ui.clickVisiblePostContent("Report")
+                        ui.onNodeWithText("Send report").performClick()
+                        val acknowledged = "Report acknowledged by saito.davidengelen.nl. Moderator review is separate."
+                        waitFor(acknowledged)
+                        peer.assertHealthy()
+                        val original = peer.reports.single().copyOfRange(5, peer.reports.single().size)
+                        val warning = "Report details could not be saved on this phone. Reopening may show delivery unknown."
+                        waitFor(warning)
+                        capture("receipt-save-warning.png", warning)
+                        assertTrue(peer.transactions.isEmpty())
+                        repairSaving()
+                        ui.onNodeWithText("Done").performClick()
+                        activity.recreate()
+                        ui.clickVisiblePostContent("Retry report")
+                        val uncertain = "Report delivery to saito.davidengelen.nl is unknown. Try again to send the same report."
+                        waitFor(uncertain)
+                        capture("receipt-save-reopened-unknown.png", uncertain)
+                        assertEquals(1, peer.reports.size)
+                        ui.onNodeWithText("Send report").performClick()
+                        waitFor(acknowledged)
+                        capture("receipt-save-repaired-acknowledged.png", acknowledged)
+                        assertEquals(2, peer.reports.size)
+                        val retry = peer.reports.last()
+                        assertArrayEquals(original, retry.copyOfRange(5, retry.size))
+                        assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
+                    } finally { repairSaving() }
                 }
             }
         }

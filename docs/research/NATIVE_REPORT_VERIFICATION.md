@@ -133,3 +133,16 @@ transmission. Durable ticket21/save-red4hashes. Current correction distinguishes
 save failure, states nothing new was sent and preserves explicit repaired retry.
 Correction runtime is next. Post-acknowledgement save warning, other pre-send
 errors, authority/isolation/process/final paired checks remain unfinished.
+
+## Initial save-failure GREEN, next receipt-save RED
+
+Android10 run38172025405 atb867022 passes4cases32.465s. Root2affected
+originals/separate2XMLs show save error and repaired explicit acknowledgement;
+no send before repair, original identity/self-recipient/target retained. Both
+bounded source axes0findings. Durable ticket21/save-green6hashes.
+
+Next single case uses isolated emulator OS permission failure after original
+report receipt, preserving the public candidate and restoring exact modes in
+finally. It requires acknowledgement plus persistence warning, then recovered
+unknown and explicit identical retry after repair. Legacy/new AtomicFile paths
+are both blocked. Production warning remains unchanged for RED.

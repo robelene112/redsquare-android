@@ -305,7 +305,11 @@ then repaired explicit retry. Run38171654146 at1e874de reproduces save-wording R
 47.575s at173, after no-report/no-broadcast guards pass. Root live original
 and separateXML show incorrect unknown wording; ticket21/save-red4hashes.
 Current minimal correction records save failure and says nothing new was sent.
-Focused correction runtime is next. Post-ack save warning and other pre-send
+Correction38172025405 atb867022 passes4cases32.465s. Root2affected
+originals/separate2XMLs inspected; save-green6hashes. Both bounded source axes0.
+Next single receipt-save permission fault preserves the public candidate and
+restores exact modes in finally, requiring ack plus storage warning and explicit
+identical retry after reopening. Production warning unchanged for RED. Post-ack save warning and other pre-send
 failures still need their own acceptance. Load ownership review clear
 throughc10de10, with0residual Standards findings. Pre-transmission, interrupted-save/isolation and
 final paired acceptance remain incomplete. These checkpoints are not acceptance.
