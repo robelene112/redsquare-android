@@ -19,8 +19,13 @@ import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.Rule
 import org.junit.Test
 import java.io.File
+import com.google.gson.JsonObject
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withTimeout
 import nl.davidengelen.redsquare.saito.AndroidBackendStore
+import nl.davidengelen.redsquare.saito.RedSquareFeed
 import nl.davidengelen.redsquare.saito.SaitoBackend
+import nl.davidengelen.redsquare.saito.SaitoPeer
 
 /** Separate, explicitly enabled public read. The harness clears only the emulator's .dev app first. */
 class OwnerLiveFeedTest {
@@ -28,6 +33,8 @@ class OwnerLiveFeedTest {
 
     @Test fun freshInstallationReadsTheSelectedApprovedPublicFeed() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
+        check(instrumentation.targetContext.packageName == "nl.davidengelen.redsquare.dev")
+        check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
         check(InstrumentationRegistry.getArguments().getString("publicFeedRead") == "1")
         val selected = InstrumentationRegistry.getArguments().getString("publicBackend") ?: "owner"
         require(selected == "owner" || selected == "official")
@@ -58,6 +65,29 @@ class OwnerLiveFeedTest {
                 }
                 val visible = ui.onAllNodes(visibleAuthor).fetchSemanticsNodes().size
                 File(directory, "result.txt").writeText("PASS: $visible visible author identities on the $selected fresh native feed.\nPublic read only; signature verification does not prove chain inclusion.\n")
+                val wallet = AndroidWalletStore(instrumentation.targetContext).loadExisting()
+                runBlocking {
+                    withTimeout(40_000) {
+                        SaitoPeer(wallet, backend.peerUrl).use { peer ->
+                            for (stream in listOf("RedSquare", "RedSquareRetweet")) {
+                                val criteria = JsonObject().apply {
+                                    addProperty("request", "load"); addProperty("field1", stream)
+                                    addProperty("flagged_ne", 1); addProperty("limit", 100)
+                                    addProperty("created_earlier_than", System.currentTimeMillis() + 1)
+                                }
+                                val query = JsonObject().apply { addProperty("request", "archive"); add("data", criteria) }
+                                val response = peer.request(query.toString().toByteArray(Charsets.UTF_8)).toString(Charsets.UTF_8)
+                                val page = if (stream == "RedSquare") RedSquareFeed.readSearch(response)
+                                    else RedSquareFeed.readCurrentQuotes(response)
+                                File(directory, "public-search.txt").appendText(
+                                    "PASS backend=${backend.id} observedAt=${System.currentTimeMillis()} " +
+                                        "criteria=$criteria rows=${page.rowCount} posts=${page.posts.size} ignored=${page.ignored}\n")
+                            }
+                        }
+                    }
+                }
+                check(AndroidWalletStore(instrumentation.targetContext).loadExisting().publicKey == wallet.publicKey)
+                check(AndroidBackendStore(instrumentation.targetContext).load() == backend)
             } finally {
                 captureFeedEvidence("live-feed-evidence/screen.png")
             }
