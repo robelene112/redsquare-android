@@ -373,9 +373,17 @@ Wallet38175754741 at79cd07c passesordinary9cases77.701s pluscold1case
 restoredoriginalunknown/exactexplicitack. ActualSAFfullopts restoration,
 opaqueincomingopts/noauto/type4 assertions pass. wallet-green11hashes.
 Bothd251807 sanitized-parserfixreviews0; runtimepredatesthatfixtureonlyfix.
-Nextsingleinvalidreplyjourney coverswire14/app.err/empty/malformed asunknown
-thenvalidexplicitexactsignedretry. FocusedAndroid17 next includesallcasesand
-process/sanitizedparser. FinalpairedbothSDK/source/publicreads stillpending.
+The initial invalid-reply journey expected unknown for all four failures; that
+expectation is historical and does not satisfy explicit-error fidelity.
+Ticket22 correction: Spec review ofd251807...16257cd found explicit wire14/app.err
+must be distinguished from unknown-only feedback. Standards0. Corrected native
+journey requires named error plus uncertain delivery, persists feedback through
+recreation/noauto, and retains original bytes on explicit retries; empty/malformed
+remain unknown. Product unchanged pending actual RED. Android17 run38176271148
+uses older expectation and cannot accept this correction.
+Corrected RED38176608046 atafcd0bb pending. Both tracer Spec checks clear;
+Standards handoff conflict corrected here. Final paired both-SDK/source/public
+reads remain pending.
 Ticket22 remains incomplete: failure/durability/identity/backend isolation,
 actual process interruption and final both-SDK acceptance/reviews still required.
 Its source contract is prepared in NATIVE_DISCOVERY_MODERATION_CONTRACT.md and
@@ -408,10 +416,3 @@ NATIVE_SAITO_TRANSFER_CONTRACT, NATIVE_PRIVATE_CHAT_CONTRACT and
 NATIVE_GROUP_CHAT_CONTRACT (all .md under docs/research). The protected future notes remain uncommitted and must be included only with
 their own relevant tickets; earlier contracts are already committed.
 They establish source contracts, not runtime or feature completion.
-
-Ticket22 correction: Spec review ofd251807...16257cd found explicit wire14/app.err
-must be distinguished from unknown-only feedback. Standards0. Corrected native
-journey requires named error plus uncertain delivery, persists feedback through
-recreation/noauto, and retains original bytes on explicit retries; empty/malformed
-remain unknown. Product unchanged pending actual RED. Android17 run38176271148
-uses older expectation and cannot accept this correction.
