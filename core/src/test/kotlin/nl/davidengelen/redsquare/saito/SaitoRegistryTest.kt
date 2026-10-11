@@ -19,6 +19,40 @@ class SaitoRegistryTest {
         }
     }
 
+    @Test fun `only an exact registrar proof can resolve a name and only an empty array means available`() {
+        val reference = JsonParser.parseReader(javaClass.getResourceAsStream("/native-registry-reference.json")!!.reader()).asJsonObject
+        val original = reference.getAsJsonArray("rows")[0].asJsonObject
+        val authority = reference.get("registrar").asString
+        assertEquals(null, SaitoRegistry.readNamecheck("[]", "NativeCase7@saito", authority))
+        val unavailable = listOf("{\"err\":\"no response\"}", "null", "{}", "[null]", "[] trailing")
+        for (response in unavailable) assertThrows(Exception::class.java) {
+            SaitoRegistry.readNamecheck(response, "NativeCase7@saito", authority)
+        }
+        // Mutations of the independent signed fixture must fail, never become availability.
+        for ((field, value) in listOf("identifier" to "OtherName@saito", "publickey" to SaitoRegistry.REGISTRAR,
+            "bid" to "18", "bsh" to "b".repeat(64), "sig" to "0".repeat(128), "signer" to SaitoRegistry.REGISTRAR)) {
+            val row = original.deepCopy().apply { addProperty(field, value) }
+            assertThrows(Exception::class.java) {
+                SaitoRegistry.readNamecheck("[$row]", "NativeCase7@saito", authority)
+            }
+        }
+        assertThrows(IllegalArgumentException::class.java) {
+            SaitoRegistry.readNamecheck("[$original,$original]", "NativeCase7@saito", authority)
+        }
+        // lc is an unsigned server hint; it can mark the valid proof inactive without changing ownership.
+        val inactive = original.deepCopy().apply { addProperty("lc", 0) }
+        val record = SaitoRegistry.readNamecheck("[$inactive]", "NativeCase7@saito", authority)!!
+        assertEquals("jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR", record.publicKey)
+        assertTrue(!record.active)
+        val invalidHint = original.deepCopy().apply { addProperty("lc", 2) }
+        assertThrows(IllegalArgumentException::class.java) {
+            SaitoRegistry.readNamecheck("[$invalidHint]", "NativeCase7@saito", authority)
+        }
+        assertThrows(IllegalArgumentException::class.java) {
+            SaitoRegistry.readNamecheck(reference.getAsJsonArray("rows").toString(), "NativeCase7@saito")
+        }
+    }
+
     @Test fun `a saved registrar directed request restores the exact original signed bytes`() {
         val reference = JsonParser.parseReader(javaClass.getResourceAsStream("/native-registry-reference.json")!!.reader()).asJsonObject
             .getAsJsonObject("registration")

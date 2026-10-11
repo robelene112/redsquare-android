@@ -472,3 +472,10 @@ known fixture identities may be restored in cleanup; all owned cleanup attempts
 preserve the primary failure. First debug/test compile passes1m19s before bounded
 review cleanup/sensitivity corrections; hosted build/runtime still pending.
 No actual replacement or new discovery acceptance is claimed from source alone.
+
+Independent-proof negative regression passes focused core5cases/0failures/0errors
+in29s. The new case distinguishes [] from malformed/unavailable/trailing/multiple
+records; mutations of the independent identifier/key/bid/bsh/signature/signer
+reject, synthetic proofs never validate against production authority. Unsigned
+lc0 marks a valid owner inactive, lc2 rejects. Existing parser implementation is
+unchanged. This is core protocol evidence, not native UI or live Registry readiness.

@@ -169,6 +169,13 @@ docs/evidence/ticket18/settings-discovery-green-feed-readiness-failure.
 The next bounded fixture waits for enabled Refresh before unchanged independent
 post/name assertions; no app change or Android17 GREEN claimed. #19 stays open.
 
+Independent-proof negative regression passes focused core5cases/0failures/0errors
+in29s. The new case distinguishes [] from malformed/unavailable/trailing/multiple
+records; mutations of the independent identifier/key/bid/bsh/signature/signer
+reject, synthetic proofs never validate against production authority. Unsigned
+lc0 marks a valid owner inactive, lc2 rejects. Existing parser implementation is
+unchanged. This is core protocol evidence, not native UI or live Registry readiness.
+
 #19 stays open. Next: verify the bounded Android17 feed readiness correction,
 then imported-wallet discovery, quoted-name tracer, actual replacement
 isolation, malformed/taken/inactive and persistence failures, native public
