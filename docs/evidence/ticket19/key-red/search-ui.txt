@@ -1,0 +1,106 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SearchPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.SearchPreviewTest:
+INSTRUMENTATION_STATUS: test=anExactPublicKeyOpensItsProfileButAnInvalidCurvePointDoesNotBecomeAPerson
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SearchPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component with ((Text + InputText + EditableText contains 'jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR' (ignoreCase: false)) && (OnClick is defined)) && (NOT (SetText is defined)) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.SearchPreviewTest.anExactPublicKeyOpensItsProfileButAnInvalidCurvePointDoesNotBecomeAPerson$lambda$9$lambda$8$lambda$7(SearchPreviewTest.kt:53)
+	at nl.davidengelen.redsquare.SearchPreviewTest.$r8$lambda$oJfckkU74Xc2M7ZTO7wrByeFaAk(SearchPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.SearchPreviewTest$$ExternalSyntheticLambda16.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.SearchPreviewTest.anExactPublicKeyOpensItsProfileButAnInvalidCurvePointDoesNotBecomeAPerson(SearchPreviewTest.kt:40)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anExactPublicKeyOpensItsProfileButAnInvalidCurvePointDoesNotBecomeAPerson(nl.davidengelen.redsquare.SearchPreviewTest):
+java.lang.AssertionError: Assert failed: The component with ((Text + InputText + EditableText contains 'jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR' (ignoreCase: false)) && (OnClick is defined)) && (NOT (SetText is defined)) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.SearchPreviewTest.anExactPublicKeyOpensItsProfileButAnInvalidCurvePointDoesNotBecomeAPerson$lambda$9$lambda$8$lambda$7(SearchPreviewTest.kt:53)
+	at nl.davidengelen.redsquare.SearchPreviewTest.$r8$lambda$oJfckkU74Xc2M7ZTO7wrByeFaAk(SearchPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.SearchPreviewTest$$ExternalSyntheticLambda16.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.SearchPreviewTest.anExactPublicKeyOpensItsProfileButAnInvalidCurvePointDoesNotBecomeAPerson(SearchPreviewTest.kt:40)
+
+INSTRUMENTATION_STATUS: test=anExactPublicKeyOpensItsProfileButAnInvalidCurvePointDoesNotBecomeAPerson
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SearchPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=reopeningOfflineKeepsSearchHistoryIsolatedBetweenSelectedServers
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SearchPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=reopeningOfflineKeepsSearchHistoryIsolatedBetweenSelectedServers
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SearchPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=partialHistoryCanBeRetriedAndPagedWithoutLosingVerifiedResults
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SearchPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=partialHistoryCanBeRetriedAndPagedWithoutLosingVerifiedResults
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SearchPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anArchivedReplyCanBeFoundAndExploredWithoutLosingTheSearchOrWallet
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SearchPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anArchivedReplyCanBeFoundAndExploredWithoutLosingTheSearchOrWallet
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SearchPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anExactSignedUsernameOpensTheCorrectProfileAndRetainsTheSearch
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SearchPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anExactSignedUsernameOpensTheCorrectProfileAndRetainsTheSearch
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 68.636
+There was 1 failure:
+1) anExactPublicKeyOpensItsProfileButAnInvalidCurvePointDoesNotBecomeAPerson(nl.davidengelen.redsquare.SearchPreviewTest)
+java.lang.AssertionError: Assert failed: The component with ((Text + InputText + EditableText contains 'jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR' (ignoreCase: false)) && (OnClick is defined)) && (NOT (SetText is defined)) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.SearchPreviewTest.anExactPublicKeyOpensItsProfileButAnInvalidCurvePointDoesNotBecomeAPerson$lambda$9$lambda$8$lambda$7(SearchPreviewTest.kt:53)
+	at nl.davidengelen.redsquare.SearchPreviewTest.$r8$lambda$oJfckkU74Xc2M7ZTO7wrByeFaAk(SearchPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.SearchPreviewTest$$ExternalSyntheticLambda16.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.SearchPreviewTest.anExactPublicKeyOpensItsProfileButAnInvalidCurvePointDoesNotBecomeAPerson(SearchPreviewTest.kt:40)
+
+FAILURES!!!
+Tests run: 5,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

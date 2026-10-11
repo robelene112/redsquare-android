@@ -107,6 +107,15 @@ class SaitoWallet private constructor(
         private val curve = CustomNamedCurves.getByName("secp256k1")
         private val domain = ECDomainParameters(curve.curve, curve.g, curve.n, curve.h)
 
+        /** A canonical compressed Saito address must encode an actual curve point. */
+        fun isPublicKey(publicKey: String): Boolean = try {
+            val encoded = Base58.decode(publicKey)
+            encoded.size == 33 && encoded[0] in listOf(2.toByte(), 3.toByte()) &&
+                Base58.encode(encoded) == publicKey && curve.curve.decodePoint(encoded).let {
+                    !it.isInfinity && it.isValid
+                }
+        } catch (_: IllegalArgumentException) { false }
+
         fun verify(message: ByteArray, signature: String, publicKey: String): Boolean {
             if (!signature.matches(Regex("[0-9a-fA-F]{128}"))) return false
             return try {

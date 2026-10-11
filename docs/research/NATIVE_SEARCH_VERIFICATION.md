@@ -231,3 +231,15 @@ publickey production handling yet. Accepted seams1–4 unchanged.
 
 Exact-key tracer6547a3a compilation PASS1m21s; both source axes0 findings.
 First exact-key native RED pending; production handling still absent.
+
+Key RED38139013779 atb161c12:5cases68.636s, existing4PASS; new1FAIL
+only atline53 missing clickable non-editable result. Later Profile/recreation/
+invalidpoint/wallet gates unexecuted. Root viewed originalPNG/separateXML;
+rawlog/pair retained ticket19/key-red. Focused source/core/debug/testPASS;
+push38139013987 source/core/debug/test/release/lintPASS.
+
+After observed RED, canonical compressed33byte secp256k1 validation admits exact
+publickey as a selectable person. Reuses the signed-name person card, selected
+Profile/navigation and optional verified/generated label. No ownership inferred
+from key entry and no fake Registry namecheck. Invalid point remains ordinary
+query with no person. Initial compile/review/nativeGREEN pending.

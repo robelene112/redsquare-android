@@ -193,6 +193,9 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
         }
     }
     val matches = view.posts.filter { it.text.contains(view.searchedQuery, ignoreCase = true) }
+    val exactKey = remember(view.searchedQuery) { view.searchedQuery.takeIf(SaitoWallet::isPublicKey) }
+    val exactName = view.exactPerson?.takeIf { it.identifier == view.searchedQuery }
+    val personKey = exactName?.publicKey ?: exactKey
     Column(modifier) {
         Row {
             TextButton(onClick = onBack) { Text(stringResource(R.string.browse_back)) }
@@ -224,11 +227,11 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
         if (view.saveError || view.usernameSaveError) Text(stringResource(R.string.search_save_error), style = MaterialTheme.typography.bodySmall)
         if (view.request > 0 && !loading && !view.failed && !view.limitReached && matches.isEmpty()) Text(stringResource(R.string.search_empty))
         LazyColumn(Modifier.weight(1f).fillMaxWidth()) {
-            view.exactPerson?.takeIf { view.request > 0 && it.identifier == view.searchedQuery }?.let { person ->
-                item(key = "person:${person.publicKey}") {
-                    Column(Modifier.fillMaxWidth().clickable { onIdentity(person.publicKey) }.padding(vertical = 12.dp)) {
-                        Text(person.identifier, style = MaterialTheme.typography.titleMedium)
-                        Text(person.publicKey, style = MaterialTheme.typography.bodySmall)
+            if (view.request > 0 && personKey != null) {
+                item(key = "person:$personKey") {
+                    Column(Modifier.fillMaxWidth().clickable { onIdentity(personKey) }.padding(vertical = 12.dp)) {
+                        Text(exactName?.identifier ?: registeredIdentity(personKey).name, style = MaterialTheme.typography.titleMedium)
+                        Text(personKey, style = MaterialTheme.typography.bodySmall)
                     }
                     HorizontalDivider()
                 }

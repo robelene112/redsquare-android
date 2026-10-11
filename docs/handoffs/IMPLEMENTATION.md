@@ -80,8 +80,10 @@ peoplefailurePNG/XML/log ticket19/people-red. Exactcurrent-registrar verified
 username/person/profile path nowadded, compilePASS2m21s. Standards0;
 Spec1 stale discarded-person savewarning fixed; fixcompilePASS2m14s, bothboundedaxes0. ExactnameGREEN38138427233 ate505de2:4PASS83.402s;
 originalinspectednamePNG/XML/log ticket19/people-green. Push38138427894
-source/core/debug/test/release/lintPASS. Next exactkey/invalidpoint primarytracer added, compile/nativeREDpending;
-no exactkey production handling yet. Knownpeople/namefailuresstillpending. People/durable cache/full acceptance pending;
+source/core/debug/test/release/lintPASS. Exactkeytracer compilePASS1m21s/bothaxes0. NativeRED38139013779
+atb161c12: existing4PASS/newmissingclickablekeyFAILline53,68.636s;
+originalinspectedkeyPNG/XML/log ticket19/key-red. Validcompressedcurvepoint
+exactkey path nowadded; compile/review/GREENpending. Knownpeople/namefailuresstillpending. People/durable cache/full acceptance pending;
 no #20 acceptance yet.
 Accepted seams1–4 unchanged.
 Search preparation ignored .scratch/search-design.md plus protected contract.
