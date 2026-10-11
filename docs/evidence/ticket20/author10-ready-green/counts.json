@@ -1,0 +1,26 @@
+{
+  "run": "38164253681",
+  "source": "732e67fa7365f0d5e9681e438071afa8789819d8",
+  "completedCases": 10,
+  "completionRecords": 3,
+  "actualDeathStages": 2,
+  "records": [
+    {
+      "log": "author-delete-process/recovered-instrumentation.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "author-edit-process/recovered-instrumentation.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "author-post-ui.txt",
+      "completedCases": 8
+    }
+  ],
+  "deathLogs": [
+    "author-delete-process/interrupted-instrumentation.txt",
+    "author-edit-process/interrupted-instrumentation.txt"
+  ],
+  "assumptions": []
+}

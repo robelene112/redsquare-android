@@ -1,0 +1,21 @@
+{
+  "run": "38164957454",
+  "source": "fe710dd9bf73ea1ae52d348e1ef394b18d8141b5",
+  "completedCases": 9,
+  "completionRecords": 2,
+  "actualDeathStages": 1,
+  "records": [
+    {
+      "log": "personal-controls-process/recovered.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "personal-controls-ui.txt",
+      "completedCases": 8
+    }
+  ],
+  "deathLogs": [
+    "personal-controls-process/interrupted.txt"
+  ],
+  "assumptions": []
+}

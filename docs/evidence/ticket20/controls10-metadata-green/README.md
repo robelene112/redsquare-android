@@ -1,0 +1,7 @@
+# Android 10 focused recovery verification
+
+Run38164957454 atfe710dd PASS: ordinary8cases73.893s, actual interrupted process stage and separate cold1case5.679s.9completed/2completion records/1actual death, no assumptions. Host guard metadata returns0 and213bytes; no ciphertext is retained. PID4897 disappears before cold recovery PID5093; public checkpoint keeps the same owner/backend and distinct Mute/Block accounts. Runtime asserts actual wallet address/peer keys, independent explicit removals and zero transactions.
+
+Root individually viewed all4 process originals and separately parsed4XMLs. Before death and cold recovery management show the two saved choices. Unblock restores the other author's post while retaining Mute; whole-list runtime absence assertion qualifies the screenshot. Explicit Unmute restores the literal Native Red Square reference post. These captures are live Activity evidence, not physical performance or arbitrary power-loss proof.
+
+Ordinary runtime passes actual authenticated SAF replacement/full opaque-options preservation/identity restoration/PIN cleanup, encrypted corruption repair, late-save/recovery faults, anonymous recovery gate, backend/offline changes and social-view filters. Their per-condition assertions are native test proof; this bounded folder retains the4 process captures rather than all ordinary images. Full Android10 run38165304273 at the same source is pending. Passed full17 remains at781bd1a with unchanged product and acceptance predicates; host metadata portability correction is separately reviewed.
