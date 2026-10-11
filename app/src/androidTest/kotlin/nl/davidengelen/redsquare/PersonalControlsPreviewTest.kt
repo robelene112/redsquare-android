@@ -117,6 +117,80 @@ class PersonalControlsPreviewTest {
         }
     }
 
+    @Test fun unavailableWalletPreservesAnonymousReadingButDoesNotBypassSavedPersonalChoices() {
+        val reference = readReference("native-following-reference.json")
+        val root = reference.getAsJsonObject("root")
+        val other = reference.getAsJsonObject("otherRoot")
+        val author = root.get("field2").asString
+        val peer = ControlledFeedPeer("[$root,$other]", archiveResponse = { criteria ->
+            check(criteria.get("field1").asString == "RedSquare" && criteria.get("flagged_ne").asInt == 1)
+            when (criteria.get("field2")?.asString) {
+                null -> "[$root,$other]"
+                author -> "[$root]"
+                else -> error("Unexpected author")
+            }
+        })
+        peer.start().use { server ->
+            val intent = Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+            var address = ""
+            withOpenApp(intent, "anonymous-seed-failure") {
+                waitForEnabled("Refresh")
+                showPost("Native Red Square reference post")
+                ui.onNodeWithText("Wallet").performClick()
+                address = displayedWalletAddress(ui)
+                ui.onNodeWithText("Done").performClick()
+            }
+            // Fault only the existing OS directory-sync seam. The saved wallet bytes stay intact.
+            val unavailable = Intent(intent).putExtra("walletCommitSyncUnavailable", true)
+            ActivityScenario.launch<MainActivity>(unavailable).use { activity ->
+                withFailureCapture({ captureNativeScreen(File(context.cacheDir, "personal-controls-evidence/anonymous-reading-failure.png")) }) {
+                    waitForWalletRecovery(ui)
+                    showPost("Native Red Square reference post")
+                    captureNativeScreen(File(context.cacheDir, "personal-controls-evidence/anonymous-cached-reading.png"), "Native Red Square reference post")
+                    ui.onNodeWithText("Wallet").performClick()
+                    ui.onNodeWithText("Wallet unavailable. Close this window and try again.").assertIsDisplayed()
+                    ui.onNodeWithContentDescription("Wallet address").assertDoesNotExist()
+                    ui.onNodeWithText("Done").performClick()
+                    activity.onActivity { it.intent.removeExtra("walletCommitSyncUnavailable") }
+                    ui.onNodeWithText("Retry").performClick()
+                    waitForEnabled("Refresh")
+                    ui.onNodeWithText("Wallet").performClick()
+                    assertEquals(address, displayedWalletAddress(ui))
+                    ui.onNodeWithText("Done").performClick()
+                    ui.onNode(hasScrollAction()).performScrollToNode(hasText(author))
+                    ui.onNodeWithText(author).performClick()
+                    waitFor("Mute account")
+                    ui.onNodeWithText("Mute account").performClick()
+                    waitFor("Mute hides this account's posts and social notifications. Chat messages remain available.")
+                    ui.onNodeWithText("Mute", substring = false).performClick()
+                    waitFor("Unmute account")
+                }
+            }
+            ActivityScenario.launch<MainActivity>(unavailable).use { activity ->
+                withFailureCapture({ captureNativeScreen(File(context.cacheDir, "personal-controls-evidence/unknown-owner-policy-failure.png")) }) {
+                    waitForWalletRecovery(ui)
+                    waitFor("Recover your wallet to apply saved personal controls. Cached posts stay hidden until your identity is available.")
+                    ui.onAllNodesWithText("Native Red Square reference post").assertCountEquals(0)
+                    ui.onAllNodesWithText("Another account reference post").assertCountEquals(0)
+                    ui.onAllNodes(hasScrollAction()).assertCountEquals(0)
+                    captureNativeScreen(File(context.cacheDir, "personal-controls-evidence/unknown-owner-policy-gate.png"))
+                    activity.onActivity { it.intent.removeExtra("walletCommitSyncUnavailable") }
+                    ui.onNodeWithText("Retry").performClick()
+                    waitForEnabled("Refresh")
+                    showPost("Another account reference post")
+                    assertPostAbsent("Native Red Square reference post", "Another account reference post")
+                    ui.onNodeWithText("Wallet").performClick()
+                    assertEquals(address, displayedWalletAddress(ui))
+                    ui.onNodeWithText("Done").performClick()
+                }
+            }
+            assertTrue(peer.clientKeys.isNotEmpty() && peer.clientKeys.all { it == address })
+            assertTrue(peer.transactions.isEmpty())
+            peer.assertHealthy()
+        }
+    }
+
     private fun withOpenApp(intent: Intent, failureName: String, block: () -> Unit) {
         ActivityScenario.launch<MainActivity>(intent).use {
             withFailureCapture({ captureNativeScreen(File(context.cacheDir, "personal-controls-evidence/$failureName.png")) }, block)

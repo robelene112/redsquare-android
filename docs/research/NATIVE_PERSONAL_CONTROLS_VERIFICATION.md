@@ -65,3 +65,25 @@ filtering and durable late-save recovery follow further vertical native tests.
 
 First Mute implementation compile PASS2m14s. Focused native GREEN attempt next;
 no runtime acceptance asserted. No wallet options or transaction path modified.
+
+First-product bounded source reviewd4bf054...0503aee: Spec0 new actionable
+findings for the first tracer; Standards1 actionable documented-boundary finding.
+Null personal scope hides all cached rows and indefinitely reports loading during
+wallet recovery failure, conflicting with preserved anonymous public reading.
+After the first GREEN, add a native recovery journey: without prior personal
+records, unavailable wallet still permits public cached reading; with prior
+personal records and unknown owner, withhold content with explicit wallet recovery
+copy rather than risk exposing hidden authors. Prove through the UI using the
+existing controlled filesystem-sync failure, not guessed owner/plaintext reads.
+No closure claim; later slices and final two-axis/full acceptance remain required.
+Focused first GREEN attempt38150876485 at0503aee is active.
+
+First native GREEN38150876485 at0503aee:1PASS32.955s, all first-tracer
+wallet/peer/zero-TX assertions reached. Root views3originalPNG/separate3XML;
+ ticket20/first-green retains8hashes. No final #21 acceptance claim.
+Next native tracer added test-first for the actionable anonymous-reading/recovery
+boundary: actual wallet OS-sync failure with intact wallet bytes, public cached
+reading without personal records, then saved-Mute owner unavailable gate and
+same-identity recovery retaining the choice. No production recovery fix yet.
+
+Recovery tracer compile PASS1m19s; focused Android17 RED dispatch next.
