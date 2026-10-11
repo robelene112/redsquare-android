@@ -60,3 +60,25 @@ All52 core cases plus debug/test assembly GREEN2m18s, zero failures/skips. Old
 independent social/root/reply/hop vectors still pass unchanged. New Registry
 request matches independent WASM bytes and its exact original restores. Native
 username UI/persistence and final runtime/cross-client acceptance remain unproved.
+
+Core checkpoint2f1ff8e passed both independent review axes with0 actionable
+findings. First native tracer5c57cb0 compiles (debug/test assembly1m16s), but no
+UI exists yet. Focused Android10 run38113351395 is dispatched for the expected
+missing Settings action RED; push source checks38113351503 are separate. The
+tracer requires a real authenticated Archive read, exact Registry namecheck,
+visible unavailable message, unchanged public wallet and zero broadcasts. Its
+PNG/XML failure capture is inside the Activity scope, preserves primary errors
+and makes no atomic observation claim. Controlled Registry responses do not
+increment Archive-only readiness counters; the new callback precedes the final
+Archive callback to preserve old trailing lambdas. New focused10/17 scopes and
+full inclusion have independent Standards/Spec reviews with0 actionable findings.
+
+Focused Android10 run38113351395 actual native RED1case/1failure/2.608s at
+UsernamePreviewTest.kt:48, missing Saito username action. Build/core/debug/test
+assembly1m38s passed; push source38113351503 passed separately. Original failure
+PNG individually viewed and XML inspected show Settings/Server/both choices/Done,
+with no username action. Raw output/PNG/XML retained verbatim at
+docs/evidence/ticket18/first-unavailable-red. Later flow assertions were not reached
+and are not claimed as passed. Minimal optional screen now in development;
+first local compile was deliberately interrupted after noticing the peer request
+interface takes/returns UTF8 bytes, then corrected before restarting compilation.

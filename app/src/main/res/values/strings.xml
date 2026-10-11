@@ -221,4 +221,17 @@
     <string name="video_identity_failure">YouTube could not verify this player. Try opening the video in YouTube.</string>
     <string name="video_playback_failure">YouTube could not play this video.</string>
     <string name="video_network_failure">YouTube could not load. Retry or open the video in YouTube.</string>
+    <string name="username_settings">Saito username</string>
+    <string name="username_title">Choose a Saito username</string>
+    <string name="username_optional">Optional. You can read, post and chat without a username.</string>
+    <string name="username_label">Username</string>
+    <string name="username_rules">1 to 45 letters or digits. Your name ends in @saito.</string>
+    <string name="username_invalid">Use 1 to 45 letters or digits, without spaces.</string>
+    <string name="username_check">Check name</string>
+    <string name="username_checking">Checking name…</string>
+    <string name="username_unavailable">Username could not be checked. Try again.</string>
+    <string name="username_available">This username is currently available. Checking does not reserve it.</string>
+    <string name="username_taken">This username belongs to another wallet.</string>
+    <string name="username_inactive">Your registration record is inactive on this server.</string>
+    <string name="username_owned">This username is registered to your wallet.</string>
 </resources>

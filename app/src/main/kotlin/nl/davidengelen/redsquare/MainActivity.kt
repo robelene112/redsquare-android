@@ -46,6 +46,7 @@ import nl.davidengelen.redsquare.feed.PostNavigation
 import nl.davidengelen.redsquare.feed.LocalVideoFixture
 import nl.davidengelen.redsquare.feed.VideoFixture
 import nl.davidengelen.redsquare.feed.VideoPlaybackHost
+import nl.davidengelen.redsquare.registry.UsernameScreen
 
 class MainActivity : ComponentActivity() {
     private var walletExports: WalletExport? = null
@@ -80,6 +81,7 @@ class MainActivity : ComponentActivity() {
             var backend by remember { mutableStateOf<SaitoBackend?>(null) }
             var backendReady by remember { mutableStateOf(false) }
             var settingsOpen by remember { mutableStateOf(false) }
+            var usernameOpen by remember { mutableStateOf(false) }
             var savingBackend by remember { mutableStateOf(false) }
             var backendSaveError by remember { mutableStateOf(false) }
             val backendStates = rememberSaveableStateHolder()
@@ -222,7 +224,13 @@ class MainActivity : ComponentActivity() {
                             Text(stringResource(R.string.wallet_recovery_error))
                             Button(onClick = { failed = false; retry++ }) { Text(stringResource(R.string.retry)) }
                         }
-                        if (!(BuildConfig.DEBUG && intent.getBooleanExtra("feedDisabled", false))) {
+                        if (usernameOpen && wallet != null && backend != null) {
+                            key(wallet!!.publicKey, backend) {
+                                UsernameScreen(wallet!!, FeedEndpoints.fromIntent(intent, backend!!), Modifier.weight(1f)) {
+                                    usernameOpen = false
+                                }
+                            }
+                        } else if (!(BuildConfig.DEBUG && intent.getBooleanExtra("feedDisabled", false))) {
                             val selected = backend
                             if (selected != null) backendStates.SaveableStateProvider(selected.id) {
                                 key(selected) {
@@ -239,6 +247,15 @@ class MainActivity : ComponentActivity() {
                         title = { Text(stringResource(R.string.settings)) },
                         text = {
                             Column {
+                                TextButton(enabled = wallet != null && backend != null && !savingBackend, onClick = {
+                                    savingBackend = true
+                                    scope.launch {
+                                        try {
+                                            settingsOpen = false
+                                            if (postNavigation.save()) usernameOpen = true
+                                        } finally { savingBackend = false }
+                                    }
+                                }) { Text(stringResource(R.string.username_settings)) }
                                 Text(stringResource(R.string.server_choice))
                                 Text(stringResource(R.string.server_history_hint), style = MaterialTheme.typography.bodySmall)
                                 if (backendSaveError) Text(stringResource(R.string.backend_save_error))
