@@ -111,3 +111,10 @@ Exact-key tracer e505de2…6547a3a: Standards0/Spec0. Both axes independently
 confirm invalid literal33bytes02+32FF, existing good key provenance, editable
 query excluded from clickable-person matcher and truthful pending RED/source.
 All four people-green hashes, raw4PASS83.402s and original image/XML agree.
+
+Exact-key implementation b161c12…bfe8a76: Spec0, Standards0 hard findings.
+Standards possible duplicate compressed-point validation with wallet.verify is
+a judgment cleanup for after first key GREEN, not a correctness blocker.
+Both reviewers validate keyRED rawlog/hashes/original PNG/separateXML; screen
+shows horizontally-scrolled input, XML establishes full literal key.
+Combined compile/keyGREEN/knownpeople/failure/full checks remain pending.

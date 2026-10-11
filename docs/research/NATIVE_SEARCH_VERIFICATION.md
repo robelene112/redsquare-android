@@ -243,3 +243,7 @@ publickey as a selectable person. Reuses the signed-name person card, selected
 Profile/navigation and optional verified/generated label. No ownership inferred
 from key entry and no fake Registry namecheck. Invalid point remains ordinary
 query with no person. Initial compile/review/nativeGREEN pending.
+
+Exactkey source bfe8a76 combinedcompile PASS2m47s. Spec0/Standards0 hard
+findings; possible duplicatepointvalidation is reviewcleanupafter firstGREEN.
+New exactkey nativeGREEN and broader #20 acceptance remain pending.

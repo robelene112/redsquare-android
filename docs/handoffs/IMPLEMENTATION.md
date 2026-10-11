@@ -83,7 +83,8 @@ originalinspectednamePNG/XML/log ticket19/people-green. Push38138427894
 source/core/debug/test/release/lintPASS. Exactkeytracer compilePASS1m21s/bothaxes0. NativeRED38139013779
 atb161c12: existing4PASS/newmissingclickablekeyFAILline53,68.636s;
 originalinspectedkeyPNG/XML/log ticket19/key-red. Validcompressedcurvepoint
-exactkey path nowadded; compile/review/GREENpending. Knownpeople/namefailuresstillpending. People/durable cache/full acceptance pending;
+exactkey path addedbfe8a76, combinedcompilePASS2m47s; Spec0/Standards0hard,
+possiblepointvalidationduplication cleanupafterfirstGREEN. NativeGREENpending. Knownpeople/namefailuresstillpending. People/durable cache/full acceptance pending;
 no #20 acceptance yet.
 Accepted seams1–4 unchanged.
 Search preparation ignored .scratch/search-design.md plus protected contract.
