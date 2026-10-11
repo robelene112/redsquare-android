@@ -23,9 +23,7 @@ class SearchPreviewTest {
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
-        context.noBackupFilesDir.listFiles()?.filter {
-            listOf("feed.", "conversation.", "profile.", "search.", "authorposts.").any(it.name::startsWith)
-        }?.forEach { check(it.delete()) { "Could not reset public search fixtures" } }
+        clearPublicSearchHistory(context)
         val thread = instrumentation.context.assets.open("native-thread-reference.json").bufferedReader()
             .use { JsonParser.parseReader(it).asJsonObject }
         val rows = instrumentation.context.assets.open("native-registry-reference.json").bufferedReader()
@@ -125,9 +123,7 @@ class SearchPreviewTest {
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
-        context.noBackupFilesDir.listFiles()?.filter {
-            listOf("feed.", "conversation.", "profile.", "search.", "authorposts.").any(it.name::startsWith)
-        }?.forEach { check(it.delete()) { "Could not reset public search fixtures" } }
+        clearPublicSearchHistory(context)
         val thread = instrumentation.context.assets.open("native-thread-reference.json").bufferedReader()
             .use { JsonParser.parseReader(it).asJsonObject }
         val names = instrumentation.context.assets.open("native-registry-reference.json").bufferedReader()
@@ -209,9 +205,7 @@ class SearchPreviewTest {
             server.close()
             // Model unavailable public post history. Keep the real Follow choice
             // and verified public name cache; the wallet is never cleared.
-            context.noBackupFilesDir.listFiles()?.filter {
-                listOf("feed.", "conversation.", "profile.", "search.", "authorposts.").any(it.name::startsWith)
-            }?.forEach { check(it.delete()) { "Could not reset public history fixture" } }
+            clearPublicSearchHistory(context)
             ActivityScenario.launch<MainActivity>(intent).use {
                 withFailureCapture({ captureNativeScreen(File(context.cacheDir, "search-evidence/people-prefix-offline-failure.png")) }) {
                     waitForEnabled("New post")
@@ -240,9 +234,7 @@ class SearchPreviewTest {
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
-        context.noBackupFilesDir.listFiles()?.filter {
-            listOf("feed.", "conversation.", "profile.", "search.", "authorposts.").any(it.name::startsWith)
-        }?.forEach { check(it.delete()) { "Could not reset public search fixtures" } }
+        clearPublicSearchHistory(context)
         // Independent published scalar1 key. The invalid key encodes 02 followed
         // by 32 FF bytes: its x coordinate is outside the secp256k1 field.
         val person = "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR"
@@ -301,9 +293,7 @@ class SearchPreviewTest {
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
-        context.noBackupFilesDir.listFiles()?.filter {
-            listOf("feed.", "conversation.", "profile.", "search.", "authorposts.").any(it.name::startsWith)
-        }?.forEach { check(it.delete()) { "Could not reset public search fixtures" } }
+        clearPublicSearchHistory(context)
         val rows = instrumentation.context.assets.open("native-registry-reference.json").bufferedReader()
             .use { JsonParser.parseReader(it).asJsonObject.getAsJsonArray("rows") }
         val name = "NativeCase7@saito"
@@ -373,9 +363,7 @@ class SearchPreviewTest {
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
-        context.noBackupFilesDir.listFiles()?.filter {
-            listOf("feed.", "conversation.", "profile.", "search.", "authorposts.").any(it.name::startsWith)
-        }?.forEach { check(it.delete()) { "Could not reset public search fixtures" } }
+        clearPublicSearchHistory(context)
         val reply = instrumentation.context.assets.open("native-thread-reference.json").bufferedReader()
             .use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("firstReply") }
         val owner = ControlledFeedPeer("[]", archiveResponse = { criteria ->
@@ -456,9 +444,7 @@ class SearchPreviewTest {
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
-        context.noBackupFilesDir.listFiles()?.filter {
-            listOf("feed.", "conversation.", "profile.", "search.", "authorposts.").any(it.name::startsWith)
-        }?.forEach { check(it.delete()) { "Could not reset public search fixtures" } }
+        clearPublicSearchHistory(context)
         val reference = instrumentation.context.assets.open("native-search-reference.json").bufferedReader()
             .use { JsonParser.parseReader(it).asJsonObject }
         val firstPage = reference.getAsJsonArray("firstPage")
@@ -560,9 +546,7 @@ class SearchPreviewTest {
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
-        context.noBackupFilesDir.listFiles()?.filter {
-            listOf("feed.", "conversation.", "profile.", "search.", "authorposts.").any(it.name::startsWith)
-        }?.forEach { check(it.delete()) { "Could not reset public search fixtures" } }
+        clearPublicSearchHistory(context)
         val reference = instrumentation.context.assets.open("native-thread-reference.json").bufferedReader()
             .use { JsonParser.parseReader(it).asJsonObject }
         val root = reference.getAsJsonObject("root")
@@ -634,6 +618,14 @@ class SearchPreviewTest {
                 }
             }
         }
+    }
+
+    private fun clearPublicSearchHistory(context: android.content.Context) {
+        check(context.packageName == "nl.davidengelen.redsquare.dev")
+        check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
+        context.noBackupFilesDir.listFiles()?.filter {
+            listOf("feed.", "conversation.", "profile.", "search.", "authorposts.").any(it.name::startsWith)
+        }?.forEach { check(it.delete()) { "Could not reset public search fixtures" } }
     }
 
     private fun chooseServer(domain: String) {
