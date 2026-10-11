@@ -326,7 +326,8 @@ review axes clear after7dfde25 handoff fix.
 Current minimal product recognizes correlated wire14 through a typed peer error
 and nonblank string application err without displaying raw backend text. Persist
 only the observed error boolean beside exact public signed intent; legacy records
-remain conservative. Explicit retry clears old error only at actual enqueue;
+remain conservative. Explicit retry clears old error at the conservative pre-enqueue marker;
+a later cancellation or socket rejection can occur before physical enqueue.
 missing/malformed responses remain unknown. Error wording qualifies uncertain
 delivery and never claims unsent/moderator rejection. Late error-save failures
 retain the observed error with a phone-storage warning. Runtime GREEN pending.

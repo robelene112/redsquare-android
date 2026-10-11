@@ -387,10 +387,14 @@ explicit-error-red3hashes. Older17run38176271148 at16257cd passes10/135.989s
 pluscold1/5.314s; root2originals/separateXML, invalid-old-android17 7hashes,
 predatescorrectedacceptance. Both tracer axes clear afterhandofffix7dfde25.
 Currentproduct typedwire14/nonblankstringerr yields namederror/uncertaindelivery,
-persists observedboolean, clearsolderroronlyatactualenqueue; rawerrneverdisplayed.
-Lateerrorsavefailure retainsobservation+phonewarning. GREENpending. Whole review
-has stale durable acknowledgement concern under lifecycle verification and one
-initial-save fixture cleanup concern; not yet fixed. Final paired both-SDK/source/
+persists observedboolean, clears old error at the conservative pre-enqueue marker, before the final
+cancellation check/socket send; physical enqueue is not guaranteed. Raw err is
+never displayed.
+Lateerrorsavefailure retainsobservation+phonewarning. GREENpending. Whole Spec0 newestablishedfindings; its backend-switch
+interleaving was withdrawn after keyed lifecycle inspection. Separate Standards
+Activity recreation/NonCancellable stale durable acknowledgement finding remains
+source-reachable without runtime reproduction. Initial-save cleanup corrected81b41de,
+fix review pending; no injected cleanup-failure claim. Final paired both-SDK/source/
 public reads remain pending.
 Ticket22 remains incomplete: failure/durability/identity/backend isolation,
 actual process interruption and final both-SDK acceptance/reviews still required.
