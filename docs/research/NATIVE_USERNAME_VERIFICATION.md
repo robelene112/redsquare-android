@@ -616,3 +616,18 @@ zero residual source findings. Native new-name acceptance remains pending.
 Retirement source debug/test compilation PASS2m14s. Two added native success
 captures qualify the reopened empty form and subsequent explicitly sent different
 candidate; hosted compilation/runtime is pending for those capture-only lines.
+
+Source review additionally identifies identical v1/v2 encrypted string payloads
+whose unauthenticated version byte could change retirement semantics. This is
+an accepted corruption/recovery gap, not a reproduced native scheduling event.
+The correction keeps legacy v1 strings and requires an exact encrypted v2 object
+with transaction:string and retired:boolean true. Either header-only flip now
+selects an incompatible parser. Shared EncryptedLocalFile/AAD remain unchanged.
+Both source reviewers find zero residual findings; debug/test compile PASS2m7s.
+The existing race tracer now damages only the retained retired file's header,
+requires unreadable state/disabled Check/no registration controls/one original
+transaction, restores exact bytes with primary-safe cleanup and explicitly
+reopens a blank form without send. No native RED/GREEN for that extension yet.
+
+Marker-corruption application tracer compiles PASS1m17s. Both bounded source
+axes report zero residual findings; no native marker acceptance yet.

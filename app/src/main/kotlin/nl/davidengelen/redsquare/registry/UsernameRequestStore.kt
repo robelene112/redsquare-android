@@ -2,6 +2,7 @@ package nl.davidengelen.redsquare.registry
 
 import android.content.Context
 import com.google.gson.GsonBuilder
+import com.google.gson.JsonObject
 import com.google.gson.Strictness
 import nl.davidengelen.redsquare.AndroidWalletStore
 import nl.davidengelen.redsquare.saito.*
@@ -22,8 +23,19 @@ internal class UsernameRequestStore(private val context: Context, private val ow
 
     private fun read(): Stored? {
         val contents = file.load() ?: return null
-        require(contents.version in 1.toByte()..2.toByte())
-        val encoded = requireNotNull(gson.fromJson(contents.text, String::class.java))
+        val encoded = when (contents.version) {
+            1.toByte() -> requireNotNull(gson.fromJson(contents.text, String::class.java))
+            2.toByte() -> {
+                val marker = requireNotNull(gson.fromJson(contents.text, JsonObject::class.java))
+                require(marker.keySet() == setOf("transaction", "retired"))
+                val retired = marker.get("retired")
+                require(retired.isJsonPrimitive && retired.asJsonPrimitive.isBoolean && retired.asBoolean)
+                val transaction = marker.get("transaction")
+                require(transaction.isJsonPrimitive && transaction.asJsonPrimitive.isString)
+                transaction.asString
+            }
+            else -> error("Unknown username request version")
+        }
         return Stored(SaitoTransaction.restore(encoded).also(::validate), contents.version == 2.toByte())
     }
 
@@ -70,8 +82,12 @@ internal class UsernameRequestStore(private val context: Context, private val ow
     }
 
     private fun write(previous: Stored?, intended: Stored) {
+        val text = if (intended.retired) JsonObject().apply {
+            addProperty("transaction", intended.transaction.encoded())
+            addProperty("retired", true)
+        }.toString() else gson.toJson(intended.transaction.encoded())
         file.save(EncryptedLocalFile.Contents(if (intended.retired) 2 else 1,
-            gson.toJson(intended.transaction.encoded()))) {
+            text)) {
             // Only this mounted store's exact pre/post-write outcomes may recover a late failure.
             attempt = Attempt(expected, previous, intended)
         }

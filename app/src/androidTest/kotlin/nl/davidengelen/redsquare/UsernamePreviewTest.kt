@@ -635,6 +635,30 @@ class UsernamePreviewTest {
                     ui.onNode(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(""))).assertIsEnabled()
                     assertEquals("Retirement and reopening must never send", 1, peer.transactions.size)
                     capture("username-retired-reopened.png", "Check name")
+                    val requestFile = File(context.noBackupFilesDir, "namerequest.owner.${fixture.publicKey}.v1")
+                    val retiredBytes = requestFile.readBytes()
+                    check(retiredBytes.first() == 2.toByte())
+                    var primary: Throwable? = null
+                    try {
+                        // Only the external version byte changes. Retirement must stay authenticated.
+                        requestFile.writeBytes(retiredBytes.copyOf().apply { this[0] = 1 })
+                        scenario.recreate()
+                        waitForEnabled("Settings")
+                        ui.onNodeWithText("Settings").performClick()
+                        ui.onNodeWithText("Saito username").performClick()
+                        val unreadable = "Saved username request could not be opened. Try again."
+                        waitForText(unreadable)
+                        ui.onNodeWithText("Check name").assertIsNotEnabled()
+                        ui.onAllNodesWithText("Register name").assertCountEquals(0)
+                        ui.onAllNodesWithText("Retry registration").assertCountEquals(0)
+                        assertEquals("A damaged retirement marker must not revive its request", 1, peer.transactions.size)
+                        capture("username-retired-unreadable.png", unreadable)
+                    } catch (failure: Throwable) { primary = failure; throw failure }
+                    finally { cleanupAfterTest(primary, { requestFile.writeBytes(retiredBytes) }) }
+                    ui.onNodeWithText("Retry", useUnmergedTree = true).performClick()
+                    waitForEnabled("Check name")
+                    ui.onNode(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(""))).assertIsEnabled()
+                    assertEquals("Repair only reopens the retired form, never sends", 1, peer.transactions.size)
                     ui.onNode(hasSetTextAction()).performTextReplacement("NativeOther9")
                     ui.onNodeWithText("Check name").performClick()
                     waitForText("This username is currently available. Checking does not reserve it.")

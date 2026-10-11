@@ -102,7 +102,14 @@ local-only effect, clears form only after verified persistence and never sends.
 Expected loaded head plus exact owned late-write witness blocks stale request
 revival. Both bounded source reviews have zero residual findings. First local
 compile found undefined Cancel; resource corrected, debug/test compile PASS2m14s.
-Two additional bounded success captures will compile in the hosted focused run.
+Two bounded success captures compile in the hosted focused run38128516957
+on e29604e (runtime pending). Source review subsequently identifies identical
+v1/v2 ciphertext payloads permitting a header-only retirement change. Working
+fix authenticates the v2 marker inside its exact JSON payload while preserving
+v1; shared encryption unchanged. Both bounded axes clear; debug/test build
+PASS2m7s. Existing race tracer now also checks retired-header corruption and
+primary-safe repair/read-only empty form. Fixture compilation PASS1m17s; native
+acceptance pending. The older e29604e run cannot verify this correction.
 
 Next: verify retirement recovery, applicable final full10/17 acceptance,
 then record/park external live Registry blocker and continue independent #20
