@@ -190,6 +190,16 @@ class ProfileNewEditPreviewTest {
         val walletStore = AndroidWalletStore(context)
         val original = walletStore.loadOrCreate()
         if (original.publicKey != owner) walletStore.replace(original, wallet)
+        val images = instrumentation.context.assets.open("native-images-reference.json").bufferedReader()
+            .use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("images") }
+        val publicProfile = SaitoTransaction.create(wallet,
+            SaitoEnvelope.decode(reference.get("tx").asString).body.deepCopy().apply {
+                getAsJsonObject("data").apply {
+                    addProperty("image", images.get("red").asString)
+                    addProperty("banner", images.get("blue").asString)
+                }
+            }, reference.get("created_at").asLong + 1)
+        val publicRow = JsonObject().apply { addProperty("tx", publicProfile.envelope()) }
         val fresh = SaitoTransaction.create(wallet, SaitoEnvelope.decode(reference.get("tx").asString).body.deepCopy().apply {
             getAsJsonObject("data").apply {
                 addProperty("description", "Fresh baseline with generated defaults")
@@ -219,7 +229,7 @@ class ProfileNewEditPreviewTest {
             assertEquals(owner, criteria.get("field2").asString)
             if (criteria.has("sig")) {
                 if (confirm.get() && criteria.get("sig") == indexed.get()?.get("sig")) "[${indexed.get()}]" else "[]"
-            } else if (exposeFresh.get() && !stale.get()) "[$freshRow]" else "[$reference]"
+            } else if (exposeFresh.get() && !stale.get()) "[$freshRow]" else "[$publicRow]"
         }, archiveResponse = { "[]" })
         var primary: Throwable? = null
         try {
@@ -229,6 +239,10 @@ class ProfileNewEditPreviewTest {
                 ActivityScenario.launch<MainActivity>(intent).use {
                     captureFailure {
                         openEditor()
+                        ui.waitUntil(20_000) {
+                            ui.onAllNodesWithContentDescription("Profile picture").fetchSemanticsNodes().isNotEmpty() &&
+                                ui.onAllNodesWithContentDescription("Profile banner").fetchSemanticsNodes().isNotEmpty()
+                        }
                         ui.onNodeWithContentDescription("Profile picture").assertExists()
                         ui.onNodeWithContentDescription("Profile banner").assertExists()
                         ui.onNode(hasSetTextAction()).performTextReplacement(bio)
@@ -274,6 +288,9 @@ class ProfileNewEditPreviewTest {
     }
 
     private fun assertGeneratedDefaults() {
+        // Signed omissions control these buttons immediately, even while raster loading is pending.
+        ui.onAllNodesWithText("Use generated profile picture").assertCountEquals(0)
+        ui.onAllNodesWithText("Remove banner").assertCountEquals(0)
         ui.onNodeWithContentDescription(context.getString(R.string.profile_generated_picture))
             .performScrollTo().assertIsDisplayed()
         ui.onAllNodesWithContentDescription("Profile picture").assertCountEquals(0)

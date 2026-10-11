@@ -1111,5 +1111,22 @@ Android17 available PNG Check profile versus XML Save profile; root parsed and
 confirmed discrepancy. Same bio/status essential state, not atomic matched
 control snapshot. Originals retained unchanged; no invented cause.
 
-Corrected same-tracer local debug/test assembly PASS1m3s, exit0, rawlog retained.
+Corrected same-tracer local debug/test assembly PASS1m4s, exit0, rawlog retained.
 Intended native RED pending; production remains c78ebeb unchanged.
+
+Corrected-selector bounded44b9402...ffed71f Spec0/Standards0 residual.
+Root then identified image-fixture insensitivity before device runtime: failed
+HTTPS ProfileImage falls back to generated picture and unlabelled banner
+placeholder, so initial custom-label checks fail and later generated-only checks
+could misclassify unavailable images as omitted fields. Cancel38107993254 during
+SDK setup; exact log retained, no runtime RED/production finding claimed.
+Same ONE tracer now serves signed own old baseline with real red/blue inline PNGs,
+waits positive custom picture/banner labels before editing, while fresh signing
+snapshot omits both. Exact omitted-field state additionally requires absence of
+Use generated profile picture and Remove banner controls, independent of raster
+loading and failure placeholders. Disabled exact-bio gates remain. No production
+remedy yet. One precommit fixture-strengthening build canceled/logged; corrected
+final local assembly running. No success claimed for canceled attempts.
+
+Final inline-image discriminator fixture local debug/test assembly PASS1m6s,
+exit0, rawlog retained. Intended native RED pending. No production changes.
