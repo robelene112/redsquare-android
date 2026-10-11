@@ -300,3 +300,15 @@ exact original bytes. Controlled transport adds error-type selection for reports
 only. Product handling unchanged; no presumed defect. Next focused Android17
 run executes all current cases, process recovery and sanitized fixture parser.
 Final paired full/source/public-read acceptance remains pending.
+
+## Explicit-error acceptance correction
+
+Bounded review of d251807...16257cd: Standards0; Spec1. The new test's
+unknown-only expectation for wire14/application err did not distinguish explicit
+backend failure as required by NATIVE_MODERATION_CONTRACTS.md. Correct that
+single journey before changing product: named explicit-error feedback retains
+uncertain delivery, never claims unsent/rejected/moderator action; malformed and
+empty replies retain unknown. Reopening must preserve each observation without
+automatic transmission, and every explicit retry retains exact original bytes.
+Android17 run38176271148 still exercises the earlier expectation; it cannot
+accept this correction. Product unchanged; corrected RED next.

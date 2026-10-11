@@ -627,20 +627,21 @@ class ReportPreviewTest {
     @Test fun invalidAndFailedRepliesNeverAcknowledgeAndEveryExplicitRetryKeepsTheOriginalReport() {
         val root = InstrumentationRegistry.getInstrumentation().context.assets.open("native-feed-reference.json")
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow") }
-        data class InvalidReply(val label: String, val wireError: Boolean, val text: String)
+        val unknown = "Report delivery to saito.davidengelen.nl is unknown. Try again to send the same report."
+        val serverError = "saito.davidengelen.nl returned a report error. Delivery is still uncertain. Try again to send the same report."
+        data class InvalidReply(val label: String, val wireError: Boolean, val text: String, val feedback: String)
         val variants = listOf(
-            InvalidReply("peer-error", true, "{}"),
-            InvalidReply("application-error", false, "{\"err\":\"controlled rejection\"}"),
-            InvalidReply("empty", false, ""),
-            InvalidReply("malformed", false, "{"))
+            InvalidReply("peer-error", true, "{}", serverError),
+            InvalidReply("application-error", false, "{\"err\":\"controlled rejection\"}", serverError),
+            InvalidReply("empty", false, "", unknown),
+            InvalidReply("malformed", false, "{", unknown))
         val reply = AtomicReference("{}")
         val peer = ControlledFeedPeer("[$root]", reportResponse = { reply.get() })
         peer.start().use { server ->
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
-                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { activity ->
                 withFailureCapture({ capture("invalid-acknowledgement-failure.png") }) {
                     var original: ByteArray? = null
-                    val unknown = "Report delivery to saito.davidengelen.nl is unknown. Try again to send the same report."
                     val acknowledged = "Report acknowledged by saito.davidengelen.nl. Moderator review is separate."
                     variants.forEachIndexed { index, variant ->
                         reply.set(variant.text); peer.reportReplyIsError = variant.wireError
@@ -648,8 +649,8 @@ class ReportPreviewTest {
                         ui.onNodeWithText("Report to saito.davidengelen.nl?").assertIsDisplayed()
                         assertEquals(index, peer.reports.size)
                         ui.onNodeWithText("Send report").performClick()
-                        waitFor(unknown)
-                        capture("invalid-ack-${variant.label}.png", unknown)
+                        waitFor(variant.feedback)
+                        capture("invalid-ack-${variant.label}.png", variant.feedback)
                         ui.onNodeWithText(acknowledged).assertDoesNotExist()
                         assertEquals(index + 1, peer.reports.size)
                         val frame = peer.reports.last()
@@ -657,6 +658,12 @@ class ReportPreviewTest {
                         if (original == null) original = bytes else assertArrayEquals(requireNotNull(original), bytes)
                         assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
                         ui.onNodeWithText("Done").performClick()
+                        activity.recreate()
+                        ui.clickVisiblePostContent("Retry report")
+                        waitFor(variant.feedback)
+                        capture("invalid-ack-${variant.label}-reopened.png", variant.feedback)
+                        assertEquals(index + 1, peer.reports.size)
+                        ui.onNodeWithText("Cancel").performClick()
                     }
                     reply.set("{}"); peer.reportReplyIsError = false
                     ui.clickVisiblePostContent("Retry report")
