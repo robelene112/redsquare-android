@@ -211,3 +211,6 @@ query/person. Reset that qualification with the discarded person, retaining it
 for the same person and post-only retry. No runtime reproduction claim. Fix
 compilation/re-review pending. Earlier push38137503336 source/core/debug/test/
 release/lint completed PASS.
+
+Stale-warning fix7417559 combinedcompile PASS2m14s; bounded Standards0/Spec0
+residual findings. First exact-name native GREEN pending.

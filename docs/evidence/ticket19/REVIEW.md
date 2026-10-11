@@ -97,3 +97,6 @@ username-save qualifier after discarding a different-query person. Fixed by
 clearing that qualifier with its originating person. Same-person/post-only
 retry retains it. Initial compilation PASS2m21s; fix compilation/re-review
 and native GREEN pending. No runtime reproduction of the source finding.
+
+Stale-warning fix7417559 combinedcompile PASS2m14s; bounded Standards0/Spec0
+residual findings. First exact-name native GREEN pending.
