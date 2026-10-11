@@ -7,9 +7,9 @@ one question at a time when a material choice really needs the owner.
 
 ## Current work
 
-Profile ticket #18 acceptance is complete. Fifteen of35 tickets are complete
-(#2–#15 and #18); commit/push the final evidence and close #18, then start #19,
-"Register an optional Saito username", sequentially. #16 Giphy still awaits
+Profile #18 is closed, final evidence commit ed5742f pushed. Fifteen of35 tickets
+are complete (#2–#15 and #18). Active #19, "Register an optional Saito username",
+assigned/unblocked, review base ed5742fd0f57958d284073b7145f1844b72b1dbd. #16 Giphy still awaits
 Android-authorized credentials; #17 actual YouTube provider playback remains
 unproved. Do not close those from controlled source/layout successes.
 
@@ -52,7 +52,16 @@ qualified in that chronology. Actual selected/removed/new-edit Android frames
 passed pinned WASM/Elliptic and unmodified A/B Profile server/browser methods with
 in-memory adapters; do not call that current served DOM or chain proof.
 
-#19 readiness research is in protected untracked NATIVE_USERNAME_CONTRACT.md.
+#19 research/verification: NATIVE_USERNAME_CONTRACT.md and
+NATIVE_USERNAME_VERIFICATION.md. First independent proof reader tracer
+compile RED23s, focused GREEN45s (one case). Directed registration-byte tracer compile RED23s/GREEN47s. Restore tracer
+RED28s at the old first-output requirement, followed by all52 core cases and
+debug/test assembly GREEN2m18s. New internal directed constructor preserves old
+social bytes; restore still requires an own output, zero amounts and a verified
+signature. No native username UI/persistence or feature completion yet. Both
+reference generators run pure pinned WASM/Elliptic with public unsafe fixtures.
+Registry core production default is the published registrar; an explicitly
+supplied scalar2 test authority is not actual Saito namespace ownership.
 Both approved endpoints authenticate and serve Archive/public key-to-name hints,
 but read-only namechecks for valid unknown and known names returned
 {err:"no response"}. This is unavailable, not an empty available-name result;
@@ -60,7 +69,7 @@ no registrar connectivity cause is proven and no node change is authorized.
 Exact scratch read-only results/client are preserved. Implement controlled
 compatible registration and truthful unresolved recovery; no live registration.
 
-Protected untracked future research must stay out of #18 commits: username,
+Protected untracked future research must stay out of #19 commits:
 discovery/moderation, notifications, transfers, private/group Chat contracts and
 private-chat reference helper/JSON/Markdown. Include only the relevant research
 with its own ticket. Review agents inspect; they never claim another ticket.

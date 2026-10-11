@@ -39,7 +39,13 @@ class SaitoTransaction private constructor(private val bytes: ByteArray) {
     companion object {
         const val MAX_MESSAGE_BYTES = 1024 * 1024
 
-        fun create(wallet: SaitoWallet, body: JsonObject, timestamp: Long, recipients: List<String> = emptyList()): SaitoTransaction {
+        fun create(wallet: SaitoWallet, body: JsonObject, timestamp: Long, recipients: List<String> = emptyList()): SaitoTransaction =
+            createWithOutputs(wallet, body, timestamp, (listOf(wallet.publicKey) + recipients).distinct())
+
+        internal fun createTo(wallet: SaitoWallet, body: JsonObject, timestamp: Long, recipient: String): SaitoTransaction =
+            createWithOutputs(wallet, body, timestamp, listOf(recipient, wallet.publicKey).distinct())
+
+        private fun createWithOutputs(wallet: SaitoWallet, body: JsonObject, timestamp: Long, addresses: List<String>): SaitoTransaction {
             require(timestamp >= 0)
             val message = try {
                 val encoded = Charsets.UTF_8.newEncoder()
@@ -50,7 +56,7 @@ class SaitoTransaction private constructor(private val bytes: ByteArray) {
             } catch (_: java.nio.charset.CharacterCodingException) { throw InvalidMessage() }
             if (message.size > MAX_MESSAGE_BYTES) throw InvalidMessage()
             val publicKey = Base58.decode(wallet.publicKey)
-            val outputs = (listOf(wallet.publicKey) + recipients).distinct().map { address ->
+            val outputs = addresses.map { address ->
                 val point = Base58.decode(address)
                 require(point.size == 33 && point[0] in 2.toByte()..3.toByte())
                 org.bouncycastle.crypto.ec.CustomNamedCurves.getByName("secp256k1").curve.decodePoint(point)
@@ -85,7 +91,11 @@ class SaitoTransaction private constructor(private val bytes: ByteArray) {
                 require(bytes.copyOfRange(offset + 33, offset + 57).all { it == 0.toByte() })
                 require(bytes[offset + 57] == (if (index == 0) 0 else index - 1).toByte() && bytes[offset + 58] == 0.toByte())
             }
-            require(bytes.copyOfRange(93, 126).contentEquals(bytes.copyOfRange(152, 185)))
+            val author = bytes.copyOfRange(93, 126)
+            require((0 until outputs).any { index ->
+                val offset = 152 + 59 * index
+                author.contentEquals(bytes.copyOfRange(offset, offset + 33))
+            })
             return SaitoTransaction(bytes).also { SaitoEnvelope.decode(it.envelope()) }
         }
 
