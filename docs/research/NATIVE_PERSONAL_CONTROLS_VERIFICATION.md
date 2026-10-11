@@ -42,3 +42,14 @@ private Chat; each later ticket requires actual personal-control integration.
 Finish with both source review axes, relevant complete Android10/17 acceptance,
 release/lint and retained evidence before closure. No live moderation writes,
 node operation, physical timing or new phone APK claimed here.
+
+First native RED38149454797 at056d9a3:1FAIL29.531s at waitFor Mute account,
+line70; source/core/debug/test PASS. Root views original blank PNG and parses XML
+without app nodes: capture happened after ActivityScenario closed. End safeguard
+assertions not reached. Durableticket20/first-red keeps raw log/originals/4hashes.
+Fixture now captures inside each live Activity and waits for Profile first; repeat
+corrected focused RED before adding product code. No visible-Profile/GREEN claim.
+
+Capture-scoped fixture compilation PASS1m16s. No product source added. Corrected
+focused Android17 RED dispatch next; successful first source push38149448583 also
+passes core/debug/test/release/lint.

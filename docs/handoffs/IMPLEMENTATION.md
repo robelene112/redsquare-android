@@ -99,7 +99,9 @@ parked. #21, "Mute and block accounts across backend sessions", is ACTIVE/assign
 All blockers complete (closed#8). Review base99e58c6a49f5a10ee630f948ad3a18c9f5fb5592.
 The primary native tracer is mute in Profile, switch approved backends, fresh
 offline Activity, manage/unmute and restore cached posts with the same wallet and
-zero transactions. Test compilationPASS1m20s; native RED pending. Product implementation
+zero transactions. Test compilationPASS1m20s. First RED38149454797 fails at missing Mute wait, but
+its capture ran after Activity closed. Corrected live-Activity capture compiles
+PASS1m16s; corrected native RED dispatch next. Product implementation
 not added yet. Scope/verification plan: NATIVE_PERSONAL_CONTROLS_VERIFICATION.md.
 Read-only source preparation is ignored .scratch/personal-controls-plan.md.
 Preserve the seven future research files below.
