@@ -427,3 +427,23 @@ container continued. Reattached logs and docker wait confirmed exit0 and
 BUILD SUCCESSFUL1m4s, not a code failure or rerun. Intended eight-case RED and
 bounded fixture review pending. Historical availability gets its own next
 tracer after this slice; no barrier fix is implemented yet.
+
+Controlled receiving compatibility now PASS for both independently verified
+actual Android specimens. New helper executes unmodified hash-pinned A/B
+Profile confirmation/receiving/reconstruction/cache methods and the original
+profile-index metadata constant with in-memory Archive/keychain/UI adapters.
+Both server and watched-own-browser cases ignore conf1, accept synthetic conf0,
+preserve full fields/archive flag, reconstruct the newest snapshot, and update
+own browser profile options/index/event payload while retaining archive nodes.
+Pinned source hashes A15777808a5e4e88603b87dec7c28af177b418a9a46d0d8278ed569a25fc23d93
+and B3839e35cbdf330fae46b5a6d92b71802b801054bbcbc8589aa0718e539d6aad3
+are checked before VM execution. Both10/17 produce four accepted observations
+each; retained profile-publishing-first-green/android10 andandroid17/
+web-receiver.json. Initial adapter compared objects across VM prototypes and
+failed despite equal metadata; normalize public metadata structurally before
+asserting. Only the final hash-pinned runs are acceptance evidence.
+No Saito initialization, private options, networking or deployment writes:
+isolated read-only/env-i/network-none Node24 runner. This proves controlled
+receiving methods and browser update event payloads, not DOM pixels, deployment
+or chain inclusion. Supersession/historical-availability source findings remain
+open; native eight-case RED38097083171 pending.

@@ -28,7 +28,9 @@ Android17 38096718157 PASS7 cases73.156s; source38096715823 PASS. Original
 availability PNGs individually inspected, separate XML/raw logs retained under
 profile-publishing-first-green. Both actual synthetic frame specimens independently
 PASS pinned WASM/Elliptic signatures, hop, zero self-slip/full-body/envelope checks.
-Receiving-web/DOM/live-chain proof still pending. Prior bio-save/import failure
+Hash-pinned A/B Profile server/browser receiving and newest reconstruction
+PASS for both actual specimens (four observations each), retained web-receiver
+reports. In-memory adapters; no DOM pixels/deployment/live-chain proof. Prior bio-save/import failure
 flows PASS6 cases21.46s/71.054s on10/17 with original images inspected; shared
 encryption post18/profile4 regressions also passed both (canonical doc).
 
