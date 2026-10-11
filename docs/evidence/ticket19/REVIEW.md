@@ -205,3 +205,10 @@ Initial qualification compilePASS2m17s. Reviewer source edge corrected after
 compiler completion: each person card qualifies its historical exact-name
 label unless that exact key is covered by the active freshly confirmed record.
 No cache eviction or new network read. Fix compile/re-review/GREEN pending.
+
+Per-card sourcefix474e01f compilePASS2m20s; bounded Spec0 residual.
+Standards sourceedge resolved, fixture precision finding: merged clickable
+card bounds could count as visible while the copy itself is offscreen. Test
+now scrolls to the qualification and asserts its unmerged Text bounds; negative
+copy checks also use unmerged nodes. No observed viewport failure or acceptance
+weakening. Testcompile/re-review/first qualification GREEN pending.
