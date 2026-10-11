@@ -320,6 +320,7 @@ verify_usernames() {
         adb logcat -d -v brief AndroidRuntime:E RedSquarePeer:W '*:S' > "$evidence/username-runtime.txt" || true
         return 1
     fi
+    python3 "$repo_dir/scripts/username-process-check" --evidence "$evidence/username-process"
 }
 if [[ "${TEST_SCOPE:-full}" == usernames* ]]; then
     verify_usernames
