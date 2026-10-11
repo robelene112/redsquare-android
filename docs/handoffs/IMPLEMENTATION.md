@@ -107,8 +107,11 @@ axes0 findings. Minimal saved-Mute/feed/Settings implementation compilesPASS2m14
 first GREEN38150876485 at0503aee passes1case32.955s. Root views3originalPNG
 and separately parses3XML; all wallet/peer/zero-TX gates reached. Durable first-green
 retains8hashes. First source review: Spec0, Standards1 actionable anonymous-reading
-recovery boundary. Next native recovery tracer added before production fix and is
-compiling. Block, other-view filters and late-save recovery still require further
+recovery boundary. Next recovery tracer compiledPASS1m19s, both fixture axes0.
+RED38151508176 at560424e:2reported/1PASS1FAIL30.592s, anonymous cached lookup
+fails in empty list after actual wallet failure. Root views original/separateXML;
+recovery-red4hashes. Minimal anonymous/no-policy reading versus unknown-owner
+saved-policy gate fix compiledPASS2m23s; focused GREEN attempt next. Block, other-view filters and late-save recovery still require further
 vertical journeys; no final #21 acceptance/new APK claimed. Scope/verification plan: NATIVE_PERSONAL_CONTROLS_VERIFICATION.md.
 Read-only source preparation is ignored .scratch/personal-controls-plan.md.
 Preserve the seven future research files below.

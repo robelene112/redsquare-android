@@ -277,6 +277,7 @@
     <string name="personal_local_detail">These choices apply to your current wallet on both servers. They are saved only on this device. Importing a wallet on another device does not restore them.</string>
     <string name="personal_empty">No muted or blocked accounts.</string>
     <string name="personal_loading">Loading personal controls…</string>
+    <string name="personal_owner_unavailable">Recover your wallet to apply saved personal controls. Cached posts stay hidden until your identity is available.</string>
     <string name="personal_load_error">Personal controls could not be opened. Hidden content stays hidden. Retry to recover your saved choices.</string>
     <string name="personal_save_error">Your change could not be saved. Try again.</string>
 </resources>

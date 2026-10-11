@@ -1,0 +1,97 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PersonalControlsPreviewTest:
+INSTRUMENTATION_STATUS: test=unavailableWalletPreservesAnonymousReadingButDoesNotBypassSavedPersonalChoices
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: No node found that matches Text + InputText + EditableText contains 'Native Red Square reference post' (ignoreCase: false) in scrollable container
+Semantics of the node:
+Node #165 at (l=16.0, t=476.0, r=304.0, b=624.0)px
+CollectionInfo = 'CollectionInfo(rowCount=0, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@a887f4f'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 15 siblings
+Selector used: (ScrollBy is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.showPost(PersonalControlsPreviewTest.kt:219)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.unavailableWalletPreservesAnonymousReadingButDoesNotBypassSavedPersonalChoices$lambda$22$lambda$16$lambda$15(PersonalControlsPreviewTest.kt:149)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.$r8$lambda$vmGiuW250BVlf8aOyfSZcs3iVro(PersonalControlsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.unavailableWalletPreservesAnonymousReadingButDoesNotBypassSavedPersonalChoices(PersonalControlsPreviewTest.kt:147)
+
+INSTRUMENTATION_STATUS: stream=
+Error in unavailableWalletPreservesAnonymousReadingButDoesNotBypassSavedPersonalChoices(nl.davidengelen.redsquare.PersonalControlsPreviewTest):
+java.lang.AssertionError: No node found that matches Text + InputText + EditableText contains 'Native Red Square reference post' (ignoreCase: false) in scrollable container
+Semantics of the node:
+Node #165 at (l=16.0, t=476.0, r=304.0, b=624.0)px
+CollectionInfo = 'CollectionInfo(rowCount=0, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@a887f4f'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 15 siblings
+Selector used: (ScrollBy is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.showPost(PersonalControlsPreviewTest.kt:219)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.unavailableWalletPreservesAnonymousReadingButDoesNotBypassSavedPersonalChoices$lambda$22$lambda$16$lambda$15(PersonalControlsPreviewTest.kt:149)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.$r8$lambda$vmGiuW250BVlf8aOyfSZcs3iVro(PersonalControlsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.unavailableWalletPreservesAnonymousReadingButDoesNotBypassSavedPersonalChoices(PersonalControlsPreviewTest.kt:147)
+
+INSTRUMENTATION_STATUS: test=unavailableWalletPreservesAnonymousReadingButDoesNotBypassSavedPersonalChoices
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=mutingSurvivesBackendChangesAndOfflineReopeningAndUnmutingRestoresCachedPosts
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=mutingSurvivesBackendChangesAndOfflineReopeningAndUnmutingRestoresCachedPosts
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 30.592
+There was 1 failure:
+1) unavailableWalletPreservesAnonymousReadingButDoesNotBypassSavedPersonalChoices(nl.davidengelen.redsquare.PersonalControlsPreviewTest)
+java.lang.AssertionError: No node found that matches Text + InputText + EditableText contains 'Native Red Square reference post' (ignoreCase: false) in scrollable container
+Semantics of the node:
+Node #165 at (l=16.0, t=476.0, r=304.0, b=624.0)px
+CollectionInfo = 'CollectionInfo(rowCount=0, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@a887f4f'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 15 siblings
+Selector used: (ScrollBy is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.showPost(PersonalControlsPreviewTest.kt:219)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.unavailableWalletPreservesAnonymousReadingButDoesNotBypassSavedPersonalChoices$lambda$22$lambda$16$lambda$15(PersonalControlsPreviewTest.kt:149)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.$r8$lambda$vmGiuW250BVlf8aOyfSZcs3iVro(PersonalControlsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.unavailableWalletPreservesAnonymousReadingButDoesNotBypassSavedPersonalChoices(PersonalControlsPreviewTest.kt:147)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

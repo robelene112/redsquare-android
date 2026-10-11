@@ -273,7 +273,7 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
             posts.isEmpty() && !loading && wallet != null -> Text(stringResource(R.string.feed_empty))
         }
         // Keep a restored list position until the asynchronous cache read has finished.
-        if (cacheReady) LazyColumn(Modifier.fillMaxSize(), state = position) {
+        if (cacheReady && personal?.ready == true) LazyColumn(Modifier.fillMaxSize(), state = position) {
             items(visiblePosts, key = { it.id }) { post ->
                 Column(Modifier.clickable { navigation.add(BrowseDestination.Conversation(post)) }.padding(vertical = 12.dp)) {
                     Text(registeredIdentity(post.author).name, Modifier.clickable { openProfile(post.author) }, style = MaterialTheme.typography.titleMedium)

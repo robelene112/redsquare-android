@@ -87,3 +87,20 @@ reading without personal records, then saved-Mute owner unavailable gate and
 same-identity recovery retaining the choice. No production recovery fix yet.
 
 Recovery tracer compile PASS1m19s; focused Android17 RED dispatch next.
+
+Recovery fixture/evidence review0503aee...560424e: Spec0 actionable,
+Standards0 new hard violations/heuristic smells. Both independently verify the
+first-green8hashes and original observations. The initial Standards source
+finding remains open until recovery RED/fix/GREEN. Recovery RED38151508176
+at560424e is active; no production fix added ahead of observed failure.
+
+Recovery RED38151508176 at560424e:2reported/1PASS1FAIL30.592s; missing cached
+root atline149 in empty list after positive wallet failure. Root inspects original
+failurePNG and separateXML; ticket20/recovery-red retains4hashes. Later repair,
+owner-gate and end identity/no-TX checks unreached. Minimal fix now loads explicit
+anonymous policy only when no personal record exists; otherwise explains owner
+recovery and withholds the content list. Known-owner policy loading stays gated.
+No signing identity is guessed or changed. Compile/GREEN pending.
+
+Minimal anonymous/owner recovery fix compile PASS2m23s; unchanged two-test focused
+Android17 GREEN attempt next. No runtime recovery acceptance claimed yet.

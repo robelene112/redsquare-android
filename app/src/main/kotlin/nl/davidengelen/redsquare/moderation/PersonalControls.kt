@@ -23,8 +23,9 @@ import nl.davidengelen.redsquare.saito.EncryptedLocalFile
 import nl.davidengelen.redsquare.saito.SaitoWallet
 
 /** Device-local personal choices for one public identity, shared by both servers. */
-internal class PersonalControls(context: Context, private val owner: String, private val scope: CoroutineScope) {
-    private val storage = EncryptedLocalFile(context, "personal.$owner.v1", "personal.$owner", "personal.$owner.")
+internal class PersonalControls(private val context: Context, private val owner: String?, private val scope: CoroutineScope) {
+    private val storage = owner?.let { EncryptedLocalFile(context, "personal.$it.v1", "personal.$it", "personal.$it.") }
+    val ownerAvailable get() = owner != null
     var muted by mutableStateOf<Set<String>>(emptySet())
         private set
     var ready by mutableStateOf(false)
@@ -40,7 +41,12 @@ internal class PersonalControls(context: Context, private val owner: String, pri
         loading = true
         try {
             muted = withContext(Dispatchers.IO) {
-                storage.load()?.let { saved ->
+                if (owner == null) {
+                    // With no identity, do not guess whose saved choices apply.
+                    // Anonymous public reading remains available on a device without them.
+                    require(context.noBackupFilesDir.listFiles()?.none { it.name.startsWith("personal.") } == true)
+                    emptySet()
+                } else requireNotNull(storage).load()?.let { saved ->
                     require(saved.version == 1.toByte())
                     val record = JsonParser.parseString(saved.text).asJsonObject
                     require(record.get("version").asInt == 1 && record.get("owner").asString == owner)
@@ -64,7 +70,7 @@ internal class PersonalControls(context: Context, private val owner: String, pri
     }
 
     fun setMuted(author: String, mute: Boolean) {
-        if (!ready || saving) return
+        if (owner == null || !ready || saving) return
         val updated = if (mute) muted + author else muted - author
         saving = true
         scope.launch {
@@ -76,7 +82,7 @@ internal class PersonalControls(context: Context, private val owner: String, pri
                         addProperty("owner", owner)
                         add("muted", com.google.gson.JsonArray().apply { updated.sorted().forEach(::add) })
                     }
-                    storage.save(EncryptedLocalFile.Contents(1, record.toString()))
+                    requireNotNull(storage).save(EncryptedLocalFile.Contents(1, record.toString()))
                 }
                 muted = updated
                 error = false
@@ -97,14 +103,15 @@ internal val LocalPersonalControls = staticCompositionLocalOf<PersonalControls?>
 internal fun PersonalControlsScope(owner: String?, content: @Composable () -> Unit) {
     val context = LocalContext.current.applicationContext
     val scope = rememberCoroutineScope()
-    val controls = remember(owner) { owner?.let { PersonalControls(context, it, scope) } }
-    LaunchedEffect(controls) { controls?.load() }
+    val controls = remember(owner) { PersonalControls(context, owner, scope) }
+    LaunchedEffect(controls) { controls.load() }
     CompositionLocalProvider(LocalPersonalControls provides controls, content = content)
 }
 
 @Composable
 internal fun PersonalControlsStatus(controls: PersonalControls?) {
     if (controls == null || controls.loading) Text(stringResource(R.string.personal_loading))
+    else if (!controls.ready && !controls.ownerAvailable) Text(stringResource(R.string.personal_owner_unavailable))
     else if (!controls.ready) {
         Text(stringResource(R.string.personal_load_error))
         TextButton(onClick = controls::retry) { Text(stringResource(R.string.retry)) }
@@ -117,7 +124,7 @@ internal fun AccountControls(author: String) {
     var confirming by remember(author) { mutableStateOf(false) }
     PersonalControlsStatus(controls)
     val muted = author in controls.muted
-    TextButton(enabled = controls.ready && !controls.saving, onClick = {
+    TextButton(enabled = controls.ownerAvailable && controls.ready && !controls.saving, onClick = {
         if (muted) controls.setMuted(author, false) else confirming = true
     }) { Text(stringResource(if (muted) R.string.personal_unmute_account else R.string.personal_mute_account)) }
     if (confirming) AlertDialog(
