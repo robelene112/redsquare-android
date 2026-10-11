@@ -8,8 +8,10 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.gson.JsonObject
+import com.google.gson.JsonParser
 import nl.davidengelen.redsquare.saito.SaitoEnvelope
 import nl.davidengelen.redsquare.saito.SaitoRegistry
+import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.saito.AndroidBackendStore
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import org.junit.Assert.*
@@ -125,6 +127,66 @@ class UsernamePreviewTest {
                     peer.assertHealthy()
                 }
             }
+        }
+    }
+
+    @Test fun aRegistrarSignedNameIsDisplayedAndRetainedWhenLaterChecksAreUnavailable() {
+        val reference = instrumentation.context.assets.open("native-registry-reference.json").bufferedReader()
+            .use { JsonParser.parseReader(it).asJsonObject }
+        val proof = reference.getAsJsonArray("rows").toString()
+        val fixture = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe fixture only.
+        val walletStore = AndroidWalletStore(context)
+        val original = walletStore.loadOrCreate()
+        if (original.publicKey != fixture.publicKey) walletStore.replace(original, fixture)
+        val unavailable = java.util.concurrent.atomic.AtomicBoolean(false)
+        val peer = ControlledFeedPeer("[]", registryResponse = { criteria ->
+            assertEquals("registry namecheck", criteria.get("request").asString)
+            assertEquals("NativeCase7@saito", criteria.get("identifier").asString)
+            if (unavailable.get()) "{\"err\":\"no response\"}" else proof
+        })
+        var primary: Throwable? = null
+        try {
+            peer.start().use { server ->
+                val intent = Intent(context, MainActivity::class.java)
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                    // Explicit scalar2 authority applies only to this isolated emulator fixture.
+                    .putExtra("usernameFixtureRegistrar", true)
+                ActivityScenario.launch<MainActivity>(intent).use { scenario ->
+                    withFailureCapture({ capture("username-confirmation-failure.png") }) {
+                        openUsername()
+                        waitForEnabled("Check name")
+                        ui.onNode(hasSetTextAction()).performTextReplacement("NativeCase7")
+                        ui.onNodeWithText("Check name").performClick()
+                        waitForText("This username is registered to your wallet.")
+                        ui.onNodeWithText("NativeCase7@saito").assertIsDisplayed()
+                        ui.onAllNodesWithText("Register name").assertCountEquals(0)
+                        ui.onAllNodesWithText("Retry registration").assertCountEquals(0)
+                        assertTrue(peer.transactions.isEmpty())
+                        capture("username-confirmed.png", "NativeCase7@saito")
+                        unavailable.set(true)
+                        scenario.recreate()
+                        openUsername()
+                        waitForText("Username could not be checked. Try again.")
+                        ui.onNodeWithText("Saved username: NativeCase7@saito").assertIsDisplayed()
+                        ui.onAllNodesWithText("This username is registered to your wallet.").assertCountEquals(0)
+                        ui.onAllNodesWithText("Register name").assertCountEquals(0)
+                        ui.onAllNodesWithText("Retry registration").assertCountEquals(0)
+                        capture("username-confirmed-cached.png", "Saved username: NativeCase7@saito")
+                        ui.onNodeWithText("Back").performClick()
+                        waitForEnabled("New post")
+                        ui.onNodeWithText("Wallet").performClick()
+                        ui.onNodeWithText(fixture.publicKey).assertIsDisplayed()
+                        assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
+                    }
+                }
+            }
+        } catch (failure: Throwable) { primary = failure; throw failure }
+        finally {
+            try {
+                val active = walletStore.loadExisting()
+                check(active.publicKey == fixture.publicKey)
+                if (original.publicKey != fixture.publicKey) walletStore.replace(active, original)
+            } catch (cleanup: Throwable) { if (primary != null) primary.addSuppressed(cleanup) else throw cleanup }
         }
     }
 
