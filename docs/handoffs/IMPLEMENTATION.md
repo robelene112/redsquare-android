@@ -96,65 +96,25 @@ identical between successful full17 and full10, as allowed by WORKFLOW.md.
 No new phone APK, actual Search process-death, Pixel performance or live write
 claim. Stable review remains version10/source5225d06. #19 remains externally
 parked. #21, "Mute and block accounts across backend sessions", is ACTIVE/assigned.
-All blockers complete (closed#8). Review base99e58c6a49f5a10ee630f948ad3a18c9f5fb5592.
-The primary native tracer is mute in Profile, switch approved backends, fresh
-offline Activity, manage/unmute and restore cached posts with the same wallet and
-zero transactions. Test compilationPASS1m20s. First RED38149454797 fails at missing Mute wait, but
-its capture ran after Activity closed. Corrected live-Activity capture compiles
-PASS1m16s; corrected RED38150093643 fails at missing Mute on captured native
-Profile (1FAIL31.11s). Root views original/independent XML; both fixture review
-axes0 findings. Minimal saved-Mute/feed/Settings implementation compilesPASS2m14s;
-first GREEN38150876485 at0503aee passes1case32.955s. Root views3originalPNG
-and separately parses3XML; all wallet/peer/zero-TX gates reached. Durable first-green
-retains8hashes. First source review: Spec0, Standards1 actionable anonymous-reading
-recovery boundary. Next recovery tracer compiledPASS1m19s, both fixture axes0.
-RED38151508176 at560424e:2reported/1PASS1FAIL30.592s, anonymous cached lookup
-fails in empty list after actual wallet failure. Root views original/separateXML;
-recovery-red4hashes. Minimal anonymous/no-policy reading versus unknown-owner
-saved-policy gate fix compiledPASS2m23s; both source axes0 residual. Recovery
-GREEN38152142197 at7f5d796 passes2cases45.744s including both end gates. Root
-views5originalPNG/separate5XML; recovery-green12hashes. Next single native Block
-tracer added before Block product code: independent Block-only filter, re-Mute,
-backend switch, offline Unblock preserving Mute and fresh cached Unmute restore.
-Final tracer compilesPASS1m27s; both fixture/evidence reviews0 actionable.
-Block RED38152934786 atf1100cf:3reported/2PASS1FAIL71.307s atmissingBlock
-line227. Root views actualProfilePNG/separateXML withsavedUnmute/noBlock;
-block-red4hashes. Minimal independentBlock/Mute/PersonalPolicy implementation
-compilesPASS2m16s; both source axes0 new actionable findings. Block
-GREEN38153595298 atfe555b9 passes3cases42.425s including all endgates. Root
-views8originalPNG/separate8XML; block-green18hashes. Next single native cross-view
-tracer added before source filters: positivequoted-original visibility, muted
-Profile/thread/root+reply/quote/Search filtering, peoplemanagementroute and fresh
-offline quote hide/Unmute restore. Finalfixture compilesPASS1m16s. Cross-view RED38154431362:4reported/3PASS1FAIL
-72.367s atline354, actual muted Profile still shows its root. Rootviews2originals/
-separate2XML; views-red6hashes. Minimal Profile/thread/Search/quoted-original
-filters compilePASS2m22s. FirstGREENattempt38155113079 passes new product
-gates through Search-post filters then fails fixtureline388: long editablequery
-also scrolls, so ambiguouslistselector. Rootviews5new originals/separateXML;
-views-selector-failure12hashes. Exclude editablefield frompersonlistselector,
-acceptanceassertions unchanged. CompilePASS1m14s; correctedGREEN38155702778
-at17104b8 passes4cases61.642s/allendgates. Rootviews14originals/separate14XML;
-views-green30hashes. RepeatedexplainedMute steps extractedafterGREEN. NextSINGLE
-late-save tracer added before rollback implementation: postfinishWrite personal
-OSsyncfault, UIerror/oldMute, freshnormalActivity mustretainfilteredpost/Mute,
-explicitrepair/restoration/samewallet/noTX. CompilePASS2m7s; first5caseRED next.
-Late-save RED38156328999 at9611408:5reported/4PASS1FAIL83.454s. Mounted
-failedUnmuteerror/oldMute passes; freshnormalActivity rootreturns, full-list
-absencefailsline452. Rootviews2originals/separateXML; save-red6hashes. Minimal
-AndroidPersonalControls verifiedprevious-anchor/rollback/ready-gate adapter now
-implemented. CompilePASS2m3s; GREEN38157057749 at2309d4d passes5cases88.55s/
-allendgates. Rootviews3new originals/separateXML; save-green8hashes. Product
-Spec0new, Standards1residualremoved-anchor recreationfailure skipsactive
-restoration. NewSINGLEnativeobstruction/repair/coldold-policytracer beforefix,
-DEBUGpersonalremovalOSseam, compilePASS2m25s. Preliminary6caseattempt38157802202
-cancelledbeforebothSDKruntime steps: reviewfoundUnmuteactions absentwhenreadyfalse,
-notdisabled. Correct toabsence+positiveRetry withothergates unchanged. Compile
-PASS1m16s. This is the historical pre-09f3f4f checkpoint; observed RED and
-guard fix are recorded in the active recovery checkpoint below. Block, other-view
-filters and late-save journeys have passed their focused checks. Identity/process
-death/corruption and final paired SDK acceptance remain pending; no final #21 acceptance/new APK claimed. Scope/verification plan: NATIVE_PERSONAL_CONTROLS_VERIFICATION.md.
-Read-only source preparation is ignored .scratch/personal-controls-plan.md.
-Preserve the seven future research files below.
+All blockers complete (closed#8); review base99e58c6a49f5a10ee630f948ad3a18c9f5fb5592.
+Implementation and focused verification are complete: independent encrypted
+wallet-scoped Mute/Block across both backends; filtering in Feed, Profile,
+Conversation, Search and quoted originals; management and truthful save/recovery
+errors. Chat/notifications are dependent tickets, not delivery claimed here.
+
+Focused run38161237509 ataa91ff2 passes8ordinary cases111.163s, including actual
+SAF/authenticated wallet roundtrip/full opaque options, corruption repair and
+actual PIN cleanup. Separate pending-save process death5044→5131 passes one
+independent cold case6.427s without identity/backend/policy reset. The durable
+previous-policy guard and independent rollback resolve the demonstrated late
+save/removal/recreation defect. Root inspected the final six identity/corruption
+and four process original PNGs, then separately parsed all ten XMLs. See
+NATIVE_PERSONAL_CONTROLS_VERIFICATION.md and ticket20/identity-green/28hashes
+for the full qualified chronology. Whole source and bounded focused reviews are
+clear; final full Android10/17 acceptance and artifact review remain required.
+
+Current final acceptance runs and fixture interruptions are below. Preserve the
+seven future research files; continue one ticket at a time. No new phone APK.
 
 Protected future untracked: build-support/references/private-chat-reference.cjs;
 NATIVE_NOTIFICATIONS_CONTRACT,
@@ -243,69 +203,53 @@ submission require their own explicit authorization. No production writer was
 changed for the Android app. Read-only public integration is separate from
 ordinary controlled tests; no production transaction was broadcast.
 
-## Active personal-controls recovery checkpoint
+## Active personal-controls acceptance checkpoint
 
-#21 remains active. Corrected removal/recreation RED38158038045 at09f3f4f
-reported six cases, five passes and one failure: repaired fresh Activity exposed
-failed Unmute at526. Root inspected both originals and separate XMLs;
- ticket20/removal-red retains six hashes. The guard fix2473000 now passes the
-unchanged six-case GREEN38158906379 in95.631s with all final identity/no-TX gates.
- ticket20/removal-green retains six hashes and both new original PNG/XML pairs
-individually inspected by root. Earlier five journeys retain their preceding
-captures. Source push38158898547 also passes. This proves controlled recovery
-failure and Activity reopening, not actual process death or physical power loss.
+#21 remains OPEN/assigned;16/35 tickets closed. Do not repeat passed focused
+journeys or claim final acceptance before inspecting the full pair.
 
-The encrypted previous-policy guard remains authoritative through all fallible
-writes/removal sync. Guard, anchor and active restoration run independently;
-secondary errors remain attached. The guard is removed only at final publication.
-Both bounded reviews find no source defect; stale handoff wording is corrected.
+- Android17 full38161793299 at781bd1a PASSES with opted-in public reads.
+  All179casesPASS/46records/15actual deaths; core55/release/lint/signed5→8/cold
+  continuity pass. Personal8PASS82.867s, actual death10423→10513/cold1PASS6.65s.
+  Root29originalPNG/separate29XML plus2publicscreen originals inspected.
+  Durable final-full/android17 retains162hashes; bounded evidence review pending.
+- Android10 full38163120112 atf0c6191 FAILS later in author-post:8reported/
+  7PASS1failure58.215s at151 after Confirm delete. Corrected browse passed.
+  Source-supported disabled-before-load tap risk, not proved scheduling cause.
+  OriginalPNG only; full10-delete-confirmation-failure retains3hashes.
+  Fixture waits bounded20s for shown/enabled Confirm delete, captures PNG/XML
+  then taps once; case-specific live failure diagnostics preserve primary.
+  Compile/review/new full10 remain required; no product change.
+- Product source/core/build/reference/scripts/workflow are unchanged between
+  these checkpoints. Only existing offline-profile fixture and evidence/docs
+  differ. WORKFLOW.md permits outstanding-SDK full acceptance after this fix.
+- Source push38162581617 passes ataa2cf36. Latest source push38163113907 passes.
 
-Actual pending-save process-death verification dd40a2c passes run38159358286:
-six ordinary cases plus one actual death stage and one cold case7.083s,
-PID4992→5082. The host verifies the old PID is gone and the encrypted guard has
-positive size. Cold native UI retains distinct Mute/Block, explicit Unblock keeps
-Mute/filter, explicit Unmute restores the root; same wallet/backend/peer keys and
-zero transactions. Root inspected all4originalPNG/separate4XML; process-green
-retains16hashes. Cold peer is online; offline retention is separate earlier proof.
-No physical power-loss claim. Both bounded process review axes have zero findings.
+Original Android10 full38161791197 at781bd1a stops in browse:8reported,
+7PASS/1failure35.513s at300, waiting for a lazy post before scrolling. The
+in-scope header fills the viewport; outer launcher capture follows Activity
+closure. Root viewed both originals and separately parsed both XMLs; durable
+full10-browse-failure retains6hashes. The corrected root scroll/display passes
+in subsequent full38162586525 ataa2cf36, but the same old pre-scroll wait fails
+on Replies at307:8reported/7PASS/1failure34.331s. Root views all3originals and
+separate3XML; full10-replies-failure retains8hashes. Neither failure establishes
+an offscreen reply exists or a production/cache defect. Later full stages were
+not reached. Intermediate38162365495 atce1acdc was explicitly cancelled during
+setup, not accepted or failed.
 
-Expanded run38160012441 at13943cc: eight reported cases, seven PASS and one
-identity-fixture error before first Activity launch;101.282s. Corruption/repair
-passes all final gates, with two originals and separate XMLs inspected by root in
-identity-bootstrap-failure/six hashes. Identity ran first on a fresh focused
-installation and tried loadExisting before normal app wallet creation. Correction
-opens actual first-launch Wallet UI first, then reads existing options; no direct
-wallet creation/reset and no weakened import assertions. Correction compile PASS in1m16s; expanded8case retry is next.
-Separate process probe was not reached in this run; prior process proof remains.
-Source push38159998964 passes core/debug/test/release/lint.
+Final fixture f0c6191 consistently waits bounded15s for enabled Profile Refresh
+(history loading settled), searches the lazy list and asserts the exact cached
+Posts/Replies/Likes text is displayed. It changes no product, cache, identity,
+peer or timeout. Local test compile PASS1m12s; both bounded review axes0findings.
+Earlier Standards readiness finding is resolved. Android17 passed all full
+checks; latest author-confirmation fixture and Android10 remain pending.
 
-Corrected8case38160579644 at58426cd: seven PASS and one cleanup error,
-124.105s. Identity main body reaches every real backup/import/restoration/options/
-wallet/filter/peer/backend/no-TX gate, then exact PIN-clear shell-output assertion
-fails at792. Command output was not captured, so actual PIN clearing remains
-unproved. Correction keeps the command and waits for actual KeyguardManager
-isDeviceSecure=false. Root viewed4identity originals/separate4XML;
-identity-cleanup-failure retains10hashes. Process probe not reached this run.
-Correction compiled PASS in1m12s; rerun next. Do not call the identity test passing yet.
-
-Complete focused GREEN38161237509 ataa91ff2: all8ordinary cases PASS111.163s,
-including actual SAF/PIN/opaque and full original options, real wallet roundtrip,
-cold identity/filtering and actual credential cleanup. Separate actual pending
-save death PID5044→5131, cold1PASS6.427s with unchanged wallet/backend and no reset.
-Root viewed all6new identity/corruption plus4process originalPNG/separate10XML;
-identity-green retains28hashes. Both final fixture review axes clear. Next: same
-source full Android10/17 acceptance with separately opted-in public reads.
-
-Final same-source acceptance is active at781bd1af8e4b8bea82d3b414c6ecb6dd9948c1c2:
-Android10run38161791197 and Android17run38161793299, both full scopes with
-public_feed_read=true. Inspect both final results/artifacts before closing #21.
-Native source is unchanged from the complete focused proof aa91ff2. No full-suite
-acceptance is established yet. Preserve private backups outside artifacts.
-
-Whole-ticket reviews99e58c6...13943cc: both axes zero source/fixture findings.
-Focused identity/process runtime now passes; final paired full Android
-10/17 acceptance remains. Preserve seven future research files. No new APK or
-#21 closure; still16/35 tickets are closed.
+Next: inspect actual final paired results, raw completion/death logs, critical
+personal originals and separate XMLs, public read evidence, release/lint and
+signed update/cold continuity. Retain durable evidence, complete bounded evidence
+reviews, update ticket checkboxes and close only if all acceptance gates pass.
+Then claim ready #22, Report posts to the selected backend. No parallel ticket
+implementation or new phone-review gate is required.
 
 ## Outstanding external acceptance
 
@@ -334,40 +278,7 @@ NATIVE_GROUP_CHAT_CONTRACT (all .md under docs/research). The protected future n
 their own relevant tickets; earlier contracts are already committed.
 They establish source contracts, not runtime or feature completion.
 
-Final Android10 run38161791197 at781bd1a stops in existing browse verification:
-eight cases, seven PASS and one fresh offline profile timeout at300 in35.513s.
-Root viewed both original failure screenshots and separately parsed both XMLs;
-full10-browse-failure retains six hashes. The in-scope profile header fills the
-small screen; its post is awaited before scrolling the lazy list. Fixture-only
-correction scrolls first and retains the exact displayed-post assertion. No
-production source or timeout change. Remaining full stages were not reached.
-Android17run38161793299 is still active. Compile/review and Android10 retry are
-next; #21 remains open.
-
-Bounded781bd1a...ce1acdc Spec review has zero findings. Standards identified
-one source-supported fixture readiness risk: Posts appears before asynchronous
-cached history is loaded, so immediate lazy-list search can run too early.
-Correction waits bounded15s for the existing enabled Profile Refresh after
-Posts, then scrolls and asserts the exact reference post. That Refresh is
-disabled during history loading and enabled after cached history is published.
-No production change or weakened assertion. Intermediate full10run38162365495
-atce1acdc was explicitly cancelled during setup to avoid testing the superseded
-fixture. Source push38162360677 is separate. Recompile/review then final full10
-retry are next. Original full17run38161793299 remains independent.
-
-Readiness correction local native-test compile PASS1m13s. Bounded fix reviews
-and the corrected full Android10 retry remain next. No final acceptance yet.
-
-Full Android10 retry38162586525 ataa2cf36 reports8browse cases,7PASS/1failure
-in34.331s. Cached root scroll/display and its positive capture pass. The next
-old pre-scroll wait fails at307 on Replies. Root viewed3originals and separately
-parsed3XML; full10-replies-failure retains8hashes. Failure header fills viewport;
-outer launcher is after Activity closes, not app evidence. Offscreen reply/cache
-existence is not independently proved. Fixture now consistently waits for
-enabled Profile Refresh, scrolls lazy list, asserts exact Posts/Replies/Likes
-content; bounded15s unchanged/no production mutation. Recompile/review/full10
-retry remain required; original full17run38161793299 remains active. Source push
-38162581617 passes; #21 remains open.
-
-Consistent offline-tab readiness/scroll correction compiles PASS1m12s.
-Both bounded reviews and corrected full Android10 retry remain next.
+Author confirmation fixture compiles PASS1m10s. Both bounded review axes
+and focused Android10 author verification are next; then rerun outstanding
+Android10 full scope. Android17 acceptance is preserved at unchanged product
+source, with its durable evidence review also next. #21 remains open.

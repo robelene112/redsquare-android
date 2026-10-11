@@ -147,6 +147,11 @@ class AuthorPostPreviewTest {
                     ui.onNodeWithText("Delete").performClick()
                     waitFor("Delete post")
                     ui.onNodeWithText("Remove this post from normal views on the selected server and this device? Historical and independent copies may remain.").assertIsDisplayed()
+                    // The confirmation is rendered before its durable draft finishes loading.
+                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("Confirm delete") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("Confirm delete").assertIsDisplayed().assertIsEnabled()
+                    captureNativeScreen(java.io.File(context.cacheDir,
+                        "author-post-evidence/${if (withImage) "image" else "native"}-delete-confirmation-ready.png"), "Confirm delete")
                     ui.onNodeWithText("Confirm delete").performClick()
                     waitFor("Removal not yet verified. Retry checks the original attempt first.")
                     ui.waitUntil(25_000) {
@@ -187,7 +192,10 @@ class AuthorPostPreviewTest {
                         }.toString())
                     captureFeedEvidence("author-post-evidence/deleted-post-profile.png")
                 } catch (failure: Throwable) {
-                    captureFeedEvidence("author-post-evidence/edit-first-failure.png")
+                    try {
+                        captureNativeScreen(java.io.File(context.cacheDir,
+                            "author-post-evidence/${if (withImage) "image" else "native"}-edit-first-failure.png"))
+                    } catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
                     throw failure
                 }
             }

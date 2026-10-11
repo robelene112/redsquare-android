@@ -1,0 +1,7 @@
+# Android 10 author-image deletion confirmation interruption
+
+Full run38163120112 atf0c61912e11babcb7ecba02ba6b1f7e43c2fedba passes the corrected browse suite and preceding posting/queue/social/quote process stages, then author-post reports8cases,7PASS/1failure58.215s. The image-author journey times out at151 awaiting the saved removal attempt after Confirm delete. Personal controls and later full stages were not reached.
+
+Root viewed the original in-scope failure PNG. It shows the Delete post confirmation, explanation and edited text with no saved-attempt status. This legacy capture supplies no XML and does not prove enabledness at the earlier tap or the exact scheduling cause. Source confirms Confirm delete is rendered while ready=false during asynchronous draft/revision loading; Compose performClick does not itself assert enabledness. The fixture previously awaited title/explanation only.
+
+Correction boundedly waits20s for enabled Confirm delete, asserts actual displayed/enabled control, captures its original PNG and separate XML, then taps once. All candidate/removal/image/identity/transaction assertions remain. Failure captures now have case-specific names and XML within the live Activity, preserving the original exception. No production/cache/peer change or extended deadline. Passing Android10 full rerun remains required. Independent Android17 full38161793299 passed the same production source, with durable final-full/android17 evidence. No inferred production defect, ticket closure, new APK, physical-device or live-write claim.

@@ -1,0 +1,194 @@
+﻿2026-10-11T17:58:44.7633723Z ##[group]Run if [[ "$VERIFICATION_SCOPE" == full* || "$VERIFICATION_SCOPE" == source ]]; then
+2026-10-11T17:58:44.7634479Z ^[[36;1mif [[ "$VERIFICATION_SCOPE" == full* || "$VERIFICATION_SCOPE" == source ]]; then^[[0m
+2026-10-11T17:58:44.7635307Z ^[[36;1m  ./gradlew --no-daemon --console=plain :core:test :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease :app:lintDebug^[[0m
+2026-10-11T17:58:44.7635999Z ^[[36;1melse^[[0m
+2026-10-11T17:58:44.7636507Z ^[[36;1m  ./gradlew --no-daemon --console=plain :core:test :app:assembleDebug :app:assembleDebugAndroidTest^[[0m
+2026-10-11T17:58:44.7637102Z ^[[36;1mfi^[[0m
+2026-10-11T17:58:44.7675719Z shell: /usr/bin/bash -e {0}
+2026-10-11T17:58:44.7676138Z env:
+2026-10-11T17:58:44.7676607Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-10-11T17:58:44.7677203Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-10-11T17:58:44.7677740Z   MAVEN_ARGS: -ntp
+2026-10-11T17:58:44.7678122Z   VERIFICATION_SCOPE: full-android17
+2026-10-11T17:58:44.7678603Z ##[endgroup]
+2026-10-11T17:58:45.4541612Z 
+2026-10-11T17:58:45.4554262Z Welcome to Gradle 8.11.1!
+2026-10-11T17:58:45.4601703Z 
+2026-10-11T17:58:45.4612548Z Here are the highlights of this release:
+2026-10-11T17:58:45.4652374Z  - Parallel load and store for Configuration Cache
+2026-10-11T17:58:45.4682388Z  - Java compilation errors at the end of the build output
+2026-10-11T17:58:45.4712344Z  - Consolidated report for warnings and deprecations
+2026-10-11T17:58:45.4741801Z 
+2026-10-11T17:58:45.4762479Z For more details see https://docs.gradle.org/8.11.1/release-notes.html
+2026-10-11T17:58:45.4801649Z 
+2026-10-11T17:58:45.5543997Z To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.11.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+2026-10-11T17:58:46.7533697Z Daemon will be stopped at the end of the build 
+2026-10-11T17:59:00.8572996Z > Task :core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+2026-10-11T17:59:00.9553053Z > Task :core:compileKotlin FROM-CACHE
+2026-10-11T17:59:00.9571633Z > Task :core:compileJava NO-SOURCE
+2026-10-11T17:59:01.0533606Z > Task :core:processResources NO-SOURCE
+2026-10-11T17:59:01.0537233Z > Task :core:classes UP-TO-DATE
+2026-10-11T17:59:01.1539304Z > Task :core:jar
+2026-10-11T17:59:01.1546310Z > Task :core:compileTestKotlin FROM-CACHE
+2026-10-11T17:59:01.1550426Z > Task :core:compileTestJava NO-SOURCE
+2026-10-11T17:59:01.1551284Z > Task :core:processTestResources
+2026-10-11T17:59:01.1552450Z > Task :core:testClasses
+2026-10-11T17:59:01.2547150Z > Task :core:test FROM-CACHE
+2026-10-11T17:59:01.2576027Z > Task :app:preBuild UP-TO-DATE
+2026-10-11T17:59:01.2584288Z > Task :app:preDebugBuild UP-TO-DATE
+2026-10-11T17:59:01.2597979Z > Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+2026-10-11T17:59:01.2599682Z > Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+2026-10-11T17:59:01.2600546Z > Task :app:generateDebugBuildConfig FROM-CACHE
+2026-10-11T17:59:01.5573211Z > Task :app:generateDebugResValues FROM-CACHE
+2026-10-11T17:59:01.5576956Z > Task :app:checkDebugAarMetadata
+2026-10-11T17:59:01.5577769Z > Task :app:mapDebugSourceSetPaths
+2026-10-11T17:59:01.5578517Z > Task :app:generateDebugResources FROM-CACHE
+2026-10-11T17:59:01.6535582Z > Task :app:mergeDebugResources FROM-CACHE
+2026-10-11T17:59:01.6536393Z > Task :app:packageDebugResources FROM-CACHE
+2026-10-11T17:59:02.2543137Z > Task :app:parseDebugLocalResources FROM-CACHE
+2026-10-11T17:59:02.2572569Z > Task :app:createDebugCompatibleScreenManifests
+2026-10-11T17:59:02.2602347Z > Task :app:extractDeepLinksDebug FROM-CACHE
+2026-10-11T17:59:02.3542161Z > Task :app:processDebugMainManifest FROM-CACHE
+2026-10-11T17:59:02.3552492Z > Task :app:processDebugManifest FROM-CACHE
+2026-10-11T17:59:02.3553696Z > Task :app:processDebugManifestForPackage FROM-CACHE
+2026-10-11T17:59:02.4550673Z > Task :app:processDebugResources FROM-CACHE
+2026-10-11T17:59:02.6533391Z > Task :app:compileDebugKotlin FROM-CACHE
+2026-10-11T17:59:02.6539374Z > Task :app:javaPreCompileDebug FROM-CACHE
+2026-10-11T17:59:03.4593041Z > Task :app:compileDebugJavaWithJavac FROM-CACHE
+2026-10-11T17:59:03.4620771Z > Task :app:mergeDebugShaders
+2026-10-11T17:59:03.4642539Z > Task :app:compileDebugShaders NO-SOURCE
+2026-10-11T17:59:03.4672540Z > Task :app:generateDebugAssets UP-TO-DATE
+2026-10-11T17:59:03.4702314Z > Task :app:mergeDebugAssets
+2026-10-11T17:59:03.4732328Z > Task :app:compressDebugAssets FROM-CACHE
+2026-10-11T17:59:03.4733606Z > Task :app:desugarDebugFileDependencies FROM-CACHE
+2026-10-11T17:59:03.5534934Z > Task :app:dexBuilderDebug FROM-CACHE
+2026-10-11T17:59:03.6533884Z > Task :app:mergeDebugGlobalSynthetics FROM-CACHE
+2026-10-11T17:59:03.6534979Z > Task :app:processDebugJavaRes
+2026-10-11T17:59:03.8545363Z > Task :app:checkDebugDuplicateClasses
+2026-10-11T17:59:04.2539353Z > Task :app:mergeExtDexDebug FROM-CACHE
+2026-10-11T17:59:04.2602572Z > Task :app:mergeLibDexDebug FROM-CACHE
+2026-10-11T17:59:04.2603434Z > Task :app:mergeProjectDexDebug FROM-CACHE
+2026-10-11T17:59:04.2620205Z > Task :app:mergeDebugJniLibFolders
+2026-10-11T17:59:04.3563123Z > Task :app:mergeDebugNativeLibs
+2026-10-11T17:59:04.3564005Z 
+2026-10-11T17:59:04.3592975Z > Task :app:stripDebugDebugSymbols
+2026-10-11T17:59:04.3594310Z Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so. Run with --info option to learn more.
+2026-10-11T17:59:04.4554689Z 
+2026-10-11T17:59:04.4582880Z > Task :app:mergeDebugJavaResource
+2026-10-11T17:59:05.0542825Z > Task :app:validateSigningDebug
+2026-10-11T17:59:05.0571738Z > Task :app:writeDebugAppMetadata
+2026-10-11T17:59:05.0611542Z > Task :app:writeDebugSigningConfigVersions
+2026-10-11T17:59:05.3534449Z > Task :app:bundleDebugClassesToCompileJar
+2026-10-11T17:59:05.3562909Z > Task :app:preDebugAndroidTestBuild SKIPPED
+2026-10-11T17:59:05.5536050Z > Task :app:processDebugAndroidTestManifest
+2026-10-11T17:59:05.5554450Z > Task :app:generateDebugAndroidTestBuildConfig FROM-CACHE
+2026-10-11T17:59:05.6536490Z > Task :app:packageDebug
+2026-10-11T17:59:05.6546535Z > Task :app:createDebugApkListingFileRedirect
+2026-10-11T17:59:05.6547619Z > Task :app:assembleDebug
+2026-10-11T17:59:05.6548492Z > Task :app:checkDebugAndroidTestAarMetadata
+2026-10-11T17:59:05.6549384Z > Task :app:generateDebugAndroidTestResValues FROM-CACHE
+2026-10-11T17:59:05.6550256Z > Task :app:mapDebugAndroidTestSourceSetPaths
+2026-10-11T17:59:05.6551030Z > Task :app:generateDebugAndroidTestResources FROM-CACHE
+2026-10-11T17:59:05.7539859Z > Task :app:mergeDebugAndroidTestResources FROM-CACHE
+2026-10-11T17:59:05.7548884Z > Task :app:processDebugAndroidTestResources FROM-CACHE
+2026-10-11T17:59:05.8542607Z > Task :app:compileDebugAndroidTestKotlin FROM-CACHE
+2026-10-11T17:59:05.8558489Z > Task :app:javaPreCompileDebugAndroidTest FROM-CACHE
+2026-10-11T17:59:05.9535766Z > Task :app:compileDebugAndroidTestJavaWithJavac FROM-CACHE
+2026-10-11T17:59:05.9560340Z > Task :app:mergeDebugAndroidTestShaders
+2026-10-11T17:59:05.9578594Z > Task :app:compileDebugAndroidTestShaders NO-SOURCE
+2026-10-11T17:59:05.9599574Z > Task :app:generateDebugAndroidTestAssets UP-TO-DATE
+2026-10-11T17:59:05.9607530Z > Task :app:mergeDebugAndroidTestAssets
+2026-10-11T17:59:05.9632176Z > Task :app:compressDebugAndroidTestAssets FROM-CACHE
+2026-10-11T17:59:05.9637947Z > Task :app:desugarDebugAndroidTestFileDependencies FROM-CACHE
+2026-10-11T17:59:05.9639008Z > Task :app:dexBuilderDebugAndroidTest FROM-CACHE
+2026-10-11T17:59:06.0540697Z > Task :app:mergeDebugAndroidTestGlobalSynthetics FROM-CACHE
+2026-10-11T17:59:06.0572763Z > Task :app:processDebugAndroidTestJavaRes
+2026-10-11T17:59:06.0593698Z > Task :app:checkDebugAndroidTestDuplicateClasses
+2026-10-11T17:59:06.0594605Z > Task :app:mergeExtDexDebugAndroidTest FROM-CACHE
+2026-10-11T17:59:06.0595486Z > Task :app:mergeLibDexDebugAndroidTest FROM-CACHE
+2026-10-11T17:59:06.1533882Z > Task :app:mergeProjectDexDebugAndroidTest FROM-CACHE
+2026-10-11T17:59:06.1572829Z > Task :app:mergeDebugAndroidTestJniLibFolders
+2026-10-11T17:59:06.1602726Z > Task :app:mergeDebugAndroidTestJavaResource
+2026-10-11T17:59:06.1632664Z > Task :app:mergeDebugAndroidTestNativeLibs NO-SOURCE
+2026-10-11T17:59:06.1644920Z > Task :app:stripDebugAndroidTestDebugSymbols NO-SOURCE
+2026-10-11T17:59:06.1652535Z > Task :app:validateSigningDebugAndroidTest
+2026-10-11T17:59:06.1653408Z > Task :app:writeDebugAndroidTestSigningConfigVersions
+2026-10-11T17:59:06.1654186Z > Task :app:preReleaseBuild UP-TO-DATE
+2026-10-11T17:59:06.1654815Z > Task :app:mergeReleaseJniLibFolders
+2026-10-11T17:59:06.2534081Z > Task :app:mergeReleaseNativeLibs
+2026-10-11T17:59:06.2538983Z > Task :app:packageDebugAndroidTest
+2026-10-11T17:59:06.2540089Z > Task :app:createDebugAndroidTestApkListingFileRedirect
+2026-10-11T17:59:06.2540977Z > Task :app:assembleDebugAndroidTest
+2026-10-11T17:59:06.2541587Z 
+2026-10-11T17:59:06.2541925Z > Task :app:stripReleaseDebugSymbols
+2026-10-11T17:59:06.2543092Z Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so. Run with --info option to learn more.
+2026-10-11T17:59:06.2543975Z 
+2026-10-11T17:59:06.2544342Z > Task :app:extractReleaseNativeSymbolTables FROM-CACHE
+2026-10-11T17:59:06.2545208Z > Task :app:mergeReleaseNativeDebugMetadata NO-SOURCE
+2026-10-11T17:59:06.2545912Z > Task :app:checkReleaseDuplicateClasses
+2026-10-11T17:59:06.2546666Z > Task :app:buildKotlinToolingMetadata
+2026-10-11T17:59:06.2563852Z > Task :app:generateReleaseBuildConfig FROM-CACHE
+2026-10-11T17:59:06.2564815Z > Task :app:generateReleaseResValues FROM-CACHE
+2026-10-11T17:59:06.2565545Z > Task :app:checkReleaseAarMetadata
+2026-10-11T17:59:06.2592597Z > Task :app:mapReleaseSourceSetPaths
+2026-10-11T17:59:06.2599598Z > Task :app:generateReleaseResources
+2026-10-11T17:59:07.0563041Z > Task :app:packageReleaseResources
+2026-10-11T17:59:07.6543008Z > Task :app:parseReleaseLocalResources
+2026-10-11T17:59:07.6555266Z > Task :app:createReleaseCompatibleScreenManifests
+2026-10-11T17:59:07.6614172Z > Task :app:extractDeepLinksRelease FROM-CACHE
+2026-10-11T17:59:07.7603186Z > Task :app:processReleaseMainManifest FROM-CACHE
+2026-10-11T17:59:07.7632439Z > Task :app:processReleaseManifest FROM-CACHE
+2026-10-11T17:59:07.7642503Z > Task :app:processReleaseManifestForPackage FROM-CACHE
+2026-10-11T17:59:07.7643895Z > Task :app:javaPreCompileRelease FROM-CACHE
+2026-10-11T17:59:07.7644702Z > Task :app:desugarReleaseFileDependencies FROM-CACHE
+2026-10-11T17:59:07.7645599Z > Task :app:mergeReleaseStartupProfile
+2026-10-11T17:59:07.8533674Z > Task :app:mergeReleaseResources
+2026-10-11T17:59:08.0543115Z > Task :app:mergeExtDexRelease FROM-CACHE
+2026-10-11T17:59:08.1543622Z > Task :app:mergeReleaseArtProfile
+2026-10-11T17:59:08.1552363Z > Task :app:mergeReleaseShaders
+2026-10-11T17:59:08.1556697Z > Task :app:compileReleaseShaders NO-SOURCE
+2026-10-11T17:59:08.1557534Z > Task :app:generateReleaseAssets UP-TO-DATE
+2026-10-11T17:59:08.2536807Z > Task :app:mergeReleaseAssets
+2026-10-11T17:59:08.2546870Z > Task :app:compressReleaseAssets FROM-CACHE
+2026-10-11T17:59:08.3533118Z > Task :app:extractReleaseVersionControlInfo
+2026-10-11T17:59:08.3572247Z > Task :app:extractProguardFiles
+2026-10-11T17:59:08.3602113Z > Task :app:collectReleaseDependencies
+2026-10-11T17:59:08.4532810Z > Task :app:sdkReleaseDependencyData
+2026-10-11T17:59:08.4533749Z > Task :app:writeReleaseAppMetadata
+2026-10-11T17:59:08.4666649Z > Task :app:writeReleaseSigningConfigVersions
+2026-10-11T17:59:08.4667702Z > Task :app:processReleaseResources
+2026-10-11T17:59:09.0540067Z > Task :app:generateDebugAndroidTestLintModel
+2026-10-11T17:59:09.5542617Z > Task :app:optimizeReleaseResources
+2026-10-11T17:59:09.5562396Z > Task :app:generateDebugLintReportModel
+2026-10-11T17:59:09.5592306Z > Task :app:preDebugUnitTestBuild UP-TO-DATE
+2026-10-11T17:59:09.6537996Z > Task :app:generateDebugUnitTestLintModel
+2026-10-11T17:59:38.9542618Z > Task :app:compileReleaseKotlin
+2026-10-11T17:59:39.6542697Z > Task :app:lintAnalyzeDebug
+2026-10-11T17:59:49.2547113Z 
+2026-10-11T17:59:49.2569166Z > Task :app:compileReleaseKotlin
+2026-10-11T17:59:49.2593025Z w: file:///home/runner/work/redsquare-android/redsquare-android/app/src/main/kotlin/nl/davidengelen/redsquare/feed/PostImages.kt:51:37 'fun rememberTransformableState(onTransformation: (@ParameterName(...) Float, @ParameterName(...) Offset, @ParameterName(...) Float) -> Unit): TransformableState' is deprecated. Prefer remembering a TransformableState with a onTransformation lambda that takes the centroid. This centroid (if specified) is the point at which zooming or rotation should happen around which allows for more natural transformations.
+2026-10-11T17:59:51.3571929Z 
+2026-10-11T17:59:51.3602466Z > Task :app:compileReleaseJavaWithJavac
+2026-10-11T18:00:04.9552528Z > Task :app:dexBuilderRelease
+2026-10-11T18:00:14.4534971Z > Task :app:mergeDexRelease
+2026-10-11T18:00:14.5547909Z > Task :app:mergeReleaseGlobalSynthetics FROM-CACHE
+2026-10-11T18:00:15.2534070Z > Task :app:compileReleaseArtProfile
+2026-10-11T18:00:15.2535293Z > Task :app:generateReleaseLintVitalReportModel
+2026-10-11T18:00:16.0552528Z > Task :app:processReleaseJavaRes
+2026-10-11T18:00:16.5532326Z > Task :app:mergeReleaseJavaResource
+2026-10-11T18:00:30.1539248Z > Task :app:lintVitalAnalyzeRelease
+2026-10-11T18:00:30.2562445Z > Task :app:lintVitalReportRelease
+2026-10-11T18:00:30.2622181Z > Task :app:lintVitalRelease
+2026-10-11T18:00:30.3542521Z > Task :app:packageRelease
+2026-10-11T18:00:30.3552221Z > Task :app:createReleaseApkListingFileRedirect
+2026-10-11T18:00:30.3581950Z > Task :app:assembleRelease
+2026-10-11T18:00:31.3532323Z > Task :app:lintAnalyzeDebugUnitTest
+2026-10-11T18:00:41.1532947Z > Task :app:lintAnalyzeDebugAndroidTest
+2026-10-11T18:00:41.2532833Z 
+2026-10-11T18:00:41.2533895Z > Task :app:lintReportDebug
+2026-10-11T18:00:41.2535012Z Wrote HTML report to file:///home/runner/work/redsquare-android/redsquare-android/app/build/reports/lint-results-debug.html
+2026-10-11T18:00:41.2535811Z 
+2026-10-11T18:00:41.2536054Z > Task :app:lintDebug
+2026-10-11T18:00:41.3417495Z 
+2026-10-11T18:00:41.3463682Z BUILD SUCCESSFUL in 1m 56s
+2026-10-11T18:00:41.3465468Z 128 actionable tasks: 77 executed, 51 from cache

@@ -99,3 +99,29 @@ retry remain required; original full17run38161793299 remains active. Source push
 
 Consistent offline-tab readiness/scroll correction compiles PASS1m12s.
 Both bounded reviews and corrected full Android10 retry remain next.
+
+Full Android17run38161793299 at781bd1a PASS:179allPASS/46completion records/
+15actual interrupted stages; core55/0/0, release/lint, signed5→8/cold continuity
+and both public reads. Personal8PASS82.867s; actual pending-save death10423→10513
+and independent cold1PASS6.65s. Root viewed all25ordinary+4processoriginalPNGs
+and separately parsed29XML; both public screen originals viewed with current
+notification-history post. Publicowner1PASS8.524s/official1PASS7.055s; ordinary
+100rows/91posts/0ignored, quotes4rows/0posts/0ignored onboth. Durable final-full/
+android17 retains162hashes/allraw countable completion/death logs, recomputed
+identical179/46/15. Evidence reviews and final Android10 acceptance remain.
+
+Android10full38163120112 atf0c6191 passes browse/posting/queue/social/quotes then
+author-post has8reported/7PASS1failure58.215s. Image-author deletion waits at151
+for a saved attempt after a possibly disabled Confirm delete tap; source renders
+the control before asynchronous durable draft load settles. Root originalPNG
+shows confirmation/no saved status, with no legacy XML; exact tap enabledness/
+scheduling cause unproved. full10-delete-confirmation-failure retains3hashes.
+Fixture correction waits bounded20s for enabled Confirm delete, asserts shown/
+enabled, captures separate PNG/XML then taps once. All later acceptance gates
+remain; case-specific in-scope failure PNG/XML preserves primary exceptions.
+No production/cache/peer change, timeout extension or final acceptance claim.
+
+Author confirmation fixture compiles PASS1m10s. Both bounded review axes
+and focused Android10 author verification are next; then rerun outstanding
+Android10 full scope. Android17 acceptance is preserved at unchanged product
+source, with its durable evidence review also next. #21 remains open.
