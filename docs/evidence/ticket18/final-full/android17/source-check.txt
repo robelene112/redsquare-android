@@ -1,0 +1,16 @@
+native-proof	Build and verify native sources	2026-10-11T10:05:08.4226483Z ^[[36;1m  ./gradlew --no-daemon --console=plain :core:test :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease :app:lintDebug^[[0m
+native-proof	Build and verify native sources	2026-10-11T10:05:08.4227933Z ^[[36;1m  ./gradlew --no-daemon --console=plain :core:test :app:assembleDebug :app:assembleDebugAndroidTest^[[0m
+native-proof	Build and verify native sources	2026-10-11T10:05:26.6946878Z > Task :core:testClasses
+native-proof	Build and verify native sources	2026-10-11T10:05:26.6955627Z > Task :core:test FROM-CACHE
+native-proof	Build and verify native sources	2026-10-11T10:05:32.1913371Z > Task :app:assembleDebug
+native-proof	Build and verify native sources	2026-10-11T10:05:35.8975556Z > Task :app:lintVitalAnalyzeRelease FROM-CACHE
+native-proof	Build and verify native sources	2026-10-11T10:05:38.7903938Z > Task :app:lintVitalReportRelease
+native-proof	Build and verify native sources	2026-10-11T10:05:38.7928115Z > Task :app:lintVitalRelease
+native-proof	Build and verify native sources	2026-10-11T10:05:39.9967744Z > Task :app:assembleRelease
+native-proof	Build and verify native sources	2026-10-11T10:05:40.3925061Z > Task :app:lintAnalyzeDebug FROM-CACHE
+native-proof	Build and verify native sources	2026-10-11T10:06:10.3890625Z > Task :app:lintAnalyzeDebugAndroidTest
+native-proof	Build and verify native sources	2026-10-11T10:06:38.3920272Z > Task :app:assembleDebugAndroidTest
+native-proof	Build and verify native sources	2026-10-11T10:06:38.3920966Z > Task :app:lintAnalyzeDebugUnitTest FROM-CACHE
+native-proof	Build and verify native sources	2026-10-11T10:06:44.0890987Z > Task :app:lintReportDebug
+native-proof	Build and verify native sources	2026-10-11T10:06:44.0893864Z > Task :app:lintDebug
+native-proof	Build and verify native sources	2026-10-11T10:06:44.0894727Z BUILD SUCCESSFUL in 1m 35s

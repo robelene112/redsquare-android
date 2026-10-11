@@ -1,0 +1,39 @@
+[
+  {
+    "endpoint": "wss://saito.davidengelen.nl/wsopen",
+    "observedAt": "2026-10-11T09:53:48.103Z",
+    "readOnly": true,
+    "authenticatedPeer": "tRFyaSvHix3HDHguPRcb7cLooiTnBKquFgahkuScxfrg",
+    "namecheck": {
+      "err": "no response"
+    },
+    "archiveRows": 10,
+    "keyMap": {
+      "qeyGZPxRZYFeCtMTZze7He2wzCUs3uLW8U8eZKC5Bb86": "Saitoverse@saito"
+    },
+    "proofRows": {
+      "err": "no response"
+    },
+    "keyMapError": "result.proofRows.filter is not a function"
+  },
+  {
+    "endpoint": "wss://saito.io/wsopen",
+    "observedAt": "2026-10-11T09:53:48.104Z",
+    "readOnly": true,
+    "authenticatedPeer": "wnUrrEMtWhwwpULFdeWBto8McZzcydqvpJpfEgLQJx2g",
+    "namecheck": {
+      "err": "no response"
+    },
+    "archiveRows": 10,
+    "keyMap": {
+      "qeyGZPxRZYFeCtMTZze7He2wzCUs3uLW8U8eZKC5Bb86": "Saitoverse@saito",
+      "i767FqhGcKPzqi7KcWNA8TQoTZeBd8QbWd2mTKNnkfmk": "omskian@saito",
+      "22jWAzPBoAqn9hUsec9UydbXvaj862qB6q4mBpa9Bex4P": "saitoweb3@saito",
+      "bzu4bwD8h6zsgLsBDYwXPN2SZa2iiD1MpiC8g4UJjdt8": "neri@saito"
+    },
+    "proofRows": {
+      "err": "no response"
+    },
+    "keyMapError": "result.proofRows.filter is not a function"
+  }
+]

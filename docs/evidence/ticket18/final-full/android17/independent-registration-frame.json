@@ -1,0 +1,25 @@
+{
+  "result": "PASS",
+  "native": true,
+  "syntheticRegistrar": false,
+  "reference": {
+    "saitoCommit": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+    "saitoWasmVersion": "0.3.2",
+    "ellipticVersion": "6.6.1",
+    "wasmSha256": "f59be69dbb949368ce1fc7ef47d414cbe0281a86a206fe4bfb1128a4d087e01e"
+  },
+  "boundary": "Actual controlled Android zero-payment Registry request and routing signatures independently verified with pinned WASM/Elliptic. No live registration, namespace ownership or chain inclusion proof.",
+  "frameSha256": "154e1fb78634e59c68e5a8500969bd27a5aa509c9df4ec384568acedc6a5281a",
+  "registration": {
+    "author": "y2ZMjCrsUQWtYqwgVybBVj3QsUUhNrhLjPE151EyDHK9",
+    "registrar": "sFQuGQ6teVaHs6AAtBBWeDwtGMCGCPNyhTJqYDXCvvVK",
+    "signature": "2277b6309fe322e26461fd6f8e556f6dcf1d4871a2a48968a9faf44fc9be1c9b77ba76718436d143a7c23eb3003a69b36df833d1fd25277009197a13bf8efd5d",
+    "timestamp": 1791714059556,
+    "body": {
+      "module": "Registry",
+      "request": "register",
+      "identifier": "NativeCase7@saito"
+    },
+    "envelope": "{\"t\":\"AAAAAQAAAAIAAAAAAAAAACJ3tjCf4yLiZGH9b45Vb23PHUhxoqSJaKn69E/Jvhybd7p2cYQ20UOnwj6zADpps234M9H9JSdwCRl6E7+O/V0AAAGhKnrlJAAAAAEAA0B0oqHzaCeUldbYvIgdHB0jy5xTpLBUyEAWSI5JPZjcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC6pmAs2ewi2PTAaMluS2yW8dT8sywpLRTeMiIU4uxhBYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANAdKKh82gnlJXW2LyIHRwdI8ucU6SwVMhAFkiOST2Y3AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA\",\"m\":\"eyJtb2R1bGUiOiJSZWdpc3RyeSIsInJlcXVlc3QiOiJyZWdpc3RlciIsImlkZW50aWZpZXIiOiJOYXRpdmVDYXNlN0BzYWl0byJ9\",\"opt\":\"e30=\"}"
+  }
+}

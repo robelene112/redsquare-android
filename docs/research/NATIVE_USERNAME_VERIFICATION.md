@@ -673,3 +673,35 @@ remain. Both review axes zero findings. Durable originals/hashset under
 full17-wallet-and-quote-visibility. Marker journey passes individually; later
 Registryprocess/update/public stages are not reached. Combined fixture compile
 PASS1m23s; fresh full10/17 runs pending. No production source/timeouts change.
+
+
+## Final native checkpoint and remaining live prerequisite
+
+Both full Android10run38130613902 and17run38130615551 PASS at10c59c5.
+Each161reportedcases/43completionrecords/14actualdeaths;10 has160PASS+one
+unchangedAPI30+profileassumption,17all161PASS. Core55/0fail/0ignored and
+release/lint pass. Username15PASS79.348s/89.192s; actualcold1PASS3.476s/4.193s,
+PIDs19067→19169 and9653→9734 with exactwallet/backend/signature/frame/envelope.
+No automatic cold-send; exact explicit Retry. Both actual current published
+registrar frames independently verify with pinnedWASM0.3.2/Elliptic6.6.1 under
+network-none/read-only/env-i. Both authenticated marker corruption/repair/newname
+and own-name failure/repair journeys pass. Source equivalence95d1811→10c59c5
+has no production/core/build/scripts/reference/workflow difference.
+
+Durable originals/counts/checkpoints/audits in ticket18/final-full. Root views
+sixteen critical usernamePNG+separateXML and four public feeds. Disabled Check
+is established at its clickable ancestor, not the enabled XML text child.
+Runtime establishes no-send, exact-request, warning-retention and repair gates
+that cannot be read from a bitmap. Existing signed5→8/cold continuity and both
+public read-only feeds pass; no new APK, chain or physical-device claim.
+Final independent two-axis review: Standards0 residual findings; Spec0 native/
+source findings and1 external live Registry acceptance gap. #19 remains open.
+
+Fresh host-only observation09:53:48Z separately retained in final-host-registry-read:
+both peers authenticate, ten rawArchiveRows/nonemptyunsignedkeymaps, known and
+unknown namecheck return {"err":"no response"}. The later proofRows.filter error
+belongs to the helper's summary, not the key-map service or a signature defect.
+Native21byte-unusable measurements remain separate; no common cause is proved.
+#19 stays open for live Registry availability. No node/service/config/database/
+wallet mutation, trust fallback, upgrade or block-production change is authorized.
+Continue independent unblocked #20 after recording this parked native checkpoint.

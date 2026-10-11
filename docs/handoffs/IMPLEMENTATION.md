@@ -9,7 +9,7 @@ one question at a time when a material choice really needs the owner.
 
 Profile #18 is closed, final evidence commit ed5742f pushed. Fifteen of35 tickets
 are complete (#2–#15 and #18). Active #19, "Register an optional Saito username",
-assigned/unblocked, review base ed5742fd0f57958d284073b7145f1844b72b1dbd. #16 Giphy still awaits
+parked on the external Registry prerequisite, review base ed5742fd0f57958d284073b7145f1844b72b1dbd. #16 Giphy still awaits
 Android-authorized credentials; #17 actual YouTube provider playback remains
 unproved. Do not close those from controlled source/layout successes.
 
@@ -22,119 +22,28 @@ and signed5→8 update continuity pass. Production/build/reference/scripts ident
 between b0e941b/aea25ca; only test/evidence/docs differ. No physical-device/current
 DOM/chain proof. Do not repeat unaffected checks for historical #18 acceptance.
 
-#19 references: docs/research/NATIVE_USERNAME_CONTRACT.md and
-NATIVE_USERNAME_VERIFICATION.md, durable evidence under docs/evidence/ticket18.
-Review base ed5742fd0f57958d284073b7145f1844b72b1dbd. Detailed RED/GREEN
-chronology and evidence qualifications belong in verification/evidence reports.
+#19 native checkpoint10c59c5 now passes final full10run38130613902 and
+17run38130615551. Each161reportedcases/43records/14actualprocessdeaths;10 has
+160PASS+oneexistingAPI30+profileassumption,17all161PASS. Core55/0/0,
+release/lint, both opted-in publicfeeds and existing signed5→8/cold continuity
+pass. Username15PASS79.348s/89.192s plus actualcold1PASS3.476s/4.193s,
+PID19067→19169/9653→9734 exactsamewallet/backend/sig/frame/envelope;
+no auto send, explicit exact Retry. Both current nativeframes independently
+pass pinnedWASM/Elliptic. Authenticated retirement corruption/repair/newrequest,
+own-name cache warning retention/repair and wallet safeguards pass.
 
-Implemented native registration: optional Settings, zero-payment registrar-first
-request, strict signed proof and truthful statuses, encrypted immutable
-wallet/backend request saved before send, read-only recovery and exact explicit
-Retry; verified-name cache/discovery and shared feed/profile/conversation/reply/
-quote labels; outgoing-name and both-backend pending-work wallet safeguards.
-Production registrar stays published. Scalar2 test authority requires explicit
-DEBUG/emulator/loopback fixture. Cached/hinted identities never prove ownership.
+Implementation/evidence chronology: NATIVE_USERNAME_CONTRACT.md,
+NATIVE_USERNAME_VERIFICATION.md; ticket18/final-full and other retained RED/GREEN
+folders. Root inspects16criticalusernamePNG+XML and4publicfeeds. Both final
+review axes complete:0 native/source findings,1 external Spec acceptance gap. No new APK/Pixel/chain/live registration.
 
-Accepted focused checkpoints:
-- dd90e40/ce9740a Android10sixcases plus actual coldPID4222→4324, same
-  wallet/backend/frame, read-only checks and exact explicitRetry. Published
-  registrar native frame independently verifies with pinned WASM/Elliptic.
-- Name-cache save fault actual RED, corrected c91877c eightcases38.502s,
-  repaired fresh lookup and cached recreation. Ownprofile warning/label passes;
-  bitmap discrepancies remain explicitly qualified in originals.
-- Shared-name and direct Settings discovery require actual own-key hints and
-  signed proof. Android17 8573f9c10PASS77.299s with actual PID4945→5023;
-  no auto send and independently verified exact request. Source witnesses do
-  not establish current browser DOM, live registration or chain inclusion.
-- Actual outgoing-name SAF replacement Android10fa4e6b0/17ac9ce8c passes:
-  skip/acknowledge/confirm zero balance, clean incoming profile/Settings,
-  new lookup/handshake, recreated saved wallet and zero transactions.
-- Quoted-original labels are bound to exact commentary/original card; outer
-  author stays anonymous. ac9ce8c17 11PASS99.966s. Original PNG/XML individually
-  inspected, outer offscreen identity asserted at runtime.
-- Real45-character cached-name backup warning defect has core RED11/1failure,
-  minimal compatible-name fix42593e1; all55corecases PASS51s. Cache risk is not
-  ownership. Affected native import regression remains for final acceptance.
-- Pending actual replacement f800e9f10 11PASS58.498s. Original OWNER2identical
-  frames/OFFICIAL0 remain through new wallet onbothbackends and recreation.
-- Named incoming recovery4ee7718 17 12PASS121.71s: actual SAF scalar2→scalar1,
-  no imported hint/pre-import lookup, own-key signed Settings discovery,
-  recreation and zero transactions. Root/both reviewers view owned label PNG/XML.
-  Cold4.28s is hosted-only here without an additional PID/frame audit.
-
-Public native readiness is externally blocked: a46759e runs38125890744/38125892625
-10/17 authenticate both endpoints and answer own-key maps. Known/unknown
-namechecks return21bytes rejected by the published verifier onboth. Measurements
-complete1.954s/4.093s, but namespace readiness is unavailable. Five hashed original
-reports/logs retained in native-public-registry-unavailable. No raw native
-response bodies/cause claims. Earlier host probe error/local-row shape remains
-separately qualified. No node upgrade/block production/trust fallback authorized.
-
-Historical source89af45b checkpoint: Android10run38126320968 (82dfe46) has13/14PASS95.206s,
-only old writer2/registrar2 race collision fails. Actual request save-obstruction,
-corruption/repair/read-only recovery/exactRetry passes. Root/both reviewers
-individually inspect two error PNG/XML; no whole-run/process acceptance follows.
-
-Corrected writer3/owner1/registrar2 on17run38126653344 (89af45b) has14/15PASS133.651s.
-Race taken/disabledRetry/read-only recreation/no resend/anonymous profile passes;
-request-storage failure/repair passes too. New Settings cache RED failsline387:
-verified own proof + actual cache-save obstruction then [] exposes Register name
-and loses warning. Original PNG/XML show editable name/Register/available; root
-and both reviewers inspect. Four hashed originals in unsaved-own-name-red.
-No process stage or full acceptance follows from this failed run.
-
-Production correction now retains verifiedOwnName independently of current read/
-durablecache and guards edit/register/availability in state/UI. Unsaved historical
-name is qualified as session-only, latest [] is not availability, save warning
-clears only after verified write. Local debug/test compilation PASS2m19s before final warning-reset/status fixes.
-The warning reset is now removed; only successful cache.save clears it.
-The next focused run below verifies this ownership correction. The race tracer
-adds new-name Cancel/confirm, durable empty form and a different explicit
-candidate after recreation. This was initially RED with the app action missing.
-
-Latest focused17 run38127516540/b3f2683:14of15PASS106.204s. Own-name cache
-retention/repair now GREEN; missing Choose another name is the sole intended
-RED at623. Four hashed originals in confirmed-conflict-red, individually
-inspected by root and both reviewers. No process/full acceptance.
-
-Working retirement correction stores a durable retired request marker, confirms
-local-only effect, clears form only after verified persistence and never sends.
-Expected loaded head plus exact owned late-write witness blocks stale request
-revival. Both bounded source reviews have zero residual findings. First local
-compile found undefined Cancel; resource corrected, debug/test compile PASS2m14s.
-Two bounded success captures compile in the hosted focused run38128516957
-on e29604e (runtime pending). Source review subsequently identifies the same
-v1/v2 decrypted string payload format permitting a header-only retirement change. Working
-fix authenticates the v2 marker inside its exact JSON payload while preserving
-v1; shared encryption unchanged. Both bounded axes clear; debug/test build
-PASS2m7s. Existing race tracer now also checks retired-header corruption and
-primary-safe repair/read-only empty form. Fixture compilation PASS1m17s; native
-acceptance pending. The older e29604e run cannot verify this correction.
-
-Intermediate e29604e17 run38128516957 PASS15cases126.964s plus actual cold
-recovery1PASS4.449s, PID5146→5226 with samewallet/backend/frame. Root/both
-reviewers inspect original blank/newcandidate PNG/XML and raw records. Durable
-first-conflict-retirement-green. No marker95d1811/full/live readiness claim.
-
-Final full10run38129052913 and17run38129053893 both target95d1811 with
-public-feed reads enabled. 10 finishes failed solely on unscoped wallet-address text selector at446
-(2Compose nodes); username14of15PASS82.013s including entire marker corruption/
-repair/new-request flow. Root views correct-dialog address PNG/XML and marker
-load-error originals; second Compose location unknown. Later Registry process/
-update/public gates are not reached. Durable full10-wallet-selector-ambiguity.
-Working fixture checks named Wallet address exactvalue+visibility, with
-unchanged no-send/peer-health assertions; production unchanged. Wallet-only
-compile PASS1m22s. Full17 finishes13of15PASS91.855s: same wallet selector plus
-quoted text offscreen after scrolling to its author at243. Original XML shows
-name at clipped bottom; PNG/XML not one atomic snapshot, no timingcause claim.
-Fixture scrolls exact quoted text before unchanged visibility assertion, then
-back to name with repeated visibility before capture. Both independent axes
-zero findings on these fixes. Durable full17-wallet-and-quote-visibility.
-Combined fixture compile PASS1m23s; fresh full runs pending.
-
-Next: inspect applicable final full10/17 acceptance,
-then record/park external live Registry blocker and continue independent #20
-(unblocked/unassigned checked2026-10-11), one ticket at a time. #19 stays open.
+#19 stays OPEN for demonstrated external Registry readiness: native10/17 public
+known/unknown namechecks unusable21bytes; fresh host09:53:48Z onboth returns
+{"err":"no response"} despite authenticated archive/key-map reads. Host helper
+filtererror is its own summary defect, not server key-map failure. Source/host/
+native observations remain distinct. No node changes/trust fallback/livewrites.
+Next: claim independent unblocked#20 after this parked native checkpoint.
+Search preparation ignored .scratch/search-design.md plus protected contract.
 Owner reviews completed app, no intermediate phone gate.
 
 Protected future untracked: build-support/references/private-chat-reference.cjs;
@@ -170,7 +79,7 @@ Initial wallet/live-feed milestone is published as stable signed version10
 Compose bitmaps had inconsistent labels; use each report's stated evidence
 limits. #9 also has official bitmap inconsistencies; no invented cause.
 
-Next: #19 optional username. Owner reviews the completed app; no intermediate
+Next: #20 search after the parked #19 checkpoint. Owner reviews the completed app; no intermediate
 phone-review gate is required.
 
 ## Verification already inspected
