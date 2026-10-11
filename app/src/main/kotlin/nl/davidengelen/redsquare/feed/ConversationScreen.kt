@@ -1,5 +1,7 @@
 package nl.davidengelen.redsquare.feed
 
+import nl.davidengelen.redsquare.moderation.LocalPersonalControls
+import nl.davidengelen.redsquare.moderation.PersonalControlsStatus
 import nl.davidengelen.redsquare.registry.registeredIdentity
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
@@ -29,6 +31,7 @@ import nl.davidengelen.redsquare.saito.AuthorActionKind
 internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend: SaitoBackend, selected: FeedPost,
     modifier: Modifier, onBack: () -> Unit, onIdentity: (String) -> Unit, onPost: (FeedPost) -> Unit,
     social: SocialState? = null, quotes: QuoteState? = null, onQuote: ((FeedPost) -> Unit)? = null) {
+    val personal = LocalPersonalControls.current
     val context = LocalContext.current.applicationContext
     val cache = remember(backend, selected.threadId) { AndroidFeedCache(context, backend, selected.threadId) }
     val revisions = remember(backend) { AndroidPostRevisions(context, backend) }
@@ -93,6 +96,7 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
         catch (_: Exception) { failed = true }
         finally { loading = false }
     }
+    val visiblePosts = posts.filter { personal?.hidesPosts(it.author) == false }
     Column(modifier) {
         Row {
             TextButton(onClick = onBack) { Text(stringResource(R.string.browse_back)) }
@@ -109,13 +113,16 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
                 TextButton(onClick = { deleting = true }) { Text(stringResource(R.string.author_delete)) }
             }
         }
+        PersonalControlsStatus(personal)
+        if (personal?.ready == true && personal.hidesPosts(selected.author))
+            Text(stringResource(R.string.personal_post_hidden), style = MaterialTheme.typography.bodySmall)
         Text(stringResource(R.string.conversation_history), style = MaterialTheme.typography.bodySmall)
         if (loading) Text(stringResource(R.string.conversation_loading))
         if (failed) Text(stringResource(R.string.conversation_error))
         if (unreadable) Text(stringResource(R.string.conversation_unreadable))
         if (cacheWarning) Text(stringResource(R.string.feed_cache_warning), style = MaterialTheme.typography.bodySmall)
         LazyColumn(Modifier.fillMaxSize()) {
-            items(posts, key = { it.id }) { post ->
+            items(visiblePosts, key = { it.id }) { post ->
                 Column(Modifier.padding(vertical = 12.dp)) {
                     Text(registeredIdentity(post.author).name, Modifier.clickable { onIdentity(post.author) },
                         style = MaterialTheme.typography.titleMedium)

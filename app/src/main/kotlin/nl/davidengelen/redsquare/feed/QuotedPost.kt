@@ -1,5 +1,6 @@
 package nl.davidengelen.redsquare.feed
 
+import nl.davidengelen.redsquare.moderation.LocalPersonalControls
 import nl.davidengelen.redsquare.registry.registeredIdentity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -43,9 +44,12 @@ internal fun QuoteContent(post: FeedPost, state: QuoteState?, backend: SaitoBack
 /** One original level, attributed only after independent signature verification. */
 @Composable
 internal fun QuotedPost(original: FeedPost, backend: SaitoBackend) {
+    val personal = LocalPersonalControls.current
     val label = stringResource(R.string.quote_original)
     OutlinedCard(Modifier.fillMaxWidth().semantics { contentDescription = label }) {
-        Column {
+        if (personal?.hidesPosts(original.author) != false) {
+            Text(stringResource(R.string.personal_quote_hidden), style = MaterialTheme.typography.bodySmall)
+        } else Column {
             Text(registeredIdentity(original.author).name, style = MaterialTheme.typography.labelMedium)
             Text(original.text, style = MaterialTheme.typography.bodyMedium)
             PostImages(original.images, backend)

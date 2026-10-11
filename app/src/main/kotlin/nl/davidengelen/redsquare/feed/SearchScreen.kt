@@ -1,5 +1,7 @@
 package nl.davidengelen.redsquare.feed
 
+import nl.davidengelen.redsquare.moderation.LocalPersonalControls
+import nl.davidengelen.redsquare.moderation.PersonalControlsStatus
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -75,6 +77,7 @@ internal class SearchViewState {
 internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: SaitoBackend,
     view: SearchViewState, modifier: Modifier, knownAccounts: Set<String>, onBack: () -> Unit, onPost: (FeedPost) -> Unit,
     onIdentity: (String) -> Unit, social: SocialState?, quotes: QuoteState?, onQuote: (FeedPost) -> Unit) {
+    val personal = LocalPersonalControls.current
     val context = LocalContext.current.applicationContext
     val keyboard = LocalSoftwareKeyboardController.current
     val registrar = LocalRegistryAuthority.current
@@ -198,7 +201,8 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
             if (currentCoroutineContext().isActive) { view.completed = request; loading = false }
         }
     }
-    val matches = view.posts.filter { it.text.contains(view.searchedQuery, ignoreCase = true) }
+    val matches = view.posts.filter { personal?.hidesPosts(it.author) == false &&
+        it.text.contains(view.searchedQuery, ignoreCase = true) }
     // Follow preferences are public local input, not proof of a valid curve point.
     var validAccounts by remember(view) { mutableStateOf<Set<String>>(emptySet()) }
     LaunchedEffect(view, knownAccounts) {
@@ -237,6 +241,7 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
                     onClick = { loading = true; view.loadMore() }) { Text(stringResource(R.string.search_more)) }
             }
         }
+        PersonalControlsStatus(personal)
         Text(stringResource(R.string.search_coverage), style = MaterialTheme.typography.bodySmall)
         Text(stringResource(R.string.search_people_coverage), style = MaterialTheme.typography.bodySmall)
         if (loading) Text(stringResource(R.string.search_loading))

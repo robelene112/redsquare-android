@@ -125,8 +125,10 @@ GREEN38153595298 atfe555b9 passes3cases42.425s including all endgates. Root
 views8originalPNG/separate8XML; block-green18hashes. Next single native cross-view
 tracer added before source filters: positivequoted-original visibility, muted
 Profile/thread/root+reply/quote/Search filtering, peoplemanagementroute and fresh
-offline quote hide/Unmute restore. Finalfixture compilesPASS1m16s; first native
-cross-view RED next. Block, other-view filters and late-save recovery still require further
+offline quote hide/Unmute restore. Finalfixture compilesPASS1m16s. Cross-view RED38154431362:4reported/3PASS1FAIL
+72.367s atline354, actual muted Profile still shows its root. Rootviews2originals/
+separate2XML; views-red6hashes. Minimal Profile/thread/Search/quoted-original
+filters compilePASS2m22s; unchanged four-journey GREEN next. Block, other-view filters and late-save recovery still require further
 vertical journeys; no final #21 acceptance/new APK claimed. Scope/verification plan: NATIVE_PERSONAL_CONTROLS_VERIFICATION.md.
 Read-only source preparation is ignored .scratch/personal-controls-plan.md.
 Preserve the seven future research files below.

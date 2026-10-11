@@ -162,3 +162,16 @@ and positively checks exact Profile key before Mute. Recompile before native RED
 No cross-view filter source added yet.
 
 Final cross-view fixture compilation PASS1m16s; first native cross-view RED next.
+
+Cross-view RED38154431362 at3aec9fa:4reported/3PASS1FAIL72.367s. New journey
+fails atline354 full-list Profile absence after positive exact-author saved Mute;
+root views actual native original still visible and separately parses XML.
+Before-Mute quote original positively observed. Later cross-view/end gates
+unreached; views-red retains6hashes. Fixture Spec0, Standards0 hard/one possible
+repeated Mute-action helper reserved for review after GREEN.
+Minimal display filters now cover Profile, Conversation, Search posts and the
+shared quoted-original renderer. Verified caches remain intact; innocent replies,
+quote commentary and people/account-management access remain available. Known
+policy must be ready before authored content appears. Filtered Profile/root/quote
+copy explains why content is absent. No outgoing transaction path changed.
+Compile PASS2m22s; unchanged four-journey Android17 GREEN attempt next.

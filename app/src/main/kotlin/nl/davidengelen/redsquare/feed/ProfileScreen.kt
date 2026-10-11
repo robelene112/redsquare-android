@@ -1,5 +1,6 @@
 package nl.davidengelen.redsquare.feed
 
+import nl.davidengelen.redsquare.moderation.LocalPersonalControls
 import nl.davidengelen.redsquare.moderation.AccountControls
 
 import androidx.activity.compose.BackHandler
@@ -41,6 +42,7 @@ private data class ProfileHistoryPage(val posts: List<FeedPost>, val likes: List
 internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: SaitoBackend, author: String,
     view: ProfileViewState, following: FollowingState?, modifier: Modifier, onBack: () -> Unit, onPost: (FeedPost) -> Unit,
     onIdentity: (String) -> Unit, social: SocialState? = null, quotes: QuoteState? = null, onQuote: ((FeedPost) -> Unit)? = null) {
+    val personal = LocalPersonalControls.current
     val context = LocalContext.current.applicationContext
     val cache = remember(backend) { AndroidProfileCache(context, backend) }
     val detailsCache = remember(backend, author) { AndroidProfileDetailsCache(context, backend, author) }
@@ -191,6 +193,7 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
         ProfileEditorScreen(requireNotNull(wallet), backend, endpoint, profile, modifier) { view.editing = false; refresh++ }
         return
     }
+    val visiblePosts = posts.filter { personal?.hidesPosts(it.author) == false }
     Column(modifier) {
         Row {
             TextButton(onClick = onBack) { Text(stringResource(R.string.browse_back)) }
@@ -245,6 +248,8 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
                             Text(stringResource(R.string.profile_load_older), maxLines = 1)
                         }
                     }
+                    if (personal?.ready == true && visiblePosts.size < posts.size)
+                        Text(stringResource(R.string.personal_posts_hidden), style = MaterialTheme.typography.bodySmall)
                     Text(stringResource(R.string.profile_history), style = MaterialTheme.typography.bodySmall)
                     if (loading) Text(stringResource(R.string.profile_loading))
                     if (failed) Text(stringResource(R.string.profile_error))
@@ -255,7 +260,7 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
                     if (!loading && !failed && posts.isEmpty()) Text(stringResource(R.string.profile_empty))
                 }
             }
-            items(posts, key = { it.id }) { post ->
+            items(visiblePosts, key = { it.id }) { post ->
                 Column(Modifier.clickable { onPost(post) }.padding(vertical = 12.dp)) {
                     Text(registeredIdentity(post.author).name, Modifier.clickable { onIdentity(post.author) },
                         style = MaterialTheme.typography.titleMedium)

@@ -284,4 +284,7 @@
     <string name="personal_owner_unavailable">Recover your wallet to apply saved personal controls. Cached posts stay hidden until your identity is available.</string>
     <string name="personal_load_error">Personal controls could not be opened. Hidden content stays hidden. Retry to recover your saved choices.</string>
     <string name="personal_save_error">Your change could not be saved. Try again.</string>
+    <string name="personal_posts_hidden">Posts from muted or blocked accounts are hidden.</string>
+    <string name="personal_post_hidden">This post is hidden by your personal controls.</string>
+    <string name="personal_quote_hidden">Quoted original hidden by your personal controls.</string>
 </resources>

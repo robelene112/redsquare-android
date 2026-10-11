@@ -1,0 +1,101 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PersonalControlsPreviewTest:
+INSTRUMENTATION_STATUS: test=unavailableWalletPreservesAnonymousReadingButDoesNotBypassSavedPersonalChoices
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unavailableWalletPreservesAnonymousReadingButDoesNotBypassSavedPersonalChoices
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=mutingSurvivesBackendChangesAndOfflineReopeningAndUnmutingRestoresCachedPosts
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=mutingSurvivesBackendChangesAndOfflineReopeningAndUnmutingRestoresCachedPosts
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=unblockingKeepsAnIntentionalMuteAcrossBackendChangesAndOfflineReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unblockingKeepsAnIntentionalMuteAcrossBackendChangesAndOfflineReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=mutedContentStaysHiddenAcrossProfileThreadQuotesSearchAndOfflineReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: expected java.lang.AssertionError to be thrown, but nothing was thrown
+	at org.junit.Assert.assertThrows(Assert.java:1028)
+	at org.junit.Assert.assertThrows(Assert.java:981)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.assertPostAbsent(PersonalControlsPreviewTest.kt:456)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.mutedContentStaysHiddenAcrossProfileThreadQuotesSearchAndOfflineReopening$lambda$37$lambda$34(PersonalControlsPreviewTest.kt:354)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.$r8$lambda$SQepGCD5bvjoxzoKLZS19qQp5TM(PersonalControlsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.withOpenApp(PersonalControlsPreviewTest.kt:427)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.mutedContentStaysHiddenAcrossProfileThreadQuotesSearchAndOfflineReopening(PersonalControlsPreviewTest.kt:325)
+
+INSTRUMENTATION_STATUS: stream=
+Error in mutedContentStaysHiddenAcrossProfileThreadQuotesSearchAndOfflineReopening(nl.davidengelen.redsquare.PersonalControlsPreviewTest):
+java.lang.AssertionError: expected java.lang.AssertionError to be thrown, but nothing was thrown
+	at org.junit.Assert.assertThrows(Assert.java:1028)
+	at org.junit.Assert.assertThrows(Assert.java:981)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.assertPostAbsent(PersonalControlsPreviewTest.kt:456)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.mutedContentStaysHiddenAcrossProfileThreadQuotesSearchAndOfflineReopening$lambda$37$lambda$34(PersonalControlsPreviewTest.kt:354)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.$r8$lambda$SQepGCD5bvjoxzoKLZS19qQp5TM(PersonalControlsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.withOpenApp(PersonalControlsPreviewTest.kt:427)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.mutedContentStaysHiddenAcrossProfileThreadQuotesSearchAndOfflineReopening(PersonalControlsPreviewTest.kt:325)
+
+INSTRUMENTATION_STATUS: test=mutedContentStaysHiddenAcrossProfileThreadQuotesSearchAndOfflineReopening
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 72.367
+There was 1 failure:
+1) mutedContentStaysHiddenAcrossProfileThreadQuotesSearchAndOfflineReopening(nl.davidengelen.redsquare.PersonalControlsPreviewTest)
+java.lang.AssertionError: expected java.lang.AssertionError to be thrown, but nothing was thrown
+	at org.junit.Assert.assertThrows(Assert.java:1028)
+	at org.junit.Assert.assertThrows(Assert.java:981)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.assertPostAbsent(PersonalControlsPreviewTest.kt:456)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.mutedContentStaysHiddenAcrossProfileThreadQuotesSearchAndOfflineReopening$lambda$37$lambda$34(PersonalControlsPreviewTest.kt:354)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.$r8$lambda$SQepGCD5bvjoxzoKLZS19qQp5TM(PersonalControlsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.withOpenApp(PersonalControlsPreviewTest.kt:427)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.mutedContentStaysHiddenAcrossProfileThreadQuotesSearchAndOfflineReopening(PersonalControlsPreviewTest.kt:325)
+
+FAILURES!!!
+Tests run: 4,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
