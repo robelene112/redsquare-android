@@ -390,6 +390,13 @@ class UsernamePreviewTest {
                             .assertIsNotEnabled()
                         ui.onAllNodesWithText("This username is registered to your wallet.").assertCountEquals(0)
                         assertTrue(peer.transactions.isEmpty())
+                        check(obstruction.delete())
+                        response.set(reference.getAsJsonArray("rows").toString())
+                        ui.onNodeWithText("Check name").performClick()
+                        waitForText("This username is registered to your wallet.")
+                        ui.onAllNodesWithText(warning).assertCountEquals(0)
+                        ui.onAllNodesWithText("Register name").assertCountEquals(0)
+                        assertTrue(peer.transactions.isEmpty())
                         assertEquals(fixture.publicKey, AndroidWalletStore(context).loadExisting().publicKey)
                         peer.assertHealthy()
                     }
@@ -565,8 +572,8 @@ class UsernamePreviewTest {
         val registered = java.util.concurrent.atomic.AtomicBoolean(false)
         val peer = ControlledFeedPeer("[]", onTransaction = { registered.set(true) }, registryResponse = response@ { criteria ->
             if (criteria.get("request").asString == "registry query") return@response "{}"
-            assertEquals("NativeCase7@saito", criteria.get("identifier").asString)
-            if (registered.get()) reference.getAsJsonArray("rows").toString() else "[]"
+            if (criteria.get("identifier").asString == "NativeCase7@saito" && registered.get())
+                reference.getAsJsonArray("rows").toString() else "[]"
         }, archiveResponse = { "[]" })
         peer.start().use { server ->
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
@@ -580,6 +587,13 @@ class UsernamePreviewTest {
                     assertTrue(peer.transactions.isEmpty())
                     ui.onNodeWithText("Register name").performClick()
                     val taken = "This username belongs to another wallet."
+                    fun reopenTaken() {
+                        waitForEnabled("Settings")
+                        ui.onNodeWithText("Settings").performClick()
+                        ui.onNodeWithText("Saito username").performClick()
+                        waitForText(taken)
+                        ui.onNodeWithText("Retry registration").assertIsNotEnabled()
+                    }
                     waitForText(taken)
                     ui.onNodeWithText(taken).performScrollTo().assertIsDisplayed()
                     ui.onNodeWithText("Retry registration").assertIsNotEnabled()
@@ -592,11 +606,7 @@ class UsernamePreviewTest {
                     val checks = peer.registryQueries.size
                     scenario.recreate()
                     // The retained request is now taken, so its Retry control must remain disabled.
-                    waitForEnabled("Settings")
-                    ui.onNodeWithText("Settings").performClick()
-                    ui.onNodeWithText("Saito username").performClick()
-                    waitForText(taken)
-                    ui.onNodeWithText("Retry registration").assertIsNotEnabled()
+                    reopenTaken()
                     assertTrue(peer.registryQueries.size > checks)
                     assertEquals("Read-only recovery must not resend a losing request", 1, peer.transactions.size)
                     ui.onNodeWithText("Back").performClick()
@@ -608,6 +618,33 @@ class UsernamePreviewTest {
                     ui.onAllNodesWithText("NativeCase7@saito").assertCountEquals(0)
                     assertEquals(1, peer.transactions.size)
                     assertTrue(peer.clientKeys.isNotEmpty() && peer.clientKeys.all { it == fixture.publicKey })
+                    ui.onNodeWithText("Back").performClick()
+                    reopenTaken()
+                    ui.onNodeWithText("Choose another name").assertIsEnabled().performClick()
+                    ui.onNodeWithText("Cancel").performClick()
+                    ui.onNodeWithText(taken).assertExists()
+                    scenario.recreate()
+                    reopenTaken()
+                    assertEquals(1, peer.transactions.size)
+                    ui.onNodeWithText("Choose another name").performClick()
+                    ui.onNodeWithText("Stop retries and choose").performClick()
+                    waitForEnabled("Check name")
+                    ui.onNode(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(""))).assertIsEnabled()
+                    scenario.recreate()
+                    openUsername()
+                    ui.onNode(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(""))).assertIsEnabled()
+                    assertEquals("Retirement and reopening must never send", 1, peer.transactions.size)
+                    ui.onNode(hasSetTextAction()).performTextReplacement("NativeOther9")
+                    ui.onNodeWithText("Check name").performClick()
+                    waitForText("This username is currently available. Checking does not reserve it.")
+                    assertEquals("Choosing and checking a different name must not register it", 1, peer.transactions.size)
+                    ui.onNodeWithText("Register name").performClick()
+                    waitForEnabled("Retry registration")
+                    assertEquals(2, peer.transactions.size)
+                    assertFalse(peer.transactions.first().contentEquals(peer.transactions.last()))
+                    val replacement = SaitoEnvelope.decode(postingTransaction(peer.transactions.last()).envelope())
+                    assertEquals(fixture.publicKey, replacement.author)
+                    assertEquals("NativeOther9@saito", replacement.body.get("identifier").asString)
                     peer.assertHealthy()
                 }
             }

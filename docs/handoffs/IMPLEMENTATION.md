@@ -70,24 +70,33 @@ reports/logs retained in native-public-registry-unavailable. No raw native
 response bodies/cause claims. Earlier host probe error/local-row shape remains
 separately qualified. No node upgrade/block production/trust fallback authorized.
 
-Latest source82dfe46 is pushed. Real request-storage obstruction/corruption/repair
-tracer compiles1m17s before bounded feed-isolation/exact disabled-field fixes;
-Android10run38126320968 is pending. Race e9ab46517run38126094002 fails12/13,
-146.555s before taken state: writer2 equals syntheticregistrar2, output dedup
-collides with immutable request validation. Root PNG/XML show request-save error;
-reader now unsafe3, distinct fromowner1/registrar2, corrected runtime unproved.
-Durable race-fixture-recipient-collision preserves originals. No auto resend or
-race acceptance is inferred from this failure.
+Latest pushed source89af45b. Android10run38126320968 (82dfe46) has13/14PASS95.206s,
+only old writer2/registrar2 race collision fails. Actual request save-obstruction,
+corruption/repair/read-only recovery/exactRetry passes. Root/both reviewers
+individually inspect two error PNG/XML; no whole-run/process acceptance follows.
 
-Cumulative review identifies two genuine remaining source gaps: confirmed
-other-owner conflict leaves no way to choose another name; Settings own-name
-cache-save failure followed by [] loses prior verified knowledge and exposes
-Register again. A bounded RED Settings regression is added before production
-fix; corrected fixture uses the existing username-specific cache warning. Both
-fixes and applicable final full10/17 acceptance remain required. #19 stays open.
-After bounded native acceptance, record/park external live Registry blocker and
-continue independent #20 (unblocked/unassigned checked2026-10-11), one ticket
-at a time. Owner reviews completed app, no intermediate phone gate.
+Corrected writer3/owner1/registrar2 on17run38126653344 (89af45b) has14/15PASS133.651s.
+Race taken/disabledRetry/read-only recreation/no resend/anonymous profile passes;
+request-storage failure/repair passes too. New Settings cache RED failsline387:
+verified own proof + actual cache-save obstruction then [] exposes Register name
+and loses warning. Original PNG/XML show editable name/Register/available; root
+and both reviewers inspect. Four hashed originals in unsaved-own-name-red.
+No process stage or full acceptance follows from this failed run.
+
+Production correction now retains verifiedOwnName independently of current read/
+durablecache and guards edit/register/availability in state/UI. Unsaved historical
+name is qualified as session-only, latest [] is not availability, save warning
+clears only after verified write. Local debug/test compilation PASS2m19s before final warning-reset/status fixes.
+The warning reset is now removed; only successful cache.save clears it.
+No native GREEN claimed. Existing race tracer now adds explicit new-name
+Cancel/confirm, durable empty form and explicit different candidate afterrecreation.
+That path is NEW RED: the app action is still missing, awaiting native reproduction.
+No retirement implementation or acceptance is claimed; cumulative Spec remains open.
+
+Next: finish both recovery corrections, applicable final full10/17 acceptance,
+then record/park external live Registry blocker and continue independent #20
+(unblocked/unassigned checked2026-10-11), one ticket at a time. #19 stays open.
+Owner reviews completed app, no intermediate phone gate.
 
 Protected future untracked: build-support/references/private-chat-reference.cjs;
 NATIVE_DISCOVERY_MODERATION_CONTRACT, NATIVE_NOTIFICATIONS_CONTRACT,

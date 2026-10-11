@@ -578,3 +578,21 @@ core outputdedup/requeststore2recipient validation. Corrected writer3 is distinc
 no production fix or corrected acceptance inferred. Four hashed failure originals
 retained in race-fixture-recipient-collision. A verified conflict also needs an
 explicit safe new-name path; cumulative Spec finding remains for the next slice.
+
+Actual Settings own-name RED89af45b17run38126653344 has14/15PASS133.651s,
+line387 expectedzeroRegister butoneexists after successfulsecond[]read. Root/both
+reviewers view PNG/XML editableNativeCase7/Register/available, warninggone.
+Corrected scalar3 lost-race and actualstorage failure/repair pass individually.
+Four original REDfiles/hashset in unsaved-own-name-red. No process/fullsuccess.
+Working correction retains verified own knowledge acrosslatestread/cachefailure,
+state/UIguardssigning/edit/availability andqualifiesunsavedhistoryassession-only.
+Compilation nowpasses2m19s before bounded final reset/status corrections;
+warning reset is removed, nativeGREENunproved.
+
+Own-knowledge correction compiles debug/test2m19s before final bounded reset/status
+fixes and tracer extensions. Only successful verified cache write clears warning;
+[] retains qualified session-only name, noRegister/edit/state signing. Existing
+cache RED nowalso repairsandrequireswarninggone/noRegister/0Tx. Race tracer adds
+explicit new-name Cancel/confirm/recreatedemptyform/differentexplicitcandidate,
+while production has no such actionyet. Next native runwillverifyownGREEN and
+reproduceconflictRED; no full/service/retirement completion follows fromsource.

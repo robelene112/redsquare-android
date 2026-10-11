@@ -45,19 +45,20 @@ internal fun UsernameScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint
             }
             if (currentName?.publicKey == wallet.publicKey && currentName?.active == true) {
                 Text(currentName!!.identifier)
-            } else savedName?.let { Text(stringResource(R.string.username_cached, it.name.identifier)) }
+            } else if (savedName != null) Text(stringResource(R.string.username_cached, savedName!!.name.identifier))
+            else verifiedOwnName?.let { Text(stringResource(R.string.username_previous, it.identifier)) }
             if (cacheError) Text(stringResource(R.string.username_cache_error))
-            OutlinedTextField(value = name, enabled = ready && !busy && candidate == null && savedName == null, singleLine = true,
+            OutlinedTextField(value = name, enabled = ready && !busy && candidate == null && verifiedOwnName == null, singleLine = true,
                 onValueChange = ::edit, label = { Text(stringResource(R.string.username_label)) },
                 supportingText = { Text(stringResource(R.string.username_rules)) }, modifier = Modifier.fillMaxWidth())
             if (candidate == null) {
                 Button(enabled = ready && !busy, onClick = ::check) {
                     Text(stringResource(if (busy) R.string.username_checking else R.string.username_check))
                 }
-                if (available && savedName == null) Button(enabled = ready && !busy, onClick = ::register) {
+                if (available && verifiedOwnName == null) Button(enabled = ready && !busy, onClick = ::register) {
                     Text(stringResource(R.string.username_register))
                 }
-            } else if (savedName == null) {
+            } else if (verifiedOwnName == null) {
                 Button(enabled = ready && !busy && currentName == null, onClick = ::register) { Text(stringResource(R.string.username_retry)) }
             } else {
                 Button(enabled = ready && !busy, onClick = ::check) { Text(stringResource(R.string.username_check)) }

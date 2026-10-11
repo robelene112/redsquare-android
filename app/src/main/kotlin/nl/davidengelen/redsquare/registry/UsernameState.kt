@@ -27,6 +27,8 @@ internal class UsernameState(private val wallet: SaitoWallet, private val endpoi
         private set
     var currentName by mutableStateOf<SaitoRegisteredName?>(null)
         private set
+    var verifiedOwnName by mutableStateOf<SaitoRegisteredName?>(null)
+        private set
     var cacheError by mutableStateOf(false)
         private set
 
@@ -36,6 +38,7 @@ internal class UsernameState(private val wallet: SaitoWallet, private val endpoi
         try {
             candidate = withContext(Dispatchers.IO) { store.load() }
             savedName = withContext(Dispatchers.IO) { cache.load() }
+            verifiedOwnName = savedName?.name ?: verifiedOwnName
             savedName?.let { name = it.name.identifier.removeSuffix("@saito") }
             candidate?.let {
                 name = withContext(Dispatchers.IO) {
@@ -73,21 +76,21 @@ internal class UsernameState(private val wallet: SaitoWallet, private val endpoi
     }
 
     fun edit(value: String) {
-        if (!ready || busy || candidate != null || savedName != null) return
+        if (!ready || busy || candidate != null || verifiedOwnName != null) return
         name = value
         status = null
         available = false
     }
 
     fun check() {
-        if (!ready || busy || (candidate != null && savedName == null)) return
+        if (!ready || busy || (candidate != null && verifiedOwnName == null)) return
         if (!name.matches(Regex("[A-Za-z0-9]{1,45}"))) { status = R.string.username_invalid; return }
         busy = true
         scope.launch { run(send = false) }
     }
 
     fun register() {
-        if (!ready || busy || savedName != null || currentName != null || (candidate == null && !available)) return
+        if (!ready || busy || verifiedOwnName != null || currentName != null || (candidate == null && !available)) return
         busy = true
         scope.launch { run(send = true) }
     }
@@ -105,16 +108,16 @@ internal class UsernameState(private val wallet: SaitoWallet, private val endpoi
         busy = true
         available = false
         currentName = null
-        cacheError = false
         try {
             SaitoPeer(wallet, endpoint).use { peer ->
                 val lookup = RegistryLookup(peer, registrar)
                 val record = withContext(Dispatchers.IO) { lookup.namecheck("$name@saito") }
                 if (record != null) { observed(record); return }
                 if (!send) {
-                    available = candidate == null && savedName == null
+                    available = candidate == null && verifiedOwnName == null
                     status = when {
                         savedName != null -> R.string.username_not_reconfirmed
+                        verifiedOwnName != null -> R.string.username_unsaved_not_reconfirmed
                         candidate == null -> R.string.username_available
                         else -> R.string.username_pending
                     }
@@ -139,17 +142,21 @@ internal class UsernameState(private val wallet: SaitoWallet, private val endpoi
             }
         } catch (_: TimeoutCancellationException) {
             currentCoroutineContext().ensureActive()
-            status = if (candidate == null || savedName != null) R.string.username_unavailable else R.string.username_pending_unavailable
+            status = if (candidate == null || verifiedOwnName != null) R.string.username_unavailable else R.string.username_pending_unavailable
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) {
-            status = if (candidate == null || savedName != null) R.string.username_unavailable else R.string.username_pending_unavailable
+            status = if (candidate == null || verifiedOwnName != null) R.string.username_unavailable else R.string.username_pending_unavailable
         } finally { busy = false }
     }
 
     private suspend fun observed(record: SaitoRegisteredName) {
         currentName = record
         if (record.publicKey == wallet.publicKey && record.active) {
-            try { savedName = withContext(Dispatchers.IO) { cache.save(record, backend) } }
+            verifiedOwnName = record
+            try {
+                savedName = withContext(Dispatchers.IO) { cache.save(record, backend) }
+                cacheError = false
+            }
             catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { cacheError = true }
         }

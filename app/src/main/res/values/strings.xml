@@ -242,6 +242,8 @@
     <string name="username_load_error">Saved username request could not be opened. Try again.</string>
     <string name="username_cached">Saved username: %1$s</string>
     <string name="username_cache_error">Your username was verified but could not be saved. Recovery on this device is not yet verified.</string>
+    <string name="username_previous">Previously verified username: %1$s</string>
+    <string name="username_unsaved_not_reconfirmed">Your previously verified username was not found on this server. It is retained for this session.</string>
     <string name="identity_name_save_error">Name verified, but could not be saved on this device.</string>
     <string name="username_not_reconfirmed">Your saved username was not found on this server. It has been kept on this device.</string>
 </resources>
