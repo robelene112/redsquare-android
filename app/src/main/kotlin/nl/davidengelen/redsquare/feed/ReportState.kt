@@ -107,9 +107,11 @@ internal class ReportState(private val context: Context, private val wallet: Sai
                     }
                 }
                 statuses[post.id] = ReportStatus(original, acknowledged = true, ready = true)
-            } catch (cancelled: CancellationException) { throw cancelled }
-            catch (_: Exception) { statuses[post.id] = ReportStatus(candidate,
-                acknowledged = acknowledged, failed = !acknowledged, ready = true) }
+            } catch (failure: Exception) {
+                if (failure is CancellationException && failure !is TimeoutCancellationException) throw failure
+                statuses[post.id] = ReportStatus(candidate,
+                    acknowledged = acknowledged, failed = !acknowledged, ready = true)
+            }
             finally { statuses[post.id]?.let { statuses[post.id] = it.copy(busy = false) } }
         }
     }

@@ -293,8 +293,12 @@ shows Loading replies, not finished thread loading. This is not process death.
 Bounded review: Spec0; Standards1 row-owned load cancellation race. Current
 source moves deduplicated load into ReportState's existing feature scope;
 local debug/test assembly passes2m20s. A single new unanswered-reply deadline
-test now requires unknown delivery then explicit exact retry. Timeout handling
-remains unchanged for RED. Pre-transmission, interrupted-save/isolation and
+test now requires unknown delivery then explicit exact retry. Actual deadline RED38170920890 atc10de10 reports3cases/2PASS/1FAIL33.365s,
+only timeout fails at128. Live original/separateXML retain stale Sending report
+with Done enabled (ticket21/deadline-red4hashes). Minimal source correction
+now treats TimeoutCancellationException as unknown delivery, retaining parent
+scope cancellation. Correction runtime is next. Load ownership review clear
+throughc10de10, with0residual Standards findings. Pre-transmission, interrupted-save/isolation and
 final paired acceptance remain incomplete. These checkpoints are not acceptance.
 Ticket22 remains incomplete: failure/durability/identity/backend isolation,
 actual process interruption and final both-SDK acceptance/reviews still required.

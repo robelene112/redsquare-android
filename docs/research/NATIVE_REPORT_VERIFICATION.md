@@ -101,3 +101,13 @@ a disposed row cannot erase a replacement view's placeholder. Local debug/test
 assembly passes2m20s. The next single test withholds the correlated report
 reply, requiring deadline to show unknown delivery and explicit identical retry.
 The production timeout classification is intentionally unchanged for this RED.
+
+## Actual unanswered deadline RED and correction
+
+Android10 run38170920890 atc10de10:3cases/2PASS/1FAIL33.365s. Only deadline
+case fails at128 waiting20seconds for unknown feedback; reopening and ordinary
+ack regressions pass. Root viewed live original/separateXML: Sending report
+persists with Done enabled. The pending source correction treats only
+TimeoutCancellationException as failure; other scope cancellations rethrow.
+Exact retry/no auto send/no broadcast assertions remain unchanged. Durable
+ticket21/deadline-red retains4hashes. Native correction check is next.
