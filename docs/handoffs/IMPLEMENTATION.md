@@ -233,10 +233,15 @@ and retain evidence; production/core/build/reference source is unchanged.
   and reviewers reproduce exact durable9/2/1 and all18hashes. Sourcepush
   38164949469 passes. Python harness compile passes. No product/acceptance
   predicate changes; WORKFLOW permits retaining full17 after fixture correction.
-- **Outstanding full Android10 run38165304273 atfe710dd is ACTIVE**, opted
-  into public reads. Inspect actual results, all critical original personal
-  PNG/separate XML, public originals, raw counts, releases/lint and signed/cold
-  continuity; retain evidence and complete bounded review before closing21.
+- **Full Android10 run38165304273 atfe710dd PASSES**, opted into public
+  reads:179reported/178PASS+existingAPI30+profileassumption,46records/15deaths,
+  core55/release/lint/signed5→8/cold continuity. Personal8PASS68.771s and
+  death21951→22148/cold1PASS5.708s, guardstat0/213bytes. Root all29original
+  personalPNG/separate29XML,2author readiness originals/separate2XML and both
+  public originals inspected. Durable final-full/android10 retains168hashes;
+  exact root recount179/46/15+assumption equals original. Both public feeds
+  pass8.2s/4.011s; ordinary100rows/92posts/0ignored andquotes4rows/0posts/0ignored.
+  Final bounded pair evidence review remains required before21closure.
 
 Failure chronology and qualified retained captures: NATIVE_PERSONAL_CONTROLS_VERIFICATION.md
 and ticket20/REVIEW.md. Earlier full10 stopped at existing lazy-profile
@@ -274,4 +279,3 @@ NATIVE_SAITO_TRANSFER_CONTRACT, NATIVE_PRIVATE_CHAT_CONTRACT and
 NATIVE_GROUP_CHAT_CONTRACT (all .md under docs/research). The protected future notes remain uncommitted and must be included only with
 their own relevant tickets; earlier contracts are already committed.
 They establish source contracts, not runtime or feature completion.
-

@@ -1,0 +1,14 @@
+Passed full Android17 source:781bd1af8e4b8bea82d3b414c6ecb6dd9948c1c2
+Outstanding full Android10 source:fe710dd9bf73ea1ae52d348e1ef394b18d8141b5
+
+Production core/app main, reference generators and CI workflow: exact Git diff empty.
+App test fixtures and host harness changes:
+app/src/androidTest/kotlin/nl/davidengelen/redsquare/AuthorPostPreviewTest.kt
+app/src/androidTest/kotlin/nl/davidengelen/redsquare/ThreadProfilePreviewTest.kt
+scripts/personal-controls-process-check
+
+Host script stat:
+ scripts/personal-controls-process-check | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+Acceptance predicates remain intact: profile history ready then lazy-scroll/exact displayed contents; author Confirm displayed/enabled before single click/all original subsequent checks; personal surviving encrypted guard positive size, actual PID disappearance, independent cold recovery and same identity/backend/choices. Metadata-only stat replaces discarded test -s command output.
