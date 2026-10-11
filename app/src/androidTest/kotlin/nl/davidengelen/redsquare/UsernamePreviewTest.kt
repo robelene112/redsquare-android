@@ -517,12 +517,7 @@ class UsernamePreviewTest {
             assertEquals("NativeCase7@saito", criteria.get("identifier").asString)
             proof
         }, archiveResponse = { "[]" })
-        val balanceServer = MockWebServer()
-        balanceServer.dispatcher = object : mockwebserver3.Dispatcher() {
-            override fun dispatch(request: mockwebserver3.RecordedRequest) = MockResponse.Builder()
-                .body("${System.currentTimeMillis()}-1234-${"a".repeat(64)}.snap\n").build()
-        }
-        balanceServer.start(InetAddress.getByName("127.0.0.1"), 0)
+        val balanceServer = zeroBalanceServer()
         var primary: Throwable? = null
         try {
             peer.start().use { server ->
@@ -606,31 +601,20 @@ class UsernamePreviewTest {
             }
         } catch (failure: Throwable) { primary = failure; throw failure }
         finally {
-            var cleanupFailure: Throwable? = null
-            fun cleanup(operation: () -> Unit) {
-                try { operation() }
-                catch (failure: Throwable) {
-                    val earlier = primary ?: cleanupFailure
-                    if (earlier != null) earlier.addSuppressed(failure) else cleanupFailure = failure
-                }
-            }
-            cleanup {
+            cleanupAfterTest(primary, {
                 val store = AndroidWalletStore(context)
                 val active = store.loadExisting()
                 check(active.publicKey == fixture.publicKey || active.publicKey == incoming.publicKey)
                 if (active.publicKey == incoming.publicKey) store.replace(active, fixture)
-            }
-            cleanup { balanceServer.close() }
-            cleanup {
+            }, { balanceServer.close() }, {
                 check(device.executeShellCommand("run-as nl.davidengelen.redsquare.dev.test rm files/wallet-test-documents/00-username-import.json").isBlank()) {
                     "Could not clear the public username import fixture"
                 }
-            }
-            cleanupFailure?.let { throw it }
+            })
         }
     }
 
-    @Test fun aPendingNameStaysWithItsWalletAndBackendDuringImportPreview() = withRegistryWallet { fixture ->
+    @Test fun aPendingNameStaysWithItsWalletAndBackendThroughActualReplacement() = withRegistryWallet { fixture ->
         // Another module's work must not satisfy the Registry-specific warning assertion.
         check(SaitoBackend.entries.all { backend ->
             nl.davidengelen.redsquare.feed.PostDraftStore.authorWork(context, fixture.publicKey, backend).isEmpty() &&
@@ -650,6 +634,7 @@ class UsernamePreviewTest {
         })
         val officialPeer = ControlledFeedPeer("[]")
         val pending = "Registration requested. Confirmation is still pending."
+        val balanceServer = zeroBalanceServer()
         var primary: Throwable? = null
         try {
             ownerPeer.start().use { ownerServer ->
@@ -657,7 +642,7 @@ class UsernamePreviewTest {
                     ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                         .putExtra("feedPeerUrl", "ws://127.0.0.1:${ownerServer.port}/wsopen")
                         .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${officialServer.port}/wsopen")
-                        .putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")).use {
+                        .putExtra("balanceApiUrl", "http://127.0.0.1:${balanceServer.port}/balance/")).use { scenario ->
                         withFailureCapture({ capture("username-pending-import-failure.png") }) {
                             openUsername()
                             waitForEnabled("Check name")
@@ -721,6 +706,43 @@ class UsernamePreviewTest {
                             assertArrayEquals(original, ownerPeer.transactions.last())
                             assertTrue(ownerPeer.clientKeys.all { it == fixture.publicKey })
                             assertTrue(officialPeer.clientKeys.all { it == fixture.publicKey })
+                            // Replace only after the original-backend exact-retry proof above.
+                            ui.onNodeWithText("Wallet").performClick()
+                            ui.onNodeWithText("Import wallet").performScrollTo().performClick()
+                            chooseWalletImport(ui, filename, incoming)
+                            ui.onNodeWithText("Pending work belongs to your current wallet").performScrollTo().assertIsDisplayed()
+                            waitForText("Server reports zero SAITO")
+                            ui.onNodeWithText("Skip backup").performScrollTo().performClick()
+                            ui.onNodeWithContentDescription("Replacement risks acknowledged").performScrollTo().performClick()
+                            ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsEnabled().performClick()
+                            waitForText("Wallet imported")
+                            assertEquals(incoming, displayedWalletAddress(ui))
+                            ui.onNodeWithText("Done").performClick()
+                            // Username navigation remains open across wallet replacement.
+                            waitForEnabled("Check name")
+                            ui.onAllNodesWithText("Retry registration").assertCountEquals(0)
+                            ui.onNode(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString("")))
+                                .assertIsEnabled()
+                            ui.onNodeWithText("Settings").performClick()
+                            ui.onNodeWithText("saito.io").performClick()
+                            waitForText("Server: saito.io")
+                            waitForEnabled("Check name")
+                            ui.onAllNodesWithText("Retry registration").assertCountEquals(0)
+                            scenario.recreate()
+                            openUsername()
+                            ui.onAllNodesWithText("Retry registration").assertCountEquals(0)
+                            ui.onNode(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString("")))
+                                .assertIsEnabled()
+                            capture("username-pending-replaced.png", "Choose a Saito username")
+                            assertEquals(SaitoBackend.OFFICIAL, AndroidBackendStore(context).load())
+                            ui.onNodeWithText("Back").performClick()
+                            ui.onNodeWithText("Wallet").performClick()
+                            assertEquals(incoming, displayedWalletAddress(ui))
+                            assertTrue(ownerPeer.clientKeys.contains(incoming))
+                            assertTrue(officialPeer.clientKeys.contains(incoming))
+                            assertEquals("Replacement must never replay the outgoing candidate", 2, ownerPeer.transactions.size)
+                            assertArrayEquals(original, ownerPeer.transactions.last())
+                            assertTrue(officialPeer.transactions.isEmpty())
                             ownerPeer.assertHealthy(); officialPeer.assertHealthy()
                         }
                     }
@@ -728,12 +750,37 @@ class UsernamePreviewTest {
             }
         } catch (failure: Throwable) { primary = failure; throw failure }
         finally {
-            try {
+            cleanupAfterTest(primary, {
+                val store = AndroidWalletStore(context)
+                val active = store.loadExisting()
+                check(active.publicKey == fixture.publicKey || active.publicKey == incoming)
+                if (active.publicKey == incoming) store.replace(active, fixture)
+            }, { balanceServer.close() }, {
                 check(device.executeShellCommand("run-as nl.davidengelen.redsquare.dev.test rm files/wallet-test-documents/00-username-pending-import.json").isBlank()) {
                     "Could not clear the public pending-name import fixture"
                 }
-            } catch (cleanup: Throwable) { if (primary != null) primary.addSuppressed(cleanup) else throw cleanup }
+            })
         }
+    }
+
+    private fun cleanupAfterTest(primary: Throwable?, vararg operations: () -> Unit) {
+        var failure = primary
+        for (operation in operations) {
+            try { operation() }
+            catch (cleanup: Throwable) {
+                val earlier = failure
+                if (earlier == null) failure = cleanup else if (earlier !== cleanup) earlier.addSuppressed(cleanup)
+            }
+        }
+        if (primary == null) failure?.let { throw it }
+    }
+
+    private fun zeroBalanceServer() = MockWebServer().apply {
+        dispatcher = object : mockwebserver3.Dispatcher() {
+            override fun dispatch(request: mockwebserver3.RecordedRequest) = MockResponse.Builder()
+                .body("${System.currentTimeMillis()}-1234-${"a".repeat(64)}.snap\n").build()
+        }
+        start(InetAddress.getByName("127.0.0.1"), 0)
     }
 
     private fun nameDiscoveryResponse(publicKey: String, proof: () -> String): (JsonObject) -> String = { criteria ->
