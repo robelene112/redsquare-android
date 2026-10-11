@@ -230,8 +230,6 @@ class ThreadProfilePreviewTest {
                     waitForProfileHistory()
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText("Independent Saito reply"))
                     ui.onNodeWithText("Independent Saito reply").assertIsDisplayed()
-                    ui.onNode(hasScrollAction()).performScrollToNode(hasText("Independent Saito reply"))
-                    ui.onNodeWithText("Independent Saito reply").assertIsDisplayed()
                     peer.assertHealthy()
                     captureFeedEvidence("browse-evidence/malformed-thread-rejected.png")
                 } catch (failure: Throwable) {
