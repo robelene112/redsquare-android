@@ -141,6 +141,9 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
             it.createdAt >= SaitoEnvelope.decode(transaction.envelope()).createdAt }
         if (newer) {
             withContext(Dispatchers.Main.immediate) { superseded = true; available = false }
+            // Preserve the verified newer snapshot before declaring reconciliation settled.
+            // A failed write keeps retry blocked in memory and surfaces a recovery error.
+            withContext(NonCancellable) { cache.save(latest) }
             return true // Never rebroadcast an older update over a newer verified snapshot.
         }
         if (exact.updates.none { it.id == transaction.id }) return false

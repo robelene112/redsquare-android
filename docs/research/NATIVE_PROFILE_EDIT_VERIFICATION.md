@@ -447,3 +447,20 @@ isolated read-only/env-i/network-none Node24 runner. This proves controlled
 receiving methods and browser update event payloads, not DOM pixels, deployment
 or chain inclusion. Supersession/historical-availability source findings remain
 open; native eight-case RED38097083171 pending.
+
+Supersession tracer8212022 native RED38097083171 confirmed: Android10 eight
+cases29.678s, exactly one failure at ProfilePublishingPreviewTest.kt:148,
+missing Newer profile from another device after a fresh Activity receives only
+the stale original snapshot. Both original diagnostic PNGs individually viewed:
+first editor positively reports supersession and disables Retry; fresh public
+profile displays Original bio. Separate XML/raw UI log retained under
+profile-supersession-red/android10. Other seven flows pass. This isolates the
+missing durable observation, not a missing initial detection or fixture setup.
+
+Bounded production fix saves the merged newer verified public profile cache in
+NonCancellable reconciliation after immediately blocking retry in memory and
+before returning settled. A failed write propagates the recovery error with
+retry still blocked for that editor. Healthy-storage fresh reopening/stale reads
+is the current tracer; storage-failure restart durability is not established by
+this result. Historical-availability handling remains a separate open finding.
+Local compilation and dual focused eight-case GREEN are pending.

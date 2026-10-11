@@ -1,6 +1,6 @@
 # Sequential implementation handoff
 
-Updated 2026-10-10. The owner authorized implementing all 35 proposed
+Updated 2026-10-11. The owner authorized implementing all 35 proposed
 tickets sequentially, committing after each, and reviewing the app at the end.
 Continue without routine permission requests or a grill per ticket. Ask only
 one question at a time when a material choice really needs the owner.
@@ -44,9 +44,13 @@ Both findings must be fixed and rechecked before publisher acceptance.
 Added one regression: newer same-author snapshot appears during real publish,
 then close Activity directly (no public refresh), serve only stale original,
 reopen require newer public bio + superseded/disabled Retry + original edit and
-no extra TX. Local buildPASS1m4s with recovered same-container exit0 after
-client143; no compiler active. Intended8-case RED/review pending. No barrier fix
-yet. Then distinct historical-availability tracer/fix, candidate failures/recovery,
+no extra TX. Native RED38097083171: eight cases29.678s, exactly missing newer
+bio at fresh Activity line148; other seven pass. Original before/failure PNGs
+individually inspected, separate XML/log retained profile-supersession-red.
+Minimal fix saves merged verified newer cache before returning settled, after
+blocking retry in memory. Save failure surfaces recovery error; restart under
+failed storage is not yet proved. Local build/dual focused GREEN/review pending.
+Then distinct historical-availability tracer/fix, candidate failures/recovery,
 actual process death, media, cross-client, full checks/reviews remain. No APK or
 production node/on-chain write; continue sequentially without owner review gate.
 
