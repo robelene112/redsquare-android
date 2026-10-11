@@ -74,8 +74,16 @@ strict owner/snapshot/order validation, load-before-read guard, navigation
 preservation and claim/confirmation guards. Save private barrier before public
 cache. v1/v2/filename/AAD/alias preserved. Picker fixture prioritizes/scopes
 drawer over behind-drawer filename, observes returned app window and waits for
-same exact selected address with optional roots. Current build/dual GREEN/
-committed-diff review pending. Historical availability still separate/open.
+same exact selected address with optional roots. Local build PASS1m55s, source38099229274 PASS; bounded cf985f9...2c446d6
+reviews both zero. Dual GREEN10 38099229129: eight applicable cases PASS plus
+one explicit API30+ assumption skip, runner OK9 in32.191s. Android17
+38099231234 all9 PASS57.316s. Original PNGs individually viewed; separate
+XML/rawlogs retained profile-private-barrier-green. Superseded/frozen editor
+remains through failed-cache Back/reopen. Historical availability still open.
+One new tracer retains a confirmed candidate across direct Activity closure,
+serves successful empty archive reads, then requires qualified past availability,
+read-only Check profile and Back/reopen preservation with no extra TX.
+Assembly/intended Android10 RED pending; no historical fix yet.
 Then candidate failures/recovery,
 actual process death, media, cross-client, full checks/reviews remain. No APK or
 production node/on-chain write; continue sequentially without owner review gate.

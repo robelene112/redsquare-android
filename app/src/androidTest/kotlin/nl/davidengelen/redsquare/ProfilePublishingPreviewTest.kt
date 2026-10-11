@@ -37,9 +37,12 @@ class ProfilePublishingPreviewTest {
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
     }
 
-    private enum class Scenario { AVAILABLE, NEWER_PROFILE, NEWER_PROFILE_CACHE_FAILURE }
+    private enum class Scenario { AVAILABLE, PREVIOUSLY_AVAILABLE, NEWER_PROFILE, NEWER_PROFILE_CACHE_FAILURE }
 
     @Test fun savingBioPublishesACompleteSnapshotAndPreservesOtherVerifiedFields() = publishAndReopen(Scenario.AVAILABLE)
+
+    @Test fun previouslyAvailableProfileSurvivesEmptyReadsAndNavigationWithoutPublishingAgain() =
+        publishAndReopen(Scenario.PREVIOUSLY_AVAILABLE)
 
     @Test fun aNewerVerifiedProfileStillBlocksOlderRetryAfterAFreshActivityWithStaleReads() = publishAndReopen(Scenario.NEWER_PROFILE)
 
@@ -51,7 +54,8 @@ class ProfilePublishingPreviewTest {
     }
 
     private fun publishAndReopen(scenario: Scenario) {
-        val supersession = scenario != Scenario.AVAILABLE
+        val supersession = scenario == Scenario.NEWER_PROFILE || scenario == Scenario.NEWER_PROFILE_CACHE_FAILURE
+        val historical = scenario == Scenario.PREVIOUSLY_AVAILABLE
         val cacheFailure = scenario == Scenario.NEWER_PROFILE_CACHE_FAILURE
         val reference = instrumentation.context.assets.open("native-profile-reference.json").bufferedReader()
             .use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("withMedia") }
@@ -101,7 +105,8 @@ class ProfilePublishingPreviewTest {
                 })
         }, profileArchiveResponse = { criteria ->
             assertEquals(owner, criteria.get("field2").asString)
-            (if (stale.get()) listOf(reference) else listOfNotNull(indexed.get(), newer.get(), reference)).filter {
+            (if (stale.get()) { if (historical) emptyList() else listOf(reference) }
+                else listOfNotNull(indexed.get(), newer.get(), reference)).filter {
                 !criteria.has("sig") || criteria.get("sig").asString == it.get("sig").asString
             }.joinToString(prefix = "[", postfix = "]")
         }, archiveResponse = { "[]" })
@@ -169,7 +174,7 @@ class ProfilePublishingPreviewTest {
                                 addProperty("frame", Base64.getEncoder().encodeToString(peer.transactions.single()))
                                 addProperty("envelope", requireNotNull(indexed.get()).get("tx").asString)
                             }.toString())
-                        if (!supersession) {
+                        if (scenario == Scenario.AVAILABLE) {
                             ui.onNodeWithText("Back").performClick()
                             ui.waitUntil(20_000) { ui.onAllNodesWithText(bio).fetchSemanticsNodes().isNotEmpty() &&
                                 ui.onAllNodes(hasText("Edit profile") and hasClickAction()).fetchSemanticsNodes().isNotEmpty() }
@@ -183,6 +188,50 @@ class ProfilePublishingPreviewTest {
                             else if (supersession) "superseded-profile-first-failure.png" else "bio-snapshot-first-failure.png") }
                         catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
                         throw failure
+                    }
+                }
+                if (historical) {
+                    // Keep the confirmed signed candidate, then return successful empty archive responses.
+                    stale.set(true)
+                    ActivityScenario.launch<MainActivity>(intent).use {
+                        try {
+                            ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                            ui.onNodeWithText("Your profile").performClick()
+                            ui.waitUntil(20_000) { ui.onAllNodes(hasText("Edit profile") and hasClickAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() &&
+                                ui.onAllNodesWithText(context.getString(R.string.profile_details_loading)).fetchSemanticsNodes().isEmpty() }
+                            ui.onNodeWithText(bio).assertIsDisplayed()
+                            ui.onNodeWithText("Edit profile").performClick()
+                            ui.waitUntil(20_000) { ui.onAllNodes(hasText("Retry profile") or hasText("Check profile")).fetchSemanticsNodes().isNotEmpty() &&
+                                ui.onAllNodes(hasText("Back") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                            val status = "This profile was previously available. Current availability is not confirmed."
+                            ui.onNodeWithText(status).assertIsDisplayed()
+                            ui.onNodeWithText("Profile available on this server.").assertDoesNotExist()
+                            ui.onNode(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(bio)))
+                                .assertIsDisplayed().assertIsNotEnabled()
+                            assertEquals(1, peer.transactions.size)
+                            capture("previously-available-empty-reads.png", status)
+                            ui.onNodeWithText("Check profile").assertIsEnabled().performClick()
+                            ui.waitUntil(20_000) { ui.onAllNodes(hasText("Back") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                            ui.onNodeWithText(status).assertIsDisplayed()
+                            assertEquals(1, peer.transactions.size)
+                            ui.onNodeWithText("Back").performClick()
+                            ui.waitUntil(20_000) { ui.onAllNodes(hasText("Edit profile") and hasClickAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() &&
+                                ui.onAllNodesWithText(context.getString(R.string.profile_details_loading)).fetchSemanticsNodes().isEmpty() }
+                            ui.onNodeWithText("Edit profile").performClick()
+                            ui.waitUntil(20_000) { ui.onAllNodes(hasText("Check profile") and isEnabled()).fetchSemanticsNodes().isNotEmpty() &&
+                                ui.onAllNodes(hasText("Back") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                            ui.onNodeWithText(status).assertIsDisplayed()
+                            ui.onNode(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(bio)))
+                                .assertIsDisplayed().assertIsNotEnabled()
+                            capture("previously-available-after-navigation.png", status)
+                            assertEquals(1, peer.transactions.size)
+                            assertEquals(owner, store.loadExisting().publicKey)
+                            peer.assertHealthy()
+                        } catch (failure: Throwable) {
+                            try { capture("previously-available-reopen-failure.png") }
+                            catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
+                            throw failure
+                        }
                     }
                 }
                 if (supersession && !cacheFailure) {

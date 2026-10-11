@@ -558,3 +558,24 @@ focused dual GREEN and actual committed-diff review are pending. Historical
 availability remains separate/open; no ticket18 completion.
 Bounded fix local debug/test assembly subsequently PASS1m55s, retained container
 exit0. Dual focused device verification and committed-diff review remain pending.
+
+Private signed barrier at2c446d6 focused dual GREEN: Android10 38099229129
+PASS eight applicable cases plus one explicit API30+ assumption skip, runner
+OK9 in32.191s. Android17 38099231234 PASS all9 in57.316s; source38099229274
+PASS49 core/debug/test/release/lint. Bounded cf985f9...2c446d6 reviews Spec0,
+Standards0 remaining source findings. Original screenshots individually viewed:
+Android10 stale reopen shows superseded/frozen editor; Android17 initial failed
+cache, after navigation and stale reopen show the superseded/frozen editor with
+persistence error. Busy controls can differ at capture; do not claim all controls
+settled from pixels alone. Separate XML/raw logs retained profile-private-barrier-green.
+The observable acceptance assertions prove disabled older Retry and no extra TX.
+
+Next single historical-availability tracer keeps the real confirmed signed
+candidate through direct Activity closure, then serves successful empty exact
+and latest Profile queries. Fresh editor must retain frozen bio with qualified
+previous availability, never current availability. A read-only Check profile and
+Back/reopen must retain that qualification and original candidate without any
+additional transaction. This differs from outage or supersession; cached public
+bio is still useful without claiming current server history. Local assembly and
+intended Android10 RED pending; production unchanged for this tracer.
+Historical tracer local debug/test assembly PASS1m8s, retained container exit0.
