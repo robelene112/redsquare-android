@@ -104,3 +104,26 @@ No signing identity is guessed or changed. Compile/GREEN pending.
 
 Minimal anonymous/owner recovery fix compile PASS2m23s; unchanged two-test focused
 Android17 GREEN attempt next. No runtime recovery acceptance claimed yet.
+
+Recovery source review560424e...7f5d796: Spec0 actionable; Standards prior
+anonymous-reading finding resolved,0 residual hard violations/heuristic smells.
+Both verify4REDhashes/original observations. Native unchanged two-test GREEN
+38152142197 at7f5d796 is active. Source review is not runtime acceptance.
+
+Recovery GREEN38152142197 at7f5d796:2PASS45.744s, both unchanged journeys/end
+gates pass. Root views5originalPNG/separate5XML; recovery-green12hashes. Native
+anonymous reading, saved-policy owner gate and same-wallet repair/mute retention
+now proved on Android17 only. Next SINGLE Block tracer added before product code:
+explained Block after intentional Mute, approved backend switch, offline Unblock
+retaining Mute, fresh offline reopening and explicit Unmute restoring cached post.
+Both approved sessions intentionally share one controlled binary peer; different
+server histories were independently verified in the first Mute tracer. Native
+Block RED/compile pending; no Block implementation or final acceptance claimed.
+
+Block tracer first draft compilePASS1m26s. Before dispatch, strengthen the same
+journey to temporarily Unmute while Block stays active: full-list author absence
+must still hold, Settings shows Block without a saved Mute, then explicitly
+re-Mute before switching backend/offline Unblock. This prevents Mute alone from
+masking absent Block filtering. Recompile before the first native Block RED.
+
+Strengthened Block tracer compilation PASS1m27s; first native Block RED next.

@@ -111,7 +111,12 @@ recovery boundary. Next recovery tracer compiledPASS1m19s, both fixture axes0.
 RED38151508176 at560424e:2reported/1PASS1FAIL30.592s, anonymous cached lookup
 fails in empty list after actual wallet failure. Root views original/separateXML;
 recovery-red4hashes. Minimal anonymous/no-policy reading versus unknown-owner
-saved-policy gate fix compiledPASS2m23s; focused GREEN attempt next. Block, other-view filters and late-save recovery still require further
+saved-policy gate fix compiledPASS2m23s; both source axes0 residual. Recovery
+GREEN38152142197 at7f5d796 passes2cases45.744s including both end gates. Root
+views5originalPNG/separate5XML; recovery-green12hashes. Next single native Block
+tracer added before Block product code: independent Block-only filter, re-Mute,
+backend switch, offline Unblock preserving Mute and fresh cached Unmute restore.
+Final tracer compilesPASS1m27s; first native Block RED dispatch next. Block, other-view filters and late-save recovery still require further
 vertical journeys; no final #21 acceptance/new APK claimed. Scope/verification plan: NATIVE_PERSONAL_CONTROLS_VERIFICATION.md.
 Read-only source preparation is ignored .scratch/personal-controls-plan.md.
 Preserve the seven future research files below.
