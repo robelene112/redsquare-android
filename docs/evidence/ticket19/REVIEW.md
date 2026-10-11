@@ -286,3 +286,30 @@ ticket19/public-green. No new searchbitmap/directread UIclaim; no livewrites.
 Wallet/selectedbackend continuity PASS. Push38144926841 release/lintPASS.
 Bothwhole source axes0. Finalsame-sourcefull10/17 next. Registry limitation
 remains explicit; no final #20, chain or physical claim.
+
+
+Final fullpair dispatched at6c489bfa700e1fde73c3f43ba446980c11ad58d4:
+Android10run38145371958 andAndroid17run38145373388, separately optedpublicreads.
+Both are active; source is fixed. Both axes validate author-green6/public-green5
+hashes and claims with0 findings. Current handoff condensed to active state and
+authoritative evidence pointers; chronology remains here and in Git. No final
+acceptance inferred from dispatch.
+
+
+First finalfull10run38145371958 at6c489bf FAILED before Search: Browse8PASS
+21.019s, Following8PASS23.037s, actualpostingdeath/coldreconciliationPASS.
+Posting18cases17PASS1FAIL102.61s; oldqueuedwalletimportselector cannotlocate
+reference atPostPreviewTest:762. Root individuallyviewedoriginalPNG and
+separateXML: nativewalletdialog,noDocumentsUI/validatedpreview. Exacttiming
+causeunproved. Rawlog/pair/README4hashes retainedticket19/full10-first-failure.
+15a3986 reusesmaintainedchooseWalletImport synchronization/scopedprovider/
+positiveincomingpreview and checksprovisionedreferenceisFile/positivesize only;
+retainsbackup/identity/queue/no-send gates andcapturedprimaryfailure.
+Fixturecompile/reviewactive; no productsourcechange. Android17full38145373388
+continues; next outstanding10full onlyafterreview/fixcompile, notblindrerun.
+
+
+Existingimportfixture15a3986 compilationPASS1m24s, both bounded axes0 findings.
+Both reviewers verify failure4hashes and native-dialog observation; no exact
+timing cause claimed. Production/app/core/build-support/scripts/workflow diff
+since6c489bf is empty. Dispatch corrected outstanding full10; Android17continues.

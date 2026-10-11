@@ -42,88 +42,64 @@ known/unknown namechecks unusable21bytes; fresh host09:53:48Z onboth returns
 {"err":"no response"} despite authenticated archive/key-map reads. Host helper
 filtererror is its own summary defect, not server key-map failure. Source/host/
 native observations remain distinct. No node changes/trust fallback/livewrites.
-Active #20, Search posts and people in available backend history, assigned and
-blocked_by0 verified. Review base3be555be85586b68c0d05c2c8e69d3976bbffe89.
-First primary tracer reads a signed reply omitted from general feed, navigates
-conversation/profile/back, recreates retainedquery/results, and checks samewallet/
-zeroTX. New focused search scopes and full harness stage. Native RED38132968601
-at511a214 fails only at absent Search entry,12.99s; original evidence ticket19/first-red.
-First native screen/selected Archive reads/retained navigation at eceb9d6 passes
-Android17 focused38133595364,1PASS14.052s, original log/PNG/XML ticket19/first-green.
-Interim Standards1 stale-revision publication race guarded atcc590f0, final recheck
-pending; Spec1 next-tracer retention assertion gap corrected in working tests.
-Second partial-retry/paging tracer uses100 unique independent WASM posts plusolder/quote.
-Native second RED38134147254 atcc590f0 fails only at missing Retry,45.209s,
-replytracerPASS withguard. Original log/PNG/XML ticket19/paging-red.
-Paging/retry implemented locally at42ebbb8, compilePASS2m58s; source fixes f1ebc3e
-prioritize matchingposts/stopat1000 with explicitlimit and scrollprependedquote.
-Both source axes clear f1ebc3e; combinedcompilePASS2m43s. Focused
-Android17GREEN38135039545 at54e806f:2PASS40.598s, original log and
-three separately inspected PNG/XML pairs ticket19/paging-green.
-Review chronology ticket19/REVIEW.md.
-Next single tracer committed0190919: offline Activity reopen, real Settings
-backend isolation and same wallet. CorrectedfixturecompilePASS1m26s, both
-sourceaxes0 residual. NativecacheRED38135929831 at0190919: existing2PASS/new1FAIL only missing
-offline reply,72.918s. Original inspectedfailurePNG/XML/log ticket19/cache-red.
-Productioncache now added: same-server publicseed/search signed decoding,
-bounded retention, initial-load publication guard and savewarning. Combined
-initialcompilePASS2m42s. Archive-publication race guarded90346aa, both
-sourceaxes0 residualracefindings, combinedcompilePASS2m34s. FirstcacheGREEN38136755529:3PASS80.069s, two new criticalPNG/XML
-pairs and rawlog retained ticket19/cache-green; separately inspectedimages/XML.
-Samewallet/isolation/noTX gates PASS; no processdeath/1000/Pixel/full claim.
-Push38136755184 source/core/release/lintPASS. Standardsbudget-duplication
-judgment resolved9a45b79, bothaxes0 and compilePASS2m25s.
-Next single exactsignedusername primarytracer d32c5d0 compilePASS1m25s,
-bothsourceaxes0; nativeRED38137503072: existing3PASS/new1FAIL onlymissing
-resolvedliteralkey,line67,50.979s. Budgetregression PASS; originalinspected
-peoplefailurePNG/XML/log ticket19/people-red. Exactcurrent-registrar verified
-username/person/profile path nowadded, compilePASS2m21s. Standards0;
-Spec1 stale discarded-person savewarning fixed; fixcompilePASS2m14s, bothboundedaxes0. ExactnameGREEN38138427233 ate505de2:4PASS83.402s;
-originalinspectednamePNG/XML/log ticket19/people-green. Push38138427894
-source/core/debug/test/release/lintPASS. Exactkeytracer compilePASS1m21s/bothaxes0. NativeRED38139013779
-atb161c12: existing4PASS/newmissingclickablekeyFAILline53,68.636s;
-originalinspectedkeyPNG/XML/log ticket19/key-red. Validcompressedcurvepoint
-exactkey path addedbfe8a76, combinedcompilePASS2m47s; Spec0/Standards0hard,
-possiblepointvalidationduplication cleanupafterfirstGREEN. KeyGREEN38139610537 at75aec86:5PASS82.727s; two neworiginalinspected
-PNG/XML/log ticket19/key-green. Push38139610540 release/lintPASS.
-Pointvalidation cleanupdd00cc3 compilePASS2m42s/bothaxes0.
-Next knownkey/nameprefix/follow/offline primarytracer added; copiedauthor
-fixture corrected beforedispatch, correctedcompilePASS1m19s, StandardsfreshFollowfixturefix62aa7ce
-compilePASS1m22s/bothaxes0. Known-prefixRED38140656219 at855d16a:
-6cases84.668s, existing5PASS/newmissingknownauthorFAILline79. Later
-Profile/Follow/nameprefix/offline gates unexecuted; originalinspectedPNG/XML/
-rawlog retained ticket19/prefix-red. Push38140656411 release/lintPASS.
-Knownpeople productionhandling addedcbea3b1: verifiedauthors/wallet/validated
-follows/visitedprofiles plus verifiedlabels, cached-only knownname proof reads
-onIO, no wildcard/globaldirectory. CombinedcompilePASS2m38s; bounded
-bothboundedaxes0 actionable findings. KnownprefixGREEN38141685280 ataf77aeb:
-6PASS70.885s, freshFollow/nameprefix/offlinewithoutpublichistory/wallet/noTX PASS.
-Two original individuallyinspectedPNG/XML/log retainedticket19/prefix-green.
-Push38141676801 release/lintPASS. Next primary cached-exact-name qualification
-tracer7df2863 added, bothboundedaxes0hard findings. Qualification source
-qualificationRED38142405104 at752d944: existing6PASS/newmissingcopy
-FAILline83,65.88s; laternegative/recovery/wallet gatesunexecuted. Original
-inspectedPNG/XML/log ticket19/name-qualified-red. Minimal implementation now
-added653367d, compilePASS2m17s. Both reviewers found query-wide confirmation
-can hide a different cached owner qualifier; sourcefix now makes qualification
-per person card474e01f, compilePASS2m20s; Spec0/Standards sourceedgeclosed.
-Fixture precision now scrolls and checks actual unmerged qualification Text,
-not mergedcard boundsf1f7a6f; bothboundedaxes0 residual, testcompilePASS1m19s.
-First qualification GREEN pending; no runtimeviewport
-failure claim.
-Push38142377442 release/lintPASS. Compile container0/daemonPASS1m19s despite
-terminal143; packaging confirmationPASS20s(all50up-to-date), cause not
-established for original contradictoryterminalresult. Possible
-duplicated fixture setup judgment reserved afterGREEN. Savefailure and
-authorrevision application recovery also remain.
-Knownpeople prefixes PASS. Per-card qualificationGREEN38143378676 at729acfb:
-7PASS72.724s, negative/forged/recovery/wallet/noTX PASS. New individuallyviewed
-originalPNG/XML/log ticket19/name-qualified-green. Push38143343479 release/
-lintPASS. Savefailure/authorrevision recovery and finalfull acceptance remain.
-no #20 acceptance yet.
-Accepted seams1–4 unchanged.
-Search preparation ignored .scratch/search-design.md plus protected contract.
-Owner reviews completed app, no intermediate phone gate.
+Active #20, "Search posts and people in available backend history", assigned
+and unblocked. Review base3be555be85586b68c0d05c2c8e69d3976bbffe89. Accepted
+seams1–4 unchanged; no additional owner grill or intermediate phone gate.
+
+Implementation now includes selected-backend signed post/reply/quote search,
+independent bounded paging/partial Retry, public cache/available offline history,
+profile/conversation/back/recreation navigation, canonical exact keys, strictly
+verified exact usernames and prefixes of known accounts/verified cached names.
+Historical names receive per-person provenance; invalid/forged/current lookup
+failures are independent of post history. Backend/identity isolation, savewarning
+and retained author-edit/deletion proofs are integrated. No exhaustive chain or
+permanent archive claim; no wildcard directory/text RPC, no private query upload.
+
+Whole-ticket source review3be555be...fd35b02: Spec0 actionable findings;
+Standards0 residual hard violations/0 actionable heuristic smells. Prior races,
+cache budgeting, name provenance, point-validation duplication and fixture
+cleanup/sensitivity findings are resolved. References and chronological evidence:
+NATIVE_DISCOVERY_MODERATION_CONTRACT.md, NATIVE_SEARCH_REFERENCE.md/.json,
+NATIVE_SEARCH_VERIFICATION.md and docs/evidence/ticket19/REVIEW.md.
+
+Latest focused source34c4c6763023a0cd202158391545903395658455:
+- Android17 search38144936110:9PASS70.297s. Independent edit survives stale
+  original-only Archive after clearing post caches/fresh Activity. Signed deletion
+  plus both exact-target absence queries remains absent on another fresh stale
+  search matching BOTH original and edited text. Wallet/allauth/noTX PASS.
+- Existing cache-save/repair/offline journey38144386270:8PASS78.271s atfcfb404.
+- Opted native public reads38144937787:OWNER1PASS9.214s/OFFICIAL1PASS7.759s.
+  Both new no-field4 search criteria respond: ordinary100rows/90posts/0ignored,
+  quote4rows/0commentaryposts/0ignored. Counts do not establish exhaustive history
+  or explain row/post differences. This is separate from unavailable Registry.
+- Push38144926841 source/core/debug/test/release/lintPASS. Latest test/source
+  compilePASS1m28s. No private wallet material or production writer touched.
+
+Root individually viewed two new author originals and two save-recovery originals,
+parsed each separate XML, and inspected unchanged logs/public metadata reports.
+Durable author-green/save-green/public-green hashes and claims checked by both
+reviewers with0 findings. Earlier RED/GREEN evidence remains in ticket19 folders;
+no need to repeat unaffected checkpoints. No fabricated RED for existing save or
+author behavior. No actual process-death or physical-device claim from these
+focused Activity reopen journeys.
+
+Final original full pair at6c489bfa700e1fde73c3f43ba446980c11ad58d4:
+Android10run38145371958 FAILED before Search at existing queued-wallet import
+fixture (posting18cases/17PASS/1FAIL102.61s); Browse/Following8each and actual
+posting process-death/cold PASS. Captured nativewalletdialog, no external picker
+or validated preview; exact timing cause unproved. Durable full10-first-failure.
+Fixture correction15a3986 reuses maintained chooseWalletImport with native
+Compose synchronization/scoped drawer/positive incoming preview and provisioned
+file/size check; all wallet/queue assertions remain. CompilationPASS1m24s/bothboundedaxes0; corrected outstanding full10 next.
+Android17run38145373388 remains ACTIVE. Both full runs optedpublic reads.
+Do not cancel the unaudited Android17 run. After fix review/compile, dispatch the
+outstanding full10 scope; product source remains unchanged. Inspect retained full
+logs/counts/critical originals after completion, record applicable assumptions,
+and finish final evidence/review before closing#20. No final acceptance yet.
+Production/app/core/scripts/build/workflow unchanged afterfd35b02; later commits
+retain evidence/docs and the described posting import fixture correction. Current local changes are docs only plus protected future
+research. Then recheck and claim ready#21 sequentially. Read-only preparation is
+ignored .scratch/personal-controls-plan.md, not another spec or active ticket.
 
 Protected future untracked: build-support/references/private-chat-reference.cjs;
 NATIVE_NOTIFICATIONS_CONTRACT,
@@ -158,8 +134,8 @@ Initial wallet/live-feed milestone is published as stable signed version10
 Compose bitmaps had inconsistent labels; use each report's stated evidence
 limits. #9 also has official bitmap inconsistencies; no invented cause.
 
-Next: #20 search after the parked #19 checkpoint. Owner reviews the completed app; no intermediate
-phone-review gate is required.
+Next: finish #20 final acceptance, then recheck and claim #21 sequentially. Owner
+reviews the completed app; no intermediate phone-review gate is required.
 
 ## Verification already inspected
 
@@ -238,61 +214,3 @@ NATIVE_SAITO_TRANSFER_CONTRACT, NATIVE_PRIVATE_CHAT_CONTRACT and
 NATIVE_GROUP_CHAT_CONTRACT (all .md under docs/research). The protected future notes remain uncommitted and must be included only with
 their own relevant tickets; earlier contracts are already committed.
 They establish source contracts, not runtime or feature completion.
-
-
-Save-failure recovery tracer aa112f4 compiles PASS1m17s. It exercises existing
-live-result/savewarning behavior through the actual public-cache obstruction,
-repair and a fresh offline Activity, with same-wallet/all-client-key/no-TX gates.
-No manufactured missing-feature RED. Bounded review found setup outside protected
-cleanup and sequential restoration that could mask the primary failure. Fixed
-952fb55: protect setup immediately after successful rename, reject stale preserved
-fixture, attempt all cleanup operations and suppress secondary errors. Both
-bounded axes now0 residual findings; fixed test compilation/native pending.
-Post-GREEN fixture cleanup6d22b40 shares unchanged guarded public-history reset.
-One remaining consequential integration journey: independently signed author
-edit and confirmed deletion must affect search and survive stale Archive reopen.
-No final #20 acceptance or live/physical claim.
-
-Fixed cache-failure fixture952fb55 compiles PASS1m18s; both bounded axes0.
-First focused native verification of the eight search journeys is next.
-
-
-Cache-save recovery GREEN38144386270 atfcfb404:8PASS78.271s, focused source/core/
-debug/test PASS; push38144377059 release/lintPASS. Root individually viewed
-both new originals and separate XMLs, rawlog/pairs retained ticket19/save-green.
-Live results/savewarning, repair/fresh offline Activity, wallet/allauth/noTX PASS.
-No manufactured RED, actualprocessdeath/live/physical/final acceptance.
-Author revision journey d1785e5 compiledPASS1m19s. Both axes found final-query
-falsepass if edit survives but deletion does not; fixed5302544 query'ed' matches
-both original'Red' and'edited'. FixedcompilePASS1m19s/bothboundedaxes0.
-New optedpublicreads fd35b02 inside existing live-feed journey check both search
-streams with fixed100/flaggedne1/timestamp/no field4 criteria and strictsigned
-readers; allow validempty and retain rejected-row counts, require harnessreport.
-CompilationPASS1m28s. Whole-ticket Spec0 source findings; Standards pending.
-First author native/publicreads and final full10/17 pending.
-
-
-Whole-ticket review3be555be...fd35b02: Spec0 actionable source/fixture findings;
-Standards0 residual hard violations/0 actionable heuristic smells. Existing
-fixes remain intact. Both reviewers validate save-green six hashes/raw8PASS.
-At34c4c67, focused author/search9run38144936110 and optedpublicfeed17
-run38144937787 are active. Author/source and publicreadfixturecompiled as
-recorded; no new runtime acceptance or finalfull10/17 claim yet.
-
-
-Author-revision GREEN38144936110 at34c4c67:9PASS70.297s, all existing8PASS
-plus independentedit/stale-reopen/deletion/exact2streamabsence/freshstaleempty
-journey. Root individually viewed2neworiginalPNGs/separateXML; unchangedrawlog/
-pairs retained ticket19/author-green. Wallet/allauth/noTX/peerhealthy PASS.
-Focused source/core/debug/test PASS. Optedpublicread38144937787 remains active.
-Finalfull10/17 notyetdispatched. No manufacturedRED/processdeath/physicalclaim.
-
-
-Opted public search GREEN38144937787 at34c4c67: OWNER1PASS9.214s/
-OFFICIAL1PASS7.759s. Both ordinary100rows/90posts/0ignored and currentquote
-4rows/0commentaryposts/0ignored respond to fixed100/flaggedne1/currentcursor/
-no-field4 criteria. Root inspected rawnative logs/metadatareports retained
-ticket19/public-green. No new searchbitmap/directread UIclaim; no livewrites.
-Wallet/selectedbackend continuity PASS. Push38144926841 release/lintPASS.
-Bothwhole source axes0. Finalsame-sourcefull10/17 next. Registry limitation
-remains explicit; no final #20, chain or physical claim.
