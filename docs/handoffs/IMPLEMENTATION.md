@@ -116,7 +116,10 @@ terminal143; packaging confirmationPASS20s(all50up-to-date), cause not
 established for original contradictoryterminalresult. Possible
 duplicated fixture setup judgment reserved afterGREEN. Savefailure and
 authorrevision application recovery also remain.
-Knownpeople/namefailuresstillpending. People/durable cache/full acceptance pending;
+Knownpeople prefixes PASS. Per-card qualificationGREEN38143378676 at729acfb:
+7PASS72.724s, negative/forged/recovery/wallet/noTX PASS. New individuallyviewed
+originalPNG/XML/log ticket19/name-qualified-green. Push38143343479 release/
+lintPASS. Savefailure/authorrevision recovery and finalfull acceptance remain.
 no #20 acceptance yet.
 Accepted seams1–4 unchanged.
 Search preparation ignored .scratch/search-design.md plus protected contract.
