@@ -88,6 +88,40 @@ class UsernamePreviewTest {
         }
     }
 
+    @Test fun settingsDiscoversAnExistingUsernameWithoutOpeningTheFeedOrProfile() = withRegistryWallet { fixture ->
+        val reference = instrumentation.context.assets.open("native-registry-reference.json").bufferedReader()
+            .use { JsonParser.parseReader(it).asJsonObject }
+        val peer = discoveryPeer(fixture.publicKey) { reference.getAsJsonArray("rows").toString() }
+        peer.start().use { server ->
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                // Isolate Settings discovery from names already looked up by cached feed rows.
+                .putExtra("feedDisabled", true)
+                .putExtra("usernameFixtureRegistrar", true)).use {
+                withFailureCapture({ capture("username-settings-discovery-failure.png") }) {
+                    waitForEnabled("Settings")
+                    if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
+                    ui.onNodeWithText("Settings").performClick()
+                    ui.onNodeWithText("Saito username").performClick()
+                    waitForText("This username is registered to your wallet.")
+                    ui.onNodeWithText("NativeCase7@saito").assertIsDisplayed()
+                    ui.onAllNodesWithText("Register name").assertCountEquals(0)
+                    ui.onAllNodesWithText("Retry registration").assertCountEquals(0)
+                    assertTrue(peer.registryQueries.any { it.get("request").asString == "registry query" &&
+                        it.getAsJsonArray("keys").any { key -> key.asString == fixture.publicKey } })
+                    assertTrue(peer.registryQueries.any { it.get("request").asString == "registry namecheck" &&
+                        it.get("identifier").asString == "NativeCase7@saito" })
+                    capture("username-settings-discovered.png", "NativeCase7@saito")
+                    ui.onNodeWithText("Back").performClick()
+                    ui.onNodeWithText("Wallet").performClick()
+                    assertEquals(fixture.publicKey, displayedWalletAddress(ui))
+                    assertTrue(peer.clientKeys.all { it == fixture.publicKey })
+                    assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
+                }
+            }
+        }
+    }
+
     @Test fun anExistingWalletDiscoversItsVerifiedNameWithoutRegisteringAgain() = withRegistryWallet { fixture ->
         val reference = instrumentation.context.assets.open("native-registry-reference.json").bufferedReader()
             .use { JsonParser.parseReader(it).asJsonObject }
