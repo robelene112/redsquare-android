@@ -17,6 +17,113 @@ import java.util.concurrent.atomic.AtomicInteger
 class SearchPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
 
+    @Test fun verifiedAuthorEditsAndDeletionsSurviveStaleSearchHistory() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        check(context.packageName == "nl.davidengelen.redsquare.dev")
+        check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
+        AndroidBackendStore(context).save(SaitoBackend.OWNER)
+        clearPublicSearchHistory(context)
+        val actions = instrumentation.context.assets.open("native-author-actions-reference.json").bufferedReader()
+            .use { JsonParser.parseReader(it).asJsonObject }
+        val originalText = "Native Red Square reference post"
+        val editedText = "Independently edited original text"
+        val empty = "No matching posts in the history searched so far."
+        val mode = AtomicInteger(0)
+        val targetReads = java.util.concurrent.CopyOnWriteArrayList<String>()
+        val peer = ControlledFeedPeer("[]", archiveResponse = { criteria ->
+            when {
+                criteria.has("field4") -> "[]"
+                criteria.has("sig") -> {
+                    check(mode.get() == 2)
+                    check(criteria.keySet() == setOf("request", "field1", "sig", "limit"))
+                    check(criteria.get("sig").asString == actions.getAsJsonObject("original").get("sig").asString)
+                    check(criteria.get("limit").asInt == 1)
+                    targetReads.add(criteria.get("field1").asString)
+                    "[]"
+                }
+                else -> {
+                    check(criteria.keySet() == setOf("request", "field1", "flagged_ne", "limit", "created_earlier_than"))
+                    check(criteria.get("limit").asInt == 100 && criteria.get("flagged_ne").asInt == 1)
+                    val row = when (mode.get()) { 1 -> "edited"; 2 -> "deleted"; else -> "original" }
+                    "[${actions.get(row)}]"
+                }
+            }
+        })
+        peer.start().use { server ->
+            val intent = Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+            var owner = ""
+            ActivityScenario.launch<MainActivity>(intent).use {
+                withFailureCapture({ captureNativeScreen(File(context.cacheDir, "search-evidence/author-edit-failure.png")) }) {
+                    waitForEnabled("New post")
+                    if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
+                    ui.onNodeWithText("Wallet").performClick()
+                    owner = displayedWalletAddress(ui)
+                    ui.onNodeWithText("Done").performClick()
+                    ui.onNodeWithText("Search").performClick()
+                    ui.onNode(hasSetTextAction()).performTextInput("reference")
+                    waitForEnabled("Search history")
+                    ui.onNodeWithText("Search history").performClick()
+                    waitForEnabled("Search history")
+                    ui.onNodeWithText(originalText).assertIsDisplayed()
+                    mode.set(1)
+                    ui.onNode(hasSetTextAction()).performTextReplacement("Independently")
+                    ui.onNodeWithText("Search history").performClick()
+                    waitForEnabled("Search history")
+                    ui.onNodeWithText(editedText).assertIsDisplayed()
+                    ui.onAllNodesWithText(originalText).assertCountEquals(0)
+                    peer.assertHealthy()
+                }
+            }
+            clearPublicSearchHistory(context, preserveAuthorProofs = true)
+            mode.set(0)
+            ActivityScenario.launch<MainActivity>(intent).use {
+                withFailureCapture({ captureNativeScreen(File(context.cacheDir, "search-evidence/author-delete-failure.png")) }) {
+                    waitForEnabled("New post")
+                    ui.onNodeWithText("Search").performClick()
+                    ui.onNode(hasSetTextAction()).performTextInput("Independently")
+                    waitForEnabled("Search history")
+                    ui.onNodeWithText("Search history").performClick()
+                    waitForEnabled("Search history")
+                    ui.onNodeWithText(editedText).assertIsDisplayed()
+                    ui.onAllNodesWithText(originalText).assertCountEquals(0)
+                    captureNativeScreen(File(context.cacheDir, "search-evidence/author-edit-stale-reopen.png"), editedText)
+                    mode.set(2)
+                    ui.onNodeWithText("Search history").performClick()
+                    waitForEnabled("Search history")
+                    ui.onNodeWithText(empty).assertIsDisplayed()
+                    ui.onAllNodesWithText(editedText).assertCountEquals(0)
+                    assertEquals(listOf("RedSquare", "RedSquareRetweet"), targetReads.toList())
+                    peer.assertHealthy()
+                }
+            }
+            clearPublicSearchHistory(context, preserveAuthorProofs = true)
+            mode.set(0)
+            ActivityScenario.launch<MainActivity>(intent).use {
+                withFailureCapture({ captureNativeScreen(File(context.cacheDir, "search-evidence/author-stale-deleted-failure.png")) }) {
+                    waitForEnabled("New post")
+                    ui.onNodeWithText("Search").performClick()
+                    // Match the stale original, so losing the deletion proof cannot pass through a text mismatch.
+                    ui.onNode(hasSetTextAction()).performTextInput("reference")
+                    waitForEnabled("Search history")
+                    ui.onNodeWithText("Search history").performClick()
+                    waitForEnabled("Search history")
+                    ui.onNodeWithText(empty).assertIsDisplayed()
+                    ui.onAllNodesWithText(originalText).assertCountEquals(0)
+                    ui.onAllNodesWithText(editedText).assertCountEquals(0)
+                    ui.onAllNodesWithText("Some history could not be searched. Available results are still shown. Try again.").assertCountEquals(0)
+                    captureNativeScreen(File(context.cacheDir, "search-evidence/author-delete-stale-reopen.png"), empty)
+                    ui.onNodeWithText("Wallet").performClick()
+                    assertEquals(owner, displayedWalletAddress(ui))
+                    assertTrue(peer.clientKeys.isNotEmpty() && peer.clientKeys.all { it == owner })
+                    assertTrue(peer.transactions.isEmpty())
+                    peer.assertHealthy()
+                }
+            }
+        }
+    }
+
     @Test fun failedSearchSavingKeepsLiveResultsAndRepairRestoresOfflineReading() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
@@ -724,11 +831,12 @@ class SearchPreviewTest {
         if (primary == null) failure?.let { throw it }
     }
 
-    private fun clearPublicSearchHistory(context: android.content.Context) {
+    private fun clearPublicSearchHistory(context: android.content.Context, preserveAuthorProofs: Boolean = false) {
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
         context.noBackupFilesDir.listFiles()?.filter {
-            listOf("feed.", "conversation.", "profile.", "search.", "authorposts.").any(it.name::startsWith)
+            listOf("feed.", "conversation.", "profile.", "search.").any(it.name::startsWith) ||
+                (!preserveAuthorProofs && it.name.startsWith("authorposts."))
         }?.forEach { check(it.delete()) { "Could not reset public search fixtures" } }
     }
 
