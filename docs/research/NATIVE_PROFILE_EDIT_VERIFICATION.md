@@ -979,3 +979,41 @@ local build and intended RED pending. No production remediation yet.
 Corrected same-tracer local debug/test build PASS1m7s, exit0, retained rawlog.
 Both reviewers independently confirmed the title-match gap and inspected both
 original audit images/XML/logs. No production change; intended RED pending.
+
+Bounded f3d5136...3c757d6 Standards0/Spec0; both reviewers independently
+confirm corrected clickable PUBLIC retry gate and audit qualification. Corrected
+Android10 intended RED38105828806 running. Production unchanged. Read-only
+design review prefers an internal pre-write callback over duplicate strict UTF8
+encoding: only after codec/encryption/file validation, under the existing lock,
+install the defensive-copy attempted-outcome witness immediately before write.
+This remains a proposal until corrected runtime failure; no implementation.
+
+Old invalid-gate Android17 f3d5136/38105678928 also PASS: editor7/54.491s,
+publisher5/27.709s, media2/17.6s, all14 reported cases. Root individually viewed
+both late-save originals and retained exact PNG/XML/rawlogs under gate-audit/
+android17. Same qualification: truthful error and cold recovered bio, no mounted
+retry completion proof. It does not justify production acceptance or remediation.
+
+Corrected tracer 3c757d6 Android10 38105828806 expected RED at99: repaired
+Save draft never returns clickable public Edit profile. Editor7/46.297s, exactly
+new late-save failure; other six pass. Publisher5/25.868s (fourpass/one API30+ skip), media2/18.568s PASS.
+First truthful error/changed synthetic ciphertext/typed editable bio/zeroTX
+assertions pass, permissions restored BEFORE second click and failure capture.
+Both original PNGs individually inspected and exact XML/class rawlogs retained
+profile-late-save-red/android10: same editor/error/bio before and after repaired
+retry. Cold phase is unreachable in this RED, no cold recovery claim from it.
+Source38105828524 PASS49/debug/test/release/lint.
+Minimal remedy now written: per-store defensive-copy attempted outcome with exact
+mounted anchor and validated previous/intended records; recognize only those
+exact own outcomes through repeated pre/post-write errors. Shared writer internal
+pre-write callback installs marker after codec/encryption/file validation, under
+existing lock; failed prevalidation preserves previous marker. Verified write
+clears marker; failure still throws, readable unsynced bytes are not success.
+Same candidate/frozen changes/newer/historical guards remain. Exact own cleared
+empty record can be rewritten and verified on retry, including previous outcome
+after a later pre-commit failure. Prepared candidate is retained in RAM before
+persistence so failure cannot cause new signing; all network use still requires
+verified candidate persistence. Local build/review/dual GREEN pending.
+
+Late-retry local core/debug/test build PASS1m57s, exit0, retained rawlog.
+Core49 unchanged; corrected native dual GREEN and committed review pending.

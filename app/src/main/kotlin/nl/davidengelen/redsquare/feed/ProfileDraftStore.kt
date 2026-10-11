@@ -26,6 +26,11 @@ internal class ProfileDraftStore(private val context: Context, private val owner
         val hasWork: Boolean get() = !available && (changes.size() > 0 || transaction != null)
     }
 
+    // A failed save can already have replaced the file. Keep only this store's
+    // exact mounted anchor and pre/post-write outcomes, not arbitrary stale records.
+    private data class Attempt(val anchor: Saved, val previous: Saved, val intended: Saved)
+    private var attempt: Attempt? = null
+
     fun load(): Saved = synchronized(SaitoLocalState.lock) {
         val contents = file.load() ?: return@synchronized Saved()
         val record = requireNotNull(gson.fromJson(contents.text, JsonObject::class.java))
@@ -59,7 +64,7 @@ internal class ProfileDraftStore(private val context: Context, private val owner
         validate(saved)
         val current = load()
         // Revision survives clears, distinguishing a new empty draft from an old mounted one.
-        if (!same(current, expected)) {
+        if (!same(current, expected) && ownAttempt(expected, current) == null) {
             check(current.transaction != null && expected.transaction?.encoded() == current.transaction.encoded() &&
                 expected.changes == current.changes)
         }
@@ -72,19 +77,34 @@ internal class ProfileDraftStore(private val context: Context, private val owner
             }
             saved.copy(available = superseding == null && (current.available || saved.available), superseding = superseding)
         }).copy(revision = Math.addExact(current.revision, 1))
-        write(replacement)
+        write(replacement, expected, current)
         replacement
     }
 
     /** Clear only this confirmed candidate; preserve progress a stale editor has not observed. */
     fun clearAvailable(id: String, expected: Saved): Saved = synchronized(SaitoLocalState.lock) {
         val current = load()
-        check(current.transaction?.id == id)
-        if (!same(current, expected) || !current.available || current.superseding != null) return@synchronized current
-        Saved(revision = Math.addExact(current.revision, 1)).also(::write)
+        val retry = ownAttempt(expected, current)
+        if (current.transaction?.id != id) {
+            // Retry only our exact already-committed clear, never another empty record.
+            check(retry != null && retry.anchor.transaction?.id == id &&
+                empty(retry.intended) && empty(current))
+        } else if ((!same(current, expected) && retry == null) || !current.available || current.superseding != null) {
+            return@synchronized current
+        }
+        Saved(revision = Math.addExact(current.revision, 1)).also { write(it, expected, current) }
     }
 
-    private fun write(saved: Saved) {
+    private fun ownAttempt(expected: Saved, current: Saved): Attempt? = attempt?.takeIf {
+        same(it.anchor, expected) && (same(current, it.previous) || same(current, it.intended))
+    }
+
+    private fun empty(saved: Saved): Boolean = saved.changes.size() == 0 && saved.transaction == null &&
+        !saved.available && saved.superseding == null
+
+    private fun witness(saved: Saved): Saved = saved.copy(changes = saved.changes.deepCopy())
+
+    private fun write(saved: Saved, expected: Saved, previous: Saved) {
         validate(saved)
         val record = JsonObject().apply {
             add("changes", saved.changes.deepCopy())
@@ -93,8 +113,13 @@ internal class ProfileDraftStore(private val context: Context, private val owner
             addProperty("revision", saved.revision)
             saved.superseding?.let { addProperty("superseding", it.updates.single().envelope) }
         }
-        file.save(EncryptedLocalFile.Contents(2, record.toString()))
+        file.save(EncryptedLocalFile.Contents(2, record.toString())) {
+            // Codec validation completed. Earlier failures preserve the prior witness;
+            // later failures retain both possible outcomes of this attempt.
+            attempt = Attempt(witness(expected), witness(previous), witness(saved))
+        }
         check(same(load(), saved)) { "Profile draft persistence verification failed" }
+        attempt = null
     }
 
     fun claim(id: String): Boolean = synchronized(SaitoLocalState.lock) {

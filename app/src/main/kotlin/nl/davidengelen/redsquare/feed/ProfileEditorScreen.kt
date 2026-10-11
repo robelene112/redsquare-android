@@ -200,8 +200,9 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
                             val timestamp = maxOf(System.currentTimeMillis(), Math.addExact(
                                 baseline.updates.maxOfOrNull { it.createdAt } ?: 0, 1))
                             val prepared = SaitoTransaction.create(wallet, SaitoProfiles.message(baseline, changes), timestamp)
-                            withContext(NonCancellable) { save(ProfileDraftStore.Saved(changes, prepared)) }
+                            // A late persistence error must not cause a retry to sign new bytes.
                             withContext(Dispatchers.Main.immediate) { candidate = prepared }
+                            withContext(NonCancellable) { save(ProfileDraftStore.Saved(changes, prepared)) }
                             prepared
                         }
                         PostDeliveryAttempts.run(transaction.id) {

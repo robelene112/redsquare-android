@@ -55,7 +55,8 @@ internal class EncryptedLocalFile(private val context: Context, filename: String
         } finally { plaintext.fill(0) }
     }
 
-    fun save(contents: Contents) = synchronized(SaitoLocalState.lock) {
+    /** beforeWrite records a validated attempt, never a successful commit. */
+    fun save(contents: Contents, beforeWrite: () -> Unit = {}) = synchronized(SaitoLocalState.lock) {
         require(contents.version in 1.toByte()..2.toByte())
         val encoded = Charsets.UTF_8.newEncoder().onMalformedInput(CodingErrorAction.REPORT)
             .onUnmappableCharacter(CodingErrorAction.REPORT).encode(CharBuffer.wrap(contents.text))
@@ -80,6 +81,7 @@ internal class EncryptedLocalFile(private val context: Context, filename: String
             byteArrayOf(contents.version) + cipher.iv + cipher.doFinal(plaintext)
         } finally { plaintext.fill(0) }
         require(!file.baseFile.exists() || file.baseFile.isFile)
+        beforeWrite()
         val output = file.startWrite()
         try {
             output.write(encrypted)
