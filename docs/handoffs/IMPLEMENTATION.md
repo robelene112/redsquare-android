@@ -74,10 +74,12 @@ request/recreation/read-only reopen/exact retry PASS38114695697, with actual
 frame independently verified by pinned WASM/Elliptic. Confirmation tracer
 RED38114940866 rejects synthetic proof under the production authority as expected.
 Current minimal cache/authority implementation compiles debug/test in2m9s;
-review/focused runtime pending. Verified-name cache is separate from immutable
+both review axes0, focused10 run38115491755 PASS3cases/13.224s. Verified-name cache is separate from immutable
 request state and preserves saved knowledge through unavailable checks. Emulator
 fixture authority is strictly debug/loopback/explicit, never real namespace proof.
-See username verification and ticket18 evidence. Remaining #19 work includes
+Next tracercb6ffd5 actual registration/confirmed recovery/own-profile display is
+dispatched focused10 run38115737996 for expected absent-name RED. See username
+verification and ticket18 evidence. Remaining #19 work includes
 actual-send confirmation, failure/isolation/import safeguards, shared display,
 actual process death and applicable cross-client/full SDK acceptance.
 

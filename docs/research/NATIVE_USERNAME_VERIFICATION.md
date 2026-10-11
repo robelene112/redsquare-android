@@ -157,3 +157,21 @@ Reopening checks read-only, retains the saved name during unavailable checks and
 never describes an unavailable check as current ownership confirmation. Native
 GREEN, review and actual-send confirmation remain pending. Other wallet-import,
 process-death and name-display acceptance remains incomplete; #19 stays open.
+
+Both independent review axes forac30571...3ae7477 report0 actionable findings.
+Focused10 run38115491755 on3ae7477 passes3cases/13.224s, source/core/debug/test
+build1m25s. Exact active verified name is displayed; recreation performs a new
+actual unavailable Registry read, retains the saved full name without a current
+ownership claim, zero broadcasts, same public wallet and enabled New post after
+Back. Root individually viewed both confirmation/recovery PNGs and inspected
+separate XMLs. Verbatim originals/log/hashes retained at first-confirmation-green.
+This is an explicitly bounded synthetic authority, not actual namespace ownership
+or process death. #19 remains open.
+
+Next tracercb6ffd5 requires actual compatible registration followed by signed
+proof, then an empty read after recreation without resend and own-profile full
+name/public-key display. Local debug/test compile1m7s preceded two bounded
+fixture corrections: existing Your profile label and explicit zero-publication
+assertion before Register tap. Both fixes reviewed with0 residual hard findings;
+localized wallet-fixture duplication is a review-stage refactor after GREEN.
+Focused10 run38115737996 dispatched; expected absent-profile-name RED pending.
