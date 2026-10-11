@@ -146,7 +146,10 @@ implemented. CompilePASS2m3s; GREEN38157057749 at2309d4d passes5cases88.55s/
 allendgates. Rootviews3new originals/separateXML; save-green8hashes. Product
 Spec0new, Standards1residualremoved-anchor recreationfailure skipsactive
 restoration. NewSINGLEnativeobstruction/repair/coldold-policytracer beforefix,
-DEBUGpersonalremovalOSseam, compilePASS2m25s; first6caseRED next.
+DEBUGpersonalremovalOSseam, compilePASS2m25s. Preliminary6caseattempt38157802202
+cancelledbeforebothSDKruntime steps: reviewfoundUnmuteactions absentwhenreadyfalse,
+notdisabled. Correct toabsence+positiveRetry withothergates unchanged. Compile
+PASS1m16s; firstactual6caseRED next. Underlyingrestorationfinding remainsopen.
 Identity/processdeath/
 corruption probes and final pairedSDKacceptance remainpending. Block, other-view filters and late-save recovery still require further
 vertical journeys; no final #21 acceptance/new APK claimed. Scope/verification plan: NATIVE_PERSONAL_CONTROLS_VERIFICATION.md.

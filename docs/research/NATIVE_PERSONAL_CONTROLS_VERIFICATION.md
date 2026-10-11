@@ -251,3 +251,14 @@ callbackdefaults unchanged; DEBUGfixture only personalrecoveryremoval. Noactive
 restoration-sequencingfix ahead of observedRED. Compile6caseRED next.
 
 Removed-anchor recreation-obstruction tracer compilation PASS2m25s; first6caseRED next.
+
+Removalfixture review2309d4d...b8bf2cd: Spec1 actionable preliminaryguard mismatch:
+management removesallaccountactions whenreadyfalse, so disabledUnmuteassertion
+wouldstop before intendedcoldcheck. Confirmedactualdialogsource; firstattempt
+38157802202 cancellationrequested while sourcebuildactive, not a runtimeRED.
+Correctfixture to requireUnmuteabsence+positiveRetry alongsideexistingexplicit
+recoverycopy/noauthoredlist; allrepairedfreshMute/filter/endgates unchanged.
+RecompileanddispatchcorrectedfirstRED beforeproductfix. No appsource change.
+
+38157802202 confirmedcancelled; bothSDKruntime stepsskipped. Correctedmissing
+Unmute/positiveRetry fixture compilePASS1m16s. Firstactual6caseRED next.
