@@ -331,7 +331,13 @@ on successful chmod path. Both bounded cleanup reviews clear. Current source
 persists a conservative attempted marker and keeps original wallet/backend
 authority locked through signed enqueue. Legacy records stay unknown; explicit
 retry retains uncertainty. Cleanup clears saved mode with set after success.
-Correction runtime pending; no atomic-switch/process acceptance claimed.
+Correction38173684709 at4e53ddd passes6cases42.139s; root3originals/
+separate3XMLs show not-sent/recreatednot-sent/explicitrepairedack,
+not-sent-green8hashes. Both bounded source reviews clear. Standards fixture
+port0 finding fixed3609e3b using explicit numericport for bothlisteners; both
+fix reviews0. Runtime predates that fixture-only correction. Next single case
+checks both approved destinations, independent receipts, reopening and original
+owner exactretry. No atomic-switch/process acceptance claimed.
 Ticket22 remains incomplete: failure/durability/identity/backend isolation,
 actual process interruption and final both-SDK acceptance/reviews still required.
 Its source contract is prepared in NATIVE_DISCOVERY_MODERATION_CONTRACT.md and

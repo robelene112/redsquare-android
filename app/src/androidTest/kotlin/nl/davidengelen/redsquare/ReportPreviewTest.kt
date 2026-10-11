@@ -314,6 +314,67 @@ class ReportPreviewTest {
         }
     }
 
+    @Test fun switchingBackendsKeepsReportsAndAcknowledgementsWithTheirOriginalDestination() {
+        val root = InstrumentationRegistry.getInstrumentation().context.assets.open("native-feed-reference.json")
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow") }
+        val owner = ControlledFeedPeer("[$root]").apply { disconnectAfterReport = true }
+        val official = ControlledFeedPeer("[$root]")
+        owner.start().use { ownerServer ->
+            official.start().use { officialServer ->
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${ownerServer.port}/wsopen")
+                    .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${officialServer.port}/wsopen")).use { activity ->
+                    withFailureCapture({ capture("backend-isolation-failure.png") }) {
+                        ui.clickVisiblePostContent("Report")
+                        ui.onNodeWithText("Send report").performClick()
+                        val uncertain = "Report delivery to saito.davidengelen.nl is unknown. Try again to send the same report."
+                        waitFor(uncertain)
+                        val first = owner.reports.single()
+                        val original = first.copyOfRange(5, first.size)
+                        capture("backend-owner-unknown.png", uncertain)
+                        ui.onNodeWithText("Done").performClick()
+                        ui.onNodeWithText("Settings").performClick()
+                        ui.onNodeWithText("saito.io", substring = false).performClick()
+                        waitFor("Server: saito.io")
+                        ui.clickVisiblePostContent("Report")
+                        ui.onNodeWithText("Report to saito.io?").assertIsDisplayed()
+                        capture("backend-official-confirmation.png", "Report to saito.io?")
+                        assertEquals(1, owner.reports.size); assertTrue(official.reports.isEmpty())
+                        ui.onNodeWithText("Send report").performClick()
+                        val officialAck = "Report acknowledged by saito.io. Moderator review is separate."
+                        waitFor(officialAck)
+                        capture("backend-official-acknowledged.png", officialAck)
+                        val separate = official.reports.single()
+                        assertFalse(original.contentEquals(separate.copyOfRange(5, separate.size)))
+                        ui.onNodeWithText("Done").performClick()
+                        activity.recreate()
+                        ui.clickVisiblePostContent("Report details")
+                        waitFor(officialAck)
+                        assertEquals(1, official.reports.size)
+                        ui.onNodeWithText("Done").performClick()
+                        ui.onNodeWithText("Settings").performClick()
+                        ui.onNodeWithText("saito.davidengelen.nl", substring = false).performClick()
+                        waitFor("Server: saito.davidengelen.nl")
+                        ui.clickVisiblePostContent("Retry report")
+                        waitFor(uncertain)
+                        capture("backend-owner-restored-unknown.png", uncertain)
+                        assertEquals(1, owner.reports.size); assertEquals(1, official.reports.size)
+                        owner.disconnectAfterReport = false
+                        ui.onNodeWithText("Send report").performClick()
+                        val ownerAck = "Report acknowledged by saito.davidengelen.nl. Moderator review is separate."
+                        waitFor(ownerAck)
+                        capture("backend-owner-retry-acknowledged.png", ownerAck)
+                        val retry = owner.reports.last()
+                        assertEquals(2, owner.reports.size); assertEquals(1, official.reports.size)
+                        assertArrayEquals(original, retry.copyOfRange(5, retry.size))
+                        assertTrue(owner.transactions.isEmpty()); assertTrue(official.transactions.isEmpty())
+                        owner.assertHealthy(); official.assertHealthy()
+                    }
+                }
+            }
+        }
+    }
+
     private fun waitFor(text: String) = ui.waitUntil(20_000) {
         ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
     }

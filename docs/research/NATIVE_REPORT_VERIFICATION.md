@@ -200,3 +200,14 @@ in SocialPreviewTest. Reserve an explicit numeric port before both listener
 lifetimes so MockWebServer enables reuse. Consent, endpoint and acceptance
 assertions unchanged. No report rebinding failure is claimed observed. Current
 38173684709 predates this fixture-only correction; runtime still pending.
+
+## Pre-transmission classification GREEN
+
+Android10 run38173684709 at4e53ddd:6PASS42.139s. Root3unchanged
+originals/separate3XMLs show not-sent, recreated not-sent and explicit repaired
+ack. Other5regressions pass. Durable ticket21/not-sent-green8hashes. Both
+bounded source and explicit-port fix reviews clear; this runtime predates
+fixture-only3609e3b. Next single native case exercises independent reports
+to both approved destinations, official receipt recreation and owner unknown
+recovery/exact retry, with no automatic reroute or resend. Production unchanged
+for this additional acceptance case; no deliberate RED defect is presumed.
