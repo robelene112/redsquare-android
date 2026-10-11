@@ -18,9 +18,7 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasAction
 import androidx.test.platform.app.InstrumentationRegistry
-import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
-import androidx.test.uiautomator.Until
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import nl.davidengelen.redsquare.saito.*
@@ -170,12 +168,7 @@ class ProfileProcessRecoveryTest {
         peer.start().use { server ->
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
-                try { block() }
-                catch (failure: Throwable) {
-                    try { capture("failure.png") }
-                    catch (captureFailure: Throwable) { failure.addSuppressed(captureFailure) }
-                    throw failure
-                }
+                withFailureCapture({ capture("failure.png") }, block)
             }
         }
     }
@@ -256,10 +249,6 @@ class ProfileProcessRecoveryTest {
     }
 
     private fun capture(name: String, expectedText: String? = null) {
-        val device = UiDevice.getInstance(instrumentation)
-        expectedText?.let { check(device.wait(Until.hasObject(By.text(it)), 10_000)) }
-        val file = File(context.cacheDir, "profile-process-evidence/$name").apply { parentFile?.mkdirs() }
-        device.dumpWindowHierarchy(File(file.parentFile, name.removeSuffix(".png") + ".xml"))
-        check(device.takeScreenshot(file))
+        captureNativeScreen(File(context.cacheDir, "profile-process-evidence/$name"), expectedText)
     }
 }

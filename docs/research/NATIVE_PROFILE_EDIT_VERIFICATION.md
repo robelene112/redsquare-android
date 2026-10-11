@@ -1179,3 +1179,29 @@ invented. Local test assembly running, Python/shell syntax PASS; runtime unprove
 
 Process tracer local debug/test assembly PASS1m11s, exit0, retained rawlog.
 Host Python and harness shell syntax PASS. Actual two-death proof pending.
+
+Full cumulative afce661...ed645ab Spec0/Standards0 remaining hard findings;
+tracked possible capture-helper duplication is the only review-stage cleanup.
+Actual ed645ab dual process GREEN: Android10 38109328015 editor7/33.591s,
+publisher5/24.451s (fourpass/oneAPI30+skip),media2/16.322s,new2/24.293s;
+Android17 38109329450 editor7/81.75s,publisher5/31.84s,media2/21.048s,
+new2/29.321s all16PASS. Source38109264540 PASS49/debug/test/release/lint.
+Each SDK has two real PID deaths and final recovery JUnit1PASS4.21s/5.913s,
+same public wallet/backend never reset on recovery, source images deleted before
+first kill, exact newest bio/prepared pixels recovered before explicit send,
+exact candidate retained after uncertain publication, read-only cold availability
+with zero further broadcasts, verified clear preserving public bio/pixels.
+First two runner Process crashed results are expected deliberate interruptions,
+not JUnit passes; host verifies current phase checkpoints and PID absence.
+All twelve originals individually viewed, XML/rawlogs/public checkpoints retained
+profile-process-green/android10|17. Bio is above scrolled media viewport, proven
+by exact runtime assertions rather than these bitmaps. PNG/XML non-atomic.
+No invented RED for this passing existing-implementation proof. Final full
+regression still pending. Narrow shared native screen capture/primary-preserving
+failure helper now extracted at review stage; assertions stay phase-local and
+all readiness gates remain. Local test compilation running; no production change.
+
+Review-stage capture extraction local test assembly PASS1m33s, exit0, retained
+rawlog. No production/assertion/readiness changes. Process capture now uses the
+same PNG-then-XML order; observations remain explicitly non-atomic. Committed
+bounded review and final full Android10/17 regression pending.

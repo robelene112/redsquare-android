@@ -539,20 +539,11 @@ class ProfileEditPreviewTest {
     }
 
     private fun captureFailure(name: String, block: () -> Unit) {
-        try { block() }
-        catch (failure: Throwable) {
-            try { capture(name) }
-            catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
-            throw failure
-        }
+        withFailureCapture({ capture(name) }, block)
     }
 
     private fun capture(name: String, expectedText: String? = null) {
         ui.waitForIdle()
-        val file = File(context.cacheDir, "profile-edit-evidence/$name").apply { parentFile?.mkdirs() }
-        val device = UiDevice.getInstance(instrumentation)
-        expectedText?.let { check(device.wait(Until.hasObject(By.text(it)), 10_000)) }
-        check(device.takeScreenshot(file))
-        device.dumpWindowHierarchy(File(file.parentFile, file.nameWithoutExtension + ".xml"))
+        captureNativeScreen(File(context.cacheDir, "profile-edit-evidence/$name"), expectedText)
     }
 }

@@ -7,8 +7,6 @@ import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.compose.ui.text.AnnotatedString
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
-import androidx.test.uiautomator.By
-import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.Until
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
@@ -314,18 +312,11 @@ class ProfileNewEditPreviewTest {
     private fun waitFor(text: String) = ui.waitUntil(25_000) { ui.onAllNodesWithText(text).fetchSemanticsNodes().isNotEmpty() }
 
     private fun captureFailure(block: () -> Unit) {
-        try { block() } catch (failure: Throwable) {
-            try { capture("profile-new-edit-failure.png") } catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
-            throw failure
-        }
+        withFailureCapture({ capture("profile-new-edit-failure.png") }, block)
     }
 
     private fun capture(name: String, expectedText: String? = null) {
         ui.waitForIdle()
-        val file = File(context.cacheDir, "profile-edit-evidence/$name").apply { parentFile?.mkdirs() }
-        val device = UiDevice.getInstance(instrumentation)
-        expectedText?.let { check(device.wait(Until.hasObject(By.text(it)), 10_000)) }
-        check(device.takeScreenshot(file))
-        device.dumpWindowHierarchy(File(file.parentFile, file.nameWithoutExtension + ".xml"))
+        captureNativeScreen(File(context.cacheDir, "profile-edit-evidence/$name"), expectedText)
     }
 }
