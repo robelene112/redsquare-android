@@ -287,3 +287,12 @@ NATIVE_SAITO_TRANSFER_CONTRACT, NATIVE_PRIVATE_CHAT_CONTRACT and
 NATIVE_GROUP_CHAT_CONTRACT (all .md under docs/research). The protected future notes remain uncommitted and must be included only with
 their own relevant tickets; earlier contracts are already committed.
 They establish source contracts, not runtime or feature completion.
+
+Next replacement tracer extends the verified-name preview/cancel flow with actual
+SAF replacement to public scalar2 using a fresh controlled zero-balance snapshot,
+explicit skip/acknowledgement/confirmation, clean incoming profile/Settings, new
+own-key lookup/handshake, recreated saved identity and zero broadcasts. Only
+known fixture identities may be restored in cleanup; all owned cleanup attempts
+preserve the primary failure. First debug/test compile passes1m19s before bounded
+review cleanup/sensitivity corrections; hosted build/runtime still pending.
+No actual replacement or new discovery acceptance is claimed from source alone.

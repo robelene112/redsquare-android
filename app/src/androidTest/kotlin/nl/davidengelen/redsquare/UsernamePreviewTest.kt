@@ -20,6 +20,9 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import java.io.File
+import java.net.InetAddress
+import mockwebserver3.MockWebServer
+import mockwebserver3.MockResponse
 
 class UsernamePreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
@@ -446,7 +449,7 @@ class UsernamePreviewTest {
         }
     }
 
-    @Test fun walletImportIdentifiesTheVerifiedNameThatBelongsToTheOutgoingWallet() = withRegistryWallet { fixture ->
+    @Test fun walletReplacementKeepsTheVerifiedNameWithItsOutgoingIdentity() = withRegistryWallet { fixture ->
         val reference = instrumentation.context.assets.open("native-registry-reference.json").bufferedReader()
             .use { JsonParser.parseReader(it).asJsonObject }
         val proof = reference.getAsJsonArray("rows").toString()
@@ -462,14 +465,20 @@ class UsernamePreviewTest {
             assertEquals("NativeCase7@saito", criteria.get("identifier").asString)
             proof
         }, archiveResponse = { "[]" })
+        val balanceServer = MockWebServer()
+        balanceServer.dispatcher = object : mockwebserver3.Dispatcher() {
+            override fun dispatch(request: mockwebserver3.RecordedRequest) = MockResponse.Builder()
+                .body("${System.currentTimeMillis()}-1234-${"a".repeat(64)}.snap\n").build()
+        }
+        balanceServer.start(InetAddress.getByName("127.0.0.1"), 0)
         var primary: Throwable? = null
         try {
             peer.start().use { server ->
                 val intent = Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("usernameFixtureRegistrar", true)
-                    .putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
-                ActivityScenario.launch<MainActivity>(intent).use {
+                    .putExtra("balanceApiUrl", "http://127.0.0.1:${balanceServer.port}/balance/")
+                ActivityScenario.launch<MainActivity>(intent).use { scenario ->
                     withFailureCapture({ capture("username-import-failure.png") }) {
                         openUsername()
                         waitForEnabled("Check name")
@@ -498,17 +507,74 @@ class UsernamePreviewTest {
                         ui.onNodeWithText("Your profile").performClick()
                         waitForText("NativeCase7@saito")
                         ui.onNodeWithText(fixture.publicKey).assertIsDisplayed()
-                        assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
+                        fun incomingLookups() = peer.registryQueries.count {
+                            it.get("request").asString == "registry query" &&
+                                it.getAsJsonArray("keys").any { key -> key.asString == incoming.publicKey }
+                        }
+                        val incomingLookupsBeforeReplacement = incomingLookups()
+                        // Cancelled preview kept the outgoing identity. Now perform the real replacement.
+                        ui.onNodeWithText("Wallet").performClick()
+                        ui.onNodeWithText("Import wallet").performScrollTo().performClick()
+                        chooseWalletImport(ui, filename, incoming.publicKey)
+                        waitForText("Server reports zero SAITO")
+                        ui.onNodeWithText("Skip backup").performScrollTo().performClick()
+                        ui.onNodeWithContentDescription("Replacement risks acknowledged").performScrollTo().performClick()
+                        ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsEnabled().performClick()
+                        waitForText("Wallet imported")
+                        assertEquals(incoming.publicKey, displayedWalletAddress(ui))
+                        ui.onNodeWithText("Done").performClick()
+                        waitForEnabled("Your profile")
+                        ui.onNodeWithText("Your profile").performClick()
+                        waitForText(incoming.publicKey)
+                        ui.onNode(hasText("Anon-${incoming.publicKey.take(6)}") and hasAnySibling(hasText(incoming.publicKey)),
+                            useUnmergedTree = true).assertIsDisplayed()
+                        ui.onAllNodesWithText("NativeCase7@saito").assertCountEquals(0)
+                        capture("username-import-replaced-profile.png", incoming.publicKey)
+                        ui.onNodeWithText("Back").performClick()
+                        openUsername()
+                        ui.onAllNodesWithText("NativeCase7@saito").assertCountEquals(0)
+                        ui.onAllNodesWithText("Retry registration").assertCountEquals(0)
+                        ui.onNode(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString("")))
+                            .assertIsEnabled()
+                        assertTrue("Imported identity must actually query its own key",
+                            incomingLookups() > incomingLookupsBeforeReplacement)
+                        assertTrue(peer.clientKeys.contains(incoming.publicKey))
+                        scenario.recreate()
+                        openUsername()
+                        ui.onAllNodesWithText("NativeCase7@saito").assertCountEquals(0)
+                        ui.onAllNodesWithText("Retry registration").assertCountEquals(0)
+                        ui.onNodeWithText("Back").performClick()
+                        ui.onNodeWithText("Wallet").performClick()
+                        assertEquals(incoming.publicKey, displayedWalletAddress(ui))
+                        capture("username-import-replaced-recreated.png", incoming.publicKey)
+                        assertTrue("Replacement must never register or replay outgoing work", peer.transactions.isEmpty())
+                        peer.assertHealthy()
                     }
                 }
             }
         } catch (failure: Throwable) { primary = failure; throw failure }
         finally {
-            try {
+            var cleanupFailure: Throwable? = null
+            fun cleanup(operation: () -> Unit) {
+                try { operation() }
+                catch (failure: Throwable) {
+                    val earlier = primary ?: cleanupFailure
+                    if (earlier != null) earlier.addSuppressed(failure) else cleanupFailure = failure
+                }
+            }
+            cleanup {
+                val store = AndroidWalletStore(context)
+                val active = store.loadExisting()
+                check(active.publicKey == fixture.publicKey || active.publicKey == incoming.publicKey)
+                if (active.publicKey == incoming.publicKey) store.replace(active, fixture)
+            }
+            cleanup { balanceServer.close() }
+            cleanup {
                 check(device.executeShellCommand("run-as nl.davidengelen.redsquare.dev.test rm files/wallet-test-documents/00-username-import.json").isBlank()) {
                     "Could not clear the public username import fixture"
                 }
-            } catch (cleanup: Throwable) { if (primary != null) primary.addSuppressed(cleanup) else throw cleanup }
+            }
+            cleanupFailure?.let { throw it }
         }
     }
 

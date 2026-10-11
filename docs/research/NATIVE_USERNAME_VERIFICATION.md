@@ -463,3 +463,12 @@ without a consistent bitmap or established capture cause. Durable originals/repo
 docs/evidence/ticket18/settings-discovery-green-feed-readiness-failure.
 The next bounded fixture waits for enabled Refresh before unchanged independent
 post/name assertions; no app change or Android17 GREEN claimed. #19 stays open.
+
+Next replacement tracer extends the verified-name preview/cancel flow with actual
+SAF replacement to public scalar2 using a fresh controlled zero-balance snapshot,
+explicit skip/acknowledgement/confirmation, clean incoming profile/Settings, new
+own-key lookup/handshake, recreated saved identity and zero broadcasts. Only
+known fixture identities may be restored in cleanup; all owned cleanup attempts
+preserve the primary failure. First debug/test compile passes1m19s before bounded
+review cleanup/sensitivity corrections; hosted build/runtime still pending.
+No actual replacement or new discovery acceptance is claimed from source alone.
