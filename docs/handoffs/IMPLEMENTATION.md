@@ -48,7 +48,12 @@ First primary tracer reads a signed reply omitted from general feed, navigates
 conversation/profile/back, recreates retainedquery/results, and checks samewallet/
 zeroTX. New focused search scopes and full harness stage. Native RED38132968601
 at511a214 fails only at absent Search entry,12.99s; original evidence ticket19/first-red.
-First native screen/selected Archive reads/retained navigation under implementation.
+First native screen/selected Archive reads/retained navigation at eceb9d6 passes
+Android17 focused38133595364,1PASS14.052s, original log/PNG/XML ticket19/first-green.
+Interim Standards1 stale-revision publication race guarded atcc590f0, final recheck
+pending; Spec1 next-tracer retention assertion gap corrected in working tests.
+Second partial-retry/paging tracer uses100 unique independent WASM posts plusolder/quote.
+Native second RED38134147254 atcc590f0 pending, Retry/paging intentionally absent.
 People, paging and durable search cache still pending; no #20 acceptance yet.
 Accepted seams1–4 unchanged.
 Search preparation ignored .scratch/search-design.md plus protected contract.

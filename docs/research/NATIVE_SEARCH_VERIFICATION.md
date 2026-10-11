@@ -52,3 +52,24 @@ with same wallet/authenticated client keys and zero transactions.
 The reviewer-found old-revision publication race is guarded by captured-list
 identity plus revision stamp before assignment. First tracer acceptance assertions
 are unchanged. This second test is compiling; native RED pending.
+
+Interim review atcc590f0: Spec1 tracer-sensitivity gap. Added positive reachable
+newest-result assertions after quote Retry and older paging, then returns to the
+older result for capture. Existing exact cursor/read-count/identity/nosend gates
+are retained. Source guard addresses the prior race; final source/device review
+is still required. Second RED run38134147254 pending.
+
+Standards review also identified that waiting for the older row's semantics
+before scrolling could reject a correctly loaded offscreen lazy item. The tracer
+now waits for the settled enabled Search history action, scrolls to the exact
+older text, and retains its positive display assertion and exact stream counts.
+Both findings concern test sensitivity/reachability, not a reproduced protocol
+or application failure. The captured-list/revision-stamp guard is clear in the
+committed source review.
+
+Second RED 38134147254 at cc590f0: two cases / 45.209s. Reply tracer PASS with
+guarded revision publication; partial-history tracer fails only at absent Retry
+search. Earlier positive newest-result/error/no-empty/recreation/read-count gates
+pass. Root viewed original failure bitmap and separate XML; artifacts retained
+in ticket19/paging-red. Reviewed test-only sensitivity/lazy reachability fixes
+are after the observed failure point and precede paging implementation.

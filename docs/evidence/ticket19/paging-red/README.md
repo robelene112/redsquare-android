@@ -1,0 +1,5 @@
+# Partial-history and paging RED
+
+Android 17 focused [38134147254](https://github.com/robelene112/redsquare-android/actions/runs/38134147254), source cc590f0. Two reported cases in 45.209s: the unchanged reply/navigation/recreation/wallet/no-transaction tracer passes with the publication guard, while the partial-history tracer fails only at the absent Retry search action. Earlier partial-result/error/no-empty assertions and recreation without repeating the completed ordinary read pass. Root viewed the original failure PNG and separate XML, showing the available newest result and qualified failure text with no Retry action.
+
+Interim review prompted later test-only corrections: explicitly recheck reachability of the newest result after Retry and paging; wait for completed reads/enabled action before scrolling to the older lazy item. These preserve exact cursor/count/visibility/identity/no-transaction gates, and occur after this run's missing Retry failure. The next test source was compiled before paging implementation. No paging or final acceptance is established.
