@@ -318,6 +318,11 @@ class UsernamePreviewTest {
     }
 
     @Test fun aPendingNameStaysWithItsWalletAndBackendDuringImportPreview() = withRegistryWallet { fixture ->
+        // Another module's work must not satisfy the Registry-specific warning assertion.
+        check(SaitoBackend.entries.all { backend ->
+            nl.davidengelen.redsquare.feed.PostDraftStore.authorWork(context, fixture.publicKey, backend).isEmpty() &&
+                !nl.davidengelen.redsquare.feed.ProfileDraftStore(context, fixture.publicKey, backend).load().hasWork
+        }) { "Unrelated public-fixture work would hide a missing Registry import warning" }
         val device = UiDevice.getInstance(instrumentation)
         val filename = "00-username-pending-import.json"
         check(device.executeShellCommand("run-as nl.davidengelen.redsquare.dev.test stat -c %s files/wallet-test-documents/00-username-pending-import.json")
@@ -358,6 +363,7 @@ class UsernamePreviewTest {
                             ui.onNodeWithText("Settings").performClick()
                             ui.onNodeWithText("saito.io").performClick()
                             waitForText("Server: saito.io")
+                            assertEquals(SaitoBackend.OFFICIAL, AndroidBackendStore(context).load())
                             waitForEnabled("Check name")
                             ui.onNode(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString("")))
                                 .assertIsEnabled()
@@ -366,6 +372,7 @@ class UsernamePreviewTest {
                             assertEquals(1, ownerPeer.transactions.size)
                             ui.onNodeWithText("Back").performClick()
                             waitForEnabled("New post")
+                            officialPeer.assertRequestObserved()
                             ui.onNodeWithText("Wallet").performClick()
                             assertEquals(fixture.publicKey, displayedWalletAddress(ui))
                             ui.onNodeWithText("Import wallet").performScrollTo().performClick()
@@ -376,11 +383,21 @@ class UsernamePreviewTest {
                             capture("username-pending-import-preview.png", "Pending work belongs to your current wallet")
                             assertEquals(fixture.publicKey, displayedWalletAddress(ui))
                             ui.onNodeWithText("Done").performClick()
+                            val ownerChecksBeforeReturning = ownerPeer.registryQueries.count {
+                                it.get("request").asString == "registry namecheck" &&
+                                    it.get("identifier")?.asString == "NativeCase7@saito"
+                            }
                             ui.onNodeWithText("Settings").performClick()
                             ui.onNodeWithText("saito.davidengelen.nl").performClick()
                             waitForText("Server: saito.davidengelen.nl")
                             openUsername()
                             waitForEnabled("Retry registration")
+                            assertEquals(SaitoBackend.OWNER, AndroidBackendStore(context).load())
+                            assertTrue("Returning must actually recheck the saved request on its original backend",
+                                ownerPeer.registryQueries.count {
+                                    it.get("request").asString == "registry namecheck" &&
+                                        it.get("identifier")?.asString == "NativeCase7@saito"
+                                } > ownerChecksBeforeReturning)
                             ui.onNodeWithText(pending).performScrollTo().assertIsDisplayed()
                             assertEquals("Returning must reconcile without automatic publication", 1, ownerPeer.transactions.size)
                             assertTrue(officialPeer.transactions.isEmpty())
