@@ -469,9 +469,12 @@ Healthy-storage fix5fc6d78 local debug/test assembly PASS1m55s and source
 38097639261 PASS. Focused Android10 38097639188 advances past the original
 RED: newer public bio, superseded status and disabled Retry all pass, then
 fails at line153 because hasSetTextAction is absent on the deliberately disabled
-candidate field (eight cases31.559s, one failure). Diagnostic PNG individually
-viewed; it captures a public-profile window rather than the semantic editor
-assertion, so it is not positive editor evidence. Correct only the field selector
+candidate field (eight cases31.559s, one failure). The retained diagnostic PNG
+and separate XML show the editor, superseded status, disabled Retry and the exact
+retained two-line bio. An earlier visual description incorrectly called it a
+public-profile window; independent original-resolution review and PNG hash
+eb484cd8b59b99793091bb0593267830e3fb7ece3b1b8f47008908caf73285df confirm
+the committed and extracted artifact agree. Correct only the field selector
 to exact EditableText and retain explicit displayed/disabled assertions. No
 production change. Android17 38097640515 also fails only that selector at153:
 eight cases79.589s. Original PNG individually viewed shows superseded status,
@@ -480,7 +483,7 @@ profile-supersession-disabled-field. Selector-only local assembly PASS1m2s.
 Successful publisher captures now also require positive expected status text
 in the actual UiAutomator window before PNG/XML capture. Failure diagnostics
 remain ungated to retain the actual unexpected window. This guards against
-claiming a lagging Android window as positive Compose editor evidence.
+claiming a capture without positive native-window status as editor evidence.
 Window-gated local build client exited143 without a compiler diagnostic and
 container was already removed when checked. A retained fresh verification
 container exited0, BUILD SUCCESSFUL18s with all68 tasks up-to-date. This confirms
