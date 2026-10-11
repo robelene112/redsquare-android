@@ -84,3 +84,20 @@ state and requires explicit Retry after reopening. Unreadable saved details
 fail closed with reload, without silently creating another signed intent.
 Timeout/pre-transmission distinctions, interrupted saving, identity/backend
 isolation, actual process death and paired full acceptance remain unfinished.
+
+## Actual reopening GREEN and next unanswered-reply RED
+
+Android10 run38170519348 at006594e passes2cases9.619s. Activity recreation
+restores unknown delivery without sending; explicit Retry emits the identical
+signed report and gets acknowledgement. Root individually viewed6originals
+and separately parsed6XMLs; named dialogs are fully visible. Conversation
+shows the retained original with Loading replies at capture, not finished
+thread loading. Public frame/envelope and raw results are retained in
+ticket21/recovery-green. This is not actual process death or final acceptance.
+
+Bounded review: Spec0; Standards1 source-supported row-loading cancellation
+race. ReportState now owns/deduplicates loading in its existing feature scope;
+a disposed row cannot erase a replacement view's placeholder. Local debug/test
+assembly passes2m20s. The next single test withholds the correlated report
+reply, requiring deadline to show unknown delivery and explicit identical retry.
+The production timeout classification is intentionally unchanged for this RED.

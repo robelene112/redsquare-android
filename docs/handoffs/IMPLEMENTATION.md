@@ -285,9 +285,17 @@ Current minimal recovery implementation saves the exact signed intent before
 possible transmission, persists acknowledgement and reloads validated report
 state scoped to the original wallet/backend/post. It never resends on load.
 Unreadable details fail closed with reload rather than another intent. Local
-core/debug/instrumentation assembly passed in2m47s; focused runtime verification
-is next. Timeout/pre-transmission distinctions and interrupted-save/isolation
-coverage remain incomplete. These are development checkpoints, not acceptance.
+core/debug/instrumentation assembly passed in2m47s. Focused Android10
+run38170519348 at006594e passes2cases9.619s, including no auto send and explicit
+identical signed retry after Activity recreation. Root6originals/separate6XMLs
+inspected; durable ticket21/recovery-green retains16hashes. Conversation still
+shows Loading replies, not finished thread loading. This is not process death.
+Bounded review: Spec0; Standards1 row-owned load cancellation race. Current
+source moves deduplicated load into ReportState's existing feature scope;
+local debug/test assembly passes2m20s. A single new unanswered-reply deadline
+test now requires unknown delivery then explicit exact retry. Timeout handling
+remains unchanged for RED. Pre-transmission, interrupted-save/isolation and
+final paired acceptance remain incomplete. These checkpoints are not acceptance.
 Ticket22 remains incomplete: failure/durability/identity/backend isolation,
 actual process interruption and final both-SDK acceptance/reviews still required.
 Its source contract is prepared in NATIVE_DISCOVERY_MODERATION_CONTRACT.md and

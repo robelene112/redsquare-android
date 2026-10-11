@@ -23,9 +23,14 @@ internal class ReportState(private val context: Context, private val wallet: Sai
     private fun store(target: String) = PublicStringStore(context,
         "report.${backend.id}.${wallet.publicKey}.$target.v1", 1)
 
-    suspend fun load(post: FeedPost) {
+    fun load(post: FeedPost) {
         if (statuses.containsKey(post.id)) return
         statuses[post.id] = ReportStatus()
+        // Navigation can replace a post row while this shared state is still loading.
+        scope.launch { loadSaved(post) }
+    }
+
+    private suspend fun loadSaved(post: FeedPost) {
         try {
             val loaded = withContext(Dispatchers.IO) {
                 val saved = store(post.id).load()
@@ -54,7 +59,7 @@ internal class ReportState(private val context: Context, private val wallet: Sai
     fun retryLoad(post: FeedPost) {
         if (statuses[post.id]?.busy == true) return
         statuses.remove(post.id)
-        scope.launch { load(post) }
+        load(post)
     }
 
     private fun save(target: String, candidate: SaitoTransaction, acknowledged: Boolean) {

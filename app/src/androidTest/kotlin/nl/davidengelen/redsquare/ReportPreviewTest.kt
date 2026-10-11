@@ -114,6 +114,40 @@ class ReportPreviewTest {
         }
     }
 
+    @Test fun unansweredReportDeadlineShowsUnknownAndExplicitRetryKeepsTheOriginalSignature() {
+        val root = InstrumentationRegistry.getInstrumentation().context.assets.open("native-feed-reference.json")
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow") }
+        val peer = ControlledFeedPeer("[$root]").apply { withholdReportReply = true }
+        peer.start().use { server ->
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                withFailureCapture({ capture("deadline-failure.png") }) {
+                    ui.clickVisiblePostContent("Report")
+                    ui.onNodeWithText("Send report").performClick()
+                    val uncertain = "Report delivery to saito.davidengelen.nl is unknown. Try again to send the same report."
+                    waitFor(uncertain)
+                    capture("deadline-unknown.png", uncertain)
+                    peer.assertHealthy()
+                    val original = peer.reports.single().copyOfRange(5, peer.reports.single().size)
+                    assertTrue(peer.transactions.isEmpty())
+                    ui.onNodeWithText("Done").assertIsEnabled().performClick()
+                    ui.clickVisiblePostContent("Retry report")
+                    waitFor(uncertain)
+                    assertEquals(1, peer.reports.size)
+                    peer.withholdReportReply = false
+                    ui.onNodeWithText("Send report").performClick()
+                    val acknowledged = "Report acknowledged by saito.davidengelen.nl. Moderator review is separate."
+                    waitFor(acknowledged)
+                    capture("deadline-retry-acknowledged.png", acknowledged)
+                    assertEquals(2, peer.reports.size)
+                    val retry = peer.reports.last()
+                    assertArrayEquals(original, retry.copyOfRange(5, retry.size))
+                    assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
+                }
+            }
+        }
+    }
+
     private fun waitFor(text: String) = ui.waitUntil(20_000) {
         ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
     }

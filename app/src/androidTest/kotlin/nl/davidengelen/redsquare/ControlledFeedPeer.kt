@@ -22,6 +22,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     private val archiveResponse: ((com.google.gson.JsonObject) -> String)? = null) {
     @Volatile var disconnectAfterTransaction = false
     @Volatile var disconnectAfterReport = false
+    @Volatile var withholdReportReply = false
     private val peer = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public test material only.
     private val counter = ByteArray(32) { 7 }
     private val received = CountDownLatch(1)
@@ -98,6 +99,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                                 webSocket.close(1001, "Controlled report interruption")
                                 return
                             }
+                            if (withholdReportReply) return
                             webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) + response.toByteArray()).toByteString())
                             return
                         }
