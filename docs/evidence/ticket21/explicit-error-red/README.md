@@ -1,0 +1,1 @@
+Android10 focused38176608046 atafcd0bb:10cases/9PASS/1FAIL102.637s at652 waiting20s for explicit server-error feedback. Root unchanged original and separate XML show incorrect unknown-only wording after wire14. Later variants/reopening in this new journey and process recovery are unreached. Other9cases pass. Product fix follows this observed RED; not ticket acceptance.

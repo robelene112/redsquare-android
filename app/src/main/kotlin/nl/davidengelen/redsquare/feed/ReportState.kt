@@ -11,7 +11,8 @@ import nl.davidengelen.redsquare.saito.*
 
 internal data class ReportStatus(val candidate: SaitoTransaction? = null,
     val busy: Boolean = false, val acknowledged: Boolean = false, val failed: Boolean = false,
-    val ready: Boolean = false, val saveFailed: Boolean = false, val attempted: Boolean = false)
+    val ready: Boolean = false, val saveFailed: Boolean = false, val attempted: Boolean = false,
+    val backendError: Boolean = false)
 
 /** One wallet and selected backend's reports, shared by every post view. */
 internal class ReportState(private val context: Context, private val wallet: SaitoWallet,
@@ -38,7 +39,8 @@ internal class ReportState(private val context: Context, private val wallet: Sai
                 saved.values.singleOrNull()?.let { value ->
                     val record = gson.fromJson(value, JsonObject::class.java)
                     require(record.keySet() == setOf("transaction", "acknowledged") ||
-                        record.keySet() == setOf("transaction", "acknowledged", "attempted"))
+                        record.keySet() == setOf("transaction", "acknowledged", "attempted") ||
+                        record.keySet() == setOf("transaction", "acknowledged", "attempted", "backendError"))
                     val candidate = SaitoTransaction.restore(record.get("transaction").asString)
                     val signed = SaitoEnvelope.decode(candidate.envelope())
                     require(signed.author == wallet.publicKey && signed.recipients == listOf(wallet.publicKey))
@@ -53,8 +55,12 @@ internal class ReportState(private val context: Context, private val wallet: Sai
                         require(it.isBoolean); it.asBoolean
                     } ?: true
                     require(!acknowledgement.asBoolean || attempted)
+                    val backendError = record.get("backendError")?.asJsonPrimitive?.let {
+                        require(it.isBoolean); it.asBoolean
+                    } ?: false
+                    require(!backendError || (attempted && !acknowledgement.asBoolean))
                     ReportStatus(candidate, acknowledged = acknowledgement.asBoolean,
-                        failed = !acknowledgement.asBoolean, ready = true, attempted = attempted)
+                        failed = !acknowledgement.asBoolean, ready = true, attempted = attempted, backendError = backendError)
                 } ?: ReportStatus(ready = true)
             }
             statuses[post.id] = loaded
@@ -68,10 +74,12 @@ internal class ReportState(private val context: Context, private val wallet: Sai
         load(post)
     }
 
-    private fun save(target: String, candidate: SaitoTransaction, acknowledged: Boolean, attempted: Boolean) {
+    private fun save(target: String, candidate: SaitoTransaction, acknowledged: Boolean, attempted: Boolean,
+        backendError: Boolean) {
         val record = JsonObject().apply {
             addProperty("transaction", candidate.encoded()); addProperty("acknowledged", acknowledged)
             addProperty("attempted", attempted)
+            addProperty("backendError", backendError)
         }.toString()
         val storage = store(target)
         storage.save(listOf(record))
@@ -88,6 +96,7 @@ internal class ReportState(private val context: Context, private val wallet: Sai
             var acknowledged = false
             var savingDetails = false
             var attempted = status.attempted
+            var backendError = status.backendError
             try {
                 if (candidate == null) candidate = withContext(Dispatchers.IO) {
                     val body = JsonObject().apply {
@@ -99,34 +108,43 @@ internal class ReportState(private val context: Context, private val wallet: Sai
                 val original = requireNotNull(candidate)
                 // Retain the exact signed intent before any possible transmission.
                 savingDetails = true
-                withContext(NonCancellable + Dispatchers.IO) { save(post.id, original, false, attempted) }
+                withContext(NonCancellable + Dispatchers.IO) { save(post.id, original, false, attempted, backendError) }
                 savingDetails = false
-                statuses[post.id] = ReportStatus(original, busy = true, ready = true, attempted = attempted)
+                statuses[post.id] = ReportStatus(original, busy = true, ready = true, attempted = attempted, backendError = backendError)
                 withContext(Dispatchers.IO) {
                     SaitoPeer(wallet, endpoint).use { peer ->
                         peer.authenticate()
-                        val reply = peer.request(original) {
+                        val reply = try { peer.request(original) {
                             check(AndroidBackendStore(context).load() == backend &&
                                 AndroidWalletStore(context).loadExisting().publicKey == wallet.publicKey)
                             savingDetails = true
-                            save(post.id, original, false, true)
+                            save(post.id, original, false, true, false)
                             savingDetails = false
                             attempted = true
-                        }.toString(Charsets.UTF_8)
-                        val acknowledgement = gson.fromJson(reply, JsonObject::class.java)
-                        require(acknowledgement != null && acknowledgement.size() == 0)
-                        acknowledged = true
+                            backendError = false
+                        }.toString(Charsets.UTF_8) }
+                        catch (_: SaitoPeer.RequestError) { backendError = true; null }
+                        if (reply != null) {
+                            val response = gson.fromJson(reply, JsonObject::class.java)
+                            require(response != null)
+                            backendError = response.get("err")?.let {
+                                it.isJsonPrimitive && it.asJsonPrimitive.isString && it.asString.isNotBlank()
+                            } == true
+                            require(backendError || response.size() == 0)
+                            acknowledged = !backendError
+                        }
                         savingDetails = true
-                        withContext(NonCancellable) { save(post.id, original, true, true) }
+                        withContext(NonCancellable) { save(post.id, original, acknowledged, true, backendError) }
                         savingDetails = false
                     }
                 }
-                statuses[post.id] = ReportStatus(original, acknowledged = true, ready = true, attempted = true)
+                statuses[post.id] = ReportStatus(original, acknowledged = acknowledged, failed = !acknowledged,
+                    ready = true, attempted = true, backendError = backendError)
             } catch (failure: Exception) {
                 if (failure is CancellationException && failure !is TimeoutCancellationException) throw failure
                 statuses[post.id] = ReportStatus(candidate,
                     acknowledged = acknowledged, failed = !acknowledged, ready = true,
-                    saveFailed = savingDetails, attempted = attempted)
+                    saveFailed = savingDetails, attempted = attempted, backendError = backendError)
             }
             finally { statuses[post.id]?.let { statuses[post.id] = it.copy(busy = false) } }
         }

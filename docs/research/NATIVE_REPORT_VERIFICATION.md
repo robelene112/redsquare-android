@@ -312,3 +312,21 @@ empty replies retain unknown. Reopening must preserve each observation without
 automatic transmission, and every explicit retry retains exact original bytes.
 Android17 run38176271148 still exercises the earlier expectation; it cannot
 accept this correction. Product unchanged; corrected RED next.
+
+## Explicit backend failure RED and correction
+
+Android10 focused38176608046 atafcd0bb:10cases/9PASS/1FAIL102.637s
+at652 waiting20s for explicit error. Root unchanged original/separateXML show
+unknown-only after wire14; later variants/reopening/process unreached. Durable
+ticket21/explicit-error-red3hashes. Older Android17 run38176271148 at16257cd
+passes10cases135.989s plus actual cold1case5.314s; retained historical
+invalid-old-android17 has7hashes and root2originals/separateXMLs. It proves the
+sanitary parser executed but predates corrected error acceptance. Both tracer
+review axes clear after7dfde25 handoff fix.
+Current minimal product recognizes correlated wire14 through a typed peer error
+and nonblank string application err without displaying raw backend text. Persist
+only the observed error boolean beside exact public signed intent; legacy records
+remain conservative. Explicit retry clears old error only at actual enqueue;
+missing/malformed responses remain unknown. Error wording qualifies uncertain
+delivery and never claims unsent/moderator rejection. Late error-save failures
+retain the observed error with a phone-storage warning. Runtime GREEN pending.

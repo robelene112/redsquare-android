@@ -29,6 +29,7 @@ internal fun ReportAction(post: FeedPost, state: ReportState?) {
         text = { Column {
             if (status?.failed == true) Text(stringResource(
                 when {
+                    status.backendError -> R.string.report_backend_error
                     status.saveFailed -> R.string.report_save_error
                     !status.attempted -> R.string.report_not_sent
                     else -> R.string.report_uncertain
@@ -45,12 +46,14 @@ internal fun ReportAction(post: FeedPost, state: ReportState?) {
             status?.ready != true && status?.failed == true -> R.string.report_load_error
             status?.ready != true -> R.string.report_loading
             status?.acknowledged == true -> R.string.report_acknowledged
+            status?.backendError == true -> R.string.report_backend_error
             status?.saveFailed == true -> R.string.report_save_error
             status?.failed == true && !status.attempted -> R.string.report_not_sent
             status?.failed == true -> R.string.report_uncertain
             else -> R.string.report_sending
         }, state.backend.domain))
-            if (status?.acknowledged == true && status.saveFailed) Text(stringResource(R.string.report_receipt_save_error))
+            if ((status?.acknowledged == true || status?.backendError == true) && status.saveFailed)
+                Text(stringResource(R.string.report_receipt_save_error))
         } },
         confirmButton = { Column {
             if (status?.ready != true && status?.failed == true) TextButton(onClick = { state.retryLoad(post) }) {

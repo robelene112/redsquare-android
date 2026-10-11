@@ -381,9 +381,17 @@ journey requires named error plus uncertain delivery, persists feedback through
 recreation/noauto, and retains original bytes on explicit retries; empty/malformed
 remain unknown. Product unchanged pending actual RED. Android17 run38176271148
 uses older expectation and cannot accept this correction.
-Corrected RED38176608046 atafcd0bb pending. Both tracer Spec checks clear;
-Standards handoff conflict corrected here. Final paired both-SDK/source/public
-reads remain pending.
+Corrected RED38176608046 atafcd0bb:10cases/9PASS/1FAIL102.637s at652,
+root original/separateXML unknown-only afterwire14; laterjourney/processunreached.
+explicit-error-red3hashes. Older17run38176271148 at16257cd passes10/135.989s
+pluscold1/5.314s; root2originals/separateXML, invalid-old-android17 7hashes,
+predatescorrectedacceptance. Both tracer axes clear afterhandofffix7dfde25.
+Currentproduct typedwire14/nonblankstringerr yields namederror/uncertaindelivery,
+persists observedboolean, clearsolderroronlyatactualenqueue; rawerrneverdisplayed.
+Lateerrorsavefailure retainsobservation+phonewarning. GREENpending. Whole review
+has stale durable acknowledgement concern under lifecycle verification and one
+initial-save fixture cleanup concern; not yet fixed. Final paired both-SDK/source/
+public reads remain pending.
 Ticket22 remains incomplete: failure/durability/identity/backend isolation,
 actual process interruption and final both-SDK acceptance/reviews still required.
 Its source contract is prepared in NATIVE_DISCOVERY_MODERATION_CONTRACT.md and

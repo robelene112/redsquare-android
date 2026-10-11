@@ -25,6 +25,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 
 /** One authenticated peer session. Request identities never cross a connection. */
 class SaitoPeer(private val wallet: SaitoWallet, endpoint: String) : Closeable {
+    class RequestError : IOException("Peer returned a request error")
     private val ready = CompletableDeferred<Unit>()
     private val disconnected = AtomicBoolean(false)
     private val pending = ConcurrentHashMap<Int, CompletableDeferred<ByteArray>>()
@@ -69,7 +70,7 @@ class SaitoPeer(private val wallet: SaitoWallet, endpoint: String) : Closeable {
                         if (!ready.isCompleted || ready.isCancelled) return
                         val index = ByteBuffer.wrap(frame, 1, 4).int
                         val result = pending.remove(index) ?: return
-                        if (frame[0] == 14.toByte()) result.completeExceptionally(IOException("Peer request failed"))
+                        if (frame[0] == 14.toByte()) result.completeExceptionally(RequestError())
                         else result.complete(frame.copyOfRange(5, frame.size))
                     }
                 }
