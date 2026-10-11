@@ -297,7 +297,12 @@ test now requires unknown delivery then explicit exact retry. Actual deadline RE
 only timeout fails at128. Live original/separateXML retain stale Sending report
 with Done enabled (ticket21/deadline-red4hashes). Minimal source correction
 now treats TimeoutCancellationException as unknown delivery, retaining parent
-scope cancellation. Correction runtime is next. Load ownership review clear
+scope cancellation. Correction Android10 run38171267643 at02c5a47 passes3cases28.596s. Root2
+affected originals/separate2XMLs show deadline unknown and exact-retry ack;
+durable ticket21/deadline-green6hashes. Both bounded deadline review axes0.
+Next single OS-save obstruction test requires no send and truthful save error
+then repaired explicit retry. Production save-failure wording remains unchanged
+for this RED. Load ownership review clear
 throughc10de10, with0residual Standards findings. Pre-transmission, interrupted-save/isolation and
 final paired acceptance remain incomplete. These checkpoints are not acceptance.
 Ticket22 remains incomplete: failure/durability/identity/backend isolation,

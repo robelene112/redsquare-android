@@ -111,3 +111,15 @@ persists with Done enabled. The pending source correction treats only
 TimeoutCancellationException as failure; other scope cancellations rethrow.
 Exact retry/no auto send/no broadcast assertions remain unchanged. Durable
 ticket21/deadline-red retains4hashes. Native correction check is next.
+
+## Deadline GREEN, next failed-saving RED
+
+Android10 run38171267643 at02c5a47 passes3cases28.596s. Root2affected
+originals/separate2XMLs show truthful unknown after deadline, then explicit
+exact signed retry acknowledgement. Earlier cases pass. Both bounded source
+axes0findings. Durable ticket21/deadline-green retains6hashes.
+
+Next single test obstructs the OS file-commit seam after ready state, confirms
+no report or broadcast, requires truthful save-failure wording, repairs only
+the isolated public obstacle, then explicitly retries with original identity
+and target. Production save-failure feedback remains unchanged for RED.

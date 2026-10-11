@@ -148,6 +148,51 @@ class ReportPreviewTest {
         }
     }
 
+    @Test fun failedReportSavingSendsNothingAndRepairAllowsExplicitRetry() {
+        val root = InstrumentationRegistry.getInstrumentation().context.assets.open("native-feed-reference.json")
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow") }
+        val peer = ControlledFeedPeer("[$root]")
+        peer.start().use { server ->
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                withFailureCapture({ capture("saving-failure.png") }) {
+                    ui.clickVisiblePostContent("Report")
+                    ui.onNodeWithText("Cancel").performClick()
+                    ui.onNodeWithText("Wallet").performClick()
+                    val author = displayedWalletAddress(ui)
+                    ui.onNodeWithText("Done").performClick()
+                    val blocked = File(context.noBackupFilesDir, "report.owner.$author.${root.get("sig").asString}.v1")
+                    check(blocked.mkdir())
+                    val obstacle = File(blocked, "retain-public-save-fault").apply { writeText("public test fault") }
+                    try {
+                        ui.clickVisiblePostContent("Report")
+                        ui.onNodeWithText("Send report").performClick()
+                        ui.waitUntil(20_000) { ui.onAllNodes(hasText("Done") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                        assertTrue(peer.reports.isEmpty()); assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
+                        val error = "Report could not be saved. Nothing new was sent to saito.davidengelen.nl. Try again."
+                        waitFor(error)
+                        capture("saving-prevents-transmission.png", error)
+                    } finally { check(obstacle.delete()); check(blocked.delete()) }
+                    ui.onNodeWithText("Done").performClick()
+                    ui.clickVisiblePostContent("Retry report")
+                    ui.onNodeWithText("Report to saito.davidengelen.nl?").assertIsDisplayed()
+                    assertTrue(peer.reports.isEmpty())
+                    ui.onNodeWithText("Send report").performClick()
+                    val acknowledged = "Report acknowledged by saito.davidengelen.nl. Moderator review is separate."
+                    waitFor(acknowledged)
+                    capture("saving-repaired-acknowledged.png", acknowledged)
+                    val frame = peer.reports.single()
+                    val candidate = SaitoTransaction.restore(Base64.getEncoder().encodeToString(frame.copyOfRange(5, frame.size)))
+                    val signed = SaitoEnvelope.decode(candidate.envelope())
+                    assertEquals(author, signed.author)
+                    assertEquals(root.get("sig").asString, signed.body.getAsJsonObject("data").get("signature").asString)
+                    assertEquals(listOf(author), signed.recipients)
+                    assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
+                }
+            }
+        }
+    }
+
     private fun waitFor(text: String) = ui.waitUntil(20_000) {
         ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
     }
