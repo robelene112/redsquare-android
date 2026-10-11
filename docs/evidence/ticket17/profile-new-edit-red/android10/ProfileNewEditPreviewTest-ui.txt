@@ -1,0 +1,71 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileNewEditPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ProfileNewEditPreviewTest:
+INSTRUMENTATION_STATUS: test=aSupersededUpdateCanBeRetiredForANewDurableEditWithoutResendingIt
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileNewEditPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (is enabled)
+Reason: Expected exactly '1' node but could not find any node that satisfies: (Text + InputText + EditableText contains 'Start new edit' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:262)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertIsEnabled(Assertions.kt:60)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest.aSupersededUpdateCanBeRetiredForANewDurableEditWithoutResendingIt$lambda$17$lambda$13$lambda$12(ProfileNewEditPreviewTest.kt:117)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest.$r8$lambda$V75YTLneZ4tmY5uBqJtAh0_m9nI(Unknown Source:0)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest.captureFailure(ProfileNewEditPreviewTest.kt:196)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest.aSupersededUpdateCanBeRetiredForANewDurableEditWithoutResendingIt(ProfileNewEditPreviewTest.kt:108)
+
+INSTRUMENTATION_STATUS: stream=
+Error in aSupersededUpdateCanBeRetiredForANewDurableEditWithoutResendingIt(nl.davidengelen.redsquare.ProfileNewEditPreviewTest):
+java.lang.AssertionError: Failed to assert the following: (is enabled)
+Reason: Expected exactly '1' node but could not find any node that satisfies: (Text + InputText + EditableText contains 'Start new edit' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:262)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertIsEnabled(Assertions.kt:60)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest.aSupersededUpdateCanBeRetiredForANewDurableEditWithoutResendingIt$lambda$17$lambda$13$lambda$12(ProfileNewEditPreviewTest.kt:117)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest.$r8$lambda$V75YTLneZ4tmY5uBqJtAh0_m9nI(Unknown Source:0)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest.captureFailure(ProfileNewEditPreviewTest.kt:196)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest.aSupersededUpdateCanBeRetiredForANewDurableEditWithoutResendingIt(ProfileNewEditPreviewTest.kt:108)
+
+INSTRUMENTATION_STATUS: test=aSupersededUpdateCanBeRetiredForANewDurableEditWithoutResendingIt
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 3.941
+There was 1 failure:
+1) aSupersededUpdateCanBeRetiredForANewDurableEditWithoutResendingIt(nl.davidengelen.redsquare.ProfileNewEditPreviewTest)
+java.lang.AssertionError: Failed to assert the following: (is enabled)
+Reason: Expected exactly '1' node but could not find any node that satisfies: (Text + InputText + EditableText contains 'Start new edit' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:262)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertIsEnabled(Assertions.kt:60)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest.aSupersededUpdateCanBeRetiredForANewDurableEditWithoutResendingIt$lambda$17$lambda$13$lambda$12(ProfileNewEditPreviewTest.kt:117)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest.$r8$lambda$V75YTLneZ4tmY5uBqJtAh0_m9nI(Unknown Source:0)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest.captureFailure(ProfileNewEditPreviewTest.kt:196)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest.aSupersededUpdateCanBeRetiredForANewDurableEditWithoutResendingIt(ProfileNewEditPreviewTest.kt:108)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

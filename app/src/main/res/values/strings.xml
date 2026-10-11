@@ -128,6 +128,11 @@
     <string name="profile_check">Check profile</string>
     <string name="profile_available">Profile available on this server.</string>
     <string name="profile_pending">Save requested. Profile availability on this server is not confirmed.</string>
+    <string name="profile_new_edit">Start new edit</string>
+    <string name="profile_new_edit_title">Start a new profile edit?</string>
+    <string name="profile_new_edit_warning">An update already received by a server may still appear. This stops retrying the saved update on this device.</string>
+    <string name="profile_keep_update">Keep saved update</string>
+    <string name="profile_discard_start">Discard and start</string>
     <string name="profile_superseded">A newer verified profile supersedes this update. This older update will not be sent again.</string>
     <string name="profile_previous_available">This profile was previously available. Current availability is not confirmed.</string>
     <string name="profile_publish_error">Could not finish checking or saving the profile. Your edits remain here. Try again before leaving.</string>

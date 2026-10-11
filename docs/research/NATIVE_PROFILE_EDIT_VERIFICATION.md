@@ -1051,3 +1051,25 @@ Start new edit control. Local build pending. Actual process-death tracer follows
 
 Single Start-new tracer local debug/test assembly PASS1m10s, retained exit0.
 Harness shell syntax PASS. Expected native RED and bounded review pending.
+
+Bounded c8af00f...82ab54d Spec0/Standards0 hard, one low-priority duplicated
+capture-helper heuristic. Actual intended Android10 RED38106837237 at117:
+Start new edit absent after truthful supersession/frozen bio/disabled retry/oneTX.
+Other classes pass editor7/32.423s,publisher5/24.056s (fourpass/one assumption),
+media2/16.905s. New1/3.941s fails; later phases unreachable. Both originals
+individually viewed, exact XML/rawlogs retained profile-new-edit-red/android10.
+
+Minimal retirement implementation now written: explicit warning/cancel/confirm;
+revision-guarded exact-candidate retirement retaining the newest verified signed
+own snapshot privately. Optional v2 baseline is backward compatible, validated,
+included in equality/retry provenance and retained through plain saves, preview,
+media-budget preparation and fresh merge/signing. New complete signed candidate
+drops private baseline. No unconfirmed public-cache insertion; memory changes
+reset after verified retirement. Generic saves cannot resurrect this store's
+failed retirement/clear, including unchanged disk outcomes; same explicit retry
+can repair and verify exact own outcome. New timestamp exceeds retained signed
+updates. Local compilation, committed review and dual GREEN pending.
+
+Retirement local debug/test build PASS2m, exit0, retained rawlog. Actual second
+frame independent verifier adds literal new-edit scenario for latest bio/archive/
+extension/media; no runtime frame or receiver result claimed yet.

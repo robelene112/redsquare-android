@@ -34,6 +34,7 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
     private val scope: CoroutineScope, private val wallet: SaitoWallet, private val endpoint: String,
     private val cache: AndroidProfileDetailsCache) {
     private var durable = ProfileDraftStore.Saved()
+    private var startingProfile by mutableStateOf<SaitoProfile?>(null)
     var changes by mutableStateOf(JsonObject())
     var ready by mutableStateOf(false)
     var busy by mutableStateOf(false)
@@ -52,6 +53,7 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
         try {
             val saved = withContext(Dispatchers.IO) { store.load() }
             durable = saved
+            startingProfile = saved.baseline
             changes = (if (saved.transaction != null) saved.changes else memory.changes ?: saved.changes).deepCopy()
             memory.changes = changes.deepCopy()
             candidate = saved.transaction
@@ -82,6 +84,7 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
     private fun retain(saved: ProfileDraftStore.Saved) {
         if (saved.transaction == null || saved.transaction.id != candidate?.id || saved.superseding != null) available = false
         durable = saved
+        if (saved.baseline != null || saved.transaction == null) startingProfile = saved.baseline
         changes = saved.changes.deepCopy()
         memory.changes = changes.takeIf { it.size() > 0 }?.deepCopy()
         candidate = saved.transaction
@@ -98,8 +101,11 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
     fun image(kind: ProfileImageKind, profile: SaitoProfile?): String? {
         val changed = changes.get(kind.field)
         return if (changed != null) changed.takeUnless { it.isJsonNull }?.asString
-        else if (kind == ProfileImageKind.PICTURE) profile?.image else profile?.banner
+        else if (kind == ProfileImageKind.PICTURE) (startingProfile ?: profile)?.image else (startingProfile ?: profile)?.banner
     }
+
+    fun bio(profile: SaitoProfile?): String = changes.get("description")?.asString ?:
+        (startingProfile ?: profile)?.description.orEmpty()
 
     fun removeImage(kind: ProfileImageKind) {
         if (!ready || busy || candidate != null) return
@@ -132,7 +138,8 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
                     withContext(NonCancellable) { save(ProfileDraftStore.Saved(prior)) }
                     val cached = cache.load()
                     check(!cached.unreadable)
-                    val baseline = known?.let { SaitoProfiles.merge(cached.profile, it) } ?: cached.profile
+                    val public = known?.let { SaitoProfiles.merge(cached.profile, it) } ?: cached.profile
+                    val baseline = startingProfile?.let { SaitoProfiles.merge(it, public) } ?: public
                     // An empty placeholder includes the exact JSON field overhead and replaces old media.
                     val placeholder = prior.deepCopy().apply { addProperty(kind.field, "") }
                     val remaining = SaitoTransaction.MAX_MESSAGE_BYTES -
@@ -176,6 +183,28 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
         scope.launch { if (persist()) onClose() }
     }
 
+    fun startNew(known: SaitoProfile?) {
+        val transaction = candidate ?: return
+        if (!ready || busy) return
+        busy = true
+        scope.launch {
+            try {
+                val saved = withContext(NonCancellable + Dispatchers.IO) {
+                    val cached = cache.load()
+                    check(!cached.unreadable)
+                    val public = known?.let { SaitoProfiles.merge(cached.profile, it) } ?: cached.profile
+                    store.startNew(transaction.id, durable, public)
+                }
+                retain(saved)
+                // A stale mounted editor first adopts unseen progress; confirmation can then be retried.
+                error = saved.transaction != null
+                if (!error) { networkError = false; imageError = false }
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { error = true }
+            finally { busy = false }
+        }
+    }
+
     fun send(known: SaitoProfile?) {
         if (!ready || busy || available || superseded || changes.size() == 0) return
         busy = true
@@ -195,13 +224,14 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
                             check(fresh.ignored == 0)
                             val cached = cache.load()
                             check(!cached.unreadable)
-                            val baseline = SaitoProfiles.merge(known?.let { SaitoProfiles.merge(cached.profile, it) }
+                            val public = SaitoProfiles.merge(known?.let { SaitoProfiles.merge(cached.profile, it) }
                                 ?: cached.profile, fresh)
+                            val baseline = startingProfile?.let { SaitoProfiles.merge(it, public) } ?: public
                             val timestamp = maxOf(System.currentTimeMillis(), Math.addExact(
                                 baseline.updates.maxOfOrNull { it.createdAt } ?: 0, 1))
                             val prepared = SaitoTransaction.create(wallet, SaitoProfiles.message(baseline, changes), timestamp)
                             // A late persistence error must not cause a retry to sign new bytes.
-                            withContext(Dispatchers.Main.immediate) { candidate = prepared }
+                            withContext(Dispatchers.Main.immediate) { startingProfile = baseline; candidate = prepared }
                             withContext(NonCancellable) { save(ProfileDraftStore.Saved(changes, prepared)) }
                             prepared
                         }
@@ -293,6 +323,7 @@ internal fun ProfileEditorScreen(wallet: SaitoWallet, backend: SaitoBackend, end
     val scope = rememberCoroutineScope()
     val state = remember(store, memory, wallet, endpoint, cache) { ProfileEditorState(store, memory, scope, wallet, endpoint, cache) }
     val session = "$owner:${backend.id}:$endpoint"
+    var confirmingNewEdit by remember(session) { mutableStateOf(false) }
     var picking by rememberSaveable(session) { mutableStateOf<String?>(null) }
     var selected by remember(session) { mutableStateOf<Pair<ProfileImageKind, Uri>?>(null) }
     val chooseImage: (ProfileImageKind) -> Unit = key(session) {
@@ -325,6 +356,17 @@ internal fun ProfileEditorScreen(wallet: SaitoWallet, backend: SaitoBackend, end
     }
     BackHandler { state.close(onClose) }
     with(state) {
+        if (confirmingNewEdit) AlertDialog(
+            onDismissRequest = { confirmingNewEdit = false },
+            title = { Text(stringResource(R.string.profile_new_edit_title)) },
+            text = { Text(stringResource(R.string.profile_new_edit_warning)) },
+            dismissButton = { TextButton(onClick = { confirmingNewEdit = false }) {
+                Text(stringResource(R.string.profile_keep_update))
+            } },
+            confirmButton = { TextButton(enabled = ready && !busy && candidate != null, onClick = {
+                confirmingNewEdit = false; startNew(profile)
+            }) { Text(stringResource(R.string.profile_discard_start)) } }
+        )
         Column(modifier.imePadding()) {
             Row {
                 TextButton(enabled = !busy, onClick = { close(onClose) }) { Text(stringResource(R.string.browse_back)) }
@@ -347,6 +389,8 @@ internal fun ProfileEditorScreen(wallet: SaitoWallet, backend: SaitoBackend, end
                 previouslyAvailable -> R.string.profile_previous_available
                 else -> R.string.profile_pending
             }), Modifier.zIndex(1f))
+            if (candidate != null) TextButton(enabled = ready && !busy,
+                onClick = { confirmingNewEdit = true }) { Text(stringResource(R.string.profile_new_edit)) }
             if (networkError) Text(stringResource(R.string.profile_publish_error))
             if (error) {
                 Text(stringResource(R.string.profile_draft_error))
@@ -355,7 +399,7 @@ internal fun ProfileEditorScreen(wallet: SaitoWallet, backend: SaitoBackend, end
             Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState())) {
                 if (imageError) Text(stringResource(R.string.image_prepare_failed))
                 if (preparingImage) Text(stringResource(R.string.image_preparing))
-                OutlinedTextField(value = changes.get("description")?.asString ?: profile?.description.orEmpty(),
+                OutlinedTextField(value = bio(profile),
                     onValueChange = ::editBio, enabled = ready && !busy && candidate == null,
                     label = { Text(stringResource(R.string.profile_bio)) },
                     modifier = Modifier.fillMaxWidth().heightIn(min = 160.dp, max = 280.dp))

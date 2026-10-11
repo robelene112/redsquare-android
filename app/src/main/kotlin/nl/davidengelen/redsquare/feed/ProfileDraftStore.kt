@@ -22,7 +22,8 @@ internal class ProfileDraftStore(private val context: Context, private val owner
 
     // available records a past exact confirmation, not current server retention.
     data class Saved(val changes: JsonObject = JsonObject(), val transaction: SaitoTransaction? = null,
-        val available: Boolean = false, val superseding: SaitoProfile? = null, val revision: Long = 0) {
+        val available: Boolean = false, val superseding: SaitoProfile? = null, val revision: Long = 0,
+        val baseline: SaitoProfile? = null) {
         val hasWork: Boolean get() = !available && (changes.size() > 0 || transaction != null)
     }
 
@@ -37,7 +38,7 @@ internal class ProfileDraftStore(private val context: Context, private val owner
         val saved = when (contents.version) {
             1.toByte() -> Saved(record) // Existing v1 contains changes directly, not a wrapper.
             2.toByte() -> {
-                require(record.keySet().all { it in setOf("changes", "transaction", "available", "superseding", "revision") })
+                require(record.keySet().all { it in setOf("changes", "transaction", "available", "superseding", "revision", "baseline") })
                 val transaction = record.get("transaction")?.let {
                     require(it.isJsonPrimitive && it.asJsonPrimitive.isString)
                     SaitoTransaction.restore(it.asString)
@@ -46,13 +47,17 @@ internal class ProfileDraftStore(private val context: Context, private val owner
                 require(flag.isJsonPrimitive && flag.asJsonPrimitive.isBoolean)
                 val superseding = record.get("superseding")?.let {
                     require(it.isJsonPrimitive && it.asJsonPrimitive.isString)
-                    readSuperseding(it.asString)
+                    readSnapshot(it.asString)
                 }
                 val revision = record.get("revision")?.let {
                     require(it.isJsonPrimitive && it.asJsonPrimitive.isNumber)
                     it.asString.toBigDecimal().longValueExact().also { value -> require(value >= 0) }
                 } ?: 0
-                Saved(record.getAsJsonObject("changes"), transaction, flag.asBoolean, superseding, revision)
+                val baseline = record.get("baseline")?.let {
+                    require(it.isJsonPrimitive && it.asJsonPrimitive.isString)
+                    readSnapshot(it.asString)
+                }
+                Saved(record.getAsJsonObject("changes"), transaction, flag.asBoolean, superseding, revision, baseline)
             }
             else -> error("Unknown profile draft version")
         }
@@ -64,18 +69,25 @@ internal class ProfileDraftStore(private val context: Context, private val owner
         validate(saved)
         val current = load()
         // Revision survives clears, distinguishing a new empty draft from an old mounted one.
-        if (!same(current, expected) && ownAttempt(expected, current) == null) {
+        val retry = ownAttempt(expected, current)
+        // Only explicit retirement may retry a failed clear; ordinary saving cannot resurrect it.
+        check(retry == null || retry.anchor.transaction == null || retry.intended.transaction != null || saved.transaction == null)
+        if (!same(current, expected) && retry == null) {
             check(current.transaction != null && expected.transaction?.encoded() == current.transaction.encoded() &&
                 expected.changes == current.changes)
         }
-        val replacement = (if (current.transaction == null) saved else {
+        val replacement = (if (current.transaction == null) {
+            saved.copy(baseline = if (saved.transaction != null) null else current.baseline?.let { retained ->
+                saved.baseline?.let { SaitoProfiles.merge(retained, it) } ?: retained
+            } ?: saved.baseline)
+        } else {
             check(saved.transaction?.encoded() == current.transaction.encoded() && saved.changes == current.changes)
             val superseding = when {
                 current.superseding == null -> saved.superseding
                 saved.superseding == null -> current.superseding
                 else -> SaitoProfiles.merge(current.superseding, saved.superseding)
             }
-            saved.copy(available = superseding == null && (current.available || saved.available), superseding = superseding)
+            saved.copy(available = superseding == null && (current.available || saved.available), superseding = superseding, baseline = null)
         }).copy(revision = Math.addExact(current.revision, 1))
         write(replacement, expected, current)
         replacement
@@ -95,12 +107,32 @@ internal class ProfileDraftStore(private val context: Context, private val owner
         Saved(revision = Math.addExact(current.revision, 1)).also { write(it, expected, current) }
     }
 
+    /** Retire exactly the mounted candidate, retaining its newest signed fields privately. */
+    fun startNew(id: String, expected: Saved, known: SaitoProfile): Saved = synchronized(SaitoLocalState.lock) {
+        require(known.author == owner && known.ignored == 0)
+        val current = load()
+        val retry = ownAttempt(expected, current)
+        val retained = if (current.transaction?.id == id) {
+            if (!same(current, expected) && retry == null) return@synchronized current
+            val candidate = readSnapshot(current.transaction.envelope())
+            current.superseding?.let { SaitoProfiles.merge(candidate, it) } ?: candidate
+        } else {
+            // A late failure may have committed only our own exact retired outcome.
+            check(retry != null && retry.anchor.transaction?.id == id &&
+                retry.intended.transaction == null && retry.intended.baseline != null &&
+                current.transaction == null && current.baseline != null)
+            requireNotNull(current.baseline)
+        }
+        val baseline = SaitoProfiles.merge(retained, known)
+        Saved(revision = Math.addExact(current.revision, 1), baseline = baseline).also { write(it, expected, current) }
+    }
+
     private fun ownAttempt(expected: Saved, current: Saved): Attempt? = attempt?.takeIf {
         same(it.anchor, expected) && (same(current, it.previous) || same(current, it.intended))
     }
 
     private fun empty(saved: Saved): Boolean = saved.changes.size() == 0 && saved.transaction == null &&
-        !saved.available && saved.superseding == null
+        !saved.available && saved.superseding == null && saved.baseline == null
 
     private fun witness(saved: Saved): Saved = saved.copy(changes = saved.changes.deepCopy())
 
@@ -112,6 +144,7 @@ internal class ProfileDraftStore(private val context: Context, private val owner
             addProperty("available", saved.available)
             addProperty("revision", saved.revision)
             saved.superseding?.let { addProperty("superseding", it.updates.single().envelope) }
+            saved.baseline?.let { addProperty("baseline", it.updates.single().envelope) }
         }
         file.save(EncryptedLocalFile.Contents(2, record.toString())) {
             // Codec validation completed. Earlier failures preserve the prior witness;
@@ -137,9 +170,10 @@ internal class ProfileDraftStore(private val context: Context, private val owner
 
     private fun same(a: Saved, b: Saved): Boolean = a.changes == b.changes &&
         a.transaction?.encoded() == b.transaction?.encoded() && a.available == b.available &&
-        a.superseding?.updates == b.superseding?.updates && a.revision == b.revision
+        a.superseding?.updates == b.superseding?.updates && a.revision == b.revision &&
+        a.baseline?.updates == b.baseline?.updates
 
-    private fun readSuperseding(envelope: String): SaitoProfile {
+    private fun readSnapshot(envelope: String): SaitoProfile {
         val rows = JsonArray().apply { add(JsonObject().apply { addProperty("tx", envelope) }) }
         return SaitoProfiles.readArchive(rows.toString(), owner).also {
             require(it.ignored == 0 && it.updates.size == 1 && it.updates.single().snapshot)
@@ -157,11 +191,16 @@ internal class ProfileDraftStore(private val context: Context, private val owner
                 nl.davidengelen.redsquare.saito.RedSquareImages.safeSource(source) == source)
         }
         require(!saved.available || saved.transaction != null)
+        saved.baseline?.let { profile ->
+            require(saved.transaction == null && profile.author == owner && profile.ignored == 0 && profile.updates.size == 1)
+            val verified = readSnapshot(profile.updates.single().envelope)
+            require(verified.fields == profile.fields && verified.updates == profile.updates)
+        }
         saved.superseding?.let { profile ->
             val transaction = requireNotNull(saved.transaction)
             require(!saved.available && profile.author == owner && profile.ignored == 0 && profile.updates.size == 1)
             val update = profile.updates.single()
-            val verified = readSuperseding(update.envelope)
+            val verified = readSnapshot(update.envelope)
             require(verified.fields == profile.fields && verified.updates == profile.updates)
             require(update.id != transaction.id && update.createdAt >= SaitoEnvelope.decode(transaction.envelope()).createdAt)
         }
