@@ -275,3 +275,7 @@ Standards1 fixture sensitivity: prior Unfollow state could skip a fresh Follow
 action. Fix waits for an enabled loaded Follow/Unfollow, explicitly unfollows
 if necessary, then always Follow and requires enabled Unfollow after persistence.
 No runtime failure claim. Fix compile/re-review and native RED pending.
+
+Fresh-Follow fixturefix62aa7ce compilation PASS1m22s; both bounded axes0
+residual findings. First known-prefix native RED pending. No production prefix
+implementation yet. Shared-point runtime regression joins this focused run.
