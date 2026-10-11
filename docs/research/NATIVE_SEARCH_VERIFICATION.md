@@ -331,3 +331,14 @@ gates unexecuted. Root viewedoriginalPNG/separateXML, rawlog/pair retained
 ticket19/name-qualified-red. Focused source/core/debug/testPASS;
 push38142377442 release/lintPASS. Ambiguouscachedprovenance, not accepted
 invalid fresh ownership. Minimal qualification implementation now begins.
+
+Initial qualification source653367d under compile. Both bounded axes identify
+one source-reachable edge: query-wide fresh confirmation suppresses historical
+qualification for a different cached owner matching the same name. No runtime
+reproduction. Fix will scope the explanation per person card, preserving cached
+proof and exact confirmed owner. Wait for compiler before source mutation.
+
+Initial qualification compilePASS2m17s. Reviewer source edge corrected after
+compiler completion: each person card qualifies its historical exact-name
+label unless that exact key is covered by the active freshly confirmed record.
+No cache eviction or new network read. Fix compile/re-review/GREEN pending.

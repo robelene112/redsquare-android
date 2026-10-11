@@ -104,7 +104,10 @@ tracer7df2863 added, bothboundedaxes0hard findings. Qualification source
 qualificationRED38142405104 at752d944: existing6PASS/newmissingcopy
 FAILline83,65.88s; laternegative/recovery/wallet gatesunexecuted. Original
 inspectedPNG/XML/log ticket19/name-qualified-red. Minimal implementation now
-begins. Push38142377442 release/lintPASS. Compile container0/daemonPASS1m19s despite
+added653367d, compilePASS2m17s. Both reviewers found query-wide confirmation
+can hide a different cached owner qualifier; sourcefix now makes qualification
+per person card. Fixcompile/re-review/GREEN pending. No runtime race claim.
+Push38142377442 release/lintPASS. Compile container0/daemonPASS1m19s despite
 terminal143; packaging confirmationPASS20s(all50up-to-date), cause not
 established for original contradictoryterminalresult. Possible
 duplicated fixture setup judgment reserved afterGREEN. Savefailure and

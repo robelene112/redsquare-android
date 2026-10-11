@@ -242,9 +242,6 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
         if (loading) Text(stringResource(R.string.search_loading))
         if (view.failed) Text(stringResource(R.string.search_error))
         if (view.usernameFailed) Text(stringResource(R.string.search_username_error))
-        if (!view.usernameConfirmed && people.any { key -> key == exactName?.publicKey ||
-                knownNames[key]?.name?.equals(view.searchedQuery, ignoreCase = true) == true })
-            Text(stringResource(R.string.search_cached_name), style = MaterialTheme.typography.bodySmall)
         if (view.unreadable) Text(stringResource(R.string.search_unreadable), style = MaterialTheme.typography.bodySmall)
         if (view.pagingUnavailable) Text(stringResource(R.string.search_paging_unavailable), style = MaterialTheme.typography.bodySmall)
         if (view.limitReached) Text(stringResource(R.string.search_limit), style = MaterialTheme.typography.bodySmall)
@@ -254,9 +251,12 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
         LazyColumn(Modifier.weight(1f).fillMaxWidth()) {
             if (view.request > 0) {
                 items(people, key = { "person:$it" }) { personKey ->
+                    val label = exactName?.takeIf { it.publicKey == personKey }?.identifier ?: registeredIdentity(personKey).name
+                    val confirmed = view.usernameConfirmed && exactName?.publicKey == personKey
                     Column(Modifier.fillMaxWidth().clickable { onIdentity(personKey) }.padding(vertical = 12.dp)) {
-                        Text(exactName?.takeIf { it.publicKey == personKey }?.identifier ?: registeredIdentity(personKey).name,
-                            style = MaterialTheme.typography.titleMedium)
+                        Text(label, style = MaterialTheme.typography.titleMedium)
+                        if (!confirmed && label.equals(view.searchedQuery, ignoreCase = true))
+                            Text(stringResource(R.string.search_cached_name), style = MaterialTheme.typography.bodySmall)
                         Text(personKey, style = MaterialTheme.typography.bodySmall)
                     }
                     HorizontalDivider()
