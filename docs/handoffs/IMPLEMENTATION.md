@@ -83,7 +83,13 @@ remains through failed-cache Back/reopen. Historical availability still open.
 One new tracer retains a confirmed candidate across direct Activity closure,
 serves successful empty archive reads, then requires qualified past availability,
 read-only Check profile and Back/reopen preservation with no extra TX.
-Assembly/intended Android10 RED pending; no historical fix yet.
+Historical RED38099752101: ten cases39.514s, eight pass/one API30+ skip/
+one expected missing qualification at207. Original PNG individually viewed
+shows false current availability; XML/rawlog retained profile-history-red.
+Separate historical/current state now implemented, preserve history in saves,
+read-only Check returns before authentication/submission, claim guard retained.
+Both tracer review concerns fixed (positive exact query/caption split). Local
+build, dual GREEN and actual committed-diff review pending.
 Then candidate failures/recovery,
 actual process death, media, cross-client, full checks/reviews remain. No APK or
 production node/on-chain write; continue sequentially without owner review gate.

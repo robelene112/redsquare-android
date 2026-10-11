@@ -30,6 +30,7 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
     var reload by mutableIntStateOf(0)
     var candidate by mutableStateOf<SaitoTransaction?>(null)
     var available by mutableStateOf(false)
+    var previouslyAvailable by mutableStateOf(false)
     var superseding by mutableStateOf<SaitoProfile?>(null)
     val superseded: Boolean get() = superseding != null
     var networkError by mutableStateOf(false)
@@ -40,7 +41,9 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
             changes = (if (saved.transaction != null) saved.changes else memory.changes ?: saved.changes).deepCopy()
             memory.changes = changes.deepCopy()
             candidate = saved.transaction
-            available = saved.available
+            // Durable confirmation is historical until this session verifies exact server availability.
+            previouslyAvailable = saved.available
+            available = false
             superseding = saved.superseding
             ready = true
             error = false
@@ -70,7 +73,7 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
         busy = true
         return try {
             val saved = if (available && !networkError && !superseded) ProfileDraftStore.Saved()
-                else ProfileDraftStore.Saved(changes, candidate, available, superseding)
+                else ProfileDraftStore.Saved(changes, candidate, previouslyAvailable, superseding)
             withContext(NonCancellable + Dispatchers.IO) { store.save(saved) }
             memory.changes = if (saved.changes.size() == 0) null else saved.changes.deepCopy()
             error = false
@@ -95,7 +98,7 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
             try {
                 withContext(Dispatchers.IO) {
                     // Save local edits even when the required fresh baseline lookup fails.
-                    withContext(NonCancellable) { store.save(ProfileDraftStore.Saved(changes, candidate)) }
+                    withContext(NonCancellable) { store.save(ProfileDraftStore.Saved(changes, candidate, previouslyAvailable)) }
                     SaitoPeer(wallet, endpoint).use { peer ->
                         val transaction = candidate ?: run {
                             val fresh = peer.profile(wallet.publicKey)
@@ -113,6 +116,8 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
                         }
                         PostDeliveryAttempts.run(transaction.id) {
                             if (observe(peer, transaction)) return@run
+                            // A previously confirmed candidate is checked without publishing it again.
+                            if (previouslyAvailable) return@run
                             peer.authenticate()
                             if (!withContext(NonCancellable) { store.claim(transaction.id) }) return@run
                             peer.submit(transaction)
@@ -143,7 +148,9 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
         val newer = latest.updates.any { it.snapshot && it.id != transaction.id &&
             it.createdAt >= SaitoEnvelope.decode(transaction.envelope()).createdAt }
         if (newer) {
-            withContext(Dispatchers.Main.immediate) { superseding = latest; available = false }
+            withContext(Dispatchers.Main.immediate) {
+                superseding = latest; available = false; previouslyAvailable = false
+            }
             // Navigation must retain this verified guard even if public-cache saving fails.
             withContext(NonCancellable) {
                 store.save(ProfileDraftStore.Saved(changes, transaction, superseding = latest))
@@ -151,7 +158,10 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
             }
             return true // Never rebroadcast an older update over a newer verified snapshot.
         }
-        if (exact.updates.none { it.id == transaction.id }) return false
+        if (exact.updates.none { it.id == transaction.id }) {
+            withContext(Dispatchers.Main.immediate) { available = false }
+            return false
+        }
         val observed = SaitoEnvelope.decode(exact.updates.single().envelope)
         val expected = SaitoEnvelope.decode(transaction.envelope())
         check(observed.body == expected.body && observed.createdAt == expected.createdAt &&
@@ -160,7 +170,7 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
             cache.save(latest)
             check(store.confirmAvailable(transaction.id))
         }
-        withContext(Dispatchers.Main.immediate) { available = true; networkError = false }
+        withContext(Dispatchers.Main.immediate) { available = true; previouslyAvailable = true; networkError = false }
         return true
     }
 }
@@ -208,12 +218,16 @@ internal fun ProfileEditorScreen(wallet: SaitoWallet, backend: SaitoBackend, end
             Text(stringResource(R.string.profile_draft_local), style = MaterialTheme.typography.bodySmall)
             Button(enabled = ready && !busy && !available && !superseded && changes.size() > 0,
                 onClick = { send(profile) }, modifier = Modifier.fillMaxWidth()) {
-                Text(stringResource(if (candidate == null) R.string.profile_save else R.string.profile_retry))
+                Text(stringResource(when {
+                    candidate == null -> R.string.profile_save
+                    previouslyAvailable -> R.string.profile_check
+                    else -> R.string.profile_retry
+                }))
             }
             if (candidate != null) Text(stringResource(when {
                 superseded -> R.string.profile_superseded
-                networkError && available -> R.string.profile_previous_available
                 available -> R.string.profile_available
+                previouslyAvailable -> R.string.profile_previous_available
                 else -> R.string.profile_pending
             }))
             if (networkError) Text(stringResource(R.string.profile_publish_error))

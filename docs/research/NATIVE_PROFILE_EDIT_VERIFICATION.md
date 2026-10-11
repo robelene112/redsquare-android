@@ -564,9 +564,9 @@ PASS eight applicable cases plus one explicit API30+ assumption skip, runner
 OK9 in32.191s. Android17 38099231234 PASS all9 in57.316s; source38099229274
 PASS49 core/debug/test/release/lint. Bounded cf985f9...2c446d6 reviews Spec0,
 Standards0 remaining source findings. Original screenshots individually viewed:
-Android10 stale reopen shows superseded/frozen editor; Android17 initial failed
-cache, after navigation and stale reopen show the superseded/frozen editor with
-persistence error. Busy controls can differ at capture; do not claim all controls
+Android10 and Android17 healthy stale reopen show superseded/frozen editor.
+Android17 initial failed cache and after navigation show superseded/frozen editor
+with persistence error. Busy controls can differ at capture; do not claim all controls
 settled from pixels alone. Separate XML/raw logs retained profile-private-barrier-green.
 The observable acceptance assertions prove disabled older Retry and no extra TX.
 
@@ -579,3 +579,28 @@ additional transaction. This differs from outage or supersession; cached public
 bio is still useful without claiming current server history. Local assembly and
 intended Android10 RED pending; production unchanged for this tracer.
 Historical tracer local debug/test assembly PASS1m8s, retained container exit0.
+
+Actual historical RED de5a883, Android10 38099752101: ten runner cases39.514s,
+eight pass, one explicit API30+ assumption skip and one expected historical
+status failure at ProfilePublishingPreviewTest.kt:207. The original PNG was
+individually viewed: settled Edit profile says Profile available on this server
+with disabled retry/frozen original edit despite successful empty exact/latest
+archive responses. PNG, separate XML/rawlog retained profile-history-red/android10.
+Bounded tracer reviews: Spec1/Standards2, overlapping Check no-op observation
+gap plus stale-reopen caption discrepancy. Strengthen Check with a positive new
+exact-profile query and settled controls, retaining no-TX/status assertions. Split
+healthy reopen captions from cache-failure/error captures; no rendering cause
+inferred.
+
+Minimal production fix separates durable historical confirmation from this
+session's exact availability. Reopening starts unconfirmed; only exact verified
+server observation sets current availability. Empty reads retain history and
+frozen candidate through navigation. Check profile preserves the historical
+flag and exits before authentication/submission when history was confirmed.
+Existing durable claim guard still rejects confirmed candidates. Supersession
+remains stronger than past confirmation; existing on-disk flag/version/keys and
+formats stay unchanged. Local build, focused dual GREEN and bounded committed
+review pending; fuller profile recovery/media acceptance still open.
+Historical fix local debug/test assembly PASS2m14s, retained container exit0.
+Only the subsequent fixture counter tightened to the exact indexed candidate ID;
+hosted assembly/runtime will verify that final fixture.

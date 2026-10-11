@@ -20,6 +20,7 @@ internal class ProfileDraftStore(private val context: Context, private val owner
         "redsquare.profiledraft.v1", "profiledraft.")
     private val gson = GsonBuilder().setStrictness(Strictness.STRICT).create()
 
+    // available records a past exact confirmation, not current server retention.
     data class Saved(val changes: JsonObject = JsonObject(), val transaction: SaitoTransaction? = null,
         val available: Boolean = false, val superseding: SaitoProfile? = null) {
         val hasWork: Boolean get() = !available && (changes.size() > 0 || transaction != null)

@@ -22,6 +22,7 @@ import java.io.File
 import java.util.Base64
 import java.util.concurrent.atomic.AtomicReference
 import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.atomic.AtomicInteger
 
 class ProfilePublishingPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
@@ -69,6 +70,7 @@ class ProfilePublishingPreviewTest {
         val indexed = AtomicReference<JsonObject?>(null)
         val newer = AtomicReference<JsonObject?>(null)
         val stale = AtomicBoolean(false)
+        val exactProfileReads = AtomicInteger()
         val newerBio = "Newer profile from another device"
         val supersededStatus = "A newer verified profile is available on this server. This older update will not be sent again."
         val cacheWriteBlock = File(context.noBackupFilesDir, "profilemeta.owner.$owner.v1.new")
@@ -105,6 +107,7 @@ class ProfilePublishingPreviewTest {
                 })
         }, profileArchiveResponse = { criteria ->
             assertEquals(owner, criteria.get("field2").asString)
+            if (criteria.has("sig") && criteria.get("sig") == indexed.get()?.get("sig")) exactProfileReads.incrementAndGet()
             (if (stale.get()) { if (historical) emptyList() else listOf(reference) }
                 else listOfNotNull(indexed.get(), newer.get(), reference)).filter {
                 !criteria.has("sig") || criteria.get("sig").asString == it.get("sig").asString
@@ -210,8 +213,10 @@ class ProfilePublishingPreviewTest {
                                 .assertIsDisplayed().assertIsNotEnabled()
                             assertEquals(1, peer.transactions.size)
                             capture("previously-available-empty-reads.png", status)
+                            val previousReads = exactProfileReads.get()
                             ui.onNodeWithText("Check profile").assertIsEnabled().performClick()
-                            ui.waitUntil(20_000) { ui.onAllNodes(hasText("Back") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                            ui.waitUntil(20_000) { exactProfileReads.get() > previousReads &&
+                                ui.onAllNodes(hasText("Back") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                             ui.onNodeWithText(status).assertIsDisplayed()
                             assertEquals(1, peer.transactions.size)
                             ui.onNodeWithText("Back").performClick()
