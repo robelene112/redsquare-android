@@ -17,6 +17,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     private val onTransaction: ((ByteArray) -> Unit)? = null,
     private val quoteArchiveResponse: ((com.google.gson.JsonObject) -> String)? = null,
     private val profileArchiveResponse: ((com.google.gson.JsonObject) -> String)? = null,
+    private val registryResponse: ((com.google.gson.JsonObject) -> String)? = null,
     private val archiveResponse: ((com.google.gson.JsonObject) -> String)? = null) {
     @Volatile var disconnectAfterTransaction = false
     private val peer = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public test material only.
@@ -25,6 +26,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     val requests = java.util.concurrent.atomic.AtomicInteger()
     val clientKeys = java.util.concurrent.CopyOnWriteArrayList<String>()
     val transactions = java.util.concurrent.CopyOnWriteArrayList<ByteArray>()
+    val registryQueries = java.util.concurrent.CopyOnWriteArrayList<com.google.gson.JsonObject>()
     @Volatile private var failure: Throwable? = null
 
     fun start(port: Int = 0): MockWebServer {
@@ -82,8 +84,24 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                         val outputs = ByteBuffer.wrap(frame, 9, 4).int
                         val offset = 5 + 93 + 59 * (inputs + outputs)
                         val body = JsonParser.parseString(String(frame, offset, bodyLength, Charsets.UTF_8)).asJsonObject
-                        require(body.get("request").asString == "archive")
                         val criteria = body.getAsJsonObject("data")
+                        if (body.get("request").asString == "registry query") {
+                            when (criteria.get("request").asString) {
+                                "registry namecheck" -> require(criteria.get("identifier").asString.matches(Regex("[A-Za-z0-9]{1,45}@saito")))
+                                "registry query" -> {
+                                    val keys = criteria.getAsJsonArray("keys")
+                                    require(keys.size() in 1..50)
+                                    require(keys.all { it.asString.matches(Regex("[1-9A-HJ-NP-Za-km-z]{43,45}")) })
+                                }
+                                else -> error("Unexpected Registry request")
+                            }
+                            registryQueries.add(criteria.deepCopy())
+                            val response = registryResponse?.invoke(criteria) ?:
+                                if (criteria.get("request").asString == "registry query") "{}" else "{\"err\":\"no response\"}"
+                            webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) + response.toByteArray()).toByteString())
+                            return
+                        }
+                        require(body.get("request").asString == "archive")
                         require(criteria.get("request").asString == "load")
                         val response = if (criteria.get("field1").asString == "Profile") {
                             require(criteria.get("field2").asString.matches(Regex("[1-9A-HJ-NP-Za-km-z]{43,45}")))
