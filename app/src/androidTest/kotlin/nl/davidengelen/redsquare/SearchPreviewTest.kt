@@ -55,10 +55,13 @@ class SearchPreviewTest {
                     ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
                     val base = File(context.noBackupFilesDir, "search.owner.v1")
                     val preserved = File(context.noBackupFilesDir, "search.fixture.saved")
+                    val obstruction = File(base, "obstruction")
+                    check(!preserved.exists())
                     check(base.renameTo(preserved))
-                    check(base.mkdir())
-                    val obstruction = File(base, "obstruction").apply { writeText("public search fixture") }
+                    var primary: Throwable? = null
                     try {
+                        check(base.mkdir())
+                        obstruction.writeText("public search fixture")
                         includeReply.set(1)
                         ui.onNode(hasSetTextAction()).performTextReplacement("Independent")
                         ui.onNodeWithText("Search history").performClick()
@@ -67,10 +70,14 @@ class SearchPreviewTest {
                         ui.onNodeWithText("Independent Saito reply").assertIsDisplayed()
                         ui.onAllNodesWithText("No matching posts in the history searched so far.").assertCountEquals(0)
                         captureNativeScreen(File(context.cacheDir, "search-evidence/cache-save-warning.png"), warning)
+                    } catch (failure: Throwable) {
+                        primary = failure
+                        throw failure
                     } finally {
-                        check(obstruction.delete())
-                        check(base.delete())
-                        check(preserved.renameTo(base))
+                        cleanupAfterTest(primary,
+                            { if (obstruction.exists()) check(obstruction.delete()) },
+                            { if (base.exists()) check(base.delete()) },
+                            { check(preserved.renameTo(base)) })
                     }
                     ui.onNodeWithText("Search history").performClick()
                     waitForEnabled("Search history")
@@ -702,6 +709,19 @@ class SearchPreviewTest {
                 }
             }
         }
+    }
+
+    private fun cleanupAfterTest(primary: Throwable?, vararg operations: () -> Unit) {
+        var failure = primary
+        for (operation in operations) {
+            try { operation() }
+            catch (cleanup: Throwable) {
+                val earlier = failure
+                if (earlier == null) failure = cleanup
+                else if (earlier !== cleanup) earlier.addSuppressed(cleanup)
+            }
+        }
+        if (primary == null) failure?.let { throw it }
     }
 
     private fun clearPublicSearchHistory(context: android.content.Context) {
