@@ -63,9 +63,19 @@ separate draft save/navigation and lose RAM-only block. Added one API30+ native
 regression: nonempty public AtomicFile .new blocks writes while old base remains
 readable; require displayed supersession/error, then stale Back/reopen editor,
 retained block/frozen bio/no extra TX. API29 uses different AtomicFile mechanics;
-healthy supersession and draft-save/import faults cover both. New local build and
-intended Android17 RED pending. No barrier fix until actual RED. Then durable
-barrier/navigation fix before distinct historical-availability tracer.
+healthy supersession and draft-save/import faults cover both. Local test build
+PASS1m7s, bounded fixture both axes zero. Actual cf985f9 RED38098588719: nine
+cases94.046s, targeted missing superseded status at159 after Back/reopen,
+plus existing import line380 No compose roots with drawer open over provider
+file. Exact three original PNGs individually inspected/XML/log retained
+profile-cache-failure-red. Navigation capture shows enabled older Retry.
+Implemented optional full signed superseding snapshot in encrypted draftv2,
+strict owner/snapshot/order validation, load-before-read guard, navigation
+preservation and claim/confirmation guards. Save private barrier before public
+cache. v1/v2/filename/AAD/alias preserved. Picker fixture prioritizes/scopes
+drawer over behind-drawer filename, observes returned app window and waits for
+same exact selected address with optional roots. Current build/dual GREEN/
+committed-diff review pending. Historical availability still separate/open.
 Then candidate failures/recovery,
 actual process death, media, cross-client, full checks/reviews remain. No APK or
 production node/on-chain write; continue sequentially without owner review gate.

@@ -527,3 +527,34 @@ against Android platform tags android-10.0.0_r1 and android-11.0.0_r1; no produc
 or node operation. New test assembly and intended Android17 RED are pending;
 no durable private barrier implemented yet. New debug/test assembly subsequently
 PASS1m7s, retained container exit0; intended nine-case Android17 RED pending.
+
+Actual cf985f9 RED38098588719: nine Android17 cases94.046s, two failures.
+Targeted failure at ProfilePublishingPreviewTest.kt:159 after successful initial
+supersession/error and Back/reopen: superseded status missing. Exact originals
+individually viewed: cache-write-failed shows supersession/error/disabled Retry;
+navigation-failure shows pending status and enabled Retry with exact frozen edits.
+This positively demonstrates the guard loss; no extra submit was attempted.
+The separate existing failed-draft-save/import flow fails at ProfileEditPreviewTest
+line380 with No compose hierarchies while returning from SAF. Its exact PNG/XML
+show open roots drawer, provider breadcrumb/content and the filename behind that
+drawer. The fixture selected file before considering an open drawer and returned
+on click without positive app-window observation. Seven other cases pass, including
+both existing publication/supersession paths. All three original diagnostics,
+separate XML and raw UI log retained profile-cache-failure-red/android17.
+
+Bounded fix retains the full verified newer snapshot as an optional encrypted
+owner/backend draft field, signed envelope on disk. Restore verifies snapshot,
+owner, body, different candidate ID and signed timestamp before exposing it.
+Persisted barrier blocks claim/availability clearing and is carried through
+navigation; editor reopening restores it before any read and merges it into
+reconciliation even with stale reads. Save private barrier before public cache;
+failure to preserve it keeps the in-memory block and prevents successful navigation.
+Existing v1/v2 readers, alias, filename/AAD and shared framing remain compatible.
+The picker fixture now prioritizes/scopes open roots drawer before file selection,
+requires positive returned app-window observation, and permits zero Compose roots
+only while waiting for the same exact selected-address assertion. Same timeouts;
+no application import behavior or acceptance assertion relaxed. Local assembly,
+focused dual GREEN and actual committed-diff review are pending. Historical
+availability remains separate/open; no ticket18 completion.
+Bounded fix local debug/test assembly subsequently PASS1m55s, retained container
+exit0. Dual focused device verification and committed-diff review remain pending.

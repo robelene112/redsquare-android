@@ -30,7 +30,8 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
     var reload by mutableIntStateOf(0)
     var candidate by mutableStateOf<SaitoTransaction?>(null)
     var available by mutableStateOf(false)
-    var superseded by mutableStateOf(false)
+    var superseding by mutableStateOf<SaitoProfile?>(null)
+    val superseded: Boolean get() = superseding != null
     var networkError by mutableStateOf(false)
 
     suspend fun load() {
@@ -40,6 +41,7 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
             memory.changes = changes.deepCopy()
             candidate = saved.transaction
             available = saved.available
+            superseding = saved.superseding
             ready = true
             error = false
             // Reopening only checks a retained candidate. It never signs or submits.
@@ -68,7 +70,7 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
         busy = true
         return try {
             val saved = if (available && !networkError && !superseded) ProfileDraftStore.Saved()
-                else ProfileDraftStore.Saved(changes, candidate, available)
+                else ProfileDraftStore.Saved(changes, candidate, available, superseding)
             withContext(NonCancellable + Dispatchers.IO) { store.save(saved) }
             memory.changes = if (saved.changes.size() == 0) null else saved.changes.deepCopy()
             error = false
@@ -136,14 +138,17 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
         check(remote.ignored == 0)
         val cached = cache.load()
         check(!cached.unreadable)
-        val latest = SaitoProfiles.merge(cached.profile, SaitoProfiles.merge(remote, exact))
+        val retained = superseding?.let { SaitoProfiles.merge(cached.profile, it) } ?: cached.profile
+        val latest = SaitoProfiles.merge(retained, SaitoProfiles.merge(remote, exact))
         val newer = latest.updates.any { it.snapshot && it.id != transaction.id &&
             it.createdAt >= SaitoEnvelope.decode(transaction.envelope()).createdAt }
         if (newer) {
-            withContext(Dispatchers.Main.immediate) { superseded = true; available = false }
-            // Preserve the verified newer snapshot before declaring reconciliation settled.
-            // A failed write keeps retry blocked in memory and surfaces a recovery error.
-            withContext(NonCancellable) { cache.save(latest) }
+            withContext(Dispatchers.Main.immediate) { superseding = latest; available = false }
+            // Navigation must retain this verified guard even if public-cache saving fails.
+            withContext(NonCancellable) {
+                store.save(ProfileDraftStore.Saved(changes, transaction, superseding = latest))
+                cache.save(latest)
+            }
             return true // Never rebroadcast an older update over a newer verified snapshot.
         }
         if (exact.updates.none { it.id == transaction.id }) return false

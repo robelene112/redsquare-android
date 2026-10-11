@@ -22,6 +22,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import java.io.File
+import java.util.regex.Pattern
 
 class ProfileEditPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
@@ -305,16 +306,23 @@ class ProfileEditPreviewTest {
     private fun chooseProfileImport(filename: String) {
         val device = UiDevice.getInstance(instrumentation)
         val row = By.text(ExportTestDocumentsProvider.TITLE).res("android", "title")
+        val drawer = By.res(Pattern.compile(".*:id/roots_list"))
         val deadline = SystemClock.uptimeMillis() + 30_000
         while (SystemClock.uptimeMillis() < deadline) {
             try {
-                val file = device.findObject(By.text(filename))
-                if (file != null) { file.click(); return }
-                val root = device.findObject(row)
-                if (root != null) { root.click(); device.wait(Until.gone(row), 2_000) }
-                else device.findObject(By.desc("Show roots"))?.let {
-                    it.click()
-                    device.wait(Until.hasObject(row), 2_000)
+                val opened = device.findObject(drawer)
+                if (opened != null) {
+                    opened.findObject(row)?.click()
+                    device.wait(Until.gone(drawer), 2_000)
+                } else {
+                    val file = device.findObject(By.text(filename).res("android", "title"))
+                    if (file != null) {
+                        file.click()
+                        if (device.wait(Until.hasObject(By.pkg(context.packageName)), 2_000)) return
+                    } else device.findObject(By.desc("Show roots"))?.let {
+                        it.click()
+                        device.wait(Until.hasObject(row), 2_000)
+                    }
                 }
             } catch (_: StaleObjectException) { /* Reobserve the actual picker. */ }
             SystemClock.sleep(100)
@@ -377,7 +385,9 @@ class ProfileEditPreviewTest {
                     ui.onNodeWithText("Import wallet").performScrollTo().performClick()
                     chooseProfileImport("00-profile-import.json")
                     val selected = context.getString(R.string.wallet_import_address)
-                    ui.waitUntil(15_000) { ui.onAllNodesWithContentDescription(selected).fetchSemanticsNodes().isNotEmpty() }
+                    ui.waitUntil(15_000) {
+                        ui.onAllNodesWithContentDescription(selected).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+                    }
                     ui.onNodeWithContentDescription(selected).assertTextEquals("jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR")
                     assertEquals(owner, displayedWalletAddress(ui))
                     ui.onNodeWithText("Done").performClick()
