@@ -33,6 +33,23 @@ internal class SearchViewState {
     var posts by mutableStateOf<List<FeedPost>>(emptyList())
     var failed by mutableStateOf(false)
     var unreadable by mutableStateOf(false)
+    var cursors by mutableStateOf<Map<String, Long?>>(emptyMap())
+    var pending by mutableStateOf<List<String>>(emptyList())
+    var pagingUnavailable by mutableStateOf(false)
+
+    fun search() {
+        searchedQuery = query.trim()
+        val before = System.currentTimeMillis() + 1
+        cursors = listOf("RedSquare", "RedSquareRetweet").associateWith { before }
+        pending = cursors.keys.toList()
+        pagingUnavailable = false
+        request++
+    }
+
+    fun loadMore() {
+        pending = cursors.filterValues { it != null }.keys.toList()
+        request++
+    }
 }
 
 @Composable
@@ -58,13 +75,13 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
     LaunchedEffect(wallet, endpoint, view.request) {
         if (wallet == null || view.request == 0 || view.completed == view.request) return@LaunchedEffect
         val request = view.request
+        val pages = view.pending.mapNotNull { stream -> view.cursors[stream]?.let { stream to it } }
         loading = true
         view.failed = false
-        val before = System.currentTimeMillis() + 1
         try {
             withContext(Dispatchers.IO) {
                 SaitoPeer(wallet, endpoint).use { peer ->
-                    for (stream in listOf("RedSquare", "RedSquareRetweet")) {
+                    for ((stream, before) in pages) {
                         val criteria = JsonObject().apply {
                             addProperty("request", "load"); addProperty("field1", stream)
                             addProperty("flagged_ne", 1); addProperty("limit", 100)
@@ -82,6 +99,10 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
                             social?.observe(page.posts)
                             view.posts = applied.posts.sortedByDescending { it.createdAt }.take(1000)
                             view.unreadable = view.unreadable || applied.unreadable || page.ignored > 0
+                            val next = page.oldestCreatedAt?.takeIf { page.rowCount == 100 && it < before }
+                            view.pagingUnavailable = view.pagingUnavailable || (page.rowCount == 100 && next == null)
+                            view.cursors = view.cursors + (stream to next)
+                            view.pending = view.pending - stream
                         }
                     }
                 }
@@ -103,15 +124,25 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
         }
         OutlinedTextField(value = view.query, onValueChange = { if (it.length <= 256) view.query = it },
             label = { Text(stringResource(R.string.search_query)) }, singleLine = true, modifier = Modifier.fillMaxWidth())
-        TextButton(enabled = wallet != null && !loading && view.query.isNotBlank(), onClick = {
-            keyboard?.hide()
-            view.searchedQuery = view.query.trim()
-            view.request++
-        }) { Text(stringResource(R.string.search_history)) }
+        Row {
+            TextButton(modifier = Modifier.weight(1f), enabled = wallet != null && !loading && view.query.isNotBlank(), onClick = {
+                keyboard?.hide()
+                loading = true
+                view.search()
+            }) { Text(stringResource(R.string.search_history)) }
+            if (view.failed) {
+                TextButton(modifier = Modifier.weight(1f), enabled = wallet != null && !loading && view.pending.isNotEmpty(),
+                    onClick = { loading = true; view.request++ }) { Text(stringResource(R.string.search_retry)) }
+            } else {
+                TextButton(modifier = Modifier.weight(1f), enabled = wallet != null && !loading && view.cursors.values.any { it != null },
+                    onClick = { loading = true; view.loadMore() }) { Text(stringResource(R.string.search_more)) }
+            }
+        }
         Text(stringResource(R.string.search_coverage), style = MaterialTheme.typography.bodySmall)
         if (loading) Text(stringResource(R.string.search_loading))
         if (view.failed) Text(stringResource(R.string.search_error))
         if (view.unreadable) Text(stringResource(R.string.search_unreadable), style = MaterialTheme.typography.bodySmall)
+        if (view.pagingUnavailable) Text(stringResource(R.string.search_paging_unavailable), style = MaterialTheme.typography.bodySmall)
         if (view.request > 0 && !loading && !view.failed && matches.isEmpty()) Text(stringResource(R.string.search_empty))
         LazyColumn(Modifier.weight(1f).fillMaxWidth()) {
             if (view.request > 0) items(matches, key = { it.id }) { post ->

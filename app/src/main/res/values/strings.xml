@@ -260,4 +260,7 @@
     <string name="search_error">Some history could not be searched. Available results are still shown. Try again.</string>
     <string name="search_empty">No matching posts in the history searched so far.</string>
     <string name="search_unreadable">Some records could not be verified and were skipped.</string>
+    <string name="search_retry">Retry search</string>
+    <string name="search_more">Load more</string>
+    <string name="search_paging_unavailable">This history page has no usable older timestamp. Other available results are still shown.</string>
 </resources>
