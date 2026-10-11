@@ -389,3 +389,14 @@ that same reentrant lock through send. No inverse store-to-identity acquisition
 appears in the existing public-cache merge callbacks inspected. This closes a
 source window; no physical scheduler race is claimed reproduced. Latest source
 review and paired acceptance must include this change.
+
+## Source review clear and final paired acceptance running
+
+Whole-source Standards/Spec9ecb97b...ac808f9:0residual findings on each axis.
+Original receipt preservation and fixture cleanup fixed; exact byte routing,
+identity/backend boundaries, explicit failure/unknown distinctions and qualified
+native/independent evidence reviewed. Paired full10run38178423900/full17run38178425725
+both pinac808f9a870c22aafcad938377e54933552813d8 with separately enabled
+public_feed_read=true. Source/core/release/lint, full native suite, actual report
+process recovery, signed5→8 update/cold continuity and both approved public reads
+must all be inspected. No runtime GREEN or ticket acceptance inferred from dispatch.
