@@ -11,7 +11,7 @@ import nl.davidengelen.redsquare.saito.*
 
 internal data class ReportStatus(val candidate: SaitoTransaction? = null,
     val busy: Boolean = false, val acknowledged: Boolean = false, val failed: Boolean = false,
-    val ready: Boolean = false)
+    val ready: Boolean = false, val saveFailed: Boolean = false)
 
 /** One wallet and selected backend's reports, shared by every post view. */
 internal class ReportState(private val context: Context, private val wallet: SaitoWallet,
@@ -79,6 +79,7 @@ internal class ReportState(private val context: Context, private val wallet: Sai
         scope.launch {
             var candidate = status.candidate
             var acknowledged = false
+            var savingDetails = false
             try {
                 if (candidate == null) candidate = withContext(Dispatchers.IO) {
                     val body = JsonObject().apply {
@@ -89,7 +90,9 @@ internal class ReportState(private val context: Context, private val wallet: Sai
                 }
                 val original = requireNotNull(candidate)
                 // Retain the exact signed intent before any possible transmission.
+                savingDetails = true
                 withContext(NonCancellable + Dispatchers.IO) { save(post.id, original, false) }
+                savingDetails = false
                 statuses[post.id] = ReportStatus(original, busy = true, ready = true)
                 withContext(Dispatchers.IO) {
                     SaitoPeer(wallet, endpoint).use { peer ->
@@ -103,14 +106,17 @@ internal class ReportState(private val context: Context, private val wallet: Sai
                         val acknowledgement = gson.fromJson(reply, JsonObject::class.java)
                         require(acknowledgement != null && acknowledgement.size() == 0)
                         acknowledged = true
+                        savingDetails = true
                         withContext(NonCancellable) { save(post.id, original, true) }
+                        savingDetails = false
                     }
                 }
                 statuses[post.id] = ReportStatus(original, acknowledged = true, ready = true)
             } catch (failure: Exception) {
                 if (failure is CancellationException && failure !is TimeoutCancellationException) throw failure
                 statuses[post.id] = ReportStatus(candidate,
-                    acknowledged = acknowledged, failed = !acknowledged, ready = true)
+                    acknowledged = acknowledged, failed = !acknowledged, ready = true,
+                    saveFailed = savingDetails)
             }
             finally { statuses[post.id]?.let { statuses[post.id] = it.copy(busy = false) } }
         }

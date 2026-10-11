@@ -27,7 +27,8 @@ internal fun ReportAction(post: FeedPost, state: ReportState?) {
     if (confirming) AlertDialog(onDismissRequest = { confirming = false },
         title = { Text(stringResource(R.string.report_confirm, state.backend.domain)) },
         text = { Column {
-            if (status?.failed == true) Text(stringResource(R.string.report_uncertain, state.backend.domain))
+            if (status?.failed == true) Text(stringResource(
+                if (status.saveFailed) R.string.report_save_error else R.string.report_uncertain, state.backend.domain))
             Text(stringResource(R.string.report_explanation))
         } },
         confirmButton = { TextButton(onClick = {
@@ -40,6 +41,7 @@ internal fun ReportAction(post: FeedPost, state: ReportState?) {
             status?.ready != true && status?.failed == true -> R.string.report_load_error
             status?.ready != true -> R.string.report_loading
             status?.acknowledged == true -> R.string.report_acknowledged
+            status?.saveFailed == true -> R.string.report_save_error
             status?.failed == true -> R.string.report_uncertain
             else -> R.string.report_sending
         }, state.backend.domain)) },

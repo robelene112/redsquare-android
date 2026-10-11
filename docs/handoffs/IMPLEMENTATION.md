@@ -301,8 +301,12 @@ scope cancellation. Correction Android10 run38171267643 at02c5a47 passes3cases28
 affected originals/separate2XMLs show deadline unknown and exact-retry ack;
 durable ticket21/deadline-green6hashes. Both bounded deadline review axes0.
 Next single OS-save obstruction test requires no send and truthful save error
-then repaired explicit retry. Production save-failure wording remains unchanged
-for this RED. Load ownership review clear
+then repaired explicit retry. Run38171654146 at1e874de reproduces save-wording RED:4cases/3PASS/1FAIL
+47.575s at173, after no-report/no-broadcast guards pass. Root live original
+and separateXML show incorrect unknown wording; ticket21/save-red4hashes.
+Current minimal correction records save failure and says nothing new was sent.
+Focused correction runtime is next. Post-ack save warning and other pre-send
+failures still need their own acceptance. Load ownership review clear
 throughc10de10, with0residual Standards findings. Pre-transmission, interrupted-save/isolation and
 final paired acceptance remain incomplete. These checkpoints are not acceptance.
 Ticket22 remains incomplete: failure/durability/identity/backend isolation,

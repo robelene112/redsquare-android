@@ -123,3 +123,13 @@ Next single test obstructs the OS file-commit seam after ready state, confirms
 no report or broadcast, requires truthful save-failure wording, repairs only
 the isolated public obstacle, then explicitly retries with original identity
 and target. Production save-failure feedback remains unchanged for RED.
+
+## Save-failure RED and minimal correction
+
+Android10 run38171654146 at1e874de:4cases/3PASS/1FAIL47.575s. New case
+passes no-report/no-broadcast guards before failing at173 waiting for truthful
+save error. Root original/separateXML show unknown delivery despite prevented
+transmission. Durable ticket21/save-red4hashes. Current correction distinguishes
+save failure, states nothing new was sent and preserves explicit repaired retry.
+Correction runtime is next. Post-acknowledgement save warning, other pre-send
+errors, authority/isolation/process/final paired checks remain unfinished.
