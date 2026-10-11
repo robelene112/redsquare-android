@@ -126,6 +126,58 @@ class UsernamePreviewTest {
         }
     }
 
+    @Test fun aQuotedOriginalUsesItsVerifiedNameWithoutNamingTheQuoteAuthor() = withRegistryWallet(
+        SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
+    ) { reader ->
+        val registry = instrumentation.context.assets.open("native-registry-reference.json").bufferedReader()
+            .use { JsonParser.parseReader(it).asJsonObject }
+        val quotes = instrumentation.context.assets.open("native-quote-reference.json").bufferedReader()
+            .use { JsonParser.parseReader(it).asJsonObject }
+        val original = quotes.getAsJsonObject("original")
+        val current = quotes.getAsJsonObject("current").deepCopy().apply {
+            addProperty("field1", "RedSquareRetweet")
+            addProperty("field4", original.get("sig").asString)
+        }
+        val author = original.get("field2").asString
+        assertNotEquals(reader.publicKey, author)
+        val peer = ControlledFeedPeer("[]", quoteArchiveResponse = { "[$current]" },
+            registryResponse = nameDiscoveryResponse(author) { registry.getAsJsonArray("rows").toString() },
+            archiveResponse = { criteria ->
+                when {
+                    criteria.get("field1").asString == "RedSquareRetweet" -> "[$current]"
+                    criteria.get("sig")?.asString == original.get("sig").asString -> "[$original]"
+                    else -> "[]"
+                }
+            })
+        peer.start().use { server ->
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                .putExtra("usernameFixtureRegistrar", true)).use {
+                withFailureCapture({ capture("username-quoted-name-failure.png") }) {
+                    waitForEnabled("Refresh")
+                    if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
+                    ui.onNode(hasScrollAction(), useUnmergedTree = true)
+                        .performScrollToNode(hasText("Current commentary retweet"))
+                    val targetQuote = hasAnyAncestor(hasAnyChild(hasText("Current commentary retweet")))
+                    val quotedName = hasText("NativeCase7@saito") and hasAnyAncestor(hasContentDescription("Quoted original")) and targetQuote
+                    ui.waitUntil(20_000) { ui.onAllNodes(quotedName, useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNode(hasScrollAction(), useUnmergedTree = true).performScrollToNode(quotedName)
+                    ui.onNode(quotedName, useUnmergedTree = true).assertIsDisplayed()
+                    val quotedText = hasText("Native Red Square reference post") and hasAnyAncestor(hasContentDescription("Quoted original")) and targetQuote
+                    ui.onNode(quotedText, useUnmergedTree = true).assertIsDisplayed()
+                    ui.onNode(hasText("Anon-${reader.publicKey.take(6)}") and
+                        hasParent(hasAnyChild(hasText("Current commentary retweet"))), useUnmergedTree = true).assertExists()
+                    capture("username-quoted-name.png", "NativeCase7@saito")
+                    assertTrue(peer.registryQueries.any { it.get("request").asString == "registry namecheck" &&
+                        it.get("identifier")?.asString == "NativeCase7@saito" })
+                    assertTrue(peer.clientKeys.all { it == reader.publicKey })
+                    assertTrue(peer.transactions.isEmpty())
+                    peer.assertHealthy()
+                }
+            }
+        }
+    }
+
     @Test fun anExistingWalletDiscoversItsVerifiedNameWithoutRegisteringAgain() = withRegistryWallet { fixture ->
         val reference = instrumentation.context.assets.open("native-registry-reference.json").bufferedReader()
             .use { JsonParser.parseReader(it).asJsonObject }
@@ -684,7 +736,7 @@ class UsernamePreviewTest {
         }
     }
 
-    private fun discoveryPeer(publicKey: String, rows: String = "[]", proof: () -> String) = ControlledFeedPeer(rows, registryResponse = { criteria ->
+    private fun nameDiscoveryResponse(publicKey: String, proof: () -> String): (JsonObject) -> String = { criteria ->
         when (criteria.get("request").asString) {
             "registry query" -> {
                 val requested = criteria.getAsJsonArray("keys").map { it.asString }
@@ -698,9 +750,12 @@ class UsernamePreviewTest {
             }
             else -> error("Unexpected discovery request")
         }
-    }, archiveResponse = { criteria ->
-        if (criteria.get("field1").asString == "RedSquare" && !criteria.has("field2")) rows else "[]"
-    })
+    }
+
+    private fun discoveryPeer(publicKey: String, rows: String = "[]", proof: () -> String) = ControlledFeedPeer(rows,
+        registryResponse = nameDiscoveryResponse(publicKey, proof), archiveResponse = { criteria ->
+            if (criteria.get("field1").asString == "RedSquare" && !criteria.has("field2")) rows else "[]"
+        })
 
     private fun withRegistryWallet(fixture: SaitoWallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "1"), block: (SaitoWallet) -> Unit) {
         val walletStore = AndroidWalletStore(context)

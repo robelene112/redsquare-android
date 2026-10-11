@@ -479,3 +479,25 @@ records; mutations of the independent identifier/key/bid/bsh/signature/signer
 reject, synthetic proofs never validate against production authority. Unsigned
 lc0 marks a valid owner inactive, lc2 rejects. Existing parser implementation is
 unchanged. This is core protocol evidence, not native UI or live Registry readiness.
+
+Android17 bounded readiness8573f9c run38123932419 PASS10cases77.299s plus
+actual cold recovery1case3.601s, PID4945 to5023, unchangedwallet/backend/frame,
+real read-only namecheck, zero auto-send and exact explicit Retry. Independent
+pinned WASM/Elliptic verifies actual published-registrar frame. Root individually
+viewed shared feed/conversation/process PNG/XML. Root cold PNG onlystatusstrip; both reviewers
+render fullpending from the same original. XML/runtime establish recovery, no
+consistent cross-reviewer bitmap or capture cause claimed. Durable first-android17-username-green.
+New actual-replacement and quote-name tracers are absent from this GREEN.
+Quote tracer now binds exact name/text to both the original card and the outer
+Current commentary retweet post, keeps the outer author's anonymous identity,
+actual namecheck/handshakes and zero sends. First compile passes before this
+bounded target-scoping correction; corrected hosted build/runtime pending.
+
+Actual replacementfa4e6b0 Android10 run38124110877 PASS10cases53.748s plus
+unchanged cold stage3.306s. Real SAF cancel preserves outgoing verified name;
+explicit zero-balance skip/acknowledgement/confirmation activates scalar2. New
+own-key lookup/handshake, clean anonymous profile/Settings, recreated incoming
+wallet and zero sends pass. Root individually viewed profile/recreated-wallet
+PNG/XML; Settings/network assertions are runtime evidence. Durable
+first-actual-replacement-green. No incoming registered-name restoration or
+pending-candidate actual replacement proof yet, and no later quote tracer claim.
