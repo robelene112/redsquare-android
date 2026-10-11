@@ -491,3 +491,13 @@ NATIVE_SAITO_TRANSFER_CONTRACT, NATIVE_PRIVATE_CHAT_CONTRACT and
 NATIVE_GROUP_CHAT_CONTRACT (all .md under docs/research). The protected future notes remain uncommitted and must be included only with
 their own relevant tickets; earlier contracts are already committed.
 They establish source contracts, not runtime or feature completion.
+
+Latest #22 checkpoint: both final10 evidence axes0 at1c771ec, independently
+verified202hashes/raw191cases48records16deaths+documentedAPI30assumption,
+critical originals/continuity/publicreads and empty production equivalence.
+Focused images17run38181457132 at367cba4 PASSES20cases/5records/3actual
+interrupted stages, including corrected oversized fixture setup and unchanged
+rejection/preservation gates; image-fixture-green13hashes/rawlogs. No successful
+preparation rejection PNG/XML or proved provider cause. Full17retry38181575469
+at92d80f3 remains active. Its final acceptance/evidence review is required before
+#22 closure; #23 is next, not claimed. Protected future files remain untouched.

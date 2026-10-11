@@ -484,3 +484,13 @@ core/reference/build/harness/workflow unchanged through92d80f3. Both bounded
 imagefixture/docfix axes0 after staleREVIEWstatus correction. Focus17images
 38181457132 at367 and full17retry38181575469 at92 both active; the latter
 public_feed_read=true. Final17/evidence reviews required before22closure.
+
+Focused images17run38181457132 at367cba4 PASSES20cases/5records/3actual
+interrupted stages: preparation/loading5PASS17.507s, image6PASS61.305s,
+lifecycle7PASS59.011s, imagecold1PASS4.307s/queuedimagecold1PASS3.711s.
+Exact positive-size setup and unchanged rejection/prior-draft/no-send gates pass;
+no successful preparation rejection PNG/XML, no exact provider-cause inference.
+Durable image-fixture-green13hashes/allcountablelogs. Both final10 bounded
+evidence axes0 after independent202hashes/raw191/48/16+assumption, critical
+originals/continuity/publiccounts and empty production-equivalence checks.
+Full17retry38181575469 remains active; #22 stays open.

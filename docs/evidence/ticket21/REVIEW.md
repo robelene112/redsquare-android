@@ -71,8 +71,12 @@ correction publishes one complete pending write under a unique name, checks
 the recognizable oversized source's exact positive size and begins owned
 cleanup before allocation. Provider reclassification remains a hypothesis.
 Both image fixture/docfix reviews clear through92d80f3. Focused images17run
-38181457132 at367cba4 and full17retry38181575469 at92d80f3 are active, the
-latter with public_feed_read=true. No success inferred from dispatch.
+38181457132 at367cba4 PASSES20cases/5records/3actual interrupted stages;
+preparation/loading5PASS17.507s includes the exact positive-size guard and
+unchanged prior-draft/rejection/no-send predicates. Durable image-fixture-green
+retains13hashes and all countable logs. No successful rejection PNG/XML exists;
+no bitmap claim or exact provider-cause inference. Full17retry38181575469 at
+92d80f3 remains active with public_feed_read=true.
 
 Full10run38180155391 PASSES191reported cases/190PASS+existingAPI30+assumption,
 48records/16actual death stages; core55/0/0, release/lint, signed5→8/coldwallet/
@@ -86,6 +90,8 @@ android10 retains202hashes and all raw countable logs, exact original/durable
 recount191/48/16+assumption. Production/core/reference/build/harness/workflow
 unchanged709→92, only existing image fixture/setup and docs/evidence change.
 WORKFLOW permits retaining full10 while completing outstanding17.
-Final17 acceptance and bounded evidence review remain pending.
+Both final10 bounded evidence axes are0: each independently verified202hashes,
+raw counts, qualified originals, continuity and empty source equivalence.
+Final17 acceptance and its bounded evidence review remain pending.
 Ticket22 stays open. No new phone APK, physical Pixel, live report, moderator
 decision, arbitrary power-loss or permanent-history claim.

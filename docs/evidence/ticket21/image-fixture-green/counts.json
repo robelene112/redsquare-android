@@ -1,0 +1,35 @@
+{
+  "run": "38181457132",
+  "source": "367cba47ab19d2f5425e624553289c340719c3d6",
+  "completedCases": 20,
+  "completionRecords": 5,
+  "actualDeathStages": 3,
+  "records": [
+    {
+      "log": "image-process/recovered-instrumentation.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "image-queue-process/recovered-instrumentation.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "images-lifecycle-ui.txt",
+      "completedCases": 7
+    },
+    {
+      "log": "images-preparation-ui.txt",
+      "completedCases": 5
+    },
+    {
+      "log": "images-ui.txt",
+      "completedCases": 6
+    }
+  ],
+  "deathLogs": [
+    "image-process/candidate-interrupted.txt",
+    "image-process/draft-interrupted.txt",
+    "image-queue-process/interrupted-instrumentation.txt"
+  ],
+  "assumptions": []
+}
