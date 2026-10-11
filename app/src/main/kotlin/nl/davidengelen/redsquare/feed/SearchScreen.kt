@@ -45,6 +45,7 @@ internal class SearchViewState {
     var exactPerson by mutableStateOf<SaitoRegisteredName?>(null)
     var usernameFailed by mutableStateOf(false)
     var usernameSaveError by mutableStateOf(false)
+    var usernameConfirmed by mutableStateOf(false)
     var usernamePending = false
 
     fun search() {
@@ -55,6 +56,7 @@ internal class SearchViewState {
         }
         usernamePending = searchedQuery.matches(Regex("[A-Za-z0-9]{1,45}@saito"))
         usernameFailed = false
+        usernameConfirmed = false
         val before = System.currentTimeMillis() + 1
         cursors = listOf("RedSquare", "RedSquareRetweet").associateWith { before }
         pending = cursors.keys.toList()
@@ -121,7 +123,10 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
                     if (identifier != null) {
                         try {
                             val person = RegistryLookup(peer, registrar).namecheck(identifier)?.takeIf { it.active }
-                            withContext(Dispatchers.Main.immediate) { view.exactPerson = person }
+                            withContext(Dispatchers.Main.immediate) {
+                                view.exactPerson = person
+                                view.usernameConfirmed = person != null
+                            }
                             val saved = try {
                                 person?.let { RegisteredNameStore(context, it.publicKey, registrar).save(it, backend) }
                                 true
@@ -237,6 +242,9 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
         if (loading) Text(stringResource(R.string.search_loading))
         if (view.failed) Text(stringResource(R.string.search_error))
         if (view.usernameFailed) Text(stringResource(R.string.search_username_error))
+        if (!view.usernameConfirmed && people.any { key -> key == exactName?.publicKey ||
+                knownNames[key]?.name?.equals(view.searchedQuery, ignoreCase = true) == true })
+            Text(stringResource(R.string.search_cached_name), style = MaterialTheme.typography.bodySmall)
         if (view.unreadable) Text(stringResource(R.string.search_unreadable), style = MaterialTheme.typography.bodySmall)
         if (view.pagingUnavailable) Text(stringResource(R.string.search_paging_unavailable), style = MaterialTheme.typography.bodySmall)
         if (view.limitReached) Text(stringResource(R.string.search_limit), style = MaterialTheme.typography.bodySmall)
