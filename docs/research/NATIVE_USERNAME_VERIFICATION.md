@@ -82,3 +82,30 @@ docs/evidence/ticket18/first-unavailable-red. Later flow assertions were not rea
 and are not claimed as passed. Minimal optional screen now in development;
 first local compile was deliberately interrupted after noticing the peer request
 interface takes/returns UTF8 bytes, then corrected before restarting compilation.
+
+Minimal screen6bd3cb1 debug/test build2m7s passed. Independent reviews for
+5c57cb0...6bd3cb1:0 actionable Standards/0 actionable Spec. First native GREEN
+Android10 run38113786054 one case PASS5.465s: real unavailable namecheck,
+visible error, enabled New post after Back, same public wallet, zero broadcasts.
+Original success PNG individually viewed, separate XML inspected, retained
+verbatim with raw log/hashes at docs/evidence/ticket18/first-unavailable-green.
+Posting is accessible; this case does not actually send a post or exercise Chat.
+
+Next tracer00bbead requests a registration after a successful empty namecheck,
+expects truthful pending state, preserved exact request after Activity recreation,
+read-only reopening and identical frame on explicit Retry. Focused10 run38114016651
+awaits expected missing Register name RED. Activity recreation is not actual
+process death; real interruption remains later acceptance. Writes target only a
+controlled loopback peer, never either production backend.
+
+Pending tracer actual RED Android10 run38114016651:2cases, unavailable casePASS,
+pending case fails at missing Register name, line89, total8.319s. Original failure
+PNG individually viewed and XML inspected show successful availability with no
+Register action. Verbatim evidence retained at first-pending-red. Later pending/
+recreation/exact-retry assertions were not reached. Minimal request storage/state
+now added; debug/test assembly2m6s passed before a two-line synchronous busy guard
+addition (the next hosted build verifies that addition). One encrypted immutable
+request is validated against author/registrar/module/name and saved/verified
+before send. Reopening is read-only; Retry first rechecks ownership and only sends
+the original candidate when still available. Native GREEN and review pending.
+No actual process-death, identity replacement, proof-cache or name-display claim.

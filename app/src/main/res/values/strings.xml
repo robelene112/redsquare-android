@@ -234,4 +234,10 @@
     <string name="username_taken">This username belongs to another wallet.</string>
     <string name="username_inactive">Your registration record is inactive on this server.</string>
     <string name="username_owned">This username is registered to your wallet.</string>
+    <string name="username_register">Register name</string>
+    <string name="username_retry">Retry registration</string>
+    <string name="username_pending">Registration requested. Confirmation is still pending.</string>
+    <string name="username_pending_unavailable">Registration confirmation could not be checked. Your saved request is retained. Try again.</string>
+    <string name="username_save_error">Username request could not be saved. Nothing new was sent. Try again.</string>
+    <string name="username_load_error">Saved username request could not be opened. Try again.</string>
 </resources>

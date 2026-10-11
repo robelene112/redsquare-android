@@ -226,8 +226,10 @@ class MainActivity : ComponentActivity() {
                         }
                         if (usernameOpen && wallet != null && backend != null) {
                             key(wallet!!.publicKey, backend) {
-                                UsernameScreen(wallet!!, FeedEndpoints.fromIntent(intent, backend!!), Modifier.weight(1f)) {
+                                CompositionLocalProvider(LocalPostNavigation provides postNavigation) {
+                                UsernameScreen(wallet!!, backend!!, FeedEndpoints.fromIntent(intent, backend!!), Modifier.weight(1f)) {
                                     usernameOpen = false
+                                }
                                 }
                             }
                         } else if (!(BuildConfig.DEBUG && intent.getBooleanExtra("feedDisabled", false))) {
