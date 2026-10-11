@@ -138,7 +138,12 @@ views-green30hashes. RepeatedexplainedMute steps extractedafterGREEN. NextSINGLE
 late-save tracer added before rollback implementation: postfinishWrite personal
 OSsyncfault, UIerror/oldMute, freshnormalActivity mustretainfilteredpost/Mute,
 explicitrepair/restoration/samewallet/noTX. CompilePASS2m7s; first5caseRED next.
-Noanchor/rollback fix yet. Block, other-view filters and late-save recovery still require further
+Late-save RED38156328999 at9611408:5reported/4PASS1FAIL83.454s. Mounted
+failedUnmuteerror/oldMute passes; freshnormalActivity rootreturns, full-list
+absencefailsline452. Rootviews2originals/separateXML; save-red6hashes. Minimal
+AndroidPersonalControls verifiedprevious-anchor/rollback/ready-gate adapter now
+implemented. CompilePASS2m3s; unchanged5caseGREEN next. Identity/processdeath/
+corruption probes and final pairedSDKacceptance remainpending. Block, other-view filters and late-save recovery still require further
 vertical journeys; no final #21 acceptance/new APK claimed. Scope/verification plan: NATIVE_PERSONAL_CONTROLS_VERIFICATION.md.
 Read-only source preparation is ignored .scratch/personal-controls-plan.md.
 Preserve the seven future research files below.

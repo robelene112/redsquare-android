@@ -14,15 +14,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import com.google.gson.JsonObject
-import com.google.gson.JsonParser
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import nl.davidengelen.redsquare.R
-import nl.davidengelen.redsquare.saito.EncryptedLocalFile
 import nl.davidengelen.redsquare.saito.SaitoWallet
 
 /** Shared semantics for social content/notifications and the later incoming Chat flow. */
@@ -34,7 +31,7 @@ internal data class PersonalPolicy(val muted: Set<String> = emptySet(), val bloc
 /** Device-local personal choices for one public identity, shared by both servers. */
 internal class PersonalControls(private val context: Context, private val owner: String?, private val scope: CoroutineScope,
     commitDirectorySync: (FileDescriptor) -> Unit = Os::fsync) {
-    private val storage = owner?.let { EncryptedLocalFile(context, "personal.$it.v1", "personal.$it", "personal.$it.", commitDirectorySync) }
+    private val storage = owner?.let { AndroidPersonalControls(context, it, commitDirectorySync) }
     val ownerAvailable get() = owner != null
     var policy by mutableStateOf(PersonalPolicy())
         private set
@@ -58,13 +55,7 @@ internal class PersonalControls(private val context: Context, private val owner:
                     // Anonymous public reading remains available on a device without them.
                     require(context.noBackupFilesDir.listFiles()?.none { it.name.startsWith("personal.") } == true)
                     PersonalPolicy()
-                } else requireNotNull(storage).load()?.let { saved ->
-                    require(saved.version == 1.toByte())
-                    val record = JsonParser.parseString(saved.text).asJsonObject
-                    require(record.get("version").asInt == 1 && record.get("owner").asString == owner)
-                    PersonalPolicy(readAccounts(record, "muted"),
-                        if (record.has("blocked")) readAccounts(record, "blocked") else emptySet())
-                } ?: PersonalPolicy()
+                } else requireNotNull(storage).load()
             }
             ready = true
             error = false
@@ -89,23 +80,18 @@ internal class PersonalControls(private val context: Context, private val owner:
 
     private fun save(author: String, updated: PersonalPolicy) {
         if (owner == null || !ready || saving) return
+        val previous = policy
         saving = true
         scope.launch {
             try {
                 withContext(Dispatchers.IO) {
-                    require(SaitoWallet.isPublicKey(author) && updated.muted.size <= MAX_ACCOUNTS &&
-                        updated.blocked.size <= MAX_ACCOUNTS)
-                    val record = JsonObject().apply {
-                        addProperty("version", 1)
-                        addProperty("owner", owner)
-                        add("muted", com.google.gson.JsonArray().apply { updated.muted.sorted().forEach(::add) })
-                        add("blocked", com.google.gson.JsonArray().apply { updated.blocked.sorted().forEach(::add) })
-                    }
-                    requireNotNull(storage).save(EncryptedLocalFile.Contents(1, record.toString()))
+                    require(SaitoWallet.isPublicKey(author))
+                    requireNotNull(storage).save(previous, updated)
                 }
                 policy = updated
                 error = false
             } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: AndroidPersonalControls.RecoveryRequired) { ready = false; error = true }
             catch (_: Exception) { error = true }
             finally { saving = false }
         }
@@ -113,14 +99,7 @@ internal class PersonalControls(private val context: Context, private val owner:
 
     fun hidesPosts(author: String) = !ready || policy.hidesSocial(author)
 
-    private fun readAccounts(record: JsonObject, name: String): Set<String> {
-        val values = record.getAsJsonArray(name).map { it.asString }
-        require(values.size <= MAX_ACCOUNTS && values.distinct().size == values.size)
-        require(values.all(SaitoWallet::isPublicKey))
-        return values.toSet()
-    }
 
-    private companion object { const val MAX_ACCOUNTS = 1000 }
 }
 
 internal val LocalPersonalControls = staticCompositionLocalOf<PersonalControls?> { null }

@@ -209,3 +209,23 @@ personalwrites, wallet/read behavior unchanged. No recovery anchor implemented
 before observed RED. Compile/focused5journey RED next.
 
 Late-save tracer and narrow Mute-helper refactor compilePASS2m7s; native5caseRED next.
+
+Late-save fixture/OSseam/refactor/evidence review17104b8...9611408: both axes0
+new actionable findings; prior repeatedMute judgment resolved. Both verify30
+views-GREENhashes/originalobservations. First5caseRED38156328999 at9611408
+active. No rollback product implementation before actualfailure.
+
+Late-save RED38156328999 at9611408:5reported/4PASS1FAIL83.454s. Mountedfailed
+Unmuteerror/oldMute passes, freshnormalActivity showsrootandfailsfull-listabsence
+atline452. Rootviews2originalPNG/separate2XML; save-red6hashes. Newjourney
+repair/endgatesunreached. ExistingfourjourneysPASS; sourcepush38156329246PASS.
+Minimal AndroidPersonalControls adapter now validates independentsets/owner,
+loads/recoversexistingencryptedprevious-policyanchor beforeactivecontent, compares
+expectedoldpolicy under sharedlock, verifiesoldanchor before activecommit and
+removes/syncsanchor onlyafterverification. Failedwrites/removalsrestoreoldpolicy
+usingnormalOSsync; failedrestorationwithholdsreadycontent and retainsrecovery
+instructionwhenpossible. Emptyoldpolicy isexplicitanchor; Mute-onlylegacyrecord
+stillloads. Policyfilenamefamilyincludesanchors, preserving unknown-ownergate.
+No signingwallet/options mutation; unchanged5caseGREEN/compile next.
+
+Verified-anchor adapter compilation PASS2m3s; unchanged5case focusedGREEN next.
