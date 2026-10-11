@@ -37,16 +37,16 @@ class ThreadProfilePreviewTest {
                     ui.onNodeWithText(author).performClick()
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Posts")).fetchSemanticsNodes().isNotEmpty() }
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
-                    ui.onNodeWithText(context.getString(R.string.feed_cache_warning)).assertIsDisplayed()
+                    ui.onNodeWithText("Native Red Square reference post").performScrollTo().assertIsDisplayed()
+                    ui.onNodeWithText(context.getString(R.string.feed_cache_warning)).performScrollTo().assertIsDisplayed()
                     peer.assertHealthy()
                     server.close()
                     ui.onNodeWithText("Refresh").performClick()
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText(context.getString(R.string.profile_error))).fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
-                    captureFeedEvidence("browse-evidence/profile-memory-after-write-failure.png")
+                    ui.onNodeWithText("Native Red Square reference post").performScrollTo().assertIsDisplayed()
+                    captureProfileObservation("profile-memory-after-write-failure", "Native Red Square reference post")
                 } catch (failure: Throwable) {
-                    captureFeedEvidence("browse-evidence/profile-memory-first-failure.png")
+                    captureProfileFailure(failure, "profile-memory-first-failure")
                     throw failure
                 }
             }
@@ -280,9 +280,9 @@ class ThreadProfilePreviewTest {
                     ui.onNodeWithText(author).performClick()
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Posts")).fetchSemanticsNodes().isNotEmpty() }
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Native Red Square reference post")).fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNodeWithText("Replies").performClick()
+                    ui.onNodeWithText("Replies").performScrollTo().performClick()
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Nested Saito reply")).fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNodeWithText("Likes").performClick()
+                    ui.onNodeWithText("Likes").performScrollTo().performClick()
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Independent Saito reply")).fetchSemanticsNodes().isNotEmpty() }
                     ui.waitUntil(10_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     peer.assertHealthy()
@@ -296,16 +296,18 @@ class ThreadProfilePreviewTest {
                     ui.onNodeWithText(author).performClick()
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Posts")).fetchSemanticsNodes().isNotEmpty() }
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Native Red Square reference post")).fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
-                    ui.onNodeWithText("Replies").performClick()
+                    ui.onNodeWithText("Native Red Square reference post").performScrollTo().assertIsDisplayed()
+                    captureProfileObservation("cached-profile-posts-after-restart", "Native Red Square reference post")
+                    ui.onNodeWithText("Replies").performScrollTo().performClick()
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Nested Saito reply")).fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNodeWithText("Nested Saito reply").assertIsDisplayed()
-                    ui.onNodeWithText("Likes").performClick()
+                    ui.onNodeWithText("Nested Saito reply").performScrollTo().assertIsDisplayed()
+                    ui.onNodeWithText("Likes").performScrollTo().performClick()
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Independent Saito reply")).fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNodeWithText("Independent Saito reply").assertIsDisplayed()
+                    ui.onNodeWithText("Independent Saito reply").performScrollTo().assertIsDisplayed()
+                    captureProfileObservation("cached-profile-likes-after-restart", "Independent Saito reply")
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText("Profile history could not be refreshed. Available posts remain visible.")).fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNodeWithText("Only available history is shown. Older posts and likes may be missing.").assertIsDisplayed()
-                    captureFeedEvidence("browse-evidence/cached-profile-likes-after-restart.png")
+                    ui.onNodeWithText("Only available history is shown. Older posts and likes may be missing.").performScrollTo().assertIsDisplayed()
+                    captureProfileObservation("cached-profile-history-warning-after-restart", context.getString(R.string.profile_history))
                     } catch (failure: Throwable) {
                         captureProfileFailure(failure, "cached-profile-recovery-first-failure")
                         throw failure
@@ -499,8 +501,14 @@ class ThreadProfilePreviewTest {
         }
     }
 
+    private fun captureProfileObservation(name: String, expectedText: String? = null) {
+        ui.waitForIdle()
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        captureNativeScreen(java.io.File(context.cacheDir, "browse-evidence/$name.png"), expectedText)
+    }
+
     private fun captureProfileFailure(failure: Throwable, name: String) {
-        try { captureFeedEvidence("browse-evidence/$name.png") }
+        try { captureProfileObservation(name) }
         catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
     }
 

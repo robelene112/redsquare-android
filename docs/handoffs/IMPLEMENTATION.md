@@ -8,394 +8,70 @@ one question at a time when a material choice really needs the owner.
 ## Current work
 
 Active #18, "Edit profile bio, avatar and banner", assigned/unblocked.
-Full review base afce6610e4c78a2183bf154ac99cc35d7917b03c. Canonical source
-contract and all runtime/evidence chronology: NATIVE_PROFILE_EDIT_CONTRACT.md
-and NATIVE_PROFILE_EDIT_VERIFICATION.md. Fourteen of35 complete (#2–#15).
+Fourteen of35 complete (#2–#15). #16 Giphy awaits Android-authorized credentials;
+#17 YouTube actual provider playback remains unproved. Do not close either from
+controlled source/layout successes. Next independent ticket after #18 is #19.
 
-First publisher production6db0e74: verified full-snapshot reader/identicon,
-public metadata cache/stale guard, scrollable full bio/history, own-profile
-entry, encrypted private bio drafts and explicit complete Profile publication.
-Fresh own lookup preserves avatar/banner/archive/unknown fields; edits before
-lookup and signed candidate before dispatch are durable. Original-byte retry,
-read-only reopening and identity/backend claim implemented. Profile draftv2
-record retains direct-changesv1/filename/AAD/key alias; Post/Profile share
-EncryptedLocalFile but keep separate families/keys. Import awaits mounted save,
-warns for pending profile work on both backends and treats unreadable as unknown.
-No avatar/banner selection/display or complete recovery acceptance yet.
+Full #18 review base afce6610e4c78a2183bf154ac99cc35d7917b03c. Canonical
+source contract, exact test/failure chronology and evidence limits are in
+NATIVE_PROFILE_EDIT_CONTRACT.md and NATIVE_PROFILE_EDIT_VERIFICATION.md.
+Production includes verified complete signed snapshots, native generated avatar,
+scrollable public profile, image/banner display, selection/crop/removal and bio
+editing. Encrypted identity/backend-owned drafts and original signed candidates
+survive interruption; shared EncryptedLocalFile preserves existing post formats.
+Publication merges newest verified untouched fields; failed saves stay truthful.
+Private supersession barriers and historical availability prevent stale retries.
+Explicit Start new edit confirms retirement with a warning, keeps newest verified
+baseline privately and never erases a received update elsewhere. Exact signed
+candidate preview preserves media omissions; editable baseline merges run on IO.
+Late-commit retries use exact per-store own-attempt witnesses without treating
+readable unsynced bytes as successful writes. Wallet import waits for mounted
+persistence and acknowledges pending/unknown work on both supported backends.
 
-Focused first publisher GREEN: Android10 38096716281 PASS7 cases26.877s;
-Android17 38096718157 PASS7 cases73.156s; source38096715823 PASS. Original
-availability PNGs individually inspected, separate XML/raw logs retained under
-profile-publishing-first-green. Both actual synthetic frame specimens independently
-PASS pinned WASM/Elliptic signatures, hop, zero self-slip/full-body/envelope checks.
-Hash-pinned A/B Profile server/browser receiving and newest reconstruction
-PASS for both actual specimens (four observations each), retained web-receiver
-reports. In-memory adapters; no DOM pixels/deployment/live-chain proof. Prior bio-save/import failure
-flows PASS6 cases21.46s/71.054s on10/17 with original images inspected; shared
-encryption post18/profile4 regressions also passed both (canonical doc).
+Full cumulative source review afce661...ed645ab: Spec0 and Standards0 remaining
+hard issues; narrow test-capture duplication extraction is committed01858ad.
+Bounded ed645ab...01858ad review with independent process evidence inspection is
+running. The extraction leaves production/assertions/readiness gates unchanged;
+local test assembly PASS1m13s (rawlog in ignored scratch).
 
-Current bounded review601e518...6db0e74: Spec2, Standards1 hard issue, same
-newer-snapshot durability gap; pre-submit zero-TX assertion fixed. Newer state
-first learned in reconciliation is not persisted before return, permitting
-regression after reopen/stale reads. Previously available=true is also retained
-as current despite successful empty exact lookup; closing can erase candidate.
-Both findings must be fixed and rechecked before publisher acceptance.
+Actual ed645ab dual focused process proof PASSED: Android10 38109328015 and
+Android17 38109329450. Four preceding classes report16 cases each (Android10
+fifteen pass plus one API30+ assumption; Android17 all16). Two real app PID deaths
+per SDK; newest bio and prepared images recover after owned source deletion and
+death in the real external picker. Uncertain exact signed candidate survives
+second death; cold exact availability is read-only with zero new broadcasts.
+Verified clearing retains public bio/images. Recovery never resets wallet/backend.
+Final recovery JUnit1PASS4.21s/5.913s. All12 original PNGs individually viewed by
+root, XML/logs/public checkpoints retained ticket17/profile-process-green.
+Bio is above the scrolled media viewport and verified by exact runtime text,
+not a visible-bio bitmap claim. First two runner crashes are deliberate
+interruptions verified by host phase/PID checks, not JUnit passes.
 
-Added one regression: newer same-author snapshot appears during real publish,
-then close Activity directly (no public refresh), serve only stale original,
-reopen require newer public bio + superseded/disabled Retry + original edit and
-no extra TX. Native RED38097083171: eight cases29.678s, exactly missing newer
-bio at fresh Activity line148; other seven pass. Original before/failure PNGs
-individually inspected, separate XML/log retained profile-supersession-red.
-Minimal fix5fc6d78 saves merged verified newer cache before returning settled,
-after blocking retry in memory. Local assembly PASS1m55s/source38097639261 PASS.
-Focused10/17 38097639188/38097640515 now pass newer public bio/supersession/
-disabled Retry, fail only disabled field hasSetTextAction selector at153,
-eight cases31.559s/79.589s. Fix selector to exact EditableText displayed/disabled,
-and positively gate successful PNG/XML on expected UiAutomator window text.
-No production change. Corrected539af56 dual GREEN10/17 38098119577/38098120892
-PASS8 cases32.48s/80.879s. Exact before/reopened original PNGs independently
-reviewed, XML/rawlogs retained profile-supersession-first-green. Each SDK pair
-has identical PNG bytes showing superseded/frozen editor. One caption error
-corrected9dcf5ec, bounded fix both axes zero. Bounded app review Spec0 new;
-Standards1 residual hard finding: failed public-cache save can still allow
-separate draft save/navigation and lose RAM-only block. Added one API30+ native
-regression: nonempty public AtomicFile .new blocks writes while old base remains
-readable; require displayed supersession/error, then stale Back/reopen editor,
-retained block/frozen bio/no extra TX. API29 uses different AtomicFile mechanics;
-healthy supersession and draft-save/import faults cover both. Local test build
-PASS1m7s, bounded fixture both axes zero. Actual cf985f9 RED38098588719: nine
-cases94.046s, targeted missing superseded status at159 after Back/reopen,
-plus existing import line380 No compose roots with drawer open over provider
-file. Exact three original PNGs individually inspected/XML/log retained
-profile-cache-failure-red. Navigation capture shows enabled older Retry.
-Implemented optional full signed superseding snapshot in encrypted draftv2,
-strict owner/snapshot/order validation, load-before-read guard, navigation
-preservation and claim/confirmation guards. Save private barrier before public
-cache. v1/v2/filename/AAD/alias preserved. Picker fixture prioritizes/scopes
-drawer over behind-drawer filename, observes returned app window and waits for
-same exact selected address with optional roots. Local build PASS1m55s, source38099229274 PASS; bounded cf985f9...2c446d6
-reviews both zero. Dual GREEN10 38099229129: eight applicable cases PASS plus
-one explicit API30+ assumption skip, runner OK9 in32.191s. Android17
-38099231234 all9 PASS57.316s. Original PNGs individually viewed; separate
-XML/rawlogs retained profile-private-barrier-green. Superseded/frozen editor
-remains through failed-cache Back/reopen. Historical availability still open.
-One new tracer retains a confirmed candidate across direct Activity closure,
-serves successful empty archive reads, then requires qualified past availability,
-read-only Check profile and Back/reopen preservation with no extra TX.
-Historical RED38099752101: ten cases39.514s, eight pass/one API30+ skip/
-one expected missing qualification at207. Original PNG individually viewed
-shows false current availability; XML/rawlog retained profile-history-red.
-Separate historical/current state now implemented, preserve history in saves,
-read-only Check returns before authentication/submission, claim guard retained.
-Both tracer review concerns fixed (positive exact query/caption split). Local
-production buildPASS2m14s, source38100140888 PASS. Focused GREEN10
-38100143700: nine applicable PASS/one API30+ assumption skip, OK10/38.625s;
-17 38100145537 all10 PASS92.885s. Four original historical PNGs individually
-viewed, XML/rawlogs retained profile-history-green. Bounded historical fix
-Standards0/Spec1 remaining supersession-copy qualification, corrected resource
-and exact existing test literal without changing barrier behavior. Bounded copy
-review both axes zero; source checks pending. New single media tracer selects
-red avatar/blue banner, retains typed bio/private draft through deleted sources
-and fresh Activity, then explicitly publishes full compatible snapshot and
-checks square/3:1 geometry, pixels/unchanged fields/public profile. Native
-Android10 RED38100747417 eleven cases43.279s, nine PASS/one API30+ skip/
-one missing Change profile picture at162; original PNG individually viewed/
-XML/rawlog retained profile-media-red. Existing supersession/historical cases
-PASS qualified copy. Copy-only source38100547421 cancelled by next push.
-Media tracer reviews both zero. First picture/banner implementation now adds
-normalized crop bytes, whole-snapshot budget, encrypted drafts, save-before-picker,
-scrollable editor and shared bounded public raster rendering/default identicon.
-Removal not implemented. Local core49/buildPASS2m37; finalsessionrestriction compiled in source38101283097
-PASS49/release/lint. Bounded media reviews both zero. Dual native now fails only
-media exact UiAutomator status capture at222:10 38101286465 eleven/54.84s
-(nine pass/one API30+ skip/one fail),17 38101288539 eleven/104.869s (tenpass/
-onefail). Selection/deleted-source recovery/completecandidate/crop/pixels/oneTX/
-Composeavailable pass. Original PNGs individually viewed show availability and
-red/blue media, XML status absent with bio bounds overlapping region. Retained
-profile-media-accessibility-red; publicprofile/wire checks not reached.
-Raise fixed candidate-status paint order; same scrolling/nativeBy.textgates.
-Hypothesis until runtime. Export actualframe before capture; helperselected-media
-mode independently checks crypto+canonicalJPEG/literal8x8,12x4+unchangedmetadata.
-Existing actual bioframe stillPASS; current media specimens unavailable.
-Local buildPASS1m55s, bounded d7...16f23ec reviews both zero.
-DualGREEN10 38101974487 OK11/44.276s (tenpass/oneAPI30skip),17
-38101974419 all11/65.943s. Source38101971926 PASS49/release/lint.
-Six originals individually inspected, exact XML/log/actualframes retained
-profile-media-green. Bothmediaframes independentlyPASS pinnedcrypto/JPEG/
-A/B receiving/reconstruction. IntegrationSpec0; Standards1 source race:
-stale mounted saves can erase concurrently persisted availability/supersession.
-Progress-preserving saves now retain same-candidate historical/newer guards,
-reject different candidates/frozen edits, and explicitly clear only this
-confirmed non-superseded candidate. Mounted state adopts retained progress.
-Local debug/test PASS2m2s; bounded16f...b93 Standards1 residualclear/re-edit
-edge, Spec1 clearedcandidate leavesliveavailability true afterimportcancel.
-Expected-record revision now preserves empty clears and rejects stale no-candidate
-writes; revisionlessv1/v2 readas0. Localrevision/newtracer buildPASS2m1s.
-Actual10 38102826915 RED12cases51.01s,tenpass/oneAPI30skip/one
-expecteddisabledSave at196 afterrealSAFcancel/newedit. OriginalPNG inspected,
-XML/log retainedprofile-import-cancel-red. ExistingrevisionflowsPASS.
-Livecurrentavailability nowclears for nocandidate/different/supersedingrecord.
-FixtureacceptsbothobservedDocumentsUI packages,boundedBackthroughdrawer and
-positivereturnedapp/cancelmessage. LocalfixbuildPASS1m53,bounded493...eb8646c reviewsbothzero.
-Android17 38103280642 all12GREEN103.519s, twooriginals individuallyinspected,
-XML/rawlogretainedprofile-import-cancel-green/android17. Android10
-38103280834 12cases74.258s tenpass/skip/oneexistingfirstimporthelperfail.
-Newcancel/newedit/recoverypasses; failurePNG/XMLalreadyshow correctreturned
-walletpreview. Threeoriginals inspected/retainedprofile-import-cancel-first.
-Helper nowrecognizesreturnedapp+exactselectedaddress oneachloopiteration
-withsamefilename/provider/deadline and strongerpostclickpositive gate.
-No productionchange; localfixturebuildPASS1m9s,boundedreviewsbothzero;
-source38103756099 PASS49/release/lint; corrected10 38103756457 FAIL12:
-ninepass/skip/twoolderpickerhelpers, newcancel/mediaPASS. Both failureimages
-show correctpreview onlyafterComposesync. Foreground-onlyComposewaitForIdle
-added beforeexactreturnedaddress check; sharperhypothesis, no causalproof.
-New single media-removal tracer and per-class180s instrumentation harness
-written, no removal production yet. Expected RED missing reset/remove controls;
-initiallocalassemblyPASS1m9s; freshhelperbuildPASS1m6s,exit0.
-Canonical chronology in verification document.
-Removal RED38104185964: separateeditor6PASS/publisher4PASS+skip/media1PASS+
-expectedmissingresetcontrol. All existingflowsincludinghelperrepairPASS.
-Minimalnull-marker/reset/remove source written; localcore49/buildPASS2m4s;
-dualGREEN10 38104649088/17 38104651018, separate6+5+2cases each,
-10 oneAPI30skip/17all13PASS. Six originals individuallyinspected and bothactual
-removalframes independentlyPASS pinnedcrypto/exactbody/A/Breceivers; retained
-profile-media-removal-green. Source38104649178 PASS49/release/lint.
-One17draftXML ispreviouspubliccustommedia whilePNGshowsremovaleditor;
-originalsretainedunchanged/causeunproved, futurepositiveSaveprofilegateadded.
-Interimfullafce...3b0b234 reviews1eachsame latecommitrevisionretryfinding,
-notruntimeproof. NextONE late-save failure tracer nowwritten; exactowned
-noBackup permission fault, changedsyntheticciphertext andsamemountedretry.
-Restoreexactpermissionsbeforecleanup/no processkill. ExpectedREDstuckretry;
-localbuildPASS1m8s; native38105211508PASS but invalid retry gate. BoundedreviewsSpec0source/
-evidencequalification, Standards0hard/1diagnosticwrapperheuristic nowcorrected
-forbothphases; newfixtureeditsunbuilt. No productionretryfixyet.
-Unexpected10PASS explained by Spec review: Edit profile success wait matches
-editor title. First error and cold recovery valid separate observations, not
-mounted retry proof. Originals/logs retained profile-late-save-gate-audit.
-Same immutable17 audit38105678928 running. SAME tracer success/seed gates now
-require clickable enabled public Edit profile and no editor/error before close;
-localbuildPASS1m7s exit0. Both reviewers confirm gap, boundedaxes0/0.
-Corrected10 38105828806 intendedRED at99 repaired same-editor Save draft;
-first truthful error/changedciphertext/retainedbio passed. Two originals viewed,
-XML/rawlogs retained profile-late-save-red. Cold phase unreachable in RED.
-Old invalid17 38105678928 all14PASS qualified/retained gate-audit/android17.
-Minimal anchored previous/intended exact-own-attempt fix nowwritten, internal
-pre-write callback after codec/encryption/file validation, clears only on verified
-success. Frozen/current-progress guards retained; exact-own clear retry supported;
-prepared candidate RAM frozen before save, network still waits verified persistence.
-Localcore/debug/testbuildPASS1m57s exit0; bounded reviews0/0.
-CorrecteddualGREEN10 38106287107 (7+5+2, oneAPI30skip),17 38106288790
-all14PASS. Four original late-save images/XML/logs retained profile-late-save-green;
-valid same-mountedretry andcoldbio recovery proof, source38106287358 PASS49/lint.
-Scope audit: superseded/never-returning candidates permanently freeze editing.
-NextONE native start-new confirmation/cancel/newestbaseline/draftcoldrecovery/
-explicit newpublication tracer written, localbuildPASS1m10s; expectedRED pending.
-Then minimal retirement implementation and actualprocessdeaths.
-No scheduler-race reproduction claimed.
-Recovery/process/full acceptance remains open.
-Then candidate failures/recovery,
-actual process death, media, cross-client, full checks/reviews remain. No APK or
-production node/on-chain write; continue sequentially without owner review gate.
+First full regression on01858ad: Android10 38109837264 fails two existing
+browse visibility assertions after offline/cold headers consume the viewport;
+six other browse cases pass. Original in-scope failure PNGs and raw log retained
+profile-browse-full-red. Android17 38109838600 passed browse8 and following8
+before cancellation during posting, not a full acceptance run. Source push
+38109832420 passes core49/debug/test/release/lint. The same old-flow fixture
+now scrolls posts/statuses/tabs while preserving visible assertions, and captures
+native XML/PNG separately. Local test assembly PASS1m11s. Committed bounded
+review and fresh full Android10/17 verification are next. Do not close #18 until
+downloaded full evidence/runtime checks pass,
+including shared post/wallet regressions, actual recovery and signed5-to-8
+updates. Emulator checks do not establish physical Pixel7/Android17 acceptance.
+No APK published or production node/wallet/on-chain/store state changed.
 
-#17 remains open for actual YouTube provider playback acceptance. Its full
-immutable534330e pair passed127 cases each; that is not acceptance of later
-#18 changes. #16 provider credential/retention blockers remain below.
+Original PNG/XML are separate observations. Historical capture discrepancies and
+invalid early success gates remain qualified in the canonical verification doc;
+never invent their cause. Current process observations agree in essential state.
+Actual native selected/removed/new-edit frames passed independent pinned
+WASM/Elliptic and unmodified A/B Profile server/browser methods with in-memory
+adapters. This is not live chain inclusion, deployed DOM or physical proof.
 
-Ticket #15 is complete after final source/fixture/evidence reviews: both axes
-zero remaining findings through2829329. Full Android10 38075318198 atd35f965
-and Android17 38076602854 at23d7202 PASS123 cases/35 records/11 actual deaths
-each, core39/build/release/lint, both public reads, cold recovery and signed
-updates. Productioncb3d9c3 is identical across accepted candidates. Evidence
-final-android10/final-android17/final-interop; details NATIVE_IMAGES_VERIFICATION.
-
-#17 YouTube has an unresolved public-playback verification blocker; keep open.
-Productionc6113d2, test/evidence candidate534330e,
-fixed review base711e42e. Root-owned viewer survives rotation/recreation; small
-windows use external fallback. Sticky errors persist until Retry. Text selection
-now matches both original Browser/Tweet helpers, including omitted schemes and
-last recognized non-numeric URL. Strict provider URI/ID validation remains.
-Full44 core/debug/test buildPASS; reviewed signed fixtures/proof retain original
-objects. ControlledAndroid10 four-caseGREEN38084273614 at2a99f86 passes23.724s.
-Full711e42e...5454618 source reviewsboth0. Actual public playback is unproved:
-10 run38084979254 one30.203s and17 run38084966811 one45.588s reach native ready
-but no public Play control. Individually inspected PNGs and separate XML are
-retained public-no-control. WebView74/145 respectively; cause unestablished.
-Opt-in read-only DevTools diagnostics established a zero-height iframe despite
-a296×448 native viewport in38086007749. A CSS-only correction8e46329 still
-fails both public runs38086337225/38086335271 with the same zero-height frames.
-Nativec6113d2 now explicitly sets MATCH_PARENT layout parameters before HTML
-loading, following Android's WebView layout-size contract, and restores relative
-CSS height. Local debug/test buildPASS1m44s; both bounded source review axes0.
-Public17/10 runs38086671894/38086674099 establish corrected296×448 iframe/body
-dimensions and reach trusted Play, then fail native Playing with provider
-embed-disabled copy/Retry/external fallback. Exact101vs150/cause unestablished;
-actual media remains unproved. Alternate existing signedbHQ probes38087138529/38087140673
-also fail Playing after trusted Play with the same native refusal; no broader
-cause established. Full10 run38087174575 at e8fafd9 stops before video in cached
-profile recovery,7/8 browse cases pass. Failure bitmap is after scenario disposal,
-so active state/cause unproved. Fixturef6c016e waits existing New post enabled
-readiness before the fresh cached author tap and captures inside the scenario;
-original cached-history/error assertions unchanged. Focused browse10 run38087621645
-PASS8 cases15.376s atf6c016e; individually inspected cached-Likes bitmap shows the
-retained liked post and outage/history warnings. Cleanup383caac preserves the
-primary failure through captures/server close; both bounded reviews0. Outstanding
-full10 run38087989539 at383caac is pending. Full17 companion38087176435 FAILS
-at e8fafd9 before later foundation/public-read groups: video3/4 pass44.025s,
-first tap case times out atline50 before scrolling/tap with0 provider requests.
-Original in-scope PNG shows a cached queued post, not the selected video post.
-The fixture now waits the same completed archive/loading condition as its other
-cases and uses the existing scoped scroll/tap helper; positive readiness,
-Referer/no-autoplay/no-transaction and close assertions remain. Runtime pending.
-Android10 companion38087989539 also fails the same pre-scroll first case,
-3/4 videos pass40.199s; browse8/8 pass15.281s. Its original PNG likewise shows
-cached queued content. Corrected focused17 run38088217096 at534330e PASS4
-cases66.007s. Original tapped-player PNG shows ready controlled-provider text,
-not real media. New full17/10 runs38088542044/38088569769 at534330e PASS127 completed
-cases/36 records/11 actual interruptions each, core44/build/release/lint,
-both public Saito reads, cached cold launches and signed5-to8 continuity.
-Selected originals individually inspected; incomplete official-feed bitmaps on
-both versions and10 player header are excluded from visual acceptance, cause
-unestablished. Neither prior failed full run is accepted.
-Both source/fixture review axes0 through534330e. No further #17 source edits are
-planned without new evidence. Continue the independently unblocked #18 next,
-while those immutable regression runs finish. CDP reads only allowed public frame DOM;
-page screenshots were removed at23eea43. No ticket closure until acceptance.
-See NATIVE_VIDEO_VERIFICATION.md. No ticket closure or new APK.
-
-#16 Giphy remains open: an Android-authorized key and clarification of provider
-URL retention are unresolved. Blocker recorded on issue16. The prior owner
-question is unanswered; do not reuse backend web credentials or repeat routinely.
-Continue independently ready work sequentially.
-
-- Ticket #8, "07: Open threads and browse user profiles", is complete at final
-  source c8fe9b7 against base 44cae5d. Full run 37943159613 passes both SDKs:
-  core15, release/debug/test assembly and lint, 47 completed instrument cases
-  each including8 browse cases, plus two intentional process-kill stages each.
-  Both public feeds, cache/wallet cold launches and signed5-to-8 updates pass.
-  Public logs and representative images inspected/retained ticket07/final-full.
-  Both final source-review axes have zero actionable findings. References and
-  functional red/green chronology are in thread/profile verification and
-  ticket07/INTERIM_REVIEW/REVIEW. No production writes or new APK publication.
-- Ticket #9, "08: Follow accounts and read a Following feed", complete at
-  reviewed source6d5d9da against base6dd511d. Final full37960235937 passes:
-  core15, release/debug/test assembly/lint,55 completed instrument cases each
-  SDK (53 top-level+2 recovered process cases),2 additional intentional
-  process-kill stages each. All8 Following cases pass19.341/44.848s on29/37.
-  Both source-review axes have zero actionable findings. Public logs and
-  representative Following/recovery images inspected/retained ticket08/final-full.
-  Wallet-scoped follow choices shared across backend sessions; selected-peer
-  signed-author queries; independent wallet/backend Following cache; Retry after
-  temporary choices-read failure; preserve verified partial pages before later
-  author failures. No cross-device/on-chain following promise. Prior cache
-  formats unchanged. Details NATIVE_FOLLOWING_VERIFICATION.md/REVIEW.md.
-  Both native public reads pass selected-label semantics. Official bitmap
-  captures display owner's label despite assertions; cause uninvestigated,
-  excluded from visual acceptance. Controlled switching images are correct.
-  Wallet/cache recovery and signed5-to-8 continuity pass. No new APK, private
-  uploads, production writes or physical-device/push proof. Continue all35.
-- Ticket #10, "09: Publish text posts and replies with recoverable drafts", is
-  complete at reviewed candidateaec16fc against base78163d6. Production source
-  unchanged fromcd1ee24. Full Android10 in37994339188 and full Android17 in
-  38000254350 pass70 completed cases each (including14 posting cases), plus3
-  intentional process-kill stages each. Core19/release/debug/test/lint pass;
-  both public reads, cache/wallet cold launches and signed5-to-8 continuity pass.
-  Both final review axes have zero actionable findings. Companion production
-  source equivalence verified. Encrypted wallet/backend/parent-scoped drafts,
-  root/reply signing, original-candidate retry, truthful availability and checked
-  navigation saves are complete. No automatic draft publication. Invalid-save
-  data loss was reproduced and fixed before persistence. Public acceptance logs
-  and selected inspected images: ticket09/full-android10/full-android17.
-  Details NATIVE_POSTING_VERIFICATION.md/NATIVE_POSTING_CONTRACT.md/
-  NATIVE_POST_TEXT_POLICY.md and ticket09/REVIEW.md. Stated bitmap limits remain.
-  No new APK, production transaction, physical Pixel or push proof.
-- Ticket #11, "10: Queue posts offline and resume on their original backend",
-  complete at reviewed candidateb628a81, productionf03832a, base4bc4cd6.
-  FullAndroid10 in38013725295 and fullAndroid17 companion38015116524 pass78
-  completed cases each plus4 intentional process-kill stages. Core19,
-  debug/test/release/lint,15 posting/6 queue cases, both public feeds,
-  cold-cache/wallet recovery and signed5-to-8 continuity pass. Actual queue
-  process death, realSAF identity replacement, backend pause/cancel/retry and
-  foreground/background uncertainty reconciliation verified. Bothreviewaxes0
-  actionable. Productiondiffbetweenacceptedcandidates empty. ExistingAndroid17
-  thread-recovery timeout corrected with fixture readiness/navigation/capture;
-  priorcauseunestablished. Publiclogs/inspectedimages ticket10/full-android10/
-  full-android17; details NATIVE_POST_QUEUE_VERIFICATION.md/REVIEW.md.
-  No newAPK, productionTX, physicalPixel or force-stop delivery proof.
-- Ticket #12, "11: Like posts and perform ordinary reposts", complete at
-  reviewed production `76197a4` against base `58aed22`; final accepted fixture
-  `5ab2481` has identical production source. Full **38023863701** passes
-  Android10/17: core21, debug/test/release/lint,87 completed instrument cases
-  and five intentional process-kill stages each. Social8 takes15.452/15.749s;
-  cold recovery2.356/3.424s. Both public feeds, cache/wallet cold recovery and
-  signed5-to-8 identity continuity pass. Downloaded logs counted and selected
-  images inspected/retained in ticket11/final-full. Both source and fixture
-  review axes have zero actionable findings. Original signed candidates,
-  exact availability retry, wallet/backend isolation and truthful served counts
-  across feed/thread/profile are complete. Prior full fixture failures and
-  independent WASM/Elliptic frame proofs remain in
-  NATIVE_SOCIAL_INTERACTIONS_VERIFICATION.md/REVIEW.md. Android17 owner bitmap
-  has stale official label despite passing assertions, excluded from visual
-  acceptance; cause uninvestigated. No new APK or production write.
-- Ticket #13, "12: Publish and display quote posts across supported formats",
-  complete at accepted4e9fe23, fixedbase1b7f0f6. Full38030511763 passes
-  Android10/17: core25, debug/test/release/lint,95 completed instrumented cases
-  and six deliberate process interruptions each. Quote7 takes22.353/24.087s;
-  actual cold quote reconciliation5.127/5.838s. Both public reads, cached cold
-  launches, wallet recovery and signed5-to-8 continuity pass. Logs counted and
-  selected images inspected/retained ticket12/final-full. Bothreviewaxes0.
-  Independent WASM/Elliptic actual-frame checks and A/B actual-template proof
-  retained: current web original-text omission means partial interop, no DOM or
-  live-write proof. Bounded original lookups/cache, current/history/profile
-  discovery, quote drafts/candidate recovery and partial social counts complete.
-  Failed original signatures retain authenticated commentary. Image composition
-  explicitly assigned #15, whose dependencies include #13. Final17 public owner
-  bitmap lacks header fields despite semantic pass; cause unestablished, excluded
-  from visual acceptance. Functional quote images correct; polish remains#35.
-  No newAPK, productionwrites, Pixel/push/force-stop-delivery proof.
-- Ticket #14, "13: Edit and delete the author's posts", complete at accepted
-  device2f50ac6, applicationa545b94, fixedbase6c657d4. Shared public verified
-  edit/deletion proofs update feed/Following/thread/profile/likes/quotes.
-  Encrypted candidates/reviewed baselines survive recovery; conflicts require
-  explicit choices. Delete success requires exact command and verified absence
-  across both archive streams; historical-copy explanation retained.
-  FullAndroid10 38057998966 and Android17 38056770920 PASS core35/build/release/
-  lint,103 completed cases in31 logs each, eight actual process-death recovery
-  stages each. Both public feeds, cached cold launches and signed5-to8 identity
-  continuity PASS. Production/build/scripts/workflow equivalence between
-  accepted2f50ac6/4513c4b verified. All source/supplementalreviewaxes0 remaining.
-  Actual native create/edit/delete frames independently verify pinned WASM/
-  Elliptic and unchanged A/B controlled receivers. Small conversation header
-  overflow found/fixed during full regression. Earlier viewport/readiness
-  fixture failures retained without claiming unproved causes.
-  Counted logs/selected inspected images ticket13/full-android10/full-android17;
-  deleted-profile bitmaps excluded from visual acceptance, causes unestablished.
-  Public backend labels correct on10/17 after exact-file reinspection. Details
-  NATIVE_AUTHOR_ACTIONS_VERIFICATION.md and ticket13/REVIEW.md.
-  Known upstream current-retweet archive lookup bug recorded; native quotes use
-  working create-tweet path. No node repair, live write, chain, Pixel or push claim.
-  No newAPK. Next ready#15: bounded image composition/viewing with recovery.
-
-- Ticket #15, "14: Attach and view images in posts, replies and quotes", is
-  complete at productioncb3d9c3, accepted fixturesd35f965/23d7202, base3d47253.
-  Bounded asynchronous galleries/viewer and off-UI normalization, image-only
-  composition, authenticated dual-quote image order and encrypted media drafts
-  complete. Verified saving precedes external picker launch; failed saving
-  preserves work and launches no picker. Newest text/source-deleted prepared
-  image and exact signed candidates survive real process death. Backend/wallet
-  isolation, queue and author actions preserve media. Full10/17 each123 cases/
-  35 logs/11 deaths; both review axes0. Current actual frames independently
-  verify pinned WASM/Elliptic and controlled unchanged A/B templates/browser.
-  Retained failures have explicit cause/viewport limits; landscape polish #35.
-  No live publication, physical Pixel/push or new APK claim. Full chronology
-  remains NATIVE_IMAGES_VERIFICATION.md and ticket14/SOURCE_REVIEW.md.
-
-- Authoritative release spec: https://github.com/robelene112/redsquare-android/issues/1
-- Implementation tickets: #2 through #36, with native GitHub dependencies.
-- Fourteen of35 tickets complete: #2 crypto compatibility, #3 persistent wallet
-  and signing/updates, #4 feed/cache, #5 fixed backends, #6 authenticated export,
-  #7 safeguarded import, #8 threads/profiles, #9 following, #10 posting/drafts.
-  #11 queues; #12 likes/reposts; #13 quotes; #14 author edits/deletion; #15 images.21 tickets still open. Preserve all accepted features; no Ralph or parallel implementation.
+Protected untracked future research must stay out of #18 commits: username,
+discovery/moderation, notifications, transfers, private/group Chat contracts and
+private-chat reference helper/JSON/Markdown. Sequential implementation only;
+review agents may independently inspect but never claim another ticket.
 
 ## Completed foundation references
 

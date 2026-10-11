@@ -1201,7 +1201,29 @@ regression still pending. Narrow shared native screen capture/primary-preserving
 failure helper now extracted at review stage; assertions stay phase-local and
 all readiness gates remain. Local test compilation running; no production change.
 
-Review-stage capture extraction local test assembly PASS1m33s, exit0, retained
+Review-stage capture extraction local test assembly PASS1m13s, exit0, retained
 rawlog. No production/assertion/readiness changes. Process capture now uses the
 same PNG-then-XML order; observations remain explicitly non-atomic. Committed
 bounded review and final full Android10/17 regression pending.
+
+Capture extraction bounded ed645ab...01858ad Spec0/Standards0 residual;
+both reviewers independently viewed all12 process originals/XML/logs/checkpoints.
+Full01858ad Android10 38109837264 fails first browse group8/12.833s, sixpass,
+existing cache-write/offline line46 and cold-profile line299 located-but-not-
+displayed post assertions. Root individually viewed all3 retained originals:
+in-scope failed profile/header/status consumes viewport; cold screen reaches
+postauthor bottom but not its text. Outer capture after closure shows launcher,
+excluded from acceptance; old capture has no XML. Earlier first-flow online
+post/warning/healthy gates pass. This supports a scrolling fixture hypothesis,
+not a proven production inability to show cached content. No later fullgroups
+or wallet/update/public acceptance. Source/push38109832420 PASS49/release/lint.
+Parallel17 full38109838600 cancelled for corrected-fixture fresh verification;
+not an assertion outcome. Retain profile-browse-full-red/android10.
+Same existing flow correction now scrolls post/status assertions and tabs into
+view, retaining all positive display/healthy/cache gates; gated PNG/XML captures
+separate recovered posts/likes/warning and primary-safe failure captures. No
+production change. Local test assembly running; committed review/new full pending.
+
+Corrected old browse fixture local test assembly PASS1m11s, exit0, retained
+rawlog. Cancelled17 full retained browse8PASS58.84s/following8PASS25.432s,
+posting incomplete; no later/full acceptance claim. New full/runtime review pending.

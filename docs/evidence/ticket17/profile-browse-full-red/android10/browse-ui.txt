@@ -1,0 +1,149 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ThreadProfilePreviewTest:
+INSTRUMENTATION_STATUS: test=openingAFeedPostShowsAvailableVerifiedConversationReplies
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=openingAFeedPostShowsAvailableVerifiedConversationReplies
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=fetchedProfilePostsRemainVisibleAfterCacheWriteFailureAndOfflineRefresh
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Native Red Square reference post' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ThreadProfilePreviewTest.fetchedProfilePostsRemainVisibleAfterCacheWriteFailureAndOfflineRefresh(ThreadProfilePreviewTest.kt:46)
+
+INSTRUMENTATION_STATUS: stream=
+Error in fetchedProfilePostsRemainVisibleAfterCacheWriteFailureAndOfflineRefresh(nl.davidengelen.redsquare.ThreadProfilePreviewTest):
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Native Red Square reference post' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ThreadProfilePreviewTest.fetchedProfilePostsRemainVisibleAfterCacheWriteFailureAndOfflineRefresh(ThreadProfilePreviewTest.kt:46)
+
+INSTRUMENTATION_STATUS: test=fetchedProfilePostsRemainVisibleAfterCacheWriteFailureAndOfflineRefresh
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=availableConversationRemainsReadableAfterRestartWithoutItsServer
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=availableConversationRemainsReadableAfterRestartWithoutItsServer
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=olderProfileRepliesAndLikesRemainReachablePastANewerFullPage
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=olderProfileRepliesAndLikesRemainReachablePastANewerFullPage
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=replyAndLikedPostAuthorsOpenProfilesAndBackReturnsToTheOrigin
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=replyAndLikedPostAuthorsOpenProfilesAndBackReturnsToTheOrigin
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=openingAnIdentityShowsItsSignedPostsRepliesAndAvailableLikedPosts
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=openingAnIdentityShowsItsSignedPostsRepliesAndAvailableLikedPosts
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=profilePostsRepliesAndLikesRemainReadableAfterRestartWithoutTheirServer
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Native Red Square reference post' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ThreadProfilePreviewTest.profilePostsRepliesAndLikesRemainReadableAfterRestartWithoutTheirServer(ThreadProfilePreviewTest.kt:299)
+
+INSTRUMENTATION_STATUS: stream=
+Error in profilePostsRepliesAndLikesRemainReadableAfterRestartWithoutTheirServer(nl.davidengelen.redsquare.ThreadProfilePreviewTest):
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Native Red Square reference post' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ThreadProfilePreviewTest.profilePostsRepliesAndLikesRemainReadableAfterRestartWithoutTheirServer(ThreadProfilePreviewTest.kt:299)
+
+INSTRUMENTATION_STATUS: test=profilePostsRepliesAndLikesRemainReadableAfterRestartWithoutTheirServer
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=malformedSignedThreadIsRejectedWithoutHidingAnAuthenticConversation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=malformedSignedThreadIsRejectedWithoutHidingAnAuthenticConversation
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 12.833
+There were 2 failures:
+1) fetchedProfilePostsRemainVisibleAfterCacheWriteFailureAndOfflineRefresh(nl.davidengelen.redsquare.ThreadProfilePreviewTest)
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Native Red Square reference post' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ThreadProfilePreviewTest.fetchedProfilePostsRemainVisibleAfterCacheWriteFailureAndOfflineRefresh(ThreadProfilePreviewTest.kt:46)
+2) profilePostsRepliesAndLikesRemainReadableAfterRestartWithoutTheirServer(nl.davidengelen.redsquare.ThreadProfilePreviewTest)
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Native Red Square reference post' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ThreadProfilePreviewTest.profilePostsRepliesAndLikesRemainReadableAfterRestartWithoutTheirServer(ThreadProfilePreviewTest.kt:299)
+
+FAILURES!!!
+Tests run: 8,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1
