@@ -204,3 +204,10 @@ rechecks names, while post paging/retry does not repeat a finished name attempt.
 Selected-backend Profile navigation and retained exact-person state reuse the
 existing wallet/backend navigation. Compilation/review/GREEN pending. Known
 people prefixes, exact public keys and negative/recovery cases remain future.
+
+Exact-name source c9bb994 combined compilation PASS2m21s. Standards0;
+Spec1 source finding: username-save warning survived discarding its different
+query/person. Reset that qualification with the discarded person, retaining it
+for the same person and post-only retry. No runtime reproduction claim. Fix
+compilation/re-review pending. Earlier push38137503336 source/core/debug/test/
+release/lint completed PASS.

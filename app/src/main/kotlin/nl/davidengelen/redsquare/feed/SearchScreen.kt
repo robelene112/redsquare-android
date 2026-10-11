@@ -48,7 +48,10 @@ internal class SearchViewState {
 
     fun search() {
         searchedQuery = query.trim()
-        if (exactPerson?.identifier != searchedQuery) exactPerson = null
+        if (exactPerson?.identifier != searchedQuery) {
+            exactPerson = null
+            usernameSaveError = false
+        }
         usernamePending = searchedQuery.matches(Regex("[A-Za-z0-9]{1,45}@saito"))
         usernameFailed = false
         val before = System.currentTimeMillis() + 1

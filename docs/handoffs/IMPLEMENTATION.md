@@ -77,7 +77,8 @@ Next single exactsignedusername primarytracer d32c5d0 compilePASS1m25s,
 bothsourceaxes0; nativeRED38137503072: existing3PASS/new1FAIL onlymissing
 resolvedliteralkey,line67,50.979s. Budgetregression PASS; originalinspected
 peoplefailurePNG/XML/log ticket19/people-red. Exactcurrent-registrar verified
-username/person/profile path nowadded; compile/review/GREENpending. Known
+username/person/profile path nowadded, compilePASS2m21s. Standards0;
+Spec1 stale discarded-person savewarning fixed; fixcompile/re-review/GREENpending. Known
 people/key/negativecasesstillpending. People/durable cache/full acceptance pending;
 no #20 acceptance yet.
 Accepted seams1–4 unchanged.

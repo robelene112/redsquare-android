@@ -91,3 +91,9 @@ Exact-name tracer atd32c5d0:0 source findings per axis. Empty posts/unsigned
 hints cannot supply the literal name-to-key result, positive exact signed
 namecheck/profile/back/recreation/identity/nosend gates retained. Compilation
 PASS1m25s; native RED38137503072 pending. No live namespace readiness claim.
+
+Exact-name implementation d32c5d0…c9bb994: Standards0, Spec1 stale
+username-save qualifier after discarding a different-query person. Fixed by
+clearing that qualifier with its originating person. Same-person/post-only
+retry retains it. Initial compilation PASS2m21s; fix compilation/re-review
+and native GREEN pending. No runtime reproduction of the source finding.
