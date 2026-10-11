@@ -198,6 +198,14 @@ PNG/XML; Settings/network assertions are runtime evidence. Durable
 first-actual-replacement-green. No incoming registered-name restoration or
 pending-candidate actual replacement proof yet, and no later quote tracer claim.
 
+A real cached-backup safeguard defect is reproduced: valid45ASCII@saito names
+were dropped by the old16-character alias filter, so outgoing replacement could
+omit their name warning. Core actual RED11cases/1null-vs-name failure, then
+minimal exactcompatible-name acceptance preservesbasename/legacyaliases/key
+matching and options. Full core55/0/0/0 GREEN51s, both source reviewaxesclear.
+Durable long-cached-name-risk retains RED/GREEN logs/XML/counts. Cached risk is
+not ownership; affected native import regressions remain for final acceptance.
+
 #19 stays open. Next: verify the quoted-name tracer and remaining pending-work replacement,
 then imported-wallet discovery
 isolation, malformed/taken/inactive and persistence failures, native public

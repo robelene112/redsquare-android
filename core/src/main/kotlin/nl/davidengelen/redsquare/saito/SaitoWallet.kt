@@ -63,7 +63,10 @@ class SaitoWallet private constructor(
                 ?: return@firstNotNullOfOrNull null
             val local = identifier.lastIndexOf('@').let { if (it > 0) identifier.substring(0, it) else identifier }
                 .trim().replace(Regex("\\s+"), " ")
-            local.takeIf { it.codePointCount(0, it.length) in 1..16 && it.matches(Regex("[\\p{L}\\p{N} _-]+")) }
+            // Compatible Saito names can have 45 ASCII base characters. This is a
+            // cached replacement warning, not a verified ownership assertion.
+            local.takeIf { identifier.matches(Regex("[A-Za-z0-9]{1,45}@saito")) ||
+                (it.codePointCount(0, it.length) in 1..16 && it.matches(Regex("[\\p{L}\\p{N} _-]+"))) }
         }
         return ReplacementRisks(name, otherAssets, pending)
     }
