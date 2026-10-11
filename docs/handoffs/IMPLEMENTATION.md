@@ -205,7 +205,7 @@ ordinary controlled tests; no production transaction was broadcast.
 
 ## Active personal-controls acceptance checkpoint
 
-#21 remains OPEN/assigned;16/35 closed. Final product checkpoint aa91ff2,
+#21 acceptance is COMPLETE; GitHub closure is the next step.16/35 currently closed. Final product checkpoint aa91ff2,
 whole-ticket review base99e58c6. Subsequent changes correct existing fixtures
 and retain evidence; production/core/build/reference source is unchanged.
 
@@ -241,7 +241,8 @@ and retain evidence; production/core/build/reference source is unchanged.
   public originals inspected. Durable final-full/android10 retains168hashes;
   exact root recount179/46/15+assumption equals original. Both public feeds
   pass8.2s/4.011s; ordinary100rows/92posts/0ignored andquotes4rows/0posts/0ignored.
-  Final bounded pair evidence review remains required before21closure.
+  Final bounded pair evidence review through7f54d98 clears both axes after
+  correcting2Android10captions. Acceptance complete; record GitHub closure.
 
 Failure chronology and qualified retained captures: NATIVE_PERSONAL_CONTROLS_VERIFICATION.md
 and ticket20/REVIEW.md. Earlier full10 stopped at existing lazy-profile
