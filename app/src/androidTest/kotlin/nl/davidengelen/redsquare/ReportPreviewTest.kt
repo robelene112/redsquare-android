@@ -389,6 +389,71 @@ class ReportPreviewTest {
         }
     }
 
+    @Test fun unreadableReportDetailsFailClosedAndRepairRecoversTheOriginalIntent() {
+        val root = InstrumentationRegistry.getInstrumentation().context.assets.open("native-feed-reference.json")
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow") }
+        val peer = ControlledFeedPeer("[$root]").apply { disconnectAfterReport = true }
+        peer.start().use { server ->
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { activity ->
+                withFailureCapture({ capture("unreadable-details-failure.png") }) {
+                    ui.clickVisiblePostContent("Report")
+                    ui.onNodeWithText("Send report").performClick()
+                    val unknown = "Report delivery to saito.davidengelen.nl is unknown. Try again to send the same report."
+                    waitFor(unknown)
+                    val frame = peer.reports.single()
+                    val original = frame.copyOfRange(5, frame.size)
+                    val author = SaitoEnvelope.decode(SaitoTransaction.restore(
+                        Base64.getEncoder().encodeToString(original)).envelope()).author
+                    val saved = File(context.noBackupFilesDir, "report.owner.$author.${root.get("sig").asString}.v1")
+                    check(saved.length() in 1L..8192L)
+                    val record = saved.readBytes() // Public signed report only.
+                    var restoreNeeded = false
+                    fun repair(primary: Throwable? = null) {
+                        if (!restoreNeeded) return
+                        try {
+                            saved.outputStream().use { it.write(record); it.fd.sync() }
+                            restoreNeeded = false
+                        } catch (cleanup: Throwable) {
+                            if (primary == null) throw cleanup
+                            if (primary !== cleanup) primary.addSuppressed(cleanup)
+                        }
+                    }
+                    var failure: Throwable? = null
+                    try {
+                        ui.onNodeWithText("Done").performClick()
+                        restoreNeeded = true
+                        saved.outputStream().use { it.write("invalid public report fixture".toByteArray()); it.fd.sync() }
+                        activity.recreate()
+                        ui.clickVisiblePostContent("Report")
+                        val error = "Report details for saito.davidengelen.nl could not be opened. Retry to reload them. Nothing new has been sent."
+                        waitFor(error)
+                        capture("unreadable-details-closed.png", error)
+                        ui.onNodeWithText("Send report").assertDoesNotExist()
+                        assertEquals(1, peer.reports.size); assertTrue(peer.transactions.isEmpty())
+                        repair()
+                        ui.onNodeWithText("Retry", substring = false).performClick()
+                        waitFor(unknown)
+                        capture("unreadable-details-repaired-unknown.png", unknown)
+                        assertEquals(1, peer.reports.size)
+                        ui.onNodeWithText("Done").performClick()
+                        ui.clickVisiblePostContent("Retry report")
+                        peer.disconnectAfterReport = false
+                        ui.onNodeWithText("Send report").performClick()
+                        val acknowledged = "Report acknowledged by saito.davidengelen.nl. Moderator review is separate."
+                        waitFor(acknowledged)
+                        capture("unreadable-details-explicit-acknowledged.png", acknowledged)
+                        val retry = peer.reports.last()
+                        assertEquals(2, peer.reports.size)
+                        assertArrayEquals(original, retry.copyOfRange(5, retry.size))
+                        assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
+                    } catch (primary: Throwable) { failure = primary; throw primary }
+                    finally { repair(failure) }
+                }
+            }
+        }
+    }
+
     private fun waitFor(text: String) = ui.waitUntil(20_000) {
         ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
     }

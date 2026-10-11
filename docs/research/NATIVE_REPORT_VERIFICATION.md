@@ -250,3 +250,16 @@ Durable ticket21/process-fixture-red5hashes. This supports the reviewed timing
 hypothesis but does not establish its cause or a production defect. Both
 7ab3387 bounded synchronization-fix review axes0; rerun corrected fixture
 with same5s receipt deadline. Product unchanged.
+
+## Actual process recovery GREEN
+
+Run38174910903 at0053c1a:ordinary7PASS49.419s; actual pending-request
+process3779 terminated, new process3864 cold-recovered1PASS5.295s. Same
+wallet/backend/checkpoint retained, positive public record metadata, unknown/no
+auto send/exact explicit retry/ack/no type4. Root3unchanged originals and
+separate3XMLs inspected; ticket21/process-green15hashes. Corrected Compose
+wait passes same5s; earlier cause remains hypothesis. Next single native case
+corrupts only the known public report record after controlled receipt, requires
+fail-closed error/no Send, then repairs the original public bytes and requires
+unknown/no auto send/exact explicit retry. Fixture restoration preserves primary
+failure and cannot overwrite a later acknowledgement. Product unchanged.

@@ -353,6 +353,13 @@ No pendingkill/coldrecovery reached. process-fixture-red5hashes retained.
 Earlier source-supported7ab3387 correction uses Composewaitsame5s instead
 ofblockinglatch; bothfixreviews0. Cause remains timinghypothesis; corrected
 runtime next, product unchanged.
+Corrected38174910903 at0053c1a passesordinary7cases49.419s and
+actualprocess3779→3864 coldrecovery1case5.295s, samewallet/backend/record,
+noauto/exactexplicitretry/ack/no type4. Root3originals/separate3XMLs checked;
+process-green15hashes. Earlier waitcause remainshypothesis. Both bounded
+sourcefix/evidence reviews0. Nextsinglecorruptionfixture requires failclosed
+reload/repair/originalexplicitretry; runtimepending. Walletreplacement and
+finalpairedacceptance stillrequired.
 Ticket22 remains incomplete: failure/durability/identity/backend isolation,
 actual process interruption and final both-SDK acceptance/reviews still required.
 Its source contract is prepared in NATIVE_DISCOVERY_MODERATION_CONTRACT.md and
