@@ -494,3 +494,17 @@ Durable image-fixture-green13hashes/allcountablelogs. Both final10 bounded
 evidence axes0 after independent202hashes/raw191/48/16+assumption, critical
 originals/continuity/publiccounts and empty production-equivalence checks.
 Full17retry38181575469 remains active; #22 stays open.
+
+Final full17run38181575469 at92d80f3 PASSES191/allPASS/48records/16actual
+interrupted stages/no assumptions, core55/release/lint/signed5→8/cold continuity/
+both publicreads. Reporting11PASS108.155s; actualdeath11147→11225/cold1PASS
+5.35s/635-byte public record preserves originalwallet/backend/candidate/noauto/
+exact explicitretry/no type4. Root41ordinary+3process originals individually,
+separate44XMLs,2public originals. Three strip views have exact-byte matches to
+fully viewed originals, hashes/limits in final17README. Owner/official8.055s/
+7.132s; each100rows92posts0ignored/4quoterows0commentaryposts0ignored. Durable
+final-full/android17 202hashes and exact original/durable191/48/16 recount.
+Full10 accepted at709; production/core/reference/build/harness/workflow
+unchanged through92 imagefixture-only correction, WORKFLOW companion rule.
+Both focused-image evidence axes0 ate8b45e5. Final17 evidence review required
+before22closure; #23 still notclaimed.

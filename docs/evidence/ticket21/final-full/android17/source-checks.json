@@ -1,0 +1,19 @@
+{
+  "headSha": "92d80f37e2d2355ad04acb735fd44abc50558ac9",
+  "status": "completed",
+  "conclusion": "success",
+  "steps": [
+    {
+      "name": "Build and verify native sources",
+      "conclusion": "success"
+    },
+    {
+      "name": "Verify Android 17 runtime",
+      "conclusion": "success"
+    },
+    {
+      "name": "Retain verification evidence",
+      "conclusion": "success"
+    }
+  ]
+}

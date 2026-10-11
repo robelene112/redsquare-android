@@ -249,221 +249,56 @@ and ticket20/REVIEW.md. Earlier full10 stopped at existing lazy-profile
 pre-scroll/readiness fixtures; finalf0c6191 corrects all3tabs. No offscreen
 cache/deletion/timing cause was inferred. Preserve already accepted full17.
 
-#21 closed2026-10-11T19:17:39Z; final commit9ecb97b pushed. #22, Report posts
-to the selected backend, is ACTIVE/assigned. All blockers complete; review
-base9ecb97b. Parent agreed seams1–4 apply. First actual RED38167998216 atb4be908
-fails missing Report control with loaded root; root originalPNG/separateXML
-inspected. First GREEN38168632919 at567a8a9 passes1case2.999s: named confirmation,
-selected-peer signed type12/no broadcast/self output, strict correlated{} and
-retained post. Root2originals/separate2XML inspected. Actual native frame passes
-pinnedWASM/Elliptic and both pinned extracted handlers against resident/archive/
-absent adapters; even absent-target returns{}. No deployed/moderator/chain proof.
-Both bounded first-slice review axes0findings through567a8a9.
+## Current reporting acceptance checkpoint
 
-Recovery checkpoint0378129 introduces lost acknowledgement then Activity.recreate:
-retain uncertainty, no auto send and explicit exact-byte retry. Run38169041012
-fails recovery at95:2cases/1PASS/1FAIL27.207s. Root3originals/separate3XML reveal
-acknowledged/unknown text absent from native viewport despite Compose assertion.
-Native text-presence gate6160165 then fails both cases in38169454650,24.452s;
-root2originals/separate2XML confirm absence. No exact layout cause is claimed.
-Product checkpoint75cd94b displays named result dialogs with Done and
-uncertainty in explicit Retry confirmation. Run38169816452 passes actual
-native visibility, then fails reopening at96:2cases/1PASS/1FAIL27.857s. Root
-individually inspected3originals and separate3XMLs. Changed
-test interaction dismisses a result before navigation and opens Retry details;
-all routing/receipt/no-removal/no-auto/exact-byte criteria stay in place.
-Contracts/chronology NATIVE_REPORT_VERIFICATION.md; durable ticket21/first-red,
-first-green, reopen-red, native-feedback-red and feedback-green-recovery-red.
-Both bounded correction review axes clear through887ba8c after correcting the
-stale handoff and a Buffer.slice alias in the independent negative check.
-Original native signature validation was valid, but the helper printed the
-modified specimen's hash. Buffer.from fixes the alias; both helpers rerun on
-the unchanged retained native frame pass, with independently checked original
-SHA2565b3f37002502f603c4456ff0646b7e18d56308d4fb826b197fec944e61eeeef6.
+#22 is ACTIVE/assigned, whole-ticket review base9ecb97b. Product source complete
+atac808f9; whole Standards0/Spec0. Reports name the selected destination before
+consent, use compatible signed type12/self outputs/no type4, and distinguish
+strict handler acknowledgement from moderator review/removal/chain inclusion.
+Wire14/application errors remain delivery-uncertain and persist through reopening;
+missing/malformed replies remain unknown. Exact signed intent is saved before
+possible transmission; explicit Retry preserves candidate/wallet/backend. Noauto
+resend, rerouting or removal. Newer genuine receipts are adopted atomically rather
+than overwritten or resent. Accepted parent seams1–4 already authorized.
 
-Current minimal recovery implementation saves the exact signed intent before
-possible transmission, persists acknowledgement and reloads validated report
-state scoped to the original wallet/backend/post. It never resends on load.
-Unreadable details fail closed with reload rather than another intent. Local
-core/debug/instrumentation assembly passed in2m47s. Focused Android10
-run38170519348 at006594e passes2cases9.619s, including no auto send and explicit
-identical signed retry after Activity recreation. Root6originals/separate6XMLs
-inspected; durable ticket21/recovery-green retains16hashes. Conversation still
-shows Loading replies, not finished thread loading. This is not process death.
-Bounded review: Spec0; Standards1 row-owned load cancellation race. Current
-source moves deduplicated load into ReportState's existing feature scope;
-local debug/test assembly passes2m20s. A single new unanswered-reply deadline
-test now requires unknown delivery then explicit exact retry. Actual deadline RED38170920890 atc10de10 reports3cases/2PASS/1FAIL33.365s,
-only timeout fails at128. Live original/separateXML retain stale Sending report
-with Done enabled (ticket21/deadline-red4hashes). Minimal source correction
-now treats TimeoutCancellationException as unknown delivery, retaining parent
-scope cancellation. Correction Android10 run38171267643 at02c5a47 passes3cases28.596s. Root2
-affected originals/separate2XMLs show deadline unknown and exact-retry ack;
-durable ticket21/deadline-green6hashes. Both bounded deadline review axes0.
-Next single OS-save obstruction test requires no send and truthful save error
-then repaired explicit retry. Run38171654146 at1e874de reproduces save-wording RED:4cases/3PASS/1FAIL
-47.575s at173, after no-report/no-broadcast guards pass. Root live original
-and separateXML show incorrect unknown wording; ticket21/save-red4hashes.
-Current minimal correction records save failure and says nothing new was sent.
-Correction38172025405 atb867022 passes4cases32.465s. Root2affected
-originals/separate2XMLs inspected; save-green6hashes. Both bounded source axes0.
-Next single receipt-save permission fault preserves the public candidate and
-restores exact modes in finally, requiring ack plus storage warning and explicit
-identical retry after reopening. Run38172502009 at1055657 reproduces missing-warning RED:5cases/4PASS/1FAIL
-53.629s at239 after acknowledgement/one-report guards pass. Root live original
-and separateXML show ack without warning; receipt-save-red4hashes. Modes
-restored in finally, no wallet data changed. Current product adds secondary
-phone-save warning, retains acknowledgement and clears old save marker on Retry.
-Correction38172869855 atc6f7148 passes5cases36.278s, including reopened
-unknown/no automatic send/exact explicit retry. Root3unchanged originals and
-separate3XMLs inspected; receipt-save-green8hashes. Both review axes found
-the same cleanup defect: modes cleared before successful restoration, skipped
-second restore, potential masking of primary failure. Current correction keeps
-modes until successful chmod, tries both independently and suppresses cleanup
-under primary failure. No physical restoration failure is claimed exercised.
-Pre-send failures still need acceptance; corrected fixture compile/runtime pending. Load ownership review clear
-throughc10de10, with0residual Standards findings. Pre-transmission, interrupted-save/isolation and
-final paired acceptance remain incomplete. These checkpoints are not acceptance.
-Pre-send RED38173313832 at6957f47:6cases/5PASS/1FAIL58.246s at294;
-root original/separateXML show incorrect unknown delivery before any send.
-Recreation/repair unreached; not-sent-red4hashes. Other5pass, including cleanup
-on successful chmod path. Both bounded cleanup reviews clear. Current source
-persists a conservative attempted marker and keeps original wallet/backend
-authority locked through signed enqueue. Legacy records stay unknown; explicit
-retry retains uncertainty. Cleanup clears saved mode with set after success.
-Correction38173684709 at4e53ddd passes6cases42.139s; root3originals/
-separate3XMLs show not-sent/recreatednot-sent/explicitrepairedack,
-not-sent-green8hashes. Both bounded source reviews clear. Standards fixture
-port0 finding fixed3609e3b using explicit numericport for bothlisteners; both
-fix reviews0. Runtime predates that fixture-only correction. Next single case
-checks both approved destinations, independent receipts, reopening and original
-owner exactretry. No atomic-switch/process acceptance claimed.
-Backend38174100403 at068af0b passes7cases49.455s. Root5originals/
-separate5XMLs show both named destinations, independent official ack/recreated
-receipt, restored owner unknown and exact owner retry; backend-green12hashes.
-Both bounded reviews clear after4a3ebee identity sensitivity assertions; this
-runtime predates those assertions, next focused/final runs must execute them.
-Next actual process fixture/hostdriver kills pending report after receipt,
-checks old PID absent/newPID and exact cold explicitretry without resets.
-Process runtime still pending; no success inferred from fixture source.
-Process-first38174505849 at0d59cd3: ordinary7PASS50.598s including
-stronger signer/displayed/savedwallet assertions. Processphase1FAIL8.22s59
-blocking5sreceipt wait; root original/separateXML still showconfirmation.
-No pendingkill/coldrecovery reached. process-fixture-red5hashes retained.
-Earlier source-supported7ab3387 correction uses Composewaitsame5s instead
-ofblockinglatch; bothfixreviews0. Cause remains timinghypothesis; corrected
-runtime next, product unchanged.
-Corrected38174910903 at0053c1a passesordinary7cases49.419s and
-actualprocess3779→3864 coldrecovery1case5.295s, samewallet/backend/record,
-noauto/exactexplicitretry/ack/no type4. Root3originals/separate3XMLs checked;
-process-green15hashes. Earlier waitcause remainshypothesis. Both bounded
-sourcefix/evidence reviews0. Nextsinglecorruptionfixture requires failclosed
-reload/repair/originalexplicitretry; runtimepending. Walletreplacement and
-finalpairedacceptance stillrequired.
-Corruption38175250800 ate37305e passesordinary8cases53.327s plus
-coldrecovery1case5.071s. Root3corruption originals/separate3XMLs show
-failclosed/repairedunknown/exactexplicitack; corrupt-green9hashes. Both
-boundedreviews0. NextsingleactualSAFwalletreplacementcase authenticates
-originalbackup, isolatesincomingreport state/reopening, restoresoriginalviaSAF
-and explicitlyretriesoriginalsignedreport. Onlypublicscalar2/3fixtures
-provisioned; privateoriginalbackupmemory/filesnever retainedinevidence.
-Wallet runtimepending, newclassbudget180s for53.327s8cases+auth/imports.
-Wallet38175754741 at79cd07c passesordinary9cases77.701s pluscold1case
-4.248s. Root4originals/separate4XMLs showbackupgate/incomingindependentreport/
-restoredoriginalunknown/exactexplicitack. ActualSAFfullopts restoration,
-opaqueincomingopts/noauto/type4 assertions pass. wallet-green11hashes.
-Bothd251807 sanitized-parserfixreviews0; runtimepredatesthatfixtureonlyfix.
-The initial invalid-reply journey expected unknown for all four failures; that
-expectation is historical and does not satisfy explicit-error fidelity.
-Ticket22 correction: Spec review ofd251807...16257cd found explicit wire14/app.err
-must be distinguished from unknown-only feedback. Standards0. Corrected native
-journey requires named error plus uncertain delivery, persists feedback through
-recreation/noauto, and retains original bytes on explicit retries; empty/malformed
-remain unknown. Product unchanged pending actual RED. Android17 run38176271148
-uses older expectation and cannot accept this correction.
-Corrected RED38176608046 atafcd0bb:10cases/9PASS/1FAIL102.637s at652,
-root original/separateXML unknown-only afterwire14; laterjourney/processunreached.
-explicit-error-red3hashes. Older17run38176271148 at16257cd passes10/135.989s
-pluscold1/5.314s; root2originals/separateXML, invalid-old-android17 7hashes,
-predatescorrectedacceptance. Both tracer axes clear afterhandofffix7dfde25.
-Currentproduct typedwire14/nonblankstringerr yields namederror/uncertaindelivery,
-persists observedboolean, clears old error at the conservative pre-enqueue marker, before the final
-cancellation check/socket send; physical enqueue is not guaranteed. Raw err is
-never displayed.
-Late error-save failure retains observation plus phone warning. GREEN passed below. Whole Spec0 newestablishedfindings; its backend-switch
-interleaving was withdrawn after keyed lifecycle inspection. Separate Standards
-Activity recreation/NonCancellable stale durable acknowledgement finding remains
-source-reachable without runtime reproduction. Initial-save cleanup corrected81b41de,
-both fix reviews0; no injected cleanup-failure claim. Expliciterror correction
-38177070388 at701dc01 passes10cases90.647s pluscold1case4.198s; root9originals/
-separate9XMLs, explicit-error-green20hashes. Runtimepredates81cleanup.
-NextsingleactualUI/publicfilesystemtracer restores genuine observedackbytes after
-staleviewloads originalpending snapshot; explicitRetry must adoptACK/no newreport,
-preserve exactcandidate/wallet/backend/recreation. Both design axes agree; not
-oldNonCancellable timing reproduction. First38177595073 ateca518a stoppedat
-instrumentationcompile26s: UnitcapturehelpermisusedasByteArray. Native/process
-unreached, notproductRED; compilefailure1hash. Fixtureonlycorrection stores real
-receipt outsidehelper, acceptance/deadlinesunchanged. Bothtracer/evidenceaxesclear;
-Corrected38177781221 at1617197:11cases/10PASS/1FAIL103.565s at773 reportcount
-expected1actual2 afterstaleRetry. Root4originals/separate4XMLs, restored-receipt-red
-9hashes; finalrecreation/processunreached. Other10pass inclcleanuphappy path.
-Current minimal atomicupdate shares strictrecorddecode, retains attempted/ACK,
-rejects conflictingcandidate byadoptingdurablehead, checks beforeauth/beforeenqueue
-and adoptsACK withoutsend. All report commits now share identitylock through
-guardedphysicalenqueue (ac808f9); fullsource review9ecb97b...ac808f9 bothaxes0.
-Paired full10run38178423900/full17run38178425725 dispatched atsameac808f9,
-both public_feed_read=true. Both stopfirstbrowse8cases/6PASS/2FAIL50.026s/
-82.318s atThreadProfile102/228 waitoffscreenreplywithoutscroll. Core/release/lint
-pass; reports/process/laternative/update/publicreadsunreached. Rootoriginal
-legacycapturesroot/Reportatbottom(noXML); existingactualscrollcasepasses.
-Viewportfixturecausesupported, notprovenproduct/datafault. final-browse-failure
-3hashes perSDK. Fixturefixonlytwo affectedtransitions waitunchanged15sRefresh
-thenactualLazyListscroll/visibleauthenticreply, retainalllaterassertions. Standards
-found one duplicated consecutive scroll/display pair;5b36d1b removes only that
-pair. Both fix reviews0. Paired reruns38179606575(full10)/38179608252(full17)
-pin5b36d1b153df86bfbf32052050b213516ac5e3b7, both public_feed_read=true.
-Focused reports38179643110 passes11ordinary105.625s and actualprocess4222→4306/
-cold1case5.056s/635-byte public record. Root4restoredreceipt+3processoriginals/
-separate7XML, durable restored-receipt-green23hashes/recount12cases2records1death.
-One report throughout actualreceiptadoption/recreation, samecandidate/wallet/
-backend and no type4 pass. Full10run38179606575 passesbrowse8cases20.342s,
-thenposting18/17PASS1FAIL111.56s at139 offscreenreplywaitbeforescroll. Root
-legacyoriginalroot/Reportfillviewport(noXML); no absentdata/schedulingproof.
-Reports/laterfullscopesunreached; focusedGREENseparate. Durable full10-posting-
-viewport-failure3hashes. Fixtureonlycorrection usesexisting15s waitForVisiblePost
-scroll/exactdisplay, preservinglaterparent/thread/recipient/sendgates.
-Full17run38179608252 subsequently fails the same139: browse8PASS67.398s,
-posting18/17PASS1FAIL122.129s, rootoriginalroot/Reportviewport/nolegacyXML;
-full17-posting-viewport-failure3hashes. Both5b36d1b...709b58d reviews0;
-paired full10retry38180155391/full17retry38180252201 pin709b58d68da1b773050b33e4e459343500fa9c96,
-bothpublic_feed_read=true. Full17retry38180252201 stops later at existing
-ImagePreparationTest127:5cases4PASS1FAIL13.502s, reopening a publishedonebyte
-oversizedfixture raisesFileNotFoundException Noitemmedia42 beforecomposer;
-noscopedPNG/XML. Correctedbrowse/posting/intermediatespass, reportslaterunreached.
-full17-image-fixture-failure3hashes. Source supportsproviderscan hypothesis,
-notproven cause. Currentfixture usespending singlecompletewrite→publish,
-UUIDnames/recognizablePNGpadding/exactpositivesize/missingvalidPNGthenexplicitdelete;
-allownedallocationsinsideexistingprimarysafecleanup. Product/predicatesunchanged;
-Bothimagefixture/docfixreviews0 through92d80f3. Focus17images38181457132 at367
-and full17retry38181575469 at92 public_feed_read=true active. Full10retry38180155391
-at709 PASSES191reported/190PASS+existingAPI30+assumption,48records/16actualdeaths,
-core55/release/lint/signed5→8/coldwallet/cache/bothpublicreads. Reporting11PASS
-92.703s, actualdeath23785→23879/cold1PASS4.34s/635-byte public record, original
-wallet/backend/transaction/noautosend/exactexplicitretry/no type4. Root41ordinary+
-3process originals/separate44XML; two ACK strips exactbyte-identical to fully
-viewedACK/adopted originals, no presentationcause inferred. Both public originals
-viewed; owner/official9.48s/6.512s, ordinary100rows92posts0ignored/quotes4rows0posts.
-Durable final-full/android10 202hashes/exactrecount191/48/16+assumption matches
-original. Product/core/reference/build/harness/workflow unchanged709→92;
-imagefixture-only correction allows outstanding17 perWORKFLOW. Final17/evidence
-reviews stillrequired before22closure. Originalcoroutineschedulingnotclaimed
-reproduced. No nextticket
-claimed; #23 is balances/receiving/authenticated SAITO transfers, not filtering.
-Ticket22 remains incomplete: failure/durability/identity/backend isolation,
-actual process interruption and final both-SDK acceptance/reviews still required.
-Its source contract is prepared in NATIVE_DISCOVERY_MODERATION_CONTRACT.md and
-NATIVE_MODERATION_CONTRACTS.md. No parallel implementation or intermediate phone
-review gate. No new APK; stable version10/source5225d06 remains current.
+Final full acceptance PASSES on both SDKs, separately opted into public reads:
+- Android10run38180155391 at709b58d:191reported/190PASS+existingAPI30+profile
+  assumption,48records/16actual interrupted stages; report11PASS92.703s,
+  actualdeath23785→23879/cold1PASS4.34s/635-byte record.
+- Android17run38181575469 at92d80f3:191/allPASS/no assumptions,48records/16
+  actual interrupted stages; report11PASS108.155s, actualdeath11147→11225/
+  cold1PASS5.35s/635-byte record.
+- Both core55/0/0, release/lint/debug/test, signed5→8/cold wallet/cache continuity
+  and both approved public reads pass. Native reports preserve originalidentity/
+  backend/candidate, noauto/exact explicitretry/no type4. Each public metadata
+  read returns100rows92posts0ignored/4quote rows0commentaryposts0ignored;
+  ordinary owner/official timings10:9.48s/6.512s,17:8.055s/7.132s.
+
+Root individually viewed41ordinary+3process originals/separate44XML and2public
+originals perSDK. Qualified ACK strip byte-equivalence and public header-only
+observations are in eachREADME; retained Conversation still Loading replies,
+not completed thread-loading proof. Runtime candidate/report count/authentication/
+full opaque wallet restoration gates are separate from bitmap claims. Each durable
+final-full SDK folder retains202hashes/allcountable logs, exact original/durable
+191/48/16 recount (with10's sole documented assumption). Both final10 bounded
+evidence axes0. Final17 bounded evidence review remains pending before closure.
+
+Full17 includes a reviewed existing-image fixture correction after prior setup
+FileNotFoundException; product/core/reference/build/harness/workflow unchanged
+709→92. Acceptance predicates retained; recognizable oversized source has a new
+literal positive-size setup guard. Both source/docfix axes0 through92, focused
+images17run38181457132 passes20/5/3 with13hashes; both evidence axes0 ate8b45e5.
+WORKFLOW companion rule permits retaining full10. No successful rejection PNG/XML
+or exact provider failure cause claimed. Earlier browse/posting viewport failures,
+restored-receipt RED, timeout/save/failure/isolation chronology and all qualified
+native/independent proof live in NATIVE_REPORT_VERIFICATION.md andticket21/REVIEW.md.
+Do not reconstruct or repeat accepted checks from this handoff's old chronology.
+
+Next ready after #22 closure: #23 balances/receiving/authenticated SAITO transfers,
+not yet claimed. Read-only preparation .scratch/ticket23-readonly-plan.md records
+public parameter observations/pure reference gaps; it is not implementation or
+acceptance. Protected future files remain untouched. No newphone APK/Pixel/live
+report/moderator outcome/permanent history/original scheduler reproduction claim.
 
 ## Outstanding external acceptance
 
@@ -492,12 +327,3 @@ NATIVE_GROUP_CHAT_CONTRACT (all .md under docs/research). The protected future n
 their own relevant tickets; earlier contracts are already committed.
 They establish source contracts, not runtime or feature completion.
 
-Latest #22 checkpoint: both final10 evidence axes0 at1c771ec, independently
-verified202hashes/raw191cases48records16deaths+documentedAPI30assumption,
-critical originals/continuity/publicreads and empty production equivalence.
-Focused images17run38181457132 at367cba4 PASSES20cases/5records/3actual
-interrupted stages, including corrected oversized fixture setup and unchanged
-rejection/preservation gates; image-fixture-green13hashes/rawlogs. No successful
-preparation rejection PNG/XML or proved provider cause. Full17retry38181575469
-at92d80f3 remains active. Its final acceptance/evidence review is required before
-#22 closure; #23 is next, not claimed. Protected future files remain untouched.

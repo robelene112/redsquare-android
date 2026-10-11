@@ -76,7 +76,7 @@ preparation/loading5PASS17.507s includes the exact positive-size guard and
 unchanged prior-draft/rejection/no-send predicates. Durable image-fixture-green
 retains13hashes and all countable logs. No successful rejection PNG/XML exists;
 no bitmap claim or exact provider-cause inference. Full17retry38181575469 at
-92d80f3 remains active with public_feed_read=true.
+92d80f3 passes final acceptance below with public_feed_read=true.
 
 Full10run38180155391 PASSES191reported cases/190PASS+existingAPI30+assumption,
 48records/16actual death stages; core55/0/0, release/lint, signed5→8/coldwallet/
@@ -92,6 +92,15 @@ unchanged709→92, only existing image fixture/setup and docs/evidence change.
 WORKFLOW permits retaining full10 while completing outstanding17.
 Both final10 bounded evidence axes are0: each independently verified202hashes,
 raw counts, qualified originals, continuity and empty source equivalence.
-Final17 acceptance and its bounded evidence review remain pending.
+Full17run38181575469 PASSES191cases/allPASS/48records/16actual interrupted
+stages/no assumptions; core55/0/0, release/lint, signed5→8/cold continuity and
+both public reads. Reporting11PASS108.155s, actualdeath11147→11225/cold1PASS
+5.35s/635-byte public record retains original identity/backend/candidate, noauto
+and exact explicit retry/no type4. Root41ordinary+3process originals/separate
+44XMLs, then2public originals; three strip views have documented exact-byte
+matches to fully viewed originals. Public owner/official8.055s/7.132s, each
+100rows/92posts/0ignored and4quote rows/0commentaryposts/0ignored. Durable
+final-full/android17 retains202hashes, original/durable exact191/48/16 recount.
+Both final17 bounded evidence axes remain pending before #22 closure.
 Ticket22 stays open. No new phone APK, physical Pixel, live report, moderator
 decision, arbitrary power-loss or permanent-history claim.

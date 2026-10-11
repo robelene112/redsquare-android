@@ -1,0 +1,4 @@
+native-proof	Build and verify native sources	2026-10-11T22:45:22.2733580Z > Task :core:test FROM-CACHE
+native-proof	Build and verify native sources	2026-10-11T22:45:32.3776191Z > Task :app:assembleRelease
+native-proof	Build and verify native sources	2026-10-11T22:46:10.4724987Z > Task :app:lintDebug
+native-proof	Build and verify native sources	2026-10-11T22:46:10.4725814Z BUILD SUCCESSFUL in 1m 6s
