@@ -96,7 +96,11 @@ rawlog retained ticket19/prefix-red. Push38140656411 release/lintPASS.
 Knownpeople productionhandling addedcbea3b1: verifiedauthors/wallet/validated
 follows/visitedprofiles plus verifiedlabels, cached-only knownname proof reads
 onIO, no wildcard/globaldirectory. CombinedcompilePASS2m38s; bounded
-bothboundedaxes0 actionable findings. FirstGREEN pending.
+bothboundedaxes0 actionable findings. KnownprefixGREEN38141685280 ataf77aeb:
+6PASS70.885s, freshFollow/nameprefix/offlinewithoutpublichistory/wallet/noTX PASS.
+Two original individuallyinspectedPNG/XML/log retainedticket19/prefix-green.
+Push38141676801 release/lintPASS. Next primary cached-exact-name qualification
+tracer; savefailure and authorrevision application recovery also remain.
 Knownpeople/namefailuresstillpending. People/durable cache/full acceptance pending;
 no #20 acceptance yet.
 Accepted seams1–4 unchanged.

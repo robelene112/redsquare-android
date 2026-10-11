@@ -17,6 +17,106 @@ import java.util.concurrent.atomic.AtomicInteger
 class SearchPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
 
+    @Test fun cachedExactNamesAreQualifiedWhenFreshChecksFailAndForgedNamesCannotResolve() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        check(context.packageName == "nl.davidengelen.redsquare.dev")
+        check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
+        AndroidBackendStore(context).save(SaitoBackend.OWNER)
+        context.noBackupFilesDir.listFiles()?.filter {
+            listOf("feed.", "conversation.", "profile.", "search.", "authorposts.").any(it.name::startsWith)
+        }?.forEach { check(it.delete()) { "Could not reset public search fixtures" } }
+        val thread = instrumentation.context.assets.open("native-thread-reference.json").bufferedReader()
+            .use { JsonParser.parseReader(it).asJsonObject }
+        val rows = instrumentation.context.assets.open("native-registry-reference.json").bufferedReader()
+            .use { JsonParser.parseReader(it).asJsonObject.getAsJsonArray("rows") }
+        val name = "NativeCase7@saito"
+        val forged = "ForgedCase@saito"
+        val person = "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR"
+        val mode = AtomicInteger(0)
+        val qualification = "Previously verified name. This search has not confirmed current ownership."
+        val peer = ControlledFeedPeer("[]", archiveResponse = { criteria ->
+            if (criteria.has("field4") || criteria.has("field2")) "[]"
+            else {
+                check(criteria.keySet() == setOf("request", "field1", "flagged_ne", "limit", "created_earlier_than"))
+                "[${thread.get("root")},${thread.get("firstReply")}]"
+            }
+        }, registryResponse = { criteria ->
+            if (criteria.get("request").asString == "registry namecheck") {
+                val identifier = criteria.get("identifier").asString
+                check(identifier in setOf(name, forged))
+                when (mode.get()) {
+                    0 -> { check(identifier == name); rows.toString() }
+                    2 -> "[]"
+                    else -> rows.deepCopy().apply {
+                        // Changing a field covered by the independent signature must fail verification.
+                        get(0).asJsonObject.addProperty("identifier", if (identifier == name) forged else identifier)
+                    }.toString()
+                }
+            } else com.google.gson.JsonObject().apply {
+                if (criteria.getAsJsonArray("keys").any { it.asString == person }) addProperty(person, name)
+            }.toString()
+        })
+        peer.start().use { server ->
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                .putExtra("usernameFixtureRegistrar", true)).use {
+                withFailureCapture({ captureNativeScreen(File(context.cacheDir, "search-evidence/people-cached-check-failure.png")) }) {
+                    waitForEnabled("New post")
+                    if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
+                    ui.onNodeWithText("Wallet").performClick()
+                    val owner = displayedWalletAddress(ui)
+                    ui.onNodeWithText("Done").performClick()
+                    ui.onNodeWithText("Search").performClick()
+                    ui.onNode(hasSetTextAction()).performTextInput(name)
+                    waitForEnabled("Search history")
+                    ui.onNodeWithText("Search history").performClick()
+                    waitForEnabled("Search history")
+                    ui.onNode(hasText(person) and hasClickAction() and !hasSetTextAction()).performClick()
+                    waitForText("Profile")
+                    waitForText(name)
+                    ui.onNodeWithText("Back").performClick()
+                    mode.set(1)
+                    ui.onNodeWithText("Search history").performClick()
+                    waitForEnabled("Search history")
+                    ui.onNodeWithText("Usernames could not be checked. Try Search history again.").assertIsDisplayed()
+                    ui.onNodeWithText(qualification).assertIsDisplayed()
+                    ui.onAllNodesWithText("Some history could not be searched. Available results are still shown. Try again.").assertCountEquals(0)
+                    captureNativeScreen(File(context.cacheDir, "search-evidence/people-cached-check.png"), qualification)
+                    mode.set(2)
+                    ui.onNodeWithText("Search history").performClick()
+                    waitForEnabled("Search history")
+                    ui.onNodeWithText(qualification).assertIsDisplayed()
+                    ui.onAllNodesWithText("Usernames could not be checked. Try Search history again.").assertCountEquals(0)
+                    ui.onNode(hasText(person) and hasClickAction() and !hasSetTextAction()).assertIsDisplayed()
+                    mode.set(3)
+                    ui.onNode(hasSetTextAction()).performTextReplacement(forged)
+                    ui.onNodeWithText("Search history").performClick()
+                    waitForEnabled("Search history")
+                    ui.onNodeWithText("Usernames could not be checked. Try Search history again.").assertIsDisplayed()
+                    ui.onAllNodes(hasText(person) and hasClickAction() and !hasSetTextAction()).assertCountEquals(0)
+                    ui.onAllNodesWithText(qualification).assertCountEquals(0)
+                    ui.onNode(hasSetTextAction()).performTextReplacement("Independent")
+                    ui.onNodeWithText("Search history").performClick()
+                    waitForEnabled("Search history")
+                    ui.onNodeWithText("Independent Saito reply").assertIsDisplayed()
+                    mode.set(0)
+                    ui.onNode(hasSetTextAction()).performTextReplacement(name)
+                    ui.onNodeWithText("Search history").performClick()
+                    waitForEnabled("Search history")
+                    ui.onNode(hasText(person) and hasClickAction() and !hasSetTextAction()).assertIsDisplayed()
+                    ui.onAllNodesWithText(qualification).assertCountEquals(0)
+                    ui.onAllNodesWithText("Usernames could not be checked. Try Search history again.").assertCountEquals(0)
+                    ui.onNodeWithText("Wallet").performClick()
+                    assertEquals(owner, displayedWalletAddress(ui))
+                    assertTrue(peer.clientKeys.isNotEmpty() && peer.clientKeys.all { it == owner })
+                    assertTrue(peer.transactions.isEmpty())
+                    peer.assertHealthy()
+                }
+            }
+        }
+    }
+
     @Test fun knownAuthorsAndVerifiedNamesRemainSearchableByPrefixAfterReopeningOffline() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext

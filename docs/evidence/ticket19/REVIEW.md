@@ -165,3 +165,11 @@ native GREEN pending.
 Bounded Spec0/Standards0 actionable findings atcbea3b1; both reviewers
 independently verified the observed RED and four evidence hashes. Compile
 PASS2m38s. First known-prefix native GREEN pending.
+
+Known-prefix GREEN38141685280 ataf77aeb:6PASS70.885s, focused source/core/
+debug/testPASS; push38141676801 source/core/debug/test/release/lintPASS.
+FreshFollow, verifiedprefix, offline recovery without publicposthistory, wallet/
+allclientkeys/noTX PASS. Root individually viewed two neworiginalPNGs and
+separately parsed eachXML; rawlog/pairs retained ticket19/prefix-green.
+No actualprocessdeath/physical/liveRegistry/final#20 claim. Next single primary
+tracer qualifies cached exact-name fallback during failed/negative namechecks.
