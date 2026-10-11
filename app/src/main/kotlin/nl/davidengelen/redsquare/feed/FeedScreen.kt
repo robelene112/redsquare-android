@@ -88,6 +88,10 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
         }
     }
     fun openProfile(author: String) {
+        if (author !in navigationMemory.visitedProfiles) {
+            if (navigationMemory.visitedProfiles.size == 1000) navigationMemory.visitedProfiles.removeAt(0)
+            navigationMemory.visitedProfiles.add(author)
+        }
         if ((navigation.lastOrNull() as? BrowseDestination.Profile)?.author != author) {
             navigation.add(BrowseDestination.Profile(author))
         }
@@ -191,6 +195,7 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
     when (val destination = navigation.lastOrNull()) {
         is BrowseDestination.Search -> {
             SearchScreen(wallet, endpoint, backend, destination.view, modifier,
+                knownAccounts = following?.accounts.orEmpty() + navigationMemory.visitedProfiles,
                 onBack = { back() }, onPost = { navigation.add(BrowseDestination.Conversation(it)) },
                 onIdentity = { openProfile(it) }, social = social, quotes = quotes,
                 onQuote = { navigation.add(BrowseDestination.Quote(it)) })

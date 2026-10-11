@@ -279,3 +279,11 @@ No runtime failure claim. Fix compile/re-review and native RED pending.
 Fresh-Follow fixturefix62aa7ce compilation PASS1m22s; both bounded axes0
 residual findings. First known-prefix native RED pending. No production prefix
 implementation yet. Shared-point runtime regression joins this focused run.
+
+Known-prefix RED38140656219 at855d16a:6cases84.668s, existing5PASS;
+new1FAIL atline79 missing clickable known reply author afterpncSjs. Later
+Profile/freshFollow/nameprefix/offline gates unexecuted. Existing five also
+exercise shared-point cleanup. Root individually viewed originalPNG and
+separately parsedXML; rawlog/pair retained ticket19/prefix-red. Focused source/
+core/debug/testPASS; push38140656411 source/core/debug/test/release/lintPASS.
+Known-prefix implementation now begins; no final #20 acceptance.

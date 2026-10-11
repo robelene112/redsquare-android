@@ -22,6 +22,7 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.withContext
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.registry.registeredIdentity
+import nl.davidengelen.redsquare.registry.knownRegisteredIdentities
 import nl.davidengelen.redsquare.registry.LocalRegistryAuthority
 import nl.davidengelen.redsquare.registry.RegistryLookup
 import nl.davidengelen.redsquare.registry.RegisteredNameStore
@@ -70,7 +71,7 @@ internal class SearchViewState {
 
 @Composable
 internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: SaitoBackend,
-    view: SearchViewState, modifier: Modifier, onBack: () -> Unit, onPost: (FeedPost) -> Unit,
+    view: SearchViewState, modifier: Modifier, knownAccounts: Set<String>, onBack: () -> Unit, onPost: (FeedPost) -> Unit,
     onIdentity: (String) -> Unit, social: SocialState?, quotes: QuoteState?, onQuote: (FeedPost) -> Unit) {
     val context = LocalContext.current.applicationContext
     val keyboard = LocalSoftwareKeyboardController.current
@@ -193,9 +194,23 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
         }
     }
     val matches = view.posts.filter { it.text.contains(view.searchedQuery, ignoreCase = true) }
+    // Follow preferences are public local input, not proof of a valid curve point.
+    var validAccounts by remember(view) { mutableStateOf<Set<String>>(emptySet()) }
+    LaunchedEffect(view, knownAccounts) {
+        validAccounts = withContext(Dispatchers.IO) { knownAccounts.filter(SaitoWallet::isPublicKey).toSet() }
+    }
+    val knownKeys = remember(view.posts, wallet, validAccounts) {
+        view.posts.map { it.author }.toSet() + validAccounts + listOfNotNull(wallet?.publicKey)
+    }
+    val knownNames = knownRegisteredIdentities(knownKeys)
     val exactKey = remember(view.searchedQuery) { view.searchedQuery.takeIf(SaitoWallet::isPublicKey) }
     val exactName = view.exactPerson?.takeIf { it.identifier == view.searchedQuery }
-    val personKey = exactName?.publicKey ?: exactKey
+    val people = remember(knownKeys, knownNames, view.searchedQuery, exactKey, exactName) {
+        (listOfNotNull(exactName?.publicKey, exactKey) + (knownKeys + knownNames.keys).filter { key ->
+            view.searchedQuery.isNotBlank() && (key.startsWith(view.searchedQuery) ||
+                knownNames[key]?.name?.startsWith(view.searchedQuery, ignoreCase = true) == true)
+        }.sorted()).distinct()
+    }
     Column(modifier) {
         Row {
             TextButton(onClick = onBack) { Text(stringResource(R.string.browse_back)) }
@@ -218,19 +233,22 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
             }
         }
         Text(stringResource(R.string.search_coverage), style = MaterialTheme.typography.bodySmall)
+        Text(stringResource(R.string.search_people_coverage), style = MaterialTheme.typography.bodySmall)
         if (loading) Text(stringResource(R.string.search_loading))
         if (view.failed) Text(stringResource(R.string.search_error))
         if (view.usernameFailed) Text(stringResource(R.string.search_username_error))
         if (view.unreadable) Text(stringResource(R.string.search_unreadable), style = MaterialTheme.typography.bodySmall)
         if (view.pagingUnavailable) Text(stringResource(R.string.search_paging_unavailable), style = MaterialTheme.typography.bodySmall)
         if (view.limitReached) Text(stringResource(R.string.search_limit), style = MaterialTheme.typography.bodySmall)
-        if (view.saveError || view.usernameSaveError) Text(stringResource(R.string.search_save_error), style = MaterialTheme.typography.bodySmall)
+        if (view.saveError || view.usernameSaveError || people.any { knownNames[it]?.saveError == true })
+            Text(stringResource(R.string.search_save_error), style = MaterialTheme.typography.bodySmall)
         if (view.request > 0 && !loading && !view.failed && !view.limitReached && matches.isEmpty()) Text(stringResource(R.string.search_empty))
         LazyColumn(Modifier.weight(1f).fillMaxWidth()) {
-            if (view.request > 0 && personKey != null) {
-                item(key = "person:$personKey") {
+            if (view.request > 0) {
+                items(people, key = { "person:$it" }) { personKey ->
                     Column(Modifier.fillMaxWidth().clickable { onIdentity(personKey) }.padding(vertical = 12.dp)) {
-                        Text(exactName?.identifier ?: registeredIdentity(personKey).name, style = MaterialTheme.typography.titleMedium)
+                        Text(exactName?.takeIf { it.publicKey == personKey }?.identifier ?: registeredIdentity(personKey).name,
+                            style = MaterialTheme.typography.titleMedium)
                         Text(personKey, style = MaterialTheme.typography.bodySmall)
                     }
                     HorizontalDivider()

@@ -14,4 +14,5 @@ internal sealed interface BrowseDestination {
 /** Keeps the selected public context across activity recreation, scoped by wallet and server. */
 internal class FeedNavigationMemory : ViewModel() {
     val destinations = mutableStateListOf<BrowseDestination>()
+    val visitedProfiles = mutableStateListOf<String>()
 }

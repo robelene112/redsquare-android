@@ -34,6 +34,14 @@ internal fun registeredIdentity(publicKey: String): RegisteredIdentityLabel {
     return identities.labels[publicKey] ?: RegisteredIdentityLabel("Anon-${publicKey.take(6)}")
 }
 
+/** Searches verified cached names for known keys without querying a global directory. */
+@Composable
+internal fun knownRegisteredIdentities(publicKeys: Set<String>): Map<String, RegisteredIdentityLabel> {
+    val identities = requireNotNull(LocalIdentities.current)
+    LaunchedEffect(identities, publicKeys) { identities.loadCached(publicKeys) }
+    return identities.labels.toMap()
+}
+
 private class RegisteredIdentities(
     private val context: Context,
     private val wallet: SaitoWallet?,
@@ -45,6 +53,19 @@ private class RegisteredIdentities(
     val labels = mutableStateMapOf<String, RegisteredIdentityLabel>()
     private val inFlight = mutableSetOf<String>()
     private val pending = Channel<String>(Channel.UNLIMITED)
+
+    suspend fun loadCached(publicKeys: Set<String>) {
+        val missing = publicKeys.filter { it !in labels }
+        val saved = withContext(Dispatchers.IO) {
+            missing.mapNotNull { key ->
+                try { cache(key).load()?.name?.identifier?.let { key to RegisteredIdentityLabel(it) } }
+                catch (cancelled: CancellationException) { throw cancelled }
+                catch (_: Exception) { null }
+            }
+        }
+        // A visible row can have obtained a newer proof while disk validation was suspended.
+        saved.forEach { (key, label) -> if (key !in labels) labels[key] = label }
+    }
 
     fun request(publicKey: String) {
         // A newly mounted view can retry a failed save. Other repeated rows share one result.
