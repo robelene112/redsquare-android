@@ -785,11 +785,11 @@ class PersonalControlsPreviewTest {
             cleanupPersonalIdentity(primary, {
                 val active = store.loadExisting()
                 check(active.publicKey == original.publicKey || active.publicKey == incoming.publicKey)
-                // Emergency fixture cleanup only; successful restoration is proved through real SAF below.
+                // Emergency fixture cleanup only; successful restoration is proved through real SAF above.
                 if (active.publicKey == incoming.publicKey) store.replace(active, original)
             }, {
-                val result = device.executeShellCommand("locksettings clear --old $EXPORT_TEST_PIN --user 0")
-                check(result.contains("Lock credential cleared successfully"))
+                device.executeShellCommand("locksettings clear --old $EXPORT_TEST_PIN --user 0")
+                ui.waitUntil(10_000) { !keyguard.isDeviceSecure }
             }, {
                 check(device.executeShellCommand("run-as nl.davidengelen.redsquare.dev.test rm -f files/wallet-test-documents/$backupFile files/wallet-test-documents/00-personal-import-1.json files/wallet-test-documents/00-personal-import-2.json").isBlank())
             }, { balanceServer.close() })

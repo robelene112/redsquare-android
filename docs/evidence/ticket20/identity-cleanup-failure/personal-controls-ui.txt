@@ -1,0 +1,145 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PersonalControlsPreviewTest:
+INSTRUMENTATION_STATUS: test=realWalletReplacementIsolatesChoicesAndRestoringTheWalletRecoversThem
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.realWalletReplacementIsolatesChoicesAndRestoringTheWalletRecoversThem$lambda$72(PersonalControlsPreviewTest.kt:792)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.$r8$lambda$FsO7B7WHpYeF8xcSxzaHRu2tnQk(PersonalControlsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.cleanupPersonalIdentity(PersonalControlsPreviewTest.kt:802)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.realWalletReplacementIsolatesChoicesAndRestoringTheWalletRecoversThem(PersonalControlsPreviewTest.kt:785)
+
+INSTRUMENTATION_STATUS: stream=
+Error in realWalletReplacementIsolatesChoicesAndRestoringTheWalletRecoversThem(nl.davidengelen.redsquare.PersonalControlsPreviewTest):
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.realWalletReplacementIsolatesChoicesAndRestoringTheWalletRecoversThem$lambda$72(PersonalControlsPreviewTest.kt:792)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.$r8$lambda$FsO7B7WHpYeF8xcSxzaHRu2tnQk(PersonalControlsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.cleanupPersonalIdentity(PersonalControlsPreviewTest.kt:802)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.realWalletReplacementIsolatesChoicesAndRestoringTheWalletRecoversThem(PersonalControlsPreviewTest.kt:785)
+
+INSTRUMENTATION_STATUS: test=realWalletReplacementIsolatesChoicesAndRestoringTheWalletRecoversThem
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=unavailableWalletPreservesAnonymousReadingButDoesNotBypassSavedPersonalChoices
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unavailableWalletPreservesAnonymousReadingButDoesNotBypassSavedPersonalChoices
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=failedAnchorRemovalAndRecreationStillRestoresMuteAfterStorageRepair
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=failedAnchorRemovalAndRecreationStillRestoresMuteAfterStorageRepair
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=mutingSurvivesBackendChangesAndOfflineReopeningAndUnmutingRestoresCachedPosts
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=mutingSurvivesBackendChangesAndOfflineReopeningAndUnmutingRestoresCachedPosts
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aLateFailedUnmuteRetainsSavedFilteringAfterReopeningAndAllowsExplicitRepair
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aLateFailedUnmuteRetainsSavedFilteringAfterReopeningAndAllowsExplicitRepair
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=unreadableSavedChoicesHidePostsUntilRepairedAndRetried
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unreadableSavedChoicesHidePostsUntilRepairedAndRetried
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=unblockingKeepsAnIntentionalMuteAcrossBackendChangesAndOfflineReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unblockingKeepsAnIntentionalMuteAcrossBackendChangesAndOfflineReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=mutedContentStaysHiddenAcrossProfileThreadQuotesSearchAndOfflineReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=mutedContentStaysHiddenAcrossProfileThreadQuotesSearchAndOfflineReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 124.105
+There was 1 failure:
+1) realWalletReplacementIsolatesChoicesAndRestoringTheWalletRecoversThem(nl.davidengelen.redsquare.PersonalControlsPreviewTest)
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.realWalletReplacementIsolatesChoicesAndRestoringTheWalletRecoversThem$lambda$72(PersonalControlsPreviewTest.kt:792)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.$r8$lambda$FsO7B7WHpYeF8xcSxzaHRu2tnQk(PersonalControlsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.cleanupPersonalIdentity(PersonalControlsPreviewTest.kt:802)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.realWalletReplacementIsolatesChoicesAndRestoringTheWalletRecoversThem(PersonalControlsPreviewTest.kt:785)
+
+FAILURES!!!
+Tests run: 8,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

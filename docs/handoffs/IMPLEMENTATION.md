@@ -279,6 +279,15 @@ wallet creation/reset and no weakened import assertions. Correction compile PASS
 Separate process probe was not reached in this run; prior process proof remains.
 Source push38159998964 passes core/debug/test/release/lint.
 
+Corrected8case38160579644 at58426cd: seven PASS and one cleanup error,
+124.105s. Identity main body reaches every real backup/import/restoration/options/
+wallet/filter/peer/backend/no-TX gate, then exact PIN-clear shell-output assertion
+fails at792. Command output was not captured, so actual PIN clearing remains
+unproved. Correction keeps the command and waits for actual KeyguardManager
+isDeviceSecure=false. Root viewed4identity originals/separate4XML;
+identity-cleanup-failure retains10hashes. Process probe not reached this run.
+Correction compiled PASS in1m12s; rerun next. Do not call the identity test passing yet.
+
 Whole-ticket reviews99e58c6...13943cc: both axes zero source/fixture findings.
 Real SAF identity runtime, corrected focused check and final paired full Android
 10/17 acceptance remain. Preserve seven future research files. No new APK or

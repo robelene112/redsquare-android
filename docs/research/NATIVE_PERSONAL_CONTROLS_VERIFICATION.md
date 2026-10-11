@@ -350,3 +350,15 @@ actualprocessstageunreachedinthisrun; priorprocessproofremains. Sourcepush
 assertions/retryfocusednext; whole-ticket priorbothaxes0source, finalpairedpending.
 
 Actualfirstlaunchidentityfixture correction compilePASS1m16s; expanded8case retry next.
+
+Corrected8case38160579644 at584:7PASS1cleanupERROR124.105s. Identitymainbody
+reachesallbackup/import/opaqueoptions/fulloriginaloptions/emptyincoming/coldincoming/
+actualSAForiginalrestore/Mute/filter/furtherfreshwallet/backend/bothpeerkeys/noTX
+assertions. CleanupthrowsliteralPINclearoutputcheck792 withprimarybodyerrornull;
+exactcommandoutputnotcaptured, soactualclear/wordingunproved. Independentother
+cleanupstillruns. Rootviews4originalidentityPNG/separate4XML; identity-cleanup-
+failure10hashes. Notpassingidentitycase/finalacceptance. Processnotreached.
+Fixturecorrection usesactualKeyguardManager.isDeviceSecure false wait aftersame
+clearcommand, no weakenedprivacy/recoveryassertion. Compile/retrynext.
+
+ActualPINclearstate fixture compilePASS1m12s; commentdirectioncorrectedafterbuild, nosemanticchange. Eightcaseplusprocessretry next.
