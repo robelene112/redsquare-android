@@ -1,7 +1,6 @@
 package nl.davidengelen.redsquare
 
 import android.content.Intent
-import android.os.SystemClock
 import android.system.Os
 import android.system.OsConstants
 import androidx.compose.ui.semantics.SemanticsProperties
@@ -11,9 +10,6 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
-import androidx.test.uiautomator.By
-import androidx.test.uiautomator.StaleObjectException
-import androidx.test.uiautomator.Until
 import com.google.gson.JsonArray
 import com.google.gson.JsonParser
 import nl.davidengelen.redsquare.saito.AndroidBackendStore
@@ -24,7 +20,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import java.io.File
-import java.util.regex.Pattern
 
 class ProfileEditPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
@@ -346,7 +341,7 @@ class ProfileEditPreviewTest {
                         ui.onNodeWithText("Wallet").performClick()
                         assertEquals(outgoing.publicKey, displayedWalletAddress(ui))
                         ui.onNodeWithText("Import wallet").performScrollTo().performClick()
-                        chooseProfileImport(filename, incoming)
+                        chooseWalletImport(ui, filename, incoming)
                         val selected = context.getString(R.string.wallet_import_address)
                         ui.waitUntil(15_000) { ui.onAllNodesWithContentDescription(selected).fetchSemanticsNodes().isNotEmpty() }
                         ui.onNodeWithContentDescription(selected).assertTextEquals(incoming)
@@ -378,39 +373,6 @@ class ProfileEditPreviewTest {
                 if (primary != null) primary.addSuppressed(cleanup) else throw cleanup
             }
         }
-    }
-
-    private fun chooseProfileImport(filename: String, incoming: String) {
-        val device = UiDevice.getInstance(instrumentation)
-        val row = By.text(ExportTestDocumentsProvider.TITLE).res("android", "title")
-        val drawer = By.res(Pattern.compile(".*:id/roots_list"))
-        val selected = By.desc(context.getString(R.string.wallet_import_address)).text(incoming)
-        val deadline = SystemClock.uptimeMillis() + 30_000
-        while (SystemClock.uptimeMillis() < deadline) {
-            try {
-                // Synchronize the Compose test clock only after the external picker has returned.
-                if (device.currentPackageName == context.packageName) {
-                    ui.waitForIdle()
-                    if (device.hasObject(selected)) return
-                }
-                val opened = device.findObject(drawer)
-                if (opened != null) {
-                    opened.findObject(row)?.click()
-                    device.wait(Until.gone(drawer), 2_000)
-                } else {
-                    val file = device.findObject(By.text(filename).res("android", "title"))
-                    if (file != null) {
-                        file.click()
-                        device.wait(Until.hasObject(selected), 2_000)
-                    } else device.findObject(By.desc("Show roots"))?.let {
-                        it.click()
-                        device.wait(Until.hasObject(row), 2_000)
-                    }
-                }
-            } catch (_: StaleObjectException) { /* Reobserve the actual picker. */ }
-            SystemClock.sleep(100)
-        }
-        error("Profile reference import document was not displayed")
     }
 
     @Test fun failedBioSavingKeepsWalletImportClosedAndCanBeRetriedWithoutLosingWork() {
@@ -466,7 +428,7 @@ class ProfileEditPreviewTest {
                     check(draft.delete() && preserved.renameTo(draft))
                     ui.onNodeWithText("Wallet").performClick()
                     ui.onNodeWithText("Import wallet").performScrollTo().performClick()
-                    chooseProfileImport("00-profile-import.json", "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR")
+                    chooseWalletImport(ui, "00-profile-import.json", "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR")
                     val selected = context.getString(R.string.wallet_import_address)
                     ui.waitUntil(15_000) {
                         ui.onAllNodesWithContentDescription(selected).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()

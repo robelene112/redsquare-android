@@ -274,3 +274,19 @@ original PNGs and inspected XMLs. Verbatim evidence is retained at
 import-profile-fixture-failure. Bounded fixture correction supplies the
 existing explicit empty Archive callback; no app change or whole-case GREEN
 claim follows from this failed run. Corrected runtime is pending.
+
+Android10 run38117893858 on89d76a2 passes the complete outgoing-name import
+case, including cancellation, original wallet/name, zero broadcasts and peer
+health. Root individually viewed its original PNG and inspected XML; public
+keys are offscreen in this scrolled capture and proven by runtime assertions.
+Individual-case GREEN retained at first-import-name-green. Both axes reviewed
+the prior Archive fixture correction with zero actionable findings.
+
+The whole run has five cases, four passes and one unrelated capture failure
+in35.446s. Unavailable-case Compose error assertion is reached, but Android
+hierarchy capture cannot find it; original PNG/XML show keyboard occupying
+the lower screen. The earlier Compose visibility versus later capture cause
+is not established. Later wallet/no-broadcast assertions of that case were
+not reached. Verbatim evidence retained at unavailable-ime-capture-failure.
+The bounded correction scrolls the error into view before asserting display
+and capturing. No app change or whole-suite GREEN is claimed.
