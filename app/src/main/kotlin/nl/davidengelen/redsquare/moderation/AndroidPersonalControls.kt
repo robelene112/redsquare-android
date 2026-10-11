@@ -16,7 +16,8 @@ import nl.davidengelen.redsquare.saito.SaitoWallet
 
 /** A verified previous policy remains authoritative until the new commit finishes. */
 internal class AndroidPersonalControls(private val context: Context, private val owner: String,
-    commitDirectorySync: (FileDescriptor) -> Unit = Os::fsync) {
+    commitDirectorySync: (FileDescriptor) -> Unit = Os::fsync,
+    private val recoveryDirectorySync: (FileDescriptor) -> Unit = Os::fsync) {
     private val prefix = "personal.$owner."
     private val alias = "personal.$owner"
     private val activeFile = File(context.noBackupFilesDir, "${prefix}v1")
@@ -74,7 +75,7 @@ internal class AndroidPersonalControls(private val context: Context, private val
         AtomicFile(recoveryFile).delete()
         check(!hasRecovery()) { "Personal recovery could not be committed" }
         val directory = Os.open(context.noBackupFilesDir.path, OsConstants.O_RDONLY, 0)
-        try { Os.fsync(directory) } finally { Os.close(directory) }
+        try { recoveryDirectorySync(directory) } finally { Os.close(directory) }
     }
 
     private fun encode(policy: PersonalPolicy): EncryptedLocalFile.Contents {

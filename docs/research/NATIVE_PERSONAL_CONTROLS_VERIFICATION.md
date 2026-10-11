@@ -229,3 +229,25 @@ stillloads. Policyfilenamefamilyincludesanchors, preserving unknown-ownergate.
 No signingwallet/options mutation; unchanged5caseGREEN/compile next.
 
 Verified-anchor adapter compilation PASS2m3s; unchanged5case focusedGREEN next.
+
+Durability source review9611408...2309d4d: Spec0 new actionable; Standards1
+residual removal-failure sequencing concern. If anchor deletion succeeds but its
+syncfails andrecreationfailsbeforewrite, activeold restoration is skipped; a
+freshload couldacceptupdatedpolicy afterfailedchange. This is source-supported,
+not runtimeproved. Do notclaimfailedremovalfullycovered. Currentunchanged5case
+GREEN38157057749 at2309d4d active. Afterresult, addone nativefilesystemtracer
+forremoved-anchor recreation obstruction/repair/coldold-policy beforefix. Later
+identity/corruption/actualprocess/finalpairedacceptance remainpending.
+
+Lateactive-save GREEN38157057749 at2309d4d:5PASS88.55s/allendgates. Rootviews
+3new originalPNG/separate3XML; save-green8hashes retains reached saveproofonly.
+Residual Standardsremoval/recreationfinding staysopen. NextSINGLE nativetracer
+beforefix: post-anchor-deletion OSsync callback createsnonemptyownedrecoverypath
+obstruction thenfails; anchorrecreationmustfailbeforewrite. UIrecoveryerror and
+withheldauthoredcontent required; repairONLY controlledobstruction thenfresh
+normalActivity mustretainfilter/Mute beforeexplicitUnmute/samewallet/noTX.
+Guardedcleanup preservesprimary andrefusesunexpecteddirectorychildren. RealOS
+callbackdefaults unchanged; DEBUGfixture only personalrecoveryremoval. Noactive
+restoration-sequencingfix ahead of observedRED. Compile6caseRED next.
+
+Removed-anchor recreation-obstruction tracer compilation PASS2m25s; first6caseRED next.

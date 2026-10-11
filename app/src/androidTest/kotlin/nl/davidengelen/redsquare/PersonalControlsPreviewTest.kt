@@ -470,6 +470,91 @@ class PersonalControlsPreviewTest {
         }
     }
 
+    @Test fun failedAnchorRemovalAndRecreationStillRestoresMuteAfterStorageRepair() {
+        val reference = readReference("native-following-reference.json")
+        val root = reference.getAsJsonObject("root")
+        val other = reference.getAsJsonObject("otherRoot")
+        val author = root.get("field2").asString
+        val peer = ControlledFeedPeer("[$root,$other]", archiveResponse = { criteria ->
+            check(criteria.get("field1").asString == "RedSquare" && criteria.get("flagged_ne").asInt == 1)
+            when (criteria.get("field2")?.asString) {
+                null -> "[$root,$other]"
+                author -> "[$root]"
+                else -> error("Unexpected author")
+            }
+        })
+        peer.start().use { server ->
+            val intent = Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+            var address = ""
+            var primary: Throwable? = null
+            try {
+                withOpenApp(intent, "removal-seed-failure") {
+                    waitForEnabled("Refresh")
+                    showPost("Native Red Square reference post")
+                    ui.onNodeWithText("Wallet").performClick()
+                    address = displayedWalletAddress(ui)
+                    ui.onNodeWithText("Done").performClick()
+                    ui.onNode(hasScrollAction()).performScrollToNode(hasText(author))
+                    ui.onNodeWithText(author).assertIsDisplayed().performClick()
+                    waitFor("Profile")
+                    muteAccount()
+                    ui.onNodeWithText("Back").performClick()
+                    showPost("Another account reference post")
+                    assertPostAbsent("Native Red Square reference post", "Another account reference post")
+                }
+                withOpenApp(Intent(intent).putExtra("personalRecoverySyncUnavailable", true), "removal-uncertain-failure") {
+                    waitForEnabled("Refresh")
+                    ui.onNodeWithText("Settings").performClick()
+                    ui.onNodeWithText("Muted and blocked accounts").performClick()
+                    waitFor("Unmute account")
+                    ui.onNodeWithText("Unmute account").performClick()
+                    waitFor("Personal controls could not be opened. Hidden content stays hidden. Retry to recover your saved choices.")
+                    ui.onNodeWithText("Unmute account").assertIsNotEnabled()
+                    captureNativeScreen(File(context.cacheDir, "personal-controls-evidence/removal-uncertain-policy.png"), "Retry")
+                    ui.onNodeWithText("Done").performClick()
+                    waitFor("Personal controls could not be opened. Hidden content stays hidden. Retry to recover your saved choices.")
+                    ui.onAllNodes(hasScrollAction()).assertCountEquals(0)
+                    ui.onAllNodesWithText("Native Red Square reference post").assertCountEquals(0)
+                }
+                // Repair only the controlled recovery-path obstruction, never active policy or wallet bytes.
+                repairPersonalObstruction(address)
+                withOpenApp(intent, "removal-reopening-failure") {
+                    waitForEnabled("Refresh")
+                    showPost("Another account reference post")
+                    assertPostAbsent("Native Red Square reference post", "Another account reference post")
+                    ui.onNodeWithText("Settings").performClick()
+                    ui.onNodeWithText("Muted and blocked accounts").performClick()
+                    waitFor(author)
+                    waitFor("Unmute account")
+                    captureNativeScreen(File(context.cacheDir, "personal-controls-evidence/removal-reopened-policy.png"), "Unmute account")
+                    ui.onNodeWithText("Unmute account").performClick()
+                    waitFor("No muted or blocked accounts.")
+                    ui.onNodeWithText("Done").performClick()
+                    showPost("Native Red Square reference post")
+                    ui.onNodeWithText("Wallet").performClick()
+                    assertEquals(address, displayedWalletAddress(ui))
+                    ui.onNodeWithText("Done").performClick()
+                }
+                assertTrue(peer.clientKeys.isNotEmpty() && peer.clientKeys.all { it == address })
+                assertTrue(peer.transactions.isEmpty())
+                peer.assertHealthy()
+            } catch (failure: Throwable) { primary = failure; throw failure }
+            finally {
+                try { if (address.isNotEmpty()) repairPersonalObstruction(address) }
+                catch (cleanup: Throwable) { if (primary != null) primary.addSuppressed(cleanup) else throw cleanup }
+            }
+        }
+    }
+
+    private fun repairPersonalObstruction(owner: String) {
+        val obstruction = File(context.noBackupFilesDir, "personal.$owner.recovery.v1")
+        if (!obstruction.isDirectory) return
+        val marker = File(obstruction, "controlled-unavailable")
+        check(obstruction.listFiles()?.toList() == listOf(marker) && marker.isFile && marker.length() == 0L)
+        check(marker.delete() && obstruction.delete())
+    }
+
     private fun muteAccount() {
         waitFor("Mute account")
         ui.onNodeWithText("Mute account").performClick()

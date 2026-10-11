@@ -198,6 +198,14 @@ class MainActivity : ComponentActivity() {
                         throw IOException("Controlled personal filesystem sync failure")
                     }
                     Os.fsync(descriptor)
+                }, recoveryDirectorySync = { descriptor ->
+                    if (BuildConfig.DEBUG && intent.getBooleanExtra("personalRecoverySyncUnavailable", false)) {
+                        val obstruction = File(noBackupFilesDir, "personal.${requireNotNull(address)}.recovery.v1")
+                        check(!obstruction.exists() && obstruction.mkdir())
+                        check(File(obstruction, "controlled-unavailable").createNewFile())
+                        throw IOException("Controlled personal recovery filesystem obstruction")
+                    }
+                    Os.fsync(descriptor)
                 }) {
                 Surface(Modifier.fillMaxSize()) {
                     Column(Modifier.fillMaxSize().padding(16.dp)) {

@@ -30,8 +30,9 @@ internal data class PersonalPolicy(val muted: Set<String> = emptySet(), val bloc
 
 /** Device-local personal choices for one public identity, shared by both servers. */
 internal class PersonalControls(private val context: Context, private val owner: String?, private val scope: CoroutineScope,
-    commitDirectorySync: (FileDescriptor) -> Unit = Os::fsync) {
-    private val storage = owner?.let { AndroidPersonalControls(context, it, commitDirectorySync) }
+    commitDirectorySync: (FileDescriptor) -> Unit = Os::fsync,
+    recoveryDirectorySync: (FileDescriptor) -> Unit = Os::fsync) {
+    private val storage = owner?.let { AndroidPersonalControls(context, it, commitDirectorySync, recoveryDirectorySync) }
     val ownerAvailable get() = owner != null
     var policy by mutableStateOf(PersonalPolicy())
         private set
@@ -106,10 +107,10 @@ internal val LocalPersonalControls = staticCompositionLocalOf<PersonalControls?>
 
 @Composable
 internal fun PersonalControlsScope(owner: String?, commitDirectorySync: (FileDescriptor) -> Unit = Os::fsync,
-    content: @Composable () -> Unit) {
+    recoveryDirectorySync: (FileDescriptor) -> Unit = Os::fsync, content: @Composable () -> Unit) {
     val context = LocalContext.current.applicationContext
     val scope = rememberCoroutineScope()
-    val controls = remember(owner) { PersonalControls(context, owner, scope, commitDirectorySync) }
+    val controls = remember(owner) { PersonalControls(context, owner, scope, commitDirectorySync, recoveryDirectorySync) }
     LaunchedEffect(controls) { controls.load() }
     CompositionLocalProvider(LocalPersonalControls provides controls, content = content)
 }
