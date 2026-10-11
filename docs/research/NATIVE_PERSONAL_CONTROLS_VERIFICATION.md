@@ -146,3 +146,19 @@ untouched. Later actual Chat/notification integration is still required in its
 own dependent tickets. Compile and unchanged three-test GREEN pending.
 
 Block implementation compile PASS2m16s; unchanged three-test native GREEN next.
+
+Block source reviewf1100cf...fe555b9: both axes0 new actionable findings.
+Block GREEN38153595298 atfe555b9:3PASS42.425s, all three journeys/endgates pass.
+Root views8originalPNG/separate8XML; block-green18hashes. No final acceptance.
+Next SINGLE cross-view tracer added before its source filters: independently
+signed root/replies/embedded quote, positively observed quoted original before
+Mute, Profile full-list absence, retained innocent thread reply without muted
+root/nested reply, innocent quote commentary with hidden original, Search posts
+and people management access, fresh offline quote hide and Unmute restoration.
+Setup also clears isolated public author proofs/quoted-original caches so earlier
+unrelated fixtures cannot supply stale deletions/history. First compilePASS1m14s;
+root author-link selector now explicitly chooses the first chronological card
+and positively checks exact Profile key before Mute. Recompile before native RED.
+No cross-view filter source added yet.
+
+Final cross-view fixture compilation PASS1m16s; first native cross-view RED next.

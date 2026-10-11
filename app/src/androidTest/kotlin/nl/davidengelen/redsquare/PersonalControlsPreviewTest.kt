@@ -25,7 +25,8 @@ class PersonalControlsPreviewTest {
 
     @Before fun prepareAvailableHistory() {
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
-        val prefixes = listOf("feed.", "conversation.", "profile.", "following.", "followingfeed.", "search.", "personal.")
+        val prefixes = listOf("feed.", "conversation.", "profile.", "following.", "followingfeed.", "search.",
+            "quoteoriginal.", "authorposts.", "personal.")
         context.noBackupFilesDir.listFiles()?.filter { file -> prefixes.any(file.name::startsWith) }
             ?.forEach { check(it.delete()) }
     }
@@ -294,6 +295,131 @@ class PersonalControlsPreviewTest {
             assertTrue(peer.transactions.isEmpty())
             peer.assertHealthy()
         }
+    }
+
+    @Test fun mutedContentStaysHiddenAcrossProfileThreadQuotesSearchAndOfflineReopening() {
+        val thread = readReference("native-thread-reference.json")
+        val root = thread.getAsJsonObject("root")
+        val first = thread.getAsJsonObject("firstReply")
+        val nested = thread.getAsJsonObject("nestedReply")
+        val other = readReference("native-following-reference.json").getAsJsonObject("otherRoot")
+        val quote = readReference("native-quote-reference.json").getAsJsonObject("embedded").deepCopy().apply {
+            addProperty("field1", "RedSquare"); addProperty("field4", ""); addProperty("field5", get("sig").asString)
+        }
+        val author = root.get("field2").asString
+        val rows = listOf(root, first, nested, other, quote)
+        val peer = ControlledFeedPeer("[]", archiveResponse = { criteria ->
+            check(criteria.get("field1").asString in listOf("RedSquare", "RedSquareRetweet"))
+            if (criteria.has("flagged_ne")) check(criteria.get("flagged_ne").asInt == 1)
+            rows.filter { row ->
+                (!criteria.has("sig") || criteria.get("sig").asString == row.get("sig").asString) &&
+                    (!criteria.has("field2") || criteria.get("field2").asString == row.get("field2").asString) &&
+                    (!criteria.has("field5") || criteria.get("field5").asString == row.get("field5").asString) &&
+                    (!criteria.has("field4") || criteria.get("field4").asString == row.get("field4").asString)
+            }.joinToString(prefix = "[", postfix = "]")
+        })
+        peer.start().use { server ->
+            val intent = Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+            var address = ""
+            withOpenApp(intent, "mounted-views-failure") {
+                waitForEnabled("Refresh")
+                ui.onNodeWithText("Wallet").performClick()
+                address = displayedWalletAddress(ui)
+                ui.onNodeWithText("Done").performClick()
+                showStandalonePost("Embedded quote commentary")
+                val original = hasText("Native Red Square reference post") and
+                    hasAnyAncestor(hasContentDescription("Quoted original"))
+                ui.waitUntil(15_000) {
+                    ui.onAllNodes(original, useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty()
+                }
+                ui.onNode(hasScrollAction(), useUnmergedTree = true).performScrollToNode(original)
+                ui.onNode(original, useUnmergedTree = true).assertIsDisplayed()
+                captureNativeScreen(File(context.cacheDir, "personal-controls-evidence/quote-original-before-mute.png"), "Native Red Square reference post")
+                showStandalonePost("Native Red Square reference post").performClick()
+                waitFor("Conversation")
+                waitForEnabled("Refresh")
+                showPost("Independent Saito reply")
+                showPost("Native Red Square reference post")
+                val authorLink = hasClickAction() and hasAnySibling(hasText("Native Red Square reference post"))
+                // The root is the first chronological card. Nested replies may share its author.
+                ui.onAllNodes(authorLink, useUnmergedTree = true)[0].assertIsDisplayed().performClick()
+                waitFor("Profile")
+                waitFor(author)
+                waitFor("Mute account")
+                ui.onNodeWithText("Mute account").performClick()
+                waitFor("Mute hides this account's posts and social notifications. Chat messages remain available.")
+                ui.onNodeWithText("Mute", substring = false).performClick()
+                waitFor("Unmute account")
+                assertPostAbsent("Native Red Square reference post", "Unmute account")
+                waitFor("Posts from muted or blocked accounts are hidden.")
+                captureNativeScreen(File(context.cacheDir, "personal-controls-evidence/profile-personal-filter.png"), "Unmute account")
+                ui.onNodeWithText("Back").performClick()
+                waitFor("Conversation")
+                showPost("Independent Saito reply")
+                assertPostAbsent("Native Red Square reference post", "Independent Saito reply")
+                assertPostAbsent("Nested Saito reply", "Independent Saito reply")
+                waitFor("This post is hidden by your personal controls.")
+                captureNativeScreen(File(context.cacheDir, "personal-controls-evidence/thread-personal-filter.png"), "Independent Saito reply")
+                ui.onNodeWithText("Back").performClick()
+                showPost("Embedded quote commentary")
+                waitFor("Quoted original hidden by your personal controls.")
+                assertPostAbsent("Native Red Square reference post", "Embedded quote commentary")
+                captureNativeScreen(File(context.cacheDir, "personal-controls-evidence/quote-personal-filter.png"), "Embedded quote commentary")
+                ui.onNodeWithText("Search").performClick()
+                ui.onNode(hasSetTextAction()).performTextInput("reference")
+                waitForEnabled("Search history")
+                ui.onNodeWithText("Search history").performClick()
+                waitForEnabled("Search history")
+                showPost("Another account reference post")
+                assertPostAbsent("Native Red Square reference post", "Another account reference post")
+                captureNativeScreen(File(context.cacheDir, "personal-controls-evidence/search-personal-filter.png"), "Another account reference post")
+                ui.onNode(hasSetTextAction()).performTextReplacement("commentary")
+                ui.onNodeWithText("Search history").performClick()
+                waitForEnabled("Search history")
+                showPost("Embedded quote commentary")
+                waitFor("Quoted original hidden by your personal controls.")
+                assertPostAbsent("Native Red Square reference post", "Embedded quote commentary")
+                ui.onNode(hasSetTextAction()).performTextReplacement(author)
+                ui.onNodeWithText("Search history").performClick()
+                waitForEnabled("Search history")
+                // A matching editable query alone is not a discovered person.
+                val person = hasText(author) and !hasSetTextAction()
+                ui.onNode(hasScrollAction()).performScrollToNode(person)
+                ui.onNode(person).assertIsDisplayed().performClick()
+                waitFor("Profile")
+                waitFor("Unmute account")
+                assertPostAbsent("Native Red Square reference post", "Unmute account")
+            }
+            peer.assertHealthy()
+            server.close()
+            withOpenApp(intent, "mounted-views-offline-failure") {
+                waitFor("Server unavailable")
+                showPost("Embedded quote commentary")
+                waitFor("Quoted original hidden by your personal controls.")
+                assertPostAbsent("Native Red Square reference post", "Embedded quote commentary")
+                captureNativeScreen(File(context.cacheDir, "personal-controls-evidence/quote-personal-offline.png"), "Embedded quote commentary")
+                ui.onNodeWithText("Settings").performClick()
+                ui.onNodeWithText("Muted and blocked accounts").performClick()
+                waitFor("Unmute account")
+                ui.onNodeWithText("Unmute account").performClick()
+                waitFor("No muted or blocked accounts.")
+                ui.onNodeWithText("Done").performClick()
+                showStandalonePost("Native Red Square reference post")
+                ui.onNodeWithText("Wallet").performClick()
+                assertEquals(address, displayedWalletAddress(ui))
+                ui.onNodeWithText("Done").performClick()
+            }
+            assertTrue(peer.clientKeys.isNotEmpty() && peer.clientKeys.all { it == address })
+            assertTrue(peer.transactions.isEmpty())
+            peer.assertHealthy()
+        }
+    }
+
+    private fun showStandalonePost(text: String): SemanticsNodeInteraction {
+        val standalone = hasText(text) and !hasAnyAncestor(hasContentDescription("Quoted original"))
+        ui.onNode(hasScrollAction(), useUnmergedTree = true).performScrollToNode(standalone)
+        return ui.onNode(standalone, useUnmergedTree = true).assertIsDisplayed()
     }
 
     private fun withOpenApp(intent: Intent, failureName: String, block: () -> Unit) {

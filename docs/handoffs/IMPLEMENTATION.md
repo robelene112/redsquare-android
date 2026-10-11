@@ -120,7 +120,13 @@ Final tracer compilesPASS1m27s; both fixture/evidence reviews0 actionable.
 Block RED38152934786 atf1100cf:3reported/2PASS1FAIL71.307s atmissingBlock
 line227. Root views actualProfilePNG/separateXML withsavedUnmute/noBlock;
 block-red4hashes. Minimal independentBlock/Mute/PersonalPolicy implementation
-compilesPASS2m16s; unchanged3-test focusedGREEN next. Block, other-view filters and late-save recovery still require further
+compilesPASS2m16s; both source axes0 new actionable findings. Block
+GREEN38153595298 atfe555b9 passes3cases42.425s including all endgates. Root
+views8originalPNG/separate8XML; block-green18hashes. Next single native cross-view
+tracer added before source filters: positivequoted-original visibility, muted
+Profile/thread/root+reply/quote/Search filtering, peoplemanagementroute and fresh
+offline quote hide/Unmute restore. Finalfixture compilesPASS1m16s; first native
+cross-view RED next. Block, other-view filters and late-save recovery still require further
 vertical journeys; no final #21 acceptance/new APK claimed. Scope/verification plan: NATIVE_PERSONAL_CONTROLS_VERIFICATION.md.
 Read-only source preparation is ignored .scratch/personal-controls-plan.md.
 Preserve the seven future research files below.
