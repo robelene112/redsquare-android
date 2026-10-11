@@ -59,3 +59,14 @@ cache RED and production implementation remain pending.
 
 Bounded re-review7c897e1…0190919:0 residual findings per axis. Corrected fixture
 compilation PASS1m26s; native cache RED38135929831 pending.
+
+## Cache implementation review
+
+At32770eb, Spec0 implemented-slice findings. Standards1 hard source race:
+archive publication could overwrite a newer author revision during IO retention.
+Fix validates actual list identity and revision stamp before publication/cursor
+advancement, retrying the merge with the already-received page, without another
+network read. No runtime reproduction claim. Standards1 judgment smell: search
+duplicates the public store encoded-size budget; consolidate in review cleanup
+after first cache GREEN. Combined initialcache compilation PASS2m42s; guard
+compilation/re-review and native GREEN pending.

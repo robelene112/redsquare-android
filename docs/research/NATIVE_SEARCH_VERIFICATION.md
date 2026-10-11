@@ -142,3 +142,9 @@ load gates network reads and guards captured list/revision before publication.
 Verified page results publish before persistence; save failure retains them and
 qualifies possible loss after closing. Completion follows persistence attempt.
 No query/private Chat/wallet contents are cached. Compilation/GREEN pending.
+
+Initial cache source32770eb combinedcompile PASS2m42s. InterimSpec0;
+Standards1 source archive-publication race fixed with list/stamp guard and
+received-page merge retry, cursor advancement only after valid publication.
+No new archive read or weakened primary assertions. One budget-duplication
+judgment remains for post-GREEN review cleanup. Guard compile/GREEN pending.

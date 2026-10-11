@@ -111,23 +111,34 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
                         val response = peer.request(query.toString().toByteArray(Charsets.UTF_8)).toString(Charsets.UTF_8)
                         val page = if (stream == "RedSquare") RedSquareFeed.readSearch(response)
                             else RedSquareFeed.readCurrentQuotes(response)
-                        val known = withContext(Dispatchers.Main.immediate) { view.posts.toList() }
-                        revisions.reconcileDeletions(peer, page.deletions, page.posts + known)
+                        val observed = withContext(Dispatchers.Main.immediate) { view.posts }
+                        revisions.reconcileDeletions(peer, page.deletions, page.posts + observed)
                         page.posts.forEach(revisions::observe)
-                        val applied = cache.retain(page.posts + known, withContext(Dispatchers.Main.immediate) { view.searchedQuery })
-                        withContext(Dispatchers.Main.immediate) {
-                            social?.observe(page.posts)
-                            view.posts = applied.posts
-                            view.unreadable = view.unreadable || applied.unreadable || page.ignored > 0
-                            val next = page.oldestCreatedAt?.takeIf { page.rowCount == 100 && it < before }
-                            view.pagingUnavailable = view.pagingUnavailable || (page.rowCount == 100 && next == null)
-                            view.cursors = view.cursors + (stream to next)
-                            view.pending = view.pending - stream
-                            if (applied.limited) {
-                                view.limitReached = true
-                                view.cursors = view.cursors.mapValues { null }
-                                view.pending = emptyList()
+                        val searchedQuery = withContext(Dispatchers.Main.immediate) { view.searchedQuery }
+                        while (true) {
+                            val known = withContext(Dispatchers.Main.immediate) { view.posts }
+                            val checkedRevision = AndroidPostRevisions.changes.value
+                            val applied = cache.retain(page.posts + known, searchedQuery)
+                            val published = withContext(Dispatchers.Main.immediate) {
+                                if (view.posts !== known || AndroidPostRevisions.changes.value != checkedRevision) false
+                                else {
+                                    social?.observe(page.posts)
+                                    view.posts = applied.posts
+                                    view.unreadable = view.unreadable || applied.unreadable || page.ignored > 0
+                                    val next = page.oldestCreatedAt?.takeIf { page.rowCount == 100 && it < before }
+                                    view.pagingUnavailable = view.pagingUnavailable || (page.rowCount == 100 && next == null)
+                                    view.cursors = view.cursors + (stream to next)
+                                    view.pending = view.pending - stream
+                                    if (applied.limited) {
+                                        view.limitReached = true
+                                        view.cursors = view.cursors.mapValues { null }
+                                        view.pending = emptyList()
+                                    }
+                                    true
+                                }
                             }
+                            // Reuse this verified page; do not repeat a completed network read.
+                            if (published) break
                         }
                         val retained = withContext(Dispatchers.Main.immediate) { view.posts to view.searchedQuery }
                         val saved = try { cache.save(retained.first, retained.second); true }
