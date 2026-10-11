@@ -53,10 +53,19 @@ Focused10/17 38097639188/38097640515 now pass newer public bio/supersession/
 disabled Retry, fail only disabled field hasSetTextAction selector at153,
 eight cases31.559s/79.589s. Fix selector to exact EditableText displayed/disabled,
 and positively gate successful PNG/XML on expected UiAutomator window text.
-No production change; corrected local build/dual GREEN pending. Bounded review
-Spec0 new; Standards1 residual hard finding: failed public-cache save can still
-allow separate draft save/navigation and lose RAM-only block. Next failed-save/
-navigation tracer and durable barrier fix before historical-availability tracer.
+No production change. Corrected539af56 dual GREEN10/17 38098119577/38098120892
+PASS8 cases32.48s/80.879s. Exact before/reopened original PNGs independently
+reviewed, XML/rawlogs retained profile-supersession-first-green. Each SDK pair
+has identical PNG bytes showing superseded/frozen editor. One caption error
+corrected9dcf5ec, bounded fix both axes zero. Bounded app review Spec0 new;
+Standards1 residual hard finding: failed public-cache save can still allow
+separate draft save/navigation and lose RAM-only block. Added one API30+ native
+regression: nonempty public AtomicFile .new blocks writes while old base remains
+readable; require displayed supersession/error, then stale Back/reopen editor,
+retained block/frozen bio/no extra TX. API29 uses different AtomicFile mechanics;
+healthy supersession and draft-save/import faults cover both. New local build and
+intended Android17 RED pending. No barrier fix until actual RED. Then durable
+barrier/navigation fix before distinct historical-availability tracer.
 Then candidate failures/recovery,
 actual process death, media, cross-client, full checks/reviews remain. No APK or
 production node/on-chain write; continue sequentially without owner review gate.

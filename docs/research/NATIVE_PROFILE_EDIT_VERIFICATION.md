@@ -497,3 +497,33 @@ block. Honest evidence limits do not resolve this source path. After healthy
 supersession GREEN, next tracer must exercise this failed-save/navigation escape,
 then fix durable-barrier or fail-closed navigation. Historical availability stays
 separate and open. No first publisher or ticket18 completion claimed.
+
+Corrected healthy-storage supersession at539af56 focused GREEN: Android10
+38098119577 PASS8 cases32.48s; Android17 38098120892 PASS8 cases80.879s.
+Evidence profile-supersession-first-green/android10 andandroid17 contains exact
+before/reopened PNGs, separate XML and raw logs. Independent reviewer viewed all
+four original PNGs individually: each shows Edit profile, superseded status,
+disabled Retry and exact frozen two-line edits. PNG bytes are identical within
+each SDK, SHA25610 8c3e33259b7bf492a67cf615107d922209c7166322483046ea7d78585e541515
+and17 72408b36fd471a91370c9dcaeb6bd42877b57953d23232abfa3be146ccf6195f.
+Do not describe identical pixels as different windows or infer a viewer cause.
+Fresh-Activity continuity/stale responses are established by fixture/log
+assertions; screenshots prove the visible retained editor state. Bounded fixture
+reviews found only the Android10 caption error, corrected9dcf5ec and both axes
+zero residual for that correction. Production failed-save/navigation barrier and
+historical availability remain open; healthy GREEN does not resolve them.
+
+Next single native regression exercises the actual failed-cache-save/navigation
+path. A nonempty AtomicFile .new directory blocks only replacement of the
+public profile cache, leaving its old verified base readable and encrypted draft
+saving unaffected. After real supersession and displayed persistence error,
+serve stale original data, go Back, reopen editor, require retained supersession,
+disabled Retry/exact frozen edit and no additional TX. The controlled obstacle
+and disposable wallet restore independently; cleanup errors retain the primary
+failure. This fault injection is explicitly API30+; API29's AtomicFile renames
+to .bak and does not use that replacement path. Healthy supersession and existing
+failed-draft-save/import tests run on both versions. Source mechanics checked
+against Android platform tags android-10.0.0_r1 and android-11.0.0_r1; no production
+or node operation. New test assembly and intended Android17 RED are pending;
+no durable private barrier implemented yet. New debug/test assembly subsequently
+PASS1m7s, retained container exit0; intended nine-case Android17 RED pending.

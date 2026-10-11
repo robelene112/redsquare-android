@@ -14,6 +14,7 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import nl.davidengelen.redsquare.saito.*
 import org.junit.Assert.*
+import org.junit.Assume.assumeTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -36,11 +37,22 @@ class ProfilePublishingPreviewTest {
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
     }
 
-    @Test fun savingBioPublishesACompleteSnapshotAndPreservesOtherVerifiedFields() = publishAndReopen(false)
+    private enum class Scenario { AVAILABLE, NEWER_PROFILE, NEWER_PROFILE_CACHE_FAILURE }
 
-    @Test fun aNewerVerifiedProfileStillBlocksOlderRetryAfterAFreshActivityWithStaleReads() = publishAndReopen(true)
+    @Test fun savingBioPublishesACompleteSnapshotAndPreservesOtherVerifiedFields() = publishAndReopen(Scenario.AVAILABLE)
 
-    private fun publishAndReopen(supersession: Boolean) {
+    @Test fun aNewerVerifiedProfileStillBlocksOlderRetryAfterAFreshActivityWithStaleReads() = publishAndReopen(Scenario.NEWER_PROFILE)
+
+    @Test fun newerProfileStillBlocksOlderRetryAfterPublicCacheSavingFailsAndEditorNavigation() {
+        // API29 AtomicFile uses a different backup strategy. This controlled .new
+        // obstruction exercises the API30+ write failure without corrupting readable bytes.
+        assumeTrue(android.os.Build.VERSION.SDK_INT >= 30)
+        publishAndReopen(Scenario.NEWER_PROFILE_CACHE_FAILURE)
+    }
+
+    private fun publishAndReopen(scenario: Scenario) {
+        val supersession = scenario != Scenario.AVAILABLE
+        val cacheFailure = scenario == Scenario.NEWER_PROFILE_CACHE_FAILURE
         val reference = instrumentation.context.assets.open("native-profile-reference.json").bufferedReader()
             .use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("withMedia") }
         val owner = "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR"
@@ -55,6 +67,9 @@ class ProfilePublishingPreviewTest {
         val stale = AtomicBoolean(false)
         val newerBio = "Newer profile from another device"
         val supersededStatus = "A newer verified profile is available on this server. This older update will not be sent again."
+        val cacheWriteBlock = File(context.noBackupFilesDir, "profilemeta.owner.$owner.v1.new")
+        val blockMarker = File(cacheWriteBlock, "controlled-write-failure")
+        var cacheBlocked = false
         val peer = ControlledFeedPeer("[]", onTransaction = { frame ->
             val transaction = postingTransaction(frame)
             val signed = SaitoEnvelope.decode(transaction.envelope())
@@ -111,12 +126,43 @@ class ProfilePublishingPreviewTest {
                             SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString("Original bio")))
                         ui.onNode(hasSetTextAction()).performTextReplacement(bio)
                         assertTrue(peer.transactions.isEmpty())
+                        if (cacheFailure) {
+                            check(File(context.noBackupFilesDir, "profilemeta.owner.$owner.v1").isFile)
+                            check(!cacheWriteBlock.exists() && cacheWriteBlock.mkdir())
+                            cacheBlocked = true
+                            blockMarker.writeText("Controlled public cache write failure")
+                        }
                         ui.onNodeWithText("Save profile").assertIsEnabled().performClick()
                         val status = if (supersession) supersededStatus else "Profile available on this server."
                         ui.waitUntil(25_000) { ui.onAllNodesWithText(status).fetchSemanticsNodes().isNotEmpty() }
                         ui.onNodeWithText(status).assertIsDisplayed()
                         assertEquals(1, peer.transactions.size)
                         capture(if (supersession) "superseded-profile-before-reopen.png" else "bio-snapshot-available.png", status)
+                        if (cacheFailure) {
+                            ui.waitUntil(20_000) {
+                                ui.onAllNodesWithText(context.getString(R.string.profile_publish_error)).fetchSemanticsNodes().isNotEmpty() &&
+                                    ui.onAllNodes(hasText("Back") and isEnabled()).fetchSemanticsNodes().isNotEmpty()
+                            }
+                            ui.onNodeWithText(context.getString(R.string.profile_publish_error)).assertIsDisplayed()
+                            capture("superseded-cache-write-failed.png", supersededStatus)
+                            stale.set(true)
+                            ui.onNodeWithText("Back").performClick()
+                            ui.waitUntil(20_000) {
+                                ui.onAllNodes(hasText("Edit profile") and hasClickAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() &&
+                                    ui.onAllNodesWithText(context.getString(R.string.profile_details_loading)).fetchSemanticsNodes().isEmpty()
+                            }
+                            ui.onNodeWithText("Edit profile").performClick()
+                            ui.waitUntil(20_000) {
+                                ui.onAllNodesWithText("Retry profile").fetchSemanticsNodes().isNotEmpty() &&
+                                    ui.onAllNodes(hasText("Back") and isEnabled()).fetchSemanticsNodes().isNotEmpty()
+                            }
+                            ui.onNodeWithText(supersededStatus).assertIsDisplayed()
+                            ui.onNodeWithText("Retry profile").assertIsNotEnabled()
+                            ui.onNode(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(bio)))
+                                .assertIsDisplayed().assertIsNotEnabled()
+                            capture("superseded-cache-failure-after-navigation.png", supersededStatus)
+                            assertEquals(1, peer.transactions.size)
+                        }
                         if (!supersession) File(context.cacheDir, "profile-edit-evidence/profile-snapshot-frames.json").writeText(
                             JsonObject().apply {
                                 addProperty("synthetic", true)
@@ -133,12 +179,13 @@ class ProfilePublishingPreviewTest {
                         assertEquals(SaitoBackend.OWNER, AndroidBackendStore(context).load())
                         peer.assertHealthy()
                     } catch (failure: Throwable) {
-                        try { capture(if (supersession) "superseded-profile-first-failure.png" else "bio-snapshot-first-failure.png") }
+                        try { capture(if (cacheFailure) "superseded-cache-failure-navigation-failure.png"
+                            else if (supersession) "superseded-profile-first-failure.png" else "bio-snapshot-first-failure.png") }
                         catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
                         throw failure
                     }
                 }
-                if (supersession) {
+                if (supersession && !cacheFailure) {
                     // Do not return to the public profile before closing: that refresh must not save the barrier for the editor.
                     stale.set(true)
                     ActivityScenario.launch<MainActivity>(intent).use {
@@ -168,13 +215,21 @@ class ProfilePublishingPreviewTest {
             }
         } catch (failure: Throwable) { primary = failure; throw failure }
         finally {
+            var cleanupFailure: Throwable? = null
+            try {
+                if (cacheBlocked) {
+                    if (blockMarker.exists()) check(blockMarker.delete())
+                    check(cacheWriteBlock.delete())
+                }
+            } catch (cleanup: Throwable) { cleanupFailure = cleanup }
             try {
                 val active = store.loadExisting()
                 check(active.publicKey == owner)
                 if (active.publicKey != original.publicKey) store.replace(active, original)
             } catch (cleanup: Throwable) {
-                if (primary != null) primary.addSuppressed(cleanup) else throw cleanup
+                if (cleanupFailure != null) cleanupFailure.addSuppressed(cleanup) else cleanupFailure = cleanup
             }
+            cleanupFailure?.let { if (primary != null) primary.addSuppressed(it) else throw it }
         }
     }
 
