@@ -262,3 +262,15 @@ is retained at first-import-name-red. Minimal implementation now reads and
 revalidates the outgoing native name cache on IO and merges only that name
 into existing replacement risks. Unreadable cache keeps unknown-work warning.
 Native GREEN and code review remain pending.
+
+Outgoing-name implementation3ab2ee5 compiles debug/test in2m8s and both
+review axes report zero actionable findings. Android10 run38117628397
+passes the import warning, selected key, unchecked acknowledgement, disabled
+confirmation, unchanged wallet and named-profile cancellation assertions.
+It fails at the final peer health check because the fixture assumes field4
+on a supported profile-history Archive request (ControlledFeedPeer.kt:116).
+Five cases, four passes, one failure in29.444s. Root individually viewed both
+original PNGs and inspected XMLs. Verbatim evidence is retained at
+import-profile-fixture-failure. Bounded fixture correction supplies the
+existing explicit empty Archive callback; no app change or whole-case GREEN
+claim follows from this failed run. Corrected runtime is pending.

@@ -268,7 +268,7 @@ class UsernamePreviewTest {
             assertEquals("registry namecheck", criteria.get("request").asString)
             assertEquals("NativeCase7@saito", criteria.get("identifier").asString)
             proof
-        })
+        }, archiveResponse = { "[]" })
         var primary: Throwable? = null
         try {
             peer.start().use { server ->
