@@ -55,8 +55,15 @@ before cancellation during posting, not a full acceptance run. Source push
 38109832420 passes core49/debug/test/release/lint. The same old-flow fixture
 now scrolls posts/statuses/tabs while preserving visible assertions, and captures
 native XML/PNG separately. Local test assembly PASS1m11s. Committed bounded
-review and fresh full Android10/17 verification are next. Do not close #18 until
-downloaded full evidence/runtime checks pass,
+review01858ad...aea25ca passed both axes0. Next10 full38110320329 passed
+cold Posts/Replies/Likes/history but fails the other offline case's
+performScrollTo because the target is not composed. Same fixture now searches
+LazyColumn via existing performScrollToNode, preserving every exact display
+assertion; local test assembly PASS1m8s. Original4PNG/XML/rawlogs retained
+profile-browse-scroll-audit. Android17 full38110321794 onaea25ca continues with
+identical production/core/harness. Next is fresh10full and focused17browse for
+the test-only correction; do not repeat unaffected17full if its run passes.
+Do not close #18 until downloaded full evidence/runtime checks pass,
 including shared post/wallet regressions, actual recovery and signed5-to-8
 updates. Emulator checks do not establish physical Pixel7/Android17 acceptance.
 No APK published or production node/wallet/on-chain/store state changed.

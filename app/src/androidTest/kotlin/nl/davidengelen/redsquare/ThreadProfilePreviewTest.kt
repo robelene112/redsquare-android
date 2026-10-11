@@ -37,13 +37,13 @@ class ThreadProfilePreviewTest {
                     ui.onNodeWithText(author).performClick()
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Posts")).fetchSemanticsNodes().isNotEmpty() }
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNodeWithText("Native Red Square reference post").performScrollTo().assertIsDisplayed()
-                    ui.onNodeWithText(context.getString(R.string.feed_cache_warning)).performScrollTo().assertIsDisplayed()
+                    scrollProfileTo("Native Red Square reference post")
+                    scrollProfileTo(context.getString(R.string.feed_cache_warning))
                     peer.assertHealthy()
                     server.close()
                     ui.onNodeWithText("Refresh").performClick()
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText(context.getString(R.string.profile_error))).fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNodeWithText("Native Red Square reference post").performScrollTo().assertIsDisplayed()
+                    scrollProfileTo("Native Red Square reference post")
                     captureProfileObservation("profile-memory-after-write-failure", "Native Red Square reference post")
                 } catch (failure: Throwable) {
                     captureProfileFailure(failure, "profile-memory-first-failure")
@@ -280,9 +280,11 @@ class ThreadProfilePreviewTest {
                     ui.onNodeWithText(author).performClick()
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Posts")).fetchSemanticsNodes().isNotEmpty() }
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Native Red Square reference post")).fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNodeWithText("Replies").performScrollTo().performClick()
+                    scrollProfileTo("Replies")
+                    ui.onNodeWithText("Replies").performClick()
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Nested Saito reply")).fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNodeWithText("Likes").performScrollTo().performClick()
+                    scrollProfileTo("Likes")
+                    ui.onNodeWithText("Likes").performClick()
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Independent Saito reply")).fetchSemanticsNodes().isNotEmpty() }
                     ui.waitUntil(10_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     peer.assertHealthy()
@@ -296,17 +298,19 @@ class ThreadProfilePreviewTest {
                     ui.onNodeWithText(author).performClick()
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Posts")).fetchSemanticsNodes().isNotEmpty() }
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Native Red Square reference post")).fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNodeWithText("Native Red Square reference post").performScrollTo().assertIsDisplayed()
+                    scrollProfileTo("Native Red Square reference post")
                     captureProfileObservation("cached-profile-posts-after-restart", "Native Red Square reference post")
-                    ui.onNodeWithText("Replies").performScrollTo().performClick()
+                    scrollProfileTo("Replies")
+                    ui.onNodeWithText("Replies").performClick()
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Nested Saito reply")).fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNodeWithText("Nested Saito reply").performScrollTo().assertIsDisplayed()
-                    ui.onNodeWithText("Likes").performScrollTo().performClick()
+                    scrollProfileTo("Nested Saito reply")
+                    scrollProfileTo("Likes")
+                    ui.onNodeWithText("Likes").performClick()
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Independent Saito reply")).fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNodeWithText("Independent Saito reply").performScrollTo().assertIsDisplayed()
+                    scrollProfileTo("Independent Saito reply")
                     captureProfileObservation("cached-profile-likes-after-restart", "Independent Saito reply")
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText("Profile history could not be refreshed. Available posts remain visible.")).fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNodeWithText("Only available history is shown. Older posts and likes may be missing.").performScrollTo().assertIsDisplayed()
+                    scrollProfileTo("Only available history is shown. Older posts and likes may be missing.")
                     captureProfileObservation("cached-profile-history-warning-after-restart", context.getString(R.string.profile_history))
                     } catch (failure: Throwable) {
                         captureProfileFailure(failure, "cached-profile-recovery-first-failure")
@@ -499,6 +503,12 @@ class ThreadProfilePreviewTest {
                 }
             }
         }
+    }
+
+    private fun scrollProfileTo(text: String) {
+        // Search the lazy list itself: an offscreen row need not have a composed node yet.
+        ui.onNode(hasScrollAction()).performScrollToNode(hasText(text))
+        ui.onNodeWithText(text).assertIsDisplayed()
     }
 
     private fun captureProfileObservation(name: String, expectedText: String? = null) {

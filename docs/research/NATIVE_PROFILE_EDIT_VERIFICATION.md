@@ -1227,3 +1227,21 @@ production change. Local test assembly running; committed review/new full pendin
 Corrected old browse fixture local test assembly PASS1m11s, exit0, retained
 rawlog. Cancelled17 full retained browse8PASS58.84s/following8PASS25.432s,
 posting incomplete; no later/full acceptance claim. New full/runtime review pending.
+
+Browse scrolling bounded01858ad...aea25ca Spec0/Standards0; originals/rawlogs
+independently inspected. Fresh full10 38110320329 onaea25ca browse8/20.384s,
+sevenPASS, one offline cache case fails46: performScrollTo cannot find target
+node after error enlarges header. Earlier cold-history failure nowPASS with
+visible exact root/likedreply/historywarning gated captures. Root individually
+viewed4 originals and parsed XML; retained profile-browse-scroll-audit/android10.
+Offline failure has no visible post in its hierarchy; a lazy list can omit
+uncomposed offscreen rows, not proof of lost data. Source retains memoryhistory.
+Same fixture now searches LazyColumn with existing performScrollToNode, then
+asserts exact text displayed. Applies only existingtwoflows, no productionchange.
+Local test assembly running; committed review/runtime pending. Parallel17
+full38110321794 onaea25ca continues: production/core/harness unchanged. If it
+passes, verify only affected browse class on new test commit17, avoiding repeat
+of unaffected full checks; any functional finding warrants wider verification.
+
+Lazy-list fixture correction local test assembly PASS1m8s, exit0, retained
+rawlog. No production changes; committed bounded review and fresh runtime pending.
