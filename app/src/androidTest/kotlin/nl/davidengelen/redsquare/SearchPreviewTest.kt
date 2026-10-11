@@ -104,8 +104,8 @@ class SearchPreviewTest {
                 withFailureCapture({ captureNativeScreen(File(context.cacheDir, "search-evidence/author-stale-deleted-failure.png")) }) {
                     waitForEnabled("New post")
                     ui.onNodeWithText("Search").performClick()
-                    // Match the stale original, so losing the deletion proof cannot pass through a text mismatch.
-                    ui.onNode(hasSetTextAction()).performTextInput("reference")
+                    // Matches both "Red" and "edited", so a surviving edit cannot hide a lost deletion proof.
+                    ui.onNode(hasSetTextAction()).performTextInput("ed")
                     waitForEnabled("Search history")
                     ui.onNodeWithText("Search history").performClick()
                     waitForEnabled("Search history")
