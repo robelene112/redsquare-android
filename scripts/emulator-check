@@ -391,6 +391,25 @@ if [[ "${TEST_SCOPE:-full}" == controls* ]]; then
     exit 0
 fi
 if [[ "${TEST_SCOPE:-full}" == full ]]; then verify_personal_controls; fi
+verify_reports() {
+    [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+    timeout 90 adb shell am instrument -w -r \
+        -e class nl.davidengelen.redsquare.ReportPreviewTest \
+        nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+        > "$evidence/reports-ui.txt" || true
+    adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - report-evidence \
+        > "$evidence/reports-evidence.tar" || true
+    if ! grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/reports-ui.txt"; then
+        adb exec-out screencap -p > "$evidence/reports-system-screen.png" || true
+        return 1
+    fi
+}
+if [[ "${TEST_SCOPE:-full}" == reports* ]]; then
+    verify_reports
+    printf '%s\n' 'Focused reports check only; full acceptance not run.' > "$evidence/scope.txt"
+    exit 0
+fi
+if [[ "${TEST_SCOPE:-full}" == full ]]; then verify_reports; fi
 verify_wallet_storage_recovery() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
     timeout 90 adb shell am instrument -w -r \

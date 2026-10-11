@@ -18,6 +18,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     private val quoteArchiveResponse: ((com.google.gson.JsonObject) -> String)? = null,
     private val profileArchiveResponse: ((com.google.gson.JsonObject) -> String)? = null,
     private val registryResponse: ((com.google.gson.JsonObject) -> String)? = null,
+    private val reportResponse: ((ByteArray) -> String)? = null,
     private val archiveResponse: ((com.google.gson.JsonObject) -> String)? = null) {
     @Volatile var disconnectAfterTransaction = false
     private val peer = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public test material only.
@@ -26,6 +27,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     val requests = java.util.concurrent.atomic.AtomicInteger()
     val clientKeys = java.util.concurrent.CopyOnWriteArrayList<String>()
     val transactions = java.util.concurrent.CopyOnWriteArrayList<ByteArray>()
+    val reports = java.util.concurrent.CopyOnWriteArrayList<ByteArray>()
     val registryQueries = java.util.concurrent.CopyOnWriteArrayList<com.google.gson.JsonObject>()
     @Volatile private var failure: Throwable? = null
 
@@ -85,6 +87,15 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                         val offset = 5 + 93 + 59 * (inputs + outputs)
                         val body = JsonParser.parseString(String(frame, offset, bodyLength, Charsets.UTF_8)).asJsonObject
                         val criteria = body.getAsJsonObject("data")
+                        if (body.get("request").asString == "flag tweet") {
+                            require(body.get("module").asString == "RedSquare")
+                            require(criteria.keySet() == setOf("signature"))
+                            require(criteria.get("signature").asString.matches(Regex("[0-9a-f]{128}")))
+                            reports.add(frame)
+                            val response = reportResponse?.invoke(frame) ?: "{}"
+                            webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) + response.toByteArray()).toByteString())
+                            return
+                        }
                         if (body.get("request").asString == "registry query") {
                             when (criteria.get("request").asString) {
                                 "registry namecheck" -> require(criteria.get("identifier").asString.matches(Regex("[A-Za-z0-9]{1,45}@saito")))

@@ -7,8 +7,8 @@ one question at a time when a material choice really needs the owner.
 
 ## Current work
 
-Profile #18 is closed, final evidence commit ed5742f pushed. Sixteen of35 tickets
-are complete (#2–#15, #18 and #20). Parked #19, "Register an optional Saito username",
+Profile #18 is closed, final evidence commit ed5742f pushed. Seventeen of35 tickets
+are complete (#2–#15, #18, #20 and #21). Parked #19, "Register an optional Saito username",
 parked on the external Registry prerequisite, review base ed5742fd0f57958d284073b7145f1844b72b1dbd. #16 Giphy still awaits
 Android-authorized credentials; #17 actual YouTube provider playback remains
 unproved. Do not close those from controlled source/layout successes.
@@ -95,7 +95,7 @@ identical between successful full17 and full10, as allowed by WORKFLOW.md.
 
 No new phone APK, actual Search process-death, Pixel performance or live write
 claim. Stable review remains version10/source5225d06. #19 remains externally
-parked. #21, "Mute and block accounts across backend sessions", is ACTIVE/assigned.
+parked. #21, "Mute and block accounts across backend sessions", is CLOSED (closure comment6112726266).
 All blockers complete (closed#8); review base99e58c6a49f5a10ee630f948ad3a18c9f5fb5592.
 Implementation and focused verification are complete: independent encrypted
 wallet-scoped Mute/Block across both backends; filtering in Feed, Profile,
@@ -111,9 +111,9 @@ save/removal/recreation defect. Root inspected the final six identity/corruption
 and four process original PNGs, then separately parsed all ten XMLs. See
 NATIVE_PERSONAL_CONTROLS_VERIFICATION.md and ticket20/identity-green/28hashes
 for the full qualified chronology. Whole source and bounded focused reviews are
-clear. Full Android17 is accepted; outstanding Android10 acceptance is below.
+clear. Both final full Android17 and Android10 acceptance passed, as recorded below.
 
-Current final acceptance runs and fixture interruptions are below. Preserve the
+Completed final acceptance runs and earlier fixture interruptions are below. Preserve the
 seven future research files; continue one ticket at a time. No new phone APK.
 
 Protected future untracked: build-support/references/private-chat-reference.cjs;
@@ -149,7 +149,7 @@ Initial wallet/live-feed milestone is published as stable signed version10
 Compose bitmaps had inconsistent labels; use each report's stated evidence
 limits. #9 also has official bitmap inconsistencies; no invented cause.
 
-Next: implement active #21 sequentially. Owner
+Next: implement active #22 sequentially, review base9ecb97b. Owner
 reviews the completed app; no intermediate phone-review gate is required.
 
 ## Verification already inspected
@@ -203,9 +203,9 @@ submission require their own explicit authorization. No production writer was
 changed for the Android app. Read-only public integration is separate from
 ordinary controlled tests; no production transaction was broadcast.
 
-## Active personal-controls acceptance checkpoint
+## Completed personal-controls acceptance checkpoint
 
-#21 acceptance is COMPLETE; GitHub closure is the next step.16/35 currently closed. Final product checkpoint aa91ff2,
+#21 is CLOSED, comment6112726266;17/35 closed. Final product checkpoint aa91ff2,
 whole-ticket review base99e58c6. Subsequent changes correct existing fixtures
 and retain evidence; production/core/build/reference source is unchanged.
 
@@ -242,14 +242,14 @@ and retain evidence; production/core/build/reference source is unchanged.
   exact root recount179/46/15+assumption equals original. Both public feeds
   pass8.2s/4.011s; ordinary100rows/92posts/0ignored andquotes4rows/0posts/0ignored.
   Final bounded pair evidence review through7f54d98 clears both axes after
-  correcting2Android10captions. Acceptance complete; record GitHub closure.
+  correcting2Android10captions. Acceptance complete; GitHub closure recorded2026-10-11T19:17:39Z.
 
 Failure chronology and qualified retained captures: NATIVE_PERSONAL_CONTROLS_VERIFICATION.md
 and ticket20/REVIEW.md. Earlier full10 stopped at existing lazy-profile
 pre-scroll/readiness fixtures; finalf0c6191 corrects all3tabs. No offscreen
 cache/deletion/timing cause was inferred. Preserve already accepted full17.
 
-Next after21acceptance: claim ready #22, Report posts to the selected backend.
+#21 closed2026-10-11T19:17:39Z; final commit9ecb97b pushed. #22, Report posts to the selected backend, is ACTIVE/assigned. All blockers complete; review base9ecb97b. First TDD slice tests named confirmation, selected-peer signed RPC acknowledgement and retained post, at parent agreed seams1–4.
 Its source contract is prepared in NATIVE_DISCOVERY_MODERATION_CONTRACT.md and
 NATIVE_MODERATION_CONTRACTS.md. No parallel implementation or intermediate phone
 review gate. No new APK; stable version10/source5225d06 remains current.

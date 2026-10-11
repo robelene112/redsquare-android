@@ -1,0 +1,77 @@
+package nl.davidengelen.redsquare
+
+import android.content.Intent
+import androidx.compose.ui.test.*
+import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
+import androidx.test.core.app.ActivityScenario
+import androidx.test.platform.app.InstrumentationRegistry
+import com.google.gson.JsonParser
+import nl.davidengelen.redsquare.saito.*
+import org.junit.Assert.*
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
+import java.io.File
+import java.nio.ByteBuffer
+import java.util.Base64
+
+class ReportPreviewTest {
+    @get:Rule val ui = createEmptyComposeRule()
+    private val context get() = InstrumentationRegistry.getInstrumentation().targetContext
+
+    @Before fun prepare() {
+        check(context.packageName == "nl.davidengelen.redsquare.dev")
+        check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
+        AndroidBackendStore(context).save(SaitoBackend.OWNER)
+        context.noBackupFilesDir.listFiles()?.filter {
+            it.name.startsWith("report.") || it.name.startsWith("feed.") ||
+                it.name.startsWith("conversation.") || it.name.startsWith("profile.")
+        }?.forEach { check(it.delete()) }
+    }
+
+    @Test fun confirmedReportGoesOnlyToNamedBackendAndAcknowledgementDoesNotRemovePost() {
+        val root = InstrumentationRegistry.getInstrumentation().context.assets.open("native-feed-reference.json")
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow") }
+        val peer = ControlledFeedPeer("[$root]")
+        peer.start().use { server ->
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                withFailureCapture({ capture("confirmation-failure.png") }) {
+                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.clickVisiblePostContent("Report")
+                    ui.onNodeWithText("Report to saito.davidengelen.nl?").assertIsDisplayed()
+                    ui.onNodeWithText("This sends this post to this server's moderators. Acknowledgement does not mean it has been reviewed or removed.").assertIsDisplayed()
+                    assertTrue(peer.reports.isEmpty())
+                    assertTrue(peer.transactions.isEmpty())
+                    capture("confirmation.png")
+                    ui.onNodeWithText("Send report").assertIsEnabled().performClick()
+                    ui.waitUntil(20_000) { ui.onAllNodesWithText("Report acknowledged by saito.davidengelen.nl. Moderator review is separate.").fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("Report acknowledged by saito.davidengelen.nl. Moderator review is separate.").assertIsDisplayed()
+                    peer.assertHealthy()
+                    val frame = peer.reports.single()
+                    assertEquals(12, frame[0].toInt())
+                    assertTrue(ByteBuffer.wrap(frame, 1, 4).int > 0)
+                    val candidate = SaitoTransaction.restore(Base64.getEncoder().encodeToString(frame.copyOfRange(5, frame.size)))
+                    val signed = SaitoEnvelope.decode(candidate.envelope())
+                    assertEquals(setOf("module", "request", "data"), signed.body.keySet())
+                    assertEquals("RedSquare", signed.body.get("module").asString)
+                    assertEquals("flag tweet", signed.body.get("request").asString)
+                    assertEquals(setOf("signature"), signed.body.getAsJsonObject("data").keySet())
+                    assertEquals(root.get("sig").asString, signed.body.getAsJsonObject("data").get("signature").asString)
+                    assertEquals(listOf(signed.author), signed.recipients)
+                    assertTrue(peer.clientKeys.contains(signed.author))
+                    assertTrue(peer.transactions.isEmpty())
+                    // Public signed transaction only, never wallet storage or private signing material.
+                    File(context.cacheDir, "report-evidence/acknowledged-frame.b64").writeText(Base64.getEncoder().encodeToString(frame))
+                    File(context.cacheDir, "report-evidence/acknowledged-envelope.json").writeText(candidate.envelope())
+                    ui.clickVisiblePostContent("Native Red Square reference post")
+                    ui.onNodeWithText("Conversation").assertIsDisplayed()
+                    ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
+                    capture("acknowledged-conversation.png")
+                }
+            }
+        }
+    }
+
+    private fun capture(name: String) = captureNativeScreen(File(context.cacheDir, "report-evidence/$name"))
+}
