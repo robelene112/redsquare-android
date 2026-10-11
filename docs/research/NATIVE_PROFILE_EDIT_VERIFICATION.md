@@ -1,6 +1,6 @@
 # Native profile editing verification
 
-Active #18, review base afce6610e4c78a2183bf154ac99cc35d7917b03c.
+Final emulator acceptance PASS for #18, review base afce6610e4c78a2183bf154ac99cc35d7917b03c.
 Approved parent #1 seams1–4 cover the shared native signed-profile interface,
 independent pinned web transactions, observable Android editor/image selection
 against controlled peers, and persistence/interruption recovery. No new testing
@@ -1245,3 +1245,44 @@ of unaffected full checks; any functional finding warrants wider verification.
 
 Lazy-list fixture correction local test assembly PASS1m8s, exit0, retained
 rawlog. No production changes; committed bounded review and fresh runtime pending.
+
+Lazy-list bounded aea25ca...b0e941b Spec0/Standards0. Actual focused17 browse
+38110791738 onb0e941b PASS8/64.978s. Original four PNG/XML/rawlogs retained
+profile-browse-lazy-green/android17. Memory history after failed cache write and
+offline refresh, plus cold Posts/Replies/Likes/history remain reachable through
+the unchanged exact display assertions. Root and both reviewers inspect originals
+independently. Cold-root initial rendered-image observations disagree; a fresh
+single original-size view of SHA2562735f6767269fb7d4e4a5706d275c6f6b3d2aa8bb79723bfe6230d33b0a2b012
+visibly shows the exact root, matching separate XML. File bytes are unchanged;
+no rendering or timing cause claimed. Runtime/XML are independently sufficient
+for exact text reachability. Full10 b0e941b38110790124 and full17 aea25ca38110321794
+continue; production/core/build-support/harness/workflow equivalence confirmed
+with an empty gitdiff for those paths. No full acceptance or physical proof yet.
+
+Final acceptance: Android10 run38110790124 on b0e941b and Android17
+run38110321794 on aea25ca both PASS. Each reports145 cases in41 completion
+records and13 deliberate process deaths. Android10 has144 actual passes and
+one documented API30+ publishing assumption; Android17 all145 pass. The
+combined profile log is exact but excluded from counts. Both core reports49
+tests, zero failures/ignored. Debug/test/release assembly and lint PASS in
+1m32s/1m33s. Shared post/wallet/import/export regressions, both public reads,
+cached cold continuity and existing signed5-to8 preview continuity PASS.
+
+Profile classes: Android10 editor7/35.606s, publishing5/25.401s (skip1),
+media2/18.221s, new-edit2/26.867s. Android17 editor7/39.854s, publishing5/31.712s,
+media2/20.841s, new-edit2/28.555s. Profile PIDs10 16350/16590 and17 9016/9123
+preserve the same actual wallet/backend without resetting recovery state;
+capture exit0 and final recovery1PASS5.109s/5.868s. Root and both reviewers
+independently inspected all12 process originals/XML/checkpoints/rawlogs and
+recounted final results. Root inspected8 browse history and4 public-feed PNGs.
+
+The full17 external-picker PNG shows the native editor/latest bio while its
+separate XML shows Google's photo picker. Attribute picker foreground to the
+XML/runtime package guard, not that PNG. No cause claimed. Other process bio
+is offscreen and proven by exact runtime assertions. Android10 picker PNG/XML
+show DocumentsUI. Original files/logs remain byte-identical to downloaded
+artifacts. Retained final-full/README.md documents every count, limit and run.
+Both review axes report0 remaining actionable findings. Production/core/build/
+scripts/helpers/workflows are identical between accepted commits; focused17
+browse38110791738 also passes the updated fixture on b0e941b. No new APK,
+production write, chain inclusion, current served DOM or physical Pixel proof.

@@ -7,78 +7,63 @@ one question at a time when a material choice really needs the owner.
 
 ## Current work
 
-Active #18, "Edit profile bio, avatar and banner", assigned/unblocked.
-Fourteen of35 complete (#2–#15). #16 Giphy awaits Android-authorized credentials;
-#17 YouTube actual provider playback remains unproved. Do not close either from
-controlled source/layout successes. Next independent ticket after #18 is #19.
+Profile ticket #18 acceptance is complete. Fifteen of35 tickets are complete
+(#2–#15 and #18); commit/push the final evidence and close #18, then start #19,
+"Register an optional Saito username", sequentially. #16 Giphy still awaits
+Android-authorized credentials; #17 actual YouTube provider playback remains
+unproved. Do not close those from controlled source/layout successes.
 
-Full #18 review base afce6610e4c78a2183bf154ac99cc35d7917b03c. Canonical
-source contract, exact test/failure chronology and evidence limits are in
-NATIVE_PROFILE_EDIT_CONTRACT.md and NATIVE_PROFILE_EDIT_VERIFICATION.md.
-Production includes verified complete signed snapshots, native generated avatar,
-scrollable public profile, image/banner display, selection/crop/removal and bio
-editing. Encrypted identity/backend-owned drafts and original signed candidates
-survive interruption; shared EncryptedLocalFile preserves existing post formats.
-Publication merges newest verified untouched fields; failed saves stay truthful.
-Private supersession barriers and historical availability prevent stale retries.
-Explicit Start new edit confirms retirement with a warning, keeps newest verified
-baseline privately and never erases a received update elsewhere. Exact signed
-candidate preview preserves media omissions; editable baseline merges run on IO.
-Late-commit retries use exact per-store own-attempt witnesses without treating
-readable unsynced bytes as successful writes. Wallet import waits for mounted
-persistence and acknowledges pending/unknown work on both supported backends.
+Full #18 source review base afce6610e4c78a2183bf154ac99cc35d7917b03c.
+Cumulative source review through ed645ab and bounded fixes through b0e941b pass
+both axes with0 remaining actionable findings. Profile editing supports generated
+avatars, bio and selected/cropped/removed avatar/banner, complete signed snapshots,
+truthful persistence/publication failures, identity/backend-owned encrypted drafts,
+exact frozen retries, historical availability, private supersession barriers and
+confirmed Start new edit. Compatible old post storage remains readable. Wallet
+import preserves mounted work or blocks truthfully when saving fails.
 
-Full cumulative source review afce661...ed645ab: Spec0 and Standards0 remaining
-hard issues; narrow test-capture duplication extraction is committed01858ad.
-Bounded ed645ab...01858ad review with independent process evidence inspection is
-running. The extraction leaves production/assertions/readiness gates unchanged;
-local test assembly PASS1m13s (rawlog in ignored scratch).
+Final full Android10 38110790124 onb0e941b and Android17 38110321794 onaea25ca
+PASS145 reported cases/41 completion records/13 deliberate process deaths each.
+Android10 has144 passes plus one documented API30+ publishing assumption;
+Android17 all145 pass. Core49/0/0,debug/test/release assembly/lint,shared post and
+wallet/import/export regressions, both public feed reads, cached cold launches
+and existing signed5-to8 identity continuity PASS. Production/core/build/scripts/
+reference helpers/workflows are identical between those commits; only one old
+browse test and evidence/docs differ. Focused17 browse38110791738 additionally
+PASS8/64.978s onb0e941b. Do not repeat unaffected full checks without new changes.
 
-Actual ed645ab dual focused process proof PASSED: Android10 38109328015 and
-Android17 38109329450. Four preceding classes report16 cases each (Android10
-fifteen pass plus one API30+ assumption; Android17 all16). Two real app PID deaths
-per SDK; newest bio and prepared images recover after owned source deletion and
-death in the real external picker. Uncertain exact signed candidate survives
-second death; cold exact availability is read-only with zero new broadcasts.
-Verified clearing retains public bio/images. Recovery never resets wallet/backend.
-Final recovery JUnit1PASS4.21s/5.913s. All12 original PNGs individually viewed by
-root, XML/logs/public checkpoints retained ticket17/profile-process-green.
-Bio is above the scrolled media viewport and verified by exact runtime text,
-not a visible-bio bitmap claim. First two runner crashes are deliberate
-interruptions verified by host phase/PID checks, not JUnit passes.
+Actual profile recovery has two distinct killed PIDs per SDK (10 16350/16590,
+17 9016/9123), same public wallet/backend with no reset on recovery, prepared
+image sources deleted before first death in a real external picker, newest bio/
+pixels recovered, exact candidate read-only reconciliation with no further send,
+and verified clearing retaining public bio/pixels. Final recovery1PASS5.109s/
+5.868s,capture0. Root and both reviewers independently inspected all12 originals,
+XML/checkpoints/rawlogs/counts. Root also inspected8 browse and4 public-feed PNGs.
+Android17 picker PNG shows native editor while later XML shows Google's picker;
+runtime guard/XML establish foreground, not that PNG. No cause claimed. Other
+process bio is offscreen and established by exact runtime assertions. PNG/XML
+are non-atomic. Physical Pixel7/Android17 performance remains #35; no live write,
+chain-inclusion/current served DOM claim or new APK publication.
 
-First full regression on01858ad: Android10 38109837264 fails two existing
-browse visibility assertions after offline/cold headers consume the viewport;
-six other browse cases pass. Original in-scope failure PNGs and raw log retained
-profile-browse-full-red. Android17 38109838600 passed browse8 and following8
-before cancellation during posting, not a full acceptance run. Source push
-38109832420 passes core49/debug/test/release/lint. The same old-flow fixture
-now scrolls posts/statuses/tabs while preserving visible assertions, and captures
-native XML/PNG separately. Local test assembly PASS1m11s. Committed bounded
-review01858ad...aea25ca passed both axes0. Next10 full38110320329 passed
-cold Posts/Replies/Likes/history but fails the other offline case's
-performScrollTo because the target is not composed. Same fixture now searches
-LazyColumn via existing performScrollToNode, preserving every exact display
-assertion; local test assembly PASS1m8s. Original4PNG/XML/rawlogs retained
-profile-browse-scroll-audit. Android17 full38110321794 onaea25ca continues with
-identical production/core/harness. Next is fresh10full and focused17browse for
-the test-only correction; do not repeat unaffected17full if its run passes.
-Do not close #18 until downloaded full evidence/runtime checks pass,
-including shared post/wallet regressions, actual recovery and signed5-to-8
-updates. Emulator checks do not establish physical Pixel7/Android17 acceptance.
-No APK published or production node/wallet/on-chain/store state changed.
+Canonical source/evidence: NATIVE_PROFILE_EDIT_CONTRACT.md,
+NATIVE_PROFILE_EDIT_VERIFICATION.md and ticket17/REVIEW.md/final-full/README.md.
+Earlier failing fixtures, invalid success gates and capture discrepancies remain
+qualified in that chronology. Actual selected/removed/new-edit Android frames
+passed pinned WASM/Elliptic and unmodified A/B Profile server/browser methods with
+in-memory adapters; do not call that current served DOM or chain proof.
 
-Original PNG/XML are separate observations. Historical capture discrepancies and
-invalid early success gates remain qualified in the canonical verification doc;
-never invent their cause. Current process observations agree in essential state.
-Actual native selected/removed/new-edit frames passed independent pinned
-WASM/Elliptic and unmodified A/B Profile server/browser methods with in-memory
-adapters. This is not live chain inclusion, deployed DOM or physical proof.
+#19 readiness research is in protected untracked NATIVE_USERNAME_CONTRACT.md.
+Both approved endpoints authenticate and serve Archive/public key-to-name hints,
+but read-only namechecks for valid unknown and known names returned
+{err:"no response"}. This is unavailable, not an empty available-name result;
+no registrar connectivity cause is proven and no node change is authorized.
+Exact scratch read-only results/client are preserved. Implement controlled
+compatible registration and truthful unresolved recovery; no live registration.
 
 Protected untracked future research must stay out of #18 commits: username,
 discovery/moderation, notifications, transfers, private/group Chat contracts and
-private-chat reference helper/JSON/Markdown. Sequential implementation only;
-review agents may independently inspect but never claim another ticket.
+private-chat reference helper/JSON/Markdown. Include only the relevant research
+with its own ticket. Review agents inspect; they never claim another ticket.
 
 ## Completed foundation references
 
@@ -106,8 +91,8 @@ Initial wallet/live-feed milestone is published as stable signed version10
 Compose bitmaps had inconsistent labels; use each report's stated evidence
 limits. #9 also has official bitmap inconsistencies; no invented cause.
 
-Current next: record #16 external credential blocker, then #17 and remaining ready tickets sequentially. Owner reviews
-completed app; no intermediate phone-review gate is required.
+Next: #19 optional username. Owner reviews the completed app; no intermediate
+phone-review gate is required.
 
 ## Verification already inspected
 
@@ -183,6 +168,6 @@ NATIVE_QUOTES_CONTRACT, NATIVE_EDIT_DELETE_CONTRACT, NATIVE_IMAGES_CONTRACT,
 NATIVE_GIF_VIDEO_CONTRACT, NATIVE_PROFILE_EDIT_CONTRACT, NATIVE_USERNAME_CONTRACT,
 NATIVE_DISCOVERY_MODERATION_CONTRACT, NATIVE_NOTIFICATIONS_CONTRACT,
 NATIVE_SAITO_TRANSFER_CONTRACT, NATIVE_PRIVATE_CHAT_CONTRACT and
-NATIVE_GROUP_CHAT_CONTRACT (all .md under docs/research). They are uncommitted
-and must be included with their own relevant tickets, not the #12 closure.
+NATIVE_GROUP_CHAT_CONTRACT (all .md under docs/research). The protected future notes remain uncommitted and must be included only with
+their own relevant tickets; earlier contracts are already committed.
 They establish source contracts, not runtime or feature completion.

@@ -1,0 +1,16 @@
+git diff --name-only aea25ca..b0e941b
+app/src/androidTest/kotlin/nl/davidengelen/redsquare/ThreadProfilePreviewTest.kt
+docs/evidence/ticket17/profile-browse-scroll-audit/README.md
+docs/evidence/ticket17/profile-browse-scroll-audit/android10/browse-ui.txt
+docs/evidence/ticket17/profile-browse-scroll-audit/android10/cached-profile-history-warning-after-restart.png
+docs/evidence/ticket17/profile-browse-scroll-audit/android10/cached-profile-history-warning-after-restart.xml
+docs/evidence/ticket17/profile-browse-scroll-audit/android10/cached-profile-likes-after-restart.png
+docs/evidence/ticket17/profile-browse-scroll-audit/android10/cached-profile-likes-after-restart.xml
+docs/evidence/ticket17/profile-browse-scroll-audit/android10/cached-profile-posts-after-restart.png
+docs/evidence/ticket17/profile-browse-scroll-audit/android10/cached-profile-posts-after-restart.xml
+docs/evidence/ticket17/profile-browse-scroll-audit/android10/profile-memory-first-failure.png
+docs/evidence/ticket17/profile-browse-scroll-audit/android10/profile-memory-first-failure.xml
+docs/handoffs/IMPLEMENTATION.md
+docs/research/NATIVE_PROFILE_EDIT_VERIFICATION.md
+
+Only the Android test and documentation/evidence change. No production/core/build/scripts/helper/workflow change.
