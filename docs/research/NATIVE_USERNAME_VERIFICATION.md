@@ -420,3 +420,16 @@ lookups, including key-map timeout terminating the worker. The correction must
 retain one in-flight claim, release unsuccessful claims, distinguish request
 timeout from parent cancellation and permit a fresh mount to retry. Runtime
 acceptance of this shared change remains pending; quotes need their own tracer.
+
+Shared source71bc703 passes its complete feed/profile/conversation/reply journey
+in Android10 run38122217674, eight of nine cases pass in43.727s. Correct scalar2
+reader, authenticated keys and zero broadcasts pass. Root individually viewed
+shared feed/conversation PNG/XML; independent reply loading remains visible.
+The cache-save case fails line164 after a fresh namecheck is observed, expecting
+its previous warning gone before proof/save settlement. Original failure
+PNG/XML retain name/warning/key. Durable shared-name-green-repair-fixture-failure.
+Next fixture waits boundedly for warning disappearance and asserts the scoped
+name before the unchanged later unavailable-proof recreation/cache/no-send gates.
+No app fix or eventual-clear/runtime-cause claim is inferred from this failure.
+Process stage was not reached. Settings-first tracer4471601 is reviewed on both
+axes but has no runtime result or implementation yet.

@@ -120,8 +120,31 @@ read-only03:57 probe, but unknown and known-name namechecks returned
 is unproved; do not change a node or enable block production speculatively.
 Scratch client/results are preserved; native read-only readiness remains pending.
 
-#19 stays open. Next: verify the current run, then Settings-first/imported-wallet
-discovery, shared names in feed/thread/quote/reply surfaces, actual replacement
+Shared-name source71bc703 is pushed, both bounded review axes clear. It uses
+one wallet/backend/registrar-scoped directory, cache-first labels, bounded query
+batches, signed ownership checks and in-flight author claims. Failed lookups
+retry on remount and internal request timeouts preserve the worker. Feed,
+profile posts, conversation, reply context and quote originals share names.
+Local debug/test assembly passes2m11s. Android10 run38122217674 passes its complete shared-name journey,
+but whole run has8/9passes43.727s: old cache-repair gate failsline164 after
+observing a fresh namecheck but before warning disappearance. Root viewed
+shared feed/conversation and failure PNG/XML individually. Retained evidence:
+shared-name-green-repair-fixture-failure. Bounded fixture wait now requires
+warning gone and scoped name before existing unavailable-proof/recreation
+cached-name checks; no app fix or eventual-clear cause is inferred. Actual
+process stage was not reached. Original shared-name RED38121392902
+onb744701 fails line58 after eight passes; PNG/XML show the independent root
+with anonymous author. Durable first-shared-name-red. Corrected target-bound
+selectors and unrelated key-map fixtures are not in that older RED.
+
+Next tracer4471601 isolates direct Settings discovery with debug feed disabled,
+so reused feed cache cannot satisfy it. Both source review axes clear; no app
+implementation or runtime result yet. Next run must include corrected repair wait plus4471601 Settings tracer for
+its actual RED. Future
+protected untracked research remains untouched; no local compiler active.
+
+#19 stays open. Next: inspect shared-name run, then Settings-first/imported-wallet
+discovery, quoted-name tracer, actual replacement
 isolation, malformed/taken/inactive and persistence failures, native public
 readiness and applicable final full Android10/17 acceptance. Shared SAF profile
 helper callers need affected regression checks. Do not repeat unaffected #18 full

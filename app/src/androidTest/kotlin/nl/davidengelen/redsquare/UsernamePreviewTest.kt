@@ -195,6 +195,9 @@ class UsernamePreviewTest {
                         ui.waitUntil(20_000) {
                             peer.registryQueries.count { it.get("request").asString == "registry namecheck" } > checks
                         }
+                        // A shared label retains its previous warning until the fresh proof/save settles.
+                        ui.waitUntil(20_000) { ui.onAllNodesWithText(warning).fetchSemanticsNodes().isEmpty() }
+                        ui.onNode(hasText("NativeCase7@saito") and hasAnySibling(hasText(fixture.publicKey)), useUnmergedTree = true).assertIsDisplayed()
                         ui.onAllNodesWithText(warning).assertCountEquals(0)
                         capture("username-name-save-recovered.png", "NativeCase7@saito")
                         response.set("{\"err\":\"no response\"}")
