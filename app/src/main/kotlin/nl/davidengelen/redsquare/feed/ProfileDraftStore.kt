@@ -88,8 +88,14 @@ internal class ProfileDraftStore(private val context: Context, private val owner
     }
 
     private fun validate(saved: Saved) {
-        require(saved.changes.keySet().all { it == "description" })
+        require(saved.changes.keySet().all { it in setOf("description", "image", "banner") })
         saved.changes.get("description")?.let { require(it.isJsonPrimitive && it.asJsonPrimitive.isString) }
+        for (name in listOf("image", "banner")) saved.changes.get(name)?.let {
+            require(it.isJsonPrimitive && it.asJsonPrimitive.isString)
+            val source = it.asString
+            require(source.length <= 512 * 1024 && source.startsWith("data:image/jpeg;base64,") &&
+                nl.davidengelen.redsquare.saito.RedSquareImages.safeSource(source) == source)
+        }
         require(!saved.available || saved.transaction != null)
         saved.superseding?.let { profile ->
             val transaction = requireNotNull(saved.transaction)

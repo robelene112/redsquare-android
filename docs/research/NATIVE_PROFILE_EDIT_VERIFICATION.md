@@ -638,3 +638,31 @@ attempt independently and preserve primary failures. Missing selection controls
 are the intended next RED; local assembly/native Android10 pending. No new
 production media implementation yet.
 Media tracer local debug/test assembly PASS1m12s, retained container exit0.
+
+Bounded4b33b06...ea23279 media tracer reviews both zero. Copy-only source run
+38100547421 was superseded/cancelled by the next push; do not record it as PASS.
+Actual Android10 media RED38100747417 at ea23279: eleven runner cases43.279s,
+nine pass/one API30+ assumption skip/one expected missing Change profile picture
+control at ProfileMediaPreviewTest.kt:162. Original PNG individually viewed:
+Edit profile with exact typed bio and Save profile, no picture/banner controls.
+PNG/separate XML/rawlog retained profile-media-red/android10. Existing historical
+and supersession cases pass with the qualified newer-profile wording.
+
+First media implementation reuses the bounded provider/raster pipeline, adding
+optional square/3:1 centered output crop and preserving default post geometry.
+Android ImageDecoder crop operates in target-size coordinates and must be set
+inside the header callback ([official reference](https://developer.android.com/reference/android/graphics/ImageDecoder#setCrop(android.graphics.Rect))).
+Prepared bytes remain bounded JPEG without original metadata; draft saving
+precedes external picker and provider reads. Exact whole-snapshot JSON budget
+replaces the selected field with an empty placeholder before normalization,
+then rechecks final bytes. Private changes include normalized image/banner
+strings and retain the existing encrypted format. Public signed fields expose
+safe raster sources; asynchronous profile/editor rendering shares the bounded
+loader with generated-avatar fallback. Scrollable editor keeps bio and selection
+reachable. Picked-result metadata is session-bound; private bytes stay outside
+SavedState. No remove-image UI yet. Local build/core, dual focused GREEN and
+actual committed-diff reviews pending. No production publication or APK.
+First media core49/debug/test assembly PASS2m37s, retained container exit0.
+After that build, picker metadata tightened to carry and compare the full public
+wallet/backend/endpoint session plus media kind on restore. Hosted checks will
+compile/verify that final source; no private data enters SavedState.

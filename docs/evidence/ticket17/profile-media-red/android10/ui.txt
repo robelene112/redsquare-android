@@ -1,0 +1,216 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ProfileEditPreviewTest:
+INSTRUMENTATION_STATUS: test=walletImportPreviewWarnsAboutAFreshlyTypedBioBeforeAnySaveOrReplacement
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=walletImportPreviewWarnsAboutAFreshlyTypedBioBeforeAnySaveOrReplacement
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=profileHistoryRemainsReachableWithAFullMultilineBio
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=profileHistoryRemainsReachableWithAFullMultilineBio
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=cachedProfileBioSurvivesAFreshActivityWhenSelectedBackendIsUnavailable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=cachedProfileBioSurvivesAFreshActivityWhenSelectedBackendIsUnavailable
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=failedBioSavingKeepsWalletImportClosedAndCanBeRetriedWithoutLosingWork
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=failedBioSavingKeepsWalletImportClosedAndCanBeRetriedWithoutLosingWork
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aSavedOwnBioDraftReturnsAfterAFreshActivityWithoutPublishing
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aSavedOwnBioDraftReturnsAfterAFreshActivityWithoutPublishing
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=viewingAProfileShowsItsVerifiedBioAndGeneratedSaitoAvatar
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=viewingAProfileShowsItsVerifiedBioAndGeneratedSaitoAvatar
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfilePublishingPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ProfilePublishingPreviewTest:
+INSTRUMENTATION_STATUS: test=newerProfileStillBlocksOlderRetryAfterPublicCacheSavingFailsAndEditorNavigation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfilePublishingPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stack=org.junit.AssumptionViolatedException: got: <false>, expected: is <true>
+	at org.junit.Assume.assumeThat(Assume.java:106)
+	at org.junit.Assume.assumeTrue(Assume.java:50)
+	at nl.davidengelen.redsquare.ProfilePublishingPreviewTest.newerProfileStillBlocksOlderRetryAfterPublicCacheSavingFailsAndEditorNavigation(ProfilePublishingPreviewTest.kt:53)
+
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ProfilePublishingPreviewTest:
+INSTRUMENTATION_STATUS: test=newerProfileStillBlocksOlderRetryAfterPublicCacheSavingFailsAndEditorNavigation
+INSTRUMENTATION_STATUS_CODE: -4
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfilePublishingPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=previouslyAvailableProfileSurvivesEmptyReadsAndNavigationWithoutPublishingAgain
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfilePublishingPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=previouslyAvailableProfileSurvivesEmptyReadsAndNavigationWithoutPublishingAgain
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfilePublishingPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aNewerVerifiedProfileStillBlocksOlderRetryAfterAFreshActivityWithStaleReads
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfilePublishingPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aNewerVerifiedProfileStillBlocksOlderRetryAfterAFreshActivityWithStaleReads
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfilePublishingPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=savingBioPublishesACompleteSnapshotAndPreservesOtherVerifiedFields
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfilePublishingPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=savingBioPublishesACompleteSnapshotAndPreservesOtherVerifiedFields
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileMediaPreviewTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ProfileMediaPreviewTest:
+INSTRUMENTATION_STATUS: test=selectedPictureAndBannerSurviveDeletedSourcesAndPublishWithTheRetainedBioAndIdentity
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileMediaPreviewTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Action performScrollTo() failed.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (Text + InputText + EditableText contains 'Change profile picture' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:80)
+	at nl.davidengelen.redsquare.ProfileMediaPreviewTest.selectImage(ProfileMediaPreviewTest.kt:162)
+	at nl.davidengelen.redsquare.ProfileMediaPreviewTest.selectedPictureAndBannerSurviveDeletedSourcesAndPublishWithTheRetainedBioAndIdentity$lambda$17$lambda$11$lambda$10(ProfileMediaPreviewTest.kt:91)
+	at nl.davidengelen.redsquare.ProfileMediaPreviewTest.$r8$lambda$BnhRiBkSur74rt50HWUti3BpDQ4(Unknown Source:0)
+	at nl.davidengelen.redsquare.ProfileMediaPreviewTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ProfileMediaPreviewTest.captureFailures(ProfileMediaPreviewTest.kt:210)
+	at nl.davidengelen.redsquare.ProfileMediaPreviewTest.selectedPictureAndBannerSurviveDeletedSourcesAndPublishWithTheRetainedBioAndIdentity(ProfileMediaPreviewTest.kt:88)
+
+INSTRUMENTATION_STATUS: stream=
+Error in selectedPictureAndBannerSurviveDeletedSourcesAndPublishWithTheRetainedBioAndIdentity(nl.davidengelen.redsquare.ProfileMediaPreviewTest):
+java.lang.AssertionError: Action performScrollTo() failed.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (Text + InputText + EditableText contains 'Change profile picture' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:80)
+	at nl.davidengelen.redsquare.ProfileMediaPreviewTest.selectImage(ProfileMediaPreviewTest.kt:162)
+	at nl.davidengelen.redsquare.ProfileMediaPreviewTest.selectedPictureAndBannerSurviveDeletedSourcesAndPublishWithTheRetainedBioAndIdentity$lambda$17$lambda$11$lambda$10(ProfileMediaPreviewTest.kt:91)
+	at nl.davidengelen.redsquare.ProfileMediaPreviewTest.$r8$lambda$BnhRiBkSur74rt50HWUti3BpDQ4(Unknown Source:0)
+	at nl.davidengelen.redsquare.ProfileMediaPreviewTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ProfileMediaPreviewTest.captureFailures(ProfileMediaPreviewTest.kt:210)
+	at nl.davidengelen.redsquare.ProfileMediaPreviewTest.selectedPictureAndBannerSurviveDeletedSourcesAndPublishWithTheRetainedBioAndIdentity(ProfileMediaPreviewTest.kt:88)
+
+INSTRUMENTATION_STATUS: test=selectedPictureAndBannerSurviveDeletedSourcesAndPublishWithTheRetainedBioAndIdentity
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 43.279
+There was 1 failure:
+1) selectedPictureAndBannerSurviveDeletedSourcesAndPublishWithTheRetainedBioAndIdentity(nl.davidengelen.redsquare.ProfileMediaPreviewTest)
+java.lang.AssertionError: Action performScrollTo() failed.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (Text + InputText + EditableText contains 'Change profile picture' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:80)
+	at nl.davidengelen.redsquare.ProfileMediaPreviewTest.selectImage(ProfileMediaPreviewTest.kt:162)
+	at nl.davidengelen.redsquare.ProfileMediaPreviewTest.selectedPictureAndBannerSurviveDeletedSourcesAndPublishWithTheRetainedBioAndIdentity$lambda$17$lambda$11$lambda$10(ProfileMediaPreviewTest.kt:91)
+	at nl.davidengelen.redsquare.ProfileMediaPreviewTest.$r8$lambda$BnhRiBkSur74rt50HWUti3BpDQ4(Unknown Source:0)
+	at nl.davidengelen.redsquare.ProfileMediaPreviewTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ProfileMediaPreviewTest.captureFailures(ProfileMediaPreviewTest.kt:210)
+	at nl.davidengelen.redsquare.ProfileMediaPreviewTest.selectedPictureAndBannerSurviveDeletedSourcesAndPublishWithTheRetainedBioAndIdentity(ProfileMediaPreviewTest.kt:88)
+
+FAILURES!!!
+Tests run: 11,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

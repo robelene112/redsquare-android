@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.ImageDecoder
+import android.graphics.Rect
 import android.net.Uri
 import android.os.CancellationSignal
 import android.os.ParcelFileDescriptor
@@ -32,8 +33,9 @@ internal object PostImagePreparation {
     private val readers = pool("post-image-read", 2)
     private val cleanup = pool("post-image-close", 4)
 
-    suspend fun normalize(resolver: ContentResolver, uri: Uri, maxChars: Int): String {
+    suspend fun normalize(resolver: ContentResolver, uri: Uri, maxChars: Int, cropRatio: Int? = null): String {
         require(maxChars >= 1024)
+        require(cropRatio == null || cropRatio in listOf(1, 3))
         val bytes = read(resolver, uri)
         return withContext(Dispatchers.IO) {
             var bitmap = ImageDecoder.decodeBitmap(ImageDecoder.createSource(ByteBuffer.wrap(bytes))) { decoder, info, _ ->
@@ -42,7 +44,16 @@ internal object PostImagePreparation {
                 val height = info.size.height
                 require(width in 1..16_384 && height in 1..16_384 && width.toLong() * height <= 100_000_000)
                 val scale = minOf(1.0, 1920.0 / width, 1024.0 / height)
-                decoder.setTargetSize(maxOf(1, (width * scale).toInt()), maxOf(1, (height * scale).toInt()))
+                val targetWidth = maxOf(cropRatio ?: 1, (width * scale).toInt())
+                val targetHeight = maxOf(1, (height * scale).toInt())
+                decoder.setTargetSize(targetWidth, targetHeight)
+                cropRatio?.let { ratio ->
+                    val cropHeight = minOf(targetHeight, targetWidth / ratio)
+                    val cropWidth = cropHeight * ratio
+                    val left = (targetWidth - cropWidth) / 2
+                    val top = (targetHeight - cropHeight) / 2
+                    decoder.setCrop(Rect(left, top, left + cropWidth, top + cropHeight))
+                }
                 decoder.allocator = ImageDecoder.ALLOCATOR_SOFTWARE
             }
             try {
@@ -64,7 +75,9 @@ internal object PostImagePreparation {
                         }
                     }
                     if (bitmap.width == 1 && bitmap.height == 1) throw IOException("Image cannot fit the post")
-                    val smaller = Bitmap.createScaledBitmap(bitmap, maxOf(1, bitmap.width / 2), maxOf(1, bitmap.height / 2), true)
+                    val smallerHeight = maxOf(1, bitmap.height / 2)
+                    val smallerWidth = cropRatio?.let { it * smallerHeight } ?: maxOf(1, bitmap.width / 2)
+                    val smaller = Bitmap.createScaledBitmap(bitmap, smallerWidth, smallerHeight, true)
                     if (smaller !== bitmap) bitmap.recycle()
                     bitmap = smaller
                 }

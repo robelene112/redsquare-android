@@ -99,7 +99,15 @@ review both axes zero; source checks pending. New single media tracer selects
 red avatar/blue banner, retains typed bio/private draft through deleted sources
 and fresh Activity, then explicitly publishes full compatible snapshot and
 checks square/3:1 geometry, pixels/unchanged fields/public profile. Native
-Android10 intended missing-control RED/local build pending; no media code yet.
+Android10 RED38100747417 eleven cases43.279s, nine PASS/one API30+ skip/
+one missing Change profile picture at162; original PNG individually viewed/
+XML/rawlog retained profile-media-red. Existing supersession/historical cases
+PASS qualified copy. Copy-only source38100547421 cancelled by next push.
+Media tracer reviews both zero. First picture/banner implementation now adds
+normalized crop bytes, whole-snapshot budget, encrypted drafts, save-before-picker,
+scrollable editor and shared bounded public raster rendering/default identicon.
+Removal not implemented. Local core/build, dual focused GREEN/committed-diff
+review pending.
 Recovery/process/full acceptance remains open.
 Then candidate failures/recovery,
 actual process death, media, cross-client, full checks/reviews remain. No APK or

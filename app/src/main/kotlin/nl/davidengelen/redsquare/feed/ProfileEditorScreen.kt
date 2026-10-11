@@ -3,9 +3,17 @@ package nl.davidengelen.redsquare.feed
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.LocalActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
+import android.content.ContentResolver
+import android.net.Uri
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -34,6 +42,8 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
     var superseding by mutableStateOf<SaitoProfile?>(null)
     val superseded: Boolean get() = superseding != null
     var networkError by mutableStateOf(false)
+    var imageError by mutableStateOf(false)
+    var preparingImage by mutableStateOf(false)
 
     suspend fun load() {
         try {
@@ -66,6 +76,56 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
         if (!ready || busy || candidate != null) return
         changes = changes.deepCopy().apply { addProperty("description", text) }
         memory.changes = changes.deepCopy()
+    }
+
+    fun image(kind: ProfileImageKind, profile: SaitoProfile?): String? = changes.get(kind.field)?.asString
+        ?: if (kind == ProfileImageKind.PICTURE) profile?.image else profile?.banner
+
+    fun openImagePicker(onLaunch: () -> Unit) {
+        if (!ready || busy || candidate != null) return
+        scope.launch {
+            try {
+                if (!persist()) return@launch
+                ensureActive()
+                onLaunch()
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { imageError = true }
+        }
+    }
+
+    fun addImage(resolver: ContentResolver, uri: Uri, kind: ProfileImageKind, known: SaitoProfile?) {
+        if (!ready || busy || candidate != null) return
+        busy = true
+        preparingImage = true
+        imageError = false
+        scope.launch {
+            try {
+                val prior = changes.deepCopy()
+                withContext(Dispatchers.IO) {
+                    // Preserve all prior work before provider reads or pixel allocation.
+                    withContext(NonCancellable) { store.save(ProfileDraftStore.Saved(prior)) }
+                    val cached = cache.load()
+                    check(!cached.unreadable)
+                    val baseline = known?.let { SaitoProfiles.merge(cached.profile, it) } ?: cached.profile
+                    // An empty placeholder includes the exact JSON field overhead and replaces old media.
+                    val placeholder = prior.deepCopy().apply { addProperty(kind.field, "") }
+                    val remaining = SaitoTransaction.MAX_MESSAGE_BYTES -
+                        SaitoProfiles.message(baseline, placeholder).toString().toByteArray(Charsets.UTF_8).size
+                    val source = PostImagePreparation.normalize(resolver, uri, minOf(512 * 1024, remaining), kind.ratio)
+                    val prepared = prior.deepCopy().apply { addProperty(kind.field, source) }
+                    require(SaitoProfiles.message(baseline, prepared).toString().toByteArray(Charsets.UTF_8).size <=
+                        SaitoTransaction.MAX_MESSAGE_BYTES)
+                    withContext(NonCancellable) {
+                        store.save(ProfileDraftStore.Saved(prepared))
+                        withContext(Dispatchers.Main.immediate) {
+                            changes = prepared; memory.changes = prepared.deepCopy(); error = false
+                        }
+                    }
+                }
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { imageError = true }
+            finally { busy = false; preparingImage = false }
+        }
     }
 
     suspend fun persist(): Boolean {
@@ -199,8 +259,32 @@ internal fun ProfileEditorScreen(wallet: SaitoWallet, backend: SaitoBackend, end
     val cache = remember(owner, backend) { AndroidProfileDetailsCache(activity.applicationContext, backend, owner) }
     val scope = rememberCoroutineScope()
     val state = remember(store, memory, wallet, endpoint, cache) { ProfileEditorState(store, memory, scope, wallet, endpoint, cache) }
+    val session = "$owner:${backend.id}:$endpoint"
+    var picking by rememberSaveable(session) { mutableStateOf<String?>(null) }
+    var selected by remember(session) { mutableStateOf<Pair<ProfileImageKind, Uri>?>(null) }
+    val chooseImage: (ProfileImageKind) -> Unit = key(session) {
+        val picker = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+            val kind = ProfileImageKind.entries.firstOrNull { "$session:${it.name}" == picking }
+            picking = null
+            if (kind != null && uri != null) selected = kind to uri
+        }
+        val choose: (ProfileImageKind) -> Unit = { kind ->
+            if (picking == null) state.openImagePicker {
+                picking = "$session:${kind.name}"
+                try { picker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)) }
+                catch (failure: Exception) { picking = null; throw failure }
+            }
+        }
+        choose
+    }
     val navigation = requireNotNull(LocalPostNavigation.current)
     LaunchedEffect(state, state.reload) { state.load() }
+    LaunchedEffect(state.ready, selected) {
+        if (state.ready) selected?.let { (kind, uri) ->
+            state.addImage(activity.contentResolver, uri, kind, profile)
+            selected = null
+        }
+    }
     DisposableEffect(state) {
         val save: suspend () -> Boolean = { state.persist() }
         navigation.saveCurrent = save
@@ -235,9 +319,21 @@ internal fun ProfileEditorScreen(wallet: SaitoWallet, backend: SaitoBackend, end
                 Text(stringResource(R.string.profile_draft_error))
                 if (!ready) TextButton(onClick = { reload++ }) { Text(stringResource(R.string.retry)) }
             }
-            OutlinedTextField(value = changes.get("description")?.asString ?: profile?.description.orEmpty(),
-                onValueChange = ::editBio, enabled = ready && !busy && candidate == null,
-                label = { Text(stringResource(R.string.profile_bio)) }, modifier = Modifier.weight(1f).fillMaxWidth())
+            Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState())) {
+                if (imageError) Text(stringResource(R.string.image_prepare_failed))
+                if (preparingImage) Text(stringResource(R.string.image_preparing))
+                OutlinedTextField(value = changes.get("description")?.asString ?: profile?.description.orEmpty(),
+                    onValueChange = ::editBio, enabled = ready && !busy && candidate == null,
+                    label = { Text(stringResource(R.string.profile_bio)) },
+                    modifier = Modifier.fillMaxWidth().heightIn(min = 160.dp, max = 280.dp))
+                for (kind in ProfileImageKind.entries) {
+                    TextButton(enabled = ready && !busy && candidate == null && picking == null,
+                        onClick = { chooseImage(kind) }) { Text(stringResource(kind.changeLabel)) }
+                    val source = image(kind, profile)
+                    if (kind == ProfileImageKind.PICTURE) ProfileImage(source, kind, owner, backend, Modifier.size(96.dp))
+                    else if (source != null) ProfileImage(source, kind, owner, backend, Modifier.fillMaxWidth().aspectRatio(3f))
+                }
+            }
         }
     }
 }

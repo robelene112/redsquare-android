@@ -203,8 +203,11 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
         LazyColumn(Modifier.weight(1f).fillMaxWidth()) {
             item(key = "profile-details") {
                 Column {
+                    profile?.banner?.let { source ->
+                        ProfileImage(source, ProfileImageKind.BANNER, author, backend, Modifier.fillMaxWidth().aspectRatio(3f))
+                    }
                     Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                        GeneratedProfilePicture(author, Modifier.size(48.dp))
+                        ProfileImage(profile?.image, ProfileImageKind.PICTURE, author, backend, Modifier.size(48.dp))
                         Column(Modifier.weight(1f)) {
                             Text("Anon-${author.take(6)}", style = MaterialTheme.typography.titleMedium)
                             Text(author, style = MaterialTheme.typography.labelSmall)

@@ -11,9 +11,12 @@ data class ProfileUpdate(val id: String, val author: String, val createdAt: Long
 class SaitoProfile internal constructor(val author: String, val fields: String,
     val updates: List<ProfileUpdate>, val ignored: Int) {
     private val data = JsonParser.parseString(fields).asJsonObject
-    val description: String get() = data.get("description")?.takeIf {
+    private fun text(name: String): String? = data.get(name)?.takeIf {
         it.isJsonPrimitive && it.asJsonPrimitive.isString
-    }?.asString.orEmpty()
+    }?.asString
+    val description: String get() = text("description").orEmpty()
+    val image: String? = text("image")?.let(RedSquareImages::safeSource)
+    val banner: String? = text("banner")?.let(RedSquareImages::safeSource)
 }
 
 object SaitoProfiles {
