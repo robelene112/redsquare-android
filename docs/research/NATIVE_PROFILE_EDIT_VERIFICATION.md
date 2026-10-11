@@ -391,3 +391,39 @@ Node24; no specimen exists yet, so it is not runtime compatibility evidence.
 Avatar/banner selection/display, richer candidate recovery/conflict handling,
 failure traces, true process death, cross-client receiving proof and final full
 verification remain unfinished. No APK, node change or on-chain write.
+
+First publisher6db0e74 focused native GREEN: Android10 38096716281 PASS7
+cases26.877s; Android17 38096718157 PASS7 cases73.156s. Both actual original
+availability PNGs individually inspected: selected owner server, exact frozen
+edited bio, disabled Retry profile and Profile available on this server.
+Raw UI logs, separate XML, public synthetic actual frames and isolated pinned
+WASM/Elliptic verification retained profile-publishing-first-green/android10
+andandroid17. Independent frame checks PASS both: transaction and hop signatures,
+zero-valued self-recipient slips, full body preserving exact bio/image/banner/
+archive/extensions and detached-envelope equality. SHA25610
+5a7028c90d3d544e1be4109c542d141a6ec3c57fa6a78d4c8327a823d84dbb59;17
+cb4f60cecb5945f6bf2c18f469de0e4c14f578fbef70a21e67ddc92c8bfc1874.
+Source38096715823 PASS. This proves the controlled first publisher path and
+independent native wire compatibility, not a receiving-web/DOM/live-chain proof.
+
+Bounded601e518...6db0e74 reviews found Spec2/Standards1 hard preservation
+issue, sharing the supersession finding. A newer verified snapshot observed
+only by candidate reconciliation is not saved before returning, so fresh
+Activity/stale reads can lose the barrier and permit an older retry. Also a
+previously available record is reported as currently available even when a
+successful exact query returns nothing; closing can clear that retained record.
+The prior pre-submit zero-TX assertion gap is fixed. Both current source findings
+remain open; normal-path GREEN does not override them or complete18.
+
+Next single tracer exercises newer-snapshot durability: the actual initial
+transaction is inspected, then a same-author newer signed snapshot appears only
+in reconciliation. The editor must report supersession. Close the Activity
+without going Back or refreshing the public profile, then serve only the stale
+original snapshot. A fresh Activity must show the newer verified bio, retain
+original unsent edits, show supersession and disable old Retry with no additional
+transaction. Existing happy-path assertions are preserved in shared fixture
+setup. Local client exited143 without a compiler diagnostic; the same build
+container continued. Reattached logs and docker wait confirmed exit0 and
+BUILD SUCCESSFUL1m4s, not a code failure or rerun. Intended eight-case RED and
+bounded fixture review pending. Historical availability gets its own next
+tracer after this slice; no barrier fix is implemented yet.

@@ -1,0 +1,34 @@
+{
+  "result": "PASS",
+  "native": true,
+  "reference": {
+    "saitoCommit": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+    "saitoWasmVersion": "0.3.2",
+    "ellipticVersion": "6.6.1",
+    "wasmSha256": "f59be69dbb949368ce1fc7ef47d414cbe0281a86a206fe4bfb1128a4d087e01e"
+  },
+  "boundary": "Actual controlled Android Profile frame independently verified with pinned WASM/Elliptic. No live write, deployment, DOM or chain inclusion proof.",
+  "frameSha256": "cb4f60cecb5945f6bf2c18f469de0e4c14f578fbef70a21e67ddc92c8bfc1874",
+  "profile": {
+    "sig": "d183884c78724880418ba79edbcb8cfab22b9144d4aca025e4e12e77a23aa531334cdef0fc31e58240c95f12db13f20856f796a2603b7b5ae4a4e7c2010e8fa4",
+    "created_at": 1791676888802,
+    "field2": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+    "tx": "{\"t\":\"AAAAAQAAAAEAAAAAAAAAANGDiEx4ckiAQYunntvLjPqyK5FE1KygJeThLneiOqUxM0ze8Pwx5YJAyV8S2xPyCFb3lqJgO3ta5KTnwgEOj6QAAAGhKEO24gAAAAEAAnm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACeb5mfvncu6xVoGKVzocLBwKb/NstzijZWfKBWxb4F5gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==\",\"m\":\"eyJtb2R1bGUiOiJQcm9maWxlIiwicmVxdWVzdCI6InVwZGF0ZSBwcm9maWxlIiwic25hcHNob3QiOjEsImRhdGEiOnsiZGVzY3JpcHRpb24iOiJBIG5ld2x5IHB1Ymxpc2hlZCBiaW8g8J+MsVxuS2VlcCBteSBvdGhlciBwcm9maWxlIGZpZWxkcyIsImltYWdlIjoiaHR0cHM6Ly9pbWFnZXMuZXhhbXBsZS50ZXN0L2F2YXRhci5wbmciLCJiYW5uZXIiOiJodHRwczovL2ltYWdlcy5leGFtcGxlLnRlc3QvYmFubmVyLnBuZyIsImFyY2hpdmUiOlsiaHR0cHM6Ly9hcmNoaXZlLmV4YW1wbGUudGVzdCJdLCJleHRlbnNpb24iOnsidGhlbWUiOiJibHVlIn19fQ==\",\"opt\":\"e30=\"}",
+    "body": {
+      "module": "Profile",
+      "request": "update profile",
+      "snapshot": 1,
+      "data": {
+        "description": "A newly published bio 🌱\nKeep my other profile fields",
+        "image": "https://images.example.test/avatar.png",
+        "banner": "https://images.example.test/banner.png",
+        "archive": [
+          "https://archive.example.test"
+        ],
+        "extension": {
+          "theme": "blue"
+        }
+      }
+    }
+  }
+}

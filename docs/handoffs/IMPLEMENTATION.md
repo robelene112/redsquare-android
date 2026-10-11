@@ -7,74 +7,46 @@ one question at a time when a material choice really needs the owner.
 
 ## Current work
 
-Active #18, "Edit profile bio, avatar and banner", assigned and unblocked.
-Review base afce6610e4c78a2183bf154ac99cc35d7917b03c. Source contract and detailed
-runtime records: NATIVE_PROFILE_EDIT_CONTRACT.md and NATIVE_PROFILE_EDIT_VERIFICATION.md.
+Active #18, "Edit profile bio, avatar and banner", assigned/unblocked.
+Full review base afce6610e4c78a2183bf154ac99cc35d7917b03c. Canonical source
+contract and all runtime/evidence chronology: NATIVE_PROFILE_EDIT_CONTRACT.md
+and NATIVE_PROFILE_EDIT_VERIFICATION.md. Fourteen of35 complete (#2–#15).
 
-Implemented: verified Profile reader/full-snapshot partial-edit merge, default
-identicon, stale-read protection, public metadata cache, one scrollable profile
-header/history, own-profile entry and encrypted private bio drafts. Own draft
-restores exactly after a fresh Activity on both Android versions with no TX.
-Untouched or loading baseline fields do not become edit intent. Cache retains
-verified bio through selected-server outage. First publisher/candidate now implemented; avatar/banner selection/display still
-unimplemented, new publication runtime pending.
+First publisher production6db0e74: verified full-snapshot reader/identicon,
+public metadata cache/stale guard, scrollable full bio/history, own-profile
+entry, encrypted private bio drafts and explicit complete Profile publication.
+Fresh own lookup preserves avatar/banner/archive/unknown fields; edits before
+lookup and signed candidate before dispatch are durable. Original-byte retry,
+read-only reopening and identity/backend claim implemented. Profile draftv2
+record retains direct-changesv1/filename/AAD/key alias; Post/Profile share
+EncryptedLocalFile but keep separate families/keys. Import awaits mounted save,
+warns for pending profile work on both backends and treats unreadable as unknown.
+No avatar/banner selection/display or complete recovery acceptance yet.
 
-Latest profile baseline 35cd09b: Android10 38093681635 PASS four cases 10.545s.
-Android17 38093683708 completes four cases, one cached-author navigation failure
-before profile opening (26.104s); bio draft and other two cases pass. Both draft
-originals individually inspected. The helper now positively waits displayed
-scoped author and scrolls only if needed, preserving all acceptance assertions.
-Corrected Android17 1963c0e run 38093960556 PASS four cases 50.57s.
+Focused first publisher GREEN: Android10 38096716281 PASS7 cases26.877s;
+Android17 38096718157 PASS7 cases73.156s; source38096715823 PASS. Original
+availability PNGs individually inspected, separate XML/raw logs retained under
+profile-publishing-first-green. Both actual synthetic frame specimens independently
+PASS pinned WASM/Elliptic signatures, hop, zero self-slip/full-body/envelope checks.
+Receiving-web/DOM/live-chain proof still pending. Prior bio-save/import failure
+flows PASS6 cases21.46s/71.054s on10/17 with original images inspected; shared
+encryption post18/profile4 regressions also passed both (canonical doc).
 
-Legacy Post raw-v1 regression at bb668c6: Android10 38093829543 and Android17
-38093831384 PASS all 18 posting cases, 80.974s/95.052s. Exact original legacy
-restoration PNGs individually inspected. The later reviewed after-save gate
-requires clickable/enabled New post instead of its matching composer title.
+Current bounded review601e518...6db0e74: Spec2, Standards1 hard issue, same
+newer-snapshot durability gap; pre-submit zero-TX assertion fixed. Newer state
+first learned in reconciliation is not persisted before return, permitting
+regression after reopen/stale reads. Previously available=true is also retained
+as current despite successful empty exact lookup; closing can erase candidate.
+Both findings must be fixed and rechecked before publisher acceptance.
 
-Current production 95eda3c consolidates encrypted files in EncryptedLocalFile.
-Post/Profile retain separate key aliases, families, unchanged filename AAD and
-wire meanings (Post v1 raw, v2 JSON; Profile v1 changes JSON). Both adapters retain
-feature validation and shared identity lock. Local debug/test assembly PASS
-1m56s; no local compiler active. Fresh post runtime38094236367/38094238073
-PASS18 cases85.755s/97.012s; profile38094240194/38094242194 PASS4 cases
-10.421s/41.835s. Both original bio drafts and legacy post PNGs individually
-inspected; retained shared-encryption-green. Both bounded review axes0.
-Source38094278321 PASS49core/debug/test/release/lint.
-
-Next tracer added: unsaved bio must show pending-work warning in actual
-SAF import preview before confirmation. Controlled fresh disposable wallet avoids
-unrelated pending risks, preserved original identity restored in finally; harness
-provisions public scalar1 backup in document-provider UID and test checks size.
-Final f141190 native17 RED38094856188:5cases/1failure62.919s, missing specific
-pending-work warning after positive actual selected backup. Other4pass. Original
-failure PNG/XML inspected and retained; source38094855735 PASS, both reviews0.
-WalletImport now awaits mounted editor save before selection, binds it to same
-wallet/backend, and refuses picker on failure/cancellation with truthful copy.
-Final activation retains save guard. Local debug/testPASS1m54s before last
-cancellation guard; Both bounded review axes0; source38095429841 PASS. Android10 38095429957
-PASS5 cases17.174s including unsaved preview; original PNG/XML inspected.
-Android17 38095431855 FAIL5/1 cases64.357s before SAF document selection,
-other4pass. Captured Downloads/Show roots, not app preview. Test now positively
-waits provider drawer row and reobserves state, unchanged30s bound/assertions.
-Corrected c5e44a6 Android17 38095803727 PASS5 cases57.64s. Original warning
-PNG/XML inspected/retained. Both fixture review axes0. Preserve outgoing draft isolation. Saved profile
-work is already included across both backends; unreadable means unknown.
-Added failed-save import regression: preserve encrypted file, obstruct actual
-base directory after editor loads, assert picker stays closed and text retained,
-repair then actual SAF retry/fresh-Activity restoration. Local buildPASS1m52s;
-Both bounded review axes0; Android10 38095985570 PASS6 cases21.46s. Blocked
-import and fresh-Activity recovery original PNG/XML inspected/retained. Android17
-38096072885 PASS6 cases71.054s; original blocked/recovered PNG/XML inspected.
-Publishing601e518 Android10 38096204770 intended RED7/1 cases25.828s, missing
-Save profile after exact typed bio, other6pass; inspected/retained. SourcePASS.
-Spec0; Standards pre-submit zero-TX gap fixed in new assertion. First explicit
-publisher saves edits before fresh baseline, candidate before broadcast, retains
-original retries, reads on reopen without send and stops superseded retries.
-Exact author/body/time/recipient lookup proves availability. Draftv2 candidate
-record keeps v1 direct changes/alias/AAD; import uses hasWork/failure unknown.
-Local buildPASS2m4s; dual7-case GREEN and bounded review pending. Independent
-wire verifier syntax only; actual specimen/cross-client proof still pending. Then publishing/candidates, media, recovery, cross-client verification and final
-full checks/reviews remain. No APK or production node/on-chain write.
+Added one regression: newer same-author snapshot appears during real publish,
+then close Activity directly (no public refresh), serve only stale original,
+reopen require newer public bio + superseded/disabled Retry + original edit and
+no extra TX. Local buildPASS1m4s with recovered same-container exit0 after
+client143; no compiler active. Intended8-case RED/review pending. No barrier fix
+yet. Then distinct historical-availability tracer/fix, candidate failures/recovery,
+actual process death, media, cross-client, full checks/reviews remain. No APK or
+production node/on-chain write; continue sequentially without owner review gate.
 
 #17 remains open for actual YouTube provider playback acceptance. Its full
 immutable534330e pair passed127 cases each; that is not acceptance of later
