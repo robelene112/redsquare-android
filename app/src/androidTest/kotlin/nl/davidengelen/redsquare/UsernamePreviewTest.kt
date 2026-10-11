@@ -311,10 +311,11 @@ class UsernamePreviewTest {
             }
         } catch (failure: Throwable) { primary = failure; throw failure }
         finally {
-            if (device.executeShellCommand("run-as nl.davidengelen.redsquare.dev.test rm files/wallet-test-documents/00-username-import.json").isNotBlank()) {
-                val cleanup = IllegalStateException("Could not clear the public username import fixture")
-                if (primary != null) primary.addSuppressed(cleanup) else throw cleanup
-            }
+            try {
+                check(device.executeShellCommand("run-as nl.davidengelen.redsquare.dev.test rm files/wallet-test-documents/00-username-import.json").isBlank()) {
+                    "Could not clear the public username import fixture"
+                }
+            } catch (cleanup: Throwable) { if (primary != null) primary.addSuppressed(cleanup) else throw cleanup }
         }
     }
 
