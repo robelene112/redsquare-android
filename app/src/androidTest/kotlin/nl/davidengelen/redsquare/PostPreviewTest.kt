@@ -738,8 +738,10 @@ class PostPreviewTest {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         withFailureCapture({ captureNativeScreen(java.io.File(instrumentation.targetContext.cacheDir,
             "posting-evidence/import-picker-failure.png")) }) {
-            val reference = java.io.File(instrumentation.context.filesDir, "wallet-test-documents/reference-import.json")
-            check(reference.isFile && reference.length() > 0) { "Reference import fixture was not provisioned" }
+            val device = androidx.test.uiautomator.UiDevice.getInstance(instrumentation)
+            val size = device.executeShellCommand("run-as nl.davidengelen.redsquare.dev.test stat -c %s files/wallet-test-documents/reference-import.json")
+                .trim().toLongOrNull()
+            check(size != null && size > 0) { "Reference import fixture was not provisioned" }
             chooseWalletImport(ui, "reference-import.json", "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR")
         }
     }
