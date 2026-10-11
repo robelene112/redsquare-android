@@ -234,6 +234,7 @@ class UsernamePreviewTest {
                         ui.onNode(hasSetTextAction()).performTextReplacement("NativeCase7")
                         ui.onNodeWithText("Check name").performClick()
                         waitForText("This username is currently available. Checking does not reserve it.")
+                        assertTrue("Availability checking must never publish", peer.transactions.isEmpty())
                         ui.onNodeWithText("Register name").performClick()
                         waitForText("This username is registered to your wallet.")
                         ui.onNodeWithText("NativeCase7@saito").assertIsDisplayed()
