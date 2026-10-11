@@ -1,8 +1,10 @@
 package nl.davidengelen.redsquare
 
 import android.content.Intent
+import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
+import androidx.compose.ui.text.AnnotatedString
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.gson.JsonObject
@@ -99,7 +101,8 @@ class UsernamePreviewTest {
                     assertEquals("Registry", signed.body.get("module").asString)
                     assertEquals("register", signed.body.get("request").asString)
                     assertEquals("NativeCase7@saito", signed.body.get("identifier").asString)
-                    ui.onNode(hasSetTextAction()).assertIsNotEnabled()
+                    val frozenName = SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString("NativeCase7"))
+                    ui.onNode(frozenName).assertIsNotEnabled()
                     capture("username-pending.png", pending)
                     File(context.cacheDir, "username-evidence/username-native-frame.json").writeText(JsonObject().apply {
                         addProperty("native", true)
@@ -110,7 +113,7 @@ class UsernamePreviewTest {
                     openUsername()
                     waitForEnabled("Retry registration")
                     ui.onNodeWithText(pending).assertIsDisplayed()
-                    ui.onNode(hasSetTextAction()).assertIsNotEnabled()
+                    ui.onNode(frozenName).assertIsNotEnabled()
                     assertEquals("Reopening must only reconcile, never broadcast", 1, peer.transactions.size)
                     capture("username-pending-reopened.png", pending)
                     ui.onNodeWithText("Retry registration").performClick()
