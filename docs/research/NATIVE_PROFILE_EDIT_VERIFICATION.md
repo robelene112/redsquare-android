@@ -464,3 +464,33 @@ retry still blocked for that editor. Healthy-storage fresh reopening/stale reads
 is the current tracer; storage-failure restart durability is not established by
 this result. Historical-availability handling remains a separate open finding.
 Local compilation and dual focused eight-case GREEN are pending.
+
+Healthy-storage fix5fc6d78 local debug/test assembly PASS1m55s and source
+38097639261 PASS. Focused Android10 38097639188 advances past the original
+RED: newer public bio, superseded status and disabled Retry all pass, then
+fails at line153 because hasSetTextAction is absent on the deliberately disabled
+candidate field (eight cases31.559s, one failure). Diagnostic PNG individually
+viewed; it captures a public-profile window rather than the semantic editor
+assertion, so it is not positive editor evidence. Correct only the field selector
+to exact EditableText and retain explicit displayed/disabled assertions. No
+production change. Android17 38097640515 also fails only that selector at153:
+eight cases79.589s. Original PNG individually viewed shows superseded status,
+disabled Retry and exact retained disabled bio. Both SDK logs/diagnostics retained
+profile-supersession-disabled-field. Selector-only local assembly PASS1m2s.
+Successful publisher captures now also require positive expected status text
+in the actual UiAutomator window before PNG/XML capture. Failure diagnostics
+remain ungated to retain the actual unexpected window. This guards against
+claiming a lagging Android window as positive Compose editor evidence.
+Window-gated local build client exited143 without a compiler diagnostic and
+container was already removed when checked. A retained fresh verification
+container exited0, BUILD SUCCESSFUL18s with all68 tasks up-to-date. This confirms
+assembly of the corrected fixture; do not infer an exit status for the original
+interrupted client. Corrected dual runtime verification is pending.
+
+Bounded ea37571...5fc6d78 Spec0 new; Standards1 residual hard preservation
+finding: if public-cache saving fails, saving the separate encrypted old candidate
+can still permit Back/settings/import and a new editor can lose the RAM-only
+block. Honest evidence limits do not resolve this source path. After healthy
+supersession GREEN, next tracer must exercise this failed-save/navigation escape,
+then fix durable-barrier or fail-closed navigation. Historical availability stays
+separate and open. No first publisher or ticket18 completion claimed.

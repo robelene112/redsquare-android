@@ -47,10 +47,17 @@ reopen require newer public bio + superseded/disabled Retry + original edit and
 no extra TX. Native RED38097083171: eight cases29.678s, exactly missing newer
 bio at fresh Activity line148; other seven pass. Original before/failure PNGs
 individually inspected, separate XML/log retained profile-supersession-red.
-Minimal fix saves merged verified newer cache before returning settled, after
-blocking retry in memory. Save failure surfaces recovery error; restart under
-failed storage is not yet proved. Local build/dual focused GREEN/review pending.
-Then distinct historical-availability tracer/fix, candidate failures/recovery,
+Minimal fix5fc6d78 saves merged verified newer cache before returning settled,
+after blocking retry in memory. Local assembly PASS1m55s/source38097639261 PASS.
+Focused10/17 38097639188/38097640515 now pass newer public bio/supersession/
+disabled Retry, fail only disabled field hasSetTextAction selector at153,
+eight cases31.559s/79.589s. Fix selector to exact EditableText displayed/disabled,
+and positively gate successful PNG/XML on expected UiAutomator window text.
+No production change; corrected local build/dual GREEN pending. Bounded review
+Spec0 new; Standards1 residual hard finding: failed public-cache save can still
+allow separate draft save/navigation and lose RAM-only block. Next failed-save/
+navigation tracer and durable barrier fix before historical-availability tracer.
+Then candidate failures/recovery,
 actual process death, media, cross-client, full checks/reviews remain. No APK or
 production node/on-chain write; continue sequentially without owner review gate.
 

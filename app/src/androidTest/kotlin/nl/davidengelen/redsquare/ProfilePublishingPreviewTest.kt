@@ -8,6 +8,8 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
+import androidx.test.uiautomator.By
+import androidx.test.uiautomator.Until
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import nl.davidengelen.redsquare.saito.*
@@ -114,7 +116,7 @@ class ProfilePublishingPreviewTest {
                         ui.waitUntil(25_000) { ui.onAllNodesWithText(status).fetchSemanticsNodes().isNotEmpty() }
                         ui.onNodeWithText(status).assertIsDisplayed()
                         assertEquals(1, peer.transactions.size)
-                        capture(if (supersession) "superseded-profile-before-reopen.png" else "bio-snapshot-available.png")
+                        capture(if (supersession) "superseded-profile-before-reopen.png" else "bio-snapshot-available.png", status)
                         if (!supersession) File(context.cacheDir, "profile-edit-evidence/profile-snapshot-frames.json").writeText(
                             JsonObject().apply {
                                 addProperty("synthetic", true)
@@ -150,9 +152,9 @@ class ProfilePublishingPreviewTest {
                             ui.waitUntil(20_000) { ui.onAllNodesWithText(supersededStatus).fetchSemanticsNodes().isNotEmpty() }
                             ui.onNodeWithText(supersededStatus).assertIsDisplayed()
                             ui.onNodeWithText("Retry profile").assertIsNotEnabled()
-                            ui.onNode(hasSetTextAction()).assert(
-                                SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(bio)))
-                            capture("superseded-profile-reopened-stale.png")
+                            ui.onNode(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(bio)))
+                                .assertIsDisplayed().assertIsNotEnabled()
+                            capture("superseded-profile-reopened-stale.png", supersededStatus)
                             assertEquals(1, peer.transactions.size)
                             assertEquals(owner, store.loadExisting().publicKey)
                             peer.assertHealthy()
@@ -176,10 +178,11 @@ class ProfilePublishingPreviewTest {
         }
     }
 
-    private fun capture(name: String) {
+    private fun capture(name: String, expectedText: String? = null) {
         ui.waitForIdle()
         val file = File(context.cacheDir, "profile-edit-evidence/$name").apply { parentFile?.mkdirs() }
         val device = UiDevice.getInstance(instrumentation)
+        expectedText?.let { check(device.wait(Until.hasObject(By.text(it)), 10_000)) }
         check(device.takeScreenshot(file))
         device.dumpWindowHierarchy(File(file.parentFile, file.nameWithoutExtension + ".xml"))
     }
