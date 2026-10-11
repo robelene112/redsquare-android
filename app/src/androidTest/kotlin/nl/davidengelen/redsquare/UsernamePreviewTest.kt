@@ -35,6 +35,55 @@ class UsernamePreviewTest {
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
     }
 
+    @Test fun aVerifiedOtherAccountNameIsSharedByFeedProfileConversationAndReply() = withRegistryWallet(
+        SaitoWallet.fromPrivateKey("0".repeat(63) + "2") // Public unsafe reader fixture; name belongs to scalar1.
+    ) { reader ->
+        val registry = instrumentation.context.assets.open("native-registry-reference.json").bufferedReader()
+            .use { JsonParser.parseReader(it).asJsonObject }
+        val post = instrumentation.context.assets.open("native-posting-reference.json").bufferedReader()
+            .use { JsonParser.parseReader(it).asJsonObject }
+        val transaction = nl.davidengelen.redsquare.saito.SaitoTransaction.restore(post.get("networkBase64").asString)
+        val row = postingArchiveRow(transaction)
+        val author = post.get("author").asString
+        assertNotEquals(reader.publicKey, author)
+        val text = post.getAsJsonObject("body").getAsJsonObject("data").get("text").asString
+        val peer = discoveryPeer(author, "[$row]") { registry.getAsJsonArray("rows").toString() }
+        peer.start().use { server ->
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                .putExtra("usernameFixtureRegistrar", true)).use {
+                withFailureCapture({ capture("username-shared-name-failure.png") }) {
+                    waitForText(text)
+                    if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
+                    waitForText("NativeCase7@saito")
+                    ui.onNodeWithText("NativeCase7@saito").assertIsDisplayed()
+                    assertTrue(peer.registryQueries.any { it.get("request").asString == "registry query" })
+                    assertTrue(peer.registryQueries.any { it.get("request").asString == "registry namecheck" })
+                    capture("username-shared-feed.png", "NativeCase7@saito")
+                    ui.onNodeWithText("NativeCase7@saito").performClick()
+                    waitForText("Profile")
+                    ui.onNodeWithText(author).assertIsDisplayed()
+                    ui.onNodeWithText("NativeCase7@saito").assertIsDisplayed()
+                    ui.onNodeWithText("Back").performClick()
+                    waitForText(text)
+                    ui.onNodeWithText(text).performClick()
+                    waitForEnabled("Reply")
+                    ui.onNodeWithText("NativeCase7@saito").assertIsDisplayed()
+                    capture("username-shared-conversation.png", "NativeCase7@saito")
+                    ui.onNodeWithText("Reply").performClick()
+                    waitForText("Replying to NativeCase7@saito")
+                    ui.onNodeWithText("Replying to NativeCase7@saito").assertIsDisplayed()
+                    ui.onNodeWithText("Back").performClick()
+                    ui.onNodeWithText("Wallet").performClick()
+                    assertEquals(reader.publicKey, displayedWalletAddress(ui))
+                    assertTrue(peer.clientKeys.all { it == reader.publicKey })
+                    assertTrue("Name display must not register or publish a post", peer.transactions.isEmpty())
+                    peer.assertHealthy()
+                }
+            }
+        }
+    }
+
     @Test fun anExistingWalletDiscoversItsVerifiedNameWithoutRegisteringAgain() = withRegistryWallet { fixture ->
         val reference = instrumentation.context.assets.open("native-registry-reference.json").bufferedReader()
             .use { JsonParser.parseReader(it).asJsonObject }
@@ -521,7 +570,7 @@ class UsernamePreviewTest {
         }
     }
 
-    private fun discoveryPeer(publicKey: String, proof: () -> String) = ControlledFeedPeer("[]", registryResponse = { criteria ->
+    private fun discoveryPeer(publicKey: String, rows: String = "[]", proof: () -> String) = ControlledFeedPeer(rows, registryResponse = { criteria ->
         when (criteria.get("request").asString) {
             "registry query" -> {
                 assertEquals(listOf(publicKey), criteria.getAsJsonArray("keys").map { it.asString })
@@ -533,10 +582,11 @@ class UsernamePreviewTest {
             }
             else -> error("Unexpected discovery request")
         }
-    }, archiveResponse = { "[]" })
+    }, archiveResponse = { criteria ->
+        if (criteria.get("field1").asString == "RedSquare" && !criteria.has("field2")) rows else "[]"
+    })
 
-    private fun withRegistryWallet(block: (SaitoWallet) -> Unit) {
-        val fixture = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe fixture only.
+    private fun withRegistryWallet(fixture: SaitoWallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "1"), block: (SaitoWallet) -> Unit) {
         val walletStore = AndroidWalletStore(context)
         val original = walletStore.loadOrCreate()
         if (original.publicKey != fixture.publicKey) walletStore.replace(original, fixture)
