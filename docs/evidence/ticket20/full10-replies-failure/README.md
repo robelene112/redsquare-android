@@ -1,0 +1,7 @@
+# Android 10 offline Replies fixture interruption
+
+Run38162586525 ataa2cf365b72736930949f7120fb26b8c4928c098 passes source/core/release/lint, then browse reports eight cases, seven passes and one timeout at307 in34.331s. The corrected cached root scroll/display gate passes and produces its positive capture. Next, the same old pre-scroll lazy-node wait fails on Nested Saito reply after selecting Replies. Personal controls and remaining full device stages are not reached.
+
+Root individually viewed all three retained original PNGs and separately parsed all three XMLs. The positive screenshot shows the literal cached reference post after scrolling. The in-scope failure shows selected Replies and header/offline warnings filling the viewport. The outer launcher capture follows Activity closure and does not show the app's failure state. These observations do not prove an offscreen reply exists or establish a product/cache defect.
+
+Fixture correction uses the existing enabled Profile Refresh to await settled history for Posts, Replies and Likes, then searches the lazy list and asserts the exact expected cached text is displayed. Fifteen-second observation deadlines remain; no direct cache write, assertion removal or product change. Passing full Android10 retry is still required, while original same-product Android17 remains active. No ticket closure, phone APK, power-loss/device or live-write claim.

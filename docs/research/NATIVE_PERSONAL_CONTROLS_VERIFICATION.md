@@ -402,3 +402,17 @@ retry are next. Original full17run38161793299 remains independent.
 
 Readiness correction local native-test compile PASS1m13s. Bounded fix reviews
 and the corrected full Android10 retry remain next. No final acceptance yet.
+
+Full Android10 retry38162586525 ataa2cf36 reports8browse cases,7PASS/1failure
+in34.331s. Cached root scroll/display and its positive capture pass. The next
+old pre-scroll wait fails at307 on Replies. Root viewed3originals and separately
+parsed3XML; full10-replies-failure retains8hashes. Failure header fills viewport;
+outer launcher is after Activity closes, not app evidence. Offscreen reply/cache
+existence is not independently proved. Fixture now consistently waits for
+enabled Profile Refresh, scrolls lazy list, asserts exact Posts/Replies/Likes
+content; bounded15s unchanged/no production mutation. Recompile/review/full10
+retry remain required; original full17run38161793299 remains active. Source push
+38162581617 passes; #21 remains open.
+
+Consistent offline-tab readiness/scroll correction compiles PASS1m12s.
+Both bounded reviews and corrected full Android10 retry remain next.

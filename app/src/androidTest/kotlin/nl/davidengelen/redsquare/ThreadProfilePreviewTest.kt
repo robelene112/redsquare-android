@@ -299,16 +299,16 @@ class ThreadProfilePreviewTest {
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Posts")).fetchSemanticsNodes().isNotEmpty() }
                     // The offline header can fill a small screen before this lazy row is composed.
                     // Enabled Profile Refresh also confirms cached history has finished loading.
-                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    waitForProfileHistory()
                     scrollProfileTo("Native Red Square reference post")
                     captureProfileObservation("cached-profile-posts-after-restart", "Native Red Square reference post")
                     scrollProfileTo("Replies")
                     ui.onNodeWithText("Replies").performClick()
-                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Nested Saito reply")).fetchSemanticsNodes().isNotEmpty() }
+                    waitForProfileHistory()
                     scrollProfileTo("Nested Saito reply")
                     scrollProfileTo("Likes")
                     ui.onNodeWithText("Likes").performClick()
-                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Independent Saito reply")).fetchSemanticsNodes().isNotEmpty() }
+                    waitForProfileHistory()
                     scrollProfileTo("Independent Saito reply")
                     captureProfileObservation("cached-profile-likes-after-restart", "Independent Saito reply")
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText("Profile history could not be refreshed. Available posts remain visible.")).fetchSemanticsNodes().isNotEmpty() }
@@ -505,6 +505,10 @@ class ThreadProfilePreviewTest {
                 }
             }
         }
+    }
+
+    private fun waitForProfileHistory() {
+        ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
     }
 
     private fun scrollProfileTo(text: String) {
