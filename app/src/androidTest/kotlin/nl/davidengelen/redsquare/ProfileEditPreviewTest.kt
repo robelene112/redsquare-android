@@ -269,7 +269,7 @@ class ProfileEditPreviewTest {
                         ui.onNodeWithText("Wallet").performClick()
                         assertEquals(outgoing.publicKey, displayedWalletAddress(ui))
                         ui.onNodeWithText("Import wallet").performScrollTo().performClick()
-                        chooseProfileImport(filename)
+                        chooseProfileImport(filename, incoming)
                         val selected = context.getString(R.string.wallet_import_address)
                         ui.waitUntil(15_000) { ui.onAllNodesWithContentDescription(selected).fetchSemanticsNodes().isNotEmpty() }
                         ui.onNodeWithContentDescription(selected).assertTextEquals(incoming)
@@ -303,13 +303,16 @@ class ProfileEditPreviewTest {
         }
     }
 
-    private fun chooseProfileImport(filename: String) {
+    private fun chooseProfileImport(filename: String, incoming: String) {
         val device = UiDevice.getInstance(instrumentation)
         val row = By.text(ExportTestDocumentsProvider.TITLE).res("android", "title")
         val drawer = By.res(Pattern.compile(".*:id/roots_list"))
+        val selected = By.desc(context.getString(R.string.wallet_import_address)).text(incoming)
         val deadline = SystemClock.uptimeMillis() + 30_000
         while (SystemClock.uptimeMillis() < deadline) {
             try {
+                // A slow window transition can complete after the post-click wait returns.
+                if (device.hasObject(By.pkg(context.packageName)) && device.hasObject(selected)) return
                 val opened = device.findObject(drawer)
                 if (opened != null) {
                     opened.findObject(row)?.click()
@@ -318,7 +321,7 @@ class ProfileEditPreviewTest {
                     val file = device.findObject(By.text(filename).res("android", "title"))
                     if (file != null) {
                         file.click()
-                        if (device.wait(Until.hasObject(By.pkg(context.packageName)), 2_000)) return
+                        device.wait(Until.hasObject(selected), 2_000)
                     } else device.findObject(By.desc("Show roots"))?.let {
                         it.click()
                         device.wait(Until.hasObject(row), 2_000)
@@ -383,7 +386,7 @@ class ProfileEditPreviewTest {
                     check(draft.delete() && preserved.renameTo(draft))
                     ui.onNodeWithText("Wallet").performClick()
                     ui.onNodeWithText("Import wallet").performScrollTo().performClick()
-                    chooseProfileImport("00-profile-import.json")
+                    chooseProfileImport("00-profile-import.json", "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR")
                     val selected = context.getString(R.string.wallet_import_address)
                     ui.waitUntil(15_000) {
                         ui.onAllNodesWithContentDescription(selected).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()

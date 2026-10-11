@@ -815,3 +815,27 @@ window and exact cancellation message before unchanged new-edit/no-TX/recovery
 assertions. Local assembly/dual native GREEN/committed review pending.
 Source493948d/38102826875 PASS core49/debug/test/release/lint, including revision and cancellation tracer.
 Cancellation fix local debug/test assembly PASS1m53s, retained exit0.
+
+Bounded493...eb8646c source reviews both zero. Actual10 eb8646c/38103280834
+12 cases74.258s: ten pass/one API30+ skip/one unrelated existing first import
+helper failure at ProfileEditPreviewTest330, reference document not displayed.
+New real cancellation/new-edit/fresh-draft case passes all assertions. Three
+original PNGs individually viewed: new bio/Save enabled before and after fresh
+Activity; failed helper capture already shows returned app with correct selected
+wallet preview and pending-work warning. Matching XML confirms selected address
+and package. Retained profile-import-cancel-first/android10, including rawlog.
+Helper checks app return only immediately after file click; when that short wait
+expires it never recognizes later success. Bounded fixture correction observes
+returned app AND exact expected selected-wallet address at every loop iteration;
+keep exact filename/provider/drawer selection and30s deadline. Wait for same
+selected address after click, not transient package alone. No production change
+or acceptance assertion removed. Corrected10 proof pending;17 original pending.
+
+Android17 original eb8646c/38103280642 GREEN all12/103.519s. Both original
+cancellation new-edit/recovered-draft PNGs individually viewed: exact next bio
+and enabled Save profile before/after fresh Activity, no old availability label.
+Exact PNG/XML/rawlog retained profile-import-cancel-green/android17. This
+includes revision/picker packages/current-availability production corrections.
+Current picker-helper correction changes tests only and strengthens final return
+recognition; corrected outstanding10 pending. No full/process acceptance yet.
+Picker return fixture local debug/test assembly PASS1m9s, retained exit0.

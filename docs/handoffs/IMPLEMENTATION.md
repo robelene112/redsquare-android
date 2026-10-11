@@ -137,7 +137,15 @@ expecteddisabledSave at196 afterrealSAFcancel/newedit. OriginalPNG inspected,
 XML/log retainedprofile-import-cancel-red. ExistingrevisionflowsPASS.
 Livecurrentavailability nowclears for nocandidate/different/supersedingrecord.
 FixtureacceptsbothobservedDocumentsUI packages,boundedBackthroughdrawer and
-positivereturnedapp/cancelmessage. Localbuild/dualruntime/reviewpending.
+positivereturnedapp/cancelmessage. LocalfixbuildPASS1m53,bounded493...eb8646c reviewsbothzero.
+Android17 38103280642 all12GREEN103.519s, twooriginals individuallyinspected,
+XML/rawlogretainedprofile-import-cancel-green/android17. Android10
+38103280834 12cases74.258s tenpass/skip/oneexistingfirstimporthelperfail.
+Newcancel/newedit/recoverypasses; failurePNG/XMLalreadyshow correctreturned
+walletpreview. Threeoriginals inspected/retainedprofile-import-cancel-first.
+Helper nowrecognizesreturnedapp+exactselectedaddress oneachloopiteration
+withsamefilename/provider/deadline and strongerpostclickpositive gate.
+No productionchange; localfixturebuild/corrected10/reviewpending.
 No scheduler-race reproduction claimed.
 Recovery/process/full acceptance remains open.
 Then candidate failures/recovery,
