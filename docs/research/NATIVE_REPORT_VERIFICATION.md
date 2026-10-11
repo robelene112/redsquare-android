@@ -60,3 +60,11 @@ routing/receipt/retained-post assertions remain. Done dismisses result before
 navigation. Recovery opens its details via explicit Retry report, still requires
 retained unknown state and exact bytes/no auto send. Persistence is unchanged
 and expected to remain RED until its own next implementation slice.
+
+Bounded correction Standards review reports2findings: stale active handoff and
+Node Buffer.slice aliasing in reference negative check. Handoff is updated;
+Buffer.from fixes copy. Both helpers rerun against unchanged retained original
+PASS; independent Python SHA matches both corrected reports (5b3f3700...eeeef6).
+Original signature validation preceded tampering and was valid; original output
+hash was defective, not evidence that a different specimen was sent. No native
+source or routing assertion changed. See corrected first-green README/manifests.

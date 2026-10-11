@@ -28,7 +28,7 @@ transaction.generate_hash_for_signature();
 const hash = Buffer.from(transaction.get_hash_for_signature()).toString('hex');
 const signature = transaction.signature;
 assert(new EC('secp256k1').verify(hash, {r: signature.slice(0, 64), s: signature.slice(64)}, point.toString('hex'), 'hex'));
-const damaged = bytes.slice(); damaged[damaged.length - 2] ^= 1;
+const damaged = Buffer.from(bytes); damaged[damaged.length - 2] ^= 1;
 const changed = wasm.WasmTransaction.deserialize(damaged); changed.generate_hash_for_signature();
 assert(!new EC('secp256k1').verify(Buffer.from(changed.get_hash_for_signature()).toString('hex'),
   {r: signature.slice(0, 64), s: signature.slice(64)}, point.toString('hex'), 'hex'));

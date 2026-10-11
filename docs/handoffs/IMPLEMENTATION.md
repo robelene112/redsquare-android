@@ -260,10 +260,21 @@ pinnedWASM/Elliptic and both pinned extracted handlers against resident/archive/
 absent adapters; even absent-target returns{}. No deployed/moderator/chain proof.
 Both bounded first-slice review axes0findings through567a8a9.
 
-Current HEAD0378129 introduces second vertical RED: lost acknowledgement then
-Activity.recreate must retain uncertainty, no auto send, and explicit exact-byte
-retry. Run38169041012 fails recovery at95:2cases/1PASS/1FAIL27.207s. Root3originals/separate3XML reveal acknowledged/unknown status text absent from native viewport despite Compose assertion passing. A new native text-presence gate is added before UI correction. No persistence product changes yet. Contracts and
-chronology NATIVE_REPORT_VERIFICATION.md; durable ticket21/first-red/first-green.
+Recovery checkpoint0378129 introduces lost acknowledgement then Activity.recreate:
+retain uncertainty, no auto send and explicit exact-byte retry. Run38169041012
+fails recovery at95:2cases/1PASS/1FAIL27.207s. Root3originals/separate3XML reveal
+acknowledged/unknown text absent from native viewport despite Compose assertion.
+Native text-presence gate6160165 then fails both cases in38169454650,24.452s;
+root2originals/separate2XML confirm absence. No exact layout cause is claimed.
+Latest product checkpoint75cd94b displays named result dialogs with Done and
+uncertainty in explicit Retry confirmation. Pending38169816452 verifies actual
+native visibility; persistence is intentionally unchanged/unfinished. Changed
+test interaction dismisses a result before navigation and opens Retry details;
+all routing/receipt/no-removal/no-auto/exact-byte criteria stay in place.
+Contracts/chronology NATIVE_REPORT_VERIFICATION.md; durable ticket21/first-red,
+first-green, reopen-red and native-feedback-red. Both bounded correction review
+axes are in progress. One handoff stale-current-checkpoint finding is corrected
+here; code/source findings still pending.
 Ticket22 remains incomplete: failure/durability/identity/backend isolation,
 actual process interruption and final both-SDK acceptance/reviews still required.
 Its source contract is prepared in NATIVE_DISCOVERY_MODERATION_CONTRACT.md and

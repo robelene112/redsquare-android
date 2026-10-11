@@ -23,3 +23,11 @@ No deployed report, chain, whole app or physical-device proof. Independent
 runtime/version/source hashes are retained in frame-proof.json/receiver-proof.json.
 Both bounded first-slice review axes report0actionable findings through567a8a9;
 durable failure/restart recovery remains explicitly upcoming work.
+
+Correction after bounded Standards review: original negative check used Node
+Buffer.slice, which aliased the native frame. Signer verification had passed
+before tampering, but output hash identified modified bytes. Buffer.from now
+copies the tampered specimen. Both pure helpers rerun on unchanged retained
+original PASS; Python independently hashes decoded frame bytes and requires
+both reports to identify5b3f37002502f603c4456ff0646b7e18d56308d4fb826b197fec944e61eeeef6.
+No native source/acceptance predicate or original specimen changed.
