@@ -22,6 +22,9 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.withContext
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.registry.registeredIdentity
+import nl.davidengelen.redsquare.registry.LocalRegistryAuthority
+import nl.davidengelen.redsquare.registry.RegistryLookup
+import nl.davidengelen.redsquare.registry.RegisteredNameStore
 import nl.davidengelen.redsquare.saito.*
 
 /** Retained by the wallet/backend navigation memory, never by an old coroutine scope. */
@@ -38,9 +41,16 @@ internal class SearchViewState {
     var pagingUnavailable by mutableStateOf(false)
     var limitReached by mutableStateOf(false)
     var saveError by mutableStateOf(false)
+    var exactPerson by mutableStateOf<SaitoRegisteredName?>(null)
+    var usernameFailed by mutableStateOf(false)
+    var usernameSaveError by mutableStateOf(false)
+    var usernamePending = false
 
     fun search() {
         searchedQuery = query.trim()
+        if (exactPerson?.identifier != searchedQuery) exactPerson = null
+        usernamePending = searchedQuery.matches(Regex("[A-Za-z0-9]{1,45}@saito"))
+        usernameFailed = false
         val before = System.currentTimeMillis() + 1
         cursors = listOf("RedSquare", "RedSquareRetweet").associateWith { before }
         pending = cursors.keys.toList()
@@ -61,6 +71,7 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
     onIdentity: (String) -> Unit, social: SocialState?, quotes: QuoteState?, onQuote: (FeedPost) -> Unit) {
     val context = LocalContext.current.applicationContext
     val keyboard = LocalSoftwareKeyboardController.current
+    val registrar = LocalRegistryAuthority.current
     val revisions = remember(backend) { AndroidPostRevisions(context, backend) }
     val cache = remember(backend) { AndroidSearchCache(context, backend) }
     val revision by AndroidPostRevisions.changes.collectAsState()
@@ -100,6 +111,27 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
         try {
             withContext(Dispatchers.IO) {
                 SaitoPeer(wallet, endpoint).use { peer ->
+                    val identifier = withContext(Dispatchers.Main.immediate) {
+                        view.searchedQuery.takeIf { view.usernamePending }
+                    }
+                    if (identifier != null) {
+                        try {
+                            val person = RegistryLookup(peer, registrar).namecheck(identifier)?.takeIf { it.active }
+                            withContext(Dispatchers.Main.immediate) { view.exactPerson = person }
+                            val saved = try {
+                                person?.let { RegisteredNameStore(context, it.publicKey, registrar).save(it, backend) }
+                                true
+                            } catch (cancelled: CancellationException) { throw cancelled }
+                            catch (_: Exception) { false }
+                            withContext(Dispatchers.Main.immediate) { view.usernameSaveError = !saved }
+                        } catch (_: TimeoutCancellationException) {
+                            currentCoroutineContext().ensureActive()
+                            withContext(Dispatchers.Main.immediate) { view.usernameFailed = true }
+                        } catch (cancelled: CancellationException) { throw cancelled }
+                        catch (_: Exception) { withContext(Dispatchers.Main.immediate) { view.usernameFailed = true } }
+                        // Paging/retrying post streams must not repeat a completed username attempt.
+                        withContext(Dispatchers.Main.immediate) { view.usernamePending = false }
+                    }
                     for ((stream, before) in pages) {
                         if (withContext(Dispatchers.Main.immediate) { view.limitReached }) break
                         val criteria = JsonObject().apply {
@@ -182,12 +214,22 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
         Text(stringResource(R.string.search_coverage), style = MaterialTheme.typography.bodySmall)
         if (loading) Text(stringResource(R.string.search_loading))
         if (view.failed) Text(stringResource(R.string.search_error))
+        if (view.usernameFailed) Text(stringResource(R.string.search_username_error))
         if (view.unreadable) Text(stringResource(R.string.search_unreadable), style = MaterialTheme.typography.bodySmall)
         if (view.pagingUnavailable) Text(stringResource(R.string.search_paging_unavailable), style = MaterialTheme.typography.bodySmall)
         if (view.limitReached) Text(stringResource(R.string.search_limit), style = MaterialTheme.typography.bodySmall)
-        if (view.saveError) Text(stringResource(R.string.search_save_error), style = MaterialTheme.typography.bodySmall)
+        if (view.saveError || view.usernameSaveError) Text(stringResource(R.string.search_save_error), style = MaterialTheme.typography.bodySmall)
         if (view.request > 0 && !loading && !view.failed && !view.limitReached && matches.isEmpty()) Text(stringResource(R.string.search_empty))
         LazyColumn(Modifier.weight(1f).fillMaxWidth()) {
+            view.exactPerson?.takeIf { view.request > 0 && it.identifier == view.searchedQuery }?.let { person ->
+                item(key = "person:${person.publicKey}") {
+                    Column(Modifier.fillMaxWidth().clickable { onIdentity(person.publicKey) }.padding(vertical = 12.dp)) {
+                        Text(person.identifier, style = MaterialTheme.typography.titleMedium)
+                        Text(person.publicKey, style = MaterialTheme.typography.bodySmall)
+                    }
+                    HorizontalDivider()
+                }
+            }
             if (view.request > 0) items(matches, key = { it.id }) { post ->
                 Column(Modifier.padding(vertical = 12.dp)) {
                     Text(registeredIdentity(post.author).name, Modifier.clickable { onIdentity(post.author) },

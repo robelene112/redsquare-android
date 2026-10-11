@@ -73,8 +73,12 @@ pairs and rawlog retained ticket19/cache-green; separately inspectedimages/XML.
 Samewallet/isolation/noTX gates PASS; no processdeath/1000/Pixel/full claim.
 Push38136755184 source/core/release/lintPASS. Standardsbudget-duplication
 judgment resolved9a45b79, bothaxes0 and compilePASS2m25s.
-Next single exactsignedusername primarytracer nowwritten; compile/REDpending,
-no peopleproductionimplementation. Existing3journeyswillverifybudgetregression. People/durable cache/full acceptance pending;
+Next single exactsignedusername primarytracer d32c5d0 compilePASS1m25s,
+bothsourceaxes0; nativeRED38137503072: existing3PASS/new1FAIL onlymissing
+resolvedliteralkey,line67,50.979s. Budgetregression PASS; originalinspected
+peoplefailurePNG/XML/log ticket19/people-red. Exactcurrent-registrar verified
+username/person/profile path nowadded; compile/review/GREENpending. Known
+people/key/negativecasesstillpending. People/durable cache/full acceptance pending;
 no #20 acceptance yet.
 Accepted seams1–4 unchanged.
 Search preparation ignored .scratch/search-design.md plus protected contract.

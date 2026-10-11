@@ -86,3 +86,8 @@ is unchanged. Compile and bounded source re-review pending.
 Budget cleanup source re-review90346aa…9a45b79:0 findings per axis.
 CombinedcompilePASS2m25s; native regression joins the next exact-username
 people RED run. People production implementation is still absent.
+
+Exact-name tracer atd32c5d0:0 source findings per axis. Empty posts/unsigned
+hints cannot supply the literal name-to-key result, positive exact signed
+namecheck/profile/back/recreation/identity/nosend gates retained. Compilation
+PASS1m25s; native RED38137503072 pending. No live namespace readiness claim.

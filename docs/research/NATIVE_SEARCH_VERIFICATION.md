@@ -180,3 +180,27 @@ emulator/loopback registrar guard; no wallet replacement/private writes or
 production authority fallback. First people compilation/nativeRED pending;
 no production people implementation yet. Existing three cache/search journeys
 will also verify the shared-budget cleanup in that focused run.
+
+First exact-name tracer compilation PASS1m25s atd32c5d0, both source axes0
+tracer findings. Focused Android17 RED38137503072 dispatched on pushedsource;
+production people handling remains absent. Shared-budget and existing three
+primary search regression results will be audited from this same run.
+
+People RED38137503072 atd32c5d0:4cases50.979s, existing3PASS (sharedbudget
+regression included), new1FAIL only missingresolvedkey atline67. Earlier empty
+Archive/settled action gates pass; later signedlookup/profile/recreation/identity
+gates unexecuted. Root viewed in-scope original PNG/separateXML; rawlog and
+pair retained ticket19/people-red. Focused source/core/debug/testPASS. Exact
+name production implementation now begins; no live namespace/GREEN acceptance.
+
+## Exact username implementation
+
+After observed RED, exact supported@saito names use selected authenticated
+peer/current registrar verifier before publishing an active ownership record.
+Unsigned hints are unused. Optional verified-name persistence failures preserve
+mounted person with local-save qualifier. Registry failure is qualified
+independently and does not suppress available Archive results; Search history
+rechecks names, while post paging/retry does not repeat a finished name attempt.
+Selected-backend Profile navigation and retained exact-person state reuse the
+existing wallet/backend navigation. Compilation/review/GREEN pending. Known
+people prefixes, exact public keys and negative/recovery cases remain future.
