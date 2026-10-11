@@ -106,8 +106,19 @@ PASS qualified copy. Copy-only source38100547421 cancelled by next push.
 Media tracer reviews both zero. First picture/banner implementation now adds
 normalized crop bytes, whole-snapshot budget, encrypted drafts, save-before-picker,
 scrollable editor and shared bounded public raster rendering/default identicon.
-Removal not implemented. Local core/build, dual focused GREEN/committed-diff
-review pending.
+Removal not implemented. Local core49/buildPASS2m37; finalsessionrestriction compiled in source38101283097
+PASS49/release/lint. Bounded media reviews both zero. Dual native now fails only
+media exact UiAutomator status capture at222:10 38101286465 eleven/54.84s
+(nine pass/one API30+ skip/one fail),17 38101288539 eleven/104.869s (tenpass/
+onefail). Selection/deleted-source recovery/completecandidate/crop/pixels/oneTX/
+Composeavailable pass. Original PNGs individually viewed show availability and
+red/blue media, XML status absent with bio bounds overlapping region. Retained
+profile-media-accessibility-red; publicprofile/wire checks not reached.
+Raise fixed candidate-status paint order; same scrolling/nativeBy.textgates.
+Hypothesis until runtime. Export actualframe before capture; helperselected-media
+mode independently checks crypto+canonicalJPEG/literal8x8,12x4+unchangedmetadata.
+Existing actual bioframe stillPASS; current media specimens unavailable.
+Local build/dualruntime/committedreview pending.
 Recovery/process/full acceptance remains open.
 Then candidate failures/recovery,
 actual process death, media, cross-client, full checks/reviews remain. No APK or

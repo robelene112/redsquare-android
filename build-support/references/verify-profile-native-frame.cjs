@@ -37,9 +37,46 @@ assert(hop.subarray(0, 33).equals(authorPoint));
 assert(new EC('secp256k1').verify(wasm.hash(Buffer.concat([Buffer.from(signature, 'hex'), hop.subarray(33, 66)])),
   {r: hopSignature.slice(0, 64), s: hopSignature.slice(64)}, authorPoint.toString('hex'), 'hex'));
 const body = JSON.parse(Buffer.from(transaction.data).toString('utf8'));
+const selectedMedia = process.argv[3] === 'selected-media';
+assert(process.argv[3] === undefined || selectedMedia, 'Unknown Profile specimen scenario');
+function jpegDimensions(source, width, height) {
+  assert.equal(typeof source, 'string');
+  assert(source.length <= 512 * 1024);
+  assert(/^data:image\/jpeg;base64,[A-Za-z0-9+/]+={0,2}$/.test(source));
+  const payload = source.substring(source.indexOf(',') + 1), jpeg = Buffer.from(payload, 'base64');
+  assert.equal(jpeg.toString('base64'), payload);
+  assert.equal(jpeg.readUInt16BE(0), 0xffd8);
+  assert.equal(jpeg.readUInt16BE(jpeg.length - 2), 0xffd9);
+  let cursor = 2;
+  while (cursor < jpeg.length - 2) {
+    assert.equal(jpeg[cursor++], 0xff);
+    while (jpeg[cursor] === 0xff) cursor++;
+    const marker = jpeg[cursor++];
+    assert.notEqual(marker, 0xda, 'JPEG scan arrived before dimensions');
+    assert(cursor + 2 <= jpeg.length);
+    const length = jpeg.readUInt16BE(cursor);
+    assert(length >= 2 && cursor + length <= jpeg.length);
+    if ([0xc0, 0xc1, 0xc2].includes(marker)) {
+      assert(length >= 8);
+      assert.equal(jpeg[cursor + 2], 8);
+      assert.equal(jpeg.readUInt16BE(cursor + 3), height);
+      assert.equal(jpeg.readUInt16BE(cursor + 5), width);
+      assert.equal(jpeg[cursor + 7], 3);
+      return;
+    }
+    cursor += length;
+  }
+  assert.fail('No JPEG dimensions found');
+}
+if (selectedMedia) {
+  // Independently specified 12x8 red/blue test PNGs produce these literal crops.
+  jpegDimensions(body.data.image, 8, 8);
+  jpegDimensions(body.data.banner, 12, 4);
+}
 assert.deepEqual(body, {module: 'Profile', request: 'update profile', snapshot: 1, data: {
-  description: 'A newly published bio 🌱\nKeep my other profile fields',
-  image: 'https://images.example.test/avatar.png', banner: 'https://images.example.test/banner.png',
+  description: selectedMedia ? 'My selected profile 🌱\nKeep this bio and my identity' : 'A newly published bio 🌱\nKeep my other profile fields',
+  image: selectedMedia ? body.data.image : 'https://images.example.test/avatar.png',
+  banner: selectedMedia ? body.data.banner : 'https://images.example.test/banner.png',
   archive: ['https://archive.example.test'], extension: {theme: 'blue'}
 }});
 assert(Number(transaction.timestamp) > 1700001000004);
@@ -49,6 +86,7 @@ const envelope = {t: detached.toString('base64'), m: bytes.subarray(messageOffse
   opt: Buffer.from('{}').toString('base64')};
 assert.deepEqual(JSON.parse(specimen.envelope), envelope);
 console.log(JSON.stringify({result: 'PASS', native: true, reference,
+  scenario: selectedMedia ? 'selected-media' : 'retained-media-bio',
   boundary: 'Actual controlled Android Profile frame independently verified with pinned WASM/Elliptic. No live write, deployment, DOM or chain inclusion proof.',
   frameSha256: crypto.createHash('sha256').update(frame).digest('hex'),
   profile: {sig: signature, created_at: Number(transaction.timestamp), field2: owner, tx: JSON.stringify(envelope), body}}, null, 2));

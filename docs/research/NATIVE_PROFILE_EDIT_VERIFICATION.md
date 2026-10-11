@@ -666,3 +666,42 @@ First media core49/debug/test assembly PASS2m37s, retained container exit0.
 After that build, picker metadata tightened to carry and compare the full public
 wallet/backend/endpoint session plus media kind on restore. Hosted checks will
 compile/verify that final source; no private data enters SavedState.
+
+Bounded ea23279...d7e522f first media source review both axes zero. Hosted
+source38101283097 PASS49 core/debug/test/release/lint including final restored
+picker session restriction. Focused10 38101286465 fails11 cases54.84s (nine
+pass/one API30+ skip/one failure);17 38101288539 fails11 cases104.869s (ten
+pass/one failure). Both media flows advance through selection, deleted-source
+fresh recovery, complete candidate field/JPEG geometry/pixel verification,
+one transaction and positive Compose visible available status. Then the exact
+UiAutomator By.text availability capture gate fails at222. Original failure
+PNGs individually viewed: available status is visible above red avatar/blue
+banner while editor is scrolled down; XML omits that status and shows disabled
+bio accessibility bounds overlapping its visible region. Separate exact
+PNG/XML/rawlogs retained profile-media-accessibility-red. This is not media
+acceptance; Back/public-profile checks and independent current-frame verification
+were not reached, and actual frame export was after the failed capture.
+
+A bounded source correction raises fixed candidate-status paint order above
+the scrollable editor, so its accessibility region is considered above the
+expanded bio-field bounds. Keep the same scrolling, exact Compose/status and
+UiAutomator gates; no viewport-reset fixture workaround or timeout extension.
+This draw-order explanation remains a hypothesis until device verification.
+Move public actual-frame export before diagnostic capture, after the same one-TX/
+availability assertions, so a future capture failure cannot discard wire proof.
+Expand the independent verifier with an explicit selected-media scenario: same
+cryptographic/hop/envelope checks, literal bio/unchanged metadata, canonical bounded
+JPEG payloads with literal8x8 avatar/12x4 banner headers from12x8 sources. Native
+flow separately checks decoded pixel colors. Updated verifier PASS on the prior
+actual10 bio frame (SHA5a7028c90d3d544e1be4109c542d141a6ec3c57fa6a78d4c8327a823d84dbb59),
+retaining its original scenario; current media frame inputs not yet captured.
+Local assembly/new focused dual runtime and committed review pending.
+
+Independent reviewer inspected both originals and the exact matching
+[Compose UI 1.11.4 official source archive](https://dl.google.com/dl/android/maven2/androidx/compose/ui/ui-android/1.11.4/ui-android-1.11.4-sources.jar).
+SemanticsOwner.kt275–312 traverses children back to front and subtracts important
+nodes' touch bounds; SemanticsNode.kt301–318 obtains z-sorted children. This
+supports the bounded zIndex candidate. XML field bounds are Android10 y272..360
+versus scroll viewport296..624, Android17 y248..360 versus viewport272..624.
+The overlap is observed; attribution of the omission to it remains a hypothesis
+until fresh native verification. Retained local debug/test assembly PASS1m55s.

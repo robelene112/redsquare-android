@@ -17,6 +17,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.google.gson.JsonObject
@@ -313,7 +314,7 @@ internal fun ProfileEditorScreen(wallet: SaitoWallet, backend: SaitoBackend, end
                 available -> R.string.profile_available
                 previouslyAvailable -> R.string.profile_previous_available
                 else -> R.string.profile_pending
-            }))
+            }), Modifier.zIndex(1f))
             if (networkError) Text(stringResource(R.string.profile_publish_error))
             if (error) {
                 Text(stringResource(R.string.profile_draft_error))

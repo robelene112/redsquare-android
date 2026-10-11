@@ -112,12 +112,12 @@ class ProfileMediaPreviewTest {
                         ui.waitUntil(25_000) { ui.onAllNodesWithText(status).fetchSemanticsNodes().isNotEmpty() }
                         ui.onNodeWithText(status).assertIsDisplayed()
                         assertEquals(1, peer.transactions.size)
-                        capture("selected-profile-media-available.png", status)
                         File(context.cacheDir, "profile-edit-evidence/profile-media-frames.json").writeText(JsonObject().apply {
                             addProperty("synthetic", true)
                             addProperty("frame", Base64.getEncoder().encodeToString(peer.transactions.single()))
                             addProperty("envelope", requireNotNull(indexed.get()).get("tx").asString)
                         }.toString())
+                        capture("selected-profile-media-available.png", status)
                         ui.onNodeWithText("Back").performClick()
                         ui.waitUntil(20_000) { ui.onAllNodes(hasText("Edit profile") and hasClickAction()).fetchSemanticsNodes().isNotEmpty() &&
                             ui.onAllNodesWithText(context.getString(R.string.profile_details_loading)).fetchSemanticsNodes().isEmpty() }
