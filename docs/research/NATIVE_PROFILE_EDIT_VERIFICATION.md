@@ -1073,3 +1073,30 @@ updates. Local compilation, committed review and dual GREEN pending.
 Retirement local debug/test build PASS2m, exit0, retained rawlog. Actual second
 frame independent verifier adds literal new-edit scenario for latest bio/archive/
 extension/media; no runtime frame or receiver result claimed yet.
+
+Retirement bounded82ab54d...c78ebeb Spec1/Standards1 hard: pending cold preview
+can fall back to stale public media after private baseline is dropped into the
+full signed candidate; editable private preview also fails to merge newer public.
+Signing/retry bytes unaffected. Source-reachable, no runtime proof yet.
+
+Actual c78ebeb new-edit dual GREEN: Android10 38107420462 editor7/36.816s,
+publisher5/26.992s (fourpass/oneAPI30+skip),media2/18.153s,new1/11.001s;
+Android17 38107422060 editor7/83.711s,publisher5/33.546s,media2/21.458s,
+new1/12.216s, all15PASS. Source38107407359 PASS49/debug/test/release/lint.
+All twelve originals individually viewed; matching XML/exactrawlogs/actualframes
+and independent WASM/Elliptic plus four A/B server/browser receiver reports each
+retained profile-new-edit-green/android10|17. Framehashes10
+545cd83c81971a0197adafee74ec98ece2feafed1e21a1bd9ad2273e72963cdb;17
+0d5ea08d8a401713347eef4dcc4d5477aca1ac354487fb785163d4029d4aa8e7.
+Synthetic unavailable HTTPS images do not prove media download. No DOM/live chain
+or process-death claim. One new native preview tracer now written: initial public
+URLs stay cached, fresh signing baseline omits media, first pending mounted
+preview must use generated defaults; cold pending preview must retain exact
+omissions despite stale public reads, then exact confirmation must not rebroadcast.
+Expected RED is missing generated avatar on cold candidate. Production unchanged.
+Local build pending. IO-derived candidate/full editable merge fix remains proposal;
+no expensive crypto on typing/main and no stale produceState result may leak.
+
+Preview tracer local debug/test assembly PASS1m5s, exit0, retained rawlog. Two
+precompile fixture corrections cancelled and logged, not successful build claims.
+Only the final corrected fixture build counts. Native intended RED pending.

@@ -176,13 +176,117 @@ class ProfileNewEditPreviewTest {
         }
     }
 
-    private fun openEditor() {
+    @Test fun aColdPendingBioUpdateShowsItsSignedMediaOmissionsInsteadOfStalePublicImages() {
+        check(context.packageName == "nl.davidengelen.redsquare.dev")
+        check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
+        context.noBackupFilesDir.listFiles()?.filter {
+            it.name.startsWith("profilemeta.") || it.name.startsWith("profiledraft.")
+        }?.forEach { check(it.delete()) }
+        AndroidBackendStore(context).save(SaitoBackend.OWNER)
+        val reference = instrumentation.context.assets.open("native-profile-reference.json").bufferedReader()
+            .use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("withMedia") }
+        val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Published unsafe fixture only.
+        val owner = wallet.publicKey
+        val walletStore = AndroidWalletStore(context)
+        val original = walletStore.loadOrCreate()
+        if (original.publicKey != owner) walletStore.replace(original, wallet)
+        val fresh = SaitoTransaction.create(wallet, SaitoEnvelope.decode(reference.get("tx").asString).body.deepCopy().apply {
+            getAsJsonObject("data").apply {
+                addProperty("description", "Fresh baseline with generated defaults")
+                remove("image"); remove("banner")
+            }
+        }, reference.get("created_at").asLong + 60_000)
+        val freshRow = JsonObject().apply { addProperty("tx", fresh.envelope()) }
+        val exposeFresh = AtomicBoolean(false)
+        val stale = AtomicBoolean(false)
+        val confirm = AtomicBoolean(false)
+        val indexed = AtomicReference<JsonObject?>()
+        val bio = "Pending bio keeps signed generated defaults 🌱"
+        val status = "Save requested. Profile availability on this server is not confirmed."
+        val peer = ControlledFeedPeer("[]", onTransaction = { frame ->
+            val transaction = postingTransaction(frame)
+            val signed = SaitoEnvelope.decode(transaction.envelope())
+            assertEquals(owner, signed.author); assertEquals(listOf(owner), signed.recipients)
+            assertEquals(bio, signed.body.getAsJsonObject("data").get("description").asString)
+            assertFalse(signed.body.getAsJsonObject("data").has("image"))
+            assertFalse(signed.body.getAsJsonObject("data").has("banner"))
+            assertTrue(signed.createdAt > SaitoEnvelope.decode(fresh.envelope()).createdAt)
+            assertNull(indexed.get()) // No retry may rebroadcast the retained candidate.
+            indexed.set(JsonObject().apply {
+                addProperty("sig", transaction.id); addProperty("tx", transaction.envelope())
+            })
+        }, profileArchiveResponse = { criteria ->
+            assertEquals(owner, criteria.get("field2").asString)
+            if (criteria.has("sig")) {
+                if (confirm.get() && criteria.get("sig") == indexed.get()?.get("sig")) "[${indexed.get()}]" else "[]"
+            } else if (exposeFresh.get() && !stale.get()) "[$freshRow]" else "[$reference]"
+        }, archiveResponse = { "[]" })
+        var primary: Throwable? = null
+        try {
+            peer.start().use { server ->
+                val intent = Intent(context, MainActivity::class.java)
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                ActivityScenario.launch<MainActivity>(intent).use {
+                    captureFailure {
+                        openEditor()
+                        ui.onNodeWithContentDescription("Profile picture").assertExists()
+                        ui.onNodeWithContentDescription("Profile banner").assertExists()
+                        ui.onNode(hasSetTextAction()).performTextReplacement(bio)
+                        exposeFresh.set(true)
+                        ui.onNodeWithText("Save profile").performClick()
+                        waitFor(status)
+                        ui.waitUntil(20_000) { ui.onAllNodes(hasText("Retry profile") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                        assertGeneratedDefaults()
+                        ui.onNode(hasSetTextAction()).assertIsNotEnabled()
+                        assertEquals(1, peer.transactions.size); peer.assertHealthy()
+                        capture("profile-pending-preview-mounted.png", status)
+                    }
+                }
+                stale.set(true)
+                ActivityScenario.launch<MainActivity>(intent).use {
+                    captureFailure {
+                        openEditor(editable = false)
+                        waitFor(status)
+                        ui.waitUntil(20_000) { ui.onAllNodes(hasText("Retry profile") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                        ui.onNode(hasSetTextAction()).assert(SemanticsMatcher.expectValue(
+                            SemanticsProperties.EditableText, AnnotatedString(bio))).assertIsNotEnabled()
+                        assertEquals(1, peer.transactions.size)
+                        assertGeneratedDefaults()
+                        capture("profile-pending-preview-cold.png", status)
+                        confirm.set(true)
+                        ui.onNodeWithText("Retry profile").performClick()
+                        waitFor("Profile available on this server.")
+                        assertGeneratedDefaults()
+                        assertEquals(1, peer.transactions.size); peer.assertHealthy()
+                        capture("profile-pending-preview-available.png", "Profile available on this server.")
+                        assertEquals(owner, walletStore.loadExisting().publicKey)
+                        assertEquals(SaitoBackend.OWNER, AndroidBackendStore(context).load())
+                    }
+                }
+            }
+        } catch (failure: Throwable) { primary = failure; throw failure }
+        finally {
+            try {
+                val active = walletStore.loadExisting(); check(active.publicKey == owner)
+                if (original.publicKey != owner) walletStore.replace(active, original)
+            } catch (cleanup: Throwable) { if (primary != null) primary.addSuppressed(cleanup) else throw cleanup }
+        }
+    }
+
+    private fun assertGeneratedDefaults() {
+        ui.onNodeWithContentDescription(context.getString(R.string.profile_generated_picture))
+            .performScrollTo().assertIsDisplayed()
+        ui.onAllNodesWithContentDescription("Profile picture").assertCountEquals(0)
+        ui.onAllNodesWithContentDescription("Profile banner").assertCountEquals(0)
+    }
+
+    private fun openEditor(editable: Boolean = true) {
         ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and hasClickAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
         if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
         ui.onNodeWithText("Your profile").performClick()
         waitForPublicEditor()
         ui.onNodeWithText("Edit profile").performClick()
-        ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+        if (editable) ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
     }
 
     private fun waitForPublicEditor() = ui.waitUntil(20_000) {

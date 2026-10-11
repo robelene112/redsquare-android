@@ -1,0 +1,36 @@
+{
+  "result": "PASS",
+  "native": true,
+  "reference": {
+    "saitoCommit": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+    "saitoWasmVersion": "0.3.2",
+    "ellipticVersion": "6.6.1",
+    "wasmSha256": "f59be69dbb949368ce1fc7ef47d414cbe0281a86a206fe4bfb1128a4d087e01e"
+  },
+  "scenario": "new-edit",
+  "boundary": "Actual controlled Android Profile frame independently verified with pinned WASM/Elliptic. No live write, deployment, DOM or chain inclusion proof.",
+  "frameSha256": "0d5ea08d8a401713347eef4dcc4d5477aca1ac354487fb785163d4029d4aa8e7",
+  "profile": {
+    "sig": "42654bf62e29597b088e755769cde6ff2c417cff7862ed0fbc3e7502faa4f7942e3aae5b99a9537966c38f3f9ae5922e5f5afe35ffb9b8ff597bf3ebf68fd649",
+    "created_at": 1791688569812,
+    "field2": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+    "tx": "{\"t\":\"AAAAAQAAAAEAAAAAAAAAAEJlS/YuKVl7CI51V2nN5v8sQXz/eGLtD7w+dQL6pPeULjquW5mpU3lmw48/muWSLl9a/jX/ubj/WXvz6/aP1kkAAAGhKPXz1AAAAAEAAnm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACeb5mfvncu6xVoGKVzocLBwKb/NstzijZWfKBWxb4F5gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==\",\"m\":\"eyJtb2R1bGUiOiJQcm9maWxlIiwicmVxdWVzdCI6InVwZGF0ZSBwcm9maWxlIiwic25hcHNob3QiOjEsImRhdGEiOnsiZGVzY3JpcHRpb24iOiJOZXcgYmlvIGFmdGVyIGEgc3VwZXJzZWRlZCB1cGRhdGUg8J+MsSIsImltYWdlIjoiaHR0cHM6Ly9pbWFnZXMuZXhhbXBsZS50ZXN0L2F2YXRhci5wbmciLCJiYW5uZXIiOiJodHRwczovL2ltYWdlcy5leGFtcGxlLnRlc3QvYmFubmVyLnBuZyIsImFyY2hpdmUiOlsiaHR0cHM6Ly9uZXdlci1hcmNoaXZlLmV4YW1wbGUudGVzdCJdLCJleHRlbnNpb24iOnsidGhlbWUiOiJncmVlbiIsImtlZXAiOiJ2ZXJpZmllZCJ9fX0=\",\"opt\":\"e30=\"}",
+    "body": {
+      "module": "Profile",
+      "request": "update profile",
+      "snapshot": 1,
+      "data": {
+        "description": "New bio after a superseded update 🌱",
+        "image": "https://images.example.test/avatar.png",
+        "banner": "https://images.example.test/banner.png",
+        "archive": [
+          "https://newer-archive.example.test"
+        ],
+        "extension": {
+          "theme": "green",
+          "keep": "verified"
+        }
+      }
+    }
+  }
+}
