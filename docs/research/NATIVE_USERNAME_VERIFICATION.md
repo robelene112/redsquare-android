@@ -542,3 +542,14 @@ before bounded review fixes: report per-backend failures without skipping the
 other endpoint; preserve primary errors during diagnostic export. Corrected
 hosted build/runtime pending. It measures availability, never infers service
 readiness from a successful test or supplies live UI/ownership/chain proof.
+
+Named-import source4ee7718 Android17 run38125286144 PASS12cases121.71s;
+actual SAF replacement, no imported hint/pre-import Registry seed, optional
+own-key signed discovery, recreation recheck/incoming identity and zero sends.
+Root and both reviewers viewed original named-import PNG/XML: owner backend,
+NativeCase7@saito and owned status. Four hashed originals/report retained in
+first-named-import-green. Unchanged coldstage hosted PASS4.28s, no extraaudit.
+Race tracer now checks available→explicit request→different valid owner, disabled
+Retry, read-only recreation/no resend and anonymous own profile. Debug/test
+assembly PASS1m17s before bounded empty-profile Archive fixture correction;
+corrected hosted runtime and final full acceptance remain pending. #19 open.

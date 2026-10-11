@@ -509,6 +509,63 @@ class UsernamePreviewTest {
         }
     }
 
+    @Test fun losingARegistrationRaceNeverNamesTheWrongWalletOrResendsItsRequest() = withRegistryWallet(
+        SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
+    ) { fixture ->
+        val reference = instrumentation.context.assets.open("native-registry-reference.json").bufferedReader()
+            .use { JsonParser.parseReader(it).asJsonObject }
+        val registered = java.util.concurrent.atomic.AtomicBoolean(false)
+        val peer = ControlledFeedPeer("[]", onTransaction = { registered.set(true) }, registryResponse = response@ { criteria ->
+            if (criteria.get("request").asString == "registry query") return@response "{}"
+            assertEquals("NativeCase7@saito", criteria.get("identifier").asString)
+            if (registered.get()) reference.getAsJsonArray("rows").toString() else "[]"
+        }, archiveResponse = { "[]" })
+        peer.start().use { server ->
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                .putExtra("usernameFixtureRegistrar", true)).use { scenario ->
+                withFailureCapture({ capture("username-race-failure.png") }) {
+                    openUsername()
+                    ui.onNode(hasSetTextAction()).performTextReplacement("NativeCase7")
+                    ui.onNodeWithText("Check name").performClick()
+                    waitForText("This username is currently available. Checking does not reserve it.")
+                    assertTrue(peer.transactions.isEmpty())
+                    ui.onNodeWithText("Register name").performClick()
+                    val taken = "This username belongs to another wallet."
+                    waitForText(taken)
+                    ui.onNodeWithText(taken).performScrollTo().assertIsDisplayed()
+                    ui.onNodeWithText("Retry registration").assertIsNotEnabled()
+                    ui.onAllNodesWithText("This username is registered to your wallet.").assertCountEquals(0)
+                    assertEquals(1, peer.transactions.size)
+                    val signed = SaitoEnvelope.decode(postingTransaction(peer.transactions.single()).envelope())
+                    assertEquals(fixture.publicKey, signed.author)
+                    assertEquals("NativeCase7@saito", signed.body.get("identifier").asString)
+                    capture("username-race.png", taken)
+                    val checks = peer.registryQueries.size
+                    scenario.recreate()
+                    // The retained request is now taken, so its Retry control must remain disabled.
+                    waitForEnabled("Settings")
+                    ui.onNodeWithText("Settings").performClick()
+                    ui.onNodeWithText("Saito username").performClick()
+                    waitForText(taken)
+                    ui.onNodeWithText("Retry registration").assertIsNotEnabled()
+                    assertTrue(peer.registryQueries.size > checks)
+                    assertEquals("Read-only recovery must not resend a losing request", 1, peer.transactions.size)
+                    ui.onNodeWithText("Back").performClick()
+                    waitForEnabled("Your profile")
+                    ui.onNodeWithText("Your profile").performClick()
+                    waitForText(fixture.publicKey)
+                    ui.onNode(hasText("Anon-${fixture.publicKey.take(6)}") and hasAnySibling(hasText(fixture.publicKey)),
+                        useUnmergedTree = true).assertIsDisplayed()
+                    ui.onAllNodesWithText("NativeCase7@saito").assertCountEquals(0)
+                    assertEquals(1, peer.transactions.size)
+                    assertTrue(peer.clientKeys.isNotEmpty() && peer.clientKeys.all { it == fixture.publicKey })
+                    peer.assertHealthy()
+                }
+            }
+        }
+    }
+
     @Test fun aConfirmedRegistrationIsNotResentAndNamesTheOwnProfile() = withRegistryWallet { fixture ->
         val reference = instrumentation.context.assets.open("native-registry-reference.json").bufferedReader()
             .use { JsonParser.parseReader(it).asJsonObject }
