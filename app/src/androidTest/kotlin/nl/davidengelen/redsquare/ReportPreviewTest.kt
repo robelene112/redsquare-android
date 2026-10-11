@@ -695,6 +695,110 @@ class ReportPreviewTest {
         }
     }
 
+    @Test fun restoredObservedReceiptIsAdoptedByAnOlderViewWithoutSendingAgain() {
+        val root = InstrumentationRegistry.getInstrumentation().context.assets.open("native-feed-reference.json")
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow") }
+        val recordFile = AtomicReference<File>()
+        val pending = AtomicReference<ByteArray>()
+        fun read(file: File): ByteArray {
+            check(file.isFile && file.length() in 1..8192)
+            return file.readBytes().also { check(it.size in 1..8192) }
+        }
+        fun record(bytes: ByteArray) = JsonParser.parseString(
+            JsonParser.parseString(bytes.toString(Charsets.UTF_8)).asJsonArray.single().asString).asJsonObject
+        fun transaction(bytes: ByteArray): String = record(bytes).get("transaction").asString
+        fun restore(file: File, bytes: ByteArray) = java.io.FileOutputStream(file).use {
+            it.write(bytes); it.fd.sync()
+        }
+        val peer = ControlledFeedPeer("[$root]", reportResponse = {
+            // The real pre-reply record, not a constructed acknowledgement flag.
+            if (pending.get() == null) pending.set(read(requireNotNull(recordFile.get())))
+            "{}"
+        })
+        peer.start().use { server ->
+            val intent = Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+            val acknowledged = "Report acknowledged by saito.davidengelen.nl. Moderator review is separate."
+            val unknown = "Report delivery to saito.davidengelen.nl is unknown. Try again to send the same report."
+            val observed = ActivityScenario.launch<MainActivity>(intent).use {
+                withFailureCapture({ capture("restored-receipt-first-failure.png") }) {
+                    ui.clickVisiblePostContent("Report")
+                    ui.onNodeWithText("Cancel").performClick()
+                    val owner = AndroidWalletStore(context).loadExisting().publicKey
+                    val file = File(context.noBackupFilesDir, "report.owner.$owner.${root.get("sig").asString}.v1")
+                    recordFile.set(file)
+                    ui.clickVisiblePostContent("Report")
+                    ui.onNodeWithText("Send report").performClick()
+                    waitFor(acknowledged)
+                    capture("restored-receipt-original-acknowledged.png", acknowledged)
+                    assertEquals(1, peer.reports.size)
+                    val receipt = read(file)
+                    assertFalse(record(requireNotNull(pending.get())).get("acknowledged").asBoolean)
+                    assertTrue(record(receipt).get("acknowledged").asBoolean)
+                    val frame = peer.reports.single()
+                    assertArrayEquals(frame.copyOfRange(5, frame.size), Base64.getDecoder().decode(transaction(receipt)))
+                    assertEquals(transaction(requireNotNull(pending.get())), transaction(receipt))
+                    val signed = SaitoEnvelope.decode(SaitoTransaction.restore(transaction(receipt)).envelope())
+                    assertEquals(owner, signed.author); assertEquals(listOf(owner), signed.recipients)
+                    assertEquals(root.get("sig").asString, signed.body.getAsJsonObject("data").get("signature").asString)
+                    assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
+                    receipt
+                }
+            }
+            val file = requireNotNull(recordFile.get())
+            val owner = AndroidWalletStore(context).loadExisting().publicKey
+            var restoreNeeded = false
+            var failure: Throwable? = null
+            try {
+                // Only the known public fixture record changes while the first Activity is closed.
+                restoreNeeded = true
+                restore(file, requireNotNull(pending.get()))
+                ActivityScenario.launch<MainActivity>(intent).use { activity ->
+                    withFailureCapture({ capture("restored-receipt-stale-view-failure.png") }) {
+                        ui.clickVisiblePostContent("Retry report")
+                        waitFor(unknown)
+                        capture("restored-receipt-stale-unknown.png", unknown)
+                        assertEquals(1, peer.reports.size)
+                        // Restore the actual correlated receipt while this older view remains mounted.
+                        restore(file, observed); restoreNeeded = false
+                        assertEquals(transaction(observed), transaction(read(file)))
+                        assertEquals(owner, AndroidWalletStore(context).loadExisting().publicKey)
+                        assertEquals(SaitoBackend.OWNER, AndroidBackendStore(context).load())
+                        ui.onNodeWithText("Send report").performClick()
+                        waitFor(acknowledged)
+                        capture("restored-receipt-adopted.png", acknowledged)
+                        assertTrue(record(read(file)).get("acknowledged").asBoolean)
+                        assertEquals(1, peer.reports.size)
+                        assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
+                        ui.onNodeWithText("Done").performClick()
+                        activity.recreate()
+                        ui.clickVisiblePostContent("Report details")
+                        waitFor(acknowledged)
+                        capture("restored-receipt-reopened.png", acknowledged)
+                        assertTrue(record(read(file)).get("acknowledged").asBoolean)
+                        assertEquals(1, peer.reports.size)
+                        assertEquals(transaction(observed), transaction(read(file)))
+                        ui.onNodeWithText("Done").performClick()
+                        ui.onNodeWithText("Wallet").performClick()
+                        assertEquals(owner, displayedWalletAddress(ui))
+                        assertEquals(owner, AndroidWalletStore(context).loadExisting().publicKey)
+                        assertEquals(SaitoBackend.OWNER, AndroidBackendStore(context).load())
+                        assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
+                    }
+                }
+            } catch (primary: Throwable) { failure = primary; throw primary }
+            finally {
+                if (restoreNeeded) try {
+                    check(transaction(read(file)) == transaction(observed))
+                    restore(file, observed)
+                } catch (secondary: Throwable) {
+                    val primary = failure
+                    if (primary == null) throw secondary else if (primary !== secondary) primary.addSuppressed(secondary)
+                }
+            }
+        }
+    }
+
     private fun waitFor(text: String) = ui.waitUntil(20_000) {
         ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
     }

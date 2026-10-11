@@ -394,8 +394,14 @@ Lateerrorsavefailure retainsobservation+phonewarning. GREENpending. Whole Spec0 
 interleaving was withdrawn after keyed lifecycle inspection. Separate Standards
 Activity recreation/NonCancellable stale durable acknowledgement finding remains
 source-reachable without runtime reproduction. Initial-save cleanup corrected81b41de,
-fix review pending; no injected cleanup-failure claim. Final paired both-SDK/source/
-public reads remain pending.
+both fix reviews0; no injected cleanup-failure claim. Expliciterror correction
+38177070388 at701dc01 passes10cases90.647s pluscold1case4.198s; root9originals/
+separate9XMLs, explicit-error-green20hashes. Runtimepredates81cleanup.
+NextsingleactualUI/publicfilesystemtracer restores genuine observedackbytes after
+staleviewloads originalpending snapshot; explicitRetry must adoptACK/no newreport,
+preserve exactcandidate/wallet/backend/recreation. Both design axes agree; not
+oldNonCancellable timing reproduction. ProductunchangedpendingRED. Final paired
+both-SDK/source/public reads remain pending.
 Ticket22 remains incomplete: failure/durability/identity/backend isolation,
 actual process interruption and final both-SDK acceptance/reviews still required.
 Its source contract is prepared in NATIVE_DISCOVERY_MODERATION_CONTRACT.md and

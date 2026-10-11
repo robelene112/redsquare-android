@@ -341,3 +341,19 @@ protect obstacle creation from successful mkdir, attempt both owned deletions
 independently, preserve primary assertion and suppress cleanup failures.
 No actual cleanup failure injected. Explicit-error GREEN38177070388 predates
 this fixture-only tightening. Monotonic progress source correction remains next.
+
+## Explicit-error GREEN and restored receipt tracer
+
+Android10 focused38177070388 at701dc01 passes10cases90.647s plusactual
+cold1case4.198s. Root9unchanged originals individually/separate9XMLs shownamed
+wire14/app.err feedback acrossrecreation, empty/malformedunknown acrossrecreation,
+and exactexplicitretryACK. Durable explicit-error-green20hashes. Cleanupfix81b41de
+predatesnone of this runtime; bothcleanup/docfixaxesclear through3678f77.
+Next single agreed native/filesystem recovery tracer obtains actual app-written
+pending bytes BEFORE correlated{} and its real saved receipt. After closing first
+Activity, an isolated rollback to the known pending snapshot produces unknown;
+restore real acknowledgement bytes while that older view is mounted. Explicit
+Retry must adopt receipt/no secondreport, preserve exactcandidate/wallet/backend
+and survive another recreation. No fabricated moderator receipt or private state;
+no coroutine scheduler interleaving reproduction claimed. Both design axes
+confirm accepted scope/seams. Product unchanged pending this single RED.
