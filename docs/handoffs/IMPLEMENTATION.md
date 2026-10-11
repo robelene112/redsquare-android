@@ -117,7 +117,20 @@ reviewers inspect original blank/newcandidate PNG/XML and raw records. Durable
 first-conflict-retirement-green. No marker95d1811/full/live readiness claim.
 
 Final full10run38129052913 and17run38129053893 both target95d1811 with
-public-feed reads enabled. All final runtime/source/update checks are pending.
+public-feed reads enabled. 10 finishes failed solely on unscoped wallet-address text selector at446
+(2Compose nodes); username14of15PASS82.013s including entire marker corruption/
+repair/new-request flow. Root views correct-dialog address PNG/XML and marker
+load-error originals; second Compose location unknown. Later Registry process/
+update/public gates are not reached. Durable full10-wallet-selector-ambiguity.
+Working fixture checks named Wallet address exactvalue+visibility, with
+unchanged no-send/peer-health assertions; production unchanged. Wallet-only
+compile PASS1m22s. Full17 finishes13of15PASS91.855s: same wallet selector plus
+quoted text offscreen after scrolling to its author at243. Original XML shows
+name at clipped bottom; PNG/XML not one atomic snapshot, no timingcause claim.
+Fixture scrolls exact quoted text before unchanged visibility assertion, then
+back to name with repeated visibility before capture. Both independent axes
+zero findings on these fixes. Durable full17-wallet-and-quote-visibility.
+Combined fixture compile PASS1m23s; fresh full runs pending.
 
 Next: inspect applicable final full10/17 acceptance,
 then record/park external live Registry blocker and continue independent #20

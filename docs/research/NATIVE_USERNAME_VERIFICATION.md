@@ -647,3 +647,29 @@ concurrently dispatched for identical95d1811d9f3729353bf86204e8a235a18ff5661d
 with separate public-feed reads enabled. Assembly/release/lint, all applicable
 native regressions, actual process recovery, signed updates and current marker
 corruption/repair are pending. No final acceptance or live Registry success yet.
+
+Full10 run38129052913/95d1811 stops in UsernamePreviewTest:14of15PASS82.013s.
+Sole failure line446 is an unscoped exact public-address selector finding two
+Compose nodes. Original PNG/XML show the correct address in the wallet dialog;
+the second Compose location is not captured. Root/both reviewers inspect that
+failure. Bounded fixture fix uses named Wallet address, exact equality and
+visibility; unchanged no-send/peer-health gates must execute on rerun.
+The entire confirmed-conflict/marker-header corruption/repair/new-request flow
+passes individually. Root original marker-error PNG and separate XML show the
+load error and grey Check; runtime establishes disabled merged control/TX1 and
+read-only repair. Durable originals/hashset in full10-wallet-selector-ambiguity.
+This is not a full pass; Registry process/update/laterpublic gates are not reached.
+Production is unchanged. Wallet-only fixture compilation PASS1m22s.
+
+Full17 run38129053893/95d1811 completes13of15PASS91.855s. Same wallet selector
+and quotedText notdisplayed at243 after scrolling to quotedName. Original XML
+places the name at the clipped bottom of the viewport and omits quoted text;
+PNG differs in visible name detail, so no atomic-snapshot or timingcause claim.
+Root and both reviewers inspect originals. Fixture scrolls the exact scoped
+quotedText before unchanged visibility assertion, then back to quotedName with
+repeated visibility assertion before capture. Wallet exactvalue/visibility,
+anonymous quote-author, signed discovery, sameidentity/no-send/peer-health gates
+remain. Both review axes zero findings. Durable originals/hashset under
+full17-wallet-and-quote-visibility. Marker journey passes individually; later
+Registryprocess/update/public stages are not reached. Combined fixture compile
+PASS1m23s; fresh full10/17 runs pending. No production source/timeouts change.

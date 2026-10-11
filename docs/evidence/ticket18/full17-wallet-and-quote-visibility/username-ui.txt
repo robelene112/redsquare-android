@@ -1,0 +1,289 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.UsernamePreviewTest:
+INSTRUMENTATION_STATUS: test=aVerifiedProfileNameRemainsVisibleWhenItsLocalCacheCannotBeSaved
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aVerifiedProfileNameRemainsVisibleWhenItsLocalCacheCannotBeSaved
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aRegistrarSignedNameIsDisplayedAndRetainedWhenLaterChecksAreUnavailable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aRegistrarSignedNameIsDisplayedAndRetainedWhenLaterChecksAreUnavailable
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=walletReplacementKeepsTheVerifiedNameWithItsOutgoingIdentity
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=walletReplacementKeepsTheVerifiedNameWithItsOutgoingIdentity
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=settingsDiscoversAnExistingUsernameWithoutOpeningTheFeedOrProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=settingsDiscoversAnExistingUsernameWithoutOpeningTheFeedOrProfile
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=importingAWalletDiscoversItsExistingNameWithoutRegisteringAgain
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=importingAWalletDiscoversItsExistingNameWithoutRegisteringAgain
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anUnavailableUsernameCheckDoesNotBlockPostingOrChangeTheWallet
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to perform checkIsDisplayed check: Expected at most 1 node but found 2 nodes that satisfy (Text + InputText + EditableText contains 't7SoKTTqvaRRH1Wf4rdBVSST85woify7boepLjC9qLAZ' (ignoreCase: false))
+	at androidx.compose.ui.test.AndroidAssertions_androidKt.checkIsDisplayed(AndroidAssertions.android.kt:35)
+	at androidx.compose.ui.test.AssertionsKt.isDisplayed(Assertions.kt:351)
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:33)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.anUnavailableUsernameCheckDoesNotBlockPostingOrChangeTheWallet$lambda$95$lambda$94$lambda$93(UsernamePreviewTest.kt:446)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.$r8$lambda$qlOqGfegkytQeLWeUBlsVnBvq2E(UsernamePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest$$ExternalSyntheticLambda67.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.anUnavailableUsernameCheckDoesNotBlockPostingOrChangeTheWallet(UsernamePreviewTest.kt:420)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anUnavailableUsernameCheckDoesNotBlockPostingOrChangeTheWallet(nl.davidengelen.redsquare.UsernamePreviewTest):
+java.lang.AssertionError: Failed to perform checkIsDisplayed check: Expected at most 1 node but found 2 nodes that satisfy (Text + InputText + EditableText contains 't7SoKTTqvaRRH1Wf4rdBVSST85woify7boepLjC9qLAZ' (ignoreCase: false))
+	at androidx.compose.ui.test.AndroidAssertions_androidKt.checkIsDisplayed(AndroidAssertions.android.kt:35)
+	at androidx.compose.ui.test.AssertionsKt.isDisplayed(Assertions.kt:351)
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:33)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.anUnavailableUsernameCheckDoesNotBlockPostingOrChangeTheWallet$lambda$95$lambda$94$lambda$93(UsernamePreviewTest.kt:446)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.$r8$lambda$qlOqGfegkytQeLWeUBlsVnBvq2E(UsernamePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest$$ExternalSyntheticLambda67.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.anUnavailableUsernameCheckDoesNotBlockPostingOrChangeTheWallet(UsernamePreviewTest.kt:420)
+
+INSTRUMENTATION_STATUS: test=anUnavailableUsernameCheckDoesNotBlockPostingOrChangeTheWallet
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aVerifiedOtherAccountNameIsSharedByFeedProfileConversationAndReply
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aVerifiedOtherAccountNameIsSharedByFeedProfileConversationAndReply
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anExistingWalletDiscoversItsVerifiedNameWithoutRegisteringAgain
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anExistingWalletDiscoversItsVerifiedNameWithoutRegisteringAgain
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aConfirmedRegistrationIsNotResentAndNamesTheOwnProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aConfirmedRegistrationIsNotResentAndNamesTheOwnProfile
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=losingARegistrationRaceNeverNamesTheWrongWalletOrResendsItsRequest
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=losingARegistrationRaceNeverNamesTheWrongWalletOrResendsItsRequest
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anUnsavedVerifiedOwnNameIsNeverOfferedForRegistrationAgain
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anUnsavedVerifiedOwnNameIsNeverOfferedForRegistrationAgain
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aQuotedOriginalUsesItsVerifiedNameWithoutNamingTheQuoteAuthor
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component with ((Text + InputText + EditableText contains 'Native Red Square reference post' (ignoreCase: false)) && (hasAnyAncestorThat(ContentDescription = 'Quoted original' (ignoreCase: false)))) && (hasAnyAncestorThat(hasAnyChildThat(Text + InputText + EditableText contains 'Current commentary retweet' (ignoreCase: false)))) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aQuotedOriginalUsesItsVerifiedNameWithoutNamingTheQuoteAuthor$lambda$55$lambda$54$lambda$53$lambda$52(UsernamePreviewTest.kt:243)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.$r8$lambda$Y18-KcJazUMXwFgaQ6BCb-n4WYo(UsernamePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest$$ExternalSyntheticLambda76.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aQuotedOriginalUsesItsVerifiedNameWithoutNamingTheQuoteAuthor$lambda$55(UsernamePreviewTest.kt:232)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.$r8$lambda$kdzHDX_VAPrUVdS0FiLmapgTMtM(UsernamePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.withRegistryWallet(UsernamePreviewTest.kt:1134)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aQuotedOriginalUsesItsVerifiedNameWithoutNamingTheQuoteAuthor(UsernamePreviewTest.kt:205)
+
+INSTRUMENTATION_STATUS: stream=
+Error in aQuotedOriginalUsesItsVerifiedNameWithoutNamingTheQuoteAuthor(nl.davidengelen.redsquare.UsernamePreviewTest):
+java.lang.AssertionError: Assert failed: The component with ((Text + InputText + EditableText contains 'Native Red Square reference post' (ignoreCase: false)) && (hasAnyAncestorThat(ContentDescription = 'Quoted original' (ignoreCase: false)))) && (hasAnyAncestorThat(hasAnyChildThat(Text + InputText + EditableText contains 'Current commentary retweet' (ignoreCase: false)))) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aQuotedOriginalUsesItsVerifiedNameWithoutNamingTheQuoteAuthor$lambda$55$lambda$54$lambda$53$lambda$52(UsernamePreviewTest.kt:243)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.$r8$lambda$Y18-KcJazUMXwFgaQ6BCb-n4WYo(UsernamePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest$$ExternalSyntheticLambda76.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aQuotedOriginalUsesItsVerifiedNameWithoutNamingTheQuoteAuthor$lambda$55(UsernamePreviewTest.kt:232)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.$r8$lambda$kdzHDX_VAPrUVdS0FiLmapgTMtM(UsernamePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.withRegistryWallet(UsernamePreviewTest.kt:1134)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aQuotedOriginalUsesItsVerifiedNameWithoutNamingTheQuoteAuthor(UsernamePreviewTest.kt:205)
+
+INSTRUMENTATION_STATUS: test=aQuotedOriginalUsesItsVerifiedNameWithoutNamingTheQuoteAuthor
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=13
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aPendingNameStaysWithItsWalletAndBackendThroughActualReplacement
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=13
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aPendingNameStaysWithItsWalletAndBackendThroughActualReplacement
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=14
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aPendingRegistrationSurvivesReopeningAndRetriesTheExactSignedRequest
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=14
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aPendingRegistrationSurvivesReopeningAndRetriesTheExactSignedRequest
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=15
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aRequestIsSavedBeforeSendingAndUnreadableRecoveryNeverReplaysIt
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=15
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aRequestIsSavedBeforeSendingAndUnreadableRecoveryNeverReplaysIt
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 91.855
+There were 2 failures:
+1) anUnavailableUsernameCheckDoesNotBlockPostingOrChangeTheWallet(nl.davidengelen.redsquare.UsernamePreviewTest)
+java.lang.AssertionError: Failed to perform checkIsDisplayed check: Expected at most 1 node but found 2 nodes that satisfy (Text + InputText + EditableText contains 't7SoKTTqvaRRH1Wf4rdBVSST85woify7boepLjC9qLAZ' (ignoreCase: false))
+	at androidx.compose.ui.test.AndroidAssertions_androidKt.checkIsDisplayed(AndroidAssertions.android.kt:35)
+	at androidx.compose.ui.test.AssertionsKt.isDisplayed(Assertions.kt:351)
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:33)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.anUnavailableUsernameCheckDoesNotBlockPostingOrChangeTheWallet$lambda$95$lambda$94$lambda$93(UsernamePreviewTest.kt:446)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.$r8$lambda$qlOqGfegkytQeLWeUBlsVnBvq2E(UsernamePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest$$ExternalSyntheticLambda67.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.anUnavailableUsernameCheckDoesNotBlockPostingOrChangeTheWallet(UsernamePreviewTest.kt:420)
+2) aQuotedOriginalUsesItsVerifiedNameWithoutNamingTheQuoteAuthor(nl.davidengelen.redsquare.UsernamePreviewTest)
+java.lang.AssertionError: Assert failed: The component with ((Text + InputText + EditableText contains 'Native Red Square reference post' (ignoreCase: false)) && (hasAnyAncestorThat(ContentDescription = 'Quoted original' (ignoreCase: false)))) && (hasAnyAncestorThat(hasAnyChildThat(Text + InputText + EditableText contains 'Current commentary retweet' (ignoreCase: false)))) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aQuotedOriginalUsesItsVerifiedNameWithoutNamingTheQuoteAuthor$lambda$55$lambda$54$lambda$53$lambda$52(UsernamePreviewTest.kt:243)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.$r8$lambda$Y18-KcJazUMXwFgaQ6BCb-n4WYo(UsernamePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest$$ExternalSyntheticLambda76.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aQuotedOriginalUsesItsVerifiedNameWithoutNamingTheQuoteAuthor$lambda$55(UsernamePreviewTest.kt:232)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.$r8$lambda$kdzHDX_VAPrUVdS0FiLmapgTMtM(UsernamePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.withRegistryWallet(UsernamePreviewTest.kt:1134)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aQuotedOriginalUsesItsVerifiedNameWithoutNamingTheQuoteAuthor(UsernamePreviewTest.kt:205)
+
+FAILURES!!!
+Tests run: 15,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

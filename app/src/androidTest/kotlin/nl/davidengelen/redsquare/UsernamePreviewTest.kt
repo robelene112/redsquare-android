@@ -240,9 +240,12 @@ class UsernamePreviewTest {
                     ui.onNode(hasScrollAction(), useUnmergedTree = true).performScrollToNode(quotedName)
                     ui.onNode(quotedName, useUnmergedTree = true).assertIsDisplayed()
                     val quotedText = hasText("Native Red Square reference post") and hasAnyAncestor(hasContentDescription("Quoted original")) and targetQuote
+                    ui.onNode(hasScrollAction(), useUnmergedTree = true).performScrollToNode(quotedText)
                     ui.onNode(quotedText, useUnmergedTree = true).assertIsDisplayed()
                     ui.onNode(hasText("Anon-${reader.publicKey.take(6)}") and
                         hasParent(hasAnyChild(hasText("Current commentary retweet"))), useUnmergedTree = true).assertExists()
+                    ui.onNode(hasScrollAction(), useUnmergedTree = true).performScrollToNode(quotedName)
+                    ui.onNode(quotedName, useUnmergedTree = true).assertIsDisplayed()
                     capture("username-quoted-name.png", "NativeCase7@saito")
                     assertTrue(peer.registryQueries.any { it.get("request").asString == "registry namecheck" &&
                         it.get("identifier")?.asString == "NativeCase7@saito" })
@@ -443,7 +446,8 @@ class UsernamePreviewTest {
                     ui.onNodeWithText("Back").assertIsEnabled().performClick()
                     waitForEnabled("New post")
                     ui.onNodeWithText("Wallet").performClick()
-                    ui.onNodeWithText(original).assertIsDisplayed()
+                    assertEquals(original, displayedWalletAddress(ui))
+                    ui.onNodeWithContentDescription("Wallet address").assertIsDisplayed()
                     assertTrue("A name check must not publish a transaction", peer.transactions.isEmpty())
                     peer.assertHealthy()
                 }
