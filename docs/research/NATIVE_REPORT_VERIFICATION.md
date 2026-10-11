@@ -170,3 +170,9 @@ could mask the primary failure. Correction retains each mode until success,
 tries both independently and suppresses cleanup failures onto a primary. No
 restoration failure was injected; new fixture source verification is pending.
 Other pre-send/authority/isolation/process/final acceptance remains incomplete.
+
+Next single native case closes the controlled peer before consented sending.
+It requires known not-sent wording, the same state after recreation, no report
+or type4 transaction, and only an explicit retry after server repair. Production
+classification remains unchanged for RED. This also compiles/runs the corrected
+receipt fixture; it does not inject a chmod restoration failure.

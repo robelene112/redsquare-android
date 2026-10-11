@@ -276,6 +276,43 @@ class ReportPreviewTest {
         }
     }
 
+    @Test fun unavailableBackendBeforeSendingStaysNotSentAfterReopeningAndNeedsExplicitRetry() {
+        val root = InstrumentationRegistry.getInstrumentation().context.assets.open("native-feed-reference.json")
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow") }
+        val peer = ControlledFeedPeer("[$root]")
+        peer.start().use { server ->
+            val port = server.port
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:$port/wsopen")).use { activity ->
+                withFailureCapture({ capture("unavailable-before-send-failure.png") }) {
+                    ui.clickVisiblePostContent("Report")
+                    ui.onNodeWithText("Cancel").performClick()
+                    server.close()
+                    ui.clickVisiblePostContent("Report")
+                    ui.onNodeWithText("Send report").performClick()
+                    val notSent = "Report was not sent to saito.davidengelen.nl. Try again when this server is available."
+                    waitFor(notSent)
+                    capture("unavailable-before-send.png", notSent)
+                    assertTrue(peer.reports.isEmpty()); assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
+                    ui.onNodeWithText("Done").performClick()
+                    activity.recreate()
+                    ui.clickVisiblePostContent("Retry report")
+                    waitFor(notSent)
+                    capture("unavailable-before-send-reopened.png", notSent)
+                    assertTrue(peer.reports.isEmpty()); assertTrue(peer.transactions.isEmpty())
+                    peer.start(port).use {
+                        ui.onNodeWithText("Send report").performClick()
+                        val acknowledged = "Report acknowledged by saito.davidengelen.nl. Moderator review is separate."
+                        waitFor(acknowledged)
+                        capture("unavailable-before-send-repaired.png", acknowledged)
+                        assertEquals(1, peer.reports.size)
+                        assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
+                    }
+                }
+            }
+        }
+    }
+
     private fun waitFor(text: String) = ui.waitUntil(20_000) {
         ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
     }
