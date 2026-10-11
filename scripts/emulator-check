@@ -309,6 +309,9 @@ verify_usernames() {
         printf '%s' '{"wallet":{"version":5.677,"publicKey":"pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU","privateKey":"0000000000000000000000000000000000000000000000000000000000000002"}}' | \
             adb shell run-as nl.davidengelen.redsquare.dev.test tee "files/wallet-test-documents/$username_file" > /dev/null
     done
+    # Named incoming wallet has no imported Registry hint/cache; discovery must read the peer.
+    printf '%s' '{"wallet":{"version":5.677,"publicKey":"jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR","privateKey":"0000000000000000000000000000000000000000000000000000000000000001"}}' | \
+        adb shell run-as nl.davidengelen.redsquare.dev.test tee files/wallet-test-documents/00-username-named-import.json > /dev/null
     timeout 180 adb shell am instrument -w -r \
         -e class nl.davidengelen.redsquare.UsernamePreviewTest \
         nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \

@@ -126,6 +126,82 @@ class UsernamePreviewTest {
         }
     }
 
+    @Test fun importingAWalletDiscoversItsExistingNameWithoutRegisteringAgain() = withRegistryWallet(
+        SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
+    ) { outgoing ->
+        val incoming = "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR"
+        val filename = "00-username-named-import.json"
+        val device = UiDevice.getInstance(instrumentation)
+        check(device.executeShellCommand("run-as nl.davidengelen.redsquare.dev.test stat -c %s files/wallet-test-documents/$filename")
+            .trim().toLongOrNull()?.let { it > 0 } == true)
+        val reference = instrumentation.context.assets.open("native-registry-reference.json").bufferedReader()
+            .use { JsonParser.parseReader(it).asJsonObject }
+        val peer = discoveryPeer(incoming) { reference.getAsJsonArray("rows").toString() }
+        val balanceServer = zeroBalanceServer()
+        var primary: Throwable? = null
+        try {
+            peer.start().use { server ->
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                    .putExtra("feedDisabled", true)
+                    .putExtra("usernameFixtureRegistrar", true)
+                    .putExtra("balanceApiUrl", "http://127.0.0.1:${balanceServer.port}/balance/")).use { scenario ->
+                    withFailureCapture({ capture("username-named-import-failure.png") }) {
+                        waitForEnabled("Wallet")
+                        ui.onNodeWithText("Wallet").performClick()
+                        assertEquals(outgoing.publicKey, displayedWalletAddress(ui))
+                        assertTrue("No feed/profile may seed the incoming name before import", peer.registryQueries.isEmpty())
+                        ui.onNodeWithText("Import wallet").performScrollTo().performClick()
+                        chooseWalletImport(ui, filename, incoming)
+                        waitForText("Server reports zero SAITO")
+                        ui.onNodeWithText("Skip backup").performScrollTo().performClick()
+                        ui.onNodeWithContentDescription("Replacement risks acknowledged").performScrollTo().performClick()
+                        ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsEnabled().performClick()
+                        waitForText("Wallet imported")
+                        assertEquals(incoming, displayedWalletAddress(ui))
+                        ui.onNodeWithText("Done").performClick()
+                        fun discoverInSettings() {
+                            waitForEnabled("Settings")
+                            ui.onNodeWithText("Settings").performClick()
+                            ui.onNodeWithText("Saito username").performClick()
+                            waitForText("This username is registered to your wallet.")
+                            ui.onNodeWithText("NativeCase7@saito").assertIsDisplayed()
+                            ui.onAllNodesWithText("Register name").assertCountEquals(0)
+                            ui.onAllNodesWithText("Retry registration").assertCountEquals(0)
+                        }
+                        discoverInSettings()
+                        assertTrue(peer.registryQueries.any { it.get("request").asString == "registry query" &&
+                            it.getAsJsonArray("keys").any { key -> key.asString == incoming } })
+                        fun namechecks() = peer.registryQueries.count { it.get("request").asString == "registry namecheck" &&
+                            it.get("identifier")?.asString == "NativeCase7@saito" }
+                        val checks = namechecks()
+                        assertTrue("Imported name must be verified, not just copied from a hint", checks > 0)
+                        capture("username-named-import.png", "NativeCase7@saito")
+                        scenario.recreate()
+                        discoverInSettings()
+                        assertTrue(namechecks() > checks)
+                        ui.onNodeWithText("Back").performClick()
+                        ui.onNodeWithText("Wallet").performClick()
+                        assertEquals(incoming, displayedWalletAddress(ui))
+                        assertTrue(peer.clientKeys.isNotEmpty() && peer.clientKeys.all { it == incoming })
+                        assertTrue("Import and name recovery must never register again", peer.transactions.isEmpty())
+                        peer.assertHealthy()
+                    }
+                }
+            }
+        } catch (failure: Throwable) { primary = failure; throw failure }
+        finally {
+            cleanupAfterTest(primary, {
+                val store = AndroidWalletStore(context)
+                val active = store.loadExisting()
+                check(active.publicKey == outgoing.publicKey || active.publicKey == incoming)
+                if (active.publicKey == incoming) store.replace(active, outgoing)
+            }, { balanceServer.close() }, {
+                check(device.executeShellCommand("run-as nl.davidengelen.redsquare.dev.test rm files/wallet-test-documents/$filename").isBlank())
+            })
+        }
+    }
+
     @Test fun aQuotedOriginalUsesItsVerifiedNameWithoutNamingTheQuoteAuthor() = withRegistryWallet(
         SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
     ) { reader ->

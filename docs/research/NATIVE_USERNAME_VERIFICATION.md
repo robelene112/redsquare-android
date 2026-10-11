@@ -521,3 +521,10 @@ New pending-replacement tracer compiles2m11s before bounded navigation/cleanup
 review fixes. It keeps original-owner/backend exact retry before actual replacement,
 then requires incoming clean Settings onbothbackends/recreation, incominghandshakes
 and unchanged OWNER2exact/OFFICIAL0frames. Corrected runtime still pending.
+
+Named incoming-wallet tracer now performs actual SAF scalar2→scalar1 replacement
+from a wallet-only public fixture without an imported name hint. Feed is disabled
+and pre-import Registry queries must be empty. Optional Settings must discover
+its own key hint, verify signed ownership, show no Register/Retry, recheck after
+recreation, keep incoming wallet and emit zero transactions. Both bounded source
+reviews clear; debug/test assembly1m20s passes. Controlled runtime pending.
