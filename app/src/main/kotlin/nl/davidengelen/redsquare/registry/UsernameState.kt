@@ -31,6 +31,9 @@ internal class UsernameState(private val wallet: SaitoWallet, private val endpoi
         private set
     var cacheError by mutableStateOf(false)
         private set
+    val canChooseAnother: Boolean
+        get() = ready && !busy && candidate != null && verifiedOwnName == null &&
+            currentName?.let { it.publicKey != wallet.publicKey && it.active } == true
 
     suspend fun load() {
         ready = false
@@ -93,6 +96,25 @@ internal class UsernameState(private val wallet: SaitoWallet, private val endpoi
         if (!ready || busy || verifiedOwnName != null || currentName != null || (candidate == null && !available)) return
         busy = true
         scope.launch { run(send = true) }
+    }
+
+    fun chooseAnother() {
+        if (!canChooseAnother) return
+        val previous = requireNotNull(candidate)
+        val conflict = requireNotNull(currentName)
+        busy = true
+        scope.launch {
+            try {
+                withContext(Dispatchers.IO) { store.retire(previous, conflict) }
+                candidate = null
+                currentName = null
+                name = ""
+                available = false
+                status = null
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { status = R.string.username_new_error }
+            finally { busy = false }
+        }
     }
 
     suspend fun persist(): Boolean {

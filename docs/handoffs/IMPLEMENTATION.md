@@ -70,7 +70,7 @@ reports/logs retained in native-public-registry-unavailable. No raw native
 response bodies/cause claims. Earlier host probe error/local-row shape remains
 separately qualified. No node upgrade/block production/trust fallback authorized.
 
-Latest pushed source89af45b. Android10run38126320968 (82dfe46) has13/14PASS95.206s,
+Historical source89af45b checkpoint: Android10run38126320968 (82dfe46) has13/14PASS95.206s,
 only old writer2/registrar2 race collision fails. Actual request save-obstruction,
 corruption/repair/read-only recovery/exactRetry passes. Root/both reviewers
 individually inspect two error PNG/XML; no whole-run/process acceptance follows.
@@ -88,12 +88,23 @@ durablecache and guards edit/register/availability in state/UI. Unsaved historic
 name is qualified as session-only, latest [] is not availability, save warning
 clears only after verified write. Local debug/test compilation PASS2m19s before final warning-reset/status fixes.
 The warning reset is now removed; only successful cache.save clears it.
-No native GREEN claimed. Existing race tracer now adds explicit new-name
-Cancel/confirm, durable empty form and explicit different candidate afterrecreation.
-That path is NEW RED: the app action is still missing, awaiting native reproduction.
-No retirement implementation or acceptance is claimed; cumulative Spec remains open.
+The next focused run below verifies this ownership correction. The race tracer
+adds new-name Cancel/confirm, durable empty form and a different explicit
+candidate after recreation. This was initially RED with the app action missing.
 
-Next: finish both recovery corrections, applicable final full10/17 acceptance,
+Latest focused17 run38127516540/b3f2683:14of15PASS106.204s. Own-name cache
+retention/repair now GREEN; missing Choose another name is the sole intended
+RED at623. Four hashed originals in confirmed-conflict-red, individually
+inspected by root and both reviewers. No process/full acceptance.
+
+Working retirement correction stores a durable retired request marker, confirms
+local-only effect, clears form only after verified persistence and never sends.
+Expected loaded head plus exact owned late-write witness blocks stale request
+revival. Both bounded source reviews have zero residual findings. First local
+compile found undefined Cancel; resource corrected, debug/test compile PASS2m14s.
+Two additional bounded success captures will compile in the hosted focused run.
+
+Next: verify retirement recovery, applicable final full10/17 acceptance,
 then record/park external live Registry blocker and continue independent #20
 (unblocked/unassigned checked2026-10-11), one ticket at a time. #19 stays open.
 Owner reviews completed app, no intermediate phone gate.

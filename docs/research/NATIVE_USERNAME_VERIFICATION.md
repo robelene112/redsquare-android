@@ -596,3 +596,23 @@ cache RED nowalso repairsandrequireswarninggone/noRegister/0Tx. Race tracer adds
 explicit new-name Cancel/confirm/recreatedemptyform/differentexplicitcandidate,
 while production has no such actionyet. Next native runwillverifyownGREEN and
 reproduceconflictRED; no full/service/retirement completion follows fromsource.
+
+
+Confirmed-conflict RED: Android17 run38127516540/b3f2683 passes14of15 in106.204s.
+The retained-own-knowledge case passes including warning retention and cache
+repair. Lost-race fails only at the newly required Choose another name action
+(line623), after its prior conflict/no resend/anonymous-profile gates pass.
+Root and both reviewers inspect original failure PNG/XML; four hashed originals
+are retained in confirmed-conflict-red. No process/full success follows.
+
+A local compile attempt fails in50s on an undefined Cancel resource. The resource
+is corrected before retry. Retirement now requires explicit successful store
+load and an exact expected head, with a bounded mounted anchor/pre/post-write
+witness for exact late-write retry. Private reads/claims cannot rebase this
+permission. This corrects the reviewers' source-only retireA/saveB/retireB/staleA
+resurrection finding; no runtime interleaving is claimed. Both bounded axes find
+zero residual source findings. Native new-name acceptance remains pending.
+
+Retirement source debug/test compilation PASS2m14s. Two added native success
+captures qualify the reopened empty form and subsequent explicitly sent different
+candidate; hosted compilation/runtime is pending for those capture-only lines.

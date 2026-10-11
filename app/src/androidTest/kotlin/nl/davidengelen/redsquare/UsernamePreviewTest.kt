@@ -634,6 +634,7 @@ class UsernamePreviewTest {
                     openUsername()
                     ui.onNode(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(""))).assertIsEnabled()
                     assertEquals("Retirement and reopening must never send", 1, peer.transactions.size)
+                    capture("username-retired-reopened.png", "Check name")
                     ui.onNode(hasSetTextAction()).performTextReplacement("NativeOther9")
                     ui.onNodeWithText("Check name").performClick()
                     waitForText("This username is currently available. Checking does not reserve it.")
@@ -645,6 +646,7 @@ class UsernamePreviewTest {
                     val replacement = SaitoEnvelope.decode(postingTransaction(peer.transactions.last()).envelope())
                     assertEquals(fixture.publicKey, replacement.author)
                     assertEquals("NativeOther9@saito", replacement.body.get("identifier").asString)
+                    capture("username-new-candidate.png", "Registration requested. Confirmation is still pending.")
                     peer.assertHealthy()
                 }
             }

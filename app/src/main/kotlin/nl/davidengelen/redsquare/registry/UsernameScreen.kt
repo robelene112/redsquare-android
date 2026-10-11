@@ -33,6 +33,15 @@ internal fun UsernameScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint
         onDispose { if (navigation.saveCurrent === save) navigation.saveCurrent = null }
     }
     LaunchedEffect(state) { state.load() }
+    var choosingAnother by remember(state) { mutableStateOf(false) }
+    if (choosingAnother) AlertDialog(onDismissRequest = { choosingAnother = false },
+        title = { Text(stringResource(R.string.username_new_title)) },
+        text = { Text(stringResource(R.string.username_new_notice)) },
+        confirmButton = { TextButton(enabled = state.canChooseAnother, onClick = {
+            choosingAnother = false
+            state.chooseAnother()
+        }) { Text(stringResource(R.string.username_new_confirm)) } },
+        dismissButton = { TextButton(onClick = { choosingAnother = false }) { Text(stringResource(R.string.username_new_cancel)) } })
     BackHandler(onBack = onClose)
     with(state) {
         Column(modifier.imePadding().verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -63,6 +72,7 @@ internal fun UsernameScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint
             } else {
                 Button(enabled = ready && !busy, onClick = ::check) { Text(stringResource(R.string.username_check)) }
             }
+            if (canChooseAnother) Button(onClick = { choosingAnother = true }) { Text(stringResource(R.string.username_new)) }
             status?.let { Text(stringResource(it)) }
         }
     }

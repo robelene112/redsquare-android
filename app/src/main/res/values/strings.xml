@@ -244,6 +244,12 @@
     <string name="username_cache_error">Your username was verified but could not be saved. Recovery on this device is not yet verified.</string>
     <string name="username_previous">Previously verified username: %1$s</string>
     <string name="username_unsaved_not_reconfirmed">Your previously verified username was not found on this server. It is retained for this session.</string>
+    <string name="username_new">Choose another name</string>
+    <string name="username_new_title">Choose a different username?</string>
+    <string name="username_new_notice">This stops retries on this device. The original request may still exist on the network.</string>
+    <string name="username_new_confirm">Stop retries and choose</string>
+    <string name="username_new_cancel">Cancel</string>
+    <string name="username_new_error">Could not save this change. No new request was sent. Try again.</string>
     <string name="identity_name_save_error">Name verified, but could not be saved on this device.</string>
     <string name="username_not_reconfirmed">Your saved username was not found on this server. It has been kept on this device.</string>
 </resources>
