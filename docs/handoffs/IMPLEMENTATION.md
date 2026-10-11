@@ -52,118 +52,77 @@ qualified in that chronology. Actual selected/removed/new-edit Android frames
 passed pinned WASM/Elliptic and unmodified A/B Profile server/browser methods with
 in-memory adapters; do not call that current served DOM or chain proof.
 
-#19 research/verification: NATIVE_USERNAME_CONTRACT.md and
-NATIVE_USERNAME_VERIFICATION.md. First independent proof reader tracer
-compile RED23s, focused GREEN45s (one case). Directed registration-byte tracer compile RED23s/GREEN47s. Restore tracer
-RED28s at the old first-output requirement, followed by all52 core cases and
-debug/test assembly GREEN2m18s. New internal directed constructor preserves old
-social bytes; restore still requires an own output, zero amounts and a verified
-signature. Core milestone only; later native checkpoints are described below. Existing-wallet discovery tracer41f93e7 is actual RED38119739548 at missing
-profile name (six previous pass,51.71s); original retained first-discovery-red.
-Minimal profile-only lookup e162fce passes its complete discovery journey in
-38120023255, but whole seven-case run fails another unavailable native capture
-after Compose visibility (six pass,42.417s). IME covers error in captured
-PNG/XML. Discovery PNG renders only status strip in root; XML/runtime prove
-name/address, no consistent bitmap claim. Retained first-discovery-green.
-Both source axes reviewed; Spec identifies verified name lost on cache-save
-failure and Standards duplicated namecheck/decoder. Next tracer obstructs
-only the public name-cache path and must preserve verified mounted name with
-a truthful save warning, then recover after obstruction removal. Bounded
-unavailable fixture correction hides only positively observed emulator IME.
-Actual-process stage was not reached in these failed ordinary runs.
+#19 canonical references: docs/research/NATIVE_USERNAME_CONTRACT.md and
+NATIVE_USERNAME_VERIFICATION.md; durable public evidence under ticket18.
+Review base remains ed5742fd0f57958d284073b7145f1844b72b1dbd.
 
-Local-cache tracer ead23fd runs actual RED38120361760: seven cases pass,
-newcase observes real namecheck/obstructed name-cache path then loses verified
-label (eight cases,57.54s). Root viewed original anonymous profile PNG/XML,
-retained first-name-save-red. Corrected unavailable flow fully passes. Added
-repair sensitivity requires recreation with unavailable namecheck and cached
-name; not present in older RED. Minimal correction retains verified mounted
-label plus generic save warning as one settled result even after cache failure.
-Review-stage RegistryLookup shares bounded strict namecheck/decoder between
-registration and profile discovery. Source review/native GREEN pending.
+Implemented: optional Settings registration, compatible zero-payment directed
+request, truthful unavailable/available/taken/inactive/pending states, immutable
+wallet/backend request saved before send, read-only reconciliation before exact
+explicit Retry, verified encrypted name cache with source/time, outgoing-name
+and both-backend pending-work import safeguards, own-profile cached display and
+missing-cache background key-map discovery followed by signed ownership proof.
+The latest correction preserves a verified mounted name after cache-save failure
+with a generic translated warning, and shares RegistryLookup query/strict decoder
+between registration and profile discovery. Neither lookup nor cache restoration
+submits registrations. Existing social transaction bytes remain unchanged.
 
-#19 remains open. Both
-reference generators run pure pinned WASM/Elliptic with public unsafe fixtures.
-Registry core production default is the published registrar; an explicitly
-supplied scalar2 test authority is not actual Saito namespace ownership.
-Both approved endpoints authenticate and serve Archive/public key-to-name hints,
-but read-only namechecks for valid unknown and known names returned
-{err:"no response"}. This is unavailable, not an empty available-name result;
-no registrar connectivity cause is proven and no node change is authorized.
-Exact scratch read-only results/client are preserved. Implement controlled
-compatible registration and truthful unresolved recovery; no live registration.
+Accepted checkpoints:
 
-#19 native checkpoints: unavailable flow PASS38113786054; pending immutable
-request/recreation/read-only reopen/exact retry PASS38114695697, with actual
-frame independently verified by pinned WASM/Elliptic. Confirmation tracer
-RED38114940866 rejects synthetic proof under the production authority as expected.
-Current minimal cache/authority implementation compiles debug/test in2m9s;
-both review axes0, focused10 run38115491755 PASS3cases/13.224s. Verified-name cache is separate from immutable
-request state and preserves saved knowledge through unavailable checks. Emulator
-fixture authority is strictly debug/loopback/explicit, never real namespace proof.
-Next tracercb6ffd5 actual registration/confirmed recovery/own-profile display is
-actual focused10 run38115737996 RED4cases/onefailure39.573s atmissing profile
-name; actualregistration/confirmedempty-readrecovery/noresend reached. Minimal
-verified cached header compiles debug/test2m14s; bothreviews0, focused10
-38116194012/eecb19a PASS4cases17.036s. Actualunsafe1/2 frame independently
-verified; pinnedA/B Registry/keychain bodies with in-memory adapters PASS. New
-helpers/evidence bothreviewaxes0, bothreviewers independentlyreran3helpersPASS.
-Outgoing-name/import tracer reached actual RED38117224099 (missing saved-name warning),
-after earlier provider-UID fixture failure38116827086. Minimal outgoing-cache
-revalidation3ab2ee5 compiles debug/test2m8s and both review axes pass. First
-GREEN attempt38117628397 reaches all import assertions then fails the fixture's
-feed-only field4 assumption on a profile read. Correction89d76a2 makes the
-complete import case PASS38117893858: incoming key, outgoing verified name,
-unchecked acknowledgement, disabled confirmation, unchanged wallet/name after
-cancellation, no broadcasts and healthy peer. Whole run is not GREEN: an
-unavailable-case hierarchy capture fails with keyboard visible after the earlier
-Compose error assertion (five cases, four passes,35.446s). Cause of the earlier/
-later visibility discrepancy is not established. Original evidence is retained
-in ticket18/first-import-name-green and unavailable-ime-capture-failure.
+- Core milestone: all52 cases and debug/test assembly PASS; actual native frames
+  independently verify with pinned WASM0.3.2/Elliptic6.6.1. Unmodified pinned A/B
+  Registry/keychain methods with in-memory adapters pass compatible request/
+  proof/display checks. These are not current served DOM or chain inclusion proof.
+- Android10 run38118600472 on dd90e40: all six cases PASS36.48s, including
+  confirmed recovery/profile, unavailable posting access, saved-name import
+  warning and discriminating original-backend pending-work safeguards.
+- Android10 run38119168208 on ce9740a: six cases PASS44.07s plus actual cold
+  process recovery PASS7.033s. PID4222 is killed/absent; native recovery records
+  PID4324 with unchanged wallet/backend/frame, real namecheck, zero automatic
+  sends and exact explicit Retry. The actual published-registrar frame is
+  independently verified. Originals are in first-process-recovery-green. Cold
+  bitmap renders inconsistently across reviewers; XML/runtime establish recovery,
+  without a consistent bitmap or rendering-cause claim. Android stops the target
+  after instrumentation finishes; never require post-completion PID liveness.
+- Existing-wallet discovery is actual RED38119739548 on41f93e7, then complete
+  individual-case PASS38120023255 on e162fce. Whole latter run fails another
+  unavailable capture after Compose visibility (six of seven PASS42.417s).
+  Original discovery PNG renders inconsistently across reviewers; XML/runtime
+  establish name/public key. first-discovery-red/green retain originals/limits.
+- Cache-save tracer is actual RED38120361760 on ead23fd: seven of eight PASS,
+  total57.54s. Genuine namecheck and isolated name-cache path obstruction precede
+  the missing verified label at line93; original PNG/XML show anonymous fallback.
+  Corrected unavailable capture fully passes. first-name-save-red retains it.
 
-Review-stage3ccaef8 fixes picker duplication with the unchanged exact-file/
-returned-preview observations in WalletTestUi.chooseWalletImport (profile and
-username callers). Unavailable error is explicitly scrolled before display/
-capture; both axes report zero findings, runtime verification pending. New
-tracerf9421aa covers pending request/backend isolation and outgoing import work:
-switching to the other controlled backend must not send or show the owner's
-private request; its import preview must warn about pending work on the original
-backend; cancelling and returning only reconciles, with explicit Retry retaining
-the exact original frame. Focused10 run38118322693 onf9421aa is actual RED: six cases, five passes,
-one missing pending-work warning in31.191s. Earlier switch/isolation/import-key
-assertions are reached; later cancellation/return/retry is not. Source-sensitive
-fixf01211f rules out unrelated work and requires actual read-only reconciliation;
-not verified by the older-source run. Minimal pending-risk app implementation
-dd90e40 now reads both backend request stores, qualifies matching verified cache
-as previously confirmed and fails closed for unreadable work. Focused10
-run38118600472 ondd90e40 passes all six username cases in36.48s, including
-new discriminating guards, actual official Archive/persisted backend choices,
-increased matching OWNER lookup and exact explicit retry. Root individually
-viewed the pending-preview PNG/XML; scrolled addresses are proven by runtime
-assertions. Verbatim evidence is in first-pending-import-green. Both source
-review axes pass; this checkpoint fixes the stale handoff status identified by
-Standards. Profile shared-helper regression and actual replacement/discovery
-remain for later acceptance. Actual-process tracer8eae1ad plus bounded framework-aware correctionce9740a
-completed as focused10 run38119168208, superseding38119056454.
-Preparation writes only public checkpoint/frame data and kills the PID; cold
-recovery never resets identity/backend/work and must read-only reconcile before
-exact explicit Retry. Host verifies old PID absence and the fresh positive
-recorded native PID, not survival after instrumentation completion (Android
-stops it then). Focused10 run38119168208 on ce9740a passes all six ordinary cases
-in44.07s plus actual cold recovery in7.033s. PID4222 is killed/absent; native
-recovery records PID4324 with unchanged wallet/backend/frame, a real read-only
-namecheck, zero automatic sends and exact explicit Retry. Root individually
-viewed both original PNGs/XML. Cold bitmap renders inconsistently across views
-(status strip in root/Spec, full UI in Standards); XML/runtime support the
-functional result, with no proven rendering cause. Pinned WASM/Elliptic verify the
-published-registrar request and routing signatures. Durable public evidence:
-ticket18/first-process-recovery-green. Both correction review axes pass.
+Current correction cf18e3c passes seven cases in focused10 run38120689654;
+new eighth reaches mounted verified name/save warning and repaired fresh lookup,
+then fails a home-only button assumption after recreation (54.28s). The selected
+Profile is intentionally preserved by FeedNavigationMemory. Original PNG/XML
+show name/warning during failure, repaired name and preserved named Profile;
+name-save-recreation-fixture-failure retains them. Later cached-name/no-warning/
+no-send assertions and process stage are not reached. Bounded fixture correction
+waits for preserved Profile and keeps those assertions, without an app change.
+Both source correction axes have zero residual findings; the earlier evidence
+line93 citation is corrected. Current documentation consolidates older chronology
+into canonical verification/evidence pointers. Corrected native GREEN remains
+pending.
+Excessive unsigned nesting below64KiB already safely rejects at the parser limit;
+the four-case focused protocol suite passes32s. No crash fix was necessary.
 
-#19 remains open. Pending import previews/backend isolation now pass focused10;
-remaining work includes actual replacement and imported identity discovery and broader shared name display, malformed/taken/inactive
-and persistence failures, public Android read-only readiness
-and applicable full10/17 acceptance. Do not repeat unaffected #18 full checks
-without a relevant change. Owner reviews the completed app.
+Production uses the published registrar. Synthetic scalar2 authority is limited
+to explicit debug emulator/loopback fixtures, not real namespace ownership. Both
+approved public endpoints authenticated and served Archive/key-map hints in the
+read-only03:57 probe, but unknown and known-name namechecks returned
+{err:"no response"}. This is unavailable, never availability or ownership. Cause
+is unproved; do not change a node or enable block production speculatively.
+Scratch client/results are preserved; native read-only readiness remains pending.
+
+#19 stays open. Next: verify the current run, then Settings-first/imported-wallet
+discovery, shared names in feed/thread/quote/reply surfaces, actual replacement
+isolation, malformed/taken/inactive and persistence failures, native public
+readiness and applicable final full Android10/17 acceptance. Shared SAF profile
+helper callers need affected regression checks. Do not repeat unaffected #18 full
+checks without a relevant change. The owner reviews the completed app.
 
 Protected untracked future research must stay out of #19 commits:
 discovery/moderation, notifications, transfers, private/group Chat contracts and

@@ -1,0 +1,166 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.UsernamePreviewTest:
+INSTRUMENTATION_STATUS: test=aVerifiedProfileNameRemainsVisibleWhenItsLocalCacheCannotBeSaved
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.waitForEnabled(UsernamePreviewTest.kt:569)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aVerifiedProfileNameRemainsVisibleWhenItsLocalCacheCannotBeSaved$lambda$25$lambda$24$lambda$23$lambda$22(UsernamePreviewTest.kt:115)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.$r8$lambda$L9xyBd74kIYopTr8k056M27R1l8(Unknown Source:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest$$ExternalSyntheticLambda30.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aVerifiedProfileNameRemainsVisibleWhenItsLocalCacheCannotBeSaved$lambda$25(UsernamePreviewTest.kt:88)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.$r8$lambda$Oci_qtC20vcTXsE58lbBXAHkA44(Unknown Source:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.withRegistryWallet(UsernamePreviewTest.kt:545)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aVerifiedProfileNameRemainsVisibleWhenItsLocalCacheCannotBeSaved(UsernamePreviewTest.kt:75)
+
+INSTRUMENTATION_STATUS: stream=
+Error in aVerifiedProfileNameRemainsVisibleWhenItsLocalCacheCannotBeSaved(nl.davidengelen.redsquare.UsernamePreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.waitForEnabled(UsernamePreviewTest.kt:569)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aVerifiedProfileNameRemainsVisibleWhenItsLocalCacheCannotBeSaved$lambda$25$lambda$24$lambda$23$lambda$22(UsernamePreviewTest.kt:115)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.$r8$lambda$L9xyBd74kIYopTr8k056M27R1l8(Unknown Source:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest$$ExternalSyntheticLambda30.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aVerifiedProfileNameRemainsVisibleWhenItsLocalCacheCannotBeSaved$lambda$25(UsernamePreviewTest.kt:88)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.$r8$lambda$Oci_qtC20vcTXsE58lbBXAHkA44(Unknown Source:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.withRegistryWallet(UsernamePreviewTest.kt:545)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aVerifiedProfileNameRemainsVisibleWhenItsLocalCacheCannotBeSaved(UsernamePreviewTest.kt:75)
+
+INSTRUMENTATION_STATUS: test=aVerifiedProfileNameRemainsVisibleWhenItsLocalCacheCannotBeSaved
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aRegistrarSignedNameIsDisplayedAndRetainedWhenLaterChecksAreUnavailable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aRegistrarSignedNameIsDisplayedAndRetainedWhenLaterChecksAreUnavailable
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anUnavailableUsernameCheckDoesNotBlockPostingOrChangeTheWallet
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anUnavailableUsernameCheckDoesNotBlockPostingOrChangeTheWallet
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anExistingWalletDiscoversItsVerifiedNameWithoutRegisteringAgain
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anExistingWalletDiscoversItsVerifiedNameWithoutRegisteringAgain
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aPendingNameStaysWithItsWalletAndBackendDuringImportPreview
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aPendingNameStaysWithItsWalletAndBackendDuringImportPreview
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aConfirmedRegistrationIsNotResentAndNamesTheOwnProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aConfirmedRegistrationIsNotResentAndNamesTheOwnProfile
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=walletImportIdentifiesTheVerifiedNameThatBelongsToTheOutgoingWallet
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=walletImportIdentifiesTheVerifiedNameThatBelongsToTheOutgoingWallet
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aPendingRegistrationSurvivesReopeningAndRetriesTheExactSignedRequest
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aPendingRegistrationSurvivesReopeningAndRetriesTheExactSignedRequest
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 54.28
+There was 1 failure:
+1) aVerifiedProfileNameRemainsVisibleWhenItsLocalCacheCannotBeSaved(nl.davidengelen.redsquare.UsernamePreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.waitForEnabled(UsernamePreviewTest.kt:569)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aVerifiedProfileNameRemainsVisibleWhenItsLocalCacheCannotBeSaved$lambda$25$lambda$24$lambda$23$lambda$22(UsernamePreviewTest.kt:115)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.$r8$lambda$L9xyBd74kIYopTr8k056M27R1l8(Unknown Source:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest$$ExternalSyntheticLambda30.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aVerifiedProfileNameRemainsVisibleWhenItsLocalCacheCannotBeSaved$lambda$25(UsernamePreviewTest.kt:88)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.$r8$lambda$Oci_qtC20vcTXsE58lbBXAHkA44(Unknown Source:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.withRegistryWallet(UsernamePreviewTest.kt:545)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aVerifiedProfileNameRemainsVisibleWhenItsLocalCacheCannotBeSaved(UsernamePreviewTest.kt:75)
+
+FAILURES!!!
+Tests run: 8,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

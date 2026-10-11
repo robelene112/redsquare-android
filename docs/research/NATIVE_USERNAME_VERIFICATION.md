@@ -374,3 +374,15 @@ name; not present in older RED. Minimal correction retains verified mounted
 label plus generic save warning as one settled result even after cache failure.
 Review-stage RegistryLookup shares bounded strict namecheck/decoder between
 registration and profile discovery. Source review/native GREEN pending.
+
+Android10 run38120689654 on cf18e3c passes seven cases and reaches the new
+verified mounted name/save warning/public key/no-send and repaired fresh lookup
+with no warning. After unavailable proof is configured and Activity recreated,
+it fails the invalid home-only Your profile gate at line115 (eight cases, one
+failure,54.28s). FeedNavigationMemory preserves selected Profile. Later cached
+assertions and process stage are not reached; no whole-case GREEN. Root viewed
+all three original PNGs/XMLs: error shows named profile/warning/key, repair and
+recreation show named selected profile without warning. Durable originals in
+name-save-recreation-fixture-failure. Bounded test correction waits for preserved
+Profile and retains cached-name/public-key/no-warning/no-send checks. Both prior
+source axes pass; corrected runtime acceptance remains pending.

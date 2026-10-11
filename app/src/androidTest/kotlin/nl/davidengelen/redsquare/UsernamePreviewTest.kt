@@ -112,8 +112,7 @@ class UsernamePreviewTest {
                         capture("username-name-save-recovered.png", "NativeCase7@saito")
                         response.set("{\"err\":\"no response\"}")
                         scenario.recreate()
-                        waitForEnabled("Your profile")
-                        ui.onNodeWithText("Your profile").performClick()
+                        waitForText("Profile") // The selected public profile survives Activity recreation.
                         waitForText("NativeCase7@saito")
                         ui.onNodeWithText(fixture.publicKey).assertIsDisplayed()
                         ui.onAllNodesWithText(warning).assertCountEquals(0)
