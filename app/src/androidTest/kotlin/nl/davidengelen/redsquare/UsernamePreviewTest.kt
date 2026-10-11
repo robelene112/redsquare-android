@@ -317,6 +317,94 @@ class UsernamePreviewTest {
         }
     }
 
+    @Test fun aPendingNameStaysWithItsWalletAndBackendDuringImportPreview() = withRegistryWallet { fixture ->
+        val device = UiDevice.getInstance(instrumentation)
+        val filename = "00-username-pending-import.json"
+        check(device.executeShellCommand("run-as nl.davidengelen.redsquare.dev.test stat -c %s files/wallet-test-documents/00-username-pending-import.json")
+            .trim().toLongOrNull()?.let { it > 0 } == true) { "Pending username import fixture was not provisioned" }
+        val incoming = "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU" // Independent public scalar2 identity.
+        assertNotEquals(fixture.publicKey, incoming)
+        val ownerPeer = ControlledFeedPeer("[]", registryResponse = { criteria ->
+            assertEquals("registry namecheck", criteria.get("request").asString)
+            assertEquals("NativeCase7@saito", criteria.get("identifier").asString)
+            "[]"
+        })
+        val officialPeer = ControlledFeedPeer("[]")
+        val pending = "Registration requested. Confirmation is still pending."
+        var primary: Throwable? = null
+        try {
+            ownerPeer.start().use { ownerServer ->
+                officialPeer.start().use { officialServer ->
+                    ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                        .putExtra("feedPeerUrl", "ws://127.0.0.1:${ownerServer.port}/wsopen")
+                        .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${officialServer.port}/wsopen")
+                        .putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")).use {
+                        withFailureCapture({ capture("username-pending-import-failure.png") }) {
+                            openUsername()
+                            waitForEnabled("Check name")
+                            ui.onNode(hasSetTextAction()).performTextReplacement("NativeCase7")
+                            ui.onNodeWithText("Check name").performScrollTo().performClick()
+                            waitForText("This username is currently available. Checking does not reserve it.")
+                            assertTrue(ownerPeer.transactions.isEmpty())
+                            ui.onNodeWithText("Register name").performScrollTo().performClick()
+                            waitForEnabled("Retry registration")
+                            ui.onNodeWithText(pending).performScrollTo().assertIsDisplayed()
+                            assertEquals(1, ownerPeer.transactions.size)
+                            val original = ownerPeer.transactions.single().copyOf()
+                            val signed = SaitoEnvelope.decode(postingTransaction(original).envelope())
+                            assertEquals(fixture.publicKey, signed.author)
+                            assertEquals(listOf(SaitoRegistry.REGISTRAR, fixture.publicKey), signed.recipients)
+                            assertEquals("NativeCase7@saito", signed.body.get("identifier").asString)
+                            ui.onNodeWithText("Settings").performClick()
+                            ui.onNodeWithText("saito.io").performClick()
+                            waitForText("Server: saito.io")
+                            waitForEnabled("Check name")
+                            ui.onNode(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString("")))
+                                .assertIsEnabled()
+                            ui.onAllNodesWithText("Retry registration").assertCountEquals(0)
+                            assertTrue("Switching must not send the owner's request to the other backend", officialPeer.transactions.isEmpty())
+                            assertEquals(1, ownerPeer.transactions.size)
+                            ui.onNodeWithText("Back").performClick()
+                            waitForEnabled("New post")
+                            ui.onNodeWithText("Wallet").performClick()
+                            assertEquals(fixture.publicKey, displayedWalletAddress(ui))
+                            ui.onNodeWithText("Import wallet").performScrollTo().performClick()
+                            chooseWalletImport(ui, filename, incoming)
+                            ui.onNodeWithText("Pending work belongs to your current wallet").performScrollTo().assertIsDisplayed()
+                            ui.onNodeWithContentDescription("Replacement risks acknowledged").performScrollTo().assertIsOff()
+                            ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsNotEnabled()
+                            capture("username-pending-import-preview.png", "Pending work belongs to your current wallet")
+                            assertEquals(fixture.publicKey, displayedWalletAddress(ui))
+                            ui.onNodeWithText("Done").performClick()
+                            ui.onNodeWithText("Settings").performClick()
+                            ui.onNodeWithText("saito.davidengelen.nl").performClick()
+                            waitForText("Server: saito.davidengelen.nl")
+                            openUsername()
+                            waitForEnabled("Retry registration")
+                            ui.onNodeWithText(pending).performScrollTo().assertIsDisplayed()
+                            assertEquals("Returning must reconcile without automatic publication", 1, ownerPeer.transactions.size)
+                            assertTrue(officialPeer.transactions.isEmpty())
+                            ui.onNodeWithText("Retry registration").performScrollTo().performClick()
+                            waitForEnabled("Retry registration")
+                            assertEquals(2, ownerPeer.transactions.size)
+                            assertArrayEquals(original, ownerPeer.transactions.last())
+                            assertTrue(ownerPeer.clientKeys.all { it == fixture.publicKey })
+                            assertTrue(officialPeer.clientKeys.all { it == fixture.publicKey })
+                            ownerPeer.assertHealthy(); officialPeer.assertHealthy()
+                        }
+                    }
+                }
+            }
+        } catch (failure: Throwable) { primary = failure; throw failure }
+        finally {
+            try {
+                check(device.executeShellCommand("run-as nl.davidengelen.redsquare.dev.test rm files/wallet-test-documents/00-username-pending-import.json").isBlank()) {
+                    "Could not clear the public pending-name import fixture"
+                }
+            } catch (cleanup: Throwable) { if (primary != null) primary.addSuppressed(cleanup) else throw cleanup }
+        }
+    }
+
     private fun withRegistryWallet(block: (SaitoWallet) -> Unit) {
         val fixture = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe fixture only.
         val walletStore = AndroidWalletStore(context)
