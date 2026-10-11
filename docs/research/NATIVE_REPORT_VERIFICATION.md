@@ -279,3 +279,9 @@ options are preserved. Provider fixtures are public unsafe scalars2/3 only,
 provisioned by host under actual .dev.test UID. Eight cases take53.327s; class
 budget180s accommodates backup and two imports without changing any individual
 observation deadlines. Production source unchanged, no presumed defect.
+
+Both bounded wallet-source review axes0. Additional fixture privacy tightening
+validates raw private backup JSON through SaitoWallet.fromBackup before comparing
+full exported options, so malformed backup input cannot expose a Gson fragment
+in a failure log. Validated export preserves all opaque options; byte buffers
+are still cleared. Runtime38175754741 predates this fixture-only tightening.

@@ -536,8 +536,12 @@ class ReportPreviewTest {
                                 buffer.copyOf(size)
                             } finally { buffer.fill(0) }
                         }
-                        try { assertTrue("Authenticated backup must retain all original options",
-                            JsonParser.parseString(originalWallet.exportJson()) == JsonParser.parseString(bytes.toString(Charsets.UTF_8))) }
+                        try {
+                            // Invalid private JSON must fail through the wallet's sanitized parser.
+                            val backedUp = SaitoWallet.fromBackup(bytes.toString(Charsets.UTF_8))
+                            assertTrue("Authenticated backup must retain all original options",
+                                JsonParser.parseString(originalWallet.exportJson()) == JsonParser.parseString(backedUp.exportJson()))
+                        }
                         finally { bytes.fill(0) }
                         ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsNotEnabled()
                         capture("identity-backed-up-consent.png", "Current wallet backed up for this replacement")
