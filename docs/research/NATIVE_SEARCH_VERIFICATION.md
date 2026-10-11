@@ -228,3 +228,6 @@ could falsely satisfy a missing-result assertion. The later invalid-point key
 is Base58 of compressed02+32FF, x outside the field; cannot become a person.
 Wallet/clientkeys/noTX gates unchanged. Compile/nativeRED pending; no exact
 publickey production handling yet. Accepted seams1–4 unchanged.
+
+Exact-key tracer6547a3a compilation PASS1m21s; both source axes0 findings.
+First exact-key native RED pending; production handling still absent.

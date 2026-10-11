@@ -106,3 +106,8 @@ debug/testPASS; push38138427894 source/core/debug/test/release/lintPASS.
 Original log and one new individually viewed PNG/separateXML retained in
 ticket19/people-green. Exact signed namecheck/Profile/back/recreation/wallet/
 allclientkeys/noTX PASS. No liveRegistry/physical/full acceptance.
+
+Exact-key tracer e505de2…6547a3a: Standards0/Spec0. Both axes independently
+confirm invalid literal33bytes02+32FF, existing good key provenance, editable
+query excluded from clickable-person matcher and truthful pending RED/source.
+All four people-green hashes, raw4PASS83.402s and original image/XML agree.
