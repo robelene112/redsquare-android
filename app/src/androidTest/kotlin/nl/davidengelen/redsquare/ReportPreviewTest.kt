@@ -700,6 +700,7 @@ class ReportPreviewTest {
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow") }
         val recordFile = AtomicReference<File>()
         val pending = AtomicReference<ByteArray>()
+        val observedReceipt = AtomicReference<ByteArray>()
         fun read(file: File): ByteArray {
             check(file.isFile && file.length() in 1..8192)
             return file.readBytes().also { check(it.size in 1..8192) }
@@ -720,7 +721,7 @@ class ReportPreviewTest {
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
             val acknowledged = "Report acknowledged by saito.davidengelen.nl. Moderator review is separate."
             val unknown = "Report delivery to saito.davidengelen.nl is unknown. Try again to send the same report."
-            val observed = ActivityScenario.launch<MainActivity>(intent).use {
+            ActivityScenario.launch<MainActivity>(intent).use {
                 withFailureCapture({ capture("restored-receipt-first-failure.png") }) {
                     ui.clickVisiblePostContent("Report")
                     ui.onNodeWithText("Cancel").performClick()
@@ -742,9 +743,10 @@ class ReportPreviewTest {
                     assertEquals(owner, signed.author); assertEquals(listOf(owner), signed.recipients)
                     assertEquals(root.get("sig").asString, signed.body.getAsJsonObject("data").get("signature").asString)
                     assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
-                    receipt
+                    observedReceipt.set(receipt)
                 }
             }
+            val observed = requireNotNull(observedReceipt.get())
             val file = requireNotNull(recordFile.get())
             val owner = AndroidWalletStore(context).loadExisting().publicKey
             var restoreNeeded = false

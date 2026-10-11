@@ -390,7 +390,7 @@ Currentproduct typedwire14/nonblankstringerr yields namederror/uncertaindelivery
 persists observedboolean, clears old error at the conservative pre-enqueue marker, before the final
 cancellation check/socket send; physical enqueue is not guaranteed. Raw err is
 never displayed.
-Lateerrorsavefailure retainsobservation+phonewarning. GREENpending. Whole Spec0 newestablishedfindings; its backend-switch
+Late error-save failure retains observation plus phone warning. GREEN passed below. Whole Spec0 newestablishedfindings; its backend-switch
 interleaving was withdrawn after keyed lifecycle inspection. Separate Standards
 Activity recreation/NonCancellable stale durable acknowledgement finding remains
 source-reachable without runtime reproduction. Initial-save cleanup corrected81b41de,
@@ -400,8 +400,11 @@ separate9XMLs, explicit-error-green20hashes. Runtimepredates81cleanup.
 NextsingleactualUI/publicfilesystemtracer restores genuine observedackbytes after
 staleviewloads originalpending snapshot; explicitRetry must adoptACK/no newreport,
 preserve exactcandidate/wallet/backend/recreation. Both design axes agree; not
-oldNonCancellable timing reproduction. ProductunchangedpendingRED. Final paired
-both-SDK/source/public reads remain pending.
+oldNonCancellable timing reproduction. First38177595073 ateca518a stoppedat
+instrumentationcompile26s: UnitcapturehelpermisusedasByteArray. Native/process
+unreached, notproductRED; compilefailure1hash. Fixtureonlycorrection stores real
+receipt outsidehelper, acceptance/deadlinesunchanged. Bothtracer/evidenceaxesclear;
+productunchangedpendingcorrectedRED. Finalpairedboth-SDK/source/publicreadspending.
 Ticket22 remains incomplete: failure/durability/identity/backend isolation,
 actual process interruption and final both-SDK acceptance/reviews still required.
 Its source contract is prepared in NATIVE_DISCOVERY_MODERATION_CONTRACT.md and

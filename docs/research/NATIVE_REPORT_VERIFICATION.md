@@ -357,3 +357,11 @@ Retry must adopt receipt/no secondreport, preserve exactcandidate/wallet/backend
 and survive another recreation. No fabricated moderator receipt or private state;
 no coroutine scheduler interleaving reproduction claimed. Both design axes
 confirm accepted scope/seams. Product unchanged pending this single RED.
+
+Restored-receipt first run38177595073 ateca518a stopped at instrumentation
+compilation in26s: withFailureCapture returnsUnit; receipt inferredasUnit. Native
+journey/process entirelyunreached, not productRED. Correct fixture by retaining
+actual observedpublicbytes in localAtomicReference then requiringthem afterthe
+firstActivitycloses. Acceptance/deadlines/productunchanged. Buildfailure retained
+restored-receipt-compile-failure1hash. Bothtracersource/evidenceaxesclear; stale
+GREENpending wording corrected in activehandoff. Corrected nativeREDnext.

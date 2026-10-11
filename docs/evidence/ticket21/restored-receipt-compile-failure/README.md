@@ -1,0 +1,1 @@
+Run38177595073 ateca518a fails instrumentation compilation: capture helper returns Unit, but new fixture inferred it as receipt ByteArray. Runtime/separate recovery unreached; this is not product RED. Fixture correction retains the observed actual public bytes outside the Unit helper; acceptance unchanged.
