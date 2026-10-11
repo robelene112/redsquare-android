@@ -55,6 +55,7 @@ class UsernamePreviewTest {
                 withFailureCapture({ capture("username-shared-name-failure.png") }) {
                     waitForEnabled("New post")
                     peer.assertRequestObserved()
+                    waitForEnabled("Refresh") // Archive observation precedes signed post parsing and publication.
                     if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText(text))
                     val targetAuthor = hasText("NativeCase7@saito") and hasParent(hasAnyChild(hasText(text)))

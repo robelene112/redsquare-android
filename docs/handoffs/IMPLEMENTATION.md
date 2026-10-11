@@ -148,14 +148,29 @@ screen busy/checking does not gate feed/posting. Testhelpers wait for enabled
 Check/Retry; cold proof explicitly requires exactnamecheck. Both bounded source axes clear. Local Gradle reports successful debug/test
 assembly2m15s, but the host wrapper returned143 after completion; no compiler
 failure was logged and no build container remains. Wrapper signal cause is
-unproved. Hosted native/build acceptance is next, not inferred from that exit. Readonly07:51 public record SELECT returns
+unproved. Hosted builds now pass on both SDKs; native results are below.
+Readonly07:51 public record SELECT returns
 cached timestamp-shaped bsh and0validproofs onboth nodes; no fallback implemented.
 Retained registry-local-readiness host client/result is not native or registration
 acceptance. Future
 protected untracked research remains untouched; no local compiler active.
 
-#19 stays open. Next: verify Settings discovery, then imported-wallet
-discovery, quoted-name tracer, actual replacement
+
+Settings implementation585074d passes Android10 run38123194656:10 ordinary
+cases48.452s plus actual cold recovery1case5.216s, PID4569 to4678, same
+wallet/backend, real read-only namecheck, zero automatic publication and exact
+explicit Retry. Independent pinned WASM/Elliptic verifies the actual published-
+registrar frame. Android17 run38123195572 passes9/10 in88.834s; Settings discovery
+passes, shared-name initial scroll fails while feed is Loading posts with disabled
+Refresh. Root individually viewed both Settings PNG/XML and failure PNG/XML.
+Cold10 PNG only shows status strip; recovery XML/runtime support the claim,
+without a consistent bitmap or established capture cause. Durable originals/report:
+docs/evidence/ticket18/settings-discovery-green-feed-readiness-failure.
+The next bounded fixture waits for enabled Refresh before unchanged independent
+post/name assertions; no app change or Android17 GREEN claimed. #19 stays open.
+
+#19 stays open. Next: verify the bounded Android17 feed readiness correction,
+then imported-wallet discovery, quoted-name tracer, actual replacement
 isolation, malformed/taken/inactive and persistence failures, native public
 readiness and applicable final full Android10/17 acceptance. Shared SAF profile
 helper callers need affected regression checks. Do not repeat unaffected #18 full

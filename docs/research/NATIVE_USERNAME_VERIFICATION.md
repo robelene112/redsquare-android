@@ -450,3 +450,16 @@ Settings correction source review passes both axes. Local Gradle reports
 successful debug/test assembly2m15s; wrapper exit143 after completion remains
 unexplained, with no compile failure and no surviving build container. Hosted
 verification must establish clean build/native acceptance for this candidate.
+
+Settings implementation585074d passes Android10 run38123194656:10 ordinary
+cases48.452s plus actual cold recovery1case5.216s, PID4569 to4678, same
+wallet/backend, real read-only namecheck, zero automatic publication and exact
+explicit Retry. Independent pinned WASM/Elliptic verifies the actual published-
+registrar frame. Android17 run38123195572 passes9/10 in88.834s; Settings discovery
+passes, shared-name initial scroll fails while feed is Loading posts with disabled
+Refresh. Root individually viewed both Settings PNG/XML and failure PNG/XML.
+Cold10 PNG only shows status strip; recovery XML/runtime support the claim,
+without a consistent bitmap or established capture cause. Durable originals/report:
+docs/evidence/ticket18/settings-discovery-green-feed-readiness-failure.
+The next bounded fixture waits for enabled Refresh before unchanged independent
+post/name assertions; no app change or Android17 GREEN claimed. #19 stays open.
