@@ -86,7 +86,17 @@ class SaitoPeer(private val wallet: SaitoWallet, endpoint: String) : Closeable {
         override fun onClosed(webSocket: WebSocket, code: Int, reason: String) { fail() }
     })
 
-    suspend fun request(message: ByteArray): ByteArray = withTimeout(12_000) {
+    suspend fun request(message: ByteArray): ByteArray = requestFrame { index ->
+        SaitoWire.applicationRequest(wallet.publicKey, message, index, System.currentTimeMillis())
+    }
+
+    /** Exact signed application transaction, never wrapped in an unsigned request. */
+    suspend fun request(transaction: SaitoTransaction): ByteArray {
+        require(SaitoEnvelope.decode(transaction.envelope()).author == wallet.publicKey)
+        return requestFrame(transaction::applicationRequest)
+    }
+
+    private suspend fun requestFrame(frame: (Int) -> ByteArray): ByteArray = withTimeout(12_000) {
         ready.await()
         if (disconnected.get()) throw IOException("Peer disconnected")
         val index = nextIndex.incrementAndGet()
@@ -95,7 +105,7 @@ class SaitoPeer(private val wallet: SaitoWallet, endpoint: String) : Closeable {
         pending[index] = response
         try {
             if (disconnected.get()) throw IOException("Peer disconnected")
-            send(socket, SaitoWire.applicationRequest(wallet.publicKey, message, index, System.currentTimeMillis()))
+            send(socket, frame(index))
             response.await()
         } finally { pending.remove(index) }
     }

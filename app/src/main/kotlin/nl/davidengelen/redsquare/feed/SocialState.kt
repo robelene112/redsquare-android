@@ -21,6 +21,7 @@ internal data class ActionStatus(val candidate: SaitoTransaction? = null, val av
 /** One selected wallet/backend's social operations, shared across its visible post views. */
 internal class SocialState(private val context: Context, private val wallet: SaitoWallet,
     private val backend: SaitoBackend, private val endpoint: String, private val scope: CoroutineScope) {
+    val reports = ReportState(context, wallet, backend, endpoint, scope)
     val actions = mutableStateMapOf<PostActionKey, ActionStatus>()
     val observedPosts = mutableStateMapOf<String, FeedPost>()
     /** Called only for fresh server responses, never when reopening older cached views. */

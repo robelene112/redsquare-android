@@ -13,3 +13,20 @@ Device RED pending. An initial helper parameter-order compile error was fixed
 before runtime testing and is not counted as a behavioral RED.
 Source contracts: NATIVE_DISCOVERY_MODERATION_CONTRACT.md,
 NATIVE_MODERATION_CONTRACTS.md, NATIVE_TRANSACTION_BROADCAST.md.
+
+
+## First actual RED
+
+Android10 run38167998216 atb4be908 fails the only report case after22.489s,
+at ReportPreviewTest.kt:41 waiting for the missing Report control. Refresh was
+enabled and the original signed post was loaded. Root viewed the original live
+confirmation-failure.png and separately parsed its XML. No product report code
+was present. Local helper compile failure is separate and already corrected.
+First minimal GREEN implementation is in progress; persistence/failure acceptance
+is not complete. No production reports, moderator review or removal are claimed.
+
+Local first implementation build: core55/0/0, debug APK and instrumentation
+assembly pass. An accidental unused duplicate ReportState declaration in an
+existing local function was removed after this build; hosted compilation and
+runtime will verify the corrected source. Independent frame/receiver helpers
+pass isolated Node syntax checks; actual native specimen validation is pending.

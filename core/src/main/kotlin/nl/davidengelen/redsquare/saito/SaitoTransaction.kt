@@ -25,6 +25,12 @@ class SaitoTransaction private constructor(private val bytes: ByteArray) {
         }.toString()
     }
 
+    /** Signed application RPC, with no broadcast routing hop. */
+    fun applicationRequest(index: Int): ByteArray {
+        require(index > 0)
+        return byteArrayOf(12) + ByteBuffer.allocate(4).putInt(index).array() + bytes
+    }
+
     fun broadcast(wallet: SaitoWallet, destination: String): ByteArray {
         require(SaitoEnvelope.decode(envelope()).author == wallet.publicKey)
         val recipient = Base58.decode(destination)

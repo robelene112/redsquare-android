@@ -30,6 +30,7 @@ internal fun SocialActions(post: FeedPost, state: SocialState?, onQuote: ((FeedP
     RedSquareActionKind.entries.forEach { kind ->
         SocialAction(post, state, kind, onQuote)
     }
+    ReportAction(post, state?.reports)
 }
 
 @Composable

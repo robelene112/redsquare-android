@@ -287,4 +287,12 @@
     <string name="personal_posts_hidden">Posts from muted or blocked accounts are hidden.</string>
     <string name="personal_post_hidden">This post is hidden by your personal controls.</string>
     <string name="personal_quote_hidden">Quoted original hidden by your personal controls.</string>
+    <string name="report_action">Report</string>
+    <string name="report_confirm">Report to %1$s?</string>
+    <string name="report_explanation">This sends this post to this server\'s moderators. Acknowledgement does not mean it has been reviewed or removed.</string>
+    <string name="report_send">Send report</string>
+    <string name="report_cancel">Cancel</string>
+    <string name="report_sending">Sending report to %1$s...</string>
+    <string name="report_acknowledged">Report acknowledged by %1$s. Moderator review is separate.</string>
+    <string name="report_uncertain">Report delivery to %1$s is unknown. Try again to send the same report.</string>
 </resources>
