@@ -43,7 +43,7 @@ known/unknown namechecks unusable21bytes; fresh host09:53:48Z onboth returns
 filtererror is its own summary defect, not server key-map failure. Source/host/
 native observations remain distinct. No node changes/trust fallback/livewrites.
 #20, "Search posts and people in available backend history", remains assigned
-and OPEN for final evidence review. Review base is
+and OPEN with acceptance complete; closure next. Review base is
 3be555be85586b68c0d05c2c8e69d3976bbffe89. Accepted seams 1–4 apply.
 No additional owner grill or intermediate phone gate is required.
 
@@ -79,7 +79,9 @@ EACH SDK, plus both fresh public feed originals on each. Durable
  ticket19/final-full/android10 and android17 retain119hashes each and all raw
 countable completion/death logs. Root recomputed durable counts equal to the
 original artifacts. Android17 bounded evidence reviews: both axes0 findings.
-Android10/final evidence review pending before closing #20.
+Android10/final evidence review also complete: both axes0 findings or closure
+blockers. Both independently verify119hashes, counts, originals and paired source
+equivalence. Close #20 after pushing the final acceptance record.
 
 Two earlier full10 failures remain in full10-first-failure and
 full10-second-failure. The first stopped at an old wallet-picker selector; exact
@@ -92,7 +94,7 @@ identical between successful full17 and full10, as allowed by WORKFLOW.md.
 
 No new phone APK, actual Search process-death, Pixel performance or live write
 claim. Stable review remains version10/source5225d06. #19 remains externally
-parked. Finish final review/closure, then recheck/claim #21 sequentially. Its
+parked. Finish tracker closure, then recheck/claim #21 sequentially. Its
 read-only preparation is ignored .scratch/personal-controls-plan.md; no #21
 implementation or claim yet. Preserve the seven future research files below.
 
