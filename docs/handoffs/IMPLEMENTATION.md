@@ -418,9 +418,22 @@ pass; reports/process/laternative/update/publicreadsunreached. Rootoriginal
 legacycapturesroot/Reportatbottom(noXML); existingactualscrollcasepasses.
 Viewportfixturecausesupported, notprovenproduct/datafault. final-browse-failure
 3hashes perSDK. Fixturefixonlytwo affectedtransitions waitunchanged15sRefresh
-thenactualLazyListscroll/visibleauthenticreply, retainalllaterassertions. Fixreview/
-newpairedacceptancepending, noReportfixGREEN. Originalcoroutineschedulingnotclaimed
-reproduced. Bothfixturefixreviews0. No nextticket
+thenactualLazyListscroll/visibleauthenticreply, retainalllaterassertions. Standards
+found one duplicated consecutive scroll/display pair;5b36d1b removes only that
+pair. Both fix reviews0. Paired reruns38179606575(full10)/38179608252(full17)
+pin5b36d1b153df86bfbf32052050b213516ac5e3b7, both public_feed_read=true.
+Focused reports38179643110 passes11ordinary105.625s and actualprocess4222→4306/
+cold1case5.056s/635-byte public record. Root4restoredreceipt+3processoriginals/
+separate7XML, durable restored-receipt-green23hashes/recount12cases2records1death.
+One report throughout actualreceiptadoption/recreation, samecandidate/wallet/
+backend and no type4 pass. Full10run38179606575 passesbrowse8cases20.342s,
+thenposting18/17PASS1FAIL111.56s at139 offscreenreplywaitbeforescroll. Root
+legacyoriginalroot/Reportfillviewport(noXML); no absentdata/schedulingproof.
+Reports/laterfullscopesunreached; focusedGREENseparate. Durable full10-posting-
+viewport-failure3hashes. Fixtureonlycorrection usesexisting15s waitForVisiblePost
+scroll/exactdisplay, preservinglaterparent/thread/recipient/sendgates.
+Full17run38179608252 stillactive; fixreview/full10retry next. Originalcoroutineschedulingnotclaimed
+reproduced. No nextticket
 claimed; #23 is balances/receiving/authenticated SAITO transfers, not filtering.
 Ticket22 remains incomplete: failure/durability/identity/backend isolation,
 actual process interruption and final both-SDK acceptance/reviews still required.

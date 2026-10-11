@@ -136,8 +136,7 @@ class PostPreviewTest {
                 try {
                     waitForReferencePost()
                     ui.onNodeWithText("Native Red Square reference post").performClick()
-                    waitFor("Independent recipient reply")
-                    ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("Independent recipient reply"))
+                    waitForVisiblePost("Independent recipient reply")
                     ui.onNodeWithText("Independent recipient reply").performClick()
                     ui.onNodeWithText("Reply").performClick()
                     waitFor("Replying to Anon-${parent.get("field2").asString.take(6)}")

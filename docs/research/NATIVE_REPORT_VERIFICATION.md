@@ -413,3 +413,34 @@ suites/updates/publicreads entirelyunreached. Durable final-browse-failure3hashe
 perSDK. Correct onlytwo affected transitions: wait unchanged15s refreshcompletion,
 scroll actual lazylist to authenticreply, require displayed then retain author/
 Back/forgery assertions. No timeout extension/productchange. Fixreview/rerun next.
+
+Bounded fixture review ac808f9...059eab5: Spec0, Standards one redundant
+consecutive scroll/display pair. Commit5b36d1b removes only that duplicate;
+both fix reviews0, retaining readiness, exact authentic reply display, author/
+Back/forgery and peer-health assertions. Production source unchanged sinceac808f9.
+Paired reruns38179606575(full10)/38179608252(full17) both pin
+5b36d1b153df86bfbf32052050b213516ac5e3b7, public_feed_read=true.
+Focused reports38179643110 pins the same commit to obtain earlier runtime
+feedback for atomic receipt adoption while full suites traverse earlier features.
+No runtime result or ticket acceptance inferred from dispatch.
+
+## Atomic receipt adoption GREEN; second full10 fixture interruption
+
+Focused reports38179643110 at5b36d1b passes11ordinary105.625s plus actual
+process4222→4306/cold1case5.056s, retained635-byte public record and unchanged
+owner/backend/original transaction. Root individually viewed4restored-receipt
+originals and3process originals, separately parsed7XMLs. Exact candidate, one
+report through adoption/recreation, final saved/displayed identity, no type4,
+no auto cold resend and explicit identical retry pass. Durable restored-receipt-
+green23hashes/recount12completed/2records/1death. This is genuine observed receipt
+adoption, not original coroutine scheduling reproduction or moderator action.
+
+Full10run38179606575 passes corrected browse8cases20.342s, Following/post-process
+recovery, then posting18cases/17PASS/1FAIL111.56s at139, waiting offscreen nested
+reply before scrolling. Root original shows Conversation root/Report filling
+viewport; no legacyXML. Source supports fixture viewport explanation, not absent
+data/proven scheduling defect. Reports/later scopes unreached; focused GREEN is
+separate. Durable full10-posting-viewport-failure3hashes. Correction reuses existing
+waitForVisiblePost helper for actual scroll/exact display within unchanged15s,
+preserving parent/thread/inherited recipient/send/reconciliation predicates.
+Product unchanged; full17run38179608252 remains active. Fixreview and full10 retry next.

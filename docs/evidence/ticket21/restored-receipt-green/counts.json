@@ -1,0 +1,21 @@
+{
+  "run": "38179643110",
+  "source": "5b36d1b153df86bfbf32052050b213516ac5e3b7",
+  "completedCases": 12,
+  "completionRecords": 2,
+  "actualDeathStages": 1,
+  "records": [
+    {
+      "log": "report-process/recovered.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "reports-ui.txt",
+      "completedCases": 11
+    }
+  ],
+  "deathLogs": [
+    "report-process/interrupted.txt"
+  ],
+  "assumptions": []
+}
