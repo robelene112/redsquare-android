@@ -57,7 +57,7 @@ class ProfileEditPreviewTest {
             ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
             if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
             ui.onNodeWithText("Your profile").performClick()
-            ui.waitUntil(20_000) { ui.onAllNodes(hasText("Edit profile") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+            ui.waitUntil(20_000) { ui.onAllNodes(hasText("Edit profile") and hasClickAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
             ui.onNodeWithText("Edit profile").performClick()
             ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
         }
@@ -65,11 +65,11 @@ class ProfileEditPreviewTest {
             val intent = Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
             ActivityScenario.launch<MainActivity>(intent).use {
-                try {
+                captureFailure("profile-late-save-retry-failure.png") {
                     openOwnEditor()
                     ui.onNode(hasSetTextAction()).performTextReplacement(initial)
                     ui.onNodeWithText("Save draft").performClick()
-                    ui.waitUntil(10_000) { ui.onAllNodes(hasText("Edit profile") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.waitUntil(10_000) { ui.onAllNodes(hasText("Edit profile") and hasClickAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     check(draft.isFile && draft.length() > 0)
                     val prior = digest.digest(draft.readBytes())
                     ui.onNodeWithText("Edit profile").performClick()
@@ -89,30 +89,30 @@ class ProfileEditPreviewTest {
                         // A generic pre-write failure is insufficient: the owned synthetic record changed.
                         assertFalse(prior.contentEquals(digest.digest(draft.readBytes())))
                         assertTrue(peer.transactions.isEmpty())
-                        capture("profile-late-save-failed.png")
+                        capture("profile-late-save-failed.png", error)
                     } catch (failure: Throwable) { primary = failure; throw failure }
                     finally {
                         try { Os.chmod(directory.path, permissions) }
                         catch (cleanup: Throwable) { if (primary != null) primary.addSuppressed(cleanup) else throw cleanup }
                     }
                     ui.onNodeWithText("Save draft").assertIsEnabled().performClick()
-                    ui.waitUntil(10_000) { ui.onAllNodes(hasText("Edit profile") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.waitUntil(10_000) { ui.onAllNodes(hasText("Edit profile") and hasClickAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onAllNodes(hasSetTextAction()).assertCountEquals(0)
+                    ui.onAllNodesWithText(context.getString(R.string.profile_draft_error)).assertCountEquals(0)
                     assertEquals(owner, AndroidWalletStore(context).loadExisting().publicKey)
                     assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
-                } catch (failure: Throwable) {
-                    try { capture("profile-late-save-retry-failure.png") }
-                    catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
-                    throw failure
                 }
             }
             ActivityScenario.launch<MainActivity>(intent).use {
-                openOwnEditor()
-                ui.onNode(hasSetTextAction()).assert(SemanticsMatcher.expectValue(
-                    SemanticsProperties.EditableText, AnnotatedString(edited))).assertIsEnabled()
-                capture("profile-late-save-recovered.png")
-                assertEquals(owner, AndroidWalletStore(context).loadExisting().publicKey)
-                assertEquals(SaitoBackend.OWNER, AndroidBackendStore(context).load())
-                assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
+                captureFailure("profile-late-save-recovery-failure.png") {
+                    openOwnEditor()
+                    ui.onNode(hasSetTextAction()).assert(SemanticsMatcher.expectValue(
+                        SemanticsProperties.EditableText, AnnotatedString(edited))).assertIsEnabled()
+                    capture("profile-late-save-recovered.png", edited)
+                    assertEquals(owner, AndroidWalletStore(context).loadExisting().publicKey)
+                    assertEquals(SaitoBackend.OWNER, AndroidBackendStore(context).load())
+                    assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
+                }
             }
         }
     }
@@ -538,10 +538,20 @@ class ProfileEditPreviewTest {
         ui.onNodeWithText(text).assertIsDisplayed()
     }
 
-    private fun capture(name: String) {
+    private fun captureFailure(name: String, block: () -> Unit) {
+        try { block() }
+        catch (failure: Throwable) {
+            try { capture(name) }
+            catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
+            throw failure
+        }
+    }
+
+    private fun capture(name: String, expectedText: String? = null) {
         ui.waitForIdle()
         val file = File(context.cacheDir, "profile-edit-evidence/$name").apply { parentFile?.mkdirs() }
         val device = UiDevice.getInstance(instrumentation)
+        expectedText?.let { check(device.wait(Until.hasObject(By.text(it)), 10_000)) }
         check(device.takeScreenshot(file))
         device.dumpWindowHierarchy(File(file.parentFile, file.nameWithoutExtension + ".xml"))
     }

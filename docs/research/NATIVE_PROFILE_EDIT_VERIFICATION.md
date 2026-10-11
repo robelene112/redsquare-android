@@ -946,3 +946,36 @@ must remain; readable unsynced bytes are not success. No production retry fix
 written yet. Initial single-marker proposal had a repeated-failure gap found by
 review; refined bounded previous/intended proposal is still only a plan.
 Late-save tracer local debug/test assembly PASS1m8s, retained exit0.
+
+Bounded412d0e3...f3d5136 Spec0 new source issues, one evidence qualification;
+Standards0 hard/one diagnostic heuristic. Both independently viewed all six
+original removal PNGs and verified counts/frame hashes/reports. Android17
+removal-draft XML describes the earlier PUBLIC profile with custom picture/
+banner while its original PNG shows the generated-avatar removal EDITOR.
+Root separately parsed all six XMLs and confirmed that one discrepancy.
+Retain originals unchanged. Cause unproved; this pair is not a matching snapshot.
+Native Compose removal assertions, bitmap, exact available/public XML and actual
+signed omission/receivers support their separate claims. Future removal-draft
+capture now positively gates native Save profile window before PNG/XML capture.
+Late-save diagnostic review adds an in-scope primary-preserving wrapper for BOTH
+mounted and cold phases, so cold failure is captured before Activity closes.
+Successful late-save captures positively gate exact error or recovered bio in
+the native window. No acceptance assertion changed; current RED run still at
+immutable f3d5136, these fixture fixes not built or dispatched yet.
+
+Actual unchanged f3d5136 Android10 38105211508 unexpectedly PASS: editor7/35.66s,
+publisher5 (one API30+ skip), media2. Two original late-save PNGs individually
+viewed by root and Spec reviewer, exact XML/class logs retained under
+profile-late-save-gate-audit/android10. First shows truthful save error/typed
+bio; fresh Activity shows recovered bio. These do NOT prove mounted retry.
+Spec review found repaired Save draft success wait also matched the existing
+editor title, so failure could satisfy it before Activity closure. No remount
+is required to explain the false positive. Same immutable Android17 audit
+38105678928 running; no production change. SAME tracer now requires clickable
+enabled PUBLIC Edit profile button and absence of editor field/error before
+Activity closure; seed gate also tightened. Diagnostic fixes included. Fresh
+local build and intended RED pending. No production remediation yet.
+
+Corrected same-tracer local debug/test build PASS1m7s, exit0, retained rawlog.
+Both reviewers independently confirmed the title-match gap and inspected both
+original audit images/XML/logs. No production change; intended RED pending.

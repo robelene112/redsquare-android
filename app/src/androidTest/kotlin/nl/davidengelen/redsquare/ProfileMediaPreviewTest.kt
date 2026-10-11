@@ -152,7 +152,7 @@ class ProfileMediaPreviewTest {
                             ui.onNode(hasSetTextAction()).assert(SemanticsMatcher.expectValue(
                                 SemanticsProperties.EditableText, AnnotatedString(bio)))
                             assertEquals(1, peer.transactions.size)
-                            capture("profile-removed-media-draft.png")
+                            capture("profile-removed-media-draft.png", "Save profile")
                             ui.onNodeWithText("Save draft").assertIsEnabled().performClick()
                             ui.waitUntil(20_000) { ui.onAllNodes(hasText("Edit profile") and hasClickAction()).fetchSemanticsNodes().isNotEmpty() }
                             assertVisiblePixels("Profile picture", intArrayOf(220, 30, 40))

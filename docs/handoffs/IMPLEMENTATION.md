@@ -161,11 +161,21 @@ dualGREEN10 38104649088/17 38104651018, separate6+5+2cases each,
 10 oneAPI30skip/17all13PASS. Six originals individuallyinspected and bothactual
 removalframes independentlyPASS pinnedcrypto/exactbody/A/Breceivers; retained
 profile-media-removal-green. Source38104649178 PASS49/release/lint.
+One17draftXML ispreviouspubliccustommedia whilePNGshowsremovaleditor;
+originalsretainedunchanged/causeunproved, futurepositiveSaveprofilegateadded.
 Interimfullafce...3b0b234 reviews1eachsame latecommitrevisionretryfinding,
 notruntimeproof. NextONE late-save failure tracer nowwritten; exactowned
 noBackup permission fault, changedsyntheticciphertext andsamemountedretry.
 Restoreexactpermissionsbeforecleanup/no processkill. ExpectedREDstuckretry;
-localbuildPASS1m8s; native/reviewpending, no productionretryfixyet.
+localbuildPASS1m8s; native38105211508PASS but invalid retry gate. BoundedreviewsSpec0source/
+evidencequalification, Standards0hard/1diagnosticwrapperheuristic nowcorrected
+forbothphases; newfixtureeditsunbuilt. No productionretryfixyet.
+Unexpected10PASS explained by Spec review: Edit profile success wait matches
+editor title. First error and cold recovery valid separate observations, not
+mounted retry proof. Originals/logs retained profile-late-save-gate-audit.
+Same immutable17 audit38105678928 running. SAME tracer success/seed gates now
+require clickable enabled public Edit profile and no editor/error before close;
+localbuildPASS1m7s exit0. Both reviewers confirm gap; seek valid RED before remediation.
 No scheduler-race reproduction claimed.
 Recovery/process/full acceptance remains open.
 Then candidate failures/recovery,
