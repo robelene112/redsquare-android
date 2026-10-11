@@ -89,8 +89,14 @@ PNG/XML/log ticket19/key-green. Push38139610540 release/lintPASS.
 Pointvalidation cleanupdd00cc3 compilePASS2m42s/bothaxes0.
 Next knownkey/nameprefix/follow/offline primarytracer added; copiedauthor
 fixture corrected beforedispatch, correctedcompilePASS1m19s, StandardsfreshFollowfixturefix62aa7ce
-compilePASS1m22s/bothaxes0. First knownprefixnativeREDpending.
-No knownpeople productionhandling yet.
+compilePASS1m22s/bothaxes0. Known-prefixRED38140656219 at855d16a:
+6cases84.668s, existing5PASS/newmissingknownauthorFAILline79. Later
+Profile/Follow/nameprefix/offline gates unexecuted; originalinspectedPNG/XML/
+rawlog retained ticket19/prefix-red. Push38140656411 release/lintPASS.
+Knownpeople productionhandling addedcbea3b1: verifiedauthors/wallet/validated
+follows/visitedprofiles plus verifiedlabels, cached-only knownname proof reads
+onIO, no wildcard/globaldirectory. CombinedcompilePASS2m38s; bounded
+bothboundedaxes0 actionable findings. FirstGREEN pending.
 Knownpeople/namefailuresstillpending. People/durable cache/full acceptance pending;
 no #20 acceptance yet.
 Accepted seams1–4 unchanged.

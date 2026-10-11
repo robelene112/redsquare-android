@@ -150,3 +150,18 @@ exercise shared-point cleanup. Root individually viewed originalPNG and
 separately parsedXML; rawlog/pair retained ticket19/prefix-red. Focused source/
 core/debug/testPASS; push38140656411 source/core/debug/test/release/lintPASS.
 Known-prefix implementation now begins; no final #20 acceptance.
+
+After observed RED, cbea3b1 adds known-account prefixes from signed post
+authors, wallet, validated follows/visited profiles and verified labels. Only
+known keys load cached name proofs on IO; publication cannot replace a newer
+in-memory label. Key prefixes are case-sensitive, name prefixes ignore case.
+No wildcard/global directory request. Combined compile and both source reviews
+active; first native GREEN pending.
+
+Known-prefix cbea3b1 combined compile PASS2m38s; bounded Standards0
+hard/actionable findings, all four RED hashes verified. Spec review and first
+native GREEN pending.
+
+Bounded Spec0/Standards0 actionable findings atcbea3b1; both reviewers
+independently verified the observed RED and four evidence hashes. Compile
+PASS2m38s. First known-prefix native GREEN pending.
