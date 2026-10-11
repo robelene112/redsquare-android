@@ -7,8 +7,8 @@ one question at a time when a material choice really needs the owner.
 
 ## Current work
 
-Profile #18 is closed, final evidence commit ed5742f pushed. Seventeen of35 tickets
-are complete (#2–#15, #18, #20 and #21). Parked #19, "Register an optional Saito username",
+Profile #18 is closed, final evidence commit ed5742f pushed. Eighteen of35 tickets
+are complete (#2–#15, #18, #20, #21 and #22). Parked #19, "Register an optional Saito username",
 parked on the external Registry prerequisite, review base ed5742fd0f57958d284073b7145f1844b72b1dbd. #16 Giphy still awaits
 Android-authorized credentials; #17 actual YouTube provider playback remains
 unproved. Do not close those from controlled source/layout successes.
@@ -149,8 +149,8 @@ Initial wallet/live-feed milestone is published as stable signed version10
 Compose bitmaps had inconsistent labels; use each report's stated evidence
 limits. #9 also has official bitmap inconsistencies; no invented cause.
 
-Next: implement active #22 sequentially, review base9ecb97b. Owner
-reviews the completed app; no intermediate phone-review gate is required.
+Next: implement ready #23 sequentially after claiming it. Owner reviews the
+completed app; no intermediate phone-review gate is required.
 
 ## Verification already inspected
 
@@ -251,7 +251,8 @@ cache/deletion/timing cause was inferred. Preserve already accepted full17.
 
 ## Current reporting acceptance checkpoint
 
-#22 is ACTIVE/assigned, whole-ticket review base9ecb97b. Product source complete
+#22 is CLOSED2026-10-11T23:23:14Z, comment6115065628, final acceptance
+commita797276 pushed;18/35complete. Whole-ticket review base9ecb97b. Product source complete
 atac808f9; whole Standards0/Spec0. Reports name the selected destination before
 consent, use compatible signed type12/self outputs/no type4, and distinguish
 strict handler acknowledgement from moderator review/removal/chain inclusion.
@@ -284,7 +285,7 @@ final-full SDK folder retains202hashes/allcountable logs, exact original/durable
 evidence axes0. Final17 paired evidence review through6d3888a also clears both
 axes:0findings/no acceptance gap, independently verified202hashes/rawcounts/
 originals/continuity/source-equivalence. Sourcepush38183784351 PASSES.
-Ticket22 acceptance is complete; issue closure follows this checkpoint.
+Ticket22 acceptance is complete and its GitHub closure is recorded above.
 
 Full17 includes a reviewed existing-image fixture correction after prior setup
 FileNotFoundException; product/core/reference/build/harness/workflow unchanged
@@ -297,8 +298,7 @@ restored-receipt RED, timeout/save/failure/isolation chronology and all qualifie
 native/independent proof live in NATIVE_REPORT_VERIFICATION.md andticket21/REVIEW.md.
 Do not reconstruct or repeat accepted checks from this handoff's old chronology.
 
-Next ready after #22 closure: #23 balances/receiving/authenticated SAITO transfers,
-not yet claimed. Read-only preparation .scratch/ticket23-readonly-plan.md records
+Next ready: #23 balances/receiving/authenticated SAITO transfers, not yet claimed. Read-only preparation .scratch/ticket23-readonly-plan.md records
 public parameter observations/pure reference gaps; it is not implementation or
 acceptance. Protected future files remain untouched. No newphone APK/Pixel/live
 report/moderator outcome/permanent history/original scheduler reproduction claim.
