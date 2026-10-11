@@ -444,7 +444,19 @@ full17-image-fixture-failure3hashes. Source supportsproviderscan hypothesis,
 notproven cause. Currentfixture usespending singlecompletewrite→publish,
 UUIDnames/recognizablePNGpadding/exactpositivesize/missingvalidPNGthenexplicitdelete;
 allownedallocationsinsideexistingprimarysafecleanup. Product/predicatesunchanged;
-focus17images38181457132 at367cba4/review pending. Full10retry38180155391 stillactive. Originalcoroutineschedulingnotclaimed
+Bothimagefixture/docfixreviews0 through92d80f3. Focus17images38181457132 at367
+and full17retry38181575469 at92 public_feed_read=true active. Full10retry38180155391
+at709 PASSES191reported/190PASS+existingAPI30+assumption,48records/16actualdeaths,
+core55/release/lint/signed5→8/coldwallet/cache/bothpublicreads. Reporting11PASS
+92.703s, actualdeath23785→23879/cold1PASS4.34s/635-byte public record, original
+wallet/backend/transaction/noautosend/exactexplicitretry/no type4. Root41ordinary+
+3process originals/separate44XML; two ACK strips exactbyte-identical to fully
+viewedACK/adopted originals, no presentationcause inferred. Both public originals
+viewed; owner/official9.48s/6.512s, ordinary100rows92posts0ignored/quotes4rows0posts.
+Durable final-full/android10 202hashes/exactrecount191/48/16+assumption matches
+original. Product/core/reference/build/harness/workflow unchanged709→92;
+imagefixture-only correction allows outstanding17 perWORKFLOW. Final17/evidence
+reviews stillrequired before22closure. Originalcoroutineschedulingnotclaimed
 reproduced. No nextticket
 claimed; #23 is balances/receiving/authenticated SAITO transfers, not filtering.
 Ticket22 remains incomplete: failure/durability/identity/backend isolation,

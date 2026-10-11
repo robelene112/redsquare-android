@@ -468,3 +468,19 @@ existing primary-safe cleanup. Acceptance predicates/product unchanged. Focused
 Android17 image verification38181457132 at367cba4 and review pending;
 full10 remains active. REVIEW.md's stale paired-running paragraph is corrected
 to the actual stopped17/active10/focused-image-pending status.
+
+Full10run38180155391 at709b58d PASSES191reported/190PASS+existingAPI30+
+profileassumption,48records/16actualdeaths, core55/release/lint, signed5→8,
+coldwallet/cachecontinuity and both opted-in publicreads. Reporting11PASS92.703s,
+actualdeath23785→23879/cold1PASS4.34s/635-byte public record preservesidentity/
+backend/originalcandidate/noautosend/exactexplicitretry/no type4. Root all41
+ordinary+3process originals individually/separate44XML; two restoredACK strips
+are exactbyte-identical to fully viewedACK/adopted originals, no cause inferred.
+Both public originals viewed; owner/official1PASS9.48s/6.512s, ordinary100rows/
+92posts/0ignored, quotes4rows/0posts/0ignored. Not exhaustive/chain/Registry proof.
+Durable final-full/android10 retains202hashes/allcountablelogs; exact recount
+equals original191/48/16+assumption. This predates imagefixture367; production/
+core/reference/build/harness/workflow unchanged through92d80f3. Both bounded
+imagefixture/docfix axes0 after staleREVIEWstatus correction. Focus17images
+38181457132 at367 and full17retry38181575469 at92 both active; the latter
+public_feed_read=true. Final17/evidence reviews required before22closure.

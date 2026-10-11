@@ -1,0 +1,19 @@
+{
+  "headSha": "709b58d68da1b773050b33e4e459343500fa9c96",
+  "status": "completed",
+  "conclusion": "success",
+  "steps": [
+    {
+      "name": "Build and verify native sources",
+      "conclusion": "success"
+    },
+    {
+      "name": "Verify Android 10 runtime",
+      "conclusion": "success"
+    },
+    {
+      "name": "Retain verification evidence",
+      "conclusion": "success"
+    }
+  ]
+}
