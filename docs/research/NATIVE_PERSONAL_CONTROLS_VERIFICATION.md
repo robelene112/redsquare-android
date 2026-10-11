@@ -127,3 +127,22 @@ re-Mute before switching backend/offline Unblock. This prevents Mute alone from
 masking absent Block filtering. Recompile before the first native Block RED.
 
 Strengthened Block tracer compilation PASS1m27s; first native Block RED next.
+
+Block fixture/recovery-evidence review7f5d796...f1100cf: both axes0 new
+actionable findings. Both independently verify12recovery-GREENhashes/originals.
+The test expresses Block-only/independent-Mute assertions; actual Block behavior
+is not proved before implementation/GREEN. Native first Block RED38152934786
+atf1100cf is active. Product source unchanged since7f5d796.
+
+First Block RED38152934786 atf1100cf:3reported/2PASS1FAIL71.307s, line227
+missing Block account after saved Mute. Root views native original/separateXML;
+block-red4hashes retain log and qualified failure. Existing two journeys pass;
+new Block end safeguards and later action assertions unreached.
+Minimal Block implementation now adds independent encrypted sets, immutable
+PersonalPolicy semantics (either flag hides social content, only Block hides
+incoming Chat), shared Profile/Settings explained controls and feed filtering.
+Older native Mute-only records load with no Block; imported wallet options remain
+untouched. Later actual Chat/notification integration is still required in its
+own dependent tickets. Compile and unchanged three-test GREEN pending.
+
+Block implementation compile PASS2m16s; unchanged three-test native GREEN next.

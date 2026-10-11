@@ -2,6 +2,7 @@ package nl.davidengelen.redsquare.moderation
 
 import android.content.Context
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
@@ -22,12 +23,20 @@ import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.EncryptedLocalFile
 import nl.davidengelen.redsquare.saito.SaitoWallet
 
+/** Shared semantics for social content/notifications and the later incoming Chat flow. */
+internal data class PersonalPolicy(val muted: Set<String> = emptySet(), val blocked: Set<String> = emptySet()) {
+    fun hidesSocial(author: String) = author in muted || author in blocked
+    fun hidesIncomingChat(author: String) = author in blocked
+}
+
 /** Device-local personal choices for one public identity, shared by both servers. */
 internal class PersonalControls(private val context: Context, private val owner: String?, private val scope: CoroutineScope) {
     private val storage = owner?.let { EncryptedLocalFile(context, "personal.$it.v1", "personal.$it", "personal.$it.") }
     val ownerAvailable get() = owner != null
-    var muted by mutableStateOf<Set<String>>(emptySet())
+    var policy by mutableStateOf(PersonalPolicy())
         private set
+    val muted get() = policy.muted
+    val blocked get() = policy.blocked
     var ready by mutableStateOf(false)
         private set
     var loading by mutableStateOf(true)
@@ -40,21 +49,19 @@ internal class PersonalControls(private val context: Context, private val owner:
     suspend fun load() {
         loading = true
         try {
-            muted = withContext(Dispatchers.IO) {
+            policy = withContext(Dispatchers.IO) {
                 if (owner == null) {
                     // With no identity, do not guess whose saved choices apply.
                     // Anonymous public reading remains available on a device without them.
                     require(context.noBackupFilesDir.listFiles()?.none { it.name.startsWith("personal.") } == true)
-                    emptySet()
+                    PersonalPolicy()
                 } else requireNotNull(storage).load()?.let { saved ->
                     require(saved.version == 1.toByte())
                     val record = JsonParser.parseString(saved.text).asJsonObject
                     require(record.get("version").asInt == 1 && record.get("owner").asString == owner)
-                    val accounts = record.getAsJsonArray("muted").map { it.asString }
-                    require(accounts.size <= MAX_ACCOUNTS && accounts.distinct().size == accounts.size)
-                    require(accounts.all(SaitoWallet::isPublicKey))
-                    accounts.toSet()
-                } ?: emptySet()
+                    PersonalPolicy(readAccounts(record, "muted"),
+                        if (record.has("blocked")) readAccounts(record, "blocked") else emptySet())
+                } ?: PersonalPolicy()
             }
             ready = true
             error = false
@@ -70,21 +77,30 @@ internal class PersonalControls(private val context: Context, private val owner:
     }
 
     fun setMuted(author: String, mute: Boolean) {
+        save(author, policy.copy(muted = if (mute) muted + author else muted - author))
+    }
+
+    fun setBlocked(author: String, block: Boolean) {
+        save(author, policy.copy(blocked = if (block) blocked + author else blocked - author))
+    }
+
+    private fun save(author: String, updated: PersonalPolicy) {
         if (owner == null || !ready || saving) return
-        val updated = if (mute) muted + author else muted - author
         saving = true
         scope.launch {
             try {
                 withContext(Dispatchers.IO) {
-                    require(SaitoWallet.isPublicKey(author) && updated.size <= MAX_ACCOUNTS)
+                    require(SaitoWallet.isPublicKey(author) && updated.muted.size <= MAX_ACCOUNTS &&
+                        updated.blocked.size <= MAX_ACCOUNTS)
                     val record = JsonObject().apply {
                         addProperty("version", 1)
                         addProperty("owner", owner)
-                        add("muted", com.google.gson.JsonArray().apply { updated.sorted().forEach(::add) })
+                        add("muted", com.google.gson.JsonArray().apply { updated.muted.sorted().forEach(::add) })
+                        add("blocked", com.google.gson.JsonArray().apply { updated.blocked.sorted().forEach(::add) })
                     }
                     requireNotNull(storage).save(EncryptedLocalFile.Contents(1, record.toString()))
                 }
-                muted = updated
+                policy = updated
                 error = false
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { error = true }
@@ -92,7 +108,14 @@ internal class PersonalControls(private val context: Context, private val owner:
         }
     }
 
-    fun hidesPosts(author: String) = !ready || author in muted
+    fun hidesPosts(author: String) = !ready || policy.hidesSocial(author)
+
+    private fun readAccounts(record: JsonObject, name: String): Set<String> {
+        val values = record.getAsJsonArray(name).map { it.asString }
+        require(values.size <= MAX_ACCOUNTS && values.distinct().size == values.size)
+        require(values.all(SaitoWallet::isPublicKey))
+        return values.toSet()
+    }
 
     private companion object { const val MAX_ACCOUNTS = 1000 }
 }
@@ -121,24 +144,44 @@ internal fun PersonalControlsStatus(controls: PersonalControls?) {
 @Composable
 internal fun AccountControls(author: String) {
     val controls = LocalPersonalControls.current ?: return
-    var confirming by remember(author) { mutableStateOf(false) }
     PersonalControlsStatus(controls)
-    val muted = author in controls.muted
-    TextButton(enabled = controls.ownerAvailable && controls.ready && !controls.saving, onClick = {
-        if (muted) controls.setMuted(author, false) else confirming = true
-    }) { Text(stringResource(if (muted) R.string.personal_unmute_account else R.string.personal_mute_account)) }
-    if (confirming) AlertDialog(
-        onDismissRequest = { confirming = false },
-        title = { Text(stringResource(R.string.personal_mute_account)) },
-        text = { Text(stringResource(R.string.personal_mute_detail)) },
+    AccountControlButtons(controls, author)
+}
+
+private enum class Control(val activeLabel: Int, val inactiveLabel: Int, val detail: Int, val confirmation: Int) {
+    MUTE(R.string.personal_unmute_account, R.string.personal_mute_account, R.string.personal_mute_detail, R.string.personal_mute),
+    BLOCK(R.string.personal_unblock_account, R.string.personal_block_account, R.string.personal_block_detail, R.string.personal_block)
+}
+
+@Composable
+private fun AccountControlButtons(controls: PersonalControls, author: String) {
+    var confirming by remember(author) { mutableStateOf<Control?>(null) }
+    fun change(control: Control, enabled: Boolean) {
+        when (control) {
+            Control.MUTE -> controls.setMuted(author, enabled)
+            Control.BLOCK -> controls.setBlocked(author, enabled)
+        }
+    }
+    Row {
+        Control.entries.forEach { control ->
+            val selected = author in if (control == Control.MUTE) controls.muted else controls.blocked
+            TextButton(enabled = controls.ownerAvailable && controls.ready && !controls.saving, onClick = {
+                if (selected) change(control, false) else confirming = control
+            }) { Text(stringResource(if (selected) control.activeLabel else control.inactiveLabel)) }
+        }
+    }
+    confirming?.let { control -> AlertDialog(
+        onDismissRequest = { confirming = null },
+        title = { Text(stringResource(control.inactiveLabel)) },
+        text = { Text(stringResource(control.detail)) },
         confirmButton = {
             TextButton(enabled = controls.ready && !controls.saving, onClick = {
-                confirming = false
-                controls.setMuted(author, true)
-            }) { Text(stringResource(R.string.personal_mute)) }
+                confirming = null
+                change(control, true)
+            }) { Text(stringResource(control.confirmation)) }
         },
-        dismissButton = { TextButton(onClick = { confirming = false }) { Text(stringResource(R.string.personal_cancel)) } }
-    )
+        dismissButton = { TextButton(onClick = { confirming = null }) { Text(stringResource(R.string.personal_cancel)) } }
+    ) }
 }
 
 @Composable
@@ -150,15 +193,15 @@ internal fun PersonalControlsDialog(onDone: () -> Unit) {
         text = {
             Column(Modifier.verticalScroll(rememberScrollState())) {
                 Text(stringResource(R.string.personal_mute_detail))
+                Text(stringResource(R.string.personal_block_detail))
                 Text(stringResource(R.string.personal_local_detail))
                 PersonalControlsStatus(controls)
                 if (controls?.ready == true) {
-                    if (controls.muted.isEmpty()) Text(stringResource(R.string.personal_empty))
-                    controls.muted.sorted().forEach { author ->
+                    val accounts = controls.muted + controls.blocked
+                    if (accounts.isEmpty()) Text(stringResource(R.string.personal_empty))
+                    accounts.sorted().forEach { author ->
                         Text(author)
-                        TextButton(enabled = !controls.saving, onClick = { controls.setMuted(author, false) }) {
-                            Text(stringResource(R.string.personal_unmute_account))
-                        }
+                        AccountControlButtons(controls, author)
                     }
                 }
             }

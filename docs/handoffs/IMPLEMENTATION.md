@@ -116,7 +116,11 @@ GREEN38152142197 at7f5d796 passes2cases45.744s including both end gates. Root
 views5originalPNG/separate5XML; recovery-green12hashes. Next single native Block
 tracer added before Block product code: independent Block-only filter, re-Mute,
 backend switch, offline Unblock preserving Mute and fresh cached Unmute restore.
-Final tracer compilesPASS1m27s; first native Block RED dispatch next. Block, other-view filters and late-save recovery still require further
+Final tracer compilesPASS1m27s; both fixture/evidence reviews0 actionable.
+Block RED38152934786 atf1100cf:3reported/2PASS1FAIL71.307s atmissingBlock
+line227. Root views actualProfilePNG/separateXML withsavedUnmute/noBlock;
+block-red4hashes. Minimal independentBlock/Mute/PersonalPolicy implementation
+compilesPASS2m16s; unchanged3-test focusedGREEN next. Block, other-view filters and late-save recovery still require further
 vertical journeys; no final #21 acceptance/new APK claimed. Scope/verification plan: NATIVE_PERSONAL_CONTROLS_VERIFICATION.md.
 Read-only source preparation is ignored .scratch/personal-controls-plan.md.
 Preserve the seven future research files below.

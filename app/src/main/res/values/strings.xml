@@ -272,6 +272,10 @@
     <string name="personal_mute_account">Mute account</string>
     <string name="personal_unmute_account">Unmute account</string>
     <string name="personal_mute">Mute</string>
+    <string name="personal_block_account">Block account</string>
+    <string name="personal_unblock_account">Unblock account</string>
+    <string name="personal_block">Block</string>
+    <string name="personal_block_detail">Block hides this account\'s posts, social notifications and incoming Chat messages.</string>
     <string name="personal_cancel">Cancel</string>
     <string name="personal_mute_detail">Mute hides this account\'s posts and social notifications. Chat messages remain available.</string>
     <string name="personal_local_detail">These choices apply to your current wallet on both servers. They are saved only on this device. Importing a wallet on another device does not restore them.</string>
