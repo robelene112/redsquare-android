@@ -103,6 +103,7 @@ class MainActivity : ComponentActivity() {
             var failed by remember { mutableStateOf(false) }
             var retry by remember { mutableIntStateOf(0) }
             var walletOpen by remember { mutableStateOf(false) }
+            var walletBalanceOpen by remember { mutableStateOf(false) }
             var recoveryGuideOpen by remember { mutableStateOf(false) }
             val backupReminders = remember { getSharedPreferences("wallet-backup-reminders", MODE_PRIVATE) }
             var backupReminder by remember { mutableStateOf(false) }
@@ -399,6 +400,10 @@ class MainActivity : ComponentActivity() {
                                     Text(stringResource(R.string.wallet_import))
                                 }
                                 Text(stringResource(R.string.wallet_backup_private), style = MaterialTheme.typography.bodySmall)
+                                TextButton(enabled = address != null && !walletExport.busy && !walletImport.busy,
+                                    onClick = { walletBalanceOpen = true }) {
+                                    Text(stringResource(R.string.wallet_balance_receive))
+                                }
                                 TextButton(onClick = { recoveryGuideOpen = true }) { Text(stringResource(R.string.wallet_recovery_guide)) }
                             }
                         },
@@ -407,6 +412,9 @@ class MainActivity : ComponentActivity() {
                             Text(stringResource(R.string.done))
                         } }
                     )
+                    if (walletBalanceOpen && address != null) WalletBalanceDialog(address!!, backend, balances) {
+                        walletBalanceOpen = false
+                    }
                     if (recoveryGuideOpen) AlertDialog(
                         onDismissRequest = { recoveryGuideOpen = false },
                         title = { Text(stringResource(R.string.wallet_recovery_guide)) },

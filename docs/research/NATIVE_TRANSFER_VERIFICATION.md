@@ -22,3 +22,18 @@ No transfer, inclusion, physical Pixel, production-wallet or final acceptance
 claim exists yet. Public snapshots are selected-server observations, not an
 independent UTXO or finality proof. See NATIVE_SAITO_TRANSFER_CONTRACT.md and
 NATIVE_SAITO_TRANSFER.md for researched source and earlier reference limits.
+
+## Balance/receive first cycle
+
+Local first test APK assembly passed (2m19s). Hosted focused Android17 run
+38184572679 at5c173f5 passed core55/source/debug/test assembly, then produced the
+expected native missing-action RED (1 failure,8.688s). Root inspected the original
+PNG and separately parsed XML; see ticket22/balance-red/android17.
+
+Minimal implementation now adds exact checked integer snapshot parsing, a
+separate balance/receive dialog and clipboard copy. The import-risk indicator
+uses the same strict parse, with invalid/unknown remaining UNKNOWN. Numeric UTXO
+locations are canonicalized before uniqueness checks. Balance reads validate the
+active key before requesting the exact selected endpoint. Display is a fresh
+selected-server observation, never a current-spending authorization. Receiving
+address remains independently usable. Native GREEN is pending.

@@ -3,6 +3,8 @@ package nl.davidengelen.redsquare
 import android.content.Intent
 import nl.davidengelen.redsquare.saito.ImportBalance
 import nl.davidengelen.redsquare.saito.SaitoBackend
+import nl.davidengelen.redsquare.saito.SaitoBalanceSnapshot
+import nl.davidengelen.redsquare.saito.SaitoWallet
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.net.URI
@@ -14,11 +16,16 @@ class WalletBalances private constructor(private val endpoint: (SaitoBackend) ->
         .connectTimeout(10, TimeUnit.SECONDS).readTimeout(10, TimeUnit.SECONDS)
         .followRedirects(false).followSslRedirects(false).build()
 
-    fun assess(backend: SaitoBackend, publicKey: String): ImportBalance = try {
+    fun assess(backend: SaitoBackend, publicKey: String): ImportBalance =
+        read(backend, publicKey)?.let { if (it.total.signum() == 0) ImportBalance.ZERO else ImportBalance.POSITIVE }
+            ?: ImportBalance.UNKNOWN
+
+    fun read(backend: SaitoBackend, publicKey: String): SaitoBalanceSnapshot? = try {
+        require(SaitoWallet.isPublicKey(publicKey))
         val request = Request.Builder().url(endpoint(backend) + publicKey)
             .header("Cache-Control", "no-cache, no-store").header("Accept", "text/plain").build()
         client.newCall(request).execute().use { response ->
-            if (!response.isSuccessful) return@use ImportBalance.UNKNOWN
+            if (!response.isSuccessful) return@use null
             val buffer = ByteArray(ImportBalance.MAX_SNAPSHOT_BYTES + 1)
             val count = response.body.byteStream().use { stream ->
                 var size = 0
@@ -30,10 +37,10 @@ class WalletBalances private constructor(private val endpoint: (SaitoBackend) ->
                 }
                 size
             }
-            if (count > ImportBalance.MAX_SNAPSHOT_BYTES) ImportBalance.UNKNOWN
-            else ImportBalance.assess(buffer.copyOf(count), publicKey, System.currentTimeMillis())
+            if (count > ImportBalance.MAX_SNAPSHOT_BYTES) null
+            else SaitoBalanceSnapshot.parse(buffer.copyOf(count), publicKey, System.currentTimeMillis())
         }
-    } catch (_: Exception) { ImportBalance.UNKNOWN }
+    } catch (_: Exception) { null }
 
     companion object {
         fun fromIntent(intent: Intent) = WalletBalances { backend ->

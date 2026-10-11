@@ -54,7 +54,7 @@ class WalletTransferPreviewTest {
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("7.5 SAITO"))
                         .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     ui.onNodeWithText("7.5 SAITO").assertIsDisplayed()
-                    ui.onNodeWithText("Server: saito.davidengelen.nl").assertIsDisplayed()
+                    ui.onNodeWithText("Balance from saito.davidengelen.nl").assertIsDisplayed()
                     ui.onNodeWithContentDescription("Receiving address").assertTextEquals(address)
                     assertEquals(listOf(address), requestedKeys.toList())
                     ui.onNodeWithText("Copy address").performClick()
