@@ -388,3 +388,17 @@ correction scrolls first and retains the exact displayed-post assertion. No
 production source or timeout change. Remaining full stages were not reached.
 Android17run38161793299 is still active. Compile/review and Android10 retry are
 next; #21 remains open.
+
+Bounded781bd1a...ce1acdc Spec review has zero findings. Standards identified
+one source-supported fixture readiness risk: Posts appears before asynchronous
+cached history is loaded, so immediate lazy-list search can run too early.
+Correction waits bounded15s for the existing enabled Profile Refresh after
+Posts, then scrolls and asserts the exact reference post. That Refresh is
+disabled during history loading and enabled after cached history is published.
+No production change or weakened assertion. Intermediate full10run38162365495
+atce1acdc was explicitly cancelled during setup to avoid testing the superseded
+fixture. Source push38162360677 is separate. Recompile/review then final full10
+retry are next. Original full17run38161793299 remains independent.
+
+Readiness correction local native-test compile PASS1m13s. Bounded fix reviews
+and the corrected full Android10 retry remain next. No final acceptance yet.

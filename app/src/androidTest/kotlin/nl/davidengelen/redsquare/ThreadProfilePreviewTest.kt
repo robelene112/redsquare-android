@@ -298,6 +298,8 @@ class ThreadProfilePreviewTest {
                     ui.onNodeWithText(author).performClick()
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Posts")).fetchSemanticsNodes().isNotEmpty() }
                     // The offline header can fill a small screen before this lazy row is composed.
+                    // Enabled Profile Refresh also confirms cached history has finished loading.
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     scrollProfileTo("Native Red Square reference post")
                     captureProfileObservation("cached-profile-posts-after-restart", "Native Red Square reference post")
                     scrollProfileTo("Replies")
