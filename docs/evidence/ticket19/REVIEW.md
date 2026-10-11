@@ -70,3 +70,15 @@ network read. No runtime reproduction claim. Standards1 judgment smell: search
 duplicates the public store encoded-size budget; consolidate in review cleanup
 after first cache GREEN. Combined initialcache compilation PASS2m42s; guard
 compilation/re-review and native GREEN pending.
+
+Bounded re-review32770eb…90346aa:0 residual archive-race findings per axis.
+Actual-list/stamp guard retries local merge and does not advance cursor or repeat
+a network read on conflict. Guard combined compilation PASS2m34s. Budget
+duplication judgment remains open for review cleanup.
+
+Cache GREEN38136755529 at90346aa passes3native journeys80.069s. Rawlog and
+two new criticalPNG/XML pairs retained cache-green with stated inspection limits.
+Post-GREEN review cleanup removes the duplicated encoded-budget algorithm:
+PublicStringStore's fittingEntryCount uses the same private encoder as save;
+search retains ordered posts by that count. Atomic commit/readback/load behavior
+is unchanged. Compile and bounded source re-review pending.

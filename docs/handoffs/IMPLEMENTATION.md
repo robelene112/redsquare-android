@@ -67,7 +67,12 @@ sourceaxes0 residual. NativecacheRED38135929831 at0190919: existing2PASS/new1FAI
 offline reply,72.918s. Original inspectedfailurePNG/XML/log ticket19/cache-red.
 Productioncache now added: same-server publicseed/search signed decoding,
 bounded retention, initial-load publication guard and savewarning. Combined
-compile/GREEN pending. People/durable cache/full acceptance pending;
+initialcompilePASS2m42s. Archive-publication race guarded90346aa, both
+sourceaxes0 residualracefindings, combinedcompilePASS2m34s. FirstcacheGREEN38136755529:3PASS80.069s, two new criticalPNG/XML
+pairs and rawlog retained ticket19/cache-green; separately inspectedimages/XML.
+Samewallet/isolation/noTX gates PASS; no processdeath/1000/Pixel/full claim.
+Push38136755184 source/core/release/lintPASS. Standardsbudget-duplication
+judgment now being cleaned up after GREEN. People/durable cache/full acceptance pending;
 no #20 acceptance yet.
 Accepted seams1–4 unchanged.
 Search preparation ignored .scratch/search-design.md plus protected contract.

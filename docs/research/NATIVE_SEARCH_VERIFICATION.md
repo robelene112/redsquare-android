@@ -148,3 +148,24 @@ Standards1 source archive-publication race fixed with list/stamp guard and
 received-page merge retry, cursor advancement only after valid publication.
 No new archive read or weakened primary assertions. One budget-duplication
 judgment remains for post-GREEN review cleanup. Guard compile/GREEN pending.
+
+Archive-guard combined compilation PASS2m34s at90346aa. Both bounded
+source re-reviews report0 residual race findings. Budget-duplication judgment
+remains for review cleanup after first cache GREEN; no race runtime claim.
+
+## Cache GREEN
+
+Focused38136755529 at90346aa:3PASS80.069s. Hosted source/core/debug/test
+PASS; push38136755184 source/core/release/lintPASS. Original log and two new
+criticalPNG/XML pairs retained ticket19/cache-green, each individually viewed
+and separateXML inspected. Native verifies Activity reopen/cache, offline
+retention/no failover, healthy separateSaito empty results, ownerquery/results
+return, samewallet/allclientkeys/noTX plus previousreply/pagingregressions.
+No actualprocessdeath/powercut/1000-row/Pixel/full/live acceptance. Budget
+review cleanup now proceeds; remaining people/recovery work still pending.
+
+Post-GREEN review cleanup: one private PublicStringStore encoder now determines
+both save bytes and fittingEntryCount; search keeps match ordering and uses
+that count. Removes duplicated Gson/byte arithmetic without new speculative
+interfaces or implementation-only tests. Compile/re-review pending; native
+regression joins the next focused search proof rather than an extra full run.

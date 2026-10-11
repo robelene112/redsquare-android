@@ -1,7 +1,6 @@
 package nl.davidengelen.redsquare.feed
 
 import android.content.Context
-import com.google.gson.GsonBuilder
 import nl.davidengelen.redsquare.saito.*
 
 /** Verified public history for one server. Never stores queries, wallet or private Chat data. */
@@ -10,7 +9,6 @@ internal class AndroidSearchCache(context: Context, backend: SaitoBackend) {
     private val feed = AndroidFeedCache(context, backend)
     private val profiles = AndroidProfileCache(context, backend)
     private val revisions = AndroidPostRevisions(context, backend)
-    private val gson = GsonBuilder().disableHtmlEscaping().create()
     data class History(val posts: List<FeedPost>, val unreadable: Boolean, val limited: Boolean = false)
 
     fun load(): History {
@@ -27,14 +25,7 @@ internal class AndroidSearchCache(context: Context, backend: SaitoBackend) {
         val ordered = applied.posts.sortedWith(compareByDescending<FeedPost> {
             it.text.contains(query, ignoreCase = true)
         }.thenByDescending { it.createdAt })
-        var remaining = 16 * 1024 * 1024 - 2
-        val retained = mutableListOf<FeedPost>()
-        for (post in ordered) {
-            val bytes = gson.toJson(post.envelope).toByteArray(Charsets.UTF_8).size + 1
-            if (retained.size == MAX_POSTS || bytes > remaining) break
-            retained += post
-            remaining -= bytes
-        }
+        val retained = ordered.take(storage.fittingEntryCount(ordered.asSequence().map { it.envelope }))
         return History(retained, applied.unreadable,
             retained.size == MAX_POSTS || retained.size < ordered.size)
     }

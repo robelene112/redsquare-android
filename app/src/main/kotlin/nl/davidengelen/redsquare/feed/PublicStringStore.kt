@@ -46,14 +46,7 @@ internal class PublicStringStore(context: Context, name: String, private val max
 
     fun save(values: List<String>) = synchronized(lock) {
         require(!file.baseFile.exists() || file.baseFile.isFile)
-        var remaining = MAX_BYTES - 2
-        val encoded = mutableListOf<ByteArray>()
-        for (value in values.take(maxEntries)) {
-            val item = gson.toJson(value).toByteArray(Charsets.UTF_8)
-            if (item.size + 1 > remaining) break
-            encoded.add(item)
-            remaining -= item.size + 1
-        }
+        val encoded = encode(values.asSequence())
         if (values.isNotEmpty() && encoded.isEmpty()) throw IOException("Public cache is too large")
         val output = file.startWrite()
         try {
@@ -79,6 +72,21 @@ internal class PublicStringStore(context: Context, name: String, private val max
             }
             if (input.read() != ']'.code || input.read() != -1) throw IOException("Public cache commit failed")
         }
+    }
+
+    /** The retained prefix fits the exact encoding and entry budget used by save. */
+    fun fittingEntryCount(values: Sequence<String>): Int = encode(values).size
+
+    private fun encode(values: Sequence<String>): List<ByteArray> {
+        var remaining = MAX_BYTES - 2
+        val encoded = mutableListOf<ByteArray>()
+        for (value in values.take(maxEntries)) {
+            val item = gson.toJson(value).toByteArray(Charsets.UTF_8)
+            if (item.size + 1 > remaining) break
+            encoded.add(item)
+            remaining -= item.size + 1
+        }
+        return encoded
     }
 
     /** Serialize read, feature validation/merge and commit across all store instances. */
