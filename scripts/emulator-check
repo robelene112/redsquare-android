@@ -276,7 +276,7 @@ verify_profiles() {
     printf '%s' '{"wallet":{"version":5.677,"publicKey":"jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR","privateKey":"0000000000000000000000000000000000000000000000000000000000000001"}}' | \
         adb shell run-as nl.davidengelen.redsquare.dev.test tee files/wallet-test-documents/00-profile-import.json > /dev/null
     timeout 180 adb shell am instrument -w -r \
-        -e class nl.davidengelen.redsquare.ProfileEditPreviewTest,nl.davidengelen.redsquare.ProfilePublishingPreviewTest \
+        -e class nl.davidengelen.redsquare.ProfileEditPreviewTest,nl.davidengelen.redsquare.ProfilePublishingPreviewTest,nl.davidengelen.redsquare.ProfileMediaPreviewTest \
         nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
         > "$evidence/profile-edit-ui.txt" || true
     adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - profile-edit-evidence \

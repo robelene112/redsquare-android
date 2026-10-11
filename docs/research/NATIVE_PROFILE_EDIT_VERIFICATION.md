@@ -621,3 +621,20 @@ keep their original wording; no evidence rewrites or rendering-cause inference.
 Copy-only committed review/source checks pending; next media tracer will run
 existing supersession cases with that corrected wording. #18 recovery/media/full
 acceptance still open; no ticket closure or APK.
+
+Bounded494a180...4b33b06 copy/evidence review both axes zero. Both historical
+before/after PNGs are byte-identical within each SDK; navigation continuity is
+from actual fixture/log assertions, visible qualification/frozen bio from pixels.
+
+Next single native media tracer at the existing Android application/persistence
+seams selects red avatar and blue banner through controlled external picker
+results, preserves typed Unicode bio, saves draft, deletes both source documents,
+then opens a fresh Activity. Require recovered image pixels and bio with no TX.
+Only explicit Save profile publishes; inspect actual binary transaction author,
+self recipient, full snapshot, unchanged archive/extensions, JPEG pixel colors
+and square avatar/3:1 banner geometry. Then require the same public profile pixels
+and bio/identity/backend. Owned document cleanup and original wallet restoration
+attempt independently and preserve primary failures. Missing selection controls
+are the intended next RED; local assembly/native Android10 pending. No new
+production media implementation yet.
+Media tracer local debug/test assembly PASS1m12s, retained container exit0.

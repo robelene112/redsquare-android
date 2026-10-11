@@ -95,8 +95,12 @@ production buildPASS2m14s, source38100140888 PASS. Focused GREEN10
 viewed, XML/rawlogs retained profile-history-green. Bounded historical fix
 Standards0/Spec1 remaining supersession-copy qualification, corrected resource
 and exact existing test literal without changing barrier behavior. Bounded copy
-review/source checks pending. Next missing media tracer; recovery/process/full
-acceptance remains open.
+review both axes zero; source checks pending. New single media tracer selects
+red avatar/blue banner, retains typed bio/private draft through deleted sources
+and fresh Activity, then explicitly publishes full compatible snapshot and
+checks square/3:1 geometry, pixels/unchanged fields/public profile. Native
+Android10 intended missing-control RED/local build pending; no media code yet.
+Recovery/process/full acceptance remains open.
 Then candidate failures/recovery,
 actual process death, media, cross-client, full checks/reviews remain. No APK or
 production node/on-chain write; continue sequentially without owner review gate.
