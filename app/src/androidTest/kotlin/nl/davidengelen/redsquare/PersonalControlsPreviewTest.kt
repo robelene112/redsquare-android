@@ -1,16 +1,24 @@
 package nl.davidengelen.redsquare
 
 import android.content.Intent
+import android.app.KeyguardManager
 import android.os.Build
+import android.provider.DocumentsContract
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.uiautomator.UiDevice
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import nl.davidengelen.redsquare.saito.AndroidBackendStore
 import nl.davidengelen.redsquare.saito.SaitoBackend
+import nl.davidengelen.redsquare.saito.SaitoWallet
+import mockwebserver3.MockResponse
+import mockwebserver3.MockWebServer
 import java.io.File
+import java.net.InetAddress
+import java.util.UUID
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
@@ -623,6 +631,170 @@ class PersonalControlsPreviewTest {
                 } finally { saved.fill(0) }
             }
         }
+    }
+
+    @Test fun realWalletReplacementIsolatesChoicesAndRestoringTheWalletRecoversThem() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val device = UiDevice.getInstance(instrumentation)
+        val keyguard = context.getSystemService(KeyguardManager::class.java)
+        assertFalse(keyguard.isDeviceSecure)
+        val store = AndroidWalletStore(context)
+        val original = store.loadExisting()
+        val scalar = if (original.publicKey == "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR") "2" else "1"
+        val incoming = SaitoWallet.fromPrivateKey("0".repeat(63) + scalar) // Public unsafe fixture only.
+        assertNotEquals(original.publicKey, incoming.publicKey)
+        val incomingFile = "00-personal-import-$scalar.json"
+        check(device.executeShellCommand("run-as nl.davidengelen.redsquare.dev.test stat -c %s files/wallet-test-documents/$incomingFile")
+            .trim().toLongOrNull()?.let { it > 0 } == true) { "Personal identity fixture was not provisioned" }
+        val backupFile = "00-personal-original-${UUID.randomUUID()}.json"
+        val backupUri = DocumentsContract.buildDocumentUri(ExportTestDocumentsProvider.AUTHORITY, backupFile)
+        val reference = readReference("native-following-reference.json")
+        val root = reference.getAsJsonObject("root")
+        val other = reference.getAsJsonObject("otherRoot")
+        val author = root.get("field2").asString
+        val peer = ControlledFeedPeer("[$root,$other]", archiveResponse = { criteria ->
+            check(criteria.get("field1").asString == "RedSquare")
+            if (criteria.get("field2")?.asString == author) "[$root]" else "[$root,$other]"
+        })
+        val balanceServer = MockWebServer().apply {
+            dispatcher = object : mockwebserver3.Dispatcher() {
+                override fun dispatch(request: mockwebserver3.RecordedRequest) = MockResponse.Builder()
+                    .body("${System.currentTimeMillis()}-1234-${"a".repeat(64)}.snap\n").build()
+            }
+            start(InetAddress.getByName("127.0.0.1"), 0)
+        }
+        var primary: Throwable? = null
+        try {
+            device.executeShellCommand("locksettings set-pin --user 0 $EXPORT_TEST_PIN")
+            ui.waitUntil(10_000) { keyguard.isDeviceSecure }
+            peer.start().use { server ->
+                val intent = Intent(context, MainActivity::class.java)
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                    .putExtra("balanceApiUrl", "http://127.0.0.1:${balanceServer.port}/balance/")
+                withOpenApp(intent, "personal-identity-replacement-failure") {
+                    waitForEnabled("Refresh")
+                    showPost("Native Red Square reference post")
+                    ui.onNode(hasScrollAction()).performScrollToNode(hasText(author))
+                    ui.onNodeWithText(author).performClick()
+                    waitFor("Profile")
+                    muteAccount()
+                    ui.onNodeWithText("Back").performClick()
+                    showPost("Another account reference post")
+                    assertPostAbsent("Native Red Square reference post", "Another account reference post")
+                    ui.onNodeWithText("Wallet").performClick()
+                    assertEquals(original.publicKey, displayedWalletAddress(ui))
+                    ui.onNodeWithText("Import wallet").performScrollTo().performClick()
+                    chooseWalletImport(ui, incomingFile, incoming.publicKey)
+                    ui.onNodeWithContentDescription("Replacement risks acknowledged").performScrollTo().assertIsOff()
+                    ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsNotEnabled()
+                    ui.onNodeWithText("Back up current wallet").performScrollTo().performClick()
+                    chooseTestBackup(device, backupFile)
+                    enterRealSystemPin(device)
+                    waitFor("Current wallet backed up for this replacement")
+                    ui.onNodeWithText("Current wallet backed up for this replacement").performScrollTo().assertIsDisplayed()
+                    ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsNotEnabled()
+                    // Compare full options in bounded memory; assertion failures never print private JSON.
+                    val bytes = requireNotNull(context.contentResolver.openInputStream(backupUri)).use {
+                        val buffer = ByteArray(SaitoWallet.MAX_BACKUP_BYTES + 1)
+                        try {
+                            var size = 0
+                            while (size < buffer.size) {
+                                val count = it.read(buffer, size, buffer.size - size)
+                                if (count < 0) break
+                                check(count > 0); size += count
+                            }
+                            check(size in 1..SaitoWallet.MAX_BACKUP_BYTES)
+                            buffer.copyOf(size)
+                        } finally { buffer.fill(0) }
+                    }
+                    try { assertTrue("Authenticated backup must retain all outgoing options",
+                        JsonParser.parseString(original.exportJson()) == JsonParser.parseString(bytes.toString(Charsets.UTF_8))) }
+                    finally { bytes.fill(0) }
+                    captureNativeScreen(File(context.cacheDir, "personal-controls-evidence/identity-backed-up-preview.png"),
+                        "Current wallet backed up for this replacement")
+                    ui.onNodeWithContentDescription("Replacement risks acknowledged").performScrollTo().performClick()
+                    ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsEnabled().performClick()
+                    waitFor("Wallet imported")
+                    assertEquals(incoming.publicKey, displayedWalletAddress(ui))
+                    assertEquals("retain-this-opaque-option", JsonParser.parseString(store.loadExisting().exportJson())
+                        .asJsonObject.getAsJsonObject("personalFixtureExtension").get("opaque").asString)
+                    ui.onNodeWithText("Done").performClick()
+                    showPost("Native Red Square reference post")
+                    ui.onNodeWithText("Settings").performClick()
+                    waitFor("Muted and blocked accounts")
+                    ui.onNodeWithText("Muted and blocked accounts").performClick()
+                    waitFor("No muted or blocked accounts.")
+                    captureNativeScreen(File(context.cacheDir, "personal-controls-evidence/identity-incoming-empty-choices.png"),
+                        "No muted or blocked accounts.")
+                    ui.onNodeWithText("Done").performClick()
+                }
+                withOpenApp(intent, "personal-identity-restoration-failure") {
+                    waitForEnabled("Refresh")
+                    showPost("Native Red Square reference post")
+                    ui.onNodeWithText("Wallet").performClick()
+                    assertEquals(incoming.publicKey, displayedWalletAddress(ui))
+                    captureNativeScreen(File(context.cacheDir, "personal-controls-evidence/identity-incoming-reopened.png"),
+                        incoming.publicKey)
+                    ui.onNodeWithText("Import wallet").performScrollTo().performClick()
+                    chooseWalletImport(ui, backupFile, original.publicKey)
+                    waitFor("Server reports zero SAITO")
+                    ui.onNodeWithText("Skip backup").performScrollTo().performClick()
+                    ui.onNodeWithContentDescription("Replacement risks acknowledged").performScrollTo().assertIsOff().performClick()
+                    ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsEnabled().performClick()
+                    waitFor("Wallet imported")
+                    assertEquals(original.publicKey, displayedWalletAddress(ui))
+                    assertTrue("Restored wallet must retain all original options",
+                        JsonParser.parseString(original.exportJson()) == JsonParser.parseString(store.loadExisting().exportJson()))
+                    ui.onNodeWithText("Done").performClick()
+                    showPost("Another account reference post")
+                    assertPostAbsent("Native Red Square reference post", "Another account reference post")
+                    ui.onNodeWithText("Settings").performClick()
+                    waitFor("Muted and blocked accounts")
+                    ui.onNodeWithText("Muted and blocked accounts").performClick()
+                    waitForEnabled("Unmute account")
+                    ui.onNodeWithText(author).assertExists()
+                    captureNativeScreen(File(context.cacheDir, "personal-controls-evidence/identity-original-restored-mute.png"), author)
+                    ui.onNodeWithText("Done").performClick()
+                }
+                withOpenApp(intent, "personal-identity-final-reopen-failure") {
+                    waitForEnabled("Refresh")
+                    showPost("Another account reference post")
+                    assertPostAbsent("Native Red Square reference post", "Another account reference post")
+                    ui.onNodeWithText("Wallet").performClick()
+                    assertEquals(original.publicKey, displayedWalletAddress(ui))
+                    ui.onNodeWithText("Done").performClick()
+                }
+                assertEquals(SaitoBackend.OWNER, AndroidBackendStore(context).load())
+                assertTrue(peer.clientKeys.contains(original.publicKey) && peer.clientKeys.contains(incoming.publicKey))
+                assertTrue(peer.clientKeys.all { it == original.publicKey || it == incoming.publicKey })
+                assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
+            }
+        } catch (failure: Throwable) { primary = failure; throw failure }
+        finally {
+            cleanupPersonalIdentity(primary, {
+                val active = store.loadExisting()
+                check(active.publicKey == original.publicKey || active.publicKey == incoming.publicKey)
+                // Emergency fixture cleanup only; successful restoration is proved through real SAF below.
+                if (active.publicKey == incoming.publicKey) store.replace(active, original)
+            }, {
+                val result = device.executeShellCommand("locksettings clear --old $EXPORT_TEST_PIN --user 0")
+                check(result.contains("Lock credential cleared successfully"))
+            }, {
+                check(device.executeShellCommand("run-as nl.davidengelen.redsquare.dev.test rm -f files/wallet-test-documents/$backupFile files/wallet-test-documents/00-personal-import-1.json files/wallet-test-documents/00-personal-import-2.json").isBlank())
+            }, { balanceServer.close() })
+        }
+    }
+
+    private fun cleanupPersonalIdentity(primary: Throwable?, vararg operations: () -> Unit) {
+        var failure = primary
+        for (operation in operations) {
+            try { operation() }
+            catch (cleanup: Throwable) {
+                val earlier = failure
+                if (earlier == null) failure = cleanup else if (earlier !== cleanup) earlier.addSuppressed(cleanup)
+            }
+        }
+        if (primary == null) failure?.let { throw it }
     }
 
     private fun repairPersonalObstruction(owner: String) {

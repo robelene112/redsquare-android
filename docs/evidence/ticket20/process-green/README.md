@@ -1,0 +1,7 @@
+# Actual pending-save process-death recovery
+
+Run [38159358286](https://github.com/robelene112/redsquare-android/actions/runs/38159358286), source `dd40a2c4450a8b4eca4d019f648419f13ea64e71`, Android 17 emulator. The six ordinary controls cases pass. The interrupted preparation deliberately kills the app at the active post-write directory-sync boundary, with the previous-policy guard pending. It is an actual death stage, not a completed test. The host requires absent PID4992 and nonempty guard metadata without reading the encrypted file. The separate cold test passes in7.083s in PID5082 with the same wallet/backend and no identity/policy reset.
+
+Native cold UI retains the two distinct Mute/Block choices. Explicit Unblock retains Mute and keeps its root hidden; explicit Unmute restores the root. Final actual peer identities, backend, wallet and zero-transaction assertions pass. The checkpoint contains public identities/backend/process IDs only. The cold controlled peer is online; offline retention remains established by earlier journeys, not by this probe alone. This does not establish physical power-loss behavior or final paired SDK acceptance.
+
+Root individually viewed all four original PNGs and separately parsed all four XMLs: before death, cold recovered choices, retained Mute after Unblock, restored post after explicit Unmute. Capture status is zero. No private wallet or policy record is included.

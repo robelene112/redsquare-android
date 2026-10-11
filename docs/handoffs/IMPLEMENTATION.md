@@ -260,16 +260,20 @@ writes/removal sync. Guard, anchor and active restoration run independently;
 secondary errors remain attached. The guard is removed only at final publication.
 Both bounded reviews find no source defect; stale handoff wording is corrected.
 
-Actual pending-save process-death verification dd40a2c compiled in2m17s; both
-bounded review axes have zero findings. Run38159358286 is active. It requires an
-actual old-PID death, surviving encrypted guard metadata and new-process native
-UI recovery of distinct Mute/Block, independent explicit removals, unchanged
-wallet/backend/authenticated controlled peer and zero transactions. No recovery
-reset or private wallet content in artifacts. Runtime is not yet proved.
+Actual pending-save process-death verification dd40a2c passes run38159358286:
+six ordinary cases plus one actual death stage and one cold case7.083s,
+PID4992→5082. The host verifies the old PID is gone and the encrypted guard has
+positive size. Cold native UI retains distinct Mute/Block, explicit Unblock keeps
+Mute/filter, explicit Unmute restores the root; same wallet/backend/peer keys and
+zero transactions. Root inspected all4originalPNG/separate4XML; process-green
+retains16hashes. Cold peer is online; offline retention is separate earlier proof.
+No physical power-loss claim. Both bounded process review axes have zero findings.
 
-Corrupt-policy/repair probe compiled PASS in1m16s; real SAF identity roundtrip, whole-ticket
-review and final paired full Android10/17 acceptance remain. Preserve seven future
-research files. No new APK or ticket closure.
+Corrupt-policy/repair probe8d45dfc compiled PASS in1m16s and both bounded reviews
+are clear; native verification is pending. Real SAF identity roundtrip compiled PASS in1m27s
+after a test import correction; eight-case native check plus process probe is next. Whole-ticket review and final
+paired full Android10/17 acceptance remain. Preserve seven future research files.
+No new APK or ticket closure.
 
 ## Outstanding external acceptance
 

@@ -365,7 +365,15 @@ fi
 if [[ "${TEST_SCOPE:-full}" == full ]]; then verify_search; fi
 verify_personal_controls() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
-    timeout 180 adb shell am instrument -w -r \
+    # Public unsafe identity fixtures belong to the actual document-provider UID.
+    adb shell run-as nl.davidengelen.redsquare.dev.test mkdir -p files/wallet-test-documents
+    printf '%s' '{"wallet":{"version":5.677,"publicKey":"jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR","privateKey":"0000000000000000000000000000000000000000000000000000000000000001"},"personalFixtureExtension":{"opaque":"retain-this-opaque-option"}}' | \
+        adb shell run-as nl.davidengelen.redsquare.dev.test tee files/wallet-test-documents/00-personal-import-1.json > /dev/null
+    printf '%s' '{"wallet":{"version":5.677,"publicKey":"pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU","privateKey":"0000000000000000000000000000000000000000000000000000000000000002"},"personalFixtureExtension":{"opaque":"retain-this-opaque-option"}}' | \
+        adb shell run-as nl.davidengelen.redsquare.dev.test tee files/wallet-test-documents/00-personal-import-2.json > /dev/null
+    # Six ordinary cases take95.631s; allow the added corruption and authenticated
+    # identity roundtrip without changing individual UI observation deadlines.
+    timeout 240 adb shell am instrument -w -r \
         -e class nl.davidengelen.redsquare.PersonalControlsPreviewTest \
         nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
         > "$evidence/personal-controls-ui.txt" || true

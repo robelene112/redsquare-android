@@ -315,3 +315,26 @@ filter, explicitUnmute/samewallet/controlledkeys/noTX. Bytesstayboundedmemoryand
 cleared; cleanuprestoresonlyownedrecord/preservesprimary. Productunchanged;
 verificationprobe notforcedRED/no runtimeclaimyet. Processprobe38159358286atdd40
 stillruntimeactive; awaitbeforeexpandedfocuseddispatch. Identityroundtripnext.
+
+ActualprocessGREEN38159358286 atdd40a2c: sixordinaryPASS; interruptedactualdeath
+PID4992 absent/survivingencryptedguardmetadata, independentcold1PASS7.083s PID5082.
+Samewallet/backend/oldMute+distinctBlock, UnblockretainsMute/filter, Unmuterestores
+root/authpeer/zeroTX. Rootviewsall4originalPNG/separate4XML; process-green16hashes.
+No recoveryreset. Onlinecoldpeermeansofflineproofremainsearlierjourneys; nopower
+loss/finalSDKclaim. Corruptionprobe source8d45dfc both boundedaxes0; runtimepending.
+Identityroundtripbuild49sfailedincorrectAndroidWalletStoreimport; removedimport
+foractualsamepackageclass and recompiling. No nativerecovery/productdefect inferred.
+
+Identityroundtrip compilePASS1m27s afterimportcorrection. Eightordinarycases now
+verify actual outgoingwallet vsdistinct publicunsafeincoming selectedfromtwo
+hostprovider-UIDfixtures, freshcandidate-boundauthenticatedSAFbackup/PIN,
+unacknowledgedreplacementdisabled, boundedfulloptionsbackupequality noJSONlogs,
+explicitdifferentimport/opaqueextensionretention/rootvisible/emptychoices,
+freshincomingActivity, actualSAF outgoingrestore+explicitzero-balanceSkip/ack,
+originalfulloptions/Mute/filter, furtherfreshActivitysamewallet/filter, samebackend/
+actualbothpeerkeys/noTX. Independent emergencycleanup onlyknownidentity; PIN/
+providerfiles/servercleanup preservesprimary andrefusesunknownwallet fallback.
+Privateoutgoingbackup remainsprovideronly anddeletedneverartifact/log/tar.
+IndividualUIdeadlinesunchanged; ordinaryharness240s foraddedcorruption+realPIN/SAF
+roundtrip versusmeasured6case95.631. No nativeidentity/corruptionclaimyet;
+focused8caseplusprocess next. Whole-ticketreview/fullpaired remainpending.
