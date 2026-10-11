@@ -210,7 +210,7 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
                     Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                         ProfileImage(profile?.image, ProfileImageKind.PICTURE, author, backend, Modifier.size(48.dp))
                         Column(Modifier.weight(1f)) {
-                            val identity = registeredIdentity(author, wallet, endpoint, backend)
+                            val identity = registeredIdentity(author)
                             Text(identity.name, style = MaterialTheme.typography.titleMedium)
                             if (identity.saveError) Text(stringResource(R.string.identity_name_save_error),
                                 style = MaterialTheme.typography.bodySmall)
@@ -254,7 +254,7 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
             }
             items(posts, key = { it.id }) { post ->
                 Column(Modifier.clickable { onPost(post) }.padding(vertical = 12.dp)) {
-                    Text("Anon-${post.author.take(6)}", Modifier.clickable { onIdentity(post.author) },
+                    Text(registeredIdentity(post.author).name, Modifier.clickable { onIdentity(post.author) },
                         style = MaterialTheme.typography.titleMedium)
                     Text(post.text, Modifier.clickable { onPost(post) }.padding(vertical = 8.dp),
                         style = MaterialTheme.typography.bodyLarge)

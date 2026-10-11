@@ -110,7 +110,8 @@ class UsernameProcessRecoveryTest {
         }
     }
 
-    private fun registryPeer() = ControlledFeedPeer("[]", registryResponse = { criteria ->
+    private fun registryPeer() = ControlledFeedPeer("[]", registryResponse = response@ { criteria ->
+        if (criteria.get("request").asString == "registry query") return@response "{}"
         assertEquals("registry namecheck", criteria.get("request").asString)
         assertEquals("NativeCase7@saito", criteria.get("identifier").asString)
         "[]"

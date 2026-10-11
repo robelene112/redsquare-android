@@ -1,5 +1,6 @@
 package nl.davidengelen.redsquare.feed
 
+import nl.davidengelen.redsquare.registry.registeredIdentity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.LocalActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -122,7 +123,7 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
             }
             Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState())) {
                 if (transaction == null) Text(stringResource(R.string.post_draft_local), style = MaterialTheme.typography.bodySmall)
-                parent?.let { Text(stringResource(R.string.post_reply_to, "Anon-${it.author.take(6)}"), style = MaterialTheme.typography.bodySmall) }
+                parent?.let { Text(stringResource(R.string.post_reply_to, registeredIdentity(it.author).name), style = MaterialTheme.typography.bodySmall) }
                 quote?.let { QuotedPost(it, backend) }
                 if (available) Text(stringResource(R.string.post_available))
                 else if (queued && queueSaved) Text(stringResource(R.string.post_queued))

@@ -53,22 +53,26 @@ class UsernamePreviewTest {
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                 .putExtra("usernameFixtureRegistrar", true)).use {
                 withFailureCapture({ capture("username-shared-name-failure.png") }) {
-                    waitForText(text)
+                    waitForEnabled("New post")
+                    peer.assertRequestObserved()
                     if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
-                    waitForText("NativeCase7@saito")
-                    ui.onNodeWithText("NativeCase7@saito").assertIsDisplayed()
-                    assertTrue(peer.registryQueries.any { it.get("request").asString == "registry query" })
+                    ui.onNode(hasScrollAction()).performScrollToNode(hasText(text))
+                    val targetAuthor = hasText("NativeCase7@saito") and hasParent(hasAnyChild(hasText(text)))
+                    ui.waitUntil(20_000) { ui.onAllNodes(targetAuthor, useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNode(targetAuthor, useUnmergedTree = true).assertIsDisplayed()
+                    assertTrue(peer.registryQueries.any { it.get("request").asString == "registry query" &&
+                        it.getAsJsonArray("keys").any { key -> key.asString == author } })
                     assertTrue(peer.registryQueries.any { it.get("request").asString == "registry namecheck" })
                     capture("username-shared-feed.png", "NativeCase7@saito")
-                    ui.onNodeWithText("NativeCase7@saito").performClick()
+                    ui.onNode(targetAuthor, useUnmergedTree = true).performClick()
                     waitForText("Profile")
                     ui.onNodeWithText(author).assertIsDisplayed()
-                    ui.onNodeWithText("NativeCase7@saito").assertIsDisplayed()
+                    ui.onNode(hasText("NativeCase7@saito") and hasAnySibling(hasText(author)), useUnmergedTree = true).assertIsDisplayed()
                     ui.onNodeWithText("Back").performClick()
                     waitForText(text)
-                    ui.onNodeWithText(text).performClick()
+                    ui.clickVisiblePostContent(text)
                     waitForEnabled("Reply")
-                    ui.onNodeWithText("NativeCase7@saito").assertIsDisplayed()
+                    ui.onNode(targetAuthor, useUnmergedTree = true).assertIsDisplayed()
                     capture("username-shared-conversation.png", "NativeCase7@saito")
                     ui.onNodeWithText("Reply").performClick()
                     waitForText("Replying to NativeCase7@saito")
@@ -97,9 +101,9 @@ class UsernamePreviewTest {
                     if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
                     ui.onNodeWithText("Your profile").performClick()
                     waitForText("NativeCase7@saito")
-                    ui.onNodeWithText("NativeCase7@saito").assertIsDisplayed()
+                    ui.onNode(hasText("NativeCase7@saito") and hasAnySibling(hasText(fixture.publicKey)), useUnmergedTree = true).assertIsDisplayed()
                     ui.onNodeWithText(fixture.publicKey).assertIsDisplayed()
-                    assertTrue("Discovery must observe a key-map hint", peer.registryQueries.any { it.get("request").asString == "registry query" })
+                    assertTrue("Discovery must observe a key-map hint", peer.registryQueries.any { it.get("request").asString == "registry query" && it.getAsJsonArray("keys").any { key -> key.asString == fixture.publicKey } })
                     assertTrue("A hint alone is insufficient: verify its signed ownership", peer.registryQueries.any { it.get("request").asString == "registry namecheck" })
                     assertTrue("Discovering an existing name must never register it again", peer.transactions.isEmpty())
                     capture("username-discovered-profile.png", "NativeCase7@saito")
@@ -143,7 +147,7 @@ class UsernamePreviewTest {
                         waitForText("NativeCase7@saito")
                         val warning = "Name verified, but could not be saved on this device."
                         waitForText(warning)
-                        ui.onNodeWithText("NativeCase7@saito").assertIsDisplayed()
+                        ui.onNode(hasText("NativeCase7@saito") and hasAnySibling(hasText(fixture.publicKey)), useUnmergedTree = true).assertIsDisplayed()
                         ui.onNodeWithText(warning).assertIsDisplayed()
                         ui.onNodeWithText(fixture.publicKey).assertIsDisplayed()
                         assertTrue(peer.transactions.isEmpty())
@@ -179,7 +183,8 @@ class UsernamePreviewTest {
     }
 
     @Test fun anUnavailableUsernameCheckDoesNotBlockPostingOrChangeTheWallet() {
-        val peer = ControlledFeedPeer("[]", registryResponse = { criteria ->
+        val peer = ControlledFeedPeer("[]", registryResponse = response@ { criteria ->
+            if (criteria.get("request").asString == "registry query") return@response "{}"
             assertEquals("registry namecheck", criteria.get("request").asString)
             assertEquals("NativeCase7@saito", criteria.get("identifier").asString)
             "{\"err\":\"no response\"}"
@@ -209,7 +214,7 @@ class UsernamePreviewTest {
                         check(device.wait(Until.gone(By.pkg("com.android.inputmethod.latin")), 5_000))
                     }
                     ui.onNodeWithText(error).performScrollTo().assertIsDisplayed()
-                    assertEquals("The native flow must actually check with Registry", 1, peer.registryQueries.size)
+                    assertEquals("The native flow must actually check with Registry", 1, peer.registryQueries.count { it.get("request").asString == "registry namecheck" })
                     capture("username-unavailable.png", error)
                     ui.onNodeWithText("Back").assertIsEnabled().performClick()
                     waitForEnabled("New post")
@@ -223,7 +228,8 @@ class UsernamePreviewTest {
     }
 
     @Test fun aPendingRegistrationSurvivesReopeningAndRetriesTheExactSignedRequest() {
-        val peer = ControlledFeedPeer("[]", registryResponse = { criteria ->
+        val peer = ControlledFeedPeer("[]", registryResponse = response@ { criteria ->
+            if (criteria.get("request").asString == "registry query") return@response "{}"
             assertEquals("registry namecheck", criteria.get("request").asString)
             assertEquals("NativeCase7@saito", criteria.get("identifier").asString)
             "[]"
@@ -284,7 +290,8 @@ class UsernamePreviewTest {
             .use { JsonParser.parseReader(it).asJsonObject }
         val proof = reference.getAsJsonArray("rows").toString()
         val unavailable = java.util.concurrent.atomic.AtomicBoolean(false)
-        val peer = ControlledFeedPeer("[]", registryResponse = { criteria ->
+        val peer = ControlledFeedPeer("[]", registryResponse = response@ { criteria ->
+            if (criteria.get("request").asString == "registry query") return@response "{}"
             assertEquals("registry namecheck", criteria.get("request").asString)
             assertEquals("NativeCase7@saito", criteria.get("identifier").asString)
             if (unavailable.get()) "{\"err\":\"no response\"}" else proof
@@ -347,7 +354,8 @@ class UsernamePreviewTest {
             assertEquals("register", signed.body.get("request").asString)
             assertEquals("NativeCase7@saito", signed.body.get("identifier").asString)
             registered.set(true)
-        }, registryResponse = { criteria ->
+        }, registryResponse = response@ { criteria ->
+            if (criteria.get("request").asString == "registry query") return@response "{}"
             assertEquals("registry namecheck", criteria.get("request").asString)
             assertEquals("NativeCase7@saito", criteria.get("identifier").asString)
             if (registered.get() && !missing.get()) proof else "[]"
@@ -375,11 +383,11 @@ class UsernamePreviewTest {
                         addProperty("envelope", postingTransaction(peer.transactions.single()).envelope())
                     }.toString())
                     missing.set(true)
-                    val checks = peer.registryQueries.size
+                    val checks = peer.registryQueries.count { it.get("request").asString == "registry namecheck" }
                     scenario.recreate()
                     openUsername()
                     waitForText("Your saved username was not found on this server. It has been kept on this device.")
-                    assertTrue(peer.registryQueries.size > checks)
+                    assertTrue(peer.registryQueries.count { it.get("request").asString == "registry namecheck" } > checks)
                     ui.onNodeWithText("Saved username: NativeCase7@saito").assertIsDisplayed()
                     ui.onAllNodesWithText("Retry registration").assertCountEquals(0)
                     ui.onAllNodesWithText("Register name").assertCountEquals(0)
@@ -388,7 +396,7 @@ class UsernamePreviewTest {
                     waitForEnabled("Your profile")
                     ui.onNodeWithText("Your profile").performClick()
                     waitForText("NativeCase7@saito")
-                    ui.onNodeWithText("NativeCase7@saito").assertIsDisplayed()
+                    ui.onNode(hasText("NativeCase7@saito") and hasAnySibling(hasText(fixture.publicKey)), useUnmergedTree = true).assertIsDisplayed()
                     ui.onNodeWithText(fixture.publicKey).assertIsDisplayed()
                     ui.onAllNodesWithText("Anon-${fixture.publicKey.take(6)}").assertCountEquals(0)
                     capture("username-profile.png", "NativeCase7@saito")
@@ -410,7 +418,8 @@ class UsernamePreviewTest {
         val device = UiDevice.getInstance(instrumentation)
         check(device.executeShellCommand("run-as nl.davidengelen.redsquare.dev.test stat -c %s files/wallet-test-documents/00-username-import.json")
             .trim().toLongOrNull()?.let { it > 0 } == true) { "Username import fixture was not provisioned" }
-        val peer = ControlledFeedPeer("[]", registryResponse = { criteria ->
+        val peer = ControlledFeedPeer("[]", registryResponse = response@ { criteria ->
+            if (criteria.get("request").asString == "registry query") return@response "{}"
             assertEquals("registry namecheck", criteria.get("request").asString)
             assertEquals("NativeCase7@saito", criteria.get("identifier").asString)
             proof
@@ -477,7 +486,8 @@ class UsernamePreviewTest {
             .trim().toLongOrNull()?.let { it > 0 } == true) { "Pending username import fixture was not provisioned" }
         val incoming = "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU" // Independent public scalar2 identity.
         assertNotEquals(fixture.publicKey, incoming)
-        val ownerPeer = ControlledFeedPeer("[]", registryResponse = { criteria ->
+        val ownerPeer = ControlledFeedPeer("[]", registryResponse = response@ { criteria ->
+            if (criteria.get("request").asString == "registry query") return@response "{}"
             assertEquals("registry namecheck", criteria.get("request").asString)
             assertEquals("NativeCase7@saito", criteria.get("identifier").asString)
             "[]"
@@ -573,8 +583,10 @@ class UsernamePreviewTest {
     private fun discoveryPeer(publicKey: String, rows: String = "[]", proof: () -> String) = ControlledFeedPeer(rows, registryResponse = { criteria ->
         when (criteria.get("request").asString) {
             "registry query" -> {
-                assertEquals(listOf(publicKey), criteria.getAsJsonArray("keys").map { it.asString })
-                JsonObject().apply { addProperty(publicKey, "NativeCase7@saito") }.toString()
+                val requested = criteria.getAsJsonArray("keys").map { it.asString }
+                JsonObject().apply {
+                    if (publicKey in requested) addProperty(publicKey, "NativeCase7@saito")
+                }.toString()
             }
             "registry namecheck" -> {
                 assertEquals("NativeCase7@saito", criteria.get("identifier").asString)

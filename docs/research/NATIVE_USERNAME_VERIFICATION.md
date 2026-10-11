@@ -401,3 +401,22 @@ retained first-name-save-green; current process bitmaps are not claimed here.
 Both prior bounded source axes pass, latest evidence audit pending. #19 remains
 open for shared names, Settings-first discovery, actual replacement and remaining
 negative/persistence/public-readiness/final full acceptance.
+
+Shared-name tracer b744701 uses the independently signed scalar1 post under a
+separate scalar2 reader. Android10 run38121392902 passes eight cases and fails
+at missing NativeCase7@saito in the feed (line58, total63.65s). Root and Spec
+individually inspected original PNG/XML: exact post body and anonymous author
+are visible. Later profile/conversation/reply and final identity/no-send gates
+are not reached. Originals retained in first-shared-name-red. Subsequent test
+corrections bind the label to its exact independent post, scroll from feed
+readiness, accept unrelated key requests with empty hints, and scope profile
+labels beside full public keys. Those corrections are not in the older RED.
+
+Shared labels now use a wallet/backend/registrar-scoped, cache-first directory
+and bounded visible-author query batches. Feed, profile posts, conversations,
+reply context and quote originals use the same verified label. Source review
+identified duplicate failed-save retries and permanently claimed unavailable
+lookups, including key-map timeout terminating the worker. The correction must
+retain one in-flight claim, release unsuccessful claims, distinguish request
+timeout from parent cancellation and permit a fresh mount to retry. Runtime
+acceptance of this shared change remains pending; quotes need their own tracer.

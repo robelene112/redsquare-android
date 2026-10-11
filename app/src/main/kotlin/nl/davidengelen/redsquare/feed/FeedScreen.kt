@@ -1,5 +1,6 @@
 package nl.davidengelen.redsquare.feed
 
+import nl.davidengelen.redsquare.registry.registeredIdentity
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.LocalActivity
 import androidx.lifecycle.ViewModelProvider
@@ -255,7 +256,7 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
         if (cacheReady) LazyColumn(Modifier.fillMaxSize(), state = position) {
             items(visiblePosts, key = { it.id }) { post ->
                 Column(Modifier.clickable { navigation.add(BrowseDestination.Conversation(post)) }.padding(vertical = 12.dp)) {
-                    Text("Anon-${post.author.take(6)}", Modifier.clickable { openProfile(post.author) }, style = MaterialTheme.typography.titleMedium)
+                    Text(registeredIdentity(post.author).name, Modifier.clickable { openProfile(post.author) }, style = MaterialTheme.typography.titleMedium)
                     Text(post.author, Modifier.clickable { openProfile(post.author) }, maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.labelSmall)
                     Text(post.text, Modifier.clickable { navigation.add(BrowseDestination.Conversation(post)) }.padding(vertical = 8.dp),
                         style = MaterialTheme.typography.bodyLarge)

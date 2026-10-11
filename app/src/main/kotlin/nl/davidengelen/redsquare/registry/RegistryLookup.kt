@@ -15,17 +15,19 @@ internal class RegistryLookup(private val peer: SaitoPeer, private val registrar
         addProperty("request", "registry namecheck"); addProperty("identifier", identifier)
     }), identifier, registrar)
 
-    suspend fun hint(publicKey: String): String? {
+    suspend fun hints(publicKeys: Collection<String>): Map<String, String> {
+        require(publicKeys.size in 1..50 && publicKeys.toSet().size == publicKeys.size)
         val text = response(JsonObject().apply {
             addProperty("request", "registry query")
-            add("keys", JsonArray().apply { add(publicKey) })
+            add("keys", JsonArray().apply { publicKeys.forEach { add(it) } })
         })
         val gson = GsonBuilder().setStrictness(Strictness.STRICT).create()
         val hints = requireNotNull(gson.fromJson(text, JsonObject::class.java))
-        require(hints.keySet().all { it == publicKey })
-        val hint = hints.get(publicKey) ?: return null
-        require(hint.isJsonPrimitive && hint.asJsonPrimitive.isString)
-        return hint.asString.also { require(it.matches(Regex("[A-Za-z0-9]{1,45}@saito"))) }
+        require(hints.keySet().all { it in publicKeys })
+        return hints.entrySet().associate { (key, hint) ->
+            require(hint.isJsonPrimitive && hint.asJsonPrimitive.isString)
+            key to hint.asString.also { require(it.matches(Regex("[A-Za-z0-9]{1,45}@saito"))) }
+        }
     }
 
     private suspend fun response(data: JsonObject): String {

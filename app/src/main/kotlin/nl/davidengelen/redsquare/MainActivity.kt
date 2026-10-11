@@ -48,6 +48,7 @@ import nl.davidengelen.redsquare.feed.VideoFixture
 import nl.davidengelen.redsquare.feed.VideoPlaybackHost
 import nl.davidengelen.redsquare.registry.UsernameScreen
 import nl.davidengelen.redsquare.registry.RegistryAuthority
+import nl.davidengelen.redsquare.registry.RegisteredIdentityScope
 import nl.davidengelen.redsquare.registry.LocalRegistryAuthority
 
 class MainActivity : ComponentActivity() {
@@ -243,8 +244,10 @@ class MainActivity : ComponentActivity() {
                                     val feedEndpoint = FeedEndpoints.fromIntent(intent, selected)
                                     CompositionLocalProvider(LocalPostNavigation provides postNavigation,
                                         LocalRegistryAuthority provides RegistryAuthority.fromIntent(intent, feedEndpoint)) {
-                                    FeedScreen(wallet, failed, feedEndpoint, selected,
-                                        lifecycle, Modifier.weight(1f)) { reportFullyDrawn() }
+                                    RegisteredIdentityScope(wallet, feedEndpoint, selected) {
+                                        FeedScreen(wallet, failed, feedEndpoint, selected,
+                                            lifecycle, Modifier.weight(1f)) { reportFullyDrawn() }
+                                    }
                                     }
                                 }
                             } else if (!backendReady) Text(stringResource(R.string.feed_loading))

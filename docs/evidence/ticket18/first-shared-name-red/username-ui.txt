@@ -1,0 +1,180 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.UsernamePreviewTest:
+INSTRUMENTATION_STATUS: test=aVerifiedProfileNameRemainsVisibleWhenItsLocalCacheCannotBeSaved
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aVerifiedProfileNameRemainsVisibleWhenItsLocalCacheCannotBeSaved
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aRegistrarSignedNameIsDisplayedAndRetainedWhenLaterChecksAreUnavailable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aRegistrarSignedNameIsDisplayedAndRetainedWhenLaterChecksAreUnavailable
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anUnavailableUsernameCheckDoesNotBlockPostingOrChangeTheWallet
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anUnavailableUsernameCheckDoesNotBlockPostingOrChangeTheWallet
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aVerifiedOtherAccountNameIsSharedByFeedProfileConversationAndReply
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.waitForText(UsernamePreviewTest.kt:614)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aVerifiedOtherAccountNameIsSharedByFeedProfileConversationAndReply$lambda$13$lambda$12$lambda$11$lambda$10(UsernamePreviewTest.kt:58)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.$r8$lambda$9MH2I3MVHwqZObTUvK4-LQPgYbQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aVerifiedOtherAccountNameIsSharedByFeedProfileConversationAndReply$lambda$13(UsernamePreviewTest.kt:55)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.$r8$lambda$VpjlZVG-eWm7mJUeieksQYBxxb4(Unknown Source:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest$$ExternalSyntheticLambda40.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.withRegistryWallet(UsernamePreviewTest.kt:594)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aVerifiedOtherAccountNameIsSharedByFeedProfileConversationAndReply(UsernamePreviewTest.kt:38)
+
+INSTRUMENTATION_STATUS: stream=
+Error in aVerifiedOtherAccountNameIsSharedByFeedProfileConversationAndReply(nl.davidengelen.redsquare.UsernamePreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.waitForText(UsernamePreviewTest.kt:614)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aVerifiedOtherAccountNameIsSharedByFeedProfileConversationAndReply$lambda$13$lambda$12$lambda$11$lambda$10(UsernamePreviewTest.kt:58)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.$r8$lambda$9MH2I3MVHwqZObTUvK4-LQPgYbQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aVerifiedOtherAccountNameIsSharedByFeedProfileConversationAndReply$lambda$13(UsernamePreviewTest.kt:55)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.$r8$lambda$VpjlZVG-eWm7mJUeieksQYBxxb4(Unknown Source:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest$$ExternalSyntheticLambda40.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.withRegistryWallet(UsernamePreviewTest.kt:594)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aVerifiedOtherAccountNameIsSharedByFeedProfileConversationAndReply(UsernamePreviewTest.kt:38)
+
+INSTRUMENTATION_STATUS: test=aVerifiedOtherAccountNameIsSharedByFeedProfileConversationAndReply
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anExistingWalletDiscoversItsVerifiedNameWithoutRegisteringAgain
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anExistingWalletDiscoversItsVerifiedNameWithoutRegisteringAgain
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aPendingNameStaysWithItsWalletAndBackendDuringImportPreview
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aPendingNameStaysWithItsWalletAndBackendDuringImportPreview
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aConfirmedRegistrationIsNotResentAndNamesTheOwnProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aConfirmedRegistrationIsNotResentAndNamesTheOwnProfile
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=walletImportIdentifiesTheVerifiedNameThatBelongsToTheOutgoingWallet
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=walletImportIdentifiesTheVerifiedNameThatBelongsToTheOutgoingWallet
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aPendingRegistrationSurvivesReopeningAndRetriesTheExactSignedRequest
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aPendingRegistrationSurvivesReopeningAndRetriesTheExactSignedRequest
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 63.65
+There was 1 failure:
+1) aVerifiedOtherAccountNameIsSharedByFeedProfileConversationAndReply(nl.davidengelen.redsquare.UsernamePreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.waitForText(UsernamePreviewTest.kt:614)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aVerifiedOtherAccountNameIsSharedByFeedProfileConversationAndReply$lambda$13$lambda$12$lambda$11$lambda$10(UsernamePreviewTest.kt:58)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.$r8$lambda$9MH2I3MVHwqZObTUvK4-LQPgYbQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aVerifiedOtherAccountNameIsSharedByFeedProfileConversationAndReply$lambda$13(UsernamePreviewTest.kt:55)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.$r8$lambda$VpjlZVG-eWm7mJUeieksQYBxxb4(Unknown Source:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest$$ExternalSyntheticLambda40.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.withRegistryWallet(UsernamePreviewTest.kt:594)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aVerifiedOtherAccountNameIsSharedByFeedProfileConversationAndReply(UsernamePreviewTest.kt:38)
+
+FAILURES!!!
+Tests run: 9,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
