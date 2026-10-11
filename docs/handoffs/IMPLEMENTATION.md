@@ -13,7 +13,12 @@ assigned and active. Its sole blocker #7 is closed. Review base
 receiving-address flow against an isolated synthetic snapshot. Parent seams1–4
 are already authorized. NATIVE_TRANSFER_VERIFICATION.md records new evidence;
 NATIVE_SAITO_TRANSFER_CONTRACT.md is the relevant research for this ticket.
-No new source, runtime, transfer or acceptance result is claimed at this point.
+Minimal checked balance/receiving/copy source is committed at48e8c44. Native
+missing-action RED38184572679 and GREEN38184994485 (1PASS14.8s) are established.
+The independent funded WASM/Elliptic vector and native constructor also pass;
+zero-payment restore remains strict. Current evidence: ticket22/balance-green
+and ticket22/payment-reference.
+Payments and their recovery, compatibility and final acceptance remain unfinished.
 
 Profile #18 is closed, final evidence commit ed5742f pushed. Eighteen of35 tickets
 are complete (#2–#15, #18, #20, #21 and #22). Parked #19, "Register an optional Saito username",

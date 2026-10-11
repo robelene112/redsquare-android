@@ -4,7 +4,7 @@ import com.google.gson.JsonObject
 import java.nio.ByteBuffer
 import java.util.Base64
 
-/** Immutable zero-payment Normal transaction; routing never changes its signed identity. */
+/** Immutable Normal transaction. Zero-payment restoration remains a separate strict contract. */
 class SaitoTransaction private constructor(private val bytes: ByteArray) {
     class InvalidMessage : IllegalArgumentException("Message must be valid Unicode within the native size limit")
 
@@ -44,6 +44,10 @@ class SaitoTransaction private constructor(private val bytes: ByteArray) {
 
     companion object {
         const val MAX_MESSAGE_BYTES = 1024 * 1024
+
+        /** Used only after the funded-payment factory has checked its complete slips and amounts. */
+        internal fun fromFundedBytes(bytes: ByteArray): SaitoTransaction =
+            SaitoTransaction(bytes.copyOf()).also { SaitoEnvelope.decode(it.envelope()) }
 
         fun create(wallet: SaitoWallet, body: JsonObject, timestamp: Long, recipients: List<String> = emptyList()): SaitoTransaction =
             createWithOutputs(wallet, body, timestamp, (listOf(wallet.publicKey) + recipients).distinct())

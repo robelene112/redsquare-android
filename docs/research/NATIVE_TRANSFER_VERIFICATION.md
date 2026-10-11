@@ -37,3 +37,21 @@ locations are canonicalized before uniqueness checks. Balance reads validate the
 active key before requesting the exact selected endpoint. Display is a fresh
 selected-server observation, never a current-spending authorization. Receiving
 address remains independently usable. Native GREEN is pending.
+
+Focused native GREEN38184994485 at48e8c44 passes one case14.8s and core55/source/
+debug/test assembly. Root inspected the original balance/receiving PNG and
+separate XML, including clipboard overlay. Local minimal build passed3m21s.
+Both first-slice source reviews found no production defect; current-handoff
+wording and primary-preserving fixture cleanup were corrected subsequently.
+The new dialog's source label distinguishes it from the feed's Server label.
+
+## Independent funded-payment first cycle
+
+payment-reference.cjs independently reproduces the earlier executed literal
+signature,621-byte candidate and752-byte routed frame using pure pinned WASM and
+Elliptic. No initialized wallet, private node state or real funds are accessed.
+The native single-vector test compiles and first fails at the declared but
+unimplemented funded factory, then passes after minimal construction. Both local
+builds47s; raw logs are in ticket22/payment-reference. The zero-payment restore
+contract is unchanged. Payment restoration/authentication/reservation/inclusion
+remain separate unfinished cycles; byte compatibility is not consensus admission.

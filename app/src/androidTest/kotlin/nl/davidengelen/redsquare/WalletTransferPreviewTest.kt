@@ -41,8 +41,8 @@ class WalletTransferPreviewTest {
                         "$key 1002 9 0 250000000 7\n").build()
             }
         }
-        server.start(InetAddress.getByName("127.0.0.1"), 0)
-        try {
+        server.use {
+            server.start(InetAddress.getByName("127.0.0.1"), 0)
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedDisabled", true)
                 .putExtra("balanceApiUrl", "http://127.0.0.1:${server.port}/balance/")).use { scenario ->
@@ -65,6 +65,6 @@ class WalletTransferPreviewTest {
                     captureNativeScreen(File(context.cacheDir, "transfer-evidence/balance-and-receive.png"), "7.5 SAITO")
                 }
             }
-        } finally { server.close() }
+        }
     }
 }
