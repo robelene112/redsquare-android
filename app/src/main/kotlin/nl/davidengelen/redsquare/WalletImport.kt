@@ -22,9 +22,11 @@ import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.ImportBalance
 import nl.davidengelen.redsquare.saito.SaitoRegistry
+import nl.davidengelen.redsquare.saito.SaitoEnvelope
 import nl.davidengelen.redsquare.feed.FeedEndpoints
 import nl.davidengelen.redsquare.registry.RegisteredNameStore
 import nl.davidengelen.redsquare.registry.RegistryAuthority
+import nl.davidengelen.redsquare.registry.UsernameRequestStore
 import java.io.IOException
 import java.nio.ByteBuffer
 import java.nio.charset.CharacterCodingException
@@ -146,8 +148,18 @@ class WalletImport(
                         RegisteredNameStore(activity.applicationContext, operation.original.publicKey, registrar)
                             .load()?.name?.identifier
                     } catch (_: Exception) { nativeWork = true; null }
+                    val registryWork = try {
+                        SaitoBackend.entries.any { backend ->
+                            val authority = RegistryAuthority.fromIntent(activity.intent,
+                                FeedEndpoints.fromIntent(activity.intent, backend))
+                            UsernameRequestStore(activity.applicationContext, operation.original.publicKey, backend, authority)
+                                .load()?.let { request ->
+                                    SaitoEnvelope.decode(request.envelope()).body.get("identifier").asString != nativeName
+                                } ?: false
+                        }
+                    } catch (_: Exception) { true }
                     ReadResult(Candidate(SaitoWallet.fromBackup(json), operation.original, operation.backend,
-                        nativeWork, nativeName), null)
+                        nativeWork || registryWork, nativeName), null)
                 } catch (_: CharacterCodingException) {
                     ReadResult(null, R.string.wallet_import_invalid)
                 } catch (_: IllegalArgumentException) {

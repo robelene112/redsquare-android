@@ -84,10 +84,35 @@ verified cached header compiles debug/test2m14s; bothreviews0, focused10
 38116194012/eecb19a PASS4cases17.036s. Actualunsafe1/2 frame independently
 verified; pinnedA/B Registry/keychain bodies with in-memory adapters PASS. New
 helpers/evidence bothreviewaxes0, bothreviewers independentlyreran3helpersPASS.
-Next native outgoing-name/import-preview tracer created; compile/REDpending. See username
-verification and ticket18 evidence. Remaining #19 work includes
-actual-send confirmation, failure/isolation/import safeguards, shared display,
-actual process death and applicable cross-client/full SDK acceptance.
+Outgoing-name/import tracer reached actual RED38117224099 (missing saved-name warning),
+after earlier provider-UID fixture failure38116827086. Minimal outgoing-cache
+revalidation3ab2ee5 compiles debug/test2m8s and both review axes pass. First
+GREEN attempt38117628397 reaches all import assertions then fails the fixture's
+feed-only field4 assumption on a profile read. Correction89d76a2 makes the
+complete import case PASS38117893858: incoming key, outgoing verified name,
+unchecked acknowledgement, disabled confirmation, unchanged wallet/name after
+cancellation, no broadcasts and healthy peer. Whole run is not GREEN: an
+unavailable-case hierarchy capture fails with keyboard visible after the earlier
+Compose error assertion (five cases, four passes,35.446s). Cause of the earlier/
+later visibility discrepancy is not established. Original evidence is retained
+in ticket18/first-import-name-green and unavailable-ime-capture-failure.
+
+Review-stage3ccaef8 fixes picker duplication with the unchanged exact-file/
+returned-preview observations in WalletTestUi.chooseWalletImport (profile and
+username callers). Unavailable error is explicitly scrolled before display/
+capture; both axes report zero findings, runtime verification pending. New
+tracerf9421aa covers pending request/backend isolation and outgoing import work:
+switching to the other controlled backend must not send or show the owner's
+private request; its import preview must warn about pending work on the original
+backend; cancelling and returning only reconciles, with explicit Retry retaining
+the exact original frame. Focused10 run38118322693 is active for expected missing
+pending-work warning RED. No app fix for that tracer yet.
+
+#19 remains open. Remaining work includes pending/import safeguards, imported
+identity discovery and broader shared name display, malformed/taken/inactive
+and persistence failures, actual process death, public Android read-only readiness
+and applicable full10/17 acceptance. Do not repeat unaffected #18 full checks
+without a relevant change. Owner reviews the completed app.
 
 Protected untracked future research must stay out of #19 commits:
 discovery/moderation, notifications, transfers, private/group Chat contracts and

@@ -290,3 +290,23 @@ is not established. Later wallet/no-broadcast assertions of that case were
 not reached. Verbatim evidence retained at unavailable-ime-capture-failure.
 The bounded correction scrolls the error into view before asserting display
 and capturing. No app change or whole-suite GREEN is claimed.
+
+Review-stage shared SAF helper and unavailable-error scroll fix both pass
+independent review axes. New pending/import tracerf9421aa runs actual
+Android10 RED38118322693: six cases, five passes and one missing pending-work
+warning, total31.191s. It reaches one OWNER request, OFFICIAL empty editable
+name/no Retry/no rerouted send and the real different-wallet preview. Later
+cancellation/return/retry is not reached. Root individually viewed failure
+and corrected unavailable PNGs, inspected XMLs; original evidence retained
+at first-pending-import-red. The unavailable case now fully passes. Profile
+shared-helper callers remain for applicable regression checks.
+
+Spec review identified unrelated work could satisfy the warning and unchanged
+send count alone does not prove reconciliation. Correctionf01211f positively
+rules out unrelated public-fixture work, checks persisted backend choices and
+an actual official Archive read, and requires an increased matching owner
+namecheck before Retry. Residual Spec review is zero findings; those guards
+are not verified by the older-source RED run. Minimal app change now reads
+Registry requests for both backends on IO, treating unreadable state as unknown
+work and a matching verified cached name as previously confirmed work. Native
+GREEN, actual process death and remaining ticket acceptance are pending.

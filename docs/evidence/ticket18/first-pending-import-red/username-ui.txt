@@ -1,0 +1,147 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.UsernamePreviewTest:
+INSTRUMENTATION_STATUS: test=aRegistrarSignedNameIsDisplayedAndRetainedWhenLaterChecksAreUnavailable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aRegistrarSignedNameIsDisplayedAndRetainedWhenLaterChecksAreUnavailable
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anUnavailableUsernameCheckDoesNotBlockPostingOrChangeTheWallet
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anUnavailableUsernameCheckDoesNotBlockPostingOrChangeTheWallet
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aPendingNameStaysWithItsWalletAndBackendDuringImportPreview
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Action performScrollTo() failed.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (Text + InputText + EditableText contains 'Pending work belongs to your current wallet' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:80)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aPendingNameStaysWithItsWalletAndBackendDuringImportPreview$lambda$58$lambda$56$lambda$55$lambda$54$lambda$53(UsernamePreviewTest.kt:373)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.$r8$lambda$g_m6_LLHsOwR9jHW2sjmSA7WxZk(Unknown Source:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aPendingNameStaysWithItsWalletAndBackendDuringImportPreview$lambda$58(UsernamePreviewTest.kt:342)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.$r8$lambda$JpGRxbgKgYeMo2IVj6yBXNpm7Bw(Unknown Source:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.withRegistryWallet(UsernamePreviewTest.kt:414)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aPendingNameStaysWithItsWalletAndBackendDuringImportPreview(UsernamePreviewTest.kt:320)
+
+INSTRUMENTATION_STATUS: stream=
+Error in aPendingNameStaysWithItsWalletAndBackendDuringImportPreview(nl.davidengelen.redsquare.UsernamePreviewTest):
+java.lang.AssertionError: Action performScrollTo() failed.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (Text + InputText + EditableText contains 'Pending work belongs to your current wallet' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:80)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aPendingNameStaysWithItsWalletAndBackendDuringImportPreview$lambda$58$lambda$56$lambda$55$lambda$54$lambda$53(UsernamePreviewTest.kt:373)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.$r8$lambda$g_m6_LLHsOwR9jHW2sjmSA7WxZk(Unknown Source:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aPendingNameStaysWithItsWalletAndBackendDuringImportPreview$lambda$58(UsernamePreviewTest.kt:342)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.$r8$lambda$JpGRxbgKgYeMo2IVj6yBXNpm7Bw(Unknown Source:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.withRegistryWallet(UsernamePreviewTest.kt:414)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aPendingNameStaysWithItsWalletAndBackendDuringImportPreview(UsernamePreviewTest.kt:320)
+
+INSTRUMENTATION_STATUS: test=aPendingNameStaysWithItsWalletAndBackendDuringImportPreview
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aConfirmedRegistrationIsNotResentAndNamesTheOwnProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aConfirmedRegistrationIsNotResentAndNamesTheOwnProfile
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=walletImportIdentifiesTheVerifiedNameThatBelongsToTheOutgoingWallet
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=walletImportIdentifiesTheVerifiedNameThatBelongsToTheOutgoingWallet
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aPendingRegistrationSurvivesReopeningAndRetriesTheExactSignedRequest
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.UsernamePreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aPendingRegistrationSurvivesReopeningAndRetriesTheExactSignedRequest
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 31.191
+There was 1 failure:
+1) aPendingNameStaysWithItsWalletAndBackendDuringImportPreview(nl.davidengelen.redsquare.UsernamePreviewTest)
+java.lang.AssertionError: Action performScrollTo() failed.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (Text + InputText + EditableText contains 'Pending work belongs to your current wallet' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:80)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aPendingNameStaysWithItsWalletAndBackendDuringImportPreview$lambda$58$lambda$56$lambda$55$lambda$54$lambda$53(UsernamePreviewTest.kt:373)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.$r8$lambda$g_m6_LLHsOwR9jHW2sjmSA7WxZk(Unknown Source:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aPendingNameStaysWithItsWalletAndBackendDuringImportPreview$lambda$58(UsernamePreviewTest.kt:342)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.$r8$lambda$JpGRxbgKgYeMo2IVj6yBXNpm7Bw(Unknown Source:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.withRegistryWallet(UsernamePreviewTest.kt:414)
+	at nl.davidengelen.redsquare.UsernamePreviewTest.aPendingNameStaysWithItsWalletAndBackendDuringImportPreview(UsernamePreviewTest.kt:320)
+
+FAILURES!!!
+Tests run: 6,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
