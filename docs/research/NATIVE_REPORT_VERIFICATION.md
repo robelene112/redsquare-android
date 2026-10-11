@@ -233,3 +233,9 @@ retained record metadata, then a separate cold process preserving wallet/backend
 and requiring unknown/no auto send/exact explicit retry. Checkpoint is public
 transaction/identity only. Recovery never clears fixtures or rewrites selection.
 Product source unchanged; no presumed defect or process success claimed yet.
+
+Process bounded review: Spec0 confirmed findings, Standards1 source-supported
+fixture synchronization risk. Replace blocking latch await after asynchronous
+Send with bounded Compose ui.waitUntil observing the same real receipt latch,
+keeping the5s deadline. No receipt timeout is claimed observed. Current
+38174505849 at0d59cd3 predates this preventive fixture correction.

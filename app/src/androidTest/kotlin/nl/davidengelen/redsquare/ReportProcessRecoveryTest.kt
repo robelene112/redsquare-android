@@ -16,7 +16,6 @@ import org.junit.Test
 import java.io.File
 import java.util.Base64
 import java.util.concurrent.CountDownLatch
-import java.util.concurrent.TimeUnit
 
 /** Host-invoked phases run in separate processes; checkpoint contains public report data only. */
 class ReportProcessRecoveryTest {
@@ -56,7 +55,7 @@ class ReportProcessRecoveryTest {
                 withFailureCapture({ capture("interruption-failure.png") }) {
                     ui.clickVisiblePostContent("Report")
                     ui.onNodeWithText("Send report").performClick()
-                    assertTrue("Report did not reach the controlled peer", received.await(5, TimeUnit.SECONDS))
+                    ui.waitUntil(5_000) { received.count == 0L }
                     peer.assertHealthy()
                     assertEquals(1, peer.reports.size); assertTrue(peer.transactions.isEmpty())
                     val sending = "Sending report to saito.davidengelen.nl..."
