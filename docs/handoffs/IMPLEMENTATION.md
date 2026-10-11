@@ -72,7 +72,9 @@ sourceaxes0 residualracefindings, combinedcompilePASS2m34s. FirstcacheGREEN38136
 pairs and rawlog retained ticket19/cache-green; separately inspectedimages/XML.
 Samewallet/isolation/noTX gates PASS; no processdeath/1000/Pixel/full claim.
 Push38136755184 source/core/release/lintPASS. Standardsbudget-duplication
-judgment now being cleaned up after GREEN. People/durable cache/full acceptance pending;
+judgment resolved9a45b79, bothaxes0 and compilePASS2m25s.
+Next single exactsignedusername primarytracer nowwritten; compile/REDpending,
+no peopleproductionimplementation. Existing3journeyswillverifybudgetregression. People/durable cache/full acceptance pending;
 no #20 acceptance yet.
 Accepted seams1–4 unchanged.
 Search preparation ignored .scratch/search-design.md plus protected contract.

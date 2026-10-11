@@ -169,3 +169,14 @@ both save bytes and fittingEntryCount; search keeps match ordering and uses
 that count. Removes duplicated Gson/byte arithmetic without new speculative
 interfaces or implementation-only tests. Compile/re-review pending; native
 regression joins the next focused search proof rather than an extra full run.
+
+Shared budget compilation PASS2m25s at9a45b79. Both source axes0 residual
+findings. Next single primary tracer searches exact NativeCase7@saito while
+all public post archives are empty and unsigned hints return{}. Existing
+independent pinned registrar-signed fixture must resolve the known publickey,
+open its selected-backend Profile, retain result/query through back/recreation,
+and preserve wallet/allauthenticatedclientkeys/noTX. Uses existing debug-only
+emulator/loopback registrar guard; no wallet replacement/private writes or
+production authority fallback. First people compilation/nativeRED pending;
+no production people implementation yet. Existing three cache/search journeys
+will also verify the shared-budget cleanup in that focused run.

@@ -17,6 +17,78 @@ import java.util.concurrent.atomic.AtomicInteger
 class SearchPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
 
+    @Test fun anExactSignedUsernameOpensTheCorrectProfileAndRetainsTheSearch() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        check(context.packageName == "nl.davidengelen.redsquare.dev")
+        check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
+        AndroidBackendStore(context).save(SaitoBackend.OWNER)
+        context.noBackupFilesDir.listFiles()?.filter {
+            listOf("feed.", "conversation.", "profile.", "search.", "authorposts.").any(it.name::startsWith)
+        }?.forEach { check(it.delete()) { "Could not reset public search fixtures" } }
+        val rows = instrumentation.context.assets.open("native-registry-reference.json").bufferedReader()
+            .use { JsonParser.parseReader(it).asJsonObject.getAsJsonArray("rows") }
+        val name = "NativeCase7@saito"
+        val person = "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR"
+        val peer = ControlledFeedPeer("[]", archiveResponse = { criteria ->
+            when {
+                criteria.has("field4") -> "[]"
+                criteria.has("field2") -> {
+                    check(criteria.get("field2").asString == person)
+                    "[]"
+                }
+                else -> {
+                    check(criteria.keySet() == setOf("request", "field1", "flagged_ne", "limit", "created_earlier_than"))
+                    check(criteria.get("limit").asInt == 100 && criteria.get("flagged_ne").asInt == 1)
+                    "[]"
+                }
+            }
+        }, registryResponse = { criteria ->
+            if (criteria.get("request").asString == "registry namecheck") {
+                check(criteria.get("identifier").asString == name)
+                rows.toString()
+            } else "{}" // Unsigned hints cannot supply the result.
+        })
+        peer.start().use { server ->
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                .putExtra("usernameFixtureRegistrar", true)).use { scenario ->
+                withFailureCapture({ captureNativeScreen(File(context.cacheDir, "search-evidence/people-name-failure.png")) }) {
+                    waitForEnabled("New post")
+                    if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
+                    ui.onNodeWithText("Wallet").performClick()
+                    val owner = displayedWalletAddress(ui)
+                    ui.onNodeWithText("Done").performClick()
+                    ui.onNodeWithText("Search").performClick()
+                    ui.onNode(hasSetTextAction()).performTextInput(name)
+                    waitForEnabled("Search history")
+                    ui.onNodeWithText("Search history").performClick()
+                    waitForEnabled("Search history")
+                    ui.onNodeWithText(person).assertIsDisplayed()
+                    assertTrue("Exact lookup must use a registrar-signed namecheck", peer.registryQueries.any {
+                        it.get("request").asString == "registry namecheck" && it.get("identifier").asString == name
+                    })
+                    ui.onNodeWithText(person).performClick()
+                    waitForText("Profile")
+                    ui.onNodeWithText(person).assertIsDisplayed()
+                    ui.onNodeWithText("Back").performClick()
+                    ui.onNode(hasSetTextAction()).assertTextContains(name)
+                    ui.onNodeWithText(person).assertIsDisplayed()
+                    scenario.recreate()
+                    waitForText(person)
+                    ui.onNode(hasSetTextAction()).assertTextContains(name)
+                    ui.onNodeWithText(person).assertIsDisplayed()
+                    captureNativeScreen(File(context.cacheDir, "search-evidence/people-name-recreated.png"), person)
+                    ui.onNodeWithText("Wallet").performClick()
+                    assertEquals(owner, displayedWalletAddress(ui))
+                    assertTrue(peer.clientKeys.isNotEmpty() && peer.clientKeys.all { it == owner })
+                    assertTrue(peer.transactions.isEmpty())
+                    peer.assertHealthy()
+                }
+            }
+        }
+    }
+
     @Test fun reopeningOfflineKeepsSearchHistoryIsolatedBetweenSelectedServers() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext

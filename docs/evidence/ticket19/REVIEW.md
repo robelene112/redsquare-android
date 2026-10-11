@@ -82,3 +82,7 @@ Post-GREEN review cleanup removes the duplicated encoded-budget algorithm:
 PublicStringStore's fittingEntryCount uses the same private encoder as save;
 search retains ordered posts by that count. Atomic commit/readback/load behavior
 is unchanged. Compile and bounded source re-review pending.
+
+Budget cleanup source re-review90346aa…9a45b79:0 findings per axis.
+CombinedcompilePASS2m25s; native regression joins the next exact-username
+people RED run. People production implementation is still absent.
