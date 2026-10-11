@@ -7,6 +7,14 @@ one question at a time when a material choice really needs the owner.
 
 ## Current work
 
+#23, "Show balances/receiving details and send authenticated SAITO", is now
+assigned and active. Its sole blocker #7 is closed. Review base
+2fe1fa51ed8d0c0e250d77e7c2f4198809418fdd; first tracer is the native balance and
+receiving-address flow against an isolated synthetic snapshot. Parent seams1–4
+are already authorized. NATIVE_TRANSFER_VERIFICATION.md records new evidence;
+NATIVE_SAITO_TRANSFER_CONTRACT.md is the relevant research for this ticket.
+No new source, runtime, transfer or acceptance result is claimed at this point.
+
 Profile #18 is closed, final evidence commit ed5742f pushed. Eighteen of35 tickets
 are complete (#2–#15, #18, #20, #21 and #22). Parked #19, "Register an optional Saito username",
 parked on the external Registry prerequisite, review base ed5742fd0f57958d284073b7145f1844b72b1dbd. #16 Giphy still awaits
@@ -149,7 +157,7 @@ Initial wallet/live-feed milestone is published as stable signed version10
 Compose bitmaps had inconsistent labels; use each report's stated evidence
 limits. #9 also has official bitmap inconsistencies; no invented cause.
 
-Next: implement ready #23 sequentially after claiming it. Owner reviews the
+Next: continue active #23 sequentially. Owner reviews the
 completed app; no intermediate phone-review gate is required.
 
 ## Verification already inspected
