@@ -30,3 +30,12 @@ assembly pass. An accidental unused duplicate ReportState declaration in an
 existing local function was removed after this build; hosted compilation and
 runtime will verify the corrected source. Independent frame/receiver helpers
 pass isolated Node syntax checks; actual native specimen validation is pending.
+
+## First GREEN
+
+Android10 run38168632919 at567a8a9:1PASS2.999s. Root2originalPNG/separate2XML
+inspected. Durable ticket21/first-green retains native emitted frame/envelope,
+raw runtime and independent frame/receiver results. Both first-slice source axes
+0findings. This proves the first success slice only, not durable failure/recovery.
+Next RED: lose acknowledgement after controlled peer receives the signed report,
+reopen, retain uncertainty with no auto-send and explicitly retry exact bytes.

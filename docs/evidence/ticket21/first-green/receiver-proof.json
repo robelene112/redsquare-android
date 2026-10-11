@@ -1,0 +1,66 @@
+{
+  "result": "PASS",
+  "frameSha256": "d3814d9533a277781ae0b4a65107f3c531b5c3851e25d4e215d3ec801bad0868",
+  "observations": [
+    {
+      "pin": "A",
+      "commit": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+      "hash": "e2cf08d95ed0cebc4b4e1106134ccc13c83b2a5814f1b0e9b31579a4c14a7ca8",
+      "available": "resident",
+      "acknowledgement": {},
+      "updates": 1,
+      "moderatorsReviewed": "not established",
+      "boundary": "extracted unmodified receiver methods, controlled in-memory archive; no deployed service or chain proof"
+    },
+    {
+      "pin": "A",
+      "commit": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+      "hash": "e2cf08d95ed0cebc4b4e1106134ccc13c83b2a5814f1b0e9b31579a4c14a7ca8",
+      "available": "archive",
+      "acknowledgement": {},
+      "updates": 1,
+      "moderatorsReviewed": "not established",
+      "boundary": "extracted unmodified receiver methods, controlled in-memory archive; no deployed service or chain proof"
+    },
+    {
+      "pin": "A",
+      "commit": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+      "hash": "e2cf08d95ed0cebc4b4e1106134ccc13c83b2a5814f1b0e9b31579a4c14a7ca8",
+      "available": "absent",
+      "acknowledgement": {},
+      "updates": 0,
+      "moderatorsReviewed": "not established",
+      "boundary": "extracted unmodified receiver methods, controlled in-memory archive; no deployed service or chain proof"
+    },
+    {
+      "pin": "B",
+      "commit": "214504ecece76d1cd20a245fe4468eccbfca2951",
+      "hash": "2a83af18010fc4fc044aabec2741ff401c93b4672decdd5d78e1db5f81d4c5b0",
+      "available": "resident",
+      "acknowledgement": {},
+      "updates": 1,
+      "moderatorsReviewed": "not established",
+      "boundary": "extracted unmodified receiver methods, controlled in-memory archive; no deployed service or chain proof"
+    },
+    {
+      "pin": "B",
+      "commit": "214504ecece76d1cd20a245fe4468eccbfca2951",
+      "hash": "2a83af18010fc4fc044aabec2741ff401c93b4672decdd5d78e1db5f81d4c5b0",
+      "available": "archive",
+      "acknowledgement": {},
+      "updates": 1,
+      "moderatorsReviewed": "not established",
+      "boundary": "extracted unmodified receiver methods, controlled in-memory archive; no deployed service or chain proof"
+    },
+    {
+      "pin": "B",
+      "commit": "214504ecece76d1cd20a245fe4468eccbfca2951",
+      "hash": "2a83af18010fc4fc044aabec2741ff401c93b4672decdd5d78e1db5f81d4c5b0",
+      "available": "absent",
+      "acknowledgement": {},
+      "updates": 0,
+      "moderatorsReviewed": "not established",
+      "boundary": "extracted unmodified receiver methods, controlled in-memory archive; no deployed service or chain proof"
+    }
+  ]
+}

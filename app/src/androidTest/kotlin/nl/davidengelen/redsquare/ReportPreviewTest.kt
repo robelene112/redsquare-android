@@ -47,6 +47,7 @@ class ReportPreviewTest {
                     ui.onNodeWithText("Send report").assertIsEnabled().performClick()
                     ui.waitUntil(20_000) { ui.onAllNodesWithText("Report acknowledged by saito.davidengelen.nl. Moderator review is separate.").fetchSemanticsNodes().isNotEmpty() }
                     ui.onNodeWithText("Report acknowledged by saito.davidengelen.nl. Moderator review is separate.").assertIsDisplayed()
+                    capture("acknowledged-feed.png")
                     peer.assertHealthy()
                     val frame = peer.reports.single()
                     assertEquals(12, frame[0].toInt())
@@ -71,6 +72,51 @@ class ReportPreviewTest {
                 }
             }
         }
+    }
+
+    @Test fun lostAcknowledgementSurvivesReopeningAndRetryUsesTheSameSignedReport() {
+        val root = InstrumentationRegistry.getInstrumentation().context.assets.open("native-feed-reference.json")
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow") }
+        val peer = ControlledFeedPeer("[$root]").apply { disconnectAfterReport = true }
+        peer.start().use { server ->
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { activity ->
+                withFailureCapture({ capture("reopening-failure.png") }) {
+                    ui.clickVisiblePostContent("Report")
+                    ui.onNodeWithText("Send report").performClick()
+                    val uncertain = "Report delivery to saito.davidengelen.nl is unknown. Try again to send the same report."
+                    waitFor(uncertain)
+                    ui.onNode(hasScrollAction()).performScrollToNode(hasText(uncertain))
+                    ui.onNodeWithText(uncertain).assertIsDisplayed()
+                    peer.assertHealthy()
+                    val original = peer.reports.single().copyOfRange(5, peer.reports.single().size)
+                    capture("lost-acknowledgement.png")
+                    activity.recreate()
+                    waitFor(uncertain)
+                    ui.onNode(hasScrollAction()).performScrollToNode(hasText(uncertain))
+                    ui.onNodeWithText(uncertain).assertIsDisplayed()
+                    assertEquals(1, peer.reports.size)
+                    capture("reopened-uncertain.png")
+                    peer.disconnectAfterReport = false
+                    ui.clickVisiblePostContent("Retry report")
+                    ui.onNodeWithText("Report to saito.davidengelen.nl?").assertIsDisplayed()
+                    ui.onNodeWithText("Send report").performClick()
+                    val acknowledged = "Report acknowledged by saito.davidengelen.nl. Moderator review is separate."
+                    waitFor(acknowledged)
+                    ui.onNode(hasScrollAction()).performScrollToNode(hasText(acknowledged))
+                    ui.onNodeWithText(acknowledged).assertIsDisplayed()
+                    assertEquals(2, peer.reports.size)
+                    val retry = peer.reports.last()
+                    assertArrayEquals(original, retry.copyOfRange(5, retry.size))
+                    assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
+                    capture("retry-acknowledged.png")
+                }
+            }
+        }
+    }
+
+    private fun waitFor(text: String) = ui.waitUntil(20_000) {
+        ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
     }
 
     private fun capture(name: String) = captureNativeScreen(File(context.cacheDir, "report-evidence/$name"))
