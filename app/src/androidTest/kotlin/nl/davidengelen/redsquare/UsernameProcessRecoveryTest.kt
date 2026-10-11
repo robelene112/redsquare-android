@@ -40,6 +40,7 @@ class UsernameProcessRecoveryTest {
         val peer = registryPeer()
         launch(peer) {
             openUsername()
+            waitForEnabled("Check name")
             ui.onNode(hasSetTextAction()).performTextReplacement("NativeCase7")
             ui.onNodeWithText("Check name").performScrollTo().performClick()
             waitFor("This username is currently available. Checking does not reserve it.")
