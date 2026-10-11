@@ -237,7 +237,7 @@ class ProfileNewEditPreviewTest {
                         waitFor(status)
                         ui.waitUntil(20_000) { ui.onAllNodes(hasText("Retry profile") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                         assertGeneratedDefaults()
-                        ui.onNode(hasSetTextAction()).assertIsNotEnabled()
+                        ui.onNode(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(bio))).assertIsNotEnabled()
                         assertEquals(1, peer.transactions.size); peer.assertHealthy()
                         capture("profile-pending-preview-mounted.png", status)
                     }
@@ -248,7 +248,7 @@ class ProfileNewEditPreviewTest {
                         openEditor(editable = false)
                         waitFor(status)
                         ui.waitUntil(20_000) { ui.onAllNodes(hasText("Retry profile") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                        ui.onNode(hasSetTextAction()).assert(SemanticsMatcher.expectValue(
+                        ui.onNode(SemanticsMatcher.expectValue(
                             SemanticsProperties.EditableText, AnnotatedString(bio))).assertIsNotEnabled()
                         assertEquals(1, peer.transactions.size)
                         assertGeneratedDefaults()

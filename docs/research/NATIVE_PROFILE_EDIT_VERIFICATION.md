@@ -1100,3 +1100,16 @@ no expensive crypto on typing/main and no stale produceState result may leak.
 Preview tracer local debug/test assembly PASS1m5s, exit0, retained rawlog. Two
 precompile fixture corrections cancelled and logged, not successful build claims.
 Only the final corrected fixture build counts. Native intended RED pending.
+
+Bounded c78ebeb...44b9402 review found disabled field selectors using SetTextAction
+can fail before target; same tracer corrected to exact EditableText(bio) plus
+disabled assertions in both mounted/cold phases. Old run38107880208 cancelled
+while source-build step before device runtime; exact log retained in scratch,
+no RED/production failure claim. Corrected local assembly pending.
+Both reviewers independently inspecting all twelve originals. Standards notes
+Android17 available PNG Check profile versus XML Save profile; root parsed and
+confirmed discrepancy. Same bio/status essential state, not atomic matched
+control snapshot. Originals retained unchanged; no invented cause.
+
+Corrected same-tracer local debug/test assembly PASS1m3s, exit0, rawlog retained.
+Intended native RED pending; production remains c78ebeb unchanged.

@@ -22,3 +22,8 @@ private baseline. Editable fallback also must merge newer public fields. The
 present tracer retains equal old/new media, so this GREEN does not prove those
 cases. One dedicated native tracer follows before remedy. Full#18 acceptance and
 actual process-death proof remain pending.
+
+Diagnostic qualification found by review and root-parsed: Android17 available
+original PNG says Check profile, but its original XML says Save profile. Both
+contain the same new bio and availability status. Preserve both unchanged; cause
+unproved. They support essential state, not identical/atomic control snapshot.
