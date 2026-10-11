@@ -37,6 +37,7 @@ internal class SearchViewState {
     var pending by mutableStateOf<List<String>>(emptyList())
     var pagingUnavailable by mutableStateOf(false)
     var limitReached by mutableStateOf(false)
+    var saveError by mutableStateOf(false)
 
     fun search() {
         searchedQuery = query.trim()
@@ -61,9 +62,25 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
     val context = LocalContext.current.applicationContext
     val keyboard = LocalSoftwareKeyboardController.current
     val revisions = remember(backend) { AndroidPostRevisions(context, backend) }
+    val cache = remember(backend) { AndroidSearchCache(context, backend) }
     val revision by AndroidPostRevisions.changes.collectAsState()
     var loading by remember(view) { mutableStateOf(false) }
+    var cacheReady by remember(view) { mutableStateOf(false) }
     BackHandler(onBack = onBack)
+    LaunchedEffect(view, cache) {
+        val saved = withContext(Dispatchers.IO) { cache.load() }
+        // A retained view or newer proof can change while disk validation is suspended.
+        while (true) {
+            val known = view.posts
+            val checkedRevision = AndroidPostRevisions.changes.value
+            val retained = withContext(Dispatchers.IO) { cache.retain(known + saved.posts, view.searchedQuery) }
+            if (view.posts !== known || AndroidPostRevisions.changes.value != checkedRevision) continue
+            view.posts = retained.posts
+            view.unreadable = view.unreadable || saved.unreadable || retained.unreadable
+            cacheReady = true
+            break
+        }
+    }
     LaunchedEffect(view, revision, view.posts) {
         val known = view.posts
         val checkedRevision = AndroidPostRevisions.changes.value
@@ -74,8 +91,8 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
             view.unreadable = view.unreadable || applied.unreadable
         }
     }
-    LaunchedEffect(wallet, endpoint, view.request) {
-        if (wallet == null || view.request == 0 || view.completed == view.request) return@LaunchedEffect
+    LaunchedEffect(wallet, endpoint, view.request, cacheReady) {
+        if (wallet == null || !cacheReady || view.request == 0 || view.completed == view.request) return@LaunchedEffect
         val request = view.request
         val pages = view.pending.mapNotNull { stream -> view.cursors[stream]?.let { stream to it } }
         loading = true
@@ -97,24 +114,26 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
                         val known = withContext(Dispatchers.Main.immediate) { view.posts.toList() }
                         revisions.reconcileDeletions(peer, page.deletions, page.posts + known)
                         page.posts.forEach(revisions::observe)
-                        val applied = revisions.apply(RedSquareFeed.newest(page.posts + known))
+                        val applied = cache.retain(page.posts + known, withContext(Dispatchers.Main.immediate) { view.searchedQuery })
                         withContext(Dispatchers.Main.immediate) {
                             social?.observe(page.posts)
-                            // Preserve discovered matches before filling the bounded history with other posts.
-                            view.posts = applied.posts.sortedWith(compareByDescending<FeedPost> {
-                                it.text.contains(view.searchedQuery, ignoreCase = true)
-                            }.thenByDescending { it.createdAt }).take(1000)
+                            view.posts = applied.posts
                             view.unreadable = view.unreadable || applied.unreadable || page.ignored > 0
                             val next = page.oldestCreatedAt?.takeIf { page.rowCount == 100 && it < before }
                             view.pagingUnavailable = view.pagingUnavailable || (page.rowCount == 100 && next == null)
                             view.cursors = view.cursors + (stream to next)
                             view.pending = view.pending - stream
-                            if (applied.posts.size >= 1000) {
+                            if (applied.limited) {
                                 view.limitReached = true
                                 view.cursors = view.cursors.mapValues { null }
                                 view.pending = emptyList()
                             }
                         }
+                        val retained = withContext(Dispatchers.Main.immediate) { view.posts to view.searchedQuery }
+                        val saved = try { cache.save(retained.first, retained.second); true }
+                        catch (cancelled: CancellationException) { throw cancelled }
+                        catch (_: Exception) { false }
+                        withContext(Dispatchers.Main.immediate) { view.saveError = !saved }
                     }
                 }
             }
@@ -136,7 +155,7 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
         OutlinedTextField(value = view.query, onValueChange = { if (it.length <= 256) view.query = it },
             label = { Text(stringResource(R.string.search_query)) }, singleLine = true, modifier = Modifier.fillMaxWidth())
         Row {
-            TextButton(modifier = Modifier.weight(1f), enabled = wallet != null && !loading && view.query.isNotBlank(), onClick = {
+            TextButton(modifier = Modifier.weight(1f), enabled = wallet != null && cacheReady && !loading && view.query.isNotBlank(), onClick = {
                 keyboard?.hide()
                 loading = true
                 view.search()
@@ -155,7 +174,8 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
         if (view.unreadable) Text(stringResource(R.string.search_unreadable), style = MaterialTheme.typography.bodySmall)
         if (view.pagingUnavailable) Text(stringResource(R.string.search_paging_unavailable), style = MaterialTheme.typography.bodySmall)
         if (view.limitReached) Text(stringResource(R.string.search_limit), style = MaterialTheme.typography.bodySmall)
-        if (view.request > 0 && !loading && !view.failed && matches.isEmpty()) Text(stringResource(R.string.search_empty))
+        if (view.saveError) Text(stringResource(R.string.search_save_error), style = MaterialTheme.typography.bodySmall)
+        if (view.request > 0 && !loading && !view.failed && !view.limitReached && matches.isEmpty()) Text(stringResource(R.string.search_empty))
         LazyColumn(Modifier.weight(1f).fillMaxWidth()) {
             if (view.request > 0) items(matches, key = { it.id }) { post ->
                 Column(Modifier.padding(vertical = 12.dp)) {

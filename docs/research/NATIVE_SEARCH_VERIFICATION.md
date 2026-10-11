@@ -121,3 +121,24 @@ source-supported fixture defect: OFFICIAL's default peer handler required the
 root-only field4, rejecting valid search. Added an explicit healthy empty search
 handler, preserving positive empty/isolation/wallet/nosend assertions. This later
 path was not runtime-reproduced; cache RED precedes it. Fixture compile pending.
+
+Fixture compilation PASS1m26s at0190919. Both bounded re-reviews report0
+residual findings. Pushed and dispatched focused Android17 run38135929831
+for the cache RED. Production cache remains absent until observed RED.
+
+Cache RED38135929831 at0190919:3cases/72.918s, existing2PASS, new tracer
+fails only at missing reply after offline Activity reopen (line73). Earlier
+online search/settled gates pass. Root viewed original in-scope PNG/separateXML,
+retained ticket19/cache-red. Later backend/identity gates unexecuted. Focused
+source/core/debug/test PASS; push38135930222 source/core/release/lint alsoPASS.
+Production backend-specific cache implementation now begins.
+
+## Cache implementation
+
+After observed cache RED, added search.<backend>.v1 public history. Strict signed
+decoding and author proofs validate restored search and same-server feed/profile
+seeds. Entry/encoded-byte retention is bounded, matches first. Async initial
+load gates network reads and guards captured list/revision before publication.
+Verified page results publish before persistence; save failure retains them and
+qualifies possible loss after closing. Completion follows persistence attempt.
+No query/private Chat/wallet contents are cached. Compilation/GREEN pending.

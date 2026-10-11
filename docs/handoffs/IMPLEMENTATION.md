@@ -61,8 +61,13 @@ Both source axes clear f1ebc3e; combinedcompilePASS2m43s. Focused
 Android17GREEN38135039545 at54e806f:2PASS40.598s, original log and
 three separately inspected PNG/XML pairs ticket19/paging-green.
 Review chronology ticket19/REVIEW.md.
-Next single tracer: durable search cache on offline Activity reopen, real Settings
-backend isolation and same wallet. People/durable cache/full acceptance pending;
+Next single tracer committed0190919: offline Activity reopen, real Settings
+backend isolation and same wallet. CorrectedfixturecompilePASS1m26s, both
+sourceaxes0 residual. NativecacheRED38135929831 at0190919: existing2PASS/new1FAIL only missing
+offline reply,72.918s. Original inspectedfailurePNG/XML/log ticket19/cache-red.
+Productioncache now added: same-server publicseed/search signed decoding,
+bounded retention, initial-load publication guard and savewarning. Combined
+compile/GREEN pending. People/durable cache/full acceptance pending;
 no #20 acceptance yet.
 Accepted seams1–4 unchanged.
 Search preparation ignored .scratch/search-design.md plus protected contract.

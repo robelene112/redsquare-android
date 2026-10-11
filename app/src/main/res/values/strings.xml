@@ -264,4 +264,5 @@
     <string name="search_more">Load more</string>
     <string name="search_paging_unavailable">This history page has no usable older timestamp. Other available results are still shown.</string>
     <string name="search_limit">Search reached the local history limit. Only retained results are shown.</string>
+    <string name="search_save_error">Some results could not be saved on this phone. They may be missing after closing the app.</string>
 </resources>
