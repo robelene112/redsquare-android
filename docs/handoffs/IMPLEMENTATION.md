@@ -42,75 +42,59 @@ known/unknown namechecks unusable21bytes; fresh host09:53:48Z onboth returns
 {"err":"no response"} despite authenticated archive/key-map reads. Host helper
 filtererror is its own summary defect, not server key-map failure. Source/host/
 native observations remain distinct. No node changes/trust fallback/livewrites.
-Active #20, "Search posts and people in available backend history", assigned
-and unblocked. Review base3be555be85586b68c0d05c2c8e69d3976bbffe89. Accepted
-seams1–4 unchanged; no additional owner grill or intermediate phone gate.
+#20, "Search posts and people in available backend history", remains assigned
+and OPEN for final evidence review. Review base is
+3be555be85586b68c0d05c2c8e69d3976bbffe89. Accepted seams 1–4 apply.
+No additional owner grill or intermediate phone gate is required.
 
-Implementation now includes selected-backend signed post/reply/quote search,
-independent bounded paging/partial Retry, public cache/available offline history,
-profile/conversation/back/recreation navigation, canonical exact keys, strictly
-verified exact usernames and prefixes of known accounts/verified cached names.
-Historical names receive per-person provenance; invalid/forged/current lookup
-failures are independent of post history. Backend/identity isolation, savewarning
-and retained author-edit/deletion proofs are integrated. No exhaustive chain or
-permanent archive claim; no wildcard directory/text RPC, no private query upload.
+Implementation includes signed posts/replies/quotes on the selected backend,
+independent bounded paging and partial retry, available offline cached history,
+profile/thread/back/recreation navigation, canonical exact keys, verified exact
+usernames and prefixes of known accounts. Historical names receive provenance.
+Name-check failures are independent of post history; private query text is never
+sent to the server. Save warnings and retained author edit/deletion proofs are
+integrated. No exhaustive chain history or permanent archive is promised.
 
-Whole-ticket source review3be555be...fd35b02: Spec0 actionable findings;
-Standards0 residual hard violations/0 actionable heuristic smells. Prior races,
-cache budgeting, name provenance, point-validation duplication and fixture
-cleanup/sensitivity findings are resolved. References and chronological evidence:
-NATIVE_DISCOVERY_MODERATION_CONTRACT.md, NATIVE_SEARCH_REFERENCE.md/.json,
-NATIVE_SEARCH_VERIFICATION.md and docs/evidence/ticket19/REVIEW.md.
+Whole-ticket source review through fd35b02: Spec 0 actionable findings;
+Standards 0 residual hard violations or actionable heuristic smells. Subsequent
+existing posting import fixture corrections also clear both axes. Contracts and
+chronology: NATIVE_DISCOVERY_MODERATION_CONTRACT.md, NATIVE_SEARCH_REFERENCE
+(.md/.json), NATIVE_SEARCH_VERIFICATION.md and ticket19/REVIEW.md.
 
-Latest focused source34c4c6763023a0cd202158391545903395658455:
-- Android17 search38144936110:9PASS70.297s. Independent edit survives stale
-  original-only Archive after clearing post caches/fresh Activity. Signed deletion
-  plus both exact-target absence queries remains absent on another fresh stale
-  search matching BOTH original and edited text. Wallet/allauth/noTX PASS.
-- Existing cache-save/repair/offline journey38144386270:8PASS78.271s atfcfb404.
-- Opted native public reads38144937787:OWNER1PASS9.214s/OFFICIAL1PASS7.759s.
-  Both new no-field4 search criteria respond: ordinary100rows/90posts/0ignored,
-  quote4rows/0commentaryposts/0ignored. Counts do not establish exhaustive history
-  or explain row/post differences. This is separate from unavailable Registry.
-- Push38144926841 source/core/debug/test/release/lintPASS. Latest test/source
-  compilePASS1m28s. No private wallet material or production writer touched.
+Final full acceptance results, each opted into both public backend reads:
+- Android 17 run38145373388 at6c489bf: 170 reported/all PASS, 44 completion
+  records/14 actual process-death stages. Search9PASS58.789s.
+- Android 10 run38147131217 at7b4dd14: 170 reported/169PASS plus one existing
+  API30+ profile assumption, 44 records/14 actual process-death stages.
+  Search9PASS54.238s; corrected posting18PASS100.284s.
+- Both: core55/0/0, source/debug/test/release/lint, signed5-to-8 updates and
+  actual cold wallet/cache continuity PASS. Public owner/official each1PASS:
+  17 takes9.678s/7.672s; 10 takes10.869s/14.748s. Each Search ordinary stream
+  returns100rows/90posts/0ignored; quotes4rows/0commentaryposts/0ignored.
+  Counts do not establish exhaustive history, explain row/post differences,
+  chain inclusion or external Registry readiness.
 
-Root individually viewed two new author originals and two save-recovery originals,
-parsed each separate XML, and inspected unchanged logs/public metadata reports.
-Durable author-green/save-green/public-green hashes and claims checked by both
-reviewers with0 findings. Earlier RED/GREEN evidence remains in ticket19 folders;
-no need to repeat unaffected checkpoints. No fabricated RED for existing save or
-author behavior. No actual process-death or physical-device claim from these
-focused Activity reopen journeys.
+Root individually viewed all15 Search originals and separately parsed15XMLs on
+EACH SDK, plus both fresh public feed originals on each. Durable
+ ticket19/final-full/android10 and android17 retain119hashes each and all raw
+countable completion/death logs. Root recomputed durable counts equal to the
+original artifacts. Android17 bounded evidence reviews: both axes0 findings.
+Android10/final evidence review pending before closing #20.
 
-Final original full pair at6c489bfa700e1fde73c3f43ba446980c11ad58d4:
-Android10run38145371958 FAILED before Search at existing queued-wallet import
-fixture (posting18cases/17PASS/1FAIL102.61s); Browse/Following8each and actual
-posting process-death/cold PASS. Captured nativewalletdialog, no external picker
-or validated preview; exact timing cause unproved. Durable full10-first-failure.
-Fixture correction15a3986 reuses maintained chooseWalletImport with native
-Compose synchronization/scoped drawer/positive incoming preview and provisioned
-file/size check; all wallet/queue assertions remain. CompilationPASS1m24s/bothboundedaxes0; corrected outstanding full10run38146223301 FAILED at0caebda:
-posting18cases15PASS3FAIL76.329s, all at new direct File diagnostic before
-shared chooser executes. Second PNG(nativewallet)/XML(DocumentsUIRecent) are
-separate transition observations, not missing-file proof. Corrected ee70a83
-uses existing fixed run-as stat size under the .dev.test provider identity.
-CompilationPASS1m30s; both bounded axes0 residual findings and4hashes verified.
-Durable full10-second-failure. Corrected outstanding full10run38147131217
-at7b4dd1498f7e5c085ac854af80f7b60ea7759746 ACTIVE, optedpublic reads.
-Android17run38145373388 SUCCESS:170reported/allPASS,44completion records/14actual
-processdeaths; core55/0/0, source/release/lint, signed5-to-8/cold continuity PASS.
-Search9PASS58.789s; publicowner/official1PASS9.678s/7.672s andboth Search metadata
-reads PASS. Root viewed15SearchPNG+15separateXML+2publicfeed originals. Durable
-final-full/android17 retains119hashes; both bounded axes0 findings with independent
-counts/hash/original checks. Outstanding full10run38147131217 continues;
-production/Search/harness unchanged. Both full runs optedpublic reads. Inspect retained full
-logs/counts/critical originals after completion, record applicable assumptions,
-and finish final evidence/review before closing#20. No final acceptance yet.
-Production/app/core/scripts/build/workflow unchanged afterfd35b02; later commits
-retain evidence/docs and the described posting import fixture correction. Current local changes are docs only plus protected future
-research. Then recheck and claim ready#21 sequentially. Read-only preparation is
-ignored .scratch/personal-controls-plan.md, not another spec or active ticket.
+Two earlier full10 failures remain in full10-first-failure and
+full10-second-failure. The first stopped at an old wallet-picker selector; exact
+scheduling cause remains unproved. The next failed an introduced direct File
+metadata guard before the maintained chooser ran. Fixture-only correction uses
+fixed run-as stat under the provider identity and maintained native drawer/preview
+synchronization. Final full10 passes the unchanged safeguards. Production/core/
+build/reference/scripts/workflow and Search/public acceptance assertions are
+identical between successful full17 and full10, as allowed by WORKFLOW.md.
+
+No new phone APK, actual Search process-death, Pixel performance or live write
+claim. Stable review remains version10/source5225d06. #19 remains externally
+parked. Finish final review/closure, then recheck/claim #21 sequentially. Its
+read-only preparation is ignored .scratch/personal-controls-plan.md; no #21
+implementation or claim yet. Preserve the seven future research files below.
 
 Protected future untracked: build-support/references/private-chat-reference.cjs;
 NATIVE_NOTIFICATIONS_CONTRACT,

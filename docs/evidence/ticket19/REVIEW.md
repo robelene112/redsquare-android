@@ -344,3 +344,18 @@ Bounded Android17 evidence review7b4dd14...7cf208d: both axes0 residual findings
 Each independently verifies119hashes,170cases/44records/14deathlogs, core55/0/0,
 Search/publictimings/counts and source equivalence. Selected original PNGs/separate
 XML agree; Android10 remains outstanding, no final closure inferred.
+
+Final outstanding Android10run38147131217 at7b4dd1498f7e5c085ac854af80f7b60ea7759746
+SUCCESS:170reported cases/169PASS+oneexistingAPI30+profile assumption,
+44completionrecords/14actualprocessdeath stages; core55/0/0, source/debug/test/
+release/lint PASS. Search9PASS54.238s, corrected existing posting18PASS100.284s.
+Publicowner1PASS10.869s/official1PASS14.748s; both Search ordinary100rows/90posts/
+0ignored andquotes4rows/0commentaryposts/0ignored. Existing signed5-to-8/cold
+identity/cachecontinuity PASS. Root individually views15Search originals and
+parses15separateXMLs plus2publicfeed originals. Durablefinal-full/android10
+retains119hashes and raw independently countable logs; copied counts match original.
+No Search actualprocessdeath/physical/chain/Registry/livewrite claim. Actual later
+picker PASS does not establish the first scheduling cause. Production/build/core/
+reference/scripts/workflow and Search/public assertions unchanged since successful
+full17source6c489bf; only existing posting import fixture/evidence/docs differ.
+Both finalSDK acceptance results present; final evidence review before closure.
