@@ -365,3 +365,12 @@ a truthful save warning, then recover after obstruction removal. Bounded
 unavailable fixture correction hides only positively observed emulator IME.
 Actual-process stage was not reached in these failed ordinary runs.
 
+Local-cache tracer ead23fd runs actual RED38120361760: seven cases pass,
+newcase observes real namecheck/obstructed name-cache path then loses verified
+label (eight cases,57.54s). Root viewed original anonymous profile PNG/XML,
+retained first-name-save-red. Corrected unavailable flow fully passes. Added
+repair sensitivity requires recreation with unavailable namecheck and cached
+name; not present in older RED. Minimal correction retains verified mounted
+label plus generic save warning as one settled result even after cache failure.
+Review-stage RegistryLookup shares bounded strict namecheck/decoder between
+registration and profile discovery. Source review/native GREEN pending.

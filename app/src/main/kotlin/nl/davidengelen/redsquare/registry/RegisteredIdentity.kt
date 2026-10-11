@@ -5,65 +5,44 @@ import androidx.compose.ui.platform.LocalContext
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import nl.davidengelen.redsquare.saito.SaitoRegistry
-import nl.davidengelen.redsquare.saito.SaitoBackend
-import nl.davidengelen.redsquare.saito.SaitoPeer
-import nl.davidengelen.redsquare.saito.SaitoWallet
-import com.google.gson.GsonBuilder
-import com.google.gson.JsonArray
-import com.google.gson.JsonObject
-import com.google.gson.Strictness
-import java.nio.ByteBuffer
-import java.nio.charset.CodingErrorAction
+import nl.davidengelen.redsquare.saito.*
 
 internal val LocalRegistryAuthority = staticCompositionLocalOf { SaitoRegistry.REGISTRAR }
+internal data class RegisteredIdentityLabel(val name: String, val saveError: Boolean = false)
 
 /** Show local knowledge first. Missing names are discovered without delaying the profile. */
 @Composable
-internal fun registeredIdentityName(publicKey: String, wallet: SaitoWallet?, endpoint: String, backend: SaitoBackend): String {
+internal fun registeredIdentity(publicKey: String, wallet: SaitoWallet?, endpoint: String, backend: SaitoBackend): RegisteredIdentityLabel {
     val context = LocalContext.current.applicationContext
     val registrar = LocalRegistryAuthority.current
-    var identifier by remember(publicKey, registrar, wallet, endpoint, backend) { mutableStateOf<String?>(null) }
+    var identity by remember(publicKey, registrar, wallet, endpoint, backend) {
+        mutableStateOf(RegisteredIdentityLabel("Anon-${publicKey.take(6)}"))
+    }
     LaunchedEffect(publicKey, registrar, wallet, endpoint, backend) {
-        identifier = try {
-            withContext(Dispatchers.IO) { RegisteredNameStore(context, publicKey, registrar).load()?.name?.identifier }
-        } catch (cancelled: CancellationException) { throw cancelled }
+        val cache = RegisteredNameStore(context, publicKey, registrar)
+        val cached = try { withContext(Dispatchers.IO) { cache.load()?.name?.identifier } }
+        catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { null }
-        if (identifier == null && wallet != null) {
+        if (cached != null) {
+            identity = RegisteredIdentityLabel(cached)
+        } else if (wallet != null) {
             try {
-                identifier = withContext(Dispatchers.IO) {
+                val verified = withContext(Dispatchers.IO) {
                     SaitoPeer(wallet, endpoint).use { peer ->
-                        val query = JsonObject().apply {
-                            addProperty("request", "registry query")
-                            add("data", JsonObject().apply {
-                                addProperty("request", "registry query")
-                                add("keys", JsonArray().apply { add(publicKey) })
-                            })
-                        }
-                        val gson = GsonBuilder().setStrictness(Strictness.STRICT).create()
-                        val hints = requireNotNull(gson.fromJson(registryResponse(peer, query), JsonObject::class.java))
-                        require(hints.keySet().all { it == publicKey })
-                        val hint = hints.get(publicKey) ?: return@use null
-                        require(hint.isJsonPrimitive && hint.asJsonPrimitive.isString)
-                        val name = hint.asString.also { require(it.matches(Regex("[A-Za-z0-9]{1,45}@saito"))) }
-                        query.add("data", JsonObject().apply {
-                            addProperty("request", "registry namecheck"); addProperty("identifier", name)
-                        })
-                        val record = SaitoRegistry.readNamecheck(registryResponse(peer, query), name, registrar) ?: return@use null
+                        val lookup = RegistryLookup(peer, registrar)
+                        val name = lookup.hint(publicKey) ?: return@use null
+                        val record = lookup.namecheck(name) ?: return@use null
                         require(record.publicKey == publicKey && record.active)
-                        RegisteredNameStore(context, publicKey, registrar).save(record, backend).name.identifier
+                        val saveError = try { cache.save(record, backend); false }
+                        catch (cancelled: CancellationException) { throw cancelled }
+                        catch (_: Exception) { true }
+                        RegisteredIdentityLabel(record.identifier, saveError)
                     }
                 }
+                if (verified != null) identity = verified
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { /* Unavailable or unverified hints keep the generated identity. */ }
         }
     }
-    return identifier ?: "Anon-${publicKey.take(6)}"
-}
-
-private suspend fun registryResponse(peer: SaitoPeer, query: JsonObject): String {
-    val response = peer.request(query.toString().toByteArray(Charsets.UTF_8))
-    require(response.size <= 64 * 1024)
-    return Charsets.UTF_8.newDecoder().onMalformedInput(CodingErrorAction.REPORT)
-        .onUnmappableCharacter(CodingErrorAction.REPORT).decode(ByteBuffer.wrap(response)).toString()
+    return identity
 }

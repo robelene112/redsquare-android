@@ -1,12 +1,9 @@
 package nl.davidengelen.redsquare.registry
 
 import androidx.compose.runtime.*
-import com.google.gson.JsonObject
 import kotlinx.coroutines.*
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.*
-import java.nio.ByteBuffer
-import java.nio.charset.CodingErrorAction
 
 /** The retained request is signed once, saved before send and reconciled before retry. */
 internal class UsernameState(private val wallet: SaitoWallet, private val endpoint: String,
@@ -88,7 +85,8 @@ internal class UsernameState(private val wallet: SaitoWallet, private val endpoi
         cacheError = false
         try {
             SaitoPeer(wallet, endpoint).use { peer ->
-                val record = withContext(Dispatchers.IO) { namecheck(peer) }
+                val lookup = RegistryLookup(peer, registrar)
+                val record = withContext(Dispatchers.IO) { lookup.namecheck("$name@saito") }
                 if (record != null) { observed(record); return }
                 if (!send) {
                     available = candidate == null && savedName == null
@@ -113,7 +111,7 @@ internal class UsernameState(private val wallet: SaitoWallet, private val endpoi
                     currentCoroutineContext().ensureActive()
                     peer.submit(transaction)
                 }
-                val confirmed = withContext(Dispatchers.IO) { namecheck(peer) }
+                val confirmed = withContext(Dispatchers.IO) { lookup.namecheck("$name@saito") }
                 if (confirmed != null) observed(confirmed)
             }
         } catch (_: TimeoutCancellationException) {
@@ -139,18 +137,4 @@ internal class UsernameState(private val wallet: SaitoWallet, private val endpoi
         }
     }
 
-    private suspend fun namecheck(peer: SaitoPeer): SaitoRegisteredName? {
-        val identifier = "$name@saito"
-        val query = JsonObject().apply {
-            addProperty("request", "registry query")
-            add("data", JsonObject().apply {
-                addProperty("request", "registry namecheck"); addProperty("identifier", identifier)
-            })
-        }
-        val response = peer.request(query.toString().toByteArray(Charsets.UTF_8))
-        require(response.size <= 64 * 1024)
-        val text = Charsets.UTF_8.newDecoder().onMalformedInput(CodingErrorAction.REPORT)
-            .onUnmappableCharacter(CodingErrorAction.REPORT).decode(ByteBuffer.wrap(response)).toString()
-        return SaitoRegistry.readNamecheck(text, identifier, registrar)
-    }
 }

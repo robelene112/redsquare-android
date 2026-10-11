@@ -38,7 +38,7 @@ class UsernamePreviewTest {
     @Test fun anExistingWalletDiscoversItsVerifiedNameWithoutRegisteringAgain() = withRegistryWallet { fixture ->
         val reference = instrumentation.context.assets.open("native-registry-reference.json").bufferedReader()
             .use { JsonParser.parseReader(it).asJsonObject }
-        val peer = discoveryPeer(fixture.publicKey, reference.getAsJsonArray("rows").toString())
+        val peer = discoveryPeer(fixture.publicKey) { reference.getAsJsonArray("rows").toString() }
         peer.start().use { server ->
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
@@ -75,7 +75,8 @@ class UsernamePreviewTest {
     @Test fun aVerifiedProfileNameRemainsVisibleWhenItsLocalCacheCannotBeSaved() = withRegistryWallet { fixture ->
         val reference = instrumentation.context.assets.open("native-registry-reference.json").bufferedReader()
             .use { JsonParser.parseReader(it).asJsonObject }
-        val peer = discoveryPeer(fixture.publicKey, reference.getAsJsonArray("rows").toString())
+        val response = java.util.concurrent.atomic.AtomicReference(reference.getAsJsonArray("rows").toString())
+        val peer = discoveryPeer(fixture.publicKey) { response.get() }
         val obstruction = File(context.noBackupFilesDir, "namemap.${fixture.publicKey}.v1")
         check(!obstruction.exists() && obstruction.mkdir())
         var primary: Throwable? = null
@@ -83,7 +84,7 @@ class UsernamePreviewTest {
             peer.start().use { server ->
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
-                    .putExtra("usernameFixtureRegistrar", true)).use {
+                    .putExtra("usernameFixtureRegistrar", true)).use { scenario ->
                     withFailureCapture({ capture("username-name-save-failure.png") }) {
                         waitForEnabled("Your profile")
                         if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
@@ -109,6 +110,14 @@ class UsernamePreviewTest {
                         }
                         ui.onAllNodesWithText(warning).assertCountEquals(0)
                         capture("username-name-save-recovered.png", "NativeCase7@saito")
+                        response.set("{\"err\":\"no response\"}")
+                        scenario.recreate()
+                        waitForEnabled("Your profile")
+                        ui.onNodeWithText("Your profile").performClick()
+                        waitForText("NativeCase7@saito")
+                        ui.onNodeWithText(fixture.publicKey).assertIsDisplayed()
+                        ui.onAllNodesWithText(warning).assertCountEquals(0)
+                        capture("username-name-save-cached.png", "NativeCase7@saito")
                         assertTrue(peer.clientKeys.all { it == fixture.publicKey })
                         assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
                     }
@@ -513,7 +522,7 @@ class UsernamePreviewTest {
         }
     }
 
-    private fun discoveryPeer(publicKey: String, proof: String) = ControlledFeedPeer("[]", registryResponse = { criteria ->
+    private fun discoveryPeer(publicKey: String, proof: () -> String) = ControlledFeedPeer("[]", registryResponse = { criteria ->
         when (criteria.get("request").asString) {
             "registry query" -> {
                 assertEquals(listOf(publicKey), criteria.getAsJsonArray("keys").map { it.asString })
@@ -521,7 +530,7 @@ class UsernamePreviewTest {
             }
             "registry namecheck" -> {
                 assertEquals("NativeCase7@saito", criteria.get("identifier").asString)
-                proof
+                proof()
             }
             else -> error("Unexpected discovery request")
         }
