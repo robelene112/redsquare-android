@@ -35,6 +35,55 @@ class UsernamePreviewTest {
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
     }
 
+    @Test fun anExistingWalletDiscoversItsVerifiedNameWithoutRegisteringAgain() = withRegistryWallet { fixture ->
+        val reference = instrumentation.context.assets.open("native-registry-reference.json").bufferedReader()
+            .use { JsonParser.parseReader(it).asJsonObject }
+        val peer = ControlledFeedPeer("[]", registryResponse = { criteria ->
+            when (criteria.get("request").asString) {
+                "registry query" -> {
+                    assertEquals(listOf(fixture.publicKey), criteria.getAsJsonArray("keys").map { it.asString })
+                    JsonObject().apply { addProperty(fixture.publicKey, "NativeCase7@saito") }.toString()
+                }
+                "registry namecheck" -> {
+                    assertEquals("NativeCase7@saito", criteria.get("identifier").asString)
+                    reference.getAsJsonArray("rows").toString()
+                }
+                else -> error("Unexpected discovery request")
+            }
+        }, archiveResponse = { "[]" })
+        peer.start().use { server ->
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                .putExtra("usernameFixtureRegistrar", true)).use {
+                withFailureCapture({ capture("username-discovery-failure.png") }) {
+                    waitForEnabled("Your profile")
+                    if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
+                    ui.onNodeWithText("Your profile").performClick()
+                    waitForText("NativeCase7@saito")
+                    ui.onNodeWithText("NativeCase7@saito").assertIsDisplayed()
+                    ui.onNodeWithText(fixture.publicKey).assertIsDisplayed()
+                    assertTrue("Discovery must observe a key-map hint", peer.registryQueries.any { it.get("request").asString == "registry query" })
+                    assertTrue("A hint alone is insufficient: verify its signed ownership", peer.registryQueries.any { it.get("request").asString == "registry namecheck" })
+                    assertTrue("Discovering an existing name must never register it again", peer.transactions.isEmpty())
+                    capture("username-discovered-profile.png", "NativeCase7@saito")
+                    ui.onNodeWithText("Back").performClick()
+                    openUsername()
+                    waitForText("This username is registered to your wallet.")
+                    ui.onNodeWithText("NativeCase7@saito").assertIsDisplayed()
+                    ui.onAllNodesWithText("Register name").assertCountEquals(0)
+                    ui.onAllNodesWithText("Retry registration").assertCountEquals(0)
+                    ui.onNodeWithText("Back").performClick()
+                    waitForEnabled("New post")
+                    ui.onNodeWithText("Wallet").performClick()
+                    assertEquals(fixture.publicKey, displayedWalletAddress(ui))
+                    assertTrue(peer.clientKeys.all { it == fixture.publicKey })
+                    assertTrue(peer.transactions.isEmpty())
+                    peer.assertHealthy()
+                }
+            }
+        }
+    }
+
     @Test fun anUnavailableUsernameCheckDoesNotBlockPostingOrChangeTheWallet() {
         val peer = ControlledFeedPeer("[]", registryResponse = { criteria ->
             assertEquals("registry namecheck", criteria.get("request").asString)
