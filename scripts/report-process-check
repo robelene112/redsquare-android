@@ -1,0 +1,90 @@
+#!/usr/bin/env python3
+"""Verify report recovery in a new Android process, without resetting wallet or selection."""
+import argparse
+import base64
+import json
+from pathlib import Path
+import re
+import subprocess
+
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--evidence', type=Path, required=True)
+args = parser.parse_args()
+package = 'nl.davidengelen.redsquare.dev'
+runner = package + '.test/androidx.test.runner.AndroidJUnitRunner'
+test_class = 'nl.davidengelen.redsquare.ReportProcessRecoveryTest'
+checkpoint = 'cache/report-process-checkpoint.json'
+
+
+def adb(*arguments, check=True, timeout=60):
+    return subprocess.run(['adb', *arguments], capture_output=True, text=True, check=check, timeout=timeout)
+
+
+def instrument(name, filename, check=True):
+    try:
+        result = adb('shell', 'am', 'instrument', '-w', '-r', '-e', 'class',
+                     test_class + '#' + name, runner, check=check, timeout=90)
+        (args.evidence / filename).write_text(result.stdout + result.stderr)
+        return result
+    except (subprocess.TimeoutExpired, subprocess.CalledProcessError) as error:
+        def decoded(value):
+            return value.decode('utf-8', errors='replace') if isinstance(value, bytes) else (value or '')
+        (args.evidence / filename).write_text(decoded(error.stdout) + decoded(error.stderr))
+        raise
+
+
+if not adb('get-serialno').stdout.strip().startswith('emulator-'):
+    raise SystemExit('This check requires an isolated emulator')
+args.evidence.mkdir(parents=True, exist_ok=True)
+adb('shell', 'run-as', package, 'rm', '-f', checkpoint)
+try:
+    result = instrument('terminateAfterReceiptBeforeAcknowledgement', 'interrupted.txt', check=False)
+    if 'FAILURES!!!' in result.stdout:
+        raise AssertionError('Report failed before deliberate process termination')
+    row = json.loads(adb('exec-out', 'run-as', package, 'cat', checkpoint).stdout)
+    if row['phase'] != 'pending' or row['backend'] != 'owner':
+        raise AssertionError('Missing pending report checkpoint')
+    if (not re.fullmatch(r'[1-9A-HJ-NP-Za-km-z]{43,45}', row['owner']) or
+            not re.fullmatch(r'[0-9a-f]{128}', row['target']) or
+            len(base64.b64decode(row['transaction'], validate=True)) < 211):
+        raise AssertionError('Invalid public report checkpoint')
+    if not isinstance(row['pid'], int) or row['pid'] <= 0:
+        raise AssertionError('Invalid original report process ID')
+    if str(row['pid']) in adb('shell', 'pidof', package, check=False).stdout.split():
+        raise AssertionError('Report process was not actually terminated')
+    (args.evidence / 'pending-checkpoint.json').write_text(json.dumps(row, indent=2) + '\n')
+    metadata = adb('exec-out', 'run-as', package, 'stat', '-c', '%s',
+                   'no_backup/report.owner.' + row['owner'] + '.' + row['target'] + '.v1')
+    if not metadata.stdout.strip().isdigit() or int(metadata.stdout.strip()) <= 0:
+        raise AssertionError('Pending report record was not retained')
+    (args.evidence / 'record-size.txt').write_text(metadata.stdout)
+    adb('shell', 'am', 'force-stop', package)
+    result = instrument('coldStartupKeepsUnknownDeliveryUntilExplicitIdenticalRetry', 'recovered.txt')
+    if 'OK (1 test)' not in result.stdout:
+        raise AssertionError('Cold report recovery did not pass')
+    recovered = json.loads(adb('exec-out', 'run-as', package, 'cat', checkpoint).stdout)
+    if recovered != dict(row, phase='recovered', recoveredPid=recovered['recoveredPid']):
+        raise AssertionError('Recovery changed the original public report checkpoint')
+    if (not isinstance(recovered['recoveredPid'], int) or recovered['recoveredPid'] <= 0 or
+            recovered['recoveredPid'] == row['pid']):
+        raise AssertionError('Recovery did not use a new process')
+    (args.evidence / 'recovered-checkpoint.json').write_text(json.dumps(recovered, indent=2) + '\n')
+    (args.evidence / 'continuity.txt').write_text(
+        'PASS: actual process death after receipt before acknowledgement, retained original report, '
+        'new process, same wallet/backend, unknown delivery without automatic send, '
+        'explicit identical retry and acknowledgement, zero type4 transactions.\n')
+    print('PASS: cold report recovery')
+finally:
+    # Diagnostic capture must not replace the original failure.
+    try:
+        with (args.evidence / 'images.tar').open('wb') as output:
+            capture = subprocess.run(['adb', 'exec-out', 'run-as', package, 'tar', '-C', 'cache',
+                                      '-cf', '-', 'report-process-evidence'], stdout=output,
+                                     stderr=subprocess.PIPE, timeout=10)
+        (args.evidence / 'capture-status.txt').write_text(str(capture.returncode) + '\n' +
+                                                        capture.stderr.decode('utf-8', errors='replace'))
+    except (OSError, subprocess.TimeoutExpired) as failure:
+        try:
+            (args.evidence / 'capture-status.txt').write_text('Synthetic evidence capture failed: ' + str(failure))
+        except OSError:
+            pass

@@ -338,6 +338,14 @@ port0 finding fixed3609e3b using explicit numericport for bothlisteners; both
 fix reviews0. Runtime predates that fixture-only correction. Next single case
 checks both approved destinations, independent receipts, reopening and original
 owner exactretry. No atomic-switch/process acceptance claimed.
+Backend38174100403 at068af0b passes7cases49.455s. Root5originals/
+separate5XMLs show both named destinations, independent official ack/recreated
+receipt, restored owner unknown and exact owner retry; backend-green12hashes.
+Both bounded reviews clear after4a3ebee identity sensitivity assertions; this
+runtime predates those assertions, next focused/final runs must execute them.
+Next actual process fixture/hostdriver kills pending report after receipt,
+checks old PID absent/newPID and exact cold explicitretry without resets.
+Process runtime still pending; no success inferred from fixture source.
 Ticket22 remains incomplete: failure/durability/identity/backend isolation,
 actual process interruption and final both-SDK acceptance/reviews still required.
 Its source contract is prepared in NATIVE_DISCOVERY_MODERATION_CONTRACT.md and

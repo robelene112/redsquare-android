@@ -218,3 +218,18 @@ final displayed and saved wallet must retain that signer. Earlier bytes-only
 distinction could miss an identity-change regression. No production identity
 defect is claimed. Current runtime38174100403 predates these added assertions;
 final paired runs must execute them.
+
+## Backend isolation GREEN and next actual process boundary
+
+Android10 run38174100403 at068af0b:7PASS49.455s. Root5originals/
+separate5XMLs show owner unknown, official consent/ack, restored owner unknown
+and exact owner retry ack. All earlier6pass, including explicit-port repair.
+Durable ticket21/backend-green12hashes. Both identity-sensitivity fix reviews
+clear; runtime predates4a3ebee stronger signer assertions, later runs must
+execute them. Next single boundary check deliberately kills the Android process
+after the peer receives the actual report but before acknowledgement. Host
+checks pending phase published after native guards/capture, original PID absent,
+retained record metadata, then a separate cold process preserving wallet/backend
+and requiring unknown/no auto send/exact explicit retry. Checkpoint is public
+transaction/identity only. Recovery never clears fixtures or rewrites selection.
+Product source unchanged; no presumed defect or process success claimed yet.
