@@ -137,13 +137,24 @@ onb744701 fails line58 after eight passes; PNG/XML show the independent root
 with anonymous author. Durable first-shared-name-red. Corrected target-bound
 selectors and unrelated key-map fixtures are not in that older RED.
 
-Next tracer4471601 isolates direct Settings discovery with debug feed disabled,
-so reused feed cache cannot satisfy it. Both source review axes clear; no app
-implementation or runtime result yet. Next run must include corrected repair wait plus4471601 Settings tracer for
-its actual RED. Future
+Settings tracer4471601 isolates direct discovery with debug feed disabled.
+Actual Android10 RED38122656399 on0f276bf passes9/10cases76.347s, failing
+Settings owned-name statusline106. Root viewed blank optional form and repaired/
+cached profile PNG/XML; complete cache-save/repair/unavailable recreation now
+passes. Originals first-settings-discovery-red. Process stage not reached.
+Minimal own-key hint→signed exactowneractive proof discovery is now implemented
+in UsernameState only when no saved request/cache needs reconciliation. Optional
+screen busy/checking does not gate feed/posting. Testhelpers wait for enabled
+Check/Retry; cold proof explicitly requires exactnamecheck. Both bounded source axes clear. Local Gradle reports successful debug/test
+assembly2m15s, but the host wrapper returned143 after completion; no compiler
+failure was logged and no build container remains. Wrapper signal cause is
+unproved. Hosted native/build acceptance is next, not inferred from that exit. Readonly07:51 public record SELECT returns
+cached timestamp-shaped bsh and0validproofs onboth nodes; no fallback implemented.
+Retained registry-local-readiness host client/result is not native or registration
+acceptance. Future
 protected untracked research remains untouched; no local compiler active.
 
-#19 stays open. Next: inspect shared-name run, then Settings-first/imported-wallet
+#19 stays open. Next: verify Settings discovery, then imported-wallet
 discovery, quoted-name tracer, actual replacement
 isolation, malformed/taken/inactive and persistence failures, native public
 readiness and applicable final full Android10/17 acceptance. Shared SAF profile

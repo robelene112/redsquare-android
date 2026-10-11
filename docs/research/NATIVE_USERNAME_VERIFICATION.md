@@ -433,3 +433,20 @@ name before the unchanged later unavailable-proof recreation/cache/no-send gates
 No app fix or eventual-clear/runtime-cause claim is inferred from this failure.
 Process stage was not reached. Settings-first tracer4471601 is reviewed on both
 axes but has no runtime result or implementation yet.
+
+Android10 run38122656399 on0f276bf passes nine of ten in76.347s. The corrected
+cache-save case fully passes settled repair and unavailable-proof cached
+recreation; root viewed repaired/cached PNG/XML individually. Only Settings
+tracer fails line106 with the blank optional form, viewed in original PNG/XML.
+Durable first-settings-discovery-red. Later Settings proof/no-send/identity
+checks and native process stage were not reached. Minimal implementation adds
+own-key hint and signed exact ownership discovery only when no existing request
+or name cache needs reconciliation. Optional screen waits truthfully; lookup
+errors never mean availability. Helpers wait for enabled native actions before
+typing. Cold recovery now explicitly requires namecheck, rather than any key-map
+request. Build/runtime acceptance remains pending.
+
+Settings correction source review passes both axes. Local Gradle reports
+successful debug/test assembly2m15s; wrapper exit143 after completion remains
+unexplained, with no compile failure and no surviving build container. Hosted
+verification must establish clean build/native acceptance for this candidate.

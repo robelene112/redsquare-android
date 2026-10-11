@@ -45,8 +45,31 @@ internal class UsernameState(private val wallet: SaitoWallet, private val endpoi
             }
             ready = true
             if (candidate != null || savedName != null) run(send = false)
+            else discover()
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { loadError = true }
+    }
+
+    private suspend fun discover() {
+        busy = true
+        try {
+            val record = withContext(Dispatchers.IO) {
+                SaitoPeer(wallet, endpoint).use { peer ->
+                    val lookup = RegistryLookup(peer, registrar)
+                    val identifier = lookup.hints(listOf(wallet.publicKey))[wallet.publicKey] ?: return@use null
+                    lookup.namecheck(identifier)?.also { require(it.publicKey == wallet.publicKey && it.active) }
+                }
+            }
+            if (record != null) {
+                name = record.identifier.removeSuffix("@saito")
+                observed(record)
+            }
+        } catch (_: TimeoutCancellationException) {
+            currentCoroutineContext().ensureActive()
+            status = R.string.username_unavailable
+        } catch (cancelled: CancellationException) { throw cancelled }
+        catch (_: Exception) { status = R.string.username_unavailable }
+        finally { busy = false }
     }
 
     fun edit(value: String) {

@@ -94,7 +94,9 @@ class UsernameProcessRecoveryTest {
             ui.onNodeWithText(pending).performScrollTo().assertIsDisplayed()
             ui.onNode(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString("NativeCase7")))
                 .assertIsNotEnabled()
-            assertTrue("Cold reopening must perform an actual read-only Registry lookup", peer.registryQueries.isNotEmpty())
+            assertTrue("Cold reopening must perform an actual read-only Registry namecheck", peer.registryQueries.any {
+                it.get("request").asString == "registry namecheck" && it.get("identifier").asString == "NativeCase7@saito"
+            })
             assertTrue("Recovery must not automatically publish", peer.transactions.isEmpty())
             capture("pending-cold-recovery.png", pending)
             ui.onNodeWithText("Retry registration").performScrollTo().performClick()

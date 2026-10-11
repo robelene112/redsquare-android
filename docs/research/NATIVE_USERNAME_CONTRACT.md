@@ -143,3 +143,17 @@ registrar or return an unusable forwarded response; the actual cause is not
 proven. Do not enable block production or change a node speculatively. Continue
 controlled implementation with truthful unresolved states; live namecheck and
 registration readiness remain an external acceptance concern until resolved.
+
+A further read-only07:51 UTC probe used the published ModTemplate `rawSQL`
+SELECT path on the selected authenticated node, limited to seven public proof
+fields and one known hinted identifier. It performed no broadcast or database
+mutation. Both endpoints returned Saitoverse@saito's cached record, with the
+published signer and lc1, but bsh was `1791495191350.0`, not a64-digit block hash.
+Pinned pure WASM verified zero valid signatures over those returned fields.
+Normal unknown and known-name namechecks still returned `{err:"no response"}`.
+The shape is consistent with the inspected Email construction overwriting bsh
+with unixtime; this observation does not prove the forwarding failure's cause.
+The direct local-record query therefore does not provide a valid ownership
+fallback, and none is implemented. A local empty cache would not establish
+namespace availability either. Durable evidence under ticket18/registry-local-readiness retains
+the exact client, query and public result. No node change or native Android proof follows.

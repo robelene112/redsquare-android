@@ -1,0 +1,71 @@
+[
+  {
+    "endpoint": "wss://saito.davidengelen.nl/wsopen",
+    "observedAt": "2026-10-11T07:51:37.257Z",
+    "readOnly": true,
+    "authenticatedPeer": "tRFyaSvHix3HDHguPRcb7cLooiTnBKquFgahkuScxfrg",
+    "namecheck": {
+      "err": "no response"
+    },
+    "archiveRows": 10,
+    "keyMap": {
+      "qeyGZPxRZYFeCtMTZze7He2wzCUs3uLW8U8eZKC5Bb86": "Saitoverse@saito"
+    },
+    "knownName": "Saitoverse@saito",
+    "localRecord": {
+      "err": "",
+      "rows": [
+        {
+          "identifier": "Saitoverse@saito",
+          "publickey": "qeyGZPxRZYFeCtMTZze7He2wzCUs3uLW8U8eZKC5Bb86",
+          "bid": 1103032,
+          "bsh": "1791495191350.0",
+          "sig": "d79c1f2a5f69714745a74dd46670e9bc5ea4163b05bacfd9653400f5319b969620a6bdf85363749f46f1e52570c05cef03efbded69bd2c07a9b2257bf6afd25a",
+          "signer": "sFQuGQ6teVaHs6AAtBBWeDwtGMCGCPNyhTJqYDXCvvVK",
+          "lc": 1
+        }
+      ]
+    },
+    "localValidProofs": 0,
+    "proofRows": {
+      "err": "no response"
+    },
+    "validProofs": 0
+  },
+  {
+    "endpoint": "wss://saito.io/wsopen",
+    "observedAt": "2026-10-11T07:51:37.259Z",
+    "readOnly": true,
+    "authenticatedPeer": "wnUrrEMtWhwwpULFdeWBto8McZzcydqvpJpfEgLQJx2g",
+    "namecheck": {
+      "err": "no response"
+    },
+    "archiveRows": 10,
+    "keyMap": {
+      "qeyGZPxRZYFeCtMTZze7He2wzCUs3uLW8U8eZKC5Bb86": "Saitoverse@saito",
+      "i767FqhGcKPzqi7KcWNA8TQoTZeBd8QbWd2mTKNnkfmk": "omskian@saito",
+      "22jWAzPBoAqn9hUsec9UydbXvaj862qB6q4mBpa9Bex4P": "saitoweb3@saito",
+      "bzu4bwD8h6zsgLsBDYwXPN2SZa2iiD1MpiC8g4UJjdt8": "neri@saito"
+    },
+    "knownName": "Saitoverse@saito",
+    "localRecord": {
+      "err": "",
+      "rows": [
+        {
+          "identifier": "Saitoverse@saito",
+          "publickey": "qeyGZPxRZYFeCtMTZze7He2wzCUs3uLW8U8eZKC5Bb86",
+          "bid": 1103032,
+          "bsh": "1791495191350.0",
+          "sig": "d79c1f2a5f69714745a74dd46670e9bc5ea4163b05bacfd9653400f5319b969620a6bdf85363749f46f1e52570c05cef03efbded69bd2c07a9b2257bf6afd25a",
+          "signer": "sFQuGQ6teVaHs6AAtBBWeDwtGMCGCPNyhTJqYDXCvvVK",
+          "lc": 1
+        }
+      ]
+    },
+    "localValidProofs": 0,
+    "proofRows": {
+      "err": "no response"
+    },
+    "validProofs": 0
+  }
+]

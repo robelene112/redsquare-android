@@ -657,6 +657,10 @@ class UsernamePreviewTest {
         ui.onNodeWithText("Settings").performClick()
         ui.onNodeWithText("Saito username").assertIsEnabled().performClick()
         waitForEnabled("Back")
+        ui.waitUntil(20_000) {
+            ui.onAllNodes((hasText("Check name") or hasText("Retry registration")) and isEnabled())
+                .fetchSemanticsNodes().isNotEmpty()
+        }
     }
 
     private fun waitForText(text: String) {
