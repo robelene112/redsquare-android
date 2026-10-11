@@ -169,8 +169,10 @@ class ReportPreviewTest {
                     ui.onNodeWithText("Done").performClick()
                     val blocked = File(context.noBackupFilesDir, "report.owner.$author.${root.get("sig").asString}.v1")
                     check(blocked.mkdir())
-                    val obstacle = File(blocked, "retain-public-save-fault").apply { writeText("public test fault") }
+                    val obstacle = File(blocked, "retain-public-save-fault")
+                    var failure: Throwable? = null
                     try {
+                        obstacle.writeText("public test fault")
                         ui.clickVisiblePostContent("Report")
                         ui.onNodeWithText("Send report").performClick()
                         ui.waitUntil(20_000) { ui.onAllNodes(hasText("Done") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
@@ -178,7 +180,19 @@ class ReportPreviewTest {
                         val error = "Report could not be saved. Nothing new was sent to saito.davidengelen.nl. Try again."
                         waitFor(error)
                         capture("saving-prevents-transmission.png", error)
-                    } finally { check(obstacle.delete()); check(blocked.delete()) }
+                    } catch (primary: Throwable) { failure = primary; throw primary }
+                    finally {
+                        var cleanupFailure = failure
+                        listOf(obstacle, blocked).forEach { owned ->
+                            try { check(!owned.exists() || owned.delete()) }
+                            catch (secondary: Throwable) {
+                                val earlier = cleanupFailure
+                                if (earlier == null) cleanupFailure = secondary
+                                else if (earlier !== secondary) earlier.addSuppressed(secondary)
+                            }
+                        }
+                        if (failure == null && cleanupFailure != null) throw requireNotNull(cleanupFailure)
+                    }
                     ui.onNodeWithText("Done").performClick()
                     ui.clickVisiblePostContent("Retry report")
                     ui.onNodeWithText("Report to saito.davidengelen.nl?").assertIsDisplayed()

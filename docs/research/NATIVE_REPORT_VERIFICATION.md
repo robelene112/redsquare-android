@@ -330,3 +330,13 @@ remain conservative. Explicit retry clears old error only at actual enqueue;
 missing/malformed responses remain unknown. Error wording qualifies uncertain
 delivery and never claims unsent/moderator rejection. Late error-save failures
 retain the observed error with a phone-storage warning. Runtime GREEN pending.
+
+Whole-source Standards review9ecb97b...7dfde25: one source-reachable stale
+acknowledgement preservation finding under Activity recreation/NonCancellable
+save, plus initial-save fixture cleanup concern. Spec withdraws its distinct
+backend-switch interleaving after checking keyed disposal; no mandatory new
+backend tracer and no runtime reproduction claimed. First fix only the fixture:
+protect obstacle creation from successful mkdir, attempt both owned deletions
+independently, preserve primary assertion and suppress cleanup failures.
+No actual cleanup failure injected. Explicit-error GREEN38177070388 predates
+this fixture-only tightening. Monotonic progress source correction remains next.
