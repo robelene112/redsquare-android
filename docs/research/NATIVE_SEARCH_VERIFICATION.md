@@ -504,3 +504,8 @@ logs, Search/posting/publiccounts/timings, original observations and source/
 acceptance equivalence. Android17 evidence already clears both axes. #20 acceptance
 complete; #19 external Registry blocker remains separate and OPEN. No extra
 physical/Searchactualdeath/chain/livewrite acceptance inferred.
+
+Documentation qualification: post keyword/prefix matching is local, but explicit
+exact-username resolution sends the public identifier through RegistryLookup's
+existing namecheck RPC. This was always the implemented/tested behavior. Closure
+comment and handoff wording corrected; no runtime or acceptance change.

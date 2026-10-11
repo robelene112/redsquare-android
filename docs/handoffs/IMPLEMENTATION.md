@@ -51,8 +51,9 @@ Implementation includes signed posts/replies/quotes on the selected backend,
 independent bounded paging and partial retry, available offline cached history,
 profile/thread/back/recreation navigation, canonical exact keys, verified exact
 usernames and prefixes of known accounts. Historical names receive provenance.
-Name-check failures are independent of post history; private query text is never
-sent to the server. Save warnings and retained author edit/deletion proofs are
+Name-check failures are independent of post history. Post keywords and prefixes
+are matched locally; an explicit exact-username check sends that public identifier
+to the selected Registry service. Save warnings and retained author edit/deletion proofs are
 integrated. No exhaustive chain history or permanent archive is promised.
 
 Whole-ticket source review through fd35b02: Spec 0 actionable findings;
