@@ -105,11 +105,24 @@ tracerf9421aa covers pending request/backend isolation and outgoing import work:
 switching to the other controlled backend must not send or show the owner's
 private request; its import preview must warn about pending work on the original
 backend; cancelling and returning only reconciles, with explicit Retry retaining
-the exact original frame. Focused10 run38118322693 is active for expected missing
-pending-work warning RED. No app fix for that tracer yet.
+the exact original frame. Focused10 run38118322693 onf9421aa is actual RED: six cases, five passes,
+one missing pending-work warning in31.191s. Earlier switch/isolation/import-key
+assertions are reached; later cancellation/return/retry is not. Source-sensitive
+fixf01211f rules out unrelated work and requires actual read-only reconciliation;
+not verified by the older-source run. Minimal pending-risk app implementation
+dd90e40 now reads both backend request stores, qualifies matching verified cache
+as previously confirmed and fails closed for unreadable work. Focused10
+run38118600472 ondd90e40 passes all six username cases in36.48s, including
+new discriminating guards, actual official Archive/persisted backend choices,
+increased matching OWNER lookup and exact explicit retry. Root individually
+viewed the pending-preview PNG/XML; scrolled addresses are proven by runtime
+assertions. Verbatim evidence is in first-pending-import-green. Both source
+review axes pass; this checkpoint fixes the stale handoff status identified by
+Standards. Profile shared-helper regression and actual replacement/discovery
+remain for later acceptance. Next check is actual process termination/recovery.
 
-#19 remains open. Remaining work includes pending/import safeguards, imported
-identity discovery and broader shared name display, malformed/taken/inactive
+#19 remains open. Pending import previews/backend isolation now pass focused10;
+remaining work includes actual replacement and imported identity discovery and broader shared name display, malformed/taken/inactive
 and persistence failures, actual process death, public Android read-only readiness
 and applicable full10/17 acceptance. Do not repeat unaffected #18 full checks
 without a relevant change. Owner reviews the completed app.

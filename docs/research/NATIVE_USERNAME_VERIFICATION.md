@@ -310,3 +310,15 @@ are not verified by the older-source RED run. Minimal app change now reads
 Registry requests for both backends on IO, treating unreadable state as unknown
 work and a matching verified cached name as previously confirmed work. Native
 GREEN, actual process death and remaining ticket acceptance are pending.
+
+Pending-risk implementationdd90e40 passes focused Android10 run38118600472:
+all six cases in36.48s, including the newer sensitivity guards, actual official
+Archive read, persisted backend selections and new read-only OWNER namecheck.
+The private request stays with OWNER; import preview warns while on OFFICIAL;
+cancellation keeps the original wallet, and explicit OWNER Retry emits identical
+bytes. Root individually viewed the original pending-preview PNG and inspected
+XML. Scrolled addresses are established by runtime assertions, not the bitmap.
+Verbatim evidence retained at first-pending-import-green. Both code axes have
+zero source findings; Standards caught a stale handoff status, corrected in
+this checkpoint. Shared username picker/error scroll pass; profile caller
+regression, actual replacement/discovery and process death remain incomplete.
