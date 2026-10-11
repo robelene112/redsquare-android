@@ -2,11 +2,26 @@ package nl.davidengelen.redsquare.saito
 
 import com.google.gson.JsonParser
 import org.junit.Assert.assertEquals
+import org.junit.Assert.fail
 import org.junit.Test
 import java.math.BigInteger
 import java.util.Base64
 
 class SaitoPaymentTest {
+    @Test fun fundedPaymentCanBeRestoredWithoutWeakeningZeroPaymentRestoration() {
+        val vector = requireNotNull(javaClass.getResourceAsStream("/native-payment-reference.json"))
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("payment") }
+        val encoded = vector.get("networkBase64").asString
+        val restored = SaitoPayment.restore(encoded)
+        assertEquals(vector.get("id").asString, restored.transaction.id)
+        assertEquals(encoded, restored.transaction.encoded())
+        assertEquals(vector.get("envelope").asString, restored.transaction.envelope())
+        try {
+            SaitoTransaction.restore(encoded)
+            fail("Zero-payment restoration must not accept a funded candidate")
+        } catch (_: IllegalArgumentException) { }
+    }
+
     @Test fun fundedPaymentAndPeerHopMatchIndependentPinnedWasmBytes() {
         val vector = requireNotNull(javaClass.getResourceAsStream("/native-payment-reference.json"))
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("payment") }

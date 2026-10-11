@@ -9,9 +9,10 @@ class SaitoBalanceSnapshot private constructor(
     val timestamp: Long,
     val height: BigInteger,
     val blockHash: String,
-    val slips: List<Slip>,
+    slips: List<Slip>,
     val total: BigInteger,
 ) {
+    val slips: List<Slip> = java.util.Collections.unmodifiableList(slips.toList())
     data class Slip(val block: BigInteger, val ordinal: BigInteger, val index: Int,
         val amount: BigInteger, val type: Int)
 

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.saito.SaitoPaymentTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-10-11T23:51:00" hostname="50c50373d770" time="0.013">
+  <properties/>
+  <testcase name="fundedPaymentAndPeerHopMatchIndependentPinnedWasmBytes" classname="nl.davidengelen.redsquare.saito.SaitoPaymentTest" time="0.009"/>
+  <testcase name="fundedPaymentCanBeRestoredWithoutWeakeningZeroPaymentRestoration" classname="nl.davidengelen.redsquare.saito.SaitoPaymentTest" time="0.004"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

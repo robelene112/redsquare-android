@@ -17,7 +17,9 @@ Minimal checked balance/receiving/copy source is committed at48e8c44. Native
 missing-action RED38184572679 and GREEN38184994485 (1PASS14.8s) are established.
 The independent funded WASM/Elliptic vector and native constructor also pass;
 zero-payment restore remains strict. Current evidence: ticket22/balance-green
-and ticket22/payment-reference.
+and ticket22/payment-reference. Funded restoration and shared-serializer review
+fixes now pass all57 core tests (0 failures/errors/skips); see ticket22/payment-restore.
+Their bounded source reviews are pending.
 Payments and their recovery, compatibility and final acceptance remain unfinished.
 
 Profile #18 is closed, final evidence commit ed5742f pushed. Eighteen of35 tickets

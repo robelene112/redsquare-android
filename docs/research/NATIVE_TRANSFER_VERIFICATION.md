@@ -55,3 +55,19 @@ unimplemented funded factory, then passes after minimal construction. Both local
 builds47s; raw logs are in ticket22/payment-reference. The zero-payment restore
 contract is unchanged. Payment restoration/authentication/reservation/inclusion
 remain separate unfinished cycles; byte compatibility is not consensus admission.
+
+## Funded restoration and review fixes
+
+The next independent funded-restoration case observes an unimplemented-reader
+RED (46s), then both funded cases pass (49s). It checks unchanged funded bytes
+and rejects them through the existing zero-payment reader. Restoration validates
+complete canonical framing, funding, recipient/change, exact metadata and author
+signature. Input coordinates remain unsigned; this is not an external UTXO proof.
+See ticket22/payment-restore for raw logs and retained new-case XML.
+
+Constructor review: Spec0; Standards no hard breaches, two improvements (shared
+Normal serialization, early oversized-memo guard). Both are implemented. Slip
+lists also become defensive/unmodifiable. After fixes all57 core tests pass,
+0 failures/errors/skips (49s), including all existing independent zero-payment
+vectors. Bounded source-fix/restoration reviews are pending. No authenticated
+Android send or whole-ticket acceptance is inferred.

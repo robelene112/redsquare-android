@@ -3,10 +3,12 @@ package nl.davidengelen.redsquare.saito
 import com.google.gson.JsonObject
 import java.nio.ByteBuffer
 import java.util.Base64
+import java.math.BigInteger
 
 /** Immutable Normal transaction. Zero-payment restoration remains a separate strict contract. */
 class SaitoTransaction private constructor(private val bytes: ByteArray) {
     class InvalidMessage : IllegalArgumentException("Message must be valid Unicode within the native size limit")
+    internal data class OwnedSlip(val owner: String, val slip: SaitoBalanceSnapshot.Slip)
 
     val id: String get() = bytes.copyOfRange(16, 80).joinToString("") { "%02x".format(it) }
     fun encoded(): String = Base64.getEncoder().encodeToString(bytes)
@@ -56,7 +58,16 @@ class SaitoTransaction private constructor(private val bytes: ByteArray) {
             createWithOutputs(wallet, body, timestamp, listOf(recipient, wallet.publicKey).distinct())
 
         private fun createWithOutputs(wallet: SaitoWallet, body: JsonObject, timestamp: Long, addresses: List<String>): SaitoTransaction {
+            val zero = SaitoBalanceSnapshot.Slip(BigInteger.ZERO, BigInteger.ZERO, 0, BigInteger.ZERO, 0)
+            return createNormal(wallet, body, timestamp, listOf(OwnedSlip(wallet.publicKey, zero)),
+                addresses.mapIndexed { index, address -> OwnedSlip(address, zero.copy(index = index)) })
+        }
+
+        /** Admission belongs to the zero-payment and funded factories, not the common wire serializer. */
+        internal fun createNormal(wallet: SaitoWallet, body: JsonObject, timestamp: Long,
+            inputs: List<OwnedSlip>, outputs: List<OwnedSlip>): SaitoTransaction {
             require(timestamp >= 0)
+            require(inputs.size in 1..255 && outputs.size in 0..255 && inputs.first().owner == wallet.publicKey)
             val message = try {
                 val encoded = Charsets.UTF_8.newEncoder()
                     .onMalformedInput(java.nio.charset.CodingErrorAction.REPORT)
@@ -65,22 +76,23 @@ class SaitoTransaction private constructor(private val bytes: ByteArray) {
                 ByteArray(encoded.remaining()).also { encoded.get(it) }
             } catch (_: java.nio.charset.CharacterCodingException) { throw InvalidMessage() }
             if (message.size > MAX_MESSAGE_BYTES) throw InvalidMessage()
-            val publicKey = Base58.decode(wallet.publicKey)
-            val outputs = addresses.map { address ->
-                require(SaitoWallet.isPublicKey(address))
-                Base58.decode(address)
+            val slips = (inputs + outputs).map { owned ->
+                require(SaitoWallet.isPublicKey(owned.owner))
+                val slip = owned.slip
+                require(listOf(slip.amount, slip.block, slip.ordinal).all { it.signum() >= 0 && it.bitLength() <= 64 })
+                require(slip.index in 0..255 && slip.type in 0..10)
+                Base58.decode(owned.owner) to slip
             }
-            require(outputs.size <= 255)
-            val preimage = ByteBuffer.allocate(16 + (1 + outputs.size) * 43 + message.size)
-                .putLong(timestamp).put(publicKey).put(ByteArray(10))
-            outputs.forEachIndexed { index, point -> preimage.put(point).putLong(0).put(index.toByte()).put(0) }
+            val preimage = ByteBuffer.allocate(16 + slips.size * 43 + message.size).putLong(timestamp)
+            slips.forEach { (point, slip) -> preimage.put(point).putLong(slip.amount.toLong())
+                .put(slip.index.toByte()).put(slip.type.toByte()) }
             preimage.putInt(1).putInt(0).put(message)
             val signature = wallet.sign(preimage.array()).hexBytes()
-            val network = ByteBuffer.allocate(93 + (1 + outputs.size) * 59 + message.size)
-                .putInt(1).putInt(outputs.size).putInt(message.size).putInt(0).put(signature)
+            val network = ByteBuffer.allocate(93 + slips.size * 59 + message.size)
+                .putInt(inputs.size).putInt(outputs.size).putInt(message.size).putInt(0).put(signature)
                 .putLong(timestamp).putInt(1).put(0)
-            network.put(publicKey).put(ByteArray(26))
-            outputs.forEachIndexed { index, point -> network.put(point).put(ByteArray(24)).put(index.toByte()).put(0) }
+            slips.forEach { (point, slip) -> network.put(point).putLong(slip.amount.toLong())
+                .putLong(slip.block.toLong()).putLong(slip.ordinal.toLong()).put(slip.index.toByte()).put(slip.type.toByte()) }
             network.put(message)
             return SaitoTransaction(network.array())
         }
