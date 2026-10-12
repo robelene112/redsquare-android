@@ -1,0 +1,11 @@
+{
+  "run": 38197165531,
+  "source": "4bbf039dce7e340732003c4740045b4c73b4d924",
+  "reportedCases": 4,
+  "passedCases": 3,
+  "failedCases": 1,
+  "completionRecords": 0,
+  "actualDeathStages": 0,
+  "failure": "WalletTransferStatusTest.kt:64: missing Included in block 2000002 after 20000 ms",
+  "elapsedSeconds": 95.232
+}

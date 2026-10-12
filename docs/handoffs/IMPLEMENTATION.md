@@ -84,7 +84,14 @@ Both corrections now compile1m20s with the full corrected assertions; one hashed
 log in `inclusion-test-review-fix`. Replacement is inside protected cleanup,
 restoration accepts exact prior/fixture only and preserves primary errors.
 An empty snapshot's zero availability is not independent reservation proof.
-Source-fix review and native missing-Included RED remain pending.
+Both bounded source-fix axes are clear at4bbf039; sourcepush38197067577 passes.
+Focused Android17run38197165531 reaches genuine missing-Included RED at
+StatusTest.kt:64 after20s:4reported/3existingPASS/1failure,95.232s. No successful
+completion/death. Root original PNG/separate XML show Pending/Retry/original
+owner destination/zero available; four hashes in inclusion-ui-red/android17.
+Minimum bounded HTTP/current exact inclusion UI implementation compiles debug/
+test APKs2m25s; one hash in inclusion-ui-build. Native GREEN is pending.
+No successful reopening or actual refreshed block verification yet.
 
 Next: HTTP elapsed/body budgets, Android Included/unknown/reorg status and
 persisted qualified observations, then receiving QR, remaining meaningful

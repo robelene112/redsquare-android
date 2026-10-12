@@ -36,6 +36,8 @@ class WalletTransfers(
         private set
     var pending by mutableStateOf<List<TransferStore.Pending>>(emptyList())
         private set
+    var inclusions by mutableStateOf<Map<String, SaitoPaymentChain.Inclusion>>(emptyMap())
+        private set
     var available by mutableStateOf<String?>(null)
         private set
     var message by mutableStateOf<Int?>(null)
@@ -54,14 +56,22 @@ class WalletTransfers(
         val operation = Attempt()
         attempt = operation
         busy = true
+        inclusions = emptyMap()
         job = activity.lifecycleScope.launch {
             try {
                 val result = withContext(Dispatchers.IO) {
                     val records = store.pending()
                     val funding = balances.funding(backend, wallet.publicKey)
-                    records to funding?.let { display(store.available(it.eligible).sumOfAmounts()) }
+                    Triple(records, funding?.let { display(store.available(it.eligible).sumOfAmounts()) },
+                        funding?.let { balances.inclusions(backend, it.snapshot,
+                            records.filter { record -> record.backend == backend }.map { record -> record.payment }) }
+                            ?: emptyMap())
                 }
-                if (isCurrent(operation)) { pending = result.first; available = result.second }
+                if (isCurrent(operation)) {
+                    pending = result.first
+                    available = result.second
+                    inclusions = result.third
+                }
             } catch (_: Exception) { if (isCurrent(operation)) message = R.string.transfer_storage_unavailable }
             finally { finish(operation) }
         }

@@ -1,0 +1,96 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.WalletTransferPreviewTest:
+INSTRUMENTATION_STATUS: test=pendingPaymentReopensWithoutSendingAndExactRetryRequiresFreshReviewedDeviceAuthentication
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=pendingPaymentReopensWithoutSendingAndExactRetryRequiresFreshReviewedDeviceAuthentication
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=selectedServerBalanceAndReceivingAddressCanBeViewedAndCopied
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=selectedServerBalanceAndReceivingAddressCanBeViewedAndCopied
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferStatusTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.WalletTransferStatusTest:
+INSTRUMENTATION_STATUS: test=anExistingExactPaymentShowsVerifiedSelectedChainInclusionWithoutResending
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferStatusTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.WalletTransferStatusTest.anExistingExactPaymentShowsVerifiedSelectedChainInclusionWithoutResending$lambda$10$lambda$9$lambda$8$lambda$7(WalletTransferStatusTest.kt:64)
+	at nl.davidengelen.redsquare.WalletTransferStatusTest.$r8$lambda$QEeiJAA6Tp7pRoKXNWnCXGjl-_E(WalletTransferStatusTest.kt:0)
+	at nl.davidengelen.redsquare.WalletTransferStatusTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.WalletTransferStatusTest.anExistingExactPaymentShowsVerifiedSelectedChainInclusionWithoutResending(WalletTransferStatusTest.kt:58)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anExistingExactPaymentShowsVerifiedSelectedChainInclusionWithoutResending(nl.davidengelen.redsquare.WalletTransferStatusTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.WalletTransferStatusTest.anExistingExactPaymentShowsVerifiedSelectedChainInclusionWithoutResending$lambda$10$lambda$9$lambda$8$lambda$7(WalletTransferStatusTest.kt:64)
+	at nl.davidengelen.redsquare.WalletTransferStatusTest.$r8$lambda$QEeiJAA6Tp7pRoKXNWnCXGjl-_E(WalletTransferStatusTest.kt:0)
+	at nl.davidengelen.redsquare.WalletTransferStatusTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.WalletTransferStatusTest.anExistingExactPaymentShowsVerifiedSelectedChainInclusionWithoutResending(WalletTransferStatusTest.kt:58)
+
+INSTRUMENTATION_STATUS: test=anExistingExactPaymentShowsVerifiedSelectedChainInclusionWithoutResending
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 95.232
+There was 1 failure:
+1) anExistingExactPaymentShowsVerifiedSelectedChainInclusionWithoutResending(nl.davidengelen.redsquare.WalletTransferStatusTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.WalletTransferStatusTest.anExistingExactPaymentShowsVerifiedSelectedChainInclusionWithoutResending$lambda$10$lambda$9$lambda$8$lambda$7(WalletTransferStatusTest.kt:64)
+	at nl.davidengelen.redsquare.WalletTransferStatusTest.$r8$lambda$QEeiJAA6Tp7pRoKXNWnCXGjl-_E(WalletTransferStatusTest.kt:0)
+	at nl.davidengelen.redsquare.WalletTransferStatusTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.WalletTransferStatusTest.anExistingExactPaymentShowsVerifiedSelectedChainInclusionWithoutResending(WalletTransferStatusTest.kt:58)
+
+FAILURES!!!
+Tests run: 4,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

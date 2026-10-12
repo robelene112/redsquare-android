@@ -37,11 +37,13 @@ fun WalletTransferDialog(transfers: WalletTransfers, onClose: () -> Unit) {
                 } else {
                     transfers.available?.let { Text(stringResource(R.string.transfer_available, it)) }
                     transfers.pending.forEach { record ->
-                        Text(stringResource(R.string.transfer_pending))
+                        val inclusion = transfers.inclusions[record.payment.transaction.id]
+                        if (inclusion == null) Text(stringResource(R.string.transfer_pending))
+                        else Text(stringResource(R.string.transfer_included, inclusion.height.toString()))
                         Text(stringResource(R.string.transfer_amount_review, WalletTransfers.display(record.payment.amount)))
                         Text(stringResource(R.string.transfer_recipient_review, record.payment.recipient))
                         Text(stringResource(R.string.transfer_pending_backend, record.backend.domain))
-                        TextButton(enabled = !transfers.busy && record.backend.domain == transfers.backendLabel,
+                        if (inclusion == null) TextButton(enabled = !transfers.busy && record.backend.domain == transfers.backendLabel,
                             onClick = { transfers.prepareRetry(record.payment.transaction.id) }) {
                             Text(stringResource(R.string.transfer_retry))
                         }

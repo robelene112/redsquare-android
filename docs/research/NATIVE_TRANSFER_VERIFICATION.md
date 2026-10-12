@@ -376,3 +376,19 @@ Test APK with all corrected assertions compiles1m20s; one original hash in
 inclusion-test-review-fix. Empty snapshot availability does not independently
 prove reservations. Source-fix review/native missing-Included RED remain pending;
 no product change or reproduced restoration failure is claimed.
+
+Both bounded test-source-fix axes at4bbf039 are clear; sourcepush38197067577
+passes. Focused Android17run38197165531 reaches genuine missing-Included RED:
+4reported/3existingPASS/1failure at StatusTest.kt:64 after20s,95.232s stream.
+No completion/death is counted. Root original PNG and separate XML show Pending,
+Retry, zero available, original owner backend and independent amount/recipient.
+Four hashes in inclusion-ui-red/android17 retain actual failure. No successful
+reopening/runtime-block verification follows. The next minimum implementation
+adds bounded selected-server block reads and ephemeral exact current inclusion;
+durable prior observations/reorg/QR/whole acceptance remain separate.
+
+Minimum selected-server HTTP/current exact inclusion UI integration compiles
+debug/test APKs2m25s; one original hash in inclusion-ui-build. Per-block8MiB,
+shared retained bodies32MiB, monotonic20s observation budget and per-call remaining
+timeout10s maximum; no redirects/fallback/send or reservation release. Inclusion
+is ephemeral fresh exact proof only. Native GREEN remains pending.

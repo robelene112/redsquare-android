@@ -5,6 +5,8 @@ import nl.davidengelen.redsquare.saito.ImportBalance
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.SaitoBalanceSnapshot
 import nl.davidengelen.redsquare.saito.SaitoWallet
+import nl.davidengelen.redsquare.saito.SaitoPayment
+import nl.davidengelen.redsquare.saito.SaitoPaymentChain
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.net.URI
@@ -49,12 +51,44 @@ class WalletBalances private constructor(private val endpoint: (SaitoBackend) ->
         }
     }
 
-    private fun fetch(url: String): ByteArray? {
+    /** Exact inclusion in the selected snapshot's verified ancestry, with shared bounded reads. */
+    fun inclusions(backend: SaitoBackend, snapshot: SaitoBalanceSnapshot,
+        payments: List<SaitoPayment>): Map<String, SaitoPaymentChain.Inclusion> {
+        val deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(20)
+        val blocks = mutableMapOf<String, ByteArray?>()
+        var received = 0
+        val result = mutableMapOf<String, SaitoPaymentChain.Inclusion>()
+        for (payment in payments) {
+            if (payment.author != snapshot.publicKey || System.nanoTime() >= deadline) continue
+            val inclusion = SaitoPaymentChain.observe(payment, snapshot) { hash ->
+                val remainingMillis = TimeUnit.NANOSECONDS.toMillis(deadline - System.nanoTime())
+                if (remainingMillis <= 0 || !hash.matches(Regex("[0-9a-f]{64}"))) null
+                else if (blocks.containsKey(hash)) blocks[hash]
+                else {
+                    val limit = minOf(8 * 1024 * 1024, 32 * 1024 * 1024 - received)
+                    val bytes = if (limit <= 0) null else try {
+                        fetch(endpoint(backend).removeSuffix("balance/") + "block/" + hash,
+                            limit, minOf(10_000, remainingMillis))
+                    } catch (_: Exception) { null }
+                    received += bytes?.size ?: 0
+                    blocks[hash] = bytes
+                    bytes
+                }
+            }
+            if (inclusion != null && System.nanoTime() < deadline) result[payment.transaction.id] = inclusion
+        }
+        return result
+    }
+
+    private fun fetch(url: String, maximumBytes: Int = ImportBalance.MAX_SNAPSHOT_BYTES,
+        timeoutMillis: Long = 10_000): ByteArray? {
         val request = Request.Builder().url(url)
             .header("Cache-Control", "no-cache, no-store").build()
-        return client.newCall(request).execute().use { response ->
+        val call = client.newCall(request)
+        call.timeout().timeout(timeoutMillis, TimeUnit.MILLISECONDS)
+        return call.execute().use { response ->
             if (!response.isSuccessful) return@use null
-            val buffer = ByteArray(ImportBalance.MAX_SNAPSHOT_BYTES + 1)
+            val buffer = ByteArray(maximumBytes + 1)
             val count = response.body.byteStream().use { stream ->
                 var size = 0
                 while (size < buffer.size) {
@@ -65,7 +99,7 @@ class WalletBalances private constructor(private val endpoint: (SaitoBackend) ->
                 }
                 size
             }
-            if (count > ImportBalance.MAX_SNAPSHOT_BYTES) null else buffer.copyOf(count)
+            if (count > maximumBytes) null else buffer.copyOf(count)
         }
     }
 
