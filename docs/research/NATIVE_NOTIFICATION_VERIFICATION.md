@@ -413,3 +413,11 @@ currentquote like-target cannotrecover throughQuoteState's ordinaryRedSquare-onl
 lookup. Retweetnamespacefallback afterverifiedemptyordinaryread needsindependent
 nativevariant next; retain exactsig/flag/limit/deadline/backend/readervalidation.
 Otherknownunfinishedscope not counted as newfindings; no wholeacceptance yet.
+
+Minimumrepost localcore/debug/testcompile PASSES3m5s/core72. First8GREEN
+38294033318 at43df154 PASSES; rawcounts/captures retentionnext. Boundedreviews
+4c1a074...43df154: Spec0new (quote-targetnamespacefindingstillopen); Standards1
+possibleDuplicatedCode in unknownreference eligibility. Afteractual8GREEN, shared
+privatecaption decision extracted forbothreal like/repost consumers, withnull
+ineligible result, nonnullwallet/knownown/unknown-only signedaddressing unchanged.
+No newfeature/publicinterface; correctedcompilepending.

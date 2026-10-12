@@ -27,6 +27,14 @@ import nl.davidengelen.redsquare.saito.*
 private data class NotificationRow(val id: String, val author: String, val createdAt: Long,
     val post: FeedPost?, val caption: Int, val target: String = post?.id.orEmpty())
 
+/** Addressing is a fallback only while the original's signed author is unknown. */
+private fun referenceCaption(owner: String?, target: FeedPost?, recipients: List<String>,
+    ownCaption: Int, neutralCaption: Int): Int? = when {
+    owner != null && target?.author == owner -> ownCaption
+    owner != null && target == null && owner in recipients -> neutralCaption
+    else -> null
+}
+
 private data class NotificationPages(val likes: ArchiveLikePage, val replies: ArchiveFeedPage,
     val mentions: ArchiveFeedPage, val reposts: ArchiveActionPage, val quotes: List<FeedPost>)
 
@@ -97,10 +105,10 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, knownPo
         if (ignored > 0) Text(stringResource(R.string.notifications_unverified))
         val repostRows = reposts.mapNotNull { event ->
             val target = knownPosts.firstOrNull { it.id == event.target }
-            val own = wallet != null && target?.author == wallet.publicKey
-            if (own || target == null && wallet?.publicKey in event.recipients) NotificationRow(event.id, event.author,
-                event.createdAt, target, if (own) R.string.notifications_repost_own else R.string.notifications_repost,
-                event.target) else null
+            referenceCaption(wallet?.publicKey, target, event.recipients,
+                R.string.notifications_repost_own, R.string.notifications_repost)?.let { caption ->
+                NotificationRow(event.id, event.author, event.createdAt, target, caption, event.target)
+            }
         }
         val quoteRows = quotes.filter { quote ->
             quote.quoted?.author == wallet?.publicKey ||
@@ -108,10 +116,10 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, knownPo
         }.map { quote -> NotificationRow(quote.id, quote.author, quote.createdAt, quote, R.string.notifications_quote_own) }
         val likeRows = events.mapNotNull { event ->
             val target = knownPosts.firstOrNull { it.id == event.target }
-            val own = wallet != null && target?.author == wallet.publicKey
-            if (own || target == null && wallet?.publicKey in event.recipients) NotificationRow(event.id, event.author,
-                event.createdAt, target, if (own) R.string.notifications_like_own else R.string.notifications_like,
-                event.target) else null
+            referenceCaption(wallet?.publicKey, target, event.recipients,
+                R.string.notifications_like_own, R.string.notifications_like)?.let { caption ->
+                NotificationRow(event.id, event.author, event.createdAt, target, caption, event.target)
+            }
         }
         val rows = (quoteRows + repostRows + likeRows + replies.filter { reply ->
             knownPosts.any { it.id == reply.parentId && it.author == wallet?.publicKey }
