@@ -1,0 +1,12 @@
+{
+  "run": 38199796443,
+  "source": "8b9a23752f117215f00c3414e1b1301f52ab614c",
+  "reportedCases": 4,
+  "passedCases": 3,
+  "failedCases": 1,
+  "completionRecords": 0,
+  "actualDeathStages": 0,
+  "failure": "WalletTransferStatusTest.kt:126 missing current UNKNOWN/last observation after20000ms",
+  "elapsedSeconds": 92.419,
+  "qualification": "Positive actual fresh own-key7.5 snapshot/newly advertised tip404 counters and native zero available passed before the missing-label assertion; no successful history or later death stage"
+}

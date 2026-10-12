@@ -62,10 +62,12 @@ class WalletTransfers(
                 val result = withContext(Dispatchers.IO) {
                     val records = store.pending()
                     val funding = balances.funding(backend, wallet.publicKey)
-                    Triple(records, funding?.let { display(store.available(it.eligible).sumOfAmounts()) },
-                        funding?.let { balances.inclusions(backend, it.snapshot,
-                            records.filter { record -> record.backend == backend }.map { record -> record.payment }) }
-                            ?: emptyMap())
+                    val observed = funding?.let { balances.inclusions(backend, it.snapshot,
+                        records.filter { record -> record.backend == backend }.map { record -> record.payment }) }
+                        ?: emptyMap()
+                    check(isCurrent(operation))
+                    Triple(store.recordInclusions(backend, observed),
+                        funding?.let { display(store.available(it.eligible).sumOfAmounts()) }, observed)
                 }
                 if (isCurrent(operation)) {
                     pending = result.first

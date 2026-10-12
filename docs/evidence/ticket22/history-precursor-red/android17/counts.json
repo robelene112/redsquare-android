@@ -1,0 +1,12 @@
+{
+  "run": 38199323112,
+  "source": "01b0bd0",
+  "reportedCases": 4,
+  "passedCases": 3,
+  "failedCases": 1,
+  "completionRecords": 0,
+  "actualDeathStages": 0,
+  "failure": "WalletTransferStatusTest.kt:113 missing current UNKNOWN/last observation after20000ms",
+  "elapsedSeconds": 95.707,
+  "qualification": "Precursor lacks later positive fresh-snapshot/new-tip404 guards; corrected-source RED remains separate"
+}

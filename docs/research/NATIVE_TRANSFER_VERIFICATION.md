@@ -450,3 +450,24 @@ identity/backend/lastseen/currentUnknown/no frames gates remain. Corrected test
 APK compiles1m21s/one hash in history-test-observation-fix. Production untouched;
 corrected native RED/fix review remain pending. Earlier38199323112at01b0bd0
 still runs the weaker precursor without these positive observation guards.
+
+Both tracer-sensitivity correction axes through8b9a237 are clear. Earlier weaker
+38199323112 at01b0bd0 reaches precursor missing historical label RED:4reported/
+3earlierPASS/1failure StatusTest.kt:113 after20s;95.707s stream, no completed
+success/death stage. Root original history failurePNG/separateXML showPending/
+Retry/zero/originalowner/3.25/independentrecipient, no lastseen.4hashes in history-
+precursor-red/android17. This lacks later fresh-positive/newtip404 guards, so no
+new boundary/reservation acceptance follows. Corrected-source native missing
+history runtime38199796443 at8b9a237 is running; production remains untouched.
+
+Corrected strong history38199796443 at8b9a237 reaches genuine RED:4reported/
+3earlierPASS/1failure at126/20s,92.419s. Positive actual own-key7.5 snapshot/new
+2000004 tip404 counters and native zero availability pass before missing current
+UNKNOWN/lastseen. No completion/death follows. Root separate XML shows Pending/
+Retry/originalowner/zero/3.25; original PNG tool only a strip, qualified accordingly.
+Four hashes in history-ui-red/android17. Minimum encrypted last-observation storage
+and separate current UNKNOWN UI now implemented without releasing inputs or sending.
+First compile2m43s; primary API inspection catches API31 longValueExact before
+runtime. Checked positive bitLength<=63/toLong preserves min29 compatibility.
+Corrected debug/test/release lint passes5m52s;2hashes in history-ui-build. Native
+unchanged-test GREEN and bounded source/evidence review remain pending.

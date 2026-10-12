@@ -64,8 +64,8 @@ runtime38198454529 atdf2a012 PASSES:4ordinary73.189s plus existing pending death
 Root firstoriginalfullyviewed/reopenedtoolstrip exactbyteequal34f13bb7...; separate
 2XML/positive qualifiedstatus/identity/backend/no-frame gates pass. Actualnew
 1200B/482B independently pass pinnedpureWASM/Elliptic/hash/Rustroot/fullroundtrip/
-exactcandidate/parent.18hashes in inclusion-copy-green/android17. Evidence review
-remains pending. Earlier genuine missing-Included
+exactcandidate/parent.18hashes in inclusion-copy-green/android17. Both copy-evidence axes verify hashes/counts; the test-prep findings are
+addressed below. Earlier genuine missing-Included
 RED38197165531 at4bbf039 is retained with4hashes in inclusion-ui-red/android17.
 The firstGREEN evidence review finds Standards0 and Spec1stale active-handoff
 pending sentences; this consolidation corrects those claims. Both handoff correction axes through eca0d63 are clear. Sourcepushes remain compile evidence, not new native acceptance.
@@ -78,13 +78,25 @@ one hash in history-test-preparation. Bounded prep review: Spec2/Standards2 for
 fresh HTTP boundary observations and stale compile-pending wording. Correction
 requires positive fresh7.5 snapshot and actual404 at newly advertised tip2000004/
 literalc hash, so earlier cached blocks cannot establish fresh ancestry. Test APK
-compiles1m21s/one hash in history-test-observation-fix. Production is untouched;
-corrected-source runtime RED and fix review remain pending. Earlier01b0bd0
-runtime38199323112 is running without these stronger guards. Follow
-with verified reorg status, receiving QR, meaningful remaining failure cases,
-final fresh full Android10/17 and whole-ticket two-axis review. #23 is unfinished.
-Do not claim QR/durable status/reorg UI/current whole acceptance yet. No new
-phone APK, physical Pixel result, production node change or live transfer.
+compiles1m21s/one hash in history-test-observation-fix. Both test-fix axes through8b9a237 are clear. Corrected native38199796443 reaches
+strong missing-history RED4reported/3PASS/1failure at126/20s,92.419s. Actual fresh
+own-key7.5/newly advertised tip404 counters and native zero availability pass
+before missing lastseen; no completion/death follows. Root parsed separate XML;
+original PNG tool returned a strip, so no full bitmap inspection claimed. Four
+hashes in history-ui-red/android17. Weaker precursor38199323112 is separately
+qualified in history-precursor-red/android17.
+
+Minimum history implementation persists validated last observations alongside the
+exact original candidate in encrypted identity-bound storage. Only fresh exact
+proof produces Included; missing coverage shows current UNKNOWN/lastseen while
+original input reservations remain. No automatic send or release. First debug/
+test compile2m43s; inspected API31 exact-long conversion replaced before dispatch
+with API29-compatible checked conversion. Corrected debug/test/release lint passes
+5m52s;2hashes in history-ui-build. Native unchanged-test GREEN and bounded reviews
+are pending. Next: verified reorg UI, fresh nonreserved change enabling a new
+transfer, receiving QR, meaningful remaining failures, final fresh full10/17 and
+whole-ticket review. #23 unfinished. No new phone APK, physical Pixel result,
+production node change, live transfer or whole acceptance.
 
 ## Earlier completed ticket checkpoints
 
