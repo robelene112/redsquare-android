@@ -48,14 +48,20 @@ internal class QuoteState(context: Context, private val wallet: SaitoWallet?, ba
                 withContext(Dispatchers.IO) {
                     withTimeoutOrNull(13_000) {
                         SaitoPeer(activeWallet, endpoint).use { peer ->
-                            val criteria = JsonObject().apply {
-                                addProperty("request", "load"); addProperty("field1", "RedSquare")
-                                addProperty("sig", target); addProperty("flagged_ne", 1); addProperty("limit", 1)
+                            suspend fun read(kind: String): ArchiveFeedPage {
+                                val criteria = JsonObject().apply {
+                                    addProperty("request", "load"); addProperty("field1", kind)
+                                    addProperty("sig", target); addProperty("flagged_ne", 1); addProperty("limit", 1)
+                                }
+                                val request = JsonObject().apply { addProperty("request", "archive"); add("data", criteria) }
+                                val page = RedSquareFeed.readTarget(peer.request(request.toString().toByteArray(Charsets.UTF_8))
+                                    .toString(Charsets.UTF_8), target)
+                                check(page.ignored == 0) { "Unreadable original" }
+                                return page
                             }
-                            val request = JsonObject().apply { addProperty("request", "archive"); add("data", criteria) }
-                            val page = RedSquareFeed.readTarget(peer.request(request.toString().toByteArray(Charsets.UTF_8))
-                                .toString(Charsets.UTF_8), target)
-                            check(page.ignored == 0) { "Unreadable original" }
+                            val ordinary = read("RedSquare")
+                            val page = if (ordinary.posts.isEmpty() && ordinary.deletions.isEmpty())
+                                read("RedSquareRetweet") else ordinary
                             page.posts.forEach(revisions::observe)
                             revisions.apply(page.posts).let { QuoteOriginal(it.posts.firstOrNull(),
                                 cacheWarning = cached.cacheWarning || it.unreadable, deleted = it.deleted) }

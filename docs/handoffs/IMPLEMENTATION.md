@@ -67,8 +67,14 @@ native9tracer +independent owncurrentquote/incominglike: ordinarytargetreads[];
 Retweettarget first[]then ownquoteonexplicitRetry. Requires actualcommentary+
 authenticatedoriginal/Back/Actor/Retweetreads>=2; safe countJSONonfailure/success.
 Reference24557bytes/SHAdf18fa267c99d457bdab01b4a41f88e83fb92096e740efb492012c9ddffaf06f
-threecopiesidentical. Localcore/debug/testcompilepending; genuine9RED38295102399
-running atfb55c40. No namespacefallback source yet; waitactualRED. Target-sig
+threecopiesidentical. Localcore/debug/testcompile2m32PASS/bothboundedreviews0. Genuine9RED38295102399
+atfb55c40 reports9/8PASS/1failure69.013s/0OKrecord/0deaths/core72, newquote-like
+passesneutral/firstunavailable/explicitRetry then missingrecoverytext at161; actual
+ordinarytargetreads2/Retweet0 confirmsnamespacegap. Fourhashes/rootfullfailurePNG
++separateXML retained. MinimumQuoteStatefallback nowexactRetweettarget onlyafter
+verifiedemptyordinarypage, sameauthenticated selectedpeer/sig/flag/limit1/13s
+budget/revision-cachehandling, failuresremainfailures. Localcore/debug/testcompile
+andfirst9GREEN pending. Target-sig
 Retweetqueries routeControlledFeedPeer genericarchiveResponse, notunfilteredquote
 callback, and newfixture answers exactnamespace/sig/flag/limit1 there.
 

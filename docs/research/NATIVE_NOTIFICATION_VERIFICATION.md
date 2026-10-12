@@ -445,3 +445,18 @@ completeOwner/Notifications/Refresh/bothactor/neutralrepost+ownlike view. README
 now uses that completeview instead ofinitialpartialtoolqualifier; no causeinferred.
 Othercaptures stillnotindependentlyrootviewed. Ninejourney quote-target RED
 38295102399 atfb55c40 running; unchangedQuoteState ordinary-onlynamespace.
+
+Quote-target tracer localcore/debug/test PASSES2m32s; bounded3e53ce1...2471988
+bothreviewaxes0. GenuineRED38295102399 atfb55c40:9reported/8PASS/1failure69.013s/
+0completedOKrecords/0deaths/noassumptions/core72/compiler/debug/test. Newcase
+passesneutralactivity/firstunavailable/explicitRetry thenmissingrecoveredquote at161.
+SafeactualcountJSONordinary2/Retweet0 confirmsno alternative namespace query.
+Existing8journeys andsharedcaption/knownOthernegative/fullopaqueidentity+cache
+restoration pass. Fourhashes quote-target-native-red/android17. RootoriginalPNG/
+separateXML showOwner/Post/unavailabletext/Retry, no commentary. Namespacegap
+established bysource+actualrequestcounts, not backend/timing failure.
+Minimumcorrection checks sameexact target inRedSquareRetweet only afterverified
+emptyordinaryRedSquare page, within existing13s overall/12s perrequest/3lookup
+semaphore, sameauthenticated selectedpeer/sig/flag/limit1/signedpost decoder and
+revision/cache handling. Errors/invalidrows remainfailure, not emptiness/fallback.
+No autoRetry/backend reroute, sourcecompilation/first9GREEN pending.
