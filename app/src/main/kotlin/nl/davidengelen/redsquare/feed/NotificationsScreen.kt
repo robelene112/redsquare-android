@@ -43,6 +43,9 @@ private fun referenceCaption(owner: String?, target: FeedPost?, recipients: List
 private data class NotificationPages(val likes: ArchiveLikePage, val replies: ArchiveFeedPage,
     val mentions: ArchiveFeedPage, val reposts: ArchiveActionPage, val quotes: List<FeedPost>)
 
+private val NotificationPages.ignoredRows: Int
+    get() = likes.ignored + replies.ignored + reposts.ignored
+
 private fun notificationPages(likes: String, posts: String, retweets: String, owner: String,
     name: SaitoRegisteredName?, registrar: String): NotificationPages = NotificationPages(
     RedSquareLikes.readIncoming(likes, owner), RedSquareFeed.readReplies(posts),
@@ -92,7 +95,7 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
             mentions = availableActivity(pages.mentions.posts, mentions, { it.id }, { it.createdAt })
             reposts = availableActivity(pages.reposts.actions, reposts, { it.id }, { it.createdAt })
             quotes = availableActivity(pages.quotes, quotes, { it.id }, { it.createdAt })
-            ignored = pages.likes.ignored + pages.replies.ignored + pages.reposts.ignored
+            ignored = pages.ignoredRows
         }
         val saved = withContext(Dispatchers.IO) { history!!.load() }
         cacheWarning = saved.unreadable
@@ -131,6 +134,7 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
                 }
             }
             pages.filterNotNull().forEach(::publish)
+            ignored = pages.filterNotNull().sumOf { it.ignoredRows }
             try { withContext(Dispatchers.IO) {
                 history!!.save(pages.filterNotNull().flatMap { page ->
                     page.likes.likes.map { it.envelope } + page.replies.posts.map { it.envelope } +

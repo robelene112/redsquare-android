@@ -593,3 +593,16 @@ completeOwner/Notifications/error/actor/reply andall12XML parsed, otherPNGno
 rootvisualclaim. Reviewwarningfinding remainsopen: this proves malformedwholepage,
 not invalid-rowaggregation oractualtimeout. New13ModeREJECTED reviewsboth0additional;
 Android10RED38303352847 at48a377c running, sourcewarningcorrectionnotyetmade.
+
+Evidence48a377c...fa84357 bothaxes0/26hashesverified. ActualwarningRED Android10
+38303352847 at48a377c reports13/12PASS/1failure53.357s/0OK/deaths/noassumptions/
+core72/debug/test: missingunverifiedwarning at215; subsequentexplicitduplicate/
+noerror/navigation assertions not reached. Existing12passincludingpartialreply
+andhistory. Threehashes rejected-native-red/android10; separatefailureXMLparsed.
+Minimumreviewcorrection computesignoredRows onceperpage andsums successfulfresh
+pages afterpublication, preservingthecombinedcachedcount withoutaccumulating
+acrossrefreshes. Sourcecompilation/first13GREEN pending.
+
+Root inspected original rejected-history failurePNG: completeOwner/Notifications/
+Refresh/twoactorrows/onereply+onelike/noerror/no unverifiedwarning, matchingseparate
+XML. Subsequentruntime duplicatecount/noerror/navigation assertions remainunexecuted.
