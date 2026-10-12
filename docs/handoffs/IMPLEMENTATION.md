@@ -116,8 +116,18 @@ Rust root/full roundtrip and exact2000002->2000003 link;8hashes in reorganizatio
 ui-red/android17. No consensus/finality claim. Minimum current reorg wiring now
 shares the same20s/32MiB bounded selected-host cache with exact inclusion and
 verified previous-height displacement checks. Original history/reservations remain;
-no automatic send. Debug/test assembly passes2m56s/one hash in reorganization-ui-build. Bounded
-source review and same unchanged-test native GREEN pending. Next: verified reorg UI, fresh nonreserved change enabling a new
+no automatic send. Debug/test assembly passes2m56s/one hash in reorganization-ui-build. Both bounded production axes through2a1e2b0 clear. Unchanged native38203874802
+at2a1e2b0 passes ordinary4/81.001s plus separate pending death4775->4887/cold1/
+10.186s/cleanup1/.055s:6/3/1/core66/release/lint. Root first original Reorganized
+fully viewed; second toolstrip fullPNG byte-identicaldf59e385...; separate2XML/
+positive status/noUnknown/noPending/identity/backend/reservations/no frame gates
+pass through recreation. Actual two482B alternate blocks independently pass
+pinnedpureWASM/Elliptic/hash/Rustroot/roundtrip/exactparent.16hashes in reorganization-
+ui-green/android17. Next sole native cycle returns exact inclusion plus literal
+fresh4.15 change at2000002/ordinal1/index1/type0 and requires new review despite
+old records; product unchanged. Repeated reopening helper extracted post-GREEN
+per Standards judgment, every original assertion retained. Test APK compiles1m22s/one hash in change-form-test-preparation. Native missing-
+form RED and bounded test/evidence reviews pending. Next: verified reorg UI, fresh nonreserved change enabling a new
 transfer, receiving QR, meaningful remaining failures, final fresh full10/17 and
 whole-ticket review. #23 unfinished. No new phone APK, physical Pixel result,
 production node change, live transfer or whole acceptance.

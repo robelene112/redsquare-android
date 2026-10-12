@@ -525,3 +525,21 @@ and Android10 credential UI can notify success before finishing. No blanket stop
 cancellation or new policy is added; actual Home/callback ordering unmeasured.
 Official sources: [lifecycle coroutines](https://developer.android.com/topic/libraries/architecture/views/coroutines-views),
 [Android10 credential source](https://android.googlesource.com/platform/packages/apps/Settings/+/refs/tags/android-10.0.0_r1/src/com/android/settings/password/ConfirmLockPassword.java#441).
+
+Both bounded reorg production axes through2a1e2b0 clear. Unchanged nativeGREEN
+38203874802 at2a1e2b0:ordinary4/81.001s, separate pending death4775->4887/cold1/
+10.186s/cleanup1/.055s,6/3/1/core66/release/lint. Root firstoriginalfullyviewed,
+secondtoolstrip byte-identicalfullPNGdf59e385...; separate2XML/passgates qualified
+reorg/identity/backend/no currentIncluded/Unknown/Pending/reserved0/no frames
+through recreation. Earlier positive missing-block UNKNOWN still passes. Actual
+two482B alternatives independently pass pinnedpureWASM/Elliptic/hash/Rustroot/
+roundtrip/exactparent.16hashes in reorganization-ui-green/android17. Next sole
+cycle exposes distinct literal fresh4.15change at2000002/ordinal1/index1/type0
+while exact original inclusion returns, requiring a fresh0.25/fee0.1 recipient
+review with no authenticated send. Product unchanged; test build/native missing
+form RED pending. Post-GREEN reopening helper extracts actual repeated native
+steps per optional Standards judgment, preserving all original gates.
+
+Fresh change-form test APK compiles1m22s/one hash in change-form-test-preparation.
+Product untouched; bounded source/evidence review and native missing-form RED
+remain pending. No new-change spend/cancellation/reservation wire claim.

@@ -5,6 +5,7 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.uiautomator.UiDevice
 import java.io.File
 import java.net.InetAddress
 import java.util.Base64
@@ -35,6 +36,7 @@ class WalletTransferStatusTest {
         val positiveSnapshots = AtomicInteger()
         val unavailableBlockReads = AtomicInteger()
         val alternateBlockReads = AtomicInteger()
+        val changeSnapshots = AtomicInteger()
         val unavailableTip = "c".repeat(64) // A newly advertised tip with no available block body.
         val originalInputs = fixture.payment.inputs.joinToString("\n", postfix = "\n") {
             "${fixture.wallet.publicKey} ${it.block} ${it.ordinal} ${it.index} ${it.amount} ${it.type}"
@@ -59,9 +61,18 @@ class WalletTransferStatusTest {
                             val header = when (currentPhase) {
                                 0 -> "${fixture.timestamp}-2000003-${fixture.tip.first}.snap\n"
                                 1 -> "${fixture.timestamp + 1000}-2000004-$unavailableTip.snap\n"
-                                else -> "${fixture.timestamp + 2000}-2000003-${fixture.alternateTip.first}.snap\n"
+                                2 -> "${fixture.timestamp + 2000}-2000003-${fixture.alternateTip.first}.snap\n"
+                                else -> "${fixture.timestamp}-2000003-${fixture.tip.first}.snap\n"
                             }
-                            MockResponse.Builder().body(header + if (currentPhase == 0) "" else originalInputs).build()
+                            val slips = when (currentPhase) {
+                                0 -> ""
+                                3 -> {
+                                    changeSnapshots.incrementAndGet()
+                                    "${fixture.wallet.publicKey} 2000002 1 1 415000000 0\n"
+                                }
+                                else -> originalInputs
+                            }
+                            MockResponse.Builder().body(header + slips).build()
                         }
                         else -> {
                             if (phase.get() == 1 && request.target == "/block/$unavailableTip")
@@ -100,11 +111,7 @@ class WalletTransferStatusTest {
                                 File(context.cacheDir, "transfer-evidence/$name-block.b64")
                                     .writeText(Base64.getEncoder().encodeToString(block.second))
                             }
-                            scenario.recreate()
-                            ui.waitUntil(15_000) { ui.onNodeWithText("Wallet").isDisplayed() }
-                            ui.onNodeWithText("Wallet").performClick()
-                            ui.onNodeWithContentDescription("Wallet address").assertTextEquals(fixture.payment.author)
-                            ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
+                            reopenTransfers(scenario, fixture.payment.author)
                             ui.waitUntil(20_000) { ui.onNodeWithText(included).isDisplayed() }
                             ui.onNodeWithText("Observed on the selected server. This status can change.")
                                 .performScrollTo().assertIsDisplayed()
@@ -117,11 +124,7 @@ class WalletTransferStatusTest {
 
                             // Missing blocks cannot prove a reorg or unlock the original positive inputs.
                             phase.set(1)
-                            scenario.recreate()
-                            ui.waitUntil(15_000) { ui.onNodeWithText("Wallet").isDisplayed() }
-                            ui.onNodeWithText("Wallet").performClick()
-                            ui.onNodeWithContentDescription("Wallet address").assertTextEquals(fixture.payment.author)
-                            ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
+                            reopenTransfers(scenario, fixture.payment.author)
                             withFailureCapture({ captureNativeScreen(File(context.cacheDir,
                                 "transfer-evidence/history-first-failure.png")) }) {
                                 ui.waitUntil(20_000) { positiveSnapshots.get() > 0 && unavailableBlockReads.get() > 0 }
@@ -139,11 +142,7 @@ class WalletTransferStatusTest {
 
                             // Only verified coverage of the old height can establish displacement.
                             phase.set(2)
-                            scenario.recreate()
-                            ui.waitUntil(15_000) { ui.onNodeWithText("Wallet").isDisplayed() }
-                            ui.onNodeWithText("Wallet").performClick()
-                            ui.onNodeWithContentDescription("Wallet address").assertTextEquals(fixture.payment.author)
-                            ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
+                            reopenTransfers(scenario, fixture.payment.author)
                             withFailureCapture({ captureNativeScreen(File(context.cacheDir,
                                 "transfer-evidence/reorganization-first-failure.png")) }) {
                                 ui.waitUntil(20_000) { alternateBlockReads.get() > 0 }
@@ -163,11 +162,7 @@ class WalletTransferStatusTest {
                                 ui.onNodeWithText("Available to send: 0 SAITO").performScrollTo().assertIsDisplayed()
                                 peer.assertHealthy(); assertTrue(peer.transactions.isEmpty())
                                 captureNativeScreen(File(context.cacheDir, "transfer-evidence/reorganized-payment.png"), reorganized)
-                                scenario.recreate()
-                                ui.waitUntil(15_000) { ui.onNodeWithText("Wallet").isDisplayed() }
-                                ui.onNodeWithText("Wallet").performClick()
-                                ui.onNodeWithContentDescription("Wallet address").assertTextEquals(fixture.payment.author)
-                                ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
+                                reopenTransfers(scenario, fixture.payment.author)
                                 ui.waitUntil(20_000) { ui.onNodeWithText(reorganized).isDisplayed() }
                                 ui.onNodeWithText("Observed on the selected server. This status can change.")
                                     .performScrollTo().assertIsDisplayed()
@@ -178,6 +173,31 @@ class WalletTransferStatusTest {
                                 ui.onNodeWithText("Available to send: 0 SAITO").performScrollTo().assertIsDisplayed()
                                 peer.assertHealthy(); assertTrue(peer.transactions.isEmpty())
                                 captureNativeScreen(File(context.cacheDir, "transfer-evidence/reorganized-reopened.png"), reorganized)
+                            }
+
+                            // Reobserved exact inclusion leaves its distinct4.15 change available.
+                            phase.set(3)
+                            reopenTransfers(scenario, fixture.payment.author)
+                            withFailureCapture({ captureNativeScreen(File(context.cacheDir,
+                                "transfer-evidence/change-first-failure.png")) }) {
+                                ui.waitUntil(20_000) { changeSnapshots.get() > 0 }
+                                ui.waitUntil(20_000) { ui.onNodeWithText("Available to send: 4.15 SAITO").isDisplayed() }
+                                ui.onNodeWithText(included).assertIsDisplayed()
+                                ui.onAllNodesWithText("Retry transfer").assertCountEquals(0)
+                                val recipient = "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU"
+                                ui.onNodeWithContentDescription("Recipient address").performScrollTo().performTextInput(recipient)
+                                ui.onNodeWithContentDescription("Amount in SAITO").performScrollTo().performTextInput("0.25")
+                                ui.onNodeWithContentDescription("Fee in SAITO").performScrollTo().performTextReplacement("0.1")
+                                reviewNativeTransfer(ui, UiDevice.getInstance(instrumentation))
+                                ui.waitUntil(20_000) { ui.onNodeWithText("Confirm SAITO transfer").isDisplayed() }
+                                ui.onNodeWithText("Recipient: $recipient").assertIsDisplayed()
+                                ui.onNodeWithText("Amount: 0.25 SAITO").assertIsDisplayed()
+                                ui.onNodeWithText("Fee: 0.1 SAITO").assertIsDisplayed()
+                                ui.onNodeWithText("Send through saito.davidengelen.nl").assertIsDisplayed()
+                                peer.assertHealthy(); assertTrue(peer.transactions.isEmpty())
+                                captureNativeScreen(File(context.cacheDir, "transfer-evidence/change-reviewed.png"), "Confirm SAITO transfer")
+                                ui.onNodeWithText("Done").performClick()
+                                peer.assertHealthy(); assertTrue(peer.transactions.isEmpty())
                             }
                         }
                     }
@@ -198,5 +218,13 @@ class WalletTransferStatusTest {
                 if (primary == null) throw cleanup else primary.addSuppressed(cleanup)
             }
         }
+    }
+
+    private fun reopenTransfers(scenario: ActivityScenario<MainActivity>, author: String) {
+        scenario.recreate()
+        ui.waitUntil(15_000) { ui.onNodeWithText("Wallet").isDisplayed() }
+        ui.onNodeWithText("Wallet").performClick()
+        ui.onNodeWithContentDescription("Wallet address").assertTextEquals(author)
+        ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
     }
 }
