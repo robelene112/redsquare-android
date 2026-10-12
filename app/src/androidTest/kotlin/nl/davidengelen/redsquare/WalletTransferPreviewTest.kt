@@ -82,7 +82,9 @@ class WalletTransferPreviewTest {
                             ui.onNodeWithContentDescription("Amount in SAITO").performTextInput("6.25")
                             ui.onNodeWithContentDescription("Fee in SAITO").performTextReplacement("0.1")
                             ui.onNodeWithContentDescription("Public memo").performTextInput("Native transfer test")
-                            ui.onNodeWithText("Review transfer").performScrollTo().performClick()
+                            device.pressBack() // Dismiss the real IME before the fixed dialog action.
+                            ui.waitUntil(5_000) { ui.onNodeWithText("Review transfer").isDisplayed() }
+                            ui.onNodeWithText("Review transfer").performClick()
                             ui.waitUntil(20_000) { ui.onAllNodes(hasText("Confirm SAITO transfer"))
                                 .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                             ui.onNodeWithText("Recipient: $recipient").assertIsDisplayed()

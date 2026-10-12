@@ -43,7 +43,7 @@ class WalletBalances private constructor(private val endpoint: (SaitoBackend) ->
 
     data class Funding(val snapshot: SaitoBalanceSnapshot, val genesisPeriod: BigInteger) {
         val eligible: List<SaitoBalanceSnapshot.Slip> get() {
-            val minimum = if (snapshot.height > genesisPeriod) snapshot.height - genesisPeriod + BigInteger.TWO
+            val minimum = if (snapshot.height > genesisPeriod) snapshot.height - genesisPeriod + BigInteger.valueOf(2)
                 else BigInteger.ONE
             return snapshot.slips.filter { it.block >= minimum && it.amount.signum() > 0 && it.type in setOf(0, 1, 5, 7) }
         }

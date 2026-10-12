@@ -90,3 +90,12 @@ unreadable transfer state as outgoing pending/unknown work. Socket enqueue does
 not prove inclusion. No automatic monetary resend or offline queue exists.
 Native GREEN, independent verification of its actual emitted frame, cancellation,
 recovery/retry, inclusion and final acceptance are still pending.
+
+First implemented run38186822190 at860b5e1 passes core57/source/debug/test and
+balance, then stops at a fixture scroll call on the fixed Review footer
+(2 cases,1 failure,35.847s). Root views PNG and separately parses XML: populated
+fields, actual IME covering the footer. The correction dismisses the actual IME
+and positively waits/clicks that fixed action; no acceptance assertion is removed.
+Source push38186821983 independently finds a NewApi lint error for BigInteger.TWO.
+Use valueOf(2) without changing Android10 minimum. See
+ticket22/authenticated-send-first-failure/android17. No authenticated send claim.
