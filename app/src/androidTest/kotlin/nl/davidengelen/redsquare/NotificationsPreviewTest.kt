@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger
 
 class NotificationsPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
-    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING, MISSING_REPOST, MISSING_QUOTE_LIKE, HISTORY, PRUNED, PARTIAL, REJECTED, NULL_HISTORY, READ, READ_SAVE_FAULT, MISSING_REPLY, MISSING_QUOTE, FEED_MENTION, CONTACT, CONTACT_QUOTE, PAGING, CONTACT_CONTINUATION }
+    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING, MISSING_REPOST, MISSING_QUOTE_LIKE, HISTORY, PRUNED, PARTIAL, REJECTED, NULL_HISTORY, READ, READ_SAVE_FAULT, MISSING_REPLY, MISSING_QUOTE, FEED_MENTION, CONTACT, CONTACT_QUOTE, PAGING, CONTACT_CONTINUATION, BACKEND }
 
     @Test fun anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile() {
         withNotifications("incoming-like", mode = Mode.LIKE) { actor, _, _ ->
@@ -525,6 +525,58 @@ class NotificationsPreviewTest {
         }
     }
 
+    @Test fun backendSwitchesKeepActivityAndReadMarkersSeparateThroughFailedRefresh() {
+        val officialActor = InstrumentationRegistry.getInstrumentation().context.assets
+            .open("native-notification-reference.json").bufferedReader().use {
+                JsonParser.parseReader(it).asJsonObject.getAsJsonObject("boundaryIncomingLike").get("field2").asString
+            }
+        withNotifications("backend-isolation", Mode.BACKEND) { ownerActor, _, responses ->
+            waitFor("1 unread")
+            waitFor("Liked your post")
+            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
+                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.onNodeWithText("Mark all as read").performClick()
+            waitFor("No unread activity")
+            switchNotificationBackend("saito.io")
+            waitFor("1 unread")
+            waitFor(officialActor)
+            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
+                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.onAllNodesWithText(ownerActor).assertCountEquals(0)
+            captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
+                "notification-evidence/backend-official.png"), "1 unread")
+            ui.onNodeWithText("Mark all as read").performClick()
+            waitFor("No unread activity")
+            switchNotificationBackend("saito.davidengelen.nl")
+            waitFor("No unread activity")
+            waitFor(ownerActor)
+            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
+                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.onAllNodesWithText(officialActor).assertCountEquals(0)
+            responses.change()
+            ui.onNodeWithText("Refresh").performClick()
+            waitFor("Could not load notifications. Check your connection and try Refresh.")
+            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
+                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.onNodeWithText("Server: saito.davidengelen.nl").assertIsDisplayed()
+            ui.onNodeWithText("No unread activity").assertIsDisplayed()
+            ui.onAllNodesWithText(officialActor).assertCountEquals(0)
+            captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
+                "notification-evidence/backend-owner-failed.png"), "No unread activity")
+        }
+    }
+
+    private fun switchNotificationBackend(domain: String) {
+        ui.onNodeWithText("Settings").performClick()
+        waitFor(domain)
+        ui.onNodeWithText(domain).performClick()
+        waitFor("Server: $domain")
+        waitFor("Native Red Square reference post")
+        ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
+            .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+        ui.onNodeWithText("Notifications").assertIsDisplayed().performClick()
+    }
+
     private fun missingReferenceJourney(evidenceName: String, mode: Mode, caption: String, ownCaption: String, actorRows: Int, recoveryText: String = "Original recovered after retry") {
         withNotifications(evidenceName, mode) { actor, _, _ ->
             waitFor(caption)
@@ -586,6 +638,12 @@ class NotificationsPreviewTest {
         val feedFiles = FixtureFiles(context.noBackupFilesDir, "feed.${SaitoBackend.OWNER.id}.v1",
             nl.davidengelen.redsquare.feed.PublicStringStore.lock)
         val readFiles = FixtureFiles(context.noBackupFilesDir, "notificationread.${SaitoBackend.OWNER.id}.$owner.v1",
+            nl.davidengelen.redsquare.feed.PublicStringStore.lock)
+        val officialHistoryFiles = FixtureFiles(context.noBackupFilesDir, "notifications.${SaitoBackend.OFFICIAL.id}.$owner.v1",
+            nl.davidengelen.redsquare.feed.PublicStringStore.lock)
+        val officialReadFiles = FixtureFiles(context.noBackupFilesDir, "notificationread.${SaitoBackend.OFFICIAL.id}.$owner.v1",
+            nl.davidengelen.redsquare.feed.PublicStringStore.lock)
+        val officialFeedFiles = FixtureFiles(context.noBackupFilesDir, "feed.${SaitoBackend.OFFICIAL.id}.v1",
             nl.davidengelen.redsquare.feed.PublicStringStore.lock)
         val conversationFiles = FixtureFiles(context.noBackupFilesDir,
             "conversation.${SaitoBackend.OWNER.id}.${fixture.getAsJsonObject("recoveredOriginal").get("sig").asString}.v1",
@@ -696,7 +754,7 @@ class NotificationsPreviewTest {
                             Mode.MENTION -> "[${fixture.get("incomingMention")},${fixture.get("addressedPost")}]"
                             Mode.USERNAME -> "[${fixture.get("usernameMention")}]"
                             Mode.QUOTE -> "[${fixture.get("legacyQuote")}]"
-                            Mode.LIKE, Mode.REPOST, Mode.MISSING, Mode.MISSING_REPOST, Mode.MISSING_QUOTE_LIKE, Mode.HISTORY, Mode.PRUNED, Mode.NULL_HISTORY, Mode.READ, Mode.READ_SAVE_FAULT, Mode.MISSING_QUOTE, Mode.FEED_MENTION, Mode.CONTACT, Mode.CONTACT_QUOTE, Mode.PAGING, Mode.CONTACT_CONTINUATION -> "[]"
+                            Mode.LIKE, Mode.REPOST, Mode.MISSING, Mode.MISSING_REPOST, Mode.MISSING_QUOTE_LIKE, Mode.HISTORY, Mode.PRUNED, Mode.NULL_HISTORY, Mode.READ, Mode.READ_SAVE_FAULT, Mode.MISSING_QUOTE, Mode.FEED_MENTION, Mode.CONTACT, Mode.CONTACT_QUOTE, Mode.PAGING, Mode.CONTACT_CONTINUATION, Mode.BACKEND -> "[]"
                         }
                     }
                     criteria.get("field5")?.asString == fixture.getAsJsonObject("missingOriginalQuote").get("sig").asString ->
@@ -737,6 +795,19 @@ class NotificationsPreviewTest {
                 else -> "[]"
             }
         })
+        val official = if (mode == Mode.BACKEND) ControlledFeedPeer("[$root]", archiveResponse = { criteria ->
+            require(criteria.get("flagged_ne").asInt == 1 && criteria.get("limit").asInt in 1..100)
+            when (criteria.get("field1").asString) {
+                "RedSquareLike" -> {
+                    require(criteria.get("field3").asString == owner)
+                    "[${fixture.get("boundaryIncomingLike")}]"
+                }
+                "RedSquare" -> if (criteria.has("field3")) {
+                    require(criteria.get("field3").asString == owner); "[]"
+                } else "[$root]"
+                else -> "[]"
+            }
+        }, quoteArchiveResponse = { "[]" }) else null
         fun retainQuoteTargetReads() {
             if (mode != Mode.MISSING_QUOTE_LIKE) return
             val evidence = File(context.cacheDir, "notification-evidence/$evidenceName-requests.json")
@@ -750,6 +821,9 @@ class NotificationsPreviewTest {
             feedFiles.reset()
             followingFiles.reset()
             personalFiles.reset()
+            if (mode == Mode.BACKEND) {
+                officialHistoryFiles.reset(); officialReadFiles.reset(); officialFeedFiles.reset()
+            }
             if (mode == Mode.CONTACT_CONTINUATION) {
                 nl.davidengelen.redsquare.feed.PublicStringStore(context, "following.$owner.v1", 1000)
                     .save(fixture.getAsJsonArray("continuationContacts").map { it.asString })
@@ -759,10 +833,13 @@ class NotificationsPreviewTest {
             if (prior.publicKey != owner) store.replace(prior, wallet)
             AndroidBackendStore(context).save(SaitoBackend.OWNER)
             check(permission.edit().remove("offered").commit())
-            peer.start().use { server ->
+            official?.start().use { officialServer ->
+              peer.start().use { server ->
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
-                    .putExtra("usernameFixtureRegistrar", mode == Mode.USERNAME)).use { scenario ->
+                    .putExtra("usernameFixtureRegistrar", mode == Mode.USERNAME).apply {
+                        officialServer?.let { putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${it.port}/wsopen") }
+                    }).use { scenario ->
                     withFailureCapture({ retainQuoteTargetReads(); captureNativeScreen(File(context.cacheDir,
                         "notification-evidence/$evidenceName-first-failure.png")) }) {
                         if (mode == Mode.FEED_MENTION) {
@@ -805,8 +882,14 @@ class NotificationsPreviewTest {
                         assertTrue(peer.clientKeys.all { it == owner })
                         assertTrue("Reading notifications must not publish a transaction", peer.transactions.isEmpty())
                         assertTrue(peer.reports.isEmpty())
+                        official?.let {
+                            it.assertHealthy()
+                            assertTrue(it.clientKeys.isNotEmpty() && it.clientKeys.all { key -> key == owner })
+                            assertTrue(it.transactions.isEmpty() && it.reports.isEmpty())
+                        }
                     }
                 }
+              }
             }
         } catch (failure: Throwable) { primary = failure; throw failure }
         finally {
@@ -832,6 +915,12 @@ class NotificationsPreviewTest {
                 followingFiles.restore()
             }, {
                 personalFiles.restore()
+            }, {
+                officialHistoryFiles.restore()
+            }, {
+                officialReadFiles.restore()
+            }, {
+                officialFeedFiles.restore()
             }, {
                 conversationFiles.restore()
             })

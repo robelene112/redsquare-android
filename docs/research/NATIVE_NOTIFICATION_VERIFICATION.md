@@ -922,3 +922,15 @@ Root adds completedRefresh waits before firstProfile and before outage/recreatio
 row/count/actualcontrol assertions unchanged. This is a source timing correction,
 not reproduced failure. First24native38320137452 uses originalfixture and may
 prove its actual run but cannot substitute for corrected waits/final acceptance.
+
+Twenty-fifth native regression switches actual Settings Owner->Official->Owner
+with independent controlled authenticated peers and distinct signed actor2/4
+likes. Owner marking cannot mark Official; returning Owner restores its own
+read marker/activity, and failed Refresh preserves Owner/no fallback/no Official
+actor. Exact Official history/read/generalfeed families are independently
+reset/restored only for this test. Both peers assert owner identity/no writes/
+reports. Corrected24 warming waits included. Local fixture/native pending.
+
+Backend fixture initialAPK1m30PASS. Root adds completedRefresh before Official
+marking and Owner failure injection, preserving observable assertions and avoiding
+canceling an unfinished warm page. Corrected25 fixture compilation pending.

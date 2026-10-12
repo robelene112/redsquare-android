@@ -344,3 +344,16 @@ One fixture readiness finding: complete cache warming before first Profile and
 outage/recreation. Root added enabled-Refresh waits at both points; existing
 assertions unchanged, no reproduced defect claim. Local original fixture1m39PASS;
 first24 run38320137452 originalfixture pending. Correction review pending.
+
+## Personal regression warming correction
+
+### Standards
+
+`08a05c3...c0a71b9`: zero hard violations/actionable heuristics. Original
+assertions retained; completed Refresh establishes warm history before outage.
+
+### Spec
+
+Zero actionable findings. Both requested waits resolve the source readiness
+concern. Both axes verify52hashes/25XML/original remaining PNG/raw23GREENcounts.
+Original24 run does not prove these corrected waits. No reproduced defect.
