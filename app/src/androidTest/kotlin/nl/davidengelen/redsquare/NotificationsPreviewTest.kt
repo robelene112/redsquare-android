@@ -147,14 +147,14 @@ class NotificationsPreviewTest {
     }
 
     @Test fun availableNotificationsSurviveRecreationWhenTheSelectedServerCannotRefresh() {
-        withNotifications("cached-history", Mode.HISTORY) { actor, scenario, failReads ->
+        withNotifications("cached-history", Mode.HISTORY) { actor, scenario, responses ->
             waitFor("Liked your post")
             ui.onNodeWithText("Liked your post").assertIsDisplayed().performClick()
             waitFor("Conversation")
             ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
             ui.onNodeWithText("Back").performClick()
             waitFor("Liked your post")
-            failReads()
+            responses.change()
             scenario.recreate()
             waitFor("Could not load notifications. Check your connection and try Refresh.")
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
@@ -169,16 +169,16 @@ class NotificationsPreviewTest {
     }
 
     @Test fun savedActivityRemainsAvailableWhenTheServerNoLongerReturnsIt() {
-        withNotifications("pruned-history", Mode.PRUNED) { actor, scenario, pruneReads ->
+        withNotifications("pruned-history", Mode.PRUNED) { actor, scenario, responses ->
             waitFor("Liked your post")
             ui.onNodeWithText("Liked your post").assertIsDisplayed().performClick()
             waitFor("Conversation")
             ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
             ui.onNodeWithText("Back").performClick()
             waitFor("Liked your post")
-            pruneReads()
+            responses.change()
             scenario.recreate()
-            ui.waitUntil(20_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
+            ui.waitUntil(20_000) { responses.ownerReads.get() > 0 && ui.onAllNodes(hasText("Refresh") and isEnabled())
                 .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
                 "notification-evidence/pruned-history-recreated.png"), "Notifications")
@@ -219,7 +219,7 @@ class NotificationsPreviewTest {
         }
     }
 
-    private fun withNotifications(evidenceName: String, mode: Mode, journey: (String, ActivityScenario<MainActivity>, () -> Unit) -> Unit) {
+    private fun withNotifications(evidenceName: String, mode: Mode, journey: (String, ActivityScenario<MainActivity>, ArchiveResponses) -> Unit) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev")
@@ -245,8 +245,7 @@ class NotificationsPreviewTest {
         val publicFiles = FixtureFiles(context.noBackupFilesDir, publicBase, publicLock)
         val historyFiles = FixtureFiles(context.noBackupFilesDir, "notifications.${SaitoBackend.OWNER.id}.$owner.v1",
             nl.davidengelen.redsquare.feed.PublicStringStore.lock)
-        val failingReads = java.util.concurrent.atomic.AtomicBoolean(false)
-        val failedReads = AtomicInteger()
+        val responses = ArchiveResponses()
         val likeReads = AtomicInteger()
         val replyReads = AtomicInteger()
         val repostReads = AtomicInteger()
@@ -277,7 +276,13 @@ class NotificationsPreviewTest {
                 else -> error("Unexpected Registry fixture request")
             }
         }, archiveResponse = { criteria ->
-            if (failingReads.get()) { failedReads.incrementAndGet(); if (mode == Mode.PRUNED) "[]" else "invalid archive response" }
+            if (responses.changed.get()) {
+                if (criteria.get("field1")?.asString == "RedSquareLike" && criteria.get("field3")?.asString == owner) {
+                    require(criteria.get("flagged_ne").asInt == 1 && criteria.get("limit").asInt in 1..100)
+                    responses.ownerReads.incrementAndGet()
+                }
+                if (mode == Mode.PRUNED) "[]" else "invalid archive response"
+            }
             else when (criteria.get("field1")?.asString) {
                 "RedSquareLike" -> if (criteria.get("field3")?.asString == owner) {
                     require(criteria.get("flagged_ne").asInt == 1)
@@ -372,7 +377,7 @@ class NotificationsPreviewTest {
                             waitFor("Liked your post")
                             captureNativeScreen(File(context.cacheDir, "notification-evidence/incoming-like.png"), "Liked your post")
                         }
-                        journey(actor, scenario) { failingReads.set(true) }
+                        journey(actor, scenario, responses)
                         retainQuoteTargetReads()
                         peer.assertHealthy()
                         assertTrue("Incoming likes must be read for this wallet", likeReads.get() > 0)
@@ -385,7 +390,7 @@ class NotificationsPreviewTest {
                         if (mode == Mode.USERNAME) assertTrue("A label hint alone must not be ownership evidence",
                             peer.registryQueries.any { it.get("request").asString == "registry namecheck" &&
                                 it.get("identifier").asString == "NativeCase7@saito" })
-                        if (mode in listOf(Mode.HISTORY, Mode.PRUNED)) assertTrue("Recreation must receive changed selected-server responses", failedReads.get() > 0)
+                        if (mode in listOf(Mode.HISTORY, Mode.PRUNED)) assertTrue("Recreation must receive changed selected-server responses", responses.ownerReads.get() > 0)
                         assertTrue(peer.clientKeys.isNotEmpty())
                         assertTrue(peer.clientKeys.all { it == owner })
                         assertTrue("Reading notifications must not publish a transaction", peer.transactions.isEmpty())
@@ -411,6 +416,12 @@ class NotificationsPreviewTest {
                 historyFiles.restore()
             })
         }
+    }
+
+    private class ArchiveResponses {
+        val changed = java.util.concurrent.atomic.AtomicBoolean(false)
+        val ownerReads = AtomicInteger()
+        fun change() { changed.set(true) }
     }
 
     /** Only the named public fixture and its atomic companions, guarded by the owning store. */

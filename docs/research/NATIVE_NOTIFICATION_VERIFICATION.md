@@ -529,3 +529,11 @@ like and actor without a read-error. It preserves the same no-write/opaque clean
 gates. This tests available locally retained history when remote history is pruned;
 no physical offline/process-death claim. Source still replaces cached rows on
 successful refresh; first eleven-case RED pending.
+
+Tracer bounded bb4443a...8db4979 Standards0/Spec1: initial-enabled Refresh and
+cached activity could be observed before successful empty refresh completed;
+late generic response count included feed/profile. Run38300238513 canceled before
+acceptance; no genuine RED inferred. Fixture now exposes changed owner-index
+RedSquareLike response count, checks exact owner/flag/limit, waits that positive
+count together with enabled Refresh before saved-row assertions. Existing history
+failure also requires positive owner notification responses. Corrected RED pending.
