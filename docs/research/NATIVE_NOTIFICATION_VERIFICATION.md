@@ -371,3 +371,14 @@ not established; no duplicatebuild or application failure inferred. Bounded
 Fallback now requires targetabsent, and knownown check requiresnon-nullwallet.
 Verified non-own targets cannotbypass ownership. First7GREEN38291912526 at52e693b
 running; this narroweredgefix needslaternative coverage. No wholeacceptance.
+
+Recipientfallback91686be correction bothreviews0, localAndroidcompile PASSES1m21s.
+Firstmissinglike7GREEN38291912526 at52e693b pending. Nextnative missingordinary
+repost tracer usesindependentsigned recovered-original target and realowner output.
+Twoactualmissing-reference journeys share their observableUIflow. Both now also
+supplya separatelyverified non-own root plus an owner-addressedlike ofit; exactly
+one eligible neutral activity/actorcounts catch knownnon-own fallback regression.
+ModeMISSING_REPOST initiallystilldropsunknownretweet and mustgenuinelyRED before
+productimplementation. Same actualpublic-cache-lock snapshot/reset/restore covers
+bothmissing modes. Reference21373bytes/SHAf67062351b533f5aa466d0b1b159ab860dbf145bab1436dd4ff121ee5cc6400b, threecopiesidentical.
+Testfixturedebug/test compilationpending; no missing-repost product codeyet.

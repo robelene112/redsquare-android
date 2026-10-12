@@ -80,7 +80,25 @@ const missingOriginalLike = {
   field1: 'RedSquareLike', field3: owner, field4: recoveredOriginal.sig,
   updated_at: 1700000000085, flagged: 0
 };
+const missingOriginalRepost = {
+  ...signedReference('2', {module: 'RedSquare', request: 'retweet',
+    data: {signature: recoveredOriginal.sig}}, 1700000000090, [owner]),
+  field1: 'RedSquareRetweet', field3: owner, field4: recoveredOriginal.sig,
+  updated_at: 1700000000090, flagged: 0
+};
+// Owner output addressing does not override this independently verified non-owner author.
+const knownOtherPost = {
+  ...signedReference('2', {module: 'RedSquare', request: 'create tweet',
+    data: {text: 'A known post by another account'}}, 1699999999900),
+  field1: 'RedSquare', flagged: 0
+};
+const knownOtherLike = {
+  ...signedReference('2', {module: 'RedSquare', request: 'like tweet',
+    data: {signature: knownOtherPost.sig}}, 1700000000091, [owner]),
+  field1: 'RedSquareLike', field3: owner, field4: knownOtherPost.sig,
+  updated_at: 1700000000091, flagged: 0
+};
 console.log(JSON.stringify({synthetic: true, reference, owner,
   actor: 'pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU',
   root: thread.root, incomingLike, incomingReply, parentedQuote, incomingMention,
-  addressedPost, listedMention, usernameMention, incomingRepost, incomingQuote, legacyQuote, recoveredOriginal, missingOriginalLike}, null, 2));
+  addressedPost, listedMention, usernameMention, incomingRepost, incomingQuote, legacyQuote, recoveredOriginal, missingOriginalLike, missingOriginalRepost, knownOtherPost, knownOtherLike}, null, 2));

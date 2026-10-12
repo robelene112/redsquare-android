@@ -50,7 +50,14 @@ unsafe2 like of it. The controlled peer withholds that original on first lookup,
 then returns its independently signed bytes on explicit Retry. The ordinary feed
 root has a different signature. Dedicated public original-cache bytes are preserved,
 cleared atomically for setup, and independently restored; no wallet reset occurs.
-Current whole JSON SHA256:8ae7667601b311d1154fb81d8988f3ad68aa7836194947eda270ec7aff7a3c32; 18124bytes.
+The first missing-like snapshot was18124bytes/SHA8ae7667601b311d1154fb81d8988f3ad68aa7836194947eda270ec7aff7a3c32.
+Next tracer adds an independently signed ordinary repost of the unavailable
+original and a verified non-own post with an owner-addressed like of that post.
+The latter must remain ineligible because its original author is already known;
+owner output addressing cannot override signed non-ownership. Both missing-like
+and missing-repost journeys supply that adversarial activity and observe captions/
+actor row counts while retaining full original-cache restoration.
+Current whole JSON SHA256:f67062351b533f5aa466d0b1b159ab860dbf145bab1436dd4ff121ee5cc6400b; 21373bytes.
 Documentation/native/core copies are identical.
 
 Reproduction uses the existing build image, networknone/read-only container and

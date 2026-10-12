@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger
 
 class NotificationsPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
-    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING }
+    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING, MISSING_REPOST }
 
     @Test fun anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile() {
         withNotifications("incoming-like", mode = Mode.LIKE) { actor ->
@@ -134,19 +134,30 @@ class NotificationsPreviewTest {
     }
 
     @Test fun missingOriginalActivitySurvivesUnavailableLookupAndExplicitRetry() {
-        withNotifications("missing-original", mode = Mode.MISSING) { actor ->
-            waitFor("Liked a post")
-            ui.onAllNodesWithText("Liked your post").assertCountEquals(0)
+        missingReferenceJourney("missing-original", Mode.MISSING, "Liked a post", "Liked your post", 1)
+    }
+
+    @Test fun missingRepostOriginalSurvivesUnavailableLookupAndExplicitRetry() {
+        missingReferenceJourney("missing-repost-original", Mode.MISSING_REPOST, "Reposted a post", "Reposted your post", 2)
+    }
+
+    private fun missingReferenceJourney(evidenceName: String, mode: Mode, caption: String, ownCaption: String, actorRows: Int) {
+        withNotifications(evidenceName, mode) { actor ->
+            waitFor(caption)
+            ui.onAllNodesWithText(caption).assertCountEquals(1)
+            ui.onAllNodesWithText(ownCaption).assertCountEquals(0)
+            // A verified non-own post remains ineligible despite signed owner output addressing.
+            if (mode == Mode.MISSING_REPOST) ui.onAllNodesWithText("Liked a post").assertCountEquals(0)
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
-                "notification-evidence/missing-original.png"), "Liked a post")
-            ui.onNodeWithText("Liked a post").assertIsDisplayed().performClick()
+                "notification-evidence/$evidenceName.png"), caption)
+            ui.onNodeWithText(caption).assertIsDisplayed().performClick()
             waitFor("This post is unavailable on this server. You can retry or return to notifications.")
             ui.onNodeWithText("Retry").assertIsDisplayed().performClick()
             waitFor("Original recovered after retry")
             ui.onNodeWithText("Original recovered after retry").assertIsDisplayed()
             ui.onNodeWithText("Back").performClick()
-            waitFor("Liked a post")
-            ui.onNodeWithText(actor).assertIsDisplayed().performClick()
+            waitFor(caption)
+            ui.onAllNodesWithText(actor).assertCountEquals(actorRows)[0].assertIsDisplayed().performClick()
             waitFor("Profile")
             ui.onNodeWithText(actor).assertIsDisplayed()
         }
@@ -171,10 +182,11 @@ class NotificationsPreviewTest {
         val priorOffer: Boolean? = if (permission.contains("offered")) permission.getBoolean("offered", false) else null
         val registry = instrumentation.context.assets.open("native-registry-reference.json")
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
-        val publicBase = if (mode == Mode.MISSING) "quoteoriginal.${SaitoBackend.OWNER.id}.v1" else "namemap.$owner.v1"
+        val missing = mode in listOf(Mode.MISSING, Mode.MISSING_REPOST)
+        val publicBase = if (missing) "quoteoriginal.${SaitoBackend.OWNER.id}.v1" else "namemap.$owner.v1"
         fun fixturePublicFiles() = context.noBackupFilesDir.listFiles().orEmpty()
             .filter { it.name == publicBase || it.name.startsWith("$publicBase.") }
-        val publicLock = if (mode == Mode.MISSING) nl.davidengelen.redsquare.feed.PublicStringStore.lock
+        val publicLock = if (missing) nl.davidengelen.redsquare.feed.PublicStringStore.lock
             else nl.davidengelen.redsquare.saito.SaitoLocalState.lock
         var priorPublicFiles: Map<String, ByteArray>? = null
         val likeReads = AtomicInteger()
@@ -191,6 +203,7 @@ class NotificationsPreviewTest {
                 when (mode) {
                     Mode.REPOST -> "[${fixture.get("incomingRepost")},${fixture.get("parentedQuote")}]"
                     Mode.QUOTE -> "[${fixture.get("incomingQuote")}]"
+                    Mode.MISSING_REPOST -> "[${fixture.get("missingOriginalRepost")}]"
                     else -> "[]"
                 }
             }
@@ -209,7 +222,11 @@ class NotificationsPreviewTest {
                     require(criteria.get("flagged_ne").asInt == 1)
                     require(criteria.get("limit").asInt in 1..100)
                     likeReads.incrementAndGet()
-                    if (mode == Mode.MISSING) "[${fixture.get("missingOriginalLike")}]" else "[${fixture.get("incomingLike")}]"
+                    when (mode) {
+                        Mode.MISSING -> "[${fixture.get("missingOriginalLike")},${fixture.get("knownOtherLike")}]"
+                        Mode.MISSING_REPOST -> "[${fixture.get("incomingLike")},${fixture.get("knownOtherLike")}]"
+                        else -> "[${fixture.get("incomingLike")}]"
+                    }
                 } else "[]"
                 "RedSquare" -> when {
                     criteria.get("sig")?.asString == fixture.getAsJsonObject("recoveredOriginal").get("sig").asString -> {
@@ -227,7 +244,7 @@ class NotificationsPreviewTest {
                             Mode.MENTION -> "[${fixture.get("incomingMention")},${fixture.get("addressedPost")}]"
                             Mode.USERNAME -> "[${fixture.get("usernameMention")}]"
                             Mode.QUOTE -> "[${fixture.get("legacyQuote")}]"
-                            Mode.LIKE, Mode.REPOST, Mode.MISSING -> "[]"
+                            Mode.LIKE, Mode.REPOST, Mode.MISSING, Mode.MISSING_REPOST -> "[]"
                         }
                     }
                     criteria.get("field5")?.asString == fixture.getAsJsonObject("incomingQuote").get("sig").asString ->
@@ -240,7 +257,8 @@ class NotificationsPreviewTest {
                         "[${fixture.get("incomingMention")}]"
                     criteria.get("field5")?.asString == root.get("sig").asString ->
                         if (mode == Mode.REPLY) "[$root,${fixture.get("incomingReply")}]" else "[$root]"
-                    criteria.get("field2")?.asString in listOf(null, owner) -> "[$root]"
+                    criteria.get("field2")?.asString in listOf(null, owner) ->
+                        if (missing && !criteria.has("field2")) "[$root,${fixture.get("knownOtherPost")}]" else "[$root]"
                     else -> "[]"
                 }
                 else -> "[]"
@@ -248,7 +266,7 @@ class NotificationsPreviewTest {
         })
         var primary: Throwable? = null
         try {
-            if (mode in listOf(Mode.USERNAME, Mode.MISSING)) synchronized(publicLock) {
+            if ((mode == Mode.USERNAME || missing)) synchronized(publicLock) {
                 val captured = fixturePublicFiles().associate { file ->
                     check(file.isFile)
                     file.name to file.readBytes()
@@ -286,8 +304,8 @@ class NotificationsPreviewTest {
                         peer.assertHealthy()
                         assertTrue("Incoming likes must be read for this wallet", likeReads.get() > 0)
                         if (mode in listOf(Mode.REPLY, Mode.MENTION, Mode.USERNAME, Mode.QUOTE)) assertTrue("Incoming posts must be read for this wallet", replyReads.get() > 0)
-                        if (mode in listOf(Mode.REPOST, Mode.QUOTE)) assertTrue("Incoming reposts must be read for this wallet", repostReads.get() > 0)
-                        if (mode == Mode.MISSING) assertTrue("Retry must look up the actual original again", targetReads.get() >= 2)
+                        if (mode in listOf(Mode.REPOST, Mode.QUOTE, Mode.MISSING_REPOST)) assertTrue("Incoming reposts must be read for this wallet", repostReads.get() > 0)
+                        if (missing) assertTrue("Retry must look up the actual original again", targetReads.get() >= 2)
                         if (mode == Mode.USERNAME) assertTrue("A label hint alone must not be ownership evidence",
                             peer.registryQueries.any { it.get("request").asString == "registry namecheck" &&
                                 it.get("identifier").asString == "NativeCase7@saito" })
