@@ -94,6 +94,7 @@ internal class PublicStringStore(context: Context, name: String, private val max
 
     companion object {
         private const val MAX_BYTES = 16 * 1024 * 1024
-        private val lock = Any()
+        // Shared by bounded filesystem fixture setup as well as all store operations.
+        internal val lock = Any()
     }
 }

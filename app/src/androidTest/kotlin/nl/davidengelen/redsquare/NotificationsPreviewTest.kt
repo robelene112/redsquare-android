@@ -174,6 +174,8 @@ class NotificationsPreviewTest {
         val publicBase = if (mode == Mode.MISSING) "quoteoriginal.${SaitoBackend.OWNER.id}.v1" else "namemap.$owner.v1"
         fun fixturePublicFiles() = context.noBackupFilesDir.listFiles().orEmpty()
             .filter { it.name == publicBase || it.name.startsWith("$publicBase.") }
+        val publicLock = if (mode == Mode.MISSING) nl.davidengelen.redsquare.feed.PublicStringStore.lock
+            else nl.davidengelen.redsquare.saito.SaitoLocalState.lock
         var priorPublicFiles: Map<String, ByteArray>? = null
         val likeReads = AtomicInteger()
         val replyReads = AtomicInteger()
@@ -246,7 +248,7 @@ class NotificationsPreviewTest {
         })
         var primary: Throwable? = null
         try {
-            if (mode in listOf(Mode.USERNAME, Mode.MISSING)) synchronized(nl.davidengelen.redsquare.saito.SaitoLocalState.lock) {
+            if (mode in listOf(Mode.USERNAME, Mode.MISSING)) synchronized(publicLock) {
                 val captured = fixturePublicFiles().associate { file ->
                     check(file.isFile)
                     file.name to file.readBytes()
@@ -310,7 +312,7 @@ class NotificationsPreviewTest {
                 check(if (priorOffer == null) !permission.contains("offered") else permission.getBoolean("offered", !priorOffer) == priorOffer)
             }, {
                 priorPublicFiles?.let { saved ->
-                    synchronized(nl.davidengelen.redsquare.saito.SaitoLocalState.lock) {
+                    synchronized(publicLock) {
                         fixturePublicFiles().forEach { check(it.isFile && it.delete()) }
                         saved.forEach { (name, bytes) -> File(context.noBackupFilesDir, name).writeBytes(bytes) }
                         check(fixturePublicFiles().map { it.name }.toSet() == saved.keys)

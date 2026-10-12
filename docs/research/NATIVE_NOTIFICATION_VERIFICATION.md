@@ -321,3 +321,11 @@ gates. Public fixture snapshot helper now has two real consumers (Registryname a
 original-cache), each precisebasename/companions under the same locked try/finally.
 No missing-original product support yet; compiling test fixture for genuine RED.
 Reference18124bytes/SHA8ae7667601b311d1154fb81d8988f3ad68aa7836194947eda270ec7aff7a3c32, threecopiesidentical.
+
+Missing-original fixture compile PASSES1m38s. Bounded492780d...2cab31f reviews:
+Spec0; Standards1actual-cache-lock mismatch. Registryfiles useSaitoLocalState,
+but public original-cache writers usePublicStringStore's separate lock. Newfixture
+now uses the actual owning lock for snapshot+reset+byte-exactrestore; existing
+lock visibility is internal for filesystem setup. No storage algorithm or product
+behavior change; no loss reproduced. Correctedcompile and genuine RED pending.
+Six-journey quote38290192207 at42cb66e PASSES; rawcounts/captures retention pending.
