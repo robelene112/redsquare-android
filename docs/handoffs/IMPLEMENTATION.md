@@ -49,7 +49,12 @@ Minimal explicit exact-candidate retry is being built: fresh reviewed device
 auth, original selectedbackend, fresh exact eligibleinputs, and locked physical
 enqueue rechecks of saved/live identity/backend and exact durable candidate.
 No re-signing/newreservation/automatic resend. Debug/test build passes2m37s;
-hostedGREEN/boundedsource-evidence reviews stillpending;
+focusedGREEN38190583142 atf37feba passes3cases66.944s/core57 and sourcepush
+38190582887release/lint. Both boundedsourceaxes0. Root3originalPNG+separateXML
+and independently verifies actual762byte frame (hash5005caf2...) with purepinned
+WASM/Elliptic;9hashes in ticket22/retry-green/android17. Samewallet/Pending/0
+after Activityrecreation/noauto, freshrealPIN/exact2ndframe/clearedPIN pass.
+BoundedGREENevidence reviews remain pending;
 inclusion/reorg and failure/process-death acceptance remain separate. Activity recreation is not process
 death, nor complete retry/inclusion acceptance. Failure/retry/recovery/inclusion, receivingQR
 and final10/17 remain.

@@ -201,3 +201,18 @@ or whole-ticket acceptance.
 
 Minimal retry debug and test APK assembly passes2m37s. Hosted GREEN and
 bounded source/evidence reviews remain pending.
+
+Corrected minimal retry focused38190583142 atf37feba:3PASS66.944s/core57/source/
+debug/test pass; sourcepush38190582887release/lint also passes. Both bounded
+minimal-source axes0findings. Root individually views3originalPNG+separateXML;
+9hashes retained in ticket22/retry-green/android17. Samewallet after Activity
+recreation, Pending/zeroavailable/originalbackend, exactly1frame through reopening
+and before fresh real PIN, exactly2frames after it with byte-identical retry.
+PIN positively clears; cancellation/balance pass.
+
+Root also independently verifies the actual retained first762byte frame with
+purepinnedWASM/Elliptic (0.42s): literalinputs/payment/fee/change/metadata/author
+signature/fullreserialization/routinghop. Hash5005caf258c18ab4b09be34eba8946270f4bd7535d9a3a35c2eb403957c7f055.
+Second identity follows the native byte-equality assertion; no separate second
+artifact. No processdeath/reorg/inclusion/admission/finality/real funds or whole
+acceptance. Broader failure/recovery/inclusion and receivingQR cycles remain.

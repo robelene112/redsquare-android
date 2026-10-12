@@ -1,0 +1,25 @@
+{
+  "synthetic": true,
+  "reference": {
+    "saitoCommit": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+    "saitoWasmVersion": "0.3.2",
+    "ellipticVersion": "6.6.1",
+    "wasmSha256": "f59be69dbb949368ce1fc7ef47d414cbe0281a86a206fe4bfb1128a4d087e01e"
+  },
+  "boundary": "Actual controlled native frame: serialization/signature/hop compatibility, not consensus admission or real UTXOs",
+  "author": "c6yfpcvb5FJxdErgATJr6j1PYCMwCRxmtJEfxQxLtNvn",
+  "recipient": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+  "amount": "625000000",
+  "fee": "10000000",
+  "change": "115000000",
+  "signature": "bd766bdfae82a7f8846a5b0ab8e4ec3daac14f400ca9b0c7174e5ad0f49c68c74040a504b88d2d81f35fbc5dc62765146d38b2b7a656d22c4d1075adabfd7ef9",
+  "frameBytes": 762,
+  "frameHash": "5005caf258c18ab4b09be34eba8946270f4bd7535d9a3a35c2eb403957c7f055",
+  "authorPreimageHash": "c4a5694d7bdfdf0fd30689811feb461bfb3baac69cc2d50e0113ff823accc829",
+  "checks": [
+    "literal slips and metadata",
+    "WASM and Elliptic author signature",
+    "WASM deserialize/reserialize",
+    "WASM and Elliptic routing hop"
+  ]
+}
