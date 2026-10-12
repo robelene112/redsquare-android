@@ -8,159 +8,75 @@ one question at a time when a material choice really needs the owner.
 ## Current work
 
 #23, "Show balances/receiving details and send authenticated SAITO", is assigned
-and active. Sole blocker#7 is closed. Whole-ticket review base:
-`2fe1fa51ed8d0c0e250d77e7c2f4198809418fdd`. Parent seams1–4/sequential delivery
-are authorized; no routine owner permission is needed. Eighteen of35 are closed.
+and active. Sole blocker#7 is closed. Eighteen of35 tickets are closed.
+Whole-ticket review base: `2fe1fa51ed8d0c0e250d77e7c2f4198809418fdd`.
+Parent seams1–4/sequential delivery are authorized; no routine permission or
+new grill is needed. No production-funded transfer or node change is authorized.
 
-Canonical chronology:
-[NATIVE_TRANSFER_VERIFICATION.md](../research/NATIVE_TRANSFER_VERIFICATION.md),
-contract [NATIVE_SAITO_TRANSFER_CONTRACT.md](../research/NATIVE_SAITO_TRANSFER_CONTRACT.md),
-original evidence `docs/evidence/ticket22/` (delivery22 corresponds to issue#23).
-The chronology retains first failed builds, genuine behavior REDs and fixture
-interruptions. This active handoff reports the latest state rather than repeating
-superseded pending claims.
+Canonical chronology, including failed builds, genuine REDs and fixture
+interruptions: [NATIVE_TRANSFER_VERIFICATION.md](../research/NATIVE_TRANSFER_VERIFICATION.md).
+Source contract: [NATIVE_SAITO_TRANSFER_CONTRACT.md](../research/NATIVE_SAITO_TRANSFER_CONTRACT.md).
+Original evidence is under `docs/evidence/ticket22/` (delivery22 means issue#23).
+Use these pointers for historical details; this section describes current work.
 
 Implemented and verified:
-- Selected-server reported balance, receiving address and exact clipboard copy.
-- Independently compatible funded payment creation/restoration, exact review,
-  real Android device authentication, cancellation without send/reservation,
-  durable wallet-wide input reservations and deliberate byte-identical retry.
-- Activity recreation and actual pending-transfer process death preserve wallet,
-  backend and signed candidate with no automatic send and a fresh real PIN on retry.
+- Selected-server reported balance, full receiving address and exact clipboard.
+- Compatible funded payment construction/restoration and exact recipient/amount/
+  fee/server review; real Android PIN authentication, cancellation without send
+  or reservation, durable wallet-wide input reservations and deliberate exact retry.
+- Recreation and actual pending-transfer death preserve wallet/backend/signed
+  candidate with no automatic send and fresh real PIN on retry. Grants are not saved.
 - Full-block creator/content verification, exact saved-payment matching including
-  unsigned original input coordinates and assigned outputs, opaque system data,
-  empty Fee entries and odd Merkle trees.
-- Snapshot-linked verified contiguous ancestry proves exact current inclusion.
-  Prior checks can establish displacement at the covered old height, or UNKNOWN.
-  The unsafe PRESENT shortcut is removed. Core66/0fail/error/skip passes49s at
-  a467b7a,24hashes/all15 original XMLs in chain-review-fix; both review axes clear.
-- Android current inclusion wiring at5fee7e1 reads only the selected server,
-  no redirects/fallback,8MiB/body,32MiB retained bodies/shared cache,20s monotonic
-  scan budget with remaining-time call deadlines. Ephemeral exact Included hides
-  Pending/Retry without releasing reservations or causing any transmission.
+  unsigned original coordinates/assigned outputs, system data, empty Fee entries
+  and odd Merkle trees. Independent pinned WASM/Elliptic/hash/Rust-recomputed-root/
+  full-serialization checks prove synthetic compatibility, not consensus/finality.
+- Snapshot-linked verified contiguous ancestry establishes current exact inclusion.
+  Saved encrypted prior observations reload after Activity recreation. Missing coverage shows UNKNOWN;
+  verified displacement at the old covered height shows Reorganized. Neither
+  releases original reservations or transmits. The unsafe PRESENT shortcut is gone.
+- Only the selected host is read, with no redirects/fallback:8MiB/body,32MiB shared
+  retained cache and20s monotonic scan budget/remaining-time call deadlines.
+  The existing shared lock covers current authority check and history commit;
+  no scheduler race reproduction is claimed.
+- Fresh distinct nonreserved4.15 change permits a new0.25/fee0.1 review alongside
+  earlier history. All original reservations remain. This is review-only with
+  zero frames, not authenticated new-change spending.
+- Receiving QR encodes only the full public address using ZXingcore3.5.4/H/four-
+  module quiet zone/opaque blackwhite/crisp actual192dp pixels, cached by identity/
+  density. No network/auth prerequisite. Publisher license is packaged with
+  attribution; exact debug asset inspection passes. Core is maintenance-only.
 
-Latest native Included proof: Android17run38197933430 at5fee7e1 PASSES ordinary
-4cases74.089s and the separate existing actual pending-transfer death4716→4810,
-independent cold1PASS11.421s/credential cleanup1PASS0.055s. Counts6completed/
-3records/1interrupted stage/no assumptions; core66/release/lint/debug/test pass.
-Root viewed2new original Included PNGs and separately parsed2XMLs; exact identity,
-original owner destination/no Pending/no Retry/zero automatic frames survive
-Activity recreation. This inclusion journey itself is not process death.
+Latest focused runtime: Android17run38207157113 atf62caad PASSES ordinary5cases
+73.267s plus separate existing pending death4729->4893/cold1PASS9.25s and credential
+cleanup1PASS.056s. Counts7completed/3records/1interrupted stage/no assumptions;
+core66/debug/test/release/lint pass. Twelve indexed hashes in receiving-qr-ui-green/
+android17. Both bounded minimum QR source/evidence axes throughf62caad clear.
 
-Actual captured1200B inclusion+482B child independently pass pinned SaitoWASM/
-Elliptic creator signatures, computed hash, Rust-recomputed root and exact full
-serialization; inclusion contains the exact independent621B payment and child
-names that parent.18hashes/rawcountable logs in inclusion-ui-green/android17.
-This is synthetic content compatibility/current observed-chain inclusion, not
-full consensus admission, real funds or irrevocable finality. An empty snapshot's
-zero availability alone does not independently prove reservations.
+The unchanged QR case observes actual own-key503 requests, native unavailable
+balance, full literal scalar2 address/copy and displayed Compose-node bitmap
+pixels decoding to the exact address before/after Activity recreation. Successful
+case includes guarded exact opaque-wallet restoration. Root fully viewed both
+original PNGs/separate XMLs: first clear whole QR; reopened Android clipboard
+preview across lower white boundary/footer. Both nonatomic XMLs record overlay.
+No timing-cause, unobstructed second whole-screen scanner, second independent
+QR decoder, physical scanner or dark-theme acceptance is claimed.
 
-Source review4bbf039...5fee7e1: Standards0; Spec1observation wording. Corrected at
-df2a012 with explicit selected-server/status-can-change text and positive gates
-before/after recreation in the same journey. Both correction axes clear;
-debug/test compile2m34s/one hash in inclusion-copy-review-fix. New-copy native
-runtime38198454529 atdf2a012 PASSES:4ordinary73.189s plus existing pending death
-4810→4908/cold1PASS9.841s/cleanup1PASS0.055s,6/3/1,no assumptions.
-Root firstoriginalfullyviewed/reopenedtoolstrip exactbyteequal34f13bb7...; separate
-2XML/positive qualifiedstatus/identity/backend/no-frame gates pass. Actualnew
-1200B/482B independently pass pinnedpureWASM/Elliptic/hash/Rustroot/fullroundtrip/
-exactcandidate/parent.18hashes in inclusion-copy-green/android17. Both copy-evidence axes verify hashes/counts; the test-prep findings are
-addressed below. Earlier genuine missing-Included
-RED38197165531 at4bbf039 is retained with4hashes in inclusion-ui-red/android17.
-The firstGREEN evidence review finds Standards0 and Spec1stale active-handoff
-pending sentences; this consolidation corrects those claims. Both handoff correction axes through eca0d63 are clear. Sourcepushes remain compile evidence, not new native acceptance.
+Next sole cycle: native missing-screen-lock setup message for transfers. Actual
+unsecured emulator/live selected-peer review, Authenticate and send, accurate
+setup guidance, no frames/reservation, app foreground, close/reopen and fresh7.5/
+noPending/zero frames. Current product incorrectly reuses export-specific setup
+copy. Test APK compiles1m27s/one hash in auth-setup-test-preparation; bounded
+tracer/evidence review and native RED pending. No product change yet.
 
-Current next cycle: one native missing historical-status test extends the proven
-journey with unavailable block coverage after another recreation and a fresh
-snapshot listing all original positive7.5SAITO inputs. It must show lastseen/current
-UNKNOWN, zero reserved availability and no frames. First test APK compiles1m18s,
-one hash in history-test-preparation. Bounded prep review: Spec2/Standards2 for
-fresh HTTP boundary observations and stale compile-pending wording. Correction
-requires positive fresh7.5 snapshot and actual404 at newly advertised tip2000004/
-literalc hash, so earlier cached blocks cannot establish fresh ancestry. Test APK
-compiles1m21s/one hash in history-test-observation-fix. Both test-fix axes through8b9a237 are clear. Corrected native38199796443 reaches
-strong missing-history RED4reported/3PASS/1failure at126/20s,92.419s. Actual fresh
-own-key7.5/newly advertised tip404 counters and native zero availability pass
-before missing lastseen; no completion/death follows. Root parsed separate XML;
-original PNG tool returned a strip, so no full bitmap inspection claimed. Four
-hashes in history-ui-red/android17. Weaker precursor38199323112 is separately
-qualified in history-precursor-red/android17.
+Then address meaningful remaining funding/storage/backend/identity failure gaps,
+run fresh final full10/full17 for the same production source with opted-in public
+reads, and perform both whole-ticket reviews against the base above. Home-as-
+revocation is not an agreed requirement; do not add blanket onStop cancellation
+or a strict RESUMED callback guard that could break real Android10 PIN handoff.
+Source audit is in the canonical chronology; actual Home ordering is unmeasured.
 
-Minimum history implementation persists validated last observations alongside the
-exact original candidate in encrypted identity-bound storage. Only fresh exact
-proof produces Included; missing coverage shows current UNKNOWN/lastseen while
-original input reservations remain. No automatic send or release. First debug/
-test compile2m43s; inspected API31 exact-long conversion replaced before dispatch
-with API29-compatible checked conversion. Corrected debug/test/release lint passes
-5m52s;2hashes in history-ui-build. Unchanged native38201245157 at4bfe312 passes ordinary4cases78.183s plus existing
-separate actual pending death/recovered1PASS9.996s/cleanup1PASS0.051s:6/3/1,
-core66/source/release/lint. Root fully viewed original Unknown PNG/separate XML;
-actual fresh7.5/newtip404/zero reserved/no frames/identity gates pass. Ten hashes
-in history-ui-green/android17. Both source axes report one ordering gap: authority
-check precedes store lock. Fix holds existing shared lock through check+commit;
-debug/test2m53s/one hash in history-review-lock-fix. No runtime race reproduced;
-Both fix/evidence axes through17b11c0 clear. Same unchanged native38201839598
-at0ab4966 passes ordinary4/82.386s plus separate pending death/cold1/9.867s and
-cleanup1/0.057s:6/3/1, core66/release/lint. Full separate UnknownXML/native gates
-pass; root original PNG tool strip honestly qualified. Ten hashes in history-
-lock-green/android17. No scheduler race reproduction claimed. Next sole native
-cycle extends the proven journey to fresh independently signed Fee-only alternate
-coverage at previous2000002, requiring explicit reorganized status and unchanged
-reservations/no frames through recreation. Test APK compiles1m40s, then diagnostic capture ordering compiles1m30s;2hashes
-in reorganization-test-preparation. Both tracer axes through3b5933d clear, one optional post-GREEN test duplication
-judgment. Native38202667461 at3b5933d reaches genuine missing reorg label RED at
-156/20s:4reported/3PASS/1failure108.245s. Alternate old-height request and zero
-availability passed; original separate XML shows Unknown, PNG tool strip qualified.
-Actual two482B alternatives independently pass pinned pure WASM/Elliptic/hash/
-Rust root/full roundtrip and exact2000002->2000003 link;8hashes in reorganization-
-ui-red/android17. No consensus/finality claim. Minimum current reorg wiring now
-shares the same20s/32MiB bounded selected-host cache with exact inclusion and
-verified previous-height displacement checks. Original history/reservations remain;
-no automatic send. Debug/test assembly passes2m56s/one hash in reorganization-ui-build. Both bounded production axes through2a1e2b0 clear. Unchanged native38203874802
-at2a1e2b0 passes ordinary4/81.001s plus separate pending death4775->4887/cold1/
-10.186s/cleanup1/.055s:6/3/1/core66/release/lint. Root first original Reorganized
-fully viewed; second toolstrip fullPNG byte-identicaldf59e385...; separate2XML/
-positive status/noUnknown/noPending/identity/backend/reservations/no frame gates
-pass through recreation. Actual two482B alternate blocks independently pass
-pinnedpureWASM/Elliptic/hash/Rustroot/roundtrip/exactparent.16hashes in reorganization-
-ui-green/android17. Next sole native cycle returns exact inclusion plus literal
-fresh4.15 change at2000002/ordinal1/index1/type0 and requires new review despite
-old records; product unchanged. Repeated reopening helper extracted post-GREEN
-per Standards judgment, every original assertion retained. Test APK compiles1m22s/one hash in change-form-test-preparation. Bounded Spec test/evidence review clear; Standards source clear with2stale doc
-sentences now corrected (completed reorg next-item and retained compile status).
-Native38204586012 atf3ba43a reaches genuine missing Recipient field RED at188:
-4reported/3PASS/1failure87.681s after actual fresh change/4.15/Included/noRetry.
-Root original fullPNG/separateXML confirms available4.15 and absent new form;
-4hashes in change-form-ui-red/android17. Minimum UI allows a new review with old
-records when known nonreserved available funds are positive, preserving existing
-funding/authentication/reservations. Debug/test assembly passes1m30s/one hash in change-form-ui-build. Bounded source/doc-fix review through880f080 clears both axes. Native38205158508
-reaches the exact new0.25/fee0.1/recipient/owner review with zero frames, then fails
-cleanup at199 because unscoped Done matches both stacked dialogs:4reported/3PASS/
-1failure89.933s, no completion/death. Root full reviewed originalPNG/separateXML
-confirms review;6hashes in change-form-fixture-interruption/android17. Fixture
-correction scopes Done to the confirmation dialog; instrumentation APK
-compiles1m28s/one hash in change-form-dialog-fixture. Same product completion
-passes unchanged atf7d04ce, run38205777578:ordinary4/86.001s plus separate
-pending death4816->4926/cold1/10.263s/cleanup1/.055s,6/3/1,no assumptions,
-core66/release/lint. Root full new-review PNG/separate XML verifies exact0.25/
-fee0.1/recipient/owner; fresh4.15/currentIncluded and prior status/recreation
-gates pass, zero frames before/after dismissal. Ten indexed hashes in change-form-
-ui-green/android17. This is review-only, not authenticated change spending. Both
-selector/evidence axes throughf7d04ce clear. Next sole cycle: receiving QR using
-the full public address, actual displayed raster decoding and unavailable
-balance/reopening. Corrected test APK compiles1m23s; initial draft1m52s,
-2hashes in receiving-qr-test-preparation. Both bounded tracer/evidence axes
-throughd1b9559 clear. Native38206389868 atd1b9559 reaches genuine missing QR
-RED atPreview299:5reported/4PASS/1failure98.838s after actual503/unavailable/
-exactaddress/copy. Root full originalPNG/separateXML confirms noQR;4hashes in
-receiving-qr-ui-red/android17. Minimum QR view encodes full public address with
-ZXingcore3.5.4/H/four-module quiet zone, opaque blackwhite at actual192dp pixel
-size, memoized by identity/density, no network prerequisite. Original publisher
-license retained in APK assets; exact debug asset inspection passes. Debug/test
-assembly compiles2m59s/two hashes in receiving-qr-ui-build. Bounded source review
-and unchanged same-test native raster/reopening GREEN pending. Meaningful remaining failures, final fresh full10/17 and
-whole-ticket review follow. #23 unfinished. No new phone APK, physical Pixel result,
-production node change, live transfer or whole acceptance.
+#23 is unfinished. No new phone APK, physical Pixel result, real-funded admission,
+production node update or whole-ticket acceptance. Physical review remains#35.
 
 ## Earlier completed ticket checkpoints
 

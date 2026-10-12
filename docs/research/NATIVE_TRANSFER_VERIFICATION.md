@@ -609,3 +609,27 @@ QR debug/test assembly passes2m59s; debug APK contains exact tracked attribution
 and complete original publisher-license suffix. Two hashes in receiving-qr-ui-
 build. Unchanged-test native raster/reopening GREEN and bounded source reviews
 pending; no release-runtime/physical scanner/dark-theme/whole acceptance claim.
+
+Both bounded minimum QR source/evidence axes throughf62caad clear. Unchanged
+native38207157113 atf62caad PASSES ordinary5/73.267s plus separate existing pending
+death4729->4893/cold1/9.25s/cleanup1/.056s:7/3/1,no assumptions,core66/release/lint.
+Actual503/unavailable/full literal address/clipboard and displayed-node raster
+decoding repeat before/after Activity recreation; guarded complete-wallet restore
+is part of the successful case. Twelve indexed hashes in receiving-qr-ui-green/
+android17. Root full both originalPNG/separate2XML: first clear whole QR view,
+reopened ordinary Android clipboard overlay across lower white QR boundary/footer;
+both separate XMLs record overlay. Nonatomic captures, no timing-cause inference.
+Decoder checks the displayed Compose node, not composited device screenshot; no
+second-decoder/physical-scanner/dark-theme claim. Existing monetary/status/recovery
+checks pass; no new QR-related transmission or private material.
+
+Next sole native tracer: actual unsecured emulator, live selected-peer review,
+Authenticate and send must explain screen-lock setup for transfers, without
+sending/reserving/queuing. Current product incorrectly reuses export-specific
+setup text. After correct setup message, test requires app foreground/unsecured
+state, closes/reopens transfers and observes fresh7.5/noPending/zero frames.
+Product unchanged; test build and missing-transfer-copy native RED pending.
+
+Missing-lock setup tracer APK compiles1m27s/one hash in auth-setup-test-preparation.
+Product unchanged; bounded tracer/evidence review and native RED pending.
+Current handoff consolidated around latest state, canonical chronology retained.

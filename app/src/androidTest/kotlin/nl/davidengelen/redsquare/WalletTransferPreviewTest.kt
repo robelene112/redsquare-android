@@ -187,6 +187,58 @@ class WalletTransferPreviewTest {
         }
     }
 
+    @Test fun sendingWithoutAScreenLockExplainsTransferSetupAndDoesNotQueue() {
+        val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+        val keyguard = context.getSystemService(KeyguardManager::class.java)
+        assertFalse(keyguard.isDeviceSecure)
+        val peer = ControlledFeedPeer("[]")
+        fundedTransferServer().use { server ->
+            server.start(InetAddress.getByName("127.0.0.1"), 0)
+            peer.start().use { transport ->
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                    .putExtra("feedDisabled", true)
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${transport.port}/wsopen")
+                    .putExtra("balanceApiUrl", "http://127.0.0.1:${server.port}/balance/")).use {
+                    ui.onNodeWithText("Wallet").performClick()
+                    val author = displayedWalletAddress(ui)
+                    withFailureCapture({ captureNativeScreen(File(context.cacheDir,
+                        "transfer-evidence/auth-setup-first-failure.png")) }) {
+                        val recipient = "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU"
+                        ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
+                        ui.onNodeWithContentDescription("Recipient address").performTextInput(recipient)
+                        ui.onNodeWithContentDescription("Amount in SAITO").performTextInput("6.25")
+                        ui.onNodeWithContentDescription("Fee in SAITO").performTextReplacement("0.1")
+                        reviewNativeTransfer(ui, device)
+                        ui.waitUntil(20_000) { ui.onNodeWithText("Authenticate and send").isDisplayed() }
+                        ui.onNodeWithText("Recipient: $recipient").assertIsDisplayed()
+                        ui.onNodeWithText("Amount: 6.25 SAITO").assertIsDisplayed()
+                        ui.onNodeWithText("Fee: 0.1 SAITO").assertIsDisplayed()
+                        ui.onNodeWithText("Send through saito.davidengelen.nl").assertIsDisplayed()
+                        peer.assertHealthy()
+                        assertTrue(peer.clientKeys.contains(author))
+                        assertTrue(peer.transactions.isEmpty())
+                        ui.onNodeWithText("Authenticate and send").performClick()
+                        peer.assertHealthy(); assertTrue(peer.transactions.isEmpty())
+                        val setup = "Set a screen lock in Android settings to send SAITO."
+                        ui.onNodeWithText(setup).assertIsDisplayed()
+                        assertFalse(keyguard.isDeviceSecure)
+                        assertEquals(context.packageName, device.currentPackageName)
+                        captureNativeScreen(File(context.cacheDir, "transfer-evidence/auth-setup.png"), setup)
+                        device.pressBack() // Dismiss the positively observed app dialog, with no system credential screen.
+                        ui.waitUntil(5_000) { ui.onNodeWithText("Send SAITO").isDisplayed() }
+                        ui.onNodeWithContentDescription("Wallet address").assertTextEquals(author)
+                        ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
+                        ui.waitUntil(15_000) { ui.onNodeWithText("Available to send: 7.5 SAITO").isDisplayed() }
+                        ui.onAllNodesWithText("Pending. Inclusion has not been verified.").assertCountEquals(0)
+                        peer.assertHealthy(); assertTrue(peer.transactions.isEmpty())
+                        captureNativeScreen(File(context.cacheDir, "transfer-evidence/auth-setup-reopened.png"),
+                            "Available to send: 7.5 SAITO")
+                    }
+                }
+            }
+        }
+    }
+
     private fun withDevicePin(action: (UiDevice) -> Unit) {
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
