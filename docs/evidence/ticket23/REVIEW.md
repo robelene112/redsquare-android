@@ -293,3 +293,19 @@ retained3afterfailedreadsandrecreation/all21old/finalopaque/no-write pass.
 Fiftyhashes paging-native-green/android10; rootall24XML/bothoriginalolderPNGs
 inspected. REDoriginalalsoinspected. Bothminimumreviews0; localfull2m59PASS.
 Additionalcontactdiscovery remainsnext; actualdeath/finalSDK acceptance pending.
+
+## Remaining contacts tracer
+
+### Standards
+
+`28144c2...e0c447e`: zero hard violations/actionable heuristics. Eleven public
+contacts use the existing owned filesystem seam with exact restoration; completed
+initial-read wait avoids a loading-state assertion. Signer allowlist unchanged.
+
+### Spec
+
+Zero actionable findings. Positive eleventh-account discovery must produce
+one Posted row,2unread, actual Conversation/commentary and verified actor Profile.
+Both axes verify36166byte identical references/SHA04ef...75d0d1af, sorted eleven
+unique public points/owner excluded/target last,50priorGREENhashes/24XML/rawcounts/
+both original pagingPNGs. Fixture build/new23RED pending. Production unchanged.

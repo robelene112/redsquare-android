@@ -65,7 +65,7 @@ private fun nextCursor(read: NotificationRead): NotificationCursor {
 
 private fun notificationStreams(followed: Set<String>): List<NotificationStream> =
     listOf(NotificationStream("RedSquareLike"), NotificationStream("RedSquare"), NotificationStream("RedSquareRetweet")) +
-        followed.sorted().take(10).flatMap { author ->
+        followed.sorted().flatMap { author ->
             listOf(NotificationStream("RedSquare", author), NotificationStream("RedSquareRetweet", author))
         }
 
@@ -132,7 +132,7 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
         val streams = notificationStreams(followed)
         val requested = pending.filterKeys { it in streams }.ifEmpty {
             val before = System.currentTimeMillis() + 1
-            streams.associateWith { before }.also { cursors = it }
+            streams.take(23).associateWith { before }.also { cursors = it }
         }
         pending = requested
         loading = true
@@ -295,10 +295,19 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
             reposts.map { it.id } + quotes.map { it.id } + contacts.map { it.id }).distinct().size
         if (pagingWarning) Text(stringResource(R.string.notifications_paging_warning))
         if (retainedCount >= NotificationHistoryStore.MAX_EVENTS) Text(stringResource(R.string.notifications_history_limit))
+        val eligibleStreams = notificationStreams(followed)
+        val undiscovered = eligibleStreams.filter { it !in cursors }.take(20)
+        val older = if (retainedCount < NotificationHistoryStore.MAX_EVENTS)
+            cursors.filter { (stream, before) -> stream in eligibleStreams && before != null }
+                .mapValues { requireNotNull(it.value) } else emptyMap()
         TextButton(enabled = wallet != null && !loading && !markingRead &&
-            retainedCount < NotificationHistoryStore.MAX_EVENTS && cursors.values.any { it != null }, onClick = {
-            if (!loading && !markingRead && retainedCount < NotificationHistoryStore.MAX_EVENTS) {
-                pending = cursors.mapNotNull { (stream, before) -> before?.let { stream to it } }.toMap()
+            (undiscovered.isNotEmpty() || older.isNotEmpty()), onClick = {
+            if (!loading && !markingRead) {
+                val before = System.currentTimeMillis() + 1
+                // Discover another ten accounts before spending the remaining request budget on older pages.
+                pending = (undiscovered.associateWith { before } + older).entries.take(23)
+                    .associate { it.key to it.value }
+                cursors = cursors + undiscovered.associateWith { before }
                 if (pending.isNotEmpty()) refresh++
             }
         }) { Text(stringResource(R.string.notifications_more)) }

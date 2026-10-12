@@ -892,3 +892,13 @@ seams, no internal cursor assertions. Reference36166bytes/
 SHA04ef96813fdf0327d9a86bf8c7d478d5fdb5222f341e6e45799b517575d0d1af;
 fixed signer allowlist remains1–4. Public-only points use published integers,
 no arbitrary signing/private material/node initialization. Genuine RED pending.
+
+Remaining-contact tracere0c447e bothaxes0/localfixture1m29PASS. Genuine23RED10
+38319039290:23reported/22PASS/one disabled-Morefailure460/68.485s/0OK/deaths/
+assumptions/core73/debug/test.3hashes/rootoriginalPNG+XML inspected; later
+post/Conversation/Actor gatesunexecuted. Minimum eligible streams include all
+followed accounts, whileinitialread remains23streams/firstten. Continuation
+prioritizes nextten accounts/bothnamespaces, then older sources within23request
+budget; undiscovered accounts remain eligible even at300-event older-history
+bound. Failed initial reads stillhave retained cursors; all requests stay on
+selected authenticated peer. Compile/first23GREEN pending.

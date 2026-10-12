@@ -1,0 +1,409 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.NotificationsPreviewTest:
+INSTRUMENTATION_STATUS: test=anOrdinaryRepostWithNullCommentaryIsSavedAndRecoveredWithoutACacheWarning
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anOrdinaryRepostWithNullCommentaryIsSavedAndRecoveredWithoutACacheWarning
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anIncomingSignedMentionOpensItsPostAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anIncomingSignedMentionOpensItsPostAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=rejectedActivityRemainsExplainedWhileVerifiedDuplicatesAppearOnlyOnce
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=rejectedActivityRemainsExplainedWhileVerifiedDuplicatesAppearOnlyOnce
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=remainingFollowedAccountsAreDiscoveredAfterTheFirstBatchIsExhausted
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (is enabled)
+Semantics of the node:
+Node #800 at (l=16.0, t=240.0, r=159.0, b=280.0)px
+Role = 'Button'
+Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+Text = '[Load more activity]'
+[Disabled]
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 10 siblings
+Selector used: (Text + InputText + EditableText contains 'Load more activity' (ignoreCase: false))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertIsEnabled(Assertions.kt:60)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.remainingFollowedAccountsAreDiscoveredAfterTheFirstBatchIsExhausted$lambda$29(NotificationsPreviewTest.kt:460)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$dshM6EQXlPEnDuwmA4K8Qgc65Yk(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda11.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$46$lambda$45$lambda$44(NotificationsPreviewTest.kt:736)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$1rs1v4o5i1skLRapFhN_SrVEf88(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda21.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:714)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.remainingFollowedAccountsAreDiscoveredAfterTheFirstBatchIsExhausted(NotificationsPreviewTest.kt:455)
+
+INSTRUMENTATION_STATUS: stream=
+Error in remainingFollowedAccountsAreDiscoveredAfterTheFirstBatchIsExhausted(nl.davidengelen.redsquare.NotificationsPreviewTest):
+java.lang.AssertionError: Failed to assert the following: (is enabled)
+Semantics of the node:
+Node #800 at (l=16.0, t=240.0, r=159.0, b=280.0)px
+Role = 'Button'
+Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+Text = '[Load more activity]'
+[Disabled]
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 10 siblings
+Selector used: (Text + InputText + EditableText contains 'Load more activity' (ignoreCase: false))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertIsEnabled(Assertions.kt:60)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.remainingFollowedAccountsAreDiscoveredAfterTheFirstBatchIsExhausted$lambda$29(NotificationsPreviewTest.kt:460)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$dshM6EQXlPEnDuwmA4K8Qgc65Yk(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda11.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$46$lambda$45$lambda$44(NotificationsPreviewTest.kt:736)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$1rs1v4o5i1skLRapFhN_SrVEf88(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda21.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:714)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.remainingFollowedAccountsAreDiscoveredAfterTheFirstBatchIsExhausted(NotificationsPreviewTest.kt:455)
+
+INSTRUMENTATION_STATUS: test=remainingFollowedAccountsAreDiscoveredAfterTheFirstBatchIsExhausted
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aLikeOfACurrentQuoteRecoversFromItsRetweetArchiveOnExplicitRetry
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aLikeOfACurrentQuoteRecoversFromItsRetweetArchiveOnExplicitRetry
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=followedCurrentQuotesAreDiscoveredInTheirOwnArchiveNamespace
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=followedCurrentQuotesAreDiscoveredInTheirOwnArchiveNamespace
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=savedActivityRemainsAvailableWhenTheServerNoLongerReturnsIt
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=savedActivityRemainsAvailableWhenTheServerNoLongerReturnsIt
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=incomingCurrentAndLegacyQuotesOpenTheirCommentaryOriginalAndActor
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=incomingCurrentAndLegacyQuotesOpenTheirCommentaryOriginalAndActor
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anIncomingSignedRepostOpensItsOriginalAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anIncomingSignedRepostOpensItsOriginalAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anIncomingVerifiedUsernameMentionOpensItsPostAndActorProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anIncomingVerifiedUsernameMentionOpensItsPostAndActorProfile
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=13
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=missingRepostOriginalSurvivesUnavailableLookupAndExplicitRetry
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=13
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=missingRepostOriginalSurvivesUnavailableLookupAndExplicitRetry
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=14
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anAddressedReplyKeepsItsOwnContentWhenItsParentIsUnavailable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=14
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anAddressedReplyKeepsItsOwnContentWhenItsParentIsUnavailable
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=15
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=olderActivityOverlapsBoundariesWithoutDuplicatesAndSurvivesFailedRefresh
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=15
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=olderActivityOverlapsBoundariesWithoutDuplicatesAndSurvivesFailedRefresh
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=16
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=readActivityKeepsItsReadStatusWhenRecreatedUnderFailingServerReads
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=16
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=readActivityKeepsItsReadStatusWhenRecreatedUnderFailingServerReads
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=17
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=availableNotificationsSurviveRecreationWhenTheSelectedServerCannotRefresh
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=17
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=availableNotificationsSurviveRecreationWhenTheSelectedServerCannotRefresh
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=18
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=followingAnAccountDiscoversItsAvailablePostsButVisitingDoesNot
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=18
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=followingAnAccountDiscoversItsAvailablePostsButVisitingDoesNot
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=19
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aFailedReadStatusSaveKeepsActivityUnreadUntilTheUserRetries
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=19
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aFailedReadStatusSaveKeepsActivityUnreadUntilTheUserRetries
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=20
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=healthyRepliesRemainAvailableWhenTheLikesArchiveFails
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=20
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=healthyRepliesRemainAvailableWhenTheLikesArchiveFails
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=21
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anAvailableFeedMentionAppearsWithoutAnOwnerRecipientIndex
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=21
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anAvailableFeedMentionAppearsWithoutAnOwnerRecipientIndex
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=22
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=missingOriginalActivitySurvivesUnavailableLookupAndExplicitRetry
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=22
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=missingOriginalActivitySurvivesUnavailableLookupAndExplicitRetry
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=23
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anAddressedQuoteKeepsItsCommentaryWhenItsOriginalIsUnavailable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=23
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=23
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anAddressedQuoteKeepsItsCommentaryWhenItsOriginalIsUnavailable
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 68.485
+There was 1 failure:
+1) remainingFollowedAccountsAreDiscoveredAfterTheFirstBatchIsExhausted(nl.davidengelen.redsquare.NotificationsPreviewTest)
+java.lang.AssertionError: Failed to assert the following: (is enabled)
+Semantics of the node:
+Node #800 at (l=16.0, t=240.0, r=159.0, b=280.0)px
+Role = 'Button'
+Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+Text = '[Load more activity]'
+[Disabled]
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 10 siblings
+Selector used: (Text + InputText + EditableText contains 'Load more activity' (ignoreCase: false))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertIsEnabled(Assertions.kt:60)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.remainingFollowedAccountsAreDiscoveredAfterTheFirstBatchIsExhausted$lambda$29(NotificationsPreviewTest.kt:460)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$dshM6EQXlPEnDuwmA4K8Qgc65Yk(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda11.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$46$lambda$45$lambda$44(NotificationsPreviewTest.kt:736)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$1rs1v4o5i1skLRapFhN_SrVEf88(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda21.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:714)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.remainingFollowedAccountsAreDiscoveredAfterTheFirstBatchIsExhausted(NotificationsPreviewTest.kt:455)
+
+FAILURES!!!
+Tests run: 23,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
