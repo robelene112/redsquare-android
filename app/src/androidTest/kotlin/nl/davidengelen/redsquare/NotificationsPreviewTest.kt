@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger
 
 class NotificationsPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
-    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING, MISSING_REPOST, MISSING_QUOTE_LIKE, HISTORY, PRUNED, PARTIAL, REJECTED, NULL_HISTORY }
+    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING, MISSING_REPOST, MISSING_QUOTE_LIKE, HISTORY, PRUNED, PARTIAL, REJECTED, NULL_HISTORY, READ }
 
     @Test fun anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile() {
         withNotifications("incoming-like", mode = Mode.LIKE) { actor, _, _ ->
@@ -254,6 +254,28 @@ class NotificationsPreviewTest {
         }
     }
 
+    @Test fun readActivityKeepsItsReadStatusWhenRecreatedUnderFailingServerReads() {
+        withNotifications("read-history", Mode.READ) { actor, scenario, responses ->
+            waitFor("Liked your post")
+            waitFor("1 unread")
+            ui.onNodeWithText("Mark all as read").assertIsDisplayed().assertIsEnabled().performClick()
+            waitFor("No unread activity")
+            ui.waitUntil(20_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
+                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            responses.change()
+            scenario.recreate()
+            waitFor("Could not load notifications. Check your connection and try Refresh.")
+            waitFor("Liked your post")
+            waitFor("No unread activity")
+            ui.onAllNodesWithText("1 unread").assertCountEquals(0)
+            captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
+                "notification-evidence/read-history-recreated.png"), "No unread activity")
+            ui.onNodeWithText(actor).assertIsDisplayed().performClick()
+            waitFor("Profile")
+            ui.onNodeWithText(actor).assertIsDisplayed()
+        }
+    }
+
     private fun missingReferenceJourney(evidenceName: String, mode: Mode, caption: String, ownCaption: String, actorRows: Int, recoveryText: String = "Original recovered after retry") {
         withNotifications(evidenceName, mode) { actor, _, _ ->
             waitFor(caption)
@@ -307,6 +329,8 @@ class NotificationsPreviewTest {
             else nl.davidengelen.redsquare.saito.SaitoLocalState.lock
         val publicFiles = FixtureFiles(context.noBackupFilesDir, publicBase, publicLock)
         val historyFiles = FixtureFiles(context.noBackupFilesDir, "notifications.${SaitoBackend.OWNER.id}.$owner.v1",
+            nl.davidengelen.redsquare.feed.PublicStringStore.lock)
+        val readFiles = FixtureFiles(context.noBackupFilesDir, "notificationread.${SaitoBackend.OWNER.id}.$owner.v1",
             nl.davidengelen.redsquare.feed.PublicStringStore.lock)
         val responses = ArchiveResponses()
         val likeReads = AtomicInteger()
@@ -390,7 +414,7 @@ class NotificationsPreviewTest {
                             Mode.MENTION -> "[${fixture.get("incomingMention")},${fixture.get("addressedPost")}]"
                             Mode.USERNAME -> "[${fixture.get("usernameMention")}]"
                             Mode.QUOTE -> "[${fixture.get("legacyQuote")}]"
-                            Mode.LIKE, Mode.REPOST, Mode.MISSING, Mode.MISSING_REPOST, Mode.MISSING_QUOTE_LIKE, Mode.HISTORY, Mode.PRUNED, Mode.NULL_HISTORY -> "[]"
+                            Mode.LIKE, Mode.REPOST, Mode.MISSING, Mode.MISSING_REPOST, Mode.MISSING_QUOTE_LIKE, Mode.HISTORY, Mode.PRUNED, Mode.NULL_HISTORY, Mode.READ -> "[]"
                         }
                     }
                     criteria.get("field5")?.asString == fixture.getAsJsonObject("incomingQuote").get("sig").asString ->
@@ -419,6 +443,7 @@ class NotificationsPreviewTest {
         var primary: Throwable? = null
         try {
             historyFiles.reset()
+            readFiles.reset()
             if (mode == Mode.USERNAME || missing) publicFiles.reset()
             if (prior.publicKey != owner) store.replace(prior, wallet)
             AndroidBackendStore(context).save(SaitoBackend.OWNER)
@@ -458,7 +483,7 @@ class NotificationsPreviewTest {
                         if (mode == Mode.USERNAME) assertTrue("A label hint alone must not be ownership evidence",
                             peer.registryQueries.any { it.get("request").asString == "registry namecheck" &&
                                 it.get("identifier").asString == "NativeCase7@saito" })
-                        if (mode in listOf(Mode.HISTORY, Mode.PRUNED, Mode.NULL_HISTORY)) assertTrue("Recreation must receive changed selected-server responses", responses.ownerReads.get() > 0)
+                        if (mode in listOf(Mode.HISTORY, Mode.PRUNED, Mode.NULL_HISTORY, Mode.READ)) assertTrue("Recreation must receive changed selected-server responses", responses.ownerReads.get() > 0)
                         if (mode == Mode.NULL_HISTORY) assertTrue("Recreated notification stream must reread repost history", repostReads.get() >= 2)
                         assertTrue(peer.clientKeys.isNotEmpty())
                         assertTrue(peer.clientKeys.all { it == owner })
@@ -483,6 +508,8 @@ class NotificationsPreviewTest {
                 publicFiles.restore()
             }, {
                 historyFiles.restore()
+            }, {
+                readFiles.restore()
             })
         }
     }
