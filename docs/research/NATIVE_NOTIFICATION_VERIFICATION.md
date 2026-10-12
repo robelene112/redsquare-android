@@ -1015,3 +1015,9 @@ commits before NoUnread, Activity recreation retains rows/read status. Reference
 150distinct signatures pinnedWASM/Elliptic/roundtrip, fixed1–4 signer scope.
 Accepted filesystem/native/protocol seams, no assertion of reader internals.
 Source unchanged; genuine27RED10/fixture compilation pending. Not actual death.
+
+Cache tracer2f86e43 localAPK1m46PASS; Standards0/Spec1missing count across
+recreation while unread. Root adds pre-Mark recreation/completedRefresh/exact150
+unread/capture before existingmark/postmark checks. Initial27RED10 at2f86e43
+stilluses unchangedinitial150gate; latercorrectedrecreationcount unexecutedifRED.
+Correction compile/review pending, no productchange.

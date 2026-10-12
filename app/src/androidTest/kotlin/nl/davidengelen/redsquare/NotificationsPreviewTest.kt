@@ -614,6 +614,13 @@ class NotificationsPreviewTest {
                 .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
                 "notification-evidence/cache-budget.png"), "150 unread")
+            scenario.recreate()
+            waitFor("150 unread")
+            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
+                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.onNodeWithText("150 unread").assertIsDisplayed()
+            captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
+                "notification-evidence/cache-budget-unread-recreated.png"), "150 unread")
             ui.onNodeWithText("Mark all as read").assertIsEnabled().performClick()
             waitFor("No unread activity")
             scenario.recreate()

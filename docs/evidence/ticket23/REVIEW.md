@@ -459,3 +459,18 @@ known own targets plus3base/first10contacts fit33initial requests. Both axes
 confirm26announced/15PASS/one missingreply/10unfinished/no Time/OK/reporteddeath,
 and actual23:21:34install/23:23:34stepend. Outer240s guard leaves15s assertions/
 12s RPC untouched. Local build/complete26GREEN remain pending.
+
+## Retained cache budget tracer
+
+### Standards
+
+`1de5092...2f86e43`: zero hard violations/actionable heuristics. Existing owned
+filesystem/native seam and exact restoration;223303/hash497aa...8711a8/150 IDs
+verified, signer guard unchanged.
+
+### Spec
+
+One proof gap: post-mark zero unread cannot count retained read events. Root adds
+pre-mark recreation/completedRefresh/150unread and capture, keeping initial RED
+and post-mark assertions unchanged. Original tracerAPK1m46PASS; initial27RED10
+run38322496355 pending, correction compilation/review pending.
