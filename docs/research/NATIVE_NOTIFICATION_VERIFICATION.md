@@ -329,3 +329,15 @@ now uses the actual owning lock for snapshot+reset+byte-exactrestore; existing
 lock visibility is internal for filesystem setup. No storage algorithm or product
 behavior change; no loss reproduced. Correctedcompile and genuine RED pending.
 Six-journey quote38290192207 at42cb66e PASSES; rawcounts/captures retention pending.
+
+Quote native38290192207 at42cb66e PASSES6tests44.806s/1completedOKrecord/0deaths/
+noassumptions, core72/compiler/debug/test. Both current+legacy actualcommentary/
+original Conversations/verifiedactorProfile and all finalowner-index/authidentity/
+no payments+reports/opaque wallet/backend/permission/namefile restoration pass.
+Repost-specific finalProfile was same-signerquote row; actualindex0corrected492780d
+needsnextnativecoverage. Thirteenhashes quote-native-green/android17. Root parsed
+all6XML and viewed quote original: tool displayedstatus/2quotecaptions/loweractor
+like row but blankuppertoolbar/actorregions; XML exposes allactualrows. No cause
+or missing storedcontent inferred. Other PNGs retained withoutvisualclaims.
+Missingfixture own-lockcorrection bothreviews0; nativeRED38290932273 at760eeae
+running, stillno missing-original product code.

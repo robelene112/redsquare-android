@@ -31,7 +31,21 @@ Reference16109bytes/SHA17edeff358ba5fd060b1252d0e7d186b2ef951d7ae91c603e166ad0e3
 identical docs/core/native. UI shares real RedSquare+Retweet responses, resolves
 own targets from signed originals/cache, opens commentary+original and actor.
 Sixth native journey covers both formats; existing reply/repost fixtures now also
-show their commentary quotes separately. Core/debug/test compile currently running.
+show commentary separately. Initialcore/debug/test compile2m42PASS. Review-stage
+private sharedretweetdecoder resolves duplication; correctedcompile3m26PASS.
+Quote native38290192207 at42cb66e PASS6/44.806s/1record/0deaths/core72, bothformats'
+actualcommentary/original/Actor routes +allfinalgates. Repost actor selected wrong
+same-signerquote row inthat run; index0corrected492780d/bothreviews0 and nextnative
+mustcovercorrectedrow. Thirteenhashes +qualifiedtoolview/all6XML retained.
+
+Next missing-original native test/reference2cab31f+own-cache-lock760eeae: independently
+signed secondownpost+like; originalwithheldfirstlookup thenavailableonexplicitRetry.
+Neutralcaption/unavailable/Retry/recoveredConversation/retainedrow/Profile+allfinal
+identity/no-write/fullopaquerestoration required. Reference18124bytes/SHA8ae7667601b311d1154fb81d8988f3ad68aa7836194947eda270ec7aff7a3c32 identicalthreecopies.
+Fixturecompile1m38PASS; Standards1wrongowninglock corrected byactualPublicStringStore
+lock fororiginalcache, SaitoLocalStateforRegistry/bothcorrectionaxes0. Corrected
+core/debug/test compilepending; genuineRED38290932273 at760eeae running.
+No missing-original product code yet; wait RED before implementing.
 
 Remaining within#24: contact-post and feed-cache supplementation, missing-original
 retention/lookup/Retry with neutral wording, bounded independent paging/partial
