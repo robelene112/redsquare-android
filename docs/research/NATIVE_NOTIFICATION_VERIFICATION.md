@@ -1029,3 +1029,13 @@ inspected. Bothminimumreviews0/localfull3mPASS; complete successlog/latestbuilde
 5104eed66092exit0 qualifyattached143/causeunknown. Fullsuccessfulbatch126.808s
 alsojustifies outerguard240 versusprevious120, individual15s/12s unchanged.
 No actualdeath/finalSDKpair/whole-ticketclaim. Next27cold-cache budget RED.
+
+Genuine27RED10 38322496355 at2f86e43:27reported/26PASS/one initial150missing
+failure612/100.122s/0OK/deaths/assumptions/core73/debug/test.3hashes/rootoriginal
+Owner100unread/verifiedLikePNG/XML inspected. LaterMark/recreation assertions
+unexecuted. Originalfixture1m46PASS; correctivepre-Markfixture1m40PASS/bothaxes0.
+Minimum reads retained and available feed envelopes in <=100-row chunks through
+the same verified classifiers, then merges bysignedID/retains300/visiblecontrols/
+markers. Shared two-consumer local reader avoids per-kind truncation; available
+feed persistence and ignored counts aggregate across batches. No network query
+or retention-budget change. Full compile/first27GREEN pending.

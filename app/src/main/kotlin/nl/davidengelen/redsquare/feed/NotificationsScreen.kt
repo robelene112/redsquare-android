@@ -153,6 +153,13 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
         val name = try { withContext(Dispatchers.IO) { RegisteredNameStore(context, wallet.publicKey, registrar).load()?.name } }
         catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { null }
+        // Archive readers accept100 rows; device history can retain several pages.
+        fun readAvailableHistory(envelopes: List<String>): List<NotificationPages> =
+            envelopes.chunked(100).map { batch ->
+                notificationPages(cachedArchive(batch, setOf("like tweet")),
+                    cachedArchive(batch, setOf("create tweet")), cachedArchive(batch, setOf("retweet")),
+                    wallet.publicKey, name, registrar, followed)
+            }
         fun publish(pages: NotificationPages) {
             events = availableActivity(pages.likes.likes, events, { it.id }, { it.createdAt })
             replies = availableActivity(pages.replies.posts.filter { it.author != wallet.publicKey && it.parentId.isNotEmpty() },
@@ -165,19 +172,13 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
         }
         val saved = withContext(Dispatchers.IO) { history!!.load() }
         cacheWarning = saved.unreadable
-        val cached = withContext(Dispatchers.IO) {
-            notificationPages(cachedArchive(saved.envelopes, setOf("like tweet")),
-                cachedArchive(saved.envelopes, setOf("create tweet")), cachedArchive(saved.envelopes, setOf("retweet")),
-                wallet.publicKey, name, registrar, followed)
-        }
-        publish(cached)
-        val available = withContext(Dispatchers.IO) {
-            notificationPages("[]", cachedArchive(knownPosts.map { it.envelope }, setOf("create tweet", "retweet")),
-                "[]", wallet.publicKey, name, registrar, followed)
-        }
-        publish(available)
-        if (available.envelopes.isNotEmpty()) {
-            try { withContext(Dispatchers.IO) { history!!.save(available.envelopes) } }
+        val cached = withContext(Dispatchers.IO) { readAvailableHistory(saved.envelopes) }
+        cached.forEach(::publish)
+        val available = withContext(Dispatchers.IO) { readAvailableHistory(knownPosts.map { it.envelope }) }
+        available.forEach(::publish)
+        val availableEnvelopes = available.flatMap { it.envelopes }
+        if (availableEnvelopes.isNotEmpty()) {
+            try { withContext(Dispatchers.IO) { history!!.save(availableEnvelopes) } }
             catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { cacheWarning = true }
         }
@@ -222,7 +223,7 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
                 pagingWarning = pagingWarning || next.warning
                 pending = pending - result.stream
             } }
-            ignored = available.ignoredRows + pages.mapNotNull { it.pages }.sumOf { it.ignoredRows }
+            ignored = available.sumOf { it.ignoredRows } + pages.mapNotNull { it.pages }.sumOf { it.ignoredRows }
             try { withContext(Dispatchers.IO) {
                 history!!.save(pages.mapNotNull { it.pages }.flatMap { it.envelopes })
             } } catch (cancelled: CancellationException) { throw cancelled }
