@@ -551,3 +551,15 @@ also preserving in-memory activity if saving fails. State/effect keys include
 wallet, approvedbackend and endpoint; no crossidentity/server merge. No pruning
 availability promise, paging/readmarkers/newcachefault acceptance. Compile and
 first11GREEN pending.
+
+Minimum merge localcore/debug/test compile passes3m37s. Bounded source/evidence
+reviews a3f65e7...692565c both0. First11GREEN38301388041 at692565c passes11/78.333s/
+1OK/0deaths/noassumptions/core72/debug/test. Actualpositive owner emptyresponse+
+completed refresh/retainedlike exactlyonce/noerror/actorProfile andallold10/final
+opaqueidentity/no-write gates pass. Twenty-four hashes pruned-native-green/android17.
+Root all11XML/originalprunedPNG inspected; retainedactor+like visible, uppertoolbar
+not independentlyvisiblein toolview, owner/Notifications establishedseparatelyXML/
+runtime. OtherPNGs retainedno rootvisualclaims. Next nativepartial tracer gets
+malformed ownlikes butvalidsignedreply fromowner post archive and requires error
+withusable reply/Conversation/actorProfile. Existingonebadpage currentlyrejects
+wholecombinedclassification; genuine12RED pending, no partial-sourcefixyet.
