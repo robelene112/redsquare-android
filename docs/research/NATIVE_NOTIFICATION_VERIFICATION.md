@@ -709,3 +709,10 @@ hasnoparent, rendersverifiedparentwhenavailable anddistinct loading/error/unavai
 copy withRefresh. Sameendpoint/backendscope/sigchecks/limits/revisions/cache. Compile/
 first17GREENpending. Rootreviewalsofoundin-scope parentcachelookup skippedifthread
 requestfails becausecallisinsidethreadtry; corrective reviewfollowuprequired.
+
+Missingreply minimumlocalcore/debug/test compile3m41PASS. Specbounded a6af24e...
+8c4bbac confirms rootfinding/noadditional: parentlookupinside success threadtry
+skipsverifiedparentcacheifthreadrequestfails. Reviewcorrection movesexistingbounded
+lookup afterhandledthreadresult/finally; parentcacheavailableonthreadfailure while
+CancellationException stillpropagatesbeforelookup. No extraunboundedrequests/
+backendfallback/secretdata. Correctivecompile/first17GREEN pending.

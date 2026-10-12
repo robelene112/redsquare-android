@@ -92,11 +92,12 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
             }
             unreadable = page.ignored > 0
             failed = false
-            if (selected.parentId.isNotEmpty() && posts.none { it.id == selected.parentId })
-                quotes?.load(selected.parentId, refresh = refresh > 0)
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { failed = true }
         finally { loading = false }
+        // Thread failure must not prevent recovery from the separately verified parent cache.
+        if (selected.parentId.isNotEmpty() && posts.none { it.id == selected.parentId })
+            quotes?.load(selected.parentId, refresh = refresh > 0)
     }
     val parent = quotes?.originals?.get(selected.parentId)
     val available = RedSquareFeed.newest(posts + listOfNotNull(parent?.post)).sortedBy { it.createdAt }
