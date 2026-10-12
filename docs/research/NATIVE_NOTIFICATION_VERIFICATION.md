@@ -1039,3 +1039,23 @@ the same verified classifiers, then merges bysignedID/retains300/visiblecontrols
 markers. Shared two-consumer local reader avoids per-kind truncation; available
 feed persistence and ignored counts aggregate across batches. No network query
 or retention-budget change. Full compile/first27GREEN pending.
+
+Cache minimum0ef7b41 both review axes0. Local attachedclient143 with partiallog;
+observed builderfc4442389352 stillcompiled, then removed before log/wait attach.
+Specific Dockerdie event recordsfc4442389352 exit0, no other active builder. No
+full local successlog/duration claim or duplicate build.27GREEN10 pending.
+
+Native regressions28/29 exercise history/read-load failure using existing exact
+owned empty-directory filesystem obstruction before app launch. History warning
+must preserve1unread/actor, repair+explicitRefresh warms cache and recreated
+failed server stillretainslike. Unknown read status must show warning/actor/Like,
+no unread claim and disabledMark; repair+Refresh exposes1unread, actualMark then
+recreated failed server retainsNoUnread/Like. Obstructions remain owned/empty,
+restoration independent, no alias/private wallet mutation. Source unchanged;
+local fixture/native regression pending. Activity recreation not process death.
+
+Storage regression fixture initialAPK passes. Root strengthens repaired-history
+readiness with completedRefresh plus disappearance of its prior positive warning,
+so a pre-click enabled state cannot trigger outage before successful warming.
+Assertions unchanged. Corrective compilation/first29GREEN17 pending;27GREEN10
+continues independently on earlier cache minimum.

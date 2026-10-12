@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger
 
 class NotificationsPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
-    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING, MISSING_REPOST, MISSING_QUOTE_LIKE, HISTORY, PRUNED, PARTIAL, REJECTED, NULL_HISTORY, READ, READ_SAVE_FAULT, MISSING_REPLY, MISSING_QUOTE, FEED_MENTION, CONTACT, CONTACT_QUOTE, PAGING, CONTACT_CONTINUATION, BACKEND, PARENT_REPLY, CACHE_BUDGET }
+    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING, MISSING_REPOST, MISSING_QUOTE_LIKE, HISTORY, PRUNED, PARTIAL, REJECTED, NULL_HISTORY, READ, READ_SAVE_FAULT, MISSING_REPLY, MISSING_QUOTE, FEED_MENTION, CONTACT, CONTACT_QUOTE, PAGING, CONTACT_CONTINUATION, BACKEND, PARENT_REPLY, CACHE_BUDGET, HISTORY_LOAD_FAULT, READ_LOAD_FAULT }
 
     @Test fun anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile() {
         withNotifications("incoming-like", mode = Mode.LIKE) { actor, _, _ ->
@@ -633,6 +633,74 @@ class NotificationsPreviewTest {
         }
     }
 
+    @Test fun unavailableHistoryPreservesIncomingActivityAndRecoversOnExplicitRefresh() {
+        withNotifications("history-load-fault", Mode.HISTORY_LOAD_FAULT) { actor, scenario, responses ->
+            waitFor("Some notification history could not be read or saved on this phone. Available activity still appears here.")
+            waitFor("1 unread")
+            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
+                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.onNodeWithText(actor).assertIsDisplayed()
+            captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
+                "notification-evidence/history-load-fault.png"), "1 unread")
+            responses.allowHistorySaving()
+            ui.onNodeWithText("Refresh").performClick()
+            ui.waitUntil(15_000) {
+                ui.onAllNodes(hasText("Refresh") and isEnabled())
+                    .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() &&
+                    ui.onAllNodesWithText("Some notification history could not be read or saved on this phone. Available activity still appears here.")
+                        .fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty()
+            }
+            ui.onAllNodesWithText("Some notification history could not be read or saved on this phone. Available activity still appears here.")
+                .assertCountEquals(0)
+            responses.change()
+            scenario.recreate()
+            waitFor("Could not load notifications. Check your connection and try Refresh.")
+            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
+                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.onNodeWithText("1 unread").assertIsDisplayed()
+            ui.onNodeWithText("Liked your post").assertIsDisplayed()
+            ui.onNodeWithText(actor).assertIsDisplayed()
+            ui.onAllNodesWithText("Some notification history could not be read or saved on this phone. Available activity still appears here.")
+                .assertCountEquals(0)
+            captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
+                "notification-evidence/history-load-recovered.png"), "1 unread")
+        }
+    }
+
+    @Test fun unavailableReadStatusKeepsActivityWithoutConfirmingUnreadOrAllowingAMark() {
+        withNotifications("read-load-fault", Mode.READ_LOAD_FAULT) { actor, scenario, responses ->
+            waitFor("Read status could not be read or saved. Available notifications still appear here.")
+            waitFor("Liked your post")
+            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
+                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.onNodeWithText(actor).assertIsDisplayed()
+            ui.onNodeWithText("Mark all as read").assertIsNotEnabled()
+            ui.onAllNodesWithText("No unread activity").assertCountEquals(0)
+            ui.onAllNodesWithText("1 unread").assertCountEquals(0)
+            captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
+                "notification-evidence/read-load-fault.png"), "Liked your post")
+            responses.allowReadSaving()
+            ui.onNodeWithText("Refresh").performClick()
+            waitFor("1 unread")
+            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
+                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.onAllNodesWithText("Read status could not be read or saved. Available notifications still appear here.")
+                .assertCountEquals(0)
+            ui.onNodeWithText("Mark all as read").assertIsEnabled().performClick()
+            waitFor("No unread activity")
+            responses.change()
+            scenario.recreate()
+            waitFor("Could not load notifications. Check your connection and try Refresh.")
+            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
+                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.onNodeWithText("No unread activity").assertIsDisplayed()
+            ui.onNodeWithText("Liked your post").assertIsDisplayed()
+            ui.onNodeWithText(actor).assertIsDisplayed()
+            captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
+                "notification-evidence/read-load-recovered.png"), "No unread activity")
+        }
+    }
+
     private fun missingReferenceJourney(evidenceName: String, mode: Mode, caption: String, ownCaption: String, actorRows: Int, recoveryText: String = "Original recovered after retry") {
         withNotifications(evidenceName, mode) { actor, _, _ ->
             waitFor(caption)
@@ -705,7 +773,7 @@ class NotificationsPreviewTest {
             "conversation.${SaitoBackend.OWNER.id}.${fixture.getAsJsonObject("recoveredOriginal").get("sig").asString}.v1",
             nl.davidengelen.redsquare.feed.PublicStringStore.lock)
         val parentReads = AtomicInteger()
-        val responses = FixtureControl(readFiles)
+        val responses = FixtureControl(readFiles, historyFiles)
         val likeReads = AtomicInteger()
         val replyReads = AtomicInteger()
         val repostReads = AtomicInteger()
@@ -812,7 +880,7 @@ class NotificationsPreviewTest {
                             Mode.MENTION -> "[${fixture.get("incomingMention")},${fixture.get("addressedPost")}]"
                             Mode.USERNAME -> "[${fixture.get("usernameMention")}]"
                             Mode.QUOTE -> "[${fixture.get("legacyQuote")}]"
-                            Mode.LIKE, Mode.REPOST, Mode.MISSING, Mode.MISSING_REPOST, Mode.MISSING_QUOTE_LIKE, Mode.HISTORY, Mode.PRUNED, Mode.NULL_HISTORY, Mode.READ, Mode.READ_SAVE_FAULT, Mode.MISSING_QUOTE, Mode.FEED_MENTION, Mode.CONTACT, Mode.CONTACT_QUOTE, Mode.PAGING, Mode.CONTACT_CONTINUATION, Mode.BACKEND, Mode.PARENT_REPLY, Mode.CACHE_BUDGET -> "[]"
+                            Mode.LIKE, Mode.REPOST, Mode.MISSING, Mode.MISSING_REPOST, Mode.MISSING_QUOTE_LIKE, Mode.HISTORY, Mode.PRUNED, Mode.NULL_HISTORY, Mode.READ, Mode.READ_SAVE_FAULT, Mode.MISSING_QUOTE, Mode.FEED_MENTION, Mode.CONTACT, Mode.CONTACT_QUOTE, Mode.PAGING, Mode.CONTACT_CONTINUATION, Mode.BACKEND, Mode.PARENT_REPLY, Mode.CACHE_BUDGET, Mode.HISTORY_LOAD_FAULT, Mode.READ_LOAD_FAULT -> "[]"
                         }
                     }
                     criteria.get("field5")?.asString == fixture.getAsJsonObject("missingOriginalQuote").get("sig").asString ->
@@ -889,6 +957,8 @@ class NotificationsPreviewTest {
                     .save(fixture.getAsJsonArray("cachedLikes").reversed().map { it.asJsonObject.get("tx").asString })
             }
             readFiles.reset()
+            if (mode == Mode.HISTORY_LOAD_FAULT) historyFiles.blockSaving()
+            if (mode == Mode.READ_LOAD_FAULT) readFiles.blockSaving()
             feedFiles.reset()
             followingFiles.reset()
             personalFiles.reset()
@@ -998,7 +1068,8 @@ class NotificationsPreviewTest {
         }
     }
 
-    private class FixtureControl(private val readFiles: FixtureFiles) {
+    private class FixtureControl(private val readFiles: FixtureFiles, private val historyFiles: FixtureFiles) {
+        fun allowHistorySaving() = historyFiles.allowSaving()
         fun blockReadSaving() = readFiles.blockSaving()
         fun allowReadSaving() = readFiles.allowSaving()
         val followedAvailable = java.util.concurrent.atomic.AtomicBoolean(false)

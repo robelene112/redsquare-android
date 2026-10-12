@@ -495,3 +495,19 @@ assertion and original post-Mark assertions unchanged.
 Zero actionable findings. Pre-Mark recreation/exact150 after completedRefresh
 resolves retained-count gap. Correction build/native pending; original27 run
 cannot prove newly added recreation assertion. No production change.
+
+## Retained cache reader minimum
+
+### Standards
+
+`315ba3a...0ef7b41`: zero hard violations/actionable heuristics. Two-consumer
+reader chunks through existing verified classifiers; merges/300budget unchanged.
+Three RED hashes/rawcounts/original PNG/XML verified.
+
+### Spec
+
+Zero actionable findings. Current quotes enter Retweet input and legacy quotes
+remain create-tweet; available persistence/warnings aggregate across batches.
+27reported/26PASS/one100-versus150failure100.122s/zeroOK/deaths qualified.
+Minimum compile/runtime pending at review. Actual local builderfc4442389352 later
+records exit0; attached143 partial log, no success-duration claim.
