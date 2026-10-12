@@ -40,7 +40,15 @@ Available feed-mention RED was dee4f2a/run38312248859:19reported/18PASS/one
 failure65.408s/zero OK/deaths. Canceled38311968126 and38312894981 are not
 acceptance evidence. Earlier independent quote-original GREEN c0624e0/
 38311318013 passes18/54.526s, with40 hashes. Canonical chronology retains
-all checkpoints. Next slice: actual followed-account activity.
+all checkpoints. Current twentieth CONTACT tracer fb40cab has Android10 RED38313905738:
+19PASS/one missing-Posted failure69.267s/zero OK/deaths/core73. After actual
+Follow confirmation, no activity appears; later gates are unexecuted. b19147d
+fixture correction passes both axes and strengthens Conversation/actual actor
+row. Minimum now passes actual followed accounts, performs initial bounded
+field2 discovery for up to10 accounts, persists verified contact posts and hides
+them after Unfollow. Negative checks wait for completed refresh. Local full
+build/first20GREEN pending. More contacts/older pages/Retweet contact namespace
+remain the next paging slice; this is not whole-ticket acceptance.
 
 Remaining #24 work is finite: supplement followed-account posts, bounded reply discovery/older-page overlap and retry,
 prove mute/block and backend/wallet isolation, actual permission choices and

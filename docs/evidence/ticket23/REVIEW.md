@@ -195,3 +195,7 @@ original feed-mention image independently verified. Initial fixtureAPK1m27PASS.
 Corrections strengthen later navigation gates; run38313905738 may still prove
 the unchanged initial absent-Posted assertion, but its later gates would be
 unexecuted on that RED and must not be claimed as the corrected acceptance.
+
+Corrective `fb40cab...b19147d` clears both axes: explicit Conversation, actual
+followed-row actor and matching thread response. Native38313905738 subsequently
+records genuine missing-Posted RED before those later corrected gates.

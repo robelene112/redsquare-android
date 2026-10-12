@@ -362,13 +362,17 @@ class NotificationsPreviewTest {
 
     @Test fun followingAnAccountDiscoversItsAvailablePostsButVisitingDoesNot() {
         withNotifications("followed-post", Mode.CONTACT) { actor, _, responses ->
-            waitFor("Liked your post")
-            ui.onAllNodesWithText("Posted").assertCountEquals(0)
+            fun assertNoFollowedActivity() {
+                waitFor("Liked your post")
+                ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
+                    .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                ui.onAllNodesWithText("Posted").assertCountEquals(0)
+            }
+            assertNoFollowedActivity()
             ui.onNodeWithText(actor).performClick()
             waitFor("Follow")
             ui.onNodeWithText("Back").performClick()
-            waitFor("Liked your post")
-            ui.onAllNodesWithText("Posted").assertCountEquals(0)
+            assertNoFollowedActivity()
             ui.onNodeWithText(actor).performClick()
             waitFor("Follow")
             ui.onNodeWithText("Follow").performClick()
@@ -391,8 +395,7 @@ class NotificationsPreviewTest {
             ui.onNodeWithText("Unfollow").performClick()
             waitFor("Follow")
             ui.onNodeWithText("Back").performClick()
-            waitFor("Liked your post")
-            ui.onAllNodesWithText("Posted").assertCountEquals(0)
+            assertNoFollowedActivity()
         }
     }
 

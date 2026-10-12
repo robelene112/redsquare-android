@@ -797,3 +797,16 @@ followedpostactor ratherthanfirstexistinglikeactor withsame signer. Exacttwo-row
 assertionunchanged. Controlledfield5knownOtherthread nowreturnsitscorrectpost.
 Initialnative38313905738 continuesunchangedinitialPosted gate; laternavigation
 willbeunexecutedifRED andcannotestablishcorrectedacceptance. No productchange.
+
+Followedfixture correctionfb40cab...b19147d bothaxes0. Genuine20RED10
+38313905738 atfb40cab:20reported/19PASS/1failure69.267s/0OK/deaths/core73/debug/
+test, Postedabsent378afterFollowconfirmation. Threehashes followed-native-red/
+android10/rootoriginalOwner/1unread/Like/noPosted+XML inspected. Latercorrected
+Conversation/Actor/Unfollow gatesunexecuted. Minimum passesactualwalletfollowedSet
+fromFeedScreen, retainscontacts withsameverification/cache/IDmerge/visiblecounts,
+contactpostseligibleonlywhilefollowed; visitsneveraddaccounts. Initialfield2
+reads boundedto10followedaccounts onselectedauthenticatedpeer, per-streamfailure
+containment/explicitrefresh unchanged. Additionalcontacts/olderhistory/Retweet
+contactnamespace remainin-scopefollow-onpaging work, notfinalacceptance. Root
+strengthenedall3negatives towaitcompletedRefresh via local3consumer helper.
+Localcompile/first20GREENpending.

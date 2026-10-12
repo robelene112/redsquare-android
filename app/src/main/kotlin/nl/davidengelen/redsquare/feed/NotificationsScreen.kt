@@ -42,21 +42,23 @@ private fun referenceCaption(owner: String?, target: FeedPost?, recipients: List
 }
 
 private data class NotificationPages(val likes: ArchiveLikePage, val replies: ArchiveFeedPage,
-    val mentions: ArchiveFeedPage, val reposts: ArchiveActionPage, val quotes: List<FeedPost>)
+    val mentions: ArchiveFeedPage, val reposts: ArchiveActionPage, val quotes: List<FeedPost>, val contacts: List<FeedPost>)
 
 private val NotificationPages.ignoredRows: Int
     get() = likes.ignored + replies.ignored + reposts.ignored
 
 private val NotificationPages.envelopes: List<String>
     get() = likes.likes.map { it.envelope } + replies.posts.map { it.envelope } +
-        mentions.posts.map { it.envelope } + reposts.actions.map { it.envelope } + quotes.map { it.envelope }
+        mentions.posts.map { it.envelope } + reposts.actions.map { it.envelope } + quotes.map { it.envelope } + contacts.map { it.envelope }
 
 private fun notificationPages(likes: String, posts: String, retweets: String, owner: String,
-    name: SaitoRegisteredName?, registrar: String): NotificationPages = NotificationPages(
+    name: SaitoRegisteredName?, registrar: String, followed: Set<String>): NotificationPages = NotificationPages(
     RedSquareLikes.readIncoming(likes, owner), RedSquareFeed.readReplies(posts),
     RedSquareFeed.readMentions(posts, owner, name, registrar),
     RedSquareActions.readIncomingReposts(retweets, owner),
-    RedSquareFeed.readIncomingQuotes(retweets, owner).posts + RedSquareFeed.readIncomingQuotes(posts, owner).posts)
+    RedSquareFeed.readIncomingQuotes(retweets, owner).posts + RedSquareFeed.readIncomingQuotes(posts, owner).posts,
+    if (followed.isEmpty()) emptyList() else RedSquareFeed.readSearch(posts).posts
+        .filter { it.author != owner && it.author in followed })
 
 private fun cachedArchive(envelopes: List<String>, requests: Set<String>): String = com.google.gson.JsonArray().apply {
     envelopes.filter { SaitoEnvelope.decode(it).body.get("request").asString in requests }.take(100).forEach { envelope ->
@@ -70,7 +72,7 @@ private fun <T> availableActivity(incoming: List<T>, retained: List<T>, id: (T) 
     .sortedByDescending(createdAt).take(300)
 
 @Composable
-internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend: SaitoBackend, knownPosts: List<FeedPost>,
+internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend: SaitoBackend, knownPosts: List<FeedPost>, followed: Set<String>,
     modifier: Modifier, onBack: () -> Unit, onPost: (FeedPost) -> Unit, onIdentity: (String) -> Unit, onReference: (String) -> Unit) {
     val personal = LocalPersonalControls.current
     val context = LocalContext.current.applicationContext
@@ -80,6 +82,7 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
     var mentions by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf<List<FeedPost>>(emptyList()) }
     var reposts by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf<List<RedSquareAction>>(emptyList()) }
     var quotes by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf<List<FeedPost>>(emptyList()) }
+    var contacts by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf<List<FeedPost>>(emptyList()) }
     val history = remember(wallet?.publicKey, backend) { wallet?.let { NotificationHistoryStore(context, backend, it.publicKey) } }
     val readStore = remember(wallet?.publicKey, backend) { wallet?.let { NotificationReadStore(context, backend, it.publicKey) } }
     val scope = rememberCoroutineScope()
@@ -93,7 +96,7 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
     var ignored by remember(wallet?.publicKey, backend, endpoint) { mutableIntStateOf(0) }
     var refresh by remember { mutableIntStateOf(0) }
     BackHandler(onBack = onBack)
-    LaunchedEffect(wallet, backend, endpoint, knownPosts, refresh) {
+    LaunchedEffect(wallet, backend, endpoint, knownPosts, followed, refresh) {
         if (wallet == null) return@LaunchedEffect
         loading = true
         // A background feed update must not overwrite an in-flight verified mark commit.
@@ -116,6 +119,7 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
             mentions = availableActivity(pages.mentions.posts, mentions, { it.id }, { it.createdAt })
             reposts = availableActivity(pages.reposts.actions, reposts, { it.id }, { it.createdAt })
             quotes = availableActivity(pages.quotes, quotes, { it.id }, { it.createdAt })
+            contacts = availableActivity(pages.contacts, contacts, { it.id }, { it.createdAt })
             ignored = pages.ignoredRows
         }
         val saved = withContext(Dispatchers.IO) { history!!.load() }
@@ -123,12 +127,12 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
         val cached = withContext(Dispatchers.IO) {
             notificationPages(cachedArchive(saved.envelopes, setOf("like tweet")),
                 cachedArchive(saved.envelopes, setOf("create tweet")), cachedArchive(saved.envelopes, setOf("retweet")),
-                wallet.publicKey, name, registrar)
+                wallet.publicKey, name, registrar, followed)
         }
         publish(cached)
         val available = withContext(Dispatchers.IO) {
             notificationPages("[]", cachedArchive(knownPosts.map { it.envelope }, setOf("create tweet", "retweet")),
-                "[]", wallet.publicKey, name, registrar)
+                "[]", wallet.publicKey, name, registrar, followed)
         }
         publish(available)
         if (available.envelopes.isNotEmpty()) {
@@ -139,22 +143,26 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
         try {
             val pages = withContext(Dispatchers.IO) {
                 SaitoPeer(wallet, endpoint).use { peer ->
-                    suspend fun read(kind: String): String {
+                    suspend fun read(kind: String, author: String?): String {
                         val criteria = JsonObject().apply {
                             addProperty("request", "load"); addProperty("field1", kind)
-                            addProperty("field3", wallet.publicKey); addProperty("flagged_ne", 1)
+                            if (author == null) addProperty("field3", wallet.publicKey) else addProperty("field2", author)
+                            addProperty("flagged_ne", 1)
                             addProperty("limit", 100); addProperty("created_earlier_than", System.currentTimeMillis() + 1)
                         }
                         val request = JsonObject().apply { addProperty("request", "archive"); add("data", criteria) }
                         return peer.request(request.toString().toByteArray(Charsets.UTF_8)).toString(Charsets.UTF_8)
                     }
                     coroutineScope {
-                        listOf("RedSquareLike", "RedSquare", "RedSquareRetweet").map { kind -> async {
+                        // Bound the initial contact batch. Older activity and remaining contacts are separate pages.
+                        val streams = listOf("RedSquareLike" to null, "RedSquare" to null, "RedSquareRetweet" to null) +
+                            followed.sorted().take(10).map { "RedSquare" to it }
+                        streams.map { (kind, author) -> async {
                             try {
-                                val response = read(kind)
+                                val response = read(kind, author)
                                 notificationPages(if (kind == "RedSquareLike") response else "[]",
                                     if (kind == "RedSquare") response else "[]",
-                                    if (kind == "RedSquareRetweet") response else "[]", wallet.publicKey, name, registrar)
+                                    if (kind == "RedSquareRetweet") response else "[]", wallet.publicKey, name, registrar, followed)
                             } catch (_: Exception) {
                                 // A request's own deadline is a read failure. Parent cancellation must propagate.
                                 currentCoroutineContext().ensureActive()
@@ -215,8 +223,11 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
                 NotificationRow(reply.id, reply.author, reply.createdAt, reply, caption)
             }
         }
+        val contactRows = contacts.filter { it.author in followed }.map { post ->
+            NotificationRow(post.id, post.author, post.createdAt, post, R.string.notifications_posted)
+        }
         val rows = (quoteRows + repostRows + likeRows + replyRows +
-            mentions.map { mention -> NotificationRow(mention.id, mention.author, mention.createdAt, mention, R.string.notifications_mention) })
+            mentions.map { mention -> NotificationRow(mention.id, mention.author, mention.createdAt, mention, R.string.notifications_mention) } + contactRows)
             .distinctBy { it.id }
         val visible = rows.filter { personal?.hidesPosts(it.author) == false }.sortedByDescending { it.createdAt }
         val unread = visible.count { it.id !in readIds }
