@@ -180,10 +180,13 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
                 NotificationRow(event.id, event.author, event.createdAt, target, caption, event.target)
             }
         }
-        val quoteRows = quotes.filter { quote ->
-            quote.quoted?.author == wallet?.publicKey ||
-                knownPosts.any { it.id == quote.quoteTarget && it.author == wallet?.publicKey }
-        }.map { quote -> NotificationRow(quote.id, quote.author, quote.createdAt, quote, R.string.notifications_quote_own) }
+        val quoteRows = quotes.mapNotNull { quote ->
+            val target = quote.quoted ?: knownPosts.firstOrNull { it.id == quote.quoteTarget }
+            referenceCaption(wallet?.publicKey, target, quote.recipients,
+                R.string.notifications_quote_own, R.string.notifications_quote)?.let { caption ->
+                NotificationRow(quote.id, quote.author, quote.createdAt, quote, caption)
+            }
+        }
         val likeRows = events.mapNotNull { event ->
             val target = knownPosts.firstOrNull { it.id == event.target }
             referenceCaption(wallet?.publicKey, target, event.recipients,
