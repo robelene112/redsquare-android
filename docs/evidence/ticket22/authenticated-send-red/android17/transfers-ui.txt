@@ -1,0 +1,79 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.WalletTransferPreviewTest:
+INSTRUMENTATION_STATUS: test=onlinePaymentRequiresReviewedAmountsThenRealDeviceAuthenticationAndRemainsPending
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Action performScrollTo() failed.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (Text + InputText + EditableText contains 'Send SAITO' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:80)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.onlinePaymentRequiresReviewedAmountsThenRealDeviceAuthenticationAndRemainsPending$lambda$12$lambda$11$lambda$10$lambda$9(WalletTransferPreviewTest.kt:79)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$osQo2xadwc7ZI86KnqeYdLhkCHI(WalletTransferPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.onlinePaymentRequiresReviewedAmountsThenRealDeviceAuthenticationAndRemainsPending(WalletTransferPreviewTest.kt:77)
+
+INSTRUMENTATION_STATUS: stream=
+Error in onlinePaymentRequiresReviewedAmountsThenRealDeviceAuthenticationAndRemainsPending(nl.davidengelen.redsquare.WalletTransferPreviewTest):
+java.lang.AssertionError: Action performScrollTo() failed.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (Text + InputText + EditableText contains 'Send SAITO' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:80)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.onlinePaymentRequiresReviewedAmountsThenRealDeviceAuthenticationAndRemainsPending$lambda$12$lambda$11$lambda$10$lambda$9(WalletTransferPreviewTest.kt:79)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$osQo2xadwc7ZI86KnqeYdLhkCHI(WalletTransferPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.onlinePaymentRequiresReviewedAmountsThenRealDeviceAuthenticationAndRemainsPending(WalletTransferPreviewTest.kt:77)
+
+INSTRUMENTATION_STATUS: test=onlinePaymentRequiresReviewedAmountsThenRealDeviceAuthenticationAndRemainsPending
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=selectedServerBalanceAndReceivingAddressCanBeViewedAndCopied
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=selectedServerBalanceAndReceivingAddressCanBeViewedAndCopied
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 20.268
+There was 1 failure:
+1) onlinePaymentRequiresReviewedAmountsThenRealDeviceAuthenticationAndRemainsPending(nl.davidengelen.redsquare.WalletTransferPreviewTest)
+java.lang.AssertionError: Action performScrollTo() failed.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (Text + InputText + EditableText contains 'Send SAITO' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:80)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.onlinePaymentRequiresReviewedAmountsThenRealDeviceAuthenticationAndRemainsPending$lambda$12$lambda$11$lambda$10$lambda$9(WalletTransferPreviewTest.kt:79)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$osQo2xadwc7ZI86KnqeYdLhkCHI(WalletTransferPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.onlinePaymentRequiresReviewedAmountsThenRealDeviceAuthenticationAndRemainsPending(WalletTransferPreviewTest.kt:77)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

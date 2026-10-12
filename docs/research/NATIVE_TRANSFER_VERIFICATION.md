@@ -69,5 +69,24 @@ Constructor review: Spec0; Standards no hard breaches, two improvements (shared
 Normal serialization, early oversized-memo guard). Both are implemented. Slip
 lists also become defensive/unmodifiable. After fixes all57 core tests pass,
 0 failures/errors/skips (49s), including all existing independent zero-payment
-vectors. Bounded source-fix/restoration reviews are pending. No authenticated
+vectors. Bounded source-fix/restoration reviews both report 0 findings. No authenticated
 Android send or whole-ticket acceptance is inferred.
+
+## Reviewed authentication/send first Android cycle
+
+Focused Android17 run38186051050 at610b608 passes core57/source/debug/test
+assembly and the retained balance case, then fails at the missing Send SAITO
+native action (2 cases,1 failure,20.268s). Root viewed the original PNG and
+separately parsed its XML. Evidence: ticket22/authenticated-send-red/android17.
+This is a behavior RED, not a fixture/compilation failure.
+
+The minimal implementation adds a foreground review, live funding and peer
+readiness, real device authentication, selected-wallet/backend checks at physical
+socket enqueue, and encrypted wallet-wide pending reservations. Signed candidates
+are saved and read back before transmission. Saving or sending uncertainty never
+releases an input. The two-file creation guard fails closed on partial storage;
+records are bounded and never silently truncated. Import treats retained or
+unreadable transfer state as outgoing pending/unknown work. Socket enqueue does
+not prove inclusion. No automatic monetary resend or offline queue exists.
+Native GREEN, independent verification of its actual emitted frame, cancellation,
+recovery/retry, inclusion and final acceptance are still pending.

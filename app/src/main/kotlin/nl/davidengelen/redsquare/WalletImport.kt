@@ -134,7 +134,8 @@ class WalletImport(
                         .onUnmappableCharacter(CodingErrorAction.REPORT)
                         .decode(ByteBuffer.wrap(buffer, 0, size)).toString()
                     var nativeWork = try {
-                        SaitoBackend.entries.any { backend ->
+                        nl.davidengelen.redsquare.saito.TransferStore(activity.applicationContext,
+                            operation.original.publicKey).pending().isNotEmpty() || SaitoBackend.entries.any { backend ->
                             nl.davidengelen.redsquare.feed.PostDraftStore.authorWork(activity.applicationContext,
                                 operation.original.publicKey, backend).isNotEmpty() ||
                                 nl.davidengelen.redsquare.feed.ProfileDraftStore(activity.applicationContext,

@@ -9,6 +9,8 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.net.URI
 import java.util.concurrent.TimeUnit
+import com.google.gson.JsonParser
+import java.math.BigInteger
 
 /** Public, bounded selected-host lookup. No private options or fallback peer. */
 class WalletBalances private constructor(private val endpoint: (SaitoBackend) -> String) {
@@ -22,9 +24,35 @@ class WalletBalances private constructor(private val endpoint: (SaitoBackend) ->
 
     fun read(backend: SaitoBackend, publicKey: String): SaitoBalanceSnapshot? = try {
         require(SaitoWallet.isPublicKey(publicKey))
-        val request = Request.Builder().url(endpoint(backend) + publicKey)
-            .header("Cache-Control", "no-cache, no-store").header("Accept", "text/plain").build()
-        client.newCall(request).execute().use { response ->
+        fetch(endpoint(backend) + publicKey)?.let {
+            SaitoBalanceSnapshot.parse(it, publicKey, System.currentTimeMillis())
+        }
+    } catch (_: Exception) { null }
+
+    /** Read only the selected host's public consensus retention setting. */
+    fun funding(backend: SaitoBackend, publicKey: String): Funding? = try {
+        val options = requireNotNull(fetch(endpoint(backend).removeSuffix("balance/") + "options"))
+        val value = JsonParser.parseString(options.toString(Charsets.UTF_8)).asJsonObject
+            .getAsJsonObject("consensus").get("genesis_period")
+        require(value.isJsonPrimitive && value.asJsonPrimitive.isNumber)
+        require(value.asString.matches(Regex("[0-9]{1,20}")))
+        val period = BigInteger(value.asString)
+        require(period.signum() > 0 && period.bitLength() <= 64)
+        Funding(requireNotNull(read(backend, publicKey)), period)
+    } catch (_: Exception) { null }
+
+    data class Funding(val snapshot: SaitoBalanceSnapshot, val genesisPeriod: BigInteger) {
+        val eligible: List<SaitoBalanceSnapshot.Slip> get() {
+            val minimum = if (snapshot.height > genesisPeriod) snapshot.height - genesisPeriod + BigInteger.TWO
+                else BigInteger.ONE
+            return snapshot.slips.filter { it.block >= minimum && it.amount.signum() > 0 && it.type in setOf(0, 1, 5, 7) }
+        }
+    }
+
+    private fun fetch(url: String): ByteArray? {
+        val request = Request.Builder().url(url)
+            .header("Cache-Control", "no-cache, no-store").build()
+        return client.newCall(request).execute().use { response ->
             if (!response.isSuccessful) return@use null
             val buffer = ByteArray(ImportBalance.MAX_SNAPSHOT_BYTES + 1)
             val count = response.body.byteStream().use { stream ->
@@ -37,10 +65,9 @@ class WalletBalances private constructor(private val endpoint: (SaitoBackend) ->
                 }
                 size
             }
-            if (count > ImportBalance.MAX_SNAPSHOT_BYTES) null
-            else SaitoBalanceSnapshot.parse(buffer.copyOf(count), publicKey, System.currentTimeMillis())
+            if (count > ImportBalance.MAX_SNAPSHOT_BYTES) null else buffer.copyOf(count)
         }
-    } catch (_: Exception) { null }
+    }
 
     companion object {
         fun fromIntent(intent: Intent) = WalletBalances { backend ->

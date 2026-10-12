@@ -104,6 +104,7 @@ class MainActivity : ComponentActivity() {
             var retry by remember { mutableIntStateOf(0) }
             var walletOpen by remember { mutableStateOf(false) }
             var walletBalanceOpen by remember { mutableStateOf(false) }
+            var walletTransferOpen by remember { mutableStateOf(false) }
             var recoveryGuideOpen by remember { mutableStateOf(false) }
             val backupReminders = remember { getSharedPreferences("wallet-backup-reminders", MODE_PRIVATE) }
             var backupReminder by remember { mutableStateOf(false) }
@@ -404,6 +405,8 @@ class MainActivity : ComponentActivity() {
                                     onClick = { walletBalanceOpen = true }) {
                                     Text(stringResource(R.string.wallet_balance_receive))
                                 }
+                                TextButton(enabled = wallet != null && backend != null && !walletExport.busy && !walletImport.busy,
+                                    onClick = { walletTransferOpen = true }) { Text(stringResource(R.string.transfer_send)) }
                                 TextButton(onClick = { recoveryGuideOpen = true }) { Text(stringResource(R.string.wallet_recovery_guide)) }
                             }
                         },
@@ -414,6 +417,13 @@ class MainActivity : ComponentActivity() {
                     )
                     if (walletBalanceOpen && address != null) WalletBalanceDialog(address!!, backend, balances) {
                         walletBalanceOpen = false
+                    }
+                    if (walletTransferOpen && wallet != null && backend != null) {
+                        val transfers = remember(wallet, backend) {
+                            WalletTransfers(this@MainActivity, wallet!!, backend!!, { wallet }, { backend }, balances,
+                                FeedEndpoints.fromIntent(intent, backend!!))
+                        }
+                        WalletTransferDialog(transfers) { walletTransferOpen = false }
                     }
                     if (recoveryGuideOpen) AlertDialog(
                         onDismissRequest = { recoveryGuideOpen = false },

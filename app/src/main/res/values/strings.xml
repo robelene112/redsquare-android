@@ -313,4 +313,27 @@
     <string name="report_loading">Opening report details for %1$s...</string>
     <string name="report_save_error">Report could not be saved. Nothing new was sent to %1$s. Try again.</string>
     <string name="report_receipt_save_error">Report details could not be saved on this phone. Reopening may show delivery unknown.</string>
+    <string name="transfer_send">Send SAITO</string>
+    <string name="transfer_confirm">Confirm SAITO transfer</string>
+    <string name="transfer_recipient">Recipient address</string>
+    <string name="transfer_amount">Amount in SAITO</string>
+    <string name="transfer_fee">Fee in SAITO</string>
+    <string name="transfer_memo">Public memo</string>
+    <string name="transfer_review">Review transfer</string>
+    <string name="transfer_recipient_review">Recipient: %1$s</string>
+    <string name="transfer_amount_review">Amount: %1$s SAITO</string>
+    <string name="transfer_fee_review">Fee: %1$s SAITO</string>
+    <string name="transfer_backend_review">Send through %1$s</string>
+    <string name="transfer_memo_review">Memo: %1$s</string>
+    <string name="transfer_public_warning">The recipient, amount and memo are public. Sending requires a live connection. A fee does not guarantee inclusion.</string>
+    <string name="transfer_auth_send">Authenticate and send</string>
+    <string name="transfer_auth_title">Send SAITO</string>
+    <string name="transfer_auth_subtitle">Authenticate this reviewed transfer with your screen lock or biometrics.</string>
+    <string name="transfer_pending">Pending. Inclusion has not been verified.</string>
+    <string name="transfer_pending_backend">Transfer server: %1$s.</string>
+    <string name="transfer_available">Available to send: %1$s SAITO</string>
+    <string name="transfer_storage_unavailable">Transfer records need recovery. Available funds are unknown. Nothing new can be sent until these records are recovered.</string>
+    <string name="transfer_review_failed">Could not review this transfer. Check the recipient, amount, fee and available funds, then try again with a live connection.</string>
+    <string name="transfer_send_failed">Transfer was not submitted. Review again when the selected server is available.</string>
+    <string name="transfer_cancelled">Transfer cancelled before sending.</string>
 </resources>

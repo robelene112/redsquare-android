@@ -123,9 +123,17 @@ class SaitoPeer(private val wallet: SaitoWallet, endpoint: String) : Closeable {
     }
 
     /** Local socket enqueue only. This protocol provides no per-post acknowledgement. */
-    suspend fun submit(transaction: SaitoTransaction) = withTimeout(12_000) {
+    suspend fun submit(transaction: SaitoTransaction, beforeSend: (() -> Unit)? = null) = withTimeout(12_000) {
         authenticate()
-        send(socket, transaction.broadcast(wallet, requireNotNull(identifiedKey)))
+        val bytes = transaction.broadcast(wallet, requireNotNull(identifiedKey))
+        val job = currentCoroutineContext().job
+        if (beforeSend == null) send(socket, bytes)
+        else synchronized(SaitoLocalState.lock) {
+            job.ensureActive()
+            beforeSend()
+            job.ensureActive()
+            send(socket, bytes)
+        }
     }
 
     /** Establish readiness before making a durable operation non-cancellable. */

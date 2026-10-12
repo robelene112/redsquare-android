@@ -1,0 +1,1 @@
+Focused Android17 run38186051050 at610b608. Core57, source/debug/test assembly passed. Two native cases: balance/receive PASS, authenticated send RED at the missing Send SAITO action (20.268s total). Root viewed the original failure PNG and separately parsed XML. No sender, authentication, reservation or inclusion acceptance is inferred.

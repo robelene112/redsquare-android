@@ -1,6 +1,6 @@
 # Sequential implementation handoff
 
-Updated 2026-10-11. The owner authorized implementing all 35 proposed
+Updated 2026-10-12. The owner authorized implementing all 35 proposed
 tickets sequentially, committing after each, and reviewing the app at the end.
 Continue without routine permission requests or a grill per ticket. Ask only
 one question at a time when a material choice really needs the owner.
@@ -19,7 +19,11 @@ The independent funded WASM/Elliptic vector and native constructor also pass;
 zero-payment restore remains strict. Current evidence: ticket22/balance-green
 and ticket22/payment-reference. Funded restoration and shared-serializer review
 fixes now pass all57 core tests (0 failures/errors/skips); see ticket22/payment-restore.
-Their bounded source reviews are pending.
+Their bounded source reviews both report0 findings.
+The next authenticated native send case has a genuine missing-action RED38186051050
+at610b608 (balance regression passes); minimal source is being built. See
+ticket22/authenticated-send-red/android17. Native GREEN and recovery/inclusion
+are pending.
 Payments and their recovery, compatibility and final acceptance remain unfinished.
 
 Profile #18 is closed, final evidence commit ed5742f pushed. Eighteen of35 tickets
@@ -129,11 +133,11 @@ for the full qualified chronology. Whole source and bounded focused reviews are
 clear. Both final full Android17 and Android10 acceptance passed, as recorded below.
 
 Completed final acceptance runs and earlier fixture interruptions are below. Preserve the
-seven future research files; continue one ticket at a time. No new phone APK.
+six future research files; continue one ticket at a time. No new phone APK.
 
 Protected future untracked: build-support/references/private-chat-reference.cjs;
 NATIVE_NOTIFICATIONS_CONTRACT,
-NATIVE_SAITO_TRANSFER_CONTRACT, NATIVE_PRIVATE_CHAT_CONTRACT,
+NATIVE_PRIVATE_CHAT_CONTRACT,
 NATIVE_GROUP_CHAT_CONTRACT, NATIVE_PRIVATE_CHAT_REFERENCE(.json/.md).
 Include only the relevant research with its ticket. Review agents inspect only;
 never run parallel implementation/CI dispatch or claim another ticket.
