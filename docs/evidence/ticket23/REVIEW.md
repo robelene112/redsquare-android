@@ -407,3 +407,17 @@ Zero actionable findings. Earlier capture/navigation readiness issues resolved;
 shared-ID/positive-retained-content assertions unchanged. Corrective APK1m31PASS;
 native38321167424 pending. Initial25failure is correctly qualified as helper
 navigation mismatch; later failure/shared-ID gates not proved by that run.
+
+## Parent-index reply tracer
+
+### Standards
+
+`48bc74c...48a92fb`: zero hard violations/actionable heuristics. Same fixture
+restoration and fixed unsafe signer guard; reference37880/hash03bba...73582 matches.
+
+### Spec
+
+One proof gap: verify field4 request before opening Conversation so its field5
+response cannot obscure discovery. Root adds a positive external Archive counter
+before the click; UI/count/navigation assertions unchanged. Tracer APK1m30PASS;
+original26RED17 run38321369124 pending, corrective fixture build pending.

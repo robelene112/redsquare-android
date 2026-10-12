@@ -975,3 +975,9 @@ SHA03bba5b6339960a3b8afa03ab2867ad1275ed2edb77b80eaa063d038f8773582
 identical3copies, pinned offlineWASM/Elliptic checks/fixed1–4 signer allowlist.
 Accepted native/Archive/protocol seams; genuine26RED/compile pending. No production
 source change yet. Parent-index discovery is bounded available-history work.
+
+Parent tracer48a92fb localAPK1m30PASS; Standards0/Spec1missing positive field4
+request observation before Conversation. Root adds a dedicated external request
+counter/positive pre-click assertion; conversationfield5response stays available.
+Original26RED17 run38321369124 stillfailsat earlierreplygateifRED, cannotprove
+corrected counter. Corrective fixture build pending. No production changes.

@@ -586,10 +586,12 @@ class NotificationsPreviewTest {
     }
 
     @Test fun repliesToKnownOwnPostsAreFoundWhenTheRecipientIndexBelongsToAnotherAccount() {
-        withNotifications("parent-indexed-reply", Mode.PARENT_REPLY) { actor, _, _ ->
+        withNotifications("parent-indexed-reply", Mode.PARENT_REPLY) { actor, _, responses ->
             waitFor("Replied to your post")
             waitFor("2 unread")
             ui.onAllNodesWithText("Replied to your post").assertCountEquals(1)
+            assertTrue("Notification discovery must read the own-post parent index before Conversation",
+                responses.parentIndexedReads.get() > 0)
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
                 "notification-evidence/parent-indexed-reply.png"), "Replied to your post")
             ui.onNodeWithText("Replied to your post").assertIsDisplayed().performClick()
@@ -797,6 +799,7 @@ class NotificationsPreviewTest {
                     criteria.get("field5")?.asString == fixture.getAsJsonObject("incomingMention").get("sig").asString ->
                         "[${fixture.get("incomingMention")}]"
                     mode == Mode.PARENT_REPLY && criteria.get("field4")?.asString == root.get("sig").asString -> {
+                        responses.parentIndexedReads.incrementAndGet()
                         require(criteria.get("flagged_ne").asInt == 1 && criteria.get("limit").asInt == 100)
                         "[${fixture.get("parentIndexedReply")}]"
                     }
@@ -972,6 +975,7 @@ class NotificationsPreviewTest {
         val changed = java.util.concurrent.atomic.AtomicBoolean(false)
         val ownerReads = AtomicInteger()
         val olderReads = AtomicInteger()
+        val parentIndexedReads = AtomicInteger()
         fun change() { changed.set(true) }
     }
 
