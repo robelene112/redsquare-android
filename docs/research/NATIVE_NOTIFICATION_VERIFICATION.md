@@ -1066,3 +1066,12 @@ postMarkrecreation/retainedLikes+NoUnread/all26old/finalopaque/no-write pass.
 70hashes/all34XML/rootthreeoriginalcacheBudgetPNGs inspected. Bothminimumaxes0/
 actualbuilderfc4442389352 exit0 qualifyattached143partiallog/no durationclaim.
 Source cache correction complete; actualdeath/finalfullSDK acceptance pending.
+
+Storage regression correctiveAPK1m36PASS; both axes0,29GREEN17 pending.
+Native regression30 uses independent existing Like/Reply/boundaryLike references:
+first malformedLikes+healthyReply yields1unread. Actual More retriesfailedLike
+without rereading exhausted healthyOwnerReply, retainsreply/2unread/clearswarning.
+Explicit Refresh releases previously unavailable old-timestamp actor4 event,
+requires fresh-bound request/healthy-stream reread/3unread/two dedupedLikes+Reply/
+actualActorProfile. Public Archive counters supplement primary visible flow;
+no private cursor assertions. No reference/production change; compile/native pending.

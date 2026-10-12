@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger
 
 class NotificationsPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
-    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING, MISSING_REPOST, MISSING_QUOTE_LIKE, HISTORY, PRUNED, PARTIAL, REJECTED, NULL_HISTORY, READ, READ_SAVE_FAULT, MISSING_REPLY, MISSING_QUOTE, FEED_MENTION, CONTACT, CONTACT_QUOTE, PAGING, CONTACT_CONTINUATION, BACKEND, PARENT_REPLY, CACHE_BUDGET, HISTORY_LOAD_FAULT, READ_LOAD_FAULT }
+    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING, MISSING_REPOST, MISSING_QUOTE_LIKE, HISTORY, PRUNED, PARTIAL, REJECTED, NULL_HISTORY, READ, READ_SAVE_FAULT, MISSING_REPLY, MISSING_QUOTE, FEED_MENTION, CONTACT, CONTACT_QUOTE, PAGING, CONTACT_CONTINUATION, BACKEND, PARENT_REPLY, CACHE_BUDGET, HISTORY_LOAD_FAULT, READ_LOAD_FAULT, RETRY }
 
     @Test fun anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile() {
         withNotifications("incoming-like", mode = Mode.LIKE) { actor, _, _ ->
@@ -701,6 +701,49 @@ class NotificationsPreviewTest {
         }
     }
 
+    @Test fun failedStreamsRetryWithoutDroppingHealthyActivityAndRefreshFindsLateEvents() {
+        val lateActor = InstrumentationRegistry.getInstrumentation().context.assets
+            .open("native-notification-reference.json").bufferedReader().use {
+                JsonParser.parseReader(it).asJsonObject.getAsJsonObject("boundaryIncomingLike").get("field2").asString
+            }
+        withNotifications("stream-retry", Mode.RETRY) { _, _, responses ->
+            waitFor("Could not load notifications. Check your connection and try Refresh.")
+            waitFor("Replied to your post")
+            waitFor("1 unread")
+            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
+                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            val healthyReads = responses.healthyReplyReads.get()
+            assertTrue("The healthy reply stream must have been read", healthyReads > 0)
+            responses.change()
+            ui.onNodeWithText("Load more activity").assertIsEnabled().performClick()
+            waitFor("2 unread")
+            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
+                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.onAllNodesWithText("Could not load notifications. Check your connection and try Refresh.")
+                .assertCountEquals(0)
+            ui.onNodeWithText("Replied to your post").assertIsDisplayed()
+            ui.onNodeWithText("Liked your post").assertIsDisplayed()
+            assertTrue("The failed stream must be retried", responses.ownerReads.get() > 0)
+            assertEquals("Retry must not reread an exhausted healthy reply stream", healthyReads,
+                responses.healthyReplyReads.get())
+            responses.makeLateActivityAvailable()
+            ui.onNodeWithText("Refresh").performClick()
+            waitFor("3 unread")
+            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
+                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            assertTrue("Fresh Refresh must check healthy streams again", responses.healthyReplyReads.get() > healthyReads)
+            ui.onAllNodesWithText("Liked your post").assertCountEquals(2)
+            ui.onAllNodesWithText("Replied to your post").assertCountEquals(1)
+            ui.onNode(hasScrollAction()).performScrollToNode(hasText(lateActor))
+            ui.onNodeWithText(lateActor).assertIsDisplayed()
+            captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
+                "notification-evidence/stream-retry-late.png"), "3 unread")
+            ui.onNodeWithText(lateActor).performClick()
+            waitFor("Profile")
+            ui.onNodeWithText(lateActor).assertIsDisplayed()
+        }
+    }
+
     private fun missingReferenceJourney(evidenceName: String, mode: Mode, caption: String, ownCaption: String, actorRows: Int, recoveryText: String = "Original recovered after retry") {
         withNotifications(evidenceName, mode) { actor, _, _ ->
             waitFor(caption)
@@ -812,7 +855,7 @@ class NotificationsPreviewTest {
                 else -> error("Unexpected Registry fixture request")
             }
         }, archiveResponse = { criteria ->
-            if (responses.changed.get()) {
+            if (responses.changed.get() && mode != Mode.RETRY) {
                 if (criteria.get("field1")?.asString == "RedSquareLike" && criteria.get("field3")?.asString == owner) {
                     require(criteria.get("flagged_ne").asInt == 1 && criteria.get("limit").asInt in 1..100)
                     responses.ownerReads.incrementAndGet()
@@ -825,6 +868,13 @@ class NotificationsPreviewTest {
                     require(criteria.get("limit").asInt in 1..100)
                     likeReads.incrementAndGet()
                     when (mode) {
+                        Mode.RETRY -> if (!responses.changed.get()) "invalid likes response" else {
+                            require(criteria.get("created_earlier_than").asLong > 1700000000050L)
+                            responses.ownerReads.incrementAndGet()
+                            if (responses.lateAvailable.get())
+                                "[${fixture.get("incomingLike")},${fixture.get("boundaryIncomingLike")},${fixture.get("incomingLike")}]"
+                            else "[${fixture.get("incomingLike")}]"
+                        }
                         Mode.CACHE_BUDGET -> "[]"
                         Mode.BACKEND -> "[${fixture.get("incomingLike")},${fixture.get("olderIncomingLike")}]"
                         Mode.PAGING -> {
@@ -875,6 +925,10 @@ class NotificationsPreviewTest {
                         when (mode) {
                             Mode.REPLY -> "[${fixture.get("incomingReply")},${fixture.get("parentedQuote")}]"
                             Mode.MISSING_REPLY -> "[${fixture.get("missingOriginalReply")},${fixture.get("knownOtherReply")}]"
+                            Mode.RETRY -> {
+                                responses.healthyReplyReads.incrementAndGet()
+                                "[${fixture.get("incomingReply")}]"
+                            }
                             Mode.PARTIAL -> "[${fixture.get("incomingReply")}]"
                             Mode.REJECTED -> "[${fixture.get("incomingReply")},${fixture.get("incomingReply")}]"
                             Mode.MENTION -> "[${fixture.get("incomingMention")},${fixture.get("addressedPost")}]"
@@ -1079,6 +1133,9 @@ class NotificationsPreviewTest {
         val ownerReads = AtomicInteger()
         val olderReads = AtomicInteger()
         val parentIndexedReads = AtomicInteger()
+        val healthyReplyReads = AtomicInteger()
+        val lateAvailable = java.util.concurrent.atomic.AtomicBoolean(false)
+        fun makeLateActivityAvailable() { lateAvailable.set(true) }
         fun change() { changed.set(true) }
     }
 
