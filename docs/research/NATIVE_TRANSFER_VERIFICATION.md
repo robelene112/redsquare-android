@@ -331,3 +331,12 @@ positive+orphan2PASS28s. Eight hashes in chain-reference-first. Public observer
 limits16blocks/32MiB; unknown on missing/malformed/mismatching coverage, no
 negative transaction result or reservation release. HTTP elapsed/per-body bounds,
 Android status/reorg/persistence and complete acceptance remain separate.
+
+Both bounded ancestry/helper/handoff reviews at8035be7 are clear; sourcepush
+38195258684 passes release/lint/core62. Next seam2 prior-inclusion check uses
+independent Fee-only alternate at covered height2000002/hash66e1534d... and
+signed child2000003/hash34a627c2... . Compiled missing-check RED3cases/1failure47s
+->minimalGREEN3PASS35s. Sole subsequent existing-policy missing-parent regression
+returns UNKNOWN; all4PASS28s. Eight hashes in chain-reorganization. No old-height
+coverage means no reorg claim; no unreserve/automatic send. HTTP time/body bounds,
+durable Android status and whole acceptance remain pending. Review is pending.

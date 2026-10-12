@@ -98,6 +98,26 @@ assert(Buffer.from(tipAgain.serialize()).equals(tipBytes));assert.equal(tipBytes
 assert.equal(tipAgain.previous_block_hash,oddHash);assert.equal(tipAgain.id,2000003n);
 assert.equal(tipAgain.hash,tipHash);
 assert.equal(tipHash,'bf72deac4b8c7dae48258dd2f4c7e4c3f13ed986e27da7650abdf573027579ba');
+// An independently signed alternative at the same covered height omits the payment.
+const alternateSeedHeader=Buffer.from(header);alternateSeedHeader.fill(0,85,181);
+const alternateBlock=new wasm.WasmBlock();assert.equal(alternateBlock.deserialize(Buffer.concat([alternateSeedHeader,feeBytes])),'');
+const alternateHeader=Buffer.from(alternateBlock.serialize()).subarray(0,389);
+const {hash:alternateHash}=signHeader(alternateHeader);
+const alternateBytes=Buffer.concat([alternateHeader,feeBytes]);
+const alternateAgain=new wasm.WasmBlock();assert.equal(alternateAgain.deserialize(alternateBytes),'');
+assert(Buffer.from(alternateAgain.serialize()).equals(alternateBytes));assert.equal(alternateAgain.id,2000002n);
+assert.equal(alternateAgain.hash,alternateHash);assert.notEqual(alternateHash,oddHash);
+assert.equal(alternateHash,'66e1534d013a39ec151e42f14ca2f314e54d7c63650acdceb7261b54637e3438');
+assert.equal(alternateAgain.previous_block_hash,'ab'.repeat(32));
+const alternateTipSeedHeader=Buffer.from(tipSeedHeader);Buffer.from(alternateHash,'hex').copy(alternateTipSeedHeader,20);
+const alternateTipBlock=new wasm.WasmBlock();assert.equal(alternateTipBlock.deserialize(Buffer.concat([alternateTipSeedHeader,feeBytes])),'');
+const alternateTipHeader=Buffer.from(alternateTipBlock.serialize()).subarray(0,389);
+const {hash:alternateTipHash}=signHeader(alternateTipHeader);
+const alternateTipBytes=Buffer.concat([alternateTipHeader,feeBytes]);
+const alternateTipAgain=new wasm.WasmBlock();assert.equal(alternateTipAgain.deserialize(alternateTipBytes),'');
+assert(Buffer.from(alternateTipAgain.serialize()).equals(alternateTipBytes));assert.equal(alternateTipAgain.id,2000003n);
+assert.equal(alternateTipAgain.hash,alternateTipHash);assert.equal(alternateTipAgain.previous_block_hash,alternateHash);
+assert.equal(alternateTipHash,'34a627c2eb1307a95ac0227db3aac8961eec5a085b04771b40aa545ac00bec24');
 process.stdout.write(JSON.stringify({synthetic:true,reference,
  boundary:'Full-block framing, creator/header identity and exact payment bytes only, not consensus admission, current chain membership or finality',
  block:{id:'2000002',timestamp:'1700000010000',previousHash:'ab'.repeat(32),creator,signature,hash,
@@ -108,4 +128,6 @@ process.stdout.write(JSON.stringify({synthetic:true,reference,
  oddBlock:{hash:oddHash,merkleRoot:oddRoot,leafHashes:oddLeaves.map(b=>b.toString('hex')),
  types:[2,0,1],opaqueHex:'ff008041',fullBase64:oddBytes.toString('base64'),bytes:oddBytes.length,paymentOrdinal:'1'},
  chainTip:{hash:tipHash,id:'2000003',timestamp:'1700000020000',previousHash:oddHash,
- fullBase64:tipBytes.toString('base64'),bytes:tipBytes.length}},null,2)+'\n');
+ fullBase64:tipBytes.toString('base64'),bytes:tipBytes.length},
+ alternateBlock:{hash:alternateHash,id:'2000002',timestamp:'1700000010000',previousHash:'ab'.repeat(32),fullBase64:alternateBytes.toString('base64'),bytes:alternateBytes.length},
+ alternateTip:{hash:alternateTipHash,id:'2000003',timestamp:'1700000020000',previousHash:alternateHash,fullBase64:alternateTipBytes.toString('base64'),bytes:alternateTipBytes.length}},null,2)+'\n');

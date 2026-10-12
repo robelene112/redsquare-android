@@ -50,17 +50,24 @@ hard breaches, one current-handoff correction and one header-signing duplication
 judgment. The review-stage corrections now consolidate this active status and share only
 actual header signing, preserving literal vector assertions and original evidence.
 
-Current vertical slice: exact payment inclusion through verified contiguous
-ancestry from a selected-server snapshot. Independent synthetic descendant
-482bytes/tipbf72deac...; compiled missing-reader RED1failure47s followed by
-GREEN1PASS48s. A valid but unrelated ancestor containing the payment cannot
-prove membership: retained positive plus regression2PASS28s. Eight hashes in
-`chain-reference-first`. The shared signing helper produces byte-identical full
-reference JSON. Bounded source/evidence review pending. Android status, durable
-last observations, reorg/unknown handling and HTTP budgets are not implemented.
-After those, complete receiving QR, meaningful remaining failure cases, final
-full Android10/17 and whole-ticket two-axis review. Payments remain unfinished.
-No new phone APK, Pixel performance result, live transfer or node change.
+Current vertical slice: selected-snapshot inclusion and prior-inclusion checks.
+First ancestry cycle:47s compiled RED ->48s GREEN; positive/valid-orphan2PASS28s.
+Eight original hashes in `chain-reference-first`, both bounded axes0findings.
+Sourcepush38195258684 at8035be7 passes release/lint/core62. The shared reference
+signing helper preserves the entire generated JSON byte-for-byte.
+
+Reorganization cycle: independent Fee-only alternate at the prior inclusion's
+height66e1534d... and signed descendant34a627c2... . Compiled missing-check
+RED3cases/1failure47s ->minimalGREEN3PASS35s. Missing replacement ancestry stays
+UNKNOWN; retained cases+baseline4PASS28s. Eight hashes in `chain-reorganization`.
+Only full verified ancestry covering the old height can establish displacement.
+Both paths have16-block/32MiB limits; no reservation release or automatic send.
+Current bounded source/evidence review pending.
+
+Next: HTTP elapsed/body budgets, Android Included/unknown/reorg status and
+persisted qualified observations, then receiving QR, remaining meaningful
+failure cases, final full Android10/17 and whole-ticket two-axis review. Payments
+remain unfinished. No new phone APK, Pixel result, live transfer or node change.
 
 ## Earlier completed ticket checkpoints
 
@@ -386,4 +393,3 @@ NATIVE_SAITO_TRANSFER_CONTRACT, NATIVE_PRIVATE_CHAT_CONTRACT and
 NATIVE_GROUP_CHAT_CONTRACT (all .md under docs/research). The protected future notes remain uncommitted and must be included only with
 their own relevant tickets; earlier contracts are already committed.
 They establish source contracts, not runtime or feature completion.
-
