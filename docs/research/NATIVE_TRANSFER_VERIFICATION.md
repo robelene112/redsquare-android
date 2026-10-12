@@ -129,3 +129,14 @@ WASMdeserialize/reserialize and actualroutinghop. Framehash
 abcd8ee6a0350f7db661c021f0fbaf3d952f965f1077005c631e3b91e23abd9e.
 Both source-fix review axes0findings. No consensus admission, realfunds, inclusion,
 Android10, physicalPixel, failure/recovery orwhole23acceptance is inferred.
+
+## Real authentication cancellation coverage
+
+One new native regression case exercises the already implemented cancellation
+policy through the real Android credential screen: Back cancels before sending,
+then reopening shows the same wallet, all7.5 SAITO available and no Pending item
+or controlled-peer frame. Both real-auth cases share protected emulator PIN
+setup/positive cleanup and the same external synthetic funding service.
+Local test APK assembly passes1m22s. Hosted execution is pending; this is new
+coverage of existing behavior, not a claimed missing-behavior TDD RED. No
+production source changes or acceptance assertions removed.

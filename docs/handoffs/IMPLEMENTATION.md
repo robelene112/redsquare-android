@@ -25,7 +25,10 @@ The authenticated send cycle now passes focused38187897889 at0b0d75d
 762-byte frame independently passes pinnedWASM/Elliptic verification. Source
 push38187897999 also passes release/lint. Both source fix reviews0findings.
 See ticket22/authenticated-send-green/android17 and the qualified earlier failures.
-Cancellation/failure/retry/recovery/inclusion, receivingQR and final10/17 remain.
+The new real-PIN cancellation/reopen regression compiles (1m22s); focused
+Android17 execution is pending. It covers existing behavior, with no fabricated
+TDD RED or production source change. Failure/retry/recovery/inclusion, receivingQR
+and final10/17 remain.
 Payments and their recovery, compatibility and final acceptance remain unfinished.
 
 Profile #18 is closed, final evidence commit ed5742f pushed. Eighteen of35 tickets
