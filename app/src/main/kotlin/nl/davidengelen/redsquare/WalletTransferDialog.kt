@@ -20,7 +20,7 @@ fun WalletTransferDialog(transfers: WalletTransfers, onClose: () -> Unit) {
     LaunchedEffect(transfers) { transfers.load() }
     DisposableEffect(transfers) { onDispose { transfers.cancel() } }
     val reviewed = transfers.review?.payment
-    val hasPending = transfers.pending.isNotEmpty()
+    val canPrepare = transfers.pending.isEmpty() || transfers.available?.toBigDecimalOrNull()?.signum() == 1
     AlertDialog(
         onDismissRequest = { transfers.cancel(); onClose() },
         title = { Text(stringResource(if (reviewed != null) R.string.transfer_confirm else R.string.transfer_send)) },
@@ -59,7 +59,7 @@ fun WalletTransferDialog(transfers: WalletTransfers, onClose: () -> Unit) {
                             Text(stringResource(R.string.transfer_retry))
                         }
                     }
-                    if (!hasPending) {
+                    if (canPrepare) {
                         TransferField(R.string.transfer_recipient, recipient) { recipient = it }
                         TransferField(R.string.transfer_amount, amount) { amount = it }
                         TransferField(R.string.transfer_fee, fee) { fee = it }
@@ -72,7 +72,7 @@ fun WalletTransferDialog(transfers: WalletTransfers, onClose: () -> Unit) {
         confirmButton = {
             if (reviewed != null) TextButton(enabled = !transfers.busy, onClick = transfers::authenticateAndSend) {
                 Text(stringResource(R.string.transfer_auth_send))
-            } else if (!hasPending) TextButton(enabled = !transfers.busy,
+            } else if (canPrepare) TextButton(enabled = !transfers.busy,
                 onClick = { transfers.prepare(recipient, amount, fee, memo) }) {
                 Text(stringResource(R.string.transfer_review))
             }

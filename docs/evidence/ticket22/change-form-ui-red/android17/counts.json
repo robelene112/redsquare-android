@@ -1,0 +1,12 @@
+{
+  "run": 38204586012,
+  "source": "f3ba43a2092067db31e146777091f32c30a88ebe",
+  "reportedCases": 4,
+  "passedCases": 3,
+  "failedCases": 1,
+  "completionRecords": 0,
+  "actualDeathStages": 0,
+  "failure": "WalletTransferStatusTest.kt:188 missing Recipient address node on performScrollTo",
+  "elapsedSeconds": 87.681,
+  "qualification": "Positive fresh own-key change request, actual4.15 availability, exact original Included and noRetry passed before missing form; no review or new send/death stage"
+}

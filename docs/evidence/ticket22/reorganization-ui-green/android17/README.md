@@ -27,5 +27,5 @@ real-funded admission. Both bounded production review axes through2a1e2b0 clear.
 
 Next sole native cycle uses distinct fresh4.15 change at2000002/ordinal1/index1
 and reobserved exact inclusion to require a new recipient/amount/fee review despite
-saved history. Product still hides that form when any record exists. Test build/
-missing-form RED pending. QR/remaining failures/final10+17/whole acceptance pending.
+saved history. Product still hides that form when any record exists. Test APK compiles1m22s, retained in change-form-test-preparation;
+native missing-form RED remains pending. QR/remaining failures/final10+17/whole acceptance pending.

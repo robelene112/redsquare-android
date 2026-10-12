@@ -543,3 +543,18 @@ steps per optional Standards judgment, preserving all original gates.
 Fresh change-form test APK compiles1m22s/one hash in change-form-test-preparation.
 Product untouched; bounded source/evidence review and native missing-form RED
 remain pending. No new-change spend/cancellation/reservation wire claim.
+
+Change tracer Spec0/Standards source0,2stale doc sentences corrected: completed
+reorg removed from current next-list; successful1m22s compile acknowledged in
+reorg GREEN README. Native38204586012 atf3ba43a reaches genuine missing Recipient
+field RED at188:4reported/3PASS/1failure87.681s, after actual change snapshot/4.15/
+Included/noRetry and earlier full status gates. Root full original PNG/separate
+XML confirms4.15 and absent new fields/review;4hashes in change-form-ui-red/android17.
+Minimum form availability now allows new review alongside old records when fresh
+nonreserved availability is positive. Funding/authorization/store/send path
+unchanged. Debug/test build and same unchanged-test native GREEN pending.
+
+Minimum new-form debug/test assembly passes1m30s/one original hash in change-form-
+ui-build. Only form visibility/Review availability changes for saved records with
+known positive nonreserved funds; all funding/auth/store/send code unchanged.
+Bounded source/doc-fix review and unchanged native new-review GREEN pending.

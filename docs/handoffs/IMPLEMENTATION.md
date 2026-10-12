@@ -126,8 +126,15 @@ pinnedpureWASM/Elliptic/hash/Rustroot/roundtrip/exactparent.16hashes in reorgani
 ui-green/android17. Next sole native cycle returns exact inclusion plus literal
 fresh4.15 change at2000002/ordinal1/index1/type0 and requires new review despite
 old records; product unchanged. Repeated reopening helper extracted post-GREEN
-per Standards judgment, every original assertion retained. Test APK compiles1m22s/one hash in change-form-test-preparation. Native missing-
-form RED and bounded test/evidence reviews pending. Next: verified reorg UI, fresh nonreserved change enabling a new
+per Standards judgment, every original assertion retained. Test APK compiles1m22s/one hash in change-form-test-preparation. Bounded Spec test/evidence review clear; Standards source clear with2stale doc
+sentences now corrected (completed reorg next-item and retained compile status).
+Native38204586012 atf3ba43a reaches genuine missing Recipient field RED at188:
+4reported/3PASS/1failure87.681s after actual fresh change/4.15/Included/noRetry.
+Root original fullPNG/separateXML confirms available4.15 and absent new form;
+4hashes in change-form-ui-red/android17. Minimum UI allows a new review with old
+records when known nonreserved available funds are positive, preserving existing
+funding/authentication/reservations. Debug/test assembly passes1m30s/one hash in change-form-ui-build. Bounded
+source/doc-fix review and same unchanged native new-review GREEN pending. Next: fresh nonreserved change enabling a new
 transfer, receiving QR, meaningful remaining failures, final fresh full10/17 and
 whole-ticket review. #23 unfinished. No new phone APK, physical Pixel result,
 production node change, live transfer or whole acceptance.
