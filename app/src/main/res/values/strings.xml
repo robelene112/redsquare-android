@@ -362,4 +362,8 @@
     <string name="notifications_permission_enable">Enable alerts</string>
     <string name="notifications_permission_skip">Not now</string>
     <string name="notifications_permission_save_error">Your notification choice could not be saved.</string>
+    <string name="notifications_unread_count">%1$d unread</string>
+    <string name="notifications_read_none">No unread activity</string>
+    <string name="notifications_mark_read">Mark all as read</string>
+    <string name="notifications_read_status_warning">Read status could not be read or saved. Available notifications still appear here.</string>
 </resources>

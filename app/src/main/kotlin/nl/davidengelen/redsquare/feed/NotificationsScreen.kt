@@ -20,6 +20,7 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.launch
 import nl.davidengelen.redsquare.NotificationPermissionPrompt
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.moderation.LocalPersonalControls
@@ -76,6 +77,12 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
     var reposts by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf<List<RedSquareAction>>(emptyList()) }
     var quotes by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf<List<FeedPost>>(emptyList()) }
     val history = remember(wallet?.publicKey, backend) { wallet?.let { NotificationHistoryStore(context, backend, it.publicKey) } }
+    val readStore = remember(wallet?.publicKey, backend) { wallet?.let { NotificationReadStore(context, backend, it.publicKey) } }
+    val scope = rememberCoroutineScope()
+    var readIds by remember(wallet?.publicKey, backend) { mutableStateOf<Set<String>>(emptySet()) }
+    var readReady by remember(wallet?.publicKey, backend) { mutableStateOf(false) }
+    var readWarning by remember(wallet?.publicKey, backend) { mutableStateOf(false) }
+    var markingRead by remember(wallet?.publicKey, backend) { mutableStateOf(false) }
     var cacheWarning by remember(wallet?.publicKey, backend) { mutableStateOf(false) }
     var loading by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf(true) }
     var failed by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf(false) }
@@ -85,6 +92,13 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
     LaunchedEffect(wallet, backend, endpoint, refresh) {
         if (wallet == null) return@LaunchedEffect
         loading = true
+        readReady = false
+        try {
+            readIds = withContext(Dispatchers.IO) { readStore!!.load() }
+            readReady = true
+            readWarning = false
+        } catch (cancelled: CancellationException) { throw cancelled }
+        catch (_: Exception) { readWarning = true }
         val name = try { withContext(Dispatchers.IO) { RegisteredNameStore(context, wallet.publicKey, registrar).load()?.name } }
         catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { null }
@@ -151,12 +165,13 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
         Row {
             TextButton(onClick = onBack) { Text(stringResource(R.string.browse_back)) }
             Text(stringResource(R.string.notifications_title), Modifier.weight(1f), style = MaterialTheme.typography.titleLarge)
-            TextButton(enabled = wallet != null && !loading, onClick = { refresh++ }) { Text(stringResource(R.string.feed_refresh)) }
+            TextButton(enabled = wallet != null && !loading && !markingRead, onClick = { refresh++ }) { Text(stringResource(R.string.feed_refresh)) }
         }
         PersonalControlsStatus(personal)
         if (loading) Text(stringResource(R.string.notifications_loading))
         if (failed) Text(stringResource(R.string.notifications_read_error))
         if (cacheWarning) Text(stringResource(R.string.notifications_cache_warning))
+        if (readWarning) Text(stringResource(R.string.notifications_read_status_warning))
         if (ignored > 0) Text(stringResource(R.string.notifications_unverified))
         val repostRows = reposts.mapNotNull { event ->
             val target = knownPosts.firstOrNull { it.id == event.target }
@@ -181,8 +196,26 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
         }.map { reply -> NotificationRow(reply.id, reply.author, reply.createdAt, reply, R.string.notifications_reply_own) } +
             mentions.map { mention -> NotificationRow(mention.id, mention.author, mention.createdAt, mention, R.string.notifications_mention) })
             .distinctBy { it.id }
+        val visible = rows.filter { personal?.hidesPosts(it.author) == false }.sortedByDescending { it.createdAt }
+        val unread = visible.count { it.id !in readIds }
+        Row {
+            if (readReady) Text(if (unread == 0) stringResource(R.string.notifications_read_none)
+                else stringResource(R.string.notifications_unread_count, unread), Modifier.weight(1f))
+            TextButton(enabled = readReady && !markingRead && unread > 0, onClick = {
+                val observed = visible.map { it.id }
+                markingRead = true
+                scope.launch {
+                    try {
+                        readIds = withContext(Dispatchers.IO) { readStore!!.mark(observed) }
+                        readWarning = false
+                    } catch (cancelled: CancellationException) { throw cancelled }
+                    catch (_: Exception) { readWarning = true }
+                    finally { markingRead = false }
+                }
+            }) { Text(stringResource(R.string.notifications_mark_read)) }
+        }
         LazyColumn(Modifier.weight(1f)) {
-            items(rows.filter { personal?.hidesPosts(it.author) == false }.sortedByDescending { it.createdAt }, key = { it.id }) { event ->
+            items(visible, key = { it.id }) { event ->
                 Column(Modifier.fillMaxWidth().padding(vertical = 12.dp)) {
                     Text(registeredIdentity(event.author).name, Modifier.clickable { onIdentity(event.author) })
                     Text(event.author, Modifier.clickable { onIdentity(event.author) }, style = MaterialTheme.typography.labelSmall)

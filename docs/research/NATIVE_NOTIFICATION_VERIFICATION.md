@@ -648,3 +648,20 @@ waitscompletedrefresh, recreatesunderbadserverreads andrequires retainedactivity
 withsame readstatus/Actor/finalguards. Allcases snapshot/reset/independentlyrestore
 precise wallet/backend notificationread file+atomiccompanions underowninglock,
 usingexistinghelperthirdrealconsumer. No readmarkerproductcode yet;15RED pending.
+
+Bounded181d760...c15db1a bothaxes0,30hashes verified. Actual15RED10 38305833616
+atc15db1a reports15/13PASS/2failures58.728s/0OKrecords/deaths/core73/debug/test.
+NewReadcase missing1unread at260 aftervalidlike; subsequentmark/recreation/recovery/
+actor/finalchanged-response checks unexecuted. ExistingReplycase parentisnotdisplayed
+at47 aftersemanticswait. Rootoriginals/separateXML show read-listvalidlike/noUnread,
+andConversationLoading/selectedreply/actions/noparenttext. No timing/anchoring/
+protocolcause inferred. Fivehashes read-native-red/android10. Fixture now explicitly
+scrolls toparent beforeunchangeddisplay assertion, matchingexistingquotecases.
+Minimum NotificationReadStore bounded2000publicsignedIDs coversall five300per-kind
+in-memory activitycollections (max1500distinctrows). PublicStringStore accepts
+maxEntries upto2000 but existingcallerbudgets/16MiB remain. Owner/backendscopedname,
+atomicmerge/refusetooverwriteunreadablemarkerdata andcommitreadback; screenread
+statusloadedseparatelyfromactivity, onlyvisibleverifiedunmuted/unblockedrows count.
+ExplicitMarkall savesobservedIDs, updatesbadgeonlyafterverifiedsave, warnswithout
+hidingavailableactivityonread/savefault. Refreshdisabledwhilemarking andmarkdisabled
+untilmarkerloadready. No permission/push dependency. Compilation/first15GREEN pending.

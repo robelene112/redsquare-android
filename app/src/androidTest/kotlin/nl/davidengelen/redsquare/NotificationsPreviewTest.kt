@@ -44,6 +44,7 @@ class NotificationsPreviewTest {
             waitFor("Reply notification reference")
             ui.onNodeWithText("Reply notification reference").assertIsDisplayed()
             waitFor("Native Red Square reference post")
+            ui.onNode(hasScrollAction()).performScrollToNode(hasText("Native Red Square reference post"))
             ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
             ui.onNodeWithText("Back").performClick()
             waitFor("Replied to your post")
