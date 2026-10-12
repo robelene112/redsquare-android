@@ -1002,3 +1002,16 @@ includes target, alongside original3+first10followed/bothnamespaces. Initial
 batchmax33, continuationmax33; per-source metadata/pending/retry/history and
 selectedpeer retained. Outer native batchguard240s follows actualAPI37 truncation;
 individual15s assertions/12s RPC deadlines unchanged. Compile/first26GREEN pending.
+
+Parent minimum localcore/debug/test full3mPASS; attachedclient143 after complete
+successlog, no runningbuilder, latest recorded builder5104eed66092 exit0. Cause
+unknown, no duplicate build. Native26GREEN17 remains pending.
+
+Twenty-seventh native cold-cache tracer seeds150 independently signed unsafe2
+likes through exact owned public-history fixture, no serverlikes/replies. Initial
+150unread must remain available beyond one100-row Archive page; actual MarkAll
+commits before NoUnread, Activity recreation retains rows/read status. Reference
+223303bytes/SHA497aa8737ee075f431a68ff8e427fd103d5b2f0af84591fe51480deb108711a8,
+150distinct signatures pinnedWASM/Elliptic/roundtrip, fixed1–4 signer scope.
+Accepted filesystem/native/protocol seams, no assertion of reader internals.
+Source unchanged; genuine27RED10/fixture compilation pending. Not actual death.

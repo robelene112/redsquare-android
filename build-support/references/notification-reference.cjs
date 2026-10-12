@@ -181,7 +181,15 @@ const parentIndexedReply = {
   field1: 'RedSquare', field3: farContactPost.field2, field4: thread.root.sig,
   field5: thread.root.sig, updated_at: 1700000000125, flagged: 0
 };
+// More than one Archive page, still below the300-event device budget.
+const cachedLikes = Array.from({length: 150}, (_, index) => {
+  const timestamp = 1700000000200 + index;
+  return {...signedReference('2', {module: 'RedSquare', request: 'like tweet',
+    data: {signature: thread.root.sig}}, timestamp, [owner]),
+    field1: 'RedSquareLike', field3: owner, field4: thread.root.sig,
+    updated_at: timestamp, flagged: 0};
+});
 console.log(JSON.stringify({synthetic: true, reference, owner,
   actor: 'pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU',
   root: thread.root, incomingLike, incomingReply, parentedQuote, incomingMention,
-  addressedPost, listedMention, usernameMention, incomingRepost, incomingNullRepost, incomingQuote, legacyQuote, recoveredOriginal, missingOriginalLike, missingOriginalRepost, knownOtherPost, knownOtherLike, ownCurrentQuote, incomingQuoteLike, missingOriginalReply, knownOtherReply, missingOriginalQuote, knownOtherQuote, boundaryIncomingLike, olderIncomingLike, farContactPost, continuationContacts, parentIndexedReply}, null, 2));
+  addressedPost, listedMention, usernameMention, incomingRepost, incomingNullRepost, incomingQuote, legacyQuote, recoveredOriginal, missingOriginalLike, missingOriginalRepost, knownOtherPost, knownOtherLike, ownCurrentQuote, incomingQuoteLike, missingOriginalReply, knownOtherReply, missingOriginalQuote, knownOtherQuote, boundaryIncomingLike, olderIncomingLike, farContactPost, continuationContacts, parentIndexedReply, cachedLikes}, null, 2));

@@ -42,7 +42,14 @@ unsafe3 first nonactor recipient before Owner1; actual field3 indexes3 and
 field4 references known Owner root. Owner/general streams omit it. Genuine26RED17
 run38321369124 pending. Spec1 proof gap corrected9689f69: positive external field4
 request before Conversation; Standards/Spec correction0. Original tracerAPK1m30
-passes; corrective counter compile pending. Parent discovery not implemented yet.
+passes; corrective counter compile pending. Minimum1de5092 now adds target-scoped field4 streams for10 verified own posts,
+initial3+10own+first10contacts/bothnamespaces max33; continuationmax33.
+Both minimum review axes0. Actual26RED17 announces26 but stops at120s outer
+limit with15PASS/one missingReply590/10unfinished/no terminalTime/OK/death.
+Three hashes/root original failurePNG/XML/actual CI timestamps inspected.
+Outer guard240s, individual15s/12s RPC unchanged. Full local build and complete
+26GREEN17 run38322163532 pending. Next cold-cache budget tracer prepared only
+in uncommitted generator/ignored scratch; do not treat it as installed yet.
 No actual process-death/finalSDK claim. Protected future Chat files untouched.
 
 Remaining #24 work is finite: supplement followed-account posts, bounded reply discovery/older-page overlap and retry,

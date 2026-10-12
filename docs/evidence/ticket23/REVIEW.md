@@ -443,3 +443,19 @@ Archive observation precedes the actual conversation click; old assertions retai
 Zero actionable findings. Positive field4 observation resolves the earlier
 proof gap; original26 run cannot verify newly added counter. Corrective compile
 and native GREEN remain pending. No production change/whole-ticket claim.
+
+## Parent-index discovery minimum
+
+### Standards
+
+`f02f4f9...1de5092`: zero hard violations/actionable heuristics. Verified own
+target joins stream identity; existing per-source paging/markers/cache persist.
+Three RED hashes/rawpartialcounts/originalPNG/XML verified.
+
+### Spec
+
+Zero actionable findings. field4 has no wallet-recipient restriction; up to10
+known own targets plus3base/first10contacts fit33initial requests. Both axes
+confirm26announced/15PASS/one missingreply/10unfinished/no Time/OK/reporteddeath,
+and actual23:21:34install/23:23:34stepend. Outer240s guard leaves15s assertions/
+12s RPC untouched. Local build/complete26GREEN remain pending.
