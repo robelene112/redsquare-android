@@ -382,3 +382,16 @@ ModeMISSING_REPOST initiallystilldropsunknownretweet and mustgenuinelyRED before
 productimplementation. Same actualpublic-cache-lock snapshot/reset/restore covers
 bothmissing modes. Reference21373bytes/SHAf67062351b533f5aa466d0b1b159ab860dbf145bab1436dd4ff121ee5cc6400b, threecopiesidentical.
 Testfixturedebug/test compilationpending; no missing-repost product codeyet.
+
+FirstmissinglikeGREEN38291912526 at52e693b PASSES7tests76.694s/1completedOKrecord/
+0deaths/noassumptions/core72/compiler/debug/test. Actualneutral activity/first
+unavailablelookup/explicitRetry/recoveredConversation/backretainedrow/Profile/
+positive2targetreads andall existing6journeys/finalauthidentity/no-write/opaque
+wallet/backend/permission/namefile or original-cache restoration pass; corrected
+repostindex0nownativeproved. Fifteenhashes missing-original-native-green/android17,
+all7XMLparsed/rootoriginalmissinglikePNGtoolviewactor+neutralcaptionvisible with
+blankuppertoolbar; separateXML exposesOwner/fulltoolbar. OtherPNG no rootvisual
+claim. Thispredatesnarrow91686be fallback and4536653 non-ownernegative fixture,
+which stillneedsnativecoverage. No finalfullSDKpair/whole-ticket/cachecold/push/Pixel.
+Nextmissingreposttest4536653 localdebug/testcompile PASSES1m42s/bothreviews0,
+genuine8journeyRED38292822038 at4536653 running. No missingrepost product codeyet.

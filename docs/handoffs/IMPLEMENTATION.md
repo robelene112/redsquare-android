@@ -38,20 +38,27 @@ actualcommentary/original/Actor routes +allfinalgates. Repost actor selected wro
 same-signerquote row inthat run; index0corrected492780d/bothreviews0 and nextnative
 mustcovercorrectedrow. Thirteenhashes +qualifiedtoolview/all6XML retained.
 
-Next missing-original native test/reference2cab31f+own-cache-lock760eeae: independently
-signed secondownpost+like; originalwithheldfirstlookup thenavailableonexplicitRetry.
-Neutralcaption/unavailable/Retry/recoveredConversation/retainedrow/Profile+allfinal
-identity/no-write/fullopaquerestoration required. Reference18124bytes/SHA8ae7667601b311d1154fb81d8988f3ad68aa7836194947eda270ec7aff7a3c32 identicalthreecopies.
-Fixturecompile1m38PASS; Standards1wrongowninglock corrected byactualPublicStringStore
-lock fororiginalcache, SaitoLocalStateforRegistry/bothcorrectionaxes0. Corrected
-core/debug/test compile2m34PASS. GenuineRED38290932273 at760eeae reports7/6PASS/
-1failure57.272s/0OKrecords/0deaths/core72; correctedactualrepost row and existing
-6journeys pass. Missingcase reachesNotifications/Skip then neutralLiked a post
-absent. Threehashes+originaltool/XML qualifiers retained. Minimum product retains
-signedowner-addressedlike withneutralcaption untiltargetownership proved and new
-reference destination reusesexistingQuoteState boundedverifiedlookup/Retry/cache
-thenConversation. Othermissingkinds stillfuture. Localcore/debug/test compilepending;
-no missing-originalGREEN yet.
+Missing-like tracer RED38290932273 at760eeae:7reported/6PASS/1failure57.272s/
+0OKrecords/0deaths; absentneutralrowafterNotifications/Skip. Minimum52e693b retains
+signed owner-addressedlike withneutralcaption untiltargetownership proved; Reference
+route reusesexistingQuoteState boundedverifiedlookup/cache/Retry thenConversation.
+FirstGREEN38291912526 PASSES7/76.694s/1OKrecord/0deaths/core72, actualunavailable/
+explicitRetry/recoveredConversation/backretainedrow/verifiedActor/positive2lookups,
+correctedactualrepostrow+all6oldjourneys/finalauthidentity/no-write/opaquerestoration.
+Localcore/debug/test3m26PASS; attachedclient143butrunningcontainerlaterexit0, root
+retainedsuccesslog+read-onlywait/noestablishedcause. Sourcepush8f3007b passes.
+Specfoundknownnon-own like couldbypassownership: fallbacknowonlyunknown91686be,
+bothcorrectionaxes0/localcompile1m21PASS; nativecoverage via nextnegative fixture.
+
+Nextmissingordinaryrepost tracer4536653: same unavailable-original/explicitRetry
+UIflow, plus independentlysigned knownnon-own post+owner-addressedlike inboth
+missingmodes. Exactneutralcaption/actorcounts catchfalseeligibility. Reference21373
+bytes/SHAf67062351b533f5aa466d0b1b159ab860dbf145bab1436dd4ff121ee5cc6400b threecopies.
+Localdebug/testcompile1m42PASS/bothreviews0; genuine8journeyRED38292822038 running.
+No missing-repost production codeyet; wait actualRED. Original-cache fixtures use
+actualPublicStringStore.lock; names SaitoLocalState.lock, preciseopaquerestoration.
+FifteenfirstmissingGREENhashes/rootpartialtool+all7XML qualifiers retained; no
+negativeeligibility proof in52e693b runtime. Othermissingkindsfuture.
 
 Remaining within#24: contact-post and feed-cache supplementation, missing-original
 retention/lookup/Retry with neutral wording, bounded independent paging/partial
