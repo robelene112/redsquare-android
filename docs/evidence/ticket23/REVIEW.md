@@ -169,3 +169,12 @@ is claimed. Shared verified readers/envelope extraction otherwise pass.
 Zero behavior findings; feed activity publishes and persists before peer refresh
 and failures preserve it. Both axes verified3REDhashes/counts/image/XML.
 Run38312894981 canceled before acceptance to apply the source correction.
+
+Correction `14ab7a4...0cec28e` clears both axes: defer marker load during
+marking, clear readiness before marker IO otherwise, and guard the mark callback
+against loading/in-flight marks. Background activity still classifies/persists;
+new events remain unread. Compilation and first19GREEN run38313238506 pending.
+
+First19GREEN10 38313238506 at0cec28e passes19/50.97s/1OK/0deaths/core73.
+Forty-two retained hashes, root original feed-mention PNG/all20XML inspected.
+Correction compile1m43PASS. No claim of reproducing the source-found race.

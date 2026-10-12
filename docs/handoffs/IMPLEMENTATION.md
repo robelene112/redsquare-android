@@ -26,27 +26,23 @@ failure. Verified activity survives pruned pages/Activity recreation. History an
 read markers are wallet/backend scoped; unread counts use visible verified rows,
 Mark all as read commits before confirming, and storage faults preserve activity.
 
-Latest completed native checkpoint: Android10 run38309796737 at e09fec0 passes
-17 journeys in47.995s, one OK record, zero deaths/assumptions, core73/debug/test.
-Missing reply-parent content/unavailable/Refresh/recovery/Actor and all previous
-journeys/final opaque restoration pass. Thirty-eight retained hashes; root viewed
-original reply PNG and parsed all18XML. Activity recreation is not process death.
+Latest native checkpoint: Android10 run38313238506 at0cec28e passes19 cases
+in50.97s, one OK, zero deaths/assumptions, core73/debug/test. Feed-only mention
+exact count/Conversation/Actor, missing quote/reply original recovery and all
+earlier cache/read/failure journeys pass with final opaque restoration.
+Forty-two hashes; root original feed-mention PNG and all20XML inspected.
+Initial full build3m14s and corrective Kotlin compilation1m43s pass. Both
+correction review axes pass; marker reload defers during a mark and the action
+is guarded during reload. No reproduced concurrency-race claim. Activity
+recreation is not actual process death.
 
-Missing quote minimum c0624e0 is accepted at the native seam: Android10
-run38311318013 passes18 cases in54.526s, one OK, zero deaths/assumptions, core73.
-Actual neutral quote/commentary/unavailable-original/Retry/recovery/Actor and
-all17 previous cases pass. Forty hashes; root original quote screenshot and
-all19 XML inspected. Both reviews pass, local full build2m51s/container wait0.
-Current nineteenth feed-mention tracer dee4f2a has genuine Android10 RED
-run38312248859:18PASS/one failure65.408s/zero OK/deaths/core73, missing
-Mentioned you at68 after Notifications. Three hashes and original PNG/XML
-inspected. Canceled predecessor38311968126 is not RED. Both corrected-fixture
-reviews pass. Minimum now classifies verified available feed posts with existing
-readers and publishes/persists them before server refresh; local compilation
-and nineteen-case GREEN remain pending.
+Available feed-mention RED was dee4f2a/run38312248859:19reported/18PASS/one
+failure65.408s/zero OK/deaths. Canceled38311968126 and38312894981 are not
+acceptance evidence. Earlier independent quote-original GREEN c0624e0/
+38311318013 passes18/54.526s, with40 hashes. Canonical chronology retains
+all checkpoints. Next slice: actual followed-account activity.
 
-Remaining #24 work is finite: supplement available feed/cache mentions and
-followed-account posts, bounded reply discovery/older-page overlap and retry,
+Remaining #24 work is finite: supplement followed-account posts, bounded reply discovery/older-page overlap and retry,
 prove mute/block and backend/wallet isolation, actual permission choices and
 process-restart/storage recovery, then final whole-ticket reviews and Android10/
 17 acceptance at the same source. Automatic read-on-tap, richer previews, live
