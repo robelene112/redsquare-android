@@ -31,17 +31,7 @@ object SaitoEnvelope {
         val timestamp = header.getLong(80)
         require(timestamp >= 0 && binary[92] == 0.toByte())
         val author = Base58.encode(binary.copyOfRange(93, 126))
-        val preimage = ByteBuffer.allocate(16 + 43 * (inputs + outputs) + message.size)
-        preimage.putLong(timestamp)
-        repeat(inputs + outputs) { index ->
-            val offset = 93 + index * 59
-            preimage.put(binary, offset, 41)
-            preimage.put(binary, offset + 57, 2)
-        }
-        preimage.putInt(header.getInt(88))
-        preimage.putInt(binary[92].toInt() and 0xff)
-        preimage.put(message)
-        require(SaitoWallet.verify(preimage.array(), signature, author)) { "Invalid transaction signature" }
+        require(SaitoWallet.verify(saitoTransactionPreimage(binary, message), signature, author)) { "Invalid transaction signature" }
         val utf8 = Charsets.UTF_8.newDecoder().onMalformedInput(CodingErrorAction.REPORT)
             .onUnmappableCharacter(CodingErrorAction.REPORT).decode(ByteBuffer.wrap(message)).toString()
         val body = gson.fromJson(utf8, JsonObject::class.java)

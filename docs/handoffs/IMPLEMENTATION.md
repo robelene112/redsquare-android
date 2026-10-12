@@ -89,6 +89,17 @@ block-reference-first; source/evidence reviews pending. This is content binding,
 NOT currentselectedchain membership/consensus/finality. Odd/system/SPV/resource/
 largeinteger/mutation and ancestry/reorg cases remain, then Android inclusion UI.
 
+The next sole existing-policy input-coordinate mutation regression passes:
+independent WASM retains blockhash/paymentleaf/signature despite changed first
+positive input block2000000→2000001; native refuses to match the saved original.
+Retainedpositive+newcase2PASS29s, no production change/fabricatedRED.4hashes in
+block-input-coordinates; source/evidence review pending. No other mutant cases
+added. First full-reader Spec review throughd99c779 has0findings; Standards has
+0hardbreaches/1preimage-duplication improvement, nowfixed narrowly across actual
+Envelope/fullblockbinary consumers; caller checks unchanged. Full core59PASS50s;
+all14XML/16hashes in block-preimage-review-fix. Input-mutation/source-fix/evidence
+reviews pending. Sourcepush38193713102 atd99release/lint/core58 passes.
+
 Profile #18 is closed, final evidence commit ed5742f pushed. Eighteen of35 tickets
 are complete (#2–#15, #18, #20, #21 and #22). Parked #19, "Register an optional Saito username",
 parked on the external Registry prerequisite, review base ed5742fd0f57958d284073b7145f1844b72b1dbd. #16 Giphy still awaits

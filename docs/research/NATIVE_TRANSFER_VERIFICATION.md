@@ -278,3 +278,24 @@ Both prior bounded source-fix/baseline-evidence axes0remainingfindings. Root
 fullyviewedPending original; no cause inferred. Bothactual762Bframes separately
 pass pureWASM/Elliptic with identicalhash421370ca... .22hashes retained in
 ticket22/process-shared-green/android17. No inclusion or wholeacceptance.
+
+Next single seam2 regression exercises changed original funding coordinates
+under an unchanged payment signature/block header/root. The independent pinned
+generator changes the first positive input block2000000→2000001; WASM retains
+the creator hash and payment leaf/signature while observing the changed input.
+The native matcher must refuse it as the saved original payment. This covers
+existing exact-coordinate policy; no missing-behavior RED is assumed. Independent
+execution succeeds (pure WASM/read-only/networkdisabled, no walletinit), and
+both native positive and altered-input cases pass29s/2tests/0failure/error/skip.
+4hashes retained in ticket22/block-input-coordinates. No production change or
+fabricated RED; no other mutation cases are added. Bounded review is pending.
+
+First full-reader/source/evidence review throughd99c779: Spec0; Standards0hard
+breaches/1DuplicatedCode improvement. Its sourcepush38193713102release/lint/
+core58 passes. The review-stage fix shares only raw transaction preimage bytes
+between the two real binary consumers (Archive envelope and full-block leaf),
+leaving each caller's validation/type/trust policy unchanged. The two block
+cases also share their fixture reader. Full core after fix passes59/0/0/0 in50s;
+all14originalXML/16hashes in ticket22/block-preimage-review-fix permit independent
+recount. Source-fix/input-mutation/evidence review remains pending. No Android
+inclusion/currentchain/consensus or wholeacceptance is inferred.

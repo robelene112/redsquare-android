@@ -1,7 +1,6 @@
 package nl.davidengelen.redsquare.saito
 
 import java.math.BigInteger
-import java.io.ByteArrayOutputStream
 import java.nio.ByteBuffer
 import java.util.Base64
 import org.bouncycastle.crypto.digests.Blake3Digest
@@ -71,7 +70,7 @@ class SaitoFullBlock private constructor(val height: BigInteger, val timestamp: 
                 require(type in 0..8 && type != 5) { "Unsupported full-block transaction representation" }
                 val replacements = u32(wire, 88).coerceAtLeast(1)
                 require(replacements <= MAX_LEAVES - leaves.size)
-                val leaf = transactionLeaf(wire, (inputs + outputs).toInt(), type)
+                val leaf = transactionLeaf(wire, (inputs + outputs).toInt())
                 repeat(replacements.toInt()) { leaves.add(leaf) }
                 transactions.add(wire)
                 offset += length.toInt()
@@ -81,19 +80,14 @@ class SaitoFullBlock private constructor(val height: BigInteger, val timestamp: 
             return SaitoFullBlock(height, timestamp, hash, hex(parent), transactions)
         }
 
-        private fun transactionLeaf(wire: ByteArray, slipCount: Int, type: Int): ByteArray {
-            val preimage = ByteArrayOutputStream()
-            preimage.write(wire, 80, 8)
+        private fun transactionLeaf(wire: ByteArray, slipCount: Int): ByteArray {
             repeat(slipCount) { index ->
                 val offset = 93 + index * 59
                 require((wire[offset + 58].toInt() and 255) in 0..10)
-                preimage.write(wire, offset, 41)
-                preimage.write(wire, offset + 57, 2)
             }
-            preimage.write(wire, 88, 4)
-            preimage.write(byteArrayOf(0, 0, 0, type.toByte()))
-            preimage.write(wire, 93 + slipCount * 59, u32(wire, 8).toInt())
-            return digest(preimage.toByteArray())
+            val offset = 93 + slipCount * 59
+            val message = wire.copyOfRange(offset, offset + u32(wire, 8).toInt())
+            return digest(saitoTransactionPreimage(wire, message))
         }
 
         private fun merkleRoot(leaves: List<ByteArray>): ByteArray {

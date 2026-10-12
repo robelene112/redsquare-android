@@ -47,9 +47,20 @@ const again = new wasm.WasmBlock();assert.equal(again.deserialize(bytes),'');ass
 assert(Buffer.from(again.serialize()).equals(bytes));
 const lite=block.generate_lite_block([vector.payment.author]);assert.equal(lite.hash,hash);
 assert(Buffer.from(lite.serialize()).equals(bytes)); // All transactions relevant in this first fixture.
+// Original input coordinates are absent from both creator/transaction preimages.
+const changedInputBytes=Buffer.from(bytes);
+changedInputBytes.writeBigUInt64BE(2000001n,389+93+59+41);
+const changedBlock=new wasm.WasmBlock();assert.equal(changedBlock.deserialize(changedInputBytes),'');
+assert.equal(changedBlock.hash,hash);
+const changedTransaction=changedBlock.transactions[0];changedTransaction.generate_hash_for_signature();
+assert.equal(changedTransaction.signature,vector.payment.id);
+assert.equal(Buffer.from(changedTransaction.get_hash_for_signature()).toString('hex'),root.toString('hex'));
+assert.equal(changedTransaction.from[1].block_id,2000001n);
+assert(Buffer.from(changedBlock.serialize()).equals(changedInputBytes));
 process.stdout.write(JSON.stringify({synthetic:true,reference,
  boundary:'Full-block framing, creator/header identity and exact payment bytes only, not consensus admission, current chain membership or finality',
  block:{id:'2000002',timestamp:'1700000010000',previousHash:'ab'.repeat(32),creator,signature,hash,
  merkleRoot:root.toString('hex'),bytes:bytes.length,fullBase64:bytes.toString('base64'),seedBase64:seed.toString('base64')},
  payment:{id:vector.payment.id,candidateBase64:vector.payment.networkBase64,inBlockBase64:expectedPayment.toString('base64'),author:vector.payment.author,
- recipient:vector.payment.recipient,amount:vector.payment.amount,fee:vector.payment.fee,change:vector.payment.change}},null,2)+'\n');
+ recipient:vector.payment.recipient,amount:vector.payment.amount,fee:vector.payment.fee,change:vector.payment.change},
+ mutations:{changedOriginalInputBase64:changedInputBytes.toString('base64')}},null,2)+'\n');

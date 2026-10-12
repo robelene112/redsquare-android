@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.saito.SaitoTransactionTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-10-12T02:00:07" hostname="09ecc58a61fa" time="0.121">
+  <properties/>
+  <testcase name="malformedUnicodeIsRejectedBeforeSigningInsteadOfChangingThePublishedText" classname="nl.davidengelen.redsquare.saito.SaitoTransactionTest" time="0.001"/>
+  <testcase name="jsonEscapingCountsTowardTheCompleteEncodedMessageLimit" classname="nl.davidengelen.redsquare.saito.SaitoTransactionTest" time="0.107"/>
+  <testcase name="replyRecipientAndOutputIndicesMatchIndependentWasmBytes" classname="nl.davidengelen.redsquare.saito.SaitoTransactionTest" time="0.005"/>
+  <testcase name="rootTransactionAndPeerHopMatchIndependentWasmAndEllipticBytes" classname="nl.davidengelen.redsquare.saito.SaitoTransactionTest" time="0.007"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
