@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger
 
 class NotificationsPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
-    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING, MISSING_REPOST, MISSING_QUOTE_LIKE, HISTORY, PRUNED, PARTIAL }
+    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING, MISSING_REPOST, MISSING_QUOTE_LIKE, HISTORY, PRUNED, PARTIAL, REJECTED }
 
     @Test fun anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile() {
         withNotifications("incoming-like", mode = Mode.LIKE) { actor, _, _ ->
@@ -210,6 +210,28 @@ class NotificationsPreviewTest {
         }
     }
 
+    @Test fun rejectedActivityRemainsExplainedWhileVerifiedDuplicatesAppearOnlyOnce() {
+        withNotifications("rejected-history", Mode.REJECTED) { actor, _, _ ->
+            waitFor("Some activity could not be verified.")
+            waitFor("Replied to your post")
+            waitFor("Liked your post")
+            ui.onAllNodesWithText("Replied to your post").assertCountEquals(1)
+            ui.onAllNodesWithText("Liked your post").assertCountEquals(1)
+            ui.onAllNodesWithText("Could not load notifications. Check your connection and try Refresh.").assertCountEquals(0)
+            captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
+                "notification-evidence/rejected-history.png"), "Some activity could not be verified.")
+            ui.onNodeWithText("Replied to your post").assertIsDisplayed().performClick()
+            waitFor("Conversation")
+            waitFor("Reply notification reference")
+            ui.onNodeWithText("Reply notification reference").assertIsDisplayed()
+            ui.onNodeWithText("Back").performClick()
+            waitFor("Some activity could not be verified.")
+            ui.onAllNodesWithText(actor).assertCountEquals(2)[0].assertIsDisplayed().performClick()
+            waitFor("Profile")
+            ui.onNodeWithText(actor).assertIsDisplayed()
+        }
+    }
+
     private fun missingReferenceJourney(evidenceName: String, mode: Mode, caption: String, ownCaption: String, actorRows: Int, recoveryText: String = "Original recovered after retry") {
         withNotifications(evidenceName, mode) { actor, _, _ ->
             waitFor(caption)
@@ -309,6 +331,7 @@ class NotificationsPreviewTest {
                     likeReads.incrementAndGet()
                     when (mode) {
                         Mode.PARTIAL -> "invalid likes response"
+                        Mode.REJECTED -> "[{\"tx\":\"not-a-signed-envelope\"},${fixture.get("incomingLike")},${fixture.get("incomingLike")}]"
                         Mode.MISSING -> "[${fixture.get("missingOriginalLike")},${fixture.get("knownOtherLike")}]"
                         Mode.MISSING_REPOST -> "[${fixture.get("incomingLike")},${fixture.get("knownOtherLike")}]"
                         Mode.MISSING_QUOTE_LIKE -> "[${fixture.get("incomingQuoteLike")},${fixture.get("knownOtherLike")}]"
@@ -340,6 +363,7 @@ class NotificationsPreviewTest {
                         when (mode) {
                             Mode.REPLY -> "[${fixture.get("incomingReply")},${fixture.get("parentedQuote")}]"
                             Mode.PARTIAL -> "[${fixture.get("incomingReply")}]"
+                            Mode.REJECTED -> "[${fixture.get("incomingReply")},${fixture.get("incomingReply")}]"
                             Mode.MENTION -> "[${fixture.get("incomingMention")},${fixture.get("addressedPost")}]"
                             Mode.USERNAME -> "[${fixture.get("usernameMention")}]"
                             Mode.QUOTE -> "[${fixture.get("legacyQuote")}]"
@@ -402,7 +426,7 @@ class NotificationsPreviewTest {
                         retainQuoteTargetReads()
                         peer.assertHealthy()
                         assertTrue("Incoming likes must be read for this wallet", likeReads.get() > 0)
-                        if (mode in listOf(Mode.REPLY, Mode.MENTION, Mode.USERNAME, Mode.QUOTE, Mode.PARTIAL)) assertTrue("Incoming posts must be read for this wallet", replyReads.get() > 0)
+                        if (mode in listOf(Mode.REPLY, Mode.MENTION, Mode.USERNAME, Mode.QUOTE, Mode.PARTIAL, Mode.REJECTED)) assertTrue("Incoming posts must be read for this wallet", replyReads.get() > 0)
                         if (mode in listOf(Mode.REPOST, Mode.QUOTE, Mode.MISSING_REPOST)) assertTrue("Incoming reposts must be read for this wallet", repostReads.get() > 0)
                         if (mode == Mode.MISSING_QUOTE_LIKE) {
                             assertTrue("A quote target also checks ordinary post history", quoteOrdinaryReads.get() > 0)

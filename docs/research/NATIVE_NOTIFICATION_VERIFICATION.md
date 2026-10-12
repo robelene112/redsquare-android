@@ -575,3 +575,12 @@ requestdeadline; parent cancellation propagates, per-requesttimeout/readparseerr
 is a failedstream. Healthy pagesmerge/render/cache despite another failure, with
 explicit readerror and Refresh. Invalid rows remain unverifiedwarnings. No
 partialdeadline/paging/fullSDK claim untilactualproof. Compilation/12GREEN pending.
+
+Independent-stream localcore/debug/test compile passes2m56s. Bounded397af25...5418d9a
+bothreviewaxes find one diagnostic regression: successivepage publish overwrites
+ignoredcount, so laterhealthy Retweet clears earlier rejected-row warnings. Native
+12GREEN38302936369 at5418d9a stillpending. Reviewstage new13tracer adds rejected
+unsigned envelope plus duplicate independently signed likes/replies. Requires
+unverifiedwarning, exactlyoneofeachverifiedrow/nofailedpageerror/Conversation/actor,
+withunchangedfinalgates. No private state injection. Android10 focused RED will
+runseparately fromactive17scope; warningcorrectionnotyetimplemented.
