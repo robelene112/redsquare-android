@@ -8,105 +8,48 @@ one question at a time when a material choice really needs the owner.
 ## Current work
 
 #24, "Show in-app social notifications", is assigned and active. Both blockers
-#8 and#21 are closed. Nineteen of35 tickets are closed (#2–#15,#18,#20–#23).
-Whole-ticket review base:`d1e65f532e5639bfc8f6c20b5b3fe9794f5e8117`. Owner-authorized sequential implementation
-continues without a new grill or routine permission. Applicable accepted seams1–4:
-native UI/controlled Archive, independently signed protocol vectors, recovery/
-isolation and current/older RedSquare compatibility. Closed-app pushes remain
-#32–#34; Pixel acceptance remains#35.
+#8 and #21 are closed. Nineteen of35 tickets are closed (#2–#15,#18,#20–#23).
+Whole-ticket review base: `d1e65f532e5639bfc8f6c20b5b3fe9794f5e8117`.
+Continue the authorized sequence without a grill per ticket. Accepted seams1–4
+cover native UI/controlled Archive, independently signed references, recovery/
+isolation and cross-client compatibility. Closed-app push remains #32–34;
+physical Pixel acceptance remains #35. No new phone APK has been published.
 
-Notifications source supports signed likes, strict create-tweet own-parent replies,
-exact public-key text/list mentions, registrar-proved username mentions and ordinary
-reposts. Five native journeys atdfc1fdd PASS run38288641594:5/53.917s/1OKrecord/
-0deaths/core71. Actual routes/owner-index/authidentity/no-write/contextualSkip and
-opaque wallet/backend/permission/namecache restoration pass. First5run38287870397
-failed before Notifications due to fixturefield3 NPE on unfiltered feed reads;
-retained failure and corrected success each11hashes. Bounded correction reviews0/0.
-Sourcepush38288613575 PASSES. See NATIVE_NOTIFICATION_VERIFICATION.md for chronology.
+Notifications now support signed likes, replies, exact key/list mentions,
+registrar-proved username mentions, reposts and current/legacy quote posts.
+Unknown signed-addressed targets use neutral captions; verified non-own targets
+are excluded. Actor taps open profiles. Available commentary/replies remain
+readable while bounded verified-original lookup reports unavailable/failure and
+allows explicit retry. Parent-cache recovery also runs after handled thread
+failure. Independent owner-indexed streams preserve healthy results on partial
+failure. Verified activity survives pruned pages/Activity recreation. History and
+read markers are wallet/backend scoped; unread counts use visible verified rows,
+Mark all as read commits before confirming, and storage faults preserve activity.
 
-Next signed quotes: independent current retweet and legacy dual create-tweet
-commentary with separately authenticated original. Public-reader genuine RED6cases/
-1failure/.545s/build56s ->fullcore72GREEN/build54s. Twohashes each quote-core-red/green.
-Reference16109bytes/SHA17edeff358ba5fd060b1252d0e7d186b2ef951d7ae91c603e166ad0e365cd087
-identical docs/core/native. UI shares real RedSquare+Retweet responses, resolves
-own targets from signed originals/cache, opens commentary+original and actor.
-Sixth native journey covers both formats; existing reply/repost fixtures now also
-show commentary separately. Initialcore/debug/test compile2m42PASS. Review-stage
-private sharedretweetdecoder resolves duplication; correctedcompile3m26PASS.
-Quote native38290192207 at42cb66e PASS6/44.806s/1record/0deaths/core72, bothformats'
-actualcommentary/original/Actor routes +allfinalgates. Repost actor selected wrong
-same-signerquote row inthat run; index0corrected492780d/bothreviews0 and nextnative
-mustcovercorrectedrow. Thirteenhashes +qualifiedtoolview/all6XML retained.
+Latest completed native checkpoint: Android10 run38309796737 at e09fec0 passes
+17 journeys in47.995s, one OK record, zero deaths/assumptions, core73/debug/test.
+Missing reply-parent content/unavailable/Refresh/recovery/Actor and all previous
+journeys/final opaque restoration pass. Thirty-eight retained hashes; root viewed
+original reply PNG and parsed all18XML. Activity recreation is not process death.
 
-Missing-like tracer RED38290932273 at760eeae:7reported/6PASS/1failure57.272s/
-0OKrecords/0deaths; absentneutralrowafterNotifications/Skip. Minimum52e693b retains
-signed owner-addressedlike withneutralcaption untiltargetownership proved; Reference
-route reusesexistingQuoteState boundedverifiedlookup/cache/Retry thenConversation.
-FirstGREEN38291912526 PASSES7/76.694s/1OKrecord/0deaths/core72, actualunavailable/
-explicitRetry/recoveredConversation/backretainedrow/verifiedActor/positive2lookups,
-correctedactualrepostrow+all6oldjourneys/finalauthidentity/no-write/opaquerestoration.
-Localcore/debug/test3m26PASS; attachedclient143butrunningcontainerlaterexit0, root
-retainedsuccesslog+read-onlywait/noestablishedcause. Sourcepush8f3007b passes.
-Specfoundknownnon-own like couldbypassownership: fallbacknowonlyunknown91686be,
-bothcorrectionaxes0/localcompile1m21PASS; nativecoverage via nextnegative fixture.
+Missing quote minimum c0624e0 is accepted at the native seam: Android10
+run38311318013 passes18 cases in54.526s, one OK, zero deaths/assumptions, core73.
+Actual neutral quote/commentary/unavailable-original/Retry/recovery/Actor and
+all17 previous cases pass. Forty hashes; root original quote screenshot and
+all19 XML inspected. Both reviews pass, local full build2m51s/container wait0.
+Next slice supplements available feed mentions omitted by the recipient index.
 
-Missing ordinaryrepost4536653 nativeRED38292822038 reports8/7PASS/1fail57.679s/
-0OKrecord/0deaths/core72, absentneutralrepost. Minimum43df154 addsverifiedrecipients
-+sameunknown-onlysignedowner fallback/Reference route; localcore/debug/test3m5PASS.
-First8GREEN38294033318 at43df154 PASSES8/44.026s/1OKrecord/0deaths/core72, both
-missinglike/repostactualempty/explicitRetry/recoveredConversation/Back/Actor/
-2targetreads andknownnon-own addressedlike excluded; all6existingjourneys/full
-finalopaque wallet/backend/pref/name-or-original-cache restore/no-write pass.
-Seventeenhashes/rootfullreloadedrepPNG(allOwner/toolbar/2actors/captions)+all8XML.
-Standards1duplicateownership predicate nowsharedprivatecaption3e53ce1, both
-correctionaxes0. Sharedrefactor/newtracer compilepending; eightGREEN predates it.
+Remaining #24 work is finite: supplement available feed/cache mentions and
+followed-account posts, bounded reply discovery/older-page overlap and retry,
+prove mute/block and backend/wallet isolation, actual permission choices and
+process-restart/storage recovery, then final whole-ticket reviews and Android10/
+17 acceptance at the same source. Automatic read-on-tap, richer previews, live
+polling, universal indexing and permanent history are not closure requirements.
 
-Cumulative22commitreviewStandards0additional/Spec1: currentquote like-targetlookup
-usesonlyordinaryRedSquare, but currentquotes indexedRedSquareRetweet. Newfb55c40
-native9tracer +independent owncurrentquote/incominglike: ordinarytargetreads[];
-Retweettarget first[]then ownquoteonexplicitRetry. Requires actualcommentary+
-authenticatedoriginal/Back/Actor/Retweetreads>=2; safe countJSONonfailure/success.
-Reference24557bytes/SHAdf18fa267c99d457bdab01b4a41f88e83fb92096e740efb492012c9ddffaf06f
-threecopiesidentical. Localcore/debug/testcompile2m32PASS/bothboundedreviews0. Genuine9RED38295102399
-atfb55c40 reports9/8PASS/1failure69.013s/0OKrecord/0deaths/core72, newquote-like
-passesneutral/firstunavailable/explicitRetry then missingrecoverytext at161; actual
-ordinarytargetreads2/Retweet0 confirmsnamespacegap. Fourhashes/rootfullfailurePNG
-+separateXML retained. MinimumQuoteStatefallback nowexactRetweettarget onlyafter
-verifiedemptyordinarypage, sameauthenticated selectedpeer/sig/flag/limit1/13s
-budget/revision-cachehandling, failuresremainfailures. Localcore/debug/testcompile
-andfirst9GREEN nowcomplete:38295989335 at72a549a PASSES9/67.886s/1OKrecord/
-0deaths/core72/actualordinary2+Retweet2targetreads andallprior8journeys/finalidentity
-no-write/opaque restoration. Twentyhashes/rootfullneutralquotelike PNG+all9XML
-retained. Bothsourcecorrectivereviews0; namespacefinding source+native resolved.
-Localcompile reports2m41success/Dockeractualexit0 despiteattachedclient143; no
-repeatbuild/causeclaim. Next10thhistorytracer warmsactualsignedlike, thenserver
-returnsinvalidarchive responses andActivityScenario.recreate; expects actualread
-error withretainedsameactivity/Owner/Profile. Allcases precisehistory-file snapshot/
-clear/restore underPublicStorelock andfullopaqueidentity safeguards. Fixturecompile1m36PASS, Spec0/Standards1snapshotduplication reviewrefactorpending.
-Genuine10RED38297832282 reports10/9PASS/1fail86.859s/0OK/0deaths: warmssignedlike,
-Conversation/back,recreateunderinvalidselectedpeer responses, errorvisiblethen
-cachedlikeabsentline162; all9oldpass. Fivehashes/rootfullrecreatedPNG+2XML.
-Minimum NotificationHistoryStore nowwallet/backendscoped/atomic/bounded300/16MiB,
-re-verifiescachedsignatures/kinds andsignedIDs/timestamps; screenrehydratesbefore
-networkfailure. Target/name/personalchecks stay inrender. Cachewarningnonblocking.
-Localcore/debug/testcompile2m42PASS; first10GREEN38299013457 atdcac031 passes10/69.858s/1OK/0deaths/core72. Twenty-two hashes/root recreatedoriginal/all10XML retained. Standards sentinel and duplicatefixture cleanup corrected; compile2m46PASS/bothaxes0. Attachedclient143 but independent actualcontainerwait0; no cause inferred. ReadIDs,paging,partialstream,
-othermissing/isolation/realcoldproof/fullSDK stillfuturewithin#24. Target-sig
-Retweetqueries routeControlledFeedPeer genericarchiveResponse, notunfilteredquote
-callback, and newfixture answers exactnamespace/sig/flag/limit1 there.
-
-Fresh-empty tracer Spec synchronization gap corrected to require actual changed
-owner-index response plus completed Refresh, both corrective axes0. Predecessor
-38300238513 canceled/notRED. Genuine38300436228 at a3f65e7 reports11/10PASS/
-1failure92.911s/0OK/0deaths/core72: saved like lost after completed successful-empty
-refresh, line185. Fivehashes/root recreatedoriginal/bothXML retained. Minimum
-screen merges cached/fresh/in-memory verified events bysignedID/time, bounded300
-per-kind, diskwholehistory300/16MiB. Keys include wallet/backend/endpoint. Compilation3m37PASS; first11GREEN38301388041 passes11/78.333s/1OK/0deaths/core72. Both bounded axes0;24hashes/all11XML/root retainedlikePNG. Next12partial tracer RED38302170360 reports12/11PASS/1fail95.739s/0OK/deaths at197: explicitreaderror buthealthyreplyabsent. Threehashes/rootfailurePNG+XML. Minimum independentconcurrent namespaces preservehealthyresults andrequestdeadlines/parentcancellation; compilation2m56PASS; first12GREEN38302936369 at5418d9a passes12/82.736s/1OK/0deaths/core72.26hashes/rootfullpartialPNG/all12XML. Bothreviewsfind1 warningaggregationregression: laterhealthyperstreampublication clearsignoredrowcount. New13REJECTED tracer/duplicatevalidrows reviews0additional, separate10RED38303352847 at48a377c reports13/12PASS/1fail53.357s/0OK/deaths/core72 at215missingwarning. Threehashes/rootfullfailurePNG+XML showoneLike/oneReply/no warning. Minimumsums ignoredRows acrosssuccessfulfreshpages onceperrefresh, preservingcombinedcachecount. Compilation3m5PASS (actualcontainerwait0 despiteattached143); first13GREEN10 38303946822 at e461912 passes13/40.578s/1OK/0deaths/core72. Bothcorrectiveaxes0.28hashes/rootfullwarningPNG/all13XML. Nextnulloptional ordinaryrepost public-reader tracer7/1RED.696s/build42; corrected fullcore73GREEN/build58. Newreference25828bytes/SHA0b2ccd40b8b0adb597480e81987e3e04522353805de09000d4f20fc132e6fc95. Native14nullrepostcache/recreation38305022847 at181d760 passes14/84.072s/1OK/0deaths/core73; localapp/test2m42PASS/bothaxes0.30hashes/rootfullrecoveredrepPNG/all14XML. New15 READtracer requires1unread/Markallread/recreationunderbadreads preserves0unread/availableLike, precise readfilefixturecleanup thirdconsumer. Actual15RED10 38305833616 reports15/13PASS/2fail58.728s/0OK/deaths/core73: unreadlabelabsent260, existingReply parentnotdisplayed47. Fivehashes/rootbothoriginals/XML, no exactviewportcause inferred. Parentfixtureexplicitlyscrollstotheknownparent/preservessameassertion. Minimum readmarkerspublicIDs2000fits1500memoryrows/scopedwallet+backend; atomicstorage/warnings/onlyvisibleverifiedrowsbadge/explicitMarkall. Compilation3m7PASS; first15GREEN10 38306583171 atac5d06a passes15/48.576s/1OK/0deaths/core73/bothaxes0.32hashes/rootfullread-recoveryPNG/all15XML. Next16ReadSaveFaultregression obstructsownedreadfilewithemptydir/visiblefailurekeeps1unread+activity/explicitretryrecovers; fixturetracks/removesonlyownedemptydir/restoresopaqueprior. Native16GREEN17 38307357984 at5d68810 passes16/62.485s/1OK/0deaths/core73/bothaxes0.36hashes/rootfailure+recoveredPNGs/all17XML. New17 missingReplyparent tracer independent unknownreply+knownOtherReply, firstthreadempty thenRefreshrecovery; preciseconversation cache cleanup preventsoldRoot. Reference29075/SHA8a85d511e0b8ab5100fe28da9e3cffbbdd82cfed6a1ada78b7e11ac42f2bfd63. Actual17RED10 38308473338 ata6af24e reports17/16PASS/1fail62.058s/0OK/deaths/core73missingneutralreply309.3hashes/rootfailurePNG+XML. Minimumsharedreplyeligibility/neutralcaption andexistingboundedparentlookup/availabilitycopy; compile/17GREENpending. Parentcachelookupskippedifthreadfails noticedrootreview/correctionpending. No newfullticket/Pixel/APK/processdeath claim.
-
-Remaining within#24: contact-post and feed-cache supplementation, missing-original
-retention/lookup/Retry with neutral wording, bounded independent paging/partial
-failures/read-IDcache/badges, offline/cold recovery, wallet/backend/personal-control
-isolation, real permission allow/deny and final fullAndroid10+17 acceptance.
-No new APK; stable review remainsv10/source5225d06. No other ticket claimed.
+Canonical chronology: `docs/research/NATIVE_NOTIFICATION_VERIFICATION.md`.
+Separate axis reports: `docs/evidence/ticket23/REVIEW.md`.
+Protected future Chat reference/contracts remain untracked and untouched; never
+stage them with notifications. Use explicit active paths when staging.
 
 ## Earlier completed ticket checkpoints
 
