@@ -316,3 +316,18 @@ Odd-entry native regression passes3/0/0/0 in31s. Four original hashes in
 block-odd-entries retain the reference/log/XML/counts. Sourcepush38194173861
 at172ac46 also passes release/lint/core59. Bounded odd source/evidence review
 remains pending; no current-chain/status proof follows.
+
+Odd-entry review at82ed842: Spec0; Standards0production breaches, one handoff
+clarity correction and one shared header-signing judgment. Current handoff now
+consolidates actual status; the narrowly shared signing helper reproduces the
+complete independent descendant JSON byte-for-byte.
+
+Next seam2 ancestry tracer: independent482B descendant tipbf72deac... connected
+to the odd payment block. Pinned Rust computes the root and pure WASM/Elliptic
+verify the exact creator preimage/signature/hash/full serialization. Native
+compiled unimplemented-reader RED1failure47s ->same-caseGREEN1PASS48s. Next
+existing-policy unrelated valid payment ancestor cannot prove membership;
+positive+orphan2PASS28s. Eight hashes in chain-reference-first. Public observer
+limits16blocks/32MiB; unknown on missing/malformed/mismatching coverage, no
+negative transaction result or reservation release. HTTP elapsed/per-body bounds,
+Android status/reorg/persistence and complete acceptance remain separate.

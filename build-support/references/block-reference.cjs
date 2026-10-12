@@ -21,13 +21,16 @@ header.writeUInt32BE(1,0);header.writeBigUInt64BE(2000002n,4);
 header.writeBigUInt64BE(1700000010000n,12);
 Buffer.alloc(32,0xab).copy(header,20);
 Buffer.from(base58.decode(creator)).copy(header,52);root.copy(header,85);
-const preimage = Buffer.concat([header.subarray(4,117),header.subarray(181,213),header.subarray(221,285)]);
-assert.equal(preimage.length,209);
-const signature = wasm.sign_buffer(preimage,creatorScalar);
-assert(wasm.verify_signature(preimage,signature,creator));
-assert(new EC('secp256k1').verify(wasm.hash(preimage),{r:signature.slice(0,64),s:signature.slice(64)},Buffer.from(base58.decode(creator)).toString('hex'),'hex'));
-Buffer.from(signature,'hex').copy(header,117);
-const hash = wasm.hash(Buffer.concat([header.subarray(20,52),Buffer.from(wasm.hash(preimage),'hex')]));
+function signHeader(signedHeader) {
+ const preimage=Buffer.concat([signedHeader.subarray(4,117),signedHeader.subarray(181,213),signedHeader.subarray(221,285)]);
+ assert.equal(preimage.length,209);
+ const signature=wasm.sign_buffer(preimage,creatorScalar);
+ assert(wasm.verify_signature(preimage,signature,creator));
+ assert(new EC('secp256k1').verify(wasm.hash(preimage),{r:signature.slice(0,64),s:signature.slice(64)},Buffer.from(base58.decode(creator)).toString('hex'),'hex'));
+ Buffer.from(signature,'hex').copy(signedHeader,117);
+ return {signature,hash:wasm.hash(Buffer.concat([signedHeader.subarray(20,52),Buffer.from(wasm.hash(preimage),'hex')]))};
+}
+const {signature,hash}=signHeader(header);
 const seed = Buffer.concat([header,payment]);
 const block = new wasm.WasmBlock();assert.equal(block.deserialize(seed),'');
 assert.equal(block.hash,hash);assert.equal(block.id,2000002n);assert.equal(block.timestamp,1700000010000n);
@@ -71,11 +74,7 @@ const oddRoot=oddHeader.subarray(85,117).toString('hex');
 assert.equal(oddRoot,'0c055916f67c20a7204ac29723e048068c355cc32cd8b30940f2a361bebcee8f');
 const oddLeaves=oddBlock.transactions.map(tx=>Buffer.from(tx.get_hash_for_signature()));
 assert.equal(oddRoot,wasm.hash(Buffer.concat([Buffer.from(wasm.hash(Buffer.concat(oddLeaves.slice(0,2))),'hex'),oddLeaves[2]])));
-const oddPreimage=Buffer.concat([oddHeader.subarray(4,117),oddHeader.subarray(181,213),oddHeader.subarray(221,285)]);
-const oddSignature=wasm.sign_buffer(oddPreimage,creatorScalar);
-assert(wasm.verify_signature(oddPreimage,oddSignature,creator));
-assert(new EC('secp256k1').verify(wasm.hash(oddPreimage),{r:oddSignature.slice(0,64),s:oddSignature.slice(64)},Buffer.from(base58.decode(creator)).toString('hex'),'hex'));
-Buffer.from(oddSignature,'hex').copy(oddHeader,117);
+const {hash:oddHash}=signHeader(oddHeader);
 const oddPayment=Buffer.from(expectedPayment);
 for(let i=0;i<2;i++)oddPayment.writeBigUInt64BE(1n,93+3*59+i*59+49);
 const oddBytes=Buffer.concat([oddHeader,opaqueBytes,oddPayment,feeBytes]);
@@ -84,9 +83,21 @@ assert(Buffer.from(oddAgain.serialize()).equals(oddBytes));assert.equal(oddBytes
 assert.deepEqual(oddAgain.transactions.map(tx=>tx.type),[2,0,1]);
 assert.equal(oddAgain.transactions[1].signature,vector.payment.id);
 assert.deepEqual(oddAgain.transactions[1].to.map(s=>s.tx_ordinal),[1n,1n]);
-const oddHash=wasm.hash(Buffer.concat([oddHeader.subarray(20,52),Buffer.from(wasm.hash(oddPreimage),'hex')]));
 assert.equal(oddAgain.hash,oddHash);
 assert.equal(oddHash,'6ed747ba2da6068f793a60291131ae086a623576dbd2557c31ad854640945856');
+// A complete descendant lets a caller prove ancestry, not just find a named block.
+const tipSeedHeader=Buffer.from(header);tipSeedHeader.writeUInt32BE(1,0);
+tipSeedHeader.writeBigUInt64BE(2000003n,4);tipSeedHeader.writeBigUInt64BE(1700000020000n,12);
+Buffer.from(oddHash,'hex').copy(tipSeedHeader,20);tipSeedHeader.fill(0,85,181);
+const tipBlock=new wasm.WasmBlock();assert.equal(tipBlock.deserialize(Buffer.concat([tipSeedHeader,feeBytes])),'');
+const tipHeader=Buffer.from(tipBlock.serialize()).subarray(0,389);
+const {hash:tipHash}=signHeader(tipHeader);
+const tipBytes=Buffer.concat([tipHeader,feeBytes]);
+const tipAgain=new wasm.WasmBlock();assert.equal(tipAgain.deserialize(tipBytes),'');
+assert(Buffer.from(tipAgain.serialize()).equals(tipBytes));assert.equal(tipBytes.length,482);
+assert.equal(tipAgain.previous_block_hash,oddHash);assert.equal(tipAgain.id,2000003n);
+assert.equal(tipAgain.hash,tipHash);
+assert.equal(tipHash,'bf72deac4b8c7dae48258dd2f4c7e4c3f13ed986e27da7650abdf573027579ba');
 process.stdout.write(JSON.stringify({synthetic:true,reference,
  boundary:'Full-block framing, creator/header identity and exact payment bytes only, not consensus admission, current chain membership or finality',
  block:{id:'2000002',timestamp:'1700000010000',previousHash:'ab'.repeat(32),creator,signature,hash,
@@ -95,4 +106,6 @@ process.stdout.write(JSON.stringify({synthetic:true,reference,
  recipient:vector.payment.recipient,amount:vector.payment.amount,fee:vector.payment.fee,change:vector.payment.change},
  mutations:{changedOriginalInputBase64:changedInputBytes.toString('base64')},
  oddBlock:{hash:oddHash,merkleRoot:oddRoot,leafHashes:oddLeaves.map(b=>b.toString('hex')),
- types:[2,0,1],opaqueHex:'ff008041',fullBase64:oddBytes.toString('base64'),bytes:oddBytes.length,paymentOrdinal:'1'}},null,2)+'\n');
+ types:[2,0,1],opaqueHex:'ff008041',fullBase64:oddBytes.toString('base64'),bytes:oddBytes.length,paymentOrdinal:'1'},
+ chainTip:{hash:tipHash,id:'2000003',timestamp:'1700000020000',previousHash:oddHash,
+ fullBase64:tipBytes.toString('base64'),bytes:tipBytes.length}},null,2)+'\n');

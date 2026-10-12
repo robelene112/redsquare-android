@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.saito.SaitoPaymentChainTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-10-12T02:17:01" hostname="c655d86223b1" time="0.609">
+  <properties/>
+  <testcase name="exactPaymentIsIncludedOnlyThroughVerifiedAncestryFromTheSelectedSnapshot" classname="nl.davidengelen.redsquare.saito.SaitoPaymentChainTest" time="0.523"/>
+  <testcase name="anUnrelatedValidPaymentBlockDoesNotProveSelectedChainInclusion" classname="nl.davidengelen.redsquare.saito.SaitoPaymentChainTest" time="0.086"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

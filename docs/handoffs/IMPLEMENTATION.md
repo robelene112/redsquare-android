@@ -7,98 +7,62 @@ one question at a time when a material choice really needs the owner.
 
 ## Current work
 
-#23, "Show balances/receiving details and send authenticated SAITO", is now
-assigned and active. Its sole blocker #7 is closed. Review base
-2fe1fa51ed8d0c0e250d77e7c2f4198809418fdd; first tracer is the native balance and
-receiving-address flow against an isolated synthetic snapshot. Parent seams1–4
-are already authorized. NATIVE_TRANSFER_VERIFICATION.md records new evidence;
-NATIVE_SAITO_TRANSFER_CONTRACT.md is the relevant research for this ticket.
-Minimal checked balance/receiving/copy source is committed at48e8c44. Native
-missing-action RED38184572679 and GREEN38184994485 (1PASS14.8s) are established.
-The independent funded WASM/Elliptic vector and native constructor also pass;
-zero-payment restore remains strict. Current evidence: ticket22/balance-green
-and ticket22/payment-reference. Funded restoration and shared-serializer review
-fixes now pass all57 core tests (0 failures/errors/skips); see ticket22/payment-restore.
-Their bounded source reviews both report0 findings.
-The authenticated send cycle now passes focused38187897889 at0b0d75d
-(2PASS44.412s, core57). Root views4originalPNG+separateXML, and the actual
-762-byte frame independently passes pinnedWASM/Elliptic verification. Source
-push38187897999 also passes release/lint. Both source fix reviews0findings.
-See ticket22/authenticated-send-green/android17 and the qualified earlier failures.
-The real-PIN cancellation/reopen regression passes38188796688 at9a8b043
-(3PASS49.799s/core57), local compile1m22s and source release/lint38188796707.
-Root views2originalPNG+separateXML;5hashes in ticket22/auth-cancel-green/android17.
-Both bounded source axes0findings. Same identity, all7.5 available, no Pending or
-frame and positively cleared PIN. Existing-policy coverage, no fabricated RED
-or production change. Both cancellation evidence review axes also0findings.
-The next tracer extends the authenticated send journey with Activity recreation,
-no automatic resend and exact reviewed/fresh-PIN retry. Retry is currently absent;
-local test APK compile passes1m18s and both bounded test-source review axes0.
-Focused38189355347 atb117ddf stops atline67 Review visibility after Back
-(3cases/1failure59.925s), before initial auth/reopening/Retry. Cancellation and
-balance still pass; source release/lint38189355162passes. Root originalfailure
-PNG+separateXML shows Wallet/formclosed; preceding IME state unrecorded. This is
-a fixture interruption, NOT missing-Retry RED.3hashes in retry-fixture-failure.
-Correction conditions keyboard dismissal on positively observed real IME and
-retains all assertions; local test APK compile passes1m22s/bothboundedreviews0.
-Corrected38189921586 atea0df3d reaches genuine missing-Retry actionREDline116
-(3cases1failure54.444s/core57/sourcepush38189921312releaseLintPASS). Initialsend
-and reopening samewallet/Pending/zeroavailable/exactly1frame pass; no auto resend.
-Root views2originalPNG+separateXML/5hashes in ticket22/retry-red/android17.
-Minimal explicit exact-candidate retry is being built: fresh reviewed device
-auth, original selectedbackend, fresh exact eligibleinputs, and locked physical
-enqueue rechecks of saved/live identity/backend and exact durable candidate.
-No re-signing/newreservation/automatic resend. Debug/test build passes2m37s;
-focusedGREEN38190583142 atf37feba passes3cases66.944s/core57 and sourcepush
-38190582887release/lint. Both boundedsourceaxes0. Root3originalPNG+separateXML
-and independently verifies actual762byte frame (hash5005caf2...) with purepinned
-WASM/Elliptic;9hashes in ticket22/retry-green/android17. Samewallet/Pending/0
-after Activityrecreation/noauto, freshrealPIN/exact2ndframe/clearedPIN pass.
-Both boundedGREEN evidence axes through849a960 report0 findings;
-inclusion/reorg and failure/process-death acceptance remain separate. Activity recreation is not process
-death, nor complete retry/inclusion acceptance. Failure/retry/recovery/inclusion, receivingQR
-and final10/17 remain.
-Payments and their recovery, compatibility and final acceptance remain unfinished.
+#23, "Show balances/receiving details and send authenticated SAITO", is assigned
+and active. Its sole blocker #7 is closed. Whole-ticket review base:
+`2fe1fa51ed8d0c0e250d77e7c2f4198809418fdd`. Parent seams1–4 and sequential
+implementation are authorized; do not ask again. Eighteen of35 tickets are closed.
 
-Next existing-policy tracer adds TransferProcessRecoveryTest and the host
-transfer-process-check, invoked by focused/full transfer scopes. It deliberately
-kills the real authenticated pending-send process and cold-recovers without
-resetting wallet/backend/work. Require no automatic frame, exact review and
-fresh real PIN before the byte-identical explicit retry; positively verify
-host-owned credential cleanup. Corrected local test APK compile passes1m28s;
-initial52s compile failed at an incorrect fixture public-signature reference.
-Python/shell syntax checks pass. Focused38192305814 atd0db1e3 passes ordinary
-3cases47.058s,actualdeath4785→4877/cold1case8.964s andpositivecredentialcleanup
-1case0.043s:5/3/1. Core57/source/debug/test plus sourcepush38192305645release/lint
-pass. Root4originalPNG/separate4XML, bothactualframes independentlypass pure
-pinnedWASM/Elliptic;25hashes in ticket22/process-green/android17. Baseline Spec0,
-Standards0hardbreaches/1duplication improvement. Narrow shared funding/IME
-fixture extraction test APK compiles1m21s, bothboundedfix/evidence axes0findings.
-Rerun38193034021 at1818ea7 passes ordinary3cases70.424s/death4698→4814/cold1
-case9.897s/positivecleanup1case0.062s:5/3/1/core57. Sourcepush38193034164release/
-lint passes.22hashes in process-shared-green/android17; root4XML,2fullPNGand2
-toolstrips byteidentical to fullyviewedPending original; bothactualframes
-independentlypass identical421370ca...hash. Current rerun evidence review pending.
-No missing-feature RED is assumed for behavior already implemented.
+Payment chronology and original evidence are in
+[NATIVE_TRANSFER_VERIFICATION.md](../research/NATIVE_TRANSFER_VERIFICATION.md)
+and `docs/evidence/ticket22/`. The folder follows the ticket's delivery number22,
+although its GitHub issue is #23. The source contract is
+[NATIVE_SAITO_TRANSFER_CONTRACT.md](../research/NATIVE_SAITO_TRANSFER_CONTRACT.md).
 
-Next seam2 tracer introduces SaitoFullBlock public full-reader/exact saved-payment
-matcher. PurepinnedWASM/Elliptic synthetic1010byteblock reference runs0.38s,
-fullserialization/outputassignment/hashb33d2fc4...verified. Native compiled
-unimplemented-reader RED49s →minimalGREEN49s →allcore58PASS18s.8hashes in
-block-reference-first; source/evidence reviews pending. This is content binding,
-NOT currentselectedchain membership/consensus/finality. Odd/system/SPV/resource/
-largeinteger/mutation and ancestry/reorg cases remain, then Android inclusion UI.
+Current implemented and verified slices:
+- Selected-backend reported balance, receiving address and exact clipboard copy.
+- Independently compatible funded payment construction/restoration, exact
+  recipient/amount/fee review and real Android device authentication before send.
+- Durable wallet-wide input reservations, no automatic monetary queue/send,
+  real PIN cancellation with no send or reservation, exact explicit retry with
+  fresh review/authentication and original selected backend.
+- Activity recreation and actual process-death recovery preserve the same wallet,
+  backend and candidate, emit nothing automatically, and require a fresh PIN
+  before byte-identical retry. Host-owned test PIN cleanup is positively checked.
+- Full-block content verification and exact saved-payment matching, including
+  assigned output coordinates, original input-coordinate discrimination, and
+  odd entries containing opaque GoldenTicket and empty Fee payloads.
 
-The next sole existing-policy input-coordinate mutation regression passes:
-independent WASM retains blockhash/paymentleaf/signature despite changed first
-positive input block2000000→2000001; native refuses to match the saved original.
-Retainedpositive+newcase2PASS29s, no production change/fabricatedRED.4hashes in
-block-input-coordinates; source/evidence review pending. No other mutant cases
-added. First full-reader Spec review throughd99c779 has0findings; Standards has
-0hardbreaches/1preimage-duplication improvement, nowfixed narrowly across actual
-Envelope/fullblockbinary consumers; caller checks unchanged. Full core59PASS50s;
-all14XML/16hashes in block-preimage-review-fix. Input-mutation/source-fix/evidence
-reviews pending. Sourcepush38193713102 atd99release/lint/core58 passes.
+Latest Android17 focused proof:38193034021 at1818ea7, ordinary3PASS70.424s,
+actual death4698→4814/cold1PASS9.897s/credential cleanup1PASS0.062s;5 completed
+cases/3 records/1 interrupted stage/core57. Both actual frames independently
+pass pinned WASM/Elliptic.22 hashes in `process-shared-green/android17`. Root
+inspected four separate XMLs; two original PNGs were fully viewed and two tool
+strips were proven byte-identical to the fully viewed Pending original. Both
+bounded source/evidence axes are clear. Earlier genuine retry RED and fixture
+interruptions remain qualified in the verification chronology.
+
+Latest core proof: all59 pass at172ac46 after the narrow shared raw transaction
+preimage review fix.16 hashes include all14 original core XMLs. Both bounded
+input-coordinate/source-fix/evidence axes are clear. Sourcepush38194173861
+passes release/lint/core59. Odd-entry regression at82ed842:3PASS31s, four hashes
+in `block-odd-entries`; sourcepush38194771230 passes. Spec0; Standards0 production
+hard breaches, one current-handoff correction and one header-signing duplication
+judgment. The review-stage corrections now consolidate this active status and share only
+actual header signing, preserving literal vector assertions and original evidence.
+
+Current vertical slice: exact payment inclusion through verified contiguous
+ancestry from a selected-server snapshot. Independent synthetic descendant
+482bytes/tipbf72deac...; compiled missing-reader RED1failure47s followed by
+GREEN1PASS48s. A valid but unrelated ancestor containing the payment cannot
+prove membership: retained positive plus regression2PASS28s. Eight hashes in
+`chain-reference-first`. The shared signing helper produces byte-identical full
+reference JSON. Bounded source/evidence review pending. Android status, durable
+last observations, reorg/unknown handling and HTTP budgets are not implemented.
+After those, complete receiving QR, meaningful remaining failure cases, final
+full Android10/17 and whole-ticket two-axis review. Payments remain unfinished.
+No new phone APK, Pixel performance result, live transfer or node change.
+
+## Earlier completed ticket checkpoints
 
 Profile #18 is closed, final evidence commit ed5742f pushed. Eighteen of35 tickets
 are complete (#2–#15, #18, #20, #21 and #22). Parked #19, "Register an optional Saito username",
@@ -423,10 +387,3 @@ NATIVE_GROUP_CHAT_CONTRACT (all .md under docs/research). The protected future n
 their own relevant tickets; earlier contracts are already committed.
 They establish source contracts, not runtime or feature completion.
 
-Continuation 2026-10-12: bounded original-input/shared-preimage reviews at172ac46
-are both clear; sourcepush38194173861 passes release/lint/core59. Next single
-odd/system-entry regression independently computes a three-leaf root with
-opaque GoldenTicket and empty Fee surrounding the saved payment at ordinal1.
-Native public reader/matcher3PASS31s; four hashes in block-odd-entries. No
-production change or fabricated RED. Bounded source/evidence review pending.
-#23 stays active; selected-chain status, receiving QR and final acceptance remain.
