@@ -19,7 +19,7 @@ fun WalletTransferDialog(transfers: WalletTransfers, onClose: () -> Unit) {
     var memo by remember { mutableStateOf("") }
     LaunchedEffect(transfers) { transfers.load() }
     DisposableEffect(transfers) { onDispose { transfers.cancel() } }
-    val reviewed = transfers.review
+    val reviewed = transfers.review?.payment
     val hasPending = transfers.pending.isNotEmpty()
     AlertDialog(
         onDismissRequest = { transfers.cancel(); onClose() },
@@ -41,6 +41,10 @@ fun WalletTransferDialog(transfers: WalletTransfers, onClose: () -> Unit) {
                         Text(stringResource(R.string.transfer_amount_review, WalletTransfers.display(record.payment.amount)))
                         Text(stringResource(R.string.transfer_recipient_review, record.payment.recipient))
                         Text(stringResource(R.string.transfer_pending_backend, record.backend.domain))
+                        TextButton(enabled = !transfers.busy && record.backend.domain == transfers.backendLabel,
+                            onClick = { transfers.prepareRetry(record.payment.transaction.id) }) {
+                            Text(stringResource(R.string.transfer_retry))
+                        }
                     }
                     if (!hasPending) {
                         TransferField(R.string.transfer_recipient, recipient) { recipient = it }

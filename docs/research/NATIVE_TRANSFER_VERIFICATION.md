@@ -179,3 +179,25 @@ then waits for it gone and the unchanged fixed Review action visible.
 
 The corrected fixture test APK compiles1m22s. No acceptance assertions or
 production behavior changed; hosted rerun remains pending.
+
+Corrected focused38189921586 atea0df3d reaches genuine missing-Retry RED at
+line116 (3cases1failure54.444s): initial authenticated send, real Activity
+recreation, same wallet/Pending/zeroavailable/originalbackend and exactly1frame
+all pass; no automatic resend. Cancellation and balance pass. Core57/source/
+debug/test pass; sourcepush38189921312release/lint passes. Both fixture-fix review
+axes0findings. Root views2originalPNG+separateXML;5hashes in
+ticket22/retry-red/android17. Successful retry, processdeath/inclusion stillunproved.
+
+Minimal explicit retry now retrieves the strict encrypted candidate only for
+its original selected backend, presents the same review and requires a fresh
+device grant. Fresh funding is re-read before review and after authentication;
+every exact original positive input must still be eligible. At physical enqueue
+the saved/live wallet, saved/live backend, operation authority and the exact
+retained candidate are checked under the existing lock. It never re-signs,
+creates another candidate/reservation or automatically sends. Unknown/missing
+inputs retain Pending and reservations. Local build/nativeGREEN are pending.
+This first fresh-unspent controlled cycle is not final inclusion/reorg policy
+or whole-ticket acceptance.
+
+Minimal retry debug and test APK assembly passes2m37s. Hosted GREEN and
+bounded source/evidence reviews remain pending.

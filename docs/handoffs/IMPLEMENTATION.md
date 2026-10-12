@@ -40,7 +40,17 @@ balance still pass; source release/lint38189355162passes. Root originalfailure
 PNG+separateXML shows Wallet/formclosed; preceding IME state unrecorded. This is
 a fixture interruption, NOT missing-Retry RED.3hashes in retry-fixture-failure.
 Correction conditions keyboard dismissal on positively observed real IME and
-retains all assertions; local test APK compile passes1m22s, hosted rerun pending. Activity recreation is not process
+retains all assertions; local test APK compile passes1m22s/bothboundedreviews0.
+Corrected38189921586 atea0df3d reaches genuine missing-Retry actionREDline116
+(3cases1failure54.444s/core57/sourcepush38189921312releaseLintPASS). Initialsend
+and reopening samewallet/Pending/zeroavailable/exactly1frame pass; no auto resend.
+Root views2originalPNG+separateXML/5hashes in ticket22/retry-red/android17.
+Minimal explicit exact-candidate retry is being built: fresh reviewed device
+auth, original selectedbackend, fresh exact eligibleinputs, and locked physical
+enqueue rechecks of saved/live identity/backend and exact durable candidate.
+No re-signing/newreservation/automatic resend. Debug/test build passes2m37s;
+hostedGREEN/boundedsource-evidence reviews stillpending;
+inclusion/reorg and failure/process-death acceptance remain separate. Activity recreation is not process
 death, nor complete retry/inclusion acceptance. Failure/retry/recovery/inclusion, receivingQR
 and final10/17 remain.
 Payments and their recovery, compatibility and final acceptance remain unfinished.

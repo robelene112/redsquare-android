@@ -31,7 +31,8 @@ class WalletTransfers(
 ) {
     val backendLabel: String get() = backend.domain
     private val store = TransferStore(activity.applicationContext, wallet.publicKey)
-    var review by mutableStateOf<SaitoPayment?>(null)
+    data class Review(val payment: SaitoPayment, val isRetry: Boolean)
+    var review by mutableStateOf<Review?>(null)
         private set
     var pending by mutableStateOf<List<TransferStore.Pending>>(emptyList())
         private set
@@ -43,7 +44,7 @@ class WalletTransfers(
         private set
     @Volatile private var attempt: Attempt? = null
     private var job: Job? = null
-    private class Attempt(val payment: SaitoPayment? = null) {
+    private class Attempt(val reviewed: Review? = null) {
         val cancellation = CancellationSignal()
         @Volatile var authenticating = false
     }
@@ -92,20 +93,47 @@ class WalletTransfers(
                     SaitoPayment.create(wallet, chosen, recipient, paymentAmount, feeAmount,
                         System.currentTimeMillis(), UUID.randomUUID().toString(), memo)
                 }
-                if (isCurrent(operation)) review = payment
+                if (isCurrent(operation)) review = Review(payment, isRetry = false)
             } catch (_: Exception) { if (isCurrent(operation)) message = R.string.transfer_review_failed }
             finally { finish(operation) }
         }
     }
 
+    fun prepareRetry(id: String) {
+        if (busy) return
+        val operation = Attempt()
+        attempt = operation
+        busy = true
+        review = null
+        message = null
+        job = activity.lifecycleScope.launch {
+            try {
+                val payment = withContext(Dispatchers.IO) {
+                    val saved = retained(id)
+                    val funding = requireNotNull(balances.funding(backend, wallet.publicKey))
+                    require(saved.inputs.all { it in funding.eligible })
+                    SaitoPeer(wallet, endpoint).use { it.authenticate() }
+                    check(isCurrent(operation))
+                    saved
+                }
+                if (isCurrent(operation)) review = Review(payment, isRetry = true)
+            } catch (_: Exception) { if (isCurrent(operation)) message = R.string.transfer_review_failed }
+            finally { finish(operation) }
+        }
+    }
+
+    private fun retained(id: String): SaitoPayment = store.pending().single {
+        it.backend == backend && it.payment.transaction.id == id
+    }.payment
+
     fun authenticateAndSend() {
         if (busy) return
-        val payment = review ?: return
+        val reviewed = review ?: return
         if (!activity.getSystemService(KeyguardManager::class.java).isDeviceSecure) {
             message = R.string.wallet_auth_setup
             return
         }
-        val operation = Attempt(payment)
+        val operation = Attempt(reviewed)
         attempt = operation
         busy = true
         message = null
@@ -138,20 +166,23 @@ class WalletTransfers(
     }
 
     private fun send(operation: Attempt) {
-        val payment = requireNotNull(operation.payment)
+        val reviewed = requireNotNull(operation.reviewed)
+        val payment = reviewed.payment
         job = activity.lifecycleScope.launch {
             try {
                 val result = withContext(Dispatchers.IO) {
                     check(isCurrent(operation))
                     val funding = requireNotNull(balances.funding(backend, wallet.publicKey))
-                    val unreserved = store.available(funding.eligible)
-                    require(payment.inputs.all { it in unreserved })
+                    val candidates = if (reviewed.isRetry) funding.eligible else store.available(funding.eligible)
+                    require(payment.inputs.all { it in candidates })
                     SaitoPeer(wallet, endpoint).use { peer ->
                         peer.submit(payment.transaction) {
                             check(isCurrent(operation))
                             check(AndroidWalletStore(activity.applicationContext).loadExisting().publicKey == wallet.publicKey)
                             check(AndroidBackendStore(activity.applicationContext).load() == backend)
-                            store.reserve(backend, payment)
+                            if (reviewed.isRetry) {
+                                check(retained(payment.transaction.id).transaction.encoded() == payment.transaction.encoded())
+                            } else store.reserve(backend, payment)
                         }
                         peer.finishBroadcast()
                     }
