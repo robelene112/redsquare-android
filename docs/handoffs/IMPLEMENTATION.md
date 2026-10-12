@@ -74,7 +74,16 @@ ordinarytargetreads2/Retweet0 confirmsnamespacegap. Fourhashes/rootfullfailurePN
 +separateXML retained. MinimumQuoteStatefallback nowexactRetweettarget onlyafter
 verifiedemptyordinarypage, sameauthenticated selectedpeer/sig/flag/limit1/13s
 budget/revision-cachehandling, failuresremainfailures. Localcore/debug/testcompile
-andfirst9GREEN pending. Target-sig
+andfirst9GREEN nowcomplete:38295989335 at72a549a PASSES9/67.886s/1OKrecord/
+0deaths/core72/actualordinary2+Retweet2targetreads andallprior8journeys/finalidentity
+no-write/opaque restoration. Twentyhashes/rootfullneutralquotelike PNG+all9XML
+retained. Bothsourcecorrectivereviews0; namespacefinding source+native resolved.
+Localcompile reports2m41success/Dockeractualexit0 despiteattachedclient143; no
+repeatbuild/causeclaim. Next10thhistorytracer warmsactualsignedlike, thenserver
+returnsinvalidarchive responses andActivityScenario.recreate; expects actualread
+error withretainedsameactivity/Owner/Profile. Allcases precisehistory-file snapshot/
+clear/restore underPublicStorelock andfullopaqueidentity safeguards. No cache
+product yet; testfixturecompile+genuine10RED pending. Target-sig
 Retweetqueries routeControlledFeedPeer genericarchiveResponse, notunfilteredquote
 callback, and newfixture answers exactnamespace/sig/flag/limit1 there.
 

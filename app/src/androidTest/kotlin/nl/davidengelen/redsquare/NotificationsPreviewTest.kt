@@ -17,10 +17,10 @@ import java.util.concurrent.atomic.AtomicInteger
 
 class NotificationsPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
-    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING, MISSING_REPOST, MISSING_QUOTE_LIKE }
+    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING, MISSING_REPOST, MISSING_QUOTE_LIKE, HISTORY }
 
     @Test fun anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile() {
-        withNotifications("incoming-like", mode = Mode.LIKE) { actor ->
+        withNotifications("incoming-like", mode = Mode.LIKE) { actor, _, _ ->
             waitFor("Liked your post")
             ui.onNodeWithText(actor).assertIsDisplayed()
             ui.onNodeWithText("Liked your post").performClick()
@@ -35,7 +35,7 @@ class NotificationsPreviewTest {
     }
 
     @Test fun anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile() {
-        withNotifications("incoming-reply", mode = Mode.REPLY) { actor ->
+        withNotifications("incoming-reply", mode = Mode.REPLY) { actor, _, _ ->
             waitFor("Replied to your post")
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
                 "notification-evidence/incoming-reply.png"), "Replied to your post")
@@ -55,7 +55,7 @@ class NotificationsPreviewTest {
     }
 
     @Test fun anIncomingSignedMentionOpensItsPostAndVerifiedActorProfile() {
-        withNotifications("incoming-mention", mode = Mode.MENTION) { actor ->
+        withNotifications("incoming-mention", mode = Mode.MENTION) { actor, _, _ ->
             waitFor("Mentioned you")
             ui.onAllNodesWithText("Mentioned you").assertCountEquals(1)
             ui.onAllNodesWithText("Replied to your post").assertCountEquals(0)
@@ -74,7 +74,7 @@ class NotificationsPreviewTest {
     }
 
     @Test fun anIncomingVerifiedUsernameMentionOpensItsPostAndActorProfile() {
-        withNotifications("incoming-username-mention", mode = Mode.USERNAME) { actor ->
+        withNotifications("incoming-username-mention", mode = Mode.USERNAME) { actor, _, _ ->
             waitFor("Mentioned you")
             ui.onAllNodesWithText("Mentioned you").assertCountEquals(1)
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
@@ -92,7 +92,7 @@ class NotificationsPreviewTest {
     }
 
     @Test fun anIncomingSignedRepostOpensItsOriginalAndVerifiedActorProfile() {
-        withNotifications("incoming-repost", mode = Mode.REPOST) { actor ->
+        withNotifications("incoming-repost", mode = Mode.REPOST) { actor, _, _ ->
             waitFor("Reposted your post")
             ui.onAllNodesWithText("Reposted your post").assertCountEquals(1)
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
@@ -109,7 +109,7 @@ class NotificationsPreviewTest {
     }
 
     @Test fun incomingCurrentAndLegacyQuotesOpenTheirCommentaryOriginalAndActor() {
-        withNotifications("incoming-quote", mode = Mode.QUOTE) { actor ->
+        withNotifications("incoming-quote", mode = Mode.QUOTE) { actor, _, _ ->
             waitFor("Quoted your post")
             ui.onAllNodesWithText("Quoted your post").assertCountEquals(2)
             ui.onAllNodesWithText("Reposted your post").assertCountEquals(0)
@@ -146,8 +146,30 @@ class NotificationsPreviewTest {
             "Liked a post", "Liked your post", 1, "Own quote recovered after retry")
     }
 
+    @Test fun availableNotificationsSurviveRecreationWhenTheSelectedServerCannotRefresh() {
+        withNotifications("cached-history", Mode.HISTORY) { actor, scenario, failReads ->
+            waitFor("Liked your post")
+            ui.onNodeWithText("Liked your post").assertIsDisplayed().performClick()
+            waitFor("Conversation")
+            ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
+            ui.onNodeWithText("Back").performClick()
+            waitFor("Liked your post")
+            failReads()
+            scenario.recreate()
+            waitFor("Could not load notifications. Check your connection and try Refresh.")
+            captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
+                "notification-evidence/cached-history-recreated.png"), "Notifications")
+            waitFor("Liked your post")
+            ui.onNodeWithText("Liked your post").assertIsDisplayed()
+            ui.onNodeWithText("Server: saito.davidengelen.nl").assertIsDisplayed()
+            ui.onNodeWithText(actor).assertIsDisplayed().performClick()
+            waitFor("Profile")
+            ui.onNodeWithText(actor).assertIsDisplayed()
+        }
+    }
+
     private fun missingReferenceJourney(evidenceName: String, mode: Mode, caption: String, ownCaption: String, actorRows: Int, recoveryText: String = "Original recovered after retry") {
-        withNotifications(evidenceName, mode) { actor ->
+        withNotifications(evidenceName, mode) { actor, _, _ ->
             waitFor(caption)
             ui.onAllNodesWithText(caption).assertCountEquals(1)
             ui.onAllNodesWithText(ownCaption).assertCountEquals(0)
@@ -174,7 +196,7 @@ class NotificationsPreviewTest {
         }
     }
 
-    private fun withNotifications(evidenceName: String, mode: Mode, journey: (String) -> Unit) {
+    private fun withNotifications(evidenceName: String, mode: Mode, journey: (String, ActivityScenario<MainActivity>, () -> Unit) -> Unit) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev")
@@ -200,6 +222,12 @@ class NotificationsPreviewTest {
         val publicLock = if (missing) nl.davidengelen.redsquare.feed.PublicStringStore.lock
             else nl.davidengelen.redsquare.saito.SaitoLocalState.lock
         var priorPublicFiles: Map<String, ByteArray>? = null
+        val historyBase = "notifications.${SaitoBackend.OWNER.id}.$owner.v1"
+        fun historyFiles() = context.noBackupFilesDir.listFiles().orEmpty()
+            .filter { it.name == historyBase || it.name.startsWith("$historyBase.") }
+        var priorHistory: Map<String, ByteArray>? = null
+        val failingReads = java.util.concurrent.atomic.AtomicBoolean(false)
+        val failedReads = AtomicInteger()
         val likeReads = AtomicInteger()
         val replyReads = AtomicInteger()
         val repostReads = AtomicInteger()
@@ -230,7 +258,8 @@ class NotificationsPreviewTest {
                 else -> error("Unexpected Registry fixture request")
             }
         }, archiveResponse = { criteria ->
-            when (criteria.get("field1")?.asString) {
+            if (failingReads.get()) { failedReads.incrementAndGet(); "invalid archive response" }
+            else when (criteria.get("field1")?.asString) {
                 "RedSquareLike" -> if (criteria.get("field3")?.asString == owner) {
                     require(criteria.get("flagged_ne").asInt == 1)
                     require(criteria.get("limit").asInt in 1..100)
@@ -269,7 +298,7 @@ class NotificationsPreviewTest {
                             Mode.MENTION -> "[${fixture.get("incomingMention")},${fixture.get("addressedPost")}]"
                             Mode.USERNAME -> "[${fixture.get("usernameMention")}]"
                             Mode.QUOTE -> "[${fixture.get("legacyQuote")}]"
-                            Mode.LIKE, Mode.REPOST, Mode.MISSING, Mode.MISSING_REPOST, Mode.MISSING_QUOTE_LIKE -> "[]"
+                            Mode.LIKE, Mode.REPOST, Mode.MISSING, Mode.MISSING_REPOST, Mode.MISSING_QUOTE_LIKE, Mode.HISTORY -> "[]"
                         }
                     }
                     criteria.get("field5")?.asString == fixture.getAsJsonObject("incomingQuote").get("sig").asString ->
@@ -297,6 +326,11 @@ class NotificationsPreviewTest {
         }
         var primary: Throwable? = null
         try {
+            synchronized(nl.davidengelen.redsquare.feed.PublicStringStore.lock) {
+                val captured = historyFiles().associate { file -> check(file.isFile); file.name to file.readBytes() }
+                priorHistory = captured
+                captured.keys.forEach { check(File(context.noBackupFilesDir, it).delete()) }
+            }
             if ((mode == Mode.USERNAME || missing)) synchronized(publicLock) {
                 val captured = fixturePublicFiles().associate { file ->
                     check(file.isFile)
@@ -312,7 +346,7 @@ class NotificationsPreviewTest {
             peer.start().use { server ->
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
-                    .putExtra("usernameFixtureRegistrar", mode == Mode.USERNAME)).use {
+                    .putExtra("usernameFixtureRegistrar", mode == Mode.USERNAME)).use { scenario ->
                     withFailureCapture({ retainQuoteTargetReads(); captureNativeScreen(File(context.cacheDir,
                         "notification-evidence/$evidenceName-first-failure.png")) }) {
                         waitFor("Native Red Square reference post")
@@ -331,7 +365,7 @@ class NotificationsPreviewTest {
                             waitFor("Liked your post")
                             captureNativeScreen(File(context.cacheDir, "notification-evidence/incoming-like.png"), "Liked your post")
                         }
-                        journey(actor)
+                        journey(actor, scenario) { failingReads.set(true) }
                         retainQuoteTargetReads()
                         peer.assertHealthy()
                         assertTrue("Incoming likes must be read for this wallet", likeReads.get() > 0)
@@ -344,6 +378,7 @@ class NotificationsPreviewTest {
                         if (mode == Mode.USERNAME) assertTrue("A label hint alone must not be ownership evidence",
                             peer.registryQueries.any { it.get("request").asString == "registry namecheck" &&
                                 it.get("identifier").asString == "NativeCase7@saito" })
+                        if (mode == Mode.HISTORY) assertTrue("Recreation must actually receive failing selected-server responses", failedReads.get() > 0)
                         assertTrue(peer.clientKeys.isNotEmpty())
                         assertTrue(peer.clientKeys.all { it == owner })
                         assertTrue("Reading notifications must not publish a transaction", peer.transactions.isEmpty())
@@ -370,6 +405,15 @@ class NotificationsPreviewTest {
                         saved.forEach { (name, bytes) -> File(context.noBackupFilesDir, name).writeBytes(bytes) }
                         check(fixturePublicFiles().map { it.name }.toSet() == saved.keys)
                         fixturePublicFiles().forEach { check(it.readBytes().contentEquals(saved.getValue(it.name))) }
+                    }
+                }
+            }, {
+                priorHistory?.let { saved ->
+                    synchronized(nl.davidengelen.redsquare.feed.PublicStringStore.lock) {
+                        historyFiles().forEach { check(it.isFile && it.delete()) }
+                        saved.forEach { (name, bytes) -> File(context.noBackupFilesDir, name).writeBytes(bytes) }
+                        check(historyFiles().map { it.name }.toSet() == saved.keys)
+                        historyFiles().forEach { check(it.readBytes().contentEquals(saved.getValue(it.name))) }
                     }
                 }
             })

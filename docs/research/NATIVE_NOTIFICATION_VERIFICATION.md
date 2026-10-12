@@ -474,3 +474,16 @@ rootfulloriginal neutralquote-like listPNG andall9XMLparsed, othersno rootviews.
 Cumulative namespacefinding now source+native resolved; no whole-ticket/fullSDKpair.
 Next vertical slice is available notification history through activityrecreation
 when selectedbackend responsesfail, scopedbywallet/backend and verifiedsigneddata.
+
+Next history tracer adds a tenth native journey: warms an actualsigned ownlike,
+opensitsConversation/returns, thencontrolledselectedserver returnsinvalidarchive
+responses and actualActivityScenario.recreate resetscomposition. Requiresvisible
+read-failuremessage andsame availablelike/selectedOwner/verifiedActorProfile, with
+positivefailingresponses andunchangedauthidentity/no-write/opaque restoration.
+This models selectedserver responses failing, not physicalinternet loss/process
+death/disk-read markers. Testhelpernowexposesactualscenario+controlled-response
+operation tojourneys; older9ignorethose extraargs andretainall priorassertions.
+Allcases precisely snapshot/clear/restore onlynotifications.owner.unsafe1.v1 and
+atomiccompanions underactualPublicStringStore lock toavoidfuturecache crosscase
+contamination. Ownershipmarker assignedbeforefirstdeletion; independentbyte-exact
+cleanup remains. No historycache product codeyet; fixturecompile/genuineRED pending.
