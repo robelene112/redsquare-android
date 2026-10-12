@@ -481,3 +481,9 @@ one authority-before-lock ordering gap allowing old Activity's delayed history
 commit after a newer save. Source-inspected, no scheduler runtime reproduction.
 Minimal same-lock current check+record fix builds debug/test2m53s; one hash in
 history-review-lock-fix. Fix review and same unchanged-test native rerun pending.
+
+Lock-correction Standards review confirms source race fixed and finds one evidence
+index mismatch: original counts index transfer-process/ paths but files were
+flattened. Retained original bytes now occupy the indexed subfolder; same10hashes
+with corrected relative paths. No tests/source/rawcounts changed. Spec review and
+fixed-source native38201839598 remain pending.
