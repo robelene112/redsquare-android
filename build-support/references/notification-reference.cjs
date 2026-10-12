@@ -173,7 +173,15 @@ const continuationContacts = Array.from({length: 64}, (_, index) =>
   .filter(key => key < farContactPost.field2 && key !== owner).sort().slice(0, 10);
 require('node:assert/strict').equal(continuationContacts.length, 10);
 continuationContacts.push(farContactPost.field2);
+// The parent owner is the second nonactor recipient, so field3 indexes someone else.
+const parentIndexedReply = {
+  ...signedReference('2', {module: 'RedSquare', request: 'create tweet',
+    data: {text: 'Reply indexed by its own-post parent', parent_id: thread.root.sig,
+      thread_id: thread.root.sig}}, 1700000000125, [farContactPost.field2, owner]),
+  field1: 'RedSquare', field3: farContactPost.field2, field4: thread.root.sig,
+  field5: thread.root.sig, updated_at: 1700000000125, flagged: 0
+};
 console.log(JSON.stringify({synthetic: true, reference, owner,
   actor: 'pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU',
   root: thread.root, incomingLike, incomingReply, parentedQuote, incomingMention,
-  addressedPost, listedMention, usernameMention, incomingRepost, incomingNullRepost, incomingQuote, legacyQuote, recoveredOriginal, missingOriginalLike, missingOriginalRepost, knownOtherPost, knownOtherLike, ownCurrentQuote, incomingQuoteLike, missingOriginalReply, knownOtherReply, missingOriginalQuote, knownOtherQuote, boundaryIncomingLike, olderIncomingLike, farContactPost, continuationContacts}, null, 2));
+  addressedPost, listedMention, usernameMention, incomingRepost, incomingNullRepost, incomingQuote, legacyQuote, recoveredOriginal, missingOriginalLike, missingOriginalRepost, knownOtherPost, knownOtherLike, ownCurrentQuote, incomingQuoteLike, missingOriginalReply, knownOtherReply, missingOriginalQuote, knownOtherQuote, boundaryIncomingLike, olderIncomingLike, farContactPost, continuationContacts, parentIndexedReply}, null, 2));

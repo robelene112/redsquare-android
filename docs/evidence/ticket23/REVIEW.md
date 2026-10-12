@@ -392,3 +392,18 @@ findings. Both peers carry the same signature; visible retained Owner rows asser
 Earlier2 findings resolved; one stale capture expectedText still1unread must be2.
 Root fixes this before corrective dispatch.58hashes/28XML/original control captures/
 raw24counts verified. Shared-ID fixture local1m28PASS; runtime pending.
+
+## Backend capture/navigation final corrections
+
+### Standards
+
+`cbcd679...9ca5d03` and `9ca5d03...48bc74c`: zero hard violations/actionable
+heuristics. Capture count matches shared IDs; returning destination verifies actual
+saved Notifications.5failurehashes/rawcounts/bothoriginalPNG/XML verified.
+
+### Spec
+
+Zero actionable findings. Earlier capture/navigation readiness issues resolved;
+shared-ID/positive-retained-content assertions unchanged. Corrective APK1m31PASS;
+native38321167424 pending. Initial25failure is correctly qualified as helper
+navigation mismatch; later failure/shared-ID gates not proved by that run.

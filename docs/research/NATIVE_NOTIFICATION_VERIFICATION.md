@@ -963,3 +963,15 @@ restoredNotifications/Back/NoUnread onreturn; firstOfficialstillusesactualfeed
 andNotificationsentry. LaterOwnerfailed-refresh/shared-IDgatesunexecuted.
 Corrected24warming waits executeandpass inthisrun. No newproductiondefect.
 Capture-sentinelreview9ca5d03 bothaxes0. Corrective25build/run pending.
+
+Backend navigation correction48bc74c bothaxes0/localfixture1m31PASS; first
+corrected25native38321167424 pending. Root also inspected original OfficialPNG.
+
+Twenty-sixth native tracer independently signs parentIndexedReply with unsafe2,
+first nonactorrecipientunsafe3 thenOwner1. Actual field3 indexes3, field4 ownsRoot1,
+so owner-indexed/general streams omit it. Parent-index query must discover exact
+Reply/2unread, actualConversation/commentary and Actor. Reference37880bytes/
+SHA03bba5b6339960a3b8afa03ab2867ad1275ed2edb77b80eaa063d038f8773582
+identical3copies, pinned offlineWASM/Elliptic checks/fixed1–4 signer allowlist.
+Accepted native/Archive/protocol seams; genuine26RED/compile pending. No production
+source change yet. Parent-index discovery is bounded available-history work.

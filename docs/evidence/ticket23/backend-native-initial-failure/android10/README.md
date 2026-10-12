@@ -10,8 +10,8 @@ initial fixture also lacks the later shared-ID marker assertion.
 
 Five hashes retain two original PNG/XML and raw log. Root inspected failure
 original PNG/XML: selected Owner, Notifications/Back/Refresh, no unread, retained
-actor2 own-like. Official XML shows Official/actor4/1unread; root original Official
-PNG inspection separately recorded below. All24 old cases including corrected
+actor2 own-like. Official XML shows Official/actor4/1unread; root also viewed the original Official
+PNG and confirmed those visible fields. All24 old cases including corrected
 warming waits pass. Corrective helper accepts the actual restored Notifications
 destination while preserving final content/count assertions. No product defect,
 actual process-death/finalSDK/whole-ticket acceptance claim.

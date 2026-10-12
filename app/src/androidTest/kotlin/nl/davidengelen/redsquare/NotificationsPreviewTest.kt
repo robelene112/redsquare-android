@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger
 
 class NotificationsPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
-    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING, MISSING_REPOST, MISSING_QUOTE_LIKE, HISTORY, PRUNED, PARTIAL, REJECTED, NULL_HISTORY, READ, READ_SAVE_FAULT, MISSING_REPLY, MISSING_QUOTE, FEED_MENTION, CONTACT, CONTACT_QUOTE, PAGING, CONTACT_CONTINUATION, BACKEND }
+    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING, MISSING_REPOST, MISSING_QUOTE_LIKE, HISTORY, PRUNED, PARTIAL, REJECTED, NULL_HISTORY, READ, READ_SAVE_FAULT, MISSING_REPLY, MISSING_QUOTE, FEED_MENTION, CONTACT, CONTACT_QUOTE, PAGING, CONTACT_CONTINUATION, BACKEND, PARENT_REPLY }
 
     @Test fun anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile() {
         withNotifications("incoming-like", mode = Mode.LIKE) { actor, _, _ ->
@@ -585,6 +585,26 @@ class NotificationsPreviewTest {
         }
     }
 
+    @Test fun repliesToKnownOwnPostsAreFoundWhenTheRecipientIndexBelongsToAnotherAccount() {
+        withNotifications("parent-indexed-reply", Mode.PARENT_REPLY) { actor, _, _ ->
+            waitFor("Replied to your post")
+            waitFor("2 unread")
+            ui.onAllNodesWithText("Replied to your post").assertCountEquals(1)
+            captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
+                "notification-evidence/parent-indexed-reply.png"), "Replied to your post")
+            ui.onNodeWithText("Replied to your post").assertIsDisplayed().performClick()
+            waitFor("Conversation")
+            waitFor("Reply indexed by its own-post parent")
+            ui.onNode(hasScrollAction()).performScrollToNode(hasText("Reply indexed by its own-post parent"))
+            ui.onNodeWithText("Reply indexed by its own-post parent").assertIsDisplayed()
+            ui.onNodeWithText("Back").performClick()
+            waitFor("Replied to your post")
+            ui.onAllNodesWithText(actor).assertCountEquals(2)[0].assertIsDisplayed().performClick()
+            waitFor("Profile")
+            ui.onNodeWithText(actor).assertIsDisplayed()
+        }
+    }
+
     private fun missingReferenceJourney(evidenceName: String, mode: Mode, caption: String, ownCaption: String, actorRows: Int, recoveryText: String = "Original recovered after retry") {
         withNotifications(evidenceName, mode) { actor, _, _ ->
             waitFor(caption)
@@ -763,7 +783,7 @@ class NotificationsPreviewTest {
                             Mode.MENTION -> "[${fixture.get("incomingMention")},${fixture.get("addressedPost")}]"
                             Mode.USERNAME -> "[${fixture.get("usernameMention")}]"
                             Mode.QUOTE -> "[${fixture.get("legacyQuote")}]"
-                            Mode.LIKE, Mode.REPOST, Mode.MISSING, Mode.MISSING_REPOST, Mode.MISSING_QUOTE_LIKE, Mode.HISTORY, Mode.PRUNED, Mode.NULL_HISTORY, Mode.READ, Mode.READ_SAVE_FAULT, Mode.MISSING_QUOTE, Mode.FEED_MENTION, Mode.CONTACT, Mode.CONTACT_QUOTE, Mode.PAGING, Mode.CONTACT_CONTINUATION, Mode.BACKEND -> "[]"
+                            Mode.LIKE, Mode.REPOST, Mode.MISSING, Mode.MISSING_REPOST, Mode.MISSING_QUOTE_LIKE, Mode.HISTORY, Mode.PRUNED, Mode.NULL_HISTORY, Mode.READ, Mode.READ_SAVE_FAULT, Mode.MISSING_QUOTE, Mode.FEED_MENTION, Mode.CONTACT, Mode.CONTACT_QUOTE, Mode.PAGING, Mode.CONTACT_CONTINUATION, Mode.BACKEND, Mode.PARENT_REPLY -> "[]"
                         }
                     }
                     criteria.get("field5")?.asString == fixture.getAsJsonObject("missingOriginalQuote").get("sig").asString ->
@@ -776,8 +796,15 @@ class NotificationsPreviewTest {
                         "[${fixture.get("usernameMention")}]"
                     criteria.get("field5")?.asString == fixture.getAsJsonObject("incomingMention").get("sig").asString ->
                         "[${fixture.get("incomingMention")}]"
-                    criteria.get("field5")?.asString == root.get("sig").asString ->
-                        if (mode == Mode.REPLY) "[$root,${fixture.get("incomingReply")}]" else "[$root]"
+                    mode == Mode.PARENT_REPLY && criteria.get("field4")?.asString == root.get("sig").asString -> {
+                        require(criteria.get("flagged_ne").asInt == 1 && criteria.get("limit").asInt == 100)
+                        "[${fixture.get("parentIndexedReply")}]"
+                    }
+                    criteria.get("field5")?.asString == root.get("sig").asString -> when (mode) {
+                        Mode.REPLY -> "[$root,${fixture.get("incomingReply")}]"
+                        Mode.PARENT_REPLY -> "[$root,${fixture.get("parentIndexedReply")}]"
+                        else -> "[$root]"
+                    }
                     mode == Mode.CONTACT_QUOTE && criteria.get("field5")?.asString == fixture.getAsJsonObject("knownOtherQuote").get("sig").asString -> "[]"
                     mode == Mode.CONTACT && criteria.get("field5")?.asString == fixture.getAsJsonObject("knownOtherPost").get("sig").asString ->
                         "[${fixture.get("knownOtherPost")}]"
