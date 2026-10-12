@@ -422,3 +422,11 @@ NATIVE_SAITO_TRANSFER_CONTRACT, NATIVE_PRIVATE_CHAT_CONTRACT and
 NATIVE_GROUP_CHAT_CONTRACT (all .md under docs/research). The protected future notes remain uncommitted and must be included only with
 their own relevant tickets; earlier contracts are already committed.
 They establish source contracts, not runtime or feature completion.
+
+Continuation 2026-10-12: bounded original-input/shared-preimage reviews at172ac46
+are both clear; sourcepush38194173861 passes release/lint/core59. Next single
+odd/system-entry regression independently computes a three-leaf root with
+opaque GoldenTicket and empty Fee surrounding the saved payment at ordinal1.
+Native public reader/matcher3PASS31s; four hashes in block-odd-entries. No
+production change or fabricated RED. Bounded source/evidence review pending.
+#23 stays active; selected-chain status, receiving QR and final acceptance remain.

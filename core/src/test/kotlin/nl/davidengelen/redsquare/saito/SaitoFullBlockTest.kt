@@ -10,6 +10,16 @@ class SaitoFullBlockTest {
     private val reference get() = requireNotNull(javaClass.getResourceAsStream("/native-block-reference.json"))
         .bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
 
+    @Test fun allThreeLeavesIncludingOpaqueAndEmptySystemEntriesBindTheExactPayment() {
+        val reference = reference
+        val payment = SaitoPayment.restore(reference.getAsJsonObject("payment").get("candidateBase64").asString)
+        val bytes = Base64.getDecoder().decode(reference.getAsJsonObject("oddBlock").get("fullBase64").asString)
+        val block = SaitoFullBlock.parse(bytes)
+        assertEquals(BigInteger("2000002"), block.height)
+        assertEquals("6ed747ba2da6068f793a60291131ae086a623576dbd2557c31ad854640945856", block.hash)
+        assertTrue("The saved payment must match its independently assigned logical ordinal1", block.contains(payment))
+    }
+
     @Test fun matchingSignaturesDoNotAuthenticateChangedOriginalFundingCoordinates() {
         val reference = reference
         val payment = SaitoPayment.restore(reference.getAsJsonObject("payment").get("candidateBase64").asString)

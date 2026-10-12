@@ -299,3 +299,20 @@ cases also share their fixture reader. Full core after fix passes59/0/0/0 in50s;
 all14originalXML/16hashes in ticket22/block-preimage-review-fix permit independent
 recount. Source-fix/input-mutation/evidence review remains pending. No Android
 inclusion/currentchain/consensus or wholeacceptance is inferred.
+
+Both bounded original-input/preimage-fix axes through172ac46 report0findings;
+all4+16hashes and independently summed59corepasses verified. Next sole seam2
+existing-policy regression uses three entries [GoldenTicket2,Normal0,Fee1], with
+opaque nonUTF8dataff008041 in the first and empty93byteFee last. Pinned Rust
+computes the odd Merkle root from a zero-root seed, then pure WASM/Elliptic signs
+and verifies the resulting creator preimage. Exact1200byte serialization and
+payment logicalordinal1 are independently checked. Reference executes0.63s,
+root0c055916.../hash6ed747ba... . Native case/runtime remains pending. This is
+all-entry content binding, NOT consensus eligibility of the synthetic system
+entries, UTXO admission, selected-chain membership or finality. No production
+change or fabricated missing-behavior RED is assumed.
+
+Odd-entry native regression passes3/0/0/0 in31s. Four original hashes in
+block-odd-entries retain the reference/log/XML/counts. Sourcepush38194173861
+at172ac46 also passes release/lint/core59. Bounded odd source/evidence review
+remains pending; no current-chain/status proof follows.

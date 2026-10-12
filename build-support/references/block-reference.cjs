@@ -57,10 +57,42 @@ assert.equal(changedTransaction.signature,vector.payment.id);
 assert.equal(Buffer.from(changedTransaction.get_hash_for_signature()).toString('hex'),root.toString('hex'));
 assert.equal(changedTransaction.from[1].block_id,2000001n);
 assert(Buffer.from(changedBlock.serialize()).equals(changedInputBytes));
+// Let pinned Rust compute an odd root from all entries, including opaque/empty system leaves.
+const opaque=new wasm.WasmTransaction();opaque.type=2;opaque.timestamp=1700000001000n;
+opaque.txs_replacements=1;opaque.data=Buffer.from([0xff,0x00,0x80,0x41]);
+const fee=new wasm.WasmTransaction();fee.type=1;fee.timestamp=1700000010000n;fee.txs_replacements=1;
+const opaqueBytes=Buffer.from(opaque.serialize()),feeBytes=Buffer.from(fee.serialize());
+assert.equal(opaqueBytes.length,97);assert.equal(feeBytes.length,93);
+const oddSeedHeader=Buffer.from(header);oddSeedHeader.writeUInt32BE(3,0);
+oddSeedHeader.fill(0,85,181);
+const oddBlock=new wasm.WasmBlock();assert.equal(oddBlock.deserialize(Buffer.concat([oddSeedHeader,opaqueBytes,payment,feeBytes])),'');
+const oddUnsigned=Buffer.from(oddBlock.serialize()),oddHeader=Buffer.from(oddUnsigned.subarray(0,389));
+const oddRoot=oddHeader.subarray(85,117).toString('hex');
+assert.equal(oddRoot,'0c055916f67c20a7204ac29723e048068c355cc32cd8b30940f2a361bebcee8f');
+const oddLeaves=oddBlock.transactions.map(tx=>Buffer.from(tx.get_hash_for_signature()));
+assert.equal(oddRoot,wasm.hash(Buffer.concat([Buffer.from(wasm.hash(Buffer.concat(oddLeaves.slice(0,2))),'hex'),oddLeaves[2]])));
+const oddPreimage=Buffer.concat([oddHeader.subarray(4,117),oddHeader.subarray(181,213),oddHeader.subarray(221,285)]);
+const oddSignature=wasm.sign_buffer(oddPreimage,creatorScalar);
+assert(wasm.verify_signature(oddPreimage,oddSignature,creator));
+assert(new EC('secp256k1').verify(wasm.hash(oddPreimage),{r:oddSignature.slice(0,64),s:oddSignature.slice(64)},Buffer.from(base58.decode(creator)).toString('hex'),'hex'));
+Buffer.from(oddSignature,'hex').copy(oddHeader,117);
+const oddPayment=Buffer.from(expectedPayment);
+for(let i=0;i<2;i++)oddPayment.writeBigUInt64BE(1n,93+3*59+i*59+49);
+const oddBytes=Buffer.concat([oddHeader,opaqueBytes,oddPayment,feeBytes]);
+const oddAgain=new wasm.WasmBlock();assert.equal(oddAgain.deserialize(oddBytes),'');
+assert(Buffer.from(oddAgain.serialize()).equals(oddBytes));assert.equal(oddBytes.length,1200);
+assert.deepEqual(oddAgain.transactions.map(tx=>tx.type),[2,0,1]);
+assert.equal(oddAgain.transactions[1].signature,vector.payment.id);
+assert.deepEqual(oddAgain.transactions[1].to.map(s=>s.tx_ordinal),[1n,1n]);
+const oddHash=wasm.hash(Buffer.concat([oddHeader.subarray(20,52),Buffer.from(wasm.hash(oddPreimage),'hex')]));
+assert.equal(oddAgain.hash,oddHash);
+assert.equal(oddHash,'6ed747ba2da6068f793a60291131ae086a623576dbd2557c31ad854640945856');
 process.stdout.write(JSON.stringify({synthetic:true,reference,
  boundary:'Full-block framing, creator/header identity and exact payment bytes only, not consensus admission, current chain membership or finality',
  block:{id:'2000002',timestamp:'1700000010000',previousHash:'ab'.repeat(32),creator,signature,hash,
  merkleRoot:root.toString('hex'),bytes:bytes.length,fullBase64:bytes.toString('base64'),seedBase64:seed.toString('base64')},
  payment:{id:vector.payment.id,candidateBase64:vector.payment.networkBase64,inBlockBase64:expectedPayment.toString('base64'),author:vector.payment.author,
  recipient:vector.payment.recipient,amount:vector.payment.amount,fee:vector.payment.fee,change:vector.payment.change},
- mutations:{changedOriginalInputBase64:changedInputBytes.toString('base64')}},null,2)+'\n');
+ mutations:{changedOriginalInputBase64:changedInputBytes.toString('base64')},
+ oddBlock:{hash:oddHash,merkleRoot:oddRoot,leafHashes:oddLeaves.map(b=>b.toString('hex')),
+ types:[2,0,1],opaqueHex:'ff008041',fullBase64:oddBytes.toString('base64'),bytes:oddBytes.length,paymentOrdinal:'1'}},null,2)+'\n');
