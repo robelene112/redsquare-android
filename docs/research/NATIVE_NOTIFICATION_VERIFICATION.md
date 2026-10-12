@@ -292,3 +292,12 @@ target through signed quoted original or known signed own post, and opens quote
 Conversation with original plus verified actor. New sixth native journey checks
 both commentary variants, original and Profile; existing reply/repost adversarial
 quotes now have separate valid activity rows. Localcore/debug/test compile pending.
+
+Local quote core/debug/test compilation PASSES2m42s. Boundeddfc1fdd...108b1a2
+review: Spec0; Standards1possibleDuplicatedCode in retweet commentary classifier.
+At review stage, extracted the exact shared current-quote decision into one private
+decoder for both real consumers, preserving current-only versus legacy behavior
+and signed owner filtering/page metadata. Native reply/repost actor selectors now
+choose their actual second row after the newer quote; quote originals use existing
+user-visible list scrolling before displayed assertions. No timeout/assertion
+relaxation or product-only test hook. Corrected compile/core verification pending.

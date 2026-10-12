@@ -36,11 +36,8 @@ object RedSquareFeed {
     fun readCurrentQuotes(response: String): ArchiveFeedPage {
         data class QuoteRow(val id: String, val post: FeedPost?)
         val page = readArchiveRows(response, { envelope ->
-            val action = RedSquareActions.decode(envelope)
-            require(action.kind == RedSquareActionKind.REPOST)
-            val data = SaitoEnvelope.decode(envelope).body.getAsJsonObject("data")
-            val hasCommentary = data.optionalString("text").isNotBlank() || data.getAsJsonArray("images")?.size()?.let { it > 0 } == true
-            QuoteRow(action.id, if (hasCommentary) decode(envelope) else null)
+            val signed = SaitoEnvelope.decode(envelope)
+            QuoteRow(signed.id, currentQuote(envelope, signed))
         }, { true }, { it.id })
         return ArchiveFeedPage(page.entries.mapNotNull { it.post }, page.oldestCreatedAt, page.rowCount, page.ignored)
     }
@@ -51,17 +48,21 @@ object RedSquareFeed {
         data class QuoteRow(val id: String, val post: FeedPost?)
         val page = readArchiveRows(response, { envelope ->
             val signed = SaitoEnvelope.decode(envelope)
-            val post = if (signed.body.string("request") == "retweet") {
-                val action = RedSquareActions.decode(envelope)
-                require(action.kind == RedSquareActionKind.REPOST)
-                val data = signed.body.getAsJsonObject("data")
-                val hasCommentary = data.optionalString("text").isNotBlank() || data.getAsJsonArray("images")?.size()?.let { it > 0 } == true
-                if (hasCommentary) decode(envelope) else null
-            } else decode(envelope).takeIf { it.quoteTarget.isNotEmpty() }
+            val post = if (signed.body.string("request") == "retweet") currentQuote(envelope, signed)
+            else decode(envelope).takeIf { it.quoteTarget.isNotEmpty() }
             QuoteRow(signed.id, post)
         }, { true }, { it.id })
         return ArchiveFeedPage(page.entries.mapNotNull { it.post }.filter { it.author != owner },
             page.oldestCreatedAt, page.rowCount, page.ignored)
+    }
+
+    private fun currentQuote(envelope: String, signed: SignedSaitoMessage): FeedPost? {
+        val action = RedSquareActions.decode(envelope)
+        require(action.kind == RedSquareActionKind.REPOST)
+        val data = signed.body.getAsJsonObject("data")
+        val hasCommentary = data.optionalString("text").isNotBlank() ||
+            data.getAsJsonArray("images")?.size()?.let { it > 0 } == true
+        return if (hasCommentary) decode(envelope) else null
     }
 
     fun readArchive(response: String): ArchiveFeedPage = readPosts(response) { it.parentId.isEmpty() }

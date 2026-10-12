@@ -47,8 +47,8 @@ class NotificationsPreviewTest {
             ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
             ui.onNodeWithText("Back").performClick()
             waitFor("Replied to your post")
-            // Both rows have this signer. The newer reply is the first displayed row.
-            ui.onAllNodesWithText(actor).assertCountEquals(3)[0].assertIsDisplayed().performClick()
+            // The quote sorts first, then this reply, then the like; all have the same signer.
+            ui.onAllNodesWithText(actor).assertCountEquals(3)[1].assertIsDisplayed().performClick()
             waitFor("Profile")
             ui.onNodeWithText(actor).assertIsDisplayed()
         }
@@ -102,7 +102,7 @@ class NotificationsPreviewTest {
             ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
             ui.onNodeWithText("Back").performClick()
             waitFor("Reposted your post")
-            ui.onAllNodesWithText(actor).assertCountEquals(3)[0].assertIsDisplayed().performClick()
+            ui.onAllNodesWithText(actor).assertCountEquals(3)[1].assertIsDisplayed().performClick()
             waitFor("Profile")
             ui.onNodeWithText(actor).assertIsDisplayed()
         }
@@ -119,8 +119,10 @@ class NotificationsPreviewTest {
                 ui.onAllNodesWithText("Quoted your post")[index].assertIsDisplayed().performClick()
                 waitFor("Conversation")
                 waitFor(text)
+                ui.onNode(hasScrollAction()).performScrollToNode(hasText(text))
                 ui.onNodeWithText(text).assertIsDisplayed()
                 waitFor("Native Red Square reference post")
+                ui.onNode(hasScrollAction()).performScrollToNode(hasText("Native Red Square reference post"))
                 ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
                 ui.onNodeWithText("Back").performClick()
                 waitFor("Quoted your post")
