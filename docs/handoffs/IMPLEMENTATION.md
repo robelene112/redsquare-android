@@ -95,7 +95,15 @@ No successful reopening or actual refreshed block verification yet. First native
 GREEN38197933430 runs at5fee7e1. Bounded current-source review: Standards0; Spec1
 explicit observed-server copy. Correction adds qualified observation text and
 positive before/after recreation gates, debug/test compile2m34s/one hash in
-inclusion-copy-review-fix. Fix review and new-copy runtime remain pending.
+inclusion-copy-review-fix. Both fix axes atdf2a012 are clear. First unchanged-test Included GREEN38197933430
+at5fee7e1 passes4ordinary74.089s and existing death4716→4810/cold1PASS11.421s/
+cleanup1PASS0.055s:6completed/3records/1death/no assumptions, core66/release/lint.
+Root2new original PNG/separate2XML; actual inclusion1200B/child482B independently
+pass pinnedWASM/Elliptic/header hash/Rust-recomputed root/full-roundtrip and exact
+reference payment/parent linkage.18hashes in inclusion-ui-green/android17.
+New-copy runtime38198454529 is pending; first GREEN evidence review is pending.
+This inclusion journey is recreation, not the separate existing driver's kill;
+empty zero snapshot does not independently prove reservations or consensus.
 
 Next: HTTP elapsed/body budgets, Android Included/unknown/reorg status and
 persisted qualified observations, then receiving QR, remaining meaningful

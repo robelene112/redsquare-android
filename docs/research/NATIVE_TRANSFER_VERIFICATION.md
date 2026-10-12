@@ -399,3 +399,17 @@ Included and adds selected-server/status-can-change text with positive checks on
 both sides of recreation in the existing journey. Debug/test compile2m34s; one
 hash in inclusion-copy-review-fix. First native GREEN38197933430 at5fee7e1 remains
 running; copy/source-fix review/runtime acceptance remains pending.
+
+First unchanged-test native Included GREEN38197933430 at5fee7e1 passes ordinary
+4cases74.089s, existing death4716→4810/cold1PASS11.421s/credential cleanup1PASS0.055s:
+6completed/3records/1death/no assumptions, core66/release/lint. Root2new original
+Included PNG/separate2XML show status/originalbackend/no Pending/no Retry; native
+sameidentity/zero frames/recreation assertions pass. Actual1200B inclusion and482B
+child independently pass pinnedWASM/Elliptic/header hash/Rust recomputed root/
+exact full serialization; exact reference candidate is only in the inclusion.
+18hashes/rawcountable logs in inclusion-ui-green/android17. Current selected-chain
+membership is established by the native observer/test, while pure checks are only
+synthetic content compatibility, not consensus/finality or real-funded admission.
+Both copy-fix review axes atdf2a012 clear; new-copy runtime38198454529 is pending.
+Empty snapshot zero alone remains non-proof of reservations; durable Unknown/
+reorg observations, receivingQR and full acceptance remain pending.
