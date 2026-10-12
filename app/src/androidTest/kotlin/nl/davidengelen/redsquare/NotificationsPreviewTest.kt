@@ -135,11 +135,14 @@ class NotificationsPreviewTest {
         val replyReads = AtomicInteger()
         val repostReads = AtomicInteger()
         val peer = ControlledFeedPeer("[$root]", quoteArchiveResponse = { criteria ->
-            require(criteria.get("field3").asString == owner)
-            require(criteria.get("flagged_ne").asInt == 1)
-            require(criteria.get("limit").asInt in 1..100)
-            repostReads.incrementAndGet()
-            if (mode == Mode.REPOST) "[${fixture.get("incomingRepost")},${fixture.get("parentedQuote")}]" else "[]"
+            // Initial feed and actor profiles also read this namespace without an owner filter.
+            if (!criteria.has("field3")) "[]" else {
+                require(criteria.get("field3").asString == owner)
+                require(criteria.get("flagged_ne").asInt == 1)
+                require(criteria.get("limit").asInt in 1..100)
+                repostReads.incrementAndGet()
+                if (mode == Mode.REPOST) "[${fixture.get("incomingRepost")},${fixture.get("parentedQuote")}]" else "[]"
+            }
         }, registryResponse = { criteria ->
             if (mode != Mode.USERNAME) {
                 if (criteria.get("request").asString == "registry namecheck") "{\"err\":\"no response\"}" else "{}"

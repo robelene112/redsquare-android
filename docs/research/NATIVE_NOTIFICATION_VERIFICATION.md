@@ -254,3 +254,12 @@ threecopiesidentical. Nativeaddsverifiedown-targetRepostedrow/actualRootConversa
 actorProfile, one new5thjourney withsignedquoteexclusion, actualincomingrepost
 stream guards/count/clientkeys/no-write andallpriorcleanup. Localcore/debug/test build PASSES3m13s (core71up-to-date);
 5journeyhostedproof/boundedreviews pending. Quotes/otherhistory stillwithin#24.
+
+Repost boundedreviewa45ecf0...404bc05: Standards0hard/0heuristics; Spec1fixture
+regression. NewRetweetcallback unconditionallyrequiresfield3owner, while initial
+feed/profile quotequeries omitfield3 andControlledFeedPeer routes themthere. Source
+establishesmismatch; pendingrundoesnotyet proveactualruntimecause. Correction
+returnsfixtureemptyhistory forunfilteredfeed/profile reads, keepsstrictowner/flag/
+limit andpositivecounter forowner-index notificationreads. No product/corechange/
+timeout/route/identity/no-write/opaque-restoration predicate relaxation. Local
+correctedtestAPKcompile PASSES1m31s; native5repeat pending; first5run38287870397 running.

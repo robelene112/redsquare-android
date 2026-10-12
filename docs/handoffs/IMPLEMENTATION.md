@@ -52,7 +52,11 @@ Nextordinaryrepost tracer RED5corecases/1failure/build54s ->fullcore71GREEN57s.
 Signedaction timestamp preserved; ordinaryretweet qualifies, validcommentaryquote/
 self excludedquietly. Current11518-byteSHA787f2013... threecopiesidentical.
 Nativeown-target repostrow/RootConversation/actorProfile +one5thjourney added;
-localcore/debug/test build PASSES3m13s; 5journeyhostedproof/reviews pending. Quotesnext; noother ticketclaimed.
+localcore/debug/test build PASSES3m13s; first5focus38287870397 at404bc05running. RepostStandards0; Spec1fixturemismatch:
+unfilteredinitialfeed/profile Retweetquery lacksfield3, newcallback requiredowner.
+Correctedqueryhandlingseparatesunfilteredreads fromstrictpositiveowner-indexreads;
+no product/core/acceptancepredicatechange. LocalcorrectedtestAPKcompile PASSES1m31s; 5repeat
+pending. Quotesnext; noother ticketclaimed.
 
 Whole-ticket base remains d1e65f5. Canonical source contract and chronology:
 docs/research/NATIVE_NOTIFICATIONS_CONTRACT.md and NATIVE_NOTIFICATION_VERIFICATION.md.
