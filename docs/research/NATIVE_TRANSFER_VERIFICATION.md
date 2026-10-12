@@ -805,3 +805,16 @@ wallet-test-compile-failure. This is compilerfailure, no native/public endpointR
 or acceptance. Minimum correction removesonlyimport, allassertions/publicread/
 metadata/helper/productunchanged. Restart same-source full10/full17/publictrue;
 compiler/core/build/lint/native andfinalreviews pending. No localAPKbuild claimed.
+
+Bothfinal whole source axes throughaf7 plusc1/d1fixes report0residualhard/Spec/
+actionable smells; sharedcleanup resolvesoptionalrepeat,21isolation+2compiler
+hashesverified. Android10full38214955638 atd1aa624 stops in EXISTINGSocial90 after
+profilerefresh: Liked notdisplayed,8reported/7PASS/1failure13.331s; earlier46/7/3
+countablelogs retained13hashes in full10-social-viewport-interruption. Rootfull
+originalPNG shows Profile/loading/posttext atlowerboundary; oldcatch hasnoXML.
+No exacttimingcause/offscreencontrolcoordinate/native#23/public/full10acceptance
+inferred. waitFor checkssemanticpresence only; minfixtureexplicitlyscrolls actual
+profileLiked into view, retains5/9visibility/framecount/health, stronger9visible
+assertion andnativePNG/XMLsuccess/failure captures. No timeout/productchange.
+Current17full38214957982 atd1continues. Corrected full10/source/evidence reviews
+pending; WORKFLOW permits retained passed companion afterfixtureonly correction.

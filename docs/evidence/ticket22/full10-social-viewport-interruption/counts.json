@@ -1,0 +1,43 @@
+{
+  "run": "38214955638",
+  "source": "d1aa624",
+  "completedCases": 46,
+  "completionRecords": 7,
+  "actualDeathStages": 3,
+  "records": [
+    {
+      "log": "browse-ui.txt",
+      "completedCases": 8
+    },
+    {
+      "log": "following-ui.txt",
+      "completedCases": 8
+    },
+    {
+      "log": "post-process/recovered-instrumentation.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "post-queue-process/recovered-instrumentation.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "post-queue-ui.txt",
+      "completedCases": 9
+    },
+    {
+      "log": "posting-ui.txt",
+      "completedCases": 18
+    },
+    {
+      "log": "social-process/recovered-instrumentation.txt",
+      "completedCases": 1
+    }
+  ],
+  "deathLogs": [
+    "post-process/interrupted-instrumentation.txt",
+    "post-queue-process/interrupted-instrumentation.txt",
+    "social-process/interrupted-instrumentation.txt"
+  ],
+  "assumptions": []
+}

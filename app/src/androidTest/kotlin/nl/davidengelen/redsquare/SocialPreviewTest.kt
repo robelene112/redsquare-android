@@ -65,7 +65,8 @@ class SocialPreviewTest {
         peer.start().use { server ->
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
-                try {
+                withFailureCapture({ captureNativeScreen(java.io.File(context.cacheDir,
+                    "social-evidence/like-first-failure.png")) }) {
                     waitFor("Native Red Square reference post")
                     waitFor("4 likes")
                     ui.clickVisiblePostContent("Like")
@@ -81,19 +82,17 @@ class SocialPreviewTest {
                     ui.clickVisiblePostContent(root.get("field2").asString)
                     waitFor("Profile")
                     waitFor("Liked")
-                    ui.onNodeWithText("5 likes").assertIsDisplayed()
+                    assertVisibleProfileLike("5 likes")
                     assertEquals(1, peer.transactions.size)
                     served.set(countedRoot(9))
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNodeWithText("Refresh").performClick()
                     waitFor("9 likes")
-                    ui.onNodeWithText("Liked").assertIsDisplayed()
+                    assertVisibleProfileLike("9 likes")
                     assertEquals(1, peer.transactions.size)
                     peer.assertHealthy()
-                    captureFeedEvidence("social-evidence/verified-like-across-views.png")
-                } catch (failure: Throwable) {
-                    captureFeedEvidence("social-evidence/like-first-failure.png")
-                    throw failure
+                    captureNativeScreen(java.io.File(context.cacheDir,
+                        "social-evidence/verified-like-across-views.png"), "Liked")
                 }
             }
         }
@@ -414,6 +413,12 @@ class SocialPreviewTest {
                 }
             }
         } finally { firstOwner.close() }
+    }
+
+    private fun assertVisibleProfileLike(count: String) {
+        ui.onNode(hasScrollAction()).performScrollToNode(hasText("Liked"))
+        ui.onNodeWithText("Liked").assertIsDisplayed()
+        ui.onNodeWithText(count).assertIsDisplayed()
     }
 
     private fun waitFor(text: String) {

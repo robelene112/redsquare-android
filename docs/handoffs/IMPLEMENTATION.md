@@ -103,6 +103,15 @@ compiler/core/release/lint/whole-ticketreviews againstbase above remainpending.
 Dated05:47UTC hostreadiness staysseparate. Home-revocation isnotagreed; no blanket
 onStop cancellation or RESUMED callbackguard. Sourceauditchronologylinkedabove.
 
+Both finalwhole source axes report0residualhard/Spec/actionable findings through
+sourceaf7/c1/d1corrections. Full10run38214955638 atd1 stoppedexistingSocial90
+profileLikedvisibility;13indexedhashes retain46/7/3earlierrunners plusfailed8/7/1/
+13.331s androotfullyviewed originalPNG(noXMLoldcatch). Minimumtestonly correction
+scrollsprofileLiked before5/9visibility, stronger9visible assertion, nativePNG/XML
+captures. No product/timeouts/assertionweakening/causeclaim. Full17run38214957982
+atd1continues; correctedfull10/source/evidencereviewpending. Currentruntimecounts
+are incomplete and do not close#23.
+
 #23 is unfinished. No new phone APK, physical Pixel result, real-funded admission,
 production node update or whole-ticket acceptance. Physical review remains#35.
 
