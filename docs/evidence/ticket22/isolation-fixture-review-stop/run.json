@@ -1,0 +1,76 @@
+{
+  "databaseId": 38213237595,
+  "headSha": "9f1f9972276676f93d820e48b9264b8864d7170a",
+  "status": "completed",
+  "conclusion": "cancelled",
+  "steps": [
+    {
+      "name": "Set up job",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6",
+      "conclusion": "success"
+    },
+    {
+      "name": "Locate dependency cache",
+      "conclusion": "success"
+    },
+    {
+      "name": "Restore dependencies from the earlier proof cache",
+      "conclusion": "success"
+    },
+    {
+      "name": "Restore verified build dependencies",
+      "conclusion": "success"
+    },
+    {
+      "name": "Restore Gradle task outputs",
+      "conclusion": "success"
+    },
+    {
+      "name": "Check runner SDK and acceleration",
+      "conclusion": "success"
+    },
+    {
+      "name": "Build and verify native sources",
+      "conclusion": "success"
+    },
+    {
+      "name": "Retain Gradle task outputs before device tests",
+      "conclusion": "cancelled"
+    },
+    {
+      "name": "Retain dependencies before device tests",
+      "conclusion": "skipped"
+    },
+    {
+      "name": "Verify Android 10 runtime",
+      "conclusion": "skipped"
+    },
+    {
+      "name": "Verify Android 17 runtime",
+      "conclusion": "skipped"
+    },
+    {
+      "name": "Retain verification evidence",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+      "conclusion": "success"
+    },
+    {
+      "name": "Complete job",
+      "conclusion": "success"
+    }
+  ]
+}

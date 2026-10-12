@@ -420,6 +420,14 @@ fi
 if [[ "${TEST_SCOPE:-full}" == full ]]; then verify_reports; fi
 verify_transfers() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+    # Public unsafe scalar1/2 backups belong to the standalone DocumentsProvider UID.
+    adb shell run-as nl.davidengelen.redsquare.dev.test mkdir -p files/wallet-test-documents
+    printf '%s' '{"wallet":{"version":5.677,"balance":"0","preferred_crypto":"SAITO","preferred_txs":[],"default_fee":"0","slips":[],"publicKey":"jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR","privateKey":"0000000000000000000000000000000000000000000000000000000000000001"}}' | \
+        adb shell run-as nl.davidengelen.redsquare.dev.test tee files/wallet-test-documents/00-transfer-import-1.json > /dev/null
+    printf '%s' '{"wallet":{"version":5.677,"balance":"0","preferred_crypto":"SAITO","preferred_txs":[],"default_fee":"0","slips":[],"publicKey":"pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU","privateKey":"0000000000000000000000000000000000000000000000000000000000000002"}}' | \
+        adb shell run-as nl.davidengelen.redsquare.dev.test tee files/wallet-test-documents/00-transfer-import-2.json > /dev/null
+    adb shell run-as nl.davidengelen.redsquare.dev.test stat -c %s files/wallet-test-documents/00-transfer-import-1.json files/wallet-test-documents/00-transfer-import-2.json \
+        > "$evidence/transfers-import-fixtures.txt"
     # Include the bounded two-import/backend-isolation journey alongside real-PIN cases.
     timeout 240 adb shell am instrument -w -r \
         -e class nl.davidengelen.redsquare.WalletTransferPreviewTest,nl.davidengelen.redsquare.WalletTransferStatusTest \

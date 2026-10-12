@@ -754,3 +754,13 @@ No auth grant/send bypass or live funds. Native existing behavior may already pa
 no artificial RED required. Harness ordinary budget240s now includes this additional
 bounded two-import journey (prior8cases126.952s); no failed-timeout retry rationale.
 Hosted compiler/source/native result and bounded source/evidence reviews pending.
+
+Both bounded storage GREEN axes verify14hashes/exact10/3/1/original3PNG/XML. Each
+review finds2new isolation fixture issues: cross-UID direct provider-file write
+and cleanup short-circuiting. Root cancels38213237595 at9f1f997 after successful
+hosted Build/verify; both runtime steps skipped. One indexed sanitized run.json in
+isolation-fixture-review-stop, no native RED/permission reproduction claimed.
+Corrected harness provisions only literal unsafe1/2 complete default backups under
+providerUID; testpositivestat beforeSAF/hashguarded cleanup. Wallet restore and each
+owned file cleanup attempted independently, primary/suppressed errors preserved.
+No product/acceptance change. Corrected source/evidence review and native pending.

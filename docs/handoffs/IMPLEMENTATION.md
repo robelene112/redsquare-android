@@ -74,9 +74,10 @@ No funds were reserved or queued. All monetary logic remains unchanged.
 
 Storage recovery GREEN38212349387 at8879c82 passes8ordinary126.952s plus
 separatependingdeath5061->5154/cold10.007s/cleanup.052s:10/3/1,core66/build/lint.
-Fourteen indexed hashes; root full3originalPNG/separate3XML with IME footer
+Fourteen indexed hashes; both GREEN evidence reviews verify10/3/1 and originals.
+Root full3originalPNG/separate3XML with IME footer
 qualification. Disabled Authenticate/reopened warning-only/restored7.5/sameauthor/
-noPending/zero frames pass. Both minimumfix/RED review axes0; GREEN evidence pending.
+noPending/zero frames pass. Both minimumfix/RED/GREEN evidence axes0.
 
 Next ONE native backend/identity journey is added: independent pre-existing signed
 scalar1 candidate, exact original funding, wallet-wide0available across Owner/
@@ -84,8 +85,12 @@ Official/recreation; Retry disabled on Official, noautomatic send. Actual SAF
 imports scalar2 then scalar1 using freshzero/backupskip/riskack, transfer-work warning
 and retained original reservations. Guarded primary-safe prior opaque-wallet/owned
 SAF cleanup. Shared controlled HTTP origin qualified; noauth/send/live-funds claim.
-Harness240s includes newbounded two-import journey. Hosted compiler/native result
-and bounded review pending. Dated05:47UTC host options/balance readiness remains
+Harness240s includes newbounded two-import journey. Both reviewers found direct
+provider crossUID setup/short-circuit cleanup; corrected using maintained host
+run-as provisioning/stat/hash and independently attempted guarded cleanup. Run
+38213237595 canceled after hosted build/verify succeeded, runtime skipped; one
+indexed sanitized cancellation report. No native RED/reproduction/product defect.
+Corrected native and bounded review pending. Dated05:47UTC host options/balance readiness remains
 separate from native publicUI.
 
 Then verify actual native read-only public balance/funding views,

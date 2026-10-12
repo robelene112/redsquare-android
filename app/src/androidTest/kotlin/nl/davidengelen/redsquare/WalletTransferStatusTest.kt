@@ -9,7 +9,6 @@ import androidx.test.uiautomator.UiDevice
 import java.io.File
 import java.net.InetAddress
 import java.util.Base64
-import java.util.UUID
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicInteger
 import java.math.BigInteger
@@ -43,7 +42,6 @@ class WalletTransferStatusTest {
         val rows = fixture.payment.inputs.joinToString("\n", postfix = "\n") {
             "${fixture.wallet.publicKey} ${it.block} ${it.ordinal} ${it.index} ${it.amount} ${it.type}"
         }
-        val ownedDocuments = mutableListOf<Pair<File, String>>()
         context.noBackupFilesDir.listFiles()?.filter { it.name.startsWith("transfer.") }?.forEach { check(it.delete()) }
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
         var primaryFailure: Throwable? = null
@@ -102,7 +100,7 @@ class WalletTransferStatusTest {
                                 closeTransferAndWallet()
                             }
                             funded.set(false) // Actual fresh zero permits optional backup skipping, never auth bypass.
-                            replaceWalletThroughPicker(incoming, ownedDocuments, expectPendingWork = true)
+                            replaceWalletThroughPicker(incoming, "00-transfer-import-2.json", expectPendingWork = true)
                             ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
                             ui.waitUntil(15_000) { ui.onNodeWithText("Available to send: 0 SAITO").isDisplayed() }
                             ui.onAllNodesWithText(pending).assertCountEquals(0)
@@ -112,7 +110,7 @@ class WalletTransferStatusTest {
                             captureNativeScreen(File(context.cacheDir, "transfer-evidence/isolation-incoming.png"),
                                 "Available to send: 0 SAITO")
                             closeTransferAndWallet()
-                            replaceWalletThroughPicker(fixture.wallet, ownedDocuments, expectPendingWork = false)
+                            replaceWalletThroughPicker(fixture.wallet, "00-transfer-import-1.json", expectPendingWork = false)
                             funded.set(true)
                             reopenTransfers(scenario, fixture.wallet.publicKey)
                             ui.waitUntil(15_000) { ui.onNodeWithText(pending).isDisplayed() }
@@ -129,7 +127,7 @@ class WalletTransferStatusTest {
             }
         } catch (failure: Throwable) { primaryFailure = failure; throw failure }
         finally {
-            try {
+            cleanupAfterTest(primaryFailure, {
                 val current = wallets.loadExisting()
                 when (current.exportJson()) {
                     prior.exportJson() -> Unit
@@ -137,14 +135,11 @@ class WalletTransferStatusTest {
                     else -> error("Unexpected transfer isolation fixture wallet state")
                 }
                 check(wallets.loadExisting().exportJson() == prior.exportJson())
-                for ((file, contents) in ownedDocuments) {
-                    check(file.readText() == contents)
-                    check(file.delete())
-                }
-            } catch (cleanup: Throwable) {
-                val primary = primaryFailure
-                if (primary == null) throw cleanup else primary.addSuppressed(cleanup)
-            }
+            }, {
+                removeOwnedDocument("00-transfer-import-1.json", fixture.wallet.exportJson())
+            }, {
+                removeOwnedDocument("00-transfer-import-2.json", incoming.exportJson())
+            })
         }
     }
 
@@ -154,18 +149,14 @@ class WalletTransferStatusTest {
         ui.onNodeWithText("Done").performClick()
     }
 
-    private fun replaceWalletThroughPicker(incoming: SaitoWallet,
-        ownedDocuments: MutableList<Pair<File, String>>, expectPendingWork: Boolean) {
-        val contents = incoming.exportJson()
-        val directory = File(instrumentation.context.filesDir, "wallet-test-documents").apply { mkdirs() }
-        val file = File(directory, "000-transfer-${UUID.randomUUID()}.json")
-        check(!file.exists())
-        ownedDocuments.add(file to contents)
-        file.writeText(contents)
-        check(file.length() > 0)
+    private fun replaceWalletThroughPicker(incoming: SaitoWallet, filename: String, expectPendingWork: Boolean) {
+        // The standalone provider is a different UID. The host provisions only these unsafe fixtures.
+        val device = UiDevice.getInstance(instrumentation)
+        check(device.executeShellCommand("run-as nl.davidengelen.redsquare.dev.test stat -c %s files/wallet-test-documents/$filename")
+            .trim().toLongOrNull()?.let { it > 0 } == true)
         ui.onNodeWithText("Wallet").performClick()
         ui.onNodeWithText("Import wallet").performScrollTo().performClick()
-        chooseWalletImport(ui, file.name, incoming.publicKey)
+        chooseWalletImport(ui, filename, incoming.publicKey)
         ui.waitUntil(15_000) { ui.onAllNodesWithText("Server reports zero SAITO")
             .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
         ui.onNodeWithText("Server reports zero SAITO").performScrollTo().assertIsDisplayed()
@@ -178,6 +169,30 @@ class WalletTransferStatusTest {
         ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsEnabled().performClick()
         ui.waitUntil(15_000) { ui.onNodeWithText("Wallet imported").isDisplayed() }
         ui.onNodeWithContentDescription("Wallet address").assertTextEquals(incoming.publicKey)
+    }
+
+    private fun removeOwnedDocument(filename: String, knownContents: String) {
+        val device = UiDevice.getInstance(instrumentation)
+        val expected = java.security.MessageDigest.getInstance("SHA-256")
+            .digest(knownContents.toByteArray(Charsets.UTF_8)).joinToString("") { "%02x".format(it.toInt() and 255) }
+        val observed = device.executeShellCommand(
+            "run-as nl.davidengelen.redsquare.dev.test sha256sum files/wallet-test-documents/$filename")
+            .trim().substringBefore(' ')
+        check(observed == expected) // Preserve unexpected contents rather than deleting an unknown file.
+        check(device.executeShellCommand(
+            "run-as nl.davidengelen.redsquare.dev.test rm files/wallet-test-documents/$filename").isBlank())
+    }
+
+    private fun cleanupAfterTest(primary: Throwable?, vararg operations: () -> Unit) {
+        var failure = primary
+        for (operation in operations) {
+            try { operation() }
+            catch (cleanup: Throwable) {
+                val earlier = failure
+                if (earlier == null) failure = cleanup else if (earlier !== cleanup) earlier.addSuppressed(cleanup)
+            }
+        }
+        if (primary == null) failure?.let { throw it }
     }
 
     @Test fun exactInclusionUnknownHistoryAndVerifiedReorganizationNeverAutomaticallyResend() {
