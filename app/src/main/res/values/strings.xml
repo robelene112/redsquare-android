@@ -334,6 +334,7 @@
     <string name="transfer_included">Included in block %1$s.</string>
     <string name="transfer_observed">Observed on the selected server. This status can change.</string>
     <string name="transfer_inclusion_unknown">Current inclusion unknown. Last seen in block %1$s.</string>
+    <string name="transfer_reorganized">Chain changed. Previous inclusion in block %1$s was reorganized.</string>
     <string name="transfer_pending_backend">Transfer server: %1$s.</string>
     <string name="transfer_available">Available to send: %1$s SAITO</string>
     <string name="transfer_storage_unavailable">Transfer records need recovery. Available funds are unknown. Nothing new can be sent until these records are recovered.</string>

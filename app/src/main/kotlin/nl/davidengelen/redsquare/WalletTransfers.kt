@@ -38,6 +38,8 @@ class WalletTransfers(
         private set
     var inclusions by mutableStateOf<Map<String, SaitoPaymentChain.Inclusion>>(emptyMap())
         private set
+    var reorganized by mutableStateOf<Set<String>>(emptySet())
+        private set
     var available by mutableStateOf<String?>(null)
         private set
     var message by mutableStateOf<Int?>(null)
@@ -57,24 +59,25 @@ class WalletTransfers(
         attempt = operation
         busy = true
         inclusions = emptyMap()
+        reorganized = emptySet()
         job = activity.lifecycleScope.launch {
             try {
                 val result = withContext(Dispatchers.IO) {
                     val records = store.pending()
                     val funding = balances.funding(backend, wallet.publicKey)
-                    val observed = funding?.let { balances.inclusions(backend, it.snapshot,
-                        records.filter { record -> record.backend == backend }.map { record -> record.payment }) }
-                        ?: emptyMap()
+                    val observed = funding?.let { balances.observeTransfers(backend, it.snapshot, records) }
+                        ?: WalletBalances.TransferObservation()
                     val history = synchronized(SaitoLocalState.lock) {
                         check(isCurrent(operation))
-                        store.recordInclusions(backend, observed)
+                        store.recordInclusions(backend, observed.included)
                     }
                     Triple(history, funding?.let { display(store.available(it.eligible).sumOfAmounts()) }, observed)
                 }
                 if (isCurrent(operation)) {
                     pending = result.first
                     available = result.second
-                    inclusions = result.third
+                    inclusions = result.third.included
+                    reorganized = result.third.reorganized
                 }
             } catch (_: Exception) { if (isCurrent(operation)) message = R.string.transfer_storage_unavailable }
             finally { finish(operation) }

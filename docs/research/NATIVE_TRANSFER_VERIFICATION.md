@@ -503,3 +503,25 @@ Reorganization test APK compiles1m40s, then supplied alternate-block capture is
 moved before missing-label assertion for independent failure-fixture checking;
 current test APK compiles1m30s. Two original logs/hashes in reorganization-test-
 preparation. Production unchanged; native missing-label RED remains pending.
+
+Both reorg tracer axes through3b5933d clear; Standards notes optional post-GREEN
+test-step duplication cleanup. Native38202667461 at3b5933d reaches genuine
+missing-reorg RED4reported/3PASS/1fail108.245s at156/20s after actual alternative-
+height request/native zero and priorIncluded/Unknown gates. Root full separateXML
+Unknown/lastseen/zero/3.25/originalowner/Retry; originalPNG tool strip qualified.
+Actual two482B Fee-only alternatives independently pass pinned pure WASM/Elliptic
+creatorSig/hash/Rust recomputedroot/fullroundtrip and exact2000002->2000003 parent
+link; neither contains the payment. Eight hashes in reorganization-ui-red/android17.
+No consensus/finality/real-money claim. Minimum shared bounded HTTP current
+inclusion+covered-displacement observer and qualified reorg UI now implemented;
+original historical proof/reservations unchanged/no automatic frame. Debug/test
+compile and same unchanged-test native GREEN pending.
+
+Minimum reorg debug/test assembly passes2m56s; one original hash in reorganization-
+ui-build. Bounded source/evidence review and same unchanged-test native GREEN
+remain pending. Read-only foreground/auth audit independently checks parent#1:
+Home-as-revocation is not an agreed requirement; lifecycleScope persists stopping
+and Android10 credential UI can notify success before finishing. No blanket stop
+cancellation or new policy is added; actual Home/callback ordering unmeasured.
+Official sources: [lifecycle coroutines](https://developer.android.com/topic/libraries/architecture/views/coroutines-views),
+[Android10 credential source](https://android.googlesource.com/platform/packages/apps/Settings/+/refs/tags/android-10.0.0_r1/src/com/android/settings/password/ConfirmLockPassword.java#441).

@@ -107,8 +107,17 @@ lock-green/android17. No scheduler race reproduction claimed. Next sole native
 cycle extends the proven journey to fresh independently signed Fee-only alternate
 coverage at previous2000002, requiring explicit reorganized status and unchanged
 reservations/no frames through recreation. Test APK compiles1m40s, then diagnostic capture ordering compiles1m30s;2hashes
-in reorganization-test-preparation. No new product source or native reorg RED/
-GREEN yet. Next: verified reorg UI, fresh nonreserved change enabling a new
+in reorganization-test-preparation. Both tracer axes through3b5933d clear, one optional post-GREEN test duplication
+judgment. Native38202667461 at3b5933d reaches genuine missing reorg label RED at
+156/20s:4reported/3PASS/1failure108.245s. Alternate old-height request and zero
+availability passed; original separate XML shows Unknown, PNG tool strip qualified.
+Actual two482B alternatives independently pass pinned pure WASM/Elliptic/hash/
+Rust root/full roundtrip and exact2000002->2000003 link;8hashes in reorganization-
+ui-red/android17. No consensus/finality claim. Minimum current reorg wiring now
+shares the same20s/32MiB bounded selected-host cache with exact inclusion and
+verified previous-height displacement checks. Original history/reservations remain;
+no automatic send. Debug/test assembly passes2m56s/one hash in reorganization-ui-build. Bounded
+source review and same unchanged-test native GREEN pending. Next: verified reorg UI, fresh nonreserved change enabling a new
 transfer, receiving QR, meaningful remaining failures, final fresh full10/17 and
 whole-ticket review. #23 unfinished. No new phone APK, physical Pixel result,
 production node change, live transfer or whole acceptance.

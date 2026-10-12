@@ -1,0 +1,12 @@
+{
+  "run": 38202667461,
+  "source": "3b5933de8804e1c865d4a77ed497d0bec85223fd",
+  "reportedCases": 4,
+  "passedCases": 3,
+  "failedCases": 1,
+  "completionRecords": 0,
+  "actualDeathStages": 0,
+  "failure": "WalletTransferStatusTest.kt:156 missing explicit reorganized status after20000ms",
+  "elapsedSeconds": 108.245,
+  "qualification": "Actual alternate-height block request, original identity, fresh reserved zero and earlier Included/Unknown gates passed; no successful reorg/reopening or subsequent death stage"
+}

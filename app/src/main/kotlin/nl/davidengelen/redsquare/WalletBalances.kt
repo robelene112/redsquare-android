@@ -5,8 +5,8 @@ import nl.davidengelen.redsquare.saito.ImportBalance
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.SaitoBalanceSnapshot
 import nl.davidengelen.redsquare.saito.SaitoWallet
-import nl.davidengelen.redsquare.saito.SaitoPayment
 import nl.davidengelen.redsquare.saito.SaitoPaymentChain
+import nl.davidengelen.redsquare.saito.TransferStore
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.net.URI
@@ -51,18 +51,20 @@ class WalletBalances private constructor(private val endpoint: (SaitoBackend) ->
         }
     }
 
-    /** Exact inclusion in the selected snapshot's verified ancestry, with shared bounded reads. */
-    fun inclusions(backend: SaitoBackend, snapshot: SaitoBalanceSnapshot,
-        payments: List<SaitoPayment>): Map<String, SaitoPaymentChain.Inclusion> {
+    data class TransferObservation(val included: Map<String, SaitoPaymentChain.Inclusion> = emptyMap(),
+        val reorganized: Set<String> = emptySet())
+
+    /** Exact inclusion or covered displacement, sharing the same bounded selected-host reads. */
+    fun observeTransfers(backend: SaitoBackend, snapshot: SaitoBalanceSnapshot,
+        records: List<TransferStore.Pending>): TransferObservation {
         val deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(20)
         val blocks = mutableMapOf<String, ByteArray?>()
         var received = 0
         val result = mutableMapOf<String, SaitoPaymentChain.Inclusion>()
-        for (payment in payments) {
-            if (payment.author != snapshot.publicKey || System.nanoTime() >= deadline) continue
-            val inclusion = SaitoPaymentChain.observe(payment, snapshot) { hash ->
+        val reorganized = mutableSetOf<String>()
+        fun readBlock(hash: String): ByteArray? {
                 val remainingMillis = TimeUnit.NANOSECONDS.toMillis(deadline - System.nanoTime())
-                if (remainingMillis <= 0 || !hash.matches(Regex("[0-9a-f]{64}"))) null
+                return if (remainingMillis <= 0 || !hash.matches(Regex("[0-9a-f]{64}"))) null
                 else if (blocks.containsKey(hash)) blocks[hash]
                 else {
                     val limit = minOf(8 * 1024 * 1024, 32 * 1024 * 1024 - received)
@@ -74,10 +76,19 @@ class WalletBalances private constructor(private val endpoint: (SaitoBackend) ->
                     blocks[hash] = bytes
                     bytes
                 }
-            }
-            if (inclusion != null && System.nanoTime() < deadline) result[payment.transaction.id] = inclusion
         }
-        return result
+        for (record in records) {
+            val payment = record.payment
+            if (record.backend != backend || payment.author != snapshot.publicKey || System.nanoTime() >= deadline) continue
+            val inclusion = SaitoPaymentChain.observe(payment, snapshot, ::readBlock)
+            if (System.nanoTime() >= deadline) continue
+            if (inclusion != null) result[payment.transaction.id] = inclusion
+            else record.lastInclusion?.let { previous ->
+                if (SaitoPaymentChain.check(previous, snapshot, ::readBlock) == SaitoPaymentChain.PriorStatus.REORGANIZED &&
+                    System.nanoTime() < deadline) reorganized.add(payment.transaction.id)
+            }
+        }
+        return TransferObservation(result, reorganized)
     }
 
     private fun fetch(url: String, maximumBytes: Int = ImportBalance.MAX_SNAPSHOT_BYTES,

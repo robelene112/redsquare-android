@@ -41,6 +41,10 @@ fun WalletTransferDialog(transfers: WalletTransfers, onClose: () -> Unit) {
                         if (inclusion == null) {
                             val previous = record.lastInclusion
                             if (previous == null) Text(stringResource(R.string.transfer_pending))
+                            else if (record.payment.transaction.id in transfers.reorganized) {
+                                Text(stringResource(R.string.transfer_reorganized, previous.height.toString()))
+                                Text(stringResource(R.string.transfer_observed))
+                            }
                             else Text(stringResource(R.string.transfer_inclusion_unknown, previous.height.toString()))
                         }
                         else {
