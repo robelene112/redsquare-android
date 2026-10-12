@@ -588,3 +588,24 @@ QR initial draft test build1m52s, inspection corrected guessed balance label and
 image-description screenshot text wait before dispatch; corrected build1m23s.
 Two hashes in receiving-qr-test-preparation. Test-only ZXingcore3.5.4; product
 unchanged, no QR view/native RED or raster decoding acceptance yet.
+
+Both bounded QR tracer/evidence axes throughd1b9559 clear. Native38206389868
+atd1b9559 reaches genuine missing QR atPreview299:5reported/4PASS/1failure98.838s
+after actual503/unavailable/full literal receiving address/clipboard gates. Root
+full originalPNG/separateXML confirms noQR;4hashes in receiving-qr-ui-red/android17.
+Minimum view adds full-address QR after Copy, independent of balance connection,
+with ZXingcore3.5.4/H/four-module quiet zone and opaque blackwhite pixels at actual
+192dp density-derived dimensions. Cache tied to identity/density; no resampling
+filter, logo or external service. QR payload is raw address, matching pinned A/B
+[deposit](https://github.com/SaitoTech/saito/blob/9a4ca7e9442eb5e872168ced361ce741d7d139d7/node/lib/saito/ui/saito-crypto/overlays/deposit.js#L75).
+[Official encoder](https://github.com/zxing/zxing/blob/zxing-3.5.4/core/src/main/java/com/google/zxing/qrcode/QRCodeWriter.java),
+[release](https://github.com/zxing/zxing/releases/tag/zxing-3.5.4),
+[publisher license](https://raw.githubusercontent.com/zxing/zxing/zxing-3.5.4/LICENSE).
+Core is maintenance-only, not an actively developed SDK. Original license is
+retained in app assets; debug/test build/native raster GREEN pending. No physical
+scanner, dark-theme or independent-second-decoder claim.
+
+QR debug/test assembly passes2m59s; debug APK contains exact tracked attribution
+and complete original publisher-license suffix. Two hashes in receiving-qr-ui-
+build. Unchanged-test native raster/reopening GREEN and bounded source reviews
+pending; no release-runtime/physical scanner/dark-theme/whole acceptance claim.

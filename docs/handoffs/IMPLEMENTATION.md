@@ -149,8 +149,16 @@ ui-green/android17. This is review-only, not authenticated change spending. Both
 selector/evidence axes throughf7d04ce clear. Next sole cycle: receiving QR using
 the full public address, actual displayed raster decoding and unavailable
 balance/reopening. Corrected test APK compiles1m23s; initial draft1m52s,
-2hashes in receiving-qr-test-preparation. Product untouched; missing-QR native
-RED pending. Meaningful remaining failures, final fresh full10/17 and
+2hashes in receiving-qr-test-preparation. Both bounded tracer/evidence axes
+throughd1b9559 clear. Native38206389868 atd1b9559 reaches genuine missing QR
+RED atPreview299:5reported/4PASS/1failure98.838s after actual503/unavailable/
+exactaddress/copy. Root full originalPNG/separateXML confirms noQR;4hashes in
+receiving-qr-ui-red/android17. Minimum QR view encodes full public address with
+ZXingcore3.5.4/H/four-module quiet zone, opaque blackwhite at actual192dp pixel
+size, memoized by identity/density, no network prerequisite. Original publisher
+license retained in APK assets; exact debug asset inspection passes. Debug/test
+assembly compiles2m59s/two hashes in receiving-qr-ui-build. Bounded source review
+and unchanged same-test native raster/reopening GREEN pending. Meaningful remaining failures, final fresh full10/17 and
 whole-ticket review follow. #23 unfinished. No new phone APK, physical Pixel result,
 production node change, live transfer or whole acceptance.
 

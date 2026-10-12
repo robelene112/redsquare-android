@@ -3,7 +3,10 @@ package nl.davidengelen.redsquare
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.graphics.Bitmap
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
@@ -12,10 +15,18 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.FilterQuality
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.unit.dp
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.EncodeHintType
+import com.google.zxing.qrcode.QRCodeWriter
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import nl.davidengelen.redsquare.saito.SaitoBackend
@@ -53,7 +64,23 @@ fun WalletBalanceDialog(publicKey: String, backend: SaitoBackend?, balances: Wal
                     (context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager)
                         .setPrimaryClip(ClipData.newPlainText(label, publicKey))
                 }) { Text(stringResource(R.string.wallet_copy_address)) }
+                ReceivingAddressQr(publicKey)
             }
         },
         confirmButton = { TextButton(onClick = onClose) { Text(stringResource(R.string.done)) } })
+}
+
+@Composable
+private fun ReceivingAddressQr(publicKey: String) {
+    val width = with(LocalDensity.current) { 192.dp.roundToPx() }
+    val bitmap = remember(publicKey, width) {
+        val matrix = QRCodeWriter().encode(publicKey, BarcodeFormat.QR_CODE, width, width,
+            mapOf(EncodeHintType.ERROR_CORRECTION to ErrorCorrectionLevel.H, EncodeHintType.MARGIN to 4))
+        val pixels = IntArray(width * width) { index ->
+            if (matrix[index % width, index / width]) android.graphics.Color.BLACK else android.graphics.Color.WHITE
+        }
+        Bitmap.createBitmap(pixels, width, width, Bitmap.Config.ARGB_8888).asImageBitmap()
+    }
+    Image(bitmap, stringResource(R.string.wallet_receiving_qr), Modifier.size(192.dp),
+        filterQuality = FilterQuality.None)
 }
