@@ -767,3 +767,11 @@ unexecuted. Minimum classifiesknownverifiedfeedposts withsameexistingmention/
 reply/quote readers; publishesandpersistsavailableeventsbeforeserverrefresh.
 Sharedprivateenvelopespropertyhas2actualsaveconsumers, errorswarnwithoutdropping
 activity; knownPostskey preventsstaledata. Localcompile/first19GREENpending.
+
+Feedminimum14ab7a4 localcore/debug/test3m14PASS. Standardsfoundsource marker
+publicationracewhenbackgroundknownPosts changesrestartload whileMarkallcommits.
+Spec0. No native reproductionclaimed. Run38312894981 canceled/notGREEN. Correction
+defersmarkerloadwhilemarking andguardsMarkcallback duringmarkerload/inflightmark;
+UIreadReadyfalse blocksnewmarkswhileloadis suspended. Feedupdatesstillpublish/
+persist, includingnewunread IDs afterobserved-IDmark. Correctivecompile/review/
+first19GREENpending.

@@ -154,3 +154,18 @@ Run38311968126 canceled to correct setup before treating any failure as RED.
 Corrective `c1632c7...dee4f2a` clears both axes: visible feed readiness and
 explicit root scroll preserve existing notification assertions. Corrected
 RED run38312248859 remains in progress. No product change yet.
+
+## Feed supplement minimum
+
+### Standards
+
+`dee4f2a...14ab7a4`: one marker-publication race. knownPosts changes can reload
+old markers while independent Mark-all saves new IDs. Defer marker reload during
+marking and prevent a new mark while marker loading. No reproduced runtime race
+is claimed. Shared verified readers/envelope extraction otherwise pass.
+
+### Spec
+
+Zero behavior findings; feed activity publishes and persists before peer refresh
+and failures preserve it. Both axes verified3REDhashes/counts/image/XML.
+Run38312894981 canceled before acceptance to apply the source correction.

@@ -96,13 +96,16 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
     LaunchedEffect(wallet, backend, endpoint, knownPosts, refresh) {
         if (wallet == null) return@LaunchedEffect
         loading = true
-        readReady = false
-        try {
-            readIds = withContext(Dispatchers.IO) { readStore!!.load() }
-            readReady = true
-            readWarning = false
-        } catch (cancelled: CancellationException) { throw cancelled }
-        catch (_: Exception) { readWarning = true }
+        // A background feed update must not overwrite an in-flight verified mark commit.
+        if (!markingRead) {
+            readReady = false
+            try {
+                readIds = withContext(Dispatchers.IO) { readStore!!.load() }
+                readReady = true
+                readWarning = false
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { readWarning = true }
+        }
         val name = try { withContext(Dispatchers.IO) { RegisteredNameStore(context, wallet.publicKey, registrar).load()?.name } }
         catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { null }
@@ -221,6 +224,7 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
             if (readReady) Text(if (unread == 0) stringResource(R.string.notifications_read_none)
                 else stringResource(R.string.notifications_unread_count, unread), Modifier.weight(1f))
             TextButton(enabled = readReady && !markingRead && unread > 0, onClick = {
+                if (!readReady || markingRead) return@TextButton
                 val observed = visible.map { it.id }
                 markingRead = true
                 scope.launch {
