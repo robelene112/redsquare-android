@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger
 
 class NotificationsPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
-    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING, MISSING_REPOST, MISSING_QUOTE_LIKE, HISTORY, PRUNED, PARTIAL, REJECTED, NULL_HISTORY, READ, READ_SAVE_FAULT, MISSING_REPLY, MISSING_QUOTE, FEED_MENTION, CONTACT, CONTACT_QUOTE, PAGING }
+    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING, MISSING_REPOST, MISSING_QUOTE_LIKE, HISTORY, PRUNED, PARTIAL, REJECTED, NULL_HISTORY, READ, READ_SAVE_FAULT, MISSING_REPLY, MISSING_QUOTE, FEED_MENTION, CONTACT, CONTACT_QUOTE, PAGING, CONTACT_CONTINUATION }
 
     @Test fun anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile() {
         withNotifications("incoming-like", mode = Mode.LIKE) { actor, _, _ ->
@@ -447,6 +447,35 @@ class NotificationsPreviewTest {
         }
     }
 
+    @Test fun remainingFollowedAccountsAreDiscoveredAfterTheFirstBatchIsExhausted() {
+        val actor = InstrumentationRegistry.getInstrumentation().context.assets
+            .open("native-notification-reference.json").bufferedReader().use {
+                JsonParser.parseReader(it).asJsonObject.getAsJsonObject("farContactPost").get("field2").asString
+            }
+        withNotifications("remaining-contacts", Mode.CONTACT_CONTINUATION) { _, _, responses ->
+            waitFor("1 unread")
+            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
+                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.onAllNodesWithText("Posted").assertCountEquals(0)
+            ui.onNodeWithText("Load more activity").assertIsEnabled().performClick()
+            waitFor("2 unread")
+            waitFor("Posted")
+            ui.onAllNodesWithText("Posted").assertCountEquals(1)
+            assertTrue("The remaining followed account must be read", responses.followedReads.get() > 0)
+            captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
+                "notification-evidence/remaining-contacts.png"), "Posted")
+            ui.onNodeWithText("Posted").assertIsDisplayed().performClick()
+            waitFor("Conversation")
+            waitFor("Activity from the eleventh followed account")
+            ui.onNodeWithText("Activity from the eleventh followed account").assertIsDisplayed()
+            ui.onNodeWithText("Back").performClick()
+            waitFor("Posted")
+            ui.onNodeWithText(actor).assertIsDisplayed().performClick()
+            waitFor("Profile")
+            ui.onNodeWithText(actor).assertIsDisplayed()
+        }
+    }
+
     private fun missingReferenceJourney(evidenceName: String, mode: Mode, caption: String, ownCaption: String, actorRows: Int, recoveryText: String = "Original recovered after retry") {
         withNotifications(evidenceName, mode) { actor, _, _ ->
             waitFor(caption)
@@ -616,7 +645,7 @@ class NotificationsPreviewTest {
                             Mode.MENTION -> "[${fixture.get("incomingMention")},${fixture.get("addressedPost")}]"
                             Mode.USERNAME -> "[${fixture.get("usernameMention")}]"
                             Mode.QUOTE -> "[${fixture.get("legacyQuote")}]"
-                            Mode.LIKE, Mode.REPOST, Mode.MISSING, Mode.MISSING_REPOST, Mode.MISSING_QUOTE_LIKE, Mode.HISTORY, Mode.PRUNED, Mode.NULL_HISTORY, Mode.READ, Mode.READ_SAVE_FAULT, Mode.MISSING_QUOTE, Mode.FEED_MENTION, Mode.CONTACT, Mode.CONTACT_QUOTE, Mode.PAGING -> "[]"
+                            Mode.LIKE, Mode.REPOST, Mode.MISSING, Mode.MISSING_REPOST, Mode.MISSING_QUOTE_LIKE, Mode.HISTORY, Mode.PRUNED, Mode.NULL_HISTORY, Mode.READ, Mode.READ_SAVE_FAULT, Mode.MISSING_QUOTE, Mode.FEED_MENTION, Mode.CONTACT, Mode.CONTACT_QUOTE, Mode.PAGING, Mode.CONTACT_CONTINUATION -> "[]"
                         }
                     }
                     criteria.get("field5")?.asString == fixture.getAsJsonObject("missingOriginalQuote").get("sig").asString ->
@@ -634,6 +663,13 @@ class NotificationsPreviewTest {
                     mode == Mode.CONTACT_QUOTE && criteria.get("field5")?.asString == fixture.getAsJsonObject("knownOtherQuote").get("sig").asString -> "[]"
                     mode == Mode.CONTACT && criteria.get("field5")?.asString == fixture.getAsJsonObject("knownOtherPost").get("sig").asString ->
                         "[${fixture.get("knownOtherPost")}]"
+                    mode == Mode.CONTACT_CONTINUATION && criteria.get("field5")?.asString == fixture.getAsJsonObject("farContactPost").get("sig").asString ->
+                        "[${fixture.get("farContactPost")}]"
+                    mode == Mode.CONTACT_CONTINUATION && criteria.get("field2")?.asString == fixture.getAsJsonObject("farContactPost").get("field2").asString -> {
+                        require(criteria.get("flagged_ne").asInt == 1 && criteria.get("limit").asInt in 1..100)
+                        responses.followedReads.incrementAndGet()
+                        "[${fixture.get("farContactPost")}]"
+                    }
                     mode == Mode.CONTACT && criteria.get("field2")?.asString == actor -> {
                         require(criteria.get("flagged_ne").asInt == 1 && criteria.get("limit").asInt in 1..100)
                         if (responses.followedAvailable.get()) {
@@ -662,6 +698,10 @@ class NotificationsPreviewTest {
             readFiles.reset()
             feedFiles.reset()
             followingFiles.reset()
+            if (mode == Mode.CONTACT_CONTINUATION) {
+                nl.davidengelen.redsquare.feed.PublicStringStore(context, "following.$owner.v1", 1000)
+                    .save(fixture.getAsJsonArray("continuationContacts").map { it.asString })
+            }
             if (mode == Mode.MISSING_REPLY) conversationFiles.reset()
             if (mode == Mode.USERNAME || missing) publicFiles.reset()
             if (prior.publicKey != owner) store.replace(prior, wallet)

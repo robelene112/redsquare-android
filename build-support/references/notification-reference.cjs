@@ -161,7 +161,19 @@ const olderIncomingLike = {
   field1: 'RedSquareLike', field3: owner, field4: thread.root.sig,
   updated_at: 1700000000040, flagged: 0
 };
+// Public-only points for an eleven-account continuation fixture; only fixed unsafe3 signs.
+const farContactPost = {
+  ...signedReference('3', {module: 'RedSquare', request: 'create tweet',
+    data: {text: 'Activity from the eleventh followed account'}}, 1700000000120),
+  field1: 'RedSquare', flagged: 0
+};
+const wasm = require('/opt/saito/node/node_modules/saito-wasm/pkg/node');
+const continuationContacts = Array.from({length: 64}, (_, index) =>
+  wasm.generate_public_key((index + 1).toString(16).padStart(64, '0')))
+  .filter(key => key < farContactPost.field2 && key !== owner).sort().slice(0, 10);
+require('node:assert/strict').equal(continuationContacts.length, 10);
+continuationContacts.push(farContactPost.field2);
 console.log(JSON.stringify({synthetic: true, reference, owner,
   actor: 'pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU',
   root: thread.root, incomingLike, incomingReply, parentedQuote, incomingMention,
-  addressedPost, listedMention, usernameMention, incomingRepost, incomingNullRepost, incomingQuote, legacyQuote, recoveredOriginal, missingOriginalLike, missingOriginalRepost, knownOtherPost, knownOtherLike, ownCurrentQuote, incomingQuoteLike, missingOriginalReply, knownOtherReply, missingOriginalQuote, knownOtherQuote, boundaryIncomingLike, olderIncomingLike}, null, 2));
+  addressedPost, listedMention, usernameMention, incomingRepost, incomingNullRepost, incomingQuote, legacyQuote, recoveredOriginal, missingOriginalLike, missingOriginalRepost, knownOtherPost, knownOtherLike, ownCurrentQuote, incomingQuoteLike, missingOriginalReply, knownOtherReply, missingOriginalQuote, knownOtherQuote, boundaryIncomingLike, olderIncomingLike, farContactPost, continuationContacts}, null, 2));
