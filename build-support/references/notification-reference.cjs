@@ -98,7 +98,20 @@ const knownOtherLike = {
   field1: 'RedSquareLike', field3: owner, field4: knownOtherPost.sig,
   updated_at: 1700000000091, flagged: 0
 };
+// A current commentary quote is itself a signed post with a Retweet archive namespace.
+const ownCurrentQuote = {
+  ...signedReference('1', {module: 'RedSquare', request: 'retweet',
+    data: {signature: thread.root.sig, text: 'Own quote recovered after retry',
+      retweet_tx: thread.root.tx}}, 1700000000100),
+  field1: 'RedSquareRetweet', field4: thread.root.sig, flagged: 0
+};
+const incomingQuoteLike = {
+  ...signedReference('2', {module: 'RedSquare', request: 'like tweet',
+    data: {signature: ownCurrentQuote.sig}}, 1700000000105, [owner]),
+  field1: 'RedSquareLike', field3: owner, field4: ownCurrentQuote.sig,
+  updated_at: 1700000000105, flagged: 0
+};
 console.log(JSON.stringify({synthetic: true, reference, owner,
   actor: 'pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU',
   root: thread.root, incomingLike, incomingReply, parentedQuote, incomingMention,
-  addressedPost, listedMention, usernameMention, incomingRepost, incomingQuote, legacyQuote, recoveredOriginal, missingOriginalLike, missingOriginalRepost, knownOtherPost, knownOtherLike}, null, 2));
+  addressedPost, listedMention, usernameMention, incomingRepost, incomingQuote, legacyQuote, recoveredOriginal, missingOriginalLike, missingOriginalRepost, knownOtherPost, knownOtherLike, ownCurrentQuote, incomingQuoteLike}, null, 2));

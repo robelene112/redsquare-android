@@ -57,7 +57,15 @@ The latter must remain ineligible because its original author is already known;
 owner output addressing cannot override signed non-ownership. Both missing-like
 and missing-repost journeys supply that adversarial activity and observe captions/
 actor row counts while retaining full original-cache restoration.
-Current whole JSON SHA256:f67062351b533f5aa466d0b1b159ab860dbf145bab1436dd4ff121ee5cc6400b; 21373bytes.
+The missing-repost/known-other snapshot was21373bytes/SHAf67062351b533f5aa466d0b1b159ab860dbf145bab1436dd4ff121ee5cc6400b.
+Next tracer adds an independently signed unsafe1 current commentary quote plus
+unsafe2 incoming like of its own signed quote ID. The quote's original remains
+separately authenticated. Its queryable namespace is RedSquareRetweet; ordinary
+RedSquare target reads return empty, and Retweet reads withhold it once before
+returning it on explicit Retry. Actual namespace-specific read counts are retained
+without transaction contents. This is a synthetic compatibility/recovery proof,
+not a live archive observation or chain inclusion.
+Current whole JSON SHA256:df18fa267c99d457bdab01b4a41f88e83fb92096e740efb492012c9ddffaf06f; 24557bytes.
 Documentation/native/core copies are identical.
 
 Reproduction uses the existing build image, networknone/read-only container and
