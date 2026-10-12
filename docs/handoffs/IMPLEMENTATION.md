@@ -137,8 +137,18 @@ actualsend/exactretry passes, originalsystemXML/optionalbitmapfalse retained4has
 No failurePNG/XML/exactcancelcause. Existingexport10secBackuntilapp action now
 sharedwithtransfer, keepingdisplayedcancel/zero frames/reopened7.5/identity/noPending.
 Normalcapture nowXMLfirst thenmandatoryPNG; no assertionwait/harness/productchange.
-Bothbbfb/fd8source/evidence axes0,113hashes/countsverified. Correctedfocused10 and
-newfull17/publictrue pending dispatch; finalfull10 afterfocusedpasses. Canonicalchronologyabove; #23 stillactive.
+Bothbbfb/fd8source/evidence axes0,113hashes/countsverified. Correctedfocused10run38220051566 atfcd9771 PASSES11/3/1:ordinary9/98.794s,
+actual4823->4983/cold6.466s/cleanup.089s.15hashes in cancel-system-action-green/
+android10; root2appPNG/separate4XML, normalIME reopenedfooter limitation.
+Full17run38220054361 atsamefcd9771 PASSES202/51/17/noassumptions/core66/release/lint/
+signed5->8/coldcontinuity/bothpublicnativewalletreads. Ordinarytransfers9/98.055s,
+11646->11742/cold9.168s/cleanup.043s;201hashes in final-full/android17. Root34native
+originalPNG/separate35XML and6publicPNG/separate4XML; duplicate/toolstrip/IME/
+clipboard/blackPIN qualifications in README. Publicowner11.583s/official9.112s,
+100ordinaryrows95posts0ignored/5quoterows1post0ignored both. Readonlyfreshunfunded
+HTTPS, notlivefunded/consensus/admission proof. NormalcaptureretainsXMLbeforePNG.
+Full10run38265052461 atsamefcd9771 withpublictrue ACTIVE; bounded fixture/evidence
+review pending. No finalpair/#23closure until full10accepted. Canonicalchronologyabove; #23 stillactive.
 
 ## Earlier completed ticket checkpoints
 

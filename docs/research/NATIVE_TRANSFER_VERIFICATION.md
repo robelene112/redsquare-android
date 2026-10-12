@@ -867,3 +867,25 @@ app, mandatorycancelmessage/zero frames/reopened7.5/sameidentity/noPending intac
 Normalcapture dumpsXML first thenstillrequiresPNG, retaininghierarchyifrefused.
 No productionchange/assertionwait/harnesstimeout increase. Correctedfocused10 and
 freshfull17/publictrue dispatchednext; finalfull10 afterfocusedcorrectionpasses.
+
+
+Corrected10focused38220051566 atfcd9771 PASSES9ordinary98.794s plus actualpending
+4823->4983/cold6.466s/credentialcleanup.089s=11/3/1/noassumptions/core66/build.
+15hashes in cancel-system-action-green/android10; root2originalappPNG/separate4XML
+(2app/2system), explicitcancelmessage/zero frames/reopened7.5/sameidentity/noPending.
+NormalIME overlaysreopenedfooter, alsoXML. SystemPIN screenshotfalsewithmandatory
+Settings XML; no bitmapproof or exactearliermissedBack/IMEcause inferred.
+
+Full17run38220054361 atfcd9771e232007e3c4c6702bb3c135661639b654 PASSES202/51/17/
+noassumptions/core66/0/0/release/lint/debug/test/signed5->8/coldwallet/cachecontinuity.
+Transfers9PASS98.055s, actual11646->11742/cold9.168s/cleanup.043s.201indexedhashes,
+durable202/51/17 equalsoriginal. Root34native/processoriginalPNG +separate35XML,
+6publicPNG +separate4walletXML. Exactduplicate strips matched fullyviewed originals;
+awayRetry originaldetail separatelyviewed. READMEqualifiesIMEoverlowerfooter,
+clipboardoverinclusion/QR, blacksystemPIN+actualXML andruntimeauthority/SAF gates.
+Publicowner1/11.583s official1/9.112s each100ordinaryrows95posts0ignored and5quote
+rows1post0ignored; actualapprovedHTTPS0balance/fullfreshkey/QR/funding0/noPending/
+returnfeed/samewallet/backend. Noauth/review/send, notpositivefunding/inclusion/
+consensus/admission. Missingoptionalcapture hosttext omitted, notPNG/XMLevidence.
+Full10samefcd9771/publictrue run38265052461 active; boundednewfixture/17evidence
+reviews pending, no finalpair/#23acceptance/no newphoneAPK/Pixel/node/livewrites.
