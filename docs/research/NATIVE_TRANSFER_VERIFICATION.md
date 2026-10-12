@@ -558,3 +558,15 @@ Minimum new-form debug/test assembly passes1m30s/one original hash in change-for
 ui-build. Only form visibility/Review availability changes for saved records with
 known positive nonreserved funds; all funding/auth/store/send code unchanged.
 Bounded source/doc-fix review and unchanged native new-review GREEN pending.
+
+Both bounded form/source/doc-fix axes through880f080 clear. Native38205158508
+at880f080 reaches exact change-funded0.25/fee0.1/independentrecipient/owner review
+and zero frames, then cleanup fails at199 because Done matches two stacked
+dialogs. Ordinary4reported/3earlierPASS/1failure89.933s; no successful completion
+or actual death follows. Root full reviewed originalPNG/separateXML confirms
+review,6hashes in change-form-fixture-interruption/android17. This is review-only,
+not authenticated change spending. Fixture scopes Done to the confirmation
+dialog, retaining every acceptance assertion. Corrected build/runtime pending.
+
+Dialog fixture instrumentation APK compiles1m28s/one hash in change-form-dialog-
+fixture. Production unchanged; corrected native completion pending.

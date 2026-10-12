@@ -133,10 +133,15 @@ Native38204586012 atf3ba43a reaches genuine missing Recipient field RED at188:
 Root original fullPNG/separateXML confirms available4.15 and absent new form;
 4hashes in change-form-ui-red/android17. Minimum UI allows a new review with old
 records when known nonreserved available funds are positive, preserving existing
-funding/authentication/reservations. Debug/test assembly passes1m30s/one hash in change-form-ui-build. Bounded
-source/doc-fix review and same unchanged native new-review GREEN pending. Next: fresh nonreserved change enabling a new
-transfer, receiving QR, meaningful remaining failures, final fresh full10/17 and
-whole-ticket review. #23 unfinished. No new phone APK, physical Pixel result,
+funding/authentication/reservations. Debug/test assembly passes1m30s/one hash in change-form-ui-build. Bounded source/doc-fix review through880f080 clears both axes. Native38205158508
+reaches the exact new0.25/fee0.1/recipient/owner review with zero frames, then fails
+cleanup at199 because unscoped Done matches both stacked dialogs:4reported/3PASS/
+1failure89.933s, no completion/death. Root full reviewed originalPNG/separateXML
+confirms review;6hashes in change-form-fixture-interruption/android17. Fixture
+correction scopes Done to the confirmation dialog; instrumentation APK
+compiles1m28s/one hash in change-form-dialog-fixture. Same product completion
+pending. Next: receiving QR, meaningful remaining failures, final fresh full10/17
+and whole-ticket review. #23 unfinished. No new phone APK, physical Pixel result,
 production node change, live transfer or whole acceptance.
 
 ## Earlier completed ticket checkpoints

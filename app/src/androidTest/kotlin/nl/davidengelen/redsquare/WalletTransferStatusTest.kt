@@ -196,7 +196,8 @@ class WalletTransferStatusTest {
                                 ui.onNodeWithText("Send through saito.davidengelen.nl").assertIsDisplayed()
                                 peer.assertHealthy(); assertTrue(peer.transactions.isEmpty())
                                 captureNativeScreen(File(context.cacheDir, "transfer-evidence/change-reviewed.png"), "Confirm SAITO transfer")
-                                ui.onNodeWithText("Done").performClick()
+                                ui.onNode(hasText("Done") and hasAnyAncestor(isDialog() and
+                                    hasAnyDescendant(hasText("Confirm SAITO transfer")))).performClick()
                                 peer.assertHealthy(); assertTrue(peer.transactions.isEmpty())
                             }
                         }

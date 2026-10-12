@@ -1,0 +1,12 @@
+{
+  "run": "38205158508",
+  "source": "880f0803744713c681996ff60779392172159c4e",
+  "reportedCases": 4,
+  "passedBeforeFailure": 3,
+  "failedCases": 1,
+  "completedCases": 0,
+  "completionRecords": 0,
+  "actualDeathStages": 0,
+  "ordinarySeconds": 89.933,
+  "failure": "WalletTransferStatusTest.kt:199, two Done nodes"
+}
