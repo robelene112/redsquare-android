@@ -89,7 +89,7 @@ cachedlikeabsentline162; all9oldpass. Fivehashes/rootfullrecreatedPNG+2XML.
 Minimum NotificationHistoryStore nowwallet/backendscoped/atomic/bounded300/16MiB,
 re-verifiescachedsignatures/kinds andsignedIDs/timestamps; screenrehydratesbefore
 networkfailure. Target/name/personalchecks stay inrender. Cachewarningnonblocking.
-Localcore/debug/testcompile/first10GREEN pending. ReadIDs,paging,partialstream,
+Localcore/debug/testcompile2m42PASS; first10GREEN38299013457 atdcac031 passes10/69.858s/1OK/0deaths/core72. Twenty-two hashes/root recreatedoriginal/all10XML retained. Standards sentinel and duplicatefixture cleanup corrected; review-stage compile pending. ReadIDs,paging,partialstream,
 othermissing/isolation/realcoldproof/fullSDK stillfuturewithin#24. Target-sig
 Retweetqueries routeControlledFeedPeer genericarchiveResponse, notunfilteredquote
 callback, and newfixture answers exactnamespace/sig/flag/limit1 there.

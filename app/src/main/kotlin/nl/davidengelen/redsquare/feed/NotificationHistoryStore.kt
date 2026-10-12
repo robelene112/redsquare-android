@@ -34,7 +34,7 @@ internal class NotificationHistoryStore(context: Context, backend: SaitoBackend,
             "create tweet" -> RedSquareFeed.decode(envelope)
             "retweet" -> {
                 val row = com.google.gson.JsonObject().apply { addProperty("tx", envelope) }
-                require(RedSquareActions.readIncomingReposts("[$row]", "").ignored == 0)
+                require(RedSquareActions.readIncomingReposts("[$row]", signed.author).ignored == 0)
                 // Owner exclusion belongs to the screen; use the valid signed actor for validation here.
                 require(RedSquareFeed.readIncomingQuotes("[$row]", signed.author).ignored == 0)
             }

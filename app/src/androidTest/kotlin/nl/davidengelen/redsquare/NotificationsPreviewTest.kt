@@ -217,15 +217,11 @@ class NotificationsPreviewTest {
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
         val missing = mode in listOf(Mode.MISSING, Mode.MISSING_REPOST, Mode.MISSING_QUOTE_LIKE)
         val publicBase = if (missing) "quoteoriginal.${SaitoBackend.OWNER.id}.v1" else "namemap.$owner.v1"
-        fun fixturePublicFiles() = context.noBackupFilesDir.listFiles().orEmpty()
-            .filter { it.name == publicBase || it.name.startsWith("$publicBase.") }
         val publicLock = if (missing) nl.davidengelen.redsquare.feed.PublicStringStore.lock
             else nl.davidengelen.redsquare.saito.SaitoLocalState.lock
-        var priorPublicFiles: Map<String, ByteArray>? = null
-        val historyBase = "notifications.${SaitoBackend.OWNER.id}.$owner.v1"
-        fun historyFiles() = context.noBackupFilesDir.listFiles().orEmpty()
-            .filter { it.name == historyBase || it.name.startsWith("$historyBase.") }
-        var priorHistory: Map<String, ByteArray>? = null
+        val publicFiles = FixtureFiles(context.noBackupFilesDir, publicBase, publicLock)
+        val historyFiles = FixtureFiles(context.noBackupFilesDir, "notifications.${SaitoBackend.OWNER.id}.$owner.v1",
+            nl.davidengelen.redsquare.feed.PublicStringStore.lock)
         val failingReads = java.util.concurrent.atomic.AtomicBoolean(false)
         val failedReads = AtomicInteger()
         val likeReads = AtomicInteger()
@@ -326,20 +322,8 @@ class NotificationsPreviewTest {
         }
         var primary: Throwable? = null
         try {
-            synchronized(nl.davidengelen.redsquare.feed.PublicStringStore.lock) {
-                val captured = historyFiles().associate { file -> check(file.isFile); file.name to file.readBytes() }
-                priorHistory = captured
-                captured.keys.forEach { check(File(context.noBackupFilesDir, it).delete()) }
-            }
-            if ((mode == Mode.USERNAME || missing)) synchronized(publicLock) {
-                val captured = fixturePublicFiles().associate { file ->
-                    check(file.isFile)
-                    file.name to file.readBytes()
-                }
-                // Record ownership before the first mutation so a partial failure restores the snapshot.
-                priorPublicFiles = captured
-                captured.keys.forEach { check(File(context.noBackupFilesDir, it).delete()) }
-            }
+            historyFiles.reset()
+            if (mode == Mode.USERNAME || missing) publicFiles.reset()
             if (prior.publicKey != owner) store.replace(prior, wallet)
             AndroidBackendStore(context).save(SaitoBackend.OWNER)
             check(permission.edit().remove("offered").commit())
@@ -399,24 +383,34 @@ class NotificationsPreviewTest {
                 check(edit.commit())
                 check(if (priorOffer == null) !permission.contains("offered") else permission.getBoolean("offered", !priorOffer) == priorOffer)
             }, {
-                priorPublicFiles?.let { saved ->
-                    synchronized(publicLock) {
-                        fixturePublicFiles().forEach { check(it.isFile && it.delete()) }
-                        saved.forEach { (name, bytes) -> File(context.noBackupFilesDir, name).writeBytes(bytes) }
-                        check(fixturePublicFiles().map { it.name }.toSet() == saved.keys)
-                        fixturePublicFiles().forEach { check(it.readBytes().contentEquals(saved.getValue(it.name))) }
-                    }
-                }
+                publicFiles.restore()
             }, {
-                priorHistory?.let { saved ->
-                    synchronized(nl.davidengelen.redsquare.feed.PublicStringStore.lock) {
-                        historyFiles().forEach { check(it.isFile && it.delete()) }
-                        saved.forEach { (name, bytes) -> File(context.noBackupFilesDir, name).writeBytes(bytes) }
-                        check(historyFiles().map { it.name }.toSet() == saved.keys)
-                        historyFiles().forEach { check(it.readBytes().contentEquals(saved.getValue(it.name))) }
-                    }
-                }
+                historyFiles.restore()
             })
+        }
+    }
+
+    /** Only the named public fixture and its atomic companions, guarded by the owning store. */
+    private class FixtureFiles(private val directory: File, private val base: String, private val lock: Any) {
+        private var prior: Map<String, ByteArray>? = null
+        private fun files() = directory.listFiles().orEmpty()
+            .filter { it.name == base || it.name.startsWith("$base.") }
+
+        fun reset() = synchronized(lock) {
+            check(prior == null)
+            val captured = files().associate { file -> check(file.isFile); file.name to file.readBytes() }
+            // Acquire restoration ownership before the first mutation, including partial failures.
+            prior = captured
+            captured.keys.forEach { check(File(directory, it).delete()) }
+        }
+
+        fun restore() = synchronized(lock) {
+            prior?.let { saved ->
+                files().forEach { check(it.isFile && it.delete()) }
+                saved.forEach { (name, bytes) -> File(directory, name).writeBytes(bytes) }
+                check(files().map { it.name }.toSet() == saved.keys)
+                files().forEach { check(it.readBytes().contentEquals(saved.getValue(it.name))) }
+            }
         }
     }
 

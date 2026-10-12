@@ -505,3 +505,17 @@ retains cachedrows. Existingpersonalcontrols/targetownership/nameproof appliedaf
 cachedecode. Cacheproblems warn withoutblockingfreshavailableactivity; no private
 Chat/wallet payloads. No readmarkers/paging/partialstreams/colddeath/otherisolation
 claim yet. Localcore/debug/testcompile/first10GREEN pending.
+
+History minimum local core/debug/test compilation passes2m42s. Bounded
+8817cc4...dcac031 Spec0; Standards1 invalid empty-owner sentinel in retweet
+validation. Actual first10GREEN38299013457 atdcac031 passes10/69.858s/1OKrecord/
+0deaths/noassumptions/core72/debug/test. Retained history after actual recreation
+under invalid selected-server replies, verified actor Profile and all final
+identity/no-write/opaque restoration gates pass. Twenty-two hashes at
+history-native-green/android17. Root original recreatedPNG and all10XML inspected;
+other PNGs retained without root visual claims. Source push38299013368 passes.
+Review correction validates reposts with the valid signed actor, matching the
+quote validator. Shared private fixture-file helper has two actual consumers,
+uses each owning lock, records restoration ownership before first mutation and
+preserves independent exact-byte/fileset cleanup. Compile pending. Fresh-empty
+retention and other full-ticket behaviors remain subsequent slices.
