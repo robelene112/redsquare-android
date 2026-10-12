@@ -81,3 +81,22 @@ failedresponses anddisplayedparentafterexplicitfixture scroll pass.
 Savefault regression ac5d06a...5d68810 both0;16GREEN17 38307357984 passes16/
 62.485s/1OK/0deaths/core73/36hashes/all17XML/twooriginalfault+recoveryimages.
 Missingreplyparent tracer/native17RED remainspending; no whole-ticket acceptance.
+
+## Missing reply parent correction
+
+### Standards
+
+Bounded `a6af24e...8c4bbac` found one preservation issue: parent lookup
+was inside the successful thread-read path. Corrective `8c4bbac...e09fec0`
+resolves it, with zero residual hard violations or actionable heuristics.
+
+### Spec
+
+The same bounded finding is resolved: a handled thread failure still reaches
+verified parent-cache lookup, while cancellation propagates. Zero additional
+findings. Local correction compile passed. Android 10 run38309796737 remains
+in progress; no seventeen-case GREEN is claimed.
+
+Native correction run38309796737 at e09fec0 subsequently passes17/47.995s/
+1OK/0deaths/core73, with38retainedhashes. Root original reply-parent screenshot
+and all18 XML inspected. No whole-ticket/fullSDK claim.

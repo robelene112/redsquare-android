@@ -462,3 +462,9 @@ NATIVE_SAITO_TRANSFER_CONTRACT, NATIVE_PRIVATE_CHAT_CONTRACT and
 NATIVE_GROUP_CHAT_CONTRACT (all .md under docs/research). The protected future notes remain uncommitted and must be included only with
 their own relevant tickets; earlier contracts are already committed.
 They establish source contracts, not runtime or feature completion.
+
+Missingreply correction e09fec0 passes localcompile/bothreviewaxes. Native10
+38309796737 passes17/47.995s/1OK/0deaths/core73/debug/test. Actualneutralreply/
+missingparent/Refresh/recoveredoriginal/Actor andall16old/finalopaquegates pass.
+Thirty-eighthashes missing-reply-native-green/android10; rootoriginalreplyPNG/
+all18XML inspected. Next missingquoteoriginal activity; whole-ticket notdone.

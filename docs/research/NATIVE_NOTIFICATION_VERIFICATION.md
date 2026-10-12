@@ -716,3 +716,9 @@ skipsverifiedparentcacheifthreadrequestfails. Reviewcorrection movesexistingboun
 lookup afterhandledthreadresult/finally; parentcacheavailableonthreadfailure while
 CancellationException stillpropagatesbeforelookup. No extraunboundedrequests/
 backendfallback/secretdata. Correctivecompile/first17GREEN pending.
+
+Missingreply correction e09fec0 passes localcompile/bothreviewaxes. Native10
+38309796737 passes17/47.995s/1OK/0deaths/core73/debug/test. Actualneutralreply/
+missingparent/Refresh/recoveredoriginal/Actor andall16old/finalopaquegates pass.
+Thirty-eighthashes missing-reply-native-green/android10; rootoriginalreplyPNG/
+all18XML inspected. Next missingquoteoriginal activity; whole-ticket notdone.
