@@ -537,3 +537,17 @@ acceptance; no genuine RED inferred. Fixture now exposes changed owner-index
 RedSquareLike response count, checks exact owner/flag/limit, waits that positive
 count together with enabled Refresh before saved-row assertions. Existing history
 failure also requires positive owner notification responses. Corrected RED pending.
+
+Corrected tracer reviews 8db4979...a3f65e7 both0. Genuine prunedRED38300436228
+at a3f65e7:11reported/10PASS/1failure92.911s/0completedOKrecords/0deaths/core72/debug/test.
+Positive exactowner changed notification response +completedRefresh precede
+missing savedlike at185. Existing10pass. Fivehashes pruned-native-red/android17;
+root recreatedoriginal showsOwner/Notifications/Refresh/empty/noerror, bothXML
+parsed, secondfailurePNG notrootviewed. Actualemptyrefreshloss established.
+Minimumscreen merges incoming and retained verified activity by signedID, signed
+time sorted/bounded300 per-kind in memory; PublicStringStore remains bounded300
+wholehistory/16MiB. Cached rehydration and successful refresh both use same merge,
+also preserving in-memory activity if saving fails. State/effect keys include
+wallet, approvedbackend and endpoint; no crossidentity/server merge. No pruning
+availability promise, paging/readmarkers/newcachefault acceptance. Compile and
+first11GREEN pending.

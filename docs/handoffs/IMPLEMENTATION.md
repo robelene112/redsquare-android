@@ -89,10 +89,19 @@ cachedlikeabsentline162; all9oldpass. Fivehashes/rootfullrecreatedPNG+2XML.
 Minimum NotificationHistoryStore nowwallet/backendscoped/atomic/bounded300/16MiB,
 re-verifiescachedsignatures/kinds andsignedIDs/timestamps; screenrehydratesbefore
 networkfailure. Target/name/personalchecks stay inrender. Cachewarningnonblocking.
-Localcore/debug/testcompile2m42PASS; first10GREEN38299013457 atdcac031 passes10/69.858s/1OK/0deaths/core72. Twenty-two hashes/root recreatedoriginal/all10XML retained. Standards sentinel and duplicatefixture cleanup corrected; review-stage compile pending. ReadIDs,paging,partialstream,
+Localcore/debug/testcompile2m42PASS; first10GREEN38299013457 atdcac031 passes10/69.858s/1OK/0deaths/core72. Twenty-two hashes/root recreatedoriginal/all10XML retained. Standards sentinel and duplicatefixture cleanup corrected; compile2m46PASS/bothaxes0. Attachedclient143 but independent actualcontainerwait0; no cause inferred. ReadIDs,paging,partialstream,
 othermissing/isolation/realcoldproof/fullSDK stillfuturewithin#24. Target-sig
 Retweetqueries routeControlledFeedPeer genericarchiveResponse, notunfilteredquote
 callback, and newfixture answers exactnamespace/sig/flag/limit1 there.
+
+Fresh-empty tracer Spec synchronization gap corrected to require actual changed
+owner-index response plus completed Refresh, both corrective axes0. Predecessor
+38300238513 canceled/notRED. Genuine38300436228 at a3f65e7 reports11/10PASS/
+1failure92.911s/0OK/0deaths/core72: saved like lost after completed successful-empty
+refresh, line185. Fivehashes/root recreatedoriginal/bothXML retained. Minimum
+screen merges cached/fresh/in-memory verified events bysignedID/time, bounded300
+per-kind, diskwholehistory300/16MiB. Keys include wallet/backend/endpoint. Compilation
+andfirst11GREEN pending. No newfullticket/Pixel/APK/processdeath claim.
 
 Remaining within#24: contact-post and feed-cache supplementation, missing-original
 retention/lookup/Retry with neutral wording, bounded independent paging/partial

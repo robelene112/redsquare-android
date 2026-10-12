@@ -1,0 +1,208 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.NotificationsPreviewTest:
+INSTRUMENTATION_STATUS: test=anIncomingSignedMentionOpensItsPostAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anIncomingSignedMentionOpensItsPostAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aLikeOfACurrentQuoteRecoversFromItsRetweetArchiveOnExplicitRetry
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aLikeOfACurrentQuoteRecoversFromItsRetweetArchiveOnExplicitRetry
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=savedActivityRemainsAvailableWhenTheServerNoLongerReturnsIt
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.waitFor(NotificationsPreviewTest.kt:452)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.savedActivityRemainsAvailableWhenTheServerNoLongerReturnsIt$lambda$8(NotificationsPreviewTest.kt:185)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$9F00JIPLa-vDCBn3a_1fhDbfzgw(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda12.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$22$lambda$21$lambda$20(NotificationsPreviewTest.kt:380)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$6iyRhRXMSzVAanhS5VWVRZkvn6o(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:362)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.savedActivityRemainsAvailableWhenTheServerNoLongerReturnsIt(NotificationsPreviewTest.kt:172)
+
+INSTRUMENTATION_STATUS: stream=
+Error in savedActivityRemainsAvailableWhenTheServerNoLongerReturnsIt(nl.davidengelen.redsquare.NotificationsPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.waitFor(NotificationsPreviewTest.kt:452)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.savedActivityRemainsAvailableWhenTheServerNoLongerReturnsIt$lambda$8(NotificationsPreviewTest.kt:185)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$9F00JIPLa-vDCBn3a_1fhDbfzgw(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda12.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$22$lambda$21$lambda$20(NotificationsPreviewTest.kt:380)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$6iyRhRXMSzVAanhS5VWVRZkvn6o(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:362)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.savedActivityRemainsAvailableWhenTheServerNoLongerReturnsIt(NotificationsPreviewTest.kt:172)
+
+INSTRUMENTATION_STATUS: test=savedActivityRemainsAvailableWhenTheServerNoLongerReturnsIt
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=incomingCurrentAndLegacyQuotesOpenTheirCommentaryOriginalAndActor
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=incomingCurrentAndLegacyQuotesOpenTheirCommentaryOriginalAndActor
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anIncomingSignedRepostOpensItsOriginalAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anIncomingSignedRepostOpensItsOriginalAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anIncomingVerifiedUsernameMentionOpensItsPostAndActorProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anIncomingVerifiedUsernameMentionOpensItsPostAndActorProfile
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=missingRepostOriginalSurvivesUnavailableLookupAndExplicitRetry
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=missingRepostOriginalSurvivesUnavailableLookupAndExplicitRetry
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=availableNotificationsSurviveRecreationWhenTheSelectedServerCannotRefresh
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=availableNotificationsSurviveRecreationWhenTheSelectedServerCannotRefresh
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=missingOriginalActivitySurvivesUnavailableLookupAndExplicitRetry
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=missingOriginalActivitySurvivesUnavailableLookupAndExplicitRetry
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 92.911
+There was 1 failure:
+1) savedActivityRemainsAvailableWhenTheServerNoLongerReturnsIt(nl.davidengelen.redsquare.NotificationsPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.waitFor(NotificationsPreviewTest.kt:452)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.savedActivityRemainsAvailableWhenTheServerNoLongerReturnsIt$lambda$8(NotificationsPreviewTest.kt:185)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$9F00JIPLa-vDCBn3a_1fhDbfzgw(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda12.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$22$lambda$21$lambda$20(NotificationsPreviewTest.kt:380)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$6iyRhRXMSzVAanhS5VWVRZkvn6o(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:362)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.savedActivityRemainsAvailableWhenTheServerNoLongerReturnsIt(NotificationsPreviewTest.kt:172)
+
+FAILURES!!!
+Tests run: 11,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

@@ -51,36 +51,42 @@ private fun cachedArchive(envelopes: List<String>, requests: Set<String>): Strin
     }
 }.toString()
 
+/** A successful smaller page does not erase verified activity already available on this phone. */
+private fun <T> availableActivity(incoming: List<T>, retained: List<T>, id: (T) -> String,
+    createdAt: (T) -> Long): List<T> = (incoming + retained).distinctBy(id)
+    .sortedByDescending(createdAt).take(300)
+
 @Composable
 internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend: SaitoBackend, knownPosts: List<FeedPost>,
     modifier: Modifier, onBack: () -> Unit, onPost: (FeedPost) -> Unit, onIdentity: (String) -> Unit, onReference: (String) -> Unit) {
     val personal = LocalPersonalControls.current
     val context = LocalContext.current.applicationContext
     val registrar = LocalRegistryAuthority.current
-    var events by remember(wallet?.publicKey, endpoint) { mutableStateOf<List<ProfileLike>>(emptyList()) }
-    var replies by remember(wallet?.publicKey, endpoint) { mutableStateOf<List<FeedPost>>(emptyList()) }
-    var mentions by remember(wallet?.publicKey, endpoint) { mutableStateOf<List<FeedPost>>(emptyList()) }
-    var reposts by remember(wallet?.publicKey, endpoint) { mutableStateOf<List<RedSquareAction>>(emptyList()) }
-    var quotes by remember(wallet?.publicKey, endpoint) { mutableStateOf<List<FeedPost>>(emptyList()) }
+    var events by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf<List<ProfileLike>>(emptyList()) }
+    var replies by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf<List<FeedPost>>(emptyList()) }
+    var mentions by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf<List<FeedPost>>(emptyList()) }
+    var reposts by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf<List<RedSquareAction>>(emptyList()) }
+    var quotes by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf<List<FeedPost>>(emptyList()) }
     val history = remember(wallet?.publicKey, backend) { wallet?.let { NotificationHistoryStore(context, backend, it.publicKey) } }
     var cacheWarning by remember(wallet?.publicKey, backend) { mutableStateOf(false) }
-    var loading by remember { mutableStateOf(false) }
-    var failed by remember { mutableStateOf(false) }
-    var ignored by remember { mutableIntStateOf(0) }
+    var loading by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf(true) }
+    var failed by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf(false) }
+    var ignored by remember(wallet?.publicKey, backend, endpoint) { mutableIntStateOf(0) }
     var refresh by remember { mutableIntStateOf(0) }
     BackHandler(onBack = onBack)
-    LaunchedEffect(wallet, endpoint, refresh) {
+    LaunchedEffect(wallet, backend, endpoint, refresh) {
         if (wallet == null) return@LaunchedEffect
         loading = true
         val name = try { withContext(Dispatchers.IO) { RegisteredNameStore(context, wallet.publicKey, registrar).load()?.name } }
         catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { null }
         fun publish(pages: NotificationPages) {
-            events = pages.likes.likes
-            replies = pages.replies.posts.filter { it.author != wallet.publicKey && it.parentId.isNotEmpty() }
-            mentions = pages.mentions.posts
-            reposts = pages.reposts.actions
-            quotes = pages.quotes
+            events = availableActivity(pages.likes.likes, events, { it.id }, { it.createdAt })
+            replies = availableActivity(pages.replies.posts.filter { it.author != wallet.publicKey && it.parentId.isNotEmpty() },
+                replies, { it.id }, { it.createdAt })
+            mentions = availableActivity(pages.mentions.posts, mentions, { it.id }, { it.createdAt })
+            reposts = availableActivity(pages.reposts.actions, reposts, { it.id }, { it.createdAt })
+            quotes = availableActivity(pages.quotes, quotes, { it.id }, { it.createdAt })
             ignored = pages.likes.ignored + pages.replies.ignored + pages.reposts.ignored
         }
         val saved = withContext(Dispatchers.IO) { history!!.load() }
