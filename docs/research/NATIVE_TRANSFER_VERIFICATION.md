@@ -440,3 +440,13 @@ Next historical-status test APK compiles1m18s; one original hash in history-test
 preparation. Positive input coordinates2000000/7/index2 Normal5SAITO and
 2000001/9/index0 RouterOutput2.5SAITO are eligible under served80640 window at
 2000003. New current UNKNOWN/last observation runtime RED remains pending.
+
+Historical tracer prep review01b0bd0: Spec2/Standards2 for fresh positive-snapshot/
+missing-block observability and stale active compile wording. Same journey now
+requires positive actual HTTP boundary counters before terminal assertions;
+newly advertised tip2000004/literal64c hash with no body prevents an old block
+cache from establishing current ancestry. Original positive eligible7.5 inputs,
+identity/backend/lastseen/currentUnknown/no frames gates remain. Corrected test
+APK compiles1m21s/one hash in history-test-observation-fix. Production untouched;
+corrected native RED/fix review remain pending. Earlier38199323112at01b0bd0
+still runs the weaker precursor without these positive observation guards.

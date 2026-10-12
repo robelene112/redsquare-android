@@ -73,9 +73,14 @@ pending sentences; this consolidation corrects those claims. Both handoff correc
 Current next cycle: one native missing historical-status test extends the proven
 journey with unavailable block coverage after another recreation and a fresh
 snapshot listing all original positive7.5SAITO inputs. It must show lastseen/current
-UNKNOWN, zero reserved availability and no frames. Test compile/runtime RED are
-pending; test APK compiles1m18s/one hash in history-test-preparation.
-Production still has no durable observations. Follow
+UNKNOWN, zero reserved availability and no frames. First test APK compiles1m18s,
+one hash in history-test-preparation. Bounded prep review: Spec2/Standards2 for
+fresh HTTP boundary observations and stale compile-pending wording. Correction
+requires positive fresh7.5 snapshot and actual404 at newly advertised tip2000004/
+literalc hash, so earlier cached blocks cannot establish fresh ancestry. Test APK
+compiles1m21s/one hash in history-test-observation-fix. Production is untouched;
+corrected-source runtime RED and fix review remain pending. Earlier01b0bd0
+runtime38199323112 is running without these stronger guards. Follow
 with verified reorg status, receiving QR, meaningful remaining failure cases,
 final fresh full Android10/17 and whole-ticket two-axis review. #23 is unfinished.
 Do not claim QR/durable status/reorg UI/current whole acceptance yet. No new

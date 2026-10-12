@@ -9,6 +9,7 @@ import java.io.File
 import java.net.InetAddress
 import java.util.Base64
 import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.atomic.AtomicInteger
 import java.math.BigInteger
 import mockwebserver3.Dispatcher
 import mockwebserver3.MockResponse
@@ -32,6 +33,9 @@ class WalletTransferStatusTest {
             .bufferedReader().use { TransferInclusionFixture(it.readText()) }
         assertEquals(BigInteger("750000000"), fixture.payment.inputs.fold(BigInteger.ZERO) { sum, input -> sum + input.amount })
         val blocksAvailable = AtomicBoolean(true)
+        val positiveSnapshots = AtomicInteger()
+        val unavailableBlockReads = AtomicInteger()
+        val unavailableTip = "c".repeat(64) // A newly advertised tip with no available block body.
         val originalInputs = fixture.payment.inputs.joinToString("\n", postfix = "\n") {
             "${fixture.wallet.publicKey} ${it.block} ${it.ordinal} ${it.index} ${it.amount} ${it.type}"
         }
@@ -49,12 +53,20 @@ class WalletTransferStatusTest {
                 server.dispatcher = object : Dispatcher() {
                     override fun dispatch(request: RecordedRequest): MockResponse = when (request.target) {
                         "/options" -> MockResponse.Builder().body("""{"consensus":{"genesis_period":80640}}""").build()
-                        "/balance/${fixture.wallet.publicKey}" -> MockResponse.Builder()
-                            .body("${fixture.timestamp}-2000003-${fixture.tip.first}.snap\n" +
-                                if (blocksAvailable.get()) "" else originalInputs).build()
-                        else -> fixture.blocks[request.target.removePrefix("/block/")]?.takeIf { blocksAvailable.get() }?.let {
-                            MockResponse.Builder().body(Buffer().write(it)).build()
-                        } ?: MockResponse.Builder().code(404).build()
+                        "/balance/${fixture.wallet.publicKey}" -> {
+                            val available = blocksAvailable.get()
+                            if (!available) positiveSnapshots.incrementAndGet()
+                            val header = if (available) "${fixture.timestamp}-2000003-${fixture.tip.first}.snap\n"
+                                else "${fixture.timestamp + 1000}-2000004-$unavailableTip.snap\n"
+                            MockResponse.Builder().body(header + if (available) "" else originalInputs).build()
+                        }
+                        else -> {
+                            if (!blocksAvailable.get() && request.target == "/block/$unavailableTip")
+                                unavailableBlockReads.incrementAndGet()
+                            fixture.blocks[request.target.removePrefix("/block/")]?.takeIf { blocksAvailable.get() }?.let {
+                                MockResponse.Builder().body(Buffer().write(it)).build()
+                            } ?: MockResponse.Builder().code(404).build()
+                        }
                     }
                 }
                 server.start(InetAddress.getByName("127.0.0.1"), 0)
@@ -107,6 +119,7 @@ class WalletTransferStatusTest {
                             ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
                             withFailureCapture({ captureNativeScreen(File(context.cacheDir,
                                 "transfer-evidence/history-first-failure.png")) }) {
+                                ui.waitUntil(20_000) { positiveSnapshots.get() > 0 && unavailableBlockReads.get() > 0 }
                                 // Fresh snapshot again lists all original7.5SAITO; reservations still leave zero.
                                 ui.waitUntil(20_000) { ui.onNodeWithText("Available to send: 0 SAITO").isDisplayed() }
                                 val unknown = "Current inclusion unknown. Last seen in block 2000002."
