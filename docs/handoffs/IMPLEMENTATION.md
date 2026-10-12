@@ -31,7 +31,15 @@ andbashsyntax checked. Localcore/debug/test build passed before the final two
 prompt assertions were added; hostedcompiler/latestnativeRED pending. Sourcebuild
 usesexisting Dockerlimits; no duplicate fullrun yet. Firstgenerator inherited
 nonroot imageuser/chroot denied; corrected --user0 readonly/networknone/env-i passed.
-No #24 feature completion, new phoneAPK, physicalPixel or closed-app delivery yet.
+FirstnativeRED38271177276 atdf9458f confirmsmissingNotifications menu afteractual
+feed/Archive gates (1reportedfailure/0completedrecords). OriginalPNG/XML retained
+3hashes ticket23/first-native-red/android17. Minimumincominglike/ownverifiedtarget/
+actor+thread routes/personalfilter/contextualskip+realAndroidpermission code now
+built locally: correctedcore/debug/test assembly PASS3m15s/core66; firstlocal
+compilefailedActivity-vs-LifecycleOwnerreceiver, correctedComponentActivitycast.
+Hosted firstnativeGREEN pending. Canonicalchronology:
+docs/research/NATIVE_NOTIFICATION_VERIFICATION.md. No #24 feature completion,
+new phoneAPK, physicalPixel or closed-app delivery yet.
 
 ## Earlier completed ticket checkpoints
 

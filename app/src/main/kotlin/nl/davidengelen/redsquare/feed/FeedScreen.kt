@@ -196,6 +196,12 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
         return
     }
     when (val destination = navigation.lastOrNull()) {
+        is BrowseDestination.Notifications -> {
+            NotificationsScreen(wallet, endpoint, posts, modifier, onBack = { back() },
+                onPost = { navigation.add(BrowseDestination.Conversation(it)) },
+                onIdentity = { openProfile(it) })
+            return
+        }
         is BrowseDestination.Search -> {
             SearchScreen(wallet, endpoint, backend, destination.view, modifier,
                 knownAccounts = following?.accounts.orEmpty() + navigationMemory.visitedProfiles,
@@ -253,6 +259,9 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
             }
         }
         TextButton(enabled = wallet != null, onClick = { reviewingQueue = true }) { Text(stringResource(R.string.post_queue_title)) }
+        TextButton(enabled = wallet != null, onClick = { navigation.add(BrowseDestination.Notifications) }) {
+            Text(stringResource(R.string.notifications_title))
+        }
         TextButton(enabled = wallet != null, onClick = { reviewingChanges = true }) { Text(stringResource(R.string.author_saved_changes)) }
         val visiblePosts = posts.filter { post -> personal?.hidesPosts(post.author) == false &&
             (!followingView || post.author in following?.accounts.orEmpty()) }
