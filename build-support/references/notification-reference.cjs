@@ -46,7 +46,13 @@ const usernameMention = {
     data: {text: 'Hello @NativeCase7@saito, username mention reference'}}, 1700000000063, [owner]),
   field1: 'RedSquare', field3: owner, field4: '', updated_at: 1700000000063, flagged: 0
 };
+const incomingRepost = {
+  ...signedReference('2', {module: 'RedSquare', request: 'retweet',
+    data: {signature: thread.root.sig}}, 1700000000070, [owner]),
+  field1: 'RedSquareRetweet', field3: owner, field4: thread.root.sig,
+  updated_at: 1700000000070, flagged: 0
+};
 console.log(JSON.stringify({synthetic: true, reference, owner,
   actor: 'pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU',
   root: thread.root, incomingLike, incomingReply, parentedQuote, incomingMention,
-  addressedPost, listedMention, usernameMention}, null, 2));
+  addressedPost, listedMention, usernameMention, incomingRepost}, null, 2));

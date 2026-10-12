@@ -27,6 +27,9 @@ import nl.davidengelen.redsquare.saito.*
 private data class NotificationRow(val id: String, val author: String, val createdAt: Long,
     val post: FeedPost, val caption: Int)
 
+private data class NotificationPages(val likes: ArchiveLikePage, val replies: ArchiveFeedPage,
+    val mentions: ArchiveFeedPage, val reposts: ArchiveActionPage)
+
 @Composable
 internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, knownPosts: List<FeedPost>,
     modifier: Modifier, onBack: () -> Unit, onPost: (FeedPost) -> Unit, onIdentity: (String) -> Unit) {
@@ -36,6 +39,7 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, knownPo
     var events by remember(wallet?.publicKey, endpoint) { mutableStateOf<List<ProfileLike>>(emptyList()) }
     var replies by remember(wallet?.publicKey, endpoint) { mutableStateOf<List<FeedPost>>(emptyList()) }
     var mentions by remember(wallet?.publicKey, endpoint) { mutableStateOf<List<FeedPost>>(emptyList()) }
+    var reposts by remember(wallet?.publicKey, endpoint) { mutableStateOf<List<RedSquareAction>>(emptyList()) }
     var loading by remember { mutableStateOf(false) }
     var failed by remember { mutableStateOf(false) }
     var ignored by remember { mutableIntStateOf(0) }
@@ -45,7 +49,7 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, knownPo
         if (wallet == null) return@LaunchedEffect
         loading = true
         try {
-            val (likePage, replyPage, mentionPage) = withContext(Dispatchers.IO) {
+            val pages = withContext(Dispatchers.IO) {
                 SaitoPeer(wallet, endpoint).use { peer ->
                     suspend fun read(kind: String): String {
                         val criteria = JsonObject().apply {
@@ -61,13 +65,16 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, knownPo
                     val name = try { RegisteredNameStore(context, wallet.publicKey, registrar).load()?.name }
                     catch (cancelled: CancellationException) { throw cancelled }
                     catch (_: Exception) { null }
-                    Triple(likes, RedSquareFeed.readReplies(posts), RedSquareFeed.readMentions(posts, wallet.publicKey, name, registrar))
+                    NotificationPages(likes, RedSquareFeed.readReplies(posts),
+                        RedSquareFeed.readMentions(posts, wallet.publicKey, name, registrar),
+                        RedSquareActions.readIncomingReposts(read("RedSquareRetweet"), wallet.publicKey))
                 }
             }
-            events = likePage.likes
-            replies = replyPage.posts.filter { it.author != wallet.publicKey && it.parentId.isNotEmpty() }
-            mentions = mentionPage.posts
-            ignored = likePage.ignored + replyPage.ignored
+            events = pages.likes.likes
+            replies = pages.replies.posts.filter { it.author != wallet.publicKey && it.parentId.isNotEmpty() }
+            mentions = pages.mentions.posts
+            reposts = pages.reposts.actions
+            ignored = pages.likes.ignored + pages.replies.ignored + pages.reposts.ignored
             failed = false
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { failed = true }
@@ -83,7 +90,12 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, knownPo
         if (loading) Text(stringResource(R.string.notifications_loading))
         if (failed) Text(stringResource(R.string.notifications_read_error))
         if (ignored > 0) Text(stringResource(R.string.notifications_unverified))
-        val rows = (events.mapNotNull { event ->
+        val repostRows = reposts.mapNotNull { event ->
+            knownPosts.firstOrNull { it.id == event.target && it.author == wallet?.publicKey }?.let { target ->
+                NotificationRow(event.id, event.author, event.createdAt, target, R.string.notifications_repost_own)
+            }
+        }
+        val rows = (repostRows + events.mapNotNull { event ->
             knownPosts.firstOrNull { it.id == event.target && it.author == wallet?.publicKey }?.let { target ->
                 NotificationRow(event.id, event.author, event.createdAt, target, R.string.notifications_like_own)
             }

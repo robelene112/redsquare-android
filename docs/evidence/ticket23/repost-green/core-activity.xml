@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.saito.RedSquareNotificationsTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-10-12T17:52:01" hostname="1f22bab87dea" time="0.702">
+  <properties/>
+  <testcase name="an exact public key text mention counts while ordinary addressing does not" classname="nl.davidengelen.redsquare.saito.RedSquareNotificationsTest" time="0.561"/>
+  <testcase name="a signed mention list qualifies without a public key token in the text" classname="nl.davidengelen.redsquare.saito.RedSquareNotificationsTest" time="0.014"/>
+  <testcase name="an ordinary signed repost retains its original while commentary remains a quote" classname="nl.davidengelen.redsquare.saito.RedSquareNotificationsTest" time="0.035"/>
+  <testcase name="a username mention qualifies only with a registrar proof for the active owner" classname="nl.davidengelen.redsquare.saito.RedSquareNotificationsTest" time="0.073"/>
+  <testcase name="a signed commentary quote with a parent field is not classified as a reply" classname="nl.davidengelen.redsquare.saito.RedSquareNotificationsTest" time="0.017"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

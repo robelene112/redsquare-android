@@ -5,6 +5,18 @@ import org.junit.Assert.*
 import org.junit.Test
 
 class RedSquareNotificationsTest {
+    @Test fun `an ordinary signed repost retains its original while commentary remains a quote`() {
+        val fixture = JsonParser.parseReader(javaClass.getResourceAsStream("/native-notification-reference.json")!!.reader()).asJsonObject
+        val repost = fixture.getAsJsonObject("incomingRepost")
+        val quote = fixture.getAsJsonObject("parentedQuote")
+        val page = RedSquareActions.readIncomingReposts("[$repost,$quote]", "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR")
+        assertEquals(listOf(repost.get("sig").asString), page.actions.map { it.id })
+        assertEquals(fixture.getAsJsonObject("root").get("sig").asString, page.actions.single().target)
+        assertEquals("pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU", page.actions.single().author)
+        assertEquals(1700000000070L, page.actions.single().createdAt)
+        assertEquals(0, page.ignored)
+    }
+
     @Test fun `a username mention qualifies only with a registrar proof for the active owner`() {
         val fixture = JsonParser.parseReader(javaClass.getResourceAsStream("/native-notification-reference.json")!!.reader()).asJsonObject
         val registry = JsonParser.parseReader(javaClass.getResourceAsStream("/native-registry-reference.json")!!.reader()).asJsonObject

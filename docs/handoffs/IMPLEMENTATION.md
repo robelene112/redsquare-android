@@ -42,8 +42,17 @@ Current reference10287bytes/SHA23c9c5a3597694eeabdfadff677a6f20a3f2062a6c94ffe33
 identical docs/native/core. Localcore/debug/test build PASSES3m18s. Firstfour-journey38285387453 at5558d0f running. BoundedSpec0; Standards1fixture
 snapshot/removalrace concern (not reproduced). Snapshot+precisecapturedset removal
 nowone lockedoperation inside try; cleanupownership assignedbeforefirstmutation.
-LocaltestAPKassembly PASSES1m49s; app/core unchanged. Correctedfocus/re-review
-pending. Nextprotocoltracer ordinaryreposts, thenquotes; noother ticketclaimed.
+LocaltestAPKassembly PASSES1m49s; app/core unchanged. Corrected4focus38285984686 ata45ecf0 PASSES39.212s/core70/1record/0deaths,
+first4focus38285387453at5558d0fPASS46.923s. Bothcorrectionreviews0residual; all
+actualdiscovery/routes/identity/no-write/opaque wallet/backend/permission/namefile
+restoration complete. Each9hashes retained; correctedfullPNGbody byte-equal to
+prior originalsbelowstatus, includingrootfullyviewednamedcard, allXMLparsed.
+
+Nextordinaryrepost tracer RED5corecases/1failure/build54s ->fullcore71GREEN57s.
+Signedaction timestamp preserved; ordinaryretweet qualifies, validcommentaryquote/
+self excludedquietly. Current11518-byteSHA787f2013... threecopiesidentical.
+Nativeown-target repostrow/RootConversation/actorProfile +one5thjourney added;
+localcore/debug/test build PASSES3m13s; 5journeyhostedproof/reviews pending. Quotesnext; noother ticketclaimed.
 
 Whole-ticket base remains d1e65f5. Canonical source contract and chronology:
 docs/research/NATIVE_NOTIFICATIONS_CONTRACT.md and NATIVE_NOTIFICATION_VERIFICATION.md.

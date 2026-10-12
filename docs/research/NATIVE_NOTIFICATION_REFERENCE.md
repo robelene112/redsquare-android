@@ -36,8 +36,11 @@ unsafe2 synthetic registrar signature proves NativeCase7@saito belongs to unsafe
 This synthetic authority is not the published production registrar or a live
 registration/chain-state proof. Reader tests verify ownership proof and reject
 wrong authority, owner or corrupt proof instead of trusting a label.
-Current whole JSON SHA256:23c9c5a3597694eeabdfadff677a6f20a3f2062a6c94ffe338b242697978b828;
-10287bytes. Documentation andnativeasset copies are identical.
+The username snapshot was10287bytes/SHA23c9c5a3597694eeabdfadff677a6f20a3f2062a6c94ffe338b242697978b828.
+Next tracer adds an independent ordinary `retweet` of the root with actual owner
+recipient, alongside the already signed commentary quote for kind distinction.
+Current whole JSON SHA256:787f2013f17086a177ff6c561aad6571ad4a215ae9051729cbf2d67de178a5ba;
+11518bytes. Documentation andnativeasset copies are identical.
 
 Reproduction uses the existing build image, networknone/read-only container and
 rootfilesystem mount, root inside the container for chroot, empty environment,

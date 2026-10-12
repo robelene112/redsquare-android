@@ -224,3 +224,33 @@ restorescapturedbytes. Existing independentlyrestoredwallet/backend/permission/
 namefile assertions remain. LocaltestAPKassembly PASSES1m49s; core/app source
 unchanged. Firstnative4journey38285387453 at5558d0f stillrunning; correctedfocused
 repeatandre-reviewpending. No timeout/acceptancepredicate relaxation.
+
+Both correctionreviews5558d0f...a45ecf0 clear: Standards0residualhard/0heuristics,
+Spec0actionable. Sourcepreservationconcernresolved, not reproducedloss. Firstnative
+username4-journey38285387453 at5558d0f PASSES4cases46.923s/1record/0deaths/core70/
+compiler/debug/test. Corrected38285984686 ata45ecf0 PASSES4cases39.212s/1record/
+0deaths/no assumptions/samecore70/appsource. Actual Registry key-map+signed
+namecheck, namedposttext/verifiedactorProfile andallother3routes/owner-index/
+currentclientkeys/zero payments+reports/opaque wallet/backend/permission/namefiles
+restoration/Skip/no firstfeedprompt complete. Each retained9hashes under
+mention-username-native-green andmention-username-native-locked-green/android17.
+
+Root fullyviewed firstusernameoriginal/separatelyparsedall4XML eachrun. Corrected
+username toolviewpartial; stdlibread-onlyPNG decode provesall4fullimagebodies
+belowstatus(rows24:end) byte-identical torespectivepriorcaptures, includingfully
+viewedusername. Allcurrent header/firstactorrows24:228 identicalaswell. Stored
+contentpresent despiteviewinconsistency, noalteration/exactcause claim. Actual
+discovery/conversation/profile/cleanup are runtimeassertions, notextrabitmaps.
+No productionregistration/chainstate/permanentname/push/Pixel/fullpair/newAPKclaim.
+
+Nextordinaryrepost protocoltracer usesnewindependentretweet/ownerrecipient and
+existingvalidcommentaryquote. RED5cases/4PASS/1failure0.581s/build54s: expected
+ordinarysignedID, gotempty. Minimum incomingaction reader requiresretweet and
+ordinaryblanktext/noimages; validquotes+self quietlyexcluded, malformedfield
+shapes rejectedperrow. Existingaction DTO nowcarries actualsignedtimestamp.
+FullcoreGREEN71/0/0/0/build57s. Twohashes eachrepost-red/green. Current11518-byte
+referenceSHA787f2013f17086a177ff6c561aad6571ad4a215ae9051729cbf2d67de178a5ba,
+threecopiesidentical. Nativeaddsverifiedown-targetRepostedrow/actualRootConversation/
+actorProfile, one new5thjourney withsignedquoteexclusion, actualincomingrepost
+stream guards/count/clientkeys/no-write andallpriorcleanup. Localcore/debug/test build PASSES3m13s (core71up-to-date);
+5journeyhostedproof/boundedreviews pending. Quotes/otherhistory stillwithin#24.
