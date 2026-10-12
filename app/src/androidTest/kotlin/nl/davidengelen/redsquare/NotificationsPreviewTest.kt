@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger
 
 class NotificationsPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
-    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING, MISSING_REPOST, MISSING_QUOTE_LIKE, HISTORY, PRUNED, PARTIAL, REJECTED, NULL_HISTORY, READ, READ_SAVE_FAULT, MISSING_REPLY, MISSING_QUOTE }
+    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING, MISSING_REPOST, MISSING_QUOTE_LIKE, HISTORY, PRUNED, PARTIAL, REJECTED, NULL_HISTORY, READ, READ_SAVE_FAULT, MISSING_REPLY, MISSING_QUOTE, FEED_MENTION }
 
     @Test fun anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile() {
         withNotifications("incoming-like", mode = Mode.LIKE) { actor, _, _ ->
@@ -56,12 +56,20 @@ class NotificationsPreviewTest {
     }
 
     @Test fun anIncomingSignedMentionOpensItsPostAndVerifiedActorProfile() {
-        withNotifications("incoming-mention", mode = Mode.MENTION) { actor, _, _ ->
+        mentionJourney(Mode.MENTION, "incoming-mention")
+    }
+
+    @Test fun anAvailableFeedMentionAppearsWithoutAnOwnerRecipientIndex() {
+        mentionJourney(Mode.FEED_MENTION, "feed-mention")
+    }
+
+    private fun mentionJourney(mode: Mode, evidenceName: String) {
+        withNotifications(evidenceName, mode) { actor, _, _ ->
             waitFor("Mentioned you")
             ui.onAllNodesWithText("Mentioned you").assertCountEquals(1)
             ui.onAllNodesWithText("Replied to your post").assertCountEquals(0)
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
-                "notification-evidence/incoming-mention.png"), "Mentioned you")
+                "notification-evidence/$evidenceName.png"), "Mentioned you")
             ui.onNodeWithText("Mentioned you").assertIsDisplayed().performClick()
             waitFor("Conversation")
             waitFor("Hello @jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR, mention reference")
@@ -406,6 +414,8 @@ class NotificationsPreviewTest {
         val publicFiles = FixtureFiles(context.noBackupFilesDir, publicBase, publicLock)
         val historyFiles = FixtureFiles(context.noBackupFilesDir, "notifications.${SaitoBackend.OWNER.id}.$owner.v1",
             nl.davidengelen.redsquare.feed.PublicStringStore.lock)
+        val feedFiles = FixtureFiles(context.noBackupFilesDir, "feed.${SaitoBackend.OWNER.id}.v1",
+            nl.davidengelen.redsquare.feed.PublicStringStore.lock)
         val readFiles = FixtureFiles(context.noBackupFilesDir, "notificationread.${SaitoBackend.OWNER.id}.$owner.v1",
             nl.davidengelen.redsquare.feed.PublicStringStore.lock)
         val conversationFiles = FixtureFiles(context.noBackupFilesDir,
@@ -500,7 +510,7 @@ class NotificationsPreviewTest {
                             Mode.MENTION -> "[${fixture.get("incomingMention")},${fixture.get("addressedPost")}]"
                             Mode.USERNAME -> "[${fixture.get("usernameMention")}]"
                             Mode.QUOTE -> "[${fixture.get("legacyQuote")}]"
-                            Mode.LIKE, Mode.REPOST, Mode.MISSING, Mode.MISSING_REPOST, Mode.MISSING_QUOTE_LIKE, Mode.HISTORY, Mode.PRUNED, Mode.NULL_HISTORY, Mode.READ, Mode.READ_SAVE_FAULT, Mode.MISSING_QUOTE -> "[]"
+                            Mode.LIKE, Mode.REPOST, Mode.MISSING, Mode.MISSING_REPOST, Mode.MISSING_QUOTE_LIKE, Mode.HISTORY, Mode.PRUNED, Mode.NULL_HISTORY, Mode.READ, Mode.READ_SAVE_FAULT, Mode.MISSING_QUOTE, Mode.FEED_MENTION -> "[]"
                         }
                     }
                     criteria.get("field5")?.asString == fixture.getAsJsonObject("missingOriginalQuote").get("sig").asString ->
@@ -516,7 +526,9 @@ class NotificationsPreviewTest {
                     criteria.get("field5")?.asString == root.get("sig").asString ->
                         if (mode == Mode.REPLY) "[$root,${fixture.get("incomingReply")}]" else "[$root]"
                     criteria.get("field2")?.asString in listOf(null, owner) ->
-                        if (missing && !criteria.has("field2")) "[$root,${fixture.get("knownOtherPost")}]" else "[$root]"
+                        if (mode == Mode.FEED_MENTION && !criteria.has("field2"))
+                            "[$root,${fixture.get("incomingMention")},${fixture.get("addressedPost")}]"
+                        else if (missing && !criteria.has("field2")) "[$root,${fixture.get("knownOtherPost")}]" else "[$root]"
                     else -> "[]"
                 }
                 else -> "[]"
@@ -532,6 +544,7 @@ class NotificationsPreviewTest {
         try {
             historyFiles.reset()
             readFiles.reset()
+            feedFiles.reset()
             if (mode == Mode.MISSING_REPLY) conversationFiles.reset()
             if (mode == Mode.USERNAME || missing) publicFiles.reset()
             if (prior.publicKey != owner) store.replace(prior, wallet)
@@ -600,6 +613,8 @@ class NotificationsPreviewTest {
                 historyFiles.restore()
             }, {
                 readFiles.restore()
+            }, {
+                feedFiles.restore()
             }, {
                 conversationFiles.restore()
             })

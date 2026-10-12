@@ -745,3 +745,10 @@ First18GREEN10 38311318013 passes18/54.526s/1OK/0deaths/core73/debug/test, actua
 neutralquote/commentary/unavailable/Retry/recoveredoriginal/Actor/fullopaquerestore
 andall17oldcases. Fortyhashes missing-quote-native-green/android10/rootoriginal
 commentaryPNG/all19XML inspected, otherPNGno rootclaims. Next feedmention coverage.
+
+Nineteenth native tracer supplies independentsignedmention+nonmentionaddressed
+postonlyinselectedgeneralfeed, notowner-indexedposts. Sameactualmentionroute/Actor
+checks asindexcase via two-consumer journeyhelper; owneraddresswithoutmentionstill
+excluded. Everycase nowpreciselysnapshots/resets/restorespublicfeed.owner.v1 and
+companions undertheowningPublicStorelock, avoidingearlierfeedcachefalsepositives
+onceavailablefeedcontentisclassified. No productchange/referencechange; REDpending.
