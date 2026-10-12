@@ -20,7 +20,10 @@ fun WalletTransferDialog(transfers: WalletTransfers, onClose: () -> Unit) {
     LaunchedEffect(transfers) { transfers.load() }
     DisposableEffect(transfers) { onDispose { transfers.cancel() } }
     val reviewed = transfers.review?.payment
-    val canPrepare = transfers.pending.isEmpty() || transfers.available?.toBigDecimalOrNull()?.signum() == 1
+    val recordsReadable = transfers.message != R.string.transfer_storage_unavailable
+    val transferActionsEnabled = !transfers.busy && recordsReadable
+    val canPrepare = recordsReadable &&
+        (transfers.pending.isEmpty() || transfers.available?.toBigDecimalOrNull()?.signum() == 1)
     AlertDialog(
         onDismissRequest = { transfers.cancel(); onClose() },
         title = { Text(stringResource(if (reviewed != null) R.string.transfer_confirm else R.string.transfer_send)) },
@@ -54,7 +57,7 @@ fun WalletTransferDialog(transfers: WalletTransfers, onClose: () -> Unit) {
                         Text(stringResource(R.string.transfer_amount_review, WalletTransfers.display(record.payment.amount)))
                         Text(stringResource(R.string.transfer_recipient_review, record.payment.recipient))
                         Text(stringResource(R.string.transfer_pending_backend, record.backend.domain))
-                        if (inclusion == null) TextButton(enabled = !transfers.busy && record.backend.domain == transfers.backendLabel,
+                        if (inclusion == null) TextButton(enabled = transferActionsEnabled && record.backend.domain == transfers.backendLabel,
                             onClick = { transfers.prepareRetry(record.payment.transaction.id) }) {
                             Text(stringResource(R.string.transfer_retry))
                         }
@@ -70,9 +73,9 @@ fun WalletTransferDialog(transfers: WalletTransfers, onClose: () -> Unit) {
             }
         },
         confirmButton = {
-            if (reviewed != null) TextButton(enabled = !transfers.busy, onClick = transfers::authenticateAndSend) {
+            if (reviewed != null) TextButton(enabled = transferActionsEnabled, onClick = transfers::authenticateAndSend) {
                 Text(stringResource(R.string.transfer_auth_send))
-            } else if (canPrepare) TextButton(enabled = !transfers.busy,
+            } else if (canPrepare) TextButton(enabled = transferActionsEnabled,
                 onClick = { transfers.prepare(recipient, amount, fee, memo) }) {
                 Text(stringResource(R.string.transfer_review))
             }

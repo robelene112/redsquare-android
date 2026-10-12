@@ -79,7 +79,11 @@ warning while hiding review fields/actions; restoring ONLY the known-empty owned
 fixture baseline then reopen must yield fresh7.5/noPending/no frames. Guarded
 primary-safe file/PIN cleanup. Product already blocks send at storage checks but
 its UI can still offer auth/review actions. No deletion-based product recovery
-policy. Product unchanged; hosted compiler/source/native RED pending.
+policy. Native38211648332 reached genuine enabledAuthenticate RED atPreview348 after
+all intended predicates,8reported/7PASS/1failure119.37s, four indexed hashes.
+Root full originalPNG/separateXML inspected. Minimum UI fix now disables transfer
+actions/hides new fields during recovery; monetary safeguards unchanged. Hosted
+compiler/core/release/lint and unchanged native GREEN pending.
 Dated05:47UTC host options/balance reads pass on both approved origins, separately
 qualified in current-public-endpoint-read; no native publicUI/admission proof.
 

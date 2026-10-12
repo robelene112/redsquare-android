@@ -1,0 +1,11 @@
+{
+  "run": "38211648332",
+  "source": "8b65fa22f5b1fb2cb2fff6b4adb3a168b23f92c4",
+  "reportedCases": 8,
+  "passedCases": 7,
+  "failedCases": 1,
+  "seconds": 119.37,
+  "successfulCompletionRecords": 0,
+  "actualDeathStages": 0,
+  "failure": "WalletTransferPreviewTest.kt:348 assertIsNotEnabled"
+}

@@ -1,0 +1,200 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.WalletTransferPreviewTest:
+INSTRUMENTATION_STATUS: test=unreadableTransferRecordsBlockAuthenticationAndReviewUntilReadableAgain
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (is not enabled)
+Semantics of the node:
+Node #121 at (l=125.0, t=340.0, r=296.0, b=380.0)px
+Focused = 'false'
+Role = 'Button'
+Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+Text = '[Authenticate and send]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 3 siblings
+Selector used: (Text + InputText + EditableText contains 'Authenticate and send' (ignoreCase: false))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertIsNotEnabled(Assertions.kt:67)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.unreadableTransferRecordsBlockAuthenticationAndReviewUntilReadableAgain$lambda$60$lambda$57$lambda$56$lambda$55$lambda$54(WalletTransferPreviewTest.kt:348)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$jlfBy_Slbmv86y_hvFJjam20fNs(WalletTransferPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda16.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.unreadableTransferRecordsBlockAuthenticationAndReviewUntilReadableAgain$lambda$60(WalletTransferPreviewTest.kt:323)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$HSJFmrtA-OmLZ5plBcPHOvM3I5k(WalletTransferPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.withDevicePin(WalletTransferPreviewTest.kt:403)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.unreadableTransferRecordsBlockAuthenticationAndReviewUntilReadableAgain(WalletTransferPreviewTest.kt:309)
+
+INSTRUMENTATION_STATUS: stream=
+Error in unreadableTransferRecordsBlockAuthenticationAndReviewUntilReadableAgain(nl.davidengelen.redsquare.WalletTransferPreviewTest):
+java.lang.AssertionError: Failed to assert the following: (is not enabled)
+Semantics of the node:
+Node #121 at (l=125.0, t=340.0, r=296.0, b=380.0)px
+Focused = 'false'
+Role = 'Button'
+Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+Text = '[Authenticate and send]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 3 siblings
+Selector used: (Text + InputText + EditableText contains 'Authenticate and send' (ignoreCase: false))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertIsNotEnabled(Assertions.kt:67)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.unreadableTransferRecordsBlockAuthenticationAndReviewUntilReadableAgain$lambda$60$lambda$57$lambda$56$lambda$55$lambda$54(WalletTransferPreviewTest.kt:348)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$jlfBy_Slbmv86y_hvFJjam20fNs(WalletTransferPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda16.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.unreadableTransferRecordsBlockAuthenticationAndReviewUntilReadableAgain$lambda$60(WalletTransferPreviewTest.kt:323)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$HSJFmrtA-OmLZ5plBcPHOvM3I5k(WalletTransferPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.withDevicePin(WalletTransferPreviewTest.kt:403)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.unreadableTransferRecordsBlockAuthenticationAndReviewUntilReadableAgain(WalletTransferPreviewTest.kt:309)
+
+INSTRUMENTATION_STATUS: test=unreadableTransferRecordsBlockAuthenticationAndReviewUntilReadableAgain
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=pendingPaymentReopensWithoutSendingAndExactRetryRequiresFreshReviewedDeviceAuthentication
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=pendingPaymentReopensWithoutSendingAndExactRetryRequiresFreshReviewedDeviceAuthentication
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=receivingQrContainsTheFullActiveAddressWithoutBalanceConnectivityAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=receivingQrContainsTheFullActiveAddressWithoutBalanceConnectivityAfterReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=sendingWithoutAScreenLockExplainsTransferSetupAndDoesNotQueue
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=sendingWithoutAScreenLockExplainsTransferSetupAndDoesNotQueue
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=fundingLostAfterReviewAndRealAuthenticationCannotSendReserveOrQueue
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=fundingLostAfterReviewAndRealAuthenticationCannotSendReserveOrQueue
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=selectedServerBalanceAndReceivingAddressCanBeViewedAndCopied
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=selectedServerBalanceAndReceivingAddressCanBeViewedAndCopied
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferStatusTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.WalletTransferStatusTest:
+INSTRUMENTATION_STATUS: test=exactInclusionUnknownHistoryAndVerifiedReorganizationNeverAutomaticallyResend
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferStatusTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=exactInclusionUnknownHistoryAndVerifiedReorganizationNeverAutomaticallyResend
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 119.37
+There was 1 failure:
+1) unreadableTransferRecordsBlockAuthenticationAndReviewUntilReadableAgain(nl.davidengelen.redsquare.WalletTransferPreviewTest)
+java.lang.AssertionError: Failed to assert the following: (is not enabled)
+Semantics of the node:
+Node #121 at (l=125.0, t=340.0, r=296.0, b=380.0)px
+Focused = 'false'
+Role = 'Button'
+Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+Text = '[Authenticate and send]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 3 siblings
+Selector used: (Text + InputText + EditableText contains 'Authenticate and send' (ignoreCase: false))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertIsNotEnabled(Assertions.kt:67)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.unreadableTransferRecordsBlockAuthenticationAndReviewUntilReadableAgain$lambda$60$lambda$57$lambda$56$lambda$55$lambda$54(WalletTransferPreviewTest.kt:348)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$jlfBy_Slbmv86y_hvFJjam20fNs(WalletTransferPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda16.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.unreadableTransferRecordsBlockAuthenticationAndReviewUntilReadableAgain$lambda$60(WalletTransferPreviewTest.kt:323)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$HSJFmrtA-OmLZ5plBcPHOvM3I5k(WalletTransferPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.withDevicePin(WalletTransferPreviewTest.kt:403)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.unreadableTransferRecordsBlockAuthenticationAndReviewUntilReadableAgain(WalletTransferPreviewTest.kt:309)
+
+FAILURES!!!
+Tests run: 8,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

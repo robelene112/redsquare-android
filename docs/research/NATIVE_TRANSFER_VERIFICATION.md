@@ -719,3 +719,15 @@ This is not a product policy to delete lost real candidates for recovery. Curren
 storage layer already blocks transmission; UI leaves Authenticate enabled and
 can show new review fields after load failure. Product unchanged. Hosted compiler/
 source checks gate native RED; no separate local test APK build claimed.
+
+Both bounded tracer/prior funding GREEN axes through8b65fa2 clear. Native
+38211648332 at8b65fa2 reaches genuine action-state RED atPreview348:
+8reported/7PASS/1failure119.37s. Actual exactreview/realPIN/recoverywarning/
+appforeground/healthy peer/zero type4 precede enabledAuthenticate failure.
+Root full originalPNG/separateXML confirms warning and enabled button. Four
+indexed hashes in storage-recovery-ui-red/android17. No completed ordinary
+runner, blocked reopening/restoration or later pending-death stage is claimed.
+Minimum UI fix gates Authenticate/Retry/Review on readable records and hides new
+fields during recovery. Store/auth/funding/reservations unchanged; no candidate
+deletion recovery policy. Hosted compiler/core/release/lint and unchanged native
+GREEN pending; no duplicate local APK build claimed for this small UI delta.
