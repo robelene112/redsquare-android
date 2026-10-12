@@ -234,3 +234,23 @@ Both axes verified44priorGREENhashes/counts/21XML/originalfollowedPNG.
 Local client143 log ends before completion; no running build remains, Docker
 die event6d85cbd3039b reports actual exit0. No complete local log/duration claim.
 Native21RED run38315312821 remains pending.
+
+## Followed current-quote minimum
+
+### Standards
+
+`a0e22a8...9f88060`: zero hard violations/actionable heuristics. Quote decode
+is reused; both author namespaces preserve ownership, eligibility, persistence
+and marker behavior. Three RED hashes/counts/original PNG/XML verified.
+
+### Spec
+
+Zero actionable findings. Quote commentary can become followed activity while
+ordinary reposts remain separate. Additional contacts and older paging remain
+explicit work. Local full build1m39PASS; client143 after successful log is
+qualified by recorded container36d5faabd6c5 actual exit0. First21GREEN
+run38315811701 pending, no final SDK pair/whole-ticket claim.
+
+First21GREEN10 38315811701 at9f88060 passes21/67.893s/1OK/0deaths/core73.
+Forty-six hashes; root originalfollowedquotePNG/all22XML inspected. Localfull
+build1m39PASS/Dockeractualexit0. Correctedroutes and completednegatives pass.
