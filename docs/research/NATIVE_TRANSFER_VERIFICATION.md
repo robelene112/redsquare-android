@@ -471,3 +471,13 @@ First compile2m43s; primary API inspection catches API31 longValueExact before
 runtime. Checked positive bitLength<=63/toLong preserves min29 compatibility.
 Corrected debug/test/release lint passes5m52s;2hashes in history-ui-build. Native
 unchanged-test GREEN and bounded source/evidence review remain pending.
+
+Unchanged history GREEN38201245157 at4bfe312 passes ordinary4cases78.183s,
+existing separate pending process-death/cold1PASS9.996s/cleanup1PASS0.051s,
+6/3/1/no assumptions/core66/release/lint. Root full original UnknownPNG/separate
+XML and positive native fresh7.5/newtip404/zero reserved/identity/backend/no frames
+gates pass;10hashes in history-ui-green/android17. Both bounded source axes flag
+one authority-before-lock ordering gap allowing old Activity's delayed history
+commit after a newer save. Source-inspected, no scheduler runtime reproduction.
+Minimal same-lock current check+record fix builds debug/test2m53s; one hash in
+history-review-lock-fix. Fix review and same unchanged-test native rerun pending.

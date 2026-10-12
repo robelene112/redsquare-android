@@ -92,8 +92,14 @@ proof produces Included; missing coverage shows current UNKNOWN/lastseen while
 original input reservations remain. No automatic send or release. First debug/
 test compile2m43s; inspected API31 exact-long conversion replaced before dispatch
 with API29-compatible checked conversion. Corrected debug/test/release lint passes
-5m52s;2hashes in history-ui-build. Native unchanged-test GREEN and bounded reviews
-are pending. Next: verified reorg UI, fresh nonreserved change enabling a new
+5m52s;2hashes in history-ui-build. Unchanged native38201245157 at4bfe312 passes ordinary4cases78.183s plus existing
+separate actual pending death/recovered1PASS9.996s/cleanup1PASS0.051s:6/3/1,
+core66/source/release/lint. Root fully viewed original Unknown PNG/separate XML;
+actual fresh7.5/newtip404/zero reserved/no frames/identity gates pass. Ten hashes
+in history-ui-green/android17. Both source axes report one ordering gap: authority
+check precedes store lock. Fix holds existing shared lock through check+commit;
+debug/test2m53s/one hash in history-review-lock-fix. No runtime race reproduced;
+fix review and same unchanged-test native run pending. Next: verified reorg UI, fresh nonreserved change enabling a new
 transfer, receiving QR, meaningful remaining failures, final fresh full10/17 and
 whole-ticket review. #23 unfinished. No new phone APK, physical Pixel result,
 production node change, live transfer or whole acceptance.

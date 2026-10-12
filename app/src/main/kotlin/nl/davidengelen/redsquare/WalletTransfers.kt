@@ -65,9 +65,11 @@ class WalletTransfers(
                     val observed = funding?.let { balances.inclusions(backend, it.snapshot,
                         records.filter { record -> record.backend == backend }.map { record -> record.payment }) }
                         ?: emptyMap()
-                    check(isCurrent(operation))
-                    Triple(store.recordInclusions(backend, observed),
-                        funding?.let { display(store.available(it.eligible).sumOfAmounts()) }, observed)
+                    val history = synchronized(SaitoLocalState.lock) {
+                        check(isCurrent(operation))
+                        store.recordInclusions(backend, observed)
+                    }
+                    Triple(history, funding?.let { display(store.available(it.eligible).sumOfAmounts()) }, observed)
                 }
                 if (isCurrent(operation)) {
                     pending = result.first
