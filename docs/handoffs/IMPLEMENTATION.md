@@ -66,7 +66,10 @@ unsecured emulator/live selected-peer review, Authenticate and send, accurate
 setup guidance, no frames/reservation, app foreground, close/reopen and fresh7.5/
 noPending/zero frames. Current product incorrectly reuses export-specific setup
 copy. Test APK compiles1m27s/one hash in auth-setup-test-preparation; bounded
-tracer/evidence review and native RED pending. No product change yet.
+tracer/evidence review cleared. Native38207970800 stopped at an unsupported
+server receipt guard before requesting setup;6reported/5PASS/1failure85.896s.
+Fixture now observes the actual sent signed challenge instead, retaining product
+acceptance assertions. Corrected compile/native copy RED pending. No product change yet.
 
 Then address meaningful remaining funding/storage/backend/identity failure gaps,
 run fresh final full10/full17 for the same production source with opted-in public

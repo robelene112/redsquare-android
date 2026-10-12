@@ -1,0 +1,12 @@
+{
+  "run": "38207970800",
+  "source": "615cbcc4b7d9673e2afc938510ba99445dff670d",
+  "reportedCases": 6,
+  "passedCases": 5,
+  "failedCases": 1,
+  "completedCases": 0,
+  "completionRecords": 0,
+  "actualDeathStages": 0,
+  "ordinarySeconds": 85.896,
+  "failure": "WalletTransferPreviewTest.kt:218, unsupported server receipt assertion before Authenticate and send"
+}

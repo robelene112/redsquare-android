@@ -633,3 +633,17 @@ Product unchanged; test build and missing-transfer-copy native RED pending.
 Missing-lock setup tracer APK compiles1m27s/one hash in auth-setup-test-preparation.
 Product unchanged; bounded tracer/evidence review and native RED pending.
 Current handoff consolidated around latest state, canonical chronology retained.
+
+Both bounded tracer/evidence axes through615cbcc were clear, but native38207970800
+stops before the copy assertion:6reported/5PASS/1failure85.896s atPreview218,
+unsupported controlled-server receipt guard after review-only authenticate/use.
+Root full originalPNG/separateXML shows exact6.25/.1/recipient/owner review with
+no setup message requested. Four hashes in auth-setup-fixture-interruption/android17.
+Source verifies the signed server challenge then enqueues the response before
+immediate cancellation; receipt is not a guaranteed authenticate return condition.
+No particular scheduler/cancellation cause is inferred. Test-only correction
+observes actual successfully sent signed challenge instead; all original product
+acceptance assertions remain. No product change or genuine setup-copy RED yet.
+
+Corrected setup tracer APK builds1m27s, one hash in auth-setup-fixture-build.
+Product unchanged; corrected native RED and bounded fixture reviews pending.

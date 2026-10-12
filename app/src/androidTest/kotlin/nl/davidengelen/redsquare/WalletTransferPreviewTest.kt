@@ -215,7 +215,7 @@ class WalletTransferPreviewTest {
                         ui.onNodeWithText("Fee: 0.1 SAITO").assertIsDisplayed()
                         ui.onNodeWithText("Send through saito.davidengelen.nl").assertIsDisplayed()
                         peer.assertHealthy()
-                        assertTrue(peer.clientKeys.contains(author))
+                        ui.waitUntil(5_000) { peer.assertHealthy(); peer.servedChallenges.get() > 0 }
                         assertTrue(peer.transactions.isEmpty())
                         ui.onNodeWithText("Authenticate and send").performClick()
                         peer.assertHealthy(); assertTrue(peer.transactions.isEmpty())

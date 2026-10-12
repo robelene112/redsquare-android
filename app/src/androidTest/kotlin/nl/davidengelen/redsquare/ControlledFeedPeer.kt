@@ -28,6 +28,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     private val counter = ByteArray(32) { 7 }
     private val received = CountDownLatch(1)
     val requests = java.util.concurrent.atomic.AtomicInteger()
+    val servedChallenges = java.util.concurrent.atomic.AtomicInteger()
     val clientKeys = java.util.concurrent.CopyOnWriteArrayList<String>()
     val transactions = java.util.concurrent.CopyOnWriteArrayList<ByteArray>()
     val reports = java.util.concurrent.CopyOnWriteArrayList<ByteArray>()
@@ -57,7 +58,9 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                         require(frame.size == 33)
                         val key = "0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798".chunked(2).map { it.toInt(16).toByte() }.toByteArray()
                         val signature = peer.sign(frame.copyOfRange(1, 33)).chunked(2).map { it.toInt(16).toByte() }.toByteArray()
-                        webSocket.send((byteArrayOf(2) + key + signature + counter).toByteString())
+                        if (webSocket.send((byteArrayOf(2) + key + signature + counter).toByteString())) {
+                            servedChallenges.incrementAndGet()
+                        }
                     }
                     2 -> {
                         require(frame.size == 130)
