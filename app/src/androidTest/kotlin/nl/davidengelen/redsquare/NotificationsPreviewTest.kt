@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger
 
 class NotificationsPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
-    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING, MISSING_REPOST, MISSING_QUOTE_LIKE, HISTORY, PRUNED, PARTIAL, REJECTED, NULL_HISTORY, READ, READ_SAVE_FAULT, MISSING_REPLY, MISSING_QUOTE, FEED_MENTION, CONTACT }
+    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING, MISSING_REPOST, MISSING_QUOTE_LIKE, HISTORY, PRUNED, PARTIAL, REJECTED, NULL_HISTORY, READ, READ_SAVE_FAULT, MISSING_REPLY, MISSING_QUOTE, FEED_MENTION, CONTACT, CONTACT_QUOTE }
 
     @Test fun anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile() {
         withNotifications("incoming-like", mode = Mode.LIKE) { actor, _, _ ->
@@ -361,7 +361,15 @@ class NotificationsPreviewTest {
     }
 
     @Test fun followingAnAccountDiscoversItsAvailablePostsButVisitingDoesNot() {
-        withNotifications("followed-post", Mode.CONTACT) { actor, _, responses ->
+        followedJourney(Mode.CONTACT, "followed-post", "A known post by another account", actorRow = 1)
+    }
+
+    @Test fun followedCurrentQuotesAreDiscoveredInTheirOwnArchiveNamespace() {
+        followedJourney(Mode.CONTACT_QUOTE, "followed-quote", "Quote of a known other account", actorRow = 0)
+    }
+
+    private fun followedJourney(mode: Mode, evidenceName: String, postText: String, actorRow: Int) {
+        withNotifications(evidenceName, mode) { actor, _, responses ->
             fun assertNoFollowedActivity() {
                 waitFor("Liked your post")
                 ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
@@ -381,16 +389,17 @@ class NotificationsPreviewTest {
             ui.onNodeWithText("Back").performClick()
             waitFor("Posted")
             ui.onAllNodesWithText("Posted").assertCountEquals(1)
+            ui.onAllNodesWithText("Quoted your post").assertCountEquals(0)
             assertTrue("A followed account's history must be discovered", responses.followedReads.get() > 0)
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
-                "notification-evidence/followed-post.png"), "Posted")
+                "notification-evidence/$evidenceName.png"), "Posted")
             ui.onNodeWithText("Posted").assertIsDisplayed().performClick()
             waitFor("Conversation")
-            waitFor("A known post by another account")
-            ui.onNodeWithText("A known post by another account").assertIsDisplayed()
+            waitFor(postText)
+            ui.onNodeWithText(postText).assertIsDisplayed()
             ui.onNodeWithText("Back").performClick()
             waitFor("Posted")
-            ui.onAllNodesWithText(actor).assertCountEquals(2)[1].assertIsDisplayed().performClick()
+            ui.onAllNodesWithText(actor).assertCountEquals(2)[actorRow].assertIsDisplayed().performClick()
             waitFor("Unfollow")
             ui.onNodeWithText("Unfollow").performClick()
             waitFor("Follow")
@@ -472,7 +481,13 @@ class NotificationsPreviewTest {
         val quoteTargetReads = AtomicInteger()
         val peer = ControlledFeedPeer("[$root]", quoteArchiveResponse = { criteria ->
             // Initial feed and actor profiles also read this namespace without an owner filter.
-            if (!criteria.has("field3")) "[]" else {
+            if (mode == Mode.CONTACT_QUOTE && criteria.get("field2")?.asString == actor) {
+                require(criteria.get("flagged_ne").asInt == 1 && criteria.get("limit").asInt in 1..100)
+                if (responses.followedAvailable.get()) {
+                    responses.followedReads.incrementAndGet()
+                    "[${fixture.get("knownOtherQuote")}]"
+                } else "[]"
+            } else if (!criteria.has("field3")) "[]" else {
                 require(criteria.get("field3").asString == owner)
                 require(criteria.get("flagged_ne").asInt == 1)
                 require(criteria.get("limit").asInt in 1..100)
@@ -551,7 +566,7 @@ class NotificationsPreviewTest {
                             Mode.MENTION -> "[${fixture.get("incomingMention")},${fixture.get("addressedPost")}]"
                             Mode.USERNAME -> "[${fixture.get("usernameMention")}]"
                             Mode.QUOTE -> "[${fixture.get("legacyQuote")}]"
-                            Mode.LIKE, Mode.REPOST, Mode.MISSING, Mode.MISSING_REPOST, Mode.MISSING_QUOTE_LIKE, Mode.HISTORY, Mode.PRUNED, Mode.NULL_HISTORY, Mode.READ, Mode.READ_SAVE_FAULT, Mode.MISSING_QUOTE, Mode.FEED_MENTION, Mode.CONTACT -> "[]"
+                            Mode.LIKE, Mode.REPOST, Mode.MISSING, Mode.MISSING_REPOST, Mode.MISSING_QUOTE_LIKE, Mode.HISTORY, Mode.PRUNED, Mode.NULL_HISTORY, Mode.READ, Mode.READ_SAVE_FAULT, Mode.MISSING_QUOTE, Mode.FEED_MENTION, Mode.CONTACT, Mode.CONTACT_QUOTE -> "[]"
                         }
                     }
                     criteria.get("field5")?.asString == fixture.getAsJsonObject("missingOriginalQuote").get("sig").asString ->
@@ -566,6 +581,7 @@ class NotificationsPreviewTest {
                         "[${fixture.get("incomingMention")}]"
                     criteria.get("field5")?.asString == root.get("sig").asString ->
                         if (mode == Mode.REPLY) "[$root,${fixture.get("incomingReply")}]" else "[$root]"
+                    mode == Mode.CONTACT_QUOTE && criteria.get("field5")?.asString == fixture.getAsJsonObject("knownOtherQuote").get("sig").asString -> "[]"
                     mode == Mode.CONTACT && criteria.get("field5")?.asString == fixture.getAsJsonObject("knownOtherPost").get("sig").asString ->
                         "[${fixture.get("knownOtherPost")}]"
                     mode == Mode.CONTACT && criteria.get("field2")?.asString == actor -> {
