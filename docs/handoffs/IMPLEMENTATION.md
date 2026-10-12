@@ -91,7 +91,11 @@ completion/death. Root original PNG/separate XML show Pending/Retry/original
 owner destination/zero available; four hashes in inclusion-ui-red/android17.
 Minimum bounded HTTP/current exact inclusion UI implementation compiles debug/
 test APKs2m25s; one hash in inclusion-ui-build. Native GREEN is pending.
-No successful reopening or actual refreshed block verification yet.
+No successful reopening or actual refreshed block verification yet. First native
+GREEN38197933430 runs at5fee7e1. Bounded current-source review: Standards0; Spec1
+explicit observed-server copy. Correction adds qualified observation text and
+positive before/after recreation gates, debug/test compile2m34s/one hash in
+inclusion-copy-review-fix. Fix review and new-copy runtime remain pending.
 
 Next: HTTP elapsed/body budgets, Android Included/unknown/reorg status and
 persisted qualified observations, then receiving QR, remaining meaningful

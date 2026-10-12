@@ -39,7 +39,10 @@ fun WalletTransferDialog(transfers: WalletTransfers, onClose: () -> Unit) {
                     transfers.pending.forEach { record ->
                         val inclusion = transfers.inclusions[record.payment.transaction.id]
                         if (inclusion == null) Text(stringResource(R.string.transfer_pending))
-                        else Text(stringResource(R.string.transfer_included, inclusion.height.toString()))
+                        else {
+                            Text(stringResource(R.string.transfer_included, inclusion.height.toString()))
+                            Text(stringResource(R.string.transfer_observed))
+                        }
                         Text(stringResource(R.string.transfer_amount_review, WalletTransfers.display(record.payment.amount)))
                         Text(stringResource(R.string.transfer_recipient_review, record.payment.recipient))
                         Text(stringResource(R.string.transfer_pending_backend, record.backend.domain))

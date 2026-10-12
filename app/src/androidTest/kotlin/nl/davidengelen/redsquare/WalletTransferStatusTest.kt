@@ -63,6 +63,8 @@ class WalletTransferStatusTest {
                             val included = "Included in block 2000002."
                             ui.waitUntil(20_000) { ui.onNodeWithText(included).isDisplayed() }
                             ui.onNodeWithText(included).assertIsDisplayed()
+                            ui.onNodeWithText("Observed on the selected server. This status can change.")
+                                .performScrollTo().assertIsDisplayed()
                             ui.onAllNodesWithText("Pending. Inclusion has not been verified.").assertCountEquals(0)
                             ui.onAllNodesWithText("Retry transfer").assertCountEquals(0)
                             ui.onNodeWithText("Transfer server: saito.davidengelen.nl.").performScrollTo().assertIsDisplayed()
@@ -79,6 +81,8 @@ class WalletTransferStatusTest {
                             ui.onNodeWithContentDescription("Wallet address").assertTextEquals(fixture.payment.author)
                             ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
                             ui.waitUntil(20_000) { ui.onNodeWithText(included).isDisplayed() }
+                            ui.onNodeWithText("Observed on the selected server. This status can change.")
+                                .performScrollTo().assertIsDisplayed()
                             ui.onAllNodesWithText("Pending. Inclusion has not been verified.").assertCountEquals(0)
                             ui.onAllNodesWithText("Retry transfer").assertCountEquals(0)
                             ui.onNodeWithText("Transfer server: saito.davidengelen.nl.").performScrollTo().assertIsDisplayed()

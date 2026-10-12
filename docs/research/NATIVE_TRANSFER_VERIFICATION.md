@@ -392,3 +392,10 @@ debug/test APKs2m25s; one original hash in inclusion-ui-build. Per-block8MiB,
 shared retained bodies32MiB, monotonic20s observation budget and per-call remaining
 timeout10s maximum; no redirects/fallback/send or reservation release. Inclusion
 is ephemeral fresh exact proof only. Native GREEN remains pending.
+
+Bounded current inclusion review4bbf039...5fee7e1: Standards0hard breaches/0
+heuristic findings; Spec1explicit observation-copy gap. Review correction preserves
+Included and adds selected-server/status-can-change text with positive checks on
+both sides of recreation in the existing journey. Debug/test compile2m34s; one
+hash in inclusion-copy-review-fix. First native GREEN38197933430 at5fee7e1 remains
+running; copy/source-fix review/runtime acceptance remains pending.
