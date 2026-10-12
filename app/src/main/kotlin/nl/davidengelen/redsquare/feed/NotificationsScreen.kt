@@ -38,8 +38,21 @@ private fun referenceCaption(owner: String?, target: FeedPost?, recipients: List
 private data class NotificationPages(val likes: ArchiveLikePage, val replies: ArchiveFeedPage,
     val mentions: ArchiveFeedPage, val reposts: ArchiveActionPage, val quotes: List<FeedPost>)
 
+private fun notificationPages(likes: String, posts: String, retweets: String, owner: String,
+    name: SaitoRegisteredName?, registrar: String): NotificationPages = NotificationPages(
+    RedSquareLikes.readIncoming(likes, owner), RedSquareFeed.readReplies(posts),
+    RedSquareFeed.readMentions(posts, owner, name, registrar),
+    RedSquareActions.readIncomingReposts(retweets, owner),
+    RedSquareFeed.readIncomingQuotes(retweets, owner).posts + RedSquareFeed.readIncomingQuotes(posts, owner).posts)
+
+private fun cachedArchive(envelopes: List<String>, requests: Set<String>): String = com.google.gson.JsonArray().apply {
+    envelopes.filter { SaitoEnvelope.decode(it).body.get("request").asString in requests }.take(100).forEach { envelope ->
+        add(JsonObject().apply { addProperty("tx", envelope) })
+    }
+}.toString()
+
 @Composable
-internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, knownPosts: List<FeedPost>,
+internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend: SaitoBackend, knownPosts: List<FeedPost>,
     modifier: Modifier, onBack: () -> Unit, onPost: (FeedPost) -> Unit, onIdentity: (String) -> Unit, onReference: (String) -> Unit) {
     val personal = LocalPersonalControls.current
     val context = LocalContext.current.applicationContext
@@ -49,6 +62,8 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, knownPo
     var mentions by remember(wallet?.publicKey, endpoint) { mutableStateOf<List<FeedPost>>(emptyList()) }
     var reposts by remember(wallet?.publicKey, endpoint) { mutableStateOf<List<RedSquareAction>>(emptyList()) }
     var quotes by remember(wallet?.publicKey, endpoint) { mutableStateOf<List<FeedPost>>(emptyList()) }
+    val history = remember(wallet?.publicKey, backend) { wallet?.let { NotificationHistoryStore(context, backend, it.publicKey) } }
+    var cacheWarning by remember(wallet?.publicKey, backend) { mutableStateOf(false) }
     var loading by remember { mutableStateOf(false) }
     var failed by remember { mutableStateOf(false) }
     var ignored by remember { mutableIntStateOf(0) }
@@ -57,6 +72,25 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, knownPo
     LaunchedEffect(wallet, endpoint, refresh) {
         if (wallet == null) return@LaunchedEffect
         loading = true
+        val name = try { withContext(Dispatchers.IO) { RegisteredNameStore(context, wallet.publicKey, registrar).load()?.name } }
+        catch (cancelled: CancellationException) { throw cancelled }
+        catch (_: Exception) { null }
+        fun publish(pages: NotificationPages) {
+            events = pages.likes.likes
+            replies = pages.replies.posts.filter { it.author != wallet.publicKey && it.parentId.isNotEmpty() }
+            mentions = pages.mentions.posts
+            reposts = pages.reposts.actions
+            quotes = pages.quotes
+            ignored = pages.likes.ignored + pages.replies.ignored + pages.reposts.ignored
+        }
+        val saved = withContext(Dispatchers.IO) { history!!.load() }
+        cacheWarning = saved.unreadable
+        val cached = withContext(Dispatchers.IO) {
+            notificationPages(cachedArchive(saved.envelopes, setOf("like tweet")),
+                cachedArchive(saved.envelopes, setOf("create tweet")), cachedArchive(saved.envelopes, setOf("retweet")),
+                wallet.publicKey, name, registrar)
+        }
+        publish(cached)
         try {
             val pages = withContext(Dispatchers.IO) {
                 SaitoPeer(wallet, endpoint).use { peer ->
@@ -69,25 +103,18 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, knownPo
                         val request = JsonObject().apply { addProperty("request", "archive"); add("data", criteria) }
                         return peer.request(request.toString().toByteArray(Charsets.UTF_8)).toString(Charsets.UTF_8)
                     }
-                    val likes = RedSquareLikes.readIncoming(read("RedSquareLike"), wallet.publicKey)
+                    val likes = read("RedSquareLike")
                     val posts = read("RedSquare")
-                    val name = try { RegisteredNameStore(context, wallet.publicKey, registrar).load()?.name }
-                    catch (cancelled: CancellationException) { throw cancelled }
-                    catch (_: Exception) { null }
                     val retweets = read("RedSquareRetweet")
-                    NotificationPages(likes, RedSquareFeed.readReplies(posts),
-                        RedSquareFeed.readMentions(posts, wallet.publicKey, name, registrar),
-                        RedSquareActions.readIncomingReposts(retweets, wallet.publicKey),
-                        RedSquareFeed.readIncomingQuotes(retweets, wallet.publicKey).posts +
-                            RedSquareFeed.readIncomingQuotes(posts, wallet.publicKey).posts)
+                    notificationPages(likes, posts, retweets, wallet.publicKey, name, registrar)
                 }
             }
-            events = pages.likes.likes
-            replies = pages.replies.posts.filter { it.author != wallet.publicKey && it.parentId.isNotEmpty() }
-            mentions = pages.mentions.posts
-            reposts = pages.reposts.actions
-            quotes = pages.quotes
-            ignored = pages.likes.ignored + pages.replies.ignored + pages.reposts.ignored
+            publish(pages)
+            try { withContext(Dispatchers.IO) {
+                history!!.save(pages.likes.likes.map { it.envelope } + pages.replies.posts.map { it.envelope } +
+                    pages.mentions.posts.map { it.envelope } + pages.reposts.actions.map { it.envelope } + pages.quotes.map { it.envelope })
+            } } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { cacheWarning = true }
             failed = false
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { failed = true }
@@ -102,6 +129,7 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, knownPo
         PersonalControlsStatus(personal)
         if (loading) Text(stringResource(R.string.notifications_loading))
         if (failed) Text(stringResource(R.string.notifications_read_error))
+        if (cacheWarning) Text(stringResource(R.string.notifications_cache_warning))
         if (ignored > 0) Text(stringResource(R.string.notifications_unverified))
         val repostRows = reposts.mapNotNull { event ->
             val target = knownPosts.firstOrNull { it.id == event.target }

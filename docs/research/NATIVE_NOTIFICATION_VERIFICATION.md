@@ -487,3 +487,21 @@ Allcases precisely snapshot/clear/restore onlynotifications.owner.unsafe1.v1 and
 atomiccompanions underactualPublicStringStore lock toavoidfuturecache crosscase
 contamination. Ownershipmarker assignedbeforefirstdeletion; independentbyte-exact
 cleanup remains. No historycache product codeyet; fixturecompile/genuineRED pending.
+
+Historyfixturecompile PASSES1m36s. Bounded72a549a...8817cc4 Spec0; Standards1
+possibleDuplicatedCode in exactpublic-file snapshot/reset/restore; reviewstage
+sharing pending afterGREEN. Genuine10RED38297832282 at8817cc4:10reported/9PASS/
+1failure86.859s/0OKrecords/0deaths/noassumptions/core72/compiler/debug/test. History
+case warmslike/Conversation/Back, actualrecreates underinvalidselectedserver replies,
+passesreaderrormessage+capture thenmissingretainedlike line162. ActorProfile/final
+failedResponses check not reached; all9existingjourneys complete. Fivehashes
+history-native-red/android17; rootrecreatedoriginalOwner/Notifications/error/empty
+list +bothXML parsed, secondfailurePNG retainedwithoutrootviewclaim.
+Minimumcache is boundedpublicsignedactivity underwallet/backend filename, atomic
+PublicStringStore: storedentries signatures/module/kinds revalidated, incomingand
+prior mergedbyverifiedsignedID, signedtime sorted, max300/16MiB storagebudget.
+Screen rehydratescachedkindpages beforefreshselectedpeer reads; normalfailedread
+retains cachedrows. Existingpersonalcontrols/targetownership/nameproof appliedafter
+cachedecode. Cacheproblems warn withoutblockingfreshavailableactivity; no private
+Chat/wallet payloads. No readmarkers/paging/partialstreams/colddeath/otherisolation
+claim yet. Localcore/debug/testcompile/first10GREEN pending.

@@ -346,6 +346,7 @@
     <string name="notifications_title">Notifications</string>
     <string name="notifications_loading">Loading notifications...</string>
     <string name="notifications_read_error">Could not load notifications. Check your connection and try Refresh.</string>
+    <string name="notifications_cache_warning">Some notification history could not be read or saved on this phone. Available activity still appears here.</string>
     <string name="notifications_unverified">Some activity could not be verified.</string>
     <string name="notifications_like">Liked a post</string>
     <string name="notifications_target_title">Post</string>

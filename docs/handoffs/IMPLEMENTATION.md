@@ -82,8 +82,15 @@ Localcompile reports2m41success/Dockeractualexit0 despiteattachedclient143; no
 repeatbuild/causeclaim. Next10thhistorytracer warmsactualsignedlike, thenserver
 returnsinvalidarchive responses andActivityScenario.recreate; expects actualread
 error withretainedsameactivity/Owner/Profile. Allcases precisehistory-file snapshot/
-clear/restore underPublicStorelock andfullopaqueidentity safeguards. No cache
-product yet; testfixturecompile+genuine10RED pending. Target-sig
+clear/restore underPublicStorelock andfullopaqueidentity safeguards. Fixturecompile1m36PASS, Spec0/Standards1snapshotduplication reviewrefactorpending.
+Genuine10RED38297832282 reports10/9PASS/1fail86.859s/0OK/0deaths: warmssignedlike,
+Conversation/back,recreateunderinvalidselectedpeer responses, errorvisiblethen
+cachedlikeabsentline162; all9oldpass. Fivehashes/rootfullrecreatedPNG+2XML.
+Minimum NotificationHistoryStore nowwallet/backendscoped/atomic/bounded300/16MiB,
+re-verifiescachedsignatures/kinds andsignedIDs/timestamps; screenrehydratesbefore
+networkfailure. Target/name/personalchecks stay inrender. Cachewarningnonblocking.
+Localcore/debug/testcompile/first10GREEN pending. ReadIDs,paging,partialstream,
+othermissing/isolation/realcoldproof/fullSDK stillfuturewithin#24. Target-sig
 Retweetqueries routeControlledFeedPeer genericarchiveResponse, notunfilteredquote
 callback, and newfixture answers exactnamespace/sig/flag/limit1 there.
 
