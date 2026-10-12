@@ -665,3 +665,17 @@ statusloadedseparatelyfromactivity, onlyvisibleverifiedunmuted/unblockedrows cou
 ExplicitMarkall savesobservedIDs, updatesbadgeonlyafterverifiedsave, warnswithout
 hidingavailableactivityonread/savefault. Refreshdisabledwhilemarking andmarkdisabled
 untilmarkerloadready. No permission/push dependency. Compilation/first15GREEN pending.
+
+Readminimum boundedc15db1a...ac5d06a bothaxes0; localcore/debug/test3m7PASS.
+First15GREEN10 38306583171 atac5d06a passes15/48.576s/1OKrecord/0deaths/noassumptions/
+core73/debug/test. Markall/verifiedsavedNoUnread/recreationunderfailedserver/retained
+Like+NoUnread/Actor/positiveownerchangedreads andcorrectedparentdisplay/fullopaque
+wallet/backend/pref/history/read-files restoration pass. Thirty-twohashes read-native-
+green/android10; rootcompleteOwner/error/NoUnread/disabledMarkall/Like PNG andall15
+XMLparsed, othersno rootvisualclaims. Next16thnative regression verifies implemented
+save-faultbehavior: after1unread/completedrefresh, onlypreciseownedreadfilename
+obstructedbyemptydir underactualstorage lock, Markallfails visiblywith1unread+Like,
+restorepath thenexplicitretry succeeds/NoUnread/Actor. FixtureControlnamesnetwork+
+filesystemexternalcontrols; blockedemptydir ownershiprecordedbeforemkdir and
+independentfinallycleanup restoresoriginalopaque readfiles eveniffailure. No
+productcodechangedforregression;16native17pending, no savefault acceptance yet.

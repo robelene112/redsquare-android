@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger
 
 class NotificationsPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
-    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING, MISSING_REPOST, MISSING_QUOTE_LIKE, HISTORY, PRUNED, PARTIAL, REJECTED, NULL_HISTORY, READ }
+    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING, MISSING_REPOST, MISSING_QUOTE_LIKE, HISTORY, PRUNED, PARTIAL, REJECTED, NULL_HISTORY, READ, READ_SAVE_FAULT }
 
     @Test fun anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile() {
         withNotifications("incoming-like", mode = Mode.LIKE) { actor, _, _ ->
@@ -277,6 +277,33 @@ class NotificationsPreviewTest {
         }
     }
 
+    @Test fun aFailedReadStatusSaveKeepsActivityUnreadUntilTheUserRetries() {
+        withNotifications("read-save-failure", Mode.READ_SAVE_FAULT) { actor, _, control ->
+            waitFor("1 unread")
+            ui.waitUntil(20_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
+                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            control.blockReadSaving()
+            ui.onNodeWithText("Mark all as read").assertIsDisplayed().assertIsEnabled().performClick()
+            waitFor("Read status could not be read or saved. Available notifications still appear here.")
+            ui.onNodeWithText("1 unread").assertIsDisplayed()
+            ui.onAllNodesWithText("No unread activity").assertCountEquals(0)
+            ui.onNodeWithText("Liked your post").assertIsDisplayed()
+            captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
+                "notification-evidence/read-save-failure.png"), "1 unread")
+            control.allowReadSaving()
+            ui.waitUntil(20_000) { ui.onAllNodes(hasText("Mark all as read") and isEnabled())
+                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.onNodeWithText("Mark all as read").performClick()
+            waitFor("No unread activity")
+            ui.onAllNodesWithText("Read status could not be read or saved. Available notifications still appear here.").assertCountEquals(0)
+            captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
+                "notification-evidence/read-save-recovered.png"), "No unread activity")
+            ui.onNodeWithText(actor).assertIsDisplayed().performClick()
+            waitFor("Profile")
+            ui.onNodeWithText(actor).assertIsDisplayed()
+        }
+    }
+
     private fun missingReferenceJourney(evidenceName: String, mode: Mode, caption: String, ownCaption: String, actorRows: Int, recoveryText: String = "Original recovered after retry") {
         withNotifications(evidenceName, mode) { actor, _, _ ->
             waitFor(caption)
@@ -305,7 +332,7 @@ class NotificationsPreviewTest {
         }
     }
 
-    private fun withNotifications(evidenceName: String, mode: Mode, journey: (String, ActivityScenario<MainActivity>, ArchiveResponses) -> Unit) {
+    private fun withNotifications(evidenceName: String, mode: Mode, journey: (String, ActivityScenario<MainActivity>, FixtureControl) -> Unit) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev")
@@ -333,7 +360,7 @@ class NotificationsPreviewTest {
             nl.davidengelen.redsquare.feed.PublicStringStore.lock)
         val readFiles = FixtureFiles(context.noBackupFilesDir, "notificationread.${SaitoBackend.OWNER.id}.$owner.v1",
             nl.davidengelen.redsquare.feed.PublicStringStore.lock)
-        val responses = ArchiveResponses()
+        val responses = FixtureControl(readFiles)
         val likeReads = AtomicInteger()
         val replyReads = AtomicInteger()
         val repostReads = AtomicInteger()
@@ -415,7 +442,7 @@ class NotificationsPreviewTest {
                             Mode.MENTION -> "[${fixture.get("incomingMention")},${fixture.get("addressedPost")}]"
                             Mode.USERNAME -> "[${fixture.get("usernameMention")}]"
                             Mode.QUOTE -> "[${fixture.get("legacyQuote")}]"
-                            Mode.LIKE, Mode.REPOST, Mode.MISSING, Mode.MISSING_REPOST, Mode.MISSING_QUOTE_LIKE, Mode.HISTORY, Mode.PRUNED, Mode.NULL_HISTORY, Mode.READ -> "[]"
+                            Mode.LIKE, Mode.REPOST, Mode.MISSING, Mode.MISSING_REPOST, Mode.MISSING_QUOTE_LIKE, Mode.HISTORY, Mode.PRUNED, Mode.NULL_HISTORY, Mode.READ, Mode.READ_SAVE_FAULT -> "[]"
                         }
                     }
                     criteria.get("field5")?.asString == fixture.getAsJsonObject("incomingQuote").get("sig").asString ->
@@ -515,7 +542,9 @@ class NotificationsPreviewTest {
         }
     }
 
-    private class ArchiveResponses {
+    private class FixtureControl(private val readFiles: FixtureFiles) {
+        fun blockReadSaving() = readFiles.blockSaving()
+        fun allowReadSaving() = readFiles.allowSaving()
         val changed = java.util.concurrent.atomic.AtomicBoolean(false)
         val ownerReads = AtomicInteger()
         fun change() { changed.set(true) }
@@ -524,6 +553,7 @@ class NotificationsPreviewTest {
     /** Only the named public fixture and its atomic companions, guarded by the owning store. */
     private class FixtureFiles(private val directory: File, private val base: String, private val lock: Any) {
         private var prior: Map<String, ByteArray>? = null
+        private var blocked: File? = null
         private fun files() = directory.listFiles().orEmpty()
             .filter { it.name == base || it.name.startsWith("$base.") }
 
@@ -535,7 +565,25 @@ class NotificationsPreviewTest {
             captured.keys.forEach { check(File(directory, it).delete()) }
         }
 
+        fun blockSaving() = synchronized(lock) {
+            check(prior != null && blocked == null && files().isEmpty())
+            val obstruction = File(directory, base)
+            blocked = obstruction
+            check(obstruction.mkdir())
+        }
+
+        fun allowSaving() = synchronized(lock) { releaseBlock() }
+
+        private fun releaseBlock() {
+            blocked?.let { obstruction ->
+                if (obstruction.exists()) check(obstruction.isDirectory &&
+                    obstruction.listFiles()?.isEmpty() == true && obstruction.delete())
+                blocked = null
+            }
+        }
+
         fun restore() = synchronized(lock) {
+            releaseBlock()
             prior?.let { saved ->
                 files().forEach { check(it.isFile && it.delete()) }
                 saved.forEach { (name, bytes) -> File(directory, name).writeBytes(bytes) }
