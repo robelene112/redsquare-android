@@ -150,3 +150,7 @@ and explicitly scroll to the existing root gate. No runtime cause is claimed.
 Zero behavior findings; signed feed-only mention and actual destinations remain
 required. Prior40GREENhashes/counts/19XML/originalquotePNG verified by both axes.
 Run38311968126 canceled to correct setup before treating any failure as RED.
+
+Corrective `c1632c7...dee4f2a` clears both axes: visible feed readiness and
+explicit root scroll preserve existing notification assertions. Corrected
+RED run38312248859 remains in progress. No product change yet.

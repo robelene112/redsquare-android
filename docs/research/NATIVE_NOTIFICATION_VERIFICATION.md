@@ -758,3 +758,12 @@ mayleaveoldrootuncomposedinLazyColumn. Run38311968126 canceled, notRED. Correcti
 fixturewaitsvisibleaddressedpost andexplicitlyscrollstoroot beforeunchanged
 readiness/Notifications gates. InitialfixtureAPKcompile2m11PASS; correctednative
 REDpending, no runtimecauseclaim.
+
+Correctivefeedmention dee4f2a bothaxes0; genuine19RED10 38312248859 reports
+19/18PASS/1failure65.408s/0OK/deaths/core73/debug/test, missingMentioned you68
+afteractualNotifications. Threehashes feed-mention-native-red/android10/root
+originalOwner/Notifications/1unread/like/nomention+XML inspected; laterroutegates
+unexecuted. Minimum classifiesknownverifiedfeedposts withsameexistingmention/
+reply/quote readers; publishesandpersistsavailableeventsbeforeserverrefresh.
+Sharedprivateenvelopespropertyhas2actualsaveconsumers, errorswarnwithoutdropping
+activity; knownPostskey preventsstaledata. Localcompile/first19GREENpending.

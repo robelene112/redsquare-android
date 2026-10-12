@@ -37,7 +37,13 @@ run38311318013 passes18 cases in54.526s, one OK, zero deaths/assumptions, core73
 Actual neutral quote/commentary/unavailable-original/Retry/recovery/Actor and
 all17 previous cases pass. Forty hashes; root original quote screenshot and
 all19 XML inspected. Both reviews pass, local full build2m51s/container wait0.
-Next slice supplements available feed mentions omitted by the recipient index.
+Current nineteenth feed-mention tracer dee4f2a has genuine Android10 RED
+run38312248859:18PASS/one failure65.408s/zero OK/deaths/core73, missing
+Mentioned you at68 after Notifications. Three hashes and original PNG/XML
+inspected. Canceled predecessor38311968126 is not RED. Both corrected-fixture
+reviews pass. Minimum now classifies verified available feed posts with existing
+readers and publishes/persists them before server refresh; local compilation
+and nineteen-case GREEN remain pending.
 
 Remaining #24 work is finite: supplement available feed/cache mentions and
 followed-account posts, bounded reply discovery/older-page overlap and retry,
@@ -405,17 +411,3 @@ NATIVE_SAITO_TRANSFER_CONTRACT, NATIVE_PRIVATE_CHAT_CONTRACT and
 NATIVE_GROUP_CHAT_CONTRACT (all .md under docs/research). The protected future notes remain uncommitted and must be included only with
 their own relevant tickets; earlier contracts are already committed.
 They establish source contracts, not runtime or feature completion.
-
-Missingreply correction e09fec0 passes localcompile/bothreviewaxes. Native10
-38309796737 passes17/47.995s/1OK/0deaths/core73/debug/test. Actualneutralreply/
-missingparent/Refresh/recoveredoriginal/Actor andall16old/finalopaquegates pass.
-Thirty-eighthashes missing-reply-native-green/android10; rootoriginalreplyPNG/
-all18XML inspected. Next missingquoteoriginal activity; whole-ticket notdone.
-
-Missingquote tracer adeb9f2 bothaxes0/localtestAPK1m36PASS. Native17 genuineRED
-38310537106:18reported/17PASS/1failure109.891s/0OK/deaths/core73/debug/test,
-neutralquoteabsent333. Threehashes missing-quote-native-red/android17/rootoriginal
-Owner/Notifications/like/nocaption+XML inspected; subsequentroutegatesunexecuted.
-Minimum quotes reuseverifiedown/unknown-onlyaddresscaptionpolicy; signedcommentary
-opensitsConversation+existingboundedQuoteState unavailable/Retry. Knownnon-own
-original remainsineligible. Localfullcompile/first18GREENpending.

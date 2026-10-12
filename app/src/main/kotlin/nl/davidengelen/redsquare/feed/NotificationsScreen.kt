@@ -47,6 +47,10 @@ private data class NotificationPages(val likes: ArchiveLikePage, val replies: Ar
 private val NotificationPages.ignoredRows: Int
     get() = likes.ignored + replies.ignored + reposts.ignored
 
+private val NotificationPages.envelopes: List<String>
+    get() = likes.likes.map { it.envelope } + replies.posts.map { it.envelope } +
+        mentions.posts.map { it.envelope } + reposts.actions.map { it.envelope } + quotes.map { it.envelope }
+
 private fun notificationPages(likes: String, posts: String, retweets: String, owner: String,
     name: SaitoRegisteredName?, registrar: String): NotificationPages = NotificationPages(
     RedSquareLikes.readIncoming(likes, owner), RedSquareFeed.readReplies(posts),
@@ -89,7 +93,7 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
     var ignored by remember(wallet?.publicKey, backend, endpoint) { mutableIntStateOf(0) }
     var refresh by remember { mutableIntStateOf(0) }
     BackHandler(onBack = onBack)
-    LaunchedEffect(wallet, backend, endpoint, refresh) {
+    LaunchedEffect(wallet, backend, endpoint, knownPosts, refresh) {
         if (wallet == null) return@LaunchedEffect
         loading = true
         readReady = false
@@ -119,6 +123,16 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
                 wallet.publicKey, name, registrar)
         }
         publish(cached)
+        val available = withContext(Dispatchers.IO) {
+            notificationPages("[]", cachedArchive(knownPosts.map { it.envelope }, setOf("create tweet", "retweet")),
+                "[]", wallet.publicKey, name, registrar)
+        }
+        publish(available)
+        if (available.envelopes.isNotEmpty()) {
+            try { withContext(Dispatchers.IO) { history!!.save(available.envelopes) } }
+            catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { cacheWarning = true }
+        }
         try {
             val pages = withContext(Dispatchers.IO) {
                 SaitoPeer(wallet, endpoint).use { peer ->
@@ -148,12 +162,9 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
                 }
             }
             pages.filterNotNull().forEach(::publish)
-            ignored = pages.filterNotNull().sumOf { it.ignoredRows }
+            ignored = available.ignoredRows + pages.filterNotNull().sumOf { it.ignoredRows }
             try { withContext(Dispatchers.IO) {
-                history!!.save(pages.filterNotNull().flatMap { page ->
-                    page.likes.likes.map { it.envelope } + page.replies.posts.map { it.envelope } +
-                        page.mentions.posts.map { it.envelope } + page.reposts.actions.map { it.envelope } + page.quotes.map { it.envelope }
-                })
+                history!!.save(pages.filterNotNull().flatMap { it.envelopes })
             } } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { cacheWarning = true }
             failed = pages.any { it == null }
