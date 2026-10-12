@@ -19,7 +19,9 @@ internal class TransferInclusionFixture(json: String) {
     val timestamp = System.currentTimeMillis()
     val inclusion = freshBlock("oddBlock", timestamp - 1000)
     val tip = freshBlock("chainTip", timestamp, inclusion.first)
-    val blocks = mapOf(inclusion, tip)
+    val alternate = freshBlock("alternateBlock", timestamp + 1000)
+    val alternateTip = freshBlock("alternateTip", timestamp + 2000, alternate.first)
+    val blocks = mapOf(inclusion, tip, alternate, alternateTip)
 
     private fun freshBlock(name: String, time: Long, parent: String? = null): Pair<String, ByteArray> {
         val bytes = Base64.getDecoder().decode(reference.getAsJsonObject(name).get("fullBase64").asString)

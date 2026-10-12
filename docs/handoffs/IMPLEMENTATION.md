@@ -99,7 +99,16 @@ actual fresh7.5/newtip404/zero reserved/no frames/identity gates pass. Ten hashe
 in history-ui-green/android17. Both source axes report one ordering gap: authority
 check precedes store lock. Fix holds existing shared lock through check+commit;
 debug/test2m53s/one hash in history-review-lock-fix. No runtime race reproduced;
-fix review and same unchanged-test native run pending. Next: verified reorg UI, fresh nonreserved change enabling a new
+Both fix/evidence axes through17b11c0 clear. Same unchanged native38201839598
+at0ab4966 passes ordinary4/82.386s plus separate pending death/cold1/9.867s and
+cleanup1/0.057s:6/3/1, core66/release/lint. Full separate UnknownXML/native gates
+pass; root original PNG tool strip honestly qualified. Ten hashes in history-
+lock-green/android17. No scheduler race reproduction claimed. Next sole native
+cycle extends the proven journey to fresh independently signed Fee-only alternate
+coverage at previous2000002, requiring explicit reorganized status and unchanged
+reservations/no frames through recreation. Test APK compiles1m40s, then diagnostic capture ordering compiles1m30s;2hashes
+in reorganization-test-preparation. No new product source or native reorg RED/
+GREEN yet. Next: verified reorg UI, fresh nonreserved change enabling a new
 transfer, receiving QR, meaningful remaining failures, final fresh full10/17 and
 whole-ticket review. #23 unfinished. No new phone APK, physical Pixel result,
 production node change, live transfer or whole acceptance.

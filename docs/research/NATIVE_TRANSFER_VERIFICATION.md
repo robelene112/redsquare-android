@@ -487,3 +487,19 @@ index mismatch: original counts index transfer-process/ paths but files were
 flattened. Retained original bytes now occupy the indexed subfolder; same10hashes
 with corrected relative paths. No tests/source/rawcounts changed. Spec review and
 fixed-source native38201839598 remain pending.
+
+Both history correction/evidence axes through17b11c0 clear. Same unchanged native
+38201839598 at0ab4966 passes ordinary4/82.386s and separate pending death/cold1/
+9.867s/cleanup1/0.057s:6/3/1,core66/release/lint. Root full separate UnknownXML and
+native positive fresh7.5/newtip404/zero reservations/identity/no frames pass; original
+PNG tool strip qualified. Ten hashes/indexed paths in history-lock-green/android17.
+This is normal recovery verification, not source scheduler-race reproduction.
+Next sole cycle extends native journey with independently copied Fee-only alternate
+2000002 and signed2000003 child, literal positive originalinputs, explicit reorg
+label/no current Included/no Unknown/no Pending/no automatic frame through another
+recreation. Product unchanged; test compile and native RED remain pending.
+
+Reorganization test APK compiles1m40s, then supplied alternate-block capture is
+moved before missing-label assertion for independent failure-fixture checking;
+current test APK compiles1m30s. Two original logs/hashes in reorganization-test-
+preparation. Production unchanged; native missing-label RED remains pending.

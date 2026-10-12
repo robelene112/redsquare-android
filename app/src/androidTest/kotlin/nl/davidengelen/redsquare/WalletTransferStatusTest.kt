@@ -8,7 +8,6 @@ import androidx.test.platform.app.InstrumentationRegistry
 import java.io.File
 import java.net.InetAddress
 import java.util.Base64
-import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicInteger
 import java.math.BigInteger
 import mockwebserver3.Dispatcher
@@ -26,15 +25,16 @@ class WalletTransferStatusTest {
     private val instrumentation get() = InstrumentationRegistry.getInstrumentation()
     private val context get() = instrumentation.targetContext
 
-    @Test fun exactInclusionSurvivesReopeningAndUnavailableHistoryKeepsItsLastObservationWithoutResending() {
+    @Test fun exactInclusionUnknownHistoryAndVerifiedReorganizationNeverAutomaticallyResend() {
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
         val fixture = instrumentation.context.assets.open("native-block-reference.json")
             .bufferedReader().use { TransferInclusionFixture(it.readText()) }
         assertEquals(BigInteger("750000000"), fixture.payment.inputs.fold(BigInteger.ZERO) { sum, input -> sum + input.amount })
-        val blocksAvailable = AtomicBoolean(true)
+        val phase = AtomicInteger(0) // Included, unavailable history, then verified alternative.
         val positiveSnapshots = AtomicInteger()
         val unavailableBlockReads = AtomicInteger()
+        val alternateBlockReads = AtomicInteger()
         val unavailableTip = "c".repeat(64) // A newly advertised tip with no available block body.
         val originalInputs = fixture.payment.inputs.joinToString("\n", postfix = "\n") {
             "${fixture.wallet.publicKey} ${it.block} ${it.ordinal} ${it.index} ${it.amount} ${it.type}"
@@ -54,16 +54,21 @@ class WalletTransferStatusTest {
                     override fun dispatch(request: RecordedRequest): MockResponse = when (request.target) {
                         "/options" -> MockResponse.Builder().body("""{"consensus":{"genesis_period":80640}}""").build()
                         "/balance/${fixture.wallet.publicKey}" -> {
-                            val available = blocksAvailable.get()
-                            if (!available) positiveSnapshots.incrementAndGet()
-                            val header = if (available) "${fixture.timestamp}-2000003-${fixture.tip.first}.snap\n"
-                                else "${fixture.timestamp + 1000}-2000004-$unavailableTip.snap\n"
-                            MockResponse.Builder().body(header + if (available) "" else originalInputs).build()
+                            val currentPhase = phase.get()
+                            if (currentPhase > 0) positiveSnapshots.incrementAndGet()
+                            val header = when (currentPhase) {
+                                0 -> "${fixture.timestamp}-2000003-${fixture.tip.first}.snap\n"
+                                1 -> "${fixture.timestamp + 1000}-2000004-$unavailableTip.snap\n"
+                                else -> "${fixture.timestamp + 2000}-2000003-${fixture.alternateTip.first}.snap\n"
+                            }
+                            MockResponse.Builder().body(header + if (currentPhase == 0) "" else originalInputs).build()
                         }
                         else -> {
-                            if (!blocksAvailable.get() && request.target == "/block/$unavailableTip")
+                            if (phase.get() == 1 && request.target == "/block/$unavailableTip")
                                 unavailableBlockReads.incrementAndGet()
-                            fixture.blocks[request.target.removePrefix("/block/")]?.takeIf { blocksAvailable.get() }?.let {
+                            if (phase.get() == 2 && request.target == "/block/${fixture.alternate.first}")
+                                alternateBlockReads.incrementAndGet()
+                            fixture.blocks[request.target.removePrefix("/block/")]?.takeIf { phase.get() != 1 }?.let {
                                 MockResponse.Builder().body(Buffer().write(it)).build()
                             } ?: MockResponse.Builder().code(404).build()
                         }
@@ -111,7 +116,7 @@ class WalletTransferStatusTest {
                             captureNativeScreen(File(context.cacheDir, "transfer-evidence/included-reopened.png"), included)
 
                             // Missing blocks cannot prove a reorg or unlock the original positive inputs.
-                            blocksAvailable.set(false)
+                            phase.set(1)
                             scenario.recreate()
                             ui.waitUntil(15_000) { ui.onNodeWithText("Wallet").isDisplayed() }
                             ui.onNodeWithText("Wallet").performClick()
@@ -130,6 +135,49 @@ class WalletTransferStatusTest {
                                 ui.onNodeWithText("Available to send: 0 SAITO").performScrollTo().assertIsDisplayed()
                                 peer.assertHealthy(); assertTrue(peer.transactions.isEmpty())
                                 captureNativeScreen(File(context.cacheDir, "transfer-evidence/history-unknown.png"), unknown)
+                            }
+
+                            // Only verified coverage of the old height can establish displacement.
+                            phase.set(2)
+                            scenario.recreate()
+                            ui.waitUntil(15_000) { ui.onNodeWithText("Wallet").isDisplayed() }
+                            ui.onNodeWithText("Wallet").performClick()
+                            ui.onNodeWithContentDescription("Wallet address").assertTextEquals(fixture.payment.author)
+                            ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
+                            withFailureCapture({ captureNativeScreen(File(context.cacheDir,
+                                "transfer-evidence/reorganization-first-failure.png")) }) {
+                                ui.waitUntil(20_000) { alternateBlockReads.get() > 0 }
+                                ui.waitUntil(20_000) { ui.onNodeWithText("Available to send: 0 SAITO").isDisplayed() }
+                                for ((name, block) in listOf("alternate" to fixture.alternate, "alternate-tip" to fixture.alternateTip)) {
+                                    File(context.cacheDir, "transfer-evidence/$name-block.b64")
+                                        .writeText(Base64.getEncoder().encodeToString(block.second))
+                                }
+                                val reorganized = "Chain changed. Previous inclusion in block 2000002 was reorganized."
+                                ui.waitUntil(20_000) { ui.onNodeWithText(reorganized).isDisplayed() }
+                                ui.onNodeWithText("Observed on the selected server. This status can change.")
+                                    .performScrollTo().assertIsDisplayed()
+                                ui.onAllNodesWithText(included).assertCountEquals(0)
+                                ui.onAllNodesWithText("Current inclusion unknown. Last seen in block 2000002.").assertCountEquals(0)
+                                ui.onAllNodesWithText("Pending. Inclusion has not been verified.").assertCountEquals(0)
+                                ui.onNodeWithText("Transfer server: saito.davidengelen.nl.").performScrollTo().assertIsDisplayed()
+                                ui.onNodeWithText("Available to send: 0 SAITO").performScrollTo().assertIsDisplayed()
+                                peer.assertHealthy(); assertTrue(peer.transactions.isEmpty())
+                                captureNativeScreen(File(context.cacheDir, "transfer-evidence/reorganized-payment.png"), reorganized)
+                                scenario.recreate()
+                                ui.waitUntil(15_000) { ui.onNodeWithText("Wallet").isDisplayed() }
+                                ui.onNodeWithText("Wallet").performClick()
+                                ui.onNodeWithContentDescription("Wallet address").assertTextEquals(fixture.payment.author)
+                                ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
+                                ui.waitUntil(20_000) { ui.onNodeWithText(reorganized).isDisplayed() }
+                                ui.onNodeWithText("Observed on the selected server. This status can change.")
+                                    .performScrollTo().assertIsDisplayed()
+                                ui.onAllNodesWithText(included).assertCountEquals(0)
+                                ui.onAllNodesWithText("Current inclusion unknown. Last seen in block 2000002.").assertCountEquals(0)
+                                ui.onAllNodesWithText("Pending. Inclusion has not been verified.").assertCountEquals(0)
+                                ui.onNodeWithText("Transfer server: saito.davidengelen.nl.").performScrollTo().assertIsDisplayed()
+                                ui.onNodeWithText("Available to send: 0 SAITO").performScrollTo().assertIsDisplayed()
+                                peer.assertHealthy(); assertTrue(peer.transactions.isEmpty())
+                                captureNativeScreen(File(context.cacheDir, "transfer-evidence/reorganized-reopened.png"), reorganized)
                             }
                         }
                     }
