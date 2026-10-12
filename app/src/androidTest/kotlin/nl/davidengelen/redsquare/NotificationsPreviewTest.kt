@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger
 
 class NotificationsPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
-    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING, MISSING_REPOST, MISSING_QUOTE_LIKE, HISTORY }
+    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING, MISSING_REPOST, MISSING_QUOTE_LIKE, HISTORY, PRUNED }
 
     @Test fun anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile() {
         withNotifications("incoming-like", mode = Mode.LIKE) { actor, _, _ ->
@@ -168,6 +168,29 @@ class NotificationsPreviewTest {
         }
     }
 
+    @Test fun savedActivityRemainsAvailableWhenTheServerNoLongerReturnsIt() {
+        withNotifications("pruned-history", Mode.PRUNED) { actor, scenario, pruneReads ->
+            waitFor("Liked your post")
+            ui.onNodeWithText("Liked your post").assertIsDisplayed().performClick()
+            waitFor("Conversation")
+            ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
+            ui.onNodeWithText("Back").performClick()
+            waitFor("Liked your post")
+            pruneReads()
+            scenario.recreate()
+            ui.waitUntil(20_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
+                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
+                "notification-evidence/pruned-history-recreated.png"), "Notifications")
+            waitFor("Liked your post")
+            ui.onAllNodesWithText("Liked your post").assertCountEquals(1)
+            ui.onAllNodesWithText("Could not load notifications. Check your connection and try Refresh.").assertCountEquals(0)
+            ui.onNodeWithText(actor).assertIsDisplayed().performClick()
+            waitFor("Profile")
+            ui.onNodeWithText(actor).assertIsDisplayed()
+        }
+    }
+
     private fun missingReferenceJourney(evidenceName: String, mode: Mode, caption: String, ownCaption: String, actorRows: Int, recoveryText: String = "Original recovered after retry") {
         withNotifications(evidenceName, mode) { actor, _, _ ->
             waitFor(caption)
@@ -254,7 +277,7 @@ class NotificationsPreviewTest {
                 else -> error("Unexpected Registry fixture request")
             }
         }, archiveResponse = { criteria ->
-            if (failingReads.get()) { failedReads.incrementAndGet(); "invalid archive response" }
+            if (failingReads.get()) { failedReads.incrementAndGet(); if (mode == Mode.PRUNED) "[]" else "invalid archive response" }
             else when (criteria.get("field1")?.asString) {
                 "RedSquareLike" -> if (criteria.get("field3")?.asString == owner) {
                     require(criteria.get("flagged_ne").asInt == 1)
@@ -294,7 +317,7 @@ class NotificationsPreviewTest {
                             Mode.MENTION -> "[${fixture.get("incomingMention")},${fixture.get("addressedPost")}]"
                             Mode.USERNAME -> "[${fixture.get("usernameMention")}]"
                             Mode.QUOTE -> "[${fixture.get("legacyQuote")}]"
-                            Mode.LIKE, Mode.REPOST, Mode.MISSING, Mode.MISSING_REPOST, Mode.MISSING_QUOTE_LIKE, Mode.HISTORY -> "[]"
+                            Mode.LIKE, Mode.REPOST, Mode.MISSING, Mode.MISSING_REPOST, Mode.MISSING_QUOTE_LIKE, Mode.HISTORY, Mode.PRUNED -> "[]"
                         }
                     }
                     criteria.get("field5")?.asString == fixture.getAsJsonObject("incomingQuote").get("sig").asString ->
@@ -362,7 +385,7 @@ class NotificationsPreviewTest {
                         if (mode == Mode.USERNAME) assertTrue("A label hint alone must not be ownership evidence",
                             peer.registryQueries.any { it.get("request").asString == "registry namecheck" &&
                                 it.get("identifier").asString == "NativeCase7@saito" })
-                        if (mode == Mode.HISTORY) assertTrue("Recreation must actually receive failing selected-server responses", failedReads.get() > 0)
+                        if (mode in listOf(Mode.HISTORY, Mode.PRUNED)) assertTrue("Recreation must receive changed selected-server responses", failedReads.get() > 0)
                         assertTrue(peer.clientKeys.isNotEmpty())
                         assertTrue(peer.clientKeys.all { it == owner })
                         assertTrue("Reading notifications must not publish a transaction", peer.transactions.isEmpty())

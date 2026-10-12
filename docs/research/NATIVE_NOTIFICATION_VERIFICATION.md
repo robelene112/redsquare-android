@@ -519,3 +519,13 @@ quote validator. Shared private fixture-file helper has two actual consumers,
 uses each owning lock, records restoration ownership before first mutation and
 preserves independent exact-byte/fileset cleanup. Compile pending. Fresh-empty
 retention and other full-ticket behaviors remain subsequent slices.
+
+Review-stage correction build passes2m46/core72/debug/test. Attached client exits143
+but the still-running container cb3198583602 completes and independent docker wait
+returns0; no cause inferred or duplicate build. Both bounded dcac031...bb4443a
+review axes0 and22 hashes verified. Next native tracer warms a like, recreates
+under successful empty selected-server archive responses, then requires the saved
+like and actor without a read-error. It preserves the same no-write/opaque cleanup
+gates. This tests available locally retained history when remote history is pruned;
+no physical offline/process-death claim. Source still replaces cached rows on
+successful refresh; first eleven-case RED pending.
