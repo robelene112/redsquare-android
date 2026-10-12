@@ -42,15 +42,25 @@ passes67coretests55s andnowusednative. Reference6267bytes/currentSHA476cfd8c... 
 identical docs/native/core. Corrected localcore/debug/test build PASSES2m41s; hostedrepeat38280740738 at54c638a PASSES2cases27.134s/core67/1record/0deaths,
 actualactorProfile/finalidentity/no-write/opaque wallet/backend/permission cleanup
 complete. Bothcorrectionreviews0residual; sourcepushrelease/lintpasses. RootreplyPNG
-showsfullclearreply+likecards; like-onlyPNGpartialstatus/caption qualified against
-separatefullXML. Fivehashesreply-native-green/android17.
+showsfullclearreply+likecards; rootlike-onlytoolviewpartialstatus/caption qualified against full storedRGB,
+reviewerfullview andseparateXML (no missingPNGcontent established). Fivehashesreply-native-green/android17.
 
 Next protocol tracer is exact signedpublickey textmention versus equallysigned
 ordinaryaddressedpost. Reference8259bytes/currentSHAc52b0b84... threecopiesidentical.
 One new core testreproducesmissingmentions:2tests/1PASS/1failure/build53s. Minimum
 originalsignedtext exacttoken parser added; coreGREEN68/0/0/0/build1m3s. NativeUIadoption+one newmentionjourney added
 (samepostresponse/no extra request, signedIDdedup, actualPost/Profile/exclusion).
-Localcore/debug/test build PASSES3m16s; 3-journeyhostedproof andnextboundedreviews pending.
+Localcore/debug/test build PASSES3m16s; 3-journeyhosted38282727624 atd9c26bd PASSES3cases35.148s/1record/0deaths/core68,
+allroutes/identity/no-write/opaquecleanup/Skip complete. RootmentionPNGfull,
+other toolviews partial; read-onlystdlibPNGdecode provesheader/actor rowsbyte-equal
+tofullmention, no missingstoredcontent. Sevenhashesmention-native-green/android17.
+TextsliceSpec0; Standards1captionfinding nowcorrected(rootrenderingvsstoredPNG).
+
+Nextsignedmentionlist protocol tracer RED3cases/1failure/build44s then fullcore
+GREEN69/0/0/0/build57s. SameAPI/Androidstate, current9290-byteSHAc97515e7... three
+referencecopiesidentical. Native3journeyproof predatesarraybodychange; sourcepush/
+finalfullneeded. Nextprotocoltracer verifiedusername mentions. Boundedcaption/list/
+evidence reviews pending.
 
 Other activity, available-history coverage, personal controls/read-state/cache,
 failure/recovery/backend/wallet isolation, permission deny/allow and final full

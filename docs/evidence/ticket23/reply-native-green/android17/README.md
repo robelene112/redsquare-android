@@ -12,9 +12,11 @@ No firstfeedprompt/contextualSkip/readwithoutOSgrant gates complete in bothcases
 
 Root viewed both originalPNG/separateXML. Reply card is first(newer signedtime),
 like second, with both full wrapped actor keys and clear captions/dividers; no
-keyboard or permission modal. The like-only PNG renders status/time and the like caption as a partial visual;
-its separate XML contains the full header and actor. No cause is established for
-that bitmap/XML discrepancy. Full like-card presentation is supported by the
-combined reply PNG, not the partial like-only bitmap. Conversation/Profile/Skip/cleanup are runtimeassertions, not
+keyboard or permission modal. Root's repeated tool views of the unchanged like-only original showed a partial
+status/time/caption display. Independent reviewers also obtained a complete view;
+decoding the stored RGB PNG confirms the full header/actor pixels. Both originals
+have identical header/actor pixel counts. This is an inconsistent viewing result,
+not evidence that content is missing from the retained PNG. Separate XML also
+contains the complete header and actor. No rendering cause was established. Conversation/Profile/Skip/cleanup are runtimeassertions, not
 separate screenshots. Five indexedhashes. No processdeath/permissionallow-deny/
 pushdelivery/physicalPixel/fullSDKpair/newAPK/whole-ticketacceptance claim.

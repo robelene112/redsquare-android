@@ -132,10 +132,12 @@ All actualowner-index/clientidentity/no payments+reports/fullopaqueWallet/backen
 permissionoffered restoration andcontextualSkip/no firstfeedpopup gates pass.
 
 Root viewed replyoriginalPNG/separateXML: selectedOwner/clearreplyfirst+likesecond/
-fullwrappedkeys/captions/dividers. Like-only originalPNG consistentlyrenders only
-status/time andLikedcaption as apartialvisual; separateXML hasfullheader+actor.
-No bitmap/XML discrepancy cause established. Complete like presentation is supported
-bycombined reply PNG, not partiallike bitmap. Five indexed files retained under
+fullwrappedkeys/captions/dividers. Root's repeated tool views of unchanged like-only originalPNG showed partial
+status/time/Likedcaption rendering. Independent reviewers obtained a complete view
+and decoded RGB header/actor pixels; identical header/actor pixel counts in both
+originals confirm stored content. The separate XML hasfullheader+actor. The tool
+viewing result was inconsistent; no missing-content or exact rendering cause was
+established for the retained image. Five indexed files retained under
 reply-native-green/android17. Other destinations/Skip/cleanup runtime-only, no
 processdeath/permissionallow-deny/push/fullSDKpair/Pixel/newAPK/whole-ticketclaim.
 
@@ -152,3 +154,34 @@ mention+ordinaryaddressed responses, opens actualmentioned Conversation then
 verifiedActorProfile; shared3-mode fixture preserves all originalchecks/cleanup.
 Localcore/debug/test build PASSES3m16s (core68up-to-date); hosted3-journey proof andboth-axisreviewpending. Explicitdata/
 verifiedusername mentions stilllater within#24.
+
+Mention-slice review54c638a...d9c26bd: Spec0actionable; Standards0sourcehard/
+0heuristics,1evidencecaption correction. Same stored likePNG sometimes appearsfull
+and sometimespartial in toolviews. Reviewer decoded RGB and confirmed fullheader/
+actor pixels; report/README nowdescribe root's partial toolrendering without
+attributing missing content to the artifact. No PNG bytes orruntime claimschanged.
+
+Native3-journey38282727624 atd9c26bd PASSES3cases35.148s/1completedOKrecord/
+0deaths/no assumptions/compiler/core68/debug/test. TextmentionactualConversation/
+originaltext/verifiedActorProfile, exact1mention/0reply forordinaryaddressing,
+like/reply regressions andactualowner-index/currentauthidentity/zero payments+
+reports/fullopaqueWallet/backend/permissionoffered restoration andSkip/no feed
+prompt complete. Seven indexedfiles mention-native-green/android17. Rootfully
+viewed mentionPNG/separatelyparsedall3XML; like/reply toolviews partialstatus/
+captions. Read-only stdlibPNG unfilter compares header/firstactor RGBrows24:228
+byte-identical withfullyviewedmention. Storedheaders/actorpixels arepresent; no
+artifact mutation orrenderingcause claim. OptionalPillow reader wasunavailable;
+this was onlydiagnosticsetup, notapplication/PNG failure. No fullpair/push/Pixel.
+
+Next signed mention-array tracer rechecks primary A/Bconstructors normalize
+payload.mentions toarray before signing (A1126–1129/B922–925). Independentlisted
+create-tweet text has no publickeytoken. CoreRED3cases/2PASS/1failure0.606s/build44s
+expectsA signedmentionlist, gotempty; twohashesmention-list-red. Minimum parser
+requires exactowner string membership in <=100signedarray entries independently
+oftext; malformed/nonstring values never match. FullcoreGREEN69/0/0/0/build57s,
+twohashesmention-list-green. Current9290-byte referenceSHA c97515e7b98702131749721af26d6d4b561fab99cc72f731587be6f0100e79ab,
+threecopiesidentical. Public API/Androidstate unchanged; no duplicate localAndroid
+rebuild for this protocol-body change. Sourcepush/finalfull remainrequired.
+Native3-journey proof above predates array support anddoesnot provearrayUI flow.
+Nextprotocoltracer is verifiedusername mentions; otheractivity/cache/paging/etc
+remain withinactive#24. Boundedcaption/list/evidence reviews pending.

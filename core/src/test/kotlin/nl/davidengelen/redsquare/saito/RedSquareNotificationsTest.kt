@@ -5,6 +5,16 @@ import org.junit.Assert.*
 import org.junit.Test
 
 class RedSquareNotificationsTest {
+    @Test fun `a signed mention list qualifies without a public key token in the text`() {
+        val fixture = JsonParser.parseReader(javaClass.getResourceAsStream("/native-notification-reference.json")!!.reader()).asJsonObject
+        val row = fixture.getAsJsonObject("listedMention")
+        val page = RedSquareFeed.readMentions("[$row]", "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR")
+        assertEquals(listOf("A signed mention list"), page.posts.map { it.text })
+        assertEquals("pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU", page.posts.single().author)
+        assertEquals(1700000000062L, page.posts.single().createdAt)
+        assertEquals(0, page.ignored)
+    }
+
     @Test fun `an exact public key text mention counts while ordinary addressing does not`() {
         val fixture = JsonParser.parseReader(javaClass.getResourceAsStream("/native-notification-reference.json")!!.reader()).asJsonObject
         val owner = "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR"

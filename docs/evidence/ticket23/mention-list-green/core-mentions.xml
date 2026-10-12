@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.saito.RedSquareNotificationsTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-10-12T17:19:42" hostname="c979692482c8" time="0.494">
+  <properties/>
+  <testcase name="an exact public key text mention counts while ordinary addressing does not" classname="nl.davidengelen.redsquare.saito.RedSquareNotificationsTest" time="0.453"/>
+  <testcase name="a signed mention list qualifies without a public key token in the text" classname="nl.davidengelen.redsquare.saito.RedSquareNotificationsTest" time="0.016"/>
+  <testcase name="a signed commentary quote with a parent field is not classified as a reply" classname="nl.davidengelen.redsquare.saito.RedSquareNotificationsTest" time="0.024"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

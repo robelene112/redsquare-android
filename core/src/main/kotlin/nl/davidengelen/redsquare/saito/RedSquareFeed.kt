@@ -67,8 +67,13 @@ object RedSquareFeed {
         return page.copy(posts = page.posts.filter { post ->
             if (post.author == owner) false else {
                 val signed = SaitoEnvelope.decode(post.envelope)
+                val data = signed.body.getAsJsonObject("data")
+                val listed = data.get("mentions")?.takeIf { it.isJsonArray }?.asJsonArray
+                val explicit = listed != null && listed.size() <= 100 && listed.any {
+                    it.isJsonPrimitive && it.asJsonPrimitive.isString && it.asString == owner
+                }
                 signed.body.string("request") == "create tweet" &&
-                    mention.containsMatchIn(signed.body.getAsJsonObject("data").optionalString("text"))
+                    (explicit || mention.containsMatchIn(data.optionalString("text")))
             }
         })
     }

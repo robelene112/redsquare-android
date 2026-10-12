@@ -24,8 +24,13 @@ The parented-quote snapshot was6267bytes/SHA476cfd8c86bd3cf1198c1c57dc495d68d5a1
 The next tracer adds an exact text mention with punctuation and an equally signed
 addressed ordinary post without a mention. Both have actual owner recipients;
 addressing alone does not distinguish eligibility.
-Current whole JSON SHA256:c52b0b8439aad566731d4d4b6c27c655b513be7d50855d5763beb132097c915f;
-8259bytes. Documentation andnativeasset copies are identical.
+The text-mention snapshot was8259bytes/SHA c52b0b8439aad566731d4d4b6c27c655b513be7d50855d5763beb132097c915f.
+The next tracer adds an independent signed create-tweet `mentions:[owner]` with no
+public-key token in its text. Both pinned constructors preserve signed mention
+arrays; the native parser bounds recognized arrays to100items and requires exact
+string identity membership. Ordinary addressing remains insufficient.
+Current whole JSON SHA256:c97515e7b98702131749721af26d6d4b561fab99cc72f731587be6f0100e79ab;
+9290bytes. Documentation andnativeasset copies are identical.
 
 Reproduction uses the existing build image, networknone/read-only container and
 rootfilesystem mount, root inside the container for chroot, empty environment,
