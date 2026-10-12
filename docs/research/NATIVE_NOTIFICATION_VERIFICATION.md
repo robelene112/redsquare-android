@@ -981,3 +981,12 @@ request observation before Conversation. Root adds a dedicated external request
 counter/positive pre-click assertion; conversationfield5response stays available.
 Original26RED17 run38321369124 stillfailsat earlierreplygateifRED, cannotprove
 corrected counter. Corrective fixture build pending. No production changes.
+
+Corrected25GREEN10 38321167424 at48bc74c passes25/73.141s/1OK/0deaths/
+assumptions/core73/debug/test. Shared signedID stays unread onOfficial afterOwner
+mark; exact2unread/actualSettings/actorhistoryseparation/returnedsavedNotifications/
+positiveOwnerrows+readmarkersafterfailedRefresh/all24old/finalopaque/no-write pass.
+62hashes/all30XML/rootoriginalOfficial+failedOwnerPNGs inspected. Bothfinal
+correctionaxes0/localfixture1m31PASS. Actualcorrected24warming waits nowpass.
+Next parent-index replies/counter; processdeath/permission/wallet/storage/finalSDK
+acceptance remain pending.

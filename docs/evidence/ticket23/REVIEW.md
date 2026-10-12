@@ -421,3 +421,25 @@ One proof gap: verify field4 request before opening Conversation so its field5
 response cannot obscure discovery. Root adds a positive external Archive counter
 before the click; UI/count/navigation assertions unchanged. Tracer APK1m30PASS;
 original26RED17 run38321369124 pending, corrective fixture build pending.
+
+Corrected25GREEN10 38321167424 at48bc74c passes25/73.141s/1OK/0deaths/
+assumptions/core73/debug/test. Shared signedID stays unread onOfficial afterOwner
+mark; exact2unread/actualSettings/actorhistoryseparation/returnedsavedNotifications/
+positiveOwnerrows+readmarkersafterfailedRefresh/all24old/finalopaque/no-write pass.
+62hashes/all30XML/rootoriginalOfficial+failedOwnerPNGs inspected. Bothfinal
+correctionaxes0/localfixture1m31PASS. Actualcorrected24warming waits nowpass.
+Next parent-index replies/counter; processdeath/permission/wallet/storage/finalSDK
+acceptance remain pending.
+
+## Parent-index observation correction
+
+### Standards
+
+`48a92fb...9689f69`: zero hard violations/actionable heuristics. External
+Archive observation precedes the actual conversation click; old assertions retained.
+
+### Spec
+
+Zero actionable findings. Positive field4 observation resolves the earlier
+proof gap; original26 run cannot verify newly added counter. Corrective compile
+and native GREEN remain pending. No production change/whole-ticket claim.

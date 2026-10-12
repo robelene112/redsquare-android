@@ -26,20 +26,24 @@ failure. Verified activity survives pruned pages/Activity recreation. History an
 read markers are wallet/backend scoped; unread counts use visible verified rows,
 Mark all as read commits before confirming, and storage faults preserve activity.
 
-Latest native checkpoint: Android10 run38319542679 at1137021 passes23 cases
-in65.922s/oneOK/zero deaths/assumptions/core73/debug/test. Firstten exhaustion
-retains continuation; actual eleventh post/2unread/Conversation/Actor pass, with
-all22 prior rows/cache/failure/marker/paging routes and final opaque restoration.
-52hashes/all25XML/root original remaining-contactPNG inspected. Both source axes
-pass and full local build2m37s passes. Canonical chronology preserves older
-RED/GREEN proofs, including genuine disabled-continuation RED38319039290.
+Latest native checkpoint: Android10 run38321167424 at48bc74c passes25 cases
+in73.141s/oneOK/zero deaths/assumptions/core73/debug/test. Actual backend switches,
+shared signed-event separate read markers, distinct server actors and positive
+retained Owner activity after failed Refresh pass. Corrected Mute/Block cache
+warming and all24 earlier notification/paging/contact/failure/cache/read routes
+pass with final opaque restoration/no writes.62hashes/all30XML/root original
+Official/failedOwnerPNG inspected. Both final correction axes0/localAPK1m31PASS.
+Canonical chronology retains initial25 helper failure38320586603: returning
+Owner correctly restored Notifications while helper wrongly waited feed root.
+No reproduced product defect. Source still1137021 apart from test/docs changes.
 
-Personal-control regression24 is now added: actual Mute/Block, hidden rows/count,
-failed refresh/recreation and explicit Unmute/Unblock restoring cached activity.
-Standards0/Spec1 warming timing concern corrected with completedRefresh waits;
-no reproduced defect claim. Originalfixture native38320137452 pending, correction
-review pending. Shared fixture now restores exact personal.owner family under
-its owning lock, without touching aliases. No process-death/fullSDK claim.
+Parent-index reply tracer26 at48a92fb independently signs unsafe2 reply with
+unsafe3 first nonactor recipient before Owner1; actual field3 indexes3 and
+field4 references known Owner root. Owner/general streams omit it. Genuine26RED17
+run38321369124 pending. Spec1 proof gap corrected9689f69: positive external field4
+request before Conversation; Standards/Spec correction0. Original tracerAPK1m30
+passes; corrective counter compile pending. Parent discovery not implemented yet.
+No actual process-death/finalSDK claim. Protected future Chat files untouched.
 
 Remaining #24 work is finite: supplement followed-account posts, bounded reply discovery/older-page overlap and retry,
 prove mute/block and backend/wallet isolation, actual permission choices and
