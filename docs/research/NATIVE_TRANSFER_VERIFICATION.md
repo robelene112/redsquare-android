@@ -140,3 +140,10 @@ setup/positive cleanup and the same external synthetic funding service.
 Local test APK assembly passes1m22s. Hosted execution is pending; this is new
 coverage of existing behavior, not a claimed missing-behavior TDD RED. No
 production source changes or acceptance assertions removed.
+
+Focused cancellation run38188796688 at9a8b043 passes3cases49.799s and core57/
+source/debug/test. Source push38188796707 independently passes release/lint.
+Both bounded source axes0findings. Root inspects2 original PNGs and separate
+XMLs; all5 hashes retained in ticket22/auth-cancel-green/android17. Real PIN
+cancellation/reopen shows same identity, all7.5 available, no Pending/no frame
+and positively cleared PIN. No process-death, retry, inclusion or final proof.
