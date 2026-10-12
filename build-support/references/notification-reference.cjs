@@ -26,6 +26,17 @@ const parentedQuote = {
   field1: 'RedSquareRetweet', field3: owner, field4: thread.root.sig,
   updated_at: 1700000000056, flagged: 0
 };
+const incomingMention = {
+  ...signedReference('2', {module: 'RedSquare', request: 'create tweet',
+    data: {text: `Hello @${owner}, mention reference`}}, 1700000000060, [owner]),
+  field1: 'RedSquare', field3: owner, field4: '', updated_at: 1700000000060, flagged: 0
+};
+const addressedPost = {
+  ...signedReference('2', {module: 'RedSquare', request: 'create tweet',
+    data: {text: 'An addressed post without a mention'}}, 1700000000061, [owner]),
+  field1: 'RedSquare', field3: owner, field4: '', updated_at: 1700000000061, flagged: 0
+};
 console.log(JSON.stringify({synthetic: true, reference, owner,
   actor: 'pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU',
-  root: thread.root, incomingLike, incomingReply, parentedQuote}, null, 2));
+  root: thread.root, incomingLike, incomingReply, parentedQuote, incomingMention,
+  addressedPost}, null, 2));

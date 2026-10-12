@@ -20,8 +20,12 @@ The reply-only snapshot was4597bytes/SHA25626d25c2d23cf46a020e9466f6cb09520a6cbe
 A subsequent independently signed `retweet` quote deliberately carries a valid
 parent reference. It is an adversarial request-classification fixture, not an
 observed deployed module output: a parent field does not change its signed kind.
-Current whole JSON SHA256:476cfd8c86bd3cf1198c1c57dc495d68d5a17ee5b30c50df97f1483de8fa113d;
-6267bytes. Documentation andnativeasset copies are identical.
+The parented-quote snapshot was6267bytes/SHA476cfd8c86bd3cf1198c1c57dc495d68d5a17ee5b30c50df97f1483de8fa113d.
+The next tracer adds an exact text mention with punctuation and an equally signed
+addressed ordinary post without a mention. Both have actual owner recipients;
+addressing alone does not distinguish eligibility.
+Current whole JSON SHA256:c52b0b8439aad566731d4d4b6c27c655b513be7d50855d5763beb132097c915f;
+8259bytes. Documentation andnativeasset copies are identical.
 
 Reproduction uses the existing build image, networknone/read-only container and
 rootfilesystem mount, root inside the container for chroot, empty environment,

@@ -59,6 +59,20 @@ object RedSquareFeed {
         })
     }
 
+    /** Explicit mentions in available signed posts, independent of output addressing. */
+    fun readMentions(response: String, owner: String): ArchiveFeedPage {
+        require(SaitoWallet.isPublicKey(owner))
+        val mention = Regex("(?<![\\p{L}\\p{N}_@])@${Regex.escape(owner)}(?![\\p{L}\\p{N}_@])")
+        val page = readSearch(response)
+        return page.copy(posts = page.posts.filter { post ->
+            if (post.author == owner) false else {
+                val signed = SaitoEnvelope.decode(post.envelope)
+                signed.body.string("request") == "create tweet" &&
+                    mention.containsMatchIn(signed.body.getAsJsonObject("data").optionalString("text"))
+            }
+        })
+    }
+
     fun readConversation(response: String, threadId: String): ArchiveFeedPage =
         readPosts(response) { it.threadId == threadId }
 

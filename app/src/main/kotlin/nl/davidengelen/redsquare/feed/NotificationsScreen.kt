@@ -30,6 +30,7 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, knownPo
     val personal = LocalPersonalControls.current
     var events by remember(wallet?.publicKey, endpoint) { mutableStateOf<List<ProfileLike>>(emptyList()) }
     var replies by remember(wallet?.publicKey, endpoint) { mutableStateOf<List<FeedPost>>(emptyList()) }
+    var mentions by remember(wallet?.publicKey, endpoint) { mutableStateOf<List<FeedPost>>(emptyList()) }
     var loading by remember { mutableStateOf(false) }
     var failed by remember { mutableStateOf(false) }
     var ignored by remember { mutableIntStateOf(0) }
@@ -39,7 +40,7 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, knownPo
         if (wallet == null) return@LaunchedEffect
         loading = true
         try {
-            val (likePage, replyPage) = withContext(Dispatchers.IO) {
+            val (likePage, replyPage, mentionPage) = withContext(Dispatchers.IO) {
                 SaitoPeer(wallet, endpoint).use { peer ->
                     suspend fun read(kind: String): String {
                         val criteria = JsonObject().apply {
@@ -50,12 +51,14 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, knownPo
                         val request = JsonObject().apply { addProperty("request", "archive"); add("data", criteria) }
                         return peer.request(request.toString().toByteArray(Charsets.UTF_8)).toString(Charsets.UTF_8)
                     }
-                    RedSquareLikes.readIncoming(read("RedSquareLike"), wallet.publicKey) to
-                        RedSquareFeed.readReplies(read("RedSquare"))
+                    val likes = RedSquareLikes.readIncoming(read("RedSquareLike"), wallet.publicKey)
+                    val posts = read("RedSquare")
+                    Triple(likes, RedSquareFeed.readReplies(posts), RedSquareFeed.readMentions(posts, wallet.publicKey))
                 }
             }
             events = likePage.likes
             replies = replyPage.posts.filter { it.author != wallet.publicKey && it.parentId.isNotEmpty() }
+            mentions = mentionPage.posts
             ignored = likePage.ignored + replyPage.ignored
             failed = false
         } catch (cancelled: CancellationException) { throw cancelled }
@@ -72,13 +75,15 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, knownPo
         if (loading) Text(stringResource(R.string.notifications_loading))
         if (failed) Text(stringResource(R.string.notifications_read_error))
         if (ignored > 0) Text(stringResource(R.string.notifications_unverified))
-        val rows = events.mapNotNull { event ->
+        val rows = (events.mapNotNull { event ->
             knownPosts.firstOrNull { it.id == event.target && it.author == wallet?.publicKey }?.let { target ->
                 NotificationRow(event.id, event.author, event.createdAt, target, R.string.notifications_like_own)
             }
         } + replies.filter { reply ->
             knownPosts.any { it.id == reply.parentId && it.author == wallet?.publicKey }
-        }.map { reply -> NotificationRow(reply.id, reply.author, reply.createdAt, reply, R.string.notifications_reply_own) }
+        }.map { reply -> NotificationRow(reply.id, reply.author, reply.createdAt, reply, R.string.notifications_reply_own) } +
+            mentions.map { mention -> NotificationRow(mention.id, mention.author, mention.createdAt, mention, R.string.notifications_mention) })
+            .distinctBy { it.id }
         LazyColumn(Modifier.weight(1f)) {
             items(rows.filter { personal?.hidesPosts(it.author) == false }.sortedByDescending { it.createdAt }, key = { it.id }) { event ->
                 Column(Modifier.fillMaxWidth().padding(vertical = 12.dp)) {

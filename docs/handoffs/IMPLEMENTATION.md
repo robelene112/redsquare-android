@@ -39,7 +39,18 @@ PNG/XML/3hashes retained. Corrected selector requires exactly2actor keys andtaps
 first/newerreply; no timeoutsrelaxed. Spec reviewcaughtsignedparentedquote misclassified
 asreply. IndependentcoreRED57s/1failure reproduced; corrected request-kind reader
 passes67coretests55s andnowusednative. Reference6267bytes/currentSHA476cfd8c... is
-identical docs/native/core. Corrected localcore/debug/test build PASSES2m41s; hostedrepeat andcorrectionreviewpending.
+identical docs/native/core. Corrected localcore/debug/test build PASSES2m41s; hostedrepeat38280740738 at54c638a PASSES2cases27.134s/core67/1record/0deaths,
+actualactorProfile/finalidentity/no-write/opaque wallet/backend/permission cleanup
+complete. Bothcorrectionreviews0residual; sourcepushrelease/lintpasses. RootreplyPNG
+showsfullclearreply+likecards; like-onlyPNGpartialstatus/caption qualified against
+separatefullXML. Fivehashesreply-native-green/android17.
+
+Next protocol tracer is exact signedpublickey textmention versus equallysigned
+ordinaryaddressedpost. Reference8259bytes/currentSHAc52b0b84... threecopiesidentical.
+One new core testreproducesmissingmentions:2tests/1PASS/1failure/build53s. Minimum
+originalsignedtext exacttoken parser added; coreGREEN68/0/0/0/build1m3s. NativeUIadoption+one newmentionjourney added
+(samepostresponse/no extra request, signedIDdedup, actualPost/Profile/exclusion).
+Localcore/debug/test build PASSES3m16s; 3-journeyhostedproof andnextboundedreviews pending.
 
 Other activity, available-history coverage, personal controls/read-state/cache,
 failure/recovery/backend/wallet isolation, permission deny/allow and final full

@@ -120,3 +120,35 @@ and taps displayedfirst(newerreply), preserves finalverifiedProfile/identity/no-
 cleanup assertions andtimebounds. Next owner-index response also supplies valid
 parentedQuote, verifying actualnative use of corrected signed-request classifier.
 Corrected local core/debug/test build PASSES2m41s (core67up-to-date); hosted repeat pending.
+
+Correction two-axis review3d6a3c4...54c638a clears both: Standards0hard/0heuristics,
+Spec0residual. Both independently verify7hashes/coreRED-GREEN, nativefailure
+stage/captions, reference6267-byte equivalence and corrected strictrequest/native
+adoption. Corrected hostednative38280740738 at54c638a PASSES2cases27.134s/
+1completedOKrecord/0deaths/no assumptions/compiler/core67/debug/test. Sourcepush
+38280731862PASSESrelease/lint. Signedreply+root Conversation and actual verified
+actorProfile nowcomplete; exact2sameactor rows prove parentedQuote exclusion.
+All actualowner-index/clientidentity/no payments+reports/fullopaqueWallet/backend/
+permissionoffered restoration andcontextualSkip/no firstfeedpopup gates pass.
+
+Root viewed replyoriginalPNG/separateXML: selectedOwner/clearreplyfirst+likesecond/
+fullwrappedkeys/captions/dividers. Like-only originalPNG consistentlyrenders only
+status/time andLikedcaption as apartialvisual; separateXML hasfullheader+actor.
+No bitmap/XML discrepancy cause established. Complete like presentation is supported
+bycombined reply PNG, not partiallike bitmap. Five indexed files retained under
+reply-native-green/android17. Other destinations/Skip/cleanup runtime-only, no
+processdeath/permissionallow-deny/push/fullSDKpair/Pixel/newAPK/whole-ticketclaim.
+
+Next protocol tracer adds exact signedpublickey textmention vs equallysigned
+ordinary addressedpost; current8259-byte independentreferenceSHA c52b0b8439aad566731d4d4b6c27c655b513be7d50855d5763beb132097c915f,
+three copies identical. New public readMentions begins empty for RED:2tests/1PASS/
+1failure0.539s/build53s, expectedHello @owner, mentionreference gotempty. Twohashes
+mention-text-red. Minimum exacttoken parser uses original verified create-tweet
+text, excludes self andquietlyignores ordinaryaddressing. LocalfullcoreGREEN PASSES68/0/0/0/build1m3s; twohashes mention-text-green.
+Native adoption shares the same incomingRedSquare response with replies, avoiding
+an extra network request; signed ID dedup prioritizes reply before mention when
+both qualify. One new native journey expects only1Mentioned row/0reply rows for
+mention+ordinaryaddressed responses, opens actualmentioned Conversation then
+verifiedActorProfile; shared3-mode fixture preserves all originalchecks/cleanup.
+Localcore/debug/test build PASSES3m16s (core68up-to-date); hosted3-journey proof andboth-axisreviewpending. Explicitdata/
+verifiedusername mentions stilllater within#24.

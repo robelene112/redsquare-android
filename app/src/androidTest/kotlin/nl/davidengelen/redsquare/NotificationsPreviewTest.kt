@@ -17,9 +17,10 @@ import java.util.concurrent.atomic.AtomicInteger
 
 class NotificationsPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
+    private enum class Mode { LIKE, REPLY, MENTION }
 
     @Test fun anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile() {
-        withNotifications("incoming-like", includeReply = false) { actor ->
+        withNotifications("incoming-like", mode = Mode.LIKE) { actor ->
             waitFor("Liked your post")
             ui.onNodeWithText(actor).assertIsDisplayed()
             ui.onNodeWithText("Liked your post").performClick()
@@ -34,7 +35,7 @@ class NotificationsPreviewTest {
     }
 
     @Test fun anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile() {
-        withNotifications("incoming-reply", includeReply = true) { actor ->
+        withNotifications("incoming-reply", mode = Mode.REPLY) { actor ->
             waitFor("Replied to your post")
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
                 "notification-evidence/incoming-reply.png"), "Replied to your post")
@@ -53,7 +54,26 @@ class NotificationsPreviewTest {
         }
     }
 
-    private fun withNotifications(evidenceName: String, includeReply: Boolean, journey: (String) -> Unit) {
+    @Test fun anIncomingSignedMentionOpensItsPostAndVerifiedActorProfile() {
+        withNotifications("incoming-mention", mode = Mode.MENTION) { actor ->
+            waitFor("Mentioned you")
+            ui.onAllNodesWithText("Mentioned you").assertCountEquals(1)
+            ui.onAllNodesWithText("Replied to your post").assertCountEquals(0)
+            captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
+                "notification-evidence/incoming-mention.png"), "Mentioned you")
+            ui.onNodeWithText("Mentioned you").assertIsDisplayed().performClick()
+            waitFor("Conversation")
+            waitFor("Hello @jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR, mention reference")
+            ui.onNodeWithText("Hello @jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR, mention reference").assertIsDisplayed()
+            ui.onNodeWithText("Back").performClick()
+            waitFor("Mentioned you")
+            ui.onAllNodesWithText(actor).assertCountEquals(2)[0].assertIsDisplayed().performClick()
+            waitFor("Profile")
+            ui.onNodeWithText(actor).assertIsDisplayed()
+        }
+    }
+
+    private fun withNotifications(evidenceName: String, mode: Mode, journey: (String) -> Unit) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev")
@@ -85,10 +105,16 @@ class NotificationsPreviewTest {
                         require(criteria.get("flagged_ne").asInt == 1)
                         require(criteria.get("limit").asInt in 1..100)
                         replyReads.incrementAndGet()
-                        if (includeReply) "[${fixture.get("incomingReply")},${fixture.get("parentedQuote")}]" else "[]"
+                        when (mode) {
+                            Mode.REPLY -> "[${fixture.get("incomingReply")},${fixture.get("parentedQuote")}]"
+                            Mode.MENTION -> "[${fixture.get("incomingMention")},${fixture.get("addressedPost")}]"
+                            Mode.LIKE -> "[]"
+                        }
                     }
+                    criteria.get("field5")?.asString == fixture.getAsJsonObject("incomingMention").get("sig").asString ->
+                        "[${fixture.get("incomingMention")}]"
                     criteria.get("field5")?.asString == root.get("sig").asString ->
-                        if (includeReply) "[$root,${fixture.get("incomingReply")}]" else "[$root]"
+                        if (mode == Mode.REPLY) "[$root,${fixture.get("incomingReply")}]" else "[$root]"
                     criteria.get("field2")?.asString in listOf(null, owner) -> "[$root]"
                     else -> "[]"
                 }
@@ -116,14 +142,14 @@ class NotificationsPreviewTest {
                         ui.onNodeWithText("Notifications").assertIsDisplayed().performClick()
                         waitFor("Not now")
                         ui.onNodeWithText("Not now").assertIsDisplayed().performClick()
-                        if (!includeReply) {
+                        if (mode == Mode.LIKE) {
                             waitFor("Liked your post")
                             captureNativeScreen(File(context.cacheDir, "notification-evidence/incoming-like.png"), "Liked your post")
                         }
                         journey(actor)
                         peer.assertHealthy()
                         assertTrue("Incoming likes must be read for this wallet", likeReads.get() > 0)
-                        if (includeReply) assertTrue("Incoming replies must be read for this wallet", replyReads.get() > 0)
+                        if (mode != Mode.LIKE) assertTrue("Incoming posts must be read for this wallet", replyReads.get() > 0)
                         assertTrue(peer.clientKeys.isNotEmpty())
                         assertTrue(peer.clientKeys.all { it == owner })
                         assertTrue("Reading notifications must not publish a transaction", peer.transactions.isEmpty())
