@@ -782,3 +782,11 @@ exactone/noReply/Conversation/Actor andall18old/finalopaquewallet/backend/prefs/
 history/read/feedcache restore/no-write pass. Forty-twohashes feed-mention-native-
 green/android10/rootoriginal2unread/oneMention+Like/all20XML inspected. No
 reproducedmarker-race/processdeath/finalSDK/push/Pixelclaim. Nextfollowedactivity.
+
+Twentieth native CONTACTtracer verifiesvisitedprofiledoesnotnotify, actualFollow
+commit thenavailable independentlysignedactorpostdiscoveredonlythroughfield2
+history (generalfeed/ownerstreams omitit), Postedexactone/Conversation/Actor/
+Unfollow removescontactrow. ControlledhistoryreleasedonlyafterFollowconfirmation,
+positivediscoverycount checkedbeforecontentroute. Everycase precisefollowing.owner
+family snapshot/reset/restore underPublicStorelock preventspriorwalletfollowings
+fromchangingeligibility. No production/referencechange; genuineREDpending.

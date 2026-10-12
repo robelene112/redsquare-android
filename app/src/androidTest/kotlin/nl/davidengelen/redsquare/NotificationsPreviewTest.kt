@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger
 
 class NotificationsPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
-    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING, MISSING_REPOST, MISSING_QUOTE_LIKE, HISTORY, PRUNED, PARTIAL, REJECTED, NULL_HISTORY, READ, READ_SAVE_FAULT, MISSING_REPLY, MISSING_QUOTE, FEED_MENTION }
+    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING, MISSING_REPOST, MISSING_QUOTE_LIKE, HISTORY, PRUNED, PARTIAL, REJECTED, NULL_HISTORY, READ, READ_SAVE_FAULT, MISSING_REPLY, MISSING_QUOTE, FEED_MENTION, CONTACT }
 
     @Test fun anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile() {
         withNotifications("incoming-like", mode = Mode.LIKE) { actor, _, _ ->
@@ -360,6 +360,41 @@ class NotificationsPreviewTest {
         }
     }
 
+    @Test fun followingAnAccountDiscoversItsAvailablePostsButVisitingDoesNot() {
+        withNotifications("followed-post", Mode.CONTACT) { actor, _, responses ->
+            waitFor("Liked your post")
+            ui.onAllNodesWithText("Posted").assertCountEquals(0)
+            ui.onNodeWithText(actor).performClick()
+            waitFor("Follow")
+            ui.onNodeWithText("Back").performClick()
+            waitFor("Liked your post")
+            ui.onAllNodesWithText("Posted").assertCountEquals(0)
+            ui.onNodeWithText(actor).performClick()
+            waitFor("Follow")
+            ui.onNodeWithText("Follow").performClick()
+            waitFor("Unfollow")
+            responses.makeFollowedPostsAvailable()
+            ui.onNodeWithText("Back").performClick()
+            waitFor("Posted")
+            ui.onAllNodesWithText("Posted").assertCountEquals(1)
+            assertTrue("A followed account's history must be discovered", responses.followedReads.get() > 0)
+            captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
+                "notification-evidence/followed-post.png"), "Posted")
+            ui.onNodeWithText("Posted").assertIsDisplayed().performClick()
+            waitFor("A known post by another account")
+            ui.onNodeWithText("A known post by another account").assertIsDisplayed()
+            ui.onNodeWithText("Back").performClick()
+            waitFor("Posted")
+            ui.onAllNodesWithText(actor).assertCountEquals(2)[0].assertIsDisplayed().performClick()
+            waitFor("Unfollow")
+            ui.onNodeWithText("Unfollow").performClick()
+            waitFor("Follow")
+            ui.onNodeWithText("Back").performClick()
+            waitFor("Liked your post")
+            ui.onAllNodesWithText("Posted").assertCountEquals(0)
+        }
+    }
+
     private fun missingReferenceJourney(evidenceName: String, mode: Mode, caption: String, ownCaption: String, actorRows: Int, recoveryText: String = "Original recovered after retry") {
         withNotifications(evidenceName, mode) { actor, _, _ ->
             waitFor(caption)
@@ -413,6 +448,8 @@ class NotificationsPreviewTest {
             else nl.davidengelen.redsquare.saito.SaitoLocalState.lock
         val publicFiles = FixtureFiles(context.noBackupFilesDir, publicBase, publicLock)
         val historyFiles = FixtureFiles(context.noBackupFilesDir, "notifications.${SaitoBackend.OWNER.id}.$owner.v1",
+            nl.davidengelen.redsquare.feed.PublicStringStore.lock)
+        val followingFiles = FixtureFiles(context.noBackupFilesDir, "following.$owner.v1",
             nl.davidengelen.redsquare.feed.PublicStringStore.lock)
         val feedFiles = FixtureFiles(context.noBackupFilesDir, "feed.${SaitoBackend.OWNER.id}.v1",
             nl.davidengelen.redsquare.feed.PublicStringStore.lock)
@@ -510,7 +547,7 @@ class NotificationsPreviewTest {
                             Mode.MENTION -> "[${fixture.get("incomingMention")},${fixture.get("addressedPost")}]"
                             Mode.USERNAME -> "[${fixture.get("usernameMention")}]"
                             Mode.QUOTE -> "[${fixture.get("legacyQuote")}]"
-                            Mode.LIKE, Mode.REPOST, Mode.MISSING, Mode.MISSING_REPOST, Mode.MISSING_QUOTE_LIKE, Mode.HISTORY, Mode.PRUNED, Mode.NULL_HISTORY, Mode.READ, Mode.READ_SAVE_FAULT, Mode.MISSING_QUOTE, Mode.FEED_MENTION -> "[]"
+                            Mode.LIKE, Mode.REPOST, Mode.MISSING, Mode.MISSING_REPOST, Mode.MISSING_QUOTE_LIKE, Mode.HISTORY, Mode.PRUNED, Mode.NULL_HISTORY, Mode.READ, Mode.READ_SAVE_FAULT, Mode.MISSING_QUOTE, Mode.FEED_MENTION, Mode.CONTACT -> "[]"
                         }
                     }
                     criteria.get("field5")?.asString == fixture.getAsJsonObject("missingOriginalQuote").get("sig").asString ->
@@ -525,6 +562,13 @@ class NotificationsPreviewTest {
                         "[${fixture.get("incomingMention")}]"
                     criteria.get("field5")?.asString == root.get("sig").asString ->
                         if (mode == Mode.REPLY) "[$root,${fixture.get("incomingReply")}]" else "[$root]"
+                    mode == Mode.CONTACT && criteria.get("field2")?.asString == actor -> {
+                        require(criteria.get("flagged_ne").asInt == 1 && criteria.get("limit").asInt in 1..100)
+                        if (responses.followedAvailable.get()) {
+                            responses.followedReads.incrementAndGet()
+                            "[${fixture.get("knownOtherPost")}]"
+                        } else "[]"
+                    }
                     criteria.get("field2")?.asString in listOf(null, owner) ->
                         if (mode == Mode.FEED_MENTION && !criteria.has("field2"))
                             "[$root,${fixture.get("incomingMention")},${fixture.get("addressedPost")}]"
@@ -545,6 +589,7 @@ class NotificationsPreviewTest {
             historyFiles.reset()
             readFiles.reset()
             feedFiles.reset()
+            followingFiles.reset()
             if (mode == Mode.MISSING_REPLY) conversationFiles.reset()
             if (mode == Mode.USERNAME || missing) publicFiles.reset()
             if (prior.publicKey != owner) store.replace(prior, wallet)
@@ -620,6 +665,8 @@ class NotificationsPreviewTest {
             }, {
                 feedFiles.restore()
             }, {
+                followingFiles.restore()
+            }, {
                 conversationFiles.restore()
             })
         }
@@ -628,6 +675,9 @@ class NotificationsPreviewTest {
     private class FixtureControl(private val readFiles: FixtureFiles) {
         fun blockReadSaving() = readFiles.blockSaving()
         fun allowReadSaving() = readFiles.allowSaving()
+        val followedAvailable = java.util.concurrent.atomic.AtomicBoolean(false)
+        val followedReads = AtomicInteger()
+        fun makeFollowedPostsAvailable() { followedAvailable.set(true) }
         val changed = java.util.concurrent.atomic.AtomicBoolean(false)
         val ownerReads = AtomicInteger()
         fun change() { changed.set(true) }
