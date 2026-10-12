@@ -44,3 +44,21 @@ partial streams/paging, cache faults and wallet/backend/personal-control isolati
 other missing targets, real permission choices and final SDK pair remain work.
 Closed-app push and Pixel acceptance are separate tickets. No new APK or live
 transaction was published.
+
+## Subsequent retention and partial-stream checkpoints
+
+Source a3f65e7...692565c: both axes zero. First11GREEN38301388041 at692565c
+passes11/78.333s/1OK/0deaths/core72;24hashes/all11XML retained. Native malformed
+likes tracer692565c...397af25: both axes zero;12RED38302170360 fails only the
+missing healthy reply after read error,95.739s, with3hashes.
+
+Minimum397af25...5418d9a: one warning-aggregation finding per axis. Independent
+streams preserve healthy results, but final empty Retweet publication clears
+rejected-row warnings from earlier pages. First12GREEN38302936369 at5418d9a
+passes12/82.736s/1OK/0deaths/core72 with26hashes; actual healthy reply/Conversation/
+actor prove malformed-page containment, not rejected-row diagnostics.
+
+Warning tracer5418d9a...48a377c: zero additional findings. Invalid unsigned envelope
+plus duplicate independent valid likes/replies require warning, exactlyoneperkind,
+no whole-page error and normal navigation. Android10RED38303352847 is pending;
+the warning correction remains open. Final whole-ticket/fullSDK review is pending.

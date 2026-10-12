@@ -584,3 +584,12 @@ unsigned envelope plus duplicate independently signed likes/replies. Requires
 unverifiedwarning, exactlyoneofeachverifiedrow/nofailedpageerror/Conversation/actor,
 withunchangedfinalgates. No private state injection. Android10 focused RED will
 runseparately fromactive17scope; warningcorrectionnotyetimplemented.
+
+First12GREEN38302936369 at5418d9a passes12/82.736s/1OKrecord/0deaths/noassumptions/
+core72/debug/test. Actualexpliciterror withhealthyreplyexactlyonce/Conversation/
+verifiedActor/positiveowner-postreads andallprior11/finalidentity/no-write/fullopaque
+restoration pass. Twenty-sixhashes partial-native-green/android17; rootoriginal
+completeOwner/Notifications/error/actor/reply andall12XML parsed, otherPNGno
+rootvisualclaim. Reviewwarningfinding remainsopen: this proves malformedwholepage,
+not invalid-rowaggregation oractualtimeout. New13ModeREJECTED reviewsboth0additional;
+Android10RED38303352847 at48a377c running, sourcewarningcorrectionnotyetmade.
