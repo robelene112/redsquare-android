@@ -147,9 +147,15 @@ originalPNG/separate35XML and6publicPNG/separate4XML; duplicate/toolstrip/IME/
 clipboard/blackPIN qualifications in README. Publicowner11.583s/official9.112s,
 100ordinaryrows95posts0ignored/5quoterows1post0ignored both. Readonlyfreshunfunded
 HTTPS, notlivefunded/consensus/admission proof. NormalcaptureretainsXMLbeforePNG.
-Full10run38265052461 atsamefcd9771 withpublictrue ACTIVE; bounded fixture/evidence
+Full10run38265052461 atsamefcd9771 withpublictrue PASSES202reported/201PASS+
+existingAPI30profileassumption,51records/17interruptedstages/core66/release/lint/
+signed5->8/coldcontinuity/bothpublicwalletreads. Transfers9PASS87.886s actual
+25060->25226/cold5.976s/cleanup.08s;200hashes in final-full/android10. Root33native
+PNG/separate35XML plus6publicPNG/separate4XML withIME/bitmaplimitsqualified.
+Publicowner14.994s/official13.325s each100rows97posts0ignored/5quote1post0ignored.
+BothSDKs shareidenticalfcd9771source; finalbounded10evidence reviewpending; bounded fixture/evidence
 review throughdf30600 clear:Standards0hard/0actionableheuristics,Spec0;
-all242hashes/rawcounts verified. No finalpair/#23closure until full10accepted. Canonicalchronologyabove; #23 stillactive.
+all242hashes/rawcounts verified. Runtimepair passed; no #23closure until finalbounded10evidence reviewclears. Canonicalchronologyabove; #23 stillactive.
 
 ## Earlier completed ticket checkpoints
 
