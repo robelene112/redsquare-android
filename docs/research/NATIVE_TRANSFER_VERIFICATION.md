@@ -413,3 +413,9 @@ synthetic content compatibility, not consensus/finality or real-funded admission
 Both copy-fix review axes atdf2a012 clear; new-copy runtime38198454529 is pending.
 Empty snapshot zero alone remains non-proof of reservations; durable Unknown/
 reorg observations, receivingQR and full acceptance remain pending.
+
+FirstGREEN evidence review at242ee6c: Standards0; Spec1active handoff retains
+superseded pending claims. The active section is now consolidated to latest
+verified core/native state, genuinely pending new-copy runtime and unfinished
+durable Unknown/reorg/QR/final acceptance. Chronology preserves prior pending
+states as dated history; evidence/rawcounts are unchanged. Fix review pending.
