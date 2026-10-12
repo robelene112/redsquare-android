@@ -990,3 +990,15 @@ positiveOwnerrows+readmarkersafterfailedRefresh/all24old/finalopaque/no-write pa
 correctionaxes0/localfixture1m31PASS. Actualcorrected24warming waits nowpass.
 Next parent-index replies/counter; processdeath/permission/wallet/storage/finalSDK
 acceptance remain pending.
+
+Parent tracer genuineRED17 38321369124 at48a92fb:26announced/15PASS/one missing
+reply failure590/10unfinished/0OK/no terminalTime/no reporteddeaths/core73/debug/
+test. Rawstreamstarts current17 when120s outerguard ends (CIinstall23:21:34->
+stepend23:23:34).3hashes/rootoriginalOwner1unreadonlyLikePNG/XML inspected.
+LaterParentcounter/Conversation/Actor gatesunexecuted, notall25oldacceptance.
+Counter correction9689f69 bothaxes0/localAPK1m35PASS. Minimum field4 queries for
+up to10 independently verified known own-post signatures, source identity now
+includes target, alongside original3+first10followed/bothnamespaces. Initial
+batchmax33, continuationmax33; per-source metadata/pending/retry/history and
+selectedpeer retained. Outer native batchguard240s follows actualAPI37 truncation;
+individual15s assertions/12s RPC deadlines unchanged. Compile/first26GREEN pending.

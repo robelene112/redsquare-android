@@ -449,7 +449,8 @@ fi
 if [[ "${TEST_SCOPE:-full}" == full ]]; then verify_transfers; fi
 verify_notifications() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
-    timeout 120 adb shell am instrument -w -r \
+    # The expanded notification batch exceeded 120s on API37; individual assertions and RPC deadlines stay bounded.
+    timeout 240 adb shell am instrument -w -r \
         -e class nl.davidengelen.redsquare.NotificationsPreviewTest \
         nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
         > "$evidence/notifications-ui.txt" || true

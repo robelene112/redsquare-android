@@ -44,7 +44,8 @@ private fun referenceCaption(owner: String?, target: FeedPost?, recipients: List
 private data class NotificationPages(val likes: ArchiveLikePage, val replies: ArchiveFeedPage,
     val mentions: ArchiveFeedPage, val reposts: ArchiveActionPage, val quotes: List<FeedPost>, val contacts: List<FeedPost>)
 
-private data class NotificationStream(val kind: String, val author: String? = null)
+private const val MAX_NOTIFICATION_READS = 33
+private data class NotificationStream(val kind: String, val author: String? = null, val target: String? = null)
 private data class NotificationRead(val stream: NotificationStream, val before: Long, val pages: NotificationPages?)
 private data class NotificationCursor(val before: Long?, val warning: Boolean = false)
 
@@ -63,8 +64,9 @@ private fun nextCursor(read: NotificationRead): NotificationCursor {
         else NotificationCursor(oldest, warning = true)
 }
 
-private fun notificationStreams(followed: Set<String>): List<NotificationStream> =
+private fun notificationStreams(followed: Set<String>, ownPosts: List<FeedPost>): List<NotificationStream> =
     listOf(NotificationStream("RedSquareLike"), NotificationStream("RedSquare"), NotificationStream("RedSquareRetweet")) +
+        ownPosts.distinctBy { it.id }.take(10).map { NotificationStream("RedSquare", target = it.id) } +
         followed.sorted().flatMap { author ->
             listOf(NotificationStream("RedSquare", author), NotificationStream("RedSquareRetweet", author))
         }
@@ -125,14 +127,16 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
     var pagingWarning by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf(false) }
     var loadGeneration by remember(wallet?.publicKey, backend, endpoint) { mutableIntStateOf(0) }
     var refresh by remember { mutableIntStateOf(0) }
+    val ownPosts = knownPosts.filter { it.author == wallet?.publicKey }
     BackHandler(onBack = onBack)
     LaunchedEffect(wallet, backend, endpoint, knownPosts, followed, refresh) {
         if (wallet == null) return@LaunchedEffect
         val generation = ++loadGeneration
-        val streams = notificationStreams(followed)
+        val streams = notificationStreams(followed, ownPosts)
         val requested = pending.filterKeys { it in streams }.ifEmpty {
             val before = System.currentTimeMillis() + 1
-            streams.take(23).associateWith { before }.also { cursors = it }
+            (streams.filter { it.author == null } + streams.filter { it.author != null }.take(20))
+                .associateWith { before }.also { cursors = it }
         }
         pending = requested
         loading = true
@@ -183,7 +187,11 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
                     suspend fun read(stream: NotificationStream, before: Long): String {
                         val criteria = JsonObject().apply {
                             addProperty("request", "load"); addProperty("field1", stream.kind)
-                            if (stream.author == null) addProperty("field3", wallet.publicKey) else addProperty("field2", stream.author)
+                            when {
+                                stream.target != null -> addProperty("field4", stream.target)
+                                stream.author != null -> addProperty("field2", stream.author)
+                                else -> addProperty("field3", wallet.publicKey)
+                            }
                             addProperty("flagged_ne", 1)
                             addProperty("limit", 100); addProperty("created_earlier_than", before)
                         }
@@ -295,7 +303,7 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
             reposts.map { it.id } + quotes.map { it.id } + contacts.map { it.id }).distinct().size
         if (pagingWarning) Text(stringResource(R.string.notifications_paging_warning))
         if (retainedCount >= NotificationHistoryStore.MAX_EVENTS) Text(stringResource(R.string.notifications_history_limit))
-        val eligibleStreams = notificationStreams(followed)
+        val eligibleStreams = notificationStreams(followed, ownPosts)
         val undiscovered = eligibleStreams.filter { it !in cursors }.take(20)
         val older = if (retainedCount < NotificationHistoryStore.MAX_EVENTS)
             cursors.filter { (stream, before) -> stream in eligibleStreams && before != null }
@@ -305,7 +313,7 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
             if (!loading && !markingRead) {
                 val before = System.currentTimeMillis() + 1
                 // Discover another ten accounts before spending the remaining request budget on older pages.
-                pending = (undiscovered.associateWith { before } + older).entries.take(23)
+                pending = (undiscovered.associateWith { before } + older).entries.take(MAX_NOTIFICATION_READS)
                     .associate { it.key to it.value }
                 cursors = cursors + undiscovered.associateWith { before }
                 if (pending.isNotEmpty()) refresh++
