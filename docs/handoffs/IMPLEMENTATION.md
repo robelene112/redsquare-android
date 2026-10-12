@@ -33,7 +33,14 @@ frame and positively cleared PIN. Existing-policy coverage, no fabricated RED
 or production change. Both cancellation evidence review axes also0findings.
 The next tracer extends the authenticated send journey with Activity recreation,
 no automatic resend and exact reviewed/fresh-PIN retry. Retry is currently absent;
-local build and first hosted run are pending. Activity recreation is not process
+local test APK compile passes1m18s and both bounded test-source review axes0.
+Focused38189355347 atb117ddf stops atline67 Review visibility after Back
+(3cases/1failure59.925s), before initial auth/reopening/Retry. Cancellation and
+balance still pass; source release/lint38189355162passes. Root originalfailure
+PNG+separateXML shows Wallet/formclosed; preceding IME state unrecorded. This is
+a fixture interruption, NOT missing-Retry RED.3hashes in retry-fixture-failure.
+Correction conditions keyboard dismissal on positively observed real IME and
+retains all assertions; local test APK compile passes1m22s, hosted rerun pending. Activity recreation is not process
 death, nor complete retry/inclusion acceptance. Failure/retry/recovery/inclusion, receivingQR
 and final10/17 remain.
 Payments and their recovery, compatibility and final acceptance remain unfinished.

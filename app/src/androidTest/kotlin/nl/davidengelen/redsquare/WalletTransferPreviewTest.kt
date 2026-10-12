@@ -26,7 +26,10 @@ import java.util.concurrent.CopyOnWriteArrayList
 import nl.davidengelen.redsquare.saito.SaitoPayment
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.AndroidBackendStore
+import androidx.test.uiautomator.By
+import androidx.test.uiautomator.Until
 import androidx.test.uiautomator.UiDevice
+import java.util.regex.Pattern
 import java.math.BigInteger
 import java.nio.ByteBuffer
 import java.util.Base64
@@ -63,9 +66,7 @@ class WalletTransferPreviewTest {
                         ui.onNodeWithContentDescription("Amount in SAITO").performTextInput("6.25")
                         ui.onNodeWithContentDescription("Fee in SAITO").performTextReplacement("0.1")
                         ui.onNodeWithContentDescription("Public memo").performTextInput("Native transfer test")
-                        device.pressBack() // Dismiss the real IME before the fixed dialog action.
-                        ui.waitUntil(5_000) { ui.onNodeWithText("Review transfer").isDisplayed() }
-                        ui.onNodeWithText("Review transfer").performClick()
+                        reviewTransfer(device)
                         ui.waitUntil(20_000) { ui.onAllNodes(hasText("Confirm SAITO transfer"))
                             .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                         ui.onNodeWithText("Recipient: $recipient").assertIsDisplayed()
@@ -154,9 +155,7 @@ class WalletTransferPreviewTest {
                             .performTextInput("pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU")
                         ui.onNodeWithContentDescription("Amount in SAITO").performTextInput("6.25")
                         ui.onNodeWithContentDescription("Fee in SAITO").performTextReplacement("0.1")
-                        device.pressBack()
-                        ui.waitUntil(5_000) { ui.onNodeWithText("Review transfer").isDisplayed() }
-                        ui.onNodeWithText("Review transfer").performClick()
+                        reviewTransfer(device)
                         ui.waitUntil(20_000) { ui.onNodeWithText("Authenticate and send").isDisplayed() }
                         ui.onNodeWithText("Amount: 6.25 SAITO").assertIsDisplayed()
                         assertTrue(peer.transactions.isEmpty())
@@ -183,6 +182,17 @@ class WalletTransferPreviewTest {
                 }
             }
         }
+    }
+
+    private fun reviewTransfer(device: UiDevice) {
+        val keyboard = By.pkg(Pattern.compile("com\\.(?:google\\.)?android\\.inputmethod\\.latin"))
+        ui.waitUntil(5_000) { device.hasObject(keyboard) || ui.onNodeWithText("Review transfer").isDisplayed() }
+        if (device.hasObject(keyboard)) {
+            device.pressBack() // Only dismiss a positively observed system IME.
+            check(device.wait(Until.gone(keyboard), 5_000))
+        }
+        ui.waitUntil(5_000) { ui.onNodeWithText("Review transfer").isDisplayed() }
+        ui.onNodeWithText("Review transfer").performClick()
     }
 
     private fun withDevicePin(action: (UiDevice) -> Unit) {

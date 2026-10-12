@@ -162,3 +162,20 @@ frame. The first runtime run is pending; Retry is not implemented yet.
 Activity recreation is not process death. Final retry acceptance also requires
 inclusion/unknown-history reconciliation and backend/identity/storage failure
 cases; none is inferred from this first controlled fresh-unspent snapshot.
+
+Local retry-tracer test APK compilation passes1m18s. Both bounded test-source
+review axes report0 findings; focused38189355347 atb117ddf is pending.
+
+First retry-tracer run38189355347 atb117ddf passes core57/source/debug/test and
+retained cancellation/balance, but stops atline67 after unconditional Back while
+waiting for Review (3cases/1failure59.925s). Source push38189355162release/lint
+passes. Root original PNG/separateXML shows Wallet with no transfer form or
+keyboard in the later failure capture;3hashes retained in
+ticket22/retry-fixture-failure/android17. This is a fixture interruption, NOT the
+expected missing-Retry behavior RED. The immediately preceding window/IME state
+was not captured, so sole runtime cause is unproved. Correction observes actual
+IME or visible Review, presses Back only for a positively observed keyboard,
+then waits for it gone and the unchanged fixed Review action visible.
+
+The corrected fixture test APK compiles1m22s. No acceptance assertions or
+production behavior changed; hosted rerun remains pending.
