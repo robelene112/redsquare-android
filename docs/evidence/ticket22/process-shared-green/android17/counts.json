@@ -1,0 +1,25 @@
+{
+  "run": "38193034021",
+  "source": "1818ea7",
+  "completedCases": 5,
+  "completionRecords": 3,
+  "actualDeathStages": 1,
+  "records": [
+    {
+      "log": "credential-cleanup-verified.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "recovered.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "transfers-ui.txt",
+      "completedCases": 3
+    }
+  ],
+  "deathLogs": [
+    "interrupted.txt"
+  ],
+  "assumptions": []
+}

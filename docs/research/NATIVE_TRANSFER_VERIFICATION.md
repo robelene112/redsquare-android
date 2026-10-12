@@ -247,3 +247,34 @@ Baseline Spec0; Standards0hardbreaches/1DuplicatedCode improvement. Review-stage
 extraction shares only existing controlled funding/observed-IME helpers across
 the two journeys, retaining their independent assertions. Test APK compilation
 passes1m21s; runtime and bounded fix/evidence reviews remain pending.
+
+Next protocol tracer uses the already approved seam2: the public native full-
+block reader and exact saved-payment matcher against an independent synthetic
+WASM/Elliptic block. This checks complete content/header/signature/hash binding
+and permitted output-coordinate assignment. It does not establish consensus
+eligibility, UTXO admission, current selected-chain ancestry or finality.
+The isolated pure reference runner executes successfully0.38s:1010bytes,
+height2000002,time1700000010000,creatorpublishedunsafe3,parentab32,
+hashb33d2fc4aee4333b6cb1e395c0b852aa3b1aa268e21702b3819b34b2a3eab289,
+singlepaymentleaf5844cda6... . Pinned WASM deserialize/serialize assigns output
+height2000002/ordinal0 while preserving signed payment and original inputs;
+exact full representation is independently constructed and compared. Creator
+preimage209bytes is signed/verified with pure WASM and Elliptic. All-relevant
+lite equals full here; this does not resolve mixed-SPV proof gaps. No initialized
+Saito wallet/node/private state or live block fixture is used. The first native
+case is written against an explicit unimplemented reader; compiled behavior
+RED is observed49s at the unimplemented public reader, after successful
+compilation. Minimal bounded full reader/root/header/creator/exact payment
+matcher then passes the same case49s, and the full core suite passes58/0/0/0
+in18s.8hashes in ticket22/block-reference-first. No further cases were bulk
+written; odd/system/SPV/largeinteger/mutation/ancestry cases remain unproved.
+Bounded source/evidence review is pending.
+
+Helper extraction focused38193034021 at1818ea7 also PASSES: ordinary3cases
+70.424s,actualdeath4698→4814/cold1case9.897s,positivecleanup1case0.062s;
+5/3/1/core57/source/debug/test. Sourcepush38193034164release/lint passes.
+Both prior bounded source-fix/baseline-evidence axes0remainingfindings. Root
+4separateXML,2fullyviewedoriginalPNG and2toolstrips provenbyteidentical to the
+fullyviewedPending original; no cause inferred. Bothactual762Bframes separately
+pass pureWASM/Elliptic with identicalhash421370ca... .22hashes retained in
+ticket22/process-shared-green/android17. No inclusion or wholeacceptance.

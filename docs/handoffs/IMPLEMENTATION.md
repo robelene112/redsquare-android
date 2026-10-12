@@ -73,8 +73,21 @@ Python/shell syntax checks pass. Focused38192305814 atd0db1e3 passes ordinary
 pass. Root4originalPNG/separate4XML, bothactualframes independentlypass pure
 pinnedWASM/Elliptic;25hashes in ticket22/process-green/android17. Baseline Spec0,
 Standards0hardbreaches/1duplication improvement. Narrow shared funding/IME
-fixture extraction test APK compiles1m21s; runtime/fix/evidence reviews pending.
+fixture extraction test APK compiles1m21s, bothboundedfix/evidence axes0findings.
+Rerun38193034021 at1818ea7 passes ordinary3cases70.424s/death4698→4814/cold1
+case9.897s/positivecleanup1case0.062s:5/3/1/core57. Sourcepush38193034164release/
+lint passes.22hashes in process-shared-green/android17; root4XML,2fullPNGand2
+toolstrips byteidentical to fullyviewedPending original; bothactualframes
+independentlypass identical421370ca...hash. Current rerun evidence review pending.
 No missing-feature RED is assumed for behavior already implemented.
+
+Next seam2 tracer introduces SaitoFullBlock public full-reader/exact saved-payment
+matcher. PurepinnedWASM/Elliptic synthetic1010byteblock reference runs0.38s,
+fullserialization/outputassignment/hashb33d2fc4...verified. Native compiled
+unimplemented-reader RED49s →minimalGREEN49s →allcore58PASS18s.8hashes in
+block-reference-first; source/evidence reviews pending. This is content binding,
+NOT currentselectedchain membership/consensus/finality. Odd/system/SPV/resource/
+largeinteger/mutation and ancestry/reorg cases remain, then Android inclusion UI.
 
 Profile #18 is closed, final evidence commit ed5742f pushed. Eighteen of35 tickets
 are complete (#2–#15, #18, #20, #21 and #22). Parked #19, "Register an optional Saito username",
