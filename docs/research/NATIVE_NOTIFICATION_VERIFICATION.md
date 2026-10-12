@@ -362,3 +362,12 @@ syntheticpost. Othermissing eventkind fallback remainsfuture within#24. Current
 core/debug/test compilepending; no successful missing-originalruntime yet.
 Quoteevidence8f3007b boundedbothaxes0 including13hashes/raw6/44.806/1/0, independent
 reviewers sawfull storedquotePNG; roottoolview qualifier remains accurate.
+
+Minimum missing-like localcore/debug/test PASSES3m26s/containerexit0. The attached
+command client ended143 while the Gradlecontainer continued; root read-only
+reattached Dockerlogs+wait, retained finalsuccess log. Cause ofclienttermination
+not established; no duplicatebuild or application failure inferred. Bounded
+8f3007b...52e693b Standards0; Spec1recipientfallbackalsoadmitted knownnon-own target.
+Fallback now requires targetabsent, and knownown check requiresnon-nullwallet.
+Verified non-own targets cannotbypass ownership. First7GREEN38291912526 at52e693b
+running; this narroweredgefix needslaternative coverage. No wholeacceptance.

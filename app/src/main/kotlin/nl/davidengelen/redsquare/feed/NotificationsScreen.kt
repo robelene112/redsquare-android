@@ -106,8 +106,8 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, knownPo
         }.map { quote -> NotificationRow(quote.id, quote.author, quote.createdAt, quote, R.string.notifications_quote_own) }
         val likeRows = events.mapNotNull { event ->
             val target = knownPosts.firstOrNull { it.id == event.target }
-            val own = target?.author == wallet?.publicKey
-            if (own || wallet?.publicKey in event.recipients) NotificationRow(event.id, event.author,
+            val own = wallet != null && target?.author == wallet.publicKey
+            if (own || target == null && wallet?.publicKey in event.recipients) NotificationRow(event.id, event.author,
                 event.createdAt, target, if (own) R.string.notifications_like_own else R.string.notifications_like,
                 event.target) else null
         }
