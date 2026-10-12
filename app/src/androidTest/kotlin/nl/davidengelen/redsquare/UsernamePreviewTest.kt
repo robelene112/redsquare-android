@@ -1089,18 +1089,6 @@ class UsernamePreviewTest {
         }
     }
 
-    private fun cleanupAfterTest(primary: Throwable?, vararg operations: () -> Unit) {
-        var failure = primary
-        for (operation in operations) {
-            try { operation() }
-            catch (cleanup: Throwable) {
-                val earlier = failure
-                if (earlier == null) failure = cleanup else if (earlier !== cleanup) earlier.addSuppressed(cleanup)
-            }
-        }
-        if (primary == null) failure?.let { throw it }
-    }
-
     private fun zeroBalanceServer() = MockWebServer().apply {
         dispatcher = object : mockwebserver3.Dispatcher() {
             override fun dispatch(request: mockwebserver3.RecordedRequest) = MockResponse.Builder()

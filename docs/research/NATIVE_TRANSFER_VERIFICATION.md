@@ -764,3 +764,30 @@ Corrected harness provisions only literal unsafe1/2 complete default backups und
 providerUID; testpositivestat beforeSAF/hashguarded cleanup. Wallet restore and each
 owned file cleanup attempted independently, primary/suppressed errors preserved.
 No product/acceptance change. Corrected source/evidence review and native pending.
+
+Corrected isolation GREEN38213646885 atda64451 PASSES ordinary9/142.677s plus
+separate existing pendingdeath5255->5353/cold1/9.42s/cleanup1/.043s:11/3/1,
+no assumptions/core66/debug/test/release/lint. Both256-byte provider fixtures
+positively observed; exactknown hashes/independently attempted filecleanup/full
+prioropaque walletrestore complete. Both correction axes have0residual hard/Spec
+findings, one optional repeatedcleanup judgment. Root full6originalPNG/separate
+6XML: native0/Pending/3.25/originalserver/enabledowner-disabledawayRetry then
+incoming0/emptyform/nooldPending and restoredoriginalPending. Allfooter captures
+unobstructed; selectedbackend header is hidden bydialogs, established byruntime
+header/persistedselection gates. SAFimports proved bynativejourney, not separate
+importPNG. Twenty-one indexed hashes in backend-wallet-isolation-green/android17.
+One sharedHTTPorigin qualified; two logical/binarybackends. Noauth/send/livefunds.
+
+Post-GREEN review refactor moves the identical independent primary/suppressed
+cleanup loop from Transfer/Username/Search tests into one narrow shared native-test
+helper; allguards, ownedoperations and assertions remainlocal/unchanged. No new
+cleanup framework or product code. Next read-only integration extends the existing
+ONE opt-in OwnerLiveFeedTest after its authenticated livefeed/searchchecks: actual
+selectednativebalance0/full receivingaddress and funding0(no pending) through
+realHTTPS, no debugoverrides/review/auth/type4. Both backend runs use freshly
+cleared isolateddev wallets; no positivefunding/blockroute/inclusion/admission claim.
+Returntofeed/sameauthor/backend preserved. Harness collects balance/funding original
+PNG+XML and sanitized public-wallet metadata, failurepair optional; existing1test
+runnercount retained. Hosted compiler/core/release/lint and final same-source
+fullAndroid10/fullAndroid17 with public_feed_read=true will gate acceptance.
+Whole-ticket two-axis source/evidence review pending; no duplicate localAPKbuild.

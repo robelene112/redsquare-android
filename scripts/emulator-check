@@ -602,10 +602,15 @@ if [[ "${TEST_PUBLIC_FEED_READ:-0}" == 1 ]]; then
         mkdir -p "$evidence/live-$backend"
         adb exec-out run-as nl.davidengelen.redsquare.dev cat cache/live-feed-evidence/screen.png > "$evidence/live-$backend/screen.png" || true
         adb exec-out run-as nl.davidengelen.redsquare.dev cat cache/live-feed-evidence/feed.png > "$evidence/live-$backend/feed.png" || true
+        for wallet_capture in balance.png balance.xml funding.png funding.xml wallet-first-failure.png wallet-first-failure.xml; do
+            adb exec-out run-as nl.davidengelen.redsquare.dev cat "cache/live-feed-evidence/$wallet_capture" \
+                > "$evidence/live-$backend/$wallet_capture" || true
+        done
         adb logcat -d -v brief RedSquarePeer:W '*:S' > "$evidence/live-$backend/transport-status.txt"
         grep -q 'OK (1 test)' "$evidence/live-$backend-feed.txt"
         adb exec-out run-as nl.davidengelen.redsquare.dev cat cache/live-feed-evidence/result.txt > "$evidence/live-$backend/result.txt"
         adb exec-out run-as nl.davidengelen.redsquare.dev cat cache/live-feed-evidence/public-search.txt > "$evidence/live-$backend/public-search.txt"
+        adb exec-out run-as nl.davidengelen.redsquare.dev cat cache/live-feed-evidence/public-wallet.txt > "$evidence/live-$backend/public-wallet.txt"
     done
 fi
 if [[ "${TEST_SCOPE:-full}" == feed* ]]; then

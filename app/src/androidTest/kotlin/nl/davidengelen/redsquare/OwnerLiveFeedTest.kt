@@ -13,6 +13,17 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.captureToImage
+import androidx.compose.ui.test.assertCountEquals
+import androidx.compose.ui.test.assertTextEquals
+import androidx.compose.ui.test.hasAnyAncestor
+import androidx.compose.ui.test.hasAnyDescendant
+import androidx.compose.ui.test.hasContentDescription
+import androidx.compose.ui.test.isDialog
+import androidx.compose.ui.test.isDisplayed
+import androidx.compose.ui.test.onNode
+import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
@@ -85,6 +96,32 @@ class OwnerLiveFeedTest {
                             }
                         }
                     }
+                }
+                // Separate read-only HTTPS integration: no controlled endpoint override or monetary send.
+                withFailureCapture({ captureNativeScreen(File(directory, "wallet-first-failure.png")) }) {
+                    ui.onNodeWithText("Wallet").performClick()
+                    ui.onNodeWithContentDescription("Wallet address").assertTextEquals(wallet.publicKey)
+                    ui.onNodeWithText("Balance and receive").performScrollTo().performClick()
+                    ui.waitUntil(15_000) { ui.onNodeWithText("0 SAITO").isDisplayed() }
+                    ui.onNodeWithText("Balance from ${backend.domain}").assertIsDisplayed()
+                    ui.onNodeWithContentDescription("Receiving address").performScrollTo()
+                        .assertTextEquals(wallet.publicKey)
+                    captureNativeScreen(File(directory, "balance.png"), "Balance and receive")
+                    ui.onNode(hasText("Done") and hasAnyAncestor(isDialog() and
+                        hasAnyDescendant(hasContentDescription("Receiving address")))).performClick()
+                    ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
+                    // Zero available funding requires the real options/genesis parameter and own-key snapshot.
+                    ui.waitUntil(15_000) { ui.onNodeWithText("Available to send: 0 SAITO").isDisplayed() }
+                    ui.onAllNodes(hasText("Pending. Inclusion has not been verified.")).assertCountEquals(0)
+                    captureNativeScreen(File(directory, "funding.png"), "Available to send: 0 SAITO")
+                    ui.onNode(hasText("Done") and hasAnyAncestor(isDialog() and
+                        hasAnyDescendant(hasText("Available to send: 0 SAITO")))).performClick()
+                    ui.onNodeWithText("Done").performClick()
+                    ui.onNodeWithText("Server: ${backend.domain}").assertIsDisplayed()
+                    File(directory, "public-wallet.txt").writeText(
+                        "PASS backend=${backend.id} observedAt=${System.currentTimeMillis()} publicKey=${wallet.publicKey}\n" +
+                            "Fresh unfunded native wallet: selected-server balance0SAITO and available funding0SAITO.\n" +
+                            "Read-only HTTPS; no positive-funding, block-inclusion, consensus or transfer-admission claim.\n")
                 }
                 check(AndroidWalletStore(instrumentation.targetContext).loadExisting().publicKey == wallet.publicKey)
                 check(AndroidBackendStore(instrumentation.targetContext).load() == backend)

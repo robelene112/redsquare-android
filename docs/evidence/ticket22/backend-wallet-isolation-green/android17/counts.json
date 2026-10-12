@@ -1,0 +1,25 @@
+{
+  "run": "38213646885",
+  "source": "da64451",
+  "completedCases": 11,
+  "completionRecords": 3,
+  "actualDeathStages": 1,
+  "records": [
+    {
+      "log": "transfer-process/credential-cleanup-verified.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "transfer-process/recovered.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "transfers-ui.txt",
+      "completedCases": 9
+    }
+  ],
+  "deathLogs": [
+    "transfer-process/interrupted.txt"
+  ],
+  "assumptions": []
+}

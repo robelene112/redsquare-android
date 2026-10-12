@@ -818,19 +818,6 @@ class SearchPreviewTest {
         }
     }
 
-    private fun cleanupAfterTest(primary: Throwable?, vararg operations: () -> Unit) {
-        var failure = primary
-        for (operation in operations) {
-            try { operation() }
-            catch (cleanup: Throwable) {
-                val earlier = failure
-                if (earlier == null) failure = cleanup
-                else if (earlier !== cleanup) earlier.addSuppressed(cleanup)
-            }
-        }
-        if (primary == null) failure?.let { throw it }
-    }
-
     private fun clearPublicSearchHistory(context: android.content.Context, preserveAuthorProofs: Boolean = false) {
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
