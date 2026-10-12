@@ -37,7 +37,10 @@ feed/Archive gates (1reportedfailure/0completedrecords). OriginalPNG/XML retaine
 actor+thread routes/personalfilter/contextualskip+realAndroidpermission code now
 built locally: correctedcore/debug/test assembly PASS3m15s/core66; firstlocal
 compilefailedActivity-vs-LifecycleOwnerreceiver, correctedComponentActivitycast.
-Hosted firstnativeGREEN pending. Canonicalchronology:
+FirstnativeGREEN38274447518 atbf52872 PASSES1case20.839s/1record/0deaths/core66;
+rootoriginalincoming-likePNG/separateXML clearOwnercard/fullactor. ActualSkip/
+thread/profile/owner-index/no-write/fullopaqueWallet+backendcleanup pass.3hashes
+first-native-green/android17. Otheractivity/cache/recovery/paging/finalpair remain. Canonicalchronology:
 docs/research/NATIVE_NOTIFICATION_VERIFICATION.md. No #24 feature completion,
 new phoneAPK, physicalPixel or closed-app delivery yet.
 

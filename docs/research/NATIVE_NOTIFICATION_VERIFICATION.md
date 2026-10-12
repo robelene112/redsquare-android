@@ -48,3 +48,15 @@ signed own-post targets; otheractivity/cache/missingtarget support remainsfuture
 workwithin active#24. ContextualrealOSpermission+Notnow ismountedonlyonNotifications,
 choice persistence usesActivity lifecycle scope so ordinaryscreen navigation does
 notcancel the save. Nofirstfeedpopup/readgrant prerequisite orpushdelivery claim.
+
+
+Unchangedfirstlike sourcebf52872 GREEN38274447518 passes1nativecase20.839s/
+1record/0deaths/noassumptions/core66/compiler/debug/test. Actualowner-index/
+cryptosignedlike/knownownoriginal, contextualSkip/no firstfeedpopup, Conversation/
+verifiedactorProfile/zero payments+reports/currentclientidentity andfullprioropaque
+wallet+independentbackendrestoration pass. Rootincoming-likeoriginalPNG +separate
+XML: selectedOwner/Notificationscontrols/pseudonym/fullwrappedactor/Likedcaption,
+wholecard clear(noIME/clipboard/permissionmodal). Otherdestinations/Skip/cleanup
+are runtimeassertions, not separatebitmaps.3hashes first-native-green/android17.
+No completedticket/fullpair/cache/recovery/push/permissionallow-deny/Pixel/newAPK.
+Next tracer is signedreplytoownpost; firstslice code-review/refactoring pending.
