@@ -556,6 +556,10 @@ class NotificationsPreviewTest {
                     .putExtra("usernameFixtureRegistrar", mode == Mode.USERNAME)).use { scenario ->
                     withFailureCapture({ retainQuoteTargetReads(); captureNativeScreen(File(context.cacheDir,
                         "notification-evidence/$evidenceName-first-failure.png")) }) {
+                        if (mode == Mode.FEED_MENTION) {
+                            waitFor("An addressed post without a mention")
+                            ui.onNode(hasScrollAction()).performScrollToNode(hasText("Native Red Square reference post"))
+                        }
                         waitFor("Native Red Square reference post")
                         ui.waitUntil(20_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
                             .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }

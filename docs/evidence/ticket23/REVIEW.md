@@ -136,3 +136,17 @@ GREEN remain pending; no broader acceptance is claimed.
 First18GREEN10 38311318013 atc0624e0 passes18/54.526s/1OK/0deaths/core73.
 Forty retainedhashes, rootoriginalquotePNG/all19XML inspected. Localfullbuild
 2m51PASS/independentcontainerwait0. Missingquote acceptance resolved.
+
+## Available feed mention tracer
+
+### Standards
+
+`7cab34f...c1632c7`: one readiness concern. Newer feed posts may leave the
+third root uncomposed before Notifications setup. Establish visible readiness
+and explicitly scroll to the existing root gate. No runtime cause is claimed.
+
+### Spec
+
+Zero behavior findings; signed feed-only mention and actual destinations remain
+required. Prior40GREENhashes/counts/19XML/originalquotePNG verified by both axes.
+Run38311968126 canceled to correct setup before treating any failure as RED.

@@ -752,3 +752,9 @@ checks asindexcase via two-consumer journeyhelper; owneraddresswithoutmentionsti
 excluded. Everycase nowpreciselysnapshots/resets/restorespublicfeed.owner.v1 and
 companions undertheowningPublicStorelock, avoidingearlierfeedcachefalsepositives
 onceavailablefeedcontentisclassified. No productchange/referencechange; REDpending.
+
+Feedmention tracerreview Spec0/Standards1readinessconcern: two newer rootposts
+mayleaveoldrootuncomposedinLazyColumn. Run38311968126 canceled, notRED. Corrective
+fixturewaitsvisibleaddressedpost andexplicitlyscrollstoroot beforeunchanged
+readiness/Notifications gates. InitialfixtureAPKcompile2m11PASS; correctednative
+REDpending, no runtimecauseclaim.
