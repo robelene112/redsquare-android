@@ -46,7 +46,7 @@ Implemented and verified:
   density. No network/auth prerequisite. Publisher license is packaged with
   attribution; exact debug asset inspection passes. Core is maintenance-only.
 
-Latest focused runtime: Android17run38210905877 at5a87b1f PASSES ordinary7cases
+Earlier funding-loss runtime: Android17run38210905877 at5a87b1f PASSES ordinary7cases
 113.703s plus separate existing pending death5013->5141/cold1PASS9.994s and credential
 cleanup1PASS.052s. Counts9completed/3records/1interrupted stage/no assumptions;
 core66/debug/test/release/lint pass. Twelve indexed hashes in funding-lost-ui-green/
@@ -396,7 +396,8 @@ restored-receipt RED, timeout/save/failure/isolation chronology and all qualifie
 native/independent proof live in NATIVE_REPORT_VERIFICATION.md andticket21/REVIEW.md.
 Do not reconstruct or repeat accepted checks from this handoff's old chronology.
 
-Next ready: #23 balances/receiving/authenticated SAITO transfers, not yet claimed. Read-only preparation .scratch/ticket23-readonly-plan.md records
+Historical next-ready note after #22 closure: #23 balances/receiving/authenticated
+SAITO transfers. It is now claimed and active as described under Current work. Read-only preparation .scratch/ticket23-readonly-plan.md records
 public parameter observations/pure reference gaps; it is not implementation or
 acceptance. Protected future files remain untouched. No newphone APK/Pixel/live
 report/moderator outcome/permanent history/original scheduler reproduction claim.

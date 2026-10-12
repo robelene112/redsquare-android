@@ -791,3 +791,9 @@ PNG+XML and sanitized public-wallet metadata, failurepair optional; existing1tes
 runnercount retained. Hosted compiler/core/release/lint and final same-source
 fullAndroid10/fullAndroid17 with public_feed_read=true will gate acceptance.
 Whole-ticket two-axis source/evidence review pending; no duplicate localAPKbuild.
+
+Final whole-ticket source review identified a stale current-handoff label for the
+older funding-loss run: relabeled historical, actuallatest isolation11/3/1 retained.
+The older post-#22 next-ready note now points to Currentwork rather than falsely
+saying #23 unclaimed. Documentation only; af7ed3b production/test/harness inputs
+and currentfull10/full17 dispatches are unchanged. Final reviews still pending.
