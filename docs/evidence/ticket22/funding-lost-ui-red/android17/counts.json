@@ -1,0 +1,12 @@
+{
+  "run": "38210314527",
+  "source": "cfab5a68441c10b995a547ea790adf90a9d4288f",
+  "reportedCases": 7,
+  "passedCases": 6,
+  "failedCases": 1,
+  "completedCases": 0,
+  "completionRecords": 0,
+  "actualDeathStages": 0,
+  "ordinarySeconds": 102.77,
+  "failure": "WalletTransferPreviewTest.kt:290, funds/connection guidance absent after observed funding loss and real PIN"
+}

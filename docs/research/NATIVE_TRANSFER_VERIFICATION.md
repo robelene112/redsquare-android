@@ -688,3 +688,14 @@ Product unchanged after setup fix; test compile/native result pending.
 Funding loss tracer APK compiles1m22s, one retained hash in funding-lost-test-
 preparation. No product delta; native result and bounded tracer/evidence reviews
 pending. Prior setup GREEN evidence retained with exact indexed8/3/1 counts.
+
+Both bounded tracer/setupGREEN axes throughcfab5a6 clear. Native38210314527 at
+cfab5a6 reaches genuine failure-guidance RED atPreview290:7reported/6PASS/1failure
+102.77s after exactreview/realPIN/fresh phase options+empty snapshot/healthy peer/
+zero type4. Root original fullPNG/separateXML shows server-availability guidance
+although actual funding is gone. Four hashes in funding-lost-ui-red/android17.
+No restored-funding/reopening/no-reservation completion or later death stage.
+Minimum product change only updates transfer_send_failed funds/connection text;
+XML syntax parses locally. Hosted same-test GREEN includes complete compiler/core/
+release/lint checks; no duplicate local APK build is claimed for this string-only
+change. Funding/auth/store/send logic unchanged.

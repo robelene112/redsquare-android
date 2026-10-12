@@ -67,12 +67,14 @@ reopened normalIME overlays lowerform/footer. Separate pending death is not setu
 case death. Export/auth/funding/send unchanged. Narrow post-GREEN field-entry
 helper shares actual repeated UI actions, retaining each journey's assertions.
 
-Next one tracer: funding loss after exact valid review and real system PIN. Actual
-fresh phase-specific options+empty snapshot must reject without type4/reservation/
-queue and explain funds/connection. Reopened sameauthor/restored7.5/noPending/zero
-frames afterward. Safety should already reject; current copy incorrectly blames
-server availability. Product unchanged; tracer APK compiles1m22s; native RED pending. Dated
-05:47UTC host options/balance reads pass on both approved origins, separately
+Current funding-loss cycle: native38210314527 atcfab5a6 reaches genuine recovery-
+copy RED:7reported/6PASS/1failure102.77s atPreview290, after exactreview/realPIN/
+fresh phase options+empty snapshot/zero type4. Root fulloriginalPNG/separateXML
+shows incorrect server-availability guidance. Minimum change only updates generic
+transfer failure copy to check funds/connection; XML parses locally. Hosted
+unchanged-test GREEN will include compiler/core/release/lint and reopened
+sameauthor/restored7.5/noPending/zero frames. No duplicate local APK build.
+Dated05:47UTC host options/balance reads pass on both approved origins, separately
 qualified in current-public-endpoint-read; no native publicUI/admission proof.
 
 Then address meaningful remaining storage/backend/identity failure gaps,

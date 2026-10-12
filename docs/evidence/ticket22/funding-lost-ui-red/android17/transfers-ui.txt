@@ -1,0 +1,147 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.WalletTransferPreviewTest:
+INSTRUMENTATION_STATUS: test=pendingPaymentReopensWithoutSendingAndExactRetryRequiresFreshReviewedDeviceAuthentication
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=pendingPaymentReopensWithoutSendingAndExactRetryRequiresFreshReviewedDeviceAuthentication
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=receivingQrContainsTheFullActiveAddressWithoutBalanceConnectivityAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=receivingQrContainsTheFullActiveAddressWithoutBalanceConnectivityAfterReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=sendingWithoutAScreenLockExplainsTransferSetupAndDoesNotQueue
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=sendingWithoutAScreenLockExplainsTransferSetupAndDoesNotQueue
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=fundingLostAfterReviewAndRealAuthenticationCannotSendReserveOrQueue
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Transfer was not submitted. Check your available funds and connection, then review again.' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.fundingLostAfterReviewAndRealAuthenticationCannotSendReserveOrQueue$lambda$46$lambda$45$lambda$44$lambda$43$lambda$42(WalletTransferPreviewTest.kt:290)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$Q1ukxgBWJxcfffUxnf2TbMXQ8qk(WalletTransferPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda30.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.fundingLostAfterReviewAndRealAuthenticationCannotSendReserveOrQueue$lambda$46(WalletTransferPreviewTest.kt:267)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$Axqu-7kG0zL1xaWoiOwLFBmub8g(WalletTransferPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda26.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.withDevicePin(WalletTransferPreviewTest.kt:319)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.fundingLostAfterReviewAndRealAuthenticationCannotSendReserveOrQueue(WalletTransferPreviewTest.kt:235)
+
+INSTRUMENTATION_STATUS: stream=
+Error in fundingLostAfterReviewAndRealAuthenticationCannotSendReserveOrQueue(nl.davidengelen.redsquare.WalletTransferPreviewTest):
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Transfer was not submitted. Check your available funds and connection, then review again.' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.fundingLostAfterReviewAndRealAuthenticationCannotSendReserveOrQueue$lambda$46$lambda$45$lambda$44$lambda$43$lambda$42(WalletTransferPreviewTest.kt:290)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$Q1ukxgBWJxcfffUxnf2TbMXQ8qk(WalletTransferPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda30.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.fundingLostAfterReviewAndRealAuthenticationCannotSendReserveOrQueue$lambda$46(WalletTransferPreviewTest.kt:267)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$Axqu-7kG0zL1xaWoiOwLFBmub8g(WalletTransferPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda26.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.withDevicePin(WalletTransferPreviewTest.kt:319)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.fundingLostAfterReviewAndRealAuthenticationCannotSendReserveOrQueue(WalletTransferPreviewTest.kt:235)
+
+INSTRUMENTATION_STATUS: test=fundingLostAfterReviewAndRealAuthenticationCannotSendReserveOrQueue
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=selectedServerBalanceAndReceivingAddressCanBeViewedAndCopied
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=selectedServerBalanceAndReceivingAddressCanBeViewedAndCopied
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferStatusTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.WalletTransferStatusTest:
+INSTRUMENTATION_STATUS: test=exactInclusionUnknownHistoryAndVerifiedReorganizationNeverAutomaticallyResend
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferStatusTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=exactInclusionUnknownHistoryAndVerifiedReorganizationNeverAutomaticallyResend
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 102.77
+There was 1 failure:
+1) fundingLostAfterReviewAndRealAuthenticationCannotSendReserveOrQueue(nl.davidengelen.redsquare.WalletTransferPreviewTest)
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Transfer was not submitted. Check your available funds and connection, then review again.' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.fundingLostAfterReviewAndRealAuthenticationCannotSendReserveOrQueue$lambda$46$lambda$45$lambda$44$lambda$43$lambda$42(WalletTransferPreviewTest.kt:290)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$Q1ukxgBWJxcfffUxnf2TbMXQ8qk(WalletTransferPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda30.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.fundingLostAfterReviewAndRealAuthenticationCannotSendReserveOrQueue$lambda$46(WalletTransferPreviewTest.kt:267)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$Axqu-7kG0zL1xaWoiOwLFBmub8g(WalletTransferPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda26.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.withDevicePin(WalletTransferPreviewTest.kt:319)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.fundingLostAfterReviewAndRealAuthenticationCannotSendReserveOrQueue(WalletTransferPreviewTest.kt:235)
+
+FAILURES!!!
+Tests run: 7,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
