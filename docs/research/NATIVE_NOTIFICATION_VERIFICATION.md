@@ -74,3 +74,24 @@ signed root and reply, then the verified actor profile. Existing like assertions
 remain. Shared setup has two actual consumers; each case preserves/restores only
 the dedicated permission offered key alongside full opaque wallet/backend state.
 No reply product changes yet; local core/debug/test build PASSES1m34s (core66up-to-date). Hosted reply RED pending.
+
+Reply tracer bounded review c835e3f...d9eccec clears both axes: Standards0hard/
+0actionableheuristics, Spec0actionable. Reference4597bytes/currentSHA verified,
+signed actor/output/parent/thread match, original like predicates preserved.
+
+Reply RED38278289475 atd9eccec: compiler/core66/debug/testPASS; native2reported/
+1PASS/1failure41.429s/0completedOKrecords/no deaths. Existing like flow completes.
+Reply case passes feed/Refresh/actualArchive/no firstfeedprompt/contextualSkip and
+then times out at line38 missing Replied to your post. Root originalPNG+separate
+XML shows selectedOwner/Notifications/fullactor/Likedcaption only, clearcard/no
+modal. Three indexed files retained under ticket23/reply-native-red/android17.
+Reply thread/profile/finalpositive read assertions were not reached. No fixture
+or timing cause inferred: production has no reply branch.
+
+Minimum reply implementation adds an owner-index RedSquare read using the existing
+signed feed decoder, rejects self/rootposts as replies, verifies cached parent
+ownership before saying yourpost, sorts both available activity kinds by signed
+time and opens the signed reply's Conversation/verifiedactorProfile. It reuses
+one real selected peer and a shared row presentation with two actual consumers.
+Other event kinds/partial failure/cache/paging/missing parent still pending.
+Local core/debug/test build PASSES3m8s (core66up-to-date); hosted reply GREEN pending.

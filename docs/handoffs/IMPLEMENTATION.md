@@ -29,7 +29,11 @@ is identical in docs/nativeassets; pure pinned generator verifies signatures
 and roundtrip offline. Native test expects reply/conversation/root/actor routes;
 shared setup now has two actual consumers and restores the dedicated permission
 offered key independently alongside wallet/backend. Local core/debug/test build PASSES1m34s; hosted
-reply RED pending; reply product implementation remains unchanged.
+reply RED38278289475 confirms missingreplycaption, while existinglikejourney
+passes (2reported/1PASS/1failure41.429s/0completedOKrecords). Root originalPNG+
+separateXML/3hashes retained. Both tracerreviews clear. Minimum owner-index
+verifiedreply/knownownparent/signed-time mergedrows/conversation routing added;
+localcore/debug/test build passes; hostedreplyGREEN pending.
 
 Other activity, available-history coverage, personal controls/read-state/cache,
 failure/recovery/backend/wallet isolation, permission deny/allow and final full

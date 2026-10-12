@@ -21,11 +21,15 @@ import nl.davidengelen.redsquare.moderation.PersonalControlsStatus
 import nl.davidengelen.redsquare.registry.registeredIdentity
 import nl.davidengelen.redsquare.saito.*
 
+private data class NotificationRow(val id: String, val author: String, val createdAt: Long,
+    val post: FeedPost, val caption: Int)
+
 @Composable
 internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, knownPosts: List<FeedPost>,
     modifier: Modifier, onBack: () -> Unit, onPost: (FeedPost) -> Unit, onIdentity: (String) -> Unit) {
     val personal = LocalPersonalControls.current
     var events by remember(wallet?.publicKey, endpoint) { mutableStateOf<List<ProfileLike>>(emptyList()) }
+    var replies by remember(wallet?.publicKey, endpoint) { mutableStateOf<List<FeedPost>>(emptyList()) }
     var loading by remember { mutableStateOf(false) }
     var failed by remember { mutableStateOf(false) }
     var ignored by remember { mutableIntStateOf(0) }
@@ -35,20 +39,24 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, knownPo
         if (wallet == null) return@LaunchedEffect
         loading = true
         try {
-            val page = withContext(Dispatchers.IO) {
-                val criteria = JsonObject().apply {
-                    addProperty("request", "load"); addProperty("field1", "RedSquareLike")
-                    addProperty("field3", wallet.publicKey); addProperty("flagged_ne", 1)
-                    addProperty("limit", 100); addProperty("created_earlier_than", System.currentTimeMillis() + 1)
-                }
-                val request = JsonObject().apply { addProperty("request", "archive"); add("data", criteria) }
+            val (likePage, replyPage) = withContext(Dispatchers.IO) {
                 SaitoPeer(wallet, endpoint).use { peer ->
-                    RedSquareLikes.readIncoming(peer.request(request.toString().toByteArray(Charsets.UTF_8))
-                        .toString(Charsets.UTF_8), wallet.publicKey)
+                    suspend fun read(kind: String): String {
+                        val criteria = JsonObject().apply {
+                            addProperty("request", "load"); addProperty("field1", kind)
+                            addProperty("field3", wallet.publicKey); addProperty("flagged_ne", 1)
+                            addProperty("limit", 100); addProperty("created_earlier_than", System.currentTimeMillis() + 1)
+                        }
+                        val request = JsonObject().apply { addProperty("request", "archive"); add("data", criteria) }
+                        return peer.request(request.toString().toByteArray(Charsets.UTF_8)).toString(Charsets.UTF_8)
+                    }
+                    RedSquareLikes.readIncoming(read("RedSquareLike"), wallet.publicKey) to
+                        RedSquareFeed.readSearch(read("RedSquare"))
                 }
             }
-            events = page.likes.sortedByDescending { it.createdAt }
-            ignored = page.ignored
+            events = likePage.likes
+            replies = replyPage.posts.filter { it.author != wallet.publicKey && it.parentId.isNotEmpty() }
+            ignored = likePage.ignored + replyPage.ignored
             failed = false
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { failed = true }
@@ -64,18 +72,21 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, knownPo
         if (loading) Text(stringResource(R.string.notifications_loading))
         if (failed) Text(stringResource(R.string.notifications_read_error))
         if (ignored > 0) Text(stringResource(R.string.notifications_unverified))
+        val rows = events.mapNotNull { event ->
+            knownPosts.firstOrNull { it.id == event.target && it.author == wallet?.publicKey }?.let { target ->
+                NotificationRow(event.id, event.author, event.createdAt, target, R.string.notifications_like_own)
+            }
+        } + replies.filter { reply ->
+            knownPosts.any { it.id == reply.parentId && it.author == wallet?.publicKey }
+        }.map { reply -> NotificationRow(reply.id, reply.author, reply.createdAt, reply, R.string.notifications_reply_own) }
         LazyColumn(Modifier.weight(1f)) {
-            items(events.filter { personal?.hidesPosts(it.author) == false }, key = { it.id }) { event ->
-                // These posts came from the signed-content reader; archive counters are not events.
-                val target = knownPosts.firstOrNull { it.id == event.target && it.author == wallet?.publicKey }
-                if (target != null) {
-                    Column(Modifier.fillMaxWidth().padding(vertical = 12.dp)) {
-                        Text(registeredIdentity(event.author).name, Modifier.clickable { onIdentity(event.author) })
-                        Text(event.author, Modifier.clickable { onIdentity(event.author) }, style = MaterialTheme.typography.labelSmall)
-                        Text(stringResource(R.string.notifications_like_own), Modifier.clickable { onPost(target) }
-                            .padding(vertical = 8.dp))
-                        HorizontalDivider()
-                    }
+            items(rows.filter { personal?.hidesPosts(it.author) == false }.sortedByDescending { it.createdAt }, key = { it.id }) { event ->
+                Column(Modifier.fillMaxWidth().padding(vertical = 12.dp)) {
+                    Text(registeredIdentity(event.author).name, Modifier.clickable { onIdentity(event.author) })
+                    Text(event.author, Modifier.clickable { onIdentity(event.author) }, style = MaterialTheme.typography.labelSmall)
+                    Text(stringResource(event.caption), Modifier.clickable { onPost(event.post) }
+                        .padding(vertical = 8.dp))
+                    HorizontalDivider()
                 }
             }
         }
