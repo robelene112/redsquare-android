@@ -547,7 +547,7 @@ class NotificationsPreviewTest {
                 "notification-evidence/backend-official.png"), "2 unread")
             ui.onNodeWithText("Mark all as read").performClick()
             waitFor("No unread activity")
-            switchNotificationBackend("saito.davidengelen.nl")
+            switchNotificationBackend("saito.davidengelen.nl", returningToNotifications = true)
             waitFor("No unread activity")
             waitFor(ownerActor)
             ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
@@ -568,15 +568,21 @@ class NotificationsPreviewTest {
         }
     }
 
-    private fun switchNotificationBackend(domain: String) {
+    private fun switchNotificationBackend(domain: String, returningToNotifications: Boolean = false) {
         ui.onNodeWithText("Settings").performClick()
         waitFor(domain)
         ui.onNodeWithText(domain).performClick()
         waitFor("Server: $domain")
-        waitFor("Native Red Square reference post")
-        ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
-            .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
-        ui.onNodeWithText("Notifications").assertIsDisplayed().performClick()
+        if (returningToNotifications) {
+            waitFor("No unread activity")
+            ui.onNodeWithText("Back").assertIsDisplayed()
+            ui.onNodeWithText("Notifications").assertIsDisplayed()
+        } else {
+            waitFor("Native Red Square reference post")
+            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
+                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.onNodeWithText("Notifications").assertIsDisplayed().performClick()
+        }
     }
 
     private fun missingReferenceJourney(evidenceName: String, mode: Mode, caption: String, ownCaption: String, actorRows: Int, recoveryText: String = "Original recovered after retry") {

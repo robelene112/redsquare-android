@@ -954,3 +954,12 @@ Shared-ID correctioncbcd679: Standards0, Spec1stale exactcapture sentinel
 ("1 unread" versus now2). Root corrects it before corrective CI; local prior
 shared-ID fixture build1m28PASS does not execute capture. Earlier warming
 correction local1m25PASS. No weakening of assertions; corrected runtime pending.
+
+Initial25native38320586603 atcc23326 reports25/24PASS/onefixturetimeout574/
+88.617s/0OK/deaths/assumptions/core73.5hashes/rootfailurePNG/bothXML inspected.
+Officialroute/mark succeeds; returningOwneractuallyrestoresNotifications/noUnread/
+retainedlike, whilehelperassumedfeedpost. Correctivehelperexplicitlyrequires
+restoredNotifications/Back/NoUnread onreturn; firstOfficialstillusesactualfeed
+andNotificationsentry. LaterOwnerfailed-refresh/shared-IDgatesunexecuted.
+Corrected24warming waits executeandpass inthisrun. No newproductiondefect.
+Capture-sentinelreview9ca5d03 bothaxes0. Corrective25build/run pending.
