@@ -11,6 +11,13 @@ const incomingLike = {
   field1: 'RedSquareLike', field3: owner, field4: thread.root.sig,
   updated_at: 1700000000050, flagged: 0
 };
+const incomingReply = {
+  ...signedReference('2', {module: 'RedSquare', request: 'create tweet',
+    data: {text: 'Reply notification reference', parent_id: thread.root.sig,
+      thread_id: thread.root.sig}}, 1700000000055, [owner]),
+  field1: 'RedSquare', field3: owner, field4: thread.root.sig,
+  field5: thread.root.sig, updated_at: 1700000000055, flagged: 0
+};
 console.log(JSON.stringify({synthetic: true, reference, owner,
   actor: 'pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU',
-  root: thread.root, incomingLike}, null, 2));
+  root: thread.root, incomingLike, incomingReply}, null, 2));

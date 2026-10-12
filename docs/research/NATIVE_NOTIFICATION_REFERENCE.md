@@ -12,8 +12,12 @@ NATIVE_THREAD_REFERENCE.json (unsafe1author) and a newly independently signed
 unsafe2 `like tweet` referring to that root, with actual unsafe1 outputrecipient.
 Archive field3 names unsafe1 and field4 names the original, matching both inspected
 module indexing contracts. Metadata alone never supplies signer/eligibility.
-Whole JSON SHA256:2b8a817154dae7ab0918baaed1f792a74e062b904d33a3b35d05d075502149c9;
-2980bytes. Documentation andnativeasset copies are identical.
+The next tracer adds an unsafe2 signed reply with the root as parent/thread and an
+actual unsafe1 output recipient. Both signatures and decoded thread identifiers
+come from the pinned independent generator. The original like-only snapshot was
+2980 bytes, SHA2562b8a817154dae7ab0918baaed1f792a74e062b904d33a3b35d05d075502149c9.
+Current whole JSON SHA256:26d25c2d23cf46a020e9466f6cb09520a6cbe8f265919c058c6fe5f3eedbc6e3;
+4597bytes. Documentation andnativeasset copies are identical.
 
 Reproduction uses the existing build image, networknone/read-only container and
 rootfilesystem mount, root inside the container for chroot, empty environment,
@@ -28,7 +32,10 @@ peer andisolated .dev emulator. It observes the feed before opening Notification
 skips contextualpermission, expects incominglike/verifiedactor, opens original
 Conversation andactorProfile, verifies actualowner-index reads/no emittedpayment/
 report, then restores full opaquepriorwallet andpriorbackend independently.
-First hosted RED is pending; no feature/runtime/closed-app/Pixel acceptance yet.
+The first like journey passed hosted Android17 run38274447518 after genuine RED
+38271177276; see NATIVE_NOTIFICATION_VERIFICATION.md. Reply runtime proof is pending.
+No whole-ticket/closed-app/Pixel acceptance yet. Each native case restores the
+prior contextual-permission offered key independently, preserving unrelated preferences.
 Primary source contracts remain NATIVE_NOTIFICATIONS_CONTRACT.md. Existing source
 A/B differences, missing originals, mentioncoverage and archive-retention limits
 must be preserved rather than claiming complete network history.

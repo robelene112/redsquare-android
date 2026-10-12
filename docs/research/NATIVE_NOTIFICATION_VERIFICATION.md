@@ -60,3 +60,17 @@ wholecard clear(noIME/clipboard/permissionmodal). Otherdestinations/Skip/cleanup
 are runtimeassertions, not separatebitmaps.3hashes first-native-green/android17.
 No completedticket/fullpair/cache/recovery/push/permissionallow-deny/Pixel/newAPK.
 Next tracer is signedreplytoownpost; firstslice code-review/refactoring pending.
+
+First-slice two-axis review of d1e65f5...c835e3f: Standards0hard/0actionableheuristics,
+Spec0actionable. Independent reviewers verified all6RED/GREENhashes, rawcounts,
+originalPNG/separateXML and signed-reference/nativeasset equivalence. This does
+not establish whole-ticket acceptance.
+
+Next tracer adds one independently signed unsafe2 reply to the verified unsafe1
+root, with an actual unsafe1 recipient. Current reference is4597bytes,
+SHA25626d25c2d23cf46a020e9466f6cb09520a6cbe8f265919c058c6fe5f3eedbc6e3.
+The native journey expects a reply caption, opens the conversation with both
+signed root and reply, then the verified actor profile. Existing like assertions
+remain. Shared setup has two actual consumers; each case preserves/restores only
+the dedicated permission offered key alongside full opaque wallet/backend state.
+No reply product changes yet; local core/debug/test build PASSES1m34s (core66up-to-date). Hosted reply RED pending.

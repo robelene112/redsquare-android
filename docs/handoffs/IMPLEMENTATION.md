@@ -15,34 +15,28 @@ native UI/controlled Archive, independently signed protocol vectors, recovery/
 isolation and current/older RedSquare compatibility. Closed-app pushes remain
 #32–#34; Pixel acceptance remains#35.
 
-First tracer: an independently signed incoming like addressed to the active
-wallet appears in Notifications and opens its original post and verified actor
-profile. Begin with one failing native test, then minimum implementation; extend
-into replies/mentions/reposts/quotes, available-history coverage, controls/read-state/
-cache/failure/backend/wallet isolation and contextual optional Android permission.
-The source contract is docs/research/NATIVE_NOTIFICATIONS_CONTRACT.md; read-only
-orientation is .scratch/ticket24-readonly-plan-20261012.md. Its protected contract
-will be committed only with this ticket. Other future chat files remain untouched.
-Initial signed addressed-like reference is generated offline andcopied identically
-into docs/nativeassets (2980bytes/SHA2b8a8171...). No appproduction implementation
-change yet. Firstnative NotificationsPreviewTest plusfocused notifications/
-notifications-android17 scopes andfullharness hook added. All50SDKscope mappings
-andbashsyntax checked. Localcore/debug/test build passed before the final two
-prompt assertions were added; hostedcompiler/latestnativeRED pending. Sourcebuild
-usesexisting Dockerlimits; no duplicate fullrun yet. Firstgenerator inherited
-nonroot imageuser/chroot denied; corrected --user0 readonly/networknone/env-i passed.
-FirstnativeRED38271177276 atdf9458f confirmsmissingNotifications menu afteractual
-feed/Archive gates (1reportedfailure/0completedrecords). OriginalPNG/XML retained
-3hashes ticket23/first-native-red/android17. Minimumincominglike/ownverifiedtarget/
-actor+thread routes/personalfilter/contextualskip+realAndroidpermission code now
-built locally: correctedcore/debug/test assembly PASS3m15s/core66; firstlocal
-compilefailedActivity-vs-LifecycleOwnerreceiver, correctedComponentActivitycast.
-FirstnativeGREEN38274447518 atbf52872 PASSES1case20.839s/1record/0deaths/core66;
-rootoriginalincoming-likePNG/separateXML clearOwnercard/fullactor. ActualSkip/
-thread/profile/owner-index/no-write/fullopaqueWallet+backendcleanup pass.3hashes
-first-native-green/android17. Otheractivity/cache/recovery/paging/finalpair remain. Canonicalchronology:
-docs/research/NATIVE_NOTIFICATION_VERIFICATION.md. No #24 feature completion,
-new phoneAPK, physicalPixel or closed-app delivery yet.
+First signed-like tracer passed actual Android17 run38274447518 atbf52872:
+1case20.839s/1record/0deaths/core66, after missing-entry RED38271177276.
+Known signed own-target/actor/thread navigation, contextual Skip/no firstfeed
+prompt, actual owner-index/authenticated identity/no transactions+reports and
+full opaque wallet/backend restoration pass. Both independent first-slice
+reviews of d1e65f5...c835e3f report0actionable findings and verify all6evidence
+hashes. These are first-slice results, not whole-ticket acceptance.
+
+Next tracer is one signed reply to the same independently signed root. Its
+4597-byte reference SHA25626d25c2d23cf46a020e9466f6cb09520a6cbe8f265919c058c6fe5f3eedbc6e3
+is identical in docs/nativeassets; pure pinned generator verifies signatures
+and roundtrip offline. Native test expects reply/conversation/root/actor routes;
+shared setup now has two actual consumers and restores the dedicated permission
+offered key independently alongside wallet/backend. Local core/debug/test build PASSES1m34s; hosted
+reply RED pending; reply product implementation remains unchanged.
+
+Other activity, available-history coverage, personal controls/read-state/cache,
+failure/recovery/backend/wallet isolation, permission deny/allow and final full
+SDK pair remain within active #24. Source contract:
+docs/research/NATIVE_NOTIFICATIONS_CONTRACT.md. Canonical chronology:
+docs/research/NATIVE_NOTIFICATION_VERIFICATION.md. Five protected future chat
+files remain untouched. No new phoneAPK/Pixel or closed-app delivery claim.
 
 ## Earlier completed ticket checkpoints
 
