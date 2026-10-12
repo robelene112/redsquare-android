@@ -59,14 +59,23 @@ Source review4bbf039...5fee7e1: Standards0; Spec1observation wording. Corrected 
 df2a012 with explicit selected-server/status-can-change text and positive gates
 before/after recreation in the same journey. Both correction axes clear;
 debug/test compile2m34s/one hash in inclusion-copy-review-fix. New-copy native
-runtime38198454529 atdf2a012 is still pending. Earlier genuine missing-Included
+runtime38198454529 atdf2a012 PASSES:4ordinary73.189s plus existing pending death
+4810→4908/cold1PASS9.841s/cleanup1PASS0.055s,6/3/1,no assumptions.
+Root firstoriginalfullyviewed/reopenedtoolstrip exactbyteequal34f13bb7...; separate
+2XML/positive qualifiedstatus/identity/backend/no-frame gates pass. Actualnew
+1200B/482B independently pass pinnedpureWASM/Elliptic/hash/Rustroot/fullroundtrip/
+exactcandidate/parent.18hashes in inclusion-copy-green/android17. Evidence review
+remains pending. Earlier genuine missing-Included
 RED38197165531 at4bbf039 is retained with4hashes in inclusion-ui-red/android17.
 The firstGREEN evidence review finds Standards0 and Spec1stale active-handoff
-pending sentences; this consolidation corrects those claims. Fix review remains
-pending. Sourcepushes remain compile evidence, not new native acceptance.
+pending sentences; this consolidation corrects those claims. Both handoff correction axes through eca0d63 are clear. Sourcepushes remain compile evidence, not new native acceptance.
 
-Next: finish new-copy native acceptance, then one native missing historical-status
-cycle for durable qualified observations/UNKNOWN on unavailable coverage. Follow
+Current next cycle: one native missing historical-status test extends the proven
+journey with unavailable block coverage after another recreation and a fresh
+snapshot listing all original positive7.5SAITO inputs. It must show lastseen/current
+UNKNOWN, zero reserved availability and no frames. Test compile/runtime RED are
+pending; test APK compiles1m18s/one hash in history-test-preparation.
+Production still has no durable observations. Follow
 with verified reorg status, receiving QR, meaningful remaining failure cases,
 final fresh full Android10/17 and whole-ticket two-axis review. #23 is unfinished.
 Do not claim QR/durable status/reorg UI/current whole acceptance yet. No new

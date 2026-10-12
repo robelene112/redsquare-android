@@ -419,3 +419,24 @@ superseded pending claims. The active section is now consolidated to latest
 verified core/native state, genuinely pending new-copy runtime and unfinished
 durable Unknown/reorg/QR/final acceptance. Chronology preserves prior pending
 states as dated history; evidence/rawcounts are unchanged. Fix review pending.
+
+Both handoff-consolidation axes through eca0d63 are clear. Qualified-copy native
+GREEN38198454529 atdf2a012 passes ordinary4cases73.189s and existing pending death
+4810→4908/cold1PASS9.841s/credential cleanup1PASS0.055s:6/3/1,no assumptions,
+core66/release/lint/source. Root firstoriginalfullyviewed/secondtoolstrip proven
+byte-identicalfullPNG34f13bb7...; separate2XML and positive nativegates retain
+Included/observedselectedserver/canchange/noPending/noRetry/originalbackend/identity/
+zeroframes through recreation. Actualnew1200B/482B separately pass pinnedpure
+WASM/Elliptic/headerhash/Rust-recomputedroot/fullroundtrip/exactcandidate/parent.
+18hashes/rawcountable logs in inclusion-copy-green/android17. New next single
+native cycle extends this journey only after this GREEN: fresh snapshot lists
+all original positive7.5SAITO inputs while block coverage becomes unavailable
+across another recreation. It must retain last inclusion as current UNKNOWN,
+show zero available from reservations and send nothing. Current production has
+no durable last observation, so test preparation precedes runtime RED. No new
+Unknown/reservation/reorg/QR acceptance claimed yet.
+
+Next historical-status test APK compiles1m18s; one original hash in history-test-
+preparation. Positive input coordinates2000000/7/index2 Normal5SAITO and
+2000001/9/index0 RouterOutput2.5SAITO are eligible under served80640 window at
+2000003. New current UNKNOWN/last observation runtime RED remains pending.

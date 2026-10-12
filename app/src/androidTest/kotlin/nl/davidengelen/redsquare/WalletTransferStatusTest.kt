@@ -8,6 +8,8 @@ import androidx.test.platform.app.InstrumentationRegistry
 import java.io.File
 import java.net.InetAddress
 import java.util.Base64
+import java.util.concurrent.atomic.AtomicBoolean
+import java.math.BigInteger
 import mockwebserver3.Dispatcher
 import mockwebserver3.MockResponse
 import mockwebserver3.MockWebServer
@@ -23,11 +25,16 @@ class WalletTransferStatusTest {
     private val instrumentation get() = InstrumentationRegistry.getInstrumentation()
     private val context get() = instrumentation.targetContext
 
-    @Test fun anExistingExactPaymentShowsVerifiedSelectedChainInclusionWithoutResending() {
+    @Test fun exactInclusionSurvivesReopeningAndUnavailableHistoryKeepsItsLastObservationWithoutResending() {
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
         val fixture = instrumentation.context.assets.open("native-block-reference.json")
             .bufferedReader().use { TransferInclusionFixture(it.readText()) }
+        assertEquals(BigInteger("750000000"), fixture.payment.inputs.fold(BigInteger.ZERO) { sum, input -> sum + input.amount })
+        val blocksAvailable = AtomicBoolean(true)
+        val originalInputs = fixture.payment.inputs.joinToString("\n", postfix = "\n") {
+            "${fixture.wallet.publicKey} ${it.block} ${it.ordinal} ${it.index} ${it.amount} ${it.type}"
+        }
         val wallets = AndroidWalletStore(context)
         val priorWallet = wallets.loadOrCreate()
         context.noBackupFilesDir.listFiles()?.filter { it.name.startsWith("transfer.") }?.forEach { check(it.delete()) }
@@ -43,8 +50,9 @@ class WalletTransferStatusTest {
                     override fun dispatch(request: RecordedRequest): MockResponse = when (request.target) {
                         "/options" -> MockResponse.Builder().body("""{"consensus":{"genesis_period":80640}}""").build()
                         "/balance/${fixture.wallet.publicKey}" -> MockResponse.Builder()
-                            .body("${fixture.timestamp}-2000003-${fixture.tip.first}.snap\n").build()
-                        else -> fixture.blocks[request.target.removePrefix("/block/")]?.let {
+                            .body("${fixture.timestamp}-2000003-${fixture.tip.first}.snap\n" +
+                                if (blocksAvailable.get()) "" else originalInputs).build()
+                        else -> fixture.blocks[request.target.removePrefix("/block/")]?.takeIf { blocksAvailable.get() }?.let {
                             MockResponse.Builder().body(Buffer().write(it)).build()
                         } ?: MockResponse.Builder().code(404).build()
                     }
@@ -89,6 +97,27 @@ class WalletTransferStatusTest {
                             ui.onNodeWithText("Available to send: 0 SAITO").performScrollTo().assertIsDisplayed()
                             peer.assertHealthy(); assertTrue(peer.transactions.isEmpty())
                             captureNativeScreen(File(context.cacheDir, "transfer-evidence/included-reopened.png"), included)
+
+                            // Missing blocks cannot prove a reorg or unlock the original positive inputs.
+                            blocksAvailable.set(false)
+                            scenario.recreate()
+                            ui.waitUntil(15_000) { ui.onNodeWithText("Wallet").isDisplayed() }
+                            ui.onNodeWithText("Wallet").performClick()
+                            ui.onNodeWithContentDescription("Wallet address").assertTextEquals(fixture.payment.author)
+                            ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
+                            withFailureCapture({ captureNativeScreen(File(context.cacheDir,
+                                "transfer-evidence/history-first-failure.png")) }) {
+                                // Fresh snapshot again lists all original7.5SAITO; reservations still leave zero.
+                                ui.waitUntil(20_000) { ui.onNodeWithText("Available to send: 0 SAITO").isDisplayed() }
+                                val unknown = "Current inclusion unknown. Last seen in block 2000002."
+                                ui.waitUntil(20_000) { ui.onNodeWithText(unknown).isDisplayed() }
+                                ui.onAllNodesWithText(included).assertCountEquals(0)
+                                ui.onAllNodesWithText("Pending. Inclusion has not been verified.").assertCountEquals(0)
+                                ui.onNodeWithText("Transfer server: saito.davidengelen.nl.").performScrollTo().assertIsDisplayed()
+                                ui.onNodeWithText("Available to send: 0 SAITO").performScrollTo().assertIsDisplayed()
+                                peer.assertHealthy(); assertTrue(peer.transactions.isEmpty())
+                                captureNativeScreen(File(context.cacheDir, "transfer-evidence/history-unknown.png"), unknown)
+                            }
                         }
                     }
                 }

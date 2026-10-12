@@ -1,0 +1,25 @@
+{
+  "reference": {
+    "saitoCommit": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+    "saitoWasmVersion": "0.3.2",
+    "ellipticVersion": "6.6.1",
+    "wasmSha256": "f59be69dbb949368ce1fc7ef47d414cbe0281a86a206fe4bfb1128a4d087e01e"
+  },
+  "bytes": 482,
+  "hash": "5639f16b6b35850859cffd27a7c44cf90ac0734a82c01797348c5738d9b05a03",
+  "height": "2000003",
+  "timestamp": "1791774713548",
+  "previousHash": "72fcceb8b9fb01339d0b815c7e1dc278e8db343dab868f7516687f23aff3f87e",
+  "creator": "tENBoQttzyKaCW6d61tQjceaVA3GsZ2WrBLngrYHcXEx",
+  "merkleRoot": "e04253468f9e2b475cdc28d7c11a4a491b778566c68e752a86e6937604dc3381",
+  "transactionCount": 1,
+  "types": [
+    1
+  ],
+  "exactExpectedPayment": false,
+  "creatorWasm": true,
+  "creatorElliptic": true,
+  "rustRecomputedRoot": true,
+  "exactFullRoundtrip": true,
+  "boundary": "Synthetic full-block content and exact reference payment only, not consensus admission, selected-chain membership or finality"
+}
