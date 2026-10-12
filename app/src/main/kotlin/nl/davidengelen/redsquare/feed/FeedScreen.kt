@@ -199,7 +199,8 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
         is BrowseDestination.Notifications -> {
             NotificationsScreen(wallet, endpoint, posts, modifier, onBack = { back() },
                 onPost = { navigation.add(BrowseDestination.Conversation(it)) },
-                onIdentity = { openProfile(it) })
+                onIdentity = { openProfile(it) },
+                onReference = { navigation.add(BrowseDestination.Reference(it)) })
             return
         }
         is BrowseDestination.Search -> {
@@ -214,6 +215,13 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
             ProfileScreen(wallet, endpoint, backend, destination.author, destination.view, following, modifier,
                 onBack = { back() }, onPost = { navigation.add(BrowseDestination.Conversation(it)) },
                 onIdentity = { openProfile(it) }, social = social, quotes = quotes, onQuote = { navigation.add(BrowseDestination.Quote(it)) })
+            return
+        }
+        is BrowseDestination.Reference -> {
+            NotificationReferenceScreen(wallet, endpoint, backend, destination.target, quotes, modifier,
+                onBack = { back() }, onIdentity = { openProfile(it) },
+                onPost = { navigation.add(BrowseDestination.Conversation(it)) }, social = social,
+                onQuote = { navigation.add(BrowseDestination.Quote(it)) })
             return
         }
         is BrowseDestination.Conversation -> {

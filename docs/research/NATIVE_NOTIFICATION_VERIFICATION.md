@@ -341,3 +341,24 @@ like row but blankuppertoolbar/actorregions; XML exposes allactualrows. No cause
 or missing storedcontent inferred. Other PNGs retained withoutvisualclaims.
 Missingfixture own-lockcorrection bothreviews0; nativeRED38290932273 at760eeae
 running, stillno missing-original product code.
+
+Correctedmissingfixture localcore/debug/test compile PASSES2m34s. GenuineRED
+38290932273 at760eeae:7reported/6PASS/1failure57.272s/0completedOKrecords/0deaths,
+core72/compiler/debug/test. Existing six journeys and actualcorrectedrepostindex0
+pass their finalgates. Missingcase reachesfeed/Archive/contextualSkip then fails
+line138 atabsentneutralLiked a post. All lookup/Retry/recoveredConversation/actor/
+positive2targetreads gates not reached. Threehashes missing-original-native-red/
+android17; rootfailure originaltool view status/Notificationsheader/blankactivity
+area, uppertoolbarblankrendering; separateXML exposesOwner/fulltoolbar/emptylist.
+No timing/protocol/fixturefailure cause inferred: source filters unknown originals.
+
+MinimumGREEN implementation retains signed owner-addressed likes without claiming
+postownership, preserving verifiedoutputrecipients in the existing like DTO. Known
+verifiedown originals keep Liked your post; otherwise neutral Liked a post.
+A new reference destination reuses the existing bounded actualselectedpeer/cache/
+verified-original/Retry machinery; absent/error retains the activity and explicit
+Retry, successfullookup opens the existing Conversation. No automaticreroute or
+syntheticpost. Othermissing eventkind fallback remainsfuture within#24. Current
+core/debug/test compilepending; no successful missing-originalruntime yet.
+Quoteevidence8f3007b boundedbothaxes0 including13hashes/raw6/44.806/1/0, independent
+reviewers sawfull storedquotePNG; roottoolview qualifier remains accurate.

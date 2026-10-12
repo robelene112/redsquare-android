@@ -25,14 +25,14 @@ import nl.davidengelen.redsquare.registry.RegisteredNameStore
 import nl.davidengelen.redsquare.saito.*
 
 private data class NotificationRow(val id: String, val author: String, val createdAt: Long,
-    val post: FeedPost, val caption: Int)
+    val post: FeedPost?, val caption: Int, val target: String = post?.id.orEmpty())
 
 private data class NotificationPages(val likes: ArchiveLikePage, val replies: ArchiveFeedPage,
     val mentions: ArchiveFeedPage, val reposts: ArchiveActionPage, val quotes: List<FeedPost>)
 
 @Composable
 internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, knownPosts: List<FeedPost>,
-    modifier: Modifier, onBack: () -> Unit, onPost: (FeedPost) -> Unit, onIdentity: (String) -> Unit) {
+    modifier: Modifier, onBack: () -> Unit, onPost: (FeedPost) -> Unit, onIdentity: (String) -> Unit, onReference: (String) -> Unit) {
     val personal = LocalPersonalControls.current
     val context = LocalContext.current.applicationContext
     val registrar = LocalRegistryAuthority.current
@@ -104,11 +104,14 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, knownPo
             quote.quoted?.author == wallet?.publicKey ||
                 knownPosts.any { it.id == quote.quoteTarget && it.author == wallet?.publicKey }
         }.map { quote -> NotificationRow(quote.id, quote.author, quote.createdAt, quote, R.string.notifications_quote_own) }
-        val rows = (quoteRows + repostRows + events.mapNotNull { event ->
-            knownPosts.firstOrNull { it.id == event.target && it.author == wallet?.publicKey }?.let { target ->
-                NotificationRow(event.id, event.author, event.createdAt, target, R.string.notifications_like_own)
-            }
-        } + replies.filter { reply ->
+        val likeRows = events.mapNotNull { event ->
+            val target = knownPosts.firstOrNull { it.id == event.target }
+            val own = target?.author == wallet?.publicKey
+            if (own || wallet?.publicKey in event.recipients) NotificationRow(event.id, event.author,
+                event.createdAt, target, if (own) R.string.notifications_like_own else R.string.notifications_like,
+                event.target) else null
+        }
+        val rows = (quoteRows + repostRows + likeRows + replies.filter { reply ->
             knownPosts.any { it.id == reply.parentId && it.author == wallet?.publicKey }
         }.map { reply -> NotificationRow(reply.id, reply.author, reply.createdAt, reply, R.string.notifications_reply_own) } +
             mentions.map { mention -> NotificationRow(mention.id, mention.author, mention.createdAt, mention, R.string.notifications_mention) })
@@ -118,7 +121,7 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, knownPo
                 Column(Modifier.fillMaxWidth().padding(vertical = 12.dp)) {
                     Text(registeredIdentity(event.author).name, Modifier.clickable { onIdentity(event.author) })
                     Text(event.author, Modifier.clickable { onIdentity(event.author) }, style = MaterialTheme.typography.labelSmall)
-                    Text(stringResource(event.caption), Modifier.clickable { onPost(event.post) }
+                    Text(stringResource(event.caption), Modifier.clickable { event.post?.let(onPost) ?: onReference(event.target) }
                         .padding(vertical = 8.dp))
                     HorizontalDivider()
                 }

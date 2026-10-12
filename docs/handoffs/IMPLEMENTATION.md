@@ -44,8 +44,14 @@ Neutralcaption/unavailable/Retry/recoveredConversation/retainedrow/Profile+allfi
 identity/no-write/fullopaquerestoration required. Reference18124bytes/SHA8ae7667601b311d1154fb81d8988f3ad68aa7836194947eda270ec7aff7a3c32 identicalthreecopies.
 Fixturecompile1m38PASS; Standards1wrongowninglock corrected byactualPublicStringStore
 lock fororiginalcache, SaitoLocalStateforRegistry/bothcorrectionaxes0. Corrected
-core/debug/test compilepending; genuineRED38290932273 at760eeae running.
-No missing-original product code yet; wait RED before implementing.
+core/debug/test compile2m34PASS. GenuineRED38290932273 at760eeae reports7/6PASS/
+1failure57.272s/0OKrecords/0deaths/core72; correctedactualrepost row and existing
+6journeys pass. Missingcase reachesNotifications/Skip then neutralLiked a post
+absent. Threehashes+originaltool/XML qualifiers retained. Minimum product retains
+signedowner-addressedlike withneutralcaption untiltargetownership proved and new
+reference destination reusesexistingQuoteState boundedverifiedlookup/Retry/cache
+thenConversation. Othermissingkinds stillfuture. Localcore/debug/test compilepending;
+no missing-originalGREEN yet.
 
 Remaining within#24: contact-post and feed-cache supplementation, missing-original
 retention/lookup/Retry with neutral wording, bounded independent paging/partial

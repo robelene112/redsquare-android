@@ -1,6 +1,6 @@
 package nl.davidengelen.redsquare.saito
 
-data class ProfileLike(val id: String, val author: String, val target: String, val createdAt: Long, val envelope: String)
+data class ProfileLike(val id: String, val author: String, val target: String, val createdAt: Long, val envelope: String, val recipients: List<String>)
 data class ArchiveLikePage(val likes: List<ProfileLike>, val ignored: Int, val oldestCreatedAt: Long?, val rowCount: Int)
 
 object RedSquareLikes {
@@ -9,7 +9,7 @@ object RedSquareLikes {
         require(signed.body.get("module").asString == "RedSquare" && signed.body.get("request").asString == "like tweet")
         val target = signed.body.getAsJsonObject("data").get("signature").asJsonPrimitive
         require(target.isString && target.asString.matches(Regex("[0-9a-f]{128}")))
-        return ProfileLike(signed.id, signed.author, target.asString, signed.createdAt, envelope)
+        return ProfileLike(signed.id, signed.author, target.asString, signed.createdAt, envelope, signed.recipients)
     }
 
     fun readArchive(response: String, author: String): ArchiveLikePage {

@@ -347,6 +347,9 @@
     <string name="notifications_loading">Loading notifications...</string>
     <string name="notifications_read_error">Could not load notifications. Check your connection and try Refresh.</string>
     <string name="notifications_unverified">Some activity could not be verified.</string>
+    <string name="notifications_like">Liked a post</string>
+    <string name="notifications_target_title">Post</string>
+    <string name="notifications_target_unavailable">This post is unavailable on this server. You can retry or return to notifications.</string>
     <string name="notifications_like_own">Liked your post</string>
     <string name="notifications_reply_own">Replied to your post</string>
     <string name="notifications_mention">Mentioned you</string>
