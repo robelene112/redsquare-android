@@ -1021,3 +1021,11 @@ recreation while unread. Root adds pre-Mark recreation/completedRefresh/exact150
 unread/capture before existingmark/postmark checks. Initial27RED10 at2f86e43
 stilluses unchangedinitial150gate; latercorrectedrecreationcount unexecutedifRED.
 Correction compile/review pending, no productchange.
+
+First26GREEN17 38322163532 at1de5092 passes26/126.808s/1OK/0deaths/assumptions/
+core73/debug/test. Actualfield4pre-click/Reply/exact2unread/Conversation/commentary/
+Actor/all25old/finalopaque/no-write pass.64hashes/all31XML/rootoriginalparentPNG
+inspected. Bothminimumreviews0/localfull3mPASS; complete successlog/latestbuilder
+5104eed66092exit0 qualifyattached143/causeunknown. Fullsuccessfulbatch126.808s
+alsojustifies outerguard240 versusprevious120, individual15s/12s unchanged.
+No actualdeath/finalSDKpair/whole-ticketclaim. Next27cold-cache budget RED.

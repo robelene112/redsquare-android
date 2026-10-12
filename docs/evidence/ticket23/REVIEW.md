@@ -474,3 +474,24 @@ One proof gap: post-mark zero unread cannot count retained read events. Root add
 pre-mark recreation/completedRefresh/150unread and capture, keeping initial RED
 and post-mark assertions unchanged. Original tracerAPK1m46PASS; initial27RED10
 run38322496355 pending, correction compilation/review pending.
+
+First26GREEN17 38322163532 at1de5092 passes26/126.808s/1OK/0deaths/assumptions/
+core73/debug/test. Actualfield4pre-click/Reply/exact2unread/Conversation/commentary/
+Actor/all25old/finalopaque/no-write pass.64hashes/all31XML/rootoriginalparentPNG
+inspected. Bothminimumreviews0/localfull3mPASS; complete successlog/latestbuilder
+5104eed66092exit0 qualifyattached143/causeunknown. Fullsuccessfulbatch126.808s
+alsojustifies outerguard240 versusprevious120, individual15s/12s unchanged.
+No actualdeath/finalSDKpair/whole-ticketclaim. Next27cold-cache budget RED.
+
+## Cache recreation proof correction
+
+### Standards
+
+`2f86e43...eb8f2c9`: zero hard violations/actionable heuristics. Initial RED
+assertion and original post-Mark assertions unchanged.
+
+### Spec
+
+Zero actionable findings. Pre-Mark recreation/exact150 after completedRefresh
+resolves retained-count gap. Correction build/native pending; original27 run
+cannot prove newly added recreation assertion. No production change.

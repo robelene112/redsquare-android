@@ -26,31 +26,26 @@ failure. Verified activity survives pruned pages/Activity recreation. History an
 read markers are wallet/backend scoped; unread counts use visible verified rows,
 Mark all as read commits before confirming, and storage faults preserve activity.
 
-Latest native checkpoint: Android10 run38321167424 at48bc74c passes25 cases
-in73.141s/oneOK/zero deaths/assumptions/core73/debug/test. Actual backend switches,
-shared signed-event separate read markers, distinct server actors and positive
-retained Owner activity after failed Refresh pass. Corrected Mute/Block cache
-warming and all24 earlier notification/paging/contact/failure/cache/read routes
-pass with final opaque restoration/no writes.62hashes/all30XML/root original
-Official/failedOwnerPNG inspected. Both final correction axes0/localAPK1m31PASS.
-Canonical chronology retains initial25 helper failure38320586603: returning
-Owner correctly restored Notifications while helper wrongly waited feed root.
-No reproduced product defect. Source still1137021 apart from test/docs changes.
+Latest native checkpoint: Android17 run38322163532 at1de5092 passes26 cases
+in126.808s/oneOK/zero deaths/assumptions/core73/debug/test. Parent-index field4
+request before Conversation, Reply/2unread/content/Actor and all25 earlier
+notification/cache/read/paging/contact/control/backend routes pass.64hashes/
+all31XML/root original parentPNG inspected. Both minimum axes0/localfull3mPASS;
+complete success log/latestbuilder5104eed66092 exit0 qualifies client143, cause
+unknown. Source adds bounded10verified own-post targets, initialmax33 and More33.
+Successful126.808s batch validates raising only outer guard120->240; individual
+assertions15s/RPC12s unchanged. Prior26RED17 38321369124 was incomplete:15PASS/
+one missingreply/10unfinished/no Time/OK/reporteddeath. Retained qualified proof.
 
-Parent-index reply tracer26 at48a92fb independently signs unsafe2 reply with
-unsafe3 first nonactor recipient before Owner1; actual field3 indexes3 and
-field4 references known Owner root. Owner/general streams omit it. Genuine26RED17
-run38321369124 pending. Spec1 proof gap corrected9689f69: positive external field4
-request before Conversation; Standards/Spec correction0. Original tracerAPK1m30
-passes; corrective counter compile pending. Minimum1de5092 now adds target-scoped field4 streams for10 verified own posts,
-initial3+10own+first10contacts/bothnamespaces max33; continuationmax33.
-Both minimum review axes0. Actual26RED17 announces26 but stops at120s outer
-limit with15PASS/one missingReply590/10unfinished/no terminalTime/OK/death.
-Three hashes/root original failurePNG/XML/actual CI timestamps inspected.
-Outer guard240s, individual15s/12s RPC unchanged. Full local build and complete
-26GREEN17 run38322163532 pending. Next cold-cache budget tracer prepared only
-in uncommitted generator/ignored scratch; do not treat it as installed yet.
-No actual process-death/finalSDK claim. Protected future Chat files untouched.
+Cold-cache budget27 tracer2f86e43 seeds150 independently signed unsafe2 likes
+through exact owned public history, below300budget; no serverlikes. Exact150unread
+must survive reopening/MarkAll/reopen. Original27RED10 run38322496355 pending.
+Standards0/Spec1 pre-Mark retained-count gap correctedeb8f2c9; both correction
+axes0. TracerAPK1m46PASS; corrective recreation compile pending. Reference223303/
+SHA497aa...8711a8 matches3copies/fixed unsafe1–4 signers/150unique signatures.
+Known suspected bug: cachedArchive.take100 truncates each kind despite300 store.
+No cache-reader production correction yet. Actual process death/permission/wallet/
+otherstorage/final fullSDK acceptance remain. Future five Chat files untouched.
 
 Remaining #24 work is finite: supplement followed-account posts, bounded reply discovery/older-page overlap and retry,
 prove mute/block and backend/wallet isolation, actual permission choices and
