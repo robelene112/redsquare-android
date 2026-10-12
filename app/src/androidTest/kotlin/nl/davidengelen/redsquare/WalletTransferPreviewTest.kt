@@ -46,8 +46,9 @@ class WalletTransferPreviewTest {
         val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
         val keyguard = context.getSystemService(KeyguardManager::class.java)
         assertFalse(keyguard.isDeviceSecure)
-        device.executeShellCommand("locksettings set-pin --user 0 $EXPORT_TEST_PIN")
+        var primaryFailure: Throwable? = null
         try {
+            device.executeShellCommand("locksettings set-pin --user 0 $EXPORT_TEST_PIN")
             ui.waitUntil(10_000) { keyguard.isDeviceSecure }
             val peer = ControlledFeedPeer("[]")
             val server = MockWebServer()
@@ -102,7 +103,7 @@ class WalletTransferPreviewTest {
                             ui.waitUntil(20_000) { ui.onAllNodes(hasText(pending))
                                 .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                             ui.onNodeWithText(pending).performScrollTo().assertIsDisplayed()
-                            ui.waitUntil(5_000) { peer.transactions.isNotEmpty() }
+                            ui.waitUntil(5_000) { peer.assertHealthy(); peer.transactions.isNotEmpty() }
                             peer.assertHealthy()
                             val frame = peer.transactions.single()
                             assertEquals(4, frame[0].toInt())
@@ -124,7 +125,16 @@ class WalletTransferPreviewTest {
                     }
                 }
             }
-        } finally { device.executeShellCommand("locksettings clear --old $EXPORT_TEST_PIN --user 0") }
+        } catch (failure: Throwable) { primaryFailure = failure; throw failure }
+        finally {
+            try {
+                device.executeShellCommand("locksettings clear --old $EXPORT_TEST_PIN --user 0")
+                ui.waitUntil(10_000) { !keyguard.isDeviceSecure }
+            } catch (cleanupFailure: Throwable) {
+                val primary = primaryFailure
+                if (primary == null) throw cleanupFailure else primary.addSuppressed(cleanupFailure)
+            }
+        }
     }
 
     @Test fun selectedServerBalanceAndReceivingAddressCanBeViewedAndCopied() {

@@ -27,6 +27,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 class SaitoPeer(private val wallet: SaitoWallet, endpoint: String) : Closeable {
     class RequestError : IOException("Peer returned a request error")
     private val ready = CompletableDeferred<Unit>()
+    private val closed = CompletableDeferred<Unit>()
     private val disconnected = AtomicBoolean(false)
     private val pending = ConcurrentHashMap<Int, CompletableDeferred<ByteArray>>()
     private val nextIndex = AtomicInteger(0)
@@ -85,9 +86,10 @@ class SaitoPeer(private val wallet: SaitoWallet, endpoint: String) : Closeable {
         override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
             if (BuildConfig.DEBUG) Log.w("RedSquarePeer", "Connection failed (${t.javaClass.simpleName}, HTTP ${response?.code ?: 0})")
             fail()
+            closed.completeExceptionally(IOException("Peer disconnected"))
         }
         override fun onClosing(webSocket: WebSocket, code: Int, reason: String) { fail(); webSocket.close(code, null) }
-        override fun onClosed(webSocket: WebSocket, code: Int, reason: String) { fail() }
+        override fun onClosed(webSocket: WebSocket, code: Int, reason: String) { fail(); closed.complete(Unit) }
     })
 
     suspend fun request(message: ByteArray): ByteArray = requestFrame { index ->
@@ -140,6 +142,12 @@ class SaitoPeer(private val wallet: SaitoWallet, endpoint: String) : Closeable {
     suspend fun authenticate() = withTimeout(12_000) {
         ready.await()
         if (disconnected.get()) throw IOException("Peer disconnected")
+    }
+
+    /** Drain queued frames before disposal. Local completion is still not a peer/payment ACK. */
+    suspend fun finishBroadcast() = withTimeout(12_000) {
+        if (!socket.close(1000, null)) throw IOException("Peer disconnected")
+        closed.await()
     }
 
     private fun send(socket: WebSocket, bytes: ByteArray) {

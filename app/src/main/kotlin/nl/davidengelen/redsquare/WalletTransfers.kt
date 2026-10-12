@@ -153,6 +153,7 @@ class WalletTransfers(
                             check(AndroidBackendStore(activity.applicationContext).load() == backend)
                             store.reserve(backend, payment)
                         }
+                        peer.finishBroadcast()
                     }
                     store.pending() to display(store.available(funding.eligible).sumOfAmounts())
                 }

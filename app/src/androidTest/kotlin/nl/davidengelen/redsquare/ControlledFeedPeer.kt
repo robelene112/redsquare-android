@@ -46,6 +46,9 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     private fun response() = MockResponse.Builder().webSocketUpgrade(object : WebSocketListener() {
         private var authenticated = false
         private var interrupted = false
+        override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
+            webSocket.close(code, reason)
+        }
         override fun onMessage(webSocket: WebSocket, bytes: okio.ByteString) {
             try {
                 val frame = bytes.toByteArray()

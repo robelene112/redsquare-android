@@ -99,3 +99,19 @@ and positively waits/clicks that fixed action; no acceptance assertion is remove
 Source push38186821983 independently finds a NewApi lint error for BigInteger.TWO.
 Use valueOf(2) without changing Android10 minimum. See
 ticket22/authenticated-send-first-failure/android17. No authenticated send claim.
+
+Next run38187253163 at75002a7 passes source/core57/balance and reaches the real
+system PIN flow plus Pending/zero-available screen, but the actual peer-frame
+wait fails (2 cases,1 failure,50.622s). Root inspects3 originalPNG+separateXML;
+the credential PNG is black, and the separate hierarchy contains
+the actual system PIN controls before entry. No frame/GREEN acceptance.
+
+Spec reviews of860b5e1 and75002a7:0 actionable findings. Standards finds one
+delivery issue and one fixture safeguard: immediate cancellation after enqueue
+can discard queued frames, and PIN cleanup needs positive verification/primary
+failure preservation. Both fixes are implemented: bounded graceful socket
+completion (never a payment ACK), standard controlled-peer close response, and
+protected setup/clear with explicit insecure-state check. Neither the source
+contract nor this failed run proves immediate cancel was the sole runtime cause.
+See ticket22/authenticated-send-second-failure/android17 and the official
+[OkHttp5.4.0 queue/close/cancel contract](https://github.com/square/okhttp/blob/parent-5.4.0/okhttp/src/commonJvmAndroid/kotlin/okhttp3/WebSocket.kt).

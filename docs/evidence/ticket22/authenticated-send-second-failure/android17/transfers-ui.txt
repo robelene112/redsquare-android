@@ -1,0 +1,67 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.WalletTransferPreviewTest:
+INSTRUMENTATION_STATUS: test=onlinePaymentRequiresReviewedAmountsThenRealDeviceAuthenticationAndRemainsPending
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.onlinePaymentRequiresReviewedAmountsThenRealDeviceAuthenticationAndRemainsPending$lambda$13$lambda$12$lambda$11$lambda$10(WalletTransferPreviewTest.kt:105)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$Gtc7Diln1bkLJfqLO_tpFk9bO1M(WalletTransferPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.onlinePaymentRequiresReviewedAmountsThenRealDeviceAuthenticationAndRemainsPending(WalletTransferPreviewTest.kt:77)
+
+INSTRUMENTATION_STATUS: stream=
+Error in onlinePaymentRequiresReviewedAmountsThenRealDeviceAuthenticationAndRemainsPending(nl.davidengelen.redsquare.WalletTransferPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.onlinePaymentRequiresReviewedAmountsThenRealDeviceAuthenticationAndRemainsPending$lambda$13$lambda$12$lambda$11$lambda$10(WalletTransferPreviewTest.kt:105)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$Gtc7Diln1bkLJfqLO_tpFk9bO1M(WalletTransferPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.onlinePaymentRequiresReviewedAmountsThenRealDeviceAuthenticationAndRemainsPending(WalletTransferPreviewTest.kt:77)
+
+INSTRUMENTATION_STATUS: test=onlinePaymentRequiresReviewedAmountsThenRealDeviceAuthenticationAndRemainsPending
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=selectedServerBalanceAndReceivingAddressCanBeViewedAndCopied
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=selectedServerBalanceAndReceivingAddressCanBeViewedAndCopied
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 50.622
+There was 1 failure:
+1) onlinePaymentRequiresReviewedAmountsThenRealDeviceAuthenticationAndRemainsPending(nl.davidengelen.redsquare.WalletTransferPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.onlinePaymentRequiresReviewedAmountsThenRealDeviceAuthenticationAndRemainsPending$lambda$13$lambda$12$lambda$11$lambda$10(WalletTransferPreviewTest.kt:105)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$Gtc7Diln1bkLJfqLO_tpFk9bO1M(WalletTransferPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.onlinePaymentRequiresReviewedAmountsThenRealDeviceAuthenticationAndRemainsPending(WalletTransferPreviewTest.kt:77)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
