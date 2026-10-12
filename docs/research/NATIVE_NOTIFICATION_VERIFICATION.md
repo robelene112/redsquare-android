@@ -949,3 +949,8 @@ expects2unread initially on each despite Owner marking, retains distinct actor
 absence, and positively asserts Owner actor/two likes after failure. No product
 defect/reproduced failure claim. Initial25 run38320586603 cannot establish this
 new shared-ID isolation acceptance. Corrective compile/native pending.
+
+Shared-ID correctioncbcd679: Standards0, Spec1stale exactcapture sentinel
+("1 unread" versus now2). Root corrects it before corrective CI; local prior
+shared-ID fixture build1m28PASS does not execute capture. Earlier warming
+correction local1m25PASS. No weakening of assertions; corrected runtime pending.

@@ -544,7 +544,7 @@ class NotificationsPreviewTest {
                 .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
             ui.onAllNodesWithText(ownerActor).assertCountEquals(0)
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
-                "notification-evidence/backend-official.png"), "1 unread")
+                "notification-evidence/backend-official.png"), "2 unread")
             ui.onNodeWithText("Mark all as read").performClick()
             waitFor("No unread activity")
             switchNotificationBackend("saito.davidengelen.nl")

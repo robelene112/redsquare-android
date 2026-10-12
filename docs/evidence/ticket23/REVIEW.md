@@ -379,3 +379,16 @@ Two fixture gaps: add one shared signed event on both peers to prove marker
 separation; reassert retained Owner actor/like after failed Refresh rather than
 only zero unread/absent Official actor. No demonstrated production defect.
 Original25 run38320586603 pending; corrective fixture pending compilation.
+
+## Backend shared-ID correction review
+
+### Standards
+
+`cc23326...cbcd679`: earlier gap resolved, zero new hard violations/Fowler
+findings. Both peers carry the same signature; visible retained Owner rows asserted.
+
+### Spec
+
+Earlier2 findings resolved; one stale capture expectedText still1unread must be2.
+Root fixes this before corrective dispatch.58hashes/28XML/original control captures/
+raw24counts verified. Shared-ID fixture local1m28PASS; runtime pending.
