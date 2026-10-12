@@ -52,7 +52,23 @@ const incomingRepost = {
   field1: 'RedSquareRetweet', field3: owner, field4: thread.root.sig,
   updated_at: 1700000000070, flagged: 0
 };
+const original = JSON.parse(Buffer.from(JSON.parse(thread.root.tx).m, 'base64')).data;
+const incomingQuote = {
+  ...signedReference('2', {module: 'RedSquare', request: 'retweet',
+    data: {signature: thread.root.sig, text: 'Quote notification reference',
+      retweet_tx: thread.root.tx}}, 1700000000075, [owner]),
+  field1: 'RedSquareRetweet', field3: owner, field4: thread.root.sig,
+  updated_at: 1700000000075, flagged: 0
+};
+const legacyQuote = {
+  ...signedReference('2', {module: 'RedSquare', request: 'create tweet',
+    data: {signature: thread.root.sig, text: 'Legacy quote notification reference',
+      retweet_tx: thread.root.tx, embedded: {signature: thread.root.sig,
+        publicKey: owner, text: original.text, images: []}}}, 1700000000076, [owner]),
+  field1: 'RedSquare', field3: owner, field4: thread.root.sig,
+  updated_at: 1700000000076, flagged: 0
+};
 console.log(JSON.stringify({synthetic: true, reference, owner,
   actor: 'pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU',
   root: thread.root, incomingLike, incomingReply, parentedQuote, incomingMention,
-  addressedPost, listedMention, usernameMention, incomingRepost}, null, 2));
+  addressedPost, listedMention, usernameMention, incomingRepost, incomingQuote, legacyQuote}, null, 2));

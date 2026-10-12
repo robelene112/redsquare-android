@@ -263,3 +263,32 @@ returnsfixtureemptyhistory forunfilteredfeed/profile reads, keepsstrictowner/fla
 limit andpositivecounter forowner-index notificationreads. No product/corechange/
 timeout/route/identity/no-write/opaque-restoration predicate relaxation. Local
 correctedtestAPKcompile PASSES1m31s; native5repeat pending; first5run38287870397 running.
+
+
+Ordinary repost first5run38287870397 at404bc05 FAILED5/5,76.512s/0completedOK
+records/0deaths before Notifications. Raw stack proves fixturefield3 NPE on normal
+feedquery, not an application/protocol defect. Correcteddfc1fdd preserves positive
+owner-index guards; bounded bothreviewaxes0. Repeat38288641594 PASSES5/5,53.917s/
+1record/0deaths/core71/compiler/debug/test, all actualroutes/Skip/authidentity/
+no-write/opaque wallet/backend/permission/namecache restoration. Elevenhashes each
+in repost-query-fixture-failure/android17 and repost-native-green/android17;
+original repost images viewed and all5XML separately parsed, other PNGs retained
+without visual claims. Sourcepush38288613575 PASSES.
+
+Next quote tracer uses pinned independently signed current retweet and legacy
+create-tweet dual-field quote, each unsafe2 actor/unsafe1 recipient and separately
+verified embedded unsafe1 original. Ordinary incomingRepost is valid but excluded
+quietly. Public incomingquote reader empty-stub RED:6protocolcases/5PASS/1failure,
+build56s, actual assertion missing bothcommentaries. Two retainedhashes quote-core-red.
+Minimum classifier then added; fullcore GREEN pending. Targetownership remains
+a separate UI assertion; no unsigned archive metadata author attribution.
+
+Quote public reader GREEN fullcore72/0failures/errors/skips, build54s. Current
+reference16109bytes/SHA17edeff358ba5fd060b1252d0e7d186b2ef951d7ae91c603e166ad0e365cd087
+identical docs/core/native; both independent formats retain authenticated original
+and ordinary repost is quietlyexcluded. Twohashes quote-core-green. UI merges
+current+legacy commentary from same existing two archive responses, proves own
+target through signed quoted original or known signed own post, and opens quote
+Conversation with original plus verified actor. New sixth native journey checks
+both commentary variants, original and Profile; existing reply/repost adversarial
+quotes now have separate valid activity rows. Localcore/debug/test compile pending.

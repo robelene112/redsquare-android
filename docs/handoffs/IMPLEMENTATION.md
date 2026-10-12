@@ -15,53 +15,29 @@ native UI/controlled Archive, independently signed protocol vectors, recovery/
 isolation and current/older RedSquare compatibility. Closed-app pushes remain
 #32–#34; Pixel acceptance remains#35.
 
-Notifications source now supports signed incoming likes, strict create-tweet
-replies with verified own parents, exact public-key text/list mentions and
-registrar-verified own username text mentions. Selected peer and personal controls
-remain in use; contextual permission is optional, absent from first feed. Missing
-originals, other activity, history/cache/paging/read IDs, recovery/isolation,
-permission allow/deny and final SDK pair remain unfinished within #24.
+Notifications source supports signed likes, strict create-tweet own-parent replies,
+exact public-key text/list mentions, registrar-proved username mentions and ordinary
+reposts. Five native journeys atdfc1fdd PASS run38288641594:5/53.917s/1OKrecord/
+0deaths/core71. Actual routes/owner-index/authidentity/no-write/contextualSkip and
+opaque wallet/backend/permission/namecache restoration pass. First5run38287870397
+failed before Notifications due to fixturefield3 NPE on unfiltered feed reads;
+retained failure and corrected success each11hashes. Bounded correction reviews0/0.
+Sourcepush38288613575 PASSES. See NATIVE_NOTIFICATION_VERIFICATION.md for chronology.
 
-Latest committed prior checkpoint5aa4a32: fullcore69 passes; three native like/
-reply/textmention journeys PASS35.148s atd9c26bd in38282727624. All actual post/
-actor routes, owner-index/authidentity/no-write/fullopaque wallet/backend/permission
-restoration complete. Seven nativehashes, originalPNG/XML qualifiers in report;
-rootfullmention image supportsbyte-identical storedheader/actor rows inotherPNGs
-despite inconsistent toolviews. Both boundedreviewaxes clear through5aa4a32,
-including priorcaptioncorrection. Sourcepush38283875717 PASSES.
+Next signed quotes: independent current retweet and legacy dual create-tweet
+commentary with separately authenticated original. Public-reader genuine RED6cases/
+1failure/.545s/build56s ->fullcore72GREEN/build54s. Twohashes each quote-core-red/green.
+Reference16109bytes/SHA17edeff358ba5fd060b1252d0e7d186b2ef951d7ae91c603e166ad0e365cd087
+identical docs/core/native. UI shares real RedSquare+Retweet responses, resolves
+own targets from signed originals/cache, opens commentary+original and actor.
+Sixth native journey covers both formats; existing reply/repost fixtures now also
+show their commentary quotes separately. Core/debug/test compile currently running.
 
-Next username tracer: independent @NativeCase7@saito post plus existing signed
-synthetic Registry ownershipproof. RED4protocolcases/1failure/build57s ->fullcore
-GREEN70/0/0/0/build58s. Revalidation requires matching registrar/proof/owner/record
-andactive serverhint; invalidmapping doesnotgatekey/list mentions. Nativeexisting
-verifiedname cache integration andfourthactual Registrydiscovery/Post/Profile
-journey added. Onlyunsafe1 namecachebasename/atomic companions are snapshotted
-opaquely, removedinside try forfreshdiscovery andrestoredindependentlybyte-for-byte.
-Existingdebug/emulator/loopback registrar guard retained; production unchanged.
-Current reference10287bytes/SHA23c9c5a3597694eeabdfadff677a6f20a3f2062a6c94ffe338b242697978b828
-identical docs/native/core. Localcore/debug/test build PASSES3m18s. Firstfour-journey38285387453 at5558d0f running. BoundedSpec0; Standards1fixture
-snapshot/removalrace concern (not reproduced). Snapshot+precisecapturedset removal
-nowone lockedoperation inside try; cleanupownership assignedbeforefirstmutation.
-LocaltestAPKassembly PASSES1m49s; app/core unchanged. Corrected4focus38285984686 ata45ecf0 PASSES39.212s/core70/1record/0deaths,
-first4focus38285387453at5558d0fPASS46.923s. Bothcorrectionreviews0residual; all
-actualdiscovery/routes/identity/no-write/opaque wallet/backend/permission/namefile
-restoration complete. Each9hashes retained; correctedfullPNGbody byte-equal to
-prior originalsbelowstatus, includingrootfullyviewednamedcard, allXMLparsed.
-
-Nextordinaryrepost tracer RED5corecases/1failure/build54s ->fullcore71GREEN57s.
-Signedaction timestamp preserved; ordinaryretweet qualifies, validcommentaryquote/
-self excludedquietly. Current11518-byteSHA787f2013... threecopiesidentical.
-Nativeown-target repostrow/RootConversation/actorProfile +one5thjourney added;
-localcore/debug/test build PASSES3m13s; first5focus38287870397 at404bc05running. RepostStandards0; Spec1fixturemismatch:
-unfilteredinitialfeed/profile Retweetquery lacksfield3, newcallback requiredowner.
-Correctedqueryhandlingseparatesunfilteredreads fromstrictpositiveowner-indexreads;
-no product/core/acceptancepredicatechange. LocalcorrectedtestAPKcompile PASSES1m31s; 5repeat
-pending. Quotesnext; noother ticketclaimed.
-
-Whole-ticket base remains d1e65f5. Canonical source contract and chronology:
-docs/research/NATIVE_NOTIFICATIONS_CONTRACT.md and NATIVE_NOTIFICATION_VERIFICATION.md.
-Five protected future chat files remain untouched. No new APK/physicalPixel/
-closed-app delivery/whole-ticket acceptance claim.
+Remaining within#24: contact-post and feed-cache supplementation, missing-original
+retention/lookup/Retry with neutral wording, bounded independent paging/partial
+failures/read-IDcache/badges, offline/cold recovery, wallet/backend/personal-control
+isolation, real permission allow/deny and final fullAndroid10+17 acceptance.
+No new APK; stable review remainsv10/source5225d06. No other ticket claimed.
 
 ## Earlier completed ticket checkpoints
 

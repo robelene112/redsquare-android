@@ -45,6 +45,25 @@ object RedSquareFeed {
         return ArchiveFeedPage(page.entries.mapNotNull { it.post }, page.oldestCreatedAt, page.rowCount, page.ignored)
     }
 
+    /** Available signed commentary quotes; target ownership is resolved separately. */
+    fun readIncomingQuotes(response: String, owner: String): ArchiveFeedPage {
+        require(SaitoWallet.isPublicKey(owner))
+        data class QuoteRow(val id: String, val post: FeedPost?)
+        val page = readArchiveRows(response, { envelope ->
+            val signed = SaitoEnvelope.decode(envelope)
+            val post = if (signed.body.string("request") == "retweet") {
+                val action = RedSquareActions.decode(envelope)
+                require(action.kind == RedSquareActionKind.REPOST)
+                val data = signed.body.getAsJsonObject("data")
+                val hasCommentary = data.optionalString("text").isNotBlank() || data.getAsJsonArray("images")?.size()?.let { it > 0 } == true
+                if (hasCommentary) decode(envelope) else null
+            } else decode(envelope).takeIf { it.quoteTarget.isNotEmpty() }
+            QuoteRow(signed.id, post)
+        }, { true }, { it.id })
+        return ArchiveFeedPage(page.entries.mapNotNull { it.post }.filter { it.author != owner },
+            page.oldestCreatedAt, page.rowCount, page.ignored)
+    }
+
     fun readArchive(response: String): ArchiveFeedPage = readPosts(response) { it.parentId.isEmpty() }
 
     /** Available history includes replies as well as root posts. */

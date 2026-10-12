@@ -39,8 +39,13 @@ wrong authority, owner or corrupt proof instead of trusting a label.
 The username snapshot was10287bytes/SHA23c9c5a3597694eeabdfadff677a6f20a3f2062a6c94ffe338b242697978b828.
 Next tracer adds an independent ordinary `retweet` of the root with actual owner
 recipient, alongside the already signed commentary quote for kind distinction.
-Current whole JSON SHA256:787f2013f17086a177ff6c561aad6571ad4a215ae9051729cbf2d67de178a5ba;
-11518bytes. Documentation andnativeasset copies are identical.
+The ordinary-repost snapshot was11518bytes/SHA787f2013f17086a177ff6c561aad6571ad4a215ae9051729cbf2d67de178a5ba.
+Next tracer adds current `retweet` and legacy `create tweet` dual-field commentary
+quotes with actual owner recipients, original signed transaction bytes and matching
+legacy embedded presentation. Both quote and original are independently verified;
+this is synthetic compatibility evidence, not live delivery or permanent history.
+Current whole JSON SHA256:17edeff358ba5fd060b1252d0e7d186b2ef951d7ae91c603e166ad0e365cd087;
+16109bytes. Documentation/native/core copies are identical.
 
 Reproduction uses the existing build image, networknone/read-only container and
 rootfilesystem mount, root inside the container for chroot, empty environment,
@@ -56,7 +61,7 @@ skips contextualpermission, expects incominglike/verifiedactor, opens original
 Conversation andactorProfile, verifies actualowner-index reads/no emittedpayment/
 report, then restores full opaquepriorwallet andpriorbackend independently.
 The first like journey passed hosted Android17 run38274447518 after genuine RED
-38271177276; see NATIVE_NOTIFICATION_VERIFICATION.md. Reply runtime proof is pending.
+38271177276; see NATIVE_NOTIFICATION_VERIFICATION.md. Reply, text/username mention and repost runtime slices now pass; see the verification chronology.
 No whole-ticket/closed-app/Pixel acceptance yet. Each native case restores the
 prior contextual-permission offered key independently, preserving unrelated preferences.
 Primary source contracts remain NATIVE_NOTIFICATIONS_CONTRACT.md. Existing source

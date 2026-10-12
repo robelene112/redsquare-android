@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger
 
 class NotificationsPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
-    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST }
+    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE }
 
     @Test fun anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile() {
         withNotifications("incoming-like", mode = Mode.LIKE) { actor ->
@@ -48,7 +48,7 @@ class NotificationsPreviewTest {
             ui.onNodeWithText("Back").performClick()
             waitFor("Replied to your post")
             // Both rows have this signer. The newer reply is the first displayed row.
-            ui.onAllNodesWithText(actor).assertCountEquals(2)[0].assertIsDisplayed().performClick()
+            ui.onAllNodesWithText(actor).assertCountEquals(3)[0].assertIsDisplayed().performClick()
             waitFor("Profile")
             ui.onNodeWithText(actor).assertIsDisplayed()
         }
@@ -102,7 +102,30 @@ class NotificationsPreviewTest {
             ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
             ui.onNodeWithText("Back").performClick()
             waitFor("Reposted your post")
-            ui.onAllNodesWithText(actor).assertCountEquals(2)[0].assertIsDisplayed().performClick()
+            ui.onAllNodesWithText(actor).assertCountEquals(3)[0].assertIsDisplayed().performClick()
+            waitFor("Profile")
+            ui.onNodeWithText(actor).assertIsDisplayed()
+        }
+    }
+
+    @Test fun incomingCurrentAndLegacyQuotesOpenTheirCommentaryOriginalAndActor() {
+        withNotifications("incoming-quote", mode = Mode.QUOTE) { actor ->
+            waitFor("Quoted your post")
+            ui.onAllNodesWithText("Quoted your post").assertCountEquals(2)
+            ui.onAllNodesWithText("Reposted your post").assertCountEquals(0)
+            captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
+                "notification-evidence/incoming-quote.png"), "Quoted your post")
+            for ((index, text) in listOf("Legacy quote notification reference", "Quote notification reference").withIndex()) {
+                ui.onAllNodesWithText("Quoted your post")[index].assertIsDisplayed().performClick()
+                waitFor("Conversation")
+                waitFor(text)
+                ui.onNodeWithText(text).assertIsDisplayed()
+                waitFor("Native Red Square reference post")
+                ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
+                ui.onNodeWithText("Back").performClick()
+                waitFor("Quoted your post")
+            }
+            ui.onAllNodesWithText(actor).assertCountEquals(3)[0].assertIsDisplayed().performClick()
             waitFor("Profile")
             ui.onNodeWithText(actor).assertIsDisplayed()
         }
@@ -141,7 +164,11 @@ class NotificationsPreviewTest {
                 require(criteria.get("flagged_ne").asInt == 1)
                 require(criteria.get("limit").asInt in 1..100)
                 repostReads.incrementAndGet()
-                if (mode == Mode.REPOST) "[${fixture.get("incomingRepost")},${fixture.get("parentedQuote")}]" else "[]"
+                when (mode) {
+                    Mode.REPOST -> "[${fixture.get("incomingRepost")},${fixture.get("parentedQuote")}]"
+                    Mode.QUOTE -> "[${fixture.get("incomingQuote")}]"
+                    else -> "[]"
+                }
             }
         }, registryResponse = { criteria ->
             if (mode != Mode.USERNAME) {
@@ -169,9 +196,14 @@ class NotificationsPreviewTest {
                             Mode.REPLY -> "[${fixture.get("incomingReply")},${fixture.get("parentedQuote")}]"
                             Mode.MENTION -> "[${fixture.get("incomingMention")},${fixture.get("addressedPost")}]"
                             Mode.USERNAME -> "[${fixture.get("usernameMention")}]"
+                            Mode.QUOTE -> "[${fixture.get("legacyQuote")}]"
                             Mode.LIKE, Mode.REPOST -> "[]"
                         }
                     }
+                    criteria.get("field5")?.asString == fixture.getAsJsonObject("incomingQuote").get("sig").asString ->
+                        "[${fixture.get("incomingQuote")}]"
+                    criteria.get("field5")?.asString == fixture.getAsJsonObject("legacyQuote").get("sig").asString ->
+                        "[${fixture.get("legacyQuote")}]"
                     criteria.get("field5")?.asString == fixture.getAsJsonObject("usernameMention").get("sig").asString ->
                         "[${fixture.get("usernameMention")}]"
                     criteria.get("field5")?.asString == fixture.getAsJsonObject("incomingMention").get("sig").asString ->
@@ -223,8 +255,8 @@ class NotificationsPreviewTest {
                         journey(actor)
                         peer.assertHealthy()
                         assertTrue("Incoming likes must be read for this wallet", likeReads.get() > 0)
-                        if (mode in listOf(Mode.REPLY, Mode.MENTION, Mode.USERNAME)) assertTrue("Incoming posts must be read for this wallet", replyReads.get() > 0)
-                        if (mode == Mode.REPOST) assertTrue("Incoming reposts must be read for this wallet", repostReads.get() > 0)
+                        if (mode in listOf(Mode.REPLY, Mode.MENTION, Mode.USERNAME, Mode.QUOTE)) assertTrue("Incoming posts must be read for this wallet", replyReads.get() > 0)
+                        if (mode in listOf(Mode.REPOST, Mode.QUOTE)) assertTrue("Incoming reposts must be read for this wallet", repostReads.get() > 0)
                         if (mode == Mode.USERNAME) assertTrue("A label hint alone must not be ownership evidence",
                             peer.registryQueries.any { it.get("request").asString == "registry namecheck" &&
                                 it.get("identifier").asString == "NativeCase7@saito" })

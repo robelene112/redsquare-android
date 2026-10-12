@@ -5,6 +5,23 @@ import org.junit.Assert.*
 import org.junit.Test
 
 class RedSquareNotificationsTest {
+    @Test fun `current and legacy commentary quotes retain their authenticated original`() {
+        val fixture = JsonParser.parseReader(javaClass.getResourceAsStream("/native-notification-reference.json")!!.reader()).asJsonObject
+        val current = fixture.getAsJsonObject("incomingQuote")
+        val legacy = fixture.getAsJsonObject("legacyQuote")
+        val repost = fixture.getAsJsonObject("incomingRepost")
+        val page = RedSquareFeed.readIncomingQuotes("[$current,$legacy,$repost]", "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR")
+        assertEquals(listOf("Quote notification reference", "Legacy quote notification reference"), page.posts.map { it.text })
+        assertEquals(listOf(1700000000075L, 1700000000076L), page.posts.map { it.createdAt })
+        for (post in page.posts) {
+            assertEquals("pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU", post.author)
+            assertEquals(fixture.getAsJsonObject("root").get("sig").asString, post.quoteTarget)
+            assertEquals("jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR", post.quoted!!.author)
+            assertEquals("Native Red Square reference post", post.quoted!!.text)
+        }
+        assertEquals(0, page.ignored)
+    }
+
     @Test fun `an ordinary signed repost retains its original while commentary remains a quote`() {
         val fixture = JsonParser.parseReader(javaClass.getResourceAsStream("/native-notification-reference.json")!!.reader()).asJsonObject
         val repost = fixture.getAsJsonObject("incomingRepost")

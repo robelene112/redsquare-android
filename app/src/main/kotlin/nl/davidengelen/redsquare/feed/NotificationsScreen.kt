@@ -28,7 +28,7 @@ private data class NotificationRow(val id: String, val author: String, val creat
     val post: FeedPost, val caption: Int)
 
 private data class NotificationPages(val likes: ArchiveLikePage, val replies: ArchiveFeedPage,
-    val mentions: ArchiveFeedPage, val reposts: ArchiveActionPage)
+    val mentions: ArchiveFeedPage, val reposts: ArchiveActionPage, val quotes: List<FeedPost>)
 
 @Composable
 internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, knownPosts: List<FeedPost>,
@@ -40,6 +40,7 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, knownPo
     var replies by remember(wallet?.publicKey, endpoint) { mutableStateOf<List<FeedPost>>(emptyList()) }
     var mentions by remember(wallet?.publicKey, endpoint) { mutableStateOf<List<FeedPost>>(emptyList()) }
     var reposts by remember(wallet?.publicKey, endpoint) { mutableStateOf<List<RedSquareAction>>(emptyList()) }
+    var quotes by remember(wallet?.publicKey, endpoint) { mutableStateOf<List<FeedPost>>(emptyList()) }
     var loading by remember { mutableStateOf(false) }
     var failed by remember { mutableStateOf(false) }
     var ignored by remember { mutableIntStateOf(0) }
@@ -65,15 +66,19 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, knownPo
                     val name = try { RegisteredNameStore(context, wallet.publicKey, registrar).load()?.name }
                     catch (cancelled: CancellationException) { throw cancelled }
                     catch (_: Exception) { null }
+                    val retweets = read("RedSquareRetweet")
                     NotificationPages(likes, RedSquareFeed.readReplies(posts),
                         RedSquareFeed.readMentions(posts, wallet.publicKey, name, registrar),
-                        RedSquareActions.readIncomingReposts(read("RedSquareRetweet"), wallet.publicKey))
+                        RedSquareActions.readIncomingReposts(retweets, wallet.publicKey),
+                        RedSquareFeed.readIncomingQuotes(retweets, wallet.publicKey).posts +
+                            RedSquareFeed.readIncomingQuotes(posts, wallet.publicKey).posts)
                 }
             }
             events = pages.likes.likes
             replies = pages.replies.posts.filter { it.author != wallet.publicKey && it.parentId.isNotEmpty() }
             mentions = pages.mentions.posts
             reposts = pages.reposts.actions
+            quotes = pages.quotes
             ignored = pages.likes.ignored + pages.replies.ignored + pages.reposts.ignored
             failed = false
         } catch (cancelled: CancellationException) { throw cancelled }
@@ -95,7 +100,11 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, knownPo
                 NotificationRow(event.id, event.author, event.createdAt, target, R.string.notifications_repost_own)
             }
         }
-        val rows = (repostRows + events.mapNotNull { event ->
+        val quoteRows = quotes.filter { quote ->
+            quote.quoted?.author == wallet?.publicKey ||
+                knownPosts.any { it.id == quote.quoteTarget && it.author == wallet?.publicKey }
+        }.map { quote -> NotificationRow(quote.id, quote.author, quote.createdAt, quote, R.string.notifications_quote_own) }
+        val rows = (quoteRows + repostRows + events.mapNotNull { event ->
             knownPosts.firstOrNull { it.id == event.target && it.author == wallet?.publicKey }?.let { target ->
                 NotificationRow(event.id, event.author, event.createdAt, target, R.string.notifications_like_own)
             }

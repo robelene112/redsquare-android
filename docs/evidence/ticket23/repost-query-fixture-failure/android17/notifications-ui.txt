@@ -1,0 +1,566 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.NotificationsPreviewTest:
+INSTRUMENTATION_STATUS: test=anIncomingSignedMentionOpensItsPostAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Controlled peer rejected the request
+	at nl.davidengelen.redsquare.ControlledFeedPeer.assertHealthy(ControlledFeedPeer.kt:156)
+	at nl.davidengelen.redsquare.ControlledFeedPeer.assertRequestObserved(ControlledFeedPeer.kt:155)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$21$lambda$20$lambda$19(NotificationsPreviewTest.kt:207)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$03lNuih86vXaqfikWUfP5BiT8Hw(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:202)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingSignedMentionOpensItsPostAndVerifiedActorProfile(NotificationsPreviewTest.kt:58)
+	... 63 trimmed
+Caused by: java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String com.google.gson.JsonElement.getAsString()' on a null object reference
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$8(NotificationsPreviewTest.kt:138)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$240tXZhAUZSZPOsWmb1FzMwxog4(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ControlledFeedPeer$response$1.onMessage(ControlledFeedPeer.kt:139)
+	at okhttp3.internal.ws.RealWebSocket.onReadMessage(RealWebSocket.kt:399)
+	at okhttp3.internal.ws.WebSocketReader.readMessageFrame(WebSocketReader.kt:265)
+	at okhttp3.internal.ws.WebSocketReader.processNextFrame(WebSocketReader.kt:115)
+	at okhttp3.internal.ws.RealWebSocket.loopReader(RealWebSocket.kt:317)
+	at mockwebserver3.MockWebServer.handleWebSocketUpgrade(MockWebServer.kt:845)
+	at mockwebserver3.MockWebServer.access$handleWebSocketUpgrade(MockWebServer.kt:97)
+	at mockwebserver3.MockWebServer$SocketHandler.processOneRequest(MockWebServer.kt:607)
+	at mockwebserver3.MockWebServer$SocketHandler.handle(MockWebServer.kt:533)
+	at mockwebserver3.MockWebServer.serveConnection$lambda$0(MockWebServer.kt:427)
+	at mockwebserver3.MockWebServer.$r8$lambda$_0q0B2jgUDqJDX0aEHSRVLAAlhA(MockWebServer.kt:0)
+	at mockwebserver3.MockWebServer$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at okhttp3.internal.concurrent.TaskQueue$execute$1.runOnce(TaskQueue.kt:112)
+	at okhttp3.internal.concurrent.TaskRunner$runnable$1.run(TaskRunner.kt:81)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1100)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:1572)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anIncomingSignedMentionOpensItsPostAndVerifiedActorProfile(nl.davidengelen.redsquare.NotificationsPreviewTest):
+java.lang.AssertionError: Controlled peer rejected the request
+	at nl.davidengelen.redsquare.ControlledFeedPeer.assertHealthy(ControlledFeedPeer.kt:156)
+	at nl.davidengelen.redsquare.ControlledFeedPeer.assertRequestObserved(ControlledFeedPeer.kt:155)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$21$lambda$20$lambda$19(NotificationsPreviewTest.kt:207)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$03lNuih86vXaqfikWUfP5BiT8Hw(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:202)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingSignedMentionOpensItsPostAndVerifiedActorProfile(NotificationsPreviewTest.kt:58)
+	... 63 trimmed
+Caused by: java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String com.google.gson.JsonElement.getAsString()' on a null object reference
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$8(NotificationsPreviewTest.kt:138)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$240tXZhAUZSZPOsWmb1FzMwxog4(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ControlledFeedPeer$response$1.onMessage(ControlledFeedPeer.kt:139)
+	at okhttp3.internal.ws.RealWebSocket.onReadMessage(RealWebSocket.kt:399)
+	at okhttp3.internal.ws.WebSocketReader.readMessageFrame(WebSocketReader.kt:265)
+	at okhttp3.internal.ws.WebSocketReader.processNextFrame(WebSocketReader.kt:115)
+	at okhttp3.internal.ws.RealWebSocket.loopReader(RealWebSocket.kt:317)
+	at mockwebserver3.MockWebServer.handleWebSocketUpgrade(MockWebServer.kt:845)
+	at mockwebserver3.MockWebServer.access$handleWebSocketUpgrade(MockWebServer.kt:97)
+	at mockwebserver3.MockWebServer$SocketHandler.processOneRequest(MockWebServer.kt:607)
+	at mockwebserver3.MockWebServer$SocketHandler.handle(MockWebServer.kt:533)
+	at mockwebserver3.MockWebServer.serveConnection$lambda$0(MockWebServer.kt:427)
+	at mockwebserver3.MockWebServer.$r8$lambda$_0q0B2jgUDqJDX0aEHSRVLAAlhA(MockWebServer.kt:0)
+	at mockwebserver3.MockWebServer$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at okhttp3.internal.concurrent.TaskQueue$execute$1.runOnce(TaskQueue.kt:112)
+	at okhttp3.internal.concurrent.TaskRunner$runnable$1.run(TaskRunner.kt:81)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1100)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:1572)
+
+INSTRUMENTATION_STATUS: test=anIncomingSignedMentionOpensItsPostAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Controlled peer rejected the request
+	at nl.davidengelen.redsquare.ControlledFeedPeer.assertHealthy(ControlledFeedPeer.kt:156)
+	at nl.davidengelen.redsquare.ControlledFeedPeer.assertRequestObserved(ControlledFeedPeer.kt:155)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$21$lambda$20$lambda$19(NotificationsPreviewTest.kt:207)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$03lNuih86vXaqfikWUfP5BiT8Hw(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:202)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile(NotificationsPreviewTest.kt:23)
+	... 63 trimmed
+Caused by: java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String com.google.gson.JsonElement.getAsString()' on a null object reference
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$8(NotificationsPreviewTest.kt:138)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$240tXZhAUZSZPOsWmb1FzMwxog4(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ControlledFeedPeer$response$1.onMessage(ControlledFeedPeer.kt:139)
+	at okhttp3.internal.ws.RealWebSocket.onReadMessage(RealWebSocket.kt:399)
+	at okhttp3.internal.ws.WebSocketReader.readMessageFrame(WebSocketReader.kt:265)
+	at okhttp3.internal.ws.WebSocketReader.processNextFrame(WebSocketReader.kt:115)
+	at okhttp3.internal.ws.RealWebSocket.loopReader(RealWebSocket.kt:317)
+	at mockwebserver3.MockWebServer.handleWebSocketUpgrade(MockWebServer.kt:845)
+	at mockwebserver3.MockWebServer.access$handleWebSocketUpgrade(MockWebServer.kt:97)
+	at mockwebserver3.MockWebServer$SocketHandler.processOneRequest(MockWebServer.kt:607)
+	at mockwebserver3.MockWebServer$SocketHandler.handle(MockWebServer.kt:533)
+	at mockwebserver3.MockWebServer.serveConnection$lambda$0(MockWebServer.kt:427)
+	at mockwebserver3.MockWebServer.$r8$lambda$_0q0B2jgUDqJDX0aEHSRVLAAlhA(MockWebServer.kt:0)
+	at mockwebserver3.MockWebServer$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at okhttp3.internal.concurrent.TaskQueue$execute$1.runOnce(TaskQueue.kt:112)
+	at okhttp3.internal.concurrent.TaskRunner$runnable$1.run(TaskRunner.kt:81)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1100)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:1572)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile(nl.davidengelen.redsquare.NotificationsPreviewTest):
+java.lang.AssertionError: Controlled peer rejected the request
+	at nl.davidengelen.redsquare.ControlledFeedPeer.assertHealthy(ControlledFeedPeer.kt:156)
+	at nl.davidengelen.redsquare.ControlledFeedPeer.assertRequestObserved(ControlledFeedPeer.kt:155)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$21$lambda$20$lambda$19(NotificationsPreviewTest.kt:207)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$03lNuih86vXaqfikWUfP5BiT8Hw(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:202)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile(NotificationsPreviewTest.kt:23)
+	... 63 trimmed
+Caused by: java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String com.google.gson.JsonElement.getAsString()' on a null object reference
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$8(NotificationsPreviewTest.kt:138)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$240tXZhAUZSZPOsWmb1FzMwxog4(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ControlledFeedPeer$response$1.onMessage(ControlledFeedPeer.kt:139)
+	at okhttp3.internal.ws.RealWebSocket.onReadMessage(RealWebSocket.kt:399)
+	at okhttp3.internal.ws.WebSocketReader.readMessageFrame(WebSocketReader.kt:265)
+	at okhttp3.internal.ws.WebSocketReader.processNextFrame(WebSocketReader.kt:115)
+	at okhttp3.internal.ws.RealWebSocket.loopReader(RealWebSocket.kt:317)
+	at mockwebserver3.MockWebServer.handleWebSocketUpgrade(MockWebServer.kt:845)
+	at mockwebserver3.MockWebServer.access$handleWebSocketUpgrade(MockWebServer.kt:97)
+	at mockwebserver3.MockWebServer$SocketHandler.processOneRequest(MockWebServer.kt:607)
+	at mockwebserver3.MockWebServer$SocketHandler.handle(MockWebServer.kt:533)
+	at mockwebserver3.MockWebServer.serveConnection$lambda$0(MockWebServer.kt:427)
+	at mockwebserver3.MockWebServer.$r8$lambda$_0q0B2jgUDqJDX0aEHSRVLAAlhA(MockWebServer.kt:0)
+	at mockwebserver3.MockWebServer$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at okhttp3.internal.concurrent.TaskQueue$execute$1.runOnce(TaskQueue.kt:112)
+	at okhttp3.internal.concurrent.TaskRunner$runnable$1.run(TaskRunner.kt:81)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1100)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:1572)
+
+INSTRUMENTATION_STATUS: test=anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Controlled peer rejected the request
+	at nl.davidengelen.redsquare.ControlledFeedPeer.assertHealthy(ControlledFeedPeer.kt:156)
+	at nl.davidengelen.redsquare.ControlledFeedPeer.assertRequestObserved(ControlledFeedPeer.kt:155)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$21$lambda$20$lambda$19(NotificationsPreviewTest.kt:207)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$03lNuih86vXaqfikWUfP5BiT8Hw(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:202)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile(NotificationsPreviewTest.kt:38)
+	... 63 trimmed
+Caused by: java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String com.google.gson.JsonElement.getAsString()' on a null object reference
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$8(NotificationsPreviewTest.kt:138)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$240tXZhAUZSZPOsWmb1FzMwxog4(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ControlledFeedPeer$response$1.onMessage(ControlledFeedPeer.kt:139)
+	at okhttp3.internal.ws.RealWebSocket.onReadMessage(RealWebSocket.kt:399)
+	at okhttp3.internal.ws.WebSocketReader.readMessageFrame(WebSocketReader.kt:265)
+	at okhttp3.internal.ws.WebSocketReader.processNextFrame(WebSocketReader.kt:115)
+	at okhttp3.internal.ws.RealWebSocket.loopReader(RealWebSocket.kt:317)
+	at mockwebserver3.MockWebServer.handleWebSocketUpgrade(MockWebServer.kt:845)
+	at mockwebserver3.MockWebServer.access$handleWebSocketUpgrade(MockWebServer.kt:97)
+	at mockwebserver3.MockWebServer$SocketHandler.processOneRequest(MockWebServer.kt:607)
+	at mockwebserver3.MockWebServer$SocketHandler.handle(MockWebServer.kt:533)
+	at mockwebserver3.MockWebServer.serveConnection$lambda$0(MockWebServer.kt:427)
+	at mockwebserver3.MockWebServer.$r8$lambda$_0q0B2jgUDqJDX0aEHSRVLAAlhA(MockWebServer.kt:0)
+	at mockwebserver3.MockWebServer$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at okhttp3.internal.concurrent.TaskQueue$execute$1.runOnce(TaskQueue.kt:112)
+	at okhttp3.internal.concurrent.TaskRunner$runnable$1.run(TaskRunner.kt:81)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1100)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:1572)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile(nl.davidengelen.redsquare.NotificationsPreviewTest):
+java.lang.AssertionError: Controlled peer rejected the request
+	at nl.davidengelen.redsquare.ControlledFeedPeer.assertHealthy(ControlledFeedPeer.kt:156)
+	at nl.davidengelen.redsquare.ControlledFeedPeer.assertRequestObserved(ControlledFeedPeer.kt:155)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$21$lambda$20$lambda$19(NotificationsPreviewTest.kt:207)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$03lNuih86vXaqfikWUfP5BiT8Hw(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:202)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile(NotificationsPreviewTest.kt:38)
+	... 63 trimmed
+Caused by: java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String com.google.gson.JsonElement.getAsString()' on a null object reference
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$8(NotificationsPreviewTest.kt:138)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$240tXZhAUZSZPOsWmb1FzMwxog4(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ControlledFeedPeer$response$1.onMessage(ControlledFeedPeer.kt:139)
+	at okhttp3.internal.ws.RealWebSocket.onReadMessage(RealWebSocket.kt:399)
+	at okhttp3.internal.ws.WebSocketReader.readMessageFrame(WebSocketReader.kt:265)
+	at okhttp3.internal.ws.WebSocketReader.processNextFrame(WebSocketReader.kt:115)
+	at okhttp3.internal.ws.RealWebSocket.loopReader(RealWebSocket.kt:317)
+	at mockwebserver3.MockWebServer.handleWebSocketUpgrade(MockWebServer.kt:845)
+	at mockwebserver3.MockWebServer.access$handleWebSocketUpgrade(MockWebServer.kt:97)
+	at mockwebserver3.MockWebServer$SocketHandler.processOneRequest(MockWebServer.kt:607)
+	at mockwebserver3.MockWebServer$SocketHandler.handle(MockWebServer.kt:533)
+	at mockwebserver3.MockWebServer.serveConnection$lambda$0(MockWebServer.kt:427)
+	at mockwebserver3.MockWebServer.$r8$lambda$_0q0B2jgUDqJDX0aEHSRVLAAlhA(MockWebServer.kt:0)
+	at mockwebserver3.MockWebServer$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at okhttp3.internal.concurrent.TaskQueue$execute$1.runOnce(TaskQueue.kt:112)
+	at okhttp3.internal.concurrent.TaskRunner$runnable$1.run(TaskRunner.kt:81)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1100)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:1572)
+
+INSTRUMENTATION_STATUS: test=anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anIncomingSignedRepostOpensItsOriginalAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Controlled peer rejected the request
+	at nl.davidengelen.redsquare.ControlledFeedPeer.assertHealthy(ControlledFeedPeer.kt:156)
+	at nl.davidengelen.redsquare.ControlledFeedPeer.assertRequestObserved(ControlledFeedPeer.kt:155)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$21$lambda$20$lambda$19(NotificationsPreviewTest.kt:207)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$03lNuih86vXaqfikWUfP5BiT8Hw(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:202)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingSignedRepostOpensItsOriginalAndVerifiedActorProfile(NotificationsPreviewTest.kt:95)
+	... 63 trimmed
+Caused by: java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String com.google.gson.JsonElement.getAsString()' on a null object reference
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$8(NotificationsPreviewTest.kt:138)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$240tXZhAUZSZPOsWmb1FzMwxog4(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ControlledFeedPeer$response$1.onMessage(ControlledFeedPeer.kt:139)
+	at okhttp3.internal.ws.RealWebSocket.onReadMessage(RealWebSocket.kt:399)
+	at okhttp3.internal.ws.WebSocketReader.readMessageFrame(WebSocketReader.kt:265)
+	at okhttp3.internal.ws.WebSocketReader.processNextFrame(WebSocketReader.kt:115)
+	at okhttp3.internal.ws.RealWebSocket.loopReader(RealWebSocket.kt:317)
+	at mockwebserver3.MockWebServer.handleWebSocketUpgrade(MockWebServer.kt:845)
+	at mockwebserver3.MockWebServer.access$handleWebSocketUpgrade(MockWebServer.kt:97)
+	at mockwebserver3.MockWebServer$SocketHandler.processOneRequest(MockWebServer.kt:607)
+	at mockwebserver3.MockWebServer$SocketHandler.handle(MockWebServer.kt:533)
+	at mockwebserver3.MockWebServer.serveConnection$lambda$0(MockWebServer.kt:427)
+	at mockwebserver3.MockWebServer.$r8$lambda$_0q0B2jgUDqJDX0aEHSRVLAAlhA(MockWebServer.kt:0)
+	at mockwebserver3.MockWebServer$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at okhttp3.internal.concurrent.TaskQueue$execute$1.runOnce(TaskQueue.kt:112)
+	at okhttp3.internal.concurrent.TaskRunner$runnable$1.run(TaskRunner.kt:81)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1100)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:1572)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anIncomingSignedRepostOpensItsOriginalAndVerifiedActorProfile(nl.davidengelen.redsquare.NotificationsPreviewTest):
+java.lang.AssertionError: Controlled peer rejected the request
+	at nl.davidengelen.redsquare.ControlledFeedPeer.assertHealthy(ControlledFeedPeer.kt:156)
+	at nl.davidengelen.redsquare.ControlledFeedPeer.assertRequestObserved(ControlledFeedPeer.kt:155)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$21$lambda$20$lambda$19(NotificationsPreviewTest.kt:207)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$03lNuih86vXaqfikWUfP5BiT8Hw(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:202)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingSignedRepostOpensItsOriginalAndVerifiedActorProfile(NotificationsPreviewTest.kt:95)
+	... 63 trimmed
+Caused by: java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String com.google.gson.JsonElement.getAsString()' on a null object reference
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$8(NotificationsPreviewTest.kt:138)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$240tXZhAUZSZPOsWmb1FzMwxog4(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ControlledFeedPeer$response$1.onMessage(ControlledFeedPeer.kt:139)
+	at okhttp3.internal.ws.RealWebSocket.onReadMessage(RealWebSocket.kt:399)
+	at okhttp3.internal.ws.WebSocketReader.readMessageFrame(WebSocketReader.kt:265)
+	at okhttp3.internal.ws.WebSocketReader.processNextFrame(WebSocketReader.kt:115)
+	at okhttp3.internal.ws.RealWebSocket.loopReader(RealWebSocket.kt:317)
+	at mockwebserver3.MockWebServer.handleWebSocketUpgrade(MockWebServer.kt:845)
+	at mockwebserver3.MockWebServer.access$handleWebSocketUpgrade(MockWebServer.kt:97)
+	at mockwebserver3.MockWebServer$SocketHandler.processOneRequest(MockWebServer.kt:607)
+	at mockwebserver3.MockWebServer$SocketHandler.handle(MockWebServer.kt:533)
+	at mockwebserver3.MockWebServer.serveConnection$lambda$0(MockWebServer.kt:427)
+	at mockwebserver3.MockWebServer.$r8$lambda$_0q0B2jgUDqJDX0aEHSRVLAAlhA(MockWebServer.kt:0)
+	at mockwebserver3.MockWebServer$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at okhttp3.internal.concurrent.TaskQueue$execute$1.runOnce(TaskQueue.kt:112)
+	at okhttp3.internal.concurrent.TaskRunner$runnable$1.run(TaskRunner.kt:81)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1100)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:1572)
+
+INSTRUMENTATION_STATUS: test=anIncomingSignedRepostOpensItsOriginalAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anIncomingVerifiedUsernameMentionOpensItsPostAndActorProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Controlled peer rejected the request
+	at nl.davidengelen.redsquare.ControlledFeedPeer.assertHealthy(ControlledFeedPeer.kt:156)
+	at nl.davidengelen.redsquare.ControlledFeedPeer.assertRequestObserved(ControlledFeedPeer.kt:155)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$21$lambda$20$lambda$19(NotificationsPreviewTest.kt:207)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$03lNuih86vXaqfikWUfP5BiT8Hw(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:202)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingVerifiedUsernameMentionOpensItsPostAndActorProfile(NotificationsPreviewTest.kt:77)
+	... 63 trimmed
+Caused by: java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String com.google.gson.JsonElement.getAsString()' on a null object reference
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$8(NotificationsPreviewTest.kt:138)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$240tXZhAUZSZPOsWmb1FzMwxog4(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ControlledFeedPeer$response$1.onMessage(ControlledFeedPeer.kt:139)
+	at okhttp3.internal.ws.RealWebSocket.onReadMessage(RealWebSocket.kt:399)
+	at okhttp3.internal.ws.WebSocketReader.readMessageFrame(WebSocketReader.kt:265)
+	at okhttp3.internal.ws.WebSocketReader.processNextFrame(WebSocketReader.kt:115)
+	at okhttp3.internal.ws.RealWebSocket.loopReader(RealWebSocket.kt:317)
+	at mockwebserver3.MockWebServer.handleWebSocketUpgrade(MockWebServer.kt:845)
+	at mockwebserver3.MockWebServer.access$handleWebSocketUpgrade(MockWebServer.kt:97)
+	at mockwebserver3.MockWebServer$SocketHandler.processOneRequest(MockWebServer.kt:607)
+	at mockwebserver3.MockWebServer$SocketHandler.handle(MockWebServer.kt:533)
+	at mockwebserver3.MockWebServer.serveConnection$lambda$0(MockWebServer.kt:427)
+	at mockwebserver3.MockWebServer.$r8$lambda$_0q0B2jgUDqJDX0aEHSRVLAAlhA(MockWebServer.kt:0)
+	at mockwebserver3.MockWebServer$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at okhttp3.internal.concurrent.TaskQueue$execute$1.runOnce(TaskQueue.kt:112)
+	at okhttp3.internal.concurrent.TaskRunner$runnable$1.run(TaskRunner.kt:81)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1100)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:1572)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anIncomingVerifiedUsernameMentionOpensItsPostAndActorProfile(nl.davidengelen.redsquare.NotificationsPreviewTest):
+java.lang.AssertionError: Controlled peer rejected the request
+	at nl.davidengelen.redsquare.ControlledFeedPeer.assertHealthy(ControlledFeedPeer.kt:156)
+	at nl.davidengelen.redsquare.ControlledFeedPeer.assertRequestObserved(ControlledFeedPeer.kt:155)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$21$lambda$20$lambda$19(NotificationsPreviewTest.kt:207)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$03lNuih86vXaqfikWUfP5BiT8Hw(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:202)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingVerifiedUsernameMentionOpensItsPostAndActorProfile(NotificationsPreviewTest.kt:77)
+	... 63 trimmed
+Caused by: java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String com.google.gson.JsonElement.getAsString()' on a null object reference
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$8(NotificationsPreviewTest.kt:138)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$240tXZhAUZSZPOsWmb1FzMwxog4(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ControlledFeedPeer$response$1.onMessage(ControlledFeedPeer.kt:139)
+	at okhttp3.internal.ws.RealWebSocket.onReadMessage(RealWebSocket.kt:399)
+	at okhttp3.internal.ws.WebSocketReader.readMessageFrame(WebSocketReader.kt:265)
+	at okhttp3.internal.ws.WebSocketReader.processNextFrame(WebSocketReader.kt:115)
+	at okhttp3.internal.ws.RealWebSocket.loopReader(RealWebSocket.kt:317)
+	at mockwebserver3.MockWebServer.handleWebSocketUpgrade(MockWebServer.kt:845)
+	at mockwebserver3.MockWebServer.access$handleWebSocketUpgrade(MockWebServer.kt:97)
+	at mockwebserver3.MockWebServer$SocketHandler.processOneRequest(MockWebServer.kt:607)
+	at mockwebserver3.MockWebServer$SocketHandler.handle(MockWebServer.kt:533)
+	at mockwebserver3.MockWebServer.serveConnection$lambda$0(MockWebServer.kt:427)
+	at mockwebserver3.MockWebServer.$r8$lambda$_0q0B2jgUDqJDX0aEHSRVLAAlhA(MockWebServer.kt:0)
+	at mockwebserver3.MockWebServer$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at okhttp3.internal.concurrent.TaskQueue$execute$1.runOnce(TaskQueue.kt:112)
+	at okhttp3.internal.concurrent.TaskRunner$runnable$1.run(TaskRunner.kt:81)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1100)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:1572)
+
+INSTRUMENTATION_STATUS: test=anIncomingVerifiedUsernameMentionOpensItsPostAndActorProfile
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 76.512
+There were 5 failures:
+1) anIncomingSignedMentionOpensItsPostAndVerifiedActorProfile(nl.davidengelen.redsquare.NotificationsPreviewTest)
+java.lang.AssertionError: Controlled peer rejected the request
+	at nl.davidengelen.redsquare.ControlledFeedPeer.assertHealthy(ControlledFeedPeer.kt:156)
+	at nl.davidengelen.redsquare.ControlledFeedPeer.assertRequestObserved(ControlledFeedPeer.kt:155)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$21$lambda$20$lambda$19(NotificationsPreviewTest.kt:207)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$03lNuih86vXaqfikWUfP5BiT8Hw(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:202)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingSignedMentionOpensItsPostAndVerifiedActorProfile(NotificationsPreviewTest.kt:58)
+	... 63 trimmed
+Caused by: java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String com.google.gson.JsonElement.getAsString()' on a null object reference
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$8(NotificationsPreviewTest.kt:138)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$240tXZhAUZSZPOsWmb1FzMwxog4(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ControlledFeedPeer$response$1.onMessage(ControlledFeedPeer.kt:139)
+	at okhttp3.internal.ws.RealWebSocket.onReadMessage(RealWebSocket.kt:399)
+	at okhttp3.internal.ws.WebSocketReader.readMessageFrame(WebSocketReader.kt:265)
+	at okhttp3.internal.ws.WebSocketReader.processNextFrame(WebSocketReader.kt:115)
+	at okhttp3.internal.ws.RealWebSocket.loopReader(RealWebSocket.kt:317)
+	at mockwebserver3.MockWebServer.handleWebSocketUpgrade(MockWebServer.kt:845)
+	at mockwebserver3.MockWebServer.access$handleWebSocketUpgrade(MockWebServer.kt:97)
+	at mockwebserver3.MockWebServer$SocketHandler.processOneRequest(MockWebServer.kt:607)
+	at mockwebserver3.MockWebServer$SocketHandler.handle(MockWebServer.kt:533)
+	at mockwebserver3.MockWebServer.serveConnection$lambda$0(MockWebServer.kt:427)
+	at mockwebserver3.MockWebServer.$r8$lambda$_0q0B2jgUDqJDX0aEHSRVLAAlhA(MockWebServer.kt:0)
+	at mockwebserver3.MockWebServer$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at okhttp3.internal.concurrent.TaskQueue$execute$1.runOnce(TaskQueue.kt:112)
+	at okhttp3.internal.concurrent.TaskRunner$runnable$1.run(TaskRunner.kt:81)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1100)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:1572)
+2) anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile(nl.davidengelen.redsquare.NotificationsPreviewTest)
+java.lang.AssertionError: Controlled peer rejected the request
+	at nl.davidengelen.redsquare.ControlledFeedPeer.assertHealthy(ControlledFeedPeer.kt:156)
+	at nl.davidengelen.redsquare.ControlledFeedPeer.assertRequestObserved(ControlledFeedPeer.kt:155)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$21$lambda$20$lambda$19(NotificationsPreviewTest.kt:207)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$03lNuih86vXaqfikWUfP5BiT8Hw(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:202)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile(NotificationsPreviewTest.kt:23)
+	... 63 trimmed
+Caused by: java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String com.google.gson.JsonElement.getAsString()' on a null object reference
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$8(NotificationsPreviewTest.kt:138)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$240tXZhAUZSZPOsWmb1FzMwxog4(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ControlledFeedPeer$response$1.onMessage(ControlledFeedPeer.kt:139)
+	at okhttp3.internal.ws.RealWebSocket.onReadMessage(RealWebSocket.kt:399)
+	at okhttp3.internal.ws.WebSocketReader.readMessageFrame(WebSocketReader.kt:265)
+	at okhttp3.internal.ws.WebSocketReader.processNextFrame(WebSocketReader.kt:115)
+	at okhttp3.internal.ws.RealWebSocket.loopReader(RealWebSocket.kt:317)
+	at mockwebserver3.MockWebServer.handleWebSocketUpgrade(MockWebServer.kt:845)
+	at mockwebserver3.MockWebServer.access$handleWebSocketUpgrade(MockWebServer.kt:97)
+	at mockwebserver3.MockWebServer$SocketHandler.processOneRequest(MockWebServer.kt:607)
+	at mockwebserver3.MockWebServer$SocketHandler.handle(MockWebServer.kt:533)
+	at mockwebserver3.MockWebServer.serveConnection$lambda$0(MockWebServer.kt:427)
+	at mockwebserver3.MockWebServer.$r8$lambda$_0q0B2jgUDqJDX0aEHSRVLAAlhA(MockWebServer.kt:0)
+	at mockwebserver3.MockWebServer$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at okhttp3.internal.concurrent.TaskQueue$execute$1.runOnce(TaskQueue.kt:112)
+	at okhttp3.internal.concurrent.TaskRunner$runnable$1.run(TaskRunner.kt:81)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1100)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:1572)
+3) anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile(nl.davidengelen.redsquare.NotificationsPreviewTest)
+java.lang.AssertionError: Controlled peer rejected the request
+	at nl.davidengelen.redsquare.ControlledFeedPeer.assertHealthy(ControlledFeedPeer.kt:156)
+	at nl.davidengelen.redsquare.ControlledFeedPeer.assertRequestObserved(ControlledFeedPeer.kt:155)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$21$lambda$20$lambda$19(NotificationsPreviewTest.kt:207)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$03lNuih86vXaqfikWUfP5BiT8Hw(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:202)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile(NotificationsPreviewTest.kt:38)
+	... 63 trimmed
+Caused by: java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String com.google.gson.JsonElement.getAsString()' on a null object reference
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$8(NotificationsPreviewTest.kt:138)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$240tXZhAUZSZPOsWmb1FzMwxog4(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ControlledFeedPeer$response$1.onMessage(ControlledFeedPeer.kt:139)
+	at okhttp3.internal.ws.RealWebSocket.onReadMessage(RealWebSocket.kt:399)
+	at okhttp3.internal.ws.WebSocketReader.readMessageFrame(WebSocketReader.kt:265)
+	at okhttp3.internal.ws.WebSocketReader.processNextFrame(WebSocketReader.kt:115)
+	at okhttp3.internal.ws.RealWebSocket.loopReader(RealWebSocket.kt:317)
+	at mockwebserver3.MockWebServer.handleWebSocketUpgrade(MockWebServer.kt:845)
+	at mockwebserver3.MockWebServer.access$handleWebSocketUpgrade(MockWebServer.kt:97)
+	at mockwebserver3.MockWebServer$SocketHandler.processOneRequest(MockWebServer.kt:607)
+	at mockwebserver3.MockWebServer$SocketHandler.handle(MockWebServer.kt:533)
+	at mockwebserver3.MockWebServer.serveConnection$lambda$0(MockWebServer.kt:427)
+	at mockwebserver3.MockWebServer.$r8$lambda$_0q0B2jgUDqJDX0aEHSRVLAAlhA(MockWebServer.kt:0)
+	at mockwebserver3.MockWebServer$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at okhttp3.internal.concurrent.TaskQueue$execute$1.runOnce(TaskQueue.kt:112)
+	at okhttp3.internal.concurrent.TaskRunner$runnable$1.run(TaskRunner.kt:81)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1100)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:1572)
+4) anIncomingSignedRepostOpensItsOriginalAndVerifiedActorProfile(nl.davidengelen.redsquare.NotificationsPreviewTest)
+java.lang.AssertionError: Controlled peer rejected the request
+	at nl.davidengelen.redsquare.ControlledFeedPeer.assertHealthy(ControlledFeedPeer.kt:156)
+	at nl.davidengelen.redsquare.ControlledFeedPeer.assertRequestObserved(ControlledFeedPeer.kt:155)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$21$lambda$20$lambda$19(NotificationsPreviewTest.kt:207)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$03lNuih86vXaqfikWUfP5BiT8Hw(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:202)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingSignedRepostOpensItsOriginalAndVerifiedActorProfile(NotificationsPreviewTest.kt:95)
+	... 63 trimmed
+Caused by: java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String com.google.gson.JsonElement.getAsString()' on a null object reference
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$8(NotificationsPreviewTest.kt:138)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$240tXZhAUZSZPOsWmb1FzMwxog4(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ControlledFeedPeer$response$1.onMessage(ControlledFeedPeer.kt:139)
+	at okhttp3.internal.ws.RealWebSocket.onReadMessage(RealWebSocket.kt:399)
+	at okhttp3.internal.ws.WebSocketReader.readMessageFrame(WebSocketReader.kt:265)
+	at okhttp3.internal.ws.WebSocketReader.processNextFrame(WebSocketReader.kt:115)
+	at okhttp3.internal.ws.RealWebSocket.loopReader(RealWebSocket.kt:317)
+	at mockwebserver3.MockWebServer.handleWebSocketUpgrade(MockWebServer.kt:845)
+	at mockwebserver3.MockWebServer.access$handleWebSocketUpgrade(MockWebServer.kt:97)
+	at mockwebserver3.MockWebServer$SocketHandler.processOneRequest(MockWebServer.kt:607)
+	at mockwebserver3.MockWebServer$SocketHandler.handle(MockWebServer.kt:533)
+	at mockwebserver3.MockWebServer.serveConnection$lambda$0(MockWebServer.kt:427)
+	at mockwebserver3.MockWebServer.$r8$lambda$_0q0B2jgUDqJDX0aEHSRVLAAlhA(MockWebServer.kt:0)
+	at mockwebserver3.MockWebServer$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at okhttp3.internal.concurrent.TaskQueue$execute$1.runOnce(TaskQueue.kt:112)
+	at okhttp3.internal.concurrent.TaskRunner$runnable$1.run(TaskRunner.kt:81)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1100)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:1572)
+5) anIncomingVerifiedUsernameMentionOpensItsPostAndActorProfile(nl.davidengelen.redsquare.NotificationsPreviewTest)
+java.lang.AssertionError: Controlled peer rejected the request
+	at nl.davidengelen.redsquare.ControlledFeedPeer.assertHealthy(ControlledFeedPeer.kt:156)
+	at nl.davidengelen.redsquare.ControlledFeedPeer.assertRequestObserved(ControlledFeedPeer.kt:155)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$21$lambda$20$lambda$19(NotificationsPreviewTest.kt:207)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$03lNuih86vXaqfikWUfP5BiT8Hw(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:202)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingVerifiedUsernameMentionOpensItsPostAndActorProfile(NotificationsPreviewTest.kt:77)
+	... 63 trimmed
+Caused by: java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String com.google.gson.JsonElement.getAsString()' on a null object reference
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$8(NotificationsPreviewTest.kt:138)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$240tXZhAUZSZPOsWmb1FzMwxog4(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ControlledFeedPeer$response$1.onMessage(ControlledFeedPeer.kt:139)
+	at okhttp3.internal.ws.RealWebSocket.onReadMessage(RealWebSocket.kt:399)
+	at okhttp3.internal.ws.WebSocketReader.readMessageFrame(WebSocketReader.kt:265)
+	at okhttp3.internal.ws.WebSocketReader.processNextFrame(WebSocketReader.kt:115)
+	at okhttp3.internal.ws.RealWebSocket.loopReader(RealWebSocket.kt:317)
+	at mockwebserver3.MockWebServer.handleWebSocketUpgrade(MockWebServer.kt:845)
+	at mockwebserver3.MockWebServer.access$handleWebSocketUpgrade(MockWebServer.kt:97)
+	at mockwebserver3.MockWebServer$SocketHandler.processOneRequest(MockWebServer.kt:607)
+	at mockwebserver3.MockWebServer$SocketHandler.handle(MockWebServer.kt:533)
+	at mockwebserver3.MockWebServer.serveConnection$lambda$0(MockWebServer.kt:427)
+	at mockwebserver3.MockWebServer.$r8$lambda$_0q0B2jgUDqJDX0aEHSRVLAAlhA(MockWebServer.kt:0)
+	at mockwebserver3.MockWebServer$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at okhttp3.internal.concurrent.TaskQueue$execute$1.runOnce(TaskQueue.kt:112)
+	at okhttp3.internal.concurrent.TaskRunner$runnable$1.run(TaskRunner.kt:81)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1100)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:1572)
+
+FAILURES!!!
+Tests run: 5,  Failures: 5
+
+
+INSTRUMENTATION_CODE: -1
