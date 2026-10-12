@@ -5,7 +5,7 @@ Whole-ticket source base2fe1fa51ed8d0c0e250d77e7c2f4198809418fdd;
 reviewed throughaf7ed3b764ba46edc082ff74193c58aef35157be plus bounded
 c1aae00/d1aa624 corrections and the bounded d1aa624...8a0e785 fixture correction. Actual committed cumulative diff is nonempty.
 Both axes ran independently in permitted read-only review agents. Reviews do
-not implement another ticket or own CI dispatch. Final runtime remains pending.
+not implement another ticket or own CI dispatch. Final runtime remains incomplete.
 
 ## Standards
 
@@ -52,9 +52,10 @@ gates; no Pixel, realfunds, consensus, physicalpowercut or Home-policy inference
 Source findings:Standards0 residual/Spec0 residual. Earlier two fixture findings,
 one stale current-doc label and optional duplicated cleanup judgment are fixed.
 
-## Final runtime verification
+## Earlier final runtime dispatch
 
-Pending final device gates:
+The following dispatches subsequently FAILED in fixtures; they are historical,
+not pending acceptance gates:
 - Android10run38216135106 at8a0e785, full-android10, public_feed_read=true.
 - Android17run38214957982 atd1aa624, full-android17, public_feed_read=true.
 

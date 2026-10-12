@@ -90,7 +90,7 @@ Both fixturecorrection axes0hard/Spec; optional3helperrepeat now narrowly shared
 Earlier9f1f997 dispatch canceled afterbuildpassed/no runtime, preserved indexed
 sanitizedreport; notnativeRED or permissionreproduction. Productunchanged.
 
-Next native public balance/funding proof extends existingONE OwnerLiveFeedTest,
+Native public balance/funding proof extends existingONE OwnerLiveFeedTest,
 retainslivefeed/archive reads, then realHTTPS0balance/receivingfulladdress/funding0/
 noPending throughactualWalletUI. Noendpointoverride/review/auth/type4 or positive-
 funding/blockroute/admissionclaim. Harnesscollects originalbalance/fundingPNG+XML/
@@ -98,8 +98,8 @@ publicmetadata; normalfeedreturn/samewallet/backend gates. Existing1test count s
 Firstfull10/17at af7ed3b stoppedbefore runtime at unnecessary onNode import in
 OwnerLiveFeedTest23, two indexedfailedstep logs. Import removed, assertions and
 productunchanged; notnativeRED/public endpoint failure. Restarted same-source
-full10/full17 both use public_feed_read=true;
-compiler/core/release/lint/whole-ticketreviews againstbase above remainpending.
+full10/full17 both used public_feed_read=true; compiler/core/release/lint passed.
+Both later stopped in fixtures, detailed below; final native acceptance ispending.
 Dated05:47UTC hostreadiness staysseparate. Home-revocation isnotagreed; no blanket
 onStop cancellation or RESUMED callbackguard. Sourceauditchronologylinkedabove.
 
@@ -108,14 +108,29 @@ sourceaf7/c1/d1corrections. Full10run38214955638 atd1 stoppedexistingSocial90
 profileLikedvisibility;13indexedhashes retain46/7/3earlierrunners plusfailed8/7/1/
 13.331s androotfullyviewed originalPNG(noXMLoldcatch). Minimumtestonly correction
 scrollsprofileLiked before5/9visibility, stronger9visible assertion, nativePNG/XML
-captures. No product/timeouts/assertionweakening/causeclaim. Full17run38214957982
-atd1continues; correctedfull10run38216135106 at8a0e785 usespublictrue. Bothbounded
-fixture/evidence axes0; all13hashes/exact46/7/3recount verified. Finalfullresults
-remainpending. Currentruntimecounts
-are incomplete and do not close#23.
+captures. No product/timeouts/assertionweakening/causeclaim. Bothbounded
+fixture/evidence axes0; all13hashes/exact46/7/3recount verified. The restarted
+10/17pair then FAILED in fixtures as recorded below; no passedcompanion remains.
 
 #23 is unfinished. No new phone APK, physical Pixel result, real-funded admission,
 production node update or whole-ticket acceptance. Physical review remains#35.
+
+### Latest full verification interruption and correction
+
+Both restarted full runs failed; no passed17companion may be retained.
+10run38216135106 at8a0e785:earlier152/30/14(existingprofileassumption), then
+transfer9reported/7PASS/2failures83.487s:systemPIN takeScreenshotfalse, then
+cancellation NoComposehierarchy query. No first-failure PNG/XML; finalhostPNG0bytes.
+17run38214957982 atd1:earlier180/40/17/noassumptions, transfers9PASS112.667s and
+pendingdeath11702->11799/cold9.936s/cleanup.054s, then existingFeed bindEADDRINUSE/
+8reported7PASS1failure17.433s. Neithernewpublicwalletread reached.48/65hashes retain
+countablepaths/checkpoints/qualifiedoriginals under final-full-fixture-interruptions.
+Current testonly corrections:mandatorysystemPIN XML +explicitoptionalbitmap outcome;
+cancelwait allows absentroot then assertsdisplayed; Feed initial/replacement both
+explicitephemeralport soMockWebServer enablesreuse. Handoffbindrace remainssetup
+failure. No exactcapture/transition/portcause/productchange. Focused10transfer/17feed
+verification active:10transfersrun38218835267 and17feed/publicrun38218838372
+atbbfb021. Source/release/lint pushrun38218743073; newfullpair pending. Canonicalchronologyabove; #23 stillactive.
 
 ## Earlier completed ticket checkpoints
 
@@ -442,20 +457,3 @@ NATIVE_SAITO_TRANSFER_CONTRACT, NATIVE_PRIVATE_CHAT_CONTRACT and
 NATIVE_GROUP_CHAT_CONTRACT (all .md under docs/research). The protected future notes remain uncommitted and must be included only with
 their own relevant tickets; earlier contracts are already committed.
 They establish source contracts, not runtime or feature completion.
-
-
-## Latest full verification interruption and correction
-
-Both restarted full runs failed; no passed17companion may be retained.
-10run38216135106 at8a0e785:earlier152/30/14(existingprofileassumption), then
-transfer9reported/7PASS/2failures83.487s:systemPIN takeScreenshotfalse, then
-cancellation NoComposehierarchy query. No first-failure PNG/XML; finalhostPNG0bytes.
-17run38214957982 atd1:earlier180/40/17/noassumptions, transfers9PASS112.667s and
-pendingdeath11702->11799/cold9.936s/cleanup.054s, then existingFeed bindEADDRINUSE/
-8reported7PASS1failure17.433s. Neithernewpublicwalletread reached.48/65hashes retain
-countablepaths/checkpoints/qualifiedoriginals under final-full-fixture-interruptions.
-Current testonly corrections:mandatorysystemPIN XML +explicitoptionalbitmap outcome;
-cancelwait allows absentroot then assertsdisplayed; Feed initial/replacement both
-explicitephemeralport soMockWebServer enablesreuse. Handoffbindrace remainssetup
-failure. No exactcapture/transition/portcause/productchange. Focused10transfer/17feed
-verification andnewfullpair pending. Canonicalchronologyabove; #23 stillactive.
