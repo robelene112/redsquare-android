@@ -20,10 +20,12 @@ zero-payment restore remains strict. Current evidence: ticket22/balance-green
 and ticket22/payment-reference. Funded restoration and shared-serializer review
 fixes now pass all57 core tests (0 failures/errors/skips); see ticket22/payment-restore.
 Their bounded source reviews both report0 findings.
-The next authenticated native send case has a genuine missing-action RED38186051050
-at610b608 (balance regression passes); minimal source is being built. See
-ticket22/authenticated-send-red/android17. Native GREEN and recovery/inclusion
-are pending.
+The authenticated send cycle now passes focused38187897889 at0b0d75d
+(2PASS44.412s, core57). Root views4originalPNG+separateXML, and the actual
+762-byte frame independently passes pinnedWASM/Elliptic verification. Source
+push38187897999 also passes release/lint. Both source fix reviews0findings.
+See ticket22/authenticated-send-green/android17 and the qualified earlier failures.
+Cancellation/failure/retry/recovery/inclusion, receivingQR and final10/17 remain.
 Payments and their recovery, compatibility and final acceptance remain unfinished.
 
 Profile #18 is closed, final evidence commit ed5742f pushed. Eighteen of35 tickets

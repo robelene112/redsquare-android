@@ -115,3 +115,17 @@ protected setup/clear with explicit insecure-state check. Neither the source
 contract nor this failed run proves immediate cancel was the sole runtime cause.
 See ticket22/authenticated-send-second-failure/android17 and the official
 [OkHttp5.4.0 queue/close/cancel contract](https://github.com/square/okhttp/blob/parent-5.4.0/okhttp/src/commonJvmAndroid/kotlin/okhttp3/WebSocket.kt).
+
+Corrected focused run38187897889 at0b0d75d:2PASS44.412s, core57/source/debug/test
+pass. Source push38187897999 also passes release/lint. Root individually views
+4originalPNG and separately parses4XML. No frame before real PIN authentication;
+one actual type4 frame after it; Pending/zeroavailable and positively cleared PIN.
+All retained11hashes: ticket22/authenticated-send-green/android17.
+
+Pure verify-payment-frame.cjs independently validates that actual762-byte frame
+with pinnedWASM/Elliptic: originalsyntheticinputcoordinates/types, literalpayment
+625000000/fee10000000/change115000000, canonicalmetadata, authorsignature,
+WASMdeserialize/reserialize and actualroutinghop. Framehash
+abcd8ee6a0350f7db661c021f0fbaf3d952f965f1077005c631e3b91e23abd9e.
+Both source-fix review axes0findings. No consensus admission, realfunds, inclusion,
+Android10, physicalPixel, failure/recovery orwhole23acceptance is inferred.
