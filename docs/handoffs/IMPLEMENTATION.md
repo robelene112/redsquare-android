@@ -78,7 +78,13 @@ and send nothing. Current fixture compile1m18s; terminal assertions added after
 that compile await fresh hosted build. First1m52s missing test-dependency compile
 and1m38s correction are retained; no runtime RED yet. The pure independent block
 verifier dry-runs on the known reference; actual runtime bytes are still pending.
-Four hashes in `inclusion-test-preparation`.
+Four hashes in `inclusion-test-preparation`. Bounded preparation review at
+3a41bf1: Spec1repeat cold terminal gates, Standards1fixture cleanup protection.
+Both corrections now compile1m20s with the full corrected assertions; one hashed
+log in `inclusion-test-review-fix`. Replacement is inside protected cleanup,
+restoration accepts exact prior/fixture only and preserves primary errors.
+An empty snapshot's zero availability is not independent reservation proof.
+Source-fix review and native missing-Included RED remain pending.
 
 Next: HTTP elapsed/body budgets, Android Included/unknown/reorg status and
 persisted qualified observations, then receiving QR, remaining meaningful

@@ -32,8 +32,9 @@ class WalletTransferStatusTest {
         val priorWallet = wallets.loadOrCreate()
         context.noBackupFilesDir.listFiles()?.filter { it.name.startsWith("transfer.") }?.forEach { check(it.delete()) }
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
-        wallets.replace(priorWallet, fixture.wallet)
+        var primaryFailure: Throwable? = null
         try {
+            wallets.replace(priorWallet, fixture.wallet)
             // Pre-existing independently signed candidate, not an authentication/send bypass.
             TransferStore(context, fixture.wallet.publicKey).reserve(SaitoBackend.OWNER, fixture.payment)
             val peer = ControlledFeedPeer("[]")
@@ -78,12 +79,30 @@ class WalletTransferStatusTest {
                             ui.onNodeWithContentDescription("Wallet address").assertTextEquals(fixture.payment.author)
                             ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
                             ui.waitUntil(20_000) { ui.onNodeWithText(included).isDisplayed() }
+                            ui.onAllNodesWithText("Pending. Inclusion has not been verified.").assertCountEquals(0)
+                            ui.onAllNodesWithText("Retry transfer").assertCountEquals(0)
+                            ui.onNodeWithText("Transfer server: saito.davidengelen.nl.").performScrollTo().assertIsDisplayed()
+                            ui.onNodeWithText("Available to send: 0 SAITO").performScrollTo().assertIsDisplayed()
                             peer.assertHealthy(); assertTrue(peer.transactions.isEmpty())
                             captureNativeScreen(File(context.cacheDir, "transfer-evidence/included-reopened.png"), included)
                         }
                     }
                 }
             }
-        } finally { wallets.replace(wallets.loadExisting(), priorWallet) }
+        } catch (failure: Throwable) { primaryFailure = failure; throw failure }
+        finally {
+            try {
+                val current = wallets.loadExisting()
+                when (current.exportJson()) {
+                    priorWallet.exportJson() -> Unit
+                    fixture.wallet.exportJson() -> wallets.replace(current, priorWallet)
+                    else -> error("Unexpected inclusion fixture wallet state")
+                }
+                check(wallets.loadExisting().exportJson() == priorWallet.exportJson())
+            } catch (cleanup: Throwable) {
+                val primary = primaryFailure
+                if (primary == null) throw cleanup else primary.addSuppressed(cleanup)
+            }
+        }
     }
 }

@@ -366,3 +366,13 @@ current fixture compile1m18s. Terminal status assertions added afterward await
 hosted compile/runtime. Four preparation hashes retain logs and pure verifier
 dry-run on known reference. No native missing-Included RED or actual block
 compatibility/runtime/UI acceptance is claimed yet. HTTP/UI integration is absent.
+
+Preparation review at3a41bf1: Spec1repeat cold terminal gates; Standards1protected
+identity-bound fixture cleanup. Corrected journey repeats no Pending/no Retry/
+original backend/zero snapshot availability after recreation. Initial replacement
+is protected, cleanup restores only exact prior/fixture options and positively
+checks persisted restoration, preserving primary/suppressing cleanup failures.
+Test APK with all corrected assertions compiles1m20s; one original hash in
+inclusion-test-review-fix. Empty snapshot availability does not independently
+prove reservations. Source-fix review/native missing-Included RED remain pending;
+no product change or reproduced restoration failure is claimed.
