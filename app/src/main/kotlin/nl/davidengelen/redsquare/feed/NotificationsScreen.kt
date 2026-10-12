@@ -96,9 +96,11 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, knownPo
         if (failed) Text(stringResource(R.string.notifications_read_error))
         if (ignored > 0) Text(stringResource(R.string.notifications_unverified))
         val repostRows = reposts.mapNotNull { event ->
-            knownPosts.firstOrNull { it.id == event.target && it.author == wallet?.publicKey }?.let { target ->
-                NotificationRow(event.id, event.author, event.createdAt, target, R.string.notifications_repost_own)
-            }
+            val target = knownPosts.firstOrNull { it.id == event.target }
+            val own = wallet != null && target?.author == wallet.publicKey
+            if (own || target == null && wallet?.publicKey in event.recipients) NotificationRow(event.id, event.author,
+                event.createdAt, target, if (own) R.string.notifications_repost_own else R.string.notifications_repost,
+                event.target) else null
         }
         val quoteRows = quotes.filter { quote ->
             quote.quoted?.author == wallet?.publicKey ||

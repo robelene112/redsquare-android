@@ -395,3 +395,21 @@ claim. Thispredatesnarrow91686be fallback and4536653 non-ownernegative fixture,
 which stillneedsnativecoverage. No finalfullSDKpair/whole-ticket/cachecold/push/Pixel.
 Nextmissingreposttest4536653 localdebug/testcompile PASSES1m42s/bothreviews0,
 genuine8journeyRED38292822038 at4536653 running. No missingrepost product codeyet.
+
+Genuine missingrepostRED38292822038 at4536653:8reported/7PASS/1failure57.679s/
+0completedOKrecords/0deaths/noassumptions, core72/compiler/debug/test. Existing7
+journeys complete, including missinglike knownnon-ownernegative and trueoriginal
+Retry/recovery/finals. Repostcase reachesNotifications/Skip thenmissingneutral
+Reposted a post at146. Lookup/Retry/Conversation/Profile/finaltargetreads not
+reached. Threehashes missing-repost-native-red/android17, rootPNGtoolstatus/like
+captionvisible uppertoolbar/actorblankrender, separateXML allOwner/toolbar/actor/
+ownlike withnorepost. No fixture/timing/protocolcause inferred.
+MinimumrepostGREEN adds verifiedoutputrecipients toexisting actionDTO and same
+unknown-only signedowneraddressfallback/neutralReposted a post, retaining knownown
+wording and existing boundedReference lookup/Retry route. Compile/first8GREEN pending.
+
+Cumulative d1e65f5...4c1a074 review22commits: Standards0additional; Spec1available
+currentquote like-target cannotrecover throughQuoteState's ordinaryRedSquare-only
+lookup. Retweetnamespacefallback afterverifiedemptyordinaryread needsindependent
+nativevariant next; retain exactsig/flag/limit/deadline/backend/readervalidation.
+Otherknownunfinishedscope not counted as newfindings; no wholeacceptance yet.

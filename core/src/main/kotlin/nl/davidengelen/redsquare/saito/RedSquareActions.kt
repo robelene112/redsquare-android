@@ -6,7 +6,7 @@ enum class RedSquareActionKind(val request: String, val archiveKind: String, val
 }
 
 data class RedSquareAction(val id: String, val author: String, val target: String,
-    val kind: RedSquareActionKind, val envelope: String, val createdAt: Long)
+    val kind: RedSquareActionKind, val envelope: String, val createdAt: Long, val recipients: List<String>)
 
 data class ArchiveActionPage(val actions: List<RedSquareAction>, val ignored: Int,
     val oldestCreatedAt: Long?, val rowCount: Int)
@@ -18,7 +18,7 @@ object RedSquareActions {
         val kind = RedSquareActionKind.entries.single { it.request == signed.body.get("request").asString }
         val target = signed.body.getAsJsonObject("data").get("signature").asJsonPrimitive
         require(target.isString && target.asString.matches(Regex("[0-9a-f]{128}")))
-        return RedSquareAction(signed.id, signed.author, target.asString, kind, envelope, signed.createdAt)
+        return RedSquareAction(signed.id, signed.author, target.asString, kind, envelope, signed.createdAt, signed.recipients)
     }
 
     fun readIncomingReposts(response: String, owner: String): ArchiveActionPage {
