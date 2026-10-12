@@ -534,3 +534,17 @@ postMarkrecreation/retainedLikes+NoUnread/all26old/finalopaque/no-write pass.
 70hashes/all34XML/rootthreeoriginalcacheBudgetPNGs inspected. Bothminimumaxes0/
 actualbuilderfc4442389352 exit0 qualifyattached143partiallog/no durationclaim.
 Source cache correction complete; actualdeath/finalfullSDK acceptance pending.
+
+## Failed-stream retry/freshness regression
+
+### Standards
+
+`3543501...2459fa8`: zero hard violations/actionable heuristics. Primary visible
+flow plus external Archive observations; existing fixture modes unchanged.
+
+### Spec
+
+One proof gap: before>50 also accepts known old overlap51. Root requires before>51
+so that older window cannot satisfy fresh-bound assertion. Original UI/count/
+retry/healthy-request/Actor assertions unchanged. OriginalAPK1m33PASS;30run
+38324067997 uses earlier guard and cannot prove correction. No product defect.

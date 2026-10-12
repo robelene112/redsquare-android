@@ -869,7 +869,8 @@ class NotificationsPreviewTest {
                     likeReads.incrementAndGet()
                     when (mode) {
                         Mode.RETRY -> if (!responses.changed.get()) "invalid likes response" else {
-                            require(criteria.get("created_earlier_than").asLong > 1700000000050L)
+                            // A newest-page refresh must not reuse the known old timestamp overlap51.
+                            require(criteria.get("created_earlier_than").asLong > 1700000000051L)
                             responses.ownerReads.incrementAndGet()
                             if (responses.lateAvailable.get())
                                 "[${fixture.get("incomingLike")},${fixture.get("boundaryIncomingLike")},${fixture.get("incomingLike")}]"

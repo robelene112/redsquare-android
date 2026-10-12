@@ -1075,3 +1075,9 @@ Explicit Refresh releases previously unavailable old-timestamp actor4 event,
 requires fresh-bound request/healthy-stream reread/3unread/two dedupedLikes+Reply/
 actualActorProfile. Public Archive counters supplement primary visible flow;
 no private cursor assertions. No reference/production change; compile/native pending.
+
+Retry tracer2459fa8 localAPK1m33PASS; Standards0/Spec1known overlap51 also
+satisfied before>50 guard. Root changes external request guard to before>51,
+excluding the known older window while preserving allvisible/count/transport/
+Actor assertions.30native38324067997 original guard pending; correction compile/
+review pending. No reproduced freshness productdefect or source change.
