@@ -790,3 +790,10 @@ Unfollow removescontactrow. ControlledhistoryreleasedonlyafterFollowconfirmation
 positivediscoverycount checkedbeforecontentroute. Everycase precisefollowing.owner
 family snapshot/reset/restore underPublicStorelock preventspriorwalletfollowings
 fromchangingeligibility. No production/referencechange; genuineREDpending.
+
+Followtracerfb40cab localAPK1m27PASS. Two boundedreviewcorrections: require
+Conversation afterPosted (Profile couldalsoshowtext), andselectactualsecond
+followedpostactor ratherthanfirstexistinglikeactor withsame signer. Exacttwo-row
+assertionunchanged. Controlledfield5knownOtherthread nowreturnsitscorrectpost.
+Initialnative38313905738 continuesunchangedinitialPosted gate; laternavigation
+willbeunexecutedifRED andcannotestablishcorrectedacceptance. No productchange.

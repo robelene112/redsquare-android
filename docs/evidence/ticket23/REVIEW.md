@@ -178,3 +178,20 @@ new events remain unread. Compilation and first19GREEN run38313238506 pending.
 First19GREEN10 38313238506 at0cec28e passes19/50.97s/1OK/0deaths/core73.
 Forty-two retained hashes, root original feed-mention PNG/all20XML inspected.
 Correction compile1m43PASS. No claim of reproducing the source-found race.
+
+## Followed-post tracer
+
+### Standards
+
+`61ab49b...fb40cab`: one selection finding. Descending timestamps place the
+existing like first, followed post second. The actor tap must use index1 with
+the unchanged exact two-row assertion. No application identity defect claimed.
+
+### Spec
+
+One destination assertion finding: post text alone can also appear in Profile.
+Require Conversation after clicking Posted. Prior42GREENhashes/counts/20XML/
+original feed-mention image independently verified. Initial fixtureAPK1m27PASS.
+Corrections strengthen later navigation gates; run38313905738 may still prove
+the unchanged initial absent-Posted assertion, but its later gates would be
+unexecuted on that RED and must not be claimed as the corrected acceptance.

@@ -381,11 +381,12 @@ class NotificationsPreviewTest {
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
                 "notification-evidence/followed-post.png"), "Posted")
             ui.onNodeWithText("Posted").assertIsDisplayed().performClick()
+            waitFor("Conversation")
             waitFor("A known post by another account")
             ui.onNodeWithText("A known post by another account").assertIsDisplayed()
             ui.onNodeWithText("Back").performClick()
             waitFor("Posted")
-            ui.onAllNodesWithText(actor).assertCountEquals(2)[0].assertIsDisplayed().performClick()
+            ui.onAllNodesWithText(actor).assertCountEquals(2)[1].assertIsDisplayed().performClick()
             waitFor("Unfollow")
             ui.onNodeWithText("Unfollow").performClick()
             waitFor("Follow")
@@ -562,6 +563,8 @@ class NotificationsPreviewTest {
                         "[${fixture.get("incomingMention")}]"
                     criteria.get("field5")?.asString == root.get("sig").asString ->
                         if (mode == Mode.REPLY) "[$root,${fixture.get("incomingReply")}]" else "[$root]"
+                    mode == Mode.CONTACT && criteria.get("field5")?.asString == fixture.getAsJsonObject("knownOtherPost").get("sig").asString ->
+                        "[${fixture.get("knownOtherPost")}]"
                     mode == Mode.CONTACT && criteria.get("field2")?.asString == actor -> {
                         require(criteria.get("flagged_ne").asInt == 1 && criteria.get("limit").asInt in 1..100)
                         if (responses.followedAvailable.get()) {
