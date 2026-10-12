@@ -722,3 +722,11 @@ Missingreply correction e09fec0 passes localcompile/bothreviewaxes. Native10
 missingparent/Refresh/recoveredoriginal/Actor andall16old/finalopaquegates pass.
 Thirty-eighthashes missing-reply-native-green/android10; rootoriginalreplyPNG/
 all18XML inspected. Next missingquoteoriginal activity; whole-ticket notdone.
+
+Missingquote-original18th native tracer retains independently signed commentary
+withoutembeddedoriginal, excludesverifiedother-accounttargetdespiteowneraddress,
+requiresneutralcaption/commentary/unavailable/Retry/recoveredoriginal/Actor. Existing
+preciseoriginal-cache snapshot preventspriorfixture recoveryfromsatisfyingit.
+Reference32284bytes/SHA7c64f666bcb16f513787f5aff9086722d1c8aa3d39b1b8a06c4087d70bf5eec3
+identicaldoc/core/native, offlinepinnedWASM/Elliptic/no nodeinit. No productchange
+yet; first18REDpending.

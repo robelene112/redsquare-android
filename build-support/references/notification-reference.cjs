@@ -133,7 +133,22 @@ const knownOtherReply = {
   field1: 'RedSquare', field3: owner, field4: knownOtherPost.sig,
   field5: knownOtherPost.sig, updated_at: 1700000000111, flagged: 0
 };
+// Signed commentary remains available without an embedded original.
+const missingOriginalQuote = {
+  ...signedReference('2', {module: 'RedSquare', request: 'retweet',
+    data: {signature: recoveredOriginal.sig, text: 'Quote with unavailable original'}},
+    1700000000115, [owner]),
+  field1: 'RedSquareRetweet', field3: owner, field4: recoveredOriginal.sig,
+  updated_at: 1700000000115, flagged: 0
+};
+const knownOtherQuote = {
+  ...signedReference('2', {module: 'RedSquare', request: 'retweet',
+    data: {signature: knownOtherPost.sig, text: 'Quote of a known other account',
+      retweet_tx: knownOtherPost.tx}}, 1700000000116, [owner]),
+  field1: 'RedSquareRetweet', field3: owner, field4: knownOtherPost.sig,
+  updated_at: 1700000000116, flagged: 0
+};
 console.log(JSON.stringify({synthetic: true, reference, owner,
   actor: 'pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU',
   root: thread.root, incomingLike, incomingReply, parentedQuote, incomingMention,
-  addressedPost, listedMention, usernameMention, incomingRepost, incomingNullRepost, incomingQuote, legacyQuote, recoveredOriginal, missingOriginalLike, missingOriginalRepost, knownOtherPost, knownOtherLike, ownCurrentQuote, incomingQuoteLike, missingOriginalReply, knownOtherReply}, null, 2));
+  addressedPost, listedMention, usernameMention, incomingRepost, incomingNullRepost, incomingQuote, legacyQuote, recoveredOriginal, missingOriginalLike, missingOriginalRepost, knownOtherPost, knownOtherLike, ownCurrentQuote, incomingQuoteLike, missingOriginalReply, knownOtherReply, missingOriginalQuote, knownOtherQuote}, null, 2));

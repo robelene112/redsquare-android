@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger
 
 class NotificationsPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
-    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING, MISSING_REPOST, MISSING_QUOTE_LIKE, HISTORY, PRUNED, PARTIAL, REJECTED, NULL_HISTORY, READ, READ_SAVE_FAULT, MISSING_REPLY }
+    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING, MISSING_REPOST, MISSING_QUOTE_LIKE, HISTORY, PRUNED, PARTIAL, REJECTED, NULL_HISTORY, READ, READ_SAVE_FAULT, MISSING_REPLY, MISSING_QUOTE }
 
     @Test fun anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile() {
         withNotifications("incoming-like", mode = Mode.LIKE) { actor, _, _ ->
@@ -328,6 +328,30 @@ class NotificationsPreviewTest {
         }
     }
 
+    @Test fun anAddressedQuoteKeepsItsCommentaryWhenItsOriginalIsUnavailable() {
+        withNotifications("missing-quote-original", Mode.MISSING_QUOTE) { actor, _, _ ->
+            waitFor("Quoted a post")
+            ui.onAllNodesWithText("Quoted a post").assertCountEquals(1)
+            ui.onAllNodesWithText("Quoted your post").assertCountEquals(0)
+            ui.onNodeWithText("Quoted a post").assertIsDisplayed().performClick()
+            waitFor("Quote with unavailable original")
+            ui.onNodeWithText("Quote with unavailable original").assertIsDisplayed()
+            waitFor("Original unavailable. Commentary is still available.")
+            captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
+                "notification-evidence/missing-quote-original.png"), "Original unavailable. Commentary is still available.")
+            ui.onNodeWithText("Retry").assertIsDisplayed().performClick()
+            waitFor("Original recovered after retry")
+            ui.onNode(hasScrollAction()).performScrollToNode(hasText("Original recovered after retry"))
+            ui.onNodeWithText("Original recovered after retry").assertIsDisplayed()
+            ui.onAllNodesWithText("Original unavailable. Commentary is still available.").assertCountEquals(0)
+            ui.onNodeWithText("Back").performClick()
+            waitFor("Quoted a post")
+            ui.onAllNodesWithText(actor).assertCountEquals(2)[0].assertIsDisplayed().performClick()
+            waitFor("Profile")
+            ui.onNodeWithText(actor).assertIsDisplayed()
+        }
+    }
+
     private fun missingReferenceJourney(evidenceName: String, mode: Mode, caption: String, ownCaption: String, actorRows: Int, recoveryText: String = "Original recovered after retry") {
         withNotifications(evidenceName, mode) { actor, _, _ ->
             waitFor(caption)
@@ -375,7 +399,7 @@ class NotificationsPreviewTest {
         val priorOffer: Boolean? = if (permission.contains("offered")) permission.getBoolean("offered", false) else null
         val registry = instrumentation.context.assets.open("native-registry-reference.json")
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
-        val missing = mode in listOf(Mode.MISSING, Mode.MISSING_REPOST, Mode.MISSING_QUOTE_LIKE, Mode.MISSING_REPLY)
+        val missing = mode in listOf(Mode.MISSING, Mode.MISSING_REPOST, Mode.MISSING_QUOTE_LIKE, Mode.MISSING_REPLY, Mode.MISSING_QUOTE)
         val publicBase = if (missing) "quoteoriginal.${SaitoBackend.OWNER.id}.v1" else "namemap.$owner.v1"
         val publicLock = if (missing) nl.davidengelen.redsquare.feed.PublicStringStore.lock
             else nl.davidengelen.redsquare.saito.SaitoLocalState.lock
@@ -407,6 +431,7 @@ class NotificationsPreviewTest {
                     Mode.REPOST -> "[${fixture.get("incomingRepost")},${fixture.get("parentedQuote")}]"
                     Mode.QUOTE -> "[${fixture.get("incomingQuote")}]"
                     Mode.MISSING_REPOST -> "[${fixture.get("missingOriginalRepost")}]"
+                    Mode.MISSING_QUOTE -> "[${fixture.get("missingOriginalQuote")},${fixture.get("knownOtherQuote")}]"
                     else -> "[]"
                 }
             }
@@ -475,9 +500,11 @@ class NotificationsPreviewTest {
                             Mode.MENTION -> "[${fixture.get("incomingMention")},${fixture.get("addressedPost")}]"
                             Mode.USERNAME -> "[${fixture.get("usernameMention")}]"
                             Mode.QUOTE -> "[${fixture.get("legacyQuote")}]"
-                            Mode.LIKE, Mode.REPOST, Mode.MISSING, Mode.MISSING_REPOST, Mode.MISSING_QUOTE_LIKE, Mode.HISTORY, Mode.PRUNED, Mode.NULL_HISTORY, Mode.READ, Mode.READ_SAVE_FAULT -> "[]"
+                            Mode.LIKE, Mode.REPOST, Mode.MISSING, Mode.MISSING_REPOST, Mode.MISSING_QUOTE_LIKE, Mode.HISTORY, Mode.PRUNED, Mode.NULL_HISTORY, Mode.READ, Mode.READ_SAVE_FAULT, Mode.MISSING_QUOTE -> "[]"
                         }
                     }
+                    criteria.get("field5")?.asString == fixture.getAsJsonObject("missingOriginalQuote").get("sig").asString ->
+                        "[${fixture.get("missingOriginalQuote")}]"
                     criteria.get("field5")?.asString == fixture.getAsJsonObject("incomingQuote").get("sig").asString ->
                         "[${fixture.get("incomingQuote")}]"
                     criteria.get("field5")?.asString == fixture.getAsJsonObject("legacyQuote").get("sig").asString ->
@@ -537,7 +564,7 @@ class NotificationsPreviewTest {
                         peer.assertHealthy()
                         assertTrue("Incoming likes must be read for this wallet", likeReads.get() > 0)
                         if (mode in listOf(Mode.REPLY, Mode.MENTION, Mode.USERNAME, Mode.QUOTE, Mode.PARTIAL, Mode.REJECTED, Mode.MISSING_REPLY)) assertTrue("Incoming posts must be read for this wallet", replyReads.get() > 0)
-                        if (mode in listOf(Mode.REPOST, Mode.QUOTE, Mode.MISSING_REPOST, Mode.NULL_HISTORY)) assertTrue("Incoming reposts must be read for this wallet", repostReads.get() > 0)
+                        if (mode in listOf(Mode.REPOST, Mode.QUOTE, Mode.MISSING_REPOST, Mode.NULL_HISTORY, Mode.MISSING_QUOTE)) assertTrue("Incoming reposts must be read for this wallet", repostReads.get() > 0)
                         if (mode == Mode.MISSING_QUOTE_LIKE) {
                             assertTrue("A quote target also checks ordinary post history", quoteOrdinaryReads.get() > 0)
                             assertTrue("Retry must look up the current quote's actual namespace", quoteTargetReads.get() >= 2)
