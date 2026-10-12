@@ -297,7 +297,15 @@ Local quote core/debug/test compilation PASSES2m42s. Boundeddfc1fdd...108b1a2
 review: Spec0; Standards1possibleDuplicatedCode in retweet commentary classifier.
 At review stage, extracted the exact shared current-quote decision into one private
 decoder for both real consumers, preserving current-only versus legacy behavior
-and signed owner filtering/page metadata. Native reply/repost actor selectors now
-choose their actual second row after the newer quote; quote originals use existing
+and signed owner filtering/page metadata. Native reply actor selector now
+chooses its actual second row after the newer quote; quote originals use existing
 user-visible list scrolling before displayed assertions. No timeout/assertion
 relaxation or product-only test hook. Corrected compile/core verification pending.
+
+Corrective108b1a2...42cb66e review caught an additional fixture-order mistake:
+repost70 is newer than quote56, so its actor is first. The index1 change was wrong
+for that journey despite identical signer destinations. Repost index0 restored;
+reply remains index1 (quote56 > reply55). Bothaxes noted the same correction;
+shared-classifier duplication is resolved. Native38290192207 at42cb66e is pending
+and its repost-profile row must be qualified. Corrected localcompile passes;
+exact build duration below. No product identity error was established.
