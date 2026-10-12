@@ -69,3 +69,15 @@ root original warning/twoactorrows/oneLike+Reply. Warningfinding resolved source
 and runtime. Local compile3m5PASS/independentcontainerwait0 despiteclient143.
 Next public-reader nulloptional tracer has genuine7/1RED.696s/build42 ->full73
 GREEN/build58; Android null-cache journey pending, no whole-ticket acceptance.
+
+Nulloptional e461912...181d760 clearsbothaxes;47hashes across13nativeGREEN/null
+coreRED/full73coreGREEN verified. First14GREEN17 38305022847 passes14/84.072s/
+1OK/0deaths/core73;30hashes/rootfullcache-recovery/all14XML. Markertracer/evidence
+181d760...c15db1a both0;15RED10 38305833616 two failures: missingunreadUI and
+separatelyqualifiedreplyviewport,13PASS/58.728s/fivehashes.
+Readminimum c15db1a...ac5d06a both0, localcompile3m7PASS;15GREEN10 38306583171
+passes15/48.576s/1OK/0deaths/core73/32hashes. Actualreadpersistence/recreationunder
+failedresponses anddisplayedparentafterexplicitfixture scroll pass.
+Savefault regression ac5d06a...5d68810 both0;16GREEN17 38307357984 passes16/
+62.485s/1OK/0deaths/core73/36hashes/all17XML/twooriginalfault+recoveryimages.
+Missingreplyparent tracer/native17RED remainspending; no whole-ticket acceptance.

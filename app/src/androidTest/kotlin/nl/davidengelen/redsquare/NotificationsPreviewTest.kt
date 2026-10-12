@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger
 
 class NotificationsPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
-    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING, MISSING_REPOST, MISSING_QUOTE_LIKE, HISTORY, PRUNED, PARTIAL, REJECTED, NULL_HISTORY, READ, READ_SAVE_FAULT }
+    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING, MISSING_REPOST, MISSING_QUOTE_LIKE, HISTORY, PRUNED, PARTIAL, REJECTED, NULL_HISTORY, READ, READ_SAVE_FAULT, MISSING_REPLY }
 
     @Test fun anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile() {
         withNotifications("incoming-like", mode = Mode.LIKE) { actor, _, _ ->
@@ -304,6 +304,30 @@ class NotificationsPreviewTest {
         }
     }
 
+    @Test fun anAddressedReplyKeepsItsOwnContentWhenItsParentIsUnavailable() {
+        withNotifications("missing-reply-parent", Mode.MISSING_REPLY) { actor, _, _ ->
+            waitFor("Replied to a post")
+            ui.onAllNodesWithText("Replied to a post").assertCountEquals(1)
+            ui.onAllNodesWithText("Replied to your post").assertCountEquals(0)
+            ui.onNodeWithText("Replied to a post").assertIsDisplayed().performClick()
+            waitFor("Reply with unavailable parent")
+            ui.onNodeWithText("Reply with unavailable parent").assertIsDisplayed()
+            waitFor("The parent post is not available here. Try Refresh.")
+            captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
+                "notification-evidence/missing-reply-parent.png"), "The parent post is not available here. Try Refresh.")
+            ui.onNodeWithText("Refresh").assertIsEnabled().performClick()
+            waitFor("Original recovered after retry")
+            ui.onNode(hasScrollAction()).performScrollToNode(hasText("Original recovered after retry"))
+            ui.onNodeWithText("Original recovered after retry").assertIsDisplayed()
+            ui.onAllNodesWithText("The parent post is not available here. Try Refresh.").assertCountEquals(0)
+            ui.onNodeWithText("Back").performClick()
+            waitFor("Replied to a post")
+            ui.onAllNodesWithText(actor).assertCountEquals(2)[0].assertIsDisplayed().performClick()
+            waitFor("Profile")
+            ui.onNodeWithText(actor).assertIsDisplayed()
+        }
+    }
+
     private fun missingReferenceJourney(evidenceName: String, mode: Mode, caption: String, ownCaption: String, actorRows: Int, recoveryText: String = "Original recovered after retry") {
         withNotifications(evidenceName, mode) { actor, _, _ ->
             waitFor(caption)
@@ -351,7 +375,7 @@ class NotificationsPreviewTest {
         val priorOffer: Boolean? = if (permission.contains("offered")) permission.getBoolean("offered", false) else null
         val registry = instrumentation.context.assets.open("native-registry-reference.json")
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
-        val missing = mode in listOf(Mode.MISSING, Mode.MISSING_REPOST, Mode.MISSING_QUOTE_LIKE)
+        val missing = mode in listOf(Mode.MISSING, Mode.MISSING_REPOST, Mode.MISSING_QUOTE_LIKE, Mode.MISSING_REPLY)
         val publicBase = if (missing) "quoteoriginal.${SaitoBackend.OWNER.id}.v1" else "namemap.$owner.v1"
         val publicLock = if (missing) nl.davidengelen.redsquare.feed.PublicStringStore.lock
             else nl.davidengelen.redsquare.saito.SaitoLocalState.lock
@@ -360,6 +384,10 @@ class NotificationsPreviewTest {
             nl.davidengelen.redsquare.feed.PublicStringStore.lock)
         val readFiles = FixtureFiles(context.noBackupFilesDir, "notificationread.${SaitoBackend.OWNER.id}.$owner.v1",
             nl.davidengelen.redsquare.feed.PublicStringStore.lock)
+        val conversationFiles = FixtureFiles(context.noBackupFilesDir,
+            "conversation.${SaitoBackend.OWNER.id}.${fixture.getAsJsonObject("recoveredOriginal").get("sig").asString}.v1",
+            nl.davidengelen.redsquare.feed.PublicStringStore.lock)
+        val parentReads = AtomicInteger()
         val responses = FixtureControl(readFiles)
         val likeReads = AtomicInteger()
         val replyReads = AtomicInteger()
@@ -429,14 +457,19 @@ class NotificationsPreviewTest {
                         require(criteria.get("flagged_ne").asInt == 1 && criteria.get("limit").asInt == 1)
                         if (targetReads.incrementAndGet() == 1) "[]" else "[${fixture.get("recoveredOriginal")}]"
                     }
-                    criteria.get("field5")?.asString == fixture.getAsJsonObject("recoveredOriginal").get("sig").asString ->
-                        "[${fixture.get("recoveredOriginal")}]"
+                    criteria.get("field5")?.asString == fixture.getAsJsonObject("recoveredOriginal").get("sig").asString -> {
+                        if (mode == Mode.MISSING_REPLY) {
+                            require(criteria.get("flagged_ne").asInt == 1 && criteria.get("limit").asInt == 100)
+                            if (parentReads.incrementAndGet() == 1) "[]" else "[${fixture.get("recoveredOriginal")},${fixture.get("missingOriginalReply")}]"
+                        } else "[${fixture.get("recoveredOriginal")}]"
+                    }
                     criteria.get("field3")?.asString == owner -> {
                         require(criteria.get("flagged_ne").asInt == 1)
                         require(criteria.get("limit").asInt in 1..100)
                         replyReads.incrementAndGet()
                         when (mode) {
                             Mode.REPLY -> "[${fixture.get("incomingReply")},${fixture.get("parentedQuote")}]"
+                            Mode.MISSING_REPLY -> "[${fixture.get("missingOriginalReply")},${fixture.get("knownOtherReply")}]"
                             Mode.PARTIAL -> "[${fixture.get("incomingReply")}]"
                             Mode.REJECTED -> "[${fixture.get("incomingReply")},${fixture.get("incomingReply")}]"
                             Mode.MENTION -> "[${fixture.get("incomingMention")},${fixture.get("addressedPost")}]"
@@ -472,6 +505,7 @@ class NotificationsPreviewTest {
         try {
             historyFiles.reset()
             readFiles.reset()
+            if (mode == Mode.MISSING_REPLY) conversationFiles.reset()
             if (mode == Mode.USERNAME || missing) publicFiles.reset()
             if (prior.publicKey != owner) store.replace(prior, wallet)
             AndroidBackendStore(context).save(SaitoBackend.OWNER)
@@ -502,12 +536,13 @@ class NotificationsPreviewTest {
                         retainQuoteTargetReads()
                         peer.assertHealthy()
                         assertTrue("Incoming likes must be read for this wallet", likeReads.get() > 0)
-                        if (mode in listOf(Mode.REPLY, Mode.MENTION, Mode.USERNAME, Mode.QUOTE, Mode.PARTIAL, Mode.REJECTED)) assertTrue("Incoming posts must be read for this wallet", replyReads.get() > 0)
+                        if (mode in listOf(Mode.REPLY, Mode.MENTION, Mode.USERNAME, Mode.QUOTE, Mode.PARTIAL, Mode.REJECTED, Mode.MISSING_REPLY)) assertTrue("Incoming posts must be read for this wallet", replyReads.get() > 0)
                         if (mode in listOf(Mode.REPOST, Mode.QUOTE, Mode.MISSING_REPOST, Mode.NULL_HISTORY)) assertTrue("Incoming reposts must be read for this wallet", repostReads.get() > 0)
                         if (mode == Mode.MISSING_QUOTE_LIKE) {
                             assertTrue("A quote target also checks ordinary post history", quoteOrdinaryReads.get() > 0)
                             assertTrue("Retry must look up the current quote's actual namespace", quoteTargetReads.get() >= 2)
-                        } else if (missing) assertTrue("Retry must look up the actual original again", targetReads.get() >= 2)
+                        } else if (mode == Mode.MISSING_REPLY) assertTrue("Refresh must reread the unavailable parent thread", parentReads.get() >= 2)
+                        else if (missing) assertTrue("Retry must look up the actual original again", targetReads.get() >= 2)
                         if (mode == Mode.USERNAME) assertTrue("A label hint alone must not be ownership evidence",
                             peer.registryQueries.any { it.get("request").asString == "registry namecheck" &&
                                 it.get("identifier").asString == "NativeCase7@saito" })
@@ -538,6 +573,8 @@ class NotificationsPreviewTest {
                 historyFiles.restore()
             }, {
                 readFiles.restore()
+            }, {
+                conversationFiles.restore()
             })
         }
     }

@@ -679,3 +679,20 @@ restorepath thenexplicitretry succeeds/NoUnread/Actor. FixtureControlnamesnetwor
 filesystemexternalcontrols; blockedemptydir ownershiprecordedbeforemkdir and
 independentfinallycleanup restoresoriginalopaque readfiles eveniffailure. No
 productcodechangedforregression;16native17pending, no savefault acceptance yet.
+
+Boundedac5d06a...5d68810 bothaxes0/32hashes. First16GREEN17 38307357984 at5d68810
+passes16/62.485s/1OK/0deaths/noassumptions/core73/debug/test. ActualFSsavefailure
+warns/preserves1unread+signedLike, onlyownedemptydirremoved thenexplicitretry/
+verifiedNoUnread/nosavewarning/Actor; all15old/finalopaqueidentity+files/no-write pass.
+Thirty-sixhashes read-save-native-green/android17; rootbothfullfailure/recovered
+originals andall17XML parsed, otherPNGno rootclaims. Next17 MISSING_REPLY native
+tracer uses independent signedunknownparentreply +knownnon-own addressedreply,
+requiresexactone neutralReply/zeroowncaption, actualreplyConversation/parentunavailable
+message/explicitRefresh/recoveredownoriginal/neutralretainedrow/Actor andparentReads>=2.
+Precisepublicconversation.owner.recoveredSig.v1 snapshot/reset/restoration under
+PublicStorelock preventsoldcachedrootfromsatisfyingthiscase. SeparateQuoteoriginal
+familyalso preserved byexistingmissingfixture policy. Newreference29075bytes/
+SHA8a85d511e0b8ab5100fe28da9e3cffbbdd82cfed6a1ada78b7e11ac42f2bfd63 identical
+threecopies, pinnedofflineWASM/Elliptic; no nodeinit/networkwrites. ExistingUIstill
+requiresknownownreplyparent anddropsunknownaddressedreply. No neutralreply/parent
+unavailablecodeyet; first17RED pending.

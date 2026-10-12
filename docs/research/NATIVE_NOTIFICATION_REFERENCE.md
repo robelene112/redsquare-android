@@ -70,7 +70,15 @@ Next public-reader tracer adds an independently signed ordinary retweet with
 text:null and images:null. Both optional values mean absent commentary in the
 ordinary reader. The quote reader used for cached validation must quietly exclude
 it as a valid ordinary repost, rather than reject its signed bytes.
-Current whole JSON SHA256:0b2ccd40b8b0adb597480e81987e3e04522353805de09000d4f20fc132e6fc95; 25828bytes.
+The null-optional snapshot was25828bytes/SHA0b2ccd40b8b0adb597480e81987e3e04522353805de09000d4f20fc132e6fc95.
+Next native tracer adds a separately signed reply to the unavailable own original
+and a signed owner-addressed reply to the known other-account post. The first
+must survive with neutral wording and open its own content while its parent is
+unavailable; the second remains ineligible because parent non-ownership is known.
+A dedicated conversation-cache snapshot prevents earlier recovery journeys from
+supplying that parent. First thread query returns empty; explicit Refresh returns
+both independently signed reply and original.
+Current whole JSON SHA256:8a85d511e0b8ab5100fe28da9e3cffbbdd82cfed6a1ada78b7e11ac42f2bfd63; 29075bytes.
 Documentation/native/core copies are identical.
 
 Reproduction uses the existing build image, networknone/read-only container and
