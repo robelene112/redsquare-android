@@ -846,3 +846,15 @@ commentary/actualquoteactorindex0/Unfollow/all20old/finalopaque/no-write pass.
 Forty-sixhashes followed-quote-native-green/android10/rootoriginal2unread/
 Postedfirst/Likesecond/all22XML inspected. Next boundedolderpaging/overlap/dedup
 andremainingcontacts, then isolation/permission/processdeath/finalSDK acceptance.
+
+Twenty-secondnativePAGINGtracer: full100-rowpage contains99duplicatedactor2
+likes plusdistinctactor4likewithsamecreated_at50. Moremustquerystrictboundary
+overlapbefore51, returningbothknownIDs+actor3olderlike40; publicunread2->3
+provesdedup/retention, actualolderActorProfile andavailable3afterrecreation/
+changedfailedownerreads/completedRefresh. Preciseexistingfileisolation applies.
+Newreference34757bytes/SHAbe3b4e7ce09b417686bd3705ce44cd251018d65b2e1cc777c308b9357699ab2d
+identical3copies, offlinepinnedWASM/Elliptic/hash/ECDSA/roundtrip. Fixedpublished
+unsafeallowlist now1–4 for bothsigners/outputs; no arbitrarykeys/nodeinit/network.
+Firstgenerationrefused3/4; referencecopies werebrieflyempty thenrestoredfromHEAD
+beforeanybuild. CorrectedgenerationvalidatesJSONbeforereplacingcopies. No runtime
+appcodechangedyet; Loadmoreactivity currentlyabsent, genuine22REDpending.

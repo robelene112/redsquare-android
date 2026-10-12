@@ -15,14 +15,16 @@ assert.equal(reference.saitoWasmVersion,'0.3.2');
 assert.equal(reference.ellipticVersion,'6.6.1');
 assert.equal(reference.wasmSha256,'f59be69dbb949368ce1fc7ef47d414cbe0281a86a206fe4bfb1128a4d087e01e');
 
+const publicUnsafeScalars = ['1','2','3','4']; // Fixed published fixtures only. Never fund.
+
 function signedReference(scalar, body, timestamp, recipients = []) {
-  assert(['1','2'].includes(scalar)); // Public unsafe test keys. Never fund.
+  assert(publicUnsafeScalars.includes(scalar)); // Public unsafe test keys. Never fund.
   const privateKey = '0'.repeat(63) + scalar;
   const author = wasm.generate_public_key(privateKey);
   const point = Buffer.from(base58.decode(author));
   const outputs = [...new Set([author,...recipients])];
   assert(outputs.length <= 255);
-  assert(outputs.every(key => ['1','2'].some(value => wasm.generate_public_key('0'.repeat(63)+value) === key)));
+  assert(outputs.every(key => publicUnsafeScalars.some(value => wasm.generate_public_key('0'.repeat(63)+value) === key)));
   const message = Buffer.from(JSON.stringify(body));
   const transaction = new wasm.WasmTransaction();
   for (const [input,index,key] of [[true,0,author],...outputs.map((key,index) => [false,index,key])]) {

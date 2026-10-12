@@ -148,7 +148,20 @@ const knownOtherQuote = {
   field1: 'RedSquareRetweet', field3: owner, field4: knownOtherPost.sig,
   updated_at: 1700000000116, flagged: 0
 };
+// Distinct signed actors at a shared boundary, plus an older event for pagination.
+const boundaryIncomingLike = {
+  ...signedReference('4', {module: 'RedSquare', request: 'like tweet',
+    data: {signature: thread.root.sig}}, 1700000000050, [owner]),
+  field1: 'RedSquareLike', field3: owner, field4: thread.root.sig,
+  updated_at: 1700000000050, flagged: 0
+};
+const olderIncomingLike = {
+  ...signedReference('3', {module: 'RedSquare', request: 'like tweet',
+    data: {signature: thread.root.sig}}, 1700000000040, [owner]),
+  field1: 'RedSquareLike', field3: owner, field4: thread.root.sig,
+  updated_at: 1700000000040, flagged: 0
+};
 console.log(JSON.stringify({synthetic: true, reference, owner,
   actor: 'pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU',
   root: thread.root, incomingLike, incomingReply, parentedQuote, incomingMention,
-  addressedPost, listedMention, usernameMention, incomingRepost, incomingNullRepost, incomingQuote, legacyQuote, recoveredOriginal, missingOriginalLike, missingOriginalRepost, knownOtherPost, knownOtherLike, ownCurrentQuote, incomingQuoteLike, missingOriginalReply, knownOtherReply, missingOriginalQuote, knownOtherQuote}, null, 2));
+  addressedPost, listedMention, usernameMention, incomingRepost, incomingNullRepost, incomingQuote, legacyQuote, recoveredOriginal, missingOriginalLike, missingOriginalRepost, knownOtherPost, knownOtherLike, ownCurrentQuote, incomingQuoteLike, missingOriginalReply, knownOtherReply, missingOriginalQuote, knownOtherQuote, boundaryIncomingLike, olderIncomingLike}, null, 2));

@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger
 
 class NotificationsPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
-    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING, MISSING_REPOST, MISSING_QUOTE_LIKE, HISTORY, PRUNED, PARTIAL, REJECTED, NULL_HISTORY, READ, READ_SAVE_FAULT, MISSING_REPLY, MISSING_QUOTE, FEED_MENTION, CONTACT, CONTACT_QUOTE }
+    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING, MISSING_REPOST, MISSING_QUOTE_LIKE, HISTORY, PRUNED, PARTIAL, REJECTED, NULL_HISTORY, READ, READ_SAVE_FAULT, MISSING_REPLY, MISSING_QUOTE, FEED_MENTION, CONTACT, CONTACT_QUOTE, PAGING }
 
     @Test fun anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile() {
         withNotifications("incoming-like", mode = Mode.LIKE) { actor, _, _ ->
@@ -408,6 +408,41 @@ class NotificationsPreviewTest {
         }
     }
 
+    @Test fun olderActivityOverlapsBoundariesWithoutDuplicatesAndSurvivesFailedRefresh() {
+        val olderActor = InstrumentationRegistry.getInstrumentation().context.assets
+            .open("native-notification-reference.json").bufferedReader().use {
+                JsonParser.parseReader(it).asJsonObject.getAsJsonObject("olderIncomingLike").get("field2").asString
+            }
+        withNotifications("older-activity", Mode.PAGING) { _, scenario, responses ->
+            waitFor("2 unread")
+            waitFor("Load more activity")
+            ui.onNodeWithText("Load more activity").assertIsEnabled().performClick()
+            waitFor("3 unread")
+            ui.onNodeWithText("Load more activity").assertIsNotEnabled()
+            assertTrue("Older history must overlap the timestamp boundary", responses.olderReads.get() > 0)
+            ui.onNode(hasScrollAction()).performScrollToNode(hasText(olderActor))
+            ui.onNodeWithText(olderActor).assertIsDisplayed()
+            captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
+                "notification-evidence/older-activity.png"), "3 unread")
+            ui.onNodeWithText(olderActor).performClick()
+            waitFor("Profile")
+            ui.onNodeWithText(olderActor).assertIsDisplayed()
+            ui.onNodeWithText("Back").performClick()
+            waitFor("3 unread")
+            responses.change()
+            scenario.recreate()
+            waitFor("Could not load notifications. Check your connection and try Refresh.")
+            ui.waitUntil(15_000) { responses.ownerReads.get() > 0 &&
+                ui.onAllNodes(hasText("Refresh") and isEnabled())
+                    .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            waitFor("3 unread")
+            ui.onNode(hasScrollAction()).performScrollToNode(hasText(olderActor))
+            ui.onNodeWithText(olderActor).assertIsDisplayed()
+            captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
+                "notification-evidence/older-activity-recreated.png"), "3 unread")
+        }
+    }
+
     private fun missingReferenceJourney(evidenceName: String, mode: Mode, caption: String, ownCaption: String, actorRows: Int, recoveryText: String = "Original recovered after retry") {
         withNotifications(evidenceName, mode) { actor, _, _ ->
             waitFor(caption)
@@ -524,6 +559,17 @@ class NotificationsPreviewTest {
                     require(criteria.get("limit").asInt in 1..100)
                     likeReads.incrementAndGet()
                     when (mode) {
+                        Mode.PAGING -> {
+                            val before = criteria.get("created_earlier_than").asLong
+                            if (before > 1700000000051L) com.google.gson.JsonArray().apply {
+                                repeat(99) { add(fixture.get("incomingLike")) }
+                                add(fixture.get("boundaryIncomingLike"))
+                            }.toString() else {
+                                require(before == 1700000000051L)
+                                responses.olderReads.incrementAndGet()
+                                "[${fixture.get("incomingLike")},${fixture.get("boundaryIncomingLike")},${fixture.get("olderIncomingLike")}]"
+                            }
+                        }
                         Mode.PARTIAL -> "invalid likes response"
                         Mode.REJECTED -> "[{\"tx\":\"not-a-signed-envelope\"},${fixture.get("incomingLike")},${fixture.get("incomingLike")}]"
                         Mode.MISSING -> "[${fixture.get("missingOriginalLike")},${fixture.get("knownOtherLike")}]"
@@ -566,7 +612,7 @@ class NotificationsPreviewTest {
                             Mode.MENTION -> "[${fixture.get("incomingMention")},${fixture.get("addressedPost")}]"
                             Mode.USERNAME -> "[${fixture.get("usernameMention")}]"
                             Mode.QUOTE -> "[${fixture.get("legacyQuote")}]"
-                            Mode.LIKE, Mode.REPOST, Mode.MISSING, Mode.MISSING_REPOST, Mode.MISSING_QUOTE_LIKE, Mode.HISTORY, Mode.PRUNED, Mode.NULL_HISTORY, Mode.READ, Mode.READ_SAVE_FAULT, Mode.MISSING_QUOTE, Mode.FEED_MENTION, Mode.CONTACT, Mode.CONTACT_QUOTE -> "[]"
+                            Mode.LIKE, Mode.REPOST, Mode.MISSING, Mode.MISSING_REPOST, Mode.MISSING_QUOTE_LIKE, Mode.HISTORY, Mode.PRUNED, Mode.NULL_HISTORY, Mode.READ, Mode.READ_SAVE_FAULT, Mode.MISSING_QUOTE, Mode.FEED_MENTION, Mode.CONTACT, Mode.CONTACT_QUOTE, Mode.PAGING -> "[]"
                         }
                     }
                     criteria.get("field5")?.asString == fixture.getAsJsonObject("missingOriginalQuote").get("sig").asString ->
@@ -702,6 +748,7 @@ class NotificationsPreviewTest {
         fun makeFollowedPostsAvailable() { followedAvailable.set(true) }
         val changed = java.util.concurrent.atomic.AtomicBoolean(false)
         val ownerReads = AtomicInteger()
+        val olderReads = AtomicInteger()
         fun change() { changed.set(true) }
     }
 
