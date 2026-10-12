@@ -511,3 +511,26 @@ remain create-tweet; available persistence/warnings aggregate across batches.
 27reported/26PASS/one100-versus150failure100.122s/zeroOK/deaths qualified.
 Minimum compile/runtime pending at review. Actual local builderfc4442389352 later
 records exit0; attached143 partial log, no success-duration claim.
+
+## Storage-load recovery regressions
+
+### Standards
+
+`0ef7b41...eef0fc6`: zero hard violations/actionable heuristics. Existing exact
+owned obstructions and independent opaque restoration are preserved. Repaired
+history waits for both warning disappearance and completed loading.
+
+### Spec
+
+Zero actionable findings. History failure retains activity and verifies later
+persisted recovery. Unknown read status cannot claim counts or mark; repair and
+verified Mark precede recreated server failure with positive retained rows.
+Source unchanged; initial APK1m45PASS, corrective compile/native29 pending.
+No actual process-death claim.
+
+First27GREEN10 38323141610 at0ef7b41 passes27/100.778s/1OK/0deaths/assumptions/
+core73/debug/test. Exact150/pre-Markrecreation/completedRefresh/150again/actualMark/
+postMarkrecreation/retainedLikes+NoUnread/all26old/finalopaque/no-write pass.
+70hashes/all34XML/rootthreeoriginalcacheBudgetPNGs inspected. Bothminimumaxes0/
+actualbuilderfc4442389352 exit0 qualifyattached143partiallog/no durationclaim.
+Source cache correction complete; actualdeath/finalfullSDK acceptance pending.

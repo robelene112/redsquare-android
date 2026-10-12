@@ -1059,3 +1059,10 @@ readiness with completedRefresh plus disappearance of its prior positive warning
 so a pre-click enabled state cannot trigger outage before successful warming.
 Assertions unchanged. Corrective compilation/first29GREEN17 pending;27GREEN10
 continues independently on earlier cache minimum.
+
+First27GREEN10 38323141610 at0ef7b41 passes27/100.778s/1OK/0deaths/assumptions/
+core73/debug/test. Exact150/pre-Markrecreation/completedRefresh/150again/actualMark/
+postMarkrecreation/retainedLikes+NoUnread/all26old/finalopaque/no-write pass.
+70hashes/all34XML/rootthreeoriginalcacheBudgetPNGs inspected. Bothminimumaxes0/
+actualbuilderfc4442389352 exit0 qualifyattached143partiallog/no durationclaim.
+Source cache correction complete; actualdeath/finalfullSDK acceptance pending.

@@ -26,26 +26,26 @@ failure. Verified activity survives pruned pages/Activity recreation. History an
 read markers are wallet/backend scoped; unread counts use visible verified rows,
 Mark all as read commits before confirming, and storage faults preserve activity.
 
-Latest native checkpoint: Android17 run38322163532 at1de5092 passes26 cases
-in126.808s/oneOK/zero deaths/assumptions/core73/debug/test. Parent-index field4
-request before Conversation, Reply/2unread/content/Actor and all25 earlier
-notification/cache/read/paging/contact/control/backend routes pass.64hashes/
-all31XML/root original parentPNG inspected. Both minimum axes0/localfull3mPASS;
-complete success log/latestbuilder5104eed66092 exit0 qualifies client143, cause
-unknown. Source adds bounded10verified own-post targets, initialmax33 and More33.
-Successful126.808s batch validates raising only outer guard120->240; individual
-assertions15s/RPC12s unchanged. Prior26RED17 38321369124 was incomplete:15PASS/
-one missingreply/10unfinished/no Time/OK/reporteddeath. Retained qualified proof.
+Latest native checkpoint: Android10 run38323141610 at0ef7b41 passes27 cases
+in100.778s/oneOK/zero deaths/assumptions/core73/debug/test. Full150-event history
+survives pre-Mark reopening, actual MarkAll and post-Mark reopening/retained
+rows/NoUnread. All26 prior routes/cache/fault/controls/backend/paging/discovery
+pass with opaque restoration/no writes.70hashes/all34XML/rootthree original
+cache-budgetPNG inspected. Both source axes0; local observed builderfc4442389352
+exit0 qualifies attached143/partial log, no duration/full-log claim. Source now
+chunks available/cached envelopes <=100 via same classifiers, preserving300budget.
+Previous complete26GREEN17 run38322163532 at1de5092:126.808s/oneOK/64hashes/
+31XML/rootoriginalparentPNG. This validates expanded outer240s guard; assertions
+remain15s/RPC12s. Fresh fullSDKpair required after production changes.
 
-Cold-cache budget27 tracer2f86e43 seeds150 independently signed unsafe2 likes
-through exact owned public history, below300budget; no serverlikes. Exact150unread
-must survive reopening/MarkAll/reopen. Original27RED10 run38322496355 pending.
-Standards0/Spec1 pre-Mark retained-count gap correctedeb8f2c9; both correction
-axes0. TracerAPK1m46PASS; corrective recreation compile pending. Reference223303/
-SHA497aa...8711a8 matches3copies/fixed unsafe1–4 signers/150unique signatures.
-Known suspected bug: cachedArchive.take100 truncates each kind despite300 store.
-No cache-reader production correction yet. Actual process death/permission/wallet/
-otherstorage/final fullSDK acceptance remain. Future five Chat files untouched.
+Storage-load regressions28/29 at eef0fc6: exact owned history/read directory fault
+before launch, warning plus preserved activity, unknown read status has no count/
+disabledMark, tracked repair+Refresh and recreated failed-server recovery with
+positive retained rows/read status. Both axes0; initialAPK1m45PASS/correctiveAPK
+1m36PASS. Native29GREEN17 run38323592243 pending. Source unchanged from0ef7b41.
+No actual process-death/whole-ticket acceptance. Next partial-stream retry and
+late-refresh observation, wallet isolation, permission and actual cold recovery.
+Protected future five Chat files remain untracked/untouched.
 
 Remaining #24 work is finite: supplement followed-account posts, bounded reply discovery/older-page overlap and retry,
 prove mute/block and backend/wallet isolation, actual permission choices and
