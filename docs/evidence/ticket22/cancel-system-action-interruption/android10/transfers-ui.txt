@@ -1,0 +1,210 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.WalletTransferPreviewTest:
+INSTRUMENTATION_STATUS: test=unreadableTransferRecordsBlockAuthenticationAndReviewUntilReadableAgain
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unreadableTransferRecordsBlockAuthenticationAndReviewUntilReadableAgain
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=pendingPaymentReopensWithoutSendingAndExactRetryRequiresFreshReviewedDeviceAuthentication
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=pendingPaymentReopensWithoutSendingAndExactRetryRequiresFreshReviewedDeviceAuthentication
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=receivingQrContainsTheFullActiveAddressWithoutBalanceConnectivityAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=receivingQrContainsTheFullActiveAddressWithoutBalanceConnectivityAfterReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue$lambda$27$lambda$26$lambda$25$lambda$24$lambda$23(WalletTransferPreviewTest.kt:164)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$krh6yuUc9kH4yIHZc6AYpSgZJKM(Unknown Source:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda42.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue$lambda$27(WalletTransferPreviewTest.kt:152)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$9TssTmwnKnptJ_Ca1fCXNel-q48(Unknown Source:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda16.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.withDevicePin(WalletTransferPreviewTest.kt:405)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue(WalletTransferPreviewTest.kt:141)
+	Suppressed: java.lang.IllegalStateException: Check failed.
+		at nl.davidengelen.redsquare.NativeScreenEvidenceKt.captureNativeScreen(NativeScreenEvidence.kt:14)
+		at nl.davidengelen.redsquare.NativeScreenEvidenceKt.captureNativeScreen$default(NativeScreenEvidence.kt:10)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue$lambda$27$lambda$26$lambda$25$lambda$24$lambda$18(WalletTransferPreviewTest.kt:152)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$t2jqCONGZ7FdAJa5n46ca7MskYQ(Unknown Source:0)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda41.invoke(D8$$SyntheticClass:0)
+		at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:21)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue$lambda$27(WalletTransferPreviewTest.kt:152)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$9TssTmwnKnptJ_Ca1fCXNel-q48(Unknown Source:0)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda16.invoke(D8$$SyntheticClass:0)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.withDevicePin(WalletTransferPreviewTest.kt:405)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue(WalletTransferPreviewTest.kt:141)
+
+INSTRUMENTATION_STATUS: stream=
+Error in cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue(nl.davidengelen.redsquare.WalletTransferPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue$lambda$27$lambda$26$lambda$25$lambda$24$lambda$23(WalletTransferPreviewTest.kt:164)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$krh6yuUc9kH4yIHZc6AYpSgZJKM(Unknown Source:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda42.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue$lambda$27(WalletTransferPreviewTest.kt:152)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$9TssTmwnKnptJ_Ca1fCXNel-q48(Unknown Source:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda16.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.withDevicePin(WalletTransferPreviewTest.kt:405)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue(WalletTransferPreviewTest.kt:141)
+	Suppressed: java.lang.IllegalStateException: Check failed.
+		at nl.davidengelen.redsquare.NativeScreenEvidenceKt.captureNativeScreen(NativeScreenEvidence.kt:14)
+		at nl.davidengelen.redsquare.NativeScreenEvidenceKt.captureNativeScreen$default(NativeScreenEvidence.kt:10)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue$lambda$27$lambda$26$lambda$25$lambda$24$lambda$18(WalletTransferPreviewTest.kt:152)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$t2jqCONGZ7FdAJa5n46ca7MskYQ(Unknown Source:0)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda41.invoke(D8$$SyntheticClass:0)
+		at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:21)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue$lambda$27(WalletTransferPreviewTest.kt:152)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$9TssTmwnKnptJ_Ca1fCXNel-q48(Unknown Source:0)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda16.invoke(D8$$SyntheticClass:0)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.withDevicePin(WalletTransferPreviewTest.kt:405)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue(WalletTransferPreviewTest.kt:141)
+
+INSTRUMENTATION_STATUS: test=cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=sendingWithoutAScreenLockExplainsTransferSetupAndDoesNotQueue
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=sendingWithoutAScreenLockExplainsTransferSetupAndDoesNotQueue
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=fundingLostAfterReviewAndRealAuthenticationCannotSendReserveOrQueue
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=fundingLostAfterReviewAndRealAuthenticationCannotSendReserveOrQueue
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=selectedServerBalanceAndReceivingAddressCanBeViewedAndCopied
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=selectedServerBalanceAndReceivingAddressCanBeViewedAndCopied
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferStatusTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.WalletTransferStatusTest:
+INSTRUMENTATION_STATUS: test=exactInclusionUnknownHistoryAndVerifiedReorganizationNeverAutomaticallyResend
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferStatusTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=exactInclusionUnknownHistoryAndVerifiedReorganizationNeverAutomaticallyResend
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferStatusTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=pendingPaymentStaysReservedAcrossBackendsAndReturnsOnlyWithItsOriginalWallet
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferStatusTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=pendingPaymentStaysReservedAcrossBackendsAndReturnsOnlyWithItsOriginalWallet
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 100.653
+There was 1 failure:
+1) cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue(nl.davidengelen.redsquare.WalletTransferPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue$lambda$27$lambda$26$lambda$25$lambda$24$lambda$23(WalletTransferPreviewTest.kt:164)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$krh6yuUc9kH4yIHZc6AYpSgZJKM(Unknown Source:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda42.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue$lambda$27(WalletTransferPreviewTest.kt:152)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$9TssTmwnKnptJ_Ca1fCXNel-q48(Unknown Source:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda16.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.withDevicePin(WalletTransferPreviewTest.kt:405)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue(WalletTransferPreviewTest.kt:141)
+	Suppressed: java.lang.IllegalStateException: Check failed.
+		at nl.davidengelen.redsquare.NativeScreenEvidenceKt.captureNativeScreen(NativeScreenEvidence.kt:14)
+		at nl.davidengelen.redsquare.NativeScreenEvidenceKt.captureNativeScreen$default(NativeScreenEvidence.kt:10)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue$lambda$27$lambda$26$lambda$25$lambda$24$lambda$18(WalletTransferPreviewTest.kt:152)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$t2jqCONGZ7FdAJa5n46ca7MskYQ(Unknown Source:0)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda41.invoke(D8$$SyntheticClass:0)
+		at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:21)
+		... 70 more
+
+FAILURES!!!
+Tests run: 9,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

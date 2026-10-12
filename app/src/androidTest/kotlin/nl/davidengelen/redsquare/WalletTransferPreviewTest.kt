@@ -160,7 +160,9 @@ class WalletTransferPreviewTest {
                         ui.onNodeWithText("Authenticate and send").performClick()
                         waitForSystemPin(device)
                         assertTrue(peer.transactions.isEmpty())
-                        device.pressBack() // Cancel the actual Android credential screen, not an app fake.
+                        device.dumpWindowHierarchy(File(context.cacheDir,
+                            "transfer-evidence/auth-cancel-before-system-back.xml"))
+                        cancelRealSystemAuthentication(device, context.packageName)
                         ui.waitUntil(15_000) { ui.onAllNodes(hasText("Transfer cancelled before sending."))
                             .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                         ui.onNodeWithText("Transfer cancelled before sending.").assertIsDisplayed()

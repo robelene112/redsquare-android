@@ -129,8 +129,16 @@ Current testonly corrections:mandatorysystemPIN XML +explicitoptionalbitmap outc
 cancelwait allows absentroot then assertsdisplayed; Feed initial/replacement both
 explicitephemeralport soMockWebServer enablesreuse. Handoffbindrace remainssetup
 failure. No exactcapture/transition/portcause/productchange. Focused10transfer/17feed
-verification active:10transfersrun38218835267 and17feed/publicrun38218838372
-atbbfb021. Source/release/lint pushrun38218743073; newfullpair pending. Canonicalchronologyabove; #23 stillactive.
+verification:17feed/publicrun38218838372 atbbfb021 PASSES10/3/0/core66;
+root6originalPNG/separate4walletXML, bothrealHTTPSnative0balance/fullkey/QR/funding0/
+returnfeed/samewallet/server.22hashes in reconnect-public-wallet-green/android17.
+10transfersrun38218835267 atbbfb021 stops9reported/8PASS/1fail100.653s atcancelwait:
+actualsend/exactretry passes, originalsystemXML/optionalbitmapfalse retained4hashes.
+No failurePNG/XML/exactcancelcause. Existingexport10secBackuntilapp action now
+sharedwithtransfer, keepingdisplayedcancel/zero frames/reopened7.5/identity/noPending.
+Normalcapture nowXMLfirst thenmandatoryPNG; no assertionwait/harness/productchange.
+Bothbbfb/fd8source/evidence axes0,113hashes/countsverified. Correctedfocused10 and
+newfull17/publictrue pending dispatch; finalfull10 afterfocusedpasses. Canonicalchronologyabove; #23 stillactive.
 
 ## Earlier completed ticket checkpoints
 

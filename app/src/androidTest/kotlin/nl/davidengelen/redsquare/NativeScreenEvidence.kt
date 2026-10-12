@@ -11,8 +11,8 @@ fun captureNativeScreen(file: File, expectedText: String? = null) {
     val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
     expectedText?.let { check(device.wait(Until.hasObject(By.text(it)), 10_000)) }
     file.parentFile?.mkdirs()
-    check(device.takeScreenshot(file))
     device.dumpWindowHierarchy(File(file.parentFile, file.nameWithoutExtension + ".xml"))
+    check(device.takeScreenshot(file))
 }
 
 fun withFailureCapture(capture: () -> Unit, block: () -> Unit) {

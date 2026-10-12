@@ -3,7 +3,6 @@ package nl.davidengelen.redsquare
 import android.app.KeyguardManager
 import android.content.Intent
 import android.provider.DocumentsContract
-import android.os.SystemClock
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
@@ -111,11 +110,7 @@ class WalletExportPreviewTest {
                 enterRealSystemPin(device, "135790")
                 check(device.wait(Until.hasObject(By.textContains("Wrong PIN")), 10_000))
                 assertEquals(-1, requireNotNull(context.contentResolver.openInputStream(uri)).use { it.read() })
-                val deadline = SystemClock.uptimeMillis() + 10_000
-                while (device.currentPackageName != context.packageName && SystemClock.uptimeMillis() < deadline) {
-                    device.pressBack()
-                    SystemClock.sleep(100)
-                }
+                cancelRealSystemAuthentication(device, context.packageName)
                 val cancelled = "Wallet export canceled. Your wallet is unchanged."
                 ui.waitUntil(10_000) { ui.onAllNodes(hasText(cancelled)).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNodeWithText(cancelled).assertIsDisplayed()

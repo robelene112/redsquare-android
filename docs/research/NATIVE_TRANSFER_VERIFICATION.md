@@ -846,3 +846,24 @@ PINfixture requires actualsystemcontrol/XML, recordsoptional screenshotoutcome;
 cancellation semanticwaitallowsabsentapproot thenretainsdisplayed assertion.
 No timeouts/product/core/harness/reference/workflow change or exactrefusalcause.
 Focused10transfers/17feed thennewfullpair will verify corrections andfinalgate.
+
+
+Bounded bbfb021 corrections +fd8dda3 currentstatusdocfix clear bothaxes:0residual
+hard/Spec/smells,113hashes/rawcountpaths verified. Focused17feed/public38218838372
+atbbfb021 PASSES8controlled63.706s+owner1/14.348s+official1/13.272s=10/3/0;
+compiler/core66/debug/testpass. Root full6originalPNG/separate4walletXML, nofeedXML:
+bothnamedserver0balance/fullkey/QR/clearDone, nativefunding0/emptyfields/noPending;
+feednamesbackendandpostbyAnon-dnNUkp. Samewallet/backend/headerreturn runtimegates.
+ActualrealHTTPSfreshunfundedkeys/nooverride/auth/review/send, notpositivefunding/
+blockinclusion/admission.22hashes in reconnect-public-wallet-green/android17.
+
+Focused10transfers38218835267 atbbfb021 stops9reported/8PASS/1failure100.653s:
+cancellationtextwait15sec. Actualsend/exactretry andmandatorysystemPIN XML pass;
+optionalbitmapfalse recorded. Originalsend/retryPIN XML Settings/focusedentry/
+keyboard isnotcancelcasefailurecapture. FailedcaseagainnoPNG/XML.4hashes in
+cancel-system-action-interruption/android10. No exact missedBack/IMEcause inferred.
+ExistingexportboundedBackuntilapp(10sec) nowsharedwithtransfer; neverBackintoreturned
+app, mandatorycancelmessage/zero frames/reopened7.5/sameidentity/noPending intact.
+Normalcapture dumpsXML first thenstillrequiresPNG, retaininghierarchyifrefused.
+No productionchange/assertionwait/harnesstimeout increase. Correctedfocused10 and
+freshfull17/publictrue dispatchednext; finalfull10 afterfocusedcorrectionpasses.

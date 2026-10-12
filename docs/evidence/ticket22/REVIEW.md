@@ -81,3 +81,23 @@ The pending final runs above have now FAILED in fixtures. See
 and [Android17 interruption](final-full-fixture-interruptions/android17/README.md).
 No passed companion remains. Narrow corrections, focused runtime and fresh final
 pair are pending; whole-ticket source review alone does not close acceptance.
+
+
+## Standards follow-up
+
+Bounded8a0e785...bbfb021 plusbbfb021...fd8dda3:0residual hardviolations or actionable
+smells. Mandatory systemcontrols/XML andauth/exactsend/retry preserved; screenshot
+outcome explicit. Cancellation waits for apphierarchy thendisplayedtext. Initial/
+replacement explicitOSport/reuse preservesoutageassertions, handoffracequalified.
+All48/65hashes/rawcountpaths andcheckpoint11702->11799 verified; originalcapture
+limits accurate. Stalecurrentstatusfinding fixed infd8dda3. No passedcompanion.
+
+## Spec follow-up
+
+Sameboundedsource/doccorrection:0residual actionablefindings. Mandatory realauth/
+cancellation/noauto/exactretry remain, no productchange. EADDRINUSE+MockWebServer
+reusepolicy prove fixturebasis, not soleTIME_WAITcause. All113hashes/counts/
+qualifiedoriginals verified; oldpairFAILED andnewfocusedpending correctlyrecorded.
+
+New shared systemcancel action/normalXML-firstcapture plus focused17GREEN/new10
+interruption evidence require boundedreview. Fullacceptance stillpending.

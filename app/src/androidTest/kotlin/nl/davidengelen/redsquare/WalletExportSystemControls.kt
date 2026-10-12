@@ -24,6 +24,17 @@ internal fun waitForSystemPin(device: UiDevice) {
         ))), 15_000))
 }
 
+internal fun cancelRealSystemAuthentication(device: UiDevice, appPackage: String) {
+    // Back can first dismiss the system keyboard or another credential layer.
+    // Stop as soon as the app returns; never send Back into the app itself.
+    val deadline = SystemClock.uptimeMillis() + 10_000
+    while (device.currentPackageName != appPackage && SystemClock.uptimeMillis() < deadline) {
+        device.pressBack()
+        SystemClock.sleep(100)
+    }
+    check(device.currentPackageName == appPackage)
+}
+
 internal fun chooseTestBackup(device: UiDevice, name: String) {
     check(device.wait(Until.hasObject(By.res("android", "title")), 15_000))
     if (device.findObject(By.desc("Show roots")) != null) {
