@@ -65,7 +65,12 @@ RedSquare target reads return empty, and Retweet reads withhold it once before
 returning it on explicit Retry. Actual namespace-specific read counts are retained
 without transaction contents. This is a synthetic compatibility/recovery proof,
 not a live archive observation or chain inclusion.
-Current whole JSON SHA256:df18fa267c99d457bdab01b4a41f88e83fb92096e740efb492012c9ddffaf06f; 24557bytes.
+The current-quote-target snapshot was24557bytes/SHA df18fa267c99d457bdab01b4a41f88e83fb92096e740efb492012c9ddffaf06f.
+Next public-reader tracer adds an independently signed ordinary retweet with
+text:null and images:null. Both optional values mean absent commentary in the
+ordinary reader. The quote reader used for cached validation must quietly exclude
+it as a valid ordinary repost, rather than reject its signed bytes.
+Current whole JSON SHA256:0b2ccd40b8b0adb597480e81987e3e04522353805de09000d4f20fc132e6fc95; 25828bytes.
 Documentation/native/core copies are identical.
 
 Reproduction uses the existing build image, networknone/read-only container and

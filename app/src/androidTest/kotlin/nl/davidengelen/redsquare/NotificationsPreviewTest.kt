@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger
 
 class NotificationsPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
-    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING, MISSING_REPOST, MISSING_QUOTE_LIKE, HISTORY, PRUNED, PARTIAL, REJECTED }
+    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING, MISSING_REPOST, MISSING_QUOTE_LIKE, HISTORY, PRUNED, PARTIAL, REJECTED, NULL_HISTORY }
 
     @Test fun anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile() {
         withNotifications("incoming-like", mode = Mode.LIKE) { actor, _, _ ->
@@ -232,6 +232,28 @@ class NotificationsPreviewTest {
         }
     }
 
+    @Test fun anOrdinaryRepostWithNullCommentaryIsSavedAndRecoveredWithoutACacheWarning() {
+        withNotifications("null-repost-history", Mode.NULL_HISTORY) { actor, scenario, responses ->
+            waitFor("Reposted your post")
+            ui.waitUntil(20_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
+                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.onAllNodesWithText("Some notification history could not be read or saved on this phone. Available activity still appears here.")
+                .assertCountEquals(0)
+            responses.change()
+            scenario.recreate()
+            waitFor("Could not load notifications. Check your connection and try Refresh.")
+            waitFor("Reposted your post")
+            ui.onAllNodesWithText("Reposted your post").assertCountEquals(1)
+            ui.onAllNodesWithText("Some notification history could not be read or saved on this phone. Available activity still appears here.")
+                .assertCountEquals(0)
+            captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
+                "notification-evidence/null-repost-history.png"), "Reposted your post")
+            ui.onAllNodesWithText(actor).assertCountEquals(2)[0].assertIsDisplayed().performClick()
+            waitFor("Profile")
+            ui.onNodeWithText(actor).assertIsDisplayed()
+        }
+    }
+
     private fun missingReferenceJourney(evidenceName: String, mode: Mode, caption: String, ownCaption: String, actorRows: Int, recoveryText: String = "Original recovered after retry") {
         withNotifications(evidenceName, mode) { actor, _, _ ->
             waitFor(caption)
@@ -301,6 +323,7 @@ class NotificationsPreviewTest {
                 require(criteria.get("limit").asInt in 1..100)
                 repostReads.incrementAndGet()
                 when (mode) {
+                    Mode.NULL_HISTORY -> if (responses.changed.get()) "invalid retweet response" else "[${fixture.get("incomingNullRepost")}]"
                     Mode.REPOST -> "[${fixture.get("incomingRepost")},${fixture.get("parentedQuote")}]"
                     Mode.QUOTE -> "[${fixture.get("incomingQuote")}]"
                     Mode.MISSING_REPOST -> "[${fixture.get("missingOriginalRepost")}]"
@@ -367,7 +390,7 @@ class NotificationsPreviewTest {
                             Mode.MENTION -> "[${fixture.get("incomingMention")},${fixture.get("addressedPost")}]"
                             Mode.USERNAME -> "[${fixture.get("usernameMention")}]"
                             Mode.QUOTE -> "[${fixture.get("legacyQuote")}]"
-                            Mode.LIKE, Mode.REPOST, Mode.MISSING, Mode.MISSING_REPOST, Mode.MISSING_QUOTE_LIKE, Mode.HISTORY, Mode.PRUNED -> "[]"
+                            Mode.LIKE, Mode.REPOST, Mode.MISSING, Mode.MISSING_REPOST, Mode.MISSING_QUOTE_LIKE, Mode.HISTORY, Mode.PRUNED, Mode.NULL_HISTORY -> "[]"
                         }
                     }
                     criteria.get("field5")?.asString == fixture.getAsJsonObject("incomingQuote").get("sig").asString ->
@@ -427,7 +450,7 @@ class NotificationsPreviewTest {
                         peer.assertHealthy()
                         assertTrue("Incoming likes must be read for this wallet", likeReads.get() > 0)
                         if (mode in listOf(Mode.REPLY, Mode.MENTION, Mode.USERNAME, Mode.QUOTE, Mode.PARTIAL, Mode.REJECTED)) assertTrue("Incoming posts must be read for this wallet", replyReads.get() > 0)
-                        if (mode in listOf(Mode.REPOST, Mode.QUOTE, Mode.MISSING_REPOST)) assertTrue("Incoming reposts must be read for this wallet", repostReads.get() > 0)
+                        if (mode in listOf(Mode.REPOST, Mode.QUOTE, Mode.MISSING_REPOST, Mode.NULL_HISTORY)) assertTrue("Incoming reposts must be read for this wallet", repostReads.get() > 0)
                         if (mode == Mode.MISSING_QUOTE_LIKE) {
                             assertTrue("A quote target also checks ordinary post history", quoteOrdinaryReads.get() > 0)
                             assertTrue("Retry must look up the current quote's actual namespace", quoteTargetReads.get() >= 2)
@@ -435,7 +458,8 @@ class NotificationsPreviewTest {
                         if (mode == Mode.USERNAME) assertTrue("A label hint alone must not be ownership evidence",
                             peer.registryQueries.any { it.get("request").asString == "registry namecheck" &&
                                 it.get("identifier").asString == "NativeCase7@saito" })
-                        if (mode in listOf(Mode.HISTORY, Mode.PRUNED)) assertTrue("Recreation must receive changed selected-server responses", responses.ownerReads.get() > 0)
+                        if (mode in listOf(Mode.HISTORY, Mode.PRUNED, Mode.NULL_HISTORY)) assertTrue("Recreation must receive changed selected-server responses", responses.ownerReads.get() > 0)
+                        if (mode == Mode.NULL_HISTORY) assertTrue("Recreated notification stream must reread repost history", repostReads.get() >= 2)
                         assertTrue(peer.clientKeys.isNotEmpty())
                         assertTrue(peer.clientKeys.all { it == owner })
                         assertTrue("Reading notifications must not publish a transaction", peer.transactions.isEmpty())

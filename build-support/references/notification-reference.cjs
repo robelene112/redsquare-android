@@ -52,6 +52,13 @@ const incomingRepost = {
   field1: 'RedSquareRetweet', field3: owner, field4: thread.root.sig,
   updated_at: 1700000000070, flagged: 0
 };
+// Null optional media is absent, not commentary or an invalid ordinary repost.
+const incomingNullRepost = {
+  ...signedReference('2', {module: 'RedSquare', request: 'retweet',
+    data: {signature: thread.root.sig, text: null, images: null}}, 1700000000071, [owner]),
+  field1: 'RedSquareRetweet', field3: owner, field4: thread.root.sig,
+  updated_at: 1700000000071, flagged: 0
+};
 const original = JSON.parse(Buffer.from(JSON.parse(thread.root.tx).m, 'base64')).data;
 const incomingQuote = {
   ...signedReference('2', {module: 'RedSquare', request: 'retweet',
@@ -114,4 +121,4 @@ const incomingQuoteLike = {
 console.log(JSON.stringify({synthetic: true, reference, owner,
   actor: 'pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU',
   root: thread.root, incomingLike, incomingReply, parentedQuote, incomingMention,
-  addressedPost, listedMention, usernameMention, incomingRepost, incomingQuote, legacyQuote, recoveredOriginal, missingOriginalLike, missingOriginalRepost, knownOtherPost, knownOtherLike, ownCurrentQuote, incomingQuoteLike}, null, 2));
+  addressedPost, listedMention, usernameMention, incomingRepost, incomingNullRepost, incomingQuote, legacyQuote, recoveredOriginal, missingOriginalLike, missingOriginalRepost, knownOtherPost, knownOtherLike, ownCurrentQuote, incomingQuoteLike}, null, 2));

@@ -606,3 +606,32 @@ acrossrefreshes. Sourcecompilation/first13GREEN pending.
 Root inspected original rejected-history failurePNG: completeOwner/Notifications/
 Refresh/twoactorrows/onereply+onelike/noerror/no unverifiedwarning, matchingseparate
 XML. Subsequentruntime duplicatecount/noerror/navigation assertions remainunexecuted.
+
+Both corrective fa84357...e461912 reviewaxes0residual. Localcore/debug/test3m5PASS;
+reattachedcontainer e237112768c1 independentwait0 despiteattachedclient143, no cause
+inferred/duplicatebuild. First13GREEN10 38303946822 ate461912 passes13/40.578s/1OK/
+0deaths/noassumptions/core72/debug/test. Unverifiedwarning/exactoneLike+Reply/noerror/
+Conversation/verifiedActor andall12old/finalidentity/no-write/opaque cleanup pass.
+Twenty-eighthashes rejected-native-green/android10; rootfullwarningPNG/all13XML
+inspected, otherPNGsno rootclaims. Warningfinding resolvedsource+actualnative.
+Next focused publicprotocol tracer adds independentordinaryretweet withnulloptional
+text/images. Ordinaryreaderaccepts it butquote readercurrentlycounts itignored,
+preventingcachevalidation. Public7-case test requiresconsistentordinaryacceptance/
+quietnonquoteexclusion. Newreference25828bytes/SHA0b2ccd40b8b0adb597480e81987e3e04522353805de09000d4f20fc132e6fc95
+identical threecopies, pinnedofflineWASM/Elliptic generation. No nodeinitialization/
+network/privatekeyread. GenuinecoreRED pending; no decodecorrectionyet.
+
+Nulloptional public-reader genuineRED:7tests/6PASS/1failure.696s, build42s, at47
+expectedignored0/actual1afterordinaryactionID/time/ignored0 passed. Twohashes
+null-core-red retainrawresult/log. Minimum currentQuote treats nullimagesasabsent,
+requiresnonnullimagesarray, then commentary iff nonblanktypedtext ornonemptyarray.
+Validordinarysigned rowsquietexcluded; invalidoptionaltypesremainrejected. Fullcore
+GREEN pending; Androidnull-cache proof remainsnext.
+
+Nulloptional correction fullcoreGREEN73tests/0failures/errors/skips, build58s.
+Allfullcore rawXML/log retained atnull-core-green. New14th native journey uses
+independentnulloptional repost, waits completedinitialrefresh/cachecommit/no cache
+warning, then recreatesunderbadlikes/posts/Retweet responses and requiresretained
+repost/no cachewarning/actorProfile/positiveownerchangedreads+repostrereads/full
+opaquerestoration. Thisverifies the protocolcorrection throughrealdevice storage;
+no newprotocolbehavior invented. First14native17/compilation pending.

@@ -34,6 +34,19 @@ class RedSquareNotificationsTest {
         assertEquals(0, page.ignored)
     }
 
+    @Test fun `null optional commentary remains a valid ordinary repost for both activity readers`() {
+        val fixture = JsonParser.parseReader(javaClass.getResourceAsStream("/native-notification-reference.json")!!.reader()).asJsonObject
+        val row = fixture.getAsJsonObject("incomingNullRepost")
+        val owner = "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR"
+        val reposts = RedSquareActions.readIncomingReposts("[$row]", owner)
+        assertEquals(listOf(row.get("sig").asString), reposts.actions.map { it.id })
+        assertEquals(1700000000071L, reposts.actions.single().createdAt)
+        assertEquals(0, reposts.ignored)
+        val quotes = RedSquareFeed.readIncomingQuotes("[$row]", owner)
+        assertTrue(quotes.posts.isEmpty())
+        assertEquals("Absent commentary is not an unverified signed transaction", 0, quotes.ignored)
+    }
+
     @Test fun `a username mention qualifies only with a registrar proof for the active owner`() {
         val fixture = JsonParser.parseReader(javaClass.getResourceAsStream("/native-notification-reference.json")!!.reader()).asJsonObject
         val registry = JsonParser.parseReader(javaClass.getResourceAsStream("/native-registry-reference.json")!!.reader()).asJsonObject

@@ -60,8 +60,10 @@ object RedSquareFeed {
         val action = RedSquareActions.decode(envelope)
         require(action.kind == RedSquareActionKind.REPOST)
         val data = signed.body.getAsJsonObject("data")
+        val images = data.get("images")?.takeUnless { it.isJsonNull }
+        require(images == null || images.isJsonArray)
         val hasCommentary = data.optionalString("text").isNotBlank() ||
-            data.getAsJsonArray("images")?.size()?.let { it > 0 } == true
+            images?.asJsonArray?.isEmpty == false
         return if (hasCommentary) decode(envelope) else null
     }
 
