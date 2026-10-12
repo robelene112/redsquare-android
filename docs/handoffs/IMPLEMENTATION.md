@@ -100,7 +100,7 @@ owner-index response plus completed Refresh, both corrective axes0. Predecessor
 1failure92.911s/0OK/0deaths/core72: saved like lost after completed successful-empty
 refresh, line185. Fivehashes/root recreatedoriginal/bothXML retained. Minimum
 screen merges cached/fresh/in-memory verified events bysignedID/time, bounded300
-per-kind, diskwholehistory300/16MiB. Keys include wallet/backend/endpoint. Compilation3m37PASS; first11GREEN38301388041 passes11/78.333s/1OK/0deaths/core72. Both bounded axes0;24hashes/all11XML/root retainedlikePNG. Next12partial tracer requires healthyreply besidefailedlikes; sourcefix/RED pending. No newfullticket/Pixel/APK/processdeath claim.
+per-kind, diskwholehistory300/16MiB. Keys include wallet/backend/endpoint. Compilation3m37PASS; first11GREEN38301388041 passes11/78.333s/1OK/0deaths/core72. Both bounded axes0;24hashes/all11XML/root retainedlikePNG. Next12partial tracer RED38302170360 reports12/11PASS/1fail95.739s/0OK/deaths at197: explicitreaderror buthealthyreplyabsent. Threehashes/rootfailurePNG+XML. Minimum independentconcurrent namespaces preservehealthyresults andrequestdeadlines/parentcancellation; compilation/12GREEN pending. No newfullticket/Pixel/APK/processdeath claim.
 
 Remaining within#24: contact-post and feed-cache supplementation, missing-original
 retention/lookup/Retry with neutral wording, bounded independent paging/partial

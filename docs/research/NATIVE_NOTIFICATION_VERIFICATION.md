@@ -563,3 +563,15 @@ runtime. OtherPNGs retainedno rootvisualclaims. Next nativepartial tracer gets
 malformed ownlikes butvalidsignedreply fromowner post archive and requires error
 withusable reply/Conversation/actorProfile. Existingonebadpage currentlyrejects
 wholecombinedclassification; genuine12RED pending, no partial-sourcefixyet.
+
+Tracer/evidence reviews692565c...397af25 both0,24GREENhashes independentlyverified.
+Genuine partialRED38302170360 at397af25 reports12/11PASS/1failure95.739s/0OKrecords/
+0deaths/noassumptions/core72/debug/test. Expliciterror passes, healthyreplymissing
+at197; laterConversation/actor/finalowner-post counts not reached. Threehashes
+partial-native-red/android17; rootfullfailurePNG/separateXML showselectedOwner/
+Notifications/error/empty. Minimumreads/decodes threeowner-index namespaces
+independently and concurrently on one authenticatedselectedpeer, each existing12s
+requestdeadline; parent cancellation propagates, per-requesttimeout/readparseerror
+is a failedstream. Healthy pagesmerge/render/cache despite another failure, with
+explicit readerror and Refresh. Invalid rows remain unverifiedwarnings. No
+partialdeadline/paging/fullSDK claim untilactualproof. Compilation/12GREEN pending.

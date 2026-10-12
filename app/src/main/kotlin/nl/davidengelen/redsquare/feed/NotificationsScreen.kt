@@ -15,6 +15,11 @@ import com.google.gson.JsonObject
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import nl.davidengelen.redsquare.NotificationPermissionPrompt
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.moderation.LocalPersonalControls
@@ -109,19 +114,31 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
                         val request = JsonObject().apply { addProperty("request", "archive"); add("data", criteria) }
                         return peer.request(request.toString().toByteArray(Charsets.UTF_8)).toString(Charsets.UTF_8)
                     }
-                    val likes = read("RedSquareLike")
-                    val posts = read("RedSquare")
-                    val retweets = read("RedSquareRetweet")
-                    notificationPages(likes, posts, retweets, wallet.publicKey, name, registrar)
+                    coroutineScope {
+                        listOf("RedSquareLike", "RedSquare", "RedSquareRetweet").map { kind -> async {
+                            try {
+                                val response = read(kind)
+                                notificationPages(if (kind == "RedSquareLike") response else "[]",
+                                    if (kind == "RedSquare") response else "[]",
+                                    if (kind == "RedSquareRetweet") response else "[]", wallet.publicKey, name, registrar)
+                            } catch (_: Exception) {
+                                // A request's own deadline is a read failure. Parent cancellation must propagate.
+                                currentCoroutineContext().ensureActive()
+                                null
+                            }
+                        } }.awaitAll()
+                    }
                 }
             }
-            publish(pages)
+            pages.filterNotNull().forEach(::publish)
             try { withContext(Dispatchers.IO) {
-                history!!.save(pages.likes.likes.map { it.envelope } + pages.replies.posts.map { it.envelope } +
-                    pages.mentions.posts.map { it.envelope } + pages.reposts.actions.map { it.envelope } + pages.quotes.map { it.envelope })
+                history!!.save(pages.filterNotNull().flatMap { page ->
+                    page.likes.likes.map { it.envelope } + page.replies.posts.map { it.envelope } +
+                        page.mentions.posts.map { it.envelope } + page.reposts.actions.map { it.envelope } + page.quotes.map { it.envelope }
+                })
             } } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { cacheWarning = true }
-            failed = false
+            failed = pages.any { it == null }
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { failed = true }
         finally { loading = false }
