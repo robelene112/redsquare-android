@@ -7,162 +7,36 @@ one question at a time when a material choice really needs the owner.
 
 ## Current work
 
-#23, "Show balances/receiving details and send authenticated SAITO", is assigned
-and active. Sole blocker#7 is closed. Eighteen of35 tickets are closed.
-Whole-ticket review base: `2fe1fa51ed8d0c0e250d77e7c2f4198809418fdd`.
-Parent seams1–4/sequential delivery are authorized; no routine permission or
-new grill is needed. No production-funded transfer or node change is authorized.
+#24, "Show in-app social notifications", is assigned and active. Both blockers
+#8 and#21 are closed. Nineteen of35 tickets are closed (#2–#15,#18,#20–#23).
+Whole-ticket review base:`d1e65f532e5639bfc8f6c20b5b3fe9794f5e8117`. Owner-authorized sequential implementation
+continues without a new grill or routine permission. Applicable accepted seams1–4:
+native UI/controlled Archive, independently signed protocol vectors, recovery/
+isolation and current/older RedSquare compatibility. Closed-app pushes remain
+#32–#34; Pixel acceptance remains#35.
 
-Canonical chronology, including failed builds, genuine REDs and fixture
-interruptions: [NATIVE_TRANSFER_VERIFICATION.md](../research/NATIVE_TRANSFER_VERIFICATION.md).
-Source contract: [NATIVE_SAITO_TRANSFER_CONTRACT.md](../research/NATIVE_SAITO_TRANSFER_CONTRACT.md).
-Original evidence is under `docs/evidence/ticket22/` (delivery22 means issue#23).
-Use these pointers for historical details; this section describes current work.
-
-Implemented and verified:
-- Selected-server reported balance, full receiving address and exact clipboard.
-- Compatible funded payment construction/restoration and exact recipient/amount/
-  fee/server review; real Android PIN authentication, cancellation without send
-  or reservation, durable wallet-wide input reservations and deliberate exact retry.
-- Recreation and actual pending-transfer death preserve wallet/backend/signed
-  candidate with no automatic send and fresh real PIN on retry. Grants are not saved.
-- Full-block creator/content verification, exact saved-payment matching including
-  unsigned original coordinates/assigned outputs, system data, empty Fee entries
-  and odd Merkle trees. Independent pinned WASM/Elliptic/hash/Rust-recomputed-root/
-  full-serialization checks prove synthetic compatibility, not consensus/finality.
-- Snapshot-linked verified contiguous ancestry establishes current exact inclusion.
-  Saved encrypted prior observations reload after Activity recreation. Missing coverage shows UNKNOWN;
-  verified displacement at the old covered height shows Reorganized. Neither
-  releases original reservations or transmits. The unsafe PRESENT shortcut is gone.
-- Only the selected host is read, with no redirects/fallback:8MiB/body,32MiB shared
-  retained cache and20s monotonic scan budget/remaining-time call deadlines.
-  The existing shared lock covers current authority check and history commit;
-  no scheduler race reproduction is claimed.
-- Fresh distinct nonreserved4.15 change permits a new0.25/fee0.1 review alongside
-  earlier history. All original reservations remain. This is review-only with
-  zero frames, not authenticated new-change spending.
-- Receiving QR encodes only the full public address using ZXingcore3.5.4/H/four-
-  module quiet zone/opaque blackwhite/crisp actual192dp pixels, cached by identity/
-  density. No network/auth prerequisite. Publisher license is packaged with
-  attribution; exact debug asset inspection passes. Core is maintenance-only.
-
-Earlier funding-loss runtime: Android17run38210905877 at5a87b1f PASSES ordinary7cases
-113.703s plus separate existing pending death5013->5141/cold1PASS9.994s and credential
-cleanup1PASS.052s. Counts9completed/3records/1interrupted stage/no assumptions;
-core66/debug/test/release/lint pass. Twelve indexed hashes in funding-lost-ui-green/
-android17. Both bounded funding-copy source/evidence axes through5a87b1f clear.
-
-The unchanged QR case observes actual own-key503 requests, native unavailable
-balance, full literal scalar2 address/copy and displayed Compose-node bitmap
-pixels decoding to the exact address before/after Activity recreation. Successful
-case includes guarded exact opaque-wallet restoration. Root fully viewed both
-original PNGs/separate XMLs: first clear whole QR; reopened Android clipboard
-preview across lower white boundary/footer. Both nonatomic XMLs record overlay.
-No timing-cause, unobstructed second whole-screen scanner, second independent
-QR decoder, physical scanner or dark-theme acceptance is claimed.
-
-Missing-lock setup now passes: dedicated transfer guidance, still-unsecured/app
-foreground, sameauthor/reopened7.5/noPending/zero type4. Root full2PNG/separate2XML;
-reopened normalIME overlays lowerform/footer. Separate pending death is not setup
-case death. Export/auth/funding/send unchanged. Narrow post-GREEN field-entry
-helper shares actual repeated UI actions, retaining each journey's assertions.
-
-Funding-loss recovery passes: after exactreview/realPIN/actual fresh empty funding,
-zero type4 and truthful guidance; restored funding/reopening gives sameauthor/7.5/
-noPending/no frames. Root full2PNG/separate2XML with ordinary IME footer overlay.
-No funds were reserved or queued. All monetary logic remains unchanged.
-
-Storage recovery GREEN38212349387 at8879c82 passes8ordinary126.952s plus
-separatependingdeath5061->5154/cold10.007s/cleanup.052s:10/3/1,core66/build/lint.
-Fourteen indexed hashes; both GREEN evidence reviews verify10/3/1 and originals.
-Root full3originalPNG/separate3XML with IME footer
-qualification. Disabled Authenticate/reopened warning-only/restored7.5/sameauthor/
-noPending/zero frames pass. Both minimumfix/RED/GREEN evidence axes0.
-
-Backend/identity GREEN38213646885 atda64451 passes9ordinary142.677s plus
-separatependingdeath5255->5353/cold9.42s/cleanup.043s:11/3/1,core66/build/lint.
-Actual Owner->Official->recreate->Owner retainsoriginalpayment/reservations/0;
-Retrydisabledaway. RealSAF2->1, freshzero/backupskip/riskack/outgoingworkwarning,
-incomingisolation/restoredpending/noauto/full opaquepriorrestore/exactownedcleanup
-pass. Rootfull6originalPNG/separate6XML with clearfooters; headerbackend and imports
-proved byruntimeselection/SAF gates, not screenshotsalone. Twenty-oneindexedhashes.
-Both fixturecorrection axes0hard/Spec; optional3helperrepeat now narrowly shared.
-Earlier9f1f997 dispatch canceled afterbuildpassed/no runtime, preserved indexed
-sanitizedreport; notnativeRED or permissionreproduction. Productunchanged.
-
-Native public balance/funding proof extends existingONE OwnerLiveFeedTest,
-retainslivefeed/archive reads, then realHTTPS0balance/receivingfulladdress/funding0/
-noPending throughactualWalletUI. Noendpointoverride/review/auth/type4 or positive-
-funding/blockroute/admissionclaim. Harnesscollects originalbalance/fundingPNG+XML/
-publicmetadata; normalfeedreturn/samewallet/backend gates. Existing1test count stays.
-Firstfull10/17at af7ed3b stoppedbefore runtime at unnecessary onNode import in
-OwnerLiveFeedTest23, two indexedfailedstep logs. Import removed, assertions and
-productunchanged; notnativeRED/public endpoint failure. Restarted same-source
-full10/full17 both used public_feed_read=true; compiler/core/release/lint passed.
-Both later stopped in fixtures, detailed below; final native acceptance ispending.
-Dated05:47UTC hostreadiness staysseparate. Home-revocation isnotagreed; no blanket
-onStop cancellation or RESUMED callbackguard. Sourceauditchronologylinkedabove.
-
-Both finalwhole source axes report0residualhard/Spec/actionable findings through
-sourceaf7/c1/d1corrections. Full10run38214955638 atd1 stoppedexistingSocial90
-profileLikedvisibility;13indexedhashes retain46/7/3earlierrunners plusfailed8/7/1/
-13.331s androotfullyviewed originalPNG(noXMLoldcatch). Minimumtestonly correction
-scrollsprofileLiked before5/9visibility, stronger9visible assertion, nativePNG/XML
-captures. No product/timeouts/assertionweakening/causeclaim. Bothbounded
-fixture/evidence axes0; all13hashes/exact46/7/3recount verified. The restarted
-10/17pair then FAILED in fixtures as recorded below; no passedcompanion remains.
-
-#23 acceptance is complete and ready for closure. No new phone APK, physical Pixel result, real-funded admission,
-production node update or whole-ticket acceptance. Physical review remains#35.
-
-### Latest full verification interruption and correction
-
-Both restarted full runs failed; no passed17companion may be retained.
-10run38216135106 at8a0e785:earlier152/30/14(existingprofileassumption), then
-transfer9reported/7PASS/2failures83.487s:systemPIN takeScreenshotfalse, then
-cancellation NoComposehierarchy query. No first-failure PNG/XML; finalhostPNG0bytes.
-17run38214957982 atd1:earlier180/40/17/noassumptions, transfers9PASS112.667s and
-pendingdeath11702->11799/cold9.936s/cleanup.054s, then existingFeed bindEADDRINUSE/
-8reported7PASS1failure17.433s. Neithernewpublicwalletread reached.48/65hashes retain
-countablepaths/checkpoints/qualifiedoriginals under final-full-fixture-interruptions.
-Current testonly corrections:mandatorysystemPIN XML +explicitoptionalbitmap outcome;
-cancelwait allows absentroot then assertsdisplayed; Feed initial/replacement both
-explicitephemeralport soMockWebServer enablesreuse. Handoffbindrace remainssetup
-failure. No exactcapture/transition/portcause/productchange. Focused10transfer/17feed
-verification:17feed/publicrun38218838372 atbbfb021 PASSES10/3/0/core66;
-root6originalPNG/separate4walletXML, bothrealHTTPSnative0balance/fullkey/QR/funding0/
-returnfeed/samewallet/server.22hashes in reconnect-public-wallet-green/android17.
-10transfersrun38218835267 atbbfb021 stops9reported/8PASS/1fail100.653s atcancelwait:
-actualsend/exactretry passes, originalsystemXML/optionalbitmapfalse retained4hashes.
-No failurePNG/XML/exactcancelcause. Existingexport10secBackuntilapp action now
-sharedwithtransfer, keepingdisplayedcancel/zero frames/reopened7.5/identity/noPending.
-Normalcapture nowXMLfirst thenmandatoryPNG; no assertionwait/harness/productchange.
-Bothbbfb/fd8source/evidence axes0,113hashes/countsverified. Correctedfocused10run38220051566 atfcd9771 PASSES11/3/1:ordinary9/98.794s,
-actual4823->4983/cold6.466s/cleanup.089s.15hashes in cancel-system-action-green/
-android10; root2appPNG/separate4XML, normalIME reopenedfooter limitation.
-Full17run38220054361 atsamefcd9771 PASSES202/51/17/noassumptions/core66/release/lint/
-signed5->8/coldcontinuity/bothpublicnativewalletreads. Ordinarytransfers9/98.055s,
-11646->11742/cold9.168s/cleanup.043s;201hashes in final-full/android17. Root34native
-originalPNG/separate35XML and6publicPNG/separate4XML; duplicate/toolstrip/IME/
-clipboard/blackPIN qualifications in README. Publicowner11.583s/official9.112s,
-100ordinaryrows95posts0ignored/5quoterows1post0ignored both. Readonlyfreshunfunded
-HTTPS, notlivefunded/consensus/admission proof. NormalcaptureretainsXMLbeforePNG.
-Full10run38265052461 atsamefcd9771 withpublictrue PASSES202reported/201PASS+
-existingAPI30profileassumption,51records/17interruptedstages/core66/release/lint/
-signed5->8/coldcontinuity/bothpublicwalletreads. Transfers9PASS87.886s actual
-25060->25226/cold5.976s/cleanup.08s;200hashes in final-full/android10. Root33native
-PNG/separate35XML plus6publicPNG/separate4XML withIME/bitmaplimitsqualified.
-Publicowner14.994s/official13.325s each100rows97posts0ignored/5quote1post0ignored.
-BothSDKs shareidenticalfcd9771source; finalbounded10evidence reviewpending; bounded fixture/evidence
-review throughdf30600 clear:Standards0hard/0actionableheuristics,Spec0;
-all242hashes/rawcounts verified. Runtimepair PASSED; finalbounded10evidencereviewthroughfe4c57f clearsbothaxes:
-Standards0hard/0heuristics,Spec0;200hashes/rawcounts/checkpoints/originalsverified.
-#23acceptancecomplete andreadyforclosure; nextready#24notifications. Canonicalchronologyabove; #23 stillactive.
+First tracer: an independently signed incoming like addressed to the active
+wallet appears in Notifications and opens its original post and verified actor
+profile. Begin with one failing native test, then minimum implementation; extend
+into replies/mentions/reposts/quotes, available-history coverage, controls/read-state/
+cache/failure/backend/wallet isolation and contextual optional Android permission.
+The source contract is docs/research/NATIVE_NOTIFICATIONS_CONTRACT.md; read-only
+orientation is .scratch/ticket24-readonly-plan-20261012.md. Its protected contract
+will be committed only with this ticket. Other future chat files remain untouched.
+Initial signed addressed-like reference is generated offline andcopied identically
+into docs/nativeassets (2980bytes/SHA2b8a8171...). No appproduction implementation
+change yet. Firstnative NotificationsPreviewTest plusfocused notifications/
+notifications-android17 scopes andfullharness hook added. All50SDKscope mappings
+andbashsyntax checked. Localcore/debug/test build passed before the final two
+prompt assertions were added; hostedcompiler/latestnativeRED pending. Sourcebuild
+usesexisting Dockerlimits; no duplicate fullrun yet. Firstgenerator inherited
+nonroot imageuser/chroot denied; corrected --user0 readonly/networknone/env-i passed.
+No #24 feature completion, new phoneAPK, physicalPixel or closed-app delivery yet.
 
 ## Earlier completed ticket checkpoints
 
-Profile #18 is closed, final evidence commit ed5742f pushed. Eighteen of35 tickets
-are complete (#2–#15, #18, #20, #21 and #22). Parked #19, "Register an optional Saito username",
+Profile #18 is closed, final evidence commit ed5742f pushed. Nineteen of35 tickets
+are complete (#2–#15, #18, #20, #21, #22 and #23). Parked #19, "Register an optional Saito username",
 parked on the external Registry prerequisite, review base ed5742fd0f57958d284073b7145f1844b72b1dbd. #16 Giphy still awaits
 Android-authorized credentials; #17 actual YouTube provider playback remains
 unproved. Do not close those from controlled source/layout successes.
@@ -457,6 +331,35 @@ SAITO transfers. It is now claimed and active as described under Current work. R
 public parameter observations/pure reference gaps; it is not implementation or
 acceptance. Protected future files remain untouched. No newphone APK/Pixel/live
 report/moderator outcome/permanent history/original scheduler reproduction claim.
+
+## Completed authenticated-transfer acceptance checkpoint
+
+#23 CLOSED2026-10-12T15:18:29Z, comment6127183552, finalacceptance commitd1e65f5
+pushed. Whole-ticket base2fe1fa51ed8d0c0e250d77e7c2f4198809418fdd; app/protocol
+sourcefcd9771e232007e3c4c6702bb3c135661639b654. Both fullSDKs pass that same source:
+- Android10run38265052461:202reported/201PASS+one existingAPI30profileassumption,
+  51records/17actualdeaths; core66/release/lint/signed5->8/coldcontinuity/publicreads.
+  Transfers9PASS87.886s; actual25060->25226/cold5.976s/cleanup.08s.
+- Android17run38220054361:202allPASS/noassumptions,51records/17actualdeaths;
+  samegates. Transfers9PASS98.055s; actual11646->11742/cold9.168s/cleanup.043s.
+
+Selectedbalance/fullreceivingkey/copy/QR, compatiblefundedpayment/exactreview/
+realdeviceauth/cancel/freshretry, durable wallet-wide reservations, verifiedfull-
+block/linkedancestry inclusion/Unknown/Reorganization, noautoqueue/rerouting,
+funding/storage recovery andrealbackend/SAFwalletisolation verified. Separate
+publicwallet journeys read actualapprovedHTTPSfreshunfunded0balance/funding/fullkey/
+QR/returnfeed on bothbackends withnoauth/review/send. Notpositivefunding/admission/
+consensus/livepayment proof. IndependentpinnedWASM/Elliptic/fullblock/oddMerkle/
+wire compatibility remains qualifiedsynthetic evidence.
+
+Finaltwo-axis whole/source/bounded/evidence reviews0residualhard/heuristics/Spec.
+200/201finalSDKhashes/exactrawcounts/checkpoints verified. Root33/34nativeoriginal
+PNG+35XML each,6publicoriginalPNG+4XML each; IMEfooters/clipboard/black-or-refused
+systemPIN/runtimeauthority/SAF/duplicatebytes qualified in final-full READMEs.
+No newphoneAPK/physicalPixel/independentscanner/arbitrarypowercut/Home-policy/node
+change. Stablephonepreview remainsv10/source5225d06.
+Canonicalchronology: docs/research/NATIVE_TRANSFER_VERIFICATION.md.
+Separate reports: docs/evidence/ticket22/REVIEW.md.
 
 ## Outstanding external acceptance
 
