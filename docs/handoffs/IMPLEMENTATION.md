@@ -61,15 +61,16 @@ preview across lower white boundary/footer. Both nonatomic XMLs record overlay.
 No timing-cause, unobstructed second whole-screen scanner, second independent
 QR decoder, physical scanner or dark-theme acceptance is claimed.
 
-Next sole cycle: native missing-screen-lock setup message for transfers. Actual
-unsecured emulator/live selected-peer review, Authenticate and send, accurate
-setup guidance, no frames/reservation, app foreground, close/reopen and fresh7.5/
-noPending/zero frames. Current product incorrectly reuses export-specific setup
-copy. Test APK compiles1m27s/one hash in auth-setup-test-preparation; bounded
-tracer/evidence review cleared. Native38207970800 stopped at an unsupported
-server receipt guard before requesting setup;6reported/5PASS/1failure85.896s.
-Fixture now observes the actual sent signed challenge instead, retaining product
-acceptance assertions. Corrected compile/native copy RED pending. No product change yet.
+Current cycle: native missing-screen-lock setup message for transfers. Corrected
+fixture compiled1m27s; bounded reviews clear after current-build doc correction.
+Native38208760225 atc513197 reaches genuine missing-copy RED:6reported/5PASS/1failure
+98.927s atPreview223. Actual unsecured device/exact6.25/.1/recipient/owner/live
+review/zero type4 gates pass; originalPNG/XML shows export-specific guidance.
+Minimum fix adds a dedicated transfer setup resource and uses it only here.
+Export copy and all funding/auth/store/send logic unchanged. Debug/test build
+passes2m36s; unchanged native GREEN, including close/reopen/fresh7.5/noPending/zero
+frames, pending. Dated05:47UTC host options/balance reads pass on both approved
+origins, separately qualified in current-public-endpoint-read; no admission proof.
 
 Then address meaningful remaining funding/storage/backend/identity failure gaps,
 run fresh final full10/full17 for the same production source with opted-in public

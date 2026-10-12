@@ -1,0 +1,12 @@
+{
+  "run": "38208760225",
+  "source": "c5131974e4526a00a582612f350c8c092cdd0779",
+  "reportedCases": 6,
+  "passedCases": 5,
+  "failedCases": 1,
+  "completedCases": 0,
+  "completionRecords": 0,
+  "actualDeathStages": 0,
+  "ordinarySeconds": 98.927,
+  "failure": "WalletTransferPreviewTest.kt:223, transfer-specific screen-lock guidance absent; export guidance shown"
+}

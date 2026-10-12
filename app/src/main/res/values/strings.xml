@@ -328,6 +328,7 @@
     <string name="transfer_backend_review">Send through %1$s</string>
     <string name="transfer_memo_review">Memo: %1$s</string>
     <string name="transfer_public_warning">The recipient, amount and memo are public. Sending requires a live connection. A fee does not guarantee inclusion.</string>
+    <string name="transfer_auth_setup">Set a screen lock in Android settings to send SAITO.</string>
     <string name="transfer_auth_send">Authenticate and send</string>
     <string name="transfer_auth_title">Send SAITO</string>
     <string name="transfer_auth_subtitle">Authenticate this reviewed transfer with your screen lock or biometrics.</string>

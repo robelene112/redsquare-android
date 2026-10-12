@@ -1,0 +1,121 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.WalletTransferPreviewTest:
+INSTRUMENTATION_STATUS: test=pendingPaymentReopensWithoutSendingAndExactRetryRequiresFreshReviewedDeviceAuthentication
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=pendingPaymentReopensWithoutSendingAndExactRetryRequiresFreshReviewedDeviceAuthentication
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=receivingQrContainsTheFullActiveAddressWithoutBalanceConnectivityAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=receivingQrContainsTheFullActiveAddressWithoutBalanceConnectivityAfterReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=sendingWithoutAScreenLockExplainsTransferSetupAndDoesNotQueue
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Set a screen lock in Android settings to send SAITO.' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.sendingWithoutAScreenLockExplainsTransferSetupAndDoesNotQueue$lambda$36$lambda$35$lambda$34$lambda$33(WalletTransferPreviewTest.kt:223)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$gFXVT9sR277eln5l9fcstmPRJ6A(WalletTransferPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda13.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.sendingWithoutAScreenLockExplainsTransferSetupAndDoesNotQueue(WalletTransferPreviewTest.kt:204)
+
+INSTRUMENTATION_STATUS: stream=
+Error in sendingWithoutAScreenLockExplainsTransferSetupAndDoesNotQueue(nl.davidengelen.redsquare.WalletTransferPreviewTest):
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Set a screen lock in Android settings to send SAITO.' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.sendingWithoutAScreenLockExplainsTransferSetupAndDoesNotQueue$lambda$36$lambda$35$lambda$34$lambda$33(WalletTransferPreviewTest.kt:223)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$gFXVT9sR277eln5l9fcstmPRJ6A(WalletTransferPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda13.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.sendingWithoutAScreenLockExplainsTransferSetupAndDoesNotQueue(WalletTransferPreviewTest.kt:204)
+
+INSTRUMENTATION_STATUS: test=sendingWithoutAScreenLockExplainsTransferSetupAndDoesNotQueue
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=selectedServerBalanceAndReceivingAddressCanBeViewedAndCopied
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=selectedServerBalanceAndReceivingAddressCanBeViewedAndCopied
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferStatusTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.WalletTransferStatusTest:
+INSTRUMENTATION_STATUS: test=exactInclusionUnknownHistoryAndVerifiedReorganizationNeverAutomaticallyResend
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferStatusTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=exactInclusionUnknownHistoryAndVerifiedReorganizationNeverAutomaticallyResend
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 98.927
+There was 1 failure:
+1) sendingWithoutAScreenLockExplainsTransferSetupAndDoesNotQueue(nl.davidengelen.redsquare.WalletTransferPreviewTest)
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Set a screen lock in Android settings to send SAITO.' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.sendingWithoutAScreenLockExplainsTransferSetupAndDoesNotQueue$lambda$36$lambda$35$lambda$34$lambda$33(WalletTransferPreviewTest.kt:223)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$gFXVT9sR277eln5l9fcstmPRJ6A(WalletTransferPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda13.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.sendingWithoutAScreenLockExplainsTransferSetupAndDoesNotQueue(WalletTransferPreviewTest.kt:204)
+
+FAILURES!!!
+Tests run: 6,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

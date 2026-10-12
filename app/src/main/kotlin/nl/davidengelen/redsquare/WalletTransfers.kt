@@ -147,7 +147,7 @@ class WalletTransfers(
         if (busy) return
         val reviewed = review ?: return
         if (!activity.getSystemService(KeyguardManager::class.java).isDeviceSecure) {
-            message = R.string.wallet_auth_setup
+            message = R.string.transfer_auth_setup
             return
         }
         val operation = Attempt(reviewed)

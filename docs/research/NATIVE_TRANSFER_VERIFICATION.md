@@ -647,3 +647,22 @@ acceptance assertions remain. No product change or genuine setup-copy RED yet.
 
 Corrected setup tracer APK builds1m27s, one hash in auth-setup-fixture-build.
 Product unchanged; corrected native RED and bounded fixture reviews pending.
+
+Both bounded corrected fixture axes throughc513197 clear after the current
+handoff build sentence correction. Native38208760225 atc513197 reaches genuine
+copy RED atPreview223:6reported/5PASS/1failure98.927s. Actual unsecured device,
+exact6.25/.1/recipient/owner review/signed server challenge enqueue/zero type4
+gates pass before Authenticate and send; original fully viewed PNG/separate XML
+show export-specific setup guidance instead of transfer wording. Four hashes in
+auth-setup-ui-red/android17. No setup/reopening completion or later death stage.
+Minimum fix uses a dedicated transfer_auth_setup resource only for this branch;
+export copy and all authentication/funding/store/send logic unchanged. Build and
+unchanged native GREEN pending.
+
+Minimum setup resource debug/test APKs compile2m36s, one hash in auth-setup-ui-build.
+2026-10-12 05:47 UTC bounded read-only/no-redirect verifiedHTTPS host GETs to both
+approved origins return options genesis_period80640 and identical92-byte fresh
+height1112506/cf5320... zero-row snapshot for public unsafe scalar2. Sanitized
+reports/probe3hashes in current-public-endpoint-read. Dated host schema readiness,
+not native publicUI/positive funding/block-route/consensus/admission. No private
+wallet, production writes or real funds accessed. Native setup GREEN pending.
