@@ -69,7 +69,16 @@ exact inclusion belongs exclusively to observe(payment). Narrow shared verified
 traversal/Fee-only fixture assembly preserve independent JSON byte-for-byte.
 Full core66PASS49s;24 hashes/all15 original XMLs in `chain-review-fix` (also
 includes opaque-data mutation baseline4PASS30s). Sourcepush38195650210 passes
-at a97f122. Bounded source-fix/evidence review pending.
+at a97f122. Both bounded source-fix/evidence axes at a467b7a are clear; sourcepush38196103869
+passes release/lint/core66. New single Android inclusion journey is prepared at
+seams1/3: independently signed pre-existing unsafe1 candidate, controlled server,
+freshly test-signed unsafe3 headers over independent block content. It must show
+Included/no Pending/no Retry, preserve identity/backend/reservations on reopening
+and send nothing. Current fixture compile1m18s; terminal assertions added after
+that compile await fresh hosted build. First1m52s missing test-dependency compile
+and1m38s correction are retained; no runtime RED yet. The pure independent block
+verifier dry-runs on the known reference; actual runtime bytes are still pending.
+Four hashes in `inclusion-test-preparation`.
 
 Next: HTTP elapsed/body budgets, Android Included/unknown/reorg status and
 persisted qualified observations, then receiving QR, remaining meaningful

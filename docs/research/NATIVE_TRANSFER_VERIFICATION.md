@@ -352,3 +352,17 @@ cannot authenticate changed unrelated opaque data. No fabricated RED/production
 change for that baseline. Sourcepush38195650210 at a97f122 passes. Both bounded
 source-fix/evidence reviews remain pending. Android/HTTP/persistence/QR/final
 acceptance remain separate.
+
+Both bounded source-fix/evidence axes at a467b7a are clear; sourcepush38196103869
+passes release/lint/core66. Next sole native seams1/3 test sets up the existing
+independent unsafe1 candidate in disposable dev/emulator storage, restoring
+prior wallet in finally, and uses fresh unsafe3-signed headers over copied
+independent content. It must show Included/no Pending/no Retry, exact original
+backend/same identity and no automatic frame through Activity recreation.
+First compile1m52s fails missing direct test crypto dependency; pinned test-only
+BC1.86 fixes compile1m38s. Inspected incomplete fixture backup construction is
+replaced with validated known private-scalar public-key checks before runtime;
+current fixture compile1m18s. Terminal status assertions added afterward await
+hosted compile/runtime. Four preparation hashes retain logs and pure verifier
+dry-run on known reference. No native missing-Included RED or actual block
+compatibility/runtime/UI acceptance is claimed yet. HTTP/UI integration is absent.
