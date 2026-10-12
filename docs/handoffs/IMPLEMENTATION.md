@@ -67,7 +67,13 @@ resetting wallet/backend/work. Require no automatic frame, exact review and
 fresh real PIN before the byte-identical explicit retry; positively verify
 host-owned credential cleanup. Corrected local test APK compile passes1m28s;
 initial52s compile failed at an incorrect fixture public-signature reference.
-Python/shell syntax checks pass. Runtime/reviews are pending.
+Python/shell syntax checks pass. Focused38192305814 atd0db1e3 passes ordinary
+3cases47.058s,actualdeath4785→4877/cold1case8.964s andpositivecredentialcleanup
+1case0.043s:5/3/1. Core57/source/debug/test plus sourcepush38192305645release/lint
+pass. Root4originalPNG/separate4XML, bothactualframes independentlypass pure
+pinnedWASM/Elliptic;25hashes in ticket22/process-green/android17. Baseline Spec0,
+Standards0hardbreaches/1duplication improvement. Narrow shared funding/IME
+fixture extraction test APK compiles1m21s; runtime/fix/evidence reviews pending.
 No missing-feature RED is assumed for behavior already implemented.
 
 Profile #18 is closed, final evidence commit ed5742f pushed. Eighteen of35 tickets

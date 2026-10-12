@@ -7,15 +7,9 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
-import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
-import androidx.test.uiautomator.Until
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
-import mockwebserver3.Dispatcher
-import mockwebserver3.MockResponse
-import mockwebserver3.MockWebServer
-import mockwebserver3.RecordedRequest
 import nl.davidengelen.redsquare.saito.*
 import org.junit.Assert.*
 import org.junit.Rule
@@ -25,7 +19,6 @@ import java.math.BigInteger
 import java.net.InetAddress
 import java.nio.ByteBuffer
 import java.util.Base64
-import java.util.regex.Pattern
 
 /** Separate host-driven processes. Only public payment data enters the checkpoint. */
 class TransferProcessRecoveryTest {
@@ -60,14 +53,7 @@ class TransferProcessRecoveryTest {
             ui.onNodeWithContentDescription("Amount in SAITO").performTextInput("6.25")
             ui.onNodeWithContentDescription("Fee in SAITO").performTextReplacement("0.1")
             ui.onNodeWithContentDescription("Public memo").performTextInput("Native transfer test")
-            val keyboard = By.pkg(Pattern.compile("com\\.(?:google\\.)?android\\.inputmethod\\.latin"))
-            ui.waitUntil(5_000) { device.hasObject(keyboard) || ui.onNodeWithText("Review transfer").isDisplayed() }
-            if (device.hasObject(keyboard)) {
-                device.pressBack()
-                check(device.wait(Until.gone(keyboard), 5_000))
-            }
-            waitFor("Review transfer")
-            ui.onNodeWithText("Review transfer").performClick()
+            reviewNativeTransfer(ui, device)
             assertReview()
             assertTrue(peer.transactions.isEmpty())
             ui.onNodeWithText("Authenticate and send").performClick()
@@ -174,7 +160,7 @@ class TransferProcessRecoveryTest {
     }
 
     private fun launch(peer: ControlledFeedPeer, action: () -> Unit) {
-        transferServer().use { server ->
+        fundedTransferServer().use { server ->
             server.start(InetAddress.getByName("127.0.0.1"), 0)
             peer.start().use { transport ->
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
@@ -183,23 +169,6 @@ class TransferProcessRecoveryTest {
                     .putExtra("balanceApiUrl", "http://127.0.0.1:${server.port}/balance/")).use {
                     withFailureCapture({ capture("transfer-process-failure.png") }, action)
                 }
-            }
-        }
-    }
-
-    private fun transferServer() = MockWebServer().apply {
-        dispatcher = object : Dispatcher() {
-            override fun dispatch(request: RecordedRequest): MockResponse {
-                if (request.target == "/options") return MockResponse.Builder().body(
-                    "{\"consensus\":{\"genesis_period\":80640,\"default_social_stake_period\":100,\"block_confirmation_limit\":1}}").build()
-                val key = request.target.removePrefix("/balance/")
-                if (request.target != "/balance/$key" || !SaitoWallet.isPublicKey(key)) {
-                    return MockResponse.Builder().code(400).build()
-                }
-                return MockResponse.Builder().body(
-                    "${System.currentTimeMillis()}-1234-${"a".repeat(64)}.snap\n" +
-                        "$key 1001 7 2 500000000 0\n" +
-                        "$key 1002 9 0 250000000 7\n").build()
             }
         }
     }

@@ -234,3 +234,16 @@ The first new test compile fails52s due to a fixture reference to payment.id;
 the public signature is payment.transaction.id. Corrected test APK compilation
 passes1m28s, and host Python/shell syntax checks pass. This compilation error
 does not establish a missing runtime behavior. No production source changed.
+
+Process baseline focused38192305814 atd0db1e3 PASSES: ordinary3PASS47.058s,
+actualdeath4785→4877/cold1PASS8.964s,positivecredentialcleanup1PASS0.043s;
+5completed cases/3records/1actualdeath. Core57/source/debug/test and separate
+sourcepush38192305645release/lint pass. Root4originalPNG/separate4XML and pure
+pinnedWASM/Elliptic verification of bothactual762byteframes pass. Samewallet/
+originalbackend/candidate/noauto/exactreview/freshrealPIN/exactretry/clearedPIN
+are established. Bothframehashes73550896...;25hashes retained in
+ticket22/process-green/android17. No inclusion or complete failure acceptance.
+Baseline Spec0; Standards0hardbreaches/1DuplicatedCode improvement. Review-stage
+extraction shares only existing controlled funding/observed-IME helpers across
+the two journeys, retaining their independent assertions. Test APK compilation
+passes1m21s; runtime and bounded fix/evidence reviews remain pending.

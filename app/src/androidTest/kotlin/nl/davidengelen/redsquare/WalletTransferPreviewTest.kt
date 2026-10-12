@@ -26,10 +26,7 @@ import java.util.concurrent.CopyOnWriteArrayList
 import nl.davidengelen.redsquare.saito.SaitoPayment
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.AndroidBackendStore
-import androidx.test.uiautomator.By
-import androidx.test.uiautomator.Until
 import androidx.test.uiautomator.UiDevice
-import java.util.regex.Pattern
 import java.math.BigInteger
 import java.nio.ByteBuffer
 import java.util.Base64
@@ -48,7 +45,7 @@ class WalletTransferPreviewTest {
 
     @Test fun pendingPaymentReopensWithoutSendingAndExactRetryRequiresFreshReviewedDeviceAuthentication() = withDevicePin { device ->
         val peer = ControlledFeedPeer("[]")
-        val server = transferServer()
+        val server = fundedTransferServer()
         server.use {
             server.start(InetAddress.getByName("127.0.0.1"), 0)
             peer.start().use { transport ->
@@ -66,7 +63,7 @@ class WalletTransferPreviewTest {
                         ui.onNodeWithContentDescription("Amount in SAITO").performTextInput("6.25")
                         ui.onNodeWithContentDescription("Fee in SAITO").performTextReplacement("0.1")
                         ui.onNodeWithContentDescription("Public memo").performTextInput("Native transfer test")
-                        reviewTransfer(device)
+                        reviewNativeTransfer(ui, device)
                         ui.waitUntil(20_000) { ui.onAllNodes(hasText("Confirm SAITO transfer"))
                             .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                         ui.onNodeWithText("Recipient: $recipient").assertIsDisplayed()
@@ -139,7 +136,7 @@ class WalletTransferPreviewTest {
 
     @Test fun cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue() = withDevicePin { device ->
         val peer = ControlledFeedPeer("[]")
-        transferServer().use { server ->
+        fundedTransferServer().use { server ->
             server.start(InetAddress.getByName("127.0.0.1"), 0)
             peer.start().use { transport ->
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
@@ -155,7 +152,7 @@ class WalletTransferPreviewTest {
                             .performTextInput("pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU")
                         ui.onNodeWithContentDescription("Amount in SAITO").performTextInput("6.25")
                         ui.onNodeWithContentDescription("Fee in SAITO").performTextReplacement("0.1")
-                        reviewTransfer(device)
+                        reviewNativeTransfer(ui, device)
                         ui.waitUntil(20_000) { ui.onNodeWithText("Authenticate and send").isDisplayed() }
                         ui.onNodeWithText("Amount: 6.25 SAITO").assertIsDisplayed()
                         assertTrue(peer.transactions.isEmpty())
@@ -184,17 +181,6 @@ class WalletTransferPreviewTest {
         }
     }
 
-    private fun reviewTransfer(device: UiDevice) {
-        val keyboard = By.pkg(Pattern.compile("com\\.(?:google\\.)?android\\.inputmethod\\.latin"))
-        ui.waitUntil(5_000) { device.hasObject(keyboard) || ui.onNodeWithText("Review transfer").isDisplayed() }
-        if (device.hasObject(keyboard)) {
-            device.pressBack() // Only dismiss a positively observed system IME.
-            check(device.wait(Until.gone(keyboard), 5_000))
-        }
-        ui.waitUntil(5_000) { ui.onNodeWithText("Review transfer").isDisplayed() }
-        ui.onNodeWithText("Review transfer").performClick()
-    }
-
     private fun withDevicePin(action: (UiDevice) -> Unit) {
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -214,23 +200,6 @@ class WalletTransferPreviewTest {
             } catch (cleanupFailure: Throwable) {
                 val primary = primaryFailure
                 if (primary == null) throw cleanupFailure else primary.addSuppressed(cleanupFailure)
-            }
-        }
-    }
-
-    private fun transferServer() = MockWebServer().apply {
-        dispatcher = object : Dispatcher() {
-            override fun dispatch(request: RecordedRequest): MockResponse {
-                if (request.target == "/options") return MockResponse.Builder().body(
-                    "{\"consensus\":{\"genesis_period\":80640,\"default_social_stake_period\":100,\"block_confirmation_limit\":1}}").build()
-                val key = request.target.removePrefix("/balance/")
-                if (request.target != "/balance/$key" || !SaitoWallet.isPublicKey(key)) {
-                    return MockResponse.Builder().code(400).build()
-                }
-                return MockResponse.Builder().body(
-                    "${System.currentTimeMillis()}-1234-${"a".repeat(64)}.snap\n" +
-                        "$key 1001 7 2 500000000 0\n" +
-                        "$key 1002 9 0 250000000 7\n").build()
             }
         }
     }
