@@ -309,3 +309,19 @@ one Posted row,2unread, actual Conversation/commentary and verified actor Profil
 Both axes verify36166byte identical references/SHA04ef...75d0d1af, sorted eleven
 unique public points/owner excluded/target last,50priorGREENhashes/24XML/rawcounts/
 both original pagingPNGs. Fixture build/new23RED pending. Production unchanged.
+
+## Remaining contacts minimum
+
+### Standards
+
+`e0c447e...1137021`: zero hard violations/actionable heuristics. Discovery
+has priority within23requests, older reads use remaining capacity, and new
+contacts stay eligible at the history bound. Three RED hashes/rawcounts/original
+PNG/XML verified; text-child enabled attributes do not override disabled parent.
+
+### Spec
+
+Zero actionable findings. Per-source cursor registration retains failed new
+contact reads for retry; manual Refresh restarts newest discovery on the selected
+peer. Root and both axes verified23reported/22PASS/one disabled-continuation
+failure68.485s/zeroOK/deaths. Local build/first23GREEN pending.

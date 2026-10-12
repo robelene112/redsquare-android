@@ -902,3 +902,12 @@ prioritizes nextten accounts/bothnamespaces, then older sources within23request
 budget; undiscovered accounts remain eligible even at300-event older-history
 bound. Failed initial reads stillhave retained cursors; all requests stay on
 selected authenticated peer. Compile/first23GREEN pending.
+
+Twenty-fourth native regression uses existing HISTORY reference to verify
+actual Profile Mute and Block, hidden notification actor/row and zero unread,
+failed selected-server refresh/Activity recreation, then actual management
+Unmute/Unblock restoring cached actor/like and1unread. All cases now reset/restore
+the exact fixture-owner personal file family under SaitoLocalState.lock; no
+other identities/files/keystore aliases are removed or exposed. Local fixture
+APK1m39PASS. Existing shared controls implement this behavior; first native
+regression pending, no new production source or recreated-process-death claim.

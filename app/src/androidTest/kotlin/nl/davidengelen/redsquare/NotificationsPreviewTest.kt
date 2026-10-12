@@ -476,6 +476,51 @@ class NotificationsPreviewTest {
         }
     }
 
+    @Test fun muteAndBlockHideActivityAndUnreadCountsThroughOutagesUntilExplicitRemoval() {
+        withNotifications("personal-controls", Mode.HISTORY) { actor, scenario, responses ->
+            for ((control, confirmation, removal) in listOf(
+                Triple("Mute account", "Mute", "Unmute account"),
+                Triple("Block account", "Block", "Unblock account"))) {
+                waitFor("1 unread")
+                waitFor("Liked your post")
+                ui.onNodeWithText(actor).assertIsDisplayed().performClick()
+                waitFor("Profile")
+                ui.waitUntil(15_000) { ui.onAllNodes(hasText(control) and isEnabled())
+                    .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                ui.onNodeWithText(control).performClick()
+                waitFor(confirmation)
+                ui.onNodeWithText(confirmation, substring = false).performClick()
+                waitFor(removal)
+                ui.onNodeWithText("Back").performClick()
+                waitFor("No unread activity")
+                ui.onAllNodesWithText("Liked your post").assertCountEquals(0)
+                ui.onAllNodesWithText(actor).assertCountEquals(0)
+                responses.change()
+                scenario.recreate()
+                waitFor("Could not load notifications. Check your connection and try Refresh.")
+                ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
+                    .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                waitFor("No unread activity")
+                ui.onAllNodesWithText("Liked your post").assertCountEquals(0)
+                ui.onAllNodesWithText(actor).assertCountEquals(0)
+                captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
+                    "notification-evidence/personal-${confirmation.lowercase()}-recreated.png"), "No unread activity")
+                ui.onNodeWithText("Settings").performClick()
+                waitFor("Muted and blocked accounts")
+                ui.onNodeWithText("Muted and blocked accounts").performClick()
+                waitFor(removal)
+                ui.onNodeWithText(removal).performClick()
+                waitFor("No muted or blocked accounts.")
+                ui.onNodeWithText("Done").performClick()
+                waitFor("1 unread")
+                waitFor("Liked your post")
+                ui.onNodeWithText(actor).assertIsDisplayed()
+            }
+            captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
+                "notification-evidence/personal-controls-restored.png"), "1 unread")
+        }
+    }
+
     private fun missingReferenceJourney(evidenceName: String, mode: Mode, caption: String, ownCaption: String, actorRows: Int, recoveryText: String = "Original recovered after retry") {
         withNotifications(evidenceName, mode) { actor, _, _ ->
             waitFor(caption)
@@ -530,6 +575,8 @@ class NotificationsPreviewTest {
         val publicFiles = FixtureFiles(context.noBackupFilesDir, publicBase, publicLock)
         val historyFiles = FixtureFiles(context.noBackupFilesDir, "notifications.${SaitoBackend.OWNER.id}.$owner.v1",
             nl.davidengelen.redsquare.feed.PublicStringStore.lock)
+        val personalFiles = FixtureFiles(context.noBackupFilesDir, "personal.$owner",
+            nl.davidengelen.redsquare.saito.SaitoLocalState.lock)
         val followingFiles = FixtureFiles(context.noBackupFilesDir, "following.$owner.v1",
             nl.davidengelen.redsquare.feed.PublicStringStore.lock)
         val feedFiles = FixtureFiles(context.noBackupFilesDir, "feed.${SaitoBackend.OWNER.id}.v1",
@@ -698,6 +745,7 @@ class NotificationsPreviewTest {
             readFiles.reset()
             feedFiles.reset()
             followingFiles.reset()
+            personalFiles.reset()
             if (mode == Mode.CONTACT_CONTINUATION) {
                 nl.davidengelen.redsquare.feed.PublicStringStore(context, "following.$owner.v1", 1000)
                     .save(fixture.getAsJsonArray("continuationContacts").map { it.asString })
@@ -778,6 +826,8 @@ class NotificationsPreviewTest {
                 feedFiles.restore()
             }, {
                 followingFiles.restore()
+            }, {
+                personalFiles.restore()
             }, {
                 conversationFiles.restore()
             })
