@@ -54,7 +54,9 @@ genuine Android10 RED38316922452:21PASS/one missing-continuation failure
 unexecuted. Minimum now has independent stream cursors, strict boundary overlap,
 coverage warning on unresolved full ties, failed-stream pending retry, a300-event
 older-read bound and load-generation guard. Completed-read waits strengthen the
-button/exhaustion assertions. Local full build2m59s passes; first22GREEN pending.
+button/exhaustion assertions. Local full build2m59s passes; first22GREEN38318254471 passes22/71.479s/oneOK/zero deaths/assumptions.
+Both minimum axes0;50hashes/all24XML/both original olderPNGs inspected.
+Next additional-contact discovery.
 No actual process-death/fullSDK claim.
 
 Remaining #24 work is finite: supplement followed-account posts, bounded reply discovery/older-page overlap and retry,

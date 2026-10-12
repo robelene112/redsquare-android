@@ -271,3 +271,25 @@ required. This is finite overlap proof, not exhaustive large timestamp ties.
 Both axes verified34757byte identical references/SHA and prior46GREENhashes/
 22XML/counts/originalquotePNG. Local fixtureAPK1m30PASS. First22RED
 run38316922452 remains pending; no product pagination implementation yet.
+
+## Older activity minimum
+
+### Standards
+
+`767090e...29c78da`: zero hard violations/actionable heuristics. Source cursors,
+bounded retention and pending failures preserve prior behavior. All3 RED hashes,
+raw counts, original PNG and XML verified.
+
+### Spec
+
+Zero actionable findings. Successful raw metadata advances each independent
+stream; strict overlap and full-tie warnings do not promise exhaustive history.
+Completed-read fixture waits preserve acceptance assertions. Additional-contact
+coverage remains explicitly unfinished. Local full build2m59s passes.
+
+First22GREEN10 38318254471 at29c78da passes22/71.479s/1OK/0deaths/assumptions/
+core73/debug/test. Exactoverlap/dedup/2->3unread/actualolderActor/completedexhaustion/
+retained3afterfailedreadsandrecreation/all21old/finalopaque/no-write pass.
+Fiftyhashes paging-native-green/android10; rootall24XML/bothoriginalolderPNGs
+inspected. REDoriginalalsoinspected. Bothminimumreviews0; localfull2m59PASS.
+Additionalcontactdiscovery remainsnext; actualdeath/finalSDK acceptance pending.

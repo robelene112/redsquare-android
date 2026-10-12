@@ -8,6 +8,6 @@ retention gates are unexecuted. All21 earlier cases and opaque restoration pass.
 Three hashes retain original failure PNG/separate XML/log. Both tracer axes pass.
 
 Root parsed failure XML: owner, Notifications/Refresh,2 unread, Mark all as
-read, distinct signed actor2/4 own-like rows, no continuation. Original PNG
-inspection is recorded separately before acceptance. No exhaustive history,
+read, distinct signed actor2/4 own-like rows, no continuation. Root also viewed the original PNG and confirmed those visible rows and the
+absent continuation. No exhaustive history,
 process death or final SDK proof.
