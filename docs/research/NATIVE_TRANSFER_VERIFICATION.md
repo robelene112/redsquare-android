@@ -216,3 +216,21 @@ signature/fullreserialization/routinghop. Hash5005caf258c18ab4b09be34eba8946270f
 Second identity follows the native byte-equality assertion; no separate second
 artifact. No processdeath/reorg/inclusion/admission/finality/real funds or whole
 acceptance. Broader failure/recovery/inclusion and receivingQR cycles remain.
+
+Both bounded retry evidence axes through849a960 report0 findings. The next
+cycle covers existing pending-payment behavior across actual process death at
+the already accepted application/recovery seams1 and3. Preparation uses only
+the disposable `.dev` emulator identity, selected owner backend and synthetic
+funding. A real reviewed/PIN-authenticated first frame is checkpointed as public
+bytes before deliberately killing the process. The host verifies termination
+and a different cold process. Cold recovery never resets wallet/backend/work,
+must emit nothing automatically, then requires exact review and fresh real PIN
+before a byte-identical explicit retry. The host clears the disposable PIN and
+positively verifies the native secure-state flag even if either phase fails.
+This is existing-policy coverage, not a fabricated missing-feature RED. Runtime
+and bounded source/evidence reviews remain pending; no inclusion proof follows.
+
+The first new test compile fails52s due to a fixture reference to payment.id;
+the public signature is payment.transaction.id. Corrected test APK compilation
+passes1m28s, and host Python/shell syntax checks pass. This compilation error
+does not establish a missing runtime behavior. No production source changed.

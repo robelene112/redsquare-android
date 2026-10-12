@@ -430,6 +430,7 @@ verify_transfers() {
         adb exec-out screencap -p > "$evidence/transfers-system-screen.png" || true
         return 1
     fi
+    python3 "$repo_dir/scripts/transfer-process-check" --evidence "$evidence/transfer-process"
 }
 if [[ "${TEST_SCOPE:-full}" == transfers* ]]; then
     verify_transfers

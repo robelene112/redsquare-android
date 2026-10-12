@@ -1,0 +1,110 @@
+#!/usr/bin/env python3
+"""Verify pending payment recovery across actual process death and fresh system authentication."""
+import argparse
+import base64
+import json
+from pathlib import Path
+import re
+import subprocess
+import sys
+
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--evidence', type=Path, required=True)
+args = parser.parse_args()
+package = 'nl.davidengelen.redsquare.dev'
+runner = package + '.test/androidx.test.runner.AndroidJUnitRunner'
+test_class = 'nl.davidengelen.redsquare.TransferProcessRecoveryTest'
+checkpoint = 'cache/transfer-process-checkpoint.json'
+# Published disposable emulator PIN, not an owner/device credential.
+test_pin = '246813'
+
+
+def adb(*arguments, check=True, timeout=60):
+    return subprocess.run(['adb', *arguments], capture_output=True, text=True, check=check, timeout=timeout)
+
+
+def instrument(name, filename, check=True):
+    try:
+        result = adb('shell', 'am', 'instrument', '-w', '-r', '-e', 'class',
+                     test_class + '#' + name, runner, check=check, timeout=150)
+        (args.evidence / filename).write_text(result.stdout + result.stderr)
+        return result
+    except (subprocess.TimeoutExpired, subprocess.CalledProcessError) as error:
+        def decoded(value):
+            return value.decode('utf-8', errors='replace') if isinstance(value, bytes) else (value or '')
+        (args.evidence / filename).write_text(decoded(error.stdout) + decoded(error.stderr))
+        raise
+
+
+if not adb('get-serialno').stdout.strip().startswith('emulator-'):
+    raise SystemExit('This check requires an isolated emulator')
+args.evidence.mkdir(parents=True, exist_ok=True)
+adb('shell', 'run-as', package, 'rm', '-f', checkpoint)
+try:
+    result = instrument('terminateAfterAnAuthenticatedPendingNativeTransfer', 'interrupted.txt', check=False)
+    if 'FAILURES!!!' in result.stdout:
+        raise AssertionError('Payment failed before deliberate process termination')
+    row = json.loads(adb('exec-out', 'run-as', package, 'cat', checkpoint).stdout)
+    if row['phase'] != 'pending' or row['backend'] != 'owner' or row['native'] is not True:
+        raise AssertionError('Missing pending payment checkpoint')
+    if not re.fullmatch(r'[1-9A-HJ-NP-Za-km-z]{43,45}', row['author']):
+        raise AssertionError('Invalid public payment author')
+    if not re.fullmatch(r'[0-9a-f]{128}', row['sig']):
+        raise AssertionError('Invalid original payment signature')
+    if type(row['pid']) is not int or row['pid'] <= 0:
+        raise AssertionError('Invalid original payment process ID')
+    if not isinstance(row['frame'], str) or len(row['frame']) > 8192:
+        raise AssertionError('Invalid public payment frame')
+    frame = base64.b64decode(row['frame'], validate=True)
+    if (base64.b64encode(frame).decode('ascii') != row['frame'] or len(frame) < 224 or
+            frame[0] != 4 or frame[17:81].hex() != row['sig']):
+        raise AssertionError('Checkpoint signature does not identify its actual payment frame')
+    if str(row['pid']) in adb('shell', 'pidof', package, check=False).stdout.split():
+        raise AssertionError('Payment process was not actually terminated')
+    (args.evidence / 'pending-checkpoint.json').write_text(json.dumps(row, indent=2) + '\n')
+    (args.evidence / 'original-frame.b64').write_text(row['frame'])
+    adb('shell', 'am', 'force-stop', package)
+    result = instrument('coldPendingTransferRequiresFreshAuthenticationBeforeExactRetry', 'recovered.txt')
+    if 'OK (1 test)' not in result.stdout:
+        raise AssertionError('Cold payment recovery did not pass')
+    recovered = json.loads(adb('exec-out', 'run-as', package, 'cat', checkpoint).stdout)
+    if recovered != dict(row, phase='recovered', recoveredPid=recovered['recoveredPid']):
+        raise AssertionError('Cold payment recovery changed its original public checkpoint')
+    if (type(recovered['recoveredPid']) is not int or recovered['recoveredPid'] <= 0 or
+            recovered['recoveredPid'] == row['pid']):
+        raise AssertionError('Recovery did not use a new process')
+    (args.evidence / 'recovered-checkpoint.json').write_text(json.dumps(recovered, indent=2) + '\n')
+    (args.evidence / 'continuity.txt').write_text(
+        'PASS: actual process death, same wallet/backend without reset on recovery, '
+        'no automatic payment submission, exact original frame sent only after '
+        'explicit review and fresh real system PIN authentication. Inclusion remains unverified.\n')
+    print('PASS: cold authenticated payment recovery')
+finally:
+    primary_failure = sys.exc_info()[1]
+    cleanup_failure = None
+    try:
+        # May be needed even when installation of the PIN failed partway through.
+        cleanup = adb('shell', 'locksettings', 'clear', '--old', test_pin, '--user', '0', check=False)
+        (args.evidence / 'credential-cleanup.txt').write_text(cleanup.stdout + cleanup.stderr)
+        result = instrument('screenLockIsClearedAfterProcessRecovery', 'credential-cleanup-verified.txt')
+        if 'OK (1 test)' not in result.stdout:
+            raise AssertionError('Real system credential cleanup did not pass')
+    except Exception as failure:
+        cleanup_failure = failure
+        if primary_failure is not None:
+            primary_failure.add_note('Emulator credential cleanup also failed: ' + str(failure))
+    # Capture failures must preserve the original runtime or cleanup failure.
+    try:
+        with (args.evidence / 'images.tar').open('wb') as output:
+            capture = subprocess.run(['adb', 'exec-out', 'run-as', package, 'tar', '-C', 'cache',
+                                      '-cf', '-', 'transfer-process-evidence'], stdout=output,
+                                     stderr=subprocess.PIPE, timeout=10)
+        (args.evidence / 'capture-status.txt').write_text(str(capture.returncode) + '\n' +
+                                                        capture.stderr.decode('utf-8', errors='replace'))
+    except (OSError, subprocess.TimeoutExpired) as failure:
+        try:
+            (args.evidence / 'capture-status.txt').write_text('Synthetic evidence capture failed: ' + str(failure))
+        except OSError:
+            pass
+    if primary_failure is None and cleanup_failure is not None:
+        raise cleanup_failure

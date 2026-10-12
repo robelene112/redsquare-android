@@ -54,11 +54,21 @@ focusedGREEN38190583142 atf37feba passes3cases66.944s/core57 and sourcepush
 and independently verifies actual762byte frame (hash5005caf2...) with purepinned
 WASM/Elliptic;9hashes in ticket22/retry-green/android17. Samewallet/Pending/0
 after Activityrecreation/noauto, freshrealPIN/exact2ndframe/clearedPIN pass.
-BoundedGREENevidence reviews remain pending;
+Both boundedGREEN evidence axes through849a960 report0 findings;
 inclusion/reorg and failure/process-death acceptance remain separate. Activity recreation is not process
 death, nor complete retry/inclusion acceptance. Failure/retry/recovery/inclusion, receivingQR
 and final10/17 remain.
 Payments and their recovery, compatibility and final acceptance remain unfinished.
+
+Next existing-policy tracer adds TransferProcessRecoveryTest and the host
+transfer-process-check, invoked by focused/full transfer scopes. It deliberately
+kills the real authenticated pending-send process and cold-recovers without
+resetting wallet/backend/work. Require no automatic frame, exact review and
+fresh real PIN before the byte-identical explicit retry; positively verify
+host-owned credential cleanup. Corrected local test APK compile passes1m28s;
+initial52s compile failed at an incorrect fixture public-signature reference.
+Python/shell syntax checks pass. Runtime/reviews are pending.
+No missing-feature RED is assumed for behavior already implemented.
 
 Profile #18 is closed, final evidence commit ed5742f pushed. Eighteen of35 tickets
 are complete (#2–#15, #18, #20, #21 and #22). Parked #19, "Register an optional Saito username",
