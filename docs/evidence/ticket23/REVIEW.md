@@ -199,3 +199,22 @@ unexecuted on that RED and must not be claimed as the corrected acceptance.
 Corrective `fb40cab...b19147d` clears both axes: explicit Conversation, actual
 followed-row actor and matching thread response. Native38313905738 subsequently
 records genuine missing-Posted RED before those later corrected gates.
+
+## Followed activity minimum
+
+### Standards
+
+`b19147d...4dda755`: zero hard violations/actionable heuristics. Existing
+verification/cache/ID merging and actual follow membership are preserved.
+
+### Spec
+
+Zero actionable findings for the minimum. Contact rows are removed on Unfollow,
+semantic activity takes priority and counts remain personally filtered. Extra
+contacts, older pages and Retweet contact discovery are explicit follow-on work.
+Both axes verified3REDhashes/counts/original PNG/XML. Local full build2m49PASS;
+first20GREEN run38314503373 pending. No whole-ticket acceptance claim.
+
+First20GREEN10 38314503373 at4dda755 passes20/61.71s/1OK/0deaths/core73.
+Forty-four hashes; root originalfollowedPNG/all21XML inspected. Localfullbuild
+2m49PASS. CorrectedConversation/actualcontactActor and completednegatives pass.

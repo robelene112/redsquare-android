@@ -40,15 +40,14 @@ Available feed-mention RED was dee4f2a/run38312248859:19reported/18PASS/one
 failure65.408s/zero OK/deaths. Canceled38311968126 and38312894981 are not
 acceptance evidence. Earlier independent quote-original GREEN c0624e0/
 38311318013 passes18/54.526s, with40 hashes. Canonical chronology retains
-all checkpoints. Current twentieth CONTACT tracer fb40cab has Android10 RED38313905738:
-19PASS/one missing-Posted failure69.267s/zero OK/deaths/core73. After actual
-Follow confirmation, no activity appears; later gates are unexecuted. b19147d
-fixture correction passes both axes and strengthens Conversation/actual actor
-row. Minimum now passes actual followed accounts, performs initial bounded
-field2 discovery for up to10 accounts, persists verified contact posts and hides
-them after Unfollow. Negative checks wait for completed refresh. Local full
-build/first20GREEN pending. More contacts/older pages/Retweet contact namespace
-remain the next paging slice; this is not whole-ticket acceptance.
+all checkpoints. Current latest checkpoint: followed-account minimum4dda755 passes Android10
+run38314503373,20 cases in61.71s/one OK/zero deaths/assumptions/core73.
+Actual visit-versus-Follow, author-index discovery, Conversation/actual contact
+Actor and completed-refresh Unfollow removal plus all19 earlier cases pass.
+Forty-four hashes; root original followed screenshot/all21XML inspected. Both
+reviews and local full build2m49s pass. Current author discovery is bounded to
+ten followed accounts. Next slice covers current followed quote posts in
+Retweet history; additional contacts/older paging remain after it.
 
 Remaining #24 work is finite: supplement followed-account posts, bounded reply discovery/older-page overlap and retry,
 prove mute/block and backend/wallet isolation, actual permission choices and
