@@ -6,7 +6,7 @@ import nl.davidengelen.redsquare.saito.*
 /** Bounded public activity, independently verified again when read; no private Chat or wallet data. */
 internal class NotificationHistoryStore(context: Context, backend: SaitoBackend, owner: String) {
     init { require(SaitoWallet.isPublicKey(owner)) }
-    private val storage = PublicStringStore(context, "notifications.${backend.id}.$owner.v1", 300)
+    private val storage = PublicStringStore(context, "notifications.${backend.id}.$owner.v1", MAX_EVENTS)
     data class Saved(val envelopes: List<String>, val unreadable: Boolean)
 
     fun load(): Saved {
@@ -25,6 +25,8 @@ internal class NotificationHistoryStore(context: Context, backend: SaitoBackend,
                 .sortedByDescending { it.second.createdAt }.map { it.first }
         }
     }
+
+    companion object { const val MAX_EVENTS = 300 }
 
     private fun verify(envelope: String): SignedSaitoMessage {
         val signed = SaitoEnvelope.decode(envelope)

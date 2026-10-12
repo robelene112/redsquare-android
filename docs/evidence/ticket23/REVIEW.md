@@ -254,3 +254,20 @@ run38315811701 pending, no final SDK pair/whole-ticket claim.
 First21GREEN10 38315811701 at9f88060 passes21/67.893s/1OK/0deaths/core73.
 Forty-six hashes; root originalfollowedquotePNG/all22XML inspected. Localfull
 build1m39PASS/Dockeractualexit0. Correctedroutes and completednegatives pass.
+
+## Older activity tracer
+
+### Standards
+
+`5c6c117...767090e`: zero hard violations/actionable heuristics. Public
+behavior/pagination/retention and existing opaque guards are preserved. Fixed
+published key allowlist1–4 guards both signing and outputs.
+
+### Spec
+
+Zero actionable findings. Exact before51 overlap, signed-ID dedup,2->3 unread,
+older actor Profile, exhaustion and retained3 after failed fresh reads are
+required. This is finite overlap proof, not exhaustive large timestamp ties.
+Both axes verified34757byte identical references/SHA and prior46GREENhashes/
+22XML/counts/originalquotePNG. Local fixtureAPK1m30PASS. First22RED
+run38316922452 remains pending; no product pagination implementation yet.

@@ -44,6 +44,31 @@ private fun referenceCaption(owner: String?, target: FeedPost?, recipients: List
 private data class NotificationPages(val likes: ArchiveLikePage, val replies: ArchiveFeedPage,
     val mentions: ArchiveFeedPage, val reposts: ArchiveActionPage, val quotes: List<FeedPost>, val contacts: List<FeedPost>)
 
+private data class NotificationStream(val kind: String, val author: String? = null)
+private data class NotificationRead(val stream: NotificationStream, val before: Long, val pages: NotificationPages?)
+private data class NotificationCursor(val before: Long?, val warning: Boolean = false)
+
+/** Strict Archive bounds overlap one timestamp; a repeated full tie makes coverage uncertain. */
+private fun nextCursor(read: NotificationRead): NotificationCursor {
+    val pages = requireNotNull(read.pages)
+    val (count, oldest) = when (read.stream.kind) {
+        "RedSquareLike" -> pages.likes.rowCount to pages.likes.oldestCreatedAt
+        "RedSquareRetweet" -> pages.reposts.rowCount to pages.reposts.oldestCreatedAt
+        else -> pages.replies.rowCount to pages.replies.oldestCreatedAt
+    }
+    if (count < 100) return NotificationCursor(null)
+    if (oldest == null || oldest >= read.before) return NotificationCursor(read.before, warning = true)
+    val overlap = oldest + 1
+    return if (overlap < read.before) NotificationCursor(overlap)
+        else NotificationCursor(oldest, warning = true)
+}
+
+private fun notificationStreams(followed: Set<String>): List<NotificationStream> =
+    listOf(NotificationStream("RedSquareLike"), NotificationStream("RedSquare"), NotificationStream("RedSquareRetweet")) +
+        followed.sorted().take(10).flatMap { author ->
+            listOf(NotificationStream("RedSquare", author), NotificationStream("RedSquareRetweet", author))
+        }
+
 private val NotificationPages.ignoredRows: Int
     get() = likes.ignored + replies.ignored + reposts.ignored
 
@@ -70,7 +95,7 @@ private fun cachedArchive(envelopes: List<String>, requests: Set<String>): Strin
 /** A successful smaller page does not erase verified activity already available on this phone. */
 private fun <T> availableActivity(incoming: List<T>, retained: List<T>, id: (T) -> String,
     createdAt: (T) -> Long): List<T> = (incoming + retained).distinctBy(id)
-    .sortedByDescending(createdAt).take(300)
+    .sortedByDescending(createdAt).take(NotificationHistoryStore.MAX_EVENTS)
 
 @Composable
 internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend: SaitoBackend, knownPosts: List<FeedPost>, followed: Set<String>,
@@ -95,10 +120,21 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
     var loading by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf(true) }
     var failed by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf(false) }
     var ignored by remember(wallet?.publicKey, backend, endpoint) { mutableIntStateOf(0) }
+    var cursors by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf<Map<NotificationStream, Long?>>(emptyMap()) }
+    var pending by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf<Map<NotificationStream, Long>>(emptyMap()) }
+    var pagingWarning by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf(false) }
+    var loadGeneration by remember(wallet?.publicKey, backend, endpoint) { mutableIntStateOf(0) }
     var refresh by remember { mutableIntStateOf(0) }
     BackHandler(onBack = onBack)
     LaunchedEffect(wallet, backend, endpoint, knownPosts, followed, refresh) {
         if (wallet == null) return@LaunchedEffect
+        val generation = ++loadGeneration
+        val streams = notificationStreams(followed)
+        val requested = pending.filterKeys { it in streams }.ifEmpty {
+            val before = System.currentTimeMillis() + 1
+            streams.associateWith { before }.also { cursors = it }
+        }
+        pending = requested
         loading = true
         // A background feed update must not overwrite an in-flight verified mark commit.
         if (!markingRead) {
@@ -144,53 +180,57 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
         try {
             val pages = withContext(Dispatchers.IO) {
                 SaitoPeer(wallet, endpoint).use { peer ->
-                    suspend fun read(kind: String, author: String?): String {
+                    suspend fun read(stream: NotificationStream, before: Long): String {
                         val criteria = JsonObject().apply {
-                            addProperty("request", "load"); addProperty("field1", kind)
-                            if (author == null) addProperty("field3", wallet.publicKey) else addProperty("field2", author)
+                            addProperty("request", "load"); addProperty("field1", stream.kind)
+                            if (stream.author == null) addProperty("field3", wallet.publicKey) else addProperty("field2", stream.author)
                             addProperty("flagged_ne", 1)
-                            addProperty("limit", 100); addProperty("created_earlier_than", System.currentTimeMillis() + 1)
+                            addProperty("limit", 100); addProperty("created_earlier_than", before)
                         }
                         val request = JsonObject().apply { addProperty("request", "archive"); add("data", criteria) }
                         return peer.request(request.toString().toByteArray(Charsets.UTF_8)).toString(Charsets.UTF_8)
                     }
                     coroutineScope {
-                        // Bound initial contact reads to ten accounts.
-                        val streams = listOf("RedSquareLike" to null, "RedSquare" to null, "RedSquareRetweet" to null) +
-                            followed.sorted().take(10).flatMap { author ->
-                                listOf("RedSquare" to author, "RedSquareRetweet" to author)
-                            }
-                        streams.map { (kind, author) -> async {
-                            try {
-                                val response = read(kind, author)
-                                notificationPages(if (kind == "RedSquareLike") response else "[]",
-                                    if (kind == "RedSquare") response else "[]",
-                                    if (kind == "RedSquareRetweet") response else "[]", wallet.publicKey, name, registrar, followed)
+                        requested.map { (stream, before) -> async {
+                            val content = try {
+                                val response = read(stream, before)
+                                notificationPages(if (stream.kind == "RedSquareLike") response else "[]",
+                                    if (stream.kind == "RedSquare") response else "[]",
+                                    if (stream.kind == "RedSquareRetweet") response else "[]", wallet.publicKey, name, registrar, followed)
                             } catch (_: Exception) {
                                 // A request's own deadline is a read failure. Parent cancellation must propagate.
                                 currentCoroutineContext().ensureActive()
                                 null
                             }
+                            NotificationRead(stream, before, content)
                         } }.awaitAll()
                     }
                 }
             }
-            pages.filterNotNull().forEach(::publish)
-            ignored = available.ignoredRows + pages.filterNotNull().sumOf { it.ignoredRows }
+            pages.forEach { result -> result.pages?.let { content ->
+                publish(content)
+                val next = nextCursor(result)
+                cursors = cursors + (result.stream to next.before)
+                pagingWarning = pagingWarning || next.warning
+                pending = pending - result.stream
+            } }
+            ignored = available.ignoredRows + pages.mapNotNull { it.pages }.sumOf { it.ignoredRows }
             try { withContext(Dispatchers.IO) {
-                history!!.save(pages.filterNotNull().flatMap { it.envelopes })
+                history!!.save(pages.mapNotNull { it.pages }.flatMap { it.envelopes })
             } } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { cacheWarning = true }
-            failed = pages.any { it == null }
+            failed = pages.any { it.pages == null }
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { failed = true }
-        finally { loading = false }
+        finally { if (generation == loadGeneration) loading = false }
     }
     Column(modifier) {
         Row {
             TextButton(onClick = onBack) { Text(stringResource(R.string.browse_back)) }
             Text(stringResource(R.string.notifications_title), Modifier.weight(1f), style = MaterialTheme.typography.titleLarge)
-            TextButton(enabled = wallet != null && !loading && !markingRead, onClick = { refresh++ }) { Text(stringResource(R.string.feed_refresh)) }
+            TextButton(enabled = wallet != null && !loading && !markingRead, onClick = {
+                if (!loading && !markingRead) { pending = emptyMap(); pagingWarning = false; refresh++ }
+            }) { Text(stringResource(R.string.feed_refresh)) }
         }
         PersonalControlsStatus(personal)
         if (loading) Text(stringResource(R.string.notifications_loading))
@@ -251,6 +291,17 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
                 }
             }) { Text(stringResource(R.string.notifications_mark_read)) }
         }
+        val retainedCount = (events.map { it.id } + replies.map { it.id } + mentions.map { it.id } +
+            reposts.map { it.id } + quotes.map { it.id } + contacts.map { it.id }).distinct().size
+        if (pagingWarning) Text(stringResource(R.string.notifications_paging_warning))
+        if (retainedCount >= NotificationHistoryStore.MAX_EVENTS) Text(stringResource(R.string.notifications_history_limit))
+        TextButton(enabled = wallet != null && !loading && !markingRead &&
+            retainedCount < NotificationHistoryStore.MAX_EVENTS && cursors.values.any { it != null }, onClick = {
+            if (!loading && !markingRead && retainedCount < NotificationHistoryStore.MAX_EVENTS) {
+                pending = cursors.mapNotNull { (stream, before) -> before?.let { stream to it } }.toMap()
+                if (pending.isNotEmpty()) refresh++
+            }
+        }) { Text(stringResource(R.string.notifications_more)) }
         LazyColumn(Modifier.weight(1f)) {
             items(visible, key = { it.id }) { event ->
                 Column(Modifier.fillMaxWidth().padding(vertical = 12.dp)) {

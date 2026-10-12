@@ -372,4 +372,7 @@
     <string name="conversation_parent_loading">Loading the parent post</string>
     <string name="conversation_parent_error">The parent post could not be loaded. Try Refresh.</string>
     <string name="conversation_parent_unavailable">The parent post is not available here. Try Refresh.</string>
+    <string name="notifications_more">Load more activity</string>
+    <string name="notifications_paging_warning">Some older activity could not be reached here. Try Refresh.</string>
+    <string name="notifications_history_limit">This phone keeps a limited notification history. Refresh to check recent activity.</string>
 </resources>

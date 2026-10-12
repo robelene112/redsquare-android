@@ -48,7 +48,14 @@ removal plus all20 earlier cases pass. Forty-six hashes; root original followed
 quote screenshot/all22XML inspected. Both reviews and local full build1m39s
 pass; complete success log/Docker actualexit0 qualify client143. Initial follow
 discovery is bounded to ten accounts. Next: older paging with overlap/dedup and
-continuation across remaining contacts. No actual process-death/fullSDK claim.
+continuation across remaining contacts. Current22PAGINGtracer767090e has
+genuine Android10 RED38316922452:21PASS/one missing-continuation failure
+78.594s/zero OK/deaths/core73. Three hashes/failure XML inspected; later gates
+unexecuted. Minimum now has independent stream cursors, strict boundary overlap,
+coverage warning on unresolved full ties, failed-stream pending retry, a300-event
+older-read bound and load-generation guard. Completed-read waits strengthen the
+button/exhaustion assertions. Local full build2m59s passes; first22GREEN pending.
+No actual process-death/fullSDK claim.
 
 Remaining #24 work is finite: supplement followed-account posts, bounded reply discovery/older-page overlap and retry,
 prove mute/block and backend/wallet isolation, actual permission choices and

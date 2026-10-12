@@ -858,3 +858,19 @@ unsafeallowlist now1–4 for bothsigners/outputs; no arbitrarykeys/nodeinit/netw
 Firstgenerationrefused3/4; referencecopies werebrieflyempty thenrestoredfromHEAD
 beforeanybuild. CorrectedgenerationvalidatesJSONbeforereplacingcopies. No runtime
 appcodechangedyet; Loadmoreactivity currentlyabsent, genuine22REDpending.
+
+PAGINGtracer767090e bothaxes0/localtestAPK1m30PASS. Genuine22RED10
+38316922452:22reported/21PASS/1failure78.594s/0OK/deaths/core73/debug/test,
+continuationabsent418 afterfullpage/2unread. Threehashes paging-native-red/
+android10/rootfailureXML owner/2unread/distinctactor2/4likes/nobutton; later
+Overlap/Older/Exhaustion/recreation gatesunexecuted. Minimum privatekind+author
+stream identity, per-sourcecursor/pendingreads, successfulrawpagecount/oldest
+metadata onlyadvances; strictbefore=oldest+1overlap, repeatedfulltieadvances
+pastboundarywithcoveragewarning, missing/outofrangemetadatawarnswithoutfalse
+exhaustion. ManualRefreshrechecksnewest, failedreadsremainpending; healthy
+results/cachemergepreserved. Generationguardpreventsoldercanceledfinallyfrom
+clearingnewloading. Morestopsolderreadsat300distinctretainedevents withlimited
+historycopy; additionalcontacts remainnextslice. RootstrengthenedinitialMore
+enabledandfinalexhaustion waitsforcompletedreads (notdisabled-duringloading
+falsepositive); originalassertions preserved. Localfullcore/debug/test2m59PASS,
+first22GREENpending.

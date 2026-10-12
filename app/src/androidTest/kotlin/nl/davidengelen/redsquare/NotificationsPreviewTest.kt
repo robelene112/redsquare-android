@@ -416,8 +416,12 @@ class NotificationsPreviewTest {
         withNotifications("older-activity", Mode.PAGING) { _, scenario, responses ->
             waitFor("2 unread")
             waitFor("Load more activity")
+            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Load more activity") and isEnabled())
+                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
             ui.onNodeWithText("Load more activity").assertIsEnabled().performClick()
             waitFor("3 unread")
+            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
+                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
             ui.onNodeWithText("Load more activity").assertIsNotEnabled()
             assertTrue("Older history must overlap the timestamp boundary", responses.olderReads.get() > 0)
             ui.onNode(hasScrollAction()).performScrollToNode(hasText(olderActor))
