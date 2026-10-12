@@ -68,7 +68,19 @@ const legacyQuote = {
   field1: 'RedSquare', field3: owner, field4: thread.root.sig,
   updated_at: 1700000000076, flagged: 0
 };
+// A separately signed original withheld from the first lookup, then made available on Retry.
+const recoveredOriginal = {
+  ...signedReference('1', {module: 'RedSquare', request: 'create tweet',
+    data: {text: 'Original recovered after retry'}}, 1700000000080),
+  field1: 'RedSquare', flagged: 0
+};
+const missingOriginalLike = {
+  ...signedReference('2', {module: 'RedSquare', request: 'like tweet',
+    data: {signature: recoveredOriginal.sig}}, 1700000000085, [owner]),
+  field1: 'RedSquareLike', field3: owner, field4: recoveredOriginal.sig,
+  updated_at: 1700000000085, flagged: 0
+};
 console.log(JSON.stringify({synthetic: true, reference, owner,
   actor: 'pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU',
   root: thread.root, incomingLike, incomingReply, parentedQuote, incomingMention,
-  addressedPost, listedMention, usernameMention, incomingRepost, incomingQuote, legacyQuote}, null, 2));
+  addressedPost, listedMention, usernameMention, incomingRepost, incomingQuote, legacyQuote, recoveredOriginal, missingOriginalLike}, null, 2));

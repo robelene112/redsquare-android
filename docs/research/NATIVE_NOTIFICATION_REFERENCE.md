@@ -44,8 +44,14 @@ Next tracer adds current `retweet` and legacy `create tweet` dual-field commenta
 quotes with actual owner recipients, original signed transaction bytes and matching
 legacy embedded presentation. Both quote and original are independently verified;
 this is synthetic compatibility evidence, not live delivery or permanent history.
-Current whole JSON SHA256:17edeff358ba5fd060b1252d0e7d186b2ef951d7ae91c603e166ad0e365cd087;
-16109bytes. Documentation/native/core copies are identical.
+The current/legacy quote snapshot was16109bytes/SHA17edeff358ba5fd060b1252d0e7d186b2ef951d7ae91c603e166ad0e365cd087.
+The next native tracer adds a separate independently signed own original and an
+unsafe2 like of it. The controlled peer withholds that original on first lookup,
+then returns its independently signed bytes on explicit Retry. The ordinary feed
+root has a different signature. Dedicated public original-cache bytes are preserved,
+cleared atomically for setup, and independently restored; no wallet reset occurs.
+Current whole JSON SHA256:8ae7667601b311d1154fb81d8988f3ad68aa7836194947eda270ec7aff7a3c32; 18124bytes.
+Documentation/native/core copies are identical.
 
 Reproduction uses the existing build image, networknone/read-only container and
 rootfilesystem mount, root inside the container for chroot, empty environment,

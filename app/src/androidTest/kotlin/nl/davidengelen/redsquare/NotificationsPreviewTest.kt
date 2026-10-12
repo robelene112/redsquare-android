@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger
 
 class NotificationsPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
-    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE }
+    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING }
 
     @Test fun anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile() {
         withNotifications("incoming-like", mode = Mode.LIKE) { actor ->
@@ -133,6 +133,25 @@ class NotificationsPreviewTest {
         }
     }
 
+    @Test fun missingOriginalActivitySurvivesUnavailableLookupAndExplicitRetry() {
+        withNotifications("missing-original", mode = Mode.MISSING) { actor ->
+            waitFor("Liked a post")
+            ui.onAllNodesWithText("Liked your post").assertCountEquals(0)
+            captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
+                "notification-evidence/missing-original.png"), "Liked a post")
+            ui.onNodeWithText("Liked a post").assertIsDisplayed().performClick()
+            waitFor("This post is unavailable on this server. You can retry or return to notifications.")
+            ui.onNodeWithText("Retry").assertIsDisplayed().performClick()
+            waitFor("Original recovered after retry")
+            ui.onNodeWithText("Original recovered after retry").assertIsDisplayed()
+            ui.onNodeWithText("Back").performClick()
+            waitFor("Liked a post")
+            ui.onNodeWithText(actor).assertIsDisplayed().performClick()
+            waitFor("Profile")
+            ui.onNodeWithText(actor).assertIsDisplayed()
+        }
+    }
+
     private fun withNotifications(evidenceName: String, mode: Mode, journey: (String) -> Unit) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
@@ -152,13 +171,14 @@ class NotificationsPreviewTest {
         val priorOffer: Boolean? = if (permission.contains("offered")) permission.getBoolean("offered", false) else null
         val registry = instrumentation.context.assets.open("native-registry-reference.json")
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
-        val nameBase = "namemap.$owner.v1"
-        fun nameFiles() = context.noBackupFilesDir.listFiles().orEmpty()
-            .filter { it.name == nameBase || it.name.startsWith("$nameBase.") }
-        var priorNames: Map<String, ByteArray>? = null
+        val publicBase = if (mode == Mode.MISSING) "quoteoriginal.${SaitoBackend.OWNER.id}.v1" else "namemap.$owner.v1"
+        fun fixturePublicFiles() = context.noBackupFilesDir.listFiles().orEmpty()
+            .filter { it.name == publicBase || it.name.startsWith("$publicBase.") }
+        var priorPublicFiles: Map<String, ByteArray>? = null
         val likeReads = AtomicInteger()
         val replyReads = AtomicInteger()
         val repostReads = AtomicInteger()
+        val targetReads = AtomicInteger()
         val peer = ControlledFeedPeer("[$root]", quoteArchiveResponse = { criteria ->
             // Initial feed and actor profiles also read this namespace without an owner filter.
             if (!criteria.has("field3")) "[]" else {
@@ -187,9 +207,15 @@ class NotificationsPreviewTest {
                     require(criteria.get("flagged_ne").asInt == 1)
                     require(criteria.get("limit").asInt in 1..100)
                     likeReads.incrementAndGet()
-                    "[${fixture.get("incomingLike")}]"
+                    if (mode == Mode.MISSING) "[${fixture.get("missingOriginalLike")}]" else "[${fixture.get("incomingLike")}]"
                 } else "[]"
                 "RedSquare" -> when {
+                    criteria.get("sig")?.asString == fixture.getAsJsonObject("recoveredOriginal").get("sig").asString -> {
+                        require(criteria.get("flagged_ne").asInt == 1 && criteria.get("limit").asInt == 1)
+                        if (targetReads.incrementAndGet() == 1) "[]" else "[${fixture.get("recoveredOriginal")}]"
+                    }
+                    criteria.get("field5")?.asString == fixture.getAsJsonObject("recoveredOriginal").get("sig").asString ->
+                        "[${fixture.get("recoveredOriginal")}]"
                     criteria.get("field3")?.asString == owner -> {
                         require(criteria.get("flagged_ne").asInt == 1)
                         require(criteria.get("limit").asInt in 1..100)
@@ -199,7 +225,7 @@ class NotificationsPreviewTest {
                             Mode.MENTION -> "[${fixture.get("incomingMention")},${fixture.get("addressedPost")}]"
                             Mode.USERNAME -> "[${fixture.get("usernameMention")}]"
                             Mode.QUOTE -> "[${fixture.get("legacyQuote")}]"
-                            Mode.LIKE, Mode.REPOST -> "[]"
+                            Mode.LIKE, Mode.REPOST, Mode.MISSING -> "[]"
                         }
                     }
                     criteria.get("field5")?.asString == fixture.getAsJsonObject("incomingQuote").get("sig").asString ->
@@ -220,13 +246,13 @@ class NotificationsPreviewTest {
         })
         var primary: Throwable? = null
         try {
-            if (mode == Mode.USERNAME) synchronized(nl.davidengelen.redsquare.saito.SaitoLocalState.lock) {
-                val captured = nameFiles().associate { file ->
+            if (mode in listOf(Mode.USERNAME, Mode.MISSING)) synchronized(nl.davidengelen.redsquare.saito.SaitoLocalState.lock) {
+                val captured = fixturePublicFiles().associate { file ->
                     check(file.isFile)
                     file.name to file.readBytes()
                 }
                 // Record ownership before the first mutation so a partial failure restores the snapshot.
-                priorNames = captured
+                priorPublicFiles = captured
                 captured.keys.forEach { check(File(context.noBackupFilesDir, it).delete()) }
             }
             if (prior.publicKey != owner) store.replace(prior, wallet)
@@ -259,6 +285,7 @@ class NotificationsPreviewTest {
                         assertTrue("Incoming likes must be read for this wallet", likeReads.get() > 0)
                         if (mode in listOf(Mode.REPLY, Mode.MENTION, Mode.USERNAME, Mode.QUOTE)) assertTrue("Incoming posts must be read for this wallet", replyReads.get() > 0)
                         if (mode in listOf(Mode.REPOST, Mode.QUOTE)) assertTrue("Incoming reposts must be read for this wallet", repostReads.get() > 0)
+                        if (mode == Mode.MISSING) assertTrue("Retry must look up the actual original again", targetReads.get() >= 2)
                         if (mode == Mode.USERNAME) assertTrue("A label hint alone must not be ownership evidence",
                             peer.registryQueries.any { it.get("request").asString == "registry namecheck" &&
                                 it.get("identifier").asString == "NativeCase7@saito" })
@@ -282,12 +309,12 @@ class NotificationsPreviewTest {
                 check(edit.commit())
                 check(if (priorOffer == null) !permission.contains("offered") else permission.getBoolean("offered", !priorOffer) == priorOffer)
             }, {
-                priorNames?.let { saved ->
+                priorPublicFiles?.let { saved ->
                     synchronized(nl.davidengelen.redsquare.saito.SaitoLocalState.lock) {
-                        nameFiles().forEach { check(it.isFile && it.delete()) }
+                        fixturePublicFiles().forEach { check(it.isFile && it.delete()) }
                         saved.forEach { (name, bytes) -> File(context.noBackupFilesDir, name).writeBytes(bytes) }
-                        check(nameFiles().map { it.name }.toSet() == saved.keys)
-                        nameFiles().forEach { check(it.readBytes().contentEquals(saved.getValue(it.name))) }
+                        check(fixturePublicFiles().map { it.name }.toSet() == saved.keys)
+                        fixturePublicFiles().forEach { check(it.readBytes().contentEquals(saved.getValue(it.name))) }
                     }
                 }
             })

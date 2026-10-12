@@ -309,3 +309,15 @@ reply remains index1 (quote56 > reply55). Bothaxes noted the same correction;
 shared-classifier duplication is resolved. Native38290192207 at42cb66e is pending
 and its repost-profile row must be qualified. Corrected localcompile passes;
 exact build duration below. No product identity error was established.
+
+Shared quote classifier correctedlocalcompile PASSES3m26s; final selector
+492780d boundedbothaxes0residual. Sixjourney38290192207 at42cb66e pending, with
+repost-profile wrong-row qualification above. Next missing-original native tracer
+uses an independent own original+incoming like, withheld from first lookup and
+returned only on explicit Retry. It requires neutral activity, retained row,
+unavailable text, second real selected-backend lookup, recovered Conversation and
+verified actor Profile, preserving all final identity/no-write/opaque restoration
+gates. Public fixture snapshot helper now has two real consumers (Registryname and
+original-cache), each precisebasename/companions under the same locked try/finally.
+No missing-original product support yet; compiling test fixture for genuine RED.
+Reference18124bytes/SHA8ae7667601b311d1154fb81d8988f3ad68aa7836194947eda270ec7aff7a3c32, threecopiesidentical.
