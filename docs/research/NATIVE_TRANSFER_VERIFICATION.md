@@ -340,3 +340,15 @@ signed child2000003/hash34a627c2... . Compiled missing-check RED3cases/1failure4
 returns UNKNOWN; all4PASS28s. Eight hashes in chain-reorganization. No old-height
 coverage means no reorg claim; no unreserve/automatic send. HTTP time/body bounds,
 durable Android status and whole acceptance remain pending. Review is pending.
+
+Review at a97f122: Spec1unsafe PRESENT shortcut, Standards0hard breaches and
+2duplication judgments. Independent altered-input case reaches PRESENT RED
+5cases/1failure30s ->removalGREEN5PASS48s. Current exact inclusion now belongs
+exclusively to observe(payment); prior check only proves displacement or UNKNOWN.
+Review-stage shared verified walk and Fee-only generator preserve entire JSON
+byte-for-byte. Fullcore66PASS49s;24 hashes/all15 original XMLs in chain-review-fix.
+Sole opaque-body mutation baseline4PASS30s also retained there; signed header
+cannot authenticate changed unrelated opaque data. No fabricated RED/production
+change for that baseline. Sourcepush38195650210 at a97f122 passes. Both bounded
+source-fix/evidence reviews remain pending. Android/HTTP/persistence/QR/final
+acceptance remain separate.

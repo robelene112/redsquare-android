@@ -62,7 +62,14 @@ RED3cases/1failure47s ->minimalGREEN3PASS35s. Missing replacement ancestry stays
 UNKNOWN; retained cases+baseline4PASS28s. Eight hashes in `chain-reorganization`.
 Only full verified ancestry covering the old height can establish displacement.
 Both paths have16-block/32MiB limits; no reservation release or automatic send.
-Current bounded source/evidence review pending.
+Review at a97f122: Spec1unsafe PRESENT shortcut, Standards0hardbreaches and
+2duplication improvements. A public independent altered-input case reproduces
+PRESENT RED5cases/1failure30s ->removalGREEN5PASS48s. PRESENT is removed; fresh
+exact inclusion belongs exclusively to observe(payment). Narrow shared verified
+traversal/Fee-only fixture assembly preserve independent JSON byte-for-byte.
+Full core66PASS49s;24 hashes/all15 original XMLs in `chain-review-fix` (also
+includes opaque-data mutation baseline4PASS30s). Sourcepush38195650210 passes
+at a97f122. Bounded source-fix/evidence review pending.
 
 Next: HTTP elapsed/body budgets, Android Included/unknown/reorg status and
 persisted qualified observations, then receiving QR, remaining meaningful

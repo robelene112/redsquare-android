@@ -7,55 +7,53 @@ object SaitoPaymentChain {
     data class Inclusion(val height: BigInteger, val hash: String, val tipHeight: BigInteger,
         val tipHash: String, val tipTimestamp: Long)
 
-    enum class PriorStatus { PRESENT, REORGANIZED, UNKNOWN }
+    enum class PriorStatus { REORGANIZED, UNKNOWN }
 
     fun check(previous: Inclusion, snapshot: SaitoBalanceSnapshot,
         fetchBlock: (String) -> ByteArray?): PriorStatus {
         if (previous.height > snapshot.height) return PriorStatus.UNKNOWN
-        var expectedHash = snapshot.blockHash
-        var expectedHeight = snapshot.height
-        var received = 0L
-        try {
-            repeat(16) {
-                val bytes = fetchBlock(expectedHash) ?: return PriorStatus.UNKNOWN
-                received += bytes.size
-                if (received > 32L * 1024 * 1024) return PriorStatus.UNKNOWN
-                val block = SaitoFullBlock.parse(bytes)
-                if (block.hash != expectedHash || block.height != expectedHeight) return PriorStatus.UNKNOWN
-                if (it == 0 && block.timestamp != BigInteger.valueOf(snapshot.timestamp)) return PriorStatus.UNKNOWN
-                if (block.height == previous.height) return if (block.hash == previous.hash) PriorStatus.PRESENT
-                    else PriorStatus.REORGANIZED
-                if (expectedHeight == BigInteger.ONE) return PriorStatus.UNKNOWN
-                expectedHash = block.previousHash
-                expectedHeight -= BigInteger.ONE
+        var result = PriorStatus.UNKNOWN
+        walk(snapshot, fetchBlock) { block ->
+            if (block.height != previous.height) false else {
+                if (block.hash != previous.hash) result = PriorStatus.REORGANIZED
+                true
             }
-        } catch (cancelled: java.util.concurrent.CancellationException) { throw cancelled }
-        catch (_: Exception) { return PriorStatus.UNKNOWN }
-        return PriorStatus.UNKNOWN
+        }
+        return result
     }
 
     fun observe(payment: SaitoPayment, snapshot: SaitoBalanceSnapshot,
         fetchBlock: (String) -> ByteArray?): Inclusion? {
         require(snapshot.publicKey == payment.author)
+        var result: Inclusion? = null
+        walk(snapshot, fetchBlock) { block ->
+            if (!block.contains(payment)) false else {
+                result = Inclusion(block.height, block.hash, snapshot.height, snapshot.blockHash, snapshot.timestamp)
+                true
+            }
+        }
+        return result
+    }
+
+    /** A shared verified prefix only. Callers separately decide inclusion or displacement. */
+    private fun walk(snapshot: SaitoBalanceSnapshot, fetchBlock: (String) -> ByteArray?,
+        stopOn: (SaitoFullBlock) -> Boolean) {
         var expectedHash = snapshot.blockHash
         var expectedHeight = snapshot.height
         var received = 0L
         try {
             repeat(16) {
-                val bytes = fetchBlock(expectedHash) ?: return null
+                val bytes = fetchBlock(expectedHash) ?: return
                 received += bytes.size
-                if (received > 32L * 1024 * 1024) return null
+                if (received > 32L * 1024 * 1024) return
                 val block = SaitoFullBlock.parse(bytes)
-                if (block.hash != expectedHash || block.height != expectedHeight) return null
-                if (it == 0 && block.timestamp != BigInteger.valueOf(snapshot.timestamp)) return null
-                if (block.contains(payment)) return Inclusion(block.height, block.hash,
-                    snapshot.height, snapshot.blockHash, snapshot.timestamp)
-                if (expectedHeight == BigInteger.ONE) return null
+                if (block.hash != expectedHash || block.height != expectedHeight) return
+                if (it == 0 && block.timestamp != BigInteger.valueOf(snapshot.timestamp)) return
+                if (stopOn(block) || expectedHeight == BigInteger.ONE) return
                 expectedHash = block.previousHash
                 expectedHeight -= BigInteger.ONE
             }
         } catch (cancelled: java.util.concurrent.CancellationException) { throw cancelled }
-        catch (_: Exception) { return null }
-        return null
+        catch (_: Exception) { return }
     }
 }

@@ -10,6 +10,14 @@ class SaitoFullBlockTest {
     private val reference get() = requireNotNull(javaClass.getResourceAsStream("/native-block-reference.json"))
         .bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
 
+    @Test fun aSignedHeaderCannotAuthenticateAnAlteredOpaqueBlockEntry() {
+        val reference = reference
+        val bytes = Base64.getDecoder().decode(reference.getAsJsonObject("oddBlock").get("fullBase64").asString)
+        // Only the first system entry's opaque data changes; framing, signed header and payment stay intact.
+        bytes[389 + 93] = 0xfe.toByte()
+        assertThrows(IllegalArgumentException::class.java) { SaitoFullBlock.parse(bytes) }
+    }
+
     @Test fun allThreeLeavesIncludingOpaqueAndEmptySystemEntriesBindTheExactPayment() {
         val reference = reference
         val payment = SaitoPayment.restore(reference.getAsJsonObject("payment").get("candidateBase64").asString)

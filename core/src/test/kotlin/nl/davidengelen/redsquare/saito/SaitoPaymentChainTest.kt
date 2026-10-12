@@ -7,9 +7,22 @@ import org.junit.Assert.*
 import org.junit.Test
 
 class SaitoPaymentChainTest {
+    private val reference get() = requireNotNull(javaClass.getResourceAsStream("/native-block-reference.json"))
+        .bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
+
+    @Test fun anUnchangedHashWithAlteredOriginalInputCoordinatesIsNotFreshInclusionEvidence() {
+        val vector = reference
+        val previous = SaitoPaymentChain.Inclusion(BigInteger("2000002"),
+            "b33d2fc4aee4333b6cb1e395c0b852aa3b1aa268e21702b3819b34b2a3eab289", BigInteger("2000002"),
+            "b33d2fc4aee4333b6cb1e395c0b852aa3b1aa268e21702b3819b34b2a3eab289", 1700000010000)
+        val author = vector.getAsJsonObject("payment").get("author").asString
+        val snapshot = SaitoBalanceSnapshot.parse("1700000010000-2000002-${previous.hash}.snap\n".toByteArray(), author, 1700000010000)
+        val changed = Base64.getDecoder().decode(vector.getAsJsonObject("mutations").get("changedOriginalInputBase64").asString)
+        assertEquals(SaitoPaymentChain.PriorStatus.UNKNOWN, SaitoPaymentChain.check(previous, snapshot) { changed })
+    }
+
     @Test fun missingAncestorDataCannotDisplaceTheLastVerifiedInclusion() {
-        val vector = requireNotNull(javaClass.getResourceAsStream("/native-block-reference.json"))
-            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
+        val vector = reference
         val previous = SaitoPaymentChain.Inclusion(BigInteger("2000002"),
             "6ed747ba2da6068f793a60291131ae086a623576dbd2557c31ad854640945856", BigInteger("2000003"),
             "bf72deac4b8c7dae48258dd2f4c7e4c3f13ed986e27da7650abdf573027579ba", 1700000020000)
@@ -24,8 +37,7 @@ class SaitoPaymentChainTest {
     }
 
     @Test fun aVerifiedReplacementAtThePreviouslyIncludedHeightEstablishesReorganization() {
-        val vector = requireNotNull(javaClass.getResourceAsStream("/native-block-reference.json"))
-            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
+        val vector = reference
         val previous = SaitoPaymentChain.Inclusion(BigInteger("2000002"),
             "6ed747ba2da6068f793a60291131ae086a623576dbd2557c31ad854640945856", BigInteger("2000003"),
             "bf72deac4b8c7dae48258dd2f4c7e4c3f13ed986e27da7650abdf573027579ba", 1700000020000)
@@ -40,8 +52,7 @@ class SaitoPaymentChainTest {
     }
 
     @Test fun anUnrelatedValidPaymentBlockDoesNotProveSelectedChainInclusion() {
-        val vector = requireNotNull(javaClass.getResourceAsStream("/native-block-reference.json"))
-            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
+        val vector = reference
         val payment = SaitoPayment.restore(vector.getAsJsonObject("payment").get("candidateBase64").asString)
         val tipHash = "bf72deac4b8c7dae48258dd2f4c7e4c3f13ed986e27da7650abdf573027579ba"
         val snapshot = SaitoBalanceSnapshot.parse("1700000020000-2000003-$tipHash.snap\n".toByteArray(),
@@ -55,8 +66,7 @@ class SaitoPaymentChainTest {
     }
 
     @Test fun exactPaymentIsIncludedOnlyThroughVerifiedAncestryFromTheSelectedSnapshot() {
-        val vector = requireNotNull(javaClass.getResourceAsStream("/native-block-reference.json"))
-            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
+        val vector = reference
         val payment = SaitoPayment.restore(vector.getAsJsonObject("payment").get("candidateBase64").asString)
         val tipHash = "bf72deac4b8c7dae48258dd2f4c7e4c3f13ed986e27da7650abdf573027579ba"
         val inclusionHash = "6ed747ba2da6068f793a60291131ae086a623576dbd2557c31ad854640945856"
