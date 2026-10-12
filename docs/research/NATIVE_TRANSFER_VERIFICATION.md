@@ -147,3 +147,18 @@ Both bounded source axes0findings. Root inspects2 original PNGs and separate
 XMLs; all5 hashes retained in ticket22/auth-cancel-green/android17. Real PIN
 cancellation/reopen shows same identity, all7.5 available, no Pending/no frame
 and positively cleared PIN. No process-death, retry, inclusion or final proof.
+
+Both bounded cancellation evidence review axes also report0 findings, including
+independent5-hash/log/original-screen/separate-XML inspection.
+
+## Pending reopening and exact authenticated retry tracer
+
+The next test extends the successful native send journey without removing its
+existing assertions. Recreate the Activity, reopen the same wallet and require
+Pending/zeroavailable with still exactly one controlled-peer frame. Then choose
+Retry transfer, review the exact original recipient/amount/fee/backend/memo and
+require a fresh real system PIN before a second byte-identical signed/routed
+frame. The first runtime run is pending; Retry is not implemented yet.
+Activity recreation is not process death. Final retry acceptance also requires
+inclusion/unknown-history reconciliation and backend/identity/storage failure
+cases; none is inferred from this first controlled fresh-unspent snapshot.

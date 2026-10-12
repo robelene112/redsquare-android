@@ -30,7 +30,11 @@ The real-PIN cancellation/reopen regression passes38188796688 at9a8b043
 Root views2originalPNG+separateXML;5hashes in ticket22/auth-cancel-green/android17.
 Both bounded source axes0findings. Same identity, all7.5 available, no Pending or
 frame and positively cleared PIN. Existing-policy coverage, no fabricated RED
-or production change. Failure/retry/recovery/inclusion, receivingQR
+or production change. Both cancellation evidence review axes also0findings.
+The next tracer extends the authenticated send journey with Activity recreation,
+no automatic resend and exact reviewed/fresh-PIN retry. Retry is currently absent;
+local build and first hosted run are pending. Activity recreation is not process
+death, nor complete retry/inclusion acceptance. Failure/retry/recovery/inclusion, receivingQR
 and final10/17 remain.
 Payments and their recovery, compatibility and final acceptance remain unfinished.
 

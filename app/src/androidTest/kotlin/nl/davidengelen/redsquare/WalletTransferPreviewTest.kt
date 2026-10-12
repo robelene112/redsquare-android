@@ -13,6 +13,7 @@ import mockwebserver3.MockResponse
 import mockwebserver3.MockWebServer
 import mockwebserver3.RecordedRequest
 import nl.davidengelen.redsquare.saito.SaitoWallet
+import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -42,7 +43,7 @@ class WalletTransferPreviewTest {
             ?.forEach { check(it.delete()) }
     }
 
-    @Test fun onlinePaymentRequiresReviewedAmountsThenRealDeviceAuthenticationAndRemainsPending() = withDevicePin { device ->
+    @Test fun pendingPaymentReopensWithoutSendingAndExactRetryRequiresFreshReviewedDeviceAuthentication() = withDevicePin { device ->
         val peer = ControlledFeedPeer("[]")
         val server = transferServer()
         server.use {
@@ -51,7 +52,7 @@ class WalletTransferPreviewTest {
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedDisabled", true)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${transport.port}/wsopen")
-                    .putExtra("balanceApiUrl", "http://127.0.0.1:${server.port}/balance/")).use {
+                    .putExtra("balanceApiUrl", "http://127.0.0.1:${server.port}/balance/")).use { scenario ->
                     ui.onNodeWithText("Wallet").performClick()
                     val author = displayedWalletAddress(ui)
                     withFailureCapture({ captureNativeScreen(File(context.cacheDir,
@@ -100,6 +101,35 @@ class WalletTransferPreviewTest {
                         captureNativeScreen(File(context.cacheDir, "transfer-evidence/pending-payment.png"), pending)
                         File(context.cacheDir, "transfer-evidence/authenticated-frame.b64")
                             .writeText(Base64.getEncoder().encodeToString(frame))
+                        scenario.recreate()
+                        ui.waitUntil(15_000) { ui.onNodeWithText("Wallet").isDisplayed() }
+                        ui.onNodeWithText("Wallet").performClick()
+                        ui.onNodeWithContentDescription("Wallet address").assertTextEquals(author)
+                        ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
+                        ui.waitUntil(20_000) { ui.onNodeWithText("Available to send: 0 SAITO").isDisplayed() }
+                        ui.onNodeWithText(pending).performScrollTo().assertIsDisplayed()
+                        ui.onNodeWithText("Transfer server: saito.davidengelen.nl.").assertIsDisplayed()
+                        peer.assertHealthy()
+                        assertEquals("Reopening must not send the saved payment", 1, peer.transactions.size)
+                        captureNativeScreen(File(context.cacheDir, "transfer-evidence/pending-reopened.png"), pending)
+                        ui.onNodeWithText("Retry transfer").performScrollTo().performClick()
+                        ui.waitUntil(20_000) { ui.onNodeWithText("Authenticate and send").isDisplayed() }
+                        ui.onNodeWithText("Recipient: $recipient").assertIsDisplayed()
+                        ui.onNodeWithText("Amount: 6.25 SAITO").assertIsDisplayed()
+                        ui.onNodeWithText("Fee: 0.1 SAITO").assertIsDisplayed()
+                        ui.onNodeWithText("Send through saito.davidengelen.nl").assertIsDisplayed()
+                        ui.onNodeWithText("Memo: Native transfer test").assertIsDisplayed()
+                        assertEquals(1, peer.transactions.size)
+                        captureNativeScreen(File(context.cacheDir, "transfer-evidence/reviewed-retry.png"), "Confirm SAITO transfer")
+                        ui.onNodeWithText("Authenticate and send").performClick()
+                        waitForSystemPin(device)
+                        assertEquals("A reopened payment needs a fresh grant", 1, peer.transactions.size)
+                        enterRealSystemPin(device)
+                        ui.waitUntil(20_000) { ui.onNodeWithText(pending).isDisplayed() }
+                        ui.waitUntil(5_000) { peer.assertHealthy(); peer.transactions.size == 2 }
+                        assertArrayEquals("Retry must preserve the exact signed and routed candidate", frame, peer.transactions.last())
+                        ui.onNodeWithText("Available to send: 0 SAITO").performScrollTo().assertIsDisplayed()
+                        captureNativeScreen(File(context.cacheDir, "transfer-evidence/exact-retry-pending.png"), pending)
                     }
                 }
             }
