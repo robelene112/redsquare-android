@@ -699,3 +699,23 @@ Minimum product change only updates transfer_send_failed funds/connection text;
 XML syntax parses locally. Hosted same-test GREEN includes complete compiler/core/
 release/lint checks; no duplicate local APK build is claimed for this string-only
 change. Funding/auth/store/send logic unchanged.
+
+Both funding-copy axes through5a87b1f clear. Unchanged native38210905877 at5a87b1f
+PASSES ordinary7/113.703s plus separate existing pending death5013->5141/cold1/
+9.994s/cleanup1/.052s:9/3/1,no assumptions,core66/debug/test/release/lint. Actual
+review/realPIN/freshlost funding/zero type4/truthfulguidance then restored7.5/
+sameauthor/noPending/zero frames prove no false reservation or queue. Root full
+2originalPNG/separate2XML; reopened normalIME overlays lowerform/footer. Twelve
+indexed hashes in funding-lost-ui-green/android17. Separate pending death remains
+distinct from this funding failure case.
+
+Next sole tracer faults a newly owned one-byte orphan transfer pending file ONLY
+in the guarded .dev emulator, after validreview. RealPIN/actual recovery warning/
+appforeground/zero type4 must precede disabledAuthenticate; recreation must retain
+identity/warning without review fields/actions or automatic sends. Restoring only
+the owned known-empty fixture baseline then reopening requires fresh7.5/noPending/
+no frames. Primary-safe exact-owned-fault cleanup and PIN cleanup remain guarded.
+This is not a product policy to delete lost real candidates for recovery. Current
+storage layer already blocks transmission; UI leaves Authenticate enabled and
+can show new review fields after load failure. Product unchanged. Hosted compiler/
+source checks gate native RED; no separate local test APK build claimed.

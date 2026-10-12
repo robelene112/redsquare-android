@@ -46,11 +46,11 @@ Implemented and verified:
   density. No network/auth prerequisite. Publisher license is packaged with
   attribution; exact debug asset inspection passes. Core is maintenance-only.
 
-Latest focused runtime: Android17run38209545407 atdd2a98f PASSES ordinary6cases
-71.565s plus separate existing pending death4741->4880/cold1PASS8.664s and credential
-cleanup1PASS.031s. Counts8completed/3records/1interrupted stage/no assumptions;
-core66/debug/test/release/lint pass. Twelve indexed hashes in auth-setup-ui-green/
-android17. Both bounded minimum setup source/evidence axes throughdd2a98f clear.
+Latest focused runtime: Android17run38210905877 at5a87b1f PASSES ordinary7cases
+113.703s plus separate existing pending death5013->5141/cold1PASS9.994s and credential
+cleanup1PASS.052s. Counts9completed/3records/1interrupted stage/no assumptions;
+core66/debug/test/release/lint pass. Twelve indexed hashes in funding-lost-ui-green/
+android17. Both bounded funding-copy source/evidence axes through5a87b1f clear.
 
 The unchanged QR case observes actual own-key503 requests, native unavailable
 balance, full literal scalar2 address/copy and displayed Compose-node bitmap
@@ -67,17 +67,24 @@ reopened normalIME overlays lowerform/footer. Separate pending death is not setu
 case death. Export/auth/funding/send unchanged. Narrow post-GREEN field-entry
 helper shares actual repeated UI actions, retaining each journey's assertions.
 
-Current funding-loss cycle: native38210314527 atcfab5a6 reaches genuine recovery-
-copy RED:7reported/6PASS/1failure102.77s atPreview290, after exactreview/realPIN/
-fresh phase options+empty snapshot/zero type4. Root fulloriginalPNG/separateXML
-shows incorrect server-availability guidance. Minimum change only updates generic
-transfer failure copy to check funds/connection; XML parses locally. Hosted
-unchanged-test GREEN will include compiler/core/release/lint and reopened
-sameauthor/restored7.5/noPending/zero frames. No duplicate local APK build.
+Funding-loss recovery passes: after exactreview/realPIN/actual fresh empty funding,
+zero type4 and truthful guidance; restored funding/reopening gives sameauthor/7.5/
+noPending/no frames. Root full2PNG/separate2XML with ordinary IME footer overlay.
+No funds were reserved or queued. All monetary logic remains unchanged.
+
+Next sole native cycle: unreadable transfer-record recovery UI. A newly owned
+one-byte orphan fixture after validreview, realPIN, actual recovery message and
+zero type4 must yield disabledAuthenticate. Recreation must preserve identity/
+warning while hiding review fields/actions; restoring ONLY the known-empty owned
+fixture baseline then reopen must yield fresh7.5/noPending/no frames. Guarded
+primary-safe file/PIN cleanup. Product already blocks send at storage checks but
+its UI can still offer auth/review actions. No deletion-based product recovery
+policy. Product unchanged; hosted compiler/source/native RED pending.
 Dated05:47UTC host options/balance reads pass on both approved origins, separately
 qualified in current-public-endpoint-read; no native publicUI/admission proof.
 
-Then address meaningful remaining storage/backend/identity failure gaps,
+Then verify meaningful remaining backend/identity boundaries and actual native
+read-only public balance/funding views,
 run fresh final full10/full17 for the same production source with opted-in public
 reads, and perform both whole-ticket reviews against the base above. Home-as-
 revocation is not an agreed requirement; do not add blanket onStop cancellation

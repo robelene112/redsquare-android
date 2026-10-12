@@ -306,6 +306,90 @@ class WalletTransferPreviewTest {
         }
     }
 
+    @Test fun unreadableTransferRecordsBlockAuthenticationAndReviewUntilReadableAgain() = withDevicePin { device ->
+        val peer = ControlledFeedPeer("[]")
+        var ownedFault: File? = null
+        var primaryFailure: Throwable? = null
+        try {
+            fundedTransferServer().use { server ->
+                server.start(InetAddress.getByName("127.0.0.1"), 0)
+                peer.start().use { transport ->
+                    ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                        .putExtra("feedDisabled", true)
+                        .putExtra("feedPeerUrl", "ws://127.0.0.1:${transport.port}/wsopen")
+                        .putExtra("balanceApiUrl", "http://127.0.0.1:${server.port}/balance/")).use { scenario ->
+                        ui.onNodeWithText("Wallet").performClick()
+                        val author = displayedWalletAddress(ui)
+                        withFailureCapture({ captureNativeScreen(File(context.cacheDir,
+                            "transfer-evidence/storage-first-failure.png")) }) {
+                            ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
+                            val recipient = "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU"
+                            enterNativeTransfer(ui, recipient, "6.25", "0.1")
+                            reviewNativeTransfer(ui, device)
+                            ui.waitUntil(20_000) { ui.onNodeWithText("Authenticate and send").isDisplayed() }
+                            ui.onNodeWithText("Recipient: $recipient").assertIsDisplayed()
+                            ui.onNodeWithText("Amount: 6.25 SAITO").assertIsDisplayed()
+                            ui.onNodeWithText("Fee: 0.1 SAITO").assertIsDisplayed()
+                            ui.onNodeWithText("Send through saito.davidengelen.nl").assertIsDisplayed()
+                            peer.assertHealthy(); assertTrue(peer.transactions.isEmpty())
+                            // A new owned orphan at the real filesystem seam, only in the guarded .dev emulator.
+                            val fault = File(context.noBackupFilesDir, "transfer.$author.pending")
+                            check(!fault.exists())
+                            ownedFault = fault
+                            fault.writeBytes(byteArrayOf(0))
+                            ui.onNodeWithText("Authenticate and send").performClick()
+                            waitForSystemPin(device)
+                            peer.assertHealthy(); assertTrue(peer.transactions.isEmpty())
+                            enterRealSystemPin(device)
+                            val recovery = "Transfer records need recovery. Available funds are unknown. Nothing new can be sent until these records are recovered."
+                            ui.waitUntil(20_000) { ui.onNodeWithText(recovery).isDisplayed() }
+                            assertEquals(context.packageName, device.currentPackageName)
+                            peer.assertHealthy(); assertTrue(peer.transactions.isEmpty())
+                            ui.onNodeWithText("Authenticate and send").assertIsNotEnabled()
+                            captureNativeScreen(File(context.cacheDir, "transfer-evidence/storage-blocked-review.png"), recovery)
+                            scenario.recreate()
+                            ui.waitUntil(15_000) { ui.onNodeWithText("Wallet").isDisplayed() }
+                            ui.onNodeWithText("Wallet").performClick()
+                            ui.onNodeWithContentDescription("Wallet address").assertTextEquals(author)
+                            ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
+                            ui.waitUntil(15_000) { ui.onNodeWithText(recovery).isDisplayed() }
+                            ui.onAllNodesWithText("Authenticate and send").assertCountEquals(0)
+                            ui.onAllNodesWithText("Review transfer").assertCountEquals(0)
+                            ui.onNodeWithContentDescription("Recipient address").assertDoesNotExist()
+                            peer.assertHealthy(); assertTrue(peer.transactions.isEmpty())
+                            assertTrue(fault.readBytes().contentEquals(byteArrayOf(0)))
+                            captureNativeScreen(File(context.cacheDir, "transfer-evidence/storage-blocked-reopened.png"), recovery)
+                            // Restore the known empty fixture baseline, never delete real candidate records as recovery.
+                            check(fault.delete())
+                            scenario.recreate()
+                            ui.waitUntil(15_000) { ui.onNodeWithText("Wallet").isDisplayed() }
+                            ui.onNodeWithText("Wallet").performClick()
+                            ui.onNodeWithContentDescription("Wallet address").assertTextEquals(author)
+                            ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
+                            ui.waitUntil(15_000) { ui.onNodeWithText("Available to send: 7.5 SAITO").isDisplayed() }
+                            ui.onAllNodesWithText(recovery).assertCountEquals(0)
+                            ui.onAllNodesWithText("Pending. Inclusion has not been verified.").assertCountEquals(0)
+                            peer.assertHealthy(); assertTrue(peer.transactions.isEmpty())
+                            captureNativeScreen(File(context.cacheDir, "transfer-evidence/storage-readable-again.png"),
+                                "Available to send: 7.5 SAITO")
+                        }
+                    }
+                }
+            }
+        } catch (failure: Throwable) { primaryFailure = failure; throw failure }
+        finally {
+            try {
+                ownedFault?.takeIf { it.exists() }?.let { fault ->
+                    check(fault.readBytes().contentEquals(byteArrayOf(0)))
+                    check(fault.delete())
+                }
+            } catch (cleanup: Throwable) {
+                val primary = primaryFailure
+                if (primary == null) throw cleanup else primary.addSuppressed(cleanup)
+            }
+        }
+    }
+
     private fun withDevicePin(action: (UiDevice) -> Unit) {
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
