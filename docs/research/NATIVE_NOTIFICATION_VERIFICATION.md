@@ -185,3 +185,31 @@ rebuild for this protocol-body change. Sourcepush/finalfull remainrequired.
 Native3-journey proof above predates array support anddoesnot provearrayUI flow.
 Nextprotocoltracer is verifiedusername mentions; otheractivity/cache/paging/etc
 remain withinactive#24. Boundedcaption/list/evidence reviews pending.
+
+List/caption/nativeevidence boundedreview d9c26bd...5aa4a32 clearsbothaxes:
+Standards0residualhard/0heuristics, Spec0actionable. Bothindependentlyverify11hashes,
+rawcounts/current9290-byte referenceequivalence and decodedRGBrow equivalence;
+captionfindingresolved withoutalteringPNGbytes. Sourcepush38283875717 PASSES.
+
+Nextprotocoltracer independently signs @NativeCase7@saito text andusesexisting
+independent native-registry-reference.json ownershipproof (unsafe2syntheticregistrar
+forunsafe1). OptionalknownName/registrar API beginswithoutnameclassification for
+RED, testspositiveverifiedname plus missing/wrongauthority/owner/corruptproof
+exclusion. Current10287-byte referenceSHA23c9c5a3597694eeabdfadff677a6f20a3f2062a6c94ffe338b242697978b828,
+threecopiesidentical. No liveRegistry registration/productionauthority/chainstate
+claim. NativeUI integration andRED/GREEN pending.
+
+Verifiedname tracer RED4cases/3PASS/1failure0.588s/build57s: validindependent
+Registrarproof stillproducesempty namedmentions. Minimum correction revalidates
+proof againstconfiguredregistrar, exactrecord+owner+activehint andmatchesexact
+@Name@saito tokens. Missing/wrongauthority/owner/corruptproof ignoredindependently
+ofkey/list recognition. FullcoreGREEN70/0/0/0/build58s; twohashes each
+mention-username-red/green. NativeusesexistingRegisteredNameStore undercurrent
+RegistryAuthority; cache failuredoesnotgateotheractivity. One newnativejourney
+learnssyntheticname fromactualkey-map+registrar-signednamecheck, verifiesnamed
+post/profile routes andactualnamecheckrequest. Isolateddebug/emulator/loopback
+registrar override isexistingguard; productionauthorityunchanged. Only unsafe1
+namecache basename/atomic companions are snapshotted opaquely, removedintry for
+freshdiscovery andindependentlyrestoredbyte-for-byte infinally. Original wallet/
+backend/permission/nonamecase state remainpreserved. Fourmodefixtureconsumers;
+Localcore/debug/test build PASSES3m18s (core70up-to-date); 4-journeyhostedrepeat/boundedreviews pending.

@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger
 
 class NotificationsPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
-    private enum class Mode { LIKE, REPLY, MENTION }
+    private enum class Mode { LIKE, REPLY, MENTION, USERNAME }
 
     @Test fun anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile() {
         withNotifications("incoming-like", mode = Mode.LIKE) { actor ->
@@ -73,6 +73,24 @@ class NotificationsPreviewTest {
         }
     }
 
+    @Test fun anIncomingVerifiedUsernameMentionOpensItsPostAndActorProfile() {
+        withNotifications("incoming-username-mention", mode = Mode.USERNAME) { actor ->
+            waitFor("Mentioned you")
+            ui.onAllNodesWithText("Mentioned you").assertCountEquals(1)
+            captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
+                "notification-evidence/incoming-username-mention.png"), "Mentioned you")
+            ui.onNodeWithText("Mentioned you").assertIsDisplayed().performClick()
+            waitFor("Conversation")
+            waitFor("Hello @NativeCase7@saito, username mention reference")
+            ui.onNodeWithText("Hello @NativeCase7@saito, username mention reference").assertIsDisplayed()
+            ui.onNodeWithText("Back").performClick()
+            waitFor("Mentioned you")
+            ui.onAllNodesWithText(actor).assertCountEquals(2)[0].assertIsDisplayed().performClick()
+            waitFor("Profile")
+            ui.onNodeWithText(actor).assertIsDisplayed()
+        }
+    }
+
     private fun withNotifications(evidenceName: String, mode: Mode, journey: (String) -> Unit) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
@@ -90,9 +108,27 @@ class NotificationsPreviewTest {
         val priorBackend = AndroidBackendStore(context).load()
         val permission = context.getSharedPreferences("notification-permission", 0)
         val priorOffer: Boolean? = if (permission.contains("offered")) permission.getBoolean("offered", false) else null
+        val registry = instrumentation.context.assets.open("native-registry-reference.json")
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
+        val nameBase = "namemap.$owner.v1"
+        fun nameFiles() = context.noBackupFilesDir.listFiles().orEmpty()
+            .filter { it.name == nameBase || it.name.startsWith("$nameBase.") }
+        val priorNames = if (mode == Mode.USERNAME) nameFiles().associate { file ->
+            check(file.isFile)
+            file.name to file.readBytes()
+        } else null
         val likeReads = AtomicInteger()
         val replyReads = AtomicInteger()
-        val peer = ControlledFeedPeer("[$root]", archiveResponse = { criteria ->
+        val peer = ControlledFeedPeer("[$root]", registryResponse = { criteria ->
+            if (mode != Mode.USERNAME) {
+                if (criteria.get("request").asString == "registry namecheck") "{\"err\":\"no response\"}" else "{}"
+            } else when (criteria.get("request").asString) {
+                "registry query" -> if (criteria.getAsJsonArray("keys").any { it.asString == owner })
+                    "{\"$owner\":\"NativeCase7@saito\"}" else "{}"
+                "registry namecheck" -> if (criteria.get("identifier").asString == "NativeCase7@saito") registry.get("rows").toString() else "[]"
+                else -> error("Unexpected Registry fixture request")
+            }
+        }, archiveResponse = { criteria ->
             when (criteria.get("field1")?.asString) {
                 "RedSquareLike" -> if (criteria.get("field3")?.asString == owner) {
                     require(criteria.get("flagged_ne").asInt == 1)
@@ -108,9 +144,12 @@ class NotificationsPreviewTest {
                         when (mode) {
                             Mode.REPLY -> "[${fixture.get("incomingReply")},${fixture.get("parentedQuote")}]"
                             Mode.MENTION -> "[${fixture.get("incomingMention")},${fixture.get("addressedPost")}]"
+                            Mode.USERNAME -> "[${fixture.get("usernameMention")}]"
                             Mode.LIKE -> "[]"
                         }
                     }
+                    criteria.get("field5")?.asString == fixture.getAsJsonObject("usernameMention").get("sig").asString ->
+                        "[${fixture.get("usernameMention")}]"
                     criteria.get("field5")?.asString == fixture.getAsJsonObject("incomingMention").get("sig").asString ->
                         "[${fixture.get("incomingMention")}]"
                     criteria.get("field5")?.asString == root.get("sig").asString ->
@@ -126,15 +165,20 @@ class NotificationsPreviewTest {
             if (prior.publicKey != owner) store.replace(prior, wallet)
             AndroidBackendStore(context).save(SaitoBackend.OWNER)
             check(permission.edit().remove("offered").commit())
+            if (priorNames != null) synchronized(nl.davidengelen.redsquare.saito.SaitoLocalState.lock) {
+                nameFiles().forEach { check(it.delete()) }
+            }
             peer.start().use { server ->
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
-                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                    .putExtra("usernameFixtureRegistrar", mode == Mode.USERNAME)).use {
                     withFailureCapture({ captureNativeScreen(File(context.cacheDir,
                         "notification-evidence/$evidenceName-first-failure.png")) }) {
                         waitFor("Native Red Square reference post")
                         ui.waitUntil(20_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
                             .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                         peer.assertRequestObserved()
+                        if (mode == Mode.USERNAME) waitFor("NativeCase7@saito")
                         if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty())
                             ui.onNodeWithText("Later").performClick()
                         ui.onAllNodesWithText("Not now").assertCountEquals(0)
@@ -150,6 +194,9 @@ class NotificationsPreviewTest {
                         peer.assertHealthy()
                         assertTrue("Incoming likes must be read for this wallet", likeReads.get() > 0)
                         if (mode != Mode.LIKE) assertTrue("Incoming posts must be read for this wallet", replyReads.get() > 0)
+                        if (mode == Mode.USERNAME) assertTrue("A label hint alone must not be ownership evidence",
+                            peer.registryQueries.any { it.get("request").asString == "registry namecheck" &&
+                                it.get("identifier").asString == "NativeCase7@saito" })
                         assertTrue(peer.clientKeys.isNotEmpty())
                         assertTrue(peer.clientKeys.all { it == owner })
                         assertTrue("Reading notifications must not publish a transaction", peer.transactions.isEmpty())
@@ -169,6 +216,13 @@ class NotificationsPreviewTest {
                 if (priorOffer == null) edit.remove("offered") else edit.putBoolean("offered", priorOffer)
                 check(edit.commit())
                 check(if (priorOffer == null) !permission.contains("offered") else permission.getBoolean("offered", !priorOffer) == priorOffer)
+            }, {
+                if (priorNames != null) synchronized(nl.davidengelen.redsquare.saito.SaitoLocalState.lock) {
+                    nameFiles().forEach { check(it.isFile && it.delete()) }
+                    priorNames.forEach { (name, bytes) -> File(context.noBackupFilesDir, name).writeBytes(bytes) }
+                    check(nameFiles().map { it.name }.toSet() == priorNames.keys)
+                    nameFiles().forEach { check(it.readBytes().contentEquals(priorNames.getValue(it.name))) }
+                }
             })
         }
     }

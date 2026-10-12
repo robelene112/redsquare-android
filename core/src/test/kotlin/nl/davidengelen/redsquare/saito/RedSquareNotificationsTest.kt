@@ -5,6 +5,22 @@ import org.junit.Assert.*
 import org.junit.Test
 
 class RedSquareNotificationsTest {
+    @Test fun `a username mention qualifies only with a registrar proof for the active owner`() {
+        val fixture = JsonParser.parseReader(javaClass.getResourceAsStream("/native-notification-reference.json")!!.reader()).asJsonObject
+        val registry = JsonParser.parseReader(javaClass.getResourceAsStream("/native-registry-reference.json")!!.reader()).asJsonObject
+        val authority = registry.get("registrar").asString
+        val known = SaitoRegistry.readNamecheck(registry.get("rows").toString(), "NativeCase7@saito", authority)!!
+        val row = fixture.getAsJsonObject("usernameMention")
+        val owner = "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR"
+        assertTrue(RedSquareFeed.readMentions("[$row]", owner).posts.isEmpty())
+        val page = RedSquareFeed.readMentions("[$row]", owner, known, authority)
+        assertEquals(listOf("Hello @NativeCase7@saito, username mention reference"), page.posts.map { it.text })
+        assertEquals(1700000000063L, page.posts.single().createdAt)
+        assertTrue(RedSquareFeed.readMentions("[$row]", owner, known).posts.isEmpty())
+        assertTrue(RedSquareFeed.readMentions("[$row]", owner, known.copy(publicKey = authority), authority).posts.isEmpty())
+        assertTrue(RedSquareFeed.readMentions("[$row]", owner, known.copy(proof = "{}"), authority).posts.isEmpty())
+    }
+
     @Test fun `a signed mention list qualifies without a public key token in the text`() {
         val fixture = JsonParser.parseReader(javaClass.getResourceAsStream("/native-notification-reference.json")!!.reader()).asJsonObject
         val row = fixture.getAsJsonObject("listedMention")

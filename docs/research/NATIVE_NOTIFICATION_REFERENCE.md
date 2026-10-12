@@ -29,8 +29,15 @@ The next tracer adds an independent signed create-tweet `mentions:[owner]` with 
 public-key token in its text. Both pinned constructors preserve signed mention
 arrays; the native parser bounds recognized arrays to100items and requires exact
 string identity membership. Ordinary addressing remains insufficient.
-Current whole JSON SHA256:c97515e7b98702131749721af26d6d4b561fab99cc72f731587be6f0100e79ab;
-9290bytes. Documentation andnativeasset copies are identical.
+The mention-list snapshot was9290bytes/SHA c97515e7b98702131749721af26d6d4b561fab99cc72f731587be6f0100e79ab.
+The next tracer adds a signed exact @NativeCase7@saito text mention. Its owner
+mapping comes from the pre-existing independent NATIVE_REGISTRY_REFERENCE.json:
+unsafe2 synthetic registrar signature proves NativeCase7@saito belongs to unsafe1.
+This synthetic authority is not the published production registrar or a live
+registration/chain-state proof. Reader tests verify ownership proof and reject
+wrong authority, owner or corrupt proof instead of trusting a label.
+Current whole JSON SHA256:23c9c5a3597694eeabdfadff677a6f20a3f2062a6c94ffe338b242697978b828;
+10287bytes. Documentation andnativeasset copies are identical.
 
 Reproduction uses the existing build image, networknone/read-only container and
 rootfilesystem mount, root inside the container for chroot, empty environment,

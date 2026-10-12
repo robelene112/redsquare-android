@@ -60,9 +60,18 @@ object RedSquareFeed {
     }
 
     /** Explicit mentions in available signed posts, independent of output addressing. */
-    fun readMentions(response: String, owner: String): ArchiveFeedPage {
+    fun readMentions(response: String, owner: String, knownName: SaitoRegisteredName? = null,
+        registrar: String = SaitoRegistry.REGISTRAR): ArchiveFeedPage {
         require(SaitoWallet.isPublicKey(owner))
-        val mention = Regex("(?<![\\p{L}\\p{N}_@])@${Regex.escape(owner)}(?![\\p{L}\\p{N}_@])")
+        val identifier = knownName?.let { expected ->
+            try {
+                SaitoRegistry.readNamecheck("[${expected.proof}]", expected.identifier, registrar)
+                    ?.takeIf { it == expected && it.publicKey == owner && it.active }?.identifier
+            } catch (_: Exception) { null }
+        }
+        val mentions = listOfNotNull(owner, identifier).map {
+            Regex("(?<![\\p{L}\\p{N}_@])@${Regex.escape(it)}(?![\\p{L}\\p{N}_@])")
+        }
         val page = readSearch(response)
         return page.copy(posts = page.posts.filter { post ->
             if (post.author == owner) false else {
@@ -73,7 +82,7 @@ object RedSquareFeed {
                     it.isJsonPrimitive && it.asJsonPrimitive.isString && it.asString == owner
                 }
                 signed.body.string("request") == "create tweet" &&
-                    (explicit || mention.containsMatchIn(data.optionalString("text")))
+                    (explicit || mentions.any { it.containsMatchIn(data.optionalString("text")) })
             }
         })
     }

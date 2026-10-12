@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.google.gson.JsonObject
@@ -19,6 +20,8 @@ import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.moderation.LocalPersonalControls
 import nl.davidengelen.redsquare.moderation.PersonalControlsStatus
 import nl.davidengelen.redsquare.registry.registeredIdentity
+import nl.davidengelen.redsquare.registry.LocalRegistryAuthority
+import nl.davidengelen.redsquare.registry.RegisteredNameStore
 import nl.davidengelen.redsquare.saito.*
 
 private data class NotificationRow(val id: String, val author: String, val createdAt: Long,
@@ -28,6 +31,8 @@ private data class NotificationRow(val id: String, val author: String, val creat
 internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, knownPosts: List<FeedPost>,
     modifier: Modifier, onBack: () -> Unit, onPost: (FeedPost) -> Unit, onIdentity: (String) -> Unit) {
     val personal = LocalPersonalControls.current
+    val context = LocalContext.current.applicationContext
+    val registrar = LocalRegistryAuthority.current
     var events by remember(wallet?.publicKey, endpoint) { mutableStateOf<List<ProfileLike>>(emptyList()) }
     var replies by remember(wallet?.publicKey, endpoint) { mutableStateOf<List<FeedPost>>(emptyList()) }
     var mentions by remember(wallet?.publicKey, endpoint) { mutableStateOf<List<FeedPost>>(emptyList()) }
@@ -53,7 +58,10 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, knownPo
                     }
                     val likes = RedSquareLikes.readIncoming(read("RedSquareLike"), wallet.publicKey)
                     val posts = read("RedSquare")
-                    Triple(likes, RedSquareFeed.readReplies(posts), RedSquareFeed.readMentions(posts, wallet.publicKey))
+                    val name = try { RegisteredNameStore(context, wallet.publicKey, registrar).load()?.name }
+                    catch (cancelled: CancellationException) { throw cancelled }
+                    catch (_: Exception) { null }
+                    Triple(likes, RedSquareFeed.readReplies(posts), RedSquareFeed.readMentions(posts, wallet.publicKey, name, registrar))
                 }
             }
             events = likePage.likes

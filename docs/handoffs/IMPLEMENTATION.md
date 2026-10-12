@@ -15,59 +15,37 @@ native UI/controlled Archive, independently signed protocol vectors, recovery/
 isolation and current/older RedSquare compatibility. Closed-app pushes remain
 #32–#34; Pixel acceptance remains#35.
 
-First signed-like tracer passed actual Android17 run38274447518 atbf52872:
-1case20.839s/1record/0deaths/core66, after missing-entry RED38271177276.
-Known signed own-target/actor/thread navigation, contextual Skip/no firstfeed
-prompt, actual owner-index/authenticated identity/no transactions+reports and
-full opaque wallet/backend restoration pass. Both independent first-slice
-reviews of d1e65f5...c835e3f report0actionable findings and verify all6evidence
-hashes. These are first-slice results, not whole-ticket acceptance.
+Notifications source now supports signed incoming likes, strict create-tweet
+replies with verified own parents, exact public-key text/list mentions and
+registrar-verified own username text mentions. Selected peer and personal controls
+remain in use; contextual permission is optional, absent from first feed. Missing
+originals, other activity, history/cache/paging/read IDs, recovery/isolation,
+permission allow/deny and final SDK pair remain unfinished within #24.
 
-Next tracer is one signed reply to the same independently signed root. Its
-4597-byte reference SHA25626d25c2d23cf46a020e9466f6cb09520a6cbe8f265919c058c6fe5f3eedbc6e3
-is identical in docs/nativeassets; pure pinned generator verifies signatures
-and roundtrip offline. Native test expects reply/conversation/root/actor routes;
-shared setup now has two actual consumers and restores the dedicated permission
-offered key independently alongside wallet/backend. Local core/debug/test build PASSES1m34s; hosted
-reply RED38278289475 confirms missingreplycaption, while existinglikejourney
-passes (2reported/1PASS/1failure41.429s/0completedOKrecords). Root originalPNG+
-separateXML/3hashes retained. Both tracerreviews clear. Minimum owner-index
-verifiedreply/knownownparent/signed-time mergedrows/conversation routing added;
-localcore/debug/test build passes2m57s. Native38279447141 passeslike andreply
-Conversation/root/reply, then selector finds2sameactor nodesbeforeProfile. Root
-PNG/XML/3hashes retained. Corrected selector requires exactly2actor keys andtaps
-first/newerreply; no timeoutsrelaxed. Spec reviewcaughtsignedparentedquote misclassified
-asreply. IndependentcoreRED57s/1failure reproduced; corrected request-kind reader
-passes67coretests55s andnowusednative. Reference6267bytes/currentSHA476cfd8c... is
-identical docs/native/core. Corrected localcore/debug/test build PASSES2m41s; hostedrepeat38280740738 at54c638a PASSES2cases27.134s/core67/1record/0deaths,
-actualactorProfile/finalidentity/no-write/opaque wallet/backend/permission cleanup
-complete. Bothcorrectionreviews0residual; sourcepushrelease/lintpasses. RootreplyPNG
-showsfullclearreply+likecards; rootlike-onlytoolviewpartialstatus/caption qualified against full storedRGB,
-reviewerfullview andseparateXML (no missingPNGcontent established). Fivehashesreply-native-green/android17.
+Latest committed prior checkpoint5aa4a32: fullcore69 passes; three native like/
+reply/textmention journeys PASS35.148s atd9c26bd in38282727624. All actual post/
+actor routes, owner-index/authidentity/no-write/fullopaque wallet/backend/permission
+restoration complete. Seven nativehashes, originalPNG/XML qualifiers in report;
+rootfullmention image supportsbyte-identical storedheader/actor rows inotherPNGs
+despite inconsistent toolviews. Both boundedreviewaxes clear through5aa4a32,
+including priorcaptioncorrection. Sourcepush38283875717 PASSES.
 
-Next protocol tracer is exact signedpublickey textmention versus equallysigned
-ordinaryaddressedpost. Reference8259bytes/currentSHAc52b0b84... threecopiesidentical.
-One new core testreproducesmissingmentions:2tests/1PASS/1failure/build53s. Minimum
-originalsignedtext exacttoken parser added; coreGREEN68/0/0/0/build1m3s. NativeUIadoption+one newmentionjourney added
-(samepostresponse/no extra request, signedIDdedup, actualPost/Profile/exclusion).
-Localcore/debug/test build PASSES3m16s; 3-journeyhosted38282727624 atd9c26bd PASSES3cases35.148s/1record/0deaths/core68,
-allroutes/identity/no-write/opaquecleanup/Skip complete. RootmentionPNGfull,
-other toolviews partial; read-onlystdlibPNGdecode provesheader/actor rowsbyte-equal
-tofullmention, no missingstoredcontent. Sevenhashesmention-native-green/android17.
-TextsliceSpec0; Standards1captionfinding nowcorrected(rootrenderingvsstoredPNG).
+Next username tracer: independent @NativeCase7@saito post plus existing signed
+synthetic Registry ownershipproof. RED4protocolcases/1failure/build57s ->fullcore
+GREEN70/0/0/0/build58s. Revalidation requires matching registrar/proof/owner/record
+andactive serverhint; invalidmapping doesnotgatekey/list mentions. Nativeexisting
+verifiedname cache integration andfourthactual Registrydiscovery/Post/Profile
+journey added. Onlyunsafe1 namecachebasename/atomic companions are snapshotted
+opaquely, removedinside try forfreshdiscovery andrestoredindependentlybyte-for-byte.
+Existingdebug/emulator/loopback registrar guard retained; production unchanged.
+Current reference10287bytes/SHA23c9c5a3597694eeabdfadff677a6f20a3f2062a6c94ffe338b242697978b828
+identical docs/native/core. Localcore/debug/test build PASSES3m18s. Four-journey
+hostedrepeat andboundedreviews pending; nexteventtracer reposts/quotes afterthis.
 
-Nextsignedmentionlist protocol tracer RED3cases/1failure/build44s then fullcore
-GREEN69/0/0/0/build57s. SameAPI/Androidstate, current9290-byteSHAc97515e7... three
-referencecopiesidentical. Native3journeyproof predatesarraybodychange; sourcepush/
-finalfullneeded. Nextprotocoltracer verifiedusername mentions. Boundedcaption/list/
-evidence reviews pending.
-
-Other activity, available-history coverage, personal controls/read-state/cache,
-failure/recovery/backend/wallet isolation, permission deny/allow and final full
-SDK pair remain within active #24. Source contract:
-docs/research/NATIVE_NOTIFICATIONS_CONTRACT.md. Canonical chronology:
-docs/research/NATIVE_NOTIFICATION_VERIFICATION.md. Five protected future chat
-files remain untouched. No new phoneAPK/Pixel or closed-app delivery claim.
+Whole-ticket base remains d1e65f5. Canonical source contract and chronology:
+docs/research/NATIVE_NOTIFICATIONS_CONTRACT.md and NATIVE_NOTIFICATION_VERIFICATION.md.
+Five protected future chat files remain untouched. No new APK/physicalPixel/
+closed-app delivery/whole-ticket acceptance claim.
 
 ## Earlier completed ticket checkpoints
 
@@ -213,7 +191,7 @@ Initial wallet/live-feed milestone is published as stable signed version10
 Compose bitmaps had inconsistent labels; use each report's stated evidence
 limits. #9 also has official bitmap inconsistencies; no invented cause.
 
-Next: continue active #23 sequentially. Owner reviews the
+Historical after-wallet milestone note: continue #23 sequentially. It is now closed; active work is #24. Owner reviews the
 completed app; no intermediate phone-review gate is required.
 
 ## Verification already inspected
