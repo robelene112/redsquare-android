@@ -47,7 +47,12 @@ Actor and completed-refresh Unfollow removal plus all19 earlier cases pass.
 Forty-four hashes; root original followed screenshot/all21XML inspected. Both
 reviews and local full build2m49s pass. Current author discovery is bounded to
 ten followed accounts. Next slice covers current followed quote posts in
-Retweet history; additional contacts/older paging remain after it.
+Retweet history. New21 tracer a0e22a8 has genuine Android10 RED38315312821:
+20PASS/one missing-Posted failure78.775s/zero OK/deaths/core73. Three hashes
+and original PNG/XML inspected; later routes unexecuted. Both tracer reviews
+pass. Minimum adds Retweet author discovery and reuses verified quotes for
+contact classification. Local full compile/first21GREEN pending; additional
+contacts/older paging remain after it.
 
 Remaining #24 work is finite: supplement followed-account posts, bounded reply discovery/older-page overlap and retry,
 prove mute/block and backend/wallet isolation, actual permission choices and

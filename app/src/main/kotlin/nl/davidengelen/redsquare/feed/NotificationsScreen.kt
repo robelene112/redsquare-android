@@ -52,13 +52,14 @@ private val NotificationPages.envelopes: List<String>
         mentions.posts.map { it.envelope } + reposts.actions.map { it.envelope } + quotes.map { it.envelope } + contacts.map { it.envelope }
 
 private fun notificationPages(likes: String, posts: String, retweets: String, owner: String,
-    name: SaitoRegisteredName?, registrar: String, followed: Set<String>): NotificationPages = NotificationPages(
-    RedSquareLikes.readIncoming(likes, owner), RedSquareFeed.readReplies(posts),
-    RedSquareFeed.readMentions(posts, owner, name, registrar),
-    RedSquareActions.readIncomingReposts(retweets, owner),
-    RedSquareFeed.readIncomingQuotes(retweets, owner).posts + RedSquareFeed.readIncomingQuotes(posts, owner).posts,
-    if (followed.isEmpty()) emptyList() else RedSquareFeed.readSearch(posts).posts
-        .filter { it.author != owner && it.author in followed })
+    name: SaitoRegisteredName?, registrar: String, followed: Set<String>): NotificationPages {
+    val quotes = RedSquareFeed.readIncomingQuotes(retweets, owner).posts + RedSquareFeed.readIncomingQuotes(posts, owner).posts
+    val contacts = if (followed.isEmpty()) emptyList() else
+        (RedSquareFeed.readSearch(posts).posts + quotes).filter { it.author != owner && it.author in followed }
+    return NotificationPages(RedSquareLikes.readIncoming(likes, owner), RedSquareFeed.readReplies(posts),
+        RedSquareFeed.readMentions(posts, owner, name, registrar),
+        RedSquareActions.readIncomingReposts(retweets, owner), quotes, contacts)
+}
 
 private fun cachedArchive(envelopes: List<String>, requests: Set<String>): String = com.google.gson.JsonArray().apply {
     envelopes.filter { SaitoEnvelope.decode(it).body.get("request").asString in requests }.take(100).forEach { envelope ->
@@ -154,9 +155,11 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
                         return peer.request(request.toString().toByteArray(Charsets.UTF_8)).toString(Charsets.UTF_8)
                     }
                     coroutineScope {
-                        // Bound the initial contact batch. Older activity and remaining contacts are separate pages.
+                        // Bound initial contact reads to ten accounts.
                         val streams = listOf("RedSquareLike" to null, "RedSquare" to null, "RedSquareRetweet" to null) +
-                            followed.sorted().take(10).map { "RedSquare" to it }
+                            followed.sorted().take(10).flatMap { author ->
+                                listOf("RedSquare" to author, "RedSquareRetweet" to author)
+                            }
                         streams.map { (kind, author) -> async {
                             try {
                                 val response = read(kind, author)

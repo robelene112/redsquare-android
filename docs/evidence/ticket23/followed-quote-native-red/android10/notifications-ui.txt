@@ -1,0 +1,351 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.NotificationsPreviewTest:
+INSTRUMENTATION_STATUS: test=anOrdinaryRepostWithNullCommentaryIsSavedAndRecoveredWithoutACacheWarning
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anOrdinaryRepostWithNullCommentaryIsSavedAndRecoveredWithoutACacheWarning
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anIncomingSignedMentionOpensItsPostAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anIncomingSignedMentionOpensItsPostAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=rejectedActivityRemainsExplainedWhileVerifiedDuplicatesAppearOnlyOnce
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=rejectedActivityRemainsExplainedWhileVerifiedDuplicatesAppearOnlyOnce
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aLikeOfACurrentQuoteRecoversFromItsRetweetArchiveOnExplicitRetry
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aLikeOfACurrentQuoteRecoversFromItsRetweetArchiveOnExplicitRetry
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=followedCurrentQuotesAreDiscoveredInTheirOwnArchiveNamespace
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.waitFor(NotificationsPreviewTest.kt:752)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.followedJourney$lambda$21(NotificationsPreviewTest.kt:390)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$mOchysCps_DFCXjWoD9ohJOPOC4(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda37.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$35$lambda$34$lambda$33(NotificationsPreviewTest.kt:646)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$-iLfJLyz4WFgYVx3WFx2-2_ovIg(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda18.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:624)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.followedJourney(NotificationsPreviewTest.kt:372)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.followedCurrentQuotesAreDiscoveredInTheirOwnArchiveNamespace(NotificationsPreviewTest.kt:368)
+
+INSTRUMENTATION_STATUS: stream=
+Error in followedCurrentQuotesAreDiscoveredInTheirOwnArchiveNamespace(nl.davidengelen.redsquare.NotificationsPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.waitFor(NotificationsPreviewTest.kt:752)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.followedJourney$lambda$21(NotificationsPreviewTest.kt:390)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$mOchysCps_DFCXjWoD9ohJOPOC4(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda37.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$35$lambda$34$lambda$33(NotificationsPreviewTest.kt:646)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$-iLfJLyz4WFgYVx3WFx2-2_ovIg(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda18.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:624)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.followedJourney(NotificationsPreviewTest.kt:372)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.followedCurrentQuotesAreDiscoveredInTheirOwnArchiveNamespace(NotificationsPreviewTest.kt:368)
+
+INSTRUMENTATION_STATUS: test=followedCurrentQuotesAreDiscoveredInTheirOwnArchiveNamespace
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=savedActivityRemainsAvailableWhenTheServerNoLongerReturnsIt
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=savedActivityRemainsAvailableWhenTheServerNoLongerReturnsIt
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=incomingCurrentAndLegacyQuotesOpenTheirCommentaryOriginalAndActor
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=incomingCurrentAndLegacyQuotesOpenTheirCommentaryOriginalAndActor
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anIncomingSignedRepostOpensItsOriginalAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anIncomingSignedRepostOpensItsOriginalAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anIncomingVerifiedUsernameMentionOpensItsPostAndActorProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anIncomingVerifiedUsernameMentionOpensItsPostAndActorProfile
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=missingRepostOriginalSurvivesUnavailableLookupAndExplicitRetry
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=missingRepostOriginalSurvivesUnavailableLookupAndExplicitRetry
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=13
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anAddressedReplyKeepsItsOwnContentWhenItsParentIsUnavailable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=13
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anAddressedReplyKeepsItsOwnContentWhenItsParentIsUnavailable
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=14
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=readActivityKeepsItsReadStatusWhenRecreatedUnderFailingServerReads
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=14
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=readActivityKeepsItsReadStatusWhenRecreatedUnderFailingServerReads
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=15
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=availableNotificationsSurviveRecreationWhenTheSelectedServerCannotRefresh
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=15
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=availableNotificationsSurviveRecreationWhenTheSelectedServerCannotRefresh
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=16
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=followingAnAccountDiscoversItsAvailablePostsButVisitingDoesNot
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=16
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=followingAnAccountDiscoversItsAvailablePostsButVisitingDoesNot
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=17
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aFailedReadStatusSaveKeepsActivityUnreadUntilTheUserRetries
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=17
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aFailedReadStatusSaveKeepsActivityUnreadUntilTheUserRetries
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=18
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=healthyRepliesRemainAvailableWhenTheLikesArchiveFails
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=18
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=healthyRepliesRemainAvailableWhenTheLikesArchiveFails
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=19
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anAvailableFeedMentionAppearsWithoutAnOwnerRecipientIndex
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=19
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anAvailableFeedMentionAppearsWithoutAnOwnerRecipientIndex
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=20
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=missingOriginalActivitySurvivesUnavailableLookupAndExplicitRetry
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=20
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=missingOriginalActivitySurvivesUnavailableLookupAndExplicitRetry
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=21
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anAddressedQuoteKeepsItsCommentaryWhenItsOriginalIsUnavailable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=21
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=21
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anAddressedQuoteKeepsItsCommentaryWhenItsOriginalIsUnavailable
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 78.775
+There was 1 failure:
+1) followedCurrentQuotesAreDiscoveredInTheirOwnArchiveNamespace(nl.davidengelen.redsquare.NotificationsPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.waitFor(NotificationsPreviewTest.kt:752)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.followedJourney$lambda$21(NotificationsPreviewTest.kt:390)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$mOchysCps_DFCXjWoD9ohJOPOC4(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda37.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$35$lambda$34$lambda$33(NotificationsPreviewTest.kt:646)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$-iLfJLyz4WFgYVx3WFx2-2_ovIg(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda18.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:624)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.followedJourney(NotificationsPreviewTest.kt:372)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.followedCurrentQuotesAreDiscoveredInTheirOwnArchiveNamespace(NotificationsPreviewTest.kt:368)
+
+FAILURES!!!
+Tests run: 21,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

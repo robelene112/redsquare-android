@@ -218,3 +218,19 @@ first20GREEN run38314503373 pending. No whole-ticket acceptance claim.
 First20GREEN10 38314503373 at4dda755 passes20/61.71s/1OK/0deaths/core73.
 Forty-four hashes; root originalfollowedPNG/all21XML inspected. Localfullbuild
 2m49PASS. CorrectedConversation/actualcontactActor and completednegatives pass.
+
+## Followed current-quote tracer
+
+### Standards
+
+`aae5b5b...a0e22a8`: zero hard violations/actionable heuristics. Shared
+two-consumer journey preserves actual destination/actor selection/Unfollow.
+
+### Spec
+
+Zero actionable findings. Independent signed quote is available only in author
+Retweet history; ordinary thread is empty and selected commentary must remain.
+Both axes verified44priorGREENhashes/counts/21XML/originalfollowedPNG.
+Local client143 log ends before completion; no running build remains, Docker
+die event6d85cbd3039b reports actual exit0. No complete local log/duration claim.
+Native21RED run38315312821 remains pending.
