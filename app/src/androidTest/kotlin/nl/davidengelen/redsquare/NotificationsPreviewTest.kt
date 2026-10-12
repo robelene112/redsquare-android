@@ -483,6 +483,8 @@ class NotificationsPreviewTest {
                 Triple("Block account", "Block", "Unblock account"))) {
                 waitFor("1 unread")
                 waitFor("Liked your post")
+                ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
+                    .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                 ui.onNodeWithText(actor).assertIsDisplayed().performClick()
                 waitFor("Profile")
                 ui.waitUntil(15_000) { ui.onAllNodes(hasText(control) and isEnabled())
@@ -495,6 +497,8 @@ class NotificationsPreviewTest {
                 waitFor("No unread activity")
                 ui.onAllNodesWithText("Liked your post").assertCountEquals(0)
                 ui.onAllNodesWithText(actor).assertCountEquals(0)
+                ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
+                    .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                 responses.change()
                 scenario.recreate()
                 waitFor("Could not load notifications. Check your connection and try Refresh.")

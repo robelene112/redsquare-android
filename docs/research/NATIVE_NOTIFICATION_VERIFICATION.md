@@ -911,3 +911,14 @@ the exact fixture-owner personal file family under SaitoLocalState.lock; no
 other identities/files/keystore aliases are removed or exposed. Local fixture
 APK1m39PASS. Existing shared controls implement this behavior; first native
 regression pending, no new production source or recreated-process-death claim.
+
+First23GREEN10 38319542679 at1137021 passes23/65.922s/1OK/0deaths/assumptions/
+core73/debug/test. Actualeleventhquery/Posted/exact2unread/Conversation/commentary/
+Actor/all22old/finalopaque/no-write pass.52hashes/all25XML/rootoriginalremaining
+PNG inspected. Both minimumaxes0/localfull2m37PASS. Next controlsregression.
+
+Controls fixture08a05c3: Standards0, Spec1cache-warming readiness concern.
+Root adds completedRefresh waits before firstProfile and before outage/recreation;
+row/count/actualcontrol assertions unchanged. This is a source timing correction,
+not reproduced failure. First24native38320137452 uses originalfixture and may
+prove its actual run but cannot substitute for corrected waits/final acceptance.

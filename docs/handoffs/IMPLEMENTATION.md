@@ -26,38 +26,20 @@ failure. Verified activity survives pruned pages/Activity recreation. History an
 read markers are wallet/backend scoped; unread counts use visible verified rows,
 Mark all as read commits before confirming, and storage faults preserve activity.
 
-Latest native checkpoint: Android10 run38313238506 at0cec28e passes19 cases
-in50.97s, one OK, zero deaths/assumptions, core73/debug/test. Feed-only mention
-exact count/Conversation/Actor, missing quote/reply original recovery and all
-earlier cache/read/failure journeys pass with final opaque restoration.
-Forty-two hashes; root original feed-mention PNG and all20XML inspected.
-Initial full build3m14s and corrective Kotlin compilation1m43s pass. Both
-correction review axes pass; marker reload defers during a mark and the action
-is guarded during reload. No reproduced concurrency-race claim. Activity
-recreation is not actual process death.
+Latest native checkpoint: Android10 run38319542679 at1137021 passes23 cases
+in65.922s/oneOK/zero deaths/assumptions/core73/debug/test. Firstten exhaustion
+retains continuation; actual eleventh post/2unread/Conversation/Actor pass, with
+all22 prior rows/cache/failure/marker/paging routes and final opaque restoration.
+52hashes/all25XML/root original remaining-contactPNG inspected. Both source axes
+pass and full local build2m37s passes. Canonical chronology preserves older
+RED/GREEN proofs, including genuine disabled-continuation RED38319039290.
 
-Available feed-mention RED was dee4f2a/run38312248859:19reported/18PASS/one
-failure65.408s/zero OK/deaths. Canceled38311968126 and38312894981 are not
-acceptance evidence. Earlier independent quote-original GREEN c0624e0/
-38311318013 passes18/54.526s, with40 hashes. Canonical chronology retains
-all checkpoints. Current latest checkpoint: followed ordinary/quote discovery9f88060 passes
-Android10 run38315811701,21 cases in67.893s/one OK/zero deaths/assumptions/
-core73/debug/test. Actual author reads in both namespaces, visit-versus-Follow,
-semantic precedence, Conversation/actual actor and completed-refresh Unfollow
-removal plus all20 earlier cases pass. Forty-six hashes; root original followed
-quote screenshot/all22XML inspected. Both reviews and local full build1m39s
-pass; complete success log/Docker actualexit0 qualify client143. Initial follow
-discovery is bounded to ten accounts. Next: older paging with overlap/dedup and
-continuation across remaining contacts. Current22PAGINGtracer767090e has
-genuine Android10 RED38316922452:21PASS/one missing-continuation failure
-78.594s/zero OK/deaths/core73. Three hashes/failure XML inspected; later gates
-unexecuted. Minimum now has independent stream cursors, strict boundary overlap,
-coverage warning on unresolved full ties, failed-stream pending retry, a300-event
-older-read bound and load-generation guard. Completed-read waits strengthen the
-button/exhaustion assertions. Local full build2m59s passes; first22GREEN38318254471 passes22/71.479s/oneOK/zero deaths/assumptions.
-Both minimum axes0;50hashes/all24XML/both original olderPNGs inspected.
-Next additional-contact discovery.
-No actual process-death/fullSDK claim.
+Personal-control regression24 is now added: actual Mute/Block, hidden rows/count,
+failed refresh/recreation and explicit Unmute/Unblock restoring cached activity.
+Standards0/Spec1 warming timing concern corrected with completedRefresh waits;
+no reproduced defect claim. Originalfixture native38320137452 pending, correction
+review pending. Shared fixture now restores exact personal.owner family under
+its owning lock, without touching aliases. No process-death/fullSDK claim.
 
 Remaining #24 work is finite: supplement followed-account posts, bounded reply discovery/older-page overlap and retry,
 prove mute/block and backend/wallet isolation, actual permission choices and

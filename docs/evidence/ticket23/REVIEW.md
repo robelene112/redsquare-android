@@ -325,3 +325,22 @@ Zero actionable findings. Per-source cursor registration retains failed new
 contact reads for retry; manual Refresh restarts newest discovery on the selected
 peer. Root and both axes verified23reported/22PASS/one disabled-continuation
 failure68.485s/zeroOK/deaths. Local build/first23GREEN pending.
+
+First23GREEN10 38319542679 at1137021 passes23/65.922s/1OK/0deaths/assumptions/
+core73/debug/test. Actualeleventhquery/Posted/exact2unread/Conversation/commentary/
+Actor/all22old/finalopaque/no-write pass.52hashes/all25XML/rootoriginalremaining
+PNG inspected. Both minimumaxes0/localfull2m37PASS. Next controlsregression.
+
+## Personal notification controls regression
+
+### Standards
+
+`1137021...08a05c3`: zero hard violations/actionable heuristics. Actual controls,
+owned encrypted-policy fixture and opaque restoration preserve existing behavior.
+
+### Spec
+
+One fixture readiness finding: complete cache warming before first Profile and
+outage/recreation. Root added enabled-Refresh waits at both points; existing
+assertions unchanged, no reproduced defect claim. Local original fixture1m39PASS;
+first24 run38320137452 originalfixture pending. Correction review pending.
