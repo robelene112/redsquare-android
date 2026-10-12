@@ -46,11 +46,11 @@ Implemented and verified:
   density. No network/auth prerequisite. Publisher license is packaged with
   attribution; exact debug asset inspection passes. Core is maintenance-only.
 
-Latest focused runtime: Android17run38207157113 atf62caad PASSES ordinary5cases
-73.267s plus separate existing pending death4729->4893/cold1PASS9.25s and credential
-cleanup1PASS.056s. Counts7completed/3records/1interrupted stage/no assumptions;
-core66/debug/test/release/lint pass. Twelve indexed hashes in receiving-qr-ui-green/
-android17. Both bounded minimum QR source/evidence axes throughf62caad clear.
+Latest focused runtime: Android17run38209545407 atdd2a98f PASSES ordinary6cases
+71.565s plus separate existing pending death4741->4880/cold1PASS8.664s and credential
+cleanup1PASS.031s. Counts8completed/3records/1interrupted stage/no assumptions;
+core66/debug/test/release/lint pass. Twelve indexed hashes in auth-setup-ui-green/
+android17. Both bounded minimum setup source/evidence axes throughdd2a98f clear.
 
 The unchanged QR case observes actual own-key503 requests, native unavailable
 balance, full literal scalar2 address/copy and displayed Compose-node bitmap
@@ -61,18 +61,21 @@ preview across lower white boundary/footer. Both nonatomic XMLs record overlay.
 No timing-cause, unobstructed second whole-screen scanner, second independent
 QR decoder, physical scanner or dark-theme acceptance is claimed.
 
-Current cycle: native missing-screen-lock setup message for transfers. Corrected
-fixture compiled1m27s; bounded reviews clear after current-build doc correction.
-Native38208760225 atc513197 reaches genuine missing-copy RED:6reported/5PASS/1failure
-98.927s atPreview223. Actual unsecured device/exact6.25/.1/recipient/owner/live
-review/zero type4 gates pass; originalPNG/XML shows export-specific guidance.
-Minimum fix adds a dedicated transfer setup resource and uses it only here.
-Export copy and all funding/auth/store/send logic unchanged. Debug/test build
-passes2m36s; unchanged native GREEN, including close/reopen/fresh7.5/noPending/zero
-frames, pending. Dated05:47UTC host options/balance reads pass on both approved
-origins, separately qualified in current-public-endpoint-read; no admission proof.
+Missing-lock setup now passes: dedicated transfer guidance, still-unsecured/app
+foreground, sameauthor/reopened7.5/noPending/zero type4. Root full2PNG/separate2XML;
+reopened normalIME overlays lowerform/footer. Separate pending death is not setup
+case death. Export/auth/funding/send unchanged. Narrow post-GREEN field-entry
+helper shares actual repeated UI actions, retaining each journey's assertions.
 
-Then address meaningful remaining funding/storage/backend/identity failure gaps,
+Next one tracer: funding loss after exact valid review and real system PIN. Actual
+fresh phase-specific options+empty snapshot must reject without type4/reservation/
+queue and explain funds/connection. Reopened sameauthor/restored7.5/noPending/zero
+frames afterward. Safety should already reject; current copy incorrectly blames
+server availability. Product unchanged; tracer APK compiles1m22s; native RED pending. Dated
+05:47UTC host options/balance reads pass on both approved origins, separately
+qualified in current-public-endpoint-read; no native publicUI/admission proof.
+
+Then address meaningful remaining storage/backend/identity failure gaps,
 run fresh final full10/full17 for the same production source with opted-in public
 reads, and perform both whole-ticket reviews against the base above. Home-as-
 revocation is not an agreed requirement; do not add blanket onStop cancellation

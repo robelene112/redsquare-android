@@ -65,9 +65,7 @@ class WalletTransferPreviewTest {
                         "transfer-evidence/authenticated-send-first-failure.png")) }) {
                         ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
                         val recipient = "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU" // Public unsafe test identity.
-                        ui.onNodeWithContentDescription("Recipient address").performTextInput(recipient)
-                        ui.onNodeWithContentDescription("Amount in SAITO").performTextInput("6.25")
-                        ui.onNodeWithContentDescription("Fee in SAITO").performTextReplacement("0.1")
+                        enterNativeTransfer(ui, recipient, "6.25", "0.1")
                         ui.onNodeWithContentDescription("Public memo").performTextInput("Native transfer test")
                         reviewNativeTransfer(ui, device)
                         ui.waitUntil(20_000) { ui.onAllNodes(hasText("Confirm SAITO transfer"))
@@ -154,10 +152,7 @@ class WalletTransferPreviewTest {
                     withFailureCapture({ captureNativeScreen(File(context.cacheDir,
                         "transfer-evidence/auth-cancel-failure.png")) }) {
                         ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
-                        ui.onNodeWithContentDescription("Recipient address")
-                            .performTextInput("pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU")
-                        ui.onNodeWithContentDescription("Amount in SAITO").performTextInput("6.25")
-                        ui.onNodeWithContentDescription("Fee in SAITO").performTextReplacement("0.1")
+                        enterNativeTransfer(ui, "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU", "6.25", "0.1")
                         reviewNativeTransfer(ui, device)
                         ui.waitUntil(20_000) { ui.onNodeWithText("Authenticate and send").isDisplayed() }
                         ui.onNodeWithText("Amount: 6.25 SAITO").assertIsDisplayed()
@@ -205,9 +200,7 @@ class WalletTransferPreviewTest {
                         "transfer-evidence/auth-setup-first-failure.png")) }) {
                         val recipient = "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU"
                         ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
-                        ui.onNodeWithContentDescription("Recipient address").performTextInput(recipient)
-                        ui.onNodeWithContentDescription("Amount in SAITO").performTextInput("6.25")
-                        ui.onNodeWithContentDescription("Fee in SAITO").performTextReplacement("0.1")
+                        enterNativeTransfer(ui, recipient, "6.25", "0.1")
                         reviewNativeTransfer(ui, device)
                         ui.waitUntil(20_000) { ui.onNodeWithText("Authenticate and send").isDisplayed() }
                         ui.onNodeWithText("Recipient: $recipient").assertIsDisplayed()
@@ -232,6 +225,80 @@ class WalletTransferPreviewTest {
                         ui.onAllNodesWithText("Pending. Inclusion has not been verified.").assertCountEquals(0)
                         peer.assertHealthy(); assertTrue(peer.transactions.isEmpty())
                         captureNativeScreen(File(context.cacheDir, "transfer-evidence/auth-setup-reopened.png"),
+                            "Available to send: 7.5 SAITO")
+                    }
+                }
+            }
+        }
+    }
+
+    @Test fun fundingLostAfterReviewAndRealAuthenticationCannotSendReserveOrQueue() = withDevicePin { device ->
+        val lostFunding = java.util.concurrent.atomic.AtomicBoolean(false)
+        val lostOptionsReads = AtomicInteger()
+        val lostBalanceReads = AtomicInteger()
+        val peer = ControlledFeedPeer("[]")
+        MockWebServer().use { server ->
+            server.dispatcher = object : Dispatcher() {
+                override fun dispatch(request: RecordedRequest): MockResponse {
+                    if (request.target == "/options") {
+                        if (lostFunding.get()) lostOptionsReads.incrementAndGet()
+                        return MockResponse.Builder().body("""{"consensus":{"genesis_period":80640}}""").build()
+                    }
+                    val key = request.target.removePrefix("/balance/")
+                    if (request.target != "/balance/$key" || !SaitoWallet.isPublicKey(key)) {
+                        return MockResponse.Builder().code(400).build()
+                    }
+                    val header = "${System.currentTimeMillis()}-1234-${"a".repeat(64)}.snap\n"
+                    val rows = if (lostFunding.get()) {
+                        lostBalanceReads.incrementAndGet()
+                        ""
+                    } else "$key 1001 7 2 500000000 0\n$key 1002 9 0 250000000 7\n"
+                    return MockResponse.Builder().body(header + rows).build()
+                }
+            }
+            server.start(InetAddress.getByName("127.0.0.1"), 0)
+            peer.start().use { transport ->
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                    .putExtra("feedDisabled", true)
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${transport.port}/wsopen")
+                    .putExtra("balanceApiUrl", "http://127.0.0.1:${server.port}/balance/")).use {
+                    ui.onNodeWithText("Wallet").performClick()
+                    val author = displayedWalletAddress(ui)
+                    withFailureCapture({ captureNativeScreen(File(context.cacheDir,
+                        "transfer-evidence/funding-lost-first-failure.png")) }) {
+                        ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
+                        val recipient = "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU"
+                        enterNativeTransfer(ui, recipient, "6.25", "0.1")
+                        reviewNativeTransfer(ui, device)
+                        ui.waitUntil(20_000) { ui.onNodeWithText("Authenticate and send").isDisplayed() }
+                        ui.onNodeWithText("Recipient: $recipient").assertIsDisplayed()
+                        ui.onNodeWithText("Amount: 6.25 SAITO").assertIsDisplayed()
+                        ui.onNodeWithText("Fee: 0.1 SAITO").assertIsDisplayed()
+                        ui.onNodeWithText("Send through saito.davidengelen.nl").assertIsDisplayed()
+                        peer.assertHealthy(); assertTrue(peer.transactions.isEmpty())
+                        lostFunding.set(true)
+                        ui.onNodeWithText("Authenticate and send").performClick()
+                        waitForSystemPin(device)
+                        peer.assertHealthy(); assertTrue(peer.transactions.isEmpty())
+                        enterRealSystemPin(device)
+                        val oldFailure = "Transfer was not submitted. Review again when the selected server is available."
+                        val failure = "Transfer was not submitted. Check your available funds and connection, then review again."
+                        ui.waitUntil(20_000) { ui.onNodeWithText(oldFailure).isDisplayed() || ui.onNodeWithText(failure).isDisplayed() }
+                        assertTrue(lostOptionsReads.get() > 0)
+                        assertTrue(lostBalanceReads.get() > 0)
+                        peer.assertHealthy(); assertTrue(peer.transactions.isEmpty())
+                        ui.onNodeWithText(failure).assertIsDisplayed()
+                        captureNativeScreen(File(context.cacheDir, "transfer-evidence/funding-lost.png"), failure)
+                        assertEquals(context.packageName, device.currentPackageName)
+                        device.pressBack() // The observed failure is in the app, after the credential prompt finished.
+                        ui.waitUntil(5_000) { ui.onNodeWithText("Send SAITO").isDisplayed() }
+                        ui.onNodeWithContentDescription("Wallet address").assertTextEquals(author)
+                        lostFunding.set(false)
+                        ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
+                        ui.waitUntil(15_000) { ui.onNodeWithText("Available to send: 7.5 SAITO").isDisplayed() }
+                        ui.onAllNodesWithText("Pending. Inclusion has not been verified.").assertCountEquals(0)
+                        peer.assertHealthy(); assertTrue(peer.transactions.isEmpty())
+                        captureNativeScreen(File(context.cacheDir, "transfer-evidence/funding-lost-reopened.png"),
                             "Available to send: 7.5 SAITO")
                     }
                 }

@@ -13,6 +13,12 @@ import nl.davidengelen.redsquare.saito.SaitoWallet
 import java.util.regex.Pattern
 
 /** Shared controlled funding and observed-IME handling; journeys retain their own assertions. */
+internal fun enterNativeTransfer(ui: ComposeTestRule, recipient: String, amount: String, fee: String) {
+    ui.onNodeWithContentDescription("Recipient address").performTextInput(recipient)
+    ui.onNodeWithContentDescription("Amount in SAITO").performTextInput(amount)
+    ui.onNodeWithContentDescription("Fee in SAITO").performTextReplacement(fee)
+}
+
 internal fun reviewNativeTransfer(ui: ComposeTestRule, device: UiDevice) {
     val keyboard = By.pkg(Pattern.compile("com\\.(?:google\\.)?android\\.inputmethod\\.latin"))
     ui.waitUntil(5_000) { device.hasObject(keyboard) || ui.onNodeWithText("Review transfer").isDisplayed() }

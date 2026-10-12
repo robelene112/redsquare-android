@@ -666,3 +666,25 @@ height1112506/cf5320... zero-row snapshot for public unsafe scalar2. Sanitized
 reports/probe3hashes in current-public-endpoint-read. Dated host schema readiness,
 not native publicUI/positive funding/block-route/consensus/admission. No private
 wallet, production writes or real funds accessed. Native setup GREEN pending.
+
+Both minimum setup source/evidence axes throughdd2a98f clear. Unchanged native
+38209545407 atdd2a98f PASSES ordinary6/71.565s plus separate existing pending
+death4741->4880/cold1/8.664s/credentialcleanup1/.031s:8/3/1,no assumptions,
+core66/debug/test/release/lint. Unsecured setup case observes exactreview, correct
+transfer guidance, still-unsecured/appforeground, sameauthor/reopened fresh7.5/
+noPending/zero type4. Root full2originalPNG/separate2XML, reopened normalIME
+over lowerform/footer qualified. Twelve indexed hashes in auth-setup-ui-green/
+android17. This setup case is not itself the separate pending-death driver.
+
+Post-GREEN narrow public-UI field-entry helper shares the actual repeat in three
+prior journeys; assertions/authentication remain local. Next one native tracer
+removes actual HTTP funding after valid6.25/.1/recipient/owner review, uses real
+systemPIN, observes fresh options+empty snapshot, demands truthful funding/
+connection guidance with zero type4, then restores funding and requires sameauthor/
+reopened7.5/noPending/no automatic queue. Existing safety should already reject
+before reservation; current generic copy incorrectly blames server availability.
+Product unchanged after setup fix; test compile/native result pending.
+
+Funding loss tracer APK compiles1m22s, one retained hash in funding-lost-test-
+preparation. No product delta; native result and bounded tracer/evidence reviews
+pending. Prior setup GREEN evidence retained with exact indexed8/3/1 counts.
