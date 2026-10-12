@@ -94,4 +94,29 @@ ownership before saying yourpost, sorts both available activity kinds by signed
 time and opens the signed reply's Conversation/verifiedactorProfile. It reuses
 one real selected peer and a shared row presentation with two actual consumers.
 Other event kinds/partial failure/cache/paging/missing parent still pending.
-Local core/debug/test build PASSES3m8s (core66up-to-date); hosted reply GREEN pending.
+Local core/debug/test build PASSES2m57s (core66up-to-date); hosted reply GREEN pending.
+
+Reply-slice two-axis review d9eccec...3d6a3c4: Standards0hard/0heuristics;
+Spec1wrongclassifier, because readSearch accepts signed commentary retweets and
+parentID alone does not prove create-tweet reply kind. Independent adversarial
+parentedQuote added (valid unsafe2 signature/owner recipient), current reference
+6267bytes/SHA476cfd8c86bd3cf1198c1c57dc495d68d5a17ee5b30c50df97f1483de8fa113d;
+docs/native/corecopies identical. It is synthetic classifier coverage, not observed
+live module output. New public reply-reader extraction preserved the parent-only
+criterion for one genuine coreRED: expectedonlyreply, gotreply+quote;1failure0.413s/
+build57s. Corrected verified request check and quiet valid ineligibility passes
+allcore67/0/0/0/build55s. Native now adopts readReplies. Two files/hashes retained
+in each reply-classifier-red/green folder. Correction review pending.
+
+Native repeat38279447141 at3d6a3c4 is not GREEN:2reported/1PASS/1failure25.131s/
+0completedOKrecords/no deaths/core66/compiler/debug/testPASS. Like completes;
+reply appears andopens Conversation containing signedreply+root, Back returns.
+Line50fails beforeactorProfile because unmerged sibling predicate matches both
+same-actor rows. Root failureoriginalPNG/separateXML showsclearreplyfirst/likesecond/
+fullrawkeys. Success/failure PNGs identicalbytes, alsoXMLs; duplicatefilesomitted.
+Three indexedfiles reply-actor-selector-failure/android17. No runtime timing or
+product routing cause inferred. Selector correction requires exactly2actor keys
+and taps displayedfirst(newerreply), preserves finalverifiedProfile/identity/no-write/
+cleanup assertions andtimebounds. Next owner-index response also supplies valid
+parentedQuote, verifying actualnative use of corrected signed-request classifier.
+Corrected local core/debug/test build PASSES2m41s (core67up-to-date); hosted repeat pending.

@@ -18,6 +18,14 @@ const incomingReply = {
   field1: 'RedSquare', field3: owner, field4: thread.root.sig,
   field5: thread.root.sig, updated_at: 1700000000055, flagged: 0
 };
+// A valid quote signature does not turn into a reply because it carries a parent field.
+const parentedQuote = {
+  ...signedReference('2', {module: 'RedSquare', request: 'retweet',
+    data: {signature: thread.root.sig, text: 'Quote carrying a parent reference',
+      parent_id: thread.root.sig, thread_id: thread.root.sig}}, 1700000000056, [owner]),
+  field1: 'RedSquareRetweet', field3: owner, field4: thread.root.sig,
+  updated_at: 1700000000056, flagged: 0
+};
 console.log(JSON.stringify({synthetic: true, reference, owner,
   actor: 'pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU',
-  root: thread.root, incomingLike, incomingReply}, null, 2));
+  root: thread.root, incomingLike, incomingReply, parentedQuote}, null, 2));

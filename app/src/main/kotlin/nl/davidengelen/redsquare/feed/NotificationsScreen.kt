@@ -51,7 +51,7 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, knownPo
                         return peer.request(request.toString().toByteArray(Charsets.UTF_8)).toString(Charsets.UTF_8)
                     }
                     RedSquareLikes.readIncoming(read("RedSquareLike"), wallet.publicKey) to
-                        RedSquareFeed.readSearch(read("RedSquare"))
+                        RedSquareFeed.readReplies(read("RedSquare"))
                 }
             }
             events = likePage.likes

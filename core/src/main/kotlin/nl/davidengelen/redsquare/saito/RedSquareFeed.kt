@@ -50,6 +50,15 @@ object RedSquareFeed {
     /** Available history includes replies as well as root posts. */
     fun readSearch(response: String): ArchiveFeedPage = readPosts(response) { true }
 
+    /** Reply history, separate from commentary quotes. */
+    fun readReplies(response: String): ArchiveFeedPage {
+        val page = readSearch(response)
+        return page.copy(posts = page.posts.filter { post ->
+            post.parentId.isNotEmpty() &&
+                SaitoEnvelope.decode(post.envelope).body.string("request") == "create tweet"
+        })
+    }
+
     fun readConversation(response: String, threadId: String): ArchiveFeedPage =
         readPosts(response) { it.threadId == threadId }
 

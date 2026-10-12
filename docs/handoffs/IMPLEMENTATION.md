@@ -33,7 +33,13 @@ reply RED38278289475 confirms missingreplycaption, while existinglikejourney
 passes (2reported/1PASS/1failure41.429s/0completedOKrecords). Root originalPNG+
 separateXML/3hashes retained. Both tracerreviews clear. Minimum owner-index
 verifiedreply/knownownparent/signed-time mergedrows/conversation routing added;
-localcore/debug/test build passes; hostedreplyGREEN pending.
+localcore/debug/test build passes2m57s. Native38279447141 passeslike andreply
+Conversation/root/reply, then selector finds2sameactor nodesbeforeProfile. Root
+PNG/XML/3hashes retained. Corrected selector requires exactly2actor keys andtaps
+first/newerreply; no timeoutsrelaxed. Spec reviewcaughtsignedparentedquote misclassified
+asreply. IndependentcoreRED57s/1failure reproduced; corrected request-kind reader
+passes67coretests55s andnowusednative. Reference6267bytes/currentSHA476cfd8c... is
+identical docs/native/core. Corrected localcore/debug/test build PASSES2m41s; hostedrepeat andcorrectionreviewpending.
 
 Other activity, available-history coverage, personal controls/read-state/cache,
 failure/recovery/backend/wallet isolation, permission deny/allow and final full

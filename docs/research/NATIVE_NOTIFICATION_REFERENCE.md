@@ -16,8 +16,12 @@ The next tracer adds an unsafe2 signed reply with the root as parent/thread and 
 actual unsafe1 output recipient. Both signatures and decoded thread identifiers
 come from the pinned independent generator. The original like-only snapshot was
 2980 bytes, SHA2562b8a817154dae7ab0918baaed1f792a74e062b904d33a3b35d05d075502149c9.
-Current whole JSON SHA256:26d25c2d23cf46a020e9466f6cb09520a6cbe8f265919c058c6fe5f3eedbc6e3;
-4597bytes. Documentation andnativeasset copies are identical.
+The reply-only snapshot was4597bytes/SHA25626d25c2d23cf46a020e9466f6cb09520a6cbe8f265919c058c6fe5f3eedbc6e3.
+A subsequent independently signed `retweet` quote deliberately carries a valid
+parent reference. It is an adversarial request-classification fixture, not an
+observed deployed module output: a parent field does not change its signed kind.
+Current whole JSON SHA256:476cfd8c86bd3cf1198c1c57dc495d68d5a17ee5b30c50df97f1483de8fa113d;
+6267bytes. Documentation andnativeasset copies are identical.
 
 Reproduction uses the existing build image, networknone/read-only container and
 rootfilesystem mount, root inside the container for chroot, empty environment,

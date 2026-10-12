@@ -1,0 +1,82 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.NotificationsPreviewTest:
+INSTRUMENTATION_STATUS: test=anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to perform checkIsDisplayed check: Expected at most 1 node but found 2 nodes that satisfy ((Text + InputText + EditableText contains 'pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU' (ignoreCase: false)) && (hasAnySiblingThat(Text + InputText + EditableText contains 'Replied to your post' (ignoreCase: false))))
+	at androidx.compose.ui.test.AndroidAssertions_androidKt.checkIsDisplayed(AndroidAssertions.android.kt:35)
+	at androidx.compose.ui.test.AssertionsKt.isDisplayed(Assertions.kt:351)
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:33)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile$lambda$1(NotificationsPreviewTest.kt:50)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$x0u87e5bvpPS5BNmmYvF0iMiDHE(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$9$lambda$8$lambda$7(NotificationsPreviewTest.kt:123)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$HtCgvLMRzt4LoXWEy4oMP2bxweE(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:106)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile(NotificationsPreviewTest.kt:37)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile(nl.davidengelen.redsquare.NotificationsPreviewTest):
+java.lang.AssertionError: Failed to perform checkIsDisplayed check: Expected at most 1 node but found 2 nodes that satisfy ((Text + InputText + EditableText contains 'pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU' (ignoreCase: false)) && (hasAnySiblingThat(Text + InputText + EditableText contains 'Replied to your post' (ignoreCase: false))))
+	at androidx.compose.ui.test.AndroidAssertions_androidKt.checkIsDisplayed(AndroidAssertions.android.kt:35)
+	at androidx.compose.ui.test.AssertionsKt.isDisplayed(Assertions.kt:351)
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:33)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile$lambda$1(NotificationsPreviewTest.kt:50)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$x0u87e5bvpPS5BNmmYvF0iMiDHE(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$9$lambda$8$lambda$7(NotificationsPreviewTest.kt:123)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$HtCgvLMRzt4LoXWEy4oMP2bxweE(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:106)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile(NotificationsPreviewTest.kt:37)
+
+INSTRUMENTATION_STATUS: test=anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 25.131
+There was 1 failure:
+1) anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile(nl.davidengelen.redsquare.NotificationsPreviewTest)
+java.lang.AssertionError: Failed to perform checkIsDisplayed check: Expected at most 1 node but found 2 nodes that satisfy ((Text + InputText + EditableText contains 'pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU' (ignoreCase: false)) && (hasAnySiblingThat(Text + InputText + EditableText contains 'Replied to your post' (ignoreCase: false))))
+	at androidx.compose.ui.test.AndroidAssertions_androidKt.checkIsDisplayed(AndroidAssertions.android.kt:35)
+	at androidx.compose.ui.test.AssertionsKt.isDisplayed(Assertions.kt:351)
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:33)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile$lambda$1(NotificationsPreviewTest.kt:50)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$x0u87e5bvpPS5BNmmYvF0iMiDHE(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$9$lambda$8$lambda$7(NotificationsPreviewTest.kt:123)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$HtCgvLMRzt4LoXWEy4oMP2bxweE(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:106)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile(NotificationsPreviewTest.kt:37)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

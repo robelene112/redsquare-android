@@ -46,8 +46,8 @@ class NotificationsPreviewTest {
             ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
             ui.onNodeWithText("Back").performClick()
             waitFor("Replied to your post")
-            ui.onNode(hasText(actor) and hasAnySibling(hasText("Replied to your post")),
-                useUnmergedTree = true).assertIsDisplayed().performClick()
+            // Both rows have this signer. The newer reply is the first displayed row.
+            ui.onAllNodesWithText(actor).assertCountEquals(2)[0].assertIsDisplayed().performClick()
             waitFor("Profile")
             ui.onNodeWithText(actor).assertIsDisplayed()
         }
@@ -85,7 +85,7 @@ class NotificationsPreviewTest {
                         require(criteria.get("flagged_ne").asInt == 1)
                         require(criteria.get("limit").asInt in 1..100)
                         replyReads.incrementAndGet()
-                        if (includeReply) "[${fixture.get("incomingReply")}]" else "[]"
+                        if (includeReply) "[${fixture.get("incomingReply")},${fixture.get("parentedQuote")}]" else "[]"
                     }
                     criteria.get("field5")?.asString == root.get("sig").asString ->
                         if (includeReply) "[$root,${fixture.get("incomingReply")}]" else "[$root]"
