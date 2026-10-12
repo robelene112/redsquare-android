@@ -696,3 +696,16 @@ SHA8a85d511e0b8ab5100fe28da9e3cffbbdd82cfed6a1ada78b7e11ac42f2bfd63 identical
 threecopies, pinnedofflineWASM/Elliptic; no nodeinit/networkwrites. ExistingUIstill
 requiresknownownreplyparent anddropsunknownaddressedreply. No neutralreply/parent
 unavailablecodeyet; first17RED pending.
+
+Bounded5d68810...a6af24e bothaxes0/36hashes/referencecopiesverified. Genuine17RED10
+38308473338 ata6af24e reports17/16PASS/1failure62.058s/0OKrecords/deaths/core73/debug/
+test, newneutralreplymissing309. All16old/finalgates pass. Threehashes missing-reply-
+native-red/android10; rootfullOwner/Notifications/1unread/Markall/actor/like/noreply
+failurePNG andseparateXML inspected. Latercontent/lookup/Refresh/Actor/parentcounts
+unexecuted. Minimumreplyrows use existingsharedverified-own/unknown-signed-address
+captionpolicy; knownnon-own parentsstayexcluded. Conversation retainsitsselected
+signedreply, consultsexisting boundedverifiedQuoteState parent lookup ifthreadpage
+hasnoparent, rendersverifiedparentwhenavailable anddistinct loading/error/unavailable
+copy withRefresh. Sameendpoint/backendscope/sigchecks/limits/revisions/cache. Compile/
+first17GREENpending. Rootreviewalsofoundin-scope parentcachelookup skippedifthread
+requestfails becausecallisinsidethreadtry; corrective reviewfollowuprequired.

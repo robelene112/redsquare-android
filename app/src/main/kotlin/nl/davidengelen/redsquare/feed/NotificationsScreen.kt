@@ -191,9 +191,14 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
                 NotificationRow(event.id, event.author, event.createdAt, target, caption, event.target)
             }
         }
-        val rows = (quoteRows + repostRows + likeRows + replies.filter { reply ->
-            knownPosts.any { it.id == reply.parentId && it.author == wallet?.publicKey }
-        }.map { reply -> NotificationRow(reply.id, reply.author, reply.createdAt, reply, R.string.notifications_reply_own) } +
+        val replyRows = replies.mapNotNull { reply ->
+            val target = knownPosts.firstOrNull { it.id == reply.parentId }
+            referenceCaption(wallet?.publicKey, target, reply.recipients,
+                R.string.notifications_reply_own, R.string.notifications_reply)?.let { caption ->
+                NotificationRow(reply.id, reply.author, reply.createdAt, reply, caption)
+            }
+        }
+        val rows = (quoteRows + repostRows + likeRows + replyRows +
             mentions.map { mention -> NotificationRow(mention.id, mention.author, mention.createdAt, mention, R.string.notifications_mention) })
             .distinctBy { it.id }
         val visible = rows.filter { personal?.hidesPosts(it.author) == false }.sortedByDescending { it.createdAt }

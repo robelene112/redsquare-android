@@ -92,11 +92,16 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
             }
             unreadable = page.ignored > 0
             failed = false
+            if (selected.parentId.isNotEmpty() && posts.none { it.id == selected.parentId })
+                quotes?.load(selected.parentId, refresh = refresh > 0)
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { failed = true }
         finally { loading = false }
     }
-    val visiblePosts = posts.filter { personal?.hidesPosts(it.author) == false }
+    val parent = quotes?.originals?.get(selected.parentId)
+    val available = RedSquareFeed.newest(posts + listOfNotNull(parent?.post)).sortedBy { it.createdAt }
+    val parentMissing = selected.parentId.isNotEmpty() && available.none { it.id == selected.parentId }
+    val visiblePosts = available.filter { personal?.hidesPosts(it.author) == false }
     Column(modifier) {
         Row {
             TextButton(onClick = onBack) { Text(stringResource(R.string.browse_back)) }
@@ -120,7 +125,12 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
         if (loading) Text(stringResource(R.string.conversation_loading))
         if (failed) Text(stringResource(R.string.conversation_error))
         if (unreadable) Text(stringResource(R.string.conversation_unreadable))
-        if (cacheWarning) Text(stringResource(R.string.feed_cache_warning), style = MaterialTheme.typography.bodySmall)
+        if (cacheWarning || parent?.cacheWarning == true) Text(stringResource(R.string.feed_cache_warning), style = MaterialTheme.typography.bodySmall)
+        if (parentMissing) {
+            if (parent?.loading == true) Text(stringResource(R.string.conversation_parent_loading))
+            else if (!loading) Text(stringResource(if (failed || parent?.failed == true)
+                R.string.conversation_parent_error else R.string.conversation_parent_unavailable))
+        }
         LazyColumn(Modifier.fillMaxSize()) {
             items(visiblePosts, key = { it.id }) { post ->
                 Column(Modifier.padding(vertical = 12.dp)) {
