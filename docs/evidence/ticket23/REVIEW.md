@@ -357,3 +357,25 @@ assertions retained; completed Refresh establishes warm history before outage.
 Zero actionable findings. Both requested waits resolve the source readiness
 concern. Both axes verify52hashes/25XML/original remaining PNG/raw23GREENcounts.
 Original24 run does not prove these corrected waits. No reproduced defect.
+
+First24GREEN10 38320137452 at08a05c3 passes24/80.211s/1OK/0deaths/assumptions/
+core73/debug/test. ActualMute/Block/hiddenrows+unread/recreatedfailedreads/
+managementremoval/cachedrestore/all23old/finalopaque/no-write pass.58hashes/
+all28XML/rootoriginalMute,Block,restoredPNGs inspected. LocaloriginalAPK1m39PASS.
+This proves originalfixture run; corrected warming waits remain unverified until
+25native. Correction bothaxes0. No reproduced timing defect or actualdeath claim.
+
+## Backend regression initial review
+
+### Standards
+
+`c0a71b9...cc23326`: zero hard violations/Fowler smells, one verification gap:
+distinct event IDs cannot detect globally shared read markers. Existing fixture
+ownership/restoration/peer closure and completed-read waits are sound.
+
+### Spec
+
+Two fixture gaps: add one shared signed event on both peers to prove marker
+separation; reassert retained Owner actor/like after failed Refresh rather than
+only zero unread/absent Official actor. No demonstrated production defect.
+Original25 run38320586603 pending; corrective fixture pending compilation.

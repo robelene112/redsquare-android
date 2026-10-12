@@ -531,14 +531,14 @@ class NotificationsPreviewTest {
                 JsonParser.parseReader(it).asJsonObject.getAsJsonObject("boundaryIncomingLike").get("field2").asString
             }
         withNotifications("backend-isolation", Mode.BACKEND) { ownerActor, _, responses ->
-            waitFor("1 unread")
+            waitFor("2 unread")
             waitFor("Liked your post")
             ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
                 .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
             ui.onNodeWithText("Mark all as read").performClick()
             waitFor("No unread activity")
             switchNotificationBackend("saito.io")
-            waitFor("1 unread")
+            waitFor("2 unread")
             waitFor(officialActor)
             ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
                 .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
@@ -560,6 +560,8 @@ class NotificationsPreviewTest {
                 .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
             ui.onNodeWithText("Server: saito.davidengelen.nl").assertIsDisplayed()
             ui.onNodeWithText("No unread activity").assertIsDisplayed()
+            ui.onNodeWithText(ownerActor).assertIsDisplayed()
+            ui.onAllNodesWithText("Liked your post").assertCountEquals(2)
             ui.onAllNodesWithText(officialActor).assertCountEquals(0)
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
                 "notification-evidence/backend-owner-failed.png"), "No unread activity")
@@ -701,6 +703,7 @@ class NotificationsPreviewTest {
                     require(criteria.get("limit").asInt in 1..100)
                     likeReads.incrementAndGet()
                     when (mode) {
+                        Mode.BACKEND -> "[${fixture.get("incomingLike")},${fixture.get("olderIncomingLike")}]"
                         Mode.PAGING -> {
                             val before = criteria.get("created_earlier_than").asLong
                             if (before > 1700000000051L) com.google.gson.JsonArray().apply {
@@ -800,7 +803,7 @@ class NotificationsPreviewTest {
             when (criteria.get("field1").asString) {
                 "RedSquareLike" -> {
                     require(criteria.get("field3").asString == owner)
-                    "[${fixture.get("boundaryIncomingLike")}]"
+                    "[${fixture.get("boundaryIncomingLike")},${fixture.get("olderIncomingLike")}]"
                 }
                 "RedSquare" -> if (criteria.has("field3")) {
                     require(criteria.get("field3").asString == owner); "[]"

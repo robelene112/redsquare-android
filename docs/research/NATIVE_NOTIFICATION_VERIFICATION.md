@@ -934,3 +934,18 @@ reports. Corrected24 warming waits included. Local fixture/native pending.
 Backend fixture initialAPK1m30PASS. Root adds completedRefresh before Official
 marking and Owner failure injection, preserving observable assertions and avoiding
 canceling an unfinished warm page. Corrected25 fixture compilation pending.
+
+First24GREEN10 38320137452 at08a05c3 passes24/80.211s/1OK/0deaths/assumptions/
+core73/debug/test. ActualMute/Block/hiddenrows+unread/recreatedfailedreads/
+managementremoval/cachedrestore/all23old/finalopaque/no-write pass.58hashes/
+all28XML/rootoriginalMute,Block,restoredPNGs inspected. LocaloriginalAPK1m39PASS.
+This proves originalfixture run; corrected warming waits remain unverified until
+25native. Correction bothaxes0. No reproduced timing defect or actualdeath claim.
+
+Initial backend fixturecc23326 Standards1verificationgap/Spec2fixturegaps: distinct
+IDs cannot detect global markers; failed Owner view needs positive retained-row
+assertion. Correction includes identical signed olderIncomingLike on both peers,
+expects2unread initially on each despite Owner marking, retains distinct actor
+absence, and positively asserts Owner actor/two likes after failure. No product
+defect/reproduced failure claim. Initial25 run38320586603 cannot establish this
+new shared-ID isolation acceptance. Corrective compile/native pending.
