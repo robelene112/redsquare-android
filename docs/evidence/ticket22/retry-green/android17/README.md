@@ -15,7 +15,7 @@ exactly1frame through reopening, fresh real system PIN controls and still1frame
 before entering PIN, exactly2frames afterward, byte-identical second routed
 frame and unchanged reservations. Both auth cases positively clear the PIN;
 retained cancellation and balance/copy pass. Activity recreation is NOT process
-death. No fresh grant, new candidate/signature/reservation or automatic send.
+death. No retained grant, new candidate/signature/reservation or automatic send.
 
 Root independently verifies the retained actual first762byte frame using pure
 pinnedWASM/Elliptic in networknone/RO/env-i/capdrop bounded runner: literal
