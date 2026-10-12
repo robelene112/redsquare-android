@@ -39,8 +39,11 @@ journey added. Onlyunsafe1 namecachebasename/atomic companions are snapshotted
 opaquely, removedinside try forfreshdiscovery andrestoredindependentlybyte-for-byte.
 Existingdebug/emulator/loopback registrar guard retained; production unchanged.
 Current reference10287bytes/SHA23c9c5a3597694eeabdfadff677a6f20a3f2062a6c94ffe338b242697978b828
-identical docs/native/core. Localcore/debug/test build PASSES3m18s. Four-journey
-hostedrepeat andboundedreviews pending; nexteventtracer reposts/quotes afterthis.
+identical docs/native/core. Localcore/debug/test build PASSES3m18s. Firstfour-journey38285387453 at5558d0f running. BoundedSpec0; Standards1fixture
+snapshot/removalrace concern (not reproduced). Snapshot+precisecapturedset removal
+nowone lockedoperation inside try; cleanupownership assignedbeforefirstmutation.
+LocaltestAPKassembly PASSES1m49s; app/core unchanged. Correctedfocus/re-review
+pending. Nextprotocoltracer ordinaryreposts, thenquotes; noother ticketclaimed.
 
 Whole-ticket base remains d1e65f5. Canonical source contract and chronology:
 docs/research/NATIVE_NOTIFICATIONS_CONTRACT.md and NATIVE_NOTIFICATION_VERIFICATION.md.

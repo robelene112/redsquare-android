@@ -113,10 +113,7 @@ class NotificationsPreviewTest {
         val nameBase = "namemap.$owner.v1"
         fun nameFiles() = context.noBackupFilesDir.listFiles().orEmpty()
             .filter { it.name == nameBase || it.name.startsWith("$nameBase.") }
-        val priorNames = if (mode == Mode.USERNAME) nameFiles().associate { file ->
-            check(file.isFile)
-            file.name to file.readBytes()
-        } else null
+        var priorNames: Map<String, ByteArray>? = null
         val likeReads = AtomicInteger()
         val replyReads = AtomicInteger()
         val peer = ControlledFeedPeer("[$root]", registryResponse = { criteria ->
@@ -162,12 +159,18 @@ class NotificationsPreviewTest {
         })
         var primary: Throwable? = null
         try {
+            if (mode == Mode.USERNAME) synchronized(nl.davidengelen.redsquare.saito.SaitoLocalState.lock) {
+                val captured = nameFiles().associate { file ->
+                    check(file.isFile)
+                    file.name to file.readBytes()
+                }
+                // Record ownership before the first mutation so a partial failure restores the snapshot.
+                priorNames = captured
+                captured.keys.forEach { check(File(context.noBackupFilesDir, it).delete()) }
+            }
             if (prior.publicKey != owner) store.replace(prior, wallet)
             AndroidBackendStore(context).save(SaitoBackend.OWNER)
             check(permission.edit().remove("offered").commit())
-            if (priorNames != null) synchronized(nl.davidengelen.redsquare.saito.SaitoLocalState.lock) {
-                nameFiles().forEach { check(it.delete()) }
-            }
             peer.start().use { server ->
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
@@ -217,11 +220,13 @@ class NotificationsPreviewTest {
                 check(edit.commit())
                 check(if (priorOffer == null) !permission.contains("offered") else permission.getBoolean("offered", !priorOffer) == priorOffer)
             }, {
-                if (priorNames != null) synchronized(nl.davidengelen.redsquare.saito.SaitoLocalState.lock) {
-                    nameFiles().forEach { check(it.isFile && it.delete()) }
-                    priorNames.forEach { (name, bytes) -> File(context.noBackupFilesDir, name).writeBytes(bytes) }
-                    check(nameFiles().map { it.name }.toSet() == priorNames.keys)
-                    nameFiles().forEach { check(it.readBytes().contentEquals(priorNames.getValue(it.name))) }
+                priorNames?.let { saved ->
+                    synchronized(nl.davidengelen.redsquare.saito.SaitoLocalState.lock) {
+                        nameFiles().forEach { check(it.isFile && it.delete()) }
+                        saved.forEach { (name, bytes) -> File(context.noBackupFilesDir, name).writeBytes(bytes) }
+                        check(nameFiles().map { it.name }.toSet() == saved.keys)
+                        nameFiles().forEach { check(it.readBytes().contentEquals(saved.getValue(it.name))) }
+                    }
                 }
             })
         }

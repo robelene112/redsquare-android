@@ -213,3 +213,14 @@ namecache basename/atomic companions are snapshotted opaquely, removedintry for
 freshdiscovery andindependentlyrestoredbyte-for-byte infinally. Original wallet/
 backend/permission/nonamecase state remainpreserved. Fourmodefixtureconsumers;
 Localcore/debug/test build PASSES3m18s (core70up-to-date); 4-journeyhostedrepeat/boundedreviews pending.
+
+Username boundedreview5aa4a32...5558d0f: Spec0actionable; Standards1fixture
+preservation concern/0smells. Namefile snapshotwas outside sharedstate lock while
+removalwaslaterinside, allowing an intervening writer/atomiccompanion transition.
+No actualrace/dataloss wasreproduced. Correction moves snapshot+precisecapturedset
+removalintoone locked block inside try, assigningnullablecleanupownership before
+firstdelete. Snapshotfailurebeforeassignment makesnomutation; partialdeletefailure
+restorescapturedbytes. Existing independentlyrestoredwallet/backend/permission/
+namefile assertions remain. LocaltestAPKassembly PASSES1m49s; core/app source
+unchanged. Firstnative4journey38285387453 at5558d0f stillrunning; correctedfocused
+repeatandre-reviewpending. No timeout/acceptancepredicate relaxation.
