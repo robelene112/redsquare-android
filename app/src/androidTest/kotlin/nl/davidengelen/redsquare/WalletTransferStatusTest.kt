@@ -9,6 +9,8 @@ import androidx.test.uiautomator.UiDevice
 import java.io.File
 import java.net.InetAddress
 import java.util.Base64
+import java.util.UUID
+import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicInteger
 import java.math.BigInteger
 import mockwebserver3.Dispatcher
@@ -25,6 +27,158 @@ class WalletTransferStatusTest {
     @get:Rule val ui = createEmptyComposeRule()
     private val instrumentation get() = InstrumentationRegistry.getInstrumentation()
     private val context get() = instrumentation.targetContext
+
+    @Test fun pendingPaymentStaysReservedAcrossBackendsAndReturnsOnlyWithItsOriginalWallet() {
+        check(context.packageName == "nl.davidengelen.redsquare.dev")
+        check(instrumentation.context.packageName == "nl.davidengelen.redsquare.dev.test")
+        check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
+        val fixture = instrumentation.context.assets.open("native-block-reference.json")
+            .bufferedReader().use { TransferInclusionFixture(it.readText()) }
+        val incoming = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
+        assertEquals("pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU", incoming.publicKey)
+        val wallets = AndroidWalletStore(context)
+        val prior = wallets.loadOrCreate()
+        val funded = AtomicBoolean(true)
+        val positiveReads = AtomicInteger()
+        val rows = fixture.payment.inputs.joinToString("\n", postfix = "\n") {
+            "${fixture.wallet.publicKey} ${it.block} ${it.ordinal} ${it.index} ${it.amount} ${it.type}"
+        }
+        val ownedDocuments = mutableListOf<Pair<File, String>>()
+        context.noBackupFilesDir.listFiles()?.filter { it.name.startsWith("transfer.") }?.forEach { check(it.delete()) }
+        AndroidBackendStore(context).save(SaitoBackend.OWNER)
+        var primaryFailure: Throwable? = null
+        try {
+            wallets.replace(prior, fixture.wallet)
+            // Independent pre-existing signed candidate; this journey never authenticates or sends money.
+            TransferStore(context, fixture.wallet.publicKey).reserve(SaitoBackend.OWNER, fixture.payment)
+            val owner = ControlledFeedPeer("[]")
+            val official = ControlledFeedPeer("[]")
+            MockWebServer().use { server ->
+                server.dispatcher = object : Dispatcher() {
+                    override fun dispatch(request: RecordedRequest): MockResponse {
+                        if (request.target == "/options") return MockResponse.Builder()
+                            .body("""{"consensus":{"genesis_period":80640}}""").build()
+                        val key = request.target.removePrefix("/balance/")
+                        if (request.target != "/balance/$key" || !SaitoWallet.isPublicKey(key))
+                            return MockResponse.Builder().code(404).build()
+                        val slips = if (key == fixture.wallet.publicKey && funded.get()) {
+                            positiveReads.incrementAndGet(); rows
+                        } else ""
+                        return MockResponse.Builder().body(
+                            "${System.currentTimeMillis()}-2000003-${"c".repeat(64)}.snap\n" + slips).build()
+                    }
+                }
+                server.start(InetAddress.getByName("127.0.0.1"), 0)
+                owner.start().use { ownerTransport -> official.start().use { officialTransport ->
+                    ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                        .putExtra("feedDisabled", true)
+                        .putExtra("feedPeerUrl", "ws://127.0.0.1:${ownerTransport.port}/wsopen")
+                        .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${officialTransport.port}/wsopen")
+                        .putExtra("balanceApiUrl", "http://127.0.0.1:${server.port}/balance/")).use { scenario ->
+                        withFailureCapture({ captureNativeScreen(File(context.cacheDir,
+                            "transfer-evidence/isolation-first-failure.png")) }) {
+                            val pending = "Pending. Inclusion has not been verified."
+                            for ((index, backend) in listOf(SaitoBackend.OWNER, SaitoBackend.OFFICIAL,
+                                SaitoBackend.OFFICIAL, SaitoBackend.OWNER).withIndex()) {
+                                if (index == 2) scenario.recreate()
+                                else if (index > 0) {
+                                    ui.onNodeWithText("Settings").performClick()
+                                    ui.onNodeWithText(backend.domain).performClick()
+                                }
+                                ui.waitUntil(15_000) { ui.onNodeWithText("Server: ${backend.domain}").isDisplayed() }
+                                ui.onNodeWithText("Wallet").performClick()
+                                ui.onNodeWithContentDescription("Wallet address").assertTextEquals(fixture.wallet.publicKey)
+                                val previousReads = positiveReads.get()
+                                ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
+                                ui.waitUntil(15_000) { positiveReads.get() > previousReads &&
+                                    ui.onNodeWithText("Available to send: 0 SAITO").isDisplayed() }
+                                ui.onNodeWithText(pending).assertIsDisplayed()
+                                ui.onNodeWithText("Transfer server: saito.davidengelen.nl.").assertIsDisplayed()
+                                if (backend == SaitoBackend.OWNER) ui.onNodeWithText("Retry transfer").assertIsEnabled()
+                                else ui.onNodeWithText("Retry transfer").assertIsNotEnabled()
+                                owner.assertHealthy(); official.assertHealthy()
+                                assertTrue(owner.transactions.isEmpty() && official.transactions.isEmpty())
+                                captureNativeScreen(File(context.cacheDir, "transfer-evidence/isolation-backend-$index.png"), pending)
+                                closeTransferAndWallet()
+                            }
+                            funded.set(false) // Actual fresh zero permits optional backup skipping, never auth bypass.
+                            replaceWalletThroughPicker(incoming, ownedDocuments, expectPendingWork = true)
+                            ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
+                            ui.waitUntil(15_000) { ui.onNodeWithText("Available to send: 0 SAITO").isDisplayed() }
+                            ui.onAllNodesWithText(pending).assertCountEquals(0)
+                            ui.onAllNodesWithText("Retry transfer").assertCountEquals(0)
+                            owner.assertHealthy(); official.assertHealthy()
+                            assertTrue(owner.transactions.isEmpty() && official.transactions.isEmpty())
+                            captureNativeScreen(File(context.cacheDir, "transfer-evidence/isolation-incoming.png"),
+                                "Available to send: 0 SAITO")
+                            closeTransferAndWallet()
+                            replaceWalletThroughPicker(fixture.wallet, ownedDocuments, expectPendingWork = false)
+                            funded.set(true)
+                            reopenTransfers(scenario, fixture.wallet.publicKey)
+                            ui.waitUntil(15_000) { ui.onNodeWithText(pending).isDisplayed() }
+                            ui.onNodeWithText("Available to send: 0 SAITO").assertIsDisplayed()
+                            ui.onNodeWithText("Transfer server: saito.davidengelen.nl.").assertIsDisplayed()
+                            ui.onNodeWithText("Retry transfer").assertIsEnabled()
+                            assertEquals(SaitoBackend.OWNER, AndroidBackendStore(context).load())
+                            owner.assertHealthy(); official.assertHealthy()
+                            assertTrue(owner.transactions.isEmpty() && official.transactions.isEmpty())
+                            captureNativeScreen(File(context.cacheDir, "transfer-evidence/isolation-restored.png"), pending)
+                        }
+                    }
+                } }
+            }
+        } catch (failure: Throwable) { primaryFailure = failure; throw failure }
+        finally {
+            try {
+                val current = wallets.loadExisting()
+                when (current.exportJson()) {
+                    prior.exportJson() -> Unit
+                    fixture.wallet.exportJson(), incoming.exportJson() -> wallets.replace(current, prior)
+                    else -> error("Unexpected transfer isolation fixture wallet state")
+                }
+                check(wallets.loadExisting().exportJson() == prior.exportJson())
+                for ((file, contents) in ownedDocuments) {
+                    check(file.readText() == contents)
+                    check(file.delete())
+                }
+            } catch (cleanup: Throwable) {
+                val primary = primaryFailure
+                if (primary == null) throw cleanup else primary.addSuppressed(cleanup)
+            }
+        }
+    }
+
+    private fun closeTransferAndWallet() {
+        ui.onNode(hasText("Done") and hasAnyAncestor(isDialog() and
+            hasAnyDescendant(hasText("Available to send: 0 SAITO")))).performClick()
+        ui.onNodeWithText("Done").performClick()
+    }
+
+    private fun replaceWalletThroughPicker(incoming: SaitoWallet,
+        ownedDocuments: MutableList<Pair<File, String>>, expectPendingWork: Boolean) {
+        val contents = incoming.exportJson()
+        val directory = File(instrumentation.context.filesDir, "wallet-test-documents").apply { mkdirs() }
+        val file = File(directory, "000-transfer-${UUID.randomUUID()}.json")
+        check(!file.exists())
+        ownedDocuments.add(file to contents)
+        file.writeText(contents)
+        check(file.length() > 0)
+        ui.onNodeWithText("Wallet").performClick()
+        ui.onNodeWithText("Import wallet").performScrollTo().performClick()
+        chooseWalletImport(ui, file.name, incoming.publicKey)
+        ui.waitUntil(15_000) { ui.onAllNodesWithText("Server reports zero SAITO")
+            .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+        ui.onNodeWithText("Server reports zero SAITO").performScrollTo().assertIsDisplayed()
+        if (expectPendingWork) ui.onNodeWithText("Pending work belongs to your current wallet")
+            .performScrollTo().assertIsDisplayed()
+        ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsNotEnabled()
+        ui.onNodeWithText("Skip backup").performScrollTo().performClick()
+        ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsNotEnabled()
+        ui.onNodeWithContentDescription("Replacement risks acknowledged").performScrollTo().performClick()
+        ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsEnabled().performClick()
+        ui.waitUntil(15_000) { ui.onNodeWithText("Wallet imported").isDisplayed() }
+        ui.onNodeWithContentDescription("Wallet address").assertTextEquals(incoming.publicKey)
+    }
 
     @Test fun exactInclusionUnknownHistoryAndVerifiedReorganizationNeverAutomaticallyResend() {
         check(context.packageName == "nl.davidengelen.redsquare.dev")

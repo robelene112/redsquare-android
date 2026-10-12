@@ -731,3 +731,26 @@ Minimum UI fix gates Authenticate/Retry/Review on readable records and hides new
 fields during recovery. Store/auth/funding/reservations unchanged; no candidate
 deletion recovery policy. Hosted compiler/core/release/lint and unchanged native
 GREEN pending; no duplicate local APK build claimed for this small UI delta.
+
+Unchanged storage GREEN38212349387 at8879c82 PASSES ordinary8/126.952s plus
+separate existing pending death5061->5154/cold1/10.007s/cleanup1/.052s:
+10/3/1,no assumptions,core66/debug/test/release/lint. Root full3originalPNG/
+separate3XML; disabled action is proved by Compose and action-parent, not enabled
+text-child XML. Reopened warning/Done clear, ordinary IME below; restored form
+7.5/empty fields but IME overlays lowercopy/footer. Exact owned empty fault repaired,
+sameauthor/noPending/zero frames. Fourteen indexed hashes in storage-recovery-ui-
+green/android17. Both bounded minimum fix/RED axes0; GREEN evidence review pending.
+
+Next ONE native journey uses the independent pre-existing scalar1 signed candidate,
+real encrypted reservation and exact original7.5 inputs. Owner->Official->recreate
+Official->Owner must retain0available/pending/originalserver; Retry disabled away
+from original backend, noautomatic frames. One controlled HTTP origin is shared,
+logical persisted backends/binary endpoints are separate; not real cross-host proof.
+Actual SAF imports scalar2 then scalar1 after fresh controlledzero+explicit backup
+skip+riskack; outgoing transfer-work warning is required. Incoming sees no old
+candidate; restored original wallet must regain pending/reservations/backend without
+send. Primary-safe full opaque prior-wallet restore and exact-owned SAF cleanup.
+No auth grant/send bypass or live funds. Native existing behavior may already pass;
+no artificial RED required. Harness ordinary budget240s now includes this additional
+bounded two-import journey (prior8cases126.952s); no failed-timeout retry rationale.
+Hosted compiler/source/native result and bounded source/evidence reviews pending.

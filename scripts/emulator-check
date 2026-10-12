@@ -420,7 +420,8 @@ fi
 if [[ "${TEST_SCOPE:-full}" == full ]]; then verify_reports; fi
 verify_transfers() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
-    timeout 180 adb shell am instrument -w -r \
+    # Include the bounded two-import/backend-isolation journey alongside real-PIN cases.
+    timeout 240 adb shell am instrument -w -r \
         -e class nl.davidengelen.redsquare.WalletTransferPreviewTest,nl.davidengelen.redsquare.WalletTransferStatusTest \
         nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
         > "$evidence/transfers-ui.txt" || true

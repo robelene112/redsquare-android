@@ -72,23 +72,23 @@ zero type4 and truthful guidance; restored funding/reopening gives sameauthor/7.
 noPending/no frames. Root full2PNG/separate2XML with ordinary IME footer overlay.
 No funds were reserved or queued. All monetary logic remains unchanged.
 
-Next sole native cycle: unreadable transfer-record recovery UI. A newly owned
-one-byte orphan fixture after validreview, realPIN, actual recovery message and
-zero type4 must yield disabledAuthenticate. Recreation must preserve identity/
-warning while hiding review fields/actions; restoring ONLY the known-empty owned
-fixture baseline then reopen must yield fresh7.5/noPending/no frames. Guarded
-primary-safe file/PIN cleanup. Product already blocks send at storage checks but
-its UI can still offer auth/review actions. No deletion-based product recovery
-policy. Native38211648332 reached genuine enabledAuthenticate RED atPreview348 after
-all intended predicates,8reported/7PASS/1failure119.37s, four indexed hashes.
-Root full originalPNG/separateXML inspected. Minimum UI fix now disables transfer
-actions/hides new fields during recovery; monetary safeguards unchanged. Hosted
-compiler/core/release/lint and unchanged native GREEN pending.
-Dated05:47UTC host options/balance reads pass on both approved origins, separately
-qualified in current-public-endpoint-read; no native publicUI/admission proof.
+Storage recovery GREEN38212349387 at8879c82 passes8ordinary126.952s plus
+separatependingdeath5061->5154/cold10.007s/cleanup.052s:10/3/1,core66/build/lint.
+Fourteen indexed hashes; root full3originalPNG/separate3XML with IME footer
+qualification. Disabled Authenticate/reopened warning-only/restored7.5/sameauthor/
+noPending/zero frames pass. Both minimumfix/RED review axes0; GREEN evidence pending.
 
-Then verify meaningful remaining backend/identity boundaries and actual native
-read-only public balance/funding views,
+Next ONE native backend/identity journey is added: independent pre-existing signed
+scalar1 candidate, exact original funding, wallet-wide0available across Owner/
+Official/recreation; Retry disabled on Official, noautomatic send. Actual SAF
+imports scalar2 then scalar1 using freshzero/backupskip/riskack, transfer-work warning
+and retained original reservations. Guarded primary-safe prior opaque-wallet/owned
+SAF cleanup. Shared controlled HTTP origin qualified; noauth/send/live-funds claim.
+Harness240s includes newbounded two-import journey. Hosted compiler/native result
+and bounded review pending. Dated05:47UTC host options/balance readiness remains
+separate from native publicUI.
+
+Then verify actual native read-only public balance/funding views,
 run fresh final full10/full17 for the same production source with opted-in public
 reads, and perform both whole-ticket reviews against the base above. Home-as-
 revocation is not an agreed requirement; do not add blanket onStop cancellation
