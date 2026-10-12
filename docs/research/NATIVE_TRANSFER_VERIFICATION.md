@@ -797,3 +797,11 @@ older funding-loss run: relabeled historical, actuallatest isolation11/3/1 retai
 The older post-#22 next-ready note now points to Currentwork rather than falsely
 saying #23 unclaimed. Documentation only; af7ed3b production/test/harness inputs
 and currentfull10/full17 dispatches are unchanged. Final reviews still pending.
+
+Firstsame-source full10run38214596540/full17run38214598816 ataf7ed3b stop before
+runtime incompileDebugAndroidTestKotlin atOwnerLiveFeedTest23: unnecessary onNode
+extension import(member function). Two indexed originalfailedstep logs in public-
+wallet-test-compile-failure. This is compilerfailure, no native/public endpointRED
+or acceptance. Minimum correction removesonlyimport, allassertions/publicread/
+metadata/helper/productunchanged. Restart same-source full10/full17/publictrue;
+compiler/core/build/lint/native andfinalreviews pending. No localAPKbuild claimed.

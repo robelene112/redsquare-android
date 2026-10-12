@@ -1,0 +1,156 @@
+native-proof	Build and verify native sources	﻿2026-10-12T06:52:32.7375810Z ##[group]Run if [[ "$VERIFICATION_SCOPE" == full* || "$VERIFICATION_SCOPE" == source ]]; then
+native-proof	Build and verify native sources	2026-10-12T06:52:32.7376345Z ^[[36;1mif [[ "$VERIFICATION_SCOPE" == full* || "$VERIFICATION_SCOPE" == source ]]; then^[[0m
+native-proof	Build and verify native sources	2026-10-12T06:52:32.7376965Z ^[[36;1m  ./gradlew --no-daemon --console=plain :core:test :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease :app:lintDebug^[[0m
+native-proof	Build and verify native sources	2026-10-12T06:52:32.7377464Z ^[[36;1melse^[[0m
+native-proof	Build and verify native sources	2026-10-12T06:52:32.7377818Z ^[[36;1m  ./gradlew --no-daemon --console=plain :core:test :app:assembleDebug :app:assembleDebugAndroidTest^[[0m
+native-proof	Build and verify native sources	2026-10-12T06:52:32.7378200Z ^[[36;1mfi^[[0m
+native-proof	Build and verify native sources	2026-10-12T06:52:32.7434230Z shell: /usr/bin/bash -e {0}
+native-proof	Build and verify native sources	2026-10-12T06:52:32.7434477Z env:
+native-proof	Build and verify native sources	2026-10-12T06:52:32.7434753Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+native-proof	Build and verify native sources	2026-10-12T06:52:32.7435198Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+native-proof	Build and verify native sources	2026-10-12T06:52:32.7435527Z   MAVEN_ARGS: -ntp
+native-proof	Build and verify native sources	2026-10-12T06:52:32.7435736Z   VERIFICATION_SCOPE: full-android17
+native-proof	Build and verify native sources	2026-10-12T06:52:32.7436029Z ##[endgroup]
+native-proof	Build and verify native sources	2026-10-12T06:52:33.4238569Z 
+native-proof	Build and verify native sources	2026-10-12T06:52:33.4240024Z Welcome to Gradle 8.11.1!
+native-proof	Build and verify native sources	2026-10-12T06:52:33.4257439Z 
+native-proof	Build and verify native sources	2026-10-12T06:52:33.4257907Z Here are the highlights of this release:
+native-proof	Build and verify native sources	2026-10-12T06:52:33.4258423Z  - Parallel load and store for Configuration Cache
+native-proof	Build and verify native sources	2026-10-12T06:52:33.4263959Z  - Java compilation errors at the end of the build output
+native-proof	Build and verify native sources	2026-10-12T06:52:33.4289992Z  - Consolidated report for warnings and deprecations
+native-proof	Build and verify native sources	2026-10-12T06:52:33.4319901Z 
+native-proof	Build and verify native sources	2026-10-12T06:52:33.4350315Z For more details see https://docs.gradle.org/8.11.1/release-notes.html
+native-proof	Build and verify native sources	2026-10-12T06:52:33.4379843Z 
+native-proof	Build and verify native sources	2026-10-12T06:52:33.5226395Z To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.11.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+native-proof	Build and verify native sources	2026-10-12T06:52:34.6227333Z Daemon will be stopped at the end of the build 
+native-proof	Build and verify native sources	2026-10-12T06:52:42.8248713Z > Task :core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+native-proof	Build and verify native sources	2026-10-12T06:52:43.0240880Z > Task :core:compileKotlin FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:43.0270081Z > Task :core:compileJava NO-SOURCE
+native-proof	Build and verify native sources	2026-10-12T06:52:43.1233762Z > Task :core:processResources NO-SOURCE
+native-proof	Build and verify native sources	2026-10-12T06:52:43.1234673Z > Task :core:classes UP-TO-DATE
+native-proof	Build and verify native sources	2026-10-12T06:52:43.2232002Z > Task :core:jar
+native-proof	Build and verify native sources	2026-10-12T06:52:43.2250159Z > Task :core:compileTestKotlin FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:43.2250745Z > Task :core:compileTestJava NO-SOURCE
+native-proof	Build and verify native sources	2026-10-12T06:52:43.2251253Z > Task :core:processTestResources
+native-proof	Build and verify native sources	2026-10-12T06:52:43.2251717Z > Task :core:testClasses
+native-proof	Build and verify native sources	2026-10-12T06:52:43.3230946Z > Task :core:test FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:43.3236782Z > Task :app:preBuild UP-TO-DATE
+native-proof	Build and verify native sources	2026-10-12T06:52:43.3237465Z > Task :app:preDebugBuild UP-TO-DATE
+native-proof	Build and verify native sources	2026-10-12T06:52:43.3238155Z > Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+native-proof	Build and verify native sources	2026-10-12T06:52:43.3238906Z > Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+native-proof	Build and verify native sources	2026-10-12T06:52:43.3239805Z > Task :app:generateDebugBuildConfig FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:43.5244314Z > Task :app:generateDebugResValues FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:43.6250409Z > Task :app:checkDebugAarMetadata
+native-proof	Build and verify native sources	2026-10-12T06:52:43.6270130Z > Task :app:mapDebugSourceSetPaths
+native-proof	Build and verify native sources	2026-10-12T06:52:43.6279873Z > Task :app:generateDebugResources FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:43.7222714Z > Task :app:mergeDebugResources FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:43.7225833Z > Task :app:packageDebugResources FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:43.8233375Z > Task :app:parseDebugLocalResources FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:43.8239222Z > Task :app:createDebugCompatibleScreenManifests
+native-proof	Build and verify native sources	2026-10-12T06:52:43.8240229Z > Task :app:extractDeepLinksDebug FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:43.8240960Z > Task :app:processDebugMainManifest FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:43.8241591Z > Task :app:processDebugManifest FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:43.8242236Z > Task :app:processDebugManifestForPackage FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:44.0250487Z > Task :app:processDebugResources FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:44.2266583Z > Task :app:compileDebugKotlin FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:44.2320394Z > Task :app:javaPreCompileDebug FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:44.9249656Z > Task :app:compileDebugJavaWithJavac FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:44.9250679Z > Task :app:mergeDebugShaders
+native-proof	Build and verify native sources	2026-10-12T06:52:44.9259821Z > Task :app:compileDebugShaders NO-SOURCE
+native-proof	Build and verify native sources	2026-10-12T06:52:44.9279983Z > Task :app:generateDebugAssets UP-TO-DATE
+native-proof	Build and verify native sources	2026-10-12T06:52:45.0250336Z > Task :app:mergeDebugAssets
+native-proof	Build and verify native sources	2026-10-12T06:52:45.0280160Z > Task :app:compressDebugAssets FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:45.0280737Z > Task :app:desugarDebugFileDependencies FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:45.1238842Z > Task :app:dexBuilderDebug FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:45.2260692Z > Task :app:mergeDebugGlobalSynthetics FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:45.2261399Z > Task :app:processDebugJavaRes
+native-proof	Build and verify native sources	2026-10-12T06:52:45.4250780Z > Task :app:checkDebugDuplicateClasses
+native-proof	Build and verify native sources	2026-10-12T06:52:45.8222297Z > Task :app:mergeExtDexDebug FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:45.8222842Z > Task :app:mergeLibDexDebug FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:45.8225806Z > Task :app:mergeProjectDexDebug FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:45.8238961Z > Task :app:mergeDebugJniLibFolders
+native-proof	Build and verify native sources	2026-10-12T06:52:46.0245128Z > Task :app:mergeDebugNativeLibs
+native-proof	Build and verify native sources	2026-10-12T06:52:46.0259594Z 
+native-proof	Build and verify native sources	2026-10-12T06:52:46.0269791Z > Task :app:stripDebugDebugSymbols
+native-proof	Build and verify native sources	2026-10-12T06:52:46.0290312Z Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so. Run with --info option to learn more.
+native-proof	Build and verify native sources	2026-10-12T06:52:46.3221019Z 
+native-proof	Build and verify native sources	2026-10-12T06:52:46.3223193Z > Task :app:mergeDebugJavaResource
+native-proof	Build and verify native sources	2026-10-12T06:52:46.8226446Z > Task :app:validateSigningDebug
+native-proof	Build and verify native sources	2026-10-12T06:52:46.8259850Z > Task :app:writeDebugAppMetadata
+native-proof	Build and verify native sources	2026-10-12T06:52:46.8281845Z > Task :app:writeDebugSigningConfigVersions
+native-proof	Build and verify native sources	2026-10-12T06:52:47.0250473Z > Task :app:bundleDebugClassesToCompileJar
+native-proof	Build and verify native sources	2026-10-12T06:52:47.1240574Z > Task :app:preDebugAndroidTestBuild SKIPPED
+native-proof	Build and verify native sources	2026-10-12T06:52:47.3222176Z > Task :app:processDebugAndroidTestManifest
+native-proof	Build and verify native sources	2026-10-12T06:52:47.3233748Z > Task :app:generateDebugAndroidTestBuildConfig FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:47.4225725Z > Task :app:packageDebug
+native-proof	Build and verify native sources	2026-10-12T06:52:47.4238673Z > Task :app:createDebugApkListingFileRedirect
+native-proof	Build and verify native sources	2026-10-12T06:52:47.4239686Z > Task :app:assembleDebug
+native-proof	Build and verify native sources	2026-10-12T06:52:47.4240358Z > Task :app:generateDebugAndroidTestResValues FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:47.4241034Z > Task :app:checkDebugAndroidTestAarMetadata
+native-proof	Build and verify native sources	2026-10-12T06:52:47.4241976Z > Task :app:mapDebugAndroidTestSourceSetPaths
+native-proof	Build and verify native sources	2026-10-12T06:52:47.4242548Z > Task :app:generateDebugAndroidTestResources FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:47.4243214Z > Task :app:mergeDebugAndroidTestResources FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:47.5240164Z > Task :app:processDebugAndroidTestResources FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:47.8233514Z > Task :app:javaPreCompileDebugAndroidTest FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:47.8253908Z > Task :app:mergeDebugAndroidTestShaders
+native-proof	Build and verify native sources	2026-10-12T06:52:47.8254581Z > Task :app:compileDebugAndroidTestShaders NO-SOURCE
+native-proof	Build and verify native sources	2026-10-12T06:52:47.8255476Z > Task :app:generateDebugAndroidTestAssets UP-TO-DATE
+native-proof	Build and verify native sources	2026-10-12T06:52:47.8256126Z > Task :app:mergeDebugAndroidTestAssets
+native-proof	Build and verify native sources	2026-10-12T06:52:47.8256664Z > Task :app:compressDebugAndroidTestAssets FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:47.8257402Z > Task :app:desugarDebugAndroidTestFileDependencies FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:47.9233329Z > Task :app:checkDebugAndroidTestDuplicateClasses
+native-proof	Build and verify native sources	2026-10-12T06:52:47.9236501Z > Task :app:mergeExtDexDebugAndroidTest FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:47.9237328Z > Task :app:mergeLibDexDebugAndroidTest FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:47.9237982Z > Task :app:mergeDebugAndroidTestJniLibFolders
+native-proof	Build and verify native sources	2026-10-12T06:52:48.0230289Z > Task :app:mergeDebugAndroidTestNativeLibs NO-SOURCE
+native-proof	Build and verify native sources	2026-10-12T06:52:48.0259923Z > Task :app:stripDebugAndroidTestDebugSymbols NO-SOURCE
+native-proof	Build and verify native sources	2026-10-12T06:52:48.0279990Z > Task :app:validateSigningDebugAndroidTest
+native-proof	Build and verify native sources	2026-10-12T06:52:48.0309799Z > Task :app:writeDebugAndroidTestSigningConfigVersions
+native-proof	Build and verify native sources	2026-10-12T06:52:48.0337521Z > Task :app:preReleaseBuild UP-TO-DATE
+native-proof	Build and verify native sources	2026-10-12T06:52:48.0349674Z > Task :app:mergeReleaseJniLibFolders
+native-proof	Build and verify native sources	2026-10-12T06:52:48.1264900Z > Task :app:mergeReleaseNativeLibs
+native-proof	Build and verify native sources	2026-10-12T06:52:48.1269743Z 
+native-proof	Build and verify native sources	2026-10-12T06:52:48.1269976Z > Task :app:stripReleaseDebugSymbols
+native-proof	Build and verify native sources	2026-10-12T06:52:48.1270632Z Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so. Run with --info option to learn more.
+native-proof	Build and verify native sources	2026-10-12T06:52:48.1271197Z 
+native-proof	Build and verify native sources	2026-10-12T06:52:48.1271411Z > Task :app:extractReleaseNativeSymbolTables FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:48.1271989Z > Task :app:mergeReleaseNativeDebugMetadata NO-SOURCE
+native-proof	Build and verify native sources	2026-10-12T06:52:48.1272464Z > Task :app:checkReleaseDuplicateClasses
+native-proof	Build and verify native sources	2026-10-12T06:52:48.2256017Z > Task :app:buildKotlinToolingMetadata
+native-proof	Build and verify native sources	2026-10-12T06:52:48.2257296Z > Task :app:generateReleaseBuildConfig FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:48.2257942Z > Task :app:checkReleaseAarMetadata
+native-proof	Build and verify native sources	2026-10-12T06:52:48.2258527Z > Task :app:generateReleaseResValues FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:48.3240839Z > Task :app:mapReleaseSourceSetPaths
+native-proof	Build and verify native sources	2026-10-12T06:52:48.3270378Z > Task :app:generateReleaseResources
+native-proof	Build and verify native sources	2026-10-12T06:52:50.2222749Z > Task :app:mergeReleaseResources
+native-proof	Build and verify native sources	2026-10-12T06:52:50.3280446Z > Task :app:packageReleaseResources
+native-proof	Build and verify native sources	2026-10-12T06:52:50.5228964Z > Task :app:parseReleaseLocalResources
+native-proof	Build and verify native sources	2026-10-12T06:52:50.5250191Z > Task :app:createReleaseCompatibleScreenManifests
+native-proof	Build and verify native sources	2026-10-12T06:52:50.5272456Z > Task :app:extractDeepLinksRelease FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:50.5299997Z > Task :app:processReleaseMainManifest FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:50.5329811Z > Task :app:processReleaseManifest FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:50.5369953Z > Task :app:processReleaseManifestForPackage FROM-CACHE
+native-proof	Build and verify native sources	2026-10-12T06:52:50.9230582Z > Task :app:processReleaseResources
+native-proof	Build and verify native sources	2026-10-12T06:53:09.8222354Z 
+native-proof	Build and verify native sources	2026-10-12T06:53:09.8234982Z e: file:///home/runner/work/redsquare-android/redsquare-android/app/src/androidTest/kotlin/nl/davidengelen/redsquare/OwnerLiveFeedTest.kt:23:33 Unresolved reference 'onNode'.
+native-proof	Build and verify native sources	2026-10-12T06:53:09.8239679Z > Task :app:compileDebugAndroidTestKotlin FAILED
+native-proof	Build and verify native sources	2026-10-12T06:53:20.9229813Z 
+native-proof	Build and verify native sources	2026-10-12T06:53:20.9270218Z > Task :app:compileReleaseKotlin
+native-proof	Build and verify native sources	2026-10-12T06:53:26.1223754Z w: file:///home/runner/work/redsquare-android/redsquare-android/app/src/main/kotlin/nl/davidengelen/redsquare/feed/PostImages.kt:51:37 'fun rememberTransformableState(onTransformation: (@ParameterName(...) Float, @ParameterName(...) Offset, @ParameterName(...) Float) -> Unit): TransformableState' is deprecated. Prefer remembering a TransformableState with a onTransformation lambda that takes the centroid. This centroid (if specified) is the point at which zooming or rotation should happen around which allows for more natural transformations.
+native-proof	Build and verify native sources	2026-10-12T06:53:26.4226056Z 
+native-proof	Build and verify native sources	2026-10-12T06:53:26.4226759Z 84 actionable tasks: 43 executed, 41 from cache
+native-proof	Build and verify native sources	2026-10-12T06:53:26.4260930Z FAILURE: Build failed with an exception.
+native-proof	Build and verify native sources	2026-10-12T06:53:26.4269758Z 
+native-proof	Build and verify native sources	2026-10-12T06:53:26.4310173Z * What went wrong:
+native-proof	Build and verify native sources	2026-10-12T06:53:26.4331454Z Execution failed for task ':app:compileDebugAndroidTestKotlin'.
+native-proof	Build and verify native sources	2026-10-12T06:53:26.4332887Z > A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction
+native-proof	Build and verify native sources	2026-10-12T06:53:26.4342905Z    > Compilation error. See log for more details
+native-proof	Build and verify native sources	2026-10-12T06:53:26.4352962Z 
+native-proof	Build and verify native sources	2026-10-12T06:53:26.4353609Z * Try:
+native-proof	Build and verify native sources	2026-10-12T06:53:26.4354030Z > Run with --stacktrace option to get the stack trace.
+native-proof	Build and verify native sources	2026-10-12T06:53:26.4379680Z > Run with --info or --debug option to get more log output.
+native-proof	Build and verify native sources	2026-10-12T06:53:26.4396477Z > Run with --scan to get full insights.
+native-proof	Build and verify native sources	2026-10-12T06:53:26.4398315Z > Get more help at https://help.gradle.org.
+native-proof	Build and verify native sources	2026-10-12T06:53:26.4398869Z 
+native-proof	Build and verify native sources	2026-10-12T06:53:26.4399160Z BUILD FAILED in 53s
+native-proof	Build and verify native sources	2026-10-12T06:53:26.6826854Z ##[error]Process completed with exit code 1.

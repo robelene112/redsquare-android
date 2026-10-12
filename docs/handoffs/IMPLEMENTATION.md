@@ -95,7 +95,10 @@ retainslivefeed/archive reads, then realHTTPS0balance/receivingfulladdress/fundi
 noPending throughactualWalletUI. Noendpointoverride/review/auth/type4 or positive-
 funding/blockroute/admissionclaim. Harnesscollects originalbalance/fundingPNG+XML/
 publicmetadata; normalfeedreturn/samewallet/backend gates. Existing1test count stays.
-Hosted full10/full17 will both use public_feed_read=true for sameproductioncommit;
+Firstfull10/17at af7ed3b stoppedbefore runtime at unnecessary onNode import in
+OwnerLiveFeedTest23, two indexedfailedstep logs. Import removed, assertions and
+productunchanged; notnativeRED/public endpoint failure. Restarted same-source
+full10/full17 both use public_feed_read=true;
 compiler/core/release/lint/whole-ticketreviews againstbase above remainpending.
 Dated05:47UTC hostreadiness staysseparate. Home-revocation isnotagreed; no blanket
 onStop cancellation or RESUMED callbackguard. Sourceauditchronologylinkedabove.
