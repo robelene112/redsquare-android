@@ -109,7 +109,9 @@ profileLikedvisibility;13indexedhashes retain46/7/3earlierrunners plusfailed8/7/
 13.331s androotfullyviewed originalPNG(noXMLoldcatch). Minimumtestonly correction
 scrollsprofileLiked before5/9visibility, stronger9visible assertion, nativePNG/XML
 captures. No product/timeouts/assertionweakening/causeclaim. Full17run38214957982
-atd1continues; correctedfull10/source/evidencereviewpending. Currentruntimecounts
+atd1continues; correctedfull10run38216135106 at8a0e785 usespublictrue. Bothbounded
+fixture/evidence axes0; all13hashes/exact46/7/3recount verified. Finalfullresults
+remainpending. Currentruntimecounts
 are incomplete and do not close#23.
 
 #23 is unfinished. No new phone APK, physical Pixel result, real-funded admission,
@@ -440,3 +442,20 @@ NATIVE_SAITO_TRANSFER_CONTRACT, NATIVE_PRIVATE_CHAT_CONTRACT and
 NATIVE_GROUP_CHAT_CONTRACT (all .md under docs/research). The protected future notes remain uncommitted and must be included only with
 their own relevant tickets; earlier contracts are already committed.
 They establish source contracts, not runtime or feature completion.
+
+
+## Latest full verification interruption and correction
+
+Both restarted full runs failed; no passed17companion may be retained.
+10run38216135106 at8a0e785:earlier152/30/14(existingprofileassumption), then
+transfer9reported/7PASS/2failures83.487s:systemPIN takeScreenshotfalse, then
+cancellation NoComposehierarchy query. No first-failure PNG/XML; finalhostPNG0bytes.
+17run38214957982 atd1:earlier180/40/17/noassumptions, transfers9PASS112.667s and
+pendingdeath11702->11799/cold9.936s/cleanup.054s, then existingFeed bindEADDRINUSE/
+8reported7PASS1failure17.433s. Neithernewpublicwalletread reached.48/65hashes retain
+countablepaths/checkpoints/qualifiedoriginals under final-full-fixture-interruptions.
+Current testonly corrections:mandatorysystemPIN XML +explicitoptionalbitmap outcome;
+cancelwait allows absentroot then assertsdisplayed; Feed initial/replacement both
+explicitephemeralport soMockWebServer enablesreuse. Handoffbindrace remainssetup
+failure. No exactcapture/transition/portcause/productchange. Focused10transfer/17feed
+verification andnewfullpair pending. Canonicalchronologyabove; #23 stillactive.

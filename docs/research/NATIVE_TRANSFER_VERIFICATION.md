@@ -818,3 +818,31 @@ profileLiked into view, retains5/9visibility/framecount/health, stronger9visible
 assertion andnativePNG/XMLsuccess/failure captures. No timeout/productchange.
 Current17full38214957982 atd1continues. Corrected full10/source/evidence reviews
 pending; WORKFLOW permits retained passed companion afterfixtureonly correction.
+
+
+Bounded d1aa624...8a0e785 correction reviews clear both independent axes:
+Standards0 hard/0 actionable smells; Spec0 findings. All13 interruption hashes,
+46/7/3earlier completed runners and failed Social8/7/1/13.331s verified. Original
+PNG/no legacyXML and cause qualifications retained. Corrected full10run38216135106
+at8a0e785 usespublictrue; full17run38214957982 atd1aa624 continues. Production/core/
+harness/reference/workflow unchanged; final runtime gates remain pending.
+
+
+Final restarted pair stops in fixtures, not successful final acceptance:
+10run38216135106 at8a0e785:earlier152/30/14 with existingprofileassumption;
+transfer9reported/7PASS/2failures/83.487s. First screenshot returnedfalse at native
+systemPIN capture; failurecapture alsofalse/noPNG/XML, finalhostcapture0bytes.
+Second cancellation isDisplayed threwNoComposehierarchies before root returned;
+no exacttransitioncause/productfailure inferred.17run38214957982 atd1aa624:
+earlier180/40/17/noassumptions;transfers9PASS112.667s, actual11702->11799/cold
+9.936s/cleanup.054s. LaterexistingFeed reconnection bindEADDRINUSE atpeer.start(port),
+8reported/7PASS/1failure17.433s. Neitherpublicjourneyreached/finalSDKpasses.
+48/65indexedhashes in final-full-fixture-interruptions/android10/android17 retain
+allcountablelogs/checkpoints and selectedoriginals; rootfullreviewed10prePIN PNG/
+separateXML and17feedfailurePNG(noXML)/blacksystemPIN PNG+separateactualcontrolXML.
+PinnedMockWebServer5.4 setsreusefalseforport0/trueexplicit; narrowfixture reserves
+OSephemeralloopbackport then usesexplicitportbothlisteners, no outageassertionchange.
+PINfixture requires actualsystemcontrol/XML, recordsoptional screenshotoutcome;
+cancellation semanticwaitallowsabsentapproot thenretainsdisplayed assertion.
+No timeouts/product/core/harness/reference/workflow change or exactrefusalcause.
+Focused10transfers/17feed thennewfullpair will verify corrections andfinalgate.

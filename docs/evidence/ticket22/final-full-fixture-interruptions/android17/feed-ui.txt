@@ -1,0 +1,188 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.FeedPreviewTest:
+INSTRUMENTATION_STATUS: test=unreadableRefreshExplainsTheProblemWhileKeepingCachedPosts
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unreadableRefreshExplainsTheProblemWhileKeepingCachedPosts
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=authenticatedFeedSurvivesReopeningAndRecoversWithoutLosingPosts
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stack=java.net.BindException: bind failed: EADDRINUSE (Address already in use)
+	at libcore.io.IoBridge.bind(IoBridge.java:149)
+	at java.net.PlainSocketImpl.socketBind(PlainSocketImpl.java:162)
+	at java.net.AbstractPlainSocketImpl.bind(AbstractPlainSocketImpl.java:427)
+	at java.net.ServerSocket.bind(ServerSocket.java:399)
+	at mockwebserver3.MockWebServer.start(MockWebServer.kt:340)
+	at mockwebserver3.MockWebServer.start(MockWebServer.kt:303)
+	at nl.davidengelen.redsquare.ControlledFeedPeer.start(ControlledFeedPeer.kt:43)
+	at nl.davidengelen.redsquare.FeedPreviewTest.authenticatedFeedSurvivesReopeningAndRecoversWithoutLosingPosts$lambda$3$lambda$2(FeedPreviewTest.kt:42)
+	at nl.davidengelen.redsquare.FeedPreviewTest.$r8$lambda$AjgHuPB2OH7gFFXqgJkzJgep8Mc(FeedPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.FeedPreviewTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.FeedPreviewTest.captureFailure(FeedPreviewTest.kt:161)
+	at nl.davidengelen.redsquare.FeedPreviewTest.authenticatedFeedSurvivesReopeningAndRecoversWithoutLosingPosts(FeedPreviewTest.kt:34)
+	... 65 trimmed
+Caused by: android.system.ErrnoException: bind failed: EADDRINUSE (Address already in use)
+	at libcore.io.Linux.bind(Native Method)
+	at libcore.io.ForwardingOs.bind(ForwardingOs.java:139)
+	at libcore.io.ForwardingOs.bind(ForwardingOs.java:139)
+	at libcore.io.IoBridge.bind(IoBridge.java:145)
+	... 77 more
+
+INSTRUMENTATION_STATUS: stream=
+Error in authenticatedFeedSurvivesReopeningAndRecoversWithoutLosingPosts(nl.davidengelen.redsquare.FeedPreviewTest):
+java.net.BindException: bind failed: EADDRINUSE (Address already in use)
+	at libcore.io.IoBridge.bind(IoBridge.java:149)
+	at java.net.PlainSocketImpl.socketBind(PlainSocketImpl.java:162)
+	at java.net.AbstractPlainSocketImpl.bind(AbstractPlainSocketImpl.java:427)
+	at java.net.ServerSocket.bind(ServerSocket.java:399)
+	at mockwebserver3.MockWebServer.start(MockWebServer.kt:340)
+	at mockwebserver3.MockWebServer.start(MockWebServer.kt:303)
+	at nl.davidengelen.redsquare.ControlledFeedPeer.start(ControlledFeedPeer.kt:43)
+	at nl.davidengelen.redsquare.FeedPreviewTest.authenticatedFeedSurvivesReopeningAndRecoversWithoutLosingPosts$lambda$3$lambda$2(FeedPreviewTest.kt:42)
+	at nl.davidengelen.redsquare.FeedPreviewTest.$r8$lambda$AjgHuPB2OH7gFFXqgJkzJgep8Mc(FeedPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.FeedPreviewTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.FeedPreviewTest.captureFailure(FeedPreviewTest.kt:161)
+	at nl.davidengelen.redsquare.FeedPreviewTest.authenticatedFeedSurvivesReopeningAndRecoversWithoutLosingPosts(FeedPreviewTest.kt:34)
+	... 65 trimmed
+Caused by: android.system.ErrnoException: bind failed: EADDRINUSE (Address already in use)
+	at libcore.io.Linux.bind(Native Method)
+	at libcore.io.ForwardingOs.bind(ForwardingOs.java:139)
+	at libcore.io.ForwardingOs.bind(ForwardingOs.java:139)
+	at libcore.io.IoBridge.bind(IoBridge.java:145)
+	... 77 more
+
+INSTRUMENTATION_STATUS: test=authenticatedFeedSurvivesReopeningAndRecoversWithoutLosingPosts
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=refreshAndRecreationKeepTheVisiblePostWhenNewPostsArrive
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=refreshAndRecreationKeepTheVisiblePostWhenNewPostsArrive
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=unavailableCacheWarnsWithoutHidingLivePostsAndCanRecover
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unavailableCacheWarnsWithoutHidingLivePostsAndCanRecover
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.BackendPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.BackendPreviewTest:
+INSTRUMENTATION_STATUS: test=unreadableSelectionRequiresAnExplicitChoiceBeforeConnecting
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.BackendPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unreadableSelectionRequiresAnExplicitChoiceBeforeConnecting
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.BackendPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=uncertainSelectionCommitStopsConnectionsUntilExplicitRecoveryAfterRestart
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.BackendPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=uncertainSelectionCommitStopsConnectionsUntilExplicitRecoveryAfterRestart
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.BackendPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=failedSelectionSaveKeepsTheCurrentServerAndCanBeRetried
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.BackendPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=failedSelectionSaveKeepsTheCurrentServerAndCanBeRetried
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.BackendPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=switchingServersKeepsIdentityAndRestoresSeparateCachesThroughOutage
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.BackendPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=switchingServersKeepsIdentityAndRestoresSeparateCachesThroughOutage
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 17.433
+There was 1 failure:
+1) authenticatedFeedSurvivesReopeningAndRecoversWithoutLosingPosts(nl.davidengelen.redsquare.FeedPreviewTest)
+java.net.BindException: bind failed: EADDRINUSE (Address already in use)
+	at libcore.io.IoBridge.bind(IoBridge.java:149)
+	at java.net.PlainSocketImpl.socketBind(PlainSocketImpl.java:162)
+	at java.net.AbstractPlainSocketImpl.bind(AbstractPlainSocketImpl.java:427)
+	at java.net.ServerSocket.bind(ServerSocket.java:399)
+	at mockwebserver3.MockWebServer.start(MockWebServer.kt:340)
+	at mockwebserver3.MockWebServer.start(MockWebServer.kt:303)
+	at nl.davidengelen.redsquare.ControlledFeedPeer.start(ControlledFeedPeer.kt:43)
+	at nl.davidengelen.redsquare.FeedPreviewTest.authenticatedFeedSurvivesReopeningAndRecoversWithoutLosingPosts$lambda$3$lambda$2(FeedPreviewTest.kt:42)
+	at nl.davidengelen.redsquare.FeedPreviewTest.$r8$lambda$AjgHuPB2OH7gFFXqgJkzJgep8Mc(FeedPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.FeedPreviewTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.FeedPreviewTest.captureFailure(FeedPreviewTest.kt:161)
+	at nl.davidengelen.redsquare.FeedPreviewTest.authenticatedFeedSurvivesReopeningAndRecoversWithoutLosingPosts(FeedPreviewTest.kt:34)
+	... 65 trimmed
+Caused by: android.system.ErrnoException: bind failed: EADDRINUSE (Address already in use)
+	at libcore.io.Linux.bind(Native Method)
+	at libcore.io.ForwardingOs.bind(ForwardingOs.java:139)
+	at libcore.io.ForwardingOs.bind(ForwardingOs.java:139)
+	at libcore.io.IoBridge.bind(IoBridge.java:145)
+	... 77 more
+
+FAILURES!!!
+Tests run: 8,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

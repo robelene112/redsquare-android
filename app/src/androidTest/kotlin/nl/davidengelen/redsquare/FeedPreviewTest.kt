@@ -11,6 +11,8 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.Before
 import org.junit.rules.TestName
+import java.net.InetAddress
+import java.net.ServerSocket
 
 class FeedPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
@@ -26,7 +28,11 @@ class FeedPreviewTest {
     @Test fun authenticatedFeedSurvivesReopeningAndRecoversWithoutLosingPosts() {
         val fixture = asset("native-feed-reference.json")
         val peer = ControlledFeedPeer("[${fixture.get("archiveRow")}]")
-        val server = peer.start()
+        // MockWebServer disables address reuse for port0. Reserve an ephemeral
+        // loopback port, then explicitly bind both outage/recovery listeners to it.
+        // A competing bind during the handoff remains a setup failure.
+        val restartPort = ServerSocket(0, 50, InetAddress.getByName("127.0.0.1")).use { it.localPort }
+        val server = peer.start(restartPort)
         val port = server.port
         var replacement: MockWebServer? = null
         try {

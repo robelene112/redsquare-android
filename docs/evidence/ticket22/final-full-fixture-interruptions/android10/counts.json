@@ -1,0 +1,151 @@
+{
+  "run": "38216135106",
+  "source": "8a0e785",
+  "completedCases": 152,
+  "completionRecords": 30,
+  "actualDeathStages": 14,
+  "records": [
+    {
+      "log": "ProfileEditPreviewTest-ui.txt",
+      "completedCases": 7
+    },
+    {
+      "log": "ProfileMediaPreviewTest-ui.txt",
+      "completedCases": 2
+    },
+    {
+      "log": "ProfileNewEditPreviewTest-ui.txt",
+      "completedCases": 2
+    },
+    {
+      "log": "ProfilePublishingPreviewTest-ui.txt",
+      "completedCases": 5
+    },
+    {
+      "log": "author-delete-process/recovered-instrumentation.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "author-edit-process/recovered-instrumentation.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "author-post-ui.txt",
+      "completedCases": 8
+    },
+    {
+      "log": "browse-ui.txt",
+      "completedCases": 8
+    },
+    {
+      "log": "following-ui.txt",
+      "completedCases": 8
+    },
+    {
+      "log": "image-process/recovered-instrumentation.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "image-queue-process/recovered-instrumentation.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "images-preparation-ui.txt",
+      "completedCases": 5
+    },
+    {
+      "log": "images-ui.txt",
+      "completedCases": 6
+    },
+    {
+      "log": "personal-controls-process/recovered.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "personal-controls-ui.txt",
+      "completedCases": 8
+    },
+    {
+      "log": "post-process/recovered-instrumentation.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "post-queue-process/recovered-instrumentation.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "post-queue-ui.txt",
+      "completedCases": 9
+    },
+    {
+      "log": "posting-ui.txt",
+      "completedCases": 18
+    },
+    {
+      "log": "profile-process/recovered-instrumentation.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "quote-process/recovered-instrumentation.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "quote-ui.txt",
+      "completedCases": 7
+    },
+    {
+      "log": "report-process/recovered.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "reports-ui.txt",
+      "completedCases": 11
+    },
+    {
+      "log": "search-ui.txt",
+      "completedCases": 9
+    },
+    {
+      "log": "social-process/recovered-instrumentation.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "social-ui.txt",
+      "completedCases": 8
+    },
+    {
+      "log": "username-process/recovered.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "username-ui.txt",
+      "completedCases": 15
+    },
+    {
+      "log": "video-ui.txt",
+      "completedCases": 4
+    }
+  ],
+  "deathLogs": [
+    "author-delete-process/interrupted-instrumentation.txt",
+    "author-edit-process/interrupted-instrumentation.txt",
+    "image-process/candidate-interrupted.txt",
+    "image-process/draft-interrupted.txt",
+    "image-queue-process/interrupted-instrumentation.txt",
+    "personal-controls-process/interrupted.txt",
+    "post-process/interrupted-instrumentation.txt",
+    "post-queue-process/interrupted-instrumentation.txt",
+    "profile-process/candidate-interrupted.txt",
+    "profile-process/draft-interrupted.txt",
+    "quote-process/interrupted-instrumentation.txt",
+    "report-process/interrupted.txt",
+    "social-process/interrupted-instrumentation.txt",
+    "username-process/interrupted.txt"
+  ],
+  "assumptions": [
+    {
+      "log": "ProfilePublishingPreviewTest-ui.txt",
+      "assumptions": 1
+    }
+  ]
+}

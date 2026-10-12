@@ -1,0 +1,306 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.WalletTransferPreviewTest:
+INSTRUMENTATION_STATUS: test=unreadableTransferRecordsBlockAuthenticationAndReviewUntilReadableAgain
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unreadableTransferRecordsBlockAuthenticationAndReviewUntilReadableAgain
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=pendingPaymentReopensWithoutSendingAndExactRetryRequiresFreshReviewedDeviceAuthentication
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.captureNativeScreen(NativeScreenEvidence.kt:14)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.captureNativeScreen$default(NativeScreenEvidence.kt:10)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.pendingPaymentReopensWithoutSendingAndExactRetryRequiresFreshReviewedDeviceAuthentication$lambda$17$lambda$16$lambda$15$lambda$14$lambda$13(WalletTransferPreviewTest.kt:82)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$_hOvF5X_KBnX6bV5WlCbgZXlp40(Unknown Source:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda22.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.pendingPaymentReopensWithoutSendingAndExactRetryRequiresFreshReviewedDeviceAuthentication$lambda$17(WalletTransferPreviewTest.kt:64)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$AOVrhbNv3ZQKAH7ahkN475hW7ek(Unknown Source:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda14.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.withDevicePin(WalletTransferPreviewTest.kt:403)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.pendingPaymentReopensWithoutSendingAndExactRetryRequiresFreshReviewedDeviceAuthentication(WalletTransferPreviewTest.kt:52)
+	Suppressed: java.lang.IllegalStateException: Check failed.
+		at nl.davidengelen.redsquare.NativeScreenEvidenceKt.captureNativeScreen(NativeScreenEvidence.kt:14)
+		at nl.davidengelen.redsquare.NativeScreenEvidenceKt.captureNativeScreen$default(NativeScreenEvidence.kt:10)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.pendingPaymentReopensWithoutSendingAndExactRetryRequiresFreshReviewedDeviceAuthentication$lambda$17$lambda$16$lambda$15$lambda$14$lambda$2(WalletTransferPreviewTest.kt:64)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$uZZ2at8mBeIHTGf6UX3ww8EVdRw(Unknown Source:0)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda11.invoke(D8$$SyntheticClass:0)
+		at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:21)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.pendingPaymentReopensWithoutSendingAndExactRetryRequiresFreshReviewedDeviceAuthentication$lambda$17(WalletTransferPreviewTest.kt:64)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$AOVrhbNv3ZQKAH7ahkN475hW7ek(Unknown Source:0)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda14.invoke(D8$$SyntheticClass:0)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.withDevicePin(WalletTransferPreviewTest.kt:403)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.pendingPaymentReopensWithoutSendingAndExactRetryRequiresFreshReviewedDeviceAuthentication(WalletTransferPreviewTest.kt:52)
+
+INSTRUMENTATION_STATUS: stream=
+Error in pendingPaymentReopensWithoutSendingAndExactRetryRequiresFreshReviewedDeviceAuthentication(nl.davidengelen.redsquare.WalletTransferPreviewTest):
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.captureNativeScreen(NativeScreenEvidence.kt:14)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.captureNativeScreen$default(NativeScreenEvidence.kt:10)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.pendingPaymentReopensWithoutSendingAndExactRetryRequiresFreshReviewedDeviceAuthentication$lambda$17$lambda$16$lambda$15$lambda$14$lambda$13(WalletTransferPreviewTest.kt:82)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$_hOvF5X_KBnX6bV5WlCbgZXlp40(Unknown Source:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda22.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.pendingPaymentReopensWithoutSendingAndExactRetryRequiresFreshReviewedDeviceAuthentication$lambda$17(WalletTransferPreviewTest.kt:64)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$AOVrhbNv3ZQKAH7ahkN475hW7ek(Unknown Source:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda14.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.withDevicePin(WalletTransferPreviewTest.kt:403)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.pendingPaymentReopensWithoutSendingAndExactRetryRequiresFreshReviewedDeviceAuthentication(WalletTransferPreviewTest.kt:52)
+	Suppressed: java.lang.IllegalStateException: Check failed.
+		at nl.davidengelen.redsquare.NativeScreenEvidenceKt.captureNativeScreen(NativeScreenEvidence.kt:14)
+		at nl.davidengelen.redsquare.NativeScreenEvidenceKt.captureNativeScreen$default(NativeScreenEvidence.kt:10)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.pendingPaymentReopensWithoutSendingAndExactRetryRequiresFreshReviewedDeviceAuthentication$lambda$17$lambda$16$lambda$15$lambda$14$lambda$2(WalletTransferPreviewTest.kt:64)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$uZZ2at8mBeIHTGf6UX3ww8EVdRw(Unknown Source:0)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda11.invoke(D8$$SyntheticClass:0)
+		at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:21)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.pendingPaymentReopensWithoutSendingAndExactRetryRequiresFreshReviewedDeviceAuthentication$lambda$17(WalletTransferPreviewTest.kt:64)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$AOVrhbNv3ZQKAH7ahkN475hW7ek(Unknown Source:0)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda14.invoke(D8$$SyntheticClass:0)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.withDevicePin(WalletTransferPreviewTest.kt:403)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.pendingPaymentReopensWithoutSendingAndExactRetryRequiresFreshReviewedDeviceAuthentication(WalletTransferPreviewTest.kt:52)
+
+INSTRUMENTATION_STATUS: test=pendingPaymentReopensWithoutSendingAndExactRetryRequiresFreshReviewedDeviceAuthentication
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=receivingQrContainsTheFullActiveAddressWithoutBalanceConnectivityAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=receivingQrContainsTheFullActiveAddressWithoutBalanceConnectivityAfterReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: No compose hierarchies found in the app. Possible reasons include: (1) the Activity that calls setContent did not launch; (2) setContent was not called; (3) setContent was called before the ComposeTestRule ran. If setContent is called by the Activity, make sure the Activity is launched after the ComposeTestRule runs
+	at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes(TestOwner.kt:106)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNodes$ui_test(SemanticsNodeInteraction.kt:64)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNodes$ui_test$default(SemanticsNodeInteraction.kt:59)
+	at androidx.compose.ui.test.AndroidAssertions_androidKt.checkIsDisplayed(AndroidAssertions.android.kt:29)
+	at androidx.compose.ui.test.AssertionsKt.isDisplayed(Assertions.kt:351)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue$lambda$27$lambda$26$lambda$25$lambda$24$lambda$23$lambda$20(WalletTransferPreviewTest.kt:164)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$85vumh0QoL2h6ArFmj6UAQVBdho(Unknown Source:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:879)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue$lambda$27$lambda$26$lambda$25$lambda$24$lambda$23(WalletTransferPreviewTest.kt:164)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$krh6yuUc9kH4yIHZc6AYpSgZJKM(Unknown Source:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda42.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue$lambda$27(WalletTransferPreviewTest.kt:152)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$9TssTmwnKnptJ_Ca1fCXNel-q48(Unknown Source:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda13.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.withDevicePin(WalletTransferPreviewTest.kt:403)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue(WalletTransferPreviewTest.kt:141)
+	Suppressed: java.lang.IllegalStateException: Check failed.
+		at nl.davidengelen.redsquare.NativeScreenEvidenceKt.captureNativeScreen(NativeScreenEvidence.kt:14)
+		at nl.davidengelen.redsquare.NativeScreenEvidenceKt.captureNativeScreen$default(NativeScreenEvidence.kt:10)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue$lambda$27$lambda$26$lambda$25$lambda$24$lambda$18(WalletTransferPreviewTest.kt:152)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$t2jqCONGZ7FdAJa5n46ca7MskYQ(Unknown Source:0)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda41.invoke(D8$$SyntheticClass:0)
+		at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:21)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue$lambda$27(WalletTransferPreviewTest.kt:152)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$9TssTmwnKnptJ_Ca1fCXNel-q48(Unknown Source:0)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda13.invoke(D8$$SyntheticClass:0)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.withDevicePin(WalletTransferPreviewTest.kt:403)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue(WalletTransferPreviewTest.kt:141)
+
+INSTRUMENTATION_STATUS: stream=
+Error in cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue(nl.davidengelen.redsquare.WalletTransferPreviewTest):
+java.lang.IllegalStateException: No compose hierarchies found in the app. Possible reasons include: (1) the Activity that calls setContent did not launch; (2) setContent was not called; (3) setContent was called before the ComposeTestRule ran. If setContent is called by the Activity, make sure the Activity is launched after the ComposeTestRule runs
+	at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes(TestOwner.kt:106)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNodes$ui_test(SemanticsNodeInteraction.kt:64)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNodes$ui_test$default(SemanticsNodeInteraction.kt:59)
+	at androidx.compose.ui.test.AndroidAssertions_androidKt.checkIsDisplayed(AndroidAssertions.android.kt:29)
+	at androidx.compose.ui.test.AssertionsKt.isDisplayed(Assertions.kt:351)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue$lambda$27$lambda$26$lambda$25$lambda$24$lambda$23$lambda$20(WalletTransferPreviewTest.kt:164)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$85vumh0QoL2h6ArFmj6UAQVBdho(Unknown Source:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:879)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue$lambda$27$lambda$26$lambda$25$lambda$24$lambda$23(WalletTransferPreviewTest.kt:164)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$krh6yuUc9kH4yIHZc6AYpSgZJKM(Unknown Source:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda42.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue$lambda$27(WalletTransferPreviewTest.kt:152)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$9TssTmwnKnptJ_Ca1fCXNel-q48(Unknown Source:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda13.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.withDevicePin(WalletTransferPreviewTest.kt:403)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue(WalletTransferPreviewTest.kt:141)
+	Suppressed: java.lang.IllegalStateException: Check failed.
+		at nl.davidengelen.redsquare.NativeScreenEvidenceKt.captureNativeScreen(NativeScreenEvidence.kt:14)
+		at nl.davidengelen.redsquare.NativeScreenEvidenceKt.captureNativeScreen$default(NativeScreenEvidence.kt:10)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue$lambda$27$lambda$26$lambda$25$lambda$24$lambda$18(WalletTransferPreviewTest.kt:152)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$t2jqCONGZ7FdAJa5n46ca7MskYQ(Unknown Source:0)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda41.invoke(D8$$SyntheticClass:0)
+		at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:21)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue$lambda$27(WalletTransferPreviewTest.kt:152)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$9TssTmwnKnptJ_Ca1fCXNel-q48(Unknown Source:0)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda13.invoke(D8$$SyntheticClass:0)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.withDevicePin(WalletTransferPreviewTest.kt:403)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue(WalletTransferPreviewTest.kt:141)
+
+INSTRUMENTATION_STATUS: test=cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=sendingWithoutAScreenLockExplainsTransferSetupAndDoesNotQueue
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=sendingWithoutAScreenLockExplainsTransferSetupAndDoesNotQueue
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=fundingLostAfterReviewAndRealAuthenticationCannotSendReserveOrQueue
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=fundingLostAfterReviewAndRealAuthenticationCannotSendReserveOrQueue
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=selectedServerBalanceAndReceivingAddressCanBeViewedAndCopied
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=selectedServerBalanceAndReceivingAddressCanBeViewedAndCopied
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferStatusTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.WalletTransferStatusTest:
+INSTRUMENTATION_STATUS: test=exactInclusionUnknownHistoryAndVerifiedReorganizationNeverAutomaticallyResend
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferStatusTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=exactInclusionUnknownHistoryAndVerifiedReorganizationNeverAutomaticallyResend
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferStatusTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=pendingPaymentStaysReservedAcrossBackendsAndReturnsOnlyWithItsOriginalWallet
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTransferStatusTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=pendingPaymentStaysReservedAcrossBackendsAndReturnsOnlyWithItsOriginalWallet
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 83.487
+There were 2 failures:
+1) pendingPaymentReopensWithoutSendingAndExactRetryRequiresFreshReviewedDeviceAuthentication(nl.davidengelen.redsquare.WalletTransferPreviewTest)
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.captureNativeScreen(NativeScreenEvidence.kt:14)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.captureNativeScreen$default(NativeScreenEvidence.kt:10)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.pendingPaymentReopensWithoutSendingAndExactRetryRequiresFreshReviewedDeviceAuthentication$lambda$17$lambda$16$lambda$15$lambda$14$lambda$13(WalletTransferPreviewTest.kt:82)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$_hOvF5X_KBnX6bV5WlCbgZXlp40(Unknown Source:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda22.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.pendingPaymentReopensWithoutSendingAndExactRetryRequiresFreshReviewedDeviceAuthentication$lambda$17(WalletTransferPreviewTest.kt:64)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$AOVrhbNv3ZQKAH7ahkN475hW7ek(Unknown Source:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda14.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.withDevicePin(WalletTransferPreviewTest.kt:403)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.pendingPaymentReopensWithoutSendingAndExactRetryRequiresFreshReviewedDeviceAuthentication(WalletTransferPreviewTest.kt:52)
+	Suppressed: java.lang.IllegalStateException: Check failed.
+		at nl.davidengelen.redsquare.NativeScreenEvidenceKt.captureNativeScreen(NativeScreenEvidence.kt:14)
+		at nl.davidengelen.redsquare.NativeScreenEvidenceKt.captureNativeScreen$default(NativeScreenEvidence.kt:10)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.pendingPaymentReopensWithoutSendingAndExactRetryRequiresFreshReviewedDeviceAuthentication$lambda$17$lambda$16$lambda$15$lambda$14$lambda$2(WalletTransferPreviewTest.kt:64)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$uZZ2at8mBeIHTGf6UX3ww8EVdRw(Unknown Source:0)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda11.invoke(D8$$SyntheticClass:0)
+		at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:21)
+		... 70 more
+2) cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue(nl.davidengelen.redsquare.WalletTransferPreviewTest)
+java.lang.IllegalStateException: No compose hierarchies found in the app. Possible reasons include: (1) the Activity that calls setContent did not launch; (2) setContent was not called; (3) setContent was called before the ComposeTestRule ran. If setContent is called by the Activity, make sure the Activity is launched after the ComposeTestRule runs
+	at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes(TestOwner.kt:106)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNodes$ui_test(SemanticsNodeInteraction.kt:64)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNodes$ui_test$default(SemanticsNodeInteraction.kt:59)
+	at androidx.compose.ui.test.AndroidAssertions_androidKt.checkIsDisplayed(AndroidAssertions.android.kt:29)
+	at androidx.compose.ui.test.AssertionsKt.isDisplayed(Assertions.kt:351)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue$lambda$27$lambda$26$lambda$25$lambda$24$lambda$23$lambda$20(WalletTransferPreviewTest.kt:164)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$85vumh0QoL2h6ArFmj6UAQVBdho(Unknown Source:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:879)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue$lambda$27$lambda$26$lambda$25$lambda$24$lambda$23(WalletTransferPreviewTest.kt:164)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$krh6yuUc9kH4yIHZc6AYpSgZJKM(Unknown Source:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda42.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue$lambda$27(WalletTransferPreviewTest.kt:152)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$9TssTmwnKnptJ_Ca1fCXNel-q48(Unknown Source:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda13.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.withDevicePin(WalletTransferPreviewTest.kt:403)
+	at nl.davidengelen.redsquare.WalletTransferPreviewTest.cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue(WalletTransferPreviewTest.kt:141)
+	Suppressed: java.lang.IllegalStateException: Check failed.
+		at nl.davidengelen.redsquare.NativeScreenEvidenceKt.captureNativeScreen(NativeScreenEvidence.kt:14)
+		at nl.davidengelen.redsquare.NativeScreenEvidenceKt.captureNativeScreen$default(NativeScreenEvidence.kt:10)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue$lambda$27$lambda$26$lambda$25$lambda$24$lambda$18(WalletTransferPreviewTest.kt:152)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest.$r8$lambda$t2jqCONGZ7FdAJa5n46ca7MskYQ(Unknown Source:0)
+		at nl.davidengelen.redsquare.WalletTransferPreviewTest$$ExternalSyntheticLambda41.invoke(D8$$SyntheticClass:0)
+		at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:21)
+		... 70 more
+
+FAILURES!!!
+Tests run: 9,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

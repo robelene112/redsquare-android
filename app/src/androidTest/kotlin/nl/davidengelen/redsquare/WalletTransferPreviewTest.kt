@@ -79,7 +79,7 @@ class WalletTransferPreviewTest {
                         ui.onNodeWithText("Authenticate and send").performClick()
                         waitForSystemPin(device)
                         assertTrue(peer.transactions.isEmpty())
-                        captureNativeScreen(File(context.cacheDir, "transfer-evidence/real-device-auth.png"))
+                        captureSystemCredentialEvidence(device)
                         enterRealSystemPin(device)
                         val pending = "Pending. Inclusion has not been verified."
                         ui.waitUntil(20_000) { ui.onAllNodes(hasText(pending))
@@ -161,7 +161,9 @@ class WalletTransferPreviewTest {
                         waitForSystemPin(device)
                         assertTrue(peer.transactions.isEmpty())
                         device.pressBack() // Cancel the actual Android credential screen, not an app fake.
-                        ui.waitUntil(15_000) { ui.onNodeWithText("Transfer cancelled before sending.").isDisplayed() }
+                        ui.waitUntil(15_000) { ui.onAllNodes(hasText("Transfer cancelled before sending."))
+                            .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                        ui.onNodeWithText("Transfer cancelled before sending.").assertIsDisplayed()
                         peer.assertHealthy()
                         assertTrue(peer.transactions.isEmpty())
                         captureNativeScreen(File(context.cacheDir, "transfer-evidence/auth-cancelled.png"),
@@ -411,6 +413,18 @@ class WalletTransferPreviewTest {
                 if (primary == null) throw cleanupFailure else primary.addSuppressed(cleanupFailure)
             }
         }
+    }
+
+    private fun captureSystemCredentialEvidence(device: UiDevice) {
+        // System credential windows may refuse screenshots or return a black bitmap.
+        // The real PIN control and authentication assertions remain mandatory.
+        waitForSystemPin(device)
+        val directory = File(context.cacheDir, "transfer-evidence").apply { mkdirs() }
+        device.dumpWindowHierarchy(File(directory, "real-device-auth.xml"))
+        val captured = device.takeScreenshot(File(directory, "real-device-auth.png"))
+        File(directory, "real-device-auth-capture.txt").writeText(
+            "System PIN control observed before entry. Screenshot returned $captured.\n" +
+                "A refused or black system screenshot does not establish visible credential content.\n")
     }
 
     @Test fun selectedServerBalanceAndReceivingAddressCanBeViewedAndCopied() {
