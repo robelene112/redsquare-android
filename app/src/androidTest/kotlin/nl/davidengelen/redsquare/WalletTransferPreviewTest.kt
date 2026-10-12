@@ -4,6 +4,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.app.KeyguardManager
+import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
@@ -30,6 +31,11 @@ import androidx.test.uiautomator.UiDevice
 import java.math.BigInteger
 import java.nio.ByteBuffer
 import java.util.Base64
+import java.util.concurrent.atomic.AtomicInteger
+import com.google.zxing.BinaryBitmap
+import com.google.zxing.RGBLuminanceSource
+import com.google.zxing.common.HybridBinarizer
+import com.google.zxing.qrcode.QRCodeReader
 
 class WalletTransferPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
@@ -246,6 +252,74 @@ class WalletTransferPreviewTest {
                     }
                     captureNativeScreen(File(context.cacheDir, "transfer-evidence/balance-and-receive.png"), "7.5 SAITO")
                 }
+            }
+        }
+    }
+
+    @Test fun receivingQrContainsTheFullActiveAddressWithoutBalanceConnectivityAfterReopening() {
+        // Published unsafe scalar2 identity, used only on the isolated emulator.
+        val address = "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU"
+        val fixture = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
+        assertEquals(address, fixture.publicKey)
+        val wallets = AndroidWalletStore(context)
+        val previous = wallets.loadOrCreate()
+        val unavailableBalanceReads = AtomicInteger()
+        var primaryFailure: Throwable? = null
+        try {
+            wallets.replace(previous, fixture)
+            MockWebServer().use { server ->
+                server.dispatcher = object : Dispatcher() {
+                    override fun dispatch(request: RecordedRequest): MockResponse {
+                        if (request.target == "/balance/$address") unavailableBalanceReads.incrementAndGet()
+                        return MockResponse.Builder().code(503).build()
+                    }
+                }
+                server.start(InetAddress.getByName("127.0.0.1"), 0)
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                    .putExtra("feedDisabled", true)
+                    .putExtra("balanceApiUrl", "http://127.0.0.1:${server.port}/balance/")).use { scenario ->
+                    withFailureCapture({ captureNativeScreen(File(context.cacheDir,
+                        "transfer-evidence/receiving-qr-first-failure.png")) }) {
+                        repeat(2) { opening ->
+                            if (opening > 0) scenario.recreate()
+                            ui.waitUntil(15_000) { ui.onNodeWithText("Wallet").isDisplayed() }
+                            ui.onNodeWithText("Wallet").performClick()
+                            ui.onNodeWithContentDescription("Wallet address").assertTextEquals(address)
+                            ui.onNodeWithText("Balance and receive").performScrollTo().performClick()
+                            ui.waitUntil(15_000) { ui.onNodeWithText("Balance unavailable").isDisplayed() }
+                            assertTrue("The receiving view must tolerate an actual failed balance request",
+                                unavailableBalanceReads.get() > opening)
+                            ui.onNodeWithContentDescription("Receiving address").assertTextEquals(address)
+                            ui.onNodeWithText("Copy address").performScrollTo().performClick()
+                            scenario.onActivity { activity ->
+                                val clipboard = activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                                assertEquals(address, clipboard.primaryClip?.getItemAt(0)?.text?.toString())
+                            }
+                            val bitmap = ui.onNodeWithContentDescription("Receiving address QR code")
+                                .performScrollTo().assertIsDisplayed().captureToImage().asAndroidBitmap()
+                            val pixels = IntArray(bitmap.width * bitmap.height)
+                            bitmap.getPixels(pixels, 0, bitmap.width, 0, 0, bitmap.width, bitmap.height)
+                            assertEquals(address, QRCodeReader().decode(BinaryBitmap(HybridBinarizer(
+                                RGBLuminanceSource(bitmap.width, bitmap.height, pixels)))).text)
+                            captureNativeScreen(File(context.cacheDir,
+                                "transfer-evidence/receiving-qr-$opening.png"))
+                        }
+                    }
+                }
+            }
+        } catch (failure: Throwable) { primaryFailure = failure; throw failure }
+        finally {
+            try {
+                val current = wallets.loadExisting()
+                when (current.exportJson()) {
+                    previous.exportJson() -> Unit
+                    fixture.exportJson() -> wallets.replace(current, previous)
+                    else -> error("Unexpected receiving fixture wallet state")
+                }
+                check(wallets.loadExisting().exportJson() == previous.exportJson())
+            } catch (cleanup: Throwable) {
+                val primary = primaryFailure
+                if (primary == null) throw cleanup else primary.addSuppressed(cleanup)
             }
         }
     }

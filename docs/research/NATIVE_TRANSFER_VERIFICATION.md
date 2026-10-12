@@ -570,3 +570,21 @@ dialog, retaining every acceptance assertion. Corrected build/runtime pending.
 
 Dialog fixture instrumentation APK compiles1m28s/one hash in change-form-dialog-
 fixture. Production unchanged; corrected native completion pending.
+
+Corrected unchanged-product native38205777578 atf7d04ce PASSES ordinary4/86.001s
+plus separate existing pending death4816->4926/cold1/10.263s/cleanup1/.055s,6/3/1,
+no assumptions/core66/release/lint. Root full new-review PNG/separate XML agrees
+with native exact0.25/fee0.1/recipient/owner and fresh4.15/currentIncluded gates;
+zero frames before/after qualified Done dismissal. All prior status/recreation
+checks remain passing. Ten indexed hashes in change-form-ui-green/android17.
+This is review-only, not authenticated change spending. Both bounded selector
+axes throughf7d04ce clear. Next sole native cycle receiving QR at accepted app
+seam: isolated public literal address, actual failed balance request, full copied
+address and displayed-raster decoding through ZXing before/after recreation.
+No network condition gates receiving. Same-library raster decoder is not a
+second independent implementation or physical camera acceptance.
+
+QR initial draft test build1m52s, inspection corrected guessed balance label and
+image-description screenshot text wait before dispatch; corrected build1m23s.
+Two hashes in receiving-qr-test-preparation. Test-only ZXingcore3.5.4; product
+unchanged, no QR view/native RED or raster decoding acceptance yet.

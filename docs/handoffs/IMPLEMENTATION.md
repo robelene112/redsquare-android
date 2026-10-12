@@ -140,8 +140,18 @@ cleanup at199 because unscoped Done matches both stacked dialogs:4reported/3PASS
 confirms review;6hashes in change-form-fixture-interruption/android17. Fixture
 correction scopes Done to the confirmation dialog; instrumentation APK
 compiles1m28s/one hash in change-form-dialog-fixture. Same product completion
-pending. Next: receiving QR, meaningful remaining failures, final fresh full10/17
-and whole-ticket review. #23 unfinished. No new phone APK, physical Pixel result,
+passes unchanged atf7d04ce, run38205777578:ordinary4/86.001s plus separate
+pending death4816->4926/cold1/10.263s/cleanup1/.055s,6/3/1,no assumptions,
+core66/release/lint. Root full new-review PNG/separate XML verifies exact0.25/
+fee0.1/recipient/owner; fresh4.15/currentIncluded and prior status/recreation
+gates pass, zero frames before/after dismissal. Ten indexed hashes in change-form-
+ui-green/android17. This is review-only, not authenticated change spending. Both
+selector/evidence axes throughf7d04ce clear. Next sole cycle: receiving QR using
+the full public address, actual displayed raster decoding and unavailable
+balance/reopening. Corrected test APK compiles1m23s; initial draft1m52s,
+2hashes in receiving-qr-test-preparation. Product untouched; missing-QR native
+RED pending. Meaningful remaining failures, final fresh full10/17 and
+whole-ticket review follow. #23 unfinished. No new phone APK, physical Pixel result,
 production node change, live transfer or whole acceptance.
 
 ## Earlier completed ticket checkpoints
