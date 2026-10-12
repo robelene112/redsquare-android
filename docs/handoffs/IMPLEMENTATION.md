@@ -50,21 +50,27 @@ retainedsuccesslog+read-onlywait/noestablishedcause. Sourcepush8f3007b passes.
 Specfoundknownnon-own like couldbypassownership: fallbacknowonlyunknown91686be,
 bothcorrectionaxes0/localcompile1m21PASS; nativecoverage via nextnegative fixture.
 
-Nextmissingordinaryrepost tracer4536653: same unavailable-original/explicitRetry
-UIflow, plus independentlysigned knownnon-own post+owner-addressedlike inboth
-missingmodes. Exactneutralcaption/actorcounts catchfalseeligibility. Reference21373
-bytes/SHAf67062351b533f5aa466d0b1b159ab860dbf145bab1436dd4ff121ee5cc6400b threecopies.
-Localdebug/testcompile1m42PASS/bothreviews0. Genuine8RED38292822038 at4536653
-reports8/7PASS/1failure57.679s/0OKrecords/0deaths/core72: unknownrepostneutralrow
-absent, existing7journeys/knownnon-ownnegative pass. Threehashes/rootpartialPNG/
-separateXML qualified. Minimumrepost verifiedrecipients+unknown-only signedowner
-fallback+neutralcaption reusesReference route; localcore/debug/testcompilepending.
-Cumulative22commitreviewStandards0/Spec1quote-targetlookup lacksRetweetnamespace;
-new independentlysigned/native like-of-own-currentquote tracer next after repost.
-No newwhole-ticketacceptance. Original-cache fixtures use
-actualPublicStringStore.lock; names SaitoLocalState.lock, preciseopaquerestoration.
-FifteenfirstmissingGREENhashes/rootpartialtool+all7XML qualifiers retained; no
-negativeeligibility proof in52e693b runtime. Othermissingkindsfuture.
+Missing ordinaryrepost4536653 nativeRED38292822038 reports8/7PASS/1fail57.679s/
+0OKrecord/0deaths/core72, absentneutralrepost. Minimum43df154 addsverifiedrecipients
++sameunknown-onlysignedowner fallback/Reference route; localcore/debug/test3m5PASS.
+First8GREEN38294033318 at43df154 PASSES8/44.026s/1OKrecord/0deaths/core72, both
+missinglike/repostactualempty/explicitRetry/recoveredConversation/Back/Actor/
+2targetreads andknownnon-own addressedlike excluded; all6existingjourneys/full
+finalopaque wallet/backend/pref/name-or-original-cache restore/no-write pass.
+Seventeenhashes/rootfullreloadedrepPNG(allOwner/toolbar/2actors/captions)+all8XML.
+Standards1duplicateownership predicate nowsharedprivatecaption3e53ce1, both
+correctionaxes0. Sharedrefactor/newtracer compilepending; eightGREEN predates it.
+
+Cumulative22commitreviewStandards0additional/Spec1: currentquote like-targetlookup
+usesonlyordinaryRedSquare, but currentquotes indexedRedSquareRetweet. Newfb55c40
+native9tracer +independent owncurrentquote/incominglike: ordinarytargetreads[];
+Retweettarget first[]then ownquoteonexplicitRetry. Requires actualcommentary+
+authenticatedoriginal/Back/Actor/Retweetreads>=2; safe countJSONonfailure/success.
+Reference24557bytes/SHAdf18fa267c99d457bdab01b4a41f88e83fb92096e740efb492012c9ddffaf06f
+threecopiesidentical. Localcore/debug/testcompilepending; genuine9RED38295102399
+running atfb55c40. No namespacefallback source yet; waitactualRED. Target-sig
+Retweetqueries routeControlledFeedPeer genericarchiveResponse, notunfilteredquote
+callback, and newfixture answers exactnamespace/sig/flag/limit1 there.
 
 Remaining within#24: contact-post and feed-cache supplementation, missing-original
 retention/lookup/Retry with neutral wording, bounded independent paging/partial

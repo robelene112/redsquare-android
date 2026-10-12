@@ -7,10 +7,10 @@ positive2targetreads pass. Their verifiednon-own addressedlike is excluded throu
 exactcaption/actorcounts. Existing6journeys/finalowner-index/authidentity/no
 payments+reports/opaque wallet/backend/permission/name/original-cache restore pass.
 
-Root separately parsed all8XML. Original missing-repost PNG viewed; tool renders
-status/Reposted a post plus loweractor/ownlike, with blankuppertoolbar/actorareas.
-XML separately exposesOwner/Notifications/Refresh/2actors/captions. No stored
-content/applicationcause inferred; otherPNG retainedwithout independentvisual
-claims. Seventeenhashes. Actualunavailable/retry/thread/Profile/cleanup are runtime
+Root separately parsed all8XML. Root reloaded the durable original missing-repost PNG and obtained a complete
+view: selectedOwner/Notifications/Refresh, both verifiedactor rows, neutralrepost
+and existingownlike. This supersedes the initial partialtool-view qualifier,
+without establishing its cause. SeparateXML exposes those same UI elements;
+otherPNG retainedwithout independent rootvisualclaims. Seventeenhashes. Actualunavailable/retry/thread/Profile/cleanup are runtime
 assertions, not extraimages. This predatessharedprivatecaptionrefactor3e53ce1.
 Quote-targetnamespacefinding remains open. No whole/fullSDK/cachecold/push/Pixel/newAPK.

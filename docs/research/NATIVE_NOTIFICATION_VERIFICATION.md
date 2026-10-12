@@ -439,3 +439,9 @@ firstunavailable/explicitRetry/quotecommentary+authenticatedoriginal/Back/Profil
 actualRetweetreads>=2 and unchangedidentity/no-write/opaque cleanup. No namespace
 fallback source yet; genuineRED pending. Reference24557bytes/SHAdf18fa267c99d457bdab01b4a41f88e83fb92096e740efb492012c9ddffaf06f,
 threecopiesidentical. Localcore/debug/test compilepending.
+
+Root separately reloaded the durable missing-repost GREEN original and obtained
+completeOwner/Notifications/Refresh/bothactor/neutralrepost+ownlike view. README
+now uses that completeview instead ofinitialpartialtoolqualifier; no causeinferred.
+Othercaptures stillnotindependentlyrootviewed. Ninejourney quote-target RED
+38295102399 atfb55c40 running; unchangedQuoteState ordinary-onlynamespace.
