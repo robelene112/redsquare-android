@@ -460,3 +460,17 @@ emptyordinaryRedSquare page, within existing13s overall/12s perrequest/3lookup
 semaphore, sameauthenticated selectedpeer/sig/flag/limit1/signedpost decoder and
 revision/cache handling. Errors/invalidrows remainfailure, not emptiness/fallback.
 No autoRetry/backend reroute, sourcecompilation/first9GREEN pending.
+
+Namespacecorrection localcore/debug/test reportsPASSED2m41s. Attachedclient143
+afterlogs; Docker'sactualdie event for e46f0c2378c2... reports exitCode0/duration162s,
+confirmingcompletedbuild. Cause ofattachedstatusnotestablished/no duplicatebuild.
+Both boundedcorrectionreviewaxes0. First9GREEN38295989335 at72a549a PASSES9tests
+67.886s/1OKrecord/0deaths/noassumptions/core72/compiler/debug/test. Actualcurrent
+quote-like unavailable/explicitRetry/commentary+authenticatedoriginal/Back/Actor
+andactualordinary2/Retweet2targetreads pass. Existing8journeys/knownOthernegative/
+sharedcaption/authidentity/no-write/opaque wallet/backend/permission/name-or-
+original-cache restore complete. Twentyhashes quote-target-native-green/android17;
+rootfulloriginal neutralquote-like listPNG andall9XMLparsed, othersno rootviews.
+Cumulative namespacefinding now source+native resolved; no whole-ticket/fullSDKpair.
+Next vertical slice is available notification history through activityrecreation
+when selectedbackend responsesfail, scopedbywallet/backend and verifiedsigneddata.
