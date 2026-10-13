@@ -71,6 +71,17 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     }
     BackHandler { close() }
 
+    suspend fun retainReactions(page: PrivateHistoryPage) {
+        if (page.reactions.isEmpty()) return
+        withContext(Dispatchers.IO) {
+            page.reactions.forEach { (contact, events) ->
+                val store = ChatReactionStore(context, wallet, backend, contact)
+                events.forEach { store.receive(it.envelope) }
+            }
+        }
+        reactionState?.load()
+    }
+
     suspend fun retainHistory(cache: ChatHistoryStore): ChatHistoryStore.Read? {
         val originals = entries.map { it.envelope }
         return try {
@@ -99,6 +110,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                         try {
                             val recovered = withContext(Dispatchers.IO) { loadPrivateHistory(peer, wallet, group) }
                             incomplete = incomplete || recovered.incomplete
+                            retainReactions(recovered)
                             for ((address, messages) in recovered.messages.groupBy { it.counterparty }) {
                                 withContext(Dispatchers.IO) {
                                     ChatHistoryStore(context, wallet, backend, address).save(messages.map { it.envelope })
@@ -183,6 +195,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                             val page = withContext(Dispatchers.IO) {
                                 loadPrivateHistory(peer, wallet, PrivateChat.conversationId(wallet.publicKey, contact))
                             }
+                            retainReactions(page)
                             hasOlder = page.hasOlder
                             olderCursor = page.oldestTimestamp
                             entries = ChatHistoryStore.merge(entries, page.messages.map { ChatHistoryStore.Entry(it.envelope, it.message) })
@@ -218,6 +231,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                 }
             }
             require(page.messages.all { it.message.createdAt < cutoff })
+            retainReactions(page)
             hasOlder = page.hasOlder
             olderCursor = page.oldestTimestamp
             entries = ChatHistoryStore.merge(entries, page.messages.map { ChatHistoryStore.Entry(it.envelope, it.message) })
@@ -355,7 +369,8 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     }
 }
 
-private data class PrivateHistoryPage(val messages: List<ReceivedPrivateChat>, val incomplete: Boolean,
+private data class PrivateHistoryPage(val messages: List<ReceivedPrivateChat>,
+    val reactions: Map<String, List<PrivateChatLikeEvent>>, val incomplete: Boolean,
     val hasOlder: Boolean, val oldestTimestamp: Long?)
 
 private suspend fun loadPrivateHistory(peer: SaitoPeer, wallet: SaitoWallet,
@@ -371,6 +386,7 @@ private suspend fun loadPrivateHistory(peer: SaitoPeer, wallet: SaitoWallet,
         .toString(Charsets.UTF_8)).asJsonArray
     require(rows.size() <= 50)
     var ignored = 0
+    val reactions = mutableMapOf<String, MutableList<PrivateChatLikeEvent>>()
     var oldestTimestamp: Long? = null
     val verified = rows.mapNotNull { row ->
         try {
@@ -379,15 +395,22 @@ private suspend fun loadPrivateHistory(peer: SaitoPeer, wallet: SaitoWallet,
             // Pagination can advance without a missing decryption key, but never from unsigned
             // archive timestamps or an original belonging to another private conversation.
             val signed = SaitoEnvelope.decodePayload(envelope.asString)
-            require(signed.body.isJsonPrimitive && signed.body.asJsonPrimitive.isString)
             require(signed.createdAt < before)
             val candidates = if (signed.author == wallet.publicKey)
                 signed.recipients.distinct().filter { it != wallet.publicKey } else listOf(signed.author)
             val counterparty = candidates.single { PrivateChat.conversationId(wallet.publicKey, it) == group }
             require(signed.recipients.containsAll(setOf(wallet.publicKey, counterparty)))
-            oldestTimestamp = oldestTimestamp?.let { minOf(it, signed.createdAt) } ?: signed.createdAt
-            PrivateChat.recover(wallet, envelope.asString, group)
+            if (signed.body.isJsonObject) {
+                val event = PrivateChatLike.read(wallet, counterparty, envelope.asString)
+                reactions.getOrPut(counterparty) { mutableListOf() }.add(event)
+                oldestTimestamp = oldestTimestamp?.let { minOf(it, signed.createdAt) } ?: signed.createdAt
+                null // Authenticated reaction metadata is retained separately from encrypted message text.
+            } else {
+                require(signed.body.isJsonPrimitive && signed.body.asJsonPrimitive.isString)
+                oldestTimestamp = oldestTimestamp?.let { minOf(it, signed.createdAt) } ?: signed.createdAt
+                PrivateChat.recover(wallet, envelope.asString, group)
+            }
         } catch (_: Exception) { ignored++; null }
     }.distinctBy { it.message.id }
-    return PrivateHistoryPage(verified, ignored > 0, rows.size() == 50, oldestTimestamp)
+    return PrivateHistoryPage(verified, reactions, ignored > 0, rows.size() == 50, oldestTimestamp)
 }
