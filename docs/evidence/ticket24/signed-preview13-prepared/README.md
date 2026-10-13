@@ -1,0 +1,5 @@
+# Signed review13 prepared, unpublished
+
+Canonicalreview-build13639 completedexit0/Releaseassembly2m41, establishedprivate signingidentity. Public package/certificate/version metadata retained, noAPK/signingsecrettracked. Productmatches4e3a6ea7 fullSDKsource; laterHEADdiffcontainsdocs only. Buildincludes b7541e6a minimalfeednavigationrepair.
+
+Publicationheldpendingfull10=38484421113/full17=38484424347 runtimeacceptance. Publicpreview11 remainsunchanged. Preview12superseded. Package/certificatealone doesnotestablish physicalPixel orcurrent13signed-updatecontinuity; physicalintegratedcheck remains35. Ownerpriority37visualbeta after25.
