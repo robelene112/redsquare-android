@@ -1235,3 +1235,8 @@ Bothcorrectionaxes0, noapp/core/reference/harness/workflowchange; localAPKpendin
 Originalfull17run38328912121 active/sameproduction68633d9. Companionrule permits
 retaining ifallgatespass. Correctedfull10 dispatchedsamepublicreadsoptin; exactID
 recordednext. No later-suite/full proof from initialfailed10.
+
+Viewportcorrection47907fe localtestAPK1m30PASS/bothreviews0. Correctedfull10
+run38329490846 at47907fe active/public_feed_read=true; sourceequivalent68633d9/
+originalfull17ata564. Originalfull17run38328912121 remainsactive. No source
+change or copiedacceptance from unfinishedruns.

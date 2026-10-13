@@ -47,8 +47,8 @@ existingcachedrootnotdisplayed:443/20.442s/zeroOK/deaths; core74/release/lintpas
 InneroriginalPNGshowscachedauthorbottom/bodybelowviewport, outerblankafterclosed
 Activityqualified/nolegacyXML. Threehashes.47907fe ordinaryscroll beforeunchanged
 display/navigation/recovery assertions, bothreviews0/noapp/core/reference/harness/
-workflowchange. LocalAPKpending. Correctedfull10dispatched(publicreadsoptedin);
-recordexactIDnext. Originalfull17run38328912121 ata564 remainsactive; mayretain
+workflowchange. LocalAPK1m30PASS. Correctedfull10run38329490846 at47907fe active,
+publicreadsoptedin. Originalfull17run38328912121 ata564 remainsactive; mayretain
 ifallgatespassunderWORKFLOW companionrule, sameproduction68633d9. No source mutation until theseacceptance runsfinish;
 docs-only evidence changes permitted. Complete actualcounts/PNG/XML/continuity/
 release/lint/publicfeeds/finaltwo-axis evidence, then close#24 and move#25.
