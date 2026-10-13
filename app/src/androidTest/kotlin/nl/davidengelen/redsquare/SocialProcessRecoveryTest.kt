@@ -63,10 +63,21 @@ class SocialProcessRecoveryTest {
         peer.start().use { server ->
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                withFailureCapture({
+                    captureNativeScreen(File(context.cacheDir, "social-process-evidence/prepare-first-failure.png"))
+                    File(context.cacheDir, "social-process-evidence/prepare-counts.json").writeText(JsonObject().apply {
+                        addProperty("archiveRequests", peer.requests.get())
+                        addProperty("broadcasts", peer.transactions.size)
+                        addProperty("observedLike", observed.get() != null)
+                    }.toString())
+                }) {
                 waitFor("Native Red Square reference post")
+                ui.onNode(hasScrollAction()).performScrollToNode(hasText("Like"))
                 ui.waitUntil(20_000) { ui.onAllNodes(hasText("Like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                ui.onNodeWithText("Like").performClick()
+                ui.onNodeWithText("Like").assertIsDisplayed().performClick()
                 ui.waitUntil(20_000) { ui.onAllNodes(hasText("Retry like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                ui.onNode(hasScrollAction()).performScrollToNode(hasText("Retry like"))
+                ui.onNodeWithText("Retry like").assertIsDisplayed()
                 assertEquals(1, peer.transactions.size)
                 peer.assertHealthy()
                 checkpoint.outputStream().use { output ->
@@ -76,6 +87,7 @@ class SocialProcessRecoveryTest {
                 }
                 Process.killProcess(Process.myPid())
                 error("Expected process termination")
+                }
             }
         }
     }
@@ -98,7 +110,8 @@ class SocialProcessRecoveryTest {
                 waitFor("Native Red Square reference post")
                 ui.waitUntil(20_000) { ui.onAllNodes(hasText("Retry like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 assertTrue(peer.transactions.isEmpty())
-                ui.onNodeWithText("Retry like").performClick()
+                ui.onNode(hasScrollAction()).performScrollToNode(hasText("Retry like"))
+                ui.onNodeWithText("Retry like").assertIsDisplayed().performClick()
                 waitFor("Liked")
                 assertTrue(peer.transactions.isEmpty())
                 peer.assertHealthy()
