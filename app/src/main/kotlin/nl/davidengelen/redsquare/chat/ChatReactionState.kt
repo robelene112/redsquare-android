@@ -15,16 +15,18 @@ internal class ChatReactionState(context: Context, private val wallet: SaitoWall
     var saved by mutableStateOf(ChatReactionStore.Saved()); private set
     var ready by mutableStateOf(false); private set
     var busy by mutableStateOf(false); private set
-    var failed by mutableStateOf(false); private set
+    private var restoreFailed by mutableStateOf(false)
+    private var sendFailed by mutableStateOf(false)
+    val failed: Boolean get() = restoreFailed || sendFailed
     val editable: Boolean get() = ready && !busy && saved.status !in
         listOf(ChatReactionStore.Status.UNKNOWN, ChatReactionStore.Status.SUBMITTED)
     val retryable: Boolean get() = ready && !busy && saved.transaction != null && saved.status in
         listOf(ChatReactionStore.Status.UNKNOWN, ChatReactionStore.Status.SUBMITTED)
 
     suspend fun load() {
-        try { publishSaved { store.load() }; ready = true }
+        try { publishSaved { store.load() }; ready = true; restoreFailed = false }
         catch (cancelled: CancellationException) { throw cancelled }
-        catch (_: Exception) { failed = true }
+        catch (_: Exception) { restoreFailed = true; ready = false }
     }
 
     private suspend fun publishSaved(operation: () -> ChatReactionStore.Saved) = withContext(Dispatchers.Main.immediate) {
@@ -68,9 +70,9 @@ internal class ChatReactionState(context: Context, private val wallet: SaitoWall
                             publishSaved { store.record(candidate.id, ChatReactionStore.Status.FORWARDED) }
                         }))
                 }
-                failed = false
+                sendFailed = false
             } catch (cancelled: CancellationException) { throw cancelled }
-            catch (_: Exception) { failed = true }
+            catch (_: Exception) { sendFailed = true }
             finally { busy = false }
         }
     }

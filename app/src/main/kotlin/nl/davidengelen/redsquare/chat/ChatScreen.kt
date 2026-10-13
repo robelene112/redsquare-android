@@ -48,6 +48,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     var failed by remember(counterparty) { mutableStateOf(false) }
     var incomplete by remember(wallet, backend, counterparty) { mutableStateOf(false) }
     var cacheFailed by remember(counterparty) { mutableStateOf(false) }
+    var reactionHistoryFailed by remember(wallet, backend, counterparty) { mutableStateOf(false) }
     var refresh by remember { mutableIntStateOf(0) }
     var hasOlder by remember(wallet, backend, counterparty) { mutableStateOf(false) }
     var olderLoading by remember(wallet, backend, counterparty) { mutableStateOf(false) }
@@ -71,15 +72,20 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     }
     BackHandler { close() }
 
-    suspend fun retainReactions(page: PrivateHistoryPage) {
-        if (page.reactions.isEmpty()) return
-        withContext(Dispatchers.IO) {
-            page.reactions.forEach { (contact, events) ->
-                val store = ChatReactionStore(context, wallet, backend, contact)
-                events.forEach { store.receive(it.envelope) }
+    suspend fun retainReactions(page: PrivateHistoryPage): Boolean {
+        if (page.reactions.isEmpty()) return true
+        val retained = try {
+            withContext(Dispatchers.IO) {
+                page.reactions.forEach { (contact, events) ->
+                    val store = ChatReactionStore(context, wallet, backend, contact)
+                    events.forEach { store.receive(it.envelope) }
+                }
             }
-        }
+            true
+        } catch (cancelled: CancellationException) { throw cancelled }
+        catch (_: Exception) { false }
         reactionState?.load()
+        return retained
     }
 
     suspend fun retainHistory(cache: ChatHistoryStore): ChatHistoryStore.Read? {
@@ -97,6 +103,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
         try {
             val retained = withContext(Dispatchers.IO) { ChatHistoryStore.contacts(context, wallet, backend) }
             var discoveryFailed = retained.unavailable
+            var reactionRetentionFailed = false
             if (retained.unreadable) incomplete = true
             val portable = withContext(Dispatchers.IO) { wallet.chatContacts() }
             contacts = (contacts + portable + retained.accounts).distinct()
@@ -110,7 +117,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                         try {
                             val recovered = withContext(Dispatchers.IO) { loadPrivateHistory(peer, wallet, group) }
                             incomplete = incomplete || recovered.incomplete
-                            retainReactions(recovered)
+                            if (!retainReactions(recovered)) reactionRetentionFailed = true
                             for ((address, messages) in recovered.messages.groupBy { it.counterparty }) {
                                 withContext(Dispatchers.IO) {
                                     ChatHistoryStore(context, wallet, backend, address).save(messages.map { it.envelope })
@@ -124,6 +131,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                 if (updated !== wallet) onWalletMetadata(wallet, updated)
             }
             contactsFailed = discoveryFailed
+            if (counterparty == null) reactionHistoryFailed = reactionRetentionFailed
         }
         catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { contactsFailed = true }
@@ -195,7 +203,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                             val page = withContext(Dispatchers.IO) {
                                 loadPrivateHistory(peer, wallet, PrivateChat.conversationId(wallet.publicKey, contact))
                             }
-                            retainReactions(page)
+                            reactionHistoryFailed = !retainReactions(page)
                             hasOlder = page.hasOlder
                             olderCursor = page.oldestTimestamp
                             entries = ChatHistoryStore.merge(entries, page.messages.map { ChatHistoryStore.Entry(it.envelope, it.message) })
@@ -231,7 +239,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                 }
             }
             require(page.messages.all { it.message.createdAt < cutoff })
-            retainReactions(page)
+            reactionHistoryFailed = !retainReactions(page) || reactionHistoryFailed
             hasOlder = page.hasOlder
             olderCursor = page.oldestTimestamp
             entries = ChatHistoryStore.merge(entries, page.messages.map { ChatHistoryStore.Entry(it.envelope, it.message) })
@@ -258,6 +266,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
         PersonalControlsStatus(personal)
         if (contactsFailed || failed) Text(stringResource(R.string.chat_load_error))
         if (cacheFailed) Text(stringResource(R.string.chat_cache_error))
+        if (reactionHistoryFailed) Text(stringResource(R.string.chat_reaction_cache_error))
         if (incomplete) Text(stringResource(R.string.chat_incomplete))
         val contact = counterparty
         if (contact == null) {
@@ -356,7 +365,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                 ChatReactionStore.Status.FORWARDED -> Text(stringResource(R.string.chat_reaction_forwarded))
                 ChatReactionStore.Status.NONE -> Unit
             }
-            if (reactions.failed) Text(stringResource(R.string.chat_reaction_error))
+            if (reactions.failed && !reactionHistoryFailed) Text(stringResource(R.string.chat_reaction_error))
             if (reactions.saved.status in listOf(ChatReactionStore.Status.UNKNOWN, ChatReactionStore.Status.SUBMITTED)) {
                 TextButton(enabled = personal?.ready == true && reactions.retryable, onClick = { reactions.retry() }) {
                     Text(stringResource(R.string.chat_reaction_retry))
