@@ -14,10 +14,11 @@ import nl.davidengelen.redsquare.saito.*
 import java.io.File
 
 internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
-    enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL, LIST_LIVE, PARTIAL_KEYS, STORAGE_PARTIAL, OTHER_LIVE, MENTIONED, MENTIONED_OUTGOING, MUTED, BLOCKED, UNKNOWN_RETRY, PENDING_IMPORT, DRAFT_NAVIGATION, OLDER_HISTORY, QUOTED_REPLY, LITERAL_MARKUP, UNREADABLE_RECENT_HISTORY, NATIVE_REPLY, NATIVE_REPLY_ZERO, LIKE, INCOMING_LIKE }
+    enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL, LIST_LIVE, PARTIAL_KEYS, STORAGE_PARTIAL, OTHER_LIVE, MENTIONED, MENTIONED_OUTGOING, MUTED, BLOCKED, UNKNOWN_RETRY, PENDING_IMPORT, DRAFT_NAVIGATION, OLDER_HISTORY, QUOTED_REPLY, LITERAL_MARKUP, UNREADABLE_RECENT_HISTORY, NATIVE_REPLY, NATIVE_REPLY_ZERO, LIKE, INCOMING_LIKE, CONCURRENT_LIKE }
 
     fun exerciseHistory(case: HistoryCase) {
-        val liking = case == HistoryCase.LIKE
+        val concurrentLike = case == HistoryCase.CONCURRENT_LIKE
+        val liking = case == HistoryCase.LIKE || concurrentLike
         val incomingLike = case == HistoryCase.INCOMING_LIKE
         val zeroReply = case == HistoryCase.NATIVE_REPLY_ZERO
         val nativeReply = case == HistoryCase.NATIVE_REPLY || zeroReply
@@ -50,7 +51,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
         }).bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
         val likeReference = if (liking) instrumentation.context.assets.open("native-private-chat-like-reference.json")
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject } else null
-        val incomingLikeReference = if (incomingLike) instrumentation.context.assets.open("incoming-private-like-reference.json")
+        val incomingLikeReference = if (incomingLike || concurrentLike) instrumentation.context.assets.open("incoming-private-like-reference.json")
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject } else null
         val vectors = fixture.getAsJsonArray("vectors")
         val reference = vectors[when {
@@ -136,12 +137,19 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
             SaitoWire.applicationRequest(otherWallet.publicKey, relay.toString().toByteArray(Charsets.UTF_8),
                 1, 1700000000999L).drop(5).toByteArray()
         } else null
+        val reactionRelayEntered = java.util.concurrent.CountDownLatch(1)
+        val reactionRelayRelease = java.util.concurrent.CountDownLatch(1)
+        val delayedReaction = java.util.concurrent.atomic.AtomicBoolean(false)
         val peer = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", relayResponse = { original ->
             if (liking) {
                 val signed = SaitoEnvelope.decodePayload(SaitoEnvelope.fromSignedJson(original))
                 check(signed.author == wallet.publicKey)
                 check(signed.recipients.containsAll(listOf(wallet.publicKey, counterpart)))
                 check(signed.body == requireNotNull(likeReference).getAsJsonArray("vectors")[0].asJsonObject.get("body"))
+                if (concurrentLike && delayedReaction.compareAndSet(false, true)) {
+                    reactionRelayEntered.countDown()
+                    check(reactionRelayRelease.await(15, java.util.concurrent.TimeUnit.SECONDS))
+                }
             } else {
                 check(sending)
                 val received = PrivateChat.read(recipientWallet, original, wallet.publicKey)
@@ -333,12 +341,32 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             return@withFailureCapture
                         }
                         if (liking) {
+                            val capturePrefix = if (concurrentLike) "private-concurrent-reaction" else "private-message"
+                            val envelopePrefix = if (concurrentLike) "native-sent-concurrent" else "native-sent"
+                            val initialCount = if (concurrentLike) "2 likes" else "1 like"
                             waitForEnabled("Message")
                             waitForEnabled("Like")
                             ui.onNodeWithText("Like").assertIsEnabled().performClick()
+                            if (concurrentLike) {
+                                ui.waitUntil(5_000) { reactionRelayEntered.count == 0L }
+                                waitFor(context.getString(R.string.chat_reaction_submitted))
+                                val relay = JsonObject().apply {
+                                    addProperty("module", "Relay"); addProperty("request", "chat relay")
+                                    add("data", requireNotNull(incomingLikeReference).getAsJsonArray("vectors")[0]
+                                        .asJsonObject.getAsJsonObject("signedInner"))
+                                }
+                                peer.sendIncoming(SaitoWire.applicationRequest(counterpart, relay.toString().toByteArray(Charsets.UTF_8),
+                                    1, 1700000080100L).drop(5).toByteArray())
+                                waitFor(initialCount)
+                                ui.waitUntil(5_000) { peer.incomingAcknowledgements.any { it[0] == 13.toByte() } }
+                                ui.onNodeWithText(context.getString(R.string.chat_reaction_submitted)).assertIsDisplayed()
+                                captureNativeScreen(File(context.cacheDir, "private-chat-evidence/$capturePrefix-submitted.png"), text)
+                                reactionRelayRelease.countDown()
+                            }
                             waitFor("Reaction forwarded. Delivery is not confirmed.")
-                            waitFor("1 like")
-                            ui.onNodeWithText("1 like").assertIsDisplayed()
+                            waitFor(initialCount)
+                            ui.onNodeWithText(initialCount).assertIsDisplayed()
+                            waitForEnabled("Unlike")
                             ui.onNodeWithText("Unlike").assertIsEnabled()
                             ui.waitUntil(5_000) { peer.transactions.size == 1 && peer.relayedMessages.size == 1 }
                             val original = postingTransaction(peer.transactions.single())
@@ -347,41 +375,49 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             check(signed.body == requireNotNull(likeReference).getAsJsonArray("vectors")[0].asJsonObject.get("body"))
                             check(peer.relayedMessages.single().get("signature").asString == signed.id)
                             check(SaitoEnvelope.fromSignedJson(peer.relayedMessages.single()) == original.envelope())
-                            File(context.cacheDir, "private-chat-evidence/native-sent-like-envelope.json").writeText(original.envelope())
-                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/private-message-liked.png"), text)
+                            File(context.cacheDir, "private-chat-evidence/$envelopePrefix-like-envelope.json").writeText(original.envelope())
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/$capturePrefix-liked.png"), text)
                             historyUnavailable.set(true)
                             scenario.recreate()
                             waitFor(counterpart)
                             ui.onNodeWithText(counterpart).performClick()
                             waitFor(context.getString(R.string.chat_load_error))
-                            waitFor("1 like")
+                            waitFor(initialCount)
                             ui.onNodeWithText(text).assertIsDisplayed()
-                            ui.onNodeWithText("1 like").assertIsDisplayed()
+                            ui.onNodeWithText(initialCount).assertIsDisplayed()
                             ui.onNodeWithText("Unlike").assertIsEnabled()
                             waitFor("Reaction forwarded. Delivery is not confirmed.")
-                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/private-message-like-recreated.png"), text)
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/$capturePrefix-like-recreated.png"), text)
                             waitForEnabled("Unlike")
                             ui.onNodeWithText("Unlike").assertIsEnabled().performClick()
                             waitForEnabled("Like")
-                            ui.onAllNodesWithText("1 like").assertCountEquals(0)
+                            if (concurrentLike) {
+                                waitFor("1 like")
+                                ui.onNodeWithText("1 like").assertIsDisplayed()
+                            }
+                            ui.onAllNodesWithText(initialCount).assertCountEquals(0)
                             ui.waitUntil(5_000) { peer.transactions.size == 2 && peer.relayedMessages.size == 2 }
                             val unlike = postingTransaction(peer.transactions[1])
                             val signedUnlike = SaitoEnvelope.decodePayload(unlike.envelope())
                             check(unlike.id != original.id)
                             check(signedUnlike.body == signed.body && signedUnlike.author == signed.author)
                             check(SaitoEnvelope.fromSignedJson(peer.relayedMessages[1]) == unlike.envelope())
-                            File(context.cacheDir, "private-chat-evidence/native-sent-unlike-envelope.json").writeText(unlike.envelope())
-                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/private-message-unliked.png"), text)
+                            File(context.cacheDir, "private-chat-evidence/$envelopePrefix-unlike-envelope.json").writeText(unlike.envelope())
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/$capturePrefix-unliked.png"), text)
                             scenario.recreate()
                             waitFor(counterpart)
                             ui.onNodeWithText(counterpart).performClick()
                             waitFor(context.getString(R.string.chat_load_error))
                             waitForEnabled("Like")
                             ui.onNodeWithText(text).assertIsDisplayed()
-                            ui.onAllNodesWithText("1 like").assertCountEquals(0)
+                            if (concurrentLike) {
+                                waitFor("1 like")
+                                ui.onNodeWithText("1 like").assertIsDisplayed()
+                            }
+                            ui.onAllNodesWithText(initialCount).assertCountEquals(0)
                             ui.onAllNodesWithText("Unlike").assertCountEquals(0)
                             waitFor("Reaction forwarded. Delivery is not confirmed.")
-                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/private-message-unlike-recreated.png"), text)
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/$capturePrefix-unlike-recreated.png"), text)
                             check(AndroidWalletStore(context).loadOrCreate().exportJson() == wallet.exportJson())
                             check(AndroidBackendStore(context).load() == SaitoBackend.OWNER)
                             check(peer.transactions.size == 2 && peer.relayedMessages.size == 2 && peer.reports.isEmpty())
@@ -756,6 +792,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
             }
         } catch (failure: Throwable) { primaryFailure = failure; throw failure }
         finally {
+            reactionRelayRelease.countDown()
             // Activity is closed before restoring the original opaque wallet and each exact fixture file.
             var cleanupFailure: Throwable? = null
             fun restore(step: () -> Unit) {

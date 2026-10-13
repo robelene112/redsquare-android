@@ -20,4 +20,7 @@ class PrivateChatActionsPreviewTest {
 
     @Test fun incomingPrivateReactionsKeepOriginalIdentityAcrossDuplicatesAndReopening() =
         history.exerciseHistory(HistoryCase.INCOMING_LIKE)
+
+    @Test fun anIncomingReactionDuringSubmissionKeepsNewerForwardedStatusAndBothLikes() =
+        history.exerciseHistory(HistoryCase.CONCURRENT_LIKE)
 }
