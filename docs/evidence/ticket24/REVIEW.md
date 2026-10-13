@@ -1306,3 +1306,33 @@ Zero documented breaches or actionable smells. Explicit publicenabled readiness 
 ### Spec
 
 Zero actionable findings. Observable Android flow gates remain strict; disabled-Chat timing is a hypothesis and does not explain the recreated cached-message timeout. Product unchanged; corrected runtime pending.
+
+
+## Reaction wallet isolation tracer,945ade6b...962e1cfb
+
+### Standards
+
+Zero documented breaches or actionable smells. Protected identity replacementprecondition, explicitfeed navigation, opaquebothidentity/backend snapshots and allowedrestorationidentity guard. Exactoriginal/Relay/fullwallet/noautotransmission unchanged. No SAFapproval or hotactivationclaim.
+
+### Spec
+
+Zero actionable findings. Otheridentityseesownhistorywithoutoldreaction/work, restorationrecoversoldUnknownfor exactexplicitRetry. Compilation PASS1m22. Native execution pending.
+
+Backendreactionisolationfocused10run38473908900/2c0 PASSsevenactions47.182s/core86. Root all30XML/fouruniquebackendPNG inspected; qualifieslogicalnamespaceonly.17companion stillrunning; available-reaction9casetracer7fd4 localcompileactive, REDpending.
+
+
+## Available reaction tracer,962e1cfb...7fd4d9bd
+
+### Standards
+
+Zero documented breaches or actionable smells. Independent signed metadata/duplicateArchive rows at publicUI/wire seam; protectedcleanup preserved. Only actualavailableoperations promised. Productunchanged, REDpending.
+
+### Spec
+
+One actionable finding: finalRefresh can pass afterfailedread becausecached1Like persists andRefreshenabled onsuccessorerror. Require an advanced externalArchive read count and absenceofloaderror to meet observable recovery.
+
+### Fix,7fd4d9bd...f7483f2b
+
+Spec: priorfindingresolved, zero newfindings; newread+errorabsence plusstricterrorabsence/readiness gates cannotbe satisfiedbycachedcontent alone. Standards pending. Earliertracercompile1m23;fixcompileactive.
+
+Backendlogicalnamespaceisolation GREENbothSDK at2c0:10run38473908900 sevenactions47.182s/core86 and17run38473912585 sevenactions79.856s/core86.10all30XML/fouruniquePNG and17fourneworiginalPNG/XMLpairs rootinspected. Broadcorrected10run38474160633/945ade6b active;walletreplacementandavailable-reactionninecaserunpending.
