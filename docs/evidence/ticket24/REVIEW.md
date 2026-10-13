@@ -634,3 +634,16 @@ Prior duplication heuristic resolved; zero new documented breaches or actionable
 Prior cached-history cursor defect resolved in source; zero new actionable findings. Queries use only the archive-page cursor, advancing or clearing from returned messages without using merged cache/live entries. Original authentication, encrypted retention and scope remain. No automatic send or pagination loop. Actual REDdd8ef695 reports21cases20PASS+missing intermediate body109.476s;31XML/manifest verify. Exact failed cutoff and later cache predicates were not retained/reached. Runtime GREEN and whole-ticket acceptance remain pending.
 
 Findings: Standards 0; Spec 0. Local APK subsequently passes2m55s/exit0; native21checks follow.
+
+
+## Existing-client reply tracers, a5b578bc...d5a67483
+
+### Standards
+
+Zero documented breaches and zero actionable smell findings. The optional generator pins the browser source, executes named sanitizer methods with real dependencies, and excludes DOM/application initialization. Both reply corpus copies match533efe82...a702e; original four vectors and malformed cases remain unchanged. Native tests distinguish readable replies from literal typed markup and verify exact retained envelope/raw plaintext after unavailable-Archive recreation. Compilation and prior paging results are accurately qualified.
+
+### Spec
+
+Zero actionable findings. The quoted fixture requires readable quote text and unchanged typed body, while the literal control remains literal. Real-cache checks distinguish display from original signed content. Independent sanitization/crypto execution is qualified without claiming full browser UI execution. Both preceding21-case runs and32XML each have verified provenance. No formatter or whole-ticket acceptance claimed at the tracer stage.
+
+Findings: Standards0; Spec0.

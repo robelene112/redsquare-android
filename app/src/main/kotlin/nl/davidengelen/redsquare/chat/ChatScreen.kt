@@ -303,7 +303,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                 items(visible, key = { it.id }) { message ->
                     Column(Modifier.fillMaxWidth().padding(vertical = 8.dp)) {
                         Text(registeredIdentity(message.author).name, style = MaterialTheme.typography.labelSmall)
-                        Text(message.text, style = MaterialTheme.typography.bodyLarge)
+                        PrivateMessageText(message.text)
                     }
                     HorizontalDivider()
                 }

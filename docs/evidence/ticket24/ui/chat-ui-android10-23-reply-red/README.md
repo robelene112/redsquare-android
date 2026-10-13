@@ -1,0 +1,3 @@
+# Quoted private reply display RED
+
+Run38438873308, sourced5a67483dea2618029ef98705e2e0a958d9ede5c, Android10. 23cases22PASS plus quoted-body timeout atline354;119.472s. Core86. Root inspected35validXML and history-first-failure.png, which shows full sanitized blockquote as literal text. Quoted display/recreation assertions after that wait did not execute. Ordinary literal markup and its recreated raw/cache assertions pass. Shared generic captures may come from later cases; unique literal captures are correctly attributable. No native formatter, actual process-death or whole-ticket acceptance claimed.
