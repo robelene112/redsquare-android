@@ -27,65 +27,49 @@ Failed intermediate runs remain retained without invented causes. Earlier
 accidental auto-close was reopened; close only after final acceptance.
 
 #25, "Exchange encrypted private Chat messages with existing clients", is assigned
-and active. Review basec102f891f6041f08199905728d302e19b7588abd. Read parent#1/issue25, NATIVE_PRIVATE_CHAT_CONTRACT and reference docs.
-Latest continuation: actual corrected17run38348848791 at94326b2 passes5cases/
-60.052s; both correction reviews0, actual unsafe native envelope independently
-passes pinned Crypto/WASM. Interrupted10run38349463109 at8615857 passes6/
-25.282s, Submitted/not-confirmed and recreated/no retransmission; no actualdeath.
-New-contact metadata at a26945b core83/debug/testAPK2m45PASS, actual UI RED10
-run38350790362 7cases/6PASS+1failure45.202s atline169 missing Public key.
-Root thirteenXMLs/failureoriginal inspected, durable ui/new-contact-red-android10.
-Reviews861...a269: Standards0hard/1dup group-predicate heuristic; Spec1 null
-keychain compatibility. Corrected core behavioralRED33s 13cases/1failure
-(original test typo compilefailure26s separately retained). Minimum null-keychain/
-shared predicate and fresh-contact entry/shared active-wallet update now local
-fullcore84/debug/testAPK PASS3m44s. Both bounded axes0. ActualGREEN10run38351999832 PASS7/35.544s; root twelveXMLs/twooriginals inspected. Public reader e2eb51d bothaxes0, run38352335633 pending. Imported conversation-ID UI tracer next. Do not close#25; listener for unselectedcontacts,
-paging, controls, actual death/isolation, backendcontracts and fullSDK stillpending.
+and active. Whole review basec102f891f6041f08199905728d302e19b7588abd.
+Read parent#1/issue25, NATIVE_PRIVATE_CHAT_CONTRACT, canonical chronology
+NATIVE_PRIVATE_CHAT_VERIFICATION.md and separate docs/evidence/ticket24/REVIEW.md.
+Accepted seams1–4 cover native UI/controlled peers, independent signing/encryption,
+recovery/isolation and compatibility. No additional grill or routine approval.
 
-Next checkpoint imported-ID core f2cd911 targeted9GREEN55s aftermissingAPIs
-RED27s. Public native10run38352335633 at e2eb51d PASS1/1.649s, eachapproved
-backend authenticates/servicesChatArchiveRelay/empty unusedgroup read; no send.
-Imported-ID actualRED10run38352677744 atd4d5f01 8cases/7PASS+1failure49.884s
-line181, rootthirteenXMLs/failureoriginal inspected. Core reviews Standards0,
-Spec1validmixedgroup rejection; regressionactualRED9cases/1failure34s. Minimum
-skipsrecognizedgroupkeys modern/legacy, and Chat list recovers available verified
-private history/contact metadata from importedIDs. Fullcore85/debug/testAPK PASS4m12s. ActualeightcaseGREEN/reviews next.
-Protected groupcontract untouched. Whole#25 remainsincomplete.
+Latest production source655c1e5: native encrypted DM send, original propagation
+and Relay, truthful Submitted/Forwarded-not-confirmed state; selected-conversation
+live receive/persistent socket; encrypted retained original cache; first-Chat
+optional permission; fresh public-key/Open-chat entry with portable contact/shared
+wallet metadata; imported lower-case chat.groups/legacy IDs recovery. Valid mixed
+private hashes/public-key group IDs preserve DM discovery. Core85/0/0/0 plus
+both APKs PASS4m12s. NewestHEAD37532b6 is partial-discovery regression only.
 
-Accepted seams1–4 cover native UI/controlled peers, independently signed vectors,
-recovery/isolation and compatibility. Record the new review base after #24's
-completion commit. Implement sequentially using TDD. No additional grill needed.
-Cache recreation GREEN10run38342240579 at0620289 PASS1/8.768s; originalPNG/XML inspected. Both bounded cache reviews found loss on Refresh after failed save. Genuine RED10run38342655104 ate8f6808 reports2cases/1PASS+1failure22.977s atline93; original captures prove message loss, no actual process death. Minimal retained-entry/ciphertext fix core82/debug/testAPK3m5s PASS. Actual10run38343321818 at43399a7 PASS2/9.458s; root fourXMLs/threeoriginals inspected. Both fix reviews0codefindings; current UI README drift fixed. Delayed live-relay RED10run38344010177 atdb62258 reports3cases/2PASS+1failure26.503s; failure original shows completed empty conversation, no message. Minimum live-selected-conversation handler keeps authenticated peer open and persists ciphertext before acknowledging; core82/debug/testAPK3mPASS. Actual10run38344712980 atfed20de PASS3/12.975s; original fiveXMLs/live+recreated PNGs inspected. Source reviews Spec0/Standards1 stale-warning ordering. Two-line fix d62a964 compiles Kotlin1m25s, both fix reviews0; corrected17run38344995062 PASS3/41.36s, fiveXMLs/threeoriginals inspected. FirstChat optional-permission actualRED10run38345645504 ata3b148a reports4cases/3PASS+1failure28.341s; root sixXMLs/failureoriginal inspected. One-call sharedprompt integration Kotlincompile1m23sPASS; same-source actual4case10run38346218117 PASS4/18.809s and17run38346220216 PASS4/51.82s; each root eightXMLs/offer+recreated originals inspected. Both bounded source reviews0. Native outgoing send/Relay actualRED10run38347083896 atf072178 reports5cases/4PASS+1failure36.397s line173 missing Message. Root nineXMLs/failureoriginal inspected. Minimum composer/workstore/claim/propagation/Relay now core82/debug/testAPK container exit0/SUCCESS3m2s; command connection exit143 separately retained. Actual5caseGREEN10run38348001347 ate06a22c PASS5/20.851s; root tenXMLs/threeoriginals inspected, recreated outgoing lastline clipped until scrolling. Independent existing-client Crypto/WASM verifies actual unsafe native random-salt envelope; default reference unchanged. Reviews Spec0/Standards1 incorrect Refresh recovery guidance. Guidance split and compact composer compile1m26s/1m22s; corrected17runtime/fix reviews next; next native send/listener and actual recovery/isolation. No sending, list listener, actual death/fullSDK or ticket completion inferred.
-First read-only history UI10run38340335366 at7e5811e PASS1/4.923s; core82, originalPNG/XML inspected and retained. Both bounded source reviews0. Cache/recreated-screen tracer compiled1m34s; actual RED next.
-First core receive tracer RED: missingdecoder/31s; GREEN1/56s. Send tracer
-RED: missingcreate/28s; GREEN2/58s matches exact pinned ciphertext/signature/
-network/envelope and restore. Fullcore76/debug/testAPK passed2m59s. Imported-secret tracer actual RED3/1
-failure55s, then fullcore77/0fail/0ignored GREEN1m. Source protocol increment7dbaba3 reviewed: Spec2 (legacyfield/case), Standards2
-(case/formatter primitive). GenuineRED then minimal fixes now fullcore81 GREEN1m.
-RelayJSON independent inner serialization/read also passes4/56s. Final reference
-hash886ff622...ee1c06 (fourvalid/threecorrectlysignedmalformed), twice identical
-isolated executions. Bounded fixes review Spec0/Standards0hard+1duplicate-string heuristic.
-Shared validator applied; core81/debug/testAPK3m24s PASS. Actual peer discovery
-tracer cleancompileRED2m33s (missingservices only), minimum sourceGREEN above.
-Initial fixture trailing-lambda break fixed, mixedRED and stopped143 qualified
-under evidence/ticket24/peer. Discovery0997419 both source reviews0; actual10run38337011297 PASS1/0.471s,
-core81/source gates, four hashes/no UI captures. New unsignedRelay receive
-core RED31s→GREEN8/1m2s validates original/forgedinner rejection. Incoming
-socket callback RED2m7s→minimum source core82/debug/testAPK3m12s PASS. Incoming source099...3c35 both axes0codefindings; handoff untracked note fixed.
-Actual10run38338221475 PASS2/0.788s/oneOK/noassumptions/deaths/core82; four
-hashes/no UI or durable-cache proof. First available-history UI tracer compiled
-1m43/cleanup1m26; missingChat UI runtime RED next; UI/privatecache/send/backend/recovery pending. First actualUIRED10run38339184559 at6df3ef0: missingChat beforecontact/history,
-1failure18.154s/zeroOK/deaths/assumptions/fivehashes/rootoriginalPNG+XML.
-Minimum Chat menu/contactlist/verified availableArchive reader core82/debug/
-testAPK3m34PASS; nativeGREEN next. Privatecache/send/recovery not implemented.
-Both public backends advertiseChat/Archive/Relay and accept freshunknownGroup
-load0rows in read-only nonce/TLS probe; no live writes or KotlinpublicDM claim.
-Chronology NATIVE_PRIVATE_CHAT_VERIFICATION.md.
-Private contract/reference/generator and native resources are committed with
-#25; NATIVE_GROUP_CHAT_CONTRACT remains protected for#26. Read-only
-preparation: .scratch/ticket25-readonly-plan.md. Chat signing must authenticate
-JSON-string ciphertext without weakening existing object consumers, use exact
-CryptoJS-compatible encryption, and preserve private owner/backend cache.
+Actual10run38353752949 at655c1e5 PASS8/44.97s, core85/source gates. Imported-ID
+history/recreated cached reading passes alongside fresh-contact send, failed-save
+Refresh retention, delayed live relay, interrupted Submitted/noRelay/noresend and
+permission skipping. Root twelve XMLs/twooriginals inspected; shared filenames
+belong to latercases, no specific imported-case image attribution.
+Actual17 last checkpoint38348848791 at94326b2 PASS5/60.052s; later contact/import
+changes still need17. Actual unsafe native10/17 envelope independently verifies
+through pinned Crypto/WASM; defaultreference hash886ff622...ee1c06 unchanged.
+Public native10read38352335633 ate2eb51d PASS1/1.649s: both approved backends
+authenticate Chat/Archive/Relay and return0rows for never-used random pair. No
+live-submit/relay/nonempty-public-history inference. Installation wallet unchanged.
+
+Latest bounded reviews f2cd911...655c1e5: Standards0; Spec1partial recovery issue:
+first recovered/cache-saved conversation remains absent if later imported-group
+Archive/cache fails before contact publication. New9case regression37532b6 compiled
+1m37s, actualRED10run38354277929 9cases/8PASS+1failure52.21s line189; rootthirteenXMLs/failureoriginal inspected. Minimum pergroup failure isolation debug/testAPK PASS1m47s; actualGREEN/reviews next. Expected failure: first successful
+imported-ID conversation cannot be opened after second unknownID fails. Root must
+inspect original raw runner/PNG/XML before minimal pergroup failure isolation and
+publishing successful contacts, then GREEN and both fix reviews. Do not dispatch
+same chat-ui scope while an earlier run is active (workflow cancels same scope).
+
+Remaining #25: unselected/new-contact incoming listener and discoverable local
+conversations; available older-history paging; Block hides incoming/Mute keeps
+Chat accessible native checks; unknown attempt/draft recovery and actual process
+death; backend/wallet isolation; full Android10/17/release/lint/update/public reads.
+No actual Chat process death or ticket completion from ActivityScenario.recreate.
+No new phone APK; stable previewv10/source5225d06. Physical Pixel#35 remains.
+Protected untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md belongs to#26;
+never stage/delete during#25. Read-only prep .scratch/ticket25-readonly-plan.md.
 
 No production node/funded/live writes, physical Pixel proof, closed-app push or
 store submission authorized. Continue ready work autonomously.

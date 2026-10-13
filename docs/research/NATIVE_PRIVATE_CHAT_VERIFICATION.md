@@ -355,3 +355,18 @@ alreadycached firstconversation afterlatergroupfailure. Added one native regress
 ID-only importcontains availablefirstprivategroup thenunavailable distinctID;
 firstcontact/history/recreatedofflinecache mustremainaccessible. Actual9caseRED
 pending; no scope relaxation. Actual8caseGREEN38353752949 stillpending.
+
+Actual imported-ID GREEN10run38353752949 at655c1e5 PASS8/44.97s/core85/source
+gates. RoottwelveXMLs/twooriginals inspected; sharedcapturesattributedtolatercases.
+Imported-ID test verifies contactdiscovery/availableprivatehistory/recreatedcache
+withfailedreads. Partialdiscoverytracer compiles1m37s andcommitted37532b6,
+actual9caseRED10run38354277929 pending. No actualdeath/newphoneAPK claim.
+
+Actualpartial RED10run38354277929 at37532b6 reports9cases/8PASS+1failure
+52.21s atline189 missingfirstrecoveredcontact aftersecondgroupinvalidreply.
+RootthirteenXMLs/failureoriginal inspected. Minimum catchpergroup preserves
+successfullycached contacts and publishes them via sharedwallet, with discovery
+failure flag; cancellationstillrethrows. Source/testAPK build and actualGREEN next.
+
+Partial discovery correction debug/testAPK PASS1m47s (core unchanged85; no core
+rerun claim). Actual9case nativeGREEN and both bounded correction reviews next.

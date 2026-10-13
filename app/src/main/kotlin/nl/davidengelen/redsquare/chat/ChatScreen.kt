@@ -47,6 +47,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
 
     LaunchedEffect(wallet, endpoint, refresh) {
         try {
+            var discoveryFailed = false
             contacts = withContext(Dispatchers.IO) { wallet.chatContacts() }
             val known = contacts.map { PrivateChat.conversationId(wallet.publicKey, it) }.toSet()
             val missing = withContext(Dispatchers.IO) { wallet.chatHistoryIds().filter { it !in known } }
@@ -55,19 +56,22 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                 SaitoPeer(wallet, endpoint).use { peer ->
                     require("archive" in peer.services())
                     for (group in missing) {
-                        val recovered = withContext(Dispatchers.IO) { loadPrivateHistory(peer, wallet, group) }
-                        incomplete = incomplete || recovered.second
-                        for ((address, messages) in recovered.first.groupBy { it.counterparty }) {
-                            withContext(Dispatchers.IO) {
-                                ChatHistoryStore(context, wallet, backend, address).save(messages.map { it.envelope })
+                        try {
+                            val recovered = withContext(Dispatchers.IO) { loadPrivateHistory(peer, wallet, group) }
+                            incomplete = incomplete || recovered.second
+                            for ((address, messages) in recovered.first.groupBy { it.counterparty }) {
+                                withContext(Dispatchers.IO) {
+                                    ChatHistoryStore(context, wallet, backend, address).save(messages.map { it.envelope })
+                                }
+                                updated = updated.withChatContact(address)
                             }
-                            updated = updated.withChatContact(address)
-                        }
+                        } catch (cancelled: CancellationException) { throw cancelled }
+                        catch (_: Exception) { discoveryFailed = true }
                     }
                 }
                 if (updated !== wallet) onWalletMetadata(wallet, updated)
             }
-            contactsFailed = false
+            contactsFailed = discoveryFailed
         }
         catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { contactsFailed = true }
