@@ -639,3 +639,8 @@ ExplicitCopy actualRED38447070903/source659a2cd8:24cases23PASS plusmissingCopy a
 
 
 Copyminimum439fe52e boundedreviewsboth0. Localwrappershellended143 while its ownedGradlecontainer5e9f191413f5 continued; source/app/testfilesleft untouched, no duplicatebuild. Attachedexactcontainerlogs/wait prove finalBUILD SUCCESSFUL3m32s/exit0. NativeCopy10run38448314651/17run38448319576 pending. Rootdoesnotinfer cause oflostwrapper or runtimeGREEN from compilation.
+
+
+Copy17GREEN38448319576/source439fe52e:24PASS156.175s/core86. Root39XML/copiedbody+recreatedquoteoriginals inspected; actualClipData exactbody/sensitiveflag andvisualmaskedpreview pass, originalclipboard restored andrawcacheoriginalunchanged. ActualcoldprocessalsoPASS5.318s/restore.151s/PID5190->5275;root3XML/3originals/checkpointdelta verified.
+
+Copy10attempt38448314651 atsame439source:24cases22PASS inclCopy plus PARTIAL_KEYS/SEND_INTERRUPTED initialoutgoingbody nodesmissingbeforelist scrollline564,97.05s/core86. Root37XML/finaloverwrittenSEND_INTERRUPTED failureoriginal inspected; no uniqueearlierPARTIAL_KEYS imageclaim. Statusgates execute; lateremitted/cached/keyrestoretail/processfixture do not. AddedCopyrow andfinalviewport supportvirtualization hypothesis, not provenloss/timingcause. Correctedtestscrollspubliclist beforeunchangedstrictnoneditable outgoing-body display assertion. Productsourceunchanged; localbuildrunning.

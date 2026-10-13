@@ -561,7 +561,9 @@ class PrivateChatPreviewTest {
                                 waitFor("Submitted. Delivery is not confirmed.")
                                 ui.onAllNodesWithText("Forwarded. Delivery is not confirmed.").assertCountEquals(0)
                             } else waitFor("Forwarded. Delivery is not confirmed.")
-                            ui.onNode(hasText(outgoingText) and !hasSetTextAction()).performScrollTo().assertIsDisplayed()
+                            val sentBody = hasText(outgoingText) and !hasSetTextAction()
+                            ui.onNode(hasScrollToIndexAction()).performScrollToNode(sentBody)
+                            ui.onNode(sentBody).assertIsDisplayed()
                             ui.waitUntil(5_000) { peer.transactions.size == 1 && peer.relayedMessages.size == if (interruptedSend) 0 else 1 }
                             val received = PrivateChat.receive(recipientWallet, peer.transactions.single().drop(1).toByteArray())
                             check(received.message.text == outgoingText && received.message.author == wallet.publicKey)
