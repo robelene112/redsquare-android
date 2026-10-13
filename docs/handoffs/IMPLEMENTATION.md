@@ -460,3 +460,6 @@ Latest corrected-source native19 checks both GREEN at a36972f: Android10run38397
 ## Active unsent Chat draft correction
 
 After publishing earlypreview11, new20case draft tracer0447c37 actualRED10run38427322282 reports19passes+lost-draftfailure84.364s/core86. ImmediateBack/reopen yields emptyEditableText atline319; later erasure/recreation assertions unexecuted. Root original/XML inspected. Minimal composer persist hook and awaited header/systemBack correction is locally implemented; APK build is running. No native GREEN, background/process-death or whole#25 acceptance. Stablepreview11/sourcea369 does not yet contain this fix. Two tracerreviewaxes0, nextsource review pending. Protected futuregroupfile untouched.
+
+
+Latest draft attempts: sourceab18713,10run38428616491 and17run38428621143 each20cases19PASS+line324contactwaittimeout119.358/119.542s/core86. Failure shows feed after secondBack; prior nonempty assertion did execute but first reopening was ambiguously matched by current conversation header. No erasure/recreated tail acceptance. Test-only positive list Public key readiness waits added afterbothBack; compiler running. Product remainsb2bc017; no GREEN. Preview11 staysa369.

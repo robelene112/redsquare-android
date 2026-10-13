@@ -1,0 +1,5 @@
+Draft navigation attempt after awaited-save correction
+
+Run38428621143, sourceab18713, android17:20cases,19passes and one timeout atline324 in119.542s/core86. The exact nonempty draft assertion and unsent-private-draft-reopened capture executed, but the first reopening was not positively distinguished from the prior open conversation: the same counterpart key appears in both views. After clearing text and pressing Back again, the test times out waiting for the contact key. Root inspected all30XML and the failure original: the app is on the feed. The draft capture shows entered text with the IME, not conclusive first-reopen evidence. Empty-after-reopen and recreated-empty tail did not execute.
+
+The asynchronous save/close source plus ambiguous wait supports a premature-navigation timing hypothesis; exact runtime cause is not proven by the image. The next test-only change waits positively for the chat-list Public key field after each Back, before selecting the contact. Original exact editable assertions and no-transmission/identity gates remain. Do not infer draft GREEN, erasure recovery, actual process death or whole-ticket acceptance.
