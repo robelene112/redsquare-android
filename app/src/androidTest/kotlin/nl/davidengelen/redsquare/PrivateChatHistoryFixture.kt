@@ -800,6 +800,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                         ui.onNodeWithText(counterpart).assertIsDisplayed().performClick()
                         waitFor("Could not load chats. Check your connection and try Refresh.")
                         waitFor(text)
+                        ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText(text) and !hasSetTextAction())
                         ui.onNodeWithText(text).assertIsDisplayed()
                         ui.onNodeWithText("Could not load chats. Check your connection and try Refresh.").assertIsDisplayed()
                         captureNativeScreen(File(context.cacheDir, "private-chat-evidence/cached-history-unavailable.png"), text)
