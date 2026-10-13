@@ -1,0 +1,3 @@
+# Explicit outgoing Like and Unlike, Android17
+
+Run38464123469 source7de8b129. History24PASS155.354s; actions3PASS22.761s; core86. Two distinct authenticated originals match the independent body and exact Relay originals. Cleared state persists under unavailable-Archive recreation; full wallet/backend preserved and exactlytwo operations, no auto resend. Root inspected53 XMLs and unique original unlike/recreated PNGs. The first unliked XML still contains an Unlike label while its count is gone; its paired PNG and recreated XML/PNG show Like, as do the strict Compose assertions. Preserve this diagnostic difference without assuming a cause. Incoming/dedup/retry and whole-ticket acceptance remain pending.

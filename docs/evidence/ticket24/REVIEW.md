@@ -1117,4 +1117,7 @@ Zero actionable findings. Independent signed incoming actions, recipient-visible
 count without selecting our Like, ACK, dedup across reopening, distinct Unlike,
 unavailable Archive, retained cleared state and no outbound operations. Public
 fixture generation is distinguished from native acceptance. No whole-ticket
-claim. Native RED pending at run38464504279/source7f53f141.
+claim. Run38464504279/source7f53f141 exercised only the peer protocol scope:2PASS/0.166s, no UI tracer. Native incoming RED remains pending in the corrected chat-ui dispatch.
+
+
+Explicit Like/Unlike GREEN10run38464119759 (24/106.151s +3/18.289s) and17run38464123469 (24/155.354s +3/22.761s), source7de8/core86. Four captured operations independently match actual constructor/WASM/receiver with exit0. Root53 XMLs and unlike/recreated PNGs perSDK; preserve first17 unliked XML stale-label difference beside correct PNG/recreated XML/strict Compose assertions. Existing DM process recovery passes both; reaction process recovery remains separate. Native incoming UI RED correctly dispatched38465042619 at7f53, still pending; earlier38464504279 was protocol-only2PASS.
