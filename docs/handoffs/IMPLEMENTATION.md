@@ -11,7 +11,7 @@ one question at a time when a material choice really needs the owner.
 Stable phone preview0.1.11/sourcea36972f remains https://davidengelen.nl/redsquare/.
 Owner's looks-good does not establish Pixel timing or update continuity.
 
-Current product4d8ba673 includes Copy, older-history cursor fixes, native Reply
+Current productd9737678 includes Copy, older-history cursor fixes, native Reply
 composition/removal/raw encrypted draft retention/body-only editor, encrypted
 reply-author auto-mention, and available-local quote navigation. Reply production
 has no accepted native GREEN yet. Minimum local core86/debug/test APK build
@@ -23,19 +23,19 @@ zero quote-only Send guard fails at383,115.77s/core86. OrdinaryReply passes,
 independent pinned receiver/mention/signature checker exit0.43XML and normal
 draft/forwarded/cache/failure originals inspected. Processcheck skipped.
 Its26cases add an independently signed/encrypted timestamp-zero Reply tracer.
-Product remains4d8ba673, with the known Spec finding still unfixed: producer can
-create references outside parser bounds, so timestamp0 can enable quote-only
-Send. Inspect actual result before aligning bounds/guarding unsupported targets.
+The RED used product4d8ba673 with the known timestamp-bound defect. Current
+d9737678 aligns parser0..JSsafe bounds and rejects unsupported generatedtargets;
+bounded review/native26GREEN and zero metadata checker acceptance are pending.
 Tracer42c6ad5c and followup review axes0; local testAPKPASS1m47s. Preserve the
 normal reply result independently from the timestamp regression. Required
 --check-native-reply-send and --check-native-zero-reply-send must consume the
 actual corresponding public fixture captures and verify metadata/signature/
-pinned Crypto and Chat receiver; no successful reply capture/checker yet.
+pinned Crypto and Chat receiver; normal captured reply/independent checker now pass; zero capture is pending.
 
 NativeReply firstRED38452059233/source53c7bd90:25cases24PASS113.541s/core86,
 missing Reply at377,40validXML/root original inspected. New draft/send/metadata/
-cache tail and processcheck were unexecuted. Bounded minimum reviews:
-Standards0,Spec1(timestamp bounds). No whole#25 acceptance.
+cache tail and processcheck were unexecuted. Earlier bounded minimum reviews:
+Standards0,Spec1(timestamp bounds); corrected in d9737678, pending nativeGREEN. No whole#25 acceptance.
 
 Copy is accepted at unchanged product439fe52e: corrected10run38450331371 at
 72ef47cf passes24/114.206s/core86,39validXML; actual cold4.738s/restore.171s,
@@ -573,3 +573,9 @@ Latest boundsminimum locally permits timestamp0 in replyparser andreturnsnull
 fromproduceroutsideJSsafe range, disablesunsupported rowReply anddoesnotapply
 such prefixes. Normal capturedreply independentcheckerPASS in isolatedruntime;
 zeroUI actualRED tail notaccepted. Buildrunning; review/native26GREENpending.
+
+
+Boundsminimumd973 local core86/debug/testAPKPASS4m15s/exit0. BoundedSpec0;
+Standards1maintenanceheuristic duplicatepolicyrange. Private sharedrange now
+corrects that heuristic; narrow mainKotlincompilation and followupreviews next.
+No26GREEN/zero metadata acceptance yet; ordinary nativeReply/receiverPASS retained.

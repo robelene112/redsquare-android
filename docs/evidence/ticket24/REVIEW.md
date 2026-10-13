@@ -880,3 +880,22 @@ unresolved until nativeRED andcorrection.
 
 Findings: Standards0; Spec0. Existing --reply corpus actuallyreverified byte-
 identical afterzero oracle addition; local26th tracerbuild/nativeREDpending.
+
+
+## Reply bounds correction,c1da7d66...d9737678
+
+### Standards
+
+Zero documented breaches; one possibleDuplicatedCode heuristic: parser and
+producer independently repeat0..9_007_199_254_740_991L. Shareprivatepolicyrange
+to prevent futuredrift. Functionalbounds, guards, originals and evidence match.
+
+### Spec
+
+Priorfinding resolved; zero new actionable findings. Timestamp0 supported on
+bothsides; unsupportedproducer values cannotappendprefix androwReplydisabled.
+Normalreply independentreceiver PASS doesnotestablishzero tail.26RED/source,
+43XML/manifests andlimits accurate; correctedGREEN remainspending.
+
+Findings: Standards1heuristic; Spec0. Shared private range cleanup follows after
+currentownedbuild finishes; no native26GREEN/zerometadata acceptance yet.

@@ -12,6 +12,7 @@ import nl.davidengelen.redsquare.saito.PrivateChatMessage
 import nl.davidengelen.redsquare.saito.SaitoWallet
 
 // Interpret only Saito's validated leading reply wrapper. Typed text stays literal.
+private val replyTimestamps = 0L..9_007_199_254_740_991L
 private val replyPrefix = Regex("""\A<blockquote href="([0-9A-HJ-NP-Za-km-z]{44,60})">(.*?)</blockquote>""",
     RegexOption.DOT_MATCHES_ALL)
 
@@ -25,7 +26,7 @@ internal fun privateReply(original: String): PrivateReply? {
         val key = reference.take(length)
         val timestamp = reference.drop(length)
         key.takeIf { SaitoWallet.isPublicKey(key) && timestamp.matches(Regex("[0-9]{1,16}")) &&
-            timestamp.toLongOrNull()?.let { it in 0..9_007_199_254_740_991L } == true }
+            timestamp.toLongOrNull()?.let { it in replyTimestamps } == true }
     } ?: return null
     return PrivateReply(match.value, reference, author,
         Html.fromHtml(match.groupValues[2], Html.FROM_HTML_MODE_LEGACY).toString().trimEnd('\n'),
@@ -35,7 +36,7 @@ internal fun privateReply(original: String): PrivateReply? {
 internal fun privateMessageBody(original: String): String = privateReply(original)?.body ?: original
 
 internal fun privateReplyPrefix(message: PrivateChatMessage): String? {
-    if (message.createdAt !in 0..9_007_199_254_740_991L) return null
+    if (message.createdAt !in replyTimestamps) return null
     var quote = privateMessageBody(message.text)
     if (quote.length > 30) {
         var suffix = quote.takeLast(30)
