@@ -104,3 +104,10 @@ envelopes are device-encrypted by wallet/backend/pair; cached entries authentica
 and decrypt again, server pages merge/dedup without deleting retained history.
 Storage failure is explicit and does not overwrite unreadable history. Actual
 reopened UI GREEN and bounded reviews pending; no process-death/delivery claim.
+
+Bounded cache reviews both report one same loss-on-Refresh finding after failed
+local saving; separate reports retained. New native UI failure tracer uses an
+empty directory at the exact synthetic conversation cache path, preserving
+opaque wallet and prior files. Compiles1m33s. Verifies readable memory through
+offline Refresh, successful persistence repair on a pruned empty page and
+recreation. Actual RED pending before minimal retention fix.

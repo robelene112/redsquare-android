@@ -16,7 +16,11 @@ import java.io.File
 class PrivateChatPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
 
-    @Test fun anImportedContactOpensItsAvailableAuthenticatedPrivateHistory() {
+    @Test fun anImportedContactOpensItsAvailableAuthenticatedPrivateHistory() = exerciseHistory(false)
+
+    @Test fun failedLocalSavingDoesNotLoseReadableHistoryOnRefresh() = exerciseHistory(true)
+
+    private fun exerciseHistory(storageFailure: Boolean) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev")
@@ -47,17 +51,21 @@ class PrivateChatPreviewTest {
         }
         val historyReads = java.util.concurrent.atomic.AtomicInteger()
         val historyUnavailable = java.util.concurrent.atomic.AtomicBoolean()
+        val historyPruned = java.util.concurrent.atomic.AtomicBoolean()
+        val cacheFile = File(context.noBackupFilesDir, "chat.${SaitoBackend.OWNER.id}.${wallet.publicKey}.${reference.get("groupId").asString}.v1")
         val peer = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", archiveResponse = { criteria ->
             if (!criteria.has("field1") && criteria.get("field3")?.asString == reference.get("groupId").asString) {
                 check(criteria.get("limit").asInt == 50)
                 historyReads.incrementAndGet()
                 if (historyUnavailable.get()) "invalid archive response"
+                else if (historyPruned.get()) "[]"
                 else JsonArray().apply { add(JsonObject().apply { addProperty("tx", reference.get("archiveEnvelope").asString) }) }.toString()
             } else "[]"
         })
         var primaryFailure: Throwable? = null
         try {
             synchronized(SaitoLocalState.lock) { savedFiles.keys.forEach { check(File(context.noBackupFilesDir, it).delete()) } }
+            if (storageFailure) check(cacheFile.mkdir())
             preferences.forEach { (prefs, key, _) -> check(prefs.edit().putBoolean(key, true).commit()) }
             store.replace(store.loadOrCreate(), wallet)
             AndroidBackendStore(context).save(SaitoBackend.OWNER)
@@ -74,6 +82,27 @@ class PrivateChatPreviewTest {
                         ui.onNodeWithText(text).assertIsDisplayed()
                         captureNativeScreen(File(context.cacheDir, "private-chat-evidence/imported-history.png"), text)
                         check(historyReads.get() > 0)
+                        if (storageFailure) {
+                            val warning = "Could not restore or save private history on this device. Messages fetched now may be unavailable after closing Chat."
+                            waitFor(warning)
+                            ui.onNodeWithText(warning).assertIsDisplayed()
+                            synchronized(SaitoLocalState.lock) { check(cacheFile.isDirectory && cacheFile.list()!!.isEmpty() && cacheFile.delete()) }
+                            historyUnavailable.set(true)
+                            ui.onNodeWithText("Refresh").assertIsDisplayed().performClick()
+                            waitFor("Could not load chats. Check your connection and try Refresh.")
+                            waitFor(text)
+                            ui.onNodeWithText(text).assertIsDisplayed()
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/memory-after-save-failure.png"), text)
+                            historyUnavailable.set(false)
+                            historyPruned.set(true)
+                            ui.onNodeWithText("Refresh").assertIsDisplayed().performClick()
+                            ui.waitUntil(15_000) {
+                                ui.onAllNodesWithText(warning).fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty() &&
+                                ui.onAllNodesWithText("Could not load chats. Check your connection and try Refresh.").fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty()
+                            }
+                            ui.onNodeWithText(text).assertIsDisplayed()
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/retained-after-pruned-page.png"), text)
+                        }
                         historyUnavailable.set(true)
                         scenario.recreate()
                         waitFor(counterpart)
@@ -111,7 +140,10 @@ class PrivateChatPreviewTest {
             }.commit()) } }
             restore { synchronized(SaitoLocalState.lock) {
                 context.noBackupFilesDir.listFiles()!!.filter { file -> prefixes.any(file.name::startsWith) }
-                    .forEach { check(it.isFile && it.delete()) }
+                    .forEach { file ->
+                        if (file == cacheFile && file.isDirectory) check(file.list()!!.isEmpty() && file.delete())
+                        else check(file.isFile && file.delete())
+                    }
                 savedFiles.forEach { (name, bytes) -> File(context.noBackupFilesDir, name).writeBytes(bytes) }
             } }
             cleanupFailure?.let { throw it }

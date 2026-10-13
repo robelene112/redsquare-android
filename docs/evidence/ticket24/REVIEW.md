@@ -87,3 +87,22 @@ passed. Cache, sending and recovery remain unfinished.
 Zero findings in this bounded increment. Boolean added matches pinned
 mods/qrscanner/lib/add-contact.js:15; group entries excluded. Available rows
 authenticate/decrypt before display; no cache/send/recovery claim.
+
+## Private cache6f02f73...0620289
+
+### Standards
+
+One hard continuity finding, zero actionable Fowler heuristics. Refresh assigns
+cache.load and later cache.save results over current verified memory. After a
+failed local save, an unavailable or pruned Archive read can discard a message
+while Chat remains open, contradicting CODING_STANDARDS:16–17 and the warning
+limited to closing Chat. Merge retained memory, including original ciphertext
+envelopes for successful persistence retry. All31 manifest entries verify;
+encryption/scoping/refusal to overwrite unreadable history otherwise hold.
+
+### Spec
+
+One same continuity finding against parent#1 keep-reading-through-failures and
+#25 available-plus-local history. Add failed-save, offline/empty Refresh and
+repair verification. Both RED XMLs/failure original, seven hashes and core82
+source GREEN verified. No actual process-death or completed-ticket claim.
