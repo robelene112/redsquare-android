@@ -232,9 +232,9 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                         if (pendingImport) putExtra("balanceApiUrl", "http://127.0.0.1:9/balance/")
                         if (reactionBackends) putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                     }).use { scenario ->
-                    withFailureCapture({ captureNativeScreen(File(context.cacheDir, "private-chat-evidence/history-first-failure.png")) }) {
-                        waitFor("Chat")
-                        ui.onNodeWithText("Chat").assertIsDisplayed().performClick()
+                    withFailureCapture({ captureNativeScreen(File(context.cacheDir, "private-chat-evidence/history-${case.name.lowercase()}-failure.png")) }) {
+                        waitForEnabled("Chat")
+                        ui.onNodeWithText("Chat").assertIsDisplayed().assertIsEnabled().performClick()
                         if (newContact) {
                             waitFor("Public key")
                             ui.onNodeWithText("Public key").performTextInput(counterpart)
