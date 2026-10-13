@@ -139,7 +139,9 @@ class WalletImport(
                             nl.davidengelen.redsquare.feed.PostDraftStore.authorWork(activity.applicationContext,
                                 operation.original.publicKey, backend).isNotEmpty() ||
                                 nl.davidengelen.redsquare.feed.ProfileDraftStore(activity.applicationContext,
-                                    operation.original.publicKey, backend).load().hasWork
+                                    operation.original.publicKey, backend).load().hasWork ||
+                                nl.davidengelen.redsquare.chat.ChatWorkStore.hasWork(activity.applicationContext,
+                                    operation.original, backend)
                         }
                     } catch (_: Exception) { true }
                     val registrar = operation.backend?.let {

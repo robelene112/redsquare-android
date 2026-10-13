@@ -320,6 +320,9 @@ class PrivateChatPreviewTest {
                             waitFor(context.getString(R.string.chat_send_unknown))
                             check(AndroidWalletStore(context).loadOrCreate().exportJson() == wallet.exportJson())
                             check(AndroidBackendStore(context).load() == SaitoBackend.OWNER)
+                            val retained = nl.davidengelen.redsquare.chat.ChatWorkStore(context, wallet, SaitoBackend.OWNER, counterpart).load()
+                            check(retained.status == nl.davidengelen.redsquare.chat.ChatWorkStore.Status.UNKNOWN)
+                            check(retained.transaction?.encoded() == vectors[1].asJsonObject.get("networkBase64").asString)
                             check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
                             peer.assertHealthy()
                             return@withFailureCapture

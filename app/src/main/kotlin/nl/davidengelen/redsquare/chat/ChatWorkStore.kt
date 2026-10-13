@@ -15,21 +15,10 @@ internal class ChatWorkStore(private val context: Context, private val wallet: S
     private val file = EncryptedLocalFile(context,
         "chatwork.${backend.id}.${wallet.publicKey}.${PrivateChat.conversationId(wallet.publicKey, contact)}.v1",
         "redsquare.chatwork.v1", "chatwork.")
-    private val gson = GsonBuilder().setStrictness(Strictness.STRICT).create()
 
     fun load(): Saved = synchronized(SaitoLocalState.lock) {
         val contents = file.load() ?: return@synchronized Saved()
-        require(contents.version == 1.toByte())
-        val record = gson.fromJson(contents.text, JsonObject::class.java)
-        val draft = record.get("draft").also { require(it.isJsonPrimitive && it.asJsonPrimitive.isString) }.asString
-        val transaction = record.get("transaction")?.let {
-            require(it.isJsonPrimitive && it.asJsonPrimitive.isString)
-            SaitoTransaction.restore(it.asString)
-        }
-        val status = Status.valueOf(record.get("status").asString)
-        require((transaction == null) == (status == Status.NONE))
-        transaction?.let { require(PrivateChat.read(wallet, it.envelope(), contact).author == wallet.publicKey) }
-        Saved(draft, transaction, status)
+        decode(contents, wallet, PrivateChat.conversationId(wallet.publicKey, contact))
     }
 
     fun saveDraft(text: String): Saved = synchronized(SaitoLocalState.lock) {
@@ -77,5 +66,38 @@ internal class ChatWorkStore(private val context: Context, private val wallet: S
         file.save(EncryptedLocalFile.Contents(1, record.toString()))
         check(load().let { it.draft == saved.draft && it.transaction?.id == saved.transaction?.id && it.status == saved.status })
         return saved
+    }
+
+    companion object {
+        private val gson = GsonBuilder().setStrictness(Strictness.STRICT).create()
+
+        /** Inspect this wallet's retained work without loading or transmitting another identity's records. */
+        fun hasWork(context: Context, wallet: SaitoWallet, backend: SaitoBackend): Boolean = synchronized(SaitoLocalState.lock) {
+            val prefix = "chatwork.${backend.id}.${wallet.publicKey}."
+            val names = requireNotNull(context.noBackupFilesDir.listFiles()).map { it.name }
+                .filter { it.startsWith(prefix) }
+            names.map { it.removeSuffix(".bak").removeSuffix(".new") }.distinct().any { name ->
+                val group = name.removePrefix(prefix).removeSuffix(".v1")
+                require(name == "$prefix$group.v1" && group.matches(Regex("[0-9a-f]{64}")))
+                val contents = EncryptedLocalFile(context, name, "redsquare.chatwork.v1", "chatwork.").load()
+                // An unfinished file or unreadable record must not silently remove the replacement warning.
+                val saved = decode(requireNotNull(contents), wallet, group)
+                saved.draft.isNotBlank() || saved.transaction != null
+            }
+        }
+
+        private fun decode(contents: EncryptedLocalFile.Contents, wallet: SaitoWallet, group: String): Saved {
+            require(contents.version == 1.toByte())
+            val record = gson.fromJson(contents.text, JsonObject::class.java)
+            val draft = record.get("draft").also { require(it.isJsonPrimitive && it.asJsonPrimitive.isString) }.asString
+            val transaction = record.get("transaction")?.let {
+                require(it.isJsonPrimitive && it.asJsonPrimitive.isString)
+                SaitoTransaction.restore(it.asString)
+            }
+            val status = Status.valueOf(record.get("status").asString)
+            require((transaction == null) == (status == Status.NONE))
+            transaction?.let { require(PrivateChat.recover(wallet, it.envelope(), group).message.author == wallet.publicKey) }
+            return Saved(draft, transaction, status)
+        }
     }
 }

@@ -441,3 +441,10 @@ NATIVE_SAITO_TRANSFER_CONTRACT, NATIVE_PRIVATE_CHAT_CONTRACT and
 NATIVE_GROUP_CHAT_CONTRACT (all .md under docs/research). Only the group-Chat contract remains uncommitted for#26; other listed contracts
 are committed.
 They establish source contracts, not runtime or feature completion.
+
+
+## Latest private Chat checkpoint
+
+The 19-case SAF pending-work tracer at fd6a382 failed on Android 10 run 38395668530: 18 passes, one missing specific pending-work disclosure, 97.738 seconds. Generic acknowledgement is present; do not describe all warnings as absent. Core 86 passes. Failure evidence is in ticket24/ui/pending-chat-import-red-android10. Later cancellation assertions were not reached. Both bounded reviews completed: Standards 0; Spec requested a durable work reload after cancellation. That assertion and the minimal WalletImport ChatWorkStore inspector are now implemented locally; compilation and native GREEN are pending. No ticket closure, actual process-death proof or new phone APK. Preserve the untracked NATIVE_GROUP_CHAT_CONTRACT.md.
+
+Pending Chat work inspector local test APK compilation passes in 2m51s, command exit 0. Native GREEN and code review are pending. Core unchanged; no full-ticket acceptance.
