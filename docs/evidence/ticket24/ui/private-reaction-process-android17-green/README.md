@@ -1,0 +1,5 @@
+# Broad private Chat and reaction recovery, Android17
+
+Run38471571748 source9111e668. History24PASS149.996s; actions6PASS37.408s; core86. Complete private-history/action families pass including imported/missing keys, available pagination, live receipt, blocked/muted controls, exact message/reaction retries, quotes/copy, nativeincoming reactiondedup and receipt during forwarding. Root inspected65XMLs and selected original screenshots, including missing-key restoration, cached reading and two immediate unlike diagnostics. Those two XMLs retain older counts while pairedPNGs/strictassertions/reopenedXMLs are correct; preserve without assertingcause.
+
+New actualreaction PID recovery also passes in ../../native-process/android17-reaction-green. This is focused Chat verification, not the application's full suite or finalticket acceptance. Wallet/backend isolation and remaining supported history/invalid-receipt cases remain work. The subsequent10 visibility-scroll correction is unexecuted here and product source is unchanged.
