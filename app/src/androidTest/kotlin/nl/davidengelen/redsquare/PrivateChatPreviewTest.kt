@@ -76,7 +76,7 @@ class PrivateChatPreviewTest {
         }
     }
 
-    private enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL, LIST_LIVE, PARTIAL_KEYS, STORAGE_PARTIAL, OTHER_LIVE, MENTIONED, MENTIONED_OUTGOING, MUTED, BLOCKED, UNKNOWN_RETRY, PENDING_IMPORT, DRAFT_NAVIGATION, OLDER_HISTORY, QUOTED_REPLY, LITERAL_MARKUP, UNREADABLE_RECENT_HISTORY }
+    private enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL, LIST_LIVE, PARTIAL_KEYS, STORAGE_PARTIAL, OTHER_LIVE, MENTIONED, MENTIONED_OUTGOING, MUTED, BLOCKED, UNKNOWN_RETRY, PENDING_IMPORT, DRAFT_NAVIGATION, OLDER_HISTORY, QUOTED_REPLY, LITERAL_MARKUP, UNREADABLE_RECENT_HISTORY, NATIVE_REPLY }
 
     @Test fun anImportedContactOpensItsAvailableAuthenticatedPrivateHistory() = exerciseHistory(HistoryCase.AVAILABLE)
 
@@ -124,7 +124,10 @@ class PrivateChatPreviewTest {
 
     @Test fun unreadableRecentPrivateMessagesDoNotPreventLoadingReadableOlderHistory() = exerciseHistory(HistoryCase.UNREADABLE_RECENT_HISTORY)
 
+    @Test fun aNativeReplyRetainsItsQuoteAndTypedDraftUntilExplicitSending() = exerciseHistory(HistoryCase.NATIVE_REPLY)
+
     private fun exerciseHistory(case: HistoryCase) {
+        val nativeReply = case == HistoryCase.NATIVE_REPLY
         val storagePartial = case == HistoryCase.STORAGE_PARTIAL
         val storageFailure = case == HistoryCase.STORAGE_FAILURE || storagePartial
         val listLive = case == HistoryCase.LIST_LIVE
@@ -139,7 +142,7 @@ class PrivateChatPreviewTest {
         val pendingImport = case == HistoryCase.PENDING_IMPORT
         val unreadableRecent = case == HistoryCase.UNREADABLE_RECENT_HISTORY
         val paginating = case == HistoryCase.OLDER_HISTORY || unreadableRecent
-        val sending = case == HistoryCase.SEND || interruptedSend || newContact || partialKeys || retrying
+        val sending = case == HistoryCase.SEND || interruptedSend || newContact || partialKeys || retrying || nativeReply
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev")
@@ -147,6 +150,7 @@ class PrivateChatPreviewTest {
         val mentioned = case == HistoryCase.MENTIONED || case == HistoryCase.MENTIONED_OUTGOING
         val replyCase = case == HistoryCase.QUOTED_REPLY || case == HistoryCase.LITERAL_MARKUP
         val fixture = instrumentation.context.assets.open(when {
+            nativeReply -> "native-private-chat-reply-compose-reference.json"
             replyCase -> "native-private-chat-reply-reference.json"
             mentioned -> "native-private-chat-mentioned-reference.json"
             else -> "native-private-chat-reference.json"
@@ -196,7 +200,9 @@ class PrivateChatPreviewTest {
         val historyUnavailable = java.util.concurrent.atomic.AtomicBoolean()
         val historyPruned = java.util.concurrent.atomic.AtomicBoolean()
         val cacheFile = File(context.noBackupFilesDir, "chat.${SaitoBackend.OWNER.id}.${wallet.publicKey}.${reference.get("groupId").asString}.v1")
-        val outgoingText = if (retrying) vectors[1].asJsonObject.getAsJsonObject("plaintext").get("message").asString
+        val composition = if (nativeReply) fixture.getAsJsonObject("replyFormat").getAsJsonObject("composition") else null
+        val outgoingText = if (nativeReply) requireNotNull(composition).get("prefix").asString + composition.get("body").asString
+            else if (retrying) vectors[1].asJsonObject.getAsJsonObject("plaintext").get("message").asString
             else "Native private message 😀 <&>\nsecond line"
         val recipientWallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe fixture only.
         val otherWallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "3") // Public unsafe fixture; crypto interop is covered independently.
@@ -364,6 +370,52 @@ class PrivateChatPreviewTest {
                         }
                         waitFor(text)
                         ui.onNodeWithText(text).assertIsDisplayed()
+                        if (nativeReply) {
+                            val expected = requireNotNull(composition)
+                            val body = expected.get("body").asString
+                            waitForEnabled("Message")
+                            ui.onNodeWithText("Reply").assertIsEnabled().performClick()
+                            ui.onNodeWithText("Send").assertIsNotEnabled()
+                            ui.onNodeWithText("Message").performTextInput(body)
+                            ui.onNodeWithText("Back").performClick()
+                            waitFor("Public key")
+                            ui.onNodeWithText(counterpart).performClick()
+                            waitForEnabled("Message")
+                            ui.onNode(hasSetTextAction()).assert(SemanticsMatcher.expectValue(
+                                SemanticsProperties.EditableText, AnnotatedString(body)))
+                            ui.onNodeWithText("Remove reply").assertIsDisplayed()
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/native-reply-draft-reopened.png"), body)
+                            check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
+                            ui.onNodeWithText("Remove reply").performClick()
+                            ui.onNode(hasSetTextAction()).assert(SemanticsMatcher.expectValue(
+                                SemanticsProperties.EditableText, AnnotatedString(body)))
+                            ui.onAllNodesWithText("Remove reply").assertCountEquals(0)
+                            ui.onNodeWithText("Reply").performClick()
+                            ui.onNodeWithText("Send").assertIsEnabled().performClick()
+                            waitFor(context.getString(R.string.chat_send_forwarded))
+                            ui.waitUntil(5_000) { peer.transactions.size == 1 && peer.relayedMessages.size == 1 }
+                            val received = PrivateChat.receive(recipientWallet, peer.transactions.single().drop(1).toByteArray())
+                            check(received.message.text == outgoingText && received.message.author == wallet.publicKey)
+                            check(received.message.id == peer.relayedMessages.single().get("signature").asString)
+                            File(context.cacheDir, "private-chat-evidence/native-sent-reply-envelope.json").writeText(received.envelope)
+                            val sentBody = hasText(body) and !hasSetTextAction()
+                            ui.onNode(hasScrollToIndexAction()).performScrollToNode(sentBody)
+                            ui.onNode(sentBody).assertIsDisplayed()
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/native-reply-forwarded.png"), body)
+                            historyUnavailable.set(true)
+                            scenario.recreate()
+                            waitFor(counterpart)
+                            ui.onNodeWithText(counterpart).performClick()
+                            waitFor(context.getString(R.string.chat_load_error))
+                            ui.onNode(hasScrollToIndexAction()).performScrollToNode(sentBody)
+                            ui.onNode(sentBody).assertIsDisplayed()
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/native-reply-cached.png"), body)
+                            check(AndroidWalletStore(context).loadOrCreate().exportJson() == wallet.exportJson())
+                            check(AndroidBackendStore(context).load() == SaitoBackend.OWNER)
+                            check(peer.transactions.size == 1 && peer.relayedMessages.size == 1)
+                            peer.assertHealthy()
+                            return@withFailureCapture
+                        }
                         if (replyCase) {
                             waitForEnabled("Refresh")
                             if (case == HistoryCase.QUOTED_REPLY) ui.onNodeWithText(

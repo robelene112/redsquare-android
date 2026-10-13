@@ -72,3 +72,19 @@ confirmation. Private Copy should use that sensitivity flag and copy only on an
 explicit action. Verify actual foreground clipboard contents with public fixture
 text and restore the prior emulator clipboard without printing its contents.
 [Android clipboard guidance](https://developer.android.com/develop/ui/views/touch-and-input/copy-paste#add-sensitive-content).
+
+## Reply composition details
+
+Pinned Input.getInput at308–335 auto-mentions quote_src before prefixing the
+quote and appending literal typed input. Popup passes its SaitoUser wrapper's
+publicKey as that source; Chat renders the wrapper from sender (1815–1820).
+[Input](https://github.com/SaitoTech/saito/blob/9a4ca7e9442eb5e872168ced361ce741d7d139d7/node/lib/saito/ui/saito-input/saito-input.js#L308).
+Popup rejects a quote without typed content. Clicking an existing quote scrolls
+to a locally available sender+timestamp anchor; absent targets do nothing.
+[Quote navigation](https://github.com/SaitoTech/saito/blob/9a4ca7e9442eb5e872168ced361ce741d7d139d7/node/mods/chat/lib/chat-manager/popup.js#L593).
+
+The optional --reply-compose reference reproduces the pinned popup's last30
+UTF16 excerpt construction and executes actual pinned Browser.sanitize. It
+records the prefix/body/auto-mention expected by the native UI fixture. This is
+a source-guided composition oracle, not a DOM run or native send acceptance.
+Existing default/mentioned/reply generation stays unchanged.

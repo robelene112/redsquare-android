@@ -247,7 +247,7 @@ if (process.argv[2] === '--mentioned') {
     vector('2', '1', 1700000080021, '28292a2b2c2d2e2f', null, {mentioned: [mention]}));
 }
 let replyFormat = null;
-if (process.argv[2] === '--reply') {
+if (['--reply', '--reply-compose'].includes(process.argv[2])) {
   const browserSource = fs.readFileSync('/reference/browser.ts', 'utf8');
   const browserSha256 = sha256(browserSource);
   assert.equal(browserSha256, 'e85b67cc138dae5047bb855bf0961b2852a808fc7be3ffc5bc0479a1281bab38');
@@ -273,6 +273,16 @@ if (process.argv[2] === '--reply') {
     sanitizeHtmlSha256: sha256(fs.readFileSync(require.resolve(root + 'sanitize-html'))),
     quotedText: 'Earlier & quoted text', body, literal,
     boundary: 'actual pinned Browser.sanitize and Crypto methods; prefix follows pinned popup/input source; no DOM or Saito application initialization'};
+  if (process.argv[2] === '--reply-compose') {
+    // Popup quotes the visible body, excluding any preceding BLOCKQUOTE, then Input sanitizes it.
+    const source = vectors[0].plaintext.message;
+    let excerpt = source.replace(/^\s+|\s+$/g, '<br>');
+    if (excerpt.length > 30) excerpt = '...' + excerpt.slice(-30);
+    const prefix = adapter.sanitize(`<blockquote href="${vectors[0].sender}${vectors[0].timestamp}">${excerpt}</blockquote>`);
+    replyFormat.composition = {sourceSignature: vectors[0].signature, prefix,
+      body: 'Native reply body <b>literal</b> 😀 <&>\nsecond line',
+      mentioned: [vectors[0].sender]};
+  }
 }
 const malformedCiphertexts = ['ct', 'iv', 's'].map((field, index) => {
   const formatter = JSON.parse(vectors[0].ciphertextJson);

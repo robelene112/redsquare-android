@@ -493,3 +493,14 @@ Older UI43c4dad compiles3m10s. Both reviews completed: Spec1 cache/pagecursor ga
 
 
 AncientcachegapRED10run38434215697 atdd8ef695:21cases20PASS+intermediatebodyline346timeout109.476s/core86. Root31XML/failureoriginal inspected; exactfailedrequesttimestampnotretained, latercachetailunexecuted. Separatearchivepagecursor andshared retainHistory helpercorrect bothreviewfindings locally; buildrunning andfollowupreview/nativeGREEN next. Product43c4dad no longercurrentworking source; preview11 unchanged.
+
+
+Latest Copy acceptance: Android10run38450331371 at72ef47cf GREEN24/114.206s,
+core86, actual cold4.738s/restore.171s/PID7546→7806; all39UIXML and3processXML
+root inspected plus copied/cold originals. Earlier17run38448319576 at439 is
+24GREEN156.175s/cold5.318s/restore.151s and sameproduct, olderfixturestep.
+No demonstrated cause claimed for earlier10body failures. NativeReply tracer
+adds25th case at approved UI/controlled-peer/cached-recovery seams, using actual
+pinned sanitizer source-guided excerpt oracle. NoReply product minimum yet.
+Wrong local Gradle task failed14s beforecompilation; corrected testAPKbuilding.
+Preview11sourcea369 unchanged; #25open, reactions/isolation/fullgatespending.

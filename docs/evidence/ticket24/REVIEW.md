@@ -776,3 +776,22 @@ Zero documented breaches or actionable smell findings. Visible explicitCopy reus
 Zero actionablefindings. Preserves existingCopy onvisiblemessages; quotedprefixexcluded, exacttypedbody retained, blockedincomingstillhidden. SensitiveplainClipData avoidscontentinconfirmation; olderfeedbackno privatebody. RED65924/23PASS109.851s/38validXML accurate; clipboard/recreatedtail unexecuted. Reply/reaction/switch/finalgates remainpending.
 
 Findings: Standards0; Spec0. Subsequent ownedcontainerbuildPASS3m32s/exit0 despite lostwrappershell143; exactcontainerlogs/waitretained, no duplicatebuild. NativeCopy10/17follow.
+
+
+## Public list scroll correction, e0378877...72ef47cf
+
+### Standards
+
+Zero documented breaches or actionable smell findings. Public lazy-list scroll
+precedes exact noneditable body display; signed originals, transmission, cache,
+key and identity assertions stay unchanged. Earlier10 failures and17same-product
+GREEN are qualified. Virtualization remains a hypothesis.
+
+### Spec
+
+Zero actionable findings. Exact sent-body acceptance remains strict. Prior39/37
+XML and source/manifests verify; shared failure belongs only to laterfailedcase.
+17 does not execute the newscrollstep. Reply/reactions/whole acceptance remain.
+
+Findings: Standards0; Spec0. Subsequent Android10run38450331371 is24GREEN
+114.206s/core86, process cold4.738s/restore.171s; separately retained and inspected.
