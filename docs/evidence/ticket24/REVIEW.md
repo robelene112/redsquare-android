@@ -1411,3 +1411,16 @@ Zero documented breaches or actionableheuristics. Device-onlyopaqueencryptedbyte
 Zero actionable findings. Localrestorerepairmustbeobservablewithoutreopeningorserver-suppliedreactionrows. Producte820 earlyreturngapremains; compilation26234/nativeREDpending.
 
 e820fullcore/debug/test/release/lint PASS9m19s/exit0; core86UPTODATEqualiﬁer (freshnativecore86alreadypassed38476508566). Extendedtest3dea compiling. No newAPK or whole25acceptance.
+
+
+## Message-only local reload minimum,c76c2155...7363ea21
+
+### Standards
+
+Prior recoveryfindingresolvedinsource; zero newdocumentedbreaches/actionableheuristics. Everysuccessfulpage includingnoArchiveevents reloadslocalstate; restorefailureclears/actionreadinessrecoverswithoutclearingsenderrors orrewritingsavedoperations.
+
+### Spec
+
+Priorfindingresolvedinsource; zero newactionablefindings. No newsigning/sending/retrycalls; messagepreservation/localwarningretained. ActualRED17run38478679915/c76 has9/10PASS120.998s/core86; earlierstorage+metadatarepair stagespass, finalmessage-onlyRefresherrorclearancefails358. Root4storage/failure+3availableoriginalpairs inspected. CorrectednativeGREEN/fullgatespending.
+
+Freshpublicreadbothbackends PASS10run38478905098 1.677s and17run38478907763 4.987s/core86 atc76. Rootraw/readinessJSONinspected, canonicalgroup50/timecutoffemptyarrays+archive/relay/chat/services/auth, installedwalletunchanged andzerooutgoing. Probeclass/protocolunchangedby7363. No realdelivery/decryptionorwholeacceptanceclaim.

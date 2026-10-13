@@ -221,6 +221,17 @@ Google Play is the intended public distribution channel. APK distribution is
 also an option. Store accounts, eligibility and submission policy must be
 verified against current official sources when release work begins.
 
+## Early beta visual priority
+
+On 2026-10-13 the owner requested UI work immediately after private Chat #25
+so he can show a beta to friends. Complete #25, then implement the bounded
+[early visual beta slice #37](https://github.com/robelene112/redsquare-android/issues/37)
+and publish a signed review update before resuming the remaining feature tickets.
+Polish the already implemented feed, navigation, typography, spacing and Chat
+while preserving the familiar Red Square experience and existing safeguards.
+This changes delivery order, not the accepted feature scope. #35 remains open
+for integrated acceptance, physical Pixel measurements and final continuity.
+
 ## Initial review milestone
 
 The first reviewable build prioritizes local wallet creation/import and a live

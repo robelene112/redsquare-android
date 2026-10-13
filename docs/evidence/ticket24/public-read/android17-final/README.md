@@ -1,0 +1,5 @@
+# Fresh Android 17 public Chat contract reads
+
+Run38478907763/sourcec76c2155: nativepublicread PASS4.987s, core86PASS. Rootrawreport/readinessJSONinspected. BothOwner/Official authenticate andadvertisearchive/relay/chat; canonicalfield3/privatepair/limit50/timecutoff readsreturnemptyarrays. Ephemeralprobeidentity andinstalledwallet exportunchanged; nosubmit/relay/posts/payment operations. MatchingAndroid10run38478905098 passes1.677s.
+
+Randomunusedpair testsauthentication/service/readcontract only, notrealmessage delivery/decryption/completehistory orwebdeploymentversionequivalence. Probeclass/protocolunchangedbylocalreactionRefreshfix7363. Independentcontrolledcrossclient/UIproofs remainseparate.
