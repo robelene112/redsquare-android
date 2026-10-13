@@ -6,6 +6,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.google.gson.JsonObject
@@ -23,6 +24,7 @@ import nl.davidengelen.redsquare.saito.*
 @Composable
 internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBackend, modifier: Modifier, onBack: () -> Unit) {
     val personal = LocalPersonalControls.current
+    val context = LocalContext.current.applicationContext
     var contacts by remember(wallet) { mutableStateOf<List<String>>(emptyList()) }
     var contactsFailed by remember(wallet) { mutableStateOf(false) }
     var counterparty by remember(wallet.publicKey, backend) { mutableStateOf<String?>(null) }
@@ -30,6 +32,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     var loading by remember(counterparty) { mutableStateOf(false) }
     var failed by remember(counterparty) { mutableStateOf(false) }
     var incomplete by remember(counterparty) { mutableStateOf(false) }
+    var cacheFailed by remember(counterparty) { mutableStateOf(false) }
     var refresh by remember { mutableIntStateOf(0) }
 
     LaunchedEffect(wallet, refresh) {
@@ -40,6 +43,12 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     LaunchedEffect(wallet, endpoint, counterparty, refresh) {
         val contact = counterparty ?: return@LaunchedEffect
         loading = true
+        val cache = ChatHistoryStore(context, wallet, backend, contact)
+        try {
+            messages = withContext(Dispatchers.IO) { cache.load().map { it.message } }
+            cacheFailed = false
+        } catch (cancelled: CancellationException) { throw cancelled }
+        catch (_: Exception) { cacheFailed = true }
         try {
             val page = withContext(Dispatchers.IO) {
                 SaitoPeer(wallet, endpoint).use { peer ->
@@ -59,13 +68,20 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                         try {
                             val envelope = row.asJsonObject.get("tx")
                             require(envelope.isJsonPrimitive && envelope.asJsonPrimitive.isString)
-                            PrivateChat.read(wallet, envelope.asString, contact)
+                            ChatHistoryStore.Entry(envelope.asString, PrivateChat.read(wallet, envelope.asString, contact))
                         } catch (_: Exception) { ignored++; null }
-                    }.distinctBy { it.id }.sortedWith(compareBy<PrivateChatMessage> { it.createdAt }.thenBy { it.id })
+                    }.distinctBy { it.message.id }
                     verified to (ignored > 0)
                 }
             }
-            messages = page.first
+            val merged = (messages + page.first.map { it.message }).distinctBy { it.id }
+                .sortedWith(compareBy<PrivateChatMessage> { it.createdAt }.thenBy { it.id })
+            messages = merged
+            try {
+                messages = withContext(Dispatchers.IO) { cache.save(page.first.map { it.envelope }).map { it.message } }
+                cacheFailed = false
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { cacheFailed = true }
             incomplete = page.second
             failed = false
         } catch (cancelled: CancellationException) { throw cancelled }
@@ -85,6 +101,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
         Text(stringResource(R.string.chat_available_history), style = MaterialTheme.typography.bodySmall)
         PersonalControlsStatus(personal)
         if (contactsFailed || failed) Text(stringResource(R.string.chat_load_error))
+        if (cacheFailed) Text(stringResource(R.string.chat_cache_error))
         if (incomplete) Text(stringResource(R.string.chat_incomplete))
         val contact = counterparty
         if (contact == null) {

@@ -91,3 +91,16 @@ assumptions/deaths; core82/source gates. Five hashes, root originalPNG/XML
 confirm imported authenticated Unicode history on selected Owner. Both bounded
 source reviews6df3ef0...7e5811e report0. Cache/recreation tracer next; no send,
 recovery, public nativeChat or whole-ticket completion claim.
+
+Cache tracer compiled1m34s. Actual10run38341603454 at6f02f73 fails1/20.682s,
+line82 missing prior message after Activity recreation with unavailable Archive.
+ZeroOK/assumptions/actualdeaths; core82/source gates pass. Seven hashes preserve
+both originalPNG/XML pairs; root XMLs/failurePNG confirm first history visible,
+then error-only reconstructed screen. Minimum encrypted wallet/backend/pair cache
+now source-building. This is recreation, not actual process-death proof.
+
+Minimum cache source core82/debug/testAPK passes3m1s. Original encrypted
+envelopes are device-encrypted by wallet/backend/pair; cached entries authenticate
+and decrypt again, server pages merge/dedup without deleting retained history.
+Storage failure is explicit and does not overwrite unreadable history. Actual
+reopened UI GREEN and bounded reviews pending; no process-death/delivery claim.

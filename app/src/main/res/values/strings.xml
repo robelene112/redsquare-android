@@ -376,6 +376,7 @@
     <string name="notifications_paging_warning">Some older activity could not be reached here. Try Refresh.</string>
     <string name="notifications_history_limit">This phone keeps a limited notification history. Refresh to check recent activity.</string>
     <string name="chat_title">Chat</string>
+    <string name="chat_cache_error">Could not restore or save private history on this device. Messages fetched now may be unavailable after closing Chat.</string>
     <string name="chat_private">Private messages are encrypted.</string>
     <string name="chat_available_history">Only available history is shown. Older messages may be unavailable.</string>
     <string name="chat_empty">No saved private chats.</string>

@@ -1,0 +1,56 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PrivateChatPreviewTest:
+INSTRUMENTATION_STATUS: test=anImportedContactOpensItsAvailableAuthenticatedPrivateHistory
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest.waitFor(PrivateChatPreviewTest.kt:121)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest.anImportedContactOpensItsAvailableAuthenticatedPrivateHistory$lambda$17$lambda$16$lambda$15(PrivateChatPreviewTest.kt:82)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest.$r8$lambda$P2hq4c3M2T0l2FE9br2bJDdxGkE(Unknown Source:0)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest.anImportedContactOpensItsAvailableAuthenticatedPrivateHistory(PrivateChatPreviewTest.kt:67)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anImportedContactOpensItsAvailableAuthenticatedPrivateHistory(nl.davidengelen.redsquare.PrivateChatPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest.waitFor(PrivateChatPreviewTest.kt:121)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest.anImportedContactOpensItsAvailableAuthenticatedPrivateHistory$lambda$17$lambda$16$lambda$15(PrivateChatPreviewTest.kt:82)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest.$r8$lambda$P2hq4c3M2T0l2FE9br2bJDdxGkE(Unknown Source:0)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest.anImportedContactOpensItsAvailableAuthenticatedPrivateHistory(PrivateChatPreviewTest.kt:67)
+
+INSTRUMENTATION_STATUS: test=anImportedContactOpensItsAvailableAuthenticatedPrivateHistory
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 20.682
+There was 1 failure:
+1) anImportedContactOpensItsAvailableAuthenticatedPrivateHistory(nl.davidengelen.redsquare.PrivateChatPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest.waitFor(PrivateChatPreviewTest.kt:121)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest.anImportedContactOpensItsAvailableAuthenticatedPrivateHistory$lambda$17$lambda$16$lambda$15(PrivateChatPreviewTest.kt:82)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest.$r8$lambda$P2hq4c3M2T0l2FE9br2bJDdxGkE(Unknown Source:0)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest.anImportedContactOpensItsAvailableAuthenticatedPrivateHistory(PrivateChatPreviewTest.kt:67)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
