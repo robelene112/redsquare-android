@@ -18,7 +18,10 @@ has no accepted native GREEN yet. Minimum local core86/debug/test APK build
 passed3m28s. An earlier exact owned build was deliberately stopped to stabilize
 callback identity and escape literal quote markup before runtime dispatch.
 
-Current native Android10 run38454040603/source67fbbb00 (chat-ui) is in progress.
+Current native Android10 run38454040603/source67fbbb00 finished:26cases25PASS,
+zero quote-only Send guard fails at383,115.77s/core86. OrdinaryReply passes,
+independent pinned receiver/mention/signature checker exit0.43XML and normal
+draft/forwarded/cache/failure originals inspected. Processcheck skipped.
 Its26cases add an independently signed/encrypted timestamp-zero Reply tracer.
 Product remains4d8ba673, with the known Spec finding still unfixed: producer can
 create references outside parser bounds, so timestamp0 can enable quote-only
@@ -564,3 +567,9 @@ explicit remove/send, auto-mention in encrypted body, and available-local quote
 navigation. First ownedminimum Gradle d76d21b10b29 was deliberately stopped
 before completion to stabilize remembered callback identity and escape literal
 quote markup; no runtime/minimumbuild acceptance claimed. Correctedbuildnext.
+
+
+Latest boundsminimum locally permits timestamp0 in replyparser andreturnsnull
+fromproduceroutsideJSsafe range, disablesunsupported rowReply anddoesnotapply
+such prefixes. Normal capturedreply independentcheckerPASS in isolatedruntime;
+zeroUI actualRED tail notaccepted. Buildrunning; review/native26GREENpending.

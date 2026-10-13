@@ -70,7 +70,7 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
         { message: PrivateChatMessage ->
             if (ready && !sending && saved.status != ChatWorkStore.Status.UNKNOWN &&
                 message.author in setOf(wallet.publicKey, contact)) {
-                text = privateReplyPrefix(message) + privateMessageBody(text)
+                privateReplyPrefix(message)?.let { prefix -> text = prefix + privateMessageBody(text) }
             }
         }
     }

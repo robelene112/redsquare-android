@@ -311,8 +311,9 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                             val index = visible.indexOfFirst { it.author + it.createdAt == reference }
                             if (index >= 0) scope.launch { messageList.animateScrollToItem(index) }
                         }
+                        val replyPrefix = remember(message) { privateReplyPrefix(message) }
                         Row {
-                            TextButton(enabled = replies.replyTo != null, onClick = { replies.replyTo?.invoke(message) }) {
+                            TextButton(enabled = replies.replyTo != null && replyPrefix != null, onClick = { replies.replyTo?.invoke(message) }) {
                                 Text(stringResource(R.string.post_reply))
                             }
                             TextButton(onClick = { copyFailed = !copyPrivateMessage(context, message.text) }) {
