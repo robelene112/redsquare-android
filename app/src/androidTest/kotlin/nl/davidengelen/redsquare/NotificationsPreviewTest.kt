@@ -5,6 +5,7 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.uiautomator.UiDevice
 import com.google.gson.JsonParser
 import nl.davidengelen.redsquare.saito.AndroidBackendStore
 import nl.davidengelen.redsquare.saito.SaitoBackend
@@ -879,9 +880,6 @@ class NotificationsPreviewTest {
             nl.davidengelen.redsquare.feed.PublicStringStore.lock)
         val otherNameFiles = FixtureFiles(context.noBackupFilesDir, "namemap.$otherOwner.v1",
             nl.davidengelen.redsquare.saito.SaitoLocalState.lock)
-        val documents = File(instrumentation.context.filesDir, "wallet-test-documents")
-        val ownerDocument = FixtureFiles(documents, "notification-owner-import.json", nl.davidengelen.redsquare.saito.SaitoLocalState.lock)
-        val otherDocument = FixtureFiles(documents, "notification-other-import.json", nl.davidengelen.redsquare.saito.SaitoLocalState.lock)
         val reminders = context.getSharedPreferences("wallet-backup-reminders", 0)
         val priorReminders = listOf(owner, otherOwner).associate { identity ->
             val key = "hidden:$identity"
@@ -1091,10 +1089,11 @@ class NotificationsPreviewTest {
             if (mode == Mode.WALLET) {
                 otherHistoryFiles.reset(); otherReadFiles.reset(); otherPersonalFiles.reset()
                 otherFollowingFiles.reset(); otherNameFiles.reset()
-                check(documents.isDirectory || documents.mkdirs())
-                ownerDocument.reset(); otherDocument.reset()
-                File(documents, "notification-owner-import.json").writeText(wallet.exportJson())
-                File(documents, "notification-other-import.json").writeText(SaitoWallet.fromPrivateKey("0".repeat(63) + "3").exportJson())
+                val device = UiDevice.getInstance(instrumentation)
+                for (filename in listOf("notification-owner-import.json", "notification-other-import.json")) {
+                    check(device.executeShellCommand("run-as nl.davidengelen.redsquare.dev.test stat -c %s files/wallet-test-documents/$filename")
+                        .trim().toLongOrNull()?.let { it > 0 } == true)
+                }
                 balances!!.start(java.net.InetAddress.getByName("127.0.0.1"), 0)
             }
             if (mode == Mode.CACHE_BUDGET) {
@@ -1222,8 +1221,10 @@ class NotificationsPreviewTest {
             }, {
                 conversationFiles.restore()
             }, { otherHistoryFiles.restore() }, { otherReadFiles.restore() }, { otherPersonalFiles.restore() },
-                { otherFollowingFiles.restore() }, { otherNameFiles.restore() }, { ownerDocument.restore() },
-                { otherDocument.restore() }, { balances?.close() }, {
+                { otherFollowingFiles.restore() }, { otherNameFiles.restore() }, {
+                    if (mode == Mode.WALLET) check(UiDevice.getInstance(instrumentation).executeShellCommand(
+                        "run-as nl.davidengelen.redsquare.dev.test rm -f files/wallet-test-documents/notification-owner-import.json files/wallet-test-documents/notification-other-import.json").isBlank())
+                }, { balances?.close() }, {
                     val edit = reminders.edit()
                     priorReminders.forEach { (key, value) -> if (value == null) edit.remove(key) else edit.putBoolean(key, value) }
                     check(edit.commit())
