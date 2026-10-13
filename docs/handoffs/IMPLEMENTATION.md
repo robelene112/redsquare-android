@@ -42,9 +42,14 @@ originalparentPNG. Othercapturedoriginals retainedwithoutnewvisualclaims. Previo
 bothSDKactualpermission/deathproof atsource0ef7b41 accepted:10run38326981751/
 17run38327322258,101+106hashes/46+48XML/root7+9originalPNGs, bothevidenceaxes0.
 
-Final fullAndroid10run38328911797 and17run38328912121 at a5648ee (app/core/
-reference/scripts/workflow sourceidentical68633d9) are active, separately opted
-into bothapprovedpublicreads. No source mutation until theseacceptance runsfinish;
+InitialfullAndroid10run38328911797 at a5648ee FAILEDfirstbrowse8/7PASS/one
+existingcachedrootnotdisplayed:443/20.442s/zeroOK/deaths; core74/release/lintpass.
+InneroriginalPNGshowscachedauthorbottom/bodybelowviewport, outerblankafterclosed
+Activityqualified/nolegacyXML. Threehashes.47907fe ordinaryscroll beforeunchanged
+display/navigation/recovery assertions, bothreviews0/noapp/core/reference/harness/
+workflowchange. LocalAPKpending. Correctedfull10dispatched(publicreadsoptedin);
+recordexactIDnext. Originalfull17run38328912121 ata564 remainsactive; mayretain
+ifallgatespassunderWORKFLOW companionrule, sameproduction68633d9. No source mutation until theseacceptance runsfinish;
 docs-only evidence changes permitted. Complete actualcounts/PNG/XML/continuity/
 release/lint/publicfeeds/finaltwo-axis evidence, then close#24 and move#25.
 Ready#25 read-onlyscope: encryptedprivateChat send/receive/history/blockpolicy/

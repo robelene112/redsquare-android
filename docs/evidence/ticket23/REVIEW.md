@@ -756,3 +756,26 @@ Corrected32GREEN10run38328392156 at68633d9 passes32/125.928s, settings1/
 Conversation/2Unread/opaqueoriginalrestore/no writes pass. Finalsame-sourcefull
 10run38328911797 and17run38328912121 at a5648ee pending, bothpublicreadsoptedin.
 No whole-ticketclosure/physical/closedpush claim.
+
+## Corrected32 evidence and full-suite viewport fixture
+
+### Standards
+
+`0798b55...a5744bc`: zero hard/actionableheuristics.103hashes/47XML/raw32/
+125.928s/settings6.692/cold3.818/actual5973->6053 verified, sourceequivalent
+68633d9, qualifiedremainingparentPNG/othercapturedoriginals/finalfullpending.
+
+`a5744bc...47907fe`: zero hard/actionableheuristics. Threefailurehashes verify
+8browse/7PASS/onecachedpostnotdisplayed:443/20.442s/zeroOK/deaths. Originalinner
+showscachedauthorbottom; outerblankafterActivityclosurequalified/no legacyXML.
+Ordinaryscroll precedes unchangeddisplayed/click/thread/reply/offlinechecks. No
+production/core/reference/harness/workflow changes; fullsourcegatesinclude release
+andlint. Companionacceptance conditionalonactualcompleteSDK17 outcome.
+
+### Spec
+
+Bothevidence and viewportfixture reviews zero findings. Positivefield4before
+Conversation/all31prior/actualcold/OSsettings limits preserved. Scrolling doesnot
+relax display/navigation/recovery acceptance. Laterfullsuites notexecutedinfailed
+10run38328911797; retain17run38328912121 iffullpasses, perWORKFLOW companionrule.
+Correctedfull10runpending; no finalclosureclaim.
