@@ -7,73 +7,38 @@ one question at a time when a material choice really needs the owner.
 
 ## Current work
 
-#24, "Show in-app social notifications", is assigned and active. Both blockers
-#8 and #21 are closed. Nineteen of35 tickets are closed (#2–#15,#18,#20–#23).
-Whole-ticket review base: `d1e65f532e5639bfc8f6c20b5b3fe9794f5e8117`.
-Continue the authorized sequence without a grill per ticket. Accepted seams1–4
-cover native UI/controlled Archive, independently signed references, recovery/
-isolation and cross-client compatibility. Closed-app push remains #32–34;
-physical Pixel acceptance remains #35. No new phone APK has been published.
+#24, "Show in-app social notifications", is complete after both full emulator
+runs and both final evidence reviews. Twenty of35 tickets are closed
+(#2–#15,#18,#20–#24). No new phone APK; stable previewv10/source5225d06.
 
-Notifications now support signed likes, replies, exact key/list mentions,
-registrar-proved username mentions, reposts and current/legacy quote posts.
-Unknown signed-addressed targets use neutral captions; verified non-own targets
-are excluded. Actor taps open profiles. Available commentary/replies remain
-readable while bounded verified-original lookup reports unavailable/failure and
-allows explicit retry. Parent-cache recovery also runs after handled thread
-failure. Independent owner-indexed streams preserve healthy results on partial
-failure. Verified activity survives pruned pages/Activity recreation. History and
-read markers are wallet/backend scoped; unread counts use visible verified rows,
-Mark all as read commits before confirming, and storage faults preserve activity.
+Final notifications source68633d976a5ef6dfa4ce38d982af46ea2f24edb1;
+whole source reviews d1e65f5...0798b55 both axes0 after self-like warning and
+remaining-parent discovery fixes. Full10run38330887204 atb80b878 passes236
+reported/235PASS+one existing API30profileassumption/54completed/18actualdeaths.
+Full17run38328912121 ata5648ee passes237PASS/55completed/18actualdeaths.
+Each passes core74/release/lint/debug/test/signed5->8/cold wallet/cache and both
+separately enabled public reads. Production equivalent; reviewed test scrolling
+and diagnostics-only changes qualify under WORKFLOW companion rule. Final
+full10 evidence review982c502...9befdf8 both axes0; full17 Spec0/Standards0source
+findings and one corrected caption. Durable evidence: docs/evidence/ticket23/
+final-full/android10 and android17; canonical chronology and separate reports
+remain NATIVE_NOTIFICATION_VERIFICATION.md and docs/evidence/ticket23/REVIEW.md.
+Failed intermediate runs remain retained without invented causes. Earlier
+accidental auto-close was reopened; close only after final acceptance.
 
-Final source:68633d976a5ef6dfa4ce38d982af46ea2f24edb1. Final integrated
-reviews d1e65f5...0798b55 bothaxes0remainingfindings. Earlier false selflike-warning
-and permanentten-own-parent cutoff resolved; core74/0/0/0/debug/test local1m52PASS.
-Allknownown targets eligible, initial3base+10targets+20author<=33; existingMore20
-new+older<=33/perstream12s/deadlines/300history preserved. Independentvectors
-232579/hash31182e...2700d threecopies/fixedunsafe1–4; public sourcepins unchanged.
+Next ready ticket#25, "Exchange encrypted private Chat messages with existing
+clients". Read parent#1/issue25, NATIVE_PRIVATE_CHAT_CONTRACT and reference docs.
+Accepted seams1–4 cover native UI/controlled peers, independently signed vectors,
+recovery/isolation and compatibility. Record the new review base after #24's
+completion commit. Implement sequentially using TDD. No additional grill needed.
+Private contract/reference/generator future files remain untracked and now
+belong with#25; NATIVE_GROUP_CHAT_CONTRACT remains protected for#26. Read-only
+preparation: .scratch/ticket25-readonly-plan.md. Chat signing must authenticate
+JSON-string ciphertext without weakening existing object consumers, use exact
+CryptoJS-compatible encryption, and preserve private owner/backend cache.
 
-Latest correctedfocused10run38328392156 at68633d9 PASSES main32/125.928s,
-actualnotificationSettings1/6.692s and actualdeath5973->6053/cold1/3.818s. Three
-completedOK/noassumptions/core74/debug/test. InitialRoot11/1Unread/noReply/zero
-Rootparentreads thenMorepositivefield4/Reply+Like2Unread/actualConversation/text/
-actorProfile/all31old/opaqueoriginalwalletrestore/no writes.103hashes/47XML/root
-originalparentPNG. Othercapturedoriginals retainedwithoutnewvisualclaims. Previous
-bothSDKactualpermission/deathproof atsource0ef7b41 accepted:10run38326981751/
-17run38327322258,101+106hashes/46+48XML/root7+9originalPNGs, bothevidenceaxes0.
-
-Initialfull10run38328911797 failedfirstbrowse cachedrootnotdisplayed;47907fe
-ordinaryscroll correctionbothreviews0/localAPK1m30PASS. Secondfull10run38329490846
-at47907fe passesbrowse/following/posting/postqueue, then existingSocialProcess
-prepare timesoutRetryLike:69/1fail21.424s beforedeath/checkpoint. Nooriginal
-PNG/XML/counters, causeUNPROVEN/onerunnerhash.805beea actualLike/Retryscroll+
-displaygatesbothphases andin-scopecapture/publiccounts; d2d6947 hostdiagnostic
-finallyretainsimages preservingprimaryfailure. No app/core/refchanges, hostonly
-capture. Bothreviews0/localAPK1m30PASS. Focusedsocial10run38330457957 atd2 PASSES8/17.933s+intentionaldeath/cold1/
-3.680s/twoOK/core74/noassumptions.18hashes/oneXML/rootoriginalreconciledPNG:Owner/
-root/disabledLiked/2likes; duplicatebyte-equivalent/notindependent. Oldfailurecause
-stillunproven/exactPIDsnotretained. Correctedfull10run38330887204 atb80b878 active/
-publicreadsoptedin. Originalfull17run38328912121 ata564 PASSES237cases/55records/18deaths/
-noassumptions; core74/release/lintDebug/signed5->8/coldcontinuity/bothpublicreads.
-Notifications32/127.205s,OSAllow5.759/Deny5.660, notificationdeath12646->12721/
-cold1/4.472s.241hashes/53XML/root30originalPNGs qualifiedREADME. Sameproduction
-686; reviewedtestscroll/hostcapture-only changesretainpredicates, so maycompanion
-correctedfull10run38330887204 ifpasses. Actual10active; no24closureyet.
-
-Issue24 accidentalautoclosefrombfd0906 wording "activity closes #24" discovered:
-rootREOPENED/comment6135745505. Still19/35closed; do notmark24completeuntil
-actualfinalfullproof. Avoid closingkeywords in interimcommitmessages.
-No source mutation until theseacceptance runsfinish;
-docs-only evidence changes permitted. Complete actualcounts/PNG/XML/continuity/
-release/lint/publicfeeds/finaltwo-axis evidence, then close#24 and move#25.
-Ready#25 read-onlyscope: encryptedprivateChat send/receive/history/blockpolicy/
-backendcontracts. Itsfivefuturefiles remainuntrackedprotected; do notstage for#24.
-No newphoneAPK; stablev10/source5225d06. No productionnode/funded/livewrites.
-
-Canonical chronology: `docs/research/NATIVE_NOTIFICATION_VERIFICATION.md`.
-Separate axis reports: `docs/evidence/ticket23/REVIEW.md`.
-Protected future Chat reference/contracts remain untracked and untouched; never
-stage them with notifications. Use explicit active paths when staging.
+No production node/funded/live writes, physical Pixel proof, closed-app push or
+store submission authorized. Continue ready work autonomously.
 
 ## Earlier completed ticket checkpoints
 

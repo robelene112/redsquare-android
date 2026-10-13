@@ -814,3 +814,20 @@ Zero findings. Full17 acceptance237PASS/55completed/18actualdeaths, exact
 notification/permission/recovery counts and timings, both public reads,
 source equivalence and remaining Pixel/push/livewrite limits verified.
 No Android10 acceptance or issue24 closure claim.
+
+
+## Final Android 10 acceptance evidence
+
+### Standards
+
+`982c502...9befdf8`: zero hard violations or actionable heuristics. All237
+hashes/51XML/57PNG, raw236reported/235PASS+oneexistingprofileassumption/54
+completed/18deaths agree. Notification timings and27967->28071 unchanged public
+checkpoint fields, core74/signedupdate/publicreads and companion production
+equivalence verified. Qualified original captions supported; no corrections.
+
+### Spec
+
+Zero findings. Exact manifests/counts/notification/settings/recovery/core/update/
+publicreads and source equivalence verified. Applicable emulator acceptance for
+#24 complete; physicalPixel/push/livewrites/permanenthistory remain unclaimed.
