@@ -100,12 +100,58 @@ if (process.argv[2] === '--check-native-send') {
     message: 'Native private message 😀 <&>\nsecond line',
     timestamp: Number(transaction.timestamp), mentioned: [],
   });
+  // Execute the existing Chat receiver method, with only its browser storage/notification
+  // boundaries adapted. No module constructor, DOM, IndexedDB, network or Saito app init.
+  const chatSource = fs.readFileSync('/reference/chat.js', 'utf8');
+  const chatSourceSha256 = sha256(chatSource);
+  assert.equal(chatSourceSha256, '35e372b7d9da0ddfd6286a93059c00a3e34eb494b62350db88a9380c4814b1af');
+  const chatAst = ts.createSourceFile('chat.js', chatSource, ts.ScriptTarget.ES2022, true);
+  const chatClass = chatAst.statements.find(node => ts.isClassDeclaration(node) && node.name.text === 'Chat');
+  assert(chatClass);
+  const receiverMethod = chatClass.members.find(node => ts.isMethodDeclaration(node) &&
+    node.name.getText(chatAst) === 'addTransactionToGroup');
+  assert(receiverMethod);
+  const receive = vm.runInNewContext(`({${receiverMethod.getText(chatAst)}}).addTransactionToGroup`, {});
+  const receivedTransaction = {
+    signature: transaction.signature, timestamp: Number(transaction.timestamp),
+    from: [{publicKey: publicKeys['2']}], msg: plaintext, returnMessage: () => plaintext,
+  };
+  for (const scalar of ['1', '2']) {
+    const events = [], notifications = [], persisted = [];
+    const browser = {
+      app: {BROWSER: true, connection: {emit: (...event) => events.push(event)}},
+      publicKey: publicKeys[scalar], loading: 0, debug: false,
+      notification: group => notifications.push(group.id),
+      saveChatGroup: group => persisted.push(JSON.parse(JSON.stringify(group))),
+    };
+    const group = {id: groupId, txs: [], unread: 0, last_update: 0, muted: false};
+    assert.equal(receive.call(browser, group, receivedTransaction), 1);
+    assert.equal(group.txs.length, 1);
+    assert.equal(group.txs[0].signature, transaction.signature);
+    assert.equal(group.txs[0].msg, plaintext.message);
+    assert.equal(group.txs[0].timestamp, Number(transaction.timestamp));
+    assert.deepEqual(Array.from(group.txs[0].from), [publicKeys['2']]);
+    assert.deepEqual(Array.from(group.txs[0].mentioned), []);
+    assert.equal(group.unread, scalar === '1' ? 1 : 0);
+    if (scalar === '2') assert.equal(group.last_read_message, transaction.signature);
+    assert.equal(notifications.length, scalar === '1' ? 1 : 0);
+    assert.equal(events.length, scalar === '1' ? 1 : 0);
+    assert.equal(persisted.length, 1);
+    assert.equal(persisted[0].txs[0].msg, plaintext.message);
+    assert.equal(receive.call(browser, group, receivedTransaction), 0);
+    assert.equal(group.txs.length, 1);
+    assert.equal(group.unread, scalar === '1' ? 1 : 0);
+    assert.equal(persisted.length, 1);
+  }
   console.log(JSON.stringify({
     nativeEnvelopeSha256: sha256(input), signature: transaction.signature,
     groupId, timestamp: Number(transaction.timestamp), dependencyVersions,
     wrapperSha256: wrapperHash, wasmSha256: signingReference.wasmSha256,
     independentWasmSignatureMatches: true, existingCryptoRecipientDecrypts: true,
     exactNativeFixturePlaintextMatches: true,
+    chatSourceSha256, existingChatReceiverAcceptsNativePlaintext: true,
+    existingChatReceiverSuppressesDuplicateSignature: true,
+    browserStorageNotificationBoundariesAdapted: true,
   }, null, 2));
   process.exit(0);
 }

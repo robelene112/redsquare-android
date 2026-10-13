@@ -660,3 +660,16 @@ One concrete formatter defect: the outer candidate regex excludes decimal0 acros
 One actionable finding: existing-client compatibility is not satisfied because the independent timestamp1700000079990 cannot match. Allow decimal zero in the timestamp portion with existing public-key/timestamp bounds. Retained RED accurately referencesd5a67483,23/22PASS119.472s/35validXML; quoted tail unexecuted, ordinary control passes. No GREEN/process-death acceptance claimed.
 
 Findings: Standards1 concrete regex defect; Spec1 same compatibility defect. Both queued native runs38440526876/38440532111 cancelled before treating them as evidence. The correction follows; source build is not runtime proof.
+
+
+## Decimal timestamp correction,60e21d77...3312cb44
+
+### Standards
+
+Prior compatibility finding resolved; zero new documented breaches or actionable smell findings. Candidate accepts decimal0 while separate valid-public-key43/44 and bounded decimal timestamp checks remain. Typed/signed message preservation remains intact. Cancelled requests are not acceptance evidence.
+
+### Spec
+
+Prior finding resolved; zero new actionable findings. Independent timestamp1700000079990 can match while key/time validation remains. Signed/cache original and typed suffix remain unchanged. Native rendering/recovery and whole-ticket acceptance still pending.
+
+Findings: Standards0; Spec0. Local corrected APK compilation subsequently passes1m30s/exit0.
