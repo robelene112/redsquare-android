@@ -156,13 +156,24 @@ if [[ "${TEST_SCOPE:-full}" == browse* ]]; then
 fi
 verify_following() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+    local following_exit=0
     timeout 180 adb shell am instrument -w -r \
         -e class nl.davidengelen.redsquare.FollowingPreviewTest \
         nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
-        > "$evidence/following-ui.txt" || true
+        > "$evidence/following-ui.txt" || following_exit=$?
+    printf '%s\n' "$following_exit" > "$evidence/following-ui-exit.txt"
+    adb exec-out run-as nl.davidengelen.redsquare.dev cat cache/following-progress.txt \
+        > "$evidence/following-progress.txt" 2>&1 || true
     adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - following-evidence \
         > "$evidence/following-evidence.tar" || true
-    grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/following-ui.txt"
+    if [[ "$following_exit" != 0 ]] || ! grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/following-ui.txt"; then
+        timeout 10 adb exec-out screencap -p > "$evidence/following-system-screen.png" || true
+        timeout 10 adb shell uiautomator dump /data/local/tmp/following-failure.xml \
+            > "$evidence/following-dump.txt" 2>&1 || true
+        timeout 10 adb pull /data/local/tmp/following-failure.xml "$evidence/following-system-window.xml" \
+            >/dev/null 2>&1 || true
+        return 1
+    fi
 }
 if [[ "${TEST_SCOPE:-full}" == following* ]]; then
     verify_following

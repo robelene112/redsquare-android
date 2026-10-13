@@ -19,6 +19,7 @@ class FollowingPreviewTest {
     @Before fun preparePublicState() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName.endsWith(".dev"))
+        progress("Preparing public following state")
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
         context.noBackupFilesDir.listFiles()?.filter {
             it.name.startsWith("feed.") || it.name.startsWith("conversation.") || it.name.startsWith("profile.") ||
@@ -468,8 +469,10 @@ class FollowingPreviewTest {
     }
 
     private fun openFeedProfile(author: String) {
+        progress("Scrolling to public fixture author")
         // A visible post body does not guarantee its author link is in the viewport.
         ui.onNode(hasScrollAction()).performScrollToNode(hasText(author))
+        progress("Opening public fixture profile")
         ui.onNodeWithText(author).assertIsDisplayed().performClick()
         waitFor("Profile")
     }
@@ -489,11 +492,20 @@ class FollowingPreviewTest {
         returnTo?.let { list.performScrollToNode(hasText(it)) }
     }
 
+    private fun progress(stage: String) {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        check(context.packageName.endsWith(".dev"))
+        java.io.File(context.cacheDir, "following-progress.txt").writeText(stage + "\n")
+    }
+
     private fun waitFor(text: String) {
+        progress("Waiting for public fixture text: $text")
         if (text in setOf("Native Red Square reference post", "Profile newer post 20")) {
             ui.waitUntil(20_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            progress("Scrolling to public fixture post: $text")
             ui.onNode(hasScrollAction()).performScrollToNode(hasText(text))
         }
+        progress("Checking public fixture text: $text")
         ui.waitUntil(15_000) {
             ui.onAllNodes(hasText(text)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
         }
