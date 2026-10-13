@@ -20,7 +20,9 @@ class PrivateChatPreviewTest {
 
     @Test fun failedLocalSavingDoesNotLoseReadableHistoryOnRefresh() = exerciseHistory(true)
 
-    private fun exerciseHistory(storageFailure: Boolean) {
+    @Test fun aLivePrivateRelayMessageRemainsReadableAfterReopening() = exerciseHistory(false, live = true)
+
+    private fun exerciseHistory(storageFailure: Boolean, live: Boolean = false) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev")
@@ -58,10 +60,18 @@ class PrivateChatPreviewTest {
                 check(criteria.get("limit").asInt == 50)
                 historyReads.incrementAndGet()
                 if (historyUnavailable.get()) "invalid archive response"
-                else if (historyPruned.get()) "[]"
+                else if (historyPruned.get() || live) "[]"
                 else JsonArray().apply { add(JsonObject().apply { addProperty("tx", reference.get("archiveEnvelope").asString) }) }.toString()
             } else "[]"
         })
+        val liveTransaction = if (live) {
+            val relay = JsonObject().apply {
+                addProperty("module", "Relay"); addProperty("request", "chat relay")
+                add("data", reference.getAsJsonObject("signedInner"))
+            }
+            SaitoWire.applicationRequest(wallet.publicKey,
+                relay.toString().toByteArray(Charsets.UTF_8), 1, reference.get("timestamp").asLong).drop(5).toByteArray()
+        } else null
         var primaryFailure: Throwable? = null
         try {
             synchronized(SaitoLocalState.lock) { savedFiles.keys.forEach { check(File(context.noBackupFilesDir, it).delete()) } }
@@ -78,9 +88,19 @@ class PrivateChatPreviewTest {
                         waitFor(counterpart)
                         ui.onNodeWithText(counterpart).assertIsDisplayed().performClick()
                         val text = reference.getAsJsonObject("plaintext").get("message").asString
+                        if (live) {
+                            waitFor("No available messages in this conversation.")
+                            ui.onNodeWithText("Refresh").assertIsEnabled()
+                            peer.sendIncoming(requireNotNull(liveTransaction))
+                        }
                         waitFor(text)
                         ui.onNodeWithText(text).assertIsDisplayed()
                         captureNativeScreen(File(context.cacheDir, "private-chat-evidence/imported-history.png"), text)
+                        if (live) {
+                            ui.waitUntil(5_000) { peer.incomingAcknowledgements.any { it[0] == 13.toByte() } }
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/live-relay-history.png"), text)
+                            // No second socket delivery: recovery must use retained history.
+                        }
                         check(historyReads.get() > 0)
                         if (storageFailure) {
                             val warning = "Could not restore or save private history on this device. Messages fetched now may be unavailable after closing Chat."

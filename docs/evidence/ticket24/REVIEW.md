@@ -106,3 +106,20 @@ One same continuity finding against parent#1 keep-reading-through-failures and
 #25 available-plus-local history. Add failed-save, offline/empty Refresh and
 repair verification. Both RED XMLs/failure original, seven hashes and core82
 source GREEN verified. No actual process-death or completed-ticket claim.
+
+## Cache retention fixes e8f6808...43399a7
+
+### Standards
+
+Prior hard finding resolved; zero new hard code violations or actionable
+heuristics. Scoped authenticated entries/envelopes merge by original signed ID;
+persistence retries retain unsaved entries and warning remains while IDs are
+absent from disk. All59 manifest records including parent repetitions verify.
+One current UI README drift (recorded RED still pending/open) corrected next.
+
+### Spec
+
+Zero findings, prior loss-on-Refresh finding resolved in source. All43 unique
+UI evidence hashes, actual two-case RED and earlier recreation GREEN verify.
+Unexecuted repair gates and shared capture filenames correctly qualified.
+Unchanged corrective runtime, actual death, send and full acceptance pending.

@@ -129,3 +129,15 @@ warning remains while current entries are absent from disk. Source build pending
 
 Retention fix source core82/debug/testAPK passes3m5s. Actual unchanged two-case
 UI GREEN and bounded fix reviews next; no actual process-death or send claim.
+
+Corrective actualGREEN10run38343321818 at43399a7 PASS2/9.458s/oneOK/no
+assumptions/actualdeaths; core82/source gates. Eleven hashes/root fourXMLs and
+three originals confirm memory retained after savefail+offlineRefresh, successful
+empty-page repair and recreated cachedhistory during unavailable Archive. Both
+bounded fix reviews0codefindings; stale UI README corrected. Live receive next.
+
+Live-relay UI tracer initially compiled1m39s. Before any runtime dispatch,
+strengthened to deliver original unsigned Relay wrapper via actual authenticated
+sockets only after empty history finishes; revised APK compiles1m32s. Subsequent
+recreation has no redelivery and unavailable Archive. Actual native RED next.
+No initial socket/UI result is inferred from either compilation.

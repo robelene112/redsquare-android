@@ -36,7 +36,14 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     val registryQueries = java.util.concurrent.CopyOnWriteArrayList<com.google.gson.JsonObject>()
     @Volatile var incomingTransaction: ByteArray? = null
     val incomingAcknowledgements = java.util.concurrent.CopyOnWriteArrayList<ByteArray>()
+    private val authenticatedSockets = java.util.concurrent.CopyOnWriteArrayList<WebSocket>()
     @Volatile private var failure: Throwable? = null
+
+    /** Deliver after history loading, through actual still-connected authenticated sockets. */
+    fun sendIncoming(transaction: ByteArray) {
+        val frame = (byteArrayOf(12) + ByteBuffer.allocate(4).putInt(777).array() + transaction).toByteString()
+        authenticatedSockets.forEach { it.send(frame) }
+    }
 
     fun start(port: Int = 0): MockWebServer {
         val server = MockWebServer()
@@ -51,7 +58,14 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
         private var authenticated = false
         private var interrupted = false
         override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
+            authenticatedSockets.remove(webSocket)
             webSocket.close(code, reason)
+        }
+        override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
+            authenticatedSockets.remove(webSocket)
+        }
+        override fun onFailure(webSocket: WebSocket, t: Throwable, response: okhttp3.Response?) {
+            authenticatedSockets.remove(webSocket)
         }
         override fun onMessage(webSocket: WebSocket, bytes: okio.ByteString) {
             try {
@@ -84,6 +98,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                         require(SaitoWallet.verify(counter, answer, clientKey))
                         clientKeys.add(clientKey)
                         authenticated = true
+                        authenticatedSockets.add(webSocket)
                         incomingTransaction?.let { transaction ->
                             webSocket.send((byteArrayOf(12) + ByteBuffer.allocate(4).putInt(777).array() + transaction).toByteString())
                         }
