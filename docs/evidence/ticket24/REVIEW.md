@@ -273,3 +273,15 @@ loader and protected callback consistent; evidence records53verify, core85.
 One partial-recovery finding: groupA successful/cache saved, latergroupB failure
 prevents publication of A's recovered contact. Isolate failures pergroup and publish
 successes with incomplete discovery status. MixedID compatibility finding resolved.
+
+## Partial-recovery fix review37532b6...a6c525c
+
+### Standards
+
+Zero source hard findings or actionable heuristics.58 new evidence records/compile
+verify. Stale latest-source and redo-minimum handoff wording corrected.
+
+### Spec
+
+Zero source findings; partial recovery resolved.412 UI hashes verify; chronology
+accurate. Same handoff correction recorded separately from source acceptance.

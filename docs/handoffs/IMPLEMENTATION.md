@@ -33,13 +33,14 @@ NATIVE_PRIVATE_CHAT_VERIFICATION.md and separate docs/evidence/ticket24/REVIEW.m
 Accepted seams1–4 cover native UI/controlled peers, independent signing/encryption,
 recovery/isolation and compatibility. No additional grill or routine approval.
 
-Latest production source655c1e5: native encrypted DM send, original propagation
+Latest production sourcea6c525c: native encrypted DM send, original propagation
 and Relay, truthful Submitted/Forwarded-not-confirmed state; selected-conversation
 live receive/persistent socket; encrypted retained original cache; first-Chat
 optional permission; fresh public-key/Open-chat entry with portable contact/shared
 wallet metadata; imported lower-case chat.groups/legacy IDs recovery. Valid mixed
 private hashes/public-key group IDs preserve DM discovery. Core85/0/0/0 plus
-both APKs PASS4m12s. NewestHEAD37532b6 is partial-discovery regression only.
+both APKs PASS4m12s at655c1e5. Minimum partial-discovery correction at
+a6c525c debug/testAPK PASS1m47s; core unchanged85.
 
 Actual10run38353752949 at655c1e5 PASS8/44.97s, core85/source gates. Imported-ID
 history/recreated cached reading passes alongside fresh-contact send, failed-save
@@ -53,14 +54,16 @@ Public native10read38352335633 ate2eb51d PASS1/1.649s: both approved backends
 authenticate Chat/Archive/Relay and return0rows for never-used random pair. No
 live-submit/relay/nonempty-public-history inference. Installation wallet unchanged.
 
-Latest bounded reviews f2cd911...655c1e5: Standards0; Spec1partial recovery issue:
-first recovered/cache-saved conversation remains absent if later imported-group
-Archive/cache fails before contact publication. New9case regression37532b6 compiled
-1m37s, actualRED10run38354277929 9cases/8PASS+1failure52.21s line189; rootthirteenXMLs/failureoriginal inspected. Minimum pergroup failure isolation debug/testAPK PASS1m47s; actualGREEN/reviews next. Expected failure: first successful
-imported-ID conversation cannot be opened after second unknownID fails. Root must
-inspect original raw runner/PNG/XML before minimal pergroup failure isolation and
-publishing successful contacts, then GREEN and both fix reviews. Do not dispatch
-same chat-ui scope while an earlier run is active (workflow cancels same scope).
+Latest bounded reviews f2cd911...655c1e5: Standards0; Spec1partial recovery issue.
+Actual nine-case RED10run38354277929 at37532b6 reports8PASS+1failure52.21s:
+first recovered/cache-saved contact missing after latergroup Archive failure.
+RootthirteenXMLs/failureoriginal inspected. Minimum pergroup failure isolation
+at a6c525c publishes successful contacts with discovery warning and preserves
+cancellation. APK build PASS1m47s; actual9caseGREEN10run38355056886 PASS9/42.446s and
+17run38355059918 PASS9/83.692s. Root each twelveXMLs/criticaloriginals inspected.
+Correction reviews37532b6...a6c525c bothsourceaxes0; stale handoff corrected.
+Next empty-wallet Chat-list incoming tracer compiled1m32/1m38; actualRED next. Do not close#25.
+Do not dispatch same chat-ui scope while priorrunactive (workflow cancels same).
 
 Remaining #25: unselected/new-contact incoming listener and discoverable local
 conversations; available older-history paging; Block hides incoming/Mute keeps

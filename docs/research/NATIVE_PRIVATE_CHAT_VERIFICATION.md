@@ -370,3 +370,13 @@ failure flag; cancellationstillrethrows. Source/testAPK build and actualGREEN ne
 
 Partial discovery correction debug/testAPK PASS1m47s (core unchanged85; no core
 rerun claim). Actual9case nativeGREEN and both bounded correction reviews next.
+
+Correctedpartial actual9caseGREEN at a6c525c:10run38355056886 PASS9/42.446s;
+17run38355059918 PASS9/83.692s, eachcore85/sourcegates. Rooteach twelveXMLs and
+critical originalrecreatedsendimages inspected, sharedcapturesqualified. Both
+boundedcorrectionaxes0source; handoffstaleproductionHEAD/minimuminstruction fixed.
+New list-incoming tracer compiles1m32s, then same-original boundedredelivery
+fixture correctioncompiles1m38s. Emptywallet/noimportedcontacts/IDs, Chatlistopen:
+fixtureoffers signedoriginal every200ms while authenticating, expects discovered
+contact/decryptedmessage/durablepositiveACK and recreationwithoutredelivery.
+No listlistener implemented yet; actual10caseRED next.

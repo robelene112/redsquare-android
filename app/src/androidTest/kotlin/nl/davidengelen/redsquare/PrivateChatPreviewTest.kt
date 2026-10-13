@@ -74,7 +74,7 @@ class PrivateChatPreviewTest {
         }
     }
 
-    private enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL }
+    private enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL, LIST_LIVE }
 
     @Test fun anImportedContactOpensItsAvailableAuthenticatedPrivateHistory() = exerciseHistory(HistoryCase.AVAILABLE)
 
@@ -92,9 +92,12 @@ class PrivateChatPreviewTest {
 
     @Test fun oneUnavailableImportedConversationDoesNotHideAnotherRecoveredPrivateConversation() = exerciseHistory(HistoryCase.IMPORTED_PARTIAL)
 
+    @Test fun aNewIncomingPrivateConversationAppearsWhileTheChatListIsOpen() = exerciseHistory(HistoryCase.LIST_LIVE)
+
     private fun exerciseHistory(case: HistoryCase) {
         val storageFailure = case == HistoryCase.STORAGE_FAILURE
-        val live = case == HistoryCase.LIVE
+        val listLive = case == HistoryCase.LIST_LIVE
+        val live = case == HistoryCase.LIVE || listLive
         val interruptedSend = case == HistoryCase.SEND_INTERRUPTED
         val newContact = case == HistoryCase.NEW_SEND
         val partialDiscovery = case == HistoryCase.IMPORTED_PARTIAL
@@ -109,7 +112,7 @@ class PrivateChatPreviewTest {
         val counterpart = reference.get("sender").asString
         val publicWallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "2") // Public unsafe fixture only.
         val options = JsonParser.parseString(publicWallet.exportJson()).asJsonObject.apply {
-            if (!newContact && !importedId) add("keys", JsonArray().apply { add(JsonObject().apply {
+            if (!newContact && !importedId && !listLive) add("keys", JsonArray().apply { add(JsonObject().apply {
                 addProperty("publicKey", counterpart); addProperty("added", true)
             }) })
             if (importedId) add("chat", JsonObject().apply {
@@ -186,11 +189,24 @@ class PrivateChatPreviewTest {
                             waitFor("Message")
                             check(AndroidWalletStore(context).loadOrCreate().chatContacts().contains(counterpart))
                         } else {
+                            if (listLive) {
+                                waitFor("Public key")
+                                ui.onNodeWithText("Refresh").assertIsEnabled()
+                                var offeredAt = 0L
+                                ui.waitUntil(15_000) {
+                                    val now = android.os.SystemClock.elapsedRealtime()
+                                    if (now - offeredAt >= 200) {
+                                        peer.sendIncoming(requireNotNull(liveTransaction))
+                                        offeredAt = now
+                                    }
+                                    ui.onAllNodesWithText(counterpart).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+                                } // The same original may be redelivered while the selected socket authenticates.
+                            }
                             waitFor(counterpart)
                             ui.onNodeWithText(counterpart).assertIsDisplayed().performClick()
                         }
                         val text = reference.getAsJsonObject("plaintext").get("message").asString
-                        if (live) {
+                        if (live && !listLive) {
                             waitFor("No available messages in this conversation.")
                             ui.onNodeWithText("Refresh").assertIsEnabled()
                             peer.sendIncoming(requireNotNull(liveTransaction))
