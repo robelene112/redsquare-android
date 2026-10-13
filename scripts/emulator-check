@@ -64,6 +64,22 @@ verify_private_chat_ui() {
         > "$evidence/private-chat-evidence.tar" || true
     grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/private-chat-ui.txt"
 }
+verify_public_private_chat() {
+    [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+    timeout 90 adb shell am instrument -w -r \
+        -e class nl.davidengelen.redsquare.PublicPrivateChatReadTest -e publicChatRead 1 \
+        nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+        > "$evidence/public-chat.txt" || true
+    mkdir -p "$evidence/public-chat"
+    adb exec-out run-as nl.davidengelen.redsquare.dev cat cache/public-chat-evidence/readiness.json \
+        > "$evidence/public-chat/readiness.json" || true
+    grep -q 'OK (1 test)' "$evidence/public-chat.txt"
+}
+if [[ "${TEST_SCOPE:-full}" == chat-public* ]]; then
+    verify_public_private_chat
+    printf '%s\n' 'Opt-in native public Chat service/archive reads only; no messages submitted or relayed.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == chat-ui* ]]; then
     verify_private_chat_ui
     printf '%s\n' 'Focused private Chat native UI only; full acceptance and live publication not run.' > "$evidence/scope.txt"
@@ -74,7 +90,11 @@ if [[ "${TEST_SCOPE:-full}" == chat* ]]; then
     printf '%s\n' 'Focused private Chat protocol/peer check only; UI, full acceptance and live publication not run.' > "$evidence/scope.txt"
     exit 0
 fi
-if [[ "${TEST_SCOPE:-full}" == full ]]; then verify_private_chat; verify_private_chat_ui; fi
+if [[ "${TEST_SCOPE:-full}" == full ]]; then
+    verify_private_chat
+    verify_private_chat_ui
+    if [[ "${TEST_PUBLIC_FEED_READ:-0}" == 1 ]]; then verify_public_private_chat; fi
+fi
 verify_browse() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
     timeout 180 adb shell am instrument -w -r \

@@ -303,3 +303,11 @@ shared group predicate fixes both bounded findings. Fresh-contact entry now save
 portable contact through protected compare-and-replace and updates shared active
 wallet, with durable recovery publication despite cancellation. Fullcore84/0/0/0
 plus debug/testAPK passes3m44s. Actual seven-case nativeGREEN/review next.
+
+Fresh-contact correction33b755e both bounded axes0, actual seven-case10run
+38351999832 pending. Separate opt-in native public service/history reader uses
+ephemeral device-only wallets, authenticates each approved endpoint, requires
+Chat/Archive/Relay and an empty Archive response for a never-used random pair.
+No submit/relay/live application write; installation wallet export remainsexact.
+TestAPK compiles1m49s; real native contract outcome pending, no runtime inferred.
+Full runs include this read check only with explicit public-read input enabled.
