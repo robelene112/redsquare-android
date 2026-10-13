@@ -599,3 +599,10 @@ Corrected23 Android17 GREEN38440744137/source3312cb44:23PASS148.407s/core86. Roo
 
 
 Corrected process tracer APK compilation PASS; source build log retains the exact Gradle duration. Guarded device-only encrypted snapshot/restore, actual kill/cold PID, cached independent original, typed draft and uncertain original acceptance remain unexecuted until native dispatch. Product source unchanged from3312cb44.
+
+
+Actual process attempt38442242519/fa1e628d:23UI PASS107.717s/core86, deliberatekill/different-PIDcoldgate/UNKNOWN display execute. Cold assertionline127 fails4.623s because assertTextEquals includes Message label even though EditableText equals exact draft. Root3XML/all3originals inspected. Final cached-original/hash/state tail unexecuted. Restoration PASS0.176s confirms original encrypted installation wallet/backend; snapshots never leave device. Test correction uses exact SemanticsProperties.EditableText with the same expected string. Compilation running; no processGREEN claim.
+
+Native public17read38442247790 atfa1e628d PASS1/4.702s/core86. Both approved backends authenticate, advertise Chat/Archive/Relay and return[] for a new randomunusedpair's canonical query. Installation wallet export unchanged; no submit/Relay. Complements prior native10read but proves no live delivery or history retention.
+
+Whole source reviewc102f891...fa1e628d: Standards0, Spec2. Need nativeReply/Copy/chat-like preservation and authenticated pagination progress when all50recent messages use missing exchanged keys. Existing unreadable handling has no cursor when no plaintext survives, blocking recoverable implicit-key older history. Next bounded tracer/fix follows process assertion correction. Whole-ticket/fullacceptance remain pending.

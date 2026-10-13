@@ -686,3 +686,28 @@ Zero documented breaches and zero actionable smell findings. Exact pinned receiv
 Zero actionable findings. Strengthens representative existing-client compatibility by exercising the named receiver after actual Crypto/WASM checks of the native original. Input hash matches the passing sendcase in RED23; source pin/hash and result manifest verify. Controlled boundaries exclude packet dispatch, DOM/IndexedDB and real recipient/chain acceptance. No product change or whole-ticket acceptance.
 
 Findings: Standards0; Spec0.
+
+
+## Actual process tracer, febf4aa3...fa1e628d
+
+### Standards
+
+Zero documented breaches or actionable smell findings. Guards precede mutation; opaque originals stay device-only and restoration validates names/preferences/old wallet. Actual PID and native draft/original/no-send assertions preserve semantics. Preceding23GREEN and compilation are separated from pending process execution.
+
+### Spec
+
+Zero actionable findings. Covers actual interruption, cached independent original, typed persisted draft and unchanged uncertain original under failed Archive. Full fixture identity/backend and no transmissions remain explicit; cleanup preserves primary failure. Host checkpoints exclude secret exports and encrypted installation snapshots.
+
+Findings: Standards0; Spec0.
+
+## Whole private-chat source, c102f891...fa1e628d
+
+### Standards
+
+Zero unresolved documented breaches and zero actionable smell findings across14changed production files. Original authentication/encryption, private participants, exact retry, imported key preservation, encrypted scope and durable navigation remain coherent. Delivery/history/verification limits and provenance remain truthful. Previously reported persistence duplication, unfinished-save detection and decimal timestamp defects resolved.
+
+### Spec
+
+Two actionable findings. Parent requires preserving existing Saito capabilities: native Reply, Copy and chat-like send/receive/display actions are absent, and later Chat tickets do not own them. Preserve them with controlled cross-client verification. Also, available-history recovery fails when all50recent signed rows require missing exchanged keys: cursor derives only from decrypted messages and disables older fetch although older implicit-key messages may be readable. Keep authenticated pagination progress separate from displayed plaintext and add a controlled case. Other original authentication/group/retry/imported key/cache behavior coherent. Declared process/isolation/fullSDK tail is not counted as a new finding.
+
+Findings: Standards0; Spec2, missing private-message actions and unreadable-page cursor. Both remain open after this review.

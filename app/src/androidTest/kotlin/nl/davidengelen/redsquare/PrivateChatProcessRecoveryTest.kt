@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Build
 import android.os.Process
 import androidx.compose.ui.test.*
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
@@ -124,7 +126,8 @@ class PrivateChatProcessRecoveryTest {
                 ui.onNodeWithText("Back").performClick(); waitFor("Public key")
                 openContact(contact); waitFor(context.getString(R.string.chat_load_error))
                 waitForEnabled("Send")
-                ui.onNode(hasSetTextAction()).assertTextEquals(draftText)
+                ui.onNode(hasSetTextAction()).assert(SemanticsMatcher.expectValue(
+                    SemanticsProperties.EditableText, AnnotatedString(draftText)))
                 val reference = InstrumentationRegistry.getInstrumentation().context.assets
                     .open("native-private-chat-reference.json").bufferedReader().use {
                         JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject

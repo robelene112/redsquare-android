@@ -1,0 +1,119 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest:
+INSTRUMENTATION_STATUS: test=coldRestartRetainsHistoryDraftAndOriginalWithoutSending
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (Text + EditableText = [Unsent private draft 😀 <&>
+second line])
+Semantics of the node:
+Node #159 at (l=16.0, t=512.0, r=223.0, b=624.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = 'Unsent private draft 😀 <&>
+second line'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@6346f0f'
+Focused = 'false'
+ImeAction = 'Default'
+InputText = 'Unsent private draft 😀 <&>
+second line'
+IsEditable = 'true'
+Text = '[Message]'
+TextSelectionRange = 'TextRange(0, 0)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 13 siblings
+Selector used: (SetText is defined)
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertTextEquals(Assertions.kt:185)
+	at androidx.compose.ui.test.AssertionsKt.assertTextEquals$default(Assertions.kt:181)
+	at nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest.coldRestartRetainsHistoryDraftAndOriginalWithoutSending$lambda$15$lambda$14(PrivateChatProcessRecoveryTest.kt:127)
+	at nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest.$r8$lambda$m6w0xP0fjB2XDyvmnFNDoi3jiug(Unknown Source:0)
+	at nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest.launch(PrivateChatProcessRecoveryTest.kt:198)
+	at nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest.coldRestartRetainsHistoryDraftAndOriginalWithoutSending(PrivateChatProcessRecoveryTest.kt:119)
+
+INSTRUMENTATION_STATUS: stream=
+Error in coldRestartRetainsHistoryDraftAndOriginalWithoutSending(nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest):
+java.lang.AssertionError: Failed to assert the following: (Text + EditableText = [Unsent private draft 😀 <&>
+second line])
+Semantics of the node:
+Node #159 at (l=16.0, t=512.0, r=223.0, b=624.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = 'Unsent private draft 😀 <&>
+second line'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@6346f0f'
+Focused = 'false'
+ImeAction = 'Default'
+InputText = 'Unsent private draft 😀 <&>
+second line'
+IsEditable = 'true'
+Text = '[Message]'
+TextSelectionRange = 'TextRange(0, 0)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 13 siblings
+Selector used: (SetText is defined)
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertTextEquals(Assertions.kt:185)
+	at androidx.compose.ui.test.AssertionsKt.assertTextEquals$default(Assertions.kt:181)
+	at nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest.coldRestartRetainsHistoryDraftAndOriginalWithoutSending$lambda$15$lambda$14(PrivateChatProcessRecoveryTest.kt:127)
+	at nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest.$r8$lambda$m6w0xP0fjB2XDyvmnFNDoi3jiug(Unknown Source:0)
+	at nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest.launch(PrivateChatProcessRecoveryTest.kt:198)
+	at nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest.coldRestartRetainsHistoryDraftAndOriginalWithoutSending(PrivateChatProcessRecoveryTest.kt:119)
+
+INSTRUMENTATION_STATUS: test=coldRestartRetainsHistoryDraftAndOriginalWithoutSending
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 4.623
+There was 1 failure:
+1) coldRestartRetainsHistoryDraftAndOriginalWithoutSending(nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest)
+java.lang.AssertionError: Failed to assert the following: (Text + EditableText = [Unsent private draft 😀 <&>
+second line])
+Semantics of the node:
+Node #159 at (l=16.0, t=512.0, r=223.0, b=624.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = 'Unsent private draft 😀 <&>
+second line'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@6346f0f'
+Focused = 'false'
+ImeAction = 'Default'
+InputText = 'Unsent private draft 😀 <&>
+second line'
+IsEditable = 'true'
+Text = '[Message]'
+TextSelectionRange = 'TextRange(0, 0)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 13 siblings
+Selector used: (SetText is defined)
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertTextEquals(Assertions.kt:185)
+	at androidx.compose.ui.test.AssertionsKt.assertTextEquals$default(Assertions.kt:181)
+	at nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest.coldRestartRetainsHistoryDraftAndOriginalWithoutSending$lambda$15$lambda$14(PrivateChatProcessRecoveryTest.kt:127)
+	at nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest.$r8$lambda$m6w0xP0fjB2XDyvmnFNDoi3jiug(Unknown Source:0)
+	at nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest.launch(PrivateChatProcessRecoveryTest.kt:198)
+	at nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest.coldRestartRetainsHistoryDraftAndOriginalWithoutSending(PrivateChatProcessRecoveryTest.kt:119)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
