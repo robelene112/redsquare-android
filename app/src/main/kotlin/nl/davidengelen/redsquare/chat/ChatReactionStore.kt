@@ -64,6 +64,14 @@ internal class ChatReactionStore(private val context: Context, private val walle
         else save(previous.copy(events = previous.events + event))
     }
 
+    fun prepareRetry(id: String): Saved = synchronized(SaitoLocalState.lock) {
+        assertSelected()
+        val previous = load()
+        check(previous.transaction?.id == id && previous.status in listOf(Status.UNKNOWN, Status.SUBMITTED))
+        // Retrying an existing operation must not append another toggle to the reaction history.
+        save(previous.copy(status = Status.UNKNOWN))
+    }
+
     fun assertSelected() {
         check(AndroidWalletStore(context).loadExisting().exportJson() == wallet.exportJson())
         check(AndroidBackendStore(context).load() == backend)

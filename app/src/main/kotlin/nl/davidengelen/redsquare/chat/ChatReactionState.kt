@@ -18,6 +18,8 @@ internal class ChatReactionState(context: Context, private val wallet: SaitoWall
     var failed by mutableStateOf(false); private set
     val editable: Boolean get() = ready && !busy && saved.status !in
         listOf(ChatReactionStore.Status.UNKNOWN, ChatReactionStore.Status.SUBMITTED)
+    val retryable: Boolean get() = ready && !busy && saved.transaction != null && saved.status in
+        listOf(ChatReactionStore.Status.UNKNOWN, ChatReactionStore.Status.SUBMITTED)
 
     suspend fun load() {
         try { publishSaved { store.load() }; ready = true }
@@ -32,13 +34,29 @@ internal class ChatReactionState(context: Context, private val wallet: SaitoWall
 
     fun toggle(target: PrivateChatMessage) {
         if (!editable) return
+        send {
+            val candidate = withContext(Dispatchers.IO) {
+                PrivateChatLike.create(wallet, contact, target, System.currentTimeMillis())
+            }
+            withContext(NonCancellable) { publishSaved { store.prepare(candidate) } }
+            candidate
+        }
+    }
+
+    fun retry() {
+        if (!retryable) return
+        val original = requireNotNull(saved.transaction)
+        send {
+            withContext(NonCancellable) { publishSaved { store.prepareRetry(original.id) } }
+            original
+        }
+    }
+
+    private fun send(prepare: suspend () -> SaitoTransaction) {
         busy = true
         scope.launch {
             try {
-                val candidate = withContext(Dispatchers.IO) {
-                    PrivateChatLike.create(wallet, contact, target, System.currentTimeMillis())
-                }
-                withContext(NonCancellable) { publishSaved { store.prepare(candidate) } }
+                val candidate = prepare()
                 withContext(Dispatchers.IO) {
                     submitChatTransaction(wallet, endpoint, contact, candidate, ChatSubmissionCallbacks(
                         claim = { store.claim(candidate.id) },

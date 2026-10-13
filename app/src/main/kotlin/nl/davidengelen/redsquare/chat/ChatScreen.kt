@@ -343,6 +343,11 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                 ChatReactionStore.Status.NONE -> Unit
             }
             if (reactions.failed) Text(stringResource(R.string.chat_reaction_error))
+            if (reactions.saved.status in listOf(ChatReactionStore.Status.UNKNOWN, ChatReactionStore.Status.SUBMITTED)) {
+                TextButton(enabled = personal?.ready == true && reactions.retryable, onClick = { reactions.retry() }) {
+                    Text(stringResource(R.string.chat_reaction_retry))
+                }
+            }
             ChatComposer(wallet, backend, endpoint, contact, personal?.ready == true, replies) { saved ->
                 entries = ChatHistoryStore.merge(entries, saved)
             }
