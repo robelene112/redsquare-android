@@ -658,3 +658,16 @@ retained, and no infrastructure cause claimed. No ownedGradle. SourceGatepush
 is separate from device acceptance. Stablephonepreview11 unchanged,#25open.
 Continue with original reaction Retry/process/isolation/available source handling,
 whole-ticket reviews and final fullSDK/release/lint/update/public-read gates.
+
+2026-10-13 incoming/concurrent/outgoing/Reply action foundation now five-case
+GREEN bothSDK:17run38467252208/c196 PASS58.295s and corrected10run38468474482/
+b499 PASS30.339s, same product. Quote readiness correction07e094af reviewed0/0,
+compile1m17. ReactionRetrytracer2b8443fc reviewed0/0, compile1m19; actualRED17
+38468903248/2a90 sixcases fivePASS+missingRetryatFixture301/80.505s/core86,
+originalfailurePNG/XML inspected; laterretrytailunexecuted. Minimum33674419
+reviewed0/0 and localcore86/debug/testAPK PASS3m4; retainedRED/review5053fec7
+pushed. Activecorrected6case runs10=38470363216/17=38470366652 at5053fec7.
+No ownedGradle. Waitinspectresults beforeRetry acceptance; then reaction actual
+PID recovery, backend/wallet isolation and available-history/invalid-receipt
+coverage as appropriate, whole#25reviews/fullSDK/release/lint/update/publicreads.
+Stablepreview11 unchanged,#25open20of35closed. Protectedgroupresearch untouched.
