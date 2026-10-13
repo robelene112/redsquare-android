@@ -1196,3 +1196,15 @@ servercold retainsLike/NoUnread/disabledMark/actorroute/currentwallet/backend/
 publiccheckpoint/no writes. Sourceequivalent4d3b1c8...752d92a docs-only; fullsource
 nowselflike74core andparenttracer4d02fd3 differs, so finalfullpair stillrequired.
 ParenttracerlocalAPK2m44PASS/bothaxes0;32RED38327773946 pending.
+
+32RED Android10run38327773946 at4d02fd3 reports32/31PASS/one disabledMore
+newcase:618 in114.038s, zeroOK/deaths/assumptions/core74/debug/test. Initial
+OwnerLike1Unread/noReply/zeroRootparentreads/completedRefresh passes; knownRoot11
+permanentlyexcluded makesMoredisabled. Threehashes/rootoriginalPNG/XML retained.
+XMLtextchildenabledtrue isnotbuttonstate; actualComposeassertionandgraybitmap
+qualified. Mainfailure stopsbeforepermission/process; all31oldpass individually.
+
+Minimum68633d9 keeps allknownown targets eligible, firstbatch3base+10targets+
+20authorstreams<=33; existingundiscovered20+older<=33 continuation/deadlines/
+300history retained. No initialburst increase/newpolling/universalcoverage. Full
+core+debug/testAPK buildpending; corrected32focused10run38328392156 pending.

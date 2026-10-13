@@ -704,3 +704,21 @@ noassumptions/core73/debug/test;106hashes/48XML/rootnine originals inspected.
 NativeOSstatus proveschoices, pre-choicebitmaps onlyshowdialog. BothactualSDK
 permission/deathproofs complete atpriorproduction0ef7b41; finalsame-source pair
 after2a520da/parentfix required. ParenttracerAPK2m44PASS/bothaxes0/nativeREDpending.
+
+## Corrected permission/process evidence review
+
+### Standards
+
+`4d02fd3...59bd57e`: zero hard/actionableheuristic findings. All207hashes/94XML
+verify, rawcompletedrunners/durations and intentionalcrashes match. Publicsame
+owner/backend/event checkpoints/newPIDs verified; originalcaptionsqualified,
+pre-choiceOScapturesdistinguished from runtimegrant/deny. Sourceequivalence
+4d3b1c8...752d92a verified; latercore/parentfixexcluded.
+
+### Spec
+
+Pending separate evidence report atthischeckpoint. No finalfullacceptance claimed.
+
+32parentRED retainedthreehashes/actualdisabledMore31oldPASS/newfailure114.038s;
+minimum68633d9 keeps first10targets buteligibleallremaining, existing33read limit/
+300history/deadlines. Boundedreviews/build/focused32GREENpending.
