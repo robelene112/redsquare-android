@@ -81,6 +81,29 @@ class SaitoWallet private constructor(
         return r.toString(16).padStart(64, '0') + lowS.toString(16).padStart(64, '0')
     }
 
+    /** Private Chat secret: raw shared-point X, matching Saito's pinned Rust implementation. */
+    internal fun chatSharedSecret(counterparty: String): ByteArray =
+        publicPoint(counterparty).multiply(scalar).normalize().affineXCoord.encoded
+
+    /** Saved key first, then implicit identity ECDH for older messages. Never export secrets to the UI. */
+    internal fun chatSharedSecrets(counterparty: String): List<ByteArray> {
+        require(isPublicKey(counterparty) && counterparty != publicKey)
+        val keys = backupOptions?.get("keys")
+        require(keys == null || keys.isJsonArray) { "Invalid saved Chat keys" }
+        val entry = keys?.asJsonArray?.firstOrNull { value -> value.isJsonObject &&
+            value.asJsonObject.get("publicKey")?.let { it.isJsonPrimitive && it.asJsonPrimitive.isString &&
+                it.asString == counterparty } == true }?.asJsonObject
+        val saved = entry?.get("aes_secret")?.takeUnless { it.isJsonNull ||
+            (it.isJsonPrimitive && it.asJsonPrimitive.isString && it.asString.isEmpty()) }
+        val secret = saved?.let {
+            require(it.isJsonPrimitive && it.asJsonPrimitive.isString && it.asString.matches(Regex("[0-9a-fA-F]{64}"))) {
+                "Invalid saved Chat key"
+            }
+            it.asString.chunked(2).map { pair -> pair.toInt(16).toByte() }.toByteArray()
+        }
+        return listOfNotNull(secret, chatSharedSecret(counterparty))
+    }
+
     /** Contains private material. Only pass to protected storage or an authenticated export. */
     fun exportJson(): String {
         val options = backupOptions?.deepCopy() ?: JsonObject().apply {

@@ -1,6 +1,8 @@
 package nl.davidengelen.redsquare.saito
 
 import com.google.gson.JsonObject
+import com.google.gson.JsonElement
+import com.google.gson.JsonPrimitive
 import java.nio.ByteBuffer
 import java.util.Base64
 import java.math.BigInteger
@@ -34,7 +36,7 @@ class SaitoTransaction private constructor(private val bytes: ByteArray) {
     }
 
     fun broadcast(wallet: SaitoWallet, destination: String): ByteArray {
-        require(SaitoEnvelope.decode(envelope()).author == wallet.publicKey)
+        require(SaitoEnvelope.decodePayload(envelope()).author == wallet.publicKey)
         val recipient = Base58.decode(destination)
         require(recipient.size == 33)
         val signature = bytes.copyOfRange(16, 80)
@@ -54,17 +56,21 @@ class SaitoTransaction private constructor(private val bytes: ByteArray) {
         fun create(wallet: SaitoWallet, body: JsonObject, timestamp: Long, recipients: List<String> = emptyList()): SaitoTransaction =
             createWithOutputs(wallet, body, timestamp, (listOf(wallet.publicKey) + recipients).distinct())
 
+        /** Saito Chat signs a JSON string containing the cipher formatter, not a plaintext object. */
+        fun createEncrypted(wallet: SaitoWallet, ciphertext: String, timestamp: Long, recipient: String): SaitoTransaction =
+            createWithOutputs(wallet, JsonPrimitive(ciphertext), timestamp, listOf(wallet.publicKey, recipient).distinct())
+
         internal fun createTo(wallet: SaitoWallet, body: JsonObject, timestamp: Long, recipient: String): SaitoTransaction =
             createWithOutputs(wallet, body, timestamp, listOf(recipient, wallet.publicKey).distinct())
 
-        private fun createWithOutputs(wallet: SaitoWallet, body: JsonObject, timestamp: Long, addresses: List<String>): SaitoTransaction {
+        private fun createWithOutputs(wallet: SaitoWallet, body: JsonElement, timestamp: Long, addresses: List<String>): SaitoTransaction {
             val zero = SaitoBalanceSnapshot.Slip(BigInteger.ZERO, BigInteger.ZERO, 0, BigInteger.ZERO, 0)
             return createNormal(wallet, body, timestamp, listOf(OwnedSlip(wallet.publicKey, zero)),
                 addresses.mapIndexed { index, address -> OwnedSlip(address, zero.copy(index = index)) })
         }
 
         /** Admission belongs to the zero-payment and funded factories, not the common wire serializer. */
-        internal fun createNormal(wallet: SaitoWallet, body: JsonObject, timestamp: Long,
+        internal fun createNormal(wallet: SaitoWallet, body: JsonElement, timestamp: Long,
             inputs: List<OwnedSlip>, outputs: List<OwnedSlip>): SaitoTransaction {
             require(timestamp >= 0)
             require(inputs.size in 1..255 && outputs.size in 0..255 && inputs.first().owner == wallet.publicKey)
@@ -116,7 +122,10 @@ class SaitoTransaction private constructor(private val bytes: ByteArray) {
                 val offset = 152 + 59 * index
                 author.contentEquals(bytes.copyOfRange(offset, offset + 33))
             })
-            return SaitoTransaction(bytes).also { SaitoEnvelope.decode(it.envelope()) }
+            return SaitoTransaction(bytes).also {
+                val body = SaitoEnvelope.decodePayload(it.envelope()).body
+                require(body.isJsonObject || (body.isJsonPrimitive && body.asJsonPrimitive.isString))
+            }
         }
 
         private fun String.hexBytes(): ByteArray = chunked(2).map { it.toInt(16).toByte() }.toByteArray()

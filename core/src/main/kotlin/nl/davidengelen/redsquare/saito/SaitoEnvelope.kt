@@ -2,6 +2,7 @@ package nl.davidengelen.redsquare.saito
 
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
+import com.google.gson.JsonElement
 import com.google.gson.Strictness
 import java.nio.ByteBuffer
 import java.nio.charset.CodingErrorAction
@@ -10,11 +11,21 @@ import java.util.Base64
 data class SignedSaitoMessage(val id: String, val author: String, val createdAt: Long, val body: JsonObject,
     val recipients: List<String>)
 
+data class VerifiedSaitoPayload(val id: String, val author: String, val createdAt: Long, val body: JsonElement,
+    val recipients: List<String>)
+
 /** Verifies detached web Archive message bytes before exposing any module content. */
 object SaitoEnvelope {
     private val gson = GsonBuilder().setStrictness(Strictness.STRICT).create()
 
     fun decode(envelope: String): SignedSaitoMessage {
+        val signed = decodePayload(envelope)
+        require(signed.body.isJsonObject) { "Expected application object" }
+        return SignedSaitoMessage(signed.id, signed.author, signed.createdAt, signed.body.asJsonObject, signed.recipients)
+    }
+
+    /** Chat encrypts before signing: authenticate the JSON string before any decryption. */
+    fun decodePayload(envelope: String): VerifiedSaitoPayload {
         require(envelope.toByteArray(Charsets.UTF_8).size <= 8 * 1024 * 1024)
         val outer = gson.fromJson(envelope, JsonObject::class.java)
         val binary = Base64.getDecoder().decode(outer.get("t").asString)
@@ -34,12 +45,12 @@ object SaitoEnvelope {
         require(SaitoWallet.verify(saitoTransactionPreimage(binary, message), signature, author)) { "Invalid transaction signature" }
         val utf8 = Charsets.UTF_8.newDecoder().onMalformedInput(CodingErrorAction.REPORT)
             .onUnmappableCharacter(CodingErrorAction.REPORT).decode(ByteBuffer.wrap(message)).toString()
-        val body = gson.fromJson(utf8, JsonObject::class.java)
+        val body = gson.fromJson(utf8, JsonElement::class.java)
             ?: throw IllegalArgumentException("Missing transaction message")
         val recipients = (0 until outputs).map { index ->
             val offset = 93 + 59 * (inputs + index)
             Base58.encode(binary.copyOfRange(offset, offset + 33))
         }
-        return SignedSaitoMessage(signature, author, timestamp, body, recipients)
+        return VerifiedSaitoPayload(signature, author, timestamp, body, recipients)
     }
 }

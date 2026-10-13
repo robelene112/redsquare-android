@@ -26,11 +26,16 @@ remain NATIVE_NOTIFICATION_VERIFICATION.md and docs/evidence/ticket23/REVIEW.md.
 Failed intermediate runs remain retained without invented causes. Earlier
 accidental auto-close was reopened; close only after final acceptance.
 
-Next ready ticket#25, "Exchange encrypted private Chat messages with existing
-clients". Read parent#1/issue25, NATIVE_PRIVATE_CHAT_CONTRACT and reference docs.
+#25, "Exchange encrypted private Chat messages with existing clients", is assigned
+and active. Review basec102f891f6041f08199905728d302e19b7588abd. Read parent#1/issue25, NATIVE_PRIVATE_CHAT_CONTRACT and reference docs.
 Accepted seams1–4 cover native UI/controlled peers, independently signed vectors,
 recovery/isolation and compatibility. Record the new review base after #24's
 completion commit. Implement sequentially using TDD. No additional grill needed.
+First core receive tracer RED: missingdecoder/31s; GREEN1/56s. Send tracer
+RED: missingcreate/28s; GREEN2/58s matches exact pinned ciphertext/signature/
+network/envelope and restore. Fullcore76/debug/testAPK passed2m59s. Imported-secret tracer actual RED3/1
+failure55s, then fullcore77/0fail/0ignored GREEN1m. Source protocol increment
+committed for bounded review; UI/Relay/backend/recovery acceptance still pending.
 Private contract/reference/generator future files remain untracked and now
 belong with#25; NATIVE_GROUP_CHAT_CONTRACT remains protected for#26. Read-only
 preparation: .scratch/ticket25-readonly-plan.md. Chat signing must authenticate

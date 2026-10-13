@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.saito.PrivateChatTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-10-13T01:58:53" hostname="c55b6abf1a7a" time="0.534">
+  <properties/>
+  <testcase name="recipientReadsAnAuthenticatedEncryptedMessageFromThePinnedSaitoClient" classname="nl.davidengelen.redsquare.saito.PrivateChatTest" time="0.453"/>
+  <testcase name="nativePrivateSendMatchesIndependentClientEncryptionAndSignedBytes" classname="nl.davidengelen.redsquare.saito.PrivateChatTest" time="0.054"/>
+  <testcase name="importedExchangedKeysRestorePrivateHistoryAndRemainPreferredForSending" classname="nl.davidengelen.redsquare.saito.PrivateChatTest" time="0.026"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
