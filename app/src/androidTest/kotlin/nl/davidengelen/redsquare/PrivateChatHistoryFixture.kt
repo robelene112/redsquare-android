@@ -307,9 +307,9 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             ui.onAllNodesWithText("1 like").assertCountEquals(0)
                             ui.waitUntil(5_000) { peer.transactions.size == 2 && peer.relayedMessages.size == 2 }
                             val unlike = postingTransaction(peer.transactions[1])
-                            val unsignedLike = SaitoEnvelope.decodePayload(unlike.envelope())
+                            val signedUnlike = SaitoEnvelope.decodePayload(unlike.envelope())
                             check(unlike.id != original.id)
-                            check(unsignedLike.body == signed.body && unsignedLike.author == signed.author)
+                            check(signedUnlike.body == signed.body && signedUnlike.author == signed.author)
                             check(SaitoEnvelope.fromSignedJson(peer.relayedMessages[1]) == unlike.envelope())
                             File(context.cacheDir, "private-chat-evidence/native-sent-unlike-envelope.json").writeText(unlike.envelope())
                             captureNativeScreen(File(context.cacheDir, "private-chat-evidence/private-message-unliked.png"), text)
