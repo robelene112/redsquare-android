@@ -31,6 +31,7 @@ and active. Review basec102f891f6041f08199905728d302e19b7588abd. Read parent#1/i
 Accepted seams1–4 cover native UI/controlled peers, independently signed vectors,
 recovery/isolation and compatibility. Record the new review base after #24's
 completion commit. Implement sequentially using TDD. No additional grill needed.
+First read-only history UI10run38340335366 at7e5811e PASS1/4.923s; core82, originalPNG/XML inspected and retained. Both bounded source reviews0. Cache/recreated-screen tracer compiled1m34s; actual RED next.
 First core receive tracer RED: missingdecoder/31s; GREEN1/56s. Send tracer
 RED: missingcreate/28s; GREEN2/58s matches exact pinned ciphertext/signature/
 network/envelope and restore. Fullcore76/debug/testAPK passed2m59s. Imported-secret tracer actual RED3/1

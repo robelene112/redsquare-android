@@ -85,3 +85,9 @@ debug/testAPK3m34PASS. All imported public contacts considered with LazyColumn;
 legacyfield and groups excluded through narrow walletmetadata API, secrets not
 exposed. Messages authenticate/decrypt/dedup beforedisplay; Block filtersincoming
 while Mute doesnot. UI GREEN next; nocache/send/push/fullacceptance claim.
+
+First history UI actual10run38340335366 at7e5811e passes1/4.923s/oneOK/no
+assumptions/deaths; core82/source gates. Five hashes, root originalPNG/XML
+confirm imported authenticated Unicode history on selected Owner. Both bounded
+source reviews6df3ef0...7e5811e report0. Cache/recreation tracer next; no send,
+recovery, public nativeChat or whole-ticket completion claim.

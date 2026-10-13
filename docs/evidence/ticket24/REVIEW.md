@@ -72,3 +72,18 @@ participants authenticate independently, altered inner rejected. Callbacks
 preserve request IDs without promising durable/read receipt. Core82/manifests/
 referencecopies and qualified original one-case evidence verified. Newtwo-case
 result belongs to3c35, retained separately; UI/cache/backend/recovery unfinished.
+
+## First native history UI6df3ef0...7e5811e
+
+### Standards
+
+Zero hard violations or actionable heuristics. Contacts expose only public
+metadata, original authentication/dedup and Block semantics preserved. All16
+evidence hashes verify; initial UI RED is qualified rather than treated as
+passed. Cache, sending and recovery remain unfinished.
+
+### Spec
+
+Zero findings in this bounded increment. Boolean added matches pinned
+mods/qrscanner/lib/add-contact.js:15; group entries excluded. Available rows
+authenticate/decrypt before display; no cache/send/recovery claim.

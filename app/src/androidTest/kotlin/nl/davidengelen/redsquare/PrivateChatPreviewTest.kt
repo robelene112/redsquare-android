@@ -46,11 +46,13 @@ class PrivateChatPreviewTest {
             }
         }
         val historyReads = java.util.concurrent.atomic.AtomicInteger()
+        val historyUnavailable = java.util.concurrent.atomic.AtomicBoolean()
         val peer = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", archiveResponse = { criteria ->
             if (!criteria.has("field1") && criteria.get("field3")?.asString == reference.get("groupId").asString) {
                 check(criteria.get("limit").asInt == 50)
                 historyReads.incrementAndGet()
-                JsonArray().apply { add(JsonObject().apply { addProperty("tx", reference.get("archiveEnvelope").asString) }) }.toString()
+                if (historyUnavailable.get()) "invalid archive response"
+                else JsonArray().apply { add(JsonObject().apply { addProperty("tx", reference.get("archiveEnvelope").asString) }) }.toString()
             } else "[]"
         })
         var primaryFailure: Throwable? = null
@@ -61,7 +63,7 @@ class PrivateChatPreviewTest {
             AndroidBackendStore(context).save(SaitoBackend.OWNER)
             peer.start().use { server ->
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
-                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
                     withFailureCapture({ captureNativeScreen(File(context.cacheDir, "private-chat-evidence/history-first-failure.png")) }) {
                         waitFor("Chat")
                         ui.onNodeWithText("Chat").assertIsDisplayed().performClick()
@@ -72,6 +74,15 @@ class PrivateChatPreviewTest {
                         ui.onNodeWithText(text).assertIsDisplayed()
                         captureNativeScreen(File(context.cacheDir, "private-chat-evidence/imported-history.png"), text)
                         check(historyReads.get() > 0)
+                        historyUnavailable.set(true)
+                        scenario.recreate()
+                        waitFor(counterpart)
+                        ui.onNodeWithText(counterpart).assertIsDisplayed().performClick()
+                        waitFor("Could not load chats. Check your connection and try Refresh.")
+                        waitFor(text)
+                        ui.onNodeWithText(text).assertIsDisplayed()
+                        ui.onNodeWithText("Could not load chats. Check your connection and try Refresh.").assertIsDisplayed()
+                        captureNativeScreen(File(context.cacheDir, "private-chat-evidence/cached-history-unavailable.png"), text)
                         check(peer.transactions.isEmpty() && peer.reports.isEmpty())
                         peer.assertHealthy()
                     }
