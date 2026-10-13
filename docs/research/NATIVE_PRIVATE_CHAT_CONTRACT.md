@@ -118,5 +118,6 @@ Implementation requirements inferred from this contract:
   package and pinned Saito signing runtime, with no app initialization/network.
   Record group ID, shared X, KDF key/IV, formatter string, escaped signed bytes
   and signature. Verify both directions, Unicode, imported-DH preference and
-  implicit fallback. Fixed salt belongs only in fixtures. These vectors are a
-  proposed verification step, not generated or passed evidence in this note.
+  implicit fallback. Fixed salt belongs only in fixtures. The independent vectors have now been generated and verified in native core;
+  see NATIVE_PRIVATE_CHAT_REFERENCE.md and NATIVE_PRIVATE_CHAT_VERIFICATION.md
+  for exact source hashes, actual results and remaining native acceptance.

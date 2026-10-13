@@ -28,7 +28,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     var contacts by remember(wallet) { mutableStateOf<List<String>>(emptyList()) }
     var contactsFailed by remember(wallet) { mutableStateOf(false) }
     var counterparty by remember(wallet.publicKey, backend) { mutableStateOf<String?>(null) }
-    var messages by remember(counterparty) { mutableStateOf<List<PrivateChatMessage>>(emptyList()) }
+    var entries by remember(wallet.publicKey, backend, counterparty) { mutableStateOf<List<ChatHistoryStore.Entry>>(emptyList()) }
     var loading by remember(counterparty) { mutableStateOf(false) }
     var failed by remember(counterparty) { mutableStateOf(false) }
     var incomplete by remember(counterparty) { mutableStateOf(false) }
@@ -45,8 +45,10 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
         loading = true
         val cache = ChatHistoryStore(context, wallet, backend, contact)
         try {
-            messages = withContext(Dispatchers.IO) { cache.load().map { it.message } }
-            cacheFailed = false
+            val cached = withContext(Dispatchers.IO) { cache.load() }
+            val savedIds = cached.map { it.message.id }.toSet()
+            cacheFailed = entries.any { it.message.id !in savedIds }
+            entries = ChatHistoryStore.merge(entries, cached)
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { cacheFailed = true }
         try {
@@ -74,11 +76,10 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                     verified to (ignored > 0)
                 }
             }
-            val merged = (messages + page.first.map { it.message }).distinctBy { it.id }
-                .sortedWith(compareBy<PrivateChatMessage> { it.createdAt }.thenBy { it.id })
-            messages = merged
+            entries = ChatHistoryStore.merge(entries, page.first)
             try {
-                messages = withContext(Dispatchers.IO) { cache.save(page.first.map { it.envelope }).map { it.message } }
+                val saved = withContext(Dispatchers.IO) { cache.save(entries.map { it.envelope }) }
+                entries = ChatHistoryStore.merge(entries, saved)
                 cacheFailed = false
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { cacheFailed = true }
@@ -119,7 +120,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
         } else {
             Text(contact, style = MaterialTheme.typography.labelSmall)
             if (loading) Text(stringResource(R.string.chat_loading))
-            val visible = messages.filter { message -> personal?.ready == true &&
+            val visible = entries.map { it.message }.filter { message -> personal?.ready == true &&
                 (message.author == wallet.publicKey || !personal.policy.hidesIncomingChat(message.author)) }
             if (visible.isEmpty() && !loading && !failed) Text(stringResource(R.string.chat_no_messages))
             LazyColumn(Modifier.weight(1f)) {

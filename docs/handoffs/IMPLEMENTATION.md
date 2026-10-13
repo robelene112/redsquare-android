@@ -31,6 +31,7 @@ and active. Review basec102f891f6041f08199905728d302e19b7588abd. Read parent#1/i
 Accepted seams1–4 cover native UI/controlled peers, independently signed vectors,
 recovery/isolation and compatibility. Record the new review base after #24's
 completion commit. Implement sequentially using TDD. No additional grill needed.
+Cache recreation GREEN10run38342240579 at0620289 PASS1/8.768s; originalPNG/XML inspected. Both bounded cache reviews found loss on Refresh after failed save. Genuine RED10run38342655104 ate8f6808 reports2cases/1PASS+1failure22.977s atline93; original captures prove message loss, no actual process death. Minimal retained-entry/ciphertext fix core82/debug/testAPK3m5s PASS; actual two-case GREEN and both bounded fix reviews next.
 First read-only history UI10run38340335366 at7e5811e PASS1/4.923s; core82, originalPNG/XML inspected and retained. Both bounded source reviews0. Cache/recreated-screen tracer compiled1m34s; actual RED next.
 First core receive tracer RED: missingdecoder/31s; GREEN1/56s. Send tracer
 RED: missingcreate/28s; GREEN2/58s matches exact pinned ciphertext/signature/

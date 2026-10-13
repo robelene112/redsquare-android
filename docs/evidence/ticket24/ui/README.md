@@ -12,3 +12,14 @@ OK/deaths/assumptions, originalPNG/XML rooted beforeActivityclose. Minimum
 imported-contact/available verified-history UI source core82/debug/testAPK
 passes3m34s. Native GREEN remains required; private persistence/send/recovery
 are not implemented or inferred from this minimum read-only screen.
+
+## Subsequent actual checkpoints
+
+First read-only history GREEN10run38340335366 at7e5811e PASS1/4.923s.
+Recreated-history RED10run38341603454 at6f02f73 fails1/20.682s; minimum
+cache source core82/debug/testAPK3m1s then GREEN10run38342240579 at0620289
+PASS1/8.768s. Nested folders retain original runner/metadata/core/captures and
+qualified scope. Root XML/original PNG inspections are recorded in the canonical
+chronology. Both bounded cache reviews found one still-open failed-save/Refresh
+loss; new tracer compiled1m33s and actual RED38342655104 is pending.
+No actual process death, sending/live delivery or completed-ticket claim.

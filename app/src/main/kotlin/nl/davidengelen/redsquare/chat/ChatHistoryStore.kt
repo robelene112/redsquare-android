@@ -26,11 +26,15 @@ internal class ChatHistoryStore(context: Context, private val wallet: SaitoWalle
 
     /** Never replace retained history with an empty or pruned server page. */
     fun save(envelopes: List<String>): List<Entry> = synchronized(SaitoLocalState.lock) {
-        val entries = (load() + envelopes.map { Entry(it, PrivateChat.read(wallet, it, counterparty)) })
-            .distinctBy { it.message.id }
-            .sortedWith(compareBy<Entry> { it.message.createdAt }.thenBy { it.message.id })
+        val entries = merge(load(), envelopes.map { Entry(it, PrivateChat.read(wallet, it, counterparty)) })
         val payload = JsonArray().apply { entries.forEach { add(it.envelope) } }
         file.save(EncryptedLocalFile.Contents(1, payload.toString()))
         entries
+    }
+
+    companion object {
+        fun merge(first: List<Entry>, second: List<Entry>): List<Entry> = (first + second)
+            .distinctBy { it.message.id }
+            .sortedWith(compareBy<Entry> { it.message.createdAt }.thenBy { it.message.id })
     }
 }

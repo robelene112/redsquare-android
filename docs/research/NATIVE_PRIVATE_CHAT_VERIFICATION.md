@@ -111,3 +111,21 @@ empty directory at the exact synthetic conversation cache path, preserving
 opaque wallet and prior files. Compiles1m33s. Verifies readable memory through
 offline Refresh, successful persistence repair on a pruned empty page and
 recreation. Actual RED pending before minimal retention fix.
+
+Actual recreation GREEN10run38342240579 at0620289 PASS1/8.768s/oneOK/no
+assumptions/actualdeaths; core82/source gates. Seven hashes/root both XMLs and
+recovered original confirm message alongside unavailable-history warning. Initial
+capture also includes Loading messages; only later screenshot proves completed
+unavailable recovery. Failed-save/Refresh actual RED38342655104 ate8f6808 next.
+
+Failed-save/Refresh actualRED10run38342655104 ate8f6808 reports2cases/
+1PASS+1failure22.977s; line93 prior message lost after offlineRefresh. NoOK/
+assumptions/actualdeaths; core82/source gates. Nine hashes/root allXMLs/failure
+original verify local-warning+message then offline error-only. Shared capture
+filenames qualified: cached-recreation image belongs to firstpassingcase, not
+failedcase. Minimalfix retains authenticated entries/envelopes in memory, merges
+cache without replacement and persists all retained ciphertexts on retry. Storage
+warning remains while current entries are absent from disk. Source build pending.
+
+Retention fix source core82/debug/testAPK passes3m5s. Actual unchanged two-case
+UI GREEN and bounded fix reviews next; no actual process-death or send claim.
