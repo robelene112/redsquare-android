@@ -1222,3 +1222,21 @@ Localtracer Kotlin compilation PASS1m19s. ProductRetryabsent; nativeRED next.
 
 
 Corrected10run38468474482/sourceb499:5actionsPASS30.339s/core86, all23XML+sixselectedoriginalPNGs inspected including actualzeroquotebefore/after. Product source unchanged from17GREEN38467252208/c196. Incoming/dedup/concurrency/outgoing/normal+zeroReply nowqualified bothSDK; newRetryRED17run38468903248/source2a90 active6cases. Retry/process/isolation/available-source/fullclosure remain pending.
+
+## Private reaction Retry minimum,a55410a7...33674419
+
+### Standards
+
+Zero documented breaches or actionable smells. Original retained and selected
+identity/backend/candidate/status validated before restoring uncertainty. Event
+list preserved. Shared concrete toggle/retry transport and ordered publication;
+no generic queue. Busy/readiness and localized explicit control remain.
+
+### Spec
+
+Zero actionable findings. Exact operation identity and no duplicate visible
+effect; prepareRetry does not append a toggle. Loading never sends, and
+Forwarded remains distinct from delivery confirmation. Missing-control RED
+17run38468903248/source2a90 (6cases5PASS+one/80.505s/core86) is separate from
+pending corrected build/GREEN. Root failurePNG/XML inspected; later tail and
+actual reaction process/switch isolation/full acceptance unexecuted.

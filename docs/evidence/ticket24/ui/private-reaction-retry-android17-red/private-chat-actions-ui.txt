@@ -1,0 +1,144 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PrivateChatActionsPreviewTest:
+INSTRUMENTATION_STATUS: test=aNativeReplyRetainsItsQuoteAndTypedDraftUntilExplicitSending
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aNativeReplyRetainsItsQuoteAndTypedDraftUntilExplicitSending
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=incomingPrivateReactionsKeepOriginalIdentityAcrossDuplicatesAndReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=incomingPrivateReactionsKeepOriginalIdentityAcrossDuplicatesAndReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anIncomingReactionDuringSubmissionKeepsNewerForwardedStatusAndBothLikes
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anIncomingReactionDuringSubmissionKeepsNewerForwardedStatusAndBothLikes
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anAuthenticatedZeroTimestampReplyStillRequiresTypedBodyBeforeSending
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anAuthenticatedZeroTimestampReplyStillRequiresTypedBodyBeforeSending
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anUncertainPrivateReactionRetriesItsExactOriginalWithoutTogglingAgain
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (is enabled)
+Reason: Expected exactly '1' node but could not find any node that satisfies: (Text + InputText + EditableText contains 'Retry reaction' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:262)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertIsEnabled(Assertions.kt:60)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture.exerciseHistory$lambda$77$lambda$76$lambda$75(PrivateChatHistoryFixture.kt:301)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture.$r8$lambda$v5tp5V5Uwc9bY8PrHzXFMiwLjf0(PrivateChatHistoryFixture.kt:0)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture$$ExternalSyntheticLambda32.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture.exerciseHistory(PrivateChatHistoryFixture.kt:232)
+	at nl.davidengelen.redsquare.PrivateChatActionsPreviewTest.anUncertainPrivateReactionRetriesItsExactOriginalWithoutTogglingAgain(PrivateChatActionsPreviewTest.kt:28)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anUncertainPrivateReactionRetriesItsExactOriginalWithoutTogglingAgain(nl.davidengelen.redsquare.PrivateChatActionsPreviewTest):
+java.lang.AssertionError: Failed to assert the following: (is enabled)
+Reason: Expected exactly '1' node but could not find any node that satisfies: (Text + InputText + EditableText contains 'Retry reaction' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:262)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertIsEnabled(Assertions.kt:60)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture.exerciseHistory$lambda$77$lambda$76$lambda$75(PrivateChatHistoryFixture.kt:301)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture.$r8$lambda$v5tp5V5Uwc9bY8PrHzXFMiwLjf0(PrivateChatHistoryFixture.kt:0)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture$$ExternalSyntheticLambda32.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture.exerciseHistory(PrivateChatHistoryFixture.kt:232)
+	at nl.davidengelen.redsquare.PrivateChatActionsPreviewTest.anUncertainPrivateReactionRetriesItsExactOriginalWithoutTogglingAgain(PrivateChatActionsPreviewTest.kt:28)
+
+INSTRUMENTATION_STATUS: test=anUncertainPrivateReactionRetriesItsExactOriginalWithoutTogglingAgain
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=explicitPrivateLikeAndUnlikeForwardDistinctOriginalsAndRemainAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=explicitPrivateLikeAndUnlikeForwardDistinctOriginalsAndRemainAfterReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 80.505
+There was 1 failure:
+1) anUncertainPrivateReactionRetriesItsExactOriginalWithoutTogglingAgain(nl.davidengelen.redsquare.PrivateChatActionsPreviewTest)
+java.lang.AssertionError: Failed to assert the following: (is enabled)
+Reason: Expected exactly '1' node but could not find any node that satisfies: (Text + InputText + EditableText contains 'Retry reaction' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:262)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertIsEnabled(Assertions.kt:60)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture.exerciseHistory$lambda$77$lambda$76$lambda$75(PrivateChatHistoryFixture.kt:301)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture.$r8$lambda$v5tp5V5Uwc9bY8PrHzXFMiwLjf0(PrivateChatHistoryFixture.kt:0)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture$$ExternalSyntheticLambda32.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture.exerciseHistory(PrivateChatHistoryFixture.kt:232)
+	at nl.davidengelen.redsquare.PrivateChatActionsPreviewTest.anUncertainPrivateReactionRetriesItsExactOriginalWithoutTogglingAgain(PrivateChatActionsPreviewTest.kt:28)
+
+FAILURES!!!
+Tests run: 6,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
