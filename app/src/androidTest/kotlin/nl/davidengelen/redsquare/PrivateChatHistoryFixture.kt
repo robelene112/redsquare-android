@@ -15,13 +15,14 @@ import nl.davidengelen.redsquare.saito.*
 import java.io.File
 
 internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
-    enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL, LIST_LIVE, PARTIAL_KEYS, STORAGE_PARTIAL, OTHER_LIVE, MENTIONED, MENTIONED_OUTGOING, MUTED, BLOCKED, UNKNOWN_RETRY, PENDING_IMPORT, DRAFT_NAVIGATION, OLDER_HISTORY, QUOTED_REPLY, LITERAL_MARKUP, UNREADABLE_RECENT_HISTORY, NATIVE_REPLY, NATIVE_REPLY_ZERO, LIKE, INCOMING_LIKE, CONCURRENT_LIKE, REACTION_RETRY, REACTION_BACKENDS }
+    enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL, LIST_LIVE, PARTIAL_KEYS, STORAGE_PARTIAL, OTHER_LIVE, MENTIONED, MENTIONED_OUTGOING, MUTED, BLOCKED, UNKNOWN_RETRY, PENDING_IMPORT, DRAFT_NAVIGATION, OLDER_HISTORY, QUOTED_REPLY, LITERAL_MARKUP, UNREADABLE_RECENT_HISTORY, NATIVE_REPLY, NATIVE_REPLY_ZERO, LIKE, INCOMING_LIKE, CONCURRENT_LIKE, REACTION_RETRY, REACTION_BACKENDS, REACTION_WALLETS }
 
     fun exerciseHistory(case: HistoryCase) {
         val concurrentLike = case == HistoryCase.CONCURRENT_LIKE
+        val reactionWallets = case == HistoryCase.REACTION_WALLETS
         val reactionBackends = case == HistoryCase.REACTION_BACKENDS
         val reactionRetry = case == HistoryCase.REACTION_RETRY
-        val liking = case == HistoryCase.LIKE || concurrentLike || reactionRetry || reactionBackends
+        val liking = case == HistoryCase.LIKE || concurrentLike || reactionRetry || reactionBackends || reactionWallets
         val incomingLike = case == HistoryCase.INCOMING_LIKE
         val zeroReply = case == HistoryCase.NATIVE_REPLY_ZERO
         val nativeReply = case == HistoryCase.NATIVE_REPLY || zeroReply
@@ -91,10 +92,13 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
             val prefs = context.getSharedPreferences(name, 0)
             Triple(prefs, key, if (prefs.contains(key)) prefs.getBoolean(key, false) else null)
         }
-        val prefixes = SaitoBackend.entries.flatMap { backend ->
-            listOf("chat.${backend.id}.${wallet.publicKey}.", "chatwork.${backend.id}.${wallet.publicKey}.",
-                "chatreactions.${backend.id}.${wallet.publicKey}.")
-        } + "personal.${wallet.publicKey}."
+        val alternateWallet = if (reactionWallets) SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
+            .withChatContact(counterpart) else null // Public unsafe identity replacement fixture only.
+        val fixtureWallets = listOfNotNull(wallet, alternateWallet)
+        val prefixes = fixtureWallets.flatMap { identity -> SaitoBackend.entries.flatMap { backend ->
+            listOf("chat.${backend.id}.${identity.publicKey}.", "chatwork.${backend.id}.${identity.publicKey}.",
+                "chatreactions.${backend.id}.${identity.publicKey}.")
+        } + "personal.${identity.publicKey}." }
         val savedFiles = synchronized(SaitoLocalState.lock) {
             context.noBackupFilesDir.listFiles()!!.filter { file -> prefixes.any(file.name::startsWith) }.associate { file ->
                 check(file.isFile); file.name to file.readBytes()
@@ -141,6 +145,9 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
             SaitoWire.applicationRequest(otherWallet.publicKey, relay.toString().toByteArray(Charsets.UTF_8),
                 1, 1700000000999L).drop(5).toByteArray()
         } else null
+        val alternateText = "Private history for the replacement identity"
+        val alternateMessage = alternateWallet?.let { PrivateChat.create(recipientWallet, it.publicKey,
+            alternateText, 1700000090000L) }
         val reactionRelayEntered = java.util.concurrent.CountDownLatch(1)
         val reactionRelayRelease = java.util.concurrent.CountDownLatch(1)
         val delayedReaction = java.util.concurrent.atomic.AtomicBoolean(false)
@@ -180,6 +187,9 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                     add(JsonObject().apply { addProperty("tx", reference.get("archiveEnvelope").asString) })
                     if (storagePartial) add(JsonObject().apply { addProperty("tx", vectors[2].asJsonObject.get("archiveEnvelope").asString) })
                 }.toString()
+            } else if (alternateMessage != null && criteria.get("field3")?.asString ==
+                PrivateChat.conversationId(requireNotNull(alternateWallet).publicKey, counterpart)) {
+                JsonArray().apply { add(JsonObject().apply { addProperty("tx", alternateMessage.envelope()) }) }.toString()
             } else "[]"
         })
         peer.disconnectAfterTransaction = interruptedSend || retrying || reactionRetry
@@ -214,7 +224,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                 val original = SaitoTransaction.restore(vectors[1].asJsonObject.get("networkBase64").asString)
                 nl.davidengelen.redsquare.chat.ChatWorkStore(context, wallet, SaitoBackend.OWNER, counterpart).prepare(original)
             }
-            if (reactionRetry || reactionBackends) {
+            if (reactionRetry || reactionBackends || reactionWallets) {
                 val original = SaitoTransaction.restore(requireNotNull(likeReference).getAsJsonArray("vectors")[0]
                     .asJsonObject.get("networkBase64").asString)
                 nl.davidengelen.redsquare.chat.ChatReactionStore(context, wallet, SaitoBackend.OWNER, counterpart).prepare(original)
@@ -294,6 +304,67 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                         }
                         waitFor(text)
                         ui.onNodeWithText(text).assertIsDisplayed()
+                        if (reactionWallets) {
+                            val expected = requireNotNull(likeReference).getAsJsonArray("vectors")[0].asJsonObject
+                            waitFor(context.getString(R.string.chat_reaction_unknown))
+                            waitFor("1 like")
+                            waitForEnabled("Retry reaction")
+                            ui.onNodeWithText("Unlike").assertIsNotEnabled()
+                            check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/private-reaction-original-wallet.png"), text)
+                            fun returnToFeed() {
+                                ui.onNodeWithText("Back").performClick()
+                                waitFor("Public key")
+                                ui.onNodeWithText("Back").performClick()
+                                waitForEnabled("Chat")
+                            }
+                            // Identity replacement is the protected precondition; the existing SAF tests cover approval safeguards.
+                            returnToFeed()
+                            store.replace(store.loadOrCreate(), requireNotNull(alternateWallet))
+                            scenario.recreate()
+                            waitForEnabled("Chat")
+                            ui.onNodeWithText("Chat").performClick()
+                            waitFor(counterpart)
+                            ui.onNodeWithText(counterpart).performClick()
+                            waitFor(alternateText)
+                            waitForEnabled("Like")
+                            ui.onNodeWithText(alternateText).assertIsDisplayed()
+                            ui.onAllNodesWithText(text).assertCountEquals(0)
+                            ui.onAllNodesWithText("1 like").assertCountEquals(0)
+                            ui.onAllNodesWithText("Retry reaction").assertCountEquals(0)
+                            ui.onAllNodesWithText(context.getString(R.string.chat_reaction_unknown)).assertCountEquals(0)
+                            check(store.loadOrCreate().exportJson() == alternateWallet.exportJson())
+                            check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/private-reaction-replacement-wallet.png"), alternateText)
+                            returnToFeed()
+                            store.replace(store.loadOrCreate(), wallet)
+                            scenario.recreate()
+                            waitForEnabled("Chat")
+                            ui.onNodeWithText("Chat").performClick()
+                            waitFor(counterpart)
+                            ui.onNodeWithText(counterpart).performClick()
+                            waitFor(text)
+                            waitFor(context.getString(R.string.chat_reaction_unknown))
+                            waitFor("1 like")
+                            waitForEnabled("Retry reaction")
+                            ui.onNodeWithText("Unlike").assertIsNotEnabled()
+                            ui.onAllNodesWithText(alternateText).assertCountEquals(0)
+                            check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
+                            ui.onNodeWithText("Retry reaction").performClick()
+                            waitFor(context.getString(R.string.chat_reaction_forwarded))
+                            waitForEnabled("Unlike")
+                            ui.onNodeWithText("1 like").assertIsDisplayed()
+                            ui.waitUntil(5_000) { peer.transactions.size == 1 && peer.relayedMessages.size == 1 }
+                            val original = postingTransaction(peer.transactions.single())
+                            check(original.encoded() == expected.get("networkBase64").asString)
+                            check(SaitoEnvelope.fromSignedJson(peer.relayedMessages.single()) == original.envelope())
+                            check(store.loadOrCreate().exportJson() == wallet.exportJson())
+                            check(AndroidBackendStore(context).load() == SaitoBackend.OWNER)
+                            check(peer.reports.isEmpty())
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/private-reaction-original-wallet-returned.png"), text)
+                            peer.assertHealthy()
+                            return@withFailureCapture
+                        }
                         if (reactionBackends) {
                             // Both logical servers expose the same independent original. Only the selected namespace differs.
                             val expected = requireNotNull(likeReference).getAsJsonArray("vectors")[0].asJsonObject
@@ -944,7 +1015,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
             }
             restore {
                 val current = store.loadOrCreate()
-                check(current.publicKey == wallet.publicKey || current.publicKey == SaitoWallet.fromBackup(original).publicKey)
+                check(current.publicKey in fixtureWallets.map { it.publicKey } || current.publicKey == SaitoWallet.fromBackup(original).publicKey)
                 if (current.exportJson() != original) store.replace(current, SaitoWallet.fromBackup(original))
                 check(store.loadOrCreate().exportJson() == original)
             }

@@ -28,4 +28,6 @@ class PrivateChatActionsPreviewTest {
         history.exerciseHistory(HistoryCase.REACTION_RETRY)
     @Test fun switchingBackendsKeepsUncertainAndForwardedReactionsOnTheirOriginalServer() =
         history.exerciseHistory(HistoryCase.REACTION_BACKENDS)
+    @Test fun replacingTheActiveWalletHidesOtherIdentityReactionsAndRetainsTheirExactOriginal() =
+        history.exerciseHistory(HistoryCase.REACTION_WALLETS)
 }
