@@ -1215,3 +1215,12 @@ findings resolved, no extraexclusions/creep. Localfullcore74/0/0/0+debug/testAPK
 1m52PASS. Corrected32native38328392156/finalfullSDKpair pending. Newercommits
 doc-only/source68633d9 remainsfinalproduction. Separateevidencebothaxes0 confirms
 101+106hashes/46+48XML/actualpermission/deaths beforethesefinalsource fixes.
+
+32GREEN10run38328392156 at68633d9 passes32/125.928s/one mainOK, actual
+notificationSettings1/6.692s and death5973->6053/cold1/3.818s; threecompletedOK/
+noassumptions/core74/debug/test. Initial1Unread/noReply/Rootparentreads0, actual
+Morepositivefield4/exactReply+Like2Unread/Conversation/content/actorProfile/all31
+old/opaque walletrestore/no writes pass.103hashes/all47XML/rootoriginalparent
+PNG: Owner2Unread/actor2Reply+Like/Moreexhausted. Othersretainedwithoutnewvisual
+claims. Finalintegratedbothaxes0; finalfull10run38328911797 and17run38328912121
+at a5648ee sourceequivalent68633d9 pending, public_feed_read=true each.

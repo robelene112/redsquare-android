@@ -1,6 +1,6 @@
 # Sequential implementation handoff
 
-Updated 2026-10-12. The owner authorized implementing all 35 proposed
+Updated 2026-10-13. The owner authorized implementing all 35 proposed
 tickets sequentially, committing after each, and reviewing the app at the end.
 Continue without routine permission requests or a grill per ticket. Ask only
 one question at a time when a material choice really needs the owner.
@@ -26,37 +26,30 @@ failure. Verified activity survives pruned pages/Activity recreation. History an
 read markers are wallet/backend scoped; unread counts use visible verified rows,
 Mark all as read commits before confirming, and storage faults preserve activity.
 
-Latest corrected focused10 run38326981751 at4d3b1c8 PASSES main31/126.643s,
-actual RedSquare Android10 notificationSettings/read/recreate/positiveArchive/auth/
-opaque-wallet continuity1/6.559s, actualdeath5957->6040/cold1/3.719s. Core73/
-debug/test/noassumptions; each completedrunnerOK.101hashes/46XML/rootsevenoriginal
-permission/process/walletPNGs inspected. Cold failedfreshserver retains neutral
-Like/NoUnread/disabledMark/actorProfile. No walletreset/export/backendchange/write.
-Corrected17run38327322258 at752d92a PASSES main31/147.174s, actualOSAllow1/
-4.617s+Deny1/4.357s, death5500->5577/cold1/3.455s. FourOK/noassumptions/core73/
-debug/test,106hashes/48XML/rootnineoriginalPNG. Pre-choiceOSbitmaps qualified;
-OSstatus assertschoices. Previous17main31 ataf49e30 alreadypasses,
-then original permissionfixturefailedmissingFeedScreen, retained/qualified.
+Final source:68633d976a5ef6dfa4ce38d982af46ea2f24edb1. Final integrated
+reviews d1e65f5...0798b55 bothaxes0remainingfindings. Earlier false selflike-warning
+and permanentten-own-parent cutoff resolved; core74/0/0/0/debug/test local1m52PASS.
+Allknownown targets eligible, initial3base+10targets+20author<=33; existingMore20
+new+older<=33/perstream12s/deadlines/300history preserved. Independentvectors
+232579/hash31182e...2700d threecopies/fixedunsafe1–4; public sourcepins unchanged.
 
-Whole-ticket Standards1(validselflike falsewarning), Spec2(sameplusknownOwnparent
-permanenttake10).2a520da verify-all/filterself resolveswarning; independentcoreRED
-8/7PASS/1failure33s, fullcoreGREEN74/0/55s retained; both boundedaxes0. Native
-proofs above predate thissourcefix. Parentcontinuationtracer4d02fd3 adds10newer
-independentsignedunsafe1ownroots toplaceexistingRoot11th/existingunsafe2reply
-field3unsafe3 onlyfield4.32caseinitial1Unread/noReply/Rootreads0; Moreenabled then
-2Unread/Reply/positivefield4/Conversation/text/actorProfile. Threecopies232579/
-hash31182e...2700d/fixed1–4. TracerAPK2m44PASS/bothaxes0;32REDrun38327773946 confirmsdisabledMore:618/
-32reported31PASS/onefailure114.038s/zeroOK/deaths/assumptions/core74. Threehashes/
-rootoriginalPNG/XML (childenabled attributequalified). Minimum68633d9 eligibleall
-knownown targets, initialstill3base+10targets+20author<=33/existingMore20new+older
-<=33/deadlines/300budget. Fullcore74/0/0/0+APK1m52PASS/bothboundedaxes0. Finalintegratedreviews
-d1e65f5...0798b55 bothaxes0remainingfindings. Source68633d9 unchangedbynewer
-docs. Corrected32run38328392156 pending then finalsame-source fullSDKpair. ProtectedfuturefiveChatfiles untouched.
+Latest correctedfocused10run38328392156 at68633d9 PASSES main32/125.928s,
+actualnotificationSettings1/6.692s and actualdeath5973->6053/cold1/3.818s. Three
+completedOK/noassumptions/core74/debug/test. InitialRoot11/1Unread/noReply/zero
+Rootparentreads thenMorepositivefield4/Reply+Like2Unread/actualConversation/text/
+actorProfile/all31old/opaqueoriginalwalletrestore/no writes.103hashes/47XML/root
+originalparentPNG. Othercapturedoriginals retainedwithoutnewvisualclaims. Previous
+bothSDKactualpermission/deathproof atsource0ef7b41 accepted:10run38326981751/
+17run38327322258,101+106hashes/46+48XML/root7+9originalPNGs, bothevidenceaxes0.
 
-Remaining #24: proveRED/minimalboundedownparentcontinuation, resolve whole-ticket
-findings, finalwhole/boundedreviews then same-source fullAndroid10/17. Optional
-live/richer/universal/permanenthistory/closedpush/physicalPixel not #24 closure.
-No new phoneAPK; stablev10/source5225d06. No productionnode/realwalletwrites.
+Final fullAndroid10run38328911797 and17run38328912121 at a5648ee (app/core/
+reference/scripts/workflow sourceidentical68633d9) are active, separately opted
+into bothapprovedpublicreads. No source mutation until theseacceptance runsfinish;
+docs-only evidence changes permitted. Complete actualcounts/PNG/XML/continuity/
+release/lint/publicfeeds/finaltwo-axis evidence, then close#24 and move#25.
+Ready#25 read-onlyscope: encryptedprivateChat send/receive/history/blockpolicy/
+backendcontracts. Itsfivefuturefiles remainuntrackedprotected; do notstage for#24.
+No newphoneAPK; stablev10/source5225d06. No productionnode/funded/livewrites.
 
 Canonical chronology: `docs/research/NATIVE_NOTIFICATION_VERIFICATION.md`.
 Separate axis reports: `docs/evidence/ticket23/REVIEW.md`.
