@@ -488,10 +488,15 @@ verify_notification_permission() {
 if [[ "${TEST_SCOPE:-full}" == notifications* ]]; then
     verify_notifications
     verify_notification_permission
+    python3 "$repo_dir/scripts/notification-process-check" --evidence "$evidence/notification-process"
     printf '%s\n' 'Focused in-app notifications check only; full acceptance and closed-app pushes not run.' > "$evidence/scope.txt"
     exit 0
 fi
-if [[ "${TEST_SCOPE:-full}" == full ]]; then verify_notifications; verify_notification_permission; fi
+if [[ "${TEST_SCOPE:-full}" == full ]]; then
+    verify_notifications
+    verify_notification_permission
+    python3 "$repo_dir/scripts/notification-process-check" --evidence "$evidence/notification-process"
+fi
 verify_wallet_storage_recovery() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
     timeout 90 adb shell am instrument -w -r \

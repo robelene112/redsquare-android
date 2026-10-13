@@ -1,0 +1,87 @@
+#!/usr/bin/env python3
+"""Verify cold notification recovery after an actual app process death, without resetting its identity."""
+import argparse
+import json
+from pathlib import Path
+import re
+import subprocess
+
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--evidence', type=Path, required=True)
+args = parser.parse_args()
+package = 'nl.davidengelen.redsquare.dev'
+runner = package + '.test/androidx.test.runner.AndroidJUnitRunner'
+test_class = 'nl.davidengelen.redsquare.NotificationProcessRecoveryTest'
+checkpoint = 'cache/notification-process-checkpoint.json'
+
+
+def adb(*arguments, check=True, timeout=60):
+    return subprocess.run(['adb', *arguments], capture_output=True, text=True, check=check, timeout=timeout)
+
+
+def instrument(name, filename, check=True):
+    try:
+        result = adb('shell', 'am', 'instrument', '-w', '-r', '-e', 'class',
+                     test_class + '#' + name, runner, check=check, timeout=120)
+        (args.evidence / filename).write_text(result.stdout + result.stderr)
+        return result
+    except (subprocess.TimeoutExpired, subprocess.CalledProcessError) as error:
+        def decoded(value):
+            return value.decode('utf-8', errors='replace') if isinstance(value, bytes) else (value or '')
+        (args.evidence / filename).write_text(decoded(error.stdout) + decoded(error.stderr))
+        raise
+
+
+if not adb('get-serialno').stdout.strip().startswith('emulator-'):
+    raise SystemExit('This check requires an isolated emulator')
+args.evidence.mkdir(parents=True, exist_ok=True)
+adb('shell', 'run-as', package, 'rm', '-f', checkpoint)
+try:
+    result = instrument('terminateAfterActivityAndReadStatusAreCommitted', 'interrupted.txt', check=False)
+    if 'FAILURES!!!' in result.stdout:
+        raise AssertionError('Notification preparation failed before deliberate process termination')
+    row = json.loads(adb('exec-out', 'run-as', package, 'cat', checkpoint).stdout)
+    if row['phase'] != 'pending' or row['backend'] not in ('owner', 'official'):
+        raise AssertionError('Missing pending notification checkpoint')
+    if not re.fullmatch(r'[1-9A-HJ-NP-Za-km-z]{43,45}', row['owner']):
+        raise AssertionError('Invalid public notification owner')
+    if not re.fullmatch(r'[0-9a-f]{128}', row['event']):
+        raise AssertionError('Invalid signed notification event')
+    if not isinstance(row['pid'], int) or row['pid'] <= 0:
+        raise AssertionError('Invalid original Notification process ID')
+    if str(row['pid']) in adb('shell', 'pidof', package, check=False).stdout.split():
+        raise AssertionError('Notification process was not actually terminated')
+    (args.evidence / 'pending-checkpoint.json').write_text(json.dumps(row, indent=2) + '\n')
+    adb('shell', 'am', 'force-stop', package)
+    result = instrument('coldRestartRetainsActivityAndReadStatusWhenServerReadsFail', 'recovered.txt')
+    if 'OK (1 test)' not in result.stdout:
+        raise AssertionError('Cold notification recovery did not pass')
+    recovered = json.loads(adb('exec-out', 'run-as', package, 'cat', checkpoint).stdout)
+    if recovered != dict(row, phase='recovered', recoveredPid=recovered['recoveredPid']):
+        raise AssertionError('Cold notification recovery changed its public checkpoint')
+    if (not isinstance(recovered['recoveredPid'], int) or recovered['recoveredPid'] <= 0 or
+            recovered['recoveredPid'] == row['pid']):
+        raise AssertionError('Recovery did not use a new process')
+    # Android stops the target when instrumentation finishes; the native phase
+    # asserts Process.myPid() before completion and writes that actual ID here.
+    (args.evidence / 'recovered-checkpoint.json').write_text(json.dumps(recovered, indent=2) + '\n')
+    (args.evidence / 'continuity.txt').write_text(
+        'PASS: actual process death after visible activity and confirmed read status, '
+        'same wallet/backend without recovery reset, cold retained activity and NoUnread '
+        'under failed controlled-server reads, actor navigation, zero transactions.\n')
+    print('PASS: cold notification recovery')
+
+finally:
+    # Best-effort capture cannot replace the original failure.
+    try:
+        with (args.evidence / 'images.tar').open('wb') as output:
+            capture = subprocess.run(['adb', 'exec-out', 'run-as', package, 'tar', '-C', 'cache',
+                                      '-cf', '-', 'notification-process-evidence'], stdout=output,
+                                     stderr=subprocess.PIPE, timeout=10)
+        (args.evidence / 'capture-status.txt').write_text(str(capture.returncode) + '\n' +
+                                                        capture.stderr.decode('utf-8', errors='replace'))
+    except (OSError, subprocess.TimeoutExpired) as failure:
+        try:
+            (args.evidence / 'capture-status.txt').write_text('Synthetic evidence capture failed: ' + str(failure))
+        except OSError:
+            pass  # Even failed diagnostic storage must preserve the primary failure.
