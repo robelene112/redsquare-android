@@ -34,7 +34,7 @@ class ThreadProfilePreviewTest {
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 try {
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText(author)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
-                    ui.onNodeWithText(author).performClick()
+                    openProfileFromList(author)
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Posts")).fetchSemanticsNodes().isNotEmpty() }
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     scrollProfileTo("Native Red Square reference post")
@@ -98,7 +98,7 @@ class ThreadProfilePreviewTest {
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 try {
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Native Red Square reference post")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
-                    ui.onNodeWithText("Native Red Square reference post").performClick()
+                    openConversationFromList("Native Red Square reference post")
                     waitForProfileHistory()
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText("Independent Saito reply"))
                     ui.onNodeWithText("Independent Saito reply").assertIsDisplayed()
@@ -109,7 +109,7 @@ class ThreadProfilePreviewTest {
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Conversation")).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNodeWithText("Back").performClick()
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText(author)).fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNodeWithText(author).performClick()
+                    openProfileFromList(author)
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Likes")).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNodeWithText("Likes").performClick()
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Independent Saito reply")).fetchSemanticsNodes().isNotEmpty() }
@@ -175,7 +175,7 @@ class ThreadProfilePreviewTest {
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 try {
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText(author)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
-                    ui.onNodeWithText(author).performClick()
+                    openProfileFromList(author)
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Profile newer post 20")).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNodeWithText("Replies").performClick()
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
@@ -226,7 +226,7 @@ class ThreadProfilePreviewTest {
                 try {
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Native Red Square reference post")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     ui.onNodeWithText("Malformed reference thread").assertDoesNotExist()
-                    ui.onNodeWithText("Native Red Square reference post").performClick()
+                    openConversationFromList("Native Red Square reference post")
                     waitForProfileHistory()
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText("Independent Saito reply"))
                     ui.onNodeWithText("Independent Saito reply").assertIsDisplayed()
@@ -279,7 +279,7 @@ class ThreadProfilePreviewTest {
             try {
                 ActivityScenario.launch<MainActivity>(intent).use {
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText(author)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
-                    ui.onNodeWithText(author).performClick()
+                    openProfileFromList(author)
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Posts")).fetchSemanticsNodes().isNotEmpty() }
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Native Red Square reference post")).fetchSemanticsNodes().isNotEmpty() }
                     scrollProfileTo("Replies")
@@ -297,7 +297,7 @@ class ThreadProfilePreviewTest {
                     try {
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText(author)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
-                    ui.onNodeWithText(author).performClick()
+                    openProfileFromList(author)
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Posts")).fetchSemanticsNodes().isNotEmpty() }
                     // The offline header can fill a small screen before this lazy row is composed.
                     // Enabled Profile Refresh also confirms cached history has finished loading.
@@ -375,7 +375,7 @@ class ThreadProfilePreviewTest {
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 try {
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText(author)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
-                    ui.onNodeWithText(author).performClick()
+                    openProfileFromList(author)
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Posts")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Native Red Square reference post")).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
@@ -427,7 +427,7 @@ class ThreadProfilePreviewTest {
             try {
                 ActivityScenario.launch<MainActivity>(intent).use {
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Native Red Square reference post")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
-                    ui.onNodeWithText("Native Red Square reference post").performClick()
+                    openConversationFromList("Native Red Square reference post")
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText("Independent Saito reply"))
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Independent Saito reply")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
@@ -442,7 +442,7 @@ class ThreadProfilePreviewTest {
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Native Red Square reference post")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText("Native Red Square reference post"))
                     ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
-                    ui.onNodeWithText("Native Red Square reference post").performClick()
+                    openConversationFromList("Native Red Square reference post")
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Conversation")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText("Independent Saito reply"))
@@ -491,7 +491,7 @@ class ThreadProfilePreviewTest {
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 try {
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Native Red Square reference post")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
-                    ui.onNodeWithText("Native Red Square reference post").performClick()
+                    openConversationFromList("Native Red Square reference post")
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText("Independent Saito reply"))
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Independent Saito reply")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
@@ -508,6 +508,20 @@ class ThreadProfilePreviewTest {
                 }
             }
         }
+    }
+
+    private fun openConversationFromList(text: String) {
+        scrollProfileTo(text)
+        ui.onNodeWithText(text).performClick()
+        ui.waitUntil(15_000) { ui.onAllNodesWithText("Conversation")
+            .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+    }
+
+    private fun openProfileFromList(author: String) {
+        scrollProfileTo(author)
+        ui.onNodeWithText(author).performClick()
+        ui.waitUntil(15_000) { ui.onAllNodesWithText("Profile")
+            .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
     }
 
     private fun waitForProfileHistory() {
