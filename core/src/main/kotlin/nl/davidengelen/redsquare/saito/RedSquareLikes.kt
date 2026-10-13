@@ -19,7 +19,7 @@ object RedSquareLikes {
 
     /** Incoming signed actors; callers verify target ownership before saying "your post". */
     fun readIncoming(response: String, owner: String): ArchiveLikePage {
-        val page = readArchiveRows(response, ::decode, { it.author != owner }) { it.id }
-        return ArchiveLikePage(page.entries, page.ignored, page.oldestCreatedAt, page.rowCount)
+        val page = readArchiveRows(response, ::decode, { true }) { it.id }
+        return ArchiveLikePage(page.entries.filter { it.author != owner }, page.ignored, page.oldestCreatedAt, page.rowCount)
     }
 }
