@@ -288,3 +288,18 @@ then targetedGREEN54s; immutable portable contact preserves original identity,
 existing name/module fields and original export. Native fresh-wallet Open-chat/
 send/reopen tracer plus fullcore83/debug/testAPK passes2m45s. Actual seven-case
 UI RED next; entry/form/shared-wallet metadata update not yet implemented.
+
+Actual new-contact RED10run38350790362 at a26945b reports7cases/6PASS+1failure
+45.202s; root thirteenXMLs/failureoriginal inspected. Fresh-wallet Chat has no
+Public key entry atline169. Existing six cases pass; shared captures belong to
+later cases. Metadata bounded review861...a269: Standards0hard+1Duplicated Code
+heuristic (shared group predicate); Spec1 imported keys:null rejected although
+pinned keychain treats it as empty. Fix tracer first had a mistyped method name
+(compilefailure26s); corrected behavioral RED pending, not claimed from typo.
+
+Corrected null-keychain tracer actualRED33s/13cases1failure atdiscovery. Minimum
+null-as-empty across contact discovery/implicit-secret fallback/addition plus
+shared group predicate fixes both bounded findings. Fresh-contact entry now saves
+portable contact through protected compare-and-replace and updates shared active
+wallet, with durable recovery publication despite cancellation. Fullcore84/0/0/0
+plus debug/testAPK passes3m44s. Actual seven-case nativeGREEN/review next.

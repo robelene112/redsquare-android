@@ -209,3 +209,16 @@ Zero findings. Actual unsafe2->1 native envelope decrypts through pinned Crypto
 wrapper and matches independently reproduced signature. All209 UI evidence
 hashes/tenXMLs/three qualified originals verify; default reference copies remain
 unchanged. Corrected layout/runtime and actual process death remain pending.
+
+## New-contact metadata review8615857...a26945b
+
+### Standards
+
+Zero hard findings, one Duplicated Code heuristic: contact discovery and contact
+addition repeat the group predicate. Extract the same private predicate.
+
+### Spec
+
+One compatibility finding: imported keys:null should initialize an empty keychain
+when adding a first contact, matching pinned keychain initialization. Preserve
+original options and identity. Prior evidence claims remain qualified.

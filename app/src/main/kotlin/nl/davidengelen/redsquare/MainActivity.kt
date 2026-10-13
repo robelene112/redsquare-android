@@ -28,6 +28,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import androidx.lifecycle.Lifecycle
@@ -269,7 +270,24 @@ class MainActivity : ComponentActivity() {
                                         LocalRegistryAuthority provides RegistryAuthority.fromIntent(intent, feedEndpoint)) {
                                     RegisteredIdentityScope(wallet, feedEndpoint, selected) {
                                         FeedScreen(wallet, failed, feedEndpoint, selected,
-                                            lifecycle, Modifier.weight(1f)) { reportFullyDrawn() }
+                                            lifecycle, Modifier.weight(1f), onWalletMetadata = { previous, updated ->
+                                                check(wallet === previous && updated.publicKey == previous.publicKey)
+                                                withContext(NonCancellable) {
+                                                    val result = withContext(Dispatchers.IO) {
+                                                        val store = AndroidWalletStore(applicationContext)
+                                                        try { store.replace(previous, updated) to true }
+                                                        catch (_: Exception) {
+                                                            val restored = try { store.loadExisting() } catch (_: Exception) { null }
+                                                            restored to false
+                                                        }
+                                                    }
+                                                    if (wallet === previous) {
+                                                        wallet = result.first
+                                                        failed = result.first == null
+                                                    }
+                                                    check(result.second) { "Could not save wallet metadata" }
+                                                }
+                                            }) { reportFullyDrawn() }
                                     }
                                     }
                                 }

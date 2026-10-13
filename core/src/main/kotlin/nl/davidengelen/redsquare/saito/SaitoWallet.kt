@@ -88,7 +88,7 @@ class SaitoWallet private constructor(
     /** Saved key first, then implicit identity ECDH for older messages. Never export secrets to the UI. */
     internal fun chatSharedSecrets(counterparty: String): List<String> {
         require(isPublicKey(counterparty) && counterparty != publicKey)
-        val keys = backupOptions?.get("keys")
+        val keys = backupOptions?.get("keys")?.takeUnless { it.isJsonNull }
         require(keys == null || keys.isJsonArray) { "Invalid saved Chat keys" }
         val entry = keys?.asJsonArray?.firstOrNull { value ->
             if (!value.isJsonObject) false else {
@@ -108,13 +108,12 @@ class SaitoWallet private constructor(
 
     /** Public contact discovery only; imported secret values never leave the wallet's crypto interface. */
     fun chatContacts(): List<String> {
-        val keys = backupOptions?.get("keys") ?: return emptyList()
+        val keys = backupOptions?.get("keys")?.takeUnless { it.isJsonNull } ?: return emptyList()
         require(keys.isJsonArray) { "Invalid saved Chat contacts" }
         return keys.asJsonArray.mapNotNull { element ->
             if (!element.isJsonObject) return@mapNotNull null
             val row = element.asJsonObject
-            if (row.get("type")?.let { it.isJsonPrimitive && it.asString == "group" } == true ||
-                row.get("group")?.let { !it.isJsonNull && it.toString() != "false" } == true) return@mapNotNull null
+            if (isChatGroup(row)) return@mapNotNull null
             val added = row.get("added")?.let { it.isJsonPrimitive && it.asJsonPrimitive.isBoolean && it.asBoolean } == true
             val shared = listOf("aes_secret", "aes_publicKey").any { name -> row.get(name)?.let {
                 it.isJsonPrimitive && it.asJsonPrimitive.isString && it.asString.isNotEmpty()
@@ -127,18 +126,21 @@ class SaitoWallet private constructor(
     fun withChatContact(contact: String): SaitoWallet {
         require(isPublicKey(contact) && contact != publicKey)
         val options = gson.fromJson(exportJson(), JsonObject::class.java)
-        val existingKeys = options.get("keys")
+        val existingKeys = options.get("keys")?.takeUnless { it.isJsonNull }
         require(existingKeys == null || existingKeys.isJsonArray)
         val keys = existingKeys?.asJsonArray ?: JsonArray().also { options.add("keys", it) }
         val entry = keys.firstOrNull { it.isJsonObject && chatAddress(it.asJsonObject) == contact }?.asJsonObject
         if (entry == null) keys.add(JsonObject().apply { addProperty("publicKey", contact); addProperty("added", true) })
         else {
-            require(entry.get("type")?.let { it.isJsonPrimitive && it.asString == "group" } != true &&
-                entry.get("group")?.let { !it.isJsonNull && it.toString() != "false" } != true)
+            require(!isChatGroup(entry))
             entry.addProperty("added", true)
         }
         return fromBackup(options.toString())
     }
+
+    private fun isChatGroup(row: JsonObject): Boolean =
+        row.get("type")?.let { it.isJsonPrimitive && it.asString == "group" } == true ||
+            row.get("group")?.let { !it.isJsonNull && it.toString() != "false" } == true
 
     private fun chatAddress(row: JsonObject): String? {
         val address = row.get("publicKey")?.takeUnless { it.isJsonNull ||

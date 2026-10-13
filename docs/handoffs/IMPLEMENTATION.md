@@ -28,6 +28,20 @@ accidental auto-close was reopened; close only after final acceptance.
 
 #25, "Exchange encrypted private Chat messages with existing clients", is assigned
 and active. Review basec102f891f6041f08199905728d302e19b7588abd. Read parent#1/issue25, NATIVE_PRIVATE_CHAT_CONTRACT and reference docs.
+Latest continuation: actual corrected17run38348848791 at94326b2 passes5cases/
+60.052s; both correction reviews0, actual unsafe native envelope independently
+passes pinned Crypto/WASM. Interrupted10run38349463109 at8615857 passes6/
+25.282s, Submitted/not-confirmed and recreated/no retransmission; no actualdeath.
+New-contact metadata at a26945b core83/debug/testAPK2m45PASS, actual UI RED10
+run38350790362 7cases/6PASS+1failure45.202s atline169 missing Public key.
+Root thirteenXMLs/failureoriginal inspected, durable ui/new-contact-red-android10.
+Reviews861...a269: Standards0hard/1dup group-predicate heuristic; Spec1 null
+keychain compatibility. Corrected core behavioralRED33s 13cases/1failure
+(original test typo compilefailure26s separately retained). Minimum null-keychain/
+shared predicate and fresh-contact entry/shared active-wallet update now local
+fullcore84/debug/testAPK PASS3m44s. Actual nativeGREEN/reviews next. Do not close#25; listener for unselectedcontacts,
+paging, controls, actual death/isolation, backendcontracts and fullSDK stillpending.
+
 Accepted seams1–4 cover native UI/controlled peers, independently signed vectors,
 recovery/isolation and compatibility. Record the new review base after #24's
 completion commit. Implement sequentially using TDD. No additional grill needed.

@@ -26,10 +26,15 @@ import nl.davidengelen.redsquare.saito.*
 
 /** Private Chat has its own navigation and verified history, sharing only the active Saito foundation. */
 @Composable
-internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBackend, modifier: Modifier, onBack: () -> Unit) {
+internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBackend, modifier: Modifier,
+    onWalletMetadata: suspend (SaitoWallet, SaitoWallet) -> Unit, onBack: () -> Unit) {
     nl.davidengelen.redsquare.NotificationPermissionPrompt()
     val personal = LocalPersonalControls.current
     val context = LocalContext.current.applicationContext
+    val scope = rememberCoroutineScope()
+    var newContact by remember(wallet.publicKey) { mutableStateOf("") }
+    var savingContact by remember(wallet.publicKey) { mutableStateOf(false) }
+    var contactFailed by remember(wallet.publicKey) { mutableStateOf(false) }
     var contacts by remember(wallet) { mutableStateOf<List<String>>(emptyList()) }
     var contactsFailed by remember(wallet) { mutableStateOf(false) }
     var counterparty by remember(wallet.publicKey, backend) { mutableStateOf<String?>(null) }
@@ -116,6 +121,28 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
         if (incomplete) Text(stringResource(R.string.chat_incomplete))
         val contact = counterparty
         if (contact == null) {
+            Row(Modifier.fillMaxWidth(), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
+                OutlinedTextField(value = newContact, onValueChange = { newContact = it; contactFailed = false },
+                    label = { Text(stringResource(R.string.chat_public_key)) }, singleLine = true,
+                    enabled = !savingContact, modifier = Modifier.weight(1f))
+                TextButton(enabled = !savingContact && personal?.ready == true && newContact.isNotBlank(),
+                    onClick = {
+                        val address = newContact.trim()
+                        savingContact = true
+                        contactFailed = false
+                        scope.launch {
+                            try {
+                                val updated = withContext(Dispatchers.IO) { wallet.withChatContact(address) }
+                                onWalletMetadata(wallet, updated)
+                                counterparty = address
+                                newContact = ""
+                            } catch (cancelled: CancellationException) { throw cancelled }
+                            catch (_: Exception) { contactFailed = true }
+                            finally { savingContact = false }
+                        }
+                    }) { Text(stringResource(R.string.chat_open)) }
+            }
+            if (contactFailed) Text(stringResource(R.string.chat_contact_error))
             if (contacts.isEmpty() && !contactsFailed) Text(stringResource(R.string.chat_empty))
             LazyColumn(Modifier.weight(1f)) {
                 items(contacts, key = { it }) { key ->

@@ -39,7 +39,9 @@ import java.util.Date
 import java.util.Locale
 
 @Composable
-fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: String, backend: SaitoBackend, lifecycle: Lifecycle, modifier: Modifier, onDrawn: () -> Unit) {
+fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: String, backend: SaitoBackend,
+    lifecycle: Lifecycle, modifier: Modifier, onWalletMetadata: suspend (SaitoWallet, SaitoWallet) -> Unit,
+    onDrawn: () -> Unit) {
     val activity = requireNotNull(LocalActivity.current) as ComponentActivity
     val context = activity.applicationContext
     val scope = rememberCoroutineScope()
@@ -185,7 +187,7 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
         if (posts.isNotEmpty() && personal?.ready == true) { withFrameNanos { }; withFrameNanos { }; onDrawn() }
     }
     if (reviewingChat && wallet != null) {
-        nl.davidengelen.redsquare.chat.ChatScreen(wallet, endpoint, backend, modifier) { reviewingChat = false }
+        nl.davidengelen.redsquare.chat.ChatScreen(wallet, endpoint, backend, modifier, onWalletMetadata) { reviewingChat = false }
         return
     }
     if (reviewingQueue && wallet != null) {

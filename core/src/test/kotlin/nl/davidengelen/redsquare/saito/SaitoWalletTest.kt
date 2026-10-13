@@ -9,6 +9,20 @@ import org.junit.Test
 import com.google.gson.JsonParser
 
 class SaitoWalletTest {
+    @Test fun `an imported null keychain accepts a first private contact without changing original options`() {
+        val initial = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
+        val contact = SaitoWallet.fromPrivateKey("0".repeat(63) + "1").publicKey
+        val options = JsonParser.parseString(initial.exportJson()).asJsonObject.apply {
+            add("keys", com.google.gson.JsonNull.INSTANCE)
+        }
+        val original = SaitoWallet.fromBackup(options.toString())
+        assertEquals(emptyList<String>(), original.chatContacts())
+        assertEquals(1, original.chatSharedSecrets(contact).size)
+        val updated = original.withChatContact(contact)
+        assertEquals(listOf(contact), SaitoWallet.fromBackup(updated.exportJson()).chatContacts())
+        assertEquals(options, JsonParser.parseString(original.exportJson()))
+        assertEquals(initial.publicKey, updated.publicKey)
+    }
     @Test fun `a new private contact survives compatible wallet export without replacing identity or module data`() {
         val initial = SaitoWallet.fromPrivateKey("0".repeat(63) + "2") // Public unsafe fixture only.
         val contact = SaitoWallet.fromPrivateKey("0".repeat(63) + "1").publicKey
