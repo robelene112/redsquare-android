@@ -1424,3 +1424,16 @@ Prior recoveryfindingresolvedinsource; zero newdocumentedbreaches/actionableheur
 Priorfindingresolvedinsource; zero newactionablefindings. No newsigning/sending/retrycalls; messagepreservation/localwarningretained. ActualRED17run38478679915/c76 has9/10PASS120.998s/core86; earlierstorage+metadatarepair stagespass, finalmessage-onlyRefresherrorclearancefails358. Root4storage/failure+3availableoriginalpairs inspected. CorrectednativeGREEN/fullgatespending.
 
 Freshpublicreadbothbackends PASS10run38478905098 1.677s and17run38478907763 4.987s/core86 atc76. Rootraw/readinessJSONinspected, canonicalgroup50/timecutoffemptyarrays+archive/relay/chat/services/auth, installedwalletunchanged andzerooutgoing. Probeclass/protocolunchangedby7363. No realdelivery/decryptionorwholeacceptanceclaim.
+
+
+## Full-regression browse navigation,05e613ed...98ae1aca
+
+### Standards
+
+Zero documentedbreaches/actionableheuristics. Publiclistscroll/assertdisplay/click/positivedestinationtitle beforehistoryready; allreply/tamper/cache/incomplete/identityassertionsretained. Productunchanged.
+
+### Spec
+
+Zero actionablefindings. FeedRefreshcannotstandinforConversation/Profileentry. Full10browsefailures38479941677/05e (3of8PASS31.217s) and17samecachedprofilefailure38479944678/05e (7of8PASS37.201s) qualifyonlyexecutedearlyscope; Chat/history/PIDunexecuted. Root10fourfailurePNGs+profileXML and17cachedprofilepairseen. LocaltestcompilePASS1m29; correctedruntimepending.
+
+Finalproduct7363+docs05e localcontainer5267788d1b57 actualexit0/fullbuild7m1, whileclientwrapper14250exit143didnotstopit. Dockerlogs/actualwaitresultretainedscratch; SourceGate38479942248/05e SUCCESS. Signed12preparecompletedsource05e/certstable, APKsha45313bb70a2f3ee2854c7a133423c9c19d41a9b40e8a7a098debc36fa202c42b, notpublished.

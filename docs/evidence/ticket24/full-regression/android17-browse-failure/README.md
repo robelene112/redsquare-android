@@ -1,0 +1,7 @@
+# Full Android 17 early browsing failure
+
+Run38479944678/source05e613ed. Fullscope stoppedatThreadProfilePreviewTest: 7of8PASS/onefailure37.201s; core86PASS. PrivateChat/history/action/processandlaterfullgatesnotexecuted.
+
+Rootcached-profile-recoveryoriginalPNG/XML inspected. Captures showfeedstillopen; root/authorsemanticswereoffscreen/clipped, thenfeedRefreshmatchedexpectednewscreenreadiness. Source supports failednavigation explanation; nochangedparser/revision/policydefectestablished. Blankcachedconversationcaptureon10establishesnoscreenstate.
+
+Correction98ae1aca scrolls exactlisttarget/assertDisplayed/click/positiveConversationorProfiletitle beforeunchangedready/reply/cache/tamper/identityassertions. Productunchanged, bothreviews0/localtestcompile1m29; correctedruntimepending. Signedpreview12 source05epreparedunpublished, package/certstable.

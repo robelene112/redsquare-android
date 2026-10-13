@@ -1,0 +1,311 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ThreadProfilePreviewTest:
+INSTRUMENTATION_STATUS: test=openingAFeedPostShowsAvailableVerifiedConversationReplies
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: No node found that matches Text + InputText + EditableText contains 'Independent Saito reply' (ignoreCase: false) in scrollable container
+Semantics of the node:
+Node #61 at (l=16.0, t=576.0, r=304.0, b=624.0)px
+CollectionInfo = 'CollectionInfo(rowCount=1, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@85af663'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=217.0, maxValue=217.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 1 child, 19 siblings
+Selector used: (ScrollBy is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.ThreadProfilePreviewTest.openingAFeedPostShowsAvailableVerifiedConversationReplies(ThreadProfilePreviewTest.kt:496)
+
+INSTRUMENTATION_STATUS: stream=
+Error in openingAFeedPostShowsAvailableVerifiedConversationReplies(nl.davidengelen.redsquare.ThreadProfilePreviewTest):
+java.lang.AssertionError: No node found that matches Text + InputText + EditableText contains 'Independent Saito reply' (ignoreCase: false) in scrollable container
+Semantics of the node:
+Node #61 at (l=16.0, t=576.0, r=304.0, b=624.0)px
+CollectionInfo = 'CollectionInfo(rowCount=1, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@85af663'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=217.0, maxValue=217.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 1 child, 19 siblings
+Selector used: (ScrollBy is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.ThreadProfilePreviewTest.openingAFeedPostShowsAvailableVerifiedConversationReplies(ThreadProfilePreviewTest.kt:496)
+
+INSTRUMENTATION_STATUS: test=openingAFeedPostShowsAvailableVerifiedConversationReplies
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=fetchedProfilePostsRemainVisibleAfterCacheWriteFailureAndOfflineRefresh
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=fetchedProfilePostsRemainVisibleAfterCacheWriteFailureAndOfflineRefresh
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=availableConversationRemainsReadableAfterRestartWithoutItsServer
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: No node found that matches Text + InputText + EditableText contains 'Independent Saito reply' (ignoreCase: false) in scrollable container
+Semantics of the node:
+Node #318 at (l=16.0, t=576.0, r=304.0, b=624.0)px
+CollectionInfo = 'CollectionInfo(rowCount=1, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@85af663'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=217.0, maxValue=217.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 1 child, 19 siblings
+Selector used: (ScrollBy is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.ThreadProfilePreviewTest.availableConversationRemainsReadableAfterRestartWithoutItsServer(ThreadProfilePreviewTest.kt:432)
+
+INSTRUMENTATION_STATUS: stream=
+Error in availableConversationRemainsReadableAfterRestartWithoutItsServer(nl.davidengelen.redsquare.ThreadProfilePreviewTest):
+java.lang.AssertionError: No node found that matches Text + InputText + EditableText contains 'Independent Saito reply' (ignoreCase: false) in scrollable container
+Semantics of the node:
+Node #318 at (l=16.0, t=576.0, r=304.0, b=624.0)px
+CollectionInfo = 'CollectionInfo(rowCount=1, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@85af663'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=217.0, maxValue=217.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 1 child, 19 siblings
+Selector used: (ScrollBy is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.ThreadProfilePreviewTest.availableConversationRemainsReadableAfterRestartWithoutItsServer(ThreadProfilePreviewTest.kt:432)
+
+INSTRUMENTATION_STATUS: test=availableConversationRemainsReadableAfterRestartWithoutItsServer
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=olderProfileRepliesAndLikesRemainReachablePastANewerFullPage
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=olderProfileRepliesAndLikesRemainReachablePastANewerFullPage
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=replyAndLikedPostAuthorsOpenProfilesAndBackReturnsToTheOrigin
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: No node found that matches Text + InputText + EditableText contains 'Independent Saito reply' (ignoreCase: false) in scrollable container
+Semantics of the node:
+Node #953 at (l=16.0, t=576.0, r=304.0, b=624.0)px
+CollectionInfo = 'CollectionInfo(rowCount=1, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@85af663'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=217.0, maxValue=217.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 1 child, 19 siblings
+Selector used: (ScrollBy is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.ThreadProfilePreviewTest.replyAndLikedPostAuthorsOpenProfilesAndBackReturnsToTheOrigin(ThreadProfilePreviewTest.kt:103)
+
+INSTRUMENTATION_STATUS: stream=
+Error in replyAndLikedPostAuthorsOpenProfilesAndBackReturnsToTheOrigin(nl.davidengelen.redsquare.ThreadProfilePreviewTest):
+java.lang.AssertionError: No node found that matches Text + InputText + EditableText contains 'Independent Saito reply' (ignoreCase: false) in scrollable container
+Semantics of the node:
+Node #953 at (l=16.0, t=576.0, r=304.0, b=624.0)px
+CollectionInfo = 'CollectionInfo(rowCount=1, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@85af663'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=217.0, maxValue=217.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 1 child, 19 siblings
+Selector used: (ScrollBy is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.ThreadProfilePreviewTest.replyAndLikedPostAuthorsOpenProfilesAndBackReturnsToTheOrigin(ThreadProfilePreviewTest.kt:103)
+
+INSTRUMENTATION_STATUS: test=replyAndLikedPostAuthorsOpenProfilesAndBackReturnsToTheOrigin
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=openingAnIdentityShowsItsSignedPostsRepliesAndAvailableLikedPosts
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=openingAnIdentityShowsItsSignedPostsRepliesAndAvailableLikedPosts
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=profilePostsRepliesAndLikesRemainReadableAfterRestartWithoutTheirServer
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ThreadProfilePreviewTest.profilePostsRepliesAndLikesRemainReadableAfterRestartWithoutTheirServer(ThreadProfilePreviewTest.kt:301)
+
+INSTRUMENTATION_STATUS: stream=
+Error in profilePostsRepliesAndLikesRemainReadableAfterRestartWithoutTheirServer(nl.davidengelen.redsquare.ThreadProfilePreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ThreadProfilePreviewTest.profilePostsRepliesAndLikesRemainReadableAfterRestartWithoutTheirServer(ThreadProfilePreviewTest.kt:301)
+
+INSTRUMENTATION_STATUS: test=profilePostsRepliesAndLikesRemainReadableAfterRestartWithoutTheirServer
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=malformedSignedThreadIsRejectedWithoutHidingAnAuthenticConversation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: No node found that matches Text + InputText + EditableText contains 'Independent Saito reply' (ignoreCase: false) in scrollable container
+Semantics of the node:
+Node #1528 at (l=16.0, t=576.0, r=304.0, b=624.0)px
+CollectionInfo = 'CollectionInfo(rowCount=1, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@85af663'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=217.0, maxValue=217.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 1 child, 19 siblings
+Selector used: (ScrollBy is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.ThreadProfilePreviewTest.malformedSignedThreadIsRejectedWithoutHidingAnAuthenticConversation(ThreadProfilePreviewTest.kt:231)
+
+INSTRUMENTATION_STATUS: stream=
+Error in malformedSignedThreadIsRejectedWithoutHidingAnAuthenticConversation(nl.davidengelen.redsquare.ThreadProfilePreviewTest):
+java.lang.AssertionError: No node found that matches Text + InputText + EditableText contains 'Independent Saito reply' (ignoreCase: false) in scrollable container
+Semantics of the node:
+Node #1528 at (l=16.0, t=576.0, r=304.0, b=624.0)px
+CollectionInfo = 'CollectionInfo(rowCount=1, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@85af663'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=217.0, maxValue=217.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 1 child, 19 siblings
+Selector used: (ScrollBy is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.ThreadProfilePreviewTest.malformedSignedThreadIsRejectedWithoutHidingAnAuthenticConversation(ThreadProfilePreviewTest.kt:231)
+
+INSTRUMENTATION_STATUS: test=malformedSignedThreadIsRejectedWithoutHidingAnAuthenticConversation
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 31.217
+There were 5 failures:
+1) openingAFeedPostShowsAvailableVerifiedConversationReplies(nl.davidengelen.redsquare.ThreadProfilePreviewTest)
+java.lang.AssertionError: No node found that matches Text + InputText + EditableText contains 'Independent Saito reply' (ignoreCase: false) in scrollable container
+Semantics of the node:
+Node #61 at (l=16.0, t=576.0, r=304.0, b=624.0)px
+CollectionInfo = 'CollectionInfo(rowCount=1, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@85af663'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=217.0, maxValue=217.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 1 child, 19 siblings
+Selector used: (ScrollBy is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.ThreadProfilePreviewTest.openingAFeedPostShowsAvailableVerifiedConversationReplies(ThreadProfilePreviewTest.kt:496)
+2) availableConversationRemainsReadableAfterRestartWithoutItsServer(nl.davidengelen.redsquare.ThreadProfilePreviewTest)
+java.lang.AssertionError: No node found that matches Text + InputText + EditableText contains 'Independent Saito reply' (ignoreCase: false) in scrollable container
+Semantics of the node:
+Node #318 at (l=16.0, t=576.0, r=304.0, b=624.0)px
+CollectionInfo = 'CollectionInfo(rowCount=1, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@85af663'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=217.0, maxValue=217.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 1 child, 19 siblings
+Selector used: (ScrollBy is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.ThreadProfilePreviewTest.availableConversationRemainsReadableAfterRestartWithoutItsServer(ThreadProfilePreviewTest.kt:432)
+3) replyAndLikedPostAuthorsOpenProfilesAndBackReturnsToTheOrigin(nl.davidengelen.redsquare.ThreadProfilePreviewTest)
+java.lang.AssertionError: No node found that matches Text + InputText + EditableText contains 'Independent Saito reply' (ignoreCase: false) in scrollable container
+Semantics of the node:
+Node #953 at (l=16.0, t=576.0, r=304.0, b=624.0)px
+CollectionInfo = 'CollectionInfo(rowCount=1, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@85af663'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=217.0, maxValue=217.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 1 child, 19 siblings
+Selector used: (ScrollBy is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.ThreadProfilePreviewTest.replyAndLikedPostAuthorsOpenProfilesAndBackReturnsToTheOrigin(ThreadProfilePreviewTest.kt:103)
+4) profilePostsRepliesAndLikesRemainReadableAfterRestartWithoutTheirServer(nl.davidengelen.redsquare.ThreadProfilePreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ThreadProfilePreviewTest.profilePostsRepliesAndLikesRemainReadableAfterRestartWithoutTheirServer(ThreadProfilePreviewTest.kt:301)
+5) malformedSignedThreadIsRejectedWithoutHidingAnAuthenticConversation(nl.davidengelen.redsquare.ThreadProfilePreviewTest)
+java.lang.AssertionError: No node found that matches Text + InputText + EditableText contains 'Independent Saito reply' (ignoreCase: false) in scrollable container
+Semantics of the node:
+Node #1528 at (l=16.0, t=576.0, r=304.0, b=624.0)px
+CollectionInfo = 'CollectionInfo(rowCount=1, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@85af663'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=217.0, maxValue=217.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 1 child, 19 siblings
+Selector used: (ScrollBy is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.ThreadProfilePreviewTest.malformedSignedThreadIsRejectedWithoutHidingAnAuthenticConversation(ThreadProfilePreviewTest.kt:231)
+
+FAILURES!!!
+Tests run: 8,  Failures: 5
+
+
+INSTRUMENTATION_CODE: -1

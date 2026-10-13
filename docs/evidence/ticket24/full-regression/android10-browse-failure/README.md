@@ -1,0 +1,7 @@
+# Full Android 10 early browsing failure
+
+Run38479941677/source05e613ed. Fullscope stoppedatThreadProfilePreviewTest: 3of8PASS/5fail31.217s; core86PASS. PrivateChat/history/action/processandlaterfullgatesnotexecuted.
+
+RootfouroriginalPNGfailuresandprofileXML inspected. Captures showfeedstillopen; root/authorsemanticswereoffscreen/clipped, thenfeedRefreshmatchedexpectednewscreenreadiness. Source supports failednavigation explanation; nochangedparser/revision/policydefectestablished. Blankcachedconversationcaptureon10establishesnoscreenstate.
+
+Correction98ae1aca scrolls exactlisttarget/assertDisplayed/click/positiveConversationorProfiletitle beforeunchangedready/reply/cache/tamper/identityassertions. Productunchanged, bothreviews0/localtestcompile1m29; correctedruntimepending. Signedpreview12 source05epreparedunpublished, package/certstable.
