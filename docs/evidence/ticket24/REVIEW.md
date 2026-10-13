@@ -1261,3 +1261,6 @@ No native newPID acceptance yet; prioractions do not establish this coverage.
 
 Local tracer compilation PASS1m21s. Prior exact reactionRetry6cases GREEN10
 38470363216/40.583s and17 38470366652/61.425s at5053fec7/core86. NewPID next.
+
+
+ExactreactionRetry GREEN10run38470363216 sixcases/40.583s and17run38470366652 sixcases/61.425s source5053/core86. Root26XMLs andthreeuniqueRetryoriginalPNGs each; both17 stalecountXML/pairedcorrectPNGs qualified. Retried original captures cmp identical, pinnedconstructor/WASM/receiver independentcheckexit0. NewactualPID48858 compile1m21/reviews0/0, broadChatUI runs10=38471567896/17=38471571748 at9111active. No newreactionPID acceptance untilreports inspected.
