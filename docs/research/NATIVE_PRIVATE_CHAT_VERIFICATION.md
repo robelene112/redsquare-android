@@ -168,3 +168,25 @@ and bounded fix reviews pending.
 Warning-order correction compiles app Kotlin1m25s. Core unchanged; this local
 check is compilation only, no new core/APK/runtime claim. Corrected focused
 Android17 and bounded fix reviews next; original focused10 source stays fed20de.
+
+Actual live-selected GREEN10run38344712980 atfed20de PASS3/12.975s/oneOK/
+noassumptions/actualdeaths; core82/source gates. Thirteen hashes/root fiveXMLs
+and live+recreated originals confirm delayed Relay message,13ACK, then encrypted
+local recovery without redelivery/unavailableArchive. Source precedes warning
+correction d62a964; corrected17run38344995062 pending. Bounded warning fix
+reviews both0. First Chat permission prompt next; send/listener/actualdeath and
+full-ticket acceptance remain unfinished.
+
+Corrected selected-live actualGREEN17run38344995062 atd62a964 passes3/
+41.36s/oneOK/noassumptions/actualdeaths; core82/source gates. Thirteen hashes,
+root fiveXMLs and live/failed-save/recreated originals confirm same observable
+reception/cache gates on corrected source. Both warning-fix reviews0. First-Chat
+optional permission tracer in progress; no fullSDK/Pixel/whole-ticket claim.
+
+First Chat optional-alerts native tracer compiles1m40s, skips through actual
+shared permission UI and verifies no initial feed offer/repeated offer after
+recreation. Cleanup restores each preference independently and preserves opaque
+wallet. Revised build prints SUCCESS1m31s but command exits143; not claimed as
+a successful command, cause uninvestigated. Unchanged recheck exits0/SUCCESS19s,
+all50tasks up-to-date. Actual four-case permission RED next; app prompt not wired
+into Chat yet.

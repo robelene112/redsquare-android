@@ -16,6 +16,64 @@ import java.io.File
 class PrivateChatPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
 
+    @Test fun firstChatOffersOptionalAlertsAndSkippingKeepsChatAvailable() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        check(context.packageName == "nl.davidengelen.redsquare.dev")
+        check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
+        if (android.os.Build.VERSION.SDK_INT >= 33) check(context.checkSelfPermission(
+            android.Manifest.permission.POST_NOTIFICATIONS) == android.content.pm.PackageManager.PERMISSION_DENIED)
+        val wallet = AndroidWalletStore(context).loadOrCreate()
+        val original = wallet.exportJson()
+        val preferences = listOf("wallet-backup-reminders" to "hidden:${wallet.publicKey}",
+            "notification-permission" to "offered").map { (name, key) ->
+            val prefs = context.getSharedPreferences(name, 0)
+            Triple(prefs, key, if (prefs.contains(key)) prefs.getBoolean(key, false) else null)
+        }
+        val peer = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", archiveResponse = { "[]" })
+        var primary: Throwable? = null
+        try {
+            preferences.forEach { (prefs, key, _) -> check(prefs.edit().putBoolean(key, key != "offered").commit()) }
+            peer.start().use { server ->
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                    .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
+                    withFailureCapture({ captureNativeScreen(File(context.cacheDir,
+                        "private-chat-evidence/first-chat-permission-failure.png")) }) {
+                        waitFor("Chat")
+                        ui.onAllNodesWithText("Not now").assertCountEquals(0)
+                        ui.onNodeWithText("Chat").assertIsDisplayed().performClick()
+                        waitFor("Android notification alerts")
+                        captureNativeScreen(File(context.cacheDir, "private-chat-evidence/first-chat-permission-offer.png"),
+                            "Android notification alerts")
+                        ui.onNodeWithText("Not now").assertIsDisplayed().performClick()
+                        ui.waitUntil(15_000) { context.getSharedPreferences("notification-permission", 0).getBoolean("offered", false) }
+                        waitFor("Private messages are encrypted.")
+                        ui.onAllNodesWithText("Not now").assertCountEquals(0)
+                        captureNativeScreen(File(context.cacheDir, "private-chat-evidence/first-chat-permission-skipped.png"),
+                            "Private messages are encrypted.")
+                        scenario.recreate()
+                        waitFor("Private messages are encrypted.")
+                        ui.onAllNodesWithText("Not now").assertCountEquals(0)
+                        captureNativeScreen(File(context.cacheDir, "private-chat-evidence/first-chat-permission-recreated.png"),
+                            "Private messages are encrypted.")
+                        check(AndroidWalletStore(context).loadOrCreate().exportJson() == original)
+                        check(peer.transactions.isEmpty() && peer.reports.isEmpty())
+                        peer.assertHealthy()
+                    }
+                }
+            }
+        } catch (failure: Throwable) { primary = failure; throw failure }
+        finally {
+            val restoration = preferences.map { (prefs, key, previous) -> {
+                check(prefs.edit().apply {
+                    if (previous == null) remove(key) else putBoolean(key, previous)
+                }.commit())
+            } } + listOf<() -> Unit>({ check(AndroidWalletStore(context).loadOrCreate().exportJson() == original) })
+            cleanupAfterTest(primary, *restoration.toTypedArray())
+        }
+    }
+
     @Test fun anImportedContactOpensItsAvailableAuthenticatedPrivateHistory() = exerciseHistory(false)
 
     @Test fun failedLocalSavingDoesNotLoseReadableHistoryOnRefresh() = exerciseHistory(true)
