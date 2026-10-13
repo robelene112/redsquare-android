@@ -1264,3 +1264,22 @@ Local tracer compilation PASS1m21s. Prior exact reactionRetry6cases GREEN10
 
 
 ExactreactionRetry GREEN10run38470363216 sixcases/40.583s and17run38470366652 sixcases/61.425s source5053/core86. Root26XMLs andthreeuniqueRetryoriginalPNGs each; both17 stalecountXML/pairedcorrectPNGs qualified. Retried original captures cmp identical, pinnedconstructor/WASM/receiver independentcheckexit0. NewactualPID48858 compile1m21/reviews0/0, broadChatUI runs10=38471567896/17=38471571748 at9111active. No newreactionPID acceptance untilreports inspected.
+
+## Recreated cached-message visibility,ccd5b168...1e5dddce
+
+### Standards
+
+Zero documented breaches or actionable smells. Public-list scroll locates the
+exactnoneditable retainedbody beforeunchanged display. Cache-original/keyrestore/
+identity/noextra-send gates persist. Productunchanged; correctedrunpending.
+
+### Spec
+
+Zero actionable findings. Explicit scrolling preserves the available-history/
+localcache observable requirement. Prior10 establishes an offscreen visibility
+failure, not losthistory or its cause. Actions and newprocess gates unexecuted.
+
+Localtracer compilation PASS1m19s. Android17broadrun38471571748/9111 passes
+24history149.996s+6actions37.408s/core86 and newreaction actualPID5422to5506,
+cold4.874s/restore0.140s, exactreactioncheckpoint andzero sends. Rootfiveprocess
+XML/PNGs/checkpoints inspected; completeUI inspection/retention follows.
