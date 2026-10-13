@@ -7,6 +7,63 @@ one question at a time when a material choice really needs the owner.
 
 ## Current work
 
+Verified 2026-10-13 at 23:35 UTC. #25 is active. Twenty of the original 35
+implementation tickets are closed (#2–#15, #18, #20–#24).
+
+**Owner priority:** finish #25, then implement [early visual beta #37](https://github.com/robelene112/redsquare-android/issues/37)
+before #26 and the remaining features. Polish the existing screens into a beta
+David can share with friends. #37 is a child of #35; it does not complete #35's
+full-scope acceptance or physical Pixel measurements. Keep tickets sequential.
+
+**Current product:** private Chat includes encrypted send/read, imported and
+cached available history, older pagination, Reply/Copy, compatible reactions,
+exact manual retries, drafts and actual process recovery. Source review base is
+`c102f891`; full source reviews and subsequent fixes have no remaining actionable
+findings. Canonical research: `docs/research/NATIVE_PRIVATE_CHAT_VERIFICATION.md`;
+separate review reports: `docs/evidence/ticket24/REVIEW.md`.
+
+**Current acceptance runs:** full Android 10 `38484421113` and Android 17
+`38484424347`, both source `4e3a6ea7`, remain active. Do not cancel or redispatch
+without results or a new concern. These reruns include the latest product fix
+`b7541e6a`, which consolidates four feed navigation buttons into two rows.
+Actual diagnostic run `38483374543` captured a screen entirely consumed by
+backup, navigation and outage text, leaving no visible Following feed. The fix
+preserves labels, destinations and wallet guards, freeing 96 dp. Both review
+axes report zero findings; debug/test APK compilation passed in 2m40s.
+
+Before that layout fix, focused final Chat checks passed both versions at
+`a47370b5`: Android 10 run `38481767940` (24 history and 10 action tests),
+Android 17 run `38481770606` (same counts). Actual process recovery retained
+wallet/backend, cached originals, draft and uncertain message/reaction originals
+without transmissions. Both subsequent full attempts also passed these Chat
+checks and browse8, then stalled in Following. Later full-app checks did not
+execute in those failed attempts. Current corrected full acceptance is pending.
+
+**Phone review:** public preview11 remains https://davidengelen.nl/redsquare/.
+Signed preview13 is prepared, unpublished, at `.scratch/review-builds/13/`.
+`review-build` session13639 completed successfully in 2m41s. Version0.1.13,
+package `nl.davidengelen.redsquare`, same signing certificate. Public metadata
+is retained in `docs/evidence/ticket24/signed-preview13-prepared/`; APK hash
+`8b822577599a9f2864ec352088d0a2cbba4159a847099aaec6d9154ea00cf3b6`.
+Manifest source `21ee1c85` differs from CI4e3a6ea7 only in documentation.
+Preview12 is superseded and must not be published as this ticket's completion.
+Publish13 only after corrected runtime acceptance, using the canonical script,
+then retain results, complete #25 and start #37. Physical Pixel/current13
+continuity is not established by package/certificate metadata; #35 retains it.
+
+No owned Gradle process remains. Current local changes are documentation and
+evidence commits plus protected untracked
+`docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`, which belongs to #26. Never stage
+or delete that file. No production node/configuration/private-wallet/database
+writes or store submission are authorized. Public reads and signed review-site
+publication follow the existing scope. Commit/push each completed ticket.
+
+## Historical checkpoints
+
+The following records are historical evidence. Current status is the section
+above; old statements about active runs or unimplemented behavior are superseded.
+
+
 #25 is active;20of35 tickets are closed (#2–#15,#18,#20–#24).
 Stable phone preview0.1.11/sourcea36972f remains https://davidengelen.nl/redsquare/.
 Owner's looks-good does not establish Pixel timing or update continuity.
@@ -63,7 +120,7 @@ backend isolation, final whole reviews/fullSDK/release/lint/signed update/public
 reads. No Pixel/fullticket claim. Protected untracked
 `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md` belongs#26; never stage/delete.
 No production node/private-wallet/database writes or store submission authorized.
-Top+Gitlog are current; older notes below are chronological evidence.
+Git history and the current section above supersede this historical checkpoint.
 
 #24, "Show in-app social notifications", is complete after both full emulator
 runs and both final evidence reviews. Twenty of35 tickets are closed
