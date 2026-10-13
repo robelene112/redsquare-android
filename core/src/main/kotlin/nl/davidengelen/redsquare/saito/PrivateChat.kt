@@ -22,20 +22,24 @@ data class ReceivedPrivateChat(val counterparty: String, val envelope: String, v
 object PrivateChat {
     private val gson = GsonBuilder().setStrictness(Strictness.STRICT).disableHtmlEscaping().create()
 
-    fun receive(wallet: SaitoWallet, networkTransaction: ByteArray): ReceivedPrivateChat {
+    fun receive(wallet: SaitoWallet, networkTransaction: ByteArray): ReceivedPrivateChat =
+        recover(wallet, originalEnvelope(networkTransaction))
+
+    /** Extract the original; callers must authenticate it before accepting either message or metadata. */
+    fun originalEnvelope(networkTransaction: ByteArray): String {
         val outer = SaitoEnvelope.unverifiedNetworkEnvelope(networkTransaction)
         val detached = gson.fromJson(outer, JsonObject::class.java)
         val bytes = Base64.getDecoder().decode(detached.get("m").asString)
         val utf8 = Charsets.UTF_8.newDecoder().onMalformedInput(CodingErrorAction.REPORT)
             .onUnmappableCharacter(CodingErrorAction.REPORT).decode(ByteBuffer.wrap(bytes)).toString()
         val payload = gson.fromJson(utf8, com.google.gson.JsonElement::class.java)
-        val envelope = if (payload.isJsonPrimitive && payload.asJsonPrimitive.isString) outer else {
+        return if (payload.isJsonPrimitive && payload.asJsonPrimitive.isString) outer else {
             require(payload.isJsonObject)
             val relay = payload.asJsonObject
+            if (relay.requiredString("module") == "Chat" && relay.requiredString("request") == "chat like") return outer
             require(relay.requiredString("module") == "Relay" && relay.requiredString("request") == "chat relay")
             SaitoEnvelope.fromSignedJson(relay.getAsJsonObject("data"))
         }
-        return recover(wallet, envelope)
     }
 
     /** Discover only from original authenticated participants and a successfully decrypted private body. */

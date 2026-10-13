@@ -54,6 +54,10 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     var olderRequest by remember(wallet, backend, counterparty) { mutableIntStateOf(0) }
     var olderCursor by remember(wallet, backend, counterparty) { mutableStateOf<Long?>(null) }
     var closing by remember(wallet.publicKey, backend, counterparty) { mutableStateOf(false) }
+    val reactionState = remember(wallet, backend, counterparty, endpoint) {
+        counterparty?.let { ChatReactionState(context, wallet, backend, it, endpoint, scope) }
+    }
+    LaunchedEffect(reactionState) { reactionState?.load() }
     fun close() {
         if (closing) return
         closing = true
@@ -127,8 +131,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                 }
                 try {
                     SaitoPeer(wallet, endpoint, onIncoming = { bytes ->
-                        val received = PrivateChat.receive(wallet, bytes)
-                        ChatHistoryStore(context, wallet, backend, received.counterparty).save(listOf(received.envelope))
+                        receivePrivateChat(context, wallet, backend, bytes)
                         updates.trySend(Unit)
                         true // Even if the UI closes, original authenticated history discovers the contact on reopening.
                     }).use { peer ->
@@ -155,25 +158,22 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
         catch (_: Exception) { cacheFailed = true }
         try {
             coroutineScope {
-                val updates = Channel<ChatHistoryStore.Read>(Channel.CONFLATED)
+                val updates = Channel<ChatIncoming>(Channel.UNLIMITED)
                 val receiver = launch {
                     for (saved in updates) {
-                        entries = ChatHistoryStore.merge(entries, saved.entries)
-                        if (saved.incomplete) incomplete = true
+                        saved.history?.let { history ->
+                            entries = ChatHistoryStore.merge(entries, history.entries)
+                            if (history.incomplete) incomplete = true
+                        } ?: reactionState?.load()
                     }
                 }
                 try {
                     SaitoPeer(wallet, endpoint, onIncoming = { bytes ->
-                        val received = PrivateChat.receive(wallet, bytes)
-                        if (received.counterparty != contact) {
-                            ChatHistoryStore(context, wallet, backend, received.counterparty)
-                                .save(listOf(received.envelope))
-                            true
-                        } else {
-                            val saved = cache.save(listOf(received.envelope))
+                        val saved = receivePrivateChat(context, wallet, backend, bytes)
+                        if (saved.contact == contact) {
                             updates.trySend(saved)
-                            true // Original authenticated ciphertext is durably saved before acknowledgement.
                         }
+                        true // Original authenticated message or metadata is durably saved before acknowledgement.
                     }).use { peer ->
                         require(setOf("archive", "relay").all { it in peer.services() })
                         try {
@@ -302,10 +302,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                 (message.author == wallet.publicKey || !personal.policy.hidesIncomingChat(message.author)) }
             if (visible.isEmpty() && !loading && !failed) Text(stringResource(R.string.chat_no_messages))
             val replies = remember(wallet, backend, contact) { ChatReplyActions() }
-            val reactions = remember(wallet, backend, contact, endpoint) {
-                ChatReactionState(context, wallet, backend, contact, endpoint, scope)
-            }
-            LaunchedEffect(reactions) { reactions.load() }
+            val reactions = requireNotNull(reactionState)
             val messageList = rememberLazyListState()
             LazyColumn(Modifier.weight(1f), state = messageList) {
                 items(visible, key = { it.id }) { message ->

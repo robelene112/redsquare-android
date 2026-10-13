@@ -57,6 +57,13 @@ internal class ChatReactionStore(private val context: Context, private val walle
         save(Saved(previous.events + event, transaction, Status.UNKNOWN))
     }
 
+    fun receive(envelope: String): Saved = synchronized(SaitoLocalState.lock) {
+        val event = PrivateChatLike.read(wallet, contact, envelope)
+        val previous = load()
+        if (previous.events.any { it.id == event.id }) previous
+        else save(previous.copy(events = previous.events + event))
+    }
+
     fun assertSelected() {
         check(AndroidWalletStore(context).loadExisting().exportJson() == wallet.exportJson())
         check(AndroidBackendStore(context).load() == backend)
