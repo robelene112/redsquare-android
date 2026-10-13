@@ -443,3 +443,15 @@ Zero documented breaches and zero actionable smell findings. Native tests use in
 Zero actionable findings. Testscover#25 blockedincoming/mutedChataccessible/importedownmentioned recovery. Blockchecks hiddenbefore/afterrecreate; removingblockwithArchiveunavailable mustrestoreretainedtext. Preconditionpolicybytes includedinsnapshot/restoration. Prior14GREENa05 bothSDKs65.297/105.853/15XML andmanifestverified; new17executionpendingatreview.
 
 Findings: Standards0; Spec0.
+
+## Exact original Retry tracer, 529aa5b...976158b
+
+### Standards
+
+Zero documented breaches and zero actionable smell findings. Independentoriginal/realencryptedadapter precondition; assertions observe explicitaction/networkinterruption/persistedstatus/recreation/transport. Bothretrybroadcasts mustmatchalloriginalsignedbytes afterfreshsinglehopremoved; Relayretainsoriginalsignature; opening/recreating leavescountunchanged. Cleanup/scopedearlyreturn retainsopaqueidentityfiles. Prior17GREEN separatedfrom18pending/Retryminimumunimplemented.
+
+### Spec
+
+Zero actionable findings. Supportsparent retryoperationidentity/no duplicatevisibleeffects and#25 truthfulrecovery. Real encryptedadapterseededindependentoriginal→noautosend→explicitretry/interruption/recreatedSubmitted/secondexplicitretry/Forwardedretention. Exactoriginalnetwork/Relayid/recipienttext checked, singularmessage nodes preventduplicatevisibleentries. SyntheticdurableUNKNOWN notactualprocessinterruption. Prior17GREEN/all24XML/manifestsverify. No RetryGREEN/wholeacceptanceclaim.
+
+Findings: Standards0; Spec0.

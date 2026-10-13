@@ -45,6 +45,13 @@ internal class ChatWorkStore(private val context: Context, private val wallet: S
         save(Saved("", transaction, Status.UNKNOWN))
     }
 
+    fun prepareRetry(id: String): Saved = synchronized(SaitoLocalState.lock) {
+        assertSelected()
+        val previous = load()
+        check(previous.transaction?.id == id && previous.status in listOf(Status.UNKNOWN, Status.SUBMITTED))
+        save(previous.copy(status = Status.UNKNOWN))
+    }
+
     fun assertSelected() {
         check(AndroidWalletStore(context).loadExisting().exportJson() == wallet.exportJson())
         check(AndroidBackendStore(context).load() == backend)

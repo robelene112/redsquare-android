@@ -1,0 +1,3 @@
+# Explicit original Retry RED, Android10
+
+Source976158b, run38389762051. Eighteen cases complete in76.122s:17PASS+one failure becauseRetry nodeisabsent. The independently seeded original is readable from real encryptedwork andnoautomatic sends occurred. Rootall26 XMLparsed/originalhistory-first-failure.png viewed: bothincoming andownoriginaltexts visible, statusUnknown, disabledMessage/Send, noRetry. This proves current recoverydeadend; interruptedSubmitted/secondRetry tail hasnotexecutedbeforeminimum andisnotclaimedseparateRED. Testfixtureis already-durable syntheticUNKNOWN, notactualprocessdeath. Core86/rawexit0/mandatoryOKgaterejection retained.

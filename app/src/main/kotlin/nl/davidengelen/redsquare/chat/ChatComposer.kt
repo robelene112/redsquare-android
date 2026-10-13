@@ -49,6 +49,8 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
             catch (_: Exception) { failed = true }
         }
     }
+    val retrying = saved.transaction != null && (saved.status == ChatWorkStore.Status.UNKNOWN ||
+        (saved.status == ChatWorkStore.Status.SUBMITTED && text.isBlank()))
     Column {
         when (saved.status) {
             ChatWorkStore.Status.UNKNOWN -> Text(stringResource(R.string.chat_send_unknown))
@@ -60,16 +62,21 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
         Row(verticalAlignment = Alignment.CenterVertically) {
             OutlinedTextField(value = text, onValueChange = { text = it }, label = { Text(stringResource(R.string.chat_message)) },
                 modifier = Modifier.weight(1f), enabled = ready && !sending && saved.status != ChatWorkStore.Status.UNKNOWN)
-            Button(enabled = permitted && ready && !sending && text.isNotBlank() && saved.status != ChatWorkStore.Status.UNKNOWN,
+            Button(enabled = permitted && ready && !sending && (retrying || text.isNotBlank()),
                 onClick = {
                     sending = true
                     val outgoing = text
+                    val original = if (retrying) saved.transaction else null
                     scope.launch {
                         try {
                             val candidate = writes.withLock {
-                                val prepared = withContext(Dispatchers.IO) { PrivateChat.create(wallet, contact, outgoing, System.currentTimeMillis()) }
-                                saved = withContext(NonCancellable + Dispatchers.IO) { work.prepare(prepared) }
-                                text = ""
+                                val prepared = original ?: withContext(Dispatchers.IO) {
+                                    PrivateChat.create(wallet, contact, outgoing, System.currentTimeMillis())
+                                }
+                                saved = withContext(NonCancellable + Dispatchers.IO) {
+                                    if (original == null) work.prepare(prepared) else work.prepareRetry(prepared.id)
+                                }
+                                if (original == null) text = ""
                                 onHistory(withContext(Dispatchers.IO) { history.save(listOf(prepared.envelope())).entries })
                                 prepared
                             }
@@ -101,7 +108,7 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
                         catch (_: Exception) { failed = true }
                         finally { sending = false }
                     }
-                }) { Text(stringResource(R.string.chat_send)) }
+                }) { Text(stringResource(if (retrying) R.string.retry else R.string.chat_send)) }
         }
     }
 }
