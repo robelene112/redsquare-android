@@ -14,6 +14,7 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import nl.davidengelen.redsquare.chat.ChatHistoryStore
 import nl.davidengelen.redsquare.chat.ChatWorkStore
+import nl.davidengelen.redsquare.chat.ChatReactionStore
 import nl.davidengelen.redsquare.saito.*
 import org.junit.Assert.*
 import org.junit.Rule
@@ -90,6 +91,11 @@ class PrivateChatProcessRecoveryTest {
         ChatWorkStore(context, fixtureWallet, backend, pendingContact).prepare(candidate)
         row.addProperty("incomingDigest", digest(incoming)); row.addProperty("candidate", candidate.id)
         row.addProperty("candidateDigest", digest(candidate.envelope()))
+        val reactionReference = instrumentation.context.assets.open("native-private-chat-like-reference.json")
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject }
+        val reaction = SaitoTransaction.restore(reactionReference.get("networkBase64").asString)
+        ChatReactionStore(context, fixtureWallet, backend, contact).prepare(reaction)
+        row.addProperty("reaction", reaction.id); row.addProperty("reactionDigest", digest(reaction.envelope()))
         val controlled = peer()
         controlled.start().use { server ->
             launch(server.port) {
@@ -99,6 +105,10 @@ class PrivateChatProcessRecoveryTest {
                     ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty()
                 }
                 ui.onNode(hasSetTextAction()).performTextReplacement(draftText)
+                waitFor(context.getString(R.string.chat_reaction_unknown)); waitFor("1 like")
+                waitForEnabled(context.getString(R.string.chat_reaction_retry))
+                ui.onNodeWithText("Unlike").assertIsNotEnabled()
+                capture("unknown-reaction-before-death.png", context.getString(R.string.chat_reaction_unknown))
                 ui.onNodeWithText("Back").performClick(); waitFor("Public key")
                 openContact(pendingContact)
                 waitFor(context.getString(R.string.chat_send_unknown)); waitFor(pendingText)
@@ -133,6 +143,10 @@ class PrivateChatProcessRecoveryTest {
                         JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject
                     }
                 waitFor(reference.getAsJsonObject("plaintext").get("message").asString)
+                waitFor(context.getString(R.string.chat_reaction_unknown)); waitFor("1 like")
+                waitForEnabled(context.getString(R.string.chat_reaction_retry))
+                ui.onNodeWithText("Unlike").assertIsNotEnabled()
+                capture("unknown-reaction-cold-recovered.png", context.getString(R.string.chat_reaction_unknown))
                 capture("draft-and-cache-cold-recovered.png", draftText)
                 assertState(row, backend, controlled)
                 val retained = ChatHistoryStore(context, fixtureWallet, backend, contact).load().entries
@@ -176,6 +190,11 @@ class PrivateChatProcessRecoveryTest {
         assertEquals(ChatWorkStore.Status.UNKNOWN, saved.status)
         assertEquals(row.get("candidate").asString, saved.transaction!!.id)
         assertEquals(row.get("candidateDigest").asString, digest(saved.transaction.envelope()))
+        val reaction = ChatReactionStore(context, fixtureWallet, backend, contact).load()
+        assertEquals(ChatReactionStore.Status.UNKNOWN, reaction.status)
+        assertEquals(row.get("reaction").asString, reaction.transaction!!.id)
+        assertEquals(row.get("reactionDigest").asString, digest(reaction.transaction.envelope()))
+        assertEquals(listOf(row.get("reaction").asString), reaction.events.map { it.id })
         assertTrue(peer.clientKeys.isNotEmpty() && peer.clientKeys.all { it == fixtureWallet.publicKey })
         assertTrue(peer.transactions.isEmpty()); assertTrue(peer.reports.isEmpty())
         assertTrue(peer.relayedMessages.isEmpty()); peer.assertHealthy()
@@ -184,7 +203,8 @@ class PrivateChatProcessRecoveryTest {
     private fun fileNames(backend: SaitoBackend): Set<String> =
         (listOf("wallet.v1", "wallet.recovery.v1") + listOf(contact, pendingContact).flatMap { key ->
             val id = PrivateChat.conversationId(fixtureWallet.publicKey, key)
-            listOf("chat.${backend.id}.${fixtureWallet.publicKey}.$id.v1", "chatwork.${backend.id}.${fixtureWallet.publicKey}.$id.v1")
+            listOf("chat.${backend.id}.${fixtureWallet.publicKey}.$id.v1", "chatwork.${backend.id}.${fixtureWallet.publicKey}.$id.v1",
+                "chatreactions.${backend.id}.${fixtureWallet.publicKey}.$id.v1")
         }).flatMap { base -> listOf(base, "$base.bak", "$base.new") }.toSet()
     private fun preferenceKeys() = listOf("notification-permission" to "offered",
         "wallet-backup-reminders" to "hidden:${fixtureWallet.publicKey}")

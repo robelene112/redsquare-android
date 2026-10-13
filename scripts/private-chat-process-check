@@ -47,6 +47,9 @@ try:
         raise AssertionError('Invalid public owner')
     if not re.fullmatch(r'[0-9a-f]{128}', row['candidate']):
         raise AssertionError('Invalid signed original ID')
+    if (not re.fullmatch(r'[0-9a-f]{128}', row['reaction']) or
+            not re.fullmatch(r'[0-9a-f]{64}', row['reactionDigest'])):
+        raise AssertionError('Invalid original reaction checkpoint')
     if not isinstance(row['pid'], int) or row['pid'] <= 0:
         raise AssertionError('Invalid original process ID')
     if str(row['pid']) in adb('shell', 'pidof', package, check=False).stdout.split():
@@ -65,7 +68,7 @@ try:
     (args.evidence / 'recovered-checkpoint.json').write_text(json.dumps(recovered, indent=2) + '\n')
     (args.evidence / 'continuity.txt').write_text(
         'PASS: actual process death, full fixture wallet/backend continuity, exact cached original, '
-        'unsent typed draft and uncertain original under unavailable Archive, zero transmissions.\n')
+        'unsent typed draft and uncertain message/reaction originals under unavailable Archive, zero transmissions.\n')
 except BaseException as failure:
     primary = failure
     raise
