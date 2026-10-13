@@ -5,6 +5,27 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class PrivateChatTest {
+    @Test fun importedConversationIdsRecoverAuthenticatedCounterpartiesWithoutSavedContactKeys() {
+        val reference = requireNotNull(javaClass.getResourceAsStream("/native-private-chat-reference.json"))
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject }
+        val options = JsonParser.parseString(SaitoWallet.fromPrivateKey("0".repeat(63) + "2").exportJson()).asJsonObject
+        options.add("chat", com.google.gson.JsonObject().apply {
+            add("groups", com.google.gson.JsonArray().apply { add(reference.get("groupId")) })
+        })
+        val wallet = SaitoWallet.fromBackup(options.toString())
+        assertEquals(emptyList<String>(), wallet.chatContacts())
+        assertEquals(listOf(reference.get("groupId").asString), wallet.chatHistoryIds())
+        val original = reference.get("archiveEnvelope").asString
+        val recovered = PrivateChat.recover(wallet, original, wallet.chatHistoryIds().single())
+        assertEquals(reference.get("sender").asString, recovered.counterparty)
+        assertEquals(reference.get("signature").asString, recovered.message.id)
+        assertEquals(reference.getAsJsonObject("plaintext").get("message").asString, recovered.message.text)
+        assertEquals(original, recovered.envelope)
+        org.junit.Assert.assertThrows(IllegalArgumentException::class.java) {
+            PrivateChat.recover(wallet, original, "0".repeat(64))
+        }
+        assertEquals(options, JsonParser.parseString(wallet.exportJson()))
+    }
     @Test fun anUnsignedRelayCannotChangeTheOriginalAuthenticatedPrivateMessage() {
         val reference = requireNotNull(javaClass.getResourceAsStream("/native-private-chat-reference.json"))
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject }

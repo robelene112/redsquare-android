@@ -35,10 +35,17 @@ object PrivateChat {
             require(relay.requiredString("module") == "Relay" && relay.requiredString("request") == "chat relay")
             SaitoEnvelope.fromSignedJson(relay.getAsJsonObject("data"))
         }
+        return recover(wallet, envelope)
+    }
+
+    /** Discover only from original authenticated participants and a successfully decrypted private body. */
+    fun recover(wallet: SaitoWallet, envelope: String, expectedConversation: String? = null): ReceivedPrivateChat {
         val signed = SaitoEnvelope.decodePayload(envelope)
         val counterparty = if (signed.author != wallet.publicKey) signed.author else
             signed.recipients.distinct().filter { it != wallet.publicKey }.single()
-        return ReceivedPrivateChat(counterparty, envelope, read(wallet, envelope, counterparty))
+        val message = read(wallet, envelope, counterparty)
+        require(expectedConversation == null || message.conversationId == expectedConversation)
+        return ReceivedPrivateChat(counterparty, envelope, message)
     }
 
     fun read(wallet: SaitoWallet, signedInner: JsonObject, counterparty: String): PrivateChatMessage =

@@ -325,3 +325,15 @@ before private verified Archive discovery, not wallet-ID or permanence inference
 Imported-ID native tracer compiles1m32s, expected actualeightcaseRED pending.
 Publicread10run38352335633 at e2eb51d success; raw endpointreport inspectionnext.
 No live-send/nativeavailable-nonempty history inferred from unusedpairreads.
+
+Public-read originalJSON/runner inspected:10run38352335633 PASS1/1.649s,
+both approved endpoints authenticated Chat/Archive/Relay and0rows forunusedpair.
+Private imported-ID core tracer actualcompilerRED27s missingchatHistoryIds/recover;
+minimum combines lower-case existing options.chat groupIDs with knowncontacts,
+derives a counterpart only from original verified/decrypted private participants,
+and rejects mismatched expectedconversation. CoreGREEN pending. Actual8caseUI
+RED10run38352677744 atd4d5f01 pending; discovery not implemented prematurely.
+
+Imported-ID core targetedGREEN9/55s validates exact pinned original/decrypted
+text/counterparty and expectedgroupbinding without contact keys; originalwallet
+export remains unchanged. NativeUI discovery stillpending actualRED evidence.
