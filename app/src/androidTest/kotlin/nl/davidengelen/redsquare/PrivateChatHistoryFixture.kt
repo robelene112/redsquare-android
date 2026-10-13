@@ -326,8 +326,13 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             ui.onNodeWithText(text).assertIsDisplayed()
                             captureNativeScreen(File(context.cacheDir, "private-chat-evidence/available-private-reaction-cached.png"), text)
                             historyUnavailable.set(false)
+                            val readsBeforeRefresh = historyReads.get()
                             ui.onNodeWithText("Refresh").assertIsEnabled().performClick()
+                            ui.waitUntil(15_000) { historyReads.get() > readsBeforeRefresh &&
+                                ui.onAllNodesWithText(context.getString(R.string.chat_load_error))
+                                    .fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty() }
                             waitForEnabled("Refresh")
+                            ui.onAllNodesWithText(context.getString(R.string.chat_load_error)).assertCountEquals(0)
                             ui.onNodeWithText("1 like").assertIsDisplayed()
                             ui.onAllNodesWithText(context.getString(R.string.chat_incomplete)).assertCountEquals(0)
                             check(store.loadOrCreate().exportJson() == wallet.exportJson())
