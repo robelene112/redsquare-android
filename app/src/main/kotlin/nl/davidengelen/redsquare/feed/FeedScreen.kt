@@ -273,12 +273,22 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
                 Text(stringResource(R.string.search_title))
             }
         }
-        TextButton(enabled = wallet != null, onClick = { reviewingQueue = true }) { Text(stringResource(R.string.post_queue_title)) }
-        TextButton(enabled = wallet != null, onClick = { navigation.add(BrowseDestination.Notifications) }) {
-            Text(stringResource(R.string.notifications_title))
+        Row {
+            TextButton(enabled = wallet != null, onClick = { reviewingQueue = true }) {
+                Text(stringResource(R.string.post_queue_title))
+            }
+            TextButton(enabled = wallet != null, onClick = { reviewingChanges = true }) {
+                Text(stringResource(R.string.author_saved_changes))
+            }
         }
-        TextButton(enabled = wallet != null, onClick = { reviewingChanges = true }) { Text(stringResource(R.string.author_saved_changes)) }
-        TextButton(enabled = wallet != null, onClick = { reviewingChat = true }) { Text(stringResource(R.string.chat_title)) }
+        Row {
+            TextButton(enabled = wallet != null, onClick = { navigation.add(BrowseDestination.Notifications) }) {
+                Text(stringResource(R.string.notifications_title))
+            }
+            TextButton(enabled = wallet != null, onClick = { reviewingChat = true }) {
+                Text(stringResource(R.string.chat_title))
+            }
+        }
         val visiblePosts = posts.filter { post -> personal?.hidesPosts(post.author) == false &&
             (!followingView || post.author in following?.accounts.orEmpty()) }
         PersonalControlsStatus(personal)
