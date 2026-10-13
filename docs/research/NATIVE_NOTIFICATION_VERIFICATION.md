@@ -1280,3 +1280,12 @@ Final17 evidence reviews: Spec0; Standards0sourcefindings plus one caption
 correction. Root individually reloaded original stream-retry-late.png and saw
 all three rows together (Reply/twoLikes). README corrected; all original hashes
 unchanged. Android10 full38330887204 remains active.
+
+Final full10 run38330887204 atb80b878 PASSES236reported/235PASS+existing
+API30profileassumption/54completed/18actualdeaths. Runtime28min; core74/release/
+lint/debug/test/signed5->8/coldidentitycache/bothpublicreads pass. Notifications32/
+118.048s/settings1/6.621s/death27967->28071/cold1/3.466s.237hashes/51XML/57PNG;
+rootallXML+13originals, qualifiedvisualclaims README. Bothpublic100rows96posts
+0ignored/Retweet17rows4posts0ignored/fresh0SAITO. Sourceequivalent686/full17
+a564, reviewedtestscroll/diagnostic-onlycompanion perWORKFLOW. Finaltwo-axis
+evidence review pending before issue24 closure. No physical/push/livewrite claim.
