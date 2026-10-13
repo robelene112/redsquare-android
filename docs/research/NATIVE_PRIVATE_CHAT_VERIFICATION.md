@@ -523,3 +523,8 @@ Pending Chat work inspector local test APK compilation passes in 2m51s, command 
 Risk-inspector bounded review fd6a382...483d8fe: Spec 0 (prior cancellation verification finding resolved); Standards found one unfinished-file gap. A valid empty base plus .new could be classified as empty because EncryptedLocalFile.load ignores .new. The reviewed correction validates the family/conversation filename then treats any matching .new as retained work. Compilation is running; prior 19-case native runs remain at 483d8fe and cannot establish execution of this subsequent correction.
 
 Unfinished-save correction 8a85351 passes local test APK compilation in 2m50s, exit 0. Bounded Standards and Spec reviews both report zero findings; the prior unfinished-file finding is resolved. Native checks at 483d8fe remain in progress and do not execute this branch.
+
+
+Corrected sourcea36972f native19 GREEN: Android10run38397754389 passes19cases89.353s; Android17run38425643202 passes19cases142.351s, core86 each. Earlier483d8fe checkpoints also pass19:10run38396927158 86.234s,17run38396930802 125.327s. Root28XML and unique wallet-warning original per run inspected. Exact original after cancellation/no sends pass. .new branch is source-reviewed, not specifically synthesized by this UI case. Whole-ticket and actual process death remain unproved.
+
+Owner requested a first current preview. Signed0.1.11/sourcea36972f now published at the stable review page, exact hosted checksum/signing/version verified. Preview is explicitly unfinished; physical installation is not claimed. Durable delivery record docs/evidence/previews/11.
