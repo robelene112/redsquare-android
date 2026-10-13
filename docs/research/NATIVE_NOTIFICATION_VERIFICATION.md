@@ -1186,3 +1186,13 @@ roots; existingRoot11th/existingunsafe2replyfield3unsafe3onlyfield4 served. Snap
 threecopies/fixed1–4. Initial1Unread/noReply/0Rootparentreads, Moreenabled then
 2Unread/exactReply/positivefield4/Conversation/text/actorProfile. Source retains
 oldtake10 for genuineRED; compile/review/native38327773946 pending.
+
+Correctedfocused17run38327322258 at752d92a PASSES main31/147.174s, realOS
+Allow1/4.617s+Deny1/4.357s, actualdeath5500->5577/cold1/3.455s, fourcompletedOK
+/noassumptions/core73/debug/test.106hashes/all48XML/rootnineoriginalOS/reading/
+process/walletPNGs. Dialogcapturespre-choice; actualOSgrant/deny gates prove
+outcomes. Bothchoicesretainreading/actualcounteradvance/recreation/nooffer; failed
+servercold retainsLike/NoUnread/disabledMark/actorroute/currentwallet/backend/
+publiccheckpoint/no writes. Sourceequivalent4d3b1c8...752d92a docs-only; fullsource
+nowselflike74core andparenttracer4d02fd3 differs, so finalfullpair stillrequired.
+ParenttracerlocalAPK2m44PASS/bothaxes0;32RED38327773946 pending.

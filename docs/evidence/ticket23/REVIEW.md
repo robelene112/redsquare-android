@@ -697,3 +697,10 @@ match. FullcoreGREEN17hashes/16suiteXML/74tests/0verified.
 Zero actionable findings. InitialnoReply/zeroRootreads then More/positivefield4/
 2Unread/actualthreadtext/actor proves sourcefindingwithoutweakening first10batch.
 Sourcecontinuationstillunchanged; genuine32RED andlocalAPK pending.
+
+Correctedfocused17run38327322258 at752d92a passes main31/147.174s, actual
+Allow1/4.617s/Deny1/4.357s/cold1/3.455s/actualPID5500->5577. FourcompletedOK/
+noassumptions/core73/debug/test;106hashes/48XML/rootnine originals inspected.
+NativeOSstatus proveschoices, pre-choicebitmaps onlyshowdialog. BothactualSDK
+permission/deathproofs complete atpriorproduction0ef7b41; finalsame-source pair
+after2a520da/parentfix required. ParenttracerAPK2m44PASS/bothaxes0/nativeREDpending.

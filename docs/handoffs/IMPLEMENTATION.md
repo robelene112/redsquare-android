@@ -32,7 +32,10 @@ opaque-wallet continuity1/6.559s, actualdeath5957->6040/cold1/3.719s. Core73/
 debug/test/noassumptions; each completedrunnerOK.101hashes/46XML/rootsevenoriginal
 permission/process/walletPNGs inspected. Cold failedfreshserver retains neutral
 Like/NoUnread/disabledMark/actorProfile. No walletreset/export/backendchange/write.
-Corrected17run38327322258 pending; previous17main31 ataf49e30 alreadypasses,
+Corrected17run38327322258 at752d92a PASSES main31/147.174s, actualOSAllow1/
+4.617s+Deny1/4.357s, death5500->5577/cold1/3.455s. FourOK/noassumptions/core73/
+debug/test,106hashes/48XML/rootnineoriginalPNG. Pre-choiceOSbitmaps qualified;
+OSstatus assertschoices. Previous17main31 ataf49e30 alreadypasses,
 then original permissionfixturefailedmissingFeedScreen, retained/qualified.
 
 Whole-ticket Standards1(validselflike falsewarning), Spec2(sameplusknownOwnparent
@@ -42,7 +45,7 @@ proofs above predate thissourcefix. Parentcontinuationtracer4d02fd3 adds10newer
 independentsignedunsafe1ownroots toplaceexistingRoot11th/existingunsafe2reply
 field3unsafe3 onlyfield4.32caseinitial1Unread/noReply/Rootreads0; Moreenabled then
 2Unread/Reply/positivefield4/Conversation/text/actorProfile. Threecopies232579/
-hash31182e...2700d/fixed1–4. Source stilltake10 forRED. APK/review/native32run
+hash31182e...2700d/fixed1–4. Source stilltake10 forRED. APK2m44PASS/bothaxes0/native32run
 38327773946 pending. ProtectedfuturefiveChatfiles untouched.
 
 Remaining #24: proveRED/minimalboundedownparentcontinuation, resolve whole-ticket
