@@ -46,7 +46,6 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     var refresh by remember { mutableIntStateOf(0) }
 
     LaunchedEffect(wallet, backend, endpoint, counterparty, refresh) {
-        if (counterparty != null) return@LaunchedEffect
         try {
             val retained = withContext(Dispatchers.IO) { ChatHistoryStore.contacts(context, wallet, backend) }
             var discoveryFailed = retained.unavailable

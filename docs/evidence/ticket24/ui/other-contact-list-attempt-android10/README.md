@@ -1,0 +1,5 @@
+# Navigation discovery attempt, Android 10
+
+Source53fd84b28f387f05a4081832765e7f49fbdfd2b7, run38384956940. Thirteen cases complete in89.688s:11PASS+two failures in local-save-recovery cases atPrivateChatPreviewTest.kt:311. The new different-contact receive/discovery/read/recreation case passes, including positiveACK and no extra delivery. Root parsed all15 XML captures and viewed originalhistory-first-failure.png: retained message is readable and the local-save warning clears, but the chat-load banner remains after successful storage recovery. The list-only earlyreturn prevents contactsFailed from being recomputed during selected Refresh. Minimal correction removes that earlyreturn while retaining navigation-keyed contactscan. No currentGREEN/whole-ticketacceptanceclaim. Rawexit0/mandatoryOKgate rejects both failures; class180s completes. Sharedcaptures and Activityrecreation limits remain.
+
+Root also viewed other-private-contact-recreated.png: the cached second contact and message are visible while Loading messages remains. This proves retained plaintext display, not completed second-contact Archive loading.

@@ -373,3 +373,25 @@ Zero documented breaches and zero actionable smell findings. Source saves authen
 Zero actionable findings. Receiver supports #25 complete native DM send/receive/read and local-cache recovery. Tracer verifies ACK, separation, other-contact discovery/read/recreation without redelivery. Both source22b07ed RED runs match13cases/12PASS+one line260failure; rawexit0/OKgate rejects. Reviewer verified755 parent manifest records and14XML perrun. Actualprocessdeath and GREEN remainpending.
 
 Findings: Standards0; Spec0.
+
+## Retained-contact list return review, 256b67f...53fd84b
+
+### Standards
+
+Zero documented breaches and zero actionable smell findings. The two-line change keys discovery to wallet/backend/navigation and limits it to the list; returning rescans encrypted history off main, preserves newer merged contacts and cancellation. It is the smallest correction for the observed failure. Evidence separates successful ACK from failed discovery and keeps GREEN pending.
+
+### Spec
+
+Zero actionable findings. List-only navigation-keyed scanning supports #25 recoverable local history and parent identity-scoped cache using current wallet/backend. Both attempts correctlyattribute256b67f13/12PASS+one line263failure; ACK/separation pass before discoveryfails. Both14XML parse andparentmanifestverifies. NativeGREEN andwholeacceptancepending.
+
+Findings: Standards0; Spec0.
+
+## Existing-client receive/display compatibility audit, c102f89...53fd84b
+
+### Spec
+
+Two concrete #25 compatibility gaps remain. Pinned Chat construction adds outside mention outputs and still encrypts the two-person DM; popup passes getMentions and enables mentions for DMs. Exact-two-output validation and outgoing .single reject validmessages. Require originalsigner actualparticipant, both actualparticipants addressed, successfuldecryption/exactcanonicalgroup; extraoutputs remainmentions, notmembers. Outgoingrecovery mustidentifyunique successfullydecrypted canonicalcounterpart amongaddressedcandidates. Requiringmentioned metadata forextras isnotupstream receivebehavior. Addindependent pinnedJS/WASM bothdirection unsafe3mention vectors with wronggroup/signaturecontrols.
+
+Ordinary SaitoInput.getInput(false) usesinnerText; notallmessages areHTML. Reply construction canprepend sanitizedblockquote; websanitizes/rendersthatmarkup whereasnativeText exposestags. Imagesbelongtolatermediatickets. Need independentencryptedwebreplybody +literal-anglecontrol preservingoriginalsignedbytes andreadablequote/body; noexistingbrowserUIequivalenceclaim. SourcecachedChat matches exactpinSHA.
+
+Primary paths: pinned node/mods/chat/chat.js:1489, node/mods/chat/lib/chat-manager/popup.js:837 and523, node/lib/saito/ui/saito-input/saito-input.js:307, node/mods/chat/chat.js:1761, revision9a4ca7e9442eb5e872168ced361ce741d7d139d7. Reviewer performedonlyreadonlypublicsource audit.
