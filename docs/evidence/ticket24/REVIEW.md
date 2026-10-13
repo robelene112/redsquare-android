@@ -505,3 +505,16 @@ One documented recovery gap. The scanner normalizes .new filenames, then checks 
 Zero new actionable findings; the prior durable cancellation verification gap is resolved. Inspection covers the outgoing wallet across both approved backends, validates canonical conversation names and authenticated originals, and invokes existing replacement safeguards without transmission or identity mutation. Cancellation reloads UNKNOWN and the independent original bytes. The actual 19-case RED and its unexecuted later assertions are accurately qualified. Native GREEN and whole-ticket acceptance remain pending.
 
 Findings: Standards 1, unfinished save detection; Spec 0. The following correction conservatively treats a matching .new file as retained work after validating the conversation filename. Compilation, review and native execution remain pending.
+
+
+## Unfinished Chat save warning, 483d8fe...8a85351
+
+### Standards
+
+Prior finding resolved; zero new documented breaches or actionable smell findings. The scanner validates the wallet/backend/conversation filename, then treats a matching .new file as retained work before loading the base. An unfinished save can no longer be classified as empty because its existing base is empty. Authenticated decoding remains in place for completed records. Documentation correctly separates native runs at 483d8fe from this correction.
+
+### Spec
+
+Zero actionable findings. Conservative detection supports the outgoing-wallet pending-work acknowledgement safeguard without trusting temporary contents as a valid transaction. Exact wallet/backend family restrictions remain. No send, signing or replacement mutation occurs. Current native runs cannot establish execution of this new branch; whole-ticket acceptance remains pending.
+
+Findings: Standards 0; Spec 0. Local test APK compilation subsequently passes in 2m50s, exit 0. Native verification of the corrected source remains pending.
