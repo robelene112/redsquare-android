@@ -311,3 +311,17 @@ Chat/Archive/Relay and an empty Archive response for a never-used random pair.
 No submit/relay/live application write; installation wallet export remainsexact.
 TestAPK compiles1m49s; real native contract outcome pending, no runtime inferred.
 Full runs include this read check only with explicit public-read input enabled.
+
+Actual new-contact GREEN10run38351999832 at33b755e passes7/35.544s, core84/
+source gates. Root twelveXMLs/entryandnormalrecreated originalPNG inspected.
+Fresh-wallet case includes Open chat, saved compatible contact, same encrypted
+propagation/Relay original and unavailable-history recreation/noresend. Shared
+captures belong to latercases, no specific fresh-case image attribution.
+Public reader e2eb51d both bounded reviewaxes0; actualrun38352335633 pending.
+Next imported-ID tracer uses lower-case options.chat.groups, matching pinned
+source; no contact key entry or local message metadata. Expected actual UIRED
+before private verified Archive discovery, not wallet-ID or permanence inference.
+
+Imported-ID native tracer compiles1m32s, expected actualeightcaseRED pending.
+Publicread10run38352335633 at e2eb51d success; raw endpointreport inspectionnext.
+No live-send/nativeavailable-nonempty history inferred from unusedpairreads.

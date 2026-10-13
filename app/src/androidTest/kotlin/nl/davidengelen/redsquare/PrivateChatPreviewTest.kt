@@ -74,7 +74,7 @@ class PrivateChatPreviewTest {
         }
     }
 
-    private enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND }
+    private enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID }
 
     @Test fun anImportedContactOpensItsAvailableAuthenticatedPrivateHistory() = exerciseHistory(HistoryCase.AVAILABLE)
 
@@ -88,11 +88,14 @@ class PrivateChatPreviewTest {
 
     @Test fun aFreshWalletCanOpenAndSendToANewPrivateContact() = exerciseHistory(HistoryCase.NEW_SEND)
 
+    @Test fun anImportedConversationIdRecoversAvailablePrivateHistoryWithoutAContactKeyEntry() = exerciseHistory(HistoryCase.IMPORTED_ID)
+
     private fun exerciseHistory(case: HistoryCase) {
         val storageFailure = case == HistoryCase.STORAGE_FAILURE
         val live = case == HistoryCase.LIVE
         val interruptedSend = case == HistoryCase.SEND_INTERRUPTED
         val newContact = case == HistoryCase.NEW_SEND
+        val importedId = case == HistoryCase.IMPORTED_ID
         val sending = case == HistoryCase.SEND || interruptedSend || newContact
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
@@ -103,9 +106,12 @@ class PrivateChatPreviewTest {
         val counterpart = reference.get("sender").asString
         val publicWallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "2") // Public unsafe fixture only.
         val options = JsonParser.parseString(publicWallet.exportJson()).asJsonObject.apply {
-            if (!newContact) add("keys", JsonArray().apply { add(JsonObject().apply {
+            if (!newContact && !importedId) add("keys", JsonArray().apply { add(JsonObject().apply {
                 addProperty("publicKey", counterpart); addProperty("added", true)
             }) })
+            if (importedId) add("chat", JsonObject().apply {
+                add("groups", JsonArray().apply { add(reference.get("groupId")) })
+            }) // Existing Saito backup stores group IDs, not LocalForage messages.
         }
         val wallet = SaitoWallet.fromBackup(options.toString())
         val store = AndroidWalletStore(context)

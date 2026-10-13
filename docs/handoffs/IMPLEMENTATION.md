@@ -39,7 +39,7 @@ Reviews861...a269: Standards0hard/1dup group-predicate heuristic; Spec1 null
 keychain compatibility. Corrected core behavioralRED33s 13cases/1failure
 (original test typo compilefailure26s separately retained). Minimum null-keychain/
 shared predicate and fresh-contact entry/shared active-wallet update now local
-fullcore84/debug/testAPK PASS3m44s. Actual nativeGREEN/reviews next. Do not close#25; listener for unselectedcontacts,
+fullcore84/debug/testAPK PASS3m44s. Both bounded axes0. ActualGREEN10run38351999832 PASS7/35.544s; root twelveXMLs/twooriginals inspected. Public reader e2eb51d bothaxes0, run38352335633 pending. Imported conversation-ID UI tracer next. Do not close#25; listener for unselectedcontacts,
 paging, controls, actual death/isolation, backendcontracts and fullSDK stillpending.
 
 Accepted seams1–4 cover native UI/controlled peers, independently signed vectors,
