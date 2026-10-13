@@ -1100,3 +1100,21 @@ Outgoing toggle only; incoming/dedup/retry/whole-ticket not claimed complete.
 
 Local tracer Kotlin compilation PASS1m28s. Android10run38464119759 and
 Android17run38464123469 source7de8b129 active; runtime not yet accepted.
+
+## Incoming reaction tracer,7de8b129...7f53f141
+
+### Standards
+
+Zero documented breaches and zero actionable smells. Independently pinned
+constructor/receiver corpus, unchanged default outgoing generation, readiness
+and positive ACK/UI observations, duplicates/reopening, identity/backend and
+opaque cleanup. Source research qualifies historical availability. Previous
+unsignedLike name fixed. Compilation predates tiny readiness additions.
+
+### Spec
+
+Zero actionable findings. Independent signed incoming actions, recipient-visible
+count without selecting our Like, ACK, dedup across reopening, distinct Unlike,
+unavailable Archive, retained cleared state and no outbound operations. Public
+fixture generation is distinguished from native acceptance. No whole-ticket
+claim. Native RED pending at run38464504279/source7f53f141.
