@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.google.gson.JsonObject
@@ -55,50 +56,52 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
             ChatWorkStore.Status.FORWARDED -> Text(stringResource(R.string.chat_send_forwarded))
             ChatWorkStore.Status.NONE -> Unit
         }
-        if (failed) Text(stringResource(R.string.chat_send_error))
-        OutlinedTextField(value = text, onValueChange = { text = it }, label = { Text(stringResource(R.string.chat_message)) },
-            modifier = Modifier.fillMaxWidth(), enabled = ready && !sending && saved.status != ChatWorkStore.Status.UNKNOWN)
-        Button(enabled = permitted && ready && !sending && text.isNotBlank() && saved.status != ChatWorkStore.Status.UNKNOWN,
-            onClick = {
-                sending = true
-                val outgoing = text
-                scope.launch {
-                    try {
-                        val candidate = writes.withLock {
-                            val prepared = withContext(Dispatchers.IO) { PrivateChat.create(wallet, contact, outgoing, System.currentTimeMillis()) }
-                            saved = withContext(NonCancellable + Dispatchers.IO) { work.prepare(prepared) }
-                            text = ""
-                            onHistory(withContext(Dispatchers.IO) { history.save(listOf(prepared.envelope())) })
-                            prepared
-                        }
-                        withContext(Dispatchers.IO) {
-                            SaitoPeer(wallet, endpoint).use { peer ->
-                                require("relay" in peer.services())
-                                peer.submit(candidate) { work.claim(candidate.id) }
-                                val submitted = work.record(candidate.id, ChatWorkStore.Status.SUBMITTED)
-                                withContext(Dispatchers.Main.immediate) { saved = submitted }
-                                val relayBody = JsonObject().apply {
-                                    addProperty("module", "Relay"); addProperty("request", "chat relay")
-                                    add("data", candidate.signedJson())
-                                }
-                                val relay = SaitoTransaction.create(wallet, relayBody, System.currentTimeMillis(), listOf(contact))
-                                    .signedJson().apply { addProperty("signature", "0".repeat(128)) }
-                                val request = JsonObject().apply { addProperty("request", "relay peer message"); add("data", relay) }
-                                val response = peer.request(request.toString().toByteArray(Charsets.UTF_8)) { work.assertSelected() }
-                                val result = JsonParser.parseString(response.toString(Charsets.UTF_8)).asJsonObject
-                                val success = result.get("success")
-                                require(result.get("err")?.let { it.isJsonPrimitive && it.asJsonPrimitive.isString && it.asString.isEmpty() } == true)
-                                require(success != null && success.isJsonPrimitive && success.asJsonPrimitive.isNumber && success.asString == "1")
-                                val forwarded = work.record(candidate.id, ChatWorkStore.Status.FORWARDED)
-                                withContext(Dispatchers.Main.immediate) { saved = forwarded }
-                                peer.finishBroadcast()
+        if (failed) Text(stringResource(if (ready) R.string.chat_send_error else R.string.chat_work_read_error))
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            OutlinedTextField(value = text, onValueChange = { text = it }, label = { Text(stringResource(R.string.chat_message)) },
+                modifier = Modifier.weight(1f), enabled = ready && !sending && saved.status != ChatWorkStore.Status.UNKNOWN)
+            Button(enabled = permitted && ready && !sending && text.isNotBlank() && saved.status != ChatWorkStore.Status.UNKNOWN,
+                onClick = {
+                    sending = true
+                    val outgoing = text
+                    scope.launch {
+                        try {
+                            val candidate = writes.withLock {
+                                val prepared = withContext(Dispatchers.IO) { PrivateChat.create(wallet, contact, outgoing, System.currentTimeMillis()) }
+                                saved = withContext(NonCancellable + Dispatchers.IO) { work.prepare(prepared) }
+                                text = ""
+                                onHistory(withContext(Dispatchers.IO) { history.save(listOf(prepared.envelope())) })
+                                prepared
                             }
-                        }
-                        failed = false
-                    } catch (cancelled: CancellationException) { throw cancelled }
-                    catch (_: Exception) { failed = true }
-                    finally { sending = false }
-                }
-            }) { Text(stringResource(R.string.chat_send)) }
+                            withContext(Dispatchers.IO) {
+                                SaitoPeer(wallet, endpoint).use { peer ->
+                                    require("relay" in peer.services())
+                                    peer.submit(candidate) { work.claim(candidate.id) }
+                                    val submitted = work.record(candidate.id, ChatWorkStore.Status.SUBMITTED)
+                                    withContext(Dispatchers.Main.immediate) { saved = submitted }
+                                    val relayBody = JsonObject().apply {
+                                        addProperty("module", "Relay"); addProperty("request", "chat relay")
+                                        add("data", candidate.signedJson())
+                                    }
+                                    val relay = SaitoTransaction.create(wallet, relayBody, System.currentTimeMillis(), listOf(contact))
+                                        .signedJson().apply { addProperty("signature", "0".repeat(128)) }
+                                    val request = JsonObject().apply { addProperty("request", "relay peer message"); add("data", relay) }
+                                    val response = peer.request(request.toString().toByteArray(Charsets.UTF_8)) { work.assertSelected() }
+                                    val result = JsonParser.parseString(response.toString(Charsets.UTF_8)).asJsonObject
+                                    val success = result.get("success")
+                                    require(result.get("err")?.let { it.isJsonPrimitive && it.asJsonPrimitive.isString && it.asString.isEmpty() } == true)
+                                    require(success != null && success.isJsonPrimitive && success.asJsonPrimitive.isNumber && success.asString == "1")
+                                    val forwarded = work.record(candidate.id, ChatWorkStore.Status.FORWARDED)
+                                    withContext(Dispatchers.Main.immediate) { saved = forwarded }
+                                    peer.finishBroadcast()
+                                }
+                            }
+                            failed = false
+                        } catch (cancelled: CancellationException) { throw cancelled }
+                        catch (_: Exception) { failed = true }
+                        finally { sending = false }
+                    }
+                }) { Text(stringResource(R.string.chat_send)) }
+        }
     }
 }

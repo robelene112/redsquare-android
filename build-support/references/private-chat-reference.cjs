@@ -73,6 +73,43 @@ const publicKeys = Object.fromEntries(['1', '2'].map(scalar => [scalar, wasm.gen
 const groupId = crypto.hash(Object.values(publicKeys).sort().join('_'));
 assert.equal(process.version, 'v24.13.0');
 
+// Consume only the public unsafe scalar2 -> scalar1 transaction captured by the native UI fixture.
+if (process.argv[2] === '--check-native-send') {
+  const input = fs.readFileSync('/reference/native-sent-envelope.json');
+  const envelope = JSON.parse(input);
+  const detached = Buffer.from(envelope.t, 'base64');
+  const message = Buffer.from(envelope.m, 'base64');
+  assert.equal(detached.readUInt32BE(0), 1);
+  assert.equal(detached.readUInt32BE(4), 2);
+  assert.equal(detached.readUInt32BE(8), 0);
+  assert.equal(detached[92], 0);
+  const offset = 93 + 59 * 3;
+  const network = Buffer.concat([detached.subarray(0, offset), message, detached.subarray(offset)]);
+  network.writeUInt32BE(message.length, 8);
+  const transaction = wasm.WasmTransaction.deserialize(network);
+  assert.deepEqual(transaction.from.map(slip => slip.public_key), [publicKeys['2']]);
+  assert.deepEqual(transaction.to.map(slip => slip.public_key), [publicKeys['2'], publicKeys['1']]);
+  const ciphertext = JSON.parse(message.toString('utf8'));
+  assert.equal(typeof ciphertext, 'string');
+  const independent = signedReference('2', ciphertext, Number(transaction.timestamp), [publicKeys['1']]);
+  assert.equal(transaction.signature, independent.sig);
+  const secret = crypto.generateSharedSecret('0'.repeat(63) + '1', publicKeys['2']);
+  const plaintext = JSON.parse(crypto.aesDecrypt(ciphertext, secret));
+  assert.deepEqual(plaintext, {
+    module: 'Chat', request: 'chat message', group_id: groupId,
+    message: 'Native private message 😀 <&>\nsecond line',
+    timestamp: Number(transaction.timestamp), mentioned: [],
+  });
+  console.log(JSON.stringify({
+    nativeEnvelopeSha256: sha256(input), signature: transaction.signature,
+    groupId, timestamp: Number(transaction.timestamp), dependencyVersions,
+    wrapperSha256: wrapperHash, wasmSha256: signingReference.wasmSha256,
+    independentWasmSignatureMatches: true, existingCryptoRecipientDecrypts: true,
+    exactNativeFixturePlaintextMatches: true,
+  }, null, 2));
+  process.exit(0);
+}
+
 function vector(senderScalar, recipientScalar, timestamp, saltHex, exchangedSecret = null) {
   assert(['1', '2'].includes(senderScalar) && ['1', '2'].includes(recipientScalar));
   assert.notEqual(senderScalar, recipientScalar);

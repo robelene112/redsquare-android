@@ -171,3 +171,23 @@ Zero findings. Contextual first-Chat offer, optional dismissal and unchanged
 initial feed match parent scope. All117 UI manifest records verify. Compilation
 only, exit143 despite Gradle SUCCESS and unchanged exit0 recheck qualified.
 Corrective runtime and remaining DM acceptance pending.
+
+## First private send f072178...e06a22c
+
+### Standards
+
+One recovery-guidance finding, zero actionable heuristics. Initial work.load
+failure leaves composer disabled; history Refresh cannot reload unchanged work.
+Use an actual reopen action or safe reload trigger. Candidate persistence,
+identity/backend guards, cancellation checks and qualified forwarding otherwise
+hold. All21 RED hashes/four build records, nine XMLs/failure original verify.
+Attached command exit143 distinguished from original container exit0/SUCCESS.
+
+### Spec
+
+Zero bounded findings. Original encrypted candidate saved/validated before any
+attempt; shared lock checks wallet/backend/candidate before submission. Original
+signed inner relayed; Submitted/Forwarded avoid delivery/read confirmation. All182
+UI manifest records, actual missing-composer RED and container success verify.
+Actual outgoing recovery/independent client and whole-ticket acceptance were
+pending at review time; subsequent native GREEN retained separately.

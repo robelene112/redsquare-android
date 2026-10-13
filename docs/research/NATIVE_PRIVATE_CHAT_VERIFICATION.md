@@ -237,3 +237,23 @@ attached to Docker logs/wait. Original container completes exit0, full captured
 SUCCESS3m2s/core82/debug/testAPK. Connection termination cause not inferred.
 Actual unchanged five-case UI GREEN and bounded source reviews next; outgoing
 status/cache recovery, independent browser decoder and interruption not yet proved.
+
+First native submission actualGREEN10run38348001347 ate06a22c passes5/20.851s,
+oneOK/noassumptions/actualdeaths/core82/source gates. Twenty-four hashes retain
+ten PNG/XML pairs plus unsafe native envelope; root allXMLs and forwarded/
+recreated/failed-save originals inspected. Original signature matches propagation
+and Relay; received plaintext correct; reopening retains without rebroadcast.
+Recreated PNG clips outgoing final line; fulltext is in XML, no full-visibility
+claim. Compact composer row is subsequent correction, Kotlincompile1m22s (later
+indentation-only change); recovery-guidance correction Kotlincompile1m26s.
+
+Bounded first-send reviews Spec0/Standards1 incorrect Refresh load-recovery advice.
+Separated initial-read guidance (reopen) from later send/save failure; neither
+promises automatic retry. Corrected source runtime/reviews next. Native send
+fixture envelope SHA489f7c17ed504db739a0229fa43e6158106bf8c84ab926045033f903ad9a726e
+passes isolated existing-client Crypto-wrapper decryption and independent WASM/
+Elliptic signature reproduction. Actual native random salt/message consumed;
+no app/network/real wallet initialized. New --check-native-send mode requires
+unsafe2->1 and exact fixture plaintext. Original generator default rerun remains
+byte-identical SHA886ff622...ee1c06. This is actual captured native lower-boundary
+interop, not browser UI/public writes or completed interruption recovery.
