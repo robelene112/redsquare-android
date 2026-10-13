@@ -795,3 +795,24 @@ XML and source/manifests verify; shared failure belongs only to laterfailedcase.
 
 Findings: Standards0; Spec0. Subsequent Android10run38450331371 is24GREEN
 114.206s/core86, process cold4.738s/restore.171s; separately retained and inspected.
+
+
+## Reply tracer,72ef47cf...2813ab3c
+
+### Standards
+
+Zero documented breaches or actionable smell findings. Public UI/control-peer
+and recovery seams retained; actualpinned sanitizer/source-guided oracle bounded,
+existing replyvectors unchanged. PriorCopy/process/source limits accurate.
+
+### Spec
+
+Two actionable gaps: reopened quote content/target not checked before removing
+and selecting again; mention oracle generated but emitted metadata not asserted.
+Typedbody/quoteonly gating/explicitsend/cache/noauto andidentity checks otherwise
+match. ProductReply remains absent pendingRED.
+
+Findings: Standards0; Spec2. Followup strengthens preview before removal and
+requires independent existingCrypto/WASM/Chat receiver metadata acceptance.
+Local corrected tracerAPKPASS1m34s. SHA-ref dispatch rejectedHTTP422 before
+nativeexecution; dispatch main only afterfollowup, inspect recordedheadSHA.

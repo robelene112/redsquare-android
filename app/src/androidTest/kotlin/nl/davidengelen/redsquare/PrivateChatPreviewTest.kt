@@ -383,6 +383,7 @@ class PrivateChatPreviewTest {
                             waitForEnabled("Message")
                             ui.onNode(hasSetTextAction()).assert(SemanticsMatcher.expectValue(
                                 SemanticsProperties.EditableText, AnnotatedString(body)))
+                            ui.onNodeWithText(expected.get("quotedText").asString).assertIsDisplayed()
                             ui.onNodeWithText("Remove reply").assertIsDisplayed()
                             captureNativeScreen(File(context.cacheDir, "private-chat-evidence/native-reply-draft-reopened.png"), body)
                             check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())

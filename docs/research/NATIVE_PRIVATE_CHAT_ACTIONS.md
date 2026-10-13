@@ -88,3 +88,10 @@ UTF16 excerpt construction and executes actual pinned Browser.sanitize. It
 records the prefix/body/auto-mention expected by the native UI fixture. This is
 a source-guided composition oracle, not a DOM run or native send acceptance.
 Existing default/mentioned/reply generation stays unchanged.
+
+Reply acceptance additionally requires --check-native-reply-send to independently
+verify the captured native original with actual pinned WASM signature verification,
+Crypto recipient decryption, exact full body and mentioned array, and actual
+Chat.addTransactionToGroup receipt/duplicate suppression. UI text-only receipt
+cannot prove mention metadata. The public capture stays inside the approved
+unsafe-scalar fixture boundary. Reopened draft preview is checked before removal.

@@ -74,7 +74,11 @@ const groupId = crypto.hash(Object.values(publicKeys).sort().join('_'));
 assert.equal(process.version, 'v24.13.0');
 
 // Consume only the public unsafe scalar2 -> scalar1 transaction captured by the native UI fixture.
-if (process.argv[2] === '--check-native-send') {
+if (['--check-native-send', '--check-native-reply-send'].includes(process.argv[2])) {
+  const replySend = process.argv[2] === '--check-native-reply-send';
+  const expectedReply = replySend ? JSON.parse(fs.readFileSync('/reference/reply-compose-reference.json')).replyFormat.composition : null;
+  const expectedMessage = replySend ? expectedReply.prefix + expectedReply.body : 'Native private message 😀 <&>\nsecond line';
+  const expectedMentions = replySend ? expectedReply.mentioned : [];
   const input = fs.readFileSync('/reference/native-sent-envelope.json');
   const envelope = JSON.parse(input);
   const detached = Buffer.from(envelope.t, 'base64');
@@ -97,8 +101,8 @@ if (process.argv[2] === '--check-native-send') {
   const plaintext = JSON.parse(crypto.aesDecrypt(ciphertext, secret));
   assert.deepEqual(plaintext, {
     module: 'Chat', request: 'chat message', group_id: groupId,
-    message: 'Native private message 😀 <&>\nsecond line',
-    timestamp: Number(transaction.timestamp), mentioned: [],
+    message: expectedMessage,
+    timestamp: Number(transaction.timestamp), mentioned: expectedMentions,
   });
   // Execute the existing Chat receiver method, with only its browser storage/notification
   // boundaries adapted. No module constructor, DOM, IndexedDB, network or Saito app init.
@@ -131,7 +135,7 @@ if (process.argv[2] === '--check-native-send') {
     assert.equal(group.txs[0].msg, plaintext.message);
     assert.equal(group.txs[0].timestamp, Number(transaction.timestamp));
     assert.deepEqual(Array.from(group.txs[0].from), [publicKeys['2']]);
-    assert.deepEqual(Array.from(group.txs[0].mentioned), []);
+    assert.deepEqual(Array.from(group.txs[0].mentioned), expectedMentions);
     assert.equal(group.unread, scalar === '1' ? 1 : 0);
     if (scalar === '2') assert.equal(group.last_read_message, transaction.signature);
     assert.equal(notifications.length, scalar === '1' ? 1 : 0);
@@ -148,7 +152,7 @@ if (process.argv[2] === '--check-native-send') {
     groupId, timestamp: Number(transaction.timestamp), dependencyVersions,
     wrapperSha256: wrapperHash, wasmSha256: signingReference.wasmSha256,
     independentWasmSignatureMatches: true, existingCryptoRecipientDecrypts: true,
-    exactNativeFixturePlaintextMatches: true,
+    exactNativeFixturePlaintextMatches: true, ...(replySend ? {replyAuthorAutoMentionMatches: true} : {}),
     chatSourceSha256, existingChatReceiverAcceptsNativePlaintext: true,
     existingChatReceiverSuppressesDuplicateSignature: true,
     browserStorageNotificationBoundariesAdapted: true,
@@ -281,6 +285,7 @@ if (['--reply', '--reply-compose'].includes(process.argv[2])) {
     const prefix = adapter.sanitize(`<blockquote href="${vectors[0].sender}${vectors[0].timestamp}">${excerpt}</blockquote>`);
     replyFormat.composition = {sourceSignature: vectors[0].signature, prefix,
       body: 'Native reply body <b>literal</b> 😀 <&>\nsecond line',
+      quotedText: '...ar1 to scalar2 😀 <&> line two',
       mentioned: [vectors[0].sender]};
   }
 }
