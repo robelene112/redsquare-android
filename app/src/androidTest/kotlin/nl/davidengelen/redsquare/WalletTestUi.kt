@@ -49,6 +49,9 @@ fun chooseWalletImport(ui: ComposeTestRule, filename: String, incoming: String) 
     val device = UiDevice.getInstance(instrumentation)
     val row = By.text(ExportTestDocumentsProvider.TITLE).res("android", "title")
     val drawer = By.res(Pattern.compile(".*:id/roots_list"))
+    val providerHeader = By.res(Pattern.compile(".*:id/header_title")).text(
+        Pattern.compile(".*" + Pattern.quote(ExportTestDocumentsProvider.TITLE) + ".*", Pattern.CASE_INSENSITIVE))
+    val contentList = By.res(Pattern.compile(".*:id/dir_list"))
     val selected = By.desc(context.getString(R.string.wallet_import_address)).text(incoming)
     val deadline = SystemClock.uptimeMillis() + 30_000
     while (SystemClock.uptimeMillis() < deadline) {
@@ -67,6 +70,13 @@ fun chooseWalletImport(ui: ComposeTestRule, filename: String, incoming: String) 
                 if (file != null) {
                     file.click()
                     device.wait(Until.hasObject(selected), 2_000)
+                } else if (device.hasObject(providerHeader) && device.hasObject(contentList)) {
+                    // A successful earlier export can leave this exact backup below
+                    // the viewport. Scroll only the selected test provider's content,
+                    // never the roots drawer or another provider.
+                    UiScrollable(UiSelector().resourceIdMatches(".*:id/dir_list").scrollable(true))
+                        .setMaxSearchSwipes(8)
+                        .scrollIntoView(UiSelector().resourceId("android:id/title").text(filename))
                 } else device.findObject(By.desc("Show roots"))?.let {
                     it.click()
                     device.wait(Until.hasObject(row), 2_000)
