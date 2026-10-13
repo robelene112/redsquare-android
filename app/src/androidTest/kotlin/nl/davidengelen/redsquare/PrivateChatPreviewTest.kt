@@ -74,7 +74,7 @@ class PrivateChatPreviewTest {
         }
     }
 
-    private enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL, LIST_LIVE, PARTIAL_KEYS, STORAGE_PARTIAL, OTHER_LIVE }
+    private enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL, LIST_LIVE, PARTIAL_KEYS, STORAGE_PARTIAL, OTHER_LIVE, MENTIONED }
 
     @Test fun anImportedContactOpensItsAvailableAuthenticatedPrivateHistory() = exerciseHistory(HistoryCase.AVAILABLE)
 
@@ -100,6 +100,8 @@ class PrivateChatPreviewTest {
 
     @Test fun anotherPrivateContactIsRetainedWhileADifferentConversationIsOpen() = exerciseHistory(HistoryCase.OTHER_LIVE)
 
+    @Test fun anExistingClientMentionedPrivateMessageRemainsReadableAfterReopening() = exerciseHistory(HistoryCase.MENTIONED)
+
     private fun exerciseHistory(case: HistoryCase) {
         val storagePartial = case == HistoryCase.STORAGE_PARTIAL
         val storageFailure = case == HistoryCase.STORAGE_FAILURE || storagePartial
@@ -116,9 +118,10 @@ class PrivateChatPreviewTest {
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
-        val vectors = instrumentation.context.assets.open("native-private-chat-reference.json")
+        val mentioned = case == HistoryCase.MENTIONED
+        val vectors = instrumentation.context.assets.open(if (mentioned) "native-private-chat-mentioned-reference.json" else "native-private-chat-reference.json")
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors") }
-        val reference = vectors[0].asJsonObject
+        val reference = vectors[if (mentioned) 4 else 0].asJsonObject
         val counterpart = reference.get("sender").asString
         val publicWallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "2") // Public unsafe fixture only.
         val options = JsonParser.parseString(publicWallet.exportJson()).asJsonObject.apply {

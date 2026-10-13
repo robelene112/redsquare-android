@@ -41,9 +41,14 @@ object PrivateChat {
     /** Discover only from original authenticated participants and a successfully decrypted private body. */
     fun recover(wallet: SaitoWallet, envelope: String, expectedConversation: String? = null): ReceivedPrivateChat {
         val signed = SaitoEnvelope.decodePayload(envelope)
-        val counterparty = if (signed.author != wallet.publicKey) signed.author else
-            signed.recipients.distinct().filter { it != wallet.publicKey }.single()
-        val message = read(wallet, envelope, counterparty)
+        val candidates = if (signed.author != wallet.publicKey) listOf(signed.author) else
+            signed.recipients.distinct().filter { it != wallet.publicKey }
+        val recovered = candidates.mapNotNull { counterparty ->
+            try { counterparty to read(wallet, envelope, counterparty) }
+            catch (_: IllegalArgumentException) { null }
+        }
+        require(recovered.size == 1)
+        val (counterparty, message) = recovered.single()
         require(expectedConversation == null || message.conversationId == expectedConversation)
         return ReceivedPrivateChat(counterparty, envelope, message)
     }
@@ -85,7 +90,7 @@ object PrivateChat {
         require(SaitoWallet.isPublicKey(counterparty) && counterparty != wallet.publicKey)
         val signed = SaitoEnvelope.decodePayload(envelope)
         val participants = setOf(wallet.publicKey, counterparty)
-        require(signed.author in participants && signed.recipients.toSet() == participants)
+        require(signed.author in participants && signed.recipients.containsAll(participants))
         require(signed.body.isJsonPrimitive && signed.body.asJsonPrimitive.isString)
         val formatter = gson.fromJson(signed.body.asString, JsonObject::class.java)
         val salt = hex(formatter.requiredString("s"), 8)

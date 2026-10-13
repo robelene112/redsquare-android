@@ -55,7 +55,7 @@ Actual13case sequence:
 - 53fd84b attempts10run38384956940/17run38384961151 11PASS+2line311storage
   recoveryfailures89.688s/104.894s. OthercontactcasePASSboth; staleloadbanner.
   Source dd02415 removesselectedscanearlyreturn, reviewsboth0.
-- Current13case native10run38385764786/17run38385768655 inprogress.
+- Current13case native10run38385764786 PASS13/61.117s;17run38385768655 PASS13/83.051s atdd02415. Root15XMLeach plusotherrecreated/storagewarningoriginalsviewed. Fullticketpending.
 All failed rawlogs/exit/source/PNG/XML retained. RootallXML/failureoriginals
 inspected; 10secondcontactrecreatedimage showscachedplaintext whileLoading,
 notcompletedArchive. Rawinstrumentationexit0 despitefailures; mandatoryOKgate
@@ -74,13 +74,13 @@ Nextcompatibilityslice: pinnedDMmentionsaddthirdrecipient whileencryption/pair
 IDremainprivate. Currentexact-two validator/outgoing.single/cachemetadata reject
 validmentionedDMs. Readonlyreviewconfirmedbothpins/popupmentionpath. Optional
 --mentioned generator producesindependentbothdirectionextraoutputfixtures,
-repeatbytes56ad3ead...359e5; defaultunchanged. CoretraceractualREDcurrentlyrunning.
+repeatbytes56ad3ead...359e5; defaultunchanged. Coretracer78020a5 actualRED10/9PASS+one exactrecipientfail40s. Minimalcoreparticipant/counterpart correctionfocused10PASS/build1m2s. Native14incomingmentioncachetracerbuildpending; cachevalidator intentionallyunchanged untilactualUIRED.
 Generator/runtimemounts publicsource/dependencies only/networknone/env-i; noappinit.
 Ordinarywebtyping isinnerText; replyprefixcanbe sanitizedblockquote. Need narrow
 recognizedreplydisplay preservingordinaryliteralanglebrackets/signedoriginals.
 Detailedsourcefacts/hashes/snippets camefromchat_spec_review; durableauditreport.
 
-Remaining: complete13caseGREEN; mentioninterop protocol/cache/native; readable
+Remaining: mentioninterop protocol/cache/native; readable
 webreplyinterop; older-historypaging; nativeBlockhidesincoming/MutekeepsChat;
 uncertainattempt/draftrecovery; actualChatprocessdeath; wallet/backendisolation;
 bothfinalfullSDK/release/lint/signedupdate/opt-in publicreads. ActivityScenariorecreate
