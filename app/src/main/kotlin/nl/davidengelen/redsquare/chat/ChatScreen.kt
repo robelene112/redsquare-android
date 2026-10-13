@@ -73,7 +73,6 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     BackHandler { close() }
 
     suspend fun retainReactions(page: PrivateHistoryPage): Boolean {
-        if (page.reactions.isEmpty()) return true
         val retained = try {
             withContext(Dispatchers.IO) {
                 page.reactions.forEach { (contact, events) ->
