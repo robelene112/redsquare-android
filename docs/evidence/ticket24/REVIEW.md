@@ -544,3 +544,16 @@ Zero documented breaches and zero actionable smell findings. The test uses actua
 Zero actionable findings. The parent requires locally saved drafts surviving navigation/outages and remaining unsent until Send. Immediate Back/reopen must retain exact Unicode, punctuation and newlines; clearing and reopening/recreating with unavailable history must stay empty. Final predicates require unchanged full identity/backend and zero propagation/Relay. Product source is unchanged; the debounce concern remains unconfirmed and no actual process-death or whole-ticket acceptance is claimed.
 
 Findings: Standards 0; Spec 0. Native20-case execution remains pending at review.
+
+
+## Save private draft before navigation, 0447c37...b2bc017
+
+### Standards
+
+Zero documented breaches and zero actionable smell findings. The composer reuses the existing navigation-save boundary and write mutex. Its callback reads remembered state, awaits device storage, blocks leaving while sending or after save failure, and is scoped to the current work store/navigation. Disposal clears only its own callback. Header/system Back share the guarded path. Unknown originals and unreadable disabled composers are preserved without transmission or replacement. No speculative infrastructure.
+
+### Spec
+
+Zero actionable findings. Locally saved drafts survive navigation and remain unsent until Send. Awaited encrypted persistence also integrates with existing wallet/backend switch hooks. The actual RED at0447c37 reports20cases19passes plus empty reopened draft84.364s;29XML and manifest verify. Erasure/recreation assertions had not executed. Local build/native GREEN remain pending and preview11 is correctly attributed to earlier source. No process-death or whole-ticket acceptance claim.
+
+Findings: Standards 0; Spec 0.

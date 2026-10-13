@@ -536,3 +536,5 @@ Draft-navigation20-case tracer local test APK compilation PASS1m57s/exit0. Produ
 
 
 Draft-navigation tracer actual RED0447c37: Android10run38427322282 reports20cases19pass+one failure84.364s, core86. Immediate Back/reopen loses the entered draft; exact EditableText is empty atline319. Root original failure and all retained XML inspected. Erasure/recreation tail did not execute. Minimal ChatComposer registers its encrypted persist operation with the existing shared navigation hook, uses the same mutex for autosave/navigation, and prevents leaving while sending or on save failure. ChatScreen header/system Back awaits save before switching conversations. Unknown originals are already durable and never transmit on navigation; unreadable disabled composers cannot overwrite retained work. Local APK compilation is running; native GREEN pending. Preview11 remains the earlier source and does not contain this correction.
+
+Draft save-on-navigation sourceb2bc017 passes local test APK compilation2m43s/exit0; both bounded review axes0. Native20-case10/17 checks follow. Product source unchanged by these verification docs; preview11 still earliera369.
