@@ -492,3 +492,16 @@ Zero documented breaches and zero actionable smell findings. The emulator guard 
 One actionable finding: cancellation checks UNKNOWN in the existing composer but does not reload saved Chat work. The parent requires isolation and preservation of outgoing work; retained memory can mask a changed durable record. Read the real ChatWorkStore after cancellation and require its original encoded transaction and UNKNOWN status. No fixture privacy or scope finding. Earlier 18-case evidence is accurately qualified; the nineteenth native result and whole-ticket acceptance remain pending at review.
 
 Findings: Standards 0; Spec 1, durable preservation verification. The following change adds the requested adapter read; it requires review and native execution before acceptance.
+
+
+## Saved Chat work risk inspector, fd6a382...483d8fe
+
+### Standards
+
+One documented recovery gap. The scanner normalizes .new filenames, then checks only decoded base contents. An unfinished .new beside a valid empty base can return false, contrary to its comment and verification documentation. EncryptedLocalFile.load reads the base/backup, not the unfinished file. This conflicts with CODING_STANDARDS.md: “Preserve user identity and recoverable work through updates and connection failures.” Detect .new conservatively before loading the base. Orphan .new already fails closed. Zero heuristic findings. Shared decoding, wallet/backend restrictions and original authentication remain appropriate.
+
+### Spec
+
+Zero new actionable findings; the prior durable cancellation verification gap is resolved. Inspection covers the outgoing wallet across both approved backends, validates canonical conversation names and authenticated originals, and invokes existing replacement safeguards without transmission or identity mutation. Cancellation reloads UNKNOWN and the independent original bytes. The actual 19-case RED and its unexecuted later assertions are accurately qualified. Native GREEN and whole-ticket acceptance remain pending.
+
+Findings: Standards 1, unfinished save detection; Spec 0. The following correction conservatively treats a matching .new file as retained work after validating the conversation filename. Compilation, review and native execution remain pending.

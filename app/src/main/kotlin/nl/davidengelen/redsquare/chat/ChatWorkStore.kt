@@ -79,6 +79,7 @@ internal class ChatWorkStore(private val context: Context, private val wallet: S
             names.map { it.removeSuffix(".bak").removeSuffix(".new") }.distinct().any { name ->
                 val group = name.removePrefix(prefix).removeSuffix(".v1")
                 require(name == "$prefix$group.v1" && group.matches(Regex("[0-9a-f]{64}")))
+                if ("$name.new" in names) return@any true
                 val contents = EncryptedLocalFile(context, name, "redsquare.chatwork.v1", "chatwork.").load()
                 // An unfinished file or unreadable record must not silently remove the replacement warning.
                 val saved = decode(requireNotNull(contents), wallet, group)

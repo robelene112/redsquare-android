@@ -518,3 +518,6 @@ Pending-work import tracer fd6a382 actual RED: Android 10 run 38395668530 report
 The minimal subsequent inspector scans the outgoing wallet and each supported backend's encrypted Chat work family. Shared decoding validates draft/status and authenticates any original against its canonical conversation. Nonempty drafts or retained originals trigger the existing replacement safeguard. Unreadable or unfinished records propagate to the existing fail-closed risk handling. No network, wallet mutation, schema change or automatic retry is introduced. Native GREEN and bounded review are pending; local APK compilation is running.
 
 Pending Chat work inspector local test APK compilation passes in 2m51s, command exit 0. Native GREEN and code review are pending. Core unchanged; no full-ticket acceptance.
+
+
+Risk-inspector bounded review fd6a382...483d8fe: Spec 0 (prior cancellation verification finding resolved); Standards found one unfinished-file gap. A valid empty base plus .new could be classified as empty because EncryptedLocalFile.load ignores .new. The reviewed correction validates the family/conversation filename then treats any matching .new as retained work. Compilation is running; prior 19-case native runs remain at 483d8fe and cannot establish execution of this subsequent correction.
