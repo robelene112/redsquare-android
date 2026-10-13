@@ -1139,3 +1139,6 @@ output explicitly qualifies omissions. Syntax/YAML pass is not native evidence.
 Bothreviews0. Incoming UI run38465042619 failed with no reportedjobsteps or
 artifacts; annotation only exit1, no proven app failure. Preserve metadata and
 attempt a focused actions run after recording this infrastructure evidence.
+
+
+Correction after completed rawlog/artifact:38465042619 is actual incoming UI RED, not a proven infrastructure failure.24historyPASS101.155s; actions4 threePASS+missing firstincoming1like atFixture292/33.729s; core86. Original solefailurePNG/XML inspected; dedup/unlike/cache tail/process unexecuted. APIempty steps/noartifacts was incomplete observation. Minimum b77dda0c now building core/debug/testAPK; reviews in progress.
