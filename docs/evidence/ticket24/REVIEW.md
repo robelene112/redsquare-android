@@ -1142,3 +1142,31 @@ attempt a focused actions run after recording this infrastructure evidence.
 
 
 Correction after completed rawlog/artifact:38465042619 is actual incoming UI RED, not a proven infrastructure failure.24historyPASS101.155s; actions4 threePASS+missing firstincoming1like atFixture292/33.729s; core86. Original solefailurePNG/XML inspected; dedup/unlike/cache tail/process unexecuted. APIempty steps/noartifacts was incomplete observation. Minimum b77dda0c now building core/debug/testAPK; reviews in progress.
+
+## Incoming product minimum,f8d58749...b77dda0c
+
+### Standards
+
+Zero new documented breaches or actionable smells. Original envelope is
+extracted, independently authenticated and durably saved before acknowledgement;
+reaction IDs deduplicate without toggling twice. No new scope/acceptance claims.
+
+### Spec
+
+One finding: new incoming load can publish an older UNKNOWN/SUBMITTED snapshot
+after newer Forwarded, contrary to truthful delivery state. Order snapshot read/
+write plus publication and verify incoming activity during forwarding. Otherwise
+original authentication, durable-before-ACK, pair routing and dedup are sound.
+
+Initial minimum core86/debug/testAPK PASS3m46s. Native corrected GREEN pending.
+
+## Ordered reaction publication and concurrency tracer,86fb65c9...da786327
+
+### Spec
+
+Previous stale-status finding resolved; zero new findings. Mutex orders each
+store snapshot through Main publication. Bounded conflated signals reload both
+stores. Controlled Relay delay plus independently signed incoming Like requires
+both counts with Submitted, then Forwarded; own Unlike preserves the contact's
+like through recreation, exact originals, identity/backend and no extra sends.
+UI/peer seam preserved without internal mocks. Native new-case GREEN pending.
