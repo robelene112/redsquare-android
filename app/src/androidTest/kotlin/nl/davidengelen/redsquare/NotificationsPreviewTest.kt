@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger
 
 class NotificationsPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
-    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING, MISSING_REPOST, MISSING_QUOTE_LIKE, HISTORY, PRUNED, PARTIAL, REJECTED, NULL_HISTORY, READ, READ_SAVE_FAULT, MISSING_REPLY, MISSING_QUOTE, FEED_MENTION, CONTACT, CONTACT_QUOTE, PAGING, CONTACT_CONTINUATION, BACKEND, PARENT_REPLY, CACHE_BUDGET, HISTORY_LOAD_FAULT, READ_LOAD_FAULT, RETRY }
+    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING, MISSING_REPOST, MISSING_QUOTE_LIKE, HISTORY, PRUNED, PARTIAL, REJECTED, NULL_HISTORY, READ, READ_SAVE_FAULT, MISSING_REPLY, MISSING_QUOTE, FEED_MENTION, CONTACT, CONTACT_QUOTE, PAGING, CONTACT_CONTINUATION, BACKEND, PARENT_REPLY, CACHE_BUDGET, HISTORY_LOAD_FAULT, READ_LOAD_FAULT, RETRY, WALLET }
 
     @Test fun anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile() {
         withNotifications("incoming-like", mode = Mode.LIKE) { actor, _, _ ->
@@ -744,6 +744,66 @@ class NotificationsPreviewTest {
         }
     }
 
+    @Test fun importingAnotherWalletSeparatesSharedMentionReadStatusAndRestoringItsOwnerRecoversActivity() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val store = AndroidWalletStore(context)
+        val owner = SaitoWallet.fromPrivateKey("0".repeat(63) + "1")
+        val other = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
+        withNotifications("wallet-isolation", Mode.WALLET) { _, _, _ ->
+            try {
+                waitFor("2 unread")
+                ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
+                    .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                ui.onNodeWithText("Liked your post").assertIsDisplayed()
+                ui.onNodeWithText("Mentioned you").assertIsDisplayed()
+                ui.onNodeWithText("Mark all as read").performClick()
+                waitFor("No unread activity")
+                importNotificationWallet("notification-other-import.json", other.publicKey)
+                waitFor("Shared mention for wallet isolation")
+                if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty())
+                    ui.onNodeWithText("Later").performClick()
+                ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
+                    .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                ui.onNodeWithText("Notifications").assertIsDisplayed().performClick()
+                waitFor("1 unread")
+                waitFor("Mentioned you")
+                ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
+                    .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                ui.onAllNodesWithText("Liked your post").assertCountEquals(0)
+                ui.onAllNodesWithText("Mentioned you").assertCountEquals(1)
+                captureNativeScreen(File(context.cacheDir, "notification-evidence/wallet-other.png"), "1 unread")
+                ui.onNodeWithText("Mark all as read").performClick()
+                waitFor("No unread activity")
+                importNotificationWallet("notification-owner-import.json", owner.publicKey)
+                waitFor("No unread activity")
+                ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
+                    .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                ui.onNodeWithText("Liked your post").assertIsDisplayed()
+                ui.onNodeWithText("Mentioned you").assertIsDisplayed()
+                ui.onNodeWithText("Server: saito.davidengelen.nl").assertIsDisplayed()
+                captureNativeScreen(File(context.cacheDir, "notification-evidence/wallet-owner-restored.png"), "No unread activity")
+            } finally {
+                val active = store.loadExisting()
+                check(active.publicKey in setOf(owner.publicKey, other.publicKey))
+                if (active.exportJson() != owner.exportJson()) store.replace(active, owner)
+                check(store.loadExisting().exportJson() == owner.exportJson())
+            }
+        }
+    }
+
+    private fun importNotificationWallet(filename: String, incoming: String) {
+        ui.onNodeWithText("Wallet").performClick()
+        ui.onNodeWithText("Import wallet").performClick()
+        chooseWalletImport(ui, filename, incoming)
+        waitFor("Server reports zero SAITO")
+        ui.onNodeWithText("Skip backup").performScrollTo().performClick()
+        ui.onNodeWithContentDescription("Replacement risks acknowledged").performScrollTo().performClick()
+        ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsEnabled().performClick()
+        waitFor("Wallet imported")
+        assertEquals(incoming, displayedWalletAddress(ui))
+        ui.onNodeWithText("Done").performClick()
+    }
+
     private fun missingReferenceJourney(evidenceName: String, mode: Mode, caption: String, ownCaption: String, actorRows: Int, recoveryText: String = "Original recovered after retry") {
         withNotifications(evidenceName, mode) { actor, _, _ ->
             waitFor(caption)
@@ -782,6 +842,7 @@ class NotificationsPreviewTest {
         val root = fixture.getAsJsonObject("root")
         val owner = "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR"
         val actor = "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU"
+        val otherOwner = fixture.getAsJsonObject("farContactPost").get("field2").asString
         val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Published unsafe fixture only.
         val store = AndroidWalletStore(context)
         val prior = store.loadOrCreate()
@@ -815,6 +876,30 @@ class NotificationsPreviewTest {
         val conversationFiles = FixtureFiles(context.noBackupFilesDir,
             "conversation.${SaitoBackend.OWNER.id}.${fixture.getAsJsonObject("recoveredOriginal").get("sig").asString}.v1",
             nl.davidengelen.redsquare.feed.PublicStringStore.lock)
+        val otherHistoryFiles = FixtureFiles(context.noBackupFilesDir, "notifications.${SaitoBackend.OWNER.id}.$otherOwner.v1",
+            nl.davidengelen.redsquare.feed.PublicStringStore.lock)
+        val otherReadFiles = FixtureFiles(context.noBackupFilesDir, "notificationread.${SaitoBackend.OWNER.id}.$otherOwner.v1",
+            nl.davidengelen.redsquare.feed.PublicStringStore.lock)
+        val otherPersonalFiles = FixtureFiles(context.noBackupFilesDir, "personal.$otherOwner",
+            nl.davidengelen.redsquare.saito.SaitoLocalState.lock)
+        val otherFollowingFiles = FixtureFiles(context.noBackupFilesDir, "following.$otherOwner.v1",
+            nl.davidengelen.redsquare.feed.PublicStringStore.lock)
+        val otherNameFiles = FixtureFiles(context.noBackupFilesDir, "namemap.$otherOwner.v1",
+            nl.davidengelen.redsquare.saito.SaitoLocalState.lock)
+        val documents = File(instrumentation.context.filesDir, "wallet-test-documents")
+        val ownerDocument = FixtureFiles(documents, "notification-owner-import.json", nl.davidengelen.redsquare.saito.SaitoLocalState.lock)
+        val otherDocument = FixtureFiles(documents, "notification-other-import.json", nl.davidengelen.redsquare.saito.SaitoLocalState.lock)
+        val reminders = context.getSharedPreferences("wallet-backup-reminders", 0)
+        val priorReminders = listOf(owner, otherOwner).associate { identity ->
+            val key = "hidden:$identity"
+            key to if (reminders.contains(key)) reminders.getBoolean(key, false) else null
+        }
+        val balances = if (mode == Mode.WALLET) mockwebserver3.MockWebServer().apply {
+            dispatcher = object : mockwebserver3.Dispatcher() {
+                override fun dispatch(request: mockwebserver3.RecordedRequest) = mockwebserver3.MockResponse.Builder()
+                    .body("${System.currentTimeMillis()}-1234-${"a".repeat(64)}.snap\n").build()
+            }
+        } else null
         val parentReads = AtomicInteger()
         val responses = FixtureControl(readFiles, historyFiles)
         val likeReads = AtomicInteger()
@@ -831,7 +916,8 @@ class NotificationsPreviewTest {
                     responses.followedReads.incrementAndGet()
                     "[${fixture.get("knownOtherQuote")}]"
                 } else "[]"
-            } else if (!criteria.has("field3")) "[]" else {
+            } else if (mode == Mode.WALLET && criteria.get("field3")?.asString == otherOwner) "[]"
+            else if (!criteria.has("field3")) "[]" else {
                 require(criteria.get("field3").asString == owner)
                 require(criteria.get("flagged_ne").asInt == 1)
                 require(criteria.get("limit").asInt in 1..100)
@@ -926,6 +1012,7 @@ class NotificationsPreviewTest {
                         when (mode) {
                             Mode.REPLY -> "[${fixture.get("incomingReply")},${fixture.get("parentedQuote")}]"
                             Mode.MISSING_REPLY -> "[${fixture.get("missingOriginalReply")},${fixture.get("knownOtherReply")}]"
+                            Mode.WALLET -> "[${fixture.get("sharedWalletMention")}]"
                             Mode.RETRY -> {
                                 responses.healthyReplyReads.incrementAndGet()
                                 "[${fixture.get("incomingReply")}]"
@@ -975,8 +1062,10 @@ class NotificationsPreviewTest {
                             "[${fixture.get("knownOtherPost")}]"
                         } else "[]"
                     }
+                    mode == Mode.WALLET && criteria.get("field3")?.asString == otherOwner -> "[]"
                     criteria.get("field2")?.asString in listOf(null, owner) ->
-                        if (mode == Mode.FEED_MENTION && !criteria.has("field2"))
+                        if (mode == Mode.WALLET && !criteria.has("field2")) "[$root,${fixture.get("sharedWalletMention")}]"
+                        else if (mode == Mode.FEED_MENTION && !criteria.has("field2"))
                             "[$root,${fixture.get("incomingMention")},${fixture.get("addressedPost")}]"
                         else if (missing && !criteria.has("field2")) "[$root,${fixture.get("knownOtherPost")}]" else "[$root]"
                     else -> "[]"
@@ -1006,6 +1095,15 @@ class NotificationsPreviewTest {
         var primary: Throwable? = null
         try {
             historyFiles.reset()
+            if (mode == Mode.WALLET) {
+                otherHistoryFiles.reset(); otherReadFiles.reset(); otherPersonalFiles.reset()
+                otherFollowingFiles.reset(); otherNameFiles.reset()
+                check(documents.isDirectory || documents.mkdirs())
+                ownerDocument.reset(); otherDocument.reset()
+                File(documents, "notification-owner-import.json").writeText(wallet.exportJson())
+                File(documents, "notification-other-import.json").writeText(SaitoWallet.fromPrivateKey("0".repeat(63) + "3").exportJson())
+                balances!!.start(java.net.InetAddress.getByName("127.0.0.1"), 0)
+            }
             if (mode == Mode.CACHE_BUDGET) {
                 nl.davidengelen.redsquare.feed.PublicStringStore(context,
                     "notifications.${SaitoBackend.OWNER.id}.$owner.v1", 300)
@@ -1035,9 +1133,14 @@ class NotificationsPreviewTest {
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("usernameFixtureRegistrar", mode == Mode.USERNAME).apply {
                         officialServer?.let { putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${it.port}/wsopen") }
+                        balances?.let { putExtra("balanceApiUrl", "http://127.0.0.1:${it.port}/balance/") }
                     }).use { scenario ->
                     withFailureCapture({ retainQuoteTargetReads(); captureNativeScreen(File(context.cacheDir,
                         "notification-evidence/$evidenceName-first-failure.png")) }) {
+                        if (mode == Mode.WALLET) {
+                            waitFor("Shared mention for wallet isolation")
+                            ui.onNode(hasScrollAction()).performScrollToNode(hasText("Native Red Square reference post"))
+                        }
                         if (mode == Mode.FEED_MENTION) {
                             waitFor("An addressed post without a mention")
                             ui.onNode(hasScrollAction()).performScrollToNode(hasText("Native Red Square reference post"))
@@ -1075,7 +1178,10 @@ class NotificationsPreviewTest {
                         if (mode in listOf(Mode.HISTORY, Mode.PRUNED, Mode.NULL_HISTORY, Mode.READ)) assertTrue("Recreation must receive changed selected-server responses", responses.ownerReads.get() > 0)
                         if (mode == Mode.NULL_HISTORY) assertTrue("Recreated notification stream must reread repost history", repostReads.get() >= 2)
                         assertTrue(peer.clientKeys.isNotEmpty())
-                        assertTrue(peer.clientKeys.all { it == owner })
+                        if (mode == Mode.WALLET) {
+                            assertTrue(peer.clientKeys.all { it == owner || it == otherOwner })
+                            assertTrue("The replacement wallet must authenticate its own reads", otherOwner in peer.clientKeys)
+                        } else assertTrue(peer.clientKeys.all { it == owner })
                         assertTrue("Reading notifications must not publish a transaction", peer.transactions.isEmpty())
                         assertTrue(peer.reports.isEmpty())
                         official?.let {
@@ -1119,7 +1225,16 @@ class NotificationsPreviewTest {
                 officialFeedFiles.restore()
             }, {
                 conversationFiles.restore()
-            })
+            }, { otherHistoryFiles.restore() }, { otherReadFiles.restore() }, { otherPersonalFiles.restore() },
+                { otherFollowingFiles.restore() }, { otherNameFiles.restore() }, { ownerDocument.restore() },
+                { otherDocument.restore() }, { balances?.close() }, {
+                    val edit = reminders.edit()
+                    priorReminders.forEach { (key, value) -> if (value == null) edit.remove(key) else edit.putBoolean(key, value) }
+                    check(edit.commit())
+                    priorReminders.forEach { (key, value) ->
+                        check(if (value == null) !reminders.contains(key) else reminders.getBoolean(key, !value) == value)
+                    }
+                })
         }
     }
 

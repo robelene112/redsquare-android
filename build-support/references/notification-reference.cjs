@@ -189,7 +189,14 @@ const cachedLikes = Array.from({length: 150}, (_, index) => {
     field1: 'RedSquareLike', field3: owner, field4: thread.root.sig,
     updated_at: timestamp, flagged: 0};
 });
+// One signed event eligible to two wallet identities, for independent read-marker checks.
+const sharedWalletMention = {
+  ...signedReference('2', {module: 'RedSquare', request: 'create tweet',
+    data: {text: 'Shared mention for wallet isolation', mentions: [owner, farContactPost.field2]}},
+    1700000000175, [owner, farContactPost.field2]),
+  field1: 'RedSquare', field3: owner, field4: '', updated_at: 1700000000175, flagged: 0
+};
 console.log(JSON.stringify({synthetic: true, reference, owner,
   actor: 'pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU',
   root: thread.root, incomingLike, incomingReply, parentedQuote, incomingMention,
-  addressedPost, listedMention, usernameMention, incomingRepost, incomingNullRepost, incomingQuote, legacyQuote, recoveredOriginal, missingOriginalLike, missingOriginalRepost, knownOtherPost, knownOtherLike, ownCurrentQuote, incomingQuoteLike, missingOriginalReply, knownOtherReply, missingOriginalQuote, knownOtherQuote, boundaryIncomingLike, olderIncomingLike, farContactPost, continuationContacts, parentIndexedReply, cachedLikes}, null, 2));
+  addressedPost, listedMention, usernameMention, incomingRepost, incomingNullRepost, incomingQuote, legacyQuote, recoveredOriginal, missingOriginalLike, missingOriginalRepost, knownOtherPost, knownOtherLike, ownCurrentQuote, incomingQuoteLike, missingOriginalReply, knownOtherReply, missingOriginalQuote, knownOtherQuote, boundaryIncomingLike, olderIncomingLike, farContactPost, continuationContacts, parentIndexedReply, cachedLikes, sharedWalletMention}, null, 2));

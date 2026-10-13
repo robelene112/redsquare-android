@@ -1081,3 +1081,18 @@ satisfied before>50 guard. Root changes external request guard to before>51,
 excluding the known older window while preserving allvisible/count/transport/
 Actor assertions.30native38324067997 original guard pending; correction compile/
 review pending. No reproduced freshness productdefect or source change.
+
+Freshness correction61cb647 bothaxes0/localAPK1m33PASS; original30native
+38324067997 succeeded, raw evidence pending, cannot prove stronger>51 guard.
+Native31 wallet-isolation regression uses actual document picker/validated preview/
+verified-zero skip/acknowledge/confirm, Owner1->unsafe3->Owner1. Shared independently
+signed actor2 mention explicitly addresses both identities; Owner marksLike+Mention,
+replacement must seeMention1unread/noLike, then mark and restoredOwner recovers
+bothread rows. This detects read-ID sharing, not merely different-event histories.
+Reference224504/SHA2c0bd716a085e0dd0cb611fcc7521cdd8866f6d5cd8df00badf0d0386aa715fc,
+pinnedWASM/Elliptic/roundtrip, fixed1–4 signers/outputs. Exact second-owner public/
+personal/follow/name/read/history families and two unsafe import docs snapshot/
+restore independently; related reminder keys restored. Both client identities
+observed, no transactions/reports. Finally restores exact unsafeOwner1 before
+outer original opaque wallet restoration, never prints either JSON. Loopback
+balance fixture only, no live funds/node. Local fixture/native pending.
