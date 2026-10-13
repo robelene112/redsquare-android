@@ -74,9 +74,10 @@ const groupId = crypto.hash(Object.values(publicKeys).sort().join('_'));
 assert.equal(process.version, 'v24.13.0');
 
 // Consume only the public unsafe scalar2 -> scalar1 transaction captured by the native UI fixture.
-if (['--check-native-send', '--check-native-reply-send'].includes(process.argv[2])) {
-  const replySend = process.argv[2] === '--check-native-reply-send';
-  const expectedReply = replySend ? JSON.parse(fs.readFileSync('/reference/reply-compose-reference.json')).replyFormat.composition : null;
+if (['--check-native-send', '--check-native-reply-send', '--check-native-zero-reply-send'].includes(process.argv[2])) {
+  const replySend = process.argv[2] !== '--check-native-send';
+  const zeroReply = process.argv[2] === '--check-native-zero-reply-send';
+  const expectedReply = replySend ? JSON.parse(fs.readFileSync('/reference/reply-compose-reference.json')).replyFormat[zeroReply ? 'compositionZero' : 'composition'] : null;
   const expectedMessage = replySend ? expectedReply.prefix + expectedReply.body : 'Native private message 😀 <&>\nsecond line';
   const expectedMentions = replySend ? expectedReply.mentioned : [];
   const input = fs.readFileSync('/reference/native-sent-envelope.json');
@@ -287,6 +288,11 @@ if (['--reply', '--reply-compose'].includes(process.argv[2])) {
       body: 'Native reply body <b>literal</b> 😀 <&>\nsecond line',
       quotedText: '...ar1 to scalar2 😀 <&> line two',
       mentioned: [vectors[0].sender]};
+    const zero = vector('1', '2', 0, '4041424344454647');
+    vectors.push(zero);
+    replyFormat.compositionZero = {...replyFormat.composition,
+      sourceSignature: zero.signature,
+      prefix: adapter.sanitize(`<blockquote href="${zero.sender}0">${excerpt}</blockquote>`)};
   }
 }
 const malformedCiphertexts = ['ct', 'iv', 's'].map((field, index) => {

@@ -837,3 +837,25 @@ replychecker runtime claimed without a native capture. Product remains unchanged
 Findings: Standards0; Spec0. Prior nonreply capturedoriginal is actually rejected
 by replychecker with exit1/ERR_ASSERTION; this is a negative oracle check, not
 nativeReply acceptance. Revised local compilation/nativeRED remain pending.
+
+
+## Native Reply minimum,42c6e9c5...4d8ba673
+
+### Standards
+
+Zero documented breaches or actionable smell findings. Existing encrypted draft
+stores rawprefix, editor exposes literalbody, remove preservesbody, explicit
+sending includes validated encryptedauthormention, originalretry unchanged.
+Stable remembered scopedcallback; prefixvalidatesreference andescapesliteralquote
+withsafeUTF16clip. Quote navigation onlytargetsavailablevisiblemessages.
+
+### Spec
+
+One actionable finding: producer accepts timestamp0 orout-of-range values that
+parser rejects. Generated prefix thenappears aseditablebody, enablingquoteonly
+Send. Alignbounds orvalidate generatedstate. Other draft/remove/mention/explicit
+send/defaultfactory/source andREDlimits match accepted scope.
+
+Findings: Standards0; Spec1. Correctedlocal core/testAPKBUILD PASS3m28s/exit0;
+firstownedbuild deliberatelystopped, notnativefailure. New zero-timestamp public
+independent corpus/UI26th tracer targets finding before minimumcorrection.

@@ -99,3 +99,11 @@ unsafe-scalar fixture boundary. Reopened draft preview is checked before removal
 Named pinned SaitoUser template directly confirms outer data-id is publicKey
 (lines20–23), SHA256592fafd1ee8b9e89faf8ea5565b063edd0e56ad737f2cafe76e9f1d8f2cefe55.
 [User wrapper](https://github.com/SaitoTech/saito/blob/9a4ca7e9442eb5e872168ced361ce741d7d139d7/node/lib/saito/ui/saito-user/saito-user.template.js#L20).
+
+The optional composition corpus also includes an actual independently signed/
+encrypted timestamp-zero original and its pinned sanitized reply prefix. A new
+public UI case requires quote-only Send disabled, literal draft retention/removal,
+explicit encrypted send and cached recovery. --check-native-zero-reply-send must
+verify that captured original against compositionZero. Default/reply corpora
+remain unchanged. This targets the minimum review's producer/parser bounds gap;
+no zero-timestamp native result is implied by corpus generation.
