@@ -979,3 +979,22 @@ Findings: Standards0; Spec0. Local splitTestAPK subsequentlyPASS1m47s/exit0.
 Quote-navigation tracer is strengthened with authenticated publicnative-generated
 layoutspacer and explicitoriginal-offscreen assertion beforetap. Spacer isnot
 independentcryptoevidence; replyoriginal andmetadata oracle stayunchanged.
+
+
+## Offscreen quote navigation,bb31c329...c47028d5
+
+### Standards
+
+Zero documented breaches or actionable smell findings. Actual controlledincoming
+spacer/positiveACK/visiblecontent, explicitthree-row ordering/publiclist scroll,
+strict originaloffscreen then displayedaftertap. Existing body/identity/cache/
+signedoriginal/nosend predicates unchanged; layoutspacerqualified separately.
+
+### Spec
+
+Zero actionable findings. Quote click mustactuallyreveal exactoriginal, cannot
+passbecauseoriginal happenedalreadyvisible. Receivedspacer andexistingrecovery/
+identity/transport checks retained. No productchange/compilation/nativeGREEN yet.
+
+Findings: Standards0; Spec0. Revised localsplit/action TestAPK and native24+2
+families stillpending; prior26SDK acceptance remainsqualifiedatseparatesource.
