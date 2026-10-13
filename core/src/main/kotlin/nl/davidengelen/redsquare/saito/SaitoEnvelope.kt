@@ -18,6 +18,29 @@ data class VerifiedSaitoPayload(val id: String, val author: String, val createdA
 object SaitoEnvelope {
     private val gson = GsonBuilder().setStrictness(Strictness.STRICT).create()
 
+    /** Framing only: Relay wrappers may be unsigned. Callers must authenticate their original inner message. */
+    internal fun unverifiedNetworkEnvelope(binary: ByteArray): String {
+        require(binary.size in 93..(4 * SaitoTransaction.MAX_MESSAGE_BYTES + 200_000))
+        val header = ByteBuffer.wrap(binary)
+        val inputs = header.getInt(0)
+        val outputs = header.getInt(4)
+        val messageLength = header.getInt(8)
+        val hops = header.getInt(12)
+        require(inputs in 1..255 && outputs in 0..255 && hops in 0..1024)
+        require(messageLength in 1..(4 * SaitoTransaction.MAX_MESSAGE_BYTES) && binary[92] == 0.toByte())
+        val start = 93 + 59 * (inputs + outputs)
+        val end = start + messageLength
+        require(binary.size.toLong() == end.toLong() + 130L * hops)
+        val detached = binary.copyOfRange(0, start) + binary.copyOfRange(end, binary.size)
+        ByteBuffer.wrap(detached).putInt(8, 0)
+        val encoder = Base64.getEncoder()
+        return JsonObject().apply {
+            addProperty("t", encoder.encodeToString(detached))
+            addProperty("m", encoder.encodeToString(binary.copyOfRange(start, end)))
+            addProperty("opt", encoder.encodeToString("{}".toByteArray(Charsets.UTF_8)))
+        }.toString()
+    }
+
     /** Reconstruct the original signed payload from Relay's inner client JSON. Outer Relay is not trusted. */
     fun fromSignedJson(inner: JsonObject): String {
         val inputs = inner.getAsJsonArray("from")

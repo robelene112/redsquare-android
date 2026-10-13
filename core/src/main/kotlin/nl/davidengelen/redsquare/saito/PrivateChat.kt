@@ -16,9 +16,30 @@ import javax.crypto.spec.SecretKeySpec
 data class PrivateChatMessage(val id: String, val author: String, val conversationId: String,
     val createdAt: Long, val text: String)
 
+data class ReceivedPrivateChat(val counterparty: String, val envelope: String, val message: PrivateChatMessage)
+
 /** Authenticated private two-person Chat. Never return plaintext on decryption failure. */
 object PrivateChat {
     private val gson = GsonBuilder().setStrictness(Strictness.STRICT).disableHtmlEscaping().create()
+
+    fun receive(wallet: SaitoWallet, networkTransaction: ByteArray): ReceivedPrivateChat {
+        val outer = SaitoEnvelope.unverifiedNetworkEnvelope(networkTransaction)
+        val detached = gson.fromJson(outer, JsonObject::class.java)
+        val bytes = Base64.getDecoder().decode(detached.get("m").asString)
+        val utf8 = Charsets.UTF_8.newDecoder().onMalformedInput(CodingErrorAction.REPORT)
+            .onUnmappableCharacter(CodingErrorAction.REPORT).decode(ByteBuffer.wrap(bytes)).toString()
+        val payload = gson.fromJson(utf8, com.google.gson.JsonElement::class.java)
+        val envelope = if (payload.isJsonPrimitive && payload.asJsonPrimitive.isString) outer else {
+            require(payload.isJsonObject)
+            val relay = payload.asJsonObject
+            require(relay.requiredString("module") == "Relay" && relay.requiredString("request") == "chat relay")
+            SaitoEnvelope.fromSignedJson(relay.getAsJsonObject("data"))
+        }
+        val signed = SaitoEnvelope.decodePayload(envelope)
+        val counterparty = if (signed.author != wallet.publicKey) signed.author else
+            signed.recipients.distinct().filter { it != wallet.publicKey }.single()
+        return ReceivedPrivateChat(counterparty, envelope, read(wallet, envelope, counterparty))
+    }
 
     fun read(wallet: SaitoWallet, signedInner: JsonObject, counterparty: String): PrivateChatMessage =
         read(wallet, SaitoEnvelope.fromSignedJson(signedInner), counterparty)

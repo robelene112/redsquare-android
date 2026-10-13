@@ -51,3 +51,12 @@ send/receive, available-history recovery, private cache, Block/Mute semantics,
 both public backend contracts, process interruption and final fullSDK acceptance
 remain unfinished. No physical Pixel, live Chat publication, positive funding,
 closed-app push, permanent history or new phone APK claim.
+
+Authenticated discovery source0997419 both axes0. Actual focusedAndroid10
+run38337011297 passes1/0.471s/oneOK/noassumptions/deaths; core81/source gates.
+Four retained hashes, no UI bitmaps. Public backend services not yet verified.
+Unsigned Relay receive core tracer missingAPI RED31s then GREEN8/1m2s; valid
+independent inner is read and altered inner rejected. Socket callback genuine
+missingAPI RED2m7s then minimum source core82/debug/testAPK3m12s PASS. New
+PrivateChatPeerPreviewTest has two cases; actual two-case runtime next. Original
+Chat verification precedes acceptance; full UI/cache/delivery proof pending.

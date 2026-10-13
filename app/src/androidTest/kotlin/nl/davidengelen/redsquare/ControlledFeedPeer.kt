@@ -34,6 +34,8 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     val transactions = java.util.concurrent.CopyOnWriteArrayList<ByteArray>()
     val reports = java.util.concurrent.CopyOnWriteArrayList<ByteArray>()
     val registryQueries = java.util.concurrent.CopyOnWriteArrayList<com.google.gson.JsonObject>()
+    @Volatile var incomingTransaction: ByteArray? = null
+    val incomingAcknowledgements = java.util.concurrent.CopyOnWriteArrayList<ByteArray>()
     @Volatile private var failure: Throwable? = null
 
     fun start(port: Int = 0): MockWebServer {
@@ -82,6 +84,13 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                         require(SaitoWallet.verify(counter, answer, clientKey))
                         clientKeys.add(clientKey)
                         authenticated = true
+                        incomingTransaction?.let { transaction ->
+                            webSocket.send((byteArrayOf(12) + ByteBuffer.allocate(4).putInt(777).array() + transaction).toByteString())
+                        }
+                    }
+                    13, 14 -> {
+                        require(authenticated && frame.size >= 5 && ByteBuffer.wrap(frame, 1, 4).int == 777)
+                        incomingAcknowledgements.add(frame)
                     }
                     4 -> {
                         require(authenticated)

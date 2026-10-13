@@ -24,7 +24,8 @@ import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicBoolean
 
 /** One authenticated peer session. Request identities never cross a connection. */
-class SaitoPeer(private val wallet: SaitoWallet, endpoint: String) : Closeable {
+class SaitoPeer(private val wallet: SaitoWallet, endpoint: String,
+    private val onIncoming: ((ByteArray) -> Boolean)? = null) : Closeable {
     class RequestError : IOException("Peer returned a request error")
     private val ready = CompletableDeferred<Unit>()
     private val advertised = CompletableDeferred<Set<String>>()
@@ -80,6 +81,19 @@ class SaitoPeer(private val wallet: SaitoWallet, endpoint: String) : Closeable {
                         }
                         require(services.size <= 256)
                         advertised.complete(services.toSet())
+                    }
+                    12 -> {
+                        require(frame.size >= 5)
+                        if (!ready.isCompleted || ready.isCancelled || disconnected.get() || onIncoming == null) return
+                        val accepted = acceptIncoming(frame.copyOfRange(5, frame.size))
+                        val acknowledgement = if (accepted) "{\"err\":\"\",\"success\":1}" else
+                            "{\"err\":\"Message not accepted\",\"success\":0}"
+                        send(webSocket, byteArrayOf(if (accepted) 13.toByte() else 14.toByte()) +
+                            frame.copyOfRange(1, 5) + acknowledgement.toByteArray(Charsets.UTF_8))
+                    }
+                    4 -> {
+                        if (!ready.isCompleted || ready.isCancelled || disconnected.get() || onIncoming == null) return
+                        acceptIncoming(frame.copyOfRange(1, frame.size))
                     }
                     13, 14 -> {
                         require(frame.size >= 5)
@@ -164,6 +178,11 @@ class SaitoPeer(private val wallet: SaitoWallet, endpoint: String) : Closeable {
         authenticate()
         advertised.await()
     }
+
+    /** The feature handler authenticates the original message and persists it before accepting. */
+    private fun acceptIncoming(transaction: ByteArray): Boolean = try {
+        requireNotNull(onIncoming).invoke(transaction)
+    } catch (_: Exception) { false }
 
     /** Drain queued frames before disposal. Local completion is still not a peer/payment ACK. */
     suspend fun finishBroadcast() = withTimeout(12_000) {

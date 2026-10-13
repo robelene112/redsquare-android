@@ -37,3 +37,19 @@ Zero findings. Legacy field and exact-case passphrase fixes preserve imported
 backup data; Relay original signed bytes authenticate before decrypt. All55
 hashes/core81/referencecopies/fourvalid+threeinvalid vectors verified. Native
 transport/UI/final recovery remain pending.
+
+## Shared validator and authenticated discovery42dfd6f...0997419
+
+### Standards
+
+Prior duplication resolved; zero hard/actionable heuristics. Bounded strictUTF8
+metadata matches pinned service|domain|name ordering, authenticated sameconnection,
+no endpoint use. Fixture callback placement/scope mappings and allfive hashes
+verify; source evidence correctly distinguishes pending actual runtime.
+
+### Spec
+
+Zero findings. Authentication/disconnect discovery gates and original string
+validation preserved; no custom backend/domain following. Existing trailing
+Archive callback bindings restored. Allfive hashes/core81/source GREEN and
+qualified mixed/cleanRED evidence verified; no UI/full acceptance claim.

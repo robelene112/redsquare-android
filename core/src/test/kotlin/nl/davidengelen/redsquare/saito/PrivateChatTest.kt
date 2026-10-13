@@ -5,6 +5,27 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class PrivateChatTest {
+    @Test fun anUnsignedRelayCannotChangeTheOriginalAuthenticatedPrivateMessage() {
+        val reference = requireNotNull(javaClass.getResourceAsStream("/native-private-chat-reference.json"))
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject }
+        val recipient = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
+        val inner = reference.getAsJsonObject("signedInner").deepCopy()
+        fun packet(): ByteArray {
+            val relay = com.google.gson.JsonObject().apply {
+                addProperty("module", "Relay"); addProperty("request", "chat relay"); add("data", inner)
+            }
+            return SaitoWire.applicationRequest(reference.get("sender").asString,
+                relay.toString().toByteArray(Charsets.UTF_8), 1, reference.get("timestamp").asLong).drop(5).toByteArray()
+        }
+        val received = PrivateChat.receive(recipient, packet())
+        assertEquals(reference.get("sender").asString, received.counterparty)
+        assertEquals(reference.get("signature").asString, received.message.id)
+        assertEquals(reference.getAsJsonObject("plaintext").get("message").asString, received.message.text)
+        // Alter only the inner signed payload, while leaving the outer unsigned relay well-formed.
+        inner.addProperty("buffer", java.util.Base64.getEncoder().encodeToString("\"forged\"".toByteArray()))
+        org.junit.Assert.assertThrows(IllegalArgumentException::class.java) { PrivateChat.receive(recipient, packet()) }
+    }
+
     @Test fun correctlySignedMalformedCipherFieldsDoNotBecomeReadablePrivateMessages() {
         val reference = requireNotNull(javaClass.getResourceAsStream("/native-private-chat-reference.json"))
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
