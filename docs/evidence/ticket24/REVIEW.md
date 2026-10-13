@@ -1361,3 +1361,16 @@ Zero documented breaches or actionable Fowlerheuristic findings. Authenticated o
 No additional actionablefindings. Onealreadytrackedpartialrequirement: availablehistory pluspreservationofexistingcapabilities because loadPrivateHistory rejects signedobjectreactionpayloads. Newtracer/nextminimumaddress this; missingunavailablehistoricalreactions afterwalletimportarenotpromised. Authenticated originals/keyfallback/extra mentions/identitybackendisolation/exactretry/truthfulstate/cache/unreadablepagepagination/drafts/CopyReply/live dedup/muteblock/outgoingwarnings noadditionalconcretesourcedefect. Reviewdoesnotclose25; Archivehandling/fullSDK/release/update/publicgatespending. Groups/media/offlinequeue/push/Pixelbelongseparatetickets.
 
 Outgoing-lazyvisibilitybe289 compilation PASS1m26. Available-refreshfixf748 compilation PASS1m30. NineactionsRED17run38474963986/c299 active; includeswalletreplacementtracerandfirstavailable-reactiontracer. NoownedGradle.
+
+
+## Available reaction minimum,729bee40...ed78544a
+
+### Standards
+
+Zero documented breaches or actionable heuristic findings. Actualsignature/privatepair/addressing/time/Like-schema validation beforecursor/events; encryptedmissing-keycursor preserved. Shareddiscovery/recent/olderretention through realprotectedstore andorderedUIload, originalIDdedup/noautotransmission.
+
+### Spec
+
+One actionablefinding: reaction-filepersistencefailure abortsentirepagebeforereadableverifiedDMsmerge, weakening availablehistorypluscache. Handlereactionretentionfailure separately, showlocalpersistencewarning, continuemergedmessages; liveACKmustretaindurablegate. Existingverification/deduparecorrect butruntimeandfailurepathunverified.
+
+ActualRED17run38474963986/c299:8of9actionsPASS85.717s/core86, oneavailableLikecounttimeoutFixture313. RootfailurePNG/XMLandthreewalletreplacementoriginalpairs inspected. WalletcasePASS;10walletpending. Minimumed785 core/debug/testAPKlocal70099active; regressionnextafterbuild.
