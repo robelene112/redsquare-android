@@ -48,7 +48,8 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     LaunchedEffect(wallet, endpoint, refresh) {
         try {
             val retained = withContext(Dispatchers.IO) { ChatHistoryStore.contacts(context, wallet, backend) }
-            var discoveryFailed = retained.unreadable
+            var discoveryFailed = retained.unavailable
+            if (retained.unreadable) incomplete = true
             val portable = withContext(Dispatchers.IO) { wallet.chatContacts() }
             contacts = (contacts + portable + retained.accounts).distinct()
             val known = portable.map { PrivateChat.conversationId(wallet.publicKey, it) }.toSet()
@@ -87,7 +88,8 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                     for (ignored in updates) {
                         val retained = withContext(Dispatchers.IO) { ChatHistoryStore.contacts(context, wallet, backend) }
                         contacts = (contacts + retained.accounts).distinct()
-                        if (retained.unreadable) contactsFailed = true
+                        if (retained.unavailable) contactsFailed = true
+                        if (retained.unreadable) incomplete = true
                     }
                 }
                 try {
@@ -112,17 +114,19 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
         val cache = ChatHistoryStore(context, wallet, backend, contact)
         try {
             val cached = withContext(Dispatchers.IO) { cache.load() }
-            val savedIds = cached.map { it.message.id }.toSet()
+            val savedIds = cached.entries.map { it.message.id }.toSet()
             cacheFailed = entries.any { it.message.id !in savedIds }
-            entries = ChatHistoryStore.merge(entries, cached)
+            entries = ChatHistoryStore.merge(entries, cached.entries)
+            incomplete = cached.incomplete
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { cacheFailed = true }
         try {
             coroutineScope {
-                val updates = Channel<List<ChatHistoryStore.Entry>>(Channel.CONFLATED)
+                val updates = Channel<ChatHistoryStore.Read>(Channel.CONFLATED)
                 val receiver = launch {
                     for (saved in updates) {
-                        entries = ChatHistoryStore.merge(entries, saved)
+                        entries = ChatHistoryStore.merge(entries, saved.entries)
+                        if (saved.incomplete) incomplete = true
                     }
                 }
                 try {
@@ -143,11 +147,11 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                             entries = ChatHistoryStore.merge(entries, page.first.map { ChatHistoryStore.Entry(it.envelope, it.message) })
                             try {
                                 val saved = withContext(Dispatchers.IO) { cache.save(entries.map { it.envelope }) }
-                                entries = ChatHistoryStore.merge(entries, saved)
+                                entries = ChatHistoryStore.merge(entries, saved.entries)
                                 cacheFailed = false
+                                incomplete = page.second || saved.incomplete
                             } catch (cancelled: CancellationException) { throw cancelled }
                             catch (_: Exception) { cacheFailed = true }
-                            incomplete = page.second
                             failed = false
                         } catch (cancelled: CancellationException) { throw cancelled }
                         catch (_: Exception) { failed = true }

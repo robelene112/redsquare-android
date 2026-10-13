@@ -422,3 +422,18 @@ afternewsend/reopening and requirestheoriginal olderplaintext to reappear, with
 no extra transmissions. This checks unreadableciphertextpreservation throughsave.
 TestAPKcompiles1m39s; initial11caseRED38357934691 stillrunningat89c09bf.
 Restored-secret tail isnewcoverage, notan invented RED result.
+
+ActualmixedkeysRED10run38357934691 at89c09bf reports11cases/10PASS+1failure
+58.556s line221 missingcachedcontact afterkey-onlyimport. RootthirteenXMLs/
+failureoriginal inspected. Earliermergefix passesremainingcases, no invented
+deterministicraceproof. Strongerrestored-keytail4f9fb46 notinthisRED. Minimum
+cacheRead nowreturnsverifiedreadableentries+partialflag; savepreserves allsigned
+originalciphertexts while requiringfullprivateverification/decryption fornewrows.
+Cachecontacts skipundecryptablerows, distinguishpartialmessagesfromunavailable
+localfiles; selectedwarningpersistsacrossavailablepage+newsave. APKbuildpending.
+
+Partial-key cache correction debug/testAPK PASS3m22s, coreunchanged85(not rerun
+locally). Originalsignedmetadata authenticates retainedciphertexts; onlyfull
+private/decrypted newmessages enterstore; cachedreadableentries+partialflag are
+returned withoutdeletingolderunreadableciphertext. Strongerrestorationtail remains
+in11caseGREENnext. Boundedsource review+nativeGREEN pending.

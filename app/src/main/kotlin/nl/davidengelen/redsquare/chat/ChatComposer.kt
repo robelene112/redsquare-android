@@ -33,7 +33,7 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
             saved = withContext(Dispatchers.IO) { work.load() }
             text = saved.draft
             saved.transaction?.let { candidate ->
-                onHistory(withContext(Dispatchers.IO) { history.save(listOf(candidate.envelope())) })
+                onHistory(withContext(Dispatchers.IO) { history.save(listOf(candidate.envelope())).entries })
             }
             ready = true
         } catch (cancelled: CancellationException) { throw cancelled }
@@ -70,7 +70,7 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
                                 val prepared = withContext(Dispatchers.IO) { PrivateChat.create(wallet, contact, outgoing, System.currentTimeMillis()) }
                                 saved = withContext(NonCancellable + Dispatchers.IO) { work.prepare(prepared) }
                                 text = ""
-                                onHistory(withContext(Dispatchers.IO) { history.save(listOf(prepared.envelope())) })
+                                onHistory(withContext(Dispatchers.IO) { history.save(listOf(prepared.envelope())).entries })
                                 prepared
                             }
                             withContext(Dispatchers.IO) {

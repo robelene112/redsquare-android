@@ -77,8 +77,9 @@ all-or-nothingdecryption hidesavailablehistory afterkey-onlyimport. Two-line
 current-contactmerge/backendremember fix KotlincompilePASS1m38s; partial-key
 tracer seedsindependent originals withcompletesecret, thenactivekey-onlywallet/
 failedArchive expectsreadablecontact/history/partialwarning/send/recreatedcache.
-BothAPKbuildPASS1m47s; actual11caseRED10run38357934691 at89c09bf pending; partial-keyminimumunimplemented.
-Snapshot correction review4734...89c Standards0newfinding/resolved; Specpending.
+BothAPKbuildPASS1m47s; actual11caseRED10run38357934691 at89c09bf 10PASS+1failure58.556s line221; root13XML/failureoriginal inspected.
+Snapshot correction reviews4734...89c bothnewfindings0/resolved. Strongerrestoredsecret tail4f9fb46 compiles1m39, not inRED.
+Partial-key minimum Read(entries,partial)/preservedoriginals/newfullverification debug/testAPK PASS3m22s(coreunchanged85), runtimeGREEN/reviews next.
 
 Remaining #25: live incoming while a different conversation is selected; available older-history paging; Block hides incoming/Mute keeps
 Chat accessible native checks; unknown attempt/draft recovery and actual process
