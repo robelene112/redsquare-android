@@ -440,6 +440,7 @@ class ThreadProfilePreviewTest {
                     try {
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Native Red Square reference post")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                    ui.onNode(hasScrollAction()).performScrollToNode(hasText("Native Red Square reference post"))
                     ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
                     ui.onNodeWithText("Native Red Square reference post").performClick()
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Conversation")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
