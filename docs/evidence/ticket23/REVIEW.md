@@ -548,3 +548,21 @@ One proof gap: before>50 also accepts known old overlap51. Root requires before>
 so that older window cannot satisfy fresh-bound assertion. Original UI/count/
 retry/healthy-request/Actor assertions unchanged. OriginalAPK1m33PASS;30run
 38324067997 uses earlier guard and cannot prove correction. No product defect.
+
+## Wallet import isolation tracer
+
+### Standards
+
+`61cb647...dd23b9f`: one recovery finding, no actionable Fowler heuristics.
+Plain inner finally could mask the primary assertion and prevent outer original
+restoration if unsafe3 remains. Root removes inner finally; after Activity closes,
+existing cleanupAfterTest accepts exact authorized unsafe1/3 fixture JSONs for
+WALLET, attempts original restoration, and preserves the primary failure.
+
+### Spec
+
+Two proof gaps: require Owner1 authentication as well as unsafe3 presence, and
+assert selected Owner backend during replacement view, not only after return.
+Root adds both. Reference224504/hash2c0b...715fc threecopies/fixed1–4 verified.
+OriginalAPK1m48PASS; original31native pending cannot prove corrected cleanup/
+additional assertions. Corrective compile/review pending, no product defect.

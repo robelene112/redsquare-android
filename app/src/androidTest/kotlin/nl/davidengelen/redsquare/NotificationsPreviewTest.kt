@@ -746,48 +746,41 @@ class NotificationsPreviewTest {
 
     @Test fun importingAnotherWalletSeparatesSharedMentionReadStatusAndRestoringItsOwnerRecoversActivity() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
-        val store = AndroidWalletStore(context)
         val owner = SaitoWallet.fromPrivateKey("0".repeat(63) + "1")
         val other = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
         withNotifications("wallet-isolation", Mode.WALLET) { _, _, _ ->
-            try {
-                waitFor("2 unread")
-                ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
-                    .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
-                ui.onNodeWithText("Liked your post").assertIsDisplayed()
-                ui.onNodeWithText("Mentioned you").assertIsDisplayed()
-                ui.onNodeWithText("Mark all as read").performClick()
-                waitFor("No unread activity")
-                importNotificationWallet("notification-other-import.json", other.publicKey)
-                waitFor("Shared mention for wallet isolation")
-                if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty())
-                    ui.onNodeWithText("Later").performClick()
-                ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
-                    .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
-                ui.onNodeWithText("Notifications").assertIsDisplayed().performClick()
-                waitFor("1 unread")
-                waitFor("Mentioned you")
-                ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
-                    .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
-                ui.onAllNodesWithText("Liked your post").assertCountEquals(0)
-                ui.onAllNodesWithText("Mentioned you").assertCountEquals(1)
-                captureNativeScreen(File(context.cacheDir, "notification-evidence/wallet-other.png"), "1 unread")
-                ui.onNodeWithText("Mark all as read").performClick()
-                waitFor("No unread activity")
-                importNotificationWallet("notification-owner-import.json", owner.publicKey)
-                waitFor("No unread activity")
-                ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
-                    .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
-                ui.onNodeWithText("Liked your post").assertIsDisplayed()
-                ui.onNodeWithText("Mentioned you").assertIsDisplayed()
-                ui.onNodeWithText("Server: saito.davidengelen.nl").assertIsDisplayed()
-                captureNativeScreen(File(context.cacheDir, "notification-evidence/wallet-owner-restored.png"), "No unread activity")
-            } finally {
-                val active = store.loadExisting()
-                check(active.publicKey in setOf(owner.publicKey, other.publicKey))
-                if (active.exportJson() != owner.exportJson()) store.replace(active, owner)
-                check(store.loadExisting().exportJson() == owner.exportJson())
-            }
+            waitFor("2 unread")
+            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
+                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.onNodeWithText("Liked your post").assertIsDisplayed()
+            ui.onNodeWithText("Mentioned you").assertIsDisplayed()
+            ui.onNodeWithText("Mark all as read").performClick()
+            waitFor("No unread activity")
+            importNotificationWallet("notification-other-import.json", other.publicKey)
+            waitFor("Shared mention for wallet isolation")
+            if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty())
+                ui.onNodeWithText("Later").performClick()
+            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
+                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.onNodeWithText("Notifications").assertIsDisplayed().performClick()
+            waitFor("1 unread")
+            waitFor("Mentioned you")
+            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
+                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.onAllNodesWithText("Liked your post").assertCountEquals(0)
+            ui.onAllNodesWithText("Mentioned you").assertCountEquals(1)
+            ui.onNodeWithText("Server: saito.davidengelen.nl").assertIsDisplayed()
+            captureNativeScreen(File(context.cacheDir, "notification-evidence/wallet-other.png"), "1 unread")
+            ui.onNodeWithText("Mark all as read").performClick()
+            waitFor("No unread activity")
+            importNotificationWallet("notification-owner-import.json", owner.publicKey)
+            waitFor("No unread activity")
+            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
+                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.onNodeWithText("Liked your post").assertIsDisplayed()
+            ui.onNodeWithText("Mentioned you").assertIsDisplayed()
+            ui.onNodeWithText("Server: saito.davidengelen.nl").assertIsDisplayed()
+            captureNativeScreen(File(context.cacheDir, "notification-evidence/wallet-owner-restored.png"), "No unread activity")
         }
     }
 
@@ -1180,6 +1173,7 @@ class NotificationsPreviewTest {
                         assertTrue(peer.clientKeys.isNotEmpty())
                         if (mode == Mode.WALLET) {
                             assertTrue(peer.clientKeys.all { it == owner || it == otherOwner })
+                            assertTrue("The original wallet must authenticate its own reads", owner in peer.clientKeys)
                             assertTrue("The replacement wallet must authenticate its own reads", otherOwner in peer.clientKeys)
                         } else assertTrue(peer.clientKeys.all { it == owner })
                         assertTrue("Reading notifications must not publish a transaction", peer.transactions.isEmpty())
@@ -1197,7 +1191,9 @@ class NotificationsPreviewTest {
         finally {
             cleanupAfterTest(primary, {
                 val active = store.loadExisting()
-                check(active.exportJson() == priorJson || active.exportJson() == wallet.exportJson())
+                val authorizedOther = if (mode == Mode.WALLET) SaitoWallet.fromPrivateKey("0".repeat(63) + "3").exportJson() else null
+                check(active.exportJson() == priorJson || active.exportJson() == wallet.exportJson() ||
+                    (authorizedOther != null && active.exportJson() == authorizedOther))
                 if (active.exportJson() != priorJson) store.replace(active, prior)
                 check(store.loadExisting().exportJson() == priorJson)
             }, { AndroidBackendStore(context).save(priorBackend) }, {

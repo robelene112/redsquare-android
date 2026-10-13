@@ -1096,3 +1096,13 @@ restore independently; related reminder keys restored. Both client identities
 observed, no transactions/reports. Finally restores exact unsafeOwner1 before
 outer original opaque wallet restoration, never prints either JSON. Loopback
 balance fixture only, no live funds/node. Local fixture/native pending.
+
+Wallet tracerdd23b9f localAPK1m48PASS. Standards1failure-path restoration concern:
+plain inner finally could mask assertion and leaveunsafe3 unauthorized by outer
+restore guard. Root moves all fixture-wallet restoration after Activity closes
+through existing cleanupAfterTest; exact authorized unsafe1/3 JSONs accepted only
+forWALLET, original opaque wallet restore attempted whileprimaryfailure preserved.
+Spec2proofgaps corrected: positiveOwner1authentication and Owner backend header
+in replacement view. UI/import/count assertions unchanged. Original31native
+38325244254 cannot prove corrected cleanup/new assertions. Corrective compile/
+review pending. No reproduced production defect or private key output.
