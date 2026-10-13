@@ -60,15 +60,26 @@ verify_private_chat_ui() {
     adb shell run-as nl.davidengelen.redsquare.dev.test mkdir -p files/wallet-test-documents
     printf '%s' '{"wallet":{"version":5.677,"publicKey":"jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR","privateKey":"0000000000000000000000000000000000000000000000000000000000000001"}}' | \
         adb shell run-as nl.davidengelen.redsquare.dev.test tee files/wallet-test-documents/00-chat-work-import-fixture.json > /dev/null
-    chat_ui_exit=0
-    timeout 180 adb shell am instrument -w -r \
-        -e class nl.davidengelen.redsquare.PrivateChatPreviewTest \
-        nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
-        > "$evidence/private-chat-ui.txt" || chat_ui_exit=$?
-    printf '%s\n' "$chat_ui_exit" > "$evidence/private-chat-ui-exit.txt"
+    chat_ui_failed=0
+    for chat_ui_case in PrivateChatPreviewTest PrivateChatActionsPreviewTest; do
+        chat_ui_report=private-chat-ui
+        if [[ "$chat_ui_case" == PrivateChatActionsPreviewTest ]]; then
+            chat_ui_report=private-chat-actions-ui
+        fi
+        chat_ui_exit=0
+        timeout 180 adb shell am instrument -w -r \
+            -e class "nl.davidengelen.redsquare.$chat_ui_case" \
+            nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+            > "$evidence/$chat_ui_report.txt" || chat_ui_exit=$?
+        printf '%s\n' "$chat_ui_exit" > "$evidence/$chat_ui_report-exit.txt"
+        if [[ "$chat_ui_exit" != 0 ]] || ! grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/$chat_ui_report.txt"; then
+            chat_ui_failed=1
+            break
+        fi
+    done
     adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - private-chat-evidence \
         > "$evidence/private-chat-evidence.tar" || true
-    grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/private-chat-ui.txt"
+    [[ "$chat_ui_failed" == 0 ]]
 }
 verify_public_private_chat() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
@@ -596,7 +607,7 @@ verify_wallet_import() {
             nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
             > "$evidence/wallet-import-ui.txt" || true
         adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - wallet-import-evidence > "$evidence/wallet-import-evidence.tar" || true
-        if ! grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/wallet-import-ui.txt"; then
+        if [[ "$chat_ui_exit" != 0 ]] || ! grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/wallet-import-ui.txt"; then
             adb exec-out screencap -p > "$evidence/wallet-import-system-screen.png" || true
             adb exec-out run-as nl.davidengelen.redsquare.dev.test stat -c '%s' \
                 files/wallet-test-documents/invalid-import.json > "$evidence/wallet-import-fixture-size.txt" || true
