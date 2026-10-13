@@ -1082,3 +1082,21 @@ PASS4m32s/exit0. ActivefirstLike native10=38461533102/17=38461536720 sourcee407.
 
 
 First outgoing Like native qualification: Android10 run38461533102 and Android17 run38461536720, sourcee407, both GREEN. 24 history cases plus3 action cases, core86 each. Captured originals independently match pinned constructor/WASM/receiver; root inspected51 XMLs plus unique liked/recreated PNGs per platform. Existing real DM process recovery also passes on both; reaction process recovery remains pending. Evidence folders record exact timings and limits.
+
+## Explicit Unlike tracer,4ab0b970...15a4b3c7
+
+### Standards
+
+Zero documented breaches; one heuristic Mysterious Name: unsignedLike was an
+authenticated decoded Unlike. Fixed to signedUnlike in7de8b129. Public UI,
+original-identity/wire, retained state and noauto checks otherwise sound.
+
+### Spec
+
+Zero actionable findings. Distinct authenticated toggle, exact Relay original,
+cleared count/restored Like/truthful status after unavailable-Archive recreation,
+full wallet/backend and exactlytwo operations support the agreed capability.
+Outgoing toggle only; incoming/dedup/retry/whole-ticket not claimed complete.
+
+Local tracer Kotlin compilation PASS1m28s. Android10run38464119759 and
+Android17run38464123469 source7de8b129 active; runtime not yet accepted.

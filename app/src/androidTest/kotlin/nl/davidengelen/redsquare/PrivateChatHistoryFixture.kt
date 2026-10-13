@@ -14,10 +14,11 @@ import nl.davidengelen.redsquare.saito.*
 import java.io.File
 
 internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
-    enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL, LIST_LIVE, PARTIAL_KEYS, STORAGE_PARTIAL, OTHER_LIVE, MENTIONED, MENTIONED_OUTGOING, MUTED, BLOCKED, UNKNOWN_RETRY, PENDING_IMPORT, DRAFT_NAVIGATION, OLDER_HISTORY, QUOTED_REPLY, LITERAL_MARKUP, UNREADABLE_RECENT_HISTORY, NATIVE_REPLY, NATIVE_REPLY_ZERO, LIKE }
+    enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL, LIST_LIVE, PARTIAL_KEYS, STORAGE_PARTIAL, OTHER_LIVE, MENTIONED, MENTIONED_OUTGOING, MUTED, BLOCKED, UNKNOWN_RETRY, PENDING_IMPORT, DRAFT_NAVIGATION, OLDER_HISTORY, QUOTED_REPLY, LITERAL_MARKUP, UNREADABLE_RECENT_HISTORY, NATIVE_REPLY, NATIVE_REPLY_ZERO, LIKE, INCOMING_LIKE }
 
     fun exerciseHistory(case: HistoryCase) {
         val liking = case == HistoryCase.LIKE
+        val incomingLike = case == HistoryCase.INCOMING_LIKE
         val zeroReply = case == HistoryCase.NATIVE_REPLY_ZERO
         val nativeReply = case == HistoryCase.NATIVE_REPLY || zeroReply
         val storagePartial = case == HistoryCase.STORAGE_PARTIAL
@@ -48,6 +49,8 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
             else -> "native-private-chat-reference.json"
         }).bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
         val likeReference = if (liking) instrumentation.context.assets.open("native-private-chat-like-reference.json")
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject } else null
+        val incomingLikeReference = if (incomingLike) instrumentation.context.assets.open("incoming-private-like-reference.json")
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject } else null
         val vectors = fixture.getAsJsonArray("vectors")
         val reference = vectors[when {
@@ -273,6 +276,62 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                         }
                         waitFor(text)
                         ui.onNodeWithText(text).assertIsDisplayed()
+                        if (incomingLike) {
+                            val operations = requireNotNull(incomingLikeReference).getAsJsonArray("vectors")
+                            fun packet(index: Int): ByteArray {
+                                val relay = JsonObject().apply {
+                                    addProperty("module", "Relay"); addProperty("request", "chat relay")
+                                    add("data", operations[index].asJsonObject.getAsJsonObject("signedInner"))
+                                }
+                                return SaitoWire.applicationRequest(counterpart, relay.toString().toByteArray(Charsets.UTF_8),
+                                    1, 1700000080100L + index).drop(5).toByteArray()
+                            }
+                            waitForEnabled("Refresh")
+                            waitForEnabled("Like")
+                            peer.sendIncoming(packet(0))
+                            waitFor("1 like")
+                            ui.waitUntil(5_000) { peer.incomingAcknowledgements.any { it[0] == 13.toByte() } }
+                            ui.onNodeWithText("1 like").assertIsDisplayed()
+                            ui.onNodeWithText("Like").assertIsEnabled() // The contact's like does not select our Like.
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/incoming-private-like.png"), text)
+                            historyUnavailable.set(true)
+                            scenario.recreate()
+                            waitFor(counterpart)
+                            ui.onNodeWithText(counterpart).performClick()
+                            waitFor(context.getString(R.string.chat_load_error))
+                            waitFor("1 like")
+                            waitForEnabled("Refresh")
+                            val acknowledgements = peer.incomingAcknowledgements.size
+                            peer.sendIncoming(packet(0))
+                            ui.waitUntil(5_000) { peer.incomingAcknowledgements.size > acknowledgements }
+                            check(peer.incomingAcknowledgements.last()[0] == 13.toByte())
+                            ui.onNodeWithText("1 like").assertIsDisplayed()
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/incoming-private-like-duplicate.png"), text)
+                            peer.sendIncoming(packet(1))
+                            ui.waitUntil(5_000) { peer.incomingAcknowledgements.size > acknowledgements + 1 }
+                            check(peer.incomingAcknowledgements.last()[0] == 13.toByte())
+                            ui.waitUntil(5_000) {
+                                ui.onAllNodesWithText("1 like").fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty()
+                            }
+                            ui.onAllNodesWithText("1 like").assertCountEquals(0)
+                            peer.sendIncoming(packet(1))
+                            ui.waitUntil(5_000) { peer.incomingAcknowledgements.size > acknowledgements + 2 }
+                            check(peer.incomingAcknowledgements.last()[0] == 13.toByte())
+                            ui.onAllNodesWithText("1 like").assertCountEquals(0)
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/incoming-private-unlike-duplicate.png"), text)
+                            scenario.recreate()
+                            waitFor(counterpart)
+                            ui.onNodeWithText(counterpart).performClick()
+                            waitFor(context.getString(R.string.chat_load_error))
+                            waitForEnabled("Like")
+                            ui.onAllNodesWithText("1 like").assertCountEquals(0)
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/incoming-private-unlike-recreated.png"), text)
+                            check(AndroidWalletStore(context).loadOrCreate().exportJson() == wallet.exportJson())
+                            check(AndroidBackendStore(context).load() == SaitoBackend.OWNER)
+                            check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty() && peer.reports.isEmpty())
+                            peer.assertHealthy()
+                            return@withFailureCapture
+                        }
                         if (liking) {
                             waitForEnabled("Message")
                             waitForEnabled("Like")

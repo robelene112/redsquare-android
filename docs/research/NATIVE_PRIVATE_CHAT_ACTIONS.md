@@ -141,3 +141,19 @@ then executes actualreceiver toggle. Default reactioncorpus remains byteidentica
 An ordinary encryptedreply control actually fails with exit1/ERR_ASSERTION. A
 successful nativeLike capture/checker is stillpending. This doesnot execute full
 walletfee or dispatchdedup/realnetwork behavior, retaining explicitadapterlimits.
+
+## Incoming reaction fixture and recovery limits
+
+The optional `--incoming-like` reference runs the same pinned constructor and
+receiver with public unsafe scalar1 reacting to scalar1's original message in
+the scalar1/scalar2 private pair. Two distinct independently signed operations
+exercise Like then Unlike. The default outgoing corpus remains byte-identical.
+This is a fixture oracle, not native incoming acceptance.
+
+The inspected pin's reaction receive method does not save the reaction to
+Archive. Its older-history path feeds fetched rows through addTransactionToGroup;
+its explicit Archive save is in receiveChatTransaction for message transactions.
+Therefore do not promise that a wallet-only import restores all past reactions.
+Retain locally received signed reaction identities and recover any authenticated
+operations actually returned by an available source; missing historical reactions
+remain subject to the existing available-history limitation.

@@ -17,4 +17,7 @@ class PrivateChatActionsPreviewTest {
 
     @Test fun explicitPrivateLikeAndUnlikeForwardDistinctOriginalsAndRemainAfterReopening() =
         history.exerciseHistory(HistoryCase.LIKE)
+
+    @Test fun incomingPrivateReactionsKeepOriginalIdentityAcrossDuplicatesAndReopening() =
+        history.exerciseHistory(HistoryCase.INCOMING_LIKE)
 }

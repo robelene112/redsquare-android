@@ -31,6 +31,8 @@ const keys = Object.fromEntries(['1','2'].map(value => [value, wasm.generate_pub
 const original = JSON.parse(fs.readFileSync('/reference/chat-reference.json')).vectors[0];
 assert.equal(original.sender, keys['1']);
 const checkingNative = process.argv[2] === '--check-native-like';
+const incoming = process.argv[2] === '--incoming-like';
+const reactor = incoming ? '1' : '2';
 const nativeBytes = checkingNative ? fs.readFileSync('/reference/native-sent-like-envelope.json') : null;
 const nativeEnvelope = nativeBytes ? JSON.parse(nativeBytes) : null;
 let timestamps = [1700000080100, 1700000080101];
@@ -55,7 +57,7 @@ const vectors = [];
     const candidate = {
       addTo: key => recipients.push(key),
       async sign() {
-        const signed = signedReference('2', this.msg, timestamp, recipients);
+        const signed = signedReference(reactor, this.msg, timestamp, recipients);
         this.envelope = signed.tx;
         const envelope = JSON.parse(signed.tx);
         const network = Buffer.concat([Buffer.from(envelope.t,'base64'),Buffer.from(envelope.m,'base64')]);
@@ -74,14 +76,14 @@ const vectors = [];
       returnMessage() { return this.msg; },
     };
     const group = {id:original.groupId,members:[keys['1'],keys['2']]};
-    const adapter = {publicKey:keys['2'],app:{
+    const adapter = {publicKey:keys[reactor],app:{
       wallet:{createUnsignedTransactionWithDefaultFee:async () => candidate},
       network:{propagateTransaction:async tx => propagated.push(tx)},
       connection:{emit:(name,data) => relays.push({name,data})},
     }};
     assert.equal(await create.call(adapter,group,original.signature,keys['1']),candidate);
     assert.deepEqual(JSON.parse(JSON.stringify(candidate.msg)), {
-      module:'Chat',request:'chat like',group_id:group.id,sender:keys['2'],
+      module:'Chat',request:'chat like',group_id:group.id,sender:keys[reactor],
       signature:original.signature,mentioned:keys['1'],
     });
     assert.deepEqual([...new Set(recipients)].sort(),[keys['1'],keys['2']].sort());
@@ -104,14 +106,14 @@ const vectors = [];
   const adapter = {returnGroup:id => id === group.id ? group : null,
     app:{connection:{emit:(name,value) => events.push({name,group:value.id})}}};
   await receive.call(adapter,{returnMessage:() => vectors[0].body});
-  assert.equal(target.likes,1); assert.equal(target.liked_by[keys['2']],true);
+  assert.equal(target.likes,1); assert.equal(target.liked_by[keys[reactor]],true);
   await receive.call(adapter,{returnMessage:() => vectors[1].body});
-  assert.equal(target.likes,0); assert.equal(target.liked_by[keys['2']],false);
+  assert.equal(target.likes,0); assert.equal(target.liked_by[keys[reactor]],false);
   assert.equal(events.length,2); assert(events.every(event => event.name === 'chat-popup-render-request'));
   console.log(JSONBig.stringify({reference,chatSourceSha256:hash(source),originalSignature:original.signature,
     ...(nativeEnvelope ? {nativeEnvelopeSha256:hash(nativeBytes),independentWasmOriginalMatches:true,
       existingConstructorMatchesNativeLike:true,existingReceiverAcceptsNativeLike:true} : {}),
-    groupId:original.groupId,author:keys['1'],reactor:keys['2'],vectors,
+    groupId:original.groupId,author:keys['1'],reactor:keys[reactor],vectors,
     existingReceiverAddsAndRemovesLike:true,
     boundary:'actual pinned Chat create/receive and Transaction toJson/packData; wallet fee/signing and outbound network adapters; independent WASM/elliptic signing; no constructor, DOM, app initialization or real delivery; dispatch deduplication not executed'},null,2));
 })().catch(error => {console.error(error);process.exitCode=1;});
