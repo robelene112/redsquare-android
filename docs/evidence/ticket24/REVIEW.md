@@ -1283,3 +1283,26 @@ Localtracer compilation PASS1m19s. Android17broadrun38471571748/9111 passes
 24history149.996s+6actions37.408s/core86 and newreaction actualPID5422to5506,
 cold4.874s/restore0.140s, exactreactioncheckpoint andzero sends. Rootfiveprocess
 XML/PNGs/checkpoints inspected; completeUI inspection/retention follows.
+
+
+## Backend reaction isolation tracer,8bb4b992...2c0a16d1
+
+### Spec
+
+Zero actionable findings. Owner uncertainty absent on Official, explicit Official operation, Owner exactoriginal retry, Official forwarded/count retained through recreation, full wallet and exactwire counts. Same controlled peer serves both logical backends, so this proves namespace/work isolation only when executed, not deployed contracts. Compilation PASS1m19. Native runtime pending. Standards review pending.
+
+Android10 broad rerun38473067796/source12e1b760 failed3of24 history146.011s/core86; actions/process unexecuted. Failure evidence retained with shared overwritten capture qualification and initialdisabled-Chat source-supported hypothesis; no failure cause claimed.
+
+### Standards
+
+Backend tracer: zero documented breaches or actionable smells. Public selection/exactwire recovery uses approved seams; loopback endpoints and guarded opaque restoration cover both backend families. Compilation passed; runtime pending.
+
+## Chat readiness and per-case diagnostics,2c0a16d1...be946226
+
+### Standards
+
+Zero documented breaches or actionable smells. Explicit publicenabled readiness retains displayed/enabled assertions. Enum-based distinctfailure filenames preserve observations without private data.
+
+### Spec
+
+Zero actionable findings. Observable Android flow gates remain strict; disabled-Chat timing is a hypothesis and does not explain the recreated cached-message timeout. Product unchanged; corrected runtime pending.
