@@ -7,14 +7,55 @@ one question at a time when a material choice really needs the owner.
 
 ## Current work
 
-Latestcheckpoint:#25active;20of35ticketsclosed. Stablephonepreview0.1.11/sourcea36972f unchangedat https://davidengelen.nl/redsquare/; looks-good doesnotprovePixel timing/update. Productsource85c8f1a3 fixes readablequotedreplies and botholder-historycursor defects. Native24GREEN10run38445452902 100.762s/17run38445457782 125.107s/core86each. Root38XML+2uniqueunreadablepage originals eachverified. Correctsigned-page cursor advances through50missing-key recentmessages toreadableolderimplicit history, keepsancientcache, checksTcutoff/count1/exhaustion/recreatedunavailableArchive/nosends.
+#25 is active;20of35 tickets are closed (#2–#15,#18,#20–#24).
+Stable phone preview0.1.11/sourcea36972f remains https://davidengelen.nl/redsquare/.
+Owner's looks-good does not establish Pixel timing or update continuity.
 
-Actualprocessrecovery alsoGREENat85:10cold3.705s/restore.11s/PID7520->7745;17cold4.131s/restore.136s/PID5216->5298. Root3XML/3originals/checkpointdelta eachverified. Fullfixturewallet/backend, independentcache, persistedtypedunsentdraft andexactUNKNOWN original recoverwithfailedArchive/zero submit/Relay; deviceonlyencryptedoriginalsnapshotrestored. No unfinishedautosave/switchisolation/Pixel/fullticketclaim. Nativepublic17bothservice/readcontracts38442247790 PASS1/4.702s withnopublicsends.
+Current product4d8ba673 includes Copy, older-history cursor fixes, native Reply
+composition/removal/raw encrypted draft retention/body-only editor, encrypted
+reply-author auto-mention, and available-local quote navigation. Reply production
+has no accepted native GREEN yet. Minimum local core86/debug/test APK build
+passed3m28s. An earlier exact owned build was deliberately stopped to stabilize
+callback identity and escape literal quote markup before runtime dispatch.
 
-WholeSourceSpec2findings: unreadable-page cursorresolved(source/runtime/reviews); nativeReply/Copy/chat-like actionspendinghere, notlater tickets. Sourceauditf53b7788 verifiesA/B existingactions andidenticallike methods; docNATIVE_PRIVATE_CHAT_ACTIONS.md. Copytracer659a2cd8 extendsquotedcase(still24total): explicitCopy, exactforegroundClipboardtypedbodywithoutquotedwrapper, sensitivityflag, memoryonlyoldclipboardrestore/primarypreserved. LocalTestAPKPASS1m40/boundedreviewsboth0. NativeRED38447070903 confirmedmissingCopy:24/23PASS109.851s/core86/38XML. Copyminimum439fe52e implementsbodyonlysensitiveClipData/handledplatformerrors/sharedreplyparser; bothboundedreviews0. LocalownedcontainerPASS3m32s/exit0afterwrappershell143, exactlogs/waitretained/no duplicatebuild. NativeCopy10run38448314651/17run38448319576 pending. Production439fe52e; noCopyGREENyet.
+Current native Android10 run38454040603/source67fbbb00 (chat-ui) is in progress.
+Its26cases add an independently signed/encrypted timestamp-zero Reply tracer.
+Product remains4d8ba673, with the known Spec finding still unfixed: producer can
+create references outside parser bounds, so timestamp0 can enable quote-only
+Send. Inspect actual result before aligning bounds/guarding unsupported targets.
+Tracer42c6ad5c and followup review axes0; local testAPKPASS1m47s. Preserve the
+normal reply result independently from the timestamp regression. Required
+--check-native-reply-send and --check-native-zero-reply-send must consume the
+actual corresponding public fixture captures and verify metadata/signature/
+pinned Crypto and Chat receiver; no successful reply capture/checker yet.
 
-Next: verifyCopy, thennativeReply andcompatiblechat-like send/read/state/retry; actualwallet/backendswitchisolation; finalwhole reviews/fullSDK/release/lint/signedupdate/publicreads. Preserveuntracked NATIVE_GROUP_CHAT_CONTRACT.md for#26; neverstage/delete. No node/privatewallet/productionwrite/storeauthorization. Top+Gitlog authoritativebeforeolderchronology.
+NativeReply firstRED38452059233/source53c7bd90:25cases24PASS113.541s/core86,
+missing Reply at377,40validXML/root original inspected. New draft/send/metadata/
+cache tail and processcheck were unexecuted. Bounded minimum reviews:
+Standards0,Spec1(timestamp bounds). No whole#25 acceptance.
 
+Copy is accepted at unchanged product439fe52e: corrected10run38450331371 at
+72ef47cf passes24/114.206s/core86,39validXML; actual cold4.738s/restore.171s,
+PID7546→7806. Earlier17run38448319576 at439 passes24/156.175s/core86,
+cold5.318s/restore.151s,PID5190→5275. Root original/clipboard/cold captures and
+checkpoint records inspected. The17 companion did not execute the new public-
+list scroll. Virtualization remains a hypothesis for earlier10body failures.
+
+Older-history24GREEN source85c8f1a3:10run38445452902 100.762s and17run38445457782
+125.107s/core86. Correct signed-page cursor advances through50unreadable recent
+messages, retains ancient cached history, fetches readable older messages with
+exact cutoff/exhaustion/cache/no-send checks. Actual process recovery is accepted
+on bothSDKs with exact wallet/backend/cache/draft/UNKNOWN original and no sends.
+Device-only encrypted originals restore; artifacts contain only public fixtures.
+Native public17 both service/read contracts38442247790 PASS1/4.702s, no sends.
+
+Next: resolve Reply timestamp regression, qualify bothSDK Reply+independent
+metadata/receiver checks, compatible chat-like actions/state/retry, actual wallet/
+backend isolation, final whole reviews/fullSDK/release/lint/signed update/public
+reads. No Pixel/fullticket claim. Protected untracked
+`docs/research/NATIVE_GROUP_CHAT_CONTRACT.md` belongs#26; never stage/delete.
+No production node/private-wallet/database writes or store submission authorized.
+Top+Gitlog are current; older notes below are chronological evidence.
 
 #24, "Show in-app social notifications", is complete after both full emulator
 runs and both final evidence reviews. Twenty of35 tickets are closed
