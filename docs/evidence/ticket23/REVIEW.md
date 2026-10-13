@@ -722,3 +722,30 @@ Pending separate evidence report atthischeckpoint. No finalfullacceptance claime
 32parentRED retainedthreehashes/actualdisabledMore31oldPASS/newfailure114.038s;
 minimum68633d9 keeps first10targets buteligibleallremaining, existing33read limit/
 300history/deadlines. Boundedreviews/build/focused32GREENpending.
+
+## Remaining-parent minimum and final integrated source review
+
+### Standards
+
+`59bd57e...68633d9`: priorparentfinding resolved, zero new hard/actionable
+heuristics. ThreeREDhashes/raw32/31PASS/disabledMore114.038s verified; parent
+XMLdisabled despite textchildenabled. Allknownowntargetseligible, initial10parent
+queries andexisting33reads/retention/deadlines preserved.
+
+Final `d1e65f5...0798b55`: zero remaining hard violations/actionableFowler
+heuristics. Integratedverification/eligibility/scopedhistory/read/personalfilters/
+boundeddiscovery/retry coherent. Non-disclosingassertions/exactauthorizedwallet
+restore/independentcleanup preserved, pinnedpublicreferenceunsafeallowlist intact.
+
+### Spec
+
+Bothboundedminimum and finalintegratedsource reviews zero findings. Selflike
+falsewarning and permanenttenparentcutoff resolved. #24 finiteauthenticated
+activity/navigation/missingreference/optionalcontextualpermission/personalcontrols/
+wallet+backendisolation/persistedread/partialfailures/boundedhistory meets source
+scope; no exclusions or creep. Corrected32native/finalfullSDKpair pending; no
+pushdelivery/physicalPixel claim. Bothcorrectedpermission/process evidence reviews
+4d02fd3...59bd57e zero findings;207hashes/94XML/rawcounts/checkpoints verified.
+
+Minimumlocalfullcore74/0/0/0+debug/testAPK passes1m52. Source68633d9 unchanged
+bynewerdocs-onlycommits. Finalsame-source nativeacceptance remains required.
