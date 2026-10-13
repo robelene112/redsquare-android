@@ -20,6 +20,9 @@ data class PrivateChatMessage(val id: String, val author: String, val conversati
 object PrivateChat {
     private val gson = GsonBuilder().setStrictness(Strictness.STRICT).disableHtmlEscaping().create()
 
+    fun read(wallet: SaitoWallet, signedInner: JsonObject, counterparty: String): PrivateChatMessage =
+        read(wallet, SaitoEnvelope.fromSignedJson(signedInner), counterparty)
+
     fun create(wallet: SaitoWallet, counterparty: String, text: String, timestamp: Long,
         randomSalt: () -> ByteArray = { ByteArray(8).also(SecureRandom()::nextBytes) }): SaitoTransaction {
         val group = conversationId(wallet.publicKey, counterparty)
@@ -57,9 +60,14 @@ object PrivateChat {
         require(signed.author in participants && signed.recipients.toSet() == participants)
         require(signed.body.isJsonPrimitive && signed.body.asJsonPrimitive.isString)
         val formatter = gson.fromJson(signed.body.asString, JsonObject::class.java)
-        val salt = hex(formatter.get("s").asString, 8)
-        hex(formatter.get("iv").asString, 16)
-        val ciphertext = Base64.getDecoder().decode(formatter.get("ct").asString)
+        fun cipherString(name: String): String {
+            val value = formatter.get(name)
+            require(value != null && value.isJsonPrimitive && value.asJsonPrimitive.isString)
+            return value.asString
+        }
+        val salt = hex(cipherString("s"), 8)
+        hex(cipherString("iv"), 16)
+        val ciphertext = Base64.getDecoder().decode(cipherString("ct"))
         require(ciphertext.isNotEmpty() && ciphertext.size <= SaitoTransaction.MAX_MESSAGE_BYTES && ciphertext.size % 16 == 0)
         val body = wallet.chatSharedSecrets(counterparty).firstNotNullOfOrNull { secret ->
             try {
@@ -98,8 +106,8 @@ object PrivateChat {
         return value.chunked(2).map { it.toInt(16).toByte() }.toByteArray()
     }
 
-    private fun derive(secret: ByteArray, salt: ByteArray): ByteArray {
-        val passphrase = secret.joinToString("") { "%02x".format(it) }.toByteArray(Charsets.US_ASCII)
+    private fun derive(secret: String, salt: ByteArray): ByteArray {
+        val passphrase = secret.toByteArray(Charsets.US_ASCII)
         val derived = ByteArray(48)
         var previous = ByteArray(0)
         repeat(3) { index ->

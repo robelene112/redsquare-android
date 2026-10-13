@@ -29,6 +29,38 @@ class SaitoTransaction private constructor(private val bytes: ByteArray) {
         }.toString()
     }
 
+    /** Original signed bytes in the existing client's Relay JSON representation. */
+    fun signedJson(): JsonObject {
+        val buffer = ByteBuffer.wrap(bytes)
+        fun slips(start: Int, count: Int) = com.google.gson.JsonArray().apply {
+            repeat(count) { index ->
+                val offset = 93 + 59 * (start + index)
+                add(JsonObject().apply {
+                    addProperty("publicKey", Base58.encode(bytes.copyOfRange(offset, offset + 33)))
+                    addProperty("type", bytes[offset + 58].toInt() and 255)
+                    addProperty("amount", BigInteger(1, bytes.copyOfRange(offset + 33, offset + 41)))
+                    addProperty("index", bytes[offset + 57].toInt() and 255)
+                    addProperty("blockId", BigInteger(1, bytes.copyOfRange(offset + 41, offset + 49)))
+                    addProperty("txOrdinal", BigInteger(1, bytes.copyOfRange(offset + 49, offset + 57)))
+                    addProperty("utxoKey", "0".repeat(118))
+                })
+            }
+        }
+        val inputs = buffer.getInt(0)
+        val outputs = buffer.getInt(4)
+        return JsonObject().apply {
+            add("to", slips(inputs, outputs))
+            add("from", slips(0, inputs))
+            addProperty("type", bytes[92].toInt() and 255)
+            addProperty("timestamp", buffer.getLong(80))
+            addProperty("signature", id)
+            addProperty("buffer", com.google.gson.JsonParser.parseString(envelope()).asJsonObject.get("m").asString)
+            addProperty("txs_replacements", buffer.getInt(88))
+            addProperty("total_fees", 0)
+            add("routing_path", com.google.gson.JsonArray())
+        }
+    }
+
     /** Signed application RPC, with no broadcast routing hop. */
     fun applicationRequest(index: Int): ByteArray {
         require(index > 0)

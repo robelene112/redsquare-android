@@ -86,22 +86,27 @@ class SaitoWallet private constructor(
         publicPoint(counterparty).multiply(scalar).normalize().affineXCoord.encoded
 
     /** Saved key first, then implicit identity ECDH for older messages. Never export secrets to the UI. */
-    internal fun chatSharedSecrets(counterparty: String): List<ByteArray> {
+    internal fun chatSharedSecrets(counterparty: String): List<String> {
         require(isPublicKey(counterparty) && counterparty != publicKey)
         val keys = backupOptions?.get("keys")
         require(keys == null || keys.isJsonArray) { "Invalid saved Chat keys" }
-        val entry = keys?.asJsonArray?.firstOrNull { value -> value.isJsonObject &&
-            value.asJsonObject.get("publicKey")?.let { it.isJsonPrimitive && it.asJsonPrimitive.isString &&
-                it.asString == counterparty } == true }?.asJsonObject
+        val entry = keys?.asJsonArray?.firstOrNull { value ->
+            if (!value.isJsonObject) false else {
+                val row = value.asJsonObject
+                val address = row.get("publicKey")?.takeUnless { it.isJsonNull ||
+                    (it.isJsonPrimitive && it.asJsonPrimitive.isString && it.asString.isEmpty()) } ?: row.get("publickey")
+                address?.let { it.isJsonPrimitive && it.asJsonPrimitive.isString && it.asString == counterparty } == true
+            }
+        }?.asJsonObject
         val saved = entry?.get("aes_secret")?.takeUnless { it.isJsonNull ||
             (it.isJsonPrimitive && it.asJsonPrimitive.isString && it.asString.isEmpty()) }
         val secret = saved?.let {
             require(it.isJsonPrimitive && it.asJsonPrimitive.isString && it.asString.matches(Regex("[0-9a-fA-F]{64}"))) {
                 "Invalid saved Chat key"
             }
-            it.asString.chunked(2).map { pair -> pair.toInt(16).toByte() }.toByteArray()
+            it.asString // CryptoJS treats this as a case-sensitive passphrase, not decoded key bytes.
         }
-        return listOfNotNull(secret, chatSharedSecret(counterparty))
+        return listOfNotNull(secret, chatSharedSecret(counterparty).joinToString("") { "%02x".format(it) })
     }
 
     /** Contains private material. Only pass to protected storage or an authenticated export. */

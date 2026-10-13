@@ -3,7 +3,7 @@
 Generated 2026-10-10, extended and reproduced twice 2026-10-13 by
 [private-chat-reference.cjs](../../build-support/references/private-chat-reference.cjs).
 [Reference JSON](NATIVE_PRIVATE_CHAT_REFERENCE.json) SHA256:
-`d30596ac8b3f10a02b9e42fd8b418a7189d02f95c2ffe176477c5534081d4778`.
+`886ff62259151851e7a1131d264d805bd4c192f1e312b42376099c2711ee1c06`.
 Two complete executions produced byte-identical output. These are public unsafe
 scalar1/2 identities, scalar3/4 exchanged-key fixtures and fixed salts: never fund them or use them in production.
 
@@ -73,3 +73,15 @@ unsafe ephemeral scalar3/4. The signer and recipient remain unsafe1/2. This
 separates saved-secret selection from implicit wallet ECDH; both directions of
 ephemeral ECDH agree. Existing first two message/signature/network bytes remain
 unchanged. Two isolated complete executions produced byte-identical new JSON.
+
+Fourth vector passes the same public exchanged secret as an uppercase string
+to actual CryptoJS. This proves case-sensitive passphrase compatibility. Its
+salt/timestamp are distinct; the first three message bytes remain unchanged.
+Two isolated executions produce identical four-vector JSON.
+
+Three correctly signed malformed formatter vectors change ct/iv/s into
+single-element arrays. Actual pinned Crypto returns empty plaintext for ct
+and throws for iv/s; none recovers the original Chat JSON. Native must not
+coerce those arrays into the valid original ciphertext. The initial research
+harness assumed ct would throw; it was corrected to record the actual result.
+Two complete isolated executions produced byte-identical final JSON.

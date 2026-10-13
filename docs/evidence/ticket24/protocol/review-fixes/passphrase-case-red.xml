@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.saito.PrivateChatTest" tests="6" skipped="0" failures="1" errors="0" timestamp="2026-10-13T02:08:29" hostname="517c0682c52c" time="0.767">
+  <properties/>
+  <testcase name="recipientReadsAnAuthenticatedEncryptedMessageFromThePinnedSaitoClient" classname="nl.davidengelen.redsquare.saito.PrivateChatTest" time="0.547"/>
+  <testcase name="nativePrivateSendMatchesIndependentClientEncryptionAndSignedBytes" classname="nl.davidengelen.redsquare.saito.PrivateChatTest" time="0.078"/>
+  <testcase name="importedExchangedKeysRestorePrivateHistoryAndRemainPreferredForSending" classname="nl.davidengelen.redsquare.saito.PrivateChatTest" time="0.051"/>
+  <testcase name="importedExchangedPassphrasesKeepTheExistingClientsExactLetterCase" classname="nl.davidengelen.redsquare.saito.PrivateChatTest" time="0.016">
+    <failure message="org.junit.ComparisonFailure: expected:&lt;...AAAAQAAAAIAAAGWAAAAA[OM3DBgL18YzkDj7sygS4Ux303YiYuBM+/3IZ91kUMsgemzE2ONsNBwdMTRpF7WiGTZxiXYDm24NIKYb85fvquwAAAGLz+aggwAAAAEAAnm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACeb5mfvncu6xVoGKVzocLBwKb/NstzijZWfKBWxb4F5gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALGBH+UQe19bTBFQG6VwHzYXHeOS4zvPKerrAm5XHCe5QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAIntcImN0XCI6XCJ2SnY5UDg5WDFjaDFQU3c2WWNsYld6YVFBS0JrVU5uWklMNHhCeENwMGFyVlhzYVBlZDU1Sm5LUk9sOGhxTnR3dmtWMUd2MklIdFRhaCtKRjhZek91bFBNRUlYRkhKVE4zOE1FVXYyTm5GbjZFVVlJWWQ4NmFyWEFMLzRXVFlkWTFkanNNQVpPNW5aNlNzbEQzS3JTNmluNjBMTmRBRDkvY0djOWV5QndwVVlaN0dHbUJWeXBxTzBSZ1pxNEdRSElkNlM4QTBaU01hTUJtdGFZeXlJR0ozZ2x1VlBtTFZ0MWFFYlZEVHBQTXB6c0JYeUdLL1FVbVM2NUFPQUJXMzNuN0NtRTZVR09oZmdQWlhjZEprd2srbjV5RWJNTTJSWXAvRlM1VUhickFPbFFsTlF2SlAwRkNTL3Y4dnRQY1VjQlwiLFwiaXZcIjpcIjcwOWY3NDA0NjM1MGI2ODE4NTQ2MmY0NjRiYWUyZmNi]XCIsXCJzXCI6XCIxMDEx...&gt; but was:&lt;...AAAAQAAAAIAAAGWAAAAA[Gmj/rt5UVDxn9WQxbpwBV6GfQf0ELj2LHUueSPp+QTrXRXjbvjbvzY7AewR04RcUsK/sAeSexyN7B42fJ+3KooAAAGLz+aggwAAAAEAAnm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACeb5mfvncu6xVoGKVzocLBwKb/NstzijZWfKBWxb4F5gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALGBH+UQe19bTBFQG6VwHzYXHeOS4zvPKerrAm5XHCe5QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAIntcImN0XCI6XCJRMUNCYWtJeEcvRUF1ZFJZRHRZRSt4TGZzYTVMMVQ2WGtyUUtTMkFRclliRWtWWnYyVHJFQ05ScmFZdkl0VmlPV1M2YVZrTnc3eldLMWV1R1dqUWhEdUR1T3hXOGdXcDBHL1BLYWFtamhLTTZMVC8ydVk0Sk5RNDdjNTZpQUdGTUE2M3FraS9TaWhlRytBUllNVVV3T0ZRUUpPVWp3QWgyQ1V2RE9hd3ZOS0VEK1dsQTFWNlRnd01tWVRCaExSdStvNFlST0FuNzB4aVR3TUhjU2JHK0N0Vjdvd3RoSzZYQ2lKbzdTdGc5WWZEN1V5MlVvdEtnMVpPcmpxaUVDcVM5TU12ek0zQ2FPdHZlQUJvRG91SXAvWkptZjdzRGhNYUlRQ25ZcW1WRlU0Z0FqV0R5bW0wQ1JudkVuaEFDUWdid1wiLFwiaXZcIjpcIjc5OGY1ZDQyZGZmYTA1YzIzNjNmMjQ2NDVkZTUxNmE3]XCIsXCJzXCI6XCIxMDEx...&gt;" type="org.junit.ComparisonFailure">org.junit.ComparisonFailure: expected:&lt;...AAAAQAAAAIAAAGWAAAAA[OM3DBgL18YzkDj7sygS4Ux303YiYuBM+/3IZ91kUMsgemzE2ONsNBwdMTRpF7WiGTZxiXYDm24NIKYb85fvquwAAAGLz+aggwAAAAEAAnm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACeb5mfvncu6xVoGKVzocLBwKb/NstzijZWfKBWxb4F5gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALGBH+UQe19bTBFQG6VwHzYXHeOS4zvPKerrAm5XHCe5QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAIntcImN0XCI6XCJ2SnY5UDg5WDFjaDFQU3c2WWNsYld6YVFBS0JrVU5uWklMNHhCeENwMGFyVlhzYVBlZDU1Sm5LUk9sOGhxTnR3dmtWMUd2MklIdFRhaCtKRjhZek91bFBNRUlYRkhKVE4zOE1FVXYyTm5GbjZFVVlJWWQ4NmFyWEFMLzRXVFlkWTFkanNNQVpPNW5aNlNzbEQzS3JTNmluNjBMTmRBRDkvY0djOWV5QndwVVlaN0dHbUJWeXBxTzBSZ1pxNEdRSElkNlM4QTBaU01hTUJtdGFZeXlJR0ozZ2x1VlBtTFZ0MWFFYlZEVHBQTXB6c0JYeUdLL1FVbVM2NUFPQUJXMzNuN0NtRTZVR09oZmdQWlhjZEprd2srbjV5RWJNTTJSWXAvRlM1VUhickFPbFFsTlF2SlAwRkNTL3Y4dnRQY1VjQlwiLFwiaXZcIjpcIjcwOWY3NDA0NjM1MGI2ODE4NTQ2MmY0NjRiYWUyZmNi]XCIsXCJzXCI6XCIxMDEx...&gt; but was:&lt;...AAAAQAAAAIAAAGWAAAAA[Gmj/rt5UVDxn9WQxbpwBV6GfQf0ELj2LHUueSPp+QTrXRXjbvjbvzY7AewR04RcUsK/sAeSexyN7B42fJ+3KooAAAGLz+aggwAAAAEAAnm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACeb5mfvncu6xVoGKVzocLBwKb/NstzijZWfKBWxb4F5gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALGBH+UQe19bTBFQG6VwHzYXHeOS4zvPKerrAm5XHCe5QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAIntcImN0XCI6XCJRMUNCYWtJeEcvRUF1ZFJZRHRZRSt4TGZzYTVMMVQ2WGtyUUtTMkFRclliRWtWWnYyVHJFQ05ScmFZdkl0VmlPV1M2YVZrTnc3eldLMWV1R1dqUWhEdUR1T3hXOGdXcDBHL1BLYWFtamhLTTZMVC8ydVk0Sk5RNDdjNTZpQUdGTUE2M3FraS9TaWhlRytBUllNVVV3T0ZRUUpPVWp3QWgyQ1V2RE9hd3ZOS0VEK1dsQTFWNlRnd01tWVRCaExSdStvNFlST0FuNzB4aVR3TUhjU2JHK0N0Vjdvd3RoSzZYQ2lKbzdTdGc5WWZEN1V5MlVvdEtnMVpPcmpxaUVDcVM5TU12ek0zQ2FPdHZlQUJvRG91SXAvWkptZjdzRGhNYUlRQ25ZcW1WRlU0Z0FqV0R5bW0wQ1JudkVuaEFDUWdid1wiLFwiaXZcIjpcIjc5OGY1ZDQyZGZmYTA1YzIzNjNmMjQ2NDVkZTUxNmE3]XCIsXCJzXCI6XCIxMDEx...&gt;
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at nl.davidengelen.redsquare.saito.PrivateChatTest.importedExchangedPassphrasesKeepTheExistingClientsExactLetterCase(PrivateChatTest.kt:23)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runTestClass(JUnitTestClassExecutor.java:112)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:58)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:40)
+	at org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:54)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:53)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:92)
+	at jdk.proxy1/jdk.proxy1.$Proxy4.processTestClass(Unknown Source)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker$2.run(TestWorker.java:183)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:132)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:103)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:63)
+	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:121)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:71)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+</failure>
+  </testcase>
+  <testcase name="aLegacyWalletKeyFieldRestoresTheExistingClientsExchangedKeyMessage" classname="nl.davidengelen.redsquare.saito.PrivateChatTest" time="0.009"/>
+  <testcase name="nativeAndExistingClientsExchangeTheOriginalSignedCiphertextThroughRelayJson" classname="nl.davidengelen.redsquare.saito.PrivateChatTest" time="0.064"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

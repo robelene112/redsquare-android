@@ -154,7 +154,21 @@ const exchanged = crypto.generateSharedSecret(ephemeral3, wasm.generate_public_k
 assert.equal(exchanged, crypto.generateSharedSecret(ephemeral4, wasm.generate_public_key(ephemeral3)));
 const vectors = [vector('1', '2', 1700000080000, '0001020304050607'),
   vector('2', '1', 1700000080001, '0706050403020100'),
-  vector('1', '2', 1700000080002, '08090a0b0c0d0e0f', exchanged)];
+  vector('1', '2', 1700000080002, '08090a0b0c0d0e0f', exchanged),
+  vector('1', '2', 1700000080003, '1011121314151617', exchanged.toUpperCase())];
+const malformedCiphertexts = ['ct', 'iv', 's'].map((field, index) => {
+  const formatter = JSON.parse(vectors[0].ciphertextJson);
+  formatter[field] = [formatter[field]];
+  const ciphertext = JSON.stringify(formatter);
+  let recovered = null, existingClientThrows = false;
+  try { recovered = crypto.aesDecrypt(ciphertext, vectors[0].sharedSecretHex); }
+  catch { existingClientThrows = true; }
+  assert.notEqual(recovered, vectors[0].plaintextJson, field);
+  const signed = signedReference('1', ciphertext, 1700000080010 + index, [publicKeys['2']]);
+  return {field, archiveEnvelope: signed.tx, signature: signed.sig,
+    existingClientRecoveredChat: false, existingClientThrows,
+    returnedCharacters: typeof recovered === 'string' ? recovered.length : null};
+});
 console.log(JSONBig.stringify({
   synthetic: true, warning: 'Public unsafe scalar1/2 keys, scalar3/4 exchanged keys and fixed salts. Never fund or use in production.',
   reference: {
@@ -163,5 +177,5 @@ console.log(JSONBig.stringify({
     saitoJsTransactionSha256: sha256(transactionSource), publishedCryptoJsHashes,
     publishedCryptoJsTarballSha256: 'b514fa78b0d056973a260586a45b77a83a4720b2ea45323f5bea3d22691e9b01',
     execution: 'read-only, network none, env-i; actual pinned Crypto methods and extracted pure saito-js JSON methods; no Saito application initialization',
-  }, vectors,
+  }, vectors, malformedCiphertexts,
 }, null, 2));

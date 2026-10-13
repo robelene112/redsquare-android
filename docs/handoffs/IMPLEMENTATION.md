@@ -34,8 +34,11 @@ completion commit. Implement sequentially using TDD. No additional grill needed.
 First core receive tracer RED: missingdecoder/31s; GREEN1/56s. Send tracer
 RED: missingcreate/28s; GREEN2/58s matches exact pinned ciphertext/signature/
 network/envelope and restore. Fullcore76/debug/testAPK passed2m59s. Imported-secret tracer actual RED3/1
-failure55s, then fullcore77/0fail/0ignored GREEN1m. Source protocol increment
-committed for bounded review; UI/Relay/backend/recovery acceptance still pending.
+failure55s, then fullcore77/0fail/0ignored GREEN1m. Source protocol increment7dbaba3 reviewed: Spec2 (legacyfield/case), Standards2
+(case/formatter primitive). GenuineRED then minimal fixes now fullcore81 GREEN1m.
+RelayJSON independent inner serialization/read also passes4/56s. Final reference
+hash886ff622...ee1c06 (fourvalid/threecorrectlysignedmalformed), twice identical
+isolated executions. Bounded fixes review next; UI/backend/recovery pending.
 Private contract/reference/generator future files remain untracked and now
 belong with#25; NATIVE_GROUP_CHAT_CONTRACT remains protected for#26. Read-only
 preparation: .scratch/ticket25-readonly-plan.md. Chat signing must authenticate

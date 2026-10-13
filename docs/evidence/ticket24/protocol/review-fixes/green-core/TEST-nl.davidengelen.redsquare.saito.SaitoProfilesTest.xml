@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.saito.SaitoProfilesTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-10-13T02:12:38" hostname="3e11d90f657f" time="0.019">
+  <properties/>
+  <testcase name="stale reads cannot replace a newer verified snapshot or remove its preserved fields" classname="nl.davidengelen.redsquare.saito.SaitoProfilesTest" time="0.008"/>
+  <testcase name="the newest signed snapshot overrides later legacy fields and rejects another signer" classname="nl.davidengelen.redsquare.saito.SaitoProfilesTest" time="0.004"/>
+  <testcase name="editing a bio and removing the avatar signs a complete snapshot preserving other fields" classname="nl.davidengelen.redsquare.saito.SaitoProfilesTest" time="0.003"/>
+  <testcase name="numeric one is authoritative regardless of JSON decimal scale" classname="nl.davidengelen.redsquare.saito.SaitoProfilesTest" time="0.004"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

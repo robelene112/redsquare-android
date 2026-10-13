@@ -5,6 +5,70 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class PrivateChatTest {
+    @Test fun correctlySignedMalformedCipherFieldsDoNotBecomeReadablePrivateMessages() {
+        val reference = requireNotNull(javaClass.getResourceAsStream("/native-private-chat-reference.json"))
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
+        val recipient = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
+        val sender = reference.getAsJsonArray("vectors")[0].asJsonObject.get("sender").asString
+        reference.getAsJsonArray("malformedCiphertexts").forEach { element ->
+            val envelope = element.asJsonObject.get("archiveEnvelope").asString
+            assertEquals(element.asJsonObject.get("signature").asString, SaitoEnvelope.decodePayload(envelope).id)
+            org.junit.Assert.assertThrows(IllegalArgumentException::class.java) {
+                PrivateChat.read(recipient, envelope, sender)
+            }
+        }
+    }
+
+    @Test fun importedExchangedPassphrasesKeepTheExistingClientsExactLetterCase() {
+        val reference = requireNotNull(javaClass.getResourceAsStream("/native-private-chat-reference.json"))
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[3].asJsonObject }
+        fun restore(scalar: String, counterparty: String): SaitoWallet {
+            val options = JsonParser.parseString(SaitoWallet.fromPrivateKey("0".repeat(63) + scalar).exportJson()).asJsonObject
+            options.add("keys", com.google.gson.JsonArray().apply { add(com.google.gson.JsonObject().apply {
+                addProperty("publicKey", counterparty)
+                addProperty("aes_secret", reference.get("sharedSecretHex").asString)
+            }) })
+            return SaitoWallet.fromBackup(options.toString())
+        }
+        val sender = restore("1", reference.get("recipient").asString)
+        val transaction = PrivateChat.create(sender, reference.get("recipient").asString,
+            reference.getAsJsonObject("plaintext").get("message").asString, reference.get("timestamp").asLong,
+            randomSalt = { ByteArray(8) { (it + 16).toByte() } })
+        assertEquals(reference.get("networkBase64").asString, transaction.encoded())
+        val recipient = restore("2", reference.get("sender").asString)
+        assertEquals(reference.getAsJsonObject("plaintext").get("message").asString,
+            PrivateChat.read(recipient, reference.get("archiveEnvelope").asString, reference.get("sender").asString).text)
+    }
+
+    @Test fun aLegacyWalletKeyFieldRestoresTheExistingClientsExchangedKeyMessage() {
+        val reference = requireNotNull(javaClass.getResourceAsStream("/native-private-chat-reference.json"))
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[2].asJsonObject }
+        val options = JsonParser.parseString(SaitoWallet.fromPrivateKey("0".repeat(63) + "2").exportJson()).asJsonObject
+        options.add("keys", com.google.gson.JsonArray().apply { add(com.google.gson.JsonObject().apply {
+            addProperty("publickey", reference.get("sender").asString) // Legacy exported field used by Saito.
+            addProperty("aes_secret", reference.get("sharedSecretHex").asString)
+        }) })
+        val original = options.toString()
+        val restored = SaitoWallet.fromBackup(original)
+        val message = PrivateChat.read(restored, reference.get("archiveEnvelope").asString, reference.get("sender").asString)
+        assertEquals(reference.getAsJsonObject("plaintext").get("message").asString, message.text)
+        assertEquals(JsonParser.parseString(original), JsonParser.parseString(restored.exportJson()))
+    }
+
+    @Test fun nativeAndExistingClientsExchangeTheOriginalSignedCiphertextThroughRelayJson() {
+        val reference = requireNotNull(javaClass.getResourceAsStream("/native-private-chat-reference.json"))
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject }
+        val sender = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe reference.
+        val recipient = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
+        val transaction = PrivateChat.create(sender, recipient.publicKey,
+            reference.getAsJsonObject("plaintext").get("message").asString, reference.get("timestamp").asLong,
+            randomSalt = { ByteArray(8) { it.toByte() } })
+        assertEquals(reference.getAsJsonObject("signedInner"), transaction.signedJson())
+        val received = PrivateChat.read(recipient, reference.getAsJsonObject("signedInner"), sender.publicKey)
+        assertEquals(reference.get("signature").asString, received.id)
+        assertEquals(reference.getAsJsonObject("plaintext").get("message").asString, received.text)
+    }
+
     @Test fun importedExchangedKeysRestorePrivateHistoryAndRemainPreferredForSending() {
         val vectors = requireNotNull(javaClass.getResourceAsStream("/native-private-chat-reference.json"))
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors") }
