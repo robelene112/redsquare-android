@@ -483,3 +483,6 @@ Next older-history21tracer locally added and compiling. Controlled50-row initial
 
 
 Older-history21tracer01a56a6 actualRED10run38432238667:20PASS+missingLoadoldercontrolline33795.186s/core86. Root31XML/failureoriginal inspected, lateroldercachetailunexecuted. Minimum olderpage control/effect/authenticatedcache retention implemented locally; buildrunning. Positiveenabledwait15s precedesstrictnewcontrolassert becauseinitialloadmustfinish. No nativeGREEN/actualdeath/whole#25. Preview11 unchanged.
+
+
+Older UI43c4dad compiles3m10s. Both reviews completed: Spec1 cache/pagecursor gap (ancient cached message skips available intermediate history); Standards1 duplication heuristic. Same21tracer strengthened with real encrypted ancientT-100 fixture plus recentT and availableT-1; wrongservercutoff naturallyreturns[]. Test compiling; no strengthened nativeRED/cursorfix yet. Product43 unchanged whileownedGradleactive. Both findings mustbe corrected/reviewed beforeacceptance. Preview11 remainsa369.

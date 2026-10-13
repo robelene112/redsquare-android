@@ -596,3 +596,16 @@ Zero documented breaches and zero actionable smell findings. The controlled fixt
 Zero actionable findings. Supports available-history recovery plus local cache through canonical paging and retained messages when the backend no longer serves them. Exact identity/backend and no-propagation/Relay gates remain. Prior Android10/17 results are attributed to exact test revisions with same production source. New21-case RED/implementation are pending; no process-death or whole-ticket claim.
 
 Findings: Standards 0; Spec 0.
+
+
+## Older-history implementation, 01a56a6...43c4dad
+
+### Standards
+
+Zero documented breaches; one heuristic: possible Duplicated Code. The older-page effect repeats selected-history cache saving, merge, failure and cancellation handling. Extract that shared persistence operation while keeping each caller's partial-warning policy explicit, so later storage-recovery corrections reach both paths. Authentication, older-row validation, current conversation scope and explicit fetch remain appropriate.
+
+### Spec
+
+One actionable finding. The request uses the oldest merged cached message as its cursor. An ancient retained message plus50recent server messages can make the request skip available intermediate history. Track a separate archive-page cursor and add a controlled case with ancient cache plus an intermediate available message. Otherwise canonical paging, encrypted retention, cancellation, short-page exhaustion and failure preservation remain appropriate. RED21case20PASS95.186s/source01a56a6 accurately qualified;31XML/manifest verify. Later older/cache assertions unexecuted.
+
+Findings: Standards 1 heuristic, duplicate persistence; Spec 1, cache/page cursor gap. The following tracer adds a real encrypted ancient cached message and requires the intermediate server page; the incorrect cursor naturally returns an empty page. No cursor fix or new native result is claimed yet.

@@ -185,8 +185,10 @@ class PrivateChatPreviewTest {
         val otherWallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "3") // Public unsafe fixture; crypto interop is covered independently.
         val otherText = "Message from another private contact"
         val olderText = "Available older private message"
+        val cachedOlderText = "Previously cached private message"
         val oldestRecent = reference.get("timestamp").asLong
         val olderReads = java.util.concurrent.atomic.AtomicInteger()
+        val requestedOlderCutoff = java.util.concurrent.atomic.AtomicLong(-1)
         val recentPage = if (case == HistoryCase.OLDER_HISTORY) JsonArray().apply {
             add(JsonObject().apply { addProperty("tx", reference.get("archiveEnvelope").asString) })
             for (index in 1..49) add(JsonObject().apply {
@@ -221,9 +223,9 @@ class PrivateChatPreviewTest {
                 else if (recentPage != null) {
                     val cutoff = criteria.get("created_earlier_than").asLong
                     if (cutoff > oldestRecent) recentPage else {
-                        check(cutoff == oldestRecent)
+                        requestedOlderCutoff.set(cutoff)
                         olderReads.incrementAndGet()
-                        requireNotNull(olderPage)
+                        if (cutoff == oldestRecent) requireNotNull(olderPage) else "[]"
                     }
                 }
                 else if (historyPruned.get() || live) "[]"
@@ -248,6 +250,11 @@ class PrivateChatPreviewTest {
             if (storageFailure) check(cacheFile.mkdir())
             preferences.forEach { (prefs, key, _) -> check(prefs.edit().putBoolean(key, true).commit()) }
             store.replace(store.loadOrCreate(), wallet)
+            if (recentPage != null) {
+                val cached = PrivateChat.create(recipientWallet, wallet.publicKey, cachedOlderText, oldestRecent - 100)
+                nl.davidengelen.redsquare.chat.ChatHistoryStore(context, wallet, SaitoBackend.OWNER, counterpart)
+                    .save(listOf(cached.envelope()))
+            }
             if (partialKeys) {
                 val old = vectors[2].asJsonObject // Independently pinned exchanged-key message in the same DM.
                 nl.davidengelen.redsquare.chat.ChatHistoryStore(context, requireNotNull(completeKeyWallet),
@@ -342,6 +349,7 @@ class PrivateChatPreviewTest {
                                 ui.onAllNodesWithText("Load older messages").fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty()
                             }
                             check(olderReads.get() == 1)
+                            check(requestedOlderCutoff.get() == oldestRecent)
                             captureNativeScreen(File(context.cacheDir, "private-chat-evidence/older-private-history-loaded.png"), olderText)
                             historyUnavailable.set(true)
                             scenario.recreate()
@@ -350,6 +358,7 @@ class PrivateChatPreviewTest {
                             waitFor(context.getString(R.string.chat_load_error))
                             waitFor(olderText)
                             ui.onNodeWithText(olderText).performScrollTo().assertIsDisplayed()
+                            ui.onNodeWithText(cachedOlderText).performScrollTo().assertIsDisplayed()
                             captureNativeScreen(File(context.cacheDir, "private-chat-evidence/older-private-history-cached.png"), olderText)
                             check(AndroidWalletStore(context).loadOrCreate().exportJson() == wallet.exportJson())
                             check(AndroidBackendStore(context).load() == SaitoBackend.OWNER)

@@ -558,3 +558,8 @@ Older-history21tracer local test APK compilation PASS1m37s/exit0. Native RED and
 
 
 Older-history actual RED01a56a6:10run38432238667 reports21cases20PASS+missingoldercontrolline33795.186s/core86. Root31XML/failureoriginal inspected; recent rows visible, laterolder/cachetailunexecuted. Minimum adds a50-row full-page indicator, explicit older-fetch control and canonicaloldesttimestamp cutoff. Effect keys bindwallet/backend/endpoint/contact andcancel old reads; authenticated older messages merge into encryptedcache, shortpages removefetch and failuresretain entries. No message transmission or automaticpage loop. Newcontrol readiness usesexisting15spositiveenabledwaitbeforestrictassert. Local APK build running/nativeGREENpending; preview11 unchanged.
+
+
+First older UI minimum43c4dad localAPK PASS3m10s/exit0, no native execution of that exact test revision. Review: Standards1 duplication heuristic; Spec1 important cursor gap. Using min merged cache can skip available intermediate rows when ancient cached history exists. Strengthened same21case seeds a real encrypted ancient public fixture atT-100, supplies50recent rows fromT plus available intermediateT-1. Wrong cutoff naturally returns[]; exact requested cutoff and both retained bodies are required. Product remains43c4dad until actual strengthened RED; tracer compiling. Next fix separates archive cursor and shared cache persistence.
+
+Ancient-cache gap tracer local test APK PASS1m44s/exit0. Source cursor43c4dad intentionally unchanged until native RED. No older-history GREEN or resolved review finding yet.
