@@ -110,7 +110,7 @@ if (process.argv[2] === '--check-native-send') {
   process.exit(0);
 }
 
-function vector(senderScalar, recipientScalar, timestamp, saltHex, exchangedSecret = null, mentioned = []) {
+function vector(senderScalar, recipientScalar, timestamp, saltHex, exchangedSecret = null, content = {}) {
   assert(['1', '2'].includes(senderScalar) && ['1', '2'].includes(recipientScalar));
   assert.notEqual(senderScalar, recipientScalar);
   const senderKey = '0'.repeat(63) + senderScalar;
@@ -123,9 +123,10 @@ function vector(senderScalar, recipientScalar, timestamp, saltHex, exchangedSecr
   assert.equal(ecdh.computeSecret(Buffer.from(base58.decode(recipient))).toString('hex'), implicitSecret);
   const sharedSecret = exchangedSecret ?? implicitSecret;
   const reverseSharedSecret = sharedSecret;
+  const {mentioned = [], message: plaintextMessage = `Independent private Chat scalar${senderScalar} to scalar${recipientScalar} 😀 <&>\nline two`} = content;
   const plaintext = {
     module: 'Chat', request: 'chat message', group_id: groupId,
-    message: `Independent private Chat scalar${senderScalar} to scalar${recipientScalar} 😀 <&>\nline two`,
+    message: plaintextMessage,
     timestamp, mentioned,
   };
   const plaintextJson = JSON.stringify(plaintext);
@@ -196,8 +197,36 @@ const vectors = [vector('1', '2', 1700000080000, '0001020304050607'),
 if (process.argv[2] === '--mentioned') {
   // Chat addresses an outside mention but encrypts to the original DM counterpart.
   const mention = wasm.generate_public_key('0'.repeat(63) + '3');
-  vectors.push(vector('1', '2', 1700000080020, '2021222324252627', null, [mention]),
-    vector('2', '1', 1700000080021, '28292a2b2c2d2e2f', null, [mention]));
+  vectors.push(vector('1', '2', 1700000080020, '2021222324252627', null, {mentioned: [mention]}),
+    vector('2', '1', 1700000080021, '28292a2b2c2d2e2f', null, {mentioned: [mention]}));
+}
+let replyFormat = null;
+if (process.argv[2] === '--reply') {
+  const browserSource = fs.readFileSync('/reference/browser.ts', 'utf8');
+  const browserSha256 = sha256(browserSource);
+  assert.equal(browserSha256, 'e85b67cc138dae5047bb855bf0961b2852a808fc7be3ffc5bc0479a1281bab38');
+  const browserAst = ts.createSourceFile('browser.ts', browserSource, ts.ScriptTarget.ES2022, true);
+  const browserClass = browserAst.statements.find(node => ts.isClassDeclaration(node) && node.name.text === 'Browser');
+  const adapter = {};
+  for (const name of ['sanitize', 'normalizeLegacySmartQuotedAnchors']) {
+    const method = browserClass.members.find(node => ts.isMethodDeclaration(node) && node.name.getText(browserAst) === name);
+    assert(method, name);
+    adapter[name] = vm.runInNewContext(`({${method.getText(browserAst)}}).${name}`, {
+      sanitizeHtml: require(root + 'sanitize-html'), sanitizer: require(root + 'sanitizer'), console,
+      emoji: require(root + 'node-emoji'),
+    });
+  }
+  // Pinned popup builds this prefix; SaitoInput stores sanitize(prefix), then appends innerText.
+  const quote = adapter.sanitize(`<blockquote href="${publicKeys['2']}1700000079990">Earlier & quoted text</blockquote>`);
+  assert.equal(quote, `<blockquote href="${publicKeys['2']}1700000079990">Earlier &amp; quoted text</blockquote>`);
+  const body = 'Reply body <b>literal</b> 😀 <&>\nsecond line';
+  const literal = 'Literal <blockquote>text</blockquote> and <b>body</b> 😀 <&>\nsecond line';
+  vectors.push(vector('1', '2', 1700000080030, '3031323334353637', null, {message: quote + body}),
+    vector('1', '2', 1700000080031, '38393a3b3c3d3e3f', null, {message: literal}));
+  replyFormat = {browserSha256, sanitizeHtmlVersion: require(root + 'sanitize-html/package.json').version,
+    sanitizeHtmlSha256: sha256(fs.readFileSync(require.resolve(root + 'sanitize-html'))),
+    quotedText: 'Earlier & quoted text', body, literal,
+    boundary: 'actual pinned Browser.sanitize and Crypto methods; prefix follows pinned popup/input source; no DOM or Saito application initialization'};
 }
 const malformedCiphertexts = ['ct', 'iv', 's'].map((field, index) => {
   const formatter = JSON.parse(vectors[0].ciphertextJson);
@@ -220,5 +249,5 @@ console.log(JSONBig.stringify({
     saitoJsTransactionSha256: sha256(transactionSource), publishedCryptoJsHashes,
     publishedCryptoJsTarballSha256: 'b514fa78b0d056973a260586a45b77a83a4720b2ea45323f5bea3d22691e9b01',
     execution: 'read-only, network none, env-i; actual pinned Crypto methods and extracted pure saito-js JSON methods; no Saito application initialization',
-  }, vectors, malformedCiphertexts,
+  }, ...(replyFormat ? {replyFormat} : {}), vectors, malformedCiphertexts,
 }, null, 2));

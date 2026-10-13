@@ -76,7 +76,7 @@ class PrivateChatPreviewTest {
         }
     }
 
-    private enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL, LIST_LIVE, PARTIAL_KEYS, STORAGE_PARTIAL, OTHER_LIVE, MENTIONED, MENTIONED_OUTGOING, MUTED, BLOCKED, UNKNOWN_RETRY, PENDING_IMPORT, DRAFT_NAVIGATION, OLDER_HISTORY }
+    private enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL, LIST_LIVE, PARTIAL_KEYS, STORAGE_PARTIAL, OTHER_LIVE, MENTIONED, MENTIONED_OUTGOING, MUTED, BLOCKED, UNKNOWN_RETRY, PENDING_IMPORT, DRAFT_NAVIGATION, OLDER_HISTORY, QUOTED_REPLY, LITERAL_MARKUP }
 
     @Test fun anImportedContactOpensItsAvailableAuthenticatedPrivateHistory() = exerciseHistory(HistoryCase.AVAILABLE)
 
@@ -118,6 +118,10 @@ class PrivateChatPreviewTest {
 
     @Test fun olderAvailablePrivateMessagesCanBeLoadedAndReadAfterServerHistoryDisappears() = exerciseHistory(HistoryCase.OLDER_HISTORY)
 
+    @Test fun anExistingWebPrivateReplyShowsReadableQuoteAndUnmodifiedTypedBody() = exerciseHistory(HistoryCase.QUOTED_REPLY)
+
+    @Test fun ordinaryTypedPrivateMarkupRemainsLiteralAfterReopening() = exerciseHistory(HistoryCase.LITERAL_MARKUP)
+
     private fun exerciseHistory(case: HistoryCase) {
         val storagePartial = case == HistoryCase.STORAGE_PARTIAL
         val storageFailure = case == HistoryCase.STORAGE_FAILURE || storagePartial
@@ -137,9 +141,18 @@ class PrivateChatPreviewTest {
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
         val mentioned = case == HistoryCase.MENTIONED || case == HistoryCase.MENTIONED_OUTGOING
-        val vectors = instrumentation.context.assets.open(if (mentioned) "native-private-chat-mentioned-reference.json" else "native-private-chat-reference.json")
-            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors") }
-        val reference = vectors[if (!mentioned) 0 else if (case == HistoryCase.MENTIONED) 4 else 5].asJsonObject
+        val replyCase = case == HistoryCase.QUOTED_REPLY || case == HistoryCase.LITERAL_MARKUP
+        val fixture = instrumentation.context.assets.open(when {
+            replyCase -> "native-private-chat-reply-reference.json"
+            mentioned -> "native-private-chat-mentioned-reference.json"
+            else -> "native-private-chat-reference.json"
+        }).bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
+        val vectors = fixture.getAsJsonArray("vectors")
+        val reference = vectors[when {
+            case == HistoryCase.QUOTED_REPLY || case == HistoryCase.MENTIONED -> 4
+            case == HistoryCase.LITERAL_MARKUP || case == HistoryCase.MENTIONED_OUTGOING -> 5
+            else -> 0
+        }].asJsonObject
         val counterpart = reference.get(if (case == HistoryCase.MENTIONED_OUTGOING) "recipient" else "sender").asString
         val publicWallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "2") // Public unsafe fixture only.
         val options = JsonParser.parseString(publicWallet.exportJson()).asJsonObject.apply {
@@ -305,7 +318,8 @@ class PrivateChatPreviewTest {
                             waitFor(counterpart)
                             ui.onNodeWithText(counterpart).assertIsDisplayed().performClick()
                         }
-                        val text = reference.getAsJsonObject("plaintext").get("message").asString
+                        val text = if (case == HistoryCase.QUOTED_REPLY) fixture.getAsJsonObject("replyFormat").get("body").asString
+                            else reference.getAsJsonObject("plaintext").get("message").asString
                         if (case == HistoryCase.BLOCKED) {
                             waitFor(context.getString(R.string.chat_no_messages))
                             ui.onAllNodesWithText(text).assertCountEquals(0)
@@ -339,6 +353,13 @@ class PrivateChatPreviewTest {
                         }
                         waitFor(text)
                         ui.onNodeWithText(text).assertIsDisplayed()
+                        if (replyCase) {
+                            waitForEnabled("Refresh")
+                            if (case == HistoryCase.QUOTED_REPLY) ui.onNodeWithText(
+                                fixture.getAsJsonObject("replyFormat").get("quotedText").asString).assertIsDisplayed()
+                            captureNativeScreen(File(context.cacheDir,
+                                "private-chat-evidence/${if (case == HistoryCase.QUOTED_REPLY) "web-quoted-private-reply" else "literal-private-markup"}.png"), text)
+                        }
                         if (case == HistoryCase.OLDER_HISTORY) {
                             check(olderReads.get() == 0)
                             waitForEnabled("Load older messages")
@@ -546,6 +567,16 @@ class PrivateChatPreviewTest {
                         ui.onNodeWithText(text).assertIsDisplayed()
                         ui.onNodeWithText("Could not load chats. Check your connection and try Refresh.").assertIsDisplayed()
                         captureNativeScreen(File(context.cacheDir, "private-chat-evidence/cached-history-unavailable.png"), text)
+                        if (replyCase) {
+                            if (case == HistoryCase.QUOTED_REPLY) ui.onNodeWithText(
+                                fixture.getAsJsonObject("replyFormat").get("quotedText").asString).assertIsDisplayed()
+                            val retained = nl.davidengelen.redsquare.chat.ChatHistoryStore(context, wallet, SaitoBackend.OWNER, counterpart)
+                                .load().entries.single { it.message.id == reference.get("signature").asString }
+                            check(retained.envelope == reference.get("archiveEnvelope").asString)
+                            check(retained.message.text == reference.getAsJsonObject("plaintext").get("message").asString)
+                            captureNativeScreen(File(context.cacheDir,
+                                "private-chat-evidence/${if (case == HistoryCase.QUOTED_REPLY) "web-quoted-private-reply" else "literal-private-markup"}-recreated.png"), text)
+                        }
                         if (mentioned || case == HistoryCase.MUTED) captureNativeScreen(File(context.cacheDir,
                             "private-chat-evidence/${if (case == HistoryCase.MUTED) "muted" else if (case == HistoryCase.MENTIONED) "mentioned" else "own-mentioned"}-private-history-recreated.png"), text)
                         if (sending) {
