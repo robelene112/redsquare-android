@@ -9,7 +9,7 @@ one question at a time when a material choice really needs the owner.
 
 Latest checkpoint: #25 remains active; 20 of 35 tickets are closed. The current phone preview is 0.1.11/sourcea36972f at https://davidengelen.nl/redsquare/. The owner said it looks good and asked to continue; no physical timing or update check is inferred. Draft persistence and original Retry now pass the 20-case checkpoint: Android10run38431315237 at1a78f69,87.403s; Android17run38430016172 at a306f3f,136.043s. Both use production sourceb2bc017/core86;17does not execute the newer test-only outgoing-body wait. No actual process-death or whole-ticket acceptance.
 
-The next 21-case older-history tracer compiles in1m37s. It verifies a canonical50-row page followed by one older row, visible/cached recovery, no sends and unchanged identity/backend. Actual RED38432238667 confirmed the missing control. The older-history UI minimum is implemented and compiling; native GREEN and review are next. Preserve untracked NATIVE_GROUP_CHAT_CONTRACT.md for#26. Detailed chronology follows; read the latest checkpoint before older dated notes.
+The next 21-case older-history tracer compiles in1m37s. It verifies a canonical50-row page followed by one older row, visible/cached recovery, no sends and unchanged identity/backend. Actual RED38432238667 confirmed the missing control. The reviewed cursor correction293c988 compiles2m55s; both review axes0 after the cache-gap RED. Native21GREEN checks on bothSDKs are next. Preserve untracked NATIVE_GROUP_CHAT_CONTRACT.md for#26. Detailed chronology follows; read the latest checkpoint before older dated notes.
 
 
 #24, "Show in-app social notifications", is complete after both full emulator

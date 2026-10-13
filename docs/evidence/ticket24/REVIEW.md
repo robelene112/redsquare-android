@@ -609,3 +609,28 @@ Zero documented breaches; one heuristic: possible Duplicated Code. The older-pag
 One actionable finding. The request uses the oldest merged cached message as its cursor. An ancient retained message plus50recent server messages can make the request skip available intermediate history. Track a separate archive-page cursor and add a controlled case with ancient cache plus an intermediate available message. Otherwise canonical paging, encrypted retention, cancellation, short-page exhaustion and failure preservation remain appropriate. RED21case20PASS95.186s/source01a56a6 accurately qualified;31XML/manifest verify. Later older/cache assertions unexecuted.
 
 Findings: Standards 1 heuristic, duplicate persistence; Spec 1, cache/page cursor gap. The following tracer adds a real encrypted ancient cached message and requires the intermediate server page; the incorrect cursor naturally returns an empty page. No cursor fix or new native result is claimed yet.
+
+
+## Ancient-cache gap tracer, 43c4dad...dd8ef695
+
+### Standards
+
+Zero new documented breaches or actionable smells. Real encrypted ancient cache precondition and natural empty server response exercise the recovery boundary. Exact cutoff/count, both retained bodies after recreation, wallet/backend and zero transmissions remain. Prior cursor and duplicate-persistence findings remain visibly unresolved at this tracer stage; compilation is separated from native RED.
+
+### Spec
+
+Zero new actionable findings. CacheT-100 plus recentT and availableT-1 directly test recovery of available history alongside retained cache. A wrong cutoff returns[] instead of a synthetic error. Native-generated rows remain qualified; cleanup covers the seeded record. No cursor correction or GREEN is claimed before the actual run.
+
+Findings: Standards 0; Spec 0.
+
+## Independent archive cursor and shared retention, dd8ef695...293c988
+
+### Standards
+
+Prior duplication heuristic resolved; zero new documented breaches or actionable smells. retainHistory snapshots original envelopes before IO and shares save, merge, failure and cancellation handling. Callers retain their distinct partial-warning policies. The separate cursor advances from fetched pages and is scoped to wallet/backend/conversation; authenticated older-row validation remains. RED request timestamp is not independently claimed; GREEN and preview update remain pending.
+
+### Spec
+
+Prior cached-history cursor defect resolved in source; zero new actionable findings. Queries use only the archive-page cursor, advancing or clearing from returned messages without using merged cache/live entries. Original authentication, encrypted retention and scope remain. No automatic send or pagination loop. Actual REDdd8ef695 reports21cases20PASS+missing intermediate body109.476s;31XML/manifest verify. Exact failed cutoff and later cache predicates were not retained/reached. Runtime GREEN and whole-ticket acceptance remain pending.
+
+Findings: Standards 0; Spec 0. Local APK subsequently passes2m55s/exit0; native21checks follow.

@@ -566,3 +566,5 @@ Ancient-cache gap tracer local test APK PASS1m44s/exit0. Source cursor43c4dad in
 
 
 Ancient-cache actual REDdd8ef695:10run38434215697 21cases20PASS+line346intermediatebodytimeout109.476s/core86. Oldercontrol successfullyclicked, intermediate neverdisplayed; rawrequesttimestampnotretained so noindependentvalueclaim. Root31XML/failureoriginal showancient+recent andfetchgone. Latercutoff/cachetailunexecuted. Cursorcorrection now remembersoldest verifiedarchivepage timestamp separatelyfrommerged cache/liveentries andadvancesonlyonfetchedpages. Shared retainHistory extractsduplicatedencryptedpersistence/cancellation/failurehandling; caller-specificpartialwarningpolicies retained. Localbuildrunning/followupreview/nativeGREENpending.
+
+Separatearchivecursor293c988 localTestAPK PASS2m55s/exit0. Both bounded reviewaxes0; previous Speccursor and Standardsduplicationfindings resolvedinsource. Native21SDK10/17next; no runtimeGREEN/fullticketclaim.
