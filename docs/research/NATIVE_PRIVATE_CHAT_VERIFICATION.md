@@ -220,3 +220,20 @@ command exits143 with incomplete output; Docker event reports build container
 exit0 at1791865951, duration110s, with no kill event in inspected15m window.
 No cause inferred. Unchanged APK recheck exits0/SUCCESS18s, all50tasks up-to-date.
 Actual five-case RED next; native composer/sending not implemented yet.
+
+Actual send RED10run38347083896 atf072178 reports5cases/4PASS+1failure36.397s,
+line173 missing composer Message after history. NoOK/assumptions/actualdeaths;
+core82/source gates. Twenty-one hashes/root nineXMLs/failureoriginal confirm
+no composer; send/Relay/recovery gates unreached. Minimum now adds encrypted
+Chat work/draft storage, original signed candidate before sending, unknown state
+before an attempt, wallet/backend claim guards, propagation plus pinned Relay
+JSON/request, claimed-forwarding status without delivery/read receipt, no send
+on load and durable local history. Source build/actual unchanged5caseGREEN and
+bounded reviews next; no completed send/recovery claim yet.
+
+Minimum source build command connection exits143 while its isolated container
+b781529b7e9c is still running. No source changes or duplicate Gradle launched;
+attached to Docker logs/wait. Original container completes exit0, full captured
+SUCCESS3m2s/core82/debug/testAPK. Connection termination cause not inferred.
+Actual unchanged five-case UI GREEN and bounded source reviews next; outgoing
+status/cache recovery, independent browser decoder and interruption not yet proved.

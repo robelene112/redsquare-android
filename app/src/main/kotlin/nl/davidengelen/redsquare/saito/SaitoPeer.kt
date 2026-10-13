@@ -121,7 +121,7 @@ class SaitoPeer(private val wallet: SaitoWallet, endpoint: String,
         override fun onClosed(webSocket: WebSocket, code: Int, reason: String) { fail(); closed.complete(Unit) }
     })
 
-    suspend fun request(message: ByteArray): ByteArray = requestFrame { index ->
+    suspend fun request(message: ByteArray, beforeSend: (() -> Unit)? = null): ByteArray = requestFrame(beforeSend) { index ->
         SaitoWire.applicationRequest(wallet.publicKey, message, index, System.currentTimeMillis())
     }
 

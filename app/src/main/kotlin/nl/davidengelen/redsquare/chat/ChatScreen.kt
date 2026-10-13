@@ -142,6 +142,9 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                     HorizontalDivider()
                 }
             }
+            ChatComposer(wallet, backend, endpoint, contact, personal?.ready == true) { saved ->
+                entries = ChatHistoryStore.merge(entries, saved)
+            }
         }
     }
 }
