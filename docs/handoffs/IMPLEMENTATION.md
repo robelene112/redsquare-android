@@ -25,7 +25,7 @@ root inspected. Both captures perSDK independently PASS pinnedCrypto/WASM/exact
 body/auto-mention/actualChat receiver+duplicatesuppression. Actualprocess:
 10cold3.961s/restore.132s/PID8160→8427;17cold4.928s/restore.155s/PID5278→5355.
 3XML/3originals/checkpointdelta each verified; installation snapshots remain
-deviceonly andrestore. Quote navigation notyet directlychecked inUI.
+deviceonly andrestore. Quote navigation now directlyverified by subsequent3ba3df98 runs below.
 
 Prior26RED38454040603 at67fbbb00/product4d8ba673:25PASS115.77s/core86,
 onlyzero quote-onlyguard failed383;43XML/root original inspected, zerotail and
@@ -602,3 +602,19 @@ reviews0; localsplitTestAPKPASS1m47s. StrongquoteNav tracer now adds authenticat
 publicnative-generated24line spacer between original/reply andasserts original
 notdisplayed beforetap/strict originaldisplayaftertap, then returns toreplybody.
 Crypto/metadata baseline unchanged. Compilation/review/newsplitruntimepending.
+
+
+Latest bounded UI/quote navigation GREEN source3ba3df98 (product2fffunchanged):
+10run38458495453 coreUI24PASS111.95s/actions2PASS14.294s/core86;
+17run38458499644 coreUI24PASS158.218s/actions2PASS17.348s/core86.
+Root49XML and4before/afterquote originals eachinspected; genuineoriginaloffscreen
+beforetap thenexactoriginaldisplay, scrollback/cachedreply/body/identity/nosend.
+Bothnormal+zero captures perSDK independentlyPASS pinnedCrypto/WASM/mentions/
+actualChat receiver/dedup. Actualprocess10cold4.541/restore.162/PID8168→8417;
+17cold5.082/restore.159/PID5330→5409,3XML/3originals eachverified.
+
+Active firstLikeRED10run38459575841 at8d4d17ea: coreUI24 +actions3 (newLIKEcase),
+productLike absent. Like UI/signature/pair/corpusbody/propagate+Relayoriginal/
+truthfulstatus/cache/identity/noauto tracer reviewedboth0, localTestAPKPASS1m35s.
+Inspectactualresult beforeLike minimum; no likecapture/GREEN yet. No ownedGradle.
+Onlyprotectedgroupcontract remainsunrelated; no node/privatewallet/statewrites.
