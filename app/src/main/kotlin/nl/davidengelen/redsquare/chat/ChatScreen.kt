@@ -11,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.unit.dp
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
@@ -301,6 +302,10 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                 (message.author == wallet.publicKey || !personal.policy.hidesIncomingChat(message.author)) }
             if (visible.isEmpty() && !loading && !failed) Text(stringResource(R.string.chat_no_messages))
             val replies = remember(wallet, backend, contact) { ChatReplyActions() }
+            val reactions = remember(wallet, backend, contact, endpoint) {
+                ChatReactionState(context, wallet, backend, contact, endpoint, scope)
+            }
+            LaunchedEffect(reactions) { reactions.load() }
             val messageList = rememberLazyListState()
             LazyColumn(Modifier.weight(1f), state = messageList) {
                 items(visible, key = { it.id }) { message ->
@@ -312,7 +317,13 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                             if (index >= 0) scope.launch { messageList.animateScrollToItem(index) }
                         }
                         val replyPrefix = remember(message) { privateReplyPrefix(message) }
+                        val likedBy = reactions.saved.likedBy(message)
+                        if (likedBy.isNotEmpty()) Text(pluralStringResource(R.plurals.chat_likes, likedBy.size, likedBy.size))
                         Row {
+                            TextButton(enabled = personal?.ready == true && reactions.editable,
+                                onClick = { reactions.toggle(message) }) {
+                                Text(stringResource(if (wallet.publicKey in likedBy) R.string.chat_unlike else R.string.chat_like))
+                            }
                             TextButton(enabled = replies.replyTo != null && replyPrefix != null, onClick = { replies.replyTo?.invoke(message) }) {
                                 Text(stringResource(R.string.post_reply))
                             }
@@ -325,6 +336,13 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                     HorizontalDivider()
                 }
             }
+            when (reactions.saved.status) {
+                ChatReactionStore.Status.UNKNOWN -> Text(stringResource(R.string.chat_reaction_unknown))
+                ChatReactionStore.Status.SUBMITTED -> Text(stringResource(R.string.chat_reaction_submitted))
+                ChatReactionStore.Status.FORWARDED -> Text(stringResource(R.string.chat_reaction_forwarded))
+                ChatReactionStore.Status.NONE -> Unit
+            }
+            if (reactions.failed) Text(stringResource(R.string.chat_reaction_error))
             ChatComposer(wallet, backend, endpoint, contact, personal?.ready == true, replies) { saved ->
                 entries = ChatHistoryStore.merge(entries, saved)
             }

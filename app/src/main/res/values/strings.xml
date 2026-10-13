@@ -378,6 +378,16 @@
     <string name="chat_title">Chat</string>
     <string name="chat_message">Message</string>
     <string name="chat_remove_reply">Remove reply</string>
+    <string name="chat_like">Like</string>
+    <string name="chat_unlike">Unlike</string>
+    <plurals name="chat_likes">
+        <item quantity="one">%d like</item>
+        <item quantity="other">%d likes</item>
+    </plurals>
+    <string name="chat_reaction_unknown">Reaction status unknown. Your action is saved on this device.</string>
+    <string name="chat_reaction_submitted">Reaction submitted. Delivery is not confirmed.</string>
+    <string name="chat_reaction_forwarded">Reaction forwarded. Delivery is not confirmed.</string>
+    <string name="chat_reaction_error">Could not restore or send this reaction. Saved actions are not sent again automatically.</string>
     <string name="chat_copy">Copy</string>
     <string name="chat_copied">Copied</string>
     <string name="chat_copy_error">Could not copy this message. Try again.</string>

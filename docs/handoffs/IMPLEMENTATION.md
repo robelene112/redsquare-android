@@ -11,7 +11,7 @@ one question at a time when a material choice really needs the owner.
 Stable phone preview0.1.11/sourcea36972f remains https://davidengelen.nl/redsquare/.
 Owner's looks-good does not establish Pixel timing or update continuity.
 
-Current productd9737678 includes Copy, older-history cursor fixes, native Reply
+Accepted product2fff210a includes Copy, older-history cursor fixes, native Reply
 composition/removal/raw encrypted draft retention/body-only editor, encrypted
 reply-author auto-mention, and available-local quote navigation. Reply production
 has no accepted native GREEN yet. Minimum local core86/debug/test APK build
@@ -618,3 +618,14 @@ productLike absent. Like UI/signature/pair/corpusbody/propagate+Relayoriginal/
 truthfulstatus/cache/identity/noauto tracer reviewedboth0, localTestAPKPASS1m35s.
 Inspectactualresult beforeLike minimum; no likecapture/GREEN yet. No ownedGradle.
 Onlyprotectedgroupcontract remainsunrelated; no node/privatewallet/statewrites.
+
+
+FirstLikeRED10run38459575841 at8d4d17ea: coreUI24PASS100.919s/actions3two
+PASS+missingLike atFixture277/13.277s/core86. Root50XML/sole failureoriginal
+inspected; Like body/transport/status/cache/identity tail+processunexecuted.
+Minimum firstLike source now locally adds authenticatedpublicChatLike factory/
+read, encryptedreaction originals+attemptstate scopedwallet/backend/privatepair,
+explicit optimisticcount/Like/Unlike, guardedprepare-before-submit/truthfulstatus/
+retainedcache/noautoloadbroadcast. Reactionnamespace included in fixtureopaque
+cleanup and outgoingwalletworkwarning. No live receipt/Unlike verification/retry/
+archive-reaction recovery/whole#25 yet. Reviews/build/nativeminimum pending.

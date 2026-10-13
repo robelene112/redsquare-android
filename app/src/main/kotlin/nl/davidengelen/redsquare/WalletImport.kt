@@ -141,6 +141,8 @@ class WalletImport(
                                 nl.davidengelen.redsquare.feed.ProfileDraftStore(activity.applicationContext,
                                     operation.original.publicKey, backend).load().hasWork ||
                                 nl.davidengelen.redsquare.chat.ChatWorkStore.hasWork(activity.applicationContext,
+                                    operation.original, backend) ||
+                                nl.davidengelen.redsquare.chat.ChatReactionStore.hasWork(activity.applicationContext,
                                     operation.original, backend)
                         }
                     } catch (_: Exception) { true }
