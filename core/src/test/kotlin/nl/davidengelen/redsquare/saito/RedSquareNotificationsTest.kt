@@ -5,6 +5,16 @@ import org.junit.Assert.*
 import org.junit.Test
 
 class RedSquareNotificationsTest {
+    @Test fun `valid self likes are excluded without an unverified activity warning`() {
+        val fixture = JsonParser.parseReader(javaClass.getResourceAsStream("/native-notification-reference.json")!!.reader()).asJsonObject
+        val self = fixture.getAsJsonObject("incomingLike")
+        val incoming = fixture.getAsJsonObject("olderIncomingLike")
+        val page = RedSquareLikes.readIncoming("[$self,$incoming]", "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU")
+        assertEquals(listOf(incoming.get("sig").asString), page.likes.map { it.id })
+        assertEquals("A valid self interaction is ineligible, not unverified", 0, page.ignored)
+        assertEquals(2, page.rowCount)
+    }
+
     @Test fun `current and legacy commentary quotes retain their authenticated original`() {
         val fixture = JsonParser.parseReader(javaClass.getResourceAsStream("/native-notification-reference.json")!!.reader()).asJsonObject
         val current = fixture.getAsJsonObject("incomingQuote")
