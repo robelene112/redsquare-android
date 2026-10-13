@@ -636,3 +636,6 @@ Copytracer659a2cd8 localTestAPK PASS1m40s/exit0; bounded61e36d2d...659a2cd8revie
 
 
 ExplicitCopy actualRED38447070903/source659a2cd8:24cases23PASS plusmissingCopy atline379,109.851s/core86. Quote/body/readiness prerequisites execute; clipboardwrite/flag/cache-recreation tail andlaterprocessfixture do not. Root38XML/failureoriginal inspected. Minimum adds explicitCopy pervisiblemessage, reusesvalidatedreply-prefix parser forbody-only copying, preservesarbitraryliteralbody, setsrealClipData sensitiveflag, givesolderSDKfeedback andhandlesplatform errorswithoutcrashing. Signed/cacheoriginalsunchanged. LocalAPKbuildrunning; no CopyGREEN/Reply/reaction/switchisolation/fullacceptance claim.
+
+
+Copyminimum439fe52e boundedreviewsboth0. Localwrappershellended143 while its ownedGradlecontainer5e9f191413f5 continued; source/app/testfilesleft untouched, no duplicatebuild. Attachedexactcontainerlogs/wait prove finalBUILD SUCCESSFUL3m32s/exit0. NativeCopy10run38448314651/17run38448319576 pending. Rootdoesnotinfer cause oflostwrapper or runtimeGREEN from compilation.

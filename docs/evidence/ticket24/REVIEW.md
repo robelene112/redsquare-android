@@ -763,3 +763,16 @@ Zero documented breaches or actionable smell findings. Explicit UI action observ
 Zero actionablefindings. Addressesexisting-capability preservation through explicitCopy, exactbodywithoutreplywrapper andsensitiveflag. Sourcehashes/methodcomparison do notclaimdeployed-client equivalence. Bothprior24GREEN at85c8f1a3 have38validXML/verifiedmanifests andqualifiedprocessrecords. Currenttracercompilation is notCopy acceptance; switchisolation/actions/fullticket remainpending.
 
 Findings: Standards0; Spec0. LocaltracerTestAPK subsequentlyPASS1m40s/exit0. NativeCopyRED38447070903 pending.
+
+
+## Explicit body-only Copy minimum,30df77f3...439fe52e
+
+### Standards
+
+Zero documented breaches or actionable smell findings. Visible explicitCopy reusesvalidatedreplyparser, copiesliteralbody andsetsensitivityflagwithout changing signed/cacheoriginals. Resources coverlabels/errors; olderSDKfeedbackonly, platformexceptionshandled. Sharedparser extraction staysbounded. ActualRED/source/unexecutedtail qualified; compilation/nativeGREENpendingat review.
+
+### Spec
+
+Zero actionablefindings. Preserves existingCopy onvisiblemessages; quotedprefixexcluded, exacttypedbody retained, blockedincomingstillhidden. SensitiveplainClipData avoidscontentinconfirmation; olderfeedbackno privatebody. RED65924/23PASS109.851s/38validXML accurate; clipboard/recreatedtail unexecuted. Reply/reaction/switch/finalgates remainpending.
+
+Findings: Standards0; Spec0. Subsequent ownedcontainerbuildPASS3m32s/exit0 despite lostwrappershell143; exactcontainerlogs/waitretained, no duplicatebuild. NativeCopy10/17follow.
