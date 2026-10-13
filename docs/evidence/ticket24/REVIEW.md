@@ -1374,3 +1374,14 @@ Zero documented breaches or actionable heuristic findings. Actualsignature/priva
 One actionablefinding: reaction-filepersistencefailure abortsentirepagebeforereadableverifiedDMsmerge, weakening availablehistorypluscache. Handlereactionretentionfailure separately, showlocalpersistencewarning, continuemergedmessages; liveACKmustretaindurablegate. Existingverification/deduparecorrect butruntimeandfailurepathunverified.
 
 ActualRED17run38474963986/c299:8of9actionsPASS85.717s/core86, oneavailableLikecounttimeoutFixture313. RootfailurePNG/XMLandthreewalletreplacementoriginalpairs inspected. WalletcasePASS;10walletpending. Minimumed785 core/debug/testAPKlocal70099active; regressionnextafterbuild.
+
+
+## Reaction storage regression,29a2c4ec...740c8128
+
+### Standards
+
+Zero documented breaches or actionable heuristic findings. RealguardedFSobstruction atapprovedUI/wire/persistenceseams; exactemptydirectorycleanup andopaqeexistingfile/walletrestoration. LiteralwarningdoesnotrequireunimplementedresourceforRED.
+
+### Spec
+
+Zero actionable findings. ReadableDM/localwarning/nofalsenetworkerror/nooutgoing underreactionfileobstruction; explicitRefreshnewread+warningclearance/oneLike/actionready afterrepair. Productstillidentifiedabortpath; localcompile/nativeREDpending. Minimumed785 core/debug/testAPK PASS3m2 (core86up-to-date, notfreshnewtestexecution).
