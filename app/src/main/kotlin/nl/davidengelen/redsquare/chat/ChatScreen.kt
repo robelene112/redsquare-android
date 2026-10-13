@@ -158,20 +158,23 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
         catch (_: Exception) { cacheFailed = true }
         try {
             coroutineScope {
-                val updates = Channel<ChatIncoming>(Channel.UNLIMITED)
+                val updates = Channel<Unit>(Channel.CONFLATED)
                 val receiver = launch {
-                    for (saved in updates) {
-                        saved.history?.let { history ->
+                    for (ignored in updates) {
+                        try {
+                            val history = withContext(Dispatchers.IO) { cache.load() }
                             entries = ChatHistoryStore.merge(entries, history.entries)
                             if (history.incomplete) incomplete = true
-                        } ?: reactionState?.load()
+                        } catch (cancelled: CancellationException) { throw cancelled }
+                        catch (_: Exception) { cacheFailed = true }
+                        reactionState?.load()
                     }
                 }
                 try {
                     SaitoPeer(wallet, endpoint, onIncoming = { bytes ->
                         val saved = receivePrivateChat(context, wallet, backend, bytes)
-                        if (saved.contact == contact) {
-                            updates.trySend(saved)
+                        if (saved == contact) {
+                            updates.trySend(Unit)
                         }
                         true // Original authenticated message or metadata is durably saved before acknowledgement.
                     }).use { peer ->
