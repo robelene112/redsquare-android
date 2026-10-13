@@ -15,11 +15,12 @@ import nl.davidengelen.redsquare.saito.*
 import java.io.File
 
 internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
-    enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL, LIST_LIVE, PARTIAL_KEYS, STORAGE_PARTIAL, OTHER_LIVE, MENTIONED, MENTIONED_OUTGOING, MUTED, BLOCKED, UNKNOWN_RETRY, PENDING_IMPORT, DRAFT_NAVIGATION, OLDER_HISTORY, QUOTED_REPLY, LITERAL_MARKUP, UNREADABLE_RECENT_HISTORY, NATIVE_REPLY, NATIVE_REPLY_ZERO, LIKE, INCOMING_LIKE, CONCURRENT_LIKE }
+    enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL, LIST_LIVE, PARTIAL_KEYS, STORAGE_PARTIAL, OTHER_LIVE, MENTIONED, MENTIONED_OUTGOING, MUTED, BLOCKED, UNKNOWN_RETRY, PENDING_IMPORT, DRAFT_NAVIGATION, OLDER_HISTORY, QUOTED_REPLY, LITERAL_MARKUP, UNREADABLE_RECENT_HISTORY, NATIVE_REPLY, NATIVE_REPLY_ZERO, LIKE, INCOMING_LIKE, CONCURRENT_LIKE, REACTION_RETRY }
 
     fun exerciseHistory(case: HistoryCase) {
         val concurrentLike = case == HistoryCase.CONCURRENT_LIKE
-        val liking = case == HistoryCase.LIKE || concurrentLike
+        val reactionRetry = case == HistoryCase.REACTION_RETRY
+        val liking = case == HistoryCase.LIKE || concurrentLike || reactionRetry
         val incomingLike = case == HistoryCase.INCOMING_LIKE
         val zeroReply = case == HistoryCase.NATIVE_REPLY_ZERO
         val nativeReply = case == HistoryCase.NATIVE_REPLY || zeroReply
@@ -179,7 +180,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                 }.toString()
             } else "[]"
         })
-        peer.disconnectAfterTransaction = interruptedSend || retrying
+        peer.disconnectAfterTransaction = interruptedSend || retrying || reactionRetry
         val liveTransaction = if (live) {
             val relay = JsonObject().apply {
                 addProperty("module", "Relay"); addProperty("request", "chat relay")
@@ -210,6 +211,11 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                 // A known independent original models an interrupted, already durable attempt; opening must not transmit it.
                 val original = SaitoTransaction.restore(vectors[1].asJsonObject.get("networkBase64").asString)
                 nl.davidengelen.redsquare.chat.ChatWorkStore(context, wallet, SaitoBackend.OWNER, counterpart).prepare(original)
+            }
+            if (reactionRetry) {
+                val original = SaitoTransaction.restore(requireNotNull(likeReference).getAsJsonArray("vectors")[0]
+                    .asJsonObject.get("networkBase64").asString)
+                nl.davidengelen.redsquare.chat.ChatReactionStore(context, wallet, SaitoBackend.OWNER, counterpart).prepare(original)
             }
             val policy = when (case) {
                 HistoryCase.MUTED -> nl.davidengelen.redsquare.moderation.PersonalPolicy(muted = setOf(counterpart))
@@ -285,6 +291,56 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                         }
                         waitFor(text)
                         ui.onNodeWithText(text).assertIsDisplayed()
+                        if (reactionRetry) {
+                            val expected = requireNotNull(likeReference).getAsJsonArray("vectors")[0].asJsonObject
+                            waitFor(context.getString(R.string.chat_reaction_unknown))
+                            waitFor("1 like")
+                            ui.onNodeWithText("Unlike").assertIsNotEnabled()
+                            check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/unknown-private-reaction-restored.png"), text)
+                            ui.onNodeWithText("Retry reaction").assertIsEnabled().performClick()
+                            waitFor(context.getString(R.string.chat_reaction_error))
+                            waitFor(context.getString(R.string.chat_reaction_submitted))
+                            ui.waitUntil(5_000) { peer.transactions.size == 1 }
+                            check(peer.relayedMessages.isEmpty())
+                            check(postingTransaction(peer.transactions.single()).encoded() == expected.get("networkBase64").asString)
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/explicit-private-reaction-retry-interrupted.png"), text)
+                            historyUnavailable.set(true)
+                            scenario.recreate()
+                            waitFor(counterpart)
+                            ui.onNodeWithText(counterpart).performClick()
+                            waitFor(context.getString(R.string.chat_load_error))
+                            waitFor(context.getString(R.string.chat_reaction_submitted))
+                            waitFor("1 like")
+                            ui.onNodeWithText("Unlike").assertIsNotEnabled()
+                            check(peer.transactions.size == 1 && peer.relayedMessages.isEmpty())
+                            peer.disconnectAfterTransaction = false
+                            waitForEnabled("Retry reaction")
+                            ui.onNodeWithText("Retry reaction").assertIsEnabled().performClick()
+                            waitFor(context.getString(R.string.chat_reaction_forwarded))
+                            waitForEnabled("Unlike")
+                            ui.onNodeWithText("1 like").assertIsDisplayed()
+                            ui.waitUntil(5_000) { peer.transactions.size == 2 && peer.relayedMessages.size == 1 }
+                            peer.transactions.forEach { frame ->
+                                check(postingTransaction(frame).encoded() == expected.get("networkBase64").asString)
+                            }
+                            val original = postingTransaction(peer.transactions.last())
+                            check(SaitoEnvelope.fromSignedJson(peer.relayedMessages.single()) == original.envelope())
+                            File(context.cacheDir, "private-chat-evidence/native-sent-retried-like-envelope.json").writeText(original.envelope())
+                            scenario.recreate()
+                            waitFor(counterpart)
+                            ui.onNodeWithText(counterpart).performClick()
+                            waitFor(context.getString(R.string.chat_load_error))
+                            waitFor(context.getString(R.string.chat_reaction_forwarded))
+                            waitForEnabled("Unlike")
+                            ui.onNodeWithText("1 like").assertIsDisplayed()
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/explicit-private-reaction-retry-recreated.png"), text)
+                            check(AndroidWalletStore(context).loadOrCreate().exportJson() == wallet.exportJson())
+                            check(AndroidBackendStore(context).load() == SaitoBackend.OWNER)
+                            check(peer.transactions.size == 2 && peer.relayedMessages.size == 1 && peer.reports.isEmpty())
+                            peer.assertHealthy()
+                            return@withFailureCapture
+                        }
                         if (incomingLike) {
                             val operations = requireNotNull(incomingLikeReference).getAsJsonArray("vectors")
                             fun packet(index: Int): ByteArray {

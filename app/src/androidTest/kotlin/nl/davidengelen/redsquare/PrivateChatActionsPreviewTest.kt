@@ -23,4 +23,7 @@ class PrivateChatActionsPreviewTest {
 
     @Test fun anIncomingReactionDuringSubmissionKeepsNewerForwardedStatusAndBothLikes() =
         history.exerciseHistory(HistoryCase.CONCURRENT_LIKE)
+
+    @Test fun anUncertainPrivateReactionRetriesItsExactOriginalWithoutTogglingAgain() =
+        history.exerciseHistory(HistoryCase.REACTION_RETRY)
 }
