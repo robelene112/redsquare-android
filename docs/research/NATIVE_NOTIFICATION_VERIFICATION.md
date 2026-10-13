@@ -1178,7 +1178,7 @@ disabledMark/actorProfile/return verified. Finalsource74core/ownparentwork diffe
 Whole-ticket Standards1(validselflike counted unverified), Spec2(sameplusknownOwn
 parentdiscovery permanentlytake10). e3519c2 independent RED8/7PASS/1failure33s
 showsignored1 vs0; minimum2a520da verifiesall thenfilterself/rawpagebounds
-unchanged. Boundedbothaxes0/fullcore74GREEN55s/17XML+log retained.
+unchanged. Boundedbothaxes0/fullcore74GREEN55s/16XML+log retained.
 
 Parentcontinuationtracer4d02fd3 adds tennewer pinnedWASM/Elliptic unsafe1 own
 roots; existingRoot11th/existingunsafe2replyfield3unsafe3onlyfield4 served. Snapshot

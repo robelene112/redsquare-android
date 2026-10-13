@@ -666,7 +666,7 @@ threehashes/rootoriginalPNG/XML retained. Runtimecorrection/finalfull pending.
 `d1e65f5...752d92a`: one classificationfinding, zero actionableFowlerheuristics.
 Valid selflikes counted unverified via Archiveaccepts; 44f3ebf...2a520da fixes by
 verify-all thenfilter-self. Both boundedcorrectionaxes0. Independent coreRED8/
-7PASS/1ignoredcountfailure33s, fullcoreGREEN74/0/55s retained17XML+log.
+7PASS/1ignoredcountfailure33s, fullcoreGREEN74/0/55s retained16XML+log.
 
 ### Spec
 
@@ -682,3 +682,18 @@ OSsettings1/6.559s and cold1/3.719s after actualPID5957->6040;101hashes/46XML.
 Rootsevenoriginalwallet/permission/processPNGs support qualifiedREADME; prior
 opaque wallet/offer, authenticatedwallet/backend/currentstate survive. Not final
 sourceafter2a520da/parentcontinuation or physical/closedpushacceptance.
+
+## Remaining-own-parent tracer
+
+### Standards
+
+`2a520da...4d02fd3`: zero hard/actionableheuristic findings. Existingroot is11th
+amongverified ownposts; externalparent-read counter precedesConversation. Prior
+fixture restoration unchanged. Three232579byte referencecopies/hash31182e...2700d
+match. FullcoreGREEN17hashes/16suiteXML/74tests/0verified.
+
+### Spec
+
+Zero actionable findings. InitialnoReply/zeroRootreads then More/positivefield4/
+2Unread/actualthreadtext/actor proves sourcefindingwithoutweakening first10batch.
+Sourcecontinuationstillunchanged; genuine32RED andlocalAPK pending.
