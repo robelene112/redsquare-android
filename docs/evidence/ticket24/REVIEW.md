@@ -737,3 +737,16 @@ Zero documented breaches or actionable smell findings. A full signed recent page
 Zero new actionable findings. Directly tests available-history recovery through an unreadable50-row page, requiring enabled older fetch and both readable bodies retained after failedArchive recreation. Knownpublickey material is explicit; no new independentcrypto claim. The cursor and existing-action findings remain open until their actual corrected checks.
 
 Findings: Standards0; Spec0.
+
+
+## Authenticated unreadable-page cursor,169b524e...85c8f1a3
+
+### Standards
+
+Zero documented breaches or actionable smell findings. Progress derives from signature-verified encrypted originals matching the canonical private pair, addressed participants and strict signed timestamp cutoff. Missing keys cannot erase that progress; unsigned archive timestamps are ignored. Plaintext/cache authentication stays unchanged. Evidence distinguishes nativeRED, earlier actualprocessGREEN, compilation and pending24GREEN; actionfinding remains open.
+
+### Spec
+
+Zero new actionable findings; unreadable-page defect resolved in source. Cursor remains available from properly authenticated page metadata when current keys cannot decrypt. RED24/23PASS123.032s/37validXML and unexecuted request/recoverytail are accurately qualified. Both prior process checkpoint deltas and3XMLeach verify. Current24GREEN and existingactions remain pending.
+
+Findings: Standards0; Spec0. Local minimumAPK subsequentlyPASS2m37s/exit0.

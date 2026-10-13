@@ -622,3 +622,6 @@ Actual process17GREEN38443336005/source866784c3: native23PASS148.53s/core86, del
 
 
 Unreadable-page24 actual RED38444167765/source169b524e:24cases23PASS plus enabledolderbutton timeoutline381,123.032s/core86. Partialwarning/readableancientcachepreconditions execute; failureimage showsdisabledLoadolder. Root37XML/failureoriginal inspected. Olderrequest/cutoff/cachedtail and laterprocessfixture do not execute. Minimum computes oldestpagecursor from signature-verified encrypted originals whose participants match the requested canonicalprivatepair, validatesstrictbefore bound, and keepsmissing-decryption-key failures separatefrompaginationprogress. It never trusts unsigned archive timestamps. Plaintext/cache/originalauthentication behavior remains; localbuild/nativeGREENpending.
+
+
+Authenticated unreadable-page cursor85c8f1a3 localTestAPK PASS2m37s/exit0; bothboundedreviewaxes0 and priorcursorfindingresolvedinsource. Native24SDK10run38445452902/17run38445457782 pending. Neither sourcecompilation nor earlier23/processGREEN establish execution of this newpagination branch. Existing nativeReply/Copy/chat-like and switch-isolation remain unimplemented/unverified, respectively.
