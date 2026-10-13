@@ -99,7 +99,10 @@ the owner chooses whether to start it. It is not required for every app-wide gri
    Push automation runs core tests, APK assembly (including release) and lint.
    Dispatch focused device runs during development and one full Android 10/17
    run for final acceptance. A successful push source check is not runtime
-   acceptance. Avoid duplicating full device runs on every interim commit.
+   acceptance. Avoid duplicating full device runs on every interim commit. For private Chat
+   reaction/reply slices, `chat-actions` and `chat-actions-android17` run the
+   action UI class only. `chat-ui` retains history plus actions and actual
+   process recovery; final full scopes retain all checks.
    If production source is unchanged and one SDK has passed full verification,
    a test-fixture correction can run the outstanding SDK's full scope. It runs
    release assembly/lint and the entire device suite; record both runs, unchanged

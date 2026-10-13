@@ -61,7 +61,11 @@ verify_private_chat_ui() {
     printf '%s' '{"wallet":{"version":5.677,"publicKey":"jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR","privateKey":"0000000000000000000000000000000000000000000000000000000000000001"}}' | \
         adb shell run-as nl.davidengelen.redsquare.dev.test tee files/wallet-test-documents/00-chat-work-import-fixture.json > /dev/null
     chat_ui_failed=0
-    for chat_ui_case in PrivateChatPreviewTest PrivateChatActionsPreviewTest; do
+    local -a chat_ui_cases=(PrivateChatPreviewTest PrivateChatActionsPreviewTest)
+    if [[ "${TEST_SCOPE:-full}" == chat-actions* ]]; then
+        chat_ui_cases=(PrivateChatActionsPreviewTest)
+    fi
+    for chat_ui_case in "${chat_ui_cases[@]}"; do
         chat_ui_report=private-chat-ui
         if [[ "$chat_ui_case" == PrivateChatActionsPreviewTest ]]; then
             chat_ui_report=private-chat-actions-ui
@@ -101,6 +105,11 @@ if [[ "${TEST_SCOPE:-full}" == chat-ui* ]]; then
     verify_private_chat_ui
     python3 "$repo_dir/scripts/private-chat-process-check" --evidence "$evidence/private-chat-process"
     printf '%s\n' 'Focused private Chat native UI only; full acceptance and live publication not run.' > "$evidence/scope.txt"
+    exit 0
+fi
+if [[ "${TEST_SCOPE:-full}" == chat-actions* ]]; then
+    verify_private_chat_ui
+    printf '%s\n' 'Focused private Chat actions only; history, process recovery and full acceptance not run.' > "$evidence/scope.txt"
     exit 0
 fi
 if [[ "${TEST_SCOPE:-full}" == chat* ]]; then
