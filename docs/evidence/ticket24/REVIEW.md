@@ -1170,3 +1170,14 @@ stores. Controlled Relay delay plus independently signed incoming Like requires
 both counts with Submitted, then Forwarded; own Unlike preserves the contact's
 like through recreation, exact originals, identity/backend and no extra sends.
 UI/peer seam preserved without internal mocks. Native new-case GREEN pending.
+
+### Standards
+
+Zero documented breaches or actionable smells in86fb65c9...da786327. Ordered
+snapshot publication and conflated durable reloads replace stale/unbounded
+updates. Controlled public Relay delay and independently signed receipt exercise
+Submitted/Forwarded/counts/Unlike without internal mocks; captures are distinct,
+cleanup releases its latch, and exact-original/identity/noextra-send gates remain.
+
+Findings afterfix: Standards0; Spec0. Incoming/concurrency corrected GREEN and
+broader acceptance still pending; currentlocal core/debug/testAPK build active.
