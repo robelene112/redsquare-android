@@ -557,3 +557,16 @@ Zero documented breaches and zero actionable smell findings. The composer reuses
 Zero actionable findings. Locally saved drafts survive navigation and remain unsent until Send. Awaited encrypted persistence also integrates with existing wallet/backend switch hooks. The actual RED at0447c37 reports20cases19passes plus empty reopened draft84.364s;29XML and manifest verify. Erasure/recreation assertions had not executed. Local build/native GREEN remain pending and preview11 is correctly attributed to earlier source. No process-death or whole-ticket acceptance claim.
 
 Findings: Standards 0; Spec 0.
+
+
+## Positive chat-list readiness, ab18713...25a1327
+
+### Standards
+
+Zero documented breaches and zero actionable smell findings. The two positive Public key waits establish the chat list before selecting a contact, resolving the counterpart-text ambiguity. Exact editable assertions, erasure/recreation, identity and no-transmission requirements remain. Production source is unchanged. Both failed attempts and unexecuted later assertions are retained; timing cause stays a hypothesis.
+
+### Spec
+
+Zero actionable findings. Public key is absent from the selected conversation, so the wait strengthens actual draft-preservation verification without artificial autosave delay. Both sourceab18713 attempts report20cases19PASS+line324timeout119.358/119.542s;30XML perSDK and manifest verify. Executed nonempty assertion is separated from proven reopening; erased/recreated tail remains unclaimed. Preview11 remains earlier source.
+
+Findings: Standards 0; Spec 0. Local corrected test APK subsequently passes1m38s/exit0; native20 execution remains pending.

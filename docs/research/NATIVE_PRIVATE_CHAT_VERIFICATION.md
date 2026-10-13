@@ -541,3 +541,5 @@ Draft save-on-navigation sourceb2bc017 passes local test APK compilation2m43s/ex
 
 
 Awaited-save20-case attempts atab18713 fail on bothSDKs:10run38428616491 19pass+line324timeout119.358s;17run38428621143 same119.542s/core86. Failure originals show feed after the second Back. Nonempty assertion/capture executed, but first reopening is ambiguous because counterpart text remains in the open conversation while save/close is asynchronous. No first-reopen or erased/recreated-empty acceptance claim. Root allXML/failure originals inspected. Exact cause remains a timing hypothesis supported by source. Test-only positive chat-list Public key waits after both Back actions now added, with exact assertions unchanged. Local compilation running; next native20 result pending.
+
+Positive chat-list readiness25a1327 local test APK PASS1m38s/exit0; both bounded reviews0. Original exact draft/erasure/no-send/identity predicates remain. Native20 checks follow on bothSDKs; product source remainsb2bc017.
