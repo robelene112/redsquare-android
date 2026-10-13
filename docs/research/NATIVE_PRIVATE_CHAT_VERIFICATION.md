@@ -437,3 +437,13 @@ locally). Originalsignedmetadata authenticates retainedciphertexts; onlyfull
 private/decrypted newmessages enterstore; cachedreadableentries+partialflag are
 returned withoutdeletingolderunreadableciphertext. Strongerrestorationtail remains
 in11caseGREENnext. Boundedsource review+nativeGREEN pending.
+
+Partial-keysource59ba616 reviewSpec0/Standards1readabilitywarning coupledtosave
+success. Newstorage-partial tracer suppliesreadableimplicit+missing-secret exchanged
+Archive originals whilelocalcachewritefails, requires partialwarning. Compile1m46s.
+Actual11caseattempt38359429556 at59ba616 reports10PASS+onefixturefailure52.032s:
+restored-secret tail finds twointentionallysameplaintext independent signedmessages
+(line309), notone. Rootthe13XML/failureoriginal inspected. All earlierpartialread/
+newsend/retention steps reached; no wholeGREEN claimed. Correctedtest exactlyone
+textbeforesecret/exactlytwoafter retainsallrequirements; compiled1m39s withnew
+storagewarning tracer. Actual12caseRED next, sourcewarning minimumnotyetapplied.

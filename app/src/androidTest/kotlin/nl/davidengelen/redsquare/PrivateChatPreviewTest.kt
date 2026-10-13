@@ -74,7 +74,7 @@ class PrivateChatPreviewTest {
         }
     }
 
-    private enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL, LIST_LIVE, PARTIAL_KEYS }
+    private enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL, LIST_LIVE, PARTIAL_KEYS, STORAGE_PARTIAL }
 
     @Test fun anImportedContactOpensItsAvailableAuthenticatedPrivateHistory() = exerciseHistory(HistoryCase.AVAILABLE)
 
@@ -96,8 +96,11 @@ class PrivateChatPreviewTest {
 
     @Test fun aKeyOnlyImportKeepsReadableCachedMessagesAlongsideMissingExchangedKeys() = exerciseHistory(HistoryCase.PARTIAL_KEYS)
 
+    @Test fun unreadableAvailableHistoryIsExplainedEvenWhenLocalSavingFails() = exerciseHistory(HistoryCase.STORAGE_PARTIAL)
+
     private fun exerciseHistory(case: HistoryCase) {
-        val storageFailure = case == HistoryCase.STORAGE_FAILURE
+        val storagePartial = case == HistoryCase.STORAGE_PARTIAL
+        val storageFailure = case == HistoryCase.STORAGE_FAILURE || storagePartial
         val listLive = case == HistoryCase.LIST_LIVE
         val partialKeys = case == HistoryCase.PARTIAL_KEYS
         val live = case == HistoryCase.LIVE || listLive
@@ -167,7 +170,10 @@ class PrivateChatPreviewTest {
                 historyReads.incrementAndGet()
                 if (historyUnavailable.get()) "invalid archive response"
                 else if (historyPruned.get() || live) "[]"
-                else JsonArray().apply { add(JsonObject().apply { addProperty("tx", reference.get("archiveEnvelope").asString) }) }.toString()
+                else JsonArray().apply {
+                    add(JsonObject().apply { addProperty("tx", reference.get("archiveEnvelope").asString) })
+                    if (storagePartial) add(JsonObject().apply { addProperty("tx", vectors[2].asJsonObject.get("archiveEnvelope").asString) })
+                }.toString()
             } else "[]"
         })
         peer.disconnectAfterTransaction = interruptedSend
@@ -229,9 +235,10 @@ class PrivateChatPreviewTest {
                         }
                         waitFor(text)
                         ui.onNodeWithText(text).assertIsDisplayed()
-                        if (partialKeys) {
+                        if (partialKeys || storagePartial) {
                             waitFor(context.getString(R.string.chat_incomplete))
                             ui.onNodeWithText(context.getString(R.string.chat_incomplete)).assertIsDisplayed()
+                            if (partialKeys) ui.onAllNodesWithText(text).assertCountEquals(1)
                         }
                         captureNativeScreen(File(context.cacheDir, "private-chat-evidence/imported-history.png"), text)
                         if (sending) {
@@ -306,7 +313,8 @@ class PrivateChatPreviewTest {
                             ui.onNodeWithText(counterpart).assertIsDisplayed().performClick()
                             val oldText = vectors[2].asJsonObject.getAsJsonObject("plaintext").get("message").asString
                             waitFor(oldText)
-                            ui.onNodeWithText(oldText).performScrollTo().assertIsDisplayed()
+                            ui.onAllNodesWithText(oldText).assertCountEquals(2) // Independent messages intentionally share their plaintext, with different signed ciphertexts.
+                            ui.onAllNodesWithText(oldText)[1].performScrollTo().assertIsDisplayed()
                             captureNativeScreen(File(context.cacheDir, "private-chat-evidence/exchanged-key-restored.png"), oldText)
                             check(peer.transactions.size == 1 && peer.relayedMessages.size == 1)
                         }

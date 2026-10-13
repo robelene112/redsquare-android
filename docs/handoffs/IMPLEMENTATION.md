@@ -81,6 +81,16 @@ BothAPKbuildPASS1m47s; actual11caseRED10run38357934691 at89c09bf 10PASS+1failure
 Snapshot correction reviews4734...89c bothnewfindings0/resolved. Strongerrestoredsecret tail4f9fb46 compiles1m39, not inRED.
 Partial-key minimum Read(entries,partial)/preservedoriginals/newfullverification debug/testAPK PASS3m22s(coreunchanged85), runtimeGREEN/reviews next.
 
+Partial-key minimum59ba616 actual11caseattempt38359429556 10PASS+1fixturefailure
+52.032s atrestored-tail line309: independentold/implicitvectors intentionallyshare
+plaintext, sourcecorrectlyshows2. Root13XML/original inspected; no appduplicate or
+GREENclaim. Correctedtest requires1beforekeys/2after, allrequirementskept.
+Spec4f9...59ba0; Standards1partialArchivewarningappliedonlyonsuccessfulcachesave.
+New12case storage-partial tracer compiles1m46/correctedfixture1m39: available
+implicit+missing-secret exchangedrows/localwritefailure mustshowpartialwarning.
+Sourceunchanged59ba616; actual12caseRED next. Keepwarningfix separate from new
+source recovery already reachingrestoration; no actualprocessdeath/fullacceptance.
+
 Remaining #25: live incoming while a different conversation is selected; available older-history paging; Block hides incoming/Mute keeps
 Chat accessible native checks; unknown attempt/draft recovery and actual process
 death; backend/wallet isolation; full Android10/17/release/lint/update/public reads.

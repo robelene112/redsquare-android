@@ -324,3 +324,16 @@ Twenty-eight new GREEN and two compile records verify. Runtime/race limits clear
 
 Zero new findings.531 UI hashes/twelveXMLs/qualified originals verify. Previous
 mixed-key recovery finding remainsopen, intentional11caseRED/minimumpending.
+
+## Partial cached-key source review4f9fb46...59ba616
+
+### Standards
+
+One readability-warning regression: page.second is applied only after successful
+cache saving, hiding rejected/unreadable rows when saving fails. Record independently
+from persistence. Zero actionable heuristics;30RED records/build verify.
+
+### Spec
+
+Zero findings; cached partial-key preservation resolved in source.563 UI hashes
+verify; stronger restored-secret tail/RED qualification accurate. NativeGREENpending.
