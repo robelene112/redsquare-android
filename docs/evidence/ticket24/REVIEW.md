@@ -419,3 +419,15 @@ Zero documented breaches and zero actionable smell findings. Core preserves orig
 Zero new actionable findings. Participant-subset validation implements pinned encrypted DM outside mentions; signature/author/addressing/decrypt/canonicalpair remainmandatory, extraoutputs stayoutsideconversation. Vectorsbothdirections preservesignedoriginal/group/text, rejectwrongexpectedgroup/thirdwalletaccess; copies/hashmanifestmatch. Prior13case nativeGREEN correctlyreferencesdd02415 with15XMLeach. Newnativecachetracer anduncorrectedcachevalidatorseparated. NativeGREEN/replydisplay/wholeacceptancepending.
 
 Findings: Standards0; Spec0.
+
+## Mentioned ciphertext cache correction, 5716d23...a05c2d6
+
+### Standards
+
+Zero documented breaches and zero actionable smell findings. One-line correction allowsadditionalauthenticatedmentionoutputs while retainingoriginalsignature/participantauthorship/addressing/cipherbody. Newmessages fullprivate/decrypt/canonicalgroupbeforepersistence; retainedopaquecipherpreviouspolicy. Minimumdemonstratedcompatibilitychange, noformat/identity/newabstraction. Docsseparate initialreadfromcachefailure andkeepGREENpending.
+
+### Spec
+
+Zero actionable findings. Fixsupports#25 encryption/localcache formentionedDMs; fullprivateverificationbeforewrite/display remains. RetainedRED5716d23 14/13PASS+one line326failureafternetworkreadpassed. All16XMLparse/parentmanifestverifies. Boundedcachefixonly; wholeacceptancepending.
+
+Findings: Standards0; Spec0.

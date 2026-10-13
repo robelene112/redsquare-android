@@ -74,7 +74,7 @@ Nextcompatibilityslice: pinnedDMmentionsaddthirdrecipient whileencryption/pair
 IDremainprivate. Currentexact-two validator/outgoing.single/cachemetadata reject
 validmentionedDMs. Readonlyreviewconfirmedbothpins/popupmentionpath. Optional
 --mentioned generator producesindependentbothdirectionextraoutputfixtures,
-repeatbytes56ad3ead...359e5; defaultunchanged. Coretracer78020a5 actualRED10/9PASS+one exactrecipientfail40s. Minimalcoreparticipant/counterpart correctionfocused10PASS/build1m2s. Native14tracerlocalAPKsPASS3m2s. ActualRED10run38386689026 at5716d23 14/13PASS+onefail71.85s line326 cachedtextmissingafterrecreation, root16XML/failureoriginalinspected/core86. Minimalcachemetadata participant-subset correctionapplied, APKbuildpending. Bothbounded dd02415...5716d23reviewaxes0.
+repeatbytes56ad3ead...359e5; defaultunchanged. Coretracer78020a5 actualRED10/9PASS+one exactrecipientfail40s. Minimalcoreparticipant/counterpart correctionfocused10PASS/build1m2s. Native14tracerlocalAPKsPASS3m2s. ActualRED10run38386689026 at5716d23 14/13PASS+onefail71.85s line326 cachedtextmissingafterrecreation, root16XML/failureoriginalinspected/core86. Minimalcachemetadata a05c2d6 localAPKsPASS2m/reviewsboth0; native14GREEN10run38387384587 PASS14/65.297s/17run38387388065 PASS14/105.853s, core86. Root15XMLperSDK/sharedoriginalsqualified. Newtest-only17cases addownmentionedimportedID/Mute/Blockreopening/unblock plusunique-mentionedcaptures; TestAPKbuildpending. Bothbounded dd02415...5716d23reviewaxes0.
 Generator/runtimemounts publicsource/dependencies only/networknone/env-i; noappinit.
 Ordinarywebtyping isinnerText; replyprefixcanbe sanitizedblockquote. Need narrow
 recognizedreplydisplay preservingordinaryliteralanglebrackets/signedoriginals.
@@ -82,7 +82,7 @@ Detailedsourcefacts/hashes/snippets camefromchat_spec_review; durableauditreport
 
 Remaining: mentioninterop protocol/cache/native; readable
 webreplyinterop; older-historypaging; nativeBlockhidesincoming/MutekeepsChat;
-uncertainattempt/draftrecovery; actualChatprocessdeath; wallet/backendisolation;
+uncertainattempt/draftrecovery; WalletImportpendingrisksmustinspectchatwork(currentlyomitted); actualChatprocessdeath; wallet/backendisolation;
 bothfinalfullSDK/release/lint/signedupdate/opt-in publicreads. ActivityScenariorecreate
 isnotprocessdeath. PhysicalPixel#35/polish stillpending. No newphoneAPK; stable
 previewv10/source5225d06. No realfunded/onchain/privatemessage/nodewrites orstore

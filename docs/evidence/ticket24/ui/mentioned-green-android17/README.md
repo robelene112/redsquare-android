@@ -1,0 +1,3 @@
+# Mentioned-history recovery GREEN, Android 17
+
+Sourcea05c2d6d63a5c7f2a00fa393fee33b786d02a083, run38387388065. All14 nativecases PASS in105.853s, core86/0/0 sourcegate, rawexit0/mandatoryOKgate pass. Mentioned-message caseinitialread andunavailablehistoryrecreationpass aftercacheparticipant-subset correction. Rootall15 XMLparsed andsharedcached-history-unavailable.png viewed. Sharedcapturebelongs latercase, therefore notattributedspecificallytomentionedcase. Laterunique-mentionedcaptures planned. Nativecase/rawrunner plusindependentprotocolcorpus establishnewbehavior, notbitmapalone. Recreationnotprocessdeath; nofullticket/physicalPixel/newpreview/livepublicationclaim.

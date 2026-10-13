@@ -74,7 +74,7 @@ class PrivateChatPreviewTest {
         }
     }
 
-    private enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL, LIST_LIVE, PARTIAL_KEYS, STORAGE_PARTIAL, OTHER_LIVE, MENTIONED }
+    private enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL, LIST_LIVE, PARTIAL_KEYS, STORAGE_PARTIAL, OTHER_LIVE, MENTIONED, MENTIONED_OUTGOING, MUTED, BLOCKED }
 
     @Test fun anImportedContactOpensItsAvailableAuthenticatedPrivateHistory() = exerciseHistory(HistoryCase.AVAILABLE)
 
@@ -102,6 +102,12 @@ class PrivateChatPreviewTest {
 
     @Test fun anExistingClientMentionedPrivateMessageRemainsReadableAfterReopening() = exerciseHistory(HistoryCase.MENTIONED)
 
+    @Test fun importedOwnMentionedMessagesRecoverTheOriginalPrivateCounterparty() = exerciseHistory(HistoryCase.MENTIONED_OUTGOING)
+
+    @Test fun accountMutingKeepsAvailablePrivateMessagesReadable() = exerciseHistory(HistoryCase.MUTED)
+
+    @Test fun accountBlockingHidesIncomingMessagesWithoutDeletingRecoverableHistory() = exerciseHistory(HistoryCase.BLOCKED)
+
     private fun exerciseHistory(case: HistoryCase) {
         val storagePartial = case == HistoryCase.STORAGE_PARTIAL
         val storageFailure = case == HistoryCase.STORAGE_FAILURE || storagePartial
@@ -112,17 +118,17 @@ class PrivateChatPreviewTest {
         val interruptedSend = case == HistoryCase.SEND_INTERRUPTED
         val newContact = case == HistoryCase.NEW_SEND
         val partialDiscovery = case == HistoryCase.IMPORTED_PARTIAL
-        val importedId = case == HistoryCase.IMPORTED_ID || partialDiscovery
+        val importedId = case == HistoryCase.IMPORTED_ID || partialDiscovery || case == HistoryCase.MENTIONED_OUTGOING
         val sending = case == HistoryCase.SEND || interruptedSend || newContact || partialKeys
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
-        val mentioned = case == HistoryCase.MENTIONED
+        val mentioned = case == HistoryCase.MENTIONED || case == HistoryCase.MENTIONED_OUTGOING
         val vectors = instrumentation.context.assets.open(if (mentioned) "native-private-chat-mentioned-reference.json" else "native-private-chat-reference.json")
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors") }
-        val reference = vectors[if (mentioned) 4 else 0].asJsonObject
-        val counterpart = reference.get("sender").asString
+        val reference = vectors[if (!mentioned) 0 else if (case == HistoryCase.MENTIONED) 4 else 5].asJsonObject
+        val counterpart = reference.get(if (case == HistoryCase.MENTIONED_OUTGOING) "recipient" else "sender").asString
         val publicWallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "2") // Public unsafe fixture only.
         val options = JsonParser.parseString(publicWallet.exportJson()).asJsonObject.apply {
             if (!newContact && !importedId && !listLive && !partialKeys) add("keys", JsonArray().apply { add(JsonObject().apply {
@@ -214,6 +220,13 @@ class PrivateChatPreviewTest {
                 historyUnavailable.set(true) // Imported active wallet has only its identity keys; cache stays on device.
             }
             AndroidBackendStore(context).save(SaitoBackend.OWNER)
+            val policy = when (case) {
+                HistoryCase.MUTED -> nl.davidengelen.redsquare.moderation.PersonalPolicy(muted = setOf(counterpart))
+                HistoryCase.BLOCKED -> nl.davidengelen.redsquare.moderation.PersonalPolicy(blocked = setOf(counterpart))
+                else -> null
+            }
+            if (policy != null) nl.davidengelen.redsquare.moderation.AndroidPersonalControls(context, wallet.publicKey)
+                .save(nl.davidengelen.redsquare.moderation.PersonalPolicy(), policy)
             peer.start().use { server ->
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
@@ -244,6 +257,32 @@ class PrivateChatPreviewTest {
                             ui.onNodeWithText(counterpart).assertIsDisplayed().performClick()
                         }
                         val text = reference.getAsJsonObject("plaintext").get("message").asString
+                        if (case == HistoryCase.BLOCKED) {
+                            waitFor(context.getString(R.string.chat_no_messages))
+                            ui.onAllNodesWithText(text).assertCountEquals(0)
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/blocked-private-history.png"),
+                                context.getString(R.string.chat_no_messages))
+                            historyUnavailable.set(true)
+                            scenario.recreate()
+                            waitFor(counterpart)
+                            ui.onNodeWithText(counterpart).performClick()
+                            waitFor(context.getString(R.string.chat_load_error))
+                            ui.onAllNodesWithText(text).assertCountEquals(0)
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/blocked-private-history-recreated.png"),
+                                context.getString(R.string.chat_load_error))
+                            nl.davidengelen.redsquare.moderation.AndroidPersonalControls(context, wallet.publicKey)
+                                .save(requireNotNull(policy), nl.davidengelen.redsquare.moderation.PersonalPolicy())
+                            scenario.recreate()
+                            waitFor(counterpart)
+                            ui.onNodeWithText(counterpart).performClick()
+                            waitFor(context.getString(R.string.chat_load_error))
+                            waitFor(text)
+                            ui.onNodeWithText(text).assertIsDisplayed()
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/unblocked-retained-private-history.png"), text)
+                            check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
+                            peer.assertHealthy()
+                            return@withFailureCapture
+                        }
                         if (live && !listLive) {
                             waitFor("No available messages in this conversation.")
                             ui.onNodeWithText("Refresh").assertIsEnabled()
@@ -257,6 +296,8 @@ class PrivateChatPreviewTest {
                             if (partialKeys) ui.onAllNodesWithText(text).assertCountEquals(1)
                         }
                         captureNativeScreen(File(context.cacheDir, "private-chat-evidence/imported-history.png"), text)
+                        if (mentioned || case == HistoryCase.MUTED) captureNativeScreen(File(context.cacheDir,
+                            "private-chat-evidence/${if (case == HistoryCase.MUTED) "muted" else if (case == HistoryCase.MENTIONED) "mentioned" else "own-mentioned"}-private-history.png"), text)
                         if (otherLive) {
                             ui.onNodeWithText("Refresh").assertIsEnabled()
                             peer.sendIncoming(requireNotNull(otherPacket))
@@ -327,6 +368,8 @@ class PrivateChatPreviewTest {
                         ui.onNodeWithText(text).assertIsDisplayed()
                         ui.onNodeWithText("Could not load chats. Check your connection and try Refresh.").assertIsDisplayed()
                         captureNativeScreen(File(context.cacheDir, "private-chat-evidence/cached-history-unavailable.png"), text)
+                        if (mentioned || case == HistoryCase.MUTED) captureNativeScreen(File(context.cacheDir,
+                            "private-chat-evidence/${if (case == HistoryCase.MUTED) "muted" else if (case == HistoryCase.MENTIONED) "mentioned" else "own-mentioned"}-private-history-recreated.png"), text)
                         if (sending) {
                             waitFor(outgoingText)
                             ui.onNodeWithText(outgoingText).performScrollTo().assertIsDisplayed()
