@@ -579,3 +579,12 @@ Boundsminimumd973 local core86/debug/testAPKPASS4m15s/exit0. BoundedSpec0;
 Standards1maintenanceheuristic duplicatepolicyrange. Private sharedrange now
 corrects that heuristic; narrow mainKotlincompilation and followupreviews next.
 No26GREEN/zero metadata acceptance yet; ordinary nativeReply/receiverPASS retained.
+
+
+Current correctedReply source9fe61503 native26runs:10=38455813479,
+17=38455816701, bothinprogress. Sharedrange mainKotlincompilePASS3m16s/exit0.
+Pure reaction source-reference script independently executes pinnedChat create/
+receive and Transaction JSON methods with namedwalletfee/signing/network adapters;
+publictwo-operation corpus togglesoneoriginal on/off. No appreaction source yet,
+no dispatchdedup/native acceptance. Missinginput/BigInt generator attempts fixed
+before exit0; preservedboundaries described inNATIVE_PRIVATE_CHAT_ACTIONS.md.

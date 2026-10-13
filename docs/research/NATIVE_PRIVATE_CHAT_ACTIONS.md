@@ -107,3 +107,19 @@ explicit encrypted send and cached recovery. --check-native-zero-reply-send must
 verify that captured original against compositionZero. Default/reply corpora
 remain unchanged. This targets the minimum review's producer/parser bounds gap;
 no zero-timestamp native result is implied by corpus generation.
+
+## Executed reaction reference
+
+`build-support/references/private-chat-like-reference.cjs` executes actual pinned
+Chat.createChatLikeTransaction and receiveChatLikeTransaction, plus actual
+saito-js Transaction.toJson/packData, in the isolated network-disabled runtime.
+Wallet fee/unsigned-transaction construction and outbound network are adapters;
+fixed public unsafe signing uses independent WASM/elliptic reference. Two distinct
+signed operations target the independent original1→2 and toggle scalar2's like
+on/off in the actual receiver. Corpus is native-private-chat-like-reference.json.
+This proves named construction/body/outputs/Relay data and receiver toggling.
+It does not execute dispatch deduplication, real wallet fees, constructors, DOM,
+storage/application initialization, native UI/state or real recipient delivery.
+Missing copied input and ordinaryJSON BigInt serialization initially failed;
+correct publicinput/JSONBig output fixes them before valid corpus/exit0. No native
+failure inferred. Reply26 runs remain separate, not accepted by this oracle.
