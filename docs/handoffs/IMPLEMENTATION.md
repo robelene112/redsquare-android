@@ -38,7 +38,12 @@ failure55s, then fullcore77/0fail/0ignored GREEN1m. Source protocol increment7db
 (case/formatter primitive). GenuineRED then minimal fixes now fullcore81 GREEN1m.
 RelayJSON independent inner serialization/read also passes4/56s. Final reference
 hash886ff622...ee1c06 (fourvalid/threecorrectlysignedmalformed), twice identical
-isolated executions. Bounded fixes review next; UI/backend/recovery pending.
+isolated executions. Bounded fixes review Spec0/Standards0hard+1duplicate-string heuristic.
+Shared validator applied; core81/debug/testAPK3m24s PASS. Actual peer discovery
+tracer cleancompileRED2m33s (missingservices only), minimum sourceGREEN above.
+Initial fixture trailing-lambda break fixed, mixedRED and stopped143 qualified
+under evidence/ticket24/peer. Focused native10 discovery next; UI/Relaytransport/
+backend/recovery pending. Chronology NATIVE_PRIVATE_CHAT_VERIFICATION.md.
 Private contract/reference/generator future files remain untracked and now
 belong with#25; NATIVE_GROUP_CHAT_CONTRACT remains protected for#26. Read-only
 preparation: .scratch/ticket25-readonly-plan.md. Chat signing must authenticate

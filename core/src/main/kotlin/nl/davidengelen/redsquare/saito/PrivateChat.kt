@@ -60,14 +60,9 @@ object PrivateChat {
         require(signed.author in participants && signed.recipients.toSet() == participants)
         require(signed.body.isJsonPrimitive && signed.body.asJsonPrimitive.isString)
         val formatter = gson.fromJson(signed.body.asString, JsonObject::class.java)
-        fun cipherString(name: String): String {
-            val value = formatter.get(name)
-            require(value != null && value.isJsonPrimitive && value.asJsonPrimitive.isString)
-            return value.asString
-        }
-        val salt = hex(cipherString("s"), 8)
-        hex(cipherString("iv"), 16)
-        val ciphertext = Base64.getDecoder().decode(cipherString("ct"))
+        val salt = hex(formatter.requiredString("s"), 8)
+        hex(formatter.requiredString("iv"), 16)
+        val ciphertext = Base64.getDecoder().decode(formatter.requiredString("ct"))
         require(ciphertext.isNotEmpty() && ciphertext.size <= SaitoTransaction.MAX_MESSAGE_BYTES && ciphertext.size % 16 == 0)
         val body = wallet.chatSharedSecrets(counterparty).firstNotNullOfOrNull { secret ->
             try {
@@ -81,15 +76,10 @@ object PrivateChat {
                 gson.fromJson(plaintext, JsonObject::class.java)
             } catch (_: Exception) { null }
         } ?: throw IllegalArgumentException("Unable to decrypt private message")
-        fun string(name: String): String {
-            val value = body.get(name)
-            require(value != null && value.isJsonPrimitive && value.asJsonPrimitive.isString)
-            return value.asString
-        }
-        require(string("module") == "Chat" && string("request") == "chat message")
+        require(body.requiredString("module") == "Chat" && body.requiredString("request") == "chat message")
         val group = conversationId(wallet.publicKey, counterparty)
-        require(string("group_id") == group)
-        val text = string("message")
+        require(body.requiredString("group_id") == group)
+        val text = body.requiredString("message")
         return PrivateChatMessage(signed.id, signed.author, group, signed.createdAt, text)
     }
 
@@ -104,6 +94,12 @@ object PrivateChat {
     private fun hex(value: String, bytes: Int): ByteArray {
         require(value.matches(Regex("[0-9a-fA-F]{${bytes * 2}}")))
         return value.chunked(2).map { it.toInt(16).toByte() }.toByteArray()
+    }
+
+    private fun JsonObject.requiredString(name: String): String {
+        val value = get(name)
+        require(value != null && value.isJsonPrimitive && value.asJsonPrimitive.isString)
+        return value.asString
     }
 
     private fun derive(secret: String, salt: ByteArray): ByteArray {

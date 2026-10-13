@@ -27,6 +27,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 class SaitoPeer(private val wallet: SaitoWallet, endpoint: String) : Closeable {
     class RequestError : IOException("Peer returned a request error")
     private val ready = CompletableDeferred<Unit>()
+    private val advertised = CompletableDeferred<Set<String>>()
     private val closed = CompletableDeferred<Unit>()
     private val disconnected = AtomicBoolean(false)
     private val pending = ConcurrentHashMap<Int, CompletableDeferred<ByteArray>>()
@@ -66,6 +67,20 @@ class SaitoPeer(private val wallet: SaitoWallet, endpoint: String) : Closeable {
                     }
                     7 -> send(webSocket, byteArrayOf(16))
                     20 -> send(webSocket, byteArrayOf(9)) // This reader advertises no server services.
+                    9 -> {
+                        require(frame.size <= 65_537)
+                        val text = Charsets.UTF_8.newDecoder()
+                            .onMalformedInput(java.nio.charset.CodingErrorAction.REPORT)
+                            .onUnmappableCharacter(java.nio.charset.CodingErrorAction.REPORT)
+                            .decode(ByteBuffer.wrap(frame, 1, frame.size - 1)).toString()
+                        val services = text.split(';').filter { it.isNotEmpty() }.map { record ->
+                            val fields = record.split('|')
+                            require(fields.size == 3 && fields[0].length in 1..128)
+                            fields[0]
+                        }
+                        require(services.size <= 256)
+                        advertised.complete(services.toSet())
+                    }
                     13, 14 -> {
                         require(frame.size >= 5)
                         if (!ready.isCompleted || ready.isCancelled) return
@@ -144,6 +159,12 @@ class SaitoPeer(private val wallet: SaitoWallet, endpoint: String) : Closeable {
         if (disconnected.get()) throw IOException("Peer disconnected")
     }
 
+    /** Service announcements become usable only after this same connection is authenticated. */
+    suspend fun services(): Set<String> = withTimeout(12_000) {
+        authenticate()
+        advertised.await()
+    }
+
     /** Drain queued frames before disposal. Local completion is still not a peer/payment ACK. */
     suspend fun finishBroadcast() = withTimeout(12_000) {
         if (!socket.close(1000, null)) throw IOException("Peer disconnected")
@@ -157,6 +178,7 @@ class SaitoPeer(private val wallet: SaitoWallet, endpoint: String) : Closeable {
     private fun fail() {
         disconnected.set(true)
         ready.completeExceptionally(IOException("Peer disconnected"))
+        advertised.completeExceptionally(IOException("Peer disconnected"))
         pending.values.forEach { it.completeExceptionally(IOException("Peer disconnected")) }
         pending.clear()
     }

@@ -20,3 +20,20 @@ uppercase/mixed-case saved aes_secret is normalized. Preserve backup contents
 while selecting the compatible field/passphrase and verify independent vectors.
 All26 evidence hashes, three reference copies and core77 counts verified.
 UI/transport/final recovery acceptance remains pending, not claimed.
+
+## Protocol fixes 7dbaba3...42dfd6f
+
+### Standards
+
+Prior compatibility findings resolved; zero new hard violations. One actionable
+Duplicated Code heuristic: identical string-type validation for formatter/body.
+Shared private validator now applied, core81/debug/testAPK3m24s passing; review
+of that cleanup and new peer discovery still pending. All55 hashes/core81 and
+qualified actual Crypto failures verified.
+
+### Spec
+
+Zero findings. Legacy field and exact-case passphrase fixes preserve imported
+backup data; Relay original signed bytes authenticate before decrypt. All55
+hashes/core81/referencecopies/fourvalid+threeinvalid vectors verified. Native
+transport/UI/final recovery remain pending.

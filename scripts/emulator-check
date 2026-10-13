@@ -46,6 +46,20 @@ for setting in window_animation_scale transition_animation_scale animator_durati
 done
 adb install -r "$artifact"
 adb install -r "$repo_dir/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk"
+verify_private_chat() {
+    [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+    timeout 60 adb shell am instrument -w -r \
+        -e class nl.davidengelen.redsquare.PrivateChatPeerPreviewTest \
+        nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+        > "$evidence/private-chat-peer.txt" || true
+    grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/private-chat-peer.txt"
+}
+if [[ "${TEST_SCOPE:-full}" == chat* ]]; then
+    verify_private_chat
+    printf '%s\n' 'Focused private Chat protocol/peer check only; UI, full acceptance and live publication not run.' > "$evidence/scope.txt"
+    exit 0
+fi
+if [[ "${TEST_SCOPE:-full}" == full ]]; then verify_private_chat; fi
 verify_browse() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
     timeout 180 adb shell am instrument -w -r \

@@ -19,6 +19,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     private val profileArchiveResponse: ((com.google.gson.JsonObject) -> String)? = null,
     private val registryResponse: ((com.google.gson.JsonObject) -> String)? = null,
     private val reportResponse: ((ByteArray) -> String)? = null,
+    private val advertisedServices: String? = null,
     private val archiveResponse: ((com.google.gson.JsonObject) -> String)? = null) {
     @Volatile var disconnectAfterTransaction = false
     @Volatile var disconnectAfterReport = false
@@ -54,6 +55,10 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
             try {
                 val frame = bytes.toByteArray()
                 when (frame[0].toInt()) {
+                    20 -> advertisedServices?.let {
+                        require(frame.size == 1)
+                        webSocket.send((byteArrayOf(9) + it.toByteArray(Charsets.UTF_8)).toByteString())
+                    }
                     1 -> {
                         require(frame.size == 33)
                         val key = "0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798".chunked(2).map { it.toInt(16).toByte() }.toByteArray()
