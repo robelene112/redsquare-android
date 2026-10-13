@@ -74,7 +74,7 @@ class PrivateChatPreviewTest {
         }
     }
 
-    private enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL, LIST_LIVE, PARTIAL_KEYS, STORAGE_PARTIAL }
+    private enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL, LIST_LIVE, PARTIAL_KEYS, STORAGE_PARTIAL, OTHER_LIVE }
 
     @Test fun anImportedContactOpensItsAvailableAuthenticatedPrivateHistory() = exerciseHistory(HistoryCase.AVAILABLE)
 
@@ -98,11 +98,14 @@ class PrivateChatPreviewTest {
 
     @Test fun unreadableAvailableHistoryIsExplainedEvenWhenLocalSavingFails() = exerciseHistory(HistoryCase.STORAGE_PARTIAL)
 
+    @Test fun anotherPrivateContactIsRetainedWhileADifferentConversationIsOpen() = exerciseHistory(HistoryCase.OTHER_LIVE)
+
     private fun exerciseHistory(case: HistoryCase) {
         val storagePartial = case == HistoryCase.STORAGE_PARTIAL
         val storageFailure = case == HistoryCase.STORAGE_FAILURE || storagePartial
         val listLive = case == HistoryCase.LIST_LIVE
         val partialKeys = case == HistoryCase.PARTIAL_KEYS
+        val otherLive = case == HistoryCase.OTHER_LIVE
         val live = case == HistoryCase.LIVE || listLive
         val interruptedSend = case == HistoryCase.SEND_INTERRUPTED
         val newContact = case == HistoryCase.NEW_SEND
@@ -157,6 +160,16 @@ class PrivateChatPreviewTest {
         val cacheFile = File(context.noBackupFilesDir, "chat.${SaitoBackend.OWNER.id}.${wallet.publicKey}.${reference.get("groupId").asString}.v1")
         val outgoingText = "Native private message 😀 <&>\nsecond line"
         val recipientWallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe fixture only.
+        val otherWallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "3") // Public unsafe fixture; crypto interop is covered independently.
+        val otherText = "Message from another private contact"
+        val otherPacket = if (otherLive) {
+            val original = PrivateChat.create(otherWallet, wallet.publicKey, otherText, 1700000000999L)
+            val relay = JsonObject().apply {
+                addProperty("module", "Relay"); addProperty("request", "chat relay"); add("data", original.signedJson())
+            }
+            SaitoWire.applicationRequest(otherWallet.publicKey, relay.toString().toByteArray(Charsets.UTF_8),
+                1, 1700000000999L).drop(5).toByteArray()
+        } else null
         val peer = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", relayResponse = { original ->
             check(sending)
             val received = PrivateChat.read(recipientWallet, original, wallet.publicKey)
@@ -241,6 +254,22 @@ class PrivateChatPreviewTest {
                             if (partialKeys) ui.onAllNodesWithText(text).assertCountEquals(1)
                         }
                         captureNativeScreen(File(context.cacheDir, "private-chat-evidence/imported-history.png"), text)
+                        if (otherLive) {
+                            ui.onNodeWithText("Refresh").assertIsEnabled()
+                            peer.sendIncoming(requireNotNull(otherPacket))
+                            ui.waitUntil(5_000) { peer.incomingAcknowledgements.any { it[0] == 13.toByte() } }
+                            ui.onAllNodesWithText(otherText).assertCountEquals(0)
+                            ui.onNodeWithText("Back").performClick()
+                            waitFor(otherWallet.publicKey)
+                            ui.onNodeWithText(otherWallet.publicKey).performClick()
+                            waitFor(otherText)
+                            ui.onNodeWithText(otherText).assertIsDisplayed()
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/other-private-contact.png"), otherText)
+                            ui.onNodeWithText("Back").performClick()
+                            waitFor(counterpart)
+                            ui.onNodeWithText(counterpart).performClick()
+                            waitFor(text)
+                        }
                         if (sending) {
                             waitFor("Message")
                             ui.onNodeWithText("Message").performTextInput(outgoingText)
@@ -306,6 +335,14 @@ class PrivateChatPreviewTest {
                             check(peer.transactions.size == 1 && peer.relayedMessages.size == if (interruptedSend) 0 else 1)
                         } else check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
                         check(peer.reports.isEmpty())
+                        if (otherLive) {
+                            ui.onNodeWithText("Back").performClick()
+                            waitFor(otherWallet.publicKey)
+                            ui.onNodeWithText(otherWallet.publicKey).performClick()
+                            waitFor(otherText)
+                            ui.onNodeWithText(otherText).assertIsDisplayed()
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/other-private-contact-recreated.png"), otherText)
+                        }
                         if (partialKeys) {
                             // Restore the matching imported secret through protected storage, then verify the old ciphertext survived saving.
                             store.replace(store.loadOrCreate(), requireNotNull(completeKeyWallet))

@@ -349,3 +349,15 @@ body cardinality corrected without relaxing recovery/storage/assertions.
 
 Zero new findings.595 UI hashes/13XMLs/originalsverify. Known warning source
 remainspending genuineRED; no acceptance inferred from first fixture failure.
+
+## Independent warning fix reviewecc3d56...df9891d
+
+### Standards
+
+Prior warning finding resolved; zero new hard findings or actionable heuristics.
+32 RED records/build verify, offline assertion strengthened and warning scope clear.
+
+### Spec
+
+Zero new findings.628 UI hashes/14 XMLs/twooriginalsverify; corrected key-restoration
+casepassed separately from missingwarning failure; native12GREENwaspendingat review.

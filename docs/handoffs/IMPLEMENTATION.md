@@ -28,79 +28,66 @@ accidental auto-close was reopened; close only after final acceptance.
 
 #25, "Exchange encrypted private Chat messages with existing clients", is assigned
 and active. Whole review basec102f891f6041f08199905728d302e19b7588abd.
-Read parent#1/issue25, NATIVE_PRIVATE_CHAT_CONTRACT, canonical chronology
-NATIVE_PRIVATE_CHAT_VERIFICATION.md and separate docs/evidence/ticket24/REVIEW.md.
-Accepted seams1–4 cover native UI/controlled peers, independent signing/encryption,
-recovery/isolation and compatibility. No additional grill or routine approval.
+Read parent#1/issue25, NATIVE_PRIVATE_CHAT_CONTRACT and canonical chronology
+NATIVE_PRIVATE_CHAT_VERIFICATION.md. Separate reports: docs/evidence/ticket24/REVIEW.md.
+Accepted seams1–4 cover native UI/controlled peers, independent crypto, recovery/
+isolation and compatibility. No routine approval or extra grill. One ticket only.
 
-Current implementation (inspect gitlog for HEAD): native encrypted DM send, original propagation
-and Relay, truthful Submitted/Forwarded-not-confirmed state; selected-conversation
-live receive/persistent socket; encrypted retained original cache; first-Chat
-optional permission; fresh public-key/Open-chat entry with portable contact/shared
-wallet metadata; imported lower-case chat.groups/legacy IDs recovery. Valid mixed
-private hashes/public-key group IDs preserve DM discovery. Core85/0/0/0 plus
-both APKs PASS4m12s at655c1e5. Minimum partial-discovery correction at
-a6c525c debug/testAPK PASS1m47s. List-only receiving and encrypted-cache
-contact discovery at4734f93 debug/testAPK PASS3m20s, core unchanged85; actual
-10caseGREEN10run38356985068 PASS10/43.21s. Reviews6829cbf...4734f93 found
-snapshot race and mixed-key cached recovery; both tracked below.
+Current implementation includes native encrypted send/read; original propagation/
+Relay; truthful Submitted/Forwarded-not-confirmed states; selected live receive;
+encrypted retained original history; optional first-Chat permission; fresh-contact
+entry/shared portable-wallet metadata; modern/legacy imported-ID recovery (skip
+recognized group public keys); partial discovery preserves successful contacts;
+list-only incoming discovery/ACK after durable save and cached contact recovery.
+Current-contact merge protects newer live contacts. Missing exchanged-key cached
+rows stay encrypted while readable entries/contact remain visible; new writes
+still require full private verification. Restore matching keys recovers retained
+old ciphertext after new saving, with no extra sends. See gitlog for currentHEAD.
 
-Actual10run38353752949 at655c1e5 PASS8/44.97s, core85/source gates. Imported-ID
-history/recreated cached reading passes alongside fresh-contact send, failed-save
-Refresh retention, delayed live relay, interrupted Submitted/noRelay/noresend and
-permission skipping. Root twelve XMLs/twooriginals inspected; shared filenames
-belong to latercases, no specific imported-case image attribution.
-Latest actual9case checkpoint a6c525c:10run38355056886 PASS9/42.446s and
-17run38355059918 PASS9/83.692s. List-only receiver4734f93 stillneedsruntime. Actual unsafe native10/17 envelope independently verifies
-through pinned Crypto/WASM; defaultreference hash886ff622...ee1c06 unchanged.
-Public native10read38352335633 ate2eb51d PASS1/1.649s: both approved backends
-authenticate Chat/Archive/Relay and return0rows for never-used random pair. No
-live-submit/relay/nonempty-public-history inference. Installation wallet unchanged.
+Core85 at655c1e5 and subsequent CI source gates; latest local warning correction
+APK/testAPK PASS3m3s (core unchanged, not rerun locally). Latest productiondf9891d
+sets partial-page flag before cache saving, keeps partial warning through offline
+Refresh, scopes it to wallet/backend/conversation; stronger offline hint assertion.
 
-Latest bounded reviews f2cd911...655c1e5: Standards0; Spec1partial recovery issue.
-Actual nine-case RED10run38354277929 at37532b6 reports8PASS+1failure52.21s:
-first recovered/cache-saved contact missing after latergroup Archive failure.
-RootthirteenXMLs/failureoriginal inspected. Minimum pergroup failure isolation
-at a6c525c publishes successful contacts with discovery warning and preserves
-cancellation. APK build PASS1m47s; actual9caseGREEN10run38355056886 PASS9/42.446s and
-17run38355059918 PASS9/83.692s. Root each twelveXMLs/criticaloriginals inspected.
-Correction reviews37532b6...a6c525c bothsourceaxes0; stale handoff corrected.
-List-incoming tracer6829cbf bothaxes0; actualRED10run38355907771 10cases/9PASS+1failure54.58s line196, root13XML/failureoriginal inspected. Minimum list-only listener/cache contact discovery debug/testAPK PASS3m20s; actual10caseGREEN/reviews next, no runtimeGREEN yet. Do not close#25.
-Do not dispatch same chat-ui scope while priorrunactive (workflow cancels same).
+Latest complete Chat UI checkpoint4734f93: actual10run38356985068 PASS10/43.21s,
+core85. Root12XML/live+normal-recreated originals inspected; shared captures are
+attributed to latercases, inputfooter partlyclipped in normal10recreated image.
+Last complete17 checkpoint a6c525c run38355059918 PASS9/83.692s; companion10
+run38355056886 PASS9/42.446s. All physical/polishedviewport proof stillpending.
+Actual unsafe native10/17 encrypted envelope independently verifies pinnedCrypto/
+WASM; defaultreference hash886ff622...ee1c06 unchanged. Public native10read
+38352335633 ate2eb51d PASS1/1.649s: both fixed endpoints authenticate services
+Chat/Archive/Relay and0rows for unused random pair; no live-message claim.
 
-Latest listcheckpoint4734f93 actual10run38356985068 PASS10/43.21s/core85,
-root12XML/liveandnormalrecreated originals inspected. Inputfooter partlyclipped in
-normal10recreated original, not polishedviewport acceptance. List-only incoming
-discovery/positiveACK/cachedreopening passes. Review6829...4734: Standards1initial
-IOsnapshot overwritesnewlivecontact; Spec1cachedmixedimplicit/exchanged history
-all-or-nothingdecryption hidesavailablehistory afterkey-onlyimport. Two-line
-current-contactmerge/backendremember fix KotlincompilePASS1m38s; partial-key
-tracer seedsindependent originals withcompletesecret, thenactivekey-onlywallet/
-failedArchive expectsreadablecontact/history/partialwarning/send/recreatedcache.
-BothAPKbuildPASS1m47s; actual11caseRED10run38357934691 at89c09bf 10PASS+1failure58.556s line221; root13XML/failureoriginal inspected.
-Snapshot correction reviews4734...89c bothnewfindings0/resolved. Strongerrestoredsecret tail4f9fb46 compiles1m39, not inRED.
-Partial-key minimum Read(entries,partial)/preservedoriginals/newfullverification debug/testAPK PASS3m22s(coreunchanged85), runtimeGREEN/reviews next.
+Mixed-key RED38357934691 at89c09bf:11cases/10PASS+1failure58.556s missingcontact.
+Partial-key minimum59ba616 first attempt38359429556:10PASS+onefixturefailure
+52.032s; restored two independent messages intentionally share plaintext. Corrected
+tracer requires1beforekeys/2after and second visible; no assertion weakening.
+Storage-partial RED38360615490 atecc3d56:12cases/11PASS+1failure70.118s atline239
+missingpartialhint when readable+missing-secret Archive rows meet failed saving.
+Root14XML/failure+restored-key originals inspected. Correctedpartial-keycasePASS:
+old ciphertext survives new send/reopening and matching-key restoration.
+Spec4f9...59ba0; Standards1warning coupledtosave, nowfixeddf9891d. Reviews of
+correctedtracer59ba...ecc both0newfindings. Current bounded warning-fix reviews
+ ecc3d56...df9891d both0/resolved. Actual12caseGREEN10run38362024612 PASS12/55.833s; root13XML/warning+restoredkey originalsinspected.
+17run38362028575 raw11PASS thencase12start/noresult, nofailureassertion; truncatedunder90sclasslimit, oldexitnotretained.
+Harness now180s+exitfile, individualwaits/assertionsunchanged. New13casedifferent-contact-while-open tracercompiled1m47; actualREDnext, itsreceiverminimumunimplemented. Root must inspect raw runner/XML/original images, preserve failed runs
+and exact SHA attribution. Harness now180s aftercaptured17truncation; newexitstatus retained. Never calldeadline proof ofappfailure.
+Do not dispatch same chat-ui scope while another is active (same scope cancels).
 
-Partial-key minimum59ba616 actual11caseattempt38359429556 10PASS+1fixturefailure
-52.032s atrestored-tail line309: independentold/implicitvectors intentionallyshare
-plaintext, sourcecorrectlyshows2. Root13XML/original inspected; no appduplicate or
-GREENclaim. Correctedtest requires1beforekeys/2after, allrequirementskept.
-Spec4f9...59ba0; Standards1partialArchivewarningappliedonlyonsuccessfulcachesave.
-New12case storage-partial tracer compiles1m46/correctedfixture1m39: available
-implicit+missing-secret exchangedrows/localwritefailure mustshowpartialwarning.
-Sourceunchanged59ba616 at ecc3d56; actual12caseRED38360615490 11PASS+1failure70.118s line239 missingpartialhint. Root14XML/failure+restored-key originalsinspected. Correctedpartial-keycase PASS includingrestoredciphertext. Minimalwarningbeforewrite/retainedofflineRefresh/wallet-backend-scope debug/testAPK PASS3m3s(coreunchanged85), actual12caseGREEN10+17/reviews next. Keepwarningfix separate from new
-source recovery already reachingrestoration; no actualprocessdeath/fullacceptance.
-
-Remaining #25: live incoming while a different conversation is selected; available older-history paging; Block hides incoming/Mute keeps
-Chat accessible native checks; unknown attempt/draft recovery and actual process
-death; backend/wallet isolation; full Android10/17/release/lint/update/public reads.
-No actual Chat process death or ticket completion from ActivityScenario.recreate.
+Remaining #25: receiving a different/new contact while another conversation is
+open; available older-history paging; native Block hides incoming/Mute keeps Chat
+accessible; unknown attempt/draft recovery and actual process death; wallet/backend
+isolation; both full Android10/17/release/lint/signedupdate/opt-in public reads.
+Pinned Chat adds extra recipient outputs for mentions; current exact-two-recipient
+validator needs explicit compatibility coverage before whole-ticket acceptance.
+Full browser handler/rendering interoperability remains distinct from proven
+Crypto/WASM byte-level boundary. No actual Chat process death from ActivityScenario.
 No new phone APK; stable previewv10/source5225d06. Physical Pixel#35 remains.
 Protected untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md belongs to#26;
-never stage/delete during#25. Read-only prep .scratch/ticket25-readonly-plan.md.
-
-No production node/funded/live writes, physical Pixel proof, closed-app push or
-store submission authorized. Continue ready work autonomously.
+never stage/delete for#25. Read-only prep .scratch/ticket25-readonly-plan.md.
+No production node/funded/live application writes or store submission. Closed-app
+push and physical Pixel behavior remain unproved. Continue ready work autonomously.
 
 ## Earlier completed ticket checkpoints
 

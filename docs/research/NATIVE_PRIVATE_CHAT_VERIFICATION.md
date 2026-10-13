@@ -460,3 +460,15 @@ Independentpartial-warning correction debug/testAPK PASS3m3s, coreunchanged85
 (not rerun locally). Actual12caseGREEN10+17 and bothboundedreviews next.
 OfflineRefresh assertionstrengthens warningretention; matchingrestoredwallet
 resetswarningscope, cacheoriginalpreservation/newfullverification unchanged.
+
+Actualwarning/keyrecovery GREEN10run38362024612 atdf9891d PASS12/55.833s/core85
+sourcegates. Root13XML/warningretention+restored-key originalsinspected. Twelve
+case17run38362028575 sameSHA truncatedafter11PASS andcase12began, nofinalresult
+orassertionfailure. Oldharness90s/exitdiscarded; notclaimedobserved124/appfailure.
+Prior9case17took83.692s. Classbudget180+rawexitstatus nowretained, percasewaits/
+assertionsunchanged. ShellsyntaxPASS; no productionchangefromharness.
+Bothwarningfixreviewaxes0/resolved. Newdifferent-contact-while-open traceruses
+publicunsafe3->2 native-signed controlledRelay (independentcrypto alreadycovered);
+oneincomingofferafterselectedhistoryready, positiveACK, no bleed intoopencontact,
+othercontactdiscovery/readability/recreatedcache with no redelivery. TestAPK
+compiles1m47s. Receivingothercontact minimumunimplemented; actual13caseRED next.
