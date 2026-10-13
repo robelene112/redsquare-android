@@ -74,7 +74,7 @@ class PrivateChatPreviewTest {
         }
     }
 
-    private enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED }
+    private enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND }
 
     @Test fun anImportedContactOpensItsAvailableAuthenticatedPrivateHistory() = exerciseHistory(HistoryCase.AVAILABLE)
 
@@ -86,11 +86,14 @@ class PrivateChatPreviewTest {
 
     @Test fun anInterruptedPrivateSendRemainsSavedWithoutAutomaticRebroadcast() = exerciseHistory(HistoryCase.SEND_INTERRUPTED)
 
+    @Test fun aFreshWalletCanOpenAndSendToANewPrivateContact() = exerciseHistory(HistoryCase.NEW_SEND)
+
     private fun exerciseHistory(case: HistoryCase) {
         val storageFailure = case == HistoryCase.STORAGE_FAILURE
         val live = case == HistoryCase.LIVE
         val interruptedSend = case == HistoryCase.SEND_INTERRUPTED
-        val sending = case == HistoryCase.SEND || interruptedSend
+        val newContact = case == HistoryCase.NEW_SEND
+        val sending = case == HistoryCase.SEND || interruptedSend || newContact
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev")
@@ -100,7 +103,7 @@ class PrivateChatPreviewTest {
         val counterpart = reference.get("sender").asString
         val publicWallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "2") // Public unsafe fixture only.
         val options = JsonParser.parseString(publicWallet.exportJson()).asJsonObject.apply {
-            add("keys", JsonArray().apply { add(JsonObject().apply {
+            if (!newContact) add("keys", JsonArray().apply { add(JsonObject().apply {
                 addProperty("publicKey", counterpart); addProperty("added", true)
             }) })
         }
@@ -162,8 +165,16 @@ class PrivateChatPreviewTest {
                     withFailureCapture({ captureNativeScreen(File(context.cacheDir, "private-chat-evidence/history-first-failure.png")) }) {
                         waitFor("Chat")
                         ui.onNodeWithText("Chat").assertIsDisplayed().performClick()
-                        waitFor(counterpart)
-                        ui.onNodeWithText(counterpart).assertIsDisplayed().performClick()
+                        if (newContact) {
+                            waitFor("Public key")
+                            ui.onNodeWithText("Public key").performTextInput(counterpart)
+                            ui.onNodeWithText("Open chat").assertIsEnabled().performClick()
+                            waitFor("Message")
+                            check(AndroidWalletStore(context).loadOrCreate().chatContacts().contains(counterpart))
+                        } else {
+                            waitFor(counterpart)
+                            ui.onNodeWithText(counterpart).assertIsDisplayed().performClick()
+                        }
                         val text = reference.getAsJsonObject("plaintext").get("message").asString
                         if (live) {
                             waitFor("No available messages in this conversation.")

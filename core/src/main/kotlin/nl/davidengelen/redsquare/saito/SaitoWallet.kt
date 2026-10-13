@@ -123,6 +123,23 @@ class SaitoWallet private constructor(
         }.distinct()
     }
 
+    /** Portable added-contact metadata follows the existing client; all other backup fields stay intact. */
+    fun withChatContact(contact: String): SaitoWallet {
+        require(isPublicKey(contact) && contact != publicKey)
+        val options = gson.fromJson(exportJson(), JsonObject::class.java)
+        val existingKeys = options.get("keys")
+        require(existingKeys == null || existingKeys.isJsonArray)
+        val keys = existingKeys?.asJsonArray ?: JsonArray().also { options.add("keys", it) }
+        val entry = keys.firstOrNull { it.isJsonObject && chatAddress(it.asJsonObject) == contact }?.asJsonObject
+        if (entry == null) keys.add(JsonObject().apply { addProperty("publicKey", contact); addProperty("added", true) })
+        else {
+            require(entry.get("type")?.let { it.isJsonPrimitive && it.asString == "group" } != true &&
+                entry.get("group")?.let { !it.isJsonNull && it.toString() != "false" } != true)
+            entry.addProperty("added", true)
+        }
+        return fromBackup(options.toString())
+    }
+
     private fun chatAddress(row: JsonObject): String? {
         val address = row.get("publicKey")?.takeUnless { it.isJsonNull ||
             (it.isJsonPrimitive && it.asJsonPrimitive.isString && it.asString.isEmpty()) } ?: row.get("publickey")

@@ -9,6 +9,28 @@ import org.junit.Test
 import com.google.gson.JsonParser
 
 class SaitoWalletTest {
+    @Test fun `a new private contact survives compatible wallet export without replacing identity or module data`() {
+        val initial = SaitoWallet.fromPrivateKey("0".repeat(63) + "2") // Public unsafe fixture only.
+        val contact = SaitoWallet.fromPrivateKey("0".repeat(63) + "1").publicKey
+        val options = JsonParser.parseString(initial.exportJson()).asJsonObject.apply {
+            add("Chat", JsonParser.parseString("""{"unread":3,"custom":"preserve this"}"""))
+            add("keys", com.google.gson.JsonArray().apply { add(com.google.gson.JsonObject().apply {
+                addProperty("publicKey", initial.publicKey); addProperty("identifier", "Example@saito")
+            }) })
+        }
+        val original = SaitoWallet.fromBackup(options.toString())
+        val updated = original.withChatContact(contact)
+        val expected = options.deepCopy().apply {
+            getAsJsonArray("keys").add(com.google.gson.JsonObject().apply {
+                addProperty("publicKey", contact); addProperty("added", true) // Existing Saito QR contact schema.
+            })
+        }
+        assertEquals(expected, JsonParser.parseString(updated.exportJson()))
+        assertEquals(options, JsonParser.parseString(original.exportJson()))
+        assertEquals(initial.publicKey, updated.publicKey)
+        assertEquals(listOf(contact), SaitoWallet.fromBackup(updated.exportJson()).chatContacts())
+    }
+
     // Published scalar-one curve fixture, never a user's wallet.
     private val syntheticPrivateKey = "0".repeat(63) + "1"
 

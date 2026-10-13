@@ -1,0 +1,21 @@
+{
+  "nativeEnvelopeSha256": "e21d6d794dbae9e43ccfc3d80c130469814874983dce1a02716fdf7b20e93b79",
+  "signature": "638566811303526821f7c1a49d59f54f2fd3e30e827379ae8b2ba91a5694e0b911fa350c3985ab022b2fd17f7197f821ccb85ac016608fccb2c630695f3b0392",
+  "groupId": "fbafe62761f194eb174cf4a072d8cd8601b11fe03f5a1ed32bf5be20dade0b19",
+  "timestamp": 1791867725174,
+  "dependencyVersions": {
+    "saito-wasm": "0.3.2",
+    "saito-js": "0.3.2",
+    "node-cryptojs-aes": "0.4.0",
+    "crypto-browserify": "3.12.1",
+    "elliptic": "6.6.1",
+    "base-58": "0.0.1",
+    "typescript": "5.4.5",
+    "json-bigint": "1.0.0"
+  },
+  "wrapperSha256": "61416839726c1877875062273fd704b37002f8f3a5d299e6c0883f5d24685683",
+  "wasmSha256": "f59be69dbb949368ce1fc7ef47d414cbe0281a86a206fe4bfb1128a4d087e01e",
+  "independentWasmSignatureMatches": true,
+  "existingCryptoRecipientDecrypts": true,
+  "exactNativeFixturePlaintextMatches": true
+}

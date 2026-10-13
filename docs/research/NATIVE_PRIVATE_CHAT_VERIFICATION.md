@@ -266,3 +266,25 @@ handling; no RED or new implementation result is invented before execution.
 Send/recreated captures now use actual user scrolling to expose the outgoing
 paragraph rather than relying on partial visibility. Corrected5case17 source
 remains94326b2; actual6case10 coverage next.
+
+Corrected actualGREEN17run38348848791 at94326b2 passes5/60.052s/oneOK/no
+assumptions/actualdeaths; core82/source gates. Twenty-four records/root tenXMLs
+and three originals confirm compact layout and both outgoing lines visible on
+recreation; same signed propagation/Relay message, retained history/no resend.
+Captured17 envelope also independently passes pinned Crypto/WASM signing check.
+Both bounded corrections reviews0. Six-case interrupted10 coverage38349463109
+at8615857 pending; actual process death and full-ticket acceptance not inferred.
+
+Interrupted coverage actualGREEN10run38349463109 at8615857 passes6/25.282s,
+oneOK/noassumptions/actualdeaths/core82/source gates. Twenty-eight records/root
+twelveXMLs and two interrupted originals show Submitted/not-confirmed, generic
+send failure, then retained original after reopening/unavailable Archive with
+one propagation and zero Relay observations. Existing implementation passes
+new coverage directly, no invented RED. Shared native-envelope filename belongs
+to later normal send. New-contact compatible-wallet core tracer next.
+
+Private contact metadata API tracer compilerRED26s (missingwithChatContact)
+then targetedGREEN54s; immutable portable contact preserves original identity,
+existing name/module fields and original export. Native fresh-wallet Open-chat/
+send/reopen tracer plus fullcore83/debug/testAPK passes2m45s. Actual seven-case
+UI RED next; entry/form/shared-wallet metadata update not yet implemented.
