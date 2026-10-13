@@ -39,6 +39,13 @@ without transmissions. Both subsequent full attempts also passed these Chat
 checks and browse8, then stalled in Following. Later full-app checks did not
 execute in those failed attempts. Current corrected full acceptance is pending.
 
+Separately enabled public-feed checks run Android10 `38485558410` and
+Android17 `38485560813`, source `0e4cc7df`. Product source equals4e3a6ea7;
+only documentation/evidence changed. Both supported backends use fresh test
+identities for read-only feed/balance/funding views; no public writes. Earlier
+fresh private Chat public service/read contracts passed both SDKs at c76 source;
+protocol source is unchanged by the feed-layout repair.
+
 **Phone review:** public preview11 remains https://davidengelen.nl/redsquare/.
 Signed preview13 is prepared, unpublished, at `.scratch/review-builds/13/`.
 `review-build` session13639 completed successfully in 2m41s. Version0.1.13,
