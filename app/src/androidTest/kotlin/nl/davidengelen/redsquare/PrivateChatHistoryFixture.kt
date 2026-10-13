@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.ComposeTestRule
 import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.text.AnnotatedString
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
@@ -468,6 +469,10 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                                 spacerRelay.toString().toByteArray(Charsets.UTF_8), 1,
                                 received.message.createdAt - 1).drop(5).toByteArray())
                             ui.waitUntil(5_000) { peer.incomingAcknowledgements.any { it[0] == 13.toByte() } }
+                            ui.waitUntil(5_000) {
+                                ui.onNode(hasScrollToIndexAction()).fetchSemanticsNode().config
+                                    .getOrNull(SemanticsProperties.CollectionInfo)?.rowCount == 3
+                            }
                             ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText(spacerText))
                             ui.onNodeWithText(spacerText).assertIsDisplayed()
                             val sentBody = hasText(body) and !hasSetTextAction()
