@@ -74,7 +74,7 @@ class PrivateChatPreviewTest {
         }
     }
 
-    private enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL, LIST_LIVE }
+    private enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL, LIST_LIVE, PARTIAL_KEYS }
 
     @Test fun anImportedContactOpensItsAvailableAuthenticatedPrivateHistory() = exerciseHistory(HistoryCase.AVAILABLE)
 
@@ -94,25 +94,29 @@ class PrivateChatPreviewTest {
 
     @Test fun aNewIncomingPrivateConversationAppearsWhileTheChatListIsOpen() = exerciseHistory(HistoryCase.LIST_LIVE)
 
+    @Test fun aKeyOnlyImportKeepsReadableCachedMessagesAlongsideMissingExchangedKeys() = exerciseHistory(HistoryCase.PARTIAL_KEYS)
+
     private fun exerciseHistory(case: HistoryCase) {
         val storageFailure = case == HistoryCase.STORAGE_FAILURE
         val listLive = case == HistoryCase.LIST_LIVE
+        val partialKeys = case == HistoryCase.PARTIAL_KEYS
         val live = case == HistoryCase.LIVE || listLive
         val interruptedSend = case == HistoryCase.SEND_INTERRUPTED
         val newContact = case == HistoryCase.NEW_SEND
         val partialDiscovery = case == HistoryCase.IMPORTED_PARTIAL
         val importedId = case == HistoryCase.IMPORTED_ID || partialDiscovery
-        val sending = case == HistoryCase.SEND || interruptedSend || newContact
+        val sending = case == HistoryCase.SEND || interruptedSend || newContact || partialKeys
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
-        val reference = instrumentation.context.assets.open("native-private-chat-reference.json")
-            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject }
+        val vectors = instrumentation.context.assets.open("native-private-chat-reference.json")
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors") }
+        val reference = vectors[0].asJsonObject
         val counterpart = reference.get("sender").asString
         val publicWallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "2") // Public unsafe fixture only.
         val options = JsonParser.parseString(publicWallet.exportJson()).asJsonObject.apply {
-            if (!newContact && !importedId && !listLive) add("keys", JsonArray().apply { add(JsonObject().apply {
+            if (!newContact && !importedId && !listLive && !partialKeys) add("keys", JsonArray().apply { add(JsonObject().apply {
                 addProperty("publicKey", counterpart); addProperty("added", true)
             }) })
             if (importedId) add("chat", JsonObject().apply {
@@ -175,6 +179,18 @@ class PrivateChatPreviewTest {
             if (storageFailure) check(cacheFile.mkdir())
             preferences.forEach { (prefs, key, _) -> check(prefs.edit().putBoolean(key, true).commit()) }
             store.replace(store.loadOrCreate(), wallet)
+            if (partialKeys) {
+                val old = vectors[2].asJsonObject // Independently pinned exchanged-key message in the same DM.
+                val complete = JsonParser.parseString(wallet.exportJson()).asJsonObject.apply {
+                    add("keys", JsonArray().apply { add(JsonObject().apply {
+                        addProperty("publicKey", counterpart)
+                        addProperty("aes_secret", old.get("sharedSecretHex").asString)
+                    }) })
+                }
+                nl.davidengelen.redsquare.chat.ChatHistoryStore(context, SaitoWallet.fromBackup(complete.toString()),
+                    SaitoBackend.OWNER, counterpart).save(listOf(reference.get("archiveEnvelope").asString, old.get("archiveEnvelope").asString))
+                historyUnavailable.set(true) // Imported active wallet has only its identity keys; cache stays on device.
+            }
             AndroidBackendStore(context).save(SaitoBackend.OWNER)
             peer.start().use { server ->
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
@@ -213,6 +229,10 @@ class PrivateChatPreviewTest {
                         }
                         waitFor(text)
                         ui.onNodeWithText(text).assertIsDisplayed()
+                        if (partialKeys) {
+                            waitFor(context.getString(R.string.chat_incomplete))
+                            ui.onNodeWithText(context.getString(R.string.chat_incomplete)).assertIsDisplayed()
+                        }
                         captureNativeScreen(File(context.cacheDir, "private-chat-evidence/imported-history.png"), text)
                         if (sending) {
                             waitFor("Message")

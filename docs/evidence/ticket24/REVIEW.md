@@ -297,3 +297,18 @@ records verify, boundedredelivery/exactcleanup/qualifiedpendingRED consistent.
 
 Zero findings.470 UI hashes/24 XMLs/originals verify; no listener implementation
 inferred from tracer, both prior nine-caseGREEN checkpoints correctly qualified.
+
+## List/cache discovery review6829cbf...4734f93
+
+### Standards
+
+One correctness finding: initial retained/portable IO snapshots may replace a
+newer live-published contact. Merge into current wallet/backend-scoped contact state.
+Zero actionable heuristics.30 RED records/build verify; original failure confirmed.
+
+### Spec
+
+One partial-key recovery finding: one old exchanged-key ciphertext whose secret
+is missing from an imported wallet hides the entire cache/contact, including a
+readable implicit-key message. Preserve unreadable ciphertext and expose verified
+readable history/contact plus partial warning.501 UI hashes verify.

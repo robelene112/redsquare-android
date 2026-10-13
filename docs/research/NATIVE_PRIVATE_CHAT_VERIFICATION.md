@@ -395,3 +395,23 @@ List-only incoming/cache-contact minimum debug/testAPK PASS3m20s; core unchanged
 originals, including AtomicFilebackup recovery; bad records remain untouched and
 reportpartialunreadable, successfulothercontacts remainavailable. Actual10caseGREEN
 and boundedreviews next; receivewhileanotherconversationselected stilloutstanding.
+
+Boundedlist/cache review6829...4734: Standards1snapshot overwrite ofnewlivecontact;
+minimalcurrent-contactmerge+explicitbackendremember applied, Kotlincompilepending.
+Spec1all-or-nothingcachedecryption hidesreadable implicit entries ifolder exchanged
+secret missing. Mixed implicit/exchanged cache regression next; originalciphertext
+must be preserved and readable entries remainavailable withpartialwarning.
+
+Actual list-incoming GREEN10run38356985068 at4734f93 PASS10/43.21s/core85/source
+gates. Root twelveXMLs/liveandnormalrecreated originals inspected; sharedcaptures
+qualified. Newlistcase passespositiveACK/discovery/decryptedtext/recreatedcache
+withoutredelivery. Snapshot-merge reviewfix KotlincompilePASS1m38s, no newnative
+result inferred. Mixed-key cache regression seeds two independently pinned
+originals undercompletekeys, thenopens key-only wallet with no contact/IDs and
+failedArchive. Readableimplicitmessage/contact+partialwarning+newsend/cache must
+survive missing older exchanged secret. Actual11caseRED pending.
+
+Mixed-key cache tracer plusmergefix debug/testAPK PASS1m47s (coreunchanged85).
+No partial-key implementation yet; native11caseRED next. Recreated normal-send10
+original exposes bothmessageparagraphs/status, but inputfooter is partly clipped:
+recorded asviewportlimitation, not professionalpolish/physical acceptance.

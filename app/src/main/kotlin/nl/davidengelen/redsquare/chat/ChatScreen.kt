@@ -35,7 +35,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     var newContact by remember(wallet.publicKey) { mutableStateOf("") }
     var savingContact by remember(wallet.publicKey) { mutableStateOf(false) }
     var contactFailed by remember(wallet.publicKey) { mutableStateOf(false) }
-    var contacts by remember(wallet) { mutableStateOf<List<String>>(emptyList()) }
+    var contacts by remember(wallet, backend) { mutableStateOf<List<String>>(emptyList()) }
     var contactsFailed by remember(wallet) { mutableStateOf(false) }
     var counterparty by remember(wallet.publicKey, backend) { mutableStateOf<String?>(null) }
     var entries by remember(wallet.publicKey, backend, counterparty) { mutableStateOf<List<ChatHistoryStore.Entry>>(emptyList()) }
@@ -50,7 +50,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
             val retained = withContext(Dispatchers.IO) { ChatHistoryStore.contacts(context, wallet, backend) }
             var discoveryFailed = retained.unreadable
             val portable = withContext(Dispatchers.IO) { wallet.chatContacts() }
-            contacts = (portable + retained.accounts).distinct()
+            contacts = (contacts + portable + retained.accounts).distinct()
             val known = portable.map { PrivateChat.conversationId(wallet.publicKey, it) }.toSet()
             val missing = withContext(Dispatchers.IO) { wallet.chatHistoryIds().filter { it !in known } }
             if (missing.isNotEmpty()) {
