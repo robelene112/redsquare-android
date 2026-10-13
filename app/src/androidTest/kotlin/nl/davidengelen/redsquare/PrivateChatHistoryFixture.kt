@@ -1004,8 +1004,8 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                         if (mentioned || case == HistoryCase.MUTED) captureNativeScreen(File(context.cacheDir,
                             "private-chat-evidence/${if (case == HistoryCase.MUTED) "muted" else if (case == HistoryCase.MENTIONED) "mentioned" else "own-mentioned"}-private-history-recreated.png"), text)
                         if (sending) {
-                            waitFor(outgoingText)
-                            ui.onNodeWithText(outgoingText).performScrollTo().assertIsDisplayed()
+                            ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText(outgoingText) and !hasSetTextAction())
+                            ui.onNodeWithText(outgoingText).assertIsDisplayed()
                             if (interruptedSend) {
                                 waitFor("Submitted. Delivery is not confirmed.")
                                 ui.onAllNodesWithText("Forwarded. Delivery is not confirmed.").assertCountEquals(0)
