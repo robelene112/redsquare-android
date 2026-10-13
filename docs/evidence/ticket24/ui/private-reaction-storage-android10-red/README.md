@@ -1,0 +1,9 @@
+# Android 10 reaction storage RED; archive and wallet recovery pass
+
+Focusedrun38476508566/sourcee7ed3e5a:10actions9PASS+onefailure67.854s;core86PASS. Storagecase failswaitingforreadableDM atfixture314. RootoriginalfailurePNG/XML inspected: noDM, falsebackendloaderror andgenericreactionrestoreerror. This reproduces the pageabort reviewedoned785; repairtailunexecuted.
+
+Available-reactioncase passes: independentlysignedduplicaterows produce1Like/nofalsemissing-keywarning; unavailableArchive/recreation retainscount; explicitRefreshrequiresnewread+errorclearance andcountremains1, zerooutgoing. Rootthreeuniqueoriginalavailable-reactionPNG/XMLpairs inspected.
+
+Walletreplacementcase passes on10aswellasprior17: otheridentity seesownhistory/nooldreaction/noauto;restoreoriginalidentity+explicitRetryemits exactindependentoriginal/Relay/Fwd/count1/fullwallet/backend. RootthreeoriginalwalletPNG/XMLpairs inspected. Protectedprecondition/recreatedUI is not SAFapproval orhotactivationproof.
+
+Productfixe8203a21 separatesreactionpersistencewarning/message merge; localfullbuild/GREENpending. Reviewsagree DMabortresolvedinsource butflagadjacentempty-reactionArchiveRefreshskipslocalreload, leavingreadyfalseuntilreopen. Additionalfixandextendedrecoverycheckpending. Thisfocusedrun doesnotestablishwholeapp/history24/newPID/physicalacceptance.

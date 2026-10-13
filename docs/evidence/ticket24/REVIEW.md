@@ -1385,3 +1385,16 @@ Zero documented breaches or actionable heuristic findings. RealguardedFSobstruct
 ### Spec
 
 Zero actionable findings. ReadableDM/localwarning/nofalsenetworkerror/nooutgoing underreactionfileobstruction; explicitRefreshnewread+warningclearance/oneLike/actionready afterrepair. Productstillidentifiedabortpath; localcompile/nativeREDpending. Minimumed785 core/debug/testAPK PASS3m2 (core86up-to-date, notfreshnewtestexecution).
+
+
+## Reaction retention failure fix,e7ed3e5a...e8203a21
+
+### Standards
+
+One documented recovery concern: retainReactions empty-pageearlyreturn skipslocalreload; failedinitialload setsreadyfalse, repairedstore+message-onlyRefreshleavesLike/Retrydisabled. CODING_STANDARDS preserveidentity/recoverablework andexplainunavoidablerecoverysteps. Data notdeleted; source finding, notruntimeproof. Zero actionableFowlerheuristics.
+
+### Spec
+
+Readable-messageabortresolvedinsource. One actionable adjacentgap: observable recovery incomplete whenRefresh containsnoreactions; `.load`effectkey excludesRefresh andearlyreturnpreventsready/errorrepair. Reloadlocalstateforanysuccessfulpage andverifywithoutarchive-suppliedreactions. Localwarning+independentretentionresult otherwisepreservesverifiedDMmerge; liveACKdurablegate unchanged.
+
+Actual10RED38476508566/e7ed:9of10actionsPASS67.854s/core86; STORAGEcommonDMwaitfailsFixture314 (originalfailurePNG/XMLrootseen). Available-reaction3originalpairs andwallet3pairs rootseen; bothcasesPASS; storagewarning/repairtailunexecuted. e820fullcore/debug/test/release/lint16739active; do noteditcodeuntilcomplete.
