@@ -570,3 +570,16 @@ Zero documented breaches and zero actionable smell findings. The two positive Pu
 Zero actionable findings. Public key is absent from the selected conversation, so the wait strengthens actual draft-preservation verification without artificial autosave delay. Both sourceab18713 attempts report20cases19PASS+line324timeout119.358/119.542s;30XML perSDK and manifest verify. Executed nonempty assertion is separated from proven reopening; erased/recreated tail remains unclaimed. Preview11 remains earlier source.
 
 Findings: Standards 0; Spec 0. Local corrected test APK subsequently passes1m38s/exit0; native20 execution remains pending.
+
+
+## Restored Retry body readiness, a306f3f...eb0e892
+
+### Standards
+
+Zero documented breaches and zero actionable smell findings. Positive outgoing-body wait uses the existing15-second budget before the unchanged strict scroll/display assertion. No production or acceptance-predicate change. Records distinguish Android17 full20GREEN from Android10 initialRetry-bodyfailure; passing draft checks and unexecuted Retry tail are separately qualified. Timing cause remains a hypothesis; older17does not execute the wait and preview11 remains earlier source.
+
+### Spec
+
+Zero actionable findings. Original identity/no-autosend/retry-state gates remain.17run38430016172 at a306f3f passes20;10run38430012756 passes19 including drafts but misses the initialRetrybody.30/28XML and manifest verify. Same-product17 qualifies as companion, not new-wait execution. Actual process death and whole-ticket acceptance remain pending.
+
+Findings: Standards 0; Spec 0. Local test APK subsequently passes1m33s/exit0; corrected Android10 run follows.

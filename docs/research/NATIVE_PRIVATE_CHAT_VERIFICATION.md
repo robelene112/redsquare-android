@@ -546,3 +546,5 @@ Positive chat-list readiness25a1327 local test APK PASS1m38s/exit0; both bounded
 
 
 Positive-list sourcea306f3f native20: Android17run38430016172 GREEN20/136.043s/core86; root30XML/two unique draft originals inspected. Exact text, erasure/reopen/recreated-empty, no traffic/full identity pass. Android10run38430012756 has19passes including draftcase plus unrelated first Retry-body assertion failureline37293.832s; root28XML/failure+draft originals inspected. UNKNOWN status publishes before candidate history/ready, supporting a timing hypothesis; no initial Retry/tail executes in that failed case. Test-only waitFor(outgoingText) before original strictscroll/display added. Localbuild running. Retain17 as unchanged-product companion, does not execute new wait.
+
+Retrybodywaiteb0e892 localTestAPK PASS1m33s/exit0; bothboundedreviewaxes0. Corrected10native20next; retain17a30620GREENsameproductb2, doesnotexecuteaddedwait.
