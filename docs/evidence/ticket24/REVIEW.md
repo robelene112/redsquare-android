@@ -1018,3 +1018,26 @@ actualRED; previousreplyruns notattributedto newtracer.
 
 Findings: Standards0; Spec0. Newtracer compilation/RED pending. Quote-nav source
 3ba3df98 localTestAPKPASS1m32s and bothSDK24+2 runtimepending separately.
+
+
+## First Like minimum,fae9731c...e6845482
+
+### Standards
+
+Zero documented breaches; one possibleDuplicatedCode heuristic: reaction and
+message senders repeat authenticated propagation/Relay wrapper/strictresponse/
+status/broadcast pipeline. Extract smallsharedChattransport, keep eachstore's
+preparation/identity/durablestates. No genericqueueframework implied. Other
+scoping/privacy/rendering/source andREDlimits sound.
+
+### Spec
+
+Zero actionable findings withinfirstoutgoingLike slice. Existingpublic signed
+body, signerauth/canonicalprivatepair/targetmetadata, encryptedoriginals and
+owncandidate, UNKNOWN beforeguardedsubmission, noautoloadsend, truthfulstatuses/
+count andoutgoingwalletwarning align scope. Futureincoming/archive/Retry/Unlike
+acceptance remainpending; no wholeticketclaim.
+
+Findings: Standards1heuristic; Spec0. Sharedboundedtransport nowcorrects duplication;
+strict Like assertion gains positive15s readiness for its independentstoreload.
+No minimumcompile/nativeGREEN yet.

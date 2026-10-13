@@ -275,6 +275,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                         ui.onNodeWithText(text).assertIsDisplayed()
                         if (liking) {
                             waitForEnabled("Message")
+                            waitForEnabled("Like")
                             ui.onNodeWithText("Like").assertIsEnabled().performClick()
                             waitFor("Reaction forwarded. Delivery is not confirmed.")
                             waitFor("1 like")

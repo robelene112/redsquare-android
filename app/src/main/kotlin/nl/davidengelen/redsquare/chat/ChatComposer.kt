@@ -7,8 +7,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import com.google.gson.JsonObject
-import com.google.gson.JsonParser
 import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -120,27 +118,17 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
                                 prepared
                             }
                             withContext(Dispatchers.IO) {
-                                SaitoPeer(wallet, endpoint).use { peer ->
-                                    require("relay" in peer.services())
-                                    peer.submit(candidate) { work.claim(candidate.id) }
-                                    val submitted = work.record(candidate.id, ChatWorkStore.Status.SUBMITTED)
-                                    withContext(Dispatchers.Main.immediate) { saved = submitted }
-                                    val relayBody = JsonObject().apply {
-                                        addProperty("module", "Relay"); addProperty("request", "chat relay")
-                                        add("data", candidate.signedJson())
-                                    }
-                                    val relay = SaitoTransaction.create(wallet, relayBody, System.currentTimeMillis(), listOf(contact))
-                                        .signedJson().apply { addProperty("signature", "0".repeat(128)) }
-                                    val request = JsonObject().apply { addProperty("request", "relay peer message"); add("data", relay) }
-                                    val response = peer.request(request.toString().toByteArray(Charsets.UTF_8)) { work.assertSelected() }
-                                    val result = JsonParser.parseString(response.toString(Charsets.UTF_8)).asJsonObject
-                                    val success = result.get("success")
-                                    require(result.get("err")?.let { it.isJsonPrimitive && it.asJsonPrimitive.isString && it.asString.isEmpty() } == true)
-                                    require(success != null && success.isJsonPrimitive && success.asJsonPrimitive.isNumber && success.asString == "1")
-                                    val forwarded = work.record(candidate.id, ChatWorkStore.Status.FORWARDED)
-                                    withContext(Dispatchers.Main.immediate) { saved = forwarded }
-                                    peer.finishBroadcast()
-                                }
+                                submitChatTransaction(wallet, endpoint, contact, candidate, ChatSubmissionCallbacks(
+                                    claim = { work.claim(candidate.id) },
+                                    assertSelected = { work.assertSelected() },
+                                    submitted = {
+                                        val submitted = work.record(candidate.id, ChatWorkStore.Status.SUBMITTED)
+                                        withContext(Dispatchers.Main.immediate) { saved = submitted }
+                                    },
+                                    forwarded = {
+                                        val forwarded = work.record(candidate.id, ChatWorkStore.Status.FORWARDED)
+                                        withContext(Dispatchers.Main.immediate) { saved = forwarded }
+                                    }))
                             }
                             failed = false
                         } catch (cancelled: CancellationException) { throw cancelled }
