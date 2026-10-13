@@ -724,3 +724,16 @@ Zero documented breaches or actionable smell findings. Exact EditableText exclud
 Zero actionable findings. Preserves exact draft Unicode/punctuation/newline at the approved native semantics boundary. Failure contains correct draft; actual process gates/UNKNOWN display and unexecuted final tail are distinguished. Original encrypted files remain device-only and restore passes. Both whole-source findings remain open.
 
 Findings: Standards0; Spec0. Local correctedAPKPASS1m26; native10/17follow.
+
+
+## Unreadable recent-page tracer,866784c3...169b524e
+
+### Standards
+
+Zero documented breaches or actionable smell findings. A full signed recent page uses unavailable exchanged keys, beside readable ancient cache/older implicit-key history. Exact warning/pagination/cutoff/retention assertions and wallet/backend/no-transmission/opaque cleanup remain. Generated rows are qualified as public controlledfixtures; productioncursor remains unchanged. Stopped local build and corrected compilation are separated from pending nativeRED.
+
+### Spec
+
+Zero new actionable findings. Directly tests available-history recovery through an unreadable50-row page, requiring enabled older fetch and both readable bodies retained after failedArchive recreation. Knownpublickey material is explicit; no new independentcrypto claim. The cursor and existing-action findings remain open until their actual corrected checks.
+
+Findings: Standards0; Spec0.

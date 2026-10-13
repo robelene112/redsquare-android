@@ -1,0 +1,3 @@
+# Actual private Chat process recovery
+
+Run38443330926/source866784c3, Android10. Native23UI also passes109.823s/core86. Actual processkill/PIDgone followed by differentPID verified in checkpoint; cold recovery1PASS4.81s; installation restoration1PASS0.174s. Exact typed draft, independent cached envelope, UNKNOWN candidate/original bytes, full fixture wallet/backend and zero submit/Relay all pass under unavailable Archive. Root3XML/all3unique originals inspected. Encrypted original installation snapshots stay device-only. This does not verify an unfinished autosave, backend/wallet switching isolation, Pixel behavior or whole-ticket acceptance.

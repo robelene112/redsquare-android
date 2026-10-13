@@ -611,3 +611,14 @@ Whole source reviewc102f891...fa1e628d: Standards0, Spec2. Need nativeReply/Copy
 ExactcoldEditableText fix866784c3 localTestAPKPASS1m26s/exit0 and bothboundedreviewaxes0. Nativeprocess10run38443330926/17run38443336005 pending.
 
 Next24-case tracer adds a full50-row recent page encrypted with unavailable exchanged keys, an ancient readable retained cache and a readable older implicit-key message. It requires the original unreadable warning, enabled olderfetch, exact signed oldest-page cutoff and preserved ancient/older messages after unavailableArchive recreation. Paging rows are controlled native generation with public unsafe fixtures, not additional independentcrypto vectors. Productioncursor remains unchanged until actualRED. The first local build was explicitly stopped after inspection found a wrong resource symbol, then corrected toexistingchat_incomplete before rebuilding. Cancellation is not a native failure/result. Nativeprocessruns continue independently against866784c3.
+
+
+Actual process10GREEN38443330926/source866784c3: native23PASS109.823s/core86; deliberatekill/oldPIDgone/newPID checks, cold1PASS4.81s and restoration1PASS0.174s. Root3XML/all3originals and exact checkpoint delta inspected. Cached independent original, typed persisted draft, unchanged UNKNOWN original, full fixture wallet/backend and no submit/Relay pass under failed Archive. Does not prove unfinished autosave or wallet/backend switch isolation. Android17same-source processcheck stillpending.
+
+Unreadable-page24tracer169b524e localTestAPKPASS1m26 and bothboundedreviewaxes0. NativeRED38444167765 pending. Bothwhole-sourceSpecfindingsremainopen; no productcursor correction/24GREEN claimed.
+
+
+Actual process17GREEN38443336005/source866784c3: native23PASS148.53s/core86, deliberatekill/oldPIDgone/newPID5040->5119, cold1PASS4.963s andrestoration1PASS0.156s. Root3XML/all3originals andexactcheckpointdelta inspected. BothSDKs now prove cached independent original, typed persisted draft and unchanged UNKNOWN original withfullfixturewallet/backend andnosubmit/Relay afteractualprocessdeath. Identity/backend switchisolation andwholefinalacceptance stillpending.
+
+
+Unreadable-page24 actual RED38444167765/source169b524e:24cases23PASS plus enabledolderbutton timeoutline381,123.032s/core86. Partialwarning/readableancientcachepreconditions execute; failureimage showsdisabledLoadolder. Root37XML/failureoriginal inspected. Olderrequest/cutoff/cachedtail and laterprocessfixture do not execute. Minimum computes oldestpagecursor from signature-verified encrypted originals whose participants match the requested canonicalprivatepair, validatesstrictbefore bound, and keepsmissing-decryption-key failures separatefrompaginationprogress. It never trusts unsigned archive timestamps. Plaintext/cache/originalauthentication behavior remains; localbuild/nativeGREENpending.
