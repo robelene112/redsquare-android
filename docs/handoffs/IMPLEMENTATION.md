@@ -39,10 +39,14 @@ without transmissions. Both subsequent full attempts also passed these Chat
 checks and browse8, then stalled in Following. Later full-app checks did not
 execute in those failed attempts. Current corrected full acceptance is pending.
 
-Separately enabled public-feed checks run Android10 `38485558410` and
+Separately enabled public-feed checks passed Android10 `38485558410` and
 Android17 `38485560813`, source `0e4cc7df`. Product source equals4e3a6ea7;
 only documentation/evidence changed. Both supported backends use fresh test
-identities for read-only feed/balance/funding views; no public writes. Earlier
+identities for read-only feed/balance/funding views; no public writes.
+Evidence is retained in `docs/evidence/ticket24/public-feed/android{10,17}-final`.
+Initial10 Official bitmap displays Owner-domain text while finalOfficial screen
+and selected-backend assertions/queries are correct; no cause is claimed.
+All17 initial/final feed captures show the proper selected domain. Earlier
 fresh private Chat public service/read contracts passed both SDKs at c76 source;
 protocol source is unchanged by the feed-layout repair.
 
