@@ -583,3 +583,16 @@ Zero documented breaches and zero actionable smell findings. Positive outgoing-b
 Zero actionable findings. Original identity/no-autosend/retry-state gates remain.17run38430016172 at a306f3f passes20;10run38430012756 passes19 including drafts but misses the initialRetrybody.30/28XML and manifest verify. Same-product17 qualifies as companion, not new-wait execution. Actual process death and whole-ticket acceptance remain pending.
 
 Findings: Standards 0; Spec 0. Local test APK subsequently passes1m33s/exit0; corrected Android10 run follows.
+
+
+## Older available history tracer, 9f00a3a...01a56a6
+
+### Standards
+
+Zero documented breaches and zero actionable smell findings. The controlled fixture supplies50 authenticated recent messages plus one older message, enforces canonical conversation/limit50/oldest cutoff, and exercises visible loading, completion after a short page and cached recovery under unavailable Archive. Identity/backend, zero transmissions and opaque cleanup remain. Native-generated pagination rows are separated from independent crypto vectors. Prior20-case sources and preview11 are accurately qualified; compilation is not native acceptance.
+
+### Spec
+
+Zero actionable findings. Supports available-history recovery plus local cache through canonical paging and retained messages when the backend no longer serves them. Exact identity/backend and no-propagation/Relay gates remain. Prior Android10/17 results are attributed to exact test revisions with same production source. New21-case RED/implementation are pending; no process-death or whole-ticket claim.
+
+Findings: Standards 0; Spec 0.

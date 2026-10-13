@@ -334,6 +334,7 @@ class PrivateChatPreviewTest {
                         ui.onNodeWithText(text).assertIsDisplayed()
                         if (case == HistoryCase.OLDER_HISTORY) {
                             check(olderReads.get() == 0)
+                            waitForEnabled("Load older messages")
                             ui.onNodeWithText("Load older messages").assertIsEnabled().performClick()
                             waitFor(olderText)
                             ui.onNodeWithText(olderText).performScrollTo().assertIsDisplayed()

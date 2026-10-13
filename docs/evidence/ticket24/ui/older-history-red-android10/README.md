@@ -1,0 +1,5 @@
+Older available Chat history tracer RED
+
+Android10run38432238667 at01a56a6 reports21cases20passes and one missing Load older messages control atline337 in95.186s/core86. Recent authenticated reference and native fixture rows are already visible; the source has no older-fetch control. Root all31XML and original history-first-failure.png inspected. The image still shows Loading messages; no completed initial network-load claim is based on the bitmap. Later older-row/cache/exhaustion assertions did not execute. Rawexit0 retained and mandatory OK gate rejects.
+
+Subsequent minimum adds canonical field3/limit50/oldest timestamp paging with wallet/backend/conversation-bound cancellation and encrypted retention. A positive enabled-control wait precedes the original strict assertion because the new button depends on completion of the initial page load. The wait keeps the existing15-second budget and no assertion is weakened. Native GREEN remains pending; native-generated pagination fixtures are not independent crypto proof.

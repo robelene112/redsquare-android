@@ -47,6 +47,9 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     var incomplete by remember(wallet, backend, counterparty) { mutableStateOf(false) }
     var cacheFailed by remember(counterparty) { mutableStateOf(false) }
     var refresh by remember { mutableIntStateOf(0) }
+    var hasOlder by remember(wallet, backend, counterparty) { mutableStateOf(false) }
+    var olderLoading by remember(wallet, backend, counterparty) { mutableStateOf(false) }
+    var olderRequest by remember(wallet, backend, counterparty) { mutableIntStateOf(0) }
     var closing by remember(wallet.publicKey, backend, counterparty) { mutableStateOf(false) }
     fun close() {
         if (closing) return
@@ -77,8 +80,8 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                     for (group in missing) {
                         try {
                             val recovered = withContext(Dispatchers.IO) { loadPrivateHistory(peer, wallet, group) }
-                            incomplete = incomplete || recovered.second
-                            for ((address, messages) in recovered.first.groupBy { it.counterparty }) {
+                            incomplete = incomplete || recovered.incomplete
+                            for ((address, messages) in recovered.messages.groupBy { it.counterparty }) {
                                 withContext(Dispatchers.IO) {
                                     ChatHistoryStore(context, wallet, backend, address).save(messages.map { it.envelope })
                                 }
@@ -163,13 +166,14 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                             val page = withContext(Dispatchers.IO) {
                                 loadPrivateHistory(peer, wallet, PrivateChat.conversationId(wallet.publicKey, contact))
                             }
-                            entries = ChatHistoryStore.merge(entries, page.first.map { ChatHistoryStore.Entry(it.envelope, it.message) })
-                            incomplete = incomplete || page.second
+                            hasOlder = page.hasOlder
+                            entries = ChatHistoryStore.merge(entries, page.messages.map { ChatHistoryStore.Entry(it.envelope, it.message) })
+                            incomplete = incomplete || page.incomplete
                             try {
                                 val saved = withContext(Dispatchers.IO) { cache.save(entries.map { it.envelope }) }
                                 entries = ChatHistoryStore.merge(entries, saved.entries)
                                 cacheFailed = false
-                                incomplete = page.second || saved.incomplete
+                                incomplete = page.incomplete || saved.incomplete
                             } catch (cancelled: CancellationException) { throw cancelled }
                             catch (_: Exception) { cacheFailed = true }
                             failed = false
@@ -185,6 +189,35 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { failed = true }
         finally { loading = false }
+    }
+
+    LaunchedEffect(wallet, backend, endpoint, counterparty, olderRequest) {
+        val contact = counterparty ?: return@LaunchedEffect
+        if (olderRequest == 0) return@LaunchedEffect
+        val cutoff = entries.minOfOrNull { it.message.createdAt } ?: return@LaunchedEffect
+        val cache = ChatHistoryStore(context, wallet, backend, contact)
+        try {
+            val page = withContext(Dispatchers.IO) {
+                SaitoPeer(wallet, endpoint).use { peer ->
+                    require("archive" in peer.services())
+                    loadPrivateHistory(peer, wallet, PrivateChat.conversationId(wallet.publicKey, contact), cutoff)
+                }
+            }
+            require(page.messages.all { it.message.createdAt < cutoff })
+            hasOlder = page.hasOlder
+            entries = ChatHistoryStore.merge(entries, page.messages.map { ChatHistoryStore.Entry(it.envelope, it.message) })
+            incomplete = incomplete || page.incomplete
+            try {
+                val saved = withContext(Dispatchers.IO) { cache.save(entries.map { it.envelope }) }
+                entries = ChatHistoryStore.merge(entries, saved.entries)
+                cacheFailed = false
+                incomplete = incomplete || saved.incomplete
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { cacheFailed = true }
+            failed = false
+        } catch (cancelled: CancellationException) { throw cancelled }
+        catch (_: Exception) { failed = true }
+        finally { olderLoading = false }
     }
 
     Column(modifier.fillMaxSize()) {
@@ -253,6 +286,10 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
         } else {
             Text(contact, style = MaterialTheme.typography.labelSmall)
             if (loading) Text(stringResource(R.string.chat_loading))
+            if (hasOlder) TextButton(enabled = !loading && !olderLoading && entries.isNotEmpty(), onClick = {
+                olderLoading = true
+                olderRequest++
+            }) { Text(stringResource(R.string.chat_load_older)) }
             val visible = entries.map { it.message }.filter { message -> personal?.ready == true &&
                 (message.author == wallet.publicKey || !personal.policy.hidesIncomingChat(message.author)) }
             if (visible.isEmpty() && !loading && !failed) Text(stringResource(R.string.chat_no_messages))
@@ -272,13 +309,15 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     }
 }
 
+private data class PrivateHistoryPage(val messages: List<ReceivedPrivateChat>, val incomplete: Boolean, val hasOlder: Boolean)
+
 private suspend fun loadPrivateHistory(peer: SaitoPeer, wallet: SaitoWallet,
-    group: String): Pair<List<ReceivedPrivateChat>, Boolean> {
+    group: String, before: Long = System.currentTimeMillis()): PrivateHistoryPage {
     val criteria = JsonObject().apply {
         addProperty("request", "load")
         addProperty("field3", group)
         addProperty("limit", 50)
-        addProperty("created_earlier_than", System.currentTimeMillis())
+        addProperty("created_earlier_than", before)
     }
     val request = JsonObject().apply { addProperty("request", "archive"); add("data", criteria) }
     val rows = JsonParser.parseString(peer.request(request.toString().toByteArray(Charsets.UTF_8))
@@ -292,5 +331,5 @@ private suspend fun loadPrivateHistory(peer: SaitoPeer, wallet: SaitoWallet,
             PrivateChat.recover(wallet, envelope.asString, group)
         } catch (_: Exception) { ignored++; null }
     }.distinctBy { it.message.id }
-    return verified to (ignored > 0)
+    return PrivateHistoryPage(verified, ignored > 0, rows.size() == 50)
 }
