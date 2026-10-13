@@ -673,3 +673,16 @@ Prior compatibility finding resolved; zero new documented breaches or actionable
 Prior finding resolved; zero new actionable findings. Independent timestamp1700000079990 can match while key/time validation remains. Signed/cache original and typed suffix remain unchanged. Native rendering/recovery and whole-ticket acceptance still pending.
 
 Findings: Standards0; Spec0. Local corrected APK compilation subsequently passes1m30s/exit0.
+
+
+## Existing native-to-web receiver check,3312cb44...febf4aa3
+
+### Standards
+
+Zero documented breaches and zero actionable smell findings. Exact pinned receiver executes after independent signature/decryption checks; browser notification/activity/storage boundaries are controlled adapters. Identity/content, unread/self-read and duplicate suppression are verified. Retained result/manifest match, without private signing material. No full UI/real delivery/chain claims.
+
+### Spec
+
+Zero actionable findings. Strengthens representative existing-client compatibility by exercising the named receiver after actual Crypto/WASM checks of the native original. Input hash matches the passing sendcase in RED23; source pin/hash and result manifest verify. Controlled boundaries exclude packet dispatch, DOM/IndexedDB and real recipient/chain acceptance. No product change or whole-ticket acceptance.
+
+Findings: Standards0; Spec0.

@@ -1,0 +1,89 @@
+#!/usr/bin/env python3
+"""Cold private Chat recovery on an isolated emulator, with device-only encrypted restoration."""
+import argparse
+import json
+from pathlib import Path
+import re
+import subprocess
+
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--evidence', type=Path, required=True)
+args = parser.parse_args()
+package = 'nl.davidengelen.redsquare.dev'
+runner = package + '.test/androidx.test.runner.AndroidJUnitRunner'
+test_class = 'nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest'
+checkpoint = 'cache/private-chat-process-checkpoint.json'
+
+
+def adb(*arguments, check=True, timeout=60):
+    return subprocess.run(['adb', *arguments], capture_output=True, text=True, check=check, timeout=timeout)
+
+
+def instrument(method, filename, check=True):
+    try:
+        result = adb('shell', 'am', 'instrument', '-w', '-r', '-e', 'class',
+                     test_class + '#' + method, runner, check=check, timeout=120)
+        (args.evidence / filename).write_text(result.stdout + result.stderr)
+        return result
+    except (subprocess.TimeoutExpired, subprocess.CalledProcessError) as error:
+        def decoded(value):
+            return value.decode('utf-8', errors='replace') if isinstance(value, bytes) else (value or '')
+        (args.evidence / filename).write_text(decoded(error.stdout) + decoded(error.stderr))
+        raise
+
+
+if not adb('get-serialno').stdout.strip().startswith('emulator-'):
+    raise SystemExit('An isolated emulator is required')
+args.evidence.mkdir(parents=True, exist_ok=True)
+primary = None
+try:
+    result = instrument('terminateWithCachedHistoryUnsentDraftAndUncertainOriginal', 'interrupted.txt', check=False)
+    if 'FAILURES!!!' in result.stdout:
+        raise AssertionError('Chat preparation failed before deliberate process termination')
+    row = json.loads(adb('exec-out', 'run-as', package, 'cat', checkpoint).stdout)
+    if row['phase'] != 'pending' or row['backend'] not in ('owner', 'official'):
+        raise AssertionError('Missing private Chat checkpoint')
+    if not re.fullmatch(r'[1-9A-HJ-NP-Za-km-z]{43,45}', row['owner']):
+        raise AssertionError('Invalid public owner')
+    if not re.fullmatch(r'[0-9a-f]{128}', row['candidate']):
+        raise AssertionError('Invalid signed original ID')
+    if not isinstance(row['pid'], int) or row['pid'] <= 0:
+        raise AssertionError('Invalid original process ID')
+    if str(row['pid']) in adb('shell', 'pidof', package, check=False).stdout.split():
+        raise AssertionError('Chat process was not actually terminated')
+    (args.evidence / 'pending-checkpoint.json').write_text(json.dumps(row, indent=2) + '\n')
+    adb('shell', 'am', 'force-stop', package)
+    result = instrument('coldRestartRetainsHistoryDraftAndOriginalWithoutSending', 'recovered.txt')
+    if 'OK (1 test)' not in result.stdout:
+        raise AssertionError('Cold private Chat recovery failed')
+    recovered = json.loads(adb('exec-out', 'run-as', package, 'cat', checkpoint).stdout)
+    if recovered != dict(row, phase='recovered', recoveredPid=recovered['recoveredPid']):
+        raise AssertionError('Chat checkpoint changed unexpectedly')
+    if (not isinstance(recovered['recoveredPid'], int) or recovered['recoveredPid'] <= 0 or
+            recovered['recoveredPid'] == row['pid']):
+        raise AssertionError('Recovery did not use a new process')
+    (args.evidence / 'recovered-checkpoint.json').write_text(json.dumps(recovered, indent=2) + '\n')
+    (args.evidence / 'continuity.txt').write_text(
+        'PASS: actual process death, full fixture wallet/backend continuity, exact cached original, '
+        'unsent typed draft and uncertain original under unavailable Archive, zero transmissions.\n')
+except BaseException as failure:
+    primary = failure
+    raise
+finally:
+    # Capture only public synthetic screenshots, never the encrypted installation snapshot.
+    try:
+        with (args.evidence / 'images.tar').open('wb') as output:
+            result = subprocess.run(['adb', 'exec-out', 'run-as', package, 'tar', '-C', 'cache', '-cf', '-',
+                                     'private-chat-process-evidence'], stdout=output, stderr=subprocess.PIPE, timeout=10)
+        (args.evidence / 'capture-status.txt').write_text(str(result.returncode) + '\n' +
+                                                       result.stderr.decode('utf-8', errors='replace'))
+    except (OSError, subprocess.TimeoutExpired):
+        pass  # Diagnostics must preserve the original failure.
+    try:
+        result = instrument('restoreOriginalEncryptedInstallationFiles', 'restored.txt')
+        if 'OK (1 test)' not in result.stdout:
+            raise AssertionError('Original installation restoration failed')
+    except BaseException as restoration:
+        if primary is None:
+            raise
+        primary.add_note('Installation restoration also failed: ' + type(restoration).__name__)

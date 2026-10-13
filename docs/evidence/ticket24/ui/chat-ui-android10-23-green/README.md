@@ -1,0 +1,3 @@
+# Readable private reply checkpoint
+
+Run38440738532/source3312cb44aa43d134f4345e080b8e28116ac71b01, Android10:23PASS107.878s/core86. Root36XML plus original web-quoted-private-reply-recreated.png and literal-private-markup-recreated.png inspected. Quote is readable; typed body remains literal. Exact original envelope/raw plaintext persist through Activity recreation with unavailable Archive. Existing paging/draft/Retry/mute/block/send cases also pass. Shared generic screenshots remain attributed only to their final overwriting case. No actual process-death, physical-device or whole-ticket acceptance. Preview11 remains earlier sourcea36972f.

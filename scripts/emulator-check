@@ -88,6 +88,7 @@ if [[ "${TEST_SCOPE:-full}" == chat-public* ]]; then
 fi
 if [[ "${TEST_SCOPE:-full}" == chat-ui* ]]; then
     verify_private_chat_ui
+    python3 "$repo_dir/scripts/private-chat-process-check" --evidence "$evidence/private-chat-process"
     printf '%s\n' 'Focused private Chat native UI only; full acceptance and live publication not run.' > "$evidence/scope.txt"
     exit 0
 fi
@@ -99,6 +100,7 @@ fi
 if [[ "${TEST_SCOPE:-full}" == full ]]; then
     verify_private_chat
     verify_private_chat_ui
+    python3 "$repo_dir/scripts/private-chat-process-check" --evidence "$evidence/private-chat-process"
     if [[ "${TEST_PUBLIC_FEED_READ:-0}" == 1 ]]; then verify_public_private_chat; fi
 fi
 verify_browse() {
