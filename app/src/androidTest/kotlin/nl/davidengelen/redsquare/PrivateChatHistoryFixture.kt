@@ -15,10 +15,11 @@ import nl.davidengelen.redsquare.saito.*
 import java.io.File
 
 internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
-    enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL, LIST_LIVE, PARTIAL_KEYS, STORAGE_PARTIAL, OTHER_LIVE, MENTIONED, MENTIONED_OUTGOING, MUTED, BLOCKED, UNKNOWN_RETRY, PENDING_IMPORT, DRAFT_NAVIGATION, OLDER_HISTORY, QUOTED_REPLY, LITERAL_MARKUP, UNREADABLE_RECENT_HISTORY, NATIVE_REPLY, NATIVE_REPLY_ZERO, LIKE, INCOMING_LIKE, CONCURRENT_LIKE, REACTION_RETRY, REACTION_BACKENDS, REACTION_WALLETS }
+    enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL, LIST_LIVE, PARTIAL_KEYS, STORAGE_PARTIAL, OTHER_LIVE, MENTIONED, MENTIONED_OUTGOING, MUTED, BLOCKED, UNKNOWN_RETRY, PENDING_IMPORT, DRAFT_NAVIGATION, OLDER_HISTORY, QUOTED_REPLY, LITERAL_MARKUP, UNREADABLE_RECENT_HISTORY, NATIVE_REPLY, NATIVE_REPLY_ZERO, LIKE, INCOMING_LIKE, CONCURRENT_LIKE, REACTION_RETRY, REACTION_BACKENDS, REACTION_WALLETS, ARCHIVED_LIKE }
 
     fun exerciseHistory(case: HistoryCase) {
         val concurrentLike = case == HistoryCase.CONCURRENT_LIKE
+        val archivedLike = case == HistoryCase.ARCHIVED_LIKE
         val reactionWallets = case == HistoryCase.REACTION_WALLETS
         val reactionBackends = case == HistoryCase.REACTION_BACKENDS
         val reactionRetry = case == HistoryCase.REACTION_RETRY
@@ -55,7 +56,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
         }).bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
         val likeReference = if (liking) instrumentation.context.assets.open("native-private-chat-like-reference.json")
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject } else null
-        val incomingLikeReference = if (incomingLike || concurrentLike) instrumentation.context.assets.open("incoming-private-like-reference.json")
+        val incomingLikeReference = if (incomingLike || concurrentLike || archivedLike) instrumentation.context.assets.open("incoming-private-like-reference.json")
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject } else null
         val vectors = fixture.getAsJsonArray("vectors")
         val reference = vectors[when {
@@ -185,6 +186,10 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                 else if (historyPruned.get() || live) "[]"
                 else JsonArray().apply {
                     add(JsonObject().apply { addProperty("tx", reference.get("archiveEnvelope").asString) })
+                    if (archivedLike) repeat(2) {
+                        add(JsonObject().apply { addProperty("tx", requireNotNull(incomingLikeReference)
+                            .getAsJsonArray("vectors")[0].asJsonObject.get("archiveEnvelope").asString) })
+                    } // An available source can return the same original more than once.
                     if (storagePartial) add(JsonObject().apply { addProperty("tx", vectors[2].asJsonObject.get("archiveEnvelope").asString) })
                 }.toString()
             } else if (alternateMessage != null && criteria.get("field3")?.asString ==
@@ -304,6 +309,34 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                         }
                         waitFor(text)
                         ui.onNodeWithText(text).assertIsDisplayed()
+                        if (archivedLike) {
+                            waitFor("1 like")
+                            waitForEnabled("Like")
+                            ui.onNodeWithText("1 like").assertIsDisplayed()
+                            ui.onAllNodesWithText(context.getString(R.string.chat_incomplete)).assertCountEquals(0)
+                            check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/available-private-reaction.png"), text)
+                            historyUnavailable.set(true)
+                            scenario.recreate()
+                            waitFor(counterpart)
+                            ui.onNodeWithText(counterpart).performClick()
+                            waitFor(context.getString(R.string.chat_load_error))
+                            waitFor("1 like")
+                            waitForEnabled("Like")
+                            ui.onNodeWithText(text).assertIsDisplayed()
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/available-private-reaction-cached.png"), text)
+                            historyUnavailable.set(false)
+                            ui.onNodeWithText("Refresh").assertIsEnabled().performClick()
+                            waitForEnabled("Refresh")
+                            ui.onNodeWithText("1 like").assertIsDisplayed()
+                            ui.onAllNodesWithText(context.getString(R.string.chat_incomplete)).assertCountEquals(0)
+                            check(store.loadOrCreate().exportJson() == wallet.exportJson())
+                            check(AndroidBackendStore(context).load() == SaitoBackend.OWNER)
+                            check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty() && peer.reports.isEmpty())
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/available-private-reaction-refreshed.png"), text)
+                            peer.assertHealthy()
+                            return@withFailureCapture
+                        }
                         if (reactionWallets) {
                             val expected = requireNotNull(likeReference).getAsJsonArray("vectors")[0].asJsonObject
                             waitFor(context.getString(R.string.chat_reaction_unknown))

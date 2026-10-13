@@ -30,4 +30,6 @@ class PrivateChatActionsPreviewTest {
         history.exerciseHistory(HistoryCase.REACTION_BACKENDS)
     @Test fun replacingTheActiveWalletHidesOtherIdentityReactionsAndRetainsTheirExactOriginal() =
         history.exerciseHistory(HistoryCase.REACTION_WALLETS)
+    @Test fun authenticatedAvailableReactionsDeduplicateAndSurviveAnUnavailableArchive() =
+        history.exerciseHistory(HistoryCase.ARCHIVED_LIKE)
 }
