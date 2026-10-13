@@ -518,3 +518,16 @@ Prior finding resolved; zero new documented breaches or actionable smell finding
 Zero actionable findings. Conservative detection supports the outgoing-wallet pending-work acknowledgement safeguard without trusting temporary contents as a valid transaction. Exact wallet/backend family restrictions remain. No send, signing or replacement mutation occurs. Current native runs cannot establish execution of this new branch; whole-ticket acceptance remains pending.
 
 Findings: Standards 0; Spec 0. Local test APK compilation subsequently passes in 2m50s, exit 0. Native verification of the corrected source remains pending.
+
+
+## Saved-work GREEN evidence and preview delivery, a36972f...469aa30
+
+### Standards
+
+Zero documented breaches and zero actionable smell findings. Four retained runs match the claimed source and 19 passing cases, each with28 valid XML captures; all244 evidence manifest records and six preview records verify. The .new branch is explicitly not synthesized by these tests. Public certificate information only is retained. Wrapper143 is separated from exact owned-container exit0, guarded resumed signing and absence of overlapping builds. HTTP403 has no unsupported cause. Preview remains explicitly unfinished.
+
+### Spec
+
+Zero actionable findings. Runs483d8fe10/17 pass19 in86.234/125.327 seconds; correcteda36972f10/17 pass19 in89.353/142.351 seconds. Warning, disabled confirmation, cancellation retaining the durable original and zero sends are accurately qualified. Preview0.1.11 matches requested early review delivery: source, package, version, certificate and hosted33,283,884-byte checksum agree. No private signing material, physical-installation proof, actual process-death claim or whole-ticket completion appears.
+
+Findings: Standards 0; Spec 0.

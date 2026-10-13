@@ -3,6 +3,8 @@ package nl.davidengelen.redsquare
 import android.content.Intent
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.text.AnnotatedString
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.gson.JsonArray
@@ -74,7 +76,7 @@ class PrivateChatPreviewTest {
         }
     }
 
-    private enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL, LIST_LIVE, PARTIAL_KEYS, STORAGE_PARTIAL, OTHER_LIVE, MENTIONED, MENTIONED_OUTGOING, MUTED, BLOCKED, UNKNOWN_RETRY, PENDING_IMPORT }
+    private enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL, LIST_LIVE, PARTIAL_KEYS, STORAGE_PARTIAL, OTHER_LIVE, MENTIONED, MENTIONED_OUTGOING, MUTED, BLOCKED, UNKNOWN_RETRY, PENDING_IMPORT, DRAFT_NAVIGATION }
 
     @Test fun anImportedContactOpensItsAvailableAuthenticatedPrivateHistory() = exerciseHistory(HistoryCase.AVAILABLE)
 
@@ -111,6 +113,8 @@ class PrivateChatPreviewTest {
     @Test fun anUncertainPrivateMessageRetriesTheSavedOriginalOnlyAfterAnExplicitTap() = exerciseHistory(HistoryCase.UNKNOWN_RETRY)
 
     @Test fun walletReplacementExplainsUncertainChatWorkBeforeConfirmation() = exerciseHistory(HistoryCase.PENDING_IMPORT)
+
+    @Test fun leavingAConversationPreservesItsUnsentDraftAndDoesNotRestoreErasedText() = exerciseHistory(HistoryCase.DRAFT_NAVIGATION)
 
     private fun exerciseHistory(case: HistoryCase) {
         val storagePartial = case == HistoryCase.STORAGE_PARTIAL
@@ -304,6 +308,40 @@ class PrivateChatPreviewTest {
                         }
                         waitFor(text)
                         ui.onNodeWithText(text).assertIsDisplayed()
+                        if (case == HistoryCase.DRAFT_NAVIGATION) {
+                            val draft = "Unsent private draft 😀 <&>\nsecond line"
+                            waitForEnabled("Message")
+                            ui.onNodeWithText("Message").performTextInput(draft)
+                            ui.onNodeWithText("Back").performClick()
+                            waitFor(counterpart)
+                            ui.onNodeWithText(counterpart).performClick()
+                            waitForEnabled("Message")
+                            ui.onNode(hasSetTextAction()).assert(SemanticsMatcher.expectValue(
+                                SemanticsProperties.EditableText, AnnotatedString(draft)))
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/unsent-private-draft-reopened.png"), draft)
+                            ui.onNode(hasSetTextAction()).performTextClearance()
+                            ui.onNodeWithText("Back").performClick()
+                            waitFor(counterpart)
+                            ui.onNodeWithText(counterpart).performClick()
+                            waitForEnabled("Message")
+                            ui.onNode(hasSetTextAction()).assert(SemanticsMatcher.expectValue(
+                                SemanticsProperties.EditableText, AnnotatedString("")))
+                            historyUnavailable.set(true)
+                            scenario.recreate()
+                            waitFor(counterpart)
+                            ui.onNodeWithText(counterpart).performClick()
+                            waitFor(context.getString(R.string.chat_load_error))
+                            waitForEnabled("Message")
+                            ui.onNode(hasSetTextAction()).assert(SemanticsMatcher.expectValue(
+                                SemanticsProperties.EditableText, AnnotatedString("")))
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/erased-private-draft-recreated.png"),
+                                context.getString(R.string.chat_load_error))
+                            check(AndroidWalletStore(context).loadOrCreate().exportJson() == wallet.exportJson())
+                            check(AndroidBackendStore(context).load() == SaitoBackend.OWNER)
+                            check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
+                            peer.assertHealthy()
+                            return@withFailureCapture
+                        }
                         if (pendingImport) {
                             waitFor(context.getString(R.string.chat_send_unknown))
                             check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())

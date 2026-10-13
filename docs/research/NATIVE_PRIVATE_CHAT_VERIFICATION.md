@@ -528,3 +528,8 @@ Unfinished-save correction 8a85351 passes local test APK compilation in 2m50s, e
 Corrected sourcea36972f native19 GREEN: Android10run38397754389 passes19cases89.353s; Android17run38425643202 passes19cases142.351s, core86 each. Earlier483d8fe checkpoints also pass19:10run38396927158 86.234s,17run38396930802 125.327s. Root28XML and unique wallet-warning original per run inspected. Exact original after cancellation/no sends pass. .new branch is source-reviewed, not specifically synthesized by this UI case. Whole-ticket and actual process death remain unproved.
 
 Owner requested a first current preview. Signed0.1.11/sourcea36972f now published at the stable review page, exact hosted checksum/signing/version verified. Preview is explicitly unfinished; physical installation is not claimed. Durable delivery record docs/evidence/previews/11.
+
+
+Early preview/evidence bounded review a36972f...469aa30: Standards0; Spec0. Next20-case tracer exercises actual unsent composer text across immediate Back/reopen, erasure/Back/reopen and Activity recreation with unavailable history, requiring no transmissions and unchanged identity/backend. No artificial sleep to wait out autosave is inserted. Current source's composition-owned300ms debounce may lose edits on navigation; this is a source concern, not yet a reproduced native defect. Test APK compilation is running; actual native result precedes any minimum.
+
+Draft-navigation20-case tracer local test APK compilation PASS1m57s/exit0. Product source unchanged from previewa36972f. Native result and bounded review pending; no draft fix or actual process-death claim.
