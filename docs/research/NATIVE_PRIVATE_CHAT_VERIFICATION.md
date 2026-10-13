@@ -447,3 +447,16 @@ restored-secret tail finds twointentionallysameplaintext independent signedmessa
 newsend/retention steps reached; no wholeGREEN claimed. Correctedtest exactlyone
 textbeforesecret/exactlytwoafter retainsallrequirements; compiled1m39s withnew
 storagewarning tracer. Actual12caseRED next, sourcewarning minimumnotyetapplied.
+
+Actualstorage-partial RED10run38360615490 atecc3d56 reports12cases/11PASS+1fail
+70.118s line239 missingpartialhint whenavailablequeryincludesundecryptablerow
+andcachefails. RootfourteenXMLs/failureandrestored-key originals inspected.
+Correctedpartial-keycase nowPASS, including ciphertextpreservation/restoredtwo
+sameplaintext originals; no additionaltransmissions. Minimalwarning appliedbefore
+persistencetry, combinescachedpartialacrossRefresh, wallet/backend/conversation
+scopedreset; strongeroffline-refreshwarningassertionadded. APKbuildpending.
+
+Independentpartial-warning correction debug/testAPK PASS3m3s, coreunchanged85
+(not rerun locally). Actual12caseGREEN10+17 and bothboundedreviews next.
+OfflineRefresh assertionstrengthens warningretention; matchingrestoredwallet
+resetswarningscope, cacheoriginalpreservation/newfullverification unchanged.

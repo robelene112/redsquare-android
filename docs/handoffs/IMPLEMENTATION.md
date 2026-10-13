@@ -88,7 +88,7 @@ GREENclaim. Correctedtest requires1beforekeys/2after, allrequirementskept.
 Spec4f9...59ba0; Standards1partialArchivewarningappliedonlyonsuccessfulcachesave.
 New12case storage-partial tracer compiles1m46/correctedfixture1m39: available
 implicit+missing-secret exchangedrows/localwritefailure mustshowpartialwarning.
-Sourceunchanged59ba616; actual12caseRED next. Keepwarningfix separate from new
+Sourceunchanged59ba616 at ecc3d56; actual12caseRED38360615490 11PASS+1failure70.118s line239 missingpartialhint. Root14XML/failure+restored-key originalsinspected. Correctedpartial-keycase PASS includingrestoredciphertext. Minimalwarningbeforewrite/retainedofflineRefresh/wallet-backend-scope debug/testAPK PASS3m3s(coreunchanged85), actual12caseGREEN10+17/reviews next. Keepwarningfix separate from new
 source recovery already reachingrestoration; no actualprocessdeath/fullacceptance.
 
 Remaining #25: live incoming while a different conversation is selected; available older-history paging; Block hides incoming/Mute keeps

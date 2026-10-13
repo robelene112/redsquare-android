@@ -337,3 +337,15 @@ from persistence. Zero actionable heuristics;30RED records/build verify.
 
 Zero findings; cached partial-key preservation resolved in source.563 UI hashes
 verify; stronger restored-secret tail/RED qualification accurate. NativeGREENpending.
+
+## Corrected restored-key / warning tracer review59ba616...ecc3d56
+
+### Standards
+
+Zero new hard findings or heuristics.30attemptrecords/twocompile logsverify; exact
+body cardinality corrected without relaxing recovery/storage/assertions.
+
+### Spec
+
+Zero new findings.595 UI hashes/13XMLs/originalsverify. Known warning source
+remainspending genuineRED; no acceptance inferred from first fixture failure.

@@ -274,6 +274,7 @@ class PrivateChatPreviewTest {
                             waitFor("Could not load chats. Check your connection and try Refresh.")
                             waitFor(text)
                             ui.onNodeWithText(text).assertIsDisplayed()
+                            if (storagePartial) ui.onNodeWithText(context.getString(R.string.chat_incomplete)).assertIsDisplayed()
                             captureNativeScreen(File(context.cacheDir, "private-chat-evidence/memory-after-save-failure.png"), text)
                             historyUnavailable.set(false)
                             historyPruned.set(true)

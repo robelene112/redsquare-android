@@ -41,7 +41,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     var entries by remember(wallet.publicKey, backend, counterparty) { mutableStateOf<List<ChatHistoryStore.Entry>>(emptyList()) }
     var loading by remember(counterparty) { mutableStateOf(false) }
     var failed by remember(counterparty) { mutableStateOf(false) }
-    var incomplete by remember(counterparty) { mutableStateOf(false) }
+    var incomplete by remember(wallet, backend, counterparty) { mutableStateOf(false) }
     var cacheFailed by remember(counterparty) { mutableStateOf(false) }
     var refresh by remember { mutableIntStateOf(0) }
 
@@ -117,7 +117,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
             val savedIds = cached.entries.map { it.message.id }.toSet()
             cacheFailed = entries.any { it.message.id !in savedIds }
             entries = ChatHistoryStore.merge(entries, cached.entries)
-            incomplete = cached.incomplete
+            incomplete = incomplete || cached.incomplete
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { cacheFailed = true }
         try {
@@ -145,6 +145,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                                 loadPrivateHistory(peer, wallet, PrivateChat.conversationId(wallet.publicKey, contact))
                             }
                             entries = ChatHistoryStore.merge(entries, page.first.map { ChatHistoryStore.Entry(it.envelope, it.message) })
+                            incomplete = incomplete || page.second
                             try {
                                 val saved = withContext(Dispatchers.IO) { cache.save(entries.map { it.envelope }) }
                                 entries = ChatHistoryStore.merge(entries, saved.entries)
