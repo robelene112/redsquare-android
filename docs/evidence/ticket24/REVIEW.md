@@ -407,3 +407,15 @@ Zero documented breaches and zero actionable smell findings. Removing the earlyr
 Zero actionable findings. Selected Refresh canrecompute staleloaderrors while listreturn stilldiscovers savedcontacts. Both source53fd84b attempts13/11PASS+2line311failures; othercontactpasses. Both15XMLparse/parentmanifestverifies. Secondcontact10recreation qualifiedcachedtextwhileLoading, notcompletedArchive. Mention/markupfindings remainunresolved; GREEN/processdeath/wholeacceptancepending.
 
 Findings: Standards0; Spec0.
+
+## Existing-client mention protocol correction, dd02415...5716d23
+
+### Standards
+
+Zero documented breaches and zero actionable smell findings. Core preserves originalsignature/participantaddressing/decryption/canonicalpair, own-authored recoveryacceptsunique decodedcounterpart. Independentclient vectors coverbothdirections/originalpreservation/wronggroup/thirdwalletdenial. RetainedXML10/oneRED then10GREEN. Threecorpora56ad...match; originalfourvectors/malformedcasesmatchexistingcorpus. Optionalmode respondsdemonstratedcompatibilityneed. DocsseparateprotocolGREEN frompendingnativecache/wholeacceptance.
+
+### Spec
+
+Zero new actionable findings. Participant-subset validation implements pinned encrypted DM outside mentions; signature/author/addressing/decrypt/canonicalpair remainmandatory, extraoutputs stayoutsideconversation. Vectorsbothdirections preservesignedoriginal/group/text, rejectwrongexpectedgroup/thirdwalletaccess; copies/hashmanifestmatch. Prior13case nativeGREEN correctlyreferencesdd02415 with15XMLeach. Newnativecachetracer anduncorrectedcachevalidatorseparated. NativeGREEN/replydisplay/wholeacceptancepending.
+
+Findings: Standards0; Spec0.

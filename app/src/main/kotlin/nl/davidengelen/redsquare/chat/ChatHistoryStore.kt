@@ -29,7 +29,7 @@ internal class ChatHistoryStore(context: Context, private val wallet: SaitoWalle
     private fun authenticated(envelope: String): VerifiedSaitoPayload {
         val signed = SaitoEnvelope.decodePayload(envelope)
         val participants = setOf(wallet.publicKey, counterparty)
-        require(signed.author in participants && signed.recipients.toSet() == participants)
+        require(signed.author in participants && signed.recipients.containsAll(participants))
         require(signed.body.isJsonPrimitive && signed.body.asJsonPrimitive.isString)
         return signed
     }
