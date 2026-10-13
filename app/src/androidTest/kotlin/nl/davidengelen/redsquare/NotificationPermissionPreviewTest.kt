@@ -11,7 +11,6 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.Until
-import nl.davidengelen.redsquare.saito.AndroidWalletStore
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
