@@ -1240,3 +1240,18 @@ Viewportcorrection47907fe localtestAPK1m30PASS/bothreviews0. Correctedfull10
 run38329490846 at47907fe active/public_feed_read=true; sourceequivalent68633d9/
 originalfull17ata564. Originalfull17run38328912121 remainsactive. No source
 change or copiedacceptance from unfinishedruns.
+
+Secondfull10run38329490846 at47907fe passescorrectedbrowse/following/posting/
+postqueue, then existingSocialProcessRecoveryTest.prepare waits20s RetryLike:69
+andfails1/21.424s beforeactualdeath/checkpoint. Legacyfailurepath hasnoPNG/XML/
+counters, so causeunproved. Oneoriginalrunnerhashretained.805beea actualLike
+scroll/displaybeforeclick+Retryscroll/displaybothphases, unchanged20waits/oneTX/
+exactcandidate/actualkill/coldnorebroadcast; in-scopePNG/XML/publiccounts added.
+d2d6947 hostfinallyretainsdiagnosticswithoutmaskingprimaryfailure. Bothreviews0/
+localAPK1m30PASS; no app/core/ref changes, hostdiagnostics-only. Focusedsocial10
+run38330457957 pending; originalfull17run38328912121 continues.
+
+Issue24 automaticallyclosed00:05:48Z fromcleanupcommitbfd0906 wording
+"activity closes #24". Rootreopenedandcommented6135745505 whileactualfinal
+acceptanceunfinished. Avoid GitHubclosingkeywords in interimcommitmessages.
+Currentcompletedcountremains19/35; issue24 isopenuntilactualacceptancecomplete.

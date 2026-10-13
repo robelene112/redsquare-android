@@ -779,3 +779,20 @@ Conversation/all31prior/actualcold/OSsettings limits preserved. Scrolling doesno
 relax display/navigation/recovery acceptance. Laterfullsuites notexecutedinfailed
 10run38328911797; retain17run38328912121 iffullpasses, perWORKFLOW companionrule.
 Correctedfull10runpending; no finalclosureclaim.
+
+## Existing social process fixture and retained diagnostics
+
+### Standards
+
+`8c28e06...d2d6947`: zero hard/actionableheuristics. Actualscroll/display gates
+preserve Like/Retry20s, onebroadcast/exactcandidate/death/reconciliation assertions.
+Publiccountdiagnostics andhostfinally preserveprimaryfailures. OneREDhash verifies
+1preparationfailure21.424s/noOK/nodeath; causeunproven/nooriginalPNG/XML/counters.
+No app/core/reference changes or weakenedtimeouts.
+
+### Spec
+
+Zero findings. Diagnosticcapture beforeActivityclosure, independenthostcapture,
+no false viewport/protocol cause or later-suite/death/checkpoint claim. Local
+fixtureAPK1m30PASS. Focusedsocial10run38330457957 atd2d6947 active; full17
+run38328912121 ata564 continues/sameproduction686, possiblecompanionifallpasses.

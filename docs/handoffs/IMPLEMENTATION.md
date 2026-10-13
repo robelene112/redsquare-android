@@ -42,14 +42,21 @@ originalparentPNG. Othercapturedoriginals retainedwithoutnewvisualclaims. Previo
 bothSDKactualpermission/deathproof atsource0ef7b41 accepted:10run38326981751/
 17run38327322258,101+106hashes/46+48XML/root7+9originalPNGs, bothevidenceaxes0.
 
-InitialfullAndroid10run38328911797 at a5648ee FAILEDfirstbrowse8/7PASS/one
-existingcachedrootnotdisplayed:443/20.442s/zeroOK/deaths; core74/release/lintpass.
-InneroriginalPNGshowscachedauthorbottom/bodybelowviewport, outerblankafterclosed
-Activityqualified/nolegacyXML. Threehashes.47907fe ordinaryscroll beforeunchanged
-display/navigation/recovery assertions, bothreviews0/noapp/core/reference/harness/
-workflowchange. LocalAPK1m30PASS. Correctedfull10run38329490846 at47907fe active,
-publicreadsoptedin. Originalfull17run38328912121 ata564 remainsactive; mayretain
-ifallgatespassunderWORKFLOW companionrule, sameproduction68633d9. No source mutation until theseacceptance runsfinish;
+Initialfull10run38328911797 failedfirstbrowse cachedrootnotdisplayed;47907fe
+ordinaryscroll correctionbothreviews0/localAPK1m30PASS. Secondfull10run38329490846
+at47907fe passesbrowse/following/posting/postqueue, then existingSocialProcess
+prepare timesoutRetryLike:69/1fail21.424s beforedeath/checkpoint. Nooriginal
+PNG/XML/counters, causeUNPROVEN/onerunnerhash.805beea actualLike/Retryscroll+
+displaygatesbothphases andin-scopecapture/publiccounts; d2d6947 hostdiagnostic
+finallyretainsimages preservingprimaryfailure. No app/core/refchanges, hostonly
+capture. Bothreviews0/localAPK1m30PASS. Focusedsocial10run38330457957 active,
+then correctedfull10required. Originalfull17run38328912121 ata564 stillactive;
+mayretainifallgatespasswithsameproduction686/unchangedacceptance assertions.
+
+Issue24 accidentalautoclosefrombfd0906 wording "activity closes #24" discovered:
+rootREOPENED/comment6135745505. Still19/35closed; do notmark24completeuntil
+actualfinalfullproof. Avoid closingkeywords in interimcommitmessages.
+No source mutation until theseacceptance runsfinish;
 docs-only evidence changes permitted. Complete actualcounts/PNG/XML/continuity/
 release/lint/publicfeeds/finaltwo-axis evidence, then close#24 and move#25.
 Ready#25 read-onlyscope: encryptedprivateChat send/receive/history/blockpolicy/
