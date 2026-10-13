@@ -375,4 +375,12 @@
     <string name="notifications_more">Load more activity</string>
     <string name="notifications_paging_warning">Some older activity could not be reached here. Try Refresh.</string>
     <string name="notifications_history_limit">This phone keeps a limited notification history. Refresh to check recent activity.</string>
+    <string name="chat_title">Chat</string>
+    <string name="chat_private">Private messages are encrypted.</string>
+    <string name="chat_available_history">Only available history is shown. Older messages may be unavailable.</string>
+    <string name="chat_empty">No saved private chats.</string>
+    <string name="chat_loading">Loading messages...</string>
+    <string name="chat_no_messages">No available messages in this conversation.</string>
+    <string name="chat_load_error">Could not load chats. Check your connection and try Refresh.</string>
+    <string name="chat_incomplete">Some messages could not be read. Your wallet backup may contain additional Chat keys.</string>
 </resources>

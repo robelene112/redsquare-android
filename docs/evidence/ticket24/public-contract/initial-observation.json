@@ -1,0 +1,58 @@
+[
+  {
+    "backend": "owner",
+    "endpoint": "wss://saito.davidengelen.nl/wsopen",
+    "observedAt": 1791860286030,
+    "freshThrowawayIdentity": true,
+    "authenticated": true,
+    "peerKey": "tRFyaSvHix3HDHguPRcb7cLooiTnBKquFgahkuScxfrg",
+    "services": [
+      "arcade",
+      "archive",
+      "chat",
+      "Explorer",
+      "relay",
+      "redsquare",
+      "registry"
+    ],
+    "archiveLoadAccepted": true,
+    "rows": 0,
+    "hasArchive": true,
+    "hasRelay": true
+  },
+  {
+    "backend": "official",
+    "endpoint": "wss://saito.io/wsopen",
+    "observedAt": 1791860286800,
+    "freshThrowawayIdentity": true,
+    "authenticated": true,
+    "peerKey": "wnUrrEMtWhwwpULFdeWBto8McZzcydqvpJpfEgLQJx2g",
+    "services": [
+      "arcade",
+      "archive",
+      "bugs",
+      "chat",
+      "egld",
+      "Explorer",
+      "faucet",
+      "giphy",
+      "graffiti: board",
+      "league",
+      "mailrelay",
+      "mixin",
+      "modtools",
+      "popup",
+      "recovery",
+      "redsquare",
+      "registry",
+      "relay",
+      "stack",
+      "Store",
+      "vault"
+    ],
+    "archiveLoadAccepted": true,
+    "rows": 0,
+    "hasArchive": true,
+    "hasRelay": true
+  }
+]

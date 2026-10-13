@@ -67,3 +67,21 @@ Actual10run38338221475 at3c35a77 PASS2/0.788s/oneOK/noassumptions/deaths,
 core82/source gates; four hashes/no UI captures/durable-cache proof. First
 imported-contact native UI tracer compiled1m43; primary-preserving independent
 cleanup strengthened and compiled1m26. Missing Chat UI runtime RED next.
+
+Actual first UI RED10run38339184559 at6df3ef0:1failure18.154s/zeroOK/deaths/
+assumptions, line66 waitingChat beforecontact/history. Core82/source pass;
+five hashes/rootoriginal PNG+XMLconfirmOwner feed/noChat entry. Cleanup restored
+opaque wallet without maskingprimaryfailure. Minimum imported-contact/read UI
+now source-building. Chat/read rows remain authenticated and personalBlock
+filtered; no privatecache/send/liveUI acceptance yet.
+Read-only public probe bothbackendTLS/nonceauth/Chat+Archive+Relay/field3 load
+accepted0rows; initialdiagnostic and explicitUTF8repeat retained. Pure pinnedWASM
+helper now canonicalbuild-support/references/private-chat-public-read.cjs. No
+userkeys/privatechat payloads/writes/nodechanges. This is contract research, not
+actual nativeChat/publicdelivery or nonemptyhistory proof.
+
+Minimum Chat entry/contactlist/verified availableArchive history source core82/
+debug/testAPK3m34PASS. All imported public contacts considered with LazyColumn;
+legacyfield and groups excluded through narrow walletmetadata API, secrets not
+exposed. Messages authenticate/decrypt/dedup beforedisplay; Block filtersincoming
+while Mute doesnot. UI GREEN next; nocache/send/push/fullacceptance claim.

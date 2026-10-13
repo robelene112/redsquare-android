@@ -48,7 +48,13 @@ core RED31s→GREEN8/1m2s validates original/forgedinner rejection. Incoming
 socket callback RED2m7s→minimum source core82/debug/testAPK3m12s PASS. Incoming source099...3c35 both axes0codefindings; handoff untracked note fixed.
 Actual10run38338221475 PASS2/0.788s/oneOK/noassumptions/deaths/core82; four
 hashes/no UI or durable-cache proof. First available-history UI tracer compiled
-1m43/cleanup1m26; missingChat UI runtime RED next; UI/privatecache/send/backend/recovery pending. Chronology NATIVE_PRIVATE_CHAT_VERIFICATION.md.
+1m43/cleanup1m26; missingChat UI runtime RED next; UI/privatecache/send/backend/recovery pending. First actualUIRED10run38339184559 at6df3ef0: missingChat beforecontact/history,
+1failure18.154s/zeroOK/deaths/assumptions/fivehashes/rootoriginalPNG+XML.
+Minimum Chat menu/contactlist/verified availableArchive reader core82/debug/
+testAPK3m34PASS; nativeGREEN next. Privatecache/send/recovery not implemented.
+Both public backends advertiseChat/Archive/Relay and accept freshunknownGroup
+load0rows in read-only nonce/TLS probe; no live writes or KotlinpublicDM claim.
+Chronology NATIVE_PRIVATE_CHAT_VERIFICATION.md.
 Private contract/reference/generator and native resources are committed with
 #25; NATIVE_GROUP_CHAT_CONTRACT remains protected for#26. Read-only
 preparation: .scratch/ticket25-readonly-plan.md. Chat signing must authenticate

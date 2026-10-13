@@ -69,6 +69,7 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
     var composing by rememberSaveable { mutableStateOf(false) }
     var reviewingQueue by rememberSaveable { mutableStateOf(false) }
     var reviewingChanges by rememberSaveable { mutableStateOf(false) }
+    var reviewingChat by rememberSaveable { mutableStateOf(false) }
     val navigationMemory = remember(activity, wallet?.publicKey, backend) {
         ViewModelProvider(activity)["browse:${wallet?.publicKey.orEmpty()}:${backend.id}", FeedNavigationMemory::class.java]
     }
@@ -183,6 +184,10 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
     LaunchedEffect(posts.isNotEmpty(), personal?.ready) {
         if (posts.isNotEmpty() && personal?.ready == true) { withFrameNanos { }; withFrameNanos { }; onDrawn() }
     }
+    if (reviewingChat && wallet != null) {
+        nl.davidengelen.redsquare.chat.ChatScreen(wallet, endpoint, backend, modifier) { reviewingChat = false }
+        return
+    }
     if (reviewingQueue && wallet != null) {
         QueuedPostsScreen(wallet.publicKey, backend, modifier) { reviewingQueue = false }
         return
@@ -271,6 +276,7 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
             Text(stringResource(R.string.notifications_title))
         }
         TextButton(enabled = wallet != null, onClick = { reviewingChanges = true }) { Text(stringResource(R.string.author_saved_changes)) }
+        TextButton(enabled = wallet != null, onClick = { reviewingChat = true }) { Text(stringResource(R.string.chat_title)) }
         val visiblePosts = posts.filter { post -> personal?.hidesPosts(post.author) == false &&
             (!followingView || post.author in following?.accounts.orEmpty()) }
         PersonalControlsStatus(personal)

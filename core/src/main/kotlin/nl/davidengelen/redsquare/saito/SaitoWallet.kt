@@ -92,10 +92,7 @@ class SaitoWallet private constructor(
         require(keys == null || keys.isJsonArray) { "Invalid saved Chat keys" }
         val entry = keys?.asJsonArray?.firstOrNull { value ->
             if (!value.isJsonObject) false else {
-                val row = value.asJsonObject
-                val address = row.get("publicKey")?.takeUnless { it.isJsonNull ||
-                    (it.isJsonPrimitive && it.asJsonPrimitive.isString && it.asString.isEmpty()) } ?: row.get("publickey")
-                address?.let { it.isJsonPrimitive && it.asJsonPrimitive.isString && it.asString == counterparty } == true
+                chatAddress(value.asJsonObject) == counterparty
             }
         }?.asJsonObject
         val saved = entry?.get("aes_secret")?.takeUnless { it.isJsonNull ||
@@ -107,6 +104,29 @@ class SaitoWallet private constructor(
             it.asString // CryptoJS treats this as a case-sensitive passphrase, not decoded key bytes.
         }
         return listOfNotNull(secret, chatSharedSecret(counterparty).joinToString("") { "%02x".format(it) })
+    }
+
+    /** Public contact discovery only; imported secret values never leave the wallet's crypto interface. */
+    fun chatContacts(): List<String> {
+        val keys = backupOptions?.get("keys") ?: return emptyList()
+        require(keys.isJsonArray) { "Invalid saved Chat contacts" }
+        return keys.asJsonArray.mapNotNull { element ->
+            if (!element.isJsonObject) return@mapNotNull null
+            val row = element.asJsonObject
+            if (row.get("type")?.let { it.isJsonPrimitive && it.asString == "group" } == true ||
+                row.get("group")?.let { !it.isJsonNull && it.toString() != "false" } == true) return@mapNotNull null
+            val added = row.get("added")?.let { it.isJsonPrimitive && it.asJsonPrimitive.isBoolean && it.asBoolean } == true
+            val shared = listOf("aes_secret", "aes_publicKey").any { name -> row.get(name)?.let {
+                it.isJsonPrimitive && it.asJsonPrimitive.isString && it.asString.isNotEmpty()
+            } == true }
+            chatAddress(row)?.takeIf { (added || shared) && it != publicKey && isPublicKey(it) }
+        }.distinct()
+    }
+
+    private fun chatAddress(row: JsonObject): String? {
+        val address = row.get("publicKey")?.takeUnless { it.isJsonNull ||
+            (it.isJsonPrimitive && it.asJsonPrimitive.isString && it.asString.isEmpty()) } ?: row.get("publickey")
+        return address?.takeIf { it.isJsonPrimitive && it.asJsonPrimitive.isString }?.asString
     }
 
     /** Contains private material. Only pass to protected storage or an authenticated export. */
