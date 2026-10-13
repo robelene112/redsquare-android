@@ -463,3 +463,6 @@ After publishing earlypreview11, new20case draft tracer0447c37 actualRED10run384
 
 
 Latest draft attempts: sourceab18713,10run38428616491 and17run38428621143 each20cases19PASS+line324contactwaittimeout119.358/119.542s/core86. Failure shows feed after secondBack; prior nonempty assertion did execute but first reopening was ambiguously matched by current conversation header. No erasure/recreated tail acceptance. Test-only positive list Public key readiness waits added afterbothBack; compiler running. Product remainsb2bc017; no GREEN. Preview11 staysa369.
+
+
+Latest20case sourcea306f3f: Android17run38430016172 GREEN20/136.043s/core86. Android10run38430012756 draftcase passes but separateRetry initialbodyassertline372 fails93.832s/19PASS. Root30/28XML and unique draft/failure originals inspected. Add test-only positive outgoingbody wait before strict scroll/assert; build running, no productchange. Next10 only needed; retain17 unchanged-production companion (does not execute newwait). Actual process death/older paging/reply display/isolation/public17/fullticket remain. Preview11sourcea369 still current; no newerAPK.
