@@ -53,8 +53,12 @@ capture. Bothreviews0/localAPK1m30PASS. Focusedsocial10run38330457957 atd2 PASSE
 3.680s/twoOK/core74/noassumptions.18hashes/oneXML/rootoriginalreconciledPNG:Owner/
 root/disabledLiked/2likes; duplicatebyte-equivalent/notindependent. Oldfailurecause
 stillunproven/exactPIDsnotretained. Correctedfull10run38330887204 atb80b878 active/
-publicreadsoptedin. Originalfull17run38328912121 ata564 stillactive;
-mayretainifallgatespasswithsameproduction686/unchangedacceptance assertions.
+publicreadsoptedin. Originalfull17run38328912121 ata564 PASSES237cases/55records/18deaths/
+noassumptions; core74/release/lintDebug/signed5->8/coldcontinuity/bothpublicreads.
+Notifications32/127.205s,OSAllow5.759/Deny5.660, notificationdeath12646->12721/
+cold1/4.472s.241hashes/53XML/root30originalPNGs qualifiedREADME. Sameproduction
+686; reviewedtestscroll/hostcapture-only changesretainpredicates, so maycompanion
+correctedfull10run38330887204 ifpasses. Actual10active; no24closureyet.
 
 Issue24 accidentalautoclosefrombfd0906 wording "activity closes #24" discovered:
 rootREOPENED/comment6135745505. Still19/35closed; do notmark24completeuntil

@@ -1,0 +1,2 @@
+PASS backend=owner observedAt=1791854507595 criteria={"request":"load","field1":"RedSquare","flagged_ne":1,"limit":100,"created_earlier_than":1791854503026} rows=100 posts=96 ignored=0
+PASS backend=owner observedAt=1791854507821 criteria={"request":"load","field1":"RedSquareRetweet","flagged_ne":1,"limit":100,"created_earlier_than":1791854507596} rows=17 posts=4 ignored=0

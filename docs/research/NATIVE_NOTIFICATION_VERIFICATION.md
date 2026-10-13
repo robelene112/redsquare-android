@@ -1264,3 +1264,14 @@ verifiesoldPIDdisappeared, exactcandidate/oneTX/coldsamewallet/zero rebroadcast;
 exactPIDsnotretained. OriginalRetrytimeoutcause remainsunproven. Bothreviews0/
 localAPK1m30PASS. Correctedfull10run38330887204 atb80b878 sourceequivalent686
 active/publictrue; originalfull17run38328912121 ata564 active.
+
+Finalfull17run38328912121 ata5648ee PASSES237cases/55completedrecords/18
+actualdeaths/noassumptions. Runtime32m55s; core74/release/lintDebug/debug/test/
+signed5->8/coldidentitycachecontinuity/bothpublicreads pass. Notifications32/
+127.205s,realAllow1/5.759/Deny1/5.660, actual12646->12721/cold1/4.472.241hashes/
+53XML/59PNG; rootallXML+30originals. Qualified croppedpublic/legacy/lateevent/
+prechoice-dialog claims in final-full/android17README. Bothpublic ordinary100rows
+96posts0ignored/Retweet17rows4commentaryposts0ignored/fresh0balance+funding.
+Productionequivalent686/current; laterreviewedtestscroll/hostdiagnostic changes
+retainpredicates. Complete17 maycompanioncorrected10run38330887204 underWORKFLOW
+ifpasses. Actual10stillactive; no24closure/Pixel/push/livewrites/permanenthistory.
