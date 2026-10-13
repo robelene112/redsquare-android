@@ -1,0 +1,106 @@
+package nl.davidengelen.redsquare
+
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
+import androidx.compose.ui.test.*
+import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
+import androidx.test.core.app.ActivityScenario
+import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.uiautomator.By
+import androidx.test.uiautomator.UiDevice
+import androidx.test.uiautomator.Until
+import nl.davidengelen.redsquare.saito.AndroidWalletStore
+import org.junit.Assert.*
+import org.junit.Rule
+import org.junit.Test
+import java.io.File
+
+/** Host invokes each OS choice separately, revoking between processes on API33+. */
+class NotificationPermissionPreviewTest {
+    @get:Rule val ui = createEmptyComposeRule()
+
+    @Test fun allowingAlertsKeepsInAppReadingOptional() = chooseAlerts(true)
+    @Test fun denyingAlertsKeepsInAppReadingAvailable() = chooseAlerts(false)
+
+    private fun chooseAlerts(allow: Boolean) {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        check(context.packageName == "nl.davidengelen.redsquare.dev")
+        check(Build.HARDWARE in listOf("ranchu", "goldfish"))
+        check(Build.VERSION.SDK_INT >= 33 || allow)
+        val store = AndroidWalletStore(context)
+        val original = store.loadOrCreate().exportJson()
+        val preferences = context.getSharedPreferences("notification-permission", 0)
+        val offered = if (preferences.contains("offered")) preferences.getBoolean("offered", false) else null
+        val peer = ControlledFeedPeer("[]", archiveResponse = { "[]" }, quoteArchiveResponse = { "[]" })
+        var primary: Throwable? = null
+        try {
+            check(preferences.edit().remove("offered").commit())
+            if (Build.VERSION.SDK_INT >= 33) assertEquals(PackageManager.PERMISSION_DENIED,
+                context.checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS))
+            peer.start().use { server ->
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                    .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                    .putExtra("feedDisabled", true)).use { scenario ->
+                    withFailureCapture({ captureNativeScreen(File(context.cacheDir,
+                        "notification-permission-evidence/${if (allow) "allow" else "deny"}-failure.png")) }) {
+                        waitFor("Notifications")
+                        ui.onAllNodesWithText("Not now").assertCountEquals(0)
+                        ui.onNodeWithText("Notifications").performClick()
+                        waitFor("Android notification alerts")
+                        ui.onNodeWithText("Enable alerts").performClick()
+                        val device = UiDevice.getInstance(instrumentation)
+                        if (Build.VERSION.SDK_INT >= 33) {
+                            val button = if (allow) "permission_allow_button" else "permission_deny_button"
+                            val selector = By.res("com.android.permissioncontroller", button)
+                            assertTrue("Android must display its real notification permission choice",
+                                device.wait(Until.hasObject(selector), 15_000))
+                            captureNativeScreen(File(context.cacheDir,
+                                "notification-permission-evidence/${if (allow) "allow" else "deny"}-system.png"))
+                            device.findObject(selector).click()
+                            ui.waitUntil(15_000) { context.checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) ==
+                                if (allow) PackageManager.PERMISSION_GRANTED else PackageManager.PERMISSION_DENIED }
+                        } else {
+                            assertTrue("Android10 must open actual notification settings",
+                                device.wait(Until.hasObject(By.pkg("com.android.settings")), 15_000))
+                            captureNativeScreen(File(context.cacheDir, "notification-permission-evidence/settings-system.png"))
+                            device.pressBack()
+                        }
+                        ui.waitUntil(15_000) { preferences.getBoolean("offered", false) }
+                        waitForEnabled("Refresh")
+                        ui.onAllNodesWithText("Not now").assertCountEquals(0)
+                        ui.onNodeWithText("Refresh").performClick()
+                        waitForEnabled("Refresh")
+                        captureNativeScreen(File(context.cacheDir,
+                            "notification-permission-evidence/${if (allow) "allow" else "deny"}-reading.png"), "Notifications")
+                        scenario.recreate()
+                        waitForEnabled("Refresh")
+                        ui.onAllNodesWithText("Not now").assertCountEquals(0)
+                        ui.onNodeWithText("Back").performClick()
+                        waitFor("Notifications")
+                        assertEquals(original, store.loadOrCreate().exportJson())
+                        peer.assertHealthy()
+                        assertTrue(peer.transactions.isEmpty()); assertTrue(peer.reports.isEmpty())
+                    }
+                }
+            }
+        } catch (failure: Throwable) { primary = failure; throw failure }
+        finally {
+            cleanupAfterTest(primary, {
+                val edit = preferences.edit()
+                if (offered == null) edit.remove("offered") else edit.putBoolean("offered", offered)
+                check(edit.commit())
+            }, { assertEquals(original, store.loadOrCreate().exportJson()) })
+        }
+    }
+
+    private fun waitFor(text: String) = ui.waitUntil(15_000) {
+        ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+    }
+    private fun waitForEnabled(text: String) = ui.waitUntil(15_000) {
+        ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+    }
+}

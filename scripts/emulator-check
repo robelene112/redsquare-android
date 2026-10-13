@@ -464,12 +464,34 @@ verify_notifications() {
         > "$evidence/notifications-evidence.tar" || true
     grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/notifications-ui.txt"
 }
+verify_notification_permission() {
+    [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+    local notification_api
+    notification_api="$(adb shell getprop ro.build.version.sdk | tr -d '\r')"
+    local notification_choice
+    for notification_choice in allowingAlertsKeepsInAppReadingOptional denyingAlertsKeepsInAppReadingAvailable; do
+        if [[ "$notification_api" -lt 33 && "$notification_choice" == denying* ]]; then continue; fi
+        if [[ "$notification_api" -ge 33 ]]; then
+            # Revocation can kill the target; do it between separate instrumentation processes.
+            adb shell pm revoke nl.davidengelen.redsquare.dev android.permission.POST_NOTIFICATIONS
+            adb shell pm clear-permission-flags nl.davidengelen.redsquare.dev android.permission.POST_NOTIFICATIONS user-set user-fixed
+        fi
+        timeout 90 adb shell am instrument -w -r \
+            -e class "nl.davidengelen.redsquare.NotificationPermissionPreviewTest#$notification_choice" \
+            nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+            > "$evidence/notification-permission-$notification_choice.txt" || true
+        adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - notification-permission-evidence \
+            > "$evidence/notification-permission-evidence.tar" || true
+        grep -q 'OK (1 test)' "$evidence/notification-permission-$notification_choice.txt" || return 1
+    done
+}
 if [[ "${TEST_SCOPE:-full}" == notifications* ]]; then
     verify_notifications
+    verify_notification_permission
     printf '%s\n' 'Focused in-app notifications check only; full acceptance and closed-app pushes not run.' > "$evidence/scope.txt"
     exit 0
 fi
-if [[ "${TEST_SCOPE:-full}" == full ]]; then verify_notifications; fi
+if [[ "${TEST_SCOPE:-full}" == full ]]; then verify_notifications; verify_notification_permission; fi
 verify_wallet_storage_recovery() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
     timeout 90 adb shell am instrument -w -r \
