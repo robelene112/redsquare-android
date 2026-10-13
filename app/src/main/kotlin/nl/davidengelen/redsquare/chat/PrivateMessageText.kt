@@ -13,10 +13,8 @@ import nl.davidengelen.redsquare.saito.SaitoWallet
 private val replyPrefix = Regex("""\A<blockquote href="([0-9A-HJ-NP-Za-km-z]{44,60})">(.*?)</blockquote>""",
     RegexOption.DOT_MATCHES_ALL)
 
-@Composable
-internal fun PrivateMessageText(original: String) {
-    val reply = remember(original) {
-        replyPrefix.find(original)?.takeIf { match ->
+private fun replyMatch(original: String): MatchResult? =
+    replyPrefix.find(original)?.takeIf { match ->
             val reference = match.groupValues[1]
             // Base58 keys have variable length and can end in digits. Try both valid lengths.
             listOf(43, 44).any { length ->
@@ -24,8 +22,14 @@ internal fun PrivateMessageText(original: String) {
                 SaitoWallet.isPublicKey(reference.take(length)) && timestamp.matches(Regex("[0-9]{1,16}")) &&
                     timestamp.toLongOrNull()?.let { it in 1..9_007_199_254_740_991L } == true
             }
-        }
     }
+
+internal fun privateMessageBody(original: String): String =
+    replyMatch(original)?.let { original.substring(it.range.last + 1) } ?: original
+
+@Composable
+internal fun PrivateMessageText(original: String) {
+    val reply = remember(original) { replyMatch(original) }
     Column {
         if (reply != null) {
             val quoted = remember(reply) {

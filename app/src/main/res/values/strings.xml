@@ -377,6 +377,9 @@
     <string name="notifications_history_limit">This phone keeps a limited notification history. Refresh to check recent activity.</string>
     <string name="chat_title">Chat</string>
     <string name="chat_message">Message</string>
+    <string name="chat_copy">Copy</string>
+    <string name="chat_copied">Copied</string>
+    <string name="chat_copy_error">Could not copy this message. Try again.</string>
     <string name="chat_send">Send</string>
     <string name="chat_send_unknown">Send status unknown. Your message is saved on this device.</string>
     <string name="chat_send_submitted">Submitted. Delivery is not confirmed.</string>

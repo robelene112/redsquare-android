@@ -633,3 +633,6 @@ Existing action contract sourceaudit f53b7788 verifiesbothpins' Reply/Copy and b
 
 
 Copytracer659a2cd8 localTestAPK PASS1m40s/exit0; bounded61e36d2d...659a2cd8reviews bothaxes0. NativeCopyRED38447070903 pending. Production remains85c8f1a3; Reply/Copy/reaction minimums stillunimplemented, switchisolation/finalfullSDKacceptance pending.
+
+
+ExplicitCopy actualRED38447070903/source659a2cd8:24cases23PASS plusmissingCopy atline379,109.851s/core86. Quote/body/readiness prerequisites execute; clipboardwrite/flag/cache-recreation tail andlaterprocessfixture do not. Root38XML/failureoriginal inspected. Minimum adds explicitCopy pervisiblemessage, reusesvalidatedreply-prefix parser forbody-only copying, preservesarbitraryliteralbody, setsrealClipData sensitiveflag, givesolderSDKfeedback andhandlesplatform errorswithoutcrashing. Signed/cacheoriginalsunchanged. LocalAPKbuildrunning; no CopyGREEN/Reply/reaction/switchisolation/fullacceptance claim.

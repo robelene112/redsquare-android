@@ -302,8 +302,13 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
             LazyColumn(Modifier.weight(1f)) {
                 items(visible, key = { it.id }) { message ->
                     Column(Modifier.fillMaxWidth().padding(vertical = 8.dp)) {
+                        var copyFailed by remember(message.id) { mutableStateOf(false) }
                         Text(registeredIdentity(message.author).name, style = MaterialTheme.typography.labelSmall)
                         PrivateMessageText(message.text)
+                        TextButton(onClick = { copyFailed = !copyPrivateMessage(context, message.text) }) {
+                            Text(stringResource(R.string.chat_copy))
+                        }
+                        if (copyFailed) Text(stringResource(R.string.chat_copy_error))
                     }
                     HorizontalDivider()
                 }
