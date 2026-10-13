@@ -109,6 +109,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
         val historyReads = java.util.concurrent.atomic.AtomicInteger()
         val historyUnavailable = java.util.concurrent.atomic.AtomicBoolean()
         val historyPruned = java.util.concurrent.atomic.AtomicBoolean()
+        val reactionRowsAvailable = java.util.concurrent.atomic.AtomicBoolean(true)
         val cacheFile = File(context.noBackupFilesDir, "chat.${SaitoBackend.OWNER.id}.${wallet.publicKey}.${reference.get("groupId").asString}.v1")
         val reactionCacheFile = File(context.noBackupFilesDir,
             "chatreactions.${SaitoBackend.OWNER.id}.${wallet.publicKey}.${reference.get("groupId").asString}.v1")
@@ -189,7 +190,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                 else if (historyPruned.get() || live) "[]"
                 else JsonArray().apply {
                     add(JsonObject().apply { addProperty("tx", reference.get("archiveEnvelope").asString) })
-                    if (archivedLike) repeat(2) {
+                    if (archivedLike && reactionRowsAvailable.get()) repeat(2) {
                         add(JsonObject().apply { addProperty("tx", requireNotNull(incomingLikeReference)
                             .getAsJsonArray("vectors")[0].asJsonObject.get("archiveEnvelope").asString) })
                     } // An available source can return the same original more than once.
@@ -337,6 +338,35 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             check(AndroidBackendStore(context).load() == SaitoBackend.OWNER)
                             check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty() && peer.reports.isEmpty())
                             captureNativeScreen(File(context.cacheDir, "private-chat-evidence/readable-message-reaction-storage-repaired.png"), text)
+                            // Keep opaque encrypted fixture bytes on device while the available source returns messages only.
+                            val savedReaction = reactionCacheFile.readBytes()
+                            check(reactionCacheFile.delete() && reactionCacheFile.mkdir())
+                            reactionRowsAvailable.set(false)
+                            scenario.recreate()
+                            waitFor(counterpart)
+                            ui.onNodeWithText(counterpart).performClick()
+                            waitFor(text)
+                            waitFor(context.getString(R.string.chat_reaction_error))
+                            ui.onNodeWithText(text).assertIsDisplayed()
+                            ui.onNodeWithText("Like").assertIsNotEnabled()
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/message-only-reaction-restore-failure.png"), text)
+                            check(reactionCacheFile.list()!!.isEmpty() && reactionCacheFile.delete())
+                            reactionCacheFile.writeBytes(savedReaction)
+                            val messageOnlyReads = historyReads.get()
+                            waitForEnabled("Refresh")
+                            ui.onNodeWithText("Refresh").performClick()
+                            ui.waitUntil(15_000) { historyReads.get() > messageOnlyReads &&
+                                ui.onAllNodesWithText(context.getString(R.string.chat_reaction_error))
+                                    .fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty() }
+                            waitFor("1 like")
+                            waitForEnabled("Like")
+                            ui.onNodeWithText("1 like").assertIsDisplayed()
+                            ui.onAllNodesWithText(warning).assertCountEquals(0)
+                            ui.onAllNodesWithText(context.getString(R.string.chat_load_error)).assertCountEquals(0)
+                            check(store.loadOrCreate().exportJson() == wallet.exportJson())
+                            check(AndroidBackendStore(context).load() == SaitoBackend.OWNER)
+                            check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty() && peer.reports.isEmpty())
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/message-only-reaction-restore-repaired.png"), text)
                             peer.assertHealthy()
                             return@withFailureCapture
                         }
