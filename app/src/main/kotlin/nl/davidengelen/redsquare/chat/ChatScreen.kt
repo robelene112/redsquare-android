@@ -1,5 +1,7 @@
 package nl.davidengelen.redsquare.chat
 
+import androidx.activity.compose.BackHandler
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -32,6 +34,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     val personal = LocalPersonalControls.current
     val context = LocalContext.current.applicationContext
     val scope = rememberCoroutineScope()
+    val navigation = requireNotNull(nl.davidengelen.redsquare.feed.LocalPostNavigation.current)
     var newContact by remember(wallet.publicKey) { mutableStateOf("") }
     var savingContact by remember(wallet.publicKey) { mutableStateOf(false) }
     var contactFailed by remember(wallet.publicKey) { mutableStateOf(false) }
@@ -44,6 +47,19 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     var incomplete by remember(wallet, backend, counterparty) { mutableStateOf(false) }
     var cacheFailed by remember(counterparty) { mutableStateOf(false) }
     var refresh by remember { mutableIntStateOf(0) }
+    var closing by remember(wallet.publicKey, backend, counterparty) { mutableStateOf(false) }
+    fun close() {
+        if (closing) return
+        closing = true
+        scope.launch {
+            try {
+                if (navigation.save()) {
+                    if (counterparty == null) onBack() else counterparty = null
+                }
+            } finally { closing = false }
+        }
+    }
+    BackHandler { close() }
 
     LaunchedEffect(wallet, backend, endpoint, counterparty, refresh) {
         try {
@@ -173,7 +189,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
 
     Column(modifier.fillMaxSize()) {
         Row {
-            TextButton(onClick = { if (counterparty == null) onBack() else counterparty = null }) {
+            TextButton(enabled = !closing, onClick = { close() }) {
                 Text(stringResource(R.string.browse_back))
             }
             Text(stringResource(R.string.chat_title), Modifier.weight(1f), style = MaterialTheme.typography.headlineSmall)

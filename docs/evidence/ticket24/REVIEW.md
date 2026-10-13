@@ -531,3 +531,16 @@ Zero documented breaches and zero actionable smell findings. Four retained runs 
 Zero actionable findings. Runs483d8fe10/17 pass19 in86.234/125.327 seconds; correcteda36972f10/17 pass19 in89.353/142.351 seconds. Warning, disabled confirmation, cancellation retaining the durable original and zero sends are accurately qualified. Preview0.1.11 matches requested early review delivery: source, package, version, certificate and hosted33,283,884-byte checksum agree. No private signing material, physical-installation proof, actual process-death claim or whole-ticket completion appears.
 
 Findings: Standards 0; Spec 0.
+
+
+## Unsent draft navigation tracer, 469aa30...0447c37
+
+### Standards
+
+Zero documented breaches and zero actionable smell findings. The test uses actual composer input and exact editable semantics after navigation, erasure and recreation. No adapter-seeded draft or artificial autosave delay appears. Unchanged wallet/backend and no transmissions are required; early return stays within existing resource and opaque cleanup. Compilation is separated from pending native verification and a potential correction.
+
+### Spec
+
+Zero actionable findings. The parent requires locally saved drafts surviving navigation/outages and remaining unsent until Send. Immediate Back/reopen must retain exact Unicode, punctuation and newlines; clearing and reopening/recreating with unavailable history must stay empty. Final predicates require unchanged full identity/backend and zero propagation/Relay. Product source is unchanged; the debounce concern remains unconfirmed and no actual process-death or whole-ticket acceptance is claimed.
+
+Findings: Standards 0; Spec 0. Native20-case execution remains pending at review.

@@ -28,6 +28,23 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
     var ready by remember(work) { mutableStateOf(false) }
     var sending by remember(work) { mutableStateOf(false) }
     var failed by remember(work) { mutableStateOf(false) }
+    val navigation = requireNotNull(nl.davidengelen.redsquare.feed.LocalPostNavigation.current)
+    suspend fun persist(): Boolean = writes.withLock {
+        if (sending) return@withLock false
+        // An unreadable composer cannot edit or replace the retained work.
+        if (!ready || saved.status == ChatWorkStore.Status.UNKNOWN) return@withLock true
+        try {
+            saved = withContext(NonCancellable + Dispatchers.IO) { work.saveDraft(text) }
+            failed = false
+            true
+        } catch (cancelled: CancellationException) { throw cancelled }
+        catch (_: Exception) { failed = true; false }
+    }
+    DisposableEffect(work, navigation) {
+        val save: suspend () -> Boolean = { persist() }
+        navigation.saveCurrent = save
+        onDispose { if (navigation.saveCurrent === save) navigation.saveCurrent = null }
+    }
     LaunchedEffect(work) {
         try {
             saved = withContext(Dispatchers.IO) { work.load() }
@@ -42,12 +59,7 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
     LaunchedEffect(ready, text) {
         if (!ready || sending || saved.status == ChatWorkStore.Status.UNKNOWN) return@LaunchedEffect
         delay(300)
-        writes.withLock {
-            if (sending) return@withLock
-            try { saved = withContext(NonCancellable + Dispatchers.IO) { work.saveDraft(text) }; failed = false }
-            catch (cancelled: CancellationException) { throw cancelled }
-            catch (_: Exception) { failed = true }
-        }
+        persist()
     }
     val retrying = saved.transaction != null && (saved.status == ChatWorkStore.Status.UNKNOWN ||
         (saved.status == ChatWorkStore.Status.SUBMITTED && text.isBlank()))

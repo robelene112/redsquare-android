@@ -1,0 +1,5 @@
+Immediate draft navigation RED
+
+Android10run38427322282 at0447c37:20cases,19passes and one failure in84.364seconds. The actual composer accepts a distinctive unsent Unicode/multiline draft. After immediate Back and selecting the same conversation, the first exact EditableText assertion fails atline319: the composer is empty. Root parsed all29XML captures and viewed the original history-first-failure.png. It shows the empty Message field and retained incoming reference while history still loads. Later erasure/recreation assertions have not executed. No confirmed root cause beyond observed lost text; source identifies the cancelled300ms save effect as the corresponding navigation gap.
+
+Raw exit0 remains preserved and the mandatory OK gate rejects the class. Private fixture restoration runs after failure. Core86 passes in the source gate. This is not actual process-death, erasure-tail or whole-ticket acceptance. The subsequent minimum uses the existing shared navigation save hook and awaits encrypted draft persistence before leaving. Native GREEN remains pending.

@@ -1,0 +1,373 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=20
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PrivateChatPreviewTest:
+INSTRUMENTATION_STATUS: test=anImportedContactOpensItsAvailableAuthenticatedPrivateHistory
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=20
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anImportedContactOpensItsAvailableAuthenticatedPrivateHistory
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=20
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=leavingAConversationPreservesItsUnsentDraftAndDoesNotRestoreErasedText
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=20
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (EditableText = 'Unsent private draft 😀 <&>
+second line')
+Semantics of the node:
+Node #346 at (l=16.0, t=560.0, r=223.0, b=624.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = ''
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@bfefe5e'
+Focused = 'false'
+ImeAction = 'Default'
+InputText = ''
+IsEditable = 'true'
+Text = '[Message]'
+TextSelectionRange = 'TextRange(0, 0)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 13 siblings
+Selector used: (SetText is defined)
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest.exerciseHistory$lambda$49$lambda$48$lambda$47(PrivateChatPreviewTest.kt:319)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest.$r8$lambda$TDNIBIaII0PoEoH-UyGcAyBCjBE(Unknown Source:0)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest$$ExternalSyntheticLambda18.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest.exerciseHistory(PrivateChatPreviewTest.kt:251)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest.leavingAConversationPreservesItsUnsentDraftAndDoesNotRestoreErasedText(PrivateChatPreviewTest.kt:117)
+
+INSTRUMENTATION_STATUS: stream=
+Error in leavingAConversationPreservesItsUnsentDraftAndDoesNotRestoreErasedText(nl.davidengelen.redsquare.PrivateChatPreviewTest):
+java.lang.AssertionError: Failed to assert the following: (EditableText = 'Unsent private draft 😀 <&>
+second line')
+Semantics of the node:
+Node #346 at (l=16.0, t=560.0, r=223.0, b=624.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = ''
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@bfefe5e'
+Focused = 'false'
+ImeAction = 'Default'
+InputText = ''
+IsEditable = 'true'
+Text = '[Message]'
+TextSelectionRange = 'TextRange(0, 0)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 13 siblings
+Selector used: (SetText is defined)
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest.exerciseHistory$lambda$49$lambda$48$lambda$47(PrivateChatPreviewTest.kt:319)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest.$r8$lambda$TDNIBIaII0PoEoH-UyGcAyBCjBE(Unknown Source:0)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest$$ExternalSyntheticLambda18.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest.exerciseHistory(PrivateChatPreviewTest.kt:251)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest.leavingAConversationPreservesItsUnsentDraftAndDoesNotRestoreErasedText(PrivateChatPreviewTest.kt:117)
+
+INSTRUMENTATION_STATUS: test=leavingAConversationPreservesItsUnsentDraftAndDoesNotRestoreErasedText
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=20
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aFreshWalletCanOpenAndSendToANewPrivateContact
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=20
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aFreshWalletCanOpenAndSendToANewPrivateContact
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=20
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aKeyOnlyImportKeepsReadableCachedMessagesAlongsideMissingExchangedKeys
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=20
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aKeyOnlyImportKeepsReadableCachedMessagesAlongsideMissingExchangedKeys
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=20
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anInterruptedPrivateSendRemainsSavedWithoutAutomaticRebroadcast
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=20
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anInterruptedPrivateSendRemainsSavedWithoutAutomaticRebroadcast
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=20
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=importedOwnMentionedMessagesRecoverTheOriginalPrivateCounterparty
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=20
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=importedOwnMentionedMessagesRecoverTheOriginalPrivateCounterparty
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=20
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anExistingClientMentionedPrivateMessageRemainsReadableAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=20
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anExistingClientMentionedPrivateMessageRemainsReadableAfterReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=20
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=firstChatOffersOptionalAlertsAndSkippingKeepsChatAvailable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=20
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=firstChatOffersOptionalAlertsAndSkippingKeepsChatAvailable
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=20
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=failedLocalSavingDoesNotLoseReadableHistoryOnRefresh
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=20
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=failedLocalSavingDoesNotLoseReadableHistoryOnRefresh
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=20
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aNewIncomingPrivateConversationAppearsWhileTheChatListIsOpen
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=20
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aNewIncomingPrivateConversationAppearsWhileTheChatListIsOpen
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=20
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=accountMutingKeepsAvailablePrivateMessagesReadable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=20
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=accountMutingKeepsAvailablePrivateMessagesReadable
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=20
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=unreadableAvailableHistoryIsExplainedEvenWhenLocalSavingFails
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=20
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unreadableAvailableHistoryIsExplainedEvenWhenLocalSavingFails
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=13
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=20
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anUncertainPrivateMessageRetriesTheSavedOriginalOnlyAfterAnExplicitTap
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=13
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=20
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anUncertainPrivateMessageRetriesTheSavedOriginalOnlyAfterAnExplicitTap
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=14
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=20
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aNativePrivateSendPropagatesAndRelaysTheSameEncryptedOriginal
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=14
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=20
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aNativePrivateSendPropagatesAndRelaysTheSameEncryptedOriginal
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=15
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=20
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=walletReplacementExplainsUncertainChatWorkBeforeConfirmation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=15
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=20
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=walletReplacementExplainsUncertainChatWorkBeforeConfirmation
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=16
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=20
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=accountBlockingHidesIncomingMessagesWithoutDeletingRecoverableHistory
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=16
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=20
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=accountBlockingHidesIncomingMessagesWithoutDeletingRecoverableHistory
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=17
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=20
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anotherPrivateContactIsRetainedWhileADifferentConversationIsOpen
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=17
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=20
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anotherPrivateContactIsRetainedWhileADifferentConversationIsOpen
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=18
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=20
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anImportedConversationIdRecoversAvailablePrivateHistoryWithoutAContactKeyEntry
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=18
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=20
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anImportedConversationIdRecoversAvailablePrivateHistoryWithoutAContactKeyEntry
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=19
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=20
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=oneUnavailableImportedConversationDoesNotHideAnotherRecoveredPrivateConversation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=19
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=20
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=oneUnavailableImportedConversationDoesNotHideAnotherRecoveredPrivateConversation
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=20
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=20
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aLivePrivateRelayMessageRemainsReadableAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=20
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=20
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aLivePrivateRelayMessageRemainsReadableAfterReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 84.364
+There was 1 failure:
+1) leavingAConversationPreservesItsUnsentDraftAndDoesNotRestoreErasedText(nl.davidengelen.redsquare.PrivateChatPreviewTest)
+java.lang.AssertionError: Failed to assert the following: (EditableText = 'Unsent private draft 😀 <&>
+second line')
+Semantics of the node:
+Node #346 at (l=16.0, t=560.0, r=223.0, b=624.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = ''
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@bfefe5e'
+Focused = 'false'
+ImeAction = 'Default'
+InputText = ''
+IsEditable = 'true'
+Text = '[Message]'
+TextSelectionRange = 'TextRange(0, 0)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 13 siblings
+Selector used: (SetText is defined)
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest.exerciseHistory$lambda$49$lambda$48$lambda$47(PrivateChatPreviewTest.kt:319)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest.$r8$lambda$TDNIBIaII0PoEoH-UyGcAyBCjBE(Unknown Source:0)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest$$ExternalSyntheticLambda18.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest.exerciseHistory(PrivateChatPreviewTest.kt:251)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest.leavingAConversationPreservesItsUnsentDraftAndDoesNotRestoreErasedText(PrivateChatPreviewTest.kt:117)
+
+FAILURES!!!
+Tests run: 20,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
