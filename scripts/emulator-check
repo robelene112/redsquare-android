@@ -451,9 +451,9 @@ verify_notifications() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
     # Public unsafe scalar1/3 imports live under the SAF provider's UID, not the target app's UID.
     adb shell run-as nl.davidengelen.redsquare.dev.test mkdir -p files/wallet-test-documents
-    printf '%s' '{"wallet":{"version":5.677,"publicKey":"jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR","privateKey":"0000000000000000000000000000000000000000000000000000000000000001"}}' | \
+    printf '%s' '{"wallet":{"version":5.677,"balance":"0","preferred_crypto":"SAITO","preferred_txs":[],"default_fee":"0","slips":[],"publicKey":"jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR","privateKey":"0000000000000000000000000000000000000000000000000000000000000001"}}' | \
         adb shell run-as nl.davidengelen.redsquare.dev.test tee files/wallet-test-documents/notification-owner-import.json > /dev/null
-    printf '%s' '{"wallet":{"version":5.677,"publicKey":"tENBoQttzyKaCW6d61tQjceaVA3GsZ2WrBLngrYHcXEx","privateKey":"0000000000000000000000000000000000000000000000000000000000000003"}}' | \
+    printf '%s' '{"wallet":{"version":5.677,"balance":"0","preferred_crypto":"SAITO","preferred_txs":[],"default_fee":"0","slips":[],"publicKey":"tENBoQttzyKaCW6d61tQjceaVA3GsZ2WrBLngrYHcXEx","privateKey":"0000000000000000000000000000000000000000000000000000000000000003"}}' | \
         adb shell run-as nl.davidengelen.redsquare.dev.test tee files/wallet-test-documents/notification-other-import.json > /dev/null
     # The expanded notification batch exceeded 120s on API37; individual assertions and RPC deadlines stay bounded.
     timeout 240 adb shell am instrument -w -r \

@@ -586,3 +586,20 @@ qualified limits in separate READMEs; corrected full wallet native remains pendi
 30/104.851s/80hashes/39XML; both oneOK/zero deaths/assumptions/core73.
 Root viewed four original storage captures and one late-retry capture; no added
 visual claims for other retained PNGs. Whole-ticket review/acceptance pending.
+
+## Provider-UID fixture review
+
+### Standards
+
+`bfd0906...6be5695`: one recovery finding, zero actionable Fowler heuristics.
+Minimal host JSON lacks canonical fromPrivateKey export options, so strict cleanup
+would reject imported unsafe1/3 and prevent opaque original restoration. Root
+adds canonical balance/preferred_crypto/preferred_txs/default_fee/slips in exact
+export field order. Identity guard remains exact; no real wallet is provisioned.
+
+### Spec
+
+One matching recovery regression; preserve/recover original wallet requires exact
+canonical fixture options. Host provider-UID setup otherwise addresses observed
+setup failure. Current run38326390887 uses pre-correction files and cannot prove
+corrected cleanup. Source unchanged; corrected native/review pending.
