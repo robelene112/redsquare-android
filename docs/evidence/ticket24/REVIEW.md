@@ -1181,3 +1181,6 @@ cleanup releases its latch, and exact-original/identity/noextra-send gates remai
 
 Findings afterfix: Standards0; Spec0. Incoming/concurrency corrected GREEN and
 broader acceptance still pending; currentlocal core/debug/testAPK build active.
+
+
+Incoming/concurrency qualification atc196:17run38467252208 fiveactionsPASS58.295s/core86;10run38467247996 fourPASS includingincoming/concurrency, sole zeroReplySpacer lookupfailureFixture471/32.067s/publicrowCount2. Root23/20XML andnineincoming/concurrent originalPNGs eachplussole10failureinspected. Correction07e094af adds publicrowCount3 readiness before unchangedstrictSpacer/quote assertions; bothreviews0, productunchanged. Compilation andcorrected10 pending. No newreactionRetry/coldprocess/isolation/fullscope claimed.

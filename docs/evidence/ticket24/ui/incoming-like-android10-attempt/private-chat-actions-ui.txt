@@ -1,0 +1,208 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PrivateChatActionsPreviewTest:
+INSTRUMENTATION_STATUS: test=aNativeReplyRetainsItsQuoteAndTypedDraftUntilExplicitSending
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aNativeReplyRetainsItsQuoteAndTypedDraftUntilExplicitSending
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=incomingPrivateReactionsKeepOriginalIdentityAcrossDuplicatesAndReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=incomingPrivateReactionsKeepOriginalIdentityAcrossDuplicatesAndReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anIncomingReactionDuringSubmissionKeepsNewerForwardedStatusAndBothLikes
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anIncomingReactionDuringSubmissionKeepsNewerForwardedStatusAndBothLikes
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anAuthenticatedZeroTimestampReplyStillRequiresTypedBodyBeforeSending
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: No node found that matches Text + InputText + EditableText contains 'Public layout spacer line 1
+Public layout spacer line 2
+Public layout spacer line 3
+Public layout spacer line 4
+Public layout spacer line 5
+Public layout spacer line 6
+Public layout spacer line 7
+Public layout spacer line 8
+Public layout spacer line 9
+Public layout spacer line 10
+Public layout spacer line 11
+Public layout spacer line 12
+Public layout spacer line 13
+Public layout spacer line 14
+Public layout spacer line 15
+Public layout spacer line 16
+Public layout spacer line 17
+Public layout spacer line 18
+Public layout spacer line 19
+Public layout spacer line 20
+Public layout spacer line 21
+Public layout spacer line 22
+Public layout spacer line 23
+Public layout spacer line 24' (ignoreCase: false) in scrollable container
+Semantics of the node:
+Node #1283 at (l=16.0, t=268.0, r=304.0, b=512.0)px
+CollectionInfo = 'CollectionInfo(rowCount=2, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@4199893'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=82.0, maxValue=82.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 11 children, 13 siblings
+Selector used: (ScrollToIndex is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture.exerciseHistory$lambda$73$lambda$72$lambda$71(PrivateChatHistoryFixture.kt:471)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture.$r8$lambda$KEY9QxEvkyePAzZMz2JXXSzXNeE(Unknown Source:0)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture$$ExternalSyntheticLambda29.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture.exerciseHistory(PrivateChatHistoryFixture.kt:225)
+	at nl.davidengelen.redsquare.PrivateChatActionsPreviewTest.anAuthenticatedZeroTimestampReplyStillRequiresTypedBodyBeforeSending(PrivateChatActionsPreviewTest.kt:16)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anAuthenticatedZeroTimestampReplyStillRequiresTypedBodyBeforeSending(nl.davidengelen.redsquare.PrivateChatActionsPreviewTest):
+java.lang.AssertionError: No node found that matches Text + InputText + EditableText contains 'Public layout spacer line 1
+Public layout spacer line 2
+Public layout spacer line 3
+Public layout spacer line 4
+Public layout spacer line 5
+Public layout spacer line 6
+Public layout spacer line 7
+Public layout spacer line 8
+Public layout spacer line 9
+Public layout spacer line 10
+Public layout spacer line 11
+Public layout spacer line 12
+Public layout spacer line 13
+Public layout spacer line 14
+Public layout spacer line 15
+Public layout spacer line 16
+Public layout spacer line 17
+Public layout spacer line 18
+Public layout spacer line 19
+Public layout spacer line 20
+Public layout spacer line 21
+Public layout spacer line 22
+Public layout spacer line 23
+Public layout spacer line 24' (ignoreCase: false) in scrollable container
+Semantics of the node:
+Node #1283 at (l=16.0, t=268.0, r=304.0, b=512.0)px
+CollectionInfo = 'CollectionInfo(rowCount=2, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@4199893'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=82.0, maxValue=82.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 11 children, 13 siblings
+Selector used: (ScrollToIndex is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture.exerciseHistory$lambda$73$lambda$72$lambda$71(PrivateChatHistoryFixture.kt:471)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture.$r8$lambda$KEY9QxEvkyePAzZMz2JXXSzXNeE(Unknown Source:0)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture$$ExternalSyntheticLambda29.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture.exerciseHistory(PrivateChatHistoryFixture.kt:225)
+	at nl.davidengelen.redsquare.PrivateChatActionsPreviewTest.anAuthenticatedZeroTimestampReplyStillRequiresTypedBodyBeforeSending(PrivateChatActionsPreviewTest.kt:16)
+
+INSTRUMENTATION_STATUS: test=anAuthenticatedZeroTimestampReplyStillRequiresTypedBodyBeforeSending
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=explicitPrivateLikeAndUnlikeForwardDistinctOriginalsAndRemainAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=explicitPrivateLikeAndUnlikeForwardDistinctOriginalsAndRemainAfterReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 32.067
+There was 1 failure:
+1) anAuthenticatedZeroTimestampReplyStillRequiresTypedBodyBeforeSending(nl.davidengelen.redsquare.PrivateChatActionsPreviewTest)
+java.lang.AssertionError: No node found that matches Text + InputText + EditableText contains 'Public layout spacer line 1
+Public layout spacer line 2
+Public layout spacer line 3
+Public layout spacer line 4
+Public layout spacer line 5
+Public layout spacer line 6
+Public layout spacer line 7
+Public layout spacer line 8
+Public layout spacer line 9
+Public layout spacer line 10
+Public layout spacer line 11
+Public layout spacer line 12
+Public layout spacer line 13
+Public layout spacer line 14
+Public layout spacer line 15
+Public layout spacer line 16
+Public layout spacer line 17
+Public layout spacer line 18
+Public layout spacer line 19
+Public layout spacer line 20
+Public layout spacer line 21
+Public layout spacer line 22
+Public layout spacer line 23
+Public layout spacer line 24' (ignoreCase: false) in scrollable container
+Semantics of the node:
+Node #1283 at (l=16.0, t=268.0, r=304.0, b=512.0)px
+CollectionInfo = 'CollectionInfo(rowCount=2, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@4199893'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=82.0, maxValue=82.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 11 children, 13 siblings
+Selector used: (ScrollToIndex is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture.exerciseHistory$lambda$73$lambda$72$lambda$71(PrivateChatHistoryFixture.kt:471)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture.$r8$lambda$KEY9QxEvkyePAzZMz2JXXSzXNeE(Unknown Source:0)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture$$ExternalSyntheticLambda29.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture.exerciseHistory(PrivateChatHistoryFixture.kt:225)
+	at nl.davidengelen.redsquare.PrivateChatActionsPreviewTest.anAuthenticatedZeroTimestampReplyStillRequiresTypedBodyBeforeSending(PrivateChatActionsPreviewTest.kt:16)
+
+FAILURES!!!
+Tests run: 5,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
