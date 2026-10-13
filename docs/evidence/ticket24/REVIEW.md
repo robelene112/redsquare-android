@@ -1336,3 +1336,15 @@ One actionable finding: finalRefresh can pass afterfailedread becausecached1Like
 Spec: priorfindingresolved, zero newfindings; newread+errorabsence plusstricterrorabsence/readiness gates cannotbe satisfiedbycachedcontent alone. Standards pending. Earliertracercompile1m23;fixcompileactive.
 
 Backendlogicalnamespaceisolation GREENbothSDK at2c0:10run38473908900 sevenactions47.182s/core86 and17run38473912585 sevenactions79.856s/core86.10all30XML/fouruniquePNG and17fourneworiginalPNG/XMLpairs rootinspected. Broadcorrected10run38474160633/945ade6b active;walletreplacementandavailable-reactionninecaserunpending.
+
+AvailableRefreshfixf748 Standardszero documentedbreaches/actionablesmells; Specfindingresolved. Compilation PASS1m30. NewninecaseRED17run38474963986/c299 active, includeswalletisolationandavailable-source newtracers.
+
+## Retained outgoing message visibility,c2999b64...be289119
+
+### Standards
+
+Zero documented breaches or actionable smells. Exactnoneditableoutgoingbody locatedthroughpublicLazyColumnscroll beforestrictdisplay. Existingstatus/recoveryassertions preserved.
+
+### Spec
+
+Zero actionable findings. Cachepreservationverifiedthroughobservablelist ratherthanrequiringoffscreencomposition. Prior10broadrun38474160633/945 has23/24historyPASS127.451s/core86; solePARTIAL_KEYS uniquefailurePNG/XMLrootseen; actions/processunexecuted. Source supportsvirtualizationhypothesisonly, nohistoryloss/causeclaimed. Productunchanged, correctioncompile/runtimepending.
