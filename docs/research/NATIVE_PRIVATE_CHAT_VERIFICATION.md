@@ -625,3 +625,8 @@ Unreadable-page24 actual RED38444167765/source169b524e:24cases23PASS plus enable
 
 
 Authenticated unreadable-page cursor85c8f1a3 localTestAPK PASS2m37s/exit0; bothboundedreviewaxes0 and priorcursorfindingresolvedinsource. Native24SDK10run38445452902/17run38445457782 pending. Neither sourcecompilation nor earlier23/processGREEN establish execution of this newpagination branch. Existing nativeReply/Copy/chat-like and switch-isolation remain unimplemented/unverified, respectively.
+
+
+Authenticated unreadable-page24 GREEN at85c8f1a3:10run38445452902 24PASS100.762s;17run38445457782 24PASS125.107s/core86each. Root38XML/two uniqueunreadable-page originals perSDK inspected. ExactTcutoff/count1/shortpage completion/bothcached readablebodies pass. Actualprocess recoveryalsoPASS:10cold3.705s/restore.11s/PID7520->7745;17cold4.131s/restore.136s/PID5216->5298. Root3processXML/3originals andexactcheckpoint deltas perSDK verified. Cursorreviewfindingresolved; actionfeaturefinding/switchisolation/fullacceptance stillpending.
+
+Existing action contract sourceaudit f53b7788 verifiesbothpins' Reply/Copy and byte-identical likeconstruction/receiver methods. NativeCopy tracer now extends the existingquoted-reply case (still24total), requiring explicitCopy, exactliteraltypedbodywithoutquotedwrapper and realClipboard sensitiveflag. Priorclipboard captured only whileforeground andrestored withoutprintingcontents; cleanup preservesprimaryfailure. Firstownedlocalbuild stopped tocorrect primaryfailurepreservation before rebuilding. No copyminimum or nativeRED yet; compilationpending. Androidclipboard flag/olderfeedback guidance inspected fromofficialsource.

@@ -118,7 +118,7 @@ class PrivateChatPreviewTest {
 
     @Test fun olderAvailablePrivateMessagesCanBeLoadedAndReadAfterServerHistoryDisappears() = exerciseHistory(HistoryCase.OLDER_HISTORY)
 
-    @Test fun anExistingWebPrivateReplyShowsReadableQuoteAndUnmodifiedTypedBody() = exerciseHistory(HistoryCase.QUOTED_REPLY)
+    @Test fun anExistingWebPrivateReplyCanBeReadAndCopiedWithoutChangingItsTypedBody() = exerciseHistory(HistoryCase.QUOTED_REPLY)
 
     @Test fun ordinaryTypedPrivateMarkupRemainsLiteralAfterReopening() = exerciseHistory(HistoryCase.LITERAL_MARKUP)
 
@@ -370,6 +370,28 @@ class PrivateChatPreviewTest {
                                 fixture.getAsJsonObject("replyFormat").get("quotedText").asString).assertIsDisplayed()
                             captureNativeScreen(File(context.cacheDir,
                                 "private-chat-evidence/${if (case == HistoryCase.QUOTED_REPLY) "web-quoted-private-reply" else "literal-private-markup"}.png"), text)
+                            if (case == HistoryCase.QUOTED_REPLY) {
+                                val clipboard = context.getSystemService(android.content.Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+                                var originalClip: android.content.ClipData? = null
+                                var copyFailure: Throwable? = null
+                                ui.runOnIdle { originalClip = clipboard.primaryClip }
+                                try {
+                                    ui.onNodeWithText("Copy").assertIsDisplayed().performClick()
+                                    ui.runOnIdle {
+                                        val copied = checkNotNull(clipboard.primaryClip)
+                                        check(copied.itemCount == 1 && copied.getItemAt(0).text.toString() == text)
+                                        check(copied.description.extras?.getBoolean("android.content.extra.IS_SENSITIVE") == true)
+                                    }
+                                    captureNativeScreen(File(context.cacheDir, "private-chat-evidence/private-reply-body-copied.png"), text)
+                                } catch (failure: Throwable) { copyFailure = failure; throw failure }
+                                finally {
+                                    cleanupAfterTest(copyFailure, {
+                                        ui.runOnIdle {
+                                            originalClip?.let(clipboard::setPrimaryClip) ?: clipboard.clearPrimaryClip()
+                                        }
+                                    })
+                                }
+                            }
                         }
                         if (paginating) {
                             check(olderReads.get() == 0)

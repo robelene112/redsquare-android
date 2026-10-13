@@ -1,0 +1,3 @@
+# Authenticated paging through unreadable private history
+
+Run38445457782/source85c8f1a30e846506ae6c3c57667dd226e1129a74, Android17: 24PASS125.107s/core86. Root38XML and unique unreadable-recent loaded/cached originals inspected. Full50signed rows needing unavailable exchangedkeys no longer prevent canonicalolderfetch. ExactTcutoff/count1, short-page exhaustion and bothancient/older readablecached bodies after unavailableArchive recreation pass; no transactions/Relay and fullidentity/backend unchanged. Genericcaptures may be overwritten by latercases. NativeCopy/Reply/chat-like, switchisolation andwholefullacceptance remainpending. No newphonepreview.
