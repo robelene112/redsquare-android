@@ -603,3 +603,23 @@ One matching recovery regression; preserve/recover original wallet requires exac
 canonical fixture options. Host provider-UID setup otherwise addresses observed
 setup failure. Current run38326390887 uses pre-correction files and cannot prove
 corrected cleanup. Source unchanged; corrected native/review pending.
+
+## Contextual OS permission tracer review
+
+### Standards
+
+`1273647...af49e30`: one hard secret-output violation (assertEquals full wallet
+exports could disclose keys on failure), one reading proof gap, zero actionable
+Fowler heuristics. Root replaces export assertions with non-disclosing checks and
+adds authenticated wallet keys/actual notification Archive counter advancement/
+successful completed reading after Refresh and recreation.
+
+### Spec
+
+Two fixture findings: feedDisabled skips FeedScreen containing Notifications;
+and enabled Refresh/error-free peer alone cannot establish any reading. Root
+removes feedDisabled and requires positive notification reads plus successful
+completed Refresh and authentication. Real Allow/Deny API33+ and SettingsAPI10
+remain; optional contextual first-use/reopening/back assertions retained. Initial
+APK1m44PASS; native38326680659 uses original fixture, not corrections. No product
+change or permission-delivery acceptance claim.

@@ -15,6 +15,7 @@ import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 import java.io.File
+import java.util.concurrent.atomic.AtomicInteger
 
 /** Host invokes each OS choice separately, revoking between processes on API33+. */
 class NotificationPermissionPreviewTest {
@@ -30,10 +31,18 @@ class NotificationPermissionPreviewTest {
         check(Build.HARDWARE in listOf("ranchu", "goldfish"))
         check(Build.VERSION.SDK_INT >= 33 || allow)
         val store = AndroidWalletStore(context)
-        val original = store.loadOrCreate().exportJson()
+        val wallet = store.loadOrCreate()
+        val original = wallet.exportJson()
+        val reads = AtomicInteger()
         val preferences = context.getSharedPreferences("notification-permission", 0)
         val offered = if (preferences.contains("offered")) preferences.getBoolean("offered", false) else null
-        val peer = ControlledFeedPeer("[]", archiveResponse = { "[]" }, quoteArchiveResponse = { "[]" })
+        val peer = ControlledFeedPeer("[]", archiveResponse = { criteria ->
+            if (criteria.get("field1").asString == "RedSquareLike") {
+                check(criteria.get("field3").asString == wallet.publicKey)
+                reads.incrementAndGet()
+            }
+            "[]"
+        }, quoteArchiveResponse = { "[]" })
         var primary: Throwable? = null
         try {
             check(preferences.edit().remove("offered").commit())
@@ -42,8 +51,7 @@ class NotificationPermissionPreviewTest {
             peer.start().use { server ->
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
-                    .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
-                    .putExtra("feedDisabled", true)).use { scenario ->
+                    .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
                     withFailureCapture({ captureNativeScreen(File(context.cacheDir,
                         "notification-permission-evidence/${if (allow) "allow" else "deny"}-failure.png")) }) {
                         waitFor("Notifications")
@@ -71,17 +79,25 @@ class NotificationPermissionPreviewTest {
                         ui.waitUntil(15_000) { preferences.getBoolean("offered", false) }
                         waitForEnabled("Refresh")
                         ui.onAllNodesWithText("Not now").assertCountEquals(0)
+                        ui.waitUntil(15_000) { reads.get() > 0 }
+                        val beforeRefresh = reads.get()
                         ui.onNodeWithText("Refresh").performClick()
+                        ui.waitUntil(15_000) { reads.get() > beforeRefresh }
                         waitForEnabled("Refresh")
+                        ui.onAllNodesWithText(context.getString(R.string.notifications_read_error)).assertCountEquals(0)
                         captureNativeScreen(File(context.cacheDir,
                             "notification-permission-evidence/${if (allow) "allow" else "deny"}-reading.png"), "Notifications")
+                        val beforeReopening = reads.get()
                         scenario.recreate()
+                        ui.waitUntil(15_000) { reads.get() > beforeReopening }
                         waitForEnabled("Refresh")
+                        ui.onAllNodesWithText(context.getString(R.string.notifications_read_error)).assertCountEquals(0)
                         ui.onAllNodesWithText("Not now").assertCountEquals(0)
                         ui.onNodeWithText("Back").performClick()
                         waitFor("Notifications")
-                        assertEquals(original, store.loadOrCreate().exportJson())
-                        peer.assertHealthy()
+                        check(original == store.loadOrCreate().exportJson()) { "Permission choice must preserve the wallet" }
+                        peer.assertRequestObserved(); peer.assertHealthy()
+                        assertTrue(peer.clientKeys.isNotEmpty() && peer.clientKeys.all { it == wallet.publicKey })
                         assertTrue(peer.transactions.isEmpty()); assertTrue(peer.reports.isEmpty())
                     }
                 }
@@ -92,7 +108,7 @@ class NotificationPermissionPreviewTest {
                 val edit = preferences.edit()
                 if (offered == null) edit.remove("offered") else edit.putBoolean("offered", offered)
                 check(edit.commit())
-            }, { assertEquals(original, store.loadOrCreate().exportJson()) })
+            }, { check(original == store.loadOrCreate().exportJson()) { "Permission choice must preserve the wallet" } })
         }
     }
 
