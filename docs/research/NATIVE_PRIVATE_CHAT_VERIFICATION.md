@@ -606,3 +606,8 @@ Actual process attempt38442242519/fa1e628d:23UI PASS107.717s/core86, deliberatek
 Native public17read38442247790 atfa1e628d PASS1/4.702s/core86. Both approved backends authenticate, advertise Chat/Archive/Relay and return[] for a new randomunusedpair's canonical query. Installation wallet export unchanged; no submit/Relay. Complements prior native10read but proves no live delivery or history retention.
 
 Whole source reviewc102f891...fa1e628d: Standards0, Spec2. Need nativeReply/Copy/chat-like preservation and authenticated pagination progress when all50recent messages use missing exchanged keys. Existing unreadable handling has no cursor when no plaintext survives, blocking recoverable implicit-key older history. Next bounded tracer/fix follows process assertion correction. Whole-ticket/fullacceptance remain pending.
+
+
+ExactcoldEditableText fix866784c3 localTestAPKPASS1m26s/exit0 and bothboundedreviewaxes0. Nativeprocess10run38443330926/17run38443336005 pending.
+
+Next24-case tracer adds a full50-row recent page encrypted with unavailable exchanged keys, an ancient readable retained cache and a readable older implicit-key message. It requires the original unreadable warning, enabled olderfetch, exact signed oldest-page cutoff and preserved ancient/older messages after unavailableArchive recreation. Paging rows are controlled native generation with public unsafe fixtures, not additional independentcrypto vectors. Productioncursor remains unchanged until actualRED. The first local build was explicitly stopped after inspection found a wrong resource symbol, then corrected toexistingchat_incomplete before rebuilding. Cancellation is not a native failure/result. Nativeprocessruns continue independently against866784c3.

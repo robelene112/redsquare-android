@@ -711,3 +711,16 @@ Zero unresolved documented breaches and zero actionable smell findings across14c
 Two actionable findings. Parent requires preserving existing Saito capabilities: native Reply, Copy and chat-like send/receive/display actions are absent, and later Chat tickets do not own them. Preserve them with controlled cross-client verification. Also, available-history recovery fails when all50recent signed rows require missing exchanged keys: cursor derives only from decrypted messages and disables older fetch although older implicit-key messages may be readable. Keep authenticated pagination progress separate from displayed plaintext and add a controlled case. Other original authentication/group/retry/imported key/cache behavior coherent. Declared process/isolation/fullSDK tail is not counted as a new finding.
 
 Findings: Standards0; Spec2, missing private-message actions and unreadable-page cursor. Both remain open after this review.
+
+
+## Exact cold draft semantics,fa1e628d...866784c3
+
+### Standards
+
+Zero documented breaches or actionable smell findings. Exact EditableText excludes the separate Message label with unchanged expected text, preserving all PID/cache/candidate/identity/no-send gates. Evidence distinguishes executed kill/cold observations from unexecuted final assertions, restoration and compilation from processGREEN. Public17 read remains contract-only.
+
+### Spec
+
+Zero actionable findings. Preserves exact draft Unicode/punctuation/newline at the approved native semantics boundary. Failure contains correct draft; actual process gates/UNKNOWN display and unexecuted final tail are distinguished. Original encrypted files remain device-only and restore passes. Both whole-source findings remain open.
+
+Findings: Standards0; Spec0. Local correctedAPKPASS1m26; native10/17follow.

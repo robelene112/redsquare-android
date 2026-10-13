@@ -76,7 +76,7 @@ class PrivateChatPreviewTest {
         }
     }
 
-    private enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL, LIST_LIVE, PARTIAL_KEYS, STORAGE_PARTIAL, OTHER_LIVE, MENTIONED, MENTIONED_OUTGOING, MUTED, BLOCKED, UNKNOWN_RETRY, PENDING_IMPORT, DRAFT_NAVIGATION, OLDER_HISTORY, QUOTED_REPLY, LITERAL_MARKUP }
+    private enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL, LIST_LIVE, PARTIAL_KEYS, STORAGE_PARTIAL, OTHER_LIVE, MENTIONED, MENTIONED_OUTGOING, MUTED, BLOCKED, UNKNOWN_RETRY, PENDING_IMPORT, DRAFT_NAVIGATION, OLDER_HISTORY, QUOTED_REPLY, LITERAL_MARKUP, UNREADABLE_RECENT_HISTORY }
 
     @Test fun anImportedContactOpensItsAvailableAuthenticatedPrivateHistory() = exerciseHistory(HistoryCase.AVAILABLE)
 
@@ -122,6 +122,8 @@ class PrivateChatPreviewTest {
 
     @Test fun ordinaryTypedPrivateMarkupRemainsLiteralAfterReopening() = exerciseHistory(HistoryCase.LITERAL_MARKUP)
 
+    @Test fun unreadableRecentPrivateMessagesDoNotPreventLoadingReadableOlderHistory() = exerciseHistory(HistoryCase.UNREADABLE_RECENT_HISTORY)
+
     private fun exerciseHistory(case: HistoryCase) {
         val storagePartial = case == HistoryCase.STORAGE_PARTIAL
         val storageFailure = case == HistoryCase.STORAGE_FAILURE || storagePartial
@@ -135,6 +137,8 @@ class PrivateChatPreviewTest {
         val importedId = case == HistoryCase.IMPORTED_ID || partialDiscovery || case == HistoryCase.MENTIONED_OUTGOING
         val retrying = case == HistoryCase.UNKNOWN_RETRY
         val pendingImport = case == HistoryCase.PENDING_IMPORT
+        val unreadableRecent = case == HistoryCase.UNREADABLE_RECENT_HISTORY
+        val paginating = case == HistoryCase.OLDER_HISTORY || unreadableRecent
         val sending = case == HistoryCase.SEND || interruptedSend || newContact || partialKeys || retrying
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
@@ -202,10 +206,16 @@ class PrivateChatPreviewTest {
         val oldestRecent = reference.get("timestamp").asLong
         val olderReads = java.util.concurrent.atomic.AtomicInteger()
         val requestedOlderCutoff = java.util.concurrent.atomic.AtomicLong(-1)
-        val recentPage = if (case == HistoryCase.OLDER_HISTORY) JsonArray().apply {
-            add(JsonObject().apply { addProperty("tx", reference.get("archiveEnvelope").asString) })
-            for (index in 1..49) add(JsonObject().apply {
-                addProperty("tx", PrivateChat.create(recipientWallet, wallet.publicKey,
+        val recentSender = if (unreadableRecent) SaitoWallet.fromBackup(JsonParser.parseString(recipientWallet.exportJson()).asJsonObject.apply {
+            add("keys", JsonArray().apply { add(JsonObject().apply {
+                addProperty("publicKey", wallet.publicKey)
+                addProperty("aes_secret", vectors[2].asJsonObject.get("sharedSecretHex").asString)
+            }) })
+        }.toString()) else recipientWallet
+        val recentPage = if (paginating) JsonArray().apply {
+            if (!unreadableRecent) add(JsonObject().apply { addProperty("tx", reference.get("archiveEnvelope").asString) })
+            for (index in (if (unreadableRecent) 0 else 1)..49) add(JsonObject().apply {
+                addProperty("tx", PrivateChat.create(recentSender, wallet.publicKey,
                     "Recent private message $index", oldestRecent + index).envelope())
             })
         }.toString() else null
@@ -318,7 +328,8 @@ class PrivateChatPreviewTest {
                             waitFor(counterpart)
                             ui.onNodeWithText(counterpart).assertIsDisplayed().performClick()
                         }
-                        val text = if (case == HistoryCase.QUOTED_REPLY) fixture.getAsJsonObject("replyFormat").get("body").asString
+                        val text = if (unreadableRecent) cachedOlderText
+                            else if (case == HistoryCase.QUOTED_REPLY) fixture.getAsJsonObject("replyFormat").get("body").asString
                             else reference.getAsJsonObject("plaintext").get("message").asString
                         if (case == HistoryCase.BLOCKED) {
                             waitFor(context.getString(R.string.chat_no_messages))
@@ -360,8 +371,13 @@ class PrivateChatPreviewTest {
                             captureNativeScreen(File(context.cacheDir,
                                 "private-chat-evidence/${if (case == HistoryCase.QUOTED_REPLY) "web-quoted-private-reply" else "literal-private-markup"}.png"), text)
                         }
-                        if (case == HistoryCase.OLDER_HISTORY) {
+                        if (paginating) {
                             check(olderReads.get() == 0)
+                            if (unreadableRecent) {
+                                waitFor(context.getString(R.string.chat_incomplete))
+                                check(nl.davidengelen.redsquare.chat.ChatHistoryStore(context, wallet, SaitoBackend.OWNER, counterpart)
+                                    .load().entries.any { it.message.text == cachedOlderText })
+                            }
                             waitForEnabled("Load older messages")
                             ui.onNodeWithText("Load older messages").assertIsEnabled().performClick()
                             waitFor(olderText)
@@ -371,7 +387,8 @@ class PrivateChatPreviewTest {
                             }
                             check(olderReads.get() == 1)
                             check(requestedOlderCutoff.get() == oldestRecent)
-                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/older-private-history-loaded.png"), olderText)
+                            val capturePrefix = if (unreadableRecent) "unreadable-recent-private-history" else "older-private-history"
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/$capturePrefix-loaded.png"), olderText)
                             historyUnavailable.set(true)
                             scenario.recreate()
                             waitFor(counterpart)
@@ -380,7 +397,7 @@ class PrivateChatPreviewTest {
                             waitFor(olderText)
                             ui.onNodeWithText(olderText).performScrollTo().assertIsDisplayed()
                             ui.onNodeWithText(cachedOlderText).performScrollTo().assertIsDisplayed()
-                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/older-private-history-cached.png"), olderText)
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/$capturePrefix-cached.png"), olderText)
                             check(AndroidWalletStore(context).loadOrCreate().exportJson() == wallet.exportJson())
                             check(AndroidBackendStore(context).load() == SaitoBackend.OWNER)
                             check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
