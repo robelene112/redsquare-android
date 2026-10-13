@@ -349,3 +349,9 @@ passes modernandlegacy importedlists; fullcore85/0/0/0+debug/testAPK PASS4m12s.
 Native list discovery now reads savedIDs, verifies/decrypts expectedprivategroup,
 saves originalencryptedcache and publishes portable recoveredcontacts through
 same shared active-wallet callback. ActualeightcaseGREEN/reviews next.
+
+Bounded importednative reviewf2...655: Standards0; Spec1partial discovery hides
+alreadycached firstconversation afterlatergroupfailure. Added one native regression:
+ID-only importcontains availablefirstprivategroup thenunavailable distinctID;
+firstcontact/history/recreatedofflinecache mustremainaccessible. Actual9caseRED
+pending; no scope relaxation. Actual8caseGREEN38353752949 stillpending.

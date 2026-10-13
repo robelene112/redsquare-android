@@ -74,7 +74,7 @@ class PrivateChatPreviewTest {
         }
     }
 
-    private enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID }
+    private enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL }
 
     @Test fun anImportedContactOpensItsAvailableAuthenticatedPrivateHistory() = exerciseHistory(HistoryCase.AVAILABLE)
 
@@ -90,12 +90,15 @@ class PrivateChatPreviewTest {
 
     @Test fun anImportedConversationIdRecoversAvailablePrivateHistoryWithoutAContactKeyEntry() = exerciseHistory(HistoryCase.IMPORTED_ID)
 
+    @Test fun oneUnavailableImportedConversationDoesNotHideAnotherRecoveredPrivateConversation() = exerciseHistory(HistoryCase.IMPORTED_PARTIAL)
+
     private fun exerciseHistory(case: HistoryCase) {
         val storageFailure = case == HistoryCase.STORAGE_FAILURE
         val live = case == HistoryCase.LIVE
         val interruptedSend = case == HistoryCase.SEND_INTERRUPTED
         val newContact = case == HistoryCase.NEW_SEND
-        val importedId = case == HistoryCase.IMPORTED_ID
+        val partialDiscovery = case == HistoryCase.IMPORTED_PARTIAL
+        val importedId = case == HistoryCase.IMPORTED_ID || partialDiscovery
         val sending = case == HistoryCase.SEND || interruptedSend || newContact
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
@@ -110,7 +113,10 @@ class PrivateChatPreviewTest {
                 addProperty("publicKey", counterpart); addProperty("added", true)
             }) })
             if (importedId) add("chat", JsonObject().apply {
-                add("groups", JsonArray().apply { add(reference.get("groupId")) })
+                add("groups", JsonArray().apply {
+                    add(reference.get("groupId"))
+                    if (partialDiscovery) add("e".repeat(64))
+                })
             }) // Existing Saito backup stores group IDs, not LocalForage messages.
         }
         val wallet = SaitoWallet.fromBackup(options.toString())
@@ -141,7 +147,9 @@ class PrivateChatPreviewTest {
             check(received.author == wallet.publicKey && received.text == outgoingText)
             "{\"err\":\"\",\"success\":1}"
         }, archiveResponse = { criteria ->
-            if (!criteria.has("field1") && criteria.get("field3")?.asString == reference.get("groupId").asString) {
+            if (partialDiscovery && !criteria.has("field1") && criteria.get("field3")?.asString == "e".repeat(64)) {
+                "invalid archive response"
+            } else if (!criteria.has("field1") && criteria.get("field3")?.asString == reference.get("groupId").asString) {
                 check(criteria.get("limit").asInt == 50)
                 historyReads.incrementAndGet()
                 if (historyUnavailable.get()) "invalid archive response"

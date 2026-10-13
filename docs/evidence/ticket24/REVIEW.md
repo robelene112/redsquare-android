@@ -260,3 +260,16 @@ discovery, preserved options and qualified core/public read evidence are consist
 One compatibility finding: valid backups mix DM64hex hashes and generated public-key
 group IDs in the same chat.groups list. Throwing on recognized group keys blocks
 unrelated private recovery. Skip those group entries and cover modern/legacy lists.
+
+## Imported-ID native reviewf2cd911...655c1e5
+
+### Standards
+
+Zero hard findings or actionable heuristics. Shared original/privategroup verified
+loader and protected callback consistent; evidence records53verify, core85.
+
+### Spec
+
+One partial-recovery finding: groupA successful/cache saved, latergroupB failure
+prevents publication of A's recovered contact. Isolate failures pergroup and publish
+successes with incomplete discovery status. MixedID compatibility finding resolved.
