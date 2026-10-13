@@ -1079,3 +1079,6 @@ asserted. Actualminimum10/17 runs andwholeticket pendingseparately.
 
 Findings: Standards0; Spec0. Subsequent localLike minimumcore86/debug/testAPK
 PASS4m32s/exit0. ActivefirstLike native10=38461533102/17=38461536720 sourcee407.
+
+
+First outgoing Like native qualification: Android10 run38461533102 and Android17 run38461536720, sourcee407, both GREEN. 24 history cases plus3 action cases, core86 each. Captured originals independently match pinned constructor/WASM/receiver; root inspected51 XMLs plus unique liked/recreated PNGs per platform. Existing real DM process recovery also passes on both; reaction process recovery remains pending. Evidence folders record exact timings and limits.
