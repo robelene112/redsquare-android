@@ -30,9 +30,27 @@ const packData = method(transactionSource, 'Transaction', 'packData', {Buffer, U
 const keys = Object.fromEntries(['1','2'].map(value => [value, wasm.generate_public_key('0'.repeat(63) + value)]));
 const original = JSON.parse(fs.readFileSync('/reference/chat-reference.json')).vectors[0];
 assert.equal(original.sender, keys['1']);
+const checkingNative = process.argv[2] === '--check-native-like';
+const nativeBytes = checkingNative ? fs.readFileSync('/reference/native-sent-like-envelope.json') : null;
+const nativeEnvelope = nativeBytes ? JSON.parse(nativeBytes) : null;
+let timestamps = [1700000080100, 1700000080101];
+if (nativeEnvelope) {
+  const detached = Buffer.from(nativeEnvelope.t,'base64');
+  const payload = Buffer.from(nativeEnvelope.m,'base64');
+  assert.equal(detached.readUInt32BE(8),0);
+  const offset = 93 + 59 * (detached.readUInt32BE(0) + detached.readUInt32BE(4));
+  const network = Buffer.concat([detached.subarray(0,offset),payload,detached.subarray(offset)]);
+  network.writeUInt32BE(payload.length,8);
+  const tx = wasm.WasmTransaction.deserialize(network);
+  assert.deepEqual(tx.from.map(slip => slip.public_key),[keys['2']]);
+  assert.deepEqual(tx.to.map(slip => slip.public_key),[keys['2'],keys['1']]);
+  const timestamp = Number(tx.timestamp);
+  assert(Number.isSafeInteger(timestamp) && timestamp >= 0);
+  timestamps = [timestamp,timestamp+1];
+}
 const vectors = [];
 (async () => {
-  for (const timestamp of [1700000080100, 1700000080101]) {
+  for (const timestamp of timestamps) {
     const recipients = [], propagated = [], relays = [];
     const candidate = {
       addTo: key => recipients.push(key),
@@ -76,6 +94,10 @@ const vectors = [];
     vectors.push({timestamp,body:JSON.parse(JSON.stringify(candidate.msg)),signature:candidate.signature,
       archiveEnvelope:candidate.envelope,networkBase64:candidate.networkBase64,signedInner:candidate.toJson()});
   }
+  if (nativeEnvelope) {
+    assert.deepEqual(JSON.parse(vectors[0].archiveEnvelope),nativeEnvelope);
+    assert.deepEqual(JSON.parse(Buffer.from(nativeEnvelope.m,'base64').toString('utf8')),vectors[0].body);
+  }
   const target = {signature:original.signature,likes:0,liked_by:{}};
   const group = {id:original.groupId,txs:[target]};
   const events = [];
@@ -87,6 +109,8 @@ const vectors = [];
   assert.equal(target.likes,0); assert.equal(target.liked_by[keys['2']],false);
   assert.equal(events.length,2); assert(events.every(event => event.name === 'chat-popup-render-request'));
   console.log(JSONBig.stringify({reference,chatSourceSha256:hash(source),originalSignature:original.signature,
+    ...(nativeEnvelope ? {nativeEnvelopeSha256:hash(nativeBytes),independentWasmOriginalMatches:true,
+      existingConstructorMatchesNativeLike:true,existingReceiverAcceptsNativeLike:true} : {}),
     groupId:original.groupId,author:keys['1'],reactor:keys['2'],vectors,
     existingReceiverAddsAndRemovesLike:true,
     boundary:'actual pinned Chat create/receive and Transaction toJson/packData; wallet fee/signing and outbound network adapters; independent WASM/elliptic signing; no constructor, DOM, app initialization or real delivery; dispatch deduplication not executed'},null,2));

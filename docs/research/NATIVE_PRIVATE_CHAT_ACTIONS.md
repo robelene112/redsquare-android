@@ -133,3 +133,11 @@ through propagation/Relay, and retained count/action/status after failedArchive
 recreation with exact wallet/backend and no automatic rebroadcast. It captures
 only the public unsafe signed action. Native Like is not implemented yet; no RED
 or acceptance inferred from this tracer. Unlike/live/dedup/retry follow separately.
+
+`--check-native-like` independently reconstructs the captured publicunsafe native
+operation with actual pinned Chat.createChatLikeTransaction at its captured signed
+timestamp, compares exact detached/payload bytes and recipient/signer/body metadata,
+then executes actualreceiver toggle. Default reactioncorpus remains byteidentical.
+An ordinary encryptedreply control actually fails with exit1/ERR_ASSERTION. A
+successful nativeLike capture/checker is stillpending. This doesnot execute full
+walletfee or dispatchdedup/realnetwork behavior, retaining explicitadapterlimits.
