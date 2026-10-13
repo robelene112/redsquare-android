@@ -639,3 +639,22 @@ Both corrective diffs zero actionable findings. ActualNotificationsentry/Archive
 requestadvancement/completederror-free reading/authwallet nowrequired. Actual31
 provider run completeswalletjourney but cleanupfails expectedminimalJSONguard;
 corrected runtime pending. No production or scopechange.
+
+## Actual cold notification tracer
+
+### Standards
+
+`f4cce67...4d3b1c8`: zero hard/actionableheuristic findings. Visible activity and
+confirmed read precede actualkill; checkpoint publiconly/exactstatefamilyreset,
+newPID/authsameidentity/backend/coldretention/no writes required.
+
+### Spec
+
+Zero actionable findings. Recovery clears no state, failedfreshserver cannot
+recreate event, retainedneutralLike/NoUnread/disabledMark/actorProfile required.
+Local correctivepermission/processAPK1m40PASS; actualnative pending.
+
+31mainGREEN17 ataf49e30 fully verifies canonicalhost/strictoriginalwalletrestore
+and bothidentitysharedMention readisolation,84hashes/41XML/rootbothoriginalwallet
+captures. Separateoriginalpermissionfixturefails expectedmissingFeedScreen,
+threehashes/rootoriginalPNG/XML retained. Runtimecorrection/finalfull pending.

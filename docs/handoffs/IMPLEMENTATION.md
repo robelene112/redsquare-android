@@ -43,9 +43,13 @@ positive-size guards/exact cleanup. Provider run38326390887 completedjourney but
 31reported/30PASS/onefailure123.866s. Fivehashes/twoXML/rootbothwalletPNGs.
 1273647 canonicalhostoptionsfix bothaxes0; providerAPK1m32PASS. Permissiontracer
 initialAPK1m44PASS; f4cce67 removes feedDisabled/addsactualreadcounters+auth/
-non-disclosingwalletchecks, bothcorrectionaxes0. Original17run38326680659 cannot
-provefix.4d3b1c8 actualprocesskill/coldsamewallet/readstatus underfailedserver
-tracer compile/review pending. Focused10run38326981751 covers all corrections. Production
+non-disclosingwalletchecks, bothcorrectionaxes0. Original17run38326680659 passes main31/173.964s/oneOK/84hashes/41XML:
+actualwalletisolation and strictoriginalrestore/all30old accepted, then separate
+permissionfixture failsmissingNotifications1/16.864s/threehashes. Rootbothwallet
+PNGs pluspermissionfailurePNG/allXML inspected. Cannot provepermissionfix.
+4d3b1c8 actualprocesskill/coldsamewallet/readstatus underfailedserver tracerboth
+axes0/correctiveAPK1m40PASS. Focused10run38326981751 and17run38327322258 cover
+all corrections and actual OS choices/processrecovery. Production
 source remains0ef7b41. No wallet-import product failure or actual death claim.
 
 Remaining #24: wallet isolation native proof, actual permission choices and actual

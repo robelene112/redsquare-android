@@ -1155,3 +1155,14 @@ Profile/return/authsameidentity/no writes. Exactpublicnotif/read familiesreseton
 prepare; nopersonal/keystore/wallet reset/privatebackup checkpoint. Hostvalidates
 actualdeath/newPID/checkpointequality/coldOK andcapturesfailures independently.
 Correctedfocused10run38326981751 pending; processcompile/reviews pending.
+
+31GREEN17 main runner38326680659 ataf49e30 passes31/173.964s/oneOK/zero
+deaths/assumptions/core73/debug/test. Canonicalproviderfix passes actual bothwallet
+imports/sharedMentionunreadisolation/Ownerheader/bothauthkeys/all30prior/strict
+originalopaque wallet restoration/no writes.84hashes/all41XML/roottwooriginal
+walletPNGs inspected. Overallworkflow thenfails originalpermissionfixture initial
+Notifications wait1/16.864s/zeroOK; rootoriginalPNG/XML shows onlyappheader/backup
+reminder, noFeedScreen. feedDisabled wasreviewed/fixedf4cce67 beforethisresult.
+ThreeREDhashes; noactualOSchoice failure. Correctedfocused10run38326981751 and
+17run38327322258 pending. Process/correctivepermissionlocalAPK1m40PASS; process
+tracerbothaxes0. No whole-ticket/finalfull/physical claim.
