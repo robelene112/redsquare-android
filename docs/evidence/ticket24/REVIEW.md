@@ -1219,3 +1219,6 @@ byte after routing-hop normalization; Relay original/count remain exact. No
 native retry acceptance or actual process interruption inferred from setup.
 
 Localtracer Kotlin compilation PASS1m19s. ProductRetryabsent; nativeRED next.
+
+
+Corrected10run38468474482/sourceb499:5actionsPASS30.339s/core86, all23XML+sixselectedoriginalPNGs inspected including actualzeroquotebefore/after. Product source unchanged from17GREEN38467252208/c196. Incoming/dedup/concurrency/outgoing/normal+zeroReply nowqualified bothSDK; newRetryRED17run38468903248/source2a90 active6cases. Retry/process/isolation/available-source/fullclosure remain pending.
