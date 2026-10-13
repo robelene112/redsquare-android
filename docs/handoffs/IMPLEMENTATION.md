@@ -49,8 +49,11 @@ prepare timesoutRetryLike:69/1fail21.424s beforedeath/checkpoint. Nooriginal
 PNG/XML/counters, causeUNPROVEN/onerunnerhash.805beea actualLike/Retryscroll+
 displaygatesbothphases andin-scopecapture/publiccounts; d2d6947 hostdiagnostic
 finallyretainsimages preservingprimaryfailure. No app/core/refchanges, hostonly
-capture. Bothreviews0/localAPK1m30PASS. Focusedsocial10run38330457957 active,
-then correctedfull10required. Originalfull17run38328912121 ata564 stillactive;
+capture. Bothreviews0/localAPK1m30PASS. Focusedsocial10run38330457957 atd2 PASSES8/17.933s+intentionaldeath/cold1/
+3.680s/twoOK/core74/noassumptions.18hashes/oneXML/rootoriginalreconciledPNG:Owner/
+root/disabledLiked/2likes; duplicatebyte-equivalent/notindependent. Oldfailurecause
+stillunproven/exactPIDsnotretained. Correctedfull10run38330887204 atb80b878 active/
+publicreadsoptedin. Originalfull17run38328912121 ata564 stillactive;
 mayretainifallgatespasswithsameproduction686/unchangedacceptance assertions.
 
 Issue24 accidentalautoclosefrombfd0906 wording "activity closes #24" discovered:

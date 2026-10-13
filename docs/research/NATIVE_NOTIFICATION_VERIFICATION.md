@@ -1255,3 +1255,12 @@ Issue24 automaticallyclosed00:05:48Z fromcleanupcommitbfd0906 wording
 "activity closes #24". Rootreopenedandcommented6135745505 whileactualfinal
 acceptanceunfinished. Avoid GitHubclosingkeywords in interimcommitmessages.
 Currentcompletedcountremains19/35; issue24 isopenuntilactualacceptancecomplete.
+
+FocusedSocial10run38330457957 atd2d6947 passes8/17.933s and intentional
+processdeath/coldreconciliation1/3.680s/two completedOK/noassumptions/core74.
+18hashes/alloneXML/rootoriginalreconciledPNG Owner/root/disabledLiked/served2likes
+nearbottom. Standalone/tarcopy byte-equivalent, not independentobservations. Host
+verifiesoldPIDdisappeared, exactcandidate/oneTX/coldsamewallet/zero rebroadcast;
+exactPIDsnotretained. OriginalRetrytimeoutcause remainsunproven. Bothreviews0/
+localAPK1m30PASS. Correctedfull10run38330887204 atb80b878 sourceequivalent686
+active/publictrue; originalfull17run38328912121 ata564 active.
