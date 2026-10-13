@@ -25,7 +25,8 @@ separate review reports: `docs/evidence/ticket24/REVIEW.md`.
 **Current acceptance:** Android17 full `38484424347` at4e3a6ea7 remains active.
 Android10 full `38484421113` failed in report backup selection after178 reported
 cases (177 passes/one existing API29 assumption); the later full tail did not run.
-A new full10 rerun follows the test-only picker correction26c0c7a5. Do not cancel
+Corrected full10 `38487263465` at90c85603 is active after the test-only
+picker correction26c0c7a5. Do not cancel
 or redispatch the active17 run without results or a new concern. These reruns include the latest product fix
 `b7541e6a`, which consolidates four feed navigation buttons into two rows.
 Actual diagnostic run `38483374543` captured a screen entirely consumed by
@@ -73,7 +74,8 @@ Publish13 only after corrected runtime acceptance, using the canonical script,
 then retain results, complete #25 and start #37. Physical Pixel/current13
 continuity is not established by package/certificate metadata; #35 retains it.
 
-No owned Gradle process remains. Current local changes are documentation and
+No owned Gradle process remains. Compiler58932 completed test APK1m36s.
+Current local changes are documentation and
 evidence commits plus protected untracked
 `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`, which belongs to #26. Never stage
 or delete that file. No production node/configuration/private-wallet/database
