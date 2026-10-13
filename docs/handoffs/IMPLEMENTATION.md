@@ -593,3 +593,12 @@ receive and Transaction JSON methods with namedwalletfee/signing/network adapter
 publictwo-operation corpus togglesoneoriginal on/off. No appreaction source yet,
 no dispatchdedup/native acceptance. Missinginput/BigInt generator attempts fixed
 before exit0; preservedboundaries described inNATIVE_PRIVATE_CHAT_ACTIONS.md.
+
+
+Currenttest-only split8289886d + walletgatefixbb31c329 preserves24coreUI cases
+and2replyaction cases via sharedpublicUI fixture, independent180s caps/reports.
+Actualprior17run172.881s justifiesboundedfamily split beforegrowth. Bothgatefix
+reviews0; localsplitTestAPKPASS1m47s. StrongquoteNav tracer now adds authenticated
+publicnative-generated24line spacer between original/reply andasserts original
+notdisplayed beforetap/strict originaldisplayaftertap, then returns toreplybody.
+Crypto/metadata baseline unchanged. Compilation/review/newsplitruntimepending.

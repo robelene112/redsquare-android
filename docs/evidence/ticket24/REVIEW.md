@@ -960,3 +960,22 @@ No newruntime acceptance inferredfromextraction.
 
 Findings: Standards1; Spec1 (same harnessregression independentlyreported).
 Targeted fix restoresonlywalletimport gate; Chat exitstatus check remains.
+
+
+## Wallet gate follow-up,8289886d...bb31c329
+
+### Standards
+
+Prior harnessregression resolved; zero new documented breaches or actionable
+smell findings. Originalwalletimport successgate restored; all4chat_ui_exit
+references confinedtoChat. Prior reports remainseparate; no runtimeclaims.
+
+### Spec
+
+Priorfinding resolved; zero new actionable findings. Wallet verification no
+longerdepends Chatstate; Chat exit0+OK/capture/failureprocessgate unchanged.
+
+Findings: Standards0; Spec0. Local splitTestAPK subsequentlyPASS1m47s/exit0.
+Quote-navigation tracer is strengthened with authenticated publicnative-generated
+layoutspacer and explicitoriginal-offscreen assertion beforetap. Spacer isnot
+independentcryptoevidence; replyoriginal andmetadata oracle stayunchanged.

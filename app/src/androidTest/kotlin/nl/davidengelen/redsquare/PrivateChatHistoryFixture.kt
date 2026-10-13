@@ -292,11 +292,30 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             check(received.message.text == outgoingText && received.message.author == wallet.publicKey)
                             check(received.message.id == peer.relayedMessages.single().get("signature").asString)
                             File(context.cacheDir, "private-chat-evidence/${if (zeroReply) "native-sent-zero-reply-envelope" else "native-sent-reply-envelope"}.json").writeText(received.envelope)
+                            // A public native-generated spacer makes the quoted original genuinely offscreen.
+                            // Independent reply crypto/metadata remains anchored to the original web corpus.
+                            waitForEnabled("Refresh")
+                            val spacerText = (1..24).joinToString("\n") { "Public layout spacer line $it" }
+                            val spacer = PrivateChat.create(recipientWallet, wallet.publicKey,
+                                spacerText, received.message.createdAt - 1)
+                            val spacerRelay = JsonObject().apply {
+                                addProperty("module", "Relay"); addProperty("request", "chat relay")
+                                add("data", spacer.signedJson())
+                            }
+                            peer.sendIncoming(SaitoWire.applicationRequest(recipientWallet.publicKey,
+                                spacerRelay.toString().toByteArray(Charsets.UTF_8), 1,
+                                received.message.createdAt - 1).drop(5).toByteArray())
+                            ui.waitUntil(5_000) { peer.incomingAcknowledgements.any { it[0] == 13.toByte() } }
+                            ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText(spacerText))
+                            ui.onNodeWithText(spacerText).assertIsDisplayed()
                             val sentBody = hasText(body) and !hasSetTextAction()
-                            ui.onNode(hasScrollToIndexAction()).performScrollToNode(sentBody)
+                            ui.onNode(hasScrollToIndexAction()).performScrollToIndex(2)
                             ui.onNode(sentBody).assertIsDisplayed()
                             captureNativeScreen(File(context.cacheDir, "private-chat-evidence/$capturePrefix-forwarded.png"), body)
-                            ui.onNodeWithText(expected.get("quotedText").asString).performClick()
+                            ui.onNodeWithText(text).assertIsNotDisplayed()
+                            captureNativeScreen(File(context.cacheDir,
+                                "private-chat-evidence/$capturePrefix-quote-before-tap.png"), body)
+                            ui.onNodeWithText(expected.get("quotedText").asString).assertIsDisplayed().performClick()
                             ui.waitUntil(15_000) { ui.onNodeWithText(text).isDisplayed() }
                             ui.onNodeWithText(text).assertIsDisplayed()
                             captureNativeScreen(File(context.cacheDir,
