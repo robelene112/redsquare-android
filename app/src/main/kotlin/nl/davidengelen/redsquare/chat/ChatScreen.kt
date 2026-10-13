@@ -50,6 +50,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     var hasOlder by remember(wallet, backend, counterparty) { mutableStateOf(false) }
     var olderLoading by remember(wallet, backend, counterparty) { mutableStateOf(false) }
     var olderRequest by remember(wallet, backend, counterparty) { mutableIntStateOf(0) }
+    var olderCursor by remember(wallet, backend, counterparty) { mutableStateOf<Long?>(null) }
     var closing by remember(wallet.publicKey, backend, counterparty) { mutableStateOf(false) }
     fun close() {
         if (closing) return
@@ -63,6 +64,17 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
         }
     }
     BackHandler { close() }
+
+    suspend fun retainHistory(cache: ChatHistoryStore): ChatHistoryStore.Read? {
+        val originals = entries.map { it.envelope }
+        return try {
+            val saved = withContext(Dispatchers.IO) { cache.save(originals) }
+            entries = ChatHistoryStore.merge(entries, saved.entries)
+            cacheFailed = false
+            saved
+        } catch (cancelled: CancellationException) { throw cancelled }
+        catch (_: Exception) { cacheFailed = true; null }
+    }
 
     LaunchedEffect(wallet, backend, endpoint, counterparty, refresh) {
         try {
@@ -167,15 +179,12 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                                 loadPrivateHistory(peer, wallet, PrivateChat.conversationId(wallet.publicKey, contact))
                             }
                             hasOlder = page.hasOlder
+                            olderCursor = page.messages.minOfOrNull { it.message.createdAt }
                             entries = ChatHistoryStore.merge(entries, page.messages.map { ChatHistoryStore.Entry(it.envelope, it.message) })
                             incomplete = incomplete || page.incomplete
-                            try {
-                                val saved = withContext(Dispatchers.IO) { cache.save(entries.map { it.envelope }) }
-                                entries = ChatHistoryStore.merge(entries, saved.entries)
-                                cacheFailed = false
+                            retainHistory(cache)?.let { saved ->
                                 incomplete = page.incomplete || saved.incomplete
-                            } catch (cancelled: CancellationException) { throw cancelled }
-                            catch (_: Exception) { cacheFailed = true }
+                            }
                             failed = false
                         } catch (cancelled: CancellationException) { throw cancelled }
                         catch (_: Exception) { failed = true }
@@ -194,7 +203,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     LaunchedEffect(wallet, backend, endpoint, counterparty, olderRequest) {
         val contact = counterparty ?: return@LaunchedEffect
         if (olderRequest == 0) return@LaunchedEffect
-        val cutoff = entries.minOfOrNull { it.message.createdAt } ?: return@LaunchedEffect
+        val cutoff = olderCursor ?: return@LaunchedEffect
         val cache = ChatHistoryStore(context, wallet, backend, contact)
         try {
             val page = withContext(Dispatchers.IO) {
@@ -205,15 +214,12 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
             }
             require(page.messages.all { it.message.createdAt < cutoff })
             hasOlder = page.hasOlder
+            olderCursor = page.messages.minOfOrNull { it.message.createdAt }
             entries = ChatHistoryStore.merge(entries, page.messages.map { ChatHistoryStore.Entry(it.envelope, it.message) })
             incomplete = incomplete || page.incomplete
-            try {
-                val saved = withContext(Dispatchers.IO) { cache.save(entries.map { it.envelope }) }
-                entries = ChatHistoryStore.merge(entries, saved.entries)
-                cacheFailed = false
+            retainHistory(cache)?.let { saved ->
                 incomplete = incomplete || saved.incomplete
-            } catch (cancelled: CancellationException) { throw cancelled }
-            catch (_: Exception) { cacheFailed = true }
+            }
             failed = false
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { failed = true }
@@ -286,7 +292,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
         } else {
             Text(contact, style = MaterialTheme.typography.labelSmall)
             if (loading) Text(stringResource(R.string.chat_loading))
-            if (hasOlder) TextButton(enabled = !loading && !olderLoading && entries.isNotEmpty(), onClick = {
+            if (hasOlder) TextButton(enabled = !loading && !olderLoading && olderCursor != null, onClick = {
                 olderLoading = true
                 olderRequest++
             }) { Text(stringResource(R.string.chat_load_older)) }

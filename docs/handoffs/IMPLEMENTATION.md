@@ -486,3 +486,6 @@ Older-history21tracer01a56a6 actualRED10run38432238667:20PASS+missingLoadolderco
 
 
 Older UI43c4dad compiles3m10s. Both reviews completed: Spec1 cache/pagecursor gap (ancient cached message skips available intermediate history); Standards1 duplication heuristic. Same21tracer strengthened with real encrypted ancientT-100 fixture plus recentT and availableT-1; wrongservercutoff naturallyreturns[]. Test compiling; no strengthened nativeRED/cursorfix yet. Product43 unchanged whileownedGradleactive. Both findings mustbe corrected/reviewed beforeacceptance. Preview11 remainsa369.
+
+
+AncientcachegapRED10run38434215697 atdd8ef695:21cases20PASS+intermediatebodyline346timeout109.476s/core86. Root31XML/failureoriginal inspected; exactfailedrequesttimestampnotretained, latercachetailunexecuted. Separatearchivepagecursor andshared retainHistory helpercorrect bothreviewfindings locally; buildrunning andfollowupreview/nativeGREEN next. Product43c4dad no longercurrentworking source; preview11 unchanged.
