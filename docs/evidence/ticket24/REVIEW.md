@@ -1200,3 +1200,22 @@ Zero actionable findings. Positive ACK is distinguished from UI publication;
 public three-row readiness preserves exact quote navigation checks. Earlier17
 same-product pass does not execute this wait. Corrected10 and whole-ticket gates
 remain pending. Local test compilation PASS1m17s.
+
+## Original reaction Retry tracer,b499e7c6...2b8443fc
+
+### Standards
+
+Zero documented breaches or actionable smells. Independent signed original in
+protected store, public explicit Retry, interrupted submission, reopening with
+no send and another exact-original retry. One count, Relay identity, full wallet/
+backend and noextra operations preserved. Distinct captures; opaque cleanup.
+Synthetic UNKNOWN precondition is not a crash claim.
+
+### Spec
+
+Zero actionable findings. Original identity and no duplicate visible effect are
+checked through agreed UI/peer boundary. Both broadcasts preserve every signed
+byte after routing-hop normalization; Relay original/count remain exact. No
+native retry acceptance or actual process interruption inferred from setup.
+
+Localtracer Kotlin compilation PASS1m19s. ProductRetryabsent; nativeRED next.
