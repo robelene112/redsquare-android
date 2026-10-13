@@ -1240,3 +1240,24 @@ Forwarded remains distinct from delivery confirmation. Missing-control RED
 17run38468903248/source2a90 (6cases5PASS+one/80.505s/core86) is separate from
 pending corrected build/GREEN. Root failurePNG/XML inspected; later tail and
 actual reaction process/switch isolation/full acceptance unexecuted.
+
+## Actual reaction process tracer,dabb4ab8...48858fed
+
+### Standards
+
+Zero documented breaches or actionable smells. Independent uncertain reaction
+adds exactid/digest/single-event/status/UI/no-send checks to the guarded real
+kill/restart fixture. Opaque snapshot/restoration includes both reaction pairs
+and .bak/.new. Original encrypted files remain device-only; public host
+checkpoint guards/delta/PID checks persist.
+
+### Spec
+
+Zero actionable findings. Cachedmessage, typedunsentdraft, uncertainDM and
+reaction now required after realprocessrestart, with UNKNOWN/oneLike/disabled
+Unlike/explicitRetryready and no transmissions. Fullwallet/backend preserved.
+Snapshot restoration and publicIDs/hashes remain distinct from wallet material.
+No native newPID acceptance yet; prioractions do not establish this coverage.
+
+Local tracer compilation PASS1m21s. Prior exact reactionRetry6cases GREEN10
+38470363216/40.583s and17 38470366652/61.425s at5053fec7/core86. NewPID next.
