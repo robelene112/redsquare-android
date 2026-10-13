@@ -566,3 +566,23 @@ assert selected Owner backend during replacement view, not only after return.
 Root adds both. Reference224504/hash2c0b...715fc threecopies/fixed1–4 verified.
 OriginalAPK1m48PASS; original31native pending cannot prove corrected cleanup/
 additional assertions. Corrective compile/review pending, no product defect.
+
+## Retry guard and wallet cleanup corrections
+
+### Standards
+
+`2459fa8...61cb647` and `dd23b9f...bfd0906`: zero hard violations/actionable
+heuristics. Exact wallet fixture restoration occurs after Activity closes, with
+primary failure preserved; prior opaque wallet is not printed or stored publicly.
+
+### Spec
+
+Zero actionable findings. Greater-than51 excludes the old overlap window; wallet
+replacement view positively asserts Owner and final peer keys require Owner1 plus
+unsafe3. Corrective APK1m33/1m31 pass. Original30GREEN and31setup failure have
+qualified limits in separate READMEs; corrected full wallet native remains pending.
+
+29GREEN17 and30GREEN10 raw evidence recorded:29/146.941s/78hashes/38XML,
+30/104.851s/80hashes/39XML; both oneOK/zero deaths/assumptions/core73.
+Root viewed four original storage captures and one late-retry capture; no added
+visual claims for other retained PNGs. Whole-ticket review/acceptance pending.

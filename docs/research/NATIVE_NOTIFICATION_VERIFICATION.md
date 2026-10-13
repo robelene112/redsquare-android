@@ -1106,3 +1106,27 @@ Spec2proofgaps corrected: positiveOwner1authentication and Owner backend header
 in replacement view. UI/import/count assertions unchanged. Original31native
 38325244254 cannot prove corrected cleanup/new assertions. Corrective compile/
 review pending. No reproduced production defect or private key output.
+
+## Accepted load/retry checkpoints and wallet setup correction
+
+29GREEN17 run38323592243 at eef0fc6:29PASS146.941s/oneOK/zero deaths/
+assumptions/core73/debug/test.78hashes/all38XML/rootfour original load/recovery
+PNGs inspected. Both storage fault journeys retain activity, repair and persist
+read/history state through recreated failed-server reads. Corrective APK1m36PASS;
+both source axes0. Source unchanged0ef7b41; not actualprocessdeath.
+
+30GREEN10 run38324067997 at2459fa8:30PASS104.851s/oneOK/zero deaths/
+assumptions/core73/debug/test.80hashes/all39XML/rootoriginal late-retry PNG
+inspected. Actual More preserves exhausted healthy request count; explicitRefresh
+rereads it and yields deduped3Unread/actual actor4 Profile. Original before>50
+cannot prove stronger61cb647 guard. Corrected guard individually passes later31
+run, whose whole runner fails wallet setup, so do not call it full acceptance.
+
+Wallet correctionbfd0906 bothaxes0/localAPK1m31PASS. Original31 run38325244254
+atdd23b9f reports30PASS/one setup failure103.888s/zeroOK/deaths/assumptions/
+core73/debug/test. Exactline1101 documents.isDirectory||mkdirs fails before
+Activity/capture/import. Original runner retained/hash; no wallet productdefect
+or navigation diagnosis.6be5695 provisions two fixed public unsafe1/3 documents
+under provider UID using established host run-as boundary, positive-size runtime
+guards and exacttwo-filecleanup. No opaque wallet material crosses that boundary.
+Corrective run38326390887 pending; source unchanged0ef7b41.

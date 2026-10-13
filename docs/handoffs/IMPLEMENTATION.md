@@ -26,32 +26,28 @@ failure. Verified activity survives pruned pages/Activity recreation. History an
 read markers are wallet/backend scoped; unread counts use visible verified rows,
 Mark all as read commits before confirming, and storage faults preserve activity.
 
-Latest native checkpoint: Android10 run38323141610 at0ef7b41 passes27 cases
-in100.778s/oneOK/zero deaths/assumptions/core73/debug/test. Full150-event history
-survives pre-Mark reopening, actual MarkAll and post-Mark reopening/retained
-rows/NoUnread. All26 prior routes/cache/fault/controls/backend/paging/discovery
-pass with opaque restoration/no writes.70hashes/all34XML/rootthree original
-cache-budgetPNG inspected. Both source axes0; local observed builderfc4442389352
-exit0 qualifies attached143/partial log, no duration/full-log claim. Source now
-chunks available/cached envelopes <=100 via same classifiers, preserving300budget.
-Previous complete26GREEN17 run38322163532 at1de5092:126.808s/oneOK/64hashes/
-31XML/rootoriginalparentPNG. This validates expanded outer240s guard; assertions
-remain15s/RPC12s. Fresh fullSDKpair required after production changes.
+Latest complete checkpoints:29GREEN17 run38323592243 at eef0fc6 passes29/
+146.941s/oneOK/78hashes/38XML;30GREEN10 run38324067997 at2459fa8 passes30/
+104.851s/oneOK/80hashes/39XML. Both zero deaths/assumptions/core73/debug/test.
+Root viewed four original load/recovery captures and late-retry PNG/allXML. Storage
+faults retain activity and persist repaired history/read status. Retry preserves
+healthy exhausted reads, refresh adds late actor4/3unread/deduped Likes/Profile.
+Original30 uses weaker before>50;61cb647 strengthens>51, compile1m33/bothaxes0.
 
-Storage-load regressions28/29 at eef0fc6: exact owned history/read directory fault
-before launch, warning plus preserved activity, unknown read status has no count/
-disabledMark, tracked repair+Refresh and recreated failed-server recovery with
-positive retained rows/read status. Both axes0; initialAPK1m45PASS/correctiveAPK
-1m36PASS. Native29GREEN17 run38323592243 pending. Source unchanged from0ef7b41.
-No actual process-death/whole-ticket acceptance. Next partial-stream retry and
-late-refresh observation, wallet isolation, permission and actual cold recovery.
-Protected future five Chat files remain untracked/untouched.
+Wallet original31run38325244254 atdd23b9f:30PASS/one setup failure103.888s/
+zeroOK/deaths; exactline1101 cannot mkdir testprovider directory fromtarget UID,
+before Activity/import/capture. Corrected>51 retry case passes individually here.
+bfd0906 cleanup/header/key correction bothaxes0/localAPK1m31PASS.6be5695 moves
+only two public unsafe1/3 import files to established host run-as provider UID,
+positive-size guards/exact cleanup. Corrective run38326390887 pending. Production
+source remains0ef7b41. No wallet-import product failure or actual death claim.
 
-Remaining #24 work is finite: supplement followed-account posts, bounded reply discovery/older-page overlap and retry,
-prove mute/block and backend/wallet isolation, actual permission choices and
-process-restart/storage recovery, then final whole-ticket reviews and Android10/
-17 acceptance at the same source. Automatic read-on-tap, richer previews, live
-polling, universal indexing and permanent history are not closure requirements.
+Remaining #24: wallet isolation native proof, actual permission choices and actual
+process-restart recovery, then whole-ticket reviews and final Android10/17 at same
+source. Followed posts, discovery, paging, retry, personal controls and backend
+isolation are already proved. Automatic read-on-tap/richer previews/live polling/
+universal indexing/permanent history are not closure requirements. Protectedfive
+future Chat files untouched; no new phone APK.
 
 Canonical chronology: `docs/research/NATIVE_NOTIFICATION_VERIFICATION.md`.
 Separate axis reports: `docs/evidence/ticket23/REVIEW.md`.
