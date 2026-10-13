@@ -95,3 +95,7 @@ Crypto recipient decryption, exact full body and mentioned array, and actual
 Chat.addTransactionToGroup receipt/duplicate suppression. UI text-only receipt
 cannot prove mention metadata. The public capture stays inside the approved
 unsafe-scalar fixture boundary. Reopened draft preview is checked before removal.
+
+Named pinned SaitoUser template directly confirms outer data-id is publicKey
+(lines20–23), SHA256592fafd1ee8b9e89faf8ea5565b063edd0e56ad737f2cafe76e9f1d8f2cefe55.
+[User wrapper](https://github.com/SaitoTech/saito/blob/9a4ca7e9442eb5e872168ced361ce741d7d139d7/node/lib/saito/ui/saito-user/saito-user.template.js#L20).

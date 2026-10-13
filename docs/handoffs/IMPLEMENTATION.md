@@ -504,3 +504,12 @@ adds25th case at approved UI/controlled-peer/cached-recovery seams, using actual
 pinned sanitizer source-guided excerpt oracle. NoReply product minimum yet.
 Wrong local Gradle task failed14s beforecompilation; corrected testAPKbuilding.
 Preview11sourcea369 unchanged; #25open, reactions/isolation/fullgatespending.
+
+
+Current NativeReply tracer53c7bd90: corrected localTestAPKPASS1m28s, two
+followupreviewaxes0 resolving preview/mention gaps. Native10chat-ui run38452059233
+actuallydispatchedmain; inspecthead53c7bd90/result beforeminimum. EarlierSHAref
+HTTP422 launchedno devicecheck. Independentrequired --check-native-reply-send
+accepts onlycaptured unsafeoriginal matchingcompositionmetadata; priornonreply
+capture explicitlyrejectedexit1. Ordinarychecker priorresult remainsidentical.
+NoReplyproductcode/capture/GREEN/wholeacceptance yet. OwnedGradlecompleted.
