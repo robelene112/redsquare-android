@@ -191,3 +191,21 @@ signed inner relayed; Submitted/Forwarded avoid delivery/read confirmation. All1
 UI manifest records, actual missing-composer RED and container success verify.
 Actual outgoing recovery/independent client and whole-ticket acceptance were
 pending at review time; subsequent native GREEN retained separately.
+
+## Private send guidance/layout and native client check e06a22c...94326b2
+
+### Standards
+
+Prior guidance finding resolved; zero new hard findings or actionable heuristics.
+Read errors name actual reopen recovery; later send/save errors do not promise
+Refresh retry. Compact layout preserves state logic. All24 GREEN records and
+three added build/research records verify. Native envelope matches independent
+client check; default reference copies unchanged. Earlier clipped recreated text
+and pending corrected runtime are accurately qualified.
+
+### Spec
+
+Zero findings. Actual unsafe2->1 native envelope decrypts through pinned Crypto
+wrapper and matches independently reproduced signature. All209 UI evidence
+hashes/tenXMLs/three qualified originals verify; default reference copies remain
+unchanged. Corrected layout/runtime and actual process death remain pending.

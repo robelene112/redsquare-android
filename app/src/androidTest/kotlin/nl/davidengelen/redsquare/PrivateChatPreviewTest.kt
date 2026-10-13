@@ -74,7 +74,7 @@ class PrivateChatPreviewTest {
         }
     }
 
-    private enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND }
+    private enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED }
 
     @Test fun anImportedContactOpensItsAvailableAuthenticatedPrivateHistory() = exerciseHistory(HistoryCase.AVAILABLE)
 
@@ -84,10 +84,13 @@ class PrivateChatPreviewTest {
 
     @Test fun aNativePrivateSendPropagatesAndRelaysTheSameEncryptedOriginal() = exerciseHistory(HistoryCase.SEND)
 
+    @Test fun anInterruptedPrivateSendRemainsSavedWithoutAutomaticRebroadcast() = exerciseHistory(HistoryCase.SEND_INTERRUPTED)
+
     private fun exerciseHistory(case: HistoryCase) {
         val storageFailure = case == HistoryCase.STORAGE_FAILURE
         val live = case == HistoryCase.LIVE
-        val sending = case == HistoryCase.SEND
+        val interruptedSend = case == HistoryCase.SEND_INTERRUPTED
+        val sending = case == HistoryCase.SEND || interruptedSend
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev")
@@ -137,6 +140,7 @@ class PrivateChatPreviewTest {
                 else JsonArray().apply { add(JsonObject().apply { addProperty("tx", reference.get("archiveEnvelope").asString) }) }.toString()
             } else "[]"
         })
+        peer.disconnectAfterTransaction = interruptedSend
         val liveTransaction = if (live) {
             val relay = JsonObject().apply {
                 addProperty("module", "Relay"); addProperty("request", "chat relay")
@@ -173,14 +177,18 @@ class PrivateChatPreviewTest {
                             waitFor("Message")
                             ui.onNodeWithText("Message").performTextInput(outgoingText)
                             ui.onNodeWithText("Send").assertIsEnabled().performClick()
-                            waitFor("Forwarded. Delivery is not confirmed.")
-                            ui.onNode(hasText(outgoingText) and !hasSetTextAction()).assertIsDisplayed()
-                            ui.waitUntil(5_000) { peer.transactions.size == 1 && peer.relayedMessages.size == 1 }
+                            if (interruptedSend) {
+                                waitFor(context.getString(R.string.chat_send_error))
+                                waitFor("Submitted. Delivery is not confirmed.")
+                                ui.onAllNodesWithText("Forwarded. Delivery is not confirmed.").assertCountEquals(0)
+                            } else waitFor("Forwarded. Delivery is not confirmed.")
+                            ui.onNode(hasText(outgoingText) and !hasSetTextAction()).performScrollTo().assertIsDisplayed()
+                            ui.waitUntil(5_000) { peer.transactions.size == 1 && peer.relayedMessages.size == if (interruptedSend) 0 else 1 }
                             val received = PrivateChat.receive(recipientWallet, peer.transactions.single().drop(1).toByteArray())
                             check(received.message.text == outgoingText && received.message.author == wallet.publicKey)
-                            check(received.message.id == peer.relayedMessages.single().get("signature").asString)
+                            if (!interruptedSend) check(received.message.id == peer.relayedMessages.single().get("signature").asString)
                             File(context.cacheDir, "private-chat-evidence/native-sent-envelope.json").writeText(received.envelope)
-                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/private-send-forwarded.png"), outgoingText)
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/${if (interruptedSend) "private-send-interrupted" else "private-send-forwarded"}.png"), outgoingText)
                         }
                         if (live) {
                             ui.waitUntil(5_000) { peer.incomingAcknowledgements.any { it[0] == 13.toByte() } }
@@ -220,9 +228,13 @@ class PrivateChatPreviewTest {
                         captureNativeScreen(File(context.cacheDir, "private-chat-evidence/cached-history-unavailable.png"), text)
                         if (sending) {
                             waitFor(outgoingText)
-                            ui.onNodeWithText(outgoingText).assertIsDisplayed()
-                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/private-send-recreated.png"), outgoingText)
-                            check(peer.transactions.size == 1 && peer.relayedMessages.size == 1)
+                            ui.onNodeWithText(outgoingText).performScrollTo().assertIsDisplayed()
+                            if (interruptedSend) {
+                                waitFor("Submitted. Delivery is not confirmed.")
+                                ui.onAllNodesWithText("Forwarded. Delivery is not confirmed.").assertCountEquals(0)
+                            }
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/${if (interruptedSend) "private-send-interrupted-recreated" else "private-send-recreated"}.png"), outgoingText)
+                            check(peer.transactions.size == 1 && peer.relayedMessages.size == if (interruptedSend) 0 else 1)
                         } else check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
                         check(peer.reports.isEmpty())
                         peer.assertHealthy()

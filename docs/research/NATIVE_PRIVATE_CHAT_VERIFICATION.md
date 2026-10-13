@@ -257,3 +257,12 @@ no app/network/real wallet initialized. New --check-native-send mode requires
 unsafe2->1 and exact fixture plaintext. Original generator default rerun remains
 byte-identical SHA886ff622...ee1c06. This is actual captured native lower-boundary
 interop, not browser UI/public writes or completed interruption recovery.
+
+Interrupted-send coverage compiles testAPK2m42s. Controlled socket closes after
+observing original propagation, before Relay completion. New case requires saved
+Submitted/not-confirmed state, no Forwarded claim, decrypted original, recreated
+outgoing history and unchanged transmission count. This verifies existing attempt
+handling; no RED or new implementation result is invented before execution.
+Send/recreated captures now use actual user scrolling to expose the outgoing
+paragraph rather than relying on partial visibility. Corrected5case17 source
+remains94326b2; actual6case10 coverage next.
