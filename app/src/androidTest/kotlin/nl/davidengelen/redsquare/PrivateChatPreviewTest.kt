@@ -74,13 +74,20 @@ class PrivateChatPreviewTest {
         }
     }
 
-    @Test fun anImportedContactOpensItsAvailableAuthenticatedPrivateHistory() = exerciseHistory(false)
+    private enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND }
 
-    @Test fun failedLocalSavingDoesNotLoseReadableHistoryOnRefresh() = exerciseHistory(true)
+    @Test fun anImportedContactOpensItsAvailableAuthenticatedPrivateHistory() = exerciseHistory(HistoryCase.AVAILABLE)
 
-    @Test fun aLivePrivateRelayMessageRemainsReadableAfterReopening() = exerciseHistory(false, live = true)
+    @Test fun failedLocalSavingDoesNotLoseReadableHistoryOnRefresh() = exerciseHistory(HistoryCase.STORAGE_FAILURE)
 
-    private fun exerciseHistory(storageFailure: Boolean, live: Boolean = false) {
+    @Test fun aLivePrivateRelayMessageRemainsReadableAfterReopening() = exerciseHistory(HistoryCase.LIVE)
+
+    @Test fun aNativePrivateSendPropagatesAndRelaysTheSameEncryptedOriginal() = exerciseHistory(HistoryCase.SEND)
+
+    private fun exerciseHistory(case: HistoryCase) {
+        val storageFailure = case == HistoryCase.STORAGE_FAILURE
+        val live = case == HistoryCase.LIVE
+        val sending = case == HistoryCase.SEND
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev")
@@ -103,7 +110,8 @@ class PrivateChatPreviewTest {
             val prefs = context.getSharedPreferences(name, 0)
             Triple(prefs, key, if (prefs.contains(key)) prefs.getBoolean(key, false) else null)
         }
-        val prefixes = listOf("chat.${SaitoBackend.OWNER.id}.${wallet.publicKey}.", "personal.${wallet.publicKey}.")
+        val prefixes = listOf("chat.${SaitoBackend.OWNER.id}.${wallet.publicKey}.",
+            "chatwork.${SaitoBackend.OWNER.id}.${wallet.publicKey}.", "personal.${wallet.publicKey}.")
         val savedFiles = synchronized(SaitoLocalState.lock) {
             context.noBackupFilesDir.listFiles()!!.filter { file -> prefixes.any(file.name::startsWith) }.associate { file ->
                 check(file.isFile); file.name to file.readBytes()
@@ -113,7 +121,14 @@ class PrivateChatPreviewTest {
         val historyUnavailable = java.util.concurrent.atomic.AtomicBoolean()
         val historyPruned = java.util.concurrent.atomic.AtomicBoolean()
         val cacheFile = File(context.noBackupFilesDir, "chat.${SaitoBackend.OWNER.id}.${wallet.publicKey}.${reference.get("groupId").asString}.v1")
-        val peer = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", archiveResponse = { criteria ->
+        val outgoingText = "Native private message 😀 <&>\nsecond line"
+        val recipientWallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe fixture only.
+        val peer = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", relayResponse = { original ->
+            check(sending)
+            val received = PrivateChat.read(recipientWallet, original, wallet.publicKey)
+            check(received.author == wallet.publicKey && received.text == outgoingText)
+            "{\"err\":\"\",\"success\":1}"
+        }, archiveResponse = { criteria ->
             if (!criteria.has("field1") && criteria.get("field3")?.asString == reference.get("groupId").asString) {
                 check(criteria.get("limit").asInt == 50)
                 historyReads.incrementAndGet()
@@ -154,6 +169,19 @@ class PrivateChatPreviewTest {
                         waitFor(text)
                         ui.onNodeWithText(text).assertIsDisplayed()
                         captureNativeScreen(File(context.cacheDir, "private-chat-evidence/imported-history.png"), text)
+                        if (sending) {
+                            waitFor("Message")
+                            ui.onNodeWithText("Message").performTextInput(outgoingText)
+                            ui.onNodeWithText("Send").assertIsEnabled().performClick()
+                            waitFor("Forwarded. Delivery is not confirmed.")
+                            ui.onNode(hasText(outgoingText) and !hasSetTextAction()).assertIsDisplayed()
+                            ui.waitUntil(5_000) { peer.transactions.size == 1 && peer.relayedMessages.size == 1 }
+                            val received = PrivateChat.receive(recipientWallet, peer.transactions.single().drop(1).toByteArray())
+                            check(received.message.text == outgoingText && received.message.author == wallet.publicKey)
+                            check(received.message.id == peer.relayedMessages.single().get("signature").asString)
+                            File(context.cacheDir, "private-chat-evidence/native-sent-envelope.json").writeText(received.envelope)
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/private-send-forwarded.png"), outgoingText)
+                        }
                         if (live) {
                             ui.waitUntil(5_000) { peer.incomingAcknowledgements.any { it[0] == 13.toByte() } }
                             captureNativeScreen(File(context.cacheDir, "private-chat-evidence/live-relay-history.png"), text)
@@ -190,7 +218,13 @@ class PrivateChatPreviewTest {
                         ui.onNodeWithText(text).assertIsDisplayed()
                         ui.onNodeWithText("Could not load chats. Check your connection and try Refresh.").assertIsDisplayed()
                         captureNativeScreen(File(context.cacheDir, "private-chat-evidence/cached-history-unavailable.png"), text)
-                        check(peer.transactions.isEmpty() && peer.reports.isEmpty())
+                        if (sending) {
+                            waitFor(outgoingText)
+                            ui.onNodeWithText(outgoingText).assertIsDisplayed()
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/private-send-recreated.png"), outgoingText)
+                            check(peer.transactions.size == 1 && peer.relayedMessages.size == 1)
+                        } else check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
+                        check(peer.reports.isEmpty())
                         peer.assertHealthy()
                     }
                 }

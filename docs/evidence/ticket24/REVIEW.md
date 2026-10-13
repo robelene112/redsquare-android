@@ -155,3 +155,19 @@ association remains explicit.
 
 Zero findings. Retained envelopes, contact isolation and persistence before ACK
 remain intact; no new core/APK/runtime claim from compilation alone.
+
+## First Chat permission integration a3b148a...f2b33cf
+
+### Standards
+
+Zero hard findings or actionable heuristics. One call reuses the optional
+permission component without changing shared behavior or requiring alerts for
+reading. Fifteen RED hashes and new compilation hash verify; original failure
+PNG/six XMLs agree with four-case RED28.341s and unreached Skip/recreation.
+
+### Spec
+
+Zero findings. Contextual first-Chat offer, optional dismissal and unchanged
+initial feed match parent scope. All117 UI manifest records verify. Compilation
+only, exit143 despite Gradle SUCCESS and unchanged exit0 recheck qualified.
+Corrective runtime and remaining DM acceptance pending.

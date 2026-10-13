@@ -19,6 +19,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     private val profileArchiveResponse: ((com.google.gson.JsonObject) -> String)? = null,
     private val registryResponse: ((com.google.gson.JsonObject) -> String)? = null,
     private val reportResponse: ((ByteArray) -> String)? = null,
+    private val relayResponse: ((com.google.gson.JsonObject) -> String)? = null,
     private val advertisedServices: String? = null,
     private val archiveResponse: ((com.google.gson.JsonObject) -> String)? = null) {
     @Volatile var disconnectAfterTransaction = false
@@ -33,6 +34,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     val clientKeys = java.util.concurrent.CopyOnWriteArrayList<String>()
     val transactions = java.util.concurrent.CopyOnWriteArrayList<ByteArray>()
     val reports = java.util.concurrent.CopyOnWriteArrayList<ByteArray>()
+    val relayedMessages = java.util.concurrent.CopyOnWriteArrayList<com.google.gson.JsonObject>()
     val registryQueries = java.util.concurrent.CopyOnWriteArrayList<com.google.gson.JsonObject>()
     @Volatile var incomingTransaction: ByteArray? = null
     val incomingAcknowledgements = java.util.concurrent.CopyOnWriteArrayList<ByteArray>()
@@ -125,6 +127,16 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                         val offset = 5 + 93 + 59 * (inputs + outputs)
                         val body = JsonParser.parseString(String(frame, offset, bodyLength, Charsets.UTF_8)).asJsonObject
                         val criteria = body.getAsJsonObject("data")
+                        if (body.get("request").asString == "relay peer message") {
+                            val relay = JsonParser.parseString(String(java.util.Base64.getDecoder().decode(
+                                criteria.get("buffer").asString), Charsets.UTF_8)).asJsonObject
+                            require(relay.get("module").asString == "Relay" && relay.get("request").asString == "chat relay")
+                            val original = relay.getAsJsonObject("data")
+                            relayedMessages.add(original.deepCopy())
+                            val response = relayResponse?.invoke(original) ?: "{\"err\":\"\",\"success\":1}"
+                            webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) + response.toByteArray()).toByteString())
+                            return
+                        }
                         if (body.get("request").asString == "flag tweet") {
                             require(body.get("module").asString == "RedSquare")
                             require(criteria.keySet() == setOf("signature"))

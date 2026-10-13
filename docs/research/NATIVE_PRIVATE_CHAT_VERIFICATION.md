@@ -203,3 +203,20 @@ unchanged #24 shared component, not inferred from this new Skip integration.
 One-call shared Chat permission integration compiles Kotlin1m23s; core and
 shared Android permission component unchanged. Actual four-case focused10/17
 and bounded source reviews next. No APK/core/runtime claim from compile alone.
+
+First Chat actualGREEN10run38346218117 atf2b33cf passes4/18.809s; same-source
+GREEN17run38346220216 passes4/51.82s. Each oneOK/noassumptions/actualdeaths,
+core82/source gates. Each nineteen hashes/root eightXMLs and offer/recreated
+originals confirm contextual offer/Skip/no repeated offer plus cache/live gates.
+Both bounded integration reviews0. Native outgoing send/Relay tracer next;
+no actual system grant/deny or full-ticket result inferred from Skip.
+
+Native send tracer verifies same original signed ciphertext on propagation and
+Relay, selected recipient decryption, truthful Forwarded/not confirmed status,
+recreated cache and no rebroadcast. Controlled fixture implements pinned Relay
+request/JSON wrapper; public unsafe receiver1 only. Shared fixture selects one
+explicit history case rather than invalid boolean combinations. First local
+command exits143 with incomplete output; Docker event reports build container
+exit0 at1791865951, duration110s, with no kill event in inspected15m window.
+No cause inferred. Unchanged APK recheck exits0/SUCCESS18s, all50tasks up-to-date.
+Actual five-case RED next; native composer/sending not implemented yet.
