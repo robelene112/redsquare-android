@@ -76,7 +76,7 @@ class PrivateChatPreviewTest {
         }
     }
 
-    private enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL, LIST_LIVE, PARTIAL_KEYS, STORAGE_PARTIAL, OTHER_LIVE, MENTIONED, MENTIONED_OUTGOING, MUTED, BLOCKED, UNKNOWN_RETRY, PENDING_IMPORT, DRAFT_NAVIGATION }
+    private enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL, LIST_LIVE, PARTIAL_KEYS, STORAGE_PARTIAL, OTHER_LIVE, MENTIONED, MENTIONED_OUTGOING, MUTED, BLOCKED, UNKNOWN_RETRY, PENDING_IMPORT, DRAFT_NAVIGATION, OLDER_HISTORY }
 
     @Test fun anImportedContactOpensItsAvailableAuthenticatedPrivateHistory() = exerciseHistory(HistoryCase.AVAILABLE)
 
@@ -115,6 +115,8 @@ class PrivateChatPreviewTest {
     @Test fun walletReplacementExplainsUncertainChatWorkBeforeConfirmation() = exerciseHistory(HistoryCase.PENDING_IMPORT)
 
     @Test fun leavingAConversationPreservesItsUnsentDraftAndDoesNotRestoreErasedText() = exerciseHistory(HistoryCase.DRAFT_NAVIGATION)
+
+    @Test fun olderAvailablePrivateMessagesCanBeLoadedAndReadAfterServerHistoryDisappears() = exerciseHistory(HistoryCase.OLDER_HISTORY)
 
     private fun exerciseHistory(case: HistoryCase) {
         val storagePartial = case == HistoryCase.STORAGE_PARTIAL
@@ -182,6 +184,20 @@ class PrivateChatPreviewTest {
         val recipientWallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe fixture only.
         val otherWallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "3") // Public unsafe fixture; crypto interop is covered independently.
         val otherText = "Message from another private contact"
+        val olderText = "Available older private message"
+        val oldestRecent = reference.get("timestamp").asLong
+        val olderReads = java.util.concurrent.atomic.AtomicInteger()
+        val recentPage = if (case == HistoryCase.OLDER_HISTORY) JsonArray().apply {
+            add(JsonObject().apply { addProperty("tx", reference.get("archiveEnvelope").asString) })
+            for (index in 1..49) add(JsonObject().apply {
+                addProperty("tx", PrivateChat.create(recipientWallet, wallet.publicKey,
+                    "Recent private message $index", oldestRecent + index).envelope())
+            })
+        }.toString() else null
+        val olderPage = if (recentPage != null) JsonArray().apply {
+            add(JsonObject().apply { addProperty("tx", PrivateChat.create(recipientWallet, wallet.publicKey,
+                olderText, oldestRecent - 1).envelope()) })
+        }.toString() else null
         val otherPacket = if (otherLive) {
             val original = PrivateChat.create(otherWallet, wallet.publicKey, otherText, 1700000000999L)
             val relay = JsonObject().apply {
@@ -202,6 +218,14 @@ class PrivateChatPreviewTest {
                 check(criteria.get("limit").asInt == 50)
                 historyReads.incrementAndGet()
                 if (historyUnavailable.get()) "invalid archive response"
+                else if (recentPage != null) {
+                    val cutoff = criteria.get("created_earlier_than").asLong
+                    if (cutoff > oldestRecent) recentPage else {
+                        check(cutoff == oldestRecent)
+                        olderReads.incrementAndGet()
+                        requireNotNull(olderPage)
+                    }
+                }
                 else if (historyPruned.get() || live) "[]"
                 else JsonArray().apply {
                     add(JsonObject().apply { addProperty("tx", reference.get("archiveEnvelope").asString) })
@@ -308,6 +332,30 @@ class PrivateChatPreviewTest {
                         }
                         waitFor(text)
                         ui.onNodeWithText(text).assertIsDisplayed()
+                        if (case == HistoryCase.OLDER_HISTORY) {
+                            check(olderReads.get() == 0)
+                            ui.onNodeWithText("Load older messages").assertIsEnabled().performClick()
+                            waitFor(olderText)
+                            ui.onNodeWithText(olderText).performScrollTo().assertIsDisplayed()
+                            ui.waitUntil(15_000) {
+                                ui.onAllNodesWithText("Load older messages").fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty()
+                            }
+                            check(olderReads.get() == 1)
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/older-private-history-loaded.png"), olderText)
+                            historyUnavailable.set(true)
+                            scenario.recreate()
+                            waitFor(counterpart)
+                            ui.onNodeWithText(counterpart).performClick()
+                            waitFor(context.getString(R.string.chat_load_error))
+                            waitFor(olderText)
+                            ui.onNodeWithText(olderText).performScrollTo().assertIsDisplayed()
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/older-private-history-cached.png"), olderText)
+                            check(AndroidWalletStore(context).loadOrCreate().exportJson() == wallet.exportJson())
+                            check(AndroidBackendStore(context).load() == SaitoBackend.OWNER)
+                            check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
+                            peer.assertHealthy()
+                            return@withFailureCapture
+                        }
                         if (case == HistoryCase.DRAFT_NAVIGATION) {
                             val draft = "Unsent private draft 😀 <&>\nsecond line"
                             waitForEnabled("Message")

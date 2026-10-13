@@ -7,6 +7,11 @@ one question at a time when a material choice really needs the owner.
 
 ## Current work
 
+Latest checkpoint: #25 remains active; 20 of 35 tickets are closed. The current phone preview is 0.1.11/sourcea36972f at https://davidengelen.nl/redsquare/. The owner reviewed it and asked to continue. Draft persistence and original Retry now pass the 20-case checkpoint: Android10run38431315237 at1a78f69,87.403s; Android17run38430016172 at a306f3f,136.043s. Both use production sourceb2bc017/core86;17does not execute the newer test-only outgoing-body wait. No actual process-death or whole-ticket acceptance.
+
+The next 21-case older-history tracer compiles in1m37s. It verifies a canonical50-row page followed by one older row, visible/cached recovery, no sends and unchanged identity/backend. Actual RED and the older-history UI implementation are next. Preserve untracked NATIVE_GROUP_CHAT_CONTRACT.md for#26. Detailed chronology follows; read the latest checkpoint before older dated notes.
+
+
 #24, "Show in-app social notifications", is complete after both full emulator
 runs and both final evidence reviews. Twenty of35 tickets are closed
 (#2–#15,#18,#20–#24). No new phone APK; stable previewv10/source5225d06.
@@ -470,3 +475,8 @@ Latest20case sourcea306f3f: Android17run38430016172 GREEN20/136.043s/core86. And
 Retry-body readinesseb0e892 localTestAPK PASS1m33s/exit0 andbothreviewaxes0. Nextdispatch10native20 only;17a30620GREENsameproductb2companion. Current phonepreview11a369 unchanged andverifieddownloadable. #25notclosed; no actualprocessdeath/whole-ticketacceptance.
 
 Current outstanding native20 run38431315237 at1a78f69 is in progress (Android10 chat-ui). Inspect its actual result before further changes; do not redispatch the same scope while running. Android17 companion38430016172 remains20GREEN/sameproductb2. Owner received the published preview11 direct download link. All owned code is committed; protected group contract remains untracked.
+
+
+Latest draft/retry checkpoint: native10run38431315237 at1a78f69 GREEN20/87.403s/core86. Keep17companion38430016172 a306GREEN20/136.043s/sameproductb2/olderbodyassert. Root30XML/two unique draft originals each inspected. Both bounded code-review axes0; no actual process death/fullticket.
+
+Next older-history21tracer locally added and compiling. Controlled50-row initial page plus one older page, canonicalgroup/50/oldestcutoff, older visible and retained after failedArchive recreation, no sends/full identity. Product older-fetch UI unimplemented until actualRED. Public unsafe native-generated pagination rows are not independent crypto vectors. Preview11sourcea369 remainscurrent. Protected group contract untouched.
