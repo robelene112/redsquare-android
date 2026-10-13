@@ -305,6 +305,7 @@ class PrivateChatPreviewTest {
                             check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
                             captureNativeScreen(File(context.cacheDir, "private-chat-evidence/unknown-original-restored.png"),
                                 context.getString(R.string.chat_send_unknown))
+                            waitForEnabled("Retry")
                             ui.onNodeWithText("Retry").assertIsEnabled().performClick()
                             waitFor(context.getString(R.string.chat_send_error))
                             waitFor(context.getString(R.string.chat_send_submitted))
@@ -319,6 +320,7 @@ class PrivateChatPreviewTest {
                             waitFor(context.getString(R.string.chat_send_submitted))
                             check(peer.transactions.size == 1 && peer.relayedMessages.isEmpty())
                             peer.disconnectAfterTransaction = false
+                            waitForEnabled("Retry")
                             ui.onNodeWithText("Retry").assertIsEnabled().performClick()
                             waitFor(context.getString(R.string.chat_send_forwarded))
                             ui.waitUntil(5_000) { peer.transactions.size == 2 && peer.relayedMessages.size == 1 }
@@ -486,6 +488,10 @@ class PrivateChatPreviewTest {
             } }
             cleanupFailure?.let { throw it }
         }
+    }
+
+    private fun waitForEnabled(text: String) = ui.waitUntil(15_000) {
+        ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
     }
 
     private fun waitFor(text: String) = ui.waitUntil(15_000) {

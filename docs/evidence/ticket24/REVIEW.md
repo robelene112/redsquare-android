@@ -455,3 +455,15 @@ Zero documented breaches and zero actionable smell findings. Independentoriginal
 Zero actionable findings. Supportsparent retryoperationidentity/no duplicatevisibleeffects and#25 truthfulrecovery. Real encryptedadapterseededindependentoriginal→noautosend→explicitretry/interruption/recreatedSubmitted/secondexplicitretry/Forwardedretention. Exactoriginalnetwork/Relayid/recipienttext checked, singularmessage nodes preventduplicatevisibleentries. SyntheticdurableUNKNOWN notactualprocessinterruption. Prior17GREEN/all24XML/manifestsverify. No RetryGREEN/wholeacceptanceclaim.
 
 Findings: Standards0; Spec0.
+
+## Explicit original Retry correction, 976158b...e6cd339
+
+### Standards
+
+Zero new documented breaches and zero actionable smell findings. Retryreusessavedoriginal; storechecksactivewallet/backend/id/eligiblepriorstatus anddurablyUnknownbeforenetwork. Existingguards/mutex retained; no newcipher/signature/autosend. Newmessage/drafthandling separate. CapturedmissingRetryminimum; docsleaveGREENpending/unexecutedtailqualified. XMLprose25→26 knowncorrection, notsourcefinding.
+
+### Spec
+
+Zero actionable findings. Parentretryidentity/no duplicateeffects metbypreservedoriginal; prepareRetry validatesfullwallet/backend/id/status, durableUnknownbeforeexistingclaimguard. Unknowndrafteditingblocked; Submittedblank offersRetry, nonblanknewdraftusesnewSend. Sendsdisableoverlap/preparationmutex, loadsnotransmitting. RED97618/17PASS+missingRetry; all26XMLparse/manifestverify. READMEcorrect26/proserecountnowcorrected. NativeGREEN/processdeath/wholeacceptancepending.
+
+Findings: Standards0; Spec0.
