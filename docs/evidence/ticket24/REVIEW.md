@@ -938,3 +938,25 @@ realrecipient orwholeticket claim. Provenance/corpusmanifest verify.
 Findings: Standards0; Spec0. Generator reran byteidentically with currentversion
 checks. Subsequent Reply26GREEN10/17 and actual capturedreceiver results retained
 separately; reactionreference isnot nativeimplementation/acceptance.
+
+
+## Bounded private action family,61c645e6...8289886d
+
+### Standards
+
+One documented regression: unrelated verify_wallet_import gate reads Chat-only
+chat_ui_exit under set-u; focused import canfailunbound or use stale state.
+Restoreoriginal gate to keep ticketcoherent and relevantverification operational.
+No heuristicfindings; sharedfixture composes withoutproductionabstractions,
+assertions/restoration retained, perclass caps/reports/capture/failgate honest.
+
+### Spec
+
+One actionable regression: wallet-import verification requiredbyparent isbroken
+by unrelated chat_ui_exit dependency. Restoreoriginal ortrackitsown exit. Other
+fixture relocation preserves24+2cases and priorassertions, newquotetap/capture/
+scrollback, perclassbounded sequential gates andprocessskipafterUI failure.
+No newruntime acceptance inferredfromextraction.
+
+Findings: Standards1; Spec1 (same harnessregression independentlyreported).
+Targeted fix restoresonlywalletimport gate; Chat exitstatus check remains.
