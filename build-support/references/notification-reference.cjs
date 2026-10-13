@@ -181,6 +181,12 @@ const parentIndexedReply = {
   field1: 'RedSquare', field3: farContactPost.field2, field4: thread.root.sig,
   field5: thread.root.sig, updated_at: 1700000000125, flagged: 0
 };
+// Ten newer verified own posts place the original root eleventh for parent-query continuation.
+const newerOwnPosts = Array.from({length: 10}, (_, index) => ({
+  ...signedReference('1', {module: 'RedSquare', request: 'create tweet',
+    data: {text: `Newer own post ${index + 1} for parent discovery`}}, 1700000000500 + index),
+  field1: 'RedSquare', field4: '', flagged: 0
+}));
 // More than one Archive page, still below the300-event device budget.
 const cachedLikes = Array.from({length: 150}, (_, index) => {
   const timestamp = 1700000000200 + index;
@@ -199,4 +205,4 @@ const sharedWalletMention = {
 console.log(JSON.stringify({synthetic: true, reference, owner,
   actor: 'pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU',
   root: thread.root, incomingLike, incomingReply, parentedQuote, incomingMention,
-  addressedPost, listedMention, usernameMention, incomingRepost, incomingNullRepost, incomingQuote, legacyQuote, recoveredOriginal, missingOriginalLike, missingOriginalRepost, knownOtherPost, knownOtherLike, ownCurrentQuote, incomingQuoteLike, missingOriginalReply, knownOtherReply, missingOriginalQuote, knownOtherQuote, boundaryIncomingLike, olderIncomingLike, farContactPost, continuationContacts, parentIndexedReply, cachedLikes, sharedWalletMention}, null, 2));
+  addressedPost, listedMention, usernameMention, incomingRepost, incomingNullRepost, incomingQuote, legacyQuote, recoveredOriginal, missingOriginalLike, missingOriginalRepost, knownOtherPost, knownOtherLike, ownCurrentQuote, incomingQuoteLike, missingOriginalReply, knownOtherReply, missingOriginalQuote, knownOtherQuote, boundaryIncomingLike, olderIncomingLike, farContactPost, continuationContacts, parentIndexedReply, newerOwnPosts, cachedLikes, sharedWalletMention}, null, 2));

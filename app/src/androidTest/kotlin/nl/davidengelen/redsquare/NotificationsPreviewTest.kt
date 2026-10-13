@@ -18,7 +18,7 @@ import java.util.concurrent.atomic.AtomicInteger
 
 class NotificationsPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
-    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING, MISSING_REPOST, MISSING_QUOTE_LIKE, HISTORY, PRUNED, PARTIAL, REJECTED, NULL_HISTORY, READ, READ_SAVE_FAULT, MISSING_REPLY, MISSING_QUOTE, FEED_MENTION, CONTACT, CONTACT_QUOTE, PAGING, CONTACT_CONTINUATION, BACKEND, PARENT_REPLY, CACHE_BUDGET, HISTORY_LOAD_FAULT, READ_LOAD_FAULT, RETRY, WALLET }
+    private enum class Mode { LIKE, REPLY, MENTION, USERNAME, REPOST, QUOTE, MISSING, MISSING_REPOST, MISSING_QUOTE_LIKE, HISTORY, PRUNED, PARTIAL, REJECTED, NULL_HISTORY, READ, READ_SAVE_FAULT, MISSING_REPLY, MISSING_QUOTE, FEED_MENTION, CONTACT, CONTACT_QUOTE, PAGING, CONTACT_CONTINUATION, BACKEND, PARENT_REPLY, CACHE_BUDGET, HISTORY_LOAD_FAULT, READ_LOAD_FAULT, RETRY, WALLET, PARENT_CONTINUATION }
 
     @Test fun anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile() {
         withNotifications("incoming-like", mode = Mode.LIKE) { actor, _, _ ->
@@ -608,6 +608,33 @@ class NotificationsPreviewTest {
         }
     }
 
+    @Test fun moreActivityDiscoversRepliesToTheEleventhKnownOwnPost() {
+        withNotifications("remaining-parents", Mode.PARENT_CONTINUATION) { actor, _, responses ->
+            waitFor("1 unread")
+            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
+                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.onAllNodesWithText("Replied to your post").assertCountEquals(0)
+            assertEquals("The eleventh parent must not be part of the first bounded batch", 0, responses.parentIndexedReads.get())
+            ui.onNodeWithText("Load more activity").assertIsDisplayed().assertIsEnabled().performClick()
+            waitFor("2 unread")
+            waitFor("Replied to your post")
+            assertTrue("More must read the eleventh known own parent", responses.parentIndexedReads.get() > 0)
+            ui.onAllNodesWithText("Replied to your post").assertCountEquals(1)
+            captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
+                "notification-evidence/remaining-parents.png"), "2 unread")
+            ui.onNodeWithText("Replied to your post").performClick()
+            waitFor("Conversation")
+            waitFor("Reply indexed by its own-post parent")
+            ui.onNode(hasScrollAction()).performScrollToNode(hasText("Reply indexed by its own-post parent"))
+            ui.onNodeWithText("Reply indexed by its own-post parent").assertIsDisplayed()
+            ui.onNodeWithText("Back").performClick()
+            waitFor("Replied to your post")
+            ui.onAllNodesWithText(actor).assertCountEquals(2)[0].assertIsDisplayed().performClick()
+            waitFor("Profile")
+            ui.onNodeWithText(actor).assertIsDisplayed()
+        }
+    }
+
     @Test fun retainedHistoryBeyondOneArchivePageKeepsItsUnreadCountThroughRecreation() {
         withNotifications("cache-budget", Mode.CACHE_BUDGET) { _, scenario, _ ->
             waitFor("150 unread")
@@ -1013,7 +1040,7 @@ class NotificationsPreviewTest {
                             Mode.MENTION -> "[${fixture.get("incomingMention")},${fixture.get("addressedPost")}]"
                             Mode.USERNAME -> "[${fixture.get("usernameMention")}]"
                             Mode.QUOTE -> "[${fixture.get("legacyQuote")}]"
-                            Mode.LIKE, Mode.REPOST, Mode.MISSING, Mode.MISSING_REPOST, Mode.MISSING_QUOTE_LIKE, Mode.HISTORY, Mode.PRUNED, Mode.NULL_HISTORY, Mode.READ, Mode.READ_SAVE_FAULT, Mode.MISSING_QUOTE, Mode.FEED_MENTION, Mode.CONTACT, Mode.CONTACT_QUOTE, Mode.PAGING, Mode.CONTACT_CONTINUATION, Mode.BACKEND, Mode.PARENT_REPLY, Mode.CACHE_BUDGET, Mode.HISTORY_LOAD_FAULT, Mode.READ_LOAD_FAULT -> "[]"
+                            Mode.LIKE, Mode.REPOST, Mode.MISSING, Mode.MISSING_REPOST, Mode.MISSING_QUOTE_LIKE, Mode.HISTORY, Mode.PRUNED, Mode.NULL_HISTORY, Mode.READ, Mode.READ_SAVE_FAULT, Mode.MISSING_QUOTE, Mode.FEED_MENTION, Mode.CONTACT, Mode.CONTACT_QUOTE, Mode.PAGING, Mode.CONTACT_CONTINUATION, Mode.BACKEND, Mode.PARENT_REPLY, Mode.PARENT_CONTINUATION, Mode.CACHE_BUDGET, Mode.HISTORY_LOAD_FAULT, Mode.READ_LOAD_FAULT -> "[]"
                         }
                     }
                     criteria.get("field5")?.asString == fixture.getAsJsonObject("missingOriginalQuote").get("sig").asString ->
@@ -1026,19 +1053,20 @@ class NotificationsPreviewTest {
                         "[${fixture.get("usernameMention")}]"
                     criteria.get("field5")?.asString == fixture.getAsJsonObject("incomingMention").get("sig").asString ->
                         "[${fixture.get("incomingMention")}]"
-                    mode == Mode.PARENT_REPLY && criteria.get("field4")?.asString == root.get("sig").asString -> {
+                    mode in listOf(Mode.PARENT_REPLY, Mode.PARENT_CONTINUATION) && criteria.get("field4")?.asString == root.get("sig").asString -> {
                         responses.parentIndexedReads.incrementAndGet()
                         require(criteria.get("flagged_ne").asInt == 1 && criteria.get("limit").asInt == 100)
                         "[${fixture.get("parentIndexedReply")}]"
                     }
                     criteria.get("field5")?.asString == root.get("sig").asString -> when (mode) {
                         Mode.REPLY -> "[$root,${fixture.get("incomingReply")}]"
-                        Mode.PARENT_REPLY -> "[$root,${fixture.get("parentIndexedReply")}]"
+                        Mode.PARENT_REPLY, Mode.PARENT_CONTINUATION -> "[$root,${fixture.get("parentIndexedReply")}]"
                         else -> "[$root]"
                     }
                     mode == Mode.CONTACT_QUOTE && criteria.get("field5")?.asString == fixture.getAsJsonObject("knownOtherQuote").get("sig").asString -> "[]"
                     mode == Mode.CONTACT && criteria.get("field5")?.asString == fixture.getAsJsonObject("knownOtherPost").get("sig").asString ->
                         "[${fixture.get("knownOtherPost")}]"
+                    mode == Mode.PARENT_CONTINUATION && !criteria.get("field4")?.asString.isNullOrEmpty() -> "[]"
                     mode == Mode.CONTACT_CONTINUATION && criteria.get("field5")?.asString == fixture.getAsJsonObject("farContactPost").get("sig").asString ->
                         "[${fixture.get("farContactPost")}]"
                     mode == Mode.CONTACT_CONTINUATION && criteria.get("field2")?.asString == fixture.getAsJsonObject("farContactPost").get("field2").asString -> {
@@ -1058,6 +1086,8 @@ class NotificationsPreviewTest {
                         if (mode == Mode.WALLET && !criteria.has("field2")) "[$root,${fixture.get("sharedWalletMention")}]"
                         else if (mode == Mode.FEED_MENTION && !criteria.has("field2"))
                             "[$root,${fixture.get("incomingMention")},${fixture.get("addressedPost")}]"
+                        else if (mode == Mode.PARENT_CONTINUATION && !criteria.has("field2"))
+                            "[$root,${fixture.getAsJsonArray("newerOwnPosts").joinToString(",")}]"
                         else if (missing && !criteria.has("field2")) "[$root,${fixture.get("knownOtherPost")}]" else "[$root]"
                     else -> "[]"
                 }
@@ -1131,6 +1161,10 @@ class NotificationsPreviewTest {
                         "notification-evidence/$evidenceName-first-failure.png")) }) {
                         if (mode == Mode.WALLET) {
                             waitFor("Shared mention for wallet isolation")
+                            ui.onNode(hasScrollAction()).performScrollToNode(hasText("Native Red Square reference post"))
+                        }
+                        if (mode == Mode.PARENT_CONTINUATION) {
+                            waitFor("Newer own post 10 for parent discovery")
                             ui.onNode(hasScrollAction()).performScrollToNode(hasText("Native Red Square reference post"))
                         }
                         if (mode == Mode.FEED_MENTION) {

@@ -101,3 +101,11 @@ prior contextual-permission offered key independently, preserving unrelated pref
 Primary source contracts remain NATIVE_NOTIFICATIONS_CONTRACT.md. Existing source
 A/B differences, missing originals, mentioncoverage and archive-retention limits
 must be preserved rather than claiming complete network history.
+
+Parent continuation tracer adds ten newer independently signed unsafe1 own roots,
+placing the existing root eleventh. Existing unsafe2 parentIndexedReply targets
+that root while field3 belongs to unsafe3; onlyfield4 can discover it. Allsigners
+and outputs remain fixedunsafe1–4. Snapshot232579bytes/SHA
+31182e5c7d1527d39ac547b695a453efccada797ed8d301fe2862cee8012700d, threecopies.
+PinnedWASM/Elliptic/hash/roundtrip remain independent construction; no network or
+productionwallet/node initialization. Native tracer/runtime pending.
