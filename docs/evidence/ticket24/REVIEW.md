@@ -816,3 +816,24 @@ Findings: Standards0; Spec2. Followup strengthens preview before removal and
 requires independent existingCrypto/WASM/Chat receiver metadata acceptance.
 Local corrected tracerAPKPASS1m34s. SHA-ref dispatch rejectedHTTP422 before
 nativeexecution; dispatch main only afterfollowup, inspect recordedheadSHA.
+
+
+## Reply oracle follow-up,2813ab3c...68fcdf3d
+
+### Standards
+
+Zero documented breaches or actionable smell findings. Reopened quote assertion
+and actualpinned WASM/Crypto/Chat receiver exactmetadata checker reuse bounded
+public unsafe fixtures. Ordinarysend checker reran with byteidentical result.
+Source, rejecteddispatch and incomplete runtime remain qualified.
+
+### Spec
+
+Both prior findings resolved; zero new actionable findings. Reopened excerpt is
+required before removal. Separate capturedoriginal checker must verify exact body,
+mentions, independent signature and realreceiver/duplicate behavior. No successful
+replychecker runtime claimed without a native capture. Product remains unchanged.
+
+Findings: Standards0; Spec0. Prior nonreply capturedoriginal is actually rejected
+by replychecker with exit1/ERR_ASSERTION; this is a negative oracle check, not
+nativeReply acceptance. Revised local compilation/nativeRED remain pending.
