@@ -1275,3 +1275,8 @@ prechoice-dialog claims in final-full/android17README. Bothpublic ordinary100row
 Productionequivalent686/current; laterreviewedtestscroll/hostdiagnostic changes
 retainpredicates. Complete17 maycompanioncorrected10run38330887204 underWORKFLOW
 ifpasses. Actual10stillactive; no24closure/Pixel/push/livewrites/permanenthistory.
+
+Final17 evidence reviews: Spec0; Standards0sourcefindings plus one caption
+correction. Root individually reloaded original stream-retry-late.png and saw
+all three rows together (Reply/twoLikes). README corrected; all original hashes
+unchanged. Android10 full38330887204 remains active.

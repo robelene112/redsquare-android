@@ -37,8 +37,8 @@ Qualified visible evidence:
  NoUnread. Cold original shows server warning plus retained neutralLike/NoUnread.
 - OS dialog captures precede choices. Actual grant/deny assertions establish
  outcomes, authenticated request advancement and continued reading/recreation.
-- Late-retry PNG shows3unread and visible Reply/Like rows; it does not show every
- deduplicated event simultaneously. Native assertions verify exact event counts.
+- Late-retry PNG shows3unread, one Reply and both Like rows together. Native
+ assertions independently verify exact event counts.
 - Legacy offline browse original shows nested reply/history warning; social
  original shows root/date and clipped bottom actions. Liked state/no-rebroadcast
  is established by runtime, not a fully visible button in that bitmap.

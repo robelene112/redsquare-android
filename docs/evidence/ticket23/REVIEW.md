@@ -796,3 +796,21 @@ Zero findings. Diagnosticcapture beforeActivityclosure, independenthostcapture,
 no false viewport/protocol cause or later-suite/death/checkpoint claim. Local
 fixtureAPK1m30PASS. Focusedsocial10run38330457957 atd2d6947 active; full17
 run38328912121 ata564 continues/sameproduction686, possiblecompanionifallpasses.
+
+
+## Final Android 17 acceptance evidence
+
+### Standards
+
+`8aac3c4...5eb391a`: zero source hard violations or actionable heuristics.
+All241hashes/53XML/59PNG, raw237PASS/55completed/18deaths/noassumptions,
+core74/update/publicreads agree. One caption correction: original late-retry
+PNG independently reloaded by root shows Reply and both Likes together.
+README corrected; stored original bytes unchanged. Android10 still pending.
+
+### Spec
+
+Zero findings. Full17 acceptance237PASS/55completed/18actualdeaths, exact
+notification/permission/recovery counts and timings, both public reads,
+source equivalence and remaining Pixel/push/livewrite limits verified.
+No Android10 acceptance or issue24 closure claim.
