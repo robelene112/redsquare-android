@@ -27,6 +27,7 @@ import nl.davidengelen.redsquare.saito.*
 /** Private Chat has its own navigation and verified history, sharing only the active Saito foundation. */
 @Composable
 internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBackend, modifier: Modifier, onBack: () -> Unit) {
+    nl.davidengelen.redsquare.NotificationPermissionPrompt()
     val personal = LocalPersonalControls.current
     val context = LocalContext.current.applicationContext
     var contacts by remember(wallet) { mutableStateOf<List<String>>(emptyList()) }

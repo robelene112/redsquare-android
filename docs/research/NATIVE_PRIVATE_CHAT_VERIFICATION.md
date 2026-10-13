@@ -190,3 +190,16 @@ wallet. Revised build prints SUCCESS1m31s but command exits143; not claimed as
 a successful command, cause uninvestigated. Unchanged recheck exits0/SUCCESS19s,
 all50tasks up-to-date. Actual four-case permission RED next; app prompt not wired
 into Chat yet.
+
+FirstChat offer actualRED10run38345645504 ata3b148a reports4cases/3PASS+
+1failure28.341s,line46 missing Android notification alerts. NoOK/assumptions/
+actualdeaths; core82/source gates. Fifteen hashes/root sixXMLs and permission
+failure original confirm Chat without offer. Skip/recreation gates unreached.
+Minimum integrates existing shared NotificationPermissionPrompt in Chat only;
+no first-feed offer or reading dependency. App Kotlin compilation and unchanged
+four-caseGREEN next; actual Android system allow/deny already belongs to the
+unchanged #24 shared component, not inferred from this new Skip integration.
+
+One-call shared Chat permission integration compiles Kotlin1m23s; core and
+shared Android permission component unchanged. Actual four-case focused10/17
+and bounded source reviews next. No APK/core/runtime claim from compile alone.
