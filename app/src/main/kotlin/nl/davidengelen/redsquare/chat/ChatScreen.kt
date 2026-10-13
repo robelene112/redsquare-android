@@ -132,8 +132,11 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                 try {
                     SaitoPeer(wallet, endpoint, onIncoming = { bytes ->
                         val received = PrivateChat.receive(wallet, bytes)
-                        if (received.counterparty != contact) false
-                        else {
+                        if (received.counterparty != contact) {
+                            ChatHistoryStore(context, wallet, backend, received.counterparty)
+                                .save(listOf(received.envelope))
+                            true
+                        } else {
                             val saved = cache.save(listOf(received.envelope))
                             updates.trySend(saved)
                             true // Original authenticated ciphertext is durably saved before acknowledgement.

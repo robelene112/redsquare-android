@@ -71,7 +71,7 @@ Spec4f9...59ba0; Standards1warning coupledtosave, nowfixeddf9891d. Reviews of
 correctedtracer59ba...ecc both0newfindings. Current bounded warning-fix reviews
  ecc3d56...df9891d both0/resolved. Actual12caseGREEN10run38362024612 PASS12/55.833s; root13XML/warning+restoredkey originalsinspected.
 17run38362028575 raw11PASS thencase12start/noresult, nofailureassertion; truncatedunder90sclasslimit, oldexitnotretained.
-Harness now180s+exitfile, individualwaits/assertionsunchanged. New13casedifferent-contact-while-open tracercompiled1m47; actualREDnext, itsreceiverminimumunimplemented. Root must inspect raw runner/XML/original images, preserve failed runs
+Harness now180s+exitfile, individualwaits/assertionsunchanged. New13case actualRED22b07ed:10run38363644050 12PASS+1fail61.98s;17run38363647971 12PASS+1fail90.368s, bothline260 positiveACKtimeout. Class180s completes; rawexit0 butOKgate correctlyrejects. Minimaldifferent-contactcache-beforeACK sourceapplied, localAPKbuildpending. Root must inspect raw runner/XML/original images, preserve failed runs
 and exact SHA attribution. Harness now180s aftercaptured17truncation; newexitstatus retained. Never calldeadline proof ofappfailure.
 Do not dispatch same chat-ui scope while another is active (same scope cancels).
 

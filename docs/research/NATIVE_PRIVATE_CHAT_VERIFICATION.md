@@ -472,3 +472,5 @@ publicunsafe3->2 native-signed controlledRelay (independentcrypto alreadycovered
 oneincomingofferafterselectedhistoryready, positiveACK, no bleed intoopencontact,
 othercontactdiscovery/readability/recreatedcache with no redelivery. TestAPK
 compiles1m47s. Receivingothercontact minimumunimplemented; actual13caseRED next.
+
+Actual different-contact RED at22b07ed: Android10run38363644050 reports13cases/12PASS+1failure61.98s; Android17run38363647971 same13/12PASS+1failure90.368s. Both failatline260 waiting5s forpositiveACK; class180s isnotexhausted. Rawinstrumentationexit0 demonstrateswhyOKresultgate remainsmandatory. RootallXML/failureoriginals inspected; activeconversationcontainsknownavailabletext. Selectedreceiver rejectsothercounterpart, so minimalfix nowfullyverifies/savesotheroriginal intoitsownconversation beforeACK, withoutaddingothertext toopenconversation. APKbuildpending; noGREENclaimed.
