@@ -1398,3 +1398,16 @@ One documented recovery concern: retainReactions empty-pageearlyreturn skipsloca
 Readable-messageabortresolvedinsource. One actionable adjacentgap: observable recovery incomplete whenRefresh containsnoreactions; `.load`effectkey excludesRefresh andearlyreturnpreventsready/errorrepair. Reloadlocalstateforanysuccessfulpage andverifywithoutarchive-suppliedreactions. Localwarning+independentretentionresult otherwisepreservesverifiedDMmerge; liveACKdurablegate unchanged.
 
 Actual10RED38476508566/e7ed:9of10actionsPASS67.854s/core86; STORAGEcommonDMwaitfailsFixture314 (originalfailurePNG/XMLrootseen). Available-reaction3originalpairs andwallet3pairs rootseen; bothcasesPASS; storagewarning/repairtailunexecuted. e820fullcore/debug/test/release/lint16739active; do noteditcodeuntilcomplete.
+
+
+## Message-only recovery tracer,502c0123...3dea9808
+
+### Standards
+
+Zero documented breaches or actionableheuristics. Device-onlyopaqueencryptedbytes/exactfileobstruction/recreation andmessage-onlyArchive atapprovedseams; newread/errorclearance/count+actionready/identitybackend/nooutgoing assertions. Existingboundedcleanup unchanged.
+
+### Spec
+
+Zero actionable findings. Localrestorerepairmustbeobservablewithoutreopeningorserver-suppliedreactionrows. Producte820 earlyreturngapremains; compilation26234/nativeREDpending.
+
+e820fullcore/debug/test/release/lint PASS9m19s/exit0; core86UPTODATEqualiﬁer (freshnativecore86alreadypassed38476508566). Extendedtest3dea compiling. No newAPK or whole25acceptance.
