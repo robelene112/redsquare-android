@@ -395,3 +395,15 @@ Two concrete #25 compatibility gaps remain. Pinned Chat construction adds outsid
 Ordinary SaitoInput.getInput(false) usesinnerText; notallmessages areHTML. Reply construction canprepend sanitizedblockquote; websanitizes/rendersthatmarkup whereasnativeText exposestags. Imagesbelongtolatermediatickets. Need independentencryptedwebreplybody +literal-anglecontrol preservingoriginalsignedbytes andreadablequote/body; noexistingbrowserUIequivalenceclaim. SourcecachedChat matches exactpinSHA.
 
 Primary paths: pinned node/mods/chat/chat.js:1489, node/mods/chat/lib/chat-manager/popup.js:837 and523, node/lib/saito/ui/saito-input/saito-input.js:307, node/mods/chat/chat.js:1761, revision9a4ca7e9442eb5e872168ced361ce741d7d139d7. Reviewer performedonlyreadonlypublicsource audit.
+
+## Selected Refresh discovery-error correction, 53fd84b...dd02415
+
+### Standards
+
+Zero documented breaches and zero actionable smell findings. Removing the earlyreturn restores selected Refresh error recomputation while keeping navigation/backendkeys, offmain storage/contactmerge/cancellation. Minimal captured-regression correction. Evidence separates passingothercontact fromtwo storagefailures; runtimeGREENpending.
+
+### Spec
+
+Zero actionable findings. Selected Refresh canrecompute staleloaderrors while listreturn stilldiscovers savedcontacts. Both source53fd84b attempts13/11PASS+2line311failures; othercontactpasses. Both15XMLparse/parentmanifestverifies. Secondcontact10recreation qualifiedcachedtextwhileLoading, notcompletedArchive. Mention/markupfindings remainunresolved; GREEN/processdeath/wholeacceptancepending.
+
+Findings: Standards0; Spec0.

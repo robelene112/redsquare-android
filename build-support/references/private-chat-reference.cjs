@@ -110,7 +110,7 @@ if (process.argv[2] === '--check-native-send') {
   process.exit(0);
 }
 
-function vector(senderScalar, recipientScalar, timestamp, saltHex, exchangedSecret = null) {
+function vector(senderScalar, recipientScalar, timestamp, saltHex, exchangedSecret = null, mentioned = []) {
   assert(['1', '2'].includes(senderScalar) && ['1', '2'].includes(recipientScalar));
   assert.notEqual(senderScalar, recipientScalar);
   const senderKey = '0'.repeat(63) + senderScalar;
@@ -126,7 +126,7 @@ function vector(senderScalar, recipientScalar, timestamp, saltHex, exchangedSecr
   const plaintext = {
     module: 'Chat', request: 'chat message', group_id: groupId,
     message: `Independent private Chat scalar${senderScalar} to scalar${recipientScalar} 😀 <&>\nline two`,
-    timestamp, mentioned: [],
+    timestamp, mentioned,
   };
   const plaintextJson = JSON.stringify(plaintext);
   const previousRandom = CryptoJS.lib.WordArray.random;
@@ -149,7 +149,7 @@ function vector(senderScalar, recipientScalar, timestamp, saltHex, exchangedSecr
   assert.equal(JsonFormatter.parse(ciphertextJson).ciphertext.toString(CryptoJS.enc.Base64), params.ct);
   assert.equal(crypto.aesDecrypt(ciphertextJson, sharedSecret), plaintextJson);
   assert.equal(crypto.aesDecrypt(ciphertextJson, reverseSharedSecret), plaintextJson);
-  const signed = signedReference(senderScalar, ciphertextJson, timestamp, [recipient]);
+  const signed = signedReference(senderScalar, ciphertextJson, timestamp, [recipient, ...mentioned]);
   const envelope = JSON.parse(signed.tx);
   const message = Buffer.from(envelope.m, 'base64');
   assert.equal(message.toString('utf8'), JSON.stringify(ciphertextJson));
@@ -193,6 +193,12 @@ const vectors = [vector('1', '2', 1700000080000, '0001020304050607'),
   vector('2', '1', 1700000080001, '0706050403020100'),
   vector('1', '2', 1700000080002, '08090a0b0c0d0e0f', exchanged),
   vector('1', '2', 1700000080003, '1011121314151617', exchanged.toUpperCase())];
+if (process.argv[2] === '--mentioned') {
+  // Chat addresses an outside mention but encrypts to the original DM counterpart.
+  const mention = wasm.generate_public_key('0'.repeat(63) + '3');
+  vectors.push(vector('1', '2', 1700000080020, '2021222324252627', null, [mention]),
+    vector('2', '1', 1700000080021, '28292a2b2c2d2e2f', null, [mention]));
+}
 const malformedCiphertexts = ['ct', 'iv', 's'].map((field, index) => {
   const formatter = JSON.parse(vectors[0].ciphertextJson);
   formatter[field] = [formatter[field]];

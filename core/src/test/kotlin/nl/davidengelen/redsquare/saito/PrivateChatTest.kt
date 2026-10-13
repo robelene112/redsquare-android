@@ -5,6 +5,32 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class PrivateChatTest {
+    @Test fun existingClientMentionsDoNotChangeTheEncryptedPrivateConversation() {
+        val vectors = requireNotNull(javaClass.getResourceAsStream("/native-private-chat-mentioned-reference.json"))
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors") }
+        val mentioned = SaitoWallet.fromPrivateKey("0".repeat(63) + "3") // Public unsafe fixture only.
+        for (index in 4..5) {
+            val reference = vectors[index].asJsonObject
+            val sender = SaitoWallet.fromPrivateKey("0".repeat(63) + reference.get("senderScalar").asString)
+            val recipient = SaitoWallet.fromPrivateKey("0".repeat(63) + reference.get("recipientScalar").asString)
+            val envelope = reference.get("archiveEnvelope").asString
+            assertEquals(3, SaitoEnvelope.decodePayload(envelope).recipients.distinct().size)
+            for ((wallet, counterpart) in listOf(recipient to sender.publicKey, sender to recipient.publicKey)) {
+                val received = PrivateChat.recover(wallet, envelope, reference.get("groupId").asString)
+                assertEquals(counterpart, received.counterparty)
+                assertEquals(reference.get("signature").asString, received.message.id)
+                assertEquals(reference.getAsJsonObject("plaintext").get("message").asString, received.message.text)
+                assertEquals(reference.get("groupId").asString, received.message.conversationId)
+                assertEquals(envelope, received.envelope)
+                org.junit.Assert.assertThrows(IllegalArgumentException::class.java) {
+                    PrivateChat.recover(wallet, envelope, "0".repeat(64))
+                }
+            }
+            org.junit.Assert.assertThrows(IllegalArgumentException::class.java) {
+                PrivateChat.recover(mentioned, envelope)
+            }
+        }
+    }
     @Test fun importedConversationIdsRecoverAuthenticatedCounterpartiesWithoutSavedContactKeys() {
         val reference = requireNotNull(javaClass.getResourceAsStream("/native-private-chat-reference.json"))
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject }
