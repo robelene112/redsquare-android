@@ -123,3 +123,13 @@ storage/application initialization, native UI/state or real recipient delivery.
 Missing copied input and ordinaryJSON BigInt serialization initially failed;
 correct publicinput/JSONBig output fixes them before valid corpus/exit0. No native
 failure inferred. Reply26 runs remain separate, not accepted by this oracle.
+
+## First native reaction tracer
+
+The public UI/controlled-peer/cached-recovery tracer requires explicit Like,
+count1/Unlike, truthful Forwarded-without-confirmation text, exact authenticated
+body matching the independently constructed reaction corpus, same signed original
+through propagation/Relay, and retained count/action/status after failedArchive
+recreation with exact wallet/backend and no automatic rebroadcast. It captures
+only the public unsafe signed action. Native Like is not implemented yet; no RED
+or acceptance inferred from this tracer. Unlike/live/dedup/retry follow separately.

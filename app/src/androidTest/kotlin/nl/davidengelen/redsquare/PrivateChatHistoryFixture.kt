@@ -14,9 +14,10 @@ import nl.davidengelen.redsquare.saito.*
 import java.io.File
 
 internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
-    enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL, LIST_LIVE, PARTIAL_KEYS, STORAGE_PARTIAL, OTHER_LIVE, MENTIONED, MENTIONED_OUTGOING, MUTED, BLOCKED, UNKNOWN_RETRY, PENDING_IMPORT, DRAFT_NAVIGATION, OLDER_HISTORY, QUOTED_REPLY, LITERAL_MARKUP, UNREADABLE_RECENT_HISTORY, NATIVE_REPLY, NATIVE_REPLY_ZERO }
+    enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL, LIST_LIVE, PARTIAL_KEYS, STORAGE_PARTIAL, OTHER_LIVE, MENTIONED, MENTIONED_OUTGOING, MUTED, BLOCKED, UNKNOWN_RETRY, PENDING_IMPORT, DRAFT_NAVIGATION, OLDER_HISTORY, QUOTED_REPLY, LITERAL_MARKUP, UNREADABLE_RECENT_HISTORY, NATIVE_REPLY, NATIVE_REPLY_ZERO, LIKE }
 
     fun exerciseHistory(case: HistoryCase) {
+        val liking = case == HistoryCase.LIKE
         val zeroReply = case == HistoryCase.NATIVE_REPLY_ZERO
         val nativeReply = case == HistoryCase.NATIVE_REPLY || zeroReply
         val storagePartial = case == HistoryCase.STORAGE_PARTIAL
@@ -46,6 +47,8 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
             mentioned -> "native-private-chat-mentioned-reference.json"
             else -> "native-private-chat-reference.json"
         }).bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
+        val likeReference = if (liking) instrumentation.context.assets.open("native-private-chat-like-reference.json")
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject } else null
         val vectors = fixture.getAsJsonArray("vectors")
         val reference = vectors[when {
             zeroReply -> 6
@@ -130,9 +133,16 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                 1, 1700000000999L).drop(5).toByteArray()
         } else null
         val peer = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", relayResponse = { original ->
-            check(sending)
-            val received = PrivateChat.read(recipientWallet, original, wallet.publicKey)
-            check(received.author == wallet.publicKey && received.text == outgoingText)
+            if (liking) {
+                val signed = SaitoEnvelope.decodePayload(SaitoEnvelope.fromSignedJson(original))
+                check(signed.author == wallet.publicKey)
+                check(signed.recipients.containsAll(listOf(wallet.publicKey, counterpart)))
+                check(signed.body == requireNotNull(likeReference).getAsJsonArray("vectors")[0].asJsonObject.get("body"))
+            } else {
+                check(sending)
+                val received = PrivateChat.read(recipientWallet, original, wallet.publicKey)
+                check(received.author == wallet.publicKey && received.text == outgoingText)
+            }
             "{\"err\":\"\",\"success\":1}"
         }, archiveResponse = { criteria ->
             if (partialDiscovery && !criteria.has("field1") && criteria.get("field3")?.asString == "e".repeat(64)) {
@@ -262,6 +272,39 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                         }
                         waitFor(text)
                         ui.onNodeWithText(text).assertIsDisplayed()
+                        if (liking) {
+                            waitForEnabled("Message")
+                            ui.onNodeWithText("Like").assertIsEnabled().performClick()
+                            waitFor("Reaction forwarded. Delivery is not confirmed.")
+                            waitFor("1 like")
+                            ui.onNodeWithText("1 like").assertIsDisplayed()
+                            ui.onNodeWithText("Unlike").assertIsEnabled()
+                            ui.waitUntil(5_000) { peer.transactions.size == 1 && peer.relayedMessages.size == 1 }
+                            val original = postingTransaction(peer.transactions.single())
+                            val signed = SaitoEnvelope.decodePayload(original.envelope())
+                            check(signed.author == wallet.publicKey && signed.recipients.containsAll(listOf(wallet.publicKey, counterpart)))
+                            check(signed.body == requireNotNull(likeReference).getAsJsonArray("vectors")[0].asJsonObject.get("body"))
+                            check(peer.relayedMessages.single().get("signature").asString == signed.id)
+                            check(SaitoEnvelope.fromSignedJson(peer.relayedMessages.single()) == original.envelope())
+                            File(context.cacheDir, "private-chat-evidence/native-sent-like-envelope.json").writeText(original.envelope())
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/private-message-liked.png"), text)
+                            historyUnavailable.set(true)
+                            scenario.recreate()
+                            waitFor(counterpart)
+                            ui.onNodeWithText(counterpart).performClick()
+                            waitFor(context.getString(R.string.chat_load_error))
+                            waitFor("1 like")
+                            ui.onNodeWithText(text).assertIsDisplayed()
+                            ui.onNodeWithText("1 like").assertIsDisplayed()
+                            ui.onNodeWithText("Unlike").assertIsEnabled()
+                            waitFor("Reaction forwarded. Delivery is not confirmed.")
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/private-message-like-recreated.png"), text)
+                            check(AndroidWalletStore(context).loadOrCreate().exportJson() == wallet.exportJson())
+                            check(AndroidBackendStore(context).load() == SaitoBackend.OWNER)
+                            check(peer.transactions.size == 1 && peer.relayedMessages.size == 1 && peer.reports.isEmpty())
+                            peer.assertHealthy()
+                            return@withFailureCapture
+                        }
                         if (nativeReply) {
                             val expected = requireNotNull(composition)
                             val body = expected.get("body").asString
