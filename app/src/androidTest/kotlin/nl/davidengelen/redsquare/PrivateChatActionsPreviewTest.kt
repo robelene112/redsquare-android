@@ -26,4 +26,6 @@ class PrivateChatActionsPreviewTest {
 
     @Test fun anUncertainPrivateReactionRetriesItsExactOriginalWithoutTogglingAgain() =
         history.exerciseHistory(HistoryCase.REACTION_RETRY)
+    @Test fun switchingBackendsKeepsUncertainAndForwardedReactionsOnTheirOriginalServer() =
+        history.exerciseHistory(HistoryCase.REACTION_BACKENDS)
 }
