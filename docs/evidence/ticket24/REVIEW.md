@@ -53,3 +53,22 @@ Zero findings. Authentication/disconnect discovery gates and original string
 validation preserved; no custom backend/domain following. Existing trailing
 Archive callback bindings restored. Allfive hashes/core81/source GREEN and
 qualified mixed/cleanRED evidence verified; no UI/full acceptance claim.
+
+## Original Relay receive and socket callbacks0997419...3c35a77
+
+### Standards
+
+Zero hard code violations/actionable heuristics. Bounded explicitly untrusted
+framing, original signature before decrypt, authenticated incoming callbacks,
+13accept/14reject and existing request behavior verified. All73 hashes and
+qualified one-case original evidence agree. One handoff correction: private
+contract/reference/generator already committed; fixed all inherited future notes
+while preserving group contract protection.
+
+### Spec
+
+Zero findings. Outer Relay provides no identity authority, original inner and
+participants authenticate independently, altered inner rejected. Callbacks
+preserve request IDs without promising durable/read receipt. Core82/manifests/
+referencecopies and qualified original one-case evidence verified. Newtwo-case
+result belongs to3c35, retained separately; UI/cache/backend/recovery unfinished.

@@ -143,11 +143,11 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                         }
                         require(body.get("request").asString == "archive")
                         require(criteria.get("request").asString == "load")
-                        val response = if (criteria.get("field1").asString == "Profile") {
+                        val response = if (criteria.get("field1")?.asString == "Profile") {
                             require(criteria.get("field2").asString.matches(Regex("[1-9A-HJ-NP-Za-km-z]{43,45}")))
                             require(criteria.get("limit").asInt in 1..100)
                             profileArchiveResponse?.invoke(criteria) ?: "[]"
-                        } else if (criteria.get("field1").asString == "RedSquareRetweet" && !criteria.has("sig")) {
+                        } else if (criteria.get("field1")?.asString == "RedSquareRetweet" && !criteria.has("sig")) {
                             require(criteria.get("flagged_ne").asInt == 1)
                             require(criteria.get("limit").asInt in 1..100)
                             quoteArchiveResponse?.invoke(criteria) ?: "[]"

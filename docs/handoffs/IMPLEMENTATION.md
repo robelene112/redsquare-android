@@ -45,10 +45,12 @@ Initial fixture trailing-lambda break fixed, mixedRED and stopped143 qualified
 under evidence/ticket24/peer. Discovery0997419 both source reviews0; actual10run38337011297 PASS1/0.471s,
 core81/source gates, four hashes/no UI captures. New unsignedRelay receive
 core RED31s→GREEN8/1m2s validates original/forgedinner rejection. Incoming
-socket callback RED2m7s→minimum source core82/debug/testAPK3m12s PASS. Two
-controlled peer cases runtime next; UI/privatecache/send/backend/recovery pending. Chronology NATIVE_PRIVATE_CHAT_VERIFICATION.md.
-Private contract/reference/generator future files remain untracked and now
-belong with#25; NATIVE_GROUP_CHAT_CONTRACT remains protected for#26. Read-only
+socket callback RED2m7s→minimum source core82/debug/testAPK3m12s PASS. Incoming source099...3c35 both axes0codefindings; handoff untracked note fixed.
+Actual10run38338221475 PASS2/0.788s/oneOK/noassumptions/deaths/core82; four
+hashes/no UI or durable-cache proof. First available-history UI tracer compiled
+1m43/cleanup1m26; missingChat UI runtime RED next; UI/privatecache/send/backend/recovery pending. Chronology NATIVE_PRIVATE_CHAT_VERIFICATION.md.
+Private contract/reference/generator and native resources are committed with
+#25; NATIVE_GROUP_CHAT_CONTRACT remains protected for#26. Read-only
 preparation: .scratch/ticket25-readonly-plan.md. Chat signing must authenticate
 JSON-string ciphertext without weakening existing object consumers, use exact
 CryptoJS-compatible encryption, and preserve private owner/backend cache.
@@ -165,12 +167,10 @@ for the full qualified chronology. Whole source and bounded focused reviews are
 clear. Both final full Android17 and Android10 acceptance passed, as recorded below.
 
 Completed final acceptance runs and earlier fixture interruptions are below. Preserve the
-six future research files; continue one ticket at a time. No new phone APK.
+remaining group-Chat research file; continue one ticket at a time. No new phone APK.
 
-Protected future untracked: build-support/references/private-chat-reference.cjs;
-NATIVE_NOTIFICATIONS_CONTRACT,
-NATIVE_PRIVATE_CHAT_CONTRACT,
-NATIVE_GROUP_CHAT_CONTRACT, NATIVE_PRIVATE_CHAT_REFERENCE(.json/.md).
+Protected future untracked: docs/research/NATIVE_GROUP_CHAT_CONTRACT.md for#26.
+Private Chat and notification references/contracts are already committed.
 Include only the relevant research with its ticket. Review agents inspect only;
 never run parallel implementation/CI dispatch or claim another ticket.
 
@@ -407,6 +407,6 @@ NATIVE_QUOTES_CONTRACT, NATIVE_EDIT_DELETE_CONTRACT, NATIVE_IMAGES_CONTRACT,
 NATIVE_GIF_VIDEO_CONTRACT, NATIVE_PROFILE_EDIT_CONTRACT, NATIVE_USERNAME_CONTRACT,
 NATIVE_NOTIFICATIONS_CONTRACT,
 NATIVE_SAITO_TRANSFER_CONTRACT, NATIVE_PRIVATE_CHAT_CONTRACT and
-NATIVE_GROUP_CHAT_CONTRACT (all .md under docs/research). The protected future notes remain uncommitted and must be included only with
-their own relevant tickets; earlier contracts are already committed.
+NATIVE_GROUP_CHAT_CONTRACT (all .md under docs/research). Only the group-Chat contract remains uncommitted for#26; other listed contracts
+are committed.
 They establish source contracts, not runtime or feature completion.

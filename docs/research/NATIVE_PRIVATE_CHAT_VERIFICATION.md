@@ -60,3 +60,10 @@ independent inner is read and altered inner rejected. Socket callback genuine
 missingAPI RED2m7s then minimum source core82/debug/testAPK3m12s PASS. New
 PrivateChatPeerPreviewTest has two cases; actual two-case runtime next. Original
 Chat verification precedes acceptance; full UI/cache/delivery proof pending.
+
+Incoming protocol/socket source0997419...3c35a77 both axes0codefindings.
+Standards one handoff correction (private references already committed) fixed.
+Actual10run38338221475 at3c35a77 PASS2/0.788s/oneOK/noassumptions/deaths,
+core82/source gates; four hashes/no UI captures/durable-cache proof. First
+imported-contact native UI tracer compiled1m43; primary-preserving independent
+cleanup strengthened and compiled1m26. Missing Chat UI runtime RED next.
