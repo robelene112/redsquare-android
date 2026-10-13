@@ -74,7 +74,7 @@ class PrivateChatPreviewTest {
         }
     }
 
-    private enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL, LIST_LIVE, PARTIAL_KEYS, STORAGE_PARTIAL, OTHER_LIVE, MENTIONED, MENTIONED_OUTGOING, MUTED, BLOCKED }
+    private enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL, LIST_LIVE, PARTIAL_KEYS, STORAGE_PARTIAL, OTHER_LIVE, MENTIONED, MENTIONED_OUTGOING, MUTED, BLOCKED, UNKNOWN_RETRY }
 
     @Test fun anImportedContactOpensItsAvailableAuthenticatedPrivateHistory() = exerciseHistory(HistoryCase.AVAILABLE)
 
@@ -108,6 +108,8 @@ class PrivateChatPreviewTest {
 
     @Test fun accountBlockingHidesIncomingMessagesWithoutDeletingRecoverableHistory() = exerciseHistory(HistoryCase.BLOCKED)
 
+    @Test fun anUncertainPrivateMessageRetriesTheSavedOriginalOnlyAfterAnExplicitTap() = exerciseHistory(HistoryCase.UNKNOWN_RETRY)
+
     private fun exerciseHistory(case: HistoryCase) {
         val storagePartial = case == HistoryCase.STORAGE_PARTIAL
         val storageFailure = case == HistoryCase.STORAGE_FAILURE || storagePartial
@@ -119,7 +121,8 @@ class PrivateChatPreviewTest {
         val newContact = case == HistoryCase.NEW_SEND
         val partialDiscovery = case == HistoryCase.IMPORTED_PARTIAL
         val importedId = case == HistoryCase.IMPORTED_ID || partialDiscovery || case == HistoryCase.MENTIONED_OUTGOING
-        val sending = case == HistoryCase.SEND || interruptedSend || newContact || partialKeys
+        val retrying = case == HistoryCase.UNKNOWN_RETRY
+        val sending = case == HistoryCase.SEND || interruptedSend || newContact || partialKeys || retrying
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev")
@@ -167,7 +170,8 @@ class PrivateChatPreviewTest {
         val historyUnavailable = java.util.concurrent.atomic.AtomicBoolean()
         val historyPruned = java.util.concurrent.atomic.AtomicBoolean()
         val cacheFile = File(context.noBackupFilesDir, "chat.${SaitoBackend.OWNER.id}.${wallet.publicKey}.${reference.get("groupId").asString}.v1")
-        val outgoingText = "Native private message 😀 <&>\nsecond line"
+        val outgoingText = if (retrying) vectors[1].asJsonObject.getAsJsonObject("plaintext").get("message").asString
+            else "Native private message 😀 <&>\nsecond line"
         val recipientWallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe fixture only.
         val otherWallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "3") // Public unsafe fixture; crypto interop is covered independently.
         val otherText = "Message from another private contact"
@@ -198,7 +202,7 @@ class PrivateChatPreviewTest {
                 }.toString()
             } else "[]"
         })
-        peer.disconnectAfterTransaction = interruptedSend
+        peer.disconnectAfterTransaction = interruptedSend || retrying
         val liveTransaction = if (live) {
             val relay = JsonObject().apply {
                 addProperty("module", "Relay"); addProperty("request", "chat relay")
@@ -220,6 +224,11 @@ class PrivateChatPreviewTest {
                 historyUnavailable.set(true) // Imported active wallet has only its identity keys; cache stays on device.
             }
             AndroidBackendStore(context).save(SaitoBackend.OWNER)
+            if (retrying) {
+                // A known independent original models an interrupted, already durable attempt; opening must not transmit it.
+                val original = SaitoTransaction.restore(vectors[1].asJsonObject.get("networkBase64").asString)
+                nl.davidengelen.redsquare.chat.ChatWorkStore(context, wallet, SaitoBackend.OWNER, counterpart).prepare(original)
+            }
             val policy = when (case) {
                 HistoryCase.MUTED -> nl.davidengelen.redsquare.moderation.PersonalPolicy(muted = setOf(counterpart))
                 HistoryCase.BLOCKED -> nl.davidengelen.redsquare.moderation.PersonalPolicy(blocked = setOf(counterpart))
@@ -290,6 +299,46 @@ class PrivateChatPreviewTest {
                         }
                         waitFor(text)
                         ui.onNodeWithText(text).assertIsDisplayed()
+                        if (retrying) {
+                            waitFor(context.getString(R.string.chat_send_unknown))
+                            ui.onNodeWithText(outgoingText).performScrollTo().assertIsDisplayed()
+                            check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/unknown-original-restored.png"),
+                                context.getString(R.string.chat_send_unknown))
+                            ui.onNodeWithText("Retry").assertIsEnabled().performClick()
+                            waitFor(context.getString(R.string.chat_send_error))
+                            waitFor(context.getString(R.string.chat_send_submitted))
+                            check(peer.transactions.size == 1 && peer.relayedMessages.isEmpty())
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/explicit-retry-interrupted.png"),
+                                context.getString(R.string.chat_send_submitted))
+                            historyUnavailable.set(true)
+                            scenario.recreate()
+                            waitFor(counterpart)
+                            ui.onNodeWithText(counterpart).performClick()
+                            waitFor(context.getString(R.string.chat_load_error))
+                            waitFor(context.getString(R.string.chat_send_submitted))
+                            check(peer.transactions.size == 1 && peer.relayedMessages.isEmpty())
+                            peer.disconnectAfterTransaction = false
+                            ui.onNodeWithText("Retry").assertIsEnabled().performClick()
+                            waitFor(context.getString(R.string.chat_send_forwarded))
+                            ui.waitUntil(5_000) { peer.transactions.size == 2 && peer.relayedMessages.size == 1 }
+                            val expected = vectors[1].asJsonObject
+                            // Only the newly added routing hop is removed. Every original signed byte must match.
+                            peer.transactions.forEach { frame ->
+                                check(postingTransaction(frame).encoded() == expected.get("networkBase64").asString)
+                            }
+                            check(peer.relayedMessages.single().get("signature").asString == expected.get("signature").asString)
+                            scenario.recreate()
+                            waitFor(counterpart)
+                            ui.onNodeWithText(counterpart).performClick()
+                            waitFor(context.getString(R.string.chat_load_error))
+                            waitFor(context.getString(R.string.chat_send_forwarded))
+                            ui.onNodeWithText(outgoingText).performScrollTo().assertIsDisplayed()
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/explicit-original-retry-recreated.png"), outgoingText)
+                            check(peer.transactions.size == 2 && peer.relayedMessages.size == 1)
+                            peer.assertHealthy()
+                            return@withFailureCapture
+                        }
                         if (partialKeys || storagePartial) {
                             waitFor(context.getString(R.string.chat_incomplete))
                             ui.onNodeWithText(context.getString(R.string.chat_incomplete)).assertIsDisplayed()

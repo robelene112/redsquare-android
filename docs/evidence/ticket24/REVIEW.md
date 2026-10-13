@@ -431,3 +431,15 @@ Zero documented breaches and zero actionable smell findings. One-line correction
 Zero actionable findings. Fixsupports#25 encryption/localcache formentionedDMs; fullprivateverificationbeforewrite/display remains. RetainedRED5716d23 14/13PASS+one line326failureafternetworkreadpassed. All16XMLparse/parentmanifestverifies. Boundedcachefixonly; wholeacceptancepending.
 
 Findings: Standards0; Spec0.
+
+## Existing private controls and own mentioned history, a05c2d6...529aa5b
+
+### Standards
+
+Zero documented breaches and zero actionable smell findings. Native tests use independent outgoingmentionvector/importedID andrealpersonalpolicyadapterfixture; bodyvisibility throughUI. Blockearlyreturn staysinsidecleanup/resource scopes; exactopaque wallet/backend/preferences/policyfamilies restoredafterActivityclose. Uniquecaptures improveattribution. Prior14caseGREEN separatedfromcompiled17casependingexecution; no productsourcechange/processdeath/wholeacceptanceclaim.
+
+### Spec
+
+Zero actionable findings. Testscover#25 blockedincoming/mutedChataccessible/importedownmentioned recovery. Blockchecks hiddenbefore/afterrecreate; removingblockwithArchiveunavailable mustrestoreretainedtext. Preconditionpolicybytes includedinsnapshot/restoration. Prior14GREENa05 bothSDKs65.297/105.853/15XML andmanifestverified; new17executionpendingatreview.
+
+Findings: Standards0; Spec0.
