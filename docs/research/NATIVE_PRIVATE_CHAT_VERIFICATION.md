@@ -141,3 +141,18 @@ strengthened to deliver original unsigned Relay wrapper via actual authenticated
 sockets only after empty history finishes; revised APK compiles1m32s. Subsequent
 recreation has no redelivery and unavailable Archive. Actual native RED next.
 No initial socket/UI result is inferred from either compilation.
+
+Delayed Relay actualRED10run38344010177 atdb62258 reports3cases/2PASS+1
+failure26.503s, line96 missing originalmessage after fixture socket offer. NoOK/
+assumptions/actualdeaths; core82/source gates. Thirteen hashes/root fiveXMLs and
+failure original show completed emptyconversation, no message. Passing-cache
+captures separately qualified; fixture send is not confirmed app receipt. Source
+has no UI incoming handler and disposes history peer. Minimum now keeps selected
+authenticated connection while displayed, routes original verified Relay message
+to durable encrypted cache before13ack, sends persisted history to UI via bounded
+conflated channel; archive failure does not close healthy Relay session. Source
+build and unchanged3caseGREEN pending.
+
+Minimum live-selected-conversation source core82/debug/testAPK passes3m.
+Actual unchanged3caseGREEN and bounded source reviews next. No conversation-list
+listener, sending, actual process-death or whole-ticket completion inferred.

@@ -14,6 +14,10 @@ import com.google.gson.JsonParser
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.cancelAndJoin
+import kotlinx.coroutines.channels.Channel
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.moderation.LocalPersonalControls
 import nl.davidengelen.redsquare.moderation.PersonalControlsStatus
@@ -52,39 +56,46 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { cacheFailed = true }
         try {
-            val page = withContext(Dispatchers.IO) {
-                SaitoPeer(wallet, endpoint).use { peer ->
-                    require("archive" in peer.services())
-                    val criteria = JsonObject().apply {
-                        addProperty("request", "load")
-                        addProperty("field3", PrivateChat.conversationId(wallet.publicKey, contact))
-                        addProperty("limit", 50)
-                        addProperty("created_earlier_than", System.currentTimeMillis())
+            coroutineScope {
+                val updates = Channel<List<ChatHistoryStore.Entry>>(Channel.CONFLATED)
+                val receiver = launch {
+                    for (saved in updates) {
+                        val savedIds = saved.map { it.message.id }.toSet()
+                        cacheFailed = entries.any { it.message.id !in savedIds }
+                        entries = ChatHistoryStore.merge(entries, saved)
                     }
-                    val request = JsonObject().apply { addProperty("request", "archive"); add("data", criteria) }
-                    val rows = JsonParser.parseString(peer.request(request.toString().toByteArray(Charsets.UTF_8))
-                        .toString(Charsets.UTF_8)).asJsonArray
-                    require(rows.size() <= 50)
-                    var ignored = 0
-                    val verified = rows.mapNotNull { row ->
-                        try {
-                            val envelope = row.asJsonObject.get("tx")
-                            require(envelope.isJsonPrimitive && envelope.asJsonPrimitive.isString)
-                            ChatHistoryStore.Entry(envelope.asString, PrivateChat.read(wallet, envelope.asString, contact))
-                        } catch (_: Exception) { ignored++; null }
-                    }.distinctBy { it.message.id }
-                    verified to (ignored > 0)
                 }
+                try {
+                    SaitoPeer(wallet, endpoint, onIncoming = { bytes ->
+                        val received = PrivateChat.receive(wallet, bytes)
+                        if (received.counterparty != contact) false
+                        else {
+                            val saved = cache.save(listOf(received.envelope))
+                            updates.trySend(saved)
+                            true // Original authenticated ciphertext is durably saved before acknowledgement.
+                        }
+                    }).use { peer ->
+                        require(setOf("archive", "relay").all { it in peer.services() })
+                        try {
+                            val page = withContext(Dispatchers.IO) { loadPrivateHistory(peer, wallet, contact) }
+                            entries = ChatHistoryStore.merge(entries, page.first)
+                            try {
+                                val saved = withContext(Dispatchers.IO) { cache.save(entries.map { it.envelope }) }
+                                entries = ChatHistoryStore.merge(entries, saved)
+                                cacheFailed = false
+                            } catch (cancelled: CancellationException) { throw cancelled }
+                            catch (_: Exception) { cacheFailed = true }
+                            incomplete = page.second
+                            failed = false
+                        } catch (cancelled: CancellationException) { throw cancelled }
+                        catch (_: Exception) { failed = true }
+                        finally { loading = false }
+                        // Keep the authenticated selected connection alive after loading its history.
+                        peer.awaitDisconnection()
+                        failed = true
+                    }
+                } finally { updates.close(); receiver.cancelAndJoin() }
             }
-            entries = ChatHistoryStore.merge(entries, page.first)
-            try {
-                val saved = withContext(Dispatchers.IO) { cache.save(entries.map { it.envelope }) }
-                entries = ChatHistoryStore.merge(entries, saved)
-                cacheFailed = false
-            } catch (cancelled: CancellationException) { throw cancelled }
-            catch (_: Exception) { cacheFailed = true }
-            incomplete = page.second
-            failed = false
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { failed = true }
         finally { loading = false }
@@ -134,4 +145,27 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
             }
         }
     }
+}
+
+private suspend fun loadPrivateHistory(peer: SaitoPeer, wallet: SaitoWallet,
+    contact: String): Pair<List<ChatHistoryStore.Entry>, Boolean> {
+    val criteria = JsonObject().apply {
+        addProperty("request", "load")
+        addProperty("field3", PrivateChat.conversationId(wallet.publicKey, contact))
+        addProperty("limit", 50)
+        addProperty("created_earlier_than", System.currentTimeMillis())
+    }
+    val request = JsonObject().apply { addProperty("request", "archive"); add("data", criteria) }
+    val rows = JsonParser.parseString(peer.request(request.toString().toByteArray(Charsets.UTF_8))
+        .toString(Charsets.UTF_8)).asJsonArray
+    require(rows.size() <= 50)
+    var ignored = 0
+    val verified = rows.mapNotNull { row ->
+        try {
+            val envelope = row.asJsonObject.get("tx")
+            require(envelope.isJsonPrimitive && envelope.asJsonPrimitive.isString)
+            ChatHistoryStore.Entry(envelope.asString, PrivateChat.read(wallet, envelope.asString, contact))
+        } catch (_: Exception) { ignored++; null }
+    }.distinctBy { it.message.id }
+    return verified to (ignored > 0)
 }

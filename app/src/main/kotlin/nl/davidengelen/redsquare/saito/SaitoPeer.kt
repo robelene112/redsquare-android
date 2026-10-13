@@ -184,6 +184,9 @@ class SaitoPeer(private val wallet: SaitoWallet, endpoint: String,
         requireNotNull(onIncoming).invoke(transaction)
     } catch (_: Exception) { false }
 
+    /** Suspend while a feature receives on this authenticated connection. */
+    suspend fun awaitDisconnection() { closed.await() }
+
     /** Drain queued frames before disposal. Local completion is still not a peer/payment ACK. */
     suspend fun finishBroadcast() = withTimeout(12_000) {
         if (!socket.close(1000, null)) throw IOException("Peer disconnected")
