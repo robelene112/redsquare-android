@@ -127,6 +127,12 @@ class PrivateChatPreviewTest {
             }) // Existing Saito backup stores group IDs, not LocalForage messages.
         }
         val wallet = SaitoWallet.fromBackup(options.toString())
+        val completeKeyWallet = if (partialKeys) SaitoWallet.fromBackup(JsonParser.parseString(wallet.exportJson()).asJsonObject.apply {
+            add("keys", JsonArray().apply { add(JsonObject().apply {
+                addProperty("publicKey", counterpart)
+                addProperty("aes_secret", vectors[2].asJsonObject.get("sharedSecretHex").asString)
+            }) })
+        }.toString()) else null
         val store = AndroidWalletStore(context)
         val original = store.loadOrCreate().exportJson()
         val priorBackend = AndroidBackendStore(context).load()
@@ -181,13 +187,7 @@ class PrivateChatPreviewTest {
             store.replace(store.loadOrCreate(), wallet)
             if (partialKeys) {
                 val old = vectors[2].asJsonObject // Independently pinned exchanged-key message in the same DM.
-                val complete = JsonParser.parseString(wallet.exportJson()).asJsonObject.apply {
-                    add("keys", JsonArray().apply { add(JsonObject().apply {
-                        addProperty("publicKey", counterpart)
-                        addProperty("aes_secret", old.get("sharedSecretHex").asString)
-                    }) })
-                }
-                nl.davidengelen.redsquare.chat.ChatHistoryStore(context, SaitoWallet.fromBackup(complete.toString()),
+                nl.davidengelen.redsquare.chat.ChatHistoryStore(context, requireNotNull(completeKeyWallet),
                     SaitoBackend.OWNER, counterpart).save(listOf(reference.get("archiveEnvelope").asString, old.get("archiveEnvelope").asString))
                 historyUnavailable.set(true) // Imported active wallet has only its identity keys; cache stays on device.
             }
@@ -298,6 +298,18 @@ class PrivateChatPreviewTest {
                             check(peer.transactions.size == 1 && peer.relayedMessages.size == if (interruptedSend) 0 else 1)
                         } else check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
                         check(peer.reports.isEmpty())
+                        if (partialKeys) {
+                            // Restore the matching imported secret through protected storage, then verify the old ciphertext survived saving.
+                            store.replace(store.loadOrCreate(), requireNotNull(completeKeyWallet))
+                            scenario.recreate()
+                            waitFor(counterpart)
+                            ui.onNodeWithText(counterpart).assertIsDisplayed().performClick()
+                            val oldText = vectors[2].asJsonObject.getAsJsonObject("plaintext").get("message").asString
+                            waitFor(oldText)
+                            ui.onNodeWithText(oldText).performScrollTo().assertIsDisplayed()
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/exchanged-key-restored.png"), oldText)
+                            check(peer.transactions.size == 1 && peer.relayedMessages.size == 1)
+                        }
                         peer.assertHealthy()
                     }
                 }

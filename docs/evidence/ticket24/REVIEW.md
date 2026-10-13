@@ -312,3 +312,15 @@ One partial-key recovery finding: one old exchanged-key ciphertext whose secret
 is missing from an imported wallet hides the entire cache/contact, including a
 readable implicit-key message. Preserve unreadable ciphertext and expose verified
 readable history/contact plus partial warning.501 UI hashes verify.
+
+## Contact merge and partial-key tracer review4734f93...89c09bf
+
+### Standards
+
+Prior ordering finding resolved; zero new hard findings or actionable heuristics.
+Twenty-eight new GREEN and two compile records verify. Runtime/race limits clear.
+
+### Spec
+
+Zero new findings.531 UI hashes/twelveXMLs/qualified originals verify. Previous
+mixed-key recovery finding remainsopen, intentional11caseRED/minimumpending.

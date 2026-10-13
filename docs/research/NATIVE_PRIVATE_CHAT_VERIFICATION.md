@@ -415,3 +415,10 @@ Mixed-key cache tracer plusmergefix debug/testAPK PASS1m47s (coreunchanged85).
 No partial-key implementation yet; native11caseRED next. Recreated normal-send10
 original exposes bothmessageparagraphs/status, but inputfooter is partly clipped:
 recorded asviewportlimitation, not professionalpolish/physical acceptance.
+
+Contactmerge+mixedkeytracer89c09bf bothboundedaxes0new; orderingfindingresolved,
+mixedkeyfindingstillopen. Stronger fixture now restoresmatching importedsecret
+afternewsend/reopening and requirestheoriginal olderplaintext to reappear, with
+no extra transmissions. This checks unreadableciphertextpreservation throughsave.
+TestAPKcompiles1m39s; initial11caseRED38357934691 stillrunningat89c09bf.
+Restored-secret tail isnewcoverage, notan invented RED result.

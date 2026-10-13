@@ -33,7 +33,7 @@ NATIVE_PRIVATE_CHAT_VERIFICATION.md and separate docs/evidence/ticket24/REVIEW.m
 Accepted seams1–4 cover native UI/controlled peers, independent signing/encryption,
 recovery/isolation and compatibility. No additional grill or routine approval.
 
-Latest production source4734f93: native encrypted DM send, original propagation
+Current implementation (inspect gitlog for HEAD): native encrypted DM send, original propagation
 and Relay, truthful Submitted/Forwarded-not-confirmed state; selected-conversation
 live receive/persistent socket; encrypted retained original cache; first-Chat
 optional permission; fresh public-key/Open-chat entry with portable contact/shared
@@ -42,7 +42,8 @@ private hashes/public-key group IDs preserve DM discovery. Core85/0/0/0 plus
 both APKs PASS4m12s at655c1e5. Minimum partial-discovery correction at
 a6c525c debug/testAPK PASS1m47s. List-only receiving and encrypted-cache
 contact discovery at4734f93 debug/testAPK PASS3m20s, core unchanged85; actual
-10caseGREEN10run38356985068 and bounded reviews6829cbf...4734f93 pending.
+10caseGREEN10run38356985068 PASS10/43.21s. Reviews6829cbf...4734f93 found
+snapshot race and mixed-key cached recovery; both tracked below.
 
 Actual10run38353752949 at655c1e5 PASS8/44.97s, core85/source gates. Imported-ID
 history/recreated cached reading passes alongside fresh-contact send, failed-save
@@ -76,7 +77,8 @@ all-or-nothingdecryption hidesavailablehistory afterkey-onlyimport. Two-line
 current-contactmerge/backendremember fix KotlincompilePASS1m38s; partial-key
 tracer seedsindependent originals withcompletesecret, thenactivekey-onlywallet/
 failedArchive expectsreadablecontact/history/partialwarning/send/recreatedcache.
-BothAPKbuildPASS1m47s; actual11caseRED next; partial-keyminimumunimplemented.
+BothAPKbuildPASS1m47s; actual11caseRED10run38357934691 at89c09bf pending; partial-keyminimumunimplemented.
+Snapshot correction review4734...89c Standards0newfinding/resolved; Specpending.
 
 Remaining #25: live incoming while a different conversation is selected; available older-history paging; Block hides incoming/Mute keeps
 Chat accessible native checks; unknown attempt/draft recovery and actual process
