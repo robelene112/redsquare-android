@@ -1,0 +1,5 @@
+# Exact original Retry GREEN, Android10
+
+Sourcec9465f8, run38392865924. All18nativecases PASS78.064s/core86 afterboundedpositivereadywaits; originalstrictassert/tap/transmissionidentity/Relay/noauto/recreation predicatesunchanged. Rootall27 XML parsed andoriginalexplicit-original-retry-recreated.png viewed: Forwarded-not-confirmed andexactlyoneownmessagerowvisible. Rawgate andexternalbroadcastchecks prove sameindependentsignedoriginal inboth retries afteronlyfreshhopnormalization, oneRelay/noextraautomatic traffic. Comparedwithpreviousdisabledbuttonfailure, this establishes eventualreadiness underboundedwait; exactearlierfailurecause remainsunproven.
+
+Android17 companion38390512523 ate6cd339 passes18/96.785s againstsameproductionapp/core witholderimmediateasserts. Itdoesnotexecute thenewwaits. Ordinaryrecreationnotprocessdeath; notfull#25acceptance/physical/livepublication.

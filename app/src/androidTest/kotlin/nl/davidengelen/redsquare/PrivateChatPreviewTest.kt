@@ -74,7 +74,7 @@ class PrivateChatPreviewTest {
         }
     }
 
-    private enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL, LIST_LIVE, PARTIAL_KEYS, STORAGE_PARTIAL, OTHER_LIVE, MENTIONED, MENTIONED_OUTGOING, MUTED, BLOCKED, UNKNOWN_RETRY }
+    private enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL, LIST_LIVE, PARTIAL_KEYS, STORAGE_PARTIAL, OTHER_LIVE, MENTIONED, MENTIONED_OUTGOING, MUTED, BLOCKED, UNKNOWN_RETRY, PENDING_IMPORT }
 
     @Test fun anImportedContactOpensItsAvailableAuthenticatedPrivateHistory() = exerciseHistory(HistoryCase.AVAILABLE)
 
@@ -110,6 +110,8 @@ class PrivateChatPreviewTest {
 
     @Test fun anUncertainPrivateMessageRetriesTheSavedOriginalOnlyAfterAnExplicitTap() = exerciseHistory(HistoryCase.UNKNOWN_RETRY)
 
+    @Test fun walletReplacementExplainsUncertainChatWorkBeforeConfirmation() = exerciseHistory(HistoryCase.PENDING_IMPORT)
+
     private fun exerciseHistory(case: HistoryCase) {
         val storagePartial = case == HistoryCase.STORAGE_PARTIAL
         val storageFailure = case == HistoryCase.STORAGE_FAILURE || storagePartial
@@ -122,6 +124,7 @@ class PrivateChatPreviewTest {
         val partialDiscovery = case == HistoryCase.IMPORTED_PARTIAL
         val importedId = case == HistoryCase.IMPORTED_ID || partialDiscovery || case == HistoryCase.MENTIONED_OUTGOING
         val retrying = case == HistoryCase.UNKNOWN_RETRY
+        val pendingImport = case == HistoryCase.PENDING_IMPORT
         val sending = case == HistoryCase.SEND || interruptedSend || newContact || partialKeys || retrying
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
@@ -224,7 +227,7 @@ class PrivateChatPreviewTest {
                 historyUnavailable.set(true) // Imported active wallet has only its identity keys; cache stays on device.
             }
             AndroidBackendStore(context).save(SaitoBackend.OWNER)
-            if (retrying) {
+            if (retrying || pendingImport) {
                 // A known independent original models an interrupted, already durable attempt; opening must not transmit it.
                 val original = SaitoTransaction.restore(vectors[1].asJsonObject.get("networkBase64").asString)
                 nl.davidengelen.redsquare.chat.ChatWorkStore(context, wallet, SaitoBackend.OWNER, counterpart).prepare(original)
@@ -238,7 +241,9 @@ class PrivateChatPreviewTest {
                 .save(nl.davidengelen.redsquare.moderation.PersonalPolicy(), policy)
             peer.start().use { server ->
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
-                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen").apply {
+                        if (pendingImport) putExtra("balanceApiUrl", "http://127.0.0.1:9/balance/")
+                    }).use { scenario ->
                     withFailureCapture({ captureNativeScreen(File(context.cacheDir, "private-chat-evidence/history-first-failure.png")) }) {
                         waitFor("Chat")
                         ui.onNodeWithText("Chat").assertIsDisplayed().performClick()
@@ -299,6 +304,26 @@ class PrivateChatPreviewTest {
                         }
                         waitFor(text)
                         ui.onNodeWithText(text).assertIsDisplayed()
+                        if (pendingImport) {
+                            waitFor(context.getString(R.string.chat_send_unknown))
+                            check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
+                            ui.onNodeWithText("Wallet").performClick()
+                            waitFor("Import wallet")
+                            ui.onNodeWithText("Import wallet").performScrollTo().performClick()
+                            chooseWalletImport(ui, "00-chat-work-import-fixture.json", counterpart)
+                            waitFor(context.getString(R.string.wallet_import_pending_work))
+                            ui.onNodeWithText(context.getString(R.string.wallet_import_pending_work)).performScrollTo().assertIsDisplayed()
+                            ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsNotEnabled()
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/chat-work-wallet-replacement.png"),
+                                context.getString(R.string.wallet_import_pending_work))
+                            ui.onNodeWithText("Done").performClick()
+                            waitFor(context.getString(R.string.chat_send_unknown))
+                            check(AndroidWalletStore(context).loadOrCreate().exportJson() == wallet.exportJson())
+                            check(AndroidBackendStore(context).load() == SaitoBackend.OWNER)
+                            check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
+                            peer.assertHealthy()
+                            return@withFailureCapture
+                        }
                         if (retrying) {
                             waitFor(context.getString(R.string.chat_send_unknown))
                             ui.onNodeWithText(outgoingText).performScrollTo().assertIsDisplayed()
