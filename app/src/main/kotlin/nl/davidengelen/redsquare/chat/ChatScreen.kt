@@ -47,9 +47,11 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
 
     LaunchedEffect(wallet, endpoint, refresh) {
         try {
-            var discoveryFailed = false
-            contacts = withContext(Dispatchers.IO) { wallet.chatContacts() }
-            val known = contacts.map { PrivateChat.conversationId(wallet.publicKey, it) }.toSet()
+            val retained = withContext(Dispatchers.IO) { ChatHistoryStore.contacts(context, wallet, backend) }
+            var discoveryFailed = retained.unreadable
+            val portable = withContext(Dispatchers.IO) { wallet.chatContacts() }
+            contacts = (portable + retained.accounts).distinct()
+            val known = portable.map { PrivateChat.conversationId(wallet.publicKey, it) }.toSet()
             val missing = withContext(Dispatchers.IO) { wallet.chatHistoryIds().filter { it !in known } }
             if (missing.isNotEmpty()) {
                 var updated = wallet
@@ -74,6 +76,34 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
             contactsFailed = discoveryFailed
         }
         catch (cancelled: CancellationException) { throw cancelled }
+        catch (_: Exception) { contactsFailed = true }
+    }
+    LaunchedEffect(wallet, backend, endpoint, counterparty, refresh) {
+        if (counterparty != null) return@LaunchedEffect
+        try {
+            coroutineScope {
+                val updates = Channel<Unit>(Channel.CONFLATED)
+                val receiver = launch {
+                    for (ignored in updates) {
+                        val retained = withContext(Dispatchers.IO) { ChatHistoryStore.contacts(context, wallet, backend) }
+                        contacts = (contacts + retained.accounts).distinct()
+                        if (retained.unreadable) contactsFailed = true
+                    }
+                }
+                try {
+                    SaitoPeer(wallet, endpoint, onIncoming = { bytes ->
+                        val received = PrivateChat.receive(wallet, bytes)
+                        ChatHistoryStore(context, wallet, backend, received.counterparty).save(listOf(received.envelope))
+                        updates.trySend(Unit)
+                        true // Even if the UI closes, original authenticated history discovers the contact on reopening.
+                    }).use { peer ->
+                        require("relay" in peer.services())
+                        peer.awaitDisconnection()
+                        contactsFailed = true
+                    }
+                } finally { updates.close(); receiver.cancelAndJoin() }
+            }
+        } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { contactsFailed = true }
     }
     LaunchedEffect(wallet, endpoint, counterparty, refresh) {
@@ -174,7 +204,21 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
             if (contacts.isEmpty() && !contactsFailed) Text(stringResource(R.string.chat_empty))
             LazyColumn(Modifier.weight(1f)) {
                 items(contacts, key = { it }) { key ->
-                    TextButton(onClick = { counterparty = key }, enabled = personal?.ready == true) {
+                    TextButton(onClick = {
+                        savingContact = true
+                        contactFailed = false
+                        scope.launch {
+                            try {
+                                if (key !in wallet.chatContacts()) {
+                                    val updated = withContext(Dispatchers.IO) { wallet.withChatContact(key) }
+                                    onWalletMetadata(wallet, updated)
+                                }
+                                counterparty = key
+                            } catch (cancelled: CancellationException) { throw cancelled }
+                            catch (_: Exception) { contactFailed = true }
+                            finally { savingContact = false }
+                        }
+                    }, enabled = !savingContact && personal?.ready == true) {
                         Column {
                             Text(registeredIdentity(key).name)
                             Text(key, style = MaterialTheme.typography.labelSmall)

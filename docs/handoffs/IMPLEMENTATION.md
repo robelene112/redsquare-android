@@ -62,7 +62,7 @@ at a6c525c publishes successful contacts with discovery warning and preserves
 cancellation. APK build PASS1m47s; actual9caseGREEN10run38355056886 PASS9/42.446s and
 17run38355059918 PASS9/83.692s. Root each twelveXMLs/criticaloriginals inspected.
 Correction reviews37532b6...a6c525c bothsourceaxes0; stale handoff corrected.
-Next empty-wallet Chat-list incoming tracer compiled1m32/1m38; actualRED next. Do not close#25.
+List-incoming tracer6829cbf bothaxes0; actualRED10run38355907771 10cases/9PASS+1failure54.58s line196, root13XML/failureoriginal inspected. Minimum list-only listener/cache contact discovery debug/testAPK PASS3m20s; actual10caseGREEN/reviews next, no runtimeGREEN yet. Do not close#25.
 Do not dispatch same chat-ui scope while priorrunactive (workflow cancels same).
 
 Remaining #25: unselected/new-contact incoming listener and discoverable local

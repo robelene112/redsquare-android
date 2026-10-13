@@ -380,3 +380,18 @@ fixture correctioncompiles1m38s. Emptywallet/noimportedcontacts/IDs, Chatlistope
 fixtureoffers signedoriginal every200ms while authenticating, expects discovered
 contact/decryptedmessage/durablepositiveACK and recreationwithoutredelivery.
 No listlistener implemented yet; actual10caseRED next.
+
+List-incoming tracer6829cbf bothboundedreviewaxes0. ActualRED10run38355907771
+reports10cases/9PASS+1failure54.58s atline196 nodiscoveredcontact. RootthirteenXMLs/
+failureoriginal inspected. Minimum list-only incoming authenticatedpeer now caches
+verifiedoriginal beforeACK; discoverspubliccounterparty fromowner/backend scoped
+device-encrypted originalhistory, includingreopeningbeforeportablepublication.
+Selectingnewcachecontact usescompatible sharedwalletmetadata callback before
+opening. Selected-conversation listener remainsseparate; otherconversation receive
+whilealreadyinsideone is not claimed. APKbuild/actualGREENpending.
+
+List-only incoming/cache-contact minimum debug/testAPK PASS3m20s; core unchanged85
+(not rerun locally). Device-encrypted contacts discover only sameowner/backend
+originals, including AtomicFilebackup recovery; bad records remain untouched and
+reportpartialunreadable, successfulothercontacts remainavailable. Actual10caseGREEN
+and boundedreviews next; receivewhileanotherconversationselected stilloutstanding.
