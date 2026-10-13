@@ -32,4 +32,6 @@ class PrivateChatActionsPreviewTest {
         history.exerciseHistory(HistoryCase.REACTION_WALLETS)
     @Test fun authenticatedAvailableReactionsDeduplicateAndSurviveAnUnavailableArchive() =
         history.exerciseHistory(HistoryCase.ARCHIVED_LIKE)
+    @Test fun unavailableReactionStorageDoesNotHideReadableMessagesAndCanRecover() =
+        history.exerciseHistory(HistoryCase.ARCHIVED_LIKE_STORAGE)
 }

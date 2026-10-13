@@ -15,11 +15,12 @@ import nl.davidengelen.redsquare.saito.*
 import java.io.File
 
 internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
-    enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL, LIST_LIVE, PARTIAL_KEYS, STORAGE_PARTIAL, OTHER_LIVE, MENTIONED, MENTIONED_OUTGOING, MUTED, BLOCKED, UNKNOWN_RETRY, PENDING_IMPORT, DRAFT_NAVIGATION, OLDER_HISTORY, QUOTED_REPLY, LITERAL_MARKUP, UNREADABLE_RECENT_HISTORY, NATIVE_REPLY, NATIVE_REPLY_ZERO, LIKE, INCOMING_LIKE, CONCURRENT_LIKE, REACTION_RETRY, REACTION_BACKENDS, REACTION_WALLETS, ARCHIVED_LIKE }
+    enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL, LIST_LIVE, PARTIAL_KEYS, STORAGE_PARTIAL, OTHER_LIVE, MENTIONED, MENTIONED_OUTGOING, MUTED, BLOCKED, UNKNOWN_RETRY, PENDING_IMPORT, DRAFT_NAVIGATION, OLDER_HISTORY, QUOTED_REPLY, LITERAL_MARKUP, UNREADABLE_RECENT_HISTORY, NATIVE_REPLY, NATIVE_REPLY_ZERO, LIKE, INCOMING_LIKE, CONCURRENT_LIKE, REACTION_RETRY, REACTION_BACKENDS, REACTION_WALLETS, ARCHIVED_LIKE, ARCHIVED_LIKE_STORAGE }
 
     fun exerciseHistory(case: HistoryCase) {
         val concurrentLike = case == HistoryCase.CONCURRENT_LIKE
-        val archivedLike = case == HistoryCase.ARCHIVED_LIKE
+        val reactionStorage = case == HistoryCase.ARCHIVED_LIKE_STORAGE
+        val archivedLike = case == HistoryCase.ARCHIVED_LIKE || reactionStorage
         val reactionWallets = case == HistoryCase.REACTION_WALLETS
         val reactionBackends = case == HistoryCase.REACTION_BACKENDS
         val reactionRetry = case == HistoryCase.REACTION_RETRY
@@ -109,6 +110,8 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
         val historyUnavailable = java.util.concurrent.atomic.AtomicBoolean()
         val historyPruned = java.util.concurrent.atomic.AtomicBoolean()
         val cacheFile = File(context.noBackupFilesDir, "chat.${SaitoBackend.OWNER.id}.${wallet.publicKey}.${reference.get("groupId").asString}.v1")
+        val reactionCacheFile = File(context.noBackupFilesDir,
+            "chatreactions.${SaitoBackend.OWNER.id}.${wallet.publicKey}.${reference.get("groupId").asString}.v1")
         val composition = if (nativeReply) fixture.getAsJsonObject("replyFormat").getAsJsonObject(if (zeroReply) "compositionZero" else "composition") else null
         val outgoingText = if (nativeReply) requireNotNull(composition).get("prefix").asString + composition.get("body").asString
             else if (retrying) vectors[1].asJsonObject.getAsJsonObject("plaintext").get("message").asString
@@ -212,6 +215,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
             if (storageFailure) check(cacheFile.mkdir())
             preferences.forEach { (prefs, key, _) -> check(prefs.edit().putBoolean(key, true).commit()) }
             store.replace(store.loadOrCreate(), wallet)
+            if (reactionStorage) check(reactionCacheFile.mkdir())
             if (recentPage != null) {
                 val cached = PrivateChat.create(recipientWallet, wallet.publicKey, cachedOlderText, oldestRecent - 100)
                 nl.davidengelen.redsquare.chat.ChatHistoryStore(context, wallet, SaitoBackend.OWNER, counterpart)
@@ -309,6 +313,33 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                         }
                         waitFor(text)
                         ui.onNodeWithText(text).assertIsDisplayed()
+                        if (reactionStorage) {
+                            val warning = "Could not restore or save reactions on this device. Messages remain readable."
+                            waitFor(warning)
+                            waitForEnabled("Refresh")
+                            ui.onNodeWithText(text).assertIsDisplayed()
+                            ui.onNodeWithText(warning).assertIsDisplayed()
+                            ui.onAllNodesWithText(context.getString(R.string.chat_load_error)).assertCountEquals(0)
+                            ui.onAllNodesWithText("1 like").assertCountEquals(0)
+                            check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/readable-message-reaction-storage-failure.png"), text)
+                            check(reactionCacheFile.isDirectory && reactionCacheFile.list()!!.isEmpty() && reactionCacheFile.delete())
+                            val readsBeforeRepair = historyReads.get()
+                            ui.onNodeWithText("Refresh").performClick()
+                            ui.waitUntil(15_000) { historyReads.get() > readsBeforeRepair &&
+                                ui.onAllNodesWithText(warning).fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty() }
+                            waitFor("1 like")
+                            waitForEnabled("Like")
+                            ui.onNodeWithText("1 like").assertIsDisplayed()
+                            ui.onAllNodesWithText(context.getString(R.string.chat_reaction_error)).assertCountEquals(0)
+                            ui.onAllNodesWithText(context.getString(R.string.chat_load_error)).assertCountEquals(0)
+                            check(store.loadOrCreate().exportJson() == wallet.exportJson())
+                            check(AndroidBackendStore(context).load() == SaitoBackend.OWNER)
+                            check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty() && peer.reports.isEmpty())
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/readable-message-reaction-storage-repaired.png"), text)
+                            peer.assertHealthy()
+                            return@withFailureCapture
+                        }
                         if (archivedLike) {
                             waitFor("1 like")
                             waitForEnabled("Like")
@@ -1064,7 +1095,8 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
             restore { synchronized(SaitoLocalState.lock) {
                 context.noBackupFilesDir.listFiles()!!.filter { file -> prefixes.any(file.name::startsWith) }
                     .forEach { file ->
-                        if (file == cacheFile && file.isDirectory) check(file.list()!!.isEmpty() && file.delete())
+                        if (file.isDirectory && (file == cacheFile || reactionStorage && file == reactionCacheFile))
+                            check(file.list()!!.isEmpty() && file.delete())
                         else check(file.isFile && file.delete())
                     }
                 savedFiles.forEach { (name, bytes) -> File(context.noBackupFilesDir, name).writeBytes(bytes) }
