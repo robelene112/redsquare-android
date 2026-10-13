@@ -71,12 +71,11 @@ Spec4f9...59ba0; Standards1warning coupledtosave, nowfixeddf9891d. Reviews of
 correctedtracer59ba...ecc both0newfindings. Current bounded warning-fix reviews
  ecc3d56...df9891d both0/resolved. Actual12caseGREEN10run38362024612 PASS12/55.833s; root13XML/warning+restoredkey originalsinspected.
 17run38362028575 raw11PASS thencase12start/noresult, nofailureassertion; truncatedunder90sclasslimit, oldexitnotretained.
-Harness now180s+exitfile, individualwaits/assertionsunchanged. New13case actualRED22b07ed:10run38363644050 12PASS+1fail61.98s;17run38363647971 12PASS+1fail90.368s, bothline260 positiveACKtimeout. Class180s completes; rawexit0 butOKgate correctlyrejects. Minimaldifferent-contactcache-beforeACK sourceapplied, localAPKbuildpending. Root must inspect raw runner/XML/original images, preserve failed runs
+Harness now180s+exitfile, individualwaits/assertionsunchanged. New13case actualRED22b07ed:10run38363644050 12PASS+1fail61.98s;17run38363647971 12PASS+1fail90.368s, bothline260 positiveACKtimeout. Class180s completes; rawexit0 butOKgate correctlyrejects. Minimaldifferent-contactcache-beforeACK source256b67f passeslocaldebug/testAPK1m51s; bothboundedreviewaxes0. Attempt10run38384045182/17run38384048900 both13/12PASS+one line263fail82.903s/113.486s: ACKpasses, contactmissingafterBack. Root14XML/failureoriginals perSDKinspected. Minimalrescan fixesnavigationkey andlistonlydiscovery; localbuildpending. Root must inspect raw runner/XML/original images, preserve failed runs
 and exact SHA attribution. Harness now180s aftercaptured17truncation; newexitstatus retained. Never calldeadline proof ofappfailure.
 Do not dispatch same chat-ui scope while another is active (same scope cancels).
 
-Remaining #25: receiving a different/new contact while another conversation is
-open; available older-history paging; native Block hides incoming/Mute keeps Chat
+Remaining #25: complete native13 different-contact GREEN; available older-history paging; native Block hides incoming/Mute keeps Chat
 accessible; unknown attempt/draft recovery and actual process death; wallet/backend
 isolation; both full Android10/17/release/lint/signedupdate/opt-in public reads.
 Pinned Chat adds extra recipient outputs for mentions; current exact-two-recipient

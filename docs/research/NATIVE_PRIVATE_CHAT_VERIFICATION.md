@@ -474,3 +474,9 @@ othercontactdiscovery/readability/recreatedcache with no redelivery. TestAPK
 compiles1m47s. Receivingothercontact minimumunimplemented; actual13caseRED next.
 
 Actual different-contact RED at22b07ed: Android10run38363644050 reports13cases/12PASS+1failure61.98s; Android17run38363647971 same13/12PASS+1failure90.368s. Both failatline260 waiting5s forpositiveACK; class180s isnotexhausted. Rawinstrumentationexit0 demonstrateswhyOKresultgate remainsmandatory. RootallXML/failureoriginals inspected; activeconversationcontainsknownavailabletext. Selectedreceiver rejectsothercounterpart, so minimalfix nowfullyverifies/savesotheroriginal intoitsownconversation beforeACK, withoutaddingothertext toopenconversation. APKbuildpending; noGREENclaimed.
+
+Different-contact minimalreceiver debug/testAPK PASS1m51s, coreunchanged85(notrerunlocally). Source256b67f pushed; native13GREEN10run38384045182 and17run38384048900 inprogress. Two independent boundedreviews df9891d...256b67f alsoinprogress; noGREEN/whole-ticketclaim.
+
+Receiver attempt256b67f actual10run38384045182:13cases/12PASS+onefail82.903s atline263 missingothercontactafterBack. Positive13ACK at260 nowpasses, nootherplaintext inselectedconversation; root14XML/listfailureoriginal inspected. Cause observedinsource: contactscanEffect didnotkeylistreturn, sootherdurablecache notrescanned. Minimalfix keys wallet/backend/endpoint/counterparty/refresh andrunsdiscoveryonlyonlist. LocalAPKbuildpending;17attemptstillrunning.
+
+Companion17run38384048900 at256b67f completes13cases/12PASS+one line263failure113.486s, samepositiveACKpassed/missinglistcontact. Root14XML/listfailureoriginal inspected. Neither runhits180sbudget. Listrescanminimum nowkeys selected/list navigation and skipsdiscovery whileconversationopen. Bothbounded priorreceiver reviews0; minimalrescan reviews/nativeGREENnext.

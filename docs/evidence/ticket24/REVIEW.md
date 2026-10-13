@@ -361,3 +361,15 @@ Prior warning finding resolved; zero new hard findings or actionable heuristics.
 
 Zero new findings.628 UI hashes/14 XMLs/twooriginalsverify; corrected key-restoration
 casepassed separately from missingwarning failure; native12GREENwaspendingat review.
+
+## Different-contact receiver review, df9891d...256b67f
+
+### Standards
+
+Zero documented breaches and zero actionable smell findings. Source saves authenticated other-contact originals in that encrypted conversation before ACK without entering selected display. New native/controlled-peer test checks ACK, separation, discovery and retained reading; native-generated fixture is explicitly not independent crypto proof. Class180 preserves individual assertions/waits; raw exit supplements mandatory OK gate. RED evidence accurately leaves GREEN/process-death/whole acceptance pending.
+
+### Spec
+
+Zero actionable findings. Receiver supports #25 complete native DM send/receive/read and local-cache recovery. Tracer verifies ACK, separation, other-contact discovery/read/recreation without redelivery. Both source22b07ed RED runs match13cases/12PASS+one line260failure; rawexit0/OKgate rejects. Reviewer verified755 parent manifest records and14XML perrun. Actualprocessdeath and GREEN remainpending.
+
+Findings: Standards0; Spec0.

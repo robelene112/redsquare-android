@@ -1,0 +1,3 @@
+# Different-contact list recovery attempt, Android 10
+
+Source256b67f1e377970993c7559ab6c5d03e74b28a02, run38384045182. Thirteen cases complete in82.903s:12PASS+one failureatPrivateChatPreviewTest.kt:263 waiting for the other contact after Back. PositiveACK assertion at260 passes, and other plaintext is absent from the first conversation. Root all14XML parsed and originalhistory-first-failure.png viewed: chat list shows only prior contact. This narrows failure to list discovery after saving, not continued packet rejection. No second delivery or Refresh was requested. Activity recreation does not establish actualprocessdeath; later shared captures are qualified. Rawexit0 and OKgate rejection retained.

@@ -1,0 +1,3 @@
+# Different-contact list recovery attempt, Android 17
+
+Source256b67f1e377970993c7559ab6c5d03e74b28a02, run38384048900. Thirteen cases complete in113.486s:12PASS+one failureatPrivateChatPreviewTest.kt:263 waiting for the other contact after Back. PositiveACK assertion at260 passes; other plaintext is absent from selectedconversation. Root all14XML parsed and originalhistory-first-failure.png viewed: list shows only prior contact. No extra delivery or Refresh requested. Class180s completes; rawexit0/mandatoryOK gate correctlyrejects. Shared captures belongtolatercases; Activityrecreation isnot actualprocessdeath. Originalbytes/metadata/core/exit retainedwithhashes.
