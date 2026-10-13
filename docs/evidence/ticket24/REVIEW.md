@@ -998,3 +998,23 @@ identity/transport checks retained. No productchange/compilation/nativeGREEN yet
 
 Findings: Standards0; Spec0. Revised localsplit/action TestAPK and native24+2
 families stillpending; prior26SDK acceptance remainsqualifiedatseparatesource.
+
+
+## First explicit Like tracer,3ba3df98...a7544d39
+
+### Standards
+
+Zero documented breaches or actionable smell findings. PublicUI andcontrolledpeer
+compare exactauthenticated body/signer/pair with independentpinnedclient corpus,
+immutablepropagate/Relay original, retainedcount/action/status/noauto. Publicunsafe
+captures, fullwallet/backend andopaque cleanup; no productabstractions/Likecode.
+
+### Spec
+
+Zero actionable findings. ExplicitLike/retainedcount/Unlike/truthfulForwarded,
+exactindependentbody/original andfailedArchiveidentity/noresend align scope. First
+outgoinglike only, notUnlike/live/dedup/retry/wholeacceptance. Productabsent until
+actualRED; previousreplyruns notattributedto newtracer.
+
+Findings: Standards0; Spec0. Newtracer compilation/RED pending. Quote-nav source
+3ba3df98 localTestAPKPASS1m32s and bothSDK24+2 runtimepending separately.
