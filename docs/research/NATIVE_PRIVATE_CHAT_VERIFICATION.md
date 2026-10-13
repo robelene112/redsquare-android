@@ -156,3 +156,15 @@ build and unchanged3caseGREEN pending.
 Minimum live-selected-conversation source core82/debug/testAPK passes3m.
 Actual unchanged3caseGREEN and bounded source reviews next. No conversation-list
 listener, sending, actual process-death or whole-ticket completion inferred.
+
+Live selected-conversation source reviews: Spec0, Standards1 correctness/0
+heuristics. Incoming snapshot can publish after a newer history save, falsely
+marking newer durable entries missing. Minimum correction removes warning
+assignment from incoming updates; only actual history load/save controls it.
+Current focused10run38344712980 tests fed20de before this two-line correction;
+results must remain associated with that original source. Corrected compilation
+and bounded fix reviews pending.
+
+Warning-order correction compiles app Kotlin1m25s. Core unchanged; this local
+check is compilation only, no new core/APK/runtime claim. Corrected focused
+Android17 and bounded fix reviews next; original focused10 source stays fed20de.

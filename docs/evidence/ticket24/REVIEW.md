@@ -123,3 +123,21 @@ Zero findings, prior loss-on-Refresh finding resolved in source. All43 unique
 UI evidence hashes, actual two-case RED and earlier recreation GREEN verify.
 Unexecuted repair gates and shared capture filenames correctly qualified.
 Unchanged corrective runtime, actual death, send and full acceptance pending.
+
+## Live selected-conversation reception db62258...fed20de
+
+### Standards
+
+One correctness finding, zero actionable Fowler heuristics: an incoming saved
+history snapshot can be published after a newer history save and incorrectly
+mark already durable entries missing. Keep the warning tied to history load/save
+attempts; incoming updates only merge verified entries. All84 manifest records
+verify; original failure image and three-case RED match their qualified claims.
+Authentication, contact isolation, persistence before ACK and cleanup hold.
+
+### Spec
+
+Zero findings in the bounded reception increment. All71 unique UI evidence
+hashes, original failure image/five XMLs, three-case RED and core82/source GREEN
+verify. Native corrective result pending; list listener, send, actual death and
+whole-ticket acceptance not inferred.

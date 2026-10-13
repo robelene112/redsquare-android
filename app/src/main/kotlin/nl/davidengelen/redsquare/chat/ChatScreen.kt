@@ -60,8 +60,6 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                 val updates = Channel<List<ChatHistoryStore.Entry>>(Channel.CONFLATED)
                 val receiver = launch {
                     for (saved in updates) {
-                        val savedIds = saved.map { it.message.id }.toSet()
-                        cacheFailed = entries.any { it.message.id !in savedIds }
                         entries = ChatHistoryStore.merge(entries, saved)
                     }
                 }
