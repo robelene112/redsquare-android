@@ -671,3 +671,16 @@ No ownedGradle. Waitinspectresults beforeRetry acceptance; then reaction actual
 PID recovery, backend/wallet isolation and available-history/invalid-receipt
 coverage as appropriate, whole#25reviews/fullSDK/release/lint/update/publicreads.
 Stablepreview11 unchanged,#25open20of35closed. Protectedgroupresearch untouched.
+
+2026-10-13 exactreactionRetry sixactions GREEN10=38470363216/40.583s,
+17=38470366652/61.425s at5053fec7/core86; root26XML+threeRetryPNGs each.
+Retried originalcaptures identical; independentconstructor/WASM/receiverexit0,
+SHAac031ff325c8a68e02a917bf18c9cf37d0c1eba353f0d428fe93aa4ac1beab84.
+Retained3e156a6c, notyetpushed. Two17 immediateunlike XMLs containstalecounts;
+pairedPNGs/strictassertions/reopenedXMLs correct, qualificationretainednocause.
+ActualreactionPID tracer48858fed reviewedboth0, compile1m21; broadnative
+ChatUI24history+6actions+actualPID active10=38471567896/17=38471571748 at9111.
+No ownedGradle. Inspectraw reports/PIDs/newreactioncheckpoint/originalPNG/XML
+before claimingnewprocesscoverage. Nextbackend/walletreactionisolation, invalid/
+available-sourcehandling asappropriate, whole#25reviews/fullSDK/release/lint/
+signedupdate/publicreads. Do notclose25yet. Protectedgroupresearchuntouched.
