@@ -66,7 +66,7 @@ private fun nextCursor(read: NotificationRead): NotificationCursor {
 
 private fun notificationStreams(followed: Set<String>, ownPosts: List<FeedPost>): List<NotificationStream> =
     listOf(NotificationStream("RedSquareLike"), NotificationStream("RedSquare"), NotificationStream("RedSquareRetweet")) +
-        ownPosts.distinctBy { it.id }.take(10).map { NotificationStream("RedSquare", target = it.id) } +
+        ownPosts.distinctBy { it.id }.map { NotificationStream("RedSquare", target = it.id) } +
         followed.sorted().flatMap { author ->
             listOf(NotificationStream("RedSquare", author), NotificationStream("RedSquareRetweet", author))
         }
@@ -135,7 +135,8 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
         val streams = notificationStreams(followed, ownPosts)
         val requested = pending.filterKeys { it in streams }.ifEmpty {
             val before = System.currentTimeMillis() + 1
-            (streams.filter { it.author == null } + streams.filter { it.author != null }.take(20))
+            (streams.filter { it.author == null && it.target == null } +
+                streams.filter { it.target != null }.take(10) + streams.filter { it.author != null }.take(20))
                 .associateWith { before }.also { cursors = it }
         }
         pending = requested
@@ -313,7 +314,7 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
             (undiscovered.isNotEmpty() || older.isNotEmpty()), onClick = {
             if (!loading && !markingRead) {
                 val before = System.currentTimeMillis() + 1
-                // Discover another ten accounts before spending the remaining request budget on older pages.
+                // Discover remaining known parents and contacts before spending the remaining budget on older pages.
                 pending = (undiscovered.associateWith { before } + older).entries.take(MAX_NOTIFICATION_READS)
                     .associate { it.key to it.value }
                 cursors = cursors + undiscovered.associateWith { before }
