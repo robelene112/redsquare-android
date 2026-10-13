@@ -1130,3 +1130,28 @@ or navigation diagnosis.6be5695 provisions two fixed public unsafe1/3 documents
 under provider UID using established host run-as boundary, positive-size runtime
 guards and exacttwo-filecleanup. No opaque wallet material crosses that boundary.
 Corrective run38326390887 pending; source unchanged0ef7b41.
+
+Provider-UID run38326390887 at6be5695:31reported/30PASS/onecleanup failure
+123.866s/zeroOK/deaths/assumptions/core73/debug/test. Actualwalletjourney completes
+through both authenticatedidentities/replacementMention1Unread/noLike/Mark/
+returnedOwnerLike+MentionNoUnread/Ownerheader/no writes; exact cleanupJSON guard
+line1195 fails as both reviewers predicted. Minimal host docs preserve fewer
+backup options than canonical fromPrivateKey exports.1273647 adds fullcanonical
+fields/order, guardunchanged/bothcorrectionaxes0. Fivehashes/twoXML/rootbothoriginal
+walletPNGs inspected. No fullacceptance or opaqueoriginalrestore from failedrun.
+
+OSpermission tracer1273647...af49e30 initialAPK1m44PASS. Standards1secret-
+output violation/oneproofgap; Spec2fixturegaps(feedDisabled skips actualNotifications
+entry, enabledRefresh alone proves no read).f4cce67 non-disclosingexport checks/
+normalFeed+loopbackbothURLs/positive ownLikes Archivecounteradvancement around
+Refresh+recreate/completedRefresh/no read_error/authsamewallet resolvesfindings.
+Bothcorrectiveaxes0. Original17run38326680659 cannotprove correction.
+
+Process tracer4d3b1c8 uses current installationwallet/backend unchanged. Public
+unsafeactor2 signs addressed syntheticincomingLike, no transactionbroadcast; after
+UI1Unread/MarkNoUnread/publiccheckpoint saves, actualkillProcess. ColdnewPID without
+resetmustretainLike/NoUnread/disabledMark whilecontrolledArchivefails, actualActor
+Profile/return/authsameidentity/no writes. Exactpublicnotif/read familiesresetonly
+prepare; nopersonal/keystore/wallet reset/privatebackup checkpoint. Hostvalidates
+actualdeath/newPID/checkpointequality/coldOK andcapturesfailures independently.
+Correctedfocused10run38326981751 pending; processcompile/reviews pending.

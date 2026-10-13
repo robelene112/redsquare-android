@@ -39,7 +39,13 @@ zeroOK/deaths; exactline1101 cannot mkdir testprovider directory fromtarget UID,
 before Activity/import/capture. Corrected>51 retry case passes individually here.
 bfd0906 cleanup/header/key correction bothaxes0/localAPK1m31PASS.6be5695 moves
 only two public unsafe1/3 import files to established host run-as provider UID,
-positive-size guards/exact cleanup. Corrective run38326390887 pending. Production
+positive-size guards/exact cleanup. Provider run38326390887 completedjourney but fails strict cleanupJSON guard:
+31reported/30PASS/onefailure123.866s. Fivehashes/twoXML/rootbothwalletPNGs.
+1273647 canonicalhostoptionsfix bothaxes0; providerAPK1m32PASS. Permissiontracer
+initialAPK1m44PASS; f4cce67 removes feedDisabled/addsactualreadcounters+auth/
+non-disclosingwalletchecks, bothcorrectionaxes0. Original17run38326680659 cannot
+provefix.4d3b1c8 actualprocesskill/coldsamewallet/readstatus underfailedserver
+tracer compile/review pending. Focused10run38326981751 covers all corrections. Production
 source remains0ef7b41. No wallet-import product failure or actual death claim.
 
 Remaining #24: wallet isolation native proof, actual permission choices and actual

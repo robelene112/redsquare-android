@@ -623,3 +623,19 @@ completed Refresh and authentication. Real Allow/Deny API33+ and SettingsAPI10
 remain; optional contextual first-use/reopening/back assertions retained. Initial
 APK1m44PASS; native38326680659 uses original fixture, not corrections. No product
 change or permission-delivery acceptance claim.
+
+## Permission corrections and provider cleanup evidence
+
+### Standards
+
+`af49e30...f4cce67`: prior hard secret-output violation/readingproofgap resolved;
+zero new hard/actionableheuristics. `6be5695...1273647`: canonicalhostfields resolve
+exact cleanup mismatch, strictguard preserved, zero findings. Fivecleanup-failure
+hashes/twooriginalXML+PNG recorded; no opaqueoriginalrestore claim.
+
+### Spec
+
+Both corrective diffs zero actionable findings. ActualNotificationsentry/Archive
+requestadvancement/completederror-free reading/authwallet nowrequired. Actual31
+provider run completeswalletjourney but cleanupfails expectedminimalJSONguard;
+corrected runtime pending. No production or scopechange.
