@@ -15,9 +15,13 @@ import kotlinx.coroutines.sync.withLock
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.*
 
+internal class ChatReplyActions {
+    var replyTo by mutableStateOf<((PrivateChatMessage) -> Unit)?>(null)
+}
+
 @Composable
 internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: String, contact: String,
-    permitted: Boolean, onHistory: (List<ChatHistoryStore.Entry>) -> Unit) {
+    permitted: Boolean, replies: ChatReplyActions, onHistory: (List<ChatHistoryStore.Entry>) -> Unit) {
     val context = LocalContext.current.applicationContext
     val work = remember(wallet, backend, contact) { ChatWorkStore(context, wallet, backend, contact) }
     val history = remember(wallet, backend, contact) { ChatHistoryStore(context, wallet, backend, contact) }
@@ -61,8 +65,21 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
         delay(300)
         persist()
     }
+    val editable = ready && !sending && saved.status != ChatWorkStore.Status.UNKNOWN
+    val replyAction = remember(work) {
+        { message: PrivateChatMessage ->
+            if (ready && !sending && saved.status != ChatWorkStore.Status.UNKNOWN &&
+                message.author in setOf(wallet.publicKey, contact)) {
+                text = privateReplyPrefix(message) + privateMessageBody(text)
+            }
+        }
+    }
+    SideEffect { replies.replyTo = if (permitted && editable) replyAction else null }
+    DisposableEffect(replies) { onDispose { replies.replyTo = null } }
+    val quote = remember(text) { privateReply(text) }
+    val typed = quote?.body ?: text
     val retrying = saved.transaction != null && (saved.status == ChatWorkStore.Status.UNKNOWN ||
-        (saved.status == ChatWorkStore.Status.SUBMITTED && text.isBlank()))
+        (saved.status == ChatWorkStore.Status.SUBMITTED && typed.isBlank() && quote == null))
     Column {
         when (saved.status) {
             ChatWorkStore.Status.UNKNOWN -> Text(stringResource(R.string.chat_send_unknown))
@@ -71,10 +88,16 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
             ChatWorkStore.Status.NONE -> Unit
         }
         if (failed) Text(stringResource(if (ready) R.string.chat_send_error else R.string.chat_work_read_error))
+        if (quote != null) {
+            Text(quote.quote, style = MaterialTheme.typography.bodyMedium)
+            TextButton(enabled = editable, onClick = { text = typed }) {
+                Text(stringResource(R.string.chat_remove_reply))
+            }
+        }
         Row(verticalAlignment = Alignment.CenterVertically) {
-            OutlinedTextField(value = text, onValueChange = { text = it }, label = { Text(stringResource(R.string.chat_message)) },
-                modifier = Modifier.weight(1f), enabled = ready && !sending && saved.status != ChatWorkStore.Status.UNKNOWN)
-            Button(enabled = permitted && ready && !sending && (retrying || text.isNotBlank()),
+            OutlinedTextField(value = typed, onValueChange = { text = (quote?.prefix ?: "") + it }, label = { Text(stringResource(R.string.chat_message)) },
+                modifier = Modifier.weight(1f), enabled = editable)
+            Button(enabled = permitted && ready && !sending && (retrying || typed.isNotBlank()),
                 onClick = {
                     sending = true
                     val outgoing = text
@@ -83,7 +106,11 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
                         try {
                             val candidate = writes.withLock {
                                 val prepared = original ?: withContext(Dispatchers.IO) {
-                                    PrivateChat.create(wallet, contact, outgoing, System.currentTimeMillis())
+                                    val mentioned = privateReply(outgoing)?.author?.let { author ->
+                                        require(author in setOf(wallet.publicKey, contact))
+                                        listOf(author)
+                                    } ?: emptyList()
+                                    PrivateChat.create(wallet, contact, outgoing, System.currentTimeMillis(), mentioned = mentioned)
                                 }
                                 saved = withContext(NonCancellable + Dispatchers.IO) {
                                     if (original == null) work.prepare(prepared) else work.prepareRetry(prepared.id)

@@ -57,16 +57,18 @@ object PrivateChat {
         read(wallet, SaitoEnvelope.fromSignedJson(signedInner), counterparty)
 
     fun create(wallet: SaitoWallet, counterparty: String, text: String, timestamp: Long,
-        randomSalt: () -> ByteArray = { ByteArray(8).also(SecureRandom()::nextBytes) }): SaitoTransaction {
+        randomSalt: () -> ByteArray = { ByteArray(8).also(SecureRandom()::nextBytes) },
+        mentioned: List<String> = emptyList()): SaitoTransaction {
         val group = conversationId(wallet.publicKey, counterparty)
         require(timestamp >= 0 && text.isNotBlank())
+        require(mentioned.all { it in setOf(wallet.publicKey, counterparty) })
         val body = JsonObject().apply {
             addProperty("module", "Chat")
             addProperty("request", "chat message")
             addProperty("group_id", group)
             addProperty("message", text)
             addProperty("timestamp", timestamp)
-            add("mentioned", com.google.gson.JsonArray())
+            add("mentioned", com.google.gson.JsonArray().apply { mentioned.distinct().forEach(::add) })
         }
         val encoded = Charsets.UTF_8.newEncoder().onMalformedInput(CodingErrorAction.REPORT)
             .onUnmappableCharacter(CodingErrorAction.REPORT).encode(java.nio.CharBuffer.wrap(body.toString()))

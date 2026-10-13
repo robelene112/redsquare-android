@@ -5,6 +5,7 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -299,21 +300,31 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
             val visible = entries.map { it.message }.filter { message -> personal?.ready == true &&
                 (message.author == wallet.publicKey || !personal.policy.hidesIncomingChat(message.author)) }
             if (visible.isEmpty() && !loading && !failed) Text(stringResource(R.string.chat_no_messages))
-            LazyColumn(Modifier.weight(1f)) {
+            val replies = remember(wallet, backend, contact) { ChatReplyActions() }
+            val messageList = rememberLazyListState()
+            LazyColumn(Modifier.weight(1f), state = messageList) {
                 items(visible, key = { it.id }) { message ->
                     Column(Modifier.fillMaxWidth().padding(vertical = 8.dp)) {
                         var copyFailed by remember(message.id) { mutableStateOf(false) }
                         Text(registeredIdentity(message.author).name, style = MaterialTheme.typography.labelSmall)
-                        PrivateMessageText(message.text)
-                        TextButton(onClick = { copyFailed = !copyPrivateMessage(context, message.text) }) {
-                            Text(stringResource(R.string.chat_copy))
+                        PrivateMessageText(message.text) { reference ->
+                            val index = visible.indexOfFirst { it.author + it.createdAt == reference }
+                            if (index >= 0) scope.launch { messageList.animateScrollToItem(index) }
+                        }
+                        Row {
+                            TextButton(enabled = replies.replyTo != null, onClick = { replies.replyTo?.invoke(message) }) {
+                                Text(stringResource(R.string.post_reply))
+                            }
+                            TextButton(onClick = { copyFailed = !copyPrivateMessage(context, message.text) }) {
+                                Text(stringResource(R.string.chat_copy))
+                            }
                         }
                         if (copyFailed) Text(stringResource(R.string.chat_copy_error))
                     }
                     HorizontalDivider()
                 }
             }
-            ChatComposer(wallet, backend, endpoint, contact, personal?.ready == true) { saved ->
+            ChatComposer(wallet, backend, endpoint, contact, personal?.ready == true, replies) { saved ->
                 entries = ChatHistoryStore.merge(entries, saved)
             }
         }

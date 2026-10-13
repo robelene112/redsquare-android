@@ -1,0 +1,410 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PrivateChatPreviewTest:
+INSTRUMENTATION_STATUS: test=unreadableRecentPrivateMessagesDoNotPreventLoadingReadableOlderHistory
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unreadableRecentPrivateMessagesDoNotPreventLoadingReadableOlderHistory
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=ordinaryTypedPrivateMarkupRemainsLiteralAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=ordinaryTypedPrivateMarkupRemainsLiteralAfterReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anImportedContactOpensItsAvailableAuthenticatedPrivateHistory
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anImportedContactOpensItsAvailableAuthenticatedPrivateHistory
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=leavingAConversationPreservesItsUnsentDraftAndDoesNotRestoreErasedText
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=leavingAConversationPreservesItsUnsentDraftAndDoesNotRestoreErasedText
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aFreshWalletCanOpenAndSendToANewPrivateContact
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aFreshWalletCanOpenAndSendToANewPrivateContact
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aKeyOnlyImportKeepsReadableCachedMessagesAlongsideMissingExchangedKeys
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aKeyOnlyImportKeepsReadableCachedMessagesAlongsideMissingExchangedKeys
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anInterruptedPrivateSendRemainsSavedWithoutAutomaticRebroadcast
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anInterruptedPrivateSendRemainsSavedWithoutAutomaticRebroadcast
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aNativeReplyRetainsItsQuoteAndTypedDraftUntilExplicitSending
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (is enabled)
+Reason: Expected exactly '1' node but could not find any node that satisfies: (Text + InputText + EditableText contains 'Reply' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:262)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertIsEnabled(Assertions.kt:60)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest.exerciseHistory$lambda$65$lambda$64$lambda$63(PrivateChatPreviewTest.kt:377)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest.$r8$lambda$kE6LWu49fSyqrlUKbSneP9Pen-c(Unknown Source:0)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest$$ExternalSyntheticLambda24.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest.exerciseHistory(PrivateChatPreviewTest.kt:311)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest.aNativeReplyRetainsItsQuoteAndTypedDraftUntilExplicitSending(PrivateChatPreviewTest.kt:127)
+
+INSTRUMENTATION_STATUS: stream=
+Error in aNativeReplyRetainsItsQuoteAndTypedDraftUntilExplicitSending(nl.davidengelen.redsquare.PrivateChatPreviewTest):
+java.lang.AssertionError: Failed to assert the following: (is enabled)
+Reason: Expected exactly '1' node but could not find any node that satisfies: (Text + InputText + EditableText contains 'Reply' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:262)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertIsEnabled(Assertions.kt:60)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest.exerciseHistory$lambda$65$lambda$64$lambda$63(PrivateChatPreviewTest.kt:377)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest.$r8$lambda$kE6LWu49fSyqrlUKbSneP9Pen-c(Unknown Source:0)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest$$ExternalSyntheticLambda24.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest.exerciseHistory(PrivateChatPreviewTest.kt:311)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest.aNativeReplyRetainsItsQuoteAndTypedDraftUntilExplicitSending(PrivateChatPreviewTest.kt:127)
+
+INSTRUMENTATION_STATUS: test=aNativeReplyRetainsItsQuoteAndTypedDraftUntilExplicitSending
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=importedOwnMentionedMessagesRecoverTheOriginalPrivateCounterparty
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=importedOwnMentionedMessagesRecoverTheOriginalPrivateCounterparty
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anExistingClientMentionedPrivateMessageRemainsReadableAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anExistingClientMentionedPrivateMessageRemainsReadableAfterReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=firstChatOffersOptionalAlertsAndSkippingKeepsChatAvailable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=firstChatOffersOptionalAlertsAndSkippingKeepsChatAvailable
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=failedLocalSavingDoesNotLoseReadableHistoryOnRefresh
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=failedLocalSavingDoesNotLoseReadableHistoryOnRefresh
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=13
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aNewIncomingPrivateConversationAppearsWhileTheChatListIsOpen
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=13
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aNewIncomingPrivateConversationAppearsWhileTheChatListIsOpen
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=14
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=accountMutingKeepsAvailablePrivateMessagesReadable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=14
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=accountMutingKeepsAvailablePrivateMessagesReadable
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=15
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=unreadableAvailableHistoryIsExplainedEvenWhenLocalSavingFails
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=15
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unreadableAvailableHistoryIsExplainedEvenWhenLocalSavingFails
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=16
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anUncertainPrivateMessageRetriesTheSavedOriginalOnlyAfterAnExplicitTap
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=16
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anUncertainPrivateMessageRetriesTheSavedOriginalOnlyAfterAnExplicitTap
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=17
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aNativePrivateSendPropagatesAndRelaysTheSameEncryptedOriginal
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=17
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aNativePrivateSendPropagatesAndRelaysTheSameEncryptedOriginal
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=18
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=walletReplacementExplainsUncertainChatWorkBeforeConfirmation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=18
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=walletReplacementExplainsUncertainChatWorkBeforeConfirmation
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=19
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=accountBlockingHidesIncomingMessagesWithoutDeletingRecoverableHistory
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=19
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=accountBlockingHidesIncomingMessagesWithoutDeletingRecoverableHistory
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=20
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anotherPrivateContactIsRetainedWhileADifferentConversationIsOpen
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=20
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anotherPrivateContactIsRetainedWhileADifferentConversationIsOpen
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=21
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=olderAvailablePrivateMessagesCanBeLoadedAndReadAfterServerHistoryDisappears
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=21
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=olderAvailablePrivateMessagesCanBeLoadedAndReadAfterServerHistoryDisappears
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=22
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anImportedConversationIdRecoversAvailablePrivateHistoryWithoutAContactKeyEntry
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=22
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anImportedConversationIdRecoversAvailablePrivateHistoryWithoutAContactKeyEntry
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=23
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=oneUnavailableImportedConversationDoesNotHideAnotherRecoveredPrivateConversation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=23
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=oneUnavailableImportedConversationDoesNotHideAnotherRecoveredPrivateConversation
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=24
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anExistingWebPrivateReplyCanBeReadAndCopiedWithoutChangingItsTypedBody
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=24
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anExistingWebPrivateReplyCanBeReadAndCopiedWithoutChangingItsTypedBody
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=25
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aLivePrivateRelayMessageRemainsReadableAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatPreviewTest
+INSTRUMENTATION_STATUS: current=25
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=25
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aLivePrivateRelayMessageRemainsReadableAfterReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 113.541
+There was 1 failure:
+1) aNativeReplyRetainsItsQuoteAndTypedDraftUntilExplicitSending(nl.davidengelen.redsquare.PrivateChatPreviewTest)
+java.lang.AssertionError: Failed to assert the following: (is enabled)
+Reason: Expected exactly '1' node but could not find any node that satisfies: (Text + InputText + EditableText contains 'Reply' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:262)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertIsEnabled(Assertions.kt:60)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest.exerciseHistory$lambda$65$lambda$64$lambda$63(PrivateChatPreviewTest.kt:377)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest.$r8$lambda$kE6LWu49fSyqrlUKbSneP9Pen-c(Unknown Source:0)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest$$ExternalSyntheticLambda24.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest.exerciseHistory(PrivateChatPreviewTest.kt:311)
+	at nl.davidengelen.redsquare.PrivateChatPreviewTest.aNativeReplyRetainsItsQuoteAndTypedDraftUntilExplicitSending(PrivateChatPreviewTest.kt:127)
+
+FAILURES!!!
+Tests run: 25,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
