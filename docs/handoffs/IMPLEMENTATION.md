@@ -7,7 +7,7 @@ one question at a time when a material choice really needs the owner.
 
 ## Current work
 
-Verified 2026-10-13 at 23:35 UTC. #25 is active. Twenty of the original 35
+Verified 2026-10-13 at 23:55 UTC. #25 is active. Twenty of the original 35
 implementation tickets are closed (#2–#15, #18, #20–#24).
 
 **Owner priority:** finish #25, then implement [early visual beta #37](https://github.com/robelene112/redsquare-android/issues/37)
@@ -22,9 +22,11 @@ exact manual retries, drafts and actual process recovery. Source review base is
 findings. Canonical research: `docs/research/NATIVE_PRIVATE_CHAT_VERIFICATION.md`;
 separate review reports: `docs/evidence/ticket24/REVIEW.md`.
 
-**Current acceptance runs:** full Android 10 `38484421113` and Android 17
-`38484424347`, both source `4e3a6ea7`, remain active. Do not cancel or redispatch
-without results or a new concern. These reruns include the latest product fix
+**Current acceptance:** Android17 full `38484424347` at4e3a6ea7 remains active.
+Android10 full `38484421113` failed in report backup selection after178 reported
+cases (177 passes/one existing API29 assumption); the later full tail did not run.
+A new full10 rerun follows the test-only picker correction26c0c7a5. Do not cancel
+or redispatch the active17 run without results or a new concern. These reruns include the latest product fix
 `b7541e6a`, which consolidates four feed navigation buttons into two rows.
 Actual diagnostic run `38483374543` captured a screen entirely consumed by
 backup, navigation and outage text, leaving no visible Following feed. The fix
@@ -49,6 +51,15 @@ and selected-backend assertions/queries are correct; no cause is claimed.
 All17 initial/final feed captures show the proper selected domain. Earlier
 fresh private Chat public service/read contracts passed both SDKs at c76 source;
 protocol source is unchanged by the feed-layout repair.
+
+Report failure evidence: `docs/evidence/ticket24/full-regression/android10-report-picker-offscreen`.
+Root inspected the selected provider content grid; an already authenticated and
+verified original backup was below the visible files. Helper26c0c7a5 scopes a
+bounded exact-filename scroll to that positively identified provider content.
+The30s deadline and import/auth/consent/full-wallet/retry assertions are unchanged.
+Both review axes report0 findings; test APK compilation passed1m36s. Product
+source is unchanged, so signed13 and the public-read evidence remain applicable.
+The corrected full10 proof can accompany17 per WORKFLOW if both succeed.
 
 **Phone review:** public preview11 remains https://davidengelen.nl/redsquare/.
 Signed preview13 is prepared, unpublished, at `.scratch/review-builds/13/`.

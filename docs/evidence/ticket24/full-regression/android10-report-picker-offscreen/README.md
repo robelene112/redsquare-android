@@ -1,0 +1,7 @@
+# Full Android 10: report backup is offscreen in the picker
+
+Run 38484421113 at 4e3a6ea7. 178 reported cases (177 passes and one existing assumption) in 33 completion records precede/ accompany the failed report class; existing Android10 profile assumption is retained in counts.json. Chat history24/actions10/peer2/process recovery, browse8, repaired Following8, posting18, queues/social/quotes/author actions/images/videos/profiles/username/search/personal controls pass. Reports have10passes and one failure117.333s at chooseWalletImport78/ReportPreview586. Later transfer/notification/wallet/full tail did not execute. Core86 and source build/release/lint pass. This is not full acceptance.
+
+Root inspected original failurePNG/XML. The test provider is open, with its explicitheader and dir_list grid showing00-chat,00-profile and two00-report fixture files. The exact UUID original backup had been created, authenticated and its complete options read/verified earlier in this same case; its later selection fails while below the visible grid. No wallet restore application defect is established.
+
+Test-only26c0c7a5 scrolls that positively identified provider content to the exact filename, with bounded swipes and unchanged30sdeadline/expectedpreview/auth/consent/fullwallet/retained original retry assertions. Both reviews report0 findings; corrected native acceptance pending. Product source and signed13 unchanged.

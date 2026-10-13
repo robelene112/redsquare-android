@@ -1441,3 +1441,5 @@ Finalproduct7363+docs05e localcontainer5267788d1b57 actualexit0/fullbuild7m1, wh
 Following-stall diagnostic review6383d13d...f85d2cdc: Standards0 documented/actionableheuristic findings; Spec0. Publicfixturestage labels plus actualhostexit and boundedexternalPNG/XML keep unchanged180s/assertions/product. Diagnostic notruntimeacceptance and doesnotestablishcause.
 
 Feed viewport minimumreview97b661a8...b7541e6a: Standards0 documented/actionableheuristic findings; Spec0. Two navigation rows replace four, freeing96dp with unchangedlabels/routes/walletguards. Rootobservedzero visiblefeedinactualdiagnosticPNG/XML. Source reviewsdo notclaimcorrectedruntimeacceptance oralllargefontlayouts; fullvisual37remainsnext.
+
+Wallet picker fixture correction26c0c7a5^...26c0c7a5: Standards0 documented/actionableheuristic findings, Spec0. Positiveproviderheader plus scoped dir_list scroll to exactfilename, max8swipes, retains30sdeadline/preview/auth/consent/fullwallet/retrygates. Productunchanged; runtimepending.
