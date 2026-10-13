@@ -247,3 +247,16 @@ bounded strict replies, ephemeral probes and qualified compilation are consisten
 
 Zero findings. Reads only, no submit/relay/identity mutation. Empty response limited
 to unused random pair; actual runtime and nonempty interoperability stillpending.
+
+## Imported-ID core reviewd4d5f01...f2cd911
+
+### Standards
+
+Zero hard findings or actionable heuristics. Original authenticated counterpart
+discovery, preserved options and qualified core/public read evidence are consistent.
+
+### Spec
+
+One compatibility finding: valid backups mix DM64hex hashes and generated public-key
+group IDs in the same chat.groups list. Throwing on recognized group keys blocks
+unrelated private recovery. Skip those group entries and cover modern/legacy lists.

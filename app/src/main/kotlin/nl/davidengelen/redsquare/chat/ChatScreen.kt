@@ -45,8 +45,30 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     var cacheFailed by remember(counterparty) { mutableStateOf(false) }
     var refresh by remember { mutableIntStateOf(0) }
 
-    LaunchedEffect(wallet, refresh) {
-        try { contacts = withContext(Dispatchers.IO) { wallet.chatContacts() }; contactsFailed = false }
+    LaunchedEffect(wallet, endpoint, refresh) {
+        try {
+            contacts = withContext(Dispatchers.IO) { wallet.chatContacts() }
+            val known = contacts.map { PrivateChat.conversationId(wallet.publicKey, it) }.toSet()
+            val missing = withContext(Dispatchers.IO) { wallet.chatHistoryIds().filter { it !in known } }
+            if (missing.isNotEmpty()) {
+                var updated = wallet
+                SaitoPeer(wallet, endpoint).use { peer ->
+                    require("archive" in peer.services())
+                    for (group in missing) {
+                        val recovered = withContext(Dispatchers.IO) { loadPrivateHistory(peer, wallet, group) }
+                        incomplete = incomplete || recovered.second
+                        for ((address, messages) in recovered.first.groupBy { it.counterparty }) {
+                            withContext(Dispatchers.IO) {
+                                ChatHistoryStore(context, wallet, backend, address).save(messages.map { it.envelope })
+                            }
+                            updated = updated.withChatContact(address)
+                        }
+                    }
+                }
+                if (updated !== wallet) onWalletMetadata(wallet, updated)
+            }
+            contactsFailed = false
+        }
         catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { contactsFailed = true }
     }
@@ -81,8 +103,10 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                     }).use { peer ->
                         require(setOf("archive", "relay").all { it in peer.services() })
                         try {
-                            val page = withContext(Dispatchers.IO) { loadPrivateHistory(peer, wallet, contact) }
-                            entries = ChatHistoryStore.merge(entries, page.first)
+                            val page = withContext(Dispatchers.IO) {
+                                loadPrivateHistory(peer, wallet, PrivateChat.conversationId(wallet.publicKey, contact))
+                            }
+                            entries = ChatHistoryStore.merge(entries, page.first.map { ChatHistoryStore.Entry(it.envelope, it.message) })
                             try {
                                 val saved = withContext(Dispatchers.IO) { cache.save(entries.map { it.envelope }) }
                                 entries = ChatHistoryStore.merge(entries, saved)
@@ -177,10 +201,10 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
 }
 
 private suspend fun loadPrivateHistory(peer: SaitoPeer, wallet: SaitoWallet,
-    contact: String): Pair<List<ChatHistoryStore.Entry>, Boolean> {
+    group: String): Pair<List<ReceivedPrivateChat>, Boolean> {
     val criteria = JsonObject().apply {
         addProperty("request", "load")
-        addProperty("field3", PrivateChat.conversationId(wallet.publicKey, contact))
+        addProperty("field3", group)
         addProperty("limit", 50)
         addProperty("created_earlier_than", System.currentTimeMillis())
     }
@@ -193,7 +217,7 @@ private suspend fun loadPrivateHistory(peer: SaitoPeer, wallet: SaitoWallet,
         try {
             val envelope = row.asJsonObject.get("tx")
             require(envelope.isJsonPrimitive && envelope.asJsonPrimitive.isString)
-            ChatHistoryStore.Entry(envelope.asString, PrivateChat.read(wallet, envelope.asString, contact))
+            PrivateChat.recover(wallet, envelope.asString, group)
         } catch (_: Exception) { ignored++; null }
     }.distinctBy { it.message.id }
     return verified to (ignored > 0)

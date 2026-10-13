@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.saito.SaitoPaymentChainTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-10-13T05:49:52" hostname="fb4db2dc1225" time="0.089">
+  <properties/>
+  <testcase name="exactPaymentIsIncludedOnlyThroughVerifiedAncestryFromTheSelectedSnapshot" classname="nl.davidengelen.redsquare.saito.SaitoPaymentChainTest" time="0.017"/>
+  <testcase name="anUnrelatedValidPaymentBlockDoesNotProveSelectedChainInclusion" classname="nl.davidengelen.redsquare.saito.SaitoPaymentChainTest" time="0.013"/>
+  <testcase name="anUnchangedHashWithAlteredOriginalInputCoordinatesIsNotFreshInclusionEvidence" classname="nl.davidengelen.redsquare.saito.SaitoPaymentChainTest" time="0.049"/>
+  <testcase name="aVerifiedReplacementAtThePreviouslyIncludedHeightEstablishesReorganization" classname="nl.davidengelen.redsquare.saito.SaitoPaymentChainTest" time="0.005"/>
+  <testcase name="missingAncestorDataCannotDisplaceTheLastVerifiedInclusion" classname="nl.davidengelen.redsquare.saito.SaitoPaymentChainTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

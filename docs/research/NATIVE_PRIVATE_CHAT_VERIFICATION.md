@@ -337,3 +337,15 @@ RED10run38352677744 atd4d5f01 pending; discovery not implemented prematurely.
 Imported-ID core targetedGREEN9/55s validates exact pinned original/decrypted
 text/counterparty and expectedgroupbinding without contact keys; originalwallet
 export remains unchanged. NativeUI discovery stillpending actualRED evidence.
+
+Actual imported-ID RED10run38352677744 atd4d5f01 reports8cases/7PASS+1failure
+49.884s atline181 absentcounterparty. RootthirteenXMLs/failureoriginal inspected.
+Boundedcore reviewd4...f2cd: Standards0; Spec1validmixedgroupID rejection.
+Pinnednamed group ID isSaito publickey; private candidateIDs64hex shouldskip
+recognizedgroupkeys without dependingon#26. Mixed-ID regressionRED next.
+
+Mixed-groupactualcoreRED9cases/1failure34s. Minimum recognizedgroupkey skip
+passes modernandlegacy importedlists; fullcore85/0/0/0+debug/testAPK PASS4m12s.
+Native list discovery now reads savedIDs, verifies/decrypts expectedprivategroup,
+saves originalencryptedcache and publishes portable recoveredcontacts through
+same shared active-wallet callback. ActualeightcaseGREEN/reviews next.

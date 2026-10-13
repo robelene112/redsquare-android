@@ -132,9 +132,11 @@ class SaitoWallet private constructor(
             }
         }
         require(groups == null || groups.isJsonArray) { "Invalid saved Chat conversations" }
-        val saved = groups?.asJsonArray?.map {
-            require(it.isJsonPrimitive && it.asJsonPrimitive.isString && it.asString.matches(Regex("[0-9a-f]{64}")))
-            it.asString
+        val saved = groups?.asJsonArray?.mapNotNull {
+            require(it.isJsonPrimitive && it.asJsonPrimitive.isString)
+            val id = it.asString
+            if (isPublicKey(id)) null // Named groups use public keys and belong to the group-chat feature.
+            else { require(id.matches(Regex("[0-9a-f]{64}"))); id }
         }.orEmpty()
         return (saved + chatContacts().map { PrivateChat.conversationId(publicKey, it) }).distinct()
     }

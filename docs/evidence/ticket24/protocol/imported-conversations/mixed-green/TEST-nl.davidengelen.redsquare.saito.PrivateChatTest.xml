@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.saito.PrivateChatTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-10-13T05:49:49" hostname="fb4db2dc1225" time="1.393">
+  <properties/>
+  <testcase name="correctlySignedMalformedCipherFieldsDoNotBecomeReadablePrivateMessages" classname="nl.davidengelen.redsquare.saito.PrivateChatTest" time="0.92"/>
+  <testcase name="recipientReadsAnAuthenticatedEncryptedMessageFromThePinnedSaitoClient" classname="nl.davidengelen.redsquare.saito.PrivateChatTest" time="0.089"/>
+  <testcase name="nativePrivateSendMatchesIndependentClientEncryptionAndSignedBytes" classname="nl.davidengelen.redsquare.saito.PrivateChatTest" time="0.081"/>
+  <testcase name="importedExchangedKeysRestorePrivateHistoryAndRemainPreferredForSending" classname="nl.davidengelen.redsquare.saito.PrivateChatTest" time="0.08"/>
+  <testcase name="importedExchangedPassphrasesKeepTheExistingClientsExactLetterCase" classname="nl.davidengelen.redsquare.saito.PrivateChatTest" time="0.023"/>
+  <testcase name="aLegacyWalletKeyFieldRestoresTheExistingClientsExchangedKeyMessage" classname="nl.davidengelen.redsquare.saito.PrivateChatTest" time="0.013"/>
+  <testcase name="importedConversationIdsRecoverAuthenticatedCounterpartiesWithoutSavedContactKeys" classname="nl.davidengelen.redsquare.saito.PrivateChatTest" time="0.086"/>
+  <testcase name="anUnsignedRelayCannotChangeTheOriginalAuthenticatedPrivateMessage" classname="nl.davidengelen.redsquare.saito.PrivateChatTest" time="0.024"/>
+  <testcase name="nativeAndExistingClientsExchangeTheOriginalSignedCiphertextThroughRelayJson" classname="nl.davidengelen.redsquare.saito.PrivateChatTest" time="0.076"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

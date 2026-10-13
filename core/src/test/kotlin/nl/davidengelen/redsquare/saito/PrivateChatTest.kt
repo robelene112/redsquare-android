@@ -10,7 +10,10 @@ class PrivateChatTest {
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject }
         val options = JsonParser.parseString(SaitoWallet.fromPrivateKey("0".repeat(63) + "2").exportJson()).asJsonObject
         options.add("chat", com.google.gson.JsonObject().apply {
-            add("groups", com.google.gson.JsonArray().apply { add(reference.get("groupId")) })
+            add("groups", com.google.gson.JsonArray().apply {
+                add(reference.get("groupId"))
+                add(reference.get("sender")) // Existing named-group IDs are generated Saito public keys.
+            })
         })
         val wallet = SaitoWallet.fromBackup(options.toString())
         assertEquals(emptyList<String>(), wallet.chatContacts())
@@ -25,6 +28,12 @@ class PrivateChatTest {
             PrivateChat.recover(wallet, original, "0".repeat(64))
         }
         assertEquals(options, JsonParser.parseString(wallet.exportJson()))
+        val legacy = options.deepCopy().apply { add("chat", options.getAsJsonObject("chat").get("groups")) }
+        val legacyWallet = SaitoWallet.fromBackup(legacy.toString())
+        assertEquals(listOf(reference.get("groupId").asString), legacyWallet.chatHistoryIds())
+        assertEquals(reference.get("sender").asString,
+            PrivateChat.recover(legacyWallet, original, legacyWallet.chatHistoryIds().single()).counterparty)
+        assertEquals(legacy, JsonParser.parseString(legacyWallet.exportJson()))
     }
     @Test fun anUnsignedRelayCannotChangeTheOriginalAuthenticatedPrivateMessage() {
         val reference = requireNotNull(javaClass.getResourceAsStream("/native-private-chat-reference.json"))

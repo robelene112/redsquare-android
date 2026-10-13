@@ -42,6 +42,16 @@ shared predicate and fresh-contact entry/shared active-wallet update now local
 fullcore84/debug/testAPK PASS3m44s. Both bounded axes0. ActualGREEN10run38351999832 PASS7/35.544s; root twelveXMLs/twooriginals inspected. Public reader e2eb51d bothaxes0, run38352335633 pending. Imported conversation-ID UI tracer next. Do not close#25; listener for unselectedcontacts,
 paging, controls, actual death/isolation, backendcontracts and fullSDK stillpending.
 
+Next checkpoint imported-ID core f2cd911 targeted9GREEN55s aftermissingAPIs
+RED27s. Public native10run38352335633 at e2eb51d PASS1/1.649s, eachapproved
+backend authenticates/servicesChatArchiveRelay/empty unusedgroup read; no send.
+Imported-ID actualRED10run38352677744 atd4d5f01 8cases/7PASS+1failure49.884s
+line181, rootthirteenXMLs/failureoriginal inspected. Core reviews Standards0,
+Spec1validmixedgroup rejection; regressionactualRED9cases/1failure34s. Minimum
+skipsrecognizedgroupkeys modern/legacy, and Chat list recovers available verified
+private history/contact metadata from importedIDs. Fullcore85/debug/testAPK PASS4m12s. ActualeightcaseGREEN/reviews next.
+Protected groupcontract untouched. Whole#25 remainsincomplete.
+
 Accepted seams1–4 cover native UI/controlled peers, independently signed vectors,
 recovery/isolation and compatibility. Record the new review base after #24's
 completion commit. Implement sequentially using TDD. No additional grill needed.
