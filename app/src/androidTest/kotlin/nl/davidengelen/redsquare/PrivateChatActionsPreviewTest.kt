@@ -15,6 +15,6 @@ class PrivateChatActionsPreviewTest {
     @Test fun anAuthenticatedZeroTimestampReplyStillRequiresTypedBodyBeforeSending() =
         history.exerciseHistory(HistoryCase.NATIVE_REPLY_ZERO)
 
-    @Test fun anExplicitPrivateLikeForwardsItsSignedOriginalAndRemainsAfterReopening() =
+    @Test fun explicitPrivateLikeAndUnlikeForwardDistinctOriginalsAndRemainAfterReopening() =
         history.exerciseHistory(HistoryCase.LIKE)
 }
