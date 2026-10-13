@@ -26,38 +26,29 @@ failure. Verified activity survives pruned pages/Activity recreation. History an
 read markers are wallet/backend scoped; unread counts use visible verified rows,
 Mark all as read commits before confirming, and storage faults preserve activity.
 
-Latest complete checkpoints:29GREEN17 run38323592243 at eef0fc6 passes29/
-146.941s/oneOK/78hashes/38XML;30GREEN10 run38324067997 at2459fa8 passes30/
-104.851s/oneOK/80hashes/39XML. Both zero deaths/assumptions/core73/debug/test.
-Root viewed four original load/recovery captures and late-retry PNG/allXML. Storage
-faults retain activity and persist repaired history/read status. Retry preserves
-healthy exhausted reads, refresh adds late actor4/3unread/deduped Likes/Profile.
-Original30 uses weaker before>50;61cb647 strengthens>51, compile1m33/bothaxes0.
+Latest corrected focused10 run38326981751 at4d3b1c8 PASSES main31/126.643s,
+actual RedSquare Android10 notificationSettings/read/recreate/positiveArchive/auth/
+opaque-wallet continuity1/6.559s, actualdeath5957->6040/cold1/3.719s. Core73/
+debug/test/noassumptions; each completedrunnerOK.101hashes/46XML/rootsevenoriginal
+permission/process/walletPNGs inspected. Cold failedfreshserver retains neutral
+Like/NoUnread/disabledMark/actorProfile. No walletreset/export/backendchange/write.
+Corrected17run38327322258 pending; previous17main31 ataf49e30 alreadypasses,
+then original permissionfixturefailedmissingFeedScreen, retained/qualified.
 
-Wallet original31run38325244254 atdd23b9f:30PASS/one setup failure103.888s/
-zeroOK/deaths; exactline1101 cannot mkdir testprovider directory fromtarget UID,
-before Activity/import/capture. Corrected>51 retry case passes individually here.
-bfd0906 cleanup/header/key correction bothaxes0/localAPK1m31PASS.6be5695 moves
-only two public unsafe1/3 import files to established host run-as provider UID,
-positive-size guards/exact cleanup. Provider run38326390887 completedjourney but fails strict cleanupJSON guard:
-31reported/30PASS/onefailure123.866s. Fivehashes/twoXML/rootbothwalletPNGs.
-1273647 canonicalhostoptionsfix bothaxes0; providerAPK1m32PASS. Permissiontracer
-initialAPK1m44PASS; f4cce67 removes feedDisabled/addsactualreadcounters+auth/
-non-disclosingwalletchecks, bothcorrectionaxes0. Original17run38326680659 passes main31/173.964s/oneOK/84hashes/41XML:
-actualwalletisolation and strictoriginalrestore/all30old accepted, then separate
-permissionfixture failsmissingNotifications1/16.864s/threehashes. Rootbothwallet
-PNGs pluspermissionfailurePNG/allXML inspected. Cannot provepermissionfix.
-4d3b1c8 actualprocesskill/coldsamewallet/readstatus underfailedserver tracerboth
-axes0/correctiveAPK1m40PASS. Focused10run38326981751 and17run38327322258 cover
-all corrections and actual OS choices/processrecovery. Production
-source remains0ef7b41. No wallet-import product failure or actual death claim.
+Whole-ticket Standards1(validselflike falsewarning), Spec2(sameplusknownOwnparent
+permanenttake10).2a520da verify-all/filterself resolveswarning; independentcoreRED
+8/7PASS/1failure33s, fullcoreGREEN74/0/55s retained; both boundedaxes0. Native
+proofs above predate thissourcefix. Parentcontinuationtracer4d02fd3 adds10newer
+independentsignedunsafe1ownroots toplaceexistingRoot11th/existingunsafe2reply
+field3unsafe3 onlyfield4.32caseinitial1Unread/noReply/Rootreads0; Moreenabled then
+2Unread/Reply/positivefield4/Conversation/text/actorProfile. Threecopies232579/
+hash31182e...2700d/fixed1–4. Source stilltake10 forRED. APK/review/native32run
+38327773946 pending. ProtectedfuturefiveChatfiles untouched.
 
-Remaining #24: wallet isolation native proof, actual permission choices and actual
-process-restart recovery, then whole-ticket reviews and final Android10/17 at same
-source. Followed posts, discovery, paging, retry, personal controls and backend
-isolation are already proved. Automatic read-on-tap/richer previews/live polling/
-universal indexing/permanent history are not closure requirements. Protectedfive
-future Chat files untouched; no new phone APK.
+Remaining #24: proveRED/minimalboundedownparentcontinuation, resolve whole-ticket
+findings, finalwhole/boundedreviews then same-source fullAndroid10/17. Optional
+live/richer/universal/permanenthistory/closedpush/physicalPixel not #24 closure.
+No new phoneAPK; stablev10/source5225d06. No productionnode/realwalletwrites.
 
 Canonical chronology: `docs/research/NATIVE_NOTIFICATION_VERIFICATION.md`.
 Separate axis reports: `docs/evidence/ticket23/REVIEW.md`.

@@ -1166,3 +1166,23 @@ reminder, noFeedScreen. feedDisabled wasreviewed/fixedf4cce67 beforethisresult.
 ThreeREDhashes; noactualOSchoice failure. Correctedfocused10run38326981751 and
 17run38327322258 pending. Process/correctivepermissionlocalAPK1m40PASS; process
 tracerbothaxes0. No whole-ticket/finalfull/physical claim.
+
+Correctedfocused10run38326981751 at4d3b1c8 succeeds: main31/126.643s, actual
+RedSquareAndroid10notificationSettings/read/recreate/positiveArchive/auth/
+opaque walletcontinuity1/6.559s, actualprocessdeath5957->6040/cold1/3.719s.
+Core73/debug/test; eachcompletedrunnerOK/noassumptions.101hashes/all46XML/root
+sevenoriginalpermission/process/walletPNGs. Publiccheckpointonly/no walletreset/
+export/backendchange/transactions; failedfreshserver/cachedneutralLike/NoUnread/
+disabledMark/actorProfile/return verified. Finalsource74core/ownparentwork differs.
+
+Whole-ticket Standards1(validselflike counted unverified), Spec2(sameplusknownOwn
+parentdiscovery permanentlytake10). e3519c2 independent RED8/7PASS/1failure33s
+showsignored1 vs0; minimum2a520da verifiesall thenfilterself/rawpagebounds
+unchanged. Boundedbothaxes0/fullcore74GREEN55s/17XML+log retained.
+
+Parentcontinuationtracer4d02fd3 adds tennewer pinnedWASM/Elliptic unsafe1 own
+roots; existingRoot11th/existingunsafe2replyfield3unsafe3onlyfield4 served. Snapshot
+232579/hash31182e5c7d1527d39ac547b695a453efccada797ed8d301fe2862cee8012700d
+threecopies/fixed1–4. Initial1Unread/noReply/0Rootparentreads, Moreenabled then
+2Unread/exactReply/positivefield4/Conversation/text/actorProfile. Source retains
+oldtake10 for genuineRED; compile/review/native38327773946 pending.

@@ -658,3 +658,27 @@ Local correctivepermission/processAPK1m40PASS; actualnative pending.
 and bothidentitysharedMention readisolation,84hashes/41XML/rootbothoriginalwallet
 captures. Separateoriginalpermissionfixturefails expectedmissingFeedScreen,
 threehashes/rootoriginalPNG/XML retained. Runtimecorrection/finalfull pending.
+
+## Whole-ticket review checkpoint
+
+### Standards
+
+`d1e65f5...752d92a`: one classificationfinding, zero actionableFowlerheuristics.
+Valid selflikes counted unverified via Archiveaccepts; 44f3ebf...2a520da fixes by
+verify-all thenfilter-self. Both boundedcorrectionaxes0. Independent coreRED8/
+7PASS/1ignoredcountfailure33s, fullcoreGREEN74/0/55s retained17XML+log.
+
+### Spec
+
+Two findings: validselflike falsewarning and permanent truncation of own-post
+parent discovery after10. Firstresolved2a520da; second receivesnative32tracer
+4d02fd3, tennewer independentlysigned ownroots+existingroot11/field3other/only
+field4 discovery. Initial10query behavior stays; remainingown targets must be
+reachable through bounded More. RuntimeRED/buildreviewpending; no invented
+permanent/universal coverage.
+
+CorrectedAndroid10focused38326981751 at4d3b1c8 passes main31/126.643s, actual
+OSsettings1/6.559s and cold1/3.719s after actualPID5957->6040;101hashes/46XML.
+Rootsevenoriginalwallet/permission/processPNGs support qualifiedREADME; prior
+opaque wallet/offer, authenticatedwallet/backend/currentstate survive. Not final
+sourceafter2a520da/parentcontinuation or physical/closedpushacceptance.
