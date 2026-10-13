@@ -917,3 +917,24 @@ and pending26/zero nativeacceptance remain distinguished.
 
 Findings: Standards0; Spec0. NarrowmainKotlincompile pending; priorboundsminimum
 core86/debug/testAPKPASS4m15s. Native26/zero checker/wholeticket remainpending.
+
+
+## Executed reaction reference,9fe61503...123986f0
+
+### Standards
+
+Zero documented breaches or actionable smell findings. Hashpinned namedChat
+construction/receiver and realTransaction JSONmethods; independentpublicunsafe
+WASM/elliptic signing. Walletfee/construction/outboundadapters explicit. Body/
+participants/Relay/two distincttoggle operations actualverified; no private/live
+state access. Setup/BigInt errors excludedfromsuccessful referenceclaims.
+
+### Spec
+
+Zero actionable findings. Supports existing-capability/crossclient requirement,
+qualifiedconstruction/toggle proof; no dispatchdedup/fees/DOM/storage/nativeUI/
+realrecipient orwholeticket claim. Provenance/corpusmanifest verify.
+
+Findings: Standards0; Spec0. Generator reran byteidentically with currentversion
+checks. Subsequent Reply26GREEN10/17 and actual capturedreceiver results retained
+separately; reactionreference isnot nativeimplementation/acceptance.

@@ -1,0 +1,26 @@
+{
+  "nativeEnvelopeSha256": "59a09b1d2f2b8849f61310a9fa4993dc79bb25b9a39d2f8c574225adc107186d",
+  "signature": "23c5bb95ca9e16d1c1b5cd3302a8d69a9e89a4ac5131a9798eab50bdc751c4de587681e40d1d6de64027f48ccc887b34a42260fcb7af02acd974cede9f73083a",
+  "groupId": "fbafe62761f194eb174cf4a072d8cd8601b11fe03f5a1ed32bf5be20dade0b19",
+  "timestamp": 1791920411185,
+  "dependencyVersions": {
+    "saito-wasm": "0.3.2",
+    "saito-js": "0.3.2",
+    "node-cryptojs-aes": "0.4.0",
+    "crypto-browserify": "3.12.1",
+    "elliptic": "6.6.1",
+    "base-58": "0.0.1",
+    "typescript": "5.4.5",
+    "json-bigint": "1.0.0"
+  },
+  "wrapperSha256": "61416839726c1877875062273fd704b37002f8f3a5d299e6c0883f5d24685683",
+  "wasmSha256": "f59be69dbb949368ce1fc7ef47d414cbe0281a86a206fe4bfb1128a4d087e01e",
+  "independentWasmSignatureMatches": true,
+  "existingCryptoRecipientDecrypts": true,
+  "exactNativeFixturePlaintextMatches": true,
+  "replyAuthorAutoMentionMatches": true,
+  "chatSourceSha256": "35e372b7d9da0ddfd6286a93059c00a3e34eb494b62350db88a9380c4814b1af",
+  "existingChatReceiverAcceptsNativePlaintext": true,
+  "existingChatReceiverSuppressesDuplicateSignature": true,
+  "browserStorageNotificationBoundariesAdapted": true
+}

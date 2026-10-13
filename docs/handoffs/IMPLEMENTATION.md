@@ -18,19 +18,24 @@ has no accepted native GREEN yet. Minimum local core86/debug/test APK build
 passed3m28s. An earlier exact owned build was deliberately stopped to stabilize
 callback identity and escape literal quote markup before runtime dispatch.
 
-Current native Android10 run38454040603/source67fbbb00 finished:26cases25PASS,
-zero quote-only Send guard fails at383,115.77s/core86. OrdinaryReply passes,
-independent pinned receiver/mention/signature checker exit0.43XML and normal
-draft/forwarded/cache/failure originals inspected. Processcheck skipped.
-Its26cases add an independently signed/encrypted timestamp-zero Reply tracer.
-The RED used product4d8ba673 with the known timestamp-bound defect. Current
-d9737678 aligns parser0..JSsafe bounds and rejects unsupported generatedtargets;
-bounded review/native26GREEN and zero metadata checker acceptance are pending.
-Tracer42c6ad5c and followup review axes0; local testAPKPASS1m47s. Preserve the
-normal reply result independently from the timestamp regression. Required
---check-native-reply-send and --check-native-zero-reply-send must consume the
-actual corresponding public fixture captures and verify metadata/signature/
-pinned Crypto and Chat receiver; normal captured reply/independent checker now pass; zero capture is pending.
+Corrected Reply26GREEN source9fe61503/product2fff210a:
+Android10run38455813479 passes26/116.507s/core86;17run38455816701 passes26/
+172.881s/core86.45XML/6unique normal+zero draft/forwarded/cached originals each
+root inspected. Both captures perSDK independently PASS pinnedCrypto/WASM/exact
+body/auto-mention/actualChat receiver+duplicatesuppression. Actualprocess:
+10cold3.961s/restore.132s/PID8160→8427;17cold4.928s/restore.155s/PID5278→5355.
+3XML/3originals/checkpointdelta each verified; installation snapshots remain
+deviceonly andrestore. Quote navigation notyet directlychecked inUI.
+
+Prior26RED38454040603 at67fbbb00/product4d8ba673:25PASS115.77s/core86,
+onlyzero quote-onlyguard failed383;43XML/root original inspected, zerotail and
+process skipped. Source/review correctionsd973+2fff alignproducer/parser shared
+0..JSsafe policy andguardunsupported targets. Minimum4m15s/core86/APKs and
+sharedrange maincompile3m16s PASS; bothfollowup reviewaxes0.
+
+Executed pure reactionreference123986f0 supports pinnedChat construction/toggle,
+realTransaction JSON and independentWASM/elliptic with namedfee/network adapters.
+Repeated corpus identical; bothreviewaxes0. No appreaction implementation yet.
 
 NativeReply firstRED38452059233/source53c7bd90:25cases24PASS113.541s/core86,
 missing Reply at377,40validXML/root original inspected. New draft/send/metadata/
