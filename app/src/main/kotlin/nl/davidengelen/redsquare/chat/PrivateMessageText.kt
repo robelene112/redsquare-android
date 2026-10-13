@@ -10,7 +10,7 @@ import nl.davidengelen.redsquare.saito.SaitoWallet
 
 // Saito Input prefixes replies with a sanitized blockquote whose href is sender + timestamp.
 // Interpret only that prefix. The typed body and the retained signed message stay literal.
-private val replyPrefix = Regex("""\A<blockquote href="([1-9A-HJ-NP-Za-km-z]{44,60})">(.*?)</blockquote>""",
+private val replyPrefix = Regex("""\A<blockquote href="([0-9A-HJ-NP-Za-km-z]{44,60})">(.*?)</blockquote>""",
     RegexOption.DOT_MATCHES_ALL)
 
 @Composable

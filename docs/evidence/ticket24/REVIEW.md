@@ -647,3 +647,16 @@ Zero documented breaches and zero actionable smell findings. The optional genera
 Zero actionable findings. The quoted fixture requires readable quote text and unchanged typed body, while the literal control remains literal. Real-cache checks distinguish display from original signed content. Independent sanitization/crypto execution is qualified without claiming full browser UI execution. Both preceding21-case runs and32XML each have verified provenance. No formatter or whole-ticket acceptance claimed at the tracer stage.
 
 Findings: Standards0; Spec0.
+
+
+## Private reply formatter minimum, d5a67483...60e21d77
+
+### Standards
+
+One concrete formatter defect: the outer candidate regex excludes decimal0 across the whole public-key/timestamp reference. Allow0 in the candidate, retaining separate validated key/timestamp splitting. Otherwise interpretation is bounded, typed suffix and signed/cache originals stay literal, and display uses Compose text without executing HTML.
+
+### Spec
+
+One actionable finding: existing-client compatibility is not satisfied because the independent timestamp1700000079990 cannot match. Allow decimal zero in the timestamp portion with existing public-key/timestamp bounds. Retained RED accurately referencesd5a67483,23/22PASS119.472s/35validXML; quoted tail unexecuted, ordinary control passes. No GREEN/process-death acceptance claimed.
+
+Findings: Standards1 concrete regex defect; Spec1 same compatibility defect. Both queued native runs38440526876/38440532111 cancelled before treating them as evidence. The correction follows; source build is not runtime proof.
