@@ -213,10 +213,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
             return@synchronized signed.recipients
         }
         val members=entry.group.memberRoles.filterValues{it.active}.keys.filter{it!=wallet.publicKey}
-        val inviters=if(request=="chat join")signed.recipients.filter{
-            it!=wallet.publicKey && it!=entry.group.id && entry.group.memberRoles[it]==null
-        }else emptyList()
-        (members+inviters).distinct().ifEmpty{listOf(wallet.publicKey)}
+        members.ifEmpty{listOf(wallet.publicKey)}
     }
 
     private fun requireActionMembership(entry:Entry) {
