@@ -45,47 +45,50 @@ Local .scratch/review-builds/14; publicrecords docs/evidence/ticket37/signed-pre
 No store/node/service/ingresschange. Current14physicalPixel/continuity/performance
 remain35. Preview13superseded;12neverpublished.
 
-**Active #26 checkpoint, 2026-10-14 12:45 UTC:**21 original tickets complete;
+**Active #26 checkpoint, 2026-10-14 13:09 UTC:**21 original tickets complete;
 #26 OPEN. Owner pause boundary above takes priority: complete26 thenstop.
-Beta14 unchanged, no group review APK published yet.
+Beta14 unchanged; no group review APK published.
 
-Implemented/verified: native creation/invite/member/key/work/leave, exact retry,
-known-group routing, messages/live/cache, unsent draft recreation, unavailable
-Archive sending, explicit signed older paging. Core LEFT regression RED actual
-LEFT→MEMBER fixed eeb99038;17GroupChatGREEN, fullcore106PASS subsequently. Older
-messages now preserve observed LEFT; only explicit signed join restores MEMBER.
+Latest verified baseline b828adb2a6bc7609bbdcd025c4b6862267739859:
+fullcore107PASS/debug/testAPKPASS3m3; native14 Android10run38566798588 allPASS80.49s,
+Android17run38566803390 allPASS130.93s. Root inspected original transient draft
+corruption/repair PNG/XML bothSDKs. Cache staysstrict, bad newpages skippedwithout
+clearinghistory; signedcursor independentofadmission/cache/unsignedmetadata;
+removedauthors cannot hideoldervalidhistory. Exactdraftdisabled/error thenRefresh
+restored/enabled/localerrorabsent, noextra sends. Native14 includes creation/
+invite/member/leave/key/work/retry/knownadminrouting/messages/live/cache/archive.
+Qualified prior failuresretained. Both reviewaxes0 actionablefindings forbatching,
+parserclassfixturecorrection andprimaryfailurepreservingcleanup. Neither14nor
+GroupChat18/core107 meansactualPID orphysicalperformance/full26 acceptance.
 
-Cursor fix c9ff41d4dcef107dafb2eab50ea1690291b5328f authenticates strict routing,
-addressing/signatures/cutoff before position, admits independently. Native13 at
-that source: Android17 run38564576391 all13PASS124.94s; root rejected-page-loaded/
-cached PNG/XML shows both permitted admin messages, not denied member2. Android10
-run38564571141 has12PASS, ordinary paging failure waiting15s forolder at260;
-original capture shows recent0 only and disabledRefresh. Removed-author pagepassed.
-Cause not proved; source repeatedlyreplays/saves fullcache perrow, nowbeingbatched.
-Qualified evidence in native-page-admission-green-android17 and attempt-android10.
+New module incomingcreation tracer76e0e5d5, ownershipcorrection6ac5be20 compiled
+2m12/review0each. Actual15RED Android10run38567837547 at
+6ac5be2012d72f1e8133b5cd195fa2809d11ebed:14PASS/1NPE GroupChatStore.receive92,
+fixture521 becausecreation usesid ratherthangroup_id. Laterincomingretention/
+roles/noinventedcandidate/idempotence/conflict assertions unexecuted. No unique
+UIcapture for moduleonlyRED; qualifiednative-incoming-store-red-android10 retained.
 
-New14case draftFault tracer0255e7be compiledtestAPK1m59, review cleanupfindingfixed
-37bb95e4 with primaryfailurepreservingcleanup. It preserves opaque encrypted bytes,
-corrupts only emulatorrecord, verifies disabledcomposer/error, restores record,
-explicitRefresh/exactdraft/noautosend/recreate. Native14 not dispatched yet.
+Current incoming-store minimum f39af042: RECEIVED + nullablecandidate, nullrestore
+requiresauthcreation/Received, recipientownmembership required, duplicateverified
+creation signature preservesfirstorigin, conflicting/unaddressedorigin rejected.
+Candidate-lessgroups have no outgoingwork; explicitdraft/send/leave/rejoin use
+pendingguard, Retry onlyUNKNOWN/SUBMITTED+nonnullcandidate. Truthfulreceivedcopy.
+ExistingownattempttestsnowrequireNotNull, notweakened. Localdebug/test buildactive
+(shell31787) andbothreviewsrunning; no15GREEN claimed. UIlistlive discoverynotyet
+implemented. Prepared .scratch/group26-incoming-ui-tracer.kt NOTAPPLIED; own unsafe
+fixtures, live creation/message ACKs,0raw/Relay sends, typed draft+recreation.
+Prepared incoming-store script alreadyAPPLIED; donotreapply. Protecteduntracked
+researchcontract untouched. No productionnode/store/ingress/wallet changes.
 
-Current batch minimum01598c4e: core replayAvailable strictretained, bounded50new
-rows, rejects bad newrows without erasing goodhistory/controls or poisoningdedup.
-Store commits acceptedpage once, loader keeps authenticatedcursor/admission separate.
-CorestubRED1 actualUnsupportedOperation retained available-page-batch-red after
-compileassertqualification. Fullcore/debug/testbuild active (shell27730) and both
-reviewagents running; no newbatch/nativeGREEN claimed. Oncebuild/reviews pass,
-push and dispatch14case group-ui10/17; inspectactualresults before nextfixtures.
-No runtime sourceedits during ownedGradle. Oldscratch scripts alreadyapplied except
-new prepared scripts explicitly inspectbeforeapplying. Protected untrackedcontract
-unchanged. No productionnode/wallet/store/ingress changes.
-
-Remaining26: incoming signedcreation addressedowner withoutautosigning; imported
-publicgrouphints asdiscoveryonly+available originals/history; accountblock vs mute;
-compatibleexistingreplyrenderer; actualPIDdeath/coldrestart key/origin/controls/
-messages/draft/pending exactoriginal/noresend; finalfull10/17/core/release/lint,
-whole-tickettwo-axisreview/fixes/evidence; signednextbeta. DraftstoragefaultRefresh
-verificationstillpending. STOPafter26 untilownerresume, noUIpolish/newticket first.
+NEXT: inspectminimumcompile/reviews thenpush/15casebothSDK group-ui; actualsource
+currentHEAD via git, no guessedSHA. Afterreadonlymodule proof, applyUItracer,
+observe actualmissing-group-list listener/ACK RED, implementlistlive receiver.
+Then importedpublicgrouphints/discoveryonly+availableoriginalhistory, blockvs mute,
+existingreplyrenderer, actualPIDcoldrestorekey/origin/controls/messages/draft/pending
+exactoriginal/noautosend; finalfull10/17/core/release/lint, whole26reviews/fixes,
+remainingevidence andsignednextbeta. STOPafter26 untilownersignal, noUIpolish or
+newticket first. DuringownedGradle donoteditapp/core/testsource. Scopegroup-ui is10;
+group-ui-android17 is17. Donotcancelactive sameSDKrun withnewdispatch unnecessarily.
 
 **Historical #26 checkpoint, 2026-10-14 10:14UTC:** known-admin native RED38546506531/95207cf0
 8cases67.047s has7PASS plus missingretainedadmin fixture90. RootPNG/XMLshowsbad
