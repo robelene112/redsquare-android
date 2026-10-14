@@ -388,3 +388,17 @@ requires an additional positive type13 acknowledgement for duplicate delivery.
 Corrected tracer reviews Standards0/Spec0. First nativeREDrun38550903014 at829
 is pending. No message UI acceptance, pagination, import discovery, actual
 process death or complete26 is claimed by these core/tracer checks.
+
+Actual native message RED17run38550903014 at829: nine cases, eight PASS plus
+available-text wait206,91.358s. Original failure PNG/XML show joined group with
+an empty conversation area. Sending/live/dedup/cache tail did not execute.
+Retained native-message-red-android17 labels those limits explicitly.
+
+Minimum51a7 introduces encrypted observed originals and authenticated available,
+own and live group messages. Review corrected independent restore/history errors
+and kept live reception/sending usable when Archive is unavailable or malformed.
+Correction92b4086c reviewed Standards0/Spec0 for this minimum. Unsent group draft
+retention remains an acknowledged review finding and the next slice within26.
+Debug/testAPK compile PASS3m14s. Native9 at92b4086c pending:10run38552574915,
+17run38552540747. Do not treat compilation or previous eight-case success as
+message acceptance. No signed group beta or whole26 completion yet.

@@ -912,3 +912,22 @@ recovery/import discovery, blocked-account behavior, process interruption and
 whole final gates remain. Protected untracked NATIVE_GROUP_CHAT_CONTRACT.md
 untouched. Public signed preview14 unchanged;21originaltickets closed. Owner
 requests continue until all issues complete, with further UI after26.
+
+2026-10-14 10:55UTC supersedes preceding26checkpoint: actual messageRED17
+38550903014 at829 has9cases8PASS/missing available text206/91.358s. Original
+failure PNG/XML inspected and retained f4c813b4 with unexecuted-tail limits.
+Store/messageUI scripts APPLIED (now obsolete), minimum51a7 + review fix92b4086c
+committed/pushed. Separate local/history flags; Archive failure no longer closes
+livepeer or disables otherwise safe Send. Both correction reviews0 for minimum,
+known unsent-draft finding retained. Local17763 COMPLETE0 debug/testAPK3m14s,
+no ownedGradle. Active native9 same92b4086c:10run38552574915,17run38552540747;
+sourcepush38552539385. Do not redispatch before results. Inspect actual reports
+and original messages-sent/messages-cached PNG/XML before acceptance.
+Prepared .scratch/apply-group26-draft-tracer.py NOTAPPLIED: adds10thcase type,
+immediateBack/reopen/recreation/exactunsenttext/noextratransmissions. Draftminimum
+notes .scratch/group26-draft-minimum-notes.txt, implementation NOTWRITTEN. Add
+that next after currentGREEN; preserve scoped encrypteddraft via existinggroup
+record and LocalPostNavigation save-before-leave. Next fault/history/pagination/
+import discovery/blocked/actualPID/fullgates still26. UIafter26 ownerpriority.
+Protected untracked groupcontract untouched; publicpreview14 unchanged, no26close.
+Ownerrequests continue until ALLissuesdone; don't stop at thischeckpoint.
