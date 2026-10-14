@@ -151,15 +151,9 @@ class GroupAdminPreviewTest {
             val candidate=GroupChat.promote(test.wallet,requireNotNull(store.load(key)).group,test.memberWallet.publicKey,1700000123457)
             store.preparePromotion(candidate,test.memberWallet.publicKey)
             val departure=GroupChat.leave(test.memberWallet,key,1700000123458)
-            org.junit.Assert.assertThrows(IllegalStateException::class.java){kotlinx.coroutines.runBlocking {
-                nl.davidengelen.redsquare.chat.submitChatTransaction(test.wallet,
-                    test.endpoint,test.wallet.publicKey,candidate,
-                    nl.davidengelen.redsquare.chat.ChatSubmissionCallbacks(
-                        claim={store.claim(key,candidate.id)},assertSelected={store.assertSelected()},
-                        submitted={store.record(key,candidate.id,GroupChatStore.Status.SUBMITTED);store.receive(departure.envelope())},
-                        forwarded={store.record(key,candidate.id,GroupChatStore.Status.FORWARDED)},
-                        relayRecipients={store.relayRecipients(key,candidate.id)}))
-            }}
+            org.junit.Assert.assertThrows(IllegalStateException::class.java){
+                submitPreparedAdminAction(test.wallet,test.endpoint,store,key,candidate){store.receive(departure.envelope())}
+            }
             ui.waitUntil(15_000){test.peer.transactions.size==1}
             check(postingTransaction(test.peer.transactions.single()).envelope()==candidate.envelope()&&test.peer.relayedMessages.isEmpty())
             waitForEnabled("Chat");ui.onNodeWithText("Chat").performClick()
@@ -375,14 +369,8 @@ class GroupAdminPreviewTest {
     private class AdminDelivery(val wallets:AndroidWalletStore,val backendStore:AndroidBackendStore,val backend:SaitoBackend,
         val wallet:SaitoWallet,val member:SaitoWallet,val key:SaitoWallet,val store:GroupChatStore,
         val candidate:SaitoTransaction,val peer:ControlledFeedPeer,private val endpoint:String) {
-        fun attempt(afterSubmitted:()->Unit={})=kotlinx.coroutines.runBlocking {
-            nl.davidengelen.redsquare.chat.submitChatTransaction(wallet,endpoint,wallet.publicKey,candidate,
-                nl.davidengelen.redsquare.chat.ChatSubmissionCallbacks(
-                    claim={store.claim(key.publicKey,candidate.id)},assertSelected={store.assertSelected()},
-                    submitted={store.record(key.publicKey,candidate.id,GroupChatStore.Status.SUBMITTED);afterSubmitted()},
-                    forwarded={store.record(key.publicKey,candidate.id,GroupChatStore.Status.FORWARDED)},
-                    relayRecipients={store.relayRecipients(key.publicKey,candidate.id)}))
-        }
+        fun attempt(afterSubmitted:()->Unit={})=
+            submitPreparedAdminAction(wallet,endpoint,store,key.publicKey,candidate,afterSubmitted)
         fun assertOwnerUnchanged() {
             check(wallets.loadExisting().exportJson()==wallet.exportJson()&&backendStore.load()==backend)
         }
@@ -464,4 +452,15 @@ class GroupAdminPreviewTest {
         }
     private fun waitFor(text:String)=ui.waitUntil(15_000){ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()}
     private fun waitForEnabled(text:String)=ui.waitUntil(15_000){ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()}
+}
+
+/** Shared actual submission wiring; each scenario owns its authenticated mutation and assertions. */
+private fun submitPreparedAdminAction(wallet:SaitoWallet,endpoint:String,store:GroupChatStore,groupId:String,
+    candidate:SaitoTransaction,afterSubmitted:()->Unit={})=kotlinx.coroutines.runBlocking {
+    nl.davidengelen.redsquare.chat.submitChatTransaction(wallet,endpoint,wallet.publicKey,candidate,
+        nl.davidengelen.redsquare.chat.ChatSubmissionCallbacks(
+            claim={store.claim(groupId,candidate.id)},assertSelected={store.assertSelected()},
+            submitted={store.record(groupId,candidate.id,GroupChatStore.Status.SUBMITTED);afterSubmitted()},
+            forwarded={store.record(groupId,candidate.id,GroupChatStore.Status.FORWARDED)},
+            relayRecipients={store.relayRecipients(groupId,candidate.id)}))
 }

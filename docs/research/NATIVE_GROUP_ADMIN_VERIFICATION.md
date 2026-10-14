@@ -249,3 +249,10 @@ Stop/reopen/new-message with retained priorSUBMITTED history. ExistingUNKNOWN
 tracer now additionally asserts saved original/priorUNKNOWN afterStop andnewwork.
 Compile62422PASS3m5s/debug/test, firstnewREDpending; modalerror sourcefix deliberatelyabsent.
 Twelvecases. No full27 or phonepublication acceptance yet.
+
+Submitted failure tracer sourcec58a99c3 boundedSpec0, Standards1 duplicated actual
+submission callbacks. Shared submitPreparedAdminAction now has real UI/controller
+callers; afterSubmitted mutations remain scenario-local. Compile81685PASS1m43s.
+First12caseRED17run38654864195 activeatc58, immutablebeforefix. NativeUNKNOWNGREEN
+proofdiff fd...ef83 reviews0/0:50hashes15XML, PID7135to7421/7728to8020, selected
+originalnewwork/Retrycaptures andqualifiedfuturefailure/SUBMITTEDgap. No modalfixyet.

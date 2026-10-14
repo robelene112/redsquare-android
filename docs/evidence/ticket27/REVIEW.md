@@ -155,3 +155,11 @@ elevenPASS33.271s, sourcefd, promotionPID7135to7421/removal7728to8020, exact che
 deltas/crash/recover/Retry/restore. Root/review originals show retained draft,
 newwork afterStop and persistent uncertain-history wording. No source modalfailure
 or SUBMITTED-stop acceptance inferred; those remain the next12th-case RED.
+
+## Submitted failure tracer source review
+
+ef83d80e...c58a99c3: Spec0. ActualRaw/SUBMITTED then departure/refusedRelay, fresh
+protectedselection refusal anddialog-scopedvisibleerror cover known gaps. Fixture
+restoration in finallypreserves cleanup. Bothprior-status historyassertions meaningful.
+Standards1 Fowler actualsubmission callbackduplication, extracted with two actual
+fixture callers. CompilePASS1m43s; correction review and12thRED runtime pending.
