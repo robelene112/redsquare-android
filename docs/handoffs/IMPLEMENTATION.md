@@ -54,7 +54,10 @@ protocol-only; no groupUI/Android/recovery acceptance. No ownedGradle remains.
 Both bounded reviewaxes found invalid recipient point couldenterroles. Genuine
 WASM/Elliptic bad-pointfixture reproducedRED4(3PASS+1failure); receiver now checks
 all recipientcurvekeys, GREEN4PASS/build57s. Bothboundedfixreviews0, previousfindingresolved. No ownedGradle.
-Next: ordinary web invitation format and explicit join trust provenance. No membership/UI/recovery implementation yet.
+Ordinarylinkoracle now8actual creator/member links with rawBase64plus/Unicode,
+actualCrypto wrappermatchesA/B. InviteparsertracerRED1stub/build54s. Parser
+implementationGREEN1PASS/build56s. NoownedGradle remains. Next: malformedlink/recovery checks,
+explicit join trust provenance, groupUI anddurablelifecycle. No26wholeacceptance. No membership/UI/recovery implementation yet.
 Chronology: docs/research/NATIVE_GROUP_CHAT_VERIFICATION.md. Preserveunsignedweb
 invites with honest authority/privacy provenance, existingmembership rules and
 recovery. Do not treatparticipantprocessedhistory asoriginalsignedmessageproof,

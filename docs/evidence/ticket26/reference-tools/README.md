@@ -24,3 +24,11 @@ serialization checks must pass. The public output must match the core vector.
 
 This proves constructor intent and wire compatibility. It does not prove live
 backend admission, real client UI, all receiver authority rules or persistence.
+
+The invitation extension also requires the pinned public Crypto wrapper at
+`crypto.ts`, SHA256 61416839726c1877875062273fd704b37002f8f3a5d299e6c0883f5d24685683.
+A fresh B-source fetch has the same hash. It extracts the actual UTF8 Base64
+method and both actual generateChatGroupLink methods. Eight creator/member link
+vectors include normal and alternate Unicode names; the alternate link metadata
+is unverified and does not claim a signed rename. Some include raw '+'.
+The signed creation and malformed-recipient vectors remain unchanged.

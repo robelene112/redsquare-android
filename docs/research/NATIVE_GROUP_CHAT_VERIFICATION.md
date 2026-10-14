@@ -83,3 +83,20 @@ signature authentication succeeds before the new rejection check. RED:4 cases,
 recipient; GREEN:4 PASS, build57s. The original three assertions remain intact.
 Both separate correction reviews have zero remaining findings; no full ticket
 acceptance claimed.
+
+## Ordinary invitation reference
+
+Extracted both actual generateChatGroupLink methods and the actual public Crypto
+UTF8 Base64 method. Wrapper source SHA256 is
+61416839726c1877875062273fd704b37002f8f3a5d299e6c0883f5d24685683; a fresh B fetch
+matches. Eight actual creator/member links cover normal and alternate Unicode
+name claims. The alternate metadata is unsigned and does not prove a rename.
+Original creation and malformed-recipient vectors are byte-identical.
+
+The initial extra '+' fixture assumption failed: the original name's UTF8 byte
+alignment did not produce '+'. This was a reference-coverage assertion, not an
+app failure. Added alternate Unicode name claims through the actual link method;
+some resulting links include '+'. One native parser tracer covers all eight.
+Initial stub RED1 UnsupportedOperationException, build54s; implementation GREEN
+1 PASS, build56s. Original eight-link/claim assertions remain intact. Parsing returns only unsigned claims, with no wallet/membership or
+backend mutation. Group UI and explicit joining remain pending.
