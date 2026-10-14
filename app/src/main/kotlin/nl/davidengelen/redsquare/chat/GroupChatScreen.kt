@@ -376,7 +376,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                     label={Text(stringResource(R.string.chat_message))},enabled=editable,maxLines=4)
                 Button(enabled=permitted&&typed.isNotBlank(),onClick={
                     act {
-                        val mentioned=quote?.author?.takeUnless{it==wallet.publicKey}?.let{listOf(it)}.orEmpty()
+                        val mentioned=quote?.author?.let{listOf(it)}.orEmpty()
                         val candidate=withContext(Dispatchers.IO){GroupChat.message(wallet,entry.group,message,System.currentTimeMillis(),mentioned)}
                         withContext(NonCancellable){publish{store.prepareMessage(candidate);store.entries()}}
                         message=""
