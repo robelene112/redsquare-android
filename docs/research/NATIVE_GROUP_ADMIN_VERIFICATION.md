@@ -231,3 +231,21 @@ Same validator serves raw/Relay/Stop, eliminating policy divergence. This review
 refinement follows localcompile; hosted compile/runtime will check exact nextsource.
 No stopGREEN yet. Existing immutable original/history and conservative identity
 replacement disclosure remain unchanged. No ownedlocalbuild active.
+
+First stopGREEN10run38653588969 atfd926d5d SUCCESS:eleven cases33.271s plus
+both actual-process management/recovery/explicitRetry/restoration journeys. Stop
+explicitconfirmation/no stale send/retained draft/key/original/reopen/newmessage
+and persistent uncertain-history wording allpass; root original newworkcapture
+inspected. Retainednative-stale-stop-green-android10. Source refactorguardreviews0/0.
+
+Follow-up source review identified hidden failure in the new Stop modal: failed
+fresh selection/save keeps it open with generic error only underneath. Separately,
+SUBMITTED stopped-history path needs actual verification (no source persistence
+bug found). New combined submitted/failed-stop tracer submits one actual raw,
+receives departure before Relay, opens Stop, changes protected wallet metadata
+between preview/confirmation, requires error inside the actual dialog and unchanged
+SUBMITTED original/no extra frames, restores selection and requires successful
+Stop/reopen/new-message with retained priorSUBMITTED history. ExistingUNKNOWN
+tracer now additionally asserts saved original/priorUNKNOWN afterStop andnewwork.
+Compile62422active, firstnewREDpending; modalerror sourcefix deliberatelyabsent.
+Twelvecases. No full27 or phonepublication acceptance yet.

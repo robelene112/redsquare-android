@@ -128,3 +128,22 @@ admin-removal permission classification; correction reuses the existing raw/Rela
 validator for recognized admin originals. Compile81893PASS3m7s/core4/debug/test
 precedes this narrow refinement. Separate correction review/runtime pending.
 All REDhashes and original UNKNOWN/Retry/disabledcomposer captureverified.
+
+## Shared stop/transmission validator correction
+
+6a98c047...fd926d5d: Spec0, Standards0. Recognized pending promotions/non-self
+removals reuse the actual raw/Relay validator for stale classification; selfleave,
+other work and STOPPED remain excluded. This resolves policy duplication while
+preserving local recovery. Exact hosted compile/native11case+PID run38653588969
+active; no stopGREEN or complete27 acceptance yet.
+
+## Stop failure follow-up
+
+Spec1 concrete source finding: failed freshvalidation/save leaves Stop popup open,
+with error beneath it. Show error inside actual dialog and preserve pendingwork.
+Separate verification gap: submitted stopped-action history afternewwork not yet
+exercised; no persistence source defect found. Combined public native tracer uses
+actual raw submission then refused Relay, fresh protected metadata change and
+dialog-scoped error assertion, followed by correct selection/recovery/newwork.
+New RED not yet run; correction deliberatelyabsent. UNKNOWN success alreadypasses
+11case10run38653588969 withboth actual-process journeys, retained separately.
