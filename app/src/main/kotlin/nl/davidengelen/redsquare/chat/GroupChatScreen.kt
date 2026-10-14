@@ -115,14 +115,15 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             finally{busy=false}
         }
     }
-    suspend fun sendPrepared(id:String,candidate:SaitoTransaction,updated:SaitoWallet,contact:String,originalRelay:Boolean=false,relayRecipients:List<String> = listOf(contact)) {
+    suspend fun sendPrepared(id:String,candidate:SaitoTransaction,updated:SaitoWallet,originalRelay:Boolean=false) {
         onWalletMetadata(wallet,updated)
         val current=GroupChatStore(context,updated,backend)
         withContext(Dispatchers.IO){
-            submitChatTransaction(updated,endpoint,contact,candidate,ChatSubmissionCallbacks(
+            submitChatTransaction(updated,endpoint,updated.publicKey,candidate,ChatSubmissionCallbacks(
                 claim={current.claim(id,candidate.id)},assertSelected={current.assertSelected()},
                 submitted={publish{current.record(id,candidate.id,GroupChatStore.Status.SUBMITTED);current.entries()}},
-                forwarded={publish{current.record(id,candidate.id,GroupChatStore.Status.FORWARDED);current.entries()}}),originalRelay,relayRecipients)
+                forwarded={publish{current.record(id,candidate.id,GroupChatStore.Status.FORWARDED);current.entries()}},
+                relayRecipients={current.relayRecipients(id,candidate.id)}),originalRelay)
         }
     }
     var creating by remember(wallet.publicKey,backend) { mutableStateOf(false) }
@@ -260,13 +261,8 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                     val pending=requireNotNull(entry.candidate)
                     withContext(NonCancellable){publish{store.prepareRetry(entry.group.id,pending.id);store.entries()}}
                     val updated=withContext(Dispatchers.IO){wallet.withNamedChatGroup(entry.group.id,entry.group.name,entry.creationKey)}
-                    val signed=withContext(Dispatchers.IO){SaitoEnvelope.decode(pending.envelope())}
-                    val request=signed.body.get("request").asString
-                    val recipients=if(request=="chat join") {
-                        signed.recipients.filter{it!=wallet.publicKey&&it!=entry.group.id}
-                    } else entry.group.memberRoles.filterValues{it.active}.keys.filter{it!=wallet.publicKey}
-                    val targets=recipients.ifEmpty{listOf(wallet.publicKey)}
-                    sendPrepared(entry.group.id,pending,updated,targets.first(),originalRelay=request=="chat group",relayRecipients=targets)
+                    val creation=withContext(Dispatchers.IO){SaitoEnvelope.decode(pending.envelope()).body.get("request").asString=="chat group"}
+                    sendPrepared(entry.group.id,pending,updated,originalRelay=creation)
                 }
             }){Text(stringResource(R.string.group_retry))}
             if(entry.group.memberRoles[wallet.publicKey]==ChatGroupRole.LEFT) Text(stringResource(R.string.group_left))
@@ -287,9 +283,8 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                             !entry.hasPendingAction&&entry.group.memberRoles[wallet.publicKey]?.active==true,onClick={
                             act {
                                 val candidate=withContext(Dispatchers.IO){GroupChat.like(wallet,entry.group,item,System.currentTimeMillis())}
-                                val recipients=entry.group.memberRoles.filterValues{it.active}.keys.filter{it!=wallet.publicKey}.ifEmpty{listOf(wallet.publicKey)}
                                 withContext(NonCancellable){publish{store.prepareReaction(candidate);store.entries()}}
-                                sendPrepared(entry.group.id,candidate,wallet,recipients.first(),relayRecipients=recipients)
+                                sendPrepared(entry.group.id,candidate,wallet)
                             }
                         }){Text(stringResource(if(wallet.publicKey in likedBy)R.string.chat_unlike else R.string.chat_like))}
                     }
@@ -302,10 +297,9 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                     entry.group.memberRoles[wallet.publicKey]?.active==true&&message.isNotBlank(),onClick={
                     act {
                         val candidate=withContext(Dispatchers.IO){GroupChat.message(wallet,entry.group,message,System.currentTimeMillis())}
-                        val recipients=entry.group.memberRoles.filterValues{it.active}.keys.filter{it!=wallet.publicKey}.ifEmpty{listOf(wallet.publicKey)}
                         withContext(NonCancellable){publish{store.prepareMessage(candidate);store.entries()}}
                         message=""
-                        sendPrepared(entry.group.id,candidate,wallet,recipients.first(),relayRecipients=recipients)
+                        sendPrepared(entry.group.id,candidate,wallet)
                     }
                 }){Text(stringResource(R.string.chat_send))}
             }
@@ -318,8 +312,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             withContext(NonCancellable){publish{store.prepareCreation(candidate,groupKey);store.entries()}}
             selected=groupKey.publicKey;creating=false
             val updated=withContext(Dispatchers.IO){wallet.withNamedChatGroup(groupKey.publicKey,name,groupKey)}
-            val recipient=invitees.firstOrNull{it!=wallet.publicKey} ?: wallet.publicKey
-            sendPrepared(groupKey.publicKey,candidate,updated,recipient,originalRelay=true)
+            sendPrepared(groupKey.publicKey,candidate,updated,originalRelay=true)
         }
     }
     if(joining) JoinGroupDialog(backend,busy,entries.map{it.group},onDismiss={if(!busy)joining=false}) { invitation ->
@@ -328,7 +321,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             withContext(NonCancellable){publish{store.prepareInvitation(invitation,candidate);store.entries()}}
             selected=invitation.id;joining=false
             val updated=withContext(Dispatchers.IO){val retained=requireNotNull(store.load(invitation.id));wallet.withNamedChatGroup(retained.group.id,retained.group.name,retained.creationKey)}
-            sendPrepared(invitation.id,candidate,updated,invitation.admin)
+            sendPrepared(invitation.id,candidate,updated)
         }
     }
     if(leaving && entry!=null) AlertDialog(onDismissRequest={if(!busy)leaving=false},
@@ -338,10 +331,9 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         confirmButton={TextButton(enabled=!busy,onClick={
             act {
                 val candidate=withContext(Dispatchers.IO){GroupChat.leave(wallet,entry.group.id,System.currentTimeMillis())}
-                val recipients=entry.group.memberRoles.filterValues{it.active}.keys.filter{it!=wallet.publicKey}.ifEmpty{listOf(wallet.publicKey)}
                 withContext(NonCancellable){publish{store.prepareLeave(candidate);store.entries()}}
                 leaving=false
-                sendPrepared(entry.group.id,candidate,wallet,recipients.first(),relayRecipients=recipients)
+                sendPrepared(entry.group.id,candidate,wallet)
             }
         }){Text(stringResource(R.string.group_leave_confirm))}})
     if(members && entry!=null) AlertDialog(onDismissRequest={members=false},title={Text(stringResource(R.string.group_members))},
