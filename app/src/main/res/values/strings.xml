@@ -411,6 +411,7 @@
     <string name="chat_send_error">Could not complete sending or saving this message. Check your connection. Saved messages are not sent again automatically.</string>
     <string name="chat_work_read_error">Could not restore saved work. Reopen this conversation to try again.</string>
     <string name="chat_cache_error">Could not restore or save private history on this device. Messages fetched now may be unavailable after closing Chat.</string>
+    <string name="chat_group_receive_error">Could not save received group information on this device. Existing records are kept. Open Groups and use Refresh to check them.</string>
     <string name="chat_private">Private messages are encrypted.</string>
     <string name="chat_available_history">Only available history is shown. Older messages may be unavailable.</string>
     <string name="chat_empty">No saved private chats.</string>

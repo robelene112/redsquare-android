@@ -64,6 +64,17 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     var incomplete by remember(wallet, backend, counterparty) { mutableStateOf(false) }
     var cacheFailed by remember(counterparty) { mutableStateOf(false) }
     var reactionHistoryFailed by remember(wallet, backend, counterparty) { mutableStateOf(false) }
+    var groupReceiveFailed by remember(wallet.publicKey, backend) { mutableStateOf(false) }
+    val groupReceiveFailures = remember(wallet.publicKey, backend) { Channel<Unit>(Channel.CONFLATED) }
+    LaunchedEffect(wallet.publicKey, backend) {
+        try { for (ignored in groupReceiveFailures) groupReceiveFailed = true }
+        finally { groupReceiveFailures.close() }
+    }
+    fun retainIncoming(bytes: ByteArray): String? = try { receiveChat(context, wallet, backend, bytes) }
+        catch (failure: GroupChatStorageException) {
+            groupReceiveFailures.trySend(Unit)
+            throw failure // Failed retention must keep the negative acknowledgement.
+        }
     var refresh by remember { mutableIntStateOf(0) }
     var hasOlder by remember(wallet, backend, counterparty) { mutableStateOf(false) }
     var olderLoading by remember(wallet, backend, counterparty) { mutableStateOf(false) }
@@ -165,7 +176,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                 }
                 try {
                     SaitoPeer(wallet, endpoint, onIncoming = { bytes ->
-                        receiveChat(context, wallet, backend, bytes)
+                        retainIncoming(bytes)
                         updates.trySend(Unit)
                         true // Even if the UI closes, original authenticated history discovers the contact on reopening.
                     }).use { peer ->
@@ -206,7 +217,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                 }
                 try {
                     SaitoPeer(wallet, endpoint, onIncoming = { bytes ->
-                        val saved = receiveChat(context, wallet, backend, bytes)
+                        val saved = retainIncoming(bytes)
                         if (saved == contact) {
                             updates.trySend(Unit)
                         }
@@ -282,6 +293,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
         PersonalControlsStatus(personal)
         if (contactsFailed || failed) Text(stringResource(R.string.chat_load_error))
         if (cacheFailed) Text(stringResource(R.string.chat_cache_error))
+        if (groupReceiveFailed) Text(stringResource(R.string.chat_group_receive_error))
         if (reactionHistoryFailed) Text(stringResource(R.string.chat_reaction_cache_error))
         if (incomplete) Text(stringResource(R.string.chat_incomplete))
         val contact = counterparty
