@@ -1,0 +1,46 @@
+# Separate review axes
+
+Final beta acceptance remains pending. Each source review used the actual,
+nonempty committed diff; these results do not replace runtime verification.
+
+## Standards
+
+Whole source ca2ade6a...8f7ae687: zero documented breaches or actionable Fowler
+smells. Appearance is separate from wallet/backend state, on IO, with selected
+controls/save errors. Palettes, ForceDark opt-out and uiMode handling preserve
+screen/work state. Feed/Chat presentation keeps callbacks, raw content, stored
+work and protocol intact. API29 root is confined to guarded emulator mode setup.
+
+Refinement8f7...a533: zero documented breaches; one possible Duplicated Code
+heuristic for the two tab/underline shapes. a533...4c8f consolidates both real
+callers in private RowScope.FeedTab: resolved, no new findings.
+
+Interim evidence: zero findings. Independently checked59 manifest entries across
+valid baseline RED/current10/current17/prepared14; parsed17XMLs; no secret markers
+found. Viewed original baseline light failure and17explicitDark-under-SystemLight.
+Raw exits, positive summaries, durations, applied modes and exact restoration
+agree with the README. Local APK hash matches prepared manifest. Prepared14 is
+correctly marked unpublished; this is not final full/physical acceptance.
+
+## Spec
+
+Whole source ca2ade6a...8f7ae687: zero actionable findings against37/1/35 and
+existing safeguards. Themes/navigation/type/spacing/Chat stay in scope; wallet,
+backend, drafts, history, raw messages and signing/transport state remain intact.
+Handling uiMode preserves the live screen; ForceDark suppression makes chosen
+palettes authoritative. Emulator setup does not alter application privileges.
+
+Refinement8f7...a533 and a533...4c8f: zero findings. Server controls remain
+prominent, theme choices remain scrollable/selected, underline matches feed
+selection, and count plurals preserve the original Long. The extraction leaves
+weighting, labels, callbacks and selected semantics unchanged.
+
+Interim evidence: zero findings. Independently checked hashes,16currentXMLs and
+8pairs perSDK, raw source/run/duration/exit/control records. Valid baseline8db
+fails after32 is applied; current9f passes both32/16 transitions and restores10no
+and17custom_bedtime. Prepared14 matches exact4c/package/cert/version. The recorded
+captures do not claim final Chat visual quality, active full acceptance,
+publication or35's Pixel targets. No wallet material is published in those sets.
+
+Both axes have zero remaining source/interim-evidence findings. Final full10/17,
+current originals, evidence reviews and signed/public publication are outstanding.
