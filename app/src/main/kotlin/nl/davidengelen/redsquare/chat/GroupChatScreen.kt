@@ -135,21 +135,21 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     // Receive addressed groups and known-group events throughout the Groups feature,
     // including while the list is shown. Receiving never creates an outgoing attempt.
     LaunchedEffect(store,endpoint,refresh) {
-        while(isActive){
+        coroutineScope {
+            val updates=Channel<Unit>(Channel.CONFLATED)
+            val storageFailed=java.util.concurrent.atomic.AtomicBoolean(false)
+            val receiver=launch {
+                for(ignored in updates){
+                    try{publish(onResult={success->
+                        val failed=storageFailed.getAndSet(false)
+                        if(!success||failed)readFailed=true
+                    }){store.entries()}}
+                    catch(cancelled:CancellationException){throw cancelled}
+                    catch(_:Exception){/* Ordered publication reported the local failure. */}
+                }
+            }
             try {
-                coroutineScope {
-                    val updates=Channel<Unit>(Channel.CONFLATED)
-                    val storageFailed=java.util.concurrent.atomic.AtomicBoolean(false)
-                    val receiver=launch {
-                        for(ignored in updates){
-                            try{publish(onResult={success->
-                                val failed=storageFailed.getAndSet(false)
-                                if(!success||failed)readFailed=true
-                            }){store.entries()}}
-                            catch(cancelled:CancellationException){throw cancelled}
-                            catch(_:Exception){/* Ordered publication already reported the local failure. */}
-                        }
-                    }
+                while(isActive){
                     try {
                         SaitoPeer(wallet,endpoint,onIncoming={bytes->
                             try{store.receive(GroupChat.originalEnvelope(bytes))}
@@ -166,11 +166,11 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                             peer.awaitDisconnection()
                             liveFailed=true
                         }
-                    }finally{updates.close();receiver.cancelAndJoin()}
+                    }catch(cancelled:CancellationException){throw cancelled}
+                    catch(_:Exception){liveFailed=true}
+                    delay(2_000) // Reconnect passive reception without transmitting retained attempts.
                 }
-            }catch(cancelled:CancellationException){throw cancelled}
-            catch(_:Exception){liveFailed=true}
-            delay(2_000) // Passive reception reconnects; retained outgoing attempts never auto-send.
+            }finally{updates.close();receiver.cancelAndJoin()}
         }
     }
     LaunchedEffect(store,selected,endpoint,refresh) {
