@@ -8,7 +8,7 @@ import nl.davidengelen.redsquare.saito.*
 
 internal data class GroupHistoryPage(val incomplete:Boolean,val hasOlder:Boolean,val cursor:Long?)
 
-/** Only a successfully authenticated, retained row can advance the network-page cursor. */
+/** Authentication establishes page position separately from membership/operation admission. */
 internal suspend fun loadGroupHistoryPage(peer:SaitoPeer,store:GroupChatStore,id:String,before:Long):GroupHistoryPage {
     val criteria=JsonObject().apply{
         addProperty("request","load");addProperty("field3",id)
@@ -26,9 +26,13 @@ internal suspend fun loadGroupHistoryPage(peer:SaitoPeer,store:GroupChatStore,id
             require(value.isJsonPrimitive&&value.asJsonPrimitive.isString)
             val signed=SaitoEnvelope.decode(value.asString)
             require(signed.body.get("module").asString=="Chat"&&signed.body.get("group_id").asString==id)
+            require(signed.body.get("request").asString in setOf("chat message","chat join","chat update","chat remove"))
+            require(id in signed.recipients && signed.recipients.all(SaitoWallet::isPublicKey))
             require(signed.createdAt<before)
-            store.receive(value.asString)
             cursor=cursor?.let{minOf(it,signed.createdAt)} ?: signed.createdAt
+            // A correctly addressed signed row can be inadmissible under current membership.
+            // Keep its authenticated position so that it cannot hide earlier available records.
+            store.receive(value.asString)
         } catch(_:Exception){rejected=true}
     }
     return GroupHistoryPage(rejected||(rows.size()==50&&cursor==null),rows.size()==50&&cursor!=null,cursor)
