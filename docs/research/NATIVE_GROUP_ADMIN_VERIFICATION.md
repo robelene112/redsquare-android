@@ -126,3 +126,11 @@ Removal minimum now in working tree: explicit target/confirmation, fresh canonic
 protected preparation before UNKNOWN, preserved draft/key/original, own-admin
 and retained removed-role guard at both raw and Relay. Relay includes removed
 target despite local optimistic role. Compile43045PASS3m5s/core4/debug/test; no removal GREEN yet.
+
+Removal source a95dfbb4 compiled core4/debug/testPASS3m5s. Focused native10
+run38650006951 active; bounded Spec0. Standards1 shared confirmation-dialog
+rendering finding to fix. New visible stale-confirmation tracer receives a signed
+member departure over the actual peer while the popup is open, requires disabled
+confirmation with plain guidance, retained creation/draft/key and zero outgoing
+frames. Product correction intentionally absent pending native RED. Compile32452
+PASS1m31s. No stale-popup or whole-ticket acceptance claimed.

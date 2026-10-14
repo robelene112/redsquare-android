@@ -91,6 +91,67 @@ class GroupAdminPreviewTest {
             *preferences.map{(prefs,keyName,value)->{check(prefs.edit().apply{if(value==null)remove(keyName)else putBoolean(keyName,value)}.commit());Unit}}.toTypedArray())}
     }
 
+    @Test fun aPromotionConfirmationUpdatesWhenItsTargetLeaves() {
+        val context=InstrumentationRegistry.getInstrumentation().targetContext
+        check(context.packageName=="nl.davidengelen.redsquare.dev"&&Build.HARDWARE in listOf("ranchu","goldfish"))
+        val wallets=AndroidWalletStore(context);val original=wallets.loadOrCreate()
+        val backend=AndroidBackendStore(context).load()
+        val key=SaitoWallet.fromPrivateKey("0".repeat(63)+"5") // Public unsafe fixtures only.
+        val member=SaitoWallet.fromPrivateKey("0".repeat(63)+"2")
+        val fixture=SaitoWallet.fromPrivateKey("0".repeat(63)+"1").withNamedChatGroup(key.publicKey,"Stale confirmation",key)
+        val filename="groupchat.${backend.id}.${fixture.publicKey}.${key.publicKey}.v1"
+        val names=listOf(filename,"$filename.bak","$filename.new")
+        synchronized(SaitoLocalState.lock){check(names.none{File(context.noBackupFilesDir,it).exists()})}
+        val preferences=listOf("wallet-backup-reminders" to "hidden:${fixture.publicKey}","notification-permission" to "offered").map{(name,keyName)->
+            val prefs=context.getSharedPreferences(name,0)
+            Triple(prefs,keyName,if(prefs.contains(keyName))prefs.getBoolean(keyName,false)else null)
+        }
+        val peer=ControlledFeedPeer("[]",advertisedServices="archive||;relay||",archiveResponse={"[]"})
+        var primary:Throwable?=null
+        try {
+            wallets.replace(original,fixture)
+            preferences.forEach{(prefs,keyName,_)->check(prefs.edit().putBoolean(keyName,true).commit())}
+            val store=GroupChatStore(context,fixture,backend)
+            val creation=GroupChat.create(fixture,key.publicKey,"Stale confirmation",listOf(member.publicKey),1700000123456)
+            store.prepareCreation(creation,key);store.record(key.publicKey,creation.id,GroupChatStore.Status.FORWARDED)
+            peer.start().use{server->ActivityScenario.launch<MainActivity>(Intent(context,MainActivity::class.java)
+                .putExtra("feedPeerUrl","ws://127.0.0.1:${server.port}/wsopen")
+                .putExtra("feedOfficialPeerUrl","ws://127.0.0.1:${server.port}/wsopen")).use{
+                withFailureCapture({captureNativeScreen(File(context.cacheDir,"group-admin-evidence/stale-confirmation-failure.png"))}) {
+                    waitForEnabled("Chat");ui.onNodeWithText("Chat").performClick()
+                    waitFor("Groups");ui.onNodeWithText("Groups").performClick()
+                    waitFor("Stale confirmation");ui.onNodeWithText("Stale confirmation").performClick()
+                    waitForEnabled("Message");ui.onNodeWithText("Message").performTextInput("Keep this confirmation draft")
+                    androidx.test.espresso.Espresso.closeSoftKeyboard()
+                    ui.onNodeWithText("Members").performClick()
+                    ui.onNodeWithContentDescription("Promote member ${member.publicKey}").performClick()
+                    waitForEnabled("Confirm promotion")
+                    val leave=GroupChat.leave(member,key.publicKey,1700000123457)
+                    ui.waitUntil(15_000){peer.authenticatedConnectionIds.isNotEmpty()}
+                    peer.sendIncoming(leave.applicationRequest(1).let{it.copyOfRange(5,it.size)},779)
+                    ui.waitUntil(15_000){store.load(key.publicKey)?.group?.memberRoles?.get(member.publicKey)==ChatGroupRole.LEFT}
+                    waitFor("Group membership changed. Close this dialog and review the current members.")
+                    ui.onNodeWithText("Confirm promotion").assertIsDisplayed().assertIsNotEnabled()
+                    ui.onNodeWithText("Cancel").performClick()
+                    waitFor("Keep this confirmation draft")
+                    ui.onNodeWithText("Members").performClick();waitFor("left")
+                    ui.onNodeWithContentDescription("Promote member ${member.publicKey}").assertDoesNotExist()
+                    val saved=requireNotNull(store.load(key.publicKey))
+                    check(saved.candidate!!.envelope()==creation.envelope()&&saved.status==GroupChatStore.Status.FORWARDED)
+                    check(saved.draft=="Keep this confirmation draft"&&saved.creationKey!!.exportJson()==key.exportJson())
+                    check(peer.transactions.isEmpty()&&peer.relayedMessages.isEmpty())
+                    check(wallets.loadExisting().exportJson()==fixture.exportJson()&&AndroidBackendStore(context).load()==backend)
+                    captureNativeScreen(File(context.cacheDir,"group-admin-evidence/stale-confirmation.png"),member.publicKey)
+                    peer.assertHealthy()
+                }
+            }}
+        }catch(failure:Throwable){primary=failure;throw failure}
+        finally{cleanupAfterTest(primary,
+            {synchronized(SaitoLocalState.lock){names.forEach{val file=File(context.noBackupFilesDir,it);check(!file.exists()||file.delete())}}},
+            {wallets.replace(wallets.loadExisting(),original)},
+            *preferences.map{(prefs,keyName,value)->{check(prefs.edit().apply{if(value==null)remove(keyName)else putBoolean(keyName,value)}.commit());Unit}}.toTypedArray())}
+    }
+
     @Test fun aPromotionStopsAtRelayWhenARenameArrivesAfterRawSubmission() =
         withPreparedPromotion("7","Before rename","Keep this rename draft") { fixture ->
             val candidate=fixture.candidate

@@ -54,3 +54,12 @@ status/name/role/draft/key/wallet/backend assertions and primary-preserving clea
 stay intact. Local compilePASS1m44. Post-refactor runtime and whole27 acceptance
 remain pending. Earlier pending runtime notes above are historical: two-case10
 38646785704 and three-case17 38647977521 passed and are retained separately.
+
+## Removal source review
+
+Bounded d0d23d67...a95dfbb4: Spec0. Canonical preparation preserves draft/key and
+original; current-admin/removed-role guards apply before raw and Relay, including
+notification to the removed target. Runtime remains pending.
+Standards1 Fowler judgment: repeated identity/notice/confirmation rendering in
+promotion and removal dialogs should be shared with two real callers. The fix
+will preserve distinct preparation callbacks. No other actionable findings.
