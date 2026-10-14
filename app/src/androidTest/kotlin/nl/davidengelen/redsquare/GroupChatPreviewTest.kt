@@ -551,14 +551,17 @@ class GroupChatPreviewTest {
                         waitFor("Create group")
                         ui.waitUntil(15_000){ui.onAllNodes(hasText("Create group") and isEnabled()).fetchSemanticsNodes().size==1}
                         ui.onNodeWithText("Create group").assertIsDisplayed().assertIsEnabled()
+                        var nextRequestId=800
                         fun deliver(transaction:SaitoTransaction,acknowledgement:Byte=13){
-                            val before=peer.incomingAcknowledgements.count{it[0]==acknowledgement}
+                            val requestId=nextRequestId++
+                            fun matches(frame:ByteArray)=frame[0]==acknowledgement&&java.nio.ByteBuffer.wrap(frame,1,4).int==requestId
+                            val before=peer.incomingAcknowledgements.count(::matches)
                             val bytes=transaction.applicationRequest(1).let{it.copyOfRange(5,it.size)}
                             var lastDelivery=0L
                             ui.waitUntil(15_000){
                                 val now=android.os.SystemClock.elapsedRealtime()
-                                if(now-lastDelivery>=500){peer.sendIncoming(bytes);lastDelivery=now}
-                                peer.incomingAcknowledgements.count{it[0]==acknowledgement}>before
+                                if(now-lastDelivery>=500){peer.sendIncoming(bytes,requestId);lastDelivery=now}
+                                peer.incomingAcknowledgements.count(::matches)>before
                             }
                         }
                         if(storageFault){
@@ -576,7 +579,13 @@ class GroupChatPreviewTest {
                             }
                             check(peer.transactions.isEmpty()&&peer.relayedMessages.isEmpty())
                             captureNativeScreen(File(context.cacheDir,"group-chat-evidence/incoming-storage-unavailable.png"),error)
-                            peer.disconnectAuthenticatedSockets()
+                            val interrupted=peer.disconnectAuthenticatedSockets()
+                            check(interrupted.isNotEmpty())
+                            ui.waitUntil(15_000){
+                                val connected=peer.authenticatedConnectionIds
+                                connected.intersect(interrupted).isEmpty()&&connected.any{it !in interrupted}
+                            }
+                            ui.onNodeWithText(error).assertIsDisplayed()
                             synchronized(SaitoLocalState.lock){check(unfinished.delete())}
                             deliver(creation) // Requires the passive receiver to reconnect without Refresh.
                             waitFor(group.name)

@@ -42,17 +42,26 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     @Volatile var incomingTransaction: ByteArray? = null
     val incomingAcknowledgements = java.util.concurrent.CopyOnWriteArrayList<ByteArray>()
     private val authenticatedSockets = java.util.concurrent.CopyOnWriteArrayList<WebSocket>()
+    private val connectionSequence=java.util.concurrent.atomic.AtomicInteger()
+    private val connectionIds=java.util.concurrent.ConcurrentHashMap<WebSocket,Int>()
+    private val incomingRequestIds=java.util.concurrent.ConcurrentHashMap.newKeySet<Int>().apply{add(777)}
+    val authenticatedConnectionIds:Set<Int> get()=authenticatedSockets.mapNotNull{connectionIds[it]}.toSet()
     @Volatile private var failure: Throwable? = null
 
     /** Deliver after history loading, through actual still-connected authenticated sockets. */
-    fun sendIncoming(transaction: ByteArray) {
-        val frame = (byteArrayOf(12) + ByteBuffer.allocate(4).putInt(777).array() + transaction).toByteString()
+    fun sendIncoming(transaction: ByteArray,requestId:Int=777) {
+        require(requestId>0)
+        incomingRequestIds.add(requestId)
+        val frame = (byteArrayOf(12) + ByteBuffer.allocate(4).putInt(requestId).array() + transaction).toByteString()
         authenticatedSockets.forEach { it.send(frame) }
     }
 
     /** Interrupt only this isolated server's authenticated sockets. */
-    fun disconnectAuthenticatedSockets() {
-        authenticatedSockets.toList().forEach{it.close(1001,"Controlled reception interruption")}
+    fun disconnectAuthenticatedSockets():Set<Int> {
+        val sockets=authenticatedSockets.toList()
+        val interrupted=sockets.mapNotNull{connectionIds[it]}.toSet()
+        sockets.forEach{it.close(1001,"Controlled reception interruption")}
+        return interrupted
     }
 
     fun start(port: Int = 0): MockWebServer {
@@ -69,13 +78,16 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
         private var interrupted = false
         override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
             authenticatedSockets.remove(webSocket)
+            connectionIds.remove(webSocket)
             webSocket.close(code, reason)
         }
         override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
             authenticatedSockets.remove(webSocket)
+            connectionIds.remove(webSocket)
         }
         override fun onFailure(webSocket: WebSocket, t: Throwable, response: okhttp3.Response?) {
             authenticatedSockets.remove(webSocket)
+            connectionIds.remove(webSocket)
         }
         override fun onMessage(webSocket: WebSocket, bytes: okio.ByteString) {
             try {
@@ -108,13 +120,14 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                         require(SaitoWallet.verify(counter, answer, clientKey))
                         clientKeys.add(clientKey)
                         authenticated = true
-                        authenticatedSockets.add(webSocket)
+                        connectionIds.computeIfAbsent(webSocket){connectionSequence.incrementAndGet()}
+                        authenticatedSockets.addIfAbsent(webSocket)
                         incomingTransaction?.let { transaction ->
                             webSocket.send((byteArrayOf(12) + ByteBuffer.allocate(4).putInt(777).array() + transaction).toByteString())
                         }
                     }
                     13, 14 -> {
-                        require(authenticated && frame.size >= 5 && ByteBuffer.wrap(frame, 1, 4).int == 777)
+                        require(authenticated && frame.size >= 5 && ByteBuffer.wrap(frame, 1, 4).int in incomingRequestIds)
                         incomingAcknowledgements.add(frame)
                     }
                     4 -> {
