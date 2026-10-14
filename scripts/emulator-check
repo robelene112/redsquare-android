@@ -72,44 +72,22 @@ if [[ "${TEST_SCOPE:-full}" == beta-ui* ]]; then
     exit 0
 fi
 if [[ "${TEST_SCOPE:-full}" == full ]]; then verify_appearance; fi
-verify_group_chat_ui() {
+verify_group_chat_native() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
-    local group_chat_exit=0
-    timeout 180 adb shell am instrument -w -r \
-        -e class nl.davidengelen.redsquare.GroupChatPreviewTest \
+    local test_class=$1 seconds=$2 prefix=$3 capture=$4 native_exit=0
+    timeout "$seconds" adb shell am instrument -w -r \
+        -e class "nl.davidengelen.redsquare.$test_class" \
         nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
-        > "$evidence/group-chat-ui.txt" || group_chat_exit=$?
-    printf '%s\n' "$group_chat_exit" > "$evidence/group-chat-ui-exit.txt"
-    adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - group-chat-evidence \
-        > "$evidence/group-chat-evidence.tar" || true
-    [[ "$group_chat_exit" == 0 ]] && grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/group-chat-ui.txt"
-}
-verify_group_chat_actions() {
-    local group_actions_exit=0
-    timeout 60 adb shell am instrument -w -r \
-        -e class nl.davidengelen.redsquare.GroupChatActionsPreviewTest \
-        nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
-        > "$evidence/group-chat-actions-ui.txt" || group_actions_exit=$?
-    printf '%s\n' "$group_actions_exit" > "$evidence/group-chat-actions-ui-exit.txt"
-    adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - group-chat-actions-evidence \
-        > "$evidence/group-chat-actions-evidence.tar" || true
-    [[ "$group_actions_exit" == 0 ]] && grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/group-chat-actions-ui.txt"
-}
-verify_chat_mixed_reception() {
-    local mixed_exit=0
-    timeout 60 adb shell am instrument -w -r \
-        -e class nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest \
-        nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
-        > "$evidence/chat-mixed-ui.txt" || mixed_exit=$?
-    printf '%s\n' "$mixed_exit" > "$evidence/chat-mixed-ui-exit.txt"
-    adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - chat-mixed-evidence \
-        > "$evidence/chat-mixed-evidence.tar" || true
-    [[ "$mixed_exit" == 0 ]] && grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/chat-mixed-ui.txt"
+        > "$evidence/$prefix-ui.txt" || native_exit=$?
+    printf '%s\n' "$native_exit" > "$evidence/$prefix-ui-exit.txt"
+    adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - "$capture" \
+        > "$evidence/$capture.tar" || true
+    [[ "$native_exit" == 0 ]] && grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/$prefix-ui.txt"
 }
 if [[ "${TEST_SCOPE:-full}" == group-ui* ]]; then
-    verify_group_chat_actions
-    verify_chat_mixed_reception
-    verify_group_chat_ui
+    verify_group_chat_native GroupChatActionsPreviewTest 60 group-chat-actions group-chat-actions-evidence
+    verify_group_chat_native ChatMixedReceptionPreviewTest 60 chat-mixed chat-mixed-evidence
+    verify_group_chat_native GroupChatPreviewTest 180 group-chat group-chat-evidence
     python3 "$repo_dir/scripts/group-chat-process-check" --evidence "$evidence/group-chat-process"
     printf '%s\n' 'Focused native named-group UI only; complete acceptance and live writes not run.' > "$evidence/scope.txt"
     exit 0
@@ -186,9 +164,9 @@ if [[ "${TEST_SCOPE:-full}" == chat* ]]; then
     exit 0
 fi
 if [[ "${TEST_SCOPE:-full}" == full ]]; then
-    verify_group_chat_ui
-    verify_group_chat_actions
-    verify_chat_mixed_reception
+    verify_group_chat_native GroupChatPreviewTest 180 group-chat group-chat-evidence
+    verify_group_chat_native GroupChatActionsPreviewTest 60 group-chat-actions group-chat-actions-evidence
+    verify_group_chat_native ChatMixedReceptionPreviewTest 60 chat-mixed chat-mixed-evidence
     python3 "$repo_dir/scripts/group-chat-process-check" --evidence "$evidence/group-chat-process"
     verify_private_chat
     verify_private_chat_ui
