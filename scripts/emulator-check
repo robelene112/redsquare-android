@@ -48,6 +48,10 @@ adb install -r "$artifact"
 adb install -r "$repo_dir/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk"
 verify_appearance() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+    # Only the synthetic diagnostic app is reset, before any feature fixtures run.
+    # This verifies the actual first-install default without coupling to preference storage.
+    adb shell pm clear nl.davidengelen.redsquare.dev > "$evidence/appearance-fresh-install.txt"
+    grep -q '^Success' "$evidence/appearance-fresh-install.txt"
     local appearance_exit=0
     timeout 120 adb shell am instrument -w -r \
         -e class nl.davidengelen.redsquare.AppearancePreviewTest \

@@ -27,6 +27,8 @@ class AppearancePreviewTest {
         check(context.packageName == "nl.davidengelen.redsquare.dev" && Build.HARDWARE in listOf("ranchu", "goldfish"))
         val device = UiDevice.getInstance(instrumentation)
         val originalNight = context.getSystemService(UiModeManager::class.java).nightMode
+        check(originalNight in listOf(UiModeManager.MODE_NIGHT_YES, UiModeManager.MODE_NIGHT_NO,
+            UiModeManager.MODE_NIGHT_AUTO)) { "Unsupported original night mode; no system setting changed" }
         fun night(value: String) { device.executeShellCommand("cmd uimode night $value") }
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
         val root = instrumentation.context.assets.open("native-feed-reference.json").bufferedReader().use {
@@ -55,12 +57,19 @@ class AppearancePreviewTest {
                             ui.onNodeWithText(label).performScrollTo().performClick()
                             ui.onNodeWithText("Done").performClick()
                         }
+                        // The harness starts with a fresh diagnostic installation. Its default must follow Android.
+                        waitForSurface(true); unchanged(); capture("default-system-dark.png")
                         choose("Light")
                         waitForSurface(false); unchanged(); capture("light.png")
                         activity.recreate()
                         waitForSurface(false); unchanged(); capture("light-reopened.png")
                         choose("Dark")
                         waitForSurface(true); unchanged(); capture("dark.png")
+                        night("no")
+                        waitForSurface(true); unchanged(); capture("dark-system-light.png")
+                        activity.recreate()
+                        waitForSurface(true); unchanged(); capture("dark-reopened.png")
+                        night("yes")
                         choose("System default")
                         waitForSurface(true); unchanged(); capture("system-dark.png")
                         night("no")
@@ -72,7 +81,8 @@ class AppearancePreviewTest {
             night(when (originalNight) {
                 UiModeManager.MODE_NIGHT_YES -> "yes"
                 UiModeManager.MODE_NIGHT_NO -> "no"
-                else -> "auto"
+                UiModeManager.MODE_NIGHT_AUTO -> "auto"
+                else -> error("Unsupported original night mode")
             })
         }
     }
