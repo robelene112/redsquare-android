@@ -498,6 +498,42 @@ class GroupChatPreviewTest {
     }
 
 
+    @Test fun anAddressedSignedCreationIsRetainedWithoutInventingAnOutgoingAttempt() {
+        val context=InstrumentationRegistry.getInstrumentation().targetContext
+        check(context.packageName=="nl.davidengelen.redsquare.dev")
+        check(android.os.Build.HARDWARE in listOf("ranchu","goldfish"))
+        val wallet=AndroidWalletStore(context).loadOrCreate()
+        val backend=AndroidBackendStore(context).load()
+        val admin=listOf("1","2").map{SaitoWallet.fromPrivateKey("0".repeat(63)+it)}
+            .first{it.publicKey!=wallet.publicKey} // Public unsafe fixtures only.
+        val key=listOf("9","8").map{SaitoWallet.fromPrivateKey("0".repeat(63)+it)}
+            .first{it.publicKey!=wallet.publicKey && it.publicKey!=admin.publicKey}
+        val creation=GroupChat.create(admin,key.publicKey,"Incoming native group",listOf(wallet.publicKey),1700000123456)
+        val filename="groupchat.${backend.id}.${wallet.publicKey}.${key.publicKey}.v1"
+        val groupStore=nl.davidengelen.redsquare.chat.GroupChatStore(context,wallet,backend)
+        check(groupStore.load(key.publicKey)==null)
+        val before=wallet.exportJson()
+        var primary:Throwable?=null
+        try {
+            groupStore.receive(creation.envelope())
+            val received=requireNotNull(groupStore.load(key.publicKey))
+            check(received.group.creationEnvelope==creation.envelope())
+            check(received.group.memberRoles[wallet.publicKey]==ChatGroupRole.MEMBER)
+            check(received.group.memberRoles[admin.publicKey]==ChatGroupRole.ADMIN)
+            check(received.candidate==null && received.creationKey==null && received.messages.isEmpty())
+            check(!nl.davidengelen.redsquare.chat.GroupChatStore.hasWork(context,wallet,backend))
+            groupStore.receive(creation.envelope())
+            check(groupStore.entries().count{it.group.id==key.publicKey}==1)
+            check(AndroidWalletStore(context).loadExisting().exportJson()==before)
+            val unaddressed=GroupChat.create(admin,key.publicKey,"Unaddressed conflicting creation",emptyList(),1700000123457)
+            check(runCatching{groupStore.receive(unaddressed.envelope())}.isFailure)
+            check(groupStore.load(key.publicKey)?.group?.creationEnvelope==creation.envelope())
+        }catch(failure:Throwable){primary=failure;throw failure}
+        finally{cleanupAfterTest(primary,{synchronized(SaitoLocalState.lock){
+            context.noBackupFilesDir.listFiles()!!.filter{it.name==filename||it.name=="$filename.bak"||it.name=="$filename.new"}.forEach{check(it.delete())}
+        }})}
+    }
+
     @Test fun savedUncertainGroupWorkIsIncludedInOutgoingWalletWorkAcrossBackends() {
         val context=InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName=="nl.davidengelen.redsquare.dev")
