@@ -45,66 +45,69 @@ Local .scratch/review-builds/14; publicrecords docs/evidence/ticket37/signed-pre
 No store/node/service/ingresschange. Current14physicalPixel/continuity/performance
 remain35. Preview13superseded;12neverpublished.
 
-**Active #26 checkpoint, 2026-10-14 16:27 UTC:** #26 OPEN,21 original tickets
+**Active #26 checkpoint, 2026-10-14 16:58 UTC:** #26 OPEN,21 original tickets
 complete. Finish #26 and signed review build, then STOP for storage migration until
-owner explicitly resumes. Public signed14 remains current. Protected untracked
-NATIVE_GROUP_CHAT_CONTRACT.md remains untouched.
+explicit owner resume. Public signed14 remains current. Protected untracked group
+contract stays untouched. Do not start another ticket or UI polish.
 
-Current remote f25c90059e1488e50e5a129c1967f3e1e1d1009f, verified exact after push.
-Fresh focused21 native runs ACTIVE: Android10=38598680108, Android17=38598684948.
-No local Gradle remains active. Prior local test APK at8b1943ca passed3m2; final
-Refresh-token correctionf25 will compile in CI. Both bounded review axes0.
+Current HEADd6697fd5, remote08f45d12. Owned local Gradle1458 ACTIVE,
+.scratch/group26-actions-minimum-build.log. No app/core/test edits until complete.
 
-Actual native21 RED at696b:10run38593506635 19PASS/2,118.59s. Imported hints failed
-missing group name708; personal-owner immediate composer-enabled779 failed with
-disabled PNG but subsequent enabled XML. Readiness wait preserves assertion.
-Qualified evidence native-imported-red-android10 retained.
+Imported-hints/discovery and all21 existing named-group cases GREEN at
+f25c90059e1488e50e5a129c1967f3e1e1d1009f: Android10run38598680108/118.174s,
+Android17run38598684948/132.816s. Original hints/reopened/storage captures inspected,
+qualified native-imported-green both SDK retained. Earlier imported RED and failing
+attempts retained with precise coverage. Bounded Spec/Standards reviews0.
+Public IDs grant no authority; only available authentic creator-origin recovery.
+Watch metadata preserves wallet key/options and only candidate-null RECEIVED records
+update passively. Outgoing work retains pre-Retry wallet. Warning persists across
+metadata store changes until corresponding successful explicit Refresh; each token
+consumed before async attempt, never reused after failure/cancellation. These fixes
+and guarded current-member routing/reactions passed all21 both SDK.
 
-Imported minimumcccd/e426 recovers available signed creator/self Archive Chat rows
-matching public IDs, never backup names/roles. Every recipient curve point checked
-before authenticated cursor. Bounded page and explicit older lookup; checking/
-not-yet-recovered/unavailable guidance. Signed original persisted first, no outgoing
-candidate/auto-join. RECEIVED own-origin copy derived from signer. Compatible watch
-metadata retains original backup key/options. Structural ID/name effect key avoids
-self-cancellation during draft publication.
+New actions fixture36c11a23 compiled2m, reviews0. First attempt38599898201/9fcc
+ran old21 first and failed draft Refresh final visible message1004 (20PASS/1,
+108.148s); action class did NOT run. PNG/XML shows restored draft enlarging composer
+and clipped last message author. Correction08f45 waits exact restored draft before
+message scrolling and runs focused action class first. Assertions/deadlines remain.
+Qualified native-actions-prerequisite-attempt10 retained, both reviews0.
 
-At e426, imported case PASSED on BOTH SDKs all assertions: available authentic
-name/ADMIN, forged metadata excluded, unknown hint remains without membership,
-exact corrected wallet backup retaining key/options, live original/draft/reopened
-cache, no sends. Full focused runs still FAILED:10=38595921914 19PASS/2,116.085s;
-17=38595927054 18PASS/3,155.396s. Both failed wallet-unchanged before creation Retry
-256;17 known-rejoin before Join232,10 immediate Invitation link lookup223. Automatic
-watch updates wrongly included outgoing work. Correctiond524 restricts them to
-candidate-null RECEIVED origins; explicit outgoing Retry/join retains prior behavior.
-Bounded invitation-field readiness wait added, assertions unchanged.
+ACTUAL action RED38601182527 at08f45d12a6d0684eeec44784fc62ecccfd19a79b:
+1case FAIL19.322s missing enabled Copy66. Original PNG/XML shows cached message and
+Like but no Copy/Reply. Clipboard/composition/wire/recreation tails unexecuted;
+21/PID not run. native-actions-red10 retained. Minimum454e340e now shares
+chatReplyPrefix with existing private API, adds guarded group Reply/Remove reply,
+body-only composer/quote preview/mentioned quote author, shared sensitive body-only
+Copy and existing renderer's cached quote scrolling. Durable preparation/exact
+original routing unchanged. Both bounded reviews ACTIVE against7c11...HEAD.
+Root self-audit: member role lower-case text should become equivalent resources
+once owned build ends. No action GREEN yet.
 
-17 also failed storage697 after repaired positive ACK because auto metadata recreated
-store and initial read cleared the warning before explicit Refresh. Final fixes:
-metadata guard/readFailed cancellation key/post-draft recheck; ordinary initial
-loads preserve warning; each Refresh token consumed before async attempt and only
-that successful explicit attempt clears warning. Failed/cancelled attempt cannot
-be reused by a later metadata reload. Final bounded source reviews both0. Original
-SDK PNG/XML inspected and qualified native-imported-attempt-android10/17 retained.
+PID tracer7c11b99f APPLIED/COMMITTED, test APK compilePASS2m3, both source reviews0.
+New GroupChatProcessRecoveryTest uses existing independent creation/message vectors,
+protected public-fixture creation key, authenticated removal, actual typed draft,
+UNKNOWN reaction preserving draft, explicit list Refresh to publish seeded status,
+strict restored draft before message visibility, unavailable Archive, exact digests/
+roles/wallet/backend/no sends. Host verifies actual old PID gone with checked probe,
+fresh different PID, exact checkpoint phase/PID-only delta and restoration.
+No process recovery runtime yet. Shared ProcessFixtureFiles and process_check_utils
+remove real snapshot/driver duplication with private fixture, preserve per-fixture
+allowlists and assertions, validate saved filenames before deletion, keep encrypted
+snapshots device-only and preserve primary cleanup failure. Group driver runs after
+successful UI gates in focused/full scopes. Python compile/bash syntax pass.
+Scratch PID/actions files are older prepared snapshots: DO NOT copy over applied
+sources. All previously listed apply scripts are obsolete after application.
 
-NEXT: inspect current f25 runs; retain qualified actual results and originals.
-Prepared scratch fixture files (NOT APPLIED or compiled):
-.scratch/GroupChatActionsPreviewTest.kt for Copy/Reply/compatible original/mentioned,
-protected cache/recreation/no extra sends; .scratch/GroupChatProcessRecoveryTest.kt
-for real PID death with exact key/origin/control/message/draft/pending reaction,
-UNKNOWN state and no autosend. Root reviewed scratch and corrected creation restore
-using native factory matched against existing independent reference, and blank Send
-readiness to enabled composer. These are preparation, not runtime acceptance.
-Use shared native private reply/copy helpers for actual group actions; no fake
-PrivateChatMessage. Group process host script and harness wiring NOT WRITTEN.
-Use existing private-chat-process pattern, device-only encrypted snapshots and
-public ID/digest checkpoint with cleanup preserving primary failure. No production
-checkpoint hook needed; review agent confirmed smallest approach.
-
-After focused21 passes: next native action tracer RED/minimum/GREEN, actual group
-PID recovery, fresh final full10/17 same source/core/release/lint, whole26 reviews/
-fixes, signed next beta and close26 only accepted. STOP, no UI polish or other ticket.
-Root sole writer; review agents read-only. No production node/service/chain mutation.
-Global skills: no authored em dashes, chat questions only, explicit gh -R repository.
+NEXT: inspect current build/reviews, fix any actionable finding after build ends,
+add translation-ready equivalent member role labels, push exact verified source,
+run focused group-ui10/17 including action1 + group21 + actual group PID/restoration.
+Inspect raw originals and retain qualified actual proof. Then fresh full10/17 same
+commit with public_feed_read=true, core/release/lint and private PID harness regression,
+whole26 two-axis review frombbdd121c/fixes, signed next phone beta, accepted closure.
+STOP after26. No production node/service/chain mutation or Play submission.
+Root sole writer; reviewers read-only. Global skills applied: no authored em dashes,
+ordinary chat questions only, explicit gh -R robelene112/redsquare-android.
+Latest tracker progress: issue26 comment6173373505 records imported21 both GREEN.
 
 **Historical #26 checkpoint, 2026-10-14 10:14UTC:** known-admin native RED38546506531/95207cf0
 8cases67.047s has7PASS plus missingretainedadmin fixture90. RootPNG/XMLshowsbad
