@@ -931,3 +931,21 @@ record and LocalPostNavigation save-before-leave. Next fault/history/pagination/
 import discovery/blocked/actualPID/fullgates still26. UIafter26 ownerpriority.
 Protected untracked groupcontract untouched; publicpreview14 unchanged, no26close.
 Ownerrequests continue until ALLissuesdone; don't stop at thischeckpoint.
+
+2026-10-14 11:06UTC active26: message9GREEN both SDKs retained59deb185/437979a1
+originalmessages-sent/cached PNG/XMLseen, 17run38552540747/92 ninePASS82.767s;
+10run38553319218/63526b897dd6859b626756ef6f5da2b7a46bcf0f ninePASS37.241s.
+Productsourceequals92. Prior10 immediate-scroll230 RED8of9/28.582s retained635;
+fixture publicscroll/display wait15s passed withoutweakeroracles.
+Drafttracer APPLIED f767 then corrected00297dfc (positive Create group list,
+exactEditableText both reopens, reviews0/0), testAPKcompile1m51 COMPLETE0 session
+86142, noownedGradle. ActualdraftRED17run38553804247 at00297dfc480195112aa6c9e1e971f92adbded427 ACTIVE.
+Do not redispatch. CurrentHEADDOCnewerthanremote002. AfteractualREDinspect
+uniquedraft-failure PNG/XML thenapply `.scratch/apply-group26-draft-minimum.py`
+(NOTAPPLIED), compile/reviews/correctnative10. It adds Entry encrypteddraft,
+load/save/clear-with-preparation, hasWorkdraftdisclosure, save-before-navigation
+viaLocalPostNavigation; notes .scratch/group26-draft-minimum-notes.txt.
+Previous message scripts applied/obsolete. Protectedgroupcontractuntracked
+untouched. Publicbeta14 unchanged. Archive-fault/pagination/importdiscovery/
+blockedaccount/actualPID/wholefullgates remain26; UIafter26 ownerpriority.
+Continueuntilallissuesdone, no partialfinalstopping.

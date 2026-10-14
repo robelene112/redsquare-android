@@ -402,3 +402,21 @@ retention remains an acknowledged review finding and the next slice within26.
 Debug/testAPK compile PASS3m14s. Native9 at92b4086c pending:10run38552574915,
 17run38552540747. Do not treat compilation or previous eight-case success as
 message acceptance. No signed group beta or whole26 completion yet.
+
+Native9 message GREEN: Android17run38552540747 at92b4086c nine PASS82.767s;
+Android10run38553319218 at63526b897dd6859b626756ef6f5da2b7a46bcf0f nine
+PASS37.241s. Product source unchanged between them. Both unique messages-sent
+and messages-cached PNG/XML sets inspected: genuine available, own and live text
+persist after Archive stops returning them. Exact outgoing protocol and additional
+positive duplicate ACK pass. Retained native-message-green-android10/17.
+Prior10run38552574915 at92 had8PASS/immediate live scroll failure230/28.582s;
+its original captures show only available/own text. Bounded public scroll/display
+wait635 fixed the tracer without weakening assertions. Timing was a hypothesis
+in the failed capture; the later successful wait establishes eventual publication.
+
+Draft tracerf767 was strengthened by00297dfc: after immediate Back, require a
+positive group-list control before selecting the row; both reopening checkpoints
+require exact EditableText in a visible enabled Message field. Corrected reviews
+0/0 and testAPK compile PASS1m51s. Actual ten-case RED17run38553804247 at002
+pending. Draft minimum is prepared but not applied. No actual PID recovery,
+pagination/import discovery/archive-fault or complete26 acceptance claimed.
