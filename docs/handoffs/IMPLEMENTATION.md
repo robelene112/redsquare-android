@@ -22,7 +22,12 @@ exact manual retries, drafts and actual process recovery. Source review base is
 findings. Canonical research: `docs/research/NATIVE_PRIVATE_CHAT_VERIFICATION.md`;
 separate review reports: `docs/evidence/ticket24/REVIEW.md`.
 
-**Current acceptance:** Android17 full `38484424347` at4e3a6ea7 remains active.
+**Current acceptance:** Android17 full `38484424347` at4e3a6ea7 passed.
+Complete273PASS/58completion records/19actualdeaths/no assumptions/core86,
+source/release/lint and every current feature/recovery/update gate. Retained
+`docs/evidence/ticket24/final-full/android17`; root parsed178 XMLs/viewed six
+original Following/report/reaction/process/browse captures. New picker helper
+26c0c7a5 is unexecuted here; production source is equivalent to corrected10.
 Android10 full `38484421113` failed in report backup selection after178 reported
 cases (177 passes/one existing API29 assumption); the later full tail did not run.
 Corrected full10 `38487263465` at90c85603 is active after the test-only
