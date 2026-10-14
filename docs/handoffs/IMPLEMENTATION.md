@@ -52,7 +52,11 @@ assertions were unexecuted. Minimum9690f6d6 adds explicit unsigned preview and
 backend-bound confirmation. Correctionee17e184 makes long claims scrollable and
 shares prepared-send handling. Separate correction reviews Standards0/Spec0;
 local debug/testAPK build PASS3m43s. Four-case corrected Android10/17 runtime
-verification is next. No owned Gradle remains. No invitation GREEN claimed yet.
+verification is active at44e931af32bf214bee1b66c9e62c4001cd154ed0: Android10
+38521385291, Android17 38521387910. Push source check38521386302 is also active.
+Inspect all four actual cases and retained failure/success captures before claiming
+invitation acceptance. Do not redispatch or cancel without a new concern.
+No owned Gradle remains. No invitation GREEN claimed yet.
 
 Remaining26: exact retry/key-metadata interruption, existing-group rejoin,
 group leave/message/history UI, identity/backend isolation, actual PID recovery,
