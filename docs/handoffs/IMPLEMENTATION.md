@@ -45,7 +45,7 @@ Local .scratch/review-builds/14; publicrecords docs/evidence/ticket37/signed-pre
 No store/node/service/ingresschange. Current14physicalPixel/continuity/performance
 remain35. Preview13superseded;12neverpublished.
 
-**Active #26 checkpoint, 2026-10-14 14:15 UTC:** issue26 OPEN; finish it then
+**Active #26 checkpoint, 2026-10-14 14:09 UTC:** issue26 OPEN; finish it then
 STOP until owner resumes, as above. Beta14 unchanged; no Group APK published.
 
 Incoming received-origin module15 passed both SDKs at1d90a319:10run38569659857
