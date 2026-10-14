@@ -39,15 +39,24 @@ Local .scratch/review-builds/14; publicrecords docs/evidence/ticket37/signed-pre
 No store/node/service/ingresschange. Current14physicalPixel/continuity/performance
 remain35. Preview13superseded;12neverpublished.
 
-**#26 protocol checkpoint,2026-10-14:** creation, unsigned-invitation provenance,
-join/leave, plaintext messages and signed known-admin snapshots are implemented.
-Independent pinned constructor vectors and RED/GREEN evidence retained under
-docs/evidence/ticket26. Timestamp and map-limit Spec findings corrected; separate
-reviews clean. Fullcore101PASS before final mapfix; latest14GroupChatPASS.
-First native create/member/invite/reopen tracer compiled3m21s and is about to run
-RED using new group-ui scope. No actual group UI/store is implemented yet; scratch
-create-screen/store are uncommitted preparation. Stable signed14 remains live.
-Protected untracked group contract remains untouched.
+**#26 current checkpoint,2026-10-14 05:07UTC:** protocol creation/invitation trust,
+join/leave/plaintext messages and authorized admin snapshots are implemented.
+Separate reviews clean after timestamp/map-limit/active-role corrections. Full101
+core before mapfix; latest native build includes102corePASS/debug/testAPKs4m8s.
+Android17 first UI RED38513845554 at455d69ba confirms missing Groups; root inspected
+original PNG/XML, later assertions unexecuted. Retained native-create-red-android17.
+Creation-only native GroupChatScreen/Store implementation e30f7d53 pushed; focused
+first native flow17run38514935237 and sourcegate38514890979 ACTIVE. Wait/inspect
+actual results before GREEN. Current source separate reviews pending. Group create
+uses direct original Relay per pinned Chat/Relay, private callers retain defaults.
+Tracer strengthened exactbroadcast/Relay originals + four invitationclaims and
+corrected retainedChat navigation after recreation. No deadline/assertion relaxed.
+Next: preserve generated group key through metadata-publication interruption,
+explicit retry/failure, then join/leave/message/history native flows/isolation and
+real process recovery/full10/17/release/lint/reviews. Current creation cache does
+not yet retain the creation key before protected wallet metadata write. Stable
+signed14 remains live; no group APK published. Protected group contract untouched.
+No ownedGradle currently. Scratch create screen/store are outdated preparation.
 
 **Next active ticket: #26 Create, invite, join and leave unencrypted group Chat.**
 Implement sequentially after37 closure; no new broadgrill. Allblockersalreadyclosed.
