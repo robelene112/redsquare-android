@@ -24,7 +24,8 @@ function signedReference(scalar, body, timestamp, recipients = []) {
   const point = Buffer.from(base58.decode(author));
   const outputs = [...new Set([author,...recipients])];
   assert(outputs.length <= 255);
-  assert(outputs.every(key => publicUnsafeScalars.some(value => wasm.generate_public_key('0'.repeat(63)+value) === key)));
+  const publicMalformedRecipient = base58.encode(Buffer.alloc(33)); // Deliberately invalid public point fixture.
+  assert(outputs.every(key => key === publicMalformedRecipient || publicUnsafeScalars.some(value => wasm.generate_public_key('0'.repeat(63)+value) === key)));
   const message = Buffer.from(JSON.stringify(body));
   const transaction = new wasm.WasmTransaction();
   for (const [input,index,key] of [[true,0,author],...outputs.map((key,index) => [false,index,key])]) {

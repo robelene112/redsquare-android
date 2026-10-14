@@ -75,3 +75,10 @@ creation record. Replay/collision/authority reconciliation remain later work.
 Source hashes are now enforced by the oracle before method execution. Repeated
 oracle output is byte-identical to the committed vector. All tools/logs above are
 public synthetic evidence. No group UI/recovery/final whole-ticket acceptance yet.
+
+Both separate bounded review axes found missing recipient curve validation.
+Added an independent WASM/Elliptic signed invalid output-point fixture. Native
+signature authentication succeeds before the new rejection check. RED:4 cases,
+3 PASS plus expected-rejection failure, build35s. Added validation of every
+recipient; GREEN:4 PASS, build57s. The original three assertions remain intact.
+Separate correction reviews remain pending; no full ticket acceptance claimed.

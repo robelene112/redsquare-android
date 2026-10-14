@@ -16,6 +16,7 @@ object GroupChat {
         require(body.requiredString("module") == "Chat" && body.requiredString("request") == "chat group")
         require(body.requiredString("admin") == signed.author)
         require(signed.recipients.firstOrNull() == signed.author)
+        require(signed.recipients.all(SaitoWallet::isPublicKey))
         val id = body.requiredString("id")
         val name = body.requiredString("name")
         require(SaitoWallet.isPublicKey(id) && id !in signed.recipients)

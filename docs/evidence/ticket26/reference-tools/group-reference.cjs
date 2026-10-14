@@ -3,6 +3,7 @@ const fs=require('node:fs');const assert=require('node:assert/strict');const vm=
 const wasm=require('/reference/dependencies/node_modules/saito-wasm/pkg/node');
 const {reference,signedReference}=require('./signed-reference.cjs');
 const key=n=>wasm.generate_public_key('0'.repeat(63)+n);
+const base58=require('/reference/dependencies/node_modules/base-58');
 const root=__dirname; const vectors=[];
 async function run(pin,file){
  const source=fs.readFileSync(root+'/'+file,'utf8');
@@ -24,4 +25,4 @@ async function run(pin,file){
  vectors.push({pin,sourceSha256:crypto.createHash('sha256').update(source).digest('hex'),name,groupId:group,admin:wallet,invitees:[recipient],timestamp:time,envelope:signed.tx,signature:signed.sig});
  return method;
 }
-(async()=>{const a=await run('9a4ca7e9442eb5e872168ced361ce741d7d139d7','chat-A.js');const b=await run('214504ecece76d1cd20a245fe4468eccbfca2951','chat-B.js');assert.equal(a,b);assert.equal(vectors[0].envelope,vectors[1].envelope);console.log(JSON.stringify({reference,purpose:'Pure pinned web constructor and WASM/Elliptic signature vector; no app initialization or live writes. Public unsafe identities only.',vectors},null,2));})().catch(e=>{console.error(e);process.exitCode=1;});
+(async()=>{const a=await run('9a4ca7e9442eb5e872168ced361ce741d7d139d7','chat-A.js');const b=await run('214504ecece76d1cd20a245fe4468eccbfca2951','chat-B.js');assert.equal(a,b);assert.equal(vectors[0].envelope,vectors[1].envelope);const invalidRecipient=base58.encode(Buffer.alloc(33));const malformed=signedReference('1',{module:'Chat',request:'chat group',name:'Signed malformed recipient',admin:key('1'),id:key('3')},1700000123456,[invalidRecipient]);console.log(JSON.stringify({reference,malformedRecipients:[{invalidRecipient,envelope:malformed.tx,signature:malformed.sig}],purpose:'Pure pinned web constructor and WASM/Elliptic signature vector; no app initialization or live writes. Public unsafe identities only.',vectors},null,2));})().catch(e=>{console.error(e);process.exitCode=1;});

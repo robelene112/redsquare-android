@@ -5,6 +5,13 @@
     "ellipticVersion": "6.6.1",
     "wasmSha256": "f59be69dbb949368ce1fc7ef47d414cbe0281a86a206fe4bfb1128a4d087e01e"
   },
+  "malformedRecipients": [
+    {
+      "invalidRecipient": "111111111111111111111111111111111",
+      "envelope": "{\"t\":\"AAAAAQAAAAIAAAAAAAAAAKUQyvnWW+ykxAAfTmIhF+ChTVxCLjHPREpXx4zB6Oxye39o2LLYcITOUb5mOucKTfj5A/7BonUE/nRmp+Xl9mYAAAGLz+dKQAAAAAEAAnm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACeb5mfvncu6xVoGKVzocLBwKb/NstzijZWfKBWxb4F5gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA\",\"m\":\"eyJtb2R1bGUiOiJDaGF0IiwicmVxdWVzdCI6ImNoYXQgZ3JvdXAiLCJuYW1lIjoiU2lnbmVkIG1hbGZvcm1lZCByZWNpcGllbnQiLCJhZG1pbiI6Implc1R1MkJwc3pQOERLU29pMVI1RzZnZ2pIcnNyVm5ib0xkeDZWNDd2a29SIiwiaWQiOiJ0RU5Cb1F0dHp5S2FDVzZkNjF0UWpjZWFWQTNHc1oyV3JCTG5ncllIY1hFeCJ9\",\"opt\":\"e30=\"}",
+      "signature": "a510caf9d65beca4c4001f4e622117e0a14d5c422e31cf444a57c78cc1e8ec727b7f68d8b2d87084ce51be663ae70a4df8f903fec1a27504fe7466a7e5e5f666"
+    }
+  ],
   "purpose": "Pure pinned web constructor and WASM/Elliptic signature vector; no app initialization or live writes. Public unsafe identities only.",
   "vectors": [
     {

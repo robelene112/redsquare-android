@@ -48,4 +48,13 @@ class GroupChatTest {
         assertEquals(ChatGroupRole.ADMIN, group.memberRoles[reference.get("admin").asString])
         org.junit.Assert.assertFalse(group.memberRoles.containsKey(laterMember.publicKey))
     }
+
+    @Test fun anAuthenticatedCreationCannotPublishAnInvalidPublicKeyAsAMember() {
+        val reference = requireNotNull(javaClass.getResourceAsStream("/native-group-chat-creation-reference.json"))
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonArray("malformedRecipients")[0].asJsonObject }
+        val envelope = reference.get("envelope").asString
+        assertEquals(reference.get("signature").asString, SaitoEnvelope.decode(envelope).id)
+        org.junit.Assert.assertFalse(SaitoWallet.isPublicKey(reference.get("invalidRecipient").asString))
+        org.junit.Assert.assertThrows(IllegalArgumentException::class.java) { GroupChat.readCreation(envelope) }
+    }
 }

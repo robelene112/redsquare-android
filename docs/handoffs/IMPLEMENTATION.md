@@ -51,6 +51,9 @@ MembershipRED2(onefailure)→GREEN2; discoveryRED3(onefailure)→GREEN3.
 Pure reader accepts authentic creation for later joiners without granting roles.
 Signer/admin and signed first-recipient validation remain. All source still
 protocol-only; no groupUI/Android/recovery acceptance. No ownedGradle remains.
+Both bounded reviewaxes found invalid recipient point couldenterroles. Genuine
+WASM/Elliptic bad-pointfixture reproducedRED4(3PASS+1failure); receiver now checks
+all recipientcurvekeys, GREEN4PASS/build57s. Fixreviewpending. No ownedGradle.
 Next: ordinary web invitation format and explicit join trust provenance. No membership/UI/recovery implementation yet.
 Chronology: docs/research/NATIVE_GROUP_CHAT_VERIFICATION.md. Preserveunsignedweb
 invites with honest authority/privacy provenance, existingmembership rules and
