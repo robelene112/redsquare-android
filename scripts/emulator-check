@@ -46,6 +46,24 @@ for setting in window_animation_scale transition_animation_scale animator_durati
 done
 adb install -r "$artifact"
 adb install -r "$repo_dir/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk"
+verify_appearance() {
+    [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+    local appearance_exit=0
+    timeout 120 adb shell am instrument -w -r \
+        -e class nl.davidengelen.redsquare.AppearancePreviewTest \
+        nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+        > "$evidence/appearance-ui.txt" || appearance_exit=$?
+    printf '%s\n' "$appearance_exit" > "$evidence/appearance-ui-exit.txt"
+    adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - appearance-evidence \
+        > "$evidence/appearance-evidence.tar" || true
+    [[ "$appearance_exit" == 0 ]] && grep -q 'OK (1 test)' "$evidence/appearance-ui.txt"
+}
+if [[ "${TEST_SCOPE:-full}" == beta-ui* ]]; then
+    verify_appearance
+    printf '%s\n' 'Focused native appearance only; full beta acceptance not run.' > "$evidence/scope.txt"
+    exit 0
+fi
+if [[ "${TEST_SCOPE:-full}" == full ]]; then verify_appearance; fi
 verify_private_chat() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
     timeout 60 adb shell am instrument -w -r \
