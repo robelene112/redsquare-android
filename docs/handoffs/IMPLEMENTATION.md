@@ -7,6 +7,9 @@ one question at a time when a material choice really needs the owner.
 
 ## Current work
 
+**PAUSED at owner request. #26 CLOSED. Do not resume development until the owner
+explicitly signals that the storage migration is done and work may continue.**
+
 **Owner pause boundary, 2026-10-14:** finish active issue #26, including acceptance,
 review, commit/push and review build, then STOP before UI polish or another ticket.
 Owner is migrating VPS storage and will explicitly signal when to resume. This
@@ -46,10 +49,11 @@ Local .scratch/review-builds/14; publicrecords docs/evidence/ticket37/signed-pre
 No store/node/service/ingresschange. Current14physicalPixel/continuity/performance
 remain35. Preview13superseded;12neverpublished.
 
-**#26 COMPLETE, PAUSE BOUNDARY, 2026-10-14 19:11 UTC:** implementation, full10/17,
-separate source/evidence reviews, signed review publication all complete. Commit/
-push and tracker closure are the final administrative actions in this checkpoint.
-Then STOP before another ticket or UI polish until explicit owner resume.
+**#26 COMPLETE, PAUSE BOUNDARY, 2026-10-14 19:13 UTC:** implementation, full10/17,
+separate source/evidence reviews, signed review publication, commit/push and
+tracker closure all complete. Issue26 CLOSED at2026-10-14T19:13:21Z, completion
+commit e8a815ef37b7fe3372b70d2e3e889e50ae590568 pushed to main.
+STOP before another ticket or UI polish until explicit owner resume.
 Protected untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md remains untouched.
 
 **Current phone build is signed15/0.1.15**, https://davidengelen.nl/redsquare/.
