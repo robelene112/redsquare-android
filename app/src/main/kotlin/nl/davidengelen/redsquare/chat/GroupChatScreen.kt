@@ -51,6 +51,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     }
     var busy by remember(wallet.publicKey,backend) { mutableStateOf(false) }
     var refresh by remember { mutableIntStateOf(0) }
+    var recoveredRefresh by remember(wallet.publicKey,backend){mutableIntStateOf(0)}
     var initialLoading by remember(store,selected){mutableStateOf(false)}
     var olderLoading by remember(store,selected){mutableStateOf(false)}
     val paging=initialLoading||olderLoading
@@ -144,21 +145,26 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     BackHandler { back() }
     LaunchedEffect(store,refresh) {
         loaded=false
-        try { publish(onResult={success->loaded=success;readFailed=!success}){store.entries()} }
+        val requestedRefresh=refresh
+        try { publish(onResult={success->
+            loaded=success
+            if(!success)readFailed=true
+            else if(requestedRefresh>recoveredRefresh){readFailed=false;recoveredRefresh=requestedRefresh}
+        }){store.entries()} }
         catch(cancelled:CancellationException){throw cancelled}
         catch(_:Exception){/* Failure state was published under the same lock. */}
     }
     // Keep compatible watch metadata in the protected backup. Its names never supply authority.
     val receivedEntries=entries.filter{it.candidate==null&&it.status==GroupChatStore.Status.RECEIVED}
     val watchMetadata=receivedEntries.map{it.group.id to it.group.name}
-    LaunchedEffect(store,watchMetadata,loaded,busy) {
+    LaunchedEffect(store,watchMetadata,loaded,busy,readFailed) {
         if(!loaded||busy||savingForNavigation||readFailed||receivedEntries.isEmpty())return@LaunchedEffect
         savingForNavigation=true
         try {
             val updated=withContext(Dispatchers.IO){
                 receivedEntries.fold(wallet){saved,row->saved.withNamedChatGroup(row.group.id,row.group.name)}
             }
-            if(updated.exportJson()!=wallet.exportJson() && persistDraft())onWalletMetadata(wallet,updated)
+            if(updated.exportJson()!=wallet.exportJson() && persistDraft() && !readFailed)onWalletMetadata(wallet,updated)
         }catch(cancelled:CancellationException){throw cancelled}
         catch(_:Exception){readFailed=true}
         finally{savingForNavigation=false}
