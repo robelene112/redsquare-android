@@ -10,6 +10,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
@@ -53,6 +56,9 @@ import nl.davidengelen.redsquare.registry.RegisteredIdentityScope
 import nl.davidengelen.redsquare.registry.LocalRegistryAuthority
 import nl.davidengelen.redsquare.moderation.PersonalControlsScope
 import nl.davidengelen.redsquare.moderation.PersonalControlsDialog
+import nl.davidengelen.redsquare.ui.AndroidAppearanceStore
+import nl.davidengelen.redsquare.ui.Appearance
+import nl.davidengelen.redsquare.ui.RedSquareTheme
 
 class MainActivity : ComponentActivity() {
     private var walletExports: WalletExport? = null
@@ -75,6 +81,17 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val appearanceStore = remember { AndroidAppearanceStore(applicationContext) }
+            var appearance by remember { mutableStateOf(Appearance.SYSTEM) }
+            var appearanceReady by remember { mutableStateOf(false) }
+            var savingAppearance by remember { mutableStateOf(false) }
+            var appearanceSaveError by remember { mutableStateOf(false) }
+            LaunchedEffect(Unit) {
+                appearance = withContext(Dispatchers.IO) {
+                    try { appearanceStore.load() } catch (_: Exception) { Appearance.SYSTEM }
+                }
+                appearanceReady = true
+            }
             var wallet by remember { mutableStateOf<SaitoWallet?>(null) }
             val backendStore = remember {
                 AndroidBackendStore(applicationContext) { descriptor ->
@@ -193,7 +210,7 @@ class MainActivity : ComponentActivity() {
                 }
                 failed = wallet == null
             }
-            MaterialTheme {
+            RedSquareTheme(this@MainActivity, appearance) {
                 CompositionLocalProvider(LocalVideoFixture provides VideoFixture.fromIntent(intent)) {
                 VideoPlaybackHost(address, backend) {
                 PersonalControlsScope(address, commitDirectorySync = { descriptor ->
@@ -215,7 +232,7 @@ class MainActivity : ComponentActivity() {
                     Os.fsync(descriptor)
                 }) {
                 Surface(Modifier.fillMaxSize()) {
-                    Column(Modifier.fillMaxSize().padding(16.dp)) {
+                    Column(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing).padding(16.dp)) {
                         Text(stringResource(R.string.app_name), style = MaterialTheme.typography.headlineMedium)
                         if (updateAvailable) {
                             Text(stringResource(R.string.preview_update_available))
@@ -298,7 +315,26 @@ class MainActivity : ComponentActivity() {
                         onDismissRequest = { if (!savingBackend) settingsOpen = false },
                         title = { Text(stringResource(R.string.settings)) },
                         text = {
-                            Column {
+                            Column(Modifier.verticalScroll(rememberScrollState())) {
+                                Text(stringResource(R.string.appearance), style = MaterialTheme.typography.titleSmall)
+                                if (appearanceSaveError) Text(stringResource(R.string.appearance_save_error))
+                                Appearance.entries.forEach { choice ->
+                                    Row {
+                                        RadioButton(selected = appearance == choice, onClick = null)
+                                        TextButton(enabled = appearanceReady && !savingAppearance, onClick = {
+                                            savingAppearance = true
+                                            appearanceSaveError = false
+                                            scope.launch {
+                                                try {
+                                                    withContext(Dispatchers.IO) { appearanceStore.save(choice) }
+                                                    appearance = choice
+                                                } catch (cancelled: kotlinx.coroutines.CancellationException) { throw cancelled }
+                                                catch (_: Exception) { appearanceSaveError = true }
+                                                finally { savingAppearance = false }
+                                            }
+                                        }) { Text(stringResource(choice.label)) }
+                                    }
+                                }
                                 TextButton(enabled = wallet != null, onClick = {
                                     settingsOpen = false
                                     personalControlsOpen = true
