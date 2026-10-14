@@ -48,9 +48,8 @@ adb install -r "$artifact"
 adb install -r "$repo_dir/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk"
 verify_appearance() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
-    # Android 10's UiModeManager refuses changes before setup is complete.
+    # Keep system-only setup/lock diagnostics for the night-mode fixture.
     adb shell settings get secure user_setup_complete > "$evidence/appearance-original-setup.txt"
-    adb shell settings put secure user_setup_complete 1
     adb shell dumpsys uimode > "$evidence/appearance-system-before.txt"
     # Only the synthetic diagnostic app is reset, before any feature fixtures run.
     # This verifies the actual first-install default without coupling to preference storage.

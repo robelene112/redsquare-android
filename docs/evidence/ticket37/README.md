@@ -115,3 +115,15 @@ Chat sourcec80239d3 adds contact avatars and incoming/outgoing bubbles with
 verified timestamps, retaining text, reply/copy/reaction/draft/history callbacks.
 Both bounded review axes0; local build48055 active and runtime pending.
 Diagnostics/layout10run38494088756 and17run38494091375 at4f691121 remain pending.
+
+Diagnostic10run38494088756 at4f691121 confirms the rejection path: shell UID2000,
+mNightModeLocked=true and UiModeManager logs "requires MODIFY_DAY_NIGHT_MODE
+permission". Original setup=1; repeated setup writes do not fix the failure.
+System-only source/exit/lock/identity/log evidence retained in appearance-diagnostic.
+Android29-only fixture now uses the guarded AOSP emulator's su0 for night-mode
+commands, recording that identity and verifying command result plus applied
+Configuration. The app retains its ordinary UID.17 keeps its supported shell
+command. Unnecessary setup writes removed; no rendering/identity assertions or
+timeouts weakened. Current app explicitly disables automatic Force Dark so its
+real palette and explicit Light/Dark choices control rendering on Android10.
+Chat debug/testAPK compilation passed3m25s; whole-beta runtime still pending.

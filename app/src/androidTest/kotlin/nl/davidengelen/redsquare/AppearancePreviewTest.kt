@@ -35,8 +35,12 @@ class AppearancePreviewTest {
         controls.writeText("Original night mode: $originalNight\n")
         controls.appendText(device.executeShellCommand("id") + "\n")
         controls.appendText(device.executeShellCommand("dumpsys uimode") + "\n")
+        // The guarded AOSP Android 10 image locks night mode, but its Shell lacks MODIFY_DAY_NIGHT_MODE.
+        // Root changes only this emulator's system setting; the app still runs with its ordinary UID.
+        val nightCommand = if (Build.VERSION.SDK_INT == 29) "su 0 cmd uimode night" else "cmd uimode night"
+        if (Build.VERSION.SDK_INT == 29) controls.appendText(device.executeShellCommand("su 0 id") + "\n")
         fun night(value: String, awaitConfiguration: Boolean = true) {
-            val result = device.executeShellCommand("cmd uimode night $value").trim()
+            val result = device.executeShellCommand("$nightCommand $value").trim()
             controls.appendText("Requested $value; $result\n")
             if (result != "Night mode: $value") {
                 controls.appendText(device.executeShellCommand("dumpsys uimode") + "\n")
