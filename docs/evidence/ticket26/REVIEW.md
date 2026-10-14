@@ -239,3 +239,13 @@ public-key/backend signal collector and shared wrapper preserve classified
 storage errors, negativeACK and explicit recovery guidance across metadata and
 private contact changes. Native corrected10/17 and whole re-review active at90e,
 not acceptance yet.
+
+Whole re-review bbdd121c...90e979e8: Spec0 actionable source findings. Standards0
+hard breaches, one possible repeated native instrumentation/capture/gate heuristic.
+Prior hint composition, queued receipt signals, foreground routing and private-screen
+classified storage warnings are resolved in source. Still no runtime acceptance.
+Correction90e...f25965c1 shares the three actual native classes across six focused/
+full invocations, preserving classes, order, 180/60s deadlines, report/capture names
+and exit0 plus nonempty JUnit OK. Every invocation now checks isolated emulator.
+Both bounded correction reviews0; no production or acceptance predicate changes.
+Local warning-minimum debug/test APK build34718 PASS2m57. Native10/17 at90e active.
