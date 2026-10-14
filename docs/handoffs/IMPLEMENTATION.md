@@ -39,6 +39,16 @@ Local .scratch/review-builds/14; publicrecords docs/evidence/ticket37/signed-pre
 No store/node/service/ingresschange. Current14physicalPixel/continuity/performance
 remain35. Preview13superseded;12neverpublished.
 
+**#26 protocol checkpoint,2026-10-14:** creation, unsigned-invitation provenance,
+join/leave, plaintext messages and signed known-admin snapshots are implemented.
+Independent pinned constructor vectors and RED/GREEN evidence retained under
+docs/evidence/ticket26. Timestamp and map-limit Spec findings corrected; separate
+reviews clean. Fullcore101PASS before final mapfix; latest14GroupChatPASS.
+First native create/member/invite/reopen tracer compiled3m21s and is about to run
+RED using new group-ui scope. No actual group UI/store is implemented yet; scratch
+create-screen/store are uncommitted preparation. Stable signed14 remains live.
+Protected untracked group contract remains untouched.
+
 **Next active ticket: #26 Create, invite, join and leave unencrypted group Chat.**
 Implement sequentially after37 closure; no new broadgrill. Allblockersalreadyclosed.
 Read#26/#1, current nativeprivateChat, pinnedprimarywebgroupconstructors/receivers,

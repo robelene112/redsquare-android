@@ -72,6 +72,23 @@ if [[ "${TEST_SCOPE:-full}" == beta-ui* ]]; then
     exit 0
 fi
 if [[ "${TEST_SCOPE:-full}" == full ]]; then verify_appearance; fi
+verify_group_chat_ui() {
+    [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+    local group_chat_exit=0
+    timeout 180 adb shell am instrument -w -r \
+        -e class nl.davidengelen.redsquare.GroupChatPreviewTest \
+        nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+        > "$evidence/group-chat-ui.txt" || group_chat_exit=$?
+    printf '%s\n' "$group_chat_exit" > "$evidence/group-chat-ui-exit.txt"
+    adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - group-chat-evidence \
+        > "$evidence/group-chat-evidence.tar" || true
+    [[ "$group_chat_exit" == 0 ]] && grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/group-chat-ui.txt"
+}
+if [[ "${TEST_SCOPE:-full}" == group-ui* ]]; then
+    verify_group_chat_ui
+    printf '%s\n' 'Focused native named-group UI only; complete acceptance and live writes not run.' > "$evidence/scope.txt"
+    exit 0
+fi
 verify_private_chat() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
     timeout 60 adb shell am instrument -w -r \
@@ -144,6 +161,7 @@ if [[ "${TEST_SCOPE:-full}" == chat* ]]; then
     exit 0
 fi
 if [[ "${TEST_SCOPE:-full}" == full ]]; then
+    verify_group_chat_ui
     verify_private_chat
     verify_private_chat_ui
     python3 "$repo_dir/scripts/private-chat-process-check" --evidence "$evidence/private-chat-process"

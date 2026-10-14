@@ -76,3 +76,7 @@ Timestamp correction reviewsf6a6da41...91c65a96: Standards0 and Spec0, previous
 timestamp finding resolved. Source time remains authenticated header; web local
 arrival-order adjustment excluded explicitly. Snapshot-map size finding corrected
 with256-entry RED/GREEN; active-role duplication extracted separately.
+
+Correction reviews91c65a96...dfe60e90: Standards0, active-role duplication
+resolved; Spec0, role-map limit finding resolved. Full101core precedes sizefix;
+14focused group cases verify it. No runtime/whole-ticket claim.
