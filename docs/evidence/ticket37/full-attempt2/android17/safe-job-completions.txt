@@ -1,0 +1,19 @@
+native-proof	Verify Android 17 runtime	2026-10-14T01:59:14.5911218Z PASS: posting process interruption and cold reconciliation
+native-proof	Verify Android 17 runtime	2026-10-14T02:01:07.6557865Z PASS: queued posting process interruption and cold delivery
+native-proof	Verify Android 17 runtime	2026-10-14T02:02:40.5151177Z PASS: social action process interruption and cold reconciliation
+native-proof	Verify Android 17 runtime	2026-10-14T02:03:31.1712903Z PASS: quote process interruption and cold reconciliation
+native-proof	Verify Android 17 runtime	2026-10-14T02:04:31.7385482Z PASS: author edit process interruption and cold reconciliation
+native-proof	Verify Android 17 runtime	2026-10-14T02:04:41.8350379Z PASS: author delete process interruption and cold reconciliation
+native-proof	Verify Android 17 runtime	2026-10-14T02:05:46.6457083Z PASS: image draft and candidate process recovery
+native-proof	Verify Android 17 runtime	2026-10-14T02:05:57.1208009Z PASS: queued posting process interruption and cold delivery
+native-proof	Verify Android 17 runtime	2026-10-14T02:08:57.2781549Z PASS: profile draft and candidate process recovery
+native-proof	Verify Android 17 runtime	2026-10-14T02:10:44.2851830Z PASS: cold Registry request recovery
+native-proof	Verify Android 17 runtime	2026-10-14T02:13:24.5922311Z PASS: cold personal-controls recovery
+native-proof	Verify Android 17 runtime	2026-10-14T02:15:32.9375668Z PASS: cold report recovery
+native-proof	Verify Android 17 runtime	2026-10-14T02:17:47.5245630Z PASS: cold authenticated payment recovery
+native-proof	Verify Android 17 runtime	2026-10-14T02:20:22.0378189Z PASS: cold notification recovery
+native-proof	Verify Android 17 runtime	2026-10-14T02:22:24.0984465Z PASS: pending export process interruption and authenticated recovery
+native-proof	Verify Android 17 runtime	2026-10-14T02:27:20.1606656Z PASS: replacement process interruption and cold wallet recovery
+native-proof	Verify Android 17 runtime	2026-10-14T02:27:46.0381245Z PASS: cached feed after cold process launch
+native-proof	Verify Android 17 runtime	2026-10-14T02:28:48.2810791Z PASS: wallet UI continuity
+native-proof	Verify Android 17 runtime	2026-10-14T02:29:24.1731912Z ##[error]The operation was canceled.

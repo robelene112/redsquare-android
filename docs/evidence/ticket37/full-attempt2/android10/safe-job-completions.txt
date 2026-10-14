@@ -1,0 +1,21 @@
+native-proof	Verify Android 10 runtime	2026-10-14T01:58:40.0252525Z PASS: posting process interruption and cold reconciliation
+native-proof	Verify Android 10 runtime	2026-10-14T02:00:42.3367835Z PASS: queued posting process interruption and cold delivery
+native-proof	Verify Android 10 runtime	2026-10-14T02:01:47.2213401Z PASS: social action process interruption and cold reconciliation
+native-proof	Verify Android 10 runtime	2026-10-14T02:02:44.0813569Z PASS: quote process interruption and cold reconciliation
+native-proof	Verify Android 10 runtime	2026-10-14T02:03:52.5656271Z PASS: author edit process interruption and cold reconciliation
+native-proof	Verify Android 10 runtime	2026-10-14T02:04:04.7550225Z PASS: author delete process interruption and cold reconciliation
+native-proof	Verify Android 10 runtime	2026-10-14T02:05:22.5682523Z PASS: image draft and candidate process recovery
+native-proof	Verify Android 10 runtime	2026-10-14T02:05:35.4256758Z PASS: queued posting process interruption and cold delivery
+native-proof	Verify Android 10 runtime	2026-10-14T02:08:46.5495415Z PASS: profile draft and candidate process recovery
+native-proof	Verify Android 10 runtime	2026-10-14T02:10:39.1349374Z PASS: cold Registry request recovery
+native-proof	Verify Android 10 runtime	2026-10-14T02:13:30.4375835Z PASS: cold personal-controls recovery
+native-proof	Verify Android 10 runtime	2026-10-14T02:15:43.2167836Z PASS: cold report recovery
+native-proof	Verify Android 10 runtime	2026-10-14T02:17:52.2401943Z PASS: cold authenticated payment recovery
+native-proof	Verify Android 10 runtime	2026-10-14T02:20:37.0668708Z PASS: cold notification recovery
+native-proof	Verify Android 10 runtime	2026-10-14T02:22:19.2393752Z PASS: pending export process interruption and authenticated recovery
+native-proof	Verify Android 10 runtime	2026-10-14T02:26:46.6965364Z PASS: replacement process interruption and cold wallet recovery
+native-proof	Verify Android 10 runtime	2026-10-14T02:27:15.7187012Z PASS: cached feed after cold process launch
+native-proof	Verify Android 10 runtime	2026-10-14T02:28:20.1647346Z PASS: wallet UI continuity
+native-proof	Verify Android 10 runtime	2026-10-14T02:29:13.8379606Z PASS: wallet UI continuity
+native-proof	Verify Android 10 runtime	2026-10-14T02:29:19.7641207Z PASS: native diagnostic on Android SDK 29
+native-proof	Verify Android 10 runtime	2026-10-14T02:29:19.7787189Z ##[error]The operation was canceled.
