@@ -45,73 +45,42 @@ Local .scratch/review-builds/14; publicrecords docs/evidence/ticket37/signed-pre
 No store/node/service/ingresschange. Current14physicalPixel/continuity/performance
 remain35. Preview13superseded;12neverpublished.
 
-**Active #26 checkpoint, 2026-10-14 15:18 UTC:** #26 is OPEN. Finish this issue
-and publish its signed review build, then STOP until the owner signals resume.
-Beta14 remains current. No group APK has been published.
+**Active #26 checkpoint, 2026-10-14 15:56 UTC:** #26 remains OPEN. Finish this
+issue and its signed review build, then STOP for the owner's storage migration.
+Public beta14 remains current. Protected untracked group contract stays untouched.
 
-Owner updated home instructions: read /home/david/.agents/skills/global-communication/SKILL.md
-and github-issues/SKILL.md. Authored prose uses no em dashes. Questions go in
-ordinary chat. GitHub CLI operations specify -R robelene112/redsquare-android.
+Current product/tracer source696b27a3, remote exact SHA verified after push.
+Owned local test APK completed successfully in3m41s (its shell later reported143;
+log records final BUILD SUCCESSFUL). No local Gradle remains active.
 
-Baseline: incoming/storage/reconnect 17 cases pass both SDKs at4f437d6f, runs
-38577818874/38577824737. Account block versus mute 18 cases pass both SDKs at
-5491aa57, runs38581226985/38581232093: both backend selections per SDK, blocked
-original stays cached but hidden, mute reveals it, exact draft survives reopening
-with no outgoing messages. Root inspected all separate policy/recovery PNG/XML.
-Full core110 passes after historical-join departure and group reaction additions.
+Guarded dynamic Relay construction17fae08f passed the new20th case on both SDKs,
+but both full focused runs failed known-rejoin outer routing239: Android10
+38590441609 (19PASS/1,104.796s), Android17 38590446363 (19PASS/1,149.787s).
+Original failure PNG/XML inspected and qualified evidence retained. Correction
+5f655571 routes wrapped Relay only to observed active members, preserving immutable
+signed join recipients and self fallback. Bounded Spec/Standards reviews both0.
 
-Group reaction oracle executes actual pinned A/B Like constructors and receivers
-offline, matching four signed vectors and toggling 1 then0. Native19 tracer
-7e2ee0d8 actual RED10run38583165123:18PASS/1 missing Like UI,154.756s, retained.
-Minimum60d3b481 adds stored reactions from retained originals, explicit Like/Unlike,
-common durable candidate/status/retry and authenticated Archive reaction rows.
-Shared reply renderer preserves native selection after6daed3cf. Initial compile
-failed missing SelectionContainer import; corrected local debug/test build passes
-4m33. Both bounded review axes have zero remaining findings for reaction minimum.
+New21st native tracer3c498b91/b6bf87c3 imports two public group-ID hints. It expects
+available authenticated creator-origin recovery, truthful missing-ID guidance,
+no forged names/authority or outgoing action, protected cache/draft/recreation,
+and compatible corrected wallet metadata while preserving imported group key.
+Production discovery is not implemented. Actual Android10 RED run38593506635 is
+ACTIVE at696b27a327acaaeade459df9010bc1186fc317b7. Do not redispatch/cancel it.
+An initial dispatch used a nonexistent workflow filename and returned404 without
+creating a run; corrected android-proof.yml dispatch above succeeded.
 
-Native19 at6daed3cf:10run38585947018 18PASS/1 122.212s;17run38585953103
-18PASS/1 164.709s. The new reaction case passed on BOTH: Like1, echoed duplicate1,
-Unlike0 with distinct original, exact raw/inner Relay/original and recipients,
-retained two events and forwarded candidate, exact draft/recreation, only two sends.
-Root inspected original liked/reopened images and XML on both SDKs. The sole older
-archive-outage case failed screenshot prerequisite412 after viewing a later message
-and capturing an earlier offscreen one. Original failures retained and qualified.
-Correction216029d6 explicitly scrolls/displays that earlier message before capture;
-no deadline or assertion weakened. Both review axes approve the fixture correction.
+Next: inspect actual21 RED and native originals, implement minimum imported-hint
+recovery from available signed creator/self Archive rows plus unavailable state,
+review and pass focused21 on both SDKs. Then applicable shared reply/copy actions,
+actual group PID recovery (key/origin/roles/messages/draft/exact pending candidate,
+no auto-send), fresh final full Android10/17 at same source, core/release/lint,
+whole-ticket two-axis review/fixes and signed next phone build. Close only after
+acceptance, then STOP. No other ticket or UI polish before explicit owner resume.
 
-A transient GitHub push rejection at15:01 led to two wrong-source dispatches
-38585815944/38585820500 (5196255f). Both were cancelled/superseded; they are not
-runtime evidence. Corrected push and remote6daed SHA were verified before19 dispatch.
-
-Whole checkpoint Spec found stale captured Relay targets. New guarded wire/module
-tracer20 atac551fa4/ff51d364/216029d6 uses real prepared message and signed admin
-removals after raw submission and immediately in the Relay selection guard. It
-expects only the remaining active destinations (self after both fixture removals),
-unchanged raw/inner signed original and protected candidate/FORWARDED state. Public
-transaction constructor fixes the initial cross-module compile error. Callback
-invocation counter was removed to retain observable wire/state assertions.
-Optional ChatSubmissionCallbacks.relayRecipients is intentionally NOT invoked yet;
-actual RED pending before implementation. Local corrected test APK passes2m6.
-
-Current remote05fb3a51. Native20 RED10run38587820629 IN PROGRESS at that source.
-Do not cancel/re-dispatch the active SDK without a concrete reason. Current local
-source1c940886 extracts publishPage to resolve the second whole Standards duplicate
-suggestion; the first was resolved by retainReplay in the reaction minimum. Both
-review axes approve the page refactor. Owned local Gradle ACTIVE68311, test APK
-.scratch/group26-page-publication-refactor-build.log; no app/core/test edits until
-finished. No production node, wallet, store submission or service changes.
-
-NEXT: inspect refactor build and actual20 RED. Implement dynamic Relay JSON/frame
-construction AFTER beforeSend under SaitoLocalState.lock, wire the protected group
-resolver into actual GroupChatScreen submission/retry, and revalidate current own
-membership before outgoing messages/reactions. Preserve exact original and special
-creation/join/leave semantics. Pass focused20 on10/17, retaining qualified failures.
-Then imported public group hints/available authenticated originals with truthful
-unavailable state; native reply/copy composition as applicable using shared helpers;
-actual PID/cold restart keys/origin/controls/messages/draft/pending original with no
-autosend; final full10/17/core/release/lint, whole26 reviews/fixes, signed next beta.
-STOP after26. No further UI polish or ticket before owner resumes.
-Protected untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md stays untouched.
+Global communication and GitHub issue skills applied: no authored em dashes,
+questions in ordinary chat, explicit -R robelene112/redsquare-android on gh commands.
+Read-only review agent is auditing smallest group process-death tracer; root is
+sole writer and CI dispatch owner. No node/service/wallet production mutation.
 
 **Historical #26 checkpoint, 2026-10-14 10:14UTC:** known-admin native RED38546506531/95207cf0
 8cases67.047s has7PASS plus missingretainedadmin fixture90. RootPNG/XMLshowsbad
