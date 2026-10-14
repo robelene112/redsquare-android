@@ -25,7 +25,9 @@ class GroupChatPreviewTest {
 
     @Test fun groupMessagesCombineAvailableHistoryLiveDeliveryAndPersistentCacheWithoutDuplicateSending() = exerciseGroupUi(joining=true,messaging=true)
 
-    private fun exerciseGroupUi(joining:Boolean=false, leaving:Boolean=false, retrying:Boolean=false, knownRejoin:Boolean=false, messaging:Boolean=false) {
+    @Test fun anUnsentGroupDraftSurvivesBackNavigationAndReopeningWithoutSending() = exerciseGroupUi(joining=true,messaging=true,drafting=true)
+
+    private fun exerciseGroupUi(joining:Boolean=false, leaving:Boolean=false, retrying:Boolean=false, knownRejoin:Boolean=false, messaging:Boolean=false, drafting:Boolean=false) {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -79,7 +81,7 @@ class GroupChatPreviewTest {
                 ActivityScenario.launch<MainActivity>(Intent(context,MainActivity::class.java)
                     .putExtra("feedPeerUrl","ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("feedOfficialPeerUrl","ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
-                    withFailureCapture({ captureNativeScreen(File(context.cacheDir,if(messaging) "group-chat-evidence/message-failure.png" else if(knownRejoin) "group-chat-evidence/known-rejoin-failure.png" else if(joining) "group-chat-evidence/join-failure.png" else if(leaving) "group-chat-evidence/leave-failure.png" else if(retrying) "group-chat-evidence/retry-failure.png" else "group-chat-evidence/create-failure.png")) }) {
+                    withFailureCapture({ captureNativeScreen(File(context.cacheDir,if(drafting) "group-chat-evidence/draft-failure.png" else if(messaging) "group-chat-evidence/message-failure.png" else if(knownRejoin) "group-chat-evidence/known-rejoin-failure.png" else if(joining) "group-chat-evidence/join-failure.png" else if(leaving) "group-chat-evidence/leave-failure.png" else if(retrying) "group-chat-evidence/retry-failure.png" else "group-chat-evidence/create-failure.png")) }) {
                         waitFor("Chat")
                         ui.waitUntil(15_000) { ui.onAllNodes(hasText("Chat") and isEnabled()).fetchSemanticsNodes().size == 1 }
                         ui.onNodeWithText("Chat").assertIsDisplayed().performClick()
@@ -235,6 +237,15 @@ class GroupChatPreviewTest {
                                 historyAvailable.set(false)
                                 captureNativeScreen(File(context.cacheDir,"group-chat-evidence/messages-sent.png"),"Live group message")
                             }
+                            if(drafting){
+                                ui.onNodeWithText("Message").performTextInput("Keep this unsent group draft")
+                                ui.onNodeWithText("Back").assertIsDisplayed().performClick()
+                                waitFor(invitation.name)
+                                ui.onNodeWithText(invitation.name).assertIsDisplayed().performClick()
+                                waitFor("Keep this unsent group draft")
+                                ui.onNodeWithText("Keep this unsent group draft").assertIsDisplayed()
+                                check(peer.transactions.size==2 && peer.relayedMessages.size==2)
+                            }
                             scenario.recreate()
                             waitFor("Groups")
                             ui.onNodeWithText("Groups").performClick()
@@ -250,6 +261,11 @@ class GroupChatPreviewTest {
                                 check(cached.group.memberRoles[member]==ChatGroupRole.MEMBER)
                                 check(cached.group.memberRoles[invitation.admin]==ChatGroupRole.ADMIN)
                                 captureNativeScreen(File(context.cacheDir,"group-chat-evidence/messages-cached.png"),"Live group message")
+                                if(drafting){
+                                    waitFor("Keep this unsent group draft")
+                                    ui.onNodeWithText("Keep this unsent group draft").assertIsDisplayed()
+                                    captureNativeScreen(File(context.cacheDir,"group-chat-evidence/draft-reopened.png"),"Keep this unsent group draft")
+                                }
                             }
                             val expected=if(messaging)2 else 1
                             check(peer.transactions.size==expected && peer.relayedMessages.size==expected)
