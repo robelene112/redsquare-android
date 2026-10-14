@@ -2,6 +2,8 @@ package nl.davidengelen.redsquare.saito
 
 import com.google.gson.JsonObject
 
+data class GroupChatMessage(val id: String, val author: String, val groupId: String, val createdAt: Long, val text: String)
+
 enum class ChatGroupRole { ADMIN, MEMBER, LEFT, REMOVED }
 
 class NamedChatGroup internal constructor(val id: String, val name: String,
@@ -11,6 +13,37 @@ class NamedChatGroup internal constructor(val id: String, val name: String,
 
 /** Compatible unencrypted named-group controls; participants sign with their own wallet. */
 object GroupChat {
+    fun message(wallet: SaitoWallet, group: NamedChatGroup, text: String, timestamp: Long,
+        mentioned: List<String> = emptyList()): SaitoTransaction {
+        require(group.memberRoles[wallet.publicKey] in listOf(ChatGroupRole.ADMIN, ChatGroupRole.MEMBER))
+        require(text.isNotBlank() && timestamp >= 0 && mentioned.all(SaitoWallet::isPublicKey))
+        val body = JsonObject().apply {
+            addProperty("module", "Chat"); addProperty("request", "chat message")
+            addProperty("group_id", group.id); addProperty("message", text); addProperty("timestamp", timestamp)
+            add("mentioned", com.google.gson.JsonArray().apply { mentioned.distinct().forEach(::add) })
+            addProperty("group_name", group.name)
+        }
+        val activeMembers = group.memberRoles.filterValues { it in listOf(ChatGroupRole.ADMIN, ChatGroupRole.MEMBER) }.keys
+        return SaitoTransaction.create(wallet, body, timestamp, listOf(group.id) + mentioned.filter { it !in activeMembers })
+    }
+
+    fun readMessage(group: NamedChatGroup, envelope: String): GroupChatMessage {
+        val signed = SaitoEnvelope.decode(envelope)
+        val body = signed.body
+        require(body.requiredString("module") == "Chat" && body.requiredString("request") == "chat message")
+        require(body.requiredString("group_id") == group.id && group.id in signed.recipients)
+        require(signed.recipients.all(SaitoWallet::isPublicKey))
+        require(group.memberRoles[signed.author] != ChatGroupRole.REMOVED)
+        val text = body.requiredString("message")
+        require(text.isNotBlank())
+        val timestamp = body.get("timestamp")
+        require(timestamp != null && timestamp.isJsonPrimitive && timestamp.asJsonPrimitive.isNumber)
+        require(timestamp.asString.matches(Regex("[0-9]{1,19}")))
+        val time = timestamp.asString.toLong()
+        require(time >= 0)
+        return GroupChatMessage(signed.id, signed.author, group.id, time, text)
+    }
+
     /** Records a deliberate unsigned-link trust choice, not a verified creation or admission. */
     fun confirmInvitation(invitation: GroupInvitation, joinEnvelope: String): NamedChatGroup {
         val signed = SaitoEnvelope.decode(joinEnvelope)

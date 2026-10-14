@@ -1,0 +1,39 @@
+{
+  "reference": {
+    "saitoCommit": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+    "saitoWasmVersion": "0.3.2",
+    "ellipticVersion": "6.6.1",
+    "wasmSha256": "f59be69dbb949368ce1fc7ef47d414cbe0281a86a206fe4bfb1128a4d087e01e"
+  },
+  "scope": "Actual named-group plaintext constructor with zero-payment wallet boundary; not live admission or encrypted private Chat.",
+  "vectors": [
+    {
+      "pin": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+      "sourceSha256": "35e372b7d9da0ddfd6286a93059c00a3e34eb494b62350db88a9380c4814b1af",
+      "groupId": "tENBoQttzyKaCW6d61tQjceaVA3GsZ2WrBLngrYHcXEx",
+      "author": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+      "name": "Native group 😀 <&>",
+      "text": "Hello group 😀 <&>!",
+      "mentioned": [
+        "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU"
+      ],
+      "timestamp": 1700000123456,
+      "envelope": "{\"t\":\"AAAAAQAAAAIAAAAAAAAAAL3m9Igo7SMn9GaSWOZTk1aigs6TAcNZazCnV7rlR4eQa51QfI/Brhk0XWcsZUl88re9rqk1zLrvAGbRuTVbbW0AAAGLz+dKQAAAAAEAAnm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACeb5mfvncu6xVoGKVzocLBwKb/NstzijZWfKBWxb4F5gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAL5MIoBkljDEEk0T4X4nVIptTHIRYNvmbCGAfETvOA2+QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA\",\"m\":\"eyJtb2R1bGUiOiJDaGF0IiwicmVxdWVzdCI6ImNoYXQgbWVzc2FnZSIsImdyb3VwX2lkIjoidEVOQm9RdHR6eUthQ1c2ZDYxdFFqY2VhVkEzR3NaMldyQkxuZ3JZSGNYRXgiLCJtZXNzYWdlIjoiSGVsbG8gZ3JvdXAg8J+YgCA8Jj4hIiwidGltZXN0YW1wIjoxNzAwMDAwMTIzNDU2LCJtZW50aW9uZWQiOlsicG5jU2pzZnRkbXNwZWRYZ21Da2tITFJDZWFrMTJleDJXVnJuZTJxZGVmU1UiXSwiZ3JvdXBfbmFtZSI6Ik5hdGl2ZSBncm91cCDwn5iAIDwmPiJ9\",\"opt\":\"e30=\"}",
+      "signature": "bde6f48828ed2327f4669258e6539356a282ce9301c3596b30a757bae54787906b9d507c8fc1ae19345d672c65497cf2b7bdaea935ccbaef0066d1b9355b6d6d"
+    },
+    {
+      "pin": "214504ecece76d1cd20a245fe4468eccbfca2951",
+      "sourceSha256": "28a8609343e75dec7982498c0bafd7aa99be0a499156f43c5a543435426209eb",
+      "groupId": "tENBoQttzyKaCW6d61tQjceaVA3GsZ2WrBLngrYHcXEx",
+      "author": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+      "name": "Native group 😀 <&>",
+      "text": "Hello group 😀 <&>!",
+      "mentioned": [
+        "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU"
+      ],
+      "timestamp": 1700000123456,
+      "envelope": "{\"t\":\"AAAAAQAAAAIAAAAAAAAAAL3m9Igo7SMn9GaSWOZTk1aigs6TAcNZazCnV7rlR4eQa51QfI/Brhk0XWcsZUl88re9rqk1zLrvAGbRuTVbbW0AAAGLz+dKQAAAAAEAAnm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACeb5mfvncu6xVoGKVzocLBwKb/NstzijZWfKBWxb4F5gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAL5MIoBkljDEEk0T4X4nVIptTHIRYNvmbCGAfETvOA2+QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA\",\"m\":\"eyJtb2R1bGUiOiJDaGF0IiwicmVxdWVzdCI6ImNoYXQgbWVzc2FnZSIsImdyb3VwX2lkIjoidEVOQm9RdHR6eUthQ1c2ZDYxdFFqY2VhVkEzR3NaMldyQkxuZ3JZSGNYRXgiLCJtZXNzYWdlIjoiSGVsbG8gZ3JvdXAg8J+YgCA8Jj4hIiwidGltZXN0YW1wIjoxNzAwMDAwMTIzNDU2LCJtZW50aW9uZWQiOlsicG5jU2pzZnRkbXNwZWRYZ21Da2tITFJDZWFrMTJleDJXVnJuZTJxZGVmU1UiXSwiZ3JvdXBfbmFtZSI6Ik5hdGl2ZSBncm91cCDwn5iAIDwmPiJ9\",\"opt\":\"e30=\"}",
+      "signature": "bde6f48828ed2327f4669258e6539356a282ce9301c3596b30a757bae54787906b9d507c8fc1ae19345d672c65497cf2b7bdaea935ccbaef0066d1b9355b6d6d"
+    }
+  ]
+}

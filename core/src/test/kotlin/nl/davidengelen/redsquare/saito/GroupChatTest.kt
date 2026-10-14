@@ -189,4 +189,39 @@ class GroupChatTest {
         }
     }
 
+    @Test fun namedGroupMessagesStayPlaintextWithBothPinnedWebSignaturesAndRejectRemovedSenders() {
+        val creation = requireNotNull(javaClass.getResourceAsStream("/native-group-chat-creation-reference.json"))
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject }
+        val group = GroupChat.readCreation(creation.get("envelope").asString)
+        val creator = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe fixture only.
+        val fixture = requireNotNull(javaClass.getResourceAsStream("/native-group-chat-message-reference.json"))
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
+        fixture.getAsJsonArray("vectors").forEach { value ->
+            val expected = value.asJsonObject
+            val tx = GroupChat.message(creator, group, expected.get("text").asString, expected.get("timestamp").asLong,
+                expected.getAsJsonArray("mentioned").map { it.asString })
+            assertEquals(expected.get("envelope").asString, tx.envelope())
+            assertEquals(expected.get("signature").asString, tx.id)
+            val received = GroupChat.readMessage(group, expected.get("envelope").asString)
+            assertEquals(expected.get("text").asString, received.text)
+            assertEquals(creator.publicKey, received.author)
+            assertEquals(group.id, received.groupId)
+            assertEquals(expected.get("timestamp").asLong, received.createdAt)
+            org.junit.Assert.assertTrue(SaitoEnvelope.decodePayload(tx.envelope()).body.isJsonObject)
+        }
+        val member = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
+        val original = GroupChat.message(member, group, "Public message", 1700000123457).envelope()
+        val remove = com.google.gson.JsonObject().apply {
+            addProperty("module", "Chat"); addProperty("request", "chat remove")
+            addProperty("group_id", group.id); addProperty("member_id", member.publicKey)
+        }
+        val banned = GroupChat.applyControl(group, SaitoTransaction.create(creator, remove, 1700000123458, listOf(group.id)).envelope())
+        org.junit.Assert.assertThrows(IllegalArgumentException::class.java) { GroupChat.readMessage(banned, original) }
+        org.junit.Assert.assertThrows(IllegalArgumentException::class.java) { GroupChat.message(member, banned, "No", 1700000123459) }
+        val wrong = SaitoEnvelope.decode(original).body.deepCopy().apply { addProperty("group_id", member.publicKey) }
+        org.junit.Assert.assertThrows(IllegalArgumentException::class.java) {
+            GroupChat.readMessage(group, SaitoTransaction.create(member, wrong, 1700000123460, listOf(group.id)).envelope())
+        }
+    }
+
 }

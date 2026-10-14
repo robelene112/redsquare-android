@@ -181,3 +181,18 @@ stays distinct from signed creation; no unsigned sender is automatically a membe
 Own signed join and claimed admin anchor the deliberate choice, not network admission.
 Restoration retains leave and duplicate-join behavior, and mismatched inviter fails.
 App controller must bind the join author to the selected wallet before accepting.
+
+## Plaintext named-group messages
+
+Both actual pinned createChatTransaction methods executed against a two-member
+named group with the public zero-payment wallet fixture and fixed timestamp.
+Initial whole-method equality failed: B adds private-contact registration only
+inside the encrypted DM branch. Both original methods execute unchanged; only
+comparison excludes exactly those lines. Named-group signed envelopes/signatures
+match byte-for-byte. This proves wire construction, not admission or DM changes.
+Native tracer RED1 stub then GREEN1PASS/build57s: exact independent envelopes,
+signatures/plaintext Unicode, group/author/time and removed/wrong-group rejection.
+Unknown ordinary authors follow existing web membership behavior without admin
+grants. Historical display must validate retained messages against their observed
+state, rather than erase an earlier accepted message after a later removal.
+Native group UI/persistence and full-ticket gates remain incomplete.

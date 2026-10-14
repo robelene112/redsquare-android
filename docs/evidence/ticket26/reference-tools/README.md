@@ -46,3 +46,13 @@ Join and self-leave share control-reference.cjs, retaining distinct entry script
 Run node /reference/leave-reference.cjs for self-leave. After extracting the shared
 setup, both outputs were regenerated offline and compared byte-for-byte with the
 committed join/leave corpora; both comparisons passed. No native source changed.
+
+The message extension is node /reference/message-reference.cjs. It executes both
+actual createChatTransaction methods with a two-member named group, zero-payment
+self-first wallet outputs and a fixed public timestamp. Named-group messages are
+plaintext even with two members. Original method text differs: B adds contact
+registration inside the encrypted-DM branch. The comparison excludes exactly
+that known addition; each original method executes unchanged, and the resulting
+group envelopes/signatures are byte-identical. Initial whole-method equality
+failed before producing a corpus; this was a reference assumption, not a product
+failure. This oracle does not initialize Saito, admit live writes or test DM changes.

@@ -53,3 +53,8 @@ This bounded refactor is being independently reviewed, not full #26 acceptance.
 Correction review66d9df30...05dc3be1: Standards0, previous duplication heuristic
 resolved; Spec0. All seven manifest hashes agree. Both preserve fixture-specific
 wire proof limits and distinguish unfinished Android/live/whole-ticket acceptance.
+
+Confirmed-invitation origin reviewa2990aeb...c28cad6e: Standards0 and Spec0.
+Unsigned provenance remains explicit, receipt/signer validation and replay survive,
+no sender membership invented. Active-wallet binding and deliberate confirmation
+remain controller responsibilities; no network admission or full UI claim.
