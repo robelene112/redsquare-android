@@ -45,3 +45,12 @@ was corrected.
 Native2-case GREENrun38646785704 ata3df6940 remains pending. This source review
 does not accept the unexecuted previous RED preservation/Retry tail or UI guidance,
 late Relay/authority/name cases, removal, process/fullSDK/publication requirements.
+
+## Controller fixture correction
+
+Bounded4bd1e525...d0d23d67: Spec0, Standards0. Shared protected fixture and actual
+submission callbacks have two callers; ordering, refusal/Retry, immutable original,
+status/name/role/draft/key/wallet/backend assertions and primary-preserving cleanup
+stay intact. Local compilePASS1m44. Post-refactor runtime and whole27 acceptance
+remain pending. Earlier pending runtime notes above are historical: two-case10
+38646785704 and three-case17 38647977521 passed and are retained separately.

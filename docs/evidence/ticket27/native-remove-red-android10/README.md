@@ -1,0 +1,1 @@
+Run38648870473 FAILED at4bd1e525da40f781f1ac4ea9de316bbd212cc039. Four cases, one failure,27.001s. Removal waits at57 for the absent Remove member control; confirmation, transmission, role and reopening assertions did not execute. Other three promotion/controller cases pass. Shell0 alone is not acceptance. Public unsafe fixture identities only, not whole27 acceptance.

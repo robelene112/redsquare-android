@@ -113,3 +113,16 @@ First removalUI tracer nowcompiles81984PASS1m30. It requires an explicit target/
 confirmation, compatible raw/Relay removal including notification of the removed
 target, retained draft/removed role and same wallet/backend/original afterrecreate.
 UI/store removal intentionally absent; firstRED dispatchnext. No removal success.
+
+First removal RED10run38648870473 at4bd1e525 FAILED:four cases,threePASS,
+one failure,27.001s. Missing Remove member control at57; original member dialog
+shows Promote only and retained draft. Confirmation/raw/Relay/removed-role/reopen
+tail unexecuted. Retainednative-remove-red-android10; shell0 is not acceptance.
+
+Review fixture correction d0d23d67 extracts shared setup and actual submission
+wiring with two actual controller callers. Compile53954PASS1m44, separate bounded
+Spec0/Standards0, all scenario assertions and cleanup preserved. Runtime pending.
+Removal minimum now in working tree: explicit target/confirmation, fresh canonical
+protected preparation before UNKNOWN, preserved draft/key/original, own-admin
+and retained removed-role guard at both raw and Relay. Relay includes removed
+target despite local optimistic role. Compile43045PASS3m5s/core4/debug/test; no removal GREEN yet.

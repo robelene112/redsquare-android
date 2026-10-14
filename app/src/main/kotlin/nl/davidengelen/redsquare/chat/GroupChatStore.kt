@@ -108,13 +108,22 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
 
     /** Validate the chosen promotion against fresh protected state before any network attempt. */
     fun preparePromotion(candidate:SaitoTransaction,member:String):Entry = synchronized(SaitoLocalState.lock) {
+        prepareAdminChange(candidate) { group,time -> GroupChat.promote(wallet,group,member,time) }
+    }
+
+    /** Persist a removal before transmission, keeping the removed recipient in its Relay. */
+    fun prepareRemoval(candidate:SaitoTransaction,member:String):Entry = synchronized(SaitoLocalState.lock) {
+        prepareAdminChange(candidate) { group,time -> GroupChat.removeMember(wallet,group,member,time) }
+    }
+
+    private fun prepareAdminChange(candidate:SaitoTransaction,create:(NamedChatGroup,Long)->SaitoTransaction):Entry {
         assertSelected()
         val signed=SaitoEnvelope.decode(candidate.envelope())
         val previous=requireNotNull(load(signed.body.get("group_id").asString))
         check(!previous.hasPendingAction)
-        // The fresh protected state must still permit exactly the user's chosen promotion.
-        require(GroupChat.promote(wallet,previous.group,member,signed.createdAt).envelope()==candidate.envelope())
-        save(previous.copy(group=GroupChat.applyControl(previous.group,candidate.envelope()),candidate=candidate,
+        // Fresh protected state must still permit exactly the user's chosen change.
+        require(create(previous.group,signed.createdAt).envelope()==candidate.envelope())
+        return save(previous.copy(group=GroupChat.applyControl(previous.group,candidate.envelope()),candidate=candidate,
             status=Status.UNKNOWN,originals=previous.originals+candidate.envelope()))
     }
 
@@ -225,7 +234,8 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
             check(signed.recipients.all{entry.group.memberRoles[it]?.active==true})
             return@synchronized signed.recipients
         }
-        val members=entry.group.memberRoles.filterValues{it.active}.keys.filter{it!=wallet.publicKey}
+        val removed=if(request=="chat remove")signed.body.get("member_id").asString else null
+        val members=entry.group.memberRoles.filter{(key,role)->role.active||key==removed}.keys.filter{it!=wallet.publicKey}
         members.ifEmpty{listOf(wallet.publicKey)}
     }
 
@@ -237,6 +247,11 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         }
         val selfLeave=signed.body.get("request").asString=="chat remove" &&
             signed.body.get("member_id").asString==wallet.publicKey
+        if(signed.body.get("request").asString=="chat remove"&&!selfLeave) {
+            check(entry.group.memberRoles[wallet.publicKey]==ChatGroupRole.ADMIN)
+            check(entry.group.memberRoles[signed.body.get("member_id").asString]==ChatGroupRole.REMOVED)
+            return
+        }
         check(if(selfLeave)entry.group.memberRoles[wallet.publicKey]==ChatGroupRole.LEFT
             else entry.group.memberRoles[wallet.publicKey]?.active==true)
     }

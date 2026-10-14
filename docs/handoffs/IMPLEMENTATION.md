@@ -28,12 +28,25 @@ APKsha0b34d6e6537ebc130c841cb884a7a9253c0b2a181ed6dc37cb4511e500721163,
 cert6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2.
 Signed15immutable preserved. recordsdocs/evidence/ticket39, no ownedlocalbuildactive.
 
-Current sequential issue27 admin promotion/removal, assigned@me; reviewbase7979c655164257e08b184834810de03a80d92b67. Promotion/removal oracleA/B passed; core4GREEN, first nativeUIRED38643093967 activeat86cf1beb, noUI/nativeacceptanceyet.26 prerequisiteclosed; owner
-resume stays active, continue remaining issues without stopping after39. Root
-read-only prep compared pinned A/B menu methods: exactsame30ec0c4ed9c7f9ac1010acbea497eae832317a91c9528107815bd9bc2ac2c00c.
-Active ordinary members only can be promoted/removed by admin; actual constructors
-sendUpdateGroupTransaction(group,targetnull) and sendRemoveMemberTransaction.
-Filesignored.scratch/group27-menu-A.js/B.js/template-A.js. Core27 four focused casesGREEN: A/B promotion/removal envelopes/signatures plus actualforeignreceivers, currentadmin/ordinaryactive-member guards, duplicate removal replay. RED/GREENlogs retainedticket27. FirstAndroidpromotiontracer compilePASS3m34s; predispatchfixture corrections Messageenabled/literaladmin/actualcandidateForwarded wait. New group-admin(+android17) focusedharness added; finalfull includesnewclass. Firstnative10RED38643093967 FAILED1/20.967 at57 missingPromotebutton; rootcaptureactualmemberdialog. NativepromoteUI/store nowimplemented, compile22355PASS3m13s/core4, firstpositive10GREEN38644615973 PASSead3c7e6/1case9.505s, rootoriginalroles/draft inspected. TrancheSpec1 stale snapshottransmissionfinding unresolved; Standards staleRED-active doc fixed. Newstaleapplicationtracer compile79371PASS3m2, StaleRED38645475499 FAILED2cases1failure11.837 at51 (normalreturn), positiveUIPASS; laterzero-send/Retrytailunexecuted. Fullsnapshot name/rolesguard nowimplementedinGroupChat.assertCurrentUpdate atbothrawclaim/Relay; compile30441PASS3m21/core4, separate correction source reviews0/0. Native2caseGREEN38646785704 SUCCESSata3df6940/11.887s; bothpositiveUI andstalezero-send/Retryfulltail accepted, sourcepush38646774637core114/release/lintSUCCESS. New lateRename-afterRaw-beforeRelay testcompile73693PASS1m46s, firstnative17run38647977521 SUCCESS75754bde3cases34.467s, lateRenameexactRaw/noRelay/SUBMITTED/RetrytailPASS; no newRED claimed foradditionalexistingguardcoverage. Noownedlocalbuildactive. FirstremovalUItracer compile81984PASS1m30, native10REDnext; no removalUI/store yet. BoundedStandards duplicatecontroller fixture/submission helper finding tofix inreview. No whole27acceptance. Bounded core Spec0/Standards stalehandoff+duplicateguard findings fixed; helperrequireAdminTarget recheck4PASS1m, correctionreviews0/0. Noownedlocalbuildactive. FirstremovalUItracer compile81984PASS1m30, native10REDnext; no removalUI/store yet. BoundedStandards duplicatecontroller fixture/submission helper finding tofix inreview. CanonicalnotesNATIVE_GROUP_ADMIN_VERIFICATION.md.
+Current sequential issue27: admin promotion and member removal, assigned@me.
+Review base7979c655164257e08b184834810de03a80d92b67; prerequisite26 closed.
+Independent pinned A/B constructors/receivers and four focused core cases pass.
+Promotion UI passed Android10 (38644615973,ead3c7e6,1case9.505s).
+Stale target RED38645475499 was corrected by current full-snapshot checks at both
+raw claim and Relay enqueue. Android10 GREEN38646785704 at a3df6940 passed both
+cases11.887s; source checks core114/release/lint passed. Additional late rename
+coverage passed Android17 run38647977521 at75754bde,three cases34.467s.
+First removal UI RED38648870473 at4bd1e525: four cases,three pass,one failure,
+27.001s. Removal fails at57 waiting for the absent Remove control; its subsequent
+confirmation/transmission/role/reopening tail is unexecuted. Original capture
+inspected and evidence retained native-remove-red-android10.
+Controller fixture duplication corrected in d0d23d67, compilePASS1m44 and separate
+bounded Spec/Standards reviews zero findings. Post-refactor runtime still pending.
+Removal UI, fresh protected preparation, current-admin send guards and notification
+of the removed recipient are now implemented in working tree. Owned compile43045
+PASS3m5s/core4/debug/test; no removal GREEN or whole27 acceptance yet. Failure guidance, authority
+changes, process recovery, full10/17, final reviews and publication remain.
+Canonical chronology docs/research/NATIVE_GROUP_ADMIN_VERIFICATION.md.
 Then28 through36 and parked16/17/19 from native dependencies.16 requires Android-
 authorized Giphy credentials/URLretention;17 publicprovider playbackrefused despite
 controlledplayerGREEN;19 Registryavailabilityunproved. Research concrete newevidence,
