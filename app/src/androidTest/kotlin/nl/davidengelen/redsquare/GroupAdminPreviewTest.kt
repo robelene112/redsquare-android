@@ -16,141 +16,82 @@ import java.io.File
 class GroupAdminPreviewTest {
     @get:Rule val ui=createEmptyComposeRule()
 
-    @Test fun anAdminCanRemoveAMemberAndRetainTheDraftAndRemovalAfterReopening() {
-        val context=InstrumentationRegistry.getInstrumentation().targetContext
-        check(context.packageName=="nl.davidengelen.redsquare.dev"&&Build.HARDWARE in listOf("ranchu","goldfish"))
-        val wallets=AndroidWalletStore(context)
-        val original=wallets.loadOrCreate()
-        val backend=AndroidBackendStore(context).load()
-        val key=SaitoWallet.fromPrivateKey("0".repeat(63)+"6") // Public unsafe fixtures only.
-        val member=SaitoWallet.fromPrivateKey("0".repeat(63)+"2").publicKey
-        val fixture=SaitoWallet.fromPrivateKey("0".repeat(63)+"1").withNamedChatGroup(key.publicKey,"Removal beta group",key)
-        val creation=GroupChat.create(fixture,key.publicKey,"Removal beta group",listOf(member),1700000123456)
-        val filename="groupchat.${backend.id}.${fixture.publicKey}.${key.publicKey}.v1"
-        val names=listOf(filename,"$filename.bak","$filename.new")
-        synchronized(SaitoLocalState.lock){check(names.none{File(context.noBackupFilesDir,it).exists()})}
-        val preferences=listOf("wallet-backup-reminders" to "hidden:${fixture.publicKey}","notification-permission" to "offered").map{(name,keyName)->
-            val prefs=context.getSharedPreferences(name,0)
-            Triple(prefs,keyName,if(prefs.contains(keyName))prefs.getBoolean(keyName,false)else null)
-        }
-        val peer=ControlledFeedPeer("[]",advertisedServices="archive||;relay||",archiveResponse={"[]"})
-        var primary:Throwable?=null
-        try {
-            wallets.replace(original,fixture)
-            preferences.forEach{(prefs,keyName,_)->check(prefs.edit().putBoolean(keyName,true).commit())}
-            val store=GroupChatStore(context,fixture,backend)
-            store.prepareCreation(creation,key);store.record(key.publicKey,creation.id,GroupChatStore.Status.FORWARDED)
-            peer.start().use{server->
-                ActivityScenario.launch<MainActivity>(Intent(context,MainActivity::class.java)
-                    .putExtra("feedPeerUrl","ws://127.0.0.1:${server.port}/wsopen")
-                    .putExtra("feedOfficialPeerUrl","ws://127.0.0.1:${server.port}/wsopen")).use{scenario->
-                    withFailureCapture({captureNativeScreen(File(context.cacheDir,"group-admin-evidence/removal-failure.png"))}) {
-                        fun open(fromFeed:Boolean=false) {
-                            if(fromFeed){waitForEnabled("Chat");ui.onNodeWithText("Chat").performClick()}
-                            waitFor("Groups");ui.onNodeWithText("Groups").performClick()
-                            waitFor("Removal beta group");ui.onNodeWithText("Removal beta group").performClick()
-                        }
-                        open(fromFeed=true);waitForEnabled("Message")
-                        ui.onNodeWithText("Message").performTextInput("Retain this removal draft")
-                        androidx.test.espresso.Espresso.closeSoftKeyboard()
-                        ui.onNodeWithText("Members").performClick()
-                        ui.waitUntil(15_000){ui.onAllNodesWithContentDescription("Remove member $member").fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()}
-                        ui.onNodeWithContentDescription("Remove member $member").assertIsDisplayed().assertIsEnabled().performClick()
-                        waitForEnabled("Confirm removal");ui.onNodeWithText("Confirm removal").performClick()
-                        ui.waitUntil(15_000){peer.transactions.size==1&&peer.relayedMessages.size==1}
-                        ui.waitUntil(15_000){store.load(key.publicKey)?.let{it.status==GroupChatStore.Status.FORWARDED&&it.candidate?.id!=creation.id}==true}
-                        waitFor("Forwarded. Delivery is not confirmed.")
-                        val saved=requireNotNull(store.load(key.publicKey));val candidate=requireNotNull(saved.candidate)
-                        val signed=SaitoEnvelope.decode(candidate.envelope())
-                        check(signed.author==fixture.publicKey&&signed.body.get("request").asString=="chat remove")
-                        check(signed.body.get("member_id").asString==member&&signed.body.get("group_id").asString==key.publicKey)
-                        check(postingTransaction(peer.transactions.single()).envelope()==candidate.envelope())
-                        check(SaitoEnvelope.fromSignedJson(peer.relayedMessages.single())==candidate.envelope())
-                        check(peer.relayRecipients.single()==listOf(fixture.publicKey,member))
-                        check(saved.group.memberRoles[member]==ChatGroupRole.REMOVED&&saved.draft=="Retain this removal draft")
-                        waitForEnabled("Members");ui.onNodeWithText("Members").performClick()
-                        ui.onNodeWithText("removed").assertIsDisplayed()
-                        ui.onNodeWithContentDescription("Remove member $member").assertDoesNotExist()
-                        captureNativeScreen(File(context.cacheDir,"group-admin-evidence/removed.png"),member)
-                        ui.onNodeWithText("Done").performClick()
-                        scenario.recreate();open();waitFor("Retain this removal draft")
-                        ui.onNodeWithText("Members").performClick()
-                        ui.onNodeWithText("removed").assertIsDisplayed()
-                        check(store.load(key.publicKey)!!.candidate!!.envelope()==candidate.envelope())
-                        check(wallets.loadExisting().exportJson()==fixture.exportJson()&&AndroidBackendStore(context).load()==backend)
-                        check(peer.transactions.size==1&&peer.relayedMessages.size==1)
-                        captureNativeScreen(File(context.cacheDir,"group-admin-evidence/removed-reopened.png"),member)
-                        peer.assertHealthy()
-                    }
-                }
+    @Test fun anAdminCanRemoveAMemberAndRetainTheDraftAndRemovalAfterReopening() =
+        withAdminUi("6","Removal beta group","removal-failure.png") { test ->
+            val context=test.context;val wallets=test.wallets;val backend=test.backend
+            val fixture=test.wallet;val key=test.key;val member=test.memberWallet.publicKey
+            val creation=test.creation;val store=test.store;val peer=test.peer;val scenario=test.scenario
+            fun open(fromFeed:Boolean=false) {
+                if(fromFeed){waitForEnabled("Chat");ui.onNodeWithText("Chat").performClick()}
+                waitFor("Groups");ui.onNodeWithText("Groups").performClick()
+                waitFor("Removal beta group");ui.onNodeWithText("Removal beta group").performClick()
             }
-        }catch(failure:Throwable){primary=failure;throw failure}
-        finally{cleanupAfterTest(primary,
-            {synchronized(SaitoLocalState.lock){names.forEach{val file=File(context.noBackupFilesDir,it);check(!file.exists()||file.delete())}}},
-            {wallets.replace(wallets.loadExisting(),original)},
-            *preferences.map{(prefs,keyName,value)->{check(prefs.edit().apply{if(value==null)remove(keyName)else putBoolean(keyName,value)}.commit());Unit}}.toTypedArray())}
-    }
+            open(fromFeed=true);waitForEnabled("Message")
+            ui.onNodeWithText("Message").performTextInput("Retain this removal draft")
+            androidx.test.espresso.Espresso.closeSoftKeyboard()
+            ui.onNodeWithText("Members").performClick()
+            ui.waitUntil(15_000){ui.onAllNodesWithContentDescription("Remove member $member").fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()}
+            ui.onNodeWithContentDescription("Remove member $member").assertIsDisplayed().assertIsEnabled().performClick()
+            waitForEnabled("Confirm removal");ui.onNodeWithText("Confirm removal").performClick()
+            ui.waitUntil(15_000){peer.transactions.size==1&&peer.relayedMessages.size==1}
+            ui.waitUntil(15_000){store.load(key.publicKey)?.let{it.status==GroupChatStore.Status.FORWARDED&&it.candidate?.id!=creation.id}==true}
+            waitFor("Forwarded. Delivery is not confirmed.")
+            val saved=requireNotNull(store.load(key.publicKey));val candidate=requireNotNull(saved.candidate)
+            val signed=SaitoEnvelope.decode(candidate.envelope())
+            check(signed.author==fixture.publicKey&&signed.body.get("request").asString=="chat remove")
+            check(signed.body.get("member_id").asString==member&&signed.body.get("group_id").asString==key.publicKey)
+            check(postingTransaction(peer.transactions.single()).envelope()==candidate.envelope())
+            check(SaitoEnvelope.fromSignedJson(peer.relayedMessages.single())==candidate.envelope())
+            check(peer.relayRecipients.single()==listOf(fixture.publicKey,member))
+            check(saved.group.memberRoles[member]==ChatGroupRole.REMOVED&&saved.draft=="Retain this removal draft")
+            waitForEnabled("Members");ui.onNodeWithText("Members").performClick()
+            ui.onNodeWithText("removed").assertIsDisplayed()
+            ui.onNodeWithContentDescription("Remove member $member").assertDoesNotExist()
+            captureNativeScreen(File(context.cacheDir,"group-admin-evidence/removed.png"),member)
+            ui.onNodeWithText("Done").performClick()
+            scenario.recreate();open();waitFor("Retain this removal draft")
+            ui.onNodeWithText("Members").performClick()
+            ui.onNodeWithText("removed").assertIsDisplayed()
+            check(store.load(key.publicKey)!!.candidate!!.envelope()==candidate.envelope())
+            check(wallets.loadExisting().exportJson()==fixture.exportJson()&&AndroidBackendStore(context).load()==backend)
+            check(peer.transactions.size==1&&peer.relayedMessages.size==1)
+            captureNativeScreen(File(context.cacheDir,"group-admin-evidence/removed-reopened.png"),member)
+            peer.assertHealthy()
 
-    @Test fun aPromotionConfirmationUpdatesWhenItsTargetLeaves() {
-        val context=InstrumentationRegistry.getInstrumentation().targetContext
-        check(context.packageName=="nl.davidengelen.redsquare.dev"&&Build.HARDWARE in listOf("ranchu","goldfish"))
-        val wallets=AndroidWalletStore(context);val original=wallets.loadOrCreate()
-        val backend=AndroidBackendStore(context).load()
-        val key=SaitoWallet.fromPrivateKey("0".repeat(63)+"5") // Public unsafe fixtures only.
-        val member=SaitoWallet.fromPrivateKey("0".repeat(63)+"2")
-        val fixture=SaitoWallet.fromPrivateKey("0".repeat(63)+"1").withNamedChatGroup(key.publicKey,"Stale confirmation",key)
-        val filename="groupchat.${backend.id}.${fixture.publicKey}.${key.publicKey}.v1"
-        val names=listOf(filename,"$filename.bak","$filename.new")
-        synchronized(SaitoLocalState.lock){check(names.none{File(context.noBackupFilesDir,it).exists()})}
-        val preferences=listOf("wallet-backup-reminders" to "hidden:${fixture.publicKey}","notification-permission" to "offered").map{(name,keyName)->
-            val prefs=context.getSharedPreferences(name,0)
-            Triple(prefs,keyName,if(prefs.contains(keyName))prefs.getBoolean(keyName,false)else null)
         }
-        val peer=ControlledFeedPeer("[]",advertisedServices="archive||;relay||",archiveResponse={"[]"})
-        var primary:Throwable?=null
-        try {
-            wallets.replace(original,fixture)
-            preferences.forEach{(prefs,keyName,_)->check(prefs.edit().putBoolean(keyName,true).commit())}
-            val store=GroupChatStore(context,fixture,backend)
-            val creation=GroupChat.create(fixture,key.publicKey,"Stale confirmation",listOf(member.publicKey),1700000123456)
-            store.prepareCreation(creation,key);store.record(key.publicKey,creation.id,GroupChatStore.Status.FORWARDED)
-            peer.start().use{server->ActivityScenario.launch<MainActivity>(Intent(context,MainActivity::class.java)
-                .putExtra("feedPeerUrl","ws://127.0.0.1:${server.port}/wsopen")
-                .putExtra("feedOfficialPeerUrl","ws://127.0.0.1:${server.port}/wsopen")).use{
-                withFailureCapture({captureNativeScreen(File(context.cacheDir,"group-admin-evidence/stale-confirmation-failure.png"))}) {
-                    waitForEnabled("Chat");ui.onNodeWithText("Chat").performClick()
-                    waitFor("Groups");ui.onNodeWithText("Groups").performClick()
-                    waitFor("Stale confirmation");ui.onNodeWithText("Stale confirmation").performClick()
-                    waitForEnabled("Message");ui.onNodeWithText("Message").performTextInput("Keep this confirmation draft")
-                    androidx.test.espresso.Espresso.closeSoftKeyboard()
-                    ui.onNodeWithText("Members").performClick()
-                    ui.onNodeWithContentDescription("Promote member ${member.publicKey}").performClick()
-                    waitForEnabled("Confirm promotion")
-                    val leave=GroupChat.leave(member,key.publicKey,1700000123457)
-                    ui.waitUntil(15_000){peer.authenticatedConnectionIds.isNotEmpty()}
-                    peer.sendIncoming(leave.applicationRequest(1).let{it.copyOfRange(5,it.size)},779)
-                    ui.waitUntil(15_000){store.load(key.publicKey)?.group?.memberRoles?.get(member.publicKey)==ChatGroupRole.LEFT}
-                    waitFor("Group membership changed. Close this dialog and review the current members.")
-                    ui.onNodeWithText("Confirm promotion").assertIsDisplayed().assertIsNotEnabled()
-                    ui.onNodeWithText("Cancel").performClick()
-                    waitFor("Keep this confirmation draft")
-                    ui.onNodeWithText("Members").performClick();waitFor("left")
-                    ui.onNodeWithContentDescription("Promote member ${member.publicKey}").assertDoesNotExist()
-                    val saved=requireNotNull(store.load(key.publicKey))
-                    check(saved.candidate!!.envelope()==creation.envelope()&&saved.status==GroupChatStore.Status.FORWARDED)
-                    check(saved.draft=="Keep this confirmation draft"&&saved.creationKey!!.exportJson()==key.exportJson())
-                    check(peer.transactions.isEmpty()&&peer.relayedMessages.isEmpty())
-                    check(wallets.loadExisting().exportJson()==fixture.exportJson()&&AndroidBackendStore(context).load()==backend)
-                    captureNativeScreen(File(context.cacheDir,"group-admin-evidence/stale-confirmation.png"),member.publicKey)
-                    peer.assertHealthy()
-                }
-            }}
-        }catch(failure:Throwable){primary=failure;throw failure}
-        finally{cleanupAfterTest(primary,
-            {synchronized(SaitoLocalState.lock){names.forEach{val file=File(context.noBackupFilesDir,it);check(!file.exists()||file.delete())}}},
-            {wallets.replace(wallets.loadExisting(),original)},
-            *preferences.map{(prefs,keyName,value)->{check(prefs.edit().apply{if(value==null)remove(keyName)else putBoolean(keyName,value)}.commit());Unit}}.toTypedArray())}
-    }
+
+    @Test fun aPromotionConfirmationUpdatesWhenItsTargetLeaves() =
+        withAdminUi("5","Stale confirmation","stale-confirmation-failure.png") { test ->
+            val context=test.context;val wallets=test.wallets;val backend=test.backend
+            val fixture=test.wallet;val key=test.key;val member=test.memberWallet
+            val creation=test.creation;val store=test.store;val peer=test.peer;val scenario=test.scenario
+            waitForEnabled("Chat");ui.onNodeWithText("Chat").performClick()
+            waitFor("Groups");ui.onNodeWithText("Groups").performClick()
+            waitFor("Stale confirmation");ui.onNodeWithText("Stale confirmation").performClick()
+            waitForEnabled("Message");ui.onNodeWithText("Message").performTextInput("Keep this confirmation draft")
+            androidx.test.espresso.Espresso.closeSoftKeyboard()
+            ui.onNodeWithText("Members").performClick()
+            ui.onNodeWithContentDescription("Promote member ${member.publicKey}").performClick()
+            waitForEnabled("Confirm promotion")
+            val leave=GroupChat.leave(member,key.publicKey,1700000123457)
+            ui.waitUntil(15_000){peer.authenticatedConnectionIds.isNotEmpty()}
+            peer.sendIncoming(leave.applicationRequest(1).let{it.copyOfRange(5,it.size)},779)
+            ui.waitUntil(15_000){store.load(key.publicKey)?.group?.memberRoles?.get(member.publicKey)==ChatGroupRole.LEFT}
+            waitFor("Group membership changed. Close this dialog and review the current members.")
+            ui.onNodeWithText("Confirm promotion").assertIsDisplayed().assertIsNotEnabled()
+            ui.onNodeWithText("Cancel").performClick()
+            waitFor("Keep this confirmation draft")
+            ui.onNodeWithText("Members").performClick();waitFor("left")
+            ui.onNodeWithContentDescription("Promote member ${member.publicKey}").assertDoesNotExist()
+            val saved=requireNotNull(store.load(key.publicKey))
+            check(saved.candidate!!.envelope()==creation.envelope()&&saved.status==GroupChatStore.Status.FORWARDED)
+            check(saved.draft=="Keep this confirmation draft"&&saved.creationKey!!.exportJson()==key.exportJson())
+            check(peer.transactions.isEmpty()&&peer.relayedMessages.isEmpty())
+            check(wallets.loadExisting().exportJson()==fixture.exportJson()&&AndroidBackendStore(context).load()==backend)
+            captureNativeScreen(File(context.cacheDir,"group-admin-evidence/stale-confirmation.png"),member.publicKey)
+            peer.assertHealthy()
+
+        }
 
     @Test fun aPromotionStopsAtRelayWhenARenameArrivesAfterRawSubmission() =
         withPreparedPromotion("7","Before rename","Keep this rename draft") { fixture ->
@@ -220,6 +161,47 @@ class GroupAdminPreviewTest {
             fixture.assertOwnerUnchanged();fixture.peer.assertHealthy()
         }
 
+    private class AdminUiFixture(val context:android.content.Context,val wallets:AndroidWalletStore,val backend:SaitoBackend,
+        val wallet:SaitoWallet,val memberWallet:SaitoWallet,val key:SaitoWallet,val creation:SaitoTransaction,
+        val store:GroupChatStore,val peer:ControlledFeedPeer,val scenario:ActivityScenario<MainActivity>)
+
+    private fun withAdminUi(groupScalar:String,name:String,failureCapture:String,journey:(AdminUiFixture)->Unit) {
+        val context=InstrumentationRegistry.getInstrumentation().targetContext
+        check(context.packageName=="nl.davidengelen.redsquare.dev"&&Build.HARDWARE in listOf("ranchu","goldfish"))
+        val wallets=AndroidWalletStore(context);val original=wallets.loadOrCreate()
+        val backend=AndroidBackendStore(context).load()
+        val key=SaitoWallet.fromPrivateKey("0".repeat(63)+groupScalar) // Public unsafe fixtures only.
+        val member=SaitoWallet.fromPrivateKey("0".repeat(63)+"2")
+        val fixture=SaitoWallet.fromPrivateKey("0".repeat(63)+"1").withNamedChatGroup(key.publicKey,name,key)
+        val filename="groupchat.${backend.id}.${fixture.publicKey}.${key.publicKey}.v1"
+        val names=listOf(filename,"$filename.bak","$filename.new")
+        synchronized(SaitoLocalState.lock){check(names.none{File(context.noBackupFilesDir,it).exists()})}
+        val preferences=listOf("wallet-backup-reminders" to "hidden:${fixture.publicKey}","notification-permission" to "offered").map{(prefsName,keyName)->
+            val prefs=context.getSharedPreferences(prefsName,0)
+            Triple(prefs,keyName,if(prefs.contains(keyName))prefs.getBoolean(keyName,false)else null)
+        }
+        val peer=ControlledFeedPeer("[]",advertisedServices="archive||;relay||",archiveResponse={"[]"})
+        var primary:Throwable?=null
+        try {
+            wallets.replace(original,fixture)
+            preferences.forEach{(prefs,keyName,_)->check(prefs.edit().putBoolean(keyName,true).commit())}
+            val store=GroupChatStore(context,fixture,backend)
+            val creation=GroupChat.create(fixture,key.publicKey,name,listOf(member.publicKey),1700000123456)
+            store.prepareCreation(creation,key);store.record(key.publicKey,creation.id,GroupChatStore.Status.FORWARDED)
+            peer.start().use{server->ActivityScenario.launch<MainActivity>(Intent(context,MainActivity::class.java)
+                .putExtra("feedPeerUrl","ws://127.0.0.1:${server.port}/wsopen")
+                .putExtra("feedOfficialPeerUrl","ws://127.0.0.1:${server.port}/wsopen")).use{scenario->
+                withFailureCapture({captureNativeScreen(File(context.cacheDir,"group-admin-evidence/$failureCapture"))}) {
+                    journey(AdminUiFixture(context,wallets,backend,fixture,member,key,creation,store,peer,scenario))
+                }
+            }}
+        }catch(failure:Throwable){primary=failure;throw failure}
+        finally{cleanupAfterTest(primary,
+            {synchronized(SaitoLocalState.lock){names.forEach{val file=File(context.noBackupFilesDir,it);check(!file.exists()||file.delete())}}},
+            {wallets.replace(wallets.loadExisting(),original)},
+            *preferences.map{(prefs,keyName,value)->{check(prefs.edit().apply{if(value==null)remove(keyName)else putBoolean(keyName,value)}.commit());Unit}}.toTypedArray())}
+    }
+
     private class PromotionDelivery(val wallets:AndroidWalletStore,val backendStore:AndroidBackendStore,val backend:SaitoBackend,
         val wallet:SaitoWallet,val member:SaitoWallet,val key:SaitoWallet,val store:GroupChatStore,
         val candidate:SaitoTransaction,val peer:ControlledFeedPeer,private val endpoint:String) {
@@ -265,80 +247,49 @@ class GroupAdminPreviewTest {
             {wallets.replace(wallets.loadExisting(),original)})}
     }
 
-    @Test fun anAdminCanPromoteAMemberWithoutLosingTheDraftAndReopenTheNewRole() {
-        val context=InstrumentationRegistry.getInstrumentation().targetContext
-        check(context.packageName=="nl.davidengelen.redsquare.dev"&&Build.HARDWARE in listOf("ranchu","goldfish"))
-        val wallets=AndroidWalletStore(context)
-        val original=wallets.loadOrCreate()
-        val backend=AndroidBackendStore(context).load()
-        val key=SaitoWallet.fromPrivateKey("0".repeat(63)+"9") // Public unsafe fixtures only.
-        val member=SaitoWallet.fromPrivateKey("0".repeat(63)+"2").publicKey
-        val fixture=SaitoWallet.fromPrivateKey("0".repeat(63)+"1").withNamedChatGroup(key.publicKey,"Admin beta group",key)
-        val creation=GroupChat.create(fixture,key.publicKey,"Admin beta group",listOf(member),1700000123456)
-        val filename="groupchat.${backend.id}.${fixture.publicKey}.${key.publicKey}.v1"
-        val names=listOf(filename,"$filename.bak","$filename.new")
-        synchronized(SaitoLocalState.lock){check(names.none{File(context.noBackupFilesDir,it).exists()})}
-        val preferences=listOf("wallet-backup-reminders" to "hidden:${fixture.publicKey}","notification-permission" to "offered").map{(name,keyName)->
-            val prefs=context.getSharedPreferences(name,0)
-            Triple(prefs,keyName,if(prefs.contains(keyName))prefs.getBoolean(keyName,false)else null)
-        }
-        val peer=ControlledFeedPeer("[]",advertisedServices="archive||;relay||",archiveResponse={"[]"})
-        var primary:Throwable?=null
-        try {
-            wallets.replace(original,fixture)
-            preferences.forEach{(prefs,keyName,_)->check(prefs.edit().putBoolean(keyName,true).commit())}
-            val store=GroupChatStore(context,fixture,backend)
-            store.prepareCreation(creation,key);store.record(key.publicKey,creation.id,GroupChatStore.Status.FORWARDED)
-            peer.start().use{server->
-                ActivityScenario.launch<MainActivity>(Intent(context,MainActivity::class.java)
-                    .putExtra("feedPeerUrl","ws://127.0.0.1:${server.port}/wsopen")
-                    .putExtra("feedOfficialPeerUrl","ws://127.0.0.1:${server.port}/wsopen")).use{scenario->
-                    withFailureCapture({captureNativeScreen(File(context.cacheDir,"group-admin-evidence/failure.png"))}) {
-                        fun open(fromFeed:Boolean=false) {
-                            if(fromFeed){waitForEnabled("Chat");ui.onNodeWithText("Chat").assertIsDisplayed().performClick()}
-                            waitFor("Groups");ui.onNodeWithText("Groups").performClick()
-                            waitFor("Admin beta group");ui.onNodeWithText("Admin beta group").performClick()
-                        }
-                        open(fromFeed=true);waitForEnabled("Message")
-                        ui.onNodeWithText("Message").performTextInput("Retain this admin draft")
-                        androidx.test.espresso.Espresso.closeSoftKeyboard()
-                        ui.onNodeWithText("Members").assertIsDisplayed().performClick()
-                        ui.waitUntil(15_000){ui.onAllNodesWithContentDescription("Promote member $member").fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()}
-                        ui.onNodeWithContentDescription("Promote member $member").assertIsDisplayed().assertIsEnabled().performClick()
-                        waitForEnabled("Confirm promotion");ui.onNodeWithText("Confirm promotion").performClick()
-                        ui.waitUntil(15_000){peer.transactions.size==1&&peer.relayedMessages.size==1}
-                        ui.waitUntil(15_000){store.load(key.publicKey)?.let{it.status==GroupChatStore.Status.FORWARDED&&it.candidate?.id!=creation.id}==true}
-                        waitFor("Forwarded. Delivery is not confirmed.")
-                        val saved=requireNotNull(store.load(key.publicKey));val candidate=requireNotNull(saved.candidate)
-                        val signed=SaitoEnvelope.decode(candidate.envelope())
-                        check(signed.author==fixture.publicKey&&signed.body.get("request").asString=="chat update")
-                        check(signed.body.get("member_ids").asJsonObject.get(member).asString=="admin")
-                        check(postingTransaction(peer.transactions.single()).envelope()==candidate.envelope())
-                        check(SaitoEnvelope.fromSignedJson(peer.relayedMessages.single())==candidate.envelope())
-                        check(peer.relayRecipients.single()==listOf(fixture.publicKey,member))
-                        check(saved.group.memberRoles[member]==ChatGroupRole.ADMIN&&saved.draft=="Retain this admin draft")
-                        ui.onNodeWithText("Members").performClick()
-                        ui.onNodeWithContentDescription("Promote member $member").assertDoesNotExist()
-                        ui.onAllNodesWithText("admin").assertCountEquals(2)
-                        captureNativeScreen(File(context.cacheDir,"group-admin-evidence/promoted.png"),member)
-                        ui.onNodeWithText("Done").performClick()
-                        scenario.recreate();open();waitFor("Retain this admin draft")
-                        ui.onNodeWithText("Members").performClick()
-                        ui.onAllNodesWithText("admin").assertCountEquals(2)
-                        check(store.load(key.publicKey)!!.candidate!!.envelope()==candidate.envelope())
-                        check(wallets.loadExisting().exportJson()==fixture.exportJson()&&AndroidBackendStore(context).load()==backend)
-                        check(peer.transactions.size==1&&peer.relayedMessages.size==1)
-                        captureNativeScreen(File(context.cacheDir,"group-admin-evidence/promoted-reopened.png"),member)
-                        peer.assertHealthy()
-                    }
-                }
+    @Test fun anAdminCanPromoteAMemberWithoutLosingTheDraftAndReopenTheNewRole() =
+        withAdminUi("9","Admin beta group","failure.png") { test ->
+            val context=test.context;val wallets=test.wallets;val backend=test.backend
+            val fixture=test.wallet;val key=test.key;val member=test.memberWallet.publicKey
+            val creation=test.creation;val store=test.store;val peer=test.peer;val scenario=test.scenario
+            fun open(fromFeed:Boolean=false) {
+                if(fromFeed){waitForEnabled("Chat");ui.onNodeWithText("Chat").assertIsDisplayed().performClick()}
+                waitFor("Groups");ui.onNodeWithText("Groups").performClick()
+                waitFor("Admin beta group");ui.onNodeWithText("Admin beta group").performClick()
             }
-        }catch(failure:Throwable){primary=failure;throw failure}
-        finally{cleanupAfterTest(primary,
-            {synchronized(SaitoLocalState.lock){names.forEach{val file=File(context.noBackupFilesDir,it);check(!file.exists()||file.delete())}}},
-            {wallets.replace(wallets.loadExisting(),original)},
-            *preferences.map{(prefs,keyName,value)->{check(prefs.edit().apply{if(value==null)remove(keyName)else putBoolean(keyName,value)}.commit());Unit}}.toTypedArray())}
-    }
+            open(fromFeed=true);waitForEnabled("Message")
+            ui.onNodeWithText("Message").performTextInput("Retain this admin draft")
+            androidx.test.espresso.Espresso.closeSoftKeyboard()
+            ui.onNodeWithText("Members").assertIsDisplayed().performClick()
+            ui.waitUntil(15_000){ui.onAllNodesWithContentDescription("Promote member $member").fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()}
+            ui.onNodeWithContentDescription("Promote member $member").assertIsDisplayed().assertIsEnabled().performClick()
+            waitForEnabled("Confirm promotion");ui.onNodeWithText("Confirm promotion").performClick()
+            ui.waitUntil(15_000){peer.transactions.size==1&&peer.relayedMessages.size==1}
+            ui.waitUntil(15_000){store.load(key.publicKey)?.let{it.status==GroupChatStore.Status.FORWARDED&&it.candidate?.id!=creation.id}==true}
+            waitFor("Forwarded. Delivery is not confirmed.")
+            val saved=requireNotNull(store.load(key.publicKey));val candidate=requireNotNull(saved.candidate)
+            val signed=SaitoEnvelope.decode(candidate.envelope())
+            check(signed.author==fixture.publicKey&&signed.body.get("request").asString=="chat update")
+            check(signed.body.get("member_ids").asJsonObject.get(member).asString=="admin")
+            check(postingTransaction(peer.transactions.single()).envelope()==candidate.envelope())
+            check(SaitoEnvelope.fromSignedJson(peer.relayedMessages.single())==candidate.envelope())
+            check(peer.relayRecipients.single()==listOf(fixture.publicKey,member))
+            check(saved.group.memberRoles[member]==ChatGroupRole.ADMIN&&saved.draft=="Retain this admin draft")
+            ui.onNodeWithText("Members").performClick()
+            ui.onNodeWithContentDescription("Promote member $member").assertDoesNotExist()
+            ui.onAllNodesWithText("admin").assertCountEquals(2)
+            captureNativeScreen(File(context.cacheDir,"group-admin-evidence/promoted.png"),member)
+            ui.onNodeWithText("Done").performClick()
+            scenario.recreate();open();waitFor("Retain this admin draft")
+            ui.onNodeWithText("Members").performClick()
+            ui.onAllNodesWithText("admin").assertCountEquals(2)
+            check(store.load(key.publicKey)!!.candidate!!.envelope()==candidate.envelope())
+            check(wallets.loadExisting().exportJson()==fixture.exportJson()&&AndroidBackendStore(context).load()==backend)
+            check(peer.transactions.size==1&&peer.relayedMessages.size==1)
+            captureNativeScreen(File(context.cacheDir,"group-admin-evidence/promoted-reopened.png"),member)
+            peer.assertHealthy()
+
+        }
     private fun waitFor(text:String)=ui.waitUntil(15_000){ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()}
     private fun waitForEnabled(text:String)=ui.waitUntil(15_000){ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()}
 }

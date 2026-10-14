@@ -164,3 +164,9 @@ Process review Spec1 stale synthetic capture isolation and Standards1 repeated
 factory/preparation switch corrected: clear only public capture directory before
 preparation, combine factory+store preparation per selector. No protected data
 cleared. Compile75770PASS2m58s/core4/debug/test, no corrected runtime acceptance yet.
+
+UI fixture lifecycle extraction now compiles51231PASS1m51s: three actual callers,
+same public wallets/scoped-file checks/preferences, real peer/activity, distinct
+scenario bodies/captures and primary-preserving cleanup. Only trailing whitespace
+was stripped after compilation. Source parity review and native acceptance pending.
+Previous guidance/PID correction bounded reviews Spec0/Standards0; whole27 pending.

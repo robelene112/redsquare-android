@@ -83,3 +83,12 @@ Standards1 Fowler repeated-switch judgment: candidate factory and corresponding
 preparation can share one action dispatch. Both corrected in working tree; only
 public synthetic captures are cleared and default reaction assertions remain.
 Correction compile75770PASS2m58s/core4/debug/test; fresh separate reviews pending. No PID acceptance.
+
+## Guidance and process correction review
+
+Bounded d81bd1e3...b9d17a35: Spec0, Standards0. Synthetic capture cleanup and combined
+factory/preparation resolve both process findings. Shared dialogs enforce current
+roles and explain changed membership while preserving final protected validation;
+existing failure guidance is visible in-dialog. Retained RED hashes/capture agree.
+Runtime remains pending. Whole source standards review found one remaining Fowler
+UI fixture lifecycle duplication; extracted with three callers, compilePASS1m51s.
