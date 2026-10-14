@@ -1,0 +1,56 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest:
+INSTRUMENTATION_STATUS: test=privateMessagesAndReactionsReachGroupsAndGroupsReachPrivateChatWithoutSending
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest.privateMessagesAndReactionsReachGroupsAndGroupsReachPrivateChatWithoutSending$lambda$14$lambda$13$lambda$12$deliver(ChatMixedReceptionPreviewTest.kt:65)
+	at nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest.privateMessagesAndReactionsReachGroupsAndGroupsReachPrivateChatWithoutSending$lambda$14$lambda$13$lambda$12(ChatMixedReceptionPreviewTest.kt:70)
+	at nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest.$r8$lambda$5EUj8P4cep0kpDwlI6zM9LyM-1g(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest.privateMessagesAndReactionsReachGroupsAndGroupsReachPrivateChatWithoutSending(ChatMixedReceptionPreviewTest.kt:55)
+
+INSTRUMENTATION_STATUS: stream=
+Error in privateMessagesAndReactionsReachGroupsAndGroupsReachPrivateChatWithoutSending(nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest.privateMessagesAndReactionsReachGroupsAndGroupsReachPrivateChatWithoutSending$lambda$14$lambda$13$lambda$12$deliver(ChatMixedReceptionPreviewTest.kt:65)
+	at nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest.privateMessagesAndReactionsReachGroupsAndGroupsReachPrivateChatWithoutSending$lambda$14$lambda$13$lambda$12(ChatMixedReceptionPreviewTest.kt:70)
+	at nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest.$r8$lambda$5EUj8P4cep0kpDwlI6zM9LyM-1g(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest.privateMessagesAndReactionsReachGroupsAndGroupsReachPrivateChatWithoutSending(ChatMixedReceptionPreviewTest.kt:55)
+
+INSTRUMENTATION_STATUS: test=privateMessagesAndReactionsReachGroupsAndGroupsReachPrivateChatWithoutSending
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 19.349
+There was 1 failure:
+1) privateMessagesAndReactionsReachGroupsAndGroupsReachPrivateChatWithoutSending(nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest.privateMessagesAndReactionsReachGroupsAndGroupsReachPrivateChatWithoutSending$lambda$14$lambda$13$lambda$12$deliver(ChatMixedReceptionPreviewTest.kt:65)
+	at nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest.privateMessagesAndReactionsReachGroupsAndGroupsReachPrivateChatWithoutSending$lambda$14$lambda$13$lambda$12(ChatMixedReceptionPreviewTest.kt:70)
+	at nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest.$r8$lambda$5EUj8P4cep0kpDwlI6zM9LyM-1g(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest.privateMessagesAndReactionsReachGroupsAndGroupsReachPrivateChatWithoutSending(ChatMixedReceptionPreviewTest.kt:55)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

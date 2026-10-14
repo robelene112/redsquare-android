@@ -477,3 +477,20 @@ generic copy; ad8aa4fc changes only that expected sentence, retaining Submitted,
 original and recovery assertions. Correction reviews0/0. Product debug/testAPK
 compile PASS3m10s; corrected testAPK PASS1m41s. Native11 atad8aa4fcedf4b1b417df26f2c96bde7bad076f20
 pending: Android10run38558779177, Android17run38558782794. Complete26 remains open.
+
+## Foreground mixed receipt RED and minimum, 2026-10-14
+
+Actual Android10 run38609275290 at875cccd70570754439dd51dc860f03fee9359c45
+passes action1/10.771s, then mixed1 fails19.349s at the first encrypted private
+message positive-ACK wait while Groups is open. Native failure PNG/XML inspected;
+private cache/reaction checks, mode switch, group receipt and visible tails did not
+execute. Group22 and real PID recovery did not run. Retained native-mixed-red10
+README distinguishes missing positive ACK from unrecorded negative ACK.
+
+Minimum e26ed211 routes original authenticated payloads in every foreground Chat
+mode: curve public-key group IDs to the existing GroupStore, private encrypted
+messages and pair-hash reactions through the existing private validation/stores.
+Extraction fallback occurs before authentication/storage, never after a storage
+error. All positive ACKs still follow successful retention. Group storage failures
+keep the existing explicit warning signal. No new outgoing intent or authority.
+Actual corrected hints/mixed/PID GREEN and final full acceptance remain pending.
