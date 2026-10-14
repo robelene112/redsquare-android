@@ -554,7 +554,7 @@ class GroupChatPreviewTest {
                 ActivityScenario.launch<MainActivity>(Intent(context,MainActivity::class.java)
                     .putExtra("feedPeerUrl","ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("feedOfficialPeerUrl","ws://127.0.0.1:${server.port}/wsopen")).use{scenario->
-                    withFailureCapture({captureNativeScreen(File(context.cacheDir,if(storageFault) "group-chat-evidence/incoming-storage-failure.png" else "group-chat-evidence/incoming-ui-failure.png"))}){
+                    withFailureCapture({captureNativeScreen(File(context.cacheDir,if(personalPolicy) "group-chat-evidence/personal-${activeBackend.id}-failure.png" else if(storageFault) "group-chat-evidence/incoming-storage-failure.png" else "group-chat-evidence/incoming-ui-failure.png"))}){
                         waitFor("Chat")
                         ui.waitUntil(15_000){ui.onAllNodes(hasText("Chat") and isEnabled()).fetchSemanticsNodes().size==1}
                         ui.onNodeWithText("Chat").assertIsDisplayed().assertIsEnabled().performClick()
@@ -627,6 +627,7 @@ class GroupChatPreviewTest {
                             ui.onNodeWithText("Live incoming group history").assertDoesNotExist()
                             val saved=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,fixture,activeBackend).load(group.id))
                             check(saved.messages.single().id==message.id)
+                            captureNativeScreen(File(context.cacheDir,"group-chat-evidence/personal-${activeBackend.id}-blocked.png"),"Received a signed group invitation.")
                             controls.save(controls.load(),PersonalPolicy(muted=setOf(admin.publicKey)))
                             scenario.recreate();waitFor("Groups");ui.onNodeWithText("Groups").performClick()
                             waitFor(group.name);ui.onNodeWithText(group.name).performClick()
@@ -647,7 +648,7 @@ class GroupChatPreviewTest {
                         check(saved.candidate==null && saved.messages.single().id==message.id && saved.draft=="Keep incoming group draft")
                         check(walletStore.loadExisting().publicKey==fixture.publicKey&&AndroidBackendStore(context).load()==activeBackend)
                         check(peer.transactions.isEmpty()&&peer.relayedMessages.isEmpty())
-                        captureNativeScreen(File(context.cacheDir,if(storageFault) "group-chat-evidence/incoming-storage-reopened.png" else "group-chat-evidence/incoming-ui-reopened.png"),"Keep incoming group draft")
+                        captureNativeScreen(File(context.cacheDir,if(personalPolicy) "group-chat-evidence/personal-${activeBackend.id}-muted-reopened.png" else if(storageFault) "group-chat-evidence/incoming-storage-reopened.png" else "group-chat-evidence/incoming-ui-reopened.png"),"Keep incoming group draft")
                         peer.assertHealthy()
                     }
                 }
