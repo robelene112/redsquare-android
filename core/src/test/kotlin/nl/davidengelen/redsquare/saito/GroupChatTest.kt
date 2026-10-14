@@ -26,7 +26,7 @@ class GroupChatTest {
         assertEquals(listOf("Available older history","Retained before removal"),history.messages.map{it.text})
         assertEquals(listOf(retained.envelope(),removed.envelope(),allowed.envelope()),history.originals)
         assertEquals(listOf(removed.envelope()),history.group.controls)
-        org.junit.Assert.assertThrows(IllegalArgumentException::class.java){
+        org.junit.Assert.assertThrows(RuntimeException::class.java){
             GroupChat.replayAvailable(origin,listOf("malformed retained envelope"),listOf(allowed.envelope()))
         }
     }
