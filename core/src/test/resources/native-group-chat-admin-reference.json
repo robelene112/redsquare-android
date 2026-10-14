@@ -1,0 +1,57 @@
+{
+  "reference": {
+    "saitoCommit": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+    "saitoWasmVersion": "0.3.2",
+    "ellipticVersion": "6.6.1",
+    "wasmSha256": "f59be69dbb949368ce1fc7ef47d414cbe0281a86a206fe4bfb1128a4d087e01e"
+  },
+  "scope": "Actual pinned admin constructors and corresponding receive methods over public fixture roles; zero-payment group-first wallet, WASM/Elliptic signing. Display/storage/dispatch are adapters. Not live admission or a complete web session.",
+  "vectors": [
+    {
+      "pin": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+      "sourceSha256": "35e372b7d9da0ddfd6286a93059c00a3e34eb494b62350db88a9380c4814b1af",
+      "groupId": "tENBoQttzyKaCW6d61tQjceaVA3GsZ2WrBLngrYHcXEx",
+      "admin": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+      "member": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+      "timestamp": 1700000123457,
+      "envelope": "{\"t\":\"AAAAAQAAAAIAAAAAAAAAAOzIO78IARewLYf+XbAYebOHCIoB76ifQh7FkktXqgPjQDvt0pphCkCtE+UmTJ2Hvw+uEEs0QgOWVeOnMsZr9hoAAAGLz+dKQQAAAAEAAnm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC+TCKAZJYwxBJNE+F+J1SKbUxyEWDb5mwhgHxE7zgNvkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJ5vmZ++dy7rFWgYpXOhwsHApv82y3OKNlZ8oFbFvgXmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA\",\"m\":\"eyJtb2R1bGUiOiJDaGF0IiwicmVxdWVzdCI6ImNoYXQgdXBkYXRlIiwiZ3JvdXBfbmFtZSI6Ik5hdGl2ZSBncm91cCDwn5iAIDwmPiIsImdyb3VwX2lkIjoidEVOQm9RdHR6eUthQ1c2ZDYxdFFqY2VhVkEzR3NaMldyQkxuZ3JZSGNYRXgiLCJtZW1iZXJfaWRzIjp7Implc1R1MkJwc3pQOERLU29pMVI1RzZnZ2pIcnNyVm5ib0xkeDZWNDd2a29SIjoiYWRtaW4iLCJwbmNTanNmdGRtc3BlZFhnbUNra0hMUkNlYWsxMmV4MldWcm5lMnFkZWZTVSI6ImFkbWluIn19\",\"opt\":\"e30=\"}",
+      "signature": "ecc83bbf080117b02d87fe5db01879b387088a01efa89f421ec5924b57aa03e3403bedd29a610a40ad13e5264c9d87bf0fae104b3442039655e3a732c66bf61a",
+      "receiverRole": "admin"
+    },
+    {
+      "pin": "214504ecece76d1cd20a245fe4468eccbfca2951",
+      "sourceSha256": "28a8609343e75dec7982498c0bafd7aa99be0a499156f43c5a543435426209eb",
+      "groupId": "tENBoQttzyKaCW6d61tQjceaVA3GsZ2WrBLngrYHcXEx",
+      "admin": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+      "member": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+      "timestamp": 1700000123457,
+      "envelope": "{\"t\":\"AAAAAQAAAAIAAAAAAAAAAOzIO78IARewLYf+XbAYebOHCIoB76ifQh7FkktXqgPjQDvt0pphCkCtE+UmTJ2Hvw+uEEs0QgOWVeOnMsZr9hoAAAGLz+dKQQAAAAEAAnm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC+TCKAZJYwxBJNE+F+J1SKbUxyEWDb5mwhgHxE7zgNvkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJ5vmZ++dy7rFWgYpXOhwsHApv82y3OKNlZ8oFbFvgXmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA\",\"m\":\"eyJtb2R1bGUiOiJDaGF0IiwicmVxdWVzdCI6ImNoYXQgdXBkYXRlIiwiZ3JvdXBfbmFtZSI6Ik5hdGl2ZSBncm91cCDwn5iAIDwmPiIsImdyb3VwX2lkIjoidEVOQm9RdHR6eUthQ1c2ZDYxdFFqY2VhVkEzR3NaMldyQkxuZ3JZSGNYRXgiLCJtZW1iZXJfaWRzIjp7Implc1R1MkJwc3pQOERLU29pMVI1RzZnZ2pIcnNyVm5ib0xkeDZWNDd2a29SIjoiYWRtaW4iLCJwbmNTanNmdGRtc3BlZFhnbUNra0hMUkNlYWsxMmV4MldWcm5lMnFkZWZTVSI6ImFkbWluIn19\",\"opt\":\"e30=\"}",
+      "signature": "ecc83bbf080117b02d87fe5db01879b387088a01efa89f421ec5924b57aa03e3403bedd29a610a40ad13e5264c9d87bf0fae104b3442039655e3a732c66bf61a",
+      "receiverRole": "admin"
+    }
+  ],
+  "removalVectors": [
+    {
+      "pin": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+      "sourceSha256": "35e372b7d9da0ddfd6286a93059c00a3e34eb494b62350db88a9380c4814b1af",
+      "groupId": "tENBoQttzyKaCW6d61tQjceaVA3GsZ2WrBLngrYHcXEx",
+      "admin": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+      "member": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+      "timestamp": 1700000123457,
+      "envelope": "{\"t\":\"AAAAAQAAAAIAAAAAAAAAALmi3/uttoSDck9xnVKBeGze2DCDI6h6TDORj0QbzAAvIw3BEx0UGwVKmpmCRFJA53rB53/sGKxc/k+5q0FV3u0AAAGLz+dKQQAAAAEAAnm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC+TCKAZJYwxBJNE+F+J1SKbUxyEWDb5mwhgHxE7zgNvkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJ5vmZ++dy7rFWgYpXOhwsHApv82y3OKNlZ8oFbFvgXmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA\",\"m\":\"eyJtb2R1bGUiOiJDaGF0IiwicmVxdWVzdCI6ImNoYXQgcmVtb3ZlIiwiZ3JvdXBfaWQiOiJ0RU5Cb1F0dHp5S2FDVzZkNjF0UWpjZWFWQTNHc1oyV3JCTG5ncllIY1hFeCIsIm1lbWJlcl9pZCI6InBuY1Nqc2Z0ZG1zcGVkWGdtQ2trSExSQ2VhazEyZXgyV1ZybmUycWRlZlNVIn0=\",\"opt\":\"e30=\"}",
+      "signature": "b9a2dffbadb68483724f719d5281786cded8308323a87a4c33918f441bcc002f230dc1131d141b054a9a9982445240e77ac1e77fec18ac5cfe4fb9ab4155deed",
+      "receiverRole": -1
+    },
+    {
+      "pin": "214504ecece76d1cd20a245fe4468eccbfca2951",
+      "sourceSha256": "28a8609343e75dec7982498c0bafd7aa99be0a499156f43c5a543435426209eb",
+      "groupId": "tENBoQttzyKaCW6d61tQjceaVA3GsZ2WrBLngrYHcXEx",
+      "admin": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+      "member": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+      "timestamp": 1700000123457,
+      "envelope": "{\"t\":\"AAAAAQAAAAIAAAAAAAAAALmi3/uttoSDck9xnVKBeGze2DCDI6h6TDORj0QbzAAvIw3BEx0UGwVKmpmCRFJA53rB53/sGKxc/k+5q0FV3u0AAAGLz+dKQQAAAAEAAnm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC+TCKAZJYwxBJNE+F+J1SKbUxyEWDb5mwhgHxE7zgNvkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJ5vmZ++dy7rFWgYpXOhwsHApv82y3OKNlZ8oFbFvgXmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA\",\"m\":\"eyJtb2R1bGUiOiJDaGF0IiwicmVxdWVzdCI6ImNoYXQgcmVtb3ZlIiwiZ3JvdXBfaWQiOiJ0RU5Cb1F0dHp5S2FDVzZkNjF0UWpjZWFWQTNHc1oyV3JCTG5ncllIY1hFeCIsIm1lbWJlcl9pZCI6InBuY1Nqc2Z0ZG1zcGVkWGdtQ2trSExSQ2VhazEyZXgyV1ZybmUycWRlZlNVIn0=\",\"opt\":\"e30=\"}",
+      "signature": "b9a2dffbadb68483724f719d5281786cded8308323a87a4c33918f441bcc002f230dc1131d141b054a9a9982445240e77ac1e77fec18ac5cfe4fb9ab4155deed",
+      "receiverRole": -1
+    }
+  ]
+}

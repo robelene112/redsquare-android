@@ -28,6 +28,36 @@ class NamedChatGroup internal constructor(val id: String, val name: String,
 
 /** Compatible unencrypted named-group controls; participants sign with their own wallet. */
 object GroupChat {
+    fun removeMember(wallet:SaitoWallet,group:NamedChatGroup,member:String,timestamp:Long):SaitoTransaction {
+        require(group.memberRoles[wallet.publicKey]==ChatGroupRole.ADMIN)
+        require(group.memberRoles[member]==ChatGroupRole.MEMBER)
+        val body=JsonObject().apply {
+            addProperty("module","Chat");addProperty("request","chat remove")
+            addProperty("group_id",group.id);addProperty("member_id",member)
+        }
+        return SaitoTransaction.createTo(wallet,body,timestamp,group.id)
+    }
+
+    fun promote(wallet:SaitoWallet,group:NamedChatGroup,member:String,timestamp:Long):SaitoTransaction {
+        require(group.memberRoles[wallet.publicKey]==ChatGroupRole.ADMIN)
+        require(group.memberRoles[member]==ChatGroupRole.MEMBER)
+        val body=JsonObject().apply {
+            addProperty("module","Chat");addProperty("request","chat update")
+            addProperty("group_name",group.name);addProperty("group_id",group.id)
+            add("member_ids",JsonObject().apply {
+                group.memberRoles.forEach { (key,role) ->
+                    when(if(key==member)ChatGroupRole.ADMIN else role) {
+                        ChatGroupRole.ADMIN -> addProperty(key,"admin")
+                        ChatGroupRole.MEMBER -> addProperty(key,1)
+                        ChatGroupRole.LEFT -> addProperty(key,0)
+                        ChatGroupRole.REMOVED -> addProperty(key,-1)
+                    }
+                }
+            })
+        }
+        return SaitoTransaction.createTo(wallet,body,timestamp,group.id)
+    }
+
     fun like(wallet:SaitoWallet,group:NamedChatGroup,target:GroupChatMessage,timestamp:Long):SaitoTransaction {
         require(group.memberRoles[wallet.publicKey]?.active==true && target.groupId==group.id)
         require(target.id.matches(Regex("[0-9a-f]{128}")) && SaitoWallet.isPublicKey(target.author))
