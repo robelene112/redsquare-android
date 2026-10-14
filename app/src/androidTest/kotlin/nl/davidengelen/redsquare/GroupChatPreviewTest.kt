@@ -6,6 +6,7 @@ import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import nl.davidengelen.redsquare.saito.*
+import nl.davidengelen.redsquare.moderation.PersonalPolicy
 import org.junit.Rule
 import org.junit.Test
 import java.io.File
@@ -502,7 +503,11 @@ class GroupChatPreviewTest {
 
     @Test fun incomingGroupStorageFailureStaysVisibleThroughReconnectAndRecoversWithoutSending() = exerciseIncomingGroupUi(storageFault=true)
 
-    private fun exerciseIncomingGroupUi(storageFault:Boolean=false) {
+    @Test fun accountBlockingHidesIncomingGroupMessagesAndMutingKeepsThemOnBothBackends() {
+        for(backend in SaitoBackend.entries)exerciseIncomingGroupUi(personalPolicy=true,activeBackend=backend)
+    }
+
+    private fun exerciseIncomingGroupUi(storageFault:Boolean=false,personalPolicy:Boolean=false,activeBackend:SaitoBackend=SaitoBackend.OWNER) {
         val context=InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName=="nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu","goldfish"))
@@ -515,7 +520,7 @@ class GroupChatPreviewTest {
         val creation=GroupChat.create(admin,key.publicKey,"Incoming beta group",listOf(fixture.publicKey),1700000123456)
         val group=GroupChat.readCreation(creation.envelope())
         val message=GroupChat.message(admin,group,"Live incoming group history",1700000123457)
-        val filename="groupchat.${SaitoBackend.OWNER.id}.${fixture.publicKey}.${key.publicKey}.v1"
+        val filename="groupchat.${activeBackend.id}.${fixture.publicKey}.${key.publicKey}.v1"
         synchronized(SaitoLocalState.lock){
             check(listOf(filename,"$filename.bak","$filename.new").none{File(context.noBackupFilesDir,it).exists()})
         }
@@ -534,10 +539,16 @@ class GroupChatPreviewTest {
             }
             "[]"
         })
+        val personalPrefix="personal.${fixture.publicKey}."
+        val personalFiles=if(personalPolicy)synchronized(SaitoLocalState.lock){
+            context.noBackupFilesDir.listFiles()!!.filter{it.name.startsWith(personalPrefix)}.associate{it.name to it.readBytes()}
+        }else emptyMap()
+        val controls=nl.davidengelen.redsquare.moderation.AndroidPersonalControls(context,fixture.publicKey)
         var primary:Throwable?=null
         try {
+            if(personalPolicy)controls.save(controls.load(),PersonalPolicy(blocked=setOf(admin.publicKey)))
             walletStore.replace(original,fixture)
-            AndroidBackendStore(context).save(SaitoBackend.OWNER)
+            AndroidBackendStore(context).save(activeBackend)
             preferences.forEach{(prefs,keyName,_)->check(prefs.edit().putBoolean(keyName,true).commit())}
             peer.start().use{server->
                 ActivityScenario.launch<MainActivity>(Intent(context,MainActivity::class.java)
@@ -606,7 +617,21 @@ class GroupChatPreviewTest {
                         ui.onNodeWithText("Received a signed group invitation.").assertIsDisplayed()
                         ui.onNodeWithText("Retry").assertDoesNotExist()
                         check(peer.transactions.isEmpty()&&peer.relayedMessages.isEmpty())
-                        deliver(message);waitForGroupMessage("Live incoming group history")
+                        deliver(message)
+                        if(personalPolicy){
+                            // Reload the positively acknowledged cached message before checking its visibility.
+                            scenario.recreate();waitFor("Groups");ui.onNodeWithText("Groups").performClick()
+                            waitFor(group.name);ui.onNodeWithText(group.name).performClick()
+                            ui.waitUntil(15_000){ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().size==1}
+                            ui.onNodeWithText("Received a signed group invitation.").assertIsDisplayed()
+                            ui.onNodeWithText("Live incoming group history").assertDoesNotExist()
+                            val saved=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,fixture,activeBackend).load(group.id))
+                            check(saved.messages.single().id==message.id)
+                            controls.save(controls.load(),PersonalPolicy(muted=setOf(admin.publicKey)))
+                            scenario.recreate();waitFor("Groups");ui.onNodeWithText("Groups").performClick()
+                            waitFor(group.name);ui.onNodeWithText(group.name).performClick()
+                        }
+                        waitForGroupMessage("Live incoming group history")
                         if(storageFault)ui.onNodeWithText("Group information could not be read or saved, or the action could not be completed. Your existing records are kept.").assertDoesNotExist()
                         ui.onNodeWithText("Message").assertIsEnabled().performTextInput("Keep incoming group draft")
                         androidx.test.espresso.Espresso.closeSoftKeyboard()
@@ -617,10 +642,10 @@ class GroupChatPreviewTest {
                         waitFor(group.name);ui.onNodeWithText(group.name).assertIsDisplayed().performClick()
                         waitForGroupMessage("Live incoming group history")
                         assertRestoredGroupDraft("Keep incoming group draft")
-                        val saved=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,walletStore.loadExisting(),SaitoBackend.OWNER).load(group.id))
+                        val saved=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,walletStore.loadExisting(),activeBackend).load(group.id))
                         check(saved.group.creationEnvelope?.let{SaitoEnvelope.decode(it).id}==creation.id)
                         check(saved.candidate==null && saved.messages.single().id==message.id && saved.draft=="Keep incoming group draft")
-                        check(walletStore.loadExisting().publicKey==fixture.publicKey&&AndroidBackendStore(context).load()==SaitoBackend.OWNER)
+                        check(walletStore.loadExisting().publicKey==fixture.publicKey&&AndroidBackendStore(context).load()==activeBackend)
                         check(peer.transactions.isEmpty()&&peer.relayedMessages.isEmpty())
                         captureNativeScreen(File(context.cacheDir,if(storageFault) "group-chat-evidence/incoming-storage-reopened.png" else "group-chat-evidence/incoming-ui-reopened.png"),"Keep incoming group draft")
                         peer.assertHealthy()
@@ -629,6 +654,10 @@ class GroupChatPreviewTest {
             }
         }catch(failure:Throwable){primary=failure;throw failure}
         finally{cleanupAfterTest(primary,
+            {if(personalPolicy)synchronized(SaitoLocalState.lock){
+                context.noBackupFilesDir.listFiles()!!.filter{it.name.startsWith(personalPrefix)}.forEach{check(it.delete())}
+                personalFiles.forEach{(name,bytes)->File(context.noBackupFilesDir,name).writeBytes(bytes)}
+            }},
             {synchronized(SaitoLocalState.lock){listOf(filename,"$filename.bak","$filename.new").forEach{val file=File(context.noBackupFilesDir,it);check(!file.exists()||file.delete())}}},
             {walletStore.replace(walletStore.loadExisting(),original)},
             {AndroidBackendStore(context).save(backend)},
