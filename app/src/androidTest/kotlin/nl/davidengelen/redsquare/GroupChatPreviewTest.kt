@@ -29,7 +29,9 @@ class GroupChatPreviewTest {
 
     @Test fun unavailableGroupArchiveKeepsCachedMessagesLiveDeliveryAndSendingUsable() = exerciseGroupUi(joining=true,messaging=true,archiveFault=true)
 
-    private fun exerciseGroupUi(joining:Boolean=false, leaving:Boolean=false, retrying:Boolean=false, knownRejoin:Boolean=false, messaging:Boolean=false, drafting:Boolean=false, archiveFault:Boolean=false) {
+    @Test fun signedGroupHistoryCanPageOlderAndRemainCachedAfterArchivePruning() = exerciseGroupUi(joining=true,paginating=true)
+
+    private fun exerciseGroupUi(joining:Boolean=false, leaving:Boolean=false, retrying:Boolean=false, knownRejoin:Boolean=false, messaging:Boolean=false, drafting:Boolean=false, archiveFault:Boolean=false, paginating:Boolean=false) {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -51,13 +53,36 @@ class GroupChatPreviewTest {
         val historyAvailable=java.util.concurrent.atomic.AtomicBoolean(true)
         val brokenHistory=java.util.concurrent.atomic.AtomicBoolean(false)
         val failedHistoryReads=java.util.concurrent.atomic.AtomicInteger(0)
-        val messageReference=if(messaging)InstrumentationRegistry.getInstrumentation().context.assets.open("native-group-chat-message-reference.json")
+        val messageReference=if(messaging||paginating)InstrumentationRegistry.getInstrumentation().context.assets.open("native-group-chat-message-reference.json")
             .bufferedReader().use{com.google.gson.JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject} else null
+        val oldestRecent=1700000123500L
+        val olderReads=java.util.concurrent.atomic.AtomicInteger(0)
+        val requestedCutoff=java.util.concurrent.atomic.AtomicLong(-1)
+        val pages=if(paginating){
+            val references=InstrumentationRegistry.getInstrumentation().context.assets.open("native-group-chat-creation-reference.json")
+                .bufferedReader().use{com.google.gson.JsonParser.parseReader(it).asJsonObject}
+            val link=GroupInvitation.parse(references.getAsJsonArray("invitations")[3].asJsonObject.get("link").asString)
+            val author=SaitoWallet.fromPrivateKey("0".repeat(63)+"1") // Public unsafe fixture only.
+            val group=GroupChat.confirmInvitation(link,GroupChat.join(author,link,1700000123499).envelope())
+            fun row(text:String,time:Long)=com.google.gson.JsonObject().apply{
+                addProperty("tx",GroupChat.message(author,group,text,time).envelope())
+                addProperty("created_at",42) // Unsigned metadata must not determine the paging cursor.
+            }
+            val recent=com.google.gson.JsonArray().apply{repeat(50){index->add(row("Recent group message $index",oldestRecent+index))}}
+            val older=com.google.gson.JsonArray().apply{add(row("Available older group message",oldestRecent-1))}
+            recent.toString() to older.toString()
+        }else null
         val peer = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", archiveResponse = { criteria ->
             if(brokenHistory.get() && criteria.get("field3")?.asString==messageReference?.get("groupId")?.asString){
                 failedHistoryReads.incrementAndGet();"invalid group archive response"
             }else if(messageReference!=null && historyAvailable.get() && criteria.get("field3")?.asString==messageReference.get("groupId").asString){
-                com.google.gson.JsonArray().apply{add(com.google.gson.JsonObject().apply{
+                if(pages!=null){
+                    val cutoff=criteria.get("created_earlier_than").asLong
+                    if(cutoff>oldestRecent)pages.first else {
+                        olderReads.incrementAndGet();requestedCutoff.set(cutoff)
+                        if(cutoff==oldestRecent)pages.second else "[]"
+                    }
+                }else com.google.gson.JsonArray().apply{add(com.google.gson.JsonObject().apply{
                     addProperty("tx",messageReference.get("envelope").asString);addProperty("created_at",messageReference.get("timestamp").asLong)
                 })}.toString()
             }else "[]"
@@ -87,7 +112,7 @@ class GroupChatPreviewTest {
                 ActivityScenario.launch<MainActivity>(Intent(context,MainActivity::class.java)
                     .putExtra("feedPeerUrl","ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("feedOfficialPeerUrl","ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
-                    withFailureCapture({ captureNativeScreen(File(context.cacheDir,if(archiveFault) "group-chat-evidence/archive-failure.png" else if(drafting) "group-chat-evidence/draft-failure.png" else if(messaging) "group-chat-evidence/message-failure.png" else if(knownRejoin) "group-chat-evidence/known-rejoin-failure.png" else if(joining) "group-chat-evidence/join-failure.png" else if(leaving) "group-chat-evidence/leave-failure.png" else if(retrying) "group-chat-evidence/retry-failure.png" else "group-chat-evidence/create-failure.png")) }) {
+                    withFailureCapture({ captureNativeScreen(File(context.cacheDir,if(paginating) "group-chat-evidence/pagination-failure.png" else if(archiveFault) "group-chat-evidence/archive-failure.png" else if(drafting) "group-chat-evidence/draft-failure.png" else if(messaging) "group-chat-evidence/message-failure.png" else if(knownRejoin) "group-chat-evidence/known-rejoin-failure.png" else if(joining) "group-chat-evidence/join-failure.png" else if(leaving) "group-chat-evidence/leave-failure.png" else if(retrying) "group-chat-evidence/retry-failure.png" else "group-chat-evidence/create-failure.png")) }) {
                         waitFor("Chat")
                         ui.waitUntil(15_000) { ui.onAllNodes(hasText("Chat") and isEnabled()).fetchSemanticsNodes().size == 1 }
                         ui.onNodeWithText("Chat").assertIsDisplayed().performClick()
@@ -209,6 +234,21 @@ class GroupChatPreviewTest {
                             check(!group.memberRoles.containsKey(invitation.sender))
                             waitFor("Joined using invitation details.")
                             captureNativeScreen(File(context.cacheDir,"group-chat-evidence/joined.png"),invitation.name)
+                            if(paginating){
+                                waitFor("Load older messages")
+                                ui.waitUntil(15_000){ui.onAllNodes(hasText("Load older messages") and isEnabled()).fetchSemanticsNodes().size==1}
+                                for(text in listOf("Recent group message 0","Recent group message 49"))waitForGroupMessage(text)
+                                val recent=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,store.loadExisting(),SaitoBackend.OWNER).load(invitation.id))
+                                check(recent.messages.size==50 && olderReads.get()==0)
+                                ui.onNodeWithText("Load older messages").assertIsDisplayed().assertIsEnabled().performClick()
+                                waitForGroupMessage("Available older group message")
+                                check(olderReads.get()==1 && requestedCutoff.get()==oldestRecent)
+                                ui.onNodeWithText("Load older messages").assertDoesNotExist()
+                                val saved=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,store.loadExisting(),SaitoBackend.OWNER).load(invitation.id))
+                                check(saved.messages.size==51)
+                                historyAvailable.set(false)
+                                captureNativeScreen(File(context.cacheDir,"group-chat-evidence/pagination-loaded.png"),"Available older group message")
+                            }
                             if(messaging){
                                 val available=requireNotNull(messageReference)
                                 waitFor(available.get("text").asString)
@@ -289,6 +329,13 @@ class GroupChatPreviewTest {
                             ui.onNodeWithText("Groups").performClick()
                             waitFor(invitation.name)
                             captureNativeScreen(File(context.cacheDir,"group-chat-evidence/joined-reopened.png"),invitation.name)
+                            if(paginating){
+                                ui.onNodeWithText(invitation.name).assertIsDisplayed().performClick()
+                                for(text in listOf("Recent group message 0","Recent group message 49","Available older group message"))waitForGroupMessage(text)
+                                val saved=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,store.loadExisting(),SaitoBackend.OWNER).load(invitation.id))
+                                check(saved.messages.size==51 && olderReads.get()==1)
+                                captureNativeScreen(File(context.cacheDir,"group-chat-evidence/pagination-cached.png"),"Available older group message")
+                            }
                             if(messaging){
                                 ui.onNodeWithText(invitation.name).assertIsDisplayed().performClick()
                                 for(text in listOf(requireNotNull(messageReference).get("text").asString,"Native group hello","Live group message")){
