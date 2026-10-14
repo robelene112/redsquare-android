@@ -968,3 +968,21 @@ SourceChat-B receiveCreateGroupTransaction1050ff confirmsaddressed signedcreatio
 isordinaryincominggroupdiscovery, notonlylinkjoin. Sourceopsunchanged.
 OwnerUIafter26 includes reviewing keyboard/header viewport. Preview14unchanged,
 protecteduntrackedgroupcontractuntouched. Continueallissues, no partialfinal.
+
+2026-10-14 11:27UTC active26: correctedactualdraftRED17 38554810986/6a51
+10cases9PASS95.654s, positivegroupList/reopen thenEditableTextwait248/464,
+emptycomposeruniquePNG/XMLrootseen, retainedf1e744d7. Draftminimum APPLIED c033
+plusRefreshfix5aed9d08: encrypteddraft/default/load/save/candidateprepclear/
+hasWork; navawaitsaves/freezesediting, autosaveeditable; effectRefresh retries
+onlyfailedloadwithoutclobberingeditedtext. Reviews0/0minimum+fix. Local14280
+COMPLETE0 debug/testAPK3m10s, noownedGradle. CurrentHEAD5aed/sourcepushedsame;
+ACTIVEnative10checks10=38556274168,17=38556277778. Do not redispatch.
+AfteractualGREENinspect draft-reopened PNG/XML+literalEditableText raw, retain.
+Nextprepared .scratch/apply-group26-archive-fault-tracer.py NOTAPPLIED: new11case
+validmessageflow ->invalidArchive ->Send/livepositiveACK/cache/recreate/noextras.
+Uses samepublicreader/wire checks; productalreadyfixesarchivefault basedreview,
+so this is regressionproof, notnewREDclaim. Mainremaining26 checklist local
+.scratch/group26-remaining-acceptance.txt; storage-fault/repairedRefresh still
+unverified andneeded. OlddraftscriptsAPPLIED/obsolete; dryrunpreview stale DO
+NOTcopy. Protectedgroupcontractuntrackeduntouched. Preview14unchanged;21of35
+closed26open. OwnerUIafter26, thenremainingsequentialissues. Continueallissues.

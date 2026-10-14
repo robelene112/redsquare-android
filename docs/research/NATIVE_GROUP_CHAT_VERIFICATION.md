@@ -430,3 +430,20 @@ Correction6a51 closes the keyboard and positively waits for visible Back before
 unchanged navigation/editable/no-send assertions. Both reviews0; testAPKcompile
 PASS1m44s. Corrected actualRED17run38554810986 at6a51e6829bf8fb289345f470ee9dfbecc3ee522e
 pending. Draft minimum remains unapplied; product source equals message GREEN.
+
+Actual draft-persistence RED17run38554810986 at6a51: ten cases/nine PASS,
+95.654s. Positive group-list observation followed by reopening reaches the
+exact EditableText wait248/464, which times out. Root unique failure PNG/XML
+show all three cached messages and an empty composer. Activity-recreation tail
+unexecuted. Retained draft-persistence-red-android17 distinguishes this from
+the earlier keyboard-only fixture failure.
+
+Draft minimumc033 stores optional plaintext draft only inside the encrypted,
+scoped group record; updates preserve history/key/candidate/status. Send clears
+it in the same durable preparation write. Debounced saves remain editable;
+explicit navigation freezes edits and awaits the shared save callback. Nonblank
+drafts participate in outgoing-wallet work disclosure. Review corrected Refresh
+restoration5aed9d08: retry only failed loads and preserve live edited text.
+Correction reviews Standards0/Spec0. Local debug/testAPK PASS3m10s. Native10
+at5aed pending: Android10run38556274168; Android17run38556277778. Storage-fault
+repair, archive-fault regression and whole26 acceptance remain pending.
