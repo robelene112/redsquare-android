@@ -798,3 +798,10 @@ signedupdate/publicreads. Do notclose25yet. Protectedgroupresearchuntouched.
 2026-10-13 23:23UTC:Following diagnostic10 run38483374543 at97b661a8 ACTIVE (do notredispatch). SourceGate38483369384 atsamehead SUCCESS. Compiler1460closedPASS1m24. Bothfullsecondattempts showFollowingfirstmethod/noend; stagecaptureunavailablethere. Minimaldiagnostic reviewboth0 andunchangedassertions/180s. WaitnewPNG/XML+stage/exitbeforeproductcorrection. Stable11/held12unchanged,25active,37nextpriority. Workspaceonlyprotectedgroupresearch untracked; noownedGradle.
 
 2026-10-13 23:28UTC:minimumfeednavigation b7541e6a bothreviews0/0, debug+testAPKbuild71009 PASS2m40. ActualdiagnosticRED10=38483374543/97 host124 progressProfile newerpost20scroll, originalPNG/XMLrootseen showsentire640pxheight consumedbackup/nav/following/outage, novisiblefeed. Retainedfull-regression/android10-following-zero-viewport. Minimumonlygroupsfourexistingbuttonsintotworows/saves96dp/sameguards/routes. Newproductneedsfreshacceptance; full10=38484421113/full17=38484424347 ACTIVEat4e3a6ea7. Do notredispatch/cancelwithoutresults. Signingreview-build13639 ACTIVE preparingnextversion; no source/testeditswhileownGradle. Previous12superseded/unpublished; currentpublic11. Waitfulltails, correctedsource/runtime/release/lint/thennew signedreviewpublish/25close andOWNERPRIORITY37visualbeta. Protectedgroupresearchuntouched.
+
+Active26 update: join oracle verifies both actual web methods with explicit
+known derived admin and zero-payment group-first wallet fixture. Native tracer
+RED1 UnsupportedOperationException/build57s, then GREEN1PASS/build1m. createTo
+has defaulted additionalRecipients; empty defaults preserve existing callers.
+No ownedGradle currently. Next broadercoretest then signed membership/leave/
+message controls and durable nativeUI. No group app/final acceptance yet.

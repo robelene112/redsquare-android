@@ -32,3 +32,12 @@ method and both actual generateChatGroupLink methods. Eight creator/member link
 vectors include normal and alternate Unicode names; the alternate link metadata
 is unverified and does not claim a signed rename. Some include raw '+'.
 The signed creation and malformed-recipient vectors remain unchanged.
+
+The join extension is `node /reference/join-reference.cjs`. It executes both
+actual sendJoinGroupTransaction methods using an explicit admin derived from
+known roles and a zero-payment wallet fixture whose outputs begin with the group,
+then the sender. The signed request fields, group-first recipient and additional
+admin/inviter recipients are independently serialized/signed by WASM and checked
+with Elliptic. This is bounded fixture wire intent, not proof of arbitrary funded
+wallet slip selection, live consensus admission or a complete web join session.
+Creation/invitation vector output is unchanged by the recipient-order helper flag.

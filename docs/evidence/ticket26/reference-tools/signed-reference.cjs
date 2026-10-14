@@ -17,12 +17,12 @@ assert.equal(reference.wasmSha256,'f59be69dbb949368ce1fc7ef47d414cbe0281a86a206f
 
 const publicUnsafeScalars = ['1','2','3','4']; // Fixed published fixtures only. Never fund.
 
-function signedReference(scalar, body, timestamp, recipients = []) {
+function signedReference(scalar, body, timestamp, recipients = [], recipientsFirst = false) {
   assert(publicUnsafeScalars.includes(scalar)); // Public unsafe test keys. Never fund.
   const privateKey = '0'.repeat(63) + scalar;
   const author = wasm.generate_public_key(privateKey);
   const point = Buffer.from(base58.decode(author));
-  const outputs = [...new Set([author,...recipients])];
+  const outputs = [...new Set(recipientsFirst ? [...recipients,author] : [author,...recipients])];
   assert(outputs.length <= 255);
   const publicMalformedRecipient = base58.encode(Buffer.alloc(33)); // Deliberately invalid public point fixture.
   assert(outputs.every(key => key === publicMalformedRecipient || publicUnsafeScalars.some(value => wasm.generate_public_key('0'.repeat(63)+value) === key)));

@@ -1,0 +1,33 @@
+{
+  "reference": {
+    "saitoCommit": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+    "saitoWasmVersion": "0.3.2",
+    "ellipticVersion": "6.6.1",
+    "wasmSha256": "f59be69dbb949368ce1fc7ef47d414cbe0281a86a206fe4bfb1128a4d087e01e"
+  },
+  "scope": "Actual web join method with explicit derived admin and zero-payment recipient-first wallet fixture; WASM/Elliptic signed bytes, not live admission.",
+  "vectors": [
+    {
+      "pin": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+      "sourceSha256": "35e372b7d9da0ddfd6286a93059c00a3e34eb494b62350db88a9380c4814b1af",
+      "groupId": "tENBoQttzyKaCW6d61tQjceaVA3GsZ2WrBLngrYHcXEx",
+      "author": "rquTtzeyx74W6qFvtGTNpQGND4WqMGR7UTLdEKq4QjsG",
+      "admin": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+      "inviter": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+      "timestamp": 1700000123456,
+      "envelope": "{\"t\":\"AAAAAQAAAAQAAAAAAAAAAI/DKtcKVxg3CUkl4SefhLRm3TI/kvddTnGp9K1EodEyf1VAQAYZ5bOfMCvtn689JyUjTcU7dbxefBttFP13lYgAAAGLz+dKQAAAAAEAAuST2/HBDYDzWB5JBJMLFATMbBOQDuB1hHT6lKvoxM0TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC+TCKAZJYwxBJNE+F+J1SKbUxyEWDb5mwhgHxE7zgNvkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALkk9vxwQ2A81geSQSTCxQEzGwTkA7gdYR0+pSr6MTNEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAnm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgACxgR/lEHtfW0wRUBulcB82Fx3jkuM7zynq6wJuVxwnuUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAA==\",\"m\":\"eyJtb2R1bGUiOiJDaGF0IiwicmVxdWVzdCI6ImNoYXQgam9pbiIsImdyb3VwX2lkIjoidEVOQm9RdHR6eUthQ1c2ZDYxdFFqY2VhVkEzR3NaMldyQkxuZ3JZSGNYRXgiLCJpbnZpdGVkX2J5IjoicG5jU2pzZnRkbXNwZWRYZ21Da2tITFJDZWFrMTJleDJXVnJuZTJxZGVmU1UifQ==\",\"opt\":\"e30=\"}",
+      "signature": "8fc32ad70a571837094925e1279f84b466dd323f92f75d4e71a9f4ad44a1d1327f5540400619e5b39f302bed9faf3d2725234dc53b75bc5e7c1b6d14fd779588"
+    },
+    {
+      "pin": "214504ecece76d1cd20a245fe4468eccbfca2951",
+      "sourceSha256": "28a8609343e75dec7982498c0bafd7aa99be0a499156f43c5a543435426209eb",
+      "groupId": "tENBoQttzyKaCW6d61tQjceaVA3GsZ2WrBLngrYHcXEx",
+      "author": "rquTtzeyx74W6qFvtGTNpQGND4WqMGR7UTLdEKq4QjsG",
+      "admin": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+      "inviter": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+      "timestamp": 1700000123456,
+      "envelope": "{\"t\":\"AAAAAQAAAAQAAAAAAAAAAI/DKtcKVxg3CUkl4SefhLRm3TI/kvddTnGp9K1EodEyf1VAQAYZ5bOfMCvtn689JyUjTcU7dbxefBttFP13lYgAAAGLz+dKQAAAAAEAAuST2/HBDYDzWB5JBJMLFATMbBOQDuB1hHT6lKvoxM0TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC+TCKAZJYwxBJNE+F+J1SKbUxyEWDb5mwhgHxE7zgNvkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALkk9vxwQ2A81geSQSTCxQEzGwTkA7gdYR0+pSr6MTNEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAnm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgACxgR/lEHtfW0wRUBulcB82Fx3jkuM7zynq6wJuVxwnuUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAA==\",\"m\":\"eyJtb2R1bGUiOiJDaGF0IiwicmVxdWVzdCI6ImNoYXQgam9pbiIsImdyb3VwX2lkIjoidEVOQm9RdHR6eUthQ1c2ZDYxdFFqY2VhVkEzR3NaMldyQkxuZ3JZSGNYRXgiLCJpbnZpdGVkX2J5IjoicG5jU2pzZnRkbXNwZWRYZ21Da2tITFJDZWFrMTJleDJXVnJuZTJxZGVmU1UifQ==\",\"opt\":\"e30=\"}",
+      "signature": "8fc32ad70a571837094925e1279f84b466dd323f92f75d4e71a9f4ad44a1d1327f5540400619e5b39f302bed9faf3d2725234dc53b75bc5e7c1b6d14fd779588"
+    }
+  ]
+}

@@ -92,8 +92,9 @@ class SaitoTransaction private constructor(private val bytes: ByteArray) {
         fun createEncrypted(wallet: SaitoWallet, ciphertext: String, timestamp: Long, recipient: String): SaitoTransaction =
             createWithOutputs(wallet, JsonPrimitive(ciphertext), timestamp, listOf(wallet.publicKey, recipient).distinct())
 
-        internal fun createTo(wallet: SaitoWallet, body: JsonObject, timestamp: Long, recipient: String): SaitoTransaction =
-            createWithOutputs(wallet, body, timestamp, listOf(recipient, wallet.publicKey).distinct())
+        internal fun createTo(wallet: SaitoWallet, body: JsonObject, timestamp: Long, recipient: String,
+            additionalRecipients: List<String> = emptyList()): SaitoTransaction =
+            createWithOutputs(wallet, body, timestamp, (listOf(recipient, wallet.publicKey) + additionalRecipients).distinct())
 
         private fun createWithOutputs(wallet: SaitoWallet, body: JsonElement, timestamp: Long, addresses: List<String>): SaitoTransaction {
             val zero = SaitoBalanceSnapshot.Slip(BigInteger.ZERO, BigInteger.ZERO, 0, BigInteger.ZERO, 0)

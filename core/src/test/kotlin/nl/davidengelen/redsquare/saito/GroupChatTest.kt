@@ -57,4 +57,26 @@ class GroupChatTest {
         org.junit.Assert.assertFalse(SaitoWallet.isPublicKey(reference.get("invalidRecipient").asString))
         org.junit.Assert.assertThrows(IllegalArgumentException::class.java) { GroupChat.readCreation(envelope) }
     }
+
+    @Test fun joiningAddressesTheGroupAndDerivedAdminWithCompatibleSignedFields() {
+        val fixture = requireNotNull(javaClass.getResourceAsStream("/native-group-chat-join-reference.json"))
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
+        val joiner = SaitoWallet.fromPrivateKey("0".repeat(63) + "4") // Public unsafe fixture only.
+        fixture.getAsJsonArray("vectors").forEach { value ->
+            val expected = value.asJsonObject
+            val payload = com.google.gson.JsonObject().apply {
+                addProperty("id", expected.get("groupId").asString)
+                addProperty("name", "Known invitation")
+                addProperty("sender", expected.get("inviter").asString)
+                addProperty("admin", expected.get("admin").asString)
+            }
+            val invite = GroupInvitation.parse(java.util.Base64.getEncoder().encodeToString(payload.toString().toByteArray(Charsets.UTF_8)))
+            val tx = GroupChat.join(joiner, invite, expected.get("timestamp").asLong)
+            assertEquals(expected.get("envelope").asString, tx.envelope())
+            assertEquals(expected.get("signature").asString, tx.id)
+            val signed = SaitoEnvelope.decode(tx.envelope())
+            assertEquals(expected.get("author").asString, signed.author)
+            assertEquals(expected.get("groupId").asString, signed.recipients.first())
+        }
+    }
 }

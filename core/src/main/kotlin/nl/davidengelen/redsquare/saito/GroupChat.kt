@@ -9,6 +9,19 @@ class NamedChatGroup internal constructor(val id: String, val name: String,
 
 /** Compatible unencrypted named-group controls; participants sign with their own wallet. */
 object GroupChat {
+    /** Construction follows an explicit joining choice; unsigned claims are not membership proof. */
+    fun join(wallet: SaitoWallet, invitation: GroupInvitation, timestamp: Long): SaitoTransaction {
+        require(wallet.publicKey != invitation.id)
+        val body = JsonObject().apply {
+            addProperty("module", "Chat")
+            addProperty("request", "chat join")
+            addProperty("group_id", invitation.id)
+            addProperty("invited_by", invitation.sender)
+        }
+        return SaitoTransaction.createTo(wallet, body, timestamp, invitation.id,
+            listOf(invitation.admin, invitation.sender))
+    }
+
     /** Authenticate available creation without implying the reader has joined. */
     fun readCreation(envelope: String): NamedChatGroup {
         val signed = SaitoEnvelope.decode(envelope)

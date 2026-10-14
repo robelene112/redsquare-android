@@ -112,3 +112,21 @@ The parser now exposes a static Invalid error without retaining an internal
 cause or pasted content. GREEN2PASS, build57s, with JSONnull, invalid URI encoding,
 malformed UTF8 and duplicate chat_id checks, plus all eight positive links.
 This is parser proof, not Android joining/recovery. No owned Gradle remains.
+
+## Signed join reference
+
+Executed both actual sendJoinGroupTransaction methods, which match. Their normal
+creation stores admin roles, while the join constructor reads group.admin. The
+fixture supplies the known derived admin explicitly. Its zero-payment wallet
+outputs start with the group and sender, then actual method adds admin/inviter.
+Actual WASM/Elliptic serialization and signatures match both source versions.
+This proves fields and recipient intent under that documented wallet fixture;
+funded wallet selection, live admission and a complete web join session are not
+claimed. Native join signature/group-address tracer is running against this corpus.
+
+Native join tracer RED1 UnsupportedOperationException, build57s; implemented
+compatible group-first additional recipients through a defaulted createTo
+extension. Existing callers use the unchanged empty default. GREEN1PASS, build1m.
+Exact independent envelope/signature/author/group-first assertions remain.
+A broader core regression is next because existing factories share createTo.
+No app joining, authority transition or persistence acceptance yet.
