@@ -58,7 +58,10 @@ GroupChat tests PASS and both review axes0. Evidence is older-after-leave-red/gr
 Current new13-case native tracer checks a full page of signed messages from a
 REMOVED author cannot hide earlier valid history. Authentic removed membership is
 seeded only on emulator; old messages remain rejected, cursor independent of cache.
-Local debug/test build active at checkpoint; native RED not dispatched yet.
+Corrected debug/test compile PASS2m18s (public signing API fixture correction).
+Actual13-case Android10 RED attempt run38563262595 at
+c567725e8ca714d74244905d2425271a304a7ec8 is active; no result yet.
+Tracer and fixture correction reviewed Standards0/Spec0.
 The pager cursor currently advances only after admission and still needs correction.
 Next inspect compile/reviews, push and dispatch group-ui Android10 to establish
 actual regression, then separate authenticated cursor from admission, verify both
