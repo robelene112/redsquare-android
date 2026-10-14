@@ -170,3 +170,14 @@ same public wallets/scoped-file checks/preferences, real peer/activity, distinct
 scenario bodies/captures and primary-preserving cleanup. Only trailing whitespace
 was stripped after compilation. Source parity review and native acceptance pending.
 Previous guidance/PID correction bounded reviews Spec0/Standards0; whole27 pending.
+
+Shared nativeUI fixture correction3e532776 passed both source review axes0/0.
+Focused10run38651748924 active with seven cases plus actual promotion/removal
+process journeys; no runtime acceptance yet. Additional application cases cover
+removal after own authenticated departure at raw/Relay/retry, and actual Relay
+refusal with visible generic error/truthfulSUBMITTED, no automatic send on reopen,
+then explicit Retry of exactly the same signed original with one local control.
+Compile43572PASS1m34s. After compilation the externally controlled response flag
+was made AtomicBoolean and an explicit error visibility assertion added; hosted
+compilation will verify these test-only changes. Now ten cases. No invented RED
+for added coverage of existing guards/recovery; complete acceptance remainspending.

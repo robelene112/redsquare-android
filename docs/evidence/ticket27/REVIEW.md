@@ -92,3 +92,10 @@ roles and explain changed membership while preserving final protected validation
 existing failure guidance is visible in-dialog. Retained RED hashes/capture agree.
 Runtime remains pending. Whole source standards review found one remaining Fowler
 UI fixture lifecycle duplication; extracted with three callers, compilePASS1m51s.
+
+## Native UI fixture correction review
+
+b9d17a35...3e532776: Spec0, Standards0. All three UI lifecycles preserve public
+identities, scoped files/preferences, activity/peer closure and primary-preserving
+cleanup. Per-scenario actions/assertions/capture names unchanged. CompilePASS1m51.
+Post-refactor runtime remains pending in38651748924.

@@ -93,8 +93,54 @@ class GroupAdminPreviewTest {
 
         }
 
+    @Test fun aRejectedPromotionRelayShowsUncertaintyAndRetriesTheSameOriginal() {
+        val reject=java.util.concurrent.atomic.AtomicBoolean(true)
+        withAdminUi("e","Rejected promotion","rejected-relay-failure.png",relayResponse={
+            if(reject.get())"{\"err\":\"fixture refusal\",\"success\":0}" else "{\"err\":\"\",\"success\":1}"
+        }) { test ->
+            waitForEnabled("Chat");ui.onNodeWithText("Chat").performClick()
+            waitFor("Groups");ui.onNodeWithText("Groups").performClick()
+            waitFor("Rejected promotion");ui.onNodeWithText("Rejected promotion").performClick()
+            waitForEnabled("Message");ui.onNodeWithText("Message").performTextInput("Keep this rejected draft")
+            androidx.test.espresso.Espresso.closeSoftKeyboard()
+            ui.onNodeWithText("Members").performClick()
+            ui.onNodeWithContentDescription("Promote member ${test.memberWallet.publicKey}").performClick()
+            waitForEnabled("Confirm promotion");ui.onNodeWithText("Confirm promotion").performClick()
+            waitFor(test.context.getString(R.string.group_error))
+            ui.onNodeWithText(test.context.getString(R.string.group_error)).assertIsDisplayed()
+            waitFor("Submitted. Delivery is not confirmed.")
+            waitForEnabled("Retry")
+            ui.waitUntil(15_000){test.peer.transactions.size==1&&test.peer.relayedMessages.size==1}
+            val saved=requireNotNull(test.store.load(test.key.publicKey));val candidate=requireNotNull(saved.candidate)
+            check(saved.status==GroupChatStore.Status.SUBMITTED&&saved.draft=="Keep this rejected draft")
+            check(saved.creationKey!!.exportJson()==test.key.exportJson())
+            check(postingTransaction(test.peer.transactions.single()).envelope()==candidate.envelope())
+            check(SaitoEnvelope.fromSignedJson(test.peer.relayedMessages.single())==candidate.envelope())
+            captureNativeScreen(File(test.context.cacheDir,"group-admin-evidence/rejected-relay.png"))
+            test.scenario.recreate()
+            waitFor("Groups");ui.onNodeWithText("Groups").performClick()
+            waitFor("Rejected promotion");ui.onNodeWithText("Rejected promotion").performClick()
+            waitFor("Submitted. Delivery is not confirmed.");waitForEnabled("Retry")
+            check(test.store.load(test.key.publicKey)!!.candidate!!.envelope()==candidate.envelope())
+            check(test.peer.transactions.size==1&&test.peer.relayedMessages.size==1)
+            reject.set(false)
+            ui.onNodeWithText("Retry").performClick()
+            ui.waitUntil(15_000){test.store.load(test.key.publicKey)?.status==GroupChatStore.Status.FORWARDED}
+            ui.waitUntil(15_000){test.peer.transactions.size==2&&test.peer.relayedMessages.size==2}
+            waitFor("Forwarded. Delivery is not confirmed.")
+            check(test.peer.transactions.all{postingTransaction(it).envelope()==candidate.envelope()})
+            check(test.peer.relayedMessages.all{SaitoEnvelope.fromSignedJson(it)==candidate.envelope()})
+            val retried=requireNotNull(test.store.load(test.key.publicKey))
+            check(retried.candidate!!.envelope()==candidate.envelope()&&retried.draft=="Keep this rejected draft")
+            check(retried.group.controls.count{SaitoEnvelope.decode(it).id==candidate.id}==1)
+            check(test.wallets.loadExisting().exportJson()==test.wallet.exportJson()&&AndroidBackendStore(test.context).load()==test.backend)
+            captureNativeScreen(File(test.context.cacheDir,"group-admin-evidence/rejected-relay-retried.png"))
+            test.peer.assertHealthy()
+        }
+    }
+
     @Test fun aPromotionStopsAtRelayWhenARenameArrivesAfterRawSubmission() =
-        withPreparedPromotion("7","Before rename","Keep this rename draft") { fixture ->
+        withPreparedAdminAction("7","Before rename","Keep this rename draft") { fixture ->
             val candidate=fixture.candidate
             val renameBody=SaitoEnvelope.decode(candidate.envelope()).body.deepCopy().apply{addProperty("group_name","New authenticated name")}
             val rename=SaitoTransaction.create(fixture.wallet,renameBody,1700000123458,listOf(fixture.key.publicKey))
@@ -114,7 +160,7 @@ class GroupAdminPreviewTest {
         }
 
     @Test fun aPreparedPromotionCannotTransmitOrRetryAfterTheTargetLeaves() =
-        withPreparedPromotion("8","Stale promotion","Keep the stale-action draft") { fixture ->
+        withPreparedAdminAction("8","Stale promotion","Keep the stale-action draft") { fixture ->
             val candidate=fixture.candidate
             fixture.store.receive(GroupChat.leave(fixture.member,fixture.key.publicKey,1700000123458).envelope())
             org.junit.Assert.assertThrows(IllegalStateException::class.java){fixture.attempt()}
@@ -131,16 +177,22 @@ class GroupAdminPreviewTest {
             fixture.peer.assertHealthy()
         }
 
-    @Test fun aPromotionCannotSubmitAfterItsAdministratorLosesAuthority() = assertPromotionAfterRevocation(false)
+    @Test fun aPromotionCannotSubmitAfterItsAdministratorLosesAuthority() = assertAdminActionAfterRevocation(false,false)
 
-    @Test fun aPromotionCannotRelayOrRetryAfterItsAdministratorLosesAuthority() = assertPromotionAfterRevocation(true)
+    @Test fun aPromotionCannotRelayOrRetryAfterItsAdministratorLosesAuthority() = assertAdminActionAfterRevocation(false,true)
 
-    private fun assertPromotionAfterRevocation(afterRaw:Boolean) =
-        withPreparedPromotion(if(afterRaw)"b" else "a","Authority changed","Keep this authority draft") { fixture ->
-            val body=SaitoEnvelope.decode(fixture.candidate.envelope()).body.deepCopy().apply {
-                getAsJsonObject("member_ids").addProperty(fixture.wallet.publicKey,1)
+    @Test fun aRemovalCannotSubmitAfterItsAdministratorLeaves() = assertAdminActionAfterRevocation(true,false)
+
+    @Test fun aRemovalCannotRelayOrRetryAfterItsAdministratorLeaves() = assertAdminActionAfterRevocation(true,true)
+
+    private fun assertAdminActionAfterRevocation(removal:Boolean,afterRaw:Boolean) =
+        withPreparedAdminAction(if(removal) {if(afterRaw)"d" else "c"} else {if(afterRaw)"b" else "a"},"Authority changed","Keep this authority draft",removal) { fixture ->
+            val revocation=if(removal)GroupChat.leave(fixture.wallet,fixture.key.publicKey,1700000123458) else {
+                val body=SaitoEnvelope.decode(fixture.candidate.envelope()).body.deepCopy().apply {
+                    getAsJsonObject("member_ids").addProperty(fixture.wallet.publicKey,1)
+                }
+                SaitoTransaction.create(fixture.member,body,1700000123458,listOf(fixture.key.publicKey))
             }
-            val revocation=SaitoTransaction.create(fixture.member,body,1700000123458,listOf(fixture.key.publicKey))
             if(!afterRaw)fixture.store.receive(revocation.envelope())
             org.junit.Assert.assertThrows(IllegalStateException::class.java){
                 fixture.attempt{if(afterRaw)fixture.store.receive(revocation.envelope())}
@@ -150,7 +202,7 @@ class GroupAdminPreviewTest {
             if(afterRaw)check(postingTransaction(fixture.peer.transactions.single()).envelope()==fixture.candidate.envelope())
             check(fixture.peer.relayedMessages.isEmpty())
             val saved=requireNotNull(fixture.store.load(fixture.key.publicKey))
-            check(saved.group.memberRoles[fixture.wallet.publicKey]==ChatGroupRole.MEMBER)
+            check(saved.group.memberRoles[fixture.wallet.publicKey]==if(removal)ChatGroupRole.LEFT else ChatGroupRole.MEMBER)
             check(saved.candidate!!.envelope()==fixture.candidate.envelope()&&saved.draft=="Keep this authority draft")
             check(saved.status==if(afterRaw)GroupChatStore.Status.SUBMITTED else GroupChatStore.Status.UNKNOWN)
             check(saved.creationKey!!.exportJson()==fixture.key.exportJson())
@@ -165,7 +217,7 @@ class GroupAdminPreviewTest {
         val wallet:SaitoWallet,val memberWallet:SaitoWallet,val key:SaitoWallet,val creation:SaitoTransaction,
         val store:GroupChatStore,val peer:ControlledFeedPeer,val scenario:ActivityScenario<MainActivity>)
 
-    private fun withAdminUi(groupScalar:String,name:String,failureCapture:String,journey:(AdminUiFixture)->Unit) {
+    private fun withAdminUi(groupScalar:String,name:String,failureCapture:String,relayResponse:((com.google.gson.JsonObject)->String)?=null,journey:(AdminUiFixture)->Unit) {
         val context=InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName=="nl.davidengelen.redsquare.dev"&&Build.HARDWARE in listOf("ranchu","goldfish"))
         val wallets=AndroidWalletStore(context);val original=wallets.loadOrCreate()
@@ -180,7 +232,7 @@ class GroupAdminPreviewTest {
             val prefs=context.getSharedPreferences(prefsName,0)
             Triple(prefs,keyName,if(prefs.contains(keyName))prefs.getBoolean(keyName,false)else null)
         }
-        val peer=ControlledFeedPeer("[]",advertisedServices="archive||;relay||",archiveResponse={"[]"})
+        val peer=ControlledFeedPeer("[]",advertisedServices="archive||;relay||",archiveResponse={"[]"},relayResponse=relayResponse)
         var primary:Throwable?=null
         try {
             wallets.replace(original,fixture)
@@ -202,7 +254,7 @@ class GroupAdminPreviewTest {
             *preferences.map{(prefs,keyName,value)->{check(prefs.edit().apply{if(value==null)remove(keyName)else putBoolean(keyName,value)}.commit());Unit}}.toTypedArray())}
     }
 
-    private class PromotionDelivery(val wallets:AndroidWalletStore,val backendStore:AndroidBackendStore,val backend:SaitoBackend,
+    private class AdminDelivery(val wallets:AndroidWalletStore,val backendStore:AndroidBackendStore,val backend:SaitoBackend,
         val wallet:SaitoWallet,val member:SaitoWallet,val key:SaitoWallet,val store:GroupChatStore,
         val candidate:SaitoTransaction,val peer:ControlledFeedPeer,private val endpoint:String) {
         fun attempt(afterSubmitted:()->Unit={})=kotlinx.coroutines.runBlocking {
@@ -218,7 +270,7 @@ class GroupAdminPreviewTest {
         }
     }
 
-    private fun withPreparedPromotion(groupScalar:String,name:String,draft:String,scenario:(PromotionDelivery)->Unit) {
+    private fun withPreparedAdminAction(groupScalar:String,name:String,draft:String,removal:Boolean=false,scenario:(AdminDelivery)->Unit) {
         val context=InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName=="nl.davidengelen.redsquare.dev"&&Build.HARDWARE in listOf("ranchu","goldfish"))
         val wallets=AndroidWalletStore(context)
@@ -237,10 +289,12 @@ class GroupAdminPreviewTest {
             val creation=GroupChat.create(wallet,key.publicKey,name,listOf(member.publicKey),1700000123456)
             store.prepareCreation(creation,key);store.record(key.publicKey,creation.id,GroupChatStore.Status.FORWARDED)
             store.saveDraft(key.publicKey,draft)
-            val candidate=GroupChat.promote(wallet,requireNotNull(store.load(key.publicKey)).group,member.publicKey,1700000123457)
-            store.preparePromotion(candidate,member.publicKey)
+            val group=requireNotNull(store.load(key.publicKey)).group
+            val candidate=if(removal)GroupChat.removeMember(wallet,group,member.publicKey,1700000123457)
+                .also{store.prepareRemoval(it,member.publicKey)} else
+                GroupChat.promote(wallet,group,member.publicKey,1700000123457).also{store.preparePromotion(it,member.publicKey)}
             val peer=ControlledFeedPeer("[]",advertisedServices="archive||;relay||")
-            peer.start().use{server->scenario(PromotionDelivery(wallets,AndroidBackendStore(context),backend,wallet,member,key,store,candidate,peer,"ws://127.0.0.1:${server.port}/wsopen"))}
+            peer.start().use{server->scenario(AdminDelivery(wallets,AndroidBackendStore(context),backend,wallet,member,key,store,candidate,peer,"ws://127.0.0.1:${server.port}/wsopen"))}
         }catch(failure:Throwable){primary=failure;throw failure}
         finally{cleanupAfterTest(primary,
             {synchronized(SaitoLocalState.lock){names.forEach{val file=File(context.noBackupFilesDir,it);check(!file.exists()||file.delete())}}},
