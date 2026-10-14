@@ -337,5 +337,11 @@ Known-group rejoin tracer uses the protected module seam with seeded forwarded
 creation/departure. A new unsigned invitation has conflicting name/admin claims;
 the new own join must preserve origin/key/controls/name, restore MEMBER rather
 than ADMIN and refuse to replace pending work. Source reviews0/0; testAPK compile
-PASS1m40s. Native RED17run38544239476 at362f97c2 is active. Consent/network
-admission and complete26 are not claimed by this module tracer.
+PASS1m40s. Native RED17run38544239476 at362f97c2 completed: seven cases/41.162s,
+six PASS plus existing-group rejection at prepareInvitation62/fixture317. Later
+retained-origin/key/role/pending assertions were unexecuted. Minimum now applies
+the own join to the existing origin, retains key/controls/name and reconstructs
+metadata from that retained state. Invite requires a known active admin so an
+orphaned group cannot throw while composing its link. Corrected compilation and
+native GREEN remain pending. Consent/network admission, actual process death and
+complete26 are not claimed by this module tracer.
