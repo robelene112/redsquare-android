@@ -206,7 +206,7 @@ class GroupChatPreviewTest {
                             waitFor("Submitted. Delivery is not confirmed.")
                             check(peer.transactions.size==1 && peer.relayedMessages.isEmpty())
                             val recovered=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,updated,SaitoBackend.OWNER).load(checkpointKey.publicKey))
-                            check(recovered.candidate.encoded()==checkpoint.encoded() && recovered.creationKey?.exportJson()==checkpointKey.exportJson())
+                            check(requireNotNull(recovered.candidate).encoded()==checkpoint.encoded() && recovered.creationKey?.exportJson()==checkpointKey.exportJson())
                             peer.disconnectAfterTransaction=false
                             ui.onNodeWithText("Retry").assertIsEnabled().performClick()
                             waitFor("Forwarded. Delivery is not confirmed.")
@@ -474,7 +474,7 @@ class GroupChatPreviewTest {
                             val restored=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,store.loadExisting(),SaitoBackend.OWNER).load(group.id))
                             val originalLeave=SaitoEnvelope.fromSignedJson(peer.relayedMessages.last())
                             check(restored.group.controls.last()==originalLeave)
-                            check(restored.candidate.envelope()==originalLeave)
+                            check(requireNotNull(restored.candidate).envelope()==originalLeave)
                             check(restored.group.memberRoles[fixture.publicKey]==ChatGroupRole.LEFT)
                             captureNativeScreen(File(context.cacheDir,"group-chat-evidence/left-reopened.png"),"You have left this group.")
                         }
@@ -593,7 +593,7 @@ class GroupChatPreviewTest {
             val recovered=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,wallet,backend).load(groupKey.publicKey))
             check(recovered.creationKey?.publicKey==groupKey.publicKey)
             check(recovered.creationKey?.exportJson()==groupKey.exportJson())
-            check(recovered.candidate.encoded()==candidate.encoded())
+            check(requireNotNull(recovered.candidate).encoded()==candidate.encoded())
             check(recovered.status==nl.davidengelen.redsquare.chat.GroupChatStore.Status.UNKNOWN)
             check(AndroidWalletStore(context).loadExisting().exportJson()==wallet.exportJson())
         } catch(failure:Throwable){primary=failure;throw failure}
@@ -635,7 +635,7 @@ class GroupChatPreviewTest {
             check(reopened.group.memberRoles[wallet.publicKey]==ChatGroupRole.MEMBER)
             check(outsider !in reopened.group.memberRoles)
             check(reopened.group.controls==listOf(departure.envelope(),join.envelope()))
-            check(reopened.candidate.encoded()==join.encoded() && reopened.status==nl.davidengelen.redsquare.chat.GroupChatStore.Status.UNKNOWN)
+            check(requireNotNull(reopened.candidate).encoded()==join.encoded() && reopened.status==nl.davidengelen.redsquare.chat.GroupChatStore.Status.UNKNOWN)
             check(runCatching{store.prepareInvitation(effective,GroupChat.join(wallet,effective,1700000123459))}.isFailure)
             check(store.load(groupKey.publicKey)?.candidate?.id==join.id)
             check(AndroidWalletStore(context).loadExisting().exportJson()==wallet.exportJson())

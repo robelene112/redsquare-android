@@ -9,8 +9,10 @@ import nl.davidengelen.redsquare.saito.*
 
 /** Encrypted original group state. Opening never transmits a retained attempt. */
 internal class GroupChatStore(private val context: Context, private val wallet: SaitoWallet, private val backend: SaitoBackend) {
-    enum class Status { UNKNOWN, SUBMITTED, FORWARDED }
-    data class Entry(val group: NamedChatGroup, val candidate: SaitoTransaction, val status: Status, val creationKey: SaitoWallet? = null, val originals:List<String> = emptyList(), val messages:List<GroupChatMessage> = emptyList(), val draft:String = "")
+    enum class Status { UNKNOWN, SUBMITTED, FORWARDED, RECEIVED }
+    data class Entry(val group: NamedChatGroup, val candidate: SaitoTransaction?, val status: Status, val creationKey: SaitoWallet? = null, val originals:List<String> = emptyList(), val messages:List<GroupChatMessage> = emptyList(), val draft:String = "") {
+        val hasPendingAction:Boolean get()=status==Status.UNKNOWN||status==Status.SUBMITTED
+    }
     private val prefix = "groupchat.${backend.id}.${wallet.publicKey}."
 
     private fun file(id: String): EncryptedLocalFile {
@@ -38,15 +40,21 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         val history=GroupChat.replay(origin,originals)
         val group=history.group
         require(group.id == id && wallet.publicKey in group.memberRoles)
-        val candidate = SaitoTransaction.restore(record.get("candidate").asString)
-        val original=creation ?: record.get("confirmation").asString
-        require(candidate.envelope() in (listOf(original)+group.controls+history.originals) && SaitoEnvelope.decode(candidate.envelope()).author == wallet.publicKey)
+        require(record.has("candidate"))
+        val candidate=record.get("candidate").takeUnless{it.isJsonNull}?.let{SaitoTransaction.restore(it.asString)}
+        val status=Status.valueOf(record.get("status").asString)
+        if(candidate==null)require(status==Status.RECEIVED && creation!=null) else {
+            require(status!=Status.RECEIVED)
+            val original=creation ?: record.get("confirmation").asString
+            require(candidate.envelope() in (listOf(original)+group.controls+history.originals) &&
+                SaitoEnvelope.decode(candidate.envelope()).author==wallet.publicKey)
+        }
         val creationKey=record.get("creationKey")?.takeUnless{it.isJsonNull}?.let {
             require(it.isJsonPrimitive && it.asJsonPrimitive.isString)
             SaitoWallet.fromBackup(it.asString).also{key->require(key.publicKey==group.id)}
         }
         val draft=record.get("draft")?.also{require(it.isJsonPrimitive&&it.asJsonPrimitive.isString)}?.asString ?: ""
-        Entry(group,candidate,Status.valueOf(record.get("status").asString),creationKey,history.originals,history.messages,draft)
+        Entry(group,candidate,status,creationKey,history.originals,history.messages,draft)
     }
 
     fun prepareCreation(candidate: SaitoTransaction, creationKey: SaitoWallet? = null): Entry = synchronized(SaitoLocalState.lock) {
@@ -69,7 +77,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         val group=GroupChat.confirmInvitation(effective,candidate.envelope())
         require(signed.recipients==listOf(effective.id,wallet.publicKey,effective.admin,effective.sender).distinct())
         if(previous==null) save(Entry(group,candidate,Status.UNKNOWN)) else {
-            check(previous.status==Status.FORWARDED)
+            check(!previous.hasPendingAction)
             save(previous.copy(group=GroupChat.applyControl(previous.group,candidate.envelope()),candidate=candidate,status=Status.UNKNOWN,originals=previous.originals+candidate.envelope()))
         }
     }
@@ -81,14 +89,24 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         require(signed.author==wallet.publicKey && signed.body.get("request").asString=="chat remove")
         require(signed.body.get("member_id").asString==wallet.publicKey)
         val previous=requireNotNull(load(signed.body.get("group_id").asString))
-        check(previous.status==Status.FORWARDED && previous.group.memberRoles[wallet.publicKey]?.active==true)
+        check(!previous.hasPendingAction && previous.group.memberRoles[wallet.publicKey]?.active==true)
         save(previous.copy(group=GroupChat.applyControl(previous.group,candidate.envelope()),candidate=candidate,status=Status.UNKNOWN,originals=previous.originals+candidate.envelope()))
     }
 
     /** Persist authenticated group originals in observation order before incoming RPC acknowledgement. */
     fun receive(envelope:String):Entry = synchronized(SaitoLocalState.lock) {
         val signed=SaitoEnvelope.decode(envelope)
-        require(signed.body.get("module").asString=="Chat")
+        require(signed.body.get("module")==com.google.gson.JsonPrimitive("Chat"))
+        if(signed.body.get("request")==com.google.gson.JsonPrimitive("chat group")){
+            val group=GroupChat.readCreation(envelope)
+            require(wallet.publicKey in group.memberRoles)
+            val previous=load(group.id)
+            if(previous!=null){
+                require(previous.group.creationEnvelope?.let{SaitoEnvelope.decode(it).id}==signed.id)
+                return@synchronized previous
+            }
+            return@synchronized save(Entry(group,null,Status.RECEIVED))
+        }
         val id=signed.body.get("group_id").asString
         val previous=requireNotNull(load(id))
         val replay=GroupChat.replay(previous.group,previous.originals+envelope)
@@ -107,7 +125,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
 
     fun saveDraft(id:String,text:String):Entry = synchronized(SaitoLocalState.lock) {
         val previous=requireNotNull(load(id))
-        check(previous.status==Status.FORWARDED)
+        check(!previous.hasPendingAction)
         save(previous.copy(draft=text))
     }
 
@@ -116,7 +134,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         val signed=SaitoEnvelope.decode(candidate.envelope())
         require(signed.author==wallet.publicKey && signed.body.get("request").asString=="chat message")
         val previous=requireNotNull(load(signed.body.get("group_id").asString))
-        check(previous.status==Status.FORWARDED && previous.group.memberRoles[wallet.publicKey]?.active==true)
+        check(!previous.hasPendingAction && previous.group.memberRoles[wallet.publicKey]?.active==true)
         val replay=GroupChat.replay(previous.group,previous.originals+candidate.envelope())
         save(previous.copy(group=replay.group,originals=replay.originals,messages=replay.messages,candidate=candidate,status=Status.UNKNOWN,draft=""))
     }
@@ -125,7 +143,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
     fun prepareRetry(id:String,signature:String):Entry = synchronized(SaitoLocalState.lock) {
         assertSelected()
         val previous=requireNotNull(load(id))
-        check(previous.candidate.id==signature && previous.status in listOf(Status.UNKNOWN,Status.SUBMITTED))
+        check(previous.candidate?.id==signature && previous.status in listOf(Status.UNKNOWN,Status.SUBMITTED))
         save(previous.copy(status=Status.UNKNOWN))
     }
 
@@ -136,12 +154,12 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
 
     fun claim(id: String, signature: String) = synchronized(SaitoLocalState.lock) {
         assertSelected()
-        check(load(id)?.let { it.candidate.id == signature && it.status == Status.UNKNOWN } == true)
+        check(load(id)?.let { it.candidate?.id == signature && it.status == Status.UNKNOWN } == true)
     }
 
     fun record(id: String, signature: String, status: Status): Entry = synchronized(SaitoLocalState.lock) {
         val previous = requireNotNull(load(id))
-        check(previous.candidate.id == signature)
+        check(previous.candidate?.id == signature)
         check(status in listOf(Status.SUBMITTED,Status.FORWARDED))
         save(previous.copy(status=status))
     }
@@ -154,7 +172,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
             }
             add("controls",com.google.gson.JsonArray().apply{entry.group.controls.forEach(::add)})
             add("events",com.google.gson.JsonArray().apply{entry.originals.forEach(::add)})
-            addProperty("candidate",entry.candidate.encoded())
+            addProperty("candidate",entry.candidate?.encoded())
             addProperty("status",entry.status.name)
             addProperty("draft",entry.draft)
             entry.creationKey?.let { key ->
@@ -163,7 +181,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
             }
         }
         file(entry.group.id).save(EncryptedLocalFile.Contents(1,record.toString()))
-        return requireNotNull(load(entry.group.id)).also { check(it.candidate.id == entry.candidate.id && it.status == entry.status &&
+        return requireNotNull(load(entry.group.id)).also { check(it.candidate?.id == entry.candidate?.id && it.status == entry.status &&
             it.creationKey?.exportJson()==entry.creationKey?.exportJson() && it.draft==entry.draft) }
     }
 
@@ -176,7 +194,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
                 val names=requireNotNull(context.noBackupFilesDir.listFiles()).map{it.name}.filter{it.startsWith(prefix)}
                 val pattern=Regex("${Regex.escape(prefix)}([1-9A-HJ-NP-Za-km-z]{43,45})\\.v1(?:\\.bak|\\.new)?")
                 if(names.any{pattern.matchEntire(it)==null || it.endsWith(".new")}) return@synchronized true
-                GroupChatStore(context,wallet,backend).entries().any{it.status!=Status.FORWARDED || it.draft.isNotBlank()}
+                GroupChatStore(context,wallet,backend).entries().any{it.hasPendingAction || it.draft.isNotBlank()}
             } catch(_:Exception){true}
         }
     }

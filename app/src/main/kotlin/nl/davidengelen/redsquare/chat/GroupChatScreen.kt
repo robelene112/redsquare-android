@@ -61,7 +61,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             if(busy&&!allowBusy)return@withLock false
             val id=selected ?: return@withLock true
             if(!draftReady)return@withLock true
-            if(entries.firstOrNull{it.group.id==id}?.status!=GroupChatStore.Status.FORWARDED)return@withLock true
+            if(entries.firstOrNull{it.group.id==id}?.hasPendingAction!=false)return@withLock true
             try {
                 val typed=message
                 withContext(NonCancellable){publish{store.saveDraft(id,typed);store.entries()}}
@@ -225,25 +225,27 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                 TextButton(onClick={members=true}) { Text(stringResource(R.string.group_members)) }
                 if(entry.group.memberRoles[wallet.publicKey]?.active==true) {
                     TextButton(enabled=!busy&&entry.group.memberRoles.values.any{it==ChatGroupRole.ADMIN},onClick={inviting=true}) { Text(stringResource(R.string.group_invite)) }
-                    TextButton(enabled=!busy&&entry.status==GroupChatStore.Status.FORWARDED,onClick={leaving=true}) { Text(stringResource(R.string.group_leave)) }
+                    TextButton(enabled=!busy&&!entry.hasPendingAction,onClick={leaving=true}) { Text(stringResource(R.string.group_leave)) }
                 }
             }
             Text(stringResource(when(entry.status) {
                 GroupChatStore.Status.UNKNOWN -> R.string.group_unknown
                 GroupChatStore.Status.SUBMITTED -> R.string.group_submitted
                 GroupChatStore.Status.FORWARDED -> R.string.group_forwarded
+                GroupChatStore.Status.RECEIVED -> R.string.group_received
             }),style=MaterialTheme.typography.bodySmall)
-            if(entry.status!=GroupChatStore.Status.FORWARDED) TextButton(enabled=loaded&&!busy&&!readFailed,onClick={
+            if(entry.hasPendingAction) TextButton(enabled=loaded&&!busy&&!readFailed,onClick={
                 act {
-                    withContext(NonCancellable){publish{store.prepareRetry(entry.group.id,entry.candidate.id);store.entries()}}
+                    val pending=requireNotNull(entry.candidate)
+                    withContext(NonCancellable){publish{store.prepareRetry(entry.group.id,pending.id);store.entries()}}
                     val updated=withContext(Dispatchers.IO){wallet.withNamedChatGroup(entry.group.id,entry.group.name,entry.creationKey)}
-                    val signed=withContext(Dispatchers.IO){SaitoEnvelope.decode(entry.candidate.envelope())}
+                    val signed=withContext(Dispatchers.IO){SaitoEnvelope.decode(pending.envelope())}
                     val request=signed.body.get("request").asString
                     val recipients=if(request=="chat join") {
                         signed.recipients.filter{it!=wallet.publicKey&&it!=entry.group.id}
                     } else entry.group.memberRoles.filterValues{it.active}.keys.filter{it!=wallet.publicKey}
                     val targets=recipients.ifEmpty{listOf(wallet.publicKey)}
-                    sendPrepared(entry.group.id,entry.candidate,updated,targets.first(),originalRelay=request=="chat group",relayRecipients=targets)
+                    sendPrepared(entry.group.id,pending,updated,targets.first(),originalRelay=request=="chat group",relayRecipients=targets)
                 }
             }){Text(stringResource(R.string.group_retry))}
             if(entry.group.memberRoles[wallet.publicKey]==ChatGroupRole.LEFT) Text(stringResource(R.string.group_left))
@@ -262,8 +264,8 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             }
             Row(verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(8.dp)){
                 OutlinedTextField(message,{message=it},Modifier.weight(1f),
-                    label={Text(stringResource(R.string.chat_message))},enabled=draftReady&&!busy&&!savingForNavigation&&entry.status==GroupChatStore.Status.FORWARDED&&entry.group.memberRoles[wallet.publicKey]?.active==true,maxLines=4)
-                Button(enabled=loaded&&draftReady&&!busy&&!savingForNavigation&&!readFailed&&entry.status==GroupChatStore.Status.FORWARDED&&
+                    label={Text(stringResource(R.string.chat_message))},enabled=draftReady&&!busy&&!savingForNavigation&&!entry.hasPendingAction&&entry.group.memberRoles[wallet.publicKey]?.active==true,maxLines=4)
+                Button(enabled=loaded&&draftReady&&!busy&&!savingForNavigation&&!readFailed&&!entry.hasPendingAction&&
                     entry.group.memberRoles[wallet.publicKey]?.active==true&&message.isNotBlank(),onClick={
                     act {
                         val candidate=withContext(Dispatchers.IO){GroupChat.message(wallet,entry.group,message,System.currentTimeMillis())}
