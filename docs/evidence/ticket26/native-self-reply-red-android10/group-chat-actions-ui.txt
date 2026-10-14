@@ -1,0 +1,47 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.GroupChatActionsPreviewTest:
+INSTRUMENTATION_STATUS: test=groupReplyUsesCompatibleQuoteAndCopyRetainsOnlyLiteralBodyAcrossReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.GroupChatActionsPreviewTest.groupReplyUsesCompatibleQuoteAndCopyRetainsOnlyLiteralBodyAcrossReopening$lambda$14$lambda$13$lambda$12(GroupChatActionsPreviewTest.kt:113)
+	at nl.davidengelen.redsquare.GroupChatActionsPreviewTest.$r8$lambda$sc3P_Dax7YE_wTYf1w4auGXl-rQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupChatActionsPreviewTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupChatActionsPreviewTest.groupReplyUsesCompatibleQuoteAndCopyRetainsOnlyLiteralBodyAcrossReopening(GroupChatActionsPreviewTest.kt:58)
+
+INSTRUMENTATION_STATUS: stream=
+Error in groupReplyUsesCompatibleQuoteAndCopyRetainsOnlyLiteralBodyAcrossReopening(nl.davidengelen.redsquare.GroupChatActionsPreviewTest):
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.GroupChatActionsPreviewTest.groupReplyUsesCompatibleQuoteAndCopyRetainsOnlyLiteralBodyAcrossReopening$lambda$14$lambda$13$lambda$12(GroupChatActionsPreviewTest.kt:113)
+	at nl.davidengelen.redsquare.GroupChatActionsPreviewTest.$r8$lambda$sc3P_Dax7YE_wTYf1w4auGXl-rQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupChatActionsPreviewTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupChatActionsPreviewTest.groupReplyUsesCompatibleQuoteAndCopyRetainsOnlyLiteralBodyAcrossReopening(GroupChatActionsPreviewTest.kt:58)
+
+INSTRUMENTATION_STATUS: test=groupReplyUsesCompatibleQuoteAndCopyRetainsOnlyLiteralBodyAcrossReopening
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 13.434
+There was 1 failure:
+1) groupReplyUsesCompatibleQuoteAndCopyRetainsOnlyLiteralBodyAcrossReopening(nl.davidengelen.redsquare.GroupChatActionsPreviewTest)
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.GroupChatActionsPreviewTest.groupReplyUsesCompatibleQuoteAndCopyRetainsOnlyLiteralBodyAcrossReopening$lambda$14$lambda$13$lambda$12(GroupChatActionsPreviewTest.kt:113)
+	at nl.davidengelen.redsquare.GroupChatActionsPreviewTest.$r8$lambda$sc3P_Dax7YE_wTYf1w4auGXl-rQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupChatActionsPreviewTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupChatActionsPreviewTest.groupReplyUsesCompatibleQuoteAndCopyRetainsOnlyLiteralBodyAcrossReopening(GroupChatActionsPreviewTest.kt:58)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
