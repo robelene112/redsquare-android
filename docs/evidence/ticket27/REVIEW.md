@@ -74,3 +74,12 @@ refusal. CompilePASS3m19; their runtime remains pending.
 Both axes verified all12 retained removal GREEN hashes, XML and original reopened
 capture for run38650006951 at a95dfbb4,fourPASS/25.556s. This accepts removal and
 existing controller fixture refactor, not later source/runtime or whole27.
+
+## Process source review
+
+7e8050b8...d81bd1e3: Spec1 evidence-isolation finding. A shared synthetic capture
+directory could retain a prior action's Retry image in another stage's archive.
+Standards1 Fowler repeated-switch judgment: candidate factory and corresponding
+preparation can share one action dispatch. Both corrected in working tree; only
+public synthetic captures are cleared and default reaction assertions remain.
+Correction compile75770PASS2m58s/core4/debug/test; fresh separate reviews pending. No PID acceptance.

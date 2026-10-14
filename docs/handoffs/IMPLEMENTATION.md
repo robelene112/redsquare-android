@@ -30,22 +30,24 @@ Signed15immutable preserved. recordsdocs/evidence/ticket39, no ownedlocalbuildac
 
 Current sequential issue27: admin promotion and member removal, assigned@me.
 Review base7979c655164257e08b184834810de03a80d92b67; prerequisite26 closed.
-Independent pinned A/B constructors/receivers and four focused core cases pass.
-Promotion UI passed Android10 (38644615973,ead3c7e6,1case9.505s).
-Stale target RED38645475499 was corrected by current full-snapshot checks at both
-raw claim and Relay enqueue. Android10 GREEN38646785704 at a3df6940 passed both
-cases11.887s; source checks core114/release/lint passed. Additional late rename
-coverage passed Android17 run38647977521 at75754bde,three cases34.467s.
-First removal UI RED38648870473 at4bd1e525: four cases,three pass,one failure,
-27.001s. Removal fails at57 waiting for the absent Remove control; its subsequent
-confirmation/transmission/role/reopening tail is unexecuted. Original capture
-inspected and evidence retained native-remove-red-android10.
-Controller fixture duplication corrected in d0d23d67, compilePASS1m44 and separate
-bounded Spec/Standards reviews zero findings. Post-refactor runtime still pending.
-Removal UI, fresh protected preparation, current-admin send guards and notification
-of the removed recipient are now implemented in working tree. Owned compile43045
-PASS3m5s/core4/debug/test; no removal GREEN or whole27 acceptance yet. Failure guidance, authority
-changes, process recovery, full10/17, final reviews and publication remain.
+Independent A/B constructors/receivers and four focused core cases pass.
+Removal UI GREEN10run38650006951 a95dfbb4:fourPASS/25.556s, exact target Relay,
+visible removed role, retained draft/key/wallet/backend and reopen/no duplicate.
+Both existing stale controller cases pass; original REDs retained and qualified.
+Shared confirmation-dialog correction/new authority-revocation tests7e8050b8:
+compilePASS3m19 and bounded Spec0/Standards0, runtime pending.
+Stale-confirmation RED17run38650278941 atf26cd78c:five cases,fourPASS,onefailure,
+62.23s. After actual peer departure and observed LEFT, missing guidance at133;
+confirmation-disabled/cancel/preservation/no-wire tail unexecuted. Root original
+capture inspected; native-stale-confirm-red-android17 retained. Existing removal
+and promotion/controller cases pass on17. Product guidance now in working tree.
+Process fixture d81bd1e3 extends actual PID/snapshot/restore default reaction with
+promotion/removal, zero autosend then explicit Retry of the identical original.
+CompilePASS1m29/Python/bashPASS; runtime pending. Review found stale synthetic
+capture contamination and repeated action switches, corrected in working tree.
+Build75770PASS2m58s/core4/debug/test verifies guidance/process corrections.
+Whole27 remains open: broader runtime/failure, PID, full10/17, final source/evidence
+reviews and signed phone publication pending. Stable phone beta remains signed16.
 Canonical chronology docs/research/NATIVE_GROUP_ADMIN_VERIFICATION.md.
 Then28 through36 and parked16/17/19 from native dependencies.16 requires Android-
 authorized Giphy credentials/URLretention;17 publicprovider playbackrefused despite

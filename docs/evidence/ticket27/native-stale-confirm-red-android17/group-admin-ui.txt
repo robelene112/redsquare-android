@@ -1,0 +1,112 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.GroupAdminPreviewTest:
+INSTRUMENTATION_STATUS: test=aPromotionConfirmationUpdatesWhenItsTargetLeaves
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.waitFor(GroupAdminPreviewTest.kt:312)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.aPromotionConfirmationUpdatesWhenItsTargetLeaves$lambda$31$lambda$30$lambda$29(GroupAdminPreviewTest.kt:133)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.$r8$lambda$bwb5R_c55Gyk9mvjKarNdh5z29M(GroupAdminPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest$$ExternalSyntheticLambda32.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.aPromotionConfirmationUpdatesWhenItsTargetLeaves(GroupAdminPreviewTest.kt:120)
+
+INSTRUMENTATION_STATUS: stream=
+Error in aPromotionConfirmationUpdatesWhenItsTargetLeaves(nl.davidengelen.redsquare.GroupAdminPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.waitFor(GroupAdminPreviewTest.kt:312)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.aPromotionConfirmationUpdatesWhenItsTargetLeaves$lambda$31$lambda$30$lambda$29(GroupAdminPreviewTest.kt:133)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.$r8$lambda$bwb5R_c55Gyk9mvjKarNdh5z29M(GroupAdminPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest$$ExternalSyntheticLambda32.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.aPromotionConfirmationUpdatesWhenItsTargetLeaves(GroupAdminPreviewTest.kt:120)
+
+INSTRUMENTATION_STATUS: test=aPromotionConfirmationUpdatesWhenItsTargetLeaves
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anAdminCanRemoveAMemberAndRetainTheDraftAndRemovalAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anAdminCanRemoveAMemberAndRetainTheDraftAndRemovalAfterReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anAdminCanPromoteAMemberWithoutLosingTheDraftAndReopenTheNewRole
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anAdminCanPromoteAMemberWithoutLosingTheDraftAndReopenTheNewRole
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aPromotionStopsAtRelayWhenARenameArrivesAfterRawSubmission
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aPromotionStopsAtRelayWhenARenameArrivesAfterRawSubmission
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aPreparedPromotionCannotTransmitOrRetryAfterTheTargetLeaves
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aPreparedPromotionCannotTransmitOrRetryAfterTheTargetLeaves
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 62.23
+There was 1 failure:
+1) aPromotionConfirmationUpdatesWhenItsTargetLeaves(nl.davidengelen.redsquare.GroupAdminPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.waitFor(GroupAdminPreviewTest.kt:312)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.aPromotionConfirmationUpdatesWhenItsTargetLeaves$lambda$31$lambda$30$lambda$29(GroupAdminPreviewTest.kt:133)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.$r8$lambda$bwb5R_c55Gyk9mvjKarNdh5z29M(GroupAdminPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest$$ExternalSyntheticLambda32.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.aPromotionConfirmationUpdatesWhenItsTargetLeaves(GroupAdminPreviewTest.kt:120)
+
+FAILURES!!!
+Tests run: 5,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

@@ -43,6 +43,8 @@ class GroupChatProcessRecoveryTest {
 
     @Test fun terminateWithGroupKeyHistoryDraftAndUncertainOriginal() {
         check(!checkpoint.exists()&&!originals.exists())
+        val captures=File(context.cacheDir,"group-chat-process-evidence")
+        check(!captures.exists()||captures.deleteRecursively()) // Only synthetic captures, never protected records.
         val wallets=AndroidWalletStore(context)
         val original=wallets.loadOrCreate()
         val backend=AndroidBackendStore(context).load()
@@ -93,13 +95,11 @@ class GroupChatProcessRecoveryTest {
             val current=requireNotNull(store.load(key.publicKey))
             val candidate=when(action) {
                 "promotion" -> GroupChat.promote(fixture,current.group,member,1700000123458)
+                    .also{store.preparePromotion(it,member)}
                 "removal" -> GroupChat.removeMember(fixture,current.group,member,1700000123458)
+                    .also{store.prepareRemoval(it,member)}
                 else -> GroupChat.like(fixture,current.group,current.messages.single(),1700000123458)
-            }
-            when(action) {
-                "promotion" -> store.preparePromotion(candidate,member)
-                "removal" -> store.prepareRemoval(candidate,member)
-                else -> store.prepareReaction(candidate)
+                    .also{store.prepareReaction(it)}
             }
             row.addProperty("candidate",candidate.id);row.addProperty("candidateDigest",digest(candidate.envelope()))
             ui.onNodeWithText("Refresh").assertIsEnabled().performClick()

@@ -454,7 +454,8 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         }}},confirmButton={TextButton(onClick={members=false}){Text(stringResource(R.string.group_done))}})
     if(promoting!=null && entry!=null) MemberManagementDialog(requireNotNull(promoting),
         R.string.group_promote_title,R.string.group_promote_notice,R.string.group_promote_confirm,
-        busy,loaded&&!busy&&!readFailed&&!entry.hasPendingAction,onDismiss={promoting=null}) {
+        entry.group,wallet.publicKey,busy,loaded&&!busy&&!readFailed&&!entry.hasPendingAction,
+        sendFailed||draftFailed,onDismiss={promoting=null}) {
         val member=requireNotNull(promoting)
         act {
             val candidate=withContext(Dispatchers.IO){GroupChat.promote(wallet,entry.group,member,System.currentTimeMillis())}
@@ -465,7 +466,8 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     }
     if(removing!=null && entry!=null) MemberManagementDialog(requireNotNull(removing),
         R.string.group_remove_title,R.string.group_remove_notice,R.string.group_remove_confirm,
-        busy,loaded&&!busy&&!readFailed&&!entry.hasPendingAction,onDismiss={removing=null}) {
+        entry.group,wallet.publicKey,busy,loaded&&!busy&&!readFailed&&!entry.hasPendingAction,
+        sendFailed||draftFailed,onDismiss={removing=null}) {
         val member=requireNotNull(removing)
         act {
             val candidate=withContext(Dispatchers.IO){GroupChat.removeMember(wallet,entry.group,member,System.currentTimeMillis())}
@@ -483,15 +485,19 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
 }
 
 @Composable
-private fun MemberManagementDialog(member:String,title:Int,notice:Int,confirm:Int,busy:Boolean,enabled:Boolean,
+private fun MemberManagementDialog(member:String,title:Int,notice:Int,confirm:Int,group:NamedChatGroup,owner:String,
+    busy:Boolean,enabled:Boolean,failed:Boolean,
     onDismiss:()->Unit,onConfirm:()->Unit) {
+    val permitted=group.memberRoles[owner]==ChatGroupRole.ADMIN&&group.memberRoles[member]==ChatGroupRole.MEMBER
     AlertDialog(onDismissRequest={if(!busy)onDismiss()},title={Text(stringResource(title))},
         text={Column(verticalArrangement=Arrangement.spacedBy(8.dp)){
             Text(registeredIdentity(member).name)
             Text(member,style=MaterialTheme.typography.bodySmall)
             Text(stringResource(notice))
+            if(!permitted)Text(stringResource(R.string.group_management_changed),color=MaterialTheme.colorScheme.error)
+            if(failed)Text(stringResource(R.string.group_error),color=MaterialTheme.colorScheme.error)
         }},dismissButton={TextButton(enabled=!busy,onClick=onDismiss){Text(stringResource(R.string.group_cancel))}},
-        confirmButton={TextButton(enabled=enabled,onClick=onConfirm){Text(stringResource(confirm))}})
+        confirmButton={TextButton(enabled=enabled&&permitted,onClick=onConfirm){Text(stringResource(confirm))}})
 }
 
 @Composable

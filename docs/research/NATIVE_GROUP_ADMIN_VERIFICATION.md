@@ -152,3 +152,15 @@ and Retry proof, preserving the default reaction path. Focused admin and finalfu
 harness include both new process journeys without changing existing deadlines.
 Compile34981PASS1m29s, Python compile/bash syntaxPASS. Runtime not yet run; no process
 or Retry acceptance claimed. Earlier stale-popup RED17 still active atf26cd78c.
+
+Stale popup RED17run38650278941 atf26cd78c FAILED:five cases,fourPASS,onefailure,
+62.23s. Actual incoming departure persisted LEFT, then guidance wait133 failed.
+Root original shows unchanged enabled confirmation/no warning. Disabled-confirm/
+cancel/key/draft/no-wire tail unexecuted; retainednative-stale-confirm-red-android17.
+Other four cases pass including removal17. Shared dialog now derives current
+admin/ordinary-target permission, visibly explains changed membership and disables
+confirmation. Existing preparation/save failure guidance is also shown in-dialog.
+Process review Spec1 stale synthetic capture isolation and Standards1 repeated
+factory/preparation switch corrected: clear only public capture directory before
+preparation, combine factory+store preparation per selector. No protected data
+cleared. Compile75770PASS2m58s/core4/debug/test, no corrected runtime acceptance yet.
