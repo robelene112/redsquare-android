@@ -80,3 +80,8 @@ with256-entry RED/GREEN; active-role duplication extracted separately.
 Correction reviews91c65a96...dfe60e90: Standards0, active-role duplication
 resolved; Spec0, role-map limit finding resolved. Full101core precedes sizefix;
 14focused group cases verify it. No runtime/whole-ticket claim.
+
+Native tracer reviewdfe60e90...455d69ba: Standards0; Spec2 strengthened before
+GREEN: compare exact normalized broadcast/Relay originals and all four invitation
+claims. Recreate's retained Chat navigation corrected separately, no assertion
+relaxed. First native creation implementation review/compile/runtime pending.

@@ -42,6 +42,12 @@ import java.util.Locale
 internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBackend, modifier: Modifier,
     onWalletMetadata: suspend (SaitoWallet, SaitoWallet) -> Unit, onBack: () -> Unit) {
     nl.davidengelen.redsquare.NotificationPermissionPrompt()
+    var reviewingGroups by remember(wallet.publicKey,backend) { mutableStateOf(false) }
+    if (reviewingGroups) {
+        GroupChatScreen(wallet,endpoint,backend,modifier,onWalletMetadata) { reviewingGroups=false }
+        return
+    }
+
     val personal = LocalPersonalControls.current
     val context = LocalContext.current.applicationContext
     val scope = rememberCoroutineScope()
@@ -280,6 +286,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
         if (incomplete) Text(stringResource(R.string.chat_incomplete))
         val contact = counterparty
         if (contact == null) {
+            TextButton(onClick={reviewingGroups=true}) { Text(stringResource(R.string.group_title)) }
             Row(Modifier.fillMaxWidth(), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
                 OutlinedTextField(value = newContact, onValueChange = { newContact = it; contactFailed = false },
                     label = { Text(stringResource(R.string.chat_public_key)) }, singleLine = true,

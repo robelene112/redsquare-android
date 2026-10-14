@@ -11,10 +11,25 @@ import java.util.Base64
 
 /** Unsigned link claims. Parsing never grants membership or selects a backend. */
 class GroupInvitation internal constructor(val id: String, val name: String, val sender: String, val admin: String) {
+    fun encoded(): String {
+        val claims = JsonObject().apply {
+            addProperty("id",id);addProperty("name",name);addProperty("sender",sender);addProperty("admin",admin)
+        }
+        return Base64.getEncoder().encodeToString(claims.toString().toByteArray(Charsets.UTF_8))
+    }
+
+    fun link(backend: SaitoBackend): String = backend.webUrl + "/chat?chat_id=" + encoded()
+
     class Invalid : IllegalArgumentException("Group invitation could not be read")
 
     companion object {
         private val gson = GsonBuilder().setStrictness(Strictness.STRICT).create()
+
+        fun fromGroup(group: NamedChatGroup, sender: String): GroupInvitation {
+            require(group.memberRoles[sender]?.active == true)
+            val admin = requireNotNull(group.memberRoles.entries.firstOrNull { it.value == ChatGroupRole.ADMIN }?.key)
+            return GroupInvitation(group.id,group.name,sender,admin)
+        }
 
         fun parse(text: String): GroupInvitation = try {
             read(text)

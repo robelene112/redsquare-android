@@ -9,7 +9,7 @@ internal data class ChatSubmissionCallbacks(val claim: () -> Unit, val assertSel
     val submitted: suspend () -> Unit, val forwarded: suspend () -> Unit)
 
 internal suspend fun submitChatTransaction(wallet: SaitoWallet, endpoint: String, contact: String,
-    candidate: SaitoTransaction, callbacks: ChatSubmissionCallbacks) {
+    candidate: SaitoTransaction, callbacks: ChatSubmissionCallbacks, originalRelay: Boolean = false) {
     SaitoPeer(wallet, endpoint).use { peer ->
         require("relay" in peer.services())
         peer.submit(candidate) { callbacks.claim() }
@@ -18,8 +18,9 @@ internal suspend fun submitChatTransaction(wallet: SaitoWallet, endpoint: String
             addProperty("module", "Relay"); addProperty("request", "chat relay")
             add("data", candidate.signedJson())
         }
-        val relay = SaitoTransaction.create(wallet, relayBody, System.currentTimeMillis(), listOf(contact))
-            .signedJson().apply { addProperty("signature", "0".repeat(128)) }
+        val relay = if (originalRelay) candidate.signedJson() else
+            SaitoTransaction.create(wallet, relayBody, System.currentTimeMillis(), listOf(contact))
+                .signedJson().apply { addProperty("signature", "0".repeat(128)) }
         val request = JsonObject().apply { addProperty("request", "relay peer message"); add("data", relay) }
         val response = peer.request(request.toString().toByteArray(Charsets.UTF_8)) { callbacks.assertSelected() }
         val result = JsonParser.parseString(response.toString(Charsets.UTF_8)).asJsonObject

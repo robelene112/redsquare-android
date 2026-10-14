@@ -1,5 +1,7 @@
 package nl.davidengelen.redsquare
 
+import nl.davidengelen.redsquare.saito.SaitoEnvelope
+
 import com.google.gson.JsonParser
 import mockwebserver3.MockResponse
 import mockwebserver3.MockWebServer
@@ -130,8 +132,13 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                         if (body.get("request").asString == "relay peer message") {
                             val relay = JsonParser.parseString(String(java.util.Base64.getDecoder().decode(
                                 criteria.get("buffer").asString), Charsets.UTF_8)).asJsonObject
-                            require(relay.get("module").asString == "Relay" && relay.get("request").asString == "chat relay")
-                            val original = relay.getAsJsonObject("data")
+                            val original = if (relay.get("module").asString == "Chat" && relay.get("request").asString == "chat group") {
+                                SaitoEnvelope.decode(SaitoEnvelope.fromSignedJson(criteria))
+                                criteria
+                            } else {
+                                require(relay.get("module").asString == "Relay" && relay.get("request").asString == "chat relay")
+                                relay.getAsJsonObject("data")
+                            }
                             relayedMessages.add(original.deepCopy())
                             val response = relayResponse?.invoke(original) ?: "{\"err\":\"\",\"success\":1}"
                             webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) + response.toByteArray()).toByteString())

@@ -218,3 +218,20 @@ Snapshot-size correction: public fixture with256 valid role entries fails the
 incorrect255 cap, RED1/build35s. Removed slip-count borrowing; authenticated
 envelope byte limit still bounds input. All14GroupChat cases GREEN. No Android
 runtime or arbitrary history completeness claim.
+
+## First native creation flow
+
+Android17 run38513845554 at455d69ba: one test, one missing Groups failure24.909s.
+Root inspected original private-Chat PNG/XML; later assertions did not execute.
+Source gate38513831069 separately SUCCESS. First creation-only Android store/screen
+now implemented, but compile/device GREEN is pending. Direct creation Relay follows
+pinned Relay.sendRelayTransaction and Chat.handlePeerTransaction: a wrapped creation
+is not handled by Chat's control relay branch. Controlled peer now authenticates
+and accepts original creation envelopes as well as existing wrapped private Chat.
+
+Review strengthened exact normalized broadcast/Relay equality and all invitation
+claims. Recreate stays in Chat; corrected the previously unreachable fixture step.
+New group state is device encrypted and scoped to wallet/backend. Opening does not
+autosend. This slice does not yet implement join/leave/history/messages/retry UI or
+prove interruption of metadata publication; the creation key must remain recoverable
+through that later failure test. No group build published, no complete26 claim.

@@ -157,6 +157,32 @@ class SaitoWallet private constructor(
         return fromBackup(options.toString())
     }
 
+    /** Compatible group watch metadata; a creation key remains inside the protected wallet backup. */
+    fun withNamedChatGroup(id: String, name: String, groupKey: SaitoWallet? = null): SaitoWallet {
+        require(isPublicKey(id) && id != publicKey && name.isNotBlank())
+        require(groupKey == null || groupKey.publicKey == id)
+        val options = gson.fromJson(exportJson(),JsonObject::class.java)
+        val savedKeys = options.get("keys")?.takeUnless { it.isJsonNull }
+        require(savedKeys == null || savedKeys.isJsonArray)
+        val keys = savedKeys?.asJsonArray ?: JsonArray().also { options.add("keys",it) }
+        val previous = keys.firstOrNull { it.isJsonObject && chatAddress(it.asJsonObject) == id }?.asJsonObject
+        require(previous == null || isChatGroup(previous))
+        val row = previous ?: JsonObject().also { keys.add(it) }
+        row.addProperty("publicKey",id);row.addProperty("identifier",name)
+        row.addProperty("group",1);row.addProperty("watched",true)
+        groupKey?.let { row.addProperty("privateKey",it.scalar.toString(16).padStart(64,'0')) }
+        val savedChat = options.get("chat")?.takeUnless { it.isJsonNull }
+        val groups = if (savedChat?.isJsonArray == true) savedChat.asJsonArray else {
+            require(savedChat == null || savedChat.isJsonObject)
+            val chat = savedChat?.asJsonObject ?: JsonObject().also { options.add("chat",it) }
+            val value = chat.get("groups")?.takeUnless { it.isJsonNull }
+            require(value == null || value.isJsonArray)
+            value?.asJsonArray ?: JsonArray().also { chat.add("groups",it) }
+        }
+        if (groups.none { it.isJsonPrimitive && it.asJsonPrimitive.isString && it.asString == id }) groups.add(id)
+        return fromBackup(options.toString())
+    }
+
     private fun isChatGroup(row: JsonObject): Boolean =
         row.get("type")?.let { it.isJsonPrimitive && it.asString == "group" } == true ||
             row.get("group")?.let { !it.isJsonNull && it.toString() != "false" } == true

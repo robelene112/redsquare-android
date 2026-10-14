@@ -422,4 +422,21 @@
     <string name="chat_no_messages">No available messages in this conversation.</string>
     <string name="chat_load_error">Could not load chats. Check your connection and try Refresh.</string>
     <string name="chat_incomplete">Some messages could not be read. Your wallet backup may contain additional Chat keys.</string>
+    <string name="group_title">Groups</string>
+    <string name="group_privacy">Group messages are unencrypted.</string>
+    <string name="group_unencrypted">Unencrypted group</string>
+    <string name="group_create">Create group</string>
+    <string name="group_create_confirm">Create</string>
+    <string name="group_name">Group name</string>
+    <string name="group_invitees">Invitees (optional)</string>
+    <string name="group_invalid_invitees">Enter valid Saito public keys separated by spaces or commas.</string>
+    <string name="group_members">Members</string>
+    <string name="group_invite">Invite</string>
+    <string name="group_done">Done</string>
+    <string name="group_invitation_link">Invitation link</string>
+    <string name="group_error">Group information could not be saved or sent. Your existing records are kept.</string>
+    <string name="group_unknown">Status unknown. Your signed action is saved on this device.</string>
+    <string name="group_submitted">Submitted. Delivery is not confirmed.</string>
+    <string name="group_forwarded">Forwarded. Delivery is not confirmed.</string>
+    <string name="group_cancel">Cancel</string>
 </resources>
