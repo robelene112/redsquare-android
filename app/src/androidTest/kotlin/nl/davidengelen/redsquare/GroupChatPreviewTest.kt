@@ -17,7 +17,9 @@ class GroupChatPreviewTest {
 
     @Test fun anExistingMemberInvitationCanBeConfirmedOnTheSelectedBackendAndReadAfterReopening() = exerciseGroupUi(joining=true)
 
-    private fun exerciseGroupUi(joining:Boolean=false) {
+    @Test fun leavingANamedGroupRetainsTheSignedDepartureAfterReopening() = exerciseGroupUi(leaving=true)
+
+    private fun exerciseGroupUi(joining:Boolean=false, leaving:Boolean=false) {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -45,7 +47,7 @@ class GroupChatPreviewTest {
                 ActivityScenario.launch<MainActivity>(Intent(context,MainActivity::class.java)
                     .putExtra("feedPeerUrl","ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("feedOfficialPeerUrl","ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
-                    withFailureCapture({ captureNativeScreen(File(context.cacheDir,if(joining) "group-chat-evidence/join-failure.png" else "group-chat-evidence/create-failure.png")) }) {
+                    withFailureCapture({ captureNativeScreen(File(context.cacheDir,if(joining) "group-chat-evidence/join-failure.png" else if(leaving) "group-chat-evidence/leave-failure.png" else "group-chat-evidence/create-failure.png")) }) {
                         waitFor("Chat")
                         ui.waitUntil(15_000) { ui.onAllNodes(hasText("Chat") and isEnabled()).fetchSemanticsNodes().size == 1 }
                         ui.onNodeWithText("Chat").assertIsDisplayed().performClick()
@@ -122,12 +124,37 @@ class GroupChatPreviewTest {
                         val parsed = GroupInvitation.parse(link)
                         check(parsed.id == group.id && parsed.name == group.name && parsed.sender == fixture.publicKey && parsed.admin == fixture.publicKey)
                         ui.onNodeWithText("Done").performClick()
+                        if(leaving) {
+                            ui.onNodeWithText("Leave group").assertIsDisplayed().assertIsEnabled().performClick()
+                            waitFor("Leaving does not erase messages or copies held by other people.")
+                            check(peer.transactions.size==1 && peer.relayedMessages.size==1)
+                            ui.onNodeWithText("Leave").assertIsEnabled().performClick()
+                            waitFor("You have left this group.")
+                            waitFor("Forwarded. Delivery is not confirmed.")
+                            ui.waitUntil(15_000){peer.transactions.size==2 && peer.relayedMessages.size==2}
+                            val originalLeave=SaitoEnvelope.fromSignedJson(peer.relayedMessages.last())
+                            check(postingTransaction(peer.transactions.last()).envelope()==originalLeave)
+                            val departure=SaitoEnvelope.decode(originalLeave)
+                            check(departure.author==fixture.publicKey && departure.body.get("request").asString=="chat remove")
+                            check(departure.body.get("member_id").asString==fixture.publicKey && departure.body.get("group_id").asString==group.id)
+                            check(departure.recipients.first()==group.id)
+                            check(GroupChat.applyControl(group,originalLeave).memberRoles[fixture.publicKey]==ChatGroupRole.LEFT)
+                            ui.onNodeWithText("Invite").assertDoesNotExist()
+                            captureNativeScreen(File(context.cacheDir,"group-chat-evidence/left.png"),"You have left this group.")
+                        }
                         scenario.recreate()
                         waitFor("Groups")
                         ui.onNodeWithText("Groups").performClick()
                         waitFor("Beta crew")
                         captureNativeScreen(File(context.cacheDir,"group-chat-evidence/reopened.png"),"Beta crew")
-                        check(peer.transactions.size == 1 && peer.relayedMessages.size == 1)
+                        if(leaving){
+                            ui.onNodeWithText("Beta crew").assertIsDisplayed().performClick()
+                            waitFor("You have left this group.")
+                            ui.onNodeWithText("Invite").assertDoesNotExist()
+                            captureNativeScreen(File(context.cacheDir,"group-chat-evidence/left-reopened.png"),"You have left this group.")
+                        }
+                        val expected=if(leaving)2 else 1
+                        check(peer.transactions.size == expected && peer.relayedMessages.size == expected)
                         peer.assertHealthy()
                     }
                 }
