@@ -210,3 +210,12 @@ previous evidence. Fresh full10run38501541774 and17run38501544092 at
 These include the separately proven diagnostic-only437 full-wallet assertion
 message change. App/core production equals4c/signed14. Final successful workflow
 results and separate evidence reviews/publication remain outstanding.
+
+Supplementary configured-palette contrast audit is in palette-contrast.json,
+with exact source/filehash.16 sampled opaque sRGB pairs range5.77–17.60 inLight
+and7.20–16.31 inDark. This is a source-palette audit, not exhaustive rendered
+accessibility, font-scale, TalkBack or physical Pixel verification.
+Root additionally viewed17profile-available-likes andnotification incoming-like/
+missing-original originals from full-attempt2. Existing partial-history/status
+text and controls remain readable. Those observations remain cancelled-workflow
+capture evidence at the already-recorded exact source.

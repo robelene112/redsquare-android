@@ -1,0 +1,28 @@
+{
+  "method": "Configured opaque sRGB palette contrast only; not an exhaustive rendered accessibility audit",
+  "ratios": {
+    "Light": {
+      "onBackground/background": 17.6,
+      "onSurfaceVariant/surface": 6.64,
+      "onPrimary/primary": 5.77,
+      "onPrimaryContainer/primaryContainer": 9.92,
+      "onSecondary/secondary": 6.15,
+      "onSecondaryContainer/secondaryContainer": 12.42,
+      "primary/surface": 5.77,
+      "onSurface/surfaceContainerHigh": 14.85
+    },
+    "Dark": {
+      "onBackground/background": 16.31,
+      "onSurfaceVariant/surface": 9.82,
+      "onPrimary/primary": 7.2,
+      "onPrimaryContainer/primaryContainer": 10.25,
+      "onSecondary/secondary": 8.35,
+      "onSecondaryContainer/secondaryContainer": 10.81,
+      "primary/surface": 8.34,
+      "onSurface/surfaceContainerHigh": 12.15
+    }
+  },
+  "source": "4c8f14ca34c2726881e074dab6de73cbce6f5e77",
+  "sourceFile": "app/src/main/kotlin/nl/davidengelen/redsquare/ui/RedSquareTheme.kt",
+  "sourceFileSha256": "4622ed1f308e8b50c349492b1a50d9cdada26154198f8a52ae9f92350bdd4c64"
+}
