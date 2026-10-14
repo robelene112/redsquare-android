@@ -26,6 +26,7 @@ import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.*
 import nl.davidengelen.redsquare.moderation.LocalPersonalControls
 import nl.davidengelen.redsquare.moderation.PersonalControlsStatus
+import nl.davidengelen.redsquare.registry.registeredIdentity
 
 /** Named-group UI is separate from private Chat and shares the selected wallet/backend. */
 @Composable
@@ -290,8 +291,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                 items(entries,key={it.group.id}) { row ->
                     TextButton(enabled=!busy,onClick={selected=row.group.id},modifier=Modifier.fillMaxWidth()) {
                         Column(Modifier.fillMaxWidth().padding(vertical=8.dp)) {
-                            Text(row.group.name,style=MaterialTheme.typography.titleMedium,color=MaterialTheme.colorScheme.onSurface)
-                            Text(stringResource(R.string.group_unencrypted),style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
+                            ChatIdentityRow(row.group.id,row.group.name,stringResource(R.string.group_unencrypted))
                         }
                     }
                     HorizontalDivider()
@@ -309,7 +309,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         } else {
             if(entry.group.confirmedInvitation!=null) Text(stringResource(R.string.group_invitation_origin),
                 style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
-            Row {
+            FlowRow {
                 TextButton(onClick={members=true}) { Text(stringResource(R.string.group_members)) }
                 if(entry.group.memberRoles[wallet.publicKey]?.active==true) {
                     TextButton(enabled=!busy&&entry.group.memberRoles.values.any{it==ChatGroupRole.ADMIN},onClick={inviting=true}) { Text(stringResource(R.string.group_invite)) }
@@ -345,17 +345,18 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             LazyColumn(Modifier.weight(1f).semantics{contentDescription=messagesLabel},
                 state=messageList,verticalArrangement=Arrangement.spacedBy(8.dp)) {
                 items(visible,key={it.id}){item->
-                    Column(Modifier.fillMaxWidth().padding(horizontal=8.dp,vertical=4.dp)){
+                    val outgoing=item.author==wallet.publicKey
+                    Column(Modifier.fillMaxWidth().padding(vertical=6.dp),
+                        horizontalAlignment=if(outgoing)Alignment.End else Alignment.Start){
                         var copyFailed by remember(item.id){mutableStateOf(false)}
                         val replyPrefix=remember(item){chatReplyPrefix(item.author,item.createdAt,item.text)}
-                        Text(item.author,style=MaterialTheme.typography.labelSmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
-                        SelectionContainer{PrivateMessageText(item.text){reference->
+                        ChatMessageBubble(item.author,item.text,item.createdAt,outgoing,selectable=true){reference->
                             val index=visible.indexOfFirst{it.author+it.createdAt==reference}
                             if(index>=0)scope.launch{messageList.animateScrollToItem(index)}
-                        }}
+                        }
                         val likedBy=entry.likedBy(item)
                         if(likedBy.isNotEmpty())Text(pluralStringResource(R.plurals.chat_likes,likedBy.size,likedBy.size))
-                        Row(verticalAlignment=Alignment.CenterVertically){
+                        FlowRow{
                         TextButton(enabled=permitted,onClick={
                             act {
                                 val candidate=withContext(Dispatchers.IO){GroupChat.like(wallet,entry.group,item,System.currentTimeMillis())}
@@ -426,12 +427,16 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         }){Text(stringResource(R.string.group_leave_confirm))}})
     if(members && entry!=null) AlertDialog(onDismissRequest={members=false},title={Text(stringResource(R.string.group_members))},
         text={LazyColumn(Modifier.heightIn(max=320.dp)){items(entry.group.memberRoles.toList(),key={it.first}){(key,role)->
-            Column(Modifier.padding(vertical=8.dp)){Text(key,style=MaterialTheme.typography.bodySmall);Text(stringResource(when(role){
+            Column(Modifier.fillMaxWidth().padding(vertical=8.dp),verticalArrangement=Arrangement.spacedBy(4.dp)){
+                ChatIdentityRow(key,registeredIdentity(key).name,stringResource(when(role){
                 ChatGroupRole.ADMIN -> R.string.group_role_admin
                 ChatGroupRole.MEMBER -> R.string.group_role_member
                 ChatGroupRole.LEFT -> R.string.group_role_left
                 ChatGroupRole.REMOVED -> R.string.group_role_removed
-            }))}
+                }))
+                Text(key,Modifier.padding(start=52.dp),style=MaterialTheme.typography.labelSmall,
+                    color=MaterialTheme.colorScheme.onSurfaceVariant)
+            }
         }}},confirmButton={TextButton(onClick={members=false}){Text(stringResource(R.string.group_done))}})
     if(inviting && entry!=null && entry.group.memberRoles[wallet.publicKey]?.active==true && entry.group.memberRoles.values.any{it==ChatGroupRole.ADMIN}) {
         val invitation = remember(entry.group,backend) { GroupInvitation.fromGroup(entry.group,wallet.publicKey).link(backend) }

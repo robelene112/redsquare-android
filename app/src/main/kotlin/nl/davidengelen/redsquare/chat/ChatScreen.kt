@@ -4,7 +4,6 @@ import androidx.activity.compose.BackHandler
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -33,9 +32,6 @@ import nl.davidengelen.redsquare.moderation.PersonalControlsStatus
 import nl.davidengelen.redsquare.registry.registeredIdentity
 import nl.davidengelen.redsquare.feed.GeneratedProfilePicture
 import nl.davidengelen.redsquare.saito.*
-import java.text.DateFormat
-import java.util.Date
-import java.util.Locale
 
 /** Private Chat has its own navigation and verified history, sharing only the active Saito foundation. */
 @Composable
@@ -373,21 +369,9 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                     Column(Modifier.fillMaxWidth().padding(vertical = 6.dp),
                         horizontalAlignment = if (outgoing) Alignment.End else Alignment.Start) {
                         var copyFailed by remember(message.id) { mutableStateOf(false) }
-                        Surface(Modifier.fillMaxWidth(0.94f), shape = RoundedCornerShape(
-                            topStart = 16.dp, topEnd = 16.dp,
-                            bottomStart = if (outgoing) 16.dp else 4.dp,
-                            bottomEnd = if (outgoing) 4.dp else 16.dp),
-                            color = if (outgoing) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceContainerLow,
-                            contentColor = if (outgoing) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface) {
-                        Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                        Text(registeredIdentity(message.author).name, style = MaterialTheme.typography.labelMedium)
-                        PrivateMessageText(message.text) { reference ->
+                        ChatMessageBubble(message.author, message.text, message.createdAt, outgoing) { reference ->
                             val index = visible.indexOfFirst { it.author + it.createdAt == reference }
                             if (index >= 0) scope.launch { messageList.animateScrollToItem(index) }
-                        }
-                        Text(DateFormat.getTimeInstance(DateFormat.SHORT, Locale.ENGLISH).format(Date(message.createdAt)),
-                            style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                        }
                         }
                         val replyPrefix = remember(message) { privateReplyPrefix(message) }
                         val likedBy = reactions.saved.likedBy(message)
