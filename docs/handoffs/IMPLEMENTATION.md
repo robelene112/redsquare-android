@@ -28,12 +28,12 @@ APKsha0b34d6e6537ebc130c841cb884a7a9253c0b2a181ed6dc37cb4511e500721163,
 cert6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2.
 Signed15immutable preserved. recordsdocs/evidence/ticket39, no ownedlocalbuildactive.
 
-Current sequential issue27 admin promotion/removal, assigned@me; reviewbase7979c655164257e08b184834810de03a80d92b67. First promotion oracleA/B passed; coretracerREDcurrentlyrunning, noUI/nativeacceptanceyet.26 prerequisiteclosed; owner
+Current sequential issue27 admin promotion/removal, assigned@me; reviewbase7979c655164257e08b184834810de03a80d92b67. Promotion/removal oracleA/B passed; core4GREEN, first nativeUIRED38643093967 activeat86cf1beb, noUI/nativeacceptanceyet.26 prerequisiteclosed; owner
 resume stays active, continue remaining issues without stopping after39. Root
 read-only prep compared pinned A/B menu methods: exactsame30ec0c4ed9c7f9ac1010acbea497eae832317a91c9528107815bd9bc2ac2c00c.
 Active ordinary members only can be promoted/removed by admin; actual constructors
 sendUpdateGroupTransaction(group,targetnull) and sendRemoveMemberTransaction.
-Filesignored.scratch/group27-menu-A.js/B.js/template-A.js. Core27 four focused casesGREEN: A/B promotion/removal envelopes/signatures plus actualforeignreceivers, currentadmin/ordinaryactive-member guards, duplicate removal replay. RED/GREENlogs retainedticket27. FirstAndroidpromotiontracer compilePASS3m34s; predispatchfixture corrections Messageenabled/literaladmin/actualcandidateForwarded wait. New group-admin(+android17) focusedharness added; finalfull includesnewclass. No device27 acceptanceyet; firstnativeREDdispatchnext. Noownedlocalbuildactive. CanonicalnotesNATIVE_GROUP_ADMIN_VERIFICATION.md.
+Filesignored.scratch/group27-menu-A.js/B.js/template-A.js. Core27 four focused casesGREEN: A/B promotion/removal envelopes/signatures plus actualforeignreceivers, currentadmin/ordinaryactive-member guards, duplicate removal replay. RED/GREENlogs retainedticket27. FirstAndroidpromotiontracer compilePASS3m34s; predispatchfixture corrections Messageenabled/literaladmin/actualcandidateForwarded wait. New group-admin(+android17) focusedharness added; finalfull includesnewclass. First native10RED run38643093967 activeat86cf1beb; no device27 acceptanceyet. Bounded core Spec0/Standards stalehandoff+duplicateguard findings fixed; helperrequireAdminTarget recheck4PASS1m, correctionreviewpending. Noownedlocalbuildactive. CanonicalnotesNATIVE_GROUP_ADMIN_VERIFICATION.md.
 Then28 through36 and parked16/17/19 from native dependencies.16 requires Android-
 authorized Giphy credentials/URLretention;17 publicprovider playbackrefused despite
 controlledplayerGREEN;19 Registryavailabilityunproved. Research concrete newevidence,

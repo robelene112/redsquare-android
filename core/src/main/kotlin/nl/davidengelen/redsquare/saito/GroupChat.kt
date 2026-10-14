@@ -29,8 +29,7 @@ class NamedChatGroup internal constructor(val id: String, val name: String,
 /** Compatible unencrypted named-group controls; participants sign with their own wallet. */
 object GroupChat {
     fun removeMember(wallet:SaitoWallet,group:NamedChatGroup,member:String,timestamp:Long):SaitoTransaction {
-        require(group.memberRoles[wallet.publicKey]==ChatGroupRole.ADMIN)
-        require(group.memberRoles[member]==ChatGroupRole.MEMBER)
+        requireAdminTarget(wallet,group,member)
         val body=JsonObject().apply {
             addProperty("module","Chat");addProperty("request","chat remove")
             addProperty("group_id",group.id);addProperty("member_id",member)
@@ -39,8 +38,7 @@ object GroupChat {
     }
 
     fun promote(wallet:SaitoWallet,group:NamedChatGroup,member:String,timestamp:Long):SaitoTransaction {
-        require(group.memberRoles[wallet.publicKey]==ChatGroupRole.ADMIN)
-        require(group.memberRoles[member]==ChatGroupRole.MEMBER)
+        requireAdminTarget(wallet,group,member)
         val body=JsonObject().apply {
             addProperty("module","Chat");addProperty("request","chat update")
             addProperty("group_name",group.name);addProperty("group_id",group.id)
@@ -56,6 +54,11 @@ object GroupChat {
             })
         }
         return SaitoTransaction.createTo(wallet,body,timestamp,group.id)
+    }
+
+    private fun requireAdminTarget(wallet:SaitoWallet,group:NamedChatGroup,member:String) {
+        require(group.memberRoles[wallet.publicKey]==ChatGroupRole.ADMIN)
+        require(group.memberRoles[member]==ChatGroupRole.MEMBER)
     }
 
     fun like(wallet:SaitoWallet,group:NamedChatGroup,target:GroupChatMessage,timestamp:Long):SaitoTransaction {
