@@ -7,6 +7,9 @@ import com.google.gson.Strictness
 import nl.davidengelen.redsquare.AndroidWalletStore
 import nl.davidengelen.redsquare.saito.*
 
+/** Local record failures are separate from unsupported or inadmissible network traffic. */
+internal class GroupChatStorageException(cause:Exception):IllegalStateException("Group records require local recovery",cause)
+
 /** Encrypted original group state. Opening never transmits a retained attempt. */
 internal class GroupChatStore(private val context: Context, private val wallet: SaitoWallet, private val backend: SaitoBackend) {
     enum class Status { UNKNOWN, SUBMITTED, FORWARDED, RECEIVED }
@@ -23,7 +26,8 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
     private fun requireNewRecord(id:String) {
         file(id) // Validate the scoped identifier before checking its atomic companions.
         val name="$prefix$id.v1"
-        check(listOf(name,"$name.bak","$name.new").none{java.io.File(context.noBackupFilesDir,it).exists()})
+        if(listOf(name,"$name.bak","$name.new").any{java.io.File(context.noBackupFilesDir,it).exists()})
+            throw GroupChatStorageException(IllegalStateException("Existing protected group work requires recovery"))
     }
 
     fun entries(): List<Entry> = synchronized(SaitoLocalState.lock) {
@@ -33,7 +37,9 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
     }
 
     fun load(id: String): Entry? = synchronized(SaitoLocalState.lock) {
-        val contents = file(id).load() ?: return@synchronized null
+        val scoped=file(id) // Invalid network identifiers remain validation failures.
+        try {
+        val contents = scoped.load() ?: return@synchronized null
         require(contents.version == 1.toByte())
         val record = gson.fromJson(contents.text,JsonObject::class.java)
         val creation = record.get("creation")?.takeUnless{it.isJsonNull}?.asString
@@ -61,6 +67,8 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         }
         val draft=record.get("draft")?.also{require(it.isJsonPrimitive&&it.asJsonPrimitive.isString)}?.asString ?: ""
         Entry(group,candidate,status,creationKey,history.originals,history.messages,draft)
+        }catch(failure:GroupChatStorageException){throw failure}
+        catch(failure:Exception){throw GroupChatStorageException(failure)}
     }
 
     fun prepareCreation(candidate: SaitoTransaction, creationKey: SaitoWallet? = null): Entry = synchronized(SaitoLocalState.lock) {
@@ -191,9 +199,12 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
                 addProperty("creationKey",key.exportJson())
             }
         }
-        file(entry.group.id).save(EncryptedLocalFile.Contents(1,record.toString()))
-        return requireNotNull(load(entry.group.id)).also { check(it.candidate?.id == entry.candidate?.id && it.status == entry.status &&
-            it.creationKey?.exportJson()==entry.creationKey?.exportJson() && it.draft==entry.draft) }
+        try {
+            file(entry.group.id).save(EncryptedLocalFile.Contents(1,record.toString()))
+            return requireNotNull(load(entry.group.id)).also { check(it.candidate?.id == entry.candidate?.id && it.status == entry.status &&
+                it.creationKey?.exportJson()==entry.creationKey?.exportJson() && it.draft==entry.draft) }
+        }catch(failure:GroupChatStorageException){throw failure}
+        catch(failure:Exception){throw GroupChatStorageException(failure)}
     }
 
     companion object {

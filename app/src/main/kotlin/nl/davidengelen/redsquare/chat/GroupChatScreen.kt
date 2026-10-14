@@ -18,8 +18,6 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
-import com.google.gson.JsonObject
-import com.google.gson.JsonParser
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import nl.davidengelen.redsquare.R
@@ -137,8 +135,10 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             try {
                 coroutineScope {
                     val updates=Channel<Unit>(Channel.CONFLATED)
+                    val storageFailed=java.util.concurrent.atomic.AtomicBoolean(false)
                     val receiver=launch {
                         for(ignored in updates){
+                            if(storageFailed.getAndSet(false))readFailed=true
                             try{publish{store.entries()}}
                             catch(cancelled:CancellationException){throw cancelled}
                             catch(_:Exception){readFailed=true}
@@ -146,7 +146,12 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                     }
                     try {
                         SaitoPeer(wallet,endpoint,onIncoming={bytes->
-                            store.receive(GroupChat.originalEnvelope(bytes))
+                            try{store.receive(GroupChat.originalEnvelope(bytes))}
+                            catch(failure:GroupChatStorageException){
+                                storageFailed.set(true)
+                                updates.trySend(Unit)
+                                throw failure // SaitoPeer sends a negative acknowledgement.
+                            }
                             updates.trySend(Unit)
                             true // Protect the authenticated original before positive acknowledgement.
                         }).use{peer->
