@@ -36,6 +36,7 @@ class ChatMixedReceptionPreviewTest {
         val bases=listOf("groupchat.${backend.id}.${fixture.publicKey}.${firstKey.publicKey}.v1",
             "groupchat.${backend.id}.${fixture.publicKey}.${secondKey.publicKey}.v1",
             "chat.${backend.id}.${fixture.publicKey}.$conversation.v1",
+            "chatwork.${backend.id}.${fixture.publicKey}.$conversation.v1",
             "chatreactions.${backend.id}.${fixture.publicKey}.$conversation.v1")
         val names=bases.flatMap{listOf(it,"$it.bak","$it.new")}
         synchronized(SaitoLocalState.lock){check(names.none{File(context.noBackupFilesDir,it).exists()})}
