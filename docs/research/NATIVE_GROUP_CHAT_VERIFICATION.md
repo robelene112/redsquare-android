@@ -362,3 +362,29 @@ resolves known details off Main before confirmation, labels saved provenance and
 requires prepared recipients to match retained authority. Fixture now scopes
 name/admin/provenance to Dialog and waits for enabled Join before its strict click.
 Corrected compile/native GREEN pending; no full26/network admission/PID claim.
+
+Known-routing eight-case native GREEN at0841e381022b0ae2847b0a152b6e1a3c4b9ea674:
+Android10run38548067341 eight PASS29.535s; Android17run38548070880 eight
+PASS59.308s. Original known-rejoined PNG/XML retained and inspected. Scoped
+preview, exact inner/outer routing, retained key/origin/roles and no automatic
+resend pass. These remain focused checks, not complete26 acceptance.
+
+Observed-history replay tracer60f5 was RED1 with an unsupported stub;6a493
+made all15GroupChat cases GREEN. Earlier authenticated messages remain visible
+after removal; later messages from removed authors are rejected. Ordinary
+message authors become members, never admins. Originals retain observed order;
+display timestamps do not invent a global authority order. Both review axes0.
+
+Original-extraction tracereb27 was RED1 with an unsupported stub. Shared framing
+b8cc accepts compatible direct/plain group Chat and extracts inner originals
+from unsigned Relay wrappers. The group reader/replay authenticates originals;
+wrapper identity is not authority. Full core105 PASS/0failure/error/skip,
+build1m7s, including existing private Chat cases. Both review axes0.
+
+Native nine-case message tracer829 adds available history, own send, live
+incoming delivery, duplicate handling and cached reopening after the archive
+stops serving messages. Reviewf11c strengthens the outgoing protocol reader and
+requires an additional positive type13 acknowledgement for duplicate delivery.
+Corrected tracer reviews Standards0/Spec0. First nativeREDrun38550903014 at829
+is pending. No message UI acceptance, pagination, import discovery, actual
+process death or complete26 is claimed by these core/tracer checks.

@@ -894,3 +894,21 @@ join and rejectsnon-admin removal. NoownedGradle. Controls/leave/restore source
 reviewpending. Next explicitconfirmedinvite trust origin (no fakesignedcreation),
 plaintextgroupmessages, targetedadminsnapshot authority and encryptedgroupapp/UI.
 Do not claim full26 or actualprocess recovery fromcore reconstruction alone.
+
+2026-10-14 active26 checkpoint: known-routing native8 GREEN at0841e381 on both
+SDKs (10run38548067341/29.535s;17run38548070880/59.308s). Core replay plus
+shared original extraction b8cc now full105PASS, both review axes0. Current
+HEADf11c corrects native9 message tracer protocol and positive duplicate-ACK
+oracles; correction reviews0/0. Local testAPK session53289 running, log
+.scratch/group26-message-tracer-review-build.log. DO NOTedit app/core/tests
+until ownedGradle finishes. Actual first messageRED17run38550903014 at829 is
+active. After inspecting actual failure artifacts, apply prepared
+.scratch/apply-group26-message-store.py and
+.scratch/apply-group26-message-ui.py (NEITHER applied at this checkpoint), then
+review minimum and verify native9. Store adds encrypted observed originals;
+UI adds available/local messages, deliberate sending and live authenticated
+receipt. These are a bounded first message slice, not all26. Pagination,
+recovery/import discovery, blocked-account behavior, process interruption and
+whole final gates remain. Protected untracked NATIVE_GROUP_CHAT_CONTRACT.md
+untouched. Public signed preview14 unchanged;21originaltickets closed. Owner
+requests continue until all issues complete, with further UI after26.
