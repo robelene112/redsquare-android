@@ -18,7 +18,30 @@ class NamedChatGroup internal constructor(val id: String, val name: String,
 
 /** Compatible unencrypted named-group controls; participants sign with their own wallet. */
 object GroupChat {
-    fun replay(origin:NamedChatGroup,originals:List<String>):GroupChatReplay = throw UnsupportedOperationException("Observed group replay pending")
+    /** Replay observed originals from their retained origin, never by sorting authority timestamps. */
+    fun replay(origin:NamedChatGroup,originals:List<String>):GroupChatReplay {
+        var group=origin.creationEnvelope?.let(::readCreation) ?: confirmInvitation(
+            requireNotNull(origin.confirmedInvitation),origin.controls.first())
+        val seen=group.controls.map{SaitoEnvelope.decode(it).id}.toMutableSet()
+        group.creationEnvelope?.let{seen.add(SaitoEnvelope.decode(it).id)}
+        val messages=mutableListOf<GroupChatMessage>()
+        val retained=mutableListOf<String>()
+        originals.forEach{envelope->
+            val signed=SaitoEnvelope.decode(envelope)
+            if(!seen.add(signed.id))return@forEach
+            if(signed.body.requiredString("request")=="chat message") {
+                val message=readMessage(group,envelope)
+                messages.add(message)
+                if(group.memberRoles[message.author]?.active!=true) {
+                    group=NamedChatGroup(group.id,group.name,java.util.Collections.unmodifiableMap(
+                        group.memberRoles+(message.author to ChatGroupRole.MEMBER)),group.creationEnvelope,group.confirmedInvitation,group.controls)
+                }
+            } else group=applyControl(group,envelope)
+            retained.add(envelope)
+        }
+        return GroupChatReplay(group,java.util.Collections.unmodifiableList(messages.sortedWith(
+            compareBy<GroupChatMessage>{it.createdAt}.thenBy{it.id})),java.util.Collections.unmodifiableList(retained))
+    }
 
     fun message(wallet: SaitoWallet, group: NamedChatGroup, text: String, timestamp: Long,
         mentioned: List<String> = emptyList()): SaitoTransaction {
