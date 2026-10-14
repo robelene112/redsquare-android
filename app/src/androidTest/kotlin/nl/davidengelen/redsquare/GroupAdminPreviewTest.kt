@@ -16,6 +16,57 @@ import java.io.File
 class GroupAdminPreviewTest {
     @get:Rule val ui=createEmptyComposeRule()
 
+    @Test fun aPreparedPromotionCannotTransmitOrRetryAfterTheTargetLeaves() {
+        val context=InstrumentationRegistry.getInstrumentation().targetContext
+        check(context.packageName=="nl.davidengelen.redsquare.dev"&&Build.HARDWARE in listOf("ranchu","goldfish"))
+        val wallets=AndroidWalletStore(context)
+        val original=wallets.loadOrCreate()
+        val backend=AndroidBackendStore(context).load()
+        val fixture=SaitoWallet.fromPrivateKey("0".repeat(63)+"1") // Public unsafe fixtures only.
+        val member=SaitoWallet.fromPrivateKey("0".repeat(63)+"2")
+        val key=SaitoWallet.fromPrivateKey("0".repeat(63)+"8")
+        val filename="groupchat.${backend.id}.${fixture.publicKey}.${key.publicKey}.v1"
+        val names=listOf(filename,"$filename.bak","$filename.new")
+        synchronized(SaitoLocalState.lock){check(names.none{File(context.noBackupFilesDir,it).exists()})}
+        var primary:Throwable?=null
+        try {
+            wallets.replace(original,fixture)
+            val store=GroupChatStore(context,fixture,backend)
+            val creation=GroupChat.create(fixture,key.publicKey,"Stale promotion",listOf(member.publicKey),1700000123456)
+            store.prepareCreation(creation,key);store.record(key.publicKey,creation.id,GroupChatStore.Status.FORWARDED)
+            store.saveDraft(key.publicKey,"Keep the stale-action draft")
+            val candidate=GroupChat.promote(fixture,requireNotNull(store.load(key.publicKey)).group,member.publicKey,1700000123457)
+            store.preparePromotion(candidate,member.publicKey)
+            store.receive(GroupChat.leave(member,key.publicKey,1700000123458).envelope())
+            val peer=ControlledFeedPeer("[]",advertisedServices="archive||;relay||")
+            peer.start().use{server->
+                fun attempt()=kotlinx.coroutines.runBlocking {
+                    nl.davidengelen.redsquare.chat.submitChatTransaction(fixture,"ws://127.0.0.1:${server.port}/wsopen",fixture.publicKey,candidate,
+                        nl.davidengelen.redsquare.chat.ChatSubmissionCallbacks(
+                            claim={store.claim(key.publicKey,candidate.id)},assertSelected={store.assertSelected()},
+                            submitted={store.record(key.publicKey,candidate.id,GroupChatStore.Status.SUBMITTED)},
+                            forwarded={store.record(key.publicKey,candidate.id,GroupChatStore.Status.FORWARDED)},
+                            relayRecipients={store.relayRecipients(key.publicKey,candidate.id)}))
+                }
+                org.junit.Assert.assertThrows(IllegalStateException::class.java){attempt()}
+                check(peer.transactions.isEmpty()&&peer.relayedMessages.isEmpty())
+                val saved=requireNotNull(store.load(key.publicKey))
+                check(saved.candidate!!.envelope()==candidate.envelope()&&saved.status==GroupChatStore.Status.UNKNOWN)
+                check(saved.group.memberRoles[member.publicKey]==ChatGroupRole.LEFT&&saved.draft=="Keep the stale-action draft")
+                check(saved.creationKey!!.exportJson()==key.exportJson())
+                store.prepareRetry(key.publicKey,candidate.id)
+                org.junit.Assert.assertThrows(IllegalStateException::class.java){attempt()}
+                check(peer.transactions.isEmpty()&&peer.relayedMessages.isEmpty())
+                check(store.load(key.publicKey)!!.candidate!!.envelope()==candidate.envelope())
+                check(wallets.loadExisting().exportJson()==fixture.exportJson()&&AndroidBackendStore(context).load()==backend)
+                peer.assertHealthy()
+            }
+        }catch(failure:Throwable){primary=failure;throw failure}
+        finally{cleanupAfterTest(primary,
+            {synchronized(SaitoLocalState.lock){names.forEach{val file=File(context.noBackupFilesDir,it);check(!file.exists()||file.delete())}}},
+            {wallets.replace(wallets.loadExisting(),original)})}
+    }
+
     @Test fun anAdminCanPromoteAMemberWithoutLosingTheDraftAndReopenTheNewRole() {
         val context=InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName=="nl.davidengelen.redsquare.dev"&&Build.HARDWARE in listOf("ranchu","goldfish"))

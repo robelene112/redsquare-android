@@ -64,3 +64,16 @@ UNKNOWN, preservation of draft/key/originals, current-admin check at raw claim a
 Relay enqueue. No nativeGREEN claimed; local debug/test compile22355 PASS3m13s/core4. After compilation only promotion
 notice copy and a store comment were clarified; hosted compile checks those too.
 Removal UI and broader failure/stale-authority/process cases still later27.
+
+First positiveAndroid10 run38644615973 SUCCESSead3c7e6,1case9.505s. Root
+original promoted-reopened capture shows two admins/full public identities and
+retained draft. Exact raw/Relay original+recipients, candidate forwarding and
+wallet/backend/recreation/no-duplicate assertions pass. Retainednative-promote-
+green-android10. This source still has the separately reviewed stale-snapshot
+send defect; positive success does not close27 or accept stale behavior.
+
+New stale-target application delivery tracer compile79371 PASS3m2s. It prepares
+promotion, receives a signed target self-leave, then requires refusal before raw
+submission and on explicit Retry, with original/key/draft/current-role continuity.
+Source fix deliberately absent until this RED is observed. Next scoped10run will
+execute both the accepted positive flow and the new stale refusal requirement.
