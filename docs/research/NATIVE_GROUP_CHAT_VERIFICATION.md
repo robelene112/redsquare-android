@@ -540,3 +540,22 @@ actions/mixed/PID/restfullunexecuted. native-full-attempt1-android17retained.
 Full10attempt1failedcurl92publicSDKsetupbeforebuild/device; originalfailure
 excerpt andjobstepsretained. Samec519attempt2runtimeactive. Outstanding17will
 repeatfull atcorrectedfixture, recordingunchangedproduction perWORKFLOW.
+
+## Final full regression acceptance, October 14
+
+Android10run38613217864attempt2 atc5193954631f26541c3421d51db23c49bdecd3a9 SUCCESS:
+302reported301PASS+oneexistingAPI30profileassumption,66completedrecords,20actual
+deathstages. Group22/122.025s, actions1/9.991s, mixed1/6.366s, groupPID11704to11990.
+Android17run38614860580 at03aacb31848bd724d376df8f8fc7d6f03d1d89a6 SUCCESS:
+303PASS/67records/20deathstages; group22/130.524s, actions1/10.468s, mixed1/6.887s,
+groupPID5475to5556. Core110/release/lint/source and allpreviousfeature/wallet/update/
+privateChatrecovery/publicChat/bothpublicfeeds passboth. Existingprivatehistory24
+andactions10 andactualprivatePID/restoration validate sharedhelperregression.
+
+Production/buildconfigidentical on bothsources and preparedsigned15manifest7d695abf;
+17onlytestdisplay-readinesscorrection, samedeadlines/predicates, perWORKFLOW.
+Final-full sets retain publicoriginals/raws/counts/checkpoints/runmetadata with
+650/653hashes and231/233XMLs, checkedsecretmarkers absent. Rootselectedfinal
+originals viewed onboth; after.xml showsIdentitycreatedandsignatureverified.
+Whole source andfinal10evidence reviews0/0; final17review/publicationpending.
+No physicalPixel7/performance/currentphoneupdateacceptanceclaimed, retained35.
