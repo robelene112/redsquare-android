@@ -101,3 +101,15 @@ zero Relay, truthfulSUBMITTED/current-name/draft/key continuity and refusedRetry
 without a second raw send. Nativefixture compile73693 PASS1m46s. No contrivedRED
 claimed for this additional coverage of the existing corrected gate. Native result
 stillpending. RemovalUI and complete27 delivery remain unfinished.
+
+Native17run38647977521 at75754bde SUCCESScases3/34.467s: positiveUI, beforeRaw
+departure and afterRaw/beforeRelay rename. ExactlyoneRaw/noRelay/SUBMITTED/current
+name/draft/key and refusedRetry without anotherRaw allpass. Retainednative-late-
+rename-green-android17. Spec0 new findings. Standards low-priority duplicated
+controller fixture/submission setup will be extracted with two real callers in
+review; assertions/scenario mutations remain in each test.
+
+First removalUI tracer nowcompiles81984PASS1m30. It requires an explicit target/
+confirmation, compatible raw/Relay removal including notification of the removed
+target, retained draft/removed role and same wallet/backend/original afterrecreate.
+UI/store removal intentionally absent; firstRED dispatchnext. No removal success.
