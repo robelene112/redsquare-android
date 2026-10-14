@@ -5,6 +5,33 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class GroupChatTest {
+    @Test fun directRoutedAndUnsignedRelayMessagesRetainTheAuthenticatedGroupOriginal() {
+        val creation=requireNotNull(javaClass.getResourceAsStream("/native-group-chat-creation-reference.json"))
+            .bufferedReader().use{JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject}
+        val reference=requireNotNull(javaClass.getResourceAsStream("/native-group-chat-message-reference.json"))
+            .bufferedReader().use{JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject}
+        val creator=SaitoWallet.fromPrivateKey("0".repeat(63)+"1") // Public unsafe fixture only.
+        val peer=SaitoWallet.fromPrivateKey("0".repeat(63)+"2")
+        val group=GroupChat.readCreation(creation.get("envelope").asString)
+        val transaction=GroupChat.message(creator,group,reference.get("text").asString,reference.get("timestamp").asLong,
+            reference.getAsJsonArray("mentioned").map{it.asString})
+        val direct=transaction.applicationRequest(1).let{it.copyOfRange(5,it.size)}
+        assertEquals(reference.get("envelope").asString,GroupChat.originalEnvelope(direct))
+        val routed=transaction.broadcast(creator,peer.publicKey).let{it.copyOfRange(1,it.size)}
+        assertEquals(reference.get("signature").asString,GroupChat.readMessage(group,GroupChat.originalEnvelope(routed)).id)
+        fun relay(inner:com.google.gson.JsonObject):ByteArray {
+            val body=com.google.gson.JsonObject().apply{addProperty("module","Relay");addProperty("request","chat relay");add("data",inner)}
+            return SaitoTransaction.create(peer,body,1700000123459,listOf(creator.publicKey)).applicationRequest(1)
+                .let{it.copyOfRange(5,it.size)}.also{it.fill(0,16,80)} // Existing Relay outer may be unsigned.
+        }
+        assertEquals(reference.get("envelope").asString,GroupChat.originalEnvelope(relay(transaction.signedJson())))
+        val changed=transaction.signedJson().apply{
+            val body=SaitoEnvelope.decode(reference.get("envelope").asString).body.deepCopy().apply{addProperty("message","Tampered group body")}
+            addProperty("buffer",java.util.Base64.getEncoder().encodeToString(body.toString().toByteArray(Charsets.UTF_8)))
+        }
+        org.junit.Assert.assertThrows(IllegalArgumentException::class.java){GroupChat.readMessage(group,GroupChat.originalEnvelope(relay(changed)))}
+    }
+
     @Test fun observedHistoryRetainsEarlierMessagesThroughRemovalWithoutGrantingAdminOrReacceptingBannedAuthors() {
         val reference=requireNotNull(javaClass.getResourceAsStream("/native-group-chat-creation-reference.json"))
             .bufferedReader().use{JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject}

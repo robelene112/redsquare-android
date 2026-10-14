@@ -18,6 +18,8 @@ class NamedChatGroup internal constructor(val id: String, val name: String,
 
 /** Compatible unencrypted named-group controls; participants sign with their own wallet. */
 object GroupChat {
+    fun originalEnvelope(networkTransaction:ByteArray):String = throw UnsupportedOperationException("Group network original pending")
+
     /** Replay observed originals from their retained origin, never by sorting authority timestamps. */
     fun replay(origin:NamedChatGroup,originals:List<String>):GroupChatReplay {
         var group=origin.creationEnvelope?.let(::readCreation) ?: confirmInvitation(
