@@ -30,7 +30,7 @@ Signed15immutable preserved. recordsdocs/evidence/ticket39, no ownedlocalbuildac
 
 Current sequential issue27: admin promotion and member removal, assigned@me.
 Review base7979c655164257e08b184834810de03a80d92b67; prerequisite26 closed.
-CurrentHEAD b912495a; remote f80ed1ed, latest evidence commit pendingpush; only protected untracked contract untouched.
+CurrentHEAD6a98c047; remote f80ed1ed, evidence/stop/correction pendingpush; only protected untracked contract untouched.
 Four focused core cases plus independent A/B constructor/receiver references pass.
 Focused17run38652150530 at48b1410a SUCCESS:ten admin/controller cases75.149s,
 including current authority at both send gates, visible refusal and exact Retry.
@@ -51,7 +51,8 @@ Retainednative-stale-stop-red-android10 and root original inspected.
 Stop correction nowAPPLIED inworkingtree: localSTOPPED status, retained uncertain
 original history/priorstatus, fresh protectedstaleclassification/UIconfirmation,
 restored composition without transmission; walletreplacementdisclosure remains
-conservative for stopped uncertain actions. Build81893 activecore4/debug/test.
+conservative for stopped uncertain actions. Build81893PASS3m7s/core4/debug/test. Classification now shares actualsendvalidator
+perStandardsfinding; hostedexactsourcecompile/runtime pending. Noownedlocalbuild.
 Ignored .scratch/implement-group27-stale-stop.py is OBSOLETE/APPLIED; DO NOT rerun.
 Current17GREEN does notaccept this new recovery or latesttestfixture changes.
 Whole27 stillopen: stale-stop RED/GREEN, correction/finalreviews, full10/17,

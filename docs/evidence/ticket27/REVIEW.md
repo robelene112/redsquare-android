@@ -117,3 +117,14 @@ tenPASS75.149s at48b1410a, no failing status. PromotionPID4824to4926 and removal
 Selected original stale-membership/refusal/Retry captures inspected. Protected
 snapshots remain on-device. Later durable-precondition/eleventh stale-stop case
 and whole27 remain unaccepted. Success does not explain previous10failedoperand.
+
+## Local stop source review
+
+b912495a...6a98c047: Spec previous recovery finding corrected, zero new findings.
+Current selection/staleness confirmation, STOPPED with original/prioruncertain
+history, legacy emptyhistory/default, permitted newwork, no send/rollback and
+conservative walletreplacement disclosure matchscope. Standards1 Fowler duplicated
+admin-removal permission classification; correction reuses the existing raw/Relay
+validator for recognized admin originals. Compile81893PASS3m7s/core4/debug/test
+precedes this narrow refinement. Separate correction review/runtime pending.
+All REDhashes and original UNKNOWN/Retry/disabledcomposer captureverified.

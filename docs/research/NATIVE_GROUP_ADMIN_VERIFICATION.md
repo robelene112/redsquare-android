@@ -222,3 +222,12 @@ history retained across new work, fresh selection/staleness validation, visible
 uncertainty, permitted composition restored, no sends. Conservative outgoing-wallet
 work disclosure includes these retained uncertain actions. Build81893 active.
 Prepared scratch apply script is obsolete; do not execute twice. No stopGREEN yet.
+
+Stop implementation6a98c047 compile81893PASS3m7s/core4/debug/test. Spec stale-
+recovery finding corrected in source, zero new findings. Standards1 duplicated
+admin-removal permission policy: classification now reuses requireActionMembership
+for recognized pending admin actions and maps its failedvalidation to staleness.
+Same validator serves raw/Relay/Stop, eliminating policy divergence. This reviewed
+refinement follows localcompile; hosted compile/runtime will check exact nextsource.
+No stopGREEN yet. Existing immutable original/history and conservative identity
+replacement disclosure remain unchanged. No ownedlocalbuild active.

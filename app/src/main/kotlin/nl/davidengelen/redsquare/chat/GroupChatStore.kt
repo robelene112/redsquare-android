@@ -226,14 +226,11 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
     fun isStaleAdminAction(entry:Entry):Boolean {
         if(!entry.hasPendingAction)return false
         val signed=SaitoEnvelope.decode(requireNotNull(entry.candidate).envelope())
-        return when(signed.body.get("request").asString) {
-            "chat update" -> try{GroupChat.assertCurrentUpdate(entry.group,entry.candidate.envelope());false}
-                catch(_:IllegalStateException){true}
-            "chat remove" -> signed.body.get("member_id").asString!=wallet.publicKey &&
-                (entry.group.memberRoles[wallet.publicKey]!=ChatGroupRole.ADMIN ||
-                    entry.group.memberRoles[signed.body.get("member_id").asString]!=ChatGroupRole.REMOVED)
-            else -> false
-        }
+        val request=signed.body.get("request").asString
+        val adminAction=request=="chat update" ||
+            (request=="chat remove"&&signed.body.get("member_id").asString!=wallet.publicKey)
+        if(!adminAction)return false
+        return try{requireActionMembership(entry);false}catch(_:IllegalStateException){true}
     }
 
     /** Stop future attempts locally, retaining the exact original and its uncertain progress. */
