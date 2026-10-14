@@ -163,3 +163,19 @@ Standards0 hard plus repeated verified decode/UI-thread heuristic. Correction
 4743355c performs one decode on IO, reviewed0/0. Minimum debug/testAPK compile
 PASS3m15s; refined Kotlin compile PASS1m31s. Corrected native GREEN active both
 38543182621/38543185574, not yet claimed. No whole26 or actual PID-death proof.
+
+Retry six-case GREEN4743355c:10run38543182621 PASS26.252s;
+17run38543185574 PASS65.008s; root forwarded originals inspected/retained.
+Known rejoin tracer a51d9202 reviewed0/0; RED17run38544239476 at362f97c2:
+7cases/41.162s,6PASS + duplicate-group rejection. Later preservation assertions
+unexecuted. Minimum81af8bb5/cf8e6897 Standards0, Spec1: retained local authority
+did not determine outgoing admin targets. Initial compilePASS3m15s.
+
+Known-routing correction/tracercf8e6897...95207cf0: Standards0; core Spec0,
+native tracer Spec2: unscoped name could match underlying list and enabled Join
+readiness lacked wait. Core helper RED1 UnsupportedOperationException then
+GREEN3 invitation tests, builds1m3/1m4. Native testAPK compilePASS3m2.
+New eight-case RED17run38546506531 at95207cf0 active. Scoped-dialog display and
+bounded enabled assertions are prepared before GREEN, alongside native preview/
+store authority routing correction; neither refined assertions nor corrected UI
+acceptance claimed yet. No whole26/PID claim.

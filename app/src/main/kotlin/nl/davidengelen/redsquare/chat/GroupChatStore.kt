@@ -57,9 +57,13 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
     /** Confirmation belongs to this active wallet; unsigned link origin never chooses a backend. */
     fun prepareInvitation(invitation: GroupInvitation, candidate: SaitoTransaction): Entry = synchronized(SaitoLocalState.lock) {
         assertSelected()
-        require(SaitoEnvelope.decode(candidate.envelope()).author==wallet.publicKey)
-        val group=GroupChat.confirmInvitation(invitation,candidate.envelope())
-        val previous=load(group.id)
+        val signed=SaitoEnvelope.decode(candidate.envelope())
+        require(signed.author==wallet.publicKey)
+        val previous=load(invitation.id)
+        val effective=previous?.group?.let{invitation.usingKnownGroup(it)} ?: invitation
+        require(invitation.admin==effective.admin && invitation.name==effective.name)
+        val group=GroupChat.confirmInvitation(effective,candidate.envelope())
+        require(signed.recipients==listOf(effective.id,wallet.publicKey,effective.admin,effective.sender).distinct())
         if(previous==null) save(Entry(group,candidate,Status.UNKNOWN)) else {
             check(previous.status==Status.FORWARDED)
             save(previous.copy(group=GroupChat.applyControl(previous.group,candidate.envelope()),candidate=candidate,status=Status.UNKNOWN))

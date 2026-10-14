@@ -142,7 +142,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             sendPrepared(groupKey.publicKey,candidate,updated,recipient,originalRelay=true)
         }
     }
-    if(joining) JoinGroupDialog(backend,busy,onDismiss={if(!busy)joining=false}) { invitation ->
+    if(joining) JoinGroupDialog(backend,busy,entries.map{it.group},onDismiss={if(!busy)joining=false}) { invitation ->
         act {
             val candidate=withContext(Dispatchers.IO){GroupChat.join(wallet,invitation,System.currentTimeMillis())}
             withContext(NonCancellable){publish{store.prepareInvitation(invitation,candidate);store.entries()}}
@@ -193,29 +193,45 @@ private fun CreateGroupDialog(busy:Boolean,onDismiss:()->Unit,onCreate:(String,L
 }
 
 @Composable
-private fun JoinGroupDialog(backend:SaitoBackend,busy:Boolean,onDismiss:()->Unit,onJoin:(GroupInvitation)->Unit) {
+private fun JoinGroupDialog(backend:SaitoBackend,busy:Boolean,knownGroups:List<NamedChatGroup>,onDismiss:()->Unit,onJoin:(GroupInvitation)->Unit) {
     var input by remember { mutableStateOf("") }
     var invitation by remember { mutableStateOf<GroupInvitation?>(null) }
     var invalid by remember { mutableStateOf(false) }
+    var resolving by remember { mutableStateOf(false) }
+    var savedDetails by remember { mutableStateOf(false) }
+    val scope=rememberCoroutineScope()
     val focus=androidx.compose.ui.platform.LocalFocusManager.current
     val preview=invitation
     AlertDialog(onDismissRequest=onDismiss,title={Text(stringResource(R.string.group_join))},
         text={Column(Modifier.heightIn(max=360.dp).verticalScroll(rememberScrollState()),verticalArrangement=Arrangement.spacedBy(8.dp)){
             if(preview==null){
-                OutlinedTextField(input,{input=it;invalid=false},label={Text(stringResource(R.string.group_invitation_link))},enabled=!busy)
+                OutlinedTextField(input,{input=it;invalid=false},label={Text(stringResource(R.string.group_invitation_link))},enabled=!busy&&!resolving)
                 if(invalid)Text(stringResource(R.string.group_invitation_invalid),color=MaterialTheme.colorScheme.error)
             }else{
                 Text(preview.name,style=MaterialTheme.typography.titleMedium)
-                Text(stringResource(R.string.group_invitation_trust),style=MaterialTheme.typography.bodySmall)
+                Text(stringResource(if(savedDetails)R.string.group_invitation_saved else R.string.group_invitation_trust),style=MaterialTheme.typography.bodySmall)
                 Text(stringResource(R.string.group_admin_label));Text(preview.admin,style=MaterialTheme.typography.bodySmall)
                 Text(stringResource(R.string.group_inviter_label));Text(preview.sender,style=MaterialTheme.typography.bodySmall)
                 Text(stringResource(R.string.group_id_label));Text(preview.id,style=MaterialTheme.typography.bodySmall)
                 Text(stringResource(R.string.group_privacy),style=MaterialTheme.typography.bodySmall)
                 Text(stringResource(R.string.group_join_backend,backend.domain),style=MaterialTheme.typography.bodySmall)
             }
-        }},dismissButton={TextButton(enabled=!busy,onClick=onDismiss){Text(stringResource(R.string.group_cancel))}},
-        confirmButton={TextButton(enabled=!busy&&(preview!=null||input.isNotBlank()),onClick={
-            if(preview!=null)onJoin(preview) else try{invitation=GroupInvitation.parse(input);focus.clearFocus()}
-            catch(_:Exception){invalid=true}
+        }},dismissButton={TextButton(enabled=!busy&&!resolving,onClick=onDismiss){Text(stringResource(R.string.group_cancel))}},
+        confirmButton={TextButton(enabled=!busy&&!resolving&&(preview!=null||input.isNotBlank()),onClick={
+            if(preview!=null)onJoin(preview) else {
+                resolving=true
+                scope.launch {
+                    try {
+                        val resolved=withContext(Dispatchers.Default){
+                            val parsed=GroupInvitation.parse(input)
+                            val known=knownGroups.firstOrNull{it.id==parsed.id}
+                            (known?.let{parsed.usingKnownGroup(it)} ?: parsed) to (known!=null)
+                        }
+                        invitation=resolved.first;savedDetails=resolved.second;focus.clearFocus()
+                    } catch(cancelled:CancellationException){throw cancelled}
+                    catch(_:Exception){invalid=true}
+                    finally{resolving=false}
+                }
+            }
         }){Text(stringResource(if(preview==null)R.string.group_preview else R.string.group_join_confirm))}})
 }

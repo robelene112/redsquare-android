@@ -39,52 +39,52 @@ Local .scratch/review-builds/14; publicrecords docs/evidence/ticket37/signed-pre
 No store/node/service/ingresschange. Current14physicalPixel/continuity/performance
 remain35. Preview13superseded;12neverpublished.
 
-**#26 current checkpoint, 2026-10-14 09:36 UTC:** native creation, invitation
-confirmation, membership/invite display, protected key/work and leave/reopening
-have focused Android10/17 verification. No complete26 claim;21 original complete.
-Stable signed14/0.1.14 remains live with completed37 visuals; no group APK published.
+**#26 current checkpoint, 2026-10-14 10:03 UTC:**21 original tickets complete;
+#26 still open. Stable signed14/0.1.14 remains live with37 visuals, no group APK.
+Native creation/invite/member/key/work/leave and exact Retry verified10/17.
+Latest Retry six-case GREEN4743355c:10run38543182621 PASS26.252s,
+17run38543185574 PASS65.008s. Independent saved metadata, controlled disconnect,
+identical original retry and noautosend through recreation pass. Root forwarded
+PNGs/actualXML/raw summaries/hashes retained native-retry-green-android10/17.
+This is seeded preparation/recreation, not real PID death or network admission.
 
-Invitation GREEN44e931af:10run38521385291 four PASS16.510s;17run38521387910
-four PASS46.936s. Leave GREENcdbeef72:10run38540341373 five PASS21.397s;
-17run38540343832 five PASS57.190s. Original joined/LEFT-reopened PNGs/XML inspected,
-raw summaries/hashes retained. Reopened invitation captures are group lists, not
-selected-detail provenance. Leave verifies explicit consent, exact own removal,
-protected original/LEFT reconstruction and no resend. Whole/recovery limits remain.
+Known-group rejoin module tracer a51d9202 reviewed0/0, compiled1m40; actual RED17
+38544239476 at362f97c2 seven cases/41.162s,6PASS plus duplicate-group rejection
+in store62/fixture317. Minimum81af8bb5/cf8e6897 preserves existing origin/key/
+controls/name, allows own rejoin without restoring former ADMIN, rejects pending
+replacement. Metadata uses retained name/key. Invite is guarded by known active
+admin to avoid fromGroup failure for orphaned groups. Local debug/testAPK compile
+PASS3m15; Standards0 but Spec found routing still trusted the pasted admin.
+That minimum has NOT been declared native GREEN.
 
-Current source4743355cc057bb95951183807b71d962c7d749d6 implements explicit
-Retry preserving candidate/origin/controls/key and rebuilding protected group-key
-wallet metadata before guarded transmission. Creation Relay remains direct;
-other controls wrapped, with appropriate member targets. One envelope verification
-now runs off Main, after Standards duplication heuristic. Spec0/Standards0 fix
-reviews; minimum debug/testAPK compile3m15, corrected Kotlin compile1m31.
-Six-case corrected native Retry checks ACTIVE:10run38543182621,
-17run38543185574; source38543182104. Inspect actual outcomes before claiming
-metadata/disconnect/exact-retry acceptance. Do not redispatch/cancel without a
-new concern. No owned local Gradle remains.
+Known-routing core helper usingKnownGroup now chooses retained current admin/name,
+keeps inviter without granting role, uses original anchor only if no active admin
+is known (does not restore ADMIN). Core tracer uses genuine public creation with
+returning member2/currentadmin1/conflicting4: RED1 stub then GREEN3 invitation
+cases, build1m3/1m4. Globalcore103 has not yet been counted by root.
 
-Retry RED38541609952 at1d258b1c: six cases/65.228s, five PASS + missingRetry.
-Checkpoint/no-autosend preconditions pass; later metadata/disconnect/retry tail
-unexecuted. Root original PNG/XML seen, retained native-retry-red-android17.
-Oracle circularity found by Spec review corrected with independent saved-backup
-key/name/group/watch/private-scalar/conversation-ID checks; static diagnostics.
-All fixture material is unsafe/public or kept in device-local opaque snapshots.
-This seeded/recreated flow is not actual PID death.
+Current HEAD/remote95207cf0e682ee2eec0a2973494d2509faa5e3a7 adds native seeded
+confirmed-group wallet4/admin1 leave/rejoin with conflicting pasted adminself/name.
+Checks saved preview, signedinner recipient sequence, outerRelay targetobservations,
+roles/origin/name/metadata/noresend. Existing module tracer now uses resolved invite.
+ControlledFeedPeer records actual outer to-list. Standards0, coreSpec0; native
+Spec2 requires modal-scoped name/admin and bounded enabled Join readiness.
+Both corrections are prepared, not yet applied or counted as proved. TestAPK
+compilePASS3m2. Active eight-case RED17run38546506531; source38546507443.
+No owned local Gradle. Do not redispatch/cancel without a new concern.
 
-Next: after at least one corrected native Retry GREEN, apply the prepared known-
-group rejoin tracer .scratch/add-group26-rejoin-tracer.py, observe RED, preserve
-existing origin/key/controls through new own join rather than trusting new link
-claims. Pending operation cannot be overwritten; REMOVED stays rejected; rejoin
-must not restore former ADMIN rights. Disable invitation when no active admin is
-known so orphaned groups cannot trigger fromGroup's required-admin exception.
+NEXT: inspect actual RED/raw/PNG/XML, then apply
+.scratch/apply-group26-known-routing-ui.py. It includes native Preview resolution
+from known groups off Main, saved-details notice, exact retained-admin recipient
+validation in prepareInvitation, and scoped display/readiness fixture corrections.
+Compile/review fixes and pass eight-case native10/17. Original unscoped RED must
+remain qualified; later strengthened assertions unexecuted until GREEN.
 Then original group message/incoming/history UI/cache, imported metadata/history
 limits, owner/backend isolation, actual PID recovery, final full10/17/release/lint,
-whole-ticket reviews and signed next APK. Offline queue/media/mute/push remain
-later tickets. One ticket writer; review subagents remain read-only.
-
-Protected untracked group contract untouched. All scratch create/join/leave/retry
-apply scripts are historical after application; do not reapply over current code.
-Follow-on source notes .scratch/group26-follow-on-notes.md cover observed-order
-history, ordinary participant roles and unsigned processed-history provenance.
+whole-ticket reviews and signed next APK. Queue/media/mute/push are later tickets.
+Protected untracked group contract unchanged. Old scratch create/join/leave/retry/
+rejoin/tracer apply scripts are historical after application; do not reapply over
+current code. Follow-on notes retain pinned source/history facts.
 
 **Owner priority, 2026-10-14:** after #26, inspect and implement a bounded UI
 polish pass for showing the beta to friends, especially new group screens and

@@ -82,13 +82,16 @@ class GroupChatPreviewTest {
                                 addProperty("sender",known.sender);addProperty("admin",fixture.publicKey)
                             }
                             val link=java.util.Base64.getEncoder().encodeToString(claims.toString().toByteArray(Charsets.UTF_8))
+                            ui.waitUntil(15_000){ui.onAllNodes(hasText("Join group") and isEnabled()).fetchSemanticsNodes().size==1}
                             ui.onNodeWithText("Join group").assertIsDisplayed().assertIsEnabled().performClick()
                             ui.onNodeWithText("Invitation link").performTextInput(link)
                             ui.onNodeWithText("Preview").assertIsEnabled().performClick()
-                            waitFor(known.name)
-                            ui.onNodeWithText(known.name).performScrollTo().assertIsDisplayed()
-                            ui.onNodeWithText(known.admin).performScrollTo().assertIsDisplayed()
-                            waitFor("Using saved group details.")
+                            val previewName=hasText(known.name) and hasAnyAncestor(isDialog())
+                            val previewAdmin=hasText(known.admin) and hasAnyAncestor(isDialog())
+                            ui.waitUntil(15_000){ui.onAllNodes(previewName).fetchSemanticsNodes().size==1}
+                            ui.onNode(previewName).performScrollTo().assertIsDisplayed()
+                            ui.onNode(previewAdmin).performScrollTo().assertIsDisplayed()
+                            ui.onNode(hasText("Using saved group details.") and hasAnyAncestor(isDialog())).performScrollTo().assertIsDisplayed()
                             check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
                             check(store.loadExisting().exportJson()==fixture.exportJson())
                             ui.onNodeWithText("Join").assertIsEnabled().performClick()
