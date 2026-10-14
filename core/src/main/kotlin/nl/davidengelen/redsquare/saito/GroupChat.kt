@@ -3,8 +3,12 @@ package nl.davidengelen.redsquare.saito
 import com.google.gson.JsonObject
 
 data class GroupChatMessage(val id: String, val author: String, val groupId: String, val createdAt: Long, val text: String)
+data class GroupChatLikeEvent(val id:String,val author:String,val target:String,val targetAuthor:String,val envelope:String)
 
-data class GroupChatReplay(val group:NamedChatGroup,val messages:List<GroupChatMessage>,val originals:List<String>,val incomplete:Boolean=false)
+data class GroupChatReplay(val group:NamedChatGroup,val messages:List<GroupChatMessage>,val originals:List<String>,val incomplete:Boolean=false,
+    val reactions:List<GroupChatLikeEvent> = emptyList()) {
+    fun likedBy(message:GroupChatMessage):Set<String> = throw UnsupportedOperationException("Group reactions pending")
+}
 
 enum class ChatGroupRole {
     ADMIN, MEMBER, LEFT, REMOVED;
@@ -18,6 +22,9 @@ class NamedChatGroup internal constructor(val id: String, val name: String,
 
 /** Compatible unencrypted named-group controls; participants sign with their own wallet. */
 object GroupChat {
+    fun like(wallet:SaitoWallet,group:NamedChatGroup,target:GroupChatMessage,timestamp:Long):SaitoTransaction =
+        throw UnsupportedOperationException("Group reaction construction pending")
+
     /** Extract only. readMessage/replay must authenticate before accepting the original. */
     fun originalEnvelope(networkTransaction:ByteArray):String = SaitoEnvelope.originalChatEnvelope(networkTransaction){payload->
         payload.isJsonObject && payload.asJsonObject.requiredString("module")=="Chat"

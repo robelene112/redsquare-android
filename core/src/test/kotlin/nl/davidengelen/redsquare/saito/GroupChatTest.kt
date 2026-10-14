@@ -5,6 +5,39 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class GroupChatTest {
+    @Test fun namedGroupReactionsMatchBothWebClientsAndToggleOncePerAuthenticatedOriginal() {
+        val creation=requireNotNull(javaClass.getResourceAsStream("/native-group-chat-creation-reference.json"))
+            .bufferedReader().use{JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject}
+        val message=requireNotNull(javaClass.getResourceAsStream("/native-group-chat-message-reference.json"))
+            .bufferedReader().use{JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject}
+        val reactions=requireNotNull(javaClass.getResourceAsStream("/native-group-chat-like-reference.json"))
+            .bufferedReader().use{JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")}
+        val origin=GroupChat.readCreation(creation.get("envelope").asString)
+        val target=GroupChat.readMessage(origin,message.get("envelope").asString)
+        val reactor=SaitoWallet.fromPrivateKey("0".repeat(63)+"2") // Public unsafe fixture only.
+        reactions.forEach{value->
+            val reference=value.asJsonObject
+            val native=GroupChat.like(reactor,origin,target,reference.get("timestamp").asLong)
+            assertEquals(reference.get("envelope").asString,native.envelope())
+            assertEquals(reference.get("signature").asString,native.id)
+        }
+        val first=reactions[0].asJsonObject.get("envelope").asString
+        val second=reactions[1].asJsonObject.get("envelope").asString
+        val liked=GroupChat.replay(origin,listOf(message.get("envelope").asString,first,first))
+        assertEquals(setOf(reactor.publicKey),liked.likedBy(target))
+        assertEquals(1,liked.reactions.size)
+        assertEquals(origin.memberRoles,liked.group.memberRoles)
+        val unliked=GroupChat.replay(origin,liked.originals+second+first)
+        assertEquals(emptySet<String>(),unliked.likedBy(target))
+        assertEquals(2,unliked.reactions.size)
+        assertEquals(emptySet<String>(),GroupChat.replay(origin,unliked.originals).likedBy(target))
+        val wrongSender=SaitoEnvelope.decode(first).body.deepCopy().apply{addProperty("sender",target.author)}
+        val forged=SaitoTransaction.create(reactor,wrongSender,1700000123502,listOf(target.author,origin.id))
+        val incomplete=GroupChat.replayAvailable(origin,liked.originals,listOf(forged.envelope()))
+        org.junit.Assert.assertTrue(incomplete.incomplete)
+        assertEquals(liked.originals,incomplete.originals)
+    }
+
     @Test fun fetchingAnUnseenHistoricalJoinCannotUndoARetainedDeparture() {
         val creator=SaitoWallet.fromPrivateKey("0".repeat(63)+"1") // Public unsafe fixture only.
         val key=SaitoWallet.fromPrivateKey("0".repeat(63)+"9")
