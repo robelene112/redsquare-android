@@ -139,7 +139,7 @@ class GroupChatPreviewTest {
                             check(store.loadExisting().exportJson()==fixture.exportJson())
                             peer.disconnectAfterTransaction=true
                             ui.onNodeWithText("Retry").assertIsDisplayed().assertIsEnabled().performClick()
-                            waitFor("Group information could not be saved or sent. Your existing records are kept.")
+                            waitFor("Group information could not be read or saved, or the action could not be completed. Your existing records are kept.")
                             waitFor("Submitted. Delivery is not confirmed.")
                             check(peer.transactions.size==1 && peer.relayedMessages.isEmpty())
                             check(postingTransaction(peer.transactions.single()).envelope()==checkpoint.envelope())
