@@ -39,28 +39,33 @@ Local .scratch/review-builds/14; publicrecords docs/evidence/ticket37/signed-pre
 No store/node/service/ingresschange. Current14physicalPixel/continuity/performance
 remain35. Preview13superseded;12neverpublished.
 
-**#26 current checkpoint,2026-10-14 05:37UTC:** core creation/invite trust, join/
-leave/plaintext messages and authorized snapshots implemented. Full102core PASS
-in first native build; creation UI/member/invite/reopen normalflow now exists.
-Ordered IO+UI publication race fixed and reviewed0/0; outgoing work included in
-WalletImport both-backend scan, with conservative unfinished/unreadable detection.
-Focused native5409d7cd GREEN both:10run38516631174 2PASS10.066s,17run38516628720
-2PASS23.856s. Root reopened PNG + bothXMLs each inspected; exactsignedbroadcast/
-Relay andfourinviteclaims pass, backend-switch/unfinished/corrupt work pass.
-Evidence native-work-green-android{10,17}; actualimport-warning UI notproved yet.
-Current HEAD/remote b54a7c874f85a4f1f34c54f9a1a22f7ac2fa6347 includes pre-metadata
-creation-key checkpoint tracer, compiled2m55. Key field nullable/unpopulated before
-actualRED:17run38517327739 ACTIVE, source38517276783 ACTIVE. No ownedGradle.
-Both bounded key-tracer/evidence reviews0, not functionality acceptance. Next wait
-inspect actualkeyRED (threecases, expectedonlykeyfailure) before writing the key
-to encrypted group record and passing it from UI; verify key public ID matches
-group before save/load. This test reopens storage before wallet metadata, notPIDdeath.
-Then explicitretry/key-metadata interruption, group join/leave/message/history UI,
-isolation, actualPIDrecovery, finalfull10/17/release/lint/reviews/signednextAPK.
-Stable signed14/0.1.14 remains live with completed37 visuals; no group APKpublished.
-#26stillopen;21originalticketsdone. Protected untracked group contract untouched.
-Scratch create-screen/store/apply script are outdated initial preparation, do not
-reapply them over current source. Activecode/verification files are tracked.
+**#26 current checkpoint, 2026-10-14 06:18 UTC:** core creation/invite trust,
+join/leave/plaintext messages and authorized snapshots implemented. Native creation,
+members/invitation/reopening, pending work across backends and protected creation
+key retention are verified. Key/create/work GREEN at a6a9a772: Android10
+38518366079 (3 PASS, 7.377s), Android17 38518363805 (3 PASS, 37.851s).
+The key checkpoint reopens storage before wallet metadata, not actual PID death.
+
+Invitation tracer fbd353ea RED on Android17 38519187380: 4 cases, 3 PASS,
+missing Join group control. Original PNG/XML inspected; later consent/claims/wire
+assertions were unexecuted. Minimum9690f6d6 adds explicit unsigned preview and
+backend-bound confirmation. Correctionee17e184 makes long claims scrollable and
+shares prepared-send handling. Separate correction reviews Standards0/Spec0;
+local debug/testAPK build PASS3m43s. Four-case corrected Android10/17 runtime
+verification is next. No owned Gradle remains. No invitation GREEN claimed yet.
+
+Remaining26: exact retry/key-metadata interruption, existing-group rejoin,
+group leave/message/history UI, identity/backend isolation, actual PID recovery,
+final full10/17, release/lint, whole-ticket reviews and signed next APK. #26 open;
+21 original tickets complete. Stable signed14/0.1.14 remains live with completed37
+visuals; no group APK published. Protected untracked group contract untouched.
+Scratch create-screen/store/apply and join apply scripts are outdated; do not
+reapply over current source. Active code/verification files are tracked.
+
+**Owner priority, 2026-10-14:** after #26, inspect and implement a bounded UI
+polish pass for showing the beta to friends, especially new group screens and
+first-use presentation, before later feature tickets. Existing #37 is complete;
+this request does not reopen it or reduce accepted feature scope.
 
 **Next active ticket: #26 Create, invite, join and leave unencrypted group Chat.**
 Implement sequentially after37 closure; no new broadgrill. Allblockersalreadyclosed.

@@ -287,3 +287,9 @@ Store binds confirmation author to activewallet, retains own signed join once.
 Group watch metadata contains no imported group private key. Compile/GREEN pending.
 Existing-group rejoin, app interruption/retry/history/messages/leave remain later
 slices within26; neither network admission nor complete26 is claimed.
+
+Refined preview and shared submission sourceee17e184 reviewed Standards0/Spec0;
+local debug/testAPK compile PASS3m43s. Claim preview scrolls within a bounded
+dialog, and displayed admin/inviter/group-ID assertions scroll before checking.
+Four-case native Android10/17 verification is next. Existing key/work/creation
+GREEN sets precede this source and are not invitation-flow acceptance.

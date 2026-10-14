@@ -132,3 +132,9 @@ extracts actual shared send/attempt lifecycle, preserving preparation/Relay choi
 Claim display assertions now scroll to each claim before asserting visible, retaining
 the explicit-consent/backend/wire checks. Initial compilePASS3m35; refined compile
 pending, no native joinGREEN claimed.
+
+Refined join source9690f6d6...ee17e184: Standards0 and Spec0, previous duplicated
+submission lifecycle and unreachable long-claim preview findings resolved. Shared
+prepared-send handling retains durable preparation, explicit confirmation and
+creation's distinct Relay choice. Local debug/testAPK compile PASS3m43s. Native
+four-case GREEN on Android10/17 remains pending; no complete26 acceptance claim.

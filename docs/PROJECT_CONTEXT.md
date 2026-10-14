@@ -234,6 +234,12 @@ for integrated acceptance, physical Pixel measurements and final continuity.
 
 ## Initial review milestone
 
+On 2026-10-14 the owner requested further UI work after the active group Chat
+ticket #26 so he can show the beta to friends. #37 is already complete and its
+signed visual beta is published. After #26, inspect the current app for a bounded
+polish pass, especially the new group screens and first-use presentation, before
+resuming later feature tickets. Preserve the accepted feature scope and safeguards.
+
 The first reviewable build prioritizes local wallet creation/import and a live
 Red Square feed from either supported backend, including backend selection.
 Prove native Saito connectivity and identity compatibility before adding posting,
