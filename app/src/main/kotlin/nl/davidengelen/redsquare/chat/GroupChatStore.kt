@@ -96,6 +96,15 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
             group=replay.group,originals=replay.originals,messages=replay.messages))
     }
 
+    /** One bounded Archive page is validated and committed together, without repeated full-cache replays. */
+    fun receiveAvailable(id:String,envelopes:List<String>):Boolean = synchronized(SaitoLocalState.lock) {
+        val previous=requireNotNull(load(id))
+        val replay=GroupChat.replayAvailable(previous.group,previous.originals,envelopes)
+        if(replay.originals!=previous.originals)save(previous.copy(
+            group=replay.group,originals=replay.originals,messages=replay.messages))
+        replay.incomplete
+    }
+
     fun saveDraft(id:String,text:String):Entry = synchronized(SaitoLocalState.lock) {
         val previous=requireNotNull(load(id))
         check(previous.status==Status.FORWARDED)

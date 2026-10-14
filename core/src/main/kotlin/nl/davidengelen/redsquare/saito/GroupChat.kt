@@ -24,20 +24,27 @@ object GroupChat {
     }
 
     /** Retained originals stay strict; unavailable/invalid new rows cannot erase prior history. */
-    fun replayAvailable(origin:NamedChatGroup,retained:List<String>,available:List<String>):GroupChatReplay =
-        throw UnsupportedOperationException("Available group page replay is not implemented")
+    fun replayAvailable(origin:NamedChatGroup,retained:List<String>,available:List<String>):GroupChatReplay {
+        require(available.size<=50)
+        return replayObserved(origin,retained+available,retained.size)
+    }
 
     /** Replay observed originals from their retained origin, never by sorting authority timestamps. */
-    fun replay(origin:NamedChatGroup,originals:List<String>):GroupChatReplay {
+    fun replay(origin:NamedChatGroup,originals:List<String>):GroupChatReplay =
+        replayObserved(origin,originals,Int.MAX_VALUE)
+
+    private fun replayObserved(origin:NamedChatGroup,originals:List<String>,availableFrom:Int):GroupChatReplay {
         var group=origin.creationEnvelope?.let(::readCreation) ?: confirmInvitation(
             requireNotNull(origin.confirmedInvitation),origin.controls.first())
         val seen=group.controls.map{SaitoEnvelope.decode(it).id}.toMutableSet()
         group.creationEnvelope?.let{seen.add(SaitoEnvelope.decode(it).id)}
         val messages=mutableListOf<GroupChatMessage>()
         val retained=mutableListOf<String>()
-        originals.forEach{envelope->
+        var incomplete=false
+        originals.forEachIndexed{index,envelope->
+            try {
             val signed=SaitoEnvelope.decode(envelope)
-            if(!seen.add(signed.id))return@forEach
+            if(signed.id in seen)return@forEachIndexed
             if(signed.body.requiredString("request")=="chat message") {
                 val message=readMessage(group,envelope)
                 messages.add(message)
@@ -47,9 +54,14 @@ object GroupChat {
                 }
             } else group=applyControl(group,envelope)
             retained.add(envelope)
+            seen.add(signed.id)
+            }catch(failure:Exception){
+                if(index<availableFrom)throw failure
+                incomplete=true
+            }
         }
         return GroupChatReplay(group,java.util.Collections.unmodifiableList(messages.sortedWith(
-            compareBy<GroupChatMessage>{it.createdAt}.thenBy{it.id})),java.util.Collections.unmodifiableList(retained))
+            compareBy<GroupChatMessage>{it.createdAt}.thenBy{it.id})),java.util.Collections.unmodifiableList(retained),incomplete)
     }
 
     fun message(wallet: SaitoWallet, group: NamedChatGroup, text: String, timestamp: Long,

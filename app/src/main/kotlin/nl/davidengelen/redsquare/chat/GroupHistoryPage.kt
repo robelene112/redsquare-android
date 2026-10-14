@@ -19,6 +19,7 @@ internal suspend fun loadGroupHistoryPage(peer:SaitoPeer,store:GroupChatStore,id
     require(rows.size()<=50)
     var rejected=false
     var cursor:Long?=null
+    val available=mutableListOf<String>()
     for(row in rows){
         currentCoroutineContext().ensureActive()
         try {
@@ -35,8 +36,9 @@ internal suspend fun loadGroupHistoryPage(peer:SaitoPeer,store:GroupChatStore,id
             cursor=cursor?.let{minOf(it,signed.createdAt)} ?: signed.createdAt
             // A correctly addressed signed row can be inadmissible under current membership.
             // Keep its authenticated position so that it cannot hide earlier available records.
-            store.receive(value.asString)
+            available.add(value.asString)
         } catch(_:Exception){rejected=true}
     }
-    return GroupHistoryPage(rejected||(rows.size()==50&&cursor==null),rows.size()==50&&cursor!=null,cursor)
+    val admissionFailed=store.receiveAvailable(id,available)
+    return GroupHistoryPage(admissionFailed||rejected||(rows.size()==50&&cursor==null),rows.size()==50&&cursor!=null,cursor)
 }
