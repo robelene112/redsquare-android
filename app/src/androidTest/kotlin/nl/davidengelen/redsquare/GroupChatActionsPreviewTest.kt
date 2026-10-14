@@ -98,6 +98,25 @@ class GroupChatActionsPreviewTest {
                         check(wallets.loadExisting().exportJson()==fixture.exportJson()&&AndroidBackendStore(context).load()==backend)
                         check(peer.transactions.size==1&&peer.relayedMessages.size==1)
                         captureNativeScreen(File(context.cacheDir,"group-chat-actions-evidence/reply-cached-copy.png"),body)
+                        ui.onAllNodesWithText("Reply").onLast().assertIsDisplayed().assertIsEnabled().performClick()
+                        waitFor("Remove reply")
+                        val ownBody="Replying to my own message"
+                        ui.onNodeWithText("Message").performTextInput(ownBody)
+                        androidx.test.espresso.Espresso.closeSoftKeyboard()
+                        waitForEnabled("Send");ui.onNodeWithText("Send").assertIsEnabled().performClick()
+                        ui.waitUntil(15_000){peer.transactions.size==2&&peer.relayedMessages.size==2}
+                        waitFor("Forwarded. Delivery is not confirmed.")
+                        val ownCandidate=requireNotNull(store.load(key.publicKey)!!.candidate)
+                        val ownSigned=SaitoEnvelope.decode(ownCandidate.envelope())
+                        val ownPrefix="<blockquote href=\"${fixture.publicKey}${signed.createdAt}\">Native reply 😀 &lt;literal&gt;&amp;</blockquote>"
+                        check(ownSigned.body.get("message").asString==ownPrefix+ownBody)
+                        check(ownSigned.body.get("mentioned").asJsonArray.map{it.asString}==listOf(fixture.publicKey))
+                        check(ownSigned.recipients==listOf(fixture.publicKey,key.publicKey))
+                        check(postingTransaction(peer.transactions.last()).envelope()==ownCandidate.envelope())
+                        check(SaitoEnvelope.fromSignedJson(peer.relayedMessages.last())==ownCandidate.envelope())
+                        check(peer.relayRecipients.last()==listOf(fixture.publicKey,admin.publicKey))
+                        check(store.load(key.publicKey)!!.messages.map{it.text}==listOf("Original group message",prefix+body,ownPrefix+ownBody))
+                        captureNativeScreen(File(context.cacheDir,"group-chat-actions-evidence/self-reply-forwarded.png"),ownBody)
                         peer.assertHealthy()
                     }
                 }

@@ -419,7 +419,12 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         }){Text(stringResource(R.string.group_leave_confirm))}})
     if(members && entry!=null) AlertDialog(onDismissRequest={members=false},title={Text(stringResource(R.string.group_members))},
         text={LazyColumn(Modifier.heightIn(max=320.dp)){items(entry.group.memberRoles.toList(),key={it.first}){(key,role)->
-            Column(Modifier.padding(vertical=8.dp)){Text(key,style=MaterialTheme.typography.bodySmall);Text(role.name.lowercase())}
+            Column(Modifier.padding(vertical=8.dp)){Text(key,style=MaterialTheme.typography.bodySmall);Text(stringResource(when(role){
+                ChatGroupRole.ADMIN -> R.string.group_role_admin
+                ChatGroupRole.MEMBER -> R.string.group_role_member
+                ChatGroupRole.LEFT -> R.string.group_role_left
+                ChatGroupRole.REMOVED -> R.string.group_role_removed
+            }))}
         }}},confirmButton={TextButton(onClick={members=false}){Text(stringResource(R.string.group_done))}})
     if(inviting && entry!=null && entry.group.memberRoles[wallet.publicKey]?.active==true && entry.group.memberRoles.values.any{it==ChatGroupRole.ADMIN}) {
         val invitation = remember(entry.group,backend) { GroupInvitation.fromGroup(entry.group,wallet.publicKey).link(backend) }
