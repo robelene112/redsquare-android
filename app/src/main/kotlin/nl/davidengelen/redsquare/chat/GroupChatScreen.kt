@@ -152,7 +152,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     val receivedEntries=entries.filter{it.candidate==null&&it.status==GroupChatStore.Status.RECEIVED}
     val watchMetadata=receivedEntries.map{it.group.id to it.group.name}
     LaunchedEffect(store,watchMetadata,loaded,busy) {
-        if(!loaded||busy||savingForNavigation||receivedEntries.isEmpty())return@LaunchedEffect
+        if(!loaded||busy||savingForNavigation||readFailed||receivedEntries.isEmpty())return@LaunchedEffect
         savingForNavigation=true
         try {
             val updated=withContext(Dispatchers.IO){
