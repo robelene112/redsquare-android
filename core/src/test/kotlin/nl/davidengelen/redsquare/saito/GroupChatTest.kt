@@ -36,6 +36,8 @@ class GroupChatTest {
         val incomplete=GroupChat.replayAvailable(origin,liked.originals,listOf(forged.envelope()))
         org.junit.Assert.assertTrue(incomplete.incomplete)
         assertEquals(liked.originals,incomplete.originals)
+        assertEquals(liked.likedBy(target),incomplete.likedBy(target))
+        assertEquals(liked.reactions,incomplete.reactions)
     }
 
     @Test fun fetchingAnUnseenHistoricalJoinCannotUndoARetainedDeparture() {

@@ -7,7 +7,13 @@ data class GroupChatLikeEvent(val id:String,val author:String,val target:String,
 
 data class GroupChatReplay(val group:NamedChatGroup,val messages:List<GroupChatMessage>,val originals:List<String>,val incomplete:Boolean=false,
     val reactions:List<GroupChatLikeEvent> = emptyList()) {
-    fun likedBy(message:GroupChatMessage):Set<String> = throw UnsupportedOperationException("Group reactions pending")
+    fun likedBy(message:GroupChatMessage):Set<String> {
+        val active=mutableSetOf<String>()
+        reactions.filter{it.target==message.id && it.targetAuthor==message.author}.forEach{
+            if(!active.add(it.author))active.remove(it.author)
+        }
+        return java.util.Collections.unmodifiableSet(active)
+    }
 }
 
 enum class ChatGroupRole {
@@ -22,8 +28,30 @@ class NamedChatGroup internal constructor(val id: String, val name: String,
 
 /** Compatible unencrypted named-group controls; participants sign with their own wallet. */
 object GroupChat {
-    fun like(wallet:SaitoWallet,group:NamedChatGroup,target:GroupChatMessage,timestamp:Long):SaitoTransaction =
-        throw UnsupportedOperationException("Group reaction construction pending")
+    fun like(wallet:SaitoWallet,group:NamedChatGroup,target:GroupChatMessage,timestamp:Long):SaitoTransaction {
+        require(group.memberRoles[wallet.publicKey]?.active==true && target.groupId==group.id)
+        require(target.id.matches(Regex("[0-9a-f]{128}")) && SaitoWallet.isPublicKey(target.author))
+        val body=JsonObject().apply{
+            addProperty("module","Chat");addProperty("request","chat like")
+            addProperty("group_id",group.id);addProperty("sender",wallet.publicKey)
+            addProperty("signature",target.id);addProperty("mentioned",target.author)
+        }
+        return SaitoTransaction.create(wallet,body,timestamp,listOf(target.author,group.id))
+    }
+
+    private fun readLike(group:NamedChatGroup,envelope:String):GroupChatLikeEvent {
+        val signed=SaitoEnvelope.decode(envelope)
+        val body=signed.body
+        require(body.requiredString("module")=="Chat" && body.requiredString("request")=="chat like")
+        require(body.requiredString("group_id")==group.id && body.requiredString("sender")==signed.author)
+        require(group.memberRoles[signed.author] in setOf(ChatGroupRole.ADMIN,ChatGroupRole.MEMBER,ChatGroupRole.LEFT))
+        val target=body.requiredString("signature")
+        require(target.matches(Regex("[0-9a-f]{128}")))
+        val author=body.requiredString("mentioned")
+        require(SaitoWallet.isPublicKey(author) && author!=group.id)
+        require(group.id in signed.recipients && author in signed.recipients && signed.recipients.all(SaitoWallet::isPublicKey))
+        return GroupChatLikeEvent(signed.id,signed.author,target,author,envelope)
+    }
 
     /** Extract only. readMessage/replay must authenticate before accepting the original. */
     fun originalEnvelope(networkTransaction:ByteArray):String = SaitoEnvelope.originalChatEnvelope(networkTransaction){payload->
@@ -46,6 +74,7 @@ object GroupChat {
         val seen=group.controls.map{SaitoEnvelope.decode(it).id}.toMutableSet()
         group.creationEnvelope?.let{seen.add(SaitoEnvelope.decode(it).id)}
         val messages=mutableListOf<GroupChatMessage>()
+        val reactions=mutableListOf<GroupChatLikeEvent>()
         val retained=mutableListOf<String>()
         var incomplete=false
         originals.forEachIndexed{index,envelope->
@@ -59,6 +88,8 @@ object GroupChat {
                     group=NamedChatGroup(group.id,group.name,java.util.Collections.unmodifiableMap(
                         group.memberRoles+(message.author to ChatGroupRole.MEMBER)),group.creationEnvelope,group.confirmedInvitation,group.controls)
                 }
+            } else if(signed.body.requiredString("request")=="chat like") {
+                reactions.add(readLike(group,envelope))
             } else {
                 // A fetched join has no causal predecessor proof. It cannot undo a
                 // retained departure; deliberate joins are replayed in the strict log.
@@ -74,7 +105,8 @@ object GroupChat {
             }
         }
         return GroupChatReplay(group,java.util.Collections.unmodifiableList(messages.sortedWith(
-            compareBy<GroupChatMessage>{it.createdAt}.thenBy{it.id})),java.util.Collections.unmodifiableList(retained),incomplete)
+            compareBy<GroupChatMessage>{it.createdAt}.thenBy{it.id})),java.util.Collections.unmodifiableList(retained),incomplete,
+            java.util.Collections.unmodifiableList(reactions))
     }
 
     fun message(wallet: SaitoWallet, group: NamedChatGroup, text: String, timestamp: Long,
