@@ -137,7 +137,7 @@ class GroupChatPreviewTest {
                             val departure=SaitoEnvelope.decode(originalLeave)
                             check(departure.author==fixture.publicKey && departure.body.get("request").asString=="chat remove")
                             check(departure.body.get("member_id").asString==fixture.publicKey && departure.body.get("group_id").asString==group.id)
-                            check(departure.recipients.first()==group.id)
+                            check(departure.recipients==listOf(group.id,fixture.publicKey))
                             check(GroupChat.applyControl(group,originalLeave).memberRoles[fixture.publicKey]==ChatGroupRole.LEFT)
                             ui.onNodeWithText("Invite").assertDoesNotExist()
                             captureNativeScreen(File(context.cacheDir,"group-chat-evidence/left.png"),"You have left this group.")
@@ -151,6 +151,11 @@ class GroupChatPreviewTest {
                             ui.onNodeWithText("Beta crew").assertIsDisplayed().performClick()
                             waitFor("You have left this group.")
                             ui.onNodeWithText("Invite").assertDoesNotExist()
+                            val restored=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,store.loadExisting(),SaitoBackend.OWNER).load(group.id))
+                            val originalLeave=SaitoEnvelope.fromSignedJson(peer.relayedMessages.last())
+                            check(restored.group.controls.last()==originalLeave)
+                            check(restored.candidate.envelope()==originalLeave)
+                            check(restored.group.memberRoles[fixture.publicKey]==ChatGroupRole.LEFT)
                             captureNativeScreen(File(context.cacheDir,"group-chat-evidence/left-reopened.png"),"You have left this group.")
                         }
                         val expected=if(leaving)2 else 1
