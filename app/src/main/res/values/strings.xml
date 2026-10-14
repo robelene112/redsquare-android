@@ -434,7 +434,7 @@
     <string name="group_invite">Invite</string>
     <string name="group_done">Done</string>
     <string name="group_invitation_link">Invitation link</string>
-    <string name="group_error">Group information could not be saved or sent. Your existing records are kept.</string>
+    <string name="group_error">Group information could not be read or saved, or the action could not be completed. Your existing records are kept.</string>
     <string name="group_unknown">Status unknown. Your signed action is saved on this device.</string>
     <string name="group_submitted">Submitted. Delivery is not confirmed.</string>
     <string name="group_forwarded">Forwarded. Delivery is not confirmed.</string>
@@ -456,4 +456,5 @@
     <string name="group_retry">Retry</string>
     <string name="group_invitation_saved">Using saved group details.</string>
     <string name="group_messages">Group messages</string>
+    <string name="group_history_error">Older group history could not be loaded. Your cached messages are kept.</string>
 </resources>
