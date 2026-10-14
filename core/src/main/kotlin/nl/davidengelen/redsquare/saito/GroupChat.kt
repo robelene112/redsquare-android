@@ -37,7 +37,7 @@ object GroupChat {
             if(signed.body.requiredString("request")=="chat message") {
                 val message=readMessage(group,envelope)
                 messages.add(message)
-                if(group.memberRoles[message.author]?.active!=true) {
+                if(message.author !in group.memberRoles) {
                     group=NamedChatGroup(group.id,group.name,java.util.Collections.unmodifiableMap(
                         group.memberRoles+(message.author to ChatGroupRole.MEMBER)),group.creationEnvelope,group.confirmedInvitation,group.controls)
                 }
