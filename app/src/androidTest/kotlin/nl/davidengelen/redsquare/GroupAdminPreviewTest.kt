@@ -66,7 +66,7 @@ class GroupAdminPreviewTest {
                         check(signed.body.get("member_ids").asJsonObject.get(member).asString=="admin")
                         check(postingTransaction(peer.transactions.single()).envelope()==candidate.envelope())
                         check(SaitoEnvelope.fromSignedJson(peer.relayedMessages.single())==candidate.envelope())
-                        check(peer.relayRecipients.single()==listOf(member))
+                        check(peer.relayRecipients.single()==listOf(fixture.publicKey,member))
                         check(saved.group.memberRoles[member]==ChatGroupRole.ADMIN&&saved.draft=="Retain this admin draft")
                         ui.onNodeWithText("Members").performClick()
                         ui.onNodeWithContentDescription("Promote member $member").assertDoesNotExist()
