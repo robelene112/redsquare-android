@@ -33,7 +33,9 @@ class GroupChatPreviewTest {
 
     @Test fun removedAuthorsCannotHideAvailableEarlierGroupHistory() = exerciseGroupUi(joining=true,paginating=true,rejectedPage=true)
 
-    private fun exerciseGroupUi(joining:Boolean=false, leaving:Boolean=false, retrying:Boolean=false, knownRejoin:Boolean=false, messaging:Boolean=false, drafting:Boolean=false, archiveFault:Boolean=false, paginating:Boolean=false, rejectedPage:Boolean=false) {
+    @Test fun aTemporarilyUnreadableGroupDraftRecoversOnRefreshWithoutSending() = exerciseGroupUi(joining=true,messaging=true,drafting=true,draftFault=true)
+
+    private fun exerciseGroupUi(joining:Boolean=false, leaving:Boolean=false, retrying:Boolean=false, knownRejoin:Boolean=false, messaging:Boolean=false, drafting:Boolean=false, archiveFault:Boolean=false, paginating:Boolean=false, rejectedPage:Boolean=false, draftFault:Boolean=false) {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -134,7 +136,7 @@ class GroupChatPreviewTest {
                 ActivityScenario.launch<MainActivity>(Intent(context,MainActivity::class.java)
                     .putExtra("feedPeerUrl","ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("feedOfficialPeerUrl","ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
-                    withFailureCapture({ captureNativeScreen(File(context.cacheDir,if(rejectedPage) "group-chat-evidence/rejected-page-failure.png" else if(paginating) "group-chat-evidence/pagination-failure.png" else if(archiveFault) "group-chat-evidence/archive-failure.png" else if(drafting) "group-chat-evidence/draft-failure.png" else if(messaging) "group-chat-evidence/message-failure.png" else if(knownRejoin) "group-chat-evidence/known-rejoin-failure.png" else if(joining) "group-chat-evidence/join-failure.png" else if(leaving) "group-chat-evidence/leave-failure.png" else if(retrying) "group-chat-evidence/retry-failure.png" else "group-chat-evidence/create-failure.png")) }) {
+                    withFailureCapture({ captureNativeScreen(File(context.cacheDir,if(draftFault) "group-chat-evidence/draft-refresh-failure.png" else if(rejectedPage) "group-chat-evidence/rejected-page-failure.png" else if(paginating) "group-chat-evidence/pagination-failure.png" else if(archiveFault) "group-chat-evidence/archive-failure.png" else if(drafting) "group-chat-evidence/draft-failure.png" else if(messaging) "group-chat-evidence/message-failure.png" else if(knownRejoin) "group-chat-evidence/known-rejoin-failure.png" else if(joining) "group-chat-evidence/join-failure.png" else if(leaving) "group-chat-evidence/leave-failure.png" else if(retrying) "group-chat-evidence/retry-failure.png" else "group-chat-evidence/create-failure.png")) }) {
                         waitFor("Chat")
                         ui.waitUntil(15_000) { ui.onAllNodes(hasText("Chat") and isEnabled()).fetchSemanticsNodes().size == 1 }
                         ui.onNodeWithText("Chat").assertIsDisplayed().performClick()
@@ -352,7 +354,26 @@ class GroupChatPreviewTest {
                                 ui.onNodeWithText("Back").assertIsDisplayed().performClick()
                                 waitFor("Create group")
                                 ui.onNodeWithText("Create group").assertIsDisplayed()
-                                ui.onNodeWithText(invitation.name).assertIsDisplayed().performClick()
+                                if(draftFault){
+                                    // Preserve opaque encrypted bytes; fault only the isolated emulator record.
+                                    val record=File(context.noBackupFilesDir,"${prefix}${invitation.id}.v1")
+                                    val retainedEncrypted=synchronized(SaitoLocalState.lock){record.readBytes().also{
+                                        check(!File(record.path+".bak").exists())
+                                        record.writeBytes(byteArrayOf(1))
+                                    }}
+                                    try {
+                                        ui.onNodeWithText(invitation.name).assertIsDisplayed().performClick()
+                                        waitFor("Group information could not be read or saved, or the action could not be completed. Your existing records are kept.")
+                                        ui.onNodeWithText("Message").assertIsDisplayed().assertIsNotEnabled()
+                                        check(peer.transactions.size==2 && peer.relayedMessages.size==2)
+                                        captureNativeScreen(File(context.cacheDir,"group-chat-evidence/draft-unreadable.png"),"Group information could not be read or saved, or the action could not be completed. Your existing records are kept.")
+                                    }finally{synchronized(SaitoLocalState.lock){record.writeBytes(retainedEncrypted)}}
+                                    ui.waitUntil(15_000){ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().size==1}
+                                    ui.onNodeWithText("Refresh").assertIsDisplayed().assertIsEnabled().performClick()
+                                    assertRestoredGroupDraft()
+                                    ui.onNodeWithText("Group information could not be read or saved, or the action could not be completed. Your existing records are kept.").assertDoesNotExist()
+                                    captureNativeScreen(File(context.cacheDir,"group-chat-evidence/draft-refresh-restored.png"),"Keep this unsent group draft")
+                                }else ui.onNodeWithText(invitation.name).assertIsDisplayed().performClick()
                                 assertRestoredGroupDraft()
                                 check(peer.transactions.size==2 && peer.relayedMessages.size==2)
                             }
