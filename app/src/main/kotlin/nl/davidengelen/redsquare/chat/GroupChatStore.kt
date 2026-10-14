@@ -32,7 +32,11 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
 
     fun entries(): List<Entry> = synchronized(SaitoLocalState.lock) {
         val pattern = Regex("${Regex.escape(prefix)}([1-9A-HJ-NP-Za-km-z]{43,45})\\.v1(?:\\.bak)?")
-        requireNotNull(context.noBackupFilesDir.listFiles()).mapNotNull { pattern.matchEntire(it.name)?.groupValues?.get(1) }
+        val files=requireNotNull(context.noBackupFilesDir.listFiles())
+        val unfinished=Regex("${Regex.escape(prefix)}([1-9A-HJ-NP-Za-km-z]{43,45})\\.v1\\.new")
+        if(files.any{unfinished.matches(it.name)})
+            throw GroupChatStorageException(IllegalStateException("Unfinished protected group work requires recovery"))
+        files.mapNotNull { pattern.matchEntire(it.name)?.groupValues?.get(1) }
             .distinct().map { requireNotNull(load(it)) }
     }
 

@@ -38,8 +38,12 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     var historyFailed by remember(store,selected) { mutableStateOf(false) }
     var liveFailed by remember(store,endpoint){mutableStateOf(false)}
     var sendFailed by remember(wallet.publicKey,backend) { mutableStateOf(false) }
-    suspend fun publish(operation: () -> List<GroupChatStore.Entry>) = withContext(Dispatchers.Main.immediate) {
-        publication.withLock { entries=withContext(Dispatchers.IO) { operation() } }
+    suspend fun publish(onResult:(Boolean)->Unit={},operation: () -> List<GroupChatStore.Entry>) = withContext(Dispatchers.Main.immediate) {
+        publication.withLock {
+            try{entries=withContext(Dispatchers.IO){operation()};onResult(true)}
+            catch(cancelled:CancellationException){throw cancelled}
+            catch(failure:Exception){onResult(false);throw failure}
+        }
     }
     var busy by remember(wallet.publicKey,backend) { mutableStateOf(false) }
     var refresh by remember { mutableIntStateOf(0) }
@@ -124,9 +128,9 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     BackHandler { back() }
     LaunchedEffect(store,refresh) {
         loaded=false
-        try { publish { store.entries() };loaded=true;readFailed=false }
+        try { publish(onResult={success->loaded=success;readFailed=!success}){store.entries()} }
         catch(cancelled:CancellationException){throw cancelled}
-        catch(_:Exception){readFailed=true}
+        catch(_:Exception){/* Failure state was published under the same lock. */}
     }
     // Receive addressed groups and known-group events throughout the Groups feature,
     // including while the list is shown. Receiving never creates an outgoing attempt.
@@ -138,10 +142,12 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                     val storageFailed=java.util.concurrent.atomic.AtomicBoolean(false)
                     val receiver=launch {
                         for(ignored in updates){
-                            if(storageFailed.getAndSet(false))readFailed=true
-                            try{publish{store.entries()}}
+                            try{publish(onResult={success->
+                                val failed=storageFailed.getAndSet(false)
+                                if(!success||failed)readFailed=true
+                            }){store.entries()}}
                             catch(cancelled:CancellationException){throw cancelled}
-                            catch(_:Exception){readFailed=true}
+                            catch(_:Exception){/* Ordered publication already reported the local failure. */}
                         }
                     }
                     try {
