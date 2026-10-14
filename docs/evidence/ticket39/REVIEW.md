@@ -25,7 +25,7 @@ No new implementation-mirroring visual tests; existing accepted native seams use
 Full10run38633250917 at95e FAILED group22 21PASS1/116.296s, final imported
 guidance visibility735 after the displayed wait already passed. Original capture
 shows Checking available group information; source permits a transition hypothesis
-only. Full17run38633255144 at95e remains active with both public feeds enabled.
+only. Full17run38633255144 at95e SUCCESS with both public feeds enabled:303PASS/67records/20deathstages,core110/release/lint. Retainedfinal-full/android17,655hashes233XML. Corrected10 acceptance remains pending.
 Signed16 prepared, release8792PASS3m9, not published. No final acceptance claimed.
 
 ## Imported readiness correction

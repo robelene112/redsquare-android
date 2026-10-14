@@ -22,10 +22,10 @@ extraction; corrected compile46724 PASS2m57, .scratch/group-polish39-build-corre
 Source95e089699c6192abaea0d9dbacb7dbf4af04e69e pushed; both source reviews0.
 Full10run38633250917 at95e FAILED group22 21PASS1/116.296 at735 guidance
 display after prior displaywaitpassed; rootcaptureCheckingstate, transitionhypothesis
-only. Full17run38633255144 at95e active, public_feed_read=true. Test-only7b49825e
+only. Full17run38633255144 at95e SUCCESS, public_feed_read=true,303PASS/67records/20deathstages,core110/release/lint. Retainedfinal-full/android17,655hashes233XML. Test-only7b49825e
 waits automatic protected public watch identifier, Activityrecreate/reentry andsame
 strict15s guidance checks. Both correctionreviews0. Corrected full10run38635529637 active atdfa360534ce992216f911f0120cfaf0fa7618e9e, bothpublicfeeds.
-Productsourceequal95e/16; full17old95e remainsactive. Correctedruntimepending.
+Productsourceequal95e/16; full17old95e passed. Corrected10runtimepending.
 Signing8792PASS3m9, signed16/0.1.16 PREPAREDNOTPUBLISHED, source95e,
 APKsha0b34d6e6537ebc130c841cb884a7a9253c0b2a181ed6dc37cb4511e500721163,
 certsame15/appID/min29verified. No ownedlocalbuildactive. New large CI downloads use the verified
