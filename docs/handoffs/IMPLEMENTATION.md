@@ -24,7 +24,8 @@ separate review reports: `docs/evidence/ticket24/REVIEW.md`.
 
 **Current acceptance:** Android17 full `38484424347` at4e3a6ea7 passed.
 Complete273PASS/58completion records/19actualdeaths/no assumptions/core86,
-source/release/lint and every current feature/recovery/update gate. Retained
+source/release/lint and every current feature/recovery/update gate. Both final
+evidence review axes0; independent273/58/19 recount,509 hashes and178 XMLs. Retained
 `docs/evidence/ticket24/final-full/android17`; root parsed178 XMLs/viewed six
 original Following/report/reaction/process/browse captures. New picker helper
 26c0c7a5 is unexecuted here; production source is equivalent to corrected10.

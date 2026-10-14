@@ -1443,3 +1443,32 @@ Following-stall diagnostic review6383d13d...f85d2cdc: Standards0 documented/acti
 Feed viewport minimumreview97b661a8...b7541e6a: Standards0 documented/actionableheuristic findings; Spec0. Two navigation rows replace four, freeing96dp with unchangedlabels/routes/walletguards. Rootobservedzero visiblefeedinactualdiagnosticPNG/XML. Source reviewsdo notclaimcorrectedruntimeacceptance oralllargefontlayouts; fullvisual37remainsnext.
 
 Wallet picker fixture correction26c0c7a5^...26c0c7a5: Standards0 documented/actionableheuristic findings, Spec0. Positiveproviderheader plus scoped dir_list scroll to exactfilename, max8swipes, retains30sdeadline/preview/auth/consent/fullwallet/retrygates. Productunchanged; runtimepending.
+
+### Final Android 17 evidence review
+
+Fixed diff: `90c85603...47281e6e`. Source evidence run38484424347/4e3a6ea7.
+
+## Standards
+
+Documented breaches: none. Actionable heuristic smell findings: none.
+Verified all509 manifest hashes and parsed all178 XMLs. Raw summaries match273
+completed cases across58 completion records, with19 interrupted-stage logs.
+Private Chat checkpoints preserve every original field except the documented
+phase change and new PID. Retained text contains no secret markers or encrypted
+installation files. Production source matches the corrected Android10 candidate.
+The README separates public reads, signed5-to8/current-preview/physical limits
+and the unexecuted picker helper. Android10 acceptance remains pending; this
+evidence review does not close25.
+
+## Spec
+
+Zero actionable findings. Independently recounted273 completed cases,
+58 completion records and19 process-death logs, found no assumptions, verified
+checksums and parsed178 XMLs. Private peer2/history24/actions10 and recovery/
+restoration logs pass; recorded exits0. Checkpoint preserves every field except
+phase and added new PID. Production matches the corrected10 candidate and the
+unexecuted picker qualification is accurate. Public reads remain separate;
+10 bitmap discrepancy and current13/physical limits are accurately qualified.
+Android17 acceptance is supported, but corrected10 remains pending.
+
+Findings: Standards0; Spec0. No whole25 completion until corrected10 passes.
