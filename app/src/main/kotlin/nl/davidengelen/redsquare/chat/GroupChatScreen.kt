@@ -93,7 +93,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                 val candidate = withContext(Dispatchers.IO) { GroupChat.create(wallet,groupKey.publicKey,name,invitees,System.currentTimeMillis()) }
                 // Protect original intent first; metadata and sending can fail without losing it.
                 withContext(NonCancellable) {
-                    publish { store.prepareCreation(candidate);store.entries() }
+                    publish { store.prepareCreation(candidate,groupKey);store.entries() }
                 }
                 val groupId=groupKey.publicKey
                 selected=groupId;creating=false

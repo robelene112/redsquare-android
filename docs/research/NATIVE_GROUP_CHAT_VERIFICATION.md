@@ -260,3 +260,11 @@ Actual wallet-import warning UI remains separate verification, not asserted here
 Creation-key pre-metadata recovery tracer now compiled2m55s; nullable key field
 currently unpopulated before actual RED. This is public protected-store reopening
 without wallet metadata publication, not an actual PID termination experiment.
+
+Pre-metadata key RED17run38517327739/b54a7c87:3cases39.003s,2PASS and missing
+key at153. Minimum writes the creation key inside the existing owner/backend
+AES-GCM record before wallet metadata/network publication. Save/load revalidate
+its public ID against signed group ID; comparisons have static diagnostics. UI
+passes generated key during durable preparation. Legacy creation-only records
+remain readable with absent optional key. Compile and native GREEN pending.
+No actual PID-death/app retry or complete26 acceptance claimed.

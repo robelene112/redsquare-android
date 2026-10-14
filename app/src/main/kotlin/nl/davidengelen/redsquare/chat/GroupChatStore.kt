@@ -33,15 +33,20 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         require(group.id == id && wallet.publicKey in group.memberRoles)
         val candidate = SaitoTransaction.restore(record.get("candidate").asString)
         require(candidate.envelope() == creation && SaitoEnvelope.decode(creation).author == wallet.publicKey)
-        Entry(group,candidate,Status.valueOf(record.get("status").asString))
+        val creationKey=record.get("creationKey")?.takeUnless{it.isJsonNull}?.let {
+            require(it.isJsonPrimitive && it.asJsonPrimitive.isString)
+            SaitoWallet.fromBackup(it.asString).also{key->require(key.publicKey==group.id)}
+        }
+        Entry(group,candidate,Status.valueOf(record.get("status").asString),creationKey)
     }
 
     fun prepareCreation(candidate: SaitoTransaction, creationKey: SaitoWallet? = null): Entry = synchronized(SaitoLocalState.lock) {
         assertSelected()
         val group = GroupChat.readCreation(candidate.envelope())
         require(SaitoEnvelope.decode(candidate.envelope()).author == wallet.publicKey)
+        require(creationKey==null || creationKey.publicKey==group.id)
         check(load(group.id) == null)
-        save(Entry(group,candidate,Status.UNKNOWN))
+        save(Entry(group,candidate,Status.UNKNOWN,creationKey))
     }
 
     fun assertSelected() {
@@ -66,9 +71,14 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
             addProperty("creation",entry.group.creationEnvelope)
             addProperty("candidate",entry.candidate.encoded())
             addProperty("status",entry.status.name)
+            entry.creationKey?.let { key ->
+                require(key.publicKey==entry.group.id)
+                addProperty("creationKey",key.exportJson())
+            }
         }
         file(entry.group.id).save(EncryptedLocalFile.Contents(1,record.toString()))
-        return requireNotNull(load(entry.group.id)).also { check(it.candidate.id == entry.candidate.id && it.status == entry.status) }
+        return requireNotNull(load(entry.group.id)).also { check(it.candidate.id == entry.candidate.id && it.status == entry.status &&
+            it.creationKey?.exportJson()==entry.creationKey?.exportJson()) }
     }
 
     companion object {
