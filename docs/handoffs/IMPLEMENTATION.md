@@ -35,7 +35,8 @@ Corrected full10 `38487263465` at90c85603 passed after the test-only
 picker correction26c0c7a5:272 reported/271PASS/one existing profile assumption,
 57completion records/19actualdeaths/core86 and complete source/runtime/release/
 lint/update gates. Retainedfinal-full/android10; root parsed176 XMLs/viewed six
-originals. Both final evidence review axes0. Publication and ticket closure are pending. Both full proofs are complete; no device run remains active. These reruns include the latest product fix
+originals. Both final evidence review axes0. Signed13 publication/public checksum verified;
+ticket closure is next. Both full proofs are complete; no device run remains active. These reruns include the latest product fix
 `b7541e6a`, which consolidates four feed navigation buttons into two rows.
 Actual diagnostic run `38483374543` captured a screen entirely consumed by
 backup, navigation and outage text, leaving no visible Following feed. The fix
@@ -70,8 +71,9 @@ Both review axes report0 findings; test APK compilation passed1m36s. Product
 source is unchanged, so signed13 and the public-read evidence remain applicable.
 The corrected full10 proof can accompany17 per WORKFLOW if both succeed.
 
-**Phone review:** public preview11 remains https://davidengelen.nl/redsquare/.
-Signed preview13 is prepared, unpublished, at `.scratch/review-builds/13/`.
+**Phone review:** current public preview13 is https://davidengelen.nl/redsquare/.
+Signed preview13 is published at the stable review page; local artifact
+is `.scratch/review-builds/13/`.
 `review-build` session13639 completed successfully in 2m41s. Version0.1.13,
 package `nl.davidengelen.redsquare`, same signing certificate. Public metadata
 is retained in `docs/evidence/ticket24/signed-preview13-prepared/`; APK hash
