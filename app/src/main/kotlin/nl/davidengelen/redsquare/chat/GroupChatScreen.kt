@@ -66,6 +66,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     var discoveryCursor by remember(store,endpoint,refresh){mutableStateOf<Long?>(null)}
     var discoveryHasOlder by remember(store,endpoint,refresh){mutableStateOf(false)}
     var discoveryLoading by remember(store,endpoint){mutableStateOf(false)}
+    var discoveryChecked by remember(store,endpoint,refresh){mutableStateOf(false)}
     var discoveryRequest by remember(store,endpoint,refresh){mutableIntStateOf(0)}
     var message by remember(wallet.publicKey,backend,selected){mutableStateOf("")}
     var draftReady by remember(store,selected){mutableStateOf(false)}
@@ -148,7 +149,8 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         catch(_:Exception){/* Failure state was published under the same lock. */}
     }
     // Keep compatible watch metadata in the protected backup. Its names never supply authority.
-    LaunchedEffect(store,entries,loaded,busy) {
+    val watchMetadata=entries.map{it.group.id to it.group.name}
+    LaunchedEffect(store,watchMetadata,loaded,busy) {
         if(!loaded||busy||savingForNavigation||entries.isEmpty())return@LaunchedEffect
         savingForNavigation=true
         try {
@@ -176,7 +178,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         }catch(cancelled:CancellationException){throw cancelled}
         catch(_:GroupChatStorageException){readFailed=true}
         catch(_:Exception){/* Missing originals remain public ID hints with recovery guidance. */}
-        finally{discoveryLoading=false}
+        finally{discoveryLoading=false;discoveryChecked=true}
     }
     // Receive addressed groups and known-group events throughout the Groups feature,
     // including while the list is shown. Receiving never creates an outgoing attempt.
@@ -281,7 +283,8 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                 items(importedIds.filter{id->entries.none{it.group.id==id}},key={it}){id->
                     Column(Modifier.fillMaxWidth().padding(vertical=8.dp)) {
                         Text(id,style=MaterialTheme.typography.bodySmall)
-                        Text(stringResource(R.string.group_unavailable),style=MaterialTheme.typography.bodySmall,
+                        Text(stringResource(if(!discoveryChecked||discoveryLoading)R.string.group_checking
+                            else if(discoveryHasOlder)R.string.group_not_recovered else R.string.group_unavailable),style=MaterialTheme.typography.bodySmall,
                             color=MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                     HorizontalDivider()
