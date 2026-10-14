@@ -60,11 +60,17 @@ class GroupChatPreviewTest {
                             val reference=references.getAsJsonArray("invitations")[3].asJsonObject
                             val invitation=GroupInvitation.parse(reference.get("link").asString)
                             check(reference.get("link").asString.contains('+'))
-                            ui.onNodeWithText("Join group").assertIsDisplayed().performClick()
+                            ui.waitUntil(15_000){ui.onAllNodes(hasText("Join group") and isEnabled()).fetchSemanticsNodes().size==1}
+                            ui.onNodeWithText("Join group").assertIsDisplayed().assertIsEnabled().performClick()
                             ui.onNodeWithText("Invitation link").performTextInput(reference.get("link").asString)
                             ui.onNodeWithText("Preview").assertIsEnabled().performClick()
                             waitFor(invitation.name)
                             waitFor(invitation.admin)
+                            waitFor(invitation.sender)
+                            waitFor(invitation.id)
+                            ui.onNodeWithText(invitation.admin).assertIsDisplayed()
+                            ui.onNodeWithText(invitation.sender).assertIsDisplayed()
+                            ui.onNodeWithText(invitation.id).assertIsDisplayed()
                             waitFor("Invitation details are provided by the sender.")
                             check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
                             check(AndroidBackendStore(context).load()==SaitoBackend.OWNER)

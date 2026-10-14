@@ -28,11 +28,15 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         val contents = file(id).load() ?: return@synchronized null
         require(contents.version == 1.toByte())
         val record = gson.fromJson(contents.text,JsonObject::class.java)
-        val creation = record.get("creation").asString
-        val group = GroupChat.readCreation(creation)
+        val creation = record.get("creation")?.takeUnless{it.isJsonNull}?.asString
+        val group = if(creation!=null) GroupChat.readCreation(creation) else {
+            val invitation=GroupInvitation.parse(record.get("invitation").asString)
+            GroupChat.confirmInvitation(invitation,record.get("confirmation").asString)
+        }
         require(group.id == id && wallet.publicKey in group.memberRoles)
         val candidate = SaitoTransaction.restore(record.get("candidate").asString)
-        require(candidate.envelope() == creation && SaitoEnvelope.decode(creation).author == wallet.publicKey)
+        val original=creation ?: record.get("confirmation").asString
+        require(candidate.envelope() == original && SaitoEnvelope.decode(original).author == wallet.publicKey)
         val creationKey=record.get("creationKey")?.takeUnless{it.isJsonNull}?.let {
             require(it.isJsonPrimitive && it.asJsonPrimitive.isString)
             SaitoWallet.fromBackup(it.asString).also{key->require(key.publicKey==group.id)}
@@ -47,6 +51,15 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         require(creationKey==null || creationKey.publicKey==group.id)
         check(load(group.id) == null)
         save(Entry(group,candidate,Status.UNKNOWN,creationKey))
+    }
+
+    /** Confirmation belongs to this active wallet; unsigned link origin never chooses a backend. */
+    fun prepareInvitation(invitation: GroupInvitation, candidate: SaitoTransaction): Entry = synchronized(SaitoLocalState.lock) {
+        assertSelected()
+        require(SaitoEnvelope.decode(candidate.envelope()).author==wallet.publicKey)
+        val group=GroupChat.confirmInvitation(invitation,candidate.envelope())
+        check(load(group.id)==null)
+        save(Entry(group,candidate,Status.UNKNOWN))
     }
 
     fun assertSelected() {
@@ -68,7 +81,10 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
 
     private fun save(entry: Entry): Entry {
         val record = JsonObject().apply {
-            addProperty("creation",entry.group.creationEnvelope)
+            entry.group.creationEnvelope?.let{addProperty("creation",it)} ?: run {
+                addProperty("invitation",requireNotNull(entry.group.confirmedInvitation).encoded())
+                addProperty("confirmation",entry.group.controls.first())
+            }
             addProperty("candidate",entry.candidate.encoded())
             addProperty("status",entry.status.name)
             entry.creationKey?.let { key ->

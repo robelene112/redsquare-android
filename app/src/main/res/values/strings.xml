@@ -439,4 +439,14 @@
     <string name="group_submitted">Submitted. Delivery is not confirmed.</string>
     <string name="group_forwarded">Forwarded. Delivery is not confirmed.</string>
     <string name="group_cancel">Cancel</string>
+    <string name="group_join">Join group</string>
+    <string name="group_join_confirm">Join</string>
+    <string name="group_preview">Preview</string>
+    <string name="group_invitation_trust">Invitation details are provided by the sender.</string>
+    <string name="group_invitation_origin">Joined using invitation details.</string>
+    <string name="group_invitation_invalid">This invitation could not be read. Check the link and try again.</string>
+    <string name="group_admin_label">Claimed admin</string>
+    <string name="group_inviter_label">Invited by</string>
+    <string name="group_id_label">Group ID</string>
+    <string name="group_join_backend">Join on %1$s</string>
 </resources>

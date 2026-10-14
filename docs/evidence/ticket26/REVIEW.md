@@ -118,3 +118,9 @@ Key implementationb54a7c87...fb2ffefb: Standards0 and Spec0. Key/group binding,
 protected preparation/read-back, no private key in public transactions and legacy
 optional-key handling are sound. Local debug/testAPK PASS2m53s. Corrected native
 GREEN pending; app retry/PID/full26 remain unproved.
+
+Invitation tracer a6a9a772...fbd353ea: Standards0; Spec1, displayed inviter and
+group ID lacked assertions. Added both against independent claims before Join.
+Actual nativeRED4cases/28.489s has3PASS plus missingJoin control; later asserts
+unexecuted. Minimum preview/confirmed-origin store/UI now implemented; compile
+and nativeGREEN/correction review pending.

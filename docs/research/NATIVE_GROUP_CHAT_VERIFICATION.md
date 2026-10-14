@@ -277,3 +277,13 @@ Unicode; requires no transmissions before confirmation, retained selected backen
 compatible signed join, explicit invitation origin and reopening without extra send.
 Shared fixture keeps original creation assertions intact. TestAPK compile1m41s;
 Join UI is deliberately absent before actual RED.
+
+Invitation UI RED17run38519187380/fbd353ea:4cases28.489s,3PASS plus missing
+Join group. Root originalGroupsPNG/XML inspected; later claims/send/reopen unrun.
+Minimum adds explicit preview with four claims/unsignednotice/selectedserver/privacy,
+then deliberate signedjoin and owner/backend confirmed-invitation cache. No fake
+creation, sender auto-membership, server selection from URL or pre-consent sends.
+Store binds confirmation author to activewallet, retains own signed join once.
+Group watch metadata contains no imported group private key. Compile/GREEN pending.
+Existing-group rejoin, app interruption/retry/history/messages/leave remain later
+slices within26; neither network admission nor complete26 is claimed.

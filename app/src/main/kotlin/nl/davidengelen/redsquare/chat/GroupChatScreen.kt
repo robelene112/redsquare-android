@@ -38,6 +38,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     }
     var busy by remember(wallet.publicKey,backend) { mutableStateOf(false) }
     var creating by remember(wallet.publicKey,backend) { mutableStateOf(false) }
+    var joining by remember(wallet.publicKey,backend) { mutableStateOf(false) }
     var members by remember(selected) { mutableStateOf(false) }
     var inviting by remember(selected) { mutableStateOf(false) }
     var refresh by remember { mutableIntStateOf(0) }
@@ -60,7 +61,10 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         Text(stringResource(R.string.chat_available_history),style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
         if(readFailed || sendFailed) Text(stringResource(R.string.group_error),color=MaterialTheme.colorScheme.error)
         if(entry==null) {
-            Button(enabled=loaded&&!busy,onClick={creating=true}) { Text(stringResource(R.string.group_create)) }
+            Row(horizontalArrangement=Arrangement.spacedBy(8.dp)) {
+                Button(enabled=loaded&&!busy,onClick={creating=true}) { Text(stringResource(R.string.group_create)) }
+                OutlinedButton(enabled=loaded&&!busy,onClick={joining=true}) { Text(stringResource(R.string.group_join)) }
+            }
             LazyColumn(Modifier.weight(1f)) {
                 items(entries,key={it.group.id}) { row ->
                     TextButton(enabled=!busy,onClick={selected=row.group.id},modifier=Modifier.fillMaxWidth()) {
@@ -73,6 +77,8 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                 }
             }
         } else {
+            if(entry.group.confirmedInvitation!=null) Text(stringResource(R.string.group_invitation_origin),
+                style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
             Row {
                 TextButton(onClick={members=true}) { Text(stringResource(R.string.group_members)) }
                 TextButton(onClick={inviting=true}) { Text(stringResource(R.string.group_invite)) }
@@ -112,6 +118,27 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             finally{busy=false}
         }
     }
+    if(joining) JoinGroupDialog(backend,busy,onDismiss={if(!busy)joining=false}) { invitation ->
+        busy=true;sendFailed=false
+        scope.launch {
+            try {
+                val candidate=withContext(Dispatchers.IO){GroupChat.join(wallet,invitation,System.currentTimeMillis())}
+                withContext(NonCancellable){publish{store.prepareInvitation(invitation,candidate);store.entries()}}
+                selected=invitation.id;joining=false
+                val updated=withContext(Dispatchers.IO){wallet.withNamedChatGroup(invitation.id,invitation.name)}
+                onWalletMetadata(wallet,updated)
+                val current=GroupChatStore(context,updated,backend)
+                withContext(Dispatchers.IO){
+                    submitChatTransaction(updated,endpoint,invitation.admin,candidate,ChatSubmissionCallbacks(
+                        claim={current.claim(invitation.id,candidate.id)},assertSelected={current.assertSelected()},
+                        submitted={publish{current.record(invitation.id,candidate.id,GroupChatStore.Status.SUBMITTED);current.entries()}},
+                        forwarded={publish{current.record(invitation.id,candidate.id,GroupChatStore.Status.FORWARDED);current.entries()}}))
+                }
+            }catch(cancelled:CancellationException){throw cancelled}
+            catch(_:Exception){sendFailed=true}
+            finally{busy=false}
+        }
+    }
     if(members && entry!=null) AlertDialog(onDismissRequest={members=false},title={Text(stringResource(R.string.group_members))},
         text={LazyColumn(Modifier.heightIn(max=320.dp)){items(entry.group.memberRoles.toList(),key={it.first}){(key,role)->
             Column(Modifier.padding(vertical=8.dp)){Text(key,style=MaterialTheme.typography.bodySmall);Text(role.name.lowercase())}
@@ -138,4 +165,32 @@ private fun CreateGroupDialog(busy:Boolean,onDismiss:()->Unit,onCreate:(String,L
             val keys=invitees.split(Regex("[\\s,;]+")).filter(String::isNotBlank).distinct()
             if(keys.size>254 || keys.any{!SaitoWallet.isPublicKey(it)}) invalid=true else onCreate(name.trim(),keys)
         }){Text(stringResource(R.string.group_create_confirm))}})
+}
+
+@Composable
+private fun JoinGroupDialog(backend:SaitoBackend,busy:Boolean,onDismiss:()->Unit,onJoin:(GroupInvitation)->Unit) {
+    var input by remember { mutableStateOf("") }
+    var invitation by remember { mutableStateOf<GroupInvitation?>(null) }
+    var invalid by remember { mutableStateOf(false) }
+    val focus=androidx.compose.ui.platform.LocalFocusManager.current
+    val preview=invitation
+    AlertDialog(onDismissRequest=onDismiss,title={Text(stringResource(R.string.group_join))},
+        text={Column(verticalArrangement=Arrangement.spacedBy(8.dp)){
+            if(preview==null){
+                OutlinedTextField(input,{input=it;invalid=false},label={Text(stringResource(R.string.group_invitation_link))},enabled=!busy)
+                if(invalid)Text(stringResource(R.string.group_invitation_invalid),color=MaterialTheme.colorScheme.error)
+            }else{
+                Text(preview.name,style=MaterialTheme.typography.titleMedium)
+                Text(stringResource(R.string.group_invitation_trust),style=MaterialTheme.typography.bodySmall)
+                Text(stringResource(R.string.group_admin_label));Text(preview.admin,style=MaterialTheme.typography.bodySmall)
+                Text(stringResource(R.string.group_inviter_label));Text(preview.sender,style=MaterialTheme.typography.bodySmall)
+                Text(stringResource(R.string.group_id_label));Text(preview.id,style=MaterialTheme.typography.bodySmall)
+                Text(stringResource(R.string.group_privacy),style=MaterialTheme.typography.bodySmall)
+                Text(stringResource(R.string.group_join_backend,backend.domain),style=MaterialTheme.typography.bodySmall)
+            }
+        }},dismissButton={TextButton(enabled=!busy,onClick=onDismiss){Text(stringResource(R.string.group_cancel))}},
+        confirmButton={TextButton(enabled=!busy&&(preview!=null||input.isNotBlank()),onClick={
+            if(preview!=null)onJoin(preview) else try{invitation=GroupInvitation.parse(input);focus.clearFocus()}
+            catch(_:Exception){invalid=true}
+        }){Text(stringResource(if(preview==null)R.string.group_preview else R.string.group_join_confirm))}})
 }
