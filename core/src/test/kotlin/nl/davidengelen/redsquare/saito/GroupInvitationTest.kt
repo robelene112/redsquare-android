@@ -19,4 +19,18 @@ class GroupInvitationTest {
             assertEquals(expected.get("admin").asString, invite.admin)
         }
     }
+
+    @Test fun malformedLinksReturnARecoverableErrorWithoutExposingTheirContents() {
+        val invalid = listOf(
+            "https://saito.io/chat?chat_id=bnVsbA==", // JSON null, not a group.
+            "https://saito.io/chat?chat_id=%GG", // Invalid URI encoding.
+            "/w==", // Invalid UTF8 body.
+            "https://saito.io/chat?chat_id=e30=&chat_id=e30=" // Ambiguous duplicate.
+        )
+        invalid.forEach { link ->
+            val failure = org.junit.Assert.assertThrows(GroupInvitation.Invalid::class.java) { GroupInvitation.parse(link) }
+            assertEquals("Group invitation could not be read", failure.message)
+            org.junit.Assert.assertNull(failure.cause)
+        }
+    }
 }

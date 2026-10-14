@@ -100,3 +100,15 @@ some resulting links include '+'. One native parser tracer covers all eight.
 Initial stub RED1 UnsupportedOperationException, build54s; implementation GREEN
 1 PASS, build56s. Original eight-link/claim assertions remain intact. Parsing returns only unsigned claims, with no wallet/membership or
 backend mutation. Group UI and explicit joining remain pending.
+
+Malformed invitation tracer: RED2 cases with one unexpected JsonSyntaxException,
+build56s; eight-link positive case still passed. An initial verification-script
+assumption expected NullPointerException, so the edit aborted. The shell then
+repeated the unchanged RED build17s. Corrected the script after inspecting the
+actual failure and used fail-fast shell sequencing. Both RED outputs are retained;
+the failed verification attempt does not count as an implemented fix.
+
+The parser now exposes a static Invalid error without retaining an internal
+cause or pasted content. GREEN2PASS, build57s, with JSONnull, invalid URI encoding,
+malformed UTF8 and duplicate chat_id checks, plus all eight positive links.
+This is parser proof, not Android joining/recovery. No owned Gradle remains.

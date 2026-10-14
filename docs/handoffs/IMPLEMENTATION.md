@@ -57,7 +57,14 @@ all recipientcurvekeys, GREEN4PASS/build57s. Bothboundedfixreviews0, previousfin
 Ordinarylinkoracle now8actual creator/member links with rawBase64plus/Unicode,
 actualCrypto wrappermatchesA/B. InviteparsertracerRED1stub/build54s. Parser
 implementationGREEN1PASS/build56s. NoownedGradle remains. Next: malformedlink/recovery checks,
-explicit join trust provenance, groupUI anddurablelifecycle. No26wholeacceptance. No membership/UI/recovery implementation yet.
+explicit join trust provenance, groupUI anddurablelifecycle. No26wholeacceptance.
+Invitation errors RED2(oneJsonSyntaxException) thenGREEN2PASS/build57s. Parser
+normalizes errors without exposing pasted content/cause; malformedURI/UTF8/null/
+duplicatequery cases and eightvalidlinks pass. A failed verifier assumption caused
+one unchanged RED repeat17s, retained honestly. NoownedGradle remains.
+Creationsourcepush38507535486 at058460d3 SUCCESS; doesnot include laterinvitation
+source or AndroidgroupUI acceptance. Next: invite-source boundedreview, then
+signed join/leave/message controls, durable owner/backend groupstate and nativeUI. No membership/UI/recovery implementation yet.
 Chronology: docs/research/NATIVE_GROUP_CHAT_VERIFICATION.md. Preserveunsignedweb
 invites with honest authority/privacy provenance, existingmembership rules and
 recovery. Do not treatparticipantprocessedhistory asoriginalsignedmessageproof,

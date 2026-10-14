@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.saito.GroupInvitationTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-10-14T03:52:13" hostname="0055e6194b5b" time="0.334">
+  <properties/>
+  <testcase name="malformedLinksReturnARecoverableErrorWithoutExposingTheirContents" classname="nl.davidengelen.redsquare.saito.GroupInvitationTest" time="0.06"/>
+  <testcase name="existingCreatorAndMemberLinksPreserveUnicodeClaimsAndLiteralBase64Plus" classname="nl.davidengelen.redsquare.saito.GroupInvitationTest" time="0.273"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -11,10 +11,19 @@ import java.util.Base64
 
 /** Unsigned link claims. Parsing never grants membership or selects a backend. */
 class GroupInvitation internal constructor(val id: String, val name: String, val sender: String, val admin: String) {
+    class Invalid : IllegalArgumentException("Group invitation could not be read")
+
     companion object {
         private val gson = GsonBuilder().setStrictness(Strictness.STRICT).create()
 
-        fun parse(text: String): GroupInvitation {
+        fun parse(text: String): GroupInvitation = try {
+            read(text)
+        } catch (_: Exception) {
+            // Parser diagnostics can include pasted content. Expose only a stable static error.
+            throw Invalid()
+        }
+
+        private fun read(text: String): GroupInvitation {
             require(text.length <= 2 * SaitoTransaction.MAX_MESSAGE_BYTES)
             val input = text.trim()
             val encoded = if (input.startsWith("https://", ignoreCase = true)) {
