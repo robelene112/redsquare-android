@@ -8,6 +8,7 @@ in this case did not execute. This is native rejected-page RED, not completion.
 Ordinary signedGroupHistoryCanPageOlderAndRemainCachedAfterArchivePruning passed:
 first/last messages,50-page cache, ancient live receipt with positive acknowledgement,
 explicit next request with original signed page cutoff,52-cache records after pruning
-and recreation, no extra submission. Selected loaded/cached captures retained;
-root visual inspection of those captures remains pending. No actual PID/physical
+and recreation, no extra submission. Root inspected original loaded/cached PNG/XML: ancient live and available older
+messages remain visible alongside the beginning of recent history. The viewport
+shows a subset; all50/52 and first/last assertions are reported by the fixture. No actual PID/physical
 or whole26 proof. Public unsafe controlled-fixture identities only.
