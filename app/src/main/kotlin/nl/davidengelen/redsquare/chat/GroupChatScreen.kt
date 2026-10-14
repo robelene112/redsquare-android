@@ -43,6 +43,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         publication.withLock { entries=withContext(Dispatchers.IO) { operation() } }
     }
     var busy by remember(wallet.publicKey,backend) { mutableStateOf(false) }
+    var refresh by remember { mutableIntStateOf(0) }
     var message by remember(wallet.publicKey,backend,selected){mutableStateOf("")}
     var draftReady by remember(store,selected){mutableStateOf(false)}
     var draftFailed by remember(wallet.publicKey,backend,selected){mutableStateOf(false)}
@@ -72,8 +73,8 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         navigation.saveCurrent=save
         onDispose{if(navigation.saveCurrent===save)navigation.saveCurrent=null}
     }
-    LaunchedEffect(store,selected) {
-        draftReady=false
+    LaunchedEffect(store,selected,refresh) {
+        if(draftReady)return@LaunchedEffect // Refresh must not replace unsaved edited text.
         val id=selected ?: return@LaunchedEffect
         try {
             message=withContext(Dispatchers.IO){requireNotNull(store.load(id)).draft}
@@ -111,7 +112,6 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     var members by remember(selected) { mutableStateOf(false) }
     var leaving by remember(selected) { mutableStateOf(false) }
     var inviting by remember(selected) { mutableStateOf(false) }
-    var refresh by remember { mutableIntStateOf(0) }
     fun back() {
         if(busy||savingForNavigation)return
         scope.launch{if(navigation.save()){if(selected==null)onBack() else selected=null}}
