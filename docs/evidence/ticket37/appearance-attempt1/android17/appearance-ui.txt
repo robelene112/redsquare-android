@@ -1,0 +1,35 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AppearancePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.AppearancePreviewTest:
+INSTRUMENTATION_STATUS: test=systemAndExplicitThemesRemainReadableAfterReopeningWithoutReplacingIdentity
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AppearancePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Unsupported original night mode; no system setting changed
+	at nl.davidengelen.redsquare.AppearancePreviewTest.systemAndExplicitThemesRemainReadableAfterReopeningWithoutReplacingIdentity(AppearancePreviewTest.kt:30)
+
+INSTRUMENTATION_STATUS: stream=
+Error in systemAndExplicitThemesRemainReadableAfterReopeningWithoutReplacingIdentity(nl.davidengelen.redsquare.AppearancePreviewTest):
+java.lang.IllegalStateException: Unsupported original night mode; no system setting changed
+	at nl.davidengelen.redsquare.AppearancePreviewTest.systemAndExplicitThemesRemainReadableAfterReopeningWithoutReplacingIdentity(AppearancePreviewTest.kt:30)
+
+INSTRUMENTATION_STATUS: test=systemAndExplicitThemesRemainReadableAfterReopeningWithoutReplacingIdentity
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 0.201
+There was 1 failure:
+1) systemAndExplicitThemesRemainReadableAfterReopeningWithoutReplacingIdentity(nl.davidengelen.redsquare.AppearancePreviewTest)
+java.lang.IllegalStateException: Unsupported original night mode; no system setting changed
+	at nl.davidengelen.redsquare.AppearancePreviewTest.systemAndExplicitThemesRemainReadableAfterReopeningWithoutReplacingIdentity(AppearancePreviewTest.kt:30)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

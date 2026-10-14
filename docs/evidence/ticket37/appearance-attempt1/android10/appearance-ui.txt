@@ -1,0 +1,56 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AppearancePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.AppearancePreviewTest:
+INSTRUMENTATION_STATUS: test=systemAndExplicitThemesRemainReadableAfterReopeningWithoutReplacingIdentity
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AppearancePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.AppearancePreviewTest.waitForSurface(AppearancePreviewTest.kt:95)
+	at nl.davidengelen.redsquare.AppearancePreviewTest.systemAndExplicitThemesRemainReadableAfterReopeningWithoutReplacingIdentity$lambda$8$lambda$7$lambda$6(AppearancePreviewTest.kt:65)
+	at nl.davidengelen.redsquare.AppearancePreviewTest.$r8$lambda$sJxCQ5v_wVXPoObT1D0AKL4ou6Y(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppearancePreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppearancePreviewTest.systemAndExplicitThemesRemainReadableAfterReopeningWithoutReplacingIdentity(AppearancePreviewTest.kt:43)
+
+INSTRUMENTATION_STATUS: stream=
+Error in systemAndExplicitThemesRemainReadableAfterReopeningWithoutReplacingIdentity(nl.davidengelen.redsquare.AppearancePreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.AppearancePreviewTest.waitForSurface(AppearancePreviewTest.kt:95)
+	at nl.davidengelen.redsquare.AppearancePreviewTest.systemAndExplicitThemesRemainReadableAfterReopeningWithoutReplacingIdentity$lambda$8$lambda$7$lambda$6(AppearancePreviewTest.kt:65)
+	at nl.davidengelen.redsquare.AppearancePreviewTest.$r8$lambda$sJxCQ5v_wVXPoObT1D0AKL4ou6Y(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppearancePreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppearancePreviewTest.systemAndExplicitThemesRemainReadableAfterReopeningWithoutReplacingIdentity(AppearancePreviewTest.kt:43)
+
+INSTRUMENTATION_STATUS: test=systemAndExplicitThemesRemainReadableAfterReopeningWithoutReplacingIdentity
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 13.478
+There was 1 failure:
+1) systemAndExplicitThemesRemainReadableAfterReopeningWithoutReplacingIdentity(nl.davidengelen.redsquare.AppearancePreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.AppearancePreviewTest.waitForSurface(AppearancePreviewTest.kt:95)
+	at nl.davidengelen.redsquare.AppearancePreviewTest.systemAndExplicitThemesRemainReadableAfterReopeningWithoutReplacingIdentity$lambda$8$lambda$7$lambda$6(AppearancePreviewTest.kt:65)
+	at nl.davidengelen.redsquare.AppearancePreviewTest.$r8$lambda$sJxCQ5v_wVXPoObT1D0AKL4ou6Y(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppearancePreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppearancePreviewTest.systemAndExplicitThemesRemainReadableAfterReopeningWithoutReplacingIdentity(AppearancePreviewTest.kt:43)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

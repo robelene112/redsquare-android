@@ -1,6 +1,6 @@
 package nl.davidengelen.redsquare
 
-import android.app.UiModeManager
+import android.content.res.Configuration
 import android.content.Intent
 import android.os.Build
 import androidx.compose.ui.graphics.asAndroidBitmap
@@ -26,10 +26,23 @@ class AppearancePreviewTest {
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" && Build.HARDWARE in listOf("ranchu", "goldfish"))
         val device = UiDevice.getInstance(instrumentation)
-        val originalNight = context.getSystemService(UiModeManager::class.java).nightMode
-        check(originalNight in listOf(UiModeManager.MODE_NIGHT_YES, UiModeManager.MODE_NIGHT_NO,
-            UiModeManager.MODE_NIGHT_AUTO)) { "Unsupported original night mode; no system setting changed" }
-        fun night(value: String) { device.executeShellCommand("cmd uimode night $value") }
+        val originalNight = device.executeShellCommand("cmd uimode night").trim().removePrefix("Night mode: ")
+        check(originalNight in listOf("yes", "no", "auto", "custom_schedule", "custom_bedtime")) {
+            "Unsupported original night mode; no system setting changed"
+        }
+        val controls = File(context.cacheDir, "appearance-evidence/system-controls.txt")
+        check(controls.parentFile!!.isDirectory || controls.parentFile!!.mkdirs())
+        controls.writeText("Original night mode: $originalNight\n")
+        fun night(value: String, awaitConfiguration: Boolean = true) {
+            val result = device.executeShellCommand("cmd uimode night $value").trim()
+            controls.appendText("Requested $value; $result\n")
+            assertEquals("Night mode: $value", result)
+            if (awaitConfiguration && value in listOf("yes", "no")) {
+                val expected = if (value == "yes") Configuration.UI_MODE_NIGHT_YES else Configuration.UI_MODE_NIGHT_NO
+                ui.waitUntil(5_000) { context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == expected }
+                controls.appendText("Applied configuration: $expected\n")
+            }
+        }
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
         val root = instrumentation.context.assets.open("native-feed-reference.json").bufferedReader().use {
             JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow")
@@ -82,12 +95,7 @@ class AppearancePreviewTest {
                 }
             }
         } finally {
-            night(when (originalNight) {
-                UiModeManager.MODE_NIGHT_YES -> "yes"
-                UiModeManager.MODE_NIGHT_NO -> "no"
-                UiModeManager.MODE_NIGHT_AUTO -> "auto"
-                else -> error("Unsupported original night mode")
-            })
+            night(originalNight, awaitConfiguration = false)
         }
     }
 

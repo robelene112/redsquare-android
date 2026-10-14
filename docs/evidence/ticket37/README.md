@@ -62,3 +62,25 @@ TextButtons. The bounded correction follows Android's documented selectable-row
 pattern: https://developer.android.com/develop/ui/compose/components/radio-button .
 Correction and selected-state native assertions are pending while the owned
 Gradle build completes. This review remains separate from whole-beta acceptance.
+
+Appearance attempt1 at340c0430: Android10 run38492622482 fails initial dark
+observation/13.478s, original still light; Android17 run38492625112 rejects its
+unsupported original mode before mutation/0.201s. Raw logs/exits retained in
+appearance-attempt1; root parsed10 XML and viewed its original PNG. Neither is
+GREEN. The original RED's system-mode application was not recorded, so it does
+not yet prove a valid first-install dark environment.
+
+Primary AOSP android10-release UiModeManagerService.setNightMode refuses changes
+before user_setup_complete. The current source shell handler also supports
+custom_schedule/custom_bedtime. Bounded fixture correction completes setup on
+only the guarded emulator, records the original setup flag, verifies exact
+shell-result mode plus applied Configuration before rendering, preserves and
+restores the original supported shell mode including custom schedules, and
+captures non-secret system-control diagnostics. This remains a setup hypothesis
+until runtime confirms it. Acceptance surface/override/identity predicates and
+original timeouts remain unchanged. A corrected baseline RED and current-product
+GREEN are required before accepting this slice.
+
+Primary source inspected:
+https://android.googlesource.com/platform/frameworks/base/+/android10-release/services/core/java/com/android/server/UiModeManagerService.java
+https://android.googlesource.com/platform/frameworks/base/+/master/services/core/java/com/android/server/UiModeManagerService.java
