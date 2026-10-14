@@ -3,7 +3,7 @@
 Uses public unsafe scalar 1/2/3/4 identities. Never fund them. The canonical tools
 are retained here; they do not initialize Saito or read live wallet/configuration.
 
-Copy the two generators into an ignored scratch directory. Fetch `chat-A.js` and
+Copy the retained .cjs tools into an ignored scratch directory. Fetch `chat-A.js` and
 `chat-B.js` from immutable public SaitoTech/saito `node/mods/chat/chat.js` revisions
 A9a4ca7e and B214504ec. Exact revisions and source hashes are recorded in
 `NATIVE_GROUP_CHAT_VERIFICATION.md` and the committed vector.
@@ -41,3 +41,8 @@ admin/inviter recipients are independently serialized/signed by WASM and checked
 with Elliptic. This is bounded fixture wire intent, not proof of arbitrary funded
 wallet slip selection, live consensus admission or a complete web join session.
 Creation/invitation vector output is unchanged by the recipient-order helper flag.
+
+Join and self-leave share control-reference.cjs, retaining distinct entry scripts.
+Run node /reference/leave-reference.cjs for self-leave. After extracting the shared
+setup, both outputs were regenerated offline and compared byte-for-byte with the
+committed join/leave corpora; both comparisons passed. No native source changed.

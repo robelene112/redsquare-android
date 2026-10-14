@@ -165,3 +165,8 @@ Duplicate join after leave stays LEFT; recorded originals are retained once, and
 an ordinary member's removal of the creator fails. Reconstruction validates every
 original through the same public receiving rules. No stored role map is trusted.
 The order is retained observation order, not authenticated global causal order.
+
+The bounded control reviews found Spec0 and Standards0 hard findings, with one
+possible duplicate-reference-setup heuristic. Shared setup extracted; independent
+offline join and leave regeneration both compare byte-for-byte with retained
+corpora. No native change or additional runtime acceptance is claimed.

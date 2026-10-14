@@ -40,3 +40,12 @@ Spec: zero actionable findings. Actual pinned link/codec vectors support stated
 compatibility, while link names and roles are not represented as authenticated.
 Malformed/duplicate input is recoverable; old signed creation vectors stay separate.
 Joining, authority, persistence, groupUI and whole-ticket acceptance remain pending.
+
+## Join and retained controls,86734261...66d9df30
+
+Join: Standards0 and Spec0. Leave/control/restore: Spec0; Standards0 documented
+breaches and one possible Duplicated Code heuristic in the independent join/leave
+generators. Extracted their shared source verification/VM/wallet/signing setup to
+control-reference.cjs. Both public corpora regenerated offline with byte-for-byte
+comparisons passing. Native source and acceptance assertions are unchanged.
+This bounded refactor is being independently reviewed, not full #26 acceptance.
