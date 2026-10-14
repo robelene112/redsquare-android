@@ -310,3 +310,19 @@ Actual nativeRED17run38538979079 has five cases/64.937s: four PASS plus missing
 Leave group control. Root original failure PNG/XML inspected. Consent, departure
 and later recovery assertions did not execute. The minimum leave implementation
 is now compiling; corrected native GREEN and whole26 acceptance remain pending.
+
+Leave native GREEN atcdbeef729e4d9e6694b713fc213cf38fb1f1fe85: Android10
+38540341373 five PASS21.397s; Android17 38540343832 five PASS57.190s.
+Root original LEFT/reopened screenshots and XML inspected; exact signed departure,
+protected restoration and no resend pass. Retry/message/history/PID/full26 remain.
+
+Retry tracer seeds a protected public-fixture creation checkpoint before metadata.
+Independent saved-backup assertions check group key/name/watch flags/private scalar
+and conversation ID, alongside whole-wallet equality and unchanged signed bytes.
+Initial circular metadata expectation found by Spec review was strengthened;
+correction reviews0/0. Refined testAPK compile PASS1m37s. ActualRED17
+38541609952 at1d258b1c: six cases/65.228s, five PASS plus missing Retry control.
+Root original failure PNG/XML inspected. No-autosend/checkpoint preconditions pass;
+later metadata/disconnect/retry assertions did not execute. Minimum Retry source
+now retains and sends the exact original with protected-key metadata recovery;
+compile/corrected native GREEN pending. No actual PID-death or complete26 claim.

@@ -118,9 +118,10 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                 act {
                     withContext(NonCancellable){publish{store.prepareRetry(entry.group.id,entry.candidate.id);store.entries()}}
                     val updated=withContext(Dispatchers.IO){wallet.withNamedChatGroup(entry.group.id,entry.group.name,entry.creationKey)}
-                    val request=SaitoEnvelope.decode(entry.candidate.envelope()).body.get("request").asString
+                    val signed=withContext(Dispatchers.IO){SaitoEnvelope.decode(entry.candidate.envelope())}
+                    val request=signed.body.get("request").asString
                     val recipients=if(request=="chat join") {
-                        SaitoEnvelope.decode(entry.candidate.envelope()).recipients.filter{it!=wallet.publicKey&&it!=entry.group.id}
+                        signed.recipients.filter{it!=wallet.publicKey&&it!=entry.group.id}
                     } else entry.group.memberRoles.filterValues{it.active}.keys.filter{it!=wallet.publicKey}
                     val targets=recipients.ifEmpty{listOf(wallet.publicKey)}
                     sendPrepared(entry.group.id,entry.candidate,updated,targets.first(),originalRelay=request=="chat group",relayRecipients=targets)
