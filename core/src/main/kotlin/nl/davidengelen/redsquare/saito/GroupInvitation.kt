@@ -20,7 +20,14 @@ class GroupInvitation internal constructor(val id: String, val name: String, val
 
     fun link(backend: SaitoBackend): String = backend.webUrl + "/chat?chat_id=" + encoded()
 
-    fun usingKnownGroup(group:NamedChatGroup):GroupInvitation = throw UnsupportedOperationException("Known group routing pending")
+    /** Retained authority determines routing; the inviter claim never grants a role. */
+    fun usingKnownGroup(group:NamedChatGroup):GroupInvitation {
+        require(id==group.id)
+        val knownAdmin=group.memberRoles.entries.firstOrNull{it.value==ChatGroupRole.ADMIN}?.key
+            ?: group.creationEnvelope?.let{SaitoEnvelope.decode(it).author}
+            ?: requireNotNull(group.confirmedInvitation).admin
+        return GroupInvitation(id,group.name,sender,knownAdmin)
+    }
 
     class Invalid : IllegalArgumentException("Group invitation could not be read")
 
