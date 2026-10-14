@@ -177,3 +177,19 @@ is empty; prepared signed14 remains product-equivalent and unpublished.
 Corrected full10run38497736473 and17run38497738892 at
 e95e127f527ae031425813044f01f9fa5223f1b6, public_feed_read=true, are active.
 Do not close37 or publish before final results/current captures/evidence reviews.
+
+Diagnostic-only privacy refinement437fc13e keeps exact full wallet/options
+equality on device with a static assertion message; private JSON cannot be
+serialized by JUnit on a mismatch. Product/state/acceptance predicate unchanged.
+Both review axes0. Focused current appearance10run38498173866 PASS1/9.912s and
+17run38498175876 PASS1/32.764s at437fc13e917d9b21139d22060e1c01bb000abd0c.
+Raw exits/controls and8originalPNG/XML perSDK retained in appearance-safe;
+all16XMLs parsed. These cover the current final tab/settings/layout and diagnostic
+comparison only; full broad coverage remains at the explicitly recordede95
+runs still active. App/core production diff to4c/signed14 is empty. No final
+whole-beta/physical acceptance is implied by the focused cases.
+
+e95 selector-fix reviews: Standards0, Spec0. Exact wallet key+address semantics
+prevents a feed label replacing the identity assertion; the video wait uses the
+same strict Playing observation with a bounded existing deadline. No product,
+playback, identity or no-publication predicate is weakened. Runtime still needed.
