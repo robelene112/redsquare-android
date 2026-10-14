@@ -828,7 +828,7 @@ class GroupChatPreviewTest {
                         check(walletStore.loadExisting().publicKey==fixture.publicKey&&AndroidBackendStore(context).load()==activeBackend)
                         val outgoing=if(reacting)2 else 0
                         check(peer.transactions.size==outgoing&&peer.relayedMessages.size==outgoing)
-                        captureNativeScreen(File(context.cacheDir,if(importing) "group-chat-evidence/imported-reopened.png" else if(reacting) "group-chat-evidence/reaction-unliked-reopened.png" else if(personalPolicy) "group-chat-evidence/personal-${activeBackend.id}-muted-reopened.png" else if(storageFault) "group-chat-evidence/incoming-storage-reopened.png" else "group-chat-evidence/incoming-ui-reopened.png"),"Keep incoming group draft")
+                        captureNativeScreen(File(context.cacheDir,if(brokenHints) "group-chat-evidence/hints-reopened.png" else if(importing) "group-chat-evidence/imported-reopened.png" else if(reacting) "group-chat-evidence/reaction-unliked-reopened.png" else if(personalPolicy) "group-chat-evidence/personal-${activeBackend.id}-muted-reopened.png" else if(storageFault) "group-chat-evidence/incoming-storage-reopened.png" else "group-chat-evidence/incoming-ui-reopened.png"),"Keep incoming group draft")
                         peer.assertHealthy()
                     }
                 }
