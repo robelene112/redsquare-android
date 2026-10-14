@@ -56,12 +56,12 @@ class GroupChatActionsPreviewTest {
                     .putExtra("feedPeerUrl","ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("feedOfficialPeerUrl","ws://127.0.0.1:${server.port}/wsopen")).use{scenario->
                     withFailureCapture({captureNativeScreen(File(context.cacheDir,"group-chat-actions-evidence/failure.png"))}) {
-                        fun open() {
-                            waitFor("Chat");ui.onNodeWithText("Chat").performClick()
+                        fun open(fromFeed:Boolean=false) {
+                            if(fromFeed){waitForEnabled("Chat");ui.onNodeWithText("Chat").assertIsDisplayed().assertIsEnabled().performClick()}
                             waitFor("Groups");ui.onNodeWithText("Groups").performClick()
                             waitFor("Reply beta group");ui.onNodeWithText("Reply beta group").performClick()
                         }
-                        open();waitFor("Original group message")
+                        open(fromFeed=true);waitFor("Original group message")
                         previousClip=clipboard.primaryClip
                         waitForEnabled("Copy")
                         clipboardChanged=true
@@ -84,7 +84,7 @@ class GroupChatActionsPreviewTest {
                         check(signed.recipients==listOf(fixture.publicKey,key.publicKey))
                         check(postingTransaction(peer.transactions.single()).envelope()==candidate.envelope())
                         check(SaitoEnvelope.fromSignedJson(peer.relayedMessages.single())==candidate.envelope())
-                        check(peer.relayRecipients.single()==listOf(admin.publicKey))
+                        check(peer.relayRecipients.single()==listOf(fixture.publicKey,admin.publicKey))
                         ui.onNodeWithText("Remove reply").assertDoesNotExist()
                         scenario.recreate();open();waitFor(body)
                         ui.onNodeWithContentDescription("Group messages").performScrollToNode(hasText(body))
@@ -106,7 +106,7 @@ class GroupChatActionsPreviewTest {
         finally{cleanupAfterTest(primary,
             {synchronized(SaitoLocalState.lock){names.forEach{val file=File(context.noBackupFilesDir,it);check(!file.exists()||file.delete())}}},
             {wallets.replace(wallets.loadExisting(),original)},
-            {if(clipboardChanged){if(previousClip==null)clipboard.clearPrimaryClip()else clipboard.setPrimaryClip(previousClip)}},
+            {if(clipboardChanged){previousClip?.let{clipboard.setPrimaryClip(it)} ?: clipboard.clearPrimaryClip()}},
             *preferences.map{(prefs,keyName,value)->{check(prefs.edit().apply{if(value==null)remove(keyName)else putBoolean(keyName,value)}.commit());Unit}}.toTypedArray())}
     }
     private fun waitFor(text:String)=ui.waitUntil(15_000){ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()}
