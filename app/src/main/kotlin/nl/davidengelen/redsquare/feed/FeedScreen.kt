@@ -261,18 +261,8 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
             recovered -> ConnectionBanner(stringResource(R.string.back_online), true)
         }
         Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
-            Column(Modifier.weight(1f)) {
-                Tab(selected = !followingView, onClick = { followingView = false },
-                    text = { Text(stringResource(R.string.feed_title), maxLines = 1) })
-                Box(Modifier.fillMaxWidth().height(2.dp).background(
-                    if (!followingView) MaterialTheme.colorScheme.primary else Color.Transparent))
-            }
-            Column(Modifier.weight(1f)) {
-                Tab(selected = followingView, onClick = { followingView = true },
-                    text = { Text(stringResource(R.string.following_title), maxLines = 1) })
-                Box(Modifier.fillMaxWidth().height(2.dp).background(
-                    if (followingView) MaterialTheme.colorScheme.primary else Color.Transparent))
-            }
+            FeedTab(R.string.feed_title, !followingView) { followingView = false }
+            FeedTab(R.string.following_title, followingView) { followingView = true }
             TextButton(onClick = { refresh++ }, enabled = wallet != null && !loading && internet.available) {
                 Text(stringResource(R.string.feed_refresh))
             }
@@ -356,6 +346,15 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
                 icon = { Icon(painterResource(R.drawable.ic_profile), null) },
                 label = { Text(stringResource(R.string.profile_own), style = MaterialTheme.typography.labelSmall) })
         }
+    }
+}
+
+@Composable
+private fun RowScope.FeedTab(label: Int, selected: Boolean, onClick: () -> Unit) {
+    Column(Modifier.weight(1f)) {
+        Tab(selected = selected, onClick = onClick, text = { Text(stringResource(label), maxLines = 1) })
+        Box(Modifier.fillMaxWidth().height(2.dp).background(
+            if (selected) MaterialTheme.colorScheme.primary else Color.Transparent))
     }
 }
 
