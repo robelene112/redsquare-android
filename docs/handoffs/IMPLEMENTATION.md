@@ -45,41 +45,47 @@ Local .scratch/review-builds/14; publicrecords docs/evidence/ticket37/signed-pre
 No store/node/service/ingresschange. Current14physicalPixel/continuity/performance
 remain35. Preview13superseded;12neverpublished.
 
-**Active #26 checkpoint, 2026-10-14 12:22 UTC:** Group creation, invitations,
-leaving, exact retry, known-group routing, messages/live receipt/cache, unsent
-drafts and unavailable Archive sending are implemented. Group Chat remains OPEN;
-beta14 is unchanged. Most recent Archive failure regression GREEN at
-ad8aa4fcedf4b1b417df26f2c96bde7bad076f20: Android10 run38558779177,11PASS55.476s;
-Android17 run38558782794,11PASS101.203s. Qualified captures/raw evidence are in
-`docs/evidence/ticket26/`. These prove recreation, not actual process death.
+**Active #26 checkpoint, 2026-10-14 12:45 UTC:**21 original tickets complete;
+#26 OPEN. Owner pause boundary above takes priority: complete26 thenstop.
+Beta14 unchanged, no group review APK published yet.
 
-Native pagination RED Android10 run38560385566 at179c1255:12cases,11PASS,
-75.505s, missing Load older control. Retained unique PNG/XML shows recent-message
-viewport; later cursor/cache assertions did not execute. Pager minimum f01be731
-compiled debug/test APK, but has not passed native pagination. Review found
-old messages could reactivate LEFT; core tracer reproduced LEFT versus MEMBER.
-Fix eeb9903865c6893c3208ff0d3a0ab2053ebc85fc now preserves known LEFT, with17
-GroupChat tests PASS and both review axes0. Evidence is older-after-leave-red/green.
+Implemented/verified: native creation/invite/member/key/work/leave, exact retry,
+known-group routing, messages/live/cache, unsent draft recreation, unavailable
+Archive sending, explicit signed older paging. Core LEFT regression RED actual
+LEFT→MEMBER fixed eeb99038;17GroupChatGREEN, fullcore106PASS subsequently. Older
+messages now preserve observed LEFT; only explicit signed join restores MEMBER.
 
-Current new13-case native tracer checks a full page of signed messages from a
-REMOVED author cannot hide earlier valid history. Authentic removed membership is
-seeded only on emulator; old messages remain rejected, cursor independent of cache.
-Corrected debug/test compile PASS2m18s (public signing API fixture correction).
-Actual13-case Android10 RED attempt run38563262595 at
-c567725e8ca714d74244905d2425271a304a7ec8 is active; no result yet.
-Tracer and fixture correction reviewed Standards0/Spec0.
-The pager cursor currently advances only after admission and still needs correction.
-Next inspect compile/reviews, push and dispatch group-ui Android10 to establish
-actual regression, then separate authenticated cursor from admission, verify both
-Android10/17. Do not reapply old scratch scripts over current source.
+Cursor fix c9ff41d4dcef107dafb2eab50ea1690291b5328f authenticates strict routing,
+addressing/signatures/cutoff before position, admits independently. Native13 at
+that source: Android17 run38564576391 all13PASS124.94s; root rejected-page-loaded/
+cached PNG/XML shows both permitted admin messages, not denied member2. Android10
+run38564571141 has12PASS, ordinary paging failure waiting15s forolder at260;
+original capture shows recent0 only and disabledRefresh. Removed-author pagepassed.
+Cause not proved; source repeatedlyreplays/saves fullcache perrow, nowbeingbatched.
+Qualified evidence in native-page-admission-green-android17 and attempt-android10.
 
-Remaining #26: storage-fault draft Refresh recovery, incoming signed creation
-without automatic outgoing transactions, imported public group hints and available
-history, account block versus mute, web-compatible message rendering, real PID
-termination/cold recovery, final full10/17/release/lint and whole-ticket reviews,
-signed next beta. `.scratch/group26-remaining-acceptance.txt` is a local checklist,
-not a second issue tracker. Protected untracked research contract stays untouched.
-Owner-priority further UI polish follows26, then remaining tickets sequentially.
+New14case draftFault tracer0255e7be compiledtestAPK1m59, review cleanupfindingfixed
+37bb95e4 with primaryfailurepreservingcleanup. It preserves opaque encrypted bytes,
+corrupts only emulatorrecord, verifies disabledcomposer/error, restores record,
+explicitRefresh/exactdraft/noautosend/recreate. Native14 not dispatched yet.
+
+Current batch minimum01598c4e: core replayAvailable strictretained, bounded50new
+rows, rejects bad newrows without erasing goodhistory/controls or poisoningdedup.
+Store commits acceptedpage once, loader keeps authenticatedcursor/admission separate.
+CorestubRED1 actualUnsupportedOperation retained available-page-batch-red after
+compileassertqualification. Fullcore/debug/testbuild active (shell27730) and both
+reviewagents running; no newbatch/nativeGREEN claimed. Oncebuild/reviews pass,
+push and dispatch14case group-ui10/17; inspectactualresults before nextfixtures.
+No runtime sourceedits during ownedGradle. Oldscratch scripts alreadyapplied except
+new prepared scripts explicitly inspectbeforeapplying. Protected untrackedcontract
+unchanged. No productionnode/wallet/store/ingress changes.
+
+Remaining26: incoming signedcreation addressedowner withoutautosigning; imported
+publicgrouphints asdiscoveryonly+available originals/history; accountblock vs mute;
+compatibleexistingreplyrenderer; actualPIDdeath/coldrestart key/origin/controls/
+messages/draft/pending exactoriginal/noresend; finalfull10/17/core/release/lint,
+whole-tickettwo-axisreview/fixes/evidence; signednextbeta. DraftstoragefaultRefresh
+verificationstillpending. STOPafter26 untilownerresume, noUIpolish/newticket first.
 
 **Historical #26 checkpoint, 2026-10-14 10:14UTC:** known-admin native RED38546506531/95207cf0
 8cases67.047s has7PASS plus missingretainedadmin fixture90. RootPNG/XMLshowsbad
