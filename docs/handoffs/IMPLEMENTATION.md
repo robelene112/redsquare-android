@@ -33,9 +33,14 @@ Source reviews ca2...8f both0; refinement8f...a533 Spec0/Standards0 hard+one
 possible duplicated tab shape; a533...4c both0, duplication resolved. Last local
 a533 debug/testAPK PASS3m3s; signed4c release PASS3m4s.
 
-**Owned final full runtime:** Android10run38495652348 and17run38495655076,
-exact4c head, public_feed_read=true. Both source/core/release/lint gates pass;
-runtime currently running. Includes new Appearance and publicChat + both public
+**Owned corrected final full runtime:** Android10run38497736473 and17run38497738892,
+exacte95e127f527ae031425813044f01f9fa5223f1b6, public_feed_read=true. Product
+equivalent to4c/signed14. First4c full17 failedVideo280 instantaneous DOM Playing
+check before backgrounding; originalPNG/XMLshowPlaying afterfailure.10failed
+Username564 ambiguous2pubkeynodes, exact Wallet address confirmed in original.
+No product defect established. Corrected fixtures preserveexactpredicates, scopes
+andexisting10s deadline; both bounded reviewaxes0. Firstfailures retained
+docs/evidence/ticket37/full-attempt1. Corrected runs still active. Includes new Appearance and publicChat + both public
 feeds. Do not claim full acceptance or close37 before results/original captures,
 separate evidence reviews, publication and source/hash verification.
 
