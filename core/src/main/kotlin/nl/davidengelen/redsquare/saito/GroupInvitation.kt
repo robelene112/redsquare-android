@@ -20,6 +20,8 @@ class GroupInvitation internal constructor(val id: String, val name: String, val
 
     fun link(backend: SaitoBackend): String = backend.webUrl + "/chat?chat_id=" + encoded()
 
+    fun usingKnownGroup(group:NamedChatGroup):GroupInvitation = throw UnsupportedOperationException("Known group routing pending")
+
     class Invalid : IllegalArgumentException("Group invitation could not be read")
 
     companion object {

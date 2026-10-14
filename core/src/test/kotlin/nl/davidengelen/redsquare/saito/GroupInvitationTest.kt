@@ -20,6 +20,24 @@ class GroupInvitationTest {
         }
     }
 
+    @Test fun knownGroupRejoinsUseRetainedAdminAndNameInsteadOfConflictingUnsignedClaims() {
+        val reference=requireNotNull(javaClass.getResourceAsStream("/native-group-chat-creation-reference.json"))
+            .bufferedReader().use{JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject}
+        val member=SaitoWallet.fromPrivateKey("0".repeat(63)+"2") // Public unsafe fixture only.
+        val outsider=SaitoWallet.fromPrivateKey("0".repeat(63)+"4").publicKey
+        val original=GroupChat.readCreation(reference.get("envelope").asString)
+        val left=GroupChat.applyControl(original,GroupChat.leave(member,original.id,1700000123457).envelope())
+        val claims=GroupInvitation(original.id,"Conflicting name",reference.get("admin").asString,outsider)
+        val invitation=claims.usingKnownGroup(left)
+        assertEquals(reference.get("name").asString,invitation.name)
+        assertEquals(reference.get("admin").asString,invitation.admin)
+        assertEquals(claims.sender,invitation.sender)
+        val joined=GroupChat.join(member,invitation,1700000123458)
+        assertEquals(listOf(original.id,member.publicKey,reference.get("admin").asString),SaitoEnvelope.decode(joined.envelope()).recipients)
+        org.junit.Assert.assertFalse(outsider in SaitoEnvelope.decode(joined.envelope()).recipients)
+        assertEquals(ChatGroupRole.MEMBER,GroupChat.applyControl(left,joined.envelope()).memberRoles[member.publicKey])
+    }
+
     @Test fun malformedLinksReturnARecoverableErrorWithoutExposingTheirContents() {
         val invalid = listOf(
             "https://saito.io/chat?chat_id=bnVsbA==", // JSON null, not a group.
