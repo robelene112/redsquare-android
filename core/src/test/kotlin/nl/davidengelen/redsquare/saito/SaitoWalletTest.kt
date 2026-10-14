@@ -9,6 +9,29 @@ import org.junit.Test
 import com.google.gson.JsonParser
 
 class SaitoWalletTest {
+    @Test fun namedGroupHintsSurviveFullBackupWithoutBecomingPrivateContactsOrChangingIdentity() {
+        val owner=SaitoWallet.fromPrivateKey("0".repeat(63)+"2") // Public unsafe fixtures only.
+        val contact=SaitoWallet.fromPrivateKey("0".repeat(63)+"1").publicKey
+        val groupKey=SaitoWallet.fromPrivateKey("0".repeat(63)+"3")
+        val otherGroup=SaitoWallet.fromPrivateKey("0".repeat(63)+"4").publicKey
+        val options=JsonParser.parseString(owner.withChatContact(contact)
+            .withNamedChatGroup(groupKey.publicKey,"Untrusted saved group name",groupKey).exportJson()).asJsonObject
+        options.getAsJsonObject("chat").add("groups",com.google.gson.JsonArray().apply{
+            add(groupKey.publicKey);add(PrivateChat.conversationId(owner.publicKey,contact));add(otherGroup)
+            add(groupKey.publicKey);add(owner.publicKey)
+        })
+        val imported=SaitoWallet.fromBackup(options.toString())
+        val before=imported.exportJson()
+        assertEquals(listOf(groupKey.publicKey,otherGroup),imported.namedChatGroupIds())
+        assertEquals(listOf(contact),imported.chatContacts())
+        assertEquals(listOf(PrivateChat.conversationId(owner.publicKey,contact)),imported.chatHistoryIds())
+        assertEquals(owner.publicKey,imported.publicKey)
+        assertEquals(before,imported.exportJson())
+        assertEquals(emptyList<String>(),owner.namedChatGroupIds())
+        val legacy=options.deepCopy().apply{add("chat",getAsJsonObject("chat").get("groups"))}
+        assertEquals(listOf(groupKey.publicKey,otherGroup),SaitoWallet.fromBackup(legacy.toString()).namedChatGroupIds())
+    }
+
     @Test fun `an imported null keychain accepts a first private contact without changing original options`() {
         val initial = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
         val contact = SaitoWallet.fromPrivateKey("0".repeat(63) + "1").publicKey

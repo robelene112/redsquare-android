@@ -122,6 +122,9 @@ class SaitoWallet private constructor(
         }.distinct()
     }
 
+    /** Public discovery hints only. IDs do not establish membership, roles or available history. */
+    fun namedChatGroupIds():List<String> = emptyList()
+
     /** Existing options.chat stores conversation IDs, while message bodies live outside the backup. */
     fun chatHistoryIds(): List<String> {
         val chat = backupOptions?.get("chat")?.takeUnless { it.isJsonNull }
