@@ -193,7 +193,38 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
 
     fun claim(id: String, signature: String) = synchronized(SaitoLocalState.lock) {
         assertSelected()
-        check(load(id)?.let { it.candidate?.id == signature && it.status == Status.UNKNOWN } == true)
+        val entry=requireNotNull(load(id))
+        check(entry.candidate?.id==signature && entry.status==Status.UNKNOWN)
+        requireActionMembership(entry)
+    }
+
+    /** Resolve current membership while SaitoPeer holds the selection/frame/enqueue lock. */
+    fun relayRecipients(id:String,signature:String):List<String> = synchronized(SaitoLocalState.lock) {
+        assertSelected()
+        val entry=requireNotNull(load(id))
+        val candidate=requireNotNull(entry.candidate)
+        check(candidate.id==signature && entry.status==Status.SUBMITTED)
+        requireActionMembership(entry)
+        val signed=SaitoEnvelope.decode(candidate.envelope())
+        val request=signed.body.get("request").asString
+        if(request=="chat group"){
+            // Direct creation Relay must keep the immutable original's recipients.
+            check(signed.recipients.all{entry.group.memberRoles[it]?.active==true})
+            return@synchronized signed.recipients
+        }
+        val members=entry.group.memberRoles.filterValues{it.active}.keys.filter{it!=wallet.publicKey}
+        val inviters=if(request=="chat join")signed.recipients.filter{
+            it!=wallet.publicKey && it!=entry.group.id && entry.group.memberRoles[it]==null
+        }else emptyList()
+        (members+inviters).distinct().ifEmpty{listOf(wallet.publicKey)}
+    }
+
+    private fun requireActionMembership(entry:Entry) {
+        val signed=SaitoEnvelope.decode(requireNotNull(entry.candidate).envelope())
+        val selfLeave=signed.body.get("request").asString=="chat remove" &&
+            signed.body.get("member_id").asString==wallet.publicKey
+        check(if(selfLeave)entry.group.memberRoles[wallet.publicKey]==ChatGroupRole.LEFT
+            else entry.group.memberRoles[wallet.publicKey]?.active==true)
     }
 
     fun record(id: String, signature: String, status: Status): Entry = synchronized(SaitoLocalState.lock) {

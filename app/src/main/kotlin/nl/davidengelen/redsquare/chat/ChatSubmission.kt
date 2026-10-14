@@ -15,15 +15,18 @@ internal suspend fun submitChatTransaction(wallet: SaitoWallet, endpoint: String
         require("relay" in peer.services())
         peer.submit(candidate) { callbacks.claim() }
         callbacks.submitted()
-        val relayBody = JsonObject().apply {
-            addProperty("module", "Relay"); addProperty("request", "chat relay")
-            add("data", candidate.signedJson())
-        }
-        val relay = if (originalRelay) candidate.signedJson() else
-            SaitoTransaction.create(wallet, relayBody, System.currentTimeMillis(), relayRecipients)
-                .signedJson().apply { addProperty("signature", "0".repeat(128)) }
-        val request = JsonObject().apply { addProperty("request", "relay peer message"); add("data", relay) }
-        val response = peer.request(request.toString().toByteArray(Charsets.UTF_8)) { callbacks.assertSelected() }
+        val response = peer.request({
+            val targets=callbacks.relayRecipients?.invoke() ?: relayRecipients
+            val relayBody = JsonObject().apply {
+                addProperty("module", "Relay"); addProperty("request", "chat relay")
+                add("data", candidate.signedJson())
+            }
+            val relay = if (originalRelay) candidate.signedJson() else
+                SaitoTransaction.create(wallet, relayBody, System.currentTimeMillis(), targets)
+                    .signedJson().apply { addProperty("signature", "0".repeat(128)) }
+            JsonObject().apply { addProperty("request", "relay peer message"); add("data", relay) }
+                .toString().toByteArray(Charsets.UTF_8)
+        }) { callbacks.assertSelected() }
         val result = JsonParser.parseString(response.toString(Charsets.UTF_8)).asJsonObject
         val success = result.get("success")
         require(result.get("err")?.let { it.isJsonPrimitive && it.asJsonPrimitive.isString && it.asString.isEmpty() } == true)

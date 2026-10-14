@@ -125,6 +125,11 @@ class SaitoPeer(private val wallet: SaitoWallet, endpoint: String,
         SaitoWire.applicationRequest(wallet.publicKey, message, index, System.currentTimeMillis())
     }
 
+    /** Build mutable routing metadata after its selection guard, under the same enqueue lock. */
+    suspend fun request(message: () -> ByteArray, beforeSend: () -> Unit): ByteArray = requestFrame(beforeSend) { index ->
+        SaitoWire.applicationRequest(wallet.publicKey, message(), index, System.currentTimeMillis())
+    }
+
     /** Exact signed application transaction, never wrapped in an unsigned request. */
     suspend fun request(transaction: SaitoTransaction, beforeSend: () -> Unit): ByteArray {
         require(SaitoEnvelope.decode(transaction.envelope()).author == wallet.publicKey)
@@ -140,12 +145,12 @@ class SaitoPeer(private val wallet: SaitoWallet, endpoint: String,
         pending[index] = response
         try {
             if (disconnected.get()) throw IOException("Peer disconnected")
-            val bytes = frame(index)
             val job = currentCoroutineContext().job
-            if (beforeSend == null) send(socket, bytes)
+            if (beforeSend == null) send(socket, frame(index))
             else synchronized(SaitoLocalState.lock) {
                 job.ensureActive()
                 beforeSend()
+                val bytes = frame(index)
                 job.ensureActive()
                 send(socket, bytes)
             }
