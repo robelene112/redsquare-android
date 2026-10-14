@@ -464,6 +464,7 @@
     <string name="group_received">Received a signed group invitation.</string>
     <string name="group_recovered">Recovered signed group information.</string>
     <string name="group_unavailable">Group information is unavailable on this server. Use an invitation link to rejoin.</string>
+    <string name="group_hints_error">Some saved group information could not be read. Your wallet and cached groups are kept.</string>
     <string name="group_discovery_older">Check older group information</string>
     <string name="group_checking">Checking available group information.</string>
     <string name="group_not_recovered">Group information has not been recovered yet. Check older information or use an invitation link.</string>

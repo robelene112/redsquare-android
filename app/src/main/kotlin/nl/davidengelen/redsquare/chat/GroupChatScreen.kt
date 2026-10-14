@@ -64,7 +64,13 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         hasOlder=page.hasOlder;olderCursor=page.cursor
     }
     var olderRequest by remember(store,selected){mutableIntStateOf(0)}
-    val importedIds=remember(wallet){wallet.namedChatGroupIds()}
+    var importedIds by remember(wallet){mutableStateOf<List<String>>(emptyList())}
+    var hintsFailed by remember(wallet){mutableStateOf(false)}
+    LaunchedEffect(wallet){
+        try{importedIds=withContext(Dispatchers.IO){wallet.namedChatGroupIds()};hintsFailed=false}
+        catch(cancelled:CancellationException){throw cancelled}
+        catch(_:Exception){hintsFailed=true}
+    }
     var discoveryCursor by remember(store,endpoint,refresh){mutableStateOf<Long?>(null)}
     var discoveryHasOlder by remember(store,endpoint,refresh){mutableStateOf(false)}
     var discoveryLoading by remember(store,endpoint){mutableStateOf(false)}
@@ -171,7 +177,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         catch(_:Exception){readFailed=true}
         finally{savingForNavigation=false}
     }
-    LaunchedEffect(store,endpoint,loaded,refresh,discoveryRequest) {
+    LaunchedEffect(store,endpoint,loaded,importedIds,refresh,discoveryRequest) {
         if(!loaded||importedIds.isEmpty())return@LaunchedEffect
         val missing=importedIds.filter{id->entries.none{it.group.id==id}}.toSet()
         if(missing.isEmpty())return@LaunchedEffect
@@ -267,6 +273,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         }
         Text(stringResource(R.string.group_privacy),style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
         Text(stringResource(R.string.chat_available_history),style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
+        if(hintsFailed)Text(stringResource(R.string.group_hints_error),color=MaterialTheme.colorScheme.onSurfaceVariant)
         PersonalControlsStatus(personal)
         if(readFailed || sendFailed || draftFailed) Text(stringResource(R.string.group_error),color=MaterialTheme.colorScheme.error)
         if(historyFailed) Text(stringResource(R.string.group_history_error),color=MaterialTheme.colorScheme.onSurfaceVariant)
