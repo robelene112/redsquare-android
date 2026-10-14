@@ -17,10 +17,17 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.Button
+import androidx.compose.material3.Tab
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -254,39 +261,25 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
             recovered -> ConnectionBanner(stringResource(R.string.back_online), true)
         }
         Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
-            TextButton(onClick = { followingView = false }, modifier = Modifier.weight(1f)) {
-                Text(stringResource(R.string.feed_title), maxLines = 1)
-            }
-            TextButton(onClick = { followingView = true }, modifier = Modifier.weight(1f)) {
-                Text(stringResource(R.string.following_title), maxLines = 1)
-            }
+            Tab(selected = !followingView, onClick = { followingView = false }, modifier = Modifier.weight(1f),
+                text = { Text(stringResource(R.string.feed_title), maxLines = 1) })
+            Tab(selected = followingView, onClick = { followingView = true }, modifier = Modifier.weight(1f),
+                text = { Text(stringResource(R.string.following_title), maxLines = 1) })
             TextButton(onClick = { refresh++ }, enabled = wallet != null && !loading && internet.available) {
                 Text(stringResource(R.string.feed_refresh))
             }
         }
-        Row {
-            TextButton(enabled = wallet != null, onClick = { composing = true }) { Text(stringResource(R.string.post_new)) }
-            TextButton(enabled = wallet != null, onClick = { wallet?.let { openProfile(it.publicKey) } }) {
-                Text(stringResource(R.string.profile_own))
+        Row(Modifier.fillMaxWidth(), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
+            Button(enabled = wallet != null, onClick = { composing = true }, contentPadding = PaddingValues(horizontal = 8.dp)) {
+                Text(stringResource(R.string.post_new), style = MaterialTheme.typography.labelMedium)
             }
-            TextButton(enabled = wallet != null, onClick = { navigation.add(BrowseDestination.Search()) }) {
-                Text(stringResource(R.string.search_title))
+            TextButton(modifier = Modifier.weight(1f), contentPadding = PaddingValues(horizontal = 2.dp),
+                enabled = wallet != null, onClick = { reviewingQueue = true }) {
+                Text(stringResource(R.string.post_queue_title), style = MaterialTheme.typography.labelMedium)
             }
-        }
-        Row {
-            TextButton(enabled = wallet != null, onClick = { reviewingQueue = true }) {
-                Text(stringResource(R.string.post_queue_title))
-            }
-            TextButton(enabled = wallet != null, onClick = { reviewingChanges = true }) {
-                Text(stringResource(R.string.author_saved_changes))
-            }
-        }
-        Row {
-            TextButton(enabled = wallet != null, onClick = { navigation.add(BrowseDestination.Notifications) }) {
-                Text(stringResource(R.string.notifications_title))
-            }
-            TextButton(enabled = wallet != null, onClick = { reviewingChat = true }) {
-                Text(stringResource(R.string.chat_title))
+            TextButton(modifier = Modifier.weight(1.5f), contentPadding = PaddingValues(horizontal = 2.dp),
+                enabled = wallet != null, onClick = { reviewingChanges = true }) {
+                Text(stringResource(R.string.author_saved_changes), style = MaterialTheme.typography.labelMedium)
             }
         }
         val visiblePosts = posts.filter { post -> personal?.hidesPosts(post.author) == false &&
@@ -308,22 +301,52 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
             posts.isEmpty() && !loading && wallet != null -> Text(stringResource(R.string.feed_empty))
         }
         // Keep a restored list position until the asynchronous cache read has finished.
-        if (cacheReady && personal?.ready == true) LazyColumn(Modifier.fillMaxSize(), state = position) {
+        if (cacheReady && personal?.ready == true) LazyColumn(Modifier.weight(1f).fillMaxWidth(), state = position) {
             items(visiblePosts, key = { it.id }) { post ->
                 Column(Modifier.clickable { navigation.add(BrowseDestination.Conversation(post)) }.padding(vertical = 12.dp)) {
-                    Text(registeredIdentity(post.author).name, Modifier.clickable { openProfile(post.author) }, style = MaterialTheme.typography.titleMedium)
-                    Text(post.author, Modifier.clickable { openProfile(post.author) }, maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.labelSmall)
+                    Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                        GeneratedProfilePicture(post.author, Modifier.size(48.dp).clip(CircleShape).clickable { openProfile(post.author) })
+                        Column(Modifier.weight(1f)) {
+                            Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
+                                Text(registeredIdentity(post.author).name, Modifier.weight(1f).clickable { openProfile(post.author) },
+                                    maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.titleSmall)
+                                Text(DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.ENGLISH)
+                                    .format(Date(post.createdAt)), Modifier.padding(start = 8.dp),
+                                    style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            }
+                            Text(post.author, Modifier.clickable { openProfile(post.author) }, maxLines = 1,
+                                overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.labelSmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant)
                     Text(post.text, Modifier.clickable { navigation.add(BrowseDestination.Conversation(post)) }.padding(vertical = 8.dp),
                         style = MaterialTheme.typography.bodyLarge)
-                    Text(DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, Locale.ENGLISH)
-                        .format(Date(post.createdAt)), style = MaterialTheme.typography.labelSmall)
                     PostImages(post.images, backend)
                     PostVideo(post, backend)
                     QuoteContent(post, quotes, backend)
+                        }
+                    }
                     SocialActions(post, social) { navigation.add(BrowseDestination.Quote(it)) }
                 }
                 HorizontalDivider()
             }
+        }
+        else Spacer(Modifier.weight(1f))
+        HorizontalDivider()
+        NavigationBar(containerColor = MaterialTheme.colorScheme.surface, windowInsets = WindowInsets(0, 0, 0, 0)) {
+            NavigationBarItem(selected = false, enabled = wallet != null,
+                onClick = { navigation.add(BrowseDestination.Search()) },
+                icon = { Icon(painterResource(R.drawable.ic_search), null) },
+                label = { Text(stringResource(R.string.search_title), style = MaterialTheme.typography.labelSmall) })
+            NavigationBarItem(selected = false, enabled = wallet != null,
+                onClick = { navigation.add(BrowseDestination.Notifications) },
+                icon = { Icon(painterResource(R.drawable.ic_notifications), null) },
+                label = { Text(stringResource(R.string.notifications_title), style = MaterialTheme.typography.labelSmall) })
+            NavigationBarItem(selected = false, enabled = wallet != null, onClick = { reviewingChat = true },
+                icon = { Icon(painterResource(R.drawable.ic_chat), null) },
+                label = { Text(stringResource(R.string.chat_title), style = MaterialTheme.typography.labelSmall) })
+            NavigationBarItem(selected = false, enabled = wallet != null,
+                onClick = { wallet?.let { openProfile(it.publicKey) } },
+                icon = { Icon(painterResource(R.drawable.ic_profile), null) },
+                label = { Text(stringResource(R.string.profile_own), style = MaterialTheme.typography.labelSmall) })
         }
     }
 }

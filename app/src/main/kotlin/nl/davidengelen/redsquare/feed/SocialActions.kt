@@ -1,10 +1,17 @@
 package nl.davidengelen.redsquare.feed
 
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
 import com.google.gson.Strictness
@@ -26,11 +33,14 @@ private fun servedCount(post: FeedPost, field: String): Long? = try {
 } catch (_: Exception) { null }
 
 @Composable
+@OptIn(ExperimentalLayoutApi::class)
 internal fun SocialActions(post: FeedPost, state: SocialState?, onQuote: ((FeedPost) -> Unit)? = null) {
+    FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
     RedSquareActionKind.entries.forEach { kind ->
         SocialAction(post, state, kind, onQuote)
     }
     ReportAction(post, state?.reports)
+    }
 }
 
 @Composable
@@ -44,8 +54,8 @@ private fun SocialAction(post: FeedPost, state: SocialState?, kind: RedSquareAct
     val labels = if (kind == RedSquareActionKind.LIKE)
         listOf(R.string.social_like, R.string.social_liked, R.string.social_retry_like, R.string.social_like_count)
     else listOf(R.string.social_repost, R.string.social_reposted, R.string.social_retry_repost, R.string.social_repost_count)
-    Row {
-        TextButton(enabled = status?.ready == true && !status.busy && !status.available,
+    Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
+        TextButton(contentPadding = PaddingValues(horizontal = 4.dp), enabled = status?.ready == true && !status.busy && !status.available,
             onClick = { state?.send(post, kind) }) {
             Text(stringResource(when {
                 status?.available == true -> labels[1]
@@ -54,7 +64,7 @@ private fun SocialAction(post: FeedPost, state: SocialState?, kind: RedSquareAct
             }))
         }
         count?.let { Text(stringResource(labels[3], it)) }
-        if (kind == RedSquareActionKind.REPOST && onQuote != null) TextButton(enabled = state != null, onClick = { onQuote(post) }) {
+        if (kind == RedSquareActionKind.REPOST && onQuote != null) TextButton(contentPadding = PaddingValues(horizontal = 4.dp), enabled = state != null, onClick = { onQuote(post) }) {
             Text(stringResource(R.string.social_quote))
         }
     }

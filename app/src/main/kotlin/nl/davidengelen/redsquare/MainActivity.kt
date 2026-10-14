@@ -13,6 +13,10 @@ import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.safeDrawing
@@ -26,6 +30,7 @@ import androidx.compose.material3.Checkbox
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -237,35 +242,51 @@ class MainActivity : ComponentActivity() {
                     Os.fsync(descriptor)
                 }) {
                 Surface(Modifier.fillMaxSize()) {
-                    Column(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing).padding(16.dp)) {
-                        Text(stringResource(R.string.app_name), style = MaterialTheme.typography.headlineMedium)
+                    Column(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing).padding(horizontal = 12.dp, vertical = 4.dp)) {
+                        Row(Modifier.fillMaxWidth(), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
+                            Box(Modifier.size(18.dp).background(androidx.compose.ui.graphics.Color(0xffda243d)))
+                            Text(stringResource(R.string.app_name), Modifier.weight(1f).padding(start = 8.dp),
+                                style = MaterialTheme.typography.titleLarge, maxLines = 1)
+                            TextButton(contentPadding = PaddingValues(horizontal = 6.dp),
+                                onClick = { walletExport.clearMessage(); walletImport.clearMessage(); walletOpen = true }) {
+                                Text(stringResource(R.string.wallet), style = MaterialTheme.typography.labelMedium)
+                            }
+                            TextButton(contentPadding = PaddingValues(horizontal = 6.dp),
+                                onClick = { settingsOpen = true }, enabled = backendReady && !savingBackend) {
+                                Text(stringResource(R.string.settings), style = MaterialTheme.typography.labelMedium)
+                            }
+                        }
                         if (updateAvailable) {
                             Text(stringResource(R.string.preview_update_available))
                             TextButton(onClick = {
                                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(PreviewUpdates.REVIEW_PAGE)))
                             }) { Text(stringResource(R.string.view_update)) }
                         }
-                        Row {
-                            TextButton(onClick = { walletExport.clearMessage(); walletImport.clearMessage(); walletOpen = true }) {
-                                Text(stringResource(R.string.wallet))
-                            }
-                            TextButton(onClick = { settingsOpen = true }, enabled = backendReady && !savingBackend) {
-                                Text(stringResource(R.string.settings))
-                            }
-                        }
-                        backend?.let { Text(stringResource(R.string.selected_server, it.domain), style = MaterialTheme.typography.labelSmall) }
+                        backend?.let { Text(stringResource(R.string.selected_server, it.domain),
+                            Modifier.padding(bottom = 8.dp), style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant) }
                         if (backupReminder) {
+                            OutlinedCard(Modifier.fillMaxWidth().padding(bottom = 8.dp)) {
+                            Column(Modifier.padding(horizontal = 8.dp, vertical = 8.dp)) {
                             Text(stringResource(R.string.wallet_backup_reminder), style = MaterialTheme.typography.titleSmall)
-                            Text(stringResource(R.string.wallet_backup_reminder_detail), style = MaterialTheme.typography.bodySmall)
-                            Row {
-                                TextButton(onClick = { walletExport.clearMessage(); walletImport.clearMessage(); walletOpen = true }) {
-                                    Text(stringResource(R.string.wallet_back_up))
+                            Text(stringResource(R.string.wallet_backup_reminder_detail), style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            Row(Modifier.fillMaxWidth()) {
+                                TextButton(modifier = Modifier.weight(1f), contentPadding = PaddingValues(horizontal = 2.dp),
+                                    onClick = { walletExport.clearMessage(); walletImport.clearMessage(); walletOpen = true }) {
+                                    Text(stringResource(R.string.wallet_back_up), style = MaterialTheme.typography.labelMedium)
                                 }
-                                TextButton(onClick = dismissBackupReminder) { Text(stringResource(R.string.later)) }
+                                TextButton(modifier = Modifier.weight(1f), contentPadding = PaddingValues(horizontal = 2.dp),
+                                    onClick = dismissBackupReminder) {
+                                    Text(stringResource(R.string.later), style = MaterialTheme.typography.labelMedium)
+                                }
+                                TextButton(modifier = Modifier.weight(2f), contentPadding = PaddingValues(horizontal = 2.dp),
+                                    enabled = wallet != null && !walletExport.busy && !walletImport.busy,
+                                    onClick = { walletExport.clearMessage(); walletOpen = true; walletImport.start() }) {
+                                    Text(stringResource(R.string.wallet_import_existing), style = MaterialTheme.typography.labelMedium)
+                                }
                             }
-                            TextButton(enabled = wallet != null && !walletExport.busy && !walletImport.busy,
-                                onClick = { walletExport.clearMessage(); walletOpen = true; walletImport.start() }) {
-                                Text(stringResource(R.string.wallet_import_existing))
+                            }
                             }
                         }
                         if (backendReady && backend == null) Text(stringResource(R.string.backend_load_error))

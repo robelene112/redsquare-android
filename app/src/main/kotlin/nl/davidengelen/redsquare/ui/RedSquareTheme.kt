@@ -9,6 +9,10 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 import nl.davidengelen.redsquare.R
 
 /** A device preference, independent of portable wallet options and backend selection. */
@@ -53,6 +57,21 @@ private val DarkColors = darkColorScheme(
     outline = Color(0xff8d97a5), outlineVariant = Color(0xff343a44),
 )
 
+private fun readableText(size: Int, height: Int, weight: FontWeight = FontWeight.Normal) = TextStyle(
+    fontFamily = FontFamily.SansSerif, fontSize = size.sp, lineHeight = height.sp,
+    letterSpacing = 0.sp, fontWeight = weight,
+)
+private val RedSquareTypography = Typography(
+    headlineMedium = readableText(24, 32, FontWeight.Bold),
+    headlineSmall = readableText(22, 28, FontWeight.SemiBold),
+    titleLarge = readableText(20, 26, FontWeight.SemiBold),
+    titleMedium = readableText(16, 22, FontWeight.SemiBold),
+    titleSmall = readableText(14, 20, FontWeight.SemiBold),
+    bodyLarge = readableText(16, 24), bodyMedium = readableText(14, 20), bodySmall = readableText(12, 18),
+    labelLarge = readableText(14, 20, FontWeight.Medium),
+    labelMedium = readableText(12, 16, FontWeight.Medium), labelSmall = readableText(11, 16),
+)
+
 @Composable
 internal fun RedSquareTheme(activity: ComponentActivity, appearance: Appearance, content: @Composable () -> Unit) {
     val dark = when (appearance) {
@@ -67,5 +86,5 @@ internal fun RedSquareTheme(activity: ComponentActivity, appearance: Appearance,
             navigationBarStyle = SystemBarStyle.auto(android.graphics.Color.TRANSPARENT, android.graphics.Color.TRANSPARENT) { dark },
         )
     }
-    MaterialTheme(colorScheme = if (dark) DarkColors else LightColors, content = content)
+    MaterialTheme(colorScheme = if (dark) DarkColors else LightColors, typography = RedSquareTypography, content = content)
 }
