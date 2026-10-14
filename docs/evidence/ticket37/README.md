@@ -84,3 +84,34 @@ GREEN are required before accepting this slice.
 Primary source inspected:
 https://android.googlesource.com/platform/frameworks/base/+/android10-release/services/core/java/com/android/server/UiModeManagerService.java
 https://android.googlesource.com/platform/frameworks/base/+/master/services/core/java/com/android/server/UiModeManagerService.java
+
+Corrected-environment attempts atb9a91085:
+- Android17 run38493376388 passes1/37.586s. Original shell custom_bedtime is
+  recorded and restored exactly. Requests yes/no apply configuration32/16;
+  full wallet/backend/no-publication and accessible selection assertions pass.
+  Root parsed8XMLs and viewed default-dark, Light, explicit-Dark-under-Android-
+  Light and System-Light original PNGs. Window contrast/insets are improved.
+  Retained under appearance-green/android17. This source precedes feed/Chat polish.
+- Android10 run38493373431 fails before app launch/0.433s: requested yes returns
+  no. Original setup flag was1, so the setup explanation is not established.
+- Corrected baseline branch proof/appearance-baseline source dd9bfc4d run38493367649
+  also fails before app launch; this is not a valid baseline RED. Raw/exits/control
+  logs retained in appearance-attempt2 and appearance-baseline-attempt1.
+
+Read-only support inspected Android10 AOSP defaults and Shell manifest. The
+system locks night-mode changes and its Shell lacks MODIFY_DAY_NIGHT_MODE;
+setNightMode silently returns, while the shell prints the old mode with exit0.
+Current AOSP Shell declares the permission. This supports a permission hypothesis
+for the10 refusal, pending actual emulator lock/identity/system-log diagnostics.
+No production app workaround is justified by this fixture failure.
+
+Presentation source7bd532bc compacts the existing header/backup controls,
+places four existing destinations at the bottom, uses accessible selected feed
+tabs and Saito-generated avatars, groups social controls, adds coherent type and
+native vector/launcher resources. Existing callbacks, full public-key semantics,
+wallet/import safeguards and signed status remain intact. Local debug/testAPK
+build passes3m33s. Both bounded review axes0; screenshots/current flows pending.
+Chat sourcec80239d3 adds contact avatars and incoming/outgoing bubbles with
+verified timestamps, retaining text, reply/copy/reaction/draft/history callbacks.
+Both bounded review axes0; local build48055 active and runtime pending.
+Diagnostics/layout10run38494088756 and17run38494091375 at4f691121 remain pending.
