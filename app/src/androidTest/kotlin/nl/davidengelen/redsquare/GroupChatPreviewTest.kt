@@ -711,6 +711,7 @@ class GroupChatPreviewTest {
                             waitFor(unavailable.publicKey)
                             ui.onNodeWithText(unavailable.publicKey).assertIsDisplayed()
                             waitFor("Group information is unavailable on this server. Use an invitation link to rejoin.")
+                            ui.onNodeWithText("Group information is unavailable on this server. Use an invitation link to rejoin.").assertIsDisplayed()
                             ui.onNodeWithText("Untrusted saved name").assertDoesNotExist()
                             ui.onNodeWithText("Another untrusted name").assertDoesNotExist()
                             ui.onNodeWithText("Forged imported group").assertDoesNotExist()
