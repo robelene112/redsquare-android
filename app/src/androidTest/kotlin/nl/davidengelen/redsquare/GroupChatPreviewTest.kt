@@ -73,6 +73,11 @@ class GroupChatPreviewTest {
                             check(postingTransaction(peer.transactions.single()).envelope()==checkpoint.envelope())
                             val updated=fixture.withNamedChatGroup(checkpointKey.publicKey,"Recovered group",checkpointKey)
                             check(store.loadExisting().exportJson()==updated.exportJson())
+                            val backup=com.google.gson.JsonParser.parseString(store.loadExisting().exportJson()).asJsonObject
+                            val key=backup.getAsJsonArray("keys").single{it.asJsonObject.get("publicKey").asString==checkpointKey.publicKey}.asJsonObject
+                            check(key.get("identifier").asString=="Recovered group" && key.get("group").asInt==1 && key.get("watched").asBoolean)
+                            check(key.get("privateKey").asString=="0".repeat(63)+"3")
+                            check(backup.getAsJsonObject("chat").getAsJsonArray("groups").any{it.asString==checkpointKey.publicKey})
                             captureNativeScreen(File(context.cacheDir,"group-chat-evidence/retry-uncertain.png"),"Submitted. Delivery is not confirmed.")
                             scenario.recreate()
                             waitFor("Groups");ui.onNodeWithText("Groups").performClick()
