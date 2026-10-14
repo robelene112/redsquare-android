@@ -511,6 +511,9 @@ class GroupChatPreviewTest {
         val creation=GroupChat.create(admin,key.publicKey,"Incoming native group",listOf(wallet.publicKey),1700000123456)
         val filename="groupchat.${backend.id}.${wallet.publicKey}.${key.publicKey}.v1"
         val groupStore=nl.davidengelen.redsquare.chat.GroupChatStore(context,wallet,backend)
+        synchronized(SaitoLocalState.lock){
+            check(listOf(filename,"$filename.bak","$filename.new").none{File(context.noBackupFilesDir,it).exists()})
+        }
         check(groupStore.load(key.publicKey)==null)
         val before=wallet.exportJson()
         var primary:Throwable?=null
