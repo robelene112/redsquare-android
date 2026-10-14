@@ -124,3 +124,11 @@ group ID lacked assertions. Added both against independent claims before Join.
 Actual nativeRED4cases/28.489s has3PASS plus missingJoin control; later asserts
 unexecuted. Minimum preview/confirmed-origin store/UI now implemented; compile
 and nativeGREEN/correction review pending.
+
+First join sourcefbd353ea...9690f6d6: Standards0 hard plus possible duplicated
+metadata/submission/status/error lifecycle; Spec1 non-scrollable preview could
+hide claims with long names. Bounded correction makes preview scrollable and
+extracts actual shared send/attempt lifecycle, preserving preparation/Relay choices.
+Claim display assertions now scroll to each claim before asserting visible, retaining
+the explicit-consent/backend/wire checks. Initial compilePASS3m35; refined compile
+pending, no native joinGREEN claimed.

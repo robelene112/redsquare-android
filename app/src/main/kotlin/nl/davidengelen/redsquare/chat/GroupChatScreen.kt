@@ -2,6 +2,8 @@ package nl.davidengelen.redsquare.chat
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.selection.SelectionContainer
@@ -37,6 +39,26 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         publication.withLock { entries=withContext(Dispatchers.IO) { operation() } }
     }
     var busy by remember(wallet.publicKey,backend) { mutableStateOf(false) }
+    fun act(operation:suspend()->Unit) {
+        if(busy)return
+        busy=true;sendFailed=false
+        scope.launch {
+            try{operation()}
+            catch(cancelled:CancellationException){throw cancelled}
+            catch(_:Exception){sendFailed=true}
+            finally{busy=false}
+        }
+    }
+    suspend fun sendPrepared(id:String,candidate:SaitoTransaction,updated:SaitoWallet,contact:String,originalRelay:Boolean=false) {
+        onWalletMetadata(wallet,updated)
+        val current=GroupChatStore(context,updated,backend)
+        withContext(Dispatchers.IO){
+            submitChatTransaction(updated,endpoint,contact,candidate,ChatSubmissionCallbacks(
+                claim={current.claim(id,candidate.id)},assertSelected={current.assertSelected()},
+                submitted={publish{current.record(id,candidate.id,GroupChatStore.Status.SUBMITTED);current.entries()}},
+                forwarded={publish{current.record(id,candidate.id,GroupChatStore.Status.FORWARDED);current.entries()}}),originalRelay)
+        }
+    }
     var creating by remember(wallet.publicKey,backend) { mutableStateOf(false) }
     var joining by remember(wallet.publicKey,backend) { mutableStateOf(false) }
     var members by remember(selected) { mutableStateOf(false) }
@@ -92,51 +114,23 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         }
     }
     if(creating) CreateGroupDialog(busy,onDismiss={if(!busy)creating=false}) { name,invitees ->
-        busy=true;sendFailed=false
-        scope.launch {
-            try {
-                val groupKey = withContext(Dispatchers.IO) { SaitoWallet.create() }
-                val candidate = withContext(Dispatchers.IO) { GroupChat.create(wallet,groupKey.publicKey,name,invitees,System.currentTimeMillis()) }
-                // Protect original intent first; metadata and sending can fail without losing it.
-                withContext(NonCancellable) {
-                    publish { store.prepareCreation(candidate,groupKey);store.entries() }
-                }
-                val groupId=groupKey.publicKey
-                selected=groupId;creating=false
-                val updated = withContext(Dispatchers.IO) { wallet.withNamedChatGroup(groupKey.publicKey,name,groupKey) }
-                onWalletMetadata(wallet,updated)
-                val current = GroupChatStore(context,updated,backend)
-                val recipient = invitees.firstOrNull { it != wallet.publicKey } ?: wallet.publicKey
-                withContext(Dispatchers.IO) {
-                    submitChatTransaction(updated,endpoint,recipient,candidate,ChatSubmissionCallbacks(
-                        claim={current.claim(groupId,candidate.id)},assertSelected={current.assertSelected()},
-                        submitted={publish { current.record(groupId,candidate.id,GroupChatStore.Status.SUBMITTED);current.entries() }},
-                        forwarded={publish { current.record(groupId,candidate.id,GroupChatStore.Status.FORWARDED);current.entries() }}), originalRelay=true)
-                }
-            } catch(cancelled:CancellationException){throw cancelled}
-            catch(_:Exception){sendFailed=true}
-            finally{busy=false}
+        act {
+            val groupKey=withContext(Dispatchers.IO){SaitoWallet.create()}
+            val candidate=withContext(Dispatchers.IO){GroupChat.create(wallet,groupKey.publicKey,name,invitees,System.currentTimeMillis())}
+            withContext(NonCancellable){publish{store.prepareCreation(candidate,groupKey);store.entries()}}
+            selected=groupKey.publicKey;creating=false
+            val updated=withContext(Dispatchers.IO){wallet.withNamedChatGroup(groupKey.publicKey,name,groupKey)}
+            val recipient=invitees.firstOrNull{it!=wallet.publicKey} ?: wallet.publicKey
+            sendPrepared(groupKey.publicKey,candidate,updated,recipient,originalRelay=true)
         }
     }
     if(joining) JoinGroupDialog(backend,busy,onDismiss={if(!busy)joining=false}) { invitation ->
-        busy=true;sendFailed=false
-        scope.launch {
-            try {
-                val candidate=withContext(Dispatchers.IO){GroupChat.join(wallet,invitation,System.currentTimeMillis())}
-                withContext(NonCancellable){publish{store.prepareInvitation(invitation,candidate);store.entries()}}
-                selected=invitation.id;joining=false
-                val updated=withContext(Dispatchers.IO){wallet.withNamedChatGroup(invitation.id,invitation.name)}
-                onWalletMetadata(wallet,updated)
-                val current=GroupChatStore(context,updated,backend)
-                withContext(Dispatchers.IO){
-                    submitChatTransaction(updated,endpoint,invitation.admin,candidate,ChatSubmissionCallbacks(
-                        claim={current.claim(invitation.id,candidate.id)},assertSelected={current.assertSelected()},
-                        submitted={publish{current.record(invitation.id,candidate.id,GroupChatStore.Status.SUBMITTED);current.entries()}},
-                        forwarded={publish{current.record(invitation.id,candidate.id,GroupChatStore.Status.FORWARDED);current.entries()}}))
-                }
-            }catch(cancelled:CancellationException){throw cancelled}
-            catch(_:Exception){sendFailed=true}
-            finally{busy=false}
+        act {
+            val candidate=withContext(Dispatchers.IO){GroupChat.join(wallet,invitation,System.currentTimeMillis())}
+            withContext(NonCancellable){publish{store.prepareInvitation(invitation,candidate);store.entries()}}
+            selected=invitation.id;joining=false
+            val updated=withContext(Dispatchers.IO){wallet.withNamedChatGroup(invitation.id,invitation.name)}
+            sendPrepared(invitation.id,candidate,updated,invitation.admin)
         }
     }
     if(members && entry!=null) AlertDialog(onDismissRequest={members=false},title={Text(stringResource(R.string.group_members))},
@@ -175,7 +169,7 @@ private fun JoinGroupDialog(backend:SaitoBackend,busy:Boolean,onDismiss:()->Unit
     val focus=androidx.compose.ui.platform.LocalFocusManager.current
     val preview=invitation
     AlertDialog(onDismissRequest=onDismiss,title={Text(stringResource(R.string.group_join))},
-        text={Column(verticalArrangement=Arrangement.spacedBy(8.dp)){
+        text={Column(Modifier.heightIn(max=360.dp).verticalScroll(rememberScrollState()),verticalArrangement=Arrangement.spacedBy(8.dp)){
             if(preview==null){
                 OutlinedTextField(input,{input=it;invalid=false},label={Text(stringResource(R.string.group_invitation_link))},enabled=!busy)
                 if(invalid)Text(stringResource(R.string.group_invitation_invalid),color=MaterialTheme.colorScheme.error)
