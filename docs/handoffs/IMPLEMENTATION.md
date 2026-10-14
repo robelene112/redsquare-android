@@ -7,18 +7,36 @@ one question at a time when a material choice really needs the owner.
 
 ## Current work
 
-**PAUSED at owner request. #26 CLOSED. Do not resume development until the owner
-explicitly signals that the storage migration is done and work may continue.**
+**ACTIVE, owner resumed2026-10-14:** continue sequentially until all remaining
+implementation issues are complete. This explicit resume supersedes the storage
+migration pause recorded below. Commit/push each ticket and keep signed reviews
+available. Do not pause after the next ticket or ask routine approvals.
 
-**Owner pause boundary, 2026-10-14:** finish active issue #26, including acceptance,
-review, commit/push and review build, then STOP before UI polish or another ticket.
-Owner is migrating VPS storage and will explicitly signal when to resume. This
-supersedes the earlier instruction to continue until all issues are complete.
-No pause was requested before completing #26.
+Twenty-two of the original35 tickets are complete (#2 through#15,#18,#20 through#26).
+Current issue39 is the bounded group Chat visual polish explicitly requested after
+#26 in docs/PROJECT_CONTEXT.md. Review base8528893a9e659e0556581d08f547246d01b7d09b.
+New group message bubbles/identity rows share existing private Chat presentation;
+privacy/status, quote/copy/reaction actions and all protocol/persistence behavior
+stay intact. First local compile6924 failed due to a wrapper-closing brace during
+extraction; corrected compile46724 is active, .scratch/group-polish39-build-corrected.log.
+No app/core/test edits until this owned build completes. Use existing group/private
+native seams and full10/17 for acceptance; no implementation-mirroring visual tests.
+Only protected preexisting untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md
+stays untouched. Issue39 tracker https://github.com/robelene112/redsquare-android/issues/39.
 
-Updated 2026-10-14. #26 implementation, verification and publication are complete.
-Twenty-two of the original35 tickets are complete (#2–#15, #18, #20–#26).
-STOP here for the owner storage migration. Resume only on explicit owner signal.
+After39 resume27 and remaining original16/17/19/28 through36 sequentially from
+native dependency state. #38 is a normal-priority branding follow-up, with final
+product name not chosen and explicitly not a release blocker. Current signed15
+remains live until the next verified review publication. Physical Pixel evidence
+and Play account/submission prerequisites remain real acceptance requirements,
+not waived by autonomous implementation authorization.
+
+Storage migration observed Docker data now bind-mounted from /mnt/storage/docker;
+repo/.scratch remains on the system disk,63GiB free versus158GiB onadditional disk.
+Read /home/david/agent-skills/environments/vps/STORAGE.md for large future artifacts.
+Proactive maintenance check: apt metadata refreshedtoday and no pending packages;
+BC1.86 matches current official stable download listing. Keep deliberate build pins
+unless a verified relevant maintenance change is separately implemented and tested.
 
 **#37 Early visual beta is COMPLETE and published.** The owner requested this
 slice before Group Chat. It adds coherent native feed/navigation/type/avatars,
@@ -49,11 +67,11 @@ Local .scratch/review-builds/14; publicrecords docs/evidence/ticket37/signed-pre
 No store/node/service/ingresschange. Current14physicalPixel/continuity/performance
 remain35. Preview13superseded;12neverpublished.
 
-**#26 COMPLETE, PAUSE BOUNDARY, 2026-10-14 19:13 UTC:** implementation, full10/17,
+**#26 COMPLETE, HISTORICAL PAUSE BOUNDARY, 2026-10-14 19:13 UTC:** implementation, full10/17,
 separate source/evidence reviews, signed review publication, commit/push and
 tracker closure all complete. Issue26 CLOSED at2026-10-14T19:13:21Z, completion
 commit e8a815ef37b7fe3372b70d2e3e889e50ae590568 pushed to main.
-STOP before another ticket or UI polish until explicit owner resume.
+The owner subsequently resumed; the ACTIVE instruction above is current.
 Protected untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md remains untouched.
 
 **Current phone build is signed15/0.1.15**, https://davidengelen.nl/redsquare/.
@@ -95,7 +113,7 @@ reactions/replies/copy/selfmentions, drafts/cache/archive/discovery and failure
 recovery, private/group reception independentofscreen. Accurateunencryptedprivacy,
 truthfulunknown/forwarded status, owner/backend isolation andno automaticresend.
 Outgoingadmin controls27, offlinequeue28,media/push andphysical35 remainlater.
-Do not claim complete35-ticket app orPixelperformance. Stopforowner migration.
+Do not claim complete35-ticket app orPixelperformance. Historical pause ended on owner resume.
 
 Earlier chronology below is historical, not unfinished current26 work.
 
