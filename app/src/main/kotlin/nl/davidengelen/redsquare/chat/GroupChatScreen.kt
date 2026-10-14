@@ -6,12 +6,12 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -278,7 +278,18 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                     (it.author==wallet.publicKey || !personal.policy.hidesIncomingChat(it.author))},key={it.id}){item->
                     Column(Modifier.fillMaxWidth().padding(horizontal=8.dp,vertical=4.dp)){
                         Text(item.author,style=MaterialTheme.typography.labelSmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
-                        SelectionContainer{Text(item.text,style=MaterialTheme.typography.bodyLarge)}
+                        PrivateMessageText(item.text)
+                        val likedBy=entry.likedBy(item)
+                        if(likedBy.isNotEmpty())Text(pluralStringResource(R.plurals.chat_likes,likedBy.size,likedBy.size))
+                        TextButton(enabled=personal?.ready==true&&loaded&&draftReady&&!busy&&!savingForNavigation&&!readFailed&&
+                            !entry.hasPendingAction&&entry.group.memberRoles[wallet.publicKey]?.active==true,onClick={
+                            act {
+                                val candidate=withContext(Dispatchers.IO){GroupChat.like(wallet,entry.group,item,System.currentTimeMillis())}
+                                val recipients=entry.group.memberRoles.filterValues{it.active}.keys.filter{it!=wallet.publicKey}.ifEmpty{listOf(wallet.publicKey)}
+                                withContext(NonCancellable){publish{store.prepareReaction(candidate);store.entries()}}
+                                sendPrepared(entry.group.id,candidate,wallet,recipients.first(),relayRecipients=recipients)
+                            }
+                        }){Text(stringResource(if(wallet.publicKey in likedBy)R.string.chat_unlike else R.string.chat_like))}
                     }
                 }
             }

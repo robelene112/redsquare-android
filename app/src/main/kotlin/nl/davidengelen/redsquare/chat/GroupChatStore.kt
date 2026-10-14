@@ -13,7 +13,8 @@ internal class GroupChatStorageException(cause:Exception):IllegalStateException(
 /** Encrypted original group state. Opening never transmits a retained attempt. */
 internal class GroupChatStore(private val context: Context, private val wallet: SaitoWallet, private val backend: SaitoBackend) {
     enum class Status { UNKNOWN, SUBMITTED, FORWARDED, RECEIVED }
-    data class Entry(val group: NamedChatGroup, val candidate: SaitoTransaction?, val status: Status, val creationKey: SaitoWallet? = null, val originals:List<String> = emptyList(), val messages:List<GroupChatMessage> = emptyList(), val draft:String = "") {
+    data class Entry(val group: NamedChatGroup, val candidate: SaitoTransaction?, val status: Status, val creationKey: SaitoWallet? = null, val originals:List<String> = emptyList(), val messages:List<GroupChatMessage> = emptyList(), val draft:String = "", val reactions:List<GroupChatLikeEvent> = emptyList()) {
+        fun likedBy(message:GroupChatMessage)=GroupChatReplay(group,messages,originals,reactions=reactions).likedBy(message)
         val hasPendingAction:Boolean get()=status==Status.UNKNOWN||status==Status.SUBMITTED
     }
     private val prefix = "groupchat.${backend.id}.${wallet.publicKey}."
@@ -70,7 +71,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
             SaitoWallet.fromBackup(it.asString).also{key->require(key.publicKey==group.id)}
         }
         val draft=record.get("draft")?.also{require(it.isJsonPrimitive&&it.asJsonPrimitive.isString)}?.asString ?: ""
-        Entry(group,candidate,status,creationKey,history.originals,history.messages,draft)
+        Entry(group,candidate,status,creationKey,history.originals,history.messages,draft,history.reactions)
         }catch(failure:GroupChatStorageException){throw failure}
         catch(failure:Exception){throw GroupChatStorageException(failure)}
     }
@@ -133,17 +134,32 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         val id=signed.body.get("group_id").asString
         val previous=requireNotNull(load(id))
         val replay=GroupChat.replay(previous.group,previous.originals+envelope)
-        if(replay.originals==previous.originals) previous else save(previous.copy(
-            group=replay.group,originals=replay.originals,messages=replay.messages))
+        retainReplay(previous,replay)
     }
 
     /** One bounded Archive page is validated and committed together, without repeated full-cache replays. */
     fun receiveAvailable(id:String,envelopes:List<String>):Boolean = synchronized(SaitoLocalState.lock) {
         val previous=requireNotNull(load(id))
         val replay=GroupChat.replayAvailable(previous.group,previous.originals,envelopes)
-        if(replay.originals!=previous.originals)save(previous.copy(
-            group=replay.group,originals=replay.originals,messages=replay.messages))
+        retainReplay(previous,replay)
         replay.incomplete
+    }
+
+    private fun retainReplay(previous:Entry,replay:GroupChatReplay):Entry =
+        if(replay.originals==previous.originals)previous else save(previous.copy(
+            group=replay.group,originals=replay.originals,messages=replay.messages,reactions=replay.reactions))
+
+    fun prepareReaction(candidate:SaitoTransaction):Entry = synchronized(SaitoLocalState.lock) {
+        assertSelected()
+        val signed=SaitoEnvelope.decode(candidate.envelope())
+        require(signed.author==wallet.publicKey && signed.body.get("request").asString=="chat like")
+        val previous=requireNotNull(load(signed.body.get("group_id").asString))
+        check(!previous.hasPendingAction && previous.group.memberRoles[wallet.publicKey]?.active==true)
+        require(previous.messages.any{it.id==signed.body.get("signature").asString && it.author==signed.body.get("mentioned").asString})
+        val replay=GroupChat.replay(previous.group,previous.originals+candidate.envelope())
+        require(replay.originals.size==previous.originals.size+1)
+        save(previous.copy(group=replay.group,originals=replay.originals,messages=replay.messages,
+            reactions=replay.reactions,candidate=candidate,status=Status.UNKNOWN))
     }
 
     fun saveDraft(id:String,text:String):Entry = synchronized(SaitoLocalState.lock) {
@@ -159,7 +175,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         val previous=requireNotNull(load(signed.body.get("group_id").asString))
         check(!previous.hasPendingAction && previous.group.memberRoles[wallet.publicKey]?.active==true)
         val replay=GroupChat.replay(previous.group,previous.originals+candidate.envelope())
-        save(previous.copy(group=replay.group,originals=replay.originals,messages=replay.messages,candidate=candidate,status=Status.UNKNOWN,draft=""))
+        save(previous.copy(group=replay.group,originals=replay.originals,messages=replay.messages,reactions=replay.reactions,candidate=candidate,status=Status.UNKNOWN,draft=""))
     }
 
     /** Explicit retry preserves the original signature, origin and protected group key. */
