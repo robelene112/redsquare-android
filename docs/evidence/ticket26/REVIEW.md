@@ -258,3 +258,19 @@ correction0/0 and build/device skipped independentlyobservable.
 Full17 importedguidance fixturee95 correctionboth0, same15s actualdisplaywait
 andunchangedassertion; no productionchange or claimedfailurecause. Finalfull17
 38614860580 at03aacb31 active,10attempt2c519active, bothpublicreads.
+
+## Final full evidence and publication
+
+Android10 final evidence through408925f1: Standards0/Spec0,650hashes231XMLverified,
+302reported301PASS+oneexistingAPI30assumption,66completionrecords20deathstages,
+core110/allrelease/lint/native/publicread/privategrouprecoverygatesconfirmed.
+Android17 final408925f1...3a740d0a: Standards0/Spec0,655hashes233XMLverified,
+303PASS67records20deathsnoassumptions,core110/allgatesconfirmed. Rootandbothreviewers
+viewedfinaloriginals. Exactgroup/privatecheckpointsandrestorationagree; production
+andbuildconfigurationequalprepared15. Noremainingactionablefindingoneitheraxis.
+
+Signed15published2026-10-14 afterbothfulls/finalreviews. Rootpublicpage/manifest/APK
+HTTP200, exactdownloadhash, directsignature/package/version/minSDK checksPASS.
+Immutable14retainedunchanged. Publicrecords signed-preview15-published; no node/
+service/ingress/storechanges. PhysicalPixel/update/performance remain35. Owner
+pauseafter26 appliesbeforeanotherissueorUIpolish.

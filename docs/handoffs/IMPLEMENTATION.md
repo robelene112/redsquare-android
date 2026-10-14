@@ -1,6 +1,6 @@
 # Sequential implementation handoff
 
-Updated 2026-10-13. The owner authorized implementing all 35 proposed
+Updated 2026-10-14. The owner authorized implementing all 35 proposed
 tickets sequentially, committing after each, and reviewing the app at the end.
 Continue without routine permission requests or a grill per ticket. Ask only
 one question at a time when a material choice really needs the owner.
@@ -13,8 +13,9 @@ Owner is migrating VPS storage and will explicitly signal when to resume. This
 supersedes the earlier instruction to continue until all issues are complete.
 No pause was requested before completing #26.
 
-Updated 2026-10-14. #25 is complete and closed. Twenty-one of the original35
-implementation tickets are closed (#2–#15, #18, #20–#25).
+Updated 2026-10-14. #26 implementation, verification and publication are complete.
+Twenty-two of the original35 tickets are complete (#2–#15, #18, #20–#26).
+STOP here for the owner storage migration. Resume only on explicit owner signal.
 
 **#37 Early visual beta is COMPLETE and published.** The owner requested this
 slice before Group Chat. It adds coherent native feed/navigation/type/avatars,
@@ -35,7 +36,7 @@ contains1,115verifiedhashes/382parsedXMLs, no secretmarkers. Rootandreviewagents
 inspected selected final originals; applied32/16 andexact10no/17custom_bedtime
 restoration retained. Configuredcontrast audit is not exhaustiveaccessibility.
 
-**Current phone build is signed14/0.1.14**, https://davidengelen.nl/redsquare/.
+**Historical #37 phone build was signed14/0.1.14**, superseded by15 below.
 Publicpage/manifestHTTP200 and downloadedAPK hash/signature/package/versionverified.
 Source4c product-equivalent tofull19069015. APKsha
 `dffba7dbdddaa18b090d61fcbb69366f4084289b424c7d37788b956f48a58364`;
@@ -45,49 +46,54 @@ Local .scratch/review-builds/14; publicrecords docs/evidence/ticket37/signed-pre
 No store/node/service/ingresschange. Current14physicalPixel/continuity/performance
 remain35. Preview13superseded;12neverpublished.
 
-**Active #26 checkpoint, 2026-10-14 18:24 UTC:** #26 OPEN,21 original tickets
-complete. Finish #26 and signed review build, then STOP for storage migration until
-explicit owner resume. Public signed14 remains current. Protected untracked group
-contract stays untouched. Do not start another ticket or UI polish.
+**#26 COMPLETE, PAUSE BOUNDARY, 2026-10-14 19:11 UTC:** implementation, full10/17,
+separate source/evidence reviews, signed review publication all complete. Commit/
+push and tracker closure are the final administrative actions in this checkpoint.
+Then STOP before another ticket or UI polish until explicit owner resume.
+Protected untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md remains untouched.
 
-Current pushed03aacb31848bd724d376df8f8fc7d6f03d1d89a6. No owned local Gradle active.
-Prepared signed15/0.1.15 .scratch/review-builds/15, NOTPUBLISHED untilfinalverification.
-Release build11084 PASS3m16, manifest7d695abf, productequivalenttoc519/03aacb31.
-APKsha21917bb6d3b611c99fd6789ceb8de64f4c15976c95815918e26ae738e15eb241;
-certsame14/appID/min29verified. Publicpageunchanged14. Neverprintsigningsecrets.
+**Current phone build is signed15/0.1.15**, https://davidengelen.nl/redsquare/.
+Manifest source7d695abf9e00df57106ab2b167d63b05b66c9a25, production/build config
+identical to final full10c5193954631f26541c3421d51db23c49bdecd3a9 and full17
+03aacb31848bd724d376df8f8fc7d6f03d1d89a6. APKsha
+21917bb6d3b611c99fd6789ceb8de64f4c15976c95815918e26ae738e15eb241;
+cert6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2.
+Public page/manifest/APKHTTP200, exact downloaded hash and direct signing/package/
+version/min29 checksPASS. Signed14 immutable artifact preserved; updateinplace,
+no uninstall. Local .scratch/review-builds/15, publicrecords signed-preview15-published.
+No node/service/ingress/store changes. Physical Pixel/update/performance remain35.
+Signing/review state outsideGit under ~/.local/share/redsquare-android/signing and
+review, canonical management docs/REVIEW_BUILDS.md. No owned local builds active.
 
-FINALFULL10run38613217864 ATTEMPT2 ACTIVE atc5193954631f26541c3421d51db23c49bdecd3a9,
-public_feed_read=true. Attempt1publicSDKdownloadcurl92/HTTP2INTERNAL_ERROR before
-build/device, originalexcerpt/jobstepsretained full-setup-attempt10; rerununchanged.
-FINALFULL17run38614860580 ACTIVE at03aacb31848bd724d376df8f8fc7d6f03d1d89a6,
-public_feed_read=true. Productsourceequal10c519; onlytestreadinessfixplusdocs differ.
-Priorfull17run38613221849 FAILED appearance1PASS44.212, group22 21PASS1/132.256:
-importedunavailableguidancepresentbutnotdisplayed733; rootPNG/XMLshowsChecking
-availablegroupinformation/CreateJoin disabled. Sourcewatchmetadata replacement
-restartsdiscovery, supportsreadinesshypothesisnotprovenruntimecause. e95df2f4
-waitsactualdisplaywithsame15s/finalstrictassert, bothreviews0. No appchanges.
-Actions/mixed/PID/restfullnotrun inthatfailedattempt; native-full-attempt1-android17.
-WorkflowpermitsunchangedproductionfixturefixoutstandingSDKfullrecordingbothsources.
+Final10run38613217864 ATTEMPT2 SUCCESS atc519, public_feed_read=true:
+302reported301PASS+oneexistingAPI30profileassumption,66records20actualdeathstages,
+core110/release/lint/source/fullruntime. Group22/122.025s,actions1/9.991,mixed1/6.366,
+groupPID11704to11990/exactrestoration; existingprivate2/24/10/PIDrestore+allprevious
+feature/wallet/signedupdate/publicChat/bothfeed gatespass. Final17run38614860580
+SUCCESS03aacb31,public_feed_read=true:303PASS67records20deathsnoassumptions,
+core110/allgatespass; group22/130.524,actions1/10.468,mixed1/6.887,PID5475to5556.
+Productionequal,17onlyreviewedtestdisplay-readinessfixsame15s/finalassertion,
+perWORKFLOW. Final-full evidence650/655hashes231/233XMLallverified/secretmarkers
+absent. Rootandreviewersselectedoriginalsviewed; bothfinalevidenceaxes0/0.
+Whole source bbdd121c...90e+sharedharnesscorrection f259 also0/0.
 
-Focused10run38611923176 SUCCESS90e979e85ab462bb36948103b6ea31efb9872c09:
-actions1/13.348s,mixed1/8.196s,groups22/125.4s,actualPID11219to11515/exactrestoration.
-Rootoriginalhintsreopened/privatemodegroupfault/coldrecoveredPNGXMLinspected; sets
-native-final-focused10/mixed-green10/process-green10. PrivateDM/reactioninGroups,
-groupcreation/messagesinprivateChat, correlatedACKs, exactfault/nooverwrite then
-recovery, correctvisibleviews andzerooutgoing allpass. Fullregressionstillpending.
-Focused17run38611928760 FAILED hostexit124 despiteactions1PASS54.77s. Strict60s
-unchanged, no mixed/groups/PID; native-actions-host-timeout17qualifieslimitedcoverage.
+Earlier actual REDs and failed attempts remain qualified. Full10attempt1SDKcurl92
+prebuild/device originalexcerpt/jobsteps retained; attempt2 unchangedsourcepass.
+Full17firstc51921PASS1guidancevisibilityfailure, source supports transition
+hypothesis only; e95visiblewaitsame15s finalassert, no productchange. Priorfocused17
+actionsclassOK54.77 buthost124 FAILED, no latercoverage. Freshfinalfull17passesall.
+Focused10 hadall24groupcases+actualPID/recovery; finalfulls supersedeacceptance.
+Handoff chronology/research docs retain exact earlier sources andunexecutedtails.
 
-Whole bbdd121c...90e Spec0; Standards0hard/oneharnessduplicationheuristic, shared
-helperf25965c1solvesall6actualcalls retaining180/60sorder/prefix/exit0+OK, both0.
-Evidence-onlyreviewthrough7d695abf0/0:108hashes44XMLallverified; signingprep0/0,
-SDKfailureexcerptcorrection0. Finalfullartifacts/reviews/publication stillneeded.
-No complete26 orphysicalPixelacceptanceyet. #35retainsphysicalupdate/performance.
+#26 includes namedcreate/invite/join/memberview/leave, compatible signed/explicit
+unsigned origins, incomingcontrols, immutableguardedRetry, plaintextmessages,
+reactions/replies/copy/selfmentions, drafts/cache/archive/discovery and failure
+recovery, private/group reception independentofscreen. Accurateunencryptedprivacy,
+truthfulunknown/forwarded status, owner/backend isolation andno automaticresend.
+Outgoingadmin controls27, offlinequeue28,media/push andphysical35 remainlater.
+Do not claim complete35-ticket app orPixelperformance. Stopforowner migration.
 
-Sourcefixes9daIOhints/f9stableGroupsreceiptcollector/e26sharedincomingroute/
-5d9privategroupfailurewarningallreviewed0. Earlier actualaction/self/hints/mixed/
-warningREDsretainedwithunexecutedtailsqualified. local34718warningcompilePASS2m57.
-Earlier chronology below remains qualified to each source, not current acceptance.
+Earlier chronology below is historical, not unfinished current26 work.
 
 Imported-hints/discovery and all21 existing named-group cases GREEN at
 f25c90059e1488e50e5a129c1967f3e1e1d1009f: Android10run38598680108/118.174s,

@@ -559,3 +559,11 @@ Final-full sets retain publicoriginals/raws/counts/checkpoints/runmetadata with
 originals viewed onboth; after.xml showsIdentitycreatedandsignatureverified.
 Whole source andfinal10evidence reviews0/0; final17review/publicationpending.
 No physicalPixel7/performance/currentphoneupdateacceptanceclaimed, retained35.
+
+Final17evidencereview408925f1...3a740d0a: Standards0/Spec0. All655hashes/233XMLs
+verified,303PASS67records20deaths andexactstate/restoration/publicreadcoverageagree.
+No secret-fieldmarkers orprivate snapshots. Whole source andbothfinalevidence
+axes havezero remainingactionablefindings. Signed15publishedafterverification;
+publicpage/manifest/APKHTTP200,exacthash/directsignature/package/versionvalidated.
+Publicationrecords docs/evidence/ticket26/signed-preview15-published. Stopafter26
+forownerstorage migration until explicitresume; physicalacceptance remains35.
