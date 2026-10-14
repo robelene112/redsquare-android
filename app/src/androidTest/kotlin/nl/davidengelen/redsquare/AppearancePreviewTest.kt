@@ -33,9 +33,15 @@ class AppearancePreviewTest {
         val controls = File(context.cacheDir, "appearance-evidence/system-controls.txt")
         check(controls.parentFile!!.isDirectory || controls.parentFile!!.mkdirs())
         controls.writeText("Original night mode: $originalNight\n")
+        controls.appendText(device.executeShellCommand("id") + "\n")
+        controls.appendText(device.executeShellCommand("dumpsys uimode") + "\n")
         fun night(value: String, awaitConfiguration: Boolean = true) {
             val result = device.executeShellCommand("cmd uimode night $value").trim()
             controls.appendText("Requested $value; $result\n")
+            if (result != "Night mode: $value") {
+                controls.appendText(device.executeShellCommand("dumpsys uimode") + "\n")
+                controls.appendText(device.executeShellCommand("logcat -d -s UiModeManager:I") + "\n")
+            }
             assertEquals("Night mode: $value", result)
             if (awaitConfiguration && value in listOf("yes", "no")) {
                 val expected = if (value == "yes") Configuration.UI_MODE_NIGHT_YES else Configuration.UI_MODE_NIGHT_NO

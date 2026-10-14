@@ -51,6 +51,7 @@ verify_appearance() {
     # Android 10's UiModeManager refuses changes before setup is complete.
     adb shell settings get secure user_setup_complete > "$evidence/appearance-original-setup.txt"
     adb shell settings put secure user_setup_complete 1
+    adb shell dumpsys uimode > "$evidence/appearance-system-before.txt"
     # Only the synthetic diagnostic app is reset, before any feature fixtures run.
     # This verifies the actual first-install default without coupling to preference storage.
     adb shell pm clear nl.davidengelen.redsquare.dev > "$evidence/appearance-fresh-install.txt"
@@ -61,6 +62,7 @@ verify_appearance() {
         nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
         > "$evidence/appearance-ui.txt" || appearance_exit=$?
     printf '%s\n' "$appearance_exit" > "$evidence/appearance-ui-exit.txt"
+    adb shell logcat -d -s UiModeManager:I > "$evidence/appearance-system-log.txt"
     adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - appearance-evidence \
         > "$evidence/appearance-evidence.tar" || true
     [[ "$appearance_exit" == 0 ]] && grep -q 'OK (1 test)' "$evidence/appearance-ui.txt"
