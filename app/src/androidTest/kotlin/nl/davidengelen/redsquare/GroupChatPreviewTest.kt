@@ -239,6 +239,8 @@ class GroupChatPreviewTest {
                             }
                             if(drafting){
                                 ui.onNodeWithText("Message").performTextInput("Keep this unsent group draft")
+                                androidx.test.espresso.Espresso.closeSoftKeyboard()
+                                ui.waitUntil(15_000){runCatching{ui.onNodeWithText("Back").assertIsDisplayed()}.isSuccess}
                                 ui.onNodeWithText("Back").assertIsDisplayed().performClick()
                                 waitFor("Create group")
                                 ui.onNodeWithText("Create group").assertIsDisplayed()
