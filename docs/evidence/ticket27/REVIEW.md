@@ -99,3 +99,12 @@ b9d17a35...3e532776: Spec0, Standards0. All three UI lifecycles preserve public
 identities, scoped files/preferences, activity/peer closure and primary-preserving
 cleanup. Per-scenario actions/assertions/capture names unchanged. CompilePASS1m51.
 Post-refactor runtime remains pending in38651748924.
+
+## Whole source review at48b1410a
+
+Standards0. Spec1: stale pending promotions refuse correctly but permanently block
+composition and new management. Add deliberate local resolution with truthful
+uncertain-delivery guidance, retain signed original and allow permitted new work;
+verify actual native flow. Eleven-case recovery tracer awaits first RED; no source
+stop implementation or whole acceptance claimed. Earlier guidance attempt failed
+combined draft/key preservation after visible guidance passed; retained and qualified.

@@ -70,6 +70,7 @@ class GroupAdminPreviewTest {
             waitFor("Stale confirmation");ui.onNodeWithText("Stale confirmation").performClick()
             waitForEnabled("Message");ui.onNodeWithText("Message").performTextInput("Keep this confirmation draft")
             androidx.test.espresso.Espresso.closeSoftKeyboard()
+            ui.waitUntil(15_000){store.load(key.publicKey)?.draft=="Keep this confirmation draft"}
             ui.onNodeWithText("Members").performClick()
             ui.onNodeWithContentDescription("Promote member ${member.publicKey}").performClick()
             waitForEnabled("Confirm promotion")
@@ -91,6 +92,51 @@ class GroupAdminPreviewTest {
             captureNativeScreen(File(context.cacheDir,"group-admin-evidence/stale-confirmation.png"),member.publicKey)
             peer.assertHealthy()
 
+        }
+
+    @Test fun stoppingAStalePromotionRetainsItsOriginalAndAllowsNewMessages() =
+        withAdminUi("f","Stopped stale promotion","stopped-stale-failure.png") { test ->
+            val store=test.store
+            store.saveDraft(test.key.publicKey,"Keep this stopped-action draft")
+            val stale=GroupChat.promote(test.wallet,requireNotNull(store.load(test.key.publicKey)).group,test.memberWallet.publicKey,1700000123457)
+            store.preparePromotion(stale,test.memberWallet.publicKey)
+            store.receive(GroupChat.leave(test.memberWallet,test.key.publicKey,1700000123458).envelope())
+            waitForEnabled("Chat");ui.onNodeWithText("Chat").performClick()
+            waitFor("Groups");ui.onNodeWithText("Groups").performClick()
+            waitFor("Stopped stale promotion");ui.onNodeWithText("Stopped stale promotion").performClick()
+            waitFor("This saved group action no longer matches the current membership or group details.")
+            ui.onNodeWithText("This saved group action no longer matches the current membership or group details.").assertIsDisplayed()
+            waitForEnabled("Stop trying this action");ui.onNodeWithText("Stop trying this action").performClick()
+            waitFor("Earlier delivery may still have happened. This only stops further attempts on this device and keeps the original record.")
+            waitForEnabled("Stop on this device");ui.onNodeWithText("Stop on this device").performClick()
+            waitFor("Stopped on this device. Earlier delivery is uncertain.")
+            waitForEnabled("Message")
+            check(test.peer.transactions.isEmpty()&&test.peer.relayedMessages.isEmpty())
+            val stopped=requireNotNull(store.load(test.key.publicKey))
+            check(stopped.candidate!!.envelope()==stale.envelope()&&stopped.draft=="Keep this stopped-action draft")
+            check(stopped.creationKey!!.exportJson()==test.key.exportJson())
+            ui.onNodeWithText("Retry").assertDoesNotExist()
+            captureNativeScreen(File(test.context.cacheDir,"group-admin-evidence/stopped-stale.png"))
+            test.scenario.recreate()
+            waitFor("Groups");ui.onNodeWithText("Groups").performClick()
+            waitFor("Stopped stale promotion");ui.onNodeWithText("Stopped stale promotion").performClick()
+            waitForEnabled("Message")
+            check(store.load(test.key.publicKey)!!.candidate!!.envelope()==stale.envelope())
+            check(test.peer.transactions.isEmpty()&&test.peer.relayedMessages.isEmpty())
+            ui.onNodeWithText("Message").performTextReplacement("New work after stopping stale action")
+            androidx.test.espresso.Espresso.closeSoftKeyboard()
+            waitForEnabled("Send");ui.onNodeWithText("Send").performClick()
+            ui.waitUntil(15_000){store.load(test.key.publicKey)?.status==GroupChatStore.Status.FORWARDED}
+            ui.waitUntil(15_000){test.peer.transactions.size==1&&test.peer.relayedMessages.size==1}
+            val saved=requireNotNull(store.load(test.key.publicKey));val candidate=requireNotNull(saved.candidate)
+            check(candidate.id!=stale.id&&SaitoEnvelope.decode(candidate.envelope()).body.get("request").asString=="chat message")
+            check(saved.originals.contains(stale.envelope()))
+            waitFor("Stopped group actions remain saved here. Their earlier delivery is uncertain.")
+            check(postingTransaction(test.peer.transactions.single()).envelope()==candidate.envelope())
+            check(SaitoEnvelope.fromSignedJson(test.peer.relayedMessages.single())==candidate.envelope())
+            check(test.wallets.loadExisting().exportJson()==test.wallet.exportJson()&&AndroidBackendStore(test.context).load()==test.backend)
+            captureNativeScreen(File(test.context.cacheDir,"group-admin-evidence/stopped-stale-new-message.png"))
+            test.peer.assertHealthy()
         }
 
     @Test fun aRejectedPromotionRelayShowsUncertaintyAndRetriesTheSameOriginal() {

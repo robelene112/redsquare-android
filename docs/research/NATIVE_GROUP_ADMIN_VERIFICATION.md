@@ -181,3 +181,22 @@ Compile43572PASS1m34s. After compilation the externally controlled response flag
 was made AtomicBoolean and an explicit error visibility assertion added; hosted
 compilation will verify these test-only changes. Now ten cases. No invented RED
 for added coverage of existing guards/recovery; complete acceptance remainspending.
+
+Focused10attempt38651748924 at3e532776 FAILED:seven cases,sixPASS,onefailure,
+22.099s. Guidance/disabled confirmation/cancel/LEFT/creation-candidate checks pass,
+then combined saved draft/key check88 fails. Exact operand not captured. Root
+original retains typed text; source supports deferred-draft timing hypothesis only.
+No-wire/wallet/backend tail and both process stages unexecuted. Retainednative-
+guidance-attempt-android10. Fixture now first waits the protected typed draft with
+the unchanged15s budget before opening membership and delivering departure; final
+assertions unchanged. This establishes the durable precondition rather than inferred
+failure cause. Hosted compile must verify this post-local-compile test correction.
+
+Whole source review7979...48b1410a: Standards0, Spec1 stale pending promotion blocks
+all new work with only repeated failingRetry/generic error. Deliberate truthful
+local stop/recovery must preserve original/uncertain state and permit useful work.
+New nativeUI recovery tracer compile85046PASS1m32. It requires explicit stopping,
+no stale transmission/re-sign, retained draft/key/original across recreation and a
+new real group message afterward. Stop source absent until actual RED. Postcompile
+only durable-precondition wait and literal uncertainty-display assertions added.
+Eleven cases now; first stopRED10 dispatch next while48b ten-case17 remains active.

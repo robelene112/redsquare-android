@@ -1,0 +1,143 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.GroupAdminPreviewTest:
+INSTRUMENTATION_STATUS: test=aPromotionConfirmationUpdatesWhenItsTargetLeaves
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.aPromotionConfirmationUpdatesWhenItsTargetLeaves$lambda$8(GroupAdminPreviewTest.kt:88)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.$r8$lambda$OP3BzrZ4Izr0q6dyb9QY6htvNU4(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest$$ExternalSyntheticLambda27.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.withAdminUi$lambda$32$lambda$31$lambda$30(GroupAdminPreviewTest.kt:195)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.$r8$lambda$X8eJSlohKnpLt0JTPeHxF3Sc3LM(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.withAdminUi(GroupAdminPreviewTest.kt:194)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.aPromotionConfirmationUpdatesWhenItsTargetLeaves(GroupAdminPreviewTest.kt:64)
+
+INSTRUMENTATION_STATUS: stream=
+Error in aPromotionConfirmationUpdatesWhenItsTargetLeaves(nl.davidengelen.redsquare.GroupAdminPreviewTest):
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.aPromotionConfirmationUpdatesWhenItsTargetLeaves$lambda$8(GroupAdminPreviewTest.kt:88)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.$r8$lambda$OP3BzrZ4Izr0q6dyb9QY6htvNU4(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest$$ExternalSyntheticLambda27.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.withAdminUi$lambda$32$lambda$31$lambda$30(GroupAdminPreviewTest.kt:195)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.$r8$lambda$X8eJSlohKnpLt0JTPeHxF3Sc3LM(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.withAdminUi(GroupAdminPreviewTest.kt:194)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.aPromotionConfirmationUpdatesWhenItsTargetLeaves(GroupAdminPreviewTest.kt:64)
+
+INSTRUMENTATION_STATUS: test=aPromotionConfirmationUpdatesWhenItsTargetLeaves
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anAdminCanRemoveAMemberAndRetainTheDraftAndRemovalAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anAdminCanRemoveAMemberAndRetainTheDraftAndRemovalAfterReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anAdminCanPromoteAMemberWithoutLosingTheDraftAndReopenTheNewRole
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anAdminCanPromoteAMemberWithoutLosingTheDraftAndReopenTheNewRole
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aPromotionStopsAtRelayWhenARenameArrivesAfterRawSubmission
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aPromotionStopsAtRelayWhenARenameArrivesAfterRawSubmission
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aPromotionCannotSubmitAfterItsAdministratorLosesAuthority
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aPromotionCannotSubmitAfterItsAdministratorLosesAuthority
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aPromotionCannotRelayOrRetryAfterItsAdministratorLosesAuthority
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aPromotionCannotRelayOrRetryAfterItsAdministratorLosesAuthority
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aPreparedPromotionCannotTransmitOrRetryAfterTheTargetLeaves
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aPreparedPromotionCannotTransmitOrRetryAfterTheTargetLeaves
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 22.099
+There was 1 failure:
+1) aPromotionConfirmationUpdatesWhenItsTargetLeaves(nl.davidengelen.redsquare.GroupAdminPreviewTest)
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.aPromotionConfirmationUpdatesWhenItsTargetLeaves$lambda$8(GroupAdminPreviewTest.kt:88)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.$r8$lambda$OP3BzrZ4Izr0q6dyb9QY6htvNU4(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest$$ExternalSyntheticLambda27.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.withAdminUi$lambda$32$lambda$31$lambda$30(GroupAdminPreviewTest.kt:195)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.$r8$lambda$X8eJSlohKnpLt0JTPeHxF3Sc3LM(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.withAdminUi(GroupAdminPreviewTest.kt:194)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.aPromotionConfirmationUpdatesWhenItsTargetLeaves(GroupAdminPreviewTest.kt:64)
+
+FAILURES!!!
+Tests run: 7,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
