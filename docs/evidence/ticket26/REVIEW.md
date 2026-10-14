@@ -138,3 +138,12 @@ submission lifecycle and unreachable long-claim preview findings resolved. Share
 prepared-send handling retains durable preparation, explicit confirmation and
 creation's distinct Relay choice. Local debug/testAPK compile PASS3m43s. Native
 four-case GREEN on Android10/17 remains pending; no complete26 acceptance claim.
+
+Invitation four-case GREEN44e931af:10run38521385291 PASS16.510s;
+17run38521387910 PASS46.936s. Root joined PNGs and original XML states inspected;
+reopened captures show group list, not selected detail provenance. All strict
+consent/backend/exact-wire checks pass. Leave tracer939ba4cf...8f46a173:
+Standards0, Spec2: exact departure recipient sequence and retained signed departure
+were unasserted. Correction830ed6c2 adds both; separate correction reviews0/0.
+Refined testAPK compile PASS1m33s. Actual leave RED17run38538979079 active;
+missing Leave control expected but not claimed before its actual report.

@@ -293,3 +293,17 @@ local debug/testAPK compile PASS3m43s. Claim preview scrolls within a bounded
 dialog, and displayed admin/inviter/group-ID assertions scroll before checking.
 Four-case native Android10/17 verification is next. Existing key/work/creation
 GREEN sets precede this source and are not invitation-flow acceptance.
+
+Invitation four-case native GREEN at44e931af32bf214bee1b66c9e62c4001cd154ed0:
+Android10run38521385291 PASS16.510s; Android17run38521387910 PASS46.936s.
+Original joined screenshots and creation/join/reopened XML inspected. Reopened
+captures show the group list; they do not show selected-detail provenance.
+Exact wire, consent, backend and protected key/work checks pass. Records live in
+native-join-green-android10/17; this remains focused proof, not whole26 acceptance.
+
+Leave tracer830ed6c2 requires explicit confirmation before a second transaction,
+exact [groupID, leavingWallet] recipients, matching normalized broadcast/Relay,
+LEFT state and exact protected departure original after reopening without resend.
+Initial review found missing exact recipients and retained-original assertions;
+both corrected and separately reviewed0/0. TestAPK compile PASS1m33s.
+Actual nativeRED is pending on17run38538979079 before minimum implementation.

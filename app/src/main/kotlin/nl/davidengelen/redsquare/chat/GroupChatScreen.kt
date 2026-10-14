@@ -49,19 +49,20 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             finally{busy=false}
         }
     }
-    suspend fun sendPrepared(id:String,candidate:SaitoTransaction,updated:SaitoWallet,contact:String,originalRelay:Boolean=false) {
+    suspend fun sendPrepared(id:String,candidate:SaitoTransaction,updated:SaitoWallet,contact:String,originalRelay:Boolean=false,relayRecipients:List<String> = listOf(contact)) {
         onWalletMetadata(wallet,updated)
         val current=GroupChatStore(context,updated,backend)
         withContext(Dispatchers.IO){
             submitChatTransaction(updated,endpoint,contact,candidate,ChatSubmissionCallbacks(
                 claim={current.claim(id,candidate.id)},assertSelected={current.assertSelected()},
                 submitted={publish{current.record(id,candidate.id,GroupChatStore.Status.SUBMITTED);current.entries()}},
-                forwarded={publish{current.record(id,candidate.id,GroupChatStore.Status.FORWARDED);current.entries()}}),originalRelay)
+                forwarded={publish{current.record(id,candidate.id,GroupChatStore.Status.FORWARDED);current.entries()}}),originalRelay,relayRecipients)
         }
     }
     var creating by remember(wallet.publicKey,backend) { mutableStateOf(false) }
     var joining by remember(wallet.publicKey,backend) { mutableStateOf(false) }
     var members by remember(selected) { mutableStateOf(false) }
+    var leaving by remember(selected) { mutableStateOf(false) }
     var inviting by remember(selected) { mutableStateOf(false) }
     var refresh by remember { mutableIntStateOf(0) }
     fun back() { if(!busy) { if(selected==null) onBack() else selected=null } }
@@ -103,13 +104,17 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                 style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
             Row {
                 TextButton(onClick={members=true}) { Text(stringResource(R.string.group_members)) }
-                TextButton(onClick={inviting=true}) { Text(stringResource(R.string.group_invite)) }
+                if(entry.group.memberRoles[wallet.publicKey]?.active==true) {
+                    TextButton(enabled=!busy,onClick={inviting=true}) { Text(stringResource(R.string.group_invite)) }
+                    TextButton(enabled=!busy&&entry.status==GroupChatStore.Status.FORWARDED,onClick={leaving=true}) { Text(stringResource(R.string.group_leave)) }
+                }
             }
             Text(stringResource(when(entry.status) {
                 GroupChatStore.Status.UNKNOWN -> R.string.group_unknown
                 GroupChatStore.Status.SUBMITTED -> R.string.group_submitted
                 GroupChatStore.Status.FORWARDED -> R.string.group_forwarded
             }),style=MaterialTheme.typography.bodySmall)
+            if(entry.group.memberRoles[wallet.publicKey]==ChatGroupRole.LEFT) Text(stringResource(R.string.group_left))
             Spacer(Modifier.weight(1f))
         }
     }
@@ -133,6 +138,19 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             sendPrepared(invitation.id,candidate,updated,invitation.admin)
         }
     }
+    if(leaving && entry!=null) AlertDialog(onDismissRequest={if(!busy)leaving=false},
+        title={Text(stringResource(R.string.group_leave))},
+        text={Text(stringResource(R.string.group_leave_notice))},
+        dismissButton={TextButton(enabled=!busy,onClick={leaving=false}){Text(stringResource(R.string.group_cancel))}},
+        confirmButton={TextButton(enabled=!busy,onClick={
+            act {
+                val candidate=withContext(Dispatchers.IO){GroupChat.leave(wallet,entry.group.id,System.currentTimeMillis())}
+                val recipients=entry.group.memberRoles.filterValues{it.active}.keys.filter{it!=wallet.publicKey}.ifEmpty{listOf(wallet.publicKey)}
+                withContext(NonCancellable){publish{store.prepareLeave(candidate);store.entries()}}
+                leaving=false
+                sendPrepared(entry.group.id,candidate,wallet,recipients.first(),relayRecipients=recipients)
+            }
+        }){Text(stringResource(R.string.group_leave_confirm))}})
     if(members && entry!=null) AlertDialog(onDismissRequest={members=false},title={Text(stringResource(R.string.group_members))},
         text={LazyColumn(Modifier.heightIn(max=320.dp)){items(entry.group.memberRoles.toList(),key={it.first}){(key,role)->
             Column(Modifier.padding(vertical=8.dp)){Text(key,style=MaterialTheme.typography.bodySmall);Text(role.name.lowercase())}

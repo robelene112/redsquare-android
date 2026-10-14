@@ -449,4 +449,8 @@
     <string name="group_inviter_label">Invited by</string>
     <string name="group_id_label">Group ID</string>
     <string name="group_join_backend">Join on %1$s</string>
+    <string name="group_leave">Leave group</string>
+    <string name="group_leave_confirm">Leave</string>
+    <string name="group_leave_notice">Leaving does not erase messages or copies held by other people.</string>
+    <string name="group_left">You have left this group.</string>
 </resources>
