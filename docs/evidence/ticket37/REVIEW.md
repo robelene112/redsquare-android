@@ -44,3 +44,18 @@ publication or35's Pixel targets. No wallet material is published in those sets.
 
 Both axes have zero remaining source/interim-evidence findings. Final full10/17,
 current originals, evidence reviews and signed/public publication are outstanding.
+
+## Bounded fixture follow-ups
+
+4c...e95: Standards0, Spec0. Exact wallet identity is scoped to its native
+address description; video retains exact Playing state with bounded10s wait.
+No product/identity/playback/no-publication predicate changed. Timing cause is
+still qualified; corrected full runtime required.
+
+e95...437: Standards0, Spec0. Full wallet/options String equality remains
+exact and local, with static failure diagnostics to protect secrets. Product
+unchanged. Both focused current437 cases pass; broader full e95 runs active.
+Root also inspected current product4c private Chat originals from its earlier
+successful24history/10action checks, while the containing full17 run failed
+later. Captures in chat-visuals-4c retain this qualification. Final full acceptance
+and evidence review remain outstanding.
