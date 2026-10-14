@@ -7,6 +7,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -29,6 +33,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.NonCancellable
@@ -318,10 +323,11 @@ class MainActivity : ComponentActivity() {
                             Column(Modifier.verticalScroll(rememberScrollState())) {
                                 Text(stringResource(R.string.appearance), style = MaterialTheme.typography.titleSmall)
                                 if (appearanceSaveError) Text(stringResource(R.string.appearance_save_error))
+                                Column(Modifier.selectableGroup()) {
                                 Appearance.entries.forEach { choice ->
-                                    Row {
-                                        RadioButton(selected = appearance == choice, onClick = null)
-                                        TextButton(enabled = appearanceReady && !savingAppearance, onClick = {
+                                    Row(Modifier.fillMaxWidth().heightIn(min = 48.dp).selectable(
+                                        selected = appearance == choice, role = Role.RadioButton,
+                                        enabled = appearanceReady && !savingAppearance, onClick = {
                                             savingAppearance = true
                                             appearanceSaveError = false
                                             scope.launch {
@@ -332,8 +338,12 @@ class MainActivity : ComponentActivity() {
                                                 catch (_: Exception) { appearanceSaveError = true }
                                                 finally { savingAppearance = false }
                                             }
-                                        }) { Text(stringResource(choice.label)) }
+                                        }), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
+                                        RadioButton(selected = appearance == choice, onClick = null,
+                                            enabled = appearanceReady && !savingAppearance)
+                                        Text(stringResource(choice.label), Modifier.padding(start = 8.dp))
                                     }
+                                }
                                 }
                                 TextButton(enabled = wallet != null, onClick = {
                                     settingsOpen = false

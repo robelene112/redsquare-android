@@ -54,3 +54,11 @@ PNG/XML and checksums retained under appearance-red/android10.
 Minimum production appearance source3a2ed238 adds System/Light/Dark and an
 independent device preference, IO save/load, truthful save error and window
 insets/bar contrast. Compilation, bounded reviews and native GREEN pending.
+
+Minimum source review `67bc6922...3a2ed238`: Standards zero documented breaches
+or actionable smells. Spec one accessibility finding: theme labels need selected
+radio-row/group semantics rather than decorative radios next to ordinary
+TextButtons. The bounded correction follows Android's documented selectable-row
+pattern: https://developer.android.com/develop/ui/compose/components/radio-button .
+Correction and selected-state native assertions are pending while the owned
+Gradle build completes. This review remains separate from whole-beta acceptance.

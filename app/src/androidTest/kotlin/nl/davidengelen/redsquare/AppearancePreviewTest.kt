@@ -55,6 +55,10 @@ class AppearancePreviewTest {
                             ui.onNodeWithText("Settings").performClick()
                             ui.waitUntil(5_000) { ui.onAllNodesWithText("Appearance").fetchSemanticsNodes().isNotEmpty() }
                             ui.onNodeWithText(label).performScrollTo().performClick()
+                            ui.waitUntil(5_000) {
+                                ui.onAllNodes(hasText(label) and isSelected()).fetchSemanticsNodes().isNotEmpty()
+                            }
+                            ui.onNodeWithText(label).assertIsSelected()
                             ui.onNodeWithText("Done").performClick()
                         }
                         // The harness starts with a fresh diagnostic installation. Its default must follow Android.
