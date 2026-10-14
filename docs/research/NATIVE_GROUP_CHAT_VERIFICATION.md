@@ -130,3 +130,8 @@ extension. Existing callers use the unchanged empty default. GREEN1PASS, build1m
 Exact independent envelope/signature/author/group-first assertions remain.
 A broader core regression is next because existing factories share createTo.
 No app joining, authority transition or persistence acceptance yet.
+
+After the defaulted createTo recipient extension, full core regression93PASS,
+zero failures/errors/skips, build17s. Previous wallet/serialization/feature vectors
+remain valid. Results are in ticket26/core-regression. This is core verification,
+not Android group interaction or full feature acceptance.

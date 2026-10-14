@@ -803,5 +803,5 @@ Active26 update: join oracle verifies both actual web methods with explicit
 known derived admin and zero-payment group-first wallet fixture. Native tracer
 RED1 UnsupportedOperationException/build57s, then GREEN1PASS/build1m. createTo
 has defaulted additionalRecipients; empty defaults preserve existing callers.
-No ownedGradle currently. Next broadercoretest then signed membership/leave/
+No ownedGradle currently. Broadercore93PASS/0failure/error/skip,17s; noownedGradle. Next signedmembership/leave/
 message controls and durable nativeUI. No group app/final acceptance yet.
