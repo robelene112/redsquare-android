@@ -196,3 +196,9 @@ Unknown ordinary authors follow existing web membership behavior without admin
 grants. Historical display must validate retained messages against their observed
 state, rather than erase an earlier accepted message after a later removal.
 Native group UI/persistence and full-ticket gates remain incomplete.
+
+Signed admin-snapshot reader tracer RED1 unsupported control/build34s then
+GREEN1PASS. Known current admin may rename and update typed role fields. Targeted
+non-admin role claims fail; observed departures/removals survive delayed active
+snapshots, including reconstruction. No global ordering/current-authority claim.
+No outgoing admin-management UI is introduced before #27.

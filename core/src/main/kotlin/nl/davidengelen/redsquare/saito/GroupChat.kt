@@ -72,6 +72,7 @@ object GroupChat {
         require(group.id in signed.recipients && signed.recipients.all(SaitoWallet::isPublicKey))
         if (group.controls.any { SaitoEnvelope.decode(it).id == signed.id }) return group
         val members = group.memberRoles.toMutableMap()
+        var name = group.name
         when (body.requiredString("request")) {
             "chat join" -> {
                 require(SaitoWallet.isPublicKey(body.requiredString("invited_by")))
@@ -87,9 +88,31 @@ object GroupChat {
                     members[member] = if (signed.author == member) ChatGroupRole.LEFT else ChatGroupRole.REMOVED
                 }
             }
+            "chat update" -> {
+                require(members[signed.author] == ChatGroupRole.ADMIN)
+                name = body.requiredString("group_name")
+                require(name.isNotBlank() && Charsets.UTF_8.newEncoder().canEncode(name))
+                val roles = body.get("member_ids")
+                require(roles != null && roles.isJsonObject && roles.asJsonObject.size() <= 255)
+                roles.asJsonObject.entrySet().forEach { (member, value) ->
+                    require(SaitoWallet.isPublicKey(member) && member != group.id && value.isJsonPrimitive)
+                    val primitive = value.asJsonPrimitive
+                    val role = when {
+                        primitive.isString && primitive.asString == "admin" -> ChatGroupRole.ADMIN
+                        primitive.isNumber && primitive.asString == "1" -> ChatGroupRole.MEMBER
+                        primitive.isNumber && primitive.asString == "0" -> ChatGroupRole.LEFT
+                        primitive.isNumber && primitive.asString == "-1" -> ChatGroupRole.REMOVED
+                        else -> throw IllegalArgumentException("Invalid group role")
+                    }
+                    // A snapshot has no predecessor/revision proof. Preserve observed departure/removal.
+                    if (members[member] == ChatGroupRole.REMOVED) return@forEach
+                    if (members[member] == ChatGroupRole.LEFT && role in listOf(ChatGroupRole.ADMIN, ChatGroupRole.MEMBER)) return@forEach
+                    members[member] = role
+                }
+            }
             else -> throw IllegalArgumentException("Unsupported group control")
         }
-        return NamedChatGroup(group.id, group.name, java.util.Collections.unmodifiableMap(members),
+        return NamedChatGroup(group.id, name, java.util.Collections.unmodifiableMap(members),
             group.creationEnvelope, group.confirmedInvitation, java.util.Collections.unmodifiableList(group.controls + envelope))
     }
 

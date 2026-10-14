@@ -58,3 +58,9 @@ Confirmed-invitation origin reviewa2990aeb...c28cad6e: Standards0 and Spec0.
 Unsigned provenance remains explicit, receipt/signer validation and replay survive,
 no sender membership invented. Active-wallet binding and deliberate confirmation
 remain controller responsibilities; no network admission or full UI claim.
+
+Message reviewc28cad6e...b0b9876e: Standards0; Spec1. Native reader used the body
+timestamp, while pinned addTransactionToGroup starts from the signed transaction
+header timestamp. Original equal-time vectors could not expose this. An actual
+constructor reference with different header/body times is being added before
+correcting the reader. No claim that the initial review was clean.

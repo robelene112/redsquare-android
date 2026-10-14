@@ -224,4 +224,39 @@ class GroupChatTest {
         }
     }
 
+    @Test fun onlyKnownAdminsCanPublishGroupSnapshotsAndRemovalCannotBeUndoneByAnOldSnapshot() {
+        val creation = requireNotNull(javaClass.getResourceAsStream("/native-group-chat-creation-reference.json"))
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject }
+        val group = GroupChat.readCreation(creation.get("envelope").asString)
+        val creator = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe fixtures only.
+        val member = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
+        val snapshot = com.google.gson.JsonObject().apply {
+            addProperty("module", "Chat"); addProperty("request", "chat update")
+            addProperty("group_id", group.id); addProperty("group_name", "Updated group")
+            add("member_ids", com.google.gson.JsonObject().apply {
+                addProperty(creator.publicKey, "admin"); addProperty(member.publicKey, "admin")
+            })
+        }
+        val promoted = GroupChat.applyControl(group, SaitoTransaction.createTo(creator, snapshot, 1700000123457, group.id).envelope())
+        assertEquals("Updated group", promoted.name)
+        assertEquals(ChatGroupRole.ADMIN, promoted.memberRoles[member.publicKey])
+        org.junit.Assert.assertThrows(IllegalArgumentException::class.java) {
+            GroupChat.applyControl(group, SaitoTransaction.createTo(member, snapshot, 1700000123458, group.id,
+                listOf(creator.publicKey)).envelope())
+        }
+        val remove = com.google.gson.JsonObject().apply {
+            addProperty("module", "Chat"); addProperty("request", "chat remove")
+            addProperty("group_id", group.id); addProperty("member_id", member.publicKey)
+        }
+        val removed = GroupChat.applyControl(promoted, SaitoTransaction.createTo(creator, remove, 1700000123459, group.id).envelope())
+        val delayedSnapshot = SaitoTransaction.createTo(creator, snapshot, 1700000123456, group.id).envelope()
+        val retained = GroupChat.applyControl(removed, delayedSnapshot)
+        assertEquals(ChatGroupRole.REMOVED, retained.memberRoles[member.publicKey])
+        assertEquals(ChatGroupRole.REMOVED, GroupChat.restore(creation.get("envelope").asString, retained.controls).memberRoles[member.publicKey])
+        val malformed = snapshot.deepCopy().apply { getAsJsonObject("member_ids").addProperty(member.publicKey, 2) }
+        org.junit.Assert.assertThrows(IllegalArgumentException::class.java) {
+            GroupChat.applyControl(group, SaitoTransaction.createTo(creator, malformed, 1700000123460, group.id).envelope())
+        }
+    }
+
 }
