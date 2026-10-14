@@ -1,0 +1,10 @@
+{
+  "run": 38491630186,
+  "source": "192976f8e115c1102e952954736785b6448a9a59",
+  "platform": "Android 10 / API29",
+  "result": "RED",
+  "failure": "Initial first-install System dark rendering timeout at AppearancePreviewTest.kt:61",
+  "instrumentation_exit": "0",
+  "fixture_reset": "Success",
+  "root_original_inspection": "Original failure PNG renders light; XML parses. Later override/recreation/continuity checks unexecuted."
+}

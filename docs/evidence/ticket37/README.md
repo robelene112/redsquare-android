@@ -16,7 +16,9 @@ The isolated emulator harness clears only the synthetic `.dev` application
 before any feature fixtures run. No production app data is reset. Original
 supported Android night mode is restored; unsupported modes fail before mutation.
 
-Test/harness source `192976f8`. Local test-APK compilation pending at recording.
+Test/harness source `192976f8`. Local Gradle reports BUILD SUCCESSFUL in 1m40s for test APK; Docker wrapper
+exited143 after that output. No owned build container remains; do not claim
+a clean wrapper exit.
 Actual RED dispatched on Android 10: Actions `38491630186`, expected source
 `192976f8e115c1102e952954736785b6448a9a59`. No production appearance implementation
 exists yet. Do not treat source compilation as runtime evidence.
@@ -41,3 +43,14 @@ then compact navigation, feed and Chat presentation. Verify changed native UI on
 Android 10 and 17, review original captures and separate specification/standards
 reports, run final full acceptance, and publish a signed in-place beta review
 with explicit unfinished-feature notes. No store submission is part of #37.
+
+Actual Android10 RED completed: one failure/12.9s at initial System-dark
+observation line61. Original failure PNG still renders light; root inspected
+it and parsed its XML. Fresh synthetic reset reports Success; instrumentation
+exit0 still contains FAILURES, and the harness correctly rejects it. Later
+override/recreation/continuity assertions were unexecuted. Raw source/run/exit,
+PNG/XML and checksums retained under appearance-red/android10.
+
+Minimum production appearance source3a2ed238 adds System/Light/Dark and an
+independent device preference, IO save/load, truthful save error and window
+insets/bar contrast. Compilation, bounded reviews and native GREEN pending.
