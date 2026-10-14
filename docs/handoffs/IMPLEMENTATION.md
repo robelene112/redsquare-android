@@ -44,8 +44,11 @@ Implement sequentially after37 closure; no new broadgrill. Allblockersalreadyclo
 Read#26/#1, current nativeprivateChat, pinnedprimarywebgroupconstructors/receivers,
 and protected untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md. This research
 file predates theactivework and mustnotbestaged/deleted/edited indiscriminately.
-Rootread-only follow-onnotes .scratch/group26-follow-on-notes.md are preparation,
-not implementation/proof. No26source/testchanges begun yet. Preserveunsignedweb
+Rootfollow-onnotes .scratch/group26-follow-on-notes.md are preparation.
+#26 nowclaimed; reviewbasebbdd121c. Independent public pinnedwebcreation corpus
+verified viaWASM/Elliptic, native creation firsttracerstub/coretest added. CreationtracerRED1UnsupportedOperationException thenGREEN1PASS; builds1m4/1m3.
+No ownedGradle remains. Next: verified creation recipient/admin authorization. No membership/UI/recovery implementation yet.
+Chronology: docs/research/NATIVE_GROUP_CHAT_VERIFICATION.md. Preserveunsignedweb
 invites with honest authority/privacy provenance, existingmembership rules and
 recovery. Do not treatparticipantprocessedhistory asoriginalsignedmessageproof,
 or grantadmin authorityfromnon-admin targeted snapshots. No productionwrites.

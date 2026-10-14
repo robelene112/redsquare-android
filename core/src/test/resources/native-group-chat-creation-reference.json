@@ -1,0 +1,37 @@
+{
+  "reference": {
+    "saitoCommit": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+    "saitoWasmVersion": "0.3.2",
+    "ellipticVersion": "6.6.1",
+    "wasmSha256": "f59be69dbb949368ce1fc7ef47d414cbe0281a86a206fe4bfb1128a4d087e01e"
+  },
+  "purpose": "Pure pinned web constructor and WASM/Elliptic signature vector; no app initialization or live writes. Public unsafe identities only.",
+  "vectors": [
+    {
+      "pin": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+      "sourceSha256": "35e372b7d9da0ddfd6286a93059c00a3e34eb494b62350db88a9380c4814b1af",
+      "name": "Native group 😀 <&>",
+      "groupId": "tENBoQttzyKaCW6d61tQjceaVA3GsZ2WrBLngrYHcXEx",
+      "admin": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+      "invitees": [
+        "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU"
+      ],
+      "timestamp": 1700000123456,
+      "envelope": "{\"t\":\"AAAAAQAAAAIAAAAAAAAAAITudAVik2lcBlAG9d36C536IYgM8DXj+ggpWox8dKu2bcWz8IvRwA8JJN0rp0krKMSUsx9qNUfhIgn/skTCPXsAAAGLz+dKQAAAAAEAAnm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACeb5mfvncu6xVoGKVzocLBwKb/NstzijZWfKBWxb4F5gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALGBH+UQe19bTBFQG6VwHzYXHeOS4zvPKerrAm5XHCe5QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA\",\"m\":\"eyJtb2R1bGUiOiJDaGF0IiwicmVxdWVzdCI6ImNoYXQgZ3JvdXAiLCJuYW1lIjoiTmF0aXZlIGdyb3VwIPCfmIAgPCY+IiwiYWRtaW4iOiJqZXNUdTJCcHN6UDhES1NvaTFSNUc2Z2dqSHJzclZuYm9MZHg2VjQ3dmtvUiIsImlkIjoidEVOQm9RdHR6eUthQ1c2ZDYxdFFqY2VhVkEzR3NaMldyQkxuZ3JZSGNYRXgifQ==\",\"opt\":\"e30=\"}",
+      "signature": "84ee74056293695c065006f5ddfa0b9dfa21880cf035e3fa08295a8c7c74abb66dc5b3f08bd1c00f0924dd2ba7492b28c494b31f6a3547e12209ffb244c23d7b"
+    },
+    {
+      "pin": "214504ecece76d1cd20a245fe4468eccbfca2951",
+      "sourceSha256": "28a8609343e75dec7982498c0bafd7aa99be0a499156f43c5a543435426209eb",
+      "name": "Native group 😀 <&>",
+      "groupId": "tENBoQttzyKaCW6d61tQjceaVA3GsZ2WrBLngrYHcXEx",
+      "admin": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+      "invitees": [
+        "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU"
+      ],
+      "timestamp": 1700000123456,
+      "envelope": "{\"t\":\"AAAAAQAAAAIAAAAAAAAAAITudAVik2lcBlAG9d36C536IYgM8DXj+ggpWox8dKu2bcWz8IvRwA8JJN0rp0krKMSUsx9qNUfhIgn/skTCPXsAAAGLz+dKQAAAAAEAAnm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACeb5mfvncu6xVoGKVzocLBwKb/NstzijZWfKBWxb4F5gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALGBH+UQe19bTBFQG6VwHzYXHeOS4zvPKerrAm5XHCe5QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA\",\"m\":\"eyJtb2R1bGUiOiJDaGF0IiwicmVxdWVzdCI6ImNoYXQgZ3JvdXAiLCJuYW1lIjoiTmF0aXZlIGdyb3VwIPCfmIAgPCY+IiwiYWRtaW4iOiJqZXNUdTJCcHN6UDhES1NvaTFSNUc2Z2dqSHJzclZuYm9MZHg2VjQ3dmtvUiIsImlkIjoidEVOQm9RdHR6eUthQ1c2ZDYxdFFqY2VhVkEzR3NaMldyQkxuZ3JZSGNYRXgifQ==\",\"opt\":\"e30=\"}",
+      "signature": "84ee74056293695c065006f5ddfa0b9dfa21880cf035e3fa08295a8c7c74abb66dc5b3f08bd1c00f0924dd2ba7492b28c494b31f6a3547e12209ffb244c23d7b"
+    }
+  ]
+}
