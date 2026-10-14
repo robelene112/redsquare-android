@@ -52,7 +52,13 @@ object GroupChat {
                     group=NamedChatGroup(group.id,group.name,java.util.Collections.unmodifiableMap(
                         group.memberRoles+(message.author to ChatGroupRole.MEMBER)),group.creationEnvelope,group.confirmedInvitation,group.controls)
                 }
-            } else group=applyControl(group,envelope)
+            } else {
+                // A fetched join has no causal predecessor proof. It cannot undo a
+                // retained departure; deliberate joins are replayed in the strict log.
+                require(index<availableFrom || signed.body.requiredString("request")!="chat join" ||
+                    group.memberRoles[signed.author]!=ChatGroupRole.LEFT)
+                group=applyControl(group,envelope)
+            }
             retained.add(envelope)
             seen.add(signed.id)
             }catch(failure:Exception){
