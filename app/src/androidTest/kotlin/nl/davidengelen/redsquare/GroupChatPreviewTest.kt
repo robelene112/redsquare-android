@@ -227,8 +227,7 @@ class GroupChatPreviewTest {
                                 val incoming=live.applicationRequest(1).let{it.copyOfRange(5,it.size)}
                                 peer.sendIncoming(incoming)
                                 ui.waitUntil(15_000){peer.incomingAcknowledgements.any{it[0]==13.toByte()}}
-                                ui.onNodeWithContentDescription("Group messages").performScrollToNode(hasText("Live group message"))
-                                ui.onNodeWithText("Live group message").assertIsDisplayed()
+                                waitForGroupMessage("Live group message")
                                 val before=peer.incomingAcknowledgements.count{it[0]==13.toByte()}
                                 peer.sendIncoming(incoming)
                                 ui.waitUntil(15_000){peer.incomingAcknowledgements.count{it[0]==13.toByte()}>before}
@@ -244,8 +243,7 @@ class GroupChatPreviewTest {
                             if(messaging){
                                 ui.onNodeWithText(invitation.name).assertIsDisplayed().performClick()
                                 for(text in listOf(requireNotNull(messageReference).get("text").asString,"Native group hello","Live group message")){
-                                    ui.onNodeWithContentDescription("Group messages").performScrollToNode(hasText(text))
-                                    ui.onNodeWithText(text).assertIsDisplayed()
+                                    waitForGroupMessage(text)
                                 }
                                 ui.onAllNodesWithText("Live group message").assertCountEquals(1)
                                 val cached=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,store.loadExisting(),SaitoBackend.OWNER).load(invitation.id))
@@ -443,6 +441,16 @@ class GroupChatPreviewTest {
         finally{cleanupAfterTest(primary,{synchronized(SaitoLocalState.lock){
             context.noBackupFilesDir.listFiles()!!.filter{it.name==filename||it.name=="$filename.bak"||it.name=="$filename.new"}.forEach{check(it.delete())}
         }})}
+    }
+
+    private fun waitForGroupMessage(text:String) {
+        ui.waitUntil(15_000){
+            runCatching {
+                ui.onNodeWithContentDescription("Group messages").performScrollToNode(hasText(text))
+                ui.onNodeWithText(text).assertIsDisplayed()
+            }.isSuccess
+        }
+        ui.onNodeWithText(text).assertIsDisplayed()
     }
 
     private fun waitFor(text: String) = ui.waitUntil(15_000) { ui.onAllNodesWithText(text).fetchSemanticsNodes().isNotEmpty() }
