@@ -190,6 +190,36 @@ class GroupAdminPreviewTest {
             fixture.peer.assertHealthy()
         }
 
+    @Test fun aPromotionCannotSubmitAfterItsAdministratorLosesAuthority() = assertPromotionAfterRevocation(false)
+
+    @Test fun aPromotionCannotRelayOrRetryAfterItsAdministratorLosesAuthority() = assertPromotionAfterRevocation(true)
+
+    private fun assertPromotionAfterRevocation(afterRaw:Boolean) =
+        withPreparedPromotion(if(afterRaw)"b" else "a","Authority changed","Keep this authority draft") { fixture ->
+            val body=SaitoEnvelope.decode(fixture.candidate.envelope()).body.deepCopy().apply {
+                getAsJsonObject("member_ids").addProperty(fixture.wallet.publicKey,1)
+            }
+            val revocation=SaitoTransaction.create(fixture.member,body,1700000123458,listOf(fixture.key.publicKey))
+            if(!afterRaw)fixture.store.receive(revocation.envelope())
+            org.junit.Assert.assertThrows(IllegalStateException::class.java){
+                fixture.attempt{if(afterRaw)fixture.store.receive(revocation.envelope())}
+            }
+            if(afterRaw)ui.waitUntil(15_000){fixture.peer.transactions.size==1}
+            check(fixture.peer.transactions.size==if(afterRaw)1 else 0)
+            if(afterRaw)check(postingTransaction(fixture.peer.transactions.single()).envelope()==fixture.candidate.envelope())
+            check(fixture.peer.relayedMessages.isEmpty())
+            val saved=requireNotNull(fixture.store.load(fixture.key.publicKey))
+            check(saved.group.memberRoles[fixture.wallet.publicKey]==ChatGroupRole.MEMBER)
+            check(saved.candidate!!.envelope()==fixture.candidate.envelope()&&saved.draft=="Keep this authority draft")
+            check(saved.status==if(afterRaw)GroupChatStore.Status.SUBMITTED else GroupChatStore.Status.UNKNOWN)
+            check(saved.creationKey!!.exportJson()==fixture.key.exportJson())
+            fixture.store.prepareRetry(fixture.key.publicKey,fixture.candidate.id)
+            org.junit.Assert.assertThrows(IllegalStateException::class.java){fixture.attempt()}
+            check(fixture.peer.transactions.size==if(afterRaw)1 else 0)
+            check(fixture.peer.relayedMessages.isEmpty())
+            fixture.assertOwnerUnchanged();fixture.peer.assertHealthy()
+        }
+
     private class PromotionDelivery(val wallets:AndroidWalletStore,val backendStore:AndroidBackendStore,val backend:SaitoBackend,
         val wallet:SaitoWallet,val member:SaitoWallet,val key:SaitoWallet,val store:GroupChatStore,
         val candidate:SaitoTransaction,val peer:ControlledFeedPeer,private val endpoint:String) {

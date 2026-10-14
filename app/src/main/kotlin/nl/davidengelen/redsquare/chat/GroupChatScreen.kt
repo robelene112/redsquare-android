@@ -452,46 +452,46 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                 }
             }
         }}},confirmButton={TextButton(onClick={members=false}){Text(stringResource(R.string.group_done))}})
-    if(promoting!=null && entry!=null) AlertDialog(onDismissRequest={if(!busy)promoting=null},
-        title={Text(stringResource(R.string.group_promote_title))},
-        text={Column(verticalArrangement=Arrangement.spacedBy(8.dp)){
-            Text(registeredIdentity(requireNotNull(promoting)).name)
-            Text(requireNotNull(promoting),style=MaterialTheme.typography.bodySmall)
-            Text(stringResource(R.string.group_promote_notice))
-        }},
-        dismissButton={TextButton(enabled=!busy,onClick={promoting=null}){Text(stringResource(R.string.group_cancel))}},
-        confirmButton={TextButton(enabled=loaded&&!busy&&!readFailed&&!entry.hasPendingAction,onClick={
-            val member=requireNotNull(promoting)
-            act {
-                val candidate=withContext(Dispatchers.IO){GroupChat.promote(wallet,entry.group,member,System.currentTimeMillis())}
-                withContext(NonCancellable){publish{store.preparePromotion(candidate,member);store.entries()}}
-                promoting=null
-                sendPrepared(entry.group.id,candidate,wallet)
-            }
-        }){Text(stringResource(R.string.group_promote_confirm))}})
-    if(removing!=null && entry!=null) AlertDialog(onDismissRequest={if(!busy)removing=null},
-        title={Text(stringResource(R.string.group_remove_title))},
-        text={Column(verticalArrangement=Arrangement.spacedBy(8.dp)){
-            Text(registeredIdentity(requireNotNull(removing)).name)
-            Text(requireNotNull(removing),style=MaterialTheme.typography.bodySmall)
-            Text(stringResource(R.string.group_remove_notice))
-        }},
-        dismissButton={TextButton(enabled=!busy,onClick={removing=null}){Text(stringResource(R.string.group_cancel))}},
-        confirmButton={TextButton(enabled=loaded&&!busy&&!readFailed&&!entry.hasPendingAction,onClick={
-            val member=requireNotNull(removing)
-            act {
-                val candidate=withContext(Dispatchers.IO){GroupChat.removeMember(wallet,entry.group,member,System.currentTimeMillis())}
-                withContext(NonCancellable){publish{store.prepareRemoval(candidate,member);store.entries()}}
-                removing=null
-                sendPrepared(entry.group.id,candidate,wallet)
-            }
-        }){Text(stringResource(R.string.group_remove_confirm))}})
+    if(promoting!=null && entry!=null) MemberManagementDialog(requireNotNull(promoting),
+        R.string.group_promote_title,R.string.group_promote_notice,R.string.group_promote_confirm,
+        busy,loaded&&!busy&&!readFailed&&!entry.hasPendingAction,onDismiss={promoting=null}) {
+        val member=requireNotNull(promoting)
+        act {
+            val candidate=withContext(Dispatchers.IO){GroupChat.promote(wallet,entry.group,member,System.currentTimeMillis())}
+            withContext(NonCancellable){publish{store.preparePromotion(candidate,member);store.entries()}}
+            promoting=null
+            sendPrepared(entry.group.id,candidate,wallet)
+        }
+    }
+    if(removing!=null && entry!=null) MemberManagementDialog(requireNotNull(removing),
+        R.string.group_remove_title,R.string.group_remove_notice,R.string.group_remove_confirm,
+        busy,loaded&&!busy&&!readFailed&&!entry.hasPendingAction,onDismiss={removing=null}) {
+        val member=requireNotNull(removing)
+        act {
+            val candidate=withContext(Dispatchers.IO){GroupChat.removeMember(wallet,entry.group,member,System.currentTimeMillis())}
+            withContext(NonCancellable){publish{store.prepareRemoval(candidate,member);store.entries()}}
+            removing=null
+            sendPrepared(entry.group.id,candidate,wallet)
+        }
+    }
     if(inviting && entry!=null && entry.group.memberRoles[wallet.publicKey]?.active==true && entry.group.memberRoles.values.any{it==ChatGroupRole.ADMIN}) {
         val invitation = remember(entry.group,backend) { GroupInvitation.fromGroup(entry.group,wallet.publicKey).link(backend) }
         AlertDialog(onDismissRequest={inviting=false},title={Text(stringResource(R.string.group_invitation_link))},
             text={SelectionContainer{Text(invitation,Modifier.semantics{contentDescription="Group invitation link"},style=MaterialTheme.typography.bodySmall)}},
             confirmButton={TextButton(onClick={inviting=false}){Text(stringResource(R.string.group_done))}})
     }
+}
+
+@Composable
+private fun MemberManagementDialog(member:String,title:Int,notice:Int,confirm:Int,busy:Boolean,enabled:Boolean,
+    onDismiss:()->Unit,onConfirm:()->Unit) {
+    AlertDialog(onDismissRequest={if(!busy)onDismiss()},title={Text(stringResource(title))},
+        text={Column(verticalArrangement=Arrangement.spacedBy(8.dp)){
+            Text(registeredIdentity(member).name)
+            Text(member,style=MaterialTheme.typography.bodySmall)
+            Text(stringResource(notice))
+        }},dismissButton={TextButton(enabled=!busy,onClick=onDismiss){Text(stringResource(R.string.group_cancel))}},
+        confirmButton={TextButton(enabled=enabled,onClick=onConfirm){Text(stringResource(confirm))}})
 }
 
 @Composable

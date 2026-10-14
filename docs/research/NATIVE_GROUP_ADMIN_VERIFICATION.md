@@ -134,3 +134,11 @@ member departure over the actual peer while the popup is open, requires disabled
 confirmation with plain guidance, retained creation/draft/key and zero outgoing
 frames. Product correction intentionally absent pending native RED. Compile32452
 PASS1m31s. No stale-popup or whole-ticket acceptance claimed.
+
+Removal native10run38650006951 at a95dfbb4 SUCCESS:four cases. Exact removal
+raw/Relay original including target, visible removed role, draft/key/wallet/backend
+continuity and reopen/no duplicates pass; refactored controller cases also pass.
+Retained native-remove-green-android10. Shared confirmation rendering correction
+and two actual controller authority-revocation cases compile25044PASS3m19s.
+The new authority cases cover beforeRaw and afterRaw/beforeRelay plus immutable
+Retry refusal; no new RED claim for existing admin gates. Native runtime pending.
