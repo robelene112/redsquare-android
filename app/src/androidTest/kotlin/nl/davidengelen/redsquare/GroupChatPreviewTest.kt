@@ -498,7 +498,11 @@ class GroupChatPreviewTest {
     }
 
 
-    @Test fun aLiveAddressedGroupAppearsWithoutSendingAndItsMessagesAndDraftSurviveReopening() {
+    @Test fun aLiveAddressedGroupAppearsWithoutSendingAndItsMessagesAndDraftSurviveReopening() = exerciseIncomingGroupUi()
+
+    @Test fun incomingGroupStorageFailureStaysVisibleThroughReconnectAndRecoversWithoutSending() = exerciseIncomingGroupUi(storageFault=true)
+
+    private fun exerciseIncomingGroupUi(storageFault:Boolean=false) {
         val context=InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName=="nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu","goldfish"))
@@ -519,7 +523,17 @@ class GroupChatPreviewTest {
             val prefs=context.getSharedPreferences(name,0)
             Triple(prefs,keyName,if(prefs.contains(keyName))prefs.getBoolean(keyName,false)else null)
         }
-        val peer=ControlledFeedPeer("[]",advertisedServices="archive||;relay||")
+        val peer=ControlledFeedPeer("[]",advertisedServices="archive||;relay||",archiveResponse={criteria->
+            if(criteria.has("field3")){
+                check(criteria.keySet()==setOf("request","field3","limit","created_earlier_than"))
+                check(criteria.get("field3").asString==group.id&&criteria.get("limit").asInt==50)
+                check(criteria.get("created_earlier_than").asLong>1700000123457)
+            }else{
+                check(criteria.get("field1").asString=="RedSquare")
+                check(criteria.get("field4").asString==""&&criteria.get("flagged_ne").asInt==1)
+            }
+            "[]"
+        })
         var primary:Throwable?=null
         try {
             walletStore.replace(original,fixture)
@@ -529,23 +543,54 @@ class GroupChatPreviewTest {
                 ActivityScenario.launch<MainActivity>(Intent(context,MainActivity::class.java)
                     .putExtra("feedPeerUrl","ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("feedOfficialPeerUrl","ws://127.0.0.1:${server.port}/wsopen")).use{scenario->
-                    withFailureCapture({captureNativeScreen(File(context.cacheDir,"group-chat-evidence/incoming-ui-failure.png"))}){
+                    withFailureCapture({captureNativeScreen(File(context.cacheDir,if(storageFault) "group-chat-evidence/incoming-storage-failure.png" else "group-chat-evidence/incoming-ui-failure.png"))}){
                         waitFor("Chat")
                         ui.waitUntil(15_000){ui.onAllNodes(hasText("Chat") and isEnabled()).fetchSemanticsNodes().size==1}
                         ui.onNodeWithText("Chat").assertIsDisplayed().assertIsEnabled().performClick()
                         waitFor("Groups");ui.onNodeWithText("Groups").assertIsDisplayed().performClick()
-                        waitFor("Create group");ui.onNodeWithText("Create group").assertIsDisplayed()
-                        fun deliver(transaction:SaitoTransaction){
-                            val before=peer.incomingAcknowledgements.count{it[0]==13.toByte()}
+                        waitFor("Create group")
+                        ui.waitUntil(15_000){ui.onAllNodes(hasText("Create group") and isEnabled()).fetchSemanticsNodes().size==1}
+                        ui.onNodeWithText("Create group").assertIsDisplayed().assertIsEnabled()
+                        fun deliver(transaction:SaitoTransaction,acknowledgement:Byte=13){
+                            val before=peer.incomingAcknowledgements.count{it[0]==acknowledgement}
                             val bytes=transaction.applicationRequest(1).let{it.copyOfRange(5,it.size)}
                             var lastDelivery=0L
                             ui.waitUntil(15_000){
                                 val now=android.os.SystemClock.elapsedRealtime()
                                 if(now-lastDelivery>=500){peer.sendIncoming(bytes);lastDelivery=now}
-                                peer.incomingAcknowledgements.count{it[0]==13.toByte()}>before
+                                peer.incomingAcknowledgements.count{it[0]==acknowledgement}>before
                             }
                         }
-                        deliver(creation)
+                        if(storageFault){
+                            val unfinished=File(context.noBackupFilesDir,"$filename.new")
+                            val bytes=byteArrayOf(1,2,3)
+                            synchronized(SaitoLocalState.lock){check(!unfinished.exists());unfinished.writeBytes(bytes)}
+                            val successful=peer.incomingAcknowledgements.count{it[0]==13.toByte()}
+                            deliver(creation,14)
+                            val error="Group information could not be read or saved, or the action could not be completed. Your existing records are kept."
+                            waitFor(error);ui.onNodeWithText(error).assertIsDisplayed()
+                            check(peer.incomingAcknowledgements.count{it[0]==13.toByte()}==successful)
+                            synchronized(SaitoLocalState.lock){
+                                check(unfinished.readBytes().contentEquals(bytes))
+                                check(!File(context.noBackupFilesDir,filename).exists()&&!File(context.noBackupFilesDir,"$filename.bak").exists())
+                            }
+                            check(peer.transactions.isEmpty()&&peer.relayedMessages.isEmpty())
+                            captureNativeScreen(File(context.cacheDir,"group-chat-evidence/incoming-storage-unavailable.png"),error)
+                            peer.disconnectAuthenticatedSockets()
+                            synchronized(SaitoLocalState.lock){check(unfinished.delete())}
+                            deliver(creation) // Requires the passive receiver to reconnect without Refresh.
+                            waitFor(group.name)
+                            ui.onNodeWithText(error).assertIsDisplayed()
+                            ui.onNodeWithText("Refresh").assertIsDisplayed().assertIsEnabled().performClick()
+                            ui.waitUntil(15_000){ui.onAllNodes(hasText(error)).fetchSemanticsNodes().isEmpty()}
+                            ui.onNodeWithText(error).assertDoesNotExist()
+                            val unknownKey=SaitoWallet.fromPrivateKey("0".repeat(63)+"8") // Public unsafe fixture only.
+                            val unknown=GroupChat.create(admin,unknownKey.publicKey,"Unknown group",listOf(fixture.publicKey),1700000123456)
+                            val unsupported=GroupChat.message(admin,GroupChat.readCreation(unknown.envelope()),"Unknown group traffic",1700000123457)
+                            deliver(unsupported,14)
+                            ui.onNodeWithText(error).assertDoesNotExist()
+                            captureNativeScreen(File(context.cacheDir,"group-chat-evidence/incoming-storage-recovered.png"),group.name)
+                        }else deliver(creation)
                         waitFor(group.name)
                         ui.onNodeWithText(group.name).assertIsDisplayed().performClick()
                         waitFor("Received a signed group invitation.")
@@ -553,6 +598,7 @@ class GroupChatPreviewTest {
                         ui.onNodeWithText("Retry").assertDoesNotExist()
                         check(peer.transactions.isEmpty()&&peer.relayedMessages.isEmpty())
                         deliver(message);waitForGroupMessage("Live incoming group history")
+                        if(storageFault)ui.onNodeWithText("Group information could not be read or saved, or the action could not be completed. Your existing records are kept.").assertDoesNotExist()
                         ui.onNodeWithText("Message").assertIsEnabled().performTextInput("Keep incoming group draft")
                         androidx.test.espresso.Espresso.closeSoftKeyboard()
                         ui.waitUntil(15_000){runCatching{ui.onNodeWithText("Back").assertIsDisplayed()}.isSuccess}
@@ -567,7 +613,7 @@ class GroupChatPreviewTest {
                         check(saved.candidate==null && saved.messages.single().id==message.id && saved.draft=="Keep incoming group draft")
                         check(walletStore.loadExisting().publicKey==fixture.publicKey&&AndroidBackendStore(context).load()==SaitoBackend.OWNER)
                         check(peer.transactions.isEmpty()&&peer.relayedMessages.isEmpty())
-                        captureNativeScreen(File(context.cacheDir,"group-chat-evidence/incoming-ui-reopened.png"),"Keep incoming group draft")
+                        captureNativeScreen(File(context.cacheDir,if(storageFault) "group-chat-evidence/incoming-storage-reopened.png" else "group-chat-evidence/incoming-ui-reopened.png"),"Keep incoming group draft")
                         peer.assertHealthy()
                     }
                 }

@@ -50,6 +50,11 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
         authenticatedSockets.forEach { it.send(frame) }
     }
 
+    /** Interrupt only this isolated server's authenticated sockets. */
+    fun disconnectAuthenticatedSockets() {
+        authenticatedSockets.toList().forEach{it.close(1001,"Controlled reception interruption")}
+    }
+
     fun start(port: Int = 0): MockWebServer {
         val server = MockWebServer()
         server.dispatcher = object : mockwebserver3.Dispatcher() {
