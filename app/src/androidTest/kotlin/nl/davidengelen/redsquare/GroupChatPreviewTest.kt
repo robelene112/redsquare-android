@@ -13,13 +13,17 @@ import java.io.File
 class GroupChatPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
 
-    @Test fun aNamedGroupCanBeCreatedWithAnInvitationAndReadAfterReopening() {
+    @Test fun aNamedGroupCanBeCreatedWithAnInvitationAndReadAfterReopening() = exerciseGroupUi()
+
+    @Test fun anExistingMemberInvitationCanBeConfirmedOnTheSelectedBackendAndReadAfterReopening() = exerciseGroupUi(joining=true)
+
+    private fun exerciseGroupUi(joining:Boolean=false) {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
         val store = AndroidWalletStore(context)
         val original = store.loadOrCreate()
-        val fixture = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe test wallet. Never fund.
+        val fixture = SaitoWallet.fromPrivateKey("0".repeat(63) + if(joining) "4" else "1") // Public unsafe test wallet. Never fund.
         val member = SaitoWallet.fromPrivateKey("0".repeat(63) + "2").publicKey
         val backend = AndroidBackendStore(context).load()
         val prefix = "groupchat.${SaitoBackend.OWNER.id}.${fixture.publicKey}."
@@ -41,13 +45,53 @@ class GroupChatPreviewTest {
                 ActivityScenario.launch<MainActivity>(Intent(context,MainActivity::class.java)
                     .putExtra("feedPeerUrl","ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("feedOfficialPeerUrl","ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
-                    withFailureCapture({ captureNativeScreen(File(context.cacheDir,"group-chat-evidence/create-failure.png")) }) {
+                    withFailureCapture({ captureNativeScreen(File(context.cacheDir,if(joining) "group-chat-evidence/join-failure.png" else "group-chat-evidence/create-failure.png")) }) {
                         waitFor("Chat")
                         ui.waitUntil(15_000) { ui.onAllNodes(hasText("Chat") and isEnabled()).fetchSemanticsNodes().size == 1 }
                         ui.onNodeWithText("Chat").assertIsDisplayed().performClick()
                         waitFor("Groups")
                         ui.onNodeWithText("Groups").assertIsDisplayed().performClick()
                         waitFor("Group messages are unencrypted.")
+                        if(joining) {
+                            val references=InstrumentationRegistry.getInstrumentation().context.assets
+                                .open("native-group-chat-creation-reference.json").bufferedReader().use {
+                                    com.google.gson.JsonParser.parseReader(it).asJsonObject
+                                }
+                            val reference=references.getAsJsonArray("invitations")[3].asJsonObject
+                            val invitation=GroupInvitation.parse(reference.get("link").asString)
+                            check(reference.get("link").asString.contains('+'))
+                            ui.onNodeWithText("Join group").assertIsDisplayed().performClick()
+                            ui.onNodeWithText("Invitation link").performTextInput(reference.get("link").asString)
+                            ui.onNodeWithText("Preview").assertIsEnabled().performClick()
+                            waitFor(invitation.name)
+                            waitFor(invitation.admin)
+                            waitFor("Invitation details are provided by the sender.")
+                            check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
+                            check(AndroidBackendStore(context).load()==SaitoBackend.OWNER)
+                            ui.onNodeWithText("Join").assertIsEnabled().performClick()
+                            waitFor("Forwarded. Delivery is not confirmed.")
+                            ui.waitUntil(15_000){peer.transactions.size==1 && peer.relayedMessages.size==1}
+                            val envelope=SaitoEnvelope.fromSignedJson(peer.relayedMessages.single())
+                            check(postingTransaction(peer.transactions.single()).envelope()==envelope)
+                            val signed=SaitoEnvelope.decode(envelope)
+                            check(signed.author==fixture.publicKey && signed.body.get("request").asString=="chat join")
+                            check(signed.body.get("group_id").asString==invitation.id && signed.body.get("invited_by").asString==invitation.sender)
+                            check(signed.recipients.first()==invitation.id && signed.recipients.containsAll(listOf(fixture.publicKey,invitation.admin,invitation.sender)))
+                            val group=GroupChat.confirmInvitation(invitation,envelope)
+                            check(group.creationEnvelope==null && group.memberRoles[fixture.publicKey]==ChatGroupRole.MEMBER)
+                            check(!group.memberRoles.containsKey(invitation.sender))
+                            waitFor("Joined using invitation details.")
+                            captureNativeScreen(File(context.cacheDir,"group-chat-evidence/joined.png"),invitation.name)
+                            scenario.recreate()
+                            waitFor("Groups")
+                            ui.onNodeWithText("Groups").performClick()
+                            waitFor(invitation.name)
+                            captureNativeScreen(File(context.cacheDir,"group-chat-evidence/joined-reopened.png"),invitation.name)
+                            check(peer.transactions.size==1 && peer.relayedMessages.size==1)
+                            check(store.loadExisting().publicKey==fixture.publicKey && AndroidBackendStore(context).load()==SaitoBackend.OWNER)
+                            peer.assertHealthy()
+                            return@withFailureCapture
+                        }
                         ui.onNodeWithText("Create group").assertIsDisplayed().performClick()
                         ui.onNodeWithText("Group name").performTextInput("Beta crew")
                         ui.onNodeWithText("Invitees (optional)").performTextInput(member)

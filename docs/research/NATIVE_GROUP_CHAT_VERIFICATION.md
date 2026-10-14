@@ -268,3 +268,12 @@ its public ID against signed group ID; comparisons have static diagnostics. UI
 passes generated key during durable preparation. Legacy creation-only records
 remain readable with absent optional key. Compile and native GREEN pending.
 No actual PID-death/app retry or complete26 acceptance claimed.
+
+Key checkpoint GREENboth ata6a9a772:10run38518366079 3PASS7.377s,
+17run38518363805 3PASS37.851s. Covers exact private key/candidate preservation
+before wallet metadata, not actualPIDdeath or app-level retry. Next native
+invitation-confirmation tracer uses a real pinned member link with raw '+' and
+Unicode; requires no transmissions before confirmation, retained selected backend,
+compatible signed join, explicit invitation origin and reopening without extra send.
+Shared fixture keeps original creation assertions intact. TestAPK compile1m41s;
+Join UI is deliberately absent before actual RED.
