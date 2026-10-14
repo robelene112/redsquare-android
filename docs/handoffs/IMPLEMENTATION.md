@@ -825,3 +825,9 @@ stay in later tickets. #26 is stillopen; no groupUI/build published.
 GREEN1PASS57s, fresh join rejected. No ownedGradle. Next reconstructsavedcreation+
 originalcontrols, authoritynegativecases and reviews before native persistence/UI.
 Source control modelstillbounded observed history, not globalcurrentmembership.
+
+26 current: restore-originalsRED1→GREEN1(54s/54s), verifiesretainedLEFTafterduplicate
+join and rejectsnon-admin removal. NoownedGradle. Controls/leave/restore source
+reviewpending. Next explicitconfirmedinvite trust origin (no fakesignedcreation),
+plaintextgroupmessages, targetedadminsnapshot authority and encryptedgroupapp/UI.
+Do not claim full26 or actualprocess recovery fromcore reconstruction alone.

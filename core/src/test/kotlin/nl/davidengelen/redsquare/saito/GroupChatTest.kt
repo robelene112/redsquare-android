@@ -140,4 +140,29 @@ class GroupChatTest {
             GroupChat.applyControl(afterSelfLeave, GroupChat.join(member, invite, 1700000123459).envelope())
         }
     }
+
+    @Test fun savedOriginalsReconstructMembershipAndRejectUnauthorizedControlClaims() {
+        fun envelope(file: String) = requireNotNull(javaClass.getResourceAsStream(file)).bufferedReader().use {
+            JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject.get("envelope").asString
+        }
+        val creation = envelope("/native-group-chat-creation-reference.json")
+        val join = envelope("/native-group-chat-join-reference.json")
+        val leave = envelope("/native-group-chat-leave-reference.json")
+        val restored = GroupChat.restore(creation, listOf(join, leave, join))
+        val member = SaitoEnvelope.decode(join).author
+        assertEquals(ChatGroupRole.LEFT, restored.memberRoles[member])
+        assertEquals(listOf(join, leave), restored.controls)
+        assertEquals(creation, restored.creationEnvelope)
+        val attacker = SaitoWallet.fromPrivateKey("0".repeat(63) + "2") // Public unsafe member fixture only.
+        val creator = SaitoEnvelope.decode(creation).author
+        val forged = com.google.gson.JsonObject().apply {
+            addProperty("module", "Chat"); addProperty("request", "chat remove")
+            addProperty("group_id", restored.id); addProperty("member_id", creator)
+        }
+        val badControl = SaitoTransaction.create(attacker, forged, 1700000123460, listOf(restored.id)).envelope()
+        org.junit.Assert.assertThrows(IllegalArgumentException::class.java) {
+            GroupChat.restore(creation, listOf(join, leave, badControl))
+        }
+        assertEquals(ChatGroupRole.ADMIN, restored.memberRoles[creator])
+    }
 }

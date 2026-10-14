@@ -10,6 +10,10 @@ class NamedChatGroup internal constructor(val id: String, val name: String,
 
 /** Compatible unencrypted named-group controls; participants sign with their own wallet. */
 object GroupChat {
+    /** Revalidate retained originals in their observed order; arrival order is not global consensus order. */
+    fun restore(creationEnvelope: String, controls: List<String>): NamedChatGroup =
+        controls.fold(readCreation(creationEnvelope)) { group, original -> applyControl(group, original) }
+
     fun applyControl(group: NamedChatGroup, envelope: String): NamedChatGroup {
         val signed = SaitoEnvelope.decode(envelope)
         val body = signed.body

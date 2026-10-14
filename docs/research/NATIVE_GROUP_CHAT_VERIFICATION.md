@@ -159,3 +159,9 @@ RED1, build33s. Preserve existing removal markers through self-leave, including
 when delayed. GREEN1PASS, build57s; the subsequent fresh signed join is rejected.
 This intentionally closes the inspected web receiver's self-removal loophole
 without changing its wire schema. It is not proof of global control ordering.
+
+Saved-original reconstruction tracer: RED1 stub/build54s, then GREEN1PASS/build54s.
+Duplicate join after leave stays LEFT; recorded originals are retained once, and
+an ordinary member's removal of the creator fails. Reconstruction validates every
+original through the same public receiving rules. No stored role map is trusted.
+The order is retained observation order, not authenticated global causal order.
