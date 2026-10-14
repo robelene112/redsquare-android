@@ -507,7 +507,10 @@ class GroupChatPreviewTest {
         for(backend in SaitoBackend.entries)exerciseIncomingGroupUi(personalPolicy=true,activeBackend=backend)
     }
 
-    private fun exerciseIncomingGroupUi(storageFault:Boolean=false,personalPolicy:Boolean=false,activeBackend:SaitoBackend=SaitoBackend.OWNER) {
+    @Test fun explicitNamedGroupLikesToggleDistinctOriginalsAndSurviveDuplicatesAndReopening() =
+        exerciseIncomingGroupUi(reacting=true)
+
+    private fun exerciseIncomingGroupUi(storageFault:Boolean=false,personalPolicy:Boolean=false,reacting:Boolean=false,activeBackend:SaitoBackend=SaitoBackend.OWNER) {
         val context=InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName=="nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu","goldfish"))
@@ -544,6 +547,7 @@ class GroupChatPreviewTest {
             context.noBackupFilesDir.listFiles()!!.filter{it.name.startsWith(personalPrefix)}.associate{it.name to it.readBytes()}
         }else emptyMap()
         val controls=nl.davidengelen.redsquare.moderation.AndroidPersonalControls(context,fixture.publicKey)
+        val reactionOriginals=mutableListOf<String>()
         var primary:Throwable?=null
         try {
             if(personalPolicy)controls.save(controls.load(),PersonalPolicy(blocked=setOf(admin.publicKey)))
@@ -554,7 +558,7 @@ class GroupChatPreviewTest {
                 ActivityScenario.launch<MainActivity>(Intent(context,MainActivity::class.java)
                     .putExtra("feedPeerUrl","ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("feedOfficialPeerUrl","ws://127.0.0.1:${server.port}/wsopen")).use{scenario->
-                    withFailureCapture({captureNativeScreen(File(context.cacheDir,if(personalPolicy) "group-chat-evidence/personal-${activeBackend.id}-failure.png" else if(storageFault) "group-chat-evidence/incoming-storage-failure.png" else "group-chat-evidence/incoming-ui-failure.png"))}){
+                    withFailureCapture({captureNativeScreen(File(context.cacheDir,if(reacting) "group-chat-evidence/reaction-failure.png" else if(personalPolicy) "group-chat-evidence/personal-${activeBackend.id}-failure.png" else if(storageFault) "group-chat-evidence/incoming-storage-failure.png" else "group-chat-evidence/incoming-ui-failure.png"))}){
                         waitFor("Chat")
                         ui.waitUntil(15_000){ui.onAllNodes(hasText("Chat") and isEnabled()).fetchSemanticsNodes().size==1}
                         ui.onNodeWithText("Chat").assertIsDisplayed().assertIsEnabled().performClick()
@@ -634,6 +638,41 @@ class GroupChatPreviewTest {
                         }
                         waitForGroupMessage("Live incoming group history")
                         if(storageFault)ui.onNodeWithText("Group information could not be read or saved, or the action could not be completed. Your existing records are kept.").assertDoesNotExist()
+                        if(reacting){
+                            fun saved()=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,walletStore.loadExisting(),activeBackend).load(group.id))
+                            val target=GroupChat.readMessage(group,message.envelope())
+                            waitFor("Like")
+                            ui.waitUntil(15_000){ui.onAllNodes(hasText("Like") and isEnabled()).fetchSemanticsNodes().size==1}
+                            ui.onNodeWithText("Like").assertIsDisplayed().performClick()
+                            waitFor("1 like")
+                            ui.waitUntil(15_000){ui.onAllNodes(hasText("Unlike") and isEnabled()).fetchSemanticsNodes().size==1}
+                            waitFor("Forwarded. Delivery is not confirmed.")
+                            val first=requireNotNull(saved().candidate)
+                            reactionOriginals.add(first.envelope())
+                            check(GroupChat.replay(saved().group,saved().originals).likedBy(target)==setOf(fixture.publicKey))
+                            ui.waitUntil(15_000){peer.transactions.size==1&&peer.relayedMessages.size==1}
+                            deliver(first) // An echoed original must not toggle its own like a second time.
+                            ui.onNodeWithText("1 like").assertIsDisplayed()
+                            captureNativeScreen(File(context.cacheDir,"group-chat-evidence/reaction-liked.png"),"1 like")
+                            ui.onNodeWithText("Unlike").assertIsEnabled().performClick()
+                            ui.waitUntil(15_000){ui.onAllNodes(hasText("Like") and isEnabled()).fetchSemanticsNodes().size==1}
+                            ui.onNodeWithText("1 like").assertDoesNotExist()
+                            val second=requireNotNull(saved().candidate)
+                            check(first.id!=second.id)
+                            reactionOriginals.add(second.envelope())
+                            check(GroupChat.replay(saved().group,saved().originals).likedBy(target).isEmpty())
+                            ui.waitUntil(15_000){peer.transactions.size==2&&peer.relayedMessages.size==2}
+                            for((index,originalLike) in reactionOriginals.withIndex()){
+                                val signed=SaitoEnvelope.decode(originalLike)
+                                check(signed.author==fixture.publicKey&&signed.body.get("request").asString=="chat like")
+                                check(signed.body.get("sender").asString==fixture.publicKey&&signed.body.get("group_id").asString==group.id)
+                                check(signed.body.get("signature").asString==message.id&&signed.body.get("mentioned").asString==admin.publicKey)
+                                check(signed.recipients==listOf(fixture.publicKey,admin.publicKey,group.id))
+                                check(GroupChat.originalEnvelope(peer.transactions[index].let{it.copyOfRange(1,it.size)})==originalLike)
+                                check(SaitoEnvelope.fromSignedJson(peer.relayedMessages[index])==originalLike)
+                                check(peer.relayRecipients[index]==listOf(admin.publicKey))
+                            }
+                        }
                         ui.onNodeWithText("Message").assertIsEnabled().performTextInput("Keep incoming group draft")
                         androidx.test.espresso.Espresso.closeSoftKeyboard()
                         ui.waitUntil(15_000){runCatching{ui.onNodeWithText("Back").assertIsDisplayed()}.isSuccess}
@@ -645,10 +684,20 @@ class GroupChatPreviewTest {
                         assertRestoredGroupDraft("Keep incoming group draft")
                         val saved=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,walletStore.loadExisting(),activeBackend).load(group.id))
                         check(saved.group.creationEnvelope?.let{SaitoEnvelope.decode(it).id}==creation.id)
-                        check(saved.candidate==null && saved.messages.single().id==message.id && saved.draft=="Keep incoming group draft")
+                        check(saved.messages.single().id==message.id && saved.draft=="Keep incoming group draft")
+                        if(reacting){
+                            check(saved.status==nl.davidengelen.redsquare.chat.GroupChatStore.Status.FORWARDED)
+                            check(saved.candidate?.envelope()==reactionOriginals.last())
+                            val replay=GroupChat.replay(saved.group,saved.originals)
+                            check(replay.reactions.map{it.envelope}==reactionOriginals)
+                            check(replay.likedBy(saved.messages.single()).isEmpty())
+                            ui.onNodeWithText("Like").assertIsEnabled()
+                            ui.onNodeWithText("1 like").assertDoesNotExist()
+                        }else check(saved.candidate==null)
                         check(walletStore.loadExisting().publicKey==fixture.publicKey&&AndroidBackendStore(context).load()==activeBackend)
-                        check(peer.transactions.isEmpty()&&peer.relayedMessages.isEmpty())
-                        captureNativeScreen(File(context.cacheDir,if(personalPolicy) "group-chat-evidence/personal-${activeBackend.id}-muted-reopened.png" else if(storageFault) "group-chat-evidence/incoming-storage-reopened.png" else "group-chat-evidence/incoming-ui-reopened.png"),"Keep incoming group draft")
+                        val outgoing=if(reacting)2 else 0
+                        check(peer.transactions.size==outgoing&&peer.relayedMessages.size==outgoing)
+                        captureNativeScreen(File(context.cacheDir,if(reacting) "group-chat-evidence/reaction-unliked-reopened.png" else if(personalPolicy) "group-chat-evidence/personal-${activeBackend.id}-muted-reopened.png" else if(storageFault) "group-chat-evidence/incoming-storage-reopened.png" else "group-chat-evidence/incoming-ui-reopened.png"),"Keep incoming group draft")
                         peer.assertHealthy()
                     }
                 }
