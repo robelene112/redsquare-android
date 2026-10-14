@@ -149,13 +149,14 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         catch(_:Exception){/* Failure state was published under the same lock. */}
     }
     // Keep compatible watch metadata in the protected backup. Its names never supply authority.
-    val watchMetadata=entries.map{it.group.id to it.group.name}
+    val receivedEntries=entries.filter{it.candidate==null&&it.status==GroupChatStore.Status.RECEIVED}
+    val watchMetadata=receivedEntries.map{it.group.id to it.group.name}
     LaunchedEffect(store,watchMetadata,loaded,busy) {
-        if(!loaded||busy||savingForNavigation||entries.isEmpty())return@LaunchedEffect
+        if(!loaded||busy||savingForNavigation||receivedEntries.isEmpty())return@LaunchedEffect
         savingForNavigation=true
         try {
             val updated=withContext(Dispatchers.IO){
-                entries.fold(wallet){saved,row->saved.withNamedChatGroup(row.group.id,row.group.name)}
+                receivedEntries.fold(wallet){saved,row->saved.withNamedChatGroup(row.group.id,row.group.name)}
             }
             if(updated.exportJson()!=wallet.exportJson() && persistDraft())onWalletMetadata(wallet,updated)
         }catch(cancelled:CancellationException){throw cancelled}

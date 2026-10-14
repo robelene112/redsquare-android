@@ -220,6 +220,7 @@ class GroupChatPreviewTest {
                             val link=java.util.Base64.getEncoder().encodeToString(claims.toString().toByteArray(Charsets.UTF_8))
                             ui.waitUntil(15_000){ui.onAllNodes(hasText("Join group") and isEnabled()).fetchSemanticsNodes().size==1}
                             ui.onNodeWithText("Join group").assertIsDisplayed().assertIsEnabled().performClick()
+                            ui.waitUntil(15_000){ui.onAllNodes(hasText("Invitation link") and hasSetTextAction() and isEnabled()).fetchSemanticsNodes().size==1}
                             ui.onNodeWithText("Invitation link").performTextInput(link)
                             ui.onNodeWithText("Preview").assertIsEnabled().performClick()
                             val previewName=hasText(known.name) and hasAnyAncestor(isDialog())
