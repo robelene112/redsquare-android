@@ -949,3 +949,22 @@ Previous message scripts applied/obsolete. Protectedgroupcontractuntracked
 untouched. Publicbeta14 unchanged. Archive-fault/pagination/importdiscovery/
 blockedaccount/actualPID/wholefullgates remain26; UIafter26 ownerpriority.
 Continueuntilallissuesdone, no partialfinalstopping.
+
+2026-10-14 11:16UTC active26 supersedingdraftstate: actualfirstdraft17
+38553804247/002 ten9PASS72.248s fails242 Back offscreen fromkeyboardpan.
+OriginaluniquePNG/XMLseen, retained6a51 asfixture navigation failure BEFORE
+persistence checks, no draftREDproved. Correction6a51e6829bf8fb289345f470ee9dfbecc3ee522e
+closeskeyboard +boundedBackvisible; reviews0/0/testAPK1m44 COMPLETE0 session4506,
+noownedGradle. CorrectedRED17run38554810986 ACTIVE, sourceproof38554810639.
+Do notredispatchbeforeoutcome. `.scratch/apply-group26-draft-minimum.py` STILL
+NOTAPPLIED; dryrun preview only `.scratch/group26-draft-preview` is old initial
+script snapshot (do notcopy). ScriptrefinedsavingForNavigation tofreezeediting
+onlywhileexplicitleave, notduringbackgroundautosave. Actualcurrentapp stillNO
+draft persistence. AfteractualREDinspectthenapplycanonicalpreparedscript,
+compile/reviews/nativeGREEN. Detailed remaining26 checklist local
+.scratch/group26-remaining-acceptance.txt (nottracker): archivefault/pagination,
+incomingaddressedsignedcreation/importhints/blocked/actualPID/fullgates.
+SourceChat-B receiveCreateGroupTransaction1050ff confirmsaddressed signedcreation
+isordinaryincominggroupdiscovery, notonlylinkjoin. Sourceopsunchanged.
+OwnerUIafter26 includes reviewing keyboard/header viewport. Preview14unchanged,
+protecteduntrackedgroupcontractuntouched. Continueallissues, no partialfinal.

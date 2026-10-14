@@ -420,3 +420,13 @@ require exact EditableText in a visible enabled Message field. Corrected reviews
 0/0 and testAPK compile PASS1m51s. Actual ten-case RED17run38553804247 at002
 pending. Draft minimum is prepared but not applied. No actual PID recovery,
 pagination/import discovery/archive-fault or complete26 acceptance claimed.
+
+First native draft attempt38553804247 at002: ten cases/nine PASS72.248s,
+sole failure242 Back not displayed after typing. Root unique draft-failure
+PNG/XML show keyboard and panned composer, with Back outside the viewport.
+This fails before recovery and is not a persistence RED. Retained draft-red
+README explicitly qualifies the unexecuted reopening/recreation tail.
+Correction6a51 closes the keyboard and positively waits for visible Back before
+unchanged navigation/editable/no-send assertions. Both reviews0; testAPKcompile
+PASS1m44s. Corrected actualRED17run38554810986 at6a51e6829bf8fb289345f470ee9dfbecc3ee522e
+pending. Draft minimum remains unapplied; product source equals message GREEN.
