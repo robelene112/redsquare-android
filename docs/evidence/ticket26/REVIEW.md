@@ -49,3 +49,7 @@ generators. Extracted their shared source verification/VM/wallet/signing setup t
 control-reference.cjs. Both public corpora regenerated offline with byte-for-byte
 comparisons passing. Native source and acceptance assertions are unchanged.
 This bounded refactor is being independently reviewed, not full #26 acceptance.
+
+Correction review66d9df30...05dc3be1: Standards0, previous duplication heuristic
+resolved; Spec0. All seven manifest hashes agree. Both preserve fixture-specific
+wire proof limits and distinguish unfinished Android/live/whole-ticket acceptance.
