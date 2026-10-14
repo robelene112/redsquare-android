@@ -2,13 +2,53 @@ package nl.davidengelen.redsquare.saito
 
 import com.google.gson.JsonObject
 
-enum class ChatGroupRole { ADMIN, MEMBER }
+enum class ChatGroupRole { ADMIN, MEMBER, LEFT, REMOVED }
 
 class NamedChatGroup internal constructor(val id: String, val name: String,
-    val memberRoles: Map<String, ChatGroupRole>, val creationEnvelope: String)
+    val memberRoles: Map<String, ChatGroupRole>, val creationEnvelope: String,
+    val controls: List<String> = emptyList())
 
 /** Compatible unencrypted named-group controls; participants sign with their own wallet. */
 object GroupChat {
+    fun applyControl(group: NamedChatGroup, envelope: String): NamedChatGroup {
+        val signed = SaitoEnvelope.decode(envelope)
+        val body = signed.body
+        require(body.requiredString("module") == "Chat" && body.requiredString("group_id") == group.id)
+        require(group.id in signed.recipients && signed.recipients.all(SaitoWallet::isPublicKey))
+        if (group.controls.any { SaitoEnvelope.decode(it).id == signed.id }) return group
+        val members = group.memberRoles.toMutableMap()
+        when (body.requiredString("request")) {
+            "chat join" -> {
+                require(SaitoWallet.isPublicKey(body.requiredString("invited_by")))
+                require(members[signed.author] != ChatGroupRole.REMOVED)
+                if (members[signed.author] != ChatGroupRole.ADMIN) members[signed.author] = ChatGroupRole.MEMBER
+            }
+            "chat remove" -> {
+                val member = body.requiredString("member_id")
+                require(SaitoWallet.isPublicKey(member))
+                require(signed.author == member || members[signed.author] == ChatGroupRole.ADMIN)
+                // A self-leave cannot undo an administrator's removal, including when delayed.
+                if (members[member] != ChatGroupRole.REMOVED) {
+                    members[member] = if (signed.author == member) ChatGroupRole.LEFT else ChatGroupRole.REMOVED
+                }
+            }
+            else -> throw IllegalArgumentException("Unsupported group control")
+        }
+        return NamedChatGroup(group.id, group.name, java.util.Collections.unmodifiableMap(members),
+            group.creationEnvelope, java.util.Collections.unmodifiableList(group.controls + envelope))
+    }
+
+    fun leave(wallet: SaitoWallet, groupId: String, timestamp: Long): SaitoTransaction {
+        require(SaitoWallet.isPublicKey(groupId) && groupId != wallet.publicKey)
+        val body = JsonObject().apply {
+            addProperty("module", "Chat")
+            addProperty("request", "chat remove")
+            addProperty("group_id", groupId)
+            addProperty("member_id", wallet.publicKey)
+        }
+        return SaitoTransaction.createTo(wallet, body, timestamp, groupId)
+    }
+
     /** Construction follows an explicit joining choice; unsigned claims are not membership proof. */
     fun join(wallet: SaitoWallet, invitation: GroupInvitation, timestamp: Long): SaitoTransaction {
         require(wallet.publicKey != invitation.id)

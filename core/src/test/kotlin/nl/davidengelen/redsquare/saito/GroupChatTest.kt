@@ -79,4 +79,65 @@ class GroupChatTest {
             assertEquals(expected.get("groupId").asString, signed.recipients.first())
         }
     }
+
+    @Test fun leavingSignsOnlyTheCurrentMemberWithCompatibleGroupRecipients() {
+        val fixture = requireNotNull(javaClass.getResourceAsStream("/native-group-chat-leave-reference.json"))
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
+        val member = SaitoWallet.fromPrivateKey("0".repeat(63) + "4") // Public unsafe fixture only.
+        fixture.getAsJsonArray("vectors").forEach { value ->
+            val expected = value.asJsonObject
+            val tx = GroupChat.leave(member, expected.get("groupId").asString, expected.get("timestamp").asLong)
+            assertEquals(expected.get("envelope").asString, tx.envelope())
+            assertEquals(expected.get("signature").asString, tx.id)
+            val signed = SaitoEnvelope.decode(tx.envelope())
+            assertEquals(member.publicKey, signed.body.get("member_id").asString)
+            assertEquals(expected.get("groupId").asString, signed.recipients.first())
+        }
+    }
+
+    @Test fun joiningAndSelfLeavingRetainOriginalControlsWithoutReplayRejoining() {
+        fun vector(file: String) = requireNotNull(javaClass.getResourceAsStream(file)).bufferedReader().use {
+            JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject
+        }
+        val creation = vector("/native-group-chat-creation-reference.json")
+        val join = vector("/native-group-chat-join-reference.json")
+        val leave = vector("/native-group-chat-leave-reference.json")
+        val original = GroupChat.readCreation(creation.get("envelope").asString)
+        val member = join.get("author").asString
+        val joined = GroupChat.applyControl(original, join.get("envelope").asString)
+        assertEquals(ChatGroupRole.MEMBER, joined.memberRoles[member])
+        val left = GroupChat.applyControl(joined, leave.get("envelope").asString)
+        assertEquals(ChatGroupRole.LEFT, left.memberRoles[member])
+        val replayed = GroupChat.applyControl(left, join.get("envelope").asString)
+        assertEquals(ChatGroupRole.LEFT, replayed.memberRoles[member])
+        assertEquals(listOf(join.get("envelope").asString, leave.get("envelope").asString), replayed.controls)
+        assertEquals(original.creationEnvelope, replayed.creationEnvelope)
+    }
+
+    @Test fun aRemovedMemberCannotClearTheBanWithASelfLeaveAndNewJoin() {
+        val creation = requireNotNull(javaClass.getResourceAsStream("/native-group-chat-creation-reference.json"))
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject }
+        val join = requireNotNull(javaClass.getResourceAsStream("/native-group-chat-join-reference.json"))
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject }
+        val admin = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe fixtures only.
+        val member = SaitoWallet.fromPrivateKey("0".repeat(63) + "4")
+        val initial = GroupChat.readCreation(creation.get("envelope").asString)
+        val joined = GroupChat.applyControl(initial, join.get("envelope").asString)
+        val remove = com.google.gson.JsonObject().apply {
+            addProperty("module", "Chat"); addProperty("request", "chat remove")
+            addProperty("group_id", initial.id); addProperty("member_id", member.publicKey)
+        }
+        val banned = GroupChat.applyControl(joined, SaitoTransaction.create(admin, remove, 1700000123457, listOf(initial.id)).envelope())
+        assertEquals(ChatGroupRole.REMOVED, banned.memberRoles[member.publicKey])
+        val afterSelfLeave = GroupChat.applyControl(banned, GroupChat.leave(member, initial.id, 1700000123458).envelope())
+        assertEquals(ChatGroupRole.REMOVED, afterSelfLeave.memberRoles[member.publicKey])
+        val payload = com.google.gson.JsonObject().apply {
+            addProperty("id", initial.id); addProperty("name", initial.name)
+            addProperty("sender", admin.publicKey); addProperty("admin", admin.publicKey)
+        }
+        val invite = GroupInvitation.parse(java.util.Base64.getEncoder().encodeToString(payload.toString().toByteArray(Charsets.UTF_8)))
+        org.junit.Assert.assertThrows(IllegalArgumentException::class.java) {
+            GroupChat.applyControl(afterSelfLeave, GroupChat.join(member, invite, 1700000123459).envelope())
+        }
+    }
 }

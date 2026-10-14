@@ -805,3 +805,23 @@ RED1 UnsupportedOperationException/build57s, then GREEN1PASS/build1m. createTo
 has defaulted additionalRecipients; empty defaults preserve existing callers.
 No ownedGradle currently. Broadercore93PASS/0failure/error/skip,17s; noownedGradle. Next signedmembership/leave/
 message controls and durable nativeUI. No group app/final acceptance yet.
+
+Latest26: leaveRED1→GREEN1 (53s/54s); controlsequenceRED1→GREEN1 (54s/1m).
+DraftapplyControl nowverifiedjoins/removes, immutablemaps/controloriginals and
+signaturededup; LEFT/REMOVED rolesadded. No globalchronology/currentnetworkclaims.
+Ban-bypass tracer owned64021 running .scratch/group26-ban-red.log. Do notedit
+app/core/tests whileGradleactive. Next inspectRED thenkeepREMOVEDthroughselfleave;
+reviewleave/controls together afterGREEN. Original untrackedgroupcontract protected.
+
+Follow-on app design remains implementation work, not acceptance: retain trusted
+origin (signedcreation vs explicitlyconfirmedunsignedinvite), owner/backend-bound
+encrypted originalcontrols/history, and durable work without autosigning/resending.
+Non-admin snapshots must not grantroles. Display available/partial history honestly.
+Unsigned link origin must not selectbackend. Grouptext and controls should keep
+privateChat untouched and inherit published14 styling. Media/offlinequeue/push
+stay in later tickets. #26 is stillopen; no groupUI/build published.
+
+26 latest: banRED1 confirmed REMOVED→LEFT via self-leave; correctedstickyREMOVED,
+GREEN1PASS57s, fresh join rejected. No ownedGradle. Next reconstructsavedcreation+
+originalcontrols, authoritynegativecases and reviews before native persistence/UI.
+Source control modelstillbounded observed history, not globalcurrentmembership.

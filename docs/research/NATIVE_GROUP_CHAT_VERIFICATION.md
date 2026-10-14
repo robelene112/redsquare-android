@@ -135,3 +135,27 @@ After the defaulted createTo recipient extension, full core regression93PASS,
 zero failures/errors/skips, build17s. Previous wallet/serialization/feature vectors
 remain valid. Results are in ticket26/core-regression. This is core verification,
 not Android group interaction or full feature acceptance.
+
+## Self-leave and retained controls
+
+The actual self-removal constructor matches both pinned source versions. Its
+zero-payment group-first wallet adapter is documented as for join. Native tracer
+RED1 UnsupportedOperationException/build53s, then GREEN1PASS/build54s. Factory
+always removes the signing wallet, with no admin-removal UI introduced.
+
+A control-reader tracer uses original independent creation/join/leave vectors.
+RED1 stub/build54s, then GREEN1PASS/build1m: join adds membership, self-leave marks
+LEFT, replaying the old join remains LEFT, and original controls/creation are
+retained. This proves retained observed sequence and deduplication, not global
+chronology, current network membership or a complete authority history.
+
+Next ban tracer is running: an admin removal must remain REMOVED after a member
+self-leave, and a new join must be rejected. The current draft receiver mirrors
+web self-removal too literally and may allow removal to become LEFT. This is an
+unverified concern until the actual negative test result is inspected.
+
+Ban tracer confirmed the draft receiver changed REMOVED to LEFT after self-leave:
+RED1, build33s. Preserve existing removal markers through self-leave, including
+when delayed. GREEN1PASS, build57s; the subsequent fresh signed join is rejected.
+This intentionally closes the inspected web receiver's self-removal loophole
+without changing its wire schema. It is not proof of global control ordering.
