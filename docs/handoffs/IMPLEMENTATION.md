@@ -7,6 +7,12 @@ one question at a time when a material choice really needs the owner.
 
 ## Current work
 
+**Owner pause boundary, 2026-10-14:** finish active issue #26, including acceptance,
+review, commit/push and review build, then STOP before UI polish or another ticket.
+Owner is migrating VPS storage and will explicitly signal when to resume. This
+supersedes the earlier instruction to continue until all issues are complete.
+No pause was requested before completing #26.
+
 Updated 2026-10-14. #25 is complete and closed. Twenty-one of the original35
 implementation tickets are closed (#2–#15, #18, #20–#25).
 

@@ -361,13 +361,15 @@ class GroupChatPreviewTest {
                                         check(!File(record.path+".bak").exists())
                                         record.writeBytes(byteArrayOf(1))
                                     }}
+                                    var faultFailure:Throwable?=null
                                     try {
                                         ui.onNodeWithText(invitation.name).assertIsDisplayed().performClick()
                                         waitFor("Group information could not be read or saved, or the action could not be completed. Your existing records are kept.")
                                         ui.onNodeWithText("Message").assertIsDisplayed().assertIsNotEnabled()
                                         check(peer.transactions.size==2 && peer.relayedMessages.size==2)
                                         captureNativeScreen(File(context.cacheDir,"group-chat-evidence/draft-unreadable.png"),"Group information could not be read or saved, or the action could not be completed. Your existing records are kept.")
-                                    }finally{synchronized(SaitoLocalState.lock){record.writeBytes(retainedEncrypted)}}
+                                    }catch(failure:Throwable){faultFailure=failure;throw failure}
+                                    finally{cleanupAfterTest(faultFailure,{synchronized(SaitoLocalState.lock){record.writeBytes(retainedEncrypted)}})}
                                     ui.waitUntil(15_000){ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().size==1}
                                     ui.onNodeWithText("Refresh").assertIsDisplayed().assertIsEnabled().performClick()
                                     assertRestoredGroupDraft()
