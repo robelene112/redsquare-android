@@ -583,7 +583,10 @@ class GroupChatPreviewTest {
     @Test fun importedGroupIdsRecoverAvailableSignedOriginsWithoutTrustingNamesOrGrantingUnavailableMembership() =
         exerciseIncomingGroupUi(importing=true)
 
-    private fun exerciseIncomingGroupUi(storageFault:Boolean=false,personalPolicy:Boolean=false,reacting:Boolean=false,importing:Boolean=false,activeBackend:SaitoBackend=SaitoBackend.OWNER) {
+    @Test fun unreadableImportedGroupHintsKeepWalletAndAuthenticatedCachedGroupsUsable() =
+        exerciseIncomingGroupUi(brokenHints=true)
+
+    private fun exerciseIncomingGroupUi(storageFault:Boolean=false,personalPolicy:Boolean=false,reacting:Boolean=false,importing:Boolean=false,brokenHints:Boolean=false,activeBackend:SaitoBackend=SaitoBackend.OWNER) {
         val context=InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName=="nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu","goldfish"))
@@ -593,8 +596,15 @@ class GroupChatPreviewTest {
         val key=SaitoWallet.fromPrivateKey("0".repeat(63)+"9") // Public unsafe fixtures only.
         val unavailable=SaitoWallet.fromPrivateKey("0".repeat(63)+"8")
         val base=SaitoWallet.fromPrivateKey("0".repeat(63)+"4")
-        val fixture=if(importing)base.withNamedChatGroup(key.publicKey,"Untrusted saved name",key)
-            .withNamedChatGroup(unavailable.publicKey,"Another untrusted name")else base
+        val fixture=when {
+            importing -> base.withNamedChatGroup(key.publicKey,"Untrusted saved name",key)
+                .withNamedChatGroup(unavailable.publicKey,"Another untrusted name")
+            brokenHints -> SaitoWallet.fromBackup(com.google.gson.JsonParser.parseString(
+                base.withNamedChatGroup(key.publicKey,"Incoming beta group",key).exportJson()).asJsonObject.apply{
+                    getAsJsonObject("chat").getAsJsonArray("groups").add(com.google.gson.JsonNull.INSTANCE)
+                }.toString())
+            else -> base
+        }
         val admin=SaitoWallet.fromPrivateKey("0".repeat(63)+"1")
         val creation=GroupChat.create(if(importing)fixture else admin,key.publicKey,"Incoming beta group",
             if(importing)listOf(admin.publicKey)else listOf(fixture.publicKey),1700000123456)
@@ -646,11 +656,12 @@ class GroupChatPreviewTest {
             walletStore.replace(original,fixture)
             AndroidBackendStore(context).save(activeBackend)
             preferences.forEach{(prefs,keyName,_)->check(prefs.edit().putBoolean(keyName,true).commit())}
+            if(brokenHints)nl.davidengelen.redsquare.chat.GroupChatStore(context,fixture,activeBackend).receive(creation.envelope())
             peer.start().use{server->
                 ActivityScenario.launch<MainActivity>(Intent(context,MainActivity::class.java)
                     .putExtra("feedPeerUrl","ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("feedOfficialPeerUrl","ws://127.0.0.1:${server.port}/wsopen")).use{scenario->
-                    withFailureCapture({captureNativeScreen(File(context.cacheDir,if(importing) "group-chat-evidence/imported-failure.png" else if(reacting) "group-chat-evidence/reaction-failure.png" else if(personalPolicy) "group-chat-evidence/personal-${activeBackend.id}-failure.png" else if(storageFault) "group-chat-evidence/incoming-storage-failure.png" else "group-chat-evidence/incoming-ui-failure.png"))}){
+                    withFailureCapture({captureNativeScreen(File(context.cacheDir,if(brokenHints) "group-chat-evidence/hints-failure.png" else if(importing) "group-chat-evidence/imported-failure.png" else if(reacting) "group-chat-evidence/reaction-failure.png" else if(personalPolicy) "group-chat-evidence/personal-${activeBackend.id}-failure.png" else if(storageFault) "group-chat-evidence/incoming-storage-failure.png" else "group-chat-evidence/incoming-ui-failure.png"))}){
                         waitFor("Chat")
                         ui.waitUntil(15_000){ui.onAllNodes(hasText("Chat") and isEnabled()).fetchSemanticsNodes().size==1}
                         ui.onNodeWithText("Chat").assertIsDisplayed().assertIsEnabled().performClick()
@@ -706,8 +717,14 @@ class GroupChatPreviewTest {
                             deliver(unsupported,14)
                             ui.onNodeWithText(error).assertDoesNotExist()
                             captureNativeScreen(File(context.cacheDir,"group-chat-evidence/incoming-storage-recovered.png"),group.name)
-                        }else if(!importing)deliver(creation)
+                        }else if(!importing&&!brokenHints)deliver(creation)
                         waitFor(group.name)
+                        if(brokenHints){
+                            val notice="Some saved group information could not be read. Your wallet and cached groups are kept."
+                            waitFor(notice);ui.onNodeWithText(notice).assertIsDisplayed()
+                            check(walletStore.loadExisting().exportJson()==fixture.exportJson())
+                            captureNativeScreen(File(context.cacheDir,"group-chat-evidence/hints-unreadable.png"),notice)
+                        }
                         if(importing){
                             check(discoveryReads.get()>0)
                             waitFor(unavailable.publicKey)
@@ -807,6 +824,7 @@ class GroupChatPreviewTest {
                             val expected=fixture.withNamedChatGroup(key.publicKey,"Incoming beta group")
                             check(updated.exportJson()==expected.exportJson()) // Original group key/options stay protected and intact.
                         }
+                        if(brokenHints)check(walletStore.loadExisting().exportJson()==fixture.exportJson())
                         check(walletStore.loadExisting().publicKey==fixture.publicKey&&AndroidBackendStore(context).load()==activeBackend)
                         val outgoing=if(reacting)2 else 0
                         check(peer.transactions.size==outgoing&&peer.relayedMessages.size==outgoing)
