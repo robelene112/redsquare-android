@@ -13,33 +13,34 @@ migration pause recorded below. Commit/push each ticket and keep signed reviews
 available. Do not pause after the next ticket or ask routine approvals.
 
 Twenty-two of the original35 tickets are complete (#2 through#15,#18,#20 through#26).
-Current issue39 is the bounded group Chat visual polish explicitly requested after
-#26 in docs/PROJECT_CONTEXT.md. Review base8528893a9e659e0556581d08f547246d01b7d09b.
-New group message bubbles/identity rows share existing private Chat presentation;
-privacy/status, quote/copy/reaction actions and all protocol/persistence behavior
-stay intact. First local compile6924 failed due to a wrapper-closing brace during
-extraction; corrected compile46724 PASS2m57, .scratch/group-polish39-build-corrected.log.
-Source95e089699c6192abaea0d9dbacb7dbf4af04e69e pushed; both source reviews0.
-Full10run38633250917 at95e FAILED group22 21PASS1/116.296 at735 guidance
-display after prior displaywaitpassed; rootcaptureCheckingstate, transitionhypothesis
-only. Full17run38633255144 at95e SUCCESS, public_feed_read=true,303PASS/67records/20deathstages,core110/release/lint. Retainedfinal-full/android17,655hashes233XML. Test-only7b49825e
-waits automatic protected public watch identifier, Activityrecreate/reentry andsame
-strict15s guidance checks. Both correctionreviews0. Corrected full10run38635529637 SUCCESS atdfa360534ce992216f911f0120cfaf0fa7618e9e, bothpublicfeeds,302reported301PASS+oneexistingAPI30assumption/66records20deathstages/core110/release/lint.
-Productsourceequal95e/16; full17old95e passed. Bothfinalruntimespassed; final10evidencereview/publicationpending.
-Signing8792PASS3m9, signed16/0.1.16 PREPAREDNOTPUBLISHED, source95e,
+Issue39 group Chat visual polish COMPLETE, signed16/0.1.16 published at
+https://davidengelen.nl/redsquare/. Source95e089699c6192abaea0d9dbacb7dbf4af04e69e,
+reviewbase8528893a; shared bubbles/avatars/names/timestamps/wrapping actions,
+full public member keys, existing privacy/protocol/drafts/recovery intact.
+Final17run38633255144 SUCCESS95e:303PASS/67records20actualdeaths/core110/release/lint.
+Final10run38635529637 SUCCESSdfa36053:302reported301PASS+oneexistingAPI30profile
+assumption/66records20deaths/core110/release/lint; bothpublicfeeds each. Production
+identical. Original failed10 visibility and test-only protectedmetadata/recreate
+correction retained/qualified; no weakened assertion/budget or inferredcause.
+Finalevidence1305hashes464XML, separate source/correction/finalreviews0/0.
+Public page/manifest/APK, exactdownloadhash/signature/package16/min29 verified;
 APKsha0b34d6e6537ebc130c841cb884a7a9253c0b2a181ed6dc37cb4511e500721163,
-certsame15/appID/min29verified. No ownedlocalbuildactive. New large CI downloads use the verified
-user-owned /mnt/storage/redsquare-android-artifacts directory. Use existing group/private
-native seams and full10/17 for acceptance; no implementation-mirroring visual tests.
-Only protected preexisting untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md
-stays untouched. Issue39 tracker https://github.com/robelene112/redsquare-android/issues/39.
+cert6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2.
+Signed15immutable preserved. recordsdocs/evidence/ticket39, no ownedlocalbuildactive.
 
-After39 resume27 and remaining original16/17/19/28 through36 sequentially from
-native dependency state. #38 is a normal-priority branding follow-up, with final
-product name not chosen and explicitly not a release blocker. Current signed15
-remains live until the next verified review publication. Physical Pixel evidence
-and Play account/submission prerequisites remain real acceptance requirements,
-not waived by autonomous implementation authorization.
+Next sequential issue27 admin promotion/removal.26 prerequisiteclosed; owner
+resume stays active, continue remaining issues without stopping after39. Root
+read-only prep compared pinned A/B menu methods: exactsame30ec0c4ed9c7f9ac1010acbea497eae832317a91c9528107815bd9bc2ac2c00c.
+Active ordinary members only can be promoted/removed by admin; actual constructors
+sendUpdateGroupTransaction(group,targetnull) and sendRemoveMemberTransaction.
+Filesignored.scratch/group27-menu-A.js/B.js/template-A.js. No27implementationyet.
+Then28 through36 and parked16/17/19 from native dependencies.16 requires Android-
+authorized Giphy credentials/URLretention;17 publicprovider playbackrefused despite
+controlledplayerGREEN;19 Registryavailabilityunproved. Research concrete newevidence,
+never close from controlledfixtures alone.38 branding productname unresolved and
+explicitlynotreleaseblocker. PhysicalPixel35 and Play36 prerequisites remain actual
+requirements. Only protected preexisting untracked NATIVE_GROUP_CHAT_CONTRACT.md
+untouched. Large CIdownloads verifiedowner folder/mnt/storage/redsquare-android-artifacts.
 
 Storage migration observed Docker data now bind-mounted from /mnt/storage/docker;
 repo/.scratch remains on the system disk,63GiB free versus158GiB onadditional disk.
@@ -84,7 +85,7 @@ commit e8a815ef37b7fe3372b70d2e3e889e50ae590568 pushed to main.
 The owner subsequently resumed; the ACTIVE instruction above is current.
 Protected untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md remains untouched.
 
-**Current phone build is signed15/0.1.15**, https://davidengelen.nl/redsquare/.
+**Historical phone build was signed15/0.1.15, superseded by16 above**, https://davidengelen.nl/redsquare/.
 Manifest source7d695abf9e00df57106ab2b167d63b05b66c9a25, production/build config
 identical to final full10c5193954631f26541c3421d51db23c49bdecd3a9 and full17
 03aacb31848bd724d376df8f8fc7d6f03d1d89a6. APKsha

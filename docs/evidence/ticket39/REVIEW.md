@@ -49,3 +49,13 @@ were fixed in70f963d7 and separately confirmed by both axes.
 
 CorrectedAndroid10 nowSUCCESS; its final evidence review and signed16 publication remain pending. No physical Pixel7
 performance, permanent history or live group-write admission inferred.
+
+## Final combined review and publication
+
+70f963d7...faec4ea7 Standards0 and Spec0 remaining findings. Android10 hashes650,
+XML231,301PASS+oneexistingAPI30assumption/302reported66records20actual deaths;
+groupPID11759to12073 exact restoration. Existing Android17 review stays valid.
+Both reviewers inspected original group/cached/recovery captures and qualified
+source/evidence limits. Signed16 subsequentlypublished and public downloadedAPK
+verified exacthash/certificate/package/version/min29; immutable15 unchanged.
+Publication records signed-preview16-published. No remaining39deliverable.
