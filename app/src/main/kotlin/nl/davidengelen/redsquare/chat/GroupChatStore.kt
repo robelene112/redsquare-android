@@ -10,7 +10,7 @@ import nl.davidengelen.redsquare.saito.*
 /** Encrypted original group state. Opening never transmits a retained attempt. */
 internal class GroupChatStore(private val context: Context, private val wallet: SaitoWallet, private val backend: SaitoBackend) {
     enum class Status { UNKNOWN, SUBMITTED, FORWARDED }
-    data class Entry(val group: NamedChatGroup, val candidate: SaitoTransaction, val status: Status)
+    data class Entry(val group: NamedChatGroup, val candidate: SaitoTransaction, val status: Status, val creationKey: SaitoWallet? = null)
     private val prefix = "groupchat.${backend.id}.${wallet.publicKey}."
 
     private fun file(id: String): EncryptedLocalFile {
@@ -36,7 +36,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         Entry(group,candidate,Status.valueOf(record.get("status").asString))
     }
 
-    fun prepareCreation(candidate: SaitoTransaction): Entry = synchronized(SaitoLocalState.lock) {
+    fun prepareCreation(candidate: SaitoTransaction, creationKey: SaitoWallet? = null): Entry = synchronized(SaitoLocalState.lock) {
         assertSelected()
         val group = GroupChat.readCreation(candidate.envelope())
         require(SaitoEnvelope.decode(candidate.envelope()).author == wallet.publicKey)

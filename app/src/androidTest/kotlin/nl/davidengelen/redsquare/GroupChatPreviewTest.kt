@@ -136,5 +136,30 @@ class GroupChatPreviewTest {
         }})}
     }
 
+
+    @Test fun creationKeySurvivesReopeningBeforeWalletMetadataCanBePublished() {
+        val context=InstrumentationRegistry.getInstrumentation().targetContext
+        check(context.packageName=="nl.davidengelen.redsquare.dev")
+        check(android.os.Build.HARDWARE in listOf("ranchu","goldfish"))
+        val wallet=AndroidWalletStore(context).loadOrCreate()
+        val backend=AndroidBackendStore(context).load()
+        val groupKey=SaitoWallet.create()
+        val candidate=GroupChat.create(wallet,groupKey.publicKey,"Interrupted metadata",emptyList(),1700000123456)
+        val filename="groupchat.${backend.id}.${wallet.publicKey}.${groupKey.publicKey}.v1"
+        var primary:Throwable?=null
+        try {
+            nl.davidengelen.redsquare.chat.GroupChatStore(context,wallet,backend).prepareCreation(candidate,groupKey)
+            val recovered=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,wallet,backend).load(groupKey.publicKey))
+            check(recovered.creationKey?.publicKey==groupKey.publicKey)
+            check(recovered.creationKey?.exportJson()==groupKey.exportJson())
+            check(recovered.candidate.encoded()==candidate.encoded())
+            check(recovered.status==nl.davidengelen.redsquare.chat.GroupChatStore.Status.UNKNOWN)
+            check(AndroidWalletStore(context).loadExisting().exportJson()==wallet.exportJson())
+        } catch(failure:Throwable){primary=failure;throw failure}
+        finally{cleanupAfterTest(primary,{synchronized(SaitoLocalState.lock){
+            context.noBackupFilesDir.listFiles()!!.filter{it.name==filename||it.name=="$filename.bak"||it.name=="$filename.new"}.forEach{check(it.delete())}
+        }})}
+    }
+
     private fun waitFor(text: String) = ui.waitUntil(15_000) { ui.onAllNodesWithText(text).fetchSemanticsNodes().isNotEmpty() }
 }

@@ -252,3 +252,11 @@ Spec review strengthened the tracer to actually select the other backend before
 aggregation; forwarded/unfinished/corrupt negatives added before GREEN. Identity
 remains unchanged; only the fixture's random group files and selection are restored.
 Compile/native GREEN and actual import-warning UI integration remain pending.
+
+Corrected native work/create cases GREEN both at5409d7cd:10run38516631174
+2PASS10.066s,17run38516628720 2PASS23.856s. Root original reopened captures/XMLs
+inspected. Covers inactive backend warning detection and unfinished/corrupt work.
+Actual wallet-import warning UI remains separate verification, not asserted here.
+Creation-key pre-metadata recovery tracer now compiled2m55s; nullable key field
+currently unpopulated before actual RED. This is public protected-store reopening
+without wallet metadata publication, not an actual PID termination experiment.
