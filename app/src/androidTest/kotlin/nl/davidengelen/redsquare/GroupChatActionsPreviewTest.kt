@@ -116,6 +116,8 @@ class GroupChatActionsPreviewTest {
                         check(SaitoEnvelope.fromSignedJson(peer.relayedMessages.last())==ownCandidate.envelope())
                         check(peer.relayRecipients.last()==listOf(fixture.publicKey,admin.publicKey))
                         check(store.load(key.publicKey)!!.messages.map{it.text}==listOf("Original group message",prefix+body,ownPrefix+ownBody))
+                        ui.onNodeWithContentDescription("Group messages").performScrollToNode(hasText(ownBody))
+                        ui.onNodeWithText(ownBody).assertIsDisplayed()
                         captureNativeScreen(File(context.cacheDir,"group-chat-actions-evidence/self-reply-forwarded.png"),ownBody)
                         peer.assertHealthy()
                     }
