@@ -127,3 +127,34 @@ command. Unnecessary setup writes removed; no rendering/identity assertions or
 timeouts weakened. Current app explicitly disables automatic Force Dark so its
 real palette and explicit Light/Dark choices control rendering on Android10.
 Chat debug/testAPK compilation passed3m25s; whole-beta runtime still pending.
+
+Corrected baseline RED: Android10 run38494667516 at8dbb855a9ecfa32057840c11326827a1ec8f77ab
+uses the same corrected tracer as current9f, with pre-appearance production
+app sources. Root-mode command reports yes and applied Configuration32 before
+initial rendering fails/13.678s. Original light PNG inspected and XML parsed;
+restore reports no. Retained under appearance-valid-red/android10. Unlike earlier
+attempts this establishes the intended actual dark environment.
+
+Current appearance source9f2ff715c79faaaa29b25747a7ad008800885e64:
+Android10 run38494673941 PASS1/11.546s;17run38494677156 PASS1/36.954s. Each retains
+8 original PNG/XML pairs and system-controls, raw exit/summaries. Root parsed all
+16XMLs and inspected current10 Light/current17 explicitDark-under-AndroidLight,
+plus valid baseline original. These prove the recorded theme/selection/full-wallet/
+backend/no-publication flow. They do not prove current final4c Chat layouts or
+physical Pixel performance. Separate feed-appearance17run38494091375 also passed
+at4f691121; its Light original shows compact header/reminder/navigation/avatar
+presentation. All sources/limits remain explicit.
+
+Whole source review ca2ade6a...8f7ae687: Standards0, Spec0. Last visual refinements
+8f7...a533 keep existing server controls prominent, clarify selected-feed underline
+and fix English singular counts without changing Long values or status/callbacks.
+Spec0; Standards0 documented breaches, one possible duplicated-tab-shape heuristic.
+Correction a533...4c8f14ca consolidates two real callers in private RowScope.FeedTab:
+both axes0, duplication resolved. Local a533 debug/testAPK PASS3m3s.
+
+Final full10run38495652348 and17run38495655076 are dispatched at
+4c8f14ca34c2726881e074dab6de73cbce6f5e77, with separately enabled public feed
+reads. Both full gates and current Chat original-capture inspection are pending.
+Signed review build42136 is preparing the next reserved version; it is not
+published or accepted yet. Do not close37 until full verification, final evidence
+reviews and public in-place publication complete. Parent35 remains open.
