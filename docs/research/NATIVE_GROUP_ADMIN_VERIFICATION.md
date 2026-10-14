@@ -256,3 +256,14 @@ callers; afterSubmitted mutations remain scenario-local. Compile81685PASS1m43s.
 First12caseRED17run38654864195 activeatc58, immutablebeforefix. NativeUNKNOWNGREEN
 proofdiff fd...ef83 reviews0/0:50hashes15XML, PID7135to7421/7728to8020, selected
 originalnewwork/Retrycaptures andqualifiedfuturefailure/SUBMITTEDgap. No modalfixyet.
+
+First submitted-stop/errorRED17run38654864195 atc58a99c3 FAILED:twelve cases,
+elevenPASS,onefailure97.764s. ActualoneRaw/noRelay beforeUI; protectedselection
+changed, then error-insideDialog wait176 fails. Original capture shows notice-only
+modal. Pendingstate/preservation/no-extra-wire/selectionrestore/Stop/reopen/newwork
+tail and bothPIDstages unexecuted. Other eleven casesPASS including explicitUNKNOWN
+history checks. Retainednative-submitted-stop-red-android17. Shared callback wiring
+correctionddfda0af compilePASS1m43 and separateparityreviews0/0.
+Minimum modalcorrection nowworkingtree: existing generic failure text is shown
+inside Stop dialog; no status/persistence/transport changes. Compile27247active.
+Next exactsource fullAndroid10/17 will verifyall twelve plus2PID andeverypriorgate.

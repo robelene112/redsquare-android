@@ -163,3 +163,12 @@ protectedselection refusal anddialog-scopedvisibleerror cover known gaps. Fixtur
 restoration in finallypreserves cleanup. Bothprior-status historyassertions meaningful.
 Standards1 Fowler actualsubmission callbackduplication, extracted with two actual
 fixture callers. CompilePASS1m43s; correction review and12thRED runtime pending.
+
+## Shared submission correction
+
+c58a99c3...ddfda0af: Spec0, Standards0. Two actual UI/controller callers share
+five real callbacks and preserve afterSUBMITTED mutationordering, exception flow,
+scenarioassertions andcleanup. CompilePASS1m43; runtime sourceparity nextfull.
+SubmittedStopRED17 atc58 failed onlymissinginDialogerror176; other11casesPASS,
+latepreservation/recovery/newwork andPID tails remainunexecuted. Minimumexisting
+failurecopy nowplacedinsideStop popup, compile27247active; fullacceptancepending.

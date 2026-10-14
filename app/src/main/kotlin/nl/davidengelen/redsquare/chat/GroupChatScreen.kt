@@ -426,7 +426,10 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     }
     if(stopping && entry!=null) AlertDialog(onDismissRequest={if(!busy)stopping=false},
         title={Text(stringResource(R.string.group_stop_action))},
-        text={Text(stringResource(R.string.group_stop_notice))},
+        text={Column(verticalArrangement=Arrangement.spacedBy(8.dp)){
+            Text(stringResource(R.string.group_stop_notice))
+            if(sendFailed||draftFailed)Text(stringResource(R.string.group_error),color=MaterialTheme.colorScheme.error)
+        }},
         dismissButton={TextButton(enabled=!busy,onClick={stopping=false}){Text(stringResource(R.string.group_cancel))}},
         confirmButton={TextButton(enabled=loaded&&!busy&&!readFailed&&store.isStaleAdminAction(entry),onClick={
             act {

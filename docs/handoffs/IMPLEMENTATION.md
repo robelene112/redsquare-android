@@ -31,7 +31,7 @@ Signed15immutable preserved. recordsdocs/evidence/ticket39, no ownedlocalbuildac
 Current sequential issue27: admin promotion and member removal, assigned@me.
 Review base7979c655164257e08b184834810de03a80d92b67; prerequisite26 closed.
 Current accepted production source fd926d5d0c2e9a9b89b6869ff2c3a980c7eeb726;
-check Git for latest documentation/tracer commits. Remote main last pushedfd926d5d. only protected untracked contract untouched.
+check Git for latest documentation/tracer commits. Remote main lastpushedc58a99c3; currentcommittedddfda0af plusmodalfixworkingtree. only protected untracked contract untouched.
 Four focused core cases plus independent A/B constructor/receiver references pass.
 Focused17run38652150530 at48b1410a SUCCESS:ten admin/controller cases75.149s,
 including current authority at both send gates, visible refusal and exact Retry.
@@ -54,7 +54,7 @@ original history/priorstatus, fresh protectedstaleclassification/UIconfirmation,
 restored composition without transmission; walletreplacementdisclosure remains
 conservative for stopped uncertain actions. Build81893PASS3m7s/core4/debug/test. Classification now shares actualsendvalidator
 perStandardsfinding; correctionreviewsSpec0/Standards0. Native11case+PID GREEN10
-run38653588969 SUCCESSatfd926d5d; hostedcompile/runtimepassed. Noownedlocalbuildactive.
+run38653588969 SUCCESSatfd926d5d; hostedcompile/runtimepassed. Currentmodalfixcompile27247active.
 Ignored .scratch/implement-group27-stale-stop.py is OBSOLETE/APPLIED; DO NOT rerun.
 11case10GREEN38653588969 atfd926d5d nowSUCCESS33.271s plusbothPIDjourneys;
 retainednative-stale-stop-green-android10. Root newworkcaptureinspected.
@@ -62,7 +62,12 @@ Follow-upSpec1 hiddenStop-modal failure, plusseparateSUBMITTEDhistoryverificatio
 New12thnativecase implementedworkingtree; compile62422PASS3m5s/debug/test. It requires actual
 raw thenrefusedRelay, freshselectionchange/visibleerrorinsideDialog/preservedstate,
 selectionrestore/Stop/reopen/newmessage/priorSUBMITTEDhistory. UNKNOWNtestalsoadds
-explicitprior-status/historyassertions. FirstRED pending, modalfixabsent.
+explicitprior-status/historyassertions. FirstRED17run38654864195 c58 FAILED12cases11PASS1failure97.764s at176missing
+inDialogerror. ActualRaw/noRelaypassed; lateStop/preservation/newwork/PIDtail
+unexecuted. Retainednative-submitted-stop-red-android17, rootnotice-onlycapture
+inspected. Callbacksharingddfda0afcompilePASS1m43/reviews0/0.
+Minimumexistinggroup_error nowvisibleinsideStopworkingtree; compile27247active.
+Next exactsource finalfull10/17 verifies12cases/2newPID/everypriorgate.
 Current17GREEN does notaccept newStop/recovery or latesttestfixtures.
 Whole27 stillopen: stale-stop RED/GREEN, correction/finalreviews, full10/17,
 nextsignedphonepreview andclosure. Stablebeta remains signed16.
