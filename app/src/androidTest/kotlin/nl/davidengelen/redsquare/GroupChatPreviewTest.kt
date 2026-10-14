@@ -726,6 +726,15 @@ class GroupChatPreviewTest {
                             captureNativeScreen(File(context.cacheDir,"group-chat-evidence/hints-unreadable.png"),notice)
                         }
                         if(importing){
+                            // Wait for automatic watch metadata to reach protected storage before
+                            // asserting the discovery view after its wallet replacement.
+                            ui.waitUntil(15_000){runCatching{
+                                val options=com.google.gson.JsonParser.parseString(walletStore.loadExisting().exportJson()).asJsonObject
+                                val watch=options.getAsJsonArray("keys").single{
+                                    it.asJsonObject.get("publicKey")?.asString==key.publicKey
+                                }.asJsonObject
+                                watch.get("identifier").asString=="Incoming beta group"
+                            }.getOrDefault(false)}
                             check(discoveryReads.get()>0)
                             waitFor(unavailable.publicKey)
                             ui.onNodeWithText(unavailable.publicKey).assertIsDisplayed()
