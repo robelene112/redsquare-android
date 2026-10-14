@@ -91,103 +91,83 @@ class GroupAdminPreviewTest {
             *preferences.map{(prefs,keyName,value)->{check(prefs.edit().apply{if(value==null)remove(keyName)else putBoolean(keyName,value)}.commit());Unit}}.toTypedArray())}
     }
 
-    @Test fun aPromotionStopsAtRelayWhenARenameArrivesAfterRawSubmission() {
-        val context=InstrumentationRegistry.getInstrumentation().targetContext
-        check(context.packageName=="nl.davidengelen.redsquare.dev"&&Build.HARDWARE in listOf("ranchu","goldfish"))
-        val wallets=AndroidWalletStore(context)
-        val original=wallets.loadOrCreate()
-        val backend=AndroidBackendStore(context).load()
-        val fixture=SaitoWallet.fromPrivateKey("0".repeat(63)+"1") // Public unsafe fixtures only.
-        val member=SaitoWallet.fromPrivateKey("0".repeat(63)+"2").publicKey
-        val key=SaitoWallet.fromPrivateKey("0".repeat(63)+"7")
-        val filename="groupchat.${backend.id}.${fixture.publicKey}.${key.publicKey}.v1"
-        val names=listOf(filename,"$filename.bak","$filename.new")
-        synchronized(SaitoLocalState.lock){check(names.none{File(context.noBackupFilesDir,it).exists()})}
-        var primary:Throwable?=null
-        try {
-            wallets.replace(original,fixture)
-            val store=GroupChatStore(context,fixture,backend)
-            val creation=GroupChat.create(fixture,key.publicKey,"Before rename",listOf(member),1700000123456)
-            store.prepareCreation(creation,key);store.record(key.publicKey,creation.id,GroupChatStore.Status.FORWARDED)
-            store.saveDraft(key.publicKey,"Keep this rename draft")
-            val candidate=GroupChat.promote(fixture,requireNotNull(store.load(key.publicKey)).group,member,1700000123457)
-            store.preparePromotion(candidate,member)
+    @Test fun aPromotionStopsAtRelayWhenARenameArrivesAfterRawSubmission() =
+        withPreparedPromotion("7","Before rename","Keep this rename draft") { fixture ->
+            val candidate=fixture.candidate
             val renameBody=SaitoEnvelope.decode(candidate.envelope()).body.deepCopy().apply{addProperty("group_name","New authenticated name")}
-            val rename=SaitoTransaction.create(fixture,renameBody,1700000123458,listOf(key.publicKey))
-            val peer=ControlledFeedPeer("[]",advertisedServices="archive||;relay||")
-            peer.start().use{server->
-                fun attempt()=kotlinx.coroutines.runBlocking {
-                    nl.davidengelen.redsquare.chat.submitChatTransaction(fixture,"ws://127.0.0.1:${server.port}/wsopen",fixture.publicKey,candidate,
-                        nl.davidengelen.redsquare.chat.ChatSubmissionCallbacks(
-                            claim={store.claim(key.publicKey,candidate.id)},assertSelected={store.assertSelected()},
-                            submitted={store.record(key.publicKey,candidate.id,GroupChatStore.Status.SUBMITTED);store.receive(rename.envelope())},
-                            forwarded={store.record(key.publicKey,candidate.id,GroupChatStore.Status.FORWARDED)},
-                            relayRecipients={store.relayRecipients(key.publicKey,candidate.id)}))
-                }
-                org.junit.Assert.assertThrows(IllegalStateException::class.java){attempt()}
-                ui.waitUntil(15_000){peer.transactions.size==1}
-                check(postingTransaction(peer.transactions.single()).envelope()==candidate.envelope()&&peer.relayedMessages.isEmpty())
-                val saved=requireNotNull(store.load(key.publicKey))
-                check(saved.candidate!!.envelope()==candidate.envelope()&&saved.status==GroupChatStore.Status.SUBMITTED)
-                check(saved.group.name=="New authenticated name"&&saved.draft=="Keep this rename draft")
-                check(saved.creationKey!!.exportJson()==key.exportJson())
-                store.prepareRetry(key.publicKey,candidate.id)
-                org.junit.Assert.assertThrows(IllegalStateException::class.java){attempt()}
-                check(peer.transactions.size==1&&peer.relayedMessages.isEmpty())
-                check(wallets.loadExisting().exportJson()==fixture.exportJson()&&AndroidBackendStore(context).load()==backend)
-                peer.assertHealthy()
-            }
-        }catch(failure:Throwable){primary=failure;throw failure}
-        finally{cleanupAfterTest(primary,
-            {synchronized(SaitoLocalState.lock){names.forEach{val file=File(context.noBackupFilesDir,it);check(!file.exists()||file.delete())}}},
-            {wallets.replace(wallets.loadExisting(),original)})}
+            val rename=SaitoTransaction.create(fixture.wallet,renameBody,1700000123458,listOf(fixture.key.publicKey))
+            fun attempt()=fixture.attempt{fixture.store.receive(rename.envelope())}
+            org.junit.Assert.assertThrows(IllegalStateException::class.java){attempt()}
+            ui.waitUntil(15_000){fixture.peer.transactions.size==1}
+            check(postingTransaction(fixture.peer.transactions.single()).envelope()==candidate.envelope()&&fixture.peer.relayedMessages.isEmpty())
+            val saved=requireNotNull(fixture.store.load(fixture.key.publicKey))
+            check(saved.candidate!!.envelope()==candidate.envelope()&&saved.status==GroupChatStore.Status.SUBMITTED)
+            check(saved.group.name=="New authenticated name"&&saved.draft=="Keep this rename draft")
+            check(saved.creationKey!!.exportJson()==fixture.key.exportJson())
+            fixture.store.prepareRetry(fixture.key.publicKey,candidate.id)
+            org.junit.Assert.assertThrows(IllegalStateException::class.java){attempt()}
+            check(fixture.peer.transactions.size==1&&fixture.peer.relayedMessages.isEmpty())
+            fixture.assertOwnerUnchanged()
+            fixture.peer.assertHealthy()
+        }
+
+    @Test fun aPreparedPromotionCannotTransmitOrRetryAfterTheTargetLeaves() =
+        withPreparedPromotion("8","Stale promotion","Keep the stale-action draft") { fixture ->
+            val candidate=fixture.candidate
+            fixture.store.receive(GroupChat.leave(fixture.member,fixture.key.publicKey,1700000123458).envelope())
+            org.junit.Assert.assertThrows(IllegalStateException::class.java){fixture.attempt()}
+            check(fixture.peer.transactions.isEmpty()&&fixture.peer.relayedMessages.isEmpty())
+            val saved=requireNotNull(fixture.store.load(fixture.key.publicKey))
+            check(saved.candidate!!.envelope()==candidate.envelope()&&saved.status==GroupChatStore.Status.UNKNOWN)
+            check(saved.group.memberRoles[fixture.member.publicKey]==ChatGroupRole.LEFT&&saved.draft=="Keep the stale-action draft")
+            check(saved.creationKey!!.exportJson()==fixture.key.exportJson())
+            fixture.store.prepareRetry(fixture.key.publicKey,candidate.id)
+            org.junit.Assert.assertThrows(IllegalStateException::class.java){fixture.attempt()}
+            check(fixture.peer.transactions.isEmpty()&&fixture.peer.relayedMessages.isEmpty())
+            check(fixture.store.load(fixture.key.publicKey)!!.candidate!!.envelope()==candidate.envelope())
+            fixture.assertOwnerUnchanged()
+            fixture.peer.assertHealthy()
+        }
+
+    private class PromotionDelivery(val wallets:AndroidWalletStore,val backendStore:AndroidBackendStore,val backend:SaitoBackend,
+        val wallet:SaitoWallet,val member:SaitoWallet,val key:SaitoWallet,val store:GroupChatStore,
+        val candidate:SaitoTransaction,val peer:ControlledFeedPeer,private val endpoint:String) {
+        fun attempt(afterSubmitted:()->Unit={})=kotlinx.coroutines.runBlocking {
+            nl.davidengelen.redsquare.chat.submitChatTransaction(wallet,endpoint,wallet.publicKey,candidate,
+                nl.davidengelen.redsquare.chat.ChatSubmissionCallbacks(
+                    claim={store.claim(key.publicKey,candidate.id)},assertSelected={store.assertSelected()},
+                    submitted={store.record(key.publicKey,candidate.id,GroupChatStore.Status.SUBMITTED);afterSubmitted()},
+                    forwarded={store.record(key.publicKey,candidate.id,GroupChatStore.Status.FORWARDED)},
+                    relayRecipients={store.relayRecipients(key.publicKey,candidate.id)}))
+        }
+        fun assertOwnerUnchanged() {
+            check(wallets.loadExisting().exportJson()==wallet.exportJson()&&backendStore.load()==backend)
+        }
     }
 
-    @Test fun aPreparedPromotionCannotTransmitOrRetryAfterTheTargetLeaves() {
+    private fun withPreparedPromotion(groupScalar:String,name:String,draft:String,scenario:(PromotionDelivery)->Unit) {
         val context=InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName=="nl.davidengelen.redsquare.dev"&&Build.HARDWARE in listOf("ranchu","goldfish"))
         val wallets=AndroidWalletStore(context)
         val original=wallets.loadOrCreate()
         val backend=AndroidBackendStore(context).load()
-        val fixture=SaitoWallet.fromPrivateKey("0".repeat(63)+"1") // Public unsafe fixtures only.
+        val wallet=SaitoWallet.fromPrivateKey("0".repeat(63)+"1") // Public unsafe fixtures only.
         val member=SaitoWallet.fromPrivateKey("0".repeat(63)+"2")
-        val key=SaitoWallet.fromPrivateKey("0".repeat(63)+"8")
-        val filename="groupchat.${backend.id}.${fixture.publicKey}.${key.publicKey}.v1"
+        val key=SaitoWallet.fromPrivateKey("0".repeat(63)+groupScalar)
+        val filename="groupchat.${backend.id}.${wallet.publicKey}.${key.publicKey}.v1"
         val names=listOf(filename,"$filename.bak","$filename.new")
         synchronized(SaitoLocalState.lock){check(names.none{File(context.noBackupFilesDir,it).exists()})}
         var primary:Throwable?=null
         try {
-            wallets.replace(original,fixture)
-            val store=GroupChatStore(context,fixture,backend)
-            val creation=GroupChat.create(fixture,key.publicKey,"Stale promotion",listOf(member.publicKey),1700000123456)
+            wallets.replace(original,wallet)
+            val store=GroupChatStore(context,wallet,backend)
+            val creation=GroupChat.create(wallet,key.publicKey,name,listOf(member.publicKey),1700000123456)
             store.prepareCreation(creation,key);store.record(key.publicKey,creation.id,GroupChatStore.Status.FORWARDED)
-            store.saveDraft(key.publicKey,"Keep the stale-action draft")
-            val candidate=GroupChat.promote(fixture,requireNotNull(store.load(key.publicKey)).group,member.publicKey,1700000123457)
+            store.saveDraft(key.publicKey,draft)
+            val candidate=GroupChat.promote(wallet,requireNotNull(store.load(key.publicKey)).group,member.publicKey,1700000123457)
             store.preparePromotion(candidate,member.publicKey)
-            store.receive(GroupChat.leave(member,key.publicKey,1700000123458).envelope())
             val peer=ControlledFeedPeer("[]",advertisedServices="archive||;relay||")
-            peer.start().use{server->
-                fun attempt()=kotlinx.coroutines.runBlocking {
-                    nl.davidengelen.redsquare.chat.submitChatTransaction(fixture,"ws://127.0.0.1:${server.port}/wsopen",fixture.publicKey,candidate,
-                        nl.davidengelen.redsquare.chat.ChatSubmissionCallbacks(
-                            claim={store.claim(key.publicKey,candidate.id)},assertSelected={store.assertSelected()},
-                            submitted={store.record(key.publicKey,candidate.id,GroupChatStore.Status.SUBMITTED)},
-                            forwarded={store.record(key.publicKey,candidate.id,GroupChatStore.Status.FORWARDED)},
-                            relayRecipients={store.relayRecipients(key.publicKey,candidate.id)}))
-                }
-                org.junit.Assert.assertThrows(IllegalStateException::class.java){attempt()}
-                check(peer.transactions.isEmpty()&&peer.relayedMessages.isEmpty())
-                val saved=requireNotNull(store.load(key.publicKey))
-                check(saved.candidate!!.envelope()==candidate.envelope()&&saved.status==GroupChatStore.Status.UNKNOWN)
-                check(saved.group.memberRoles[member.publicKey]==ChatGroupRole.LEFT&&saved.draft=="Keep the stale-action draft")
-                check(saved.creationKey!!.exportJson()==key.exportJson())
-                store.prepareRetry(key.publicKey,candidate.id)
-                org.junit.Assert.assertThrows(IllegalStateException::class.java){attempt()}
-                check(peer.transactions.isEmpty()&&peer.relayedMessages.isEmpty())
-                check(store.load(key.publicKey)!!.candidate!!.envelope()==candidate.envelope())
-                check(wallets.loadExisting().exportJson()==fixture.exportJson()&&AndroidBackendStore(context).load()==backend)
-                peer.assertHealthy()
-            }
+            peer.start().use{server->scenario(PromotionDelivery(wallets,AndroidBackendStore(context),backend,wallet,member,key,store,candidate,peer,"ws://127.0.0.1:${server.port}/wsopen"))}
         }catch(failure:Throwable){primary=failure;throw failure}
         finally{cleanupAfterTest(primary,
             {synchronized(SaitoLocalState.lock){names.forEach{val file=File(context.noBackupFilesDir,it);check(!file.exists()||file.delete())}}},
