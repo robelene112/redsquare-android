@@ -71,5 +71,8 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         return requireNotNull(load(entry.group.id)).also { check(it.candidate.id == entry.candidate.id && it.status == entry.status) }
     }
 
-    companion object { private val gson = GsonBuilder().setStrictness(Strictness.STRICT).create() }
+    companion object {
+        private val gson = GsonBuilder().setStrictness(Strictness.STRICT).create()
+        fun hasWork(context: Context, wallet: SaitoWallet, backend: SaitoBackend): Boolean = false
+    }
 }

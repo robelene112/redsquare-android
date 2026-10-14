@@ -95,5 +95,33 @@ class GroupChatPreviewTest {
         }
     }
 
+
+    @Test fun savedUncertainGroupWorkIsIncludedInOutgoingWalletWorkAcrossBackends() {
+        val context=InstrumentationRegistry.getInstrumentation().targetContext
+        check(context.packageName=="nl.davidengelen.redsquare.dev")
+        check(android.os.Build.HARDWARE in listOf("ranchu","goldfish"))
+        val wallet=AndroidWalletStore(context).loadOrCreate()
+        val selected=AndroidBackendStore(context).load()
+        val groupKey=SaitoWallet.create()
+        val candidate=GroupChat.create(wallet,groupKey.publicKey,"Pending group",emptyList(),1700000123456)
+        val prefix="groupchat.${selected.id}.${wallet.publicKey}.${groupKey.publicKey}.v1"
+        var primary:Throwable?=null
+        try {
+            val store=nl.davidengelen.redsquare.chat.GroupChatStore(context,wallet,selected)
+            store.prepareCreation(candidate)
+            check(nl.davidengelen.redsquare.chat.GroupChatStore.hasWork(context,wallet,selected))
+            val outgoing=SaitoBackend.entries.any { nl.davidengelen.redsquare.chat.GroupChatStore.hasWork(context,wallet,it) }
+            check(outgoing)
+            store.record(groupKey.publicKey,candidate.id,nl.davidengelen.redsquare.chat.GroupChatStore.Status.SUBMITTED)
+            check(nl.davidengelen.redsquare.chat.GroupChatStore.hasWork(context,wallet,selected))
+            val unrelated=SaitoWallet.create()
+            check(!nl.davidengelen.redsquare.chat.GroupChatStore.hasWork(context,unrelated,selected))
+            check(AndroidWalletStore(context).loadExisting().exportJson()==wallet.exportJson())
+        } catch(failure:Throwable){primary=failure;throw failure}
+        finally {cleanupAfterTest(primary,{synchronized(SaitoLocalState.lock){
+            context.noBackupFilesDir.listFiles()!!.filter{it.name==prefix||it.name=="$prefix.bak"||it.name=="$prefix.new"}.forEach{check(it.delete())}
+        }})}
+    }
+
     private fun waitFor(text: String) = ui.waitUntil(15_000) { ui.onAllNodesWithText(text).fetchSemanticsNodes().isNotEmpty() }
 }

@@ -235,3 +235,10 @@ New group state is device encrypted and scoped to wallet/backend. Opening does n
 autosend. This slice does not yet implement join/leave/history/messages/retry UI or
 prove interruption of metadata publication; the creation key must remain recoverable
 through that later failure test. No group build published, no complete26 claim.
+
+First native creation/member/invite/reopen GREEN17run38514935237/e30f7d53,
+1PASS33.884s; root inspected both original PNG/XML pairs. Exact signed broadcast/
+Relay original and four inviteclaims pass, with no reopen transmission. Separate
+sourcegate38514890979 SUCCESS. Newer ordered publication fix reviewed0/0.
+Pending group-work discovery tracer compiled3m5s; hasWork stub deliberately false
+before actual RED. It is not wired into wallet import yet; disclosure finding open.

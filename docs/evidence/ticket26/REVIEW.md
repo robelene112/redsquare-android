@@ -93,3 +93,7 @@ Ordered durable-operation/UI publication now uses the existing private-reaction
 pattern; separate restore/send errors prevent reload from erasing send failures.
 Pending-work tracer is being compiled before its minimum hasWork implementation.
 Whole-ticket group/key/retry/join/leave/history acceptance remains pending.
+
+Ordered publication correctione30f7d53...db2292c5: Standards0 and Spec0, source
+race resolved and no reverse-lock order identified. Pending-work disclosure
+remains separate; originale30native flow1PASS33.884s does not prove newer fix.
