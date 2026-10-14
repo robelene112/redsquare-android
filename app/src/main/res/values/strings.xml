@@ -17,11 +17,17 @@
     <string name="social_like">Like</string>
     <string name="social_liked">Liked</string>
     <string name="social_retry_like">Retry like</string>
-    <string name="social_like_count">%1$d likes</string>
+    <plurals name="social_like_count">
+        <item quantity="one">%1$d like</item>
+        <item quantity="other">%1$d likes</item>
+    </plurals>
     <string name="social_repost">Repost</string>
     <string name="social_reposted">Reposted</string>
     <string name="social_retry_repost">Retry repost</string>
-    <string name="social_repost_count">%1$d reposts</string>
+    <plurals name="social_repost_count">
+        <item quantity="one">%1$d repost</item>
+        <item quantity="other">%1$d reposts</item>
+    </plurals>
     <string name="social_pending">Pending. Availability on this server has not been verified.</string>
     <string name="social_error">Could not finish this action. Retry checks the original action before sending it again.</string>
     <string name="social_counts_unavailable">Could not refresh counts. Refresh this view to try again.</string>

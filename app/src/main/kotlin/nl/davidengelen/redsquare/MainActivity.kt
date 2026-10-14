@@ -342,30 +342,6 @@ class MainActivity : ComponentActivity() {
                         title = { Text(stringResource(R.string.settings)) },
                         text = {
                             Column(Modifier.verticalScroll(rememberScrollState())) {
-                                Text(stringResource(R.string.appearance), style = MaterialTheme.typography.titleSmall)
-                                if (appearanceSaveError) Text(stringResource(R.string.appearance_save_error))
-                                Column(Modifier.selectableGroup()) {
-                                Appearance.entries.forEach { choice ->
-                                    Row(Modifier.fillMaxWidth().heightIn(min = 48.dp).selectable(
-                                        selected = appearance == choice, role = Role.RadioButton,
-                                        enabled = appearanceReady && !savingAppearance, onClick = {
-                                            savingAppearance = true
-                                            appearanceSaveError = false
-                                            scope.launch {
-                                                try {
-                                                    withContext(Dispatchers.IO) { appearanceStore.save(choice) }
-                                                    appearance = choice
-                                                } catch (cancelled: kotlinx.coroutines.CancellationException) { throw cancelled }
-                                                catch (_: Exception) { appearanceSaveError = true }
-                                                finally { savingAppearance = false }
-                                            }
-                                        }), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
-                                        RadioButton(selected = appearance == choice, onClick = null,
-                                            enabled = appearanceReady && !savingAppearance)
-                                        Text(stringResource(choice.label), Modifier.padding(start = 8.dp))
-                                    }
-                                }
-                                }
                                 TextButton(enabled = wallet != null, onClick = {
                                     settingsOpen = false
                                     personalControlsOpen = true
@@ -407,6 +383,30 @@ class MainActivity : ComponentActivity() {
                                             }
                                         }) { Text(choice.domain) }
                                     }
+                                }
+                                Text(stringResource(R.string.appearance), style = MaterialTheme.typography.titleSmall)
+                                if (appearanceSaveError) Text(stringResource(R.string.appearance_save_error))
+                                Column(Modifier.selectableGroup()) {
+                                Appearance.entries.forEach { choice ->
+                                    Row(Modifier.fillMaxWidth().heightIn(min = 48.dp).selectable(
+                                        selected = appearance == choice, role = Role.RadioButton,
+                                        enabled = appearanceReady && !savingAppearance, onClick = {
+                                            savingAppearance = true
+                                            appearanceSaveError = false
+                                            scope.launch {
+                                                try {
+                                                    withContext(Dispatchers.IO) { appearanceStore.save(choice) }
+                                                    appearance = choice
+                                                } catch (cancelled: kotlinx.coroutines.CancellationException) { throw cancelled }
+                                                catch (_: Exception) { appearanceSaveError = true }
+                                                finally { savingAppearance = false }
+                                            }
+                                        }), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
+                                        RadioButton(selected = appearance == choice, onClick = null,
+                                            enabled = appearanceReady && !savingAppearance)
+                                        Text(stringResource(choice.label), Modifier.padding(start = 8.dp))
+                                    }
+                                }
                                 }
                             }
                         },

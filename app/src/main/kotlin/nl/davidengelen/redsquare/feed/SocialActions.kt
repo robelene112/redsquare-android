@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.google.gson.GsonBuilder
@@ -53,8 +54,8 @@ private fun SocialAction(post: FeedPost, state: SocialState?, kind: RedSquareAct
         servedCount(observed, if (kind == RedSquareActionKind.LIKE) "num_likes" else "num_retweets")
     }
     val labels = if (kind == RedSquareActionKind.LIKE)
-        listOf(R.string.social_like, R.string.social_liked, R.string.social_retry_like, R.string.social_like_count)
-    else listOf(R.string.social_repost, R.string.social_reposted, R.string.social_retry_repost, R.string.social_repost_count)
+        listOf(R.string.social_like, R.string.social_liked, R.string.social_retry_like, R.plurals.social_like_count)
+    else listOf(R.string.social_repost, R.string.social_reposted, R.string.social_retry_repost, R.plurals.social_repost_count)
     Column {
     Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
         TextButton(contentPadding = PaddingValues(horizontal = 4.dp), enabled = status?.ready == true && !status.busy && !status.available,
@@ -65,7 +66,7 @@ private fun SocialAction(post: FeedPost, state: SocialState?, kind: RedSquareAct
                 else -> labels[0]
             }))
         }
-        count?.let { Text(stringResource(labels[3], it)) }
+        count?.let { Text(pluralStringResource(labels[3], if (it == 1L) 1 else 2, it)) }
         if (kind == RedSquareActionKind.REPOST && onQuote != null) TextButton(contentPadding = PaddingValues(horizontal = 4.dp), enabled = state != null, onClick = { onQuote(post) }) {
             Text(stringResource(R.string.social_quote))
         }

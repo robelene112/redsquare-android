@@ -261,10 +261,18 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
             recovered -> ConnectionBanner(stringResource(R.string.back_online), true)
         }
         Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
-            Tab(selected = !followingView, onClick = { followingView = false }, modifier = Modifier.weight(1f),
-                text = { Text(stringResource(R.string.feed_title), maxLines = 1) })
-            Tab(selected = followingView, onClick = { followingView = true }, modifier = Modifier.weight(1f),
-                text = { Text(stringResource(R.string.following_title), maxLines = 1) })
+            Column(Modifier.weight(1f)) {
+                Tab(selected = !followingView, onClick = { followingView = false },
+                    text = { Text(stringResource(R.string.feed_title), maxLines = 1) })
+                Box(Modifier.fillMaxWidth().height(2.dp).background(
+                    if (!followingView) MaterialTheme.colorScheme.primary else Color.Transparent))
+            }
+            Column(Modifier.weight(1f)) {
+                Tab(selected = followingView, onClick = { followingView = true },
+                    text = { Text(stringResource(R.string.following_title), maxLines = 1) })
+                Box(Modifier.fillMaxWidth().height(2.dp).background(
+                    if (followingView) MaterialTheme.colorScheme.primary else Color.Transparent))
+            }
             TextButton(onClick = { refresh++ }, enabled = wallet != null && !loading && internet.available) {
                 Text(stringResource(R.string.feed_refresh))
             }
