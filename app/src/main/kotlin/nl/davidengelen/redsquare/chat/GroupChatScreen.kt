@@ -6,6 +6,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -278,7 +279,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                     (it.author==wallet.publicKey || !personal.policy.hidesIncomingChat(it.author))},key={it.id}){item->
                     Column(Modifier.fillMaxWidth().padding(horizontal=8.dp,vertical=4.dp)){
                         Text(item.author,style=MaterialTheme.typography.labelSmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
-                        PrivateMessageText(item.text)
+                        SelectionContainer{PrivateMessageText(item.text)}
                         val likedBy=entry.likedBy(item)
                         if(likedBy.isNotEmpty())Text(pluralStringResource(R.plurals.chat_likes,likedBy.size,likedBy.size))
                         TextButton(enabled=personal?.ready==true&&loaded&&draftReady&&!busy&&!savingForNavigation&&!readFailed&&
