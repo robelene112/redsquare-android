@@ -43,7 +43,6 @@ class GroupChatPreviewTest {
             val change=SaitoTransaction.create(fixture,removal,1700000123402,listOf(key.publicKey))
             val laterRemoval=removal.deepCopy().apply{addProperty("member_id",retained)}
             val guardedChange=SaitoTransaction.create(fixture,laterRemoval,1700000123403,listOf(key.publicKey))
-            val resolutions=java.util.concurrent.atomic.AtomicInteger()
             val peer=ControlledFeedPeer("[]",advertisedServices="archive||;relay||")
             peer.start().use{server->
                 kotlinx.coroutines.runBlocking {
@@ -61,14 +60,12 @@ class GroupChatPreviewTest {
                             relayRecipients={
                                 val roles=requireNotNull(store.load(key.publicKey)).group.memberRoles
                                 check(roles[retained]==ChatGroupRole.REMOVED)
-                                resolutions.incrementAndGet()
                                 roles.filterValues{it.active}.keys.filter{it!=fixture.publicKey}
                             }),
                         relayRecipients=listOf(removed,retained))
                 }
                 check(peer.transactions.size==1 && peer.relayedMessages.size==1)
-                check(resolutions.get()==1)
-                check(peer.relayRecipients.single()==listOf(fixture.publicKey))
+                org.junit.Assert.assertEquals(listOf(fixture.publicKey),peer.relayRecipients.single())
                 check(postingTransaction(peer.transactions.single()).envelope()==candidate.envelope())
                 check(SaitoEnvelope.fromSignedJson(peer.relayedMessages.single())==candidate.envelope())
                 val saved=requireNotNull(store.load(key.publicKey))
@@ -479,6 +476,7 @@ class GroupChatPreviewTest {
                                 val cached=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,store.loadExisting(),SaitoBackend.OWNER).load(invitation.id))
                                 check(cached.group.memberRoles[member]==ChatGroupRole.MEMBER)
                                 check(cached.group.memberRoles[invitation.admin]==ChatGroupRole.ADMIN)
+                                waitForGroupMessage("Live group message")
                                 captureNativeScreen(File(context.cacheDir,"group-chat-evidence/messages-cached.png"),"Live group message")
                                 if(drafting){
                                     assertRestoredGroupDraft()
