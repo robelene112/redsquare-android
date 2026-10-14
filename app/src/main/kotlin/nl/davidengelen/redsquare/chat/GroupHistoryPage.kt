@@ -25,8 +25,11 @@ internal suspend fun loadGroupHistoryPage(peer:SaitoPeer,store:GroupChatStore,id
             val value=row.asJsonObject.get("tx")
             require(value.isJsonPrimitive&&value.asJsonPrimitive.isString)
             val signed=SaitoEnvelope.decode(value.asString)
-            require(signed.body.get("module").asString=="Chat"&&signed.body.get("group_id").asString==id)
-            require(signed.body.get("request").asString in setOf("chat message","chat join","chat update","chat remove"))
+            require(signed.body.get("module")==com.google.gson.JsonPrimitive("Chat") &&
+                signed.body.get("group_id")==com.google.gson.JsonPrimitive(id))
+            val operation=signed.body.get("request")
+            require(operation!=null && operation.isJsonPrimitive && operation.asJsonPrimitive.isString &&
+                operation.asString in setOf("chat message","chat join","chat update","chat remove"))
             require(id in signed.recipients && signed.recipients.all(SaitoWallet::isPublicKey))
             require(signed.createdAt<before)
             cursor=cursor?.let{minOf(it,signed.createdAt)} ?: signed.createdAt
