@@ -112,7 +112,7 @@ class GroupChatPreviewTest {
                     addProperty("module","Chat");addProperty("request","chat remove")
                     addProperty("group_id",invitation.id);addProperty("member_id",member)
                 }
-                saved.receive(SaitoTransaction.createTo(admin,removal,1700000123457,invitation.id).envelope())
+                saved.receive(SaitoTransaction.create(admin,removal,1700000123457,listOf(invitation.id)).envelope())
                 check(saved.load(invitation.id)!!.group.memberRoles[member]==ChatGroupRole.REMOVED)
             }
             if(retrying) nl.davidengelen.redsquare.chat.GroupChatStore(context,fixture,SaitoBackend.OWNER).prepareCreation(checkpoint,checkpointKey)
