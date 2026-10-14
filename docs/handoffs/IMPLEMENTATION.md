@@ -18,8 +18,12 @@ Current issue39 is the bounded group Chat visual polish explicitly requested aft
 New group message bubbles/identity rows share existing private Chat presentation;
 privacy/status, quote/copy/reaction actions and all protocol/persistence behavior
 stay intact. First local compile6924 failed due to a wrapper-closing brace during
-extraction; corrected compile46724 is active, .scratch/group-polish39-build-corrected.log.
-No app/core/test edits until this owned build completes. Use existing group/private
+extraction; corrected compile46724 PASS2m57, .scratch/group-polish39-build-corrected.log.
+Source95e089699c6192abaea0d9dbacb7dbf4af04e69e pushed; both source reviews0.
+Full10run38633250917 and17run38633255144 active atsame95e, public_feed_read=true.
+Signingbuild8792active, .scratch/group-polish39-review-build.log. No app/core/test
+edits until this owned build completes. New large CI downloads use the verified
+user-owned /mnt/storage/redsquare-android-artifacts directory. Use existing group/private
 native seams and full10/17 for acceptance; no implementation-mirroring visual tests.
 Only protected preexisting untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md
 stays untouched. Issue39 tracker https://github.com/robelene112/redsquare-android/issues/39.
