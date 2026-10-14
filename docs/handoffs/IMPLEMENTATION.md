@@ -39,24 +39,28 @@ Local .scratch/review-builds/14; publicrecords docs/evidence/ticket37/signed-pre
 No store/node/service/ingresschange. Current14physicalPixel/continuity/performance
 remain35. Preview13superseded;12neverpublished.
 
-**#26 current checkpoint,2026-10-14 05:07UTC:** protocol creation/invitation trust,
-join/leave/plaintext messages and authorized admin snapshots are implemented.
-Separate reviews clean after timestamp/map-limit/active-role corrections. Full101
-core before mapfix; latest native build includes102corePASS/debug/testAPKs4m8s.
-Android17 first UI RED38513845554 at455d69ba confirms missing Groups; root inspected
-original PNG/XML, later assertions unexecuted. Retained native-create-red-android17.
-Creation-only native GroupChatScreen/Store implementation e30f7d53 pushed; focused
-first native flow17run38514935237 and sourcegate38514890979 ACTIVE. Wait/inspect
-actual results before GREEN. Current source separate reviews pending. Group create
-uses direct original Relay per pinned Chat/Relay, private callers retain defaults.
-Tracer strengthened exactbroadcast/Relay originals + four invitationclaims and
-corrected retainedChat navigation after recreation. No deadline/assertion relaxed.
-Next: preserve generated group key through metadata-publication interruption,
-explicit retry/failure, then join/leave/message/history native flows/isolation and
-real process recovery/full10/17/release/lint/reviews. Current creation cache does
-not yet retain the creation key before protected wallet metadata write. Stable
-signed14 remains live; no group APK published. Protected group contract untouched.
-No ownedGradle currently. Scratch create screen/store are outdated preparation.
+**#26 current checkpoint,2026-10-14 05:37UTC:** core creation/invite trust, join/
+leave/plaintext messages and authorized snapshots implemented. Full102core PASS
+in first native build; creation UI/member/invite/reopen normalflow now exists.
+Ordered IO+UI publication race fixed and reviewed0/0; outgoing work included in
+WalletImport both-backend scan, with conservative unfinished/unreadable detection.
+Focused native5409d7cd GREEN both:10run38516631174 2PASS10.066s,17run38516628720
+2PASS23.856s. Root reopened PNG + bothXMLs each inspected; exactsignedbroadcast/
+Relay andfourinviteclaims pass, backend-switch/unfinished/corrupt work pass.
+Evidence native-work-green-android{10,17}; actualimport-warning UI notproved yet.
+Current HEAD/remote b54a7c874f85a4f1f34c54f9a1a22f7ac2fa6347 includes pre-metadata
+creation-key checkpoint tracer, compiled2m55. Key field nullable/unpopulated before
+actualRED:17run38517327739 ACTIVE, source38517276783 ACTIVE. No ownedGradle.
+Both bounded key-tracer/evidence reviews0, not functionality acceptance. Next wait
+inspect actualkeyRED (threecases, expectedonlykeyfailure) before writing the key
+to encrypted group record and passing it from UI; verify key public ID matches
+group before save/load. This test reopens storage before wallet metadata, notPIDdeath.
+Then explicitretry/key-metadata interruption, group join/leave/message/history UI,
+isolation, actualPIDrecovery, finalfull10/17/release/lint/reviews/signednextAPK.
+Stable signed14/0.1.14 remains live with completed37 visuals; no group APKpublished.
+#26stillopen;21originalticketsdone. Protected untracked group contract untouched.
+Scratch create-screen/store/apply script are outdated initial preparation, do not
+reapply them over current source. Activecode/verification files are tracked.
 
 **Next active ticket: #26 Create, invite, join and leave unencrypted group Chat.**
 Implement sequentially after37 closure; no new broadgrill. Allblockersalreadyclosed.

@@ -108,3 +108,8 @@ Pending-work correctionce808a84...3a174169: Standards0 and Spec0, previous
 disclosure and actual-backend-switch findings resolved in source. Local debug/
 testAPK compilation PASS2m50s. Corrected native work/backend/fault GREEN and actual
 wallet-import warning UI are still pending. No complete26 claim.
+
+Key checkpoint/evidence5409d7cd...b54a7c87: Standards0 and Spec0; exact private
+key comparisons have static diagnostics and own-fixture cleanup. Prior two-case
+GREEN sets scoped correctly. Nullable key remains unpopulated pending actualRED;
+no process-death, app interruption/retry or complete26 claim.
