@@ -735,6 +735,9 @@ class GroupChatPreviewTest {
                                 }.asJsonObject
                                 watch.get("identifier").asString=="Incoming beta group"
                             }.getOrDefault(false)}
+                            scenario.recreate()
+                            waitFor("Groups");ui.onNodeWithText("Groups").performClick()
+                            waitFor(group.name)
                             check(discoveryReads.get()>0)
                             waitFor(unavailable.publicKey)
                             ui.onNodeWithText(unavailable.publicKey).assertIsDisplayed()
