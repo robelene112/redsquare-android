@@ -35,9 +35,12 @@ internal fun privateReply(original: String): PrivateReply? {
 
 internal fun privateMessageBody(original: String): String = privateReply(original)?.body ?: original
 
-internal fun privateReplyPrefix(message: PrivateChatMessage): String? {
-    if (message.createdAt !in replyTimestamps) return null
-    var quote = privateMessageBody(message.text)
+internal fun privateReplyPrefix(message: PrivateChatMessage): String? =
+    chatReplyPrefix(message.author,message.createdAt,message.text)
+
+internal fun chatReplyPrefix(author:String,createdAt:Long,text:String):String? {
+    if (createdAt !in replyTimestamps) return null
+    var quote = privateMessageBody(text)
     if (quote.length > 30) {
         var suffix = quote.takeLast(30)
         // Do not produce malformed UTF16 when clipping an emoji at the excerpt boundary.
@@ -45,7 +48,7 @@ internal fun privateReplyPrefix(message: PrivateChatMessage): String? {
         quote = "...$suffix"
     }
     val escaped = quote.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
-    return "<blockquote href=\"${message.author}${message.createdAt}\">$escaped</blockquote>"
+    return "<blockquote href=\"${author}${createdAt}\">$escaped</blockquote>"
 }
 
 @Composable

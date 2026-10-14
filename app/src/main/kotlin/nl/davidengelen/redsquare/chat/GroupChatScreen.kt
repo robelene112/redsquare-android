@@ -6,6 +6,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -328,33 +329,55 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                 Text(stringResource(R.string.chat_load_older))
             }
             val messagesLabel=stringResource(R.string.group_messages)
+            val messageList=rememberLazyListState()
+            val visible=entry.messages.filter{personal?.ready==true &&
+                (it.author==wallet.publicKey || !personal.policy.hidesIncomingChat(it.author))}
+            val editable=personal?.ready==true&&draftReady&&!busy&&!savingForNavigation&&
+                !entry.hasPendingAction&&entry.group.memberRoles[wallet.publicKey]?.active==true
+            val permitted=editable&&loaded&&!readFailed
             LazyColumn(Modifier.weight(1f).semantics{contentDescription=messagesLabel},
-                verticalArrangement=Arrangement.spacedBy(8.dp)) {
-                items(entry.messages.filter{personal?.ready==true &&
-                    (it.author==wallet.publicKey || !personal.policy.hidesIncomingChat(it.author))},key={it.id}){item->
+                state=messageList,verticalArrangement=Arrangement.spacedBy(8.dp)) {
+                items(visible,key={it.id}){item->
                     Column(Modifier.fillMaxWidth().padding(horizontal=8.dp,vertical=4.dp)){
+                        var copyFailed by remember(item.id){mutableStateOf(false)}
+                        val replyPrefix=remember(item){chatReplyPrefix(item.author,item.createdAt,item.text)}
                         Text(item.author,style=MaterialTheme.typography.labelSmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
-                        SelectionContainer{PrivateMessageText(item.text)}
+                        SelectionContainer{PrivateMessageText(item.text){reference->
+                            val index=visible.indexOfFirst{it.author+it.createdAt==reference}
+                            if(index>=0)scope.launch{messageList.animateScrollToItem(index)}
+                        }}
                         val likedBy=entry.likedBy(item)
                         if(likedBy.isNotEmpty())Text(pluralStringResource(R.plurals.chat_likes,likedBy.size,likedBy.size))
-                        TextButton(enabled=personal?.ready==true&&loaded&&draftReady&&!busy&&!savingForNavigation&&!readFailed&&
-                            !entry.hasPendingAction&&entry.group.memberRoles[wallet.publicKey]?.active==true,onClick={
+                        Row(verticalAlignment=Alignment.CenterVertically){
+                        TextButton(enabled=permitted,onClick={
                             act {
                                 val candidate=withContext(Dispatchers.IO){GroupChat.like(wallet,entry.group,item,System.currentTimeMillis())}
                                 withContext(NonCancellable){publish{store.prepareReaction(candidate);store.entries()}}
                                 sendPrepared(entry.group.id,candidate,wallet)
                             }
                         }){Text(stringResource(if(wallet.publicKey in likedBy)R.string.chat_unlike else R.string.chat_like))}
+                        TextButton(enabled=permitted&&replyPrefix!=null,onClick={
+                            replyPrefix?.let{message=it+privateMessageBody(message)}
+                        }){Text(stringResource(R.string.post_reply))}
+                        TextButton(onClick={copyFailed=!copyPrivateMessage(context,item.text)}){Text(stringResource(R.string.chat_copy))}
+                        }
+                        if(copyFailed)Text(stringResource(R.string.chat_copy_error))
                     }
                 }
             }
+            val quote=remember(message){privateReply(message)}
+            val typed=quote?.body ?: message
+            if(quote!=null){
+                Text(quote.quote,style=MaterialTheme.typography.bodyMedium)
+                TextButton(enabled=editable,onClick={message=typed}){Text(stringResource(R.string.chat_remove_reply))}
+            }
             Row(verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(8.dp)){
-                OutlinedTextField(message,{message=it},Modifier.weight(1f),
-                    label={Text(stringResource(R.string.chat_message))},enabled=personal?.ready==true&&draftReady&&!busy&&!savingForNavigation&&!entry.hasPendingAction&&entry.group.memberRoles[wallet.publicKey]?.active==true,maxLines=4)
-                Button(enabled=personal?.ready==true&&loaded&&draftReady&&!busy&&!savingForNavigation&&!readFailed&&!entry.hasPendingAction&&
-                    entry.group.memberRoles[wallet.publicKey]?.active==true&&message.isNotBlank(),onClick={
+                OutlinedTextField(typed,{message=(quote?.prefix ?: "")+it},Modifier.weight(1f),
+                    label={Text(stringResource(R.string.chat_message))},enabled=editable,maxLines=4)
+                Button(enabled=permitted&&typed.isNotBlank(),onClick={
                     act {
-                        val candidate=withContext(Dispatchers.IO){GroupChat.message(wallet,entry.group,message,System.currentTimeMillis())}
+                        val mentioned=quote?.author?.takeUnless{it==wallet.publicKey}?.let{listOf(it)}.orEmpty()
+                        val candidate=withContext(Dispatchers.IO){GroupChat.message(wallet,entry.group,message,System.currentTimeMillis(),mentioned)}
                         withContext(NonCancellable){publish{store.prepareMessage(candidate);store.entries()}}
                         message=""
                         sendPrepared(entry.group.id,candidate,wallet)
