@@ -249,3 +249,12 @@ full invocations, preserving classes, order, 180/60s deadlines, report/capture n
 and exit0 plus nonempty JUnit OK. Every invocation now checks isolated emulator.
 Both bounded correction reviews0; no production or acceptance predicate changes.
 Local warning-minimum debug/test APK build34718 PASS2m57. Native10/17 at90e active.
+
+Focused evidence reviewf259...7d695abf: both0,108hashes/44XMLverified. Actual10
+class/PID/restorationrecordsagree. 17classOKwithhost124correctlyfailed. Prepared15
+evidence7d...e488both0,5hashes/cert/appID/min29/exactAPK/productionequivalence.
+StandardsrequestedoriginalSDKfailureproof, a872failureexcerpt/jobsteps added;
+correction0/0 and build/device skipped independentlyobservable.
+Full17 importedguidance fixturee95 correctionboth0, same15s actualdisplaywait
+andunchangedassertion; no productionchange or claimedfailurecause. Finalfull17
+38614860580 at03aacb31 active,10attempt2c519active, bothpublicreads.

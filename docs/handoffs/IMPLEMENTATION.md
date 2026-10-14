@@ -45,38 +45,48 @@ Local .scratch/review-builds/14; publicrecords docs/evidence/ticket37/signed-pre
 No store/node/service/ingresschange. Current14physicalPixel/continuity/performance
 remain35. Preview13superseded;12neverpublished.
 
-**Active #26 checkpoint, 2026-10-14 18:04 UTC:** #26 OPEN,21 original tickets
+**Active #26 checkpoint, 2026-10-14 18:24 UTC:** #26 OPEN,21 original tickets
 complete. Finish #26 and signed review build, then STOP for storage migration until
 explicit owner resume. Public signed14 remains current. Protected untracked group
 contract stays untouched. Do not start another ticket or UI polish.
 
-Current source90e979e85ab462bb36948103b6ea31efb9872c09 pushed with exact remote
-HEAD verified. Local Gradle34718 ACTIVE .scratch/group26-mixed-warning-build.log;
-no app/core/test edits until completion. Prior sharedrouter compile16594 PASS3m35.
-Focused native10run38611923176 and17run38611928760 active at same90e source:
-actions1, mixed1 with storage fault/recovery, groups22, actual group PID recovery.
-Whole Spec and Standards source re-reviews active from bbdd121c...90e.
+Current pushed03aacb31848bd724d376df8f8fc7d6f03d1d89a6. No owned local Gradle active.
+Prepared signed15/0.1.15 .scratch/review-builds/15, NOTPUBLISHED untilfinalverification.
+Release build11084 PASS3m16, manifest7d695abf, productequivalenttoc519/03aacb31.
+APKsha21917bb6d3b611c99fd6789ceb8de64f4c15976c95815918e26ae738e15eb241;
+certsame14/appID/min29verified. Publicpageunchanged14. Neverprintsigningsecrets.
 
-Actual mixed RED38609275290 at875cccd: action1PASS10.771s; encrypted DM whileGroups
-never meets correlated positiveACK, private/reaction/mode-switch tails unexecuted.
-Minimum e26ed211 authenticates and routes all supported originals independently
-of current Chat mode. Private encrypted body/canonical-pair reaction and named-group
-pubID origins retain existing strict stores, namespaces and durableACK order.
-Bounded Standards0; Spec1 private-screen classified group failures invisible.
+FINALFULL10run38613217864 ATTEMPT2 ACTIVE atc5193954631f26541c3421d51db23c49bdecd3a9,
+public_feed_read=true. Attempt1publicSDKdownloadcurl92/HTTP2INTERNAL_ERROR before
+build/device, originalexcerpt/jobstepsretained full-setup-attempt10; rerununchanged.
+FINALFULL17run38614860580 ACTIVE at03aacb31848bd724d376df8f8fc7d6f03d1d89a6,
+public_feed_read=true. Productsourceequal10c519; onlytestreadinessfixplusdocs differ.
+Priorfull17run38613221849 FAILED appearance1PASS44.212, group22 21PASS1/132.256:
+importedunavailableguidancepresentbutnotdisplayed733; rootPNG/XMLshowsChecking
+availablegroupinformation/CreateJoin disabled. Sourcewatchmetadata replacement
+restartsdiscovery, supportsreadinesshypothesisnotprovenruntimecause. e95df2f4
+waitsactualdisplaywithsame15s/finalstrictassert, bothreviews0. No appchanges.
+Actions/mixed/PID/restfullnotrun inthatfailedattempt; native-full-attempt1-android17.
+WorkflowpermitsunchangedproductionfixturefixoutstandingSDKfullrecordingbothsources.
 
-Actual warning RED38610859211 at4d394d68: action1PASS10.784s; mixedFAIL20.04s at88,
-missing static warning. Private DM/reaction positiveACK+exactprotectedcache and
-mode-switch oldsocketdeparture pass before correlated negativeACK for group8
-creation against owned .new file. Later exactfault/recovery/visible tails did not
-run; group22/PID not reached. RootfailurePNG/XMLinspected, native-mixed-storage-red
-retained. Minimum5d9ba21e privateScreen stableowner/backendchannelcollector+shared
-wrapper catchesonlyGroupStorageException, signalsnotice thenrethrows fornegativeACK.
-Resourcecopy directsGroupsRefresh, privateRefresh/contacts/metadatacannoterase.
-Bothboundedreviews0. No correctedmixed/PIDGREENclaimedyet.
+Focused10run38611923176 SUCCESS90e979e85ab462bb36948103b6ea31efb9872c09:
+actions1/13.348s,mixed1/8.196s,groups22/125.4s,actualPID11219to11515/exactrestoration.
+Rootoriginalhintsreopened/privatemodegroupfault/coldrecoveredPNGXMLinspected; sets
+native-final-focused10/mixed-green10/process-green10. PrivateDM/reactioninGroups,
+groupcreation/messagesinprivateChat, correlatedACKs, exactfault/nooverwrite then
+recovery, correctvisibleviews andzerooutgoing allpass. Fullregressionstillpending.
+Focused17run38611928760 FAILED hostexit124 despiteactions1PASS54.77s. Strict60s
+unchanged, no mixed/groups/PID; native-actions-host-timeout17qualifieslimitedcoverage.
 
-Guardedhints9da and stableGroupsreceipt signalsf9 independentlyreviewed0.
-MalformedhintsactualREDe427/run38605779182:21PASS/1of22; actions1PASS12.919s.
-Runtime correctedhints/actions/mixed/PIDbothSDK and finalfreshfull10+17remainneeded.
+Whole bbdd121c...90e Spec0; Standards0hard/oneharnessduplicationheuristic, shared
+helperf25965c1solvesall6actualcalls retaining180/60sorder/prefix/exit0+OK, both0.
+Evidence-onlyreviewthrough7d695abf0/0:108hashes44XMLallverified; signingprep0/0,
+SDKfailureexcerptcorrection0. Finalfullartifacts/reviews/publication stillneeded.
+No complete26 orphysicalPixelacceptanceyet. #35retainsphysicalupdate/performance.
+
+Sourcefixes9daIOhints/f9stableGroupsreceiptcollector/e26sharedincomingroute/
+5d9privategroupfailurewarningallreviewed0. Earlier actualaction/self/hints/mixed/
+warningREDsretainedwithunexecutedtailsqualified. local34718warningcompilePASS2m57.
 Earlier chronology below remains qualified to each source, not current acceptance.
 
 Imported-hints/discovery and all21 existing named-group cases GREEN at
