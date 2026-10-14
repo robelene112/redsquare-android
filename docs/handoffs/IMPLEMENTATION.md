@@ -22,6 +22,51 @@ review updates. No parallel ticket implementation. Code-review subagents remain
 permitted; ask one question only if a material product choice needs the owner.
 Read issue37/#1/#35 and existing web presentation before choosing styling.
 
+**Active37 snapshot:** production4c8f14ca34c2726881e074dab6de73cbce6f5e77.
+System/light/dark appearance, independent IO preference and accessible choice,
+explicit palettes/window insets/contrast, compact header/reminder, native feed
+navigation/selected-tab indicator, Saito identicons/name/time, coherent typography
+and vectors/launcher, styled Chat contact rows/bubbles/timestamps. Existing
+wallet/backend, drafts/cache, callbacks/status and signing/protocol unchanged.
+uiMode handling avoids screen/work teardown; ForceDark is explicitly off.
+Source reviews ca2...8f both0; refinement8f...a533 Spec0/Standards0 hard+one
+possible duplicated tab shape; a533...4c both0, duplication resolved. Last local
+a533 debug/testAPK PASS3m3s; signed4c release PASS3m4s.
+
+**Owned final full runtime:** Android10run38495652348 and17run38495655076,
+exact4c head, public_feed_read=true. Both source/core/release/lint gates pass;
+runtime currently running. Includes new Appearance and publicChat + both public
+feeds. Do not claim full acceptance or close37 before results/original captures,
+separate evidence reviews, publication and source/hash verification.
+
+**Prepared signed14/0.1.14:** .scratch/review-builds/14, manifest exact4c. NOT
+published yet; website still13. APK dffba7dbdddaa18b090d61fcbb69366f4084289b424c7d37788b956f48a58364;
+package/cert unchanged. Signing build42136 completed cleanly; no owned Gradle
+remains. Publish only after final37 gates. Physical14/Pixel remains35.
+
+**Appearance evidence:** docs/evidence/ticket37/README.md is canonical chronology.
+First attempts were unqualified system-mode setup. Actual10diagnostic38494088756
+proves shell UID2000 lacks MODIFY_DAY_NIGHT_MODE while mNightModeLocked=true.
+Guarded API29 AOSP emulator fixture uses su0 ONLY to change system night mode;
+app runs with ordinary UID. Unsupported mode rejected before mutation; exact
+supported original mode (including17custom_bedtime) restored and configuration
+verified. Corrected baseline8db/38494667516 is valid RED/13.678s in applied32,
+original app still light. Current9f10/38494673941 PASS1/11.546s,17/38494677156
+PASS1/36.954s with full wallet/backend/no-send/selection assertions.8XML/8PNG each
+retained/parsed, root selected originals inspected.17earlier b9a/38493376388
+PASS1/37.586s and4f/38494091375 feedappearance PASS. These precede final4c and
+do not prove current full Chat visuals. Final runtime will provide those captures.
+
+Scratch helper .scratch/retain-beta-final-full.py adapts previous25 full retention
+against accepted ticket24 final-full class logs plus Appearance1/publicChat1/
+public feeds1each. It checks complete class-set equality, actual pass/assumption
+records, old19realdeathstages and preserves only public synthetic captures.
+Expected old272/273 plus4 new records/cases if all optional reads succeed, but
+report actual counts. No private device backup/snapshot contents are pulled.
+After full results root must inspect current feed/Chat/UI originals and complete
+both evidence reviews, signed publication/public APK verification, close37 and
+resume26. Protect26's untracked research file. No broad grill required.
+
 **Completed private Chat proof:** Android17 full38484424347 at4e3a6ea7 passes
 273 cases/58completion records/19actualdeaths/no assumptions. Corrected Android10
 full38487263465 at90c85603 passes272reported/271PASS/one existing API30 profile
@@ -58,7 +103,7 @@ Group Chat, Chat media, offline Chat queues and closed-app push remain in their
 original tickets.37 is a visual beta slice;35 remains the integrated final scope
 and physical acceptance. After37, resume26 and the rest sequentially.
 
-No owned Gradle or device proof remains active. Protected untracked
+No owned Gradle remains active; final37 full runtime runs are active as above. Protected untracked
 `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md` belongs to26; never stage/delete it.
 No production node/configuration/private-wallet/database writes or store
 submission are authorized. Signed review-site publication is authorized.
