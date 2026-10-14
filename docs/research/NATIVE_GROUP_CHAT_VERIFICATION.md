@@ -496,3 +496,14 @@ keep the existing explicit warning signal while Groups is open. Bounded Spec rev
 found the private-screen handlers lacked this signal; a separate warning tracer
 is now dispatched before correcting that path. No new outgoing intent or authority.
 Actual corrected hints/mixed/PID GREEN and final full acceptance remain pending.
+
+Actual private-screen storage warning RED38610859211 at4d394d68: actions1PASS
+10.784s; mixed1FAIL20.04s at88missingwarning. It proves private original and
+reaction retention/ACK whileGroups open, then correlated negativeACK for an
+authentic group creation under the owned unfinished-file obstruction in private
+Chat. Root original PNG/XML inspected; later preservation/recovery/visibility
+tails and22/PID did not run. Retained native-mixed-storage-red-android10.
+Minimum5d9ba21e adds a stable owner/backend channel collector and shared private
+handler wrapper for classified group storage failures only, preserving rethrow
+for negativeACK. A static resource warning directs Groups and Refresh. It stays
+latched across private navigation/metadata/reloads. Native GREEN pending.
