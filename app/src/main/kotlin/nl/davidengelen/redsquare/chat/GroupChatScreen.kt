@@ -51,7 +51,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     }
     var busy by remember(wallet.publicKey,backend) { mutableStateOf(false) }
     var refresh by remember { mutableIntStateOf(0) }
-    var recoveredRefresh by remember(wallet.publicKey,backend){mutableIntStateOf(0)}
+    var lastRefreshAttempt by remember(wallet.publicKey,backend){mutableIntStateOf(0)}
     var initialLoading by remember(store,selected){mutableStateOf(false)}
     var olderLoading by remember(store,selected){mutableStateOf(false)}
     val paging=initialLoading||olderLoading
@@ -145,11 +145,12 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     BackHandler { back() }
     LaunchedEffect(store,refresh) {
         loaded=false
-        val requestedRefresh=refresh
+        val explicitRefresh=refresh>lastRefreshAttempt
+        lastRefreshAttempt=refresh // Failed/cancelled attempts cannot become ordinary reload authority.
         try { publish(onResult={success->
             loaded=success
             if(!success)readFailed=true
-            else if(requestedRefresh>recoveredRefresh){readFailed=false;recoveredRefresh=requestedRefresh}
+            else if(explicitRefresh)readFailed=false
         }){store.entries()} }
         catch(cancelled:CancellationException){throw cancelled}
         catch(_:Exception){/* Failure state was published under the same lock. */}
