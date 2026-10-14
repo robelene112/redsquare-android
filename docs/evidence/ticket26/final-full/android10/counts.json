@@ -1,0 +1,301 @@
+{
+  "run": "38613217864",
+  "source": "c5193954631f26541c3421d51db23c49bdecd3a9",
+  "completedCases": 302,
+  "completionRecords": 66,
+  "actualDeathStages": 20,
+  "records": [
+    {
+      "log": "ProfileEditPreviewTest-ui.txt",
+      "completedCases": 7
+    },
+    {
+      "log": "ProfileMediaPreviewTest-ui.txt",
+      "completedCases": 2
+    },
+    {
+      "log": "ProfileNewEditPreviewTest-ui.txt",
+      "completedCases": 2
+    },
+    {
+      "log": "ProfilePublishingPreviewTest-ui.txt",
+      "completedCases": 5
+    },
+    {
+      "log": "appearance-ui.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "author-delete-process/recovered-instrumentation.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "author-edit-process/recovered-instrumentation.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "author-post-ui.txt",
+      "completedCases": 8
+    },
+    {
+      "log": "browse-ui.txt",
+      "completedCases": 8
+    },
+    {
+      "log": "chat-mixed-ui.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "feed-ui.txt",
+      "completedCases": 8
+    },
+    {
+      "log": "following-ui.txt",
+      "completedCases": 8
+    },
+    {
+      "log": "group-chat-actions-ui.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "group-chat-process/recovered.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "group-chat-process/restored.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "group-chat-ui.txt",
+      "completedCases": 22
+    },
+    {
+      "log": "image-process/recovered-instrumentation.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "image-queue-process/recovered-instrumentation.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "images-preparation-ui.txt",
+      "completedCases": 5
+    },
+    {
+      "log": "images-ui.txt",
+      "completedCases": 6
+    },
+    {
+      "log": "initialization-incompleteFirstWriteCanResumeCreation.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "initialization-unavailablePendingSaveIsPreservedForRetry.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "initialization-validSaveBeforePublicationResumesTheSavedIdentity.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "instrumentation.txt",
+      "completedCases": 3
+    },
+    {
+      "log": "live-official-feed.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "live-owner-feed.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "notification-permission-allowingAlertsKeepsInAppReadingOptional.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "notification-process/recovered.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "notifications-ui.txt",
+      "completedCases": 32
+    },
+    {
+      "log": "personal-controls-process/recovered.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "personal-controls-ui.txt",
+      "completedCases": 8
+    },
+    {
+      "log": "post-process/recovered-instrumentation.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "post-queue-process/recovered-instrumentation.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "post-queue-ui.txt",
+      "completedCases": 9
+    },
+    {
+      "log": "posting-ui.txt",
+      "completedCases": 18
+    },
+    {
+      "log": "preview-update-ui.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "private-chat-actions-ui.txt",
+      "completedCases": 10
+    },
+    {
+      "log": "private-chat-peer.txt",
+      "completedCases": 2
+    },
+    {
+      "log": "private-chat-process/recovered.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "private-chat-process/restored.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "private-chat-ui.txt",
+      "completedCases": 24
+    },
+    {
+      "log": "profile-process/recovered-instrumentation.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "public-chat.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "quote-process/recovered-instrumentation.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "quote-ui.txt",
+      "completedCases": 7
+    },
+    {
+      "log": "report-process/recovered.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "reports-ui.txt",
+      "completedCases": 11
+    },
+    {
+      "log": "search-ui.txt",
+      "completedCases": 9
+    },
+    {
+      "log": "social-process/recovered-instrumentation.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "social-ui.txt",
+      "completedCases": 8
+    },
+    {
+      "log": "transfer-process/credential-cleanup-verified.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "transfer-process/recovered.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "transfers-ui.txt",
+      "completedCases": 9
+    },
+    {
+      "log": "username-process/recovered.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "username-ui.txt",
+      "completedCases": 15
+    },
+    {
+      "log": "video-ui.txt",
+      "completedCases": 4
+    },
+    {
+      "log": "wallet-backup-ui.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "wallet-commit-sync-ui.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "wallet-export-process/recovered-instrumentation.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "wallet-export-ui.txt",
+      "completedCases": 5
+    },
+    {
+      "log": "wallet-import-process/recovered-instrumentation.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "wallet-import-ui.txt",
+      "completedCases": 7
+    },
+    {
+      "log": "wallet-initialization-ui.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "wallet-risk-ui.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "wallet-storage-recovery-ui.txt",
+      "completedCases": 1
+    },
+    {
+      "log": "wallet-ui.txt",
+      "completedCases": 3
+    }
+  ],
+  "deathLogs": [
+    "author-delete-process/interrupted-instrumentation.txt",
+    "author-edit-process/interrupted-instrumentation.txt",
+    "group-chat-process/interrupted.txt",
+    "image-process/candidate-interrupted.txt",
+    "image-process/draft-interrupted.txt",
+    "image-queue-process/interrupted-instrumentation.txt",
+    "notification-process/interrupted.txt",
+    "personal-controls-process/interrupted.txt",
+    "post-process/interrupted-instrumentation.txt",
+    "post-queue-process/interrupted-instrumentation.txt",
+    "private-chat-process/interrupted.txt",
+    "profile-process/candidate-interrupted.txt",
+    "profile-process/draft-interrupted.txt",
+    "quote-process/interrupted-instrumentation.txt",
+    "report-process/interrupted.txt",
+    "social-process/interrupted-instrumentation.txt",
+    "transfer-process/interrupted.txt",
+    "username-process/interrupted.txt",
+    "wallet-export-process/interrupted-instrumentation.txt",
+    "wallet-import-process/interrupted-instrumentation.txt"
+  ],
+  "assumptions": [
+    {
+      "log": "ProfilePublishingPreviewTest-ui.txt",
+      "assumptions": 1
+    }
+  ]
+}
