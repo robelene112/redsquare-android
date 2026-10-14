@@ -23,7 +23,9 @@ class GroupChatPreviewTest {
 
     @Test fun aKnownGroupRejoinPreviewsAndRoutesToItsRetainedAdministrator() = exerciseGroupUi(knownRejoin=true)
 
-    private fun exerciseGroupUi(joining:Boolean=false, leaving:Boolean=false, retrying:Boolean=false, knownRejoin:Boolean=false) {
+    @Test fun groupMessagesCombineAvailableHistoryLiveDeliveryAndPersistentCacheWithoutDuplicateSending() = exerciseGroupUi(joining=true,messaging=true)
+
+    private fun exerciseGroupUi(joining:Boolean=false, leaving:Boolean=false, retrying:Boolean=false, knownRejoin:Boolean=false, messaging:Boolean=false) {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -42,7 +44,16 @@ class GroupChatPreviewTest {
             val prefs = context.getSharedPreferences(name,0)
             Triple(prefs,key,if(prefs.contains(key)) prefs.getBoolean(key,false) else null)
         }
-        val peer = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", archiveResponse = { "[]" })
+        val historyAvailable=java.util.concurrent.atomic.AtomicBoolean(true)
+        val messageReference=if(messaging)InstrumentationRegistry.getInstrumentation().context.assets.open("native-group-chat-message-reference.json")
+            .bufferedReader().use{com.google.gson.JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject} else null
+        val peer = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", archiveResponse = { criteria ->
+            if(messageReference!=null && historyAvailable.get() && criteria.get("field3")?.asString==messageReference.get("groupId").asString){
+                com.google.gson.JsonArray().apply{add(com.google.gson.JsonObject().apply{
+                    addProperty("tx",messageReference.get("envelope").asString);addProperty("created_at",messageReference.get("timestamp").asLong)
+                })}.toString()
+            }else "[]"
+        })
         var primary: Throwable? = null
         try {
             store.replace(original,fixture)
@@ -68,7 +79,7 @@ class GroupChatPreviewTest {
                 ActivityScenario.launch<MainActivity>(Intent(context,MainActivity::class.java)
                     .putExtra("feedPeerUrl","ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("feedOfficialPeerUrl","ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
-                    withFailureCapture({ captureNativeScreen(File(context.cacheDir,if(knownRejoin) "group-chat-evidence/known-rejoin-failure.png" else if(joining) "group-chat-evidence/join-failure.png" else if(leaving) "group-chat-evidence/leave-failure.png" else if(retrying) "group-chat-evidence/retry-failure.png" else "group-chat-evidence/create-failure.png")) }) {
+                    withFailureCapture({ captureNativeScreen(File(context.cacheDir,if(messaging) "group-chat-evidence/message-failure.png" else if(knownRejoin) "group-chat-evidence/known-rejoin-failure.png" else if(joining) "group-chat-evidence/join-failure.png" else if(leaving) "group-chat-evidence/leave-failure.png" else if(retrying) "group-chat-evidence/retry-failure.png" else "group-chat-evidence/create-failure.png")) }) {
                         waitFor("Chat")
                         ui.waitUntil(15_000) { ui.onAllNodes(hasText("Chat") and isEnabled()).fetchSemanticsNodes().size == 1 }
                         ui.onNodeWithText("Chat").assertIsDisplayed().performClick()
@@ -190,12 +201,57 @@ class GroupChatPreviewTest {
                             check(!group.memberRoles.containsKey(invitation.sender))
                             waitFor("Joined using invitation details.")
                             captureNativeScreen(File(context.cacheDir,"group-chat-evidence/joined.png"),invitation.name)
+                            if(messaging){
+                                val available=requireNotNull(messageReference)
+                                waitFor(available.get("text").asString)
+                                ui.onNodeWithText(available.get("text").asString).assertIsDisplayed()
+                                ui.onNodeWithText("Message").performTextInput("Native group hello")
+                                ui.onNodeWithText("Send").assertIsEnabled().performClick()
+                                ui.waitUntil(15_000){peer.transactions.size==2 && peer.relayedMessages.size==2}
+                                waitFor("Forwarded. Delivery is not confirmed.")
+                                val sent=SaitoEnvelope.fromSignedJson(peer.relayedMessages.last())
+                                check(postingTransaction(peer.transactions.last()).envelope()==sent)
+                                val signed=SaitoEnvelope.decode(sent)
+                                check(signed.author==fixture.publicKey && signed.body.get("request").asString=="chat message")
+                                check(signed.body.get("message").asString=="Native group hello" && signed.body.get("group_id").asString==invitation.id)
+                                check(signed.recipients==listOf(fixture.publicKey,invitation.id))
+                                check(peer.relayRecipients.last()==listOf(fixture.publicKey,invitation.admin))
+                                ui.onNodeWithContentDescription("Group messages").performScrollToNode(hasText("Native group hello"))
+                                ui.onNodeWithText("Native group hello").assertIsDisplayed()
+                                val sender=SaitoWallet.fromPrivateKey("0".repeat(63)+"2") // Public unsafe fixture only.
+                                val senderGroup=GroupChat.confirmInvitation(invitation,GroupChat.join(sender,invitation,1700000123459).envelope())
+                                val live=GroupChat.message(sender,senderGroup,"Live group message",1700000123460)
+                                val incoming=live.applicationRequest(1).let{it.copyOfRange(5,it.size)}
+                                peer.sendIncoming(incoming)
+                                ui.waitUntil(15_000){peer.incomingAcknowledgements.any{it[0]==13.toByte()}}
+                                ui.onNodeWithContentDescription("Group messages").performScrollToNode(hasText("Live group message"))
+                                ui.onNodeWithText("Live group message").assertIsDisplayed()
+                                val before=peer.incomingAcknowledgements.size
+                                peer.sendIncoming(incoming)
+                                ui.waitUntil(15_000){peer.incomingAcknowledgements.size>before}
+                                ui.onAllNodesWithText("Live group message").assertCountEquals(1)
+                                historyAvailable.set(false)
+                                captureNativeScreen(File(context.cacheDir,"group-chat-evidence/messages-sent.png"),"Live group message")
+                            }
                             scenario.recreate()
                             waitFor("Groups")
                             ui.onNodeWithText("Groups").performClick()
                             waitFor(invitation.name)
                             captureNativeScreen(File(context.cacheDir,"group-chat-evidence/joined-reopened.png"),invitation.name)
-                            check(peer.transactions.size==1 && peer.relayedMessages.size==1)
+                            if(messaging){
+                                ui.onNodeWithText(invitation.name).assertIsDisplayed().performClick()
+                                for(text in listOf(requireNotNull(messageReference).get("text").asString,"Native group hello","Live group message")){
+                                    ui.onNodeWithContentDescription("Group messages").performScrollToNode(hasText(text))
+                                    ui.onNodeWithText(text).assertIsDisplayed()
+                                }
+                                ui.onAllNodesWithText("Live group message").assertCountEquals(1)
+                                val cached=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,store.loadExisting(),SaitoBackend.OWNER).load(invitation.id))
+                                check(cached.group.memberRoles[member]==ChatGroupRole.MEMBER)
+                                check(cached.group.memberRoles[invitation.admin]==ChatGroupRole.ADMIN)
+                                captureNativeScreen(File(context.cacheDir,"group-chat-evidence/messages-cached.png"),"Live group message")
+                            }
+                            val expected=if(messaging)2 else 1
+                            check(peer.transactions.size==expected && peer.relayedMessages.size==expected)
                             check(store.loadExisting().publicKey==fixture.publicKey && AndroidBackendStore(context).load()==SaitoBackend.OWNER)
                             peer.assertHealthy()
                             return@withFailureCapture

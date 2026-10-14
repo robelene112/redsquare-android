@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.saito.RedSquareFeedTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-10-14T10:28:37" hostname="7673dd80ead8" time="0.063">
+  <properties/>
+  <testcase name="independent multi-post refresh includes the signed newer post" classname="nl.davidengelen.redsquare.saito.RedSquareFeedTest" time="0.047"/>
+  <testcase name="altered and malformed archive rows do not conceal authentic posts" classname="nl.davidengelen.redsquare.saito.RedSquareFeedTest" time="0.009"/>
+  <testcase name="web posts with signed null fields retain compatible empty defaults" classname="nl.davidengelen.redsquare.saito.RedSquareFeedTest" time="0.006"/>
+  <testcase name="independent WASM archive transaction yields verified original post and author" classname="nl.davidengelen.redsquare.saito.RedSquareFeedTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
