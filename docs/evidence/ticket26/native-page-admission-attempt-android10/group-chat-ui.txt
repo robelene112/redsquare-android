@@ -1,0 +1,230 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.GroupChatPreviewTest:
+INSTRUMENTATION_STATUS: test=rejoiningAKnownGroupRetainsItsOriginalAuthorityKeyAndDeparture
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=rejoiningAKnownGroupRetainsItsOriginalAuthorityKeyAndDeparture
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anInterruptedCreationCanRetryItsSavedOriginalAndRecoverKeyMetadataWithoutAutomaticSending
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anInterruptedCreationCanRetryItsSavedOriginalAndRecoverKeyMetadataWithoutAutomaticSending
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=savedUncertainGroupWorkIsIncludedInOutgoingWalletWorkAcrossBackends
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=savedUncertainGroupWorkIsIncludedInOutgoingWalletWorkAcrossBackends
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anUnsentGroupDraftSurvivesBackNavigationAndReopeningWithoutSending
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anUnsentGroupDraftSurvivesBackNavigationAndReopeningWithoutSending
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=signedGroupHistoryCanPageOlderAndRemainCachedAfterArchivePruning
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.waitFor(GroupChatPreviewTest.kt:608)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.exerciseGroupUi$lambda$62$lambda$61$lambda$60(GroupChatPreviewTest.kt:260)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.$r8$lambda$1ZbMGCYKTgFv6P8oUzu2rUlsK0I(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest$$ExternalSyntheticLambda32.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.exerciseGroupUi(GroupChatPreviewTest.kt:137)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.exerciseGroupUi$default(GroupChatPreviewTest.kt:36)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.signedGroupHistoryCanPageOlderAndRemainCachedAfterArchivePruning(GroupChatPreviewTest.kt:32)
+
+INSTRUMENTATION_STATUS: stream=
+Error in signedGroupHistoryCanPageOlderAndRemainCachedAfterArchivePruning(nl.davidengelen.redsquare.GroupChatPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.waitFor(GroupChatPreviewTest.kt:608)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.exerciseGroupUi$lambda$62$lambda$61$lambda$60(GroupChatPreviewTest.kt:260)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.$r8$lambda$1ZbMGCYKTgFv6P8oUzu2rUlsK0I(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest$$ExternalSyntheticLambda32.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.exerciseGroupUi(GroupChatPreviewTest.kt:137)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.exerciseGroupUi$default(GroupChatPreviewTest.kt:36)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.signedGroupHistoryCanPageOlderAndRemainCachedAfterArchivePruning(GroupChatPreviewTest.kt:32)
+
+INSTRUMENTATION_STATUS: test=signedGroupHistoryCanPageOlderAndRemainCachedAfterArchivePruning
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anExistingMemberInvitationCanBeConfirmedOnTheSelectedBackendAndReadAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anExistingMemberInvitationCanBeConfirmedOnTheSelectedBackendAndReadAfterReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=removedAuthorsCannotHideAvailableEarlierGroupHistory
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=removedAuthorsCannotHideAvailableEarlierGroupHistory
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=leavingANamedGroupRetainsTheSignedDepartureAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=leavingANamedGroupRetainsTheSignedDepartureAfterReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=unavailableGroupArchiveKeepsCachedMessagesLiveDeliveryAndSendingUsable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unavailableGroupArchiveKeepsCachedMessagesLiveDeliveryAndSendingUsable
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aKnownGroupRejoinPreviewsAndRoutesToItsRetainedAdministrator
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aKnownGroupRejoinPreviewsAndRoutesToItsRetainedAdministrator
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=groupMessagesCombineAvailableHistoryLiveDeliveryAndPersistentCacheWithoutDuplicateSending
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=groupMessagesCombineAvailableHistoryLiveDeliveryAndPersistentCacheWithoutDuplicateSending
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=creationKeySurvivesReopeningBeforeWalletMetadataCanBePublished
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=creationKeySurvivesReopeningBeforeWalletMetadataCanBePublished
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=13
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aNamedGroupCanBeCreatedWithAnInvitationAndReadAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=13
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aNamedGroupCanBeCreatedWithAnInvitationAndReadAfterReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 83.474
+There was 1 failure:
+1) signedGroupHistoryCanPageOlderAndRemainCachedAfterArchivePruning(nl.davidengelen.redsquare.GroupChatPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.waitFor(GroupChatPreviewTest.kt:608)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.exerciseGroupUi$lambda$62$lambda$61$lambda$60(GroupChatPreviewTest.kt:260)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.$r8$lambda$1ZbMGCYKTgFv6P8oUzu2rUlsK0I(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest$$ExternalSyntheticLambda32.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.exerciseGroupUi(GroupChatPreviewTest.kt:137)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.exerciseGroupUi$default(GroupChatPreviewTest.kt:36)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.signedGroupHistoryCanPageOlderAndRemainCachedAfterArchivePruning(GroupChatPreviewTest.kt:32)
+
+FAILURES!!!
+Tests run: 13,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
