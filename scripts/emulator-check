@@ -98,6 +98,7 @@ verify_group_chat_actions() {
 if [[ "${TEST_SCOPE:-full}" == group-ui* ]]; then
     verify_group_chat_actions
     verify_group_chat_ui
+    python3 "$repo_dir/scripts/group-chat-process-check" --evidence "$evidence/group-chat-process"
     printf '%s\n' 'Focused native named-group UI only; complete acceptance and live writes not run.' > "$evidence/scope.txt"
     exit 0
 fi
@@ -175,6 +176,7 @@ fi
 if [[ "${TEST_SCOPE:-full}" == full ]]; then
     verify_group_chat_ui
     verify_group_chat_actions
+    python3 "$repo_dir/scripts/group-chat-process-check" --evidence "$evidence/group-chat-process"
     verify_private_chat
     verify_private_chat_ui
     python3 "$repo_dir/scripts/private-chat-process-check" --evidence "$evidence/private-chat-process"

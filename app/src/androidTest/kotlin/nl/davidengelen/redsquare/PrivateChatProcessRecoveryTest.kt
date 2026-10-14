@@ -50,17 +50,7 @@ class PrivateChatProcessRecoveryTest {
             addProperty("walletDigest", digest(fixtureWallet.exportJson()))
             addProperty("pid", Process.myPid())
         }
-        synchronized(SaitoLocalState.lock) {
-            check(originals.mkdir())
-            val saved = JsonArray()
-            for (name in fileNames(backend)) {
-                val file = File(context.noBackupFilesDir, name)
-                if (file.exists()) {
-                    check(file.isFile); file.copyTo(File(originals, name)); saved.add(name)
-                }
-            }
-            row.add("savedFiles", saved)
-        }
+        row.add("savedFiles", snapshotProcessFixtureFiles(context, originals, fileNames(backend)))
         val preferences = JsonArray()
         for ((name, key) in preferenceKeys()) {
             val prefs = context.getSharedPreferences(name, 0)
@@ -161,14 +151,7 @@ class PrivateChatProcessRecoveryTest {
         if (!checkpoint.exists()) return
         val row = readCheckpoint()
         val backend = SaitoBackend.entries.single { it.id == row.get("backend").asString }
-        synchronized(SaitoLocalState.lock) {
-            val allowed = fileNames(backend)
-            allowed.forEach { name -> val file = File(context.noBackupFilesDir, name); check(!file.exists() || file.delete()) }
-            for (value in row.getAsJsonArray("savedFiles")) {
-                val name = value.asString; check(name in allowed)
-                File(originals, name).copyTo(File(context.noBackupFilesDir, name))
-            }
-        }
+        restoreProcessFixtureFiles(context, originals, fileNames(backend), row.getAsJsonArray("savedFiles"))
         for (item in row.getAsJsonArray("preferences")) {
             val pref = item.asJsonObject
             val name = pref.get("name").asString; val key = pref.get("key").asString
