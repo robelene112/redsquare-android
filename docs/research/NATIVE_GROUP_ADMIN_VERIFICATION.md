@@ -210,3 +210,15 @@ then identical original forwarded once by native Retry, original installation
 restored. Retainednative-admin-green-android17, both PID checkpoints exact. Root
 original removal Retry capture inspected. This source predates new stale-stop
 tracer and durable-precondition correction; no acceptance of those or full27.
+
+First stopRED10run38652588023 atf80ed1ed FAILED11cases10PASS1failure47.576s:
+missing stale-action guidance at107. Root original shows UNKNOWN/onlyRetry with
+disabled composer and retained draft. Stopconfirmation/no-wire/reopen/newwork and
+bothPIDstages unexecuted. Other ten casesPASS including corrected saved-draft
+precondition and unchanged final preservation assertions; earliercauseunproved.
+Retainednative-stale-stop-red-android10. Minimum stop correction nowAPPLIEDworking
+source: deliberate localSTOPPED, immutable signed original/prior uncertain status
+history retained across new work, fresh selection/staleness validation, visible
+uncertainty, permitted composition restored, no sends. Conservative outgoing-wallet
+work disclosure includes these retained uncertain actions. Build81893 active.
+Prepared scratch apply script is obsolete; do not execute twice. No stopGREEN yet.

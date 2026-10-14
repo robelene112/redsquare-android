@@ -481,4 +481,10 @@
     <string name="group_checking">Checking available group information.</string>
     <string name="group_not_recovered">Group information has not been recovered yet. Check older information or use an invitation link.</string>
     <string name="group_live_error">Live group messages are unavailable. Your cached messages are kept.</string>
+    <string name="group_stale_action">This saved group action no longer matches the current membership or group details.</string>
+    <string name="group_stop_action">Stop trying this action</string>
+    <string name="group_stop_notice">Earlier delivery may still have happened. This only stops further attempts on this device and keeps the original record.</string>
+    <string name="group_stop_confirm">Stop on this device</string>
+    <string name="group_stopped">Stopped on this device. Earlier delivery is uncertain.</string>
+    <string name="group_stopped_history">Stopped group actions remain saved here. Their earlier delivery is uncertain.</string>
 </resources>

@@ -12,8 +12,9 @@ internal class GroupChatStorageException(cause:Exception):IllegalStateException(
 
 /** Encrypted original group state. Opening never transmits a retained attempt. */
 internal class GroupChatStore(private val context: Context, private val wallet: SaitoWallet, private val backend: SaitoBackend) {
-    enum class Status { UNKNOWN, SUBMITTED, FORWARDED, RECEIVED }
-    data class Entry(val group: NamedChatGroup, val candidate: SaitoTransaction?, val status: Status, val creationKey: SaitoWallet? = null, val originals:List<String> = emptyList(), val messages:List<GroupChatMessage> = emptyList(), val draft:String = "", val reactions:List<GroupChatLikeEvent> = emptyList(), val ownCreation:Boolean=false) {
+    enum class Status { UNKNOWN, SUBMITTED, FORWARDED, RECEIVED, STOPPED }
+    data class StoppedAction(val candidate:SaitoTransaction,val previousStatus:Status)
+    data class Entry(val group: NamedChatGroup, val candidate: SaitoTransaction?, val status: Status, val creationKey: SaitoWallet? = null, val originals:List<String> = emptyList(), val messages:List<GroupChatMessage> = emptyList(), val draft:String = "", val reactions:List<GroupChatLikeEvent> = emptyList(), val ownCreation:Boolean=false,val stoppedActions:List<StoppedAction> = emptyList()) {
         fun likedBy(message:GroupChatMessage)=GroupChatReplay(group,messages,originals,reactions=reactions).likedBy(message)
         val hasPendingAction:Boolean get()=status==Status.UNKNOWN||status==Status.SUBMITTED
     }
@@ -66,13 +67,26 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
             require(candidate.envelope() in (listOf(original)+group.controls+history.originals) &&
                 SaitoEnvelope.decode(candidate.envelope()).author==wallet.publicKey)
         }
+        val stopped=record.get("stopped")?.asJsonArray?.map { value ->
+            val item=value.asJsonObject
+            val retained=SaitoTransaction.restore(item.get("candidate").asString)
+            val previousStatus=Status.valueOf(item.get("status").asString)
+            require(previousStatus in listOf(Status.UNKNOWN,Status.SUBMITTED))
+            val signed=SaitoEnvelope.decode(retained.envelope())
+            require(signed.author==wallet.publicKey && retained.envelope() in history.originals)
+            require(signed.body.get("request").asString=="chat update" ||
+                (signed.body.get("request").asString=="chat remove"&&signed.body.get("member_id").asString!=wallet.publicKey))
+            StoppedAction(retained,previousStatus)
+        }.orEmpty()
+        require(stopped.map{it.candidate.id}.distinct().size==stopped.size)
+        if(status==Status.STOPPED)require(candidate!=null && stopped.any{it.candidate.envelope()==candidate.envelope()})
         val creationKey=record.get("creationKey")?.takeUnless{it.isJsonNull}?.let {
             require(it.isJsonPrimitive && it.asJsonPrimitive.isString)
             SaitoWallet.fromBackup(it.asString).also{key->require(key.publicKey==group.id)}
         }
         val draft=record.get("draft")?.also{require(it.isJsonPrimitive&&it.asJsonPrimitive.isString)}?.asString ?: ""
         Entry(group,candidate,status,creationKey,history.originals,history.messages,draft,history.reactions,
-            creation!=null && SaitoEnvelope.decode(creation).author==wallet.publicKey)
+            creation!=null && SaitoEnvelope.decode(creation).author==wallet.publicKey,stopped)
         }catch(failure:GroupChatStorageException){throw failure}
         catch(failure:Exception){throw GroupChatStorageException(failure)}
     }
@@ -208,6 +222,29 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         save(previous.copy(status=Status.UNKNOWN))
     }
 
+    /** Pure current-state classification, shared by UI guidance and protected local resolution. */
+    fun isStaleAdminAction(entry:Entry):Boolean {
+        if(!entry.hasPendingAction)return false
+        val signed=SaitoEnvelope.decode(requireNotNull(entry.candidate).envelope())
+        return when(signed.body.get("request").asString) {
+            "chat update" -> try{GroupChat.assertCurrentUpdate(entry.group,entry.candidate.envelope());false}
+                catch(_:IllegalStateException){true}
+            "chat remove" -> signed.body.get("member_id").asString!=wallet.publicKey &&
+                (entry.group.memberRoles[wallet.publicKey]!=ChatGroupRole.ADMIN ||
+                    entry.group.memberRoles[signed.body.get("member_id").asString]!=ChatGroupRole.REMOVED)
+            else -> false
+        }
+    }
+
+    /** Stop future attempts locally, retaining the exact original and its uncertain progress. */
+    fun stopStaleAction(id:String,signature:String):Entry = synchronized(SaitoLocalState.lock) {
+        assertSelected()
+        val previous=requireNotNull(load(id))
+        check(previous.candidate?.id==signature && isStaleAdminAction(previous))
+        save(previous.copy(status=Status.STOPPED,stoppedActions=previous.stoppedActions+
+            StoppedAction(requireNotNull(previous.candidate),previous.status)))
+    }
+
     fun assertSelected() {
         check(AndroidWalletStore(context).loadExisting().exportJson() == wallet.exportJson())
         check(AndroidBackendStore(context).load() == backend)
@@ -258,7 +295,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
 
     fun record(id: String, signature: String, status: Status): Entry = synchronized(SaitoLocalState.lock) {
         val previous = requireNotNull(load(id))
-        check(previous.candidate?.id == signature)
+        check(previous.candidate?.id == signature && previous.status!=Status.STOPPED)
         check(status in listOf(Status.SUBMITTED,Status.FORWARDED))
         save(previous.copy(status=status))
     }
@@ -274,6 +311,9 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
             addProperty("candidate",entry.candidate?.encoded())
             addProperty("status",entry.status.name)
             addProperty("draft",entry.draft)
+            add("stopped",com.google.gson.JsonArray().apply { entry.stoppedActions.forEach { item ->
+                add(JsonObject().apply{addProperty("candidate",item.candidate.encoded());addProperty("status",item.previousStatus.name)})
+            }})
             entry.creationKey?.let { key ->
                 require(key.publicKey==entry.group.id)
                 addProperty("creationKey",key.exportJson())
@@ -282,7 +322,8 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         try {
             file(entry.group.id).save(EncryptedLocalFile.Contents(1,record.toString()))
             return requireNotNull(load(entry.group.id)).also { check(it.candidate?.id == entry.candidate?.id && it.status == entry.status &&
-                it.creationKey?.exportJson()==entry.creationKey?.exportJson() && it.draft==entry.draft) }
+                it.creationKey?.exportJson()==entry.creationKey?.exportJson() && it.draft==entry.draft &&
+                it.stoppedActions.map{row->row.candidate.envelope() to row.previousStatus}==entry.stoppedActions.map{row->row.candidate.envelope() to row.previousStatus}) }
         }catch(failure:GroupChatStorageException){throw failure}
         catch(failure:Exception){throw GroupChatStorageException(failure)}
     }
@@ -296,7 +337,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
                 val names=requireNotNull(context.noBackupFilesDir.listFiles()).map{it.name}.filter{it.startsWith(prefix)}
                 val pattern=Regex("${Regex.escape(prefix)}([1-9A-HJ-NP-Za-km-z]{43,45})\\.v1(?:\\.bak|\\.new)?")
                 if(names.any{pattern.matchEntire(it)==null || it.endsWith(".new")}) return@synchronized true
-                GroupChatStore(context,wallet,backend).entries().any{it.hasPendingAction || it.draft.isNotBlank()}
+                GroupChatStore(context,wallet,backend).entries().any{it.hasPendingAction || it.stoppedActions.isNotEmpty() || it.draft.isNotBlank()}
             } catch(_:Exception){true}
         }
     }

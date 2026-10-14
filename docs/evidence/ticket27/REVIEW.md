@@ -108,3 +108,12 @@ uncertain-delivery guidance, retain signed original and allow permitted new work
 verify actual native flow. Eleven-case recovery tracer awaits first RED; no source
 stop implementation or whole acceptance claimed. Earlier guidance attempt failed
 combined draft/key preservation after visible guidance passed; retained and qualified.
+
+## Focused Android17 actual evidence review
+
+f80ed1ed...b912495a: Spec0, Standards0. Both axes verified46 hashes/13XML,
+tenPASS75.149s at48b1410a, no failing status. PromotionPID4824to4926 and removal
+5041to5121, exact checkpoint deltas, crash/recovery/restore and nativeRetry proof.
+Selected original stale-membership/refusal/Retry captures inspected. Protected
+snapshots remain on-device. Later durable-precondition/eleventh stale-stop case
+and whole27 remain unaccepted. Success does not explain previous10failedoperand.

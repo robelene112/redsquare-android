@@ -145,6 +145,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     var joining by remember(wallet.publicKey,backend) { mutableStateOf(false) }
     var members by remember(selected) { mutableStateOf(false) }
     var promoting by remember(selected) { mutableStateOf<String?>(null) }
+    var stopping by remember(selected) { mutableStateOf(false) }
     var removing by remember(selected) { mutableStateOf<String?>(null) }
     var leaving by remember(selected) { mutableStateOf(false) }
     var inviting by remember(selected) { mutableStateOf(false) }
@@ -322,9 +323,17 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                 GroupChatStore.Status.UNKNOWN -> R.string.group_unknown
                 GroupChatStore.Status.SUBMITTED -> R.string.group_submitted
                 GroupChatStore.Status.FORWARDED -> R.string.group_forwarded
+                GroupChatStore.Status.STOPPED -> R.string.group_stopped
                 GroupChatStore.Status.RECEIVED -> if(entry.ownCreation)R.string.group_recovered else R.string.group_received
             }),style=MaterialTheme.typography.bodySmall)
-            if(entry.hasPendingAction) TextButton(enabled=loaded&&!busy&&!readFailed,onClick={
+            val staleAction=store.isStaleAdminAction(entry)
+            if(staleAction) {
+                Text(stringResource(R.string.group_stale_action),color=MaterialTheme.colorScheme.error)
+                TextButton(enabled=loaded&&!busy&&!readFailed,onClick={stopping=true}){Text(stringResource(R.string.group_stop_action))}
+            }
+            if(entry.stoppedActions.isNotEmpty()&&entry.status!=GroupChatStore.Status.STOPPED)
+                Text(stringResource(R.string.group_stopped_history),style=MaterialTheme.typography.bodySmall)
+            if(entry.hasPendingAction) TextButton(enabled=loaded&&!busy&&!readFailed&&!staleAction,onClick={
                 act {
                     val pending=requireNotNull(entry.candidate)
                     withContext(NonCancellable){publish{store.prepareRetry(entry.group.id,pending.id);store.entries()}}
@@ -415,6 +424,17 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             sendPrepared(invitation.id,candidate,updated)
         }
     }
+    if(stopping && entry!=null) AlertDialog(onDismissRequest={if(!busy)stopping=false},
+        title={Text(stringResource(R.string.group_stop_action))},
+        text={Text(stringResource(R.string.group_stop_notice))},
+        dismissButton={TextButton(enabled=!busy,onClick={stopping=false}){Text(stringResource(R.string.group_cancel))}},
+        confirmButton={TextButton(enabled=loaded&&!busy&&!readFailed&&store.isStaleAdminAction(entry),onClick={
+            act {
+                val pending=requireNotNull(entry.candidate)
+                withContext(NonCancellable){publish{store.stopStaleAction(entry.group.id,pending.id);store.entries()}}
+                stopping=false
+            }
+        }){Text(stringResource(R.string.group_stop_confirm))}})
     if(leaving && entry!=null) AlertDialog(onDismissRequest={if(!busy)leaving=false},
         title={Text(stringResource(R.string.group_leave))},
         text={Text(stringResource(R.string.group_leave_notice))},

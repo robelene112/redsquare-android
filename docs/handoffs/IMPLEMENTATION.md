@@ -30,7 +30,7 @@ Signed15immutable preserved. recordsdocs/evidence/ticket39, no ownedlocalbuildac
 
 Current sequential issue27: admin promotion and member removal, assigned@me.
 Review base7979c655164257e08b184834810de03a80d92b67; prerequisite26 closed.
-CurrentHEAD f80ed1ed, remote pushed; only protected untracked contract untouched.
+CurrentHEAD b912495a; remote f80ed1ed, latest evidence commit pendingpush; only protected untracked contract untouched.
 Four focused core cases plus independent A/B constructor/receiver references pass.
 Focused17run38652150530 at48b1410a SUCCESS:ten admin/controller cases75.149s,
 including current authority at both send gates, visible refusal and exact Retry.
@@ -44,11 +44,15 @@ wait added before incoming change, finalassertions unchanged; reviews0/0.
 Whole source at48b: Standards0; Spec1 stale pending promotion blocks all future
 work without deliberate local recovery. New native stale-stop tracer nowcommitted
 f80, compilePASS1m32 beforetestonlywait/literalUIadditions hostedverificationpending.
-First11caseRED10run38652588023 activeatf80; stop implementation deliberatelyabsent.
-No ownedlocalbuildactive. Ignored .scratch/implement-group27-stale-stop.py is a
-prepared correction proposal; DO NOT execute until actual RED observed/retained.
-It proposes localSTOPPED status and retained uncertain original history, shared
-classification/UIconfirmation plus restored composition, without retransmission.
+First11caseRED10run38652588023 atf80 FAILED11cases10PASS1failure47.576s: absent
+stale-stop guidance at107, stop/reopen/new-work tail and PIDstages unexecuted.
+Corrected draft setup/final old assertionsPASS; earlierfailedoperand/causeunproved.
+Retainednative-stale-stop-red-android10 and root original inspected.
+Stop correction nowAPPLIED inworkingtree: localSTOPPED status, retained uncertain
+original history/priorstatus, fresh protectedstaleclassification/UIconfirmation,
+restored composition without transmission; walletreplacementdisclosure remains
+conservative for stopped uncertain actions. Build81893 activecore4/debug/test.
+Ignored .scratch/implement-group27-stale-stop.py is OBSOLETE/APPLIED; DO NOT rerun.
 Current17GREEN does notaccept this new recovery or latesttestfixture changes.
 Whole27 stillopen: stale-stop RED/GREEN, correction/finalreviews, full10/17,
 nextsignedphonepreview andclosure. Stablebeta remains signed16.
