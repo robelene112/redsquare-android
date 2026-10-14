@@ -59,8 +59,11 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         assertSelected()
         require(SaitoEnvelope.decode(candidate.envelope()).author==wallet.publicKey)
         val group=GroupChat.confirmInvitation(invitation,candidate.envelope())
-        check(load(group.id)==null)
-        save(Entry(group,candidate,Status.UNKNOWN))
+        val previous=load(group.id)
+        if(previous==null) save(Entry(group,candidate,Status.UNKNOWN)) else {
+            check(previous.status==Status.FORWARDED)
+            save(previous.copy(group=GroupChat.applyControl(previous.group,candidate.envelope()),candidate=candidate,status=Status.UNKNOWN))
+        }
     }
 
     /** Retain the signed departure and its observed role before the first network attempt. */

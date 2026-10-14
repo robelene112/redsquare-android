@@ -1,0 +1,122 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.GroupChatPreviewTest:
+INSTRUMENTATION_STATUS: test=rejoiningAKnownGroupRetainsItsOriginalAuthorityKeyAndDeparture
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.chat.GroupChatStore.prepareInvitation(GroupChatStore.kt:62)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.rejoiningAKnownGroupRetainsItsOriginalAuthorityKeyAndDeparture(GroupChatPreviewTest.kt:317)
+
+INSTRUMENTATION_STATUS: stream=
+Error in rejoiningAKnownGroupRetainsItsOriginalAuthorityKeyAndDeparture(nl.davidengelen.redsquare.GroupChatPreviewTest):
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.chat.GroupChatStore.prepareInvitation(GroupChatStore.kt:62)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.rejoiningAKnownGroupRetainsItsOriginalAuthorityKeyAndDeparture(GroupChatPreviewTest.kt:317)
+
+INSTRUMENTATION_STATUS: test=rejoiningAKnownGroupRetainsItsOriginalAuthorityKeyAndDeparture
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anInterruptedCreationCanRetryItsSavedOriginalAndRecoverKeyMetadataWithoutAutomaticSending
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anInterruptedCreationCanRetryItsSavedOriginalAndRecoverKeyMetadataWithoutAutomaticSending
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=savedUncertainGroupWorkIsIncludedInOutgoingWalletWorkAcrossBackends
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=savedUncertainGroupWorkIsIncludedInOutgoingWalletWorkAcrossBackends
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anExistingMemberInvitationCanBeConfirmedOnTheSelectedBackendAndReadAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anExistingMemberInvitationCanBeConfirmedOnTheSelectedBackendAndReadAfterReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=leavingANamedGroupRetainsTheSignedDepartureAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=leavingANamedGroupRetainsTheSignedDepartureAfterReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=creationKeySurvivesReopeningBeforeWalletMetadataCanBePublished
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=creationKeySurvivesReopeningBeforeWalletMetadataCanBePublished
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aNamedGroupCanBeCreatedWithAnInvitationAndReadAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aNamedGroupCanBeCreatedWithAnInvitationAndReadAfterReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 41.162
+There was 1 failure:
+1) rejoiningAKnownGroupRetainsItsOriginalAuthorityKeyAndDeparture(nl.davidengelen.redsquare.GroupChatPreviewTest)
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.chat.GroupChatStore.prepareInvitation(GroupChatStore.kt:62)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.rejoiningAKnownGroupRetainsItsOriginalAuthorityKeyAndDeparture(GroupChatPreviewTest.kt:317)
+
+FAILURES!!!
+Tests run: 7,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

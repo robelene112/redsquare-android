@@ -105,7 +105,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             Row {
                 TextButton(onClick={members=true}) { Text(stringResource(R.string.group_members)) }
                 if(entry.group.memberRoles[wallet.publicKey]?.active==true) {
-                    TextButton(enabled=!busy,onClick={inviting=true}) { Text(stringResource(R.string.group_invite)) }
+                    TextButton(enabled=!busy&&entry.group.memberRoles.values.any{it==ChatGroupRole.ADMIN},onClick={inviting=true}) { Text(stringResource(R.string.group_invite)) }
                     TextButton(enabled=!busy&&entry.status==GroupChatStore.Status.FORWARDED,onClick={leaving=true}) { Text(stringResource(R.string.group_leave)) }
                 }
             }
@@ -147,7 +147,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             val candidate=withContext(Dispatchers.IO){GroupChat.join(wallet,invitation,System.currentTimeMillis())}
             withContext(NonCancellable){publish{store.prepareInvitation(invitation,candidate);store.entries()}}
             selected=invitation.id;joining=false
-            val updated=withContext(Dispatchers.IO){wallet.withNamedChatGroup(invitation.id,invitation.name)}
+            val updated=withContext(Dispatchers.IO){val retained=requireNotNull(store.load(invitation.id));wallet.withNamedChatGroup(retained.group.id,retained.group.name,retained.creationKey)}
             sendPrepared(invitation.id,candidate,updated,invitation.admin)
         }
     }
@@ -168,7 +168,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         text={LazyColumn(Modifier.heightIn(max=320.dp)){items(entry.group.memberRoles.toList(),key={it.first}){(key,role)->
             Column(Modifier.padding(vertical=8.dp)){Text(key,style=MaterialTheme.typography.bodySmall);Text(role.name.lowercase())}
         }}},confirmButton={TextButton(onClick={members=false}){Text(stringResource(R.string.group_done))}})
-    if(inviting && entry!=null) {
+    if(inviting && entry!=null && entry.group.memberRoles[wallet.publicKey]?.active==true && entry.group.memberRoles.values.any{it==ChatGroupRole.ADMIN}) {
         val invitation = remember(entry.group,backend) { GroupInvitation.fromGroup(entry.group,wallet.publicKey).link(backend) }
         AlertDialog(onDismissRequest={inviting=false},title={Text(stringResource(R.string.group_invitation_link))},
             text={SelectionContainer{Text(invitation,Modifier.semantics{contentDescription="Group invitation link"},style=MaterialTheme.typography.bodySmall)}},

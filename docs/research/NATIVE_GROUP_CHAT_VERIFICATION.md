@@ -326,3 +326,16 @@ Root original failure PNG/XML inspected. No-autosend/checkpoint preconditions pa
 later metadata/disconnect/retry assertions did not execute. Minimum Retry source
 now retains and sends the exact original with protected-key metadata recovery;
 compile/corrected native GREEN pending. No actual PID-death or complete26 claim.
+
+Retry six-case GREEN4743355cc057bb95951183807b71d962c7d749d6: Android10
+38543182621 PASS26.252s; Android17 38543185574 PASS65.008s. Original forwarded
+retry screenshots and raw summaries retained. Independent protected metadata,
+controlled disconnect, exact retry and no-autosend through recreation pass.
+This remains seeded preparation/recreation rather than actual process death.
+
+Known-group rejoin tracer uses the protected module seam with seeded forwarded
+creation/departure. A new unsigned invitation has conflicting name/admin claims;
+the new own join must preserve origin/key/controls/name, restore MEMBER rather
+than ADMIN and refuse to replace pending work. Source reviews0/0; testAPK compile
+PASS1m40s. Native RED17run38544239476 at362f97c2 is active. Consent/network
+admission and complete26 are not claimed by this module tracer.
