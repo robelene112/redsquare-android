@@ -39,7 +39,40 @@ Local .scratch/review-builds/14; publicrecords docs/evidence/ticket37/signed-pre
 No store/node/service/ingresschange. Current14physicalPixel/continuity/performance
 remain35. Preview13superseded;12neverpublished.
 
-**Latest26,2026-10-14 10:14UTC:** known-admin native RED38546506531/95207cf0
+**Active #26 checkpoint, 2026-10-14 12:22 UTC:** Group creation, invitations,
+leaving, exact retry, known-group routing, messages/live receipt/cache, unsent
+drafts and unavailable Archive sending are implemented. Group Chat remains OPEN;
+beta14 is unchanged. Most recent Archive failure regression GREEN at
+ad8aa4fcedf4b1b417df26f2c96bde7bad076f20: Android10 run38558779177,11PASS55.476s;
+Android17 run38558782794,11PASS101.203s. Qualified captures/raw evidence are in
+`docs/evidence/ticket26/`. These prove recreation, not actual process death.
+
+Native pagination RED Android10 run38560385566 at179c1255:12cases,11PASS,
+75.505s, missing Load older control. Retained unique PNG/XML shows recent-message
+viewport; later cursor/cache assertions did not execute. Pager minimum f01be731
+compiled debug/test APK, but has not passed native pagination. Review found
+old messages could reactivate LEFT; core tracer reproduced LEFT versus MEMBER.
+Fix eeb9903865c6893c3208ff0d3a0ab2053ebc85fc now preserves known LEFT, with17
+GroupChat tests PASS and both review axes0. Evidence is older-after-leave-red/green.
+
+Current new13-case native tracer checks a full page of signed messages from a
+REMOVED author cannot hide earlier valid history. Authentic removed membership is
+seeded only on emulator; old messages remain rejected, cursor independent of cache.
+Local debug/test build active at checkpoint; native RED not dispatched yet.
+The pager cursor currently advances only after admission and still needs correction.
+Next inspect compile/reviews, push and dispatch group-ui Android10 to establish
+actual regression, then separate authenticated cursor from admission, verify both
+Android10/17. Do not reapply old scratch scripts over current source.
+
+Remaining #26: storage-fault draft Refresh recovery, incoming signed creation
+without automatic outgoing transactions, imported public group hints and available
+history, account block versus mute, web-compatible message rendering, real PID
+termination/cold recovery, final full10/17/release/lint and whole-ticket reviews,
+signed next beta. `.scratch/group26-remaining-acceptance.txt` is a local checklist,
+not a second issue tracker. Protected untracked research contract stays untouched.
+Owner-priority further UI polish follows26, then remaining tickets sequentially.
+
+**Historical #26 checkpoint, 2026-10-14 10:14UTC:** known-admin native RED38546506531/95207cf0
 8cases67.047s has7PASS plus missingretainedadmin fixture90. RootPNG/XMLshowsbad
 name/admin; unscopedname notproof, laterwire/recoveryassertsunexecuted. Corrected
 source8d8e9004 resolvesknown details offMain beforeconsent; storeindependently
