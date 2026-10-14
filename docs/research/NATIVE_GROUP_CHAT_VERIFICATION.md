@@ -529,3 +529,14 @@ harnesshelper reviewed0/0. Existingfullorder runsappearance/group22 beforeaction
 allclassdeadlines/assertions remain. Fullchecks willinclude release/lint/core,
 existingprivateprocesshelper regression and allpreviousfeature/wallet/update gates.
 Signednextpreview ispreparedbutnotpublished untilfinalverification.
+
+Finalfull17firstattempt38613221849 atc519 FAILED: appearance1PASS44.212s;
+group22 21PASS/1FAIL132.256s atimportedguidancevisibility733. Rootnativeoriginal
+PNG/XMLshowCheckingavailablegroupinformation anddisabledCreate/Join. Presence
+wait doesnotprove displayedtext; sourcewalletmetadata replacement restarts
+discovery, only supports a transitionhypothesis. Correctione95df2f4 waitsactual
+displaywithsame15sbudget/finalassertion, no productionchange. Other21casespass;
+actions/mixed/PID/restfullunexecuted. native-full-attempt1-android17retained.
+Full10attempt1failedcurl92publicSDKsetupbeforebuild/device; originalfailure
+excerpt andjobstepsretained. Samec519attempt2runtimeactive. Outstanding17will
+repeatfull atcorrectedfixture, recordingunchangedproduction perWORKFLOW.
