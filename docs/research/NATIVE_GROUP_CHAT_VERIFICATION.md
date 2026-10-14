@@ -464,3 +464,16 @@ PASS1m44s. Actual11-case RED10run38557529120 at673cf8ff1b2a9d99774eeb5702dd5055a
 pending. Source already preserves the live peer during history failure, but the
 current generic warning incorrectly blames saved/sent work. Prepared separate
 history warning remains unapplied until actual RED is inspected.
+
+Actual archive-warning RED10run38557529120 at673cf8ff: eleven cases/ten PASS,
+66.372s. Fresh malformed Archive response observed; missing distinct visible
+history warning fails252. Root original archive-failure PNG/XML show generic
+saved/sent error and three cached messages. Send/live/five-message recreation
+tail unexecuted. Retained native-archive-red-android10.
+
+Warning minimumc3f8a9da separates historyFailed copy from local read/save/send/
+draft failures. Reviews caught existing Retry fixture142 still expecting old
+generic copy; ad8aa4fc changes only that expected sentence, retaining Submitted,
+original and recovery assertions. Correction reviews0/0. Product debug/testAPK
+compile PASS3m10s; corrected testAPK PASS1m41s. Native11 atad8aa4fcedf4b1b417df26f2c96bde7bad076f20
+pending: Android10run38558779177, Android17run38558782794. Complete26 remains open.
