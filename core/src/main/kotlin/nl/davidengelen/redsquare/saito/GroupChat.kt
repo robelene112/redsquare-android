@@ -96,7 +96,7 @@ object GroupChat {
                 name = body.requiredString("group_name")
                 require(name.isNotBlank() && Charsets.UTF_8.newEncoder().canEncode(name))
                 val roles = body.get("member_ids")
-                require(roles != null && roles.isJsonObject && roles.asJsonObject.size() <= 255)
+                require(roles != null && roles.isJsonObject)
                 roles.asJsonObject.entrySet().forEach { (member, value) ->
                     require(SaitoWallet.isPublicKey(member) && member != group.id && value.isJsonPrimitive)
                     val primitive = value.asJsonPrimitive

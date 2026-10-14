@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.saito.GroupChatTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-10-14T04:49:35" hostname="af548743cfbd" time="0.747">
+  <properties/>
+  <testcase name="groupMessageDisplayUsesTheAuthenticatedTransactionTimeWhenBodyTimeDiffers" classname="nl.davidengelen.redsquare.saito.GroupChatTest" time="0.402"/>
+  <testcase name="savedOriginalsReconstructMembershipAndRejectUnauthorizedControlClaims" classname="nl.davidengelen.redsquare.saito.GroupChatTest" time="0.087"/>
+  <testcase name="verifiedCreationBuildsMembershipAndRejectsAnAdminClaimFromAnotherSigner" classname="nl.davidengelen.redsquare.saito.GroupChatTest" time="0.01"/>
+  <testcase name="namedGroupMessagesStayPlaintextWithBothPinnedWebSignaturesAndRejectRemovedSenders" classname="nl.davidengelen.redsquare.saito.GroupChatTest" time="0.027"/>
+  <testcase name="aGroupWithMoreThan255MembersCanReceiveAKnownAdminSnapshot" classname="nl.davidengelen.redsquare.saito.GroupChatTest" time="0.072"/>
+  <testcase name="joiningAndSelfLeavingRetainOriginalControlsWithoutReplayRejoining" classname="nl.davidengelen.redsquare.saito.GroupChatTest" time="0.024"/>
+  <testcase name="onlyKnownAdminsCanPublishGroupSnapshotsAndRemovalCannotBeUndoneByAnOldSnapshot" classname="nl.davidengelen.redsquare.saito.GroupChatTest" time="0.067"/>
+  <testcase name="joiningAddressesTheGroupAndDerivedAdminWithCompatibleSignedFields" classname="nl.davidengelen.redsquare.saito.GroupChatTest" time="0.009"/>
+  <testcase name="leavingSignsOnlyTheCurrentMemberWithCompatibleGroupRecipients" classname="nl.davidengelen.redsquare.saito.GroupChatTest" time="0.005"/>
+  <testcase name="confirmedUnsignedInvitationRetainsItsTrustOriginWithoutInventingSignedCreation" classname="nl.davidengelen.redsquare.saito.GroupChatTest" time="0.013"/>
+  <testcase name="anInvitationMemberCanAuthenticateAvailableCreationBeforeJoining" classname="nl.davidengelen.redsquare.saito.GroupChatTest" time="0.002"/>
+  <testcase name="anAuthenticatedCreationCannotPublishAnInvalidPublicKeyAsAMember" classname="nl.davidengelen.redsquare.saito.GroupChatTest" time="0.004"/>
+  <testcase name="aRemovedMemberCannotClearTheBanWithASelfLeaveAndNewJoin" classname="nl.davidengelen.redsquare.saito.GroupChatTest" time="0.017"/>
+  <testcase name="creationMatchesBothPinnedExistingWebConstructorsAndTheirSignedBytes" classname="nl.davidengelen.redsquare.saito.GroupChatTest" time="0.005"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

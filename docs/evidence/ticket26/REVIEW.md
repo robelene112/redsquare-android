@@ -71,3 +71,8 @@ duplication; shared role predicate now centralizes three actual uses. Spec1: the
 A group can gain more members via joins, and update outputs do not list all members.
 A larger valid-map regression and correction are next. Timestamp correction
 f6a6da41...91c65a96 Standards0; Spec review pending.
+
+Timestamp correction reviewsf6a6da41...91c65a96: Standards0 and Spec0, previous
+timestamp finding resolved. Source time remains authenticated header; web local
+arrival-order adjustment excluded explicitly. Snapshot-map size finding corrected
+with256-entry RED/GREEN; active-role duplication extracted separately.

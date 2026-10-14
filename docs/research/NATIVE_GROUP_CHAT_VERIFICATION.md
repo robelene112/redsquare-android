@@ -213,3 +213,8 @@ Shared active-role predicate removes repeated domain checks after Standards
 heuristic. Full core regression101PASS/no failures/errors/skips, build59s;
 not Android runtime acceptance. Snapshot role-map size review found an incorrect
 255-member cap; independent envelope byte limits suffice, correction pending.
+
+Snapshot-size correction: public fixture with256 valid role entries fails the
+incorrect255 cap, RED1/build35s. Removed slip-count borrowing; authenticated
+envelope byte limit still bounds input. All14GroupChat cases GREEN. No Android
+runtime or arbitrary history completeness claim.

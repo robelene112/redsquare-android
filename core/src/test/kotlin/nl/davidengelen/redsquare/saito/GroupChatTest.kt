@@ -274,4 +274,21 @@ class GroupChatTest {
         }
     }
 
+    @Test fun aGroupWithMoreThan255MembersCanReceiveAKnownAdminSnapshot() {
+        val creation = requireNotNull(javaClass.getResourceAsStream("/native-group-chat-creation-reference.json"))
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject }
+        val group = GroupChat.readCreation(creation.get("envelope").asString)
+        val creator = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe fixtures, never fund.
+        val members = (10..265).map { SaitoWallet.fromPrivateKey(it.toString(16).padStart(64, '0')).publicKey }
+        val snapshot = com.google.gson.JsonObject().apply {
+            addProperty("module", "Chat"); addProperty("request", "chat update")
+            addProperty("group_id", group.id); addProperty("group_name", "Large group")
+            add("member_ids", com.google.gson.JsonObject().apply { members.forEach { addProperty(it, 1) } })
+        }
+        val updated = GroupChat.applyControl(group, SaitoTransaction.createTo(creator, snapshot, 1700000123457, group.id).envelope())
+        assertEquals(256, members.count { updated.memberRoles[it] == ChatGroupRole.MEMBER })
+        assertEquals(ChatGroupRole.ADMIN, updated.memberRoles[creator.publicKey])
+        assertEquals("Large group", updated.name)
+    }
+
 }
