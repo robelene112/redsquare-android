@@ -233,3 +233,9 @@ its owned group8 unfinished companion in private Chat, expects correlated negati
 ACK and visible notice before exact-byte/no-replacement/positive recovery tails.
 Actual warning RED38610859211 dispatched, correction not applied yet. No whole26
 acceptance or group PID runtime claim.
+
+Private-screen warning correction4d394d68...5d9ba21e: Standards0/Spec0. Stable
+public-key/backend signal collector and shared wrapper preserve classified
+storage errors, negativeACK and explicit recovery guidance across metadata and
+private contact changes. Native corrected10/17 and whole re-review active at90e,
+not acceptance yet.

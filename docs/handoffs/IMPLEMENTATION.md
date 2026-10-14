@@ -45,30 +45,38 @@ Local .scratch/review-builds/14; publicrecords docs/evidence/ticket37/signed-pre
 No store/node/service/ingresschange. Current14physicalPixel/continuity/performance
 remain35. Preview13superseded;12neverpublished.
 
-**Active #26 checkpoint, 2026-10-14 17:45 UTC:** #26 OPEN,21 original tickets
+**Active #26 checkpoint, 2026-10-14 18:04 UTC:** #26 OPEN,21 original tickets
 complete. Finish #26 and signed review build, then STOP for storage migration until
 explicit owner resume. Public signed14 remains current. Protected untracked group
 contract stays untouched. Do not start another ticket or UI polish.
 
-Current source875cccd70570754439dd51dc860f03fee9359c45 is pushed and exact remote
-HEAD verified. Local Gradle12709 completed PASS4m43 (production and test APK,
-before the one-line chatwork ownership correction). No owned local build active.
-Actual mixed-reception RED run38609275290 is in progress on Android10. Group
-reception still handles groups only, private reception private only, intentionally
-unchanged until this concrete RED. Shared authenticated durable routing is next.
+Current source90e979e85ab462bb36948103b6ea31efb9872c09 pushed with exact remote
+HEAD verified. Local Gradle34718 ACTIVE .scratch/group26-mixed-warning-build.log;
+no app/core/test edits until completion. Prior sharedrouter compile16594 PASS3m35.
+Focused native10run38611923176 and17run38611928760 active at same90e source:
+actions1, mixed1 with storage fault/recovery, groups22, actual group PID recovery.
+Whole Spec and Standards source re-reviews active from bbdd121c...90e.
 
-Actual action1 PASS12.919s at e42789d06b395abd9ab3199981491437df158846,
-run38605779182, including self replies, sensitive Copy, exact raw/inner/outer wire
-and cached reopening. In the same run group22 had21PASS/1FAIL124.439s: valid wallet
-with optional malformed chat.groups row throws in Main composition. Actual RED
-retained in native-hints-composition-red-android10. Group PID did not run.
-Corrections9da254dc loads hints in guarded IO without losing cached access or
-changing backup; f9ccf982 keeps receipt failure flag/channel/collector across
-metadata reconnects. New mixed tracer8617b2c4 compiled;875cccd7 adds exact private
-chatwork file family to absence guard and cleanup. Bounded reviews0 subject to
-that known cleanup correction, now independently re-reviewed. Actual corrected
-hints/actions/mixed/PID GREEN both SDK and final full acceptance remain pending.
+Actual mixed RED38609275290 at875cccd: action1PASS10.771s; encrypted DM whileGroups
+never meets correlated positiveACK, private/reaction/mode-switch tails unexecuted.
+Minimum e26ed211 authenticates and routes all supported originals independently
+of current Chat mode. Private encrypted body/canonical-pair reaction and named-group
+pubID origins retain existing strict stores, namespaces and durableACK order.
+Bounded Standards0; Spec1 private-screen classified group failures invisible.
 
+Actual warning RED38610859211 at4d394d68: action1PASS10.784s; mixedFAIL20.04s at88,
+missing static warning. Private DM/reaction positiveACK+exactprotectedcache and
+mode-switch oldsocketdeparture pass before correlated negativeACK for group8
+creation against owned .new file. Later exactfault/recovery/visible tails did not
+run; group22/PID not reached. RootfailurePNG/XMLinspected, native-mixed-storage-red
+retained. Minimum5d9ba21e privateScreen stableowner/backendchannelcollector+shared
+wrapper catchesonlyGroupStorageException, signalsnotice thenrethrows fornegativeACK.
+Resourcecopy directsGroupsRefresh, privateRefresh/contacts/metadatacannoterase.
+Bothboundedreviews0. No correctedmixed/PIDGREENclaimedyet.
+
+Guardedhints9da and stableGroupsreceipt signalsf9 independentlyreviewed0.
+MalformedhintsactualREDe427/run38605779182:21PASS/1of22; actions1PASS12.919s.
+Runtime correctedhints/actions/mixed/PIDbothSDK and finalfreshfull10+17remainneeded.
 Earlier chronology below remains qualified to each source, not current acceptance.
 
 Imported-hints/discovery and all21 existing named-group cases GREEN at
