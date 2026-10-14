@@ -3,12 +3,17 @@ package nl.davidengelen.redsquare.chat
 import androidx.activity.compose.BackHandler
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.pluralStringResource
@@ -26,7 +31,11 @@ import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.moderation.LocalPersonalControls
 import nl.davidengelen.redsquare.moderation.PersonalControlsStatus
 import nl.davidengelen.redsquare.registry.registeredIdentity
+import nl.davidengelen.redsquare.feed.GeneratedProfilePicture
 import nl.davidengelen.redsquare.saito.*
+import java.text.DateFormat
+import java.util.Date
+import java.util.Locale
 
 /** Private Chat has its own navigation and verified history, sharing only the active Saito foundation. */
 @Composable
@@ -253,15 +262,17 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     }
 
     Column(modifier.fillMaxSize()) {
-        Row {
+        Row(verticalAlignment = Alignment.CenterVertically) {
             TextButton(enabled = !closing, onClick = { close() }) {
                 Text(stringResource(R.string.browse_back))
             }
-            Text(stringResource(R.string.chat_title), Modifier.weight(1f), style = MaterialTheme.typography.headlineSmall)
+            Text(stringResource(R.string.chat_title), Modifier.weight(1f), style = MaterialTheme.typography.titleLarge)
             TextButton(onClick = { refresh++ }, enabled = !loading) { Text(stringResource(R.string.feed_refresh)) }
         }
-        Text(stringResource(R.string.chat_private), style = MaterialTheme.typography.bodySmall)
-        Text(stringResource(R.string.chat_available_history), style = MaterialTheme.typography.bodySmall)
+        Text(stringResource(R.string.chat_private), style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Text(stringResource(R.string.chat_available_history), style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant)
         PersonalControlsStatus(personal)
         if (contactsFailed || failed) Text(stringResource(R.string.chat_load_error))
         if (cacheFailed) Text(stringResource(R.string.chat_cache_error))
@@ -294,7 +305,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
             if (contacts.isEmpty() && !contactsFailed) Text(stringResource(R.string.chat_empty))
             LazyColumn(Modifier.weight(1f)) {
                 items(contacts, key = { it }) { key ->
-                    TextButton(onClick = {
+                    TextButton(modifier = Modifier.fillMaxWidth(), contentPadding = PaddingValues(vertical = 12.dp), onClick = {
                         savingContact = true
                         contactFailed = false
                         scope.launch {
@@ -309,15 +320,23 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                             finally { savingContact = false }
                         }
                     }, enabled = !savingContact && personal?.ready == true) {
-                        Column {
-                            Text(registeredIdentity(key).name)
-                            Text(key, style = MaterialTheme.typography.labelSmall)
+                        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp),
+                            verticalAlignment = Alignment.CenterVertically) {
+                            GeneratedProfilePicture(key, Modifier.size(48.dp).clip(CircleShape))
+                            Column(Modifier.weight(1f)) {
+                                Text(registeredIdentity(key).name, style = MaterialTheme.typography.titleMedium,
+                                    color = MaterialTheme.colorScheme.onSurface)
+                                Text(key, style = MaterialTheme.typography.labelSmall, maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            }
                         }
                     }
+                    HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
                 }
             }
         } else {
-            Text(contact, style = MaterialTheme.typography.labelSmall)
+            Text(contact, Modifier.padding(vertical = 4.dp), style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1, overflow = TextOverflow.Ellipsis)
             if (loading) Text(stringResource(R.string.chat_loading))
             if (hasOlder) TextButton(enabled = !loading && !olderLoading && olderCursor != null, onClick = {
                 olderLoading = true
@@ -331,17 +350,30 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
             val messageList = rememberLazyListState()
             LazyColumn(Modifier.weight(1f), state = messageList) {
                 items(visible, key = { it.id }) { message ->
-                    Column(Modifier.fillMaxWidth().padding(vertical = 8.dp)) {
+                    val outgoing = message.author == wallet.publicKey
+                    Column(Modifier.fillMaxWidth().padding(vertical = 6.dp),
+                        horizontalAlignment = if (outgoing) Alignment.End else Alignment.Start) {
                         var copyFailed by remember(message.id) { mutableStateOf(false) }
-                        Text(registeredIdentity(message.author).name, style = MaterialTheme.typography.labelSmall)
+                        Surface(Modifier.fillMaxWidth(0.94f), shape = RoundedCornerShape(
+                            topStart = 16.dp, topEnd = 16.dp,
+                            bottomStart = if (outgoing) 16.dp else 4.dp,
+                            bottomEnd = if (outgoing) 4.dp else 16.dp),
+                            color = if (outgoing) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceContainerLow,
+                            contentColor = if (outgoing) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface) {
+                        Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                        Text(registeredIdentity(message.author).name, style = MaterialTheme.typography.labelMedium)
                         PrivateMessageText(message.text) { reference ->
                             val index = visible.indexOfFirst { it.author + it.createdAt == reference }
                             if (index >= 0) scope.launch { messageList.animateScrollToItem(index) }
                         }
+                        Text(DateFormat.getTimeInstance(DateFormat.SHORT, Locale.ENGLISH).format(Date(message.createdAt)),
+                            style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        }
+                        }
                         val replyPrefix = remember(message) { privateReplyPrefix(message) }
                         val likedBy = reactions.saved.likedBy(message)
                         if (likedBy.isNotEmpty()) Text(pluralStringResource(R.plurals.chat_likes, likedBy.size, likedBy.size))
-                        Row {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
                             TextButton(enabled = personal?.ready == true && reactions.editable,
                                 onClick = { reactions.toggle(message) }) {
                                 Text(stringResource(if (wallet.publicKey in likedBy) R.string.chat_unlike else R.string.chat_like))
@@ -355,7 +387,6 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                         }
                         if (copyFailed) Text(stringResource(R.string.chat_copy_error))
                     }
-                    HorizontalDivider()
                 }
             }
             when (reactions.saved.status) {
