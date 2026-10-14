@@ -70,7 +70,8 @@ class AppearancePreviewTest {
                         val walletStore = AndroidWalletStore(context)
                         val originalWallet = walletStore.loadExisting().exportJson() // Device-only comparison, never captured.
                         fun unchanged() {
-                            assertEquals(originalWallet, walletStore.loadExisting().exportJson())
+                            assertTrue("Appearance must preserve the full wallet and portable options",
+                                originalWallet == walletStore.loadExisting().exportJson())
                             assertEquals(SaitoBackend.OWNER, AndroidBackendStore(context).load())
                             assertTrue(peer.transactions.isEmpty()); assertTrue(peer.reports.isEmpty()); peer.assertHealthy()
                         }
