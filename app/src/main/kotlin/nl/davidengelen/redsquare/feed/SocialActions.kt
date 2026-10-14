@@ -1,6 +1,7 @@
 package nl.davidengelen.redsquare.feed
 
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -54,6 +55,7 @@ private fun SocialAction(post: FeedPost, state: SocialState?, kind: RedSquareAct
     val labels = if (kind == RedSquareActionKind.LIKE)
         listOf(R.string.social_like, R.string.social_liked, R.string.social_retry_like, R.string.social_like_count)
     else listOf(R.string.social_repost, R.string.social_reposted, R.string.social_retry_repost, R.string.social_repost_count)
+    Column {
     Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
         TextButton(contentPadding = PaddingValues(horizontal = 4.dp), enabled = status?.ready == true && !status.busy && !status.available,
             onClick = { state?.send(post, kind) }) {
@@ -73,5 +75,6 @@ private fun SocialAction(post: FeedPost, state: SocialState?, kind: RedSquareAct
     if (status?.failed == true) {
         Text(stringResource(R.string.social_error))
         if (!status.ready) TextButton(onClick = { state?.retryLoad(post, kind) }) { Text(stringResource(R.string.retry)) }
+    }
     }
 }
