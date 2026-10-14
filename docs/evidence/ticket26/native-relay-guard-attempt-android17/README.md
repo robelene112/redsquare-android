@@ -1,0 +1,5 @@
+Run38590446363 at17fae08fbab1a0439950633bef31655f05d9939b: Time: 149.787, Tests run: 20,  Failures: 1
+
+20 cases, 19 passed and one failed known-rejoin outer-recipient equality at fixture239. The guarded routing tracer passed: signed removals after raw submission and in the last selection guard exclude both removed destinations; exact raw/inner original, protected candidate, final roles and forwarded state remain unchanged. Reaction and corrected older archive-capture cases also passed.
+
+Known-rejoin reached forwarding, raw/inner equality and the exact signed join recipient assertion, then failed the outer-target check. Later saved-role/metadata/recreation/count assertions in that case were unexecuted. Source resolver appended an unobserved unsigned inviter to protected members; correction5f655571 removes that extra outer destination while retaining the signed original. The failure log does not print the actual recipient list. Root inspected original known-rejoin failure PNG/XML, including forwarded status. These are qualified attempts, not successful whole runs or complete26 acceptance. Unsafe public fixture identities only.
