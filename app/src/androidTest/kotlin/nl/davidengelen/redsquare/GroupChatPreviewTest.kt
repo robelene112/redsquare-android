@@ -40,27 +40,40 @@ class GroupChatPreviewTest {
                 addProperty("module","Chat");addProperty("request","chat remove")
                 addProperty("group_id",key.publicKey);addProperty("member_id",removed)
             }
-            val change=SaitoTransaction.createTo(fixture,removal,1700000123402,key.publicKey)
+            val change=SaitoTransaction.create(fixture,removal,1700000123402,listOf(key.publicKey))
+            val laterRemoval=removal.deepCopy().apply{addProperty("member_id",retained)}
+            val guardedChange=SaitoTransaction.create(fixture,laterRemoval,1700000123403,listOf(key.publicKey))
+            val resolutions=java.util.concurrent.atomic.AtomicInteger()
             val peer=ControlledFeedPeer("[]",advertisedServices="archive||;relay||")
             peer.start().use{server->
                 kotlinx.coroutines.runBlocking {
                     nl.davidengelen.redsquare.chat.submitChatTransaction(fixture,"ws://127.0.0.1:${server.port}/wsopen",removed,candidate,
                         nl.davidengelen.redsquare.chat.ChatSubmissionCallbacks(
-                            claim={store.claim(key.publicKey,candidate.id)},assertSelected={store.assertSelected()},
+                            claim={store.claim(key.publicKey,candidate.id)},assertSelected={
+                                store.assertSelected()
+                                store.receive(guardedChange.envelope()) // Last protected change before Relay enqueue.
+                            },
                             submitted={
                                 store.record(key.publicKey,candidate.id,nl.davidengelen.redsquare.chat.GroupChatStore.Status.SUBMITTED)
                                 store.receive(change.envelope()) // Signed membership changes between raw submission and Relay.
                             },
                             forwarded={store.record(key.publicKey,candidate.id,nl.davidengelen.redsquare.chat.GroupChatStore.Status.FORWARDED)},
-                            relayRecipients={requireNotNull(store.load(key.publicKey)).group.memberRoles.filterValues{it.active}.keys.filter{it!=fixture.publicKey}}),
+                            relayRecipients={
+                                val roles=requireNotNull(store.load(key.publicKey)).group.memberRoles
+                                check(roles[retained]==ChatGroupRole.REMOVED)
+                                resolutions.incrementAndGet()
+                                roles.filterValues{it.active}.keys.filter{it!=fixture.publicKey}
+                            }),
                         relayRecipients=listOf(removed,retained))
                 }
                 check(peer.transactions.size==1 && peer.relayedMessages.size==1)
-                check(peer.relayRecipients.single()==listOf(fixture.publicKey,retained))
+                check(resolutions.get()==1)
+                check(peer.relayRecipients.single()==listOf(fixture.publicKey))
                 check(postingTransaction(peer.transactions.single()).envelope()==candidate.envelope())
                 check(SaitoEnvelope.fromSignedJson(peer.relayedMessages.single())==candidate.envelope())
                 val saved=requireNotNull(store.load(key.publicKey))
                 check(saved.group.memberRoles[removed]==ChatGroupRole.REMOVED)
+                check(saved.group.memberRoles[retained]==ChatGroupRole.REMOVED)
                 check(saved.candidate?.envelope()==candidate.envelope() && saved.status==nl.davidengelen.redsquare.chat.GroupChatStore.Status.FORWARDED)
                 peer.assertHealthy()
             }
