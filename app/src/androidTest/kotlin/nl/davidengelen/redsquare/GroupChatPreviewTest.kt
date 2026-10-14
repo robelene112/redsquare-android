@@ -240,10 +240,10 @@ class GroupChatPreviewTest {
                             if(drafting){
                                 ui.onNodeWithText("Message").performTextInput("Keep this unsent group draft")
                                 ui.onNodeWithText("Back").assertIsDisplayed().performClick()
-                                waitFor(invitation.name)
+                                waitFor("Create group")
+                                ui.onNodeWithText("Create group").assertIsDisplayed()
                                 ui.onNodeWithText(invitation.name).assertIsDisplayed().performClick()
-                                waitFor("Keep this unsent group draft")
-                                ui.onNodeWithText("Keep this unsent group draft").assertIsDisplayed()
+                                assertRestoredGroupDraft()
                                 check(peer.transactions.size==2 && peer.relayedMessages.size==2)
                             }
                             scenario.recreate()
@@ -262,8 +262,7 @@ class GroupChatPreviewTest {
                                 check(cached.group.memberRoles[invitation.admin]==ChatGroupRole.ADMIN)
                                 captureNativeScreen(File(context.cacheDir,"group-chat-evidence/messages-cached.png"),"Live group message")
                                 if(drafting){
-                                    waitFor("Keep this unsent group draft")
-                                    ui.onNodeWithText("Keep this unsent group draft").assertIsDisplayed()
+                                    assertRestoredGroupDraft()
                                     captureNativeScreen(File(context.cacheDir,"group-chat-evidence/draft-reopened.png"),"Keep this unsent group draft")
                                 }
                             }
@@ -457,6 +456,18 @@ class GroupChatPreviewTest {
         finally{cleanupAfterTest(primary,{synchronized(SaitoLocalState.lock){
             context.noBackupFilesDir.listFiles()!!.filter{it.name==filename||it.name=="$filename.bak"||it.name=="$filename.new"}.forEach{check(it.delete())}
         }})}
+    }
+
+    private fun assertRestoredGroupDraft() {
+        ui.waitUntil(15_000){
+            runCatching {
+                ui.onNodeWithText("Message").fetchSemanticsNode().config[
+                    androidx.compose.ui.semantics.SemanticsProperties.EditableText].text=="Keep this unsent group draft"
+            }.getOrDefault(false)
+        }
+        ui.onNodeWithText("Message").assertIsDisplayed().assertIsEnabled().assert(
+            SemanticsMatcher.expectValue(androidx.compose.ui.semantics.SemanticsProperties.EditableText,
+                androidx.compose.ui.text.AnnotatedString("Keep this unsent group draft")))
     }
 
     private fun waitForGroupMessage(text:String) {
