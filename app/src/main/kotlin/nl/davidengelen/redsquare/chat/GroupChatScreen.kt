@@ -56,6 +56,11 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     val paging=initialLoading||olderLoading
     var hasOlder by remember(store,selected){mutableStateOf(false)}
     var olderCursor by remember(store,selected){mutableStateOf<Long?>(null)}
+    suspend fun publishPage(page:GroupHistoryPage) {
+        publish{store.entries()}
+        historyFailed=page.incomplete
+        hasOlder=page.hasOlder;olderCursor=page.cursor
+    }
     var olderRequest by remember(store,selected){mutableIntStateOf(0)}
     var message by remember(wallet.publicKey,backend,selected){mutableStateOf("")}
     var draftReady by remember(store,selected){mutableStateOf(false)}
@@ -184,9 +189,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             SaitoPeer(wallet,endpoint).use{peer->
                 require("archive" in peer.services())
                 val page=withContext(Dispatchers.IO){loadGroupHistoryPage(peer,store,id,System.currentTimeMillis())}
-                publish{store.entries()}
-                historyFailed=page.incomplete
-                hasOlder=page.hasOlder;olderCursor=page.cursor
+                publishPage(page)
             }
         }catch(cancelled:CancellationException){throw cancelled}
         catch(_:Exception){historyFailed=true}
@@ -201,9 +204,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             SaitoPeer(wallet,endpoint).use{peer->
                 require("archive" in peer.services())
                 val page=withContext(Dispatchers.IO){loadGroupHistoryPage(peer,store,id,before)}
-                publish{store.entries()}
-                historyFailed=page.incomplete
-                hasOlder=page.hasOlder;olderCursor=page.cursor
+                publishPage(page)
             }
         } catch(cancelled:CancellationException){throw cancelled}
         catch(_:Exception){historyFailed=true}
