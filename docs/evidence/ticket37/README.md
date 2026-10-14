@@ -158,3 +158,22 @@ reads. Both full gates and current Chat original-capture inspection are pending.
 Signed review build42136 is preparing the next reserved version; it is not
 published or accepted yet. Do not close37 until full verification, final evidence
 reviews and public in-place publication complete. Parent35 remains open.
+
+First final full attempts4c both failed and are retained in full-attempt1:
+17run38495655076 stops at VideoPreviewTest280, BEFORE background/pause. Three
+video cases pass; instantaneous hasObject Playing check fails. Original PNG/XML
+show Playing controlled video visible after failure and one provider request.
+A timing explanation remains a hypothesis, not a demonstrated product cause.
+10run38495652348 stops at UsernamePreviewTest564 after14of15 cases pass: the
+unscoped exact public-key selector matches two nodes. Root original wallet modal
+PNG/XML confirms the expected full key in Wallet address. No wallet mismatch.
+Earlier successful class summaries, raw failed logs/exits, source/run metadata
+and relevant public originals retained. Later gates were unexecuted.
+
+e95e127f changes only fixtures: bounded wait for the same Playing DOM predicate
+within existing10s deadline, and exact-key+Wallet address scope. All original
+state/identity/no-publication assertions remain. Explicit app/core diff against4c
+is empty; prepared signed14 remains product-equivalent and unpublished.
+Corrected full10run38497736473 and17run38497738892 at
+e95e127f527ae031425813044f01f9fa5223f1b6, public_feed_read=true, are active.
+Do not close37 or publish before final results/current captures/evidence reviews.
