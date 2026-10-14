@@ -4,7 +4,7 @@ import com.google.gson.JsonObject
 
 data class GroupChatMessage(val id: String, val author: String, val groupId: String, val createdAt: Long, val text: String)
 
-data class GroupChatReplay(val group:NamedChatGroup,val messages:List<GroupChatMessage>,val originals:List<String>)
+data class GroupChatReplay(val group:NamedChatGroup,val messages:List<GroupChatMessage>,val originals:List<String>,val incomplete:Boolean=false)
 
 enum class ChatGroupRole {
     ADMIN, MEMBER, LEFT, REMOVED;
@@ -22,6 +22,10 @@ object GroupChat {
     fun originalEnvelope(networkTransaction:ByteArray):String = SaitoEnvelope.originalChatEnvelope(networkTransaction){payload->
         payload.isJsonObject && payload.asJsonObject.requiredString("module")=="Chat"
     }
+
+    /** Retained originals stay strict; unavailable/invalid new rows cannot erase prior history. */
+    fun replayAvailable(origin:NamedChatGroup,retained:List<String>,available:List<String>):GroupChatReplay =
+        throw UnsupportedOperationException("Available group page replay is not implemented")
 
     /** Replay observed originals from their retained origin, never by sorting authority timestamps. */
     fun replay(origin:NamedChatGroup,originals:List<String>):GroupChatReplay {

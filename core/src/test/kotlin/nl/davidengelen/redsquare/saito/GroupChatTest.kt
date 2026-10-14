@@ -5,6 +5,32 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class GroupChatTest {
+    @Test fun availableHistorySkipsRemovedAuthorsWhileRetainingAdmittedMessagesAndControls() {
+        val reference=requireNotNull(javaClass.getResourceAsStream("/native-group-chat-creation-reference.json"))
+            .bufferedReader().use{JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject}
+        val creator=SaitoWallet.fromPrivateKey("0".repeat(63)+"1") // Public unsafe fixtures only.
+        val member=SaitoWallet.fromPrivateKey("0".repeat(63)+"2")
+        val origin=GroupChat.readCreation(reference.get("envelope").asString)
+        val retained=GroupChat.message(creator,origin,"Retained before removal",1700000123457)
+        val rejected=GroupChat.message(member,origin,"Removed author",1700000123458)
+        val removal=com.google.gson.JsonObject().apply {
+            addProperty("module","Chat");addProperty("request","chat remove")
+            addProperty("group_id",origin.id);addProperty("member_id",member.publicKey)
+        }
+        val removed=SaitoTransaction.create(creator,removal,1700000123459,listOf(origin.id))
+        val allowed=GroupChat.message(creator,origin,"Available older history",1700000123456)
+        val history=GroupChat.replayAvailable(origin,listOf(retained.envelope(),removed.envelope()),
+            listOf(rejected.envelope(),"malformed envelope",allowed.envelope(),retained.envelope()))
+        assertTrue(history.incomplete)
+        assertEquals(ChatGroupRole.REMOVED,history.group.memberRoles[member.publicKey])
+        assertEquals(listOf("Available older history","Retained before removal"),history.messages.map{it.text})
+        assertEquals(listOf(retained.envelope(),removed.envelope(),allowed.envelope()),history.originals)
+        assertEquals(listOf(removed.envelope()),history.group.controls)
+        org.junit.Assert.assertThrows(IllegalArgumentException::class.java){
+            GroupChat.replayAvailable(origin,listOf("malformed retained envelope"),listOf(allowed.envelope()))
+        }
+    }
+
     @Test fun olderMessagesDoNotReactivateAnObservedDepartureButAnExplicitJoinCan() {
         val reference=requireNotNull(javaClass.getResourceAsStream("/native-group-chat-creation-reference.json"))
             .bufferedReader().use{JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject}
