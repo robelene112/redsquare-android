@@ -35,8 +35,7 @@ Corrected full10 `38487263465` at90c85603 passed after the test-only
 picker correction26c0c7a5:272 reported/271PASS/one existing profile assumption,
 57completion records/19actualdeaths/core86 and complete source/runtime/release/
 lint/update gates. Retainedfinal-full/android10; root parsed176 XMLs/viewed six
-originals. Final evidence reviews and publication are pending. Do not cancel
-or redispatch the active17 run without results or a new concern. These reruns include the latest product fix
+originals. Both final evidence review axes0. Publication and ticket closure are pending. Both full proofs are complete; no device run remains active. These reruns include the latest product fix
 `b7541e6a`, which consolidates four feed navigation buttons into two rows.
 Actual diagnostic run `38483374543` captured a screen entirely consumed by
 backup, navigation and outage text, leaving no visible Following feed. The fix

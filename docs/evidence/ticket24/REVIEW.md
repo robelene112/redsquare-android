@@ -1472,3 +1472,30 @@ unexecuted picker qualification is accurate. Public reads remain separate;
 Android17 acceptance is supported, but corrected10 remains pending.
 
 Findings: Standards0; Spec0. No whole25 completion until corrected10 passes.
+
+### Final Android 10 evidence review
+
+Fixed diff: `1a738ea9...34d80e01`.
+
+## Standards
+
+Documented breaches: none. Actionable heuristic smell findings: none.
+Verified504 manifest hashes and176 XMLs. Raw summaries match272 reported
+cases across57 completion records; the existing profile assumption is separate.
+There are19 interrupted-stage logs. Private checkpoints preserve exact continuity
+with a new PID. No secret markers or encrypted installation files were found.
+The README qualifies screenshot crops,10 picker execution, equivalent17 product,
+separate public reads and current-preview/physical limits. Stale active17 wording
+in the handoff is corrected during final delivery.
+
+## Spec
+
+Zero actionable findings. Independent recount confirms272 reported/271PASS/
+one profile assumption,57 completion records and19 process-death logs; checksums
+pass and176 XMLs parse. Private exits0 and checkpoint changes only phase/newPID,
+11036to11329. The evidence accurately separates assumptions, screenshot limits,
+10-only picker correction/public reads and signed5-to8 vs current13/physical
+acceptance. Together with the reviewed equivalent complete17 run, this supports
+25's automated acceptance boundaries. Publication and closure remain delivery.
+
+Findings: Standards0; Spec0. Both automated SDK acceptance boundaries satisfied.
