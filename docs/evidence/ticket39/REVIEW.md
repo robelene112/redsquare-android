@@ -22,5 +22,17 @@ Initial working extraction failed on a closing brace in private Chat; corrected
 before source95e was committed. Corrected debug/test APK build46724 PASS2m57.
 No new implementation-mirroring visual tests; existing accepted native seams used.
 
-Final full10run38633250917 and17run38633255144 atsame95e are active with both
-public feeds enabled. Acceptance and current-phone publication not claimed yet.
+Full10run38633250917 at95e FAILED group22 21PASS1/116.296s, final imported
+guidance visibility735 after the displayed wait already passed. Original capture
+shows Checking available group information; source permits a transition hypothesis
+only. Full17run38633255144 at95e remains active with both public feeds enabled.
+Signed16 prepared, release8792PASS3m9, not published. No final acceptance claimed.
+
+## Imported readiness correction
+
+95e...7b49825e Standards0/Spec0. Wait for automatic protected watch.identifier
+literal Incoming beta group, recreateActivity/reenterGroups, then unchanged15s
+actual-display wait and strict final assertion. No production change, sleeps or
+wire-count coupling. Authority/secret/cache/wallet/no-send checks intact. This
+exercises persisted restart at approved seams, not the original transition ordering
+or process death. Corrected native runtime remains pending.
