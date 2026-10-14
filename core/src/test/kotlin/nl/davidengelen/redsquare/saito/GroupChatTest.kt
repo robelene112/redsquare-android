@@ -5,6 +5,28 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class GroupChatTest {
+    @Test fun olderMessagesDoNotReactivateAnObservedDepartureButAnExplicitJoinCan() {
+        val reference=requireNotNull(javaClass.getResourceAsStream("/native-group-chat-creation-reference.json"))
+            .bufferedReader().use{JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject}
+        val creator=SaitoWallet.fromPrivateKey("0".repeat(63)+"1") // Public unsafe fixture only.
+        val origin=GroupChat.readCreation(reference.get("envelope").asString)
+        val older=GroupChat.message(creator,origin,"Before leaving",1700000123457)
+        val leave=GroupChat.leave(creator,origin.id,1700000123458)
+        val history=GroupChat.replay(origin,listOf(leave.envelope(),older.envelope()))
+        assertEquals(listOf("Before leaving"),history.messages.map{it.text})
+        assertEquals(ChatGroupRole.LEFT,history.group.memberRoles[creator.publicKey])
+        org.junit.Assert.assertThrows(IllegalArgumentException::class.java){
+            GroupChat.message(creator,history.group,"Must remain left",1700000123459)
+        }
+        assertEquals(ChatGroupRole.LEFT,GroupChat.replay(origin,history.originals).group.memberRoles[creator.publicKey])
+        val invitation=GroupInvitation(origin.id,origin.name,creator.publicKey,creator.publicKey)
+        val join=GroupChat.join(creator,invitation,1700000123460)
+        val rejoined=GroupChat.replay(origin,history.originals+join.envelope())
+        assertEquals(ChatGroupRole.MEMBER,rejoined.group.memberRoles[creator.publicKey])
+        assertEquals(listOf("Before leaving"),rejoined.messages.map{it.text})
+    }
+
+
     @Test fun directRoutedAndUnsignedRelayMessagesRetainTheAuthenticatedGroupOriginal() {
         val creation=requireNotNull(javaClass.getResourceAsStream("/native-group-chat-creation-reference.json"))
             .bufferedReader().use{JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject}
