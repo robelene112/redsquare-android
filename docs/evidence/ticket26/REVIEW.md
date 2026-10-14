@@ -103,3 +103,8 @@ only the selected backend. Corrected to change selection before aggregation and
 restore it during cleanup. ActualRED fails earlier false-stub check; later stronger
 backend/fault assertions are not claimed until GREEN. Minimum detector and wallet
 import integration now implemented; compile/device/correction reviews pending.
+
+Pending-work correctionce808a84...3a174169: Standards0 and Spec0, previous
+disclosure and actual-backend-switch findings resolved in source. Local debug/
+testAPK compilation PASS2m50s. Corrected native work/backend/fault GREEN and actual
+wallet-import warning UI are still pending. No complete26 claim.
