@@ -37,6 +37,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     var loaded by remember(store) { mutableStateOf(false) }
     val publication = remember(wallet.publicKey,backend) { Mutex() }
     var readFailed by remember(wallet.publicKey,backend) { mutableStateOf(false) }
+    var historyFailed by remember(store,selected) { mutableStateOf(false) }
     var sendFailed by remember(wallet.publicKey,backend) { mutableStateOf(false) }
     suspend fun publish(operation: () -> List<GroupChatStore.Entry>) = withContext(Dispatchers.Main.immediate) {
         publication.withLock { entries=withContext(Dispatchers.IO) { operation() } }
@@ -78,6 +79,11 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     }
     LaunchedEffect(store,selected,endpoint,refresh) {
         val id=selected ?: return@LaunchedEffect
+        fun retain(original:String) {
+            val signed=SaitoEnvelope.decode(original)
+            require(signed.body.get("group_id").asString==id)
+            store.receive(original)
+        }
         try {
             coroutineScope {
                 val updates=Channel<Unit>(Channel.CONFLATED)
@@ -91,13 +97,13 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                 try {
                     SaitoPeer(wallet,endpoint,onIncoming={bytes->
                         val original=GroupChat.originalEnvelope(bytes)
-                        val signed=SaitoEnvelope.decode(original)
-                        require(signed.body.get("group_id").asString==id)
-                        store.receive(original)
+                        retain(original)
                         updates.trySend(Unit)
                         true // Original is protected on device before the peer receives success.
                     }).use{peer->
-                        require("archive" in peer.services())
+                        val services=peer.services()
+                        try {
+                        require("archive" in services)
                         val criteria=JsonObject().apply{
                             addProperty("request","load");addProperty("field3",id)
                             addProperty("limit",50);addProperty("created_earlier_than",System.currentTimeMillis())
@@ -111,22 +117,23 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                                 try {
                                     val value=row.asJsonObject.get("tx")
                                     require(value.isJsonPrimitive&&value.asJsonPrimitive.isString)
-                                    val signed=SaitoEnvelope.decode(value.asString)
-                                    require(signed.body.get("group_id").asString==id)
-                                    store.receive(value.asString)
+                                    retain(value.asString)
                                 } catch(_:Exception){rejected=true}
                             }
                             rejected
                         }
                         publish{store.entries()}
-                        readFailed=incomplete
+                        historyFailed=incomplete
+                        } catch(cancelled:CancellationException){throw cancelled}
+                        catch(_:Exception){historyFailed=true}
+                        // Missing/malformed archive data must not close valid live reception.
                         peer.awaitDisconnection()
-                        readFailed=true
+                        historyFailed=true
                     }
                 } finally{updates.close();receiver.cancelAndJoin()}
             }
         } catch(cancelled:CancellationException){throw cancelled}
-        catch(_:Exception){readFailed=true}
+        catch(_:Exception){historyFailed=true}
     }
     var message by remember(wallet.publicKey,backend,selected){mutableStateOf("")}
     val entry = entries.firstOrNull { it.group.id == selected }
@@ -138,7 +145,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         }
         Text(stringResource(R.string.group_privacy),style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
         Text(stringResource(R.string.chat_available_history),style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
-        if(readFailed || sendFailed) Text(stringResource(R.string.group_error),color=MaterialTheme.colorScheme.error)
+        if(readFailed || historyFailed || sendFailed) Text(stringResource(R.string.group_error),color=MaterialTheme.colorScheme.error)
         if(entry==null) {
             Row(horizontalArrangement=Arrangement.spacedBy(8.dp)) {
                 Button(enabled=loaded&&!busy,onClick={creating=true}) { Text(stringResource(R.string.group_create)) }
