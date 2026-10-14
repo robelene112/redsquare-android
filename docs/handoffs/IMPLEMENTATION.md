@@ -45,39 +45,49 @@ Local .scratch/review-builds/14; publicrecords docs/evidence/ticket37/signed-pre
 No store/node/service/ingresschange. Current14physicalPixel/continuity/performance
 remain35. Preview13superseded;12neverpublished.
 
-**Active #26 checkpoint, 2026-10-14 14:09 UTC:** issue26 OPEN; finish it then
-STOP until owner resumes, as above. Beta14 unchanged; no Group APK published.
+**Active #26 checkpoint, 2026-10-14 14:37 UTC:** issue26 OPEN; finish then STOP
+until owner resumes, as above. Beta14 unchanged; no Group APK published.
 
-Incoming received-origin module15 passed both SDKs at1d90a319:10run38569659857
-15PASS72.563s,17run38569664246 15PASS130.811s. Fullcore108 passed with named
-public group hints separated from private contacts/history; hint UI still pending.
+Native17 at4f437d6f both GREEN:10run38577818874 17PASS85.72s,17run38577824737
+17PASS134.92s. Root inspected original obstruction/error, recovered list and
+reopened received message/exactdraft PNG/XML on both SDKs. Qualified evidence
+native-incoming-recovery-android10/17. Actual PID is not yet claimed.
 
-Incoming UI16 at955f4bbf passed all preceding new-case assertions then failed only
-final peer health: missing strict Group Archive callback, default feed handler191
-read absent field1.10run38573990110 15PASS/1 80.732s;17run38573997782 15PASS/1
-114.571s. Root inspected both original incoming UI PNG/XML; qualified attempt
-evidence records no successful full run.
+Fullcore109 GREEN after historical fetched-join correction a699b893: new available
+join cannot undo retained LEFT; explicit strict-log rejoin restores MEMBER. Both
+reviewaxes0. New policy tracer55e42189/capturefix8d031824 compiled. Initial native
+18 run38579412376 attempt1 failed SDK ZIP download before tests; same-source
+attempt2 actual RED18/17PASS1blockedtextvisible after recreation on OWNER,78.362s.
+Later mute/OFFICIAL assertions unexecuted; qualified original PNG/XML retained.
 
-Production839208f8 retains ordered local-storage error publication across passive
-reconnect; typed storage failures yield negative ACK, invalid traffic does not
-misreport a local fault. Unfinished.new is never silently overwritten/ignored.
-Native17 tracer7cec21d5 adds new obstruction/negative ACK/passive reconnect/repair
-and strict Archive callback. Correction4f437d6f correlates unique RPC ACK IDs and
-requires old auth IDs absent and replacement auth before repair. Both review axes
-zero findings; local testAPK compilePASS1m56s. Replacement auth plus ACK correlation
-is sufficient; no separate physical socket teardown assertion required.
+Filterminimum e75a244a uses existing personalcontrols: hides blocked incoming,
+keeps muted and own messages, failclosed until policyready with shared status.
+Both bounded reviews0; local debug/test buildPASS3m22. Native18 at5491aa57:
+10run38581226985 SUCCESS (proof download active95310, qualify/view captures next),
+17run38581232093 still in progress. Do not cancel active same-SDK runtime.
 
-Current remote4f437d6f; native17 executions10run38577818874 and17run38577824737
-IN PROGRESS, not yet acceptance. No cancel/redispatch while active same SDK.
-Current owned local Gradle shell76595, one new core historical-join RED test;
-do not edit app/core/test during that build. A historical fetched join must not
-undo a retained departure; explicit deliberate rejoin stays supported.
+Whole checkpoint review bbdd121c...c88c6128: Standards no hard violations, two
+small duplication suggestions (store receipt publication; history page publication)
+for review stage. Spec found two additional real gaps: named-group Like/Unlike
+(existing source explicitly supports it), and stale UI Relay membership targets
+must be rechecked at guarded transmission. These belong26, not a new ticket.
 
-Remaining26: imported public hint discovery from authenticated available originals
-(with truthful unavailable history); block vs mute group display; existing reply
-renderer; actual PID/cold restart key/origin/controls/messages/draft/pending original
-with no autosend; final full10/17/core/release/lint, whole26 review/fixes, signed
-next beta. STOP after26; no next feature or UI polish before owner resumes.
+Independent Like reference tool executes actual immutable A/B constructors and
+receiver offline; signedbytesmatch, receiver1then0. docs/evidence/ticket26/group-like-reference
+and reference-tools/like-reference.cjs; no live writes. New coretracer aeba3d1b:
+actualRED oneUnsupportedOperation factory,1m31, retainedgroup-like-core-red.
+Current source5a93146f minimum implements authenticated observed-role reactions,
+dedup/immutableevents/targetauthor-bound toggling, and invalid-statepreservation
+assertions. Fullcore110 buildACTIVE37560; both bounded reviewagentsrunning.
+Do not edit app/core/test during this owned Gradle.
+
+NEXT: inspectcoreminimum build/reviews; complete stored/native reactionactions
+and guarded current Relay routing, reusing existing durablecandidate/status/Retry.
+Then imported public group discovery hints/available authenticated originals with
+truthful unavailable state; existing replyrenderer; actual PID/cold restart keys/
+origin/controls/messages/draft/pending original with no autosend; final full10/17/
+core/release/lint, whole26review/fixes, signed next beta. STOP after26, no next
+feature or further UI polish before owner resumes.
 Protected untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md stays untouched.
 
 **Historical #26 checkpoint, 2026-10-14 10:14UTC:** known-admin native RED38546506531/95207cf0
