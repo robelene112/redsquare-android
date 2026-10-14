@@ -561,7 +561,7 @@ class UsernamePreviewTest {
                     ui.onNodeWithText("Back").performClick()
                     waitForEnabled("New post")
                     ui.onNodeWithText("Wallet").performClick()
-                    ui.onNodeWithText(fixture.publicKey).assertIsDisplayed()
+                    ui.onNode(hasText(fixture.publicKey) and hasContentDescription("Wallet address")).assertIsDisplayed()
                     assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
                 }
             }

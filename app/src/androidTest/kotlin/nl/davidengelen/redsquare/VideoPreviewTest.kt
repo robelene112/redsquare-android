@@ -277,7 +277,7 @@ class VideoPreviewTest {
                         assertEquals(1, api.requestCount)
                         requireNotNull(device.wait(Until.findObject(By.text("Play controlled video")), 10_000)).click()
                         ui.waitUntil(10_000) { ui.onAllNodesWithText("Playing YouTube video.").fetchSemanticsNodes().isNotEmpty() }
-                        assertTrue(device.hasObject(By.text("Playing controlled video")))
+                        assertTrue(device.wait(Until.hasObject(By.text("Playing controlled video")), 10_000))
                         scenario.moveToState(androidx.lifecycle.Lifecycle.State.CREATED)
                         scenario.moveToState(androidx.lifecycle.Lifecycle.State.RESUMED)
                         assertTrue(device.wait(Until.hasObject(By.text("Paused controlled video")), 10_000))
