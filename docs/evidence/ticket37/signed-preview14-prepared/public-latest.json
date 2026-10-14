@@ -1,0 +1,10 @@
+{
+  "versionCode": 14,
+  "versionName": "0.1.14",
+  "applicationId": "nl.davidengelen.redsquare",
+  "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+  "sha256": "dffba7dbdddaa18b090d61fcbb69366f4084289b424c7d37788b956f48a58364",
+  "commit": "4c8f14ca34c2726881e074dab6de73cbce6f5e77",
+  "apkUrl": "https://davidengelen.nl/redsquare/releases/14/redsquare.apk",
+  "notes": "Early Android beta with a polished native feed, compact navigation, light/dark/system appearance, Saito avatars, and styled private Chat conversations. Existing wallets, backend choice, drafts and cached history are preserved through ordinary in-place updates. Includes posting, replies, likes/reposts, profiles, following, search, personal controls, reports and in-app notifications. Group Chat, Chat images/GIFs, offline Chat sending and closed-app push are still being developed. Giphy selection needs provider configuration. YouTube playback and username registration still have external verification gaps. Android 10 and newer. Install over your current Red Square app without uninstalling. This is a development beta, not a Google Play release."
+}

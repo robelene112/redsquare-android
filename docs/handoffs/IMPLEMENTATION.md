@@ -10,72 +10,47 @@ one question at a time when a material choice really needs the owner.
 Updated 2026-10-14. #25 is complete and closed. Twenty-one of the original35
 implementation tickets are closed (#2–#15, #18, #20–#25).
 
-**Active owner priority:** [early visual beta #37](https://github.com/robelene112/redsquare-android/issues/37),
-child of #35, is next before group Chat #26. Polish the implemented screens for
-sharing with friends: coherent native navigation, type, spacing, avatars, states,
-light/dark/system themes and app presentation. Keep vanilla Red Square familiar.
-Do not reopen settled app-wide scope or grill each implementation detail.
+**#37 Early visual beta is COMPLETE and published.** The owner requested this
+slice before Group Chat. It adds coherent native feed/navigation/type/avatars,
+system/light/dark appearance and styled private Chat while preserving existing
+wallet/backend, safeguards, drafts/cache and signing/transport behavior.
+Product source4c8f14ca34c2726881e074dab6de73cbce6f5e77; starting reviewbaseca2ade6a.
+Whole/refinement/fixture/source/final evidence reviews havezero remaining findings
+on both separate axes. Canonical chronology: docs/evidence/ticket37/README.md;
+separate reports REVIEW.md. Priorselectorfailures and cancelled40m workflows stay
+qualified;60m joballowance changes no individualtestdeadline/acceptancepredicate.
 
-Starting review base for37 is the private Chat delivery commit `ca2ade6a`.
-Owner authorizes sequential implementation, per-ticket commits/push and signed
-review updates. No parallel ticket implementation. Code-review subagents remain
-permitted; ask one question only if a material product choice needs the owner.
-Read issue37/#1/#35 and existing web presentation before choosing styling.
+Final full10run38501541774 and17run38501544092 SUCCESS at exact
+190690150569af28e3eeeb706fa38ca9c82d7881, public_feed_read=true.10 276reported/
+275PASS+oneexistingAPI30profileassumption/61records;17 277PASS/62records;19actual
+processdeathstages each. Core86, release/lint, every existing feature/recovery/
+wallet/update gate and final diagnostic pass. Duration34m19s/35m25s. Final evidence
+contains1,115verifiedhashes/382parsedXMLs, no secretmarkers. Rootandreviewagents
+inspected selected final originals; applied32/16 andexact10no/17custom_bedtime
+restoration retained. Configuredcontrast audit is not exhaustiveaccessibility.
 
-**Active37 snapshot:** production4c8f14ca34c2726881e074dab6de73cbce6f5e77.
-System/light/dark appearance, independent IO preference and accessible choice,
-explicit palettes/window insets/contrast, compact header/reminder, native feed
-navigation/selected-tab indicator, Saito identicons/name/time, coherent typography
-and vectors/launcher, styled Chat contact rows/bubbles/timestamps. Existing
-wallet/backend, drafts/cache, callbacks/status and signing/protocol unchanged.
-uiMode handling avoids screen/work teardown; ForceDark is explicitly off.
-Source reviews ca2...8f both0; refinement8f...a533 Spec0/Standards0 hard+one
-possible duplicated tab shape; a533...4c both0, duplication resolved. Last local
-a533 debug/testAPK PASS3m3s; signed4c release PASS3m4s.
+**Current phone build is signed14/0.1.14**, https://davidengelen.nl/redsquare/.
+Publicpage/manifestHTTP200 and downloadedAPK hash/signature/package/versionverified.
+Source4c product-equivalent tofull19069015. APKsha
+`dffba7dbdddaa18b090d61fcbb69366f4084289b424c7d37788b956f48a58364`;
+cert`6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2`.
+Package/signing unchanged; ordinaryupdateinstallovercurrent withoutuninstall.
+Local .scratch/review-builds/14; publicrecords docs/evidence/ticket37/signed-preview14-prepared.
+No store/node/service/ingresschange. Current14physicalPixel/continuity/performance
+remain35. Preview13superseded;12neverpublished.
 
-**Owned final full runtime:** Android10run38501541774 and17run38501544092,
-exact190690150569af28e3eeeb706fa38ca9c82d7881, public_feed_read=true.
-Workflow allowance60minutes; individual deadlines/predicates unchanged. Product
-still equals4c/signed14. Corrected e95 full10/17 attempts ran every counted class:
-10 276reported/275PASS+oneexistingAPI30profileassumption/61records;17 277PASS/
-62records;19actualdeaths each. Both hit explicit40m workflow cancellation.
-10finaldiagnosticPASS appears just before cancellation;17diagnostictail interrupted.
-These are retained in full-attempt2, not accepted complete workflows.
-New full source includes437 privacy-only static wallet assertion diagnostics.
-First4c selectorfailures retained in full-attempt1. Source corrections bothaxes0.
-Root parsed378 attempt2XMLs, scanned text withzero secretmarkers and viewed current
-10Light/17Dark,10forwardedChat/coldrecovery and17publicownerfeed originals.
-Bounded Standards0 and Spec0, independent1,108hash/378XML checks. Do not close37/publish until successful
-final full results, original inspection, separate evidence reviews and public
-artifact verification. Protected untracked26research remains untouched.
-
-**Prepared signed14/0.1.14:** .scratch/review-builds/14, manifest exact4c. NOT
-published yet; website still13. APK dffba7dbdddaa18b090d61fcbb69366f4084289b424c7d37788b956f48a58364;
-package/cert unchanged. Signing build42136 completed cleanly; no owned Gradle
-remains. Publish only after final37 gates. Physical14/Pixel remains35.
-
-**Appearance evidence:** docs/evidence/ticket37/README.md is canonical chronology.
-First attempts were unqualified system-mode setup. Actual10diagnostic38494088756
-proves shell UID2000 lacks MODIFY_DAY_NIGHT_MODE while mNightModeLocked=true.
-Guarded API29 AOSP emulator fixture uses su0 ONLY to change system night mode;
-app runs with ordinary UID. Unsupported mode rejected before mutation; exact
-supported original mode (including17custom_bedtime) restored and configuration
-verified. Corrected baseline8db/38494667516 is valid RED/13.678s in applied32,
-original app still light. Current9f10/38494673941 PASS1/11.546s,17/38494677156
-PASS1/36.954s with full wallet/backend/no-send/selection assertions.8XML/8PNG each
-retained/parsed, root selected originals inspected.17earlier b9a/38493376388
-PASS1/37.586s and4f/38494091375 feedappearance PASS. These precede final4c and
-do not prove current full Chat visuals. Final runtime will provide those captures.
-
-Scratch helper .scratch/retain-beta-final-full.py adapts previous25 full retention
-against accepted ticket24 final-full class logs plus Appearance1/publicChat1/
-public feeds1each. It checks complete class-set equality, actual pass/assumption
-records, old19realdeathstages and preserves only public synthetic captures.
-Expected old272/273 plus4 new records/cases if all optional reads succeed, but
-report actual counts. No private device backup/snapshot contents are pulled.
-After full results root must inspect current feed/Chat/UI originals and complete
-both evidence reviews, signed publication/public APK verification, close37 and
-resume26. Protect26's untracked research file. No broad grill required.
+**Next active ticket: #26 Create, invite, join and leave unencrypted group Chat.**
+Implement sequentially after37 closure; no new broadgrill. Allblockersalreadyclosed.
+Read#26/#1, current nativeprivateChat, pinnedprimarywebgroupconstructors/receivers,
+and protected untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md. This research
+file predates theactivework and mustnotbestaged/deleted/edited indiscriminately.
+Rootread-only follow-onnotes .scratch/group26-follow-on-notes.md are preparation,
+not implementation/proof. No26source/testchanges begun yet. Preserveunsignedweb
+invites with honest authority/privacy provenance, existingmembership rules and
+recovery. Do not treatparticipantprocessedhistory asoriginalsignedmessageproof,
+or grantadmin authorityfromnon-admin targeted snapshots. No productionwrites.
+One ticketwriter;reviewsubagents permitted. Original21of35completed count unchanged
+by37 (childof35). #16Giphy/#17YouTube/#19Registry external gaps remainopen.
 
 **Completed private Chat proof:** Android17 full38484424347 at4e3a6ea7 passes
 273 cases/58completion records/19actualdeaths/no assumptions. Corrected Android10
@@ -89,25 +64,8 @@ See `docs/evidence/ticket24/final-full/android{10,17}`, REVIEW.md, public-feed a
 public-read. Private Crypto/constructors/receivers use independent pinned Saito
 references. Public reads and controlled writes remain distinct.
 
-**Current phone build:** preview13/0.1.13 at https://davidengelen.nl/redsquare/.
-Published after final gates; public manifest and downloaded APK checksum verified.
-Package/signing identity unchanged. APK hash
-`8b822577599a9f2864ec352088d0a2cbba4159a847099aaec6d9154ea00cf3b6`.
-Local `.scratch/review-builds/13`, public metadata in
-`docs/evidence/ticket24/signed-preview13-prepared`. Current13/physical Pixel
-continuity and five cached/fresh launch measurements remain35; signed5-to8 and
-emulator evidence do not establish them. Preview12 was superseded/unpublished.
-
-UI37 must preserve the wallet, safeguards, backend choice, drafts, cache and
-signed-operation identity. Global app theming should help all implemented screens;
-compact navigation should stop fixed controls consuming the feed. Current app has
-no custom launcher icon and defaults to the unconfigured Material3 palette. Pinned
-web tweet presentation uses avatar/content columns and compact name/time identity;
-relevant copies are `.scratch/content-bounds-research/...redsquare-tweet.css` and
-`.scratch/quote-proof-source/B-node_mods_redsquare_lib_tweet-header.template.js`.
-Reuse native generated Saito identicons and code/vector icons. No bitmap generator
-is needed for these controls. Product copy remains English and has no em dashes;
-user content is preserved. Platform UI/recovery seams are already authorized.
+Earlier preview13 is superseded by published14 above. Signed5-to8 automated
+continuity does not establish current14 physical Pixel acceptance.
 
 Group Chat, Chat media, offline Chat queues and closed-app push remain in their
 original tickets.37 is a visual beta slice;35 remains the integrated final scope

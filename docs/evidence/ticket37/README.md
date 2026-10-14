@@ -219,3 +219,22 @@ Root additionally viewed17profile-available-likes andnotification incoming-like/
 missing-original originals from full-attempt2. Existing partial-history/status
 text and controls remain readable. Those observations remain cancelled-workflow
 capture evidence at the already-recorded exact source.
+
+Final full runtime at190690150569af28e3eeeb706fa38ca9c82d7881 now PASSED:
+Android10run38501541774 (34m19s) and17run38501544092 (35m25s), both opted-in
+public reads.10 276reported/275PASS+oneexistingAPI30profileassumption/61records;
+17 277PASS/noassumptions/62records;19actualdeaths each. Core86/source/release/lint/
+all current feature/recovery/wallet/update gates and final native diagnostic pass.
+Final positive logs/metadata/publicoriginals retained in final-full;382XMLs parsed,
+zero secretfieldmarkers found. Root inspected final10Light/forwardedreply and
+17Dark/coldChatrecovery/publicOwnerfeed. Actual32/16 and exact10no/17custom_bedtime
+restoration controls retained. Final independent evidence reviews pending.
+Product equals4c/signed14; publication and current14 physical acceptance not yet
+claimed. Prior failures/cancelled workflows remain distinct historical evidence.
+
+FINAL DELIVERY: both final evidence review axes0; no remaining actionable source/
+evidence findings. Signed14/0.1.14 published after gates via canonicalreview-publish.
+Public page/manifestHTTP200 and actualdownloadedAPK hash/signature/package/version
+verified, records in signed-preview14-prepared. Stable https://davidengelen.nl/redsquare/.
+No uninstall required; signing/package unchanged. UI37accepted; #35 staysopenfor
+remainingfeatures/physicalPixel/performance/current14continuity. Resume26sequentially.

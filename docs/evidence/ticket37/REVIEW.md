@@ -77,3 +77,24 @@ publication remain required. Parent35 remainsopen.
 Root additionally viewed10partialcachedFollowing,17uncertainReport and17cached
 Conversation originals; availablepost/replies remainreadable, serverunavailable
 indicator and reportUnknown/explicitSend retain original semantics.
+
+## Final full evidence,1f995597...5eb50df1 and5eb50df1...7f404f66
+
+Standards: zero documented breaches/actionable heuristics. All1,115 finalhashes,
+382XMLs, rawcounts/status/deaths and requiredsteps agree. Both workflows SUCCESS,
+core86 and finalidentity/signaturediagnostics complete. No secretmarkers/encrypted
+installationfiles found. Production equals4c/prepared14. Selected finaloriginals
+and addedsystemcontrols support statedscope; exactoriginalmodes restored. Palette
+hash/ratios independently match; exhaustiveaccessibility/physicalPixel unproved.
+
+Spec: zero actionable findings. Both full source/device steps and originalwallet/
+work/newPID private recovery prove recordedacceptance. Counts10 276reported/275PASS+
+oneexistingassumption/61records;17 277PASS/62records;19deaths each. Six finalnative
+originals independently viewed: readable navigation/selection/direction/literal
+bodies/editabledrafts/truthfulstatus. Configuredcontrast is explicitlylimited.
+Parent35physical/performance/current14continuity remainopen.
+
+After bothfinalreviews, unchanged canonical publisher published signed14 androot
+verifiedpublic HTTP200 metadata plus downloadedAPK hash/certificate/package/version.
+Publication records live in signed-preview14-prepared (historicalfoldername).
+No store/nodeoperations or physicalacceptance implied.
