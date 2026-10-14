@@ -507,3 +507,25 @@ Minimum5d9ba21e adds a stable owner/backend channel collector and shared private
 handler wrapper for classified group storage failures only, preserving rethrow
 for negativeACK. A static resource warning directs Groups and Refresh. It stays
 latched across private navigation/metadata/reloads. Native GREEN pending.
+
+## Focused native acceptance and final full runs
+
+Android10run38611923176 at90e979e85ab462bb36948103b6ea31efb9872c09 SUCCESS:
+actions1/13.348s, mixed1/8.196s, groups22/125.4s, actual PID recovery11219 to11515
+and exact installation restoration. All failure/recovery tails execute, private
+DM/reaction retained inGroups and groups received inprivateChat becomevisible in
+correctviews; classifiedstoragefaultnegativeACK+notice/exactsentinel/nooverwrite
+thenpositive recovery. Protected group key/origin/control/message/uncertainaction/
+draft/wallet/backend remain with no submissions acrossdeath/unavailableArchive.
+Root inspected original malformed-hints reopened, private-mode storage warning
+and cold recovery PNG/XML. Public captures and raw/checkpoints retained separately.
+
+Android17run38611928760 atsame90e FAILED hostactiondeadline124. Classreports
+1PASS54.77s andINSTRUMENTATION_CODE -1, butexit124 failsstrict60sgate. Mixed22/PID
+unexecuted. No native17 acceptance or lengtheneddeadline. Failedhostattempt retained.
+Finalfull10run38613217864 and17run38613221849 atsamec5193954631f26541c3421d51db23c49bdecd3a9
+arequeued withpublic_feed_read=true, unchangedproduction since90e, shared native
+harnesshelper reviewed0/0. Existingfullorder runsappearance/group22 beforeactions;
+allclassdeadlines/assertions remain. Fullchecks willinclude release/lint/core,
+existingprivateprocesshelper regression and allpreviousfeature/wallet/update gates.
+Signednextpreview ispreparedbutnotpublished untilfinalverification.

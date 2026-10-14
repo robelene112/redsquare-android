@@ -1,0 +1,2 @@
+Actual process-death recovery PASS, Android10 run38611923176 at90e979e85ab462bb36948103b6ea31efb9872c09.
+Cold different PID, exact protected key/origin/control/message/uncertain reaction/draft, wallet/backend continuity and zero submissions under unavailable Archive. Device-only encrypted restoration passes. Public controlled fixture captures/checkpoint digests only. No physical-device or whole-ticket acceptance yet.

@@ -1,0 +1,2 @@
+Run38611928760 at90e979e85ab462bb36948103b6ea31efb9872c09 FAILED.
+Action class reports1PASS54.77s and INSTRUMENTATION_CODE -1, but host60s command exited124. Runtime class completion is not harness acceptance. Mixed reception, groups22 and process recovery did not run. Original controlled captures retained; unsafe public fixtures only. Deadline unchanged for final full verification, whose existing ordering first runs appearance/groups.
