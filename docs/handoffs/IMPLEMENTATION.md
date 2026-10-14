@@ -986,3 +986,21 @@ so this is regressionproof, notnewREDclaim. Mainremaining26 checklist local
 unverified andneeded. OlddraftscriptsAPPLIED/obsolete; dryrunpreview stale DO
 NOTcopy. Protectedgroupcontractuntrackeduntouched. Preview14unchanged;21of35
 closed26open. OwnerUIafter26, thenremainingsequentialissues. Continueallissues.
+
+2026-10-14 11:36UTC latest26: draft10GREENboth at5aed9d085ac2f0c35a1fc3b261a86bea7766d45d,
+10=38556274168/47.308s,17=38556277778/83.477s. Unique draft-reopenedPNGXMLseen,
+exactEditableText/noextras; retained3df3fb78/673cf8ff. Currentnativefixture11
+APPLIED ec57+673cf8ff, truthfulhistorywarningliteralabsent =>expectedRED. Adds
+fresh malformedArchive request, reachableRefresh/strictvisiblewarning,
+compatibleSend/+liveACK/5cachedtexts/recreate/3txnoextras; reviews0/0.
+Local27033 COMPLETE0 testAPK1m44s, noownedGradle. ACTIVE11REDAndroid10run
+38557529120 at673cf8ff1b2a9d99774eeb5702dd5055a80c6170; sourcepush38557534693.
+Do notredispatch. AfteractualREDinspectunique archive-failure PNG/XML thenapply
+`.scratch/apply-group26-history-warning.py` (NOTAPPLIED) separating historyFailed
+from genericread/save/senderror, translation-readywarning. Thencompile/reviews/
+actualnative11GREENboth. Oldarchivefaulttracerscript APPLIED/obsolete.
+Draftsave/Refreshsourcefixed, butstorage-fault/repairedRefresh stillunverified;
+remaining26 historypagination/incomingaddressedcreation/importhints/blocked/
+actualPID/fullgates listed .scratch/group26-remaining-acceptance.txt. No26close,
+noAPKpublish; preview14unchanged. OwnerUIafter26 thenotherissues. Protected
+untrackedgroupcontractuntouched. ContinueALLissues, no partialfinalstop.

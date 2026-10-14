@@ -447,3 +447,20 @@ restoration5aed9d08: retry only failed loads and preserve live edited text.
 Correction reviews Standards0/Spec0. Local debug/testAPK PASS3m10s. Native10
 at5aed pending: Android10run38556274168; Android17run38556277778. Storage-fault
 repair, archive-fault regression and whole26 acceptance remain pending.
+
+Draft ten-case native GREEN at5aed9d085ac2f0c35a1fc3b261a86bea7766d45d:
+Android10run38556274168 PASS47.308s; Android17run38556277778 PASS83.477s.
+Root unique draft-reopened PNG/XML inspected on both. Positive group-list
+navigation, exact editable restoration and activity recreation retain unsent text
+without extra outgoing transactions. This does not prove actual PID death,
+storage-fault Refresh repair or complete26. Retained native-draft-green sets.
+
+Archive-fault tracer ec57/673cf8ff adds fresh malformed group Archive response,
+a distinct visible history warning, usable Send, positive live ACK and five cached
+messages after reopening with Archive still unavailable. Exact protocol/original
+and inner/outer recipients remain checked. Review corrected keyboard accessibility
+and strict warning display at both checkpoints; both axes0. TestAPKcompile
+PASS1m44s. Actual11-case RED10run38557529120 at673cf8ff1b2a9d99774eeb5702dd5055a80c6170
+pending. Source already preserves the live peer during history failure, but the
+current generic warning incorrectly blames saved/sent work. Prepared separate
+history warning remains unapplied until actual RED is inspected.
