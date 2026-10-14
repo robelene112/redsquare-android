@@ -19,7 +19,9 @@ class GroupChatPreviewTest {
 
     @Test fun leavingANamedGroupRetainsTheSignedDepartureAfterReopening() = exerciseGroupUi(leaving=true)
 
-    private fun exerciseGroupUi(joining:Boolean=false, leaving:Boolean=false) {
+    @Test fun anInterruptedCreationCanRetryItsSavedOriginalAndRecoverKeyMetadataWithoutAutomaticSending() = exerciseGroupUi(retrying=true)
+
+    private fun exerciseGroupUi(joining:Boolean=false, leaving:Boolean=false, retrying:Boolean=false) {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -27,6 +29,8 @@ class GroupChatPreviewTest {
         val original = store.loadOrCreate()
         val fixture = SaitoWallet.fromPrivateKey("0".repeat(63) + if(joining) "4" else "1") // Public unsafe test wallet. Never fund.
         val member = SaitoWallet.fromPrivateKey("0".repeat(63) + "2").publicKey
+        val checkpointKey=SaitoWallet.fromPrivateKey("0".repeat(63)+"3") // Public unsafe fixture only. Never fund.
+        val checkpoint=GroupChat.create(fixture,checkpointKey.publicKey,"Recovered group",listOf(member),1700000123456)
         val backend = AndroidBackendStore(context).load()
         val prefix = "groupchat.${SaitoBackend.OWNER.id}.${fixture.publicKey}."
         val retained = synchronized(SaitoLocalState.lock) {
@@ -43,17 +47,55 @@ class GroupChatPreviewTest {
             AndroidBackendStore(context).save(SaitoBackend.OWNER)
             preferences.forEach { (prefs,key,_) -> check(prefs.edit().putBoolean(key,true).commit()) }
             synchronized(SaitoLocalState.lock) { context.noBackupFilesDir.listFiles()!!.filter { it.name.startsWith(prefix) }.forEach { check(it.delete()) } }
+            if(retrying) nl.davidengelen.redsquare.chat.GroupChatStore(context,fixture,SaitoBackend.OWNER).prepareCreation(checkpoint,checkpointKey)
             peer.start().use { server ->
                 ActivityScenario.launch<MainActivity>(Intent(context,MainActivity::class.java)
                     .putExtra("feedPeerUrl","ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("feedOfficialPeerUrl","ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
-                    withFailureCapture({ captureNativeScreen(File(context.cacheDir,if(joining) "group-chat-evidence/join-failure.png" else if(leaving) "group-chat-evidence/leave-failure.png" else "group-chat-evidence/create-failure.png")) }) {
+                    withFailureCapture({ captureNativeScreen(File(context.cacheDir,if(joining) "group-chat-evidence/join-failure.png" else if(leaving) "group-chat-evidence/leave-failure.png" else if(retrying) "group-chat-evidence/retry-failure.png" else "group-chat-evidence/create-failure.png")) }) {
                         waitFor("Chat")
                         ui.waitUntil(15_000) { ui.onAllNodes(hasText("Chat") and isEnabled()).fetchSemanticsNodes().size == 1 }
                         ui.onNodeWithText("Chat").assertIsDisplayed().performClick()
                         waitFor("Groups")
                         ui.onNodeWithText("Groups").assertIsDisplayed().performClick()
                         waitFor("Group messages are unencrypted.")
+                        if(retrying) {
+                            waitFor("Recovered group")
+                            ui.onNodeWithText("Recovered group").assertIsDisplayed().performClick()
+                            waitFor("Status unknown. Your signed action is saved on this device.")
+                            check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
+                            check(store.loadExisting().exportJson()==fixture.exportJson())
+                            peer.disconnectAfterTransaction=true
+                            ui.onNodeWithText("Retry").assertIsDisplayed().assertIsEnabled().performClick()
+                            waitFor("Group information could not be saved or sent. Your existing records are kept.")
+                            waitFor("Submitted. Delivery is not confirmed.")
+                            check(peer.transactions.size==1 && peer.relayedMessages.isEmpty())
+                            check(postingTransaction(peer.transactions.single()).envelope()==checkpoint.envelope())
+                            val updated=fixture.withNamedChatGroup(checkpointKey.publicKey,"Recovered group",checkpointKey)
+                            check(store.loadExisting().exportJson()==updated.exportJson())
+                            captureNativeScreen(File(context.cacheDir,"group-chat-evidence/retry-uncertain.png"),"Submitted. Delivery is not confirmed.")
+                            scenario.recreate()
+                            waitFor("Groups");ui.onNodeWithText("Groups").performClick()
+                            waitFor("Recovered group");ui.onNodeWithText("Recovered group").performClick()
+                            waitFor("Submitted. Delivery is not confirmed.")
+                            check(peer.transactions.size==1 && peer.relayedMessages.isEmpty())
+                            val recovered=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,updated,SaitoBackend.OWNER).load(checkpointKey.publicKey))
+                            check(recovered.candidate.encoded()==checkpoint.encoded() && recovered.creationKey?.exportJson()==checkpointKey.exportJson())
+                            peer.disconnectAfterTransaction=false
+                            ui.onNodeWithText("Retry").assertIsEnabled().performClick()
+                            waitFor("Forwarded. Delivery is not confirmed.")
+                            ui.waitUntil(15_000){peer.transactions.size==2 && peer.relayedMessages.size==1}
+                            check(peer.transactions.all{postingTransaction(it).envelope()==checkpoint.envelope()})
+                            check(SaitoEnvelope.fromSignedJson(peer.relayedMessages.single())==checkpoint.envelope())
+                            captureNativeScreen(File(context.cacheDir,"group-chat-evidence/retry-forwarded.png"),"Forwarded. Delivery is not confirmed.")
+                            scenario.recreate()
+                            waitFor("Groups");ui.onNodeWithText("Groups").performClick();waitFor("Recovered group")
+                            check(peer.transactions.size==2 && peer.relayedMessages.size==1)
+                            check(store.loadExisting().exportJson()==updated.exportJson())
+                            check(AndroidBackendStore(context).load()==SaitoBackend.OWNER)
+                            peer.assertHealthy()
+                            return@withFailureCapture
+                        }
                         if(joining) {
                             val references=InstrumentationRegistry.getInstrumentation().context.assets
                                 .open("native-group-chat-creation-reference.json").bufferedReader().use {
