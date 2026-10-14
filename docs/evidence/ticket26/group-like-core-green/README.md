@@ -1,0 +1,1 @@
+Full core110 PASS. Four full signed native Like envelopes/signatures match independent actual A/B constructors; deduplication, two-toggle restoration, unchanged roles and rejected sender-claim preservation pass. This does not prove Android actions, stored UI state, live network admission or complete26.
