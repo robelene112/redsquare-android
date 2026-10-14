@@ -345,3 +345,20 @@ metadata from that retained state. Invite requires a known active admin so an
 orphaned group cannot throw while composing its link. Corrected compilation and
 native GREEN remain pending. Consent/network admission, actual process death and
 complete26 are not claimed by this module tracer.
+
+Review of the first known-rejoin minimum found routing still used the link's admin,
+despite retaining local roles. Added core usingKnownGroup to derive retained admin/
+name (or original routing anchor for an orphan without granting ADMIN). Genuine
+creation/currentadmin1/returningmember2/conflicting4 tracer RED1 stub then GREEN3
+invitation cases, builds1m3/1m4. New native eight-case tracer records both original
+join outputs and outerRelay targets. CompilePASS3m2; Standards0/coreSpec0, native
+Spec2: name could match background list and enabled Join needed a bounded wait.
+
+Actual nativeRED17run38546506531 at95207cf0: eight cases/67.047s, seven PASS plus
+missing retained admin in Preview (fixture90). Original PNG/XML show conflicting
+name/admin. Unscoped name assertion is not valid preview-name proof. Later consent,
+inner/outer routing and recovery assertions were unexecuted. Minimum8d8e9004
+resolves known details off Main before confirmation, labels saved provenance and
+requires prepared recipients to match retained authority. Fixture now scopes
+name/admin/provenance to Dialog and waits for enabled Join before its strict click.
+Corrected compile/native GREEN pending; no full26/network admission/PID claim.
