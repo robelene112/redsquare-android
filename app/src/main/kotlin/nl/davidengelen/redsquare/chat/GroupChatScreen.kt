@@ -62,6 +62,11 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         hasOlder=page.hasOlder;olderCursor=page.cursor
     }
     var olderRequest by remember(store,selected){mutableIntStateOf(0)}
+    val importedIds=remember(wallet){wallet.namedChatGroupIds()}
+    var discoveryCursor by remember(store,endpoint,refresh){mutableStateOf<Long?>(null)}
+    var discoveryHasOlder by remember(store,endpoint,refresh){mutableStateOf(false)}
+    var discoveryLoading by remember(store,endpoint){mutableStateOf(false)}
+    var discoveryRequest by remember(store,endpoint,refresh){mutableIntStateOf(0)}
     var message by remember(wallet.publicKey,backend,selected){mutableStateOf("")}
     var draftReady by remember(store,selected){mutableStateOf(false)}
     var draftFailed by remember(wallet.publicKey,backend,selected){mutableStateOf(false)}
@@ -141,6 +146,37 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         try { publish(onResult={success->loaded=success;readFailed=!success}){store.entries()} }
         catch(cancelled:CancellationException){throw cancelled}
         catch(_:Exception){/* Failure state was published under the same lock. */}
+    }
+    // Keep compatible watch metadata in the protected backup. Its names never supply authority.
+    LaunchedEffect(store,entries,loaded,busy) {
+        if(!loaded||busy||savingForNavigation||entries.isEmpty())return@LaunchedEffect
+        savingForNavigation=true
+        try {
+            val updated=withContext(Dispatchers.IO){
+                entries.fold(wallet){saved,row->saved.withNamedChatGroup(row.group.id,row.group.name)}
+            }
+            if(updated.exportJson()!=wallet.exportJson() && persistDraft())onWalletMetadata(wallet,updated)
+        }catch(cancelled:CancellationException){throw cancelled}
+        catch(_:Exception){readFailed=true}
+        finally{savingForNavigation=false}
+    }
+    LaunchedEffect(store,endpoint,loaded,refresh,discoveryRequest) {
+        if(!loaded||importedIds.isEmpty())return@LaunchedEffect
+        val missing=importedIds.filter{id->entries.none{it.group.id==id}}.toSet()
+        if(missing.isEmpty())return@LaunchedEffect
+        discoveryLoading=true
+        try {
+            val before=if(discoveryRequest==0)System.currentTimeMillis() else discoveryCursor ?: return@LaunchedEffect
+            SaitoPeer(wallet,endpoint).use{peer->
+                require("archive" in peer.services())
+                val page=withContext(Dispatchers.IO){loadGroupDiscoveryPage(peer,store,wallet.publicKey,missing,before)}
+                publish{store.entries()}
+                discoveryHasOlder=page.hasOlder;discoveryCursor=page.cursor
+            }
+        }catch(cancelled:CancellationException){throw cancelled}
+        catch(_:GroupChatStorageException){readFailed=true}
+        catch(_:Exception){/* Missing originals remain public ID hints with recovery guidance. */}
+        finally{discoveryLoading=false}
     }
     // Receive addressed groups and known-group events throughout the Groups feature,
     // including while the list is shown. Receiving never creates an outgoing attempt.
@@ -229,6 +265,9 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                 Button(enabled=loaded&&!busy,onClick={creating=true}) { Text(stringResource(R.string.group_create)) }
                 OutlinedButton(enabled=loaded&&!busy,onClick={joining=true}) { Text(stringResource(R.string.group_join)) }
             }
+            if(discoveryHasOlder&&discoveryCursor!=null)TextButton(enabled=!busy&&!discoveryLoading,onClick={discoveryRequest++}){
+                Text(stringResource(R.string.group_discovery_older))
+            }
             LazyColumn(Modifier.weight(1f)) {
                 items(entries,key={it.group.id}) { row ->
                     TextButton(enabled=!busy,onClick={selected=row.group.id},modifier=Modifier.fillMaxWidth()) {
@@ -236,6 +275,14 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                             Text(row.group.name,style=MaterialTheme.typography.titleMedium,color=MaterialTheme.colorScheme.onSurface)
                             Text(stringResource(R.string.group_unencrypted),style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
                         }
+                    }
+                    HorizontalDivider()
+                }
+                items(importedIds.filter{id->entries.none{it.group.id==id}},key={it}){id->
+                    Column(Modifier.fillMaxWidth().padding(vertical=8.dp)) {
+                        Text(id,style=MaterialTheme.typography.bodySmall)
+                        Text(stringResource(R.string.group_unavailable),style=MaterialTheme.typography.bodySmall,
+                            color=MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                     HorizontalDivider()
                 }
@@ -254,7 +301,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                 GroupChatStore.Status.UNKNOWN -> R.string.group_unknown
                 GroupChatStore.Status.SUBMITTED -> R.string.group_submitted
                 GroupChatStore.Status.FORWARDED -> R.string.group_forwarded
-                GroupChatStore.Status.RECEIVED -> R.string.group_received
+                GroupChatStore.Status.RECEIVED -> if(entry.ownCreation)R.string.group_recovered else R.string.group_received
             }),style=MaterialTheme.typography.bodySmall)
             if(entry.hasPendingAction) TextButton(enabled=loaded&&!busy&&!readFailed,onClick={
                 act {

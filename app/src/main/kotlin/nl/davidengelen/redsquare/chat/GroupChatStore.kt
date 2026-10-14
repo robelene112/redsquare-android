@@ -13,7 +13,7 @@ internal class GroupChatStorageException(cause:Exception):IllegalStateException(
 /** Encrypted original group state. Opening never transmits a retained attempt. */
 internal class GroupChatStore(private val context: Context, private val wallet: SaitoWallet, private val backend: SaitoBackend) {
     enum class Status { UNKNOWN, SUBMITTED, FORWARDED, RECEIVED }
-    data class Entry(val group: NamedChatGroup, val candidate: SaitoTransaction?, val status: Status, val creationKey: SaitoWallet? = null, val originals:List<String> = emptyList(), val messages:List<GroupChatMessage> = emptyList(), val draft:String = "", val reactions:List<GroupChatLikeEvent> = emptyList()) {
+    data class Entry(val group: NamedChatGroup, val candidate: SaitoTransaction?, val status: Status, val creationKey: SaitoWallet? = null, val originals:List<String> = emptyList(), val messages:List<GroupChatMessage> = emptyList(), val draft:String = "", val reactions:List<GroupChatLikeEvent> = emptyList(), val ownCreation:Boolean=false) {
         fun likedBy(message:GroupChatMessage)=GroupChatReplay(group,messages,originals,reactions=reactions).likedBy(message)
         val hasPendingAction:Boolean get()=status==Status.UNKNOWN||status==Status.SUBMITTED
     }
@@ -71,7 +71,8 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
             SaitoWallet.fromBackup(it.asString).also{key->require(key.publicKey==group.id)}
         }
         val draft=record.get("draft")?.also{require(it.isJsonPrimitive&&it.asJsonPrimitive.isString)}?.asString ?: ""
-        Entry(group,candidate,status,creationKey,history.originals,history.messages,draft,history.reactions)
+        Entry(group,candidate,status,creationKey,history.originals,history.messages,draft,history.reactions,
+            creation!=null && SaitoEnvelope.decode(creation).author==wallet.publicKey)
         }catch(failure:GroupChatStorageException){throw failure}
         catch(failure:Exception){throw GroupChatStorageException(failure)}
     }

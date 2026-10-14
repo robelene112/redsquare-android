@@ -458,5 +458,8 @@
     <string name="group_messages">Group messages</string>
     <string name="group_history_error">Older group history could not be loaded. Your cached messages are kept.</string>
     <string name="group_received">Received a signed group invitation.</string>
+    <string name="group_recovered">Recovered signed group information.</string>
+    <string name="group_unavailable">Group information is unavailable on this server. Use an invitation link to rejoin.</string>
+    <string name="group_discovery_older">Check older group information</string>
     <string name="group_live_error">Live group messages are unavailable. Your cached messages are kept.</string>
 </resources>

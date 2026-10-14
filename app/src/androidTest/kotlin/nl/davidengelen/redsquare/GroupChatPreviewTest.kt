@@ -776,6 +776,7 @@ class GroupChatPreviewTest {
                                 check(peer.relayRecipients[index]==listOf(fixture.publicKey,admin.publicKey))
                             }
                         }
+                        ui.waitUntil(15_000){ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().size==1}
                         ui.onNodeWithText("Message").assertIsEnabled().performTextInput("Keep incoming group draft")
                         androidx.test.espresso.Espresso.closeSoftKeyboard()
                         ui.waitUntil(15_000){runCatching{ui.onNodeWithText("Back").assertIsDisplayed()}.isSuccess}
