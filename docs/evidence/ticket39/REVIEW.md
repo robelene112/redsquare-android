@@ -36,3 +36,16 @@ actual-display wait and strict final assertion. No production change, sleeps or
 wire-count coupling. Authority/secret/cache/wallet/no-send checks intact. This
 exercises persisted restart at approved seams, not the original transition ordering
 or process death. Corrected native runtime remains pending.
+
+## Android17 evidence review
+
+Incremental7b49825e...70f963d7 Standards0 remaining findings and Spec0 runtime
+findings. Both independently verified655hashes/233XML and303passing cases across
+67completion records. Root and reviewers viewed representative original group,
+reply, recovery and appearance captures. Group process PID5419to5498 with exact
+protected-state restoration;20actual interruptions overall. Core110, source/release/
+lint and both public feeds pass. Current handoff/REVIEW stale17active statements
+were fixed in70f963d7 and separately confirmed by both axes.
+
+CorrectedAndroid10 and signed16 publication remain pending. No physical Pixel7
+performance, permanent history or live group-write admission inferred.
