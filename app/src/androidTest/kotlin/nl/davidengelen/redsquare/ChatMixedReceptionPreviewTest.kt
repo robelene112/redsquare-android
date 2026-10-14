@@ -58,13 +58,13 @@ class ChatMixedReceptionPreviewTest {
                     wait("Foreground group");ui.onNodeWithText("Foreground group").performClick()
                     wait("Received a signed group invitation.")
                     var requestId=900
-                    fun deliver(transaction:SaitoTransaction) {
+                    fun deliver(transaction:SaitoTransaction,acknowledgement:Byte=13) {
                         val id=requestId++
                         val bytes=transaction.applicationRequest(1).let{it.copyOfRange(5,it.size)}
                         var sent=0L
                         ui.waitUntil(15_000){
                             if(System.nanoTime()-sent>500_000_000){peer.sendIncoming(bytes,id);sent=System.nanoTime()}
-                            peer.incomingAcknowledgements.any{it[0]==13.toByte()&&ByteBuffer.wrap(it,1,4).int==id}
+                            peer.incomingAcknowledgements.any{it[0]==acknowledgement&&ByteBuffer.wrap(it,1,4).int==id}
                         }
                     }
                     deliver(privateMessage);deliver(reaction)
@@ -79,6 +79,20 @@ class ChatMixedReceptionPreviewTest {
                     ui.onNodeWithText("Back").performClick();wait("Public key")
                     ui.waitUntil(15_000){val current=peer.authenticatedConnectionIds
                         current.intersect(oldConnections).isEmpty()&&current.any{it !in oldConnections}}
+                    val unfinished=File(context.noBackupFilesDir,"${bases[1]}.new")
+                    val faultBytes=byteArrayOf(1,2,3)
+                    synchronized(SaitoLocalState.lock){check(!unfinished.exists());unfinished.writeBytes(faultBytes)}
+                    val successful=peer.incomingAcknowledgements.count{it[0]==13.toByte()}
+                    deliver(second,14)
+                    val error="Could not save received group information on this device. Existing records are kept. Open Groups and use Refresh to check them."
+                    wait(error);ui.onNodeWithText(error).assertIsDisplayed()
+                    synchronized(SaitoLocalState.lock){
+                        check(unfinished.readBytes().contentEquals(faultBytes))
+                        check(!File(context.noBackupFilesDir,bases[1]).exists()&&!File(context.noBackupFilesDir,"${bases[1]}.bak").exists())
+                    }
+                    check(peer.incomingAcknowledgements.count{it[0]==13.toByte()}==successful)
+                    captureNativeScreen(File(context.cacheDir,"chat-mixed-evidence/group-storage-unavailable-in-private.png"),error)
+                    synchronized(SaitoLocalState.lock){check(unfinished.delete())}
                     deliver(second);deliver(groupMessage)
                     val saved=GroupChatStore(context,wallets.loadExisting(),backend).load(secondKey.publicKey)!!
                     check(saved.group.creationEnvelope==second.envelope()&&saved.candidate==null)
