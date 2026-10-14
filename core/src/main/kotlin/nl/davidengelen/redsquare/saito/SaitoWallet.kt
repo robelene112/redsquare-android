@@ -123,25 +123,33 @@ class SaitoWallet private constructor(
     }
 
     /** Public discovery hints only. IDs do not establish membership, roles or available history. */
-    fun namedChatGroupIds():List<String> = emptyList()
+    fun namedChatGroupIds():List<String> {
+        val keys=backupOptions?.get("keys")?.takeUnless{it.isJsonNull}
+        require(keys==null||keys.isJsonArray){"Invalid saved Chat keys"}
+        val watched=keys?.asJsonArray?.mapNotNull{value->
+            if(!value.isJsonObject||!isChatGroup(value.asJsonObject))null
+            else chatAddress(value.asJsonObject)?.takeIf{isPublicKey(it)&&it!=publicKey}
+        }.orEmpty()
+        return (watched+savedChatIds().filter{isPublicKey(it)&&it!=publicKey}).distinct()
+    }
 
     /** Existing options.chat stores conversation IDs, while message bodies live outside the backup. */
-    fun chatHistoryIds(): List<String> {
-        val chat = backupOptions?.get("chat")?.takeUnless { it.isJsonNull }
-        val groups = chat?.let {
-            if (it.isJsonArray) it else {
-                require(it.isJsonObject) { "Invalid saved Chat options" }
-                it.asJsonObject.get("groups")?.takeUnless { value -> value.isJsonNull }
+    fun chatHistoryIds(): List<String> =
+        (savedChatIds().filterNot(::isPublicKey)+chatContacts().map{PrivateChat.conversationId(publicKey,it)}).distinct()
+
+    private fun savedChatIds():List<String> {
+        val chat=backupOptions?.get("chat")?.takeUnless{it.isJsonNull}
+        val groups=chat?.let{
+            if(it.isJsonArray)it else {
+                require(it.isJsonObject){"Invalid saved Chat options"}
+                it.asJsonObject.get("groups")?.takeUnless{value->value.isJsonNull}
             }
         }
-        require(groups == null || groups.isJsonArray) { "Invalid saved Chat conversations" }
-        val saved = groups?.asJsonArray?.mapNotNull {
-            require(it.isJsonPrimitive && it.asJsonPrimitive.isString)
-            val id = it.asString
-            if (isPublicKey(id)) null // Named groups use public keys and belong to the group-chat feature.
-            else { require(id.matches(Regex("[0-9a-f]{64}"))); id }
-        }.orEmpty()
-        return (saved + chatContacts().map { PrivateChat.conversationId(publicKey, it) }).distinct()
+        require(groups==null||groups.isJsonArray){"Invalid saved Chat conversations"}
+        return groups?.asJsonArray?.map{
+            require(it.isJsonPrimitive&&it.asJsonPrimitive.isString)
+            it.asString.also{id->require(isPublicKey(id)||id.matches(Regex("[0-9a-f]{64}")))}
+        }.orEmpty().distinct()
     }
 
     /** Portable added-contact metadata follows the existing client; all other backup fields stay intact. */
