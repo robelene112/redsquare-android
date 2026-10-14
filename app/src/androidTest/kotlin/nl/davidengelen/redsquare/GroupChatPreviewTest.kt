@@ -668,9 +668,9 @@ class GroupChatPreviewTest {
                                 check(signed.body.get("sender").asString==fixture.publicKey&&signed.body.get("group_id").asString==group.id)
                                 check(signed.body.get("signature").asString==message.id&&signed.body.get("mentioned").asString==admin.publicKey)
                                 check(signed.recipients==listOf(fixture.publicKey,admin.publicKey,group.id))
-                                check(GroupChat.originalEnvelope(peer.transactions[index].let{it.copyOfRange(1,it.size)})==originalLike)
+                                check(postingTransaction(peer.transactions[index]).envelope()==originalLike)
                                 check(SaitoEnvelope.fromSignedJson(peer.relayedMessages[index])==originalLike)
-                                check(peer.relayRecipients[index]==listOf(admin.publicKey))
+                                check(peer.relayRecipients[index]==listOf(fixture.publicKey,admin.publicKey))
                             }
                         }
                         ui.onNodeWithText("Message").assertIsEnabled().performTextInput("Keep incoming group draft")
