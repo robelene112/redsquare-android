@@ -232,7 +232,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
     private fun requireActionMembership(entry:Entry) {
         val signed=SaitoEnvelope.decode(requireNotNull(entry.candidate).envelope())
         if(signed.body.get("request").asString=="chat update") {
-            check(entry.group.memberRoles[wallet.publicKey]==ChatGroupRole.ADMIN)
+            GroupChat.assertCurrentUpdate(entry.group,entry.candidate.envelope())
             return
         }
         val selfLeave=signed.body.get("request").asString=="chat remove" &&

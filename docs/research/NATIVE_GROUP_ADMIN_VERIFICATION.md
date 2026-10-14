@@ -77,3 +77,15 @@ promotion, receives a signed target self-leave, then requires refusal before raw
 submission and on explicit Retry, with original/key/draft/current-role continuity.
 Source fix deliberately absent until this RED is observed. Next scoped10run will
 execute both the accepted positive flow and the new stale refusal requirement.
+
+Stale targetRED10run38645475499 FAILED2cases1failure11.837s ate15cc00d.
+PositiveUI casePASS; stale attempt returned normally instead of refusing at51.
+Its later zero-send/continuity/Retry tail did not execute. Retainednative-stale-
+target-red-android10. No negative UI screenshot or exact failed-frame counts claimed.
+
+Current snapshot correction: GroupChat.assertCurrentUpdate authenticates request,
+signer's currentADMIN, groupID and exact current name/complete encoded role map.
+Both protected raw claim and Relay enqueue call it; saved original is not re-signed
+or replaced. Shared memberIds codec has actual factory/guard callers. Compile30441
+PASS3m21s/core4; new nativeGREEN remains pending. Removal and further guards/recovery
+remain separate unfinished27 work.

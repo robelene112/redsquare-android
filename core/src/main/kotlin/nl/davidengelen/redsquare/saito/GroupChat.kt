@@ -42,16 +42,7 @@ object GroupChat {
         val body=JsonObject().apply {
             addProperty("module","Chat");addProperty("request","chat update")
             addProperty("group_name",group.name);addProperty("group_id",group.id)
-            add("member_ids",JsonObject().apply {
-                group.memberRoles.forEach { (key,role) ->
-                    when(if(key==member)ChatGroupRole.ADMIN else role) {
-                        ChatGroupRole.ADMIN -> addProperty(key,"admin")
-                        ChatGroupRole.MEMBER -> addProperty(key,1)
-                        ChatGroupRole.LEFT -> addProperty(key,0)
-                        ChatGroupRole.REMOVED -> addProperty(key,-1)
-                    }
-                }
-            })
+            add("member_ids",memberIds(group.memberRoles+(member to ChatGroupRole.ADMIN)))
         }
         return SaitoTransaction.createTo(wallet,body,timestamp,group.id)
     }
@@ -59,6 +50,26 @@ object GroupChat {
     private fun requireAdminTarget(wallet:SaitoWallet,group:NamedChatGroup,member:String) {
         require(group.memberRoles[wallet.publicKey]==ChatGroupRole.ADMIN)
         require(group.memberRoles[member]==ChatGroupRole.MEMBER)
+    }
+
+    /** Outbound snapshots cannot overwrite subsequently observed membership or names. */
+    fun assertCurrentUpdate(group:NamedChatGroup,envelope:String) {
+        val signed=SaitoEnvelope.decode(envelope)
+        val body=signed.body
+        check(body.requiredString("module")=="Chat"&&body.requiredString("request")=="chat update")
+        check(body.requiredString("group_id")==group.id&&group.memberRoles[signed.author]==ChatGroupRole.ADMIN)
+        check(body.requiredString("group_name")==group.name&&body.get("member_ids")==memberIds(group.memberRoles))
+    }
+
+    private fun memberIds(roles:Map<String,ChatGroupRole>)=JsonObject().apply {
+        roles.forEach { (key,role) ->
+            when(role) {
+                ChatGroupRole.ADMIN -> addProperty(key,"admin")
+                ChatGroupRole.MEMBER -> addProperty(key,1)
+                ChatGroupRole.LEFT -> addProperty(key,0)
+                ChatGroupRole.REMOVED -> addProperty(key,-1)
+            }
+        }
     }
 
     fun like(wallet:SaitoWallet,group:NamedChatGroup,target:GroupChatMessage,timestamp:Long):SaitoTransaction {
