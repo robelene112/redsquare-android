@@ -36,6 +36,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     val clientKeys = java.util.concurrent.CopyOnWriteArrayList<String>()
     val transactions = java.util.concurrent.CopyOnWriteArrayList<ByteArray>()
     val reports = java.util.concurrent.CopyOnWriteArrayList<ByteArray>()
+    val relayRecipients = java.util.concurrent.CopyOnWriteArrayList<List<String>>()
     val relayedMessages = java.util.concurrent.CopyOnWriteArrayList<com.google.gson.JsonObject>()
     val registryQueries = java.util.concurrent.CopyOnWriteArrayList<com.google.gson.JsonObject>()
     @Volatile var incomingTransaction: ByteArray? = null
@@ -139,6 +140,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                                 require(relay.get("module").asString == "Relay" && relay.get("request").asString == "chat relay")
                                 relay.getAsJsonObject("data")
                             }
+                            relayRecipients.add(criteria.getAsJsonArray("to").map{it.asJsonObject.get("publicKey").asString})
                             relayedMessages.add(original.deepCopy())
                             val response = relayResponse?.invoke(original) ?: "{\"err\":\"\",\"success\":1}"
                             webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) + response.toByteArray()).toByteString())

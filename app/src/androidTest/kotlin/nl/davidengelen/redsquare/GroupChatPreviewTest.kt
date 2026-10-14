@@ -21,13 +21,15 @@ class GroupChatPreviewTest {
 
     @Test fun anInterruptedCreationCanRetryItsSavedOriginalAndRecoverKeyMetadataWithoutAutomaticSending() = exerciseGroupUi(retrying=true)
 
-    private fun exerciseGroupUi(joining:Boolean=false, leaving:Boolean=false, retrying:Boolean=false) {
+    @Test fun aKnownGroupRejoinPreviewsAndRoutesToItsRetainedAdministrator() = exerciseGroupUi(knownRejoin=true)
+
+    private fun exerciseGroupUi(joining:Boolean=false, leaving:Boolean=false, retrying:Boolean=false, knownRejoin:Boolean=false) {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
         val store = AndroidWalletStore(context)
         val original = store.loadOrCreate()
-        val fixture = SaitoWallet.fromPrivateKey("0".repeat(63) + if(joining) "4" else "1") // Public unsafe test wallet. Never fund.
+        val fixture = SaitoWallet.fromPrivateKey("0".repeat(63) + if(joining||knownRejoin) "4" else "1") // Public unsafe test wallet. Never fund.
         val member = SaitoWallet.fromPrivateKey("0".repeat(63) + "2").publicKey
         val checkpointKey=SaitoWallet.fromPrivateKey("0".repeat(63)+"3") // Public unsafe fixture only. Never fund.
         val checkpoint=GroupChat.create(fixture,checkpointKey.publicKey,"Recovered group",listOf(member),1700000123456)
@@ -48,17 +50,65 @@ class GroupChatPreviewTest {
             preferences.forEach { (prefs,key,_) -> check(prefs.edit().putBoolean(key,true).commit()) }
             synchronized(SaitoLocalState.lock) { context.noBackupFilesDir.listFiles()!!.filter { it.name.startsWith(prefix) }.forEach { check(it.delete()) } }
             if(retrying) nl.davidengelen.redsquare.chat.GroupChatStore(context,fixture,SaitoBackend.OWNER).prepareCreation(checkpoint,checkpointKey)
+            var knownInvitation:GroupInvitation?=null
+            if(knownRejoin){
+                val references=InstrumentationRegistry.getInstrumentation().context.assets.open("native-group-chat-creation-reference.json")
+                    .bufferedReader().use{com.google.gson.JsonParser.parseReader(it).asJsonObject}
+                val invitation=GroupInvitation.parse(references.getAsJsonArray("invitations")[3].asJsonObject.get("link").asString)
+                knownInvitation=invitation
+                val initial=GroupChat.join(fixture,invitation,1700000123456)
+                val saved=nl.davidengelen.redsquare.chat.GroupChatStore(context,fixture,SaitoBackend.OWNER)
+                saved.prepareInvitation(invitation,initial)
+                saved.record(invitation.id,initial.id,nl.davidengelen.redsquare.chat.GroupChatStore.Status.FORWARDED)
+                val leave=GroupChat.leave(fixture,invitation.id,1700000123457)
+                saved.prepareLeave(leave)
+                saved.record(invitation.id,leave.id,nl.davidengelen.redsquare.chat.GroupChatStore.Status.FORWARDED)
+            }
             peer.start().use { server ->
                 ActivityScenario.launch<MainActivity>(Intent(context,MainActivity::class.java)
                     .putExtra("feedPeerUrl","ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("feedOfficialPeerUrl","ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
-                    withFailureCapture({ captureNativeScreen(File(context.cacheDir,if(joining) "group-chat-evidence/join-failure.png" else if(leaving) "group-chat-evidence/leave-failure.png" else if(retrying) "group-chat-evidence/retry-failure.png" else "group-chat-evidence/create-failure.png")) }) {
+                    withFailureCapture({ captureNativeScreen(File(context.cacheDir,if(knownRejoin) "group-chat-evidence/known-rejoin-failure.png" else if(joining) "group-chat-evidence/join-failure.png" else if(leaving) "group-chat-evidence/leave-failure.png" else if(retrying) "group-chat-evidence/retry-failure.png" else "group-chat-evidence/create-failure.png")) }) {
                         waitFor("Chat")
                         ui.waitUntil(15_000) { ui.onAllNodes(hasText("Chat") and isEnabled()).fetchSemanticsNodes().size == 1 }
                         ui.onNodeWithText("Chat").assertIsDisplayed().performClick()
                         waitFor("Groups")
                         ui.onNodeWithText("Groups").assertIsDisplayed().performClick()
                         waitFor("Group messages are unencrypted.")
+                        if(knownRejoin){
+                            val known=requireNotNull(knownInvitation)
+                            val claims=com.google.gson.JsonObject().apply{
+                                addProperty("id",known.id);addProperty("name","Untrusted renamed group")
+                                addProperty("sender",known.sender);addProperty("admin",fixture.publicKey)
+                            }
+                            val link=java.util.Base64.getEncoder().encodeToString(claims.toString().toByteArray(Charsets.UTF_8))
+                            ui.onNodeWithText("Join group").assertIsDisplayed().assertIsEnabled().performClick()
+                            ui.onNodeWithText("Invitation link").performTextInput(link)
+                            ui.onNodeWithText("Preview").assertIsEnabled().performClick()
+                            waitFor(known.name)
+                            ui.onNodeWithText(known.name).performScrollTo().assertIsDisplayed()
+                            ui.onNodeWithText(known.admin).performScrollTo().assertIsDisplayed()
+                            waitFor("Using saved group details.")
+                            check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
+                            check(store.loadExisting().exportJson()==fixture.exportJson())
+                            ui.onNodeWithText("Join").assertIsEnabled().performClick()
+                            waitFor("Forwarded. Delivery is not confirmed.")
+                            ui.waitUntil(15_000){peer.transactions.size==1 && peer.relayedMessages.size==1}
+                            val envelope=SaitoEnvelope.fromSignedJson(peer.relayedMessages.single())
+                            check(postingTransaction(peer.transactions.single()).envelope()==envelope)
+                            check(SaitoEnvelope.decode(envelope).recipients==listOf(known.id,fixture.publicKey,known.admin,known.sender).distinct())
+                            check(peer.relayRecipients.single()==listOf(fixture.publicKey,known.admin))
+                            val updated=store.loadExisting()
+                            val restored=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,updated,SaitoBackend.OWNER).load(known.id))
+                            check(restored.group.confirmedInvitation?.admin==known.admin && restored.group.name==known.name)
+                            check(restored.group.memberRoles[fixture.publicKey]==ChatGroupRole.MEMBER)
+                            check(restored.group.memberRoles[known.admin]==ChatGroupRole.ADMIN)
+                            check(updated.exportJson()==fixture.withNamedChatGroup(known.id,known.name).exportJson())
+                            captureNativeScreen(File(context.cacheDir,"group-chat-evidence/known-rejoined.png"),known.name)
+                            scenario.recreate();waitFor("Groups");ui.onNodeWithText("Groups").performClick();waitFor(known.name)
+                            check(peer.transactions.size==1 && peer.relayedMessages.size==1)
+                            peer.assertHealthy();return@withFailureCapture
+                        }
                         if(retrying) {
                             waitFor("Recovered group")
                             ui.onNodeWithText("Recovered group").assertIsDisplayed().performClick()
@@ -305,7 +355,7 @@ class GroupChatPreviewTest {
             addProperty("id",groupKey.publicKey);addProperty("name","Untrusted renamed group")
             addProperty("sender",member);addProperty("admin",outsider)
         }.toString().toByteArray(Charsets.UTF_8)))
-        val join=GroupChat.join(wallet,invitation,1700000123458)
+        var join=GroupChat.join(wallet,invitation,1700000123458)
         val filename="groupchat.${backend.id}.${wallet.publicKey}.${groupKey.publicKey}.v1"
         var primary:Throwable?=null
         try {
@@ -314,7 +364,9 @@ class GroupChatPreviewTest {
             store.record(groupKey.publicKey,creation.id,nl.davidengelen.redsquare.chat.GroupChatStore.Status.FORWARDED)
             store.prepareLeave(departure)
             store.record(groupKey.publicKey,departure.id,nl.davidengelen.redsquare.chat.GroupChatStore.Status.FORWARDED)
-            store.prepareInvitation(invitation,join)
+            val effective=invitation.usingKnownGroup(requireNotNull(store.load(groupKey.publicKey)).group)
+            join=GroupChat.join(wallet,effective,1700000123458)
+            store.prepareInvitation(effective,join)
             val reopened=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,wallet,backend).load(groupKey.publicKey))
             check(reopened.group.creationEnvelope==creation.envelope() && reopened.group.confirmedInvitation==null)
             check(reopened.group.name=="Known group" && reopened.creationKey?.exportJson()==groupKey.exportJson())
@@ -322,7 +374,7 @@ class GroupChatPreviewTest {
             check(outsider !in reopened.group.memberRoles)
             check(reopened.group.controls==listOf(departure.envelope(),join.envelope()))
             check(reopened.candidate.encoded()==join.encoded() && reopened.status==nl.davidengelen.redsquare.chat.GroupChatStore.Status.UNKNOWN)
-            check(runCatching{store.prepareInvitation(invitation,GroupChat.join(wallet,invitation,1700000123459))}.isFailure)
+            check(runCatching{store.prepareInvitation(effective,GroupChat.join(wallet,effective,1700000123459))}.isFailure)
             check(store.load(groupKey.publicKey)?.candidate?.id==join.id)
             check(AndroidWalletStore(context).loadExisting().exportJson()==wallet.exportJson())
         } catch(failure:Throwable){primary=failure;throw failure}
