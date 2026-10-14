@@ -518,6 +518,15 @@ class GroupChatPreviewTest {
         val before=wallet.exportJson()
         var primary:Throwable?=null
         try {
+            val unfinished=File(context.noBackupFilesDir,"$filename.new")
+            val unfinishedBytes=byteArrayOf(1,2,3)
+            synchronized(SaitoLocalState.lock){unfinished.writeBytes(unfinishedBytes)}
+            check(runCatching{groupStore.receive(creation.envelope())}.isFailure)
+            synchronized(SaitoLocalState.lock){
+                check(unfinished.readBytes().contentEquals(unfinishedBytes))
+                check(!File(context.noBackupFilesDir,filename).exists()&&!File(context.noBackupFilesDir,"$filename.bak").exists())
+                check(unfinished.delete())
+            }
             groupStore.receive(creation.envelope())
             val received=requireNotNull(groupStore.load(key.publicKey))
             check(received.group.creationEnvelope==creation.envelope())
@@ -525,7 +534,7 @@ class GroupChatPreviewTest {
             check(received.group.memberRoles[admin.publicKey]==ChatGroupRole.ADMIN)
             check(received.candidate==null && received.creationKey==null && received.messages.isEmpty())
             check(!nl.davidengelen.redsquare.chat.GroupChatStore.hasWork(context,wallet,backend))
-            groupStore.receive(creation.envelope())
+            groupStore.receive(" "+creation.envelope()) // Formatting cannot replace the same authenticated original.
             check(groupStore.entries().count{it.group.id==key.publicKey}==1)
             check(AndroidWalletStore(context).loadExisting().exportJson()==before)
             val unaddressed=GroupChat.create(admin,key.publicKey,"Unaddressed conflicting creation",emptyList(),1700000123457)

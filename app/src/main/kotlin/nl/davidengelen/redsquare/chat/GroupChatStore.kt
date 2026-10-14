@@ -20,6 +20,12 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         return EncryptedLocalFile(context,"$prefix$id.v1","redsquare.groupchat.v1","groupchat.")
     }
 
+    private fun requireNewRecord(id:String) {
+        file(id) // Validate the scoped identifier before checking its atomic companions.
+        val name="$prefix$id.v1"
+        check(listOf(name,"$name.bak","$name.new").none{java.io.File(context.noBackupFilesDir,it).exists()})
+    }
+
     fun entries(): List<Entry> = synchronized(SaitoLocalState.lock) {
         val pattern = Regex("${Regex.escape(prefix)}([1-9A-HJ-NP-Za-km-z]{43,45})\\.v1(?:\\.bak)?")
         requireNotNull(context.noBackupFilesDir.listFiles()).mapNotNull { pattern.matchEntire(it.name)?.groupValues?.get(1) }
@@ -63,6 +69,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         require(SaitoEnvelope.decode(candidate.envelope()).author == wallet.publicKey)
         require(creationKey==null || creationKey.publicKey==group.id)
         check(load(group.id) == null)
+        requireNewRecord(group.id)
         save(Entry(group,candidate,Status.UNKNOWN,creationKey))
     }
 
@@ -76,7 +83,10 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         require(invitation.admin==effective.admin && invitation.name==effective.name)
         val group=GroupChat.confirmInvitation(effective,candidate.envelope())
         require(signed.recipients==listOf(effective.id,wallet.publicKey,effective.admin,effective.sender).distinct())
-        if(previous==null) save(Entry(group,candidate,Status.UNKNOWN)) else {
+        if(previous==null) {
+            requireNewRecord(group.id)
+            save(Entry(group,candidate,Status.UNKNOWN))
+        } else {
             check(!previous.hasPendingAction)
             save(previous.copy(group=GroupChat.applyControl(previous.group,candidate.envelope()),candidate=candidate,status=Status.UNKNOWN,originals=previous.originals+candidate.envelope()))
         }
@@ -105,6 +115,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
                 require(previous.group.creationEnvelope?.let{SaitoEnvelope.decode(it).id}==signed.id)
                 return@synchronized previous
             }
+            requireNewRecord(group.id)
             return@synchronized save(Entry(group,null,Status.RECEIVED))
         }
         val id=signed.body.get("group_id").asString
