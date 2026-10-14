@@ -188,3 +188,28 @@ both tracer findings resolved. NativePreview resolves retained authority off Mai
 before consent; preparation independently validatescanonicalname/admin/exact
 recips, preservingorigin/key/controls. Modalclaims/provenance andenabled readiness
 are asserted. Localdebug/testAPK compile PASS3m28s. CorrectednativeGREEN pending.
+
+## Incoming storage publication and reconnect refinements, October 14
+
+Production through839208f8: both axes report zero remaining findings for typed
+local-storage failures, ordered publication and retaining error signals across
+passive socket reconnects. A positive ACK follows durable authenticated-original
+storage; local record failures yield negative ACK and visible generic storage
+error. Invalid/unanchored traffic does not falsely report local storage failure.
+
+17-case fixture refinement7cec21d5...4f437d6f: Spec initially required per-operation
+ACK correlation and a positive replacement authenticated connection. Both were
+added. Spec0 and Standards0 at4f437d6f; physical transport teardown is unnecessary
+because old sockets are excluded from delivery and old RPC ACKs cannot match a
+new operation ID. Local test APK compiles; runtime recovery initially pending.
+The preceding native16 runs at955 both failed final peer health after the new
+UI assertions, due to a missing Group Archive callback; retained evidence qualifies
+the actual executed assertions and does not label the entire run successful.
+
+## Historical fetched join correction
+
+One public core tracer produced actual RED: expected LEFT, got MEMBER. Fix
+0b6121dc...a699b893 rejects a newly fetched join that would undo retained departure,
+marks history incomplete, and preserves strict deliberate rejoin to MEMBER.
+Both axes report zero findings; full core109 passed after correction. This proves
+core replay behavior, not global chronological authority, native UI or full26.
