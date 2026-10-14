@@ -555,7 +555,7 @@ andactions10 andactualprivatePID/restoration validate sharedhelperregression.
 Production/buildconfigidentical on bothsources and preparedsigned15manifest7d695abf;
 17onlytestdisplay-readinesscorrection, samedeadlines/predicates, perWORKFLOW.
 Final-full sets retain publicoriginals/raws/counts/checkpoints/runmetadata with
-650/653hashes and231/233XMLs, checkedsecretmarkers absent. Rootselectedfinal
+650/655hashes and231/233XMLs, checkedsecretmarkers absent. Rootselectedfinal
 originals viewed onboth; after.xml showsIdentitycreatedandsignatureverified.
 Whole source andfinal10evidence reviews0/0; final17review/publicationpending.
 No physicalPixel7/performance/currentphoneupdateacceptanceclaimed, retained35.
