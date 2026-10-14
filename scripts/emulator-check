@@ -96,8 +96,8 @@ verify_group_chat_actions() {
     [[ "$group_actions_exit" == 0 ]] && grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/group-chat-actions-ui.txt"
 }
 if [[ "${TEST_SCOPE:-full}" == group-ui* ]]; then
-    verify_group_chat_ui
     verify_group_chat_actions
+    verify_group_chat_ui
     printf '%s\n' 'Focused native named-group UI only; complete acceptance and live writes not run.' > "$evidence/scope.txt"
     exit 0
 fi

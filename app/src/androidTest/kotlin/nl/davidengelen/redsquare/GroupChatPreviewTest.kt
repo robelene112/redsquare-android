@@ -463,6 +463,7 @@ class GroupChatPreviewTest {
                             }
                             if(messaging){
                                 ui.onNodeWithText(invitation.name).assertIsDisplayed().performClick()
+                                if(drafting)assertRestoredGroupDraft()
                                 for(text in listOf(requireNotNull(messageReference).get("text").asString,"Native group hello","Live group message")){
                                     waitForGroupMessage(text)
                                 }
