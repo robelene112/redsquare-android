@@ -214,6 +214,9 @@ class GroupChatPreviewTest {
                                 val signed=SaitoEnvelope.decode(sent)
                                 check(signed.author==fixture.publicKey && signed.body.get("request").asString=="chat message")
                                 check(signed.body.get("message").asString=="Native group hello" && signed.body.get("group_id").asString==invitation.id)
+                                val verified=GroupChat.readMessage(group,sent)
+                                check(signed.body.get("module").asString=="Chat")
+                                check(verified.author==fixture.publicKey && verified.text=="Native group hello" && verified.createdAt==signed.createdAt)
                                 check(signed.recipients==listOf(fixture.publicKey,invitation.id))
                                 check(peer.relayRecipients.last()==listOf(fixture.publicKey,invitation.admin))
                                 ui.onNodeWithContentDescription("Group messages").performScrollToNode(hasText("Native group hello"))
@@ -226,9 +229,9 @@ class GroupChatPreviewTest {
                                 ui.waitUntil(15_000){peer.incomingAcknowledgements.any{it[0]==13.toByte()}}
                                 ui.onNodeWithContentDescription("Group messages").performScrollToNode(hasText("Live group message"))
                                 ui.onNodeWithText("Live group message").assertIsDisplayed()
-                                val before=peer.incomingAcknowledgements.size
+                                val before=peer.incomingAcknowledgements.count{it[0]==13.toByte()}
                                 peer.sendIncoming(incoming)
-                                ui.waitUntil(15_000){peer.incomingAcknowledgements.size>before}
+                                ui.waitUntil(15_000){peer.incomingAcknowledgements.count{it[0]==13.toByte()}>before}
                                 ui.onAllNodesWithText("Live group message").assertCountEquals(1)
                                 historyAvailable.set(false)
                                 captureNativeScreen(File(context.cacheDir,"group-chat-evidence/messages-sent.png"),"Live group message")
