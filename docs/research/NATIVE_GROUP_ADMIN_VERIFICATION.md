@@ -142,3 +142,13 @@ Retained native-remove-green-android10. Shared confirmation rendering correction
 and two actual controller authority-revocation cases compile25044PASS3m19s.
 The new authority cases cover beforeRaw and afterRaw/beforeRelay plus immutable
 Retry refusal; no new RED claim for existing admin gates. Native runtime pending.
+
+Existing named-group actual-process fixture extended for promotion/removal in
+addition to its original reaction. Same encrypted device-only snapshot/restore,
+PID-gone/newPID proof and strict continuity; management cases additionally require
+zero automatic sends followed by explicit native Retry of one identical original
+and Relay to sender/target. Host action selector validates exact checkpoint action
+and Retry proof, preserving the default reaction path. Focused admin and finalfull
+harness include both new process journeys without changing existing deadlines.
+Compile34981PASS1m29s, Python compile/bash syntaxPASS. Runtime not yet run; no process
+or Retry acceptance claimed. Earlier stale-popup RED17 still active atf26cd78c.

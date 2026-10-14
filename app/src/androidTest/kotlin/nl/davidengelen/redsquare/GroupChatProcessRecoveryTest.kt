@@ -26,6 +26,9 @@ class GroupChatProcessRecoveryTest {
     private val context get()=InstrumentationRegistry.getInstrumentation().targetContext.also{
         check(it.packageName=="nl.davidengelen.redsquare.dev"&&Build.HARDWARE in listOf("ranchu","goldfish"))
     }
+    private val action get()=InstrumentationRegistry.getArguments().getString("groupAction","reaction").also {
+        check(it in listOf("reaction","promotion","removal"))
+    }
     private val checkpoint get()=File(context.cacheDir,"group-chat-process-checkpoint.json")
     private val originals get()=File(context.noBackupFilesDir,"group-chat-process-originals")
     private val key=SaitoWallet.fromPrivateKey("0".repeat(63)+"3") // Public unsafe fixtures only.
@@ -44,6 +47,7 @@ class GroupChatProcessRecoveryTest {
         val original=wallets.loadOrCreate()
         val backend=AndroidBackendStore(context).load()
         val row=JsonObject().apply{
+            addProperty("action",action);addProperty("retryVerified",false)
             addProperty("phase","prepared");addProperty("owner",fixture.publicKey);addProperty("backend",backend.id)
             addProperty("originalWalletDigest",digest(original.exportJson()));addProperty("walletDigest",digest(fixture.exportJson()))
             addProperty("pid",Process.myPid())
@@ -75,7 +79,7 @@ class GroupChatProcessRecoveryTest {
             addProperty("group_id",key.publicKey);addProperty("member_id",member)
         }
         val removal=SaitoTransaction.create(fixture,body,1700000123457,listOf(key.publicKey))
-        store.receive(removal.envelope())
+        if(action=="reaction")store.receive(removal.envelope())
         row.addProperty("originDigest",digest(creation));row.addProperty("messageDigest",digest(message))
         row.addProperty("controlDigest",digest(removal.envelope()));row.addProperty("keyDigest",digest(key.exportJson()))
         val peer=peer()
@@ -87,8 +91,16 @@ class GroupChatProcessRecoveryTest {
             ui.waitUntil(15_000){runCatching{ui.onNodeWithText("Back").assertIsDisplayed()}.isSuccess}
             ui.onNodeWithText("Back").performClick();waitFor("Create group")
             val current=requireNotNull(store.load(key.publicKey))
-            val candidate=GroupChat.like(fixture,current.group,current.messages.single(),1700000123458)
-            store.prepareReaction(candidate)
+            val candidate=when(action) {
+                "promotion" -> GroupChat.promote(fixture,current.group,member,1700000123458)
+                "removal" -> GroupChat.removeMember(fixture,current.group,member,1700000123458)
+                else -> GroupChat.like(fixture,current.group,current.messages.single(),1700000123458)
+            }
+            when(action) {
+                "promotion" -> store.preparePromotion(candidate,member)
+                "removal" -> store.prepareRemoval(candidate,member)
+                else -> store.prepareReaction(candidate)
+            }
             row.addProperty("candidate",candidate.id);row.addProperty("candidateDigest",digest(candidate.envelope()))
             ui.onNodeWithText("Refresh").assertIsEnabled().performClick()
             waitForEnabled("Create group")
@@ -108,6 +120,15 @@ class GroupChatProcessRecoveryTest {
         peer.start().use{server->launch(server.port){
             open();waitFor(context.getString(R.string.group_history_error));assertUi()
             assertState(row,backend,peer);capture("pending-cold-recovered.png",draft)
+            if(action!="reaction") {
+                ui.onNodeWithText("Retry").performClick()
+                val store=GroupChatStore(context,fixture,backend)
+                ui.waitUntil(15_000){store.load(key.publicKey)?.status==GroupChatStore.Status.FORWARDED}
+                waitFor(context.getString(R.string.group_forwarded))
+                assertState(row,backend,peer,forwarded=true)
+                capture("explicit-retry-forwarded.png",draft)
+                row.addProperty("retryVerified",true)
+            }
             row.addProperty("phase","recovered");row.addProperty("recoveredPid",Process.myPid());writeCheckpoint(row)
         }}
     }
@@ -124,23 +145,35 @@ class GroupChatProcessRecoveryTest {
         assertEquals(backend,AndroidBackendStore(context).load())
         check(originals.deleteRecursively());check(checkpoint.delete())
     }
-    private fun assertState(row:JsonObject,backend:SaitoBackend,peer:ControlledFeedPeer) {
+    private fun assertState(row:JsonObject,backend:SaitoBackend,peer:ControlledFeedPeer,forwarded:Boolean=false) {
         assertEquals(row.get("walletDigest").asString,digest(AndroidWalletStore(context).loadExisting().exportJson()))
         assertEquals(backend,AndroidBackendStore(context).load())
         val entry=requireNotNull(GroupChatStore(context,fixture,backend).load(key.publicKey))
         val candidate=requireNotNull(entry.candidate)
-        assertEquals(GroupChatStore.Status.UNKNOWN,entry.status)
+        assertEquals(if(forwarded)GroupChatStore.Status.FORWARDED else GroupChatStore.Status.UNKNOWN,entry.status)
         assertEquals(row.get("candidate").asString,candidate.id)
         assertEquals(row.get("candidateDigest").asString,digest(candidate.envelope()))
         assertEquals(row.get("keyDigest").asString,digest(entry.creationKey!!.exportJson()))
         assertEquals(row.get("originDigest").asString,digest(entry.group.creationEnvelope!!))
-        assertEquals(ChatGroupRole.REMOVED,entry.group.memberRoles[member]);assertEquals(ChatGroupRole.ADMIN,entry.group.memberRoles[fixture.publicKey])
-        assertEquals(listOf(row.get("controlDigest").asString),entry.group.controls.map(::digest))
-        assertEquals(listOf(row.get("messageDigest").asString,row.get("controlDigest").asString,row.get("candidateDigest").asString),entry.originals.map(::digest))
+        assertEquals(if(action=="promotion")ChatGroupRole.ADMIN else ChatGroupRole.REMOVED,entry.group.memberRoles[member])
+        assertEquals(ChatGroupRole.ADMIN,entry.group.memberRoles[fixture.publicKey])
+        val control=if(action=="reaction")row.get("controlDigest").asString else row.get("candidateDigest").asString
+        assertEquals(listOf(control),entry.group.controls.map(::digest))
+        val expectedOriginals=if(action=="reaction")listOf(row.get("messageDigest").asString,control,row.get("candidateDigest").asString)
+            else listOf(row.get("messageDigest").asString,control)
+        assertEquals(expectedOriginals,entry.originals.map(::digest))
         assertEquals(listOf("Hello group 😀 <&>!"),entry.messages.map{it.text});assertEquals(draft,entry.draft)
-        assertEquals(listOf(row.get("candidate").asString),entry.reactions.map{it.id})
+        assertEquals(if(action=="reaction")listOf(row.get("candidate").asString) else emptyList<String>(),entry.reactions.map{it.id})
         assertTrue(peer.clientKeys.isNotEmpty()&&peer.clientKeys.all{it==fixture.publicKey})
-        assertTrue(peer.transactions.isEmpty());assertTrue(peer.relayedMessages.isEmpty());peer.assertHealthy()
+        if(forwarded) {
+            assertEquals(1,peer.transactions.size);assertEquals(1,peer.relayedMessages.size)
+            assertEquals(candidate.envelope(),postingTransaction(peer.transactions.single()).envelope())
+            assertEquals(candidate.envelope(),SaitoEnvelope.fromSignedJson(peer.relayedMessages.single()))
+            assertEquals(listOf(fixture.publicKey,member),peer.relayRecipients.single())
+        } else {
+            assertTrue(peer.transactions.isEmpty());assertTrue(peer.relayedMessages.isEmpty())
+        }
+        peer.assertHealthy()
     }
     private fun assertUi() {
         waitFor(context.getString(R.string.group_unknown));ui.onNodeWithText(context.getString(R.string.group_unknown)).assertIsDisplayed()
@@ -150,8 +183,9 @@ class GroupChatProcessRecoveryTest {
         waitFor("Hello group 😀 <&>!")
         ui.onNodeWithContentDescription("Group messages").performScrollToNode(hasText("Hello group 😀 <&>!"))
         ui.onNodeWithText("Hello group 😀 <&>!").assertIsDisplayed()
-        ui.onNodeWithText("Send").assertIsNotEnabled();ui.onNodeWithText("Unlike").assertIsNotEnabled();waitFor("1 like")
-        ui.onNodeWithText("1 like").assertIsDisplayed()
+        ui.onNodeWithText("Send").assertIsNotEnabled()
+        ui.onNodeWithText(if(action=="reaction")"Unlike" else "Like").assertIsNotEnabled()
+        if(action=="reaction"){waitFor("1 like");ui.onNodeWithText("1 like").assertIsDisplayed()}
     }
     private fun peer()=ControlledFeedPeer("[]",advertisedServices="archive||;relay||",archiveResponse={"{invalid"})
     private fun fileNames(backend:SaitoBackend)=listOf("wallet.v1","wallet.recovery.v1","groupchat.${backend.id}.${fixture.publicKey}.${key.publicKey}.v1")

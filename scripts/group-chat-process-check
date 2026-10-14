@@ -9,6 +9,7 @@ from process_check_utils import ProcessInstrumentation, assert_process_gone, fin
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--evidence', type=Path, required=True)
+parser.add_argument('--action', choices=('reaction','promotion','removal'), default='reaction')
 args = parser.parse_args()
 package = 'nl.davidengelen.redsquare.dev'
 runner = package + '.test/androidx.test.runner.AndroidJUnitRunner'
@@ -20,7 +21,7 @@ def adb(*arguments, check=True, timeout=60):
     return subprocess.run(['adb', *arguments], capture_output=True, text=True, check=check, timeout=timeout)
 
 
-instrument = ProcessInstrumentation(adb, args.evidence, test_class, runner).run
+instrument = ProcessInstrumentation(adb, args.evidence, test_class, runner, ('-e','groupAction',args.action)).run
 
 
 if not adb('get-serialno').stdout.strip().startswith('emulator-'):
@@ -32,7 +33,8 @@ try:
     if 'FAILURES!!!' in result.stdout:
         raise AssertionError('Chat preparation failed before deliberate process termination')
     row = json.loads(adb('exec-out', 'run-as', package, 'cat', checkpoint).stdout)
-    if row['phase'] != 'pending' or row['backend'] not in ('owner', 'official'):
+    if (row['phase'] != 'pending' or row['backend'] not in ('owner', 'official') or
+            row.get('action') != args.action or row.get('retryVerified') is not False):
         raise AssertionError('Missing private Chat checkpoint')
     if not re.fullmatch(r'[1-9A-HJ-NP-Za-km-z]{43,45}', row['owner']):
         raise AssertionError('Invalid public owner')
@@ -50,7 +52,8 @@ try:
     if 'OK (1 test)' not in result.stdout:
         raise AssertionError('Cold named-group Chat recovery failed')
     recovered = json.loads(adb('exec-out', 'run-as', package, 'cat', checkpoint).stdout)
-    if recovered != dict(row, phase='recovered', recoveredPid=recovered['recoveredPid']):
+    if recovered != dict(row, phase='recovered', recoveredPid=recovered['recoveredPid'],
+                         retryVerified=args.action != 'reaction'):
         raise AssertionError('Chat checkpoint changed unexpectedly')
     if (not isinstance(recovered['recoveredPid'], int) or recovered['recoveredPid'] <= 0 or
             recovered['recoveredPid'] == row['pid']):
@@ -58,7 +61,9 @@ try:
     (args.evidence / 'recovered-checkpoint.json').write_text(json.dumps(recovered, indent=2) + '\n')
     (args.evidence / 'continuity.txt').write_text(
         'PASS: actual process death, full fixture wallet/backend continuity, exact protected group key, '
-        'authenticated origin/control/message originals, unsent draft and uncertain reaction under unavailable Archive, zero transmissions.\n')
+        'authenticated origin/control/message originals, unsent draft and uncertain ' + args.action +
+        ' under unavailable Archive, zero automatic transmissions' +
+        ('.\n' if args.action == 'reaction' else '; explicit Retry forwards the identical original once.\n'))
 except BaseException as failure:
     primary = failure
     raise

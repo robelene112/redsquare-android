@@ -63,3 +63,14 @@ notification to the removed target. Runtime remains pending.
 Standards1 Fowler judgment: repeated identity/notice/confirmation rendering in
 promotion and removal dialogs should be shared with two real callers. The fix
 will preserve distinct preparation callbacks. No other actionable findings.
+
+## Shared dialog and authority coverage
+
+Bounded f26cd78c...7e8050b8: Spec0, Standards0. Shared dialog has two real callers
+with equivalent behavior. Two new controller scenarios exercise current admin
+revocation before raw and after raw/before Relay, including exact original and
+truthful UNKNOWN/SUBMITTED status, key/draft preservation and immutable Retry
+refusal. CompilePASS3m19; their runtime remains pending.
+Both axes verified all12 retained removal GREEN hashes, XML and original reopened
+capture for run38650006951 at a95dfbb4,fourPASS/25.556s. This accepts removal and
+existing controller fixture refactor, not later source/runtime or whole27.

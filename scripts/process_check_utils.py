@@ -4,13 +4,14 @@ import subprocess
 
 
 class ProcessInstrumentation:
-    def __init__(self, adb, evidence, test_class, runner):
+    def __init__(self, adb, evidence, test_class, runner, arguments=()):
         self.adb, self.evidence, self.test_class, self.runner = adb, evidence, test_class, runner
+        self.arguments = tuple(arguments)
 
     def run(self, method, filename, check=True):
         try:
             result = self.adb('shell', 'am', 'instrument', '-w', '-r', '-e', 'class',
-                              self.test_class + '#' + method, self.runner, check=check, timeout=120)
+                              self.test_class + '#' + method, *self.arguments, self.runner, check=check, timeout=120)
             (self.evidence / filename).write_text(result.stdout + result.stderr)
             return result
         except (subprocess.TimeoutExpired, subprocess.CalledProcessError) as error:
