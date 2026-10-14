@@ -5,11 +5,29 @@ import com.google.gson.JsonObject
 enum class ChatGroupRole { ADMIN, MEMBER, LEFT, REMOVED }
 
 class NamedChatGroup internal constructor(val id: String, val name: String,
-    val memberRoles: Map<String, ChatGroupRole>, val creationEnvelope: String,
+    val memberRoles: Map<String, ChatGroupRole>, val creationEnvelope: String?,
+    val confirmedInvitation: GroupInvitation? = null,
     val controls: List<String> = emptyList())
 
 /** Compatible unencrypted named-group controls; participants sign with their own wallet. */
 object GroupChat {
+    /** Records a deliberate unsigned-link trust choice, not a verified creation or admission. */
+    fun confirmInvitation(invitation: GroupInvitation, joinEnvelope: String): NamedChatGroup {
+        val signed = SaitoEnvelope.decode(joinEnvelope)
+        val body = signed.body
+        require(body.requiredString("module") == "Chat" && body.requiredString("request") == "chat join")
+        require(body.requiredString("group_id") == invitation.id && body.requiredString("invited_by") == invitation.sender)
+        require(signed.author != invitation.id && signed.recipients.firstOrNull() == invitation.id)
+        require(signed.recipients.all(SaitoWallet::isPublicKey))
+        require(signed.recipients.containsAll(listOf(signed.author, invitation.admin, invitation.sender)))
+        val members = linkedMapOf(signed.author to ChatGroupRole.MEMBER, invitation.admin to ChatGroupRole.ADMIN)
+        return NamedChatGroup(invitation.id, invitation.name, java.util.Collections.unmodifiableMap(members),
+            null, invitation, java.util.Collections.singletonList(joinEnvelope))
+    }
+
+    fun restore(invitation: GroupInvitation, joinEnvelope: String, controls: List<String>): NamedChatGroup =
+        controls.fold(confirmInvitation(invitation, joinEnvelope)) { group, original -> applyControl(group, original) }
+
     /** Revalidate retained originals in their observed order; arrival order is not global consensus order. */
     fun restore(creationEnvelope: String, controls: List<String>): NamedChatGroup =
         controls.fold(readCreation(creationEnvelope)) { group, original -> applyControl(group, original) }
@@ -39,7 +57,7 @@ object GroupChat {
             else -> throw IllegalArgumentException("Unsupported group control")
         }
         return NamedChatGroup(group.id, group.name, java.util.Collections.unmodifiableMap(members),
-            group.creationEnvelope, java.util.Collections.unmodifiableList(group.controls + envelope))
+            group.creationEnvelope, group.confirmedInvitation, java.util.Collections.unmodifiableList(group.controls + envelope))
     }
 
     fun leave(wallet: SaitoWallet, groupId: String, timestamp: Long): SaitoTransaction {

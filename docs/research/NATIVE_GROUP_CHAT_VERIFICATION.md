@@ -170,3 +170,14 @@ The bounded control reviews found Spec0 and Standards0 hard findings, with one
 possible duplicate-reference-setup heuristic. Shared setup extracted; independent
 offline join and leave regeneration both compare byte-for-byte with retained
 corpora. No native change or additional runtime acceptance is claimed.
+
+## Confirmed unsigned invitation origin
+
+First tracer attempt used the wrong corpus property (url instead of link), failing
+in setup before the public interface. Retained separately as confirmation-fixture-
+error; not a product RED. Corrected fixture then failed UnsupportedOperationException
+at confirmInvitation. Minimum implementation GREEN1PASS. Confirmed-link provenance
+stays distinct from signed creation; no unsigned sender is automatically a member.
+Own signed join and claimed admin anchor the deliberate choice, not network admission.
+Restoration retains leave and duplicate-join behavior, and mismatched inviter fails.
+App controller must bind the join author to the selected wallet before accepting.

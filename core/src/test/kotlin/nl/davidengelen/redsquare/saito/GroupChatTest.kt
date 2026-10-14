@@ -165,4 +165,28 @@ class GroupChatTest {
         }
         assertEquals(ChatGroupRole.ADMIN, restored.memberRoles[creator])
     }
+    @Test fun confirmedUnsignedInvitationRetainsItsTrustOriginWithoutInventingSignedCreation() {
+        val fixture = requireNotNull(javaClass.getResourceAsStream("/native-group-chat-creation-reference.json"))
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
+        val invitation = GroupInvitation.parse(fixture.getAsJsonArray("invitations")[1].asJsonObject.get("link").asString)
+        val joiner = SaitoWallet.fromPrivateKey("0".repeat(63) + "4") // Public unsafe fixture only.
+        val join = GroupChat.join(joiner, invitation, 1700000123456).envelope()
+        val group = GroupChat.confirmInvitation(invitation, join)
+        org.junit.Assert.assertNull(group.creationEnvelope)
+        assertEquals(invitation, group.confirmedInvitation)
+        assertEquals(mapOf(invitation.admin to ChatGroupRole.ADMIN, joiner.publicKey to ChatGroupRole.MEMBER), group.memberRoles)
+        org.junit.Assert.assertFalse(group.memberRoles.containsKey(invitation.sender))
+        val leave = GroupChat.leave(joiner, invitation.id, 1700000123457).envelope()
+        val restored = GroupChat.restore(invitation, join, listOf(leave, join))
+        assertEquals(ChatGroupRole.LEFT, restored.memberRoles[joiner.publicKey])
+        assertEquals(listOf(join, leave), restored.controls)
+        org.junit.Assert.assertNull(restored.creationEnvelope)
+        val altered = SaitoEnvelope.decode(join).body.deepCopy().apply { addProperty("invited_by", joiner.publicKey) }
+        val mismatch = SaitoTransaction.createTo(joiner, altered, 1700000123458, invitation.id,
+            listOf(invitation.admin, invitation.sender)).envelope()
+        org.junit.Assert.assertThrows(IllegalArgumentException::class.java) {
+            GroupChat.confirmInvitation(invitation, mismatch)
+        }
+    }
+
 }
