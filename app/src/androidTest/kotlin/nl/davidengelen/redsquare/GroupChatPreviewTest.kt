@@ -27,7 +27,9 @@ class GroupChatPreviewTest {
 
     @Test fun anUnsentGroupDraftSurvivesBackNavigationAndReopeningWithoutSending() = exerciseGroupUi(joining=true,messaging=true,drafting=true)
 
-    private fun exerciseGroupUi(joining:Boolean=false, leaving:Boolean=false, retrying:Boolean=false, knownRejoin:Boolean=false, messaging:Boolean=false, drafting:Boolean=false) {
+    @Test fun unavailableGroupArchiveKeepsCachedMessagesLiveDeliveryAndSendingUsable() = exerciseGroupUi(joining=true,messaging=true,archiveFault=true)
+
+    private fun exerciseGroupUi(joining:Boolean=false, leaving:Boolean=false, retrying:Boolean=false, knownRejoin:Boolean=false, messaging:Boolean=false, drafting:Boolean=false, archiveFault:Boolean=false) {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -47,10 +49,14 @@ class GroupChatPreviewTest {
             Triple(prefs,key,if(prefs.contains(key)) prefs.getBoolean(key,false) else null)
         }
         val historyAvailable=java.util.concurrent.atomic.AtomicBoolean(true)
+        val brokenHistory=java.util.concurrent.atomic.AtomicBoolean(false)
+        val failedHistoryReads=java.util.concurrent.atomic.AtomicInteger(0)
         val messageReference=if(messaging)InstrumentationRegistry.getInstrumentation().context.assets.open("native-group-chat-message-reference.json")
             .bufferedReader().use{com.google.gson.JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject} else null
         val peer = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", archiveResponse = { criteria ->
-            if(messageReference!=null && historyAvailable.get() && criteria.get("field3")?.asString==messageReference.get("groupId").asString){
+            if(brokenHistory.get() && criteria.get("field3")?.asString==messageReference?.get("groupId")?.asString){
+                failedHistoryReads.incrementAndGet();"invalid group archive response"
+            }else if(messageReference!=null && historyAvailable.get() && criteria.get("field3")?.asString==messageReference.get("groupId").asString){
                 com.google.gson.JsonArray().apply{add(com.google.gson.JsonObject().apply{
                     addProperty("tx",messageReference.get("envelope").asString);addProperty("created_at",messageReference.get("timestamp").asLong)
                 })}.toString()
@@ -81,7 +87,7 @@ class GroupChatPreviewTest {
                 ActivityScenario.launch<MainActivity>(Intent(context,MainActivity::class.java)
                     .putExtra("feedPeerUrl","ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("feedOfficialPeerUrl","ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
-                    withFailureCapture({ captureNativeScreen(File(context.cacheDir,if(drafting) "group-chat-evidence/draft-failure.png" else if(messaging) "group-chat-evidence/message-failure.png" else if(knownRejoin) "group-chat-evidence/known-rejoin-failure.png" else if(joining) "group-chat-evidence/join-failure.png" else if(leaving) "group-chat-evidence/leave-failure.png" else if(retrying) "group-chat-evidence/retry-failure.png" else "group-chat-evidence/create-failure.png")) }) {
+                    withFailureCapture({ captureNativeScreen(File(context.cacheDir,if(archiveFault) "group-chat-evidence/archive-failure.png" else if(drafting) "group-chat-evidence/draft-failure.png" else if(messaging) "group-chat-evidence/message-failure.png" else if(knownRejoin) "group-chat-evidence/known-rejoin-failure.png" else if(joining) "group-chat-evidence/join-failure.png" else if(leaving) "group-chat-evidence/leave-failure.png" else if(retrying) "group-chat-evidence/retry-failure.png" else "group-chat-evidence/create-failure.png")) }) {
                         waitFor("Chat")
                         ui.waitUntil(15_000) { ui.onAllNodes(hasText("Chat") and isEnabled()).fetchSemanticsNodes().size == 1 }
                         ui.onNodeWithText("Chat").assertIsDisplayed().performClick()
@@ -237,6 +243,33 @@ class GroupChatPreviewTest {
                                 historyAvailable.set(false)
                                 captureNativeScreen(File(context.cacheDir,"group-chat-evidence/messages-sent.png"),"Live group message")
                             }
+                            if(archiveFault){
+                                brokenHistory.set(true)
+                                ui.onNodeWithText("Refresh").assertIsDisplayed().performClick()
+                                ui.waitUntil(15_000){failedHistoryReads.get()>0}
+                                waitFor("Older group history could not be loaded. Your cached messages are kept.")
+                                ui.waitUntil(15_000){ui.onAllNodes(hasText("Message") and isEnabled()).fetchSemanticsNodes().size==1}
+                                ui.onNodeWithText("Message").assertIsEnabled().performTextInput("Send while archive is unavailable")
+                                ui.waitUntil(15_000){ui.onAllNodes(hasText("Send") and isEnabled()).fetchSemanticsNodes().size==1}
+                                ui.onNodeWithText("Send").assertIsEnabled().performClick()
+                                ui.waitUntil(15_000){peer.transactions.size==3&&peer.relayedMessages.size==3}
+                                waitFor("Forwarded. Delivery is not confirmed.")
+                                val original=SaitoEnvelope.fromSignedJson(peer.relayedMessages.last())
+                                check(postingTransaction(peer.transactions.last()).envelope()==original)
+                                val retained=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,store.loadExisting(),SaitoBackend.OWNER).load(invitation.id))
+                                val sent=GroupChat.readMessage(retained.group,original)
+                                check(sent.author==fixture.publicKey&&sent.text=="Send while archive is unavailable")
+                                check(SaitoEnvelope.decode(original).recipients==listOf(fixture.publicKey,invitation.id))
+                                check(peer.relayRecipients.last()==listOf(fixture.publicKey,invitation.admin,member))
+                                waitForGroupMessage(sent.text)
+                                val sender=SaitoWallet.fromPrivateKey("0".repeat(63)+"2") // Public unsafe fixture only.
+                                val live=GroupChat.message(sender,retained.group,"Live while archive is unavailable",1700000123461)
+                                val successes=peer.incomingAcknowledgements.count{it[0]==13.toByte()}
+                                peer.sendIncoming(live.applicationRequest(1).let{it.copyOfRange(5,it.size)})
+                                ui.waitUntil(15_000){peer.incomingAcknowledgements.count{it[0]==13.toByte()}>successes}
+                                waitForGroupMessage("Live while archive is unavailable")
+                                captureNativeScreen(File(context.cacheDir,"group-chat-evidence/archive-unavailable-live.png"),"Live while archive is unavailable")
+                            }
                             if(drafting){
                                 ui.onNodeWithText("Message").performTextInput("Keep this unsent group draft")
                                 androidx.test.espresso.Espresso.closeSoftKeyboard()
@@ -258,6 +291,12 @@ class GroupChatPreviewTest {
                                 for(text in listOf(requireNotNull(messageReference).get("text").asString,"Native group hello","Live group message")){
                                     waitForGroupMessage(text)
                                 }
+                                if(archiveFault){
+                                    waitFor("Older group history could not be loaded. Your cached messages are kept.")
+                                    for(text in listOf("Send while archive is unavailable","Live while archive is unavailable"))waitForGroupMessage(text)
+                                    ui.onAllNodesWithText("Live while archive is unavailable").assertCountEquals(1)
+                                    captureNativeScreen(File(context.cacheDir,"group-chat-evidence/archive-unavailable-cached.png"),"Live while archive is unavailable")
+                                }
                                 ui.onAllNodesWithText("Live group message").assertCountEquals(1)
                                 val cached=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,store.loadExisting(),SaitoBackend.OWNER).load(invitation.id))
                                 check(cached.group.memberRoles[member]==ChatGroupRole.MEMBER)
@@ -268,7 +307,7 @@ class GroupChatPreviewTest {
                                     captureNativeScreen(File(context.cacheDir,"group-chat-evidence/draft-reopened.png"),"Keep this unsent group draft")
                                 }
                             }
-                            val expected=if(messaging)2 else 1
+                            val expected=if(archiveFault)3 else if(messaging)2 else 1
                             check(peer.transactions.size==expected && peer.relayedMessages.size==expected)
                             check(store.loadExisting().publicKey==fixture.publicKey && AndroidBackendStore(context).load()==SaitoBackend.OWNER)
                             peer.assertHealthy()
