@@ -27,3 +27,16 @@ build57s. Prior signature/admin and creation/discovery assertions remain intact.
 Bounded correction reviews73facc22...62106e18: Standards0 and Spec0.
 Both independently confirm the prior finding is resolved, original assertions
 remain intact, hashes and RED/GREEN results match. No residual bounded findings. No app UI or complete-ticket acceptance.
+
+## Invitation slice,058460d3...b75e4592
+
+Standards: zero documented breaches/actionable heuristics. Input/decoded bounds,
+URI structure, strict UTF8/JSON fields, public key validation and raw '+' behavior
+are appropriate. Returned claims are unsigned; no wallet/backend/membership state
+changes. Static cause-free failures protect pasted contents.13updatedmanifest
+hashes and RED/GREEN results agree, including documented unchanged RED repeat.
+
+Spec: zero actionable findings. Actual pinned link/codec vectors support stated
+compatibility, while link names and roles are not represented as authenticated.
+Malformed/duplicate input is recoverable; old signed creation vectors stay separate.
+Joining, authority, persistence, groupUI and whole-ticket acceptance remain pending.

@@ -63,7 +63,8 @@ normalizes errors without exposing pasted content/cause; malformedURI/UTF8/null/
 duplicatequery cases and eightvalidlinks pass. A failed verifier assumption caused
 one unchanged RED repeat17s, retained honestly. NoownedGradle remains.
 Creationsourcepush38507535486 at058460d3 SUCCESS; doesnot include laterinvitation
-source or AndroidgroupUI acceptance. Next: invite-source boundedreview, then
+source or AndroidgroupUI acceptance. Both invitation-source review axes0 at058460d3...b75e4592.
+Next:
 signed join/leave/message controls, durable owner/backend groupstate and nativeUI. No membership/UI/recovery implementation yet.
 Chronology: docs/research/NATIVE_GROUP_CHAT_VERIFICATION.md. Preserveunsignedweb
 invites with honest authority/privacy provenance, existingmembership rules and
