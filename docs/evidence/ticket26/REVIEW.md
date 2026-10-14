@@ -64,3 +64,10 @@ timestamp, while pinned addTransactionToGroup starts from the signed transaction
 header timestamp. Original equal-time vectors could not expose this. An actual
 constructor reference with different header/body times is being added before
 correcting the reader. No claim that the initial review was clean.
+
+Snapshot reviewb0b9876e...f6a6da41: Standards0 hard, possible active-role
+duplication; shared role predicate now centralizes three actual uses. Spec1: the
+255-entry role-map ceiling was incorrectly borrowed from transaction slip limits.
+A group can gain more members via joins, and update outputs do not list all members.
+A larger valid-map regression and correction are next. Timestamp correction
+f6a6da41...91c65a96 Standards0; Spec review pending.

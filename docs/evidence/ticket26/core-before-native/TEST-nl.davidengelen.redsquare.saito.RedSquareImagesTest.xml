@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.saito.RedSquareImagesTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-10-14T04:47:38" hostname="fbe059a5eb6c" time="0.052">
+  <properties/>
+  <testcase name="signed native image order matches the independent web reference" classname="nl.davidengelen.redsquare.saito.RedSquareImagesTest" time="0.035"/>
+  <testcase name="a quote cannot attribute conflicting image order to the original author" classname="nl.davidengelen.redsquare.saito.RedSquareImagesTest" time="0.007"/>
+  <testcase name="unsafe media does not discard authenticated text or safe images" classname="nl.davidengelen.redsquare.saito.RedSquareImagesTest" time="0.002"/>
+  <testcase name="outgoing quote images match independent wire bytes and preserve original media" classname="nl.davidengelen.redsquare.saito.RedSquareImagesTest" time="0.008"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

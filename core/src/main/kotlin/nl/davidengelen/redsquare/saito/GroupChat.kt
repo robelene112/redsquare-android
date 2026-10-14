@@ -4,7 +4,10 @@ import com.google.gson.JsonObject
 
 data class GroupChatMessage(val id: String, val author: String, val groupId: String, val createdAt: Long, val text: String)
 
-enum class ChatGroupRole { ADMIN, MEMBER, LEFT, REMOVED }
+enum class ChatGroupRole {
+    ADMIN, MEMBER, LEFT, REMOVED;
+    val active: Boolean get() = this == ADMIN || this == MEMBER
+}
 
 class NamedChatGroup internal constructor(val id: String, val name: String,
     val memberRoles: Map<String, ChatGroupRole>, val creationEnvelope: String?,
@@ -15,7 +18,7 @@ class NamedChatGroup internal constructor(val id: String, val name: String,
 object GroupChat {
     fun message(wallet: SaitoWallet, group: NamedChatGroup, text: String, timestamp: Long,
         mentioned: List<String> = emptyList()): SaitoTransaction {
-        require(group.memberRoles[wallet.publicKey] in listOf(ChatGroupRole.ADMIN, ChatGroupRole.MEMBER))
+        require(group.memberRoles[wallet.publicKey]?.active == true)
         require(text.isNotBlank() && timestamp >= 0 && mentioned.all(SaitoWallet::isPublicKey))
         val body = JsonObject().apply {
             addProperty("module", "Chat"); addProperty("request", "chat message")
@@ -23,7 +26,7 @@ object GroupChat {
             add("mentioned", com.google.gson.JsonArray().apply { mentioned.distinct().forEach(::add) })
             addProperty("group_name", group.name)
         }
-        val activeMembers = group.memberRoles.filterValues { it in listOf(ChatGroupRole.ADMIN, ChatGroupRole.MEMBER) }.keys
+        val activeMembers = group.memberRoles.filterValues { it.active }.keys
         return SaitoTransaction.create(wallet, body, timestamp, listOf(group.id) + mentioned.filter { it !in activeMembers })
     }
 
@@ -106,7 +109,7 @@ object GroupChat {
                     }
                     // A snapshot has no predecessor/revision proof. Preserve observed departure/removal.
                     if (members[member] == ChatGroupRole.REMOVED) return@forEach
-                    if (members[member] == ChatGroupRole.LEFT && role in listOf(ChatGroupRole.ADMIN, ChatGroupRole.MEMBER)) return@forEach
+                    if (members[member] == ChatGroupRole.LEFT && role.active) return@forEach
                     members[member] = role
                 }
             }

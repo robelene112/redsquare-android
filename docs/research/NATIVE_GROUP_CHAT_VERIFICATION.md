@@ -208,3 +208,8 @@ delayed body timestamps (1700000123459) with signed header1700000123456. New
 reader tracer RED expected1700000123456 but returned1700000123459. Corrected
 createdAt to authenticated header time. All13GroupChat tests GREEN/build41s.
 No recreation of the web's local arrival-order adjustment is claimed.
+
+Shared active-role predicate removes repeated domain checks after Standards
+heuristic. Full core regression101PASS/no failures/errors/skips, build59s;
+not Android runtime acceptance. Snapshot role-map size review found an incorrect
+255-member cap; independent envelope byte limits suffice, correction pending.
