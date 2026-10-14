@@ -31,7 +31,9 @@ class GroupChatPreviewTest {
 
     @Test fun signedGroupHistoryCanPageOlderAndRemainCachedAfterArchivePruning() = exerciseGroupUi(joining=true,paginating=true)
 
-    private fun exerciseGroupUi(joining:Boolean=false, leaving:Boolean=false, retrying:Boolean=false, knownRejoin:Boolean=false, messaging:Boolean=false, drafting:Boolean=false, archiveFault:Boolean=false, paginating:Boolean=false) {
+    @Test fun removedAuthorsCannotHideAvailableEarlierGroupHistory() = exerciseGroupUi(joining=true,paginating=true,rejectedPage=true)
+
+    private fun exerciseGroupUi(joining:Boolean=false, leaving:Boolean=false, retrying:Boolean=false, knownRejoin:Boolean=false, messaging:Boolean=false, drafting:Boolean=false, archiveFault:Boolean=false, paginating:Boolean=false, rejectedPage:Boolean=false) {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -63,15 +65,17 @@ class GroupChatPreviewTest {
             val references=InstrumentationRegistry.getInstrumentation().context.assets.open("native-group-chat-creation-reference.json")
                 .bufferedReader().use{com.google.gson.JsonParser.parseReader(it).asJsonObject}
             val link=GroupInvitation.parse(references.getAsJsonArray("invitations")[3].asJsonObject.get("link").asString)
-            val author=SaitoWallet.fromPrivateKey("0".repeat(63)+"1") // Public unsafe fixture only.
+            val author=SaitoWallet.fromPrivateKey("0".repeat(63)+if(rejectedPage) "2" else "1") // Public unsafe fixture only.
+            val admin=SaitoWallet.fromPrivateKey("0".repeat(63)+"1") // Public unsafe fixture only.
+            val adminGroup=GroupChat.confirmInvitation(link,GroupChat.join(admin,link,1700000123498).envelope())
             val group=GroupChat.confirmInvitation(link,GroupChat.join(author,link,1700000123499).envelope())
-            fun row(text:String,time:Long)=com.google.gson.JsonObject().apply{
-                addProperty("tx",GroupChat.message(author,group,text,time).envelope())
+            fun row(text:String,time:Long,signer:SaitoWallet=author,source:NamedChatGroup=group)=com.google.gson.JsonObject().apply{
+                addProperty("tx",GroupChat.message(signer,source,text,time).envelope())
                 addProperty("created_at",42) // Unsigned metadata must not determine the paging cursor.
             }
             val recent=com.google.gson.JsonArray().apply{repeat(50){index->add(row("Recent group message $index",oldestRecent+index))}}
-            val older=com.google.gson.JsonArray().apply{add(row("Available older group message",oldestRecent-1))}
-            ancientMessage=GroupChat.message(author,group,"Ancient live group message",oldestRecent-1000)
+            val older=com.google.gson.JsonArray().apply{add(row("Available older group message",oldestRecent-1,admin,adminGroup))}
+            ancientMessage=GroupChat.message(admin,adminGroup,"Ancient live group message",oldestRecent-1000)
             recent.toString() to older.toString()
         }else null
         val peer = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", archiveResponse = { criteria ->
@@ -95,6 +99,22 @@ class GroupChatPreviewTest {
             AndroidBackendStore(context).save(SaitoBackend.OWNER)
             preferences.forEach { (prefs,key,_) -> check(prefs.edit().putBoolean(key,true).commit()) }
             synchronized(SaitoLocalState.lock) { context.noBackupFilesDir.listFiles()!!.filter { it.name.startsWith(prefix) }.forEach { check(it.delete()) } }
+            if(rejectedPage){
+                val references=InstrumentationRegistry.getInstrumentation().context.assets.open("native-group-chat-creation-reference.json")
+                    .bufferedReader().use{com.google.gson.JsonParser.parseReader(it).asJsonObject}
+                val invitation=GroupInvitation.parse(references.getAsJsonArray("invitations")[3].asJsonObject.get("link").asString)
+                val saved=nl.davidengelen.redsquare.chat.GroupChatStore(context,fixture,SaitoBackend.OWNER)
+                val joined=GroupChat.join(fixture,invitation,1700000123456)
+                saved.prepareInvitation(invitation,joined)
+                saved.record(invitation.id,joined.id,nl.davidengelen.redsquare.chat.GroupChatStore.Status.FORWARDED)
+                val admin=SaitoWallet.fromPrivateKey("0".repeat(63)+"1") // Public unsafe fixture only.
+                val removal=com.google.gson.JsonObject().apply{
+                    addProperty("module","Chat");addProperty("request","chat remove")
+                    addProperty("group_id",invitation.id);addProperty("member_id",member)
+                }
+                saved.receive(SaitoTransaction.createTo(admin,removal,1700000123457,invitation.id).envelope())
+                check(saved.load(invitation.id)!!.group.memberRoles[member]==ChatGroupRole.REMOVED)
+            }
             if(retrying) nl.davidengelen.redsquare.chat.GroupChatStore(context,fixture,SaitoBackend.OWNER).prepareCreation(checkpoint,checkpointKey)
             var knownInvitation:GroupInvitation?=null
             if(knownRejoin){
@@ -114,7 +134,7 @@ class GroupChatPreviewTest {
                 ActivityScenario.launch<MainActivity>(Intent(context,MainActivity::class.java)
                     .putExtra("feedPeerUrl","ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("feedOfficialPeerUrl","ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
-                    withFailureCapture({ captureNativeScreen(File(context.cacheDir,if(paginating) "group-chat-evidence/pagination-failure.png" else if(archiveFault) "group-chat-evidence/archive-failure.png" else if(drafting) "group-chat-evidence/draft-failure.png" else if(messaging) "group-chat-evidence/message-failure.png" else if(knownRejoin) "group-chat-evidence/known-rejoin-failure.png" else if(joining) "group-chat-evidence/join-failure.png" else if(leaving) "group-chat-evidence/leave-failure.png" else if(retrying) "group-chat-evidence/retry-failure.png" else "group-chat-evidence/create-failure.png")) }) {
+                    withFailureCapture({ captureNativeScreen(File(context.cacheDir,if(rejectedPage) "group-chat-evidence/rejected-page-failure.png" else if(paginating) "group-chat-evidence/pagination-failure.png" else if(archiveFault) "group-chat-evidence/archive-failure.png" else if(drafting) "group-chat-evidence/draft-failure.png" else if(messaging) "group-chat-evidence/message-failure.png" else if(knownRejoin) "group-chat-evidence/known-rejoin-failure.png" else if(joining) "group-chat-evidence/join-failure.png" else if(leaving) "group-chat-evidence/leave-failure.png" else if(retrying) "group-chat-evidence/retry-failure.png" else "group-chat-evidence/create-failure.png")) }) {
                         waitFor("Chat")
                         ui.waitUntil(15_000) { ui.onAllNodes(hasText("Chat") and isEnabled()).fetchSemanticsNodes().size == 1 }
                         ui.onNodeWithText("Chat").assertIsDisplayed().performClick()
@@ -219,7 +239,7 @@ class GroupChatPreviewTest {
                             ui.onNodeWithText(invitation.admin).performScrollTo().assertIsDisplayed()
                             ui.onNodeWithText(invitation.sender).performScrollTo().assertIsDisplayed()
                             ui.onNodeWithText(invitation.id).performScrollTo().assertIsDisplayed()
-                            waitFor("Invitation details are provided by the sender.")
+                            waitFor(if(rejectedPage) "Using saved group details." else "Invitation details are provided by the sender.")
                             check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
                             check(AndroidBackendStore(context).load()==SaitoBackend.OWNER)
                             ui.onNodeWithText("Join").assertIsEnabled().performClick()
@@ -239,9 +259,13 @@ class GroupChatPreviewTest {
                             if(paginating){
                                 waitFor("Load older messages")
                                 ui.waitUntil(15_000){ui.onAllNodes(hasText("Load older messages") and isEnabled()).fetchSemanticsNodes().size==1}
-                                for(text in listOf("Recent group message 0","Recent group message 49"))waitForGroupMessage(text)
+                                if(rejectedPage){
+                                    ui.onNodeWithText("Older group history could not be loaded. Your cached messages are kept.").assertIsDisplayed()
+                                    ui.onNodeWithText("Recent group message 0").assertDoesNotExist()
+                                }else for(text in listOf("Recent group message 0","Recent group message 49"))waitForGroupMessage(text)
                                 val recent=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,store.loadExisting(),SaitoBackend.OWNER).load(invitation.id))
-                                check(recent.messages.size==50 && olderReads.get()==0)
+                                check(recent.messages.size==(if(rejectedPage) 0 else 50) && olderReads.get()==0)
+                                if(rejectedPage)check(recent.group.memberRoles[member]==ChatGroupRole.REMOVED)
                                 val successes=peer.incomingAcknowledgements.count{it[0]==13.toByte()}
                                 peer.sendIncoming(requireNotNull(ancientMessage).applicationRequest(1).let{it.copyOfRange(5,it.size)})
                                 ui.waitUntil(15_000){peer.incomingAcknowledgements.count{it[0]==13.toByte()}>successes}
@@ -252,9 +276,10 @@ class GroupChatPreviewTest {
                                 check(olderReads.get()==1 && requestedCutoff.get()==oldestRecent)
                                 ui.onNodeWithText("Load older messages").assertDoesNotExist()
                                 val saved=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,store.loadExisting(),SaitoBackend.OWNER).load(invitation.id))
-                                check(saved.messages.size==52)
+                                check(saved.messages.size==(if(rejectedPage) 2 else 52))
+                                if(rejectedPage)check(saved.group.memberRoles[member]==ChatGroupRole.REMOVED)
                                 historyAvailable.set(false)
-                                captureNativeScreen(File(context.cacheDir,"group-chat-evidence/pagination-loaded.png"),"Available older group message")
+                                captureNativeScreen(File(context.cacheDir,if(rejectedPage) "group-chat-evidence/rejected-page-loaded.png" else "group-chat-evidence/pagination-loaded.png"),"Available older group message")
                             }
                             if(messaging){
                                 val available=requireNotNull(messageReference)
@@ -338,10 +363,11 @@ class GroupChatPreviewTest {
                             captureNativeScreen(File(context.cacheDir,"group-chat-evidence/joined-reopened.png"),invitation.name)
                             if(paginating){
                                 ui.onNodeWithText(invitation.name).assertIsDisplayed().performClick()
-                                for(text in listOf("Recent group message 0","Recent group message 49","Ancient live group message","Available older group message"))waitForGroupMessage(text)
+                                for(text in (if(rejectedPage) emptyList() else listOf("Recent group message 0","Recent group message 49"))+listOf("Ancient live group message","Available older group message"))waitForGroupMessage(text)
                                 val saved=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,store.loadExisting(),SaitoBackend.OWNER).load(invitation.id))
-                                check(saved.messages.size==52 && olderReads.get()==1)
-                                captureNativeScreen(File(context.cacheDir,"group-chat-evidence/pagination-cached.png"),"Available older group message")
+                                check(saved.messages.size==(if(rejectedPage) 2 else 52) && olderReads.get()==1)
+                                if(rejectedPage)check(saved.group.memberRoles[member]==ChatGroupRole.REMOVED)
+                                captureNativeScreen(File(context.cacheDir,if(rejectedPage) "group-chat-evidence/rejected-page-cached.png" else "group-chat-evidence/pagination-cached.png"),"Available older group message")
                             }
                             if(messaging){
                                 ui.onNodeWithText(invitation.name).assertIsDisplayed().performClick()
