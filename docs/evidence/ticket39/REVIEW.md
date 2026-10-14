@@ -25,7 +25,7 @@ No new implementation-mirroring visual tests; existing accepted native seams use
 Full10run38633250917 at95e FAILED group22 21PASS1/116.296s, final imported
 guidance visibility735 after the displayed wait already passed. Original capture
 shows Checking available group information; source permits a transition hypothesis
-only. Full17run38633255144 at95e SUCCESS with both public feeds enabled:303PASS/67records/20deathstages,core110/release/lint. Retainedfinal-full/android17,655hashes233XML. Corrected10 acceptance remains pending.
+only. Full17run38633255144 at95e SUCCESS with both public feeds enabled:303PASS/67records/20deathstages,core110/release/lint. Retainedfinal-full/android17,655hashes233XML. Corrected10 run38635529637 subsequentlySUCCESS; final10evidence review remains pending.
 Signed16 prepared, release8792PASS3m9, not published. No final acceptance claimed.
 
 ## Imported readiness correction
@@ -35,7 +35,7 @@ literal Incoming beta group, recreateActivity/reenterGroups, then unchanged15s
 actual-display wait and strict final assertion. No production change, sleeps or
 wire-count coupling. Authority/secret/cache/wallet/no-send checks intact. This
 exercises persisted restart at approved seams, not the original transition ordering
-or process death. Corrected native runtime remains pending.
+or process death. Corrected10 fullruntime38635529637 SUCCESS atdfa36053; final10evidence review remains pending.
 
 ## Android17 evidence review
 
@@ -47,5 +47,5 @@ protected-state restoration;20actual interruptions overall. Core110, source/rele
 lint and both public feeds pass. Current handoff/REVIEW stale17active statements
 were fixed in70f963d7 and separately confirmed by both axes.
 
-CorrectedAndroid10 and signed16 publication remain pending. No physical Pixel7
+CorrectedAndroid10 nowSUCCESS; its final evidence review and signed16 publication remain pending. No physical Pixel7
 performance, permanent history or live group-write admission inferred.
