@@ -58,6 +58,7 @@ class GroupChatPreviewTest {
         val oldestRecent=1700000123500L
         val olderReads=java.util.concurrent.atomic.AtomicInteger(0)
         val requestedCutoff=java.util.concurrent.atomic.AtomicLong(-1)
+        var ancientMessage:SaitoTransaction?=null
         val pages=if(paginating){
             val references=InstrumentationRegistry.getInstrumentation().context.assets.open("native-group-chat-creation-reference.json")
                 .bufferedReader().use{com.google.gson.JsonParser.parseReader(it).asJsonObject}
@@ -70,6 +71,7 @@ class GroupChatPreviewTest {
             }
             val recent=com.google.gson.JsonArray().apply{repeat(50){index->add(row("Recent group message $index",oldestRecent+index))}}
             val older=com.google.gson.JsonArray().apply{add(row("Available older group message",oldestRecent-1))}
+            ancientMessage=GroupChat.message(author,group,"Ancient live group message",oldestRecent-1000)
             recent.toString() to older.toString()
         }else null
         val peer = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", archiveResponse = { criteria ->
@@ -240,12 +242,17 @@ class GroupChatPreviewTest {
                                 for(text in listOf("Recent group message 0","Recent group message 49"))waitForGroupMessage(text)
                                 val recent=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,store.loadExisting(),SaitoBackend.OWNER).load(invitation.id))
                                 check(recent.messages.size==50 && olderReads.get()==0)
+                                val successes=peer.incomingAcknowledgements.count{it[0]==13.toByte()}
+                                peer.sendIncoming(requireNotNull(ancientMessage).applicationRequest(1).let{it.copyOfRange(5,it.size)})
+                                ui.waitUntil(15_000){peer.incomingAcknowledgements.count{it[0]==13.toByte()}>successes}
+                                waitForGroupMessage("Ancient live group message")
+                                check(olderReads.get()==0)
                                 ui.onNodeWithText("Load older messages").assertIsDisplayed().assertIsEnabled().performClick()
                                 waitForGroupMessage("Available older group message")
                                 check(olderReads.get()==1 && requestedCutoff.get()==oldestRecent)
                                 ui.onNodeWithText("Load older messages").assertDoesNotExist()
                                 val saved=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,store.loadExisting(),SaitoBackend.OWNER).load(invitation.id))
-                                check(saved.messages.size==51)
+                                check(saved.messages.size==52)
                                 historyAvailable.set(false)
                                 captureNativeScreen(File(context.cacheDir,"group-chat-evidence/pagination-loaded.png"),"Available older group message")
                             }
@@ -331,9 +338,9 @@ class GroupChatPreviewTest {
                             captureNativeScreen(File(context.cacheDir,"group-chat-evidence/joined-reopened.png"),invitation.name)
                             if(paginating){
                                 ui.onNodeWithText(invitation.name).assertIsDisplayed().performClick()
-                                for(text in listOf("Recent group message 0","Recent group message 49","Available older group message"))waitForGroupMessage(text)
+                                for(text in listOf("Recent group message 0","Recent group message 49","Ancient live group message","Available older group message"))waitForGroupMessage(text)
                                 val saved=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,store.loadExisting(),SaitoBackend.OWNER).load(invitation.id))
-                                check(saved.messages.size==51 && olderReads.get()==1)
+                                check(saved.messages.size==52 && olderReads.get()==1)
                                 captureNativeScreen(File(context.cacheDir,"group-chat-evidence/pagination-cached.png"),"Available older group message")
                             }
                             if(messaging){
