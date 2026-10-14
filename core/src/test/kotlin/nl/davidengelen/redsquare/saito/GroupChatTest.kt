@@ -21,4 +21,31 @@ class GroupChatTest {
             assertEquals(listOf(creator.publicKey) + invitees, signed.recipients)
         }
     }
+
+    @Test fun verifiedCreationBuildsMembershipAndRejectsAnAdminClaimFromAnotherSigner() {
+        val reference = requireNotNull(javaClass.getResourceAsStream("/native-group-chat-creation-reference.json"))
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject }
+        val member = reference.getAsJsonArray("invitees")[0].asString
+        val creator = reference.get("admin").asString
+        val group = GroupChat.readCreation(reference.get("envelope").asString)
+        assertEquals(reference.get("groupId").asString, group.id)
+        assertEquals(reference.get("name").asString, group.name)
+        assertEquals(mapOf(creator to ChatGroupRole.ADMIN, member to ChatGroupRole.MEMBER), group.memberRoles)
+        val claimed = SaitoEnvelope.decode(reference.get("envelope").asString).body.deepCopy()
+        val outsider = SaitoWallet.fromPrivateKey("0".repeat(63) + "4") // Public unsafe fixture only.
+        val forged = SaitoTransaction.create(outsider, claimed, reference.get("timestamp").asLong, listOf(member))
+        org.junit.Assert.assertThrows(IllegalArgumentException::class.java) {
+            GroupChat.readCreation(forged.envelope())
+        }
+    }
+
+    @Test fun anInvitationMemberCanAuthenticateAvailableCreationBeforeJoining() {
+        val reference = requireNotNull(javaClass.getResourceAsStream("/native-group-chat-creation-reference.json"))
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject }
+        val laterMember = SaitoWallet.fromPrivateKey("0".repeat(63) + "4") // Public unsafe fixture only.
+        val group = GroupChat.readCreation(reference.get("envelope").asString)
+        assertEquals(reference.get("groupId").asString, group.id)
+        assertEquals(ChatGroupRole.ADMIN, group.memberRoles[reference.get("admin").asString])
+        org.junit.Assert.assertFalse(group.memberRoles.containsKey(laterMember.publicKey))
+    }
 }

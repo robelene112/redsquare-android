@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.saito.GroupChatTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-10-14T03:31:51" hostname="85cc843c9b7c" time="0.424">
+  <properties/>
+  <testcase name="verifiedCreationBuildsMembershipAndRejectsAnAdminClaimFromAnotherSigner" classname="nl.davidengelen.redsquare.saito.GroupChatTest" time="0.396"/>
+  <testcase name="anInvitationMemberCanAuthenticateAvailableCreationBeforeJoining" classname="nl.davidengelen.redsquare.saito.GroupChatTest" time="0.008"/>
+  <testcase name="creationMatchesBothPinnedExistingWebConstructorsAndTheirSignedBytes" classname="nl.davidengelen.redsquare.saito.GroupChatTest" time="0.019"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

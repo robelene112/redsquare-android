@@ -2,8 +2,30 @@ package nl.davidengelen.redsquare.saito
 
 import com.google.gson.JsonObject
 
+enum class ChatGroupRole { ADMIN, MEMBER }
+
+class NamedChatGroup internal constructor(val id: String, val name: String,
+    val memberRoles: Map<String, ChatGroupRole>, val creationEnvelope: String)
+
 /** Compatible unencrypted named-group controls; participants sign with their own wallet. */
 object GroupChat {
+    /** Authenticate available creation without implying the reader has joined. */
+    fun readCreation(envelope: String): NamedChatGroup {
+        val signed = SaitoEnvelope.decode(envelope)
+        val body = signed.body
+        require(body.requiredString("module") == "Chat" && body.requiredString("request") == "chat group")
+        require(body.requiredString("admin") == signed.author)
+        require(signed.recipients.firstOrNull() == signed.author)
+        val id = body.requiredString("id")
+        val name = body.requiredString("name")
+        require(SaitoWallet.isPublicKey(id) && id !in signed.recipients)
+        require(name.isNotBlank() && Charsets.UTF_8.newEncoder().canEncode(name))
+        val members = signed.recipients.distinct().associateWith {
+            if (it == signed.author) ChatGroupRole.ADMIN else ChatGroupRole.MEMBER
+        }
+        return NamedChatGroup(id, name, java.util.Collections.unmodifiableMap(members), envelope)
+    }
+
     fun create(wallet: SaitoWallet, groupId: String, name: String, invitees: List<String>,
         timestamp: Long): SaitoTransaction {
         require(SaitoWallet.isPublicKey(groupId) && groupId != wallet.publicKey)
@@ -19,5 +41,11 @@ object GroupChat {
             addProperty("id", groupId)
         }
         return SaitoTransaction.create(wallet, body, timestamp, recipients)
+    }
+
+    private fun JsonObject.requiredString(name: String): String {
+        val value = get(name)
+        require(value != null && value.isJsonPrimitive && value.asJsonPrimitive.isString)
+        return value.asString
     }
 }

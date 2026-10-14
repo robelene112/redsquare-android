@@ -47,7 +47,11 @@ file predates theactivework and mustnotbestaged/deleted/edited indiscriminately.
 Rootfollow-onnotes .scratch/group26-follow-on-notes.md are preparation.
 #26 nowclaimed; reviewbasebbdd121c. Independent public pinnedwebcreation corpus
 verified viaWASM/Elliptic, native creation firsttracerstub/coretest added. CreationtracerRED1UnsupportedOperationException thenGREEN1PASS; builds1m4/1m3.
-No ownedGradle remains. Next: verified creation recipient/admin authorization. No membership/UI/recovery implementation yet.
+MembershipRED2(onefailure)→GREEN2; discoveryRED3(onefailure)→GREEN3.
+Pure reader accepts authentic creation for later joiners without granting roles.
+Signer/admin and signed first-recipient validation remain. All source still
+protocol-only; no groupUI/Android/recovery acceptance. No ownedGradle remains.
+Next: ordinary web invitation format and explicit join trust provenance. No membership/UI/recovery implementation yet.
 Chronology: docs/research/NATIVE_GROUP_CHAT_VERIFICATION.md. Preserveunsignedweb
 invites with honest authority/privacy provenance, existingmembership rules and
 recovery. Do not treatparticipantprocessedhistory asoriginalsignedmessageproof,
