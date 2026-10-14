@@ -530,7 +530,9 @@ class GroupChatPreviewTest {
                     .putExtra("feedPeerUrl","ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("feedOfficialPeerUrl","ws://127.0.0.1:${server.port}/wsopen")).use{scenario->
                     withFailureCapture({captureNativeScreen(File(context.cacheDir,"group-chat-evidence/incoming-ui-failure.png"))}){
-                        waitFor("Chat");ui.onNodeWithText("Chat").assertIsDisplayed().performClick()
+                        waitFor("Chat")
+                        ui.waitUntil(15_000){ui.onAllNodes(hasText("Chat") and isEnabled()).fetchSemanticsNodes().size==1}
+                        ui.onNodeWithText("Chat").assertIsDisplayed().assertIsEnabled().performClick()
                         waitFor("Groups");ui.onNodeWithText("Groups").assertIsDisplayed().performClick()
                         waitFor("Create group");ui.onNodeWithText("Create group").assertIsDisplayed()
                         fun deliver(transaction:SaitoTransaction){
@@ -558,9 +560,7 @@ class GroupChatPreviewTest {
                         scenario.recreate();waitFor("Groups");ui.onNodeWithText("Groups").performClick()
                         waitFor(group.name);ui.onNodeWithText(group.name).assertIsDisplayed().performClick()
                         waitForGroupMessage("Live incoming group history")
-                        ui.waitUntil(15_000){runCatching{ui.onNodeWithText("Message").fetchSemanticsNode().config[
-                            androidx.compose.ui.semantics.SemanticsProperties.EditableText].text=="Keep incoming group draft"}.getOrDefault(false)}
-                        ui.onNodeWithText("Message").assertIsDisplayed().assertIsEnabled()
+                        assertRestoredGroupDraft("Keep incoming group draft")
                         val saved=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,walletStore.loadExisting(),SaitoBackend.OWNER).load(group.id))
                         check(saved.group.creationEnvelope?.let{SaitoEnvelope.decode(it).id}==creation.id)
                         check(saved.candidate==null && saved.messages.single().id==message.id && saved.draft=="Keep incoming group draft")
@@ -735,16 +735,16 @@ class GroupChatPreviewTest {
         }})}
     }
 
-    private fun assertRestoredGroupDraft() {
+    private fun assertRestoredGroupDraft(expected:String="Keep this unsent group draft") {
         ui.waitUntil(15_000){
             runCatching {
                 ui.onNodeWithText("Message").fetchSemanticsNode().config[
-                    androidx.compose.ui.semantics.SemanticsProperties.EditableText].text=="Keep this unsent group draft"
+                    androidx.compose.ui.semantics.SemanticsProperties.EditableText].text==expected
             }.getOrDefault(false)
         }
         ui.onNodeWithText("Message").assertIsDisplayed().assertIsEnabled().assert(
             SemanticsMatcher.expectValue(androidx.compose.ui.semantics.SemanticsProperties.EditableText,
-                androidx.compose.ui.text.AnnotatedString("Keep this unsent group draft")))
+                androidx.compose.ui.text.AnnotatedString(expected)))
     }
 
     private fun waitForGroupMessage(text:String) {
