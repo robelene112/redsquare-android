@@ -39,7 +39,18 @@ Local .scratch/review-builds/14; publicrecords docs/evidence/ticket37/signed-pre
 No store/node/service/ingresschange. Current14physicalPixel/continuity/performance
 remain35. Preview13superseded;12neverpublished.
 
-**#26 current checkpoint, 2026-10-14 10:03 UTC:**21 original tickets complete;
+**Latest26,2026-10-14 10:14UTC:** known-admin native RED38546506531/95207cf0
+8cases67.047s has7PASS plus missingretainedadmin fixture90. RootPNG/XMLshowsbad
+name/admin; unscopedname notproof, laterwire/recoveryassertsunexecuted. Corrected
+source8d8e9004 resolvesknown details offMain beforeconsent; storeindependently
+validatescanonicalname/admin/exactrecips. Strongerclaims/provenance assertions
+areDialogscoped and Join readinessbounded. Correctionreview95207...ef3647ae
+Standards0/Spec0. Localdebug/testAPKcompilePASS3m28s. No ownedGradle.
+Next push/dispatch eightcasegroup-ui10/17, inspectactualallcases/outertargets/caps,
+then message/incoming/history/import/isolation/actualPID/full26. Donot reapply
+known-routing script now: already applied.21originalclosed/#26open/beta14unchanged.
+
+**Prior #26 checkpoint, 2026-10-14 10:03 UTC:**21 original tickets complete;
 #26 still open. Stable signed14/0.1.14 remains live with37 visuals, no group APK.
 Native creation/invite/member/key/work/leave and exact Retry verified10/17.
 Latest Retry six-case GREEN4743355c:10run38543182621 PASS26.252s,

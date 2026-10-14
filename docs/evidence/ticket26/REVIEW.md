@@ -179,3 +179,12 @@ New eight-case RED17run38546506531 at95207cf0 active. Scoped-dialog display and
 bounded enabled assertions are prepared before GREEN, alongside native preview/
 store authority routing correction; neither refined assertions nor corrected UI
 acceptance claimed yet. No whole26/PID claim.
+
+Known-routing native RED38546506531/95207cf0:8cases/67.047s,7PASS plus missing
+retained admin atfixture90. RootoriginalPNG/XMLshowconflictingname/admin. Former
+unscopedname assertion is notnameproof; later wire/recovery tail unexecuted.
+Correction95207cf0...ef3647ae (source8d8e9004): Standards0/Spec0, routing and
+both tracer findings resolved. NativePreview resolves retained authority off Main
+before consent; preparation independently validatescanonicalname/admin/exact
+recips, preservingorigin/key/controls. Modalclaims/provenance andenabled readiness
+are asserted. Localdebug/testAPK compile PASS3m28s. CorrectednativeGREEN pending.
