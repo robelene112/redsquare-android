@@ -1,0 +1,3 @@
+Run38583165123 at7e2ee0d8e6fc27cdb2fcb7ab1a7c7d770bd272ff: Time: 154.756, Tests run: 19,  Failures: 1
+
+Actual 19-case run: 18 passed, one failed waiting for the missing Like action after an acknowledged creation/message. Root inspected original reaction-failure PNG/XML, showing the received group and message but no Like button. Toggle counts, exact wire originals/recipients, duplicate-like handling, reaction reopening and draft continuation in the new case were unexecuted. The other18 cases passed. This records the native missing-action RED, not successful reaction or whole26 acceptance. Unsafe public fixture identities only.
