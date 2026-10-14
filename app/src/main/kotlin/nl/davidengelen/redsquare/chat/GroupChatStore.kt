@@ -10,7 +10,7 @@ import nl.davidengelen.redsquare.saito.*
 /** Encrypted original group state. Opening never transmits a retained attempt. */
 internal class GroupChatStore(private val context: Context, private val wallet: SaitoWallet, private val backend: SaitoBackend) {
     enum class Status { UNKNOWN, SUBMITTED, FORWARDED }
-    data class Entry(val group: NamedChatGroup, val candidate: SaitoTransaction, val status: Status, val creationKey: SaitoWallet? = null)
+    data class Entry(val group: NamedChatGroup, val candidate: SaitoTransaction, val status: Status, val creationKey: SaitoWallet? = null, val originals:List<String> = emptyList(), val messages:List<GroupChatMessage> = emptyList())
     private val prefix = "groupchat.${backend.id}.${wallet.publicKey}."
 
     private fun file(id: String): EncryptedLocalFile {
@@ -30,19 +30,22 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         val record = gson.fromJson(contents.text,JsonObject::class.java)
         val creation = record.get("creation")?.takeUnless{it.isJsonNull}?.asString
         val controls=record.get("controls")?.asJsonArray?.map{it.asString}.orEmpty()
-        val group = if(creation!=null) GroupChat.restore(creation,controls) else {
+        val origin = if(creation!=null) GroupChat.readCreation(creation) else {
             val invitation=GroupInvitation.parse(record.get("invitation").asString)
-            GroupChat.restore(invitation,record.get("confirmation").asString,controls)
+            GroupChat.confirmInvitation(invitation,record.get("confirmation").asString)
         }
+        val originals=record.get("events")?.asJsonArray?.map{it.asString} ?: controls
+        val history=GroupChat.replay(origin,originals)
+        val group=history.group
         require(group.id == id && wallet.publicKey in group.memberRoles)
         val candidate = SaitoTransaction.restore(record.get("candidate").asString)
         val original=creation ?: record.get("confirmation").asString
-        require(candidate.envelope() in (listOf(original)+group.controls) && SaitoEnvelope.decode(candidate.envelope()).author == wallet.publicKey)
+        require(candidate.envelope() in (listOf(original)+group.controls+history.originals) && SaitoEnvelope.decode(candidate.envelope()).author == wallet.publicKey)
         val creationKey=record.get("creationKey")?.takeUnless{it.isJsonNull}?.let {
             require(it.isJsonPrimitive && it.asJsonPrimitive.isString)
             SaitoWallet.fromBackup(it.asString).also{key->require(key.publicKey==group.id)}
         }
-        Entry(group,candidate,Status.valueOf(record.get("status").asString),creationKey)
+        Entry(group,candidate,Status.valueOf(record.get("status").asString),creationKey,history.originals,history.messages)
     }
 
     fun prepareCreation(candidate: SaitoTransaction, creationKey: SaitoWallet? = null): Entry = synchronized(SaitoLocalState.lock) {
@@ -66,7 +69,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         require(signed.recipients==listOf(effective.id,wallet.publicKey,effective.admin,effective.sender).distinct())
         if(previous==null) save(Entry(group,candidate,Status.UNKNOWN)) else {
             check(previous.status==Status.FORWARDED)
-            save(previous.copy(group=GroupChat.applyControl(previous.group,candidate.envelope()),candidate=candidate,status=Status.UNKNOWN))
+            save(previous.copy(group=GroupChat.applyControl(previous.group,candidate.envelope()),candidate=candidate,status=Status.UNKNOWN,originals=previous.originals+candidate.envelope()))
         }
     }
 
@@ -78,7 +81,28 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         require(signed.body.get("member_id").asString==wallet.publicKey)
         val previous=requireNotNull(load(signed.body.get("group_id").asString))
         check(previous.status==Status.FORWARDED && previous.group.memberRoles[wallet.publicKey]?.active==true)
-        save(previous.copy(group=GroupChat.applyControl(previous.group,candidate.envelope()),candidate=candidate,status=Status.UNKNOWN))
+        save(previous.copy(group=GroupChat.applyControl(previous.group,candidate.envelope()),candidate=candidate,status=Status.UNKNOWN,originals=previous.originals+candidate.envelope()))
+    }
+
+    /** Persist authenticated group originals in observation order before incoming RPC acknowledgement. */
+    fun receive(envelope:String):Entry = synchronized(SaitoLocalState.lock) {
+        val signed=SaitoEnvelope.decode(envelope)
+        require(signed.body.get("module").asString=="Chat")
+        val id=signed.body.get("group_id").asString
+        val previous=requireNotNull(load(id))
+        val replay=GroupChat.replay(previous.group,previous.originals+envelope)
+        if(replay.originals==previous.originals) previous else save(previous.copy(
+            group=replay.group,originals=replay.originals,messages=replay.messages))
+    }
+
+    fun prepareMessage(candidate:SaitoTransaction):Entry = synchronized(SaitoLocalState.lock) {
+        assertSelected()
+        val signed=SaitoEnvelope.decode(candidate.envelope())
+        require(signed.author==wallet.publicKey && signed.body.get("request").asString=="chat message")
+        val previous=requireNotNull(load(signed.body.get("group_id").asString))
+        check(previous.status==Status.FORWARDED && previous.group.memberRoles[wallet.publicKey]?.active==true)
+        val replay=GroupChat.replay(previous.group,previous.originals+candidate.envelope())
+        save(previous.copy(group=replay.group,originals=replay.originals,messages=replay.messages,candidate=candidate,status=Status.UNKNOWN))
     }
 
     /** Explicit retry preserves the original signature, origin and protected group key. */
@@ -113,6 +137,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
                 addProperty("confirmation",entry.group.controls.first())
             }
             add("controls",com.google.gson.JsonArray().apply{entry.group.controls.forEach(::add)})
+            add("events",com.google.gson.JsonArray().apply{entry.originals.forEach(::add)})
             addProperty("candidate",entry.candidate.encoded())
             addProperty("status",entry.status.name)
             entry.creationKey?.let { key ->

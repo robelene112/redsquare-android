@@ -17,6 +17,9 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.Channel
+import com.google.gson.JsonObject
+import com.google.gson.JsonParser
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import nl.davidengelen.redsquare.R
@@ -73,6 +76,59 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         catch(cancelled:CancellationException){throw cancelled}
         catch(_:Exception){readFailed=true}
     }
+    LaunchedEffect(store,selected,endpoint,refresh) {
+        val id=selected ?: return@LaunchedEffect
+        try {
+            coroutineScope {
+                val updates=Channel<Unit>(Channel.CONFLATED)
+                val receiver=launch {
+                    for(ignored in updates) {
+                        try { publish{store.entries()} }
+                        catch(cancelled:CancellationException){throw cancelled}
+                        catch(_:Exception){readFailed=true}
+                    }
+                }
+                try {
+                    SaitoPeer(wallet,endpoint,onIncoming={bytes->
+                        val original=GroupChat.originalEnvelope(bytes)
+                        val signed=SaitoEnvelope.decode(original)
+                        require(signed.body.get("group_id").asString==id)
+                        store.receive(original)
+                        updates.trySend(Unit)
+                        true // Original is protected on device before the peer receives success.
+                    }).use{peer->
+                        require("archive" in peer.services())
+                        val criteria=JsonObject().apply{
+                            addProperty("request","load");addProperty("field3",id)
+                            addProperty("limit",50);addProperty("created_earlier_than",System.currentTimeMillis())
+                        }
+                        val request=JsonObject().apply{addProperty("request","archive");add("data",criteria)}
+                        val incomplete=withContext(Dispatchers.IO){
+                            val rows=JsonParser.parseString(peer.request(request.toString().toByteArray(Charsets.UTF_8)).toString(Charsets.UTF_8)).asJsonArray
+                            require(rows.size()<=50)
+                            var rejected=false
+                            for(row in rows) {
+                                try {
+                                    val value=row.asJsonObject.get("tx")
+                                    require(value.isJsonPrimitive&&value.asJsonPrimitive.isString)
+                                    val signed=SaitoEnvelope.decode(value.asString)
+                                    require(signed.body.get("group_id").asString==id)
+                                    store.receive(value.asString)
+                                } catch(_:Exception){rejected=true}
+                            }
+                            rejected
+                        }
+                        publish{store.entries()}
+                        readFailed=incomplete
+                        peer.awaitDisconnection()
+                        readFailed=true
+                    }
+                } finally{updates.close();receiver.cancelAndJoin()}
+            }
+        } catch(cancelled:CancellationException){throw cancelled}
+        catch(_:Exception){readFailed=true}
+    }
+    var message by remember(wallet.publicKey,backend,selected){mutableStateOf("")}
     val entry = entries.firstOrNull { it.group.id == selected }
     Column(modifier.fillMaxSize(),verticalArrangement=Arrangement.spacedBy(8.dp)) {
         Row(verticalAlignment=Alignment.CenterVertically) {
@@ -128,7 +184,30 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                 }
             }){Text(stringResource(R.string.group_retry))}
             if(entry.group.memberRoles[wallet.publicKey]==ChatGroupRole.LEFT) Text(stringResource(R.string.group_left))
-            Spacer(Modifier.weight(1f))
+            val messagesLabel=stringResource(R.string.group_messages)
+            LazyColumn(Modifier.weight(1f).semantics{contentDescription=messagesLabel},
+                verticalArrangement=Arrangement.spacedBy(8.dp)) {
+                items(entry.messages,key={it.id}){item->
+                    Column(Modifier.fillMaxWidth().padding(horizontal=8.dp,vertical=4.dp)){
+                        Text(item.author,style=MaterialTheme.typography.labelSmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
+                        SelectionContainer{Text(item.text,style=MaterialTheme.typography.bodyLarge)}
+                    }
+                }
+            }
+            Row(verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(8.dp)){
+                OutlinedTextField(message,{message=it},Modifier.weight(1f),
+                    label={Text(stringResource(R.string.chat_message))},enabled=!busy&&entry.group.memberRoles[wallet.publicKey]?.active==true,maxLines=4)
+                Button(enabled=loaded&&!busy&&!readFailed&&entry.status==GroupChatStore.Status.FORWARDED&&
+                    entry.group.memberRoles[wallet.publicKey]?.active==true&&message.isNotBlank(),onClick={
+                    act {
+                        val candidate=withContext(Dispatchers.IO){GroupChat.message(wallet,entry.group,message,System.currentTimeMillis())}
+                        val recipients=entry.group.memberRoles.filterValues{it.active}.keys.filter{it!=wallet.publicKey}.ifEmpty{listOf(wallet.publicKey)}
+                        withContext(NonCancellable){publish{store.prepareMessage(candidate);store.entries()}}
+                        message=""
+                        sendPrepared(entry.group.id,candidate,wallet,recipients.first(),relayRecipients=recipients)
+                    }
+                }){Text(stringResource(R.string.chat_send))}
+            }
         }
     }
     if(creating) CreateGroupDialog(busy,onDismiss={if(!busy)creating=false}) { name,invitees ->
