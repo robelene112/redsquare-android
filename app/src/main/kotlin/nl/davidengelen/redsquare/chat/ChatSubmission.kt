@@ -6,7 +6,8 @@ import nl.davidengelen.redsquare.saito.*
 
 /** Each feature owns durable preparation, identity guards and publication of transport progress. */
 internal data class ChatSubmissionCallbacks(val claim: () -> Unit, val assertSelected: () -> Unit,
-    val submitted: suspend () -> Unit, val forwarded: suspend () -> Unit)
+    val submitted: suspend () -> Unit, val forwarded: suspend () -> Unit,
+    val relayRecipients:(()->List<String>)? = null)
 
 internal suspend fun submitChatTransaction(wallet: SaitoWallet, endpoint: String, contact: String,
     candidate: SaitoTransaction, callbacks: ChatSubmissionCallbacks, originalRelay: Boolean = false, relayRecipients: List<String> = listOf(contact)) {

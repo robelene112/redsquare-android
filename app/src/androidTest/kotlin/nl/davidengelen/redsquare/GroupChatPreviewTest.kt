@@ -14,6 +14,63 @@ import java.io.File
 class GroupChatPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
 
+    @Test fun relayMembershipIsReadAfterSubmissionBeforeBuildingTheOutgoingRelay() {
+        val context=InstrumentationRegistry.getInstrumentation().targetContext
+        check(context.packageName=="nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu","goldfish"))
+        val walletStore=AndroidWalletStore(context)
+        val original=walletStore.loadOrCreate()
+        val originalBackend=AndroidBackendStore(context).load()
+        val fixture=SaitoWallet.fromPrivateKey("0".repeat(63)+"1") // Public unsafe fixtures only.
+        val removed=SaitoWallet.fromPrivateKey("0".repeat(63)+"2").publicKey
+        val retained=SaitoWallet.fromPrivateKey("0".repeat(63)+"3").publicKey
+        val key=SaitoWallet.fromPrivateKey("0".repeat(63)+"9")
+        val filename="groupchat.${SaitoBackend.OWNER.id}.${fixture.publicKey}.${key.publicKey}.v1"
+        synchronized(SaitoLocalState.lock){check(listOf(filename,"$filename.bak","$filename.new").none{File(context.noBackupFilesDir,it).exists()})}
+        var primary:Throwable?=null
+        try {
+            walletStore.replace(original,fixture)
+            AndroidBackendStore(context).save(SaitoBackend.OWNER)
+            val store=nl.davidengelen.redsquare.chat.GroupChatStore(context,fixture,SaitoBackend.OWNER)
+            val creation=GroupChat.create(fixture,key.publicKey,"Current relay membership",listOf(removed,retained),1700000123400)
+            store.prepareCreation(creation,key)
+            store.record(key.publicKey,creation.id,nl.davidengelen.redsquare.chat.GroupChatStore.Status.FORWARDED)
+            val candidate=GroupChat.message(fixture,GroupChat.readCreation(creation.envelope()),"Prepared before member removal",1700000123401)
+            store.prepareMessage(candidate)
+            val removal=com.google.gson.JsonObject().apply{
+                addProperty("module","Chat");addProperty("request","chat remove")
+                addProperty("group_id",key.publicKey);addProperty("member_id",removed)
+            }
+            val change=SaitoTransaction.createTo(fixture,removal,1700000123402,key.publicKey)
+            val peer=ControlledFeedPeer("[]",advertisedServices="archive||;relay||")
+            peer.start().use{server->
+                kotlinx.coroutines.runBlocking {
+                    nl.davidengelen.redsquare.chat.submitChatTransaction(fixture,"ws://127.0.0.1:${server.port}/wsopen",removed,candidate,
+                        nl.davidengelen.redsquare.chat.ChatSubmissionCallbacks(
+                            claim={store.claim(key.publicKey,candidate.id)},assertSelected={store.assertSelected()},
+                            submitted={
+                                store.record(key.publicKey,candidate.id,nl.davidengelen.redsquare.chat.GroupChatStore.Status.SUBMITTED)
+                                store.receive(change.envelope()) // Signed membership changes between raw submission and Relay.
+                            },
+                            forwarded={store.record(key.publicKey,candidate.id,nl.davidengelen.redsquare.chat.GroupChatStore.Status.FORWARDED)},
+                            relayRecipients={requireNotNull(store.load(key.publicKey)).group.memberRoles.filterValues{it.active}.keys.filter{it!=fixture.publicKey}}),
+                        relayRecipients=listOf(removed,retained))
+                }
+                check(peer.transactions.size==1 && peer.relayedMessages.size==1)
+                check(peer.relayRecipients.single()==listOf(fixture.publicKey,retained))
+                check(postingTransaction(peer.transactions.single()).envelope()==candidate.envelope())
+                check(SaitoEnvelope.fromSignedJson(peer.relayedMessages.single())==candidate.envelope())
+                val saved=requireNotNull(store.load(key.publicKey))
+                check(saved.group.memberRoles[removed]==ChatGroupRole.REMOVED)
+                check(saved.candidate?.envelope()==candidate.envelope() && saved.status==nl.davidengelen.redsquare.chat.GroupChatStore.Status.FORWARDED)
+                peer.assertHealthy()
+            }
+        }catch(failure:Throwable){primary=failure;throw failure}
+        finally{cleanupAfterTest(primary,
+            {synchronized(SaitoLocalState.lock){listOf(filename,"$filename.bak","$filename.new").forEach{val file=File(context.noBackupFilesDir,it);check(!file.exists()||file.delete())}}},
+            {walletStore.replace(walletStore.loadExisting(),original)},
+            {AndroidBackendStore(context).save(originalBackend)})}
+    }
+
     @Test fun aNamedGroupCanBeCreatedWithAnInvitationAndReadAfterReopening() = exerciseGroupUi()
 
     @Test fun anExistingMemberInvitationCanBeConfirmedOnTheSelectedBackendAndReadAfterReopening() = exerciseGroupUi(joining=true)
