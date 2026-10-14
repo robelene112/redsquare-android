@@ -29,3 +29,19 @@ application delivery tracer requires zero raw/Relay transmission after a target
 leaves, original/draft/key preservation and refused explicit Retry. RED not yet
 run; source fix not yet applied. First positive10GREEN38644615973 remains immutable
 ead3c7e6 and is independently pending. No whole27 acceptance claimed.
+
+## Snapshot correction source review
+
+Spec: e15cc00d...a3df6940 zero new findings; stale-snapshot finding corrected in
+source. Authenticated group/current admin/exact name/full roles are checked at
+both existing protected gates. The application tracer observes the actual
+submission controller and peer, rather than a private implementation helper.
+
+Standards: zero findings. Shared codec has factory and guard callers, preserved
+wire encoding, correctly qualified actual RED and compile hashes. No credential
+exposure or actionable Fowler judgment. Documentation active-RED inconsistency
+was corrected.
+
+Native2-case GREENrun38646785704 ata3df6940 remains pending. This source review
+does not accept the unexecuted previous RED preservation/Retry tail or UI guidance,
+late Relay/authority/name cases, removal, process/fullSDK/publication requirements.
