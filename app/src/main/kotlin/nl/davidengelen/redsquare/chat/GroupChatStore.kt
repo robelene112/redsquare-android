@@ -10,7 +10,7 @@ import nl.davidengelen.redsquare.saito.*
 /** Encrypted original group state. Opening never transmits a retained attempt. */
 internal class GroupChatStore(private val context: Context, private val wallet: SaitoWallet, private val backend: SaitoBackend) {
     enum class Status { UNKNOWN, SUBMITTED, FORWARDED }
-    data class Entry(val group: NamedChatGroup, val candidate: SaitoTransaction, val status: Status, val creationKey: SaitoWallet? = null, val originals:List<String> = emptyList(), val messages:List<GroupChatMessage> = emptyList())
+    data class Entry(val group: NamedChatGroup, val candidate: SaitoTransaction, val status: Status, val creationKey: SaitoWallet? = null, val originals:List<String> = emptyList(), val messages:List<GroupChatMessage> = emptyList(), val draft:String = "")
     private val prefix = "groupchat.${backend.id}.${wallet.publicKey}."
 
     private fun file(id: String): EncryptedLocalFile {
@@ -45,7 +45,8 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
             require(it.isJsonPrimitive && it.asJsonPrimitive.isString)
             SaitoWallet.fromBackup(it.asString).also{key->require(key.publicKey==group.id)}
         }
-        Entry(group,candidate,Status.valueOf(record.get("status").asString),creationKey,history.originals,history.messages)
+        val draft=record.get("draft")?.also{require(it.isJsonPrimitive&&it.asJsonPrimitive.isString)}?.asString ?: ""
+        Entry(group,candidate,Status.valueOf(record.get("status").asString),creationKey,history.originals,history.messages,draft)
     }
 
     fun prepareCreation(candidate: SaitoTransaction, creationKey: SaitoWallet? = null): Entry = synchronized(SaitoLocalState.lock) {
@@ -95,6 +96,12 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
             group=replay.group,originals=replay.originals,messages=replay.messages))
     }
 
+    fun saveDraft(id:String,text:String):Entry = synchronized(SaitoLocalState.lock) {
+        val previous=requireNotNull(load(id))
+        check(previous.status==Status.FORWARDED)
+        save(previous.copy(draft=text))
+    }
+
     fun prepareMessage(candidate:SaitoTransaction):Entry = synchronized(SaitoLocalState.lock) {
         assertSelected()
         val signed=SaitoEnvelope.decode(candidate.envelope())
@@ -102,7 +109,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         val previous=requireNotNull(load(signed.body.get("group_id").asString))
         check(previous.status==Status.FORWARDED && previous.group.memberRoles[wallet.publicKey]?.active==true)
         val replay=GroupChat.replay(previous.group,previous.originals+candidate.envelope())
-        save(previous.copy(group=replay.group,originals=replay.originals,messages=replay.messages,candidate=candidate,status=Status.UNKNOWN))
+        save(previous.copy(group=replay.group,originals=replay.originals,messages=replay.messages,candidate=candidate,status=Status.UNKNOWN,draft=""))
     }
 
     /** Explicit retry preserves the original signature, origin and protected group key. */
@@ -140,6 +147,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
             add("events",com.google.gson.JsonArray().apply{entry.originals.forEach(::add)})
             addProperty("candidate",entry.candidate.encoded())
             addProperty("status",entry.status.name)
+            addProperty("draft",entry.draft)
             entry.creationKey?.let { key ->
                 require(key.publicKey==entry.group.id)
                 addProperty("creationKey",key.exportJson())
@@ -147,7 +155,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         }
         file(entry.group.id).save(EncryptedLocalFile.Contents(1,record.toString()))
         return requireNotNull(load(entry.group.id)).also { check(it.candidate.id == entry.candidate.id && it.status == entry.status &&
-            it.creationKey?.exportJson()==entry.creationKey?.exportJson()) }
+            it.creationKey?.exportJson()==entry.creationKey?.exportJson() && it.draft==entry.draft) }
     }
 
     companion object {
@@ -159,7 +167,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
                 val names=requireNotNull(context.noBackupFilesDir.listFiles()).map{it.name}.filter{it.startsWith(prefix)}
                 val pattern=Regex("${Regex.escape(prefix)}([1-9A-HJ-NP-Za-km-z]{43,45})\\.v1(?:\\.bak|\\.new)?")
                 if(names.any{pattern.matchEntire(it)==null || it.endsWith(".new")}) return@synchronized true
-                GroupChatStore(context,wallet,backend).entries().any{it.status!=Status.FORWARDED}
+                GroupChatStore(context,wallet,backend).entries().any{it.status!=Status.FORWARDED || it.draft.isNotBlank()}
             } catch(_:Exception){true}
         }
     }

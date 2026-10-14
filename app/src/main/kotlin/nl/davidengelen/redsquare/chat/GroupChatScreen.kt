@@ -43,11 +43,54 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         publication.withLock { entries=withContext(Dispatchers.IO) { operation() } }
     }
     var busy by remember(wallet.publicKey,backend) { mutableStateOf(false) }
+    var message by remember(wallet.publicKey,backend,selected){mutableStateOf("")}
+    var draftReady by remember(store,selected){mutableStateOf(false)}
+    var draftFailed by remember(wallet.publicKey,backend,selected){mutableStateOf(false)}
+    var savingForNavigation by remember(wallet.publicKey,backend,selected){mutableStateOf(false)}
+    val draftWrites=remember(wallet.publicKey,backend,selected){Mutex()}
+    val navigation=requireNotNull(nl.davidengelen.redsquare.feed.LocalPostNavigation.current)
+    suspend fun persistDraft(allowBusy:Boolean=false):Boolean = withContext(Dispatchers.Main.immediate) {
+        draftWrites.withLock {
+            if(busy&&!allowBusy)return@withLock false
+            val id=selected ?: return@withLock true
+            if(!draftReady)return@withLock true
+            if(entries.firstOrNull{it.group.id==id}?.status!=GroupChatStore.Status.FORWARDED)return@withLock true
+            try {
+                val typed=message
+                withContext(NonCancellable){publish{store.saveDraft(id,typed);store.entries()}}
+                draftFailed=false
+                true
+            } catch(cancelled:CancellationException){throw cancelled}
+            catch(_:Exception){draftFailed=true;false}
+        }
+    }
+    DisposableEffect(store,selected,navigation) {
+        val save:suspend()->Boolean={
+            savingForNavigation=true
+            try{persistDraft()}finally{savingForNavigation=false}
+        }
+        navigation.saveCurrent=save
+        onDispose{if(navigation.saveCurrent===save)navigation.saveCurrent=null}
+    }
+    LaunchedEffect(store,selected) {
+        draftReady=false
+        val id=selected ?: return@LaunchedEffect
+        try {
+            message=withContext(Dispatchers.IO){requireNotNull(store.load(id)).draft}
+            draftReady=true;draftFailed=false
+        } catch(cancelled:CancellationException){throw cancelled}
+        catch(_:Exception){draftFailed=true}
+    }
+    LaunchedEffect(draftReady,message) {
+        if(!draftReady||busy)return@LaunchedEffect
+        delay(300)
+        persistDraft()
+    }
     fun act(operation:suspend()->Unit) {
-        if(busy)return
+        if(busy||savingForNavigation)return
         busy=true;sendFailed=false
         scope.launch {
-            try{operation()}
+            try{if(persistDraft(allowBusy=true))operation()}
             catch(cancelled:CancellationException){throw cancelled}
             catch(_:Exception){sendFailed=true}
             finally{busy=false}
@@ -69,7 +112,10 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     var leaving by remember(selected) { mutableStateOf(false) }
     var inviting by remember(selected) { mutableStateOf(false) }
     var refresh by remember { mutableIntStateOf(0) }
-    fun back() { if(!busy) { if(selected==null) onBack() else selected=null } }
+    fun back() {
+        if(busy||savingForNavigation)return
+        scope.launch{if(navigation.save()){if(selected==null)onBack() else selected=null}}
+    }
     BackHandler { back() }
     LaunchedEffect(store,refresh) {
         loaded=false
@@ -135,7 +181,6 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         } catch(cancelled:CancellationException){throw cancelled}
         catch(_:Exception){historyFailed=true}
     }
-    var message by remember(wallet.publicKey,backend,selected){mutableStateOf("")}
     val entry = entries.firstOrNull { it.group.id == selected }
     Column(modifier.fillMaxSize(),verticalArrangement=Arrangement.spacedBy(8.dp)) {
         Row(verticalAlignment=Alignment.CenterVertically) {
@@ -145,7 +190,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         }
         Text(stringResource(R.string.group_privacy),style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
         Text(stringResource(R.string.chat_available_history),style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
-        if(readFailed || historyFailed || sendFailed) Text(stringResource(R.string.group_error),color=MaterialTheme.colorScheme.error)
+        if(readFailed || historyFailed || sendFailed || draftFailed) Text(stringResource(R.string.group_error),color=MaterialTheme.colorScheme.error)
         if(entry==null) {
             Row(horizontalArrangement=Arrangement.spacedBy(8.dp)) {
                 Button(enabled=loaded&&!busy,onClick={creating=true}) { Text(stringResource(R.string.group_create)) }
@@ -203,8 +248,8 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             }
             Row(verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(8.dp)){
                 OutlinedTextField(message,{message=it},Modifier.weight(1f),
-                    label={Text(stringResource(R.string.chat_message))},enabled=!busy&&entry.group.memberRoles[wallet.publicKey]?.active==true,maxLines=4)
-                Button(enabled=loaded&&!busy&&!readFailed&&entry.status==GroupChatStore.Status.FORWARDED&&
+                    label={Text(stringResource(R.string.chat_message))},enabled=draftReady&&!busy&&!savingForNavigation&&entry.status==GroupChatStore.Status.FORWARDED&&entry.group.memberRoles[wallet.publicKey]?.active==true,maxLines=4)
+                Button(enabled=loaded&&draftReady&&!busy&&!savingForNavigation&&!readFailed&&entry.status==GroupChatStore.Status.FORWARDED&&
                     entry.group.memberRoles[wallet.publicKey]?.active==true&&message.isNotBlank(),onClick={
                     act {
                         val candidate=withContext(Dispatchers.IO){GroupChat.message(wallet,entry.group,message,System.currentTimeMillis())}
