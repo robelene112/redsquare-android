@@ -73,6 +73,15 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
 
     companion object {
         private val gson = GsonBuilder().setStrictness(Strictness.STRICT).create()
-        fun hasWork(context: Context, wallet: SaitoWallet, backend: SaitoBackend): Boolean = false
+        /** Unfinished or unreadable matching work conservatively retains wallet-replacement disclosure. */
+        fun hasWork(context: Context, wallet: SaitoWallet, backend: SaitoBackend): Boolean = synchronized(SaitoLocalState.lock) {
+            try {
+                val prefix="groupchat.${backend.id}.${wallet.publicKey}."
+                val names=requireNotNull(context.noBackupFilesDir.listFiles()).map{it.name}.filter{it.startsWith(prefix)}
+                val pattern=Regex("${Regex.escape(prefix)}([1-9A-HJ-NP-Za-km-z]{43,45})\\.v1(?:\\.bak|\\.new)?")
+                if(names.any{pattern.matchEntire(it)==null || it.endsWith(".new")}) return@synchronized true
+                GroupChatStore(context,wallet,backend).entries().any{it.status!=Status.FORWARDED}
+            } catch(_:Exception){true}
+        }
     }
 }

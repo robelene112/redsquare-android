@@ -242,3 +242,13 @@ Relay original and four inviteclaims pass, with no reopen transmission. Separate
 sourcegate38514890979 SUCCESS. Newer ordered publication fix reviewed0/0.
 Pending group-work discovery tracer compiled3m5s; hasWork stub deliberately false
 before actual RED. It is not wired into wallet import yet; disclosure finding open.
+
+Work-discovery RED17run38515688441/ce808a84:2cases/30.676s, false-stub work
+check fails at112 while creation/member/invite/reopen passes at ordered source.
+This verifies the existing UI flow after source fix but not controlled race timing.
+Minimum hasWork now includes UNKNOWN/SUBMITTED records, unfinished names and
+unreadable matching state; wallet import checks both backend namespaces.
+Spec review strengthened the tracer to actually select the other backend before
+aggregation; forwarded/unfinished/corrupt negatives added before GREEN. Identity
+remains unchanged; only the fixture's random group files and selection are restored.
+Compile/native GREEN and actual import-warning UI integration remain pending.

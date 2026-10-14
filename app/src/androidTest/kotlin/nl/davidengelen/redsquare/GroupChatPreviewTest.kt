@@ -110,15 +110,28 @@ class GroupChatPreviewTest {
             val store=nl.davidengelen.redsquare.chat.GroupChatStore(context,wallet,selected)
             store.prepareCreation(candidate)
             check(nl.davidengelen.redsquare.chat.GroupChatStore.hasWork(context,wallet,selected))
+            val other=SaitoBackend.entries.single{it!=selected}
+            check(!nl.davidengelen.redsquare.chat.GroupChatStore.hasWork(context,wallet,other))
+            AndroidBackendStore(context).save(other)
             val outgoing=SaitoBackend.entries.any { nl.davidengelen.redsquare.chat.GroupChatStore.hasWork(context,wallet,it) }
             check(outgoing)
+            check(nl.davidengelen.redsquare.chat.GroupChatStore.hasWork(context,wallet,selected))
             store.record(groupKey.publicKey,candidate.id,nl.davidengelen.redsquare.chat.GroupChatStore.Status.SUBMITTED)
+            check(nl.davidengelen.redsquare.chat.GroupChatStore.hasWork(context,wallet,selected))
+            store.record(groupKey.publicKey,candidate.id,nl.davidengelen.redsquare.chat.GroupChatStore.Status.FORWARDED)
+            check(!nl.davidengelen.redsquare.chat.GroupChatStore.hasWork(context,wallet,selected))
+            // Fault injection at the filesystem boundary; corrupt or unfinished work cannot suppress disclosure.
+            val unfinished=File(context.noBackupFilesDir,"$prefix.new")
+            unfinished.writeBytes(byteArrayOf(1))
+            check(nl.davidengelen.redsquare.chat.GroupChatStore.hasWork(context,wallet,selected))
+            check(unfinished.delete())
+            File(context.noBackupFilesDir,prefix).writeBytes(byteArrayOf(1))
             check(nl.davidengelen.redsquare.chat.GroupChatStore.hasWork(context,wallet,selected))
             val unrelated=SaitoWallet.create()
             check(!nl.davidengelen.redsquare.chat.GroupChatStore.hasWork(context,unrelated,selected))
             check(AndroidWalletStore(context).loadExisting().exportJson()==wallet.exportJson())
         } catch(failure:Throwable){primary=failure;throw failure}
-        finally {cleanupAfterTest(primary,{synchronized(SaitoLocalState.lock){
+        finally {cleanupAfterTest(primary,{AndroidBackendStore(context).save(selected)},{synchronized(SaitoLocalState.lock){
             context.noBackupFilesDir.listFiles()!!.filter{it.name==prefix||it.name=="$prefix.bak"||it.name=="$prefix.new"}.forEach{check(it.delete())}
         }})}
     }

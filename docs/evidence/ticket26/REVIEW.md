@@ -97,3 +97,9 @@ Whole-ticket group/key/retry/join/leave/history acceptance remains pending.
 Ordered publication correctione30f7d53...db2292c5: Standards0 and Spec0, source
 race resolved and no reverse-lock order identified. Pending-work disclosure
 remains separate; originale30native flow1PASS33.884s does not prove newer fix.
+
+Pending tracerdb2292c5...ce808a84: Standards0; Spec1, backend aggregation used
+only the selected backend. Corrected to change selection before aggregation and
+restore it during cleanup. ActualRED fails earlier false-stub check; later stronger
+backend/fault assertions are not claimed until GREEN. Minimum detector and wallet
+import integration now implemented; compile/device/correction reviews pending.
