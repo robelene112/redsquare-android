@@ -31,8 +31,11 @@ original Following/report/reaction/process/browse captures. New picker helper
 26c0c7a5 is unexecuted here; production source is equivalent to corrected10.
 Android10 full `38484421113` failed in report backup selection after178 reported
 cases (177 passes/one existing API29 assumption); the later full tail did not run.
-Corrected full10 `38487263465` at90c85603 is active after the test-only
-picker correction26c0c7a5. Do not cancel
+Corrected full10 `38487263465` at90c85603 passed after the test-only
+picker correction26c0c7a5:272 reported/271PASS/one existing profile assumption,
+57completion records/19actualdeaths/core86 and complete source/runtime/release/
+lint/update gates. Retainedfinal-full/android10; root parsed176 XMLs/viewed six
+originals. Final evidence reviews and publication are pending. Do not cancel
 or redispatch the active17 run without results or a new concern. These reruns include the latest product fix
 `b7541e6a`, which consolidates four feed navigation buttons into two rows.
 Actual diagnostic run `38483374543` captured a screen entirely consumed by
