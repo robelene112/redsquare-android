@@ -45,13 +45,31 @@ Local .scratch/review-builds/14; publicrecords docs/evidence/ticket37/signed-pre
 No store/node/service/ingresschange. Current14physicalPixel/continuity/performance
 remain35. Preview13superseded;12neverpublished.
 
-**Active #26 checkpoint, 2026-10-14 16:58 UTC:** #26 OPEN,21 original tickets
+**Active #26 checkpoint, 2026-10-14 17:45 UTC:** #26 OPEN,21 original tickets
 complete. Finish #26 and signed review build, then STOP for storage migration until
 explicit owner resume. Public signed14 remains current. Protected untracked group
 contract stays untouched. Do not start another ticket or UI polish.
 
-Current HEADd6697fd5, remote08f45d12. Owned local Gradle1458 ACTIVE,
-.scratch/group26-actions-minimum-build.log. No app/core/test edits until complete.
+Current source875cccd70570754439dd51dc860f03fee9359c45 is pushed and exact remote
+HEAD verified. Local Gradle12709 completed PASS4m43 (production and test APK,
+before the one-line chatwork ownership correction). No owned local build active.
+Actual mixed-reception RED run38609275290 is in progress on Android10. Group
+reception still handles groups only, private reception private only, intentionally
+unchanged until this concrete RED. Shared authenticated durable routing is next.
+
+Actual action1 PASS12.919s at e42789d06b395abd9ab3199981491437df158846,
+run38605779182, including self replies, sensitive Copy, exact raw/inner/outer wire
+and cached reopening. In the same run group22 had21PASS/1FAIL124.439s: valid wallet
+with optional malformed chat.groups row throws in Main composition. Actual RED
+retained in native-hints-composition-red-android10. Group PID did not run.
+Corrections9da254dc loads hints in guarded IO without losing cached access or
+changing backup; f9ccf982 keeps receipt failure flag/channel/collector across
+metadata reconnects. New mixed tracer8617b2c4 compiled;875cccd7 adds exact private
+chatwork file family to absence guard and cleanup. Bounded reviews0 subject to
+that known cleanup correction, now independently re-reviewed. Actual corrected
+hints/actions/mixed/PID GREEN both SDK and final full acceptance remain pending.
+
+Earlier chronology below remains qualified to each source, not current acceptance.
 
 Imported-hints/discovery and all21 existing named-group cases GREEN at
 f25c90059e1488e50e5a129c1967f3e1e1d1009f: Android10run38598680108/118.174s,
