@@ -33,16 +33,21 @@ Source reviews ca2...8f both0; refinement8f...a533 Spec0/Standards0 hard+one
 possible duplicated tab shape; a533...4c both0, duplication resolved. Last local
 a533 debug/testAPK PASS3m3s; signed4c release PASS3m4s.
 
-**Owned corrected final full runtime:** Android10run38497736473 and17run38497738892,
-exacte95e127f527ae031425813044f01f9fa5223f1b6, public_feed_read=true. Product
-equivalent to4c/signed14. First4c full17 failedVideo280 instantaneous DOM Playing
-check before backgrounding; originalPNG/XMLshowPlaying afterfailure.10failed
-Username564 ambiguous2pubkeynodes, exact Wallet address confirmed in original.
-No product defect established. Corrected fixtures preserveexactpredicates, scopes
-andexisting10s deadline; both bounded reviewaxes0. Firstfailures retained
-docs/evidence/ticket37/full-attempt1. Corrected runs still active. Includes new Appearance and publicChat + both public
-feeds. Do not claim full acceptance or close37 before results/original captures,
-separate evidence reviews, publication and source/hash verification.
+**Owned final full runtime:** Android10run38501541774 and17run38501544092,
+exact190690150569af28e3eeeb706fa38ca9c82d7881, public_feed_read=true.
+Workflow allowance60minutes; individual deadlines/predicates unchanged. Product
+still equals4c/signed14. Corrected e95 full10/17 attempts ran every counted class:
+10 276reported/275PASS+oneexistingAPI30profileassumption/61records;17 277PASS/
+62records;19actualdeaths each. Both hit explicit40m workflow cancellation.
+10finaldiagnosticPASS appears just before cancellation;17diagnostictail interrupted.
+These are retained in full-attempt2, not accepted complete workflows.
+New full source includes437 privacy-only static wallet assertion diagnostics.
+First4c selectorfailures retained in full-attempt1. Source corrections bothaxes0.
+Root parsed378 attempt2XMLs, scanned text withzero secretmarkers and viewed current
+10Light/17Dark,10forwardedChat/coldrecovery and17publicownerfeed originals.
+Bounded Standards0 and Spec0, independent1,108hash/378XML checks. Do not close37/publish until successful
+final full results, original inspection, separate evidence reviews and public
+artifact verification. Protected untracked26research remains untouched.
 
 **Prepared signed14/0.1.14:** .scratch/review-builds/14, manifest exact4c. NOT
 published yet; website still13. APK dffba7dbdddaa18b090d61fcbb69366f4084289b424c7d37788b956f48a58364;

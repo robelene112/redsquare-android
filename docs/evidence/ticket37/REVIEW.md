@@ -59,3 +59,21 @@ Root also inspected current product4c private Chat originals from its earlier
 successful24history/10action checks, while the containing full17 run failed
 later. Captures in chat-visuals-4c retain this qualification. Final full acceptance
 and evidence review remain outstanding.
+
+## Time-limit follow-up, d4824273...19069015
+
+Standards: zero documented breaches/actionable heuristics. Independent1,108hashes
+and378XMLs/rawcount/status checks pass; no secretmarkers/encrypted installation
+files/failure summaries found. Original dark-feed/forwardedreply inspected onboth
+SDKs. Only workflow40→60minutes changes; individual deadlines/predicates intact.
+Cancelled40m workflows remain clearly qualified, not accepted/published.
+
+Spec: zero actionable findings. Counts/status/deaths/hashes/source match explicit
+cancel annotations. Six original feed/theme/reply/cold-draft captures acrossSDKs
+show selected readable controls, direction, literaltext/drafts/truthfulstatus.
+Not exhaustive accessibility/physicalproof. Successful final reruns and signed14
+publication remain required. Parent35 remainsopen.
+
+Root additionally viewed10partialcachedFollowing,17uncertainReport and17cached
+Conversation originals; availablepost/replies remainreadable, serverunavailable
+indicator and reportUnknown/explicitSend retain original semantics.

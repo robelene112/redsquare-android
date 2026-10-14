@@ -193,3 +193,20 @@ e95 selector-fix reviews: Standards0, Spec0. Exact wallet key+address semantics
 prevents a feed label replacing the identity assertion; the video wait uses the
 same strict Playing observation with a bounded existing deadline. No product,
 playback, identity or no-publication predicate is weakened. Runtime still needed.
+
+Corrected e95 full attempts completed every counted class, then were cancelled
+by the explicit GitHub40m job ceiling. Retained full-attempt2 Android10 has
+276reported/275PASS/oneexistingAPI30profileassumption,61records and19actualdeaths;
+17has277PASS,62records and19actualdeaths.10diagnosticPASS is logged immediately
+before cancellation;17diagnostictail interrupted. No assertion failure recorded.
+These counts are qualified cancelled-workflow evidence, not final acceptance.
+Root parsed378XMLs and scanned text withoutsecretfieldmarkers; inspected original
+10Light/17Dark feed,10forwardedreply/coldrecovery and17publicOwnerfeed.
+
+19069015 changes only workflow allowance40→60minutes. Individual deadlines,
+acceptance assertions and test selection are unchanged. It also retains the
+previous evidence. Fresh full10run38501541774 and17run38501544092 at
+190690150569af28e3eeeb706fa38ca9c82d7881 are active, public_feed_read=true.
+These include the separately proven diagnostic-only437 full-wallet assertion
+message change. App/core production equals4c/signed14. Final successful workflow
+results and separate evidence reviews/publication remain outstanding.
