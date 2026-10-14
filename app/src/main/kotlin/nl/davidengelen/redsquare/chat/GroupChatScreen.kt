@@ -22,6 +22,8 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.*
+import nl.davidengelen.redsquare.moderation.LocalPersonalControls
+import nl.davidengelen.redsquare.moderation.PersonalControlsStatus
 
 /** Named-group UI is separate from private Chat and shares the selected wallet/backend. */
 @Composable
@@ -29,6 +31,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     onWalletMetadata: suspend (SaitoWallet,SaitoWallet) -> Unit, onBack: () -> Unit) {
     val context = LocalContext.current.applicationContext
     val scope = rememberCoroutineScope()
+    val personal = LocalPersonalControls.current
     val store = remember(wallet,backend) { GroupChatStore(context,wallet,backend) }
     var entries by remember(wallet.publicKey,backend) { mutableStateOf<List<GroupChatStore.Entry>>(emptyList()) }
     var selected by remember(wallet.publicKey,backend) { mutableStateOf<String?>(null) }
@@ -214,6 +217,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         }
         Text(stringResource(R.string.group_privacy),style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
         Text(stringResource(R.string.chat_available_history),style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
+        PersonalControlsStatus(personal)
         if(readFailed || sendFailed || draftFailed) Text(stringResource(R.string.group_error),color=MaterialTheme.colorScheme.error)
         if(historyFailed) Text(stringResource(R.string.group_history_error),color=MaterialTheme.colorScheme.onSurfaceVariant)
         if(liveFailed) Text(stringResource(R.string.group_live_error),color=MaterialTheme.colorScheme.onSurfaceVariant)
@@ -270,7 +274,8 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             val messagesLabel=stringResource(R.string.group_messages)
             LazyColumn(Modifier.weight(1f).semantics{contentDescription=messagesLabel},
                 verticalArrangement=Arrangement.spacedBy(8.dp)) {
-                items(entry.messages,key={it.id}){item->
+                items(entry.messages.filter{personal?.ready==true &&
+                    (it.author==wallet.publicKey || !personal.policy.hidesIncomingChat(it.author))},key={it.id}){item->
                     Column(Modifier.fillMaxWidth().padding(horizontal=8.dp,vertical=4.dp)){
                         Text(item.author,style=MaterialTheme.typography.labelSmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
                         SelectionContainer{Text(item.text,style=MaterialTheme.typography.bodyLarge)}
@@ -279,8 +284,8 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             }
             Row(verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(8.dp)){
                 OutlinedTextField(message,{message=it},Modifier.weight(1f),
-                    label={Text(stringResource(R.string.chat_message))},enabled=draftReady&&!busy&&!savingForNavigation&&!entry.hasPendingAction&&entry.group.memberRoles[wallet.publicKey]?.active==true,maxLines=4)
-                Button(enabled=loaded&&draftReady&&!busy&&!savingForNavigation&&!readFailed&&!entry.hasPendingAction&&
+                    label={Text(stringResource(R.string.chat_message))},enabled=personal?.ready==true&&draftReady&&!busy&&!savingForNavigation&&!entry.hasPendingAction&&entry.group.memberRoles[wallet.publicKey]?.active==true,maxLines=4)
+                Button(enabled=personal?.ready==true&&loaded&&draftReady&&!busy&&!savingForNavigation&&!readFailed&&!entry.hasPendingAction&&
                     entry.group.memberRoles[wallet.publicKey]?.active==true&&message.isNotBlank(),onClick={
                     act {
                         val candidate=withContext(Dispatchers.IO){GroupChat.message(wallet,entry.group,message,System.currentTimeMillis())}
