@@ -7,90 +7,61 @@ one question at a time when a material choice really needs the owner.
 
 ## Current work
 
-Verified 2026-10-13 at 23:55 UTC. #25 is active. Twenty of the original 35
-implementation tickets are closed (#2–#15, #18, #20–#24).
+Updated 2026-10-14. #25 is complete and closed. Twenty-one of the original35
+implementation tickets are closed (#2–#15, #18, #20–#25).
 
-**Owner priority:** finish #25, then implement [early visual beta #37](https://github.com/robelene112/redsquare-android/issues/37)
-before #26 and the remaining features. Polish the existing screens into a beta
-David can share with friends. #37 is a child of #35; it does not complete #35's
-full-scope acceptance or physical Pixel measurements. Keep tickets sequential.
+**Active owner priority:** [early visual beta #37](https://github.com/robelene112/redsquare-android/issues/37),
+child of #35, is next before group Chat #26. Polish the implemented screens for
+sharing with friends: coherent native navigation, type, spacing, avatars, states,
+light/dark/system themes and app presentation. Keep vanilla Red Square familiar.
+Do not reopen settled app-wide scope or grill each implementation detail.
 
-**Current product:** private Chat includes encrypted send/read, imported and
-cached available history, older pagination, Reply/Copy, compatible reactions,
-exact manual retries, drafts and actual process recovery. Source review base is
-`c102f891`; full source reviews and subsequent fixes have no remaining actionable
-findings. Canonical research: `docs/research/NATIVE_PRIVATE_CHAT_VERIFICATION.md`;
-separate review reports: `docs/evidence/ticket24/REVIEW.md`.
+Starting review base for37 is the private Chat delivery commit `ca2ade6a`.
+Owner authorizes sequential implementation, per-ticket commits/push and signed
+review updates. No parallel ticket implementation. Code-review subagents remain
+permitted; ask one question only if a material product choice needs the owner.
+Read issue37/#1/#35 and existing web presentation before choosing styling.
 
-**Current acceptance:** Android17 full `38484424347` at4e3a6ea7 passed.
-Complete273PASS/58completion records/19actualdeaths/no assumptions/core86,
-source/release/lint and every current feature/recovery/update gate. Both final
-evidence review axes0; independent273/58/19 recount,509 hashes and178 XMLs. Retained
-`docs/evidence/ticket24/final-full/android17`; root parsed178 XMLs/viewed six
-original Following/report/reaction/process/browse captures. New picker helper
-26c0c7a5 is unexecuted here; production source is equivalent to corrected10.
-Android10 full `38484421113` failed in report backup selection after178 reported
-cases (177 passes/one existing API29 assumption); the later full tail did not run.
-Corrected full10 `38487263465` at90c85603 passed after the test-only
-picker correction26c0c7a5:272 reported/271PASS/one existing profile assumption,
-57completion records/19actualdeaths/core86 and complete source/runtime/release/
-lint/update gates. Retainedfinal-full/android10; root parsed176 XMLs/viewed six
-originals. Both final evidence review axes0. Signed13 publication/public checksum verified;
-ticket closure is next. Both full proofs are complete; no device run remains active. These reruns include the latest product fix
-`b7541e6a`, which consolidates four feed navigation buttons into two rows.
-Actual diagnostic run `38483374543` captured a screen entirely consumed by
-backup, navigation and outage text, leaving no visible Following feed. The fix
-preserves labels, destinations and wallet guards, freeing 96 dp. Both review
-axes report zero findings; debug/test APK compilation passed in 2m40s.
+**Completed private Chat proof:** Android17 full38484424347 at4e3a6ea7 passes
+273 cases/58completion records/19actualdeaths/no assumptions. Corrected Android10
+full38487263465 at90c85603 passes272reported/271PASS/one existing API30 profile
+assumption/57records/19actualdeaths. Both pass core86, source/debug/test/release,
+lint and every current feature/recovery/wallet/update gate. Both final evidence
+review axes0; checksums/XMLs/checkpoints independently verified. Production is
+equivalent;10-only scoped picker correction preserves all predicates and the17
+companion qualifies under WORKFLOW. Failed originals/diagnostics remain retained.
+See `docs/evidence/ticket24/final-full/android{10,17}`, REVIEW.md, public-feed and
+public-read. Private Crypto/constructors/receivers use independent pinned Saito
+references. Public reads and controlled writes remain distinct.
 
-Before that layout fix, focused final Chat checks passed both versions at
-`a47370b5`: Android 10 run `38481767940` (24 history and 10 action tests),
-Android 17 run `38481770606` (same counts). Actual process recovery retained
-wallet/backend, cached originals, draft and uncertain message/reaction originals
-without transmissions. Both subsequent full attempts also passed these Chat
-checks and browse8, then stalled in Following. Later full-app checks did not
-execute in those failed attempts. Current corrected full acceptance is pending.
-
-Separately enabled public-feed checks passed Android10 `38485558410` and
-Android17 `38485560813`, source `0e4cc7df`. Product source equals4e3a6ea7;
-only documentation/evidence changed. Both supported backends use fresh test
-identities for read-only feed/balance/funding views; no public writes.
-Evidence is retained in `docs/evidence/ticket24/public-feed/android{10,17}-final`.
-Initial10 Official bitmap displays Owner-domain text while finalOfficial screen
-and selected-backend assertions/queries are correct; no cause is claimed.
-All17 initial/final feed captures show the proper selected domain. Earlier
-fresh private Chat public service/read contracts passed both SDKs at c76 source;
-protocol source is unchanged by the feed-layout repair.
-
-Report failure evidence: `docs/evidence/ticket24/full-regression/android10-report-picker-offscreen`.
-Root inspected the selected provider content grid; an already authenticated and
-verified original backup was below the visible files. Helper26c0c7a5 scopes a
-bounded exact-filename scroll to that positively identified provider content.
-The30s deadline and import/auth/consent/full-wallet/retry assertions are unchanged.
-Both review axes report0 findings; test APK compilation passed1m36s. Product
-source is unchanged, so signed13 and the public-read evidence remain applicable.
-The corrected full10 proof can accompany17 per WORKFLOW if both succeed.
-
-**Phone review:** current public preview13 is https://davidengelen.nl/redsquare/.
-Signed preview13 is published at the stable review page; local artifact
-is `.scratch/review-builds/13/`.
-`review-build` session13639 completed successfully in 2m41s. Version0.1.13,
-package `nl.davidengelen.redsquare`, same signing certificate. Public metadata
-is retained in `docs/evidence/ticket24/signed-preview13-prepared/`; APK hash
+**Current phone build:** preview13/0.1.13 at https://davidengelen.nl/redsquare/.
+Published after final gates; public manifest and downloaded APK checksum verified.
+Package/signing identity unchanged. APK hash
 `8b822577599a9f2864ec352088d0a2cbba4159a847099aaec6d9154ea00cf3b6`.
-Manifest source `21ee1c85` differs from CI4e3a6ea7 only in documentation.
-Preview12 is superseded and must not be published as this ticket's completion.
-Publish13 only after corrected runtime acceptance, using the canonical script,
-then retain results, complete #25 and start #37. Physical Pixel/current13
-continuity is not established by package/certificate metadata; #35 retains it.
+Local `.scratch/review-builds/13`, public metadata in
+`docs/evidence/ticket24/signed-preview13-prepared`. Current13/physical Pixel
+continuity and five cached/fresh launch measurements remain35; signed5-to8 and
+emulator evidence do not establish them. Preview12 was superseded/unpublished.
 
-No owned Gradle process remains. Compiler58932 completed test APK1m36s.
-Current local changes are documentation and
-evidence commits plus protected untracked
-`docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`, which belongs to #26. Never stage
-or delete that file. No production node/configuration/private-wallet/database
-writes or store submission are authorized. Public reads and signed review-site
-publication follow the existing scope. Commit/push each completed ticket.
+UI37 must preserve the wallet, safeguards, backend choice, drafts, cache and
+signed-operation identity. Global app theming should help all implemented screens;
+compact navigation should stop fixed controls consuming the feed. Current app has
+no custom launcher icon and defaults to the unconfigured Material3 palette. Pinned
+web tweet presentation uses avatar/content columns and compact name/time identity;
+relevant copies are `.scratch/content-bounds-research/...redsquare-tweet.css` and
+`.scratch/quote-proof-source/B-node_mods_redsquare_lib_tweet-header.template.js`.
+Reuse native generated Saito identicons and code/vector icons. No bitmap generator
+is needed for these controls. Product copy remains English and has no em dashes;
+user content is preserved. Platform UI/recovery seams are already authorized.
+
+Group Chat, Chat media, offline Chat queues and closed-app push remain in their
+original tickets.37 is a visual beta slice;35 remains the integrated final scope
+and physical acceptance. After37, resume26 and the rest sequentially.
+
+No owned Gradle or device proof remains active. Protected untracked
+`docs/research/NATIVE_GROUP_CHAT_CONTRACT.md` belongs to26; never stage/delete it.
+No production node/configuration/private-wallet/database writes or store
+submission are authorized. Signed review-site publication is authorized.
 
 ## Historical checkpoints
 
