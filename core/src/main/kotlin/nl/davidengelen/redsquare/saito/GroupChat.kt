@@ -18,7 +18,10 @@ class NamedChatGroup internal constructor(val id: String, val name: String,
 
 /** Compatible unencrypted named-group controls; participants sign with their own wallet. */
 object GroupChat {
-    fun originalEnvelope(networkTransaction:ByteArray):String = throw UnsupportedOperationException("Group network original pending")
+    /** Extract only. readMessage/replay must authenticate before accepting the original. */
+    fun originalEnvelope(networkTransaction:ByteArray):String = SaitoEnvelope.originalChatEnvelope(networkTransaction){payload->
+        payload.isJsonObject && payload.asJsonObject.requiredString("module")=="Chat"
+    }
 
     /** Replay observed originals from their retained origin, never by sorting authority timestamps. */
     fun replay(origin:NamedChatGroup,originals:List<String>):GroupChatReplay {

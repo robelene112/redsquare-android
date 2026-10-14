@@ -41,6 +41,20 @@ object SaitoEnvelope {
         }.toString()
     }
 
+    /** Framing only. The outer Relay can be unsigned; callers authenticate the returned original. */
+    internal fun originalChatEnvelope(networkTransaction:ByteArray,acceptsDirect:(JsonElement)->Boolean):String {
+        val outer=unverifiedNetworkEnvelope(networkTransaction)
+        val detached=gson.fromJson(outer,JsonObject::class.java)
+        val bytes=Base64.getDecoder().decode(detached.get("m").asString)
+        val text=Charsets.UTF_8.newDecoder().onMalformedInput(CodingErrorAction.REPORT)
+            .onUnmappableCharacter(CodingErrorAction.REPORT).decode(ByteBuffer.wrap(bytes)).toString()
+        val payload=gson.fromJson(text,JsonElement::class.java)
+        if(acceptsDirect(payload))return outer
+        require(payload.isJsonObject && payload.asJsonObject.get("module")==com.google.gson.JsonPrimitive("Relay") &&
+            payload.asJsonObject.get("request")==com.google.gson.JsonPrimitive("chat relay"))
+        return fromSignedJson(payload.asJsonObject.getAsJsonObject("data"))
+    }
+
     /** Reconstruct the original signed payload from Relay's inner client JSON. Outer Relay is not trusted. */
     fun fromSignedJson(inner: JsonObject): String {
         val inputs = inner.getAsJsonArray("from")
