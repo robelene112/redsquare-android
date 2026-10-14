@@ -95,8 +95,20 @@ verify_group_chat_actions() {
         > "$evidence/group-chat-actions-evidence.tar" || true
     [[ "$group_actions_exit" == 0 ]] && grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/group-chat-actions-ui.txt"
 }
+verify_chat_mixed_reception() {
+    local mixed_exit=0
+    timeout 60 adb shell am instrument -w -r \
+        -e class nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest \
+        nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+        > "$evidence/chat-mixed-ui.txt" || mixed_exit=$?
+    printf '%s\n' "$mixed_exit" > "$evidence/chat-mixed-ui-exit.txt"
+    adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - chat-mixed-evidence \
+        > "$evidence/chat-mixed-evidence.tar" || true
+    [[ "$mixed_exit" == 0 ]] && grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/chat-mixed-ui.txt"
+}
 if [[ "${TEST_SCOPE:-full}" == group-ui* ]]; then
     verify_group_chat_actions
+    verify_chat_mixed_reception
     verify_group_chat_ui
     python3 "$repo_dir/scripts/group-chat-process-check" --evidence "$evidence/group-chat-process"
     printf '%s\n' 'Focused native named-group UI only; complete acceptance and live writes not run.' > "$evidence/scope.txt"
@@ -176,6 +188,7 @@ fi
 if [[ "${TEST_SCOPE:-full}" == full ]]; then
     verify_group_chat_ui
     verify_group_chat_actions
+    verify_chat_mixed_reception
     python3 "$repo_dir/scripts/group-chat-process-check" --evidence "$evidence/group-chat-process"
     verify_private_chat
     verify_private_chat_ui
