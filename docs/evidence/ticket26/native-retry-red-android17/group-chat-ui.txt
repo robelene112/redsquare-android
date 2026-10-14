@@ -1,0 +1,126 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.GroupChatPreviewTest:
+INSTRUMENTATION_STATUS: test=anInterruptedCreationCanRetryItsSavedOriginalAndRecoverKeyMetadataWithoutAutomaticSending
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Retry' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.exerciseGroupUi$lambda$23$lambda$22$lambda$21(GroupChatPreviewTest.kt:69)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.$r8$lambda$k3fCDN4Au_uk-3nbposz1jZ1tBk(GroupChatPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.exerciseGroupUi(GroupChatPreviewTest.kt:55)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.exerciseGroupUi$default(GroupChatPreviewTest.kt:24)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.anInterruptedCreationCanRetryItsSavedOriginalAndRecoverKeyMetadataWithoutAutomaticSending(GroupChatPreviewTest.kt:22)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anInterruptedCreationCanRetryItsSavedOriginalAndRecoverKeyMetadataWithoutAutomaticSending(nl.davidengelen.redsquare.GroupChatPreviewTest):
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Retry' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.exerciseGroupUi$lambda$23$lambda$22$lambda$21(GroupChatPreviewTest.kt:69)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.$r8$lambda$k3fCDN4Au_uk-3nbposz1jZ1tBk(GroupChatPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.exerciseGroupUi(GroupChatPreviewTest.kt:55)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.exerciseGroupUi$default(GroupChatPreviewTest.kt:24)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.anInterruptedCreationCanRetryItsSavedOriginalAndRecoverKeyMetadataWithoutAutomaticSending(GroupChatPreviewTest.kt:22)
+
+INSTRUMENTATION_STATUS: test=anInterruptedCreationCanRetryItsSavedOriginalAndRecoverKeyMetadataWithoutAutomaticSending
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=savedUncertainGroupWorkIsIncludedInOutgoingWalletWorkAcrossBackends
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=savedUncertainGroupWorkIsIncludedInOutgoingWalletWorkAcrossBackends
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anExistingMemberInvitationCanBeConfirmedOnTheSelectedBackendAndReadAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anExistingMemberInvitationCanBeConfirmedOnTheSelectedBackendAndReadAfterReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=leavingANamedGroupRetainsTheSignedDepartureAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=leavingANamedGroupRetainsTheSignedDepartureAfterReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=creationKeySurvivesReopeningBeforeWalletMetadataCanBePublished
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=creationKeySurvivesReopeningBeforeWalletMetadataCanBePublished
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aNamedGroupCanBeCreatedWithAnInvitationAndReadAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aNamedGroupCanBeCreatedWithAnInvitationAndReadAfterReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 65.228
+There was 1 failure:
+1) anInterruptedCreationCanRetryItsSavedOriginalAndRecoverKeyMetadataWithoutAutomaticSending(nl.davidengelen.redsquare.GroupChatPreviewTest)
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Retry' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.exerciseGroupUi$lambda$23$lambda$22$lambda$21(GroupChatPreviewTest.kt:69)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.$r8$lambda$k3fCDN4Au_uk-3nbposz1jZ1tBk(GroupChatPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.exerciseGroupUi(GroupChatPreviewTest.kt:55)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.exerciseGroupUi$default(GroupChatPreviewTest.kt:24)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.anInterruptedCreationCanRetryItsSavedOriginalAndRecoverKeyMetadataWithoutAutomaticSending(GroupChatPreviewTest.kt:22)
+
+FAILURES!!!
+Tests run: 6,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

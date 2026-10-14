@@ -74,6 +74,14 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         save(previous.copy(group=GroupChat.applyControl(previous.group,candidate.envelope()),candidate=candidate,status=Status.UNKNOWN))
     }
 
+    /** Explicit retry preserves the original signature, origin and protected group key. */
+    fun prepareRetry(id:String,signature:String):Entry = synchronized(SaitoLocalState.lock) {
+        assertSelected()
+        val previous=requireNotNull(load(id))
+        check(previous.candidate.id==signature && previous.status in listOf(Status.UNKNOWN,Status.SUBMITTED))
+        save(previous.copy(status=Status.UNKNOWN))
+    }
+
     fun assertSelected() {
         check(AndroidWalletStore(context).loadExisting().exportJson() == wallet.exportJson())
         check(AndroidBackendStore(context).load() == backend)
