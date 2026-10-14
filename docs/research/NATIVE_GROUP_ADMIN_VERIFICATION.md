@@ -200,3 +200,13 @@ no stale transmission/re-sign, retained draft/key/original across recreation and
 new real group message afterward. Stop source absent until actual RED. Postcompile
 only durable-precondition wait and literal uncertainty-display assertions added.
 Eleven cases now; first stopRED10 dispatch next while48b ten-case17 remains active.
+
+Focused17run38652150530 at48b1410ae59cdda83ebf41233a1035f2b2fe1f52 SUCCESS:
+ten native management/controller cases75.149s including removal current-authority,
+visible Relay refusal, no automatic retry on recreate and exact explicit Retry.
+Both actual-process promotion/removal recovery stages PASS, unchanged encrypted
+wallet/backend/key/draft/originals under unavailableArchive, zero automatic sends,
+then identical original forwarded once by native Retry, original installation
+restored. Retainednative-admin-green-android17, both PID checkpoints exact. Root
+original removal Retry capture inspected. This source predates new stale-stop
+tracer and durable-precondition correction; no acceptance of those or full27.

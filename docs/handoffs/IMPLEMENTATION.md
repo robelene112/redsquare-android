@@ -30,24 +30,28 @@ Signed15immutable preserved. recordsdocs/evidence/ticket39, no ownedlocalbuildac
 
 Current sequential issue27: admin promotion and member removal, assigned@me.
 Review base7979c655164257e08b184834810de03a80d92b67; prerequisite26 closed.
-Independent A/B constructors/receivers and four focused core cases pass.
-Removal UI GREEN10run38650006951 a95dfbb4:fourPASS/25.556s, exact target Relay,
-visible removed role, retained draft/key/wallet/backend and reopen/no duplicate.
-Both existing stale controller cases pass; original REDs retained and qualified.
-Shared confirmation-dialog correction/new authority-revocation tests7e8050b8:
-compilePASS3m19 and bounded Spec0/Standards0, runtime pending.
-Stale-confirmation RED17run38650278941 atf26cd78c:five cases,fourPASS,onefailure,
-62.23s. After actual peer departure and observed LEFT, missing guidance at133;
-confirmation-disabled/cancel/preservation/no-wire tail unexecuted. Root original
-capture inspected; native-stale-confirm-red-android17 retained. Existing removal
-and promotion/controller cases pass on17. Product guidance now in working tree.
-Process fixture d81bd1e3 extends actual PID/snapshot/restore default reaction with
-promotion/removal, zero autosend then explicit Retry of the identical original.
-CompilePASS1m29/Python/bashPASS; runtime pending. Review found stale synthetic
-capture contamination and repeated action switches, corrected in working tree.
-Build75770PASS2m58s/core4/debug/test verifies guidance/process corrections.
-Whole27 remains open: broader runtime/failure, PID, full10/17, final source/evidence
-reviews and signed phone publication pending. Stable phone beta remains signed16.
+CurrentHEAD f80ed1ed, remote pushed; only protected untracked contract untouched.
+Four focused core cases plus independent A/B constructor/receiver references pass.
+Focused17run38652150530 at48b1410a SUCCESS:ten admin/controller cases75.149s,
+including current authority at both send gates, visible refusal and exact Retry.
+Both actual-process promotion/removal journeys PASS: protected continuity,
+zero autosend, explicit Retry original once and exact installation restoration.
+Retainednative-admin-green-android17; root original Retry capture inspected.
+Focused10attempt38651748924 at3e532776 failed combineddraft/key88 after visible
+stale guidance passed; six othercasesPASS,22.099s. Cause/operand unestablished;
+originaltypedtext retained. Process stages unexecuted. Same15s durable-draft setup
+wait added before incoming change, finalassertions unchanged; reviews0/0.
+Whole source at48b: Standards0; Spec1 stale pending promotion blocks all future
+work without deliberate local recovery. New native stale-stop tracer nowcommitted
+f80, compilePASS1m32 beforetestonlywait/literalUIadditions hostedverificationpending.
+First11caseRED10run38652588023 activeatf80; stop implementation deliberatelyabsent.
+No ownedlocalbuildactive. Ignored .scratch/implement-group27-stale-stop.py is a
+prepared correction proposal; DO NOT execute until actual RED observed/retained.
+It proposes localSTOPPED status and retained uncertain original history, shared
+classification/UIconfirmation plus restored composition, without retransmission.
+Current17GREEN does notaccept this new recovery or latesttestfixture changes.
+Whole27 stillopen: stale-stop RED/GREEN, correction/finalreviews, full10/17,
+nextsignedphonepreview andclosure. Stablebeta remains signed16.
 Canonical chronology docs/research/NATIVE_GROUP_ADMIN_VERIFICATION.md.
 Then28 through36 and parked16/17/19 from native dependencies.16 requires Android-
 authorized Giphy credentials/URLretention;17 publicprovider playbackrefused despite
