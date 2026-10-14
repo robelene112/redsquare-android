@@ -89,3 +89,15 @@ Both protected raw claim and Relay enqueue call it; saved original is not re-sig
 or replaced. Shared memberIds codec has actual factory/guard callers. Compile30441
 PASS3m21s/core4; new nativeGREEN remains pending. Removal and further guards/recovery
 remain separate unfinished27 work.
+
+Corrected stale-target10run38646785704 ata3df6940 SUCCESStwo cases11.887s.
+Both positiveUI and actual before-raw target-departure/retained original/key/draft/
+wallet/backend/no-wire/Retry assertions pass. Sourcepush38646774637 alsoSUCCESS
+core114/release/lint. Retainednative-stale-target-green-android10.
+
+Next additional existing-guard scenario injects an authenticated rename after
+raw submission and before Relay. It requires exactly one original raw transaction,
+zero Relay, truthfulSUBMITTED/current-name/draft/key continuity and refusedRetry
+without a second raw send. Nativefixture compile73693 PASS1m46s. No contrivedRED
+claimed for this additional coverage of the existing corrected gate. Native result
+stillpending. RemovalUI and complete27 delivery remain unfinished.
