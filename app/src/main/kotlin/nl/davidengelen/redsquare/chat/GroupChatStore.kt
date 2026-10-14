@@ -106,6 +106,18 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         }
     }
 
+    /** Validate the chosen promotion against fresh protected state before any network attempt. */
+    fun preparePromotion(candidate:SaitoTransaction,member:String):Entry = synchronized(SaitoLocalState.lock) {
+        assertSelected()
+        val signed=SaitoEnvelope.decode(candidate.envelope())
+        val previous=requireNotNull(load(signed.body.get("group_id").asString))
+        check(!previous.hasPendingAction)
+        // The fresh protected state must still permit exactly the user's chosen promotion.
+        require(GroupChat.promote(wallet,previous.group,member,signed.createdAt).envelope()==candidate.envelope())
+        save(previous.copy(group=GroupChat.applyControl(previous.group,candidate.envelope()),candidate=candidate,
+            status=Status.UNKNOWN,originals=previous.originals+candidate.envelope()))
+    }
+
     /** Retain the signed departure and its observed role before the first network attempt. */
     fun prepareLeave(candidate:SaitoTransaction):Entry = synchronized(SaitoLocalState.lock) {
         assertSelected()
@@ -219,6 +231,10 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
 
     private fun requireActionMembership(entry:Entry) {
         val signed=SaitoEnvelope.decode(requireNotNull(entry.candidate).envelope())
+        if(signed.body.get("request").asString=="chat update") {
+            check(entry.group.memberRoles[wallet.publicKey]==ChatGroupRole.ADMIN)
+            return
+        }
         val selfLeave=signed.body.get("request").asString=="chat remove" &&
             signed.body.get("member_id").asString==wallet.publicKey
         check(if(selfLeave)entry.group.memberRoles[wallet.publicKey]==ChatGroupRole.LEFT

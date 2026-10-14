@@ -432,6 +432,11 @@
     <string name="group_invitees">Invitees (optional)</string>
     <string name="group_invalid_invitees">Enter valid Saito public keys separated by spaces or commas.</string>
     <string name="group_members">Members</string>
+    <string name="group_promote">Promote</string>
+    <string name="group_promote_member_accessibility">Promote member %1$s</string>
+    <string name="group_promote_title">Promote to admin?</string>
+    <string name="group_promote_notice">This member will be able to promote and remove other members.</string>
+    <string name="group_promote_confirm">Confirm promotion</string>
     <string name="group_role_admin">admin</string>
     <string name="group_role_member">member</string>
     <string name="group_role_left">left</string>

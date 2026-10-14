@@ -49,3 +49,18 @@ its readiness waits for editable Message rather than disabled Send on an empty
 draft. After actual raw/Relay observations it also waits for the protected candidate
 forwarding result, avoiding the earlier creation status as a readiness signal. These are pre-dispatch fixture setup corrections, not accepted
 runtime evidence. No native27 UI or whole-ticket acceptance claimed.
+
+First nativeAndroid10 run38643093967 at86cf1beb FAILED1/20.967s at line57
+waiting for absent Promote member control. Root original failure capture shows
+the actual two-member dialog without promotion and retains the typed draft.
+Confirmation/outbound/role/reopening tail did not execute. Shell0 is not acceptance;
+raw failures/missingOK fail the strict harness. Raw/capture/source evidence retained
+native-promote-red-android10. Separate source push38643062126 SUCCESScore114,
+release/lint; focused runtime source build/debug/test also passed.
+
+Promotion UI/store nowimplemented in working tree: explicit member identity/role
+confirmation, fresh protected-state canonical candidate validation before durable
+UNKNOWN, preservation of draft/key/originals, current-admin check at raw claim and
+Relay enqueue. No nativeGREEN claimed; local debug/test compile22355 PASS3m13s/core4. After compilation only promotion
+notice copy and a store comment were clarified; hosted compile checks those too.
+Removal UI and broader failure/stale-authority/process cases still later27.

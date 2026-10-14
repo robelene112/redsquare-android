@@ -1,0 +1,53 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.GroupAdminPreviewTest:
+INSTRUMENTATION_STATUS: test=anAdminCanPromoteAMemberWithoutLosingTheDraftAndReopenTheNewRole
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.anAdminCanPromoteAMemberWithoutLosingTheDraftAndReopenTheNewRole$lambda$12$lambda$11$lambda$10(GroupAdminPreviewTest.kt:57)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.$r8$lambda$r0XcWJjg9yKL4IWVZAhycmrepY8(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.anAdminCanPromoteAMemberWithoutLosingTheDraftAndReopenTheNewRole(GroupAdminPreviewTest.kt:47)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anAdminCanPromoteAMemberWithoutLosingTheDraftAndReopenTheNewRole(nl.davidengelen.redsquare.GroupAdminPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.anAdminCanPromoteAMemberWithoutLosingTheDraftAndReopenTheNewRole$lambda$12$lambda$11$lambda$10(GroupAdminPreviewTest.kt:57)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.$r8$lambda$r0XcWJjg9yKL4IWVZAhycmrepY8(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.anAdminCanPromoteAMemberWithoutLosingTheDraftAndReopenTheNewRole(GroupAdminPreviewTest.kt:47)
+
+INSTRUMENTATION_STATUS: test=anAdminCanPromoteAMemberWithoutLosingTheDraftAndReopenTheNewRole
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 20.967
+There was 1 failure:
+1) anAdminCanPromoteAMemberWithoutLosingTheDraftAndReopenTheNewRole(nl.davidengelen.redsquare.GroupAdminPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.anAdminCanPromoteAMemberWithoutLosingTheDraftAndReopenTheNewRole$lambda$12$lambda$11$lambda$10(GroupAdminPreviewTest.kt:57)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.$r8$lambda$r0XcWJjg9yKL4IWVZAhycmrepY8(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.anAdminCanPromoteAMemberWithoutLosingTheDraftAndReopenTheNewRole(GroupAdminPreviewTest.kt:47)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
