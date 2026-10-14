@@ -492,5 +492,7 @@ mode: curve public-key group IDs to the existing GroupStore, private encrypted
 messages and pair-hash reactions through the existing private validation/stores.
 Extraction fallback occurs before authentication/storage, never after a storage
 error. All positive ACKs still follow successful retention. Group storage failures
-keep the existing explicit warning signal. No new outgoing intent or authority.
+keep the existing explicit warning signal while Groups is open. Bounded Spec review
+found the private-screen handlers lacked this signal; a separate warning tracer
+is now dispatched before correcting that path. No new outgoing intent or authority.
 Actual corrected hints/mixed/PID GREEN and final full acceptance remain pending.

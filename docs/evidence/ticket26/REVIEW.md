@@ -213,3 +213,23 @@ One public core tracer produced actual RED: expected LEFT, got MEMBER. Fix
 marks history incomplete, and preserves strict deliberate rejoin to MEMBER.
 Both axes report zero findings; full core109 passed after correction. This proves
 core replay behavior, not global chronological authority, native UI or full26.
+
+## Whole-review refinements and mixed reception, October 14
+
+Whole checkpoint bbdd121c...e427: Spec1 foreground mode split; Standards2
+malformed optional hints parsed in Main composition and queued storage-failure
+signal lost by metadata-only reconnect. Hint parsing9da and stable receipt signals
+f9 reviewed0/0 through8617. Native malformed-hints RED is retained and corrections
+await fresh runtime. Mixed fixture has authentic encrypted/private reaction and
+plaintext group originals, correlated ACKs, positive old-connection departure,
+separate native content views and no outgoing submissions. Cleanup ownership
+chatwork companion correction875cccd reviewed0/0.
+
+Actual mixed RED38609275290 retained. Routing minimum e26ed211 Standards0; Spec1
+remaining: private Chat group storage failures receive negative ACK but no visible
+recovery notice. Authentication, routing and durable acknowledgement otherwise
+resolve the earlier mode split in source. New fault tracer4d394d68 injects only
+its owned group8 unfinished companion in private Chat, expects correlated negative
+ACK and visible notice before exact-byte/no-replacement/positive recovery tails.
+Actual warning RED38610859211 dispatched, correction not applied yet. No whole26
+acceptance or group PID runtime claim.
