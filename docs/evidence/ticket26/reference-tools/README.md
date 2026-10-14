@@ -56,3 +56,10 @@ that known addition; each original method executes unchanged, and the resulting
 group envelopes/signatures are byte-identical. Initial whole-method equality
 failed before producing a corpus; this was a reference assumption, not a product
 failure. This oracle does not initialize Saito, admit live writes or test DM changes.
+
+The delayedVectors extension invokes each unchanged constructor a second time:
+wallet transaction header stays at1700000123456 while the body's Date boundary
+returns1700000123459. Pinned addTransactionToGroup takes tx.timestamp for the
+message record; native reading must follow authenticated header time. The first
+corpus vectors remain unchanged. This is source-level timing compatibility, not
+a claim to reproduce web local arrival-order adjustments or live performance.

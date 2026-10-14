@@ -259,4 +259,19 @@ class GroupChatTest {
         }
     }
 
+    @Test fun groupMessageDisplayUsesTheAuthenticatedTransactionTimeWhenBodyTimeDiffers() {
+        val creation = requireNotNull(javaClass.getResourceAsStream("/native-group-chat-creation-reference.json"))
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject }
+        val group = GroupChat.readCreation(creation.get("envelope").asString)
+        val fixture = requireNotNull(javaClass.getResourceAsStream("/native-group-chat-message-reference.json"))
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
+        fixture.getAsJsonArray("delayedVectors").forEach { value ->
+            val expected = value.asJsonObject
+            val original = expected.get("envelope").asString
+            assertEquals(expected.get("bodyTimestamp").asLong, SaitoEnvelope.decode(original).body.get("timestamp").asLong)
+            org.junit.Assert.assertNotEquals(expected.get("transactionTimestamp").asLong, expected.get("bodyTimestamp").asLong)
+            assertEquals(expected.get("transactionTimestamp").asLong, GroupChat.readMessage(group, original).createdAt)
+        }
+    }
+
 }

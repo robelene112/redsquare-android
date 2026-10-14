@@ -202,3 +202,9 @@ GREEN1PASS. Known current admin may rename and update typed role fields. Targete
 non-admin role claims fail; observed departures/removals survive delayed active
 snapshots, including reconstruction. No global ordering/current-authority claim.
 No outgoing admin-management UI is introduced before #27.
+
+Message timestamp correction: actual unchanged constructors now also produce
+delayed body timestamps (1700000123459) with signed header1700000123456. New
+reader tracer RED expected1700000123456 but returned1700000123459. Corrected
+createdAt to authenticated header time. All13GroupChat tests GREEN/build41s.
+No recreation of the web's local arrival-order adjustment is claimed.

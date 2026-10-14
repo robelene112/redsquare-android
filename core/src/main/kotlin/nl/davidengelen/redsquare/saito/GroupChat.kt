@@ -41,7 +41,7 @@ object GroupChat {
         require(timestamp.asString.matches(Regex("[0-9]{1,19}")))
         val time = timestamp.asString.toLong()
         require(time >= 0)
-        return GroupChatMessage(signed.id, signed.author, group.id, time, text)
+        return GroupChatMessage(signed.id, signed.author, group.id, signed.createdAt, text)
     }
 
     /** Records a deliberate unsigned-link trust choice, not a verified creation or admission. */
