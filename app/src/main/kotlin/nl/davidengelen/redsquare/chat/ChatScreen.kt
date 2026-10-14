@@ -165,7 +165,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                 }
                 try {
                     SaitoPeer(wallet, endpoint, onIncoming = { bytes ->
-                        receivePrivateChat(context, wallet, backend, bytes)
+                        receiveChat(context, wallet, backend, bytes)
                         updates.trySend(Unit)
                         true // Even if the UI closes, original authenticated history discovers the contact on reopening.
                     }).use { peer ->
@@ -206,7 +206,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                 }
                 try {
                     SaitoPeer(wallet, endpoint, onIncoming = { bytes ->
-                        val saved = receivePrivateChat(context, wallet, backend, bytes)
+                        val saved = receiveChat(context, wallet, backend, bytes)
                         if (saved == contact) {
                             updates.trySend(Unit)
                         }

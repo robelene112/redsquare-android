@@ -195,8 +195,8 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         catch(_:Exception){/* Missing originals remain public ID hints with recovery guidance. */}
         finally{discoveryLoading=false;discoveryChecked=true}
     }
-    // Receive addressed groups and known-group events throughout the Groups feature,
-    // including while the list is shown. Receiving never creates an outgoing attempt.
+    // Retain private and group originals even while Groups is shown.
+    // Receiving never creates an outgoing attempt.
     val receiveUpdates=remember(wallet.publicKey,backend){Channel<Unit>(Channel.CONFLATED)}
     val receiveStorageFailed=remember(wallet.publicKey,backend){java.util.concurrent.atomic.AtomicBoolean(false)}
     val receiveStore by rememberUpdatedState(store)
@@ -217,7 +217,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                 while(isActive){
                     try {
                         SaitoPeer(wallet,endpoint,onIncoming={bytes->
-                            try{store.receive(GroupChat.originalEnvelope(bytes))}
+                            try{receiveChat(context,wallet,backend,bytes)}
                             catch(failure:GroupChatStorageException){
                                 receiveStorageFailed.set(true)
                                 receiveUpdates.trySend(Unit)
