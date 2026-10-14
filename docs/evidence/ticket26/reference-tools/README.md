@@ -63,3 +63,5 @@ returns1700000123459. Pinned addTransactionToGroup takes tx.timestamp for the
 message record; native reading must follow authenticated header time. The first
 corpus vectors remain unchanged. This is source-level timing compatibility, not
 a claim to reproduce web local arrival-order adjustments or live performance.
+
+The named-group reaction extension is like-reference.cjs. It also needs the committed group message corpus copied to message-reference.json beside the tool. It executes actual A/B createChatLikeTransaction and receiveChatLikeTransaction methods, confirming named-group recipients, relay recipients, exact plaintext schema and one-then-zero toggling. The ordinary wallet default-fee construction and outbound network are adapters. Actual dispatch deduplication and live delivery are not exercised.
