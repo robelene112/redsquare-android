@@ -5,6 +5,35 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class GroupChatTest {
+    @Test fun observedHistoryRetainsEarlierMessagesThroughRemovalWithoutGrantingAdminOrReacceptingBannedAuthors() {
+        val reference=requireNotNull(javaClass.getResourceAsStream("/native-group-chat-creation-reference.json"))
+            .bufferedReader().use{JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject}
+        val creator=SaitoWallet.fromPrivateKey("0".repeat(63)+"1") // Public unsafe fixture only.
+        val participant=SaitoWallet.fromPrivateKey("0".repeat(63)+"4")
+        val origin=GroupChat.readCreation(reference.get("envelope").asString)
+        val invitation=GroupInvitation(origin.id,"Untrusted message name",creator.publicKey,creator.publicKey)
+        val ownGroup=GroupChat.confirmInvitation(invitation,GroupChat.join(participant,invitation,1700000123456).envelope())
+        val message=GroupChat.message(participant,ownGroup,"Earlier group message",1700000123457)
+        val body=com.google.gson.JsonObject().apply{
+            addProperty("module","Chat");addProperty("request","chat remove")
+            addProperty("group_id",origin.id);addProperty("member_id",participant.publicKey)
+        }
+        val remove=SaitoTransaction.createTo(creator,body,1700000123458,origin.id)
+        val originals=listOf(message.envelope(),message.envelope(),remove.envelope(),message.envelope())
+        val history=GroupChat.replay(origin,originals)
+        assertEquals(reference.get("name").asString,history.group.name)
+        assertEquals(ChatGroupRole.ADMIN,history.group.memberRoles[creator.publicKey])
+        assertEquals(ChatGroupRole.REMOVED,history.group.memberRoles[participant.publicKey])
+        assertEquals(listOf("Earlier group message"),history.messages.map{it.text})
+        assertEquals(listOf(message.envelope(),remove.envelope()),history.originals)
+        assertEquals(history.messages,GroupChat.replay(origin,history.originals).messages)
+        val later=GroupChat.message(participant,ownGroup,"Rejected after removal",1700000123459)
+        org.junit.Assert.assertThrows(IllegalArgumentException::class.java){GroupChat.replay(origin,history.originals+later.envelope())}
+        val observed=GroupChat.replay(origin,listOf(message.envelope()))
+        assertEquals(ChatGroupRole.MEMBER,observed.group.memberRoles[participant.publicKey])
+        assertEquals(ChatGroupRole.ADMIN,observed.group.memberRoles[creator.publicKey])
+    }
+
     @Test fun creationMatchesBothPinnedExistingWebConstructorsAndTheirSignedBytes() {
         val fixture = requireNotNull(javaClass.getResourceAsStream("/native-group-chat-creation-reference.json"))
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject }

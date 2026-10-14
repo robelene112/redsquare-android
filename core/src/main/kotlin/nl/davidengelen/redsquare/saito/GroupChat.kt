@@ -4,6 +4,8 @@ import com.google.gson.JsonObject
 
 data class GroupChatMessage(val id: String, val author: String, val groupId: String, val createdAt: Long, val text: String)
 
+data class GroupChatReplay(val group:NamedChatGroup,val messages:List<GroupChatMessage>,val originals:List<String>)
+
 enum class ChatGroupRole {
     ADMIN, MEMBER, LEFT, REMOVED;
     val active: Boolean get() = this == ADMIN || this == MEMBER
@@ -16,6 +18,8 @@ class NamedChatGroup internal constructor(val id: String, val name: String,
 
 /** Compatible unencrypted named-group controls; participants sign with their own wallet. */
 object GroupChat {
+    fun replay(origin:NamedChatGroup,originals:List<String>):GroupChatReplay = throw UnsupportedOperationException("Observed group replay pending")
+
     fun message(wallet: SaitoWallet, group: NamedChatGroup, text: String, timestamp: Long,
         mentioned: List<String> = emptyList()): SaitoTransaction {
         require(group.memberRoles[wallet.publicKey]?.active == true)
