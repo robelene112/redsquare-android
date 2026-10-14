@@ -81,4 +81,5 @@ Added an independent WASM/Elliptic signed invalid output-point fixture. Native
 signature authentication succeeds before the new rejection check. RED:4 cases,
 3 PASS plus expected-rejection failure, build35s. Added validation of every
 recipient; GREEN:4 PASS, build57s. The original three assertions remain intact.
-Separate correction reviews remain pending; no full ticket acceptance claimed.
+Both separate correction reviews have zero remaining findings; no full ticket
+acceptance claimed.
