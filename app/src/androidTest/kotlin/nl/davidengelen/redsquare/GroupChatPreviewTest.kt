@@ -245,9 +245,12 @@ class GroupChatPreviewTest {
                             }
                             if(archiveFault){
                                 brokenHistory.set(true)
+                                androidx.test.espresso.Espresso.closeSoftKeyboard()
+                                ui.waitUntil(15_000){runCatching{ui.onNodeWithText("Refresh").assertIsDisplayed()}.isSuccess}
                                 ui.onNodeWithText("Refresh").assertIsDisplayed().performClick()
                                 ui.waitUntil(15_000){failedHistoryReads.get()>0}
                                 waitFor("Older group history could not be loaded. Your cached messages are kept.")
+                                    ui.onNodeWithText("Older group history could not be loaded. Your cached messages are kept.").assertIsDisplayed()
                                 ui.waitUntil(15_000){ui.onAllNodes(hasText("Message") and isEnabled()).fetchSemanticsNodes().size==1}
                                 ui.onNodeWithText("Message").assertIsEnabled().performTextInput("Send while archive is unavailable")
                                 ui.waitUntil(15_000){ui.onAllNodes(hasText("Send") and isEnabled()).fetchSemanticsNodes().size==1}
@@ -293,6 +296,7 @@ class GroupChatPreviewTest {
                                 }
                                 if(archiveFault){
                                     waitFor("Older group history could not be loaded. Your cached messages are kept.")
+                                    ui.onNodeWithText("Older group history could not be loaded. Your cached messages are kept.").assertIsDisplayed()
                                     for(text in listOf("Send while archive is unavailable","Live while archive is unavailable"))waitForGroupMessage(text)
                                     ui.onAllNodesWithText("Live while archive is unavailable").assertCountEquals(1)
                                     captureNativeScreen(File(context.cacheDir,"group-chat-evidence/archive-unavailable-cached.png"),"Live while archive is unavailable")
