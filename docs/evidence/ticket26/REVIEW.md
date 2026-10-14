@@ -113,3 +113,8 @@ Key checkpoint/evidence5409d7cd...b54a7c87: Standards0 and Spec0; exact private
 key comparisons have static diagnostics and own-fixture cleanup. Prior two-case
 GREEN sets scoped correctly. Nullable key remains unpopulated pending actualRED;
 no process-death, app interruption/retry or complete26 claim.
+
+Key implementationb54a7c87...fb2ffefb: Standards0 and Spec0. Key/group binding,
+protected preparation/read-back, no private key in public transactions and legacy
+optional-key handling are sound. Local debug/testAPK PASS2m53s. Corrected native
+GREEN pending; app retry/PID/full26 remain unproved.
