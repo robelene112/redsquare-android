@@ -197,31 +197,33 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     }
     // Receive addressed groups and known-group events throughout the Groups feature,
     // including while the list is shown. Receiving never creates an outgoing attempt.
-    LaunchedEffect(store,endpoint,refresh) {
-        coroutineScope {
-            val updates=Channel<Unit>(Channel.CONFLATED)
-            val storageFailed=java.util.concurrent.atomic.AtomicBoolean(false)
-            val receiver=launch {
-                for(ignored in updates){
-                    try{publish(onResult={success->
-                        val failed=storageFailed.getAndSet(false)
-                        if(!success||failed)readFailed=true
-                    }){store.entries()}}
-                    catch(cancelled:CancellationException){throw cancelled}
-                    catch(_:Exception){/* Ordered publication reported the local failure. */}
-                }
+    val receiveUpdates=remember(wallet.publicKey,backend){Channel<Unit>(Channel.CONFLATED)}
+    val receiveStorageFailed=remember(wallet.publicKey,backend){java.util.concurrent.atomic.AtomicBoolean(false)}
+    val receiveStore by rememberUpdatedState(store)
+    LaunchedEffect(wallet.publicKey,backend){
+        try {
+            for(ignored in receiveUpdates){
+                try{publish(onResult={success->
+                    val failed=receiveStorageFailed.getAndSet(false)
+                    if(!success||failed)readFailed=true
+                }){receiveStore.entries()}}
+                catch(cancelled:CancellationException){throw cancelled}
+                catch(_:Exception){/* Ordered publication reported the local failure. */}
             }
-            try {
+        }finally{receiveUpdates.close()}
+    }
+    // Metadata replacement can restart the socket, but cannot discard queued storage failures.
+    LaunchedEffect(store,endpoint,refresh) {
                 while(isActive){
                     try {
                         SaitoPeer(wallet,endpoint,onIncoming={bytes->
                             try{store.receive(GroupChat.originalEnvelope(bytes))}
                             catch(failure:GroupChatStorageException){
-                                storageFailed.set(true)
-                                updates.trySend(Unit)
+                                receiveStorageFailed.set(true)
+                                receiveUpdates.trySend(Unit)
                                 throw failure // SaitoPeer sends a negative acknowledgement.
                             }
-                            updates.trySend(Unit)
+                            receiveUpdates.trySend(Unit)
                             true // Protect the authenticated original before positive acknowledgement.
                         }).use{peer->
                             peer.services()
@@ -233,8 +235,6 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                     catch(_:Exception){liveFailed=true}
                     delay(2_000) // Reconnect passive reception without transmitting retained attempts.
                 }
-            }finally{updates.close();receiver.cancelAndJoin()}
-        }
     }
     LaunchedEffect(store,selected,endpoint,refresh) {
         val id=selected ?: return@LaunchedEffect
