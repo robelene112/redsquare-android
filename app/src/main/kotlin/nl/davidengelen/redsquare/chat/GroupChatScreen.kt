@@ -44,6 +44,12 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     }
     var busy by remember(wallet.publicKey,backend) { mutableStateOf(false) }
     var refresh by remember { mutableIntStateOf(0) }
+    var initialLoading by remember(store,selected){mutableStateOf(false)}
+    var olderLoading by remember(store,selected){mutableStateOf(false)}
+    val paging=initialLoading||olderLoading
+    var hasOlder by remember(store,selected){mutableStateOf(false)}
+    var olderCursor by remember(store,selected){mutableStateOf<Long?>(null)}
+    var olderRequest by remember(store,selected){mutableIntStateOf(0)}
     var message by remember(wallet.publicKey,backend,selected){mutableStateOf("")}
     var draftReady by remember(store,selected){mutableStateOf(false)}
     var draftFailed by remember(wallet.publicKey,backend,selected){mutableStateOf(false)}
@@ -125,6 +131,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     }
     LaunchedEffect(store,selected,endpoint,refresh) {
         val id=selected ?: return@LaunchedEffect
+        initialLoading=true
         fun retain(original:String) {
             val signed=SaitoEnvelope.decode(original)
             require(signed.body.get("group_id").asString==id)
@@ -150,28 +157,13 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                         val services=peer.services()
                         try {
                         require("archive" in services)
-                        val criteria=JsonObject().apply{
-                            addProperty("request","load");addProperty("field3",id)
-                            addProperty("limit",50);addProperty("created_earlier_than",System.currentTimeMillis())
-                        }
-                        val request=JsonObject().apply{addProperty("request","archive");add("data",criteria)}
-                        val incomplete=withContext(Dispatchers.IO){
-                            val rows=JsonParser.parseString(peer.request(request.toString().toByteArray(Charsets.UTF_8)).toString(Charsets.UTF_8)).asJsonArray
-                            require(rows.size()<=50)
-                            var rejected=false
-                            for(row in rows) {
-                                try {
-                                    val value=row.asJsonObject.get("tx")
-                                    require(value.isJsonPrimitive&&value.asJsonPrimitive.isString)
-                                    retain(value.asString)
-                                } catch(_:Exception){rejected=true}
-                            }
-                            rejected
-                        }
+                        val page=withContext(Dispatchers.IO){loadGroupHistoryPage(peer,store,id,System.currentTimeMillis())}
                         publish{store.entries()}
-                        historyFailed=incomplete
+                        historyFailed=page.incomplete
+                        hasOlder=page.hasOlder;olderCursor=page.cursor
                         } catch(cancelled:CancellationException){throw cancelled}
                         catch(_:Exception){historyFailed=true}
+                        finally{initialLoading=false}
                         // Missing/malformed archive data must not close valid live reception.
                         peer.awaitDisconnection()
                         historyFailed=true
@@ -180,13 +172,31 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             }
         } catch(cancelled:CancellationException){throw cancelled}
         catch(_:Exception){historyFailed=true}
+        finally{initialLoading=false}
+    }
+    LaunchedEffect(store,selected,endpoint,olderRequest) {
+        if(olderRequest==0)return@LaunchedEffect
+        val id=selected ?: return@LaunchedEffect
+        val before=olderCursor ?: return@LaunchedEffect
+        olderLoading=true
+        try {
+            SaitoPeer(wallet,endpoint).use{peer->
+                require("archive" in peer.services())
+                val page=withContext(Dispatchers.IO){loadGroupHistoryPage(peer,store,id,before)}
+                publish{store.entries()}
+                historyFailed=page.incomplete
+                hasOlder=page.hasOlder;olderCursor=page.cursor
+            }
+        } catch(cancelled:CancellationException){throw cancelled}
+        catch(_:Exception){historyFailed=true}
+        finally{olderLoading=false}
     }
     val entry = entries.firstOrNull { it.group.id == selected }
     Column(modifier.fillMaxSize(),verticalArrangement=Arrangement.spacedBy(8.dp)) {
         Row(verticalAlignment=Alignment.CenterVertically) {
             TextButton(enabled=!busy,onClick={back()}) { Text(stringResource(R.string.browse_back)) }
             Text(entry?.group?.name ?: stringResource(R.string.group_title),Modifier.weight(1f),style=MaterialTheme.typography.titleLarge)
-            TextButton(enabled=!busy,onClick={refresh++}) { Text(stringResource(R.string.feed_refresh)) }
+            TextButton(enabled=!busy&&!paging,onClick={refresh++}) { Text(stringResource(R.string.feed_refresh)) }
         }
         Text(stringResource(R.string.group_privacy),style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
         Text(stringResource(R.string.chat_available_history),style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
@@ -237,6 +247,9 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                 }
             }){Text(stringResource(R.string.group_retry))}
             if(entry.group.memberRoles[wallet.publicKey]==ChatGroupRole.LEFT) Text(stringResource(R.string.group_left))
+            if(hasOlder&&olderCursor!=null) TextButton(enabled=!busy&&!paging,onClick={if(!initialLoading&&!olderLoading&&!busy){olderLoading=true;olderRequest++}}){
+                Text(stringResource(R.string.chat_load_older))
+            }
             val messagesLabel=stringResource(R.string.group_messages)
             LazyColumn(Modifier.weight(1f).semantics{contentDescription=messagesLabel},
                 verticalArrangement=Arrangement.spacedBy(8.dp)) {
