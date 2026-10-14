@@ -549,6 +549,7 @@ class GroupChatPreviewTest {
                         waitFor(group.name)
                         ui.onNodeWithText(group.name).assertIsDisplayed().performClick()
                         waitFor("Received a signed group invitation.")
+                        ui.onNodeWithText("Received a signed group invitation.").assertIsDisplayed()
                         ui.onNodeWithText("Retry").assertDoesNotExist()
                         check(peer.transactions.isEmpty()&&peer.relayedMessages.isEmpty())
                         deliver(message);waitForGroupMessage("Live incoming group history")

@@ -38,6 +38,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     val publication = remember(wallet.publicKey,backend) { Mutex() }
     var readFailed by remember(wallet.publicKey,backend) { mutableStateOf(false) }
     var historyFailed by remember(store,selected) { mutableStateOf(false) }
+    var liveFailed by remember(store,endpoint){mutableStateOf(false)}
     var sendFailed by remember(wallet.publicKey,backend) { mutableStateOf(false) }
     suspend fun publish(operation: () -> List<GroupChatStore.Entry>) = withContext(Dispatchers.Main.immediate) {
         publication.withLock { entries=withContext(Dispatchers.IO) { operation() } }
@@ -129,48 +130,50 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         catch(cancelled:CancellationException){throw cancelled}
         catch(_:Exception){readFailed=true}
     }
+    // Receive addressed groups and known-group events throughout the Groups feature,
+    // including while the list is shown. Receiving never creates an outgoing attempt.
+    LaunchedEffect(store,endpoint,refresh) {
+        while(isActive){
+            try {
+                coroutineScope {
+                    val updates=Channel<Unit>(Channel.CONFLATED)
+                    val receiver=launch {
+                        for(ignored in updates){
+                            try{publish{store.entries()}}
+                            catch(cancelled:CancellationException){throw cancelled}
+                            catch(_:Exception){readFailed=true}
+                        }
+                    }
+                    try {
+                        SaitoPeer(wallet,endpoint,onIncoming={bytes->
+                            store.receive(GroupChat.originalEnvelope(bytes))
+                            updates.trySend(Unit)
+                            true // Protect the authenticated original before positive acknowledgement.
+                        }).use{peer->
+                            peer.services()
+                            liveFailed=false
+                            peer.awaitDisconnection()
+                            liveFailed=true
+                        }
+                    }finally{updates.close();receiver.cancelAndJoin()}
+                }
+            }catch(cancelled:CancellationException){throw cancelled}
+            catch(_:Exception){liveFailed=true}
+            delay(2_000) // Passive reception reconnects; retained outgoing attempts never auto-send.
+        }
+    }
     LaunchedEffect(store,selected,endpoint,refresh) {
         val id=selected ?: return@LaunchedEffect
         initialLoading=true
-        fun retain(original:String) {
-            val signed=SaitoEnvelope.decode(original)
-            require(signed.body.get("group_id").asString==id)
-            store.receive(original)
-        }
         try {
-            coroutineScope {
-                val updates=Channel<Unit>(Channel.CONFLATED)
-                val receiver=launch {
-                    for(ignored in updates) {
-                        try { publish{store.entries()} }
-                        catch(cancelled:CancellationException){throw cancelled}
-                        catch(_:Exception){readFailed=true}
-                    }
-                }
-                try {
-                    SaitoPeer(wallet,endpoint,onIncoming={bytes->
-                        val original=GroupChat.originalEnvelope(bytes)
-                        retain(original)
-                        updates.trySend(Unit)
-                        true // Original is protected on device before the peer receives success.
-                    }).use{peer->
-                        val services=peer.services()
-                        try {
-                        require("archive" in services)
-                        val page=withContext(Dispatchers.IO){loadGroupHistoryPage(peer,store,id,System.currentTimeMillis())}
-                        publish{store.entries()}
-                        historyFailed=page.incomplete
-                        hasOlder=page.hasOlder;olderCursor=page.cursor
-                        } catch(cancelled:CancellationException){throw cancelled}
-                        catch(_:Exception){historyFailed=true}
-                        finally{initialLoading=false}
-                        // Missing/malformed archive data must not close valid live reception.
-                        peer.awaitDisconnection()
-                        historyFailed=true
-                    }
-                } finally{updates.close();receiver.cancelAndJoin()}
+            SaitoPeer(wallet,endpoint).use{peer->
+                require("archive" in peer.services())
+                val page=withContext(Dispatchers.IO){loadGroupHistoryPage(peer,store,id,System.currentTimeMillis())}
+                publish{store.entries()}
+                historyFailed=page.incomplete
+                hasOlder=page.hasOlder;olderCursor=page.cursor
             }
-        } catch(cancelled:CancellationException){throw cancelled}
+        }catch(cancelled:CancellationException){throw cancelled}
         catch(_:Exception){historyFailed=true}
         finally{initialLoading=false}
     }
@@ -202,6 +205,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         Text(stringResource(R.string.chat_available_history),style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
         if(readFailed || sendFailed || draftFailed) Text(stringResource(R.string.group_error),color=MaterialTheme.colorScheme.error)
         if(historyFailed) Text(stringResource(R.string.group_history_error),color=MaterialTheme.colorScheme.onSurfaceVariant)
+        if(liveFailed) Text(stringResource(R.string.group_live_error),color=MaterialTheme.colorScheme.onSurfaceVariant)
         if(entry==null) {
             Row(horizontalArrangement=Arrangement.spacedBy(8.dp)) {
                 Button(enabled=loaded&&!busy,onClick={creating=true}) { Text(stringResource(R.string.group_create)) }

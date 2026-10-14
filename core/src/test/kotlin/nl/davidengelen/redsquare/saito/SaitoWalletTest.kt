@@ -28,6 +28,12 @@ class SaitoWalletTest {
         assertEquals(owner.publicKey,imported.publicKey)
         assertEquals(before,imported.exportJson())
         assertEquals(emptyList<String>(),owner.namedChatGroupIds())
+        val keychainOnly=options.deepCopy().apply{remove("chat")}
+        val keychainWallet=SaitoWallet.fromBackup(keychainOnly.toString())
+        val keychainBefore=keychainWallet.exportJson()
+        assertEquals(listOf(groupKey.publicKey),keychainWallet.namedChatGroupIds())
+        assertEquals(listOf(contact),keychainWallet.chatContacts())
+        assertEquals(keychainBefore,keychainWallet.exportJson())
         val legacy=options.deepCopy().apply{add("chat",getAsJsonObject("chat").get("groups"))}
         assertEquals(listOf(groupKey.publicKey,otherGroup),SaitoWallet.fromBackup(legacy.toString()).namedChatGroupIds())
     }
