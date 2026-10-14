@@ -21,7 +21,7 @@ class GroupChatTest {
         val allowed=GroupChat.message(creator,origin,"Available older history",1700000123456)
         val history=GroupChat.replayAvailable(origin,listOf(retained.envelope(),removed.envelope()),
             listOf(rejected.envelope(),"malformed envelope",allowed.envelope(),retained.envelope()))
-        assertTrue(history.incomplete)
+        org.junit.Assert.assertTrue(history.incomplete)
         assertEquals(ChatGroupRole.REMOVED,history.group.memberRoles[member.publicKey])
         assertEquals(listOf("Available older history","Retained before removal"),history.messages.map{it.text})
         assertEquals(listOf(retained.envelope(),removed.envelope(),allowed.envelope()),history.originals)
