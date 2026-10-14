@@ -290,5 +290,46 @@ class GroupChatPreviewTest {
         }})}
     }
 
+    @Test fun rejoiningAKnownGroupRetainsItsOriginalAuthorityKeyAndDeparture() {
+        val context=InstrumentationRegistry.getInstrumentation().targetContext
+        check(context.packageName=="nl.davidengelen.redsquare.dev")
+        check(android.os.Build.HARDWARE in listOf("ranchu","goldfish"))
+        val wallet=AndroidWalletStore(context).loadOrCreate()
+        val backend=AndroidBackendStore(context).load()
+        val groupKey=SaitoWallet.create()
+        val member=SaitoWallet.fromPrivateKey("0".repeat(63)+"2").publicKey // Public unsafe fixture only.
+        val outsider=SaitoWallet.fromPrivateKey("0".repeat(63)+"4").publicKey
+        val creation=GroupChat.create(wallet,groupKey.publicKey,"Known group",listOf(member),1700000123456)
+        val departure=GroupChat.leave(wallet,groupKey.publicKey,1700000123457)
+        val invitation=GroupInvitation.parse(java.util.Base64.getEncoder().encodeToString(com.google.gson.JsonObject().apply{
+            addProperty("id",groupKey.publicKey);addProperty("name","Untrusted renamed group")
+            addProperty("sender",member);addProperty("admin",outsider)
+        }.toString().toByteArray(Charsets.UTF_8)))
+        val join=GroupChat.join(wallet,invitation,1700000123458)
+        val filename="groupchat.${backend.id}.${wallet.publicKey}.${groupKey.publicKey}.v1"
+        var primary:Throwable?=null
+        try {
+            val store=nl.davidengelen.redsquare.chat.GroupChatStore(context,wallet,backend)
+            store.prepareCreation(creation,groupKey)
+            store.record(groupKey.publicKey,creation.id,nl.davidengelen.redsquare.chat.GroupChatStore.Status.FORWARDED)
+            store.prepareLeave(departure)
+            store.record(groupKey.publicKey,departure.id,nl.davidengelen.redsquare.chat.GroupChatStore.Status.FORWARDED)
+            store.prepareInvitation(invitation,join)
+            val reopened=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,wallet,backend).load(groupKey.publicKey))
+            check(reopened.group.creationEnvelope==creation.envelope() && reopened.group.confirmedInvitation==null)
+            check(reopened.group.name=="Known group" && reopened.creationKey?.exportJson()==groupKey.exportJson())
+            check(reopened.group.memberRoles[wallet.publicKey]==ChatGroupRole.MEMBER)
+            check(outsider !in reopened.group.memberRoles)
+            check(reopened.group.controls==listOf(departure.envelope(),join.envelope()))
+            check(reopened.candidate.encoded()==join.encoded() && reopened.status==nl.davidengelen.redsquare.chat.GroupChatStore.Status.UNKNOWN)
+            check(runCatching{store.prepareInvitation(invitation,GroupChat.join(wallet,invitation,1700000123459))}.isFailure)
+            check(store.load(groupKey.publicKey)?.candidate?.id==join.id)
+            check(AndroidWalletStore(context).loadExisting().exportJson()==wallet.exportJson())
+        } catch(failure:Throwable){primary=failure;throw failure}
+        finally{cleanupAfterTest(primary,{synchronized(SaitoLocalState.lock){
+            context.noBackupFilesDir.listFiles()!!.filter{it.name==filename||it.name=="$filename.bak"||it.name=="$filename.new"}.forEach{check(it.delete())}
+        }})}
+    }
+
     private fun waitFor(text: String) = ui.waitUntil(15_000) { ui.onAllNodesWithText(text).fetchSemanticsNodes().isNotEmpty() }
 }

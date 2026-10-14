@@ -152,3 +152,14 @@ Leave minimum830ed6c2...c21c6fb5: Standards0; Spec1 evidence-only stale REDpendi
 sentence. Corrected to completed five-case RED with later assertions unexecuted;
 Spec correction0. No source-level findings. Local debug/testAPK compile PASS3m41s.
 Corrected native leave GREEN pending; retry/message/history/PID/full26 still open.
+
+Leave five-case GREENcdbeef72: Android10 38540341373 PASS21.397s;
+Android17 38540343832 PASS57.190s. Root original LEFT/reopened captures inspected.
+Retry tracer cdbeef72...a8867c3e Standards0, Spec1 circular metadata oracle.
+Independent saved-backup schema/private-scalar checks added1d258b1c; correction
+Standards0/Spec0. Actual six-case RED17 38541609952 has5PASS/missingRetry;
+later metadata/disconnect/retry assertions unexecuted. Minimum5a19ef41 Spec0;
+Standards0 hard plus repeated verified decode/UI-thread heuristic. Correction
+4743355c performs one decode on IO, reviewed0/0. Minimum debug/testAPK compile
+PASS3m15s; refined Kotlin compile PASS1m31s. Corrected native GREEN active both
+38543182621/38543185574, not yet claimed. No whole26 or actual PID-death proof.

@@ -39,32 +39,52 @@ Local .scratch/review-builds/14; publicrecords docs/evidence/ticket37/signed-pre
 No store/node/service/ingresschange. Current14physicalPixel/continuity/performance
 remain35. Preview13superseded;12neverpublished.
 
-**#26 current checkpoint, 2026-10-14 06:18 UTC:** core creation/invite trust,
-join/leave/plaintext messages and authorized snapshots implemented. Native creation,
-members/invitation/reopening, pending work across backends and protected creation
-key retention are verified. Key/create/work GREEN at a6a9a772: Android10
-38518366079 (3 PASS, 7.377s), Android17 38518363805 (3 PASS, 37.851s).
-The key checkpoint reopens storage before wallet metadata, not actual PID death.
+**#26 current checkpoint, 2026-10-14 09:36 UTC:** native creation, invitation
+confirmation, membership/invite display, protected key/work and leave/reopening
+have focused Android10/17 verification. No complete26 claim;21 original complete.
+Stable signed14/0.1.14 remains live with completed37 visuals; no group APK published.
 
-Invitation tracer fbd353ea RED on Android17 38519187380: 4 cases, 3 PASS,
-missing Join group control. Original PNG/XML inspected; later consent/claims/wire
-assertions were unexecuted. Minimum9690f6d6 adds explicit unsigned preview and
-backend-bound confirmation. Correctionee17e184 makes long claims scrollable and
-shares prepared-send handling. Separate correction reviews Standards0/Spec0;
-local debug/testAPK build PASS3m43s. Four-case corrected Android10/17 runtime
-verification is active at44e931af32bf214bee1b66c9e62c4001cd154ed0: Android10
-38521385291, Android17 38521387910. Push source check38521386302 is also active.
-Inspect all four actual cases and retained failure/success captures before claiming
-invitation acceptance. Do not redispatch or cancel without a new concern.
-No owned Gradle remains. No invitation GREEN claimed yet.
+Invitation GREEN44e931af:10run38521385291 four PASS16.510s;17run38521387910
+four PASS46.936s. Leave GREENcdbeef72:10run38540341373 five PASS21.397s;
+17run38540343832 five PASS57.190s. Original joined/LEFT-reopened PNGs/XML inspected,
+raw summaries/hashes retained. Reopened invitation captures are group lists, not
+selected-detail provenance. Leave verifies explicit consent, exact own removal,
+protected original/LEFT reconstruction and no resend. Whole/recovery limits remain.
 
-Remaining26: exact retry/key-metadata interruption, existing-group rejoin,
-group leave/message/history UI, identity/backend isolation, actual PID recovery,
-final full10/17, release/lint, whole-ticket reviews and signed next APK. #26 open;
-21 original tickets complete. Stable signed14/0.1.14 remains live with completed37
-visuals; no group APK published. Protected untracked group contract untouched.
-Scratch create-screen/store/apply and join apply scripts are outdated; do not
-reapply over current source. Active code/verification files are tracked.
+Current source4743355cc057bb95951183807b71d962c7d749d6 implements explicit
+Retry preserving candidate/origin/controls/key and rebuilding protected group-key
+wallet metadata before guarded transmission. Creation Relay remains direct;
+other controls wrapped, with appropriate member targets. One envelope verification
+now runs off Main, after Standards duplication heuristic. Spec0/Standards0 fix
+reviews; minimum debug/testAPK compile3m15, corrected Kotlin compile1m31.
+Six-case corrected native Retry checks ACTIVE:10run38543182621,
+17run38543185574; source38543182104. Inspect actual outcomes before claiming
+metadata/disconnect/exact-retry acceptance. Do not redispatch/cancel without a
+new concern. No owned local Gradle remains.
+
+Retry RED38541609952 at1d258b1c: six cases/65.228s, five PASS + missingRetry.
+Checkpoint/no-autosend preconditions pass; later metadata/disconnect/retry tail
+unexecuted. Root original PNG/XML seen, retained native-retry-red-android17.
+Oracle circularity found by Spec review corrected with independent saved-backup
+key/name/group/watch/private-scalar/conversation-ID checks; static diagnostics.
+All fixture material is unsafe/public or kept in device-local opaque snapshots.
+This seeded/recreated flow is not actual PID death.
+
+Next: after at least one corrected native Retry GREEN, apply the prepared known-
+group rejoin tracer .scratch/add-group26-rejoin-tracer.py, observe RED, preserve
+existing origin/key/controls through new own join rather than trusting new link
+claims. Pending operation cannot be overwritten; REMOVED stays rejected; rejoin
+must not restore former ADMIN rights. Disable invitation when no active admin is
+known so orphaned groups cannot trigger fromGroup's required-admin exception.
+Then original group message/incoming/history UI/cache, imported metadata/history
+limits, owner/backend isolation, actual PID recovery, final full10/17/release/lint,
+whole-ticket reviews and signed next APK. Offline queue/media/mute/push remain
+later tickets. One ticket writer; review subagents remain read-only.
+
+Protected untracked group contract untouched. All scratch create/join/leave/retry
+apply scripts are historical after application; do not reapply over current code.
+Follow-on source notes .scratch/group26-follow-on-notes.md cover observed-order
+history, ordinary participant roles and unsigned processed-history provenance.
 
 **Owner priority, 2026-10-14:** after #26, inspect and implement a bounded UI
 polish pass for showing the beta to friends, especially new group screens and
