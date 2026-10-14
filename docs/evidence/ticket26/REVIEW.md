@@ -85,3 +85,11 @@ Native tracer reviewdfe60e90...455d69ba: Standards0; Spec2 strengthened before
 GREEN: compare exact normalized broadcast/Relay originals and all four invitation
 claims. Recreate's retained Chat navigation corrected separately, no assertion
 relaxed. First native creation implementation review/compile/runtime pending.
+
+Creation source review455d69ba...e30f7d53: Standards1 source-supported stale
+status publication race; Spec2, same race plus group work missing from wallet-
+replacement disclosure. Neither is claimed as an observed emulator failure.
+Ordered durable-operation/UI publication now uses the existing private-reaction
+pattern; separate restore/send errors prevent reload from erasing send failures.
+Pending-work tracer is being compiled before its minimum hasWork implementation.
+Whole-ticket group/key/retry/join/leave/history acceptance remains pending.
