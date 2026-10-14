@@ -5,6 +5,24 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class GroupChatTest {
+    @Test fun fetchingAnUnseenHistoricalJoinCannotUndoARetainedDeparture() {
+        val creator=SaitoWallet.fromPrivateKey("0".repeat(63)+"1") // Public unsafe fixture only.
+        val key=SaitoWallet.fromPrivateKey("0".repeat(63)+"9")
+        val creation=GroupChat.create(creator,key.publicKey,"Departure history",emptyList(),1700000123456)
+        val origin=GroupChat.readCreation(creation.envelope())
+        val invitation=GroupInvitation(origin.id,origin.name,creator.publicKey,creator.publicKey)
+        val oldJoin=GroupChat.join(creator,invitation,1700000123457)
+        val leave=GroupChat.leave(creator,origin.id,1700000123458)
+        val history=GroupChat.replayAvailable(origin,listOf(leave.envelope()),listOf(oldJoin.envelope()))
+        assertEquals(ChatGroupRole.LEFT,history.group.memberRoles[creator.publicKey])
+        assertEquals(listOf(leave.envelope()),history.originals)
+        org.junit.Assert.assertTrue(history.incomplete)
+        assertEquals(ChatGroupRole.LEFT,GroupChat.replay(origin,history.originals).group.memberRoles[creator.publicKey])
+        val deliberateJoin=GroupChat.join(creator,invitation,1700000123459)
+        assertEquals(ChatGroupRole.MEMBER,GroupChat.replay(origin,history.originals+deliberateJoin.envelope())
+            .group.memberRoles[creator.publicKey])
+    }
+
     @Test fun availableHistorySkipsRemovedAuthorsWhileRetainingAdmittedMessagesAndControls() {
         val reference=requireNotNull(javaClass.getResourceAsStream("/native-group-chat-creation-reference.json"))
             .bufferedReader().use{JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject}
