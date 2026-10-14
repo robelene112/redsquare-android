@@ -1,0 +1,4 @@
+Run38605779182 ate42789d06b395abd9ab3199981491437df158846: native actions1 PASS12.919s, group22 has21PASS/1,124.439s.
+Actions include other-author and self-author reply wrappers/mentions, exact raw/inner Relay/recipients, sensitive body-only Copy and recreated cache, no unexpected sends. Separate self-forwarded/cached captures retained.
+Malformed optional Chat metadata in a valid fixture wallet caused savedChatIds150 -> namedChatGroupIds133 -> GroupChatScreen67 composition exception. Its recovery guidance/live message/draft/reopening assertions were not reached. Unique later reopened capture correction postdates this source. Other21 group cases passed. PID driver did not run after the failed class.
+Controlled peers/public unsafe identities only. No full26, group process-death, complete history or physical-device acceptance claim.

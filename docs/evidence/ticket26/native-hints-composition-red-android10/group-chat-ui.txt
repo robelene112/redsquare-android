@@ -1,0 +1,512 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.GroupChatPreviewTest:
+INSTRUMENTATION_STATUS: test=importedGroupIdsRecoverAvailableSignedOriginsWithoutTrustingNamesOrGrantingUnavailableMembership
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=importedGroupIdsRecoverAvailableSignedOriginsWithoutTrustingNamesOrGrantingUnavailableMembership
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=rejoiningAKnownGroupRetainsItsOriginalAuthorityKeyAndDeparture
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=rejoiningAKnownGroupRetainsItsOriginalAuthorityKeyAndDeparture
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=unreadableImportedGroupHintsKeepWalletAndAuthenticatedCachedGroupsUsable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalArgumentException: Failed requirement.
+	at nl.davidengelen.redsquare.saito.SaitoWallet.savedChatIds(SaitoWallet.kt:150)
+	at nl.davidengelen.redsquare.saito.SaitoWallet.namedChatGroupIds(SaitoWallet.kt:133)
+	at nl.davidengelen.redsquare.chat.GroupChatScreenKt.GroupChatScreen(GroupChatScreen.kt:67)
+	at nl.davidengelen.redsquare.chat.ChatScreenKt.ChatScreen(ChatScreen.kt:47)
+	at nl.davidengelen.redsquare.chat.ChatScreenKt.ChatScreen$lambda$110(Unknown Source:14)
+	at nl.davidengelen.redsquare.chat.ChatScreenKt.$r8$lambda$nnkU7LudFUUbDGdUKdkuVK_kTpA(Unknown Source:0)
+	at nl.davidengelen.redsquare.chat.ChatScreenKt$$ExternalSyntheticLambda12.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.runtime.RecomposeScopeImpl.compose(RecomposeScopeImpl.kt:204)
+	at androidx.compose.runtime.GapComposer.recomposeToGroupEnd(GapComposer.kt:1678)
+	at androidx.compose.runtime.GapComposer.skipCurrentGroup(GapComposer.kt:2014)
+	at androidx.compose.runtime.GapComposer.doCompose-aFTiNEg(GapComposer.kt:2655)
+	at androidx.compose.runtime.GapComposer.recompose-aFTiNEg$runtime(GapComposer.kt:2577)
+	at androidx.compose.runtime.CompositionImpl.recompose(Composition.kt:1164)
+	at androidx.compose.runtime.Recomposer.performRecompose(Recomposer.kt:1318)
+	at androidx.compose.runtime.Recomposer.access$performRecompose(Recomposer.kt:191)
+	at androidx.compose.runtime.Recomposer$runRecomposeAndApplyChanges$2.invokeSuspend$lambda$2(Recomposer.kt:655)
+	at androidx.compose.runtime.Recomposer$runRecomposeAndApplyChanges$2.$r8$lambda$sdKIQuFT6MpOW8QdHT9yWSawFoM(Unknown Source:0)
+	at androidx.compose.runtime.Recomposer$runRecomposeAndApplyChanges$2$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.TestMonotonicFrameClock$withFrameNanos$2$1$1.invoke(TestMonotonicFrameClock.jvmAndAndroid.kt:108)
+	at androidx.compose.ui.test.TestMonotonicFrameClock$withFrameNanos$2$1$1.invoke(TestMonotonicFrameClock.jvmAndAndroid.kt:108)
+	at androidx.compose.ui.test.TestMonotonicFrameClock.performFrame$lambda$0(TestMonotonicFrameClock.jvmAndAndroid.kt:153)
+	at androidx.compose.ui.test.TestMonotonicFrameClock.$r8$lambda$fu8waJyGgBJHXAKiQd11d2HBpD8(Unknown Source:0)
+	at androidx.compose.ui.test.TestMonotonicFrameClock$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.FrameDeferringContinuationInterceptor.runWithoutResumingCoroutines(FrameDeferringContinuationInterceptor.jvmAndAndroid.kt:59)
+	at androidx.compose.ui.test.TestMonotonicFrameClock.performFrame(TestMonotonicFrameClock.jvmAndAndroid.kt:135)
+	at androidx.compose.ui.test.TestMonotonicFrameClock.access$performFrame(TestMonotonicFrameClock.jvmAndAndroid.kt:57)
+	at androidx.compose.ui.test.TestMonotonicFrameClock$withFrameNanos$2$1$2.invokeSuspend(TestMonotonicFrameClock.jvmAndAndroid.kt:113)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTaskKt.resume(DispatchedTask.kt:221)
+	at kotlinx.coroutines.DispatchedTaskKt.dispatch(DispatchedTask.kt:154)
+	at kotlinx.coroutines.CancellableContinuationImpl.dispatchResume(CancellableContinuationImpl.kt:470)
+	at kotlinx.coroutines.CancellableContinuationImpl.resumeImpl$kotlinx_coroutines_core(CancellableContinuationImpl.kt:504)
+	at kotlinx.coroutines.CancellableContinuationImpl.resumeImpl$kotlinx_coroutines_core$default(CancellableContinuationImpl.kt:493)
+	at kotlinx.coroutines.CancellableContinuationImpl.resumeUndispatched(CancellableContinuationImpl.kt:596)
+	at kotlinx.coroutines.test.CancellableContinuationRunnable.run(TestDispatcher.kt:60)
+	at kotlinx.coroutines.test.TestDispatcher.processEvent$kotlinx_coroutines_test(TestDispatcher.kt:24)
+	at kotlinx.coroutines.test.TestCoroutineScheduler.runCurrent(TestCoroutineScheduler.kt:132)
+	at androidx.compose.ui.test.AbstractMainTestClock.advanceScheduler$lambda$0(AbstractMainTestClock.kt:105)
+	at androidx.compose.ui.test.AbstractMainTestClock.$r8$lambda$wZhY1IBAXiCZXjVfzNo5rVwrl-Q(Unknown Source:0)
+	at androidx.compose.ui.test.AbstractMainTestClock$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.AndroidSynchronization_androidKt.runOnUiThread(AndroidSynchronization.android.kt:35)
+	at androidx.compose.ui.test.MainTestClockImpl$1.invoke(MainTestClockImpl.android.kt:32)
+	at androidx.compose.ui.test.MainTestClockImpl$1.invoke(MainTestClockImpl.android.kt:32)
+	at androidx.compose.ui.test.AbstractMainTestClock.advanceScheduler(AbstractMainTestClock.kt:101)
+	at androidx.compose.ui.test.AbstractMainTestClock.advanceTimeByFrame(AbstractMainTestClock.kt:41)
+	at androidx.compose.ui.test.ComposeIdlingResource.isIdleNow(ComposeIdlingResource.android.kt:92)
+	at androidx.compose.ui.test.IdlingResourceRegistry.areAllResourcesIdle(IdlingResourceRegistry.jvmAndAndroid.kt:115)
+	at androidx.compose.ui.test.IdlingResourceRegistry.isIdleOrEnsurePolling$ui_test(IdlingResourceRegistry.jvmAndAndroid.kt:93)
+	at androidx.compose.ui.test.EspressoLink.isIdleNow(EspressoLink.android.kt:49)
+	at androidx.test.espresso.base.IdlingResourceRegistry.allResourcesAreIdle(IdlingResourceRegistry.java:281)
+	at androidx.test.espresso.base.IdlingResourceRegistry$6.isIdleNow(IdlingResourceRegistry.java:320)
+	at androidx.test.espresso.base.UiControllerImpl.loopMainThreadUntilIdle(UiControllerImpl.java:407)
+	at androidx.test.espresso.Espresso.lambda$onIdle$2(Espresso.java:340)
+	at androidx.test.espresso.Espresso$$ExternalSyntheticLambda1.call(D8$$SyntheticClass:0)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at android.os.Handler.handleCallback(Handler.java:883)
+	at android.os.Handler.dispatchMessage(Handler.java:100)
+	at android.os.Looper.loop(Looper.java:214)
+	at android.app.ActivityThread.main(ActivityThread.java:7356)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:492)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:930)
+
+INSTRUMENTATION_STATUS: stream=
+Error in unreadableImportedGroupHintsKeepWalletAndAuthenticatedCachedGroupsUsable(nl.davidengelen.redsquare.GroupChatPreviewTest):
+java.lang.IllegalArgumentException: Failed requirement.
+	at nl.davidengelen.redsquare.saito.SaitoWallet.savedChatIds(SaitoWallet.kt:150)
+	at nl.davidengelen.redsquare.saito.SaitoWallet.namedChatGroupIds(SaitoWallet.kt:133)
+	at nl.davidengelen.redsquare.chat.GroupChatScreenKt.GroupChatScreen(GroupChatScreen.kt:67)
+	at nl.davidengelen.redsquare.chat.ChatScreenKt.ChatScreen(ChatScreen.kt:47)
+	at nl.davidengelen.redsquare.chat.ChatScreenKt.ChatScreen$lambda$110(Unknown Source:14)
+	at nl.davidengelen.redsquare.chat.ChatScreenKt.$r8$lambda$nnkU7LudFUUbDGdUKdkuVK_kTpA(Unknown Source:0)
+	at nl.davidengelen.redsquare.chat.ChatScreenKt$$ExternalSyntheticLambda12.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.runtime.RecomposeScopeImpl.compose(RecomposeScopeImpl.kt:204)
+	at androidx.compose.runtime.GapComposer.recomposeToGroupEnd(GapComposer.kt:1678)
+	at androidx.compose.runtime.GapComposer.skipCurrentGroup(GapComposer.kt:2014)
+	at androidx.compose.runtime.GapComposer.doCompose-aFTiNEg(GapComposer.kt:2655)
+	at androidx.compose.runtime.GapComposer.recompose-aFTiNEg$runtime(GapComposer.kt:2577)
+	at androidx.compose.runtime.CompositionImpl.recompose(Composition.kt:1164)
+	at androidx.compose.runtime.Recomposer.performRecompose(Recomposer.kt:1318)
+	at androidx.compose.runtime.Recomposer.access$performRecompose(Recomposer.kt:191)
+	at androidx.compose.runtime.Recomposer$runRecomposeAndApplyChanges$2.invokeSuspend$lambda$2(Recomposer.kt:655)
+	at androidx.compose.runtime.Recomposer$runRecomposeAndApplyChanges$2.$r8$lambda$sdKIQuFT6MpOW8QdHT9yWSawFoM(Unknown Source:0)
+	at androidx.compose.runtime.Recomposer$runRecomposeAndApplyChanges$2$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.TestMonotonicFrameClock$withFrameNanos$2$1$1.invoke(TestMonotonicFrameClock.jvmAndAndroid.kt:108)
+	at androidx.compose.ui.test.TestMonotonicFrameClock$withFrameNanos$2$1$1.invoke(TestMonotonicFrameClock.jvmAndAndroid.kt:108)
+	at androidx.compose.ui.test.TestMonotonicFrameClock.performFrame$lambda$0(TestMonotonicFrameClock.jvmAndAndroid.kt:153)
+	at androidx.compose.ui.test.TestMonotonicFrameClock.$r8$lambda$fu8waJyGgBJHXAKiQd11d2HBpD8(Unknown Source:0)
+	at androidx.compose.ui.test.TestMonotonicFrameClock$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.FrameDeferringContinuationInterceptor.runWithoutResumingCoroutines(FrameDeferringContinuationInterceptor.jvmAndAndroid.kt:59)
+	at androidx.compose.ui.test.TestMonotonicFrameClock.performFrame(TestMonotonicFrameClock.jvmAndAndroid.kt:135)
+	at androidx.compose.ui.test.TestMonotonicFrameClock.access$performFrame(TestMonotonicFrameClock.jvmAndAndroid.kt:57)
+	at androidx.compose.ui.test.TestMonotonicFrameClock$withFrameNanos$2$1$2.invokeSuspend(TestMonotonicFrameClock.jvmAndAndroid.kt:113)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTaskKt.resume(DispatchedTask.kt:221)
+	at kotlinx.coroutines.DispatchedTaskKt.dispatch(DispatchedTask.kt:154)
+	at kotlinx.coroutines.CancellableContinuationImpl.dispatchResume(CancellableContinuationImpl.kt:470)
+	at kotlinx.coroutines.CancellableContinuationImpl.resumeImpl$kotlinx_coroutines_core(CancellableContinuationImpl.kt:504)
+	at kotlinx.coroutines.CancellableContinuationImpl.resumeImpl$kotlinx_coroutines_core$default(CancellableContinuationImpl.kt:493)
+	at kotlinx.coroutines.CancellableContinuationImpl.resumeUndispatched(CancellableContinuationImpl.kt:596)
+	at kotlinx.coroutines.test.CancellableContinuationRunnable.run(TestDispatcher.kt:60)
+	at kotlinx.coroutines.test.TestDispatcher.processEvent$kotlinx_coroutines_test(TestDispatcher.kt:24)
+	at kotlinx.coroutines.test.TestCoroutineScheduler.runCurrent(TestCoroutineScheduler.kt:132)
+	at androidx.compose.ui.test.AbstractMainTestClock.advanceScheduler$lambda$0(AbstractMainTestClock.kt:105)
+	at androidx.compose.ui.test.AbstractMainTestClock.$r8$lambda$wZhY1IBAXiCZXjVfzNo5rVwrl-Q(Unknown Source:0)
+	at androidx.compose.ui.test.AbstractMainTestClock$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.AndroidSynchronization_androidKt.runOnUiThread(AndroidSynchronization.android.kt:35)
+	at androidx.compose.ui.test.MainTestClockImpl$1.invoke(MainTestClockImpl.android.kt:32)
+	at androidx.compose.ui.test.MainTestClockImpl$1.invoke(MainTestClockImpl.android.kt:32)
+	at androidx.compose.ui.test.AbstractMainTestClock.advanceScheduler(AbstractMainTestClock.kt:101)
+	at androidx.compose.ui.test.AbstractMainTestClock.advanceTimeByFrame(AbstractMainTestClock.kt:41)
+	at androidx.compose.ui.test.ComposeIdlingResource.isIdleNow(ComposeIdlingResource.android.kt:92)
+	at androidx.compose.ui.test.IdlingResourceRegistry.areAllResourcesIdle(IdlingResourceRegistry.jvmAndAndroid.kt:115)
+	at androidx.compose.ui.test.IdlingResourceRegistry.isIdleOrEnsurePolling$ui_test(IdlingResourceRegistry.jvmAndAndroid.kt:93)
+	at androidx.compose.ui.test.EspressoLink.isIdleNow(EspressoLink.android.kt:49)
+	at androidx.test.espresso.base.IdlingResourceRegistry.allResourcesAreIdle(IdlingResourceRegistry.java:281)
+	at androidx.test.espresso.base.IdlingResourceRegistry$6.isIdleNow(IdlingResourceRegistry.java:320)
+	at androidx.test.espresso.base.UiControllerImpl.loopMainThreadUntilIdle(UiControllerImpl.java:407)
+	at androidx.test.espresso.Espresso.lambda$onIdle$2(Espresso.java:340)
+	at androidx.test.espresso.Espresso$$ExternalSyntheticLambda1.call(D8$$SyntheticClass:0)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at android.os.Handler.handleCallback(Handler.java:883)
+	at android.os.Handler.dispatchMessage(Handler.java:100)
+	at android.os.Looper.loop(Looper.java:214)
+	at android.app.ActivityThread.main(ActivityThread.java:7356)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:492)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:930)
+
+INSTRUMENTATION_STATUS: test=unreadableImportedGroupHintsKeepWalletAndAuthenticatedCachedGroupsUsable
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anInterruptedCreationCanRetryItsSavedOriginalAndRecoverKeyMetadataWithoutAutomaticSending
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anInterruptedCreationCanRetryItsSavedOriginalAndRecoverKeyMetadataWithoutAutomaticSending
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=savedUncertainGroupWorkIsIncludedInOutgoingWalletWorkAcrossBackends
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=savedUncertainGroupWorkIsIncludedInOutgoingWalletWorkAcrossBackends
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=explicitNamedGroupLikesToggleDistinctOriginalsAndSurviveDuplicatesAndReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=explicitNamedGroupLikesToggleDistinctOriginalsAndSurviveDuplicatesAndReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anUnsentGroupDraftSurvivesBackNavigationAndReopeningWithoutSending
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anUnsentGroupDraftSurvivesBackNavigationAndReopeningWithoutSending
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=signedGroupHistoryCanPageOlderAndRemainCachedAfterArchivePruning
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=signedGroupHistoryCanPageOlderAndRemainCachedAfterArchivePruning
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=accountBlockingHidesIncomingGroupMessagesAndMutingKeepsThemOnBothBackends
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=accountBlockingHidesIncomingGroupMessagesAndMutingKeepsThemOnBothBackends
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=incomingGroupStorageFailureStaysVisibleThroughReconnectAndRecoversWithoutSending
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=incomingGroupStorageFailureStaysVisibleThroughReconnectAndRecoversWithoutSending
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anExistingMemberInvitationCanBeConfirmedOnTheSelectedBackendAndReadAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anExistingMemberInvitationCanBeConfirmedOnTheSelectedBackendAndReadAfterReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=removedAuthorsCannotHideAvailableEarlierGroupHistory
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=removedAuthorsCannotHideAvailableEarlierGroupHistory
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=13
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=leavingANamedGroupRetainsTheSignedDepartureAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=13
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=leavingANamedGroupRetainsTheSignedDepartureAfterReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=14
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=unavailableGroupArchiveKeepsCachedMessagesLiveDeliveryAndSendingUsable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=14
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unavailableGroupArchiveKeepsCachedMessagesLiveDeliveryAndSendingUsable
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=15
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aKnownGroupRejoinPreviewsAndRoutesToItsRetainedAdministrator
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=15
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aKnownGroupRejoinPreviewsAndRoutesToItsRetainedAdministrator
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=16
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=groupMessagesCombineAvailableHistoryLiveDeliveryAndPersistentCacheWithoutDuplicateSending
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=16
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=groupMessagesCombineAvailableHistoryLiveDeliveryAndPersistentCacheWithoutDuplicateSending
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=17
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anAddressedSignedCreationIsRetainedWithoutInventingAnOutgoingAttempt
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=17
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anAddressedSignedCreationIsRetainedWithoutInventingAnOutgoingAttempt
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=18
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=relayMembershipIsReadAfterSubmissionBeforeBuildingTheOutgoingRelay
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=18
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=relayMembershipIsReadAfterSubmissionBeforeBuildingTheOutgoingRelay
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=19
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=creationKeySurvivesReopeningBeforeWalletMetadataCanBePublished
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=19
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=creationKeySurvivesReopeningBeforeWalletMetadataCanBePublished
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=20
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aTemporarilyUnreadableGroupDraftRecoversOnRefreshWithoutSending
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=20
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aTemporarilyUnreadableGroupDraftRecoversOnRefreshWithoutSending
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=21
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aNamedGroupCanBeCreatedWithAnInvitationAndReadAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=21
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aNamedGroupCanBeCreatedWithAnInvitationAndReadAfterReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=22
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aLiveAddressedGroupAppearsWithoutSendingAndItsMessagesAndDraftSurviveReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=22
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aLiveAddressedGroupAppearsWithoutSendingAndItsMessagesAndDraftSurviveReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 124.439
+There was 1 failure:
+1) unreadableImportedGroupHintsKeepWalletAndAuthenticatedCachedGroupsUsable(nl.davidengelen.redsquare.GroupChatPreviewTest)
+java.lang.IllegalArgumentException: Failed requirement.
+	at nl.davidengelen.redsquare.saito.SaitoWallet.savedChatIds(SaitoWallet.kt:150)
+	at nl.davidengelen.redsquare.saito.SaitoWallet.namedChatGroupIds(SaitoWallet.kt:133)
+	at nl.davidengelen.redsquare.chat.GroupChatScreenKt.GroupChatScreen(GroupChatScreen.kt:67)
+	at nl.davidengelen.redsquare.chat.ChatScreenKt.ChatScreen(ChatScreen.kt:47)
+	at nl.davidengelen.redsquare.chat.ChatScreenKt.ChatScreen$lambda$110(Unknown Source:14)
+	at nl.davidengelen.redsquare.chat.ChatScreenKt.$r8$lambda$nnkU7LudFUUbDGdUKdkuVK_kTpA(Unknown Source:0)
+	at nl.davidengelen.redsquare.chat.ChatScreenKt$$ExternalSyntheticLambda12.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.runtime.RecomposeScopeImpl.compose(RecomposeScopeImpl.kt:204)
+	at androidx.compose.runtime.GapComposer.recomposeToGroupEnd(GapComposer.kt:1678)
+	at androidx.compose.runtime.GapComposer.skipCurrentGroup(GapComposer.kt:2014)
+	at androidx.compose.runtime.GapComposer.doCompose-aFTiNEg(GapComposer.kt:2655)
+	at androidx.compose.runtime.GapComposer.recompose-aFTiNEg$runtime(GapComposer.kt:2577)
+	at androidx.compose.runtime.CompositionImpl.recompose(Composition.kt:1164)
+	at androidx.compose.runtime.Recomposer.performRecompose(Recomposer.kt:1318)
+	at androidx.compose.runtime.Recomposer.access$performRecompose(Recomposer.kt:191)
+	at androidx.compose.runtime.Recomposer$runRecomposeAndApplyChanges$2.invokeSuspend$lambda$2(Recomposer.kt:655)
+	at androidx.compose.runtime.Recomposer$runRecomposeAndApplyChanges$2.$r8$lambda$sdKIQuFT6MpOW8QdHT9yWSawFoM(Unknown Source:0)
+	at androidx.compose.runtime.Recomposer$runRecomposeAndApplyChanges$2$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.TestMonotonicFrameClock$withFrameNanos$2$1$1.invoke(TestMonotonicFrameClock.jvmAndAndroid.kt:108)
+	at androidx.compose.ui.test.TestMonotonicFrameClock$withFrameNanos$2$1$1.invoke(TestMonotonicFrameClock.jvmAndAndroid.kt:108)
+	at androidx.compose.ui.test.TestMonotonicFrameClock.performFrame$lambda$0(TestMonotonicFrameClock.jvmAndAndroid.kt:153)
+	at androidx.compose.ui.test.TestMonotonicFrameClock.$r8$lambda$fu8waJyGgBJHXAKiQd11d2HBpD8(Unknown Source:0)
+	at androidx.compose.ui.test.TestMonotonicFrameClock$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.FrameDeferringContinuationInterceptor.runWithoutResumingCoroutines(FrameDeferringContinuationInterceptor.jvmAndAndroid.kt:59)
+	at androidx.compose.ui.test.TestMonotonicFrameClock.performFrame(TestMonotonicFrameClock.jvmAndAndroid.kt:135)
+	at androidx.compose.ui.test.TestMonotonicFrameClock.access$performFrame(TestMonotonicFrameClock.jvmAndAndroid.kt:57)
+	at androidx.compose.ui.test.TestMonotonicFrameClock$withFrameNanos$2$1$2.invokeSuspend(TestMonotonicFrameClock.jvmAndAndroid.kt:113)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTaskKt.resume(DispatchedTask.kt:221)
+	at kotlinx.coroutines.DispatchedTaskKt.dispatch(DispatchedTask.kt:154)
+	at kotlinx.coroutines.CancellableContinuationImpl.dispatchResume(CancellableContinuationImpl.kt:470)
+	at kotlinx.coroutines.CancellableContinuationImpl.resumeImpl$kotlinx_coroutines_core(CancellableContinuationImpl.kt:504)
+	at kotlinx.coroutines.CancellableContinuationImpl.resumeImpl$kotlinx_coroutines_core$default(CancellableContinuationImpl.kt:493)
+	at kotlinx.coroutines.CancellableContinuationImpl.resumeUndispatched(CancellableContinuationImpl.kt:596)
+	at kotlinx.coroutines.test.CancellableContinuationRunnable.run(TestDispatcher.kt:60)
+	at kotlinx.coroutines.test.TestDispatcher.processEvent$kotlinx_coroutines_test(TestDispatcher.kt:24)
+	at kotlinx.coroutines.test.TestCoroutineScheduler.runCurrent(TestCoroutineScheduler.kt:132)
+	at androidx.compose.ui.test.AbstractMainTestClock.advanceScheduler$lambda$0(AbstractMainTestClock.kt:105)
+	at androidx.compose.ui.test.AbstractMainTestClock.$r8$lambda$wZhY1IBAXiCZXjVfzNo5rVwrl-Q(Unknown Source:0)
+	at androidx.compose.ui.test.AbstractMainTestClock$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.AndroidSynchronization_androidKt.runOnUiThread(AndroidSynchronization.android.kt:35)
+	at androidx.compose.ui.test.MainTestClockImpl$1.invoke(MainTestClockImpl.android.kt:32)
+	at androidx.compose.ui.test.MainTestClockImpl$1.invoke(MainTestClockImpl.android.kt:32)
+	at androidx.compose.ui.test.AbstractMainTestClock.advanceScheduler(AbstractMainTestClock.kt:101)
+	at androidx.compose.ui.test.AbstractMainTestClock.advanceTimeByFrame(AbstractMainTestClock.kt:41)
+	at androidx.compose.ui.test.ComposeIdlingResource.isIdleNow(ComposeIdlingResource.android.kt:92)
+	at androidx.compose.ui.test.IdlingResourceRegistry.areAllResourcesIdle(IdlingResourceRegistry.jvmAndAndroid.kt:115)
+	at androidx.compose.ui.test.IdlingResourceRegistry.isIdleOrEnsurePolling$ui_test(IdlingResourceRegistry.jvmAndAndroid.kt:93)
+	at androidx.compose.ui.test.EspressoLink.isIdleNow(EspressoLink.android.kt:49)
+	at androidx.test.espresso.base.IdlingResourceRegistry.allResourcesAreIdle(IdlingResourceRegistry.java:281)
+	at androidx.test.espresso.base.IdlingResourceRegistry$6.isIdleNow(IdlingResourceRegistry.java:320)
+	at androidx.test.espresso.base.UiControllerImpl.loopMainThreadUntilIdle(UiControllerImpl.java:407)
+	at androidx.test.espresso.Espresso.lambda$onIdle$2(Espresso.java:340)
+	at androidx.test.espresso.Espresso$$ExternalSyntheticLambda1.call(D8$$SyntheticClass:0)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at android.os.Handler.handleCallback(Handler.java:883)
+	at android.os.Handler.dispatchMessage(Handler.java:100)
+	at android.os.Looper.loop(Looper.java:214)
+	at android.app.ActivityThread.main(ActivityThread.java:7356)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:492)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:930)
+
+FAILURES!!!
+Tests run: 22,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
