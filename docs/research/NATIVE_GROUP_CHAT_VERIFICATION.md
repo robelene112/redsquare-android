@@ -306,4 +306,7 @@ exact [groupID, leavingWallet] recipients, matching normalized broadcast/Relay,
 LEFT state and exact protected departure original after reopening without resend.
 Initial review found missing exact recipients and retained-original assertions;
 both corrected and separately reviewed0/0. TestAPK compile PASS1m33s.
-Actual nativeRED is pending on17run38538979079 before minimum implementation.
+Actual nativeRED17run38538979079 has five cases/64.937s: four PASS plus missing
+Leave group control. Root original failure PNG/XML inspected. Consent, departure
+and later recovery assertions did not execute. The minimum leave implementation
+is now compiling; corrected native GREEN and whole26 acceptance remain pending.

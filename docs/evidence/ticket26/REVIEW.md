@@ -147,3 +147,8 @@ Standards0, Spec2: exact departure recipient sequence and retained signed depart
 were unasserted. Correction830ed6c2 adds both; separate correction reviews0/0.
 Refined testAPK compile PASS1m33s. Actual leave RED17run38538979079 active;
 missing Leave control expected but not claimed before its actual report.
+
+Leave minimum830ed6c2...c21c6fb5: Standards0; Spec1 evidence-only stale REDpending
+sentence. Corrected to completed five-case RED with later assertions unexecuted;
+Spec correction0. No source-level findings. Local debug/testAPK compile PASS3m41s.
+Corrected native leave GREEN pending; retry/message/history/PID/full26 still open.
