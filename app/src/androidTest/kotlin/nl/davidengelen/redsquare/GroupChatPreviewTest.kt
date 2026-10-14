@@ -498,6 +498,87 @@ class GroupChatPreviewTest {
     }
 
 
+    @Test fun aLiveAddressedGroupAppearsWithoutSendingAndItsMessagesAndDraftSurviveReopening() {
+        val context=InstrumentationRegistry.getInstrumentation().targetContext
+        check(context.packageName=="nl.davidengelen.redsquare.dev")
+        check(android.os.Build.HARDWARE in listOf("ranchu","goldfish"))
+        val walletStore=AndroidWalletStore(context)
+        val original=walletStore.loadOrCreate()
+        val backend=AndroidBackendStore(context).load()
+        val fixture=SaitoWallet.fromPrivateKey("0".repeat(63)+"4") // Public unsafe fixtures only.
+        val admin=SaitoWallet.fromPrivateKey("0".repeat(63)+"1")
+        val key=SaitoWallet.fromPrivateKey("0".repeat(63)+"9")
+        val creation=GroupChat.create(admin,key.publicKey,"Incoming beta group",listOf(fixture.publicKey),1700000123456)
+        val group=GroupChat.readCreation(creation.envelope())
+        val message=GroupChat.message(admin,group,"Live incoming group history",1700000123457)
+        val filename="groupchat.${SaitoBackend.OWNER.id}.${fixture.publicKey}.${key.publicKey}.v1"
+        synchronized(SaitoLocalState.lock){
+            check(listOf(filename,"$filename.bak","$filename.new").none{File(context.noBackupFilesDir,it).exists()})
+        }
+        val preferences=listOf("wallet-backup-reminders" to "hidden:${fixture.publicKey}","notification-permission" to "offered").map{(name,keyName)->
+            val prefs=context.getSharedPreferences(name,0)
+            Triple(prefs,keyName,if(prefs.contains(keyName))prefs.getBoolean(keyName,false)else null)
+        }
+        val peer=ControlledFeedPeer("[]",advertisedServices="archive||;relay||")
+        var primary:Throwable?=null
+        try {
+            walletStore.replace(original,fixture)
+            AndroidBackendStore(context).save(SaitoBackend.OWNER)
+            preferences.forEach{(prefs,keyName,_)->check(prefs.edit().putBoolean(keyName,true).commit())}
+            peer.start().use{server->
+                ActivityScenario.launch<MainActivity>(Intent(context,MainActivity::class.java)
+                    .putExtra("feedPeerUrl","ws://127.0.0.1:${server.port}/wsopen")
+                    .putExtra("feedOfficialPeerUrl","ws://127.0.0.1:${server.port}/wsopen")).use{scenario->
+                    withFailureCapture({captureNativeScreen(File(context.cacheDir,"group-chat-evidence/incoming-ui-failure.png"))}){
+                        waitFor("Chat");ui.onNodeWithText("Chat").assertIsDisplayed().performClick()
+                        waitFor("Groups");ui.onNodeWithText("Groups").assertIsDisplayed().performClick()
+                        waitFor("Create group");ui.onNodeWithText("Create group").assertIsDisplayed()
+                        fun deliver(transaction:SaitoTransaction){
+                            val before=peer.incomingAcknowledgements.count{it[0]==13.toByte()}
+                            val bytes=transaction.applicationRequest(1).let{it.copyOfRange(5,it.size)}
+                            var lastDelivery=0L
+                            ui.waitUntil(15_000){
+                                val now=android.os.SystemClock.elapsedRealtime()
+                                if(now-lastDelivery>=500){peer.sendIncoming(bytes);lastDelivery=now}
+                                peer.incomingAcknowledgements.count{it[0]==13.toByte()}>before
+                            }
+                        }
+                        deliver(creation)
+                        waitFor(group.name)
+                        ui.onNodeWithText(group.name).assertIsDisplayed().performClick()
+                        waitFor("Received a signed group invitation.")
+                        ui.onNodeWithText("Retry").assertDoesNotExist()
+                        check(peer.transactions.isEmpty()&&peer.relayedMessages.isEmpty())
+                        deliver(message);waitForGroupMessage("Live incoming group history")
+                        ui.onNodeWithText("Message").assertIsEnabled().performTextInput("Keep incoming group draft")
+                        androidx.test.espresso.Espresso.closeSoftKeyboard()
+                        ui.waitUntil(15_000){runCatching{ui.onNodeWithText("Back").assertIsDisplayed()}.isSuccess}
+                        ui.onNodeWithText("Back").assertIsDisplayed().performClick()
+                        waitFor("Create group")
+                        scenario.recreate();waitFor("Groups");ui.onNodeWithText("Groups").performClick()
+                        waitFor(group.name);ui.onNodeWithText(group.name).assertIsDisplayed().performClick()
+                        waitForGroupMessage("Live incoming group history")
+                        ui.waitUntil(15_000){runCatching{ui.onNodeWithText("Message").fetchSemanticsNode().config[
+                            androidx.compose.ui.semantics.SemanticsProperties.EditableText].text=="Keep incoming group draft"}.getOrDefault(false)}
+                        ui.onNodeWithText("Message").assertIsDisplayed().assertIsEnabled()
+                        val saved=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,walletStore.loadExisting(),SaitoBackend.OWNER).load(group.id))
+                        check(saved.group.creationEnvelope?.let{SaitoEnvelope.decode(it).id}==creation.id)
+                        check(saved.candidate==null && saved.messages.single().id==message.id && saved.draft=="Keep incoming group draft")
+                        check(walletStore.loadExisting().publicKey==fixture.publicKey&&AndroidBackendStore(context).load()==SaitoBackend.OWNER)
+                        check(peer.transactions.isEmpty()&&peer.relayedMessages.isEmpty())
+                        captureNativeScreen(File(context.cacheDir,"group-chat-evidence/incoming-ui-reopened.png"),"Keep incoming group draft")
+                        peer.assertHealthy()
+                    }
+                }
+            }
+        }catch(failure:Throwable){primary=failure;throw failure}
+        finally{cleanupAfterTest(primary,
+            {synchronized(SaitoLocalState.lock){listOf(filename,"$filename.bak","$filename.new").forEach{val file=File(context.noBackupFilesDir,it);check(!file.exists()||file.delete())}}},
+            {walletStore.replace(walletStore.loadExisting(),original)},
+            {AndroidBackendStore(context).save(backend)},
+            *preferences.map{(prefs,keyName,value)->{check(prefs.edit().apply{if(value==null)remove(keyName)else putBoolean(keyName,value)}.commit());Unit}}.toTypedArray())}
+    }
+
     @Test fun anAddressedSignedCreationIsRetainedWithoutInventingAnOutgoingAttempt() {
         val context=InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName=="nl.davidengelen.redsquare.dev")
