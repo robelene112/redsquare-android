@@ -1,0 +1,2 @@
+Run38601182527 at08f45d12a6d0684eeec44784fc62ecccfd19a79b: one action case FAIL,19.322s. Initial actual native group navigation and original message succeeded; Copy enabled wait66 timed out. Original PNG/XML shows group privacy/origin, cached original and Like, with no Copy or Reply actions.
+This is the actual missing-Copy RED. Clipboard, reply composition/mention, outgoing original and recreated copy/cache assertions were not reached. Following21 class and PID driver were not executed. No acceptance or physical-device claim. Controlled peers, public unsafe identities only.
