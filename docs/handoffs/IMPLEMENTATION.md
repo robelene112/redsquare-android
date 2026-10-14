@@ -45,50 +45,40 @@ Local .scratch/review-builds/14; publicrecords docs/evidence/ticket37/signed-pre
 No store/node/service/ingresschange. Current14physicalPixel/continuity/performance
 remain35. Preview13superseded;12neverpublished.
 
-**Active #26 checkpoint, 2026-10-14 13:06 UTC:**21 original tickets complete;
-#26 OPEN. Owner pause boundary above takes priority: complete26 thenstop.
-Beta14 unchanged; no group review APK published.
+**Active #26 checkpoint, 2026-10-14 14:15 UTC:** issue26 OPEN; finish it then
+STOP until owner resumes, as above. Beta14 unchanged; no Group APK published.
 
-Latest verified baseline b828adb2a6bc7609bbdcd025c4b6862267739859:
-fullcore107PASS/debug/testAPKPASS3m3; native14 Android10run38566798588 allPASS80.49s,
-Android17run38566803390 allPASS130.93s. Root inspected original transient draft
-corruption/repair PNG/XML bothSDKs. Cache staysstrict, bad newpages skippedwithout
-clearinghistory; signedcursor independentofadmission/cache/unsignedmetadata;
-removedauthors cannot hideoldervalidhistory. Exactdraftdisabled/error thenRefresh
-restored/enabled/localerrorabsent, noextra sends. Native14 includes creation/
-invite/member/leave/key/work/retry/knownadminrouting/messages/live/cache/archive.
-Qualified prior failuresretained. Both reviewaxes0 actionablefindings forbatching,
-parserclassfixturecorrection andprimaryfailurepreservingcleanup. Neither14nor
-GroupChat18/core107 meansactualPID orphysicalperformance/full26 acceptance.
+Incoming received-origin module15 passed both SDKs at1d90a319:10run38569659857
+15PASS72.563s,17run38569664246 15PASS130.811s. Fullcore108 passed with named
+public group hints separated from private contacts/history; hint UI still pending.
 
-New module incomingcreation tracer76e0e5d5, ownershipcorrection6ac5be20 compiled
-2m12/review0each. Actual15RED Android10run38567837547 at
-6ac5be2012d72f1e8133b5cd195fa2809d11ebed:14PASS/1NPE GroupChatStore.receive92,
-fixture521 becausecreation usesid ratherthangroup_id. Laterincomingretention/
-roles/noinventedcandidate/idempotence/conflict assertions unexecuted. No unique
-UIcapture for moduleonlyRED; qualifiednative-incoming-store-red-android10 retained.
+Incoming UI16 at955f4bbf passed all preceding new-case assertions then failed only
+final peer health: missing strict Group Archive callback, default feed handler191
+read absent field1.10run38573990110 15PASS/1 80.732s;17run38573997782 15PASS/1
+114.571s. Root inspected both original incoming UI PNG/XML; qualified attempt
+evidence records no successful full run.
 
-Current incoming-store minimum f39af042: RECEIVED + nullablecandidate, nullrestore
-requiresauthcreation/Received, recipientownmembership required, duplicateverified
-creation signature preservesfirstorigin, conflicting/unaddressedorigin rejected.
-Candidate-lessgroups have no outgoingwork; explicitdraft/send/leave/rejoin use
-pendingguard, Retry onlyUNKNOWN/SUBMITTED+nonnullcandidate. Truthfulreceivedcopy.
-ExistingownattempttestsnowrequireNotNull, notweakened. Localdebug/test buildactive
-(shell31787) andbothreviewsrunning; no15GREEN claimed. UIlistlive discoverynotyet
-implemented. Prepared .scratch/group26-incoming-ui-tracer.kt NOTAPPLIED; own unsafe
-fixtures, live creation/message ACKs,0raw/Relay sends, typed draft+recreation.
-Prepared incoming-store script alreadyAPPLIED; donotreapply. Protecteduntracked
-researchcontract untouched. No productionnode/store/ingress/wallet changes.
+Production839208f8 retains ordered local-storage error publication across passive
+reconnect; typed storage failures yield negative ACK, invalid traffic does not
+misreport a local fault. Unfinished.new is never silently overwritten/ignored.
+Native17 tracer7cec21d5 adds new obstruction/negative ACK/passive reconnect/repair
+and strict Archive callback. Correction4f437d6f correlates unique RPC ACK IDs and
+requires old auth IDs absent and replacement auth before repair. Both review axes
+zero findings; local testAPK compilePASS1m56s. Replacement auth plus ACK correlation
+is sufficient; no separate physical socket teardown assertion required.
 
-NEXT: inspectminimumcompile/reviews thenpush/15casebothSDK group-ui; actualsource
-currentHEAD via git, no guessedSHA. Afterreadonlymodule proof, applyUItracer,
-observe actualmissing-group-list listener/ACK RED, implementlistlive receiver.
-Then importedpublicgrouphints/discoveryonly+availableoriginalhistory, blockvs mute,
-existingreplyrenderer, actualPIDcoldrestorekey/origin/controls/messages/draft/pending
-exactoriginal/noautosend; finalfull10/17/core/release/lint, whole26reviews/fixes,
-remainingevidence andsignednextbeta. STOPafter26 untilownersignal, noUIpolish or
-newticket first. DuringownedGradle donoteditapp/core/testsource. Scopegroup-ui is10;
-group-ui-android17 is17. Donotcancelactive sameSDKrun withnewdispatch unnecessarily.
+Current remote4f437d6f; native17 executions10run38577818874 and17run38577824737
+IN PROGRESS, not yet acceptance. No cancel/redispatch while active same SDK.
+Current owned local Gradle shell76595, one new core historical-join RED test;
+do not edit app/core/test during that build. A historical fetched join must not
+undo a retained departure; explicit deliberate rejoin stays supported.
+
+Remaining26: imported public hint discovery from authenticated available originals
+(with truthful unavailable history); block vs mute group display; existing reply
+renderer; actual PID/cold restart key/origin/controls/messages/draft/pending original
+with no autosend; final full10/17/core/release/lint, whole26 review/fixes, signed
+next beta. STOP after26; no next feature or UI polish before owner resumes.
+Protected untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md stays untouched.
 
 **Historical #26 checkpoint, 2026-10-14 10:14UTC:** known-admin native RED38546506531/95207cf0
 8cases67.047s has7PASS plus missingretainedadmin fixture90. RootPNG/XMLshowsbad
