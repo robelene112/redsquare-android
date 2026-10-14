@@ -115,6 +115,9 @@ class GroupAdminPreviewTest {
             val stopped=requireNotNull(store.load(test.key.publicKey))
             check(stopped.candidate!!.envelope()==stale.envelope()&&stopped.draft=="Keep this stopped-action draft")
             check(stopped.creationKey!!.exportJson()==test.key.exportJson())
+            check(stopped.status==GroupChatStore.Status.STOPPED)
+            check(stopped.stoppedActions.single().candidate.envelope()==stale.envelope()&&
+                stopped.stoppedActions.single().previousStatus==GroupChatStore.Status.UNKNOWN)
             ui.onNodeWithText("Retry").assertDoesNotExist()
             captureNativeScreen(File(test.context.cacheDir,"group-admin-evidence/stopped-stale.png"))
             test.scenario.recreate()
@@ -131,11 +134,80 @@ class GroupAdminPreviewTest {
             val saved=requireNotNull(store.load(test.key.publicKey));val candidate=requireNotNull(saved.candidate)
             check(candidate.id!=stale.id&&SaitoEnvelope.decode(candidate.envelope()).body.get("request").asString=="chat message")
             check(saved.originals.contains(stale.envelope()))
+            check(saved.stoppedActions.single().candidate.envelope()==stale.envelope()&&
+                saved.stoppedActions.single().previousStatus==GroupChatStore.Status.UNKNOWN)
             waitFor("Stopped group actions remain saved here. Their earlier delivery is uncertain.")
             check(postingTransaction(test.peer.transactions.single()).envelope()==candidate.envelope())
             check(SaitoEnvelope.fromSignedJson(test.peer.relayedMessages.single())==candidate.envelope())
             check(test.wallets.loadExisting().exportJson()==test.wallet.exportJson()&&AndroidBackendStore(test.context).load()==test.backend)
             captureNativeScreen(File(test.context.cacheDir,"group-admin-evidence/stopped-stale-new-message.png"))
+            test.peer.assertHealthy()
+        }
+
+    @Test fun aFailedSubmittedStopIsVisibleAndPreservesUncertaintyThroughNewWork() =
+        withAdminUi("4","Submitted stopped action","submitted-stop-failure.png") { test ->
+            val store=test.store;val key=test.key.publicKey
+            store.saveDraft(key,"Keep this submitted-action draft")
+            val candidate=GroupChat.promote(test.wallet,requireNotNull(store.load(key)).group,test.memberWallet.publicKey,1700000123457)
+            store.preparePromotion(candidate,test.memberWallet.publicKey)
+            val departure=GroupChat.leave(test.memberWallet,key,1700000123458)
+            org.junit.Assert.assertThrows(IllegalStateException::class.java){kotlinx.coroutines.runBlocking {
+                nl.davidengelen.redsquare.chat.submitChatTransaction(test.wallet,
+                    test.endpoint,test.wallet.publicKey,candidate,
+                    nl.davidengelen.redsquare.chat.ChatSubmissionCallbacks(
+                        claim={store.claim(key,candidate.id)},assertSelected={store.assertSelected()},
+                        submitted={store.record(key,candidate.id,GroupChatStore.Status.SUBMITTED);store.receive(departure.envelope())},
+                        forwarded={store.record(key,candidate.id,GroupChatStore.Status.FORWARDED)},
+                        relayRecipients={store.relayRecipients(key,candidate.id)}))
+            }}
+            ui.waitUntil(15_000){test.peer.transactions.size==1}
+            check(postingTransaction(test.peer.transactions.single()).envelope()==candidate.envelope()&&test.peer.relayedMessages.isEmpty())
+            waitForEnabled("Chat");ui.onNodeWithText("Chat").performClick()
+            waitFor("Groups");ui.onNodeWithText("Groups").performClick()
+            waitFor("Submitted stopped action");ui.onNodeWithText("Submitted stopped action").performClick()
+            waitForEnabled("Stop trying this action");ui.onNodeWithText("Stop trying this action").performClick()
+            waitForEnabled("Stop on this device")
+            // A real protected selection change between preview and confirmation must refuse saving.
+            val altered=test.wallet.withNamedChatGroup(key,"Changed fixture metadata",test.key)
+            try {
+                test.wallets.replace(test.wallet,altered)
+                ui.onNodeWithText("Stop on this device").performClick()
+                val error=hasText(test.context.getString(R.string.group_error)) and hasAnyAncestor(isDialog())
+                ui.waitUntil(15_000){ui.onAllNodes(error).fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()}
+                ui.onNode(error).assertIsDisplayed()
+                val pending=requireNotNull(store.load(key))
+                check(pending.candidate!!.envelope()==candidate.envelope()&&pending.status==GroupChatStore.Status.SUBMITTED)
+                check(pending.stoppedActions.isEmpty()&&pending.draft=="Keep this submitted-action draft")
+                check(test.peer.transactions.size==1&&test.peer.relayedMessages.isEmpty())
+                captureNativeScreen(File(test.context.cacheDir,"group-admin-evidence/submitted-stop-refused.png"))
+            } finally { test.wallets.replace(test.wallets.loadExisting(),test.wallet) }
+            ui.onNodeWithText("Stop on this device").performClick()
+            waitFor("Stopped on this device. Earlier delivery is uncertain.");waitForEnabled("Message")
+            val stopped=requireNotNull(store.load(key))
+            check(stopped.status==GroupChatStore.Status.STOPPED&&stopped.candidate!!.envelope()==candidate.envelope())
+            check(stopped.stoppedActions.single().candidate.envelope()==candidate.envelope()&&
+                stopped.stoppedActions.single().previousStatus==GroupChatStore.Status.SUBMITTED)
+            check(stopped.creationKey!!.exportJson()==test.key.exportJson())
+            check(test.peer.transactions.size==1&&test.peer.relayedMessages.isEmpty())
+            test.scenario.recreate()
+            waitFor("Groups");ui.onNodeWithText("Groups").performClick()
+            waitFor("Submitted stopped action");ui.onNodeWithText("Submitted stopped action").performClick()
+            waitForEnabled("Message")
+            check(store.load(key)!!.stoppedActions.single().previousStatus==GroupChatStore.Status.SUBMITTED)
+            check(test.peer.transactions.size==1&&test.peer.relayedMessages.isEmpty())
+            ui.onNodeWithText("Message").performTextReplacement("New work after submitted stop")
+            androidx.test.espresso.Espresso.closeSoftKeyboard()
+            waitForEnabled("Send");ui.onNodeWithText("Send").performClick()
+            ui.waitUntil(15_000){store.load(key)?.status==GroupChatStore.Status.FORWARDED}
+            ui.waitUntil(15_000){test.peer.transactions.size==2&&test.peer.relayedMessages.size==1}
+            val saved=requireNotNull(store.load(key));val newCandidate=requireNotNull(saved.candidate)
+            check(newCandidate.id!=candidate.id&&saved.originals.contains(candidate.envelope()))
+            check(saved.stoppedActions.single().candidate.envelope()==candidate.envelope()&&
+                saved.stoppedActions.single().previousStatus==GroupChatStore.Status.SUBMITTED)
+            check(postingTransaction(test.peer.transactions.last()).envelope()==newCandidate.envelope())
+            check(SaitoEnvelope.fromSignedJson(test.peer.relayedMessages.single())==newCandidate.envelope())
+            check(test.wallets.loadExisting().exportJson()==test.wallet.exportJson()&&AndroidBackendStore(test.context).load()==test.backend)
+            captureNativeScreen(File(test.context.cacheDir,"group-admin-evidence/submitted-stop-new-message.png"))
             test.peer.assertHealthy()
         }
 
@@ -261,7 +333,7 @@ class GroupAdminPreviewTest {
 
     private class AdminUiFixture(val context:android.content.Context,val wallets:AndroidWalletStore,val backend:SaitoBackend,
         val wallet:SaitoWallet,val memberWallet:SaitoWallet,val key:SaitoWallet,val creation:SaitoTransaction,
-        val store:GroupChatStore,val peer:ControlledFeedPeer,val scenario:ActivityScenario<MainActivity>)
+        val store:GroupChatStore,val peer:ControlledFeedPeer,val scenario:ActivityScenario<MainActivity>,val endpoint:String)
 
     private fun withAdminUi(groupScalar:String,name:String,failureCapture:String,relayResponse:((com.google.gson.JsonObject)->String)?=null,journey:(AdminUiFixture)->Unit) {
         val context=InstrumentationRegistry.getInstrumentation().targetContext
@@ -290,7 +362,7 @@ class GroupAdminPreviewTest {
                 .putExtra("feedPeerUrl","ws://127.0.0.1:${server.port}/wsopen")
                 .putExtra("feedOfficialPeerUrl","ws://127.0.0.1:${server.port}/wsopen")).use{scenario->
                 withFailureCapture({captureNativeScreen(File(context.cacheDir,"group-admin-evidence/$failureCapture"))}) {
-                    journey(AdminUiFixture(context,wallets,backend,fixture,member,key,creation,store,peer,scenario))
+                    journey(AdminUiFixture(context,wallets,backend,fixture,member,key,creation,store,peer,scenario,"ws://127.0.0.1:${server.port}/wsopen"))
                 }
             }}
         }catch(failure:Throwable){primary=failure;throw failure}

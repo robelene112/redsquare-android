@@ -247,5 +247,5 @@ between preview/confirmation, requires error inside the actual dialog and unchan
 SUBMITTED original/no extra frames, restores selection and requires successful
 Stop/reopen/new-message with retained priorSUBMITTED history. ExistingUNKNOWN
 tracer now additionally asserts saved original/priorUNKNOWN afterStop andnewwork.
-Compile62422active, firstnewREDpending; modalerror sourcefix deliberatelyabsent.
+Compile62422PASS3m5s/debug/test, firstnewREDpending; modalerror sourcefix deliberatelyabsent.
 Twelvecases. No full27 or phonepublication acceptance yet.

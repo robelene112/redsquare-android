@@ -54,12 +54,12 @@ original history/priorstatus, fresh protectedstaleclassification/UIconfirmation,
 restored composition without transmission; walletreplacementdisclosure remains
 conservative for stopped uncertain actions. Build81893PASS3m7s/core4/debug/test. Classification now shares actualsendvalidator
 perStandardsfinding; correctionreviewsSpec0/Standards0. Native11case+PID GREEN10
-run38653588969 SUCCESSatfd926d5d; hostedcompile/runtimepassed. Current62422active.
+run38653588969 SUCCESSatfd926d5d; hostedcompile/runtimepassed. Noownedlocalbuildactive.
 Ignored .scratch/implement-group27-stale-stop.py is OBSOLETE/APPLIED; DO NOT rerun.
 11case10GREEN38653588969 atfd926d5d nowSUCCESS33.271s plusbothPIDjourneys;
 retainednative-stale-stop-green-android10. Root newworkcaptureinspected.
 Follow-upSpec1 hiddenStop-modal failure, plusseparateSUBMITTEDhistoryverificationgap.
-New12thnativecase implementedworkingtree; compile62422active. It requires actual
+New12thnativecase implementedworkingtree; compile62422PASS3m5s/debug/test. It requires actual
 raw thenrefusedRelay, freshselectionchange/visibleerrorinsideDialog/preservedstate,
 selectionrestore/Stop/reopen/newmessage/priorSUBMITTEDhistory. UNKNOWNtestalsoadds
 explicitprior-status/historyassertions. FirstRED pending, modalfixabsent.

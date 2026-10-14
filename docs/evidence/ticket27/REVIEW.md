@@ -147,3 +147,11 @@ actual raw submission then refused Relay, fresh protected metadata change and
 dialog-scoped error assertion, followed by correct selection/recovery/newwork.
 New RED not yet run; correction deliberatelyabsent. UNKNOWN success alreadypasses
 11case10run38653588969 withboth actual-process journeys, retained separately.
+
+## Actual UNKNOWN stop acceptance review
+
+fd926d5d...ef83d80e: Spec0, Standards0. Both axes verify50hashes/15XML,
+elevenPASS33.271s, sourcefd, promotionPID7135to7421/removal7728to8020, exact checkpoint
+deltas/crash/recover/Retry/restore. Root/review originals show retained draft,
+newwork afterStop and persistent uncertain-history wording. No source modalfailure
+or SUBMITTED-stop acceptance inferred; those remain the next12th-case RED.
