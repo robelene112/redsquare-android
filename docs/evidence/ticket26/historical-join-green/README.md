@@ -1,0 +1,1 @@
+Full core: 109 tests passed. Historical fetched join remains incomplete and cannot undo retained LEFT. Strict explicit rejoin restores MEMBER. This is core evidence, not native UI or complete issue26 acceptance.
