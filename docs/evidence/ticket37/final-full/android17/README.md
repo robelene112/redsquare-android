@@ -16,6 +16,7 @@ Earlier failures/cancellations remain retained, their causes/limits qualified.
 
 Public synthetic original captures/logs retained; encrypted installation backups
 and private wallet documents excluded. XMLs parsed and text scanned with no secret
-field markers. Selected current originals require/root visual review separately.
+field markers. Root parsed all retained XMLs and viewed selected final original feed/theme/Chat captures.
+Theme system command/configuration/restoration records retained separately.
 Signed14 publication/final review are still pending. Signed5-to8 fixture continuity
 and emulator results do not establish current14/physical Pixel or #35 performance.
