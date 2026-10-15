@@ -25,21 +25,37 @@ one retained alert on replay and no transaction/report/Relay writes. Original
 PNG viewed by actual bytes/XML parsed; evidence reviews0/0 atcf234ff6. Focused
 scope does not execute release/lint, fulls, tap or FCM. Public24 stays current.
 
-NEXT VERTICAL SLICE: fixture-only1aa84767366522181679e8e4c9551b83ef7181e9
-preserves originalcase and adds actual shade swipe, positive visible+manager
-dismissal, then third reference replay with continuous2s zero-alert observation.
-It does NOT yet implement any ledger. Tracer reviewsSpec0/Standards0. Local11618
-core/debug/test COMPLETE0/1m51s. No owned Gradle remains. Actual focused10
-38825316132 at1aa84767 ACTIVE; await intended dismissed-redelivery RED before
-ledger implementation. Read-only ghwatch session16837 (.scratch/push32-dismiss-red-watch.log)
-active. Do not duplicate dispatch. First RED collector .scratch/retain-push32-reply.py
-accepts only original1case missingalert; adapt a separate fresh retainer for this
-new2case dismissal evidence. Retain actual failure before minimum; no outcomeinferred.
-Root may implement durable owner/backend-scoped alert ledger only after this
-new failure. Existing stabletag/onlyAlertOnce cannot suppress replay after dismissal.
-Keep persisted pending-before-notify then published-after-notify ordering and be
-honest about the unavoidable Android/disk commit boundary; no atomic once-only
-claim. Exact tap/input-save guard and mentions remain later vertical slices.
+DISMISSAL TRACER: fixture-only1aa84767366522181679e8e4c9551b83ef7181e9
+preserves the originalcase and adds actual shade swipe, positive visible+manager
+dismissal, then third replay with continuous2s zero-alert observation. Reviews0.
+Local11618 COMPLETE0/1m51s. Actual focused10 38825316132 FAILURE2cases1PASS1FAIL
+8.702s: intendedsilenceassert expected0 activealertsobserved1 after confirmed
+dismissal. Remaining silence/successcapture/no-write tail of failingcaseunexecuted;
+separate originalcasepassesalltails. Retained dismissed-reply-red/android10,
+three originals/threeXML, finalreviews0 at66fedd36 after pixelqualification.
+IMPORTANT: rendered previews conflicted. Both initialPNGcardregions are actually
+pixel-identical to knownloadedfirstGREEN; independent Chromiumcanvas and stdlib
+PNG decoders verify regionSHA1644fa3b...019e3. JSONL/read-onlyreproducer retained.
+Do not inferblackUI from conflictingpreview. FailurePNGshows system-only notices,
+not settledvisible-reappearance proof. Earlier replay precedes physicaldismissal;
+no exactAndroidscheduling/finalcall-onlycauseclaimed. Managerpositiveabsence→1
+and sourcewithoutledger establishboundedmissingdedupRED. No imageschanged.
+Watch16837 exited1, download11012/retentiondone; do not redispatch thatRED.
+
+CURRENT MINIMUM86e408ee5a257e9817885c3286bd6b9ba6580b57 committed/pushed:
+encrypted owner/backend receipt ledger,1000unexpiredcapacityfailclosed,7dayretention,
+clockrollbackretains. Checks published receipts before network after consent/scope;
+preparepending beforeAndroid and acknowledgepublication afterward under final
+SaitoLocalState lock. Currentpolicy/scope/permission/channel guardsunchanged.
+Stabletag/onlyAlertOnce preserved; Android/disk commit notatomic, especially if
+userdismisses whileacknowledgementfails. No exactly-once/processdurabilityclaim.
+SourceSpec0/Standards0. Local core/debug/test12225 ACTIVE at
+.scratch/push32-dismiss-minimum-compile.log, so no sourceedits until completes.
+Actual focused10 run38826410844 at86e408ee ACTIVE; do not inferGREEN orduplicate.
+.scratch/retain-push32-dismiss.py prepared/syntaxchecked handlesactual2caseRED/GREEN
+intoFRESHoutdirs. Awaitoutcome,retain/inspect/review, then nextverticalslice.
+Dismissed processdeath, faults, mentions and exacttap/saveinputguard remain.
+Public24 current, no new signedbuild reserved. All32release/externalgatesincomplete.
 
 Prepared next plan .scratch/push32-next-slice-plan.md; bounded read-only proposal
 `docs/research/SOCIAL_PUSH_TAP_ROUTE_2026_10_15.md` adds exact lifecycle/navigation
