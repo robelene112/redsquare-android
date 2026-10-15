@@ -141,7 +141,9 @@ ActualbackgroundexactRawRelay/outputs/decode/history/key/FWD/resumedUIpassand
 cancelpass. Retainedgroup-background-green-android10/rootresultseen. Added2
 regressions forexistingfreshselfremoval+Cancel andexactArchivegrouporiginal
 reconciliation, noappchange. Focusedgroup4/normalclass11firstexecutionpending.
-Noownedlocalbuild/proof. Groupappsource65c57b5c.
+Group4run38677817471 exact846440f8 ACTIVE, noownedlocalbuild. No duplicate.
+Addedremainingstoragefailure+identity/backendscoperegressions, noappchanges;
+focusedgroup6/fullclass13 firstexecutionpending. Groupappsource65c57b5c.
 Groupappminimumebd9f700 applied, notyetaccepted. Groups/process/full28stillpending.
 
 NEXT: review/verify ready-navigation+storage7cases, then groupqueues/freshmembership,

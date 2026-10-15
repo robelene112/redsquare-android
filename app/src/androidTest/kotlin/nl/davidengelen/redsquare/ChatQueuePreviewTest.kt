@@ -37,11 +37,16 @@ class ChatQueuePreviewTest {
 
     @Test fun anArchivedGroupOriginalReconcilesWithoutAnotherRawOrRelay() = exerciseGroupQueue(GroupQueueCase.ARCHIVED)
 
-    private enum class GroupQueueCase { CANCEL, BACKGROUND, REMOVED, ARCHIVED }
+    @Test fun failedGroupQueueSavingKeepsTheDraftAndNeverSendsAfterRepair() = exerciseGroupQueue(GroupQueueCase.STORAGE)
+
+    @Test fun aQueuedGroupOriginalWaitsForItsIdentityAndSelectedBackendWithoutRerouting() = exerciseGroupQueue(GroupQueueCase.SCOPE)
+
+    private enum class GroupQueueCase { CANCEL, BACKGROUND, REMOVED, ARCHIVED, STORAGE, SCOPE }
     private fun exerciseGroupQueue(case:GroupQueueCase) {
         val cancel=case==GroupQueueCase.CANCEL
         val removed=case==GroupQueueCase.REMOVED
         val archived=case==GroupQueueCase.ARCHIVED
+        val scoped=case==GroupQueueCase.SCOPE
         val label=case.name.lowercase()
         val context=InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName=="nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu","goldfish"))
@@ -54,9 +59,13 @@ class ChatQueuePreviewTest {
         val key=SaitoWallet.fromPrivateKey("0".repeat(63)+"9") // Public unsafe group fixture only.
         val name="Offline group queue"
         val wallet=author.withNamedChatGroup(key.publicKey,name,key)
+        val replacement=SaitoWallet.fromPrivateKey("0".repeat(63)+"3").withNamedChatGroup(key.publicKey,name) // Public unsafe fixture only.
         val prefix="groupchat.owner.${wallet.publicKey}."
+        val prefixes=listOf(wallet,replacement).flatMap{identity->
+            SaitoBackend.entries.map{"groupchat.${it.id}.${identity.publicKey}."}+"personal.${identity.publicKey}."
+        }
         val retained=synchronized(SaitoLocalState.lock) {
-            context.noBackupFilesDir.listFiles()!!.filter{it.name.startsWith(prefix)}.associate{check(it.isFile);it.name to it.readBytes()}
+            context.noBackupFilesDir.listFiles()!!.filter{file->prefixes.any(file.name::startsWith)}.associate{check(it.isFile);it.name to it.readBytes()}
         }
         val prefs=context.getSharedPreferences("notification-permission",0)
         val offered=if(prefs.contains("offered"))prefs.getBoolean("offered",false) else null
@@ -72,8 +81,11 @@ class ChatQueuePreviewTest {
             store.prepareCreation(creation,key)
             store.record(key.publicKey,creation.id,nl.davidengelen.redsquare.chat.GroupChatStore.Status.FORWARDED)
             if(removed)store.receive(GroupChat.promote(wallet,requireNotNull(store.load(key.publicKey)).group,member,1700000123401).envelope())
+            val alternate=ControlledFeedPeer("[]",advertisedServices="archive||;relay||",archiveResponse={"[]"})
+            alternate.start().use{alternateServer->
             ActivityScenario.launch<MainActivity>(Intent(context,MainActivity::class.java)
-                .putExtra("feedPeerUrl","ws://127.0.0.1:$port/wsopen")).use{scenario->
+                .putExtra("feedPeerUrl","ws://127.0.0.1:$port/wsopen")
+                .putExtra("feedOfficialPeerUrl","ws://127.0.0.1:${alternateServer.port}/wsopen")).use{scenario->
                 withFailureCapture({captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/group-$label-failure.png"))}) {
                     fun open(){
                         val chat=hasText("Chat") and hasClickAction() and isEnabled()
@@ -86,6 +98,44 @@ class ChatQueuePreviewTest {
                     open()
                     ui.waitUntil(20_000){displayed(hasSetTextAction() and isEnabled())}
                     ui.onNode(hasSetTextAction() and isEnabled()).performTextReplacement(text)
+                    if(case==GroupQueueCase.STORAGE) {
+                        ui.waitUntil(20_000){try{store.load(key.publicKey)?.draft==text}catch(_:Exception){false}}
+                        val file=File(context.noBackupFilesDir,"$prefix${key.publicKey}.v1")
+                        val encrypted=synchronized(SaitoLocalState.lock) {
+                            check(!File(file.path+".bak").exists()&&!File(file.path+".new").exists())
+                            file.readBytes().also{check(file.delete()&&file.mkdir())}
+                        }
+                        try {
+                            ui.onNodeWithText("Send").assertIsEnabled().performClick()
+                            waitFor(context.getString(R.string.group_error))
+                            ui.onNode(SemanticsMatcher.keyIsDefined(SemanticsProperties.EditableText))
+                                .assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText,AnnotatedString(text)))
+                            ui.onAllNodesWithText("Queued").assertCountEquals(0)
+                            captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/group-storage-refused.png"))
+                        }finally {
+                            synchronized(SaitoLocalState.lock) {
+                                check(file.isDirectory&&file.list()!!.isEmpty()&&file.delete())
+                                file.writeBytes(encrypted)
+                            }
+                        }
+                        val peer=ControlledFeedPeer("[]",advertisedServices="archive||;relay||",archiveResponse={"[]"})
+                        peer.start(port).use {
+                            scenario.recreate();open()
+                            ui.waitUntil(20_000){displayed(hasSetTextAction() and isEnabled())}
+                            ui.onNode(hasSetTextAction() and isEnabled()).assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText,AnnotatedString(text)))
+                            ui.waitUntil(20_000){peer.requests.get()>0}
+                            android.os.SystemClock.sleep(6_000)
+                            check(peer.transactions.isEmpty()&&peer.relayedMessages.isEmpty())
+                            val saved=requireNotNull(store.load(key.publicKey))
+                            check(saved.draft==text&&saved.queuedMessage==null&&!saved.automaticMessage&&saved.messages.isEmpty())
+                            check(saved.candidate?.envelope()==creation.envelope()&&saved.status==nl.davidengelen.redsquare.chat.GroupChatStore.Status.FORWARDED)
+                            check(saved.creationKey?.exportJson()==key.exportJson())
+                            check(wallets.loadExisting().exportJson()==wallet.exportJson()&&backends.load()==SaitoBackend.OWNER)
+                            peer.assertHealthy()
+                            captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/group-storage-restored-draft.png"))
+                        }
+                        return@withFailureCapture
+                    }
                     ui.onNodeWithText("Send").assertIsEnabled().performClick()
                     waitFor("Queued")
                     captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/group-$label-queued.png"))
@@ -109,6 +159,8 @@ class ChatQueuePreviewTest {
                         store.receive(SaitoTransaction.create(other,body,1700000123402,listOf(key.publicKey)).envelope())
                         scenario.recreate();open();waitFor("Queued")
                         check(requireNotNull(store.load(key.publicKey)).group.memberRoles[wallet.publicKey]==ChatGroupRole.REMOVED)
+                    } else if(scoped) {
+                        wallets.replace(wallet,replacement);scenario.recreate()
                     } else scenario.moveToState(androidx.lifecycle.Lifecycle.State.CREATED)
                     val indexed=java.util.concurrent.atomic.AtomicReference<String?>()
                     val archiveChecks=java.util.concurrent.atomic.AtomicInteger()
@@ -121,6 +173,27 @@ class ChatQueuePreviewTest {
                     },onTransaction={frame->if(archived)indexed.set(postingTransaction(frame).envelope())})
                     peer.disconnectAfterTransaction=archived
                     peer.start(port).use{
+                        if(scoped) {
+                            ui.waitUntil(20_000){peer.clientKeys.contains(replacement.publicKey)}
+                            android.os.SystemClock.sleep(7_000)
+                            check(peer.transactions.isEmpty()&&peer.relayedMessages.isEmpty())
+                            check(wallets.loadExisting().exportJson()==replacement.exportJson()&&backends.load()==SaitoBackend.OWNER)
+                            check(requireNotNull(store.load(key.publicKey)).queuedMessage?.candidate?.envelope()==queued.envelope())
+                            check(nl.davidengelen.redsquare.chat.GroupChatStore.hasWork(context,wallet,SaitoBackend.OWNER))
+                            captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/group-scope-identity-paused.png"))
+                            ui.onNodeWithText("Settings").performClick();waitFor("saito.io")
+                            ui.onNodeWithText("saito.io").performClick()
+                            ui.waitUntil(20_000){alternate.clientKeys.contains(replacement.publicKey)}
+                            wallets.replace(replacement,wallet);scenario.recreate()
+                            ui.waitUntil(20_000){alternate.clientKeys.contains(wallet.publicKey)}
+                            android.os.SystemClock.sleep(7_000)
+                            check(peer.transactions.isEmpty()&&peer.relayedMessages.isEmpty()&&alternate.transactions.isEmpty()&&alternate.relayedMessages.isEmpty())
+                            check(wallets.loadExisting().exportJson()==wallet.exportJson()&&backends.load()==SaitoBackend.OFFICIAL)
+                            check(requireNotNull(store.load(key.publicKey)).queuedMessage?.candidate?.envelope()==queued.envelope())
+                            captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/group-scope-backend-paused.png"))
+                            ui.onNodeWithText("Settings").performClick();waitFor("saito.davidengelen.nl")
+                            ui.onNodeWithText("saito.davidengelen.nl").performClick();open()
+                        }
                         if(cancel) {
                             ui.waitUntil(20_000){peer.requests.get()>0}
                             android.os.SystemClock.sleep(6_000)
@@ -168,14 +241,16 @@ class ChatQueuePreviewTest {
                             check(peer.transactions.size==1&&peer.relayedMessages.size==1)
                         }
                         check(wallets.loadExisting().exportJson()==wallet.exportJson()&&backends.load()==SaitoBackend.OWNER)
-                        peer.assertHealthy()
+                        check(alternate.transactions.isEmpty()&&alternate.relayedMessages.isEmpty())
+                        peer.assertHealthy();alternate.assertHealthy()
                         captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/group-$label-result.png"))
                     }
                 }
             }
+            }
         }catch(failure:Throwable){primary=failure;throw failure}
         finally{cleanupAfterTest(primary,
-            {synchronized(SaitoLocalState.lock){context.noBackupFilesDir.listFiles()!!.filter{it.name.startsWith(prefix)}.forEach{check(it.isFile&&it.delete())};retained.forEach{(name,bytes)->File(context.noBackupFilesDir,name).writeBytes(bytes)}}},
+            {synchronized(SaitoLocalState.lock){context.noBackupFilesDir.listFiles()!!.filter{file->prefixes.any(file.name::startsWith)}.forEach{check(it.isFile&&it.delete())};retained.forEach{(name,bytes)->File(context.noBackupFilesDir,name).writeBytes(bytes)}}},
             {wallets.replace(wallets.loadExisting(),original);backends.save(backend)},
             {val edit=prefs.edit();if(offered==null)edit.remove("offered") else edit.putBoolean("offered",offered);check(edit.commit())})}
     }

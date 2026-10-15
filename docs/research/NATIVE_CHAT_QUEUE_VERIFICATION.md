@@ -261,3 +261,14 @@ Firstregressionexecutionpending, queueactualprocess/full10/17stillpending.
 
 Evidencewordingcorrected:38675689342passed7privatecasesplusgroupCancel, eight
 othercasestotal. No change toraw/source/results;GREENREADMEhashregenerated.
+
+Addedremaininggroupregressions forexistingimplementedguarantees, noappchanges:
+protectedstoragefailureafterdurabledraft→exacttext/noQueued→repair/reopen unsent
+noautomatic/raw/Relay/priorcreationstatus/key; combinedscopefixturefirstswitches
+wallet1→3whileOWNERreachable(zeroWire), thenoriginalwallet1onOFFICIAL(zeroWireboth),
+returnsOWNERoneidenticaloriginal/rawRelay/history/key/FWD. Publicfixturesonly,
+scopedgroup+personalrecordsforbothidentities/backendsrestored, samewalletprefs.
+These areprotectedidentityreplacementfixtures, notimportUIacceptance. Newgroup
+scopeexplicitlylists6cases/fullclass13. Storageencryptedbytesinmemoryonly/finally
+restored. Existinggroup4run38677817471 exact846440f8 stillACTIVE, no duplicate.
+New6caseregressioncompile/executionpending; no broadenedacceptanceclaimed.
