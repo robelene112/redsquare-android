@@ -70,7 +70,6 @@ class ChatQueuePreviewTest {
         }
         val prefs=context.getSharedPreferences("notification-permission",0)
         val offered=if(prefs.contains("offered"))prefs.getBoolean("offered",false) else null
-        val port=java.net.ServerSocket(0,1,java.net.InetAddress.getByName("127.0.0.1")).use{it.localPort}
         val text="Keep my offline group message 😀"
         var primary:Throwable?=null
         try {
@@ -84,6 +83,8 @@ class ChatQueuePreviewTest {
             if(removed)store.receive(GroupChat.promote(wallet,requireNotNull(store.load(key.publicKey)).group,member,1700000123401).envelope())
             val alternate=ControlledFeedPeer("[]",advertisedServices="archive||;relay||",archiveResponse={"[]"})
             alternate.start().use{alternateServer->
+            // Choose the offline port only after the live alternate is already bound.
+            val port=java.net.ServerSocket(0,1,java.net.InetAddress.getByName("127.0.0.1")).use{it.localPort}
             fun checkpoint(stage:String) {
                 val loaded=runCatching{store.load(key.publicKey)}
                 val saved=loaded.getOrNull()
@@ -297,8 +298,6 @@ class ChatQueuePreviewTest {
             .associate{check(it.isFile);it.name to it.readBytes()}
         val prefs=context.getSharedPreferences("notification-permission",0)
         val offered=if(prefs.contains("offered"))prefs.getBoolean("offered",false) else null
-        val port=java.net.ServerSocket(0,1,java.net.InetAddress.getByName("127.0.0.1")).use{it.localPort}
-        val intent=Intent(context,MainActivity::class.java).putExtra("feedPeerUrl","ws://127.0.0.1:$port/wsopen")
         val text="Keep my offline private message 😀"
         var primary:Throwable?=null
         try {
@@ -307,6 +306,10 @@ class ChatQueuePreviewTest {
             wallets.replace(original,wallet);backends.save(SaitoBackend.OWNER)
             val alternate=ControlledFeedPeer("[]",advertisedServices="archive||;relay||",archiveResponse={"[]"})
             alternate.start().use{alternateServer->
+            // Choose the offline port only after the live alternate is already bound.
+            val port=java.net.ServerSocket(0,1,java.net.InetAddress.getByName("127.0.0.1")).use{it.localPort}
+            check(port!=alternateServer.port){"Offline owner port was reused by the alternate peer"}
+            val intent=Intent(context,MainActivity::class.java).putExtra("feedPeerUrl","ws://127.0.0.1:$port/wsopen")
             ActivityScenario.launch<MainActivity>(Intent(intent).putExtra("feedOfficialPeerUrl","ws://127.0.0.1:${alternateServer.port}/wsopen")).use{scenario->
                 withFailureCapture({captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/private-$label-failure.png"))}) {
                     fun open(){
