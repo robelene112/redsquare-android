@@ -108,17 +108,22 @@ NotificationerrorsdonotNACKsavedmessages. SourceSpec0/Standards0. ActualGREEN10
 38693924118 exact0bf6526425e3663cca44e1d0e845d42e4ef44b0c:2PASS15.647s, native
 notification/privatecategory/intent/systemshade and2s muted silence/reopen/cached
 unmute/exactdraft/no-wire.12hash4XMLretained, originalshadePNGseen/allXMLparsed.
-Focused17run38694546565 owns same0bf, ACTIVE. Do not redispatch beforeactualresult.
+Focused17run38694546565 same0bf SUCCESS2PASS52.994s.12hash4XMLretained;
+originalgenericOSshadeseen/allXMLparsed, sameprivatecontracts pass on17.
 
-Nextsingle groupcontroltracer4aa36fb1: knownsignedcreation+metadata, independent
-websignedgroupmessage/exactdraft/mute/liveACK/recreate/unmute/no-wire. Ownedfirst
-RED10run38694777442 exact4aa ACTIVE; groupbutton/IDvalidation absent, expected
-missingcontrol. Reviewfixe2727e09 handlesrestoredChatlistbeforeGroups and extracts
-shared scopedfile/prefs fixturelifecycle with independentcleanupactions, both
-axes0. These corrections preserveassertions, don'taffectmissingcontrolcriterion.
-No duplicate run. No ownedlocalbuild. No groupnotification/failure/identity/process
-or whole29 acceptance yet. Next inspectbothactualruns, retainproof, then bounded
-groupminimum. Protected untracked NATIVE_GROUP_CHAT_CONTRACT.md untouched.
+Groupcontroltracer4aa36fb1: knownsignedcreation+metadata, independentwebsigned
+incoming. ActualfirstRED38694777442/4aa3cases2PASS1FAIL36.041 missingMute209,
+14hash5XMLretained/originalseen. Fixturee2727e09 restoredChatnavigation/shared
+scopedcleanup reviews0/0. Minimum3749a543 sharedgroupbutton+publickeyIDvalidation
+reviews0/0. Actualrun38695426962/3743cases2PASS1FAIL38.852: groupmute/incoming/
+ACK/exactdraft and recreatedmute/cachepass, exactdraftempty20s204.16hash6XML
+retained/originalseen. Groupdraft4a8db3f2 nowreusesChatComposerMemory underdistinct
+groupowner/backend/id keys andsharedmutexinit/transitions, NonCancellableIOcommit+
+Mainmemorypublication forCancel/Send, alltextmutations tracked. Bothreviews0/0.
+Ownedfocused10run38696233581 exact4a8db3f25ad2af3df1201a106e23199b90dfffbf
+ACTIVE; no duplicate/localbuild. Nextinspectactual3case result then groupnative
+notificationpositive/silence tracer. Groupnotifications/failure/identity/process
+andwhole29finalacceptance stillpending. Protected untracked NATIVE_GROUP_CHAT_CONTRACT.md untouched.
 Stablepublicsigned18unchanged;29notclosed. Ownerauthorizes allremainingissues,
 no pause or routineconfirmation. Localnextorientation.scratch/next-chat-ticket-orientation.txt.
 
@@ -135,7 +140,7 @@ proof;35 physicalPixel;36 actualPlaysetup/reviewablepackage/publicationapproval.
 Storage migration observed Docker data now bind-mounted from /mnt/storage/docker;
 repo/.scratch remains on the system disk,63GiB free versus158GiB onadditional disk.
 Read /home/david/agent-skills/environments/vps/STORAGE.md for large future artifacts.
-Proactive maintenance check: apt metadata refreshedtoday and no pending packages;
+Proactive maintenance check: Oct14apt report had no pending packages;
 BC1.86 matches current official stable download listing. Keep deliberate build pins
 unless a verified relevant maintenance change is separately implemented and tested.
 
