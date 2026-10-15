@@ -272,3 +272,10 @@ These areprotectedidentityreplacementfixtures, notimportUIacceptance. Newgroup
 scopeexplicitlylists6cases/fullclass13. Storageencryptedbytesinmemoryonly/finally
 restored. Existinggroup4run38677817471 exact846440f8 stillACTIVE, no duplicate.
 New6caseregressioncompile/executionpending; no broadenedacceptanceclaimed.
+
+Storage/scopee0a537f4 Spec0. StandardspossibleDuplicatedCode: private/group
+ciphertextobstruct+finallyrestoreidentical. SharedwithBlockedQueueFile nowowns
+bothactualcallers/inmemoryencryptedbytes/selectionlock/finallyrestore andpreserves
+primaryfailure viaexistingcleanupAfterTest. Scenarioassertsunchanged. Local1714
+compileDebugAndroidTestKotlin PASS1m24s beforethishelper-onlycorrection. Runtime
+sixcasespending, currentfourcase38677817471 stillactive. No appchange.

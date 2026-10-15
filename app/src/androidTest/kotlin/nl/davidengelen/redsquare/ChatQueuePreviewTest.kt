@@ -101,22 +101,13 @@ class ChatQueuePreviewTest {
                     if(case==GroupQueueCase.STORAGE) {
                         ui.waitUntil(20_000){try{store.load(key.publicKey)?.draft==text}catch(_:Exception){false}}
                         val file=File(context.noBackupFilesDir,"$prefix${key.publicKey}.v1")
-                        val encrypted=synchronized(SaitoLocalState.lock) {
-                            check(!File(file.path+".bak").exists()&&!File(file.path+".new").exists())
-                            file.readBytes().also{check(file.delete()&&file.mkdir())}
-                        }
-                        try {
+                        withBlockedQueueFile(file) {
                             ui.onNodeWithText("Send").assertIsEnabled().performClick()
                             waitFor(context.getString(R.string.group_error))
                             ui.onNode(SemanticsMatcher.keyIsDefined(SemanticsProperties.EditableText))
                                 .assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText,AnnotatedString(text)))
                             ui.onAllNodesWithText("Queued").assertCountEquals(0)
                             captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/group-storage-refused.png"))
-                        }finally {
-                            synchronized(SaitoLocalState.lock) {
-                                check(file.isDirectory&&file.list()!!.isEmpty()&&file.delete())
-                                file.writeBytes(encrypted)
-                            }
                         }
                         val peer=ControlledFeedPeer("[]",advertisedServices="archive||;relay||",archiveResponse={"[]"})
                         peer.start(port).use {
@@ -307,22 +298,13 @@ class ChatQueuePreviewTest {
                         val work=nl.davidengelen.redsquare.chat.ChatWorkStore(context,wallet,SaitoBackend.OWNER,contact)
                         ui.waitUntil(20_000){try{work.load().draft==text}catch(_:Exception){false}}
                         val file=File(context.noBackupFilesDir,"chatwork.owner.${wallet.publicKey}.${PrivateChat.conversationId(wallet.publicKey,contact)}.v1")
-                        val encrypted=synchronized(SaitoLocalState.lock) {
-                            check(!File(file.path+".bak").exists()&&!File(file.path+".new").exists())
-                            file.readBytes().also{check(file.delete()&&file.mkdir())}
-                        }
                         val peer=ControlledFeedPeer("[]",advertisedServices="archive||;relay||",archiveResponse={"[]"})
-                        try {
+                        withBlockedQueueFile(file) {
                             ui.onNodeWithText("Send").performClick()
                             waitFor("Could not restore saved work. Reopen this conversation to try again.")
                             ui.onNode(SemanticsMatcher.keyIsDefined(SemanticsProperties.EditableText)).assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText,AnnotatedString(text)))
                             ui.onAllNodesWithText("Queued").assertCountEquals(0)
                             captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/private-storage-refused.png"))
-                        }finally {
-                            synchronized(SaitoLocalState.lock) {
-                                check(file.isDirectory&&file.list()!!.isEmpty()&&file.delete())
-                                file.writeBytes(encrypted)
-                            }
                         }
                         peer.start(port).use {
                             scenario.recreate();open()
@@ -449,6 +431,19 @@ class ChatQueuePreviewTest {
             {synchronized(SaitoLocalState.lock){context.noBackupFilesDir.listFiles()!!.filter{file->prefixes.any(file.name::startsWith)}.forEach{check(it.isFile&&it.delete())};saved.forEach{(name,bytes)->File(context.noBackupFilesDir,name).writeBytes(bytes)}}},
             {wallets.replace(wallets.loadExisting(),original);backends.save(backend)},
             {val edit=prefs.edit();if(offered==null)edit.remove("offered") else edit.putBoolean("offered",offered);check(edit.commit())})}
+    }
+    /** Both Chat fixtures restore the exact ciphertext before reopening, preserving the first failure. */
+    private fun withBlockedQueueFile(file:File,operation:()->Unit) {
+        val encrypted=synchronized(SaitoLocalState.lock) {
+            check(!File(file.path+".bak").exists()&&!File(file.path+".new").exists())
+            file.readBytes().also{check(file.delete()&&file.mkdir())}
+        }
+        var primary:Throwable?=null
+        try{operation()}catch(failure:Throwable){primary=failure;throw failure}
+        finally{cleanupAfterTest(primary,{synchronized(SaitoLocalState.lock){
+            check(file.isDirectory&&file.list()!!.isEmpty()&&file.delete())
+            file.writeBytes(encrypted)
+        }})}
     }
     private fun waitFor(text:String)=ui.waitUntil(20_000){ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()}
     private fun clickWhenReady(text:String) {
