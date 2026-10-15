@@ -1,5 +1,24 @@
 # Native username verification
 
+## October15 continuation after #40
+
+Active implementation resumed at review base
+f6c97baccb0a95d51748160f965b5e6e9c1c016b. Public signed22 is current.
+The existing app/controlled-peer seam from parent#1 remains the test boundary.
+A new Settings tracer requires discovery and verified display of the independent
+NativeCase7 proof after an exact type13 fallback followed by the actual proof
+on the SAME callback index. The fixture positively records both sends before
+waiting for the unchanged registered-name UI, identity and zero-registration
+assertions. Both ordinary and late-response cases share the existing flow.
+
+This is test-only preparation for actual native RED. Production SaitoPeer still
+consumes the first reply. No native outcome, workaround or live registration is
+claimed. The earlier host proof is in ticket19/host-public-proof-oct15; it does
+not establish Owner readiness. Strict registrar verification and the original12s
+request deadline must remain. No node/configuration/service/wallet/chain writes.
+
+## Earlier implementation chronology
+
 Active #19, review base ed5742fd0f57958d284073b7145f1844b72b1dbd.
 Source contract: NATIVE_USERNAME_CONTRACT.md. Parent #1 accepted seams1–4:
 observable native optional registration against controlled peers, pinned protocol

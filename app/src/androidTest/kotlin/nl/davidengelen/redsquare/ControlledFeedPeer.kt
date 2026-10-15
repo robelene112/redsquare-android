@@ -24,6 +24,8 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     private val relayResponse: ((com.google.gson.JsonObject) -> String)? = null,
     private val advertisedServices: String? = null,
     private val archiveResponse: ((com.google.gson.JsonObject) -> String)? = null) {
+    @Volatile var registryFallbackBeforeNamecheck = false
+    val registryFallbackPairsSent = java.util.concurrent.atomic.AtomicInteger()
     @Volatile var disconnectAfterTransaction = false
     @Volatile var disconnectAfterReport = false
     @Volatile var withholdReportReply = false
@@ -194,7 +196,13 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                             registryQueries.add(criteria.deepCopy())
                             val response = registryResponse?.invoke(criteria) ?:
                                 if (criteria.get("request").asString == "registry query") "{}" else "{\"err\":\"no response\"}"
-                            webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) + response.toByteArray()).toByteString())
+                            val prefix = byteArrayOf(13) + frame.copyOfRange(1, 5)
+                            if (registryFallbackBeforeNamecheck && criteria.get("request").asString == "registry namecheck") {
+                                // Same callback index and order observed on the public registrar relay.
+                                check(webSocket.send((prefix + "{\"err\":\"no response\"}".toByteArray()).toByteString()))
+                                check(webSocket.send((prefix + response.toByteArray()).toByteString()))
+                                registryFallbackPairsSent.incrementAndGet()
+                            } else webSocket.send((prefix + response.toByteArray()).toByteString())
                             return
                         }
                         require(body.get("request").asString == "archive")

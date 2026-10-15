@@ -7,6 +7,20 @@ one question at a time when a material choice really needs the owner.
 
 ## Current work
 
+**ACTIVE #19, after completing #40:** review base
+f6c97baccb0a95d51748160f965b5e6e9c1c016b. Test-only late Registry tracer adds
+one Settings discovery case at the existing controlled socket/app seam, so
+UsernamePreviewTest now has16cases. The server emits exact type13 fallback,
+then the independent signed proof on the same index; a public checkpoint records
+both queued sends before unchanged UI/name/identity/no-registration assertions.
+Production is unchanged and actual RED is pending. Owned local testAPK build
+exec11746 is ACTIVE; log .scratch/registry19-late-red-compile.log. Do not edit
+app/core/test files until it finishes. No new native CI dispatched yet. Next
+commit/review tracer, inspect compile, then dispatch focused usernames Android10
+for actual RED. Keep public22 current; do not close19 from controlled results
+alone. Protected untracked group contract remains untouched.
+
+
 **ACTIVE, owner resumed2026-10-14:** continue sequentially until all remaining
 implementation issues are complete. This explicit resume supersedes the storage
 migration pause recorded below. Commit/push each ticket and keep signed reviews
@@ -60,8 +74,8 @@ Package nl.davidengelen.redsquare, minimum API29. Direct public page/latest/
 immutable22/APK hash, certificate, package/version/min29 and unchanged immutable21
 checks pass. Public-only records: signed-preview22-published. Artifact:
 /mnt/storage/redsquare-android-artifacts/keyboard40-review22-source/.scratch/review-builds/22.
-No owned build/device run is active. Publication-record reviews report Spec0/Standards0. Close#40 with this record,
-then continue#19 sequentially.
+No owned build/device run is active. Publication-record reviews report Spec0/Standards0. #40 is CLOSED, completion
+comment6198800085. Continue#19 sequentially as recorded above.
 Do not stop after40. No node/configuration/service/wallet/chain/store operation.
 Physical Pixel and final integrated#35 remain separate.
 
