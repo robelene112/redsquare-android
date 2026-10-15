@@ -258,3 +258,6 @@ creationstatus+key; groupfirstRawindexed/disconnected→exactsig+groupArchive
 original→AVAILABLE/nosecondRaw/noRelay/recreate/key. No appchange/minimum.
 Opt-ingroup scopeincludesall4 groupcases; normal/full discoversentire11-caseclass.
 Firstregressionexecutionpending, queueactualprocess/full10/17stillpending.
+
+Evidencewordingcorrected:38675689342passed7privatecasesplusgroupCancel, eight
+othercasestotal. No change toraw/source/results;GREENREADMEhashregenerated.
