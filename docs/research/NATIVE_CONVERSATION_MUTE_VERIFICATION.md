@@ -67,3 +67,10 @@ NonCancellable segment underexistingmutex, for bothCancel andSendprepare/clear.
 No UI-thread filewrites. Localcompile84903 wrapperended143 but ownedcontainer
 20bc1778f1ce continued; dockerwait93966 returnedactualexit0. No duplicatebuild.
 Correction compilation will be owned by CI rather than repeat the localbuild.
+
+Correction113ef323 Standards0, Specone remaining overlap: recreation had a new
+mutex and could load between old durablecommit andMainmemorypublication. Retain
+the existingwrite mutex in the conversation ViewModel and take it for initial
+load+memoryselection too. This serializes existingwriters/acrossrecreation without
+a newbackgroundwriter or plaintextpersistence. Owned38692323675 superseded before
+acceptance by this sourcecorrection; no runtimepass claimed.

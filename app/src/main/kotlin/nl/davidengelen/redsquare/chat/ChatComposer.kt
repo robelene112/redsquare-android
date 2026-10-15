@@ -20,6 +20,7 @@ import nl.davidengelen.redsquare.saito.*
 /** Retains private edits through activity recreation without storing plaintext in a Bundle. */
 internal class ChatComposerMemory : ViewModel() {
     var text: String? = null
+    val writes = Mutex()
 }
 
 internal class ChatReplyActions {
@@ -37,7 +38,7 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
     val work = remember(wallet, backend, contact) { ChatWorkStore(context, wallet, backend, contact) }
     val history = remember(wallet, backend, contact) { ChatHistoryStore(context, wallet, backend, contact) }
     val scope = rememberCoroutineScope()
-    val writes = remember(work) { Mutex() }
+    val writes = memory.writes
     var saved by remember(work) { mutableStateOf(ChatWorkStore.Saved()) }
     var text by remember(work) { mutableStateOf("") }
     fun changeText(value: String) { text = value; memory.text = value }
@@ -63,12 +64,14 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
     }
     LaunchedEffect(work) {
         try {
-            saved = withContext(Dispatchers.IO) { work.load() }
-            changeText(if (saved.frozen) saved.draft else memory.text ?: saved.draft)
-            saved.transaction?.takeIf{saved.status!=ChatWorkStore.Status.QUEUED}?.let { candidate ->
-                onHistory(withContext(Dispatchers.IO) { history.save(listOf(candidate.envelope())).entries })
+            writes.withLock {
+                saved = withContext(Dispatchers.IO) { work.load() }
+                changeText(if (saved.frozen) saved.draft else memory.text ?: saved.draft)
+                saved.transaction?.takeIf{saved.status!=ChatWorkStore.Status.QUEUED}?.let { candidate ->
+                    onHistory(withContext(Dispatchers.IO) { history.save(listOf(candidate.envelope())).entries })
+                }
+                ready = true
             }
-            ready = true
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { failed = true }
     }
