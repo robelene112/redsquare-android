@@ -95,3 +95,28 @@ initialization, live options, wallets, databases or network writes are involved.
 The explicit image input lives at /reference/images-reference.json, pinned source
 at /reference/chat-A.js and chat-B.js, canonical helpers at /references, and
 read-only dependency modules at /opt/saito/node/node_modules. Group proof pending.
+
+Selector run38713589322 exact467b8ba7 overallCANCELLED on next same-scope dispatch,
+but its10runtime step completedSUCCESS and privatecase passed8.682s including
+cache/exactdraft/finalidentity/backend/no-wire/cleanup. Retained10hash3XML and
+root3originalsseen. Do not relabel overallrunSUCCESS. Grouptracerfce27570 reviewed
+Spec0/Standards0; ownedviewer10run38714126017 isactive. Await its completion before
+another same-scope dispatch. No ownedlocalbuildactive.
+
+Actual viewer10run38714126017 exactfce27570 SUCCESS:2PASS12.054s, independently
+signed private/group photos, exact inline+expandedRGB, emptyArchive cached
+reopening, exactdraft/fullidentity/backend/no-wire/restoration. Retained16hashes
+6XML; root6originalsseen. No17/compose/failure/process/whole30acceptance yet.
+
+Next tracer exercises native photo selection and exact text through safe Back
+and Activity recreation, without Send or any wire side effect. It uses a
+synthetic owned MediaStore image and a photo-picker boundary result, retaining
+existing device/wallet/backend/file/alert restoration. A native attachment and
+caption can share one compatible sanitized HTML message: img.img-prev followed
+by escaped caption. Existing web returnChatBody invokes Browser.sanitize(msg,true),
+which permits images and text, but actual receiver compatibility for that exact
+combined format must be verified before shipping. No arbitrary native HTML
+interpretation is permitted. Current production has no Add photo control;
+actual selection RED pending. A single recoverable composed string keeps the
+existing protected draft/queue/cancel/original identity path rather than adding
+a second outgoing pipeline.

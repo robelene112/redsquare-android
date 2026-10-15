@@ -1,6 +1,10 @@
 package nl.davidengelen.redsquare
 
 import android.content.Intent
+import android.content.ContentValues
+import android.app.Activity
+import android.app.Instrumentation
+import android.provider.MediaStore
 import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.*
@@ -8,6 +12,9 @@ import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.compose.ui.text.AnnotatedString
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.espresso.intent.Intents
+import androidx.test.espresso.intent.matcher.IntentMatchers.hasAction
+import org.hamcrest.CoreMatchers.anyOf
 import com.google.gson.JsonParser
 import nl.davidengelen.redsquare.saito.*
 import org.junit.Assert.assertEquals
@@ -23,12 +30,14 @@ class ChatImagesPreviewTest {
 
     @Test fun aCompatibleGroupPhotoIsVisibleExpandableAndRetainedWhenTheServerNoLongerHasIt() = exercisePhoto(group = true)
 
-    private fun exercisePhoto(group: Boolean) {
+    @Test fun aSelectedPrivatePhotoAndItsTextSurviveReopeningBeforeExplicitSend() = exercisePhoto(group = false, composing = true)
+
+    private fun exercisePhoto(group: Boolean, composing: Boolean = false) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
-        val prefix = if (group) "group" else "private"
-        val reference = instrumentation.context.assets.open("native-$prefix-chat-image-reference.json").bufferedReader()
+        val prefix = if (composing) "private-draft" else if (group) "group" else "private"
+        val reference = instrumentation.context.assets.open("native-${if (group) "group" else "private"}-chat-image-reference.json").bufferedReader()
             .use { JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject }
         val contact = reference.get(if (group) "author" else "sender").asString
         val groupId = reference.get("groupId").asString
@@ -55,7 +64,7 @@ class ChatImagesPreviewTest {
                 java.nio.ByteBuffer.wrap(it).putInt(8, message.size)
             }
         } else java.util.Base64.getDecoder().decode(reference.get("networkBase64").asString)
-        val draft = "Keep this text while receiving a photo 😀"
+        val draft = if (composing) "Photo caption 😀 <&> \"quoted\"\nA second line" else "Keep this text while receiving a photo 😀"
         var primary: Throwable? = null
         try {
             retained.prepare()
@@ -110,6 +119,42 @@ class ChatImagesPreviewTest {
                         open()
                         ui.onNode(hasSetTextAction() and isEnabled()).performTextReplacement(draft)
                         androidx.test.espresso.Espresso.closeSoftKeyboard()
+                        if (composing) {
+                            val source = instrumentation.context.assets.open("native-images-reference.json").bufferedReader()
+                                .use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("images").get("red").asString }
+                            val uri = requireNotNull(context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                                ContentValues().apply {
+                                    put(MediaStore.Images.Media.DISPLAY_NAME, "redsquare-chat-photo-reference.png")
+                                    put(MediaStore.Images.Media.MIME_TYPE, "image/png")
+                                }))
+                            try {
+                                context.contentResolver.openOutputStream(uri)!!.use {
+                                    it.write(android.util.Base64.decode(source.substringAfter(','), android.util.Base64.NO_WRAP))
+                                }
+                                Intents.init()
+                                try {
+                                    Intents.intending(anyOf(hasAction(Intent.ACTION_OPEN_DOCUMENT), hasAction(Intent.ACTION_GET_CONTENT),
+                                        hasAction("android.provider.action.PICK_IMAGES"), hasAction("androidx.activity.result.contract.action.PICK_IMAGES"),
+                                        hasAction("com.google.android.gms.provider.action.PICK_IMAGES")))
+                                        .respondWith(Instrumentation.ActivityResult(Activity.RESULT_OK, Intent().setData(uri)
+                                            .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)))
+                                    val add = hasText("Add photo") and hasClickAction() and isEnabled()
+                                    ui.waitUntil(20_000) { displayed(add) }; ui.onNode(add).performClick()
+                                    val attached = hasContentDescription("Image 1 of 1")
+                                    ui.waitUntil(20_000) { displayed(attached) }; assertDraft()
+                                    check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
+                                    capture("private-photo-selected-unsent")
+                                    ui.onNode(hasText("Back") and hasClickAction()).performClick()
+                                    open(); scenario.recreate(); open()
+                                    ui.waitUntil(20_000) { displayed(attached) }; assertDraft()
+                                    check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
+                                    capture("private-photo-draft-reopened")
+                                } finally { Intents.release() }
+                            } finally { check(context.contentResolver.delete(uri, null, null) == 1) }
+                            check(wallets.loadExisting().exportJson() == wallet.exportJson() && backends.load() == SaitoBackend.OWNER)
+                            peer.assertHealthy()
+                            return@withFailureCapture
+                        }
                         peer.sendIncoming(incoming, requestId = 960)
                         ui.waitUntil(20_000) { peer.incomingAcknowledgements.any {
                             it[0] == 13.toByte() && java.nio.ByteBuffer.wrap(it, 1, 4).int == 960
