@@ -72,7 +72,12 @@ Canonical NATIVE_CHAT_IMAGES_VERIFICATION.md.
 Nextregression stalledprivatephotoprovider: native15sreadtimeout, editduring
 preparation past300msautosavewindow, exactprotectedDraftAPIretentionbeforeany
 navigation thenrecreate/no-wire. TestAPKonlysyntheticpipe/no privatefiles.
-No productionchange, runtimepending. Nextslices queue/
+Firsttimeout10run38722937990 exacta836 FAILED7cases6PASS1FAIL53.514: no
+opened+Preparing20s/164; originaltext/errorvisible, actualrouteunlogged, no
+productiondefectinferred. Retained6hash1XML/rootPNGseen. AOSPsourceidentified
+fixtureasset/typedassetdefaultdispatchgap: explicitcancellableoverridesnowroute
+tosamepipe/signal/UNKNOWN_LENGTH, ownwritergenerationcancel+failurecounters.
+No productionchange, correctedruntimepending. Nextslices queue/
 failure/practical5MiBhistorybound/process/finalfull10+17 stillrequired. Protected
 untracked NATIVE_GROUP_CHAT_CONTRACT.md untouched. Continue allissues.
 

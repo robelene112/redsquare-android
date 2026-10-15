@@ -180,7 +180,14 @@ class ChatImagesPreviewTest {
                                 scenario.recreate(); open(); assertDraft()
                                 capture("$prefix-text-reopened")
                                 assertIdentityAndOutgoing(0)
-                            } catch (failure: Throwable) { faultFailure = failure; throw failure }
+                            } catch (failure: Throwable) {
+                                faultFailure = failure
+                                try {
+                                    val status = provider("status")
+                                    println("Synthetic photo provider: opened=${status.getBoolean("opened")}, assetCalls=${status.getInt("assetCalls")}, typedCalls=${status.getInt("typedCalls")}")
+                                } catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
+                                throw failure
+                            }
                             finally { cleanupAfterTest(faultFailure, { Intents.release() }, { provider("reset") }) }
                             return@withFailureCapture
                         }

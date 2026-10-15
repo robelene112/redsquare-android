@@ -282,3 +282,16 @@ it. Thenrecreation/visibletext/fullidentity/no-wire/restoration. TestAPK-only
 provider returns only an empty synthetic pipe, exposes no files/private data,
 closeswriteronCancellationsignal andindependentreset. Existingphoto/autosave
 implementationalreadyexists; no fake missingfeatureRED. Runtimepending.
+
+Firsttimeoutregression10run38722937990 exacta836 FAILED7cases6PASS1FAIL53.514s:
+no observedopened+Preparingwithin20s at164. RootfailurePNGseen/XMLparsed,
+originalcaption/preparationerrorvisible. Actualroute/stateunlogged; edits/real
+stalltimeout/durablelatesttext/reopenunexecuted. Retained6hash1XML. No prod
+timeoutdefectinferred. [AOSP ContentProvider](https://android.googlesource.com/platform/frameworks/base/+/refs/heads/android10-release/core/java/android/content/ContentProvider.java)
+default cancellableasset/typedasset methodsdelegatelegacyoverloads; original
+fixtureonlyoverrode cancellableopenFile. [ContentResolver](https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/content/ContentResolver.java)
+usesassetopeningforfiledescriptorreads. Fixture nowexplicitlyroutes cancellable
+asset/typedassetopeningtoitsownpipe, UNKNOWN_LENGTH, preserveCancellationSignal.
+This sourceidentifieddispatchgap matchesfailure butruntimepathwasnotcaptured.
+Safeopened/asset/typedcounters nowemitonfailure; cancelonlyclosesitsownwriter
+generation. Productionandacceptancecriteriaunchanged. Correctedruntimepending.
