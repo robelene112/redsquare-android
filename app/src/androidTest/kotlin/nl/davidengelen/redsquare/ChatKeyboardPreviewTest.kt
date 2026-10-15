@@ -248,17 +248,21 @@ class ChatKeyboardPreviewTest {
                 { if(largeFont) {
                     fontDevice.executeShellCommand(if(priorFontSetting=="null")"settings delete system font_scale"
                         else "settings put system font_scale $priorFontSetting")
+                    awaitFontScale(context,priorFontScale)
                     val restoredSetting=fontDevice.executeShellCommand("settings get system font_scale").trim()
+                    // Android10 may persist its implicit default while applying configuration.
+                    // Preserve an explicit prior setting exactly; absent default1.0 has two valid forms.
+                    val implicitDefault=android.os.Build.VERSION.SDK_INT==29&&priorFontSetting=="null"&&
+                        priorFontScale==1f&&restoredSetting=="1.0"
                     folder.mkdirs()
                     File(folder,"$kind-font-restore.json").writeText(com.google.gson.JsonObject().apply {
                         addProperty("expectedSetting",priorFontSetting);addProperty("observedSetting",restoredSetting)
                         addProperty("expectedResource",priorFontScale)
                         addProperty("observedResource",context.resources.configuration.fontScale)
                     }.toString())
-                    check(restoredSetting==priorFontSetting) {
-                        "The exact original font setting must be restored: expected $priorFontSetting, observed $restoredSetting"
+                    check(restoredSetting==priorFontSetting||implicitDefault) {
+                        "The original font setting or Android10 implicit default must be restored: expected $priorFontSetting, observed $restoredSetting"
                     }
-                    awaitFontScale(context,priorFontScale)
                 } })
         }
     }
