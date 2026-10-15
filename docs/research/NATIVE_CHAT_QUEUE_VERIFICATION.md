@@ -79,3 +79,8 @@ and63b7ed07fb5c065bcbb14b8ad66aa19bdb4e0ee1eb2426806f6309d0548af436.
 Bothschema includes sig/field3, loadTransactions builds exactboundequality forschema
 keys with limit. Existing Chat history usesfield3. Next nativeuncertaintytracer
 willrequireexactsiglookup andverifiedoriginalbeforeavoidingre-broadcast. No livewrite.
+
+ArchiveRED10run38667380351 at82d5215d:5cases4PASS/1FAIL105.288s at119 secondactual
+Raw afterfirstRawindexed/disconnected. OriginalshowsSUBMITTED/deliveryunconfirmed/
+Retry. Available/exactsigquery/noRelay/recreate tailunexecuted. Allfourpriorcases
+pass. Retainedprivate-archive-red-android10. ExactverifiedArchive minimum next.

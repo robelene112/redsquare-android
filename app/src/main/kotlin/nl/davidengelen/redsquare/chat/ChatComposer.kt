@@ -114,6 +114,7 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
             ChatWorkStore.Status.UNKNOWN -> Text(stringResource(R.string.chat_send_unknown))
             ChatWorkStore.Status.SUBMITTED -> Text(stringResource(R.string.chat_send_submitted))
             ChatWorkStore.Status.FORWARDED -> Text(stringResource(R.string.chat_send_forwarded))
+            ChatWorkStore.Status.AVAILABLE -> Text(stringResource(R.string.chat_send_available))
             ChatWorkStore.Status.NONE -> Unit
         }
         if (failed) Text(stringResource(if (ready) R.string.chat_send_error else R.string.chat_work_read_error))

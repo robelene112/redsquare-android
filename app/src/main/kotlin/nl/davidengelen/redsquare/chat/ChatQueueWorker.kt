@@ -15,7 +15,7 @@ class ChatQueueWorker(context:Context,parameters:WorkerParameters):CoroutineWork
             val endpoint=selected.endpoint;val id=selected.transactionId
             resumeQueuedChats(applicationContext,wallet,backend,endpoint,id)
             if(ChatWorkStore.pendingDelivery(applicationContext,wallet,backend).any{it.load().let{saved->
-                saved.automatic&&saved.status!=ChatWorkStore.Status.FORWARDED&&saved.transaction?.id==id}})
+                saved.automatic&&!saved.deliveryComplete&&saved.transaction?.id==id}})
                 Result.retry() else Result.success()
         }catch(_:nl.davidengelen.redsquare.InvalidQueuedDelivery){Result.failure()}
         catch(cancelled:CancellationException){throw cancelled}

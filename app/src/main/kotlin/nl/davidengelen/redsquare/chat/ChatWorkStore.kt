@@ -10,10 +10,11 @@ import nl.davidengelen.redsquare.saito.*
 /** A saved original and its attempt state survive reopening; loading never transmits. */
 internal class ChatWorkStore(private val context: Context, private val wallet: SaitoWallet,
     private val backend: SaitoBackend, val contact: String) {
-    enum class Status { NONE, QUEUED, UNKNOWN, SUBMITTED, FORWARDED }
+    enum class Status { NONE, QUEUED, UNKNOWN, SUBMITTED, FORWARDED, AVAILABLE }
     data class Saved(val draft: String = "", val transaction: SaitoTransaction? = null, val status: Status = Status.NONE,
         val automatic:Boolean=false) {
         val frozen:Boolean get()=status==Status.QUEUED||status==Status.UNKNOWN||(automatic&&status==Status.SUBMITTED)
+        val deliveryComplete:Boolean get()=status==Status.FORWARDED||status==Status.AVAILABLE
     }
     private val file = EncryptedLocalFile(context,
         "chatwork.${backend.id}.${wallet.publicKey}.${PrivateChat.conversationId(wallet.publicKey, contact)}.v1",
@@ -52,6 +53,13 @@ internal class ChatWorkStore(private val context: Context, private val wallet: S
         val previous=load()
         check(previous.transaction?.id==id && (previous.status==Status.QUEUED||previous.automatic))
         if(previous.automatic)previous else save(previous.copy(automatic=true))
+    }
+
+    fun confirmAvailable(id:String):Saved = synchronized(SaitoLocalState.lock) {
+        assertSelected()
+        val previous=load()
+        check(previous.transaction?.id==id&&previous.automatic&&previous.status in listOf(Status.UNKNOWN,Status.SUBMITTED))
+        save(previous.copy(status=Status.AVAILABLE))
     }
 
     fun prepareRetry(id: String): Saved = synchronized(SaitoLocalState.lock) {
@@ -107,7 +115,7 @@ internal class ChatWorkStore(private val context: Context, private val wallet: S
                     val contents=EncryptedLocalFile(context,"$prefix$group.v1","redsquare.chatwork.v1","chatwork.").load()
                         ?: return@mapNotNull null
                     val saved=decode(contents,wallet,group)
-                    if(saved.status!=Status.QUEUED&&(!saved.automatic||saved.status==Status.FORWARDED))return@mapNotNull null
+                    if(saved.status!=Status.QUEUED&&(!saved.automatic||saved.deliveryComplete))return@mapNotNull null
                     val message=PrivateChat.recover(wallet,requireNotNull(saved.transaction).envelope(),group)
                     ChatWorkStore(context,wallet,backend,message.counterparty)
                 }
