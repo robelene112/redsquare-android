@@ -87,7 +87,9 @@ Retained46hash20XML/root2newgroupPNGsseen. ActualPIDdeathstillseparate. Next
 privatephotoqueue/cancelregression: actualpicker/recoverdraft, controlledpeer
 503newhandshakes+closeonlyownedauths, explicitSendQUEUEDsameoriginal/offline
 recreate/cancelrestoreexactdraft+JPEGpixels/caption/reconnect+2squietno-wire.
-Existingpipeline only, default-offcontrolledpeerflag. Runtimepending.
+Existingpipeline only, default-offcontrolledpeerflag. Actual10run38725474049
+exactd728 SUCCESS9PASS78.252s, retained25XML/root3originalsseen. Group equivalent
+regression now pending, preserves group history/prior candidate too.
 Noownedlocalbuild. Nextslices queue/
 failure/practical5MiBhistorybound/process/finalfull10+17 stillrequired. Protected
 untracked NATIVE_GROUP_CHAT_CONTRACT.md untouched. Continue allissues.

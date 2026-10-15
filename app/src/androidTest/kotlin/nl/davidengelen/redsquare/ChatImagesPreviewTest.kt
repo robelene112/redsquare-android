@@ -48,6 +48,9 @@ class ChatImagesPreviewTest {
     @Test fun cancellingAQueuedPrivatePhotoRestoresItsExactCaptionAndImageWithoutSending() =
         exercisePhoto(group = false, flow = PhotoFlow.QUEUED_CANCEL)
 
+    @Test fun cancellingAQueuedGroupPhotoRestoresItsExactCaptionAndImageWithoutSending() =
+        exercisePhoto(group = true, flow = PhotoFlow.QUEUED_CANCEL)
+
     private fun exercisePhoto(group: Boolean, flow: PhotoFlow = PhotoFlow.VIEW) {
         val composing = flow != PhotoFlow.VIEW
         val instrumentation = InstrumentationRegistry.getInstrumentation()
@@ -247,24 +250,37 @@ class ChatImagesPreviewTest {
                                     capture("$prefix-photo-draft-reopened")
                                     if (flow == PhotoFlow.QUEUED_CANCEL) {
                                         val work = nl.davidengelen.redsquare.chat.ChatWorkStore(context, wallet, SaitoBackend.OWNER, contact)
-                                        val originalDraft = work.load().draft
+                                        val groups = nl.davidengelen.redsquare.chat.GroupChatStore(context, wallet, SaitoBackend.OWNER)
+                                        val before = if (group) requireNotNull(groups.load(groupId)) else null
+                                        val originalDraft = before?.draft ?: work.load().draft
+                                        fun queuedOriginal(): SaitoTransaction = if (group)
+                                            requireNotNull(requireNotNull(groups.load(groupId)).queuedMessage).candidate
+                                        else work.load().let {
+                                            check(it.status == nl.davidengelen.redsquare.chat.ChatWorkStore.Status.QUEUED)
+                                            requireNotNull(it.transaction)
+                                        }
                                         peer.rejectNewConnections = true
                                         peer.disconnectAuthenticatedSockets()
                                         ui.waitUntil(20_000) { peer.authenticatedConnectionIds.isEmpty() }
                                         ui.onNode(hasText("Send") and hasClickAction() and isEnabled()).performClick()
                                         ui.waitUntil(20_000) { displayed(hasText("Queued")) }
-                                        val pending = work.load()
-                                        check(pending.status == nl.davidengelen.redsquare.chat.ChatWorkStore.Status.QUEUED)
-                                        val candidate = requireNotNull(pending.transaction)
-                                        check(PrivateChat.read(wallet, candidate.envelope(), contact).text == originalDraft)
+                                        val candidate = queuedOriginal()
+                                        val queuedText = if (group) GroupChat.readMessage(requireNotNull(before).group, candidate.envelope()).text
+                                            else PrivateChat.read(wallet, candidate.envelope(), contact).text
+                                        check(queuedText == originalDraft)
                                         check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
                                         capture("$prefix-photo-queued")
                                         scenario.recreate(); open(queued = true)
-                                        check(work.load().transaction?.envelope() == candidate.envelope())
+                                        check(queuedOriginal().envelope() == candidate.envelope())
                                         val cancel = hasText("Cancel queued message") and hasClickAction() and isEnabled()
                                         ui.waitUntil(20_000) { displayed(cancel) }; ui.onNode(cancel).performClick()
                                         assertPreparedPhoto(); assertDraft()
-                                        check(work.load().let { it.transaction == null && it.draft == originalDraft })
+                                        if (group) {
+                                            val restored = requireNotNull(groups.load(groupId))
+                                            check(restored.queuedMessage == null && restored.draft == originalDraft &&
+                                                restored.originals == requireNotNull(before).originals &&
+                                                restored.candidate?.envelope() == before.candidate?.envelope())
+                                        } else check(work.load().let { it.transaction == null && it.draft == originalDraft })
                                         capture("$prefix-photo-restored-after-cancel")
                                         peer.rejectNewConnections = false
                                         scenario.recreate(); open()

@@ -318,3 +318,12 @@ cancellationrestoresexactcanonicaldraft/photoactualJPEGpixels+caption, then
 reconnect/recreate/2squietprovesunsentdraft/fullidentity/no-wire. Existingordinary
 queuealreadyimplementsphotoopaqueoriginals; no artificialRED/newpipeline. Only
 controlledpeer default-offrejectConnections andnativefixture change. Runtimepending.
+
+Private photo queue/cancellation run38725474049 exactd7280591 SUCCESS9PASS
+78.252s. Native picker and recovered draft, explicit offline Send, protected
+QUEUED original, offline recreation, cancellation restoring exact photo/caption,
+then online reopening and2squiet without any raw/Relay/reports all PASS. Full
+fixture identity/backend/restoration preserved. Retained25XML; root inspected
+queued/cancelled/online-unsent original PNGs. No actual PIDdeath/full17 claim.
+Next equivalent group case also requires original history/candidate unchanged
+after cancellation; production queue/storage unchanged. Runtimepending.
