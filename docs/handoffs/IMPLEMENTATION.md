@@ -105,7 +105,12 @@ reviewed0/0; ownedphoto38730549642 exact213active. Storage-only38730369758
 exact634 FAILED2cases32.835: actualgroup5MiBRED andineffectiveprivate.newfault
 onAPI29. OfficialAOSPbase/.bak vs30+.new confirmed; faultnowonly30+explicit
 qualification10, capacityunchanged. Groupstorageadapterminimum nowimplemented
-withstrictsidecarignorehasWork/cacheonlyregression, runtimepending.
+withstrictsidecarignorehasWork/cacheonlyregression. Actualstorage10
+38731107784 exact96 SUCCESS2PASS71.705s;12private/16group+growth/contact/cacheonly
+workguard/identityrestoration PASS. Explicit10nofault;17actualcommitfault/retry
+pending38731840587 exact7cb. PhotoPID213attempt38730549642 FAILEDstagequeued-
+persisted120s; noqueuedraster/killproof. Knownseconditemscopedobserver7cb reviewed
+0/0; ownedphoto38731727266 exact7cb active. Nootherownedruns/localbuild.
 Noownedlocalbuild. Nextslices queue/
 failure/practical5MiBhistorybound/process/finalfull10+17 stillrequired. Protected
 untracked NATIVE_GROUP_CHAT_CONTRACT.md untouched. Continue allissues.

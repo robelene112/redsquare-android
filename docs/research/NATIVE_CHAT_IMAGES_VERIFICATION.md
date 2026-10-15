@@ -443,3 +443,11 @@ PASS. Retained6hashes. Fixture nowtargets positivelyscoped Groupmessages list,
 knownsecondmessage withdirectscrollToIndex1, then20sdisplay/exactpixels. Private
 usesdisplay/pixelwait withoutsearchloop. NewphaseafterqueuedRGB distinguishescapture.
 No product/time/assertion relaxation. Correctedruntimepending.
+
+Storage10run38731107784 exact96e41ebc SUCCESS2PASS71.705s. Both actual
+12private/16group validphoto histories exceed5MiB andretainalloriginals/drafts,
+thenfurthergrowth, privatecontactdiscovery/cache-onlygroupworkguard/fullinstalled
+identity/backend/restoration PASS. Retained5hashes. API29 rawstreamexplicitly
+qualifies no.newfault; no10writefailureclaim. Ownedstorage17run38731840587
+exact7cbbe810 mustprove30+actualfailedindexcommit/priorhistorydraft/retry.
+CorrectedphotoPIDrun38731727266 exact7cbbe810 active, groupPIDnotyetaccepted.
