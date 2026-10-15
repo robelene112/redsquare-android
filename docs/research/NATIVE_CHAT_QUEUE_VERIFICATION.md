@@ -377,3 +377,7 @@ c3c99d25b94909a6745cd40824002c456f0007cf, public_feed_read=true. Full10run386793
 remains ACTIVE at e3edf1c9. App production unchanged87accb13 across both, no duplicate
 full10 required if it passes and outstanding17 changes are fixture-only per workflow.
 No completed final runtime or signed18 publication claimed.
+
+Bounded documentation/recheck evidence c3c99d25...0d2ba136 reviewed Spec0 and
+Standards0. Both independently verify15hashes/2XML and qualified Registry/report,
+provider refusal and separate full-run ownership. No new whole#28 acceptance.
