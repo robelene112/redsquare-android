@@ -118,3 +118,11 @@ Next singletracer groupmutecontrol, exactdraft, independentweb-signedincoming
 groupmessage/ACK, recreation/unmute/cache/no-wire; controlledsignedcreation
 preparesknownmembership, no networkwrites. FirstactualREDpending. Groupbutton/
 publickeyconversationIDvalidation notimplemented yet. No groupnotifacceptance.
+
+Grouptracer4aa36fb1 review: Spec1recreatedChatlist has no clickableChat nav;
+fixedGroups-or-Chat readinessbeforegroupentry, preservingexactdraft andremaining
+assertions. Standards1possibleduplicatedfixturelifecycle; extracted scoped
+files/preferences snapshot/prepare/restore helper with explicitprefixes/owner,
+independentcleanupactions retained. FirstgroupRED10run38694777442 exact4aa
+ACTIVEandstillvalidformissingcontrol; no duplicate. Private17run38694546565
+exact0bf ACTIVE. Noownedlocalbuild, no productiongroupminimum yet.
