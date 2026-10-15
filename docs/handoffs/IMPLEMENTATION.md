@@ -163,7 +163,14 @@ same20s/allassertions. SharedstorageSendreadyandfaultatomic. Fullqueuechecks
 nowimmediatelyafterappearance(beforeoldChat)tofailfast, allgatesunchanged.
 Corrected fixture c3c99d25b94909a6745cd40824002c456f0007cf reviewed Spec0 and
 Standards0, including 55 hashes and 25 XML from the first full17 attempt.
-Corrected full17 run38681573465 owns that exact source, public_feed_read=true.
+Corrected full17run38681573465 at c3c99d25 FAILED after all13queuecases PASS
+271.344s and privateactualPID5422→5500/exactoriginalonce/fullcontinuity/FWDUI/
+restorationPASS. GroupPIDpreparation failedfirstSend→Queued76,1case25.335s;
+noactualgroupdeath/recoverytail. Originalopenkeyboard/shiftedwindowseen, precise
+causeunproved. GrouprestorationPASS0.135s, laterfullgatesunrun. Retained
+full17-process-tap-attempt,85hash35XML. PIDfixtureclosesIMEthenexistingvisible
+enabledclickSendhelper,same20s/allassertions. Noappchange. Correctionreview/
+compile/newoutstanding17fullpending.
 Full10 run38679330339 remains active on e3edf1c9. Production source is unchanged
 from87accb13 across both acceptance revisions. Retain a passed10 if only the
 17 test fixture changes, as allowed by WORKFLOW.md. No duplicate dispatch.

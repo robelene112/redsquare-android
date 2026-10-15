@@ -381,3 +381,12 @@ No completed final runtime or signed18 publication claimed.
 Bounded documentation/recheck evidence c3c99d25...0d2ba136 reviewed Spec0 and
 Standards0. Both independently verify15hashes/2XML and qualified Registry/report,
 provider refusal and separate full-run ownership. No new whole#28 acceptance.
+
+Corrected full17run38681573465 exactc3c99d25: all13queuecases PASS271.344s.
+PrivateactualPID5422→5500/fullcontinuity/exactoriginalRawRelayonce/decode/FWDUI/
+restorationpass. GroupactualPIDpreparation FAIL1case25.335s firstSend→Queued76,
+noactualgroupdeath/recoverytail. Originalopenkeyboard/shiftedwindowseen; precise
+causeunproved. GrouprestorationPASS0.135s. Fullstopsbeforelatergates; nofullacceptance.
+Retainedfull17-process-tap-attempt. PIDfixture nowclosesIMEthenusesits existing
+visibleenabledclick helper, same20s/assertions unchanged. No appchange. Full10
+38679330339stillactive, preserveifpasses; correctedoutstanding17required.

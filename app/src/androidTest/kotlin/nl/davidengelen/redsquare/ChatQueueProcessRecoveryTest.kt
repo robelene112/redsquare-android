@@ -73,7 +73,8 @@ class ChatQueueProcessRecoveryTest {
         launch(port){
             open();ui.waitUntil(20_000){displayed(hasSetTextAction() and isEnabled())}
             ui.onNode(hasSetTextAction() and isEnabled()).performTextReplacement(text)
-            ui.onNodeWithText("Send").assertIsEnabled().performClick();waitFor("Queued")
+            androidx.test.espresso.Espresso.closeSoftKeyboard()
+            click("Send");waitFor("Queued")
             val candidate=queued(backend)
             row.addProperty("candidate",candidate.id);row.addProperty("candidateDigest",digest(candidate.envelope()))
             assertPending(row,backend)
