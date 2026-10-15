@@ -465,3 +465,10 @@ bitmaps are excluded from visual acceptance; their cause is unestablished.
 This evidence proves the534330e regression candidate, not subsequent #18 edits,
 actual YouTube media playback, physical Pixel7 performance or production writes.
 Public provider playback remains blocked as recorded on #17; keep the issue open.
+
+2026-10-15 read-only second-reference Android10 recheck38681078177 at exact
+ e3edf1c971c25f49d5b793d98cfb2de85dd70aac failed1case52.838s at Playing64.
+Actual public Play control activated; original failure shows provider-refusal
+copy/Retry/external escape, maps101/150 without recorded numeric code or proven
+cause. No real playback acceptance or production writes. Qualified raw/DOM/
+original PNG/XML/source metadata retained ticket17/public-oct15-recheck/android10.

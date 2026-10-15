@@ -370,3 +370,10 @@ Current10full38679330339 stillACTIVE, don'tcancelwithoutnewreason. Exactsource
 worktreee3unsignedcache remainsprodidentical; noversionreserved/published.
 Read-onlyRegistry38681076101/YouTube38681078177 stillACTIVEe3, separatefrom28.
 Newtestsourcecompile/review/corrected17pending; no whole28claim.
+
+Corrected fixture c3c99d25 separately reviewed Spec0/Standards0, including first
+full17 evidence55hashes25XML. Corrected full17run38681573465 is ACTIVE at exact
+c3c99d25b94909a6745cd40824002c456f0007cf, public_feed_read=true. Full10run38679330339
+remains ACTIVE at e3edf1c9. App production unchanged87accb13 across both, no duplicate
+full10 required if it passes and outstanding17 changes are fixture-only per workflow.
+No completed final runtime or signed18 publication claimed.

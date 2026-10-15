@@ -161,34 +161,34 @@ Originalkeyboardopen/shiftedwindowseen, specificcauseunproved. Retained
 full17-queue-tap-attempt. TestonlyIMEclose+positivevisibleenabledSendcorrection,
 same20s/allassertions. SharedstorageSendreadyandfaultatomic. Fullqueuechecks
 nowimmediatelyafterappearance(beforeoldChat)tofailfast, allgatesunchanged.
-Corrected17/sourcecompilereviewpending;10stillactive/don'tduplicateorcancel. Full
-includesall13queuecases+bothPIDjourneys, no redundantfocusedrerun. Allnative/
-core114/release/lint/previousPID/publicreadsrequired. Finalcountsnotyetclaimed.
-Fullretainerprepared.scratch/retain-chat28-final-full.py. Exacte3edfworktree/mnt/storage/redsquare-android-artifacts/queue28-review-source
-preparedonadditionaldisk(sharedmainGradlecachelink). Unsignedpreview18releasecache
-build16011PASS3m40swithreview-buildflags, noversionreservation/signature/publication.
-Noownedlocalbuild; exactunsignedAPKcachedinworktreeapp/build/outputs/apk/release. Holdpublicationuntilfullacceptance.
-Addedremainingstoragefailure+identity/backendscoperegressions, noappchanges;
-focusedgroup6/fullclass13 firstexecutionpending. Groupappsource65c57b5c.
-Groupappminimumebd9f700 applied, notyetaccepted. Groups/process/full28stillpending.
+Corrected fixture c3c99d25b94909a6745cd40824002c456f0007cf reviewed Spec0 and
+Standards0, including 55 hashes and 25 XML from the first full17 attempt.
+Corrected full17 run38681573465 owns that exact source, public_feed_read=true.
+Full10 run38679330339 remains active on e3edf1c9. Production source is unchanged
+from87accb13 across both acceptance revisions. Retain a passed10 if only the
+17 test fixture changes, as allowed by WORKFLOW.md. No duplicate dispatch.
+All13 queue cases, both actual queued PID journeys and previous gates remain
+required. Full retainer: .scratch/retain-chat28-final-full.py. Final counts pending.
 
-NEXT: review/verify ready-navigation+storage7cases, then groupqueues/freshmembership,
-groupqueuewithfreshmembership, actualprocessdeath, finalfull10/17/reviews/signed
-nextbeta/closure28. Parent1approvedapplication/controlledpeer/protectedrecoveryseams.
-Queueonlyexplicitmessages,noadmin/reaction/transferautosends. Continue28through36
-andparked16/17/19 withoutstopping. PhysicalPixel35/Play36 actualexternalprerequisites.
-16requiresAndroidGiphyauthorization/retention;17publicYouTubeproviderrefusal;
-19Registryavailabilityunproved.38brandingnormalprioritynotreleaseblocker.
-PhysicalPixel35/Play36 actualexternalprerequisites, nofixture/emulatorreplacement.
-Protectedpreexistinguntracked NATIVE_GROUP_CHAT_CONTRACT.md untouched.
-Largeartifacts underverifieddavidchild/mnt/storage/redsquare-android-artifacts.
-Do notstopafter28, ownerresumedallissues.
-Read-onlyexternalprerequisite rechecksoverlapfullwait(no nextticketimplementation):
-Registrypublic10run38681076101 ACTIVE andYouTube2ndsignedreference10run38681078177
-ACTIVE, bothexacte3edf1c9. No app/node/registrationwrites. RegistrytestPASSmeans
-readreportcompleted, NOTserviceavailable; inspectreadinessJSON. VideoactualPlay
-mustsucceedbeforepublicplaybackacceptance. Retainqualifiedresultsforparked19/17.
-No duplicate dispatch; large downloadsremainonadditionaldisk.
+Unsigned preview18 cache build16011 PASS3m40s at exact e3edf in detached worktree
+/mnt/storage/redsquare-android-artifacts/queue28-review-source. No version reserved,
+no signature or publication. No owned local build. Move that worktree to the final
+acceptance revision before running review-build after acceptance. Public17 remains.
+
+NEXT: inspect both complete full runs, retain original evidence, two-axis final
+evidence review, signed18 publication/direct verification and #28 closure. Then
+continue #29 and remaining issues sequentially without another owner confirmation.
+Do not claim next ticket before #28 completion. Protected preexisting untracked
+NATIVE_GROUP_CHAT_CONTRACT.md remains untouched.
+
+Independent read-only rechecks, exact e3edf1c9, downloaded on additional disk:
+Registry10run38681076101 SUCCESS means its report completed. Actual readiness:
+both authenticated backends return zero key-map hints; both namechecks per backend
+are unusable 21-byte responses. Registration availability is still unproved.
+YouTube second-reference10run38681078177 FAILED waiting for Playing at line64,
+52.838s total. Inspect its player capture before assigning a cause. Neither run
+changes app/node/wallet/registration state or counts toward #28 acceptance.
+Retain qualified results for parked #19/#17. No duplicate dispatch.
 
 Storage migration observed Docker data now bind-mounted from /mnt/storage/docker;
 repo/.scratch remains on the system disk,63GiB free versus158GiB onadditional disk.

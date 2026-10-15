@@ -509,3 +509,11 @@ Documentation qualification: post keyword/prefix matching is local, but explicit
 exact-username resolution sends the public identifier through RegistryLookup's
 existing namecheck RPC. This was always the implemented/tested behavior. Closure
 comment and handoff wording corrected; no runtime or acceptance change.
+
+2026-10-15 independent read-only Registry recheck38681076101 at exact
+ e3edf1c971c25f49d5b793d98cfb2de85dd70aac completes1PASS1.853s. Both backends
+are authenticated, key-map reads respond with zero hints, and both unique-probe
+and Saitoverse namechecks return unusable21-byte responses. This is successful
+report collection, not service availability/registration acceptance. No writes.
+Qualified report/source metadata retained ticket19/public-oct15-recheck/android10;
+external#19 remains open.
