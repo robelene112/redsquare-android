@@ -96,6 +96,11 @@ the owner chooses whether to start it. It is not required for every app-wide gri
    unless the owner requests another; preserve unrelated changes.
 3. Implement the ticket at its agreed testing boundaries using `tdd`. Run focused
    checks during development and the relevant full suite at completion.
+   For the isolated queued-action viewport tracer, `chat-viewport` and
+   `chat-viewport-android17` run only the existing group cancellation case.
+   This avoids repeating five unchanged queue cases on each fixture correction;
+   `chat-queue-group`, complete queue and final full scopes retain all cases.
+   Per-assertion deadlines and the180second focused class bound stay explicit.
    Push automation runs core tests, APK assembly (including release) and lint.
    Dispatch focused device runs during development and one full Android 10/17
    run for final acceptance. A successful push source check is not runtime
