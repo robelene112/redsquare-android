@@ -55,13 +55,16 @@ class GroupChatActionsPreviewTest {
                 ActivityScenario.launch<MainActivity>(Intent(context,MainActivity::class.java)
                     .putExtra("feedPeerUrl","ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("feedOfficialPeerUrl","ws://127.0.0.1:${server.port}/wsopen")).use{scenario->
+                    val progress=File(context.cacheDir,"group-chat-actions-evidence/progress.txt")
+                    fun phase(value:String){progress.parentFile!!.mkdirs();progress.appendText("${android.os.SystemClock.elapsedRealtime()} $value\n")}
+                    phase("launch")
                     withFailureCapture({captureNativeScreen(File(context.cacheDir,"group-chat-actions-evidence/failure.png"))}) {
                         fun open(fromFeed:Boolean=false) {
                             if(fromFeed){waitForEnabled("Chat");ui.onNodeWithText("Chat").assertIsDisplayed().assertIsEnabled().performClick()}
                             waitFor("Groups");ui.onNodeWithText("Groups").performClick()
                             waitFor("Reply beta group");ui.onNodeWithText("Reply beta group").performClick()
                         }
-                        open(fromFeed=true);waitFor("Original group message")
+                        open(fromFeed=true);waitFor("Original group message");phase("source-visible")
                         previousClip=clipboard.primaryClip
                         waitForEnabled("Copy")
                         clipboardChanged=true
@@ -86,6 +89,7 @@ class GroupChatActionsPreviewTest {
                         check(SaitoEnvelope.fromSignedJson(peer.relayedMessages.single())==candidate.envelope())
                         check(peer.relayRecipients.single()==listOf(fixture.publicKey,admin.publicKey))
                         ui.onNodeWithText("Remove reply").assertDoesNotExist()
+                        phase("first-original-verified")
                         scenario.recreate();open();waitFor(body)
                         ui.onNodeWithContentDescription("Group messages").performScrollToNode(hasText(body))
                         ui.onNodeWithText(body).assertIsDisplayed()
@@ -97,15 +101,18 @@ class GroupChatActionsPreviewTest {
                         check(reopened.candidate!!.envelope()==candidate.envelope()&&reopened.draft.isEmpty())
                         check(wallets.loadExisting().exportJson()==fixture.exportJson()&&AndroidBackendStore(context).load()==backend)
                         check(peer.transactions.size==1&&peer.relayedMessages.size==1)
+                        phase("cached-copy-verified")
                         captureNativeScreen(File(context.cacheDir,"group-chat-actions-evidence/reply-cached-copy.png"),body)
+                        phase("cached-copy-captured")
                         ui.onAllNodesWithText("Reply").onLast().performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
-                        waitFor("Remove reply")
+                        waitFor("Remove reply");phase("self-reply-selected")
                         val ownBody="Replying to my own message"
                         ui.onNodeWithText("Message").performTextInput(ownBody)
                         androidx.test.espresso.Espresso.closeSoftKeyboard()
                         waitForEnabled("Send");ui.onNodeWithText("Send").assertIsEnabled().performClick()
                         ui.waitUntil(15_000){peer.transactions.size==2&&peer.relayedMessages.size==2}
                         waitFor("Forwarded. Delivery is not confirmed.")
+                        phase("second-original-forwarded")
                         val ownCandidate=requireNotNull(store.load(key.publicKey)!!.candidate)
                         val ownSigned=SaitoEnvelope.decode(ownCandidate.envelope())
                         val ownPrefix="<blockquote href=\"${fixture.publicKey}${signed.createdAt}\">Native reply 😀 &lt;literal&gt;&amp;</blockquote>"
@@ -119,7 +126,7 @@ class GroupChatActionsPreviewTest {
                         ui.onNodeWithContentDescription("Group messages").performScrollToNode(hasText(ownBody))
                         ui.onNodeWithText(ownBody).assertIsDisplayed()
                         captureNativeScreen(File(context.cacheDir,"group-chat-actions-evidence/self-reply-forwarded.png"),ownBody)
-                        peer.assertHealthy()
+                        peer.assertHealthy();phase("complete")
                     }
                 }
             }

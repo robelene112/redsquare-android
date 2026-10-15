@@ -185,7 +185,11 @@ class GroupChatProcessRecoveryTest {
         ui.onNodeWithText("Hello group 😀 <&>!").assertIsDisplayed()
         ui.onNodeWithText("Send").assertIsNotEnabled()
         ui.onNodeWithText(if(action=="reaction")"Unlike" else "Like").assertIsNotEnabled()
-        if(action=="reaction"){waitFor("1 like");ui.onNodeWithText("1 like").assertIsDisplayed()}
+        if(action=="reaction"){
+            waitFor("1 like")
+            ui.onNodeWithContentDescription("Group messages").performScrollToNode(hasText("1 like"))
+            ui.onNodeWithText("1 like").assertIsDisplayed()
+        }
     }
     private fun peer()=ControlledFeedPeer("[]",advertisedServices="archive||;relay||",archiveResponse={"{invalid"})
     private fun fileNames(backend:SaitoBackend)=listOf("wallet.v1","wallet.recovery.v1","groupchat.${backend.id}.${fixture.publicKey}.${key.publicKey}.v1")

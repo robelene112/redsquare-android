@@ -115,6 +115,12 @@ verify_group_chat_native() {
         nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
         > "$evidence/$prefix-ui.txt" || native_exit=$?
     printf '%s\n' "$native_exit" > "$evidence/$prefix-ui-exit.txt"
+    if [[ "$native_exit" == 124 ]]; then
+        # Retain the actual timed-out window separately from the last successful fixture capture.
+        timeout 10 adb exec-out screencap -p > "$evidence/$prefix-timeout.png" || true
+        timeout 15 adb shell uiautomator dump /sdcard/redsquare-timeout.xml > "$evidence/$prefix-timeout-dump.txt" 2>&1 &&
+            timeout 10 adb pull /sdcard/redsquare-timeout.xml "$evidence/$prefix-timeout.xml" >/dev/null || true
+    fi
     adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - "$capture" \
         > "$evidence/$capture.tar" || true
     [[ "$native_exit" == 0 ]] && grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/$prefix-ui.txt"
