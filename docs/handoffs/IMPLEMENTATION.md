@@ -177,6 +177,12 @@ PhysicalPixel35/Play36 actualexternalprerequisites, nofixture/emulatorreplacemen
 Protectedpreexistinguntracked NATIVE_GROUP_CHAT_CONTRACT.md untouched.
 Largeartifacts underverifieddavidchild/mnt/storage/redsquare-android-artifacts.
 Do notstopafter28, ownerresumedallissues.
+Read-onlyexternalprerequisite rechecksoverlapfullwait(no nextticketimplementation):
+Registrypublic10run38681076101 ACTIVE andYouTube2ndsignedreference10run38681078177
+ACTIVE, bothexacte3edf1c9. No app/node/registrationwrites. RegistrytestPASSmeans
+readreportcompleted, NOTserviceavailable; inspectreadinessJSON. VideoactualPlay
+mustsucceedbeforepublicplaybackacceptance. Retainqualifiedresultsforparked19/17.
+No duplicate dispatch; large downloadsremainonadditionaldisk.
 
 Storage migration observed Docker data now bind-mounted from /mnt/storage/docker;
 repo/.scratch remains on the system disk,63GiB free versus158GiB onadditional disk.
