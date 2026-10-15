@@ -34,7 +34,11 @@ and evidence change reviewed separately0/0. No app changes afterdc28. Signed21
 sourceb42e4e2f is product-identical through current HEAD.
 
 **OWNED full runs, never duplicate an active scope:**
-- Android10 `38742885120`, source `e92c41d3`, ACTIVE, public reads enabled.
+- Android10 `38742885120`, source `e92c41d3`, SUCCESS:361reported/360PASS plus
+  one existing API30 profile assumption,85records27actualdeaths. Core114/release/
+  lint/allapplication/publicreads/coldwallet/signed5-to8/diagnostic PASS. PhotoUI
+  10PASS81.007s/history2PASS54.691s, actualphotoPID7332to7568private/7839to8177
+  group. Retained980hashes/363XML/root10originalPNGsseen. Evidence review pending.
 - Android17 `38744845607`, source `8796c45b`, ACTIVE, public reads enabled.
 Each started only after its same-scope predecessor ended. Old full failures stay
 failed, with unexecuted tails qualified. Both previous fulls at236/09 failed two
@@ -57,9 +61,9 @@ passed focused34+actualPID. Do not infer acceptance from earlier partial gates.
   cache/reaction requirements intact. Root3selectedPNGs seen,8XML parsed.
 - Portable mute probe17 `38745018833`/3a53c756 SUCCESS:8PASS141.914s, actual
   interrupted policy PID4889to5001/recovery/restoration; root3PNGs seen/3XML parsed.
-  Replaces unavailable runner `rg` with literal `grep`; syntax and capturedfalse/
+  Evidence reviewed0/0. Replaces unavailable runner `rg` with literal `grep`; syntax and capturedfalse/
   matchingtrue probe-table pass. Actual device priorstatefalse, no priortrue
-  restoration claim. Focused evidence review pending.
+  restoration claim.
 
 Active full17 at879 uses the old probe. Its actual original permission snapshot
 must be checked before qualifying its outcome. Previous failed full17 snapshot

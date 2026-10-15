@@ -609,3 +609,14 @@ matchingtruecaseisstaticprobetest, notdevicepriortrue-restorationproof. Noapp/
 assertion/budgetchange. Currentfull10e9238742885120/full17oldprobe87938744845607
 stillactive; no duplicates. Currenthandoffrewrittenaroundpresentstatus, historical
 failedruns/causeuncertainties remainqualifiedhereandper-record.
+
+FINALfull10run38742885120 exacte92c41d3102cd7aad286c5a2f5296f40cfe424d0 SUCCESS:
+361reported360PASS+existingAPI30profileassumption,85records27actualdeaths,
+core114/release/lint/allapplication/bothpublicfeeds/publicChat/coldwallet/signed
+5-to8/finaldiagnosticPASS. Photo10PASS81.007s/history2PASS54.691s, actualphoto
+privatePID7332to7568/group7839to8177+restoration. All363XMLparsed/root10original
+PNGsseen,980hashesretained. API29 .newunexercisedqualification retained:2stream-
+onlystatus0bundlesnotJUnitcompletions, strictnamedterminalcounts2stillmatchOK2.
+Retainerparserrecognizesonlythat exactknownstreambundle; no runtime/assertions
+changed. Final17run38744845607at879stillACTIVE, oldpermissionprobeactualsnapshot
+mustbequalified. Signed21stillunpublished. Full10evidencereviewpending.
