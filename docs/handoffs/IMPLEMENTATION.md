@@ -18,12 +18,28 @@ candidate+signed owner parent, and rechecks current scope/policy/deletion/OS
 permission/channel before a generic stable-tag Android alert. No existing UI or
 external transport invokes it. Mentions, exact tap routing, dismissed-alert
 persistent dedup and FCM are subsequent vertical slices. Do not claim32complete.
-Local core/debug/test99957 ACTIVE (.scratch/push32-reply-minimum-compile.log),
-so no app/source edits until it completes. Actual focused Android10 native
-run38824292988 at5c6be546 ACTIVE; no GREEN inferred and no duplicate dispatch.
-Final10 RED originals/metadata and corrected sourcegate qualification are under
-`docs/evidence/ticket32/reply-alert-red/android10`. Strict collector prepared
-.scratch/retain-push32-reply.py supports fresh RED/GREEN output directories.
+Local minimum core/debug/test99957 COMPLETE0/3m22s. Actual first focused10
+38824292988 at5c6be546 SUCCESS1case4.280s; reply-alert-green/android10 retains
+actual manager/channel/text, exact candidate/parent reads, visible RedSquare shade,
+one retained alert on replay and no transaction/report/Relay writes. Original
+PNG viewed by actual bytes/XML parsed; evidence reviews0/0 atcf234ff6. Focused
+scope does not execute release/lint, fulls, tap or FCM. Public24 stays current.
+
+NEXT VERTICAL SLICE: fixture-only1aa84767366522181679e8e4c9551b83ef7181e9
+preserves originalcase and adds actual shade swipe, positive visible+manager
+dismissal, then third reference replay with continuous2s zero-alert observation.
+It does NOT yet implement any ledger. Tracer reviewsSpec0/Standards0. Local11618
+core/debug/test COMPLETE0/1m51s. No owned Gradle remains. Actual focused10
+38825316132 at1aa84767 ACTIVE; await intended dismissed-redelivery RED before
+ledger implementation. Read-only ghwatch session16837 (.scratch/push32-dismiss-red-watch.log)
+active. Do not duplicate dispatch. First RED collector .scratch/retain-push32-reply.py
+accepts only original1case missingalert; adapt a separate fresh retainer for this
+new2case dismissal evidence. Retain actual failure before minimum; no outcomeinferred.
+Root may implement durable owner/backend-scoped alert ledger only after this
+new failure. Existing stabletag/onlyAlertOnce cannot suppress replay after dismissal.
+Keep persisted pending-before-notify then published-after-notify ordering and be
+honest about the unavoidable Android/disk commit boundary; no atomic once-only
+claim. Exact tap/input-save guard and mentions remain later vertical slices.
 
 Prepared next plan .scratch/push32-next-slice-plan.md; bounded read-only proposal
 `docs/research/SOCIAL_PUSH_TAP_ROUTE_2026_10_15.md` adds exact lifecycle/navigation
