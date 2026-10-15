@@ -24,8 +24,12 @@ backend/no-wire and installationrestoration. Newprocessretained16hash3XML,
 root3originalsseen; current8regression74hash35XML. Earlier compilefailure3a
 retained/qualified, no device claim. Canonical NATIVE_CONVERSATION_MUTE_VERIFICATION.
 
-Finalfull10run38704251435 and17run38704254979 ACTIVE exact56b, public_feed_read
-true each. No duplicatefull. Inspect actual finished evidence/counts/allgates,
+Finalfull10run38704251435 exact56b SUCCESS,345reported/344PASS plus existing
+profileassumption/79records25actualdeaths/core114/release/lint/allgates/bothpublic
+feeds. Mute8PASS98.636s/process6522gone→6921/allchoices/drafts/cache/freshincoming/
+ACK/silence/restoration. Queue13PASS250.602s; coldwallet2+signed5→8four native
+observers/finaldiagnostic alsoPASS. Retained893hash329XML, root10originalsseen.
+Final17run38704254979 remainsACTIVE exact56b, public_feed_read true. No duplicatefull. Inspect actual finished evidence/counts/allgates,
 retain with .scratch/retain-chat29-final-full.py ROOT OUT META SOURCE RUN 12.
 Expected new8muteclass +2processcompletionrecords/+1actualdeath, six wallet
 observer .log invocations remain distinct from applicationcounts. Base28 full

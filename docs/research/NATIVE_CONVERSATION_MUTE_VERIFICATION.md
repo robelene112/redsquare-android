@@ -277,3 +277,11 @@ Finalfull10run38704251435 and17run38704254979 dispatchedsameexact56b3c17e with
 public_feed_read=true, ACTIVE. No duplicatefull orlocalbuild. Signed19prepared
 fromproduct-identical3a PASS4m36s, cert/package/min29checked, SHA82ed82795eda62dd4
 c064603cea022869063184175e12c4147cc4e5d031a2de4. Public18unchanged pendingfulls.
+
+Finalfull10run38704251435 exact56b3c17e SUCCESS:345reported/344PASS+existing
+API30profileassumption,79records25actualdeaths/core114/release/lint/allpriorgates/
+bothpublicfeeds. Mute8PASS98.636s; realmutePID6522gone→6921 bothchoices/drafts/
+cache/freshACK/silence/restoration. Queue13PASS250.602s andbothautomaticprocesses,
+bothadminprocesses, coldwallet2+immutable5→8four nativeobservers andfinaldiagnostic
+allpass. Retainedfinal-full/android10(893hash329XML), root10selectedoriginals
+seen/allXMLparsed. Final17same56b stillACTIVE. No full17/publication claimyet.

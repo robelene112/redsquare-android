@@ -41,3 +41,9 @@ are not inferred.
 
 Standards0, Spec0. Earlier process-proof finding is fixed by mandatory nonempty
 pending-guard size metadata before cold recovery; both correction reviews0.
+
+Evidence checkpoint56b3c17e...010454a1 also clears both axes. Reviewers verified
+171 hashes and73 XML across the five new retained sets. Raw process proof
+records259-byte guard metadata and PID6413 to6890; prepared19 production
+equivalence and qualified compile failure are verified. Final full results and
+public publication remain pending.
