@@ -32,7 +32,8 @@ class ProfileEditPreviewTest {
                 .hideSoftInputFromWindow(activity.window.decorView.windowToken, 0)
         }
         ui.waitUntil(10_000) { ui.onNodeWithText("Wallet").isDisplayed() }
-        ui.onNode(hasSetTextAction()).assertTextEquals(text)
+        ui.onNode(hasSetTextAction()).assert(
+            SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(text)))
     }
 
     @Before fun prepare() {
