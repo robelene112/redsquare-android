@@ -279,3 +279,14 @@ bothactualcallers/inmemoryencryptedbytes/selectionlock/finallyrestore andpreserv
 primaryfailure viaexistingcleanupAfterTest. Scenarioassertsunchanged. Local1714
 compileDebugAndroidTestKotlin PASS1m24s beforethishelper-onlycorrection. Runtime
 sixcasespending, currentfourcase38677817471 stillactive. No appchange.
+
+Addedactualqueuedprocessrecoveryfixture(private/group parameter), no appchange:
+realofflineUI Send/Queued +cachedoriginal, fullfixturewallet/backend/key/origin
+publicdigests, killProcess, newPIDprotectedoriginal/historycontinuity beforelaunch,
+newcontrolledpeer automaticexactRawRelayonce/decode/history/key/FWD+UI, original
+encryptedinstallationrestoration. Snapshotfilesremainemulatoronly; capturedpublic
+metadata containsdigests/IDs notkeys. NewscriptusestheexistingProcessInstrumentation/
+assert_process_gone/finish_process_fixture seams, opt-inprocessscopesbothSDKs and
+bothjourneysincludedinfinalfull. ScriptsyntaxchecksPASS; firstnativeexecution
+andtestcompilationpending. Existinggroup4run38677817471 stillfinishing, newgroup6
+storage/scope+sharedfixture8260df94 reviewedSpec0/Standards0. No whole28claim.

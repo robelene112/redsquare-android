@@ -84,6 +84,15 @@ verify_group_chat_native() {
         > "$evidence/$capture.tar" || true
     [[ "$native_exit" == 0 ]] && grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/$prefix-ui.txt"
 }
+verify_chat_queue_recovery() {
+    python3 "$repo_dir/scripts/chat-queue-process-check" --kind private --evidence "$evidence/chat-queue-private-process"
+    python3 "$repo_dir/scripts/chat-queue-process-check" --kind group --evidence "$evidence/chat-queue-group-process"
+}
+if [[ "${TEST_SCOPE:-full}" == chat-queue-process* ]]; then
+    verify_chat_queue_recovery
+    printf '%s\n' 'Focused native queued Chat process recovery only; full acceptance not run.' > "$evidence/scope.txt"
+    exit 0
+fi
 verify_chat_queue() {
     local cases=ChatQueuePreviewTest
     if [[ "${TEST_SCOPE:-full}" == chat-queue-group* ]]; then
@@ -95,6 +104,7 @@ verify_chat_queue() {
         cases+=,nl.davidengelen.redsquare.ChatQueuePreviewTest\#aQueuedGroupOriginalWaitsForItsIdentityAndSelectedBackendWithoutRerouting
     fi
     verify_group_chat_native "$cases" 480 chat-queue chat-queue-evidence
+    if [[ "${TEST_SCOPE:-full}" == full ]]; then verify_chat_queue_recovery; fi
 }
 if [[ "${TEST_SCOPE:-full}" == chat-queue* ]]; then
     verify_chat_queue

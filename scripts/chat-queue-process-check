@@ -1,0 +1,68 @@
+#!/usr/bin/env python3
+"""Recover an explicitly queued Chat original after actual isolated Android process death."""
+import argparse
+import json
+from pathlib import Path
+import re
+import subprocess
+from process_check_utils import ProcessInstrumentation, assert_process_gone, finish_process_fixture
+
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--evidence', type=Path, required=True)
+parser.add_argument('--kind', choices=('private', 'group'), required=True)
+args = parser.parse_args()
+package = 'nl.davidengelen.redsquare.dev'
+runner = package + '.test/androidx.test.runner.AndroidJUnitRunner'
+test_class = 'nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest'
+checkpoint = 'cache/chat-queue-process-checkpoint.json'
+
+
+def adb(*arguments, check=True, timeout=60):
+    return subprocess.run(['adb', *arguments], capture_output=True, text=True, check=check, timeout=timeout)
+
+
+instrument = ProcessInstrumentation(adb, args.evidence, test_class, runner, ('-e', 'queueKind', args.kind)).run
+if not adb('get-serialno').stdout.strip().startswith('emulator-'):
+    raise SystemExit('An isolated emulator is required')
+args.evidence.mkdir(parents=True, exist_ok=True)
+primary = None
+try:
+    result = instrument('terminateAfterExplicitOfflineSendWithItsOriginalStillQueued', 'interrupted.txt', check=False)
+    if 'FAILURES!!!' in result.stdout or 'Process crashed.' not in result.stdout:
+        raise AssertionError('Queued Chat preparation did not reach deliberate process termination')
+    row = json.loads(adb('exec-out', 'run-as', package, 'cat', checkpoint).stdout)
+    if row['phase'] != 'pending' or row['kind'] != args.kind or row['backend'] not in ('owner', 'official'):
+        raise AssertionError('Missing queued Chat checkpoint')
+    if not re.fullmatch(r'[1-9A-HJ-NP-Za-km-z]{43,45}', row['owner']):
+        raise AssertionError('Invalid public owner')
+    if not re.fullmatch(r'[0-9a-f]{128}', row['candidate']):
+        raise AssertionError('Invalid queued original ID')
+    fields = ['candidateDigest', 'historyDigest', 'walletDigest', 'originalWalletDigest']
+    if args.kind == 'group':
+        fields += ['originDigest', 'keyDigest']
+    if any(not re.fullmatch(r'[0-9a-f]{64}', row[field]) for field in fields):
+        raise AssertionError('Invalid public recovery digest')
+    if not isinstance(row['pid'], int) or row['pid'] <= 0:
+        raise AssertionError('Invalid original process ID')
+    assert_process_gone(adb, package, row['pid'])
+    (args.evidence / 'pending-checkpoint.json').write_text(json.dumps(row, indent=2) + '\n')
+    adb('shell', 'am', 'force-stop', package)
+    result = instrument('coldRestartAutomaticallyForwardsTheSameOriginalAndKeepsHistory', 'recovered.txt')
+    if 'OK (1 test)' not in result.stdout:
+        raise AssertionError('Queued Chat automatic cold recovery failed')
+    recovered = json.loads(adb('exec-out', 'run-as', package, 'cat', checkpoint).stdout)
+    if recovered != dict(row, phase='recovered', recoveredPid=recovered['recoveredPid']):
+        raise AssertionError('Queued Chat checkpoint changed unexpectedly')
+    if (not isinstance(recovered['recoveredPid'], int) or recovered['recoveredPid'] <= 0 or
+            recovered['recoveredPid'] == row['pid']):
+        raise AssertionError('Recovery did not use a new process')
+    (args.evidence / 'recovered-checkpoint.json').write_text(json.dumps(recovered, indent=2) + '\n')
+    (args.evidence / 'continuity.txt').write_text(
+        'PASS: actual process death, exact queued original, full fixture wallet/backend and cached history '
+        'continuity' + (', protected group key/origin' if args.kind == 'group' else '') +
+        '; automatic identical raw/Relay once, independently decoded text and delivery unconfirmed.\n')
+except BaseException as failure:
+    primary = failure
+    raise
+finally:
+    finish_process_fixture(instrument, args.evidence, package, 'chat-queue-process-evidence', primary)
