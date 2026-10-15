@@ -17,3 +17,8 @@ before the original click. All subsequent server-isolated draft, recreation and
 no-publication assertions remain unchanged. No production or budget change.
 A corrected runtime and complete suite remain required. No physical Pixel,
 production node, wallet, service, chain, credential or store change is claimed.
+
+Root inspected all four original keyboard-open PNGs from this full attempt.
+All12 keyboard XMLs parsed;12PNG/12XML retained. Privacy, exact multiline draft,
+photo when selected and native Send are visible above IME. These class results
+remain separate from the later posting failure and do not complete the full run.
