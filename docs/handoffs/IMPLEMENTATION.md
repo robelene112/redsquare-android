@@ -39,9 +39,14 @@ This independent defect slice is tracked as a native sub-issue of35, not final
 integrated/physical acceptance. New ChatKeyboardPreviewTest exercises actual
 visible IME, exact multiline draft, reachable native Send bounds, physical tap,
 one signed original/raw/Relay and full identity/backend restoration for private/
-group. First local compile running, then baseline Android17 red proof before
-production changes. No manifest/layout changes yet. Add photo/constrained cases
-and preserve all previous gates. Workflow gets focused chat-keyboard scopes and
+group. Initial local test compiler error corrected; compilePASS1m44s. Initial17 run
+38754302286 atd63de718 SUCCESS2PASS51.341s with backup reminder dismissed. Root
+saw both original keyboard-open PNGs: actual Send works, header may pan. Retained
+baseline-text-android17. No general failure/acceptance inferred. Expanded four-case
+tracer adds actual privacy bounds, photo captions and first-use text with backup
+reminder still visible; second17 baseline dispatched after first completed.
+Class allowance180s matches doubling two cases, per-wait bounds unchanged.
+No manifest/layout changes yet; preserve all previous gates. Workflow gets focused chat-keyboard scopes and
 runs that class in full. No parallel ticket implementation.
 Do not pause or request routine approval. Protected untracked group contract stays
 untouched. Physical performance/current update and keyboard-open acceptance remain35.
