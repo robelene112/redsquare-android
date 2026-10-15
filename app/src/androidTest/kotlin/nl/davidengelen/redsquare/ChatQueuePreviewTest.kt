@@ -179,6 +179,7 @@ class ChatQueuePreviewTest {
                             captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/group-cancel-warning-$name.png"))
                         }
                         status.performScrollToNode(hasText("Members") and hasClickAction())
+                        scrollChatRegionToEnd("Group status and actions","group-cancel-status-scroll.json")
                         val members=physicalChatAction(scenario,"members-action",action="Members")
                         val device=androidx.test.uiautomator.UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
                         check(device.click(members.centerX(),members.centerY()))
@@ -341,8 +342,8 @@ class ChatQueuePreviewTest {
         return bounds
     }
 
-    private fun scrollQueuedPreviewToEnd() {
-        val preview=ui.onNodeWithContentDescription("Queued message preview")
+    private fun scrollChatRegionToEnd(label:String,checkpoint:String) {
+        val preview=ui.onNodeWithContentDescription(label)
         fun range():Pair<Float,Float> {
             val axis=preview.fetchSemanticsNode().config[SemanticsProperties.VerticalScrollAxisRange]
             return ui.runOnIdle { axis.value() to axis.maxValue() }
@@ -350,12 +351,18 @@ class ChatQueuePreviewTest {
         ui.waitUntil(5_000){val (value,max)=range();value.isFinite()&&max.isFinite()&&max>0f}
         val until=android.os.SystemClock.elapsedRealtime()+8_000
         var position=range()
+        val initial=position
         while(position.second-position.first>1f&&android.os.SystemClock.elapsedRealtime()<until) {
             val step=minOf(position.second-position.first,maxOf(1f,preview.fetchSemanticsNode().boundsInRoot.height*0.8f))
             preview.performSemanticsAction(SemanticsActions.ScrollBy){scroll->check(scroll(0f,step))}
             position=range()
         }
-        check(position.second-position.first<=1f){"Complete queued preview must scroll to its finite end: $position"}
+        check(position.second-position.first<=1f){"Chat content must scroll to its finite end: $label $position"}
+        File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,"chat-queue-evidence/$checkpoint")
+            .writeText(com.google.gson.JsonObject().apply {
+                addProperty("label",label);addProperty("initial",initial.first);addProperty("initialMax",initial.second)
+                addProperty("end",position.first);addProperty("endMax",position.second)
+            }.toString())
     }
 
     private enum class PrivateQueueCase { CANCEL, BACKGROUND, BACKEND, IDENTITY, ARCHIVED, WRONG_ARCHIVE, STORAGE }
@@ -467,7 +474,7 @@ Line 12 stays in the saved message.""" else "Keep my offline private message ðŸ˜
                         physicalChatAction(scenario,"long-message",kind="private")
                         val queuedWork=nl.davidengelen.redsquare.chat.ChatWorkStore(context,wallet,SaitoBackend.OWNER,contact)
                         val beforeScroll=requireNotNull(queuedWork.load().transaction).envelope()
-                        scrollQueuedPreviewToEnd()
+                        scrollChatRegionToEnd("Queued message preview","private-cancel-preview-scroll.json")
                         physicalChatAction(scenario,"preview-end",kind="private")
                         check(queuedWork.load().transaction?.envelope()==beforeScroll)
                         check(PrivateChat.read(wallet,beforeScroll,contact).text==text)
