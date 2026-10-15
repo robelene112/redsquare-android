@@ -960,8 +960,13 @@ Giphy Android credentials are also unresolved. An optional single question on
 2026-10-10 asked whether an existing Android-authorized key is available and
 where configured; no response yet. Do not ask again routinely, invent a key or
 assume a backend's browser key is authorized for Android. Source contract is in
-NATIVE_GIF_VIDEO_CONTRACT.md. Continue independent tickets and controlled
-implementation while external configuration remains pending.
+NATIVE_GIF_VIDEO_CONTRACT.md. Fresh primary-source requirements are in
+GIPHY_ANDROID_REQUIREMENTS_2026_10_15.md: official SDK recommends messaging by
+media ID and documents its own caches; API custom URL/asset caching rules do
+not explicitly classify immutable selected-message references. This establishes
+neither permission nor prohibition or mandatory bespoke approval. The concrete
+setup dependency remains the authorized Android/platform-section key. Continue
+independent tickets and controlled implementation while configuration is pending.
 
 Read-only research notes for later tickets were prepared during hosted checks:
 NATIVE_QUOTES_CONTRACT, NATIVE_EDIT_DELETE_CONTRACT, NATIVE_IMAGES_CONTRACT,
