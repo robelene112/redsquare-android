@@ -92,7 +92,12 @@ exactd728 SUCCESS9PASS78.252s, retained25XML/root3originalsseen. Group equivalen
 9636 run38726319972 SUCCESS10PASS80.299s, retained30XML/root3groupPNGsseen.
 Private photo actualPID and12-photo practical history tracer9424ed90 reviewed0/0,
 run38727023023 FAILED instrumentation compile missing AndroidBackendStore import,
-no runtime. Import corrected, corrected runpending. Group photo PID not yet invoked.
+no runtime. Import corrected, run38727427707 exact238fa5d1 FAILED actualprivate
+history5MiB8.681s, priors/draftpreserved. EarlierUI10PASS85.824 andprivatephoto
+PID6855to7124 exactoriginal/rawRelay/pixels/history/identity/restoration PASS,
+retainedseparatefailedrunqualifiedrecords/root2PNGseen. Private encryptedparts
+minimum b38e1e01 reviewed0/0, owned38728298869 active. Nextbuild group photo PID
+invocation enabled but notyetexecuted; groupcapacity adaptation stillpending.
 Noownedlocalbuild. Nextslices queue/
 failure/practical5MiBhistorybound/process/finalfull10+17 stillrequired. Protected
 untracked NATIVE_GROUP_CHAT_CONTRACT.md untouched. Continue allissues.

@@ -122,6 +122,7 @@ verify_group_chat_native() {
 verify_chat_images() {
     verify_group_chat_native ChatImagesPreviewTest 120 chat-images chat-images-evidence
     python3 "$repo_dir/scripts/chat-queue-process-check" --kind private --photo --evidence "$evidence/chat-photo-private-process"
+    python3 "$repo_dir/scripts/chat-queue-process-check" --kind group --photo --evidence "$evidence/chat-photo-group-process"
     verify_group_chat_native ChatImageHistoryStorageTest 180 chat-image-history chat-image-history-evidence
 }
 if [[ "${TEST_SCOPE:-full}" == chat-images* ]]; then

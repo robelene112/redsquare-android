@@ -376,3 +376,10 @@ Old referenced parts remain until the new index commit verifies. Cleanup is
 best-effort only after commit; interrupted work preserves the previous index.
 No plaintext history or owner keys in sidecars. Group adaptation not yet made.
 RuntimeGREEN pending against unchanged12-photo acceptance.
+
+Retained private photo PID gate: actual6855 to7124, both original PNGs seen
+and2XML parsed; parent run remains FAILED at separate capacity gate. Private
+capacityRED retained separately. Group photo PID invocation now enabled in
+nextbuild, preserving its original protected group key/origin/membership and
+all existing process assertions. Current ownedrun38728298869 exactb38e1e01
+only includes private PID plus capacityminimum; group runtime remains pending.
