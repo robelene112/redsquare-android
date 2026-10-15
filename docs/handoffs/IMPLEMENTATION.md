@@ -108,27 +108,23 @@ Package nl.davidengelen.redsquare, minimum API29. Direct public page/latest/
 immutable22/APK hash, certificate, package/version/min29 and unchanged immutable21
 checks pass. Public-only records: signed-preview22-published. Artifact:
 /mnt/storage/redsquare-android-artifacts/keyboard40-review22-source/.scratch/review-builds/22.
-No owned build/device run is active. Publication-record reviews report Spec0/Standards0. #40 is CLOSED, completion
+At #40 completion no build/device run remained active; current #19 runs are
+recorded above. Publication-record reviews report Spec0/Standards0. #40 is CLOSED, completion
 comment6198800085. Continue#19 sequentially as recorded above.
 Do not stop after40. No node/configuration/service/wallet/chain/store operation.
 Physical Pixel and final integrated#35 remain separate.
 
-Next#19: host first/late Registry reads actually observe Saito's21B fallback,
-then a same-index431B public ownership proof, and an empty array for an unused
-probe. Owner returns only fallback within12s. The exact known Saitoverse proof
-passes the UNCHANGED compiled core registrar/field/signature checks. lc=1 is an
-unsigned server hint, not independent chain finality. Read ticket19 evidence
-host-first-late-oct15 and host-public-proof-oct15, and research
-REGISTRY_CALLBACK_EXPERIMENT_2026_10_15.md and
-REGISTRY_READINESS_DIAGNOSIS_2026_10_15.md. All research reviews0/0; no Android fix
-or registration acceptance yet. SaitoPeer currently consumes the first response
-and discards the late array. Next: controlled native RED at the existing app/peer
-seam, then minimal Registry-only fallback handling within the ORIGINAL12s.
-Preserve type14/generic errors, strict proofs, unavailable handling, immutable
-candidate, wallet/backend binding and explicit identical Retry. Never interpret
-fallback as empty availability or silently fail over the selected Owner backend.
-No node deployment is authorized. The earlier independent debug-observer plan
-is provisional; later host public proof now justifies a narrower correction.
+Background for active #19: host first/late reads observed Saito's exact21B
+fallback before a same-index431B signed public proof, plus empty availability.
+The native Registry-only correction and its latest verification state are now
+recorded at the TOP of this handoff; the earlier first-response-only source has
+been corrected. Read host-first-late-oct15, host-public-proof-oct15 and the current
+native-public-after-fix evidence for their separate observations and limits.
+Owner still times out. Its three public disk-file hashes match the pinned source
+paths, not a proved running revision or failure cause. No node deployment is
+authorized. Preserve strict proofs, type14/generic errors, original12s timeout,
+immutable identity/backend-bound candidates and explicit identical Retry. Never
+interpret fallback as empty availability or silently switch the selected backend.
 
 #17 research: YOUTUBE_PLAYBACK_DIAGNOSIS_2026_10_15.md and
 YOUTUBE_POSITIVE_CONTROL_2026_10_15.md. No identity fix is proved. Next: bounded
