@@ -5,6 +5,8 @@ import androidx.activity.compose.LocalActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -13,6 +15,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -121,24 +126,36 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
         when (saved.status) {
             ChatWorkStore.Status.QUEUED -> {
                 val pending=remember(saved.transaction){PrivateChat.read(wallet,requireNotNull(saved.transaction).envelope(),contact)}
-                ChatMessageBubble(pending.author,pending.text,pending.createdAt,outgoing=true,backend=backend,onQuote={})
-                Text(stringResource(R.string.chat_queued))
-                TextButton(enabled=ready&&!sending,onClick={
-                    sending=true
-                    scope.launch {
-                        try {
-                            writes.withLock {
-                                withContext(NonCancellable) {
-                                    saved=withContext(Dispatchers.IO){work.cancelQueued(requireNotNull(saved.transaction).id)}
-                                    changeText(saved.draft)
+                val previewLabel=stringResource(R.string.chat_queued_preview)
+                BoxWithConstraints {
+                    val previewMaxHeight=maxHeight/2
+                    Column {
+                        Column(Modifier.heightIn(max=previewMaxHeight).verticalScroll(rememberScrollState())
+                            .semantics{contentDescription=previewLabel}) {
+                            ChatMessageBubble(pending.author,pending.text,pending.createdAt,outgoing=true,backend=backend,onQuote={})
+                        }
+                        Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically,
+                            horizontalArrangement=Arrangement.SpaceBetween) {
+                            Text(stringResource(R.string.chat_queued))
+                            TextButton(enabled=ready&&!sending,onClick={
+                                sending=true
+                                scope.launch {
+                                    try {
+                                        writes.withLock {
+                                            withContext(NonCancellable) {
+                                                saved=withContext(Dispatchers.IO){work.cancelQueued(requireNotNull(saved.transaction).id)}
+                                                changeText(saved.draft)
+                                            }
+                                        }
+                                        failed=false
+                                    }catch(cancelled:CancellationException){throw cancelled}
+                                    catch(_:Exception){failed=true}
+                                    finally{sending=false}
                                 }
-                            }
-                            failed=false
-                        }catch(cancelled:CancellationException){throw cancelled}
-                        catch(_:Exception){failed=true}
-                        finally{sending=false}
+                            }){Text(stringResource(R.string.chat_cancel_queued))}
+                        }
                     }
-                }){Text(stringResource(R.string.chat_cancel_queued))}
+                }
             }
             ChatWorkStore.Status.UNKNOWN -> Text(stringResource(R.string.chat_send_unknown))
             ChatWorkStore.Status.SUBMITTED -> Text(stringResource(R.string.chat_send_submitted))
