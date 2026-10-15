@@ -31,7 +31,8 @@ class SaitoPeer(private val wallet: SaitoWallet, endpoint: String,
     private val advertised = CompletableDeferred<Set<String>>()
     private val closed = CompletableDeferred<Unit>()
     private val disconnected = AtomicBoolean(false)
-    private val pending = ConcurrentHashMap<Int, CompletableDeferred<ByteArray>>()
+    private class PendingRequest(val response: CompletableDeferred<ByteArray>, val awaitRegistryCallback: Boolean)
+    private val pending = ConcurrentHashMap<Int, PendingRequest>()
     private val nextIndex = AtomicInteger(0)
     private val challenges = mutableListOf(randomNonce())
     private var identifiedKey: String? = null
@@ -99,9 +100,15 @@ class SaitoPeer(private val wallet: SaitoWallet, endpoint: String,
                         require(frame.size >= 5)
                         if (!ready.isCompleted || ready.isCancelled) return
                         val index = ByteBuffer.wrap(frame, 1, 4).int
-                        val result = pending.remove(index) ?: return
-                        if (frame[0] == 14.toByte()) result.completeExceptionally(RequestError())
-                        else result.complete(frame.copyOfRange(5, frame.size))
+                        val request = pending[index] ?: return
+                        // The Registry relay may send its dispatcher fallback before the registrar callback.
+                        // Only this exact type13 body is provisional; type14 and all other responses are final.
+                        if (request.awaitRegistryCallback && frame[0] == 13.toByte() &&
+                            frame.size == REGISTRY_NO_RESPONSE.size + 5 &&
+                            REGISTRY_NO_RESPONSE.indices.all { frame[it + 5] == REGISTRY_NO_RESPONSE[it] }) return
+                        if (!pending.remove(index, request)) return
+                        if (frame[0] == 14.toByte()) request.response.completeExceptionally(RequestError())
+                        else request.response.complete(frame.copyOfRange(5, frame.size))
                     }
                 }
             } catch (failure: Exception) {
@@ -125,6 +132,11 @@ class SaitoPeer(private val wallet: SaitoWallet, endpoint: String,
         SaitoWire.applicationRequest(wallet.publicKey, message, index, System.currentTimeMillis())
     }
 
+    /** A Registry namecheck can receive one dispatcher fallback before its actual callback. */
+    internal suspend fun requestRegistryNamecheck(message: ByteArray): ByteArray = requestFrame(awaitRegistryCallback = true) { index ->
+        SaitoWire.applicationRequest(wallet.publicKey, message, index, System.currentTimeMillis())
+    }
+
     /** Build mutable routing metadata after its selection guard, under the same enqueue lock. */
     suspend fun request(message: () -> ByteArray, beforeSend: () -> Unit): ByteArray = requestFrame(beforeSend) { index ->
         SaitoWire.applicationRequest(wallet.publicKey, message(), index, System.currentTimeMillis())
@@ -133,16 +145,17 @@ class SaitoPeer(private val wallet: SaitoWallet, endpoint: String,
     /** Exact signed application transaction, never wrapped in an unsigned request. */
     suspend fun request(transaction: SaitoTransaction, beforeSend: () -> Unit): ByteArray {
         require(SaitoEnvelope.decode(transaction.envelope()).author == wallet.publicKey)
-        return requestFrame(beforeSend, transaction::applicationRequest)
+        return requestFrame(beforeSend, frame = transaction::applicationRequest)
     }
 
-    private suspend fun requestFrame(beforeSend: (() -> Unit)? = null, frame: (Int) -> ByteArray): ByteArray = withTimeout(12_000) {
+    private suspend fun requestFrame(beforeSend: (() -> Unit)? = null, awaitRegistryCallback: Boolean = false,
+        frame: (Int) -> ByteArray): ByteArray = withTimeout(12_000) {
         ready.await()
         if (disconnected.get()) throw IOException("Peer disconnected")
         val index = nextIndex.incrementAndGet()
         require(index > 0)
         val response = CompletableDeferred<ByteArray>()
-        pending[index] = response
+        pending[index] = PendingRequest(response, awaitRegistryCallback)
         try {
             if (disconnected.get()) throw IOException("Peer disconnected")
             val job = currentCoroutineContext().job
@@ -206,7 +219,7 @@ class SaitoPeer(private val wallet: SaitoWallet, endpoint: String,
         disconnected.set(true)
         ready.completeExceptionally(IOException("Peer disconnected"))
         advertised.completeExceptionally(IOException("Peer disconnected"))
-        pending.values.forEach { it.completeExceptionally(IOException("Peer disconnected")) }
+        pending.values.forEach { it.response.completeExceptionally(IOException("Peer disconnected")) }
         pending.clear()
     }
 
@@ -214,6 +227,7 @@ class SaitoPeer(private val wallet: SaitoWallet, endpoint: String,
 
     companion object {
         const val MAX_RESPONSE_BYTES = 16 * 1024 * 1024
+        private val REGISTRY_NO_RESPONSE = "{\"err\":\"no response\"}".toByteArray(Charsets.UTF_8)
         private val client = OkHttpClient.Builder().followRedirects(false).followSslRedirects(false)
             .connectTimeout(5, TimeUnit.SECONDS).readTimeout(15, TimeUnit.SECONDS)
             .pingInterval(10, TimeUnit.SECONDS).build()

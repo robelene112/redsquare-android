@@ -15,11 +15,26 @@ Tracer611232a3 reviews report Spec0/Standards0. Local testAPK compile passes
 in2m12s, exec11746 complete0. Actual Android10 run38782610994 is active at
 611232a382a8e9af03d48cbb42cc01ab2f56819c; its outcome is pending.
 
-This is test-only preparation for actual native RED. Production SaitoPeer still
-consumes the first reply. No native outcome, workaround or live registration is
-claimed. The earlier host proof is in ticket19/host-public-proof-oct15; it does
-not establish Owner readiness. Strict registrar verification and the original12s
-request deadline must remain. No node/configuration/service/wallet/chain writes.
+Actual RED38782610994 at611232a3:16cases15PASS/1FAIL112.39s. The new
+Settings case times out20s at128, after the public paired-send checkpoint proves
+one fallback/proof pair queued on the same index, one namecheck and zero
+transactions. Root viewed the failure PNG and parsed its separate XML: the app
+shows the name-check failure, without the registered name. The later success/
+identity/no-registration assertions in that case and process tail are unexecuted.
+Retained docs/evidence/ticket19/late-callback-red-android10. Production at RED
+still consumed the first response. No live registration or readiness follows.
+
+The minimal correction is now implemented but runtime GREEN remains pending:
+SaitoPeer has an internal Registry-namecheck entry and private pending flag. It
+skips ONLY exact21B type13 dispatcher fallback for opted-in namechecks. Every
+other response and type14 remain final; generic requests and hints are unchanged.
+The original12s readiness/send/await timeout, finally cleanup, failure fanout,
+strict UTF-8/64KiB and registrar verifier remain. No predicate, JSON parsing or
+proof work runs in the socket callback. Public native namechecks use the same
+entry so later evidence can exercise the correction, while hints stay ordinary.
+No backend failover or registration retry was introduced. Local core/debug/test
+build exec60806 is active; minimum review and native GREEN are pending. Public22
+remains current. No node/configuration/service/wallet/chain writes occurred.
 
 ## Earlier implementation chronology
 

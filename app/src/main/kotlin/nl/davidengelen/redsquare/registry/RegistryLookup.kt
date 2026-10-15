@@ -13,7 +13,7 @@ import java.nio.charset.CodingErrorAction
 internal class RegistryLookup(private val peer: SaitoPeer, private val registrar: String) {
     suspend fun namecheck(identifier: String) = SaitoRegistry.readNamecheck(response(JsonObject().apply {
         addProperty("request", "registry namecheck"); addProperty("identifier", identifier)
-    }), identifier, registrar)
+    }, awaitRegistrar = true), identifier, registrar)
 
     suspend fun hints(publicKeys: Collection<String>): Map<String, String> {
         require(publicKeys.size in 1..50 && publicKeys.toSet().size == publicKeys.size)
@@ -30,9 +30,10 @@ internal class RegistryLookup(private val peer: SaitoPeer, private val registrar
         }
     }
 
-    private suspend fun response(data: JsonObject): String {
+    private suspend fun response(data: JsonObject, awaitRegistrar: Boolean = false): String {
         val query = JsonObject().apply { addProperty("request", "registry query"); add("data", data) }
-        val response = peer.request(query.toString().toByteArray(Charsets.UTF_8))
+        val message = query.toString().toByteArray(Charsets.UTF_8)
+        val response = if (awaitRegistrar) peer.requestRegistryNamecheck(message) else peer.request(message)
         require(response.size <= 64 * 1024)
         return Charsets.UTF_8.newDecoder().onMalformedInput(CodingErrorAction.REPORT)
             .onUnmappableCharacter(CodingErrorAction.REPORT).decode(ByteBuffer.wrap(response)).toString()

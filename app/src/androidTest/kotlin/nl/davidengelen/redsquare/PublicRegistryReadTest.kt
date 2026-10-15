@@ -54,7 +54,9 @@ class PublicRegistryReadTest {
                             result.addProperty("authenticated", true)
                             suspend fun read(data: JsonObject): String {
                                 val request = JsonObject().apply { addProperty("request", "registry query"); add("data", data) }
-                                val bytes = peer.request(request.toString().toByteArray(Charsets.UTF_8))
+                                val message = request.toString().toByteArray(Charsets.UTF_8)
+                                val bytes = if (data.get("request").asString == "registry namecheck")
+                                    peer.requestRegistryNamecheck(message) else peer.request(message)
                                 require(bytes.size <= 64 * 1024)
                                 return Charsets.UTF_8.newDecoder().onMalformedInput(CodingErrorAction.REPORT)
                                     .onUnmappableCharacter(CodingErrorAction.REPORT).decode(ByteBuffer.wrap(bytes)).toString()

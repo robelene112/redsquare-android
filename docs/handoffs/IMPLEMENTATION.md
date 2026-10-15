@@ -7,21 +7,26 @@ one question at a time when a material choice really needs the owner.
 
 ## Current work
 
-**ACTIVE #19, after completing #40:** review base
-f6c97baccb0a95d51748160f965b5e6e9c1c016b. Test-only late Registry tracer adds
-one Settings discovery case at the existing controlled socket/app seam, so
-UsernamePreviewTest now has16cases. The server emits exact type13 fallback,
-then the independent signed proof on the same index; a public checkpoint records
-both queued sends before unchanged UI/name/identity/no-registration assertions.
-Production is unchanged and actual RED is pending. Local testAPK compile
-exec11746 completed0 in2m12s; log .scratch/registry19-late-red-compile.log.
-No owned local Gradle remains. Tracer commit611232a3 reviewed Spec0/Standards0.
-Actual Android10 RED run38782610994 is ACTIVE at exact
-611232a382a8e9af03d48cbb42cc01ab2f56819c. Do not duplicate it. Inspect the actual
-username UI log, late-pair public checkpoint and failure PNG/XML before applying
-any production correction. Keep public22 current; do not close19 from controlled results
-alone. Protected untracked group contract remains untouched.
+**ACTIVE #19:** review basef6c97baccb0a95d51748160f965b5e6e9c1c016b.
+Public22 is current;40closed. Tracer611232a3 reviews0/0, local testAPK2m12s.
+Actual native RED38782610994 at611232a382a8e9af03d48cbb42cc01ab2f56819c:
+16cases15PASS/1FAIL112.39s, only new Settings late-proof case times out20s at128.
+Positive public checkpoint records one same-index fallback/proof pair queued,
+one namecheck and zero transactions. Root saw original failurePNG/parsedXML;
+retained ticket19/late-callback-red-android10. That case's later success/identity/
+no-registration assertions and process tail are unexecuted. No readiness claim.
 
+Minimum correction APPLIED, not yet runtime-verified: internal Registry-namecheck
+entry and private pending flag skip ONLY exact21B type13 fallback. Other bodies,
+type14, generic requests/hints, original12s timeout, cleanup/failure fanout and
+strict verification remain. Public native probe uses the same entry for its
+namechecks only. No backend failover, node change or live registration.
+Owned local core/debug/test build exec60806 ACTIVE, log
+.scratch/registry19-late-minimum-compile.log. Do not edit app/core/tests until
+complete. Commit/review minimum+RED, then focused usernames GREEN on10/17;
+public read-only native recheck after those. Whole final gates remain mandatory.
+Research proposal REGISTRY_LATE_CALLBACK_DESIGN_2026_10_15.md explains the narrow
+transport coupling. Protected untracked group contract remains untouched.
 
 **ACTIVE, owner resumed2026-10-14:** continue sequentially until all remaining
 implementation issues are complete. This explicit resume supersedes the storage
