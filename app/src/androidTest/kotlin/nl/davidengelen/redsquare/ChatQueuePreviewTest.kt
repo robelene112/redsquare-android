@@ -160,9 +160,12 @@ class ChatQueuePreviewTest {
                     waitFor("Queued")
                     captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/group-$label-queued.png"))
                     if(cancel) {
-                        val warnings=listOf(R.string.group_error,R.string.group_history_error,R.string.group_live_error)
+                        val warnings=listOf(R.string.group_history_error,R.string.group_live_error)
+                        val actionError=hasText(context.getString(R.string.group_error)) or
+                            hasText(context.getString(R.string.chat_automatic_send_error))
                         ui.waitUntil(30_000){warnings.all{resource->
-                            ui.onAllNodesWithText(context.getString(resource)).fetchSemanticsNodes().isNotEmpty()}}
+                            ui.onAllNodesWithText(context.getString(resource)).fetchSemanticsNodes().isNotEmpty()}&&
+                            ui.onAllNodes(actionError).fetchSemanticsNodes().isNotEmpty()}
                         ui.onNodeWithText(context.getString(R.string.wallet_backup_reminder)).assertIsDisplayed()
                         // Reachability applies even while the existing safety guard disables cancellation.
                         physicalGroupCancellation(scenario,"three-warnings")
