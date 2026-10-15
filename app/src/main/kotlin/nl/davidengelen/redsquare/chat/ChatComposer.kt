@@ -1,5 +1,9 @@
 package nl.davidengelen.redsquare.chat
 
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.LocalActivity
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -13,6 +17,11 @@ import kotlinx.coroutines.sync.withLock
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.*
 
+/** Retains private edits through activity recreation without storing plaintext in a Bundle. */
+internal class ChatComposerMemory : ViewModel() {
+    var text: String? = null
+}
+
 internal class ChatReplyActions {
     var replyTo by mutableStateOf<((PrivateChatMessage) -> Unit)?>(null)
 }
@@ -21,12 +30,17 @@ internal class ChatReplyActions {
 internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: String, contact: String,
     permitted: Boolean, replies: ChatReplyActions, onHistory: (List<ChatHistoryStore.Entry>) -> Unit) {
     val context = LocalContext.current.applicationContext
+    val activity = requireNotNull(LocalActivity.current) as ComponentActivity
+    val memory = remember(activity, wallet.publicKey, backend, contact) {
+        ViewModelProvider(activity)["chat:${wallet.publicKey}:${backend.id}:$contact", ChatComposerMemory::class.java]
+    }
     val work = remember(wallet, backend, contact) { ChatWorkStore(context, wallet, backend, contact) }
     val history = remember(wallet, backend, contact) { ChatHistoryStore(context, wallet, backend, contact) }
     val scope = rememberCoroutineScope()
     val writes = remember(work) { Mutex() }
     var saved by remember(work) { mutableStateOf(ChatWorkStore.Saved()) }
     var text by remember(work) { mutableStateOf("") }
+    fun changeText(value: String) { text = value; memory.text = value }
     var ready by remember(work) { mutableStateOf(false) }
     var sending by remember(work) { mutableStateOf(false) }
     var failed by remember(work) { mutableStateOf(false) }
@@ -50,7 +64,7 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
     LaunchedEffect(work) {
         try {
             saved = withContext(Dispatchers.IO) { work.load() }
-            text = saved.draft
+            changeText(if (saved.frozen) "" else memory.text ?: saved.draft)
             saved.transaction?.takeIf{saved.status!=ChatWorkStore.Status.QUEUED}?.let { candidate ->
                 onHistory(withContext(Dispatchers.IO) { history.save(listOf(candidate.envelope())).entries })
             }
@@ -83,7 +97,7 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
         { message: PrivateChatMessage ->
             if (ready && !sending && !saved.frozen &&
                 message.author in setOf(wallet.publicKey, contact)) {
-                privateReplyPrefix(message)?.let { prefix -> text = prefix + privateMessageBody(text) }
+                privateReplyPrefix(message)?.let { prefix -> changeText(prefix + privateMessageBody(text)) }
             }
         }
     }
@@ -105,7 +119,7 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
                         try {
                             writes.withLock {
                                 saved=withContext(NonCancellable+Dispatchers.IO){work.cancelQueued(requireNotNull(saved.transaction).id)}
-                                text=saved.draft
+                                changeText(saved.draft)
                             }
                             failed=false
                         }catch(cancelled:CancellationException){throw cancelled}
@@ -127,12 +141,12 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
         }))
         if (quote != null) {
             Text(quote.quote, style = MaterialTheme.typography.bodyMedium)
-            TextButton(enabled = editable, onClick = { text = typed }) {
+            TextButton(enabled = editable, onClick = { changeText(typed) }) {
                 Text(stringResource(R.string.chat_remove_reply))
             }
         }
         Row(verticalAlignment = Alignment.CenterVertically) {
-            OutlinedTextField(value = typed, onValueChange = { text = (quote?.prefix ?: "") + it }, label = { Text(stringResource(R.string.chat_message)) },
+            OutlinedTextField(value = typed, onValueChange = { changeText((quote?.prefix ?: "") + it) }, label = { Text(stringResource(R.string.chat_message)) },
                 modifier = Modifier.weight(1f), enabled = editable)
             Button(enabled = permitted && ready && !sending && saved.status!=ChatWorkStore.Status.QUEUED && (retrying || typed.isNotBlank()),
                 onClick = {
@@ -152,7 +166,7 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
                                 saved = withContext(NonCancellable + Dispatchers.IO) {
                                     if (original == null) work.prepare(prepared,queued=true) else work.prepareRetry(prepared.id)
                                 }
-                                if (original == null) text = ""
+                                if (original == null) changeText("")
                                 if(saved.status!=ChatWorkStore.Status.QUEUED)
                                     onHistory(withContext(Dispatchers.IO) { history.save(listOf(prepared.envelope())).entries })
                                 prepared

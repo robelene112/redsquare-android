@@ -52,3 +52,11 @@ Loadingmessages does not prove draft initialization unfinished. Actual cause
 stillunproved. Focused10run38691358098 exact4f9cb3a1a24caf6e3846a4914f084c06fa623156
 ACTIVE. If exactwaitfails, compare protected durable draft before/after recreate
 while retaining exact final UI criterion. No duplicate dispatch/localbuildactive.
+
+Boundedexactwaitrun38691358098/4f9cb3a1 FAILED1case25.604s, emptyenabled
+composer afterrecreation through20s. Retainedprivate-control-draft-red-android10
+(8hash2XML), originalfailurePNGseen/XMLparsed. NoArchiveLoadingwarningatfailure;
+exactorderingunproved. Minimum applies existingpost-composer retained ViewModel
+pattern, keyedpublicowner/backend/contact, updatesalluseredits/sendclear/cancel/
+reply, prefersmemoryonlyforunfrozenwork. Encrypted persistenceunchanged; no
+plaintextBundle/SavedState. Compile/reviews/newnativeproofpending.
