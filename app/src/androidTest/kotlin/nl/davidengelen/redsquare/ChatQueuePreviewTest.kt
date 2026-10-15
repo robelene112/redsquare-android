@@ -319,7 +319,8 @@ class ChatQueuePreviewTest {
                         }
                         return@withFailureCapture
                     }
-                    ui.onNodeWithText("Send").performClick()
+                    androidx.test.espresso.Espresso.closeSoftKeyboard()
+                    readyAction("Send").performClick()
                     waitFor("Queued")
                     captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/private-$label-queued.png"))
                     scenario.recreate();open();waitFor("Queued")
