@@ -71,7 +71,8 @@ class ChatMuteProcessRecoveryTest {
         val groupMessage = GroupChat.message(other, GroupChat.readCreation(creation.envelope()), cached(true), 1700000123402)
         ChatHistoryStore(context, fixture, backend, other.publicKey).save(listOf(privateMessage.envelope()))
         GroupChatStore(context, fixture, backend).apply { receive(creation.envelope()); receive(groupMessage.envelope()) }
-        peer().start().use { server -> launch(server.port) { scenario ->
+        val peer = peer()
+        peer.start().use { server -> launch(server.port) { scenario ->
             open()
             muteAndType(false); backToChat()
             open(group = true); muteAndType(true); backToChat(group = true)
@@ -80,8 +81,8 @@ class ChatMuteProcessRecoveryTest {
             ui.onNodeWithContentDescription("Unmute conversation").assertIsDisplayed()
             capture("both-choices-before-death.png")
             assertSelection(row, backend)
-            check(server.transactions.isEmpty() && server.relayedMessages.isEmpty() && server.reports.isEmpty())
-            server.assertHealthy()
+            check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty() && peer.reports.isEmpty())
+            peer.assertHealthy()
             row.addProperty("phase", "pending"); writeCheckpoint(row)
             scenario.onActivity { it.intent.putExtra("personalCommitTerminate", true) }
             click(hasContentDescription("Unmute conversation")); click(hasText("Unmute"))
@@ -102,7 +103,8 @@ class ChatMuteProcessRecoveryTest {
         fun newAlerts() = manager.activeNotifications.filter { (it.tag to it.id) !in existing }
         var primary: Throwable? = null
         try {
-            peer().start().use { server -> launch(server.port) {
+            val peer = peer()
+            peer.start().use { server -> launch(server.port) {
                 for (group in listOf(false, true)) {
                     open(group)
                     ui.onNodeWithContentDescription("Unmute conversation").assertIsDisplayed()
@@ -112,8 +114,8 @@ class ChatMuteProcessRecoveryTest {
                         requireNotNull(GroupChatStore(context, fixture, backend).load(groupId)).group, freshText, 1700000123500)
                         else PrivateChat.create(other, fixture.publicKey, freshText, 1700000123500)
                     val request = if (group) 951 else 950
-                    server.sendIncoming(message.applicationRequest(1).drop(5).toByteArray(), requestId = request)
-                    ui.waitUntil(20_000) { server.incomingAcknowledgements.any {
+                    peer.sendIncoming(message.applicationRequest(1).drop(5).toByteArray(), requestId = request)
+                    ui.waitUntil(20_000) { peer.incomingAcknowledgements.any {
                         it[0] == 13.toByte() && java.nio.ByteBuffer.wrap(it, 1, 4).int == request
                     } }
                     ui.waitUntil(20_000) {
@@ -131,9 +133,9 @@ class ChatMuteProcessRecoveryTest {
                     backToChat(group)
                 }
                 assertSelection(row, backend)
-                check(server.clientKeys.isNotEmpty() && server.clientKeys.all { it == fixture.publicKey })
-                check(server.transactions.isEmpty() && server.relayedMessages.isEmpty() && server.reports.isEmpty())
-                server.assertHealthy()
+                check(peer.clientKeys.isNotEmpty() && peer.clientKeys.all { it == fixture.publicKey })
+                check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty() && peer.reports.isEmpty())
+                peer.assertHealthy()
                 row.addProperty("phase", "recovered"); row.addProperty("recoveredPid", Process.myPid()); writeCheckpoint(row)
             } }
         } catch (failure: Throwable) { primary = failure; throw failure }
