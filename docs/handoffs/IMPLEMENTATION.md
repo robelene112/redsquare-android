@@ -14,11 +14,15 @@ available. Do not pause after the next ticket or ask routine approvals.
 
 **ACTIVE #30: Send and view images in private and group Chat.**
 Reviewbase8826000edf59174793749abc7b207610ad52e3a8, dependencies15/25/26 closed,
-assigned@me. Firstprivateimageviewer tracer and explicit--image independent
-browser-crypto/WASM fixture mode added; productionimageparsernotimplemented.
-ActualnativeREDpending, newchat-images/chat-images-android17 focusscopes keep
-allpreviousfullgates. Canonical NATIVE_CHAT_IMAGES_VERIFICATION.md. No ownedlocal
-build ornativerunactive yet. Current signedreview19unchanged. Continueallissues.
+assigned@me. Actual first privatephoto RED10run38711550116 exactc22660f5:
+1failure24.423s, authenticatedACK960 then literal img-prev/dataURL andmissing
+raster20s/photo71. RootPNG/XMLseen, exactdraftvisibleretained; expanded/recreate/
+no-wiretailunexecuted. Retained6hash1XML private-viewer-red-android10. Fixture
+correction531d2bf9 sharedChatFixtureState andboundedexpandedRGB reviewed0/0.
+Viewer minimum nowvalidatescompleteimgwrapper andusesexistingPostImageswith
+actualbackend insharedbubbles. No HTMLexecution/newprotocol/history/composer
+changes. Compile/review/GREENpending. No ownedlocalbuild/nativerunactive.
+Canonical NATIVE_CHAT_IMAGES_VERIFICATION.md. Signed19current. Continueallissues.
 
 **#29 COMPLETE and CLOSED, 2026-10-15T09:08:20Z:**
 Persistent private/group conversation mute keeps messages readable and explains

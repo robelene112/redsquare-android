@@ -372,7 +372,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                     Column(Modifier.fillMaxWidth().padding(vertical = 6.dp),
                         horizontalAlignment = if (outgoing) Alignment.End else Alignment.Start) {
                         var copyFailed by remember(message.id) { mutableStateOf(false) }
-                        ChatMessageBubble(message.author, message.text, message.createdAt, outgoing) { reference ->
+                        ChatMessageBubble(message.author, message.text, message.createdAt, outgoing, backend=backend) { reference ->
                             val index = visible.indexOfFirst { it.author + it.createdAt == reference }
                             if (index >= 0) scope.launch { messageList.animateScrollToItem(index) }
                         }

@@ -53,3 +53,16 @@ Shared-fixture/expanded-pixel correction6e8105c5 Standards0; Spec1 expanded
 Close control can appear before asynchronous raster loading. Exact expanded RGB
 is now observed within the same20s UI bound, then asserted again before capture.
 The visual criterion is unchanged; no production renderer or native pass yet.
+
+Actual first RED10run38711550116 exactc22660f5:1failure24.423s. Positive signed
+incoming ACK960, literal img-prev/dataURL displayed, no raster within20s/photo71.
+Root original failure PNG seen/XML parsed; exact draft visibly retained. Expanded/
+recreation/final no-wire tail unexecuted. Retainedprivate-viewer-red-android10
+(6hash1XML). Latest fixture531d2bf9 reviewed Spec0/Standards0.
+
+Viewer minimum recognizes only the complete known img.img-prev wrapper and
+validates its source through the existing raster descriptor boundary. All other
+markup remains literal, no WebView/HTML execution. Shared private/group bubbles
+receive the actual selected backend and reuse bounded native PostImages rendering,
+retry and expansion. Signing/encryption/history/compose work are unchanged.
+Compile/source review/native GREEN pending; no outgoing/group/failure acceptance.

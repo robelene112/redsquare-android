@@ -13,6 +13,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import nl.davidengelen.redsquare.feed.GeneratedProfilePicture
 import nl.davidengelen.redsquare.registry.registeredIdentity
+import nl.davidengelen.redsquare.saito.SaitoBackend
 import java.text.DateFormat
 import java.util.Date
 import java.util.Locale
@@ -20,7 +21,7 @@ import java.util.Locale
 /** The same readable message surface for private and unencrypted group conversations. */
 @Composable
 internal fun ChatMessageBubble(author: String, text: String, createdAt: Long, outgoing: Boolean,
-    selectable: Boolean = false, onQuote: (String) -> Unit) {
+    backend: SaitoBackend, selectable: Boolean = false, onQuote: (String) -> Unit) {
     Surface(Modifier.fillMaxWidth(0.94f), shape = RoundedCornerShape(
         topStart = 16.dp, topEnd = 16.dp,
         bottomStart = if (outgoing) 16.dp else 4.dp,
@@ -29,8 +30,8 @@ internal fun ChatMessageBubble(author: String, text: String, createdAt: Long, ou
         contentColor = if (outgoing) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface) {
         Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
             Text(registeredIdentity(author).name, style = MaterialTheme.typography.labelMedium)
-            if (selectable) SelectionContainer { PrivateMessageText(text, onQuote) }
-            else PrivateMessageText(text, onQuote)
+            if (selectable) SelectionContainer { PrivateMessageText(text, backend, onQuote) }
+            else PrivateMessageText(text, backend, onQuote)
             Text(DateFormat.getTimeInstance(DateFormat.SHORT, Locale.ENGLISH).format(Date(createdAt)),
                 style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }

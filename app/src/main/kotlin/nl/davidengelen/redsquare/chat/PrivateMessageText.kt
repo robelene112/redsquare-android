@@ -9,9 +9,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import nl.davidengelen.redsquare.saito.PrivateChatMessage
+import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.SaitoWallet
+import nl.davidengelen.redsquare.feed.PostImages
 
-// Interpret only Saito's validated leading reply wrapper. Typed text stays literal.
+// Interpret Saito's validated reply and photo wrappers. Other typed markup stays literal.
 private val replyTimestamps = 0L..9_007_199_254_740_991L
 private val replyPrefix = Regex("""\A<blockquote href="([0-9A-HJ-NP-Za-km-z]{44,60})">(.*?)</blockquote>""",
     RegexOption.DOT_MATCHES_ALL)
@@ -52,14 +54,17 @@ internal fun chatReplyPrefix(author:String,createdAt:Long,text:String):String? {
 }
 
 @Composable
-internal fun PrivateMessageText(original: String, onQuote: ((String) -> Unit)? = null) {
+internal fun PrivateMessageText(original: String, backend: SaitoBackend, onQuote: ((String) -> Unit)? = null) {
     val reply = remember(original) { privateReply(original) }
+    val body = reply?.body ?: original
+    val image = remember(body) { chatImageSource(body) }
     Column {
         if (reply != null) {
             Text(reply.quote, style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = if (onQuote == null) Modifier else Modifier.clickable { onQuote(reply.reference) })
         }
-        Text(reply?.body ?: original, style = MaterialTheme.typography.bodyLarge)
+        if (image != null) PostImages(listOf(image), backend)
+        else Text(body, style = MaterialTheme.typography.bodyLarge)
     }
 }

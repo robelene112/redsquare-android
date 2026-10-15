@@ -413,7 +413,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                         horizontalAlignment=if(outgoing)Alignment.End else Alignment.Start){
                         var copyFailed by remember(item.id){mutableStateOf(false)}
                         val replyPrefix=remember(item){chatReplyPrefix(item.author,item.createdAt,item.text)}
-                        ChatMessageBubble(item.author,item.text,item.createdAt,outgoing,selectable=true){reference->
+                        ChatMessageBubble(item.author,item.text,item.createdAt,outgoing,backend=backend,selectable=true){reference->
                             val index=visible.indexOfFirst{it.author+it.createdAt==reference}
                             if(index>=0)scope.launch{messageList.animateScrollToItem(index)}
                         }
@@ -437,7 +437,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                 }
                 entry.queuedMessage?.let { queued -> item(key="queued:${queued.candidate.id}") {
                     val pending=queued.message
-                    ChatMessageBubble(pending.author,pending.text,pending.createdAt,true,onQuote={})
+                    ChatMessageBubble(pending.author,pending.text,pending.createdAt,true,backend=backend,onQuote={})
                 } }
             }
             LaunchedEffect(entry.group.id,entry.queuedMessage?.candidate?.id) {
