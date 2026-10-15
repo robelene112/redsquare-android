@@ -431,3 +431,15 @@ Discovery still finds rootrecords; hasWork ignores only strict sidecar names so
 ordinary largecachedhistory is not mislabeled unsentwork, while malformed files
 remain conservative. Regression clears/restores its draft once and requires
 cache-only group hasWorkfalse. No new protocol/storecap/pruning. Runtimepending.
+
+Photo38730549642 exact213f7f54 FAILED120s initialgroupmethod. Safephase
+queued-persisted provespreviewRGB/explicitSend/visibleQueued/protectedoriginal/
+history/fullidentity checks completed. Next is historyphoto observer using
+performScrollToNode insidepolling; searchingaction itselfisnot boundedbythat
+pollinterval. Marker narrows stall toobserver/subsequentcapture, not a proven
+rendererdefect. NoqueuedphotoRGB/capture/deliberatekill proofretained. Capture
+exit0 yettarpayloadcontainsmissingdirectorydiagnostic, no validXML/PNG. Restore
+PASS. Retained6hashes. Fixture nowtargets positivelyscoped Groupmessages list,
+knownsecondmessage withdirectscrollToIndex1, then20sdisplay/exactpixels. Private
+usesdisplay/pixelwait withoutsearchloop. NewphaseafterqueuedRGB distinguishescapture.
+No product/time/assertion relaxation. Correctedruntimepending.

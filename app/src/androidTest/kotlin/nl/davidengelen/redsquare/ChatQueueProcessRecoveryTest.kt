@@ -96,7 +96,8 @@ class ChatQueueProcessRecoveryTest {
             val candidate=queued(backend)
             row.addProperty("candidate",candidate.id);row.addProperty("candidateDigest",digest(candidate.envelope()))
             assertPending(row,backend);stage("queued-persisted")
-            if(photo)assertPhoto()
+            if(photo)assertPhoto(inHistory=true)
+            stage("queued-photo-visible")
             capture("queued-before-death.png")
             row.addProperty("phase","pending");writeCheckpoint(row)
             stage("before-death")
@@ -126,7 +127,7 @@ class ChatQueueProcessRecoveryTest {
             assertSelection(row,backend)
             assertEquals(1,peer.transactions.size);assertEquals(1,peer.relayedMessages.size)
             check(peer.clientKeys.isNotEmpty()&&peer.clientKeys.all{it==fixture.publicKey}&&peer.reports.isEmpty())
-            if(photo)assertPhoto()
+            if(photo)assertPhoto(inHistory=true)
             peer.assertHealthy();capture("queued-original-automatically-forwarded.png")
             row.addProperty("phase","recovered");row.addProperty("recoveredPid",Process.myPid());writeCheckpoint(row)
         }}
@@ -204,12 +205,15 @@ class ChatQueueProcessRecoveryTest {
         if(kind=="group"){click("Groups");click(groupName)}else click(other.publicKey)
         waitFor("Message")
     }
-    private fun assertPhoto() {
+    private fun assertPhoto(inHistory:Boolean=false) {
         val image=hasContentDescription("Image 1 of 1")
-        ui.waitUntil(20_000){
-            if(!displayed(image))try{ui.onNode(hasScrollAction()).performScrollToNode(image)}catch(_:AssertionError){}
-            displayed(image)
+        if(kind=="group"&&inHistory) {
+            val list=hasContentDescription(context.getString(R.string.group_messages)) and hasScrollAction()
+            ui.waitUntil(20_000){displayed(list)}
+            // The fixture has one cached text followed by this queued/sent photo. Avoid unbounded search scrolling.
+            ui.onNode(list).performScrollToIndex(1)
         }
+        ui.waitUntil(20_000){displayed(image)}
         val bitmap=ui.onNode(image).captureToImage().asAndroidBitmap()
         assertEquals(0xffdc1e28.toInt(),bitmap.getPixel(bitmap.width/2,bitmap.height/2))
     }
