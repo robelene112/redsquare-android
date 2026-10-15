@@ -358,3 +358,21 @@ Run38727023023 exact9424ed90 FAILED instrumentation compilation: missing
 AndroidBackendStore import in new history fixture23/61. No process/capacity
 runtime executed. Retained compile log/run/README with3hashes. Import correction
 only, production and acceptance assertions unchanged.
+
+Run38727427707 exact238fa5d1 FAILED at actual private history capacity. Photo
+UI10PASS85.824s and private photo process harness PASS first: PID6855 to a
+different recovered PID, identical raw/Relay original, exact decoded body and
+actual photo pixels, old history/full wallet/backend/restoration. Capacity
+1FAIL8.681s at EncryptedLocalFile.save plaintext limit67; catch path verified
+previously accepted originals and separate draft before rethrow. Exact insertion
+count was not retained in instrumentation output. No whole-runSUCCESS claim.
+
+Minimum private-history fix: preserve existing encrypted v1 payloads. Above
+1Mi code units, write bounded immutable encrypted parts (without splitting UTF16
+surrogate pairs), then commit their hashes in the existing atomic encrypted
+index. Existing per-file5MiB cap stays unchanged. Read validates hashes and
+reassembles the feature payload; contact discovery uses the same adapter.
+Old referenced parts remain until the new index commit verifies. Cleanup is
+best-effort only after commit; interrupted work preserves the previous index.
+No plaintext history or owner keys in sidecars. Group adaptation not yet made.
+RuntimeGREEN pending against unchanged12-photo acceptance.

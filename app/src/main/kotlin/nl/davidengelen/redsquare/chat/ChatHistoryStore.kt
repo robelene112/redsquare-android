@@ -9,7 +9,7 @@ import nl.davidengelen.redsquare.saito.*
 /** Device-encrypted original ciphertexts, isolated by wallet, backend and private conversation. */
 internal class ChatHistoryStore(context: Context, private val wallet: SaitoWallet,
     backend: SaitoBackend, private val counterparty: String) {
-    private val file = EncryptedLocalFile(context,
+    private val file = EncryptedChatRecord(context,
         "chat.${backend.id}.${wallet.publicKey}.${PrivateChat.conversationId(wallet.publicKey, counterparty)}.v1",
         "redsquare.chat.v1", "chat.")
     data class Entry(val envelope: String, val message: PrivateChatMessage)
@@ -76,7 +76,7 @@ internal class ChatHistoryStore(context: Context, private val wallet: SaitoWalle
             var unavailable = false
             val accounts = groups.mapNotNull { group ->
                 try {
-                    val record = EncryptedLocalFile(context, "$prefix$group.v1", "redsquare.chat.v1", "chat.").load()
+                    val record = EncryptedChatRecord(context, "$prefix$group.v1", "redsquare.chat.v1", "chat.").load()
                         ?: return@mapNotNull null
                     require(record.version == 1.toByte())
                     val rows = gson.fromJson(record.text, JsonArray::class.java)
