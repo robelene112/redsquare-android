@@ -172,6 +172,14 @@ class PostPreviewTest {
                     ui.onNodeWithText("New post").performClick()
                     ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNode(hasSetTextAction()).performTextReplacement("Unfinished owner draft")
+                    // The compact typing layout restores global navigation after IME dismissal.
+                    scenario.onActivity { activity ->
+                        activity.getSystemService(android.view.inputmethod.InputMethodManager::class.java)
+                            .hideSoftInputFromWindow(activity.window.decorView.windowToken, 0)
+                    }
+                    ui.waitUntil(10_000) { ui.onNodeWithText("Settings").isDisplayed() }
+                    ui.onNode(hasSetTextAction()).assertTextEquals("Unfinished owner draft")
+                    assertTrue(owner.transactions.isEmpty() && official.transactions.isEmpty())
                     ui.onNodeWithText("Settings").performClick()
                     waitFor("saito.io")
                     ui.onNodeWithText("saito.io").performClick()

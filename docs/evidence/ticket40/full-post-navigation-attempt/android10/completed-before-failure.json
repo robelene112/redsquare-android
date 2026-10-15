@@ -1,0 +1,212 @@
+[
+  {
+    "log": "appearance-ui.txt",
+    "result": [
+      "OK (1 test)"
+    ]
+  },
+  {
+    "log": "browse-ui.txt",
+    "result": [
+      "OK (8 tests)"
+    ]
+  },
+  {
+    "log": "chat-image-history-ui.txt",
+    "result": [
+      "OK (2 tests)"
+    ]
+  },
+  {
+    "log": "chat-images-ui.txt",
+    "result": [
+      "OK (10 tests)"
+    ]
+  },
+  {
+    "log": "chat-keyboard-ui.txt",
+    "result": [
+      "OK (4 tests)"
+    ]
+  },
+  {
+    "log": "chat-mixed-ui.txt",
+    "result": [
+      "OK (1 test)"
+    ]
+  },
+  {
+    "log": "chat-mute-process/recovered.txt",
+    "result": [
+      "OK (1 test)"
+    ]
+  },
+  {
+    "log": "chat-mute-process/restored.txt",
+    "result": [
+      "OK (1 test)"
+    ]
+  },
+  {
+    "log": "chat-mute-ui.txt",
+    "result": [
+      "OK (8 tests)"
+    ]
+  },
+  {
+    "log": "chat-photo-group-process/recovered.txt",
+    "result": [
+      "OK (1 test)"
+    ]
+  },
+  {
+    "log": "chat-photo-group-process/restored.txt",
+    "result": [
+      "OK (1 test)"
+    ]
+  },
+  {
+    "log": "chat-photo-private-process/recovered.txt",
+    "result": [
+      "OK (1 test)"
+    ]
+  },
+  {
+    "log": "chat-photo-private-process/restored.txt",
+    "result": [
+      "OK (1 test)"
+    ]
+  },
+  {
+    "log": "chat-queue-group-process/recovered.txt",
+    "result": [
+      "OK (1 test)"
+    ]
+  },
+  {
+    "log": "chat-queue-group-process/restored.txt",
+    "result": [
+      "OK (1 test)"
+    ]
+  },
+  {
+    "log": "chat-queue-private-process/recovered.txt",
+    "result": [
+      "OK (1 test)"
+    ]
+  },
+  {
+    "log": "chat-queue-private-process/restored.txt",
+    "result": [
+      "OK (1 test)"
+    ]
+  },
+  {
+    "log": "chat-queue-ui.txt",
+    "result": [
+      "OK (13 tests)"
+    ]
+  },
+  {
+    "log": "following-ui.txt",
+    "result": [
+      "OK (8 tests)"
+    ]
+  },
+  {
+    "log": "group-admin-promotion-process/recovered.txt",
+    "result": [
+      "OK (1 test)"
+    ]
+  },
+  {
+    "log": "group-admin-promotion-process/restored.txt",
+    "result": [
+      "OK (1 test)"
+    ]
+  },
+  {
+    "log": "group-admin-removal-process/recovered.txt",
+    "result": [
+      "OK (1 test)"
+    ]
+  },
+  {
+    "log": "group-admin-removal-process/restored.txt",
+    "result": [
+      "OK (1 test)"
+    ]
+  },
+  {
+    "log": "group-admin-ui.txt",
+    "result": [
+      "OK (12 tests)"
+    ]
+  },
+  {
+    "log": "group-chat-actions-ui.txt",
+    "result": [
+      "OK (1 test)"
+    ]
+  },
+  {
+    "log": "group-chat-process/recovered.txt",
+    "result": [
+      "OK (1 test)"
+    ]
+  },
+  {
+    "log": "group-chat-process/restored.txt",
+    "result": [
+      "OK (1 test)"
+    ]
+  },
+  {
+    "log": "group-chat-ui.txt",
+    "result": [
+      "OK (22 tests)"
+    ]
+  },
+  {
+    "log": "post-process/recovered-instrumentation.txt",
+    "result": [
+      "OK (1 test)"
+    ]
+  },
+  {
+    "log": "private-chat-actions-ui.txt",
+    "result": [
+      "OK (10 tests)"
+    ]
+  },
+  {
+    "log": "private-chat-peer.txt",
+    "result": [
+      "OK (2 tests)"
+    ]
+  },
+  {
+    "log": "private-chat-process/recovered.txt",
+    "result": [
+      "OK (1 test)"
+    ]
+  },
+  {
+    "log": "private-chat-process/restored.txt",
+    "result": [
+      "OK (1 test)"
+    ]
+  },
+  {
+    "log": "private-chat-ui.txt",
+    "result": [
+      "OK (24 tests)"
+    ]
+  },
+  {
+    "log": "public-chat.txt",
+    "result": [
+      "OK (1 test)"
+    ]
+  }
+]
