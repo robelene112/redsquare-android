@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "scope": "Tracked production/debug/build input equivalence only; no runtime acceptance or APK equality across version flags. Current #17 app source is outside this frozen #19 comparison.",
+  "revisions": [
+    "8cda1d83c33e3647c65431a2c2a46b74661cf2f0",
+    "5aec60364cb7afa24a6370f3c87a8c81e2ea48c5",
+    "45ff40f6931e3491a65e3145e789c3f453c2c4fe"
+  ],
+  "trackedInputsSha256": "f892503daaff710d56ce89efe9f3ff1a636c66c8553a487562e9f3ade49fc8dd",
+  "paths": [
+    "app/src/main",
+    "app/src/debug",
+    "core/src/main",
+    "app/build.gradle.kts",
+    "core/build.gradle.kts",
+    "build.gradle.kts",
+    "settings.gradle.kts",
+    "gradle.properties",
+    "gradle/wrapper"
+  ],
+  "focusedAndFinalInstrumentationEqual": true,
+  "instrumentationInputsSha256": "aff3cf8f367cd001dc0e6b9ac7635492f7ff98fff1d14b173c7f7d7ef660bb47",
+  "signed23Source": "45ff40f6931e3491a65e3145e789c3f453c2c4fe"
+}
