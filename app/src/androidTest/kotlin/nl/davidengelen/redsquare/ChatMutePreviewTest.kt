@@ -71,6 +71,7 @@ class ChatMutePreviewTest {
                             peer.sendIncoming(incoming)
                             ui.waitUntil(20_000) { displayed(hasText(text)) && peer.incomingAcknowledgements.any { it[0] == 13.toByte() } }
                             verifyGenericNotification(alerts, "Private chats", "private-generic-system-notification")
+                            assertRedeliveryStaysSilent(peer, incoming, text, alerts, "private-duplicate-stays-silent")
                             assertUnchangedIdentityAndNoOutgoingMessages(context, wallet, peer)
                             return@withFailureCapture
                         }
@@ -102,6 +103,7 @@ class ChatMutePreviewTest {
                         ui.onNodeWithText(text).assertIsDisplayed()
                         alerts.assertSilence()
                         capture("private-unmuted-history-retained")
+                        assertRedeliveryStaysSilent(peer, incoming, text, alerts, "private-muted-original-stays-silent-after-unmute")
                         assertUnchangedIdentityAndNoOutgoingMessages(context, wallet, peer)
                     }
                 }
@@ -171,6 +173,7 @@ class ChatMutePreviewTest {
                             peer.sendIncoming(incoming)
                             ui.waitUntil(20_000) { displayed(hasText(text)) && peer.incomingAcknowledgements.any { it[0] == 13.toByte() } }
                             verifyGenericNotification(alerts, "Group chats", "group-generic-system-notification")
+                            assertRedeliveryStaysSilent(peer, incoming, text, alerts, "group-duplicate-stays-silent")
                             assertUnchangedIdentityAndNoOutgoingMessages(context, wallet, peer)
                             return@withFailureCapture
                         }
@@ -198,6 +201,7 @@ class ChatMutePreviewTest {
                         ui.onNodeWithText(text).assertIsDisplayed()
                         alerts.assertSilence()
                         capture("group-unmuted-history-retained")
+                        assertRedeliveryStaysSilent(peer, incoming, text, alerts, "group-muted-original-stays-silent-after-unmute")
                         assertUnchangedIdentityAndNoOutgoingMessages(context, wallet, peer)
                     }
                 }
@@ -210,6 +214,21 @@ class ChatMutePreviewTest {
                 retained.restorePreferences()
             })
         }
+    }
+
+    private fun assertRedeliveryStaysSilent(peer: ControlledFeedPeer, incoming: ByteArray, text: String,
+        alerts: FixtureAlerts, captureName: String) {
+        alerts.restore()
+        ui.waitUntil(5_000) { alerts.newAlerts().isEmpty() }
+        peer.sendIncoming(incoming, requestId = 778)
+        ui.waitUntil(20_000) {
+            displayed(hasText(text)) && peer.incomingAcknowledgements.any {
+                it[0] == 13.toByte() && java.nio.ByteBuffer.wrap(it, 1, 4).int == 778
+            }
+        }
+        ui.onAllNodesWithText(text).assertCountEquals(1)
+        alerts.assertSilence()
+        capture(captureName)
     }
 
     private fun assertUnchangedIdentityAndNoOutgoingMessages(context: android.content.Context,

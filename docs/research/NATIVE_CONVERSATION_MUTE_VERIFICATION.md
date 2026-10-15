@@ -177,3 +177,16 @@ rechecks currentprotectedgroupmembership underpublicationidentitylock, alongside
 freshpolicy/selection, so lateownremoval silencesalert. Ownedfirst4-caseGREEN
 attempt38697852024 exactdc remainsactive, no duplicate; doesnotexercise this
 concurrentguard oracceptwhole29. Correctionreview/compilepending.
+
+Firstprivate+groupnativealertsGREEN38697852024 exactdc86984f:4PASS24.863s, actual
+generic/private+groupcategories/intent/systemshades andmuted2ssilence/readable/
+exactdraft/reopen/cachedunmute/no-wire. Retainedgroup-alert-green-android10
+(20hash8XML), originalgroupshade/reopenedPNGseen/allXMLparsed. Latermembership
+publicationguardf518be53 bothreviews0/0, notcoveredbyolderdcsourceproof.
+
+Nextregression strengthensalreadyimplementedoriginaldedup throughactualnativeUI/
+peer/OS: clearonlyfixturealert, redeliverexactsameindependentsignedpacket with
+newRPCid778, requirepositiveACK/exactonecachedmessage/noalert2s. Appliedboth
+private/group positivecases andafterunmutingmutedcachedoriginals, preservingall
+identity/no-wireassertions. No fabricatedREDclaim foralreadyimplementeddedup;
+actual4-case regressionpending atsourcewithfreshmembershipguard.
