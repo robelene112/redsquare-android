@@ -120,3 +120,10 @@ interpretation is permitted. Current production has no Add photo control;
 actual selection RED pending. A single recoverable composed string keeps the
 existing protected draft/queue/cancel/original identity path rather than adding
 a second outgoing pipeline.
+
+Selecteddraft tracer7dfe8685 Standards0, Spec1: descriptoralone doesnot prove
+actual recovered photo. Fixture correction observes normalizedJPEG centerRGB
+within5/channel of literal220/30/40, with20s asynchronous readiness, after
+selection and afterreopening. Also retains fullpeeridentity/reports assertions.
+ActiveRED38714801378 stillrunsoriginal7dfe fixture; no cancellation/duplicate
+dispatch. The absent Addphoto criterion is unchanged.

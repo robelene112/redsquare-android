@@ -141,17 +141,30 @@ class ChatImagesPreviewTest {
                                     val add = hasText("Add photo") and hasClickAction() and isEnabled()
                                     ui.waitUntil(20_000) { displayed(add) }; ui.onNode(add).performClick()
                                     val attached = hasContentDescription("Image 1 of 1")
-                                    ui.waitUntil(20_000) { displayed(attached) }; assertDraft()
+                                    fun assertPreparedPhoto() {
+                                        ui.waitUntil(20_000) {
+                                            try {
+                                                val bitmap = ui.onNode(attached).assertIsDisplayed().captureToImage().asAndroidBitmap()
+                                                val pixel = bitmap.getPixel(bitmap.width / 2, bitmap.height / 2)
+                                                kotlin.math.abs(android.graphics.Color.red(pixel) - 220) <= 5 &&
+                                                    kotlin.math.abs(android.graphics.Color.green(pixel) - 30) <= 5 &&
+                                                    kotlin.math.abs(android.graphics.Color.blue(pixel) - 40) <= 5
+                                            } catch (_: AssertionError) { false }
+                                        }
+                                    }
+                                    assertPreparedPhoto(); assertDraft()
                                     check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
                                     capture("private-photo-selected-unsent")
                                     ui.onNode(hasText("Back") and hasClickAction()).performClick()
                                     open(); scenario.recreate(); open()
-                                    ui.waitUntil(20_000) { displayed(attached) }; assertDraft()
+                                    assertPreparedPhoto(); assertDraft()
                                     check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
                                     capture("private-photo-draft-reopened")
                                 } finally { Intents.release() }
                             } finally { check(context.contentResolver.delete(uri, null, null) == 1) }
                             check(wallets.loadExisting().exportJson() == wallet.exportJson() && backends.load() == SaitoBackend.OWNER)
+                            check(peer.clientKeys.isNotEmpty() && peer.clientKeys.all { it == wallet.publicKey })
+                            check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty() && peer.reports.isEmpty())
                             peer.assertHealthy()
                             return@withFailureCapture
                         }
