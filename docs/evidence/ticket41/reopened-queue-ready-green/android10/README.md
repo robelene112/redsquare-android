@@ -16,14 +16,17 @@ traffic checks. The preceding failed full remains independently retained as fail
 
 Root viewed six originals: private reopened/tapped/result and group Members
 control/dialog/result. All16XML files parse. Private reopened and tapped PNGs
-still show an intermediate loading composer, whereas their later independent XML
-samples show enabled Queued/Cancel with full clickable bounds[128,588][308,636].
-Do not claim those bitmaps visually show a settled cancellation control or treat
-screenshot/hierarchy sampling as atomic. The actual physical oracle/tap and
+both show Queued/Cancel and the preview's final lines11/12. Their hashes are
+identical; the capture named tapped does not itself establish a completed
+post-cancellation transition or exact tap timing. The separately sampled XML
+shows enabled Queued/Cancel with full clickable bounds[128,588][308,636].
+Screenshot/hierarchy sampling is not atomic. The actual physical oracle/tap and
 completed exact restoration tail pass. Final private bitmap shows editable
 restored text; the complete twelve-line value is asserted in raw test execution,
 not wholly visible in that limited-height text field. No exact loading mechanism
-or performance conclusion is established.
+or performance conclusion is established. Root corrected the initial inaccurate
+loading-image description against the original files/hashes during review.
+
 
 Both finite scroll endpoints pass again: group120→124/max124 and private0→478/
 max478. Group original shows Members accessible at the end and the subsequent
