@@ -142,3 +142,17 @@ photo format remains accepted. Native parser will only decode canonical known
 wrappers and roundtrip-escaped text; arbitrary markup must remain literal.
 Pixelcorrection963b1675 reviewed Spec0/Standards0. Apt metadata lists no pending
 OS packages2026-10-15; existing toolchain pins remain unchanged.
+
+Actual selecteddraftRED10run38714801378 exact7dfe8685 FAILED3cases2PASS1FAIL
+33.118s; no enabledAddphoto within20s at142. RootoriginalfailurePNGseen/XMLparsed,
+exactcaptionretained; selection/recoverytailunexecuted. Retained6hash1XML.
+
+Private draftminimum now provides native singlephotopicker, bounded existing
+normalization and existing PostImages preview/removal. Caption+photo compose into
+one canonical string in existing encrypted draft/work/queue, preserving exact
+text through editing/removal/Back/recreation without plaintextBundle. Picker
+savedstate contains only public scoped metadata, staleidentity results ignored.
+Send/navigation wait for normalization. Other incomingmarkup remainsliteral;
+only canonical roundtrip-escaped caption wrapper decodes. No storage/queue
+protocol changes or automaticSend. Compile/review/GREENpending; groupcomposer
+and actualSend/failure/process/5MiBbound remain nextslices.

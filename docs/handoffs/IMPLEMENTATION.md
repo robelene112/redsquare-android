@@ -21,14 +21,14 @@ restoration privateandgroup. Retained16hash6XML; root6originalPNGsseen. Earlier
 RED/failedattempt/cancelledrun retainedandqualified. No17/compose/failure/full
 acceptance inferred. Signed19current, no20reserved/noownedlocalbuild.
 
-Selectedprivatephoto drafttracer7dfe8685 ACTIVE10run38714801378 (no duplicate
-same-scope dispatch). Production Addphoto absent, actualREDpending. Fixture
+Selectedprivatephoto drafttracer7dfe8685 actualRED10run38714801378 FAILED:
+3cases2PASS1FAIL33.118s, noAddphoto within20s at142. Retained6hash1XML/rootPNGseen. Fixture
 correction963b1675 actualnormalizedJPEG centerRGB tolerance5 within20s after
 selectionandBack/recreation, exactcaption/clientidentity/no-wire. Reviewed0/0.
 Canonical NATIVE_CHAT_IMAGES_VERIFICATION.md. ActualpinnedA/B Browser.sanitize
 exec accepts image+escapedcaption, offlineChromiumDOM/raster proof PASS, local
 .scratch/chat30-caption-web-reference.json / chat30-caption-browser-proof.json;
-canonical helpers untracked pendingcommit. Not signednativeoutboundproof.
+canonical helpers committedb54b1a73. Not signednativeoutboundproof.
 
 Nextminimum preserve singleencryptedcomposedstring/ordinaryqueue; boundednative
 photo preparation with no genericHTML/WebView. Composition/group/send/queue/

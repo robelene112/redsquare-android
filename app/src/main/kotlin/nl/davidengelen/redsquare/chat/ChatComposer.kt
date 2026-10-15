@@ -44,10 +44,11 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
     fun changeText(value: String) { text = value; memory.text = value }
     var ready by remember(work) { mutableStateOf(false) }
     var sending by remember(work) { mutableStateOf(false) }
+    var preparingPhoto by remember(work) { mutableStateOf(false) }
     var failed by remember(work) { mutableStateOf(false) }
     val navigation = requireNotNull(nl.davidengelen.redsquare.feed.LocalPostNavigation.current)
     suspend fun persist(): Boolean = writes.withLock {
-        if (sending) return@withLock false
+        if (sending || preparingPhoto) return@withLock false
         // An unreadable composer cannot edit or replace the retained work.
         if (!ready || saved.frozen) return@withLock true
         try {
@@ -107,9 +108,11 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
     SideEffect { replies.replyTo = if (permitted && editable) replyAction else null }
     DisposableEffect(replies) { onDispose { replies.replyTo = null } }
     val quote = remember(text) { privateReply(text) }
-    val typed = quote?.body ?: text
+    val body = quote?.body ?: text
+    val photo = remember(body) { chatPhoto(body) }
+    val typed = photo?.text ?: body
     val retrying = saved.transaction != null && (saved.status == ChatWorkStore.Status.UNKNOWN ||
-        (saved.status == ChatWorkStore.Status.SUBMITTED && typed.isBlank() && quote == null))
+        (saved.status == ChatWorkStore.Status.SUBMITTED && typed.isBlank() && quote == null && photo == null))
     Column {
         when (saved.status) {
             ChatWorkStore.Status.QUEUED -> {
@@ -146,14 +149,19 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
         }))
         if (quote != null) {
             Text(quote.quote, style = MaterialTheme.typography.bodyMedium)
-            TextButton(enabled = editable, onClick = { changeText(typed) }) {
+            TextButton(enabled = editable, onClick = { changeText(body) }) {
                 Text(stringResource(R.string.chat_remove_reply))
             }
         }
+        ChatPhotoAttachment("${wallet.publicKey}:${backend.id}:$contact", body, backend, editable && permitted,
+            beforePicker = { persist() }, onPreparing = { preparingPhoto = it },
+            onChange = { changeText((quote?.prefix ?: "") + it) })
         Row(verticalAlignment = Alignment.CenterVertically) {
-            OutlinedTextField(value = typed, onValueChange = { changeText((quote?.prefix ?: "") + it) }, label = { Text(stringResource(R.string.chat_message)) },
+            OutlinedTextField(value = typed, onValueChange = { value ->
+                changeText((quote?.prefix ?: "") + (photo?.let { composeChatPhoto(it.source, value) } ?: value))
+            }, label = { Text(stringResource(R.string.chat_message)) },
                 modifier = Modifier.weight(1f), enabled = editable)
-            Button(enabled = permitted && ready && !sending && saved.status!=ChatWorkStore.Status.QUEUED && (retrying || typed.isNotBlank()),
+            Button(enabled = permitted && ready && !sending && !preparingPhoto && saved.status!=ChatWorkStore.Status.QUEUED && (retrying || typed.isNotBlank() || photo != null),
                 onClick = {
                     sending = true
                     val outgoing = text

@@ -57,14 +57,15 @@ internal fun chatReplyPrefix(author:String,createdAt:Long,text:String):String? {
 internal fun PrivateMessageText(original: String, backend: SaitoBackend, onQuote: ((String) -> Unit)? = null) {
     val reply = remember(original) { privateReply(original) }
     val body = reply?.body ?: original
-    val image = remember(body) { chatImageSource(body) }
+    val photo = remember(body) { chatPhoto(body) }
     Column {
         if (reply != null) {
             Text(reply.quote, style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = if (onQuote == null) Modifier else Modifier.clickable { onQuote(reply.reference) })
         }
-        if (image != null) PostImages(listOf(image), backend)
-        else Text(body, style = MaterialTheme.typography.bodyLarge)
+        if (photo != null) PostImages(listOf(photo.source), backend)
+        val text = photo?.text ?: body
+        if (text.isNotEmpty()) Text(text, style = MaterialTheme.typography.bodyLarge)
     }
 }
