@@ -234,3 +234,6 @@ independentgroupcases andSaitoTransaction.create require[sender,member]; correct
 exactassertiononly, noappchange. Laterdecode/history/key/resumedUI/finalcounttail
 unexecutedforthiscase; other8pass. Rootoriginalwhitewindowseen. Retainedgroup-
 background-attempt-android10. Local77294PASS1m33s. Correctedfocusedgroup2pending.
+
+Exactrecipientcorrection122bb349 separateSpec0/Standards0,48hash22XMLverified.
+Focusedgroup2run38676639132 exact122bb349 ACTIVE; no ownedlocalbuild.
