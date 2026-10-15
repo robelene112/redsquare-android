@@ -357,7 +357,7 @@ class GroupChatPreviewTest {
                                 waitFor(available.get("text").asString)
                                 ui.onNodeWithText(available.get("text").asString).assertIsDisplayed()
                                 ui.onNodeWithText("Message").performTextInput("Native group hello")
-                                ui.onNodeWithText("Send").assertIsEnabled().performClick()
+                                sendMessage()
                                 ui.waitUntil(15_000){peer.transactions.size==2 && peer.relayedMessages.size==2}
                                 waitFor("Forwarded. Delivery is not confirmed.")
                                 val sent=SaitoEnvelope.fromSignedJson(peer.relayedMessages.last())
@@ -397,7 +397,7 @@ class GroupChatPreviewTest {
                                 ui.waitUntil(15_000){ui.onAllNodes(hasText("Message") and isEnabled()).fetchSemanticsNodes().size==1}
                                 ui.onNodeWithText("Message").assertIsEnabled().performTextInput("Send while archive is unavailable")
                                 ui.waitUntil(15_000){ui.onAllNodes(hasText("Send") and isEnabled()).fetchSemanticsNodes().size==1}
-                                ui.onNodeWithText("Send").assertIsEnabled().performClick()
+                                sendMessage()
                                 ui.waitUntil(15_000){peer.transactions.size==3&&peer.relayedMessages.size==3}
                                 waitFor("Forwarded. Delivery is not confirmed.")
                                 val original=SaitoEnvelope.fromSignedJson(peer.relayedMessages.last())
@@ -1025,6 +1025,12 @@ class GroupChatPreviewTest {
         ui.onNodeWithText("Message").assertIsDisplayed().assertIsEnabled().assert(
             SemanticsMatcher.expectValue(androidx.compose.ui.semantics.SemanticsProperties.EditableText,
                 androidx.compose.ui.text.AnnotatedString(expected)))
+    }
+
+    private fun sendMessage() {
+        androidx.test.espresso.Espresso.closeSoftKeyboard()
+        ui.waitUntil(15_000){runCatching{ui.onNodeWithText("Send").assertIsDisplayed().assertIsEnabled()}.isSuccess}
+        ui.onNodeWithText("Send").assertIsDisplayed().assertIsEnabled().performClick()
     }
 
     private fun waitForGroupMessage(text:String) {
