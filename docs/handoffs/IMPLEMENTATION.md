@@ -25,7 +25,7 @@ Portable permission probe separately passes8cases+actualPID; old17 full probe
 original state explicitlyfalse, no priortrue restoration claim.
 
 Public21/0.1.21: https://davidengelen.nl/redsquare/, sourceb42e4e2f product-identical
-to both fulls/currentHEAD. APKsha1c5fabe0f9062292807e4c330f2d7a87143e914bfdfce59c9a11d89657c0e6ca,
+to its #30 fulls. APKsha1c5fabe0f9062292807e4c330f2d7a87143e914bfdfce59c9a11d89657c0e6ca,
 established cert6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2,
 package nl.davidengelen.redsquare/min29. Direct public GET/hash/signature/package
 checks pass; immutable19 unchanged. Public-only records signed-preview21-published.
@@ -80,7 +80,12 @@ PNG; retained post-navigation-green-android10. New full10run38765859044 at
 ede956c51d1234fe5d924f1a46d5b40e45db1646 ACTIVE with public_feed_read=true.
 Profile adaptation739/b688 dismisses typing before Wallet at two import
 safeguards and repaired retry; exact EditableText avoids merged label. Source
-reviews0/0, runtime pending. Active profile10run38765277087 at739 predatesb688.
+reviews0/0, runtime pending. Profile10run38765277087 at739 FAILED two exact matcher checks: merged Bio
+label compared alongside preserved EditableText.5/7 pass19.449s; otherclasses
+5/2/2 pass; later import/process checks unexecuted. Retained matcher-attempt.
+Corrected profile10run38766527800 at46612a30 SUCCESS7/5/2/2PASS, core114,
+debug/test and two actual profile process deaths/recovery. Root saw3 originals,
+3XML parsed; retained profile-navigation-green-android10. No app change.
 No production change; no acceptance from partial full.
 
 Focused17run38760340721 at129d0901 FAILED3PASS1FAIL71.555s, sole group-photo
@@ -128,7 +133,12 @@ Registry A/B callback fallback can precede valid late response, native consumes
 first index; actual21-byte body not retained, so correlation is not live cause.
 Next19 diagnostic should observe bounded first/late same-index responses while
 preserving strict proof/registration and12s deadline, before any workaround.
-Both research reviews Spec0/Standards0. Tracker updates17comment6195891653 and
+Both research reviews Spec0/Standards0. Follow-up research-only
+REGISTRY_DIAGNOSTIC_PLAN_2026_10_15.md atcb27b7db also reviewed0/0: separate
+DEBUG/public-probe observer sees first/late frames without changing normal
+first-response semantics, original request-entry12s deadline, bounded copying,
+cancellable remaining-window drain and strict public classification. Not implemented.
+Tracker updates17comment6195891653 and
 19comment6195892085 link concrete next diagnostics. No node/credential changes.
 Owner updated home instructions mid-session: reread global/proactive/GitHub
 skills and fetched shared source /home/david/agent-skills and app upstream.
