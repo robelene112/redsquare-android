@@ -35,8 +35,9 @@ Device-only encrypted installation snapshots are not pulled or committed.
 
 Tracked production/debug/build inputs match720e2007, prepared22 sourcec0b143eb
 and the complete-run source; see ../source-equivalence.json. APK equality across
-version flags is not claimed. Android17 complete results and final evidence
-review remain pending. Public21 is current; prepared22 stays unpublished.
+version flags is not claimed. At this Android10 retention point, Android17 results and final evidence
+review were pending. Publication is recorded separately; public21 was current
+and prepared22 unpublished.
 
 This does not establish final integrated#35, physical Pixel timing/update,
 closed-app push, Giphy authorization, live Registry registration, public YouTube
