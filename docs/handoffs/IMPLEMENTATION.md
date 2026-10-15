@@ -117,7 +117,9 @@ NoQueued75afterfirstSend; originalunknown/groupErrorseen. Latercanceltailunexecu
 Retainedgroup-cancel-red-android10. Groupcancelminimumseparatequeuedoriginal/
 causalpreparationmembership/noordinaryhistoryuntilclaim/currentmembershipguard/
 exactdraftCancel/preservedpriorstatus+key nowapplied; defaultmanualAPIunchanged.
-No groupautomaticresume. Localcompile/correctedruntimepending; noactiveproof.
+No groupautomaticresume. Correction320b5cad Spec0/Standards0 carriesvalidated
+messageforrender/requiredonQuote. Local13877ACTIVE, focused10run38673764737
+exact320b5cad ACTIVE. Do notduplicatebuild/proof. Correctedruntimepending.
 Groupappminimumebd9f700 applied, notyetaccepted. Groups/process/full28stillpending.
 
 NEXT: review/verify ready-navigation+storage7cases, then groupqueues/freshmembership,

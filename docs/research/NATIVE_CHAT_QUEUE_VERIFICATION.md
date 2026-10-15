@@ -186,3 +186,6 @@ replayonComposerenderpath. CorrectioncarriesalreadyvalidatedGroupChatMessage in
 queuedentry, rendersdirectly. Sameencryptedrecordschema/causalvalidation. Local
 compile8900FAILED58s requiredonQuotemissing, nowexplicitno-oplikeprivatepending
 bubble. Correctedcompile/runtimepending. Stalehandoffproductionqualifierfixed.
+
+Groupcorrection320b5cad separateSpec0/Standards0. Local13877ACTIVE/focused10run
+38673764737 exact320b5cad ACTIVE. No duplicaterun; cancellationGREENpending.
