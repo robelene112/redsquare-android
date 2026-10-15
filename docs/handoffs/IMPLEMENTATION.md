@@ -135,8 +135,9 @@ Focusedgroup2scope308e0f4e Spec0/Standards0, full9unchanged. Correctedruntimepen
 Focusedgroup2run38676639132 FAILED1cancelPASS/1backgroundFAIL17.487s
 at78 beforefirstedit/Send, emptyMessagefielddisabled(originalseen). Preciseinitial
 causeunproved; addpositiveenabledSetTextinitialreadinesssame20s, noappchanges.
-Retainedgroup-background-second-attempt-android10. Correctedruntimepending.
-Noownedlocalbuild/proof. Groupappsource65c57b5c.
+Retainedgroup-background-second-attempt-android10. Correctione402a0ef
+Spec0/Standards0; focusedgroup2run38677143631 exacte402a0ef ACTIVE.
+Noownedlocalbuild. Do notduplicateproof; correctedruntimepending. Groupappsource65c57b5c.
 Groupappminimumebd9f700 applied, notyetaccepted. Groups/process/full28stillpending.
 
 NEXT: review/verify ready-navigation+storage7cases, then groupqueues/freshmembership,
