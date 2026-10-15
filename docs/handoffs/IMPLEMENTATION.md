@@ -88,12 +88,17 @@ legacycopyunchanged. CorrectedArchiveGREEN10run38668414092 SUCCESS exact313f2e76
 exactsiglookup/authenticoriginal/AVAILABLE/unconfirmed/noRelay/noextraRaw/recreate,
 allpriorcasespass. Originalarchivedresultseen. Bothsource/evidenceaxesqualifyknown
 residualSpecfinding: explicitautomaticRetryerrorcanstayafterlaterworkercompletion.
-New6thWRONG_ARCHIVEtracerrequiresdifferentvalidsignedrowrefusal/noRawRelay/original
-preserved, explicitRetryerror, repairedArchiveAVAILABLE thenobsoleteerrorabsent.
-Sourcefixdeliberatelyabsent; firstREDpending. Noownedbuild. Storage/groups/process/
-full28stillpending.
+WrongArchiveRED10run38669048659 exact369395c9:6cases5PASS/1FAIL118.004s at140
+oldautomaticerrorafterAVAILABLE. Actualwrongrowrefusal/original/noRawRelay,
+explicitRetryerror, Archive repairAVAILABLEreached; originalshowscontradiction.
+Laterfinalquery/noRelay/recreatetailunexecutedforthiscase; otherfivepass. Retained
+private-wrong-archive-red-android10. ProposedRetryorderinghypothesisdidnotblockthis
+run, noothercausalclaim. Minimumcompletionerrorfixnowapplied: clearonmatching
+incomplete→completeprogress, accuratecopyforpendingauto andrace-completedRetry;
+newSend/savefailureagainstoldercompletedrecordstaysvisible. Review/compile/GREEN
+pending. No ownedbuild yet. Storage/groups/process/full28pending.
 
-NEXT: wrongArchive/obsoleteerrorRED, minimumcompletionerrorcorrection, thenstoragefailure,
+NEXT: review/build/verifycompletionerrorfix andqualifyfull6caseGREEN, thenstoragefailure,
 groupqueuewithfreshmembership, actualprocessdeath, finalfull10/17/reviews/signed
 nextbeta/closure28. Parent1approvedapplication/controlledpeer/protectedrecoveryseams.
 Queueonlyexplicitmessages,noadmin/reaction/transferautosends. Continue28through36

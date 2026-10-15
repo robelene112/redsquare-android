@@ -62,9 +62,12 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
         ChatWorkStore.changes.collect {
             if(ready&&!sending)writes.withLock {
                 try {
+                    val previous=saved
                     saved=withContext(Dispatchers.IO){work.load()}
                     if(saved.transaction!=null&&saved.status!=ChatWorkStore.Status.QUEUED)
                         onHistory(withContext(Dispatchers.IO){history.load().entries})
+                    if(saved.deliveryComplete&&!previous.deliveryComplete&&saved.transaction?.id==previous.transaction?.id)
+                        failed=false
                 }catch(cancelled:CancellationException){throw cancelled}
                 catch(_:Exception){ready=false;failed=true}
             }
@@ -119,7 +122,7 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
         }
         if (failed) Text(stringResource(when {
             !ready -> R.string.chat_work_read_error
-            saved.automatic -> R.string.chat_automatic_send_error
+            saved.automatic&&!saved.deliveryComplete -> R.string.chat_automatic_send_error
             else -> R.string.chat_send_error
         }))
         if (quote != null) {
@@ -166,7 +169,8 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
                                 saved=withContext(Dispatchers.IO){work.load()}
                                 if(saved.status==ChatWorkStore.Status.QUEUED)
                                     withContext(NonCancellable+Dispatchers.IO){ChatQueueScheduling.enqueue(context,wallet,backend,endpoint)}
-                                failed=saved.status!=ChatWorkStore.Status.QUEUED
+                                failed=saved.status!=ChatWorkStore.Status.QUEUED&&
+                                    !(original!=null&&saved.transaction?.id==original.id&&saved.deliveryComplete)
                             }
                             catch(_:Exception){ready=false;failed=true}
                         }
