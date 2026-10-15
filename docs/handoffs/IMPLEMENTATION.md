@@ -49,11 +49,10 @@ feed reads and immutable signed update checks. Never duplicate either active
 scope. Local ignored retainer .scratch/retain-chat30-final-full.py expects new
 image/history/PID gates and two additional actual process deaths over29.
 
-Signed20/0.1.20 is RESERVED and BUILDING from immutable detached78bc9b70 at
-/mnt/storage/redsquare-android-artifacts/chat30-review-source. Owned local exec
-session1549, log.scratch/review20-build.log there. Do not edit that checkout's
-app/core/tests while build/container runs. Shared Gradle cache, no other local
-owned build. Public signed19 remains current. Publish20 only after full gates,
+Signed20/0.1.20 is BUILT/VERIFIED, UNPUBLISHED from immutable detached78bc9b70 at
+/mnt/storage/redsquare-android-artifacts/chat30-review-source. Owned local exec1549 completed0, releaseSUCCESS4m25s; no local owned build.
+APKsha8602915d8ae3686ffaa53f6ea23027e4ac432f596cd9d33baf892dad594e0828,
+establishedcert/package20/min29 verified. Log.scratch/review20-build.log there. Public signed19 remains current. Publish20 only after full gates,
 review fixes and direct metadata/hash/package/certificate/immutable19 checks.
 Continue to later issues after30, do not pause or ask routine approval.
 

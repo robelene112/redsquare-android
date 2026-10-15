@@ -504,3 +504,10 @@ rawgates plusseparategroupcaptures. Finalwhole-sourcereview8826..78bc:0/0.
 Full10/17ownedruns38734343806/38734348294 same78bc9b70 withpublicfeedsenabled
 active. Signed20reserved/building isolated78bc source, localexec1549;19public
 current. This is no full/physical/store acceptance claim.
+
+Signed20 built isolated78bc9b70 SUCCESS4m25s, exec1549 exit0. Verified actual
+APKhash8602915d8ae3686ffaa53f6ea23027e4ac432f596cd9d33baf892dad594e0828,
+package20/0.1.20/min29/establishedcert. Retained4hash publicmetadata, APKoutside
+Git, no signingsecretoutput. Pythonpublicmetadata403, curlGETthenvalidJSON
+expectedimmutable19hashPASS; no hostingchange. Full10/17 stillactive;20unpublished,
+no local build active.
