@@ -89,6 +89,10 @@ class ChatImagesPreviewTest {
                         photo(); assertDraft(); capture("private-compatible-photo")
                         ui.onNodeWithContentDescription("Image 1 of 1").performClick()
                         ui.waitUntil(20_000) { displayed(hasText("Close image")) }
+                        ui.waitUntil(20_000) {
+                            try { assertRedRaster(isDialog()); true }
+                            catch (_: AssertionError) { false } // Dialog controls precede asynchronous raster loading.
+                        }
                         assertRedRaster(isDialog())
                         capture("private-photo-expanded")
                         ui.onNodeWithText("Close image").performClick()

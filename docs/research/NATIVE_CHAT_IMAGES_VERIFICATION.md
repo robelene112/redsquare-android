@@ -48,3 +48,8 @@ Default private-reference generation was reexecuted and is byte-identical to the
 existing asset, SHA256886ff62259151851e7a1131d264d805bd4c192f1e312b42376099c2711ee1c06.
 Owned first native RED run38711550116 exactc22660f5 is ACTIVE; no duplicate run.
 Its inline missing-image criterion is unchanged by the fixture correction.
+
+Shared-fixture/expanded-pixel correction6e8105c5 Standards0; Spec1 expanded
+Close control can appear before asynchronous raster loading. Exact expanded RGB
+is now observed within the same20s UI bound, then asserted again before capture.
+The visual criterion is unchanged; no production renderer or native pass yet.
