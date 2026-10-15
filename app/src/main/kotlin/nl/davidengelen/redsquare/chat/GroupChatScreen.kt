@@ -470,32 +470,42 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                 val body=quote?.body ?: message
                 val photo=remember(body){chatPhoto(body)}
                 val typed=photo?.text ?: body
-                if(quote!=null){
-                    Text(quote.quote,style=MaterialTheme.typography.bodyMedium)
-                    TextButton(enabled=editable,onClick={changeMessage(body)}){Text(stringResource(R.string.chat_remove_reply))}
-                }
-                ChatPhotoAttachment("group:${wallet.publicKey}:${backend.id}:${entry.group.id}",body,backend,attachmentPermitted,
-                    beforePicker={persistDraft()},onPreparing={preparingPhoto=it},
-                    onChange={changeMessage((quote?.prefix ?: "")+it)})
-                Row(verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(8.dp)){
-                    OutlinedTextField(typed,{value->changeMessage((quote?.prefix ?: "")+(photo?.let{composeChatPhoto(it.source,value)} ?: value))},Modifier.weight(1f),
-                        label={Text(stringResource(R.string.chat_message))},enabled=editable,maxLines=4)
-                    Button(enabled=permitted&&(typed.isNotBlank()||photo!=null),onClick={
-                        focus.clearFocus()
-                        keyboard?.hide()
-                        act {
-                            val mentioned=quote?.author?.let{listOf(it)}.orEmpty()
-                            val candidate=withContext(Dispatchers.IO){GroupChat.message(wallet,entry.group,message,System.currentTimeMillis(),mentioned)}
-                            draftWrites.withLock {
-                                withContext(NonCancellable){
-                                    publish{store.prepareMessage(candidate,queued=true);store.entries()}
-                                    changeMessage("")
-                                }
+                BoxWithConstraints {
+                    val previewMaxHeight=maxHeight/3
+                    val previewScroll=rememberScrollState()
+                    val previewLabel=stringResource(R.string.chat_composition_preview)
+                    Column(verticalArrangement=Arrangement.spacedBy(8.dp)) {
+                        Column((if(quote!=null)Modifier.heightIn(max=previewMaxHeight).verticalScroll(previewScroll) else Modifier)
+                            .semantics{contentDescription=previewLabel},verticalArrangement=Arrangement.spacedBy(8.dp)) {
+                            if(quote!=null){
+                                Text(quote.quote,style=MaterialTheme.typography.bodyMedium)
+                                TextButton(enabled=editable,onClick={changeMessage(body)}){Text(stringResource(R.string.chat_remove_reply))}
                             }
-                            withContext(Dispatchers.IO){submitGroupMessage(context,wallet,backend,endpoint,entry.group.id,candidate)}
-                            publish{store.entries()}
+                            ChatPhotoAttachment("group:${wallet.publicKey}:${backend.id}:${entry.group.id}",body,backend,attachmentPermitted,
+                                beforePicker={persistDraft()},onPreparing={preparingPhoto=it},
+                                onChange={changeMessage((quote?.prefix ?: "")+it)})
                         }
-                    }){Text(stringResource(R.string.chat_send))}
+                        Row(verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(8.dp)){
+                            OutlinedTextField(typed,{value->changeMessage((quote?.prefix ?: "")+(photo?.let{composeChatPhoto(it.source,value)} ?: value))},Modifier.weight(1f),
+                                label={Text(stringResource(R.string.chat_message))},enabled=editable,maxLines=4)
+                            Button(enabled=permitted&&(typed.isNotBlank()||photo!=null),onClick={
+                                focus.clearFocus()
+                                keyboard?.hide()
+                                act {
+                                    val mentioned=quote?.author?.let{listOf(it)}.orEmpty()
+                                    val candidate=withContext(Dispatchers.IO){GroupChat.message(wallet,entry.group,message,System.currentTimeMillis(),mentioned)}
+                                    draftWrites.withLock {
+                                        withContext(NonCancellable){
+                                            publish{store.prepareMessage(candidate,queued=true);store.entries()}
+                                            changeMessage("")
+                                        }
+                                    }
+                                    withContext(Dispatchers.IO){submitGroupMessage(context,wallet,backend,endpoint,entry.group.id,candidate)}
+                                    publish{store.entries()}
+                                }
+                            }){Text(stringResource(R.string.chat_send))}
+                        }
+                    }
                 }
             }
         }

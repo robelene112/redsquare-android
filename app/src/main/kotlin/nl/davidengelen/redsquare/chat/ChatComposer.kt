@@ -17,7 +17,6 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -169,67 +168,77 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
             else -> R.string.chat_send_error
         }))
         if (saved.status != ChatWorkStore.Status.QUEUED) {
-            if (quote != null) {
-                Text(quote.quote, style = MaterialTheme.typography.bodyMedium)
-                TextButton(enabled = editable, onClick = { changeText(body) }) {
-                    Text(stringResource(R.string.chat_remove_reply))
-                }
-            }
-            ChatPhotoAttachment("${wallet.publicKey}:${backend.id}:$contact", body, backend, editable && permitted,
-                beforePicker = { persist() }, onPreparing = { preparingPhoto = it },
-                onChange = { changeText((quote?.prefix ?: "") + it) })
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                OutlinedTextField(value = typed, onValueChange = { value ->
-                    changeText((quote?.prefix ?: "") + (photo?.let { composeChatPhoto(it.source, value) } ?: value))
-                }, label = { Text(stringResource(R.string.chat_message)) },
-                    modifier = Modifier.weight(1f), enabled = editable, maxLines = 4)
-                Button(enabled = permitted && ready && !sending && !preparingPhoto && saved.status!=ChatWorkStore.Status.QUEUED && (retrying || typed.isNotBlank() || photo != null),
-                    onClick = {
-                        focus.clearFocus()
-                        keyboard?.hide()
-                        sending = true
-                        val outgoing = text
-                        val original = if (retrying) saved.transaction else null
-                        scope.launch {
-                            try {
-                                val candidate = writes.withLock {
-                                    val prepared = original ?: withContext(Dispatchers.IO) {
-                                        val mentioned = privateReply(outgoing)?.author?.let { author ->
-                                            require(author in setOf(wallet.publicKey, contact))
-                                            listOf(author)
-                                        } ?: emptyList()
-                                        PrivateChat.create(wallet, contact, outgoing, System.currentTimeMillis(), mentioned = mentioned)
-                                    }
-                                    withContext(NonCancellable) {
-                                        saved = withContext(Dispatchers.IO) {
-                                            if (original == null) work.prepare(prepared,queued=true) else work.prepareRetry(prepared.id)
-                                        }
-                                        if (original == null) changeText("")
-                                    }
-                                    if(saved.status!=ChatWorkStore.Status.QUEUED)
-                                        onHistory(withContext(Dispatchers.IO) { history.save(listOf(prepared.envelope())).entries })
-                                    prepared
-                                }
-                                withContext(Dispatchers.IO) {
-                                    submitPrivateMessage(context,wallet,backend,endpoint,contact,candidate){progress,retained->
-                                        withContext(Dispatchers.Main.immediate){saved=progress;onHistory(retained)}
-                                    }
-                                }
-                                failed = false
-                            } catch (cancelled: CancellationException) { throw cancelled }
-                            catch (_: Exception) {
-                                try {
-                                    saved=withContext(Dispatchers.IO){work.load()}
-                                    if(saved.status==ChatWorkStore.Status.QUEUED)
-                                        withContext(NonCancellable+Dispatchers.IO){ChatQueueScheduling.enqueue(context,wallet,backend,endpoint)}
-                                    failed=saved.status!=ChatWorkStore.Status.QUEUED&&
-                                        !(original!=null&&saved.transaction?.id==original.id&&saved.deliveryComplete)
-                                }
-                                catch(_:Exception){ready=false;failed=true}
+            BoxWithConstraints {
+                val previewMaxHeight=maxHeight/3
+                val previewScroll=rememberScrollState()
+                val previewLabel=stringResource(R.string.chat_composition_preview)
+                Column {
+                    Column((if(quote!=null)Modifier.heightIn(max=previewMaxHeight).verticalScroll(previewScroll) else Modifier)
+                        .semantics{contentDescription=previewLabel}) {
+                        if (quote != null) {
+                            Text(quote.quote, style = MaterialTheme.typography.bodyMedium)
+                            TextButton(enabled = editable, onClick = { changeText(body) }) {
+                                Text(stringResource(R.string.chat_remove_reply))
                             }
-                            finally { sending = false }
                         }
-                    }) { Text(stringResource(if (retrying) R.string.retry else R.string.chat_send)) }
+                        ChatPhotoAttachment("${wallet.publicKey}:${backend.id}:$contact", body, backend, editable && permitted,
+                            beforePicker = { persist() }, onPreparing = { preparingPhoto = it },
+                            onChange = { changeText((quote?.prefix ?: "") + it) })
+                    }
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        OutlinedTextField(value = typed, onValueChange = { value ->
+                            changeText((quote?.prefix ?: "") + (photo?.let { composeChatPhoto(it.source, value) } ?: value))
+                        }, label = { Text(stringResource(R.string.chat_message)) },
+                            modifier = Modifier.weight(1f), enabled = editable, maxLines = 4)
+                        Button(enabled = permitted && ready && !sending && !preparingPhoto && saved.status!=ChatWorkStore.Status.QUEUED && (retrying || typed.isNotBlank() || photo != null),
+                            onClick = {
+                                focus.clearFocus()
+                                keyboard?.hide()
+                                sending = true
+                                val outgoing = text
+                                val original = if (retrying) saved.transaction else null
+                                scope.launch {
+                                    try {
+                                        val candidate = writes.withLock {
+                                            val prepared = original ?: withContext(Dispatchers.IO) {
+                                                val mentioned = privateReply(outgoing)?.author?.let { author ->
+                                                    require(author in setOf(wallet.publicKey, contact))
+                                                    listOf(author)
+                                                } ?: emptyList()
+                                                PrivateChat.create(wallet, contact, outgoing, System.currentTimeMillis(), mentioned = mentioned)
+                                            }
+                                            withContext(NonCancellable) {
+                                                saved = withContext(Dispatchers.IO) {
+                                                    if (original == null) work.prepare(prepared,queued=true) else work.prepareRetry(prepared.id)
+                                                }
+                                                if (original == null) changeText("")
+                                            }
+                                            if(saved.status!=ChatWorkStore.Status.QUEUED)
+                                                onHistory(withContext(Dispatchers.IO) { history.save(listOf(prepared.envelope())).entries })
+                                            prepared
+                                        }
+                                        withContext(Dispatchers.IO) {
+                                            submitPrivateMessage(context,wallet,backend,endpoint,contact,candidate){progress,retained->
+                                                withContext(Dispatchers.Main.immediate){saved=progress;onHistory(retained)}
+                                            }
+                                        }
+                                        failed = false
+                                    } catch (cancelled: CancellationException) { throw cancelled }
+                                    catch (_: Exception) {
+                                        try {
+                                            saved=withContext(Dispatchers.IO){work.load()}
+                                            if(saved.status==ChatWorkStore.Status.QUEUED)
+                                                withContext(NonCancellable+Dispatchers.IO){ChatQueueScheduling.enqueue(context,wallet,backend,endpoint)}
+                                            failed=saved.status!=ChatWorkStore.Status.QUEUED&&
+                                                !(original!=null&&saved.transaction?.id==original.id&&saved.deliveryComplete)
+                                        }
+                                        catch(_:Exception){ready=false;failed=true}
+                                    }
+                                    finally { sending = false }
+                                }
+                            }) { Text(stringResource(if (retrying) R.string.retry else R.string.chat_send)) }
+                    }
+                }
             }
         }
     }

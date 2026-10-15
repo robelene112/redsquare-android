@@ -130,7 +130,7 @@ class ChatImagesPreviewTest {
                             val image = hasContentDescription("Image 1 of 1")
                             ui.waitUntil(20_000) {
                                 if (!displayed(image)) {
-                                    try { ui.onNode(if(group) hasContentDescription("Group messages") else hasScrollAction()).performScrollToNode(image) }
+                                    try { ui.onNode(hasContentDescription(if(group) "Group messages" else "Private messages")).performScrollToNode(image) }
                                     catch (_: AssertionError) { /* Receipt can precede UI publication. */ }
                                 }
                                 displayed(image)
@@ -303,7 +303,7 @@ class ChatImagesPreviewTest {
                                         val caption = hasText(draft)
                                         ui.waitUntil(20_000) {
                                             if (!displayed(caption)) {
-                                                try { ui.onNode(if(group) hasContentDescription("Group messages") else hasScrollAction()).performScrollToNode(caption) }
+                                                try { ui.onNode(hasContentDescription(if(group) "Group messages" else "Private messages")).performScrollToNode(caption) }
                                                 catch (_: AssertionError) { /* Delivery can precede UI publication. */ }
                                             }
                                             displayed(caption)

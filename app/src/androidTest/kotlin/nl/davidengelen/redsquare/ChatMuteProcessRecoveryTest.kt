@@ -120,7 +120,7 @@ class ChatMuteProcessRecoveryTest {
                     } }
                     ui.waitUntil(20_000) {
                         if (!displayed(hasText(freshText))) {
-                            try { ui.onNode(if (group) hasContentDescription("Group messages") else hasScrollAction()).performScrollToNode(hasText(freshText)) }
+                            try { ui.onNode(hasContentDescription(if (group) "Group messages" else "Private messages")).performScrollToNode(hasText(freshText)) }
                             catch (_: AssertionError) { /* Receipt may precede UI publication. */ }
                         }
                         displayed(hasText(freshText))

@@ -386,7 +386,7 @@ class ChatMutePreviewTest {
             if (!displayed(hasText(text))) {
                 try {
                     val groupHistory=hasContentDescription("Group messages")
-                    val history=if(ui.onAllNodes(groupHistory).fetchSemanticsNodes().isNotEmpty())groupHistory else hasScrollAction()
+                    val history=if(ui.onAllNodes(groupHistory).fetchSemanticsNodes().isNotEmpty())groupHistory else hasContentDescription("Private messages")
                     ui.onNode(history).performScrollToNode(hasText(text))
                 }
                 catch (_: AssertionError) { /* Incoming UI publication may still be pending. */ }

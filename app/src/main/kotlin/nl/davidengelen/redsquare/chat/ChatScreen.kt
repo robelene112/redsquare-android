@@ -14,6 +14,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.unit.dp
@@ -368,7 +370,8 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
             val replies = remember(wallet, backend, contact) { ChatReplyActions() }
             val reactions = requireNotNull(reactionState)
             val messageList = rememberLazyListState()
-            LazyColumn(Modifier.weight(1f), state = messageList) {
+            val messagesLabel=stringResource(R.string.chat_messages)
+            LazyColumn(Modifier.weight(1f).semantics{contentDescription=messagesLabel}, state = messageList) {
                 items(visible, key = { it.id }) { message ->
                     val outgoing = message.author == wallet.publicKey
                     Column(Modifier.fillMaxWidth().padding(vertical = 6.dp),
