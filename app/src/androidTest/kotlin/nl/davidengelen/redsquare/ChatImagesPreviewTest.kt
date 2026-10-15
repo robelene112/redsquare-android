@@ -87,15 +87,13 @@ class ChatImagesPreviewTest {
                             ui.waitUntil(20_000) { displayed(hasText("Groups")) || displayed(chat) }
                             if (!displayed(hasText("Groups"))) ui.onNode(chat).performClick()
                             val before = reads.get()
-                            if (group) {
-                                ui.waitUntil(20_000) { displayed(hasText("Groups") and hasClickAction() and isEnabled()) }
-                                ui.onNode(hasText("Groups") and hasClickAction()).performClick()
-                            }
                             val row = hasClickAction() and isEnabled() and hasAnyDescendant(hasText(if (group) groupName else contact))
-                            ui.waitUntil(20_000) {
-                                try { ui.onNode(row, useUnmergedTree = true).assertIsDisplayed(); true }
-                                catch (_: AssertionError) { false }
+                            if (group) {
+                                val groups = hasText("Groups") and hasClickAction() and isEnabled()
+                                ui.waitUntil(20_000) { displayed(groups) || displayed(row, unmerged = true) }
+                                if (displayed(groups)) ui.onNode(groups).performClick()
                             }
+                            ui.waitUntil(20_000) { displayed(row, unmerged = true) }
                             ui.onNode(row, useUnmergedTree = true).performClick()
                             ui.waitUntil(20_000) { displayed(hasSetTextAction() and isEnabled()) && reads.get() > before }
                         }
@@ -216,7 +214,8 @@ class ChatImagesPreviewTest {
         }
     }
 
-    private fun displayed(target: SemanticsMatcher) = try { ui.onNode(target).assertIsDisplayed(); true } catch (_: AssertionError) { false }
+    private fun displayed(target: SemanticsMatcher, unmerged: Boolean = false) =
+        try { ui.onNode(target, useUnmergedTree = unmerged).assertIsDisplayed(); true } catch (_: AssertionError) { false }
     private fun capture(name: String) = captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
         "chat-images-evidence/$name.png"))
 }

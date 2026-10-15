@@ -193,3 +193,11 @@ Retained20hash8XML; root2newdraftoriginalsseen, earlier6vieweroriginalsseenin
 priorqualifiedrun. Thisdoesnotprove earlierstyledmetadata cause. Nextgroup
 photodraft tracer reusesthesame selection/recovery/pixels/exacttext/no-wire flow
 with distinctgroupcaptures. ProductiongroupAddphoto absent; actualREDpending.
+
+Groupdrafttracer06814f6e Standards0, Spec1: BackleavesGroupslist, whereGroups
+entrybuttonisabsent. open() nowpositively waitsforeither clickableGroupsentry
+or the enabledexactnamedgrouprow inunmergedtree, entersGroupsonlywhenneeded,
+then openssameexactrow. FreshArchive/readiness/pixels/exactcaption/no-wire
+unchanged. ActiveRED38718728322 still068 and missingAddphotocriterionunchanged.
+No duplicate/cancelleddispatch. ReadonlyASTinspection alsofindsA/B actual
+addTransactionToGroup methodsbyte-identical3892characters, notliveproof.
