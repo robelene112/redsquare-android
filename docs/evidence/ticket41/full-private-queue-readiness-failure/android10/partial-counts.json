@@ -1,0 +1,89 @@
+{
+  "run": 38813599061,
+  "source": "b218c1f762eb67ce1f86fc33e20ffb2659ae5efb",
+  "reportedCases": 50,
+  "passedCases": 49,
+  "failedCases": 1,
+  "completionRecords": 12,
+  "actualDeathStages": 3,
+  "records": [
+    {
+      "log": "appearance-ui.txt",
+      "reported": 1,
+      "passed": 1,
+      "failed": 0
+    },
+    {
+      "log": "chat-image-history-ui.txt",
+      "reported": 2,
+      "passed": 2,
+      "failed": 0
+    },
+    {
+      "log": "chat-images-ui.txt",
+      "reported": 10,
+      "passed": 10,
+      "failed": 0
+    },
+    {
+      "log": "chat-keyboard-ui.txt",
+      "reported": 10,
+      "passed": 10,
+      "failed": 0
+    },
+    {
+      "log": "chat-mute-process/recovered.txt",
+      "reported": 1,
+      "passed": 1,
+      "failed": 0
+    },
+    {
+      "log": "chat-mute-process/restored.txt",
+      "reported": 1,
+      "passed": 1,
+      "failed": 0
+    },
+    {
+      "log": "chat-mute-ui.txt",
+      "reported": 8,
+      "passed": 8,
+      "failed": 0
+    },
+    {
+      "log": "chat-photo-group-process/recovered.txt",
+      "reported": 1,
+      "passed": 1,
+      "failed": 0
+    },
+    {
+      "log": "chat-photo-group-process/restored.txt",
+      "reported": 1,
+      "passed": 1,
+      "failed": 0
+    },
+    {
+      "log": "chat-photo-private-process/recovered.txt",
+      "reported": 1,
+      "passed": 1,
+      "failed": 0
+    },
+    {
+      "log": "chat-photo-private-process/restored.txt",
+      "reported": 1,
+      "passed": 1,
+      "failed": 0
+    },
+    {
+      "log": "chat-queue-ui.txt",
+      "reported": 13,
+      "passed": 12,
+      "failed": 1
+    }
+  ],
+  "deathLogs": [
+    "chat-mute-process/interrupted.txt",
+    "chat-photo-group-process/interrupted.txt",
+    "chat-photo-private-process/interrupted.txt"
+  ],
+  "wholeAppAcceptance": false
+}
