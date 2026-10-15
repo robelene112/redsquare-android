@@ -47,15 +47,16 @@ Opted-in public reads pass: owner feed1case22.951s, official feed1case10.967s,
 and public Chat1case1.612s. Feed originals visibly identify the selected backend
 and public content. Chat readiness authenticates both servers and receives empty
 Archive results for its fixture group; this is not a live write, existing-message
-history or recipient delivery proof. Public reads modify no node/wallet database.
+history or recipient delivery proof. No node configuration, application/wallet
+database mutation or transaction write was requested; server-side logging was not inspected.
 Existing signed5-to8updates and six native cold/update wallet observations pass.
 Final explicit local diagnostic verifies an identity/signature and sends nothing.
 
 The portable permission snapshot records original POST_NOTIFICATIONS=false;
 it does not establish restoration of a previously granted state. API37 excludes
 only the exact unrelated Digital Wellbeing package on the disposable emulator,
-with retained verified state. App crashes/ANRs remain failures. Only public
-synthetic captures/checkpoints and public network metadata are retained, never
+with retained verified state. App crashes/ANRs remain failures. Public synthetic
+captures/checkpoints and public-read captures/metadata are retained, never
 encrypted installation snapshots or private production signing material.
 
 Android10 companion38816539079 remains active at33d7f942. Its only relevant source
