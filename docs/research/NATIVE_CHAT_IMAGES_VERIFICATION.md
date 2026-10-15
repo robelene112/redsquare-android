@@ -336,3 +336,12 @@ Process.killProcess and independently observed new PID. Recovery requires the
 identical raw/Relay original once, decoded exact body, photo pixels, preserved
 old history/full wallet/backend and independent original-file restoration.
 Only private photo invocation added first; runtime pending, no acceptance claim.
+
+Practical history tracer uses the accepted protected cache seam: twelve valid
+320x240 deterministic noisy PNG photos below the actual500k source allowance,
+signed/encrypted public unsafe fixture originals. Total envelope bytes exceed
+5MiB. Requires all original history through a fresh store and a separate unsent
+draft/full installed identity/backend preserved. If insertion fails, verify
+previous accepted originals and draft remain before rethrowing. No network,
+owner wallet replacement, arbitrary cap increase or silent pruning. Native
+RED pending, added after private photo PID invocation.
