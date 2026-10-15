@@ -138,3 +138,7 @@ alreadyshowsGroups, plainChatheadingisnotclickable. Correctedopenrecognizesposit
 Groupsorreadyclickablefeednavigation, clicksChatonlyfromfeed, thenGroups/contact.
 Sharedpublicdisplaypredicatehasactualnavigation/contactcallers. No productchange,
 no deadlineincrease. Seven-case exactexecutionpending.
+
+Ready/restorednavigationcorrectiona662f5ed separateSpec0/Standards0. Exactfocused
+7case10run38671197348 ACTIVE, productionunchanged2d0ca6a7. No ownedlocalbuild;
+no full7case/runtime/whole28acceptanceyet. Retainactualnextresultbeforegroupminimum.

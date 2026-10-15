@@ -104,8 +104,10 @@ Otherfourcasespass. Retainedprivate-completion-navigation-attempt-android10.
 Fixture2f8ecec1 requiresdisplayed/enabledclicktarget+positiveGroupsdestination,
 same20s gates, noappchange. New7thSTORAGEregression obstructsprotectedfixturefile
 onlyafterdurabledraft, Sendmustpreservetext/noQueued; encryptedbytesrestoredfinally,
-repair/reopenmustnotautosend. No productionchange. Corrected7caseexecutionpending,
-no ownedbuild. Groups/process/full28stillpending.
+repair/reopenmustnotautosend. No productionchange. RestoredChatnavigationfixa662f5edf5eb6d8adf432da93a84ede64d7196e2 Spec0/Standards0:
+recognizeGroupsorreadyfeednav, do notclickplainrestoredheading. ACTIVE7casefocused10
+run38671197348 exacta662f5ed. Noownedlocalbuild. Do notduplicatedispatch. Production
+unchanged2d0ca6a7. Groups/process/full28stillpending.
 
 NEXT: review/verify ready-navigation+storage7cases, then groupqueues/freshmembership,
 groupqueuewithfreshmembership, actualprocessdeath, finalfull10/17/reviews/signed
