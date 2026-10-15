@@ -248,8 +248,15 @@ class ChatKeyboardPreviewTest {
                 { if(largeFont) {
                     fontDevice.executeShellCommand(if(priorFontSetting=="null")"settings delete system font_scale"
                         else "settings put system font_scale $priorFontSetting")
-                    check(fontDevice.executeShellCommand("settings get system font_scale").trim()==priorFontSetting) {
-                        "The exact original font setting must be restored"
+                    val restoredSetting=fontDevice.executeShellCommand("settings get system font_scale").trim()
+                    folder.mkdirs()
+                    File(folder,"$kind-font-restore.json").writeText(com.google.gson.JsonObject().apply {
+                        addProperty("expectedSetting",priorFontSetting);addProperty("observedSetting",restoredSetting)
+                        addProperty("expectedResource",priorFontScale)
+                        addProperty("observedResource",context.resources.configuration.fontScale)
+                    }.toString())
+                    check(restoredSetting==priorFontSetting) {
+                        "The exact original font setting must be restored: expected $priorFontSetting, observed $restoredSetting"
                     }
                     awaitFontScale(context,priorFontScale)
                 } })
