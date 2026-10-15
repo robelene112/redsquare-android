@@ -250,3 +250,10 @@ signedenvelopebyteequality. Normalgroupmessagegenerator was reexecuted byte-
 identical. Sanitizerhelper explicit--native-group-photo accepts that proof
 withoutclaiminggroupdecryption. DOMproofnowlinksoptionalnativeEnvelopeSHA.
 Actualgroupsend/referencepending; no productionchanges/newpipeline/fakeRED.
+
+Groupsendregressionc71e Standards1 stalehandoff(no signedSendproofyet/upcoming
+privateSend) corrected; Spec1 outerRelayordering expectedadminfirst butordinary
+Relaytransactionprependswalletsigner. Fixture nowexpects exact[wallet2,admin1]
+forbothcontexts, retainingexactmembership/oneRelay/originalandallUIcriteria.
+No productionroutingdefectinferred. Active38721331728 stilltests c71e; await
+completionbeforecorrecteddispatch. Actualgroupreferenceexecutionpending.

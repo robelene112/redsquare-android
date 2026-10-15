@@ -46,7 +46,7 @@ SUCCESS4PASS21.366s. Retained24hash10XML/root2newgroupdraftPNGsseen. Noownedloca
 Noownedlocalbuild. Strictphoto/canonicalescapeddivcaption+nativepicker/private
 composer nowimplemented, no storage/queueprotocolchanges. ActualpinnedA/B
 Browser.sanitize+offlineChromiumDOM/RGB exactcaption proof PASS, retained3hashes
-caption-web; helpers committedb54b1a73 reviewed0/0. No signednativeSendproofyet.
+caption-web; helpers committedb54b1a73 reviewed0/0. PrivateSendproof is recordedbelow.
 PrivateSend regression8ce9d04a source reviewed0/0, actual10run38720282977
 SUCCESS5PASS27.357s. One raw+Relay sameoriginal/visibleexactcaption/emptycomposer/
 identity/backend/noreports/restoration +priorfourcasesPASS. Retained31hash13XML,
@@ -62,7 +62,7 @@ defaultgroupmessagegeneratorreexecutedbyteidentical. Sanitizer explicitgroup
 nativeproofinput no claimofgroupdecryption. ActualgroupSend/referencepending.
 Canonical NATIVE_CHAT_IMAGES_VERIFICATION.md.
 
-Nextslices actualprivate/groupSend/queue/
+Nextslices groupSend/queue/
 failure/practical5MiBhistorybound/process/finalfull10+17 stillrequired. Protected
 untracked NATIVE_GROUP_CHAT_CONTRACT.md untouched. Continue allissues.
 

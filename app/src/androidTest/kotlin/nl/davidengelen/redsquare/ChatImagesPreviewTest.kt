@@ -182,7 +182,7 @@ class ChatImagesPreviewTest {
                                         ui.waitUntil(20_000) { peer.transactions.size == 1 && peer.relayedMessages.size == 1 }
                                         val sent = postingTransaction(peer.transactions.single())
                                         check(SaitoEnvelope.fromSignedJson(peer.relayedMessages.single()) == sent.envelope())
-                                        check(peer.relayRecipients.single() == if (group) listOf(contact, wallet.publicKey) else listOf(wallet.publicKey, contact))
+                                        check(peer.relayRecipients.single() == listOf(wallet.publicKey, contact))
                                         val author = if (group) GroupChat.readMessage(requireNotNull(
                                             nl.davidengelen.redsquare.chat.GroupChatStore(context, wallet, SaitoBackend.OWNER).load(groupId)
                                         ).group, sent.envelope()).author else PrivateChat.read(wallet, sent.envelope(), contact).author
