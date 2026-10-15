@@ -48,18 +48,30 @@ exacthash/directsignature/package/version/min29 andimmutable16 verified. Public-
 records docs/evidence/ticket27/signed-preview17-published. Preparedrecordsremain
 historical. No ownedlocalbuild/proofactive. No node/service/ingress/storechanges.
 
-NEXT sequential #28 offline private/group Chat queue, nativeblockers11/25/26closed.
-Read .scratch/queue28-source-read-notes.md, currentstores/composers/postqueueguarantees
-andparent1 approvedapplication/controlledpeer/protectedrecovery seams. No28codeyet.
-Preserve27STOPPEDuncertainhistory, immutable originals, freshidentity/backend/group
-membership guards; queueonlyexplicitmessages, noadmin/reaction/transferautosends.
-Continue28 through36 andparked16/17/19 withconcreteactualevidence.16requiresAndroid
-Giphy authorization/retention;17publicYouTubeplayerrefusalactualproviderunresolved;
+Current sequential #28 offline private/group Chat queue, assigned@me.
+Reviewbase09e0c58d7f51dcc334a35d7ac28ecc77a61d48ef; nativeblockers11/25/26closed.
+First actualRED10run38661648643 at6bf41c3c:onefail24.199s missingQueued50 after
+actualSend; originalunknown/error/Retry image inspected, laterrecreate/cancel/draft/
+no-wiretailunexecuted. Retained docs/evidence/ticket28/private-cancel-red-android10.
+FirstprivateQUEUEDminimum1ac274ab compile20120PASS3m35; historymergefindingcorrected
+28714c2151e72a544cb39f5ff8a093a8e9855041. Unclaimedoriginalstaysexclusivelyinwork,
+pendingbubbleonly; RawclaimedUNKNOWN, submittedthenordinarycache. Guardedcancel
+restorestextwithoutcacheentry. SeparatecorrectionSpec0/Standards0.
+ACTIVE exact28714c21 focused10run38662611803; no ownedlocalbuild. Awaitactual
+result/capturebeforenextslice. No automatic/groupqueueyet. Preservelegacyexplicit
+UNKNOWN/SUBMITTED retry,27STOPPEDhistoryandallpreviousfeatures.
+
+NEXT afterprivatecancelGREEN: automatic/backgrounddelivery+immutable originals,
+identity/backendpause/reconciliation/storagefailure, groupqueuewithfreshmembership,
+actualprocessdeath, finalfull10/17/twoaxisreviews/signednextbeta/closure28. Parent1
+approvedapplication/controlledpeer/protectedrecoveryseamsapply. Queueonlyexplicit
+messages; noadmin/reaction/transferautosends. Continue28through36 andparked16/17/19.
+16requiresAndroidGiphyauthorization/retention;17publicYouTubeproviderrefusal;
 19Registryavailabilityunproved.38brandingnormalprioritynotreleaseblocker.
-PhysicalPixel35 andPlay36 have actualexternalprerequisites. Never close fromfixture
-or emulator proof alone. Protected preexistinguntracked
-NATIVE_GROUP_CHAT_CONTRACT.md untouched. Largeartifacts underverifieddavidchild
-/mnt/storage/redsquare-android-artifacts. Do notstopafter27, ownerresumedallissues.
+PhysicalPixel35/Play36 actualexternalprerequisites, nofixture/emulatorreplacement.
+Protectedpreexistinguntracked NATIVE_GROUP_CHAT_CONTRACT.md untouched.
+Largeartifacts underverifieddavidchild/mnt/storage/redsquare-android-artifacts.
+Do notstopafter28, ownerresumedallissues.
 
 Storage migration observed Docker data now bind-mounted from /mnt/storage/docker;
 repo/.scratch remains on the system disk,63GiB free versus158GiB onadditional disk.

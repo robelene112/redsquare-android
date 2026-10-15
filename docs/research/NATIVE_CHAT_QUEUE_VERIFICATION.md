@@ -18,3 +18,13 @@ Localcompileinitial2m5s/corrected1m48s. ActualRED10run38661648643 at6bf failed
 onecase24.199s at50missingQueued afteractualSend; originalPNG/XMLrootseen shows
 unknown/genericerror/Retry. Retainedprivate-cancel-red-android10. Recreate/cancel/
 draft/no-wire tails unexecuted. Minimum durableQueued/cancel correction next.
+
+Private minimum1ac274ab adds durableQUEUED, sharedcancel/claimlock, UNKNOWN
+beforeactualRaw andexactdraftrestoration. Localdebug/testcompile20120PASS3m35s.
+Source review confirms rootidentifiedhistorymerge flaw: unclaimedoriginalmustnot
+enterordinarycache. Corrected28714c21 keepsQUEUEDas standalonependingbubble and
+cachesonlyafterRaw submitted; cancellationonlychangesguardedworkrecord. Added
+observable no-cancelled-bubble assertion; priorassertions/deadlinesunchanged.
+Boundedcorrection Spec0/Standards0. ExactsourceCIrun38662611803 runningchat-queue10;
+no GREENorwhole28acceptanceyet. Oldmanual UNKNOWN/SUBMITTED Retry behavior retained;
+automatic/background/groupdelivery remainnextslices.
