@@ -53,7 +53,7 @@ class ChatQueuePreviewTest {
                     ui.onNodeWithText("Cancel queued message").assertIsEnabled().performClick()
                     ui.waitUntil(15_000){ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty()}
                     ui.onNode(hasSetTextAction() and isEnabled()).assertTextEquals(text)
-                    val peer=ControlledFeedPeer("[]",advertisedServices="archive||;relay||")
+                    val peer=ControlledFeedPeer("[]",advertisedServices="archive||;relay||",archiveResponse={"[]"})
                     peer.start(port).use {
                         ui.waitUntil(20_000){peer.requests.get()>0}
                         android.os.SystemClock.sleep(6_000)
