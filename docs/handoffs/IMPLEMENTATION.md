@@ -7,6 +7,9 @@ one question at a time when a material choice really needs the owner.
 
 ## Current work
 
+**#41 first group slice build passed:** exec85694 COMPLETE0, core/debug/testAPK4m10s. Both reviews agreed on the missed ChatMuteProcessRecoveryTest group fallback; it is now scoped to Group messages, preserving private fallback/all assertions. Paired physicalRED evidence reviewsSpec0/Standards0 (28hashes/sixXML). Next run focused native pair for the corrected first minimum; notfull41acceptance.
+
+
 **#41 current update:** the isolated pair at f64b8903 actually reached the intended physical RED on both SDKs: Android10 run38798092666 (1failure8.983s) and Android17 run38798089450 (1failure26.863s), clickable Cancel ancestor36px at604..640 against48dp minimum. Both warning/failure originals root-viewed, allXML parsed; selected evidence `ticket41/viewport-isolated-red/android10` and `android17`,13/15 hashes. API37 Digital Wellbeing exactpackage disable state verified in retained records. No recreation/cancellation/no-wire tail reached in these REDs. Production minimum d6266320 now applied: finite group status/management scroller plus queued row outside, oldhandlers/guards preserved; group history fallback selectors scoped. Local core/debug/test build exec85694 ACTIVE, log `.scratch/chat41-group-status-minimum-compile.log`. Spec review found one additional group process-recovery fallback needing scope after build ends; actual standards review pending. First group slice only, private/composer/font slices/full suites/publication remain.
 
 
