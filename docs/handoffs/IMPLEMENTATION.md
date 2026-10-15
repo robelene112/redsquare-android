@@ -34,187 +34,68 @@ Unpublished20 stays unpublished. No owned build/device run active.
 #31 remains blocked by native #16: authorized Android Giphy key still unavailable;
 updated both tracker comments to narrow the old blanket reference-retention claim.
 
-**ACTIVE #40: keyboard-open Chat usability, native child of #35.**
-Review base a35ff6c1. Production last changed720e2007: explicit adjustResize,
-existing single root safeDrawing owner, temporary secondary chrome/reminder and
-history/group-control compaction while typing,72dp photo preview. Privacy,
-wallet/backend, draft and message/queue semantics remain. Compile PASS3m38s.
+**#40 COMPLETE, signed22 published:** keyboard-open private/group text/photo
+composition retains physical Send/privacy, exact drafts/captions, Back/reopening,
+restored controls and one explicit compatible submission. Reviewbasea35ff6c1;
+production720e2007. Both complete final runs at EXACTsame
+fabd4eb75f8499b895f7bdbb046f075c1ee11089 SUCCESS:
+10run38773302932=365reported/364PASS+onlyexistingAPI29profileassumption,
+86records27actualdeaths;17run38773307029=366PASS/87records27actualdeaths.
+Both core114/release/lint/allpreviousapplication/protected/public/coldwallet/
+immutable5→8/finaldiagnostic pass. Keyboard4PASS26.294s/41.614s. Final source,
+fixture and both complete evidence reviews Spec0/Standards0. Retained1024/1031
+hashes,378/380parsedXML,401/403PNG; root12originalsseenpersdk. Earlierfailures,
+non-atomicwindows/focused-contentpanning/offscreen/permissionfalsequalifications
+remain explicit. Prior prematuregroupqueuecause remainsunproved; currentafter-
+bindportallocation preservesalloriginalQueued/archive/no-repeatassertions.
+Canonical docs/evidence/ticket40/FINAL_ACCEPTANCE.md and final-full records.
 
-Focused candidate10run38757131128 PASS4/4 in16.168s,17run38757136280 PASS4/4
-in52.248s at720e2007, core114/debug/test. Root saw four original keyboard-open
-PNGs each,16XML and42hashes independently reviewed Spec0/Standards0. These
-predate stronger Back/reopen checks and are not complete acceptance.
+Public22/0.1.22: https://davidengelen.nl/redsquare/. Preparedsourcec0b143eb matches
+finaltestedproduction/buildinputs. APKsha5d4081c587c53575987890390fb042b34fc30b19d5e17c9d17f10905e910ef6d,
+establishedcert6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2,
+package nl.davidengelen.redsquare/min29. Directpublicpage/latest/immutable22/APK
+hash/cert/package/version/min29andunchangedimmutable21PASS. Public-onlyrecords
+signed-preview22-published. Artifact /mnt/storage/redsquare-android-artifacts/
+keyboard40-review22-source/.scratch/review-builds/22. No ownedbuild/deviceactive.
+Publicationrecordreview/issueclosurepending atthischeckpoint; finishthose then
+continue#19 sequentially. Do not stopafter40. No productionnode/config/service/
+wallet/chain/storeoperation. PhysicalPixel/finalintegrated35remainseparate.
 
-Initial reminder-dismissed text baseline17run38754302286 PASS2/2 in51.341s.
-Expanded first-use/photo baseline17run38755418301 FAILED4/4 in46.395s at
-immediate exact-editor visibility; non-atomic PNG/XML and transition timing
-qualified. Retained baseline-text-android17 and expanded-baseline-android17.
+Next#19: host-onlyfirst/lateRegistryreadsactuallyobserveSaitofallback21Bthen
+same-index431Bpublicproof, andemptyarrayforunusedprobe. Ownerreturnsfallbackonly
+within12s. ExactknownpublicSaitoverseproof passesUNCHANGEDcompiledcore registrar/
+field/signaturechecks. lc=1isunsignedserverhint, notindependentchainfinality.
+Read docs/evidence/ticket19/host-first-late-oct15 and host-public-proof-oct15,
+REGISTRY_CALLBACK_EXPERIMENT_2026_10_15.md, REGISTRY_READINESS_DIAGNOSIS_2026_10_15.md.
+Allresearchreviewed0/0, noAndroidfix/registrationacceptanceyet. CurrentSaitoPeer
+pending.remove consumesfirstresponse anddiscardslatearray. Nextcontrollednative
+REDattheexistingapp/peerseamthenminimalRegistry-onlyfallbackhandlingwithin
+ORIGINAL12s, preservingtype14/genericrequesterrors, strictproofs, nofalseempty
+availability, immutablecandidate/wallet/backend/explicitidenticalRetry. Do not
+silentlyfailoverselectedOwnerornodedeploy. Earlierplanforanindependentdebug
+observerisprovisional; laterhostpublicproofnowgivesconcretecauseforanarrowfix.
 
-Stronger full10run38758235562 and17run38758240578 atc0b143eb BOTH FAILED.
-10:4/4 fail56.98s;17:1PASS/3FAIL69.043s (group photo completed). Every failure
-is second readySend waiting10s for reopened IME after a semantics click.
-First IME/privacy/Send bounds, actual Back dismissal, exact draft/photo,
-restored chrome/reminder/group controls and no outgoing work passed beforehand.
-Later Send and downstream full gates are unexecuted in failed cases. Root saw
-2/4 selected originals;12XML each parsed. full-reopen-attempt records preserve
-failed conclusions. Selection toolbar is observed; precise touch cause unproved.
+#17 research YOUTUBE_PLAYBACK_DIAGNOSIS_2026_10_15.md and
+YOUTUBE_POSITIVE_CONTROL_2026_10_15.md: noidentityfixproved. NextboundedDEBUG
+numericerrorcapture beforemapping/teardown and initialchild-frameembedrequest
+metadata, explicitlyWebView-reportedheadersratherthanwireproof. Preserveactual
+packageorigin/security/Playingassertion. BothcurrentIDsareofficialexamples;
+third360degreeexampleisnotknownworking. No newplayback/sourcechanges.
+#35 CHAT_STATUS_VIEWPORT_2026_10_15.md plansboundedsecondarycontent/oversized
+composer withreachableSend/Cancel, allstate/guards/rootinsetpreserved. Known
+keyboard-CLOSEDwarningstackstillneedswork;40doesnotclose35. Researchonly.
+#32–34 NATIVE_CLOSED_APP_PUSH_REQUIREMENTS_2026_10_15.md recordsFCMdata-only/
+localprivacy/mute, tokenrotation andobservercoverage/Relaydelegationlimits.
+No Firebaseclient/gatewayimplementation/deploymentyet. OwnerGiphyAndroidkey/
+Firebaseprojectquestionsstillunanswered; continueindependentauthorizedwork.
+#36 concretepolicyorientation .scratch/play-oct15-orientation.md, reverifyactual
+account/policybeforepublishing. Preparematerials, notprematuresubmissionclaims.
 
-Fixture-only129d0901 replaces second semantics click with physical UiDevice tap
-inside positive native editor visible bounds, trailing padding away from handles.
-No app, assertion, deadline or class-budget change. Fix reviews Spec0/Standards0.
-Corrected focused10run38759985609 at129d0901 SUCCESS4PASS31.219s:
-actual Back/dismissal/draft/photo/control restoration, physical trailing-padding
-reopen and exact one Send/identity/restoration. Retained reopen-green-android10,
-root saw four original dismissed-unsent PNGs,12XML parsed. Some dismissal frames
-show focused-content panning; snapshots do not prove every transient position.
-Full10run38760924822 at2867694e FAILED in later PostPreviewTest:18cases,
-17PASS/1FAIL84.651s, Settings absent immediately after typing at175. The stronger
-keyboard class already passed4/4 in27.31s;35 completed logs indexed. No failing
-post-window capture exists; later backend/recreation assertions and remaining
-full gates are unexecuted. Retained full-post-navigation-attempt/android10.
-Fixture-only7789600b closesIME through platform API, waits visibleSettings10s,
-asserts exactowner draft/nooutgoing before unchanged navigation. Correction
-Spec0/Standards0. Focused posting10run38764936810 at778 SUCCESS18PASS95.198s plus posting
-process/cold reconciliation, core114/debug/test. Root saw original restored-draft
-PNG; retained post-navigation-green-android10. New full10run38765859044 at
-ede956c51d1234fe5d924f1a46d5b40e45db1646 later FAILED as qualified below.
-Profile adaptation739/b688 dismisses typing before Wallet at two import
-safeguards and repaired retry; exact EditableText avoids merged label. Source
-reviews0/0; focused results follow. Profile10run38765277087 at739 FAILED two exact matcher checks: merged Bio
-label compared alongside preserved EditableText.5/7 pass19.449s; otherclasses
-5/2/2 reported, including existing API29 assumption; later import/process checks unexecuted. Retained matcher-attempt.
-Corrected profile10run38766527800 at46612a30 SUCCESS7/5/2/2reported (15PASS+existingAPI29assumption), core114,
-debug/test and two actual profile process deaths/recovery. Root saw3 originals,
-3XML parsed; retained profile-navigation-green-android10. No app change.
-No production change; no acceptance from partial full.
-
-Focused17run38760340721 at129d0901 FAILED3PASS1FAIL71.555s, sole group-photo
-failure is check(device.pressBack()) injection boolean at153. Original PNG shows
-keyboard already closed/photo/draft; later guards unexecuted for that case.
-Retained reopen-injector-attempt-android17,11XML parsed/root failurePNGseen.
-Fixture-only39dcc708 logs injector ack and retains physical Back plus ALL actual
-IME/draft/photo/restored controls/reopen/Send/wire checks and original deadlines.
-Fixreviews Spec0/Standards0. Corrected focus17run38761787929 at39dcc708
-FAILED before emulator/app execution: SDKmanager unpacking x86_64-37.0_r06.zip
-Error reading Zip content from a SeekableByteChannel. No keyboard result exists.
-Source/core/debug/test build passed. Retained sdk-image-attempt-android17;
-raw failed log .scratch/keyboard40-reopen17-ack-failed.log. Cause unproved.
-One unchanged fresh-runner focus17 retry38762861549 at108e241b SUCCESS4PASS
-86.763s, core114/debug/test. All actual Back/draft/photo/restored-control/physical
-reopen/privacy/nativeSend/exactwire/identity/restoration checks pass. Retained
-reopen-green-android17:12XML parsed/root four original dismissed-unsent PNGs seen.
-SDKfailure remains FAILED, never app acceptance. Both stronger focusedSDKs now
-pass. Native summary does not retain println injector acknowledgements; no claim
-about their values in this successful run. Behavioral assertions are decisive.
-Old full17run38763901887 at47a73f87 FAILED at same old post Settings175:
-keyboard4PASS45.381s, posting17PASS/1FAIL95.842s.35 completed logs indexed,
-root saw4 keyboard-open originals/12XML parsed; no failing post-window capture.
-Later post/backend/recreation/full gates unexecuted. Retained android17 under
-full-post-navigation-attempt. The run predates post/profile fixture corrections.
-Both corrected fulls FAILED:10run38765859044 atede956c5 reaches profile,
-first fresh-bio extrahelper35 AnnotatedString equality fails despite same formatted
-EditableText,7cases6PASS/1FAIL32.326s; remaining profile classes pass with existing
-API29 assumption, downstream profile-process/full gates unexecuted.17run38768073681
-at3366d4b3 stops earlier in groupqueue archivedcase134 afterrecreate:13cases
-12PASS/1FAIL275.792s, exactmessage alreadyForwarded/history ratherthanQueued.
-Root saw originalfailurePNG+XML each. Source port-collision/worker/restoration
-cause unproved. Retained full-followup-attempt/android10 and17, both reviews0/0.
-No full device scope remains active after these failures. Production is unchanged.
-
-Fixture796e4ad3: exact EditableText.text String matcher with bounded10s wait and
-visible/enabled editor preserves characters without transient annotation equality;
-all later import assertions unchanged. Group diagnostics record bounded public
-ports, queued/candidate/history IDs and alternateclient/raw/Relay metadata at
-bind/before-recreate/failure; assert distinctports before Activity launch. No
-hypothesizedrouting fix or timeout change. Source reviews0/0; local testAPKcompile
-PASS2m36s, exec53159 COMPLETE0, no owned local Gradle. Corrected focused profile10
-and diagnostic groupqueue17 dispatched at78cd1471: profiles10run38771450430,
-groupqueue17run38771453775 SUCCESS6PASS163.851s/core114/debug/test.11 public
-checkpoints: all6 boundports distinct,5 prerecreate queuedIDs/historyempty/alternate
-rawRelayzero. Original prematureForwarded cause remainsunproved. Root sawarchived
-Queued/Availableoriginals,2XML parsed; retainedgroup-diagnostic-green-android17.
-Its Queued screenshot showslongkeyboard-closederrorstack/lowercontrolsbelow640px;
-notwholeconstrained-height/outage acceptance, which remains#35.
-Fixture40474853 now allocatesofflineport AFTER livealternatebind forbothprivate/
-group, retaininginequalityguards andoldbehaviorassertions. Noapp/budgetchange;
-newallocation stillrequiresfinalruntime. Correctionreview Spec0/Standards0. OWNED final pair at EXACTsamefabd4eb75f8499b895f7bdbb046f075c1ee11089:
-Android10run38773302932 and Android17run38773307029 ACTIVE, public_feed_read=true.
-Both newallocation/runtime/fullgates stillpending; neverduplicateactive scopes.
-Source/core/release/lintbuild stage passes before each current runtime stage.
-No localGradle/build active. Finalretainer .scratch/retain-keyboard40-final-full.py
-now also validates/retains11 boundedqueue checkpoints (6distinctboundportpairs,
-5queuedpre-recreate/noalternaterawRelay). Syntaxchecked, notexecutedonnewfullsyet.
-Profiles10run38771450430 at78 SUCCESS:7/5/2/2reported,15PASS+existingAPI29
-modern-fault assumption;37.895/27/19.826/27.43s. Core114/debug/test and two actual
-profile deaths/recovery pass. Root saw3 originals,3XML parsed; retained profile-
-text-green-android10. Older focused profile OK5 summaries explicitly corrected
-from5PASS to4PASS+existingassumption, no raw result changed. Both complete fulls
-still required after group diagnosis.
-Public21 remains current; prepared22 unpublished. Full completion still required.
-No local Gradle/build process active. Production
-remains identical to720e2007/c0/prepared22; do not rebuild/re-reserve unnecessarily.
-
-Signed22/0.1.22 BUILT/VERIFIED, UNPUBLISHED. Immutable detachedc0b143eb, product-
-identical to720e2007/current129d0901. Local build PASS4m29s, exec21423 ended0.
-Artifact /mnt/storage/redsquare-android-artifacts/keyboard40-review22-source/
-.scratch/review-builds/22. SHA5d4081c587c53575987890390fb042b34fc30b19d5e17c9d17f10905e910ef6d,
-established certificate6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2,
-package nl.davidengelen.redsquare/22/0.1.22/min29. Counter22; no local build active.
-Metadata review22-build Spec0/Standards0; APK independently hashed by root/reviewer. Public21 remains current; publish22 only
-after complete gates and final review. Prepared .scratch/verify-review22-public.py
-must run only AFTER publication; validates direct public artifacts and immutable21.
-Final retainer .scratch/retain-keyboard40-final-full.py validates exact class set
-plus4, same27 actual deaths, all old gates and portable permission qualification.
-
-Read-only research completed in YOUTUBE_PLAYBACK_DIAGNOSIS_2026_10_15.md and
-REGISTRY_READINESS_DIAGNOSIS_2026_10_15.md; no other agent implementation/CI.
-YouTube identity follows docs; retain numeric onError before teardown and actual
-initial embed Referer. Old10 WebView74 cannot explain17's refusal with145.
-Registry A/B callback fallback can precede valid late response, native consumes
-first index; actual21-byte body not retained, so correlation is not live cause.
-Next19 diagnostic should observe bounded first/late same-index responses while
-preserving strict proof/registration and12s deadline, before any workaround.
-Both research reviews Spec0/Standards0. Follow-up research-only
-REGISTRY_DIAGNOSTIC_PLAN_2026_10_15.md atcb27b7db also reviewed0/0: separate
-DEBUG/public-probe observer sees first/late frames without changing normal
-first-response semantics, original request-entry12s deadline, bounded copying,
-cancellable remaining-window drain and strict public classification. Not implemented.
-Offline exact-pinned Registry callback experiment at51528158 passes8 scenarios,
-source/harness/provenance hashes retained in ignored scratch, no live/nativeclaim.
-ROOT host-only read16:36:12UTC, docs/evidence/ticket19/host-first-late-oct15:
-both authenticate+advertiseRegistry; OWNER exact21Bfallbackonly within12s, SAITO
-fallbackthen same-index[] and one-row431Barray about3.6mslater. Bodies/proofs not
-retained/verified except exact fallback. Actual current host response-order proof,
-not native-run/deployed-revision/registration acceptance. Standalone fixedunsigned
-namechecks only, readonly container pinnedpureWASM/node deps, no production writes.
-Both sourceexperiment/hostevidence reviews Spec0/Standards0. Follow-up
-host-only knownpublicname read16:59:35UTC at549a6a94 again observeslate431Barray
-onSaito andfallbackonlyOwner. Exactrawknownpublicproof passes UNCHANGED compiled
-core SaitoRegistry.readNamecheck: verified-active/Saitoverse ownerqeyGZPxRZ... .
-Signature+fieldshapeschecked, lc explicitlyunsignedserverhint not independent
-canonicalchain/finality. NoAndroidapp/nativefix/registrationacceptance. Public
-probe/harness/results/class/dependency hashes docs/evidence/ticket19/host-public-
-proof-oct15, bothreviews0/0. Nextnativeworkaroundnowhasconcretejustification.
-Research-only CHAT_STATUS_VIEWPORT_2026_10_15.md proposesboundedsecondary statuses/
-composercontent and reachableSend/Cancel, preservesallstate/guards/insetowner;
-noimplementation ornewownerrequirement, bothreviews0/0. #40stillsoleimplementation.
-Tracker updates17comment6195891653 and
-19comment6195892085 link concrete next diagnostics. No node/credential changes.
-Owner updated home instructions mid-session: reread global/proactive/GitHub
-skills and fetched shared source /home/david/agent-skills and app upstream.
-Skills main1dbca7a and app then2867694e each0ahead/0behind; no pull required.
-Protected untracked contract left intact. Reuse this sync within the session.
-
-Finish40, then continue remaining original issues without routine permission.
-Physical Pixel, final integrated35 and Play remain separate. Protected untracked
-NATIVE_GROUP_CHAT_CONTRACT.md remains untouched. Dated keyboard-layout research
-predates40; do not repeat its old claim that no layout implementation changed.
-
-Fresh push prerequisites in `NATIVE_CLOSED_APP_PUSH_REQUIREMENTS_2026_10_15.md`
-correct old token guidance and qualify chain/Relay/delegated-session coverage.
-No Firebase client/gateway implementation or deployment occurred. Owner Giphy/
-Firebase configuration questions remain unanswered; continue independent work.
-No node/config/wallet/production writes or store/physical acceptance claims.
+This session alreadyfetched sharedskills/app upstream;skillsmain1dbca7aclean0/0.
+Reusechecks. Currenthostlacks/dev/kvm; nativeproofrunsGitHub. Largeartifactson
+/mnt/storage, no ownedlocalGradle. Protecteduntracked
+NATIVE_GROUP_CHAT_CONTRACT.md untouched. Source-reviewrecord
+SOURCE_REVIEW.md and allrawfailed/focused/fullrecordspreservechronology.
 
 **#29 COMPLETE and CLOSED, 2026-10-15T09:08:20Z:**
 Persistent private/group conversation mute keeps messages readable and explains
