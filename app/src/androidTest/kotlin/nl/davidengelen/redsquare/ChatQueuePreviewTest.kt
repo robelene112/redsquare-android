@@ -16,10 +16,10 @@ class ChatQueuePreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
 
     @Test fun anOfflinePrivateMessageRemainsCancellableAfterReopening() = exercisePrivateQueue(cancel=true)
-+
-+    @Test fun anOfflinePrivateMessageResumesOnItsOriginalSignatureWhileBackgrounded() = exercisePrivateQueue(cancel=false)
-+
-+    private fun exercisePrivateQueue(cancel:Boolean) {
+
+    @Test fun anOfflinePrivateMessageResumesOnItsOriginalSignatureWhileBackgrounded() = exercisePrivateQueue(cancel=false)
+
+    private fun exercisePrivateQueue(cancel:Boolean) {
         val context=InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName=="nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu","goldfish"))
@@ -54,7 +54,7 @@ class ChatQueuePreviewTest {
                     ui.onNode(hasSetTextAction() and isEnabled()).performTextReplacement(text)
                     ui.onNodeWithText("Send").performClick()
                     waitFor("Queued")
-                    captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/private-queued.png"))
+                    captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/private-${if(cancel)"cancel" else "resume"}-queued.png"))
                     scenario.recreate();open();waitFor("Queued")
                     val originalCandidate=requireNotNull(nl.davidengelen.redsquare.chat.ChatWorkStore(context,wallet,SaitoBackend.OWNER,contact).load().transaction)
                     if(cancel) {
