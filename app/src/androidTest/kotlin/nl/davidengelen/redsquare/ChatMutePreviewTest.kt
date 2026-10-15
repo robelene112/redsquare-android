@@ -252,6 +252,135 @@ class ChatMutePreviewTest {
         }
     }
 
+    @Test fun conversationChoicesFollowTheBackendAndRemainIsolatedWhenTheWalletChanges() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
+        val admin = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe fixtures only.
+        val groupId = SaitoWallet.fromPrivateKey("0".repeat(63) + "3").publicKey
+        val name = "Wallet-scoped conversation"
+        fun fixtureWallet(scalar: String) = SaitoWallet.fromPrivateKey("0".repeat(63) + scalar)
+            .withChatContact(admin.publicKey).withNamedChatGroup(groupId, name)
+        val first = fixtureWallet("2"); val second = fixtureWallet("4")
+        val wallets = AndroidWalletStore(context); val original = wallets.loadOrCreate()
+        val backends = AndroidBackendStore(context); val originalBackend = backends.load()
+        val retained = listOf(first, second).map { wallet ->
+            val prefixes = SaitoBackend.entries.flatMap { backend ->
+                listOf("chat.${backend.id}.${wallet.publicKey}.", "chatwork.${backend.id}.${wallet.publicKey}.",
+                    "chatreactions.${backend.id}.${wallet.publicKey}.", "groupchat.${backend.id}.${wallet.publicKey}.")
+            } + "personal.${wallet.publicKey}."
+            MutingFixtureState(context, prefixes, wallet.publicKey)
+        }
+        val alerts = FixtureAlerts(context)
+        val reads = java.util.concurrent.ConcurrentHashMap<String, AtomicInteger>()
+        val peer = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", archiveResponse = { criteria ->
+            criteria.get("field3")?.asString?.let { reads.computeIfAbsent(it) { AtomicInteger() }.incrementAndGet() }
+            "[]"
+        })
+        val device = androidx.test.uiautomator.UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+        fun chatList() {
+            val chat = hasText("Chat") and hasClickAction() and isEnabled()
+            ui.waitUntil(20_000) { displayed(hasText("Groups")) || displayed(chat) }
+            if (!displayed(hasText("Groups"))) click(chat)
+            ui.waitUntil(20_000) { displayed(hasText("Groups")) }
+        }
+        fun open(wallet: SaitoWallet, group: Boolean = false) {
+            chatList()
+            val id = if (group) groupId else PrivateChat.conversationId(wallet.publicKey, admin.publicKey)
+            val before = reads[id]?.get() ?: 0
+            if (group) { click(hasText("Groups")); click(hasText(name)) }
+            else click(hasText(admin.publicKey))
+            ui.waitUntil(20_000) { displayed(hasSetTextAction() and isEnabled()) && (reads[id]?.get() ?: 0) > before }
+        }
+        fun returnToChats(group: Boolean = false) {
+            device.pressBack()
+            if (group) {
+                ui.waitUntil(20_000) { displayed(hasText("Create group")) }
+                device.pressBack()
+            }
+            ui.waitUntil(20_000) { displayed(hasText("Groups")) }
+        }
+        fun mute() {
+            click(hasContentDescription("Mute conversation")); click(hasText("Mute"))
+            ui.waitUntil(20_000) { displayed(hasContentDescription("Unmute conversation") and isEnabled()) }
+        }
+        fun receive(wallet: SaitoWallet, text: String, requestId: Int) {
+            val incoming = PrivateChat.create(admin, wallet.publicKey, text, 1700000080400L + requestId)
+            peer.sendIncoming(incoming.applicationRequest(1).drop(5).toByteArray(), requestId = requestId)
+            ui.waitUntil(20_000) { peer.incomingAcknowledgements.any {
+                it[0] == 13.toByte() && java.nio.ByteBuffer.wrap(it, 1, 4).int == requestId
+            } }
+            showMessage(text)
+        }
+        var primary: Throwable? = null
+        try {
+            retained.forEach { it.prepare() }
+            wallets.replace(original, first); backends.save(SaitoBackend.OWNER)
+            val creation = GroupChat.create(admin, groupId, name, listOf(first.publicKey, second.publicKey), 1700000123400)
+            listOf(first, second).forEach { wallet -> SaitoBackend.entries.forEach { backend ->
+                nl.davidengelen.redsquare.chat.GroupChatStore(context, wallet, backend).receive(creation.envelope())
+            } }
+            peer.start().use { server ->
+                fun launch() = ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                    .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${server.port}/wsopen"))
+                launch().use {
+                    withFailureCapture({ capture("scope-backend-failure") }) {
+                        open(first); mute(); returnToChats()
+                        open(first, group = true); mute(); returnToChats(group = true)
+                        device.pressBack()
+                        click(hasText("Settings")); click(hasText("saito.io"))
+                        ui.waitUntil(20_000) { displayed(hasText("Server: saito.io")) }
+                        open(first)
+                        ui.onNodeWithContentDescription("Unmute conversation").assertIsDisplayed()
+                        capture("scope-private-muted-on-official")
+                        returnToChats(); open(first, group = true)
+                        ui.onNodeWithContentDescription("Unmute conversation").assertIsDisplayed()
+                        capture("scope-group-muted-on-official")
+                        check(wallets.loadExisting().exportJson() == first.exportJson() && backends.load() == SaitoBackend.OFFICIAL)
+                    }
+                }
+                // The protected identity seam avoids repeating the already accepted SAF replacement flow.
+                wallets.replace(wallets.loadOrCreate(), second)
+                val secondText = "Only the second wallet receives this private message"
+                launch().use {
+                    withFailureCapture({ capture("scope-second-wallet-failure") }) {
+                        open(second)
+                        ui.onNodeWithContentDescription("Mute conversation").assertIsDisplayed()
+                        receive(second, secondText, 900)
+                        verifyGenericNotification(alerts, "Private chats", "scope-second-wallet-generic-alert")
+                        mute(); returnToChats(); open(second, group = true)
+                        ui.onNodeWithContentDescription("Mute conversation").assertIsDisplayed()
+                        capture("scope-same-group-unmuted-for-second-wallet")
+                        check(wallets.loadExisting().exportJson() == second.exportJson() && backends.load() == SaitoBackend.OFFICIAL)
+                    }
+                }
+                alerts.restore()
+                wallets.replace(wallets.loadOrCreate(), first)
+                launch().use {
+                    withFailureCapture({ capture("scope-restored-wallet-failure") }) {
+                        open(first)
+                        ui.onNodeWithContentDescription("Unmute conversation").assertIsDisplayed()
+                        ui.onNodeWithText(secondText).assertDoesNotExist()
+                        receive(first, "The first wallet still silences its own conversation", 901)
+                        alerts.assertSilence(); capture("scope-restored-private-muted-incoming-readable")
+                        returnToChats(); open(first, group = true)
+                        ui.onNodeWithContentDescription("Unmute conversation").assertIsDisplayed()
+                        capture("scope-restored-group-choice-retained")
+                        check(wallets.loadExisting().exportJson() == first.exportJson() && backends.load() == SaitoBackend.OFFICIAL)
+                        check(peer.clientKeys.toSet() == setOf(first.publicKey, second.publicKey))
+                        check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty() && peer.reports.isEmpty())
+                        peer.assertHealthy()
+                    }
+                }
+            }
+        } catch (failure: Throwable) { primary = failure; throw failure }
+        finally {
+            cleanupAfterTest(primary, { alerts.restore() }, { retained[0].restoreFiles() }, { retained[1].restoreFiles() },
+                { wallets.replace(wallets.loadOrCreate(), original) }, { backends.save(originalBackend) },
+                { retained[0].restorePreferences() }, { retained[1].restorePreferences() })
+        }
+    }
+
     private fun showMessage(text: String) {
         ui.waitUntil(20_000) {
             if (!displayed(hasText(text))) {

@@ -13,30 +13,23 @@ migration pause recorded below. Commit/push each ticket and keep signed reviews
 available. Do not pause after the next ticket or ask routine approvals.
 
 **Latest #29 checkpoint, supersedes dated ACTIVE notes below:**
-CurrentHEAD26a79e3b2050c00dc5287dabb573a1c4c9cd0fa9, sourceprivate/groupnative
-notificationroutef518be53. Actual4case dedupGREENboth53adc844:10run38698778675
-4PASS34.884s,17run38698781938 4PASS88.570s, each28hash12XMLretaineddedup-green-
-android10/17. Bothcategories/genericOSshades, mute/readable/exactdraft/recreate/
-unmute/no-wire andidenticalsignedredeliveryRPC778 afterclearingalert/afterunmute
-pass. RootfourneworiginalPNGseenpersdk/allXMLparsed, sourcetracer/evidence0/0.
-Groupmembershipfreshguardincluded butno scheduledconcurrencyrace claimed.
+Current implementation includes private/group mute, generic live Android alerts,
+exact-draft recreation fixes, authenticated dedup and fresh membership checks.
+Seven-case Android10 run38700873867 exact9fc36231 PASS74.080s, including failed
+private/group Unmute and unreadable-policy ACK/cache/silence/repair. Retained
+62hash29XML unreadable-policy-green-android10; root three new originals seen.
+Later12af76e9 cleanup-only correction reviewed Spec0/Standards0, not executed by
+that older run. Earlier four-case dedup GREEN bothSDKs retained. Canonical
+chronology docs/research/NATIVE_CONVERSATION_MUTE_VERIFICATION.md.
 
-New6case fixture26a79e3b adds private/group FAILED_UNMUTE via existingOSsync
-faultpersonalCommitSyncUnavailable setonActivityintent. Actualsaveerror+retained
-mute, freshdistinctsignedincomingRPC779 readable/ACKed/silent, recreatechoice/
-cache/exactdraft, removefault andexplicitrepair/unmute/dedup. Per-casecapture
-prefixes andboundedactualscroll/display preserveallassertions. Bothreviews0/0;
-no prodchange orfalseREDclaim. Ownedfocused10run38699942542 exact26a ACTIVE,
-no localbuild orotherownednativeactive. Inspectactual6case proofbefore nextslice.
-Nextremaining29: unreadablepolicy optionalalertfailclosed+ACK/cache/repair/no-
-retrospectivealert; combinedbackendselection/protectedidentityisolation/recovery;
-one actual process-interrupted policycommit containing bothprivatehash/groupid.
-Reuseaccountpolicy/wallet safeguardsratherthanretestingallSAFflows. Approved
-read-onlygap-audit foundno newsourcebug. Then finalfullbothSDK/allgates/review/
-signed19publication/close29, continuesequentiallyallremainingissues. Stable18
-unchanged,19notreserved. Protected untrackedgroupcontractuntouched. No external
-prerequisite answer neededforthisactive29. Currenthostconfirmedno/dev/kvm,
-so nativeemulatorproofremainsGitHub; no hostmodule/servicechanges.
+New eighth combined backend/identity fixture checks actual UI mutes and Settings
+switch, protected second-wallet isolation with same group ID, positive alert,
+then restored first-wallet muted readable incoming and silence. Pending compile/
+review/native result. No local build or owned native run active. Next: actual
+process-interrupted policy commit containing both private/group mutes, then final
+full bothSDK/all gates/review/signed19/close29. Continue all remaining issues.
+Stable18 unchanged;19 not reserved. Protected untracked group contract untouched.
+No production node/wallet writes. Current host has no /dev/kvm; native proof CI.
 
 Twenty-four of the original35 tickets are complete (#2 through#15,#18,#20 through#28).
 Issue39 group Chat visual polish COMPLETE, signed16/0.1.16 published at

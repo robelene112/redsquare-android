@@ -225,3 +225,18 @@ Unreadablepolicytracer9fc36231 Standards0, Spec1helpercleanup couldmaskprimary
 assertionifbadfiledeletionfailed. Correctedhelper uses existingcleanupAfterTest
 withretainedprimary, matchingouterindependentfixturecleanup. Noactualcriterion/
 productionchange. Ownedfirst7-case38700873867 exact9fc ACTIVE; no duplicate.
+
+UnreadablepolicyGREEN10run38700873867 exact9fc36231:7PASS74.080s. Positive
+OSalert, scopedbadpolicy freshACK779/readable/silent, repair originalACK780/
+oneUI/silent, freshACK781/actualgenericOSalert andprior6PASS. Retained
+unreadable-policy-green-android10(62hash29XML), root3neworiginalsseen/allXMLparsed.
+Later12af76e9 cleanup-primary correction bothreviews0/0, notexecutedbyolderrun.
+
+Nextsingle combinedbackend/identity regression uses actualUI mutes forprivate
+andgroup onOWNER, actualSettings switchtoOFFICIAL withbothchoicesretained;
+protectedfixturewalletswitch tosecondidentity withsamegroupID defaultunmuted,
+positivegenericprivateOSalert, independentsecondwalletmute; restorefirstwallet,
+itsownmute/readablefreshincoming/silence andsamegroupchoice remain. Scopedtwo-
+walletsnapshot/independentcleanup, fullwallet/backend/no-wire assertions. Reuses
+approvedprotectedidentityseam withoutrepeatingSAF workflows. No prodchange or
+falseREDclaim. Native8case proofpending; processinterruption stillremaining.
