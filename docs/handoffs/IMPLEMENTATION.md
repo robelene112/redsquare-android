@@ -141,7 +141,10 @@ ActualbackgroundexactRawRelay/outputs/decode/history/key/FWD/resumedUIpassand
 cancelpass. Retainedgroup-background-green-android10/rootresultseen. Added2
 regressions forexistingfreshselfremoval+Cancel andexactArchivegrouporiginal
 reconciliation, noappchange. Focusedgroup4/normalclass11firstexecutionpending.
-Group4run38677817471 exact846440f8 ACTIVE, noownedlocalbuild. No duplicate.
+Group4run38677817471 exact846440f8 SUCCESS4PASS112.294s. Removedauthor
+zeroWire/Cancel andexactArchivegroupsig/reconcile/no2ndRaw/noRelay/recreatepass;
+retainedgroup-four-green-android10/rootoriginalsseen. Local28656testcompileACTIVE
+onprocessfixture3e8d62bd. No app/testeditsuntilfinished. Noactiveproof.
 Addedremainingstoragefailure+identity/backendscoperegressions, noappchanges;
 focusedgroup6/fullclass13 firstexecutionpending. Groupappsource65c57b5c.
 Groupappminimumebd9f700 applied, notyetaccepted. Groups/process/full28stillpending.

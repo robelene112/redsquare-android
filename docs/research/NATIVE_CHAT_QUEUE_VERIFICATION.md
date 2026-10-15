@@ -290,3 +290,10 @@ assert_process_gone/finish_process_fixture seams, opt-inprocessscopesbothSDKs an
 bothjourneysincludedinfinalfull. ScriptsyntaxchecksPASS; firstnativeexecution
 andtestcompilationpending. Existinggroup4run38677817471 stillfinishing, newgroup6
 storage/scope+sharedfixture8260df94 reviewedSpec0/Standards0. No whole28claim.
+
+Group4GREEN10run38677817471 exact846440f8:4PASS112.294s, cancellation/background/
+removedauthorzeroWire+readablequeue+Cancel/exactdisableddraft/priorcreation+key,
+Archive exactsig/group/original AVAILABLE/no2ndRaw/noRelay/recreate/key allpass.
+Rootoriginalremoved/archivedresultsseen; production65c57b5c unchanged. Retained
+ group-four-green-android10. Storage/scope6+process3e8d62bd nativepending; local
+28656compileDebugAndroidTestKotlin ACTIVE on3e8d62bd. No app/testeditsuntilfinished.
