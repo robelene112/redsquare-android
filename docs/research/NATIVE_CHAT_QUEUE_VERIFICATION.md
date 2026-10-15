@@ -180,3 +180,9 @@ untilsocketclaim. Queuedfreeze/noRetry/currentownmembershipatclaim; Cancelsame
 selectionlockrestores exacttext/priorcreationstatus/key. Existingmanualprepare
 APIdefaultunchanged. UIexplicitmessageSendoptsinonly, pendingbubble/status/cancel.
 Noautomaticgroupresumptionyet; localcompile/correctedruntimepending.
+
+Grouponlyminimumebd9 sourceSpec0; Standards identified repeatedauthenticated
+replayonComposerenderpath. CorrectioncarriesalreadyvalidatedGroupChatMessage in
+queuedentry, rendersdirectly. Sameencryptedrecordschema/causalvalidation. Local
+compile8900FAILED58s requiredonQuotemissing, nowexplicitno-oplikeprivatepending
+bubble. Correctedcompile/runtimepending. Stalehandoffproductionqualifierfixed.

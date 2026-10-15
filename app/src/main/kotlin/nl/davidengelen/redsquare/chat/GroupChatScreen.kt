@@ -366,8 +366,8 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             LazyColumn(Modifier.weight(1f).semantics{contentDescription=messagesLabel},
                 state=messageList,verticalArrangement=Arrangement.spacedBy(8.dp)) {
                 entry.queuedMessage?.let { queued -> item(key="queued:${queued.candidate.id}") {
-                    val pending=GroupChat.readMessage(GroupChat.replay(entry.group,entry.originals.take(queued.observedEvents)).group,queued.candidate.envelope())
-                    ChatMessageBubble(pending.author,pending.text,pending.createdAt,true)
+                    val pending=queued.message
+                    ChatMessageBubble(pending.author,pending.text,pending.createdAt,true,onQuote={})
                 } }
                 items(visible,key={it.id}){item->
                     val outgoing=item.author==wallet.publicKey

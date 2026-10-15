@@ -14,7 +14,7 @@ internal class GroupChatStorageException(cause:Exception):IllegalStateException(
 internal class GroupChatStore(private val context: Context, private val wallet: SaitoWallet, private val backend: SaitoBackend) {
     enum class Status { UNKNOWN, SUBMITTED, FORWARDED, RECEIVED, STOPPED }
     data class StoppedAction(val candidate:SaitoTransaction,val previousStatus:Status)
-    data class QueuedMessage(val candidate:SaitoTransaction,val observedEvents:Int)
+    data class QueuedMessage(val candidate:SaitoTransaction,val observedEvents:Int,val message:GroupChatMessage)
     data class Entry(val group: NamedChatGroup, val candidate: SaitoTransaction?, val status: Status, val creationKey: SaitoWallet? = null, val originals:List<String> = emptyList(), val messages:List<GroupChatMessage> = emptyList(), val draft:String = "", val reactions:List<GroupChatLikeEvent> = emptyList(), val ownCreation:Boolean=false,val stoppedActions:List<StoppedAction> = emptyList(),val queuedMessage:QueuedMessage?=null) {
         fun likedBy(message:GroupChatMessage)=GroupChatReplay(group,messages,originals,reactions=reactions).likedBy(message)
         val hasPendingAction:Boolean get()=queuedMessage!=null||status==Status.UNKNOWN||status==Status.SUBMITTED
@@ -92,9 +92,10 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
             require(observed in 0..history.originals.size && status !in listOf(Status.UNKNOWN,Status.SUBMITTED))
             val prepared=GroupChat.replay(origin,history.originals.take(observed)).group
             require(prepared.memberRoles[wallet.publicKey]?.active==true)
-            require(GroupChat.readMessage(prepared,pending.envelope()).author==wallet.publicKey)
+            val message=GroupChat.readMessage(prepared,pending.envelope())
+            require(message.author==wallet.publicKey)
             require(pending.envelope() !in history.originals)
-            QueuedMessage(pending,observed)
+            QueuedMessage(pending,observed,message)
         }
         Entry(group,candidate,status,creationKey,history.originals,history.messages,draft,history.reactions,
             creation!=null && SaitoEnvelope.decode(creation).author==wallet.publicKey,stopped,queued)
@@ -221,8 +222,9 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         require(signed.author==wallet.publicKey && signed.body.get("request").asString=="chat message")
         val previous=requireNotNull(load(signed.body.get("group_id").asString))
         check(!previous.hasPendingAction && previous.group.memberRoles[wallet.publicKey]?.active==true)
-        require(GroupChat.readMessage(previous.group,candidate.envelope()).author==wallet.publicKey)
-        if(queued)return@synchronized save(previous.copy(queuedMessage=QueuedMessage(candidate,previous.originals.size),draft=""))
+        val message=GroupChat.readMessage(previous.group,candidate.envelope())
+        require(message.author==wallet.publicKey)
+        if(queued)return@synchronized save(previous.copy(queuedMessage=QueuedMessage(candidate,previous.originals.size,message),draft=""))
         val replay=GroupChat.replay(previous.group,previous.originals+candidate.envelope())
         save(previous.copy(group=replay.group,originals=replay.originals,messages=replay.messages,reactions=replay.reactions,candidate=candidate,status=Status.UNKNOWN,draft=""))
     }

@@ -118,7 +118,7 @@ Retainedgroup-cancel-red-android10. Groupcancelminimumseparatequeuedoriginal/
 causalpreparationmembership/noordinaryhistoryuntilclaim/currentmembershipguard/
 exactdraftCancel/preservedpriorstatus+key nowapplied; defaultmanualAPIunchanged.
 No groupautomaticresume. Localcompile/correctedruntimepending; noactiveproof.
-Productionunchanged2d0ca6a7. Groups/process/full28stillpending.
+Groupappminimumebd9f700 applied, notyetaccepted. Groups/process/full28stillpending.
 
 NEXT: review/verify ready-navigation+storage7cases, then groupqueues/freshmembership,
 groupqueuewithfreshmembership, actualprocessdeath, finalfull10/17/reviews/signed
