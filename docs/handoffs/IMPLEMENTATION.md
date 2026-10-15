@@ -62,10 +62,17 @@ defaultgroupmessagegeneratorreexecutedbyteidentical. Sanitizer explicitgroup
 nativeproofinput no claimofgroupdecryption. FirstgroupSend10run38721331728 exactc71e FAILED6cases5PASS1FAIL29.808s after
 one raw+Relay sameoriginal atwrongrecipientorderassert185. Retained6hash1XML/
 rootPNGseen; no capturedgroupenvelope/finaltail. Fixture5f85b5e1 expects exact
-signer-first[wallet,contact], reviewed0/0; no prodchange. Correctedrun/referencepending.
+signer-first[wallet,contact], reviewed0/0; no prodchange. Corrected10run38721940218 exactff707 SUCCESS6PASS27.184s. BothSend/fulloriginal/
+currentRelay/visiblecaption/emptycomposer/identity/restoration +priorfourPASS.
+Retained38hash16XML/rootnewgroupoutgoingPNGseen. ActualA/Bconstructors independent
+signedenvelopebyteequality andsanitizer/DOM/JPEGRGB+exactcaptionPASS, 4hashgroup
+interop, sameenvelopeSHAallstages. No encryption/liveadmissionclaim.
 Canonical NATIVE_CHAT_IMAGES_VERIFICATION.md.
 
-Nextslices groupSend/queue/
+Nextregression stalledprivatephotoprovider: native15sreadtimeout, editduring
+preparation past300msautosavewindow, exactprotectedDraftAPIretentionbeforeany
+navigation thenrecreate/no-wire. TestAPKonlysyntheticpipe/no privatefiles.
+No productionchange, runtimepending. Nextslices queue/
 failure/practical5MiBhistorybound/process/finalfull10+17 stillrequired. Protected
 untracked NATIVE_GROUP_CHAT_CONTRACT.md untouched. Continue allissues.
 

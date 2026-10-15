@@ -2,6 +2,11 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <application>
         <provider
+            android:name="nl.davidengelen.redsquare.ChatPhotoFaultProvider"
+            android:authorities="nl.davidengelen.redsquare.dev.test.chat-photo-faults"
+            android:exported="true"
+            android:process=":chatPhotoFaults" />
+        <provider
             android:name="nl.davidengelen.redsquare.ImageTestDocumentsProvider"
             android:authorities="nl.davidengelen.redsquare.dev.test.image-documents"
             android:exported="true"

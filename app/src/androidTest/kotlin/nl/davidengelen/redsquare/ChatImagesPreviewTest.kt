@@ -25,7 +25,7 @@ import java.util.concurrent.atomic.AtomicInteger
 
 class ChatImagesPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
-    private enum class PhotoFlow { VIEW, DRAFT, SEND }
+    private enum class PhotoFlow { VIEW, DRAFT, SEND, FAILED_PREPARATION }
 
     @Test fun aCompatiblePrivatePhotoIsVisibleExpandableAndRetainedWhenTheServerNoLongerHasIt() = exercisePhoto(group = false)
 
@@ -39,13 +39,19 @@ class ChatImagesPreviewTest {
 
     @Test fun aRecoveredGroupPhotoAndItsCaptionUseTheExistingSignedChatSendPath() = exercisePhoto(group = true, flow = PhotoFlow.SEND)
 
+    @Test fun editsDuringATimedOutPrivatePhotoPreparationRemainDurableWithoutNavigation() =
+        exercisePhoto(group = false, flow = PhotoFlow.FAILED_PREPARATION)
+
     private fun exercisePhoto(group: Boolean, flow: PhotoFlow = PhotoFlow.VIEW) {
         val composing = flow != PhotoFlow.VIEW
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
         val kind = if (group) "group" else "private"
-        val prefix = when (flow) { PhotoFlow.VIEW -> kind; PhotoFlow.DRAFT -> "$kind-draft"; PhotoFlow.SEND -> "$kind-send" }
+        val prefix = when (flow) {
+            PhotoFlow.VIEW -> kind; PhotoFlow.DRAFT -> "$kind-draft"; PhotoFlow.SEND -> "$kind-send"
+            PhotoFlow.FAILED_PREPARATION -> "$kind-failed-preparation"
+        }
         val reference = instrumentation.context.assets.open("native-${if (group) "group" else "private"}-chat-image-reference.json").bufferedReader()
             .use { JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject }
         val contact = reference.get(if (group) "author" else "sender").asString
@@ -73,7 +79,7 @@ class ChatImagesPreviewTest {
                 java.nio.ByteBuffer.wrap(it).putInt(8, message.size)
             }
         } else java.util.Base64.getDecoder().decode(reference.get("networkBase64").asString)
-        val draft = if (composing) "Photo caption 😀 <&> \"quoted\"\nA second line" else "Keep this text while receiving a photo 😀"
+        var draft = if (composing) "Photo caption 😀 <&> \"quoted\"\nA second line" else "Keep this text while receiving a photo 😀"
         var primary: Throwable? = null
         try {
             retained.prepare()
@@ -133,9 +139,51 @@ class ChatImagesPreviewTest {
                                 throw failure
                             }
                         }
+                        fun assertIdentityAndOutgoing(expected: Int) {
+                            check(wallets.loadExisting().exportJson() == wallet.exportJson() && backends.load() == SaitoBackend.OWNER)
+                            check(peer.clientKeys.isNotEmpty() && peer.clientKeys.all { it == wallet.publicKey })
+                            check(peer.transactions.size == expected && peer.relayedMessages.size == expected && peer.reports.isEmpty())
+                            peer.assertHealthy()
+                        }
                         open()
                         ui.onNode(hasSetTextAction() and isEnabled()).performTextReplacement(draft)
                         androidx.test.espresso.Espresso.closeSoftKeyboard()
+                        if (flow == PhotoFlow.FAILED_PREPARATION) {
+                            val uri = android.net.Uri.parse("content://nl.davidengelen.redsquare.dev.test.chat-photo-faults/stalled.png")
+                            fun provider(action: String) = requireNotNull(context.contentResolver.call(uri, action, null, null))
+                            provider("reset")
+                            var faultFailure: Throwable? = null
+                            Intents.init()
+                            try {
+                                Intents.intending(anyOf(hasAction(Intent.ACTION_OPEN_DOCUMENT), hasAction(Intent.ACTION_GET_CONTENT),
+                                    hasAction("android.provider.action.PICK_IMAGES"), hasAction("androidx.activity.result.contract.action.PICK_IMAGES"),
+                                    hasAction("com.google.android.gms.provider.action.PICK_IMAGES")))
+                                    .respondWith(Instrumentation.ActivityResult(Activity.RESULT_OK, Intent().setData(uri)))
+                                val add = hasText("Add photo") and hasClickAction() and isEnabled()
+                                ui.onNode(add).performClick()
+                                ui.waitUntil(20_000) { provider("status").getBoolean("opened") && displayed(hasText("Preparing images...")) }
+                                ui.onNode(hasText("Send") and hasClickAction()).assertIsNotEnabled()
+                                draft = "Edited while photo preparation was blocked 😀 <&>"
+                                ui.onNode(hasSetTextAction() and isEnabled()).performTextReplacement(draft)
+                                androidx.test.espresso.Espresso.closeSoftKeyboard()
+                                // Keep the source blocked past the existing 300ms autosave window.
+                                val afterAutosaveWindow = android.os.SystemClock.elapsedRealtime() + 500
+                                ui.waitUntil(2_000) { android.os.SystemClock.elapsedRealtime() >= afterAutosaveWindow }
+                                ui.waitUntil(20_000) { displayed(hasText("Could not prepare or save the images. Your draft is still here.")) && displayed(add) }
+                                assertDraft()
+                                // Observe the agreed protected draft API before Back/recreation could save it for us.
+                                ui.waitUntil(20_000) {
+                                    nl.davidengelen.redsquare.chat.ChatWorkStore(context, wallet, SaitoBackend.OWNER, contact).load().draft == draft
+                                }
+                                ui.onAllNodesWithContentDescription("Image 1 of 1").assertCountEquals(0)
+                                capture("$prefix-text-durably-retained")
+                                scenario.recreate(); open(); assertDraft()
+                                capture("$prefix-text-reopened")
+                                assertIdentityAndOutgoing(0)
+                            } catch (failure: Throwable) { faultFailure = failure; throw failure }
+                            finally { cleanupAfterTest(faultFailure, { Intents.release() }, { provider("reset") }) }
+                            return@withFailureCapture
+                        }
                         if (composing) {
                             val source = instrumentation.context.assets.open("native-images-reference.json").bufferedReader()
                                 .use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("images").get("red").asString }
@@ -204,11 +252,7 @@ class ChatImagesPreviewTest {
                                     }
                                 } finally { Intents.release() }
                             } finally { check(context.contentResolver.delete(uri, null, null) == 1) }
-                            check(wallets.loadExisting().exportJson() == wallet.exportJson() && backends.load() == SaitoBackend.OWNER)
-                            check(peer.clientKeys.isNotEmpty() && peer.clientKeys.all { it == wallet.publicKey })
-                            check(peer.transactions.size == (if (flow == PhotoFlow.SEND) 1 else 0) &&
-                                peer.relayedMessages.size == (if (flow == PhotoFlow.SEND) 1 else 0) && peer.reports.isEmpty())
-                            peer.assertHealthy()
+                            assertIdentityAndOutgoing(if (flow == PhotoFlow.SEND) 1 else 0)
                             return@withFailureCapture
                         }
                         peer.sendIncoming(incoming, requestId = 960)
@@ -227,10 +271,7 @@ class ChatImagesPreviewTest {
                         ui.onNodeWithText("Close image").performClick()
                         scenario.recreate(); open()
                         photo(); assertDraft(); capture("$prefix-photo-cached-after-reopening")
-                        check(wallets.loadExisting().exportJson() == wallet.exportJson() && backends.load() == SaitoBackend.OWNER)
-                        check(peer.clientKeys.isNotEmpty() && peer.clientKeys.all { it == wallet.publicKey })
-                        check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty() && peer.reports.isEmpty())
-                        peer.assertHealthy()
+                        assertIdentityAndOutgoing(0)
                     }
                 }
             }

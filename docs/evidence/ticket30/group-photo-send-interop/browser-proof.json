@@ -1,0 +1,35 @@
+{
+  "result": "PASS",
+  "boundary": "Offline Chromium DOM/raster after actual pinned Browser.sanitize and inspected Chat newline conversion. No initialized Saito app or live network claim.",
+  "nativeEnvelopeSha256": "46c40c5eb8472aa7bd54fef77c42aae0f601731468f0386142fe6c845f554594",
+  "observations": [
+    {
+      "pin": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+      "browserSha256": "e85b67cc138dae5047bb855bf0961b2852a808fc7be3ffc5bc0479a1281bab38",
+      "exactCaption": true,
+      "pixels": {
+        "width": 12,
+        "height": 8,
+        "rgb": [
+          220,
+          30,
+          40
+        ]
+      }
+    },
+    {
+      "pin": "214504ecece76d1cd20a245fe4468eccbfca2951",
+      "browserSha256": "8ba723fc2deea89999275878b3590510263d655b176fd46e270ab9f8057993d3",
+      "exactCaption": true,
+      "pixels": {
+        "width": 12,
+        "height": 8,
+        "rgb": [
+          220,
+          30,
+          40
+        ]
+      }
+    }
+  ]
+}

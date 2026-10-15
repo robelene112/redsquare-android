@@ -264,3 +264,21 @@ logged. RootfailurePNG/parsedXMLshowQueuedbeforeasynchronousUIpublication; no
 publicationdefectinferred. Caption/emptyfield/envelopecapture/finaltailunexecuted,
 no groupinteropinputproduced. Retained6hash1XML. Correction5f85b5e1 reviewed0/0,
 no productionchange. Correctednativeverificationpending.
+
+CorrectedgroupSend10run38721940218 exactff707acb SUCCESS6PASS27.184s. Both
+photo sends/exactsignerfirstRelay/original/visiblecaption/emptycomposer/full
+identity/noreports/restoration andpriorfourcasesPASS. Retained38hash16XML;
+rootnewgroupoutgoingPNGseen. IndependentactualA/Bgroupconstructors yieldbyte-
+identical signednativeenvelope, WASM/Elliptic signature andexactknownbodyPASS.
+ActualA/Bsanitizer+ChromiumDOM/JPEG12x8 literalRGB+exactcaptionPASS, all3stages
+linksameenvelopeSHA; separate4hashgroupinterop. No groupencryption/liveadmission
+or whole30acceptanceinferred. Source/evidenceprecedingreview0/0.
+
+Next regression reproduces a stalled native content-provider read through the
+real picker boundary, keeps it blocked past300ms autosave while editingtext,
+requires normalizer's boundedtimeout/error/re-enabledpicker, and observes exact
+latesttext through protected ChatWorkStore.load BEFORE Back/recreation can save
+it. Thenrecreation/visibletext/fullidentity/no-wire/restoration. TestAPK-only
+provider returns only an empty synthetic pipe, exposes no files/private data,
+closeswriteronCancellationsignal andindependentreset. Existingphoto/autosave
+implementationalreadyexists; no fake missingfeatureRED. Runtimepending.
