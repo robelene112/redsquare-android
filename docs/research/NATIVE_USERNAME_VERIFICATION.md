@@ -12,8 +12,8 @@ waiting for the unchanged registered-name UI, identity and zero-registration
 assertions. Both ordinary and late-response cases share the existing flow.
 
 Tracer611232a3 reviews report Spec0/Standards0. Local testAPK compile passes
-in2m12s, exec11746 complete0. Actual Android10 run38782610994 is active at
-611232a382a8e9af03d48cbb42cc01ab2f56819c; its outcome is pending.
+in2m12s, exec11746 complete0. Actual Android10 run38782610994 uses
+611232a382a8e9af03d48cbb42cc01ab2f56819c; its completed outcome follows below.
 
 Actual RED38782610994 at611232a3:16cases15PASS/1FAIL112.39s. The new
 Settings case times out20s at128, after the public paired-send checkpoint proves
