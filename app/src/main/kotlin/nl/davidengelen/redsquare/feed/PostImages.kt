@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import kotlinx.coroutines.CancellationException
@@ -26,13 +27,14 @@ import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.SaitoBackend
 
 @Composable
-internal fun PostImages(images: List<String>, backend: SaitoBackend, onRemove: ((Int) -> Unit)? = null, removalEnabled: Boolean = true) {
+internal fun PostImages(images: List<String>, backend: SaitoBackend, onRemove: ((Int) -> Unit)? = null, removalEnabled: Boolean = true,
+    previewHeight: Dp = 180.dp) {
     if (images.isEmpty()) return
     var selected by remember(images) { mutableStateOf<Int?>(null) }
     Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
         images.forEachIndexed { index, source ->
             PostImage(source, backend, stringResource(R.string.image_position, index + 1, images.size),
-                Modifier.fillMaxWidth().height(180.dp).clickable { selected = index })
+                Modifier.fillMaxWidth().height(previewHeight).clickable { selected = index })
             if (onRemove != null) TextButton(enabled = removalEnabled, onClick = { onRemove(index) }) {
                 Text(stringResource(R.string.image_remove, index + 1))
             }

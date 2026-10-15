@@ -160,7 +160,7 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
             OutlinedTextField(value = typed, onValueChange = { value ->
                 changeText((quote?.prefix ?: "") + (photo?.let { composeChatPhoto(it.source, value) } ?: value))
             }, label = { Text(stringResource(R.string.chat_message)) },
-                modifier = Modifier.weight(1f), enabled = editable)
+                modifier = Modifier.weight(1f), enabled = editable, maxLines = 4)
             Button(enabled = permitted && ready && !sending && !preparingPhoto && saved.status!=ChatWorkStore.Status.QUEUED && (retrying || typed.isNotBlank() || photo != null),
                 onClick = {
                     sending = true

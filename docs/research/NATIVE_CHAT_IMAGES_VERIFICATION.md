@@ -163,3 +163,11 @@ Autosave nowalso keys on preparingPhoto and resumes after either success/failure
 Existingtext remainseditable whilepreparing; Send/navigation remainblocked.
 Explicit failedpreparation/processretention verification remainsrequired. Active
 GREEN38715743979 stilltests0438; no duplicate/cancelled dispatch.
+
+Firstdraftminimum10run38715743979 exact0438 FAILED3cases2PASS1FAIL36.616s.
+SelectedrasterPASS then displayedexactcaption timesout20s at155. RootfailurePNG
+shows clippedcomposer/Send; XMLenabledEditText containsexactcaption. Precise
+matcherfailurecause unproved, butsmallviewportlayout unusable. Retained6hash1XML.
+Correction compact100dp preview onlyinChatcomposer, hide redundantAddphoto while
+attached, capprivatefield4visiblelines. Defaultfeed/historypreview180dp unchanged.
+Autosavefix79f8e12d reviewed0/0 notrunin0438. Compile/review/GREENpending.

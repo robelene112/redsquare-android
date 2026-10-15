@@ -11,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
 import nl.davidengelen.redsquare.R
@@ -48,9 +49,10 @@ internal fun ChatPhotoAttachment(session: String, body: String, backend: SaitoBa
     }
     Column {
         photo?.let { attachment ->
-            PostImages(listOf(attachment.source), backend, onRemove = { change(attachment.text) }, removalEnabled = enabled && !preparing)
+            PostImages(listOf(attachment.source), backend, onRemove = { change(attachment.text) },
+                removalEnabled = enabled && !preparing, previewHeight = 100.dp)
         }
-        TextButton(enabled = enabled && !preparing && pickingFor == null && photo == null, onClick = {
+        if (photo == null) TextButton(enabled = enabled && !preparing && pickingFor == null, onClick = {
             scope.launch {
                 try {
                     if (beforePicker() && currentEnabled) {
