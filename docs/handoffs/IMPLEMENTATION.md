@@ -8,6 +8,8 @@ one question at a time when a material choice really needs the owner.
 ## Current work
 
 **ACTIVE #17 diagnostic continuation:** review base6a7b2a652e50ead7791fa73caf701684409154fd. #19 app/test implementation frozen at45ff40f6; its final10/17 scopes continue unchanged and prepared23 remains unpublished. New #17 work records numeric player error before mapping/browser teardown and allowlisted child embed request metadata before navigation. Explicit DEBUG/emulator/public-fixture opt-in, bounded in-memory Activity-owned collector; no wallet/provider-secret data. Existing deliberate Play, actual Playing, no-autoplay and zero Saito submission assertions remain. This is observation of the previously failing real-provider seam, no production playback fix or success claim.
+Local core/debug/test build15591 COMPLETE0 in3m38s; both source-review axes0 through64a4d8db. No owned local Gradle remains. Actual Android17 public diagnostic is the next gate; no new native result or playback claim yet. Collector .scratch/retain-video17-native-diagnostic.py prepared/syntax checked, not executed.
+
 
 
 **#19 pending final frozen verification and Owner readiness:** review basef6c97baccb0a95d51748160f965b5e6e9c1c016b.
