@@ -190,3 +190,19 @@ newRPCid778, requirepositiveACK/exactonecachedmessage/noalert2s. Appliedboth
 private/group positivecases andafterunmutingmutedcachedoriginals, preservingall
 identity/no-wireassertions. No fabricatedREDclaim foralreadyimplementeddedup;
 actual4-case regressionpending atsourcewithfreshmembershipguard.
+
+DedupregressionGREEN at53adc844 bothSDKs:10run38698778675 4PASS34.884s;17run
+38698781938 4PASS88.570s. Bothactualcategories/systemshades, mutedreadable/exact
+draft/recreate/unmute/no-wire, exactsignedredeliveryRPC778+positiveACK+oneUI
+message+2ssilence bothbeforemute andaftercachedunmute. Each28hash12XMLretained
+dedup-green-android10/17, rootallfournewduplicatecapturesseen/XMLparsed. Source
+includesfreshmembershipguard but no actualconcurrentraceclaim; bothreviews0/0.
+
+Nextregression adds private/group latefailedUnmute through existingdebugOSsync
+faultpersonalCommitSyncUnavailable. ActualUIinitialmute, attemptUnmute fails,
+requiresgeneric saveerror+retainedmute, newauthenticateddistinctincoming stays
+readable/ACKed/silent, recreate retainschoice/cache/exactdraft, removefault then
+explicitUnmute succeeds witholdoriginalstilldedup-silent. Independentcaptures
+prefixedperfaultcase; boundedshowMessage scroll+display preservesassertions when
+secondcachedmessage isoffscreen. Existingrollbackmachinery isalreadyimplemented,
+so no fabricatedREDclaim. Actual6-case proofpending; no productionchanges.

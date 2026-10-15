@@ -20,9 +20,15 @@ class ChatMutePreviewTest {
 
     @Test fun privateConversationMuteKeepsIncomingMessagesAndTheDraftAfterReopening() = exercisePrivateMute()
 
-    @Test fun anUnmutedPrivateMessageShowsAGenericAndroidNotification() = exercisePrivateMute(alert = true)
+    @Test fun anUnmutedPrivateMessageShowsAGenericAndroidNotification() = exercisePrivateMute(ConversationCase.ALERT)
 
-    private fun exercisePrivateMute(alert: Boolean = false) {
+    @Test fun aFailedPrivateUnmuteKeepsReadableMessagesSilentAndAllowsRepair() = exercisePrivateMute(ConversationCase.FAILED_UNMUTE)
+
+    private enum class ConversationCase { MUTED, ALERT, FAILED_UNMUTE }
+
+    private fun exercisePrivateMute(case: ConversationCase = ConversationCase.MUTED) {
+        val alert = case == ConversationCase.ALERT
+        val prefix = if (case == ConversationCase.FAILED_UNMUTE) "private-failed-unmute" else "private"
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -58,7 +64,7 @@ class ChatMutePreviewTest {
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
-                    withFailureCapture({ capture(if (alert) "private-alert-failure" else "private-mute-failure") }) {
+                    withFailureCapture({ capture(if (alert) "private-alert-failure" else "$prefix-mute-failure") }) {
                         fun open() {
                             val chat = hasText("Chat") and hasClickAction() and isEnabled()
                             ui.waitUntil(20_000) { displayed(hasText("Groups")) || displayed(chat) }
@@ -88,22 +94,31 @@ class ChatMutePreviewTest {
                         ui.onNode(SemanticsMatcher.keyIsDefined(SemanticsProperties.EditableText))
                             .assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(draft)))
                         alerts.assertSilence()
-                        capture("private-muted-incoming-readable")
+                        capture("$prefix-muted-incoming-readable")
                         scenario.recreate(); open()
                         ui.onNodeWithContentDescription("Unmute conversation").assertIsDisplayed()
-                        ui.onNodeWithText(text).assertIsDisplayed()
+                        showMessage(text)
                         ui.waitUntil(20_000) { displayed(hasSetTextAction() and isEnabled() and
                             SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(draft))) }
                         ui.onNode(SemanticsMatcher.keyIsDefined(SemanticsProperties.EditableText))
                             .assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(draft)))
                         check(alerts.newAlerts().isEmpty())
-                        capture("private-muted-reopened")
+                        capture("$prefix-muted-reopened")
+                        if (case == ConversationCase.FAILED_UNMUTE) {
+                            val freshText = "Private mute remains after a failed save"
+                            val sender = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe fixture only.
+                            val fresh = PrivateChat.create(sender, wallet.publicKey, freshText, 1700000080100)
+                            assertFailedUnmuteRecovers(scenario, { open() }, alerts, peer,
+                                FixtureIncoming(fresh.applicationRequest(1).drop(5).toByteArray(), freshText), prefix)
+                            ui.onNode(SemanticsMatcher.keyIsDefined(SemanticsProperties.EditableText))
+                                .assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(draft)))
+                        }
                         click(hasContentDescription("Unmute conversation")); click(hasText("Unmute"))
                         ui.waitUntil(20_000) { displayed(hasContentDescription("Mute conversation")) }
-                        ui.onNodeWithText(text).assertIsDisplayed()
+                        showMessage(text)
                         alerts.assertSilence()
-                        capture("private-unmuted-history-retained")
-                        assertRedeliveryStaysSilent(peer, incoming, text, alerts, "private-muted-original-stays-silent-after-unmute")
+                        capture("$prefix-unmuted-history-retained")
+                        assertRedeliveryStaysSilent(peer, incoming, text, alerts, "$prefix-muted-original-stays-silent-after-unmute")
                         assertUnchangedIdentityAndNoOutgoingMessages(context, wallet, peer)
                     }
                 }
@@ -122,9 +137,13 @@ class ChatMutePreviewTest {
 
     @Test fun groupConversationMuteKeepsCompatibleMessagesAndTheDraftAfterReopening() = exerciseGroupMute()
 
-    @Test fun anUnmutedGroupMessageShowsAGenericAndroidNotification() = exerciseGroupMute(alert = true)
+    @Test fun anUnmutedGroupMessageShowsAGenericAndroidNotification() = exerciseGroupMute(ConversationCase.ALERT)
 
-    private fun exerciseGroupMute(alert: Boolean = false) {
+    @Test fun aFailedGroupUnmuteKeepsReadableMessagesSilentAndAllowsRepair() = exerciseGroupMute(ConversationCase.FAILED_UNMUTE)
+
+    private fun exerciseGroupMute(case: ConversationCase = ConversationCase.MUTED) {
+        val alert = case == ConversationCase.ALERT
+        val prefix = if (case == ConversationCase.FAILED_UNMUTE) "group-failed-unmute" else "group"
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -160,7 +179,7 @@ class ChatMutePreviewTest {
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
-                    withFailureCapture({ capture(if (alert) "group-alert-failure" else "group-mute-failure") }) {
+                    withFailureCapture({ capture(if (alert) "group-alert-failure" else "$prefix-mute-failure") }) {
                         fun open() {
                             val chat = hasText("Chat") and hasClickAction() and isEnabled()
                             ui.waitUntil(20_000) { displayed(hasText("Groups")) || displayed(chat) }
@@ -188,20 +207,28 @@ class ChatMutePreviewTest {
                         ui.onNode(SemanticsMatcher.keyIsDefined(SemanticsProperties.EditableText))
                             .assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(draft)))
                         alerts.assertSilence()
-                        capture("group-muted-incoming-readable")
+                        capture("$prefix-muted-incoming-readable")
                         scenario.recreate(); open()
                         ui.onNodeWithContentDescription("Unmute conversation").assertIsDisplayed()
-                        ui.onNodeWithText(text).assertIsDisplayed()
+                        showMessage(text)
                         ui.waitUntil(20_000) { displayed(hasSetTextAction() and isEnabled() and
                             SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(draft))) }
                         check(alerts.newAlerts().isEmpty())
-                        capture("group-muted-reopened")
+                        capture("$prefix-muted-reopened")
+                        if (case == ConversationCase.FAILED_UNMUTE) {
+                            val freshText = "Group mute remains after a failed save"
+                            val fresh = GroupChat.message(admin, GroupChat.readCreation(creation.envelope()), freshText, 1700000123500)
+                            assertFailedUnmuteRecovers(scenario, { open() }, alerts, peer,
+                                FixtureIncoming(fresh.applicationRequest(1).drop(5).toByteArray(), freshText), prefix)
+                            ui.onNode(SemanticsMatcher.keyIsDefined(SemanticsProperties.EditableText))
+                                .assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(draft)))
+                        }
                         click(hasContentDescription("Unmute conversation")); click(hasText("Unmute"))
                         ui.waitUntil(20_000) { displayed(hasContentDescription("Mute conversation")) }
-                        ui.onNodeWithText(text).assertIsDisplayed()
+                        showMessage(text)
                         alerts.assertSilence()
-                        capture("group-unmuted-history-retained")
-                        assertRedeliveryStaysSilent(peer, incoming, text, alerts, "group-muted-original-stays-silent-after-unmute")
+                        capture("$prefix-unmuted-history-retained")
+                        assertRedeliveryStaysSilent(peer, incoming, text, alerts, "$prefix-muted-original-stays-silent-after-unmute")
                         assertUnchangedIdentityAndNoOutgoingMessages(context, wallet, peer)
                     }
                 }
@@ -216,16 +243,49 @@ class ChatMutePreviewTest {
         }
     }
 
+    private fun showMessage(text: String) {
+        ui.waitUntil(20_000) {
+            if (!displayed(hasText(text))) {
+                try { ui.onNode(hasScrollAction()).performScrollToNode(hasText(text)) }
+                catch (_: AssertionError) { /* Incoming UI publication may still be pending. */ }
+            }
+            displayed(hasText(text))
+        }
+        ui.onNodeWithText(text).assertIsDisplayed()
+    }
+
+    private data class FixtureIncoming(val bytes: ByteArray, val text: String)
+
+    private fun assertFailedUnmuteRecovers(scenario: ActivityScenario<MainActivity>, reopen: () -> Unit,
+        alerts: FixtureAlerts, peer: ControlledFeedPeer, fresh: FixtureIncoming, prefix: String) {
+        scenario.onActivity { it.intent.putExtra("personalCommitSyncUnavailable", true) }
+        click(hasContentDescription("Unmute conversation")); click(hasText("Unmute"))
+        ui.waitUntil(20_000) { displayed(hasText("Your change could not be saved. Try again.")) &&
+            displayed(hasContentDescription("Unmute conversation") and isEnabled()) }
+        peer.sendIncoming(fresh.bytes, requestId = 779)
+        ui.waitUntil(20_000) { peer.incomingAcknowledgements.any {
+            it[0] == 13.toByte() && java.nio.ByteBuffer.wrap(it, 1, 4).int == 779
+        } }
+        showMessage(fresh.text)
+        alerts.assertSilence()
+        capture("$prefix-save-failed-choice-retained")
+        scenario.recreate(); reopen()
+        ui.onNodeWithContentDescription("Unmute conversation").assertIsDisplayed()
+        showMessage(fresh.text)
+        alerts.assertSilence()
+        capture("$prefix-failed-choice-reopened")
+        scenario.onActivity { it.intent.removeExtra("personalCommitSyncUnavailable") }
+    }
+
     private fun assertRedeliveryStaysSilent(peer: ControlledFeedPeer, incoming: ByteArray, text: String,
         alerts: FixtureAlerts, captureName: String) {
         alerts.restore()
         ui.waitUntil(5_000) { alerts.newAlerts().isEmpty() }
         peer.sendIncoming(incoming, requestId = 778)
-        ui.waitUntil(20_000) {
-            displayed(hasText(text)) && peer.incomingAcknowledgements.any {
-                it[0] == 13.toByte() && java.nio.ByteBuffer.wrap(it, 1, 4).int == 778
-            }
-        }
+        ui.waitUntil(20_000) { peer.incomingAcknowledgements.any {
+            it[0] == 13.toByte() && java.nio.ByteBuffer.wrap(it, 1, 4).int == 778
+        } }
+        showMessage(text)
         ui.onAllNodesWithText(text).assertCountEquals(1)
         alerts.assertSilence()
         capture(captureName)
