@@ -12,6 +12,6 @@ concern while both complete SDK suites execute.
 
 These are controlled-peer results, not actual public Registry readiness or a live
 registration. #19 remains open. This run does not replace complete application,
-release/lint or physical Pixel acceptance. No source/test/harness change, node,
-wallet, credential, service, chain or store operation occurred for this probe.
+release/lint or physical Pixel acceptance. No application/test/harness source changed. No production node, wallet,
+credential, service, chain or store operation occurred for this controlled probe.
 Public21 remains current; prepared22 is unpublished pending final gates.
