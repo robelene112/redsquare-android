@@ -4,15 +4,26 @@
 `docs/evidence/ticket41/FINAL_ACCEPTANCE.md`, pusheddd89bc91, closure comment6204313327.
 Owner requests continued sequential implementation. #32 is now sole assigned
 implementation, base dd89bc9108eb002bb260eee709c656cd45348940, dependency24 closed.
-First native tracer ede09ff105619b45e5d7390e9440179298c3b208 deliberately has no-op
-SocialPush/Settings for valid runtime RED. It injects only external transport,
-uses an independently signed reply/parent via controlled binary Archive, and
-requires an actual Replies channel alert, visible system shade, one retained
-alert on redelivery and zero transaction/report/Relay writes. Both source reviews0.
-Local core/debug/test compile49022 COMPLETE0/3m35s. No owned local Gradle remains.
-Actual focused Android10 run38823317020 atede09ff1 ACTIVE, no outcome inferred.
-Do not implement publisher until this intended runtime RED is established.
-Focused harness restores its temporary API33+ permission grant after fixtures.
+First native tracer ede09ff105619b45e5d7390e9440179298c3b208 reached actual intended
+RED38823317020: one failure2.488s, expected1 Androidalert but observed0. Retained
+reply-alert-red/android10, original PNG viewed by bytes/XML parsed, final reviews0.
+Focused core114/debug/test pass; release/lint unexecuted in that scope. Shell0 is
+not a JUnit pass. Later channel/parent/visible/redelivery tails were unexecuted.
+Local tracer compile49022 COMPLETE0/3m35s.
+
+First reply minimum5c6be54632bf567a6def9a3e0d926303fc363349 is committed/pushed,
+source Spec0/Standards0. It validates opaque references/approved endpoints,
+loads existing identity only, requires encrypted explicit opt-in, freshly reads
+candidate+signed owner parent, and rechecks current scope/policy/deletion/OS
+permission/channel before a generic stable-tag Android alert. No existing UI or
+external transport invokes it. Mentions, exact tap routing, dismissed-alert
+persistent dedup and FCM are subsequent vertical slices. Do not claim32complete.
+Local core/debug/test99957 ACTIVE (.scratch/push32-reply-minimum-compile.log),
+so no app/source edits until it completes. Actual focused Android10 native
+run38824292988 at5c6be546 ACTIVE; no GREEN inferred and no duplicate dispatch.
+Final10 RED originals/metadata and corrected sourcegate qualification are under
+`docs/evidence/ticket32/reply-alert-red/android10`. Strict collector prepared
+.scratch/retain-push32-reply.py supports fresh RED/GREEN output directories.
 
 Prepared next plan .scratch/push32-next-slice-plan.md; bounded read-only proposal
 `docs/research/SOCIAL_PUSH_TAP_ROUTE_2026_10_15.md` adds exact lifecycle/navigation
