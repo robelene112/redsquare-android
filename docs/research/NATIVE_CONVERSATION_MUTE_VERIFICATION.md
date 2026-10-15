@@ -285,3 +285,12 @@ cache/freshACK/silence/restoration. Queue13PASS250.602s andbothautomaticprocesse
 bothadminprocesses, coldwallet2+immutable5→8four nativeobservers andfinaldiagnostic
 allpass. Retainedfinal-full/android10(893hash329XML), root10selectedoriginals
 seen/allXMLparsed. Final17same56b stillACTIVE. No full17/publication claimyet.
+
+Finalfull17run38704254979 exact56b3c17e SUCCESS:346PASS/80records25actualdeaths/
+core114/release/lint/allpriorgates/bothpublicfeeds. Mute8PASS104.901s; realPID
+5025gone→5137/guard259bytes/stat0/bothchoices/exactdraft/cache/freshACK/silence/
+fullwallet/backend/no-wire/restoration. Queue13PASS276.153s,bothqueue/admin
+processes,coldwallet2+signed5→8four nativeobservers/finaldiagnosticSDK37PASS.
+Root10selectedoriginalsseen/all331XMLparsed. Android10finalevidence review
+010454a1...3b072683 Spec0/Standards0. BothfullsareSUCCESSsame56b, no joined
+partialproofneeded. Final17evidencereview/publication19/closurestillpending.

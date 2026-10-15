@@ -29,7 +29,12 @@ profileassumption/79records25actualdeaths/core114/release/lint/allgates/bothpubl
 feeds. Mute8PASS98.636s/process6522gone→6921/allchoices/drafts/cache/freshincoming/
 ACK/silence/restoration. Queue13PASS250.602s; coldwallet2+signed5→8four native
 observers/finaldiagnostic alsoPASS. Retained893hash329XML, root10originalsseen.
-Final17run38704254979 remainsACTIVE exact56b, public_feed_read true. No duplicatefull. Inspect actual finished evidence/counts/allgates,
+Final17run38704254979 SUCCESS same56b,346PASS/80records25deaths/core114/release/
+lint/allpriorgates/bothpublicfeeds. Mute8PASS104.901s/PID5025gone→5137/guard259/
+bothchoices/drafts/cache/freshACK/silence/restoration, queue13PASS276.153s, six
+native cold/update observers/finaldiagnosticPASS. Root10neworiginalsseen/all331
+XMLparsed. Final10evidence reviews Spec0/Standards0. Final17evidence review,
+signed19publication/directverification andclose29 remain. No full run active. No duplicatefull. Inspect actual finished evidence/counts/allgates,
 retain with .scratch/retain-chat29-final-full.py ROOT OUT META SOURCE RUN 12.
 Expected new8muteclass +2processcompletionrecords/+1actualdeath, six wallet
 observer .log invocations remain distinct from applicationcounts. Base28 full
