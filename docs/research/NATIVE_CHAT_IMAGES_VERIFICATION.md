@@ -327,3 +327,12 @@ fixture identity/backend/restoration preserved. Retained25XML; root inspected
 queued/cancelled/online-unsent original PNGs. No actual PIDdeath/full17 claim.
 Next equivalent group case also requires original history/candidate unchanged
 after cancellation; production queue/storage unchanged. Runtimepending.
+
+Photo PID recovery regression extends the existing guarded queue harness with
+an explicit default-off queuePhoto argument. Native picker/preparation are
+already covered separately; this seam starts with a protected canonical photo
+draft, then actual UI Send, exact queued original, visible literal raster, real
+Process.killProcess and independently observed new PID. Recovery requires the
+identical raw/Relay original once, decoded exact body, photo pixels, preserved
+old history/full wallet/backend and independent original-file restoration.
+Only private photo invocation added first; runtime pending, no acceptance claim.

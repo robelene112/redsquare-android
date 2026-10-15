@@ -3,6 +3,7 @@ package nl.davidengelen.redsquare
 import android.content.Intent
 import android.os.Build
 import android.os.Process
+import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
@@ -25,6 +26,7 @@ class ChatQueueProcessRecoveryTest {
         check(it.packageName=="nl.davidengelen.redsquare.dev"&&Build.HARDWARE in listOf("ranchu","goldfish"))
     }
     private val kind get()=InstrumentationRegistry.getArguments().getString("queueKind","private").also{check(it in listOf("private","group"))}
+    private val photo get()=InstrumentationRegistry.getArguments().getString("queuePhoto","false").also{check(it in listOf("true","false"))}=="true"
     private val checkpoint get()=File(context.cacheDir,"chat-queue-process-checkpoint.json")
     private val originals get()=File(context.noBackupFilesDir,"chat-queue-process-originals")
     private val other=SaitoWallet.fromPrivateKey("0".repeat(63)+"2") // Public unsafe fixtures only. Never fund.
@@ -33,7 +35,12 @@ class ChatQueueProcessRecoveryTest {
     private val fixture=SaitoWallet.fromPrivateKey("0".repeat(63)+"1").withChatContact(other.publicKey)
         .withNamedChatGroup(key.publicKey,groupName,key)
     private val cachedText="Cached before queued process death"
-    private val text="Automatically resume this exact original 😀"
+    private val caption="Automatically resume this exact original 😀"
+    private val text get()=if(photo) {
+        val source=InstrumentationRegistry.getInstrumentation().context.assets.open("native-images-reference.json")
+            .bufferedReader().use{JsonParser.parseReader(it).asJsonObject.getAsJsonObject("images").get("red").asString}
+        composeChatPhoto(source,caption)
+    } else caption
 
     @Test fun terminateAfterExplicitOfflineSendWithItsOriginalStillQueued() {
         check(!checkpoint.exists()&&!originals.exists())
@@ -43,7 +50,7 @@ class ChatQueueProcessRecoveryTest {
         val original=wallets.loadOrCreate()
         val backend=AndroidBackendStore(context).load()
         val row=JsonObject().apply {
-            addProperty("kind",kind);addProperty("phase","prepared");addProperty("owner",fixture.publicKey)
+            addProperty("kind",kind);addProperty("photo",photo);addProperty("phase","prepared");addProperty("owner",fixture.publicKey)
             addProperty("backend",backend.id);addProperty("pid",Process.myPid())
             addProperty("walletDigest",digest(fixture.exportJson()));addProperty("originalWalletDigest",digest(original.exportJson()))
         }
@@ -69,15 +76,21 @@ class ChatQueueProcessRecoveryTest {
         if(kind=="private")ChatHistoryStore(context,fixture,backend,other.publicKey).save(listOf(incoming.envelope()))
         else GroupChatStore(context,fixture,backend).receive(incoming.envelope())
         row.addProperty("historyDigest",digest(incoming.envelope()))
+        if(photo) {
+            // Picker/normalization are covered by ChatImagesPreviewTest. This seam starts with protected work.
+            if(kind=="private")ChatWorkStore(context,fixture,backend,other.publicKey).saveDraft(text)
+            else GroupChatStore(context,fixture,backend).saveDraft(key.publicKey,text)
+        }
         val port=java.net.ServerSocket(0,1,java.net.InetAddress.getByName("127.0.0.1")).use{it.localPort}
         launch(port){
             open();ui.waitUntil(20_000){displayed(hasSetTextAction() and isEnabled())}
-            ui.onNode(hasSetTextAction() and isEnabled()).performTextReplacement(text)
+            if(photo)assertPhoto() else ui.onNode(hasSetTextAction() and isEnabled()).performTextReplacement(text)
             androidx.test.espresso.Espresso.closeSoftKeyboard()
             click("Send");waitFor("Queued")
             val candidate=queued(backend)
             row.addProperty("candidate",candidate.id);row.addProperty("candidateDigest",digest(candidate.envelope()))
             assertPending(row,backend)
+            if(photo)assertPhoto()
             capture("queued-before-death.png")
             row.addProperty("phase","pending");writeCheckpoint(row)
             Process.killProcess(Process.myPid());error("Expected actual process termination")
@@ -86,6 +99,7 @@ class ChatQueueProcessRecoveryTest {
 
     @Test fun coldRestartAutomaticallyForwardsTheSameOriginalAndKeepsHistory() {
         val row=readCheckpoint();assertEquals("pending",row.get("phase").asString)
+        assertEquals(photo,row.get("photo").asBoolean)
         assertEquals(kind,row.get("kind").asString);assertNotEquals(row.get("pid").asInt,Process.myPid())
         val backend=SaitoBackend.entries.single{it.id==row.get("backend").asString}
         assertPending(row,backend)
@@ -104,6 +118,8 @@ class ChatQueueProcessRecoveryTest {
             assertHistory(row,backend,completed=true,candidate=candidate)
             assertSelection(row,backend)
             assertEquals(1,peer.transactions.size);assertEquals(1,peer.relayedMessages.size)
+            check(peer.clientKeys.isNotEmpty()&&peer.clientKeys.all{it==fixture.publicKey}&&peer.reports.isEmpty())
+            if(photo)assertPhoto()
             peer.assertHealthy();capture("queued-original-automatically-forwarded.png")
             row.addProperty("phase","recovered");row.addProperty("recoveredPid",Process.myPid());writeCheckpoint(row)
         }}
@@ -176,6 +192,15 @@ class ChatQueueProcessRecoveryTest {
         if(!displayed(hasText("Groups")))ui.onNode(chat).performClick()
         if(kind=="group"){click("Groups");click(groupName)}else click(other.publicKey)
         waitFor("Message")
+    }
+    private fun assertPhoto() {
+        val image=hasContentDescription("Image 1 of 1")
+        ui.waitUntil(20_000){
+            if(!displayed(image))try{ui.onNode(hasScrollAction()).performScrollToNode(image)}catch(_:AssertionError){}
+            displayed(image)
+        }
+        val bitmap=ui.onNode(image).captureToImage().asAndroidBitmap()
+        assertEquals(0xffdc1e28.toInt(),bitmap.getPixel(bitmap.width/2,bitmap.height/2))
     }
     private fun click(text:String) {val target=hasText(text) and hasClickAction() and isEnabled();ui.waitUntil(20_000){displayed(target)};ui.onNode(target).performClick()}
     private fun waitFor(text:String)=ui.waitUntil(20_000){ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()}
