@@ -155,7 +155,11 @@ Whole28sourcereview09e0...31bedSpec0/Standards0(all22changedsourcefiles). Newfix
 correction0dfa721b Spec0/Standards0, process26hash4XML/groupattempt30hash13XML
 verified. Smallpendingbubbleordering/oncepositionUIcorrection87accb13 applied,
 no protocol/persistencechange. Local47712app+testcompileACTIVEexact87accb13; no
-app/testeditsuntilfinished. Correctedall13runtime/full10/17/signednextpending.
+app/testeditsuntilfinished. BoundedUI87accSpec0/Standards0. Exacte3edf1c9 finalfulls
+10run38679330339 ACTIVE/17run38679332827 ACTIVE, bothpublic_feed_read=true. Full
+includesall13queuecases+bothPIDjourneys, no redundantfocusedrerun. Allnative/
+core114/release/lint/previousPID/publicreadsrequired. Finalcountsnotyetclaimed.
+Fullretainerprepared.scratch/retain-chat28-final-full.py. Signednextstill18unbuilt.
 Addedremainingstoragefailure+identity/backendscoperegressions, noappchanges;
 focusedgroup6/fullclass13 firstexecutionpending. Groupappsource65c57b5c.
 Groupappminimumebd9f700 applied, notyetaccepted. Groups/process/full28stillpending.
