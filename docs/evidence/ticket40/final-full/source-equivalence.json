@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "scope": "Tracked production/debug/build inputs. Instrumentation/docs differ. This is not APK equality across version flags.",
+  "revisions": [
+    "720e2007ef88a017a690eb797e69a6ffc56b9372",
+    "c0b143eba3a6b4dac9c6c31860375c0de6978fd9",
+    "fabd4eb75f8499b895f7bdbb046f075c1ee11089",
+    "b41b7a42dfd6daaf61406391cfce44010e12e898"
+  ],
+  "trackedInputsSha256": "523a73e5b31e4b71ff7eeb5b33dd9841329666f0701289a85fb84362a9d98c7a",
+  "paths": [
+    "app/src/main",
+    "app/src/debug",
+    "core/src/main",
+    "app/build.gradle.kts",
+    "core/build.gradle.kts",
+    "build.gradle.kts",
+    "settings.gradle.kts",
+    "gradle.properties",
+    "gradle/wrapper"
+  ]
+}
