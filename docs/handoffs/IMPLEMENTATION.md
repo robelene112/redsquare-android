@@ -29,7 +29,12 @@ exec60806 completed0 in4m22s; no owned local Gradle remains. Log
 Same-index pair checkpoint and verified-name/identity/no-registration checks pass.
 Root viewed each success PNG and parsed XML; exact original recovery/explicit
 Retry passes. Retained ticket19/late-callback-green. Fresh native public read
-run38785785214 ACTIVE at5aec6036. Focused results are not public readiness.
+run38785785214 at5aec6036 is SUCCESS as a collection:1case25.819s. Official
+returns unused-name availability and strict verified-active Saitoverse proof;
+Owner still times out on both namechecks despite working auth/key-map reads.
+See ticket19/native-public-after-fix/android10 for limits. This is not Owner
+readiness, registration or a Settings interaction. Focused results remain
+controlled-peer evidence.
 Both complete final scopes now ACTIVE at exactly
 45ff40f6931e3491a65e3145e789c3f453c2c4fe:10run38786261883 and17run38786267845,
 public_feed_read=true each. Do not duplicate/cancel active scopes. Job ceiling
