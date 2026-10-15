@@ -89,8 +89,9 @@ hostdumpcoordinates; ownslaunchafterinstrumentationrestart, capturespublicUI/log
 Opt-in release-tail/17 rechecks coldwallet/immutable5→8/finaldiagnostic andsource/
 core/release/lint. Regularfullstillallgates. Workflowexception permitscombinedproof
 onlyafterverifiedcompleteapplicationgate set/equivalentprod/assertions/separate
-review. Correctionnotyetcommitted/compiled/reviewed/run. Do not rerun336appcases
-without an application/source concern. Noownedlocalbuild currently. Signed18held.
+review. Correctioncommittede4db8a35; Spec0/Standards0. Local25840 testcompile PASS,
+log .scratch/chat28-wallet-observer-compile.txt. No owned localbuild. Tailruntimepending. Do not rerun336appcases without an application/
+source concern. Signed18held.
 Earlierfirst17Sendfailures remainqualified incanonicalresearch/evidence.
 
 **Signed18 prepared, unpublished:** exact-source detached worktree
@@ -103,11 +104,14 @@ Public metadata retained signed-preview18-prepared. Public17 remains unchanged.
 Hold publication until full17 acceptance. Prepared public verifier:
 .scratch/verify-chat28-public18.py, not executed. Notes .scratch/chat28-preview18-notes.txt.
 
-NEXT: inspect completed17, download to additional disk, retain all gates via
-.scratch/retain-chat28-final-full.py, original captures/hash/XML/raw-count checks,
-two-axis final evidence/artifact review, publish signed18 and directly verify
-public page/manifest/APK/signature/package/min29 plus immutable17. Record/close28,
-then continue29 and remaining issues sequentially without another confirmation.
+NEXT: dispatch release-tail and
+release-tail-android17 at the reviewed correction (core/release/lint included).
+Retain actual corrected cold-wallet/signed5→8/finaldiagnostic outcomes and both
+source-run metadata, prove production/application assertion equivalence, review
+combined336-case17 application proof plus completed tail and prepared signed18.
+Do not change the failed full run to SUCCESS. Then publish signed18/directly
+verify public page/manifest/APK/signature/package/min29 and immutable17; record/
+close28, continue29 and remaining tickets without another confirmation.
 No whole28/physical/store acceptance before those steps. No next ticket claimed.
 Protected preexisting untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md untouched.
 

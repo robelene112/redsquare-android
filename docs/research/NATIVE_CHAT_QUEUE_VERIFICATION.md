@@ -446,3 +446,9 @@ WORKFLOW permitscombinedacceptanceonlywhenallapplicationgatesalreadycomplete,
 unchangedprod/assertionsandreviewedbothactualruns; never relabelFAILEDfullSUCCESS.
 This avoidsrepeating336alreadyacceptedcasesforanoldimmutableAPKobserverfailure.
 Newobserver/tailruntime andtwo-axisreviewpending; signed18stillheld.
+
+Observer/release-tail correction a30c8239...e4db8a35 reviewed Spec0/Standards0;
+both verify790full17hashes286XML plus4preparedbuildhashes, complete336appcases/
+77records24deaths and qualifiedimmutable-updateobserverfailure. Currenthandoff
+stalecommitted/NEXT wordingcorrected perStandardsnote. Local25840 testcompilePASS,
+noownedlocalbuild. Nextcorrectedtail10/17, notduplicate336appcasefull.
