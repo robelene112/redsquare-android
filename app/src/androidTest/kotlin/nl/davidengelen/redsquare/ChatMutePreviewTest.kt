@@ -24,11 +24,18 @@ class ChatMutePreviewTest {
 
     @Test fun aFailedPrivateUnmuteKeepsReadableMessagesSilentAndAllowsRepair() = exercisePrivateMute(ConversationCase.FAILED_UNMUTE)
 
-    private enum class ConversationCase { MUTED, ALERT, FAILED_UNMUTE }
+    private enum class ConversationCase { MUTED, ALERT, FAILED_UNMUTE, UNREADABLE_POLICY }
+
+    @Test fun unreadablePersonalChoicesRetainIncomingWithoutAlertsAndRecoverWithoutRetrospectiveAlerts() =
+        exercisePrivateMute(ConversationCase.UNREADABLE_POLICY)
 
     private fun exercisePrivateMute(case: ConversationCase = ConversationCase.MUTED) {
-        val alert = case == ConversationCase.ALERT
-        val prefix = if (case == ConversationCase.FAILED_UNMUTE) "private-failed-unmute" else "private"
+        val alert = case == ConversationCase.ALERT || case == ConversationCase.UNREADABLE_POLICY
+        val prefix = when (case) {
+            ConversationCase.FAILED_UNMUTE -> "private-failed-unmute"
+            ConversationCase.UNREADABLE_POLICY -> "private-unreadable-policy"
+            else -> "private"
+        }
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -64,7 +71,7 @@ class ChatMutePreviewTest {
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
-                    withFailureCapture({ capture(if (alert) "private-alert-failure" else "$prefix-mute-failure") }) {
+                    withFailureCapture({ capture(if (alert) "$prefix-alert-failure" else "$prefix-mute-failure") }) {
                         fun open() {
                             val chat = hasText("Chat") and hasClickAction() and isEnabled()
                             ui.waitUntil(20_000) { displayed(hasText("Groups")) || displayed(chat) }
@@ -76,8 +83,10 @@ class ChatMutePreviewTest {
                         if (alert) {
                             peer.sendIncoming(incoming)
                             ui.waitUntil(20_000) { displayed(hasText(text)) && peer.incomingAcknowledgements.any { it[0] == 13.toByte() } }
-                            verifyGenericNotification(alerts, "Private chats", "private-generic-system-notification")
-                            assertRedeliveryStaysSilent(peer, incoming, text, alerts, "private-duplicate-stays-silent")
+                            verifyGenericNotification(alerts, "Private chats", "$prefix-generic-system-notification")
+                            assertRedeliveryStaysSilent(peer, incoming, text, alerts, "$prefix-duplicate-stays-silent")
+                            if (case == ConversationCase.UNREADABLE_POLICY)
+                                assertUnreadablePolicyRetainsMessages(context, wallet, peer, alerts)
                             assertUnchangedIdentityAndNoOutgoingMessages(context, wallet, peer)
                             return@withFailureCapture
                         }
@@ -256,6 +265,41 @@ class ChatMutePreviewTest {
 
     private data class FixtureIncoming(val bytes: ByteArray, val text: String)
 
+    private fun assertUnreadablePolicyRetainsMessages(context: android.content.Context, wallet: SaitoWallet,
+        peer: ControlledFeedPeer, alerts: FixtureAlerts) {
+        val file = File(context.noBackupFilesDir, "personal.${wallet.publicKey}.v1")
+        val sender = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe fixture only.
+        fun packet(text: String, timestamp: Long) = FixtureIncoming(
+            PrivateChat.create(sender, wallet.publicKey, text, timestamp).applicationRequest(1).drop(5).toByteArray(), text)
+        val retained = packet("Incoming remains readable while alert preferences cannot be read", 1700000080200)
+        alerts.restore()
+        ui.waitUntil(5_000) { alerts.newAlerts().isEmpty() }
+        synchronized(SaitoLocalState.lock) {
+            check(listOf(file, File(file.path + ".bak"), File(file.path + ".new")).none { it.exists() })
+            file.writeBytes(byteArrayOf(1, 2, 3, 4))
+        }
+        try {
+            peer.sendIncoming(retained.bytes, requestId = 779)
+            ui.waitUntil(20_000) { peer.incomingAcknowledgements.any {
+                it[0] == 13.toByte() && java.nio.ByteBuffer.wrap(it, 1, 4).int == 779
+            } }
+            showMessage(retained.text)
+            alerts.assertSilence()
+            capture("private-unreadable-policy-incoming-retained")
+        } finally {
+            synchronized(SaitoLocalState.lock) { check(file.delete()) }
+        }
+        assertRedeliveryStaysSilent(peer, retained.bytes, retained.text, alerts,
+            "private-repaired-policy-original-stays-silent", requestId = 780)
+        val fresh = packet("New private alerts resume after preference storage repair", 1700000080300)
+        peer.sendIncoming(fresh.bytes, requestId = 781)
+        ui.waitUntil(20_000) { peer.incomingAcknowledgements.any {
+            it[0] == 13.toByte() && java.nio.ByteBuffer.wrap(it, 1, 4).int == 781
+        } }
+        showMessage(fresh.text)
+        verifyGenericNotification(alerts, "Private chats", "private-repaired-policy-new-alert")
+    }
+
     private fun assertFailedUnmuteRecovers(scenario: ActivityScenario<MainActivity>, reopen: () -> Unit,
         alerts: FixtureAlerts, peer: ControlledFeedPeer, fresh: FixtureIncoming, prefix: String) {
         scenario.onActivity { it.intent.putExtra("personalCommitSyncUnavailable", true) }
@@ -278,12 +322,12 @@ class ChatMutePreviewTest {
     }
 
     private fun assertRedeliveryStaysSilent(peer: ControlledFeedPeer, incoming: ByteArray, text: String,
-        alerts: FixtureAlerts, captureName: String) {
+        alerts: FixtureAlerts, captureName: String, requestId: Int = 778) {
         alerts.restore()
         ui.waitUntil(5_000) { alerts.newAlerts().isEmpty() }
-        peer.sendIncoming(incoming, requestId = 778)
+        peer.sendIncoming(incoming, requestId = requestId)
         ui.waitUntil(20_000) { peer.incomingAcknowledgements.any {
-            it[0] == 13.toByte() && java.nio.ByteBuffer.wrap(it, 1, 4).int == 778
+            it[0] == 13.toByte() && java.nio.ByteBuffer.wrap(it, 1, 4).int == requestId
         } }
         showMessage(text)
         ui.onAllNodesWithText(text).assertCountEquals(1)

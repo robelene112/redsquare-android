@@ -129,7 +129,9 @@ verify_chat_mute() {
             granted_for_test=1
         fi
     fi
-    verify_group_chat_native ChatMutePreviewTest 180 chat-mute chat-mute-evidence || native_exit=$?
+    # Seven cases include fault/recreation/repair and native shade observations.
+    # API37's prior four cases took88.570s; UI assertions retain their20s bounds.
+    verify_group_chat_native ChatMutePreviewTest 300 chat-mute chat-mute-evidence || native_exit=$?
     # Revocation may kill the target. Restore only after its fixture has finished.
     if [[ "$granted_for_test" == 1 ]]; then
         adb shell pm revoke nl.davidengelen.redsquare.dev android.permission.POST_NOTIFICATIONS || return 1

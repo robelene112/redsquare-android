@@ -206,3 +206,17 @@ explicitUnmute succeeds witholdoriginalstilldedup-silent. Independentcaptures
 prefixedperfaultcase; boundedshowMessage scroll+display preservesassertions when
 secondcachedmessage isoffscreen. Existingrollbackmachinery isalreadyimplemented,
 so no fabricatedREDclaim. Actual6-case proofpending; no productionchanges.
+
+FailedUnmuteregression26a79e3b reviewedSpec0/Standards0, actual10run38699942542
+6PASS67.603s. BothformsactualOSsyncsaveerror/retainedmute, freshsignedRPC779
+ACK/readable/silent, recreatechoice/cache/exactdraft, removefault/explicitrepair/
+oldoriginaldedup andprior4allPASS. Retainedfailed-unmute-green-android10
+(52hash24XML), rootallfournewfault/reopenPNGseen/allXMLparsed.
+
+Nextsinglecommonpolicyfaultregression: positiveprivateOSalert first, then scoped
+fixture-only badpolicyfile, freshauthenticatedmessage retained/ACK779/readable
+withoutalert; deleteonlycreatedbadfile restoring priorabsentrecord, sameoriginal
+redeliveryACK780/oneUI/silent, newfreshACK781+actualgenericOSalertafterrepair.
+Existingfailclosedroutealreadyimplemented, no falseREDclaim. Hostclassbudget
+300sfor7cases basedpriorSDK17fourcase88.570s andSDK10sixcase67.603s; individual
+20sUI/RPC assertionsunchanged. No duplicate/native/localbuildactive.
