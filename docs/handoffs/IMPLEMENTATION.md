@@ -12,7 +12,15 @@ implementation issues are complete. This explicit resume supersedes the storage
 migration pause recorded below. Commit/push each ticket and keep signed reviews
 available. Do not pause after the next ticket or ask routine approvals.
 
-**#29 COMPLETE, 2026-10-15, administrative closure follows this record:**
+**ACTIVE #30: Send and view images in private and group Chat.**
+Reviewbase8826000edf59174793749abc7b207610ad52e3a8, dependencies15/25/26 closed,
+assigned@me. Firstprivateimageviewer tracer and explicit--image independent
+browser-crypto/WASM fixture mode added; productionimageparsernotimplemented.
+ActualnativeREDpending, newchat-images/chat-images-android17 focusscopes keep
+allpreviousfullgates. Canonical NATIVE_CHAT_IMAGES_VERIFICATION.md. No ownedlocal
+build ornativerunactive yet. Current signedreview19unchanged. Continueallissues.
+
+**#29 COMPLETE and CLOSED, 2026-10-15T09:08:20Z:**
 Persistent private/group conversation mute keeps messages readable and explains
 account mute/block. Wallet-local encrypted choices span both fixed backends.
 Actual generic live Android alerts, signed-original dedup, fresh policy/group
@@ -36,12 +44,10 @@ Immutable18hashunchanged. Artifacts onSSD mute29-review-source/.scratch/review-
 builds/19. No node/service/ingress/store change. Closed-apppush32–34 andphysical
 Pixel/currentupdate35 remain separate. Protected untrackedgroupcontractuntouched.
 
-NEXT: close29 once finalrecord pushed, then claim30 sequentially and continueall
-remaining issues. Read .scratch/chat30-readonly-scope-notes.md andnext-chat-ticket-
-orientation.txt: webimg-prev ordinary Chat messages; shared native raster/picker
-mechanisms exist. Preserve composed work/queue semantics and note current5MiB
-per encrypted record limit when exercising media history. No30code/test/claimyet.
-Currenthost no /dev/kvm, nativeproofGitHub. Userresumeuntilallissuestillactive.
+Issue29 closure comment6188546839; finalpublicationrecord6e6a4d63...8826000e
+reviewedSpec0/Standards0. Signed19 remainscurrent. Issue30 readonlyorientation
+in .scratch/chat30-readonly-scope-notes.md supplements its canonicalresearch.
+Currenthost no /dev/kvm; nativeproofGitHub. Protectedgroupcontractuntouched.
 
 Twenty-five of the original35 tickets are complete (#2 through#15,#18,#20 through#29).
 Issue39 group Chat visual polish COMPLETE, signed16/0.1.16 published at

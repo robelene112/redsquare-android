@@ -1,0 +1,109 @@
+{
+  "synthetic": true,
+  "warning": "Public unsafe scalar1/2 keys, scalar3/4 exchanged keys and fixed salts. Never fund or use in production.",
+  "reference": {
+    "saitoCommit": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+    "saitoWasmVersion": "0.3.2",
+    "ellipticVersion": "6.6.1",
+    "wasmSha256": "f59be69dbb949368ce1fc7ef47d414cbe0281a86a206fe4bfb1128a4d087e01e",
+    "saitoPins": [
+      "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+      "214504ecece76d1cd20a245fe4468eccbfca2951"
+    ],
+    "nodeVersion": "v24.13.0",
+    "dependencyVersions": {
+      "saito-wasm": "0.3.2",
+      "saito-js": "0.3.2",
+      "node-cryptojs-aes": "0.4.0",
+      "crypto-browserify": "3.12.1",
+      "elliptic": "6.6.1",
+      "base-58": "0.0.1",
+      "typescript": "5.4.5",
+      "json-bigint": "1.0.0"
+    },
+    "cryptoWrapperSha256": "61416839726c1877875062273fd704b37002f8f3a5d299e6c0883f5d24685683",
+    "saitoJsTransactionSha256": "c5332473326259331b0e3c9595de3bf46d9735ecb2d87bbbc9c732b55a085420",
+    "publishedCryptoJsHashes": {
+      "cryptojs.js": "2b41cafbdc388016fe728bbda71dea0f3fcdfd4fcc254f222b82bcb036ff2b0d",
+      "lib/core.js": "f3ba0b5034f4436fd714a9f2d9cd3f4c119a3100a3fe1d49e6cd3235ed700298",
+      "lib/enc-base64.js": "0c8e5688533c3772fabcd0a2e5d8811755ae4baf6168befed428a6501d3e4504",
+      "lib/md5.js": "30110c2eeae781c62239b8e870953643cb169e8d1614b1713b0c40f89cfff526",
+      "lib/evpkdf.js": "a2e623ce04de2cda60d61fd5e34631f6899fbc6efea8a8bc10d6228a526b5e3c",
+      "lib/cipher-core.js": "086b68557e31019aec7562733ced8f154b9972d6af144aa79d12ee6d53e7926e",
+      "lib/aes.js": "c98e2695f1f50a65b71dcb0087059be0affd32ba7622b86a2ca0402884f10d1a",
+      "lib/jsonformatter.js": "f48ed871ad1ba13a79a4a0973d8c3a8e2d0e21d1f1ffb09012c7f630fc04e5f6"
+    },
+    "publishedCryptoJsTarballSha256": "b514fa78b0d056973a260586a45b77a83a4720b2ea45323f5bea3d22691e9b01",
+    "execution": "read-only, network none, env-i; actual pinned Crypto methods and extracted pure saito-js JSON methods; no Saito application initialization"
+  },
+  "imageFormat": {
+    "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAICAIAAABChommAAAAEUlEQVR4nGO4I6dBEDGMKgIAJ1lswfSdL+UAAAAASUVORK5CYII=",
+    "expectedRgb": [
+      220,
+      30,
+      40
+    ],
+    "imagesReferenceSha256": "cafa9585d7eaf42921065ef801bd2950a757d84968e0fc1dc6dd39392d57de5e",
+    "scope": "Pinned private crypto and WASM signature over the Chat popup img-prev wire format; no DOM/app initialization"
+  },
+  "vectors": [
+    {
+      "sender": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+      "recipient": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+      "timestamp": 1700000080500,
+      "groupId": "fbafe62761f194eb174cf4a072d8cd8601b11fe03f5a1ed32bf5be20dade0b19",
+      "plaintext": {
+        "module": "Chat",
+        "request": "chat message",
+        "group_id": "fbafe62761f194eb174cf4a072d8cd8601b11fe03f5a1ed32bf5be20dade0b19",
+        "message": "<img class=\"img-prev\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAICAIAAABChommAAAAEUlEQVR4nGO4I6dBEDGMKgIAJ1lswfSdL+UAAAAASUVORK5CYII=\">",
+        "timestamp": 1700000080500,
+        "mentioned": []
+      },
+      "archiveEnvelope": "{\"t\":\"AAAAAQAAAAIAAAAAAAAAAP0UphuOXlXXEaAEXIbzfj0xT1ftPSfdp0NcmvDOOkSXQ1o2QVJS/5hVglzssVOaSrpRgQvG2yupJXdrxPrF2L0AAAGLz+aidAAAAAEAAnm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACeb5mfvncu6xVoGKVzocLBwKb/NstzijZWfKBWxb4F5gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALGBH+UQe19bTBFQG6VwHzYXHeOS4zvPKerrAm5XHCe5QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA\",\"m\":\"IntcImN0XCI6XCJaYWlQZCt6djNWTy9wOEJBYWlVdTg3ckpEWS9pVXlOT25tZFVlQVpsNlZLREpBS2dNS1VSNjRjSXVhRFYyd0lHTTBjOVVwN1hrckVRS3RjNnhETkxHeDQvTGt1UEovTkIrbjV4ZGFlU1hPeGlrYTZEd0NoZldFR2ZML2srSndrcDhLRitIZ0kyREduUWlWSGFyZzVzSXZ4b2YwcXVGK1Rab25zYUtVbUtOUnNFbWVnTUt6ckpuTjRIMHlyb1Q5U0xUR1d5TzlySXJpRVp5ZmdPdTBQd2JLVlo3Vll6c0VhOC80RS9DMHFUM3pPbXh2bWVyVWhUT281NEdkYjl2QUgyemcwajEwUXAxZlE2YlZZMkFSdU9EUGVZYWxuSFovQ3Iwdmt5RWIyNmRGcE1ndmlYZjQyS0EwdjA4QWhTUTJLOEd5NzZVMFZhdjU4ajFDRGV5OWxQSFltekl5Mm5ET1gzaW9VZU5DNVZCYUFrRnA1d0FzZDd1WlE3ekFhYjAzaXNNLy9FY0kvakVsTXh5M3IvNkgrTXBucVBwaldsYUhKOU5Lc1lGcWdkZnp3VitSKzFSM2EvNTJ5d2RiSHFpY2dSXCIsXCJpdlwiOlwiMDAxYTE2Mjc1NzViMWExYmMxMjA2ZGI4NWE3ODJjZmNcIixcInNcIjpcIjUwNTE1MjUzNTQ1NTU2NTdcIn0i\",\"opt\":\"e30=\"}",
+      "signedInner": {
+        "to": [
+          {
+            "publicKey": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+            "type": 0,
+            "amount": 0,
+            "index": 0,
+            "blockId": 0,
+            "txOrdinal": 0,
+            "utxoKey": "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+          },
+          {
+            "publicKey": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+            "type": 0,
+            "amount": 0,
+            "index": 1,
+            "blockId": 0,
+            "txOrdinal": 0,
+            "utxoKey": "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+          }
+        ],
+        "from": [
+          {
+            "publicKey": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+            "type": 0,
+            "amount": 0,
+            "index": 0,
+            "blockId": 0,
+            "txOrdinal": 0,
+            "utxoKey": "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+          }
+        ],
+        "type": 0,
+        "timestamp": 1700000080500,
+        "signature": "fd14a61b8e5e55d711a0045c86f37e3d314f57ed3d27dda7435c9af0ce3a4497435a36415252ff9855825cecb1539a4aba51810bc6db2ba925776bc4fac5d8bd",
+        "buffer": "IntcImN0XCI6XCJaYWlQZCt6djNWTy9wOEJBYWlVdTg3ckpEWS9pVXlOT25tZFVlQVpsNlZLREpBS2dNS1VSNjRjSXVhRFYyd0lHTTBjOVVwN1hrckVRS3RjNnhETkxHeDQvTGt1UEovTkIrbjV4ZGFlU1hPeGlrYTZEd0NoZldFR2ZML2srSndrcDhLRitIZ0kyREduUWlWSGFyZzVzSXZ4b2YwcXVGK1Rab25zYUtVbUtOUnNFbWVnTUt6ckpuTjRIMHlyb1Q5U0xUR1d5TzlySXJpRVp5ZmdPdTBQd2JLVlo3Vll6c0VhOC80RS9DMHFUM3pPbXh2bWVyVWhUT281NEdkYjl2QUgyemcwajEwUXAxZlE2YlZZMkFSdU9EUGVZYWxuSFovQ3Iwdmt5RWIyNmRGcE1ndmlYZjQyS0EwdjA4QWhTUTJLOEd5NzZVMFZhdjU4ajFDRGV5OWxQSFltekl5Mm5ET1gzaW9VZU5DNVZCYUFrRnA1d0FzZDd1WlE3ekFhYjAzaXNNLy9FY0kvakVsTXh5M3IvNkgrTXBucVBwaldsYUhKOU5Lc1lGcWdkZnp3VitSKzFSM2EvNTJ5d2RiSHFpY2dSXCIsXCJpdlwiOlwiMDAxYTE2Mjc1NzViMWExYmMxMjA2ZGI4NWE3ODJjZmNcIixcInNcIjpcIjUwNTE1MjUzNTQ1NTU2NTdcIn0i",
+        "txs_replacements": 1,
+        "total_fees": 0,
+        "routing_path": []
+      },
+      "networkBase64": "AAAAAQAAAAIAAAIWAAAAAP0UphuOXlXXEaAEXIbzfj0xT1ftPSfdp0NcmvDOOkSXQ1o2QVJS/5hVglzssVOaSrpRgQvG2yupJXdrxPrF2L0AAAGLz+aidAAAAAEAAnm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACeb5mfvncu6xVoGKVzocLBwKb/NstzijZWfKBWxb4F5gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALGBH+UQe19bTBFQG6VwHzYXHeOS4zvPKerrAm5XHCe5QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAIntcImN0XCI6XCJaYWlQZCt6djNWTy9wOEJBYWlVdTg3ckpEWS9pVXlOT25tZFVlQVpsNlZLREpBS2dNS1VSNjRjSXVhRFYyd0lHTTBjOVVwN1hrckVRS3RjNnhETkxHeDQvTGt1UEovTkIrbjV4ZGFlU1hPeGlrYTZEd0NoZldFR2ZML2srSndrcDhLRitIZ0kyREduUWlWSGFyZzVzSXZ4b2YwcXVGK1Rab25zYUtVbUtOUnNFbWVnTUt6ckpuTjRIMHlyb1Q5U0xUR1d5TzlySXJpRVp5ZmdPdTBQd2JLVlo3Vll6c0VhOC80RS9DMHFUM3pPbXh2bWVyVWhUT281NEdkYjl2QUgyemcwajEwUXAxZlE2YlZZMkFSdU9EUGVZYWxuSFovQ3Iwdmt5RWIyNmRGcE1ndmlYZjQyS0EwdjA4QWhTUTJLOEd5NzZVMFZhdjU4ajFDRGV5OWxQSFltekl5Mm5ET1gzaW9VZU5DNVZCYUFrRnA1d0FzZDd1WlE3ekFhYjAzaXNNLy9FY0kvakVsTXh5M3IvNkgrTXBucVBwaldsYUhKOU5Lc1lGcWdkZnp3VitSKzFSM2EvNTJ5d2RiSHFpY2dSXCIsXCJpdlwiOlwiMDAxYTE2Mjc1NzViMWExYmMxMjA2ZGI4NWE3ODJjZmNcIixcInNcIjpcIjUwNTE1MjUzNTQ1NTU2NTdcIn0i",
+      "signature": "fd14a61b8e5e55d711a0045c86f37e3d314f57ed3d27dda7435c9af0ce3a4497435a36415252ff9855825cecb1539a4aba51810bc6db2ba925776bc4fac5d8bd"
+    }
+  ],
+  "malformedCiphertexts": []
+}

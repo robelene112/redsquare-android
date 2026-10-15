@@ -251,6 +251,19 @@ if (process.argv[2] === '--mentioned') {
   vectors.push(vector('1', '2', 1700000080020, '2021222324252627', null, {mentioned: [mention]}),
     vector('2', '1', 1700000080021, '28292a2b2c2d2e2f', null, {mentioned: [mention]}));
 }
+let imageFormat = null;
+if (process.argv[2] === '--image') {
+  const imagesBytes = fs.readFileSync('/reference/images-reference.json');
+  const source = JSON.parse(imagesBytes).images.red;
+  assert(source.startsWith('data:image/png;base64,'));
+  // Pinned Chat popup callbackOnUpload creates img.img-prev, sets src, then sends outerHTML.
+  const message = `<img class="img-prev" src="${source}">`;
+  const image = vector('1', '2', 1700000080500, '5051525354555657', null, {message});
+  imageFormat = {source, expectedRgb: [220, 30, 40], imagesReferenceSha256: sha256(imagesBytes),
+    scope: 'Pinned private crypto and WASM signature over the Chat popup img-prev wire format; no DOM/app initialization'};
+  vectors.splice(0, vectors.length, Object.fromEntries(['sender', 'recipient', 'timestamp', 'groupId',
+    'plaintext', 'archiveEnvelope', 'signedInner', 'networkBase64', 'signature'].map(key => [key, image[key]])));
+}
 let replyFormat = null;
 if (['--reply', '--reply-compose'].includes(process.argv[2])) {
   const browserSource = fs.readFileSync('/reference/browser.ts', 'utf8');
@@ -295,7 +308,7 @@ if (['--reply', '--reply-compose'].includes(process.argv[2])) {
       prefix: adapter.sanitize(`<blockquote href="${zero.sender}0">${excerpt}</blockquote>`)};
   }
 }
-const malformedCiphertexts = ['ct', 'iv', 's'].map((field, index) => {
+const malformedCiphertexts = (imageFormat ? [] : ['ct', 'iv', 's']).map((field, index) => {
   const formatter = JSON.parse(vectors[0].ciphertextJson);
   formatter[field] = [formatter[field]];
   const ciphertext = JSON.stringify(formatter);
@@ -316,5 +329,5 @@ console.log(JSONBig.stringify({
     saitoJsTransactionSha256: sha256(transactionSource), publishedCryptoJsHashes,
     publishedCryptoJsTarballSha256: 'b514fa78b0d056973a260586a45b77a83a4720b2ea45323f5bea3d22691e9b01',
     execution: 'read-only, network none, env-i; actual pinned Crypto methods and extracted pure saito-js JSON methods; no Saito application initialization',
-  }, ...(replyFormat ? {replyFormat} : {}), vectors, malformedCiphertexts,
+  }, ...(replyFormat ? {replyFormat} : {}), ...(imageFormat ? {imageFormat} : {}), vectors, malformedCiphertexts,
 }, null, 2));

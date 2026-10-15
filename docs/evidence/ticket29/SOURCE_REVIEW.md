@@ -54,3 +54,8 @@ class records,25 deaths per SDK and separate six cold/update observers. Both
 complete workflows succeeded at56b3c17e. Publication/direct checks are retained
 in signed-preview19-published; actual physical/closed-app/store gates remain
 with their existing tickets.
+
+Final publication records6e6a4d63...8826000e clear both axes, Spec0/Standards0.
+Reviewers independently verified six public-record hashes and the downloaded19
+APK/certificate/package/min29, as well as unchanged immutable18 before/after.
+Issue29 closed2026-10-15T09:08:20Z.
