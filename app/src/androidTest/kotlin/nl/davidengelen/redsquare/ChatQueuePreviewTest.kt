@@ -84,10 +84,33 @@ class ChatQueuePreviewTest {
             if(removed)store.receive(GroupChat.promote(wallet,requireNotNull(store.load(key.publicKey)).group,member,1700000123401).envelope())
             val alternate=ControlledFeedPeer("[]",advertisedServices="archive||;relay||",archiveResponse={"[]"})
             alternate.start().use{alternateServer->
+            fun checkpoint(stage:String) {
+                val loaded=runCatching{store.load(key.publicKey)}
+                val saved=loaded.getOrNull()
+                val record=com.google.gson.JsonObject().apply {
+                    addProperty("stage",stage);addProperty("ownerPort",port);addProperty("alternatePort",alternateServer.port)
+                    addProperty("backend",backends.load().id);addProperty("storeReadable",loaded.isSuccess)
+                    addProperty("status",saved?.status?.name);addProperty("queuedId",saved?.queuedMessage?.candidate?.id)
+                    addProperty("candidateId",saved?.candidate?.id);addProperty("automatic",saved?.automaticMessage)
+                    addProperty("alternateRequests",alternate.requests.get());addProperty("alternateRawCount",alternate.transactions.size)
+                    addProperty("alternateRelayCount",alternate.relayedMessages.size)
+                    add("historyIds",com.google.gson.JsonArray().apply{saved?.messages?.take(8)?.forEach{add(it.id)}})
+                    add("alternateClients",com.google.gson.JsonArray().apply{alternate.clientKeys.distinct().take(8).forEach{add(it)}})
+                    add("alternateRawIds",com.google.gson.JsonArray().apply{alternate.transactions.take(8).forEach{frame->
+                        add(runCatching{postingTransaction(frame).id}.getOrNull())}})
+                }
+                File(context.cacheDir,"chat-queue-evidence/group-$label-$stage-checkpoint.json")
+                    .apply{parentFile!!.mkdirs();writeText(record.toString())}
+            }
+            checkpoint("bound")
+            check(port!=alternateServer.port){"Offline owner port was reused by the alternate peer"}
             ActivityScenario.launch<MainActivity>(Intent(context,MainActivity::class.java)
                 .putExtra("feedPeerUrl","ws://127.0.0.1:$port/wsopen")
                 .putExtra("feedOfficialPeerUrl","ws://127.0.0.1:${alternateServer.port}/wsopen")).use{scenario->
-                withFailureCapture({captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/group-$label-failure.png"))}) {
+                withFailureCapture({
+                    try{checkpoint("failure")}finally{
+                        captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/group-$label-failure.png"))}
+                }) {
                     fun open(){
                         val chat=hasText("Chat") and hasClickAction() and isEnabled()
                         ui.waitUntil(20_000){displayed(hasText("Groups"))||displayed(chat)}
@@ -131,6 +154,7 @@ class ChatQueuePreviewTest {
                     clickWhenReady("Send")
                     waitFor("Queued")
                     captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/group-$label-queued.png"))
+                    checkpoint("before-recreation")
                     scenario.recreate();open();waitFor("Queued")
                     val queued=requireNotNull(requireNotNull(store.load(key.publicKey)).queuedMessage).candidate
                     if(cancel) {

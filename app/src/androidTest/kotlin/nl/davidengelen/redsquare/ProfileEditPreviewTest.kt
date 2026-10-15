@@ -4,6 +4,7 @@ import android.content.Intent
 import android.system.Os
 import android.system.OsConstants
 import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.compose.ui.text.AnnotatedString
@@ -32,8 +33,12 @@ class ProfileEditPreviewTest {
                 .hideSoftInputFromWindow(activity.window.decorView.windowToken, 0)
         }
         ui.waitUntil(10_000) { ui.onNodeWithText("Wallet").isDisplayed() }
-        ui.onNode(hasSetTextAction()).assert(
-            SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(text)))
+        // A plain bio preserves exact characters, not transient IME annotations.
+        val exactBio = hasSetTextAction() and SemanticsMatcher("Exact editable bio text") {
+            it.config.getOrNull(SemanticsProperties.EditableText)?.text == text
+        }
+        ui.waitUntil(10_000) { ui.onAllNodes(exactBio).fetchSemanticsNodes().isNotEmpty() }
+        ui.onNode(exactBio).assertIsDisplayed().assertIsEnabled()
     }
 
     @Before fun prepare() {
