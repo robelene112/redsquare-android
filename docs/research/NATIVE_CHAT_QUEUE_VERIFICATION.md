@@ -60,3 +60,9 @@ Correctedlocal15564PASS3m29s/debug/test. BackgroundGREEN10run38665208539 exact
 9aca19a2:2PASS47.426s; actualbackgroundoriginalraw/Relay/decrypt/FWD/oneeach and
 cancellationpass. Rootresumed-backgroundoriginalseen. Retainedprivate-background-
 green-android10. Group/reconciliation/storage/scope/process/full28stillpending.
+
+BackendregressionGREEN10run38665893967 atd81d4532:3PASS32.44s actualSettings
+switch, zeroRaw/RelaybothwhileOFFICIALselected/OWNERreachable, unchangedoriginal,
+returnOWNERoneidenticaloriginal/FWD. Cancellation/backgroundunchangedpass. Original
+backend-resultseen; productionunchanged9aca19a2. Identityscope regression next;
+no whole28 acceptance. Retainedprivate-backend-green-android10.

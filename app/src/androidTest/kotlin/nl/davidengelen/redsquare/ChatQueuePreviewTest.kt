@@ -21,22 +21,28 @@ class ChatQueuePreviewTest {
 
     @Test fun aQueuedPrivateMessageWaitsForItsOriginalBackendWithoutRerouting() = exercisePrivateQueue(PrivateQueueCase.BACKEND)
 
-    private enum class PrivateQueueCase { CANCEL, BACKGROUND, BACKEND }
+    @Test fun replacingTheWalletPausesItsQueuedMessageUntilTheOriginalIdentityReturns() = exercisePrivateQueue(PrivateQueueCase.IDENTITY)
+
+    private enum class PrivateQueueCase { CANCEL, BACKGROUND, BACKEND, IDENTITY }
     private fun exercisePrivateQueue(case:PrivateQueueCase) {
         val cancel=case==PrivateQueueCase.CANCEL
         val switchBackend=case==PrivateQueueCase.BACKEND
+        val switchIdentity=case==PrivateQueueCase.IDENTITY
         val label=case.name.lowercase()
         val context=InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName=="nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu","goldfish"))
         val contact=SaitoWallet.fromPrivateKey("0".repeat(63)+"2").publicKey // Public unsafe fixture only.
         val wallet=SaitoWallet.fromPrivateKey("0".repeat(63)+"1").withChatContact(contact)
+        val replacement=SaitoWallet.fromPrivateKey("0".repeat(63)+"3").withChatContact(contact) // Public unsafe fixture only.
         val wallets=AndroidWalletStore(context)
         val original=wallets.loadOrCreate()
         val backends=AndroidBackendStore(context)
         val backend=backends.load()
-        val prefixes=SaitoBackend.entries.flatMap{listOf("chat.${it.id}.${wallet.publicKey}.",
-            "chatwork.${it.id}.${wallet.publicKey}.","chatqueue.${it.id}.${wallet.publicKey}.")}
+        val prefixes=listOf(wallet,replacement).flatMap{identity->
+            SaitoBackend.entries.flatMap{listOf("chat.${it.id}.${identity.publicKey}.",
+                "chatwork.${it.id}.${identity.publicKey}.")}+"personal.${identity.publicKey}."
+        }
         val saved=context.noBackupFilesDir.listFiles()!!.filter{file->prefixes.any(file.name::startsWith)}
             .associate{check(it.isFile);it.name to it.readBytes()}
         val prefs=context.getSharedPreferences("notification-permission",0)
@@ -70,6 +76,11 @@ class ChatQueuePreviewTest {
                         ui.waitUntil(15_000){ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty()}
                         ui.onNode(hasSetTextAction() and isEnabled()).assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText,AnnotatedString(text)))
                         ui.onAllNodes(hasText(text) and !hasSetTextAction()).assertCountEquals(0)
+                    } else if(switchIdentity) {
+                        check(nl.davidengelen.redsquare.chat.ChatWorkStore.hasWork(context,wallet,SaitoBackend.OWNER))
+                        wallets.replace(wallet,replacement)
+                        scenario.recreate();open()
+                        ui.onAllNodesWithText("Queued").assertCountEquals(0)
                     } else if(switchBackend) {
                         ui.onNodeWithText("Settings").performClick()
                         waitFor("saito.io");ui.onNodeWithText("saito.io").performClick()
@@ -86,6 +97,16 @@ class ChatQueuePreviewTest {
                             android.os.SystemClock.sleep(6_000)
                             check(peer.transactions.isEmpty()&&peer.relayedMessages.isEmpty())
                         } else {
+                            if(switchIdentity) {
+                                android.os.SystemClock.sleep(7_000)
+                                check(peer.transactions.isEmpty()&&peer.relayedMessages.isEmpty())
+                                check(wallets.loadExisting().exportJson()==replacement.exportJson())
+                                check(nl.davidengelen.redsquare.chat.ChatWorkStore(context,wallet,SaitoBackend.OWNER,contact).load().transaction?.envelope()==originalCandidate.envelope())
+                                check(nl.davidengelen.redsquare.chat.ChatWorkStore.hasWork(context,wallet,SaitoBackend.OWNER))
+                                captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/private-identity-paused.png"))
+                                wallets.replace(replacement,wallet)
+                                scenario.recreate();open()
+                            }
                             if(switchBackend) {
                                 android.os.SystemClock.sleep(7_000)
                                 check(peer.transactions.isEmpty()&&peer.relayedMessages.isEmpty()&&alternate.transactions.isEmpty()&&alternate.relayedMessages.isEmpty())
@@ -99,7 +120,7 @@ class ChatQueuePreviewTest {
                             check(postingTransaction(peer.transactions.single()).envelope()==originalCandidate.envelope())
                             check(SaitoEnvelope.fromSignedJson(peer.relayedMessages.single())==originalCandidate.envelope())
                             if(switchBackend){waitFor(contact);ui.onNodeWithText(contact).performClick()}
-                            else scenario.moveToState(androidx.lifecycle.Lifecycle.State.RESUMED)
+                            else if(!switchIdentity)scenario.moveToState(androidx.lifecycle.Lifecycle.State.RESUMED)
                             waitFor("Forwarded. Delivery is not confirmed.")
                             check(peer.transactions.size==1&&peer.relayedMessages.size==1)
                         }

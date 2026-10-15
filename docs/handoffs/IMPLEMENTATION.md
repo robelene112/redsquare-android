@@ -72,12 +72,16 @@ separateboundedreviews0/0. Local8046FAILED1m4 missingauthor/profileoldlockrefs,
 allcorrected. Correctedlocal15564PASS3m29s. Nativefocused10run38665208539 SUCCESS exact9aca19a2:
 2PASS47.426s backgroundsameoriginalRaw/Relay/decrypt/FWD/oneeach pluscancelallpass.
 Originalresumedcaptureseen, retainedprivate-background-green-android10. No owned
-localbuild. Newthirdbackendpause regression tests existingguard with both controlled
-servers: reachableoriginalwhileofficialselected mustgetzeroRaw/Relay; switching
-backforwardsoneidenticaloriginalonly. Firstexecutionpending, groups/reconciliation/
-identity/storage/process/full28 remainunaccepted.
+localbuild. Backendregression10run38665893967 SUCCESS atd81d4532:3PASS32.44s. ActualSettings
+bothservers/originalOWNERbinding/zeroRawRelaywhileOFFICIAL/identicaloneafterreturn
+pass; originalbackendresultseen. Productionunchanged9aca19a2. Newfourthidentity
+regression replacesprotectedfixturewallet1with3/recreatesUI, hidesoldQueued,
+requireszeroRawRelaywithoriginalserverreachable/unchangedoriginal/pendingwork
+warning retained, restoreswallet1/recreates thenforwardsoneidenticalRawRelay.
+Fixtureprotectedreplacementonly, notnewwalletimportUIacceptance. Firstexecution
+pending. No ownedbuild. Groups/reconciliation/storage/process/full28pending.
 
-NEXT: review/verify backendpause and identitypause, then exactArchive-reconciliation/storagefailure,
+NEXT: review/verify identitypause, then exactArchive-reconciliation/storagefailure,
 groupqueuewithfreshmembership, actualprocessdeath, finalfull10/17/reviews/signed
 nextbeta/closure28. Parent1approvedapplication/controlledpeer/protectedrecoveryseams.
 Queueonlyexplicitmessages,noadmin/reaction/transferautosends. Continue28through36
