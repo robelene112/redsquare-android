@@ -15,7 +15,16 @@ internal fun receiveChat(context: Context, wallet: SaitoWallet, backend: SaitoBa
         val body = signed.body.asJsonObject
         val id = body.get(if (body.get("request") == com.google.gson.JsonPrimitive("chat group")) "id" else "group_id")
         if (id != null && id.isJsonPrimitive && id.asJsonPrimitive.isString && SaitoWallet.isPublicKey(id.asString)) {
-            GroupChatStore(context, wallet, backend).receive(envelope)
+            val message = synchronized(SaitoLocalState.lock) {
+                val store = GroupChatStore(context, wallet, backend)
+                val ordinaryMessage = body.get("module") == com.google.gson.JsonPrimitive("Chat") &&
+                    body.get("request") == com.google.gson.JsonPrimitive("chat message")
+                val seen = !ordinaryMessage || store.load(id.asString)?.messages?.any { it.id == signed.id } == true
+                val retained = store.receive(envelope)
+                if (!seen && retained.group.memberRoles[wallet.publicKey]?.active == true)
+                    retained.messages.singleOrNull { it.id == signed.id } else null
+            }
+            message?.let { notifyGroupChat(context, wallet, backend, it) }
             return null
         }
     }

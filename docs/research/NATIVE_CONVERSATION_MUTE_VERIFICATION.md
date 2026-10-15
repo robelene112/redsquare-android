@@ -159,3 +159,14 @@ positive, plusgroupmuted2ssilence/reopen/cachedunmute. Sharedactualnotification
 observation/cleanup andidentity/no-wirehelpers usedbyprivate+group, preserving
 all existingcriteria andstrengtheningtitle toexactRedSquare. FirstactualRED
 pending; no productiongroupnotification pathyet.
+
+Groupalerttracer5f390291 source/evidenceSpec0/Standards0. ActualRED10
+38697022653 exact5f390291:4cases3PASS1FAIL43.877s, compatiblegroupincoming/ACK
+positive thenmissingactualOSalert224/20s; notificationtailunexecuted. Retained
+group-alert-red-android10(20hash8XML), rootoriginalfailureseen/XMLparsed.
+Minimum nowposts newauthenticatedretainedgroupmessages onlywhileownmembership
+active, sharesgenericnotification/selection/policy/permissionroute withprivate,
+keepscontrols/reactions/Archive/duplicates/selfsilent. GroupcategoryGroupchats.
+Headernamebounded2lines+ellipsis/fulltextsemantics afteractualnewbuttoncaused
+three-lineheaderinretainedcaptures. No closed-app push orwhole29acceptance.
+Sourcecompile/review/native4GREENpending; no ownedlocalbuild.

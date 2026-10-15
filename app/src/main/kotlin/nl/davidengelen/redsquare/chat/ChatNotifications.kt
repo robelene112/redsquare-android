@@ -15,9 +15,25 @@ import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.moderation.AndroidPersonalControls
 import nl.davidengelen.redsquare.saito.*
 
-/** Optional system alerts follow retention. Failures never undo an authenticated saved message. */
+private enum class ChatAlertKind(val channel: String, val label: Int) {
+    PRIVATE("private-chats", R.string.chat_private_notification_channel),
+    GROUP("group-chats", R.string.chat_group_notification_channel)
+}
+
+private data class IncomingChatAlert(val id: String, val author: String, val conversationId: String,
+    val kind: ChatAlertKind)
+
 internal fun notifyPrivateChat(context: Context, wallet: SaitoWallet, backend: SaitoBackend,
-    message: PrivateChatMessage) {
+    message: PrivateChatMessage) = notifyChat(context, wallet, backend,
+        IncomingChatAlert(message.id, message.author, message.conversationId, ChatAlertKind.PRIVATE))
+
+internal fun notifyGroupChat(context: Context, wallet: SaitoWallet, backend: SaitoBackend,
+    message: GroupChatMessage) = notifyChat(context, wallet, backend,
+        IncomingChatAlert(message.id, message.author, message.groupId, ChatAlertKind.GROUP))
+
+/** Optional system alerts follow retention. Failures never undo an authenticated saved message. */
+private fun notifyChat(context: Context, wallet: SaitoWallet, backend: SaitoBackend,
+    message: IncomingChatAlert) {
     if (message.author == wallet.publicKey) return
     try {
         synchronized(SaitoLocalState.lock) {
@@ -29,9 +45,9 @@ internal fun notifyPrivateChat(context: Context, wallet: SaitoWallet, backend: S
                 PackageManager.PERMISSION_GRANTED) return
             val notifications = context.getSystemService(NotificationManager::class.java)
             if (!notifications.areNotificationsEnabled()) return
-            val channel = "private-chats"
+            val channel = message.kind.channel
             notifications.createNotificationChannel(NotificationChannel(channel,
-                context.getString(R.string.chat_private_notification_channel), NotificationManager.IMPORTANCE_DEFAULT))
+                context.getString(message.kind.label), NotificationManager.IMPORTANCE_DEFAULT))
             val open = PendingIntent.getActivity(context, 0, Intent(context, MainActivity::class.java),
                 PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
             val notification = Notification.Builder(context, channel)
