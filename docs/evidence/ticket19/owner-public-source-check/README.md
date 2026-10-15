@@ -1,8 +1,9 @@
 # Owner public source file check
 
 Root read only SHA256 of three exact named public source files through read-only
-file mounts in a network-disabled, capability-dropped container. No file content,
-options, configuration, wallet, database, process environment or logs were read.
+file mounts in a network-disabled, capability-dropped container. Only hashes
+were returned; source content was not printed or copied. No options,
+configuration, wallet, database, process environment or logs were read.
 The hashes compare against the retained exact public sources/provenance from the
 Registry callback experiment.
 
