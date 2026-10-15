@@ -12,85 +12,27 @@ implementation issues are complete. This explicit resume supersedes the storage
 migration pause recorded below. Commit/push each ticket and keep signed reviews
 available. Do not pause after the next ticket or ask routine approvals.
 
-**ACTIVE #30: Send and view images in private and group Chat.**
-Review base `8826000edf59174793749abc7b207610ad52e3a8`; dependencies15/25/26 closed.
-Canonical chronology and evidence: `docs/research/NATIVE_CHAT_IMAGES_VERIFICATION.md`
-and `docs/evidence/ticket30/`. Protected untracked group contract stays untouched.
+**#30 COMPLETE, signed21 published:** Chat photos in private/group conversations,
+exact captions, protected drafts/queues, cached viewing and failure/process recovery.
+Review base8826000e, production last changeddc28f780. Final full10run38742885120
+at e92c41d3 SUCCESS360PASS plus existing profile assumption/85records27deaths;
+full17run38744845607 at8796c45b SUCCESS362PASS/86records27deaths. Both core114,
+release/lint/all application/protected/public gates pass. Final evidence reviews
+Spec0/Standards0 on both versions. Canonical acceptance:
+`docs/evidence/ticket30/FINAL_ACCEPTANCE.md` and research chronology
+`docs/research/NATIVE_CHAT_IMAGES_VERIFICATION.md`. Prior failed runs stay qualified.
+Portable permission probe separately passes8cases+actualPID; old17 full probe
+original state explicitlyfalse, no priortrue restoration claim.
 
-Implementation is complete, final full acceptance and publication are pending.
-Native photo picker, normalization, exact escaped captions, preview/removal,
-protected drafts, Send, queue/cancel, cached viewing/expansion and failure/process
-recovery are implemented. Private browser crypto/receiver/dedup, group A/B signed
-constructor equality and both browser sanitizer/DOM/pixel checks passed. Growing
-private/group history uses bounded encrypted parts and atomic encrypted index;
-legacy reads and the per-file5MiB bound remain. Process fixtures preserve every
-scoped original part, and fresh fixtures refuse orphan parts.
-
-Production last changed `dc28f780`: explicit Send closes keyboard; private/group
-already-disabled queued forms hide while bubble/status/cancel remain. Later
-changes only fix reachable physical test taps, scrolling and diagnostics.
-Whole-source review8826..23603b1d: Spec0/Standards0; each later fixture correction
-and evidence change reviewed separately0/0. No app changes afterdc28. Signed21
-sourceb42e4e2f is product-identical through current HEAD.
-
-**OWNED full runs, never duplicate an active scope:**
-- Android10 `38742885120`, source `e92c41d3`, SUCCESS:361reported/360PASS plus
-  one existing API30 profile assumption,85records27actualdeaths. Core114/release/
-  lint/allapplication/publicreads/coldwallet/signed5-to8/diagnostic PASS. PhotoUI
-  10PASS81.007s/history2PASS54.691s, actualphotoPID7332to7568private/7839to8177
-  group. Retained980hashes/363XML/root10originalPNGsseen. Reviews0/0.
-- Android17 `38744845607`, source `8796c45b`, SUCCESS:362PASS/86records27deaths,
-  core114/release/lint/allapplication/publicreads/coldwallet/signed5-to8/diagnostic.
-  Photo10PASS83.397s/history2PASS55.015s including actual modernwritefault/retry;
-  photoPID5111to5180private/5286to5359group/restoration. Retained988hashes365XML/
-  root10originalPNGsseen. Final17evidence review pending;10 reviewed0/0.
-Each started only after its same-scope predecessor ended. Old full failures stay
-failed, with unexecuted tails qualified. Both previous fulls at236/09 failed two
-private initial-history visibility assertions; the final14395 scroll correction
-passed focused34+actualPID. Do not infer acceptance from earlier partial gates.
-
-**Corrected focused proof:**
-- Photo10 `38733114111`/2199295e:10UI, both actual photo PID/restoration gates,
-  history2PASS52.532s,12private/16group+growth/contact/work guards and nested
-  multipart installation restoration. API29 `.new` fault explicitly unexercised.
-- Storage17 `38731840587`/7cbbe810:2PASS124.148s, actual modern `.new` failure,
-  prior originals/draft intact and successful retry. Later failed fulls also
-  passed new photo/history/PID gates, qualified in their own records.
-- Queue10 `38737081528`/dc28:13PASS262.904s; queue17 `38738706055`/bdd07ed0:
-  13PASS300.099s. Actual original/cancel/routing/identity assertions retained.
-- Group10 `38738539710`/27074841:24 class cases, actual PID12926to13302 and
-  restoration. Group17 `38739842394`/ef58dc7f:24cases, PID5267to5346/restoration.
-- Private17 `38741903238`/14395a8e:24PASS154.653s/actions10PASS61.992s,
-  actual PID5425to5514/restoration; exact original/retry/import/identity/draft/
-  cache/reaction requirements intact. Root3selectedPNGs seen,8XML parsed.
-- Portable mute probe17 `38745018833`/3a53c756 SUCCESS:8PASS141.914s, actual
-  interrupted policy PID4889to5001/recovery/restoration; root3PNGs seen/3XML parsed.
-  Evidence reviewed0/0. Replaces unavailable runner `rg` with literal `grep`; syntax and capturedfalse/
-  matchingtrue probe-table pass. Actual device priorstatefalse, no priortrue
-  restoration claim.
-
-Successful full17 at879 uses the old probe and emitted one missing-rg warning.
-Actual original permission snapshot explicitlyfalse, selectedrow+rawhash retained
-in final17 qualification. Its observed grant/revoke path matches that original
-state; no priortrue restoration claim. Portable3a focused8+PID proof independent.
-No application/budget/assertion changes. Both fulls SUCCESS, no owneddevice/local
-build active. Final17 evidence review and signed21 publication remain.
-Final retainer `.scratch/retain-chat30-final-full.py` validates all class counts,
-photo/history/PID gates and two more actual deaths than29. Retain full metadata,
-raw logs, captures and permission qualification before final review/publication.
-
-**Review APK:** public19 remains at https://davidengelen.nl/redsquare/.
-Signed21/0.1.21 BUILT/VERIFIED, unpublished, immutableb42e4e2f at
-`/mnt/storage/redsquare-android-artifacts/chat30-review21-source/.scratch/review-builds/21`.
-Build SUCCESS3m59s, exec46570exit0; no local build active. APKsha
-`1c5fabe0f9062292807e4c330f2d7a87143e914bfdfce59c9a11d89657c0e6ca`, established
-certificate `6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2`,
-package `nl.davidengelen.redsquare`, min29. Metadata ticket30/review21-build
-reviewed0/0 and APK independently hashed. Version counter21. Old20 stays
-unpublished because it predates the production correction; never reset/overwrite.
-Publish21 only after full gates/review, then direct public page/manifest/APK hash,
-package/certificate and immutable19 checks. Commit/close30 and continue later
-issues. Do not pause or request routine approval.
+Public21/0.1.21: https://davidengelen.nl/redsquare/, sourceb42e4e2f product-identical
+to both fulls/currentHEAD. APKsha1c5fabe0f9062292807e4c330f2d7a87143e914bfdfce59c9a11d89657c0e6ca,
+established cert6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2,
+package nl.davidengelen.redsquare/min29. Direct public GET/hash/signature/package
+checks pass; immutable19 unchanged. Public-only records signed-preview21-published.
+Unpublished20 stays unpublished. No owned build/device run active.
+Next: resolve #31's real #16 provider dependency, then remaining independent work.
+Do not pause or request routine approval. Protected untracked group contract stays
+untouched. Physical performance/current update and keyboard-open acceptance remain35.
 
 Keyboard-open usability is separately #35, not proved by keyboard-closing fixtures.
 `ANDROID_CHAT_KEYBOARD_LAYOUT_2026_10_15.md`: theme already enables edge-to-edge,
@@ -131,7 +73,7 @@ reviewedSpec0/Standards0. Signed19 remainscurrent. Issue30 readonlyorientation
 in .scratch/chat30-readonly-scope-notes.md supplements its canonicalresearch.
 Currenthost no /dev/kvm; nativeproofGitHub. Protectedgroupcontractuntouched.
 
-Twenty-five of the original35 tickets are complete (#2 through#15,#18,#20 through#29).
+Twenty-six of the original35 tickets are complete (#2 through#15,#18,#20 through#30).
 Issue39 group Chat visual polish COMPLETE, signed16/0.1.16 published at
 https://davidengelen.nl/redsquare/. Source95e089699c6192abaea0d9dbacb7dbf4af04e69e,
 reviewbase8528893a; shared bubbles/avatars/names/timestamps/wrapping actions,

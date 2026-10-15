@@ -1,0 +1,38 @@
+[
+  {
+    "url": "https://davidengelen.nl/redsquare/",
+    "status": 200,
+    "bytes": 2048,
+    "sha256": "e5f805a1b5ee53183f8e329222f24c839a5f2907abec32df665fd954771c216f"
+  },
+  {
+    "url": "https://davidengelen.nl/redsquare/latest.json",
+    "status": 200,
+    "bytes": 555,
+    "sha256": "da28265b53df966d3ccd2e3d68daf811136aea541bcefaf8430f182e0461a6c4"
+  },
+  {
+    "url": "https://davidengelen.nl/redsquare/releases/21/manifest.json",
+    "status": 200,
+    "bytes": 555,
+    "sha256": "da28265b53df966d3ccd2e3d68daf811136aea541bcefaf8430f182e0461a6c4"
+  },
+  {
+    "url": "https://davidengelen.nl/redsquare/releases/21/redsquare.apk",
+    "status": 200,
+    "bytes": 33968308,
+    "sha256": "1c5fabe0f9062292807e4c330f2d7a87143e914bfdfce59c9a11d89657c0e6ca"
+  },
+  {
+    "url": "https://davidengelen.nl/redsquare/releases/19/manifest.json",
+    "status": 200,
+    "bytes": 667,
+    "sha256": "802c59cc65aee0a4037d39892e9762410fb43232ce8bc14044029cc6abf2d516"
+  },
+  {
+    "url": "https://davidengelen.nl/redsquare/releases/19/redsquare.apk",
+    "status": 200,
+    "bytes": 33935540,
+    "sha256": "82ed82795eda62dd4c064603cea022869063184175e12c4147cc4e5d031a2de4"
+  }
+]
