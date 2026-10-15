@@ -143,8 +143,10 @@ regressions forexistingfreshselfremoval+Cancel andexactArchivegrouporiginal
 reconciliation, noappchange. Focusedgroup4/normalclass11firstexecutionpending.
 Group4run38677817471 exact846440f8 SUCCESS4PASS112.294s. Removedauthor
 zeroWire/Cancel andexactArchivegroupsig/reconcile/no2ndRaw/noRelay/recreatepass;
-retainedgroup-four-green-android10/rootoriginalsseen. Local28656testcompileACTIVE
-onprocessfixture3e8d62bd. No app/testeditsuntilfinished. Noactiveproof.
+retainedgroup-four-green-android10/rootoriginalsseen. Local28656testcompilePASS
+1m27s on3e8d62bd/equivalent31bed. Exact31bedfocusedgroup6run38678478161 ACTIVE
+andactualprocessprivate/grouprun38678479983 ACTIVE, independentrunners/scopes.
+No duplicate/noownedlocalbuild. Whole28sourcereviewsfrom09e0to31bedrequested.
 Addedremainingstoragefailure+identity/backendscoperegressions, noappchanges;
 focusedgroup6/fullclass13 firstexecutionpending. Groupappsource65c57b5c.
 Groupappminimumebd9f700 applied, notyetaccepted. Groups/process/full28stillpending.
