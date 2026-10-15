@@ -1,0 +1,16 @@
+{
+  "endpoint": "https://saito.davidengelen.nl/json/peers",
+  "observedAt": "2026-10-15T19:06:46.228979+00:00",
+  "readOnly": true,
+  "productionStateModified": false,
+  "publishedRegistrar": "sFQuGQ6teVaHs6AAtBBWeDwtGMCGCPNyhTJqYDXCvvVK",
+  "effectiveRegistryAuthorityEstablished": false,
+  "sourceStatusSemantics": "getPeers lists verified peers; connected/connecting/disconnected are distinct",
+  "httpStatus": 200,
+  "status": "completed",
+  "publishedRegistrarListed": false,
+  "matchingVerifiedPeerCount": 0,
+  "matchingConnectedPeerCount": 0,
+  "matchingStatuses": [],
+  "registryServiceObservation": "unknown-not-collected"
+}

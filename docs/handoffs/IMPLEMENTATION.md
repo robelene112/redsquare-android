@@ -7,8 +7,10 @@ one question at a time when a material choice really needs the owner.
 
 ## Current work
 
-**ACTIVE #19:** review basef6c97baccb0a95d51748160f965b5e6e9c1c016b.
-Public22 is current;40closed. Tracer611232a3 reviews0/0, local testAPK2m12s.
+**#19 pending final frozen verification and Owner readiness:** review basef6c97baccb0a95d51748160f965b5e6e9c1c016b.
+Public22 is current;40closed. Final app/test source is frozen at45ff40f6; no further #19 implementation is active. Continue independent #17 diagnostics sequentially while these immutable final scopes finish, then return to final evidence review/public23 publication. #19 remains open for Owner readiness. A bounded public GET at19:06:46Z found zero published-registrar rows in Owner's verified-peer snapshot; effective authority and timeout cause remain unproved. Both attempts and limits are retained under owner-public-peer-projection(-corrected). No live node changes.
+
+ Tracer611232a3 reviews0/0, local testAPK2m12s.
 Actual native RED38782610994 at611232a382a8e9af03d48cbb42cc01ab2f56819c:
 16cases15PASS/1FAIL112.39s, only new Settings late-proof case times out20s at128.
 Positive public checkpoint records one same-index fallback/proof pair queued,
@@ -16,7 +18,7 @@ one namecheck and zero transactions. Root saw original failurePNG/parsedXML;
 retained ticket19/late-callback-red-android10. That case's later success/identity/
 no-registration assertions and process tail are unexecuted. No readiness claim.
 
-Minimum correction APPLIED, not yet runtime-verified: internal Registry-namecheck
+Minimum correction APPLIED; focused native verification is recorded below: internal Registry-namecheck
 entry and private pending flag skip ONLY exact21B type13 fallback. Other bodies,
 type14, generic requests/hints, original12s timeout, cleanup/failure fanout and
 strict verification remain. Public native probe uses the same entry for its

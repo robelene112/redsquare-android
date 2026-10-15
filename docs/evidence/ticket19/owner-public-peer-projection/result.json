@@ -1,0 +1,12 @@
+{
+  "endpoint": "https://saito.davidengelen.nl/json/peers",
+  "observedAt": "2026-10-15T19:05:50.157878+00:00",
+  "readOnly": true,
+  "productionStateModified": false,
+  "publishedRegistrar": "sFQuGQ6teVaHs6AAtBBWeDwtGMCGCPNyhTJqYDXCvvVK",
+  "effectiveRegistryAuthorityEstablished": false,
+  "sourceStatusSemantics": "getPeers lists verified peers; connected/connecting/disconnected are distinct",
+  "httpStatus": 200,
+  "status": "schema-or-bounds-failure",
+  "category": "schema"
+}
