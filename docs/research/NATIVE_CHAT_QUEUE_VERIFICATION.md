@@ -452,3 +452,16 @@ both verify790full17hashes286XML plus4preparedbuildhashes, complete336appcases/
 77records24deaths and qualifiedimmutable-updateobserverfailure. Currenthandoff
 stalecommitted/NEXT wordingcorrected perStandardsnote. Local25840 testcompilePASS,
 noownedlocalbuild. Nextcorrectedtail10/17, notduplicate336appcasefull.
+
+Correctedtailownership verified:10run38687875184 and17run38687877592 ACTIVE,
+exact968d6a65a43b6b702fb5989063ce3aec1a2b9e70, core/release/lint included. Both
+recheckchangedobservercoldwallet/immutable5→8/finaldiagnostic. No acceptance yet.
+
+Correctedrelease-tail10run38687875184 and17run38687877592 SUCCESS exact968d6a65,
+eachcore114/debug/test/release/lint/colddebugwallet2observations/immutable5→8four
+nativeobservations/exactpublicidentity/finaldiagnosticPASS. Retainedrelease-tail/
+android10and17 each31hash8XML; rootoriginalfirst/finalimmutablewalletanddiagnostic
+seen, 17debugcoldwalletalsoseen. Allsixpublicaddressesperpathagreewiththeir
+separateXML/continuity; nosecretmarkers. Combined336case17 applicationproofplus
+correctedtailcomplete; originalfullconclusionstaysFAILED. FINAL_ACCEPTANCE.md
+recordsallfourruns/equivalence/qualifiedclaims. Finaljoinedreviewnext, thenpublish18.

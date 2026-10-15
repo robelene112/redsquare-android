@@ -74,25 +74,24 @@ truthful Forwarded UI and restoration. Retained final-full/android10,
 786hash283XML, no secretmarkers. Root originals inspected; final evidence
 Spec0/Standards0, independently recounted and verified by both reviewers.
 
-**Android17 application proof complete, release tail outstanding:**
-run38682943156 FAILED at827bf82e06e5740250fadafcdeace70ed59a93b8, but ALL336
-applicationcases/77records24actualdeaths/core114/release/lint/allpriorgates/both
-publicfeeds PASS.13queue280.698s, actualprivatePID5199→5268/group5372→5443,
-exactoriginalautomaticonce/fullwalletbackend/history/groupkeyorigin/restoration.
-Laterimmutablepublic5→8observerfailsfinalcoldWalletopening, lastXMLshowsChrome
-first-usepage. No failurePNG; stalehostcoordinateshypothesisonly, causeunproved.
-Retainedfull17-legacy-update-attempt790hash286XML. Rootoriginalsseen.
-Signedupdatecompletion/finaldiagnostic remainunaccepted; do not relabelrunSUCCESS.
+**Android17 combined evidence complete, final review pending:** full application
+run38682943156 FAILED overall at827bf82e, but ALL336appcases/77records24actual
+deaths/core114/release/lint/allpriorgates/bothpublicfeeds PASS.13queue280.698s,
+privatePID5199→5268/group5372→5443 exactoriginalautomaticonce/history/fullwallet/
+backend/groupkeyorigin/restoration. Laterimmutable5→8finalcoldWalletobserverfailed;
+lastXMLChrome, nofailurePNG/causeproof. Retained790hash286XML, bothreviews0/0.
+OriginalfullrunremainsFAILED.
 
-Fixture correction nowusesnativeUiObject2liveWallet/positiveaddress insteadof
-hostdumpcoordinates; ownslaunchafterinstrumentationrestart, capturespublicUI/logs.
-Opt-in release-tail/17 rechecks coldwallet/immutable5→8/finaldiagnostic andsource/
-core/release/lint. Regularfullstillallgates. Workflowexception permitscombinedproof
-onlyafterverifiedcompleteapplicationgate set/equivalentprod/assertions/separate
-review. Correctioncommittede4db8a35; Spec0/Standards0. Local25840 testcompile PASS,
-log .scratch/chat28-wallet-observer-compile.txt. No owned localbuild. Tailruntimepending. Do not rerun336appcases without an application/
-source concern. Signed18held.
-Earlierfirst17Sendfailures remainqualified incanonicalresearch/evidence.
+Correctedrelease-tail10run38687875184 and17run38687877592 SUCCESS at exact
+968d6a65a43b6b702fb5989063ce3aec1a2b9e70. Each core114/debug/test/release/lint,
+coldwallet2 plus signed5→8four native public-address observations/exactidentity
+and finaldiagnosticPASS. NativeUiObject2 observer preservesemulatorguards and
+identityassertions. Retained release-tail/android10and17 each31hash8XML, root
+originalsseen/no secretmarkers. Allapp/core/build/review scripts unchanged from
+accepted10e3edf to827/968; onlyfixtures/orchestration/docs. ReviewedWORKFLOW
+exceptionrequirescompletepriorappgates+unchangedassertions+bothactualruns reviewed,
+neverlabelsFAILEDfullSUCCESS. Source/correctionreviewsSpec0/Standards0.
+Finalcombinedtail/artifactreviewpending; noownedlocalbuild/proofactive.
 
 **Signed18 prepared, unpublished:** exact-source detached worktree
 /mnt/storage/redsquare-android-artifacts/queue28-review-source at827bf82e.
@@ -104,14 +103,10 @@ Public metadata retained signed-preview18-prepared. Public17 remains unchanged.
 Hold publication until full17 acceptance. Prepared public verifier:
 .scratch/verify-chat28-public18.py, not executed. Notes .scratch/chat28-preview18-notes.txt.
 
-NEXT: dispatch release-tail and
-release-tail-android17 at the reviewed correction (core/release/lint included).
-Retain actual corrected cold-wallet/signed5→8/finaldiagnostic outcomes and both
-source-run metadata, prove production/application assertion equivalence, review
-combined336-case17 application proof plus completed tail and prepared signed18.
-Do not change the failed full run to SUCCESS. Then publish signed18/directly
-verify public page/manifest/APK/signature/package/min29 and immutable17; record/
-close28, continue29 and remaining tickets without another confirmation.
+NEXT: final two-axis review of joined tails/FINAL_ACCEPTANCE.md/prepared18,
+then publish18 with scripts/review-publish and direct public verifier
+.scratch/verify-chat28-public18.py. Preserve immutable17. Record/close28, then
+continue29 and remaining tickets without another owner confirmation.
 No whole28/physical/store acceptance before those steps. No next ticket claimed.
 Protected preexisting untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md untouched.
 
