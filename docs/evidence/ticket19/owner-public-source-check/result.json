@@ -1,0 +1,47 @@
+{
+  "mode": "named public source files only; read-only network-none container",
+  "pins": {
+    "A": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+    "B": "214504ecece76d1cd20a245fe4468eccbfca2951"
+  },
+  "files": [
+    {
+      "deployedPublicPath": "/opt/saito/node/mods/registry/registry.js",
+      "sha256": "25b7a20074b8465ab5f2119dafb8136e276fd71ee0d02b6485650213cd92e576",
+      "publicPinSha256": {
+        "A": "25b7a20074b8465ab5f2119dafb8136e276fd71ee0d02b6485650213cd92e576",
+        "B": "b069f0ba1f9f9408102f9e144d71840086cc1262b4a7994b718e72176623351d"
+      },
+      "matchesPins": [
+        "A"
+      ]
+    },
+    {
+      "deployedPublicPath": "/opt/saito/node/lib/templates/modtemplate.js",
+      "sha256": "c35f8577d8226e0d756dd006c5146939ca3f79b09725f440c2d927e82c497147",
+      "publicPinSha256": {
+        "A": "c35f8577d8226e0d756dd006c5146939ca3f79b09725f440c2d927e82c497147",
+        "B": "c35f8577d8226e0d756dd006c5146939ca3f79b09725f440c2d927e82c497147"
+      },
+      "matchesPins": [
+        "A",
+        "B"
+      ]
+    },
+    {
+      "deployedPublicPath": "/opt/saito/node/lib/saito/modules.ts",
+      "sha256": "3b05a96be3b5840e0c864db9ea3d4387c393469512a4256ff832af1c58c6fa09",
+      "publicPinSha256": {
+        "A": "3b05a96be3b5840e0c864db9ea3d4387c393469512a4256ff832af1c58c6fa09",
+        "B": "947ef341106fe0dfd27a8b203ab34409b07c6327f2f481b6b56f280ac4eee720"
+      },
+      "matchesPins": [
+        "A"
+      ]
+    }
+  ],
+  "runningRevisionEstablished": false,
+  "effectiveRegistrarEstablished": false,
+  "internalPeersInspected": false,
+  "productionMutation": false
+}
