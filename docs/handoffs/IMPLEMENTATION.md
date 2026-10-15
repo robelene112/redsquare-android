@@ -57,9 +57,14 @@ FirstprivateQUEUEDminimum1ac274ab compile20120PASS3m35; historymergefindingcorre
 28714c2151e72a544cb39f5ff8a093a8e9855041. Unclaimedoriginalstaysexclusivelyinwork,
 pendingbubbleonly; RawclaimedUNKNOWN, submittedthenordinarycache. Guardedcancel
 restorestextwithoutcacheentry. SeparatecorrectionSpec0/Standards0.
-ACTIVE exact28714c21 focused10run38662611803; no ownedlocalbuild. Awaitactual
-result/capturebeforenextslice. No automatic/groupqueueyet. Preservelegacyexplicit
-UNKNOWN/SUBMITTED retry,27STOPPEDhistoryandallpreviousfeatures.
+Focused10run38662611803 at28714c21 FAILED onecase7.354s at55 label-inclusive
+assertTextEquals. Raw EditableText exactlymatchesintendedtext, Textalsoincludes
+Message label; originalQueued/cancelleddraftimagesseen. Recreate/cancelreached;
+laterno-bubble/reachablepeer/no-wiretailunexecuted. Correctedfixture45401dc3 uses
+exactEditableText matcher,samenode/expected/deadline, no productchange. Retained
+private-cancel-label-attempt-android10. CorrectedGREEN execution pending. No owned
+localbuild. No automatic/groupqueueyet. PreservelegacyexplicitUNKNOWN/SUBMITTED
+Retry,27STOPPEDhistoryandallpreviousfeatures.
 
 NEXT afterprivatecancelGREEN: automatic/backgrounddelivery+immutable originals,
 identity/backendpause/reconciliation/storagefailure, groupqueuewithfreshmembership,
