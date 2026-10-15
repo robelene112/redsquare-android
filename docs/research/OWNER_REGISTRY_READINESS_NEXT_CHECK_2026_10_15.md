@@ -36,7 +36,8 @@ print, persist or publish that response. If root separately authorizes a bounded
 collector to receive it transiently, retain only fixed published-registrar
 presence, matching-row count, that match's bounded status and Registry-service
 boolean. Discard all unrelated rows and keyList/id/synctype fields. Record
-HTTP/content/schema/bounds failures honestly. No such collector or probe ran.
+HTTP/content/schema/bounds failures honestly. At research time no collector had run.
+Subsequent root observations are retained separately: [wrong-wrapper schema failure](../evidence/ticket19/owner-public-peer-projection/README.md) and [corrected registrar-only projection](../evidence/ticket19/owner-public-peer-projection-corrected/README.md).
 The old `/stats/peers` remains explicitly discouraged by
 [maintained operations references](/home/david/snake-stickerbook/docs/SAITO_RUNTIME_UPGRADE.md:243).
 
