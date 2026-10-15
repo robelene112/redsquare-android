@@ -1,0 +1,7 @@
+# Group status scrolling, paging and recovery, Android 17
+
+Actual run [38812564346](https://github.com/robelene112/redsquare-android/actions/runs/38812564346) at 3050fb7cd666000013afb5409718ff00a6455d46 concludes SUCCESS. Group actions1PASS37.401 seconds, mixed reception1PASS8.023 seconds, group UI22PASS124.55 seconds, and recovered/restored2PASS with one deliberate process death PID5153→5235. Total26 completed cases in five completion records. Reaction recovery retains its uncertain original without automatically retrying; exact checkpoint equality and retryVerifiedfalse pass.
+
+Retry/status, rejected history pagination, unavailable Archive and cached reopening now explicitly reveal their status targets while preserving every original display, draft, membership, cut-off, immutable candidate, wallet/backend and wire assertion. Root viewed original retry-uncertain/forwarded, rejected-page-loaded, archive-unavailable-cached and pending-cold-recovered frames. Scrolling may clip other status or message content; those remain separately accessible, not simultaneously visible. Available older/cached message frames can show partially clipped rows in the independent message list. No image is substituted for the exact protected/payload assertions.
+
+All42 retained XML files parse. Source/core114/debug/test assembly pass; these focused scopes do not run release/lint or complete-app acceptance. No full #41/physical Pixel result, public Saito writes or permanent history guarantee follows. Complete10/17 gates, final review and signed publication remain pending.

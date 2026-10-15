@@ -1,0 +1,56 @@
+{
+  "signed24Source": "36b66a7d81a5019ecd9ba67a52982ff019f12bb5",
+  "focusedGroupSource": "3050fb7cd666000013afb5409718ff00a6455d46",
+  "bothPendingFullSource": "b218c1f762eb67ce1f86fc33e20ffb2659ae5efb",
+  "identicalProductionInputs": [
+    {
+      "path": "app/src/main",
+      "gitObject": "657069d346209c16b36c50bef806ecd327d7d828"
+    },
+    {
+      "path": "core/src/main",
+      "gitObject": "89854000f1d88fb3d8f6c5c93d1de7ef4a00de81"
+    },
+    {
+      "path": "app/build.gradle.kts",
+      "gitObject": "9baa8ecb0643924c8c787aabfc8832c54d5ddc88"
+    },
+    {
+      "path": "core/build.gradle.kts",
+      "gitObject": "6cc3e84064c2186ba8ae5d64a4edb13b9b19eaa7"
+    },
+    {
+      "path": "build.gradle.kts",
+      "gitObject": "f3fc17c4fa2c66d6f11cc3545bf3b86bed466fb8"
+    },
+    {
+      "path": "settings.gradle.kts",
+      "gitObject": "f36d1d698ec96f1dcc49640074a67cdc1c34eab5"
+    },
+    {
+      "path": "gradle.properties",
+      "gitObject": "412c76af0b073a46f92cae8d5a3fcc8202b9612c"
+    },
+    {
+      "path": "build-support/Dockerfile",
+      "gitObject": "f4bf765896cc8e7d042fe9a84c9ccd785d049228"
+    },
+    {
+      "path": "scripts/android-build",
+      "gitObject": "e0bf267ba8f9665b9e704a476ac1452d5721c15f"
+    },
+    {
+      "path": "scripts/review-build",
+      "gitObject": "cb2ec8d874764d9e1e74589edd515e43db479609"
+    }
+  ],
+  "fixtureDeltaPaths": [
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatKeyboardPreviewTest.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/GroupAdminPreviewTest.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/GroupChatPreviewTest.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/GroupChatProcessRecoveryTest.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/GroupStatusNavigation.kt"
+  ],
+  "fixtureChanges": "Font cleanup diagnostics/API29 implicit-default comparison and bounded group status target scrolling. Original application assertions preserved.",
+  "scope": "Public source equivalence; no pending full runtime outcome inferred."
+}
