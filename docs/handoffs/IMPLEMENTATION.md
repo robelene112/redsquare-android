@@ -24,10 +24,13 @@ namechecks only. No backend failover, node change or live registration.
 Minimum8cda1d83 reviews report Spec0/Standards0. Local core/debug/test build
 exec60806 completed0 in4m22s; no owned local Gradle remains. Log
 .scratch/registry19-late-minimum-compile.log. Corrected focused attempts at exactly
-5aec60364cb7afa24a6370f3c87a8c81e2ea48c5 are ACTIVE: Android10run38784416873
-and Android17run38784421079. Do not duplicate them. Inspect actual class16 and
-process recovery results. Public read-only native recheck follows those; whole
-final gates remain mandatory.
+5aec60364cb7afa24a6370f3c87a8c81e2ea48c5 both SUCCESS: Android10run38784416873
+16PASS113.773s/PID5356to5465; Android17run38784421079 16PASS147.285s/PID5194to5273.
+Same-index pair checkpoint and verified-name/identity/no-registration checks pass.
+Root viewed each success PNG and parsed XML; exact original recovery/explicit
+Retry passes. Retained ticket19/late-callback-green. Fresh native public read
+run38785785214 ACTIVE; verify its exact source/status before retention. Focused
+results are not public readiness. No complete final suite dispatched yet.
 Research proposal REGISTRY_LATE_CALLBACK_DESIGN_2026_10_15.md explains the narrow
 transport coupling. Protected untracked group contract remains untouched.
 

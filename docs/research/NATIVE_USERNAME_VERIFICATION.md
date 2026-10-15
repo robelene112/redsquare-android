@@ -35,7 +35,12 @@ entry so later evidence can exercise the correction, while hints stay ordinary.
 No backend failover or registration retry was introduced. Minimum8cda1d83 reviews report Spec0/Standards0. Local core/debug/test
 build exec60806 completes0 in4m22s. Focused corrected Android10run38784416873
 and Android17run38784421079 are active at exactly5aec60364cb7afa24a6370f3c87a8c81e2ea48c5.
-Native GREEN and final/public acceptance are pending. Public22
+Both focused attempts SUCCESS:16PASS113.773s/147.285s and actual interrupted
+registration PID5356to5465/5194to5273. Exact paired-send checkpoint and registered
+Settings success pass; root viewed each original success PNG and parsed XML.
+Retained ticket19/late-callback-green/android10 and android17. These are controlled
+results, not public readiness. Fresh native public read run38785785214 is active;
+whole release/lint/device gates remain pending. Public22
 remains current. No node/configuration/service/wallet/chain writes occurred.
 
 ## Earlier implementation chronology
