@@ -85,7 +85,12 @@ verify_group_chat_native() {
     [[ "$native_exit" == 0 ]] && grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/$prefix-ui.txt"
 }
 verify_chat_queue() {
-    verify_group_chat_native ChatQueuePreviewTest 480 chat-queue chat-queue-evidence
+    local cases=ChatQueuePreviewTest
+    if [[ "${TEST_SCOPE:-full}" == chat-queue-group* ]]; then
+        cases+=\#anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending
+        cases+=,nl.davidengelen.redsquare.ChatQueuePreviewTest\#anOfflineGroupMessageResumesItsOriginalWhileBackgrounded
+    fi
+    verify_group_chat_native "$cases" 480 chat-queue chat-queue-evidence
 }
 if [[ "${TEST_SCOPE:-full}" == chat-queue* ]]; then
     verify_chat_queue

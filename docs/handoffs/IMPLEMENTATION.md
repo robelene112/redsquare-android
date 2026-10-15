@@ -126,7 +126,8 @@ FAILED9cases8PASS/1FAIL287.766s at101 noRelay+durableFWDwithin60swhileCREATED.
 Exactwire/history/key/FWDtailunexecuted. Retainedgroup-background-red-android10.
 Groupautominimum nowusesexistingworker/guard/singleflight, durableautomaticflag
 defaultfalse/controlreset, sharedexactArchiveoriginal/private+groupcallers and
-progressobservingUI. No ownedlocalbuild/proof. Compile/correctedruntimepending.
+progressobservingUI. Local77294PASS1m33s/compileDebugKotlin. Focused10run38675689342 exact65c57b5c
+ACTIVEall9cases, no duplicateproof. SourceSpec0/Standards0. Correctedruntimepending.
 Groupappminimumebd9f700 applied, notyetaccepted. Groups/process/full28stillpending.
 
 NEXT: review/verify ready-navigation+storage7cases, then groupqueues/freshmembership,
