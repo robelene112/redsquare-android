@@ -179,7 +179,7 @@ profileassumption,76records24actualdeaths,core114/release/lint/allpriorgates and
 bothpublicfeeds pass.13queuePASS245.744s, actualprivatePID371→555/group838→1173,
 exactoriginalautomaticRawRelayonce/history/fullwalletbackend/groupkeyorigin/
 restorationpass. Rootoriginalsseen; retainedfinal-full/android10,786hash283XML,
-no secretmarkers. Boundedfinal10evidencereviewpending. Production source is unchanged
+no secretmarkers. Boundedfinal10evidenceSpec0/Standards0, both independently verified. Production source is unchanged
 from87accb13 across both acceptance revisions. Retain a passed10 if only the
 17 test fixture changes, as allowed by WORKFLOW.md. No duplicate dispatch.
 All13 queue cases, both actual queued PID journeys and previous gates remain
@@ -188,7 +188,11 @@ required. Full retainer: .scratch/retain-chat28-final-full.py. Final counts pend
 Unsigned preview18 cache build16011 PASS3m40s at exact e3edf in detached worktree
 /mnt/storage/redsquare-android-artifacts/queue28-review-source. No version reserved,
 no signature or publication. No owned local build. Move that worktree to the final
-acceptance revision before running review-build after acceptance. Public17 remains.
+acceptance revision before running review-build after acceptance. Worktree now827bf82e. Signing preparation1254 PASS, release assembly20s from cache. Exact827bf82e
+signed18/0.1.18 exists in worktree .scratch/review-builds/18; SHA48386e0e461666f9e14e70feb947624dba8fcc689c4fd27890ed846980b58d2c,
+established certificate/package/min29 unchanged. Public prepared metadata retained
+signed-preview18-prepared. No owned local build. Publication remains held for
+final17 acceptance. Public17 unchanged.
 
 NEXT: inspect both complete full runs, retain original evidence, two-axis final
 evidence review, signed18 publication/direct verification and #28 closure. Then

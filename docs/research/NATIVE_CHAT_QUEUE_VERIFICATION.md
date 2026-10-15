@@ -412,3 +412,18 @@ originalautomaticonce/history/fullwalletbackend/keyorigin/restorationpass.
 Rootselectedoriginalqueue/recovery/removed/archived/scope/storagerepair/public
 capturesseen. Retainedfinal-full/android10,786hashes283XML; notAndroid17full/
 physical/storeacceptance. Productionequivalentoutstanding827bf82e, noappchange.
+
+Final10 evidence c0502409...a30c8239 reviewed Spec0/Standards0. Both independently
+verify786hashes283XML/335reported334PASS+oneassumption/76records24deaths andactual
+queue/PID/publicsource/equivalence. Originalcapturesagree, no secret/protected
+snapshot finding. Outstanding17run38682943156 continues; no whole28claim.
+
+Prepare signed review artifact while the outstanding17 full runs: ownedlocal1254
+scripts/review-build on exact827bf82e worktree, log .scratch/chat28-signed18-build.txt.
+Expected18 reserved by canonical script. Publication remains held for complete17
+acceptance; no app/core/test edits during build. Public17 remains unchanged.
+
+Signed18 preparation1254 PASS, release20s cached, exact827bf82e/0.1.18/min29/
+establishedcert/packageverified; APKsha48386e0e461666f9e14e70feb947624dba8fcc689c4fd27890ed846980b58d2c.
+Retainedsigned-preview18-prepared(publicmetadataonly). Noownedlocalbuild. Still
+notpublished, pendingfinal17 acceptance. Version17publicunchanged.
