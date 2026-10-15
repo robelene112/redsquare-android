@@ -137,8 +137,13 @@ Its Queued screenshot showslongkeyboard-closederrorstack/lowercontrolsbelow640px
 notwholeconstrained-height/outage acceptance, which remains#35.
 Fixture40474853 now allocatesofflineport AFTER livealternatebind forbothprivate/
 group, retaininginequalityguards andoldbehaviorassertions. Noapp/budgetchange;
-newallocation stillrequiresfinalruntime. Bothcompletefulls mustbe dispatched
-onlyaftercorrectionreview; nonecurrentlyactive.
+newallocation stillrequiresfinalruntime. Correctionreview Spec0/Standards0. OWNED final pair at EXACTsamefabd4eb75f8499b895f7bdbb046f075c1ee11089:
+Android10run38773302932 and Android17run38773307029 ACTIVE, public_feed_read=true.
+Both newallocation/runtime/fullgates stillpending; neverduplicateactive scopes.
+Source/core/release/lintbuild stage passes before each current runtime stage.
+No localGradle/build active. Finalretainer .scratch/retain-keyboard40-final-full.py
+now also validates/retains11 boundedqueue checkpoints (6distinctboundportpairs,
+5queuedpre-recreate/noalternaterawRelay). Syntaxchecked, notexecutedonnewfullsyet.
 Profiles10run38771450430 at78 SUCCESS:7/5/2/2reported,15PASS+existingAPI29
 modern-fault assumption;37.895/27/19.826/27.43s. Core114/debug/test and two actual
 profile deaths/recovery pass. Root saw3 originals,3XML parsed; retained profile-
@@ -182,7 +187,17 @@ fallbackthen same-index[] and one-row431Barray about3.6mslater. Bodies/proofs no
 retained/verified except exact fallback. Actual current host response-order proof,
 not native-run/deployed-revision/registration acceptance. Standalone fixedunsigned
 namechecks only, readonly container pinnedpureWASM/node deps, no production writes.
-Both sourceexperiment/hostevidence reviews Spec0/Standards0.
+Both sourceexperiment/hostevidence reviews Spec0/Standards0. Follow-up
+host-only knownpublicname read16:59:35UTC at549a6a94 again observeslate431Barray
+onSaito andfallbackonlyOwner. Exactrawknownpublicproof passes UNCHANGED compiled
+core SaitoRegistry.readNamecheck: verified-active/Saitoverse ownerqeyGZPxRZ... .
+Signature+fieldshapeschecked, lc explicitlyunsignedserverhint not independent
+canonicalchain/finality. NoAndroidapp/nativefix/registrationacceptance. Public
+probe/harness/results/class/dependency hashes docs/evidence/ticket19/host-public-
+proof-oct15, bothreviews0/0. Nextnativeworkaroundnowhasconcretejustification.
+Research-only CHAT_STATUS_VIEWPORT_2026_10_15.md proposesboundedsecondary statuses/
+composercontent and reachableSend/Cancel, preservesallstate/guards/insetowner;
+noimplementation ornewownerrequirement, bothreviews0/0. #40stillsoleimplementation.
 Tracker updates17comment6195891653 and
 19comment6195892085 link concrete next diagnostics. No node/credential changes.
 Owner updated home instructions mid-session: reread global/proactive/GitHub
