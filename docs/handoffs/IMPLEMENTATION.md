@@ -88,20 +88,39 @@ and actual17→18deviceupdate remain35, not inferred from emulator metadata.
 #28 trackerCLOSED2026-10-15T05:50:24Z, completion40f28872. Publicationrecords
 Spec0/Standards0,6hashes/publicdownload/immutable17 independentlyverified.
 ACTIVE #29 conversation mute, assigned@me, reviewbase40f28872. Blockers25/26closed.
-First native private mute/readable compatible incoming/recreation/draft tracer
-1a08d695 reviewedSpec0/Standards0. FocusedAndroid10run38689427606 completed RED exact
-1a08d6950f0c0e7028efd76e9127d25374ae399e. Local55693 testcompilePASS1m31s,
-log.scratch/chat29-first-tracer-compile.txt.
-ActualRED10run38689427606:1failure26.538s missingMutecontrol74, readyChat/exact
-draft originalPNG/XMLseen; laterincoming/recreationtailunrun. Retainedticket29/
-private-control-red-android10. Privatecontrolminimum applied: headerbell/dialog,
-wallet-local encrypted mutedConversations/defaultlegacyempty/sharedguardcommit.
-No groupcontrol or actualnotificationfiltering yet. Compile/review/GREEN next. Canonical research
-NATIVE_CONVERSATION_MUTE_VERIFICATION.md. Implement controls/notification filtering,
-private+group/failures/isolation/recovery and finalreview/signednext beforeclosure. Owner authorizes allremainingissues,
-no pause or routineconfirmation. Read-only next-ticket orientation is locally
-.scratch/next-chat-ticket-orientation.txt. Protected preexisting untracked
-NATIVE_GROUP_CHAT_CONTRACT.md untouched.
+Canonical chronology docs/research/NATIVE_CONVERSATION_MUTE_VERIFICATION.md.
+Private header bell/dialog and wallet-local encrypted mutedConversations are in
+place, defaulting legacy records empty and reusing guarded policycommit/recovery.
+Actual privatecontrolRED38689427606/1a08 missingcontrol; firstminimum38690473150/
+afab failed exactreopened draft, then exact20swait38691358098/4f9 alsoRED25.604s.
+Retained originals show enabledempty composer, actual autosave ordering unproved.
+Private Chat now uses owner/backend/contact ViewModel text+sharedwrite mutex,
+initialload sharesmutex, durableCancel/Send+Mainmemorypublication NonCancellable.
+This follows existingPost memory pattern without plaintextSavedState/Bundle.
+CorrectionreviewsSpec0/Standards0; nativecontrolGREEN38692452298/cb7 1PASS7.189s.
+
+ActualnotificationRED38693284699/cc74746c:2cases1PASS1FAIL30.514s, incoming/ACK
+positive thenmissingactualalert82. New liveprivate notification source0bf65264
+retains beforeoptionalalert, dedups authenticated originals includingoldopaque
+ciphertext, checksfreshpublicidentity/backend/durableaccount+conversationpolicy,
+genericNewmessage/privatechannel/immutableintent, silent onpermission/policyerror.
+NotificationerrorsdonotNACKsavedmessages. SourceSpec0/Standards0. ActualGREEN10
+38693924118 exact0bf6526425e3663cca44e1d0e845d42e4ef44b0c:2PASS15.647s, native
+notification/privatecategory/intent/systemshade and2s muted silence/reopen/cached
+unmute/exactdraft/no-wire.12hash4XMLretained, originalshadePNGseen/allXMLparsed.
+Focused17run38694546565 owns same0bf, ACTIVE. Do not redispatch beforeactualresult.
+
+Nextsingle groupcontroltracer4aa36fb1: knownsignedcreation+metadata, independent
+websignedgroupmessage/exactdraft/mute/liveACK/recreate/unmute/no-wire. Ownedfirst
+RED10run38694777442 exact4aa ACTIVE; groupbutton/IDvalidation absent, expected
+missingcontrol. Reviewfixe2727e09 handlesrestoredChatlistbeforeGroups and extracts
+shared scopedfile/prefs fixturelifecycle with independentcleanupactions, both
+axes0. These corrections preserveassertions, don'taffectmissingcontrolcriterion.
+No duplicate run. No ownedlocalbuild. No groupnotification/failure/identity/process
+or whole29 acceptance yet. Next inspectbothactualruns, retainproof, then bounded
+groupminimum. Protected untracked NATIVE_GROUP_CHAT_CONTRACT.md untouched.
+Stablepublicsigned18unchanged;29notclosed. Ownerauthorizes allremainingissues,
+no pause or routineconfirmation. Localnextorientation.scratch/next-chat-ticket-orientation.txt.
 
 Parked external prerequisites:16/31 AndroidGiphykeyauthorization/retention;
 17 actual publicYouTubePlaybackrefusal;19 Registryregistrationavailability.
