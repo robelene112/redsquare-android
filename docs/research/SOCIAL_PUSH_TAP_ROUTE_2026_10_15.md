@@ -53,11 +53,15 @@ launch intent: replacing that intent wholesale can discard controlled endpoint
 configuration and other launch state.
 
 Wait for normal wallet/backend/personal-controls readiness. Reject a stale
-wallet/backend binding without changing either selection. Await the mounted
-`PostNavigation.save()`, then recheck identity, selection and policy after all
-suspension points, including a fresh exact Archive lookup and signed event/parent
-validation. Navigation uses that verified result, never notification text.
-Pending save failures retain the route for explicit retry rather than losing work.
+wallet/backend binding without changing either selection. Perform the bounded
+fresh exact Archive lookup and signed event/parent validation first. Navigation
+uses that verified result, never notification text. Then guard mounted-form input
+across final `PostNavigation.save()`, scope/policy rechecks and the navigation
+commit, or use equivalent proven revision-aware serialization. The guard must be
+active before saving starts: ChatComposer.persist suspends during work.saveDraft
+without freezing editing (L58-66). A save followed by network work, or moving the
+lookup before an unguarded save, can still discard newer text at disposal.
+Pending save failures retain the route and latest work for explicit retry.
 Consume the route once after successful navigation; recreation must not replay it.
 
 Apply the destination transition before FeedScreen's early-return branches,

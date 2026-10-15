@@ -17,8 +17,8 @@ Focused harness restores its temporary API33+ permission grant after fixtures.
 Prepared next plan .scratch/push32-next-slice-plan.md; bounded read-only proposal
 `docs/research/SOCIAL_PUSH_TAP_ROUTE_2026_10_15.md` adds exact lifecycle/navigation
 traps. Keep existing launch intent separate from new notification intents, wait
-for scope/policy readiness, save mounted work before changing branches, recheck
-after suspension and consume once. Private/group selections are ordinary remember;
+for scope/policy readiness, verify first, then guard form input across final save,
+scope/policy rechecks and transition. Consume once. Private/group selections are ordinary remember;
 saved work preservation is distinct from exact screen/scroll restoration.
 Local injected alerts/taps are not real FCM/closed-app public delivery. Project/IAM
 and authorized bounded gateway integration remain missing external prerequisites.
