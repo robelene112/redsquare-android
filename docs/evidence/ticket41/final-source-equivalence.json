@@ -1,7 +1,6 @@
 {
   "signed24Source": "36b66a7d81a5019ecd9ba67a52982ff019f12bb5",
   "focusedGroupSource": "3050fb7cd666000013afb5409718ff00a6455d46",
-  "bothPendingFullSource": "b218c1f762eb67ce1f86fc33e20ffb2659ae5efb",
   "identicalProductionInputs": [
     {
       "path": "app/src/main",
@@ -46,11 +45,15 @@
   ],
   "fixtureDeltaPaths": [
     "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatKeyboardPreviewTest.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatQueuePreviewTest.kt",
     "app/src/androidTest/kotlin/nl/davidengelen/redsquare/GroupAdminPreviewTest.kt",
     "app/src/androidTest/kotlin/nl/davidengelen/redsquare/GroupChatPreviewTest.kt",
     "app/src/androidTest/kotlin/nl/davidengelen/redsquare/GroupChatProcessRecoveryTest.kt",
     "app/src/androidTest/kotlin/nl/davidengelen/redsquare/GroupStatusNavigation.kt"
   ],
-  "fixtureChanges": "Font cleanup diagnostics/API29 implicit-default comparison and bounded group status target scrolling. Original application assertions preserved.",
-  "scope": "Public source equivalence; no pending full runtime outcome inferred."
+  "fixtureChanges": "Font cleanup diagnostics/API29 implicit-default comparison, bounded group status target scrolling and moving the existing Queued readiness wait before recreated private cancellation measurement. Original application assertions and deadlines preserved.",
+  "scope": "Public source equivalence; failed full10 remains failed and no active full17/focused10 outcome inferred.",
+  "failedFullAndroid10Source": "b218c1f762eb67ce1f86fc33e20ffb2659ae5efb",
+  "activeFullAndroid17Source": "b218c1f762eb67ce1f86fc33e20ffb2659ae5efb",
+  "activeFocusedAndroid10Source": "b23534801667222545cde5c445242288de3448c6"
 }
