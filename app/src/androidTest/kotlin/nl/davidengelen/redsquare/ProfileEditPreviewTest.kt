@@ -437,6 +437,7 @@ class ProfileEditPreviewTest {
                     ui.onNode(hasSetTextAction()).assert(
                         SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(edited)))
                     check(draft.delete() && preserved.renameTo(draft))
+                    dismissTypingForWallet(scenario, edited)
                     ui.onNodeWithText("Wallet").performClick()
                     ui.onNodeWithText("Import wallet").performScrollTo().performClick()
                     chooseWalletImport(ui, "00-profile-import.json", "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR")
