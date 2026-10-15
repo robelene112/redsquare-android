@@ -18,7 +18,11 @@ import java.util.concurrent.atomic.AtomicInteger
 class ChatMutePreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
 
-    @Test fun privateConversationMuteKeepsIncomingMessagesAndTheDraftAfterReopening() {
+    @Test fun privateConversationMuteKeepsIncomingMessagesAndTheDraftAfterReopening() = exercisePrivateMute()
+
+    @Test fun anUnmutedPrivateMessageShowsAGenericAndroidNotification() = exercisePrivateMute(alert = true)
+
+    private fun exercisePrivateMute(alert: Boolean = false) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -39,6 +43,9 @@ class ChatMutePreviewTest {
         val preferences = listOf("notification-permission" to "offered", "wallet-backup-reminders" to "hidden:${wallet.publicKey}")
             .map { (name, key) -> val prefs = context.getSharedPreferences(name, 0)
                 Triple(prefs, key, if (prefs.contains(key)) prefs.getBoolean(key, false) else null) }
+        val notifications = context.getSystemService(android.app.NotificationManager::class.java)
+        val existingAlerts = notifications.activeNotifications.map { it.tag to it.id }.toSet()
+        fun newAlerts() = notifications.activeNotifications.filter { (it.tag to it.id) !in existingAlerts }
         val reads = AtomicInteger()
         val peer = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", archiveResponse = { criteria ->
             if (criteria.get("field3")?.asString == reference.get("groupId").asString) reads.incrementAndGet()
@@ -60,7 +67,7 @@ class ChatMutePreviewTest {
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
-                    withFailureCapture({ capture("private-mute-failure") }) {
+                    withFailureCapture({ capture(if (alert) "private-alert-failure" else "private-mute-failure") }) {
                         fun open() {
                             val chat = hasText("Chat") and hasClickAction() and isEnabled()
                             ui.waitUntil(20_000) { displayed(hasText("Groups")) || displayed(chat) }
@@ -69,6 +76,26 @@ class ChatMutePreviewTest {
                             ui.waitUntil(20_000) { displayed(hasSetTextAction() and isEnabled()) && reads.get() > 0 }
                         }
                         open()
+                        if (alert) {
+                            peer.sendIncoming(incoming)
+                            ui.waitUntil(20_000) { displayed(hasText(text)) && peer.incomingAcknowledgements.any { it[0] == 13.toByte() } }
+                            ui.waitUntil(20_000) { newAlerts().size == 1 }
+                            val notification = newAlerts().single().notification
+                            check(notification.extras.getCharSequence(android.app.Notification.EXTRA_TEXT)?.toString() == "New message")
+                            check(notification.extras.getCharSequence(android.app.Notification.EXTRA_TITLE)?.toString()?.contains(text) != true)
+                            check(notifications.getNotificationChannel(notification.channelId).name.toString() == "Private chats")
+                            check(notification.contentIntent != null)
+                            val device = androidx.test.uiautomator.UiDevice.getInstance(instrumentation)
+                            check(device.openNotification())
+                            check(device.wait(androidx.test.uiautomator.Until.hasObject(
+                                androidx.test.uiautomator.By.text("New message")), 20_000))
+                            capture("private-generic-system-notification")
+                            device.pressBack()
+                            check(wallets.loadExisting().exportJson() == wallet.exportJson() && backends.load() == SaitoBackend.OWNER)
+                            check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty() && peer.reports.isEmpty())
+                            peer.assertHealthy()
+                            return@withFailureCapture
+                        }
                         ui.onNode(hasSetTextAction() and isEnabled()).performTextReplacement(draft)
                         androidx.test.espresso.Espresso.closeSoftKeyboard()
                         click(hasContentDescription("Mute conversation"))
@@ -81,6 +108,7 @@ class ChatMutePreviewTest {
                         ui.waitUntil(20_000) { displayed(hasText(text)) && peer.incomingAcknowledgements.any { it[0] == 13.toByte() } }
                         ui.onNode(SemanticsMatcher.keyIsDefined(SemanticsProperties.EditableText))
                             .assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(draft)))
+                        check(newAlerts().isEmpty())
                         capture("private-muted-incoming-readable")
                         scenario.recreate(); open()
                         ui.onNodeWithContentDescription("Unmute conversation").assertIsDisplayed()
@@ -103,6 +131,8 @@ class ChatMutePreviewTest {
         } catch (failure: Throwable) { primary = failure; throw failure }
         finally {
             cleanupAfterTest(primary, {
+                newAlerts().forEach { notifications.cancel(it.tag, it.id) }
+            }, {
                 synchronized(SaitoLocalState.lock) {
                     context.noBackupFilesDir.listFiles()!!.filter { file -> prefixes.any(file.name::startsWith) }
                         .forEach { check(it.isFile && it.delete()) }

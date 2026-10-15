@@ -74,3 +74,18 @@ the existingwrite mutex in the conversation ViewModel and take it for initial
 load+memoryselection too. This serializes existingwriters/acrossrecreation without
 a newbackgroundwriter or plaintextpersistence. Owned38692323675 superseded before
 acceptance by this sourcecorrection; no runtimepass claimed.
+
+PrivatecontrolGREEN38692452298 exactcb7a1b98:1PASS7.189s,3originalPNGseen/3XML
+exactdraft/mutedreopen/unmute retained(10hashes). Both latestsourcecorrections
+reviewedSpec0/Standards0; no process/notification/group/full acceptance inferred.
+
+Next tracer adds an actual positive generic Android private notification, system
+shade observation and private category, alongside zero alerts for muted readable
+incoming. Existing sharedprivateflow keeps its exactdraft/recreation/no-wire
+assertions. Host grants POST_NOTIFICATIONS only on33+ outsideinstrumentation
+and restores prior grant state after fixture completion, including testfailure.
+Fixture preserves existing alerts and cancels only newly posted fixture alerts.
+ActualREDpending; no productionnotificationpathyet. Android primary guidance:
+https://developer.android.com/develop/ui/compose/notifications/create-notification
+https://developer.android.com/develop/ui/compose/notifications/notification-permission
+https://developer.android.com/reference/android/app/NotificationManager#getActiveNotifications()

@@ -120,7 +120,21 @@ verify_group_chat_native() {
     [[ "$native_exit" == 0 ]] && grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/$prefix-ui.txt"
 }
 verify_chat_mute() {
-    verify_group_chat_native ChatMutePreviewTest 180 chat-mute chat-mute-evidence
+    local notification_api granted_for_test=0 native_exit=0
+    notification_api="$(adb shell getprop ro.build.version.sdk | tr -d '\r')"
+    if [[ "$notification_api" -ge 33 ]]; then
+        adb shell dumpsys package nl.davidengelen.redsquare.dev > "$evidence/chat-mute-permission-before.txt"
+        if ! rg -q 'android.permission.POST_NOTIFICATIONS: granted=true' "$evidence/chat-mute-permission-before.txt"; then
+            adb shell pm grant nl.davidengelen.redsquare.dev android.permission.POST_NOTIFICATIONS || return 1
+            granted_for_test=1
+        fi
+    fi
+    verify_group_chat_native ChatMutePreviewTest 180 chat-mute chat-mute-evidence || native_exit=$?
+    # Revocation may kill the target. Restore only after its fixture has finished.
+    if [[ "$granted_for_test" == 1 ]]; then
+        adb shell pm revoke nl.davidengelen.redsquare.dev android.permission.POST_NOTIFICATIONS || return 1
+    fi
+    return "$native_exit"
 }
 if [[ "${TEST_SCOPE:-full}" == chat-mute* ]]; then
     verify_chat_mute
