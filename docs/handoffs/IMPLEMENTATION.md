@@ -89,9 +89,9 @@ and actual17→18deviceupdate remain35, not inferred from emulator metadata.
 Spec0/Standards0,6hashes/publicdownload/immutable17 independentlyverified.
 ACTIVE #29 conversation mute, assigned@me, reviewbase40f28872. Blockers25/26closed.
 First native private mute/readable compatible incoming/recreation/draft tracer
-1a08d695 reviewedSpec0/Standards0. FocusedAndroid10run38689427606 ACTIVE exact
+1a08d695 reviewedSpec0/Standards0. FocusedAndroid10run38689427606 completed RED exact
 1a08d6950f0c0e7028efd76e9127d25374ae399e. Local55693 testcompilePASS1m31s,
-log.scratch/chat29-first-tracer-compile.txt; no ownedlocalbuild.
+log.scratch/chat29-first-tracer-compile.txt.
 ActualRED10run38689427606:1failure26.538s missingMutecontrol74, readyChat/exact
 draft originalPNG/XMLseen; laterincoming/recreationtailunrun. Retainedticket29/
 private-control-red-android10. Privatecontrolminimum applied: headerbell/dialog,
@@ -1243,3 +1243,9 @@ Protectedgroupcontractuntouched; preview14unchanged;21/35closed26open. Owner
 UIafter26. Continueallissueswithoutpartialfinal. Scratchretainhelpernowverifies
 ActionsheadSHA/completion and rejects existingtargets; neutralcoverageREADME
 requirescase-specificnotesbeforecommit. NeverguessfullcommitSHA.
+
+2026-10-15 #29 private-control minimum afab1530: localcompile PASS3m32s,
+Spec0/Standards0 bounded source+RED evidence reviews; stale preceding run status
+corrected. Focused10GREENattempt38690473150 exactafab15302d3cfaad137db95496754ae59f7cfa1f
+ACTIVE. No ownedlocalbuild. Group/notification/failure/process and final gates
+stillpending; #29 remainsopen, stablepublicsigned18unchanged.

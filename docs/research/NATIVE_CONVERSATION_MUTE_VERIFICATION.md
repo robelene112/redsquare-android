@@ -32,3 +32,8 @@ no-wiretailunexecuted. Privatecontrolminimum nowaddsheaderbell/dialog, guarded
 wallet-local mutedConversations policy field(defaultemptyforlegacyrecords), exact
 commit/recoveryreuse andsavedchoicepublicationonlyaftercommit. Groupcontrols and
 actualnotificationfilteringstillnotimplemented. Compile/reviews/GREENpending.
+
+Private-control minimumafab1530 reviewed Spec0/Standards0 (one stale handoff
+status corrected). LocalcompileDebugKotlin+compileDebugAndroidTestKotlin PASS3m32s.
+FocusedAndroid10GREENattempt38690473150 exactafab15302d3cfaad137db95496754ae59f7cfa1f
+ACTIVE. Actualincoming/recreate/unmute result pending. No ownedlocalbuild.
