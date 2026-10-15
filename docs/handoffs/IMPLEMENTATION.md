@@ -7,6 +7,9 @@ one question at a time when a material choice really needs the owner.
 
 ## Current work
 
+**#41 next native pair dispatched:** Android10 run38800016360 and Android17 run38800019644, both exact592373ea02a674f0656083a45c92373dcbe28443. Firstminimumsource/fix finalreviewsSpec0/Standards0. Noresultclaim yet. Initial dispatch by SHA got422/no run; corrected main dispatch verified remote exactSHA, bothURLs returned. NoownedlocalGradle. Preparednextprivate12linequeuedtracer `.scratch/apply-chat41-private-viewport-tracer.py` syntaxchecked NOTAPPLIED pendingfirstgroupGREEN; planreview caughtvisibleQueued/openpreconditions thatwouldhidephysicaloracle, script nowusespositiveexactdurableQUEUEDcandidate beforemeasurement andpreservesoldvisible/assertedtailaftermeasurement. No privateproductionminimum yet.
+
+
 **#41 first group slice build passed:** exec85694 COMPLETE0, core/debug/testAPK4m10s. Both reviews agreed on the missed ChatMuteProcessRecoveryTest group fallback; it is now scoped to Group messages, preserving private fallback/all assertions. Paired physicalRED evidence reviewsSpec0/Standards0 (28hashes/sixXML). Next run focused native pair for the corrected first minimum; notfull41acceptance.
 
 
