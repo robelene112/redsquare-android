@@ -127,3 +127,18 @@ within5/channel of literal220/30/40, with20s asynchronous readiness, after
 selection and afterreopening. Also retains fullpeeridentity/reports assertions.
 ActiveRED38714801378 stillrunsoriginal7dfe fixture; no cancellation/duplicate
 dispatch. The absent Addphoto criterion is unchanged.
+
+Exact combined format is complete img.img-prev plus newline and div containing
+only escaped text (five HTML entities). Actual pinned Browser.sanitize methods
+were AST-extracted with named helper methods and real marked/sanitize-html/
+sanitizer/node-emoji dependencies. Source A/B hashes asserted. Both outputs are
+identical. Offline Chromium DOM decodes one12x8 photo with exactRGB220/30/40 and
+exact caption including emoji, special characters and newline. Canonical helpers
+chat-photo-caption-reference.cjs and chat-photo-caption-browser.cjs; localJSONs
+chat30-caption-web-reference.json/chat30-caption-browser-proof.json. This proves
+the actual sanitization plus inspected Chat newline transformation and DOM,
+not a live client or signed native sender/receiver flow. Original standalone
+photo format remains accepted. Native parser will only decode canonical known
+wrappers and roundtrip-escaped text; arbitrary markup must remain literal.
+Pixelcorrection963b1675 reviewed Spec0/Standards0. Apt metadata lists no pending
+OS packages2026-10-15; existing toolchain pins remain unchanged.

@@ -1,0 +1,19 @@
+{
+  "scope": "Actual pinned Browser.sanitize(msg,true), followed by inspected returnChatBody newline conversion. No transport/signature or initialized Saito app claim.",
+  "vectors": [
+    {
+      "pin": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+      "browserSha256": "e85b67cc138dae5047bb855bf0961b2852a808fc7be3ffc5bc0479a1281bab38",
+      "message": "<img class=\"img-prev\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAICAIAAABChommAAAAEUlEQVR4nGO4I6dBEDGMKgIAJ1lswfSdL+UAAAAASUVORK5CYII=\">\n<div>Photo caption 😀 &lt;&amp;&gt; &quot;quoted&quot;\nA second line</div>",
+      "caption": "Photo caption 😀 <&> \"quoted\"\nA second line",
+      "html": "<img class=\"img-prev\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAICAIAAABChommAAAAEUlEQVR4nGO4I6dBEDGMKgIAJ1lswfSdL+UAAAAASUVORK5CYII=\" /><br><div>Photo caption 😀 &lt;&amp;&gt; \"quoted\"<br>A second line</div>"
+    },
+    {
+      "pin": "214504ecece76d1cd20a245fe4468eccbfca2951",
+      "browserSha256": "8ba723fc2deea89999275878b3590510263d655b176fd46e270ab9f8057993d3",
+      "message": "<img class=\"img-prev\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAICAIAAABChommAAAAEUlEQVR4nGO4I6dBEDGMKgIAJ1lswfSdL+UAAAAASUVORK5CYII=\">\n<div>Photo caption 😀 &lt;&amp;&gt; &quot;quoted&quot;\nA second line</div>",
+      "caption": "Photo caption 😀 <&> \"quoted\"\nA second line",
+      "html": "<img class=\"img-prev\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAICAIAAABChommAAAAEUlEQVR4nGO4I6dBEDGMKgIAJ1lswfSdL+UAAAAASUVORK5CYII=\" /><br><div>Photo caption 😀 &lt;&amp;&gt; \"quoted\"<br>A second line</div>"
+    }
+  ]
+}

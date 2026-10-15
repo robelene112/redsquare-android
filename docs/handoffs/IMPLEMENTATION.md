@@ -14,18 +14,26 @@ available. Do not pause after the next ticket or ask routine approvals.
 
 **ACTIVE #30: Send and view images in private and group Chat.**
 Reviewbase8826000edf59174793749abc7b207610ad52e3a8, dependencies15/25/26 closed,
-assigned@me. Actual first privatephoto RED10run38711550116 exactc22660f5:
-1failure24.423s, authenticatedACK960 then literal img-prev/dataURL andmissing
-raster20s/photo71. RootPNG/XMLseen, exactdraftvisibleretained; expanded/recreate/
-no-wiretailunexecuted. Retained6hash1XML private-viewer-red-android10. Fixture
-correction531d2bf9 sharedChatFixtureState andboundedexpandedRGB reviewed0/0.
-Viewer minimum756a13ba reviewed0/0 andusesexistingPostImageswithactualbackend.
-Attempt10run38712408766 FAILED1case8.421s after inline+expanded exactRGB PASS;
-recreated namedcontactrow fullkey exists onlyinunmergedtree. Retained10hash3XML,
-root3originalPNGsseen. Fixtureclick nowtargets displayed/enabled clickable row
-with exactkey descendant inunmergedtree. Cache/recreateddraft/finaltailpending.
-No production/protocol/history/composer change forselector. NativeGREENpending.
-Canonical NATIVE_CHAT_IMAGES_VERIFICATION.md. Signed19current. Continueallissues.
+assigned@me. Shared strictphoto viewer source756a13ba reviewed0/0. Focused10
+run38714126017 exactfce27570 SUCCESS2cases12.054s: actual inline+expandedRGB,
+emptyArchive cachedreopening, exactunsentdraft/fullidentity/backend/no-wire/
+restoration privateandgroup. Retained16hash6XML; root6originalPNGsseen. Earlier
+RED/failedattempt/cancelledrun retainedandqualified. No17/compose/failure/full
+acceptance inferred. Signed19current, no20reserved/noownedlocalbuild.
+
+Selectedprivatephoto drafttracer7dfe8685 ACTIVE10run38714801378 (no duplicate
+same-scope dispatch). Production Addphoto absent, actualREDpending. Fixture
+correction963b1675 actualnormalizedJPEG centerRGB tolerance5 within20s after
+selectionandBack/recreation, exactcaption/clientidentity/no-wire. Reviewed0/0.
+Canonical NATIVE_CHAT_IMAGES_VERIFICATION.md. ActualpinnedA/B Browser.sanitize
+exec accepts image+escapedcaption, offlineChromiumDOM/raster proof PASS, local
+.scratch/chat30-caption-web-reference.json / chat30-caption-browser-proof.json;
+canonical helpers untracked pendingcommit. Not signednativeoutboundproof.
+
+Nextminimum preserve singleencryptedcomposedstring/ordinaryqueue; boundednative
+photo preparation with no genericHTML/WebView. Composition/group/send/queue/
+failure/practical5MiBhistorybound/process/finalfull10+17 stillrequired. Protected
+untracked NATIVE_GROUP_CHAT_CONTRACT.md untouched. Continue allissues.
 
 **#29 COMPLETE and CLOSED, 2026-10-15T09:08:20Z:**
 Persistent private/group conversation mute keeps messages readable and explains
