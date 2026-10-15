@@ -77,7 +77,7 @@ asserts exactowner draft/nooutgoing before unchanged navigation. Correction
 Spec0/Standards0. Focused posting10run38764936810 at778 SUCCESS18PASS95.198s plus posting
 process/cold reconciliation, core114/debug/test. Root saw original restored-draft
 PNG; retained post-navigation-green-android10. New full10run38765859044 at
-ede956c51d1234fe5d924f1a46d5b40e45db1646 ACTIVE with public_feed_read=true.
+ede956c51d1234fe5d924f1a46d5b40e45db1646 later FAILED as qualified below.
 Profile adaptation739/b688 dismisses typing before Wallet at two import
 safeguards and repaired retry; exact EditableText avoids merged label. Source
 reviews0/0; focused results follow. Profile10run38765277087 at739 FAILED two exact matcher checks: merged Bio
@@ -111,12 +111,26 @@ keyboard4PASS45.381s, posting17PASS/1FAIL95.842s.35 completed logs indexed,
 root saw4 keyboard-open originals/12XML parsed; no failing post-window capture.
 Later post/backend/recreation/full gates unexecuted. Retained android17 under
 full-post-navigation-attempt. The run predates post/profile fixture corrections.
-OWNED current full10run38765859044 atede956c51d1234fe5d924f1a46d5b40e45db1646
-and current full17run38768073681 at3366d4b3458436139f1bd090f19b8fd17393e0ec
-ACTIVE with public_feed_read=true. No duplicate scopes or cancellation. Both
-include all corrected post/profile and actual keyboard assertions. App/build
-production source is identical720e2007/c0/prepared22. Need actual complete
-results and final reviews before publication. Public21 remains current.
+Both corrected fulls FAILED:10run38765859044 atede956c5 reaches profile,
+first fresh-bio extrahelper35 AnnotatedString equality fails despite same formatted
+EditableText,7cases6PASS/1FAIL32.326s; remaining profile classes pass with existing
+API29 assumption, downstream profile-process/full gates unexecuted.17run38768073681
+at3366d4b3 stops earlier in groupqueue archivedcase134 afterrecreate:13cases
+12PASS/1FAIL275.792s, exactmessage alreadyForwarded/history ratherthanQueued.
+Root saw originalfailurePNG+XML each. Source port-collision/worker/restoration
+cause unproved. Retained full-followup-attempt/android10 and17, both reviews0/0.
+No full device scope remains active after these failures. Production is unchanged.
+
+Fixture796e4ad3: exact EditableText.text String matcher with bounded10s wait and
+visible/enabled editor preserves characters without transient annotation equality;
+all later import assertions unchanged. Group diagnostics record bounded public
+ports, queued/candidate/history IDs and alternateclient/raw/Relay metadata at
+bind/before-recreate/failure; assert distinctports before Activity launch. No
+hypothesizedrouting fix or timeout change. Source reviews0/0; local testAPKcompile
+PASS2m36s, exec53159 COMPLETE0, no owned local Gradle. Corrected focused profile10
+and diagnostic groupqueue17 dispatched at78cd1471: profiles10run38771450430,
+groupqueue17run38771453775 ACTIVE; actual results pending.
+Public21 remains current; prepared22 unpublished. Full completion still required.
 No local Gradle/build process active. Production
 remains identical to720e2007/c0/prepared22; do not rebuild/re-reserve unnecessarily.
 
@@ -145,6 +159,15 @@ REGISTRY_DIAGNOSTIC_PLAN_2026_10_15.md atcb27b7db also reviewed0/0: separate
 DEBUG/public-probe observer sees first/late frames without changing normal
 first-response semantics, original request-entry12s deadline, bounded copying,
 cancellable remaining-window drain and strict public classification. Not implemented.
+Offline exact-pinned Registry callback experiment at51528158 passes8 scenarios,
+source/harness/provenance hashes retained in ignored scratch, no live/nativeclaim.
+ROOT host-only read16:36:12UTC, docs/evidence/ticket19/host-first-late-oct15:
+both authenticate+advertiseRegistry; OWNER exact21Bfallbackonly within12s, SAITO
+fallbackthen same-index[] and one-row431Barray about3.6mslater. Bodies/proofs not
+retained/verified except exact fallback. Actual current host response-order proof,
+not native-run/deployed-revision/registration acceptance. Standalone fixedunsigned
+namechecks only, readonly container pinnedpureWASM/node deps, no production writes.
+Both sourceexperiment/hostevidence reviews Spec0/Standards0.
 Tracker updates17comment6195891653 and
 19comment6195892085 link concrete next diagnostics. No node/credential changes.
 Owner updated home instructions mid-session: reread global/proactive/GitHub
