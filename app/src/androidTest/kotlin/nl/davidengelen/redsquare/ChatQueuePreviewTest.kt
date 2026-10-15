@@ -483,8 +483,8 @@ Line 12 stays in the saved message.""" else "Keep my offline private message ðŸ˜
                     waitFor("Queued")
                     captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/private-$label-queued.png"))
                     scenario.recreate();open(queued=cancel)
-                    val cancellation=if(cancel)physicalChatAction(scenario,"reopened",kind="private") else null
                     waitFor("Queued")
+                    val cancellation=if(cancel)physicalChatAction(scenario,"reopened",kind="private") else null
                     val originalCandidate=requireNotNull(nl.davidengelen.redsquare.chat.ChatWorkStore(context,wallet,SaitoBackend.OWNER,contact).load().transaction)
                     if(cancel) {
                         ui.onNodeWithText("Cancel queued message").assertIsEnabled()
