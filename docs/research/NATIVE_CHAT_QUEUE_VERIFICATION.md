@@ -310,3 +310,16 @@ Whole#28sourcefixedbase09e0c58d...31bed4e7 reviewedall22changedsourcefiles/commi
 list: Spec0actionablesourcefindings, Standards0hardbreaches/0actionableFowler.
 Priorboundedfindingsfixed. This issourceacceptanceonly; exact31bedgroup6+actual
 processrunsremainACTIVE/full10/17/signednext/whole28unaccepted. No newappchange.
+
+ActualqueueprocessGREEN10run38678479983 exact31bed4e7: privatePID3213→3645,
+group4008→4309, bothactualdeaths/coldprotectedoriginal+history/fullwallet/backend,
+automaticidenticalRawRelayonce/decode/FWDUI/restorationpass; groupkey/originexact.
+Rootfourbefore/afteroriginalsseen. Retainedqueued-process-green-android10.
+Group6attempt10run38678478161 exact31bed4e7:5PASS/1storageFAIL122.916s at105
+Senddisabledbeforetap. Other5inclseparateidentity/backendzeroWire+returnpass.
+OriginalgenericgroupError/disabledSendseen; preciseobserverorderingnotproved.
+ObstructionbeforeUIactioncouldtriggerbackgroundreadFailed; noSend/storagetail
+executed. Retainedgroup-six-attempt-android10. Fixturefaultnowactivatedwiththe
+actualpublicenabledSendsemanticsactionundersharedlockbeforeasyncpersist, soan
+observercannotpreemptthetap. Bothprivate/groupcallers retainassertions/primary-
+preservinginmemoryciphertextrestore. No appchange/longerwait. Correctedruntimepending.

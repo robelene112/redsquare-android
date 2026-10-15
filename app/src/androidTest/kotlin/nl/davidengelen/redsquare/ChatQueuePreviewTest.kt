@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.text.AnnotatedString
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
@@ -101,8 +102,7 @@ class ChatQueuePreviewTest {
                     if(case==GroupQueueCase.STORAGE) {
                         ui.waitUntil(20_000){try{store.load(key.publicKey)?.draft==text}catch(_:Exception){false}}
                         val file=File(context.noBackupFilesDir,"$prefix${key.publicKey}.v1")
-                        withBlockedQueueFile(file) {
-                            ui.onNodeWithText("Send").assertIsEnabled().performClick()
+                        withQueueStorageFailureOnSend(file) {
                             waitFor(context.getString(R.string.group_error))
                             ui.onNode(SemanticsMatcher.keyIsDefined(SemanticsProperties.EditableText))
                                 .assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText,AnnotatedString(text)))
@@ -299,8 +299,7 @@ class ChatQueuePreviewTest {
                         ui.waitUntil(20_000){try{work.load().draft==text}catch(_:Exception){false}}
                         val file=File(context.noBackupFilesDir,"chatwork.owner.${wallet.publicKey}.${PrivateChat.conversationId(wallet.publicKey,contact)}.v1")
                         val peer=ControlledFeedPeer("[]",advertisedServices="archive||;relay||",archiveResponse={"[]"})
-                        withBlockedQueueFile(file) {
-                            ui.onNodeWithText("Send").performClick()
+                        withQueueStorageFailureOnSend(file) {
                             waitFor("Could not restore saved work. Reopen this conversation to try again.")
                             ui.onNode(SemanticsMatcher.keyIsDefined(SemanticsProperties.EditableText)).assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText,AnnotatedString(text)))
                             ui.onAllNodesWithText("Queued").assertCountEquals(0)
@@ -432,17 +431,24 @@ class ChatQueuePreviewTest {
             {wallets.replace(wallets.loadExisting(),original);backends.save(backend)},
             {val edit=prefs.edit();if(offered==null)edit.remove("offered") else edit.putBoolean("offered",offered);check(edit.commit())})}
     }
-    /** Both Chat fixtures restore the exact ciphertext before reopening, preserving the first failure. */
-    private fun withBlockedQueueFile(file:File,operation:()->Unit) {
-        val encrypted=synchronized(SaitoLocalState.lock) {
-            check(!File(file.path+".bak").exists()&&!File(file.path+".new").exists())
-            file.readBytes().also{check(file.delete()&&file.mkdir())}
-        }
+    /** Inject after edit readiness, in the same UI action as Send, before asynchronous persistence. */
+    private fun withQueueStorageFailureOnSend(file:File,operation:()->Unit) {
+        var encrypted:ByteArray?=null
         var primary:Throwable?=null
-        try{operation()}catch(failure:Throwable){primary=failure;throw failure}
-        finally{cleanupAfterTest(primary,{synchronized(SaitoLocalState.lock){
+        try {
+            ui.onNodeWithText("Send").assertIsEnabled().performSemanticsAction(SemanticsActions.OnClick){click->
+                synchronized(SaitoLocalState.lock) {
+                    check(!File(file.path+".bak").exists()&&!File(file.path+".new").exists())
+                    encrypted=file.readBytes()
+                    check(file.delete()&&file.mkdir())
+                    check(click())
+                }
+            }
+            operation()
+        }catch(failure:Throwable){primary=failure;throw failure}
+        finally{if(encrypted!=null)cleanupAfterTest(primary,{synchronized(SaitoLocalState.lock){
             check(file.isDirectory&&file.list()!!.isEmpty()&&file.delete())
-            file.writeBytes(encrypted)
+            file.writeBytes(requireNotNull(encrypted))
         }})}
     }
     private fun waitFor(text:String)=ui.waitUntil(20_000){ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()}

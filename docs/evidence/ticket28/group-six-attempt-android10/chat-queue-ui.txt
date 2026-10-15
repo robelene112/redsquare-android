@@ -1,0 +1,174 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ChatQueuePreviewTest:
+INSTRUMENTATION_STATUS: test=failedGroupQueueSavingKeepsTheDraftAndNeverSendsAfterRepair
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (is enabled)
+Semantics of the node:
+Node #195 at (l=228.0, t=366.0, r=308.0, b=395.0)px
+Role = 'Button'
+Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+Text = '[Send]'
+[Disabled]
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 20 siblings
+Selector used: (Text + InputText + EditableText contains 'Send' (ignoreCase: false))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertIsEnabled(Assertions.kt:60)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue$lambda$38$lambda$37$lambda$36$lambda$13(ChatQueuePreviewTest.kt:105)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.$r8$lambda$Dl8jaYiLdGuNt-4BLfRmPTt5SzM(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest$$ExternalSyntheticLambda26.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.withBlockedQueueFile(ChatQueuePreviewTest.kt:442)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue$lambda$38$lambda$37$lambda$36(ChatQueuePreviewTest.kt:104)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.$r8$lambda$59NJb5UCTKrNMHPiyF-zXDfLCAs(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest$$ExternalSyntheticLambda39.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue(ChatQueuePreviewTest.kt:89)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.failedGroupQueueSavingKeepsTheDraftAndNeverSendsAfterRepair(ChatQueuePreviewTest.kt:40)
+
+INSTRUMENTATION_STATUS: stream=
+Error in failedGroupQueueSavingKeepsTheDraftAndNeverSendsAfterRepair(nl.davidengelen.redsquare.ChatQueuePreviewTest):
+java.lang.AssertionError: Failed to assert the following: (is enabled)
+Semantics of the node:
+Node #195 at (l=228.0, t=366.0, r=308.0, b=395.0)px
+Role = 'Button'
+Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+Text = '[Send]'
+[Disabled]
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 20 siblings
+Selector used: (Text + InputText + EditableText contains 'Send' (ignoreCase: false))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertIsEnabled(Assertions.kt:60)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue$lambda$38$lambda$37$lambda$36$lambda$13(ChatQueuePreviewTest.kt:105)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.$r8$lambda$Dl8jaYiLdGuNt-4BLfRmPTt5SzM(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest$$ExternalSyntheticLambda26.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.withBlockedQueueFile(ChatQueuePreviewTest.kt:442)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue$lambda$38$lambda$37$lambda$36(ChatQueuePreviewTest.kt:104)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.$r8$lambda$59NJb5UCTKrNMHPiyF-zXDfLCAs(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest$$ExternalSyntheticLambda39.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue(ChatQueuePreviewTest.kt:89)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.failedGroupQueueSavingKeepsTheDraftAndNeverSendsAfterRepair(ChatQueuePreviewTest.kt:40)
+
+INSTRUMENTATION_STATUS: test=failedGroupQueueSavingKeepsTheDraftAndNeverSendsAfterRepair
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anOfflineGroupMessageResumesItsOriginalWhileBackgrounded
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anOfflineGroupMessageResumesItsOriginalWhileBackgrounded
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aQueuedGroupOriginalWaitsForItsIdentityAndSelectedBackendWithoutRerouting
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aQueuedGroupOriginalWaitsForItsIdentityAndSelectedBackendWithoutRerouting
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aQueuedGroupMessageCannotSendAfterItsAuthorIsRemovedAndCanStillBeCancelled
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aQueuedGroupMessageCannotSendAfterItsAuthorIsRemovedAndCanStillBeCancelled
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anArchivedGroupOriginalReconcilesWithoutAnotherRawOrRelay
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anArchivedGroupOriginalReconcilesWithoutAnotherRawOrRelay
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 122.916
+There was 1 failure:
+1) failedGroupQueueSavingKeepsTheDraftAndNeverSendsAfterRepair(nl.davidengelen.redsquare.ChatQueuePreviewTest)
+java.lang.AssertionError: Failed to assert the following: (is enabled)
+Semantics of the node:
+Node #195 at (l=228.0, t=366.0, r=308.0, b=395.0)px
+Role = 'Button'
+Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+Text = '[Send]'
+[Disabled]
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 20 siblings
+Selector used: (Text + InputText + EditableText contains 'Send' (ignoreCase: false))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertIsEnabled(Assertions.kt:60)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue$lambda$38$lambda$37$lambda$36$lambda$13(ChatQueuePreviewTest.kt:105)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.$r8$lambda$Dl8jaYiLdGuNt-4BLfRmPTt5SzM(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest$$ExternalSyntheticLambda26.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.withBlockedQueueFile(ChatQueuePreviewTest.kt:442)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue$lambda$38$lambda$37$lambda$36(ChatQueuePreviewTest.kt:104)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.$r8$lambda$59NJb5UCTKrNMHPiyF-zXDfLCAs(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest$$ExternalSyntheticLambda39.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue(ChatQueuePreviewTest.kt:89)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.failedGroupQueueSavingKeepsTheDraftAndNeverSendsAfterRepair(ChatQueuePreviewTest.kt:40)
+
+FAILURES!!!
+Tests run: 6,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

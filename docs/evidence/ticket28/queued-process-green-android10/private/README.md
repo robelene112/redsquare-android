@@ -1,0 +1,1 @@
+private: actual PID3213 to3645; protected queued-original/history/wallet/backend continuity before launch, automatic identical raw/Relay once, decoded text, Forwarded UI and installation restoration PASS. Public unsafe fixtures only.

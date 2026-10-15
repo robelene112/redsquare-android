@@ -145,8 +145,14 @@ Group4run38677817471 exact846440f8 SUCCESS4PASS112.294s. Removedauthor
 zeroWire/Cancel andexactArchivegroupsig/reconcile/no2ndRaw/noRelay/recreatepass;
 retainedgroup-four-green-android10/rootoriginalsseen. Local28656testcompilePASS
 1m27s on3e8d62bd/equivalent31bed. Exact31bedfocusedgroup6run38678478161 ACTIVE
-andactualprocessprivate/grouprun38678479983 ACTIVE, independentrunners/scopes.
-No duplicate/noownedlocalbuild. Whole28sourcereviewsfrom09e0to31bedrequested.
+FAILED5PASS/1storageFAIL122.916s at105 Senddisabledbeforetap. Other5inclidentity/
+backendisolationpass. Retainedgroup-six-attempt-android10; fixturefaultcorrected
+activatewithactualenabledSendsemanticsaction/lockbeforeasyncpersist, unchanged
+asserts/restoration/noappchanges. Actualprocessrun38678479983 SUCCESSprivatePID
+3213→3645/group4008→4309, continuity/exactoriginalonce/history/key/decode/FWDUI/
+installationrestorationpass. Retainedqueued-process-green-android10/rootoriginalsseen.
+Whole28sourcereview09e0...31bedSpec0/Standards0(all22changedsourcefiles). Newfixture
+correction/runtimepending. Noownedlocalbuild/proof.
 Addedremainingstoragefailure+identity/backendscoperegressions, noappchanges;
 focusedgroup6/fullclass13 firstexecutionpending. Groupappsource65c57b5c.
 Groupappminimumebd9f700 applied, notyetaccepted. Groups/process/full28stillpending.

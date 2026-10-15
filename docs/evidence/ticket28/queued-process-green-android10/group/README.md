@@ -1,0 +1,1 @@
+group: actual PID4008 to4309; protected queued-original/history/wallet/backend continuity before launch, automatic identical raw/Relay once, decoded text, Forwarded UI and installation restoration PASS. Group key/origin preserved. Public unsafe fixtures only.
