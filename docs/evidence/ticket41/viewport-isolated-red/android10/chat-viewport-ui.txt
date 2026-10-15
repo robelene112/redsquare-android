@@ -1,0 +1,53 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ChatQueuePreviewTest:
+INSTRUMENTATION_STATUS: test=anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Full cancellation target must stay inside the usable screen: Rect(12, 604 - 192, 640), minimum=48, bars=24/0
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.physicalGroupCancellation(ChatQueuePreviewTest.kt:315)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue$lambda$54$lambda$53$lambda$52(ChatQueuePreviewTest.kt:171)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.$r8$lambda$v2fFFLbfBxKb5O5XhRdlxDcpy3k(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue(ChatQueuePreviewTest.kt:115)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending(ChatQueuePreviewTest.kt:33)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending(nl.davidengelen.redsquare.ChatQueuePreviewTest):
+java.lang.IllegalStateException: Full cancellation target must stay inside the usable screen: Rect(12, 604 - 192, 640), minimum=48, bars=24/0
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.physicalGroupCancellation(ChatQueuePreviewTest.kt:315)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue$lambda$54$lambda$53$lambda$52(ChatQueuePreviewTest.kt:171)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.$r8$lambda$v2fFFLbfBxKb5O5XhRdlxDcpy3k(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue(ChatQueuePreviewTest.kt:115)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending(ChatQueuePreviewTest.kt:33)
+
+INSTRUMENTATION_STATUS: test=anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 8.983
+There was 1 failure:
+1) anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending(nl.davidengelen.redsquare.ChatQueuePreviewTest)
+java.lang.IllegalStateException: Full cancellation target must stay inside the usable screen: Rect(12, 604 - 192, 640), minimum=48, bars=24/0
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.physicalGroupCancellation(ChatQueuePreviewTest.kt:315)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue$lambda$54$lambda$53$lambda$52(ChatQueuePreviewTest.kt:171)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.$r8$lambda$v2fFFLbfBxKb5O5XhRdlxDcpy3k(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue(ChatQueuePreviewTest.kt:115)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending(ChatQueuePreviewTest.kt:33)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
