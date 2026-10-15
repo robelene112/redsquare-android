@@ -43,6 +43,14 @@ results, not public readiness. Fresh native public read run38785785214 is active
 whole release/lint/device gates remain pending. Public22
 remains current. No node/configuration/service/wallet/chain writes occurred.
 
+The previous complete Android17 job ran over57minutes; its username class took
+95.119s, versus147.285s in the new focused run. Before complete regression,
+the job ceiling becomes75minutes for one full SDK and120for the combined scope;
+source/focused jobs remain60. No application/request/assertion/class timeout,
+test, or acceptance requirement changes. GitHub permits `inputs` at the
+[job timeout key](https://docs.github.com/en/actions/reference/workflows-and-actions/contexts#context-availability).
+YAML syntax is validated; actual new full outcomes remain pending.
+
 ## Earlier implementation chronology
 
 Active #19, review base ed5742fd0f57958d284073b7145f1844b72b1dbd.

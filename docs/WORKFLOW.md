@@ -121,6 +121,11 @@ the owner chooses whether to start it. It is not required for every app-wide gri
    commit concurrently. Each runs source/core/release/lint and the complete
    selected SDK suite, mapped to the harness's `full` scope. Record and inspect
    both runs, including separately enabled public reads, before acceptance.
+   Full-suite job ceilings are75minutes per SDK or120minutes for the combined
+   `full` scope; source/focused jobs retain60minutes. The previous complete
+   Android17 job took over57minutes, leaving little room below60 for runner
+   variation and artifact retention. Application, request, assertion and class
+   deadlines remain unchanged. This ceiling is not a runtime acceptance claim.
 4. Ensure `code-review` sees the actual changes. Its upstream default compares
    committed `HEAD` against a fixed base, so make an interim implementation
    commit before that review if needed. An empty committed diff is not a review
