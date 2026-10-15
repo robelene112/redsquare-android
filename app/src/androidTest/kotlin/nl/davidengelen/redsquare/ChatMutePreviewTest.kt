@@ -384,7 +384,11 @@ class ChatMutePreviewTest {
     private fun showMessage(text: String) {
         ui.waitUntil(20_000) {
             if (!displayed(hasText(text))) {
-                try { ui.onNode(hasScrollAction()).performScrollToNode(hasText(text)) }
+                try {
+                    val groupHistory=hasContentDescription("Group messages")
+                    val history=if(ui.onAllNodes(groupHistory).fetchSemanticsNodes().isNotEmpty())groupHistory else hasScrollAction()
+                    ui.onNode(history).performScrollToNode(hasText(text))
+                }
                 catch (_: AssertionError) { /* Incoming UI publication may still be pending. */ }
             }
             displayed(hasText(text))

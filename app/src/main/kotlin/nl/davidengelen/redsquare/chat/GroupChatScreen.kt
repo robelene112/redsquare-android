@@ -306,7 +306,9 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     }
     val keyboardVisible = WindowInsets.isImeVisible
     val entry = entries.firstOrNull { it.group.id == selected }
-    Column(modifier.fillMaxSize(),verticalArrangement=Arrangement.spacedBy(8.dp)) {
+    BoxWithConstraints(modifier.fillMaxSize()) {
+    val statusMaxHeight=maxHeight/3
+    Column(Modifier.fillMaxSize(),verticalArrangement=Arrangement.spacedBy(8.dp)) {
         Row(verticalAlignment=Alignment.CenterVertically) {
             TextButton(enabled=!busy,onClick={back()}) { Text(stringResource(R.string.browse_back)) }
             Text(entry?.group?.name ?: stringResource(R.string.group_title),Modifier.weight(1f),style=MaterialTheme.typography.titleLarge,
@@ -315,14 +317,62 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             TextButton(enabled=!busy&&!paging,onClick={refresh++}) { Text(stringResource(R.string.feed_refresh)) }
         }
         Text(stringResource(R.string.group_privacy),style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
-        if (!keyboardVisible) Text(stringResource(R.string.chat_available_history),style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
-        if(hintsFailed)Text(stringResource(R.string.group_hints_error),color=MaterialTheme.colorScheme.onSurfaceVariant)
-        PersonalControlsStatus(personal)
-        if(readFailed || draftFailed) Text(stringResource(R.string.group_error),color=MaterialTheme.colorScheme.error)
-        if(sendFailed)Text(stringResource(if(entry?.automaticMessage==true&&entry.pendingMessage!=null)
-            R.string.chat_automatic_send_error else R.string.group_error),color=MaterialTheme.colorScheme.error)
-        if(historyFailed) Text(stringResource(R.string.group_history_error),color=MaterialTheme.colorScheme.onSurfaceVariant)
-        if(liveFailed) Text(stringResource(R.string.group_live_error),color=MaterialTheme.colorScheme.onSurfaceVariant)
+        // Full status text stays scrollable while queued controls keep their space.
+        val statusLabel=stringResource(R.string.group_status_actions)
+        Column(Modifier.heightIn(max=statusMaxHeight).verticalScroll(rememberScrollState())
+            .semantics{contentDescription=statusLabel},
+            verticalArrangement=Arrangement.spacedBy(4.dp)) {
+            if (!keyboardVisible) Text(stringResource(R.string.chat_available_history),style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
+            if(hintsFailed)Text(stringResource(R.string.group_hints_error),color=MaterialTheme.colorScheme.onSurfaceVariant)
+            PersonalControlsStatus(personal)
+            if(readFailed || draftFailed) Text(stringResource(R.string.group_error),color=MaterialTheme.colorScheme.error)
+            if(sendFailed)Text(stringResource(if(entry?.automaticMessage==true&&entry.pendingMessage!=null)
+                R.string.chat_automatic_send_error else R.string.group_error),color=MaterialTheme.colorScheme.error)
+            if(historyFailed) Text(stringResource(R.string.group_history_error),color=MaterialTheme.colorScheme.onSurfaceVariant)
+            if(liveFailed) Text(stringResource(R.string.group_live_error),color=MaterialTheme.colorScheme.onSurfaceVariant)
+            if(entry!=null) {
+                if(!keyboardVisible&&entry.group.confirmedInvitation!=null) Text(stringResource(R.string.group_invitation_origin),
+                    style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
+                if (!keyboardVisible) FlowRow {
+                    TextButton(onClick={members=true}) { Text(stringResource(R.string.group_members)) }
+                    if(entry.group.memberRoles[wallet.publicKey]?.active==true) {
+                        TextButton(enabled=!busy&&entry.group.memberRoles.values.any{it==ChatGroupRole.ADMIN},onClick={inviting=true}) { Text(stringResource(R.string.group_invite)) }
+                        TextButton(enabled=!busy&&!entry.hasPendingAction,onClick={leaving=true}) { Text(stringResource(R.string.group_leave)) }
+                    }
+                }
+                if(entry.queuedMessage==null) Text(stringResource(when(entry.status) {
+                    GroupChatStore.Status.UNKNOWN -> R.string.group_unknown
+                    GroupChatStore.Status.SUBMITTED -> R.string.group_submitted
+                    GroupChatStore.Status.FORWARDED -> R.string.group_forwarded
+                    GroupChatStore.Status.STOPPED -> R.string.group_stopped
+                    GroupChatStore.Status.RECEIVED -> if(entry.ownCreation)R.string.group_recovered else R.string.group_received
+                    GroupChatStore.Status.AVAILABLE -> R.string.chat_send_available
+                }),style=MaterialTheme.typography.bodySmall)
+                val staleAction=store.isStaleAdminAction(entry)
+                if(staleAction) {
+                    Text(stringResource(R.string.group_stale_action),color=MaterialTheme.colorScheme.error)
+                    TextButton(enabled=loaded&&!busy&&!readFailed,onClick={stopping=true}){Text(stringResource(R.string.group_stop_action))}
+                }
+                if(entry.stoppedActions.isNotEmpty()&&entry.status!=GroupChatStore.Status.STOPPED)
+                    Text(stringResource(R.string.group_stopped_history),style=MaterialTheme.typography.bodySmall)
+                if(entry.hasPendingAction&&entry.queuedMessage==null) TextButton(enabled=loaded&&!busy&&!readFailed&&!staleAction,onClick={
+                    act {
+                        val pending=requireNotNull(entry.candidate)
+                        withContext(NonCancellable){publish{store.prepareRetry(entry.group.id,pending.id);store.entries()}}
+                        val updated=withContext(Dispatchers.IO){wallet.withNamedChatGroup(entry.group.id,entry.group.name,entry.creationKey)}
+                        val creation=withContext(Dispatchers.IO){SaitoEnvelope.decode(pending.envelope()).body.get("request").asString=="chat group"}
+                        if(entry.automaticMessage) {
+                            withContext(Dispatchers.IO){submitGroupMessage(context,wallet,backend,endpoint,entry.group.id,pending)}
+                            publish{store.entries()}
+                        } else sendPrepared(entry.group.id,pending,updated,originalRelay=creation)
+                    }
+                }){Text(stringResource(R.string.group_retry))}
+                if(entry.group.memberRoles[wallet.publicKey]==ChatGroupRole.LEFT) Text(stringResource(R.string.group_left))
+                if(hasOlder&&olderCursor!=null) TextButton(enabled=!busy&&!paging,onClick={if(!initialLoading&&!olderLoading&&!busy){olderLoading=true;olderRequest++}}){
+                    Text(stringResource(R.string.chat_load_older))
+                }
+            }
+        }
         if(entry==null) {
             Row(horizontalArrangement=Arrangement.spacedBy(8.dp)) {
                 Button(enabled=loaded&&!busy,onClick={creating=true}) { Text(stringResource(R.string.group_create)) }
@@ -351,59 +401,23 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                 }
             }
         } else {
-            if(!keyboardVisible&&entry.group.confirmedInvitation!=null) Text(stringResource(R.string.group_invitation_origin),
-                style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
-            if (!keyboardVisible) FlowRow {
-                TextButton(onClick={members=true}) { Text(stringResource(R.string.group_members)) }
-                if(entry.group.memberRoles[wallet.publicKey]?.active==true) {
-                    TextButton(enabled=!busy&&entry.group.memberRoles.values.any{it==ChatGroupRole.ADMIN},onClick={inviting=true}) { Text(stringResource(R.string.group_invite)) }
-                    TextButton(enabled=!busy&&!entry.hasPendingAction,onClick={leaving=true}) { Text(stringResource(R.string.group_leave)) }
-                }
-            }
             if(entry.queuedMessage!=null) {
-                Text(stringResource(R.string.chat_queued))
-                TextButton(enabled=loaded&&!busy&&!readFailed,onClick={
-                    act {
-                        draftWrites.withLock {
-                            withContext(NonCancellable){
-                                publish{
-                                    store.cancelQueued(entry.group.id,entry.queuedMessage.candidate.id);store.entries()
+                Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically,
+                    horizontalArrangement=Arrangement.SpaceBetween) {
+                    Text(stringResource(R.string.chat_queued))
+                    TextButton(enabled=loaded&&!busy&&!readFailed,onClick={
+                        act {
+                            draftWrites.withLock {
+                                withContext(NonCancellable){
+                                    publish{
+                                        store.cancelQueued(entry.group.id,entry.queuedMessage.candidate.id);store.entries()
+                                    }
+                                    changeMessage(withContext(Dispatchers.IO){requireNotNull(store.load(entry.group.id)).draft})
                                 }
-                                changeMessage(withContext(Dispatchers.IO){requireNotNull(store.load(entry.group.id)).draft})
                             }
                         }
-                    }
-                }){Text(stringResource(R.string.chat_cancel_queued))}
-            } else Text(stringResource(when(entry.status) {
-                GroupChatStore.Status.UNKNOWN -> R.string.group_unknown
-                GroupChatStore.Status.SUBMITTED -> R.string.group_submitted
-                GroupChatStore.Status.FORWARDED -> R.string.group_forwarded
-                GroupChatStore.Status.STOPPED -> R.string.group_stopped
-                GroupChatStore.Status.RECEIVED -> if(entry.ownCreation)R.string.group_recovered else R.string.group_received
-                GroupChatStore.Status.AVAILABLE -> R.string.chat_send_available
-            }),style=MaterialTheme.typography.bodySmall)
-            val staleAction=store.isStaleAdminAction(entry)
-            if(staleAction) {
-                Text(stringResource(R.string.group_stale_action),color=MaterialTheme.colorScheme.error)
-                TextButton(enabled=loaded&&!busy&&!readFailed,onClick={stopping=true}){Text(stringResource(R.string.group_stop_action))}
-            }
-            if(entry.stoppedActions.isNotEmpty()&&entry.status!=GroupChatStore.Status.STOPPED)
-                Text(stringResource(R.string.group_stopped_history),style=MaterialTheme.typography.bodySmall)
-            if(entry.hasPendingAction&&entry.queuedMessage==null) TextButton(enabled=loaded&&!busy&&!readFailed&&!staleAction,onClick={
-                act {
-                    val pending=requireNotNull(entry.candidate)
-                    withContext(NonCancellable){publish{store.prepareRetry(entry.group.id,pending.id);store.entries()}}
-                    val updated=withContext(Dispatchers.IO){wallet.withNamedChatGroup(entry.group.id,entry.group.name,entry.creationKey)}
-                    val creation=withContext(Dispatchers.IO){SaitoEnvelope.decode(pending.envelope()).body.get("request").asString=="chat group"}
-                    if(entry.automaticMessage) {
-                        withContext(Dispatchers.IO){submitGroupMessage(context,wallet,backend,endpoint,entry.group.id,pending)}
-                        publish{store.entries()}
-                    } else sendPrepared(entry.group.id,pending,updated,originalRelay=creation)
+                    }){Text(stringResource(R.string.chat_cancel_queued))}
                 }
-            }){Text(stringResource(R.string.group_retry))}
-            if(entry.group.memberRoles[wallet.publicKey]==ChatGroupRole.LEFT) Text(stringResource(R.string.group_left))
-            if(hasOlder&&olderCursor!=null) TextButton(enabled=!busy&&!paging,onClick={if(!initialLoading&&!olderLoading&&!busy){olderLoading=true;olderRequest++}}){
-                Text(stringResource(R.string.chat_load_older))
             }
             val messagesLabel=stringResource(R.string.group_messages)
             val messageList=rememberLazyListState()
@@ -485,6 +499,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                 }
             }
         }
+    }
     }
     if(creating) CreateGroupDialog(busy,onDismiss={if(!busy)creating=false}) { name,invitees ->
         act {
