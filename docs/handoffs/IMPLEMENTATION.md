@@ -34,68 +34,78 @@ Unpublished20 stays unpublished. No owned build/device run active.
 #31 remains blocked by native #16: authorized Android Giphy key still unavailable;
 updated both tracker comments to narrow the old blanket reference-retention claim.
 
-**#40 COMPLETE, signed22 published:** keyboard-open private/group text/photo
-composition retains physical Send/privacy, exact drafts/captions, Back/reopening,
-restored controls and one explicit compatible submission. Reviewbasea35ff6c1;
-production720e2007. Both complete final runs at EXACTsame
-fabd4eb75f8499b895f7bdbb046f075c1ee11089 SUCCESS:
-10run38773302932=365reported/364PASS+onlyexistingAPI29profileassumption,
-86records27actualdeaths;17run38773307029=366PASS/87records27actualdeaths.
-Both core114/release/lint/allpreviousapplication/protected/public/coldwallet/
-immutable5→8/finaldiagnostic pass. Keyboard4PASS26.294s/41.614s. Final source,
-fixture and both complete evidence reviews Spec0/Standards0. Retained1024/1031
-hashes,378/380parsedXML,401/403PNG; root12originalsseenpersdk. Earlierfailures,
-non-atomicwindows/focused-contentpanning/offscreen/permissionfalsequalifications
-remain explicit. Prior prematuregroupqueuecause remainsunproved; currentafter-
-bindportallocation preservesalloriginalQueued/archive/no-repeatassertions.
-Canonical docs/evidence/ticket40/FINAL_ACCEPTANCE.md and final-full records.
+**#40 COMPLETE, signed22 published:** private/group text and photo composition
+keeps physical Send and privacy visible with the keyboard open. Exact drafts,
+captions, Back/reopening, restored controls and one explicit compatible submission
+pass. Review base a35ff6c1; production last changed720e2007. Both complete runs use
+exactly fabd4eb75f8499b895f7bdbb046f075c1ee11089 and conclude SUCCESS:
+Android10 run38773302932 has364PASS plus the sole existing API29 profile assumption,
+86completion records and27actual deaths; Android17 run38773307029 has366PASS,
+87records and27actual deaths. Both core114/release/lint and all previous application,
+protected recovery, public reads, cold wallet, immutable5-to8 update and final
+diagnostic pass. Keyboard4PASS26.294s/41.614s. Source, fixture and both final
+SDK evidence reviews report Spec0/Standards0. Retained1024/1031 hashes,
+378/380parsed XML,401/403PNGs; root viewed12 originals per SDK. Earlier failures,
+separate captures, panning, offscreen content and original permissionfalse remain
+qualified. The old premature group delivery cause remains unproved. Current
+post-bind port allocation retains every original Queued/archive/no-repeat check.
+Canonical record: docs/evidence/ticket40/FINAL_ACCEPTANCE.md.
 
-Public22/0.1.22: https://davidengelen.nl/redsquare/. Preparedsourcec0b143eb matches
-finaltestedproduction/buildinputs. APKsha5d4081c587c53575987890390fb042b34fc30b19d5e17c9d17f10905e910ef6d,
-establishedcert6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2,
-package nl.davidengelen.redsquare/min29. Directpublicpage/latest/immutable22/APK
-hash/cert/package/version/min29andunchangedimmutable21PASS. Public-onlyrecords
-signed-preview22-published. Artifact /mnt/storage/redsquare-android-artifacts/
-keyboard40-review22-source/.scratch/review-builds/22. No ownedbuild/deviceactive.
-Publicationrecordreview/issueclosurepending atthischeckpoint; finishthose then
-continue#19 sequentially. Do not stopafter40. No productionnode/config/service/
-wallet/chain/storeoperation. PhysicalPixel/finalintegrated35remainseparate.
+Public22/0.1.22: https://davidengelen.nl/redsquare/. Sourcec0b143eb matches the
+final production/build inputs. APK SHA256:
+5d4081c587c53575987890390fb042b34fc30b19d5e17c9d17f10905e910ef6d.
+Established certificate:
+6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2.
+Package nl.davidengelen.redsquare, minimum API29. Direct public page/latest/
+immutable22/APK hash, certificate, package/version/min29 and unchanged immutable21
+checks pass. Public-only records: signed-preview22-published. Artifact:
+/mnt/storage/redsquare-android-artifacts/keyboard40-review22-source/.scratch/review-builds/22.
+No owned build/device run is active. Publication-record review and issue closure
+remain pending at this checkpoint; finish those, then continue#19 sequentially.
+Do not stop after40. No node/configuration/service/wallet/chain/store operation.
+Physical Pixel and final integrated#35 remain separate.
 
-Next#19: host-onlyfirst/lateRegistryreadsactuallyobserveSaitofallback21Bthen
-same-index431Bpublicproof, andemptyarrayforunusedprobe. Ownerreturnsfallbackonly
-within12s. ExactknownpublicSaitoverseproof passesUNCHANGEDcompiledcore registrar/
-field/signaturechecks. lc=1isunsignedserverhint, notindependentchainfinality.
-Read docs/evidence/ticket19/host-first-late-oct15 and host-public-proof-oct15,
-REGISTRY_CALLBACK_EXPERIMENT_2026_10_15.md, REGISTRY_READINESS_DIAGNOSIS_2026_10_15.md.
-Allresearchreviewed0/0, noAndroidfix/registrationacceptanceyet. CurrentSaitoPeer
-pending.remove consumesfirstresponse anddiscardslatearray. Nextcontrollednative
-REDattheexistingapp/peerseamthenminimalRegistry-onlyfallbackhandlingwithin
-ORIGINAL12s, preservingtype14/genericrequesterrors, strictproofs, nofalseempty
-availability, immutablecandidate/wallet/backend/explicitidenticalRetry. Do not
-silentlyfailoverselectedOwnerornodedeploy. Earlierplanforanindependentdebug
-observerisprovisional; laterhostpublicproofnowgivesconcretecauseforanarrowfix.
+Next#19: host first/late Registry reads actually observe Saito's21B fallback,
+then a same-index431B public ownership proof, and an empty array for an unused
+probe. Owner returns only fallback within12s. The exact known Saitoverse proof
+passes the UNCHANGED compiled core registrar/field/signature checks. lc=1 is an
+unsigned server hint, not independent chain finality. Read ticket19 evidence
+host-first-late-oct15 and host-public-proof-oct15, and research
+REGISTRY_CALLBACK_EXPERIMENT_2026_10_15.md and
+REGISTRY_READINESS_DIAGNOSIS_2026_10_15.md. All research reviews0/0; no Android fix
+or registration acceptance yet. SaitoPeer currently consumes the first response
+and discards the late array. Next: controlled native RED at the existing app/peer
+seam, then minimal Registry-only fallback handling within the ORIGINAL12s.
+Preserve type14/generic errors, strict proofs, unavailable handling, immutable
+candidate, wallet/backend binding and explicit identical Retry. Never interpret
+fallback as empty availability or silently fail over the selected Owner backend.
+No node deployment is authorized. The earlier independent debug-observer plan
+is provisional; later host public proof now justifies a narrower correction.
 
-#17 research YOUTUBE_PLAYBACK_DIAGNOSIS_2026_10_15.md and
-YOUTUBE_POSITIVE_CONTROL_2026_10_15.md: noidentityfixproved. NextboundedDEBUG
-numericerrorcapture beforemapping/teardown and initialchild-frameembedrequest
-metadata, explicitlyWebView-reportedheadersratherthanwireproof. Preserveactual
-packageorigin/security/Playingassertion. BothcurrentIDsareofficialexamples;
-third360degreeexampleisnotknownworking. No newplayback/sourcechanges.
-#35 CHAT_STATUS_VIEWPORT_2026_10_15.md plansboundedsecondarycontent/oversized
-composer withreachableSend/Cancel, allstate/guards/rootinsetpreserved. Known
-keyboard-CLOSEDwarningstackstillneedswork;40doesnotclose35. Researchonly.
-#32–34 NATIVE_CLOSED_APP_PUSH_REQUIREMENTS_2026_10_15.md recordsFCMdata-only/
-localprivacy/mute, tokenrotation andobservercoverage/Relaydelegationlimits.
-No Firebaseclient/gatewayimplementation/deploymentyet. OwnerGiphyAndroidkey/
-Firebaseprojectquestionsstillunanswered; continueindependentauthorizedwork.
-#36 concretepolicyorientation .scratch/play-oct15-orientation.md, reverifyactual
-account/policybeforepublishing. Preparematerials, notprematuresubmissionclaims.
+#17 research: YOUTUBE_PLAYBACK_DIAGNOSIS_2026_10_15.md and
+YOUTUBE_POSITIVE_CONTROL_2026_10_15.md. No identity fix is proved. Next: bounded
+DEBUG numeric error capture before mapping/teardown and initial child-frame embed
+request metadata. Label headers as WebView-reported, not independent wire proof.
+Preserve actual package origin, security and Playing assertion. Both current IDs
+are official examples; the third360degree example is not known working. No new
+playback or source changes occurred.
 
-This session alreadyfetched sharedskills/app upstream;skillsmain1dbca7aclean0/0.
-Reusechecks. Currenthostlacks/dev/kvm; nativeproofrunsGitHub. Largeartifactson
-/mnt/storage, no ownedlocalGradle. Protecteduntracked
-NATIVE_GROUP_CHAT_CONTRACT.md untouched. Source-reviewrecord
-SOURCE_REVIEW.md and allrawfailed/focused/fullrecordspreservechronology.
+#35 CHAT_STATUS_VIEWPORT_2026_10_15.md plans bounded secondary content/oversized
+composer with reachable Send/Cancel, preserving state, guards and root inset
+ownership. The known keyboard-CLOSED warning stack still needs work;40does not
+close35. Research only. #32–34 NATIVE_CLOSED_APP_PUSH_REQUIREMENTS_2026_10_15.md
+records FCM data-only/local privacy/mute, token rotation and observer coverage/
+Relay delegation limits. No Firebase client/gateway implementation/deployment.
+Owner Giphy Android key/Firebase project questions remain unanswered. Continue
+independent authorized work. #36 policy orientation is in ignored scratch
+play-oct15-orientation.md; reverify the actual account/policy before publishing.
+Prepare concrete materials without claiming submission.
+
+This session already fetched shared skills/app upstream; shared main1dbca7a was
+clean0/0. Reuse checks. The host lacks /dev/kvm; native proof runs on GitHub.
+Large artifacts stay on /mnt/storage; no owned local Gradle is active. Protected
+untracked NATIVE_GROUP_CHAT_CONTRACT.md remains untouched. SOURCE_REVIEW.md and
+all raw failed/focused/full records retain chronology.
 
 **#29 COMPLETE and CLOSED, 2026-10-15T09:08:20Z:**
 Persistent private/group conversation mute keeps messages readable and explains
