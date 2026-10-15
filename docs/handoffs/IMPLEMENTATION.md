@@ -80,10 +80,17 @@ FAILED before emulator/app execution: SDKmanager unpacking x86_64-37.0_r06.zip
 Error reading Zip content from a SeekableByteChannel. No keyboard result exists.
 Source/core/debug/test build passed. Retained sdk-image-attempt-android17;
 raw failed log .scratch/keyboard40-reopen17-ack-failed.log. Cause unproved.
-One unchanged fresh-runner focus17 retry38762861549 at108e241b ACTIVE, after
-predecessor ended. Do not duplicate. After actual success dispatch full17 with
-separately enabled publicreads.
-No full17 currently active. Full10run38760924822 at286 remainsACTIVE.
+One unchanged fresh-runner focus17 retry38762861549 at108e241b SUCCESS4PASS
+86.763s, core114/debug/test. All actual Back/draft/photo/restored-control/physical
+reopen/privacy/nativeSend/exactwire/identity/restoration checks pass. Retained
+reopen-green-android17:12XML parsed/root four original dismissed-unsent PNGs seen.
+SDKfailure remains FAILED, never app acceptance. Both stronger focusedSDKs now
+pass. Native summary does not retain println injector acknowledgements; no claim
+about their values in this successful run. Behavioral assertions are decisive.
+OWNED final full17run38763901887 at47a73f87 ACTIVE, public_feed_read=true.
+Full10run38760924822 at286 remainsACTIVE. No duplicate scopes. App production
+identical on both;17 fixture differs only injector-ack logging while all actual
+user-behavior assertions remain. Need actual complete results before publication.
 No local Gradle/build process active. Production
 remains identical to720e2007/c0/prepared22; do not rebuild/re-reserve unnecessarily.
 
