@@ -240,3 +240,15 @@ itsownmute/readablefreshincoming/silence andsamegroupchoice remain. Scopedtwo-
 walletsnapshot/independentcleanup, fullwallet/backend/no-wire assertions. Reuses
 approvedprotectedidentityseam withoutrepeatingSAF workflows. No prodchange or
 falseREDclaim. Native8case proofpending; processinterruption stillremaining.
+
+Combinedbackend/identity sourceace5b807 reviewed Spec0/Standards0; ownedfocused10
+run38702369456 exactace ACTIVE, no duplicate. Newsequentialprocessregression
+usesrealUI savedprivate/groupmutes andexactdrafts, cachesbeforedeath, existing
+DEBUG personalCommitTerminate onlywhenexplicitUnmute commits. Hostmustobserve
+crash+originalPIDgone; separatecoldprocess requiresbothchoices, exactdrafts,
+cache+freshsignedRPC950/951 ACK/readable/2sOSsilence, fullwallet/backend/no-wire.
+Device-only explicitfileallowlist snapshots include originalencryptedwallet and
+scopedpolicy/history/draft/guardrecords. Independentfile/preference restoration;
+publiccheckpoint containsdigests/publicidentity only. Existingchat-mute scopes
+nowrunprocessproofaftereightcases beforehostpermissionrestore; individualUI/RPC
+boundsunchanged, no new CI scope. Compile/review/actualproofpending.
