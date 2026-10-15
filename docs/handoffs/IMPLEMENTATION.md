@@ -61,15 +61,24 @@ CorrectedprivatecancelGREEN10run38663341602 atac5c8608:1PASS15.786s,
 productidentical28714c21. ExactEditableText/cancel/noordinarybubble/reachablepeer
 zeroRaw/Relay/wallet/backendpreservation pass; originalcancelleddraftseen.
 Priorlabelattempt38662611803 1fail7.354s remainsqualified/retained; notdeliveryproof.
-New05ec671d adds2nd backgroundresumptiontracer, sharedfixture2realcallers: CREATED
-thenpeerreturns, originalRaw/Relay/decrypt/FWD/oneeach required,60s. Automatic
-implementationabsent; REDpending. No ownedlocalbuild. No groupqueueyet.
+BackgroundRED10run38663935309 at056d2f4a:2cases1PASS(cancel)/1FAIL123.147s,
+noRelay77within60s afterQueued/recreate/retainedoriginal/Lifecycle.CREATED.
+ExactRaw/Relay/decrypt/FWD/counttailunexecuted; originalQueued/backgroundwindowseen,
+retainedprivate-background-red-android10. Minimume158 automaticflagdefaultfalse,
+onlyQueuedenabled, WorkManagerCONNECTED/publicmetadata/guardedoriginals, foreground
+session andsharedDeliveryAttempts. ReviewSpecprogressracedroppedwhilesending and
+Standardsworkercontextdup corrected9aca19a214aeb8cc259849fa64ca201365885cda;
+separateboundedreviews0/0. Local8046FAILED1m4 missingauthor/profileoldlockrefs,
+allcorrected. Currentlocal15564ACTIVE correcteddebug/testbuild, noapp/testeditsuntil
+ends. Nativefocused10run38665208539 ACTIVE exact9aca19a2; do notduplicate.
+No automaticGREEN or groups/Archive-reconciliation/full28acceptanceyet.
 
-NEXT: firstbackgroundRED then minimumautomaticdelivery+immutable originals,
-identity/backendpause/reconciliation/storagefailure, groupqueuewithfreshmembership,
-actualprocessdeath, finalfull10/17/twoaxisreviews/signednextbeta/closure28. Parent1
-approvedapplication/controlledpeer/protectedrecoveryseamsapply. Queueonlyexplicit
-messages; noadmin/reaction/transferautosends. Continue28through36 andparked16/17/19.
+NEXT: inspectcorrectedlocal/native results andoriginals; retainqualifiedbackground
+GREEN, then backend/identitypause, exactArchive-reconciliation/storagefailure,
+groupqueuewithfreshmembership, actualprocessdeath, finalfull10/17/reviews/signed
+nextbeta/closure28. Parent1approvedapplication/controlledpeer/protectedrecoveryseams.
+Queueonlyexplicitmessages,noadmin/reaction/transferautosends. Continue28through36
+andparked16/17/19 withoutstopping. PhysicalPixel35/Play36 actualexternalprerequisites.
 16requiresAndroidGiphyauthorization/retention;17publicYouTubeproviderrefusal;
 19Registryavailabilityunproved.38brandingnormalprioritynotreleaseblocker.
 PhysicalPixel35/Play36 actualexternalprerequisites, nofixture/emulatorreplacement.
