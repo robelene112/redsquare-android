@@ -1,0 +1,185 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ChatKeyboardPreviewTest:
+INSTRUMENTATION_STATUS: test=groupChatCanSendAPhotoCaptionWithTheSystemKeyboardOpen
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component with ((SetText is defined) && (is enabled)) && (Exact multiline draft) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$22$lambda$21$lambda$20(ChatKeyboardPreviewTest.kt:113)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.$r8$lambda$BM93KQg9BPAaDGH-YjsVnXy9wvE(ChatKeyboardPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise(ChatKeyboardPreviewTest.kt:83)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.groupChatCanSendAPhotoCaptionWithTheSystemKeyboardOpen(ChatKeyboardPreviewTest.kt:30)
+
+INSTRUMENTATION_STATUS: stream=
+Error in groupChatCanSendAPhotoCaptionWithTheSystemKeyboardOpen(nl.davidengelen.redsquare.ChatKeyboardPreviewTest):
+java.lang.AssertionError: Assert failed: The component with ((SetText is defined) && (is enabled)) && (Exact multiline draft) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$22$lambda$21$lambda$20(ChatKeyboardPreviewTest.kt:113)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.$r8$lambda$BM93KQg9BPAaDGH-YjsVnXy9wvE(ChatKeyboardPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise(ChatKeyboardPreviewTest.kt:83)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.groupChatCanSendAPhotoCaptionWithTheSystemKeyboardOpen(ChatKeyboardPreviewTest.kt:30)
+
+INSTRUMENTATION_STATUS: test=groupChatCanSendAPhotoCaptionWithTheSystemKeyboardOpen
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=privateChatCanSendAPhotoCaptionWithTheSystemKeyboardOpen
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component with ((SetText is defined) && (is enabled)) && (Exact multiline draft) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$22$lambda$21$lambda$20(ChatKeyboardPreviewTest.kt:113)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.$r8$lambda$BM93KQg9BPAaDGH-YjsVnXy9wvE(ChatKeyboardPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise(ChatKeyboardPreviewTest.kt:83)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.privateChatCanSendAPhotoCaptionWithTheSystemKeyboardOpen(ChatKeyboardPreviewTest.kt:29)
+
+INSTRUMENTATION_STATUS: stream=
+Error in privateChatCanSendAPhotoCaptionWithTheSystemKeyboardOpen(nl.davidengelen.redsquare.ChatKeyboardPreviewTest):
+java.lang.AssertionError: Assert failed: The component with ((SetText is defined) && (is enabled)) && (Exact multiline draft) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$22$lambda$21$lambda$20(ChatKeyboardPreviewTest.kt:113)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.$r8$lambda$BM93KQg9BPAaDGH-YjsVnXy9wvE(ChatKeyboardPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise(ChatKeyboardPreviewTest.kt:83)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.privateChatCanSendAPhotoCaptionWithTheSystemKeyboardOpen(ChatKeyboardPreviewTest.kt:29)
+
+INSTRUMENTATION_STATUS: test=privateChatCanSendAPhotoCaptionWithTheSystemKeyboardOpen
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=groupChatCanSendAMultilineDraftWithTheSystemKeyboardOpen
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component with ((SetText is defined) && (is enabled)) && (Exact multiline draft) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$22$lambda$21$lambda$20(ChatKeyboardPreviewTest.kt:113)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.$r8$lambda$BM93KQg9BPAaDGH-YjsVnXy9wvE(ChatKeyboardPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise(ChatKeyboardPreviewTest.kt:83)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$default(ChatKeyboardPreviewTest.kt:32)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.groupChatCanSendAMultilineDraftWithTheSystemKeyboardOpen(ChatKeyboardPreviewTest.kt:27)
+
+INSTRUMENTATION_STATUS: stream=
+Error in groupChatCanSendAMultilineDraftWithTheSystemKeyboardOpen(nl.davidengelen.redsquare.ChatKeyboardPreviewTest):
+java.lang.AssertionError: Assert failed: The component with ((SetText is defined) && (is enabled)) && (Exact multiline draft) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$22$lambda$21$lambda$20(ChatKeyboardPreviewTest.kt:113)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.$r8$lambda$BM93KQg9BPAaDGH-YjsVnXy9wvE(ChatKeyboardPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise(ChatKeyboardPreviewTest.kt:83)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$default(ChatKeyboardPreviewTest.kt:32)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.groupChatCanSendAMultilineDraftWithTheSystemKeyboardOpen(ChatKeyboardPreviewTest.kt:27)
+
+INSTRUMENTATION_STATUS: test=groupChatCanSendAMultilineDraftWithTheSystemKeyboardOpen
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=privateChatCanSendAMultilineDraftWithTheSystemKeyboardOpen
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component with ((SetText is defined) && (is enabled)) && (Exact multiline draft) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$22$lambda$21$lambda$20(ChatKeyboardPreviewTest.kt:113)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.$r8$lambda$BM93KQg9BPAaDGH-YjsVnXy9wvE(ChatKeyboardPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise(ChatKeyboardPreviewTest.kt:83)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$default(ChatKeyboardPreviewTest.kt:32)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.privateChatCanSendAMultilineDraftWithTheSystemKeyboardOpen(ChatKeyboardPreviewTest.kt:26)
+
+INSTRUMENTATION_STATUS: stream=
+Error in privateChatCanSendAMultilineDraftWithTheSystemKeyboardOpen(nl.davidengelen.redsquare.ChatKeyboardPreviewTest):
+java.lang.AssertionError: Assert failed: The component with ((SetText is defined) && (is enabled)) && (Exact multiline draft) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$22$lambda$21$lambda$20(ChatKeyboardPreviewTest.kt:113)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.$r8$lambda$BM93KQg9BPAaDGH-YjsVnXy9wvE(ChatKeyboardPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise(ChatKeyboardPreviewTest.kt:83)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$default(ChatKeyboardPreviewTest.kt:32)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.privateChatCanSendAMultilineDraftWithTheSystemKeyboardOpen(ChatKeyboardPreviewTest.kt:26)
+
+INSTRUMENTATION_STATUS: test=privateChatCanSendAMultilineDraftWithTheSystemKeyboardOpen
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 46.395
+There were 4 failures:
+1) groupChatCanSendAPhotoCaptionWithTheSystemKeyboardOpen(nl.davidengelen.redsquare.ChatKeyboardPreviewTest)
+java.lang.AssertionError: Assert failed: The component with ((SetText is defined) && (is enabled)) && (Exact multiline draft) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$22$lambda$21$lambda$20(ChatKeyboardPreviewTest.kt:113)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.$r8$lambda$BM93KQg9BPAaDGH-YjsVnXy9wvE(ChatKeyboardPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise(ChatKeyboardPreviewTest.kt:83)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.groupChatCanSendAPhotoCaptionWithTheSystemKeyboardOpen(ChatKeyboardPreviewTest.kt:30)
+2) privateChatCanSendAPhotoCaptionWithTheSystemKeyboardOpen(nl.davidengelen.redsquare.ChatKeyboardPreviewTest)
+java.lang.AssertionError: Assert failed: The component with ((SetText is defined) && (is enabled)) && (Exact multiline draft) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$22$lambda$21$lambda$20(ChatKeyboardPreviewTest.kt:113)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.$r8$lambda$BM93KQg9BPAaDGH-YjsVnXy9wvE(ChatKeyboardPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise(ChatKeyboardPreviewTest.kt:83)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.privateChatCanSendAPhotoCaptionWithTheSystemKeyboardOpen(ChatKeyboardPreviewTest.kt:29)
+3) groupChatCanSendAMultilineDraftWithTheSystemKeyboardOpen(nl.davidengelen.redsquare.ChatKeyboardPreviewTest)
+java.lang.AssertionError: Assert failed: The component with ((SetText is defined) && (is enabled)) && (Exact multiline draft) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$22$lambda$21$lambda$20(ChatKeyboardPreviewTest.kt:113)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.$r8$lambda$BM93KQg9BPAaDGH-YjsVnXy9wvE(ChatKeyboardPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise(ChatKeyboardPreviewTest.kt:83)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$default(ChatKeyboardPreviewTest.kt:32)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.groupChatCanSendAMultilineDraftWithTheSystemKeyboardOpen(ChatKeyboardPreviewTest.kt:27)
+4) privateChatCanSendAMultilineDraftWithTheSystemKeyboardOpen(nl.davidengelen.redsquare.ChatKeyboardPreviewTest)
+java.lang.AssertionError: Assert failed: The component with ((SetText is defined) && (is enabled)) && (Exact multiline draft) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$22$lambda$21$lambda$20(ChatKeyboardPreviewTest.kt:113)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.$r8$lambda$BM93KQg9BPAaDGH-YjsVnXy9wvE(ChatKeyboardPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise(ChatKeyboardPreviewTest.kt:83)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$default(ChatKeyboardPreviewTest.kt:32)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.privateChatCanSendAMultilineDraftWithTheSystemKeyboardOpen(ChatKeyboardPreviewTest.kt:26)
+
+FAILURES!!!
+Tests run: 4,  Failures: 4
+
+
+INSTRUMENTATION_CODE: -1

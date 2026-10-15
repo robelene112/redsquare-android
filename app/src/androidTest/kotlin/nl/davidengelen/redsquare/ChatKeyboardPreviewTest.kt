@@ -117,6 +117,7 @@ class ChatKeyboardPreviewTest {
                         val exactDraft = editor and SemanticsMatcher("Exact multiline draft") {
                             it.config.getOrNull(SemanticsProperties.EditableText)?.text == draft
                         }
+                        ui.waitUntil(10_000) { displayed(exactDraft) }
                         ui.onNode(exactDraft).assertIsDisplayed()
                         val send = hasText("Send") and hasClickAction() and isEnabled()
                         ui.waitUntil(10_000) { displayed(send) }

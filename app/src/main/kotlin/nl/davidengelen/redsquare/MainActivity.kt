@@ -18,6 +18,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.isImeVisible
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
@@ -88,6 +90,7 @@ class MainActivity : ComponentActivity() {
         super.onDestroy()
     }
 
+    @OptIn(ExperimentalLayoutApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -241,9 +244,12 @@ class MainActivity : ComponentActivity() {
                     }
                     Os.fsync(descriptor)
                 }) {
+                // safeDrawing remains the sole IME/system-inset owner. Secondary
+                // chrome returns when typing ends without dismissing any reminders.
+                val keyboardVisible = WindowInsets.isImeVisible
                 Surface(Modifier.fillMaxSize()) {
                     Column(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing).padding(horizontal = 12.dp, vertical = 4.dp)) {
-                        Row(Modifier.fillMaxWidth(), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
+                        if (!keyboardVisible) Row(Modifier.fillMaxWidth(), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
                             Box(Modifier.size(18.dp).background(androidx.compose.ui.graphics.Color(0xffda243d)))
                             Text(stringResource(R.string.app_name), Modifier.weight(1f).padding(start = 8.dp),
                                 style = MaterialTheme.typography.titleLarge, maxLines = 1)
@@ -256,16 +262,16 @@ class MainActivity : ComponentActivity() {
                                 Text(stringResource(R.string.settings), style = MaterialTheme.typography.labelMedium)
                             }
                         }
-                        if (updateAvailable) {
+                        if (updateAvailable && !keyboardVisible) {
                             Text(stringResource(R.string.preview_update_available))
                             TextButton(onClick = {
                                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(PreviewUpdates.REVIEW_PAGE)))
                             }) { Text(stringResource(R.string.view_update)) }
                         }
-                        backend?.let { Text(stringResource(R.string.selected_server, it.domain),
+                        if (!keyboardVisible) backend?.let { Text(stringResource(R.string.selected_server, it.domain),
                             Modifier.padding(bottom = 8.dp), style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant) }
-                        if (backupReminder) {
+                        if (backupReminder && !keyboardVisible) {
                             OutlinedCard(Modifier.fillMaxWidth().padding(bottom = 8.dp)) {
                             Column(Modifier.padding(horizontal = 8.dp, vertical = 8.dp)) {
                             Text(stringResource(R.string.wallet_backup_reminder), style = MaterialTheme.typography.titleSmall)

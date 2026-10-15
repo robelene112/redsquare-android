@@ -35,6 +35,7 @@ import nl.davidengelen.redsquare.moderation.PersonalControlsStatus
 import nl.davidengelen.redsquare.registry.registeredIdentity
 
 /** Named-group UI is separate from private Chat and shares the selected wallet/backend. */
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBackend, modifier: Modifier,
     onWalletMetadata: suspend (SaitoWallet,SaitoWallet) -> Unit, onBack: () -> Unit) {
@@ -303,6 +304,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         catch(_:Exception){historyFailed=true}
         finally{olderLoading=false}
     }
+    val keyboardVisible = WindowInsets.isImeVisible
     val entry = entries.firstOrNull { it.group.id == selected }
     Column(modifier.fillMaxSize(),verticalArrangement=Arrangement.spacedBy(8.dp)) {
         Row(verticalAlignment=Alignment.CenterVertically) {
@@ -313,7 +315,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             TextButton(enabled=!busy&&!paging,onClick={refresh++}) { Text(stringResource(R.string.feed_refresh)) }
         }
         Text(stringResource(R.string.group_privacy),style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
-        Text(stringResource(R.string.chat_available_history),style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
+        if (!keyboardVisible) Text(stringResource(R.string.chat_available_history),style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
         if(hintsFailed)Text(stringResource(R.string.group_hints_error),color=MaterialTheme.colorScheme.onSurfaceVariant)
         PersonalControlsStatus(personal)
         if(readFailed || draftFailed) Text(stringResource(R.string.group_error),color=MaterialTheme.colorScheme.error)
@@ -349,9 +351,9 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                 }
             }
         } else {
-            if(entry.group.confirmedInvitation!=null) Text(stringResource(R.string.group_invitation_origin),
+            if(!keyboardVisible&&entry.group.confirmedInvitation!=null) Text(stringResource(R.string.group_invitation_origin),
                 style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
-            FlowRow {
+            if (!keyboardVisible) FlowRow {
                 TextButton(onClick={members=true}) { Text(stringResource(R.string.group_members)) }
                 if(entry.group.memberRoles[wallet.publicKey]?.active==true) {
                     TextButton(enabled=!busy&&entry.group.memberRoles.values.any{it==ChatGroupRole.ADMIN},onClick={inviting=true}) { Text(stringResource(R.string.group_invite)) }

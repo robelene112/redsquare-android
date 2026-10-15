@@ -35,19 +35,27 @@ Unpublished20 stays unpublished. No owned build/device run active.
 updated both tracker comments to narrow the old blanket reference-retention claim.
 
 **ACTIVE #40: bounded keyboard-open Chat usability under #35.** Basea35ff6c1.
-This independent defect slice is tracked as a native sub-issue of35, not final
-integrated/physical acceptance. New ChatKeyboardPreviewTest exercises actual
-visible IME, exact multiline draft, reachable native Send bounds, physical tap,
-one signed original/raw/Relay and full identity/backend restoration for private/
-group. Initial local test compiler error corrected; compilePASS1m44s. Initial17 run
-38754302286 atd63de718 SUCCESS2PASS51.341s with backup reminder dismissed. Root
-saw both original keyboard-open PNGs: actual Send works, header may pan. Retained
-baseline-text-android17. No general failure/acceptance inferred. Expanded four-case
-tracer adds actual privacy bounds, photo captions and first-use text with backup
-reminder still visible; second17 baseline dispatched after first completed.
-Class allowance180s matches doubling two cases, per-wait bounds unchanged.
-No manifest/layout changes yet; preserve all previous gates. Workflow gets focused chat-keyboard scopes and
-runs that class in full. No parallel ticket implementation.
+Native child35, not final integrated/physical acceptance. Initial17run38754302286
+atd63de718 SUCCESS2PASS51.341s with backup dismissed. Retained baseline-text-
+android17, root saw two keyboard-open originals, interim reviews0/0.
+Expanded17run38755418301 at6bcb3794 FAILED4/4 in46.395s, immediate exact-editor
+visibility after IME reportedvisible, before Send/privacy/wire. All four original
+PNGs show panning/hiddencomposer; separate earlier XML has non-atomic coordinates.
+Timing alternative explicitly qualified, next tracer uses10s displayed wait.
+Retained expanded-baseline-android17. No send acceptance inferred.
+
+Spec review found photo-readiness race, fixedeca4e7b9:20s actual knownred raster
+wait before keyboard. Fixreviews0/0. Four-case class allowance180s corresponds to
+doubling2cases/90s, individual waits not increased except explicit transitionwait.
+Current working app correction: explicitadjustResize, root retains sole safeDrawing
+inset owner; secondary global chrome/reminders temporarily hide whileIME, return
+without dismissal. Chat keeps privacy; hides redundant history/empty guidance and
+group membership buttons whiletyping, photo preview72vs100dp. Actual data/signing/
+queues unchanged. Local compile active `.scratch/keyboard40-layout-compile.log`,
+exec46029; do not edit app/core/test until it ends. No native corrected run yet.
+Next compile/review correction and focused10/17, then both complete full suites
+and signed22 publication. Public21 remains current. Protected group contract
+untracked and untouched. Continue independent remaining tickets afterward.
 Do not pause or request routine approval. Protected untracked group contract stays
 untouched. Physical performance/current update and keyboard-open acceptance remain35.
 

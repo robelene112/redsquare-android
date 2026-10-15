@@ -34,6 +34,7 @@ import nl.davidengelen.redsquare.feed.GeneratedProfilePicture
 import nl.davidengelen.redsquare.saito.*
 
 /** Private Chat has its own navigation and verified history, sharing only the active Saito foundation. */
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBackend, modifier: Modifier,
     onWalletMetadata: suspend (SaitoWallet, SaitoWallet) -> Unit, onBack: () -> Unit) {
@@ -274,6 +275,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
         finally { olderLoading = false }
     }
 
+    val keyboardVisible = WindowInsets.isImeVisible
     Column(modifier.fillMaxSize()) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             TextButton(enabled = !closing, onClick = { close() }) {
@@ -287,7 +289,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
         }
         Text(stringResource(R.string.chat_private), style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant)
-        Text(stringResource(R.string.chat_available_history), style = MaterialTheme.typography.bodySmall,
+        if (!keyboardVisible) Text(stringResource(R.string.chat_available_history), style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant)
         PersonalControlsStatus(personal)
         if (contactsFailed || failed) Text(stringResource(R.string.chat_load_error))
@@ -362,7 +364,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
             }) { Text(stringResource(R.string.chat_load_older)) }
             val visible = entries.map { it.message }.filter { message -> personal?.ready == true &&
                 (message.author == wallet.publicKey || !personal.policy.hidesIncomingChat(message.author)) }
-            if (visible.isEmpty() && !loading && !failed) Text(stringResource(R.string.chat_no_messages))
+            if (!keyboardVisible && visible.isEmpty() && !loading && !failed) Text(stringResource(R.string.chat_no_messages))
             val replies = remember(wallet, backend, contact) { ChatReplyActions() }
             val reactions = requireNotNull(reactionState)
             val messageList = rememberLazyListState()

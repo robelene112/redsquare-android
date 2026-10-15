@@ -5,6 +5,9 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.isImeVisible
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
@@ -20,6 +23,7 @@ import nl.davidengelen.redsquare.feed.PostImages
 import nl.davidengelen.redsquare.saito.SaitoBackend
 
 /** URI grants are consumed immediately. Only the normalized composed message enters encrypted drafts. */
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun ChatPhotoAttachment(session: String, body: String, backend: SaitoBackend, enabled: Boolean,
     beforePicker: suspend () -> Boolean, onPreparing: (Boolean) -> Unit, onChange: (String) -> Unit) = key(session) {
@@ -50,7 +54,7 @@ internal fun ChatPhotoAttachment(session: String, body: String, backend: SaitoBa
     Column {
         photo?.let { attachment ->
             PostImages(listOf(attachment.source), backend, onRemove = { change(attachment.text) },
-                removalEnabled = enabled && !preparing, previewHeight = 100.dp)
+                removalEnabled = enabled && !preparing, previewHeight = if (WindowInsets.isImeVisible) 72.dp else 100.dp)
         }
         if (photo == null) TextButton(enabled = enabled && !preparing && pickingFor == null, onClick = {
             scope.launch {
