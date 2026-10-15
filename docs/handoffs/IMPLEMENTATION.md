@@ -67,7 +67,15 @@ actual Back/dismissal/draft/photo/control restoration, physical trailing-padding
 reopen and exact one Send/identity/restoration. Retained reopen-green-android10,
 root saw four original dismissed-unsent PNGs,12XML parsed. Some dismissal frames
 show focused-content panning; snapshots do not prove every transient position.
-New full10run38760924822 at2867694e ACTIVE, public_feed_read=true. Never duplicate.
+Full10run38760924822 at2867694e FAILED in later PostPreviewTest:18cases,
+17PASS/1FAIL84.651s, Settings absent immediately after typing at175. The stronger
+keyboard class already passed4/4 in27.31s;35 completed logs indexed. No failing
+post-window capture exists; later backend/recreation assertions and remaining
+full gates are unexecuted. Retained full-post-navigation-attempt/android10.
+Fixture-only7789600b closesIME through platform API, waits visibleSettings10s,
+asserts exactowner draft/nooutgoing before unchanged navigation. Correction
+Spec0/Standards0. Focused posting10run38764936810 at778 ACTIVE.
+No production change; no acceptance from partial full.
 
 Focused17run38760340721 at129d0901 FAILED3PASS1FAIL71.555s, sole group-photo
 failure is check(device.pressBack()) injection boolean at153. Original PNG shows
@@ -88,7 +96,7 @@ SDKfailure remains FAILED, never app acceptance. Both stronger focusedSDKs now
 pass. Native summary does not retain println injector acknowledgements; no claim
 about their values in this successful run. Behavioral assertions are decisive.
 OWNED final full17run38763901887 at47a73f87 ACTIVE, public_feed_read=true.
-Full10run38760924822 at286 remainsACTIVE. No duplicate scopes. App production
+Full10run38760924822 at286 FAILED as qualified above. No duplicate scopes. App production
 identical on both;17 fixture differs only injector-ack logging while all actual
 user-behavior assertions remain. Need actual complete results before publication.
 No local Gradle/build process active. Production
