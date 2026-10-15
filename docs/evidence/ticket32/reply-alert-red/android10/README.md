@@ -3,7 +3,8 @@
 Actual Android10 run38823317020 atede09ff105619b45e5d7390e9440179298c3b208
 completed FAILURE: one case/one failure at the intended actual Android alert
 count, expected1 but observed0. Receiver/settings are deliberate no-op scaffolds.
-Core114, source/debug/test/release assembly and lint pass. Instrumentation shell
+Core114 and debug/test assembly pass in this focused run. Release/lint are
+unexecuted in this focused scope. Instrumentation shell
 exit0 is not a test pass; the harness correctly fails on JUnit failure.
 
 Root viewed the original PNG by actual bytes and parsed its XML. The shade shows
