@@ -515,8 +515,9 @@ no local build active.
 Finalfulls78bc BOTH FAILED, retained with originalconclusions. Android17
 38734348294 new10photoUI89.025s/history2PASS94.314s and actual photoPID5082to5153
 private/5265to5340group/restoration passed; queue13reported7PASS6FAIL271.748s
-visibleQueued wait. RootcancelPNGseen/all6XMLparsed. Keyboardopen queuedbubble
-withstatus/canceloutsideviewport; no exactcandidateclaim forfailedcases.
+visibleQueued wait. RootcancelPNGseen/all6XMLparsed. Keyboardopen/pannedwindow,
+messageTextinXML/nostatusorcancelvisible; no queuedbubble/Sendinvocation/exact
+candidateclaim forfailedcases.
 Android10 38734343806 new10photoUI/history2 and actualphotoPID7352to7614private/
 7884to8263group/restoration passed, queue13PASS280.708s. LaterGroupChatActions
 1FAIL6.992s Copy below viewport afterscrolltobody. RootfailurePNGseen/XMLparsed.
@@ -583,3 +584,8 @@ afterpredecessorended, publicreads. Oldfull17 0938741257730 stillactive and
 containsoldinitialobserver. No duplicate/cancel. Productunchangeddc28.
 Researchfor35committedseparately: existingthemeedge-to-edge+safeDrawingincludes
 IME, explicitresizefirstcandidate, runtimeunproved/noappchanges.
+
+Evidencewordingcorrection afterre-inspecting original78bcprivatecancelPNG:
+thosekeyboardcapturesdonotestablishqueuedbubbleorSendinvocation. XMLmessage
+textpresencealonewasinsufficient. Failedconclusionsunchanged; latercorrected
+queue10/17greenruns supplyactualqueue/original/cancel proof independently.
