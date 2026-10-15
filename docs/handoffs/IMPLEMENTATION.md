@@ -80,7 +80,7 @@ PNG; retained post-navigation-green-android10. New full10run38765859044 at
 ede956c51d1234fe5d924f1a46d5b40e45db1646 ACTIVE with public_feed_read=true.
 Profile adaptation739/b688 dismisses typing before Wallet at two import
 safeguards and repaired retry; exact EditableText avoids merged label. Source
-reviews0/0, runtime pending. Profile10run38765277087 at739 FAILED two exact matcher checks: merged Bio
+reviews0/0; focused results follow. Profile10run38765277087 at739 FAILED two exact matcher checks: merged Bio
 label compared alongside preserved EditableText.5/7 pass19.449s; otherclasses
 5/2/2 pass; later import/process checks unexecuted. Retained matcher-attempt.
 Corrected profile10run38766527800 at46612a30 SUCCESS7/5/2/2PASS, core114,
