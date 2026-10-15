@@ -74,3 +74,24 @@ matcher only finds its subtitle in the unmerged tree. Retained10hashes3XML and
 all3originalPNGs root-inspected. Cache/recreateddraft/finaltail unexecuted. The
 fixture now waits for and clicks the enabled row containing the exact key in
 the unmerged tree. Production and image/draft/no-wire assertions unchanged.
+
+Contact-selector correction467b8ba7 reviewed Spec0/Standards0; focused10
+run38713589322 is active. The following group tracer reuses the same visual/
+expanded/cache/exactdraft/no-wire checks through native Groups. This is a
+regression for the already shared renderer, not a fabricated missing-renderer RED.
+Its group establishment uses the existing protected public-fixture creation API;
+the incoming image itself is independently signed by actual pinned A/B web
+createChatTransaction constructors, with source hashes asserted and WASM/Elliptic
+signature verification. Named group messages remain unencrypted on the wire.
+
+Canonical build-support/references/group-chat-message-reference.cjs carries the
+existing generator with explicit --image mode and named read-only paths. Its
+default output was reexecuted byte-identical to native-group-chat-message-
+reference.json. Image mode uses native-images-reference.json.images.red and both
+pinned constructors produce identical signed envelopes. It runs in node24.13.0-
+alpine with --network none --read-only --cap-drop ALL, no-new-privileges, empty
+environment, and only named cached source/dependency/reference mounts. No Saito
+initialization, live options, wallets, databases or network writes are involved.
+The explicit image input lives at /reference/images-reference.json, pinned source
+at /reference/chat-A.js and chat-B.js, canonical helpers at /references, and
+read-only dependency modules at /opt/saito/node/node_modules. Group proof pending.

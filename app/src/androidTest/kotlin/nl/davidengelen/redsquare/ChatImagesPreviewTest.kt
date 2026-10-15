@@ -19,14 +19,22 @@ import java.util.concurrent.atomic.AtomicInteger
 class ChatImagesPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
 
-    @Test fun aCompatiblePrivatePhotoIsVisibleExpandableAndRetainedWhenTheServerNoLongerHasIt() {
+    @Test fun aCompatiblePrivatePhotoIsVisibleExpandableAndRetainedWhenTheServerNoLongerHasIt() = exercisePhoto(group = false)
+
+    @Test fun aCompatibleGroupPhotoIsVisibleExpandableAndRetainedWhenTheServerNoLongerHasIt() = exercisePhoto(group = true)
+
+    private fun exercisePhoto(group: Boolean) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
-        val reference = instrumentation.context.assets.open("native-private-chat-image-reference.json").bufferedReader()
+        val prefix = if (group) "group" else "private"
+        val reference = instrumentation.context.assets.open("native-$prefix-chat-image-reference.json").bufferedReader()
             .use { JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject }
-        val contact = reference.get("sender").asString
-        val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "2").withChatContact(contact) // Public unsafe fixture only.
+        val contact = reference.get(if (group) "author" else "sender").asString
+        val groupId = reference.get("groupId").asString
+        val groupName = "Compatible photo group"
+        val identity = SaitoWallet.fromPrivateKey("0".repeat(63) + "2") // Public unsafe fixture only.
+        val wallet = if (group) identity.withNamedChatGroup(groupId, groupName) else identity.withChatContact(contact)
         val wallets = AndroidWalletStore(context); val original = wallets.loadOrCreate()
         val backends = AndroidBackendStore(context); val originalBackend = backends.load()
         val prefixes = SaitoBackend.entries.flatMap { backend -> listOf("chat.${backend.id}.${wallet.publicKey}.",
@@ -40,23 +48,38 @@ class ChatImagesPreviewTest {
             if (criteria.get("field3")?.asString == reference.get("groupId").asString) reads.incrementAndGet()
             "[]"
         })
-        val incoming = java.util.Base64.getDecoder().decode(reference.get("networkBase64").asString)
+        val incoming = if (group) {
+            val detached = JsonParser.parseString(reference.get("envelope").asString).asJsonObject
+            val message = java.util.Base64.getDecoder().decode(detached.get("m").asString)
+            (java.util.Base64.getDecoder().decode(detached.get("t").asString) + message).also {
+                java.nio.ByteBuffer.wrap(it).putInt(8, message.size)
+            }
+        } else java.util.Base64.getDecoder().decode(reference.get("networkBase64").asString)
         val draft = "Keep this text while receiving a photo 😀"
         var primary: Throwable? = null
         try {
             retained.prepare()
             wallets.replace(original, wallet); backends.save(SaitoBackend.OWNER)
+            if (group) {
+                val admin = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe fixture only.
+                val creation = GroupChat.create(admin, groupId, groupName, listOf(wallet.publicKey), 1700000123400)
+                nl.davidengelen.redsquare.chat.GroupChatStore(context, wallet, SaitoBackend.OWNER).receive(creation.envelope())
+            }
             peer.start().use { server ->
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
-                    withFailureCapture({ capture("private-photo-failure") }) {
+                    withFailureCapture({ capture("$prefix-photo-failure") }) {
                         fun open() {
                             val chat = hasText("Chat") and hasClickAction() and isEnabled()
                             ui.waitUntil(20_000) { displayed(hasText("Groups")) || displayed(chat) }
                             if (!displayed(hasText("Groups"))) ui.onNode(chat).performClick()
                             val before = reads.get()
-                            val row = hasClickAction() and isEnabled() and hasAnyDescendant(hasText(contact))
+                            if (group) {
+                                ui.waitUntil(20_000) { displayed(hasText("Groups") and hasClickAction() and isEnabled()) }
+                                ui.onNode(hasText("Groups") and hasClickAction()).performClick()
+                            }
+                            val row = hasClickAction() and isEnabled() and hasAnyDescendant(hasText(if (group) groupName else contact))
                             ui.waitUntil(20_000) {
                                 try { ui.onNode(row, useUnmergedTree = true).assertIsDisplayed(); true }
                                 catch (_: AssertionError) { false }
@@ -91,7 +114,7 @@ class ChatImagesPreviewTest {
                         ui.waitUntil(20_000) { peer.incomingAcknowledgements.any {
                             it[0] == 13.toByte() && java.nio.ByteBuffer.wrap(it, 1, 4).int == 960
                         } }
-                        photo(); assertDraft(); capture("private-compatible-photo")
+                        photo(); assertDraft(); capture("$prefix-compatible-photo")
                         ui.onNodeWithContentDescription("Image 1 of 1").performClick()
                         ui.waitUntil(20_000) { displayed(hasText("Close image")) }
                         ui.waitUntil(20_000) {
@@ -99,10 +122,10 @@ class ChatImagesPreviewTest {
                             catch (_: AssertionError) { false } // Dialog controls precede asynchronous raster loading.
                         }
                         assertRedRaster(isDialog())
-                        capture("private-photo-expanded")
+                        capture("$prefix-photo-expanded")
                         ui.onNodeWithText("Close image").performClick()
                         scenario.recreate(); open()
-                        photo(); assertDraft(); capture("private-photo-cached-after-reopening")
+                        photo(); assertDraft(); capture("$prefix-photo-cached-after-reopening")
                         check(wallets.loadExisting().exportJson() == wallet.exportJson() && backends.load() == SaitoBackend.OWNER)
                         check(peer.clientKeys.isNotEmpty() && peer.clientKeys.all { it == wallet.publicKey })
                         check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty() && peer.reports.isEmpty())
