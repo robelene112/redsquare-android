@@ -98,7 +98,7 @@ class ChatQueuePreviewTest {
                             android.os.SystemClock.sleep(6_000)
                             check(peer.transactions.isEmpty()&&peer.relayedMessages.isEmpty())
                         } else {
-                            ui.waitUntil(60_000){peer.relayedMessages.isNotEmpty()}
+                            ui.waitUntil(60_000){peer.relayedMessages.isNotEmpty()&&store.load(key.publicKey)?.status==nl.davidengelen.redsquare.chat.GroupChatStore.Status.FORWARDED}
                             check(postingTransaction(peer.transactions.single()).envelope()==queued.envelope())
                             check(SaitoEnvelope.fromSignedJson(peer.relayedMessages.single())==queued.envelope())
                             check(peer.relayRecipients.single()==listOf(member))

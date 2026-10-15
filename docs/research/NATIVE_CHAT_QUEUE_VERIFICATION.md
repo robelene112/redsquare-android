@@ -199,3 +199,8 @@ key/zeroRawRelay6s allpass; private7unchangedpass. Rootoriginalqueued/restoredse
 Retainedgroup-cancel-green-android10. Local13877PASS1m27s. Nextnativebackground
 tracerrequiresexactoriginalRawRelay/currentmember/decode/history+key/FWDwhile
 Lifecycle.CREATED thenRESUMED. No automaticgroupminimumyet; first9caseREDpending.
+
+Pre-runtimebackgroundtracerfinding: controlledpeerrecordsRelaybeforeACK, so
+receiptalonecannotguarddurableFORWARDEDassert. Existing60s gate nowrequiresboth
+RelayobservationandprotectedFORWARDEDwhileCREATED, keepsalloriginal/history/key/
+recipient/assertions. No newdeadline/appcode. FirstREDpending.
