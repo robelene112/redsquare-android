@@ -81,7 +81,13 @@ Correctedprivate10run38723816443 exactcc8 SUCCESS7PASS49.767s: realopenedpipe/
 Preparing/Senddisabled/editpast300ms/boundedtimeout/error/pickerreenabled/exact
 protectedDraftAPIbeforeanynavigation/recreate/no-wire/fullidentity/restoration.
 Retained42hash18XML/root2neworiginalsseen. No actualPIDdeathinferred. Nextgroup
-timeoutregression sameflow+protectedGroupChatStore draftAPI, runtimepending.
+timeoutregression078 source0/0, actual10run38724498528 SUCCESS8PASS70.692s.
+BothlatestprotectedDraftAPIretentionbeforeanynav/recreate/no-wire/identity pass.
+Retained46hash20XML/root2newgroupPNGsseen. ActualPIDdeathstillseparate. Next
+privatephotoqueue/cancelregression: actualpicker/recoverdraft, controlledpeer
+503newhandshakes+closeonlyownedauths, explicitSendQUEUEDsameoriginal/offline
+recreate/cancelrestoreexactdraft+JPEGpixels/caption/reconnect+2squietno-wire.
+Existingpipeline only, default-offcontrolledpeerflag. Runtimepending.
 Noownedlocalbuild. Nextslices queue/
 failure/practical5MiBhistorybound/process/finalfull10+17 stillrequired. Protected
 untracked NATIVE_GROUP_CHAT_CONTRACT.md untouched. Continue allissues.

@@ -25,7 +25,7 @@ import java.util.concurrent.atomic.AtomicInteger
 
 class ChatImagesPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
-    private enum class PhotoFlow { VIEW, DRAFT, SEND, FAILED_PREPARATION }
+    private enum class PhotoFlow { VIEW, DRAFT, SEND, FAILED_PREPARATION, QUEUED_CANCEL }
 
     @Test fun aCompatiblePrivatePhotoIsVisibleExpandableAndRetainedWhenTheServerNoLongerHasIt() = exercisePhoto(group = false)
 
@@ -45,6 +45,9 @@ class ChatImagesPreviewTest {
     @Test fun editsDuringATimedOutGroupPhotoPreparationRemainDurableWithoutNavigation() =
         exercisePhoto(group = true, flow = PhotoFlow.FAILED_PREPARATION)
 
+    @Test fun cancellingAQueuedPrivatePhotoRestoresItsExactCaptionAndImageWithoutSending() =
+        exercisePhoto(group = false, flow = PhotoFlow.QUEUED_CANCEL)
+
     private fun exercisePhoto(group: Boolean, flow: PhotoFlow = PhotoFlow.VIEW) {
         val composing = flow != PhotoFlow.VIEW
         val instrumentation = InstrumentationRegistry.getInstrumentation()
@@ -54,6 +57,7 @@ class ChatImagesPreviewTest {
         val prefix = when (flow) {
             PhotoFlow.VIEW -> kind; PhotoFlow.DRAFT -> "$kind-draft"; PhotoFlow.SEND -> "$kind-send"
             PhotoFlow.FAILED_PREPARATION -> "$kind-failed-preparation"
+            PhotoFlow.QUEUED_CANCEL -> "$kind-queued-cancel"
         }
         val reference = instrumentation.context.assets.open("native-${if (group) "group" else "private"}-chat-image-reference.json").bufferedReader()
             .use { JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject }
@@ -97,7 +101,7 @@ class ChatImagesPreviewTest {
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
                     withFailureCapture({ capture("$prefix-photo-failure") }) {
-                        fun open() {
+                        fun open(queued: Boolean = false) {
                             val chat = hasText("Chat") and hasClickAction() and isEnabled()
                             ui.waitUntil(20_000) { displayed(hasText("Groups")) || displayed(chat) }
                             if (!displayed(hasText("Groups"))) ui.onNode(chat).performClick()
@@ -110,7 +114,10 @@ class ChatImagesPreviewTest {
                             }
                             ui.waitUntil(20_000) { displayed(row, unmerged = true) }
                             ui.onNode(row, useUnmergedTree = true).performClick()
-                            ui.waitUntil(20_000) { displayed(hasSetTextAction() and isEnabled()) && reads.get() > before }
+                            ui.waitUntil(20_000) {
+                                if (queued) displayed(hasText("Queued"))
+                                else displayed(hasSetTextAction() and isEnabled()) && reads.get() > before
+                            }
                         }
                         fun assertRedRaster(target: SemanticsMatcher) {
                             val bitmap = ui.onNode(target).assertIsDisplayed().captureToImage().asAndroidBitmap()
@@ -238,6 +245,35 @@ class ChatImagesPreviewTest {
                                     assertPreparedPhoto(); assertDraft()
                                     check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
                                     capture("$prefix-photo-draft-reopened")
+                                    if (flow == PhotoFlow.QUEUED_CANCEL) {
+                                        val work = nl.davidengelen.redsquare.chat.ChatWorkStore(context, wallet, SaitoBackend.OWNER, contact)
+                                        val originalDraft = work.load().draft
+                                        peer.rejectNewConnections = true
+                                        peer.disconnectAuthenticatedSockets()
+                                        ui.waitUntil(20_000) { peer.authenticatedConnectionIds.isEmpty() }
+                                        ui.onNode(hasText("Send") and hasClickAction() and isEnabled()).performClick()
+                                        ui.waitUntil(20_000) { displayed(hasText("Queued")) }
+                                        val pending = work.load()
+                                        check(pending.status == nl.davidengelen.redsquare.chat.ChatWorkStore.Status.QUEUED)
+                                        val candidate = requireNotNull(pending.transaction)
+                                        check(PrivateChat.read(wallet, candidate.envelope(), contact).text == originalDraft)
+                                        check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
+                                        capture("$prefix-photo-queued")
+                                        scenario.recreate(); open(queued = true)
+                                        check(work.load().transaction?.envelope() == candidate.envelope())
+                                        val cancel = hasText("Cancel queued message") and hasClickAction() and isEnabled()
+                                        ui.waitUntil(20_000) { displayed(cancel) }; ui.onNode(cancel).performClick()
+                                        assertPreparedPhoto(); assertDraft()
+                                        check(work.load().let { it.transaction == null && it.draft == originalDraft })
+                                        capture("$prefix-photo-restored-after-cancel")
+                                        peer.rejectNewConnections = false
+                                        scenario.recreate(); open()
+                                        assertPreparedPhoto(); assertDraft()
+                                        val quietUntil = android.os.SystemClock.elapsedRealtime() + 2_000
+                                        ui.waitUntil(3_000) { android.os.SystemClock.elapsedRealtime() >= quietUntil }
+                                        assertIdentityAndOutgoing(0)
+                                        capture("$prefix-photo-restored-online-unsent")
+                                    }
                                     if (flow == PhotoFlow.SEND) {
                                         ui.onNode(hasText("Send") and hasClickAction() and isEnabled()).performClick()
                                         ui.waitUntil(20_000) { peer.transactions.size == 1 && peer.relayedMessages.size == 1 }

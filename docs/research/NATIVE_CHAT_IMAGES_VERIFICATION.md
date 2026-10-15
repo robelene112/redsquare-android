@@ -304,3 +304,17 @@ restoration PASS. Prior6casesPASS. Retained42hash18XML/root2neworiginalsseen.
 No actualprocessdeathinferred. Nextgrouptimeoutregression usesGroupsameflow
 andobservesGroupChatStore.load().draft beforeanynavigation. Existinggroup
 preparation/autosaveguardsalreadyimplemented; no fabricatedRED. Runtimepending.
+
+Grouptimeout10run38724498528 exact078cc70d SUCCESS8PASS70.692s. Both real
+provider timeouts/editabledrafts/disabledSend/error/re-enabledpicker/exactlatest
+protectedDraftAPI BEFOREnavigation/recreate/fullidentity/no-wire/restoration
+andprior6casesPASS. Retained46hash20XML/root2newgrouporiginalsseen. ActualPID
+death remainsseparate.
+
+Nextprivatequeue/cancelregression selectsarealphotodraft, recoversitonline,
+thencontrolledpeerrejectsnewhandshakes503 andclosesonlyitsownauthentications.
+ExplicitSendmustkeeporiginalQUEUEDwithoutanywire, survivesrecreationoffline,
+cancellationrestoresexactcanonicaldraft/photoactualJPEGpixels+caption, then
+reconnect/recreate/2squietprovesunsentdraft/fullidentity/no-wire. Existingordinary
+queuealreadyimplementsphotoopaqueoriginals; no artificialRED/newpipeline. Only
+controlledpeer default-offrejectConnections andnativefixture change. Runtimepending.
