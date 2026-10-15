@@ -37,3 +37,10 @@ Private-control minimumafab1530 reviewed Spec0/Standards0 (one stale handoff
 status corrected). LocalcompileDebugKotlin+compileDebugAndroidTestKotlin PASS3m32s.
 FocusedAndroid10GREENattempt38690473150 exactafab15302d3cfaad137db95496754ae59f7cfa1f
 ACTIVE. Actualincoming/recreate/unmute result pending. No ownedlocalbuild.
+
+First minimum Android10run38690473150/afab FAILED1case7.720s at exact draft
+afterrecreate89: emptyfield whileLoadingmessages. Prior muted live incoming/ACK/
+exactdraft and recreatedsavedmute/cache text pass. Retainedprivate-control-draft-
+attempt-android10(8hash2XML); unmute/no-wiretailunexecuted. Fixture now waits20s
+for unchanged exactEditableText+enabled before asserting. Source supports a
+transition hypothesis only; no product draft fix/notification acceptance claimed.

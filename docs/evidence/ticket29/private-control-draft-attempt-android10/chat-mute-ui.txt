@@ -1,0 +1,101 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatMutePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ChatMutePreviewTest:
+INSTRUMENTATION_STATUS: test=privateConversationMuteKeepsIncomingMessagesAndTheDraftAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatMutePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (EditableText = 'Keep this unsent draft while muting 😀')
+Semantics of the node:
+Node #311 at (l=12.0, t=571.0, r=228.0, b=636.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = ''
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@9852bd4'
+Focused = 'false'
+ImeAction = 'Default'
+InputText = ''
+IsEditable = 'true'
+Text = '[Message]'
+TextSelectionRange = 'TextRange(0, 0)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 15 siblings
+Selector used: (EditableText is defined)
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.privateConversationMuteKeepsIncomingMessagesAndTheDraftAfterReopening$lambda$20$lambda$19$lambda$18(ChatMutePreviewTest.kt:89)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.$r8$lambda$4FQ5THglVo0xrq53_x-bLjQU4ok(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest$$ExternalSyntheticLambda12.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.privateConversationMuteKeepsIncomingMessagesAndTheDraftAfterReopening(ChatMutePreviewTest.kt:63)
+
+INSTRUMENTATION_STATUS: stream=
+Error in privateConversationMuteKeepsIncomingMessagesAndTheDraftAfterReopening(nl.davidengelen.redsquare.ChatMutePreviewTest):
+java.lang.AssertionError: Failed to assert the following: (EditableText = 'Keep this unsent draft while muting 😀')
+Semantics of the node:
+Node #311 at (l=12.0, t=571.0, r=228.0, b=636.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = ''
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@9852bd4'
+Focused = 'false'
+ImeAction = 'Default'
+InputText = ''
+IsEditable = 'true'
+Text = '[Message]'
+TextSelectionRange = 'TextRange(0, 0)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 15 siblings
+Selector used: (EditableText is defined)
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.privateConversationMuteKeepsIncomingMessagesAndTheDraftAfterReopening$lambda$20$lambda$19$lambda$18(ChatMutePreviewTest.kt:89)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.$r8$lambda$4FQ5THglVo0xrq53_x-bLjQU4ok(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest$$ExternalSyntheticLambda12.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.privateConversationMuteKeepsIncomingMessagesAndTheDraftAfterReopening(ChatMutePreviewTest.kt:63)
+
+INSTRUMENTATION_STATUS: test=privateConversationMuteKeepsIncomingMessagesAndTheDraftAfterReopening
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 7.72
+There was 1 failure:
+1) privateConversationMuteKeepsIncomingMessagesAndTheDraftAfterReopening(nl.davidengelen.redsquare.ChatMutePreviewTest)
+java.lang.AssertionError: Failed to assert the following: (EditableText = 'Keep this unsent draft while muting 😀')
+Semantics of the node:
+Node #311 at (l=12.0, t=571.0, r=228.0, b=636.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = ''
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@9852bd4'
+Focused = 'false'
+ImeAction = 'Default'
+InputText = ''
+IsEditable = 'true'
+Text = '[Message]'
+TextSelectionRange = 'TextRange(0, 0)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 15 siblings
+Selector used: (EditableText is defined)
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.privateConversationMuteKeepsIncomingMessagesAndTheDraftAfterReopening$lambda$20$lambda$19$lambda$18(ChatMutePreviewTest.kt:89)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.$r8$lambda$4FQ5THglVo0xrq53_x-bLjQU4ok(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest$$ExternalSyntheticLambda12.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.privateConversationMuteKeepsIncomingMessagesAndTheDraftAfterReopening(ChatMutePreviewTest.kt:63)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

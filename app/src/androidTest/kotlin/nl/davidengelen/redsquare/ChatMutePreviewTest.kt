@@ -85,6 +85,8 @@ class ChatMutePreviewTest {
                         scenario.recreate(); open()
                         ui.onNodeWithContentDescription("Unmute conversation").assertIsDisplayed()
                         ui.onNodeWithText(text).assertIsDisplayed()
+                        ui.waitUntil(20_000) { displayed(hasSetTextAction() and isEnabled() and
+                            SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(draft))) }
                         ui.onNode(SemanticsMatcher.keyIsDefined(SemanticsProperties.EditableText))
                             .assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(draft)))
                         capture("private-muted-reopened")
