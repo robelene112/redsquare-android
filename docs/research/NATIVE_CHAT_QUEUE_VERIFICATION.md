@@ -34,3 +34,8 @@ EditableText exactintendedtext, Text includeslabelMessage. OriginalQueued/cancel
 capturesrootseen; recreate/cancelreached, laterno-bubble/reachablepeer/no-wiretail
 unexecuted. Correctonly exactEditableText matcher; no app/deadlinechange. Retained
 private-cancel-label-attempt-android10. CorrectedGREENpending.
+
+PrivatecancelGREEN10run38663341602 atac5c8608 onePASS15.786s. ExactEditableText,
+noordinarybubble aftercancel, reachablepeerzeroRaw/Relay andwallet/backendpreserved.
+Rootoriginalcancelleddraftseen; retainedprivate-cancel-green-android10. Product
+identical28714c21; newautomatic/backgroundandgroupqueue remainunimplemented.
