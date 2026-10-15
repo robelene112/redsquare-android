@@ -7,8 +7,8 @@ one pair queued, one namecheck and zero transactions. This time the new Settings
 case verifies NativeCase7@saito as registered to the fixture wallet, no Register/
 Retry action, retained wallet/client identity and zero registration transactions.
 Root viewed the original success PNG and parsed its separate XML. It shows the
-verified name and public key with the registered-to-your-wallet message; no atomic
-screen/XML pair is claimed.
+verified name with the registered-to-your-wallet message. The later Wallet
+assertion verifies the public key; no atomic screen/XML pair is claimed.
 
 Actual interrupted registration recovery changes PID5356to5465, preserving the
 same wallet/backend/signature/frame/envelope. Cold reconciliation is read-only;
