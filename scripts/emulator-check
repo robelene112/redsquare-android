@@ -150,7 +150,7 @@ verify_chat_mute() {
     notification_api="$(adb shell getprop ro.build.version.sdk | tr -d '\r')"
     if [[ "$notification_api" -ge 33 ]]; then
         adb shell dumpsys package nl.davidengelen.redsquare.dev > "$evidence/chat-mute-permission-before.txt"
-        if ! rg -q 'android.permission.POST_NOTIFICATIONS: granted=true' "$evidence/chat-mute-permission-before.txt"; then
+        if ! grep -Fq 'android.permission.POST_NOTIFICATIONS: granted=true' "$evidence/chat-mute-permission-before.txt"; then
             adb shell pm grant nl.davidengelen.redsquare.dev android.permission.POST_NOTIFICATIONS || return 1
             granted_for_test=1
         fi
