@@ -903,7 +903,7 @@ class GroupChatPreviewTest {
             check(groupStore.load(key.publicKey)?.group?.creationEnvelope==creation.envelope())
         }catch(failure:Throwable){primary=failure;throw failure}
         finally{cleanupAfterTest(primary,{synchronized(SaitoLocalState.lock){
-            processFixtureFiles(context,setOf(filename,"$filename.bak","$filename.new")).forEach{check(File(context.noBackupFilesDir,it).delete())}
+            processFixtureFiles(context,setOf(filename,"$filename.bak","$filename.new")).forEach{val file=File(context.noBackupFilesDir,it);check(!file.exists()||file.delete())}
         }})}
     }
 
@@ -943,7 +943,7 @@ class GroupChatPreviewTest {
             check(AndroidWalletStore(context).loadExisting().exportJson()==wallet.exportJson())
         } catch(failure:Throwable){primary=failure;throw failure}
         finally {cleanupAfterTest(primary,{AndroidBackendStore(context).save(selected)},{synchronized(SaitoLocalState.lock){
-            processFixtureFiles(context,setOf(prefix,"$prefix.bak","$prefix.new")).forEach{check(File(context.noBackupFilesDir,it).delete())}
+            processFixtureFiles(context,setOf(prefix,"$prefix.bak","$prefix.new")).forEach{val file=File(context.noBackupFilesDir,it);check(!file.exists()||file.delete())}
         }})}
     }
 
@@ -968,7 +968,7 @@ class GroupChatPreviewTest {
             check(AndroidWalletStore(context).loadExisting().exportJson()==wallet.exportJson())
         } catch(failure:Throwable){primary=failure;throw failure}
         finally{cleanupAfterTest(primary,{synchronized(SaitoLocalState.lock){
-            processFixtureFiles(context,setOf(filename,"$filename.bak","$filename.new")).forEach{check(File(context.noBackupFilesDir,it).delete())}
+            processFixtureFiles(context,setOf(filename,"$filename.bak","$filename.new")).forEach{val file=File(context.noBackupFilesDir,it);check(!file.exists()||file.delete())}
         }})}
     }
 
@@ -1011,7 +1011,7 @@ class GroupChatPreviewTest {
             check(AndroidWalletStore(context).loadExisting().exportJson()==wallet.exportJson())
         } catch(failure:Throwable){primary=failure;throw failure}
         finally{cleanupAfterTest(primary,{synchronized(SaitoLocalState.lock){
-            processFixtureFiles(context,setOf(filename,"$filename.bak","$filename.new")).forEach{check(File(context.noBackupFilesDir,it).delete())}
+            processFixtureFiles(context,setOf(filename,"$filename.bak","$filename.new")).forEach{val file=File(context.noBackupFilesDir,it);check(!file.exists()||file.delete())}
         }})}
     }
 
