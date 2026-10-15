@@ -237,3 +237,10 @@ background-attempt-android10. Local77294PASS1m33s. Correctedfocusedgroup2pending
 
 Exactrecipientcorrection122bb349 separateSpec0/Standards0,48hash22XMLverified.
 Focusedgroup2run38676639132 exact122bb349 ACTIVE; no ownedlocalbuild.
+
+Focusedgroup2attempt10run38676639132 exact122bb349:1cancelPASS/1backgroundFAIL
+17.487s at78 beforefirstedit/Send; Messagealreadyexistsbutfielddisabledoriginal
+PNG/XMLseen. Missingpositiveeditreadinesssource-supported; preciseinitialization
+causenotproved. Adddisplayed/enabledSetTextbeforeinitialedit withsame20s bound,
+notonreopenedQueuedfield. Allbackgroundtailunexecuted. No appchange. Retained
+ group-background-second-attempt-android10; correctedruntimepending.

@@ -75,6 +75,7 @@ class ChatQueuePreviewTest {
                         waitFor("Message")
                     }
                     open()
+                    ui.waitUntil(20_000){displayed(hasSetTextAction() and isEnabled())}
                     ui.onNode(hasSetTextAction() and isEnabled()).performTextReplacement(text)
                     ui.onNodeWithText("Send").assertIsEnabled().performClick()
                     waitFor("Queued")

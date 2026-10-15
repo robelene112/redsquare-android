@@ -132,8 +132,11 @@ ActualRelay+durableFWDwhileCREATED/exactRawRelayoriginalreached. Factory+existin
 independentgroupcasesrequires[sender,member]; exactassertioncorrected/noappchange.
 Laterhistory/key/resumedUItailunexecuted. Retainedgroup-background-attempt-android10.
 Focusedgroup2scope308e0f4e Spec0/Standards0, full9unchanged. Correctedruntimepending;
-Focusedgroup2run38676639132 exact122bb349 ACTIVEafterSpec0/Standards0.
-Noownedlocalbuild. Do notduplicateproof. Groupappsource65c57b5c.
+Focusedgroup2run38676639132 FAILED1cancelPASS/1backgroundFAIL17.487s
+at78 beforefirstedit/Send, emptyMessagefielddisabled(originalseen). Preciseinitial
+causeunproved; addpositiveenabledSetTextinitialreadinesssame20s, noappchanges.
+Retainedgroup-background-second-attempt-android10. Correctedruntimepending.
+Noownedlocalbuild/proof. Groupappsource65c57b5c.
 Groupappminimumebd9f700 applied, notyetaccepted. Groups/process/full28stillpending.
 
 NEXT: review/verify ready-navigation+storage7cases, then groupqueues/freshmembership,
