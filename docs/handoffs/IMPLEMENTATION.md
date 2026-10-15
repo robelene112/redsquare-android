@@ -35,7 +35,10 @@ Fixture55e528e0 comparesEditableText.text exactliteral ratherthanstyledobject,
 keepsenabled/displayed20s/raster/no-wire; furtherfailureretainsunmergedsemantics.
 Run38717605044 exact55e FAILEDtestcompilemissingsemantics.getOrNull import116,
 no runtimecaseexecuted; retained3hashcompileevidence. Importcorrected788ffb8c.
-Ownedfocus10run38718053451 ACTIVE exact788f; neverdispatchsame-scopeuntilcomplete.
+Focused10run38718053451 exact788f SUCCESS3PASS17.506s: privatephoto selected/
+actualJPEGpixels/exactcaption/Back/reopen/recreate/no-wire pass, bothviewersPASS.
+Retained20hash8XML; root2newdraftPNGsseen. Nextgroupdrafttracer hasmissingAddphoto,
+actualREDpending. Noownedlocalbuild. Neverduplicateactivesame-scoperun.
 Noownedlocalbuild. Strictphoto/canonicalescapeddivcaption+nativepicker/private
 composer nowimplemented, no storage/queueprotocolchanges. ActualpinnedA/B
 Browser.sanitize+offlineChromiumDOM/RGB exactcaption proof PASS, retained3hashes

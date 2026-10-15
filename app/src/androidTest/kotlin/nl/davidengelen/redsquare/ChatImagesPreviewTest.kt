@@ -32,11 +32,14 @@ class ChatImagesPreviewTest {
 
     @Test fun aSelectedPrivatePhotoAndItsTextSurviveReopeningBeforeExplicitSend() = exercisePhoto(group = false, composing = true)
 
+    @Test fun aSelectedGroupPhotoAndItsTextSurviveReopeningBeforeExplicitSend() = exercisePhoto(group = true, composing = true)
+
     private fun exercisePhoto(group: Boolean, composing: Boolean = false) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
-        val prefix = if (composing) "private-draft" else if (group) "group" else "private"
+        val kind = if (group) "group" else "private"
+        val prefix = if (composing) "$kind-draft" else kind
         val reference = instrumentation.context.assets.open("native-${if (group) "group" else "private"}-chat-image-reference.json").bufferedReader()
             .use { JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject }
         val contact = reference.get(if (group) "author" else "sender").asString
@@ -164,12 +167,12 @@ class ChatImagesPreviewTest {
                                     }
                                     assertPreparedPhoto(); assertDraft()
                                     check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
-                                    capture("private-photo-selected-unsent")
+                                    capture("$kind-photo-selected-unsent")
                                     ui.onNode(hasText("Back") and hasClickAction()).performClick()
                                     open(); scenario.recreate(); open()
                                     assertPreparedPhoto(); assertDraft()
                                     check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
-                                    capture("private-photo-draft-reopened")
+                                    capture("$kind-photo-draft-reopened")
                                 } finally { Intents.release() }
                             } finally { check(context.contentResolver.delete(uri, null, null) == 1) }
                             check(wallets.loadExisting().exportJson() == wallet.exportJson() && backends.load() == SaitoBackend.OWNER)

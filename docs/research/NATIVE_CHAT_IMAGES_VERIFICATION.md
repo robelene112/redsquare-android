@@ -185,3 +185,11 @@ Captionfixture55e528e0 reviewed0/0, butrun38717605044 failedtestcompilation116:
 missingsemantics.getOrNull import. Core/productiondebugcompilepassed, no native
 caseexecuted. Retained3hashcompileevidence. Importcorrected, no criteria or
 productionchange; correctednativeverificationpending.
+
+Actualprivate photodraft10run38718053451 exact788ffb8c SUCCESS3PASS17.506s:
+selectednormalizedJPEGpixels/exactcaption/Back/reopen/recreate/samepixels+text/
+fullidentity/backend/no-wire/restoration pass. Both incomingviewers alsoPASS.
+Retained20hash8XML; root2newdraftoriginalsseen, earlier6vieweroriginalsseenin
+priorqualifiedrun. Thisdoesnotprove earlierstyledmetadata cause. Nextgroup
+photodraft tracer reusesthesame selection/recovery/pixels/exacttext/no-wire flow
+with distinctgroupcaptures. ProductiongroupAddphoto absent; actualREDpending.
