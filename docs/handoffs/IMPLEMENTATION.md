@@ -12,6 +12,32 @@ implementation issues are complete. This explicit resume supersedes the storage
 migration pause recorded below. Commit/push each ticket and keep signed reviews
 available. Do not pause after the next ticket or ask routine approvals.
 
+**Latest #29 checkpoint, supersedes dated ACTIVE notes below:**
+CurrentHEAD26a79e3b2050c00dc5287dabb573a1c4c9cd0fa9, sourceprivate/groupnative
+notificationroutef518be53. Actual4case dedupGREENboth53adc844:10run38698778675
+4PASS34.884s,17run38698781938 4PASS88.570s, each28hash12XMLretaineddedup-green-
+android10/17. Bothcategories/genericOSshades, mute/readable/exactdraft/recreate/
+unmute/no-wire andidenticalsignedredeliveryRPC778 afterclearingalert/afterunmute
+pass. RootfourneworiginalPNGseenpersdk/allXMLparsed, sourcetracer/evidence0/0.
+Groupmembershipfreshguardincluded butno scheduledconcurrencyrace claimed.
+
+New6case fixture26a79e3b adds private/group FAILED_UNMUTE via existingOSsync
+faultpersonalCommitSyncUnavailable setonActivityintent. Actualsaveerror+retained
+mute, freshdistinctsignedincomingRPC779 readable/ACKed/silent, recreatechoice/
+cache/exactdraft, removefault andexplicitrepair/unmute/dedup. Per-casecapture
+prefixes andboundedactualscroll/display preserveallassertions. Bothreviews0/0;
+no prodchange orfalseREDclaim. Ownedfocused10run38699942542 exact26a ACTIVE,
+no localbuild orotherownednativeactive. Inspectactual6case proofbefore nextslice.
+Nextremaining29: unreadablepolicy optionalalertfailclosed+ACK/cache/repair/no-
+retrospectivealert; combinedbackendselection/protectedidentityisolation/recovery;
+one actual process-interrupted policycommit containing bothprivatehash/groupid.
+Reuseaccountpolicy/wallet safeguardsratherthanretestingallSAFflows. Approved
+read-onlygap-audit foundno newsourcebug. Then finalfullbothSDK/allgates/review/
+signed19publication/close29, continuesequentiallyallremainingissues. Stable18
+unchanged,19notreserved. Protected untrackedgroupcontractuntouched. No external
+prerequisite answer neededforthisactive29. Currenthostconfirmedno/dev/kvm,
+so nativeemulatorproofremainsGitHub; no hostmodule/servicechanges.
+
 Twenty-four of the original35 tickets are complete (#2 through#15,#18,#20 through#28).
 Issue39 group Chat visual polish COMPLETE, signed16/0.1.16 published at
 https://davidengelen.nl/redsquare/. Source95e089699c6192abaea0d9dbacb7dbf4af04e69e,
