@@ -74,7 +74,13 @@ post-window capture exists; later backend/recreation assertions and remaining
 full gates are unexecuted. Retained full-post-navigation-attempt/android10.
 Fixture-only7789600b closesIME through platform API, waits visibleSettings10s,
 asserts exactowner draft/nooutgoing before unchanged navigation. Correction
-Spec0/Standards0. Focused posting10run38764936810 at778 ACTIVE.
+Spec0/Standards0. Focused posting10run38764936810 at778 SUCCESS18PASS95.198s plus posting
+process/cold reconciliation, core114/debug/test. Root saw original restored-draft
+PNG; retained post-navigation-green-android10. New full10run38765859044 at
+ede956c51d1234fe5d924f1a46d5b40e45db1646 ACTIVE with public_feed_read=true.
+Profile adaptation739/b688 dismisses typing before Wallet at two import
+safeguards and repaired retry; exact EditableText avoids merged label. Source
+reviews0/0, runtime pending. Active profile10run38765277087 at739 predatesb688.
 No production change; no acceptance from partial full.
 
 Focused17run38760340721 at129d0901 FAILED3PASS1FAIL71.555s, sole group-photo
