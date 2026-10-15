@@ -14,9 +14,10 @@ internal class GroupChatStorageException(cause:Exception):IllegalStateException(
 internal class GroupChatStore(private val context: Context, private val wallet: SaitoWallet, private val backend: SaitoBackend) {
     enum class Status { UNKNOWN, SUBMITTED, FORWARDED, RECEIVED, STOPPED }
     data class StoppedAction(val candidate:SaitoTransaction,val previousStatus:Status)
-    data class Entry(val group: NamedChatGroup, val candidate: SaitoTransaction?, val status: Status, val creationKey: SaitoWallet? = null, val originals:List<String> = emptyList(), val messages:List<GroupChatMessage> = emptyList(), val draft:String = "", val reactions:List<GroupChatLikeEvent> = emptyList(), val ownCreation:Boolean=false,val stoppedActions:List<StoppedAction> = emptyList()) {
+    data class QueuedMessage(val candidate:SaitoTransaction,val observedEvents:Int)
+    data class Entry(val group: NamedChatGroup, val candidate: SaitoTransaction?, val status: Status, val creationKey: SaitoWallet? = null, val originals:List<String> = emptyList(), val messages:List<GroupChatMessage> = emptyList(), val draft:String = "", val reactions:List<GroupChatLikeEvent> = emptyList(), val ownCreation:Boolean=false,val stoppedActions:List<StoppedAction> = emptyList(),val queuedMessage:QueuedMessage?=null) {
         fun likedBy(message:GroupChatMessage)=GroupChatReplay(group,messages,originals,reactions=reactions).likedBy(message)
-        val hasPendingAction:Boolean get()=status==Status.UNKNOWN||status==Status.SUBMITTED
+        val hasPendingAction:Boolean get()=queuedMessage!=null||status==Status.UNKNOWN||status==Status.SUBMITTED
     }
     private val prefix = "groupchat.${backend.id}.${wallet.publicKey}."
 
@@ -85,8 +86,18 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
             SaitoWallet.fromBackup(it.asString).also{key->require(key.publicKey==group.id)}
         }
         val draft=record.get("draft")?.also{require(it.isJsonPrimitive&&it.asJsonPrimitive.isString)}?.asString ?: ""
+        val queued=record.get("queuedMessage")?.asJsonObject?.let { item ->
+            val pending=SaitoTransaction.restore(item.get("candidate").asString)
+            val observed=item.get("observedEvents").asInt
+            require(observed in 0..history.originals.size && status !in listOf(Status.UNKNOWN,Status.SUBMITTED))
+            val prepared=GroupChat.replay(origin,history.originals.take(observed)).group
+            require(prepared.memberRoles[wallet.publicKey]?.active==true)
+            require(GroupChat.readMessage(prepared,pending.envelope()).author==wallet.publicKey)
+            require(pending.envelope() !in history.originals)
+            QueuedMessage(pending,observed)
+        }
         Entry(group,candidate,status,creationKey,history.originals,history.messages,draft,history.reactions,
-            creation!=null && SaitoEnvelope.decode(creation).author==wallet.publicKey,stopped)
+            creation!=null && SaitoEnvelope.decode(creation).author==wallet.publicKey,stopped,queued)
         }catch(failure:GroupChatStorageException){throw failure}
         catch(failure:Exception){throw GroupChatStorageException(failure)}
     }
@@ -204,14 +215,26 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         save(previous.copy(draft=text))
     }
 
-    fun prepareMessage(candidate:SaitoTransaction):Entry = synchronized(SaitoLocalState.lock) {
+    fun prepareMessage(candidate:SaitoTransaction,queued:Boolean=false):Entry = synchronized(SaitoLocalState.lock) {
         assertSelected()
         val signed=SaitoEnvelope.decode(candidate.envelope())
         require(signed.author==wallet.publicKey && signed.body.get("request").asString=="chat message")
         val previous=requireNotNull(load(signed.body.get("group_id").asString))
         check(!previous.hasPendingAction && previous.group.memberRoles[wallet.publicKey]?.active==true)
+        require(GroupChat.readMessage(previous.group,candidate.envelope()).author==wallet.publicKey)
+        if(queued)return@synchronized save(previous.copy(queuedMessage=QueuedMessage(candidate,previous.originals.size),draft=""))
         val replay=GroupChat.replay(previous.group,previous.originals+candidate.envelope())
         save(previous.copy(group=replay.group,originals=replay.originals,messages=replay.messages,reactions=replay.reactions,candidate=candidate,status=Status.UNKNOWN,draft=""))
+    }
+
+    /** Cancellation restores the exact text without admitting an unsent original to history. */
+    fun cancelQueued(id:String,signature:String):Entry = synchronized(SaitoLocalState.lock) {
+        assertSelected()
+        val previous=requireNotNull(load(id))
+        val queued=requireNotNull(previous.queuedMessage)
+        check(queued.candidate.id==signature)
+        val text=SaitoEnvelope.decode(queued.candidate.envelope()).body.get("message").asString
+        save(previous.copy(queuedMessage=null,draft=text))
     }
 
     /** Explicit retry preserves the original signature, origin and protected group key. */
@@ -224,7 +247,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
 
     /** Pure current-state classification, shared by UI guidance and protected local resolution. */
     fun isStaleAdminAction(entry:Entry):Boolean {
-        if(!entry.hasPendingAction)return false
+        if(entry.queuedMessage!=null||!entry.hasPendingAction)return false
         val signed=SaitoEnvelope.decode(requireNotNull(entry.candidate).envelope())
         val request=signed.body.get("request").asString
         val adminAction=request=="chat update" ||
@@ -249,7 +272,13 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
 
     fun claim(id: String, signature: String) = synchronized(SaitoLocalState.lock) {
         assertSelected()
-        val entry=requireNotNull(load(id))
+        var entry=requireNotNull(load(id))
+        entry.queuedMessage?.let { queued ->
+            check(queued.candidate.id==signature && entry.group.memberRoles[wallet.publicKey]?.active==true)
+            val replay=GroupChat.replay(entry.group,entry.originals+queued.candidate.envelope())
+            entry=save(entry.copy(group=replay.group,originals=replay.originals,messages=replay.messages,
+                reactions=replay.reactions,candidate=queued.candidate,status=Status.UNKNOWN,queuedMessage=null))
+        }
         check(entry.candidate?.id==signature && entry.status==Status.UNKNOWN)
         requireActionMembership(entry)
     }
@@ -308,6 +337,9 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
             addProperty("candidate",entry.candidate?.encoded())
             addProperty("status",entry.status.name)
             addProperty("draft",entry.draft)
+            entry.queuedMessage?.let { queued -> add("queuedMessage",JsonObject().apply {
+                addProperty("candidate",queued.candidate.encoded());addProperty("observedEvents",queued.observedEvents)
+            }) }
             add("stopped",com.google.gson.JsonArray().apply { entry.stoppedActions.forEach { item ->
                 add(JsonObject().apply{addProperty("candidate",item.candidate.encoded());addProperty("status",item.previousStatus.name)})
             }})
@@ -320,6 +352,8 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
             file(entry.group.id).save(EncryptedLocalFile.Contents(1,record.toString()))
             return requireNotNull(load(entry.group.id)).also { check(it.candidate?.id == entry.candidate?.id && it.status == entry.status &&
                 it.creationKey?.exportJson()==entry.creationKey?.exportJson() && it.draft==entry.draft &&
+                it.queuedMessage?.candidate?.encoded()==entry.queuedMessage?.candidate?.encoded() &&
+                it.queuedMessage?.observedEvents==entry.queuedMessage?.observedEvents &&
                 it.stoppedActions.map{row->row.candidate.envelope() to row.previousStatus}==entry.stoppedActions.map{row->row.candidate.envelope() to row.previousStatus}) }
         }catch(failure:GroupChatStorageException){throw failure}
         catch(failure:Exception){throw GroupChatStorageException(failure)}

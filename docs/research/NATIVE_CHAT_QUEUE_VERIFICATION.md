@@ -170,3 +170,13 @@ storagefailure exactdisabledtext/noQueued/repair/reopen exactenableddraft,
 noautomatictransaction/zeroRawRelay6s pass. Productionunchanged2d0ca6a7. Retained
 private-seven-green-android10; no whole28 acceptance. GroupfirstRED8caserun
 38672887644 exact8c61c3f8 ACTIVE, no groupminimum/no localbuild. Do notduplicate.
+
+GroupcancelRED10run38672887644 exact8c61c3f8:8cases7privatePASS/1groupFAIL
+173.562s, firstSend→noQueued75 after20s. OriginalPNG/XMLunknownaction/groupError;
+rootinspected. Laterrecreate/cancel/draft/priorcreation/key/noWiretailunexecuted.
+Retainedgroup-cancel-red-android10. Minimumseparatequeuedgrouporiginal+causal
+observed-eventcount, validatesagainstpreparationmembershipbutneverordinaryhistory
+untilsocketclaim. Queuedfreeze/noRetry/currentownmembershipatclaim; Cancelsame
+selectionlockrestores exacttext/priorcreationstatus/key. Existingmanualprepare
+APIdefaultunchanged. UIexplicitmessageSendoptsinonly, pendingbubble/status/cancel.
+Noautomaticgroupresumptionyet; localcompile/correctedruntimepending.

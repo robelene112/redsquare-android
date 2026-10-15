@@ -319,7 +319,17 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                     TextButton(enabled=!busy&&!entry.hasPendingAction,onClick={leaving=true}) { Text(stringResource(R.string.group_leave)) }
                 }
             }
-            Text(stringResource(when(entry.status) {
+            if(entry.queuedMessage!=null) {
+                Text(stringResource(R.string.chat_queued))
+                TextButton(enabled=loaded&&!busy&&!readFailed,onClick={
+                    act {
+                        withContext(NonCancellable){publish{
+                            store.cancelQueued(entry.group.id,entry.queuedMessage.candidate.id);store.entries()
+                        }}
+                        message=withContext(Dispatchers.IO){requireNotNull(store.load(entry.group.id)).draft}
+                    }
+                }){Text(stringResource(R.string.chat_cancel_queued))}
+            } else Text(stringResource(when(entry.status) {
                 GroupChatStore.Status.UNKNOWN -> R.string.group_unknown
                 GroupChatStore.Status.SUBMITTED -> R.string.group_submitted
                 GroupChatStore.Status.FORWARDED -> R.string.group_forwarded
@@ -333,7 +343,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             }
             if(entry.stoppedActions.isNotEmpty()&&entry.status!=GroupChatStore.Status.STOPPED)
                 Text(stringResource(R.string.group_stopped_history),style=MaterialTheme.typography.bodySmall)
-            if(entry.hasPendingAction) TextButton(enabled=loaded&&!busy&&!readFailed&&!staleAction,onClick={
+            if(entry.hasPendingAction&&entry.queuedMessage==null) TextButton(enabled=loaded&&!busy&&!readFailed&&!staleAction,onClick={
                 act {
                     val pending=requireNotNull(entry.candidate)
                     withContext(NonCancellable){publish{store.prepareRetry(entry.group.id,pending.id);store.entries()}}
@@ -355,6 +365,10 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             val permitted=editable&&loaded&&!readFailed
             LazyColumn(Modifier.weight(1f).semantics{contentDescription=messagesLabel},
                 state=messageList,verticalArrangement=Arrangement.spacedBy(8.dp)) {
+                entry.queuedMessage?.let { queued -> item(key="queued:${queued.candidate.id}") {
+                    val pending=GroupChat.readMessage(GroupChat.replay(entry.group,entry.originals.take(queued.observedEvents)).group,queued.candidate.envelope())
+                    ChatMessageBubble(pending.author,pending.text,pending.createdAt,true)
+                } }
                 items(visible,key={it.id}){item->
                     val outgoing=item.author==wallet.publicKey
                     Column(Modifier.fillMaxWidth().padding(vertical=6.dp),
@@ -397,7 +411,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                     act {
                         val mentioned=quote?.author?.let{listOf(it)}.orEmpty()
                         val candidate=withContext(Dispatchers.IO){GroupChat.message(wallet,entry.group,message,System.currentTimeMillis(),mentioned)}
-                        withContext(NonCancellable){publish{store.prepareMessage(candidate);store.entries()}}
+                        withContext(NonCancellable){publish{store.prepareMessage(candidate,queued=true);store.entries()}}
                         message=""
                         sendPrepared(entry.group.id,candidate,wallet)
                     }
