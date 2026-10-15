@@ -30,12 +30,17 @@ class ChatKeyboardPreviewTest {
     @Test fun privateChatCanSendAPhotoCaptionWithTheSystemKeyboardOpen() = exercise(group = false, photo = true)
     @Test fun groupChatCanSendAPhotoCaptionWithTheSystemKeyboardOpen() = exercise(group = true, photo = true)
 
-    private fun exercise(group: Boolean, photo: Boolean = false) {
+    @Test fun privateChatKeepsSendReachableForALongRecoveredReplyWithAPhoto() =
+        exercise(group=false,photo=true,longReply=true)
+    @Test fun groupChatKeepsSendReachableForALongRecoveredReplyWithAPhoto() =
+        exercise(group=true,photo=true,longReply=true)
+
+    private fun exercise(group: Boolean, photo: Boolean = false, longReply: Boolean = false) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" &&
             android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
-        val kind = (if (group) "group" else "private") + (if (photo) "-photo" else "-text")
+        val kind = (if (group) "group" else "private") + (if (photo) "-photo" else "-text") + (if(longReply) "-long-reply" else "")
         val contact = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe fixture only.
         val identity = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
         val groupId = SaitoWallet.fromPrivateKey("0".repeat(63) + "3").publicKey
@@ -58,7 +63,15 @@ class ChatKeyboardPreviewTest {
         val photoSource = if (photo) instrumentation.context.assets.open("native-images-reference.json").bufferedReader()
             .use { com.google.gson.JsonParser.parseReader(it).asJsonObject.getAsJsonObject("images").get("red").asString }
             else null
-        val composed = photoSource?.let { composeChatPhoto(it, draft) } ?: draft
+        val replyPrefix=if(longReply) """<blockquote href="${contact.publicKey}1700000123400">Recovered quote line01.<br>Recovered quote line02.<br>Recovered quote line03.<br>Recovered quote line04.<br>Recovered quote line05.<br>Recovered quote line06.<br>Recovered quote line07.<br>Recovered quote line08.<br>Recovered quote line09.<br>Recovered quote line10.<br>Recovered quote line11.<br>Recovered quote line12.</blockquote>""" else ""
+        val messageBody = photoSource?.let { composeChatPhoto(it, draft) } ?: draft
+        val composed = replyPrefix + messageBody
+        if(longReply) {
+            val parsed=requireNotNull(nl.davidengelen.redsquare.chat.privateReply(composed))
+            check(parsed.prefix==replyPrefix&&parsed.body==messageBody&&parsed.author==contact.publicKey&&
+                parsed.reference==contact.publicKey+"1700000123400"&&parsed.quote.lines().size==12&&
+                parsed.quote.endsWith("Recovered quote line12."))
+        }
         val folder = File(context.cacheDir, "chat-keyboard-evidence")
         var primary: Throwable? = null
         try {
@@ -93,7 +106,16 @@ class ChatKeyboardPreviewTest {
                         ui.waitUntil(20_000) { displayed(row, true) }
                         ui.onNode(row, useUnmergedTree = true).performClick()
                         val editor = hasSetTextAction() and isEnabled()
+                        if(longReply) {
+                            ui.onNodeWithText(if(group)groupName else contact.publicKey).assertIsDisplayed()
+                            ui.waitUntil(20_000) { reads.get()>0&&
+                                (if(group)GroupChatStore(context,wallet,SaitoBackend.OWNER).load(groupId)?.draft
+                                 else ChatWorkStore(context,wallet,SaitoBackend.OWNER,contact.publicKey).load().draft)==composed }
+                            physicalSend(scenario,File(folder,"$kind-physical-send-closed.png"))
+                        }
                         ui.waitUntil(20_000) { displayed(editor) && reads.get() > 0 }
+                        if(longReply) ui.onNodeWithContentDescription("Chat composition preview")
+                            .performScrollToNode(hasContentDescription("Image 1 of 1"))
                         if (photo) ui.waitUntil(20_000) {
                             try {
                                 val bitmap = ui.onNodeWithContentDescription("Image 1 of 1")
@@ -125,11 +147,7 @@ class ChatKeyboardPreviewTest {
                             val send = hasText("Send") and hasClickAction() and isEnabled()
                             ui.waitUntil(10_000) { displayed(send) }
                             ui.onNode(send).assertIsDisplayed()
-                            val bounds = requireNotNull(device.findObject(androidx.test.uiautomator.By.text("Send"))).visibleBounds
-                            check(bounds.width() > 0 && bounds.height() > 0 && bounds.top >= 0 &&
-                                bounds.bottom <= device.displayHeight - imeBottom.get()) {
-                                "Send must remain above the visible system keyboard: $bounds, keyboard=${imeBottom.get()}"
-                            }
+                            val bounds = physicalSend(scenario,File(folder,"$kind-physical-send-ime.png"),imeBottom.get())
                             val privacy = requireNotNull(device.findObject(androidx.test.uiautomator.By.text(
                                 context.getString(if (group) R.string.group_privacy else R.string.chat_private)))).visibleBounds
                             check(privacy.height() > 0 && privacy.top >= statusTop.get()) {
@@ -144,7 +162,12 @@ class ChatKeyboardPreviewTest {
                                 check(!context.getSharedPreferences("wallet-backup-reminders", 0)
                                     .getBoolean("hidden:${wallet.publicKey}", true))
                             }
-                            if (group) ui.waitUntil(10_000) { displayed(hasText("Members") and hasClickAction()) }
+                            if (group) {
+                                val members=hasText("Members") and hasClickAction()
+                                if(!displayed(members))ui.onNodeWithContentDescription("Group status and actions")
+                                    .performScrollToNode(members)
+                                ui.waitUntil(10_000) { displayed(members) }
+                            }
                         }
                         readySend()
                         captureNativeScreen(File(folder, "$kind-keyboard-open.png"))
@@ -155,7 +178,11 @@ class ChatKeyboardPreviewTest {
                         ui.waitUntil(10_000) { !observeKeyboard() }
                         restoredChrome()
                         ui.onNode(exactDraft).assertIsDisplayed()
+                        if(longReply) ui.onNodeWithContentDescription("Chat composition preview")
+                            .performScrollToNode(hasContentDescription("Image 1 of 1"))
                         if (photo) ui.onNodeWithContentDescription("Image 1 of 1").assertIsDisplayed()
+                        if(longReply)check((if(group)GroupChatStore(context,wallet,SaitoBackend.OWNER).load(groupId)?.draft
+                            else ChatWorkStore(context,wallet,SaitoBackend.OWNER,contact.publicKey).load().draft)==composed)
                         check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
                         captureNativeScreen(File(folder, "$kind-keyboard-dismissed-unsent.png"))
                         // Tap the editor's trailing padding rather than an existing
@@ -195,6 +222,27 @@ class ChatKeyboardPreviewTest {
                 { wallets.replace(wallets.loadOrCreate(), original) }, { backends.save(originalBackend) },
                 { retained.restorePreferences() })
         }
+    }
+
+    private fun physicalSend(scenario:ActivityScenario<MainActivity>,capture:File,imeBottom:Int=0):android.graphics.Rect {
+        val instrumentation=InstrumentationRegistry.getInstrumentation()
+        val device=UiDevice.getInstance(instrumentation)
+        var top=0;var bottom=0
+        scenario.onActivity { activity->
+            val bars=ViewCompat.getRootWindowInsets(activity.window.decorView)?.getInsets(WindowInsetsCompat.Type.systemBars())
+            top=bars?.top ?: 0;bottom=maxOf(bars?.bottom ?: 0,imeBottom)
+        }
+        captureNativeScreen(capture)
+        var target=requireNotNull(device.findObject(androidx.test.uiautomator.By.text("Send"))) {
+            "Send must have a physical target beneath retained composition"
+        }
+        while(!target.isClickable)target=requireNotNull(target.parent){"Send has no clickable ancestor"}
+        val bounds=target.visibleBounds
+        val minimum=kotlin.math.round(48*instrumentation.targetContext.resources.displayMetrics.density).toInt()
+        check(bounds.width()>0&&bounds.height()>=minimum&&bounds.top>=top&&bounds.bottom<=device.displayHeight-bottom) {
+            "Full Send target must stay inside the usable screen: $bounds, minimum=$minimum, barsOrIme=$top/$bottom"
+        }
+        return bounds
     }
 
     private fun displayed(target: SemanticsMatcher, unmerged: Boolean = false) =
