@@ -559,3 +559,14 @@ Sendinvoked. Fixtureef58dc7fIMEclose+positiveSendtarget atbothsites, allwire/
 original/archiveassertions retained,review0/0. New17group38739842394ACTIVE.
 Full10run38739678542 ACTIVE23603b1d/publicreadstrue, no duplicate. Final17full
 requiredafterfocusedgreen. Noappchangesafterdc28, signed21b42productequivalent.
+
+Correctedgroup17ef58dc7f38739842394 SUCCESSactions1PASS52.228/mixed1PASS19.093/
+group22PASS140.751s andactualreactionPID5267to5346/recovery/restorationPASS.
+RootbothoriginalPIDPNGseen/allXMLparsed. Full17run38741257730 ACTIVE09fd42ba
+publicreadstrue, alongsidefull10 23638739678542. Productequivalenceb42to09
+confirmed. Privatefixturetyping-audit09focused17run38740674700 FAILED24reported
+22PASS2FAIL148.707 atinitialfirsthistorytargetvisibility316 (unknownretry/
+pendingimport). RootunknownretryPNGseen/2XMLparsed: firstmessageaboveviewport
+whilesecondpendingbodyvisible, laterassertionsnotrun. Fixture14395a8e scrolls
+sameinitialtargetbeforeunchangeddisplayassert; noappchange/budgetincrease.
+Focused17run38741903238 ACTIVE; ownedfullslefttofinishtruthfully, notduplicated.

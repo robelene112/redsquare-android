@@ -64,15 +64,21 @@ Current correctedfocusedproofs:
   group22PASS138.3s, actualreactionPID12926to13302/restoration PASS. Rootboth
   originalPIDPNGsseen, allXMLparsed; exactdraft/groupkey/original/fullidentity/
   backend/zeroautotransmission preserved.
-- GroupUI17 270run38738543254 overallFAIL:actions1PASS47.107/mixed1PASS23.711,
-  group21PASS1FAIL146.411s, archivefaultSendphysicaltapwithIMEopen thenrawwait.
-  RootPNGseen/XMLparsed, noSendinvocationproof. Fixture-onlyef58dc7fclosesIME+
-  positiveSendtarget atbothsites; noactualwire/original/archiveassertionchanges.
-  New17group38739842394 ACTIVE. Priorfailedruns remainfailures.
-Full10run38739678542 ACTIVEat23603b1d withpublicreads. Neverduplicateit. Fresh
-full17 afteritsfocusedgreen. Productunchangeddc28, sourceequivalenceb42to236
-confirmed. Whole-sourcereviews8826to2360/0, laterfixtureef0/0. Currentevidence
-reviewsstillpending. Keyboard-opencompositionexplicitly35, notprovedhere.
+- GroupUI17 ef58dc7frun38739842394 SUCCESS:actions1PASS52.228s/mixed1PASS19.093s/
+  group22PASS140.751s, actualreactionPID5267to5346/recovery/restorationPASS.
+  RootbothoriginalPIDPNGsseen/allXMLparsed. Prior270groupFAILremainsqualified.
+Privatehistorytyping-auditfixture09fd42ba sharedIMEclose/positivereachableaction
+helper preservesalloldassertions, review0/0. Itsfocused17run38740674700 FAILED:
+24reported22PASS2FAIL148.707s atinitialfirstmessagevisibility316 inunknownretry/
+pendingimport. RootoriginalfailurePNGseen/2XMLparsed: firstmessageaboveviewport,
+secondpendingbodyvisible; later original/import assertions notrun. One-line
+fixture14395a8e scrollssamefirsttargetbeforeoriginalassert, reviewSpec0/Standards
+pending. Newfocused17run38741903238 ACTIVE.
+Full10run38739678542 ACTIVEat23603b1d; full17run38741257730 ACTIVEat09fd42ba,
+bothpublicreadstrue. No duplicates/cancellation. Both containoldinitialmessage
+observer, so recordanyactualoutcome beforeadjustedfullscope. Productunchangeddc28,
+signed21b42productequivalentthrough14395. Whole-source0/0to236 andeachfixture
+reviewseparate. Keyboard-opencompositionexplicitly35, notprovedhere.
 
 Signed20/0.1.20 BUILT/VERIFIED, UNPUBLISHED from isolated78bc9b70 at
 /mnt/storage/redsquare-android-artifacts/chat30-review-source. Exec1549 completed0;
