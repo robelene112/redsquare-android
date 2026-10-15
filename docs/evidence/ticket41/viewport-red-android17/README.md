@@ -1,0 +1,7 @@
+# First Chat viewport attempt, setup failure
+
+Run38793297219 atf32c1dc5cabfd26e4a8b62bf59338b4944a6bc1a FAILS:6cases5PASS/1FAIL192.864s. Cancellation case stops at30s warning wait167 after Activity recreation. It incorrectly expects the earlier generic group error to persist. The actual failure XML contains history/live warnings and a normally visible enabled cancellation button; generic error is absent. Physical-bounds/tap and all later cancellation/no-wire tail assertions were not reached. This run does not establish the new physical-oracle RED.
+
+Root individually viewed original group-cancel-queued/failure PNGs and separately parsed both XMLs. The earlier queued capture does show all three errors: cancellation label is clipped to3pixels, and its clickable ancestor is disabled/clipped to36pixels at604..640. The later failure capture shows normal48pixel clickable ancestor at537..585. Preserve disabled-state guards; do not turn this layout correction into authorization to cancel unreadable work.
+
+Retained checkpoints show queued original, empty history, distinct owner/alternate ports and zero alternate traffic. FORWARDED is the earlier group creation state, not queued-message delivery. Core report114/0failures/0ignored and source/debug/test build pass. Separate captures are not atomic pairs. No application minimum applied or full/Pixel acceptance claimed. Correct tracer should measure the first three-warning state before recreation, then require normal enabled physical cancellation after reopening.

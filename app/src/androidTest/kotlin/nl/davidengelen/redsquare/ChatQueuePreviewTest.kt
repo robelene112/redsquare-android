@@ -159,28 +159,24 @@ class ChatQueuePreviewTest {
                     clickWhenReady("Send")
                     waitFor("Queued")
                     captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/group-$label-queued.png"))
-                    checkpoint("before-recreation")
-                    scenario.recreate();open();waitFor("Queued")
-                    val queued=requireNotNull(requireNotNull(store.load(key.publicKey)).queuedMessage).candidate
                     if(cancel) {
                         val warnings=listOf(R.string.group_error,R.string.group_history_error,R.string.group_live_error)
                         ui.waitUntil(30_000){warnings.all{resource->
                             ui.onAllNodesWithText(context.getString(resource)).fetchSemanticsNodes().isNotEmpty()}}
                         ui.onNodeWithText(context.getString(R.string.wallet_backup_reminder)).assertIsDisplayed()
+                        // Reachability applies even while the existing safety guard disables cancellation.
+                        physicalGroupCancellation(scenario,"three-warnings")
+                    }
+                    checkpoint("before-recreation")
+                    scenario.recreate();open();waitFor("Queued")
+                    val queued=requireNotNull(requireNotNull(store.load(key.publicKey)).queuedMessage).candidate
+                    if(cancel) {
+                        val warnings=listOf(R.string.group_history_error,R.string.group_live_error)
+                        ui.waitUntil(30_000){warnings.all{resource->
+                            ui.onAllNodesWithText(context.getString(resource)).fetchSemanticsNodes().isNotEmpty()}}
+                        ui.onNodeWithText("Cancel queued message").assertIsEnabled()
+                        val target=physicalGroupCancellation(scenario,"reopened")
                         val device=androidx.test.uiautomator.UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
-                        var top=0;var bottom=0
-                        scenario.onActivity { activity->
-                            val bars=androidx.core.view.ViewCompat.getRootWindowInsets(activity.window.decorView)
-                                ?.getInsets(androidx.core.view.WindowInsetsCompat.Type.systemBars())
-                            top=bars?.top ?: 0;bottom=bars?.bottom ?: 0
-                        }
-                        captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/group-cancel-viewport-ready.png"))
-                        val target=requireNotNull(device.findObject(androidx.test.uiautomator.By.text("Cancel queued message"))) {
-                            "Queued cancellation must have a physical target beneath the offline warnings"
-                        }.visibleBounds
-                        check(target.width()>0&&target.height()>0&&target.top>=top&&target.bottom<=device.displayHeight-bottom) {
-                            "Queued cancellation must stay inside the usable screen: $target, bars=$top/$bottom"
-                        }
                         check(device.click(target.centerX(),target.centerY()))
                         captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/group-cancel-viewport-tapped.png"))
                         ui.waitUntil(15_000){displayed(hasSetTextAction() and isEnabled())}
@@ -294,6 +290,29 @@ class ChatQueuePreviewTest {
             {wallets.replace(wallets.loadExisting(),original);backends.save(backend)},
             {if(cancel){val edit=backupPrefs.edit();if(previousBackupHidden==null)edit.remove(backupKey) else edit.putBoolean(backupKey,previousBackupHidden);check(edit.commit())}},
             {val edit=prefs.edit();if(offered==null)edit.remove("offered") else edit.putBoolean("offered",offered);check(edit.commit())})}
+    }
+
+    private fun physicalGroupCancellation(scenario:ActivityScenario<MainActivity>,stage:String):android.graphics.Rect {
+        val instrumentation=InstrumentationRegistry.getInstrumentation()
+        val context=instrumentation.targetContext
+        val device=androidx.test.uiautomator.UiDevice.getInstance(instrumentation)
+        var top=0;var bottom=0
+        scenario.onActivity { activity->
+            val bars=androidx.core.view.ViewCompat.getRootWindowInsets(activity.window.decorView)
+                ?.getInsets(androidx.core.view.WindowInsetsCompat.Type.systemBars())
+            top=bars?.top ?: 0;bottom=bars?.bottom ?: 0
+        }
+        captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/group-cancel-viewport-$stage.png"))
+        var target=requireNotNull(device.findObject(androidx.test.uiautomator.By.text("Cancel queued message"))) {
+            "Queued cancellation must have a physical target beneath the offline warnings"
+        }
+        while(!target.isClickable)target=requireNotNull(target.parent){"Cancellation has no clickable ancestor"}
+        val bounds=target.visibleBounds
+        val minimumHeight=kotlin.math.round(48*context.resources.displayMetrics.density).toInt()
+        check(bounds.width()>0&&bounds.height()>=minimumHeight&&bounds.top>=top&&bounds.bottom<=device.displayHeight-bottom) {
+            "Full cancellation target must stay inside the usable screen: $bounds, minimum=$minimumHeight, bars=$top/$bottom"
+        }
+        return bounds
     }
 
     private enum class PrivateQueueCase { CANCEL, BACKGROUND, BACKEND, IDENTITY, ARCHIVED, WRONG_ARCHIVE, STORAGE }
