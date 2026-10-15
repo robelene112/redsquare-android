@@ -130,7 +130,7 @@ internal class AuthorEditState(private val store: PostDraftStore, private val me
                 }
                 try {
                     withContext(Dispatchers.IO) {
-                        PostDeliveryAttempts.run(transaction.id) {
+                        DeliveryAttempts.run(transaction.id) {
                             SaitoPeer(wallet, endpoint).use { peer ->
                                 suspend fun observed(): Boolean {
                                     if (kind == AuthorActionKind.DELETE) {

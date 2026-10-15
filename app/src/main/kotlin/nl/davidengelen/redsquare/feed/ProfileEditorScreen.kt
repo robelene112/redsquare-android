@@ -247,7 +247,7 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
                             withContext(NonCancellable) { save(ProfileDraftStore.Saved(changes, prepared)) }
                             prepared
                         }
-                        PostDeliveryAttempts.run(transaction.id) {
+                        DeliveryAttempts.run(transaction.id) {
                             if (observe(peer, transaction)) return@run
                             // A previously confirmed candidate is checked without publishing it again.
                             if (previouslyAvailable) return@run

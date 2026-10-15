@@ -45,3 +45,13 @@ within60s afteractualQueued/recreate/retainedoriginal/backgroundCREATED. Origina
 background-windowandQueuedcapturesrootseen; exactraw/Relay/decrypt/FWD/counttail
 unexecuted. Cancellationpassesunchanged. Retainedprivate-background-red-android10.
 Next minimumautomaticscheduling/guardedimmutableattempts, notgroup/fullacceptance.
+
+Firstbackgroundsourcee158b94b addslegacy-default-false automaticintent, guarded
+sameoriginalWorker/foregrounddelivery, sharedattempt exclusion, protectedscoped
+currentselection, public-onlyWorkManagerinputs/networkconstraint andUIprogress.
+ReviewSpec1: changeswhile sendingcouldbeskipped; recollectwhenready/sendingchanges.
+Standards1Fowlerworkercontextduplication: sharedQueuedDeliveryContext twoactual
+Post/Chatcallers preservesfreshprotectedselection/strictdebugendpointbehavior.
+Localcompile8046FAILED1m4s becauseauthor/profile stillusedoldPostDeliveryAttempts
+nameafteritsmove; allreferencesnowcorrected. No nativeGREENfromthatbuildclaimed.
+Correctedcompile/runtimepending. Archive-reconciliation/groupsstilllaterwork.

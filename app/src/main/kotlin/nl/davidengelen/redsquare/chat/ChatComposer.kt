@@ -58,7 +58,7 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { failed = true }
     }
-    LaunchedEffect(work) {
+    LaunchedEffect(work,ready,sending) {
         ChatWorkStore.changes.collect {
             if(ready&&!sending)writes.withLock {
                 try {

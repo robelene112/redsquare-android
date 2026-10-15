@@ -1,36 +1,24 @@
 package nl.davidengelen.redsquare.chat
 
 import android.content.Context
-import android.content.Intent
 import androidx.work.*
 import kotlinx.coroutines.*
-import nl.davidengelen.redsquare.AndroidWalletStore
-import nl.davidengelen.redsquare.BuildConfig
-import nl.davidengelen.redsquare.feed.FeedEndpoints
 import nl.davidengelen.redsquare.saito.*
 
 /** Scheduler inputs are public routing metadata, never message text or wallet keys. */
 class ChatQueueWorker(context:Context,parameters:WorkerParameters):CoroutineWorker(context,parameters) {
     override suspend fun doWork():Result=withContext(Dispatchers.IO) {
         try {
-            val backend=SaitoBackend.entries.firstOrNull{it.id==inputData.getString("backend")}
-                ?:return@withContext Result.failure()
-            val id=inputData.getString("transaction") ?:return@withContext Result.failure()
-            val wallet=synchronized(SaitoLocalState.lock) {
-                if(AndroidBackendStore(applicationContext).load()!=backend)return@withContext Result.success()
-                AndroidWalletStore(applicationContext).loadExisting()
-            }
-            if(wallet.publicKey!=inputData.getString("owner"))return@withContext Result.success()
-            val requested=requireNotNull(inputData.getString("endpoint"))
-            val endpoint=if(!BuildConfig.DEBUG||requested==backend.peerUrl)backend.peerUrl else {
-                val extra=if(backend==SaitoBackend.OWNER)"feedPeerUrl" else "feedOfficialPeerUrl"
-                FeedEndpoints.fromIntent(Intent().putExtra(extra,requested),backend)
-            }
+            val selected=nl.davidengelen.redsquare.QueuedDeliveryContext.selected(applicationContext,inputData)
+                ?:return@withContext Result.success()
+            val wallet=selected.wallet;val backend=selected.backend
+            val endpoint=selected.endpoint;val id=selected.transactionId
             resumeQueuedChats(applicationContext,wallet,backend,endpoint,id)
             if(ChatWorkStore.pendingDelivery(applicationContext,wallet,backend).any{it.load().let{saved->
                 saved.automatic&&saved.status!=ChatWorkStore.Status.FORWARDED&&saved.transaction?.id==id}})
                 Result.retry() else Result.success()
-        }catch(cancelled:CancellationException){throw cancelled}
+        }catch(_:nl.davidengelen.redsquare.InvalidQueuedDelivery){Result.failure()}
+        catch(cancelled:CancellationException){throw cancelled}
         catch(_:Exception){Result.retry()}
     }
 }
