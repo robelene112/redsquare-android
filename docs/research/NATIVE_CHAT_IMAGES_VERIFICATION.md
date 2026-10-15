@@ -353,3 +353,8 @@ candidate preserved. Retained30XML; root3newgroupPNGsseen. Source and evidence
 previousreview0/0. Next run38727023023 exact9424ed90 includes private photo
 actualPID recovery and practical cache capacity tracer; both runtimepending.
 Production source unchanged since dbd0d42f.
+
+Run38727023023 exact9424ed90 FAILED instrumentation compilation: missing
+AndroidBackendStore import in new history fixture23/61. No process/capacity
+runtime executed. Retained compile log/run/README with3hashes. Import correction
+only, production and acceptance assertions unchanged.

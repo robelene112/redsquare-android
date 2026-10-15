@@ -6,6 +6,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import nl.davidengelen.redsquare.chat.ChatHistoryStore
 import nl.davidengelen.redsquare.chat.ChatWorkStore
 import nl.davidengelen.redsquare.chat.composeChatPhoto
+import nl.davidengelen.redsquare.saito.AndroidBackendStore
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.saito.PrivateChat
