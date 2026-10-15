@@ -60,3 +60,10 @@ exactorderingunproved. Minimum applies existingpost-composer retained ViewModel
 pattern, keyedpublicowner/backend/contact, updatesalluseredits/sendclear/cancel/
 reply, prefersmemoryonlyforunfrozenwork. Encrypted persistenceunchanged; no
 plaintextBundle/SavedState. Compile/reviews/newnativeproofpending.
+
+Memoryminimumaa1f9a84 Standards0; Specfound1cancellation publication gap.
+Correction keeps IOcommit andMain saved/memory update inside one outer
+NonCancellable segment underexistingmutex, for bothCancel andSendprepare/clear.
+No UI-thread filewrites. Localcompile84903 wrapperended143 but ownedcontainer
+20bc1778f1ce continued; dockerwait93966 returnedactualexit0. No duplicatebuild.
+Correction compilation will be owned by CI rather than repeat the localbuild.

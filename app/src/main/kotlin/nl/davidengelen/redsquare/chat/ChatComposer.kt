@@ -118,8 +118,10 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
                     scope.launch {
                         try {
                             writes.withLock {
-                                saved=withContext(NonCancellable+Dispatchers.IO){work.cancelQueued(requireNotNull(saved.transaction).id)}
-                                changeText(saved.draft)
+                                withContext(NonCancellable) {
+                                    saved=withContext(Dispatchers.IO){work.cancelQueued(requireNotNull(saved.transaction).id)}
+                                    changeText(saved.draft)
+                                }
                             }
                             failed=false
                         }catch(cancelled:CancellationException){throw cancelled}
@@ -163,10 +165,12 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
                                     } ?: emptyList()
                                     PrivateChat.create(wallet, contact, outgoing, System.currentTimeMillis(), mentioned = mentioned)
                                 }
-                                saved = withContext(NonCancellable + Dispatchers.IO) {
-                                    if (original == null) work.prepare(prepared,queued=true) else work.prepareRetry(prepared.id)
+                                withContext(NonCancellable) {
+                                    saved = withContext(Dispatchers.IO) {
+                                        if (original == null) work.prepare(prepared,queued=true) else work.prepareRetry(prepared.id)
+                                    }
+                                    if (original == null) changeText("")
                                 }
-                                if (original == null) changeText("")
                                 if(saved.status!=ChatWorkStore.Status.QUEUED)
                                     onHistory(withContext(Dispatchers.IO) { history.save(listOf(prepared.envelope())).entries })
                                 prepared

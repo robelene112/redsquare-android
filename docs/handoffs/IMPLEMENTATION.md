@@ -1257,3 +1257,10 @@ localtestcompilePASS1m45s. Owned focused10run38691358098 ACTIVEexact4f9.
 Specnotes concrete preexisting300ms autosave/no-lifecycleflush exposure, cause
 unproved. If fails, protecteddraft before/afterrecreate diagnosticnext. Noowned
 localbuild; notification/group/fullacceptanceremains. Publicsigned18unchanged.
+
+#29 actual38691358098 exact4f9 FAILED25.604s exactreopened draft20swait.
+Sourceaa1f9a84 adds peridentity/backend/contact retainedmemory using existingpost
+pattern, encrypted persistenceunchanged. Standards0; Speccancellationpublication
+finding corrected with outerNonCancellable(IOcommit+Mainmemory) forCancel/Send.
+Local84903wrapper143, container20bcactualexit0via93966. Noownedlocalbuildnow.
+Correctionreview+focusednativeproofpending; previousACTIVEentrieshistorical.
