@@ -82,6 +82,7 @@ class ChatImageHistoryStorageTest {
                 groups.saveDraft(groupId,"")
                 check(!GroupChatStore.hasWork(context,wallet,scope))
                 groups.saveDraft(groupId,draft)
+                check(GroupChatStore.hasWork(context,wallet,scope))
             }
             // API29 writes the base/.bak pair, not .new. Exercise the .new write fault only where it is effective.
             val record=if(group)"groupchat.${scope.id}.${wallet.publicKey}.$groupId.v1"

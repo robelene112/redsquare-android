@@ -451,3 +451,8 @@ identity/backend/restoration PASS. Retained5hashes. API29 rawstreamexplicitly
 qualifies no.newfault; no10writefailureclaim. Ownedstorage17run38731840587
 exact7cbbe810 mustprove30+actualfailedindexcommit/priorhistorydraft/retry.
 CorrectedphotoPIDrun38731727266 exact7cbbe810 active, groupPIDnotyetaccepted.
+
+Added positive group hasWork assertion after restoring the exact nonempty
+draft, alongside the already-green cache-only false assertion. Prior10record
+only claims the observed cache-only guard and exact restored text; positive
+workdetection runtime belongs to the next full build. Production unchanged.
