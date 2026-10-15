@@ -38,6 +38,14 @@ try:
         raise AssertionError('Invalid public wallet digest')
     if not isinstance(row['pid'], int) or row['pid'] <= 0:
         raise AssertionError('Invalid original process ID')
+    # Metadata only: positively establish an interrupted commit, never read protected contents.
+    guard = 'no_backup/personal.' + row['owner'] + '.guard.v1'
+    metadata = adb('exec-out', 'run-as', package, 'stat', '-c', '%s', guard, check=False)
+    (args.evidence / 'guard-metadata.txt').write_text(
+        f'returncode={metadata.returncode}\n' + metadata.stdout + metadata.stderr)
+    size = metadata.stdout.strip()
+    if metadata.returncode != 0 or not size.isdecimal() or int(size) <= 0:
+        raise AssertionError('Termination did not leave a durable pending old-policy guard')
     assert_process_gone(adb, package, row['pid'])
     (args.evidence / 'pending-checkpoint.json').write_text(json.dumps(row, indent=2) + '\n')
     adb('shell', 'am', 'force-stop', package)

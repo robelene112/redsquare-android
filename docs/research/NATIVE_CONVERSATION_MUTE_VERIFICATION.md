@@ -252,3 +252,9 @@ scopedpolicy/history/draft/guardrecords. Independentfile/preference restoration;
 publiccheckpoint containsdigests/publicidentity only. Existingchat-mute scopes
 nowrunprocessproofaftereightcases beforehostpermissionrestore; individualUI/RPC
 boundsunchanged, no new CI scope. Compile/review/actualproofpending.
+
+Process972870cb Speconeproofgap: pendingcheckpoint+crashalone couldprecede the
+commit. Hostnowrequires nonemptyencryptedpendingguard bystat-onlymetadata,
+matchingexistingaccountpolicyprocessproof, beforecoldrestart. Boundedactual
+scroll/display addedforsecondcachedincoming, retaining20sdeadline+literaltext.
+No protectedcontentsleave device, no production/acceptanceweakening.

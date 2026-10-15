@@ -116,7 +116,14 @@ class ChatMuteProcessRecoveryTest {
                     ui.waitUntil(20_000) { server.incomingAcknowledgements.any {
                         it[0] == 13.toByte() && java.nio.ByteBuffer.wrap(it, 1, 4).int == request
                     } }
-                    ui.waitUntil(20_000) { displayed(hasText(freshText)) }
+                    ui.waitUntil(20_000) {
+                        if (!displayed(hasText(freshText))) {
+                            try { ui.onNode(hasScrollAction()).performScrollToNode(hasText(freshText)) }
+                            catch (_: AssertionError) { /* Receipt may precede UI publication. */ }
+                        }
+                        displayed(hasText(freshText))
+                    }
+                    ui.onNodeWithText(freshText).assertIsDisplayed()
                     val until = android.os.SystemClock.elapsedRealtime() + 2_000
                     do { check(newAlerts().isEmpty()); android.os.SystemClock.sleep(50) }
                     while (android.os.SystemClock.elapsedRealtime() < until)
