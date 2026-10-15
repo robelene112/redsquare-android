@@ -4,11 +4,13 @@ import android.graphics.Bitmap
 import android.os.Build
 import androidx.test.platform.app.InstrumentationRegistry
 import nl.davidengelen.redsquare.chat.ChatHistoryStore
+import nl.davidengelen.redsquare.chat.GroupChatStore
 import nl.davidengelen.redsquare.chat.ChatWorkStore
 import nl.davidengelen.redsquare.chat.composeChatPhoto
 import nl.davidengelen.redsquare.saito.AndroidBackendStore
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.SaitoWallet
+import nl.davidengelen.redsquare.saito.GroupChat
 import nl.davidengelen.redsquare.saito.PrivateChat
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -16,7 +18,11 @@ import java.io.ByteArrayOutputStream
 
 /** Practical image history through the protected cache interface, with no network or UI writes. */
 class ChatImageHistoryStorageTest {
-    @Test fun twelveOrdinaryPrivatePhotosRemainAvailableWithoutLosingEarlierHistoryOrDrafts() {
+    @Test fun twelveOrdinaryPrivatePhotosRemainAvailableWithoutLosingEarlierHistoryOrDrafts() = exercise(group=false)
+
+    @Test fun sixteenOrdinaryGroupPhotosRemainAvailableWithoutLosingEarlierHistoryOrDrafts() = exercise(group=true)
+
+    private fun exercise(group:Boolean) {
         val context=InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName=="nl.davidengelen.redsquare.dev"&&Build.HARDWARE in listOf("ranchu","goldfish"))
         val wallets=AndroidWalletStore(context)
@@ -26,7 +32,7 @@ class ChatImageHistoryStorageTest {
         val other=SaitoWallet.fromPrivateKey("0".repeat(62)+"13")
         val scope=SaitoBackend.OWNER
         val retained=ChatFixtureState(context,listOf("chat.${scope.id}.${wallet.publicKey}.",
-            "chatwork.${scope.id}.${wallet.publicKey}."),wallet.publicKey)
+            "chatwork.${scope.id}.${wallet.publicKey}.","groupchat.${scope.id}.${wallet.publicKey}."),wallet.publicKey)
         var primary:Throwable?=null
         try {
             retained.prepare()
@@ -38,26 +44,55 @@ class ChatImageHistoryStorageTest {
             } finally {bitmap.recycle()}
             val source="data:image/png;base64,"+android.util.Base64.encodeToString(bytes,android.util.Base64.NO_WRAP)
             check(source.length<500_000)
-            val originals=(1..12).map{index->PrivateChat.create(other,wallet.publicKey,
-                composeChatPhoto(source,"Photo $index"),1700000123400L+index).envelope()}
+            val groups=GroupChatStore(context,wallet,scope)
+            val groupId=SaitoWallet.fromPrivateKey("0".repeat(62)+"14").publicKey
+            val creation=GroupChat.create(other,groupId,"Photo history",listOf(wallet.publicKey),1700000123400)
+            if(group)groups.receive(creation.envelope())
+            val count=if(group)16 else 12
+            fun message(index:Int):String {
+                val text=composeChatPhoto(source,"Photo $index")
+                return if(group)GroupChat.message(other,GroupChat.readCreation(creation.envelope()),text,1700000123400L+index).envelope()
+                    else PrivateChat.create(other,wallet.publicKey,text,1700000123400L+index).envelope()
+            }
+            val originals=(1..count).map(::message)
             check(originals.sumOf{it.toByteArray().size}>5*1024*1024)
             val history=ChatHistoryStore(context,wallet,scope,other.publicKey)
             val work=ChatWorkStore(context,wallet,scope,other.publicKey)
             val draft="Keep my unsent text while photo history grows 😀"
-            work.saveDraft(draft)
+            if(group)groups.saveDraft(groupId,draft)else work.saveDraft(draft)
+            fun saveHistory(envelope:String) {if(group)groups.receive(envelope)else history.save(listOf(envelope))}
+            fun loadHistory()=if(group)requireNotNull(groups.load(groupId)).originals
+                else ChatHistoryStore(context,wallet,scope,other.publicKey).load().entries.map{it.envelope}
+            fun loadDraft()=if(group)requireNotNull(groups.load(groupId)).draft else work.load().draft
             val accepted=mutableListOf<String>()
             for(envelope in originals) {
-                try {history.save(listOf(envelope))}
+                try {saveHistory(envelope)}
                 catch(failure:Exception) {
-                    assertEquals(accepted,history.load().entries.map{it.envelope})
-                    assertEquals(draft,work.load().draft)
+                    assertEquals(accepted,loadHistory())
+                    assertEquals(draft,loadDraft())
                     println("Photo history stopped after ${accepted.size} ordinary photos; prior history and draft survived")
                     throw failure
                 }
                 accepted+=envelope
             }
-            assertEquals(originals,ChatHistoryStore(context,wallet,scope,other.publicKey).load().entries.map{it.envelope})
-            assertEquals(draft,work.load().draft)
+            assertEquals(originals,loadHistory())
+            assertEquals(draft,loadDraft())
+            if(!group)assertEquals(listOf(other.publicKey),ChatHistoryStore.contacts(context,wallet,scope).accounts)
+            // Reject the atomic index write after new parts are durable. Original installation bytes stay device-only.
+            val record=if(group)"groupchat.${scope.id}.${wallet.publicKey}.$groupId.v1"
+                else "chat.${scope.id}.${wallet.publicKey}.${PrivateChat.conversationId(wallet.publicKey,other.publicKey)}.v1"
+            val blocker=java.io.File(context.noBackupFilesDir,"$record.new")
+            check(blocker.mkdir())
+            val extra=message(count+1)
+            try {
+                java.io.File(blocker,"held-by-fixture").writeText("Synthetic write fault")
+                check(runCatching{saveHistory(extra)}.isFailure)
+            } finally {check(blocker.deleteRecursively())}
+            assertEquals(originals,loadHistory())
+            assertEquals(draft,loadDraft())
+            saveHistory(extra)
+            assertEquals(originals+extra,loadHistory())
+            assertEquals(draft,loadDraft())
             assertEquals(original,wallets.loadExisting().exportJson())
             assertEquals(backend,AndroidBackendStore(context).load())
         } catch(failure:Throwable) {primary=failure;throw failure}

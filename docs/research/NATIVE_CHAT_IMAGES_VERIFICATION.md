@@ -383,3 +383,13 @@ capacityRED retained separately. Group photo PID invocation now enabled in
 nextbuild, preserving its original protected group key/origin/membership and
 all existing process assertions. Current ownedrun38728298869 exactb38e1e01
 only includes private PID plus capacityminimum; group runtime remains pending.
+
+Private capacity minimum run38728298869 exactb38e1e01 SUCCESS. Unchanged
+12-photo assertion PASS14.938s, previous10UI andprivatephotoPID alsoPASS.
+Retainedcapacity5hashes. Nextregression blocks only the fixture root.new with
+a nonempty directory, after bounded parts can be written. Requires failure
+without losing all prior originals/draft, removes only its blocker, retries
+successfully. Also observes contact discovery through multipart history.
+Nextgroup capacity tracer requires16ordinary samebounded validPNG originals
+exceeding5MiB, exacthistory/draft/installedidentity through protected APIs.
+Group storage unchanged, actualREDpending. Nextbuild also includes groupPID.
