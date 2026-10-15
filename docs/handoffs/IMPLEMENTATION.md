@@ -106,10 +106,17 @@ reopen-green-android17:12XML parsed/root four original dismissed-unsent PNGs see
 SDKfailure remains FAILED, never app acceptance. Both stronger focusedSDKs now
 pass. Native summary does not retain println injector acknowledgements; no claim
 about their values in this successful run. Behavioral assertions are decisive.
-OWNED final full17run38763901887 at47a73f87 ACTIVE, public_feed_read=true.
-Full10run38760924822 at286 FAILED as qualified above. No duplicate scopes. App production
-identical on both;17 fixture differs only injector-ack logging while all actual
-user-behavior assertions remain. Need actual complete results before publication.
+Old full17run38763901887 at47a73f87 FAILED at same old post Settings175:
+keyboard4PASS45.381s, posting17PASS/1FAIL95.842s.35 completed logs indexed,
+root saw4 keyboard-open originals/12XML parsed; no failing post-window capture.
+Later post/backend/recreation/full gates unexecuted. Retained android17 under
+full-post-navigation-attempt. The run predates post/profile fixture corrections.
+OWNED current full10run38765859044 atede956c51d1234fe5d924f1a46d5b40e45db1646
+and current full17run38768073681 at3366d4b3458436139f1bd090f19b8fd17393e0ec
+ACTIVE with public_feed_read=true. No duplicate scopes or cancellation. Both
+include all corrected post/profile and actual keyboard assertions. App/build
+production source is identical720e2007/c0/prepared22. Need actual complete
+results and final reviews before publication. Public21 remains current.
 No local Gradle/build process active. Production
 remains identical to720e2007/c0/prepared22; do not rebuild/re-reserve unnecessarily.
 
