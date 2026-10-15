@@ -26,6 +26,15 @@ class ProfileEditPreviewTest {
     private val instrumentation get() = InstrumentationRegistry.getInstrumentation()
     private val context get() = instrumentation.targetContext
 
+    private fun dismissTypingForWallet(scenario: ActivityScenario<MainActivity>, text: String) {
+        scenario.onActivity { activity ->
+            activity.getSystemService(android.view.inputmethod.InputMethodManager::class.java)
+                .hideSoftInputFromWindow(activity.window.decorView.windowToken, 0)
+        }
+        ui.waitUntil(10_000) { ui.onNodeWithText("Wallet").isDisplayed() }
+        ui.onNode(hasSetTextAction()).assertTextEquals(text)
+    }
+
     @Before fun prepare() {
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -327,7 +336,7 @@ class ProfileEditPreviewTest {
             peer.start().use { server ->
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
-                    .putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")).use {
+                    .putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")).use { scenario ->
                     try {
                         ui.waitUntil(20_000) { peer.requests.get() >= 2 &&
                             ui.onAllNodesWithText(context.getString(R.string.feed_loading)).fetchSemanticsNodes().isEmpty() &&
@@ -338,6 +347,7 @@ class ProfileEditPreviewTest {
                         ui.onNodeWithText("Edit profile").performClick()
                         ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                         ui.onNode(hasSetTextAction()).performTextReplacement(bio)
+                        dismissTypingForWallet(scenario, bio)
                         ui.onNodeWithText("Wallet").performClick()
                         assertEquals(outgoing.publicKey, displayedWalletAddress(ui))
                         ui.onNodeWithText("Import wallet").performScrollTo().performClick()
@@ -390,7 +400,7 @@ class ProfileEditPreviewTest {
             val intent = Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                 .putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
-            ActivityScenario.launch<MainActivity>(intent).use {
+            ActivityScenario.launch<MainActivity>(intent).use { scenario ->
                 var primary: Throwable? = null
                 try {
                     ui.waitUntil(20_000) { peer.requests.get() >= 2 &&
@@ -412,6 +422,7 @@ class ProfileEditPreviewTest {
                     // Obstruct the actual AtomicFile base after loading. Preserve the previous encrypted file.
                     check(draft.isFile && draft.renameTo(preserved))
                     check(draft.mkdir())
+                    dismissTypingForWallet(scenario, edited)
                     ui.onNodeWithText("Wallet").performClick()
                     ui.onNodeWithText("Import wallet").performScrollTo().performClick()
                     val failed = context.getString(R.string.wallet_import_work_save_failed)
