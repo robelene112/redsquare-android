@@ -51,12 +51,18 @@ Current working app correction: explicitadjustResize, root retains sole safeDraw
 inset owner; secondary global chrome/reminders temporarily hide whileIME, return
 without dismissal. Chat keeps privacy; hides redundant history/empty guidance and
 group membership buttons whiletyping, photo preview72vs100dp. Actual data/signing/
-queues unchanged. Local compile PASS3m38s; exec46029 ended. Focused corrected10run38757131128 and
-17run38757136280 at720e2007 active, do not duplicate scopes. Source/evidence
+queues unchanged. Local compile PASS3m38s; exec46029 ended. Focused corrected10run38757131128 SUCCESS4PASS16.168s and
+17run38757136280 SUCCESS4PASS52.248s at720e2007, core114/debug/test assembly.
+Retained focused-green-android10/17; root saw4original keyboard-open PNGs each,
+8XML each parsed. These precede Back/reopen checks, not their acceptance. Source/evidence
 candidate reviews0/0. Further fixture-only coverage now also dismisses/reopens
 actualIME with Back, preserves draft/photo, restores header/reminder/groupbuttons
 and verifies one later explicit send. No extra test cases/budget increase.
-Do not claim corrected runtime until the actual results are inspected.
+Both final fulls dispatched atc0b143eb after focused gates ended:
+10run38758235562 and17run38758240578, separately public_feed_read=true.
+They include stronger4 keyboard cases and all earlier app/public/recovery gates,
+release/lint/core. Both currently ACTIVE; never dispatch a duplicate scope.
+No local Gradle build active. No signed22 build yet. Public21 remains current.
 Next compile/review correction and focused10/17, then both complete full suites
 and signed22 publication. Public21 remains current. Protected group contract
 untracked and untouched. Continue independent remaining tickets afterward.
