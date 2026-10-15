@@ -42,7 +42,12 @@ now75minutes for single full SDK,120combined,60source/focused; both reviews0/0,
 per-request/assertion/class deadlines unchanged. Expected schema only:366reported/
 86records/27deaths on10,367/87/27 on17, NOT actual outcomes. Retainer prepared
 .scratch/retain-registry19-final-full.py, syntax checked only; no final acceptance.
-No owned local build currently. Public22 remains current.
+Signed23 BUILT/VERIFIED, UNPUBLISHED. Immutable source45ff40f6, exact final-run
+source. Local exec59740 completed0; release build4m10s. Artifact
+/mnt/storage/redsquare-android-artifacts/registry19-review23-source/.scratch/review-builds/23.
+Metadata docs/evidence/ticket19/review23-build; counter23, established certificate,
+package/min29 retained. Do not reset/rebuild. No owned local Gradle remains.
+Public22 remains current; full outcomes and final review must precede publication.
 Research proposal REGISTRY_LATE_CALLBACK_DESIGN_2026_10_15.md explains the narrow
 transport coupling. Protected untracked group contract remains untouched.
 
