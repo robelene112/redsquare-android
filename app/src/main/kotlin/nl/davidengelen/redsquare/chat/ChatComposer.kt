@@ -64,7 +64,7 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
     LaunchedEffect(work) {
         try {
             saved = withContext(Dispatchers.IO) { work.load() }
-            changeText(if (saved.frozen) "" else memory.text ?: saved.draft)
+            changeText(if (saved.frozen) saved.draft else memory.text ?: saved.draft)
             saved.transaction?.takeIf{saved.status!=ChatWorkStore.Status.QUEUED}?.let { candidate ->
                 onHistory(withContext(Dispatchers.IO) { history.save(listOf(candidate.envelope())).entries })
             }
