@@ -107,3 +107,14 @@ underlock, skipsmuted/block/self/permissionfailures. GenericNewmessage/category
 privatechats, nativecontentIntent, no secretpayload. Archive/reactionsremain
 silent; notificationerrors donotnegativeACK savedmessages. No group/closed-app
 notificationacceptance. Sourcecompile/reviews/correctednativeGREENpending.
+
+ActualprivatealertsGREEN10run38693924118 exact0bf65264:2PASS15.647s, native
+genericnotification/privatecategory/contentIntent/systemshadepositive; muted
+2sOSsilence+reopen+cachedunmute/exactdraft/no-wire pass. Retainedprivate-alert-
+green-android10(12hash4XML), originalsystemshadePNGseen/allXMLparsed. Source
+reviewedSpec0/Standards0. Focused17run38694546565 sameexact0bf ACTIVE.
+
+Next singletracer groupmutecontrol, exactdraft, independentweb-signedincoming
+groupmessage/ACK, recreation/unmute/cache/no-wire; controlledsignedcreation
+preparesknownmembership, no networkwrites. FirstactualREDpending. Groupbutton/
+publickeyconversationIDvalidation notimplemented yet. No groupnotifacceptance.

@@ -156,6 +156,97 @@ class ChatMutePreviewTest {
         }
     }
 
+    @Test fun groupConversationMuteKeepsCompatibleMessagesAndTheDraftAfterReopening() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
+        val reference = instrumentation.context.assets.open("native-group-chat-message-reference.json").bufferedReader()
+            .use { JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject }
+        val id = reference.get("groupId").asString
+        val name = "Conversation mute group"
+        val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "4").withNamedChatGroup(id, name) // Public unsafe fixture only.
+        val admin = SaitoWallet.fromPrivateKey("0".repeat(63) + "1")
+        val creation = GroupChat.create(admin, id, name, listOf(wallet.publicKey), 1700000123400)
+        val wallets = AndroidWalletStore(context); val original = wallets.loadOrCreate()
+        val backends = AndroidBackendStore(context); val originalBackend = backends.load()
+        val prefixes = SaitoBackend.entries.map { "groupchat.${it.id}.${wallet.publicKey}." } + "personal.${wallet.publicKey}."
+        val retained = synchronized(SaitoLocalState.lock) {
+            context.noBackupFilesDir.listFiles()!!.filter { file -> prefixes.any(file.name::startsWith) }
+                .associate { check(it.isFile); it.name to it.readBytes() }
+        }
+        val preferences = listOf("notification-permission" to "offered", "wallet-backup-reminders" to "hidden:${wallet.publicKey}")
+            .map { (key, value) -> val prefs = context.getSharedPreferences(key, 0)
+                Triple(prefs, value, if (prefs.contains(value)) prefs.getBoolean(value, false) else null) }
+        val reads = AtomicInteger()
+        val peer = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", archiveResponse = { criteria ->
+            if (criteria.get("field3")?.asString == id) reads.incrementAndGet()
+            "[]"
+        })
+        val detached = JsonParser.parseString(reference.get("envelope").asString).asJsonObject
+        val messageBytes = java.util.Base64.getDecoder().decode(detached.get("m").asString)
+        val incoming = java.util.Base64.getDecoder().decode(detached.get("t").asString) + messageBytes
+        java.nio.ByteBuffer.wrap(incoming).putInt(8, messageBytes.size)
+        val text = reference.get("text").asString
+        val draft = "Keep this group draft while muting 😀"
+        var primary: Throwable? = null
+        try {
+            synchronized(SaitoLocalState.lock) { retained.keys.forEach { check(File(context.noBackupFilesDir, it).delete()) } }
+            preferences.forEach { (prefs, key, _) -> check(prefs.edit().putBoolean(key, true).commit()) }
+            wallets.replace(original, wallet); backends.save(SaitoBackend.OWNER)
+            nl.davidengelen.redsquare.chat.GroupChatStore(context, wallet, SaitoBackend.OWNER).receive(creation.envelope())
+            peer.start().use { server ->
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                    .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
+                    withFailureCapture({ capture("group-mute-failure") }) {
+                        fun open() {
+                            click(hasText("Chat")); click(hasText("Groups")); click(hasText(name))
+                            ui.waitUntil(20_000) { displayed(hasSetTextAction() and isEnabled()) && reads.get() > 0 }
+                        }
+                        open()
+                        ui.onNode(hasSetTextAction() and isEnabled()).performTextReplacement(draft)
+                        androidx.test.espresso.Espresso.closeSoftKeyboard()
+                        click(hasContentDescription("Mute conversation"))
+                        ui.onNodeWithText("Messages stay visible.", substring = true).assertIsDisplayed()
+                        click(hasText("Mute"))
+                        ui.waitUntil(20_000) { displayed(hasContentDescription("Unmute conversation")) }
+                        peer.sendIncoming(incoming)
+                        ui.waitUntil(20_000) { displayed(hasText(text)) && peer.incomingAcknowledgements.any { it[0] == 13.toByte() } }
+                        ui.onNode(SemanticsMatcher.keyIsDefined(SemanticsProperties.EditableText))
+                            .assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(draft)))
+                        capture("group-muted-incoming-readable")
+                        scenario.recreate(); open()
+                        ui.onNodeWithContentDescription("Unmute conversation").assertIsDisplayed()
+                        ui.onNodeWithText(text).assertIsDisplayed()
+                        ui.waitUntil(20_000) { displayed(hasSetTextAction() and isEnabled() and
+                            SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(draft))) }
+                        capture("group-muted-reopened")
+                        click(hasContentDescription("Unmute conversation")); click(hasText("Unmute"))
+                        ui.waitUntil(20_000) { displayed(hasContentDescription("Mute conversation")) }
+                        ui.onNodeWithText(text).assertIsDisplayed()
+                        capture("group-unmuted-history-retained")
+                        check(wallets.loadExisting().exportJson() == wallet.exportJson() && backends.load() == SaitoBackend.OWNER)
+                        check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty() && peer.reports.isEmpty())
+                        peer.assertHealthy()
+                    }
+                }
+            }
+        } catch (failure: Throwable) { primary = failure; throw failure }
+        finally {
+            cleanupAfterTest(primary, {
+                synchronized(SaitoLocalState.lock) {
+                    context.noBackupFilesDir.listFiles()!!.filter { file -> prefixes.any(file.name::startsWith) }
+                        .forEach { check(it.isFile && it.delete()) }
+                    retained.forEach { (key, bytes) -> File(context.noBackupFilesDir, key).writeBytes(bytes) }
+                }
+            }, { wallets.replace(wallets.loadOrCreate(), original) }, { backends.save(originalBackend) }, {
+                preferences.forEach { (prefs, key, value) -> check(prefs.edit().apply {
+                    if (value == null) remove(key) else putBoolean(key, value)
+                }.commit()) }
+            })
+        }
+    }
+
     private fun click(target: SemanticsMatcher) {
         val action = target and hasClickAction() and isEnabled()
         ui.waitUntil(20_000) { displayed(action) }
