@@ -258,7 +258,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                         if (newContact) {
                             waitFor("Public key")
                             ui.onNodeWithText("Public key").performTextInput(counterpart)
-                            ui.onNodeWithText("Open chat").assertIsEnabled().performClick()
+                            clickAfterTyping("Open chat")
                             waitFor("Message")
                             check(AndroidWalletStore(context).loadOrCreate().chatContacts().contains(counterpart))
                         } else {
@@ -737,7 +737,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             ui.onNodeWithText("Reply").assertIsEnabled().performClick()
                             ui.onNodeWithText("Send").assertIsNotEnabled()
                             ui.onNodeWithText("Message").performTextInput(body)
-                            ui.onNodeWithText("Back").performClick()
+                            clickAfterTyping("Back")
                             waitFor("Public key")
                             ui.onNodeWithText(counterpart).performClick()
                             waitForEnabled("Message")
@@ -752,7 +752,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                                 SemanticsProperties.EditableText, AnnotatedString(body)))
                             ui.onAllNodesWithText("Remove reply").assertCountEquals(0)
                             ui.onNodeWithText("Reply").performClick()
-                            ui.onNodeWithText("Send").assertIsEnabled().performClick()
+                            clickAfterTyping("Send")
                             waitFor(context.getString(R.string.chat_send_forwarded))
                             ui.waitUntil(5_000) { peer.transactions.size == 1 && peer.relayedMessages.size == 1 }
                             val received = PrivateChat.receive(recipientWallet, peer.transactions.single().drop(1).toByteArray())
@@ -873,7 +873,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             val draft = "Unsent private draft 😀 <&>\nsecond line"
                             waitForEnabled("Message")
                             ui.onNodeWithText("Message").performTextInput(draft)
-                            ui.onNodeWithText("Back").performClick()
+                            clickAfterTyping("Back")
                             waitFor("Public key")
                             waitFor(counterpart)
                             ui.onNodeWithText(counterpart).performClick()
@@ -998,7 +998,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                         if (sending) {
                             waitFor("Message")
                             ui.onNodeWithText("Message").performTextInput(outgoingText)
-                            ui.onNodeWithText("Send").assertIsEnabled().performClick()
+                            clickAfterTyping("Send")
                             if (interruptedSend) {
                                 waitFor(context.getString(R.string.chat_send_error))
                                 waitFor("Submitted. Delivery is not confirmed.")
@@ -1133,6 +1133,12 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
             } }
             cleanupFailure?.let { throw it }
         }
+    }
+
+    private fun clickAfterTyping(text: String) {
+        androidx.test.espresso.Espresso.closeSoftKeyboard()
+        ui.waitUntil(15_000){runCatching{ui.onNodeWithText(text).assertIsDisplayed().assertIsEnabled()}.isSuccess}
+        ui.onNodeWithText(text).assertIsDisplayed().assertIsEnabled().performClick()
     }
 
     fun waitForEnabled(text: String) = ui.waitUntil(15_000) {
