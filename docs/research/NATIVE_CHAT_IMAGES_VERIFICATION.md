@@ -477,7 +477,7 @@ persisted. RootfailurePNGseen/XMLparsed: stacked outage details plus disabled
 photo/text composer consume the viewport; queuedmessage list has no visible
 area. Actual UI layoutdefect now evidenced, no kill/recoveryclaim. Minimum
 hides only the already-disabled composer while a group message is queued,
-matching private frozenqueue behavior. Queue/original/cancel/status remain
+keeping retained queue work protected. Queue/original/cancel/status remain
 visible, cancel restores the same composer/draft. Group readiness observers
 accept positive Queued while its input is absent, keeping all exactoriginal/
 pixel/cancel/identity assertions. No membership/admin/notification changes.
@@ -589,3 +589,15 @@ Evidencewordingcorrection afterre-inspecting original78bcprivatecancelPNG:
 thosekeyboardcapturesdonotestablishqueuedbubbleorSendinvocation. XMLmessage
 textpresencealonewasinsufficient. Failedconclusionsunchanged; latercorrected
 queue10/17greenruns supplyactualqueue/original/cancel proof independently.
+
+Previousfull17 0938741257730 FAILEDsame2privateinitialvisibilitychecks at316,
+private24reported22PASS2FAIL114.985s; priorphoto10PASS112.036/history2PASS109.412/
+bothphotoPID/queue13PASS297.779/mute8PASS107.668/group24classesPASS. RootSDK17
+originalunknownretryPNGseen/2XMLparsed, latertailnotaccepted. Newfull17run
+38744845607 ACTIVE8796c45b/publicreadstrue, full10run38742885120e92stillactive,
+no duplicates/cancel. Harnessrgnotfoundwarning inprevious17probe: retained
+actualpriorpermissionfalse row+originalartifacthash, 8muteUI/PIDcompleted.
+3a53c756 literalgrepfix syntax+false/trueprobetablePASS/review0/0; focusedmute17
+38745018833ACTIVE. Noappchanges, oldprobeactualsnapshotmustbequalifiedonactive
+879full17 beforeacceptance. Researchpushrequirementsdocumentedforfuture32–34;
+noinfrastructuredeployment/config/keys/messages.

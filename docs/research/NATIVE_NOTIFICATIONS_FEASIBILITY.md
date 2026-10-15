@@ -1,5 +1,12 @@
 # Native Android notification feasibility
 
+Current requirements update: [2026-10-15 push research](NATIVE_CLOSED_APP_PUSH_REQUIREMENTS_2026_10_15.md).
+Current Android FCM docs support registration tokens and `onNewToken`; do not
+replace delivery tokens with installation IDs based on the historical wording
+below. Shared-chain observation remains a proposal with explicit off-chain
+Relay, retention, indexing and backend-policy gaps. It is not demonstrated
+closed-app delivery on both backends.
+
 Read-only implementation research for accepted tickets 31–33, 2026-10-08.
 Applied the project-local research skill, current app instructions and Saito
 routing/operations instructions. Inspected static deployed sources using a

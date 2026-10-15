@@ -73,13 +73,19 @@ PID5425to5514/recovery/restorationPASS. Fullwallet/backend/cache/draft/uncertain
 message/reactionoriginals/zero transmissions. All8selectedXMLparsed/root3PNGs
 seen, original/retry/import/processtail assertionsretained. Reviewallfixture0/0.
 Priorfocused09FAIL24reported22PASS2FAIL148.707 initialviewport remainsqualified.
-Full10run38739678542at236 FAILEDsame2initialprivatevisibilitychecks24reported/
-22PASS2FAIL100.827; priorphoto10PASS85.055/history2PASS74.446/bothphotoPID/queue13
-PASS257.262/group24casesPASS. RootSDK10failurePNGseen/2XMLparsed. Laterfulltail
-notaccepted. Fixture14395 wasnotinthatrun. Newfull10run38742885120 ACTIVEe92c41d3,
-publicreadstrue, onlydispatchedafterpredecessorended. Full17run38741257730 ACTIVE
-09fd42ba/publicreadstrue, stilloldinitialobserver; awaittruthfuloutcome before
-same-scopefollowup. Productunchangeddc28, signed21b42equivalentthrough14395.
+Previousfull10run38739678542at236 and17run38741257730at09 BOTHFAILEDsame2
+initialprivatevisibilitychecks. Full17private24reported22PASS2FAIL114.985s;
+precedingphoto10PASS112.036/history2PASS109.412/bothphotoPID/queue13PASS297.779/
+mute8PASS107.668/group24casesPASS. RootfailurePNGseen/2XMLparsed; laterapp/public/
+update tailsnotaccepted. Sameone-line14395scrollcorrectedfocused34+PIDgreen.
+CURRENTOWNEDFULL10run38742885120 ACTIVEe92c41d3; FULL17run38744845607 ACTIVE
+8796c45b, bothpublicreadstrue. Eachdispatchedonlyafteritsownpredecessorended,
+neverduplicate/cancel. Productunchangeddc28, signed21b42equivalentthrough14395.
+Harnessprobe3a53c756 replacesunavailablergwithavailableliteralgrep. bash-n and
+capturedfalse/modifiedtrueexit1/0PASS, reviews0/0. Focusedmute17run38745018833
+ACTIVE3a53. Priorfull17actualpermissionbeforefalsewasretained(hash+selectedrow),
+soitsgrant/revokepathmatchedthatpriorstate, noearliertrue-branchclaim. Activefull17
+879hasoldprobe: inspectitsactualsnapshotbeforequalifyingoutcome. No appchanges.
 Noownedlocalbuild; groupcontractprotecteduntouched.
 Keyboard-opencomposition remains35. Researchdoc ANDROID_CHAT_KEYBOARD_LAYOUT_
 2026_10_15.md: exactBOMsource safeDrawingincludesIME; RedSquareThemealreadycalls
@@ -994,7 +1000,11 @@ or push behavior. Use [the timing protocol](../research/FEED_PERFORMANCE_PROTOCO
 Closed-app notifications require Firebase access and a gateway. A prior optional
 one-question prompt asked dedicated versus existing Firebase project; no answer
 has arrived. Continue independent work and never invent credentials or upload
-wallet private keys. Source research is documented, not implemented delivery.
+wallet private keys. Source research is documented, not implemented delivery. Fresh requirements in
+NATIVE_CLOSED_APP_PUSH_REQUIREMENTS_2026_10_15.md supersede old token wording:
+registrationtoken/onNewToken stillsupported; commonchainobserver/off-chainRelay
+coverage and delegatedsocketreconnect remain unproved, not blanketoperator
+requirements or demonstrated bothbackenddelivery.
 
 Giphy Android credentials are also unresolved. An optional single question on
 2026-10-10 asked whether an existing Android-authorized key is available and
