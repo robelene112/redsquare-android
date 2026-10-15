@@ -41,6 +41,8 @@ private fun notifyChat(context: Context, wallet: SaitoWallet, backend: SaitoBack
                 AndroidBackendStore(context).load() != backend) return
             val policy = AndroidPersonalControls(context, wallet.publicKey).load()
             if (policy.hidesSocial(message.author) || message.conversationId in policy.mutedConversations) return
+            if (message.kind == ChatAlertKind.GROUP && GroupChatStore(context, wallet, backend)
+                .load(message.conversationId)?.group?.memberRoles?.get(wallet.publicKey)?.active != true) return
             if (Build.VERSION.SDK_INT >= 33 && context.checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) !=
                 PackageManager.PERMISSION_GRANTED) return
             val notifications = context.getSystemService(NotificationManager::class.java)

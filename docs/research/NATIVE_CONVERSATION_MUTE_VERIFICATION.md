@@ -170,3 +170,10 @@ keepscontrols/reactions/Archive/duplicates/selfsilent. GroupcategoryGroupchats.
 Headernamebounded2lines+ellipsis/fulltextsemantics afteractualnewbuttoncaused
 three-lineheaderinretainedcaptures. No closed-app push orwhole29acceptance.
 Sourcecompile/review/native4GREENpending; no ownedlocalbuild.
+
+Groupalertminimumdc86984f Spec0/Standards0; cross-axis concern: ownremoval could
+commitbetweenretentionlockrelease andnotificationlockacquire. Correctednotifier
+rechecks currentprotectedgroupmembership underpublicationidentitylock, alongside
+freshpolicy/selection, so lateownremoval silencesalert. Ownedfirst4-caseGREEN
+attempt38697852024 exactdc remainsactive, no duplicate; doesnotexercise this
+concurrentguard oracceptwhole29. Correctionreview/compilepending.
