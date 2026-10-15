@@ -6,4 +6,4 @@ Pinned getPeers filters verified peers rather than connected-only peers. This su
 
 External subprocess supervisor bounds worker execution to12s; response read capped256KiB/2048rows, redirects rejected. Full peer response existed only transiently in worker memory. Only fixed published-registrar booleans/counts/status were retained; unrelated keys/keyLists/ids were never printed or saved. Initial wrong-wrapper attempt remains a schema failure in its separate directory. Both review axes reported zero remaining collector findings before corrected execution.
 
-Source context: ../../../../research/OWNER_REGISTRY_READINESS_NEXT_CHECK_2026_10_15.md. This is a host public-status observation, not native application acceptance.
+Source context: ../../../research/OWNER_REGISTRY_READINESS_NEXT_CHECK_2026_10_15.md. This is a host public-status observation, not native application acceptance.
