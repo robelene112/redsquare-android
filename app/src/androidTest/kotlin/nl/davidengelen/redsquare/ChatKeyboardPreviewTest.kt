@@ -157,7 +157,13 @@ class ChatKeyboardPreviewTest {
                         if (photo) ui.onNodeWithContentDescription("Image 1 of 1").assertIsDisplayed()
                         check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
                         captureNativeScreen(File(folder, "$kind-keyboard-dismissed-unsent.png"))
-                        ui.onNode(editor).performClick()
+                        // Tap the editor's trailing padding rather than an existing
+                        // selection/cursor handle, which can open the editing toolbar.
+                        val editorBounds = requireNotNull(device.findObject(
+                            androidx.test.uiautomator.By.clazz("android.widget.EditText"))).visibleBounds
+                        check(editorBounds.width() > 0 && editorBounds.height() > 0)
+                        check(device.click(editorBounds.right - minOf(8, editorBounds.width() / 2),
+                            editorBounds.bottom - minOf(8, editorBounds.height() / 2)))
                         val bounds = readySend()
                         check(observeKeyboard())
                         check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
