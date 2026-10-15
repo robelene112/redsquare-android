@@ -132,3 +132,9 @@ showrestorefailure andkeepexacttext/noQueued. Encryptedbytesremaininmemoryonly;
 finallyrestoresbeforefreshlaunch. Repair/reopenkeepsunsentdraft/noautomaticflag,
 reachablepeergetsnoRaw/Relayafter6s. No newproductsource; firstexecutionpending.
 Classallowance480s accommodatessevenunchangedpercasegates. Alloldassertsretained.
+
+Pre-runtimeSpecfinding inready-navigationhelper: restoredrememberSaveableChat
+alreadyshowsGroups, plainChatheadingisnotclickable. Correctedopenrecognizespositive
+Groupsorreadyclickablefeednavigation, clicksChatonlyfromfeed, thenGroups/contact.
+Sharedpublicdisplaypredicatehasactualnavigation/contactcallers. No productchange,
+no deadlineincrease. Seven-case exactexecutionpending.

@@ -68,7 +68,9 @@ class ChatQueuePreviewTest {
             ActivityScenario.launch<MainActivity>(Intent(intent).putExtra("feedOfficialPeerUrl","ws://127.0.0.1:${alternateServer.port}/wsopen")).use{scenario->
                 withFailureCapture({captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/private-$label-failure.png"))}) {
                     fun open(){
-                        clickWhenReady("Chat")
+                        val chat=hasText("Chat") and hasClickAction() and isEnabled()
+                        ui.waitUntil(20_000){displayed(hasText("Groups"))||displayed(chat)}
+                        if(!displayed(hasText("Groups")))ui.onNode(chat).assertIsDisplayed().assertIsEnabled().performClick()
                         waitFor("Groups")
                         clickWhenReady(contact)
                         waitFor("Message")
@@ -225,9 +227,8 @@ class ChatQueuePreviewTest {
     private fun waitFor(text:String)=ui.waitUntil(20_000){ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()}
     private fun clickWhenReady(text:String) {
         val target=hasText(text) and hasClickAction() and isEnabled()
-        ui.waitUntil(20_000){
-            try{ui.onNode(target).assertIsDisplayed();true}catch(_:AssertionError){false}
-        }
+        ui.waitUntil(20_000){displayed(target)}
         ui.onNode(target).assertIsDisplayed().assertIsEnabled().performClick()
     }
+    private fun displayed(target:SemanticsMatcher)=try{ui.onNode(target).assertIsDisplayed();true}catch(_:AssertionError){false}
 }
