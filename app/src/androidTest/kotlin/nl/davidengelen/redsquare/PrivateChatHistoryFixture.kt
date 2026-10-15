@@ -313,7 +313,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             peer.sendIncoming(requireNotNull(liveTransaction))
                         }
                         waitFor(text)
-                        ui.onNodeWithText(text).assertIsDisplayed()
+                        ui.onNodeWithText(text).performScrollTo().assertIsDisplayed()
                         if (reactionStorage) {
                             val warning = "Could not restore or save reactions on this device. Messages remain readable."
                             waitFor(warning)
