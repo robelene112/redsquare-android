@@ -456,3 +456,17 @@ Added positive group hasWork assertion after restoring the exact nonempty
 draft, alongside the already-green cache-only false assertion. Prior10record
 only claims the observed cache-only guard and exact restored text; positive
 workdetection runtime belongs to the next full build. Production unchanged.
+
+Whole-source review base8826000e..0fd5ea5b: Standards0, Spec1. Existing four
+processfixtures snapshotted only root files, so a synthetic smallreplacement
+could delete original multipart sidecars before restoration. Fix: common
+device-only snapshot/removal/restoration expands only canonical parts belonging
+to each fixture's exact chat/groupchat roots, including atomiccompanions.
+Restoration validates retained names against those same scoped patterns, removes
+current synthetic parts and copies back every original encrypted file. Allfour
+setup removals use the same expansion. No broader wallet/backend/file scope.
+Capacity regression now starts from existing large multipart private/group
+history, snapshots device-only, removes only scoped roots/parts, writes/reads
+small replacement, restores, then requires all originalphoto envelopes/draft
+and full installedidentity/backend. No actualPID claim for that nested fixture
+regression; existing separate PID gates stillrequired. Runtimepending.

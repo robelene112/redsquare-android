@@ -61,7 +61,7 @@ class ChatMuteProcessRecoveryTest {
             } })
         }
         writeCheckpoint(row)
-        synchronized(SaitoLocalState.lock) { fileNames(backend).filterNot { it.startsWith("wallet.") }.forEach { name ->
+        synchronized(SaitoLocalState.lock) { processFixtureFiles(context,fileNames(backend)).filterNot { it.startsWith("wallet.") }.forEach { name ->
             val file = File(context.noBackupFilesDir, name); check(!file.exists() || file.delete())
         } }
         wallets.replace(original, fixture)

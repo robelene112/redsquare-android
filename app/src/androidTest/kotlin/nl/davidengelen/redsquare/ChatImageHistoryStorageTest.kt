@@ -103,6 +103,29 @@ class ChatImageHistoryStorageTest {
             saveHistory(extra)
             assertEquals(originals+extra,loadHistory())
             assertEquals(draft,loadDraft())
+            val names=setOf(record,"$record.bak","$record.new")
+            val snapshotDirectory=java.io.File(context.noBackupFilesDir,"chat-photo-history-installation-originals")
+            check(!snapshotDirectory.exists())
+            var saved:com.google.gson.JsonArray?=null
+            try {
+                saved=snapshotProcessFixtureFiles(context,snapshotDirectory,names)
+                synchronized(nl.davidengelen.redsquare.saito.SaitoLocalState.lock) {
+                    processFixtureFiles(context,names).forEach{name->
+                        val file=java.io.File(context.noBackupFilesDir,name);check(!file.exists()||file.delete())
+                    }
+                }
+                val temporary=if(group) {
+                    groups.receive(creation.envelope())
+                    GroupChat.message(other,GroupChat.readCreation(creation.envelope()),"Temporary fixture history",1700000123500).envelope()
+                } else PrivateChat.create(other,wallet.publicKey,"Temporary fixture history",1700000123500).envelope()
+                saveHistory(temporary)
+                assertEquals(listOf(temporary),loadHistory())
+            } finally {
+                saved?.let{restoreProcessFixtureFiles(context,snapshotDirectory,names,it)}
+                check(!snapshotDirectory.exists()||snapshotDirectory.deleteRecursively())
+            }
+            assertEquals(originals+extra,loadHistory())
+            assertEquals(draft,loadDraft())
             assertEquals(original,wallets.loadExisting().exportJson())
             assertEquals(backend,AndroidBackendStore(context).load())
         } catch(failure:Throwable) {primary=failure;throw failure}

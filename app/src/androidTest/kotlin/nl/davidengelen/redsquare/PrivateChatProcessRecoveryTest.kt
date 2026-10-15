@@ -62,7 +62,7 @@ class PrivateChatProcessRecoveryTest {
         row.add("preferences", preferences)
         writeCheckpoint(row) // Publish restoration information before any fixture mutation.
         synchronized(SaitoLocalState.lock) {
-            fileNames(backend).filterNot { it.startsWith("wallet.") }.forEach { name ->
+            processFixtureFiles(context,fileNames(backend)).filterNot { it.startsWith("wallet.") }.forEach { name ->
                 val file = File(context.noBackupFilesDir, name); check(!file.exists() || file.delete())
             }
         }
