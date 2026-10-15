@@ -109,8 +109,11 @@ recognizeGroupsorreadyfeednav, do notclickplainrestoredheading. Seven-case10run
 38671197348 FAILED:6PASS/1FAIL148.439s, onlyStorage92 SetTextselector missesdisabled
 field. OriginalPNG/XMLexactdraftpreserved/errorseen. Laterrepair/noWiretailunexecuted.
 Retainedprivate-storage-selector-attempt-android10. Selector-onlyEditableTextfix
-keepssameexactvalue/alltailasserts. Selectorab30b201 Spec0/Standards0; focused10run38672255585 exactab30b201 ACTIVE.
-Noownedlocalbuild. Do notduplicatedispatch; seven-caseacceptancepending.
+keepssameexactvalue/alltailasserts. Selectorab30b201 Spec0/Standards0; focused10run38672255585 SUCCESS7PASS153.121s.
+Storageexactdisabledtext/noQueued/repair/enabledexactdraft/noautomatic/noWirepass.
+Retainedprivate-seven-green-android10. Grouptracer8c61c3f8 Spec0/Standards0 after
+asyncCancelreadinesscorrection; focused10run38672887644 ACTIVE exact8c61c3f8.
+No groupminimumyet/noownedlocalbuild. Do notduplicatedispatch.
 Productionunchanged2d0ca6a7. Groups/process/full28stillpending.
 
 NEXT: review/verify ready-navigation+storage7cases, then groupqueues/freshmembership,

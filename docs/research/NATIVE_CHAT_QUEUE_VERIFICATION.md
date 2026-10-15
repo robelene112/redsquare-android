@@ -164,3 +164,9 @@ FirstRED pending; private7focusedrun38672255585 stillowned/active atab30b201.
 Pre-runtimeSpecfinding: groupCancel asyncpersistence needspositiveenabledfield
 completionobservationbeforeexactdraftassert. Addedexisting15s cancellationbound
 matchingprivatecase; no prodchange/newlongerdeadline. FirstgroupREDstillpending.
+
+Private7GREEN10run38672255585 exactab30b201:7PASS153.121s. Allsixpriorcasesand
+storagefailure exactdisabledtext/noQueued/repair/reopen exactenableddraft,
+noautomatictransaction/zeroRawRelay6s pass. Productionunchanged2d0ca6a7. Retained
+private-seven-green-android10; no whole28 acceptance. GroupfirstRED8caserun
+38672887644 exact8c61c3f8 ACTIVE, no groupminimum/no localbuild. Do notduplicate.
