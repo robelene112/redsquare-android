@@ -112,3 +112,7 @@ Minimumclearsoldattemptfailureonlywhenobservedcompletedprogressmatchesprevious
 incompletecandidate; suppressesautomaticretrycopyforcompletedoldwork andavoids
 misreporting a racedalreadycompletedexplicitRetry asfailed. New-send/saveerrors
 againstoldercompletedworkremainvisible. Correction/runtimepending.
+
+Completionerrorcorrection2d0ca6a7 separateSpec0/Standards0. RetainedREDhash/XML/
+originalsverified. Local61826debug/testbuildactive; focused10run38670045027 exact
+same2d0ca6a7active. No completedruntime/whole28acceptanceyet. Do notduplicateruns.

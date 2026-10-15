@@ -95,8 +95,10 @@ Laterfinalquery/noRelay/recreatetailunexecutedforthiscase; otherfivepass. Retain
 private-wrong-archive-red-android10. ProposedRetryorderinghypothesisdidnotblockthis
 run, noothercausalclaim. Minimumcompletionerrorfixnowapplied: clearonmatching
 incomplete→completeprogress, accuratecopyforpendingauto andrace-completedRetry;
-newSend/savefailureagainstoldercompletedrecordstaysvisible. Review/compile/GREEN
-pending. No ownedbuild yet. Storage/groups/process/full28pending.
+newSend/savefailureagainstoldercompletedrecordstaysvisible. Correction2d0ca6a7251277a35ac2ea3372c36681c1cde3fb separateSpec0/Standards0.
+Local61826ACTIVE debug/testbuild, noapp/testeditsuntilend. Focusednative10
+run38670045027 ACTIVE exact2d0ca6a7; no duplicate dispatch. GREENpending.
+Storage/groups/process/full28pending.
 
 NEXT: review/build/verifycompletionerrorfix andqualifyfull6caseGREEN, thenstoragefailure,
 groupqueuewithfreshmembership, actualprocessdeath, finalfull10/17/reviews/signed
