@@ -92,3 +92,12 @@ excludesfutureautomaticwork. Local35066PASS3m24s/debug/test. Sourcebothreviewaxe
 0additionalfindings; rootidentifiedoldgenericerrorcopycontradictsautomaticretry.
 Correctionselectsdedicatedautomaticcopyonlywhenautomatictrue, legacycopyunchanged.
 ExactcorrectedCI/runtimeGREENpending; no complete28acceptance.
+
+ArchiveGREEN10run38668414092 exact313f2e76:5PASS78.289s. OneactualRaw, exactsig+
+conversationlookuputhenticoriginal, AVAILABLE/unconfirmed/noRelay/noextraRaw and
+recreationpass; fourpriorcasespass. Originalarchived-resultseen, retainedprivate-
+archive-green-android10. ResidualSpecfinding: failed explicitautomaticRetry leaves
+errorvisibleafterworkercompletion. Nextsixthnativecase returnsdifferentvalidsigned
+Archiveoriginal, requiresrefusal/unchangedoriginal/noRawRelay, actualRetryvisible
+error, repairsArchive→AVAILABLE and requiresobsoleteerrorgone. Sourcefixabsent,
+firstREDpending. Wrongrowrefusalcurrentlyimplementedbutnotyetacceptednatively.

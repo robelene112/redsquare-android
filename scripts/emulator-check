@@ -85,7 +85,7 @@ verify_group_chat_native() {
     [[ "$native_exit" == 0 ]] && grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/$prefix-ui.txt"
 }
 verify_chat_queue() {
-    verify_group_chat_native ChatQueuePreviewTest 360 chat-queue chat-queue-evidence
+    verify_group_chat_native ChatQueuePreviewTest 420 chat-queue chat-queue-evidence
 }
 if [[ "${TEST_SCOPE:-full}" == chat-queue* ]]; then
     verify_chat_queue

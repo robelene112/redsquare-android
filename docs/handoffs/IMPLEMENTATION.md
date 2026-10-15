@@ -84,10 +84,16 @@ Minimum e4a27da4 exactsignature+conversation/limit1, verifiessignedpayloadmatch,
 wrong/malformedaborts, emptyallowsidenticalretry, matchAVAILABLE/unconfirmed,
 finishedworkexcluded. Local35066PASS3m24s/debug/test. Bothreviewaxes0additional
 findings; rootknownoldgenericautoRetrycopy correctedwithdedicatedautomaticresource,
-legacycopyunchanged. CorrectedGREENexecutionpending. No ownedbuild. Groups,
-storage/process/full28stillpending.
+legacycopyunchanged. CorrectedArchiveGREEN10run38668414092 SUCCESS exact313f2e76:5PASS78.289s, oneRaw/
+exactsiglookup/authenticoriginal/AVAILABLE/unconfirmed/noRelay/noextraRaw/recreate,
+allpriorcasespass. Originalarchivedresultseen. Bothsource/evidenceaxesqualifyknown
+residualSpecfinding: explicitautomaticRetryerrorcanstayafterlaterworkercompletion.
+New6thWRONG_ARCHIVEtracerrequiresdifferentvalidsignedrowrefusal/noRawRelay/original
+preserved, explicitRetryerror, repairedArchiveAVAILABLE thenobsoleteerrorabsent.
+Sourcefixdeliberatelyabsent; firstREDpending. Noownedbuild. Storage/groups/process/
+full28stillpending.
 
-NEXT: correctedArchiveGREEN, thenstoragefailure/rejectedArchiveproof,
+NEXT: wrongArchive/obsoleteerrorRED, minimumcompletionerrorcorrection, thenstoragefailure,
 groupqueuewithfreshmembership, actualprocessdeath, finalfull10/17/reviews/signed
 nextbeta/closure28. Parent1approvedapplication/controlledpeer/protectedrecoveryseams.
 Queueonlyexplicitmessages,noadmin/reaction/transferautosends. Continue28through36

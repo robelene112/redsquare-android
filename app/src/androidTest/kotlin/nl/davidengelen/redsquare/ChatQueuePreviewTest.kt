@@ -25,12 +25,15 @@ class ChatQueuePreviewTest {
 
     @Test fun anArchivedQueuedOriginalReconcilesWithoutAnotherBroadcastOrClaimedDelivery() = exercisePrivateQueue(PrivateQueueCase.ARCHIVED)
 
-    private enum class PrivateQueueCase { CANCEL, BACKGROUND, BACKEND, IDENTITY, ARCHIVED }
+    @Test fun aWrongArchivedOriginalIsRefusedAndACompletedRetryClearsItsOldError() = exercisePrivateQueue(PrivateQueueCase.WRONG_ARCHIVE)
+
+    private enum class PrivateQueueCase { CANCEL, BACKGROUND, BACKEND, IDENTITY, ARCHIVED, WRONG_ARCHIVE }
     private fun exercisePrivateQueue(case:PrivateQueueCase) {
         val cancel=case==PrivateQueueCase.CANCEL
         val switchBackend=case==PrivateQueueCase.BACKEND
         val switchIdentity=case==PrivateQueueCase.IDENTITY
-        val archived=case==PrivateQueueCase.ARCHIVED
+        val wrongArchive=case==PrivateQueueCase.WRONG_ARCHIVE
+        val archived=case==PrivateQueueCase.ARCHIVED||wrongArchive
         val label=case.name.lowercase()
         val context=InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName=="nl.davidengelen.redsquare.dev")
@@ -91,12 +94,14 @@ class ChatQueuePreviewTest {
                     } else scenario.moveToState(androidx.lifecycle.Lifecycle.State.CREATED)
                     val indexed=java.util.concurrent.atomic.AtomicReference<String?>()
                     val archiveChecks=java.util.concurrent.atomic.AtomicInteger()
+                    val wrongResponse=java.util.concurrent.atomic.AtomicBoolean(wrongArchive)
+                    val otherOriginal=if(wrongArchive)PrivateChat.create(replacement,contact,"Different archived operation",1700000999999).envelope() else null
                     val peer=ControlledFeedPeer("[]",advertisedServices="archive||;relay||",archiveResponse={criteria->
                         if(archived&&criteria.has("sig")) {
                             check(criteria.get("sig").asString==originalCandidate.id)
                             check(criteria.get("field3").asString==PrivateChat.conversationId(wallet.publicKey,contact))
                             archiveChecks.incrementAndGet()
-                            indexed.get()?.let{original->com.google.gson.JsonArray().apply{add(com.google.gson.JsonObject().apply{addProperty("tx",original)})}.toString()} ?: "[]"
+                            (if(wrongResponse.get())otherOriginal else indexed.get())?.let{original->com.google.gson.JsonArray().apply{add(com.google.gson.JsonObject().apply{addProperty("tx",original)})}.toString()} ?: "[]"
                         } else "[]"
                     },onTransaction={frame->
                         if(archived)indexed.set(postingTransaction(frame).envelope())
@@ -115,10 +120,24 @@ class ChatQueuePreviewTest {
                             ui.waitUntil(60_000){peer.transactions.isNotEmpty()&&indexed.get()!=null}
                             check(indexed.get()==originalCandidate.envelope())
                             scenario.moveToState(androidx.lifecycle.Lifecycle.State.RESUMED)
+                            val automaticError="Could not complete this attempt. Your message is saved for automatic retry on its original server."
+                            if(wrongArchive) {
+                                ui.waitUntil(20_000){archiveChecks.get()>0}
+                                waitFor("Submitted. Delivery is not confirmed.")
+                                check(peer.transactions.size==1&&peer.relayedMessages.isEmpty())
+                                check(nl.davidengelen.redsquare.chat.ChatWorkStore(context,wallet,SaitoBackend.OWNER,contact).load().transaction?.envelope()==originalCandidate.envelope())
+                                captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/private-wrong-archive-refused.png"))
+                                ui.onNodeWithText("Retry").assertIsEnabled().performClick()
+                                waitFor(automaticError)
+                                check(peer.transactions.size==1&&peer.relayedMessages.isEmpty())
+                                captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/private-wrong-archive-retry-error.png"))
+                                wrongResponse.set(false)
+                            }
                             ui.waitUntil(20_000) {
                                 check(peer.transactions.size==1){"Archived original was broadcast again: ${peer.transactions.size} raw operations"}
                                 ui.onAllNodesWithText("Available on this server. Delivery is not confirmed.").fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()
                             }
+                            if(wrongArchive)ui.onAllNodesWithText(automaticError).assertCountEquals(0)
                             check(archiveChecks.get()>0&&peer.relayedMessages.isEmpty())
                             check(postingTransaction(peer.transactions.single()).envelope()==originalCandidate.envelope())
                             scenario.recreate();open()
