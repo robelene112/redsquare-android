@@ -252,13 +252,14 @@ class GroupChatPreviewTest {
                         if(retrying) {
                             waitFor("Recovered group")
                             ui.onNodeWithText("Recovered group").assertIsDisplayed().performClick()
-                            waitFor("Status unknown. Your signed action is saved on this device.")
+                            ui.waitForGroupStatus("Status unknown. Your signed action is saved on this device.")
                             check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
                             check(store.loadExisting().exportJson()==fixture.exportJson())
                             peer.disconnectAfterTransaction=true
+                            ui.waitForGroupStatus("Retry", enabled=true)
                             ui.onNodeWithText("Retry").assertIsDisplayed().assertIsEnabled().performClick()
-                            waitFor("Group information could not be read or saved, or the action could not be completed. Your existing records are kept.")
-                            waitFor("Submitted. Delivery is not confirmed.")
+                            ui.waitForGroupStatus("Group information could not be read or saved, or the action could not be completed. Your existing records are kept.")
+                            ui.waitForGroupStatus("Submitted. Delivery is not confirmed.")
                             check(peer.transactions.size==1 && peer.relayedMessages.isEmpty())
                             check(postingTransaction(peer.transactions.single()).envelope()==checkpoint.envelope())
                             val updated=fixture.withNamedChatGroup(checkpointKey.publicKey,"Recovered group",checkpointKey)
@@ -272,13 +273,14 @@ class GroupChatPreviewTest {
                             scenario.recreate()
                             waitFor("Groups");ui.onNodeWithText("Groups").performClick()
                             waitFor("Recovered group");ui.onNodeWithText("Recovered group").performClick()
-                            waitFor("Submitted. Delivery is not confirmed.")
+                            ui.waitForGroupStatus("Submitted. Delivery is not confirmed.")
                             check(peer.transactions.size==1 && peer.relayedMessages.isEmpty())
                             val recovered=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,updated,SaitoBackend.OWNER).load(checkpointKey.publicKey))
                             check(requireNotNull(recovered.candidate).encoded()==checkpoint.encoded() && recovered.creationKey?.exportJson()==checkpointKey.exportJson())
                             peer.disconnectAfterTransaction=false
+                            ui.waitForGroupStatus("Retry", enabled=true)
                             ui.onNodeWithText("Retry").assertIsEnabled().performClick()
-                            waitFor("Forwarded. Delivery is not confirmed.")
+                            ui.waitForGroupStatus("Forwarded. Delivery is not confirmed.")
                             ui.waitUntil(15_000){peer.transactions.size==2 && peer.relayedMessages.size==1}
                             check(peer.transactions.all{postingTransaction(it).envelope()==checkpoint.envelope()})
                             check(SaitoEnvelope.fromSignedJson(peer.relayedMessages.single())==checkpoint.envelope())
@@ -328,9 +330,10 @@ class GroupChatPreviewTest {
                             waitFor("Joined using invitation details.")
                             captureNativeScreen(File(context.cacheDir,"group-chat-evidence/joined.png"),invitation.name)
                             if(paginating){
-                                waitFor("Load older messages")
+                                ui.waitForGroupStatus("Load older messages")
                                 ui.waitUntil(15_000){ui.onAllNodes(hasText("Load older messages") and isEnabled()).fetchSemanticsNodes().size==1}
                                 if(rejectedPage){
+                                    ui.waitForGroupStatus("Older group history could not be loaded. Your cached messages are kept.")
                                     ui.onNodeWithText("Older group history could not be loaded. Your cached messages are kept.").assertIsDisplayed()
                                     ui.onNodeWithText("Recent group message 0").assertDoesNotExist()
                                 }else for(text in listOf("Recent group message 0","Recent group message 49"))waitForGroupMessage(text)
@@ -342,6 +345,7 @@ class GroupChatPreviewTest {
                                 ui.waitUntil(15_000){peer.incomingAcknowledgements.count{it[0]==13.toByte()}>successes}
                                 waitForGroupMessage("Ancient live group message")
                                 check(olderReads.get()==0)
+                                ui.waitForGroupStatus("Load older messages", enabled=true)
                                 ui.onNodeWithText("Load older messages").assertIsDisplayed().assertIsEnabled().performClick()
                                 waitForGroupMessage("Available older group message")
                                 check(olderReads.get()==1 && requestedCutoff.get()==oldestRecent)
@@ -392,14 +396,14 @@ class GroupChatPreviewTest {
                                 ui.waitUntil(15_000){runCatching{ui.onNodeWithText("Refresh").assertIsDisplayed()}.isSuccess}
                                 ui.onNodeWithText("Refresh").assertIsDisplayed().performClick()
                                 ui.waitUntil(15_000){failedHistoryReads.get()>0}
-                                waitFor("Older group history could not be loaded. Your cached messages are kept.")
+                                ui.waitForGroupStatus("Older group history could not be loaded. Your cached messages are kept.")
                                     ui.onNodeWithText("Older group history could not be loaded. Your cached messages are kept.").assertIsDisplayed()
                                 ui.waitUntil(15_000){ui.onAllNodes(hasText("Message") and isEnabled()).fetchSemanticsNodes().size==1}
                                 ui.onNodeWithText("Message").assertIsEnabled().performTextInput("Send while archive is unavailable")
                                 ui.waitUntil(15_000){ui.onAllNodes(hasText("Send") and isEnabled()).fetchSemanticsNodes().size==1}
                                 sendMessage()
                                 ui.waitUntil(15_000){peer.transactions.size==3&&peer.relayedMessages.size==3}
-                                waitFor("Forwarded. Delivery is not confirmed.")
+                                ui.waitForGroupStatus("Forwarded. Delivery is not confirmed.")
                                 val original=SaitoEnvelope.fromSignedJson(peer.relayedMessages.last())
                                 check(postingTransaction(peer.transactions.last()).envelope()==original)
                                 val retained=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,store.loadExisting(),SaitoBackend.OWNER).load(invitation.id))
@@ -468,7 +472,7 @@ class GroupChatPreviewTest {
                                     waitForGroupMessage(text)
                                 }
                                 if(archiveFault){
-                                    waitFor("Older group history could not be loaded. Your cached messages are kept.")
+                                    ui.waitForGroupStatus("Older group history could not be loaded. Your cached messages are kept.")
                                     ui.onNodeWithText("Older group history could not be loaded. Your cached messages are kept.").assertIsDisplayed()
                                     for(text in listOf("Send while archive is unavailable","Live while archive is unavailable"))waitForGroupMessage(text)
                                     ui.onAllNodesWithText("Live while archive is unavailable").assertCountEquals(1)

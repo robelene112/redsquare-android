@@ -105,11 +105,9 @@ class GroupAdminPreviewTest {
             waitFor("Groups");ui.onNodeWithText("Groups").performClick()
             waitFor("Stopped stale promotion");ui.onNodeWithText("Stopped stale promotion").performClick()
             waitForEnabled("Members")
-            revealGroupStatus("This saved group action no longer matches the current membership or group details.")
-            waitFor("This saved group action no longer matches the current membership or group details.")
+            ui.waitForGroupStatus("This saved group action no longer matches the current membership or group details.")
             ui.onNodeWithText("This saved group action no longer matches the current membership or group details.").assertIsDisplayed()
-            revealGroupStatus("Stop trying this action")
-            waitForEnabled("Stop trying this action");ui.onNodeWithText("Stop trying this action").performClick()
+            ui.waitForGroupStatus("Stop trying this action", enabled=true);ui.onNodeWithText("Stop trying this action").performClick()
             waitFor("Earlier delivery may still have happened. This only stops further attempts on this device and keeps the original record.")
             waitForEnabled("Stop on this device");ui.onNodeWithText("Stop on this device").performClick()
             waitFor("Stopped on this device. Earlier delivery is uncertain.")
@@ -163,8 +161,7 @@ class GroupAdminPreviewTest {
             waitFor("Groups");ui.onNodeWithText("Groups").performClick()
             waitFor("Submitted stopped action");ui.onNodeWithText("Submitted stopped action").performClick()
             waitForEnabled("Members")
-            revealGroupStatus("Stop trying this action")
-            waitForEnabled("Stop trying this action");ui.onNodeWithText("Stop trying this action").performClick()
+            ui.waitForGroupStatus("Stop trying this action", enabled=true);ui.onNodeWithText("Stop trying this action").performClick()
             waitForEnabled("Stop on this device")
             // A real protected selection change between preview and confirmation must refuse saving.
             val altered=test.wallet.withNamedChatGroup(key,"Changed fixture metadata",test.key)
@@ -455,8 +452,6 @@ class GroupAdminPreviewTest {
             peer.assertHealthy()
 
         }
-    private fun revealGroupStatus(text:String) = ui.onNodeWithContentDescription("Group status and actions")
-        .performScrollToNode(hasText(text))
     private fun waitFor(text:String)=ui.waitUntil(15_000){ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()}
     private fun waitForEnabled(text:String)=ui.waitUntil(15_000){ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()}
 }

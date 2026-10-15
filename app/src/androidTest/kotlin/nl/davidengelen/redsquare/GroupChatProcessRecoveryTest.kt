@@ -124,7 +124,7 @@ class GroupChatProcessRecoveryTest {
                 ui.onNodeWithText("Retry").performClick()
                 val store=GroupChatStore(context,fixture,backend)
                 ui.waitUntil(15_000){store.load(key.publicKey)?.status==GroupChatStore.Status.FORWARDED}
-                waitFor(context.getString(R.string.group_forwarded))
+                ui.waitForGroupStatus(context.getString(R.string.group_forwarded))
                 assertState(row,backend,peer,forwarded=true)
                 capture("explicit-retry-forwarded.png",draft)
                 row.addProperty("retryVerified",true)
@@ -176,8 +176,8 @@ class GroupChatProcessRecoveryTest {
         peer.assertHealthy()
     }
     private fun assertUi() {
-        waitFor(context.getString(R.string.group_unknown));ui.onNodeWithText(context.getString(R.string.group_unknown)).assertIsDisplayed()
-        waitForEnabled("Retry");ui.onNodeWithText("Retry").assertIsDisplayed().assertIsEnabled()
+        ui.waitForGroupStatus(context.getString(R.string.group_unknown));ui.onNodeWithText(context.getString(R.string.group_unknown)).assertIsDisplayed()
+        ui.waitForGroupStatus("Retry", enabled=true);ui.onNodeWithText("Retry").assertIsDisplayed().assertIsEnabled()
         ui.waitUntil(15_000){runCatching{ui.onNodeWithText("Message").fetchSemanticsNode().config[SemanticsProperties.EditableText].text==draft}.getOrDefault(false)}
         ui.onNodeWithText("Message").assertIsDisplayed().assertIsNotEnabled().assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText,AnnotatedString(draft)))
         waitFor("Hello group 😀 <&>!")
