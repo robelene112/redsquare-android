@@ -291,3 +291,9 @@ application/publicread gates pass;12admincases42.492s/50.222s plusbothadminPID
 exactrecovery/explicitidenticalRetry/restoration. Root inspected actualerrorinside
 Stop,newworkuncertainty andprotected-draftrecovery originals. Retainedfinal-full;
 698/703hashes247/249XML. Final evidence reviews pending; signed17 NOTpublished.
+
+Finalevidence reviewers independentlyverify698/703hashes247/249XML andactual
+raw/PID/retry/restore/originalcaptures; Spec0/Standards0. StalehandoffNEXT corrected
+7807a33b, separateboundedSpec0/Standards0. Signed17/0.1.17 published andpublic
+page/manifest/APKdownload/exacthash/directsignature/package/version/min29 plus
+immutable16 continuity verified. No node/service/store changes orphysicalclaim.

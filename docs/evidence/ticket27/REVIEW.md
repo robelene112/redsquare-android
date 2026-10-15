@@ -181,3 +181,16 @@ changing persistence/status/transport. All24 REDhashes/10XML match12cases1failur
 97.764s atc58; originalnotice-onlymodal inspected. Unexecuted SUBMITTED/recovery/
 newwork/PID tail remains unaccepted. LocalfinalcompilePASS2m48. Exactsource full10
 38656003934/full17 38656006821 bothactive withpublicreads; finalruntimepending.
+
+## Final full evidence review and publication
+
+0aafe386...4911950: Spec0, Standards0. Both independent reviewers verified all
+698/703 hashes,247/249XML,318reported317PASS+oneexistingprofileassumption vs319PASS,
+71/72records22actualdeaths,core114/release/lint/publicreads,12admincases42.492s/
+50.222s and both actual-process management recovery/identicalRetry/restoration.
+Selected original Stop-error/newworkuncertainty/processdraft captures inspected.
+No protected snapshots or signing secrets retained. Source unchanged from tested
+0aafe386. Nonblocking staleNEXT documentation corrected7807a33b; bounded separate
+Spec0/Standards0. Priorfailed tails remainqualified; nophysical/storeclaim.
+Signed17 thenpublished; publicGET/hash/directapksigner/aapt/cert/package/min29
+and immutable16 verified. Public-only records signed-preview17-published.

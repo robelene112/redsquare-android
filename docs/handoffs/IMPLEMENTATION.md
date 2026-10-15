@@ -12,7 +12,7 @@ implementation issues are complete. This explicit resume supersedes the storage
 migration pause recorded below. Commit/push each ticket and keep signed reviews
 available. Do not pause after the next ticket or ask routine approvals.
 
-Twenty-two of the original35 tickets are complete (#2 through#15,#18,#20 through#26).
+Twenty-three of the original35 tickets are complete (#2 through#15,#18,#20 through#27).
 Issue39 group Chat visual polish COMPLETE, signed16/0.1.16 published at
 https://davidengelen.nl/redsquare/. Source95e089699c6192abaea0d9dbacb7dbf4af04e69e,
 reviewbase8528893a; shared bubbles/avatars/names/timestamps/wrapping actions,
@@ -28,66 +28,38 @@ APKsha0b34d6e6537ebc130c841cb884a7a9253c0b2a181ed6dc37cb4511e500721163,
 cert6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2.
 Signed15immutable preserved. recordsdocs/evidence/ticket39, no ownedlocalbuildactive.
 
-Current sequential issue27: admin promotion and member removal, assigned@me.
-Review base7979c655164257e08b184834810de03a80d92b67; prerequisite26 closed.
-Current final production/test source and remote main:
-0aafe3867fca303497424fe73f8f65b3b5459d2a. No owned local build active. Prepared signed17/0.1.17, NOT published.
-Source exact0aafe386, APKsha4b82d787746f2b6e74ccf21e101054f66e78740ce8530f813a9850e5c585fb6f;
-certificate unchanged6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2,
-appIDnl.davidengelen.redsquare/min29. Local.scratch/review-builds/17; public-only
-preparedrecordsdocs/evidence/ticket27/signed-preview17-prepared.
-Never publish until both fulls/final reviews accepted.
+**#27 COMPLETE, 2026-10-15:** compatible admin promotion/member removal, guarded
+current authority/membership, visible confirmations/failure, explicit local stale
+Stop with original UNKNOWN/SUBMITTED history retained, exact signed Retry,
+independent A/B constructors/receivers, native failure/recovery and both fulls.
+Finalsource0aafe3867fca303497424fe73f8f65b3b5459d2a. Full10run38656003934 SUCCESS:
+318reported317PASS+oneexistingAPI30profileassumption/71records22actualdeaths;
+full17run38656006821 SUCCESS:319PASS/72records22actualdeaths. Core114/release/lint,
+admin12cases42.492s/50.222s,bothadminactualPID/identicalRetry/restoration andall
+previousapplication/publicreadgatespass. Final source and evidence Spec0/Standards0;
+698/703hashes247/249XML verified, originalcaptures inspected. Earlierfailuresand
+unexecutedtailsqualified; nophysicalPixel/storeacceptanceclaimed.
 
-Final whole-source reviews at0aafe386: Spec0, Standards0. Independent pinned A/B
-promotion/removal constructors and receivers, four focused core cases and the
-native successful/authority/stale/refusal/recovery work are implemented. Durable
-STOPPED history retains exact originals and prior UNKNOWN/SUBMITTED status,
-local uncertainty, restored permitted work and conservative wallet disclosure.
-The last concrete failure was hidden Stop-modal error; its actual RED17c58 is
-retained and qualified, and existing error copy is now visible inside the dialog.
-Local final debug/test compile27247PASS2m48s. Both full runs below compile/test
-exactsource again, including all core tests, release assembly and lint.
+Signed17/0.1.17 published at https://davidengelen.nl/redsquare/. Exacttestedsource
+0aafe386; APKsha4b82d787746f2b6e74ccf21e101054f66e78740ce8530f813a9850e5c585fb6f,
+cert6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2,
+package nl.davidengelen.redsquare/min29 unchanged. Publicpage/manifest/APKdownload,
+exacthash/directsignature/package/version/min29 andimmutable16 verified. Public-only
+records docs/evidence/ticket27/signed-preview17-published. Preparedrecordsremain
+historical. No ownedlocalbuild/proofactive. No node/service/ingress/storechanges.
 
-Final full10 run38656003934 and full17 run38656006821 SUCCESS at exact0aafe386,
-public_feed_read=true. Android10:318reported317PASS+oneexistingAPI30profile
-assumption/71records22actualdeaths. Android17:319PASS/72records22actualdeaths.
-Core114/release/lint, all12admincases (42.492s/50.222s), both new actual-process
-admin Retry/restoration journeys and all previous application/public-feed gates
-pass. Exact signed17 remains prepared and NOT published pending final evidence
-reviews. Source push38656004328 SUCCESS. Root selected originals inspected;
-retained docs/evidence/ticket27/final-full. No physical Pixel performance claimed.
-
-Most recent scoped actualacceptance: native-stale-stop-green-android10 atfd926d5d,
-run38653588969,11PASS33.271s plusboth adminPID/Retry/restoration. Two reviews verify
-50hashes15XML. Earlier native-admin-green-android17 at48b1410a,run38652150530,
-10PASS75.149s plusbothPID;46hashes13XML. These qualify their exactsource only.
-Original REDs/failed attempts remain retained with precise unexecuted tails;
-the prior10 combineddraft/key cause/operand remains unproved. Final12thcase now
-checks actualoneRaw/refusedRelay, protectedwalletmetadata change, error inside
-isDialog(), unchangedSUBMITTED, selectionrestore/Stop/reopen/newwork/priorhistory.
-Its firstRED17run38654864195 c58:12cases11PASS1missingerror176/97.764s, tails/PID
-unexecuted. Finalsource correction and sharedcallbackparity reviews are clear.
-
-NEXT: finish the separate final evidence reviews, then publish the already prepared
-signed17 after acceptance. Verify exact public manifest/APKhash/cert/package/min29
-and immutable16, retain public-only records, commit/push/trackerclose27. CONTINUE
-sequentially28 and all remaining issues without stopping. Both owned fulls already
-SUCCESS and final retained raw/captures/checkpoints verified. Do not rerun them
-without a new source change, failure or unresolved concrete finding.
-Phone stablebeta remains signed16 at https://davidengelen.nl/redsquare/.
-Scratch apply/refactor scripts alreadyAPPLIED are obsolete, never rerun them.
-Canonical chronology docs/research/NATIVE_GROUP_ADMIN_VERIFICATION.md.
-Read-only prep28: native blockers11/25/26 allclosed; no claim or code yet. PostQueue
-uses durable scoped originals, guarded claim/cancel/reconcile, WorkManager network
-constraints and foregroundsessions. Chat still has no queue; preserve27stopped
-uncertain history and distinguish explicit messages from admin/control operations.
-Then28 through36 and parked16/17/19 from native dependencies.16 requires Android-
-authorized Giphy credentials/URLretention;17 publicprovider playbackrefused despite
-controlledplayerGREEN;19 Registryavailabilityunproved. Research concrete newevidence,
-never close from controlledfixtures alone.38 branding productname unresolved and
-explicitlynotreleaseblocker. PhysicalPixel35 and Play36 prerequisites remain actual
-requirements. Only protected preexisting untracked NATIVE_GROUP_CHAT_CONTRACT.md
-untouched. Large CIdownloads verifiedowner folder/mnt/storage/redsquare-android-artifacts.
+NEXT sequential #28 offline private/group Chat queue, nativeblockers11/25/26closed.
+Read .scratch/queue28-source-read-notes.md, currentstores/composers/postqueueguarantees
+andparent1 approvedapplication/controlledpeer/protectedrecovery seams. No28codeyet.
+Preserve27STOPPEDuncertainhistory, immutable originals, freshidentity/backend/group
+membership guards; queueonlyexplicitmessages, noadmin/reaction/transferautosends.
+Continue28 through36 andparked16/17/19 withconcreteactualevidence.16requiresAndroid
+Giphy authorization/retention;17publicYouTubeplayerrefusalactualproviderunresolved;
+19Registryavailabilityunproved.38brandingnormalprioritynotreleaseblocker.
+PhysicalPixel35 andPlay36 have actualexternalprerequisites. Never close fromfixture
+or emulator proof alone. Protected preexistinguntracked
+NATIVE_GROUP_CHAT_CONTRACT.md untouched. Largeartifacts underverifieddavidchild
+/mnt/storage/redsquare-android-artifacts. Do notstopafter27, ownerresumedallissues.
 
 Storage migration observed Docker data now bind-mounted from /mnt/storage/docker;
 repo/.scratch remains on the system disk,63GiB free versus158GiB onadditional disk.
