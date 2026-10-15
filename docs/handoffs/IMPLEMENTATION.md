@@ -68,13 +68,12 @@ isDialog(), unchangedSUBMITTED, selectionrestore/Stop/reopen/newwork/priorhistor
 Its firstRED17run38654864195 c58:12cases11PASS1missingerror176/97.764s, tails/PID
 unexecuted. Finalsource correction and sharedcallbackparity reviews are clear.
 
-NEXT: monitor both owned fulls, inspect actualraw gates/captures and retain exact
-qualified evidence. Large artifacts go to /mnt/storage/redsquare-android-artifacts.
-Retainer .scratch/retain-admin-final-full.py ROOT OUT META SHA RUN 12 verifies all
-old+new gates/checkpoints. Never retain before download exit0. Fresh final separate
-source/evidence reviews/fixes, then signed preview17 (nextreservedcounter), exact
-public manifest/APKhash/cert/package/min29/prior16immutable verification, commit/
-push/trackerclose27. CONTINUE sequentially28 andall remaining issues withoutstop.
+NEXT: finish the separate final evidence reviews, then publish the already prepared
+signed17 after acceptance. Verify exact public manifest/APKhash/cert/package/min29
+and immutable16, retain public-only records, commit/push/trackerclose27. CONTINUE
+sequentially28 and all remaining issues without stopping. Both owned fulls already
+SUCCESS and final retained raw/captures/checkpoints verified. Do not rerun them
+without a new source change, failure or unresolved concrete finding.
 Phone stablebeta remains signed16 at https://davidengelen.nl/redsquare/.
 Scratch apply/refactor scripts alreadyAPPLIED are obsolete, never rerun them.
 Canonical chronology docs/research/NATIVE_GROUP_ADMIN_VERIFICATION.md.
