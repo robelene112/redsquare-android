@@ -62,9 +62,23 @@ failed conclusions. Selection toolbar is observed; precise touch cause unproved.
 Fixture-only129d0901 replaces second semantics click with physical UiDevice tap
 inside positive native editor visible bounds, trailing padding away from handles.
 No app, assertion, deadline or class-budget change. Fix reviews Spec0/Standards0.
-OWNED focused correction10run38759985609 and17run38760340721 ACTIVE at129d0901.
-Never duplicate a running scope. No full run currently active; after focused
-correction succeeds, dispatch both complete fulls with public_feed_read=true.
+Corrected focused10run38759985609 at129d0901 SUCCESS4PASS31.219s:
+actual Back/dismissal/draft/photo/control restoration, physical trailing-padding
+reopen and exact one Send/identity/restoration. Retained reopen-green-android10,
+root saw four original dismissed-unsent PNGs,12XML parsed. Some dismissal frames
+show focused-content panning; snapshots do not prove every transient position.
+New full10run38760924822 at2867694e ACTIVE, public_feed_read=true. Never duplicate.
+
+Focused17run38760340721 at129d0901 FAILED3PASS1FAIL71.555s, sole group-photo
+failure is check(device.pressBack()) injection boolean at153. Original PNG shows
+keyboard already closed/photo/draft; later guards unexecuted for that case.
+Retained reopen-injector-attempt-android17,11XML parsed/root failurePNGseen.
+Fixture-only39dcc708 logs injector ack and retains physical Back plus ALL actual
+IME/draft/photo/restored controls/reopen/Send/wire checks and original deadlines.
+Fixreviews Spec0/Standards0. OWNED corrected focus17run38761787929 at39dcc708
+ACTIVE; after actual success dispatch full17 with separately enabled publicreads.
+No full17 currently active. No local Gradle/build process active. Production
+remains identical to720e2007/c0/prepared22; do not rebuild/re-reserve unnecessarily.
 
 Signed22/0.1.22 BUILT/VERIFIED, UNPUBLISHED. Immutable detachedc0b143eb, product-
 identical to720e2007/current129d0901. Local build PASS4m29s, exec21423 ended0.
@@ -72,7 +86,7 @@ Artifact /mnt/storage/redsquare-android-artifacts/keyboard40-review22-source/
 .scratch/review-builds/22. SHA5d4081c587c53575987890390fb042b34fc30b19d5e17c9d17f10905e910ef6d,
 established certificate6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2,
 package nl.davidengelen.redsquare/22/0.1.22/min29. Counter22; no local build active.
-Metadata review22-build pending review. Public21 remains current; publish22 only
+Metadata review22-build Spec0/Standards0; APK independently hashed by root/reviewer. Public21 remains current; publish22 only
 after complete gates and final review. Prepared .scratch/verify-review22-public.py
 must run only AFTER publication; validates direct public artifacts and immutable21.
 Final retainer .scratch/retain-keyboard40-final-full.py validates exact class set
@@ -86,7 +100,12 @@ Registry A/B callback fallback can precede valid late response, native consumes
 first index; actual21-byte body not retained, so correlation is not live cause.
 Next19 diagnostic should observe bounded first/late same-index responses while
 preserving strict proof/registration and12s deadline, before any workaround.
-Research review/tracker updates pending. No node/credential changes.
+Both research reviews Spec0/Standards0. Tracker updates17comment6195891653 and
+19comment6195892085 link concrete next diagnostics. No node/credential changes.
+Owner updated home instructions mid-session: reread global/proactive/GitHub
+skills and fetched shared source /home/david/agent-skills and app upstream.
+Skills main1dbca7a and app then2867694e each0ahead/0behind; no pull required.
+Protected untracked contract left intact. Reuse this sync within the session.
 
 Finish40, then continue remaining original issues without routine permission.
 Physical Pixel, final integrated35 and Play remain separate. Protected untracked
