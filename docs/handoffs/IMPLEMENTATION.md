@@ -48,7 +48,10 @@ public_feed_read=true each. Do not duplicate/cancel active scopes. Job ceiling
 now75minutes for single full SDK,120combined,60source/focused; both reviews0/0,
 per-request/assertion/class deadlines unchanged. Expected schema only:366reported/
 86records/27deaths on10,367/87/27 on17, NOT actual outcomes. Retainer prepared
-.scratch/retain-registry19-final-full.py, whole helper syntax checked. Its added
+.scratch/retain-registry19-final-full.py, whole helper syntax checked. Use NEW
+docs/evidence/ticket19/final-full-oct15/android10 and android17 targets. Old
+ticket19/final-full contains historical Search evidence and must not be overwritten.
+Collector now rejects any existing output directory before copying. Its added
 late-proof/username-recovery block passes against both actual focused artifacts:
 exact public1/1/0 checkpoint, original success PNG/XML and changed PID/identical
 author/backend/signature/frame/envelope, interrupted/recovered/continuity logs.
