@@ -30,7 +30,19 @@ established cert6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2
 package nl.davidengelen.redsquare/min29. Direct public GET/hash/signature/package
 checks pass; immutable19 unchanged. Public-only records signed-preview21-published.
 Unpublished20 stays unpublished. No owned build/device run active.
-Next: resolve #31's real #16 provider dependency, then remaining independent work.
+#30 is CLOSED with completion comment6194696290. Final publication review0/0.
+#31 remains blocked by native #16: authorized Android Giphy key still unavailable;
+updated both tracker comments to narrow the old blanket reference-retention claim.
+
+**ACTIVE #40: bounded keyboard-open Chat usability under #35.** Basea35ff6c1.
+This independent defect slice is tracked as a native sub-issue of35, not final
+integrated/physical acceptance. New ChatKeyboardPreviewTest exercises actual
+visible IME, exact multiline draft, reachable native Send bounds, physical tap,
+one signed original/raw/Relay and full identity/backend restoration for private/
+group. First local compile running, then baseline Android17 red proof before
+production changes. No manifest/layout changes yet. Add photo/constrained cases
+and preserve all previous gates. Workflow gets focused chat-keyboard scopes and
+runs that class in full. No parallel ticket implementation.
 Do not pause or request routine approval. Protected untracked group contract stays
 untouched. Physical performance/current update and keyboard-open acceptance remain35.
 

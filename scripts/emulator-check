@@ -125,6 +125,15 @@ verify_group_chat_native() {
         > "$evidence/$capture.tar" || true
     [[ "$native_exit" == 0 ]] && grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/$prefix-ui.txt"
 }
+verify_chat_keyboard() {
+    verify_group_chat_native ChatKeyboardPreviewTest 90 chat-keyboard chat-keyboard-evidence
+}
+if [[ "${TEST_SCOPE:-full}" == chat-keyboard* ]]; then
+    verify_chat_keyboard
+    printf '%s\n' 'Focused actual keyboard-open Chat only; full acceptance not run.' > "$evidence/scope.txt"
+    exit 0
+fi
+if [[ "${TEST_SCOPE:-full}" == full ]]; then verify_chat_keyboard; fi
 verify_chat_image_storage() {
     verify_group_chat_native ChatImageHistoryStorageTest 180 chat-image-history chat-image-history-evidence
 }
