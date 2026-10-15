@@ -57,16 +57,15 @@ FirstprivateQUEUEDminimum1ac274ab compile20120PASS3m35; historymergefindingcorre
 28714c2151e72a544cb39f5ff8a093a8e9855041. Unclaimedoriginalstaysexclusivelyinwork,
 pendingbubbleonly; RawclaimedUNKNOWN, submittedthenordinarycache. Guardedcancel
 restorestextwithoutcacheentry. SeparatecorrectionSpec0/Standards0.
-Focused10run38662611803 at28714c21 FAILED onecase7.354s at55 label-inclusive
-assertTextEquals. Raw EditableText exactlymatchesintendedtext, Textalsoincludes
-Message label; originalQueued/cancelleddraftimagesseen. Recreate/cancelreached;
-laterno-bubble/reachablepeer/no-wiretailunexecuted. Correctedfixture45401dc3 uses
-exactEditableText matcher,samenode/expected/deadline, no productchange. Retained
-private-cancel-label-attempt-android10. CorrectedGREEN execution pending. No owned
-localbuild. No automatic/groupqueueyet. PreservelegacyexplicitUNKNOWN/SUBMITTED
-Retry,27STOPPEDhistoryandallpreviousfeatures.
+CorrectedprivatecancelGREEN10run38663341602 atac5c8608:1PASS15.786s,
+productidentical28714c21. ExactEditableText/cancel/noordinarybubble/reachablepeer
+zeroRaw/Relay/wallet/backendpreservation pass; originalcancelleddraftseen.
+Priorlabelattempt38662611803 1fail7.354s remainsqualified/retained; notdeliveryproof.
+New05ec671d adds2nd backgroundresumptiontracer, sharedfixture2realcallers: CREATED
+thenpeerreturns, originalRaw/Relay/decrypt/FWD/oneeach required,60s. Automatic
+implementationabsent; REDpending. No ownedlocalbuild. No groupqueueyet.
 
-NEXT afterprivatecancelGREEN: automatic/backgrounddelivery+immutable originals,
+NEXT: firstbackgroundRED then minimumautomaticdelivery+immutable originals,
 identity/backendpause/reconciliation/storagefailure, groupqueuewithfreshmembership,
 actualprocessdeath, finalfull10/17/twoaxisreviews/signednextbeta/closure28. Parent1
 approvedapplication/controlledpeer/protectedrecoveryseamsapply. Queueonlyexplicit
