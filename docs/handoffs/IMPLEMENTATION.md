@@ -96,11 +96,18 @@ private-wrong-archive-red-android10. ProposedRetryorderinghypothesisdidnotblockt
 run, noothercausalclaim. Minimumcompletionerrorfixnowapplied: clearonmatching
 incomplete→completeprogress, accuratecopyforpendingauto andrace-completedRetry;
 newSend/savefailureagainstoldercompletedrecordstaysvisible. Correction2d0ca6a7251277a35ac2ea3372c36681c1cde3fb separateSpec0/Standards0.
-Local61826ACTIVE debug/testbuild, noapp/testeditsuntilend. Focusednative10
-run38670045027 ACTIVE exact2d0ca6a7; no duplicate dispatch. GREENpending.
-Storage/groups/process/full28pending.
+Local61826PASS3m12s. Focusednative10run38670045027 exact2d0ca6a7 FAILED6cases
+5PASS/1FAIL164.035s, backendcaseopen70contactwait BEFOREfirstSend. Originalfeed
+PNG/XMLseen; disabled-wallet navigation/readinesshypothesisnotprovedcause.
+WrongArchive/completioncasePASSalltail, originalAvailablewithoutoldErrorseen.
+Otherfourcasespass. Retainedprivate-completion-navigation-attempt-android10.
+Fixture2f8ecec1 requiresdisplayed/enabledclicktarget+positiveGroupsdestination,
+same20s gates, noappchange. New7thSTORAGEregression obstructsprotectedfixturefile
+onlyafterdurabledraft, Sendmustpreservetext/noQueued; encryptedbytesrestoredfinally,
+repair/reopenmustnotautosend. No productionchange. Corrected7caseexecutionpending,
+no ownedbuild. Groups/process/full28stillpending.
 
-NEXT: review/build/verifycompletionerrorfix andqualifyfull6caseGREEN, thenstoragefailure,
+NEXT: review/verify ready-navigation+storage7cases, then groupqueues/freshmembership,
 groupqueuewithfreshmembership, actualprocessdeath, finalfull10/17/reviews/signed
 nextbeta/closure28. Parent1approvedapplication/controlledpeer/protectedrecoveryseams.
 Queueonlyexplicitmessages,noadmin/reaction/transferautosends. Continue28through36

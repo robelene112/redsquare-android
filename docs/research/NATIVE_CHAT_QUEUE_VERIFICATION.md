@@ -125,3 +125,10 @@ clickabledisplayed/enabledtarget +positiveGroupsdestination, same20s gates.
 WrongArchive/completionerrorcasePASSincludinglasttail; originalrecoveredcapture
 seen. Otherfourcasespass. Retainedprivate-completion-navigation-attempt-android10;
 no full6caseacceptance. Noappchangeforfixturecorrection.
+
+Add seventhexisting-guardregression alongside navigationfixturecorrection: wait
+actualdurabledraft, obstructonlyitsprotectedfixturefile withdirectory, Sendmust
+showrestorefailure andkeepexacttext/noQueued. Encryptedbytesremaininmemoryonly;
+finallyrestoresbeforefreshlaunch. Repair/reopenkeepsunsentdraft/noautomaticflag,
+reachablepeergetsnoRaw/Relayafter6s. No newproductsource; firstexecutionpending.
+Classallowance480s accommodatessevenunchangedpercasegates. Alloldassertsretained.

@@ -27,7 +27,9 @@ class ChatQueuePreviewTest {
 
     @Test fun aWrongArchivedOriginalIsRefusedAndACompletedRetryClearsItsOldError() = exercisePrivateQueue(PrivateQueueCase.WRONG_ARCHIVE)
 
-    private enum class PrivateQueueCase { CANCEL, BACKGROUND, BACKEND, IDENTITY, ARCHIVED, WRONG_ARCHIVE }
+    @Test fun failedQueueSavingKeepsTheDraftAndNeverBecomesAutomaticAfterRepair() = exercisePrivateQueue(PrivateQueueCase.STORAGE)
+
+    private enum class PrivateQueueCase { CANCEL, BACKGROUND, BACKEND, IDENTITY, ARCHIVED, WRONG_ARCHIVE, STORAGE }
     private fun exercisePrivateQueue(case:PrivateQueueCase) {
         val cancel=case==PrivateQueueCase.CANCEL
         val switchBackend=case==PrivateQueueCase.BACKEND
@@ -73,6 +75,40 @@ class ChatQueuePreviewTest {
                     }
                     open()
                     ui.onNode(hasSetTextAction() and isEnabled()).performTextReplacement(text)
+                    if(case==PrivateQueueCase.STORAGE) {
+                        val work=nl.davidengelen.redsquare.chat.ChatWorkStore(context,wallet,SaitoBackend.OWNER,contact)
+                        ui.waitUntil(20_000){try{work.load().draft==text}catch(_:Exception){false}}
+                        val file=File(context.noBackupFilesDir,"chatwork.owner.${wallet.publicKey}.${PrivateChat.conversationId(wallet.publicKey,contact)}.v1")
+                        val encrypted=synchronized(SaitoLocalState.lock) {
+                            check(!File(file.path+".bak").exists()&&!File(file.path+".new").exists())
+                            file.readBytes().also{check(file.delete()&&file.mkdir())}
+                        }
+                        val peer=ControlledFeedPeer("[]",advertisedServices="archive||;relay||",archiveResponse={"[]"})
+                        try {
+                            ui.onNodeWithText("Send").performClick()
+                            waitFor("Could not restore saved work. Reopen this conversation to try again.")
+                            ui.onNode(hasSetTextAction()).assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText,AnnotatedString(text)))
+                            ui.onAllNodesWithText("Queued").assertCountEquals(0)
+                            captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/private-storage-refused.png"))
+                        }finally {
+                            synchronized(SaitoLocalState.lock) {
+                                check(file.isDirectory&&file.list()!!.isEmpty()&&file.delete())
+                                file.writeBytes(encrypted)
+                            }
+                        }
+                        peer.start(port).use {
+                            scenario.recreate();open()
+                            ui.onNode(hasSetTextAction() and isEnabled()).assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText,AnnotatedString(text)))
+                            ui.waitUntil(20_000){peer.requests.get()>0}
+                            android.os.SystemClock.sleep(6_000)
+                            check(peer.transactions.isEmpty()&&peer.relayedMessages.isEmpty())
+                            check(work.load().let{it.draft==text&&it.transaction==null&&!it.automatic})
+                            check(wallets.loadExisting().exportJson()==wallet.exportJson()&&backends.load()==SaitoBackend.OWNER)
+                            peer.assertHealthy();alternate.assertHealthy()
+                            captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/private-storage-restored-draft.png"))
+                        }
+                        return@withFailureCapture
+                    }
                     ui.onNodeWithText("Send").performClick()
                     waitFor("Queued")
                     captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/private-$label-queued.png"))
