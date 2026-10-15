@@ -1,7 +1,9 @@
 # Corrected profile navigation, Android10
 
 Run38766527800 at46612a30 SUCCESS, with exact-property correctionb6885691.
-The four classes report7PASS32.586s,5PASS23.433s,2PASS16.948s,2PASS24.323s.
+The four classes report7PASS32.586s,5reported23.433s (4PASS plus the existing
+API29 modern-fault assumption),2PASS16.948s,2PASS24.323s. Total16reported,
+15PASS/1existingassumption, not16PASS.
 Core114 and debug/test assembly pass. Original import-warning, failed-save
 blocking, retained exact multiline bio, repair/retry and no-publication checks
 pass after platform IME dismissal and positive visible Wallet. Exact EditableText

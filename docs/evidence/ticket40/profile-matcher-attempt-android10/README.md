@@ -6,7 +6,8 @@ assertTextEquals compares merged Text=[Bio] alongside the actual EditableText.
 The raw semantics preserve the full expected multiline bio in both cases;
 visible Wallet was already observed. These are not lost-bio observations.
 Later import-warning/storage-block/repair/retry assertions in these two cases
-are unexecuted. The other classes pass5/23.037s,2/16.639s and2/23.565s.
+are unexecuted. The other classes report5/23.037s (4PASS plus the existing API29 modern-fault
+assumption),2PASS/16.639s and2PASS/23.565s.
 Profile process recovery is unexecuted after the accumulated class failure.
 Core114/debug/test assembly passed. No complete profile/full acceptance.
 

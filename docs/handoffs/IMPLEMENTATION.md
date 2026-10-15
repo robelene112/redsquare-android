@@ -82,8 +82,8 @@ Profile adaptation739/b688 dismisses typing before Wallet at two import
 safeguards and repaired retry; exact EditableText avoids merged label. Source
 reviews0/0; focused results follow. Profile10run38765277087 at739 FAILED two exact matcher checks: merged Bio
 label compared alongside preserved EditableText.5/7 pass19.449s; otherclasses
-5/2/2 pass; later import/process checks unexecuted. Retained matcher-attempt.
-Corrected profile10run38766527800 at46612a30 SUCCESS7/5/2/2PASS, core114,
+5/2/2 reported, including existing API29 assumption; later import/process checks unexecuted. Retained matcher-attempt.
+Corrected profile10run38766527800 at46612a30 SUCCESS7/5/2/2reported (15PASS+existingAPI29assumption), core114,
 debug/test and two actual profile process deaths/recovery. Root saw3 originals,
 3XML parsed; retained profile-navigation-green-android10. No app change.
 No production change; no acceptance from partial full.
@@ -129,7 +129,13 @@ bind/before-recreate/failure; assert distinctports before Activity launch. No
 hypothesizedrouting fix or timeout change. Source reviews0/0; local testAPKcompile
 PASS2m36s, exec53159 COMPLETE0, no owned local Gradle. Corrected focused profile10
 and diagnostic groupqueue17 dispatched at78cd1471: profiles10run38771450430,
-groupqueue17run38771453775 ACTIVE; actual results pending.
+groupqueue17run38771453775 ACTIVE; actual group result pending.
+Profiles10run38771450430 at78 SUCCESS:7/5/2/2reported,15PASS+existingAPI29
+modern-fault assumption;37.895/27/19.826/27.43s. Core114/debug/test and two actual
+profile deaths/recovery pass. Root saw3 originals,3XML parsed; retained profile-
+text-green-android10. Older focused profile OK5 summaries explicitly corrected
+from5PASS to4PASS+existingassumption, no raw result changed. Both complete fulls
+still required after group diagnosis.
 Public21 remains current; prepared22 unpublished. Full completion still required.
 No local Gradle/build process active. Production
 remains identical to720e2007/c0/prepared22; do not rebuild/re-reserve unnecessarily.
