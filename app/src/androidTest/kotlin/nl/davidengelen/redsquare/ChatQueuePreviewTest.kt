@@ -329,8 +329,9 @@ class ChatQueuePreviewTest {
                 ?.getInsets(androidx.core.view.WindowInsetsCompat.Type.systemBars())
             top=bars?.top ?: 0;bottom=bars?.bottom ?: 0
         }
+        val observed=device.wait(androidx.test.uiautomator.Until.findObject(androidx.test.uiautomator.By.text(action)),5_000L)
         captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/$kind-cancel-viewport-$stage.png"))
-        var target=requireNotNull(device.findObject(androidx.test.uiautomator.By.text(action))) {
+        var target=requireNotNull(observed) {
             "Chat action must have a physical target beneath the offline warnings: $action"
         }
         while(!target.isClickable)target=requireNotNull(target.parent){"Chat action has no clickable ancestor: $action"}

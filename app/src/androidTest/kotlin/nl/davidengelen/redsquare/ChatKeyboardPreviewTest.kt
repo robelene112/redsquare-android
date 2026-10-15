@@ -248,6 +248,9 @@ class ChatKeyboardPreviewTest {
                 { if(largeFont) {
                     fontDevice.executeShellCommand(if(priorFontSetting=="null")"settings delete system font_scale"
                         else "settings put system font_scale $priorFontSetting")
+                    check(fontDevice.executeShellCommand("settings get system font_scale").trim()==priorFontSetting) {
+                        "The exact original font setting must be restored"
+                    }
                     awaitFontScale(context,priorFontScale)
                 } })
         }
