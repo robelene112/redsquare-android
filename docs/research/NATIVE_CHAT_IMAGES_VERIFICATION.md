@@ -38,3 +38,13 @@ shared limit or silently prune cached history. Composition and queue semantics
 must preserve current text through selection, cancellation, failures, retry and
 reopening. Later group/send/failure slices follow actual results from this first
 viewer tracer. Provider GIFs remain31/16; closed-app pushes remain32–34.
+
+Tracer c22660f5 reviews: Spec1 expanded-view check only proved Close image,
+Standards1 possible duplicate scoped state lifecycle. Correction samples the
+expanded dialog's actual center RGB too, retaining the inline raster criterion.
+The existing scoped files/preferences helper moves verbatim into ChatFixtureState
+and is shared by mute/image cases; independent cleanup actions are unchanged.
+Default private-reference generation was reexecuted and is byte-identical to the
+existing asset, SHA256886ff62259151851e7a1131d264d805bd4c192f1e312b42376099c2711ee1c06.
+Owned first native RED run38711550116 exactc22660f5 is ACTIVE; no duplicate run.
+Its inline missing-image criterion is unchanged by the fixture correction.

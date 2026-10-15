@@ -49,7 +49,7 @@ class ChatMutePreviewTest {
         val originalBackend = backends.load()
         val prefixes = SaitoBackend.entries.flatMap { backend -> listOf("chat.${backend.id}.${wallet.publicKey}.",
             "chatwork.${backend.id}.${wallet.publicKey}.", "chatreactions.${backend.id}.${wallet.publicKey}.") } + "personal.${wallet.publicKey}."
-        val retained = MutingFixtureState(context, prefixes, wallet.publicKey)
+        val retained = ChatFixtureState(context, prefixes, wallet.publicKey)
         val alerts = FixtureAlerts(context)
         val reads = AtomicInteger()
         val peer = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", archiveResponse = { criteria ->
@@ -166,7 +166,7 @@ class ChatMutePreviewTest {
         val wallets = AndroidWalletStore(context); val original = wallets.loadOrCreate()
         val backends = AndroidBackendStore(context); val originalBackend = backends.load()
         val prefixes = SaitoBackend.entries.map { "groupchat.${it.id}.${wallet.publicKey}." } + "personal.${wallet.publicKey}."
-        val retained = MutingFixtureState(context, prefixes, wallet.publicKey)
+        val retained = ChatFixtureState(context, prefixes, wallet.publicKey)
         val alerts = FixtureAlerts(context)
         val reads = AtomicInteger()
         val peer = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", archiveResponse = { criteria ->
@@ -268,7 +268,7 @@ class ChatMutePreviewTest {
                 listOf("chat.${backend.id}.${wallet.publicKey}.", "chatwork.${backend.id}.${wallet.publicKey}.",
                     "chatreactions.${backend.id}.${wallet.publicKey}.", "groupchat.${backend.id}.${wallet.publicKey}.")
             } + "personal.${wallet.publicKey}."
-            MutingFixtureState(context, prefixes, wallet.publicKey)
+            ChatFixtureState(context, prefixes, wallet.publicKey)
         }
         val alerts = FixtureAlerts(context)
         val reads = java.util.concurrent.ConcurrentHashMap<String, AtomicInteger>()
@@ -500,34 +500,6 @@ class ChatMutePreviewTest {
             } while (android.os.SystemClock.elapsedRealtime() < until)
         }
         fun restore() { newAlerts().forEach { manager.cancel(it.tag, it.id) } }
-    }
-
-    /** Preserve only the explicit fixture scopes; cleanup actions remain independent of identity restoration. */
-    private class MutingFixtureState(private val context: android.content.Context,
-        private val prefixes: List<String>, owner: String) {
-        private val files = synchronized(SaitoLocalState.lock) {
-            context.noBackupFilesDir.listFiles()!!.filter { file -> prefixes.any(file.name::startsWith) }
-                .associate { check(it.isFile); it.name to it.readBytes() }
-        }
-        private val preferences = listOf("notification-permission" to "offered", "wallet-backup-reminders" to "hidden:$owner")
-            .map { (name, key) -> val prefs = context.getSharedPreferences(name, 0)
-                Triple(prefs, key, if (prefs.contains(key)) prefs.getBoolean(key, false) else null) }
-        fun prepare() {
-            synchronized(SaitoLocalState.lock) { files.keys.forEach { check(File(context.noBackupFilesDir, it).delete()) } }
-            preferences.forEach { (prefs, key, _) -> check(prefs.edit().putBoolean(key, true).commit()) }
-        }
-        fun restoreFiles() {
-            synchronized(SaitoLocalState.lock) {
-                context.noBackupFilesDir.listFiles()!!.filter { file -> prefixes.any(file.name::startsWith) }
-                    .forEach { check(it.isFile && it.delete()) }
-                files.forEach { (name, bytes) -> File(context.noBackupFilesDir, name).writeBytes(bytes) }
-            }
-        }
-        fun restorePreferences() {
-            preferences.forEach { (prefs, key, value) -> check(prefs.edit().apply {
-                if (value == null) remove(key) else putBoolean(key, value)
-            }.commit()) }
-        }
     }
 
     private fun click(target: SemanticsMatcher) {

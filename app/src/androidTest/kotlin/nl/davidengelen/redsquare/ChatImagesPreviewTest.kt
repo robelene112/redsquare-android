@@ -32,13 +32,7 @@ class ChatImagesPreviewTest {
         val prefixes = SaitoBackend.entries.flatMap { backend -> listOf("chat.${backend.id}.${wallet.publicKey}.",
             "chatwork.${backend.id}.${wallet.publicKey}.", "chatreactions.${backend.id}.${wallet.publicKey}.",
             "groupchat.${backend.id}.${wallet.publicKey}.") } + "personal.${wallet.publicKey}."
-        val savedFiles = synchronized(SaitoLocalState.lock) {
-            context.noBackupFilesDir.listFiles()!!.filter { file -> prefixes.any(file.name::startsWith) }
-                .associate { check(it.isFile); it.name to it.readBytes() }
-        }
-        val preferences = listOf("notification-permission" to "offered", "wallet-backup-reminders" to "hidden:${wallet.publicKey}")
-            .map { (name, key) -> val prefs = context.getSharedPreferences(name, 0)
-                Triple(prefs, key, if (prefs.contains(key)) prefs.getBoolean(key, false) else null) }
+        val retained = ChatFixtureState(context, prefixes, wallet.publicKey)
         val manager = context.getSystemService(android.app.NotificationManager::class.java)
         val originalAlerts = manager.activeNotifications.map { it.tag to it.id }.toSet()
         val reads = AtomicInteger()
@@ -50,8 +44,7 @@ class ChatImagesPreviewTest {
         val draft = "Keep this text while receiving a photo 😀"
         var primary: Throwable? = null
         try {
-            synchronized(SaitoLocalState.lock) { savedFiles.keys.forEach { check(File(context.noBackupFilesDir, it).delete()) } }
-            preferences.forEach { (prefs, key, _) -> check(prefs.edit().putBoolean(key, true).commit()) }
+            retained.prepare()
             wallets.replace(original, wallet); backends.save(SaitoBackend.OWNER)
             peer.start().use { server ->
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
@@ -66,6 +59,10 @@ class ChatImagesPreviewTest {
                             ui.onNodeWithText(contact).performClick()
                             ui.waitUntil(20_000) { displayed(hasSetTextAction() and isEnabled()) && reads.get() > before }
                         }
+                        fun assertRedRaster(target: SemanticsMatcher) {
+                            val bitmap = ui.onNode(target).assertIsDisplayed().captureToImage().asAndroidBitmap()
+                            assertEquals(0xffdc1e28.toInt(), bitmap.getPixel(bitmap.width / 2, bitmap.height / 2))
+                        }
                         fun photo() {
                             val image = hasContentDescription("Image 1 of 1")
                             ui.waitUntil(20_000) {
@@ -75,8 +72,7 @@ class ChatImagesPreviewTest {
                                 }
                                 displayed(image)
                             }
-                            val bitmap = ui.onNode(image).assertIsDisplayed().captureToImage().asAndroidBitmap()
-                            assertEquals(0xffdc1e28.toInt(), bitmap.getPixel(bitmap.width / 2, bitmap.height / 2))
+                            assertRedRaster(image)
                         }
                         fun assertDraft() {
                             val expected = hasSetTextAction() and isEnabled() and
@@ -93,6 +89,7 @@ class ChatImagesPreviewTest {
                         photo(); assertDraft(); capture("private-compatible-photo")
                         ui.onNodeWithContentDescription("Image 1 of 1").performClick()
                         ui.waitUntil(20_000) { displayed(hasText("Close image")) }
+                        assertRedRaster(isDialog())
                         capture("private-photo-expanded")
                         ui.onNodeWithText("Close image").performClick()
                         scenario.recreate(); open()
@@ -109,15 +106,9 @@ class ChatImagesPreviewTest {
             cleanupAfterTest(primary, {
                 manager.activeNotifications.filter { (it.tag to it.id) !in originalAlerts }.forEach { manager.cancel(it.tag, it.id) }
             }, {
-                synchronized(SaitoLocalState.lock) {
-                    context.noBackupFilesDir.listFiles()!!.filter { file -> prefixes.any(file.name::startsWith) }
-                        .forEach { check(it.isFile && it.delete()) }
-                    savedFiles.forEach { (name, bytes) -> File(context.noBackupFilesDir, name).writeBytes(bytes) }
-                }
+                retained.restoreFiles()
             }, { wallets.replace(wallets.loadOrCreate(), original) }, { backends.save(originalBackend) }, {
-                preferences.forEach { (prefs, key, value) -> check(prefs.edit().apply {
-                    if (value == null) remove(key) else putBoolean(key, value)
-                }.commit()) }
+                retained.restorePreferences()
             })
         }
     }
