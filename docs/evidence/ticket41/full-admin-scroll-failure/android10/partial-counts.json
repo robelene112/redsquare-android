@@ -1,0 +1,99 @@
+{
+  "passed": 64,
+  "failed": 2,
+  "completionRecords": 17,
+  "intentionalInterruptedLogs": [
+    "chat-mute-process/interrupted.txt",
+    "chat-photo-group-process/interrupted.txt",
+    "chat-photo-private-process/interrupted.txt",
+    "chat-queue-group-process/interrupted.txt",
+    "chat-queue-private-process/interrupted.txt"
+  ],
+  "records": [
+    {
+      "log": "appearance-ui.txt",
+      "passed": 1,
+      "failed": 0
+    },
+    {
+      "log": "chat-image-history-ui.txt",
+      "passed": 2,
+      "failed": 0
+    },
+    {
+      "log": "chat-images-ui.txt",
+      "passed": 10,
+      "failed": 0
+    },
+    {
+      "log": "chat-keyboard-ui.txt",
+      "passed": 10,
+      "failed": 0
+    },
+    {
+      "log": "chat-mute-process/recovered.txt",
+      "passed": 1,
+      "failed": 0
+    },
+    {
+      "log": "chat-mute-process/restored.txt",
+      "passed": 1,
+      "failed": 0
+    },
+    {
+      "log": "chat-mute-ui.txt",
+      "passed": 8,
+      "failed": 0
+    },
+    {
+      "log": "chat-photo-group-process/recovered.txt",
+      "passed": 1,
+      "failed": 0
+    },
+    {
+      "log": "chat-photo-group-process/restored.txt",
+      "passed": 1,
+      "failed": 0
+    },
+    {
+      "log": "chat-photo-private-process/recovered.txt",
+      "passed": 1,
+      "failed": 0
+    },
+    {
+      "log": "chat-photo-private-process/restored.txt",
+      "passed": 1,
+      "failed": 0
+    },
+    {
+      "log": "chat-queue-group-process/recovered.txt",
+      "passed": 1,
+      "failed": 0
+    },
+    {
+      "log": "chat-queue-group-process/restored.txt",
+      "passed": 1,
+      "failed": 0
+    },
+    {
+      "log": "chat-queue-private-process/recovered.txt",
+      "passed": 1,
+      "failed": 0
+    },
+    {
+      "log": "chat-queue-private-process/restored.txt",
+      "passed": 1,
+      "failed": 0
+    },
+    {
+      "log": "chat-queue-ui.txt",
+      "passed": 13,
+      "failed": 0
+    },
+    {
+      "log": "group-admin-ui.txt",
+      "passed": 10,
+      "failed": 2
+    }
+  ]
+}
