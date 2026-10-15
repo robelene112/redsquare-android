@@ -1,0 +1,42 @@
+{
+  "observedAt": "2026-10-15T21:39:20.915Z",
+  "reference": "bHQqvYy5KYo",
+  "scope": "Fresh desktop Chromium/local HTTP origin, NOT Android app or WebView acceptance",
+  "wrapperOrigin": "http://127.0.0.1:38689",
+  "mediaRequestsRewritten": false,
+  "appOrWalletAccess": false,
+  "autoplay": false,
+  "embedRequests": [
+    {
+      "origin": "https://www.youtube.com",
+      "path": "/embed/bHQqvYy5KYo",
+      "referrerOrigin": "http://127.0.0.1:38689"
+    }
+  ],
+  "browserVersion": "153.0.8010.12",
+  "beforePlay": {
+    "state": "ready",
+    "code": 0
+  },
+  "trustedPlayClicked": true,
+  "afterPlay": {
+    "state": "error",
+    "code": 150
+  },
+  "providerFrames": [
+    {
+      "origin": "https://www.youtube.com",
+      "reason": "Sign in to confirm you’re not a bot",
+      "subreason": "",
+      "video": [
+        {
+          "paused": true,
+          "readyState": 0,
+          "width": 0,
+          "height": 0
+        }
+      ]
+    }
+  ],
+  "collection": "complete"
+}
