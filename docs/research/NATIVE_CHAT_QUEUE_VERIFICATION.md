@@ -404,3 +404,11 @@ on827bf82e after both reviews; verify run ID/source before recording ownership.
 Corrected full17 ownership verified:38682943156 exact827bf82e06e5740250fadafcdeace70ed59a93b8,
 ACTIVE/public_feed_read=true. No source differences in app/core from e3edf successful
 source gates. Existing full10run38679330339 stillactive; no duplicated10 dispatch.
+
+Finalfull10run38679330339 exacte3edf SUCCESS335reported/334PASS+oneexistingAPI30
+profileassumption/76records/24actualdeaths; core114/release/lint/allpreviousgates/
+bothpublicfeeds pass.13queuePASS245.744s; privatePID371→555/group838→1173 exact
+originalautomaticonce/history/fullwalletbackend/keyorigin/restorationpass.
+Rootselectedoriginalqueue/recovery/removed/archived/scope/storagerepair/public
+capturesseen. Retainedfinal-full/android10,786hashes283XML; notAndroid17full/
+physical/storeacceptance. Productionequivalentoutstanding827bf82e, noappchange.

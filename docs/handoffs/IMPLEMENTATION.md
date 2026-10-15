@@ -174,7 +174,12 @@ Noappchange. Corrected827bf82e06e5740250fadafcdeace70ed59a93b8 full17run38682943
 ACTIVE public_feed_read=true. Localcompile actualDocker822b31b3132f exit0 verified
 via dockerwait7890 after client87100 ended143. Noownedlocalbuild or overlapping
 sourceedits; don'trerunduplicatecompile. Outstanding17full owns827bf82e.
-Full10 run38679330339 remains active on e3edf1c9. Production source is unchanged
+Full10run38679330339 at e3edf1c9 SUCCESS:335reported/334PASS+oneexistingAPI30
+profileassumption,76records24actualdeaths,core114/release/lint/allpriorgates and
+bothpublicfeeds pass.13queuePASS245.744s, actualprivatePID371→555/group838→1173,
+exactoriginalautomaticRawRelayonce/history/fullwalletbackend/groupkeyorigin/
+restorationpass. Rootoriginalsseen; retainedfinal-full/android10,786hash283XML,
+no secretmarkers. Boundedfinal10evidencereviewpending. Production source is unchanged
 from87accb13 across both acceptance revisions. Retain a passed10 if only the
 17 test fixture changes, as allowed by WORKFLOW.md. No duplicate dispatch.
 All13 queue cases, both actual queued PID journeys and previous gates remain
