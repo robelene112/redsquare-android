@@ -82,7 +82,7 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
         when (saved.status) {
             ChatWorkStore.Status.QUEUED -> {
                 val pending=remember(saved.transaction){PrivateChat.read(wallet,requireNotNull(saved.transaction).envelope(),contact)}
-                ChatMessageBubble(pending.author,pending.text,pending.createdAt,outgoing=true)
+                ChatMessageBubble(pending.author,pending.text,pending.createdAt,outgoing=true,onQuote={})
                 Text(stringResource(R.string.chat_queued))
                 TextButton(enabled=ready&&!sending,onClick={
                     sending=true
