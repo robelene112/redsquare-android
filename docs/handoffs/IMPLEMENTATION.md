@@ -48,80 +48,58 @@ exacthash/directsignature/package/version/min29 andimmutable16 verified. Public-
 records docs/evidence/ticket27/signed-preview17-published. Preparedrecordsremain
 historical. No ownedlocalbuild/proofactive. No node/service/ingress/storechanges.
 
-## Active #28: offline private and group Chat queue
+## #28 complete, signed18 published
 
-Assigned @me. Review base09e0c58d7f51dcc334a35d7ac28ecc77a61d48ef;
-native blockers11/25/26 closed. Canonical implementation and verification
-chronology: docs/research/NATIVE_CHAT_QUEUE_VERIFICATION.md. Earlier failures,
-corrections and bounded reviews remain there and under docs/evidence/ticket28.
-Do not repeat already accepted focused checks.
+Persistent private/group Chat queues are complete. Reviewbase09e0c58d;
+productionsource87accb13. Explicit Send queues encrypted original work, cancellation
+restores exact draft before claim, automatic workers preserve original wallet/
+backend and fresh group authority, exact authenticated Archive reconciliation
+avoids another raw/Relay. Legacy manual work is not admitted. No automatic
+admin/reaction/transfer sends. Canonical chronology NATIVE_CHAT_QUEUE_VERIFICATION.md.
 
-Production source last changed87accb13725f81fcc34baa2e7100527a31313aa4.
-Whole source09e0...31bed Spec0/Standards0; subsequent fault fixture0dfa and
-pending-bubble ordering87acc corrections also Spec0/Standards0. Queues retain
-original identity/backend, cancel to exact draft before claim, resume through
-existing worker/foreground guard, reconcile exact authenticated Archive original,
-and enforce fresh group authority. Legacy manual attempts are not admitted.
-Only explicitly sent messages auto-resume, never admin actions/reactions/transfers.
+Final10full38679330339 SUCCESS at e3edf1c9:335reported334PASS plus one existing
+API30profileassumption,76records24actualdeaths/core114/release/lint/allprevious
+app/PID/publicreads.13queue245.744s/privatePID371→555/group838→1173 exactautomatic
+originalonce/history/fullwalletbackend/keyorigin/restoration pass.
+Final17full38682943156 at827bf82e: ALL336applicationcases PASS/77records24deaths,
+13queue280.698s/private5199→5268/group5372→5443 allsamecontinuity. Overallrun
+remainsFAILED at laterimmutable5→8 finalcoldWalletobserver (lastXMLChrome,
+precisecauseunproved/noPNG). Correctedrelease-tail10run38687875184 and17run
+38687877592 SUCCESS at968d6a65, eachcore114/release/lint/coldwallet2/immutable5→8
+four nativeidentityobservations/finaldiagnostic. ReviewedWORKFLOW exception keeps
+failedconclusion andjoinscompleteapp+tailproof with unchangedproduction/assertions.
+No actualapplicationgate skipped. FINAL_ACCEPTANCE.md records all four runs.
 
-**Android10 final accepted:** run38679330339 SUCCESS at exact
- e3edf1c971c25f49d5b793d98cfb2de85dd70aac, public_feed_read=true.335reported cases:
-334PASS plus one existing API30 profile assumption;76records24actual deaths;
-core114/debug/test/release/lint/allprevious gates/both publicfeeds PASS.
-Queue13PASS245.744s. PrivatePID371→555/group838→1173 prove cold automatic
-identical raw/Relay once, exact history/full wallet/backend and group key/origin,
-truthful Forwarded UI and restoration. Retained final-full/android10,
-786hash283XML, no secretmarkers. Root originals inspected; final evidence
-Spec0/Standards0, independently recounted and verified by both reviewers.
+Whole source and bounded corrections Spec0/Standards0. Final10 evidence786hash283XML,
+17application790hash286XML, bothtails31hash8XMLeach andprepared18fourhashes all
+independentlyverified. Finaljoinedreview968...83b4 Spec0/Standards0/closureblockers0.
+Rootoriginalsseen, no secretmarkers/protectedsnapshots retained.
 
-**Android17 combined evidence complete, final review pending:** full application
-run38682943156 FAILED overall at827bf82e, but ALL336appcases/77records24actual
-deaths/core114/release/lint/allpriorgates/bothpublicfeeds PASS.13queue280.698s,
-privatePID5199→5268/group5372→5443 exactoriginalautomaticonce/history/fullwallet/
-backend/groupkeyorigin/restoration. Laterimmutable5→8finalcoldWalletobserverfailed;
-lastXMLChrome, nofailurePNG/causeproof. Retained790hash286XML, bothreviews0/0.
-OriginalfullrunremainsFAILED.
+Signed18/0.1.18 published at https://davidengelen.nl/redsquare/. Exacttested827bf82e,
+SHA48386e0e461666f9e14e70feb947624dba8fcc689c4fd27890ed846980b58d2c;
+cert6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2,
+package nl.davidengelen.redsquare/min29 unchanged. Publicpage/latest/release18
+manifest/APKdownload/hash/directsignature/package/version/min29 andimmutable17
+verified; public-onlyrecords signed-preview18-published. Noownedlocalbuild/proof
+active. Exactsourceworktree /mnt/storage/redsquare-android-artifacts/queue28-review-source
+retains signed18 artifacts. No node/service/ingress/store changes. Physical Pixel
+and actual17→18deviceupdate remain35, not inferred from emulator metadata.
 
-Correctedrelease-tail10run38687875184 and17run38687877592 SUCCESS at exact
-968d6a65a43b6b702fb5989063ce3aec1a2b9e70. Each core114/debug/test/release/lint,
-coldwallet2 plus signed5→8four native public-address observations/exactidentity
-and finaldiagnosticPASS. NativeUiObject2 observer preservesemulatorguards and
-identityassertions. Retained release-tail/android10and17 each31hash8XML, root
-originalsseen/no secretmarkers. Allapp/core/build/review scripts unchanged from
-accepted10e3edf to827/968; onlyfixtures/orchestration/docs. ReviewedWORKFLOW
-exceptionrequirescompletepriorappgates+unchangedassertions+bothactualruns reviewed,
-neverlabelsFAILEDfullSUCCESS. Source/correctionreviewsSpec0/Standards0.
-Finalcombinedtail/artifactreviewpending; noownedlocalbuild/proofactive.
+NEXT: finish publication-record review and trackerclosure28, then claim29 and
+implement conversation mute sequentially. Owner authorizes allremainingissues,
+no pause or routineconfirmation. Read-only next-ticket orientation is locally
+.scratch/next-chat-ticket-orientation.txt. Protected preexisting untracked
+NATIVE_GROUP_CHAT_CONTRACT.md untouched.
 
-**Signed18 prepared, unpublished:** exact-source detached worktree
-/mnt/storage/redsquare-android-artifacts/queue28-review-source at827bf82e.
-Canonical review-build1254 PASS, release20s from cache; version18/0.1.18,
-package nl.davidengelen.redsquare/min29 and established cert unchanged.
-APK .scratch/review-builds/18/redsquare.apk in that worktree;
-SHA48386e0e461666f9e14e70feb947624dba8fcc689c4fd27890ed846980b58d2c.
-Public metadata retained signed-preview18-prepared. Public17 remains unchanged.
-Hold publication until full17 acceptance. Prepared public verifier:
-.scratch/verify-chat28-public18.py, not executed. Notes .scratch/chat28-preview18-notes.txt.
-
-NEXT: final two-axis review of joined tails/FINAL_ACCEPTANCE.md/prepared18,
-then publish18 with scripts/review-publish and direct public verifier
-.scratch/verify-chat28-public18.py. Preserve immutable17. Record/close28, then
-continue29 and remaining tickets without another owner confirmation.
-No whole28/physical/store acceptance before those steps. No next ticket claimed.
-Protected preexisting untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md untouched.
-
-Read-only independent external rechecks at e3edf, both reviewed0/0:
-Registry10run38681076101 report PASS1/1.853s, but both authenticated backends have
-zero hints and unusable21-byte namecheck responses. #19 registration unproved.
-YouTube10run38681078177 fails Playing after public Play;1failure52.838s. Original
-refusal copy maps101/150, numeric code/cause unproved. #17 playback unaccepted.
-Retained ticket19/public-oct15-recheck/android10 (4hash) and equivalent ticket17
-(11hash2XML). No production writes; neither counts as28 acceptance. No redispatch.
-Read-only follow-on orientation .scratch/next-chat-ticket-orientation.txt and
-current Google primary policy notes .scratch/play-oct15-orientation.md remain local.
-16/31 need Android Giphy authorization/retention;32–34 need actual closed-app
-infrastructure, not a permission-only proof.35 needs physical Pixel;36 actual
-Play account/setup and reviewable release package.38 branding is not a release blocker.
+Parked external prerequisites:16/31 AndroidGiphykeyauthorization/retention;
+17 actual publicYouTubePlaybackrefusal;19 Registryregistrationavailability.
+Oct15read-only rechecks38681076101/38681078177 retained/qualified/reviewed0/0:
+RegistryreportPASS stillunusable21byte namechecks; YouTubePlayingfailed with
+providerrefusalcopy, numericcode/causeunproved. Neither is featureacceptance.
+32–34 need actualclosed-app delivery infrastructure and privacy/category/mute
+proof;35 physicalPixel;36 actualPlaysetup/reviewablepackage/publicationapproval.
+38 branding explicitly not releaseblocker. CurrentGoogleprimarypolicy orientation
+.scratch/play-oct15-orientation.md is local, reverify when implementing36.
 
 Storage migration observed Docker data now bind-mounted from /mnt/storage/docker;
 repo/.scratch remains on the system disk,63GiB free versus158GiB onadditional disk.

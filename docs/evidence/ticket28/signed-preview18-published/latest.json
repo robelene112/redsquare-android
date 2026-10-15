@@ -1,0 +1,10 @@
+{
+  "versionCode": 18,
+  "versionName": "0.1.18",
+  "applicationId": "nl.davidengelen.redsquare",
+  "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+  "sha256": "48386e0e461666f9e14e70feb947624dba8fcc689c4fd27890ed846980b58d2c",
+  "commit": "827bf82e06e5740250fadafcdeace70ed59a93b8",
+  "apkUrl": "https://davidengelen.nl/redsquare/releases/18/redsquare.apk",
+  "notes": "Offline messages now wait safely in private and group Chat and resume automatically when your original wallet and server are active again. You can cancel a queued message back into its draft before sending. Reopening the app preserves queued work and existing conversations. Messages already available on the server are reconciled without creating another send attempt. Group messages respect current membership. Forwarded and Available statuses do not confirm recipient delivery.\n\nInstall this update over your existing Red Square app to preserve its wallet and local data. Do not uninstall first. Android 10 and newer.\n"
+}

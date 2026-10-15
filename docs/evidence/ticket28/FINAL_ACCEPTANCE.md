@@ -1,7 +1,7 @@
 # Chat queue final acceptance evidence
 
-Combined evidence is complete and awaits final two-axis review. Public preview18
-remains held until review; this document does not close #28 by itself.
+Combined runtime evidence clears final review on both axes. Signed preview18
+is published and directly verified; see signed-preview18-published.
 
 | Proof | Run and source | Observed result |
 | --- | --- | --- |
@@ -43,5 +43,5 @@ No private-key/password markers or device-only encrypted snapshots retained.
 
 Whole source09e0c58d...31bed4e7 and subsequent bounded fixes clear both review
 axes. Final10 and full17 application evidence also clear both axes. The final
-joined tails/prepared-artifact review is pending. No physical Pixel performance,
+joined tails/prepared-artifact review968d6a65...83b4a3c6 reports Spec0/Standards0. No physical Pixel performance,
 actual preview17→18 device install, store or production-node acceptance inferred.
