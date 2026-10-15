@@ -1249,3 +1249,11 @@ Spec0/Standards0 bounded source+RED evidence reviews; stale preceding run status
 corrected. Focused10GREENattempt38690473150 exactafab15302d3cfaad137db95496754ae59f7cfa1f
 ACTIVE. No ownedlocalbuild. Group/notification/failure/process and final gates
 stillpending; #29 remainsopen, stablepublicsigned18unchanged.
+
+#29 latest: 38690473150/afab FAILED exactdraft afterrecreate89 (enabledempty),
+prior mute/live/readable/exactdraft and recreatedmute/cache pass;8hash2XMLretained.
+Fixture4f9cb3a1 exactdraft20swait preservesassertions, bothreviews0regression,
+localtestcompilePASS1m45s. Owned focused10run38691358098 ACTIVEexact4f9.
+Specnotes concrete preexisting300ms autosave/no-lifecycleflush exposure, cause
+unproved. If fails, protecteddraft before/afterrecreate diagnosticnext. Noowned
+localbuild; notification/group/fullacceptanceremains. Publicsigned18unchanged.

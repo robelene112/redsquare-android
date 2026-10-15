@@ -44,3 +44,11 @@ exactdraft and recreatedsavedmute/cache text pass. Retainedprivate-control-draft
 attempt-android10(8hash2XML); unmute/no-wiretailunexecuted. Fixture now waits20s
 for unchanged exactEditableText+enabled before asserting. Source supports a
 transition hypothesis only; no product draft fix/notification acceptance claimed.
+
+Reopened exact-draft wait4f9cb3a1: localtestcompilePASS1m45s, Standards0/Spec
+no regression. Spec identified existing lifecycle exposure: remember-only text,
+300ms autosave, no lifecycle flush. Current failure composer was enabled; Archive
+Loadingmessages does not prove draft initialization unfinished. Actual cause
+stillunproved. Focused10run38691358098 exact4f9cb3a1a24caf6e3846a4914f084c06fa623156
+ACTIVE. If exactwaitfails, compare protected durable draft before/after recreate
+while retaining exact final UI criterion. No duplicate dispatch/localbuildactive.
