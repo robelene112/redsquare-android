@@ -17,6 +17,11 @@ internal class ChatHistoryStore(context: Context, private val wallet: SaitoWalle
 
     fun load(): Read = synchronized(SaitoLocalState.lock) { read(originals()) }
 
+    /** Retained authenticated originals stay seen even if their older keys cannot decrypt them now. */
+    fun containsOriginal(id: String): Boolean = synchronized(SaitoLocalState.lock) {
+        originals().any { authenticated(it).id == id }
+    }
+
     private fun originals(): List<String> {
         val contents = file.load() ?: return emptyList()
         require(contents.version == 1.toByte())

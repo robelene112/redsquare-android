@@ -96,3 +96,14 @@ pollingzero-alertobservation afterACK andaftercachedunmute, plusreopenedabsence;
 sharedidentity/backend/no-wire/peerhealthpostconditionhelper. PositiveOSalert
 assertionsunchanged. OwnedfirstRED38693284699 exactcc74746c remainsactive; its
 baselinealertcriterionunchanged, no duplicate dispatch. No productionnotifpathyet.
+
+ActualnotificationRED10run38693284699 exactcc74746c:2cases1PASS/1FAIL30.514s,
+positiveincoming/ACK thenmissingactualalert82/20s; shade/privacy/categorytail
+unexecuted. Retainedprivate-alert-red-android10(12hash4XML), originalfailureseen.
+Reviewed84f8e98a silenceobservationfixSpec0/Standards0. Minimumliveprivatealert
+nowretainsbeforeoptionalnotification, authenticatesseenoriginalIDsincluding
+unreadableoldciphertext, checksfreshpublicidentity/backend anddurablepolicy
+underlock, skipsmuted/block/self/permissionfailures. GenericNewmessage/category
+privatechats, nativecontentIntent, no secretpayload. Archive/reactionsremain
+silent; notificationerrors donotnegativeACK savedmessages. No group/closed-app
+notificationacceptance. Sourcecompile/reviews/correctednativeGREENpending.

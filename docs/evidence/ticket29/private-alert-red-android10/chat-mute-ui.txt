@@ -1,0 +1,70 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatMutePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ChatMutePreviewTest:
+INSTRUMENTATION_STATUS: test=anUnmutedPrivateMessageShowsAGenericAndroidNotification
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatMutePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.exercisePrivateMute$lambda$26$lambda$25$lambda$24(ChatMutePreviewTest.kt:82)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.$r8$lambda$Yz8AMrCEqRkx3YF1xBOq3bquQiY(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest$$ExternalSyntheticLambda12.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.exercisePrivateMute(ChatMutePreviewTest.kt:70)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.anUnmutedPrivateMessageShowsAGenericAndroidNotification(ChatMutePreviewTest.kt:23)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anUnmutedPrivateMessageShowsAGenericAndroidNotification(nl.davidengelen.redsquare.ChatMutePreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.exercisePrivateMute$lambda$26$lambda$25$lambda$24(ChatMutePreviewTest.kt:82)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.$r8$lambda$Yz8AMrCEqRkx3YF1xBOq3bquQiY(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest$$ExternalSyntheticLambda12.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.exercisePrivateMute(ChatMutePreviewTest.kt:70)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.anUnmutedPrivateMessageShowsAGenericAndroidNotification(ChatMutePreviewTest.kt:23)
+
+INSTRUMENTATION_STATUS: test=anUnmutedPrivateMessageShowsAGenericAndroidNotification
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatMutePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=privateConversationMuteKeepsIncomingMessagesAndTheDraftAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatMutePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=privateConversationMuteKeepsIncomingMessagesAndTheDraftAfterReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 30.514
+There was 1 failure:
+1) anUnmutedPrivateMessageShowsAGenericAndroidNotification(nl.davidengelen.redsquare.ChatMutePreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.exercisePrivateMute$lambda$26$lambda$25$lambda$24(ChatMutePreviewTest.kt:82)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.$r8$lambda$Yz8AMrCEqRkx3YF1xBOq3bquQiY(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest$$ExternalSyntheticLambda12.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.exercisePrivateMute(ChatMutePreviewTest.kt:70)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.anUnmutedPrivateMessageShowsAGenericAndroidNotification(ChatMutePreviewTest.kt:23)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

@@ -29,6 +29,12 @@ internal fun receiveChat(context: Context, wallet: SaitoWallet, backend: SaitoBa
         return contact
     }
     val received = PrivateChat.recover(wallet, envelope)
-    ChatHistoryStore(context, wallet, backend, received.counterparty).save(listOf(envelope))
+    val newMessage = synchronized(SaitoLocalState.lock) {
+        val history = ChatHistoryStore(context, wallet, backend, received.counterparty)
+        val unseen = !history.containsOriginal(received.message.id)
+        history.save(listOf(envelope))
+        unseen
+    }
+    if (newMessage) notifyPrivateChat(context, wallet, backend, received.message)
     return received.counterparty
 }
