@@ -35,6 +35,26 @@ for ((attempt=0; attempt<120; attempt++)); do
     sleep 5
 done
 [[ "$(adb shell getprop sys.boot_completed | tr -d '\r')" == 1 ]] || { echo 'Emulator boot timed out' >&2; exit 1; }
+# This unrelated bundled app displayed a crash dialog over a focused API37 test.
+# Isolate only that exact system package on disposable emulators. App failures
+# remain visible, and phone/production package state is never changed here.
+if [[ "$TEST_DEVICE_API" == 37.0 ]]; then
+    [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+    wellbeing_package=com.google.android.apps.wellbeing
+    wellbeing_installed=$(timeout 15 adb shell pm list packages "$wellbeing_package" | tr -d '\r')
+    if [[ "$wellbeing_installed" == "package:$wellbeing_package" ]]; then
+        timeout 15 adb shell am force-stop "$wellbeing_package"
+        timeout 15 adb shell pm disable-user --user 0 "$wellbeing_package" > "$evidence/wellbeing-disable.txt"
+        grep -Fq 'new state: disabled-user' "$evidence/wellbeing-disable.txt"
+        timeout 15 adb shell pm list packages -d "$wellbeing_package" | tr -d '\r' > "$evidence/wellbeing-disabled-package.txt"
+        grep -Fxq "package:$wellbeing_package" "$evidence/wellbeing-disabled-package.txt"
+    elif [[ -z "$wellbeing_installed" ]]; then
+        printf '%s\n' "$wellbeing_package not installed" > "$evidence/wellbeing-disable.txt"
+    else
+        echo 'Unexpected exact-package lookup for Digital Wellbeing' >&2
+        exit 1
+    fi
+fi
 adb shell input keyevent 82
 # Keep the isolated test display awake while instrumentation hands control back
 # to ordinary cold launches. This does not change the installed app's behavior.

@@ -101,6 +101,10 @@ the owner chooses whether to start it. It is not required for every app-wide gri
    This avoids repeating five unchanged queue cases on each fixture correction;
    `chat-queue-group`, complete queue and final full scopes retain all cases.
    Per-assertion deadlines and the180second focused class bound stay explicit.
+   API37 disposable emulators exclude only the exact installed Digital Wellbeing
+   package after a retained unrelated-system crash interrupted window focus.
+   Presence/disable state is recorded; Red Square crashes and ANRs remain failures.
+   This does not change physical-phone state or establish device compatibility.
    Push automation runs core tests, APK assembly (including release) and lint.
    Dispatch focused device runs during development and one full Android 10/17
    run for final acceptance. A successful push source check is not runtime
