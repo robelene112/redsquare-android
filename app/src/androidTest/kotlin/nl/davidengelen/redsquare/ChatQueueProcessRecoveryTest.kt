@@ -44,6 +44,7 @@ class ChatQueueProcessRecoveryTest {
 
     @Test fun terminateAfterExplicitOfflineSendWithItsOriginalStillQueued() {
         check(!checkpoint.exists()&&!originals.exists())
+        stage("starting")
         val captures=File(context.cacheDir,"chat-queue-process-evidence")
         check(!captures.exists()||captures.deleteRecursively())
         val wallets=AndroidWalletStore(context)
@@ -65,6 +66,7 @@ class ChatQueueProcessRecoveryTest {
             val file=File(context.noBackupFilesDir,name);check(!file.exists()||file.delete())
         }}
         wallets.replace(original,fixture)
+        stage("fixture-installed")
         preferenceKeys().forEach{(name,keyName)->check(context.getSharedPreferences(name,0).edit().putBoolean(keyName,true).commit())}
         val incoming=if(kind=="private")PrivateChat.create(other,fixture.publicKey,cachedText,1700000123401) else {
             val store=GroupChatStore(context,fixture,backend)
@@ -81,18 +83,23 @@ class ChatQueueProcessRecoveryTest {
             if(kind=="private")ChatWorkStore(context,fixture,backend,other.publicKey).saveDraft(text)
             else GroupChatStore(context,fixture,backend).saveDraft(key.publicKey,text)
         }
+        stage("cached-history-ready")
         val port=java.net.ServerSocket(0,1,java.net.InetAddress.getByName("127.0.0.1")).use{it.localPort}
         launch(port){
-            open();ui.waitUntil(20_000){displayed(hasSetTextAction() and isEnabled())}
+            stage("activity-launched")
+            open();stage("conversation-open")
+            ui.waitUntil(20_000){displayed(hasSetTextAction() and isEnabled())}
             if(photo)assertPhoto() else ui.onNode(hasSetTextAction() and isEnabled()).performTextReplacement(text)
+            stage("photo-preview-ready")
             androidx.test.espresso.Espresso.closeSoftKeyboard()
-            click("Send");waitFor("Queued")
+            click("Send");waitFor("Queued");stage("queued-visible")
             val candidate=queued(backend)
             row.addProperty("candidate",candidate.id);row.addProperty("candidateDigest",digest(candidate.envelope()))
-            assertPending(row,backend)
+            assertPending(row,backend);stage("queued-persisted")
             if(photo)assertPhoto()
             capture("queued-before-death.png")
             row.addProperty("phase","pending");writeCheckpoint(row)
+            stage("before-death")
             Process.killProcess(Process.myPid());error("Expected actual process termination")
         }
     }
@@ -139,8 +146,12 @@ class ChatQueueProcessRecoveryTest {
         assertEquals(row.get("originalWalletDigest").asString,digest(AndroidWalletStore(context).loadExisting().exportJson()))
         assertEquals(backend,AndroidBackendStore(context).load())
         check(originals.deleteRecursively());check(checkpoint.delete())
+        if(photo)File(context.cacheDir,"chat-queue-process-stage.txt").let{check(!it.exists()||it.delete())}
     }
 
+    private fun stage(value:String) {
+        if(photo)File(context.cacheDir,"chat-queue-process-stage.txt").outputStream().use{it.write(value.toByteArray());it.fd.sync()}
+    }
     private fun queued(backend:SaitoBackend):SaitoTransaction = if(kind=="private") {
         val saved=ChatWorkStore(context,fixture,backend,other.publicKey).load()
         assertEquals(ChatWorkStore.Status.QUEUED,saved.status);assertEquals("",saved.draft)

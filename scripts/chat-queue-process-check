@@ -65,6 +65,15 @@ try:
         (', native photo pixels' if args.photo else '') + ' and delivery unconfirmed.\n')
 except BaseException as failure:
     primary = failure
+    if args.photo:
+        try:
+            stage = adb('exec-out', 'run-as', package, 'cat', 'cache/chat-queue-process-stage.txt', check=False, timeout=10)
+            if stage.returncode == 0 and re.fullmatch(r'[a-z-]{1,40}', stage.stdout.strip()):
+                (args.evidence / 'failure-stage.txt').write_text(stage.stdout.strip() + '\n')
+            if isinstance(failure, subprocess.TimeoutExpired):
+                adb('shell', 'am', 'force-stop', package, check=False, timeout=10)
+        except BaseException as diagnostic:
+            failure.add_note('Photo stage diagnostic failed: ' + type(diagnostic).__name__)
     raise
 finally:
     finish_process_fixture(instrument, args.evidence, package, 'chat-queue-process-evidence', primary)
