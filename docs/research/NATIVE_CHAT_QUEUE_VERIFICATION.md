@@ -346,3 +346,9 @@ PIDjourneys/expecteddeathincrement; actualcountsandhashesnotyetclaimed.
 
 Local47712app+testcompile PASS2m53s exact87acc/equivalente3edf. Noownedlocalbuild.
 Finalfull10/17remainACTIVE; no completedruntime/finalcountsclaimyet.
+
+Preparedexacte3edfacceptancesourceworktreeonadditionaldisk:
+/mnt/storage/redsquare-android-artifacts/queue28-review-source, Gradlecachelinkto
+maintainedmaincache. Unsignedpreview18releasecachebuild16011ACTIVEwithsamepreview
+versionflagsasreview-build; noversionreservation/signature/publication. Noother
+ownedlocalbuild/app/testeditsuntildone. Holdpublicationuntilfullruntimeacceptance.

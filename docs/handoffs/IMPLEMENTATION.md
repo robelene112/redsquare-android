@@ -158,7 +158,10 @@ no protocol/persistencechange. Local47712app+testcompilePASS2m53sexact87accb13/e
 10run38679330339 ACTIVE/17run38679332827 ACTIVE, bothpublic_feed_read=true. Full
 includesall13queuecases+bothPIDjourneys, no redundantfocusedrerun. Allnative/
 core114/release/lint/previousPID/publicreadsrequired. Finalcountsnotyetclaimed.
-Fullretainerprepared.scratch/retain-chat28-final-full.py. Signednextstill18unbuilt.
+Fullretainerprepared.scratch/retain-chat28-final-full.py. Exacte3edfworktree/mnt/storage/redsquare-android-artifacts/queue28-review-source
+preparedonadditionaldisk(sharedmainGradlecachelink). Unsignedpreview18releasecache
+build16011ACTIVEwithreview-buildflags, noversionreservation/signature/publication.
+No otherownedlocalbuild/app/testeditsuntildone. Holdpublicationuntilfullacceptance.
 Addedremainingstoragefailure+identity/backendscoperegressions, noappchanges;
 focusedgroup6/fullclass13 firstexecutionpending. Groupappsource65c57b5c.
 Groupappminimumebd9f700 applied, notyetaccepted. Groups/process/full28stillpending.
