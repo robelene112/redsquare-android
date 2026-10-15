@@ -99,6 +99,7 @@ class ChatQueuePreviewTest {
                     open()
                     ui.waitUntil(20_000){displayed(hasSetTextAction() and isEnabled())}
                     ui.onNode(hasSetTextAction() and isEnabled()).performTextReplacement(text)
+                    androidx.test.espresso.Espresso.closeSoftKeyboard()
                     if(case==GroupQueueCase.STORAGE) {
                         ui.waitUntil(20_000){try{store.load(key.publicKey)?.draft==text}catch(_:Exception){false}}
                         val file=File(context.noBackupFilesDir,"$prefix${key.publicKey}.v1")
@@ -127,7 +128,7 @@ class ChatQueuePreviewTest {
                         }
                         return@withFailureCapture
                     }
-                    ui.onNodeWithText("Send").assertIsEnabled().performClick()
+                    clickWhenReady("Send")
                     waitFor("Queued")
                     captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/group-$label-queued.png"))
                     scenario.recreate();open();waitFor("Queued")
@@ -436,7 +437,8 @@ class ChatQueuePreviewTest {
         var encrypted:ByteArray?=null
         var primary:Throwable?=null
         try {
-            ui.onNodeWithText("Send").assertIsEnabled().performSemanticsAction(SemanticsActions.OnClick){click->
+            androidx.test.espresso.Espresso.closeSoftKeyboard()
+            readyAction("Send").performSemanticsAction(SemanticsActions.OnClick){click->
                 synchronized(SaitoLocalState.lock) {
                     check(!File(file.path+".bak").exists()&&!File(file.path+".new").exists())
                     encrypted=file.readBytes()
@@ -452,10 +454,11 @@ class ChatQueuePreviewTest {
         }})}
     }
     private fun waitFor(text:String)=ui.waitUntil(20_000){ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()}
-    private fun clickWhenReady(text:String) {
+    private fun readyAction(text:String):SemanticsNodeInteraction {
         val target=hasText(text) and hasClickAction() and isEnabled()
         ui.waitUntil(20_000){displayed(target)}
-        ui.onNode(target).assertIsDisplayed().assertIsEnabled().performClick()
+        return ui.onNode(target).assertIsDisplayed().assertIsEnabled()
     }
+    private fun clickWhenReady(text:String) {readyAction(text).performClick()}
     private fun displayed(target:SemanticsMatcher)=try{ui.onNode(target).assertIsDisplayed();true}catch(_:AssertionError){false}
 }

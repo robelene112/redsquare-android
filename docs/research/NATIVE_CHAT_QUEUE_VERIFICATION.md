@@ -356,3 +356,17 @@ ownedlocalbuild/app/testeditsuntildone. Holdpublicationuntilfullruntimeacceptanc
 Unsignedpreview18cachebuild16011 PASS3m40s onexacte3edfsourceworktree. Artifact
 app/build/outputs/apk/release/app-release-unsigned.apk, noversionreservation or
 signature/publication. Noownedlocalbuild. Full10/17stillruntimeACTIVE.
+
+Full17attempt38679332827 exacte3edf FAILEDqueueclass13:8PASS/5FAIL276.461s.
+Private7+groupstoragefailure/repair/noWirepass. All5othergroupcases failfirst
+Queued131afterinitialSend; latergroupqueue/recoverytailunexecuted. Original
+keyboardopen/shiftedwindowgeometryseen; readiness/coordinatehypothesisonly,
+precisecauseunproved. Retainedfull17-queue-tap-attempt(includescore-index/run).
+CorrectiontestonlyclosesIMEafterinitialgrouptextthenreadyvisibleenabledclickable
+Send(same20s). SharedstoragehelperusespositiveSend/closeIMEbeforesameatomicfault,
+assertionsunchanged. SharedreadyActionhasactualtap+protectedfaultcallers. Full
+queuechecks movedrightafterappearance beforeoldChat tofailfast, allgatesremain.
+Current10full38679330339 stillACTIVE, don'tcancelwithoutnewreason. Exactsource
+worktreee3unsignedcache remainsprodidentical; noversionreserved/published.
+Read-onlyRegistry38681076101/YouTube38681078177 stillACTIVEe3, separatefrom28.
+Newtestsourcecompile/review/corrected17pending; no whole28claim.

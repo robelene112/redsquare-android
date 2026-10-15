@@ -106,6 +106,8 @@ verify_chat_queue() {
     verify_group_chat_native "$cases" 480 chat-queue chat-queue-evidence
     if [[ "${TEST_SCOPE:-full}" == full ]]; then verify_chat_queue_recovery; fi
 }
+# Queue recovery is independent of the older Chat fixtures. Fail early before the long full suite.
+if [[ "${TEST_SCOPE:-full}" == full ]]; then verify_chat_queue; fi
 if [[ "${TEST_SCOPE:-full}" == chat-queue* ]]; then
     verify_chat_queue
     printf '%s\n' 'Focused native Chat queue only; full acceptance and live writes not run.' > "$evidence/scope.txt"
@@ -520,7 +522,7 @@ if [[ "${TEST_SCOPE:-full}" == usernames* ]]; then
     printf '%s\n' 'Focused username check only; full acceptance not run.' > "$evidence/scope.txt"
     exit 0
 fi
-if [[ "${TEST_SCOPE:-full}" == full ]]; then verify_chat_queue; verify_browse; verify_following; verify_posting; verify_post_queue; verify_social; verify_quotes; verify_author_posts; verify_images; verify_videos; verify_profiles; verify_usernames; fi
+if [[ "${TEST_SCOPE:-full}" == full ]]; then verify_browse; verify_following; verify_posting; verify_post_queue; verify_social; verify_quotes; verify_author_posts; verify_images; verify_videos; verify_profiles; verify_usernames; fi
 verify_search() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
     timeout 180 adb shell am instrument -w -r \

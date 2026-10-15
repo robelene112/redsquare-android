@@ -155,7 +155,13 @@ Whole28sourcereview09e0...31bedSpec0/Standards0(all22changedsourcefiles). Newfix
 correction0dfa721b Spec0/Standards0, process26hash4XML/groupattempt30hash13XML
 verified. Smallpendingbubbleordering/oncepositionUIcorrection87accb13 applied,
 no protocol/persistencechange. Local47712app+testcompilePASS2m53sexact87accb13/equivalente3edf. Noownedbuild. BoundedUI87accSpec0/Standards0. Exacte3edf1c9 finalfulls
-10run38679330339 ACTIVE/17run38679332827 ACTIVE, bothpublic_feed_read=true. Full
+10run38679330339 ACTIVE/17run38679332827 FAILED13queuecases8PASS5FAIL276.461s.
+AllfivegroupregularinitialSend→Queued131timeout, private7+groupstoragepass.
+Originalkeyboardopen/shiftedwindowseen, specificcauseunproved. Retained
+full17-queue-tap-attempt. TestonlyIMEclose+positivevisibleenabledSendcorrection,
+same20s/allassertions. SharedstorageSendreadyandfaultatomic. Fullqueuechecks
+nowimmediatelyafterappearance(beforeoldChat)tofailfast, allgatesunchanged.
+Corrected17/sourcecompilereviewpending;10stillactive/don'tduplicateorcancel. Full
 includesall13queuecases+bothPIDjourneys, no redundantfocusedrerun. Allnative/
 core114/release/lint/previousPID/publicreadsrequired. Finalcountsnotyetclaimed.
 Fullretainerprepared.scratch/retain-chat28-final-full.py. Exacte3edfworktree/mnt/storage/redsquare-android-artifacts/queue28-review-source
