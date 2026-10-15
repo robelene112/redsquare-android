@@ -1,0 +1,97 @@
+{
+  "run": 38813602397,
+  "source": "b218c1f762eb67ce1f86fc33e20ffb2659ae5efb",
+  "method": "Original file bytes forwarded as images with explicit path and SHA256; originals unchanged",
+  "images": [
+    {
+      "path": "captures/chat-queue-evidence.tar/chat-queue-evidence/group-cancel-viewport-three-warnings.png",
+      "sha256": "c778e087b8fee2195893265bc731872097353eb288a421bb4f4773146a9d265f"
+    },
+    {
+      "path": "captures/chat-queue-evidence.tar/chat-queue-evidence/group-cancel-viewport-members-action.png",
+      "sha256": "e0dc8cb49f95dc7a845414f266946b61281dcfb4933d718779e67ade458b2f45"
+    },
+    {
+      "path": "captures/chat-queue-evidence.tar/chat-queue-evidence/group-cancel-members-open.png",
+      "sha256": "8dc35ccb89be002ba89daca761031392a8d5011b7c47d7b7d2d2822745d154ed"
+    },
+    {
+      "path": "captures/chat-queue-evidence.tar/chat-queue-evidence/group-cancel-viewport-reopened.png",
+      "sha256": "8be0b9c93223319d13df151b7620298074f0f335415943554050f25093a18b81"
+    },
+    {
+      "path": "captures/chat-queue-evidence.tar/chat-queue-evidence/private-cancel-viewport-long-message.png",
+      "sha256": "e995216997302d996bf9cc1074f73bef7fb8cd84061fe848523141d19fcf8064"
+    },
+    {
+      "path": "captures/chat-queue-evidence.tar/chat-queue-evidence/private-cancel-viewport-preview-end.png",
+      "sha256": "f470e2e1e77fff664e5ca80c2f11f87571fccefc1778e3ca91d459829bc6cf49"
+    },
+    {
+      "path": "captures/chat-queue-evidence.tar/chat-queue-evidence/private-cancel-viewport-reopened.png",
+      "sha256": "f470e2e1e77fff664e5ca80c2f11f87571fccefc1778e3ca91d459829bc6cf49"
+    },
+    {
+      "path": "captures/chat-queue-evidence.tar/chat-queue-evidence/private-cancel-result.png",
+      "sha256": "b03bfbaa26dd6c0d965329fde7944cff11559a96426f46224d7cc6466ac24466"
+    },
+    {
+      "path": "captures/chat-queue-evidence.tar/chat-queue-evidence/group-cancel-result.png",
+      "sha256": "ab026e07991e056f7db491b2a3ecaf2f2be8da23842ebef6b3f4395f26c84fd3"
+    },
+    {
+      "path": "captures/chat-keyboard-evidence.tar/chat-keyboard-evidence/private-photo-long-reply-physical-send-closed.png",
+      "sha256": "92236d6da91279ed96ce7a153b2fd7d7c39e8b9491526112bc2b25f141d66170"
+    },
+    {
+      "path": "captures/chat-keyboard-evidence.tar/chat-keyboard-evidence/private-photo-long-reply-physical-send-ime.png",
+      "sha256": "80609bd17eef8a36bd68687cfe1cab5905fa68f35b1ce51612c36a2ad0c1f517"
+    },
+    {
+      "path": "captures/chat-keyboard-evidence.tar/chat-keyboard-evidence/group-photo-long-reply-physical-send-closed.png",
+      "sha256": "44f0597b64b9e901f852c646a863deafa3d49c2f5845bed34e452da9c3df10a5"
+    },
+    {
+      "path": "captures/chat-keyboard-evidence.tar/chat-keyboard-evidence/group-photo-long-reply-physical-send-ime.png",
+      "sha256": "b4c233d301982874a8b1be30f1365887e9451acc7be9890102de0045e8e8b812"
+    },
+    {
+      "path": "captures/chat-keyboard-evidence.tar/chat-keyboard-evidence/private-photo-long-reply-font130-physical-send-ime.png",
+      "sha256": "2c4c96c6b885a162e12b70fe2b5a87d2e91a6b077980581a7fc461e05d8492f5"
+    },
+    {
+      "path": "captures/chat-keyboard-evidence.tar/chat-keyboard-evidence/group-photo-long-reply-font130-physical-send-ime.png",
+      "sha256": "5651f8e54ea79cb77315c5dc7eb30d8f8ae0a2611f340a5aead486850911aa5f"
+    },
+    {
+      "path": "captures/chat-keyboard-evidence.tar/chat-keyboard-evidence/private-text-font130-physical-send-ime.png",
+      "sha256": "4363d814353a450c164057b4a29b40d446e11cf6c8580e8569205a50c5cc457b"
+    },
+    {
+      "path": "captures/chat-keyboard-evidence.tar/chat-keyboard-evidence/group-text-font130-physical-send-ime.png",
+      "sha256": "0a333456447b5d5a8c11c9d0a86ed0ac99c3b730d71a42b8b7c20e18a7054787"
+    },
+    {
+      "path": "live-owner/feed.png",
+      "sha256": "75347616b0d4758263c4819e2f6f88751e4ac78a080569361483ede0f0f0edfe"
+    },
+    {
+      "path": "live-official/feed.png",
+      "sha256": "c39577c29bec6a2095faf1e43f540f0c31905abc9e8e1c7b60ea5809bb0c8111"
+    },
+    {
+      "path": "diagnostic.png",
+      "sha256": "3025d3940b6dec8c1853d4f457d6ef9e596b2c6df13c4c745fd70f6f958e6524"
+    },
+    {
+      "path": "captures/group-admin-evidence.tar/group-admin-evidence/submitted-stop-refused.png",
+      "sha256": "2464d70f0fe7f076b1432de7c872c3adb92dd6dcea077b415b89925d91426aa7"
+    },
+    {
+      "path": "captures/group-admin-evidence.tar/group-admin-evidence/submitted-stop-new-message.png",
+      "sha256": "a76c9d3812196fb5fa31489398c0f0275a415932716c987b88ce3e4a02e28fb4"
+    }
+  ],
+  "allRetainedXmlParsed": 427,
+  "samplingAtomic": false
+}
