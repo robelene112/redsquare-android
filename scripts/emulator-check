@@ -119,6 +119,15 @@ verify_group_chat_native() {
         > "$evidence/$capture.tar" || true
     [[ "$native_exit" == 0 ]] && grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/$prefix-ui.txt"
 }
+verify_chat_mute() {
+    verify_group_chat_native ChatMutePreviewTest 180 chat-mute chat-mute-evidence
+}
+if [[ "${TEST_SCOPE:-full}" == chat-mute* ]]; then
+    verify_chat_mute
+    printf '%s\n' 'Focused native conversation mute only; closed-app push and full acceptance not run.' > "$evidence/scope.txt"
+    exit 0
+fi
+if [[ "${TEST_SCOPE:-full}" == full ]]; then verify_chat_mute; fi
 verify_chat_queue_recovery() {
     python3 "$repo_dir/scripts/chat-queue-process-check" --kind private --evidence "$evidence/chat-queue-private-process"
     python3 "$repo_dir/scripts/chat-queue-process-check" --kind group --evidence "$evidence/chat-queue-group-process"

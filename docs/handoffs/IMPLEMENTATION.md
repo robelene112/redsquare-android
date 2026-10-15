@@ -12,7 +12,7 @@ implementation issues are complete. This explicit resume supersedes the storage
 migration pause recorded below. Commit/push each ticket and keep signed reviews
 available. Do not pause after the next ticket or ask routine approvals.
 
-Twenty-three of the original35 tickets are complete (#2 through#15,#18,#20 through#27).
+Twenty-four of the original35 tickets are complete (#2 through#15,#18,#20 through#28).
 Issue39 group Chat visual polish COMPLETE, signed16/0.1.16 published at
 https://davidengelen.nl/redsquare/. Source95e089699c6192abaea0d9dbacb7dbf4af04e69e,
 reviewbase8528893a; shared bubbles/avatars/names/timestamps/wrapping actions,
@@ -85,8 +85,13 @@ active. Exactsourceworktree /mnt/storage/redsquare-android-artifacts/queue28-rev
 retains signed18 artifacts. No node/service/ingress/store changes. Physical Pixel
 and actual17→18deviceupdate remain35, not inferred from emulator metadata.
 
-NEXT: finish publication-record review and trackerclosure28, then claim29 and
-implement conversation mute sequentially. Owner authorizes allremainingissues,
+#28 trackerCLOSED2026-10-15T05:50:24Z, completion40f28872. Publicationrecords
+Spec0/Standards0,6hashes/publicdownload/immutable17 independentlyverified.
+ACTIVE #29 conversation mute, assigned@me, reviewbase40f28872. Blockers25/26closed.
+First native private mute/readable compatible incoming/recreation/draft tracer
+next; no application change or RED claimed yet. Canonical research
+NATIVE_CONVERSATION_MUTE_VERIFICATION.md. Implement controls/notification filtering,
+private+group/failures/isolation/recovery and finalreview/signednext beforeclosure. Owner authorizes allremainingissues,
 no pause or routineconfirmation. Read-only next-ticket orientation is locally
 .scratch/next-chat-ticket-orientation.txt. Protected preexisting untracked
 NATIVE_GROUP_CHAT_CONTRACT.md untouched.

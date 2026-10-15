@@ -474,3 +474,8 @@ Signed18published, publicpage/latest/release18manifest/APKdownload/hash/signatur
 package/version/min29andimmutable17verified. Retainedsigned-preview18-published
 6hashes. Noactualphysical17→18update/store/nodeclaim. Finalcompletioncommit/closure28
 next, then29sequentially; no ownerconfirmationneeded.
+
+Publicationrecord83b4a3c6...40f28872 reviewedSpec0/Standards0/publicationblockers0;
+bothverify6hashes/publicmetadata/downloadedAPK/immutable17 andqualifiedclaims.
+Issue28allfourcriteriarecordedandCLOSED2026-10-15T05:50:24Z, completion40f28872.
+Next29claimedsequentially; remainingallissuesauthorizationcontinues.
