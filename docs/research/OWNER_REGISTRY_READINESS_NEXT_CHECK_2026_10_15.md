@@ -13,7 +13,8 @@ Both exact pinned core/server.ts files are identical: 32,031 bytes, SHA256
 [B source](https://github.com/SaitoTech/saito/blob/214504ecece76d1cd20a245fe4468eccbfca2951/node/lib/saito/core/server.ts#L825-L840).
 
 They register **GET `/json/peers`**, reading the server's
-`app.core.network.getPeers()`. Output rows contain publicKey, status, services,
+`app.core.network.getPeers()`. The exact response wrapper is `{ "peers": [...] }`,
+not a top-level array. Output rows contain publicKey, status, services,
 id, keyList and synctype, without a host/IP field. This can establish whether
 a peer matching the **published** registrar appears in that server snapshot.
 It does not reveal effective `Registry.registry_publickey` or prove forwarding.

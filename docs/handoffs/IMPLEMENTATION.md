@@ -47,9 +47,9 @@ readiness, registration or a Settings interaction. Focused results remain
 controlled-peer evidence.
 Complete final scopes at exactly
 45ff40f6931e3491a65e3145e789c3f453c2c4fe:10run38786261883 and17run38786267845,
-public_feed_read=true each. Android10 is now SUCCESS:366reported/365PASS plus soleexistingprofileassumption,86records27deaths; username16PASS110.649s/PID11642to11744. Strict retainer passed,13originalPNGs viewed/allXMLparsed; fresh final-full-oct15/android10. Android17 remainsACTIVE. Do not duplicate/cancel active scope. Job ceiling
+public_feed_read=true each. Android10 is now SUCCESS:366reported/365PASS plus soleexistingprofileassumption,86records27deaths; username16PASS110.649s/PID11642to11744. Strict retainer passed,13originalPNGs viewed/allXMLparsed; fresh final-full-oct15/android10. Android17 SUCCESS367PASS/87records27deaths, username16PASS121.876s/PID14105to14185. Strict retention passed;13originals viewed/allXMLparsed. Both complete scopes finished; final17/evidencecheckpoint review pending, no further run needed for frozen19. Job ceiling
 now75minutes for single full SDK,120combined,60source/focused; both reviews0/0,
-per-request/assertion/class deadlines unchanged. Expected Android17 schema only:367reported/87records/27deaths, NOT its actual outcome yet. Android10 actuals are above. Retainer prepared
+per-request/assertion/class deadlines unchanged. Both SDK actuals now recorded above; no expected-only outcome is being used. Retainer prepared
 .scratch/retain-registry19-final-full.py, whole helper syntax checked. Use NEW
 docs/evidence/ticket19/final-full-oct15/android10 and android17 targets. Old
 ticket19/final-full contains historical Search evidence and must not be overwritten.
@@ -57,13 +57,13 @@ Collector now rejects any existing output directory before copying. Its added
 late-proof/username-recovery block passes against both actual focused artifacts:
 exact public1/1/0 checkpoint, original success PNG/XML and changed PID/identical
 author/backend/signature/frame/envelope, interrupted/recovered/continuity logs.
-Collector correction reviewed0; actual complete Android10 retention is now recorded above; Android17/finalreview remain pending.
+Collector correction reviewed0; actual complete retention for both SDKs is above; final17/checkpoint review remains pending.
 Signed23 BUILT/VERIFIED, UNPUBLISHED. Immutable source45ff40f6, exact final-run
 source. Local exec59740 completed0; release build4m10s. Artifact
 /mnt/storage/redsquare-android-artifacts/registry19-review23-source/.scratch/review-builds/23.
 Metadata docs/evidence/ticket19/review23-build, reviews0/0; counter23, established certificate,
 package/min29 retained. Do not reset/rebuild. No owned local Gradle remains.
-Public22 remains current; full outcomes and final review must precede publication.
+Public22 remains current; both fulls now SUCCESS, final17/checkpoint review must precede publication. Canonical record docs/evidence/ticket19/FINAL_REGRESSION_CHECKPOINT.md, #19 stillopen forOwnerreadiness.
 Research proposal REGISTRY_LATE_CALLBACK_DESIGN_2026_10_15.md explains the narrow
 transport coupling. Protected untracked group contract remains untouched.
 

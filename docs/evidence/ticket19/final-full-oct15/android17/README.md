@@ -1,0 +1,11 @@
+# Complete frozen Registry regression, Android17
+
+Run38786267845 at45ff40f6931e3491a65e3145e789c3f453c2c4fe SUCCESS. Runtime18:33:56–19:27:46UTC. Core114/0failures/0ignored, debug/test/release assembly and lint pass. Device367PASS,87completion records,27actual deaths, zero assumptions.
+
+Username16PASS121.876s includes the positive early-fallback/late-proof Settings case: checkpoint1pair/1namecheck/0transactions, strict registered name, current wallet and zero registration. Original successPNG shows NativeCase7@saito and registered-to-your-wallet copy; later Wallet assertion verifies the public key. Actual interrupted-registration PID14105→14185 preserves author/backend/signature/frame/envelope, reads before sending and explicitly retries the identical original. Controlled evidence does not establish live Owner readiness or registration.
+
+All expected application classes, protected recovery, both approved public feeds, public Chat, six cold/update wallet observations, immutable signed5-to8 and final diagnostic complete. Existing keyboard4PASS40.788s and queue13PASS289.313s preserve physical Send/privacy, exact drafts/photos, cancellation, identity/backend scope and original-only/no-repeat/no-reroute gates. Six distinct queue port pairs and five exact pre-recreation originals verify. Device-only encrypted snapshots stay on device. Notification permission source snapshot is literallyfalse; this does not prove restoration of an originally granted permission.
+
+Root individually viewed13original PNGs listed in root-viewed-originals.json and parsed every retained XML. Keyboard-dismissed frames retain existing focus panning; no claim covers every warning-stack/height combination. Posting has no companion XML; separate captures are not atomic pairs. Some dialog content is offscreen in single frames.
+
+Frozen production/debug/build inputs match the minimum/focused/final sources and prepared signed23 source; ../source-equivalence.json. Current #17 observation code is outside this comparison. Prepared23 is unpublished and public22 current at retention. Final evidence review/publication remain separate. #19 remains open for Owner readiness. No physical Pixel, closed-app push, Giphy, public YouTube playback, chain finality or store acceptance inferred. No node/configuration/service/wallet/chain writer changed.
