@@ -33,7 +33,9 @@ A public included-transaction observer can propose signed social candidates.
 [RedSquare onConfirmation/indexing](https://github.com/SaitoTech/saito/blob/214504ecece76d1cd20a245fe4468eccbfca2951/node/mods/redsquare/redsquare.js#L1882-L1900)
 and [Archive reads](https://github.com/SaitoTech/saito/blob/214504ecece76d1cd20a245fe4468eccbfca2951/node/mods/archive/archive.js#L714-L838)
 support a concrete gate: selected backend, `field1:RedSquare`, exact `sig`,
-`flagged_ne:1`, `limit:1`, then strict signed-content/target matching. For replies,
+`flagged_ne:1`, requested `limit:1`, then strict signed-content/target matching.
+Archive clamps this requested limit to10; reject unrelated/malformed rows rather
+than infer a one-row result. See the later [observer trace](SOCIAL_PUSH_GATEWAY_OBSERVER_2026_10_15.md). For replies,
 verify the parent's signed author before saying it replies to the owner.
 Root mentions require inspecting public content, not only first-recipient indexes.
 

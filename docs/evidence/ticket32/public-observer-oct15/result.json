@@ -1,0 +1,257 @@
+{
+  "probe": "public-social-observer-capability",
+  "nodeVersion": "v24.13.0",
+  "productionStateModified": false,
+  "results": [
+    {
+      "backend": "owner",
+      "origin": "https://saito.davidengelen.nl",
+      "observedAt": "2026-10-15T21:35:56.889Z",
+      "readOnly": true,
+      "appExecution": false,
+      "transactionBroadcasts": 0,
+      "services": [
+        "arcade",
+        "archive",
+        "chat",
+        "Explorer",
+        "relay",
+        "redsquare",
+        "registry"
+      ],
+      "authenticatedPeer": "tRFyaSvHix3HDHguPRcb7cLooiTnBKquFgahkuScxfrg",
+      "chain": {
+        "tipHeight": "1122930",
+        "tipHash": "c956f07c204114e0e1461e476cad5a17c3284336bdd261a3e7561ab496486ad4",
+        "forkId": "c9565562bfb33a6eb998f1907a18355c0ff31a42031c509194b50c4e00000000",
+        "sharedAncestorHeight": "0",
+        "referenceCount": 10,
+        "references": [
+          {
+            "height": "1122921",
+            "hash": "91d6a22917b4c4a88abe0d20cd0c3d02c356fec66d855144ce91554244164329",
+            "timestamp": "1792099878446",
+            "transactionsField": 0
+          },
+          {
+            "height": "1122922",
+            "hash": "7e6eb2f330f38150890ba5ec71da3aec2d9cdd2c2868bf6da7fbad06ed694b21",
+            "timestamp": "1792099908582",
+            "transactionsField": 0
+          },
+          {
+            "height": "1122923",
+            "hash": "3340ce31f7141c0b3b72310deeed9a9c70435c716ee401fef2c7cc5cc9ec24a3",
+            "timestamp": "1792099938647",
+            "transactionsField": 0
+          },
+          {
+            "height": "1122924",
+            "hash": "1262f1e14d1ab6d4af032e10f2cd1a709b77628c76857a3fd52645e8f9c5f47b",
+            "timestamp": "1792099968793",
+            "transactionsField": 0
+          },
+          {
+            "height": "1122925",
+            "hash": "fd17ab5b97f677a23a8b8ea1406bb37a2fb8607380d5ceb7a4e463414b94cf51",
+            "timestamp": "1792099998509",
+            "transactionsField": 0
+          },
+          {
+            "height": "1122926",
+            "hash": "2d959fc333f3d8930ccd710ff398e0949a33eeacfa62a5eb8dda18d14713949d",
+            "timestamp": "1792100028280",
+            "transactionsField": 0
+          },
+          {
+            "height": "1122927",
+            "hash": "35bdd70072f3c79d41d83444b3e917ea0f164d77dc107b3d70f7de20ea503e3e",
+            "timestamp": "1792100058926",
+            "transactionsField": 0
+          },
+          {
+            "height": "1122928",
+            "hash": "19b79d6230f3323e2886e9f9373a678afa76f3bff42f8c4a482c7b7fdeeae16d",
+            "timestamp": "1792100088942",
+            "transactionsField": 0
+          },
+          {
+            "height": "1122929",
+            "hash": "9e245c527c123dbe6945d3d6c5cba87d72baf461c1e0be7e987809babb385e8d",
+            "timestamp": "1792100118780",
+            "transactionsField": 0
+          },
+          {
+            "height": "1122930",
+            "hash": "c956f07c204114e0e1461e476cad5a17c3284336bdd261a3e7561ab496486ad4",
+            "timestamp": "1792100148607",
+            "transactionsField": 0
+          }
+        ],
+        "wireBytes": 726,
+        "wireSha256": "c37a1e957fbd5f72715046c30fa48237a601774773eb4851fc4c3b30cacc6bbf",
+        "bootstrap": "SPV recent window, relevance fields not used to skip full-block reads"
+      },
+      "fullBlock": {
+        "httpStatus": 200,
+        "bytes": 2439,
+        "sha256": "c2f652e846ed6bfa5b6831a8b6e3a4f28b0db208a6ce38589b2c4d255fd18e9c",
+        "height": "1122930",
+        "hash": "c956f07c204114e0e1461e476cad5a17c3284336bdd261a3e7561ab496486ad4",
+        "transactions": 5,
+        "creatorSignatureValid": true,
+        "merkleRootMatches": true,
+        "allTransactionsNonSpv": true,
+        "exactConsumption": true,
+        "consensusAdmissionProved": false
+      },
+      "exactArchiveAbsentProbe": {
+        "accepted": true,
+        "rows": 0,
+        "bytes": 2,
+        "indexedCandidateAvailabilityProved": false
+      },
+      "status": "read-capabilities-observed",
+      "sentMessageTypes": [
+        1,
+        2,
+        9,
+        12,
+        20,
+        21
+      ]
+    },
+    {
+      "backend": "official",
+      "origin": "https://saito.io",
+      "observedAt": "2026-10-15T21:35:57.114Z",
+      "readOnly": true,
+      "appExecution": false,
+      "transactionBroadcasts": 0,
+      "services": [
+        "arcade",
+        "archive",
+        "bugs",
+        "chat",
+        "egld",
+        "Explorer",
+        "faucet",
+        "giphy",
+        "graffiti: board",
+        "league",
+        "mailrelay",
+        "mixin",
+        "modtools",
+        "popup",
+        "recovery",
+        "redsquare",
+        "registry",
+        "relay",
+        "stack",
+        "Store",
+        "vault"
+      ],
+      "authenticatedPeer": "wnUrrEMtWhwwpULFdeWBto8McZzcydqvpJpfEgLQJx2g",
+      "chain": {
+        "tipHeight": "1122930",
+        "tipHash": "c956f07c204114e0e1461e476cad5a17c3284336bdd261a3e7561ab496486ad4",
+        "forkId": "c9565562bfb33a6eb998f1907a18355c0ff31a42031c509194b50c4e18aa0000",
+        "sharedAncestorHeight": "0",
+        "referenceCount": 10,
+        "references": [
+          {
+            "height": "1122921",
+            "hash": "91d6a22917b4c4a88abe0d20cd0c3d02c356fec66d855144ce91554244164329",
+            "timestamp": "1792099878446",
+            "transactionsField": 0
+          },
+          {
+            "height": "1122922",
+            "hash": "7e6eb2f330f38150890ba5ec71da3aec2d9cdd2c2868bf6da7fbad06ed694b21",
+            "timestamp": "1792099908582",
+            "transactionsField": 0
+          },
+          {
+            "height": "1122923",
+            "hash": "3340ce31f7141c0b3b72310deeed9a9c70435c716ee401fef2c7cc5cc9ec24a3",
+            "timestamp": "1792099938647",
+            "transactionsField": 0
+          },
+          {
+            "height": "1122924",
+            "hash": "1262f1e14d1ab6d4af032e10f2cd1a709b77628c76857a3fd52645e8f9c5f47b",
+            "timestamp": "1792099968793",
+            "transactionsField": 0
+          },
+          {
+            "height": "1122925",
+            "hash": "fd17ab5b97f677a23a8b8ea1406bb37a2fb8607380d5ceb7a4e463414b94cf51",
+            "timestamp": "1792099998509",
+            "transactionsField": 0
+          },
+          {
+            "height": "1122926",
+            "hash": "2d959fc333f3d8930ccd710ff398e0949a33eeacfa62a5eb8dda18d14713949d",
+            "timestamp": "1792100028280",
+            "transactionsField": 0
+          },
+          {
+            "height": "1122927",
+            "hash": "35bdd70072f3c79d41d83444b3e917ea0f164d77dc107b3d70f7de20ea503e3e",
+            "timestamp": "1792100058926",
+            "transactionsField": 0
+          },
+          {
+            "height": "1122928",
+            "hash": "19b79d6230f3323e2886e9f9373a678afa76f3bff42f8c4a482c7b7fdeeae16d",
+            "timestamp": "1792100088942",
+            "transactionsField": 0
+          },
+          {
+            "height": "1122929",
+            "hash": "9e245c527c123dbe6945d3d6c5cba87d72baf461c1e0be7e987809babb385e8d",
+            "timestamp": "1792100118780",
+            "transactionsField": 0
+          },
+          {
+            "height": "1122930",
+            "hash": "c956f07c204114e0e1461e476cad5a17c3284336bdd261a3e7561ab496486ad4",
+            "timestamp": "1792100148607",
+            "transactionsField": 0
+          }
+        ],
+        "wireBytes": 726,
+        "wireSha256": "07bf8204d3be17e9f75ea1d40631ea348d86625aa8007da7b9c509ecd2960ff1",
+        "bootstrap": "SPV recent window, relevance fields not used to skip full-block reads"
+      },
+      "fullBlock": {
+        "httpStatus": 200,
+        "bytes": 2439,
+        "sha256": "c2f652e846ed6bfa5b6831a8b6e3a4f28b0db208a6ce38589b2c4d255fd18e9c",
+        "height": "1122930",
+        "hash": "c956f07c204114e0e1461e476cad5a17c3284336bdd261a3e7561ab496486ad4",
+        "transactions": 5,
+        "creatorSignatureValid": true,
+        "merkleRootMatches": true,
+        "allTransactionsNonSpv": true,
+        "exactConsumption": true,
+        "consensusAdmissionProved": false
+      },
+      "exactArchiveAbsentProbe": {
+        "accepted": true,
+        "rows": 0,
+        "bytes": 2,
+        "indexedCandidateAvailabilityProved": false
+      },
+      "status": "read-capabilities-observed",
+      "sentMessageTypes": [
+        1,
+        2,
+        9,
+        12,
+        20,
+        21
+      ]
+    }
+  ]
+}
