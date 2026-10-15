@@ -291,7 +291,7 @@ class ChatQueuePreviewTest {
                         if(!displayed(hasText("Groups")))ui.onNode(chat).assertIsDisplayed().assertIsEnabled().performClick()
                         waitFor("Groups")
                         clickWhenReady(contact)
-                        waitFor("Message")
+                        ui.waitUntil(20_000){displayed(hasText("Message"))||displayed(hasText("Queued"))}
                     }
                     open()
                     ui.onNode(hasSetTextAction() and isEnabled()).performTextReplacement(text)

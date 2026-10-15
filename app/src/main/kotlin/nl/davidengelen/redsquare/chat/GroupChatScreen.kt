@@ -16,6 +16,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
@@ -37,6 +39,8 @@ import nl.davidengelen.redsquare.registry.registeredIdentity
 internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBackend, modifier: Modifier,
     onWalletMetadata: suspend (SaitoWallet,SaitoWallet) -> Unit, onBack: () -> Unit) {
     val context = LocalContext.current.applicationContext
+    val focus = LocalFocusManager.current
+    val keyboard = LocalSoftwareKeyboardController.current
     val scope = rememberCoroutineScope()
     val personal = LocalPersonalControls.current
     val store = remember(wallet,backend) { GroupChatStore(context,wallet,backend) }
@@ -461,6 +465,8 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                     OutlinedTextField(typed,{value->changeMessage((quote?.prefix ?: "")+(photo?.let{composeChatPhoto(it.source,value)} ?: value))},Modifier.weight(1f),
                         label={Text(stringResource(R.string.chat_message))},enabled=editable,maxLines=4)
                     Button(enabled=permitted&&(typed.isNotBlank()||photo!=null),onClick={
+                        focus.clearFocus()
+                        keyboard?.hide()
                         act {
                             val mentioned=quote?.author?.let{listOf(it)}.orEmpty()
                             val candidate=withContext(Dispatchers.IO){GroupChat.message(wallet,entry.group,message,System.currentTimeMillis(),mentioned)}
