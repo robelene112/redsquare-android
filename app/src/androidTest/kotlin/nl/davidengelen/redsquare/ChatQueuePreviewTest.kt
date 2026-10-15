@@ -101,7 +101,7 @@ class ChatQueuePreviewTest {
                             ui.waitUntil(60_000){peer.relayedMessages.isNotEmpty()&&store.load(key.publicKey)?.status==nl.davidengelen.redsquare.chat.GroupChatStore.Status.FORWARDED}
                             check(postingTransaction(peer.transactions.single()).envelope()==queued.envelope())
                             check(SaitoEnvelope.fromSignedJson(peer.relayedMessages.single())==queued.envelope())
-                            check(peer.relayRecipients.single()==listOf(member))
+                            org.junit.Assert.assertEquals(listOf(wallet.publicKey,member),peer.relayRecipients.single())
                             check(GroupChat.readMessage(GroupChat.readCreation(creation.envelope()),queued.envelope()).text==text)
                             val saved=requireNotNull(store.load(key.publicKey))
                             check(saved.candidate?.envelope()==queued.envelope()&&saved.queuedMessage==null)

@@ -226,3 +226,11 @@ scopesusingexistingJUnitmethodlistpattern, groupCancel+backgroundonly. Unchanged
 full/chat-queuescopesstillrunentireclass; no acceptanceordeadlinereduction.
 This avoidsrepeatingprivatecasesaftertheirnewsharedhelperregressionrun. Future
 newgrouptracersmustbeexplicitlyincludedinthissubset; fullalwaysdiscoversall.
+
+Groupbackgroundattempt10run38675689342 exact65c57b5c:9cases8PASS/1FAIL240.366s
+at104 expectedonlymember, actualouterrelayincludesownsenderoutputbyfactory.
+ActualRelay+protectedFWDwhileCREATED/exactRawRelayoriginalreached. Established
+independentgroupcases andSaitoTransaction.create require[sender,member]; corrected
+exactassertiononly, noappchange. Laterdecode/history/key/resumedUI/finalcounttail
+unexecutedforthiscase; other8pass. Rootoriginalwhitewindowseen. Retainedgroup-
+background-attempt-android10. Local77294PASS1m33s. Correctedfocusedgroup2pending.

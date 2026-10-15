@@ -127,7 +127,12 @@ Exactwire/history/key/FWDtailunexecuted. Retainedgroup-background-red-android10.
 Groupautominimum nowusesexistingworker/guard/singleflight, durableautomaticflag
 defaultfalse/controlreset, sharedexactArchiveoriginal/private+groupcallers and
 progressobservingUI. Local77294PASS1m33s/compileDebugKotlin. Focused10run38675689342 exact65c57b5c
-ACTIVEall9cases, no duplicateproof. SourceSpec0/Standards0. Correctedruntimepending.
+FAILED9cases8PASS/1FAIL240.366s at104 wrongrecipientexpectationonlymember.
+ActualRelay+durableFWDwhileCREATED/exactRawRelayoriginalreached. Factory+existing
+independentgroupcasesrequires[sender,member]; exactassertioncorrected/noappchange.
+Laterhistory/key/resumedUItailunexecuted. Retainedgroup-background-attempt-android10.
+Focusedgroup2scope308e0f4e Spec0/Standards0, full9unchanged. Correctedruntimepending;
+noactivebuild/proof. Groupappsource65c57b5c.
 Groupappminimumebd9f700 applied, notyetaccepted. Groups/process/full28stillpending.
 
 NEXT: review/verify ready-navigation+storage7cases, then groupqueues/freshmembership,

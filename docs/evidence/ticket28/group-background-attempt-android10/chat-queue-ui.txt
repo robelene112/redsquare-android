@@ -1,0 +1,162 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ChatQueuePreviewTest:
+INSTRUMENTATION_STATUS: test=anOfflinePrivateMessageResumesOnItsOriginalSignatureWhileBackgrounded
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anOfflinePrivateMessageResumesOnItsOriginalSignatureWhileBackgrounded
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anOfflineGroupMessageResumesItsOriginalWhileBackgrounded
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue$lambda$14$lambda$13(ChatQueuePreviewTest.kt:104)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.$r8$lambda$BWbOrHaMg1o95qrqw0NYIeu5P4w(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest$$ExternalSyntheticLambda11.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue(ChatQueuePreviewTest.kt:68)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.anOfflineGroupMessageResumesItsOriginalWhileBackgrounded(ChatQueuePreviewTest.kt:34)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anOfflineGroupMessageResumesItsOriginalWhileBackgrounded(nl.davidengelen.redsquare.ChatQueuePreviewTest):
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue$lambda$14$lambda$13(ChatQueuePreviewTest.kt:104)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.$r8$lambda$BWbOrHaMg1o95qrqw0NYIeu5P4w(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest$$ExternalSyntheticLambda11.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue(ChatQueuePreviewTest.kt:68)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.anOfflineGroupMessageResumesItsOriginalWhileBackgrounded(ChatQueuePreviewTest.kt:34)
+
+INSTRUMENTATION_STATUS: test=anOfflineGroupMessageResumesItsOriginalWhileBackgrounded
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anOfflinePrivateMessageRemainsCancellableAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anOfflinePrivateMessageRemainsCancellableAfterReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aWrongArchivedOriginalIsRefusedAndACompletedRetryClearsItsOldError
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aWrongArchivedOriginalIsRefusedAndACompletedRetryClearsItsOldError
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anArchivedQueuedOriginalReconcilesWithoutAnotherBroadcastOrClaimedDelivery
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anArchivedQueuedOriginalReconcilesWithoutAnotherBroadcastOrClaimedDelivery
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aQueuedPrivateMessageWaitsForItsOriginalBackendWithoutRerouting
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aQueuedPrivateMessageWaitsForItsOriginalBackendWithoutRerouting
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=failedQueueSavingKeepsTheDraftAndNeverBecomesAutomaticAfterRepair
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=failedQueueSavingKeepsTheDraftAndNeverBecomesAutomaticAfterRepair
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=replacingTheWalletPausesItsQueuedMessageUntilTheOriginalIdentityReturns
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=replacingTheWalletPausesItsQueuedMessageUntilTheOriginalIdentityReturns
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 240.366
+There was 1 failure:
+1) anOfflineGroupMessageResumesItsOriginalWhileBackgrounded(nl.davidengelen.redsquare.ChatQueuePreviewTest)
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue$lambda$14$lambda$13(ChatQueuePreviewTest.kt:104)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.$r8$lambda$BWbOrHaMg1o95qrqw0NYIeu5P4w(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest$$ExternalSyntheticLambda11.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue(ChatQueuePreviewTest.kt:68)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.anOfflineGroupMessageResumesItsOriginalWhileBackgrounded(ChatQueuePreviewTest.kt:34)
+
+FAILURES!!!
+Tests run: 9,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
