@@ -60,10 +60,11 @@ internal object SocialPush {
         }
         if (!allowedEndpoint(endpoint, reference.backend)) return@withContext SocialPushResult.SUPPRESSED
         try {
+            val ledger = SocialPushLedger(context, reference)
             val wallet = synchronized(SaitoLocalState.lock) {
                 AndroidWalletStore(context).loadExisting().takeIf {
                     it.publicKey == reference.owner && AndroidBackendStore(context).load() == reference.backend &&
-                        SocialPushSettings(context, reference.owner).enabled()
+                        SocialPushSettings(context, reference.owner).enabled() && !ledger.wasPublished(now)
                 }
             } ?: return@withContext SocialPushResult.SUPPRESSED
             val post = withTimeout(15_000) {
@@ -106,8 +107,13 @@ internal object SocialPush {
                     .setContentText(context.getString(R.string.notifications_reply_own))
                     .setCategory(Notification.CATEGORY_SOCIAL).setVisibility(Notification.VISIBILITY_PRIVATE)
                     .setOnlyAlertOnce(true).setAutoCancel(true).setContentIntent(pending).build()
+                // Recheck after the network suspension. Concurrent receipts share this lock.
+                if (!ledger.prepare(now)) return@synchronized SocialPushResult.SUPPRESSED
                 manager.notify("social:${reference.owner}:${reference.backend.id}:${reference.signature}", 0, notification)
-                // Means notify returned, not proof of visible delivery. Native shade checks provide that proof.
+                ledger.recordPublication(now)
+                // Means notify and its disk acknowledgement returned, not proof of visible delivery.
+                // A death between them leaves pending state; stable tag/onlyAlertOnce deduplicate an
+                // active OS alert on retry. Android dismissal and disk commit cannot be atomic.
                 SocialPushResult.PUBLISHED
             }
         } catch (cancelled: CancellationException) { throw cancelled }
