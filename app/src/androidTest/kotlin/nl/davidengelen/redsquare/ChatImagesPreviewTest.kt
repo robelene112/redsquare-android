@@ -9,7 +9,6 @@ import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
-import androidx.compose.ui.text.AnnotatedString
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.espresso.intent.Intents
@@ -113,8 +112,18 @@ class ChatImagesPreviewTest {
                         }
                         fun assertDraft() {
                             val expected = hasSetTextAction() and isEnabled() and
-                                SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(draft))
-                            ui.waitUntil(20_000) { displayed(expected) }; ui.onNode(expected).assertIsDisplayed()
+                                SemanticsMatcher("Exact composed text") {
+                                    it.config.getOrNull(SemanticsProperties.EditableText)?.text == draft
+                                }
+                            try {
+                                ui.waitUntil(20_000) { displayed(expected) }; ui.onNode(expected).assertIsDisplayed()
+                            } catch (failure: Throwable) {
+                                try {
+                                    val folder = File(context.cacheDir, "chat-images-evidence").apply { mkdirs() }
+                                    File(folder, "$prefix-draft-semantics.txt").writeText(ui.onRoot(useUnmergedTree = true).printToString())
+                                } catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
+                                throw failure
+                            }
                         }
                         open()
                         ui.onNode(hasSetTextAction() and isEnabled()).performTextReplacement(draft)

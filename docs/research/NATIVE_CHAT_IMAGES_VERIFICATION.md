@@ -171,3 +171,12 @@ matcherfailurecause unproved, butsmallviewportlayout unusable. Retained6hash1XML
 Correction compact100dp preview onlyinChatcomposer, hide redundantAddphoto while
 attached, capprivatefield4visiblelines. Defaultfeed/historypreview180dp unchanged.
 Autosavefix79f8e12d reviewed0/0 notrunin0438. Compile/review/GREENpending.
+
+Compactdraft10run38716715709 exactace4d018 FAILED3cases2PASS1FAIL36.86s, actual
+selectedRGBpasses, exactdisplayedcaptionwaitstillfails155/20s. RootoriginalPNG
+nowshowscompactphoto/Send/fieldvisible. ParsedXMLenabledEditText equalsfull
+literalcaption exactly. Precise Compose matchercause remainsunproved. Retained
+6hash1XML. Fixture now compares EditableText.text tosameexactliteral ratherthan
+styledAnnotatedStringobject equality, retainingenabled/displayed/20s/pixels/
+no-wirecriteria; furtherfailurecapturesunmergedpublicfixturesemantics. No
+productionchange or textlossinference. Layoutcorrectionace4 reviewed0/0.
