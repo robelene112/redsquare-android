@@ -151,8 +151,8 @@ if [[ "${TEST_SCOPE:-full}" == chat-viewport* ]]; then
     exit 0
 fi
 verify_chat_keyboard() {
-    # Six real-IME cases, including retained long reply/photo composition; existing180s bound.
-    verify_group_chat_native ChatKeyboardPreviewTest 180 chat-keyboard chat-keyboard-evidence
+    # Ten real-IME cases: six default-font plus four font1.3 profiles, retaining30s/case.
+    verify_group_chat_native ChatKeyboardPreviewTest 300 chat-keyboard chat-keyboard-evidence
 }
 if [[ "${TEST_SCOPE:-full}" == chat-keyboard* ]]; then
     verify_chat_keyboard

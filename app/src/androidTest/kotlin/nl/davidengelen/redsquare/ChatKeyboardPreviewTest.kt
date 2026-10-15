@@ -35,12 +35,25 @@ class ChatKeyboardPreviewTest {
     @Test fun groupChatKeepsSendReachableForALongRecoveredReplyWithAPhoto() =
         exercise(group=true,photo=true,longReply=true)
 
-    private fun exercise(group: Boolean, photo: Boolean = false, longReply: Boolean = false) {
+    @Test fun privateChatKeepsFirstUseSendReachableWithLargerText() = exercise(group=false,largeFont=true)
+    @Test fun groupChatKeepsFirstUseSendReachableWithLargerText() = exercise(group=true,largeFont=true)
+    @Test fun privateChatKeepsLongReplyPhotoSendReachableWithLargerText() =
+        exercise(group=false,photo=true,longReply=true,largeFont=true)
+    @Test fun groupChatKeepsLongReplyPhotoSendReachableWithLargerText() =
+        exercise(group=true,photo=true,longReply=true,largeFont=true)
+
+    private fun exercise(group: Boolean, photo: Boolean = false, longReply: Boolean = false, largeFont:Boolean=false) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" &&
             android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
-        val kind = (if (group) "group" else "private") + (if (photo) "-photo" else "-text") + (if(longReply) "-long-reply" else "")
+        val kind = (if (group) "group" else "private") + (if (photo) "-photo" else "-text") + (if(longReply) "-long-reply" else "") + (if(largeFont) "-font130" else "")
+        val fontDevice=UiDevice.getInstance(instrumentation)
+        val priorFontScale=context.resources.configuration.fontScale
+        val priorFontSetting=if(largeFont)fontDevice.executeShellCommand("settings get system font_scale").trim() else null
+        if(largeFont)check(priorFontSetting=="null"||
+            (requireNotNull(priorFontSetting).matches(Regex("""[0-9]+([.][0-9]+)?"""))&&
+                priorFontSetting.toFloatOrNull()?.let{it.isFinite()&&it>0f}==true))
         val contact = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe fixture only.
         val identity = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
         val groupId = SaitoWallet.fromPrivateKey("0".repeat(63) + "3").publicKey
@@ -75,6 +88,17 @@ class ChatKeyboardPreviewTest {
         val folder = File(context.cacheDir, "chat-keyboard-evidence")
         var primary: Throwable? = null
         try {
+            // The finally cleanup below is established before this emulator-only mutation.
+            if(largeFont) {
+                fontDevice.executeShellCommand("settings put system font_scale 1.3")
+                awaitFontScale(context,1.3f)
+                folder.mkdirs()
+                File(folder,"$kind-font-scale.json").writeText(com.google.gson.JsonObject().apply {
+                    addProperty("expected",1.3f);addProperty("observed",context.resources.configuration.fontScale)
+                    addProperty("priorResource",priorFontScale);addProperty("priorSetting",priorFontSetting)
+                    addProperty("priorSettingMatchesResource",priorFontSetting?.toFloatOrNull()?.let{kotlin.math.abs(it-priorFontScale)<0.01f})
+                }.toString())
+            }
             retained.prepare()
             // Exercise first-use text composition without dismissing its backup reminder.
             // Photo cases keep the established reminder-dismissed recovered-draft setup.
@@ -86,7 +110,7 @@ class ChatKeyboardPreviewTest {
                 GroupChat.create(contact, groupId, groupName, listOf(wallet.publicKey), 1700000123400).envelope())
             // Seed a recovered attachment through the protected draft API. Real picker
             // selection/preparation is covered by ChatImagesPreviewTest, not bypassed here.
-            if (photo) {
+            if (photo||largeFont) {
                 if (group) GroupChatStore(context, wallet, SaitoBackend.OWNER).saveDraft(groupId, composed)
                 else ChatWorkStore(context, wallet, SaitoBackend.OWNER, contact.publicKey).saveDraft(composed)
             }
@@ -106,7 +130,7 @@ class ChatKeyboardPreviewTest {
                         ui.waitUntil(20_000) { displayed(row, true) }
                         ui.onNode(row, useUnmergedTree = true).performClick()
                         val editor = hasSetTextAction() and isEnabled()
-                        if(longReply) {
+                        if(longReply||largeFont) {
                             ui.onNodeWithText(if(group)groupName else contact.publicKey).assertIsDisplayed()
                             ui.waitUntil(20_000) { reads.get()>0&&
                                 (if(group)GroupChatStore(context,wallet,SaitoBackend.OWNER).load(groupId)?.draft
@@ -220,7 +244,21 @@ class ChatKeyboardPreviewTest {
         finally {
             cleanupAfterTest(primary, { retained.restoreFiles() },
                 { wallets.replace(wallets.loadOrCreate(), original) }, { backends.save(originalBackend) },
-                { retained.restorePreferences() })
+                { retained.restorePreferences() },
+                { if(largeFont) {
+                    fontDevice.executeShellCommand(if(priorFontSetting=="null")"settings delete system font_scale"
+                        else "settings put system font_scale $priorFontSetting")
+                    awaitFontScale(context,priorFontScale)
+                } })
+        }
+    }
+
+    private fun awaitFontScale(context:android.content.Context,expected:Float) {
+        val until=android.os.SystemClock.elapsedRealtime()+10_000
+        while(kotlin.math.abs(context.resources.configuration.fontScale-expected)>=0.01f&&
+            android.os.SystemClock.elapsedRealtime()<until)android.os.SystemClock.sleep(50)
+        check(kotlin.math.abs(context.resources.configuration.fontScale-expected)<0.01f) {
+            "Expected actual rendered-resource font scale $expected, observed ${context.resources.configuration.fontScale}"
         }
     }
 
