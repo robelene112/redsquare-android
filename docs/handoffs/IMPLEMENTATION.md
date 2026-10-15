@@ -67,18 +67,24 @@ Current correctedfocusedproofs:
 - GroupUI17 ef58dc7frun38739842394 SUCCESS:actions1PASS52.228s/mixed1PASS19.093s/
   group22PASS140.751s, actualreactionPID5267to5346/recovery/restorationPASS.
   RootbothoriginalPIDPNGsseen/allXMLparsed. Prior270groupFAILremainsqualified.
-Privatehistorytyping-auditfixture09fd42ba sharedIMEclose/positivereachableaction
-helper preservesalloldassertions, review0/0. Itsfocused17run38740674700 FAILED:
-24reported22PASS2FAIL148.707s atinitialfirstmessagevisibility316 inunknownretry/
-pendingimport. RootoriginalfailurePNGseen/2XMLparsed: firstmessageaboveviewport,
-secondpendingbodyvisible; later original/import assertions notrun. One-line
-fixture14395a8e scrollssamefirsttargetbeforeoriginalassert, reviewSpec0/Standards
-pending. Newfocused17run38741903238 ACTIVE.
-Full10run38739678542 ACTIVEat23603b1d; full17run38741257730 ACTIVEat09fd42ba,
-bothpublicreadstrue. No duplicates/cancellation. Both containoldinitialmessage
-observer, so recordanyactualoutcome beforeadjustedfullscope. Productunchangeddc28,
-signed21b42productequivalentthrough14395. Whole-source0/0to236 andeachfixture
-reviewseparate. Keyboard-opencompositionexplicitly35, notprovedhere.
+Privatehistorytyping-audit09 followed byinitialtargetscroll14395a8e now verified:
+focused17run38741903238 SUCCESS24PASS154.653s+actions10PASS61.992s, actualprivate
+PID5425to5514/recovery/restorationPASS. Fullwallet/backend/cache/draft/uncertain
+message/reactionoriginals/zero transmissions. All8selectedXMLparsed/root3PNGs
+seen, original/retry/import/processtail assertionsretained. Reviewallfixture0/0.
+Priorfocused09FAIL24reported22PASS2FAIL148.707 initialviewport remainsqualified.
+Full10run38739678542at236 FAILEDsame2initialprivatevisibilitychecks24reported/
+22PASS2FAIL100.827; priorphoto10PASS85.055/history2PASS74.446/bothphotoPID/queue13
+PASS257.262/group24casesPASS. RootSDK10failurePNGseen/2XMLparsed. Laterfulltail
+notaccepted. Fixture14395 wasnotinthatrun. Newfull10run38742885120 ACTIVEe92c41d3,
+publicreadstrue, onlydispatchedafterpredecessorended. Full17run38741257730 ACTIVE
+09fd42ba/publicreadstrue, stilloldinitialobserver; awaittruthfuloutcome before
+same-scopefollowup. Productunchangeddc28, signed21b42equivalentthrough14395.
+Noownedlocalbuild; groupcontractprotecteduntouched.
+Keyboard-opencomposition remains35. Researchdoc ANDROID_CHAT_KEYBOARD_LAYOUT_
+2026_10_15.md: exactBOMsource safeDrawingincludesIME; RedSquareThemealreadycalls
+enableEdgeToEdge. MinimalcandidateexplicitadjustResize, notextrapadding. Runtime
+andconstrainedheader/composercompactionunproved. Noapplayoutchangeshere.
 
 Signed20/0.1.20 BUILT/VERIFIED, UNPUBLISHED from isolated78bc9b70 at
 /mnt/storage/redsquare-android-artifacts/chat30-review-source. Exec1549 completed0;

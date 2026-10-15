@@ -570,3 +570,16 @@ pendingimport). RootunknownretryPNGseen/2XMLparsed: firstmessageaboveviewport
 whilesecondpendingbodyvisible, laterassertionsnotrun. Fixture14395a8e scrolls
 sameinitialtargetbeforeunchangeddisplayassert; noappchange/budgetincrease.
 Focused17run38741903238 ACTIVE; ownedfullslefttofinishtruthfully, notduplicated.
+
+Privatefocused17 14395a8e38741903238 SUCCESS24PASS154.653s/actions10PASS61.992s
++actualprivatePID5425to5514/recovery/restoration. Retained8XMLparsed/root3original
+PNGsseen, exactoriginal/retry/import/fullidentity/backend/draft/cache/reaction
+assertionspass, unsafe8envelopeJSONexplicitlyexcluded. Currentfixture0/0.
+Full10 23638739678542 FAILEDsame2initialprivatevisibilityassertions24reported/
+22PASS2FAIL100.827; precedingphoto10PASS85.055/history2PASS74.446/bothphotoPID/
+queue13PASS257.262/group24classesPASS. RootSDK10unknownretryfailurePNGseen/
+2XMLparsed. Laterfulltailnotaccepted. Newfull10e92run38742885120 active, only
+afterpredecessorended, publicreads. Oldfull17 0938741257730 stillactive and
+containsoldinitialobserver. No duplicate/cancel. Productunchangeddc28.
+Researchfor35committedseparately: existingthemeedge-to-edge+safeDrawingincludes
+IME, explicitresizefirstcandidate, runtimeunproved/noappchanges.
