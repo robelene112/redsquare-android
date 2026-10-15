@@ -389,10 +389,6 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             val permitted=editable&&loaded&&!readFailed
             LazyColumn(Modifier.weight(1f).semantics{contentDescription=messagesLabel},
                 state=messageList,verticalArrangement=Arrangement.spacedBy(8.dp)) {
-                entry.queuedMessage?.let { queued -> item(key="queued:${queued.candidate.id}") {
-                    val pending=queued.message
-                    ChatMessageBubble(pending.author,pending.text,pending.createdAt,true,onQuote={})
-                } }
                 items(visible,key={it.id}){item->
                     val outgoing=item.author==wallet.publicKey
                     Column(Modifier.fillMaxWidth().padding(vertical=6.dp),
@@ -421,6 +417,13 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                         if(copyFailed)Text(stringResource(R.string.chat_copy_error))
                     }
                 }
+                entry.queuedMessage?.let { queued -> item(key="queued:${queued.candidate.id}") {
+                    val pending=queued.message
+                    ChatMessageBubble(pending.author,pending.text,pending.createdAt,true,onQuote={})
+                } }
+            }
+            LaunchedEffect(entry.group.id,entry.queuedMessage?.candidate?.id) {
+                if(entry.queuedMessage!=null)messageList.scrollToItem(visible.size)
             }
             val quote=remember(message){privateReply(message)}
             val typed=quote?.body ?: message
