@@ -266,3 +266,14 @@ or8case runtime executed. Correctedretainpeer separatelyfromstartedserver,
 no production/assertionchange. Prior8case38702369456/ace remainsGREEN100.478s,
 retainedbackend-identity-green-android10(74hash35XML), root6neworiginalsseen.
 Signed19buildisolatedsource3a active; test-onlycompilefixdoesnotchangeAPK.
+
+Corrected56b3c17e process source Spec0/Standards0. Actualfocused10run38703489486
+SUCCESS:8PASS95.831s plus realprocess6413gone→6890, pendingguard259bytes/stat0,
+bothsavedmutes/exactdrafts/cache/freshsignedACK950/951/readable/2ssilence,
+fullwallet/backend/no-wire, recovery+restorationeach1PASS. Retainedprocess-
+regression-green-android10(74hash35XML) andprocess-recovery-green-android10
+(16hash3XML); rootall3processoriginalsseen/allXMLparsed. No secretsnapshotpulled.
+Finalfull10run38704251435 and17run38704254979 dispatchedsameexact56b3c17e with
+public_feed_read=true, ACTIVE. No duplicatefull orlocalbuild. Signed19prepared
+fromproduct-identical3a PASS4m36s, cert/package/min29checked, SHA82ed82795eda62dd4
+c064603cea022869063184175e12c4147cc4e5d031a2de4. Public18unchanged pendingfulls.

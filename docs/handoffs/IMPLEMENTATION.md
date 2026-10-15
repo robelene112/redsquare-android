@@ -13,23 +13,32 @@ migration pause recorded below. Commit/push each ticket and keep signed reviews
 available. Do not pause after the next ticket or ask routine approvals.
 
 **Latest #29 checkpoint, supersedes dated ACTIVE notes below:**
-Current implementation includes private/group mute, generic live Android alerts,
-exact-draft recreation fixes, authenticated dedup and fresh membership checks.
-Seven-case Android10 run38700873867 exact9fc36231 PASS74.080s, including failed
-private/group Unmute and unreadable-policy ACK/cache/silence/repair. Retained
-62hash29XML unreadable-policy-green-android10; root three new originals seen.
-Later12af76e9 cleanup-only correction reviewed Spec0/Standards0, not executed by
-that older run. Earlier four-case dedup GREEN bothSDKs retained. Canonical
-chronology docs/research/NATIVE_CONVERSATION_MUTE_VERIFICATION.md.
+Current source56b3c17e34bf60b08d2011acd6a4d042ca3fe4b9, whole source review
+40f28872...3a964944 Spec0/Standards0 and bounded compile correction56b0/0.
+Reports docs/evidence/ticket29/SOURCE_REVIEW.md. All production/private/group
+mute and live notification/draft/policy requirements implemented. Actual8case
+Android10 ace run38702369456 GREEN100.478s (74hash35XML); actualfocused56b
+run38703489486 SUCCESS8PASS95.831s plus process6413gone→6890, guard259bytes,
+bothmutes/exactdrafts/cache/freshsignedACK950/951/readable/2ssilence/fullidentity/
+backend/no-wire and installationrestoration. Newprocessretained16hash3XML,
+root3originalsseen; current8regression74hash35XML. Earlier compilefailure3a
+retained/qualified, no device claim. Canonical NATIVE_CONVERSATION_MUTE_VERIFICATION.
 
-New eighth combined backend/identity fixture checks actual UI mutes and Settings
-switch, protected second-wallet isolation with same group ID, positive alert,
-then restored first-wallet muted readable incoming and silence. Pending compile/
-review/native result. No local build or owned native run active. Next: actual
-process-interrupted policy commit containing both private/group mutes, then final
-full bothSDK/all gates/review/signed19/close29. Continue all remaining issues.
-Stable18 unchanged;19 not reserved. Protected untracked group contract untouched.
-No production node/wallet writes. Current host has no /dev/kvm; native proof CI.
+Finalfull10run38704251435 and17run38704254979 ACTIVE exact56b, public_feed_read
+true each. No duplicatefull. Inspect actual finished evidence/counts/allgates,
+retain with .scratch/retain-chat29-final-full.py ROOT OUT META SOURCE RUN 12.
+Expected new8muteclass +2processcompletionrecords/+1actualdeath, six wallet
+observer .log invocations remain distinct from applicationcounts. Base28 full
+335/336reported,76/77records24deaths. Do not infer full acceptance from focus.
+
+Signed19 PREPARED, not published. IsolatedSSD build37852 exit0/PASS4m36s,
+no owned localbuild active. Sourceworktree /mnt/storage/redsquare-android-artifacts/
+mute29-review-source at3a964944 (product identical to56b), artifacts .scratch/
+review-builds/19, log .scratch/review19-build.txt there. Cert/package/min29 verified,
+APKsha82ed82795eda62dd4c064603cea022869063184175e12c4147cc4e5d031a2de4.
+Public18 unchanged until full acceptance/review, then publish19/verifypublic/
+close29/continue30 and all remaining issues. Protected untracked group contract
+untouched. No production node/wallet writes. Current host no /dev/kvm; native CI.
 
 Twenty-four of the original35 tickets are complete (#2 through#15,#18,#20 through#28).
 Issue39 group Chat visual polish COMPLETE, signed16/0.1.16 published at
