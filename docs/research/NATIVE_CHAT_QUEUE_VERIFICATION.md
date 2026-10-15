@@ -55,3 +55,8 @@ Post/Chatcallers preservesfreshprotectedselection/strictdebugendpointbehavior.
 Localcompile8046FAILED1m4s becauseauthor/profile stillusedoldPostDeliveryAttempts
 nameafteritsmove; allreferencesnowcorrected. No nativeGREENfromthatbuildclaimed.
 Correctedcompile/runtimepending. Archive-reconciliation/groupsstilllaterwork.
+
+Correctedlocal15564PASS3m29s/debug/test. BackgroundGREEN10run38665208539 exact
+9aca19a2:2PASS47.426s; actualbackgroundoriginalraw/Relay/decrypt/FWD/oneeach and
+cancellationpass. Rootresumed-backgroundoriginalseen. Retainedprivate-background-
+green-android10. Group/reconciliation/storage/scope/process/full28stillpending.

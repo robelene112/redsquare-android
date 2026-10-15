@@ -69,12 +69,15 @@ onlyQueuedenabled, WorkManagerCONNECTED/publicmetadata/guardedoriginals, foregro
 session andsharedDeliveryAttempts. ReviewSpecprogressracedroppedwhilesending and
 Standardsworkercontextdup corrected9aca19a214aeb8cc259849fa64ca201365885cda;
 separateboundedreviews0/0. Local8046FAILED1m4 missingauthor/profileoldlockrefs,
-allcorrected. Currentlocal15564ACTIVE correcteddebug/testbuild, noapp/testeditsuntil
-ends. Nativefocused10run38665208539 ACTIVE exact9aca19a2; do notduplicate.
-No automaticGREEN or groups/Archive-reconciliation/full28acceptanceyet.
+allcorrected. Correctedlocal15564PASS3m29s. Nativefocused10run38665208539 SUCCESS exact9aca19a2:
+2PASS47.426s backgroundsameoriginalRaw/Relay/decrypt/FWD/oneeach pluscancelallpass.
+Originalresumedcaptureseen, retainedprivate-background-green-android10. No owned
+localbuild. Newthirdbackendpause regression tests existingguard with both controlled
+servers: reachableoriginalwhileofficialselected mustgetzeroRaw/Relay; switching
+backforwardsoneidenticaloriginalonly. Firstexecutionpending, groups/reconciliation/
+identity/storage/process/full28 remainunaccepted.
 
-NEXT: inspectcorrectedlocal/native results andoriginals; retainqualifiedbackground
-GREEN, then backend/identitypause, exactArchive-reconciliation/storagefailure,
+NEXT: review/verify backendpause and identitypause, then exactArchive-reconciliation/storagefailure,
 groupqueuewithfreshmembership, actualprocessdeath, finalfull10/17/reviews/signed
 nextbeta/closure28. Parent1approvedapplication/controlledpeer/protectedrecoveryseams.
 Queueonlyexplicitmessages,noadmin/reaction/transferautosends. Continue28through36

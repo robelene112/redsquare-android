@@ -15,11 +15,17 @@ import org.junit.Test
 class ChatQueuePreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
 
-    @Test fun anOfflinePrivateMessageRemainsCancellableAfterReopening() = exercisePrivateQueue(cancel=true)
+    @Test fun anOfflinePrivateMessageRemainsCancellableAfterReopening() = exercisePrivateQueue(PrivateQueueCase.CANCEL)
 
-    @Test fun anOfflinePrivateMessageResumesOnItsOriginalSignatureWhileBackgrounded() = exercisePrivateQueue(cancel=false)
+    @Test fun anOfflinePrivateMessageResumesOnItsOriginalSignatureWhileBackgrounded() = exercisePrivateQueue(PrivateQueueCase.BACKGROUND)
 
-    private fun exercisePrivateQueue(cancel:Boolean) {
+    @Test fun aQueuedPrivateMessageWaitsForItsOriginalBackendWithoutRerouting() = exercisePrivateQueue(PrivateQueueCase.BACKEND)
+
+    private enum class PrivateQueueCase { CANCEL, BACKGROUND, BACKEND }
+    private fun exercisePrivateQueue(case:PrivateQueueCase) {
+        val cancel=case==PrivateQueueCase.CANCEL
+        val switchBackend=case==PrivateQueueCase.BACKEND
+        val label=case.name.lowercase()
         val context=InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName=="nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu","goldfish"))
@@ -43,8 +49,10 @@ class ChatQueuePreviewTest {
             synchronized(SaitoLocalState.lock){saved.keys.forEach{check(File(context.noBackupFilesDir,it).delete())}}
             check(prefs.edit().putBoolean("offered",true).commit())
             wallets.replace(original,wallet);backends.save(SaitoBackend.OWNER)
-            ActivityScenario.launch<MainActivity>(intent).use{scenario->
-                withFailureCapture({captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/private-${if(cancel)"cancel" else "resume"}-failure.png"))}) {
+            val alternate=ControlledFeedPeer("[]",advertisedServices="archive||;relay||",archiveResponse={"[]"})
+            alternate.start().use{alternateServer->
+            ActivityScenario.launch<MainActivity>(Intent(intent).putExtra("feedOfficialPeerUrl","ws://127.0.0.1:${alternateServer.port}/wsopen")).use{scenario->
+                withFailureCapture({captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/private-$label-failure.png"))}) {
                     fun open(){
                         waitFor("Chat");ui.onNodeWithText("Chat").performClick()
                         waitFor(contact);ui.onNodeWithText(contact).performClick()
@@ -54,7 +62,7 @@ class ChatQueuePreviewTest {
                     ui.onNode(hasSetTextAction() and isEnabled()).performTextReplacement(text)
                     ui.onNodeWithText("Send").performClick()
                     waitFor("Queued")
-                    captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/private-${if(cancel)"cancel" else "resume"}-queued.png"))
+                    captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/private-$label-queued.png"))
                     scenario.recreate();open();waitFor("Queued")
                     val originalCandidate=requireNotNull(nl.davidengelen.redsquare.chat.ChatWorkStore(context,wallet,SaitoBackend.OWNER,contact).load().transaction)
                     if(cancel) {
@@ -62,6 +70,10 @@ class ChatQueuePreviewTest {
                         ui.waitUntil(15_000){ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty()}
                         ui.onNode(hasSetTextAction() and isEnabled()).assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText,AnnotatedString(text)))
                         ui.onAllNodes(hasText(text) and !hasSetTextAction()).assertCountEquals(0)
+                    } else if(switchBackend) {
+                        ui.onNodeWithText("Settings").performClick()
+                        waitFor("saito.io");ui.onNodeWithText("saito.io").performClick()
+                        ui.waitUntil(20_000){alternate.requests.get()>0}
                     } else scenario.moveToState(androidx.lifecycle.Lifecycle.State.CREATED)
                     val peer=ControlledFeedPeer("[]",advertisedServices="archive||;relay||",archiveResponse={"[]"},relayResponse={signed->
                         val receiver=SaitoWallet.fromPrivateKey("0".repeat(63)+"2") // Public unsafe fixture only.
@@ -74,18 +86,30 @@ class ChatQueuePreviewTest {
                             android.os.SystemClock.sleep(6_000)
                             check(peer.transactions.isEmpty()&&peer.relayedMessages.isEmpty())
                         } else {
+                            if(switchBackend) {
+                                android.os.SystemClock.sleep(7_000)
+                                check(peer.transactions.isEmpty()&&peer.relayedMessages.isEmpty()&&alternate.transactions.isEmpty()&&alternate.relayedMessages.isEmpty())
+                                check(backends.load()==SaitoBackend.OFFICIAL)
+                                check(nl.davidengelen.redsquare.chat.ChatWorkStore(context,wallet,SaitoBackend.OWNER,contact).load().transaction?.envelope()==originalCandidate.envelope())
+                                captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/private-backend-paused.png"))
+                                ui.onNodeWithText("Settings").performClick()
+                                waitFor("saito.davidengelen.nl");ui.onNodeWithText("saito.davidengelen.nl").performClick()
+                            }
                             ui.waitUntil(60_000){peer.relayedMessages.isNotEmpty()}
                             check(postingTransaction(peer.transactions.single()).envelope()==originalCandidate.envelope())
                             check(SaitoEnvelope.fromSignedJson(peer.relayedMessages.single())==originalCandidate.envelope())
-                            scenario.moveToState(androidx.lifecycle.Lifecycle.State.RESUMED)
+                            if(switchBackend){waitFor(contact);ui.onNodeWithText(contact).performClick()}
+                            else scenario.moveToState(androidx.lifecycle.Lifecycle.State.RESUMED)
                             waitFor("Forwarded. Delivery is not confirmed.")
                             check(peer.transactions.size==1&&peer.relayedMessages.size==1)
                         }
                         check(wallets.loadExisting().exportJson()==wallet.exportJson()&&backends.load()==SaitoBackend.OWNER)
-                        peer.assertHealthy()
-                        captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/private-${if(cancel)"cancelled-draft" else "resumed-background"}.png"))
+                        check(alternate.transactions.isEmpty()&&alternate.relayedMessages.isEmpty())
+                        peer.assertHealthy();alternate.assertHealthy()
+                        captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/private-$label-result.png"))
                     }
                 }
+            }
             }
         }catch(failure:Throwable){primary=failure;throw failure}
         finally{cleanupAfterTest(primary,
