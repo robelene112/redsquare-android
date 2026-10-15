@@ -122,7 +122,11 @@ messageforrender/requiredonQuote. Local13877PASS1m27s/compileDebugKotlin, focuse
 exact320b5cad SUCCESS8PASS135.049s, groupCancel/allprivate7pass.
 Retainedgroup-cancel-green-android10/rootoriginalsseen. New9thgroupbackground
 tracercorrection49fb917d Spec0/Standards0. Focused10run38674561631 exact49fb917d
-ACTIVE; no groupautominimum/noownedlocalbuild. Do notduplicatedispatch.
+FAILED9cases8PASS/1FAIL287.766s at101 noRelay+durableFWDwithin60swhileCREATED.
+Exactwire/history/key/FWDtailunexecuted. Retainedgroup-background-red-android10.
+Groupautominimum nowusesexistingworker/guard/singleflight, durableautomaticflag
+defaultfalse/controlreset, sharedexactArchiveoriginal/private+groupcallers and
+progressobservingUI. No ownedlocalbuild/proof. Compile/correctedruntimepending.
 Groupappminimumebd9f700 applied, notyetaccepted. Groups/process/full28stillpending.
 
 NEXT: review/verify ready-navigation+storage7cases, then groupqueues/freshmembership,

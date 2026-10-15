@@ -14,8 +14,7 @@ class ChatQueueWorker(context:Context,parameters:WorkerParameters):CoroutineWork
             val wallet=selected.wallet;val backend=selected.backend
             val endpoint=selected.endpoint;val id=selected.transactionId
             resumeQueuedChats(applicationContext,wallet,backend,endpoint,id)
-            if(ChatWorkStore.pendingDelivery(applicationContext,wallet,backend).any{it.load().let{saved->
-                saved.automatic&&!saved.deliveryComplete&&saved.transaction?.id==id}})
+            if(id in ChatQueueScheduling.pendingIds(applicationContext,wallet,backend))
                 Result.retry() else Result.success()
         }catch(_:nl.davidengelen.redsquare.InvalidQueuedDelivery){Result.failure()}
         catch(cancelled:CancellationException){throw cancelled}
@@ -30,11 +29,25 @@ internal object ChatQueueScheduling {
             val candidate=requireNotNull(saved.transaction)
             if(saved.status!=ChatWorkStore.Status.QUEUED&&!saved.automatic)continue
             work.enableAutomatic(candidate.id)
-            val request=OneTimeWorkRequestBuilder<ChatQueueWorker>()
-                .setConstraints(Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
-                .setInputData(workDataOf("transaction" to candidate.id,"owner" to wallet.publicKey,
-                    "backend" to backend.id,"endpoint" to endpoint)).build()
-            WorkManager.getInstance(context).enqueueUniqueWork("chat:${backend.id}:${wallet.publicKey}:${candidate.id}",ExistingWorkPolicy.KEEP,request)
+            enqueueOriginal(context,wallet,backend,endpoint,candidate.id)
         }
+        val groups=GroupChatStore(context,wallet,backend)
+        for(entry in groups.entries()) {
+            val candidate=entry.pendingMessage ?: continue
+            groups.enableAutomatic(entry.group.id,candidate.id)
+            enqueueOriginal(context,wallet,backend,endpoint,candidate.id)
+        }
+    }
+
+    fun pendingIds(context:Context,wallet:SaitoWallet,backend:SaitoBackend):List<String> =
+        ChatWorkStore.pendingDelivery(context,wallet,backend).mapNotNull{it.load().transaction?.id}+
+            GroupChatStore(context,wallet,backend).entries().mapNotNull{it.pendingMessage?.id}
+
+    private fun enqueueOriginal(context:Context,wallet:SaitoWallet,backend:SaitoBackend,endpoint:String,id:String) {
+        val request=OneTimeWorkRequestBuilder<ChatQueueWorker>()
+            .setConstraints(Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
+            .setInputData(workDataOf("transaction" to id,"owner" to wallet.publicKey,
+                "backend" to backend.id,"endpoint" to endpoint)).build()
+        WorkManager.getInstance(context).enqueueUniqueWork("chat:${backend.id}:${wallet.publicKey}:$id",ExistingWorkPolicy.KEEP,request)
     }
 }

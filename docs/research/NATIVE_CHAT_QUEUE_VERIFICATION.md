@@ -207,3 +207,15 @@ recipient/assertions. No newdeadline/appcode. FirstREDpending.
 
 Groupbackgroundtracercorrection49fb917d separateSpec0/Standards0. Actual9case
 focused10run38674561631 exact49fb917d ACTIVE. No groupautominimum/no localbuild.
+
+GroupbackgroundRED10run38674561631 exact49fb917d:9cases8PASS/1FAIL287.766s at101
+noRelay+durableFORWARDEDwithin60s whileCREATED. Actualqueued/recreate/retainedoriginal
+reached; exactwire/recipient/decode/history/key/FWD/UI tailunexecuted. Original
+whitebackgroundwindowseen(no launcherclaim). Retainedgroup-background-red-android10.
+Groupautominimum nowusesexistingWorkManager/publicmetadata/contextguard/shared
+singleflight, durableautomaticMessageflagdefaultfalse. Controls/reactions reset
+flag; onlyexplicitqueuedmessagesenabled. Currentclaim/Relaymembershipunchanged.
+SharedexactArchiveoriginalhelperhasprivate/groupcallers, UNKNOWN/SUBMITTEDauto
+checksownoriginalbeforeidenticalretry; AVAILABLEdoesnotclaimdelivery. GroupUI
+observesdurablechangesandclearsmatchingcompletedoldattempterror, retainsdrafts.
+Correctedlocalcompile/new9caseGREENpending. No complete28claim.

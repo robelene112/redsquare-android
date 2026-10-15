@@ -1,8 +1,6 @@
 package nl.davidengelen.redsquare.chat
 
 import android.content.Context
-import com.google.gson.JsonObject
-import com.google.gson.JsonParser
 import kotlinx.coroutines.CancellationException
 import nl.davidengelen.redsquare.saito.*
 
@@ -16,25 +14,7 @@ internal suspend fun submitPrivateMessage(context:Context,wallet:SaitoWallet,bac
         val previous=work.load()
         check(previous.transaction?.id==candidate.id)
         if(previous.automatic&&previous.status!=ChatWorkStore.Status.QUEUED) {
-            val found=SaitoPeer(wallet,endpoint).use{peer->
-                require("archive" in peer.services())
-                val request=JsonObject().apply {
-                    addProperty("request","archive")
-                    add("data",JsonObject().apply {
-                        addProperty("request","load");addProperty("sig",candidate.id)
-                        addProperty("field3",PrivateChat.conversationId(wallet.publicKey,contact));addProperty("limit",1)
-                    })
-                }
-                val rows=JsonParser.parseString(peer.request(request.toString().toByteArray(Charsets.UTF_8)){work.assertSelected()}
-                    .toString(Charsets.UTF_8)).asJsonArray
-                require(rows.size()<=1)
-                if(rows.isEmpty())false else {
-                    val value=rows.single().asJsonObject.get("tx")
-                    require(value.isJsonPrimitive&&value.asJsonPrimitive.isString)
-                    require(SaitoEnvelope.decodePayload(value.asString)==SaitoEnvelope.decodePayload(candidate.envelope()))
-                    true
-                }
-            }
+            val found=archivedChatOriginal(wallet,endpoint,candidate,PrivateChat.conversationId(wallet.publicKey,contact)){work.assertSelected()}
             if(found) {
                 val retained=history.save(listOf(candidate.envelope())).entries
                 onProgress(work.confirmAvailable(candidate.id),retained)
@@ -66,4 +46,5 @@ internal suspend fun resumeQueuedChats(context:Context,wallet:SaitoWallet,backen
         }catch(cancelled:CancellationException){throw cancelled}
         catch(_:Exception){/* Explicit signed intent remains durable and scoped. */}
     }
+    resumeQueuedGroupMessages(context,wallet,backend,endpoint,onlyId)
 }
