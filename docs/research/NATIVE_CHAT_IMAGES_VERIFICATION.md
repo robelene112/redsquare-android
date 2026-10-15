@@ -530,3 +530,8 @@ assertions unchanged. Review Standards0/Spec0. Fixturef1bbeb82 scrolls existing
 cachedgroupCopy/Replyactions beforeassert/click. Focusedqueue10/17 andgroupUI10/17
 ownedruns active. Freshfullbothrequired forproductionchange. Signed20remains
 builtunpublishedoldsource; nextbuild21 afterfix,19publiccurrent.
+
+Signed21/0.1.21 built isolatedimmutableb42e4e2f SUCCESS3m59s, exec46570exit0.
+DirectAPKhash/package21/min29/establishedcertificateverified. Fourhashsafe
+metadata record ticket30/review21-build; APK/signingsecrets outsideGit.
+21unpublishedpendingtests;20oldsourceunpublished,19publiccurrent.
