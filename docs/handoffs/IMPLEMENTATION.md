@@ -38,8 +38,12 @@ sourceb42e4e2f is product-identical through current HEAD.
   one existing API30 profile assumption,85records27actualdeaths. Core114/release/
   lint/allapplication/publicreads/coldwallet/signed5-to8/diagnostic PASS. PhotoUI
   10PASS81.007s/history2PASS54.691s, actualphotoPID7332to7568private/7839to8177
-  group. Retained980hashes/363XML/root10originalPNGsseen. Evidence review pending.
-- Android17 `38744845607`, source `8796c45b`, ACTIVE, public reads enabled.
+  group. Retained980hashes/363XML/root10originalPNGsseen. Reviews0/0.
+- Android17 `38744845607`, source `8796c45b`, SUCCESS:362PASS/86records27deaths,
+  core114/release/lint/allapplication/publicreads/coldwallet/signed5-to8/diagnostic.
+  Photo10PASS83.397s/history2PASS55.015s including actual modernwritefault/retry;
+  photoPID5111to5180private/5286to5359group/restoration. Retained988hashes365XML/
+  root10originalPNGsseen. Final17evidence review pending;10 reviewed0/0.
 Each started only after its same-scope predecessor ended. Old full failures stay
 failed, with unexecuted tails qualified. Both previous fulls at236/09 failed two
 private initial-history visibility assertions; the final14395 scroll correction
@@ -65,11 +69,12 @@ passed focused34+actualPID. Do not infer acceptance from earlier partial gates.
   matchingtrue probe-table pass. Actual device priorstatefalse, no priortrue
   restoration claim.
 
-Active full17 at879 uses the old probe. Its actual original permission snapshot
-must be checked before qualifying its outcome. Previous failed full17 snapshot
-was explicitlyfalse, so its grant/revoke path matched that original state; the
-missing-tool warning does not establish priortrue preservation or overallsuccess.
-New probe focused proof is independent. No application/budget/assertion changes.
+Successful full17 at879 uses the old probe and emitted one missing-rg warning.
+Actual original permission snapshot explicitlyfalse, selectedrow+rawhash retained
+in final17 qualification. Its observed grant/revoke path matches that original
+state; no priortrue restoration claim. Portable3a focused8+PID proof independent.
+No application/budget/assertion changes. Both fulls SUCCESS, no owneddevice/local
+build active. Final17 evidence review and signed21 publication remain.
 Final retainer `.scratch/retain-chat30-final-full.py` validates all class counts,
 photo/history/PID gates and two more actual deaths than29. Retain full metadata,
 raw logs, captures and permission qualification before final review/publication.

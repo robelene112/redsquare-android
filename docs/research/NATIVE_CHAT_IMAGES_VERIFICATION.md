@@ -620,3 +620,14 @@ onlystatus0bundlesnotJUnitcompletions, strictnamedterminalcounts2stillmatchOK2.
 Retainerparserrecognizesonlythat exactknownstreambundle; no runtime/assertions
 changed. Final17run38744845607at879stillACTIVE, oldpermissionprobeactualsnapshot
 mustbequalified. Signed21stillunpublished. Full10evidencereviewpending.
+
+FINALfull17run38744845607 exact8796c45baafc253b44ddb75b637dd399ab58918e SUCCESS:
+362PASS/86records27actualdeaths/core114/release/lint/allapp/bothpublicfeeds/
+publicChat/coldwallet/signed5-to8/finaldiagnostic. Photo10PASS83.397s/history2
+PASS55.015s inclmodern.newfailure/retry/nestedmultipartrestore. Photoactual
+privatePID5111to5180/group5286to5359/restorationPASS. Retained988hashes365XML/
+387PNG/root10originalPNGseen. Oldprobe warningobservedexactlyonce, actualprior
+permissionfalse verifiedfromrawsnapshotandretainedrow+SHA. Sameintendedgrant/
+revokepathforactualstate, no priortrueclaim. Correctedprobe3afocused8+PIDgreen
+independent, noapp/budget/assertionchange. BothfullsnowSUCCESS,10reviewed0/0,
+17evidencereviewpending/signed21unpublished. Noowneddevice/localbuildactive.
