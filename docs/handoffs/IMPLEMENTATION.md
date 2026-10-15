@@ -1,3 +1,11 @@
+## Latest #41 checkpoint, 2026-10-15 21:23 UTC
+
+Full Android10 run38808096905 at36b66a7d FAILED early: appearance1PASS9.306s, keyboard10cases9PASS/1FAIL66.152s. The first larger-font private reply/photo case completes its application assertions then fails the added finally exact font-setting readback251. Prior persisted value is null, prior rendered1.0; observed value was not logged, so cause is unknown. All subsequent full gates remain unexecuted. Retained full-font-restore-failure/android10:21hashes/5parsedXML, root original sent/IME images viewed. Do not use strict success retainer on this failed run.
+
+Diagnostic-only ac9f0ea4 logs public expected/observed setting/resources and retains the SAME exact assertion and resource wait. Both source reviews0/0. Local test-APK build16434 ACTIVE, log .scratch/chat41-font-restore-observer-compile.log; do not edit app/test during build. Next dispatch focused keyboard Android10 for actual readback. Full Android17 run38808437439 remains ACTIVE at36b66a7d, no cancellation or pending result claim.
+
+Signed24/0.1.24 BUILT and VERIFIED from frozen36b66a7d, exec57656 COMPLETE0, release4m2s. Artifact /mnt/storage/redsquare-android-artifacts/chat41-review24-source/.scratch/review-builds/24. SHA256 7d6e8e746f3d1cb68969e302245d6868bb4edcdd6cb1560ed6fe5344d97f8c16; established certificate/package/min29. UNPUBLISHED pending full gates and final reviews. Do not rebuild/reset24. Public23 remains current. Corrected scroll evidence final Spec0/Standards0. Root remains sole implementation writer.
+
 ## Current verification checkpoint, 2026-10-15
 
 #41 remains the sole active implementation. Both corrected scroll cases now pass on Android10/17 at36b66a7d. Full Android10 run38808096905 and full Android17 run38808437439 are ACTIVE at the SAME36b66a7d81a5019ecd9ba67a52982ff019f12bb5, public_feed_read=true. Do not duplicate/cancel or claim pending outcomes. The final fulls first execute the new exact persisted font-setting restore readback. Prepared strict retainer .scratch/retain-chat41-final-full.py has not run; expected372/373 cases must be checked against actual results. Use fresh ticket41/final-full directories. No current completion claim.
