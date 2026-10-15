@@ -9,10 +9,11 @@ import nl.davidengelen.redsquare.saito.*
 
 /** A saved original and its attempt state survive reopening; loading never transmits. */
 internal class ChatWorkStore(private val context: Context, private val wallet: SaitoWallet,
-    private val backend: SaitoBackend, private val contact: String) {
+    private val backend: SaitoBackend, val contact: String) {
     enum class Status { NONE, QUEUED, UNKNOWN, SUBMITTED, FORWARDED }
-    data class Saved(val draft: String = "", val transaction: SaitoTransaction? = null, val status: Status = Status.NONE) {
-        val frozen:Boolean get()=status==Status.QUEUED||status==Status.UNKNOWN
+    data class Saved(val draft: String = "", val transaction: SaitoTransaction? = null, val status: Status = Status.NONE,
+        val automatic:Boolean=false) {
+        val frozen:Boolean get()=status==Status.QUEUED||status==Status.UNKNOWN||(automatic&&status==Status.SUBMITTED)
     }
     private val file = EncryptedLocalFile(context,
         "chatwork.${backend.id}.${wallet.publicKey}.${PrivateChat.conversationId(wallet.publicKey, contact)}.v1",
@@ -46,6 +47,13 @@ internal class ChatWorkStore(private val context: Context, private val wallet: S
         save(Saved(draft=text))
     }
 
+    fun enableAutomatic(id:String):Saved = synchronized(SaitoLocalState.lock) {
+        assertSelected()
+        val previous=load()
+        check(previous.transaction?.id==id && (previous.status==Status.QUEUED||previous.automatic))
+        if(previous.automatic)previous else save(previous.copy(automatic=true))
+    }
+
     fun prepareRetry(id: String): Saved = synchronized(SaitoLocalState.lock) {
         assertSelected()
         val previous = load()
@@ -61,7 +69,7 @@ internal class ChatWorkStore(private val context: Context, private val wallet: S
     fun claim(id: String) = synchronized(SaitoLocalState.lock) {
         assertSelected()
         val previous=load()
-        check(previous.transaction?.id == id && previous.frozen)
+        check(previous.transaction?.id == id && (previous.frozen || (previous.automatic&&previous.status==Status.SUBMITTED)))
         if(previous.status==Status.QUEUED)save(previous.copy(status=Status.UNKNOWN))
     }
 
@@ -76,14 +84,34 @@ internal class ChatWorkStore(private val context: Context, private val wallet: S
             addProperty("draft", saved.draft)
             saved.transaction?.let { addProperty("transaction", it.encoded()) }
             addProperty("status", saved.status.name)
+            addProperty("automatic",saved.automatic)
         }
         file.save(EncryptedLocalFile.Contents(1, record.toString()))
-        check(load().let { it.draft == saved.draft && it.transaction?.id == saved.transaction?.id && it.status == saved.status })
+        check(load().let{it.draft==saved.draft&&it.transaction?.encoded()==saved.transaction?.encoded()&&
+            it.status==saved.status&&it.automatic==saved.automatic})
+        changes.value+=1
         return saved
     }
 
     companion object {
         private val gson = GsonBuilder().setStrictness(Strictness.STRICT).create()
+        val changes=kotlinx.coroutines.flow.MutableStateFlow(0L)
+
+        fun pendingDelivery(context:Context,wallet:SaitoWallet,backend:SaitoBackend):List<ChatWorkStore> = synchronized(SaitoLocalState.lock) {
+            val prefix="chatwork.${backend.id}.${wallet.publicKey}."
+            val pattern=Regex("${Regex.escape(prefix)}([0-9a-f]{64})\\.v1(?:\\.bak)?")
+            val files=requireNotNull(context.noBackupFilesDir.listFiles())
+            check(files.none{it.name.startsWith(prefix)&&it.name.endsWith(".new")})
+            files.mapNotNull{pattern.matchEntire(it.name)?.groupValues?.get(1)}
+                .distinct().mapNotNull{group->
+                    val contents=EncryptedLocalFile(context,"$prefix$group.v1","redsquare.chatwork.v1","chatwork.").load()
+                        ?: return@mapNotNull null
+                    val saved=decode(contents,wallet,group)
+                    if(saved.status!=Status.QUEUED&&(!saved.automatic||saved.status==Status.FORWARDED))return@mapNotNull null
+                    val message=PrivateChat.recover(wallet,requireNotNull(saved.transaction).envelope(),group)
+                    ChatWorkStore(context,wallet,backend,message.counterparty)
+                }
+        }
 
         /** Inspect this wallet's retained work without loading or transmitting another identity's records. */
         fun hasWork(context: Context, wallet: SaitoWallet, backend: SaitoBackend): Boolean = synchronized(SaitoLocalState.lock) {
@@ -110,9 +138,11 @@ internal class ChatWorkStore(private val context: Context, private val wallet: S
                 SaitoTransaction.restore(it.asString)
             }
             val status = Status.valueOf(record.get("status").asString)
+            val automatic=record.get("automatic")?.let{require(it.isJsonPrimitive&&it.asJsonPrimitive.isBoolean);it.asBoolean} ?: false
             require((transaction == null) == (status == Status.NONE))
+            require(!automatic||transaction!=null)
             transaction?.let { require(PrivateChat.recover(wallet, it.envelope(), group).message.author == wallet.publicKey) }
-            return Saved(draft, transaction, status)
+            return Saved(draft, transaction, status,automatic)
         }
     }
 }

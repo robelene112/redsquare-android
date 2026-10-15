@@ -1,0 +1,70 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ChatQueuePreviewTest:
+INSTRUMENTATION_STATUS: test=anOfflinePrivateMessageResumesOnItsOriginalSignatureWhileBackgrounded
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 60000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exercisePrivateQueue$lambda$14$lambda$13(ChatQueuePreviewTest.kt:77)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.$r8$lambda$gMVCBBhrja5opC9jON7eviKjcVc(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exercisePrivateQueue(ChatQueuePreviewTest.kt:47)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.anOfflinePrivateMessageResumesOnItsOriginalSignatureWhileBackgrounded(ChatQueuePreviewTest.kt:20)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anOfflinePrivateMessageResumesOnItsOriginalSignatureWhileBackgrounded(nl.davidengelen.redsquare.ChatQueuePreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 60000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exercisePrivateQueue$lambda$14$lambda$13(ChatQueuePreviewTest.kt:77)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.$r8$lambda$gMVCBBhrja5opC9jON7eviKjcVc(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exercisePrivateQueue(ChatQueuePreviewTest.kt:47)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.anOfflinePrivateMessageResumesOnItsOriginalSignatureWhileBackgrounded(ChatQueuePreviewTest.kt:20)
+
+INSTRUMENTATION_STATUS: test=anOfflinePrivateMessageResumesOnItsOriginalSignatureWhileBackgrounded
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anOfflinePrivateMessageRemainsCancellableAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anOfflinePrivateMessageRemainsCancellableAfterReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 123.147
+There was 1 failure:
+1) anOfflinePrivateMessageResumesOnItsOriginalSignatureWhileBackgrounded(nl.davidengelen.redsquare.ChatQueuePreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 60000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exercisePrivateQueue$lambda$14$lambda$13(ChatQueuePreviewTest.kt:77)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.$r8$lambda$gMVCBBhrja5opC9jON7eviKjcVc(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exercisePrivateQueue(ChatQueuePreviewTest.kt:47)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.anOfflinePrivateMessageResumesOnItsOriginalSignatureWhileBackgrounded(ChatQueuePreviewTest.kt:20)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

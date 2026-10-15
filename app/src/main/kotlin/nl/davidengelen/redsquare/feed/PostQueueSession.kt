@@ -1,5 +1,6 @@
 package nl.davidengelen.redsquare.feed
 
+import nl.davidengelen.redsquare.saito.DeliveryAttempts
 import android.content.Context
 import kotlinx.coroutines.CancellationException
 import nl.davidengelen.redsquare.saito.SaitoBackend
@@ -14,7 +15,7 @@ internal suspend fun resumeQueuedPosts(context: Context, wallet: SaitoWallet, ba
             if (!saved.automatic || saved.available) continue
             val candidate = requireNotNull(saved.transaction)
             if (onlyId != null && candidate.id != onlyId) continue
-            PostDeliveryAttempts.run(candidate.id) {
+            DeliveryAttempts.run(candidate.id) {
             SaitoPeer(wallet, endpoint).use { peer ->
                 if (peer.hasPost(candidate, wallet.publicKey, saved.text)) {
                     store.update(saved, saved.copy(queued = false, available = true))

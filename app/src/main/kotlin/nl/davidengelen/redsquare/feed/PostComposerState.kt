@@ -14,6 +14,7 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import nl.davidengelen.redsquare.saito.FeedPost
+import nl.davidengelen.redsquare.saito.DeliveryAttempts
 import nl.davidengelen.redsquare.saito.SaitoPeer
 import nl.davidengelen.redsquare.saito.SaitoTransaction
 import nl.davidengelen.redsquare.saito.SaitoWallet
@@ -115,7 +116,7 @@ internal class PostComposerState(
                     prepared
                 }
                 try { withContext(Dispatchers.IO) {
-                    PostDeliveryAttempts.run(candidate.id) {
+                    DeliveryAttempts.run(candidate.id) {
                     SaitoPeer(wallet, endpoint).use { peer ->
                         if (retrying && peer.hasPost(candidate, owner, text)) {
                             try { check(store.confirmAvailable(candidate.id)) }

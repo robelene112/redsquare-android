@@ -86,13 +86,15 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
     var queueWarning by remember { mutableStateOf(false) }
     LaunchedEffect(wallet, backend, endpoint) {
         if (wallet == null) return@LaunchedEffect
-        try { withContext(Dispatchers.IO) { PostQueueScheduling.enqueue(context, wallet.publicKey, backend, endpoint) } }
+        try { withContext(Dispatchers.IO) { PostQueueScheduling.enqueue(context, wallet.publicKey, backend, endpoint)
+            nl.davidengelen.redsquare.chat.ChatQueueScheduling.enqueue(context,wallet,backend,endpoint) } }
         catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { queueWarning = true }
         lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
             while (currentCoroutineContext().isActive) {
                 queueWarning = try {
-                    withContext(Dispatchers.IO) { resumeQueuedPosts(context, wallet, backend, endpoint) }
+                    withContext(Dispatchers.IO) { resumeQueuedPosts(context, wallet, backend, endpoint)
+                        nl.davidengelen.redsquare.chat.resumeQueuedChats(context,wallet,backend,endpoint) }
                     false
                 } catch (cancelled: CancellationException) { throw cancelled }
                 catch (_: Exception) { true }

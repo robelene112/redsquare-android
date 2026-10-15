@@ -39,3 +39,9 @@ PrivatecancelGREEN10run38663341602 atac5c8608 onePASS15.786s. ExactEditableText,
 noordinarybubble aftercancel, reachablepeerzeroRaw/Relay andwallet/backendpreserved.
 Rootoriginalcancelleddraftseen; retainedprivate-cancel-green-android10. Product
 identical28714c21; newautomatic/backgroundandgroupqueue remainunimplemented.
+
+BackgroundRED10run38663935309 at056d2f4a:2cases1PASS/1fail123.147s at77 noRelay
+within60s afteractualQueued/recreate/retainedoriginal/backgroundCREATED. Original
+background-windowandQueuedcapturesrootseen; exactraw/Relay/decrypt/FWD/counttail
+unexecuted. Cancellationpassesunchanged. Retainedprivate-background-red-android10.
+Next minimumautomaticscheduling/guardedimmutableattempts, notgroup/fullacceptance.

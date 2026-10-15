@@ -58,6 +58,18 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { failed = true }
     }
+    LaunchedEffect(work) {
+        ChatWorkStore.changes.collect {
+            if(ready&&!sending)writes.withLock {
+                try {
+                    saved=withContext(Dispatchers.IO){work.load()}
+                    if(saved.transaction!=null&&saved.status!=ChatWorkStore.Status.QUEUED)
+                        onHistory(withContext(Dispatchers.IO){history.load().entries})
+                }catch(cancelled:CancellationException){throw cancelled}
+                catch(_:Exception){ready=false;failed=true}
+            }
+        }
+    }
     LaunchedEffect(ready, text) {
         if (!ready || sending || saved.frozen) return@LaunchedEffect
         delay(300)
@@ -138,23 +150,19 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
                                 prepared
                             }
                             withContext(Dispatchers.IO) {
-                                submitChatTransaction(wallet, endpoint, contact, candidate, ChatSubmissionCallbacks(
-                                    claim = { work.claim(candidate.id) },
-                                    assertSelected = { work.assertSelected() },
-                                    submitted = {
-                                        val submitted = work.record(candidate.id, ChatWorkStore.Status.SUBMITTED)
-                                        val retained=history.save(listOf(candidate.envelope())).entries
-                                        withContext(Dispatchers.Main.immediate) { saved = submitted;onHistory(retained) }
-                                    },
-                                    forwarded = {
-                                        val forwarded = work.record(candidate.id, ChatWorkStore.Status.FORWARDED)
-                                        withContext(Dispatchers.Main.immediate) { saved = forwarded }
-                                    }))
+                                submitPrivateMessage(context,wallet,backend,endpoint,contact,candidate){progress,retained->
+                                    withContext(Dispatchers.Main.immediate){saved=progress;onHistory(retained)}
+                                }
                             }
                             failed = false
                         } catch (cancelled: CancellationException) { throw cancelled }
                         catch (_: Exception) {
-                            try{saved=withContext(Dispatchers.IO){work.load()};failed=saved.status!=ChatWorkStore.Status.QUEUED}
+                            try {
+                                saved=withContext(Dispatchers.IO){work.load()}
+                                if(saved.status==ChatWorkStore.Status.QUEUED)
+                                    withContext(NonCancellable+Dispatchers.IO){ChatQueueScheduling.enqueue(context,wallet,backend,endpoint)}
+                                failed=saved.status!=ChatWorkStore.Status.QUEUED
+                            }
                             catch(_:Exception){ready=false;failed=true}
                         }
                         finally { sending = false }
