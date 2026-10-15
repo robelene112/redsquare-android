@@ -51,7 +51,7 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
         try {
             saved = withContext(Dispatchers.IO) { work.load() }
             text = saved.draft
-            saved.transaction?.let { candidate ->
+            saved.transaction?.takeIf{saved.status!=ChatWorkStore.Status.QUEUED}?.let { candidate ->
                 onHistory(withContext(Dispatchers.IO) { history.save(listOf(candidate.envelope())).entries })
             }
             ready = true
@@ -81,6 +81,8 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
     Column {
         when (saved.status) {
             ChatWorkStore.Status.QUEUED -> {
+                val pending=remember(saved.transaction){PrivateChat.read(wallet,requireNotNull(saved.transaction).envelope(),contact)}
+                ChatMessageBubble(pending.author,pending.text,pending.createdAt,outgoing=true)
                 Text(stringResource(R.string.chat_queued))
                 TextButton(enabled=ready&&!sending,onClick={
                     sending=true
@@ -89,7 +91,6 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
                             writes.withLock {
                                 saved=withContext(NonCancellable+Dispatchers.IO){work.cancelQueued(requireNotNull(saved.transaction).id)}
                                 text=saved.draft
-                                onHistory(withContext(Dispatchers.IO){history.load().entries})
                             }
                             failed=false
                         }catch(cancelled:CancellationException){throw cancelled}
@@ -132,7 +133,8 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
                                     if (original == null) work.prepare(prepared,queued=true) else work.prepareRetry(prepared.id)
                                 }
                                 if (original == null) text = ""
-                                onHistory(withContext(Dispatchers.IO) { history.save(listOf(prepared.envelope())).entries })
+                                if(saved.status!=ChatWorkStore.Status.QUEUED)
+                                    onHistory(withContext(Dispatchers.IO) { history.save(listOf(prepared.envelope())).entries })
                                 prepared
                             }
                             withContext(Dispatchers.IO) {
@@ -141,7 +143,8 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
                                     assertSelected = { work.assertSelected() },
                                     submitted = {
                                         val submitted = work.record(candidate.id, ChatWorkStore.Status.SUBMITTED)
-                                        withContext(Dispatchers.Main.immediate) { saved = submitted }
+                                        val retained=history.save(listOf(candidate.envelope())).entries
+                                        withContext(Dispatchers.Main.immediate) { saved = submitted;onHistory(retained) }
                                     },
                                     forwarded = {
                                         val forwarded = work.record(candidate.id, ChatWorkStore.Status.FORWARDED)

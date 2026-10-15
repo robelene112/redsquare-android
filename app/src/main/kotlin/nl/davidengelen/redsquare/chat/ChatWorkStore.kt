@@ -43,7 +43,6 @@ internal class ChatWorkStore(private val context: Context, private val wallet: S
         val candidate=requireNotNull(previous.transaction)
         check(candidate.id==id&&previous.status==Status.QUEUED)
         val text=PrivateChat.read(wallet,candidate.envelope(),contact).text
-        ChatHistoryStore(context,wallet,backend,contact).discardUnsent(candidate.envelope())
         save(Saved(draft=text))
     }
 
