@@ -1,25 +1,27 @@
-## Current checkpoint, 2026-10-15: #41 final publication
+## Current checkpoint, 2026-10-15: #41 published24
 
-Owner requests continued sequential implementation until remaining issues are
-finished, with no pause after this ticket. #41 remains the sole active ticket;
-source and both full SDK evidence reviews are Spec0/Standards0. Canonical record:
-`docs/evidence/ticket41/FINAL_ACCEPTANCE.md`. Full10 run38816539079 at33d7f942
-SUCCESS371PASS plus one existing Profile assumption/86records/27actualdeaths.
-Full17 run38813602397 atb218c1f7 SUCCESS373PASS/87records/27actualdeaths.
-Strict collectors have EXECUTED successfully for BOTH. Do not rerun collectors
-or duplicate complete verification. No owned build/download/watch remains.
-Production/build inputs equal frozen signed24, per final-source-equivalence.json.
+Owner requests continued sequential implementation, no pause after #41.
+#41 acceptance complete, signed24 published and publicly verified; final
+publication-metadata review/commit/push and tracker closure are next. Canonical
+`docs/evidence/ticket41/FINAL_ACCEPTANCE.md`, source/evidence/prepublication
+aggregate reviews Spec0/Standards0. Full10 run38816539079 at33d7f942 SUCCESS
+371PASS plus one existing Profile assumption/86records/27actualdeaths; full17
+38813602397 atb218c1f7 SUCCESS373PASS/87records/27actualdeaths. Both collectors
+already executed. Do not repeat them, full suites or signed build24.
+Public24 SHA7d6e8e746f3d1cb68969e302245d6868bb4edcdd6cb1560ed6fe5344d97f8c16,
+established certificate/package/min29, immutable23 unchanged. Actual public
+verification .scratch/verify-review24-public.py EXECUTED PASS. Public-only proof:
+`docs/evidence/ticket41/signed-preview24-published`. APKs remain on storage.
+No owned Gradle/build/download/watch processes remain.
 
-NEXT: final aggregate document review, publish existing signed24 artifact at
-/mnt/storage/redsquare-android-artifacts/chat41-review24-source/.scratch/review-builds/24,
-run prepared .scratch/verify-review24-public.py, retain only public metadata,
-final review/commit/push and close41. Do not rebuild/reset version counter.
-Public23 is current until actual publication. Then claim next feasible ticket,
-probably #32 local social push slice, respecting its missing external setup.
-Preserve unrelated untracked NATIVE_GROUP_CHAT_CONTRACT.md. #19 Owner Registry,
-#17 actual playback, #16/#31 Giphy key, #32 Firebase/gateway, #35 physical Pixel
-and #36 real publisher/legal facts remain incomplete. Do not claim all issues
-complete. Prepared next32 plan and evidence pointers remain below.
+After #41 closure, claim #32 as sole implementation, current HEAD review base.
+Existing actual dependency #24 is closed. First local app/controlled-peer social
+push tracer prepared in .scratch/push32-next-slice-plan.md. Firebase/project/IAM
+and bounded gateway deployment are missing external setup; local injection is
+not whole32 acceptance. Do not repeat pending owner setup questions. Preserve
+untracked NATIVE_GROUP_CHAT_CONTRACT.md. #19 Owner Registry, #17 actual playback,
+#16/#31 Giphy key, #35 physical Pixel and #36 publisher/legal facts remain open.
+Read-only preparations and qualified original evidence remain below.
 
 ## Historical #41 verification checkpoints
 

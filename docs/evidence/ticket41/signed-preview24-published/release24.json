@@ -1,0 +1,10 @@
+{
+  "versionCode": 24,
+  "versionName": "0.1.24",
+  "applicationId": "nl.davidengelen.redsquare",
+  "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+  "sha256": "7d6e8e746f3d1cb68969e302245d6868bb4edcdd6cb1560ed6fe5344d97f8c16",
+  "commit": "36b66a7d81a5019ecd9ba67a52982ff019f12bb5",
+  "apkUrl": "https://davidengelen.nl/redsquare/releases/24/redsquare.apk",
+  "notes": "Keeps Chat Send and queued-message cancellation reachable with long content, stacked warnings and the keyboard open. Full warnings and previews remain scrollable."
+}

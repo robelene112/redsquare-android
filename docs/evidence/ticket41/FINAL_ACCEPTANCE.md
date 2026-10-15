@@ -47,7 +47,11 @@ Signed24/0.1.24 is built/verified from36b66a7d81a5019ecd9ba67a52982ff019f12bb5.
 APK SHA2567d6e8e746f3d1cb68969e302245d6868bb4edcdd6cb1560ed6fe5344d97f8c16,
 package nl.davidengelen.redsquare, minimum API29, established certificate
 6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2.
-Publication remains pending final aggregate review; public23 is current.
+Signed24 is published at https://davidengelen.nl/redsquare/. Direct public
+page/latest/immutable24/APK checks pass, including hash/signature/package/min29,
+and immutable23 remains unchanged. Public-only evidence is retained under
+[signed-preview24-published](signed-preview24-published/README.md). No APK is
+committed. Final prepublication aggregate review was Spec0/Standards0.
 
 Public Chat reads return empty fixture-group history and establish readiness,
 not live message delivery. Public feed reads are not synthetic-only evidence.
