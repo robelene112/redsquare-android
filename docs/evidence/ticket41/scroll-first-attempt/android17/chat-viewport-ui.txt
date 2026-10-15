@@ -1,0 +1,101 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ChatQueuePreviewTest:
+INSTRUMENTATION_STATUS: test=anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalArgumentException: Chat action must have a physical target beneath the offline warnings: Members
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.physicalChatAction(ChatQueuePreviewTest.kt:332)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.physicalChatAction$default(ChatQueuePreviewTest.kt:321)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue$lambda$57$lambda$56$lambda$55(ChatQueuePreviewTest.kt:182)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.$r8$lambda$RKUkMK5DRb72MS8BfpnujG2Y0v4(ChatQueuePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest$$ExternalSyntheticLambda36.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue(ChatQueuePreviewTest.kt:115)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending(ChatQueuePreviewTest.kt:33)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending(nl.davidengelen.redsquare.ChatQueuePreviewTest):
+java.lang.IllegalArgumentException: Chat action must have a physical target beneath the offline warnings: Members
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.physicalChatAction(ChatQueuePreviewTest.kt:332)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.physicalChatAction$default(ChatQueuePreviewTest.kt:321)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue$lambda$57$lambda$56$lambda$55(ChatQueuePreviewTest.kt:182)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.$r8$lambda$RKUkMK5DRb72MS8BfpnujG2Y0v4(ChatQueuePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest$$ExternalSyntheticLambda36.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue(ChatQueuePreviewTest.kt:115)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending(ChatQueuePreviewTest.kt:33)
+
+INSTRUMENTATION_STATUS: test=anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anOfflinePrivateMessageRemainsCancellableAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalArgumentException: Chat action must have a physical target beneath the offline warnings: Cancel queued message
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.physicalChatAction(ChatQueuePreviewTest.kt:332)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.physicalChatAction$default(ChatQueuePreviewTest.kt:321)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exercisePrivateQueue$lambda$117$lambda$116$lambda$115(ChatQueuePreviewTest.kt:478)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.$r8$lambda$G2weoNxA0Ie5kbjLt_Y_pGMIxJs(ChatQueuePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest$$ExternalSyntheticLambda23.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exercisePrivateQueue(ChatQueuePreviewTest.kt:415)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.anOfflinePrivateMessageRemainsCancellableAfterReopening(ChatQueuePreviewTest.kt:19)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anOfflinePrivateMessageRemainsCancellableAfterReopening(nl.davidengelen.redsquare.ChatQueuePreviewTest):
+java.lang.IllegalArgumentException: Chat action must have a physical target beneath the offline warnings: Cancel queued message
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.physicalChatAction(ChatQueuePreviewTest.kt:332)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.physicalChatAction$default(ChatQueuePreviewTest.kt:321)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exercisePrivateQueue$lambda$117$lambda$116$lambda$115(ChatQueuePreviewTest.kt:478)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.$r8$lambda$G2weoNxA0Ie5kbjLt_Y_pGMIxJs(ChatQueuePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest$$ExternalSyntheticLambda23.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exercisePrivateQueue(ChatQueuePreviewTest.kt:415)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.anOfflinePrivateMessageRemainsCancellableAfterReopening(ChatQueuePreviewTest.kt:19)
+
+INSTRUMENTATION_STATUS: test=anOfflinePrivateMessageRemainsCancellableAfterReopening
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 50.439
+There were 2 failures:
+1) anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending(nl.davidengelen.redsquare.ChatQueuePreviewTest)
+java.lang.IllegalArgumentException: Chat action must have a physical target beneath the offline warnings: Members
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.physicalChatAction(ChatQueuePreviewTest.kt:332)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.physicalChatAction$default(ChatQueuePreviewTest.kt:321)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue$lambda$57$lambda$56$lambda$55(ChatQueuePreviewTest.kt:182)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.$r8$lambda$RKUkMK5DRb72MS8BfpnujG2Y0v4(ChatQueuePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest$$ExternalSyntheticLambda36.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue(ChatQueuePreviewTest.kt:115)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending(ChatQueuePreviewTest.kt:33)
+2) anOfflinePrivateMessageRemainsCancellableAfterReopening(nl.davidengelen.redsquare.ChatQueuePreviewTest)
+java.lang.IllegalArgumentException: Chat action must have a physical target beneath the offline warnings: Cancel queued message
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.physicalChatAction(ChatQueuePreviewTest.kt:332)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.physicalChatAction$default(ChatQueuePreviewTest.kt:321)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exercisePrivateQueue$lambda$117$lambda$116$lambda$115(ChatQueuePreviewTest.kt:478)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.$r8$lambda$G2weoNxA0Ie5kbjLt_Y_pGMIxJs(ChatQueuePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest$$ExternalSyntheticLambda23.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exercisePrivateQueue(ChatQueuePreviewTest.kt:415)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.anOfflinePrivateMessageRemainsCancellableAfterReopening(ChatQueuePreviewTest.kt:19)
+
+FAILURES!!!
+Tests run: 2,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1
