@@ -56,7 +56,12 @@ class ChatImagesPreviewTest {
                             ui.waitUntil(20_000) { displayed(hasText("Groups")) || displayed(chat) }
                             if (!displayed(hasText("Groups"))) ui.onNode(chat).performClick()
                             val before = reads.get()
-                            ui.onNodeWithText(contact).performClick()
+                            val row = hasClickAction() and isEnabled() and hasAnyDescendant(hasText(contact))
+                            ui.waitUntil(20_000) {
+                                try { ui.onNode(row, useUnmergedTree = true).assertIsDisplayed(); true }
+                                catch (_: AssertionError) { false }
+                            }
+                            ui.onNode(row, useUnmergedTree = true).performClick()
                             ui.waitUntil(20_000) { displayed(hasSetTextAction() and isEnabled()) && reads.get() > before }
                         }
                         fun assertRedRaster(target: SemanticsMatcher) {

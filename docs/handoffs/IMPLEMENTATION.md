@@ -19,9 +19,12 @@ assigned@me. Actual first privatephoto RED10run38711550116 exactc22660f5:
 raster20s/photo71. RootPNG/XMLseen, exactdraftvisibleretained; expanded/recreate/
 no-wiretailunexecuted. Retained6hash1XML private-viewer-red-android10. Fixture
 correction531d2bf9 sharedChatFixtureState andboundedexpandedRGB reviewed0/0.
-Viewer minimum nowvalidatescompleteimgwrapper andusesexistingPostImageswith
-actualbackend insharedbubbles. No HTMLexecution/newprotocol/history/composer
-changes. Compile/review/GREENpending. No ownedlocalbuild/nativerunactive.
+Viewer minimum756a13ba reviewed0/0 andusesexistingPostImageswithactualbackend.
+Attempt10run38712408766 FAILED1case8.421s after inline+expanded exactRGB PASS;
+recreated namedcontactrow fullkey exists onlyinunmergedtree. Retained10hash3XML,
+root3originalPNGsseen. Fixtureclick nowtargets displayed/enabled clickable row
+with exactkey descendant inunmergedtree. Cache/recreateddraft/finaltailpending.
+No production/protocol/history/composer change forselector. NativeGREENpending.
 Canonical NATIVE_CHAT_IMAGES_VERIFICATION.md. Signed19current. Continueallissues.
 
 **#29 COMPLETE and CLOSED, 2026-10-15T09:08:20Z:**

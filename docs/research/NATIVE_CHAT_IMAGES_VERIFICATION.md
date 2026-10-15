@@ -66,3 +66,11 @@ markup remains literal, no WebView/HTML execution. Shared private/group bubbles
 receive the actual selected backend and reuse bounded native PostImages rendering,
 retry and expansion. Signing/encryption/history/compose work are unchanged.
 Compile/source review/native GREEN pending; no outgoing/group/failure acceptance.
+
+Viewer minimum756a13ba reviewed Spec0/Standards0. Native10attempt38712408766
+FAILED1case8.421s after successful inline and expanded exact RGB checks. After
+recreation, the correctly named contact row is present, but the full-key text
+matcher only finds its subtitle in the unmerged tree. Retained10hashes3XML and
+all3originalPNGs root-inspected. Cache/recreateddraft/finaltail unexecuted. The
+fixture now waits for and clicks the enabled row containing the exact key in
+the unmerged tree. Production and image/draft/no-wire assertions unchanged.
