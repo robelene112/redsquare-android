@@ -148,3 +148,14 @@ keys, sharedmutexinitialload/transitions, latestedits/replies/sendclear/cancel
 memorypublication withdurablependingauthority andNonCancellablecommit+Mainstate.
 No newplaintextstorage/protocol/groupnotifications. Sourcecompile/reviews and
 correctednativeproofpending. No ownedlocalbuild or othernativerunactive.
+
+GroupcontrolGREEN38696233581 exact4a8db3f2:3PASS20.001s, mutedindependent
+incoming/ACK/exactdraft, recreationmute/cache/exactdraft, unmute/history/no-wire;
+private2alsoPASS. Retainedgroup-control-green-android10(18hash7XML), allthree
+grouporiginalPNGseen/allXMLparsed. GroupdraftsourceSpec0/Standards0.
+
+Nextsingletracer fourthcase actualgenericOSgroupalert/category/intent/systemshade
+positive, plusgroupmuted2ssilence/reopen/cachedunmute. Sharedactualnotification
+observation/cleanup andidentity/no-wirehelpers usedbyprivate+group, preserving
+all existingcriteria andstrengtheningtitle toexactRedSquare. FirstactualRED
+pending; no productiongroupnotification pathyet.
