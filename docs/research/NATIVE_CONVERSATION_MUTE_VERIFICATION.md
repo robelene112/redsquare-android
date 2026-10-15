@@ -126,3 +126,15 @@ files/preferences snapshot/prepare/restore helper with explicitprefixes/owner,
 independentcleanupactions retained. FirstgroupRED10run38694777442 exact4aa
 ACTIVEandstillvalidformissingcontrol; no duplicate. Private17run38694546565
 exact0bf ACTIVE. Noownedlocalbuild, no productiongroupminimum yet.
+
+Privatefocused17run38694546565 exact0bf65264 GREEN2PASS52.994s, actualgeneric
+OSshade/privatecategory/intent + muted2ssilence/readable/exactdraft/reopen/unmute/
+no-wire. Retainedprivate-alert-green-android17(12hash4XML), originalshadeseen/
+XMLparsed. Hostgrant/revoke commandsPASS afterfixture; noaftergrantqueryclaimed.
+
+ActualgroupRED10run38694777442 exact4aa36fb1:3cases2PASS1FAIL36.041s, missing
+Mutecontrol209 aftercorrectgroup/Archive/enableddraft. Groupincoming/recreate/
+unmutetailunexecuted; sameprivate2PASS. Retainedgroup-control-red-android10
+(14hash5XML), grouporiginalfailureseen. Minimum adds sharedgroupheaderbutton
+and validSaitopublickey conversationIDs; no groupnotifications yet. Corrected
+fixturee2727e09 reviewedSpec0/Standards0. Newcompile/reviews/nativeGREENpending.

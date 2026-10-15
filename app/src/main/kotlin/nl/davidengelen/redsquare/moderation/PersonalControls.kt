@@ -29,7 +29,7 @@ internal data class PersonalPolicy(val muted: Set<String> = emptySet(), val bloc
     fun hidesIncomingChat(author: String) = author in blocked
 
     companion object {
-        fun isConversationId(value: String) = value.matches(Regex("[0-9a-f]{64}"))
+        fun isConversationId(value: String) = value.matches(Regex("[0-9a-f]{64}")) || SaitoWallet.isPublicKey(value)
     }
 }
 

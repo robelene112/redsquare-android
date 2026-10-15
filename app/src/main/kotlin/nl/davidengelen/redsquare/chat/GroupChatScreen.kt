@@ -291,6 +291,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         Row(verticalAlignment=Alignment.CenterVertically) {
             TextButton(enabled=!busy,onClick={back()}) { Text(stringResource(R.string.browse_back)) }
             Text(entry?.group?.name ?: stringResource(R.string.group_title),Modifier.weight(1f),style=MaterialTheme.typography.titleLarge)
+            entry?.let { ConversationMuteButton(it.group.id) }
             TextButton(enabled=!busy&&!paging,onClick={refresh++}) { Text(stringResource(R.string.feed_refresh)) }
         }
         Text(stringResource(R.string.group_privacy),style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
