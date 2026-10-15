@@ -32,8 +32,10 @@ The original12s readiness/send/await timeout, finally cleanup, failure fanout,
 strict UTF-8/64KiB and registrar verifier remain. No predicate, JSON parsing or
 proof work runs in the socket callback. Public native namechecks use the same
 entry so later evidence can exercise the correction, while hints stay ordinary.
-No backend failover or registration retry was introduced. Local core/debug/test
-build exec60806 is active; minimum review and native GREEN are pending. Public22
+No backend failover or registration retry was introduced. Minimum8cda1d83 reviews report Spec0/Standards0. Local core/debug/test
+build exec60806 completes0 in4m22s. Focused corrected Android10run38784416873
+and Android17run38784421079 are active at exactly5aec60364cb7afa24a6370f3c87a8c81e2ea48c5.
+Native GREEN and final/public acceptance are pending. Public22
 remains current. No node/configuration/service/wallet/chain writes occurred.
 
 ## Earlier implementation chronology

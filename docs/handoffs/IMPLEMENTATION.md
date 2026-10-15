@@ -21,10 +21,13 @@ entry and private pending flag skip ONLY exact21B type13 fallback. Other bodies,
 type14, generic requests/hints, original12s timeout, cleanup/failure fanout and
 strict verification remain. Public native probe uses the same entry for its
 namechecks only. No backend failover, node change or live registration.
-Owned local core/debug/test build exec60806 ACTIVE, log
-.scratch/registry19-late-minimum-compile.log. Do not edit app/core/tests until
-complete. Commit/review minimum+RED, then focused usernames GREEN on10/17;
-public read-only native recheck after those. Whole final gates remain mandatory.
+Minimum8cda1d83 reviews report Spec0/Standards0. Local core/debug/test build
+exec60806 completed0 in4m22s; no owned local Gradle remains. Log
+.scratch/registry19-late-minimum-compile.log. Corrected focused attempts at exactly
+5aec60364cb7afa24a6370f3c87a8c81e2ea48c5 are ACTIVE: Android10run38784416873
+and Android17run38784421079. Do not duplicate them. Inspect actual class16 and
+process recovery results. Public read-only native recheck follows those; whole
+final gates remain mandatory.
 Research proposal REGISTRY_LATE_CALLBACK_DESIGN_2026_10_15.md explains the narrow
 transport coupling. Protected untracked group contract remains untouched.
 
