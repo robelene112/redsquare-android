@@ -13,94 +13,85 @@ migration pause recorded below. Commit/push each ticket and keep signed reviews
 available. Do not pause after the next ticket or ask routine approvals.
 
 **ACTIVE #30: Send and view images in private and group Chat.**
-Reviewbase8826000edf59174793749abc7b207610ad52e3a8. Dependencies15/25/26 closed.
-Implementing all remaining issues sequentially remains authorized. Canonical
-chronology: docs/research/NATIVE_CHAT_IMAGES_VERIFICATION.md. Protected untracked
-NATIVE_GROUP_CHAT_CONTRACT.md remains untouched.
+Review base `8826000edf59174793749abc7b207610ad52e3a8`; dependencies15/25/26 closed.
+Canonical chronology and evidence: `docs/research/NATIVE_CHAT_IMAGES_VERIFICATION.md`
+and `docs/evidence/ticket30/`. Protected untracked group contract stays untouched.
 
-Production source last changed2199295e. Private/group native photo picker,
-normalization, safely escaped exact captions, previews/removal, protected drafts,
-explicit Send, compatible view/expansion, cached history, queue/cancel and failure
-recovery implemented. Real pinned web private crypto/receiver/dedup, group A/B
-constructor envelope equality and both browser sanitizers/offline DOM/pixels
-pass. No live production writes, FileShare or Giphy credential borrowing.
+Implementation is complete, final full acceptance and publication are pending.
+Native photo picker, normalization, exact escaped captions, preview/removal,
+protected drafts, Send, queue/cancel, cached viewing/expansion and failure/process
+recovery are implemented. Private browser crypto/receiver/dedup, group A/B signed
+constructor equality and both browser sanitizer/DOM/pixel checks passed. Growing
+private/group history uses bounded encrypted parts and atomic encrypted index;
+legacy reads and the per-file5MiB bound remain. Process fixtures preserve every
+scoped original part, and fresh fixtures refuse orphan parts.
 
-Growing private/group history uses legacy-compatible bounded encrypted parts
-with atomic encrypted index; global5MiB per-file bound unchanged, no pruning.
-CapacityREDs and failed fixture attempts retained honestly. Strict companion
-scopes preserve original files in process fixtures; named fresh-scope fixtures
-refuse orphan parts. Queued group composer hides while already unusable, leaving
-queued photo/status/cancel visible, and returns after cancellation/forwarding.
+Production last changed `dc28f780`: explicit Send closes keyboard; private/group
+already-disabled queued forms hide while bubble/status/cancel remain. Later
+changes only fix reachable physical test taps, scrolling and diagnostics.
+Whole-source review8826..23603b1d: Spec0/Standards0; each later fixture correction
+and evidence change reviewed separately0/0. No app changes afterdc28. Signed21
+sourceb42e4e2f is product-identical through current HEAD.
 
-Focused10run38733114111 exact2199295e SUCCESS:10UI79.278s; actual private/group
-photo PID recoveries preserve same signed original and emit it once via raw/Relay,
-exact body/pixels/history/full identity/backend and independent restoration.
-Group PID7603to7971,2originalPNGs root-inspected/2XML parsed. History2PASS52.532s
-includes12private/16group+growth/contact discovery/positive and negative work
-checks, device-only big→small→complete multipart restoration. API29 no.newfault
-explicitly qualified. Separate17storage38731840587 exact7cbbe810 SUCCESS2PASS
-124.148s proves actual.new commitfailure/prior originals+draft/retrysuccess,
-before later nested restoration fixture. No full acceptance inferred yet.
+**OWNED full runs, never duplicate an active scope:**
+- Android10 `38742885120`, source `e92c41d3`, ACTIVE, public reads enabled.
+- Android17 `38744845607`, source `8796c45b`, ACTIVE, public reads enabled.
+Each started only after its same-scope predecessor ended. Old full failures stay
+failed, with unexecuted tails qualified. Both previous fulls at236/09 failed two
+private initial-history visibility assertions; the final14395 scroll correction
+passed focused34+actualPID. Do not infer acceptance from earlier partial gates.
 
-Previous whole-source review8826..78bc9b70: Standards0/Spec0. Final fulls at
-78bc9b70 BOTH FAILED, retained honestly in ticket30/full-attempt-android10-actions
-and full-attempt-android17-queue. New photo10UI, history2 and both actual photo
-PID/restoration gates passed in both; no complete acceptance inferred.
-Android17run38734348294:6private queue cases fail visibleQueued after Send with
-keyboard open. Android10run38734343806:queue13PASS, later group Copy action
-below clipped message viewport. Root originalPNG per failurefamily seen, XML
-parsed. Later application/public-read/update tails not accepted.
+**Corrected focused proof:**
+- Photo10 `38733114111`/2199295e:10UI, both actual photo PID/restoration gates,
+  history2PASS52.532s,12private/16group+growth/contact/work guards and nested
+  multipart installation restoration. API29 `.new` fault explicitly unexercised.
+- Storage17 `38731840587`/7cbbe810:2PASS124.148s, actual modern `.new` failure,
+  prior originals/draft intact and successful retry. Later failed fulls also
+  passed new photo/history/PID gates, qualified in their own records.
+- Queue10 `38737081528`/dc28:13PASS262.904s; queue17 `38738706055`/bdd07ed0:
+  13PASS300.099s. Actual original/cancel/routing/identity assertions retained.
+- Group10 `38738539710`/27074841:24 class cases, actual PID12926to13302 and
+  restoration. Group17 `38739842394`/ef58dc7f:24cases, PID5267to5346/restoration.
+- Private17 `38741903238`/14395a8e:24PASS154.653s/actions10PASS61.992s,
+  actual PID5425to5514/restoration; exact original/retry/import/identity/draft/
+  cache/reaction requirements intact. Root3selectedPNGs seen,8XML parsed.
+- Portable mute probe17 `38745018833`/3a53c756 SUCCESS:8PASS141.914s, actual
+  interrupted policy PID4889to5001/recovery/restoration; root3PNGs seen/3XML parsed.
+  Replaces unavailable runner `rg` with literal `grep`; syntax and capturedfalse/
+  matchingtrue probe-table pass. Actual device priorstatefalse, no priortrue
+  restoration claim. Focused evidence review pending.
 
-Current production dc28f780 clears focus/hides keyboard on explicit Send for
-private/group and hides private already-disabled queued form, retaining bubble,
-status/cancel. Private open readiness Message OR Queued, actual assertions
-unchanged. Review Standards0/Spec0. Fixture-only f1bbeb82 scrolls cached group
-Copy/Reply controls before using; root evidence supports missing viewportscroll.
-Current correctedfocusedproofs:
-- Queue10dc28run38737081528 SUCCESS13PASS262.904s.
-- Queue17bdd07ed0run38738706055 SUCCESS13PASS300.099s. NativephysicalSend after
-  IMEdismissal, allactualoriginal/cancel/transport/scope assertionsunchanged.
-- GroupUI10 27074841run38738539710 SUCCESSactions1PASS12.786s/mixed1PASS8.931s/
-  group22PASS138.3s, actualreactionPID12926to13302/restoration PASS. Rootboth
-  originalPIDPNGsseen, allXMLparsed; exactdraft/groupkey/original/fullidentity/
-  backend/zeroautotransmission preserved.
-- GroupUI17 ef58dc7frun38739842394 SUCCESS:actions1PASS52.228s/mixed1PASS19.093s/
-  group22PASS140.751s, actualreactionPID5267to5346/recovery/restorationPASS.
-  RootbothoriginalPIDPNGsseen/allXMLparsed. Prior270groupFAILremainsqualified.
-Privatehistorytyping-audit09 followed byinitialtargetscroll14395a8e now verified:
-focused17run38741903238 SUCCESS24PASS154.653s+actions10PASS61.992s, actualprivate
-PID5425to5514/recovery/restorationPASS. Fullwallet/backend/cache/draft/uncertain
-message/reactionoriginals/zero transmissions. All8selectedXMLparsed/root3PNGs
-seen, original/retry/import/processtail assertionsretained. Reviewallfixture0/0.
-Priorfocused09FAIL24reported22PASS2FAIL148.707 initialviewport remainsqualified.
-Previousfull10run38739678542at236 and17run38741257730at09 BOTHFAILEDsame2
-initialprivatevisibilitychecks. Full17private24reported22PASS2FAIL114.985s;
-precedingphoto10PASS112.036/history2PASS109.412/bothphotoPID/queue13PASS297.779/
-mute8PASS107.668/group24casesPASS. RootfailurePNGseen/2XMLparsed; laterapp/public/
-update tailsnotaccepted. Sameone-line14395scrollcorrectedfocused34+PIDgreen.
-CURRENTOWNEDFULL10run38742885120 ACTIVEe92c41d3; FULL17run38744845607 ACTIVE
-8796c45b, bothpublicreadstrue. Eachdispatchedonlyafteritsownpredecessorended,
-neverduplicate/cancel. Productunchangeddc28, signed21b42equivalentthrough14395.
-Harnessprobe3a53c756 replacesunavailablergwithavailableliteralgrep. bash-n and
-capturedfalse/modifiedtrueexit1/0PASS, reviews0/0. Focusedmute17run38745018833
-ACTIVE3a53. Priorfull17actualpermissionbeforefalsewasretained(hash+selectedrow),
-soitsgrant/revokepathmatchedthatpriorstate, noearliertrue-branchclaim. Activefull17
-879hasoldprobe: inspectitsactualsnapshotbeforequalifyingoutcome. No appchanges.
-Noownedlocalbuild; groupcontractprotecteduntouched.
-Keyboard-opencomposition remains35. Researchdoc ANDROID_CHAT_KEYBOARD_LAYOUT_
-2026_10_15.md: exactBOMsource safeDrawingincludesIME; RedSquareThemealreadycalls
-enableEdgeToEdge. MinimalcandidateexplicitadjustResize, notextrapadding. Runtime
-andconstrainedheader/composercompactionunproved. Noapplayoutchangeshere.
+Active full17 at879 uses the old probe. Its actual original permission snapshot
+must be checked before qualifying its outcome. Previous failed full17 snapshot
+was explicitlyfalse, so its grant/revoke path matched that original state; the
+missing-tool warning does not establish priortrue preservation or overallsuccess.
+New probe focused proof is independent. No application/budget/assertion changes.
+Final retainer `.scratch/retain-chat30-final-full.py` validates all class counts,
+photo/history/PID gates and two more actual deaths than29. Retain full metadata,
+raw logs, captures and permission qualification before final review/publication.
 
-Signed20/0.1.20 BUILT/VERIFIED, UNPUBLISHED from isolated78bc9b70 at
-/mnt/storage/redsquare-android-artifacts/chat30-review-source. Exec1549 completed0;
-releaseSUCCESS4m25s, APKsha8602915d8ae3686ffaa53f6ea23027e4ac432f596cd9d33baf892dad594e0828.
-It predates productionkeyboardfix, so keep unpublished. Next reserved build21,
-never resetcounter/overwriteimmutable20. Public signed19 remains current.
-Signed21 BUILT/VERIFIED from b42e4e2f, releaseSUCCESS3m59s, exec46570 exit0.
-Record ticket30/review21-build; unpublished. No ownedlocalbuild.
-Publish final review only after gates/review/direct public
-metadata/hash/package/certificate/immutable19 checks. Continue laterissues after30.
+**Review APK:** public19 remains at https://davidengelen.nl/redsquare/.
+Signed21/0.1.21 BUILT/VERIFIED, unpublished, immutableb42e4e2f at
+`/mnt/storage/redsquare-android-artifacts/chat30-review21-source/.scratch/review-builds/21`.
+Build SUCCESS3m59s, exec46570exit0; no local build active. APKsha
+`1c5fabe0f9062292807e4c330f2d7a87143e914bfdfce59c9a11d89657c0e6ca`, established
+certificate `6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2`,
+package `nl.davidengelen.redsquare`, min29. Metadata ticket30/review21-build
+reviewed0/0 and APK independently hashed. Version counter21. Old20 stays
+unpublished because it predates the production correction; never reset/overwrite.
+Publish21 only after full gates/review, then direct public page/manifest/APK hash,
+package/certificate and immutable19 checks. Commit/close30 and continue later
+issues. Do not pause or request routine approval.
+
+Keyboard-open usability is separately #35, not proved by keyboard-closing fixtures.
+`ANDROID_CHAT_KEYBOARD_LAYOUT_2026_10_15.md`: theme already enables edge-to-edge,
+root safeDrawing includes IME. First candidate explicitadjustResize, runtime and
+constrained-height compaction still unproved. No layout implementation changed.
+Fresh push prerequisites in `NATIVE_CLOSED_APP_PUSH_REQUIREMENTS_2026_10_15.md`
+correct old token guidance and qualify chain/Relay/delegated-session coverage.
+No Firebase client/gateway implementation or deployment occurred. Owner Giphy/
+Firebase configuration questions remain unanswered; continue independent work.
+No node/config/wallet/production writes or store/physical acceptance claims.
 
 **#29 COMPLETE and CLOSED, 2026-10-15T09:08:20Z:**
 Persistent private/group conversation mute keeps messages readable and explains

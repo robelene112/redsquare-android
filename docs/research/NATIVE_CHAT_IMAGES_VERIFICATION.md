@@ -580,7 +580,7 @@ Full10 23638739678542 FAILEDsame2initialprivatevisibilityassertions24reported/
 22PASS2FAIL100.827; precedingphoto10PASS85.055/history2PASS74.446/bothphotoPID/
 queue13PASS257.262/group24classesPASS. RootSDK10unknownretryfailurePNGseen/
 2XMLparsed. Laterfulltailnotaccepted. Newfull10e92run38742885120 active, only
-afterpredecessorended, publicreads. Oldfull17 0938741257730 stillactive and
+afterpredecessorended, publicreads. Oldfull17run38741257730at09fd42ba stillactive and
 containsoldinitialobserver. No duplicate/cancel. Productunchangeddc28.
 Researchfor35committedseparately: existingthemeedge-to-edge+safeDrawingincludes
 IME, explicitresizefirstcandidate, runtimeunproved/noappchanges.
@@ -601,3 +601,11 @@ actualpriorpermissionfalse row+originalartifacthash, 8muteUI/PIDcompleted.
 38745018833ACTIVE. Noappchanges, oldprobeactualsnapshotmustbequalifiedonactive
 879full17 beforeacceptance. Researchpushrequirementsdocumentedforfuture32–34;
 noinfrastructuredeployment/config/keys/messages.
+
+Portableprobe17run38745018833 exact3a53c756 SUCCESS8PASS141.914s andactual
+interruptedpolicyPID4889to5001/recovery/restoration, rootall3originalPNGsseen/
+3XMLparsed. Actualbeforepermissionfalse selectedrow+artifacthashretained; local
+matchingtruecaseisstaticprobetest, notdevicepriortrue-restorationproof. Noapp/
+assertion/budgetchange. Currentfull10e9238742885120/full17oldprobe87938744845607
+stillactive; no duplicates. Currenthandoffrewrittenaroundpresentstatus, historical
+failedruns/causeuncertainties remainqualifiedhereandper-record.
