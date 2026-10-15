@@ -150,3 +150,13 @@ inspectedoriginals. LaternoQueued/repair/reopen/noautomatic/noWiretailunexecuted
 finallyrestoresencryptedfixturefile. Retainedprivate-storage-selector-attempt-
 android10. Testonlycorrection selectsEditableTextproperty, keepssameexactvalue
 andallrepaired-enabled/tailassertions; noappchanges/deadlineincrease. Runtimepending.
+
+Selectorab30b201 separateSpec0/Standards0,38hashes17XMLverified/originalseen.
+Correctedfocused10run38672255585 exactab30b201 ACTIVE. No localbuild.
+Seven-caseacceptancepending. Nextgrouptracer testonly, no groupminimumyet.
+
+First group tracer added atapprovednative/protectedseams: fixturegroupalready
+forwarded, offlineexplicitSend→Queued→recreate→Cancel→exactdraft/noordinarymessage,
+priorcreationoriginal/status/keypreserved, peerreturnszeroRaw/Relay. Full scoped
+record/wallet/backend/preferencecleanup. UsesactualUI, no groupminimum added.
+FirstRED pending; private7focusedrun38672255585 stillowned/active atab30b201.

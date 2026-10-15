@@ -29,6 +29,77 @@ class ChatQueuePreviewTest {
 
     @Test fun failedQueueSavingKeepsTheDraftAndNeverBecomesAutomaticAfterRepair() = exercisePrivateQueue(PrivateQueueCase.STORAGE)
 
+    @Test fun anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending() {
+        val context=InstrumentationRegistry.getInstrumentation().targetContext
+        check(context.packageName=="nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu","goldfish"))
+        val wallets=AndroidWalletStore(context)
+        val original=wallets.loadOrCreate()
+        val backends=AndroidBackendStore(context)
+        val backend=backends.load()
+        val author=SaitoWallet.fromPrivateKey("0".repeat(63)+"1") // Public unsafe fixture only.
+        val member=SaitoWallet.fromPrivateKey("0".repeat(63)+"2").publicKey
+        val key=SaitoWallet.fromPrivateKey("0".repeat(63)+"9") // Public unsafe group fixture only.
+        val name="Offline group queue"
+        val wallet=author.withNamedChatGroup(key.publicKey,name,key)
+        val prefix="groupchat.owner.${wallet.publicKey}."
+        val retained=synchronized(SaitoLocalState.lock) {
+            context.noBackupFilesDir.listFiles()!!.filter{it.name.startsWith(prefix)}.associate{check(it.isFile);it.name to it.readBytes()}
+        }
+        val prefs=context.getSharedPreferences("notification-permission",0)
+        val offered=if(prefs.contains("offered"))prefs.getBoolean("offered",false) else null
+        val port=java.net.ServerSocket(0,1,java.net.InetAddress.getByName("127.0.0.1")).use{it.localPort}
+        val text="Keep my offline group message 😀"
+        var primary:Throwable?=null
+        try {
+            synchronized(SaitoLocalState.lock){retained.keys.forEach{check(File(context.noBackupFilesDir,it).delete())}}
+            check(prefs.edit().putBoolean("offered",true).commit())
+            wallets.replace(original,wallet);backends.save(SaitoBackend.OWNER)
+            val store=nl.davidengelen.redsquare.chat.GroupChatStore(context,wallet,SaitoBackend.OWNER)
+            val creation=GroupChat.create(wallet,key.publicKey,name,listOf(member),1700000123400)
+            store.prepareCreation(creation,key)
+            store.record(key.publicKey,creation.id,nl.davidengelen.redsquare.chat.GroupChatStore.Status.FORWARDED)
+            ActivityScenario.launch<MainActivity>(Intent(context,MainActivity::class.java)
+                .putExtra("feedPeerUrl","ws://127.0.0.1:$port/wsopen")).use{scenario->
+                withFailureCapture({captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/group-cancel-failure.png"))}) {
+                    fun open(){
+                        val chat=hasText("Chat") and hasClickAction() and isEnabled()
+                        ui.waitUntil(20_000){displayed(hasText("Groups"))||displayed(chat)}
+                        if(!displayed(hasText("Groups")))ui.onNode(chat).performClick()
+                        clickWhenReady("Groups")
+                        clickWhenReady(name)
+                        waitFor("Message")
+                    }
+                    open()
+                    ui.onNode(hasSetTextAction() and isEnabled()).performTextReplacement(text)
+                    ui.onNodeWithText("Send").assertIsEnabled().performClick()
+                    waitFor("Queued")
+                    captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/group-cancel-queued.png"))
+                    scenario.recreate();open();waitFor("Queued")
+                    ui.onNodeWithText("Cancel queued message").assertIsEnabled().performClick()
+                    ui.onNode(hasSetTextAction() and isEnabled()).assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText,AnnotatedString(text)))
+                    ui.onAllNodes(hasText(text) and !hasSetTextAction()).assertCountEquals(0)
+                    val saved=requireNotNull(store.load(key.publicKey))
+                    check(saved.draft==text && saved.messages.isEmpty())
+                    check(saved.candidate?.envelope()==creation.envelope() && saved.status==nl.davidengelen.redsquare.chat.GroupChatStore.Status.FORWARDED)
+                    check(saved.creationKey?.exportJson()==key.exportJson())
+                    val peer=ControlledFeedPeer("[]",advertisedServices="archive||;relay||",archiveResponse={"[]"})
+                    peer.start(port).use{
+                        ui.waitUntil(20_000){peer.requests.get()>0}
+                        android.os.SystemClock.sleep(6_000)
+                        check(peer.transactions.isEmpty()&&peer.relayedMessages.isEmpty())
+                        check(wallets.loadExisting().exportJson()==wallet.exportJson()&&backends.load()==SaitoBackend.OWNER)
+                        peer.assertHealthy()
+                        captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/group-cancel-restored-draft.png"))
+                    }
+                }
+            }
+        }catch(failure:Throwable){primary=failure;throw failure}
+        finally{cleanupAfterTest(primary,
+            {synchronized(SaitoLocalState.lock){context.noBackupFilesDir.listFiles()!!.filter{it.name.startsWith(prefix)}.forEach{check(it.isFile&&it.delete())};retained.forEach{(name,bytes)->File(context.noBackupFilesDir,name).writeBytes(bytes)}}},
+            {wallets.replace(wallets.loadExisting(),original);backends.save(backend)},
+            {val edit=prefs.edit();if(offered==null)edit.remove("offered") else edit.putBoolean("offered",offered);check(edit.commit())})}
+    }
+
     private enum class PrivateQueueCase { CANCEL, BACKGROUND, BACKEND, IDENTITY, ARCHIVED, WRONG_ARCHIVE, STORAGE }
     private fun exercisePrivateQueue(case:PrivateQueueCase) {
         val cancel=case==PrivateQueueCase.CANCEL
