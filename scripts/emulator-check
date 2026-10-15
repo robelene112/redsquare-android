@@ -89,6 +89,8 @@ verify_chat_queue() {
     if [[ "${TEST_SCOPE:-full}" == chat-queue-group* ]]; then
         cases+=\#anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending
         cases+=,nl.davidengelen.redsquare.ChatQueuePreviewTest\#anOfflineGroupMessageResumesItsOriginalWhileBackgrounded
+        cases+=,nl.davidengelen.redsquare.ChatQueuePreviewTest\#aQueuedGroupMessageCannotSendAfterItsAuthorIsRemovedAndCanStillBeCancelled
+        cases+=,nl.davidengelen.redsquare.ChatQueuePreviewTest\#anArchivedGroupOriginalReconcilesWithoutAnotherRawOrRelay
     fi
     verify_group_chat_native "$cases" 480 chat-queue chat-queue-evidence
 }

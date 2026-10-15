@@ -247,3 +247,14 @@ notonreopenedQueuedfield. Allbackgroundtailunexecuted. No appchange. Retained
 
 Initialenabledcomposerreadinesse402a0ef separateSpec0/Standards0. Focusedgroup2
 run38677143631 exacte402a0ef ACTIVE; no ownedlocalbuild/do notduplicatedispatch.
+
+GroupbackgroundGREEN10run38677143631 exacte402a0ef:focused2PASS51.392s. Both
+cancel andactualCREATEDoneidenticalRawRelay/[sender,member]/decodedtext/cache+
+key/FWD/resumedUI/finalcounts pass. Rootoriginalresultseen; production65c57b5c.
+Retainedgroup-background-green-android10. Addtwo regressioncases forexisting
+implementedguards: preparedgroupauthorremovedbyotherauthenticatedadmin before
+peerreturns→zeroRawRelay/queuedstillreadable/Cancelexactdisabledtext/retained
+creationstatus+key; groupfirstRawindexed/disconnected→exactsig+groupArchive
+original→AVAILABLE/nosecondRaw/noRelay/recreate/key. No appchange/minimum.
+Opt-ingroup scopeincludesall4 groupcases; normal/full discoversentire11-caseclass.
+Firstregressionexecutionpending, queueactualprocess/full10/17stillpending.

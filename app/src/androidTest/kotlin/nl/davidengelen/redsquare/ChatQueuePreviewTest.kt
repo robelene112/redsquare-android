@@ -29,12 +29,20 @@ class ChatQueuePreviewTest {
 
     @Test fun failedQueueSavingKeepsTheDraftAndNeverBecomesAutomaticAfterRepair() = exercisePrivateQueue(PrivateQueueCase.STORAGE)
 
-    @Test fun anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending() = exerciseGroupQueue(cancel=true)
+    @Test fun anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending() = exerciseGroupQueue(GroupQueueCase.CANCEL)
 
-    @Test fun anOfflineGroupMessageResumesItsOriginalWhileBackgrounded() = exerciseGroupQueue(cancel=false)
+    @Test fun anOfflineGroupMessageResumesItsOriginalWhileBackgrounded() = exerciseGroupQueue(GroupQueueCase.BACKGROUND)
 
-    private fun exerciseGroupQueue(cancel:Boolean) {
-        val label=if(cancel)"cancel" else "background"
+    @Test fun aQueuedGroupMessageCannotSendAfterItsAuthorIsRemovedAndCanStillBeCancelled() = exerciseGroupQueue(GroupQueueCase.REMOVED)
+
+    @Test fun anArchivedGroupOriginalReconcilesWithoutAnotherRawOrRelay() = exerciseGroupQueue(GroupQueueCase.ARCHIVED)
+
+    private enum class GroupQueueCase { CANCEL, BACKGROUND, REMOVED, ARCHIVED }
+    private fun exerciseGroupQueue(case:GroupQueueCase) {
+        val cancel=case==GroupQueueCase.CANCEL
+        val removed=case==GroupQueueCase.REMOVED
+        val archived=case==GroupQueueCase.ARCHIVED
+        val label=case.name.lowercase()
         val context=InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName=="nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu","goldfish"))
         val wallets=AndroidWalletStore(context)
@@ -63,6 +71,7 @@ class ChatQueuePreviewTest {
             val creation=GroupChat.create(wallet,key.publicKey,name,listOf(member),1700000123400)
             store.prepareCreation(creation,key)
             store.record(key.publicKey,creation.id,nl.davidengelen.redsquare.chat.GroupChatStore.Status.FORWARDED)
+            if(removed)store.receive(GroupChat.promote(wallet,requireNotNull(store.load(key.publicKey)).group,member,1700000123401).envelope())
             ActivityScenario.launch<MainActivity>(Intent(context,MainActivity::class.java)
                 .putExtra("feedPeerUrl","ws://127.0.0.1:$port/wsopen")).use{scenario->
                 withFailureCapture({captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/group-$label-failure.png"))}) {
@@ -91,13 +100,59 @@ class ChatQueuePreviewTest {
                         check(saved.draft==text && saved.messages.isEmpty())
                         check(saved.candidate?.envelope()==creation.envelope() && saved.status==nl.davidengelen.redsquare.chat.GroupChatStore.Status.FORWARDED)
                         check(saved.creationKey?.exportJson()==key.exportJson())
+                    } else if(removed) {
+                        val other=SaitoWallet.fromPrivateKey("0".repeat(63)+"2") // Public unsafe fixture only.
+                        val body=com.google.gson.JsonObject().apply {
+                            addProperty("module","Chat");addProperty("request","chat remove")
+                            addProperty("group_id",key.publicKey);addProperty("member_id",wallet.publicKey)
+                        }
+                        store.receive(SaitoTransaction.create(other,body,1700000123402,listOf(key.publicKey)).envelope())
+                        scenario.recreate();open();waitFor("Queued")
+                        check(requireNotNull(store.load(key.publicKey)).group.memberRoles[wallet.publicKey]==ChatGroupRole.REMOVED)
                     } else scenario.moveToState(androidx.lifecycle.Lifecycle.State.CREATED)
-                    val peer=ControlledFeedPeer("[]",advertisedServices="archive||;relay||",archiveResponse={"[]"})
+                    val indexed=java.util.concurrent.atomic.AtomicReference<String?>()
+                    val archiveChecks=java.util.concurrent.atomic.AtomicInteger()
+                    val peer=ControlledFeedPeer("[]",advertisedServices="archive||;relay||",archiveResponse={criteria->
+                        if(archived&&criteria.has("sig")) {
+                            check(criteria.get("sig").asString==queued.id&&criteria.get("field3").asString==key.publicKey)
+                            archiveChecks.incrementAndGet()
+                            indexed.get()?.let{original->com.google.gson.JsonArray().apply{add(com.google.gson.JsonObject().apply{addProperty("tx",original)})}.toString()} ?: "[]"
+                        } else "[]"
+                    },onTransaction={frame->if(archived)indexed.set(postingTransaction(frame).envelope())})
+                    peer.disconnectAfterTransaction=archived
                     peer.start(port).use{
                         if(cancel) {
                             ui.waitUntil(20_000){peer.requests.get()>0}
                             android.os.SystemClock.sleep(6_000)
                             check(peer.transactions.isEmpty()&&peer.relayedMessages.isEmpty())
+                        } else if(removed) {
+                            ui.waitUntil(20_000){peer.requests.get()>0}
+                            android.os.SystemClock.sleep(6_000)
+                            check(peer.transactions.isEmpty()&&peer.relayedMessages.isEmpty())
+                            check(requireNotNull(store.load(key.publicKey)).queuedMessage?.candidate?.envelope()==queued.envelope())
+                            ui.onNodeWithText("Cancel queued message").assertIsEnabled().performClick()
+                            ui.waitUntil(15_000){ui.onAllNodes(SemanticsMatcher.expectValue(SemanticsProperties.EditableText,AnnotatedString(text))).fetchSemanticsNodes().size==1}
+                            ui.onNode(SemanticsMatcher.keyIsDefined(SemanticsProperties.EditableText))
+                                .assertIsNotEnabled().assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText,AnnotatedString(text)))
+                            val saved=requireNotNull(store.load(key.publicKey))
+                            check(saved.draft==text&&saved.messages.isEmpty()&&saved.creationKey?.exportJson()==key.exportJson())
+                            check(saved.candidate?.envelope()==creation.envelope()&&saved.status==nl.davidengelen.redsquare.chat.GroupChatStore.Status.FORWARDED)
+                            check(!saved.automaticMessage&&saved.group.memberRoles[wallet.publicKey]==ChatGroupRole.REMOVED)
+                            check(peer.transactions.isEmpty()&&peer.relayedMessages.isEmpty())
+                        } else if(archived) {
+                            ui.waitUntil(60_000){peer.transactions.isNotEmpty()&&indexed.get()!=null}
+                            check(indexed.get()==queued.envelope())
+                            scenario.moveToState(androidx.lifecycle.Lifecycle.State.RESUMED)
+                            ui.waitUntil(60_000){
+                                check(peer.transactions.size==1){"Group archived original was broadcast again"}
+                                store.load(key.publicKey)?.status==nl.davidengelen.redsquare.chat.GroupChatStore.Status.AVAILABLE
+                            }
+                            waitFor("Available on this server. Delivery is not confirmed.")
+                            val saved=requireNotNull(store.load(key.publicKey))
+                            check(saved.candidate?.envelope()==queued.envelope()&&saved.messages.single().id==queued.id)
+                            check(saved.creationKey?.exportJson()==key.exportJson()&&archiveChecks.get()>0&&peer.relayedMessages.isEmpty())
+                            scenario.recreate();open();waitFor("Available on this server. Delivery is not confirmed.")
+                            check(peer.transactions.size==1&&peer.relayedMessages.isEmpty())
                         } else {
                             ui.waitUntil(60_000){peer.relayedMessages.isNotEmpty()&&store.load(key.publicKey)?.status==nl.davidengelen.redsquare.chat.GroupChatStore.Status.FORWARDED}
                             check(postingTransaction(peer.transactions.single()).envelope()==queued.envelope())
