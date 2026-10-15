@@ -89,7 +89,7 @@ class ChatQueuePreviewTest {
                         try {
                             ui.onNodeWithText("Send").performClick()
                             waitFor("Could not restore saved work. Reopen this conversation to try again.")
-                            ui.onNode(hasSetTextAction()).assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText,AnnotatedString(text)))
+                            ui.onNode(SemanticsMatcher.keyIsDefined(SemanticsProperties.EditableText)).assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText,AnnotatedString(text)))
                             ui.onAllNodesWithText("Queued").assertCountEquals(0)
                             captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/private-storage-refused.png"))
                         }finally {

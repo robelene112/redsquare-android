@@ -142,3 +142,11 @@ no deadlineincrease. Seven-case exactexecutionpending.
 Ready/restorednavigationcorrectiona662f5ed separateSpec0/Standards0. Exactfocused
 7case10run38671197348 ACTIVE, productionunchanged2d0ca6a7. No ownedlocalbuild;
 no full7case/runtime/whole28acceptanceyet. Retainactualnextresultbeforegroupminimum.
+
+Seven-case10run38671197348 exacta662f5ed FAILED:7cases6PASS/1FAIL148.439s.
+Allpriorprivatecasespass. Storage92 SetTextselector misses intentionallydisabled
+field afterexpectedrestoreerror; originalPNG/XMLshowexactpreserveddraft. Root
+inspectedoriginals. LaternoQueued/repair/reopen/noautomatic/noWiretailunexecuted;
+finallyrestoresencryptedfixturefile. Retainedprivate-storage-selector-attempt-
+android10. Testonlycorrection selectsEditableTextproperty, keepssameexactvalue
+andallrepaired-enabled/tailassertions; noappchanges/deadlineincrease. Runtimepending.
