@@ -52,9 +52,9 @@
     "app/src/androidTest/kotlin/nl/davidengelen/redsquare/GroupStatusNavigation.kt"
   ],
   "fixtureChanges": "Font cleanup diagnostics/API29 implicit-default comparison, bounded group status target scrolling and moving the existing Queued readiness wait before recreated private cancellation measurement. Original application assertions and deadlines preserved.",
-  "scope": "Public source equivalence; original full10 remains failed, corrected focused10 and complete full17 passed; full10 run38816539079 remains active.",
+  "scope": "Public production/build source equivalence for signed24 and both successful complete SDK runs. Earlier failed full runs remain failed. Equivalence does not itself establish runtime acceptance.",
   "failedFullAndroid10Source": "b218c1f762eb67ce1f86fc33e20ffb2659ae5efb",
   "passedFocusedAndroid10Source": "b23534801667222545cde5c445242288de3448c6",
-  "activeFullAndroid10Source": "33d7f942c3a1755d1536a81c5545550c36692f96",
-  "passedFullAndroid17Source": "b218c1f762eb67ce1f86fc33e20ffb2659ae5efb"
+  "passedFullAndroid17Source": "b218c1f762eb67ce1f86fc33e20ffb2659ae5efb",
+  "passedFullAndroid10Source": "33d7f942c3a1755d1536a81c5545550c36692f96"
 }

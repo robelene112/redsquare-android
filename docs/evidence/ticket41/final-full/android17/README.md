@@ -59,11 +59,13 @@ with retained verified state. App crashes/ANRs remain failures. Public synthetic
 captures/checkpoints and public-read captures/metadata are retained, never
 encrypted installation snapshots or private production signing material.
 
-Android10 companion38816539079 remains active at33d7f942. Its only relevant source
-difference is the reviewed reorder of the existing Queued readiness wait before
-recreated physical cancellation measurement. Production/build inputs and original
-acceptance assertions remain equivalent to this SDK source and signed24, as
-recorded in ../../final-source-equivalence.json. This Android17 pass does not
-establish pending Android10 outcome, signed24 publication, actual Pixel timing,
-whole integrated #35 completion, #17 real YouTube playback, #19 Owner Registry
-readiness, GIF/FCM delivery or Play approval. Public23 remains current.
+Android10 companion38816539079 completed SUCCESS at33d7f942:371PASS plus one
+existing Profile assumption,86 completion records and27 actual process deaths.
+Its only relevant source difference is the reviewed reorder of the existing
+Queued readiness wait before recreated physical cancellation measurement.
+Production/build inputs and original acceptance assertions remain equivalent to
+this SDK source and signed24; see ../../final-source-equivalence.json and the
+canonical ../../FINAL_ACCEPTANCE.md. Both complete SDK outcomes are now known.
+Signed24 publication remains pending the final aggregate review. Neither run
+establishes actual Pixel timing, whole integrated #35 completion, real YouTube
+playback, Owner Registry readiness, GIF/FCM delivery or Play approval.

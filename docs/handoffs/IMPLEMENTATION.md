@@ -1,3 +1,28 @@
+## Current checkpoint, 2026-10-15: #41 final publication
+
+Owner requests continued sequential implementation until remaining issues are
+finished, with no pause after this ticket. #41 remains the sole active ticket;
+source and both full SDK evidence reviews are Spec0/Standards0. Canonical record:
+`docs/evidence/ticket41/FINAL_ACCEPTANCE.md`. Full10 run38816539079 at33d7f942
+SUCCESS371PASS plus one existing Profile assumption/86records/27actualdeaths.
+Full17 run38813602397 atb218c1f7 SUCCESS373PASS/87records/27actualdeaths.
+Strict collectors have EXECUTED successfully for BOTH. Do not rerun collectors
+or duplicate complete verification. No owned build/download/watch remains.
+Production/build inputs equal frozen signed24, per final-source-equivalence.json.
+
+NEXT: final aggregate document review, publish existing signed24 artifact at
+/mnt/storage/redsquare-android-artifacts/chat41-review24-source/.scratch/review-builds/24,
+run prepared .scratch/verify-review24-public.py, retain only public metadata,
+final review/commit/push and close41. Do not rebuild/reset version counter.
+Public23 is current until actual publication. Then claim next feasible ticket,
+probably #32 local social push slice, respecting its missing external setup.
+Preserve unrelated untracked NATIVE_GROUP_CHAT_CONTRACT.md. #19 Owner Registry,
+#17 actual playback, #16/#31 Giphy key, #32 Firebase/gateway, #35 physical Pixel
+and #36 real publisher/legal facts remain incomplete. Do not claim all issues
+complete. Prepared next32 plan and evidence pointers remain below.
+
+## Historical #41 verification checkpoints
+
 ## Latest #41 checkpoint, 2026-10-15 22:59 UTC
 
 #41 remains the sole implementation, review base09a424dc. Owner requests all remaining feasible issues without checkpoint pauses. Public23 remains current; signed24 is built/verified but UNPUBLISHED. Preserve unrelated untracked NATIVE_GROUP_CHAT_CONTRACT.md.
