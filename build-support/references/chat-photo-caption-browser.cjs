@@ -19,6 +19,6 @@ const rendered=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
    pixels.rgb.forEach((value,index)=>assert(Math.abs(value-[220,30,40][index])<=(rendered.nativeEnvelopeSha256?5:0)));
    observations.push({pin:vector.pin,browserSha256:vector.browserSha256,exactCaption:true,pixels});await page.close();
   }
-  console.log(JSON.stringify({result:'PASS',boundary:'Offline Chromium DOM/raster after actual pinned Browser.sanitize and inspected Chat newline conversion. No signed native transport or initialized Saito app claim.',observations},null,2));
+  console.log(JSON.stringify({result:'PASS',boundary:'Offline Chromium DOM/raster after actual pinned Browser.sanitize and inspected Chat newline conversion. No initialized Saito app or live network claim.',...(rendered.nativeEnvelopeSha256?{nativeEnvelopeSha256:rendered.nativeEnvelopeSha256}:{}),observations},null,2));
  }finally{await browser.close();}
 })().catch(error=>{console.error(error);process.exitCode=1;});

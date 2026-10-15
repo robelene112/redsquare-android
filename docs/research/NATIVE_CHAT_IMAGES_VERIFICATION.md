@@ -231,3 +231,22 @@ asserted. Sanitizer/DOMhelpers add explicitnativeproofinput and JPEGtolerance5
 only fornative-normalizedraster; previousPNGcriterionremainsRGBexact. Default
 privateimageasset was reexecuted byteidentical andsanitizervectorsunchanged.
 Actualnativeoutbound/reference executionpending; productionunchanged.
+
+ActualprivateSend10run38720282977 exact8ce9d04a SUCCESS5PASS27.357s. One raw+
+Relay sameoriginal afterexplicitSend, visibleexactcaption/emptycomposer/full
+identity/backend/noreports/restoration andpriorfourcasesPASS. Retained31hash
+13XML; rootnewoutgoingPNGseen. Cap-dropreference initiallycouldnotreadextracted
+0600publicfixture; readablelocalcopy fixedharnesspermissionswithoutbyte/node
+changes. IndependentWASM/Ellipticsignature/browserECDH-AES/exactcaption/actual
+Chatreceiver(sender+recipient)/dedup/A-Bmethodequality PASS. ActualA/Bsanitizer+
+ChromiumDOM/JPEG12x8RGB220/30/40+exactcaption PASS, separate4hashinteroprecord.
+
+NextgroupSend regression reusesthealreadyimplementedordinarysender, asserts
+raw+Relay original/currenttwo-memberrouting, nativecaption/emptycomposer and
+publicunsafeenvelopecapture. Independentgroupgenerator explicit--check-native-
+photo-send runsbothactualpinnedcreateChatTransaction constructors withnative
+member2/admin1/group3/sameknowncaption andrequires independentWASM/Elliptic
+signedenvelopebyteequality. Normalgroupmessagegenerator was reexecuted byte-
+identical. Sanitizerhelper explicit--native-group-photo accepts that proof
+withoutclaiminggroupdecryption. DOMproofnowlinksoptionalnativeEnvelopeSHA.
+Actualgroupsend/referencepending; no productionchanges/newpipeline/fakeRED.

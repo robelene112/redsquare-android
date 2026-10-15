@@ -47,11 +47,20 @@ Noownedlocalbuild. Strictphoto/canonicalescapeddivcaption+nativepicker/private
 composer nowimplemented, no storage/queueprotocolchanges. ActualpinnedA/B
 Browser.sanitize+offlineChromiumDOM/RGB exactcaption proof PASS, retained3hashes
 caption-web; helpers committedb54b1a73 reviewed0/0. No signednativeSendproofyet.
-Nextregression actualprivateSend afterphotodraftrecovery, one raw+Relay identical
-original, visiblecaption+emptycomposer, publicunsafe signedenvelopecapture for
-independentWASM/browsercrypto/actualreceiver A-Bmethod equality andDOM/JPEGRGB.
-Explicithelpermodesnowincludedinthisslice; defaultprivateimageassetbyteidentical
-anddefaultsanitizervectorsunchanged. Canonical NATIVE_CHAT_IMAGES_VERIFICATION.md.
+PrivateSend regression8ce9d04a source reviewed0/0, actual10run38720282977
+SUCCESS5PASS27.357s. One raw+Relay sameoriginal/visibleexactcaption/emptycomposer/
+identity/backend/noreports/restoration +priorfourcasesPASS. Retained31hash13XML,
+rootnewoutgoingPNGseen. ActualindependentWASM/browserECDH-AES/exactcaption/pinned
+receiver+dedup+A-Bmethodequality andsanitizer/ChromiumDOM/JPEGRGB PASS, separate
+4hashinteroprecord. Initialreferencefilepermissionfailure resolvedbyreadable
+publicfixturecopy, no bytes/nodechanges. Noownedlocalbuild.
+
+NextgroupSend regression sameexistingpipeline/currentmemberRelayrouting/native
+caption/emptycomposer andunsafeenvelopecapture. Groupgenerator explicitnative
+mode requires independent actualA/Bconstructors signedenvelopebyteequality;
+defaultgroupmessagegeneratorreexecutedbyteidentical. Sanitizer explicitgroup
+nativeproofinput no claimofgroupdecryption. ActualgroupSend/referencepending.
+Canonical NATIVE_CHAT_IMAGES_VERIFICATION.md.
 
 Nextslices actualprivate/groupSend/queue/
 failure/practical5MiBhistorybound/process/finalfull10+17 stillrequired. Protected

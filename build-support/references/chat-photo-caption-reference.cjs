@@ -7,8 +7,13 @@ const pins=[['9a4ca7e9442eb5e872168ced361ce741d7d139d7','browser-A.ts','e85b67cc
 const caption='Photo caption 😀 <&> "quoted"\nA second line';
 const escape=text=>text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 const image=JSON.parse(fs.readFileSync('/reference/images-reference.json','utf8')).images.red;
-const native=process.argv.includes('--native-photo')?JSON.parse(fs.readFileSync('/reference/native-private-photo-proof.json','utf8')):null;
-if(native){assert.equal(native.independentWasmSignatureMatches,true);assert.equal(native.existingCryptoRecipientDecrypts,true);assert.equal(native.existingChatReceiverAcceptsNativePlaintext,true);assert.equal(native.nativePhoto.caption,caption);}
+const group=process.argv.includes('--native-group-photo');
+const native=group||process.argv.includes('--native-photo')?JSON.parse(fs.readFileSync(group?'/reference/native-group-photo-proof.json':'/reference/native-private-photo-proof.json','utf8')):null;
+if(native){
+ assert.equal(native.independentWasmSignatureMatches,true);assert.equal(native.nativePhoto.caption,caption);
+ if(group)assert.equal(native.actualPinnedConstructorsMatchNativeEnvelope,true);
+ else{assert.equal(native.existingCryptoRecipientDecrypts,true);assert.equal(native.existingChatReceiverAcceptsNativePlaintext,true);}
+}
 const message=native?native.nativePhoto.message:`<img class="img-prev" src="${image}">\n<div>${escape(caption)}</div>`;
 const vectors=[];
 for(const [pin,file,expected] of pins){

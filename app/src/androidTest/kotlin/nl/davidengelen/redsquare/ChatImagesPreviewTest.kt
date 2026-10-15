@@ -37,6 +37,8 @@ class ChatImagesPreviewTest {
 
     @Test fun aRecoveredPrivatePhotoAndItsCaptionUseTheExistingSignedChatSendPath() = exercisePhoto(group = false, flow = PhotoFlow.SEND)
 
+    @Test fun aRecoveredGroupPhotoAndItsCaptionUseTheExistingSignedChatSendPath() = exercisePhoto(group = true, flow = PhotoFlow.SEND)
+
     private fun exercisePhoto(group: Boolean, flow: PhotoFlow = PhotoFlow.VIEW) {
         val composing = flow != PhotoFlow.VIEW
         val instrumentation = InstrumentationRegistry.getInstrumentation()
@@ -180,8 +182,11 @@ class ChatImagesPreviewTest {
                                         ui.waitUntil(20_000) { peer.transactions.size == 1 && peer.relayedMessages.size == 1 }
                                         val sent = postingTransaction(peer.transactions.single())
                                         check(SaitoEnvelope.fromSignedJson(peer.relayedMessages.single()) == sent.envelope())
-                                        val message = PrivateChat.read(wallet, sent.envelope(), contact)
-                                        check(message.author == wallet.publicKey)
+                                        check(peer.relayRecipients.single() == if (group) listOf(contact, wallet.publicKey) else listOf(wallet.publicKey, contact))
+                                        val author = if (group) GroupChat.readMessage(requireNotNull(
+                                            nl.davidengelen.redsquare.chat.GroupChatStore(context, wallet, SaitoBackend.OWNER).load(groupId)
+                                        ).group, sent.envelope()).author else PrivateChat.read(wallet, sent.envelope(), contact).author
+                                        check(author == wallet.publicKey)
                                         val caption = hasText(draft)
                                         ui.waitUntil(20_000) {
                                             if (!displayed(caption)) {
@@ -194,8 +199,8 @@ class ChatImagesPreviewTest {
                                             SemanticsMatcher("Empty sent composer") {
                                                 it.config.getOrNull(SemanticsProperties.EditableText)?.text == ""
                                             }) }
-                                        File(context.cacheDir, "chat-images-evidence/native-private-photo-envelope.json").writeText(sent.envelope())
-                                        capture("private-photo-explicitly-sent")
+                                        File(context.cacheDir, "chat-images-evidence/native-$kind-photo-envelope.json").writeText(sent.envelope())
+                                        capture("$kind-photo-explicitly-sent")
                                     }
                                 } finally { Intents.release() }
                             } finally { check(context.contentResolver.delete(uri, null, null) == 1) }
