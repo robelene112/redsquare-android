@@ -150,7 +150,8 @@ class ChatKeyboardPreviewTest {
                         captureNativeScreen(File(folder, "$kind-keyboard-open.png"))
                         // Ordinary Back should dismiss the IME, preserve the exact draft,
                         // and reveal the same reminder and conversation controls again.
-                        check(device.pressBack())
+                        val injectedBack = device.pressBack()
+                        println("Back injection reported $injectedBack; observing keyboard dismissal")
                         ui.waitUntil(10_000) { !observeKeyboard() }
                         restoredChrome()
                         ui.onNode(exactDraft).assertIsDisplayed()
