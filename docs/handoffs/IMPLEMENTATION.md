@@ -13,11 +13,13 @@ one Settings discovery case at the existing controlled socket/app seam, so
 UsernamePreviewTest now has16cases. The server emits exact type13 fallback,
 then the independent signed proof on the same index; a public checkpoint records
 both queued sends before unchanged UI/name/identity/no-registration assertions.
-Production is unchanged and actual RED is pending. Owned local testAPK build
-exec11746 is ACTIVE; log .scratch/registry19-late-red-compile.log. Do not edit
-app/core/test files until it finishes. No new native CI dispatched yet. Next
-commit/review tracer, inspect compile, then dispatch focused usernames Android10
-for actual RED. Keep public22 current; do not close19 from controlled results
+Production is unchanged and actual RED is pending. Local testAPK compile
+exec11746 completed0 in2m12s; log .scratch/registry19-late-red-compile.log.
+No owned local Gradle remains. Tracer commit611232a3 reviewed Spec0/Standards0.
+Actual Android10 RED run38782610994 is ACTIVE at exact
+611232a382a8e9af03d48cbb42cc01ab2f56819c. Do not duplicate it. Inspect the actual
+username UI log, late-pair public checkpoint and failure PNG/XML before applying
+any production correction. Keep public22 current; do not close19 from controlled results
 alone. Protected untracked group contract remains untouched.
 
 

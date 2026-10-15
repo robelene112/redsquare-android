@@ -11,6 +11,10 @@ on the SAME callback index. The fixture positively records both sends before
 waiting for the unchanged registered-name UI, identity and zero-registration
 assertions. Both ordinary and late-response cases share the existing flow.
 
+Tracer611232a3 reviews report Spec0/Standards0. Local testAPK compile passes
+in2m12s, exec11746 complete0. Actual Android10 run38782610994 is active at
+611232a382a8e9af03d48cbb42cc01ab2f56819c; its outcome is pending.
+
 This is test-only preparation for actual native RED. Production SaitoPeer still
 consumes the first reply. No native outcome, workaround or live registration is
 claimed. The earlier host proof is in ticket19/host-public-proof-oct15; it does
