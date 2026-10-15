@@ -204,3 +204,6 @@ Pre-runtimebackgroundtracerfinding: controlledpeerrecordsRelaybeforeACK, so
 receiptalonecannotguarddurableFORWARDEDassert. Existing60s gate nowrequiresboth
 RelayobservationandprotectedFORWARDEDwhileCREATED, keepsalloriginal/history/key/
 recipient/assertions. No newdeadline/appcode. FirstREDpending.
+
+Groupbackgroundtracercorrection49fb917d separateSpec0/Standards0. Actual9case
+focused10run38674561631 exact49fb917d ACTIVE. No groupautominimum/no localbuild.
