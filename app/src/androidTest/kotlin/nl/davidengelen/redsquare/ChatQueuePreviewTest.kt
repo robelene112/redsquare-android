@@ -70,11 +70,15 @@ class ChatQueuePreviewTest {
         }
         val prefs=context.getSharedPreferences("notification-permission",0)
         val offered=if(prefs.contains("offered"))prefs.getBoolean("offered",false) else null
+        val backupPrefs=context.getSharedPreferences("wallet-backup-reminders",0)
+        val backupKey="hidden:${wallet.publicKey}"
+        val previousBackupHidden=if(backupPrefs.contains(backupKey))backupPrefs.getBoolean(backupKey,false) else null
         val text="Keep my offline group message 😀"
         var primary:Throwable?=null
         try {
             synchronized(SaitoLocalState.lock){retained.keys.forEach{check(File(context.noBackupFilesDir,it).delete())}}
             check(prefs.edit().putBoolean("offered",true).commit())
+            if(cancel)check(backupPrefs.edit().putBoolean(backupKey,false).commit())
             wallets.replace(original,wallet);backends.save(SaitoBackend.OWNER)
             val store=nl.davidengelen.redsquare.chat.GroupChatStore(context,wallet,SaitoBackend.OWNER)
             val creation=GroupChat.create(wallet,key.publicKey,name,listOf(member),1700000123400)
@@ -159,7 +163,26 @@ class ChatQueuePreviewTest {
                     scenario.recreate();open();waitFor("Queued")
                     val queued=requireNotNull(requireNotNull(store.load(key.publicKey)).queuedMessage).candidate
                     if(cancel) {
-                        ui.onNodeWithText("Cancel queued message").assertIsEnabled().performClick()
+                        val warnings=listOf(R.string.group_error,R.string.group_history_error,R.string.group_live_error)
+                        ui.waitUntil(30_000){warnings.all{resource->
+                            ui.onAllNodesWithText(context.getString(resource)).fetchSemanticsNodes().isNotEmpty()}}
+                        ui.onNodeWithText(context.getString(R.string.wallet_backup_reminder)).assertIsDisplayed()
+                        val device=androidx.test.uiautomator.UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+                        var top=0;var bottom=0
+                        scenario.onActivity { activity->
+                            val bars=androidx.core.view.ViewCompat.getRootWindowInsets(activity.window.decorView)
+                                ?.getInsets(androidx.core.view.WindowInsetsCompat.Type.systemBars())
+                            top=bars?.top ?: 0;bottom=bars?.bottom ?: 0
+                        }
+                        captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/group-cancel-viewport-ready.png"))
+                        val target=requireNotNull(device.findObject(androidx.test.uiautomator.By.text("Cancel queued message"))) {
+                            "Queued cancellation must have a physical target beneath the offline warnings"
+                        }.visibleBounds
+                        check(target.width()>0&&target.height()>0&&target.top>=top&&target.bottom<=device.displayHeight-bottom) {
+                            "Queued cancellation must stay inside the usable screen: $target, bars=$top/$bottom"
+                        }
+                        check(device.click(target.centerX(),target.centerY()))
+                        captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/group-cancel-viewport-tapped.png"))
                         ui.waitUntil(15_000){displayed(hasSetTextAction() and isEnabled())}
                         ui.onNode(hasSetTextAction() and isEnabled()).assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText,AnnotatedString(text)))
                         ui.onAllNodes(hasText(text) and !hasSetTextAction()).assertCountEquals(0)
@@ -269,6 +292,7 @@ class ChatQueuePreviewTest {
         finally{cleanupAfterTest(primary,
             {synchronized(SaitoLocalState.lock){context.noBackupFilesDir.listFiles()!!.filter{file->prefixes.any(file.name::startsWith)}.forEach{check(it.isFile&&it.delete())};retained.forEach{(name,bytes)->File(context.noBackupFilesDir,name).writeBytes(bytes)}}},
             {wallets.replace(wallets.loadExisting(),original);backends.save(backend)},
+            {if(cancel){val edit=backupPrefs.edit();if(previousBackupHidden==null)edit.remove(backupKey) else edit.putBoolean(backupKey,previousBackupHidden);check(edit.commit())}},
             {val edit=prefs.edit();if(offered==null)edit.remove("offered") else edit.putBoolean("offered",offered);check(edit.commit())})}
     }
 
