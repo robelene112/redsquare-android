@@ -352,3 +352,7 @@ Preparedexacte3edfacceptancesourceworktreeonadditionaldisk:
 maintainedmaincache. Unsignedpreview18releasecachebuild16011ACTIVEwithsamepreview
 versionflagsasreview-build; noversionreservation/signature/publication. Noother
 ownedlocalbuild/app/testeditsuntildone. Holdpublicationuntilfullruntimeacceptance.
+
+Unsignedpreview18cachebuild16011 PASS3m40s onexacte3edfsourceworktree. Artifact
+app/build/outputs/apk/release/app-release-unsigned.apk, noversionreservation or
+signature/publication. Noownedlocalbuild. Full10/17stillruntimeACTIVE.
