@@ -1,6 +1,9 @@
 package nl.davidengelen.redsquare.chat
 
 import androidx.activity.compose.BackHandler
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.LocalActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -77,11 +80,16 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     var discoveryLoading by remember(store,endpoint){mutableStateOf(false)}
     var discoveryChecked by remember(store,endpoint,refresh){mutableStateOf(false)}
     var discoveryRequest by remember(store,endpoint,refresh){mutableIntStateOf(0)}
+    val activity=requireNotNull(LocalActivity.current) as ComponentActivity
+    val draftMemory=remember(activity,wallet.publicKey,backend,selected){
+        ViewModelProvider(activity)["group-chat:${wallet.publicKey}:${backend.id}:${selected.orEmpty()}",ChatComposerMemory::class.java]
+    }
     var message by remember(wallet.publicKey,backend,selected){mutableStateOf("")}
+    fun changeMessage(value:String){message=value;draftMemory.text=value}
     var draftReady by remember(store,selected){mutableStateOf(false)}
     var draftFailed by remember(wallet.publicKey,backend,selected){mutableStateOf(false)}
     var savingForNavigation by remember(wallet.publicKey,backend,selected){mutableStateOf(false)}
-    val draftWrites=remember(wallet.publicKey,backend,selected){Mutex()}
+    val draftWrites=draftMemory.writes
     val navigation=requireNotNull(nl.davidengelen.redsquare.feed.LocalPostNavigation.current)
     suspend fun persistDraft(allowBusy:Boolean=false):Boolean = withContext(Dispatchers.Main.immediate) {
         draftWrites.withLock {
@@ -110,8 +118,11 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         if(draftReady)return@LaunchedEffect // Refresh must not replace unsaved edited text.
         val id=selected ?: return@LaunchedEffect
         try {
-            message=withContext(Dispatchers.IO){requireNotNull(store.load(id)).draft}
-            draftReady=true;draftFailed=false
+            draftWrites.withLock {
+                val saved=withContext(Dispatchers.IO){requireNotNull(store.load(id))}
+                changeMessage(if(saved.hasPendingAction)saved.draft else draftMemory.text ?: saved.draft)
+                draftReady=true;draftFailed=false
+            }
         } catch(cancelled:CancellationException){throw cancelled}
         catch(_:Exception){draftFailed=true}
     }
@@ -344,10 +355,14 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                 Text(stringResource(R.string.chat_queued))
                 TextButton(enabled=loaded&&!busy&&!readFailed,onClick={
                     act {
-                        withContext(NonCancellable){publish{
-                            store.cancelQueued(entry.group.id,entry.queuedMessage.candidate.id);store.entries()
-                        }}
-                        message=withContext(Dispatchers.IO){requireNotNull(store.load(entry.group.id)).draft}
+                        draftWrites.withLock {
+                            withContext(NonCancellable){
+                                publish{
+                                    store.cancelQueued(entry.group.id,entry.queuedMessage.candidate.id);store.entries()
+                                }
+                                changeMessage(withContext(Dispatchers.IO){requireNotNull(store.load(entry.group.id)).draft})
+                            }
+                        }
                     }
                 }){Text(stringResource(R.string.chat_cancel_queued))}
             } else Text(stringResource(when(entry.status) {
@@ -411,7 +426,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                             }
                         }){Text(stringResource(if(wallet.publicKey in likedBy)R.string.chat_unlike else R.string.chat_like))}
                         TextButton(enabled=permitted&&replyPrefix!=null,onClick={
-                            replyPrefix?.let{message=it+privateMessageBody(message)}
+                            replyPrefix?.let{changeMessage(it+privateMessageBody(message))}
                         }){Text(stringResource(R.string.post_reply))}
                         TextButton(onClick={copyFailed=!copyPrivateMessage(context,item.text)}){Text(stringResource(R.string.chat_copy))}
                         }
@@ -430,17 +445,21 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             val typed=quote?.body ?: message
             if(quote!=null){
                 Text(quote.quote,style=MaterialTheme.typography.bodyMedium)
-                TextButton(enabled=editable,onClick={message=typed}){Text(stringResource(R.string.chat_remove_reply))}
+                TextButton(enabled=editable,onClick={changeMessage(typed)}){Text(stringResource(R.string.chat_remove_reply))}
             }
             Row(verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(8.dp)){
-                OutlinedTextField(typed,{message=(quote?.prefix ?: "")+it},Modifier.weight(1f),
+                OutlinedTextField(typed,{changeMessage((quote?.prefix ?: "")+it)},Modifier.weight(1f),
                     label={Text(stringResource(R.string.chat_message))},enabled=editable,maxLines=4)
                 Button(enabled=permitted&&typed.isNotBlank(),onClick={
                     act {
                         val mentioned=quote?.author?.let{listOf(it)}.orEmpty()
                         val candidate=withContext(Dispatchers.IO){GroupChat.message(wallet,entry.group,message,System.currentTimeMillis(),mentioned)}
-                        withContext(NonCancellable){publish{store.prepareMessage(candidate,queued=true);store.entries()}}
-                        message=""
+                        draftWrites.withLock {
+                            withContext(NonCancellable){
+                                publish{store.prepareMessage(candidate,queued=true);store.entries()}
+                                changeMessage("")
+                            }
+                        }
                         withContext(Dispatchers.IO){submitGroupMessage(context,wallet,backend,endpoint,entry.group.id,candidate)}
                         publish{store.entries()}
                     }

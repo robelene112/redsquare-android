@@ -138,3 +138,13 @@ unmutetailunexecuted; sameprivate2PASS. Retainedgroup-control-red-android10
 (14hash5XML), grouporiginalfailureseen. Minimum adds sharedgroupheaderbutton
 and validSaitopublickey conversationIDs; no groupnotifications yet. Corrected
 fixturee2727e09 reviewedSpec0/Standards0. Newcompile/reviews/nativeGREENpending.
+
+Groupminimum3749a543 reviewedSpec0/Standards0. Actualnative10run38695426962
+3cases2PASS1FAIL38.852s: groupmute/liveincoming/ACK/exactdraft and recreatedmute/
+cachepass, exactdraftempty20s204. Retainedgroup-control-draft-red-android10
+(16hash6XML), originalfailureseen/allXMLparsed; unmute/no-wiretailunexecuted.
+Groupminimum nowreuses ChatComposerMemory underseparategroupowner/backend/id
+keys, sharedmutexinitialload/transitions, latestedits/replies/sendclear/cancel
+memorypublication withdurablependingauthority andNonCancellablecommit+Mainstate.
+No newplaintextstorage/protocol/groupnotifications. Sourcecompile/reviews and
+correctednativeproofpending. No ownedlocalbuild or othernativerunactive.
