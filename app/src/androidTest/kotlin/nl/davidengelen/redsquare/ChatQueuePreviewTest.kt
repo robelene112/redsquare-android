@@ -168,7 +168,7 @@ class ChatQueuePreviewTest {
                             ui.onAllNodes(actionError).fetchSemanticsNodes().isNotEmpty()}
                         ui.onNodeWithText(context.getString(R.string.wallet_backup_reminder)).assertIsDisplayed()
                         // Reachability applies even while the existing safety guard disables cancellation.
-                        physicalGroupCancellation(scenario,"three-warnings")
+                        physicalQueueCancellation(scenario,"three-warnings")
                     }
                     checkpoint("before-recreation")
                     scenario.recreate();open();waitFor("Queued")
@@ -178,7 +178,7 @@ class ChatQueuePreviewTest {
                         ui.waitUntil(30_000){warnings.all{resource->
                             ui.onAllNodesWithText(context.getString(resource)).fetchSemanticsNodes().isNotEmpty()}}
                         ui.onNodeWithText("Cancel queued message").assertIsEnabled()
-                        val target=physicalGroupCancellation(scenario,"reopened")
+                        val target=physicalQueueCancellation(scenario,"reopened")
                         val device=androidx.test.uiautomator.UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
                         check(device.click(target.centerX(),target.centerY()))
                         captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/group-cancel-viewport-tapped.png"))
@@ -295,7 +295,7 @@ class ChatQueuePreviewTest {
             {val edit=prefs.edit();if(offered==null)edit.remove("offered") else edit.putBoolean("offered",offered);check(edit.commit())})}
     }
 
-    private fun physicalGroupCancellation(scenario:ActivityScenario<MainActivity>,stage:String):android.graphics.Rect {
+    private fun physicalQueueCancellation(scenario:ActivityScenario<MainActivity>,stage:String,kind:String="group"):android.graphics.Rect {
         val instrumentation=InstrumentationRegistry.getInstrumentation()
         val context=instrumentation.targetContext
         val device=androidx.test.uiautomator.UiDevice.getInstance(instrumentation)
@@ -305,7 +305,7 @@ class ChatQueuePreviewTest {
                 ?.getInsets(androidx.core.view.WindowInsetsCompat.Type.systemBars())
             top=bars?.top ?: 0;bottom=bars?.bottom ?: 0
         }
-        captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/group-cancel-viewport-$stage.png"))
+        captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/$kind-cancel-viewport-$stage.png"))
         var target=requireNotNull(device.findObject(androidx.test.uiautomator.By.text("Cancel queued message"))) {
             "Queued cancellation must have a physical target beneath the offline warnings"
         }
@@ -344,11 +344,26 @@ class ChatQueuePreviewTest {
             .associate{check(it.isFile);it.name to it.readBytes()}
         val prefs=context.getSharedPreferences("notification-permission",0)
         val offered=if(prefs.contains("offered"))prefs.getBoolean("offered",false) else null
-        val text="Keep my offline private message 😀"
+        val backupPrefs=context.getSharedPreferences("wallet-backup-reminders",0)
+        val backupKey="hidden:${wallet.publicKey}"
+        val previousBackupHidden=if(backupPrefs.contains(backupKey))backupPrefs.getBoolean(backupKey,false) else null
+        val text=if(cancel) """Keep my offline private message 😀
+Line 02 stays in the saved message.
+Line 03 stays in the saved message.
+Line 04 stays in the saved message.
+Line 05 stays in the saved message.
+Line 06 stays in the saved message.
+Line 07 stays in the saved message.
+Line 08 stays in the saved message.
+Line 09 stays in the saved message.
+Line 10 stays in the saved message.
+Line 11 stays in the saved message.
+Line 12 stays in the saved message.""" else "Keep my offline private message 😀"
         var primary:Throwable?=null
         try {
             synchronized(SaitoLocalState.lock){saved.keys.forEach{check(File(context.noBackupFilesDir,it).delete())}}
             check(prefs.edit().putBoolean("offered",true).commit())
+            if(cancel)check(backupPrefs.edit().putBoolean(backupKey,false).commit())
             wallets.replace(original,wallet);backends.save(SaitoBackend.OWNER)
             val alternate=ControlledFeedPeer("[]",advertisedServices="archive||;relay||",archiveResponse={"[]"})
             alternate.start().use{alternateServer->
@@ -358,13 +373,20 @@ class ChatQueuePreviewTest {
             val intent=Intent(context,MainActivity::class.java).putExtra("feedPeerUrl","ws://127.0.0.1:$port/wsopen")
             ActivityScenario.launch<MainActivity>(Intent(intent).putExtra("feedOfficialPeerUrl","ws://127.0.0.1:${alternateServer.port}/wsopen")).use{scenario->
                 withFailureCapture({captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/private-$label-failure.png"))}) {
-                    fun open(){
+                    fun open(queued:Boolean=false){
                         val chat=hasText("Chat") and hasClickAction() and isEnabled()
                         ui.waitUntil(20_000){displayed(hasText("Groups"))||displayed(chat)}
                         if(!displayed(hasText("Groups")))ui.onNode(chat).assertIsDisplayed().assertIsEnabled().performClick()
                         waitFor("Groups")
                         clickWhenReady(contact)
-                        ui.waitUntil(20_000){displayed(hasText("Message"))||displayed(hasText("Queued"))}
+                        if(cancel&&queued) {
+                            ui.onNodeWithText(contact).assertIsDisplayed()
+                            ui.waitUntil(20_000){
+                                val retained=nl.davidengelen.redsquare.chat.ChatWorkStore(context,wallet,SaitoBackend.OWNER,contact).load()
+                                retained.status==nl.davidengelen.redsquare.chat.ChatWorkStore.Status.QUEUED&&
+                                    retained.transaction?.let{PrivateChat.read(wallet,it.envelope(),contact).text==text}==true
+                            }
+                        } else ui.waitUntil(20_000){displayed(hasText("Message"))||displayed(hasText("Queued"))}
                     }
                     open()
                     ui.onNode(hasSetTextAction() and isEnabled()).performTextReplacement(text)
@@ -394,12 +416,28 @@ class ChatQueuePreviewTest {
                     }
                     androidx.test.espresso.Espresso.closeSoftKeyboard()
                     readyAction("Send").performClick()
+                    if(cancel) {
+                        ui.waitUntil(20_000){
+                            val retained=nl.davidengelen.redsquare.chat.ChatWorkStore(context,wallet,SaitoBackend.OWNER,contact).load()
+                            retained.status==nl.davidengelen.redsquare.chat.ChatWorkStore.Status.QUEUED&&
+                                retained.transaction?.let{PrivateChat.read(wallet,it.envelope(),contact).text==text}==true
+                        }
+                        ui.waitUntil(30_000){ui.onAllNodesWithText(context.getString(R.string.chat_load_error)).fetchSemanticsNodes().isNotEmpty()}
+                        ui.onNodeWithText(context.getString(R.string.wallet_backup_reminder)).assertIsDisplayed()
+                        physicalQueueCancellation(scenario,"long-message",kind="private")
+                    }
                     waitFor("Queued")
                     captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/private-$label-queued.png"))
-                    scenario.recreate();open();waitFor("Queued")
+                    scenario.recreate();open(queued=cancel)
+                    val cancellation=if(cancel)physicalQueueCancellation(scenario,"reopened",kind="private") else null
+                    waitFor("Queued")
                     val originalCandidate=requireNotNull(nl.davidengelen.redsquare.chat.ChatWorkStore(context,wallet,SaitoBackend.OWNER,contact).load().transaction)
                     if(cancel) {
-                        ui.onNodeWithText("Cancel queued message").assertIsEnabled().performClick()
+                        ui.onNodeWithText("Cancel queued message").assertIsEnabled()
+                        val target=requireNotNull(cancellation)
+                        val device=androidx.test.uiautomator.UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+                        check(device.click(target.centerX(),target.centerY()))
+                        captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/private-cancel-viewport-tapped.png"))
                         ui.waitUntil(15_000){ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty()}
                         ui.onNode(hasSetTextAction() and isEnabled()).assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText,AnnotatedString(text)))
                         ui.onAllNodes(hasText(text) and !hasSetTextAction()).assertCountEquals(0)
@@ -504,6 +542,7 @@ class ChatQueuePreviewTest {
         finally{cleanupAfterTest(primary,
             {synchronized(SaitoLocalState.lock){context.noBackupFilesDir.listFiles()!!.filter{file->prefixes.any(file.name::startsWith)}.forEach{check(it.isFile&&it.delete())};saved.forEach{(name,bytes)->File(context.noBackupFilesDir,name).writeBytes(bytes)}}},
             {wallets.replace(wallets.loadExisting(),original);backends.save(backend)},
+            {if(cancel){val edit=backupPrefs.edit();if(previousBackupHidden==null)edit.remove(backupKey) else edit.putBoolean(backupKey,previousBackupHidden);check(edit.commit())}},
             {val edit=prefs.edit();if(offered==null)edit.remove("offered") else edit.putBoolean("offered",offered);check(edit.commit())})}
     }
     /** Inject after edit readiness, in the same UI action as Send, before asynchronous persistence. */

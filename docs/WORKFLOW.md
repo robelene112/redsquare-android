@@ -97,8 +97,8 @@ the owner chooses whether to start it. It is not required for every app-wide gri
 3. Implement the ticket at its agreed testing boundaries using `tdd`. Run focused
    checks during development and the relevant full suite at completion.
    For the isolated queued-action viewport tracer, `chat-viewport` and
-   `chat-viewport-android17` run only the existing group cancellation case.
-   This avoids repeating five unchanged queue cases on each fixture correction;
+   `chat-viewport-android17` run only the existing private and group cancellation cases.
+   This avoids repeating unrelated queue cases on each viewport correction;
    `chat-queue-group`, complete queue and final full scopes retain all cases.
    Per-assertion deadlines and the180second focused class bound stay explicit.
    API37 disposable emulators exclude only the exact installed Digital Wellbeing
