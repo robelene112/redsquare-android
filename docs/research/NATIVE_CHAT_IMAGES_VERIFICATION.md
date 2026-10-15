@@ -402,10 +402,16 @@ Existing chat-images and full scopes still include all image gates. No new
 acceptance exception or duplicate dispatch of the active predecessor.
 
 Run38729320505 exact16c9231a FAILED group photo preparation instrumentation
-120s timeout before any checkpoint/actualkill. Onlycase-startstatus, unusable
+120s timeout with no retained queuedcheckpoint or deliberatekill proof. Onlycase-startstatus, unusable
 capturearchive, originalrestorationPASS0.27s. Precise stalledstage unproved.
 Capacity/fault class unexecuted. Retained5hash qualifiedattempt. Added default-
 offphoto-only fixed stage markers, failurecaptures only validatedstage text;
 no keys/messages/originalsnapshots. On timeout stop only guarded debug package
 before separate restoration. Existing120s/UI20s bounds unchanged. Storage-only
 38730369758 exact634dd820 independently running; no repeated active same scope.
+
+Diagnostic review found the failed stage read could skip timeout force-stop.
+The stop now runs independently, preserving primaryfailure and recording any
+stopfailure. Bothreviews1findingeach, correctedfixreviewpending. No existing
+timeouts/assertions/productionchange. Preparedcheckpoint may have existed in
+failedrun; no queuedcheckpoint/deliberatekill proof was retained.
