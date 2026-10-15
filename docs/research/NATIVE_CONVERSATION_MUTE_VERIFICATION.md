@@ -89,3 +89,10 @@ ActualREDpending; no productionnotificationpathyet. Android primary guidance:
 https://developer.android.com/develop/ui/compose/notifications/create-notification
 https://developer.android.com/develop/ui/compose/notifications/notification-permission
 https://developer.android.com/reference/android/app/NotificationManager#getActiveNotifications()
+
+Alerttracercc74746c review: Spec1(singleimmediateabsence couldmiss delayedOS
+publication), Standards1possibleduplicatedpostconditions. Correctedtwo-second
+pollingzero-alertobservation afterACK andaftercachedunmute, plusreopenedabsence;
+sharedidentity/backend/no-wire/peerhealthpostconditionhelper. PositiveOSalert
+assertionsunchanged. OwnedfirstRED38693284699 exactcc74746c remainsactive; its
+baselinealertcriterionunchanged, no duplicate dispatch. No productionnotifpathyet.

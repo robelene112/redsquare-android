@@ -46,6 +46,13 @@ class ChatMutePreviewTest {
         val notifications = context.getSystemService(android.app.NotificationManager::class.java)
         val existingAlerts = notifications.activeNotifications.map { it.tag to it.id }.toSet()
         fun newAlerts() = notifications.activeNotifications.filter { (it.tag to it.id) !in existingAlerts }
+        fun assertNoNewAlerts() {
+            val until = android.os.SystemClock.elapsedRealtime() + 2_000
+            do {
+                check(newAlerts().isEmpty())
+                android.os.SystemClock.sleep(50)
+            } while (android.os.SystemClock.elapsedRealtime() < until)
+        }
         val reads = AtomicInteger()
         val peer = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", archiveResponse = { criteria ->
             if (criteria.get("field3")?.asString == reference.get("groupId").asString) reads.incrementAndGet()
@@ -58,6 +65,11 @@ class ChatMutePreviewTest {
             1, reference.get("timestamp").asLong).drop(5).toByteArray()
         val text = reference.getAsJsonObject("plaintext").get("message").asString
         val draft = "Keep this unsent draft while muting 😀"
+        fun assertUnchangedIdentityAndNoOutgoingMessages() {
+            check(wallets.loadExisting().exportJson() == wallet.exportJson() && backends.load() == SaitoBackend.OWNER)
+            check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty() && peer.reports.isEmpty())
+            peer.assertHealthy()
+        }
         var primary: Throwable? = null
         try {
             synchronized(SaitoLocalState.lock) { retained.keys.forEach { check(File(context.noBackupFilesDir, it).delete()) } }
@@ -91,9 +103,7 @@ class ChatMutePreviewTest {
                                 androidx.test.uiautomator.By.text("New message")), 20_000))
                             capture("private-generic-system-notification")
                             device.pressBack()
-                            check(wallets.loadExisting().exportJson() == wallet.exportJson() && backends.load() == SaitoBackend.OWNER)
-                            check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty() && peer.reports.isEmpty())
-                            peer.assertHealthy()
+                            assertUnchangedIdentityAndNoOutgoingMessages()
                             return@withFailureCapture
                         }
                         ui.onNode(hasSetTextAction() and isEnabled()).performTextReplacement(draft)
@@ -108,7 +118,7 @@ class ChatMutePreviewTest {
                         ui.waitUntil(20_000) { displayed(hasText(text)) && peer.incomingAcknowledgements.any { it[0] == 13.toByte() } }
                         ui.onNode(SemanticsMatcher.keyIsDefined(SemanticsProperties.EditableText))
                             .assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(draft)))
-                        check(newAlerts().isEmpty())
+                        assertNoNewAlerts()
                         capture("private-muted-incoming-readable")
                         scenario.recreate(); open()
                         ui.onNodeWithContentDescription("Unmute conversation").assertIsDisplayed()
@@ -117,14 +127,14 @@ class ChatMutePreviewTest {
                             SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(draft))) }
                         ui.onNode(SemanticsMatcher.keyIsDefined(SemanticsProperties.EditableText))
                             .assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(draft)))
+                        check(newAlerts().isEmpty())
                         capture("private-muted-reopened")
                         click(hasContentDescription("Unmute conversation")); click(hasText("Unmute"))
                         ui.waitUntil(20_000) { displayed(hasContentDescription("Mute conversation")) }
                         ui.onNodeWithText(text).assertIsDisplayed()
+                        assertNoNewAlerts()
                         capture("private-unmuted-history-retained")
-                        check(wallets.loadExisting().exportJson() == wallet.exportJson() && backends.load() == SaitoBackend.OWNER)
-                        check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty() && peer.reports.isEmpty())
-                        peer.assertHealthy()
+                        assertUnchangedIdentityAndNoOutgoingMessages()
                     }
                 }
             }
