@@ -345,3 +345,11 @@ draft/full installed identity/backend preserved. If insertion fails, verify
 previous accepted originals and draft remain before rethrowing. No network,
 owner wallet replacement, arbitrary cap increase or silent pruning. Native
 RED pending, added after private photo PID invocation.
+
+Group photo queue/cancel run38726319972 exact9636c6ba SUCCESS10PASS80.299s.
+Both private/group exactoriginal/offlinerecreation/cancelrestoredraft+pixels/
+reconnectquiet/no-wire/fullidentity/restoration PASS; group priororiginals and
+candidate preserved. Retained30XML; root3newgroupPNGsseen. Source and evidence
+previousreview0/0. Next run38727023023 exact9424ed90 includes private photo
+actualPID recovery and practical cache capacity tracer; both runtimepending.
+Production source unchanged since dbd0d42f.

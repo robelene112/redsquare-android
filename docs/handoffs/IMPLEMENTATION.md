@@ -89,7 +89,9 @@ privatephotoqueue/cancelregression: actualpicker/recoverdraft, controlledpeer
 recreate/cancelrestoreexactdraft+JPEGpixels/caption/reconnect+2squietno-wire.
 Existingpipeline only, default-offcontrolledpeerflag. Actual10run38725474049
 exactd728 SUCCESS9PASS78.252s, retained25XML/root3originalsseen. Group equivalent
-regression now pending, preserves group history/prior candidate too.
+9636 run38726319972 SUCCESS10PASS80.299s, retained30XML/root3groupPNGsseen.
+Private photo actualPID and12-photo practical history tracer9424ed90 reviewed0/0,
+ownedrun38727023023 active. Group photo PID not yet invoked.
 Noownedlocalbuild. Nextslices queue/
 failure/practical5MiBhistorybound/process/finalfull10+17 stillrequired. Protected
 untracked NATIVE_GROUP_CHAT_CONTRACT.md untouched. Continue allissues.
