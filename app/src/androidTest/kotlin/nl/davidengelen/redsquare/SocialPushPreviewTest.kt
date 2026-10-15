@@ -20,7 +20,11 @@ import java.util.concurrent.CopyOnWriteArrayList
 
 /** Inject only the external wake-up transport; use actual signed Archive and Android alert boundaries. */
 class SocialPushPreviewTest {
-    @Test fun anAvailableSignedReplyShowsOneAndroidReplyAlertAfterVerifyingItsParent() {
+    @Test fun anAvailableSignedReplyShowsOneAndroidReplyAlertAfterVerifyingItsParent() = replyJourney()
+
+    @Test fun aPhysicallyDismissedReplyStaysSilentWhenItsReferenceIsRedelivered() = replyJourney(dismiss = true)
+
+    private fun replyJourney(dismiss: Boolean = false) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" &&
@@ -55,6 +59,7 @@ class SocialPushPreviewTest {
         val manager = context.getSystemService(NotificationManager::class.java)
         val priorAlerts = manager.activeNotifications.map { it.tag to it.id }.toSet()
         val device = UiDevice.getInstance(instrumentation)
+        val evidenceName = if (dismiss) "dismissed-reply" else "reply-alert"
         var primary: Throwable? = null
         try {
             retained.prepare()
@@ -69,7 +74,7 @@ class SocialPushPreviewTest {
                 val endpoint = "ws://127.0.0.1:${server.port}/wsopen"
                 withFailureCapture({
                     device.openNotification()
-                    captureNativeScreen(File(context.cacheDir, "social-push-evidence/reply-alert-failure.png"))
+                    captureNativeScreen(File(context.cacheDir, "social-push-evidence/$evidenceName-failure.png"))
                 }) {
                     runBlocking(Dispatchers.IO) { SocialPush.receive(context, payload, endpoint, 1700000001000) }
                     val alerts = manager.activeNotifications.filter { (it.tag to it.id) !in priorAlerts }
@@ -80,11 +85,33 @@ class SocialPushPreviewTest {
                     assertTrue("Candidate and signed parent must both be read", reads.contains(target) && reads.contains(root.get("sig").asString))
                     assertTrue(device.openNotification())
                     assertTrue("The system shade must visibly show the reply", device.wait(Until.hasObject(By.text("Replied to your post")), 15_000))
-                    captureNativeScreen(File(context.cacheDir, "social-push-evidence/reply-alert.png"), "Replied to your post")
+                    captureNativeScreen(File(context.cacheDir, "social-push-evidence/$evidenceName.png"), "Replied to your post")
                     device.pressBack()
                     runBlocking(Dispatchers.IO) { SocialPush.receive(context, payload, endpoint, 1700000001001) }
                     assertEquals("Redelivery must retain one alert", 1,
                         manager.activeNotifications.count { (it.tag to it.id) !in priorAlerts })
+                    if (dismiss) {
+                        assertTrue(device.openNotification())
+                        val visible = requireNotNull(device.wait(Until.findObject(By.text("Replied to your post")), 5_000))
+                        val y = visible.visibleBounds.centerY()
+                        assertTrue(device.swipe(device.displayWidth / 4, y, device.displayWidth - 2, y, 20))
+                        assertTrue("Physical swipe must remove the visible alert",
+                            device.wait(Until.gone(By.text("Replied to your post")), 5_000))
+                        val dismissedBy = android.os.SystemClock.elapsedRealtime() + 5_000
+                        while (manager.activeNotifications.any { (it.tag to it.id) !in priorAlerts } &&
+                            android.os.SystemClock.elapsedRealtime() < dismissedBy) android.os.SystemClock.sleep(25)
+                        assertEquals("Android must observe the physical dismissal before redelivery", 0,
+                            manager.activeNotifications.count { (it.tag to it.id) !in priorAlerts })
+                        runBlocking(Dispatchers.IO) { SocialPush.receive(context, payload, endpoint, 1700000001002) }
+                        val silentUntil = android.os.SystemClock.elapsedRealtime() + 2_000
+                        do {
+                            assertEquals("A physically dismissed reply must not alert again on redelivery", 0,
+                                manager.activeNotifications.count { (it.tag to it.id) !in priorAlerts })
+                            android.os.SystemClock.sleep(50)
+                        } while (android.os.SystemClock.elapsedRealtime() < silentUntil)
+                        captureNativeScreen(File(context.cacheDir, "social-push-evidence/dismissed-reply-stays-dismissed.png"))
+                        device.pressBack()
+                    }
                     assertTrue(peer.transactions.isEmpty() && peer.reports.isEmpty() && peer.relayedMessages.isEmpty())
                     peer.assertHealthy()
                 }
