@@ -118,10 +118,11 @@ private fun EmbeddedVideo(video: YouTubeVideo, attempt: Int, modifier: Modifier,
     val context = LocalContext.current
     val lifecycle = LocalLifecycleOwner.current.lifecycle
     val fixture = LocalVideoFixture.current
+    val diagnostics = LocalVideoDiagnostics.current
     val currentReport by rememberUpdatedState(report)
     var status by remember(video, attempt, fixture) { mutableStateOf(VideoStatus.LOADING) }
     val browser = remember(video, attempt, fixture) {
-        VideoBrowser(context, video, fixture) { status = it; currentReport(it) }
+        VideoBrowser(context, video, fixture, diagnostics) { status = it; currentReport(it) }
     }
     DisposableEffect(browser, lifecycle) {
         val observer = LifecycleEventObserver { _, event ->

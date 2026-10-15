@@ -60,6 +60,8 @@ import nl.davidengelen.redsquare.feed.FeedEndpoints
 import nl.davidengelen.redsquare.feed.LocalPostNavigation
 import nl.davidengelen.redsquare.feed.PostNavigation
 import nl.davidengelen.redsquare.feed.LocalVideoFixture
+import nl.davidengelen.redsquare.feed.LocalVideoDiagnostics
+import nl.davidengelen.redsquare.feed.VideoDiagnostics
 import nl.davidengelen.redsquare.feed.VideoFixture
 import nl.davidengelen.redsquare.feed.VideoPlaybackHost
 import nl.davidengelen.redsquare.registry.UsernameScreen
@@ -73,6 +75,9 @@ import nl.davidengelen.redsquare.ui.Appearance
 import nl.davidengelen.redsquare.ui.RedSquareTheme
 
 class MainActivity : ComponentActivity() {
+    private var videoDiagnostics: VideoDiagnostics? = null
+    internal fun videoDiagnosticsSnapshot(): String? = videoDiagnostics?.snapshot()
+
     private var walletExports: WalletExport? = null
     private var walletImports: WalletImport? = null
     private val createWalletDocument = registerForActivityResult(ActivityResultContracts.CreateDocument("application/json")) {
@@ -93,6 +98,7 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalLayoutApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        videoDiagnostics = VideoDiagnostics.fromIntent(this, intent)
         setContent {
             val appearanceStore = remember { AndroidAppearanceStore(applicationContext) }
             var appearance by remember { mutableStateOf(Appearance.SYSTEM) }
@@ -224,7 +230,8 @@ class MainActivity : ComponentActivity() {
                 failed = wallet == null
             }
             RedSquareTheme(this@MainActivity, appearance) {
-                CompositionLocalProvider(LocalVideoFixture provides VideoFixture.fromIntent(intent)) {
+                CompositionLocalProvider(LocalVideoFixture provides VideoFixture.fromIntent(intent),
+                    LocalVideoDiagnostics provides videoDiagnostics) {
                 VideoPlaybackHost(address, backend) {
                 PersonalControlsScope(address, commitDirectorySync = { descriptor ->
                     if (BuildConfig.DEBUG && intent.getBooleanExtra("personalCommitTerminate", false)) {

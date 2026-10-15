@@ -50,11 +50,12 @@ internal enum class VideoStatus(val message: Int, val failed: Boolean = false) {
 
 /** A provider-only browser. No JavaScript bridge or wallet capability is exposed. */
 @SuppressLint("SetJavaScriptEnabled")
-internal class VideoBrowser(context: Context, video: YouTubeVideo, fixture: String?, private val report: (VideoStatus) -> Unit) {
+internal class VideoBrowser(context: Context, video: YouTubeVideo, fixture: String?, private val diagnostics: VideoDiagnostics?, private val report: (VideoStatus) -> Unit) {
     var closed = false
         private set
     private val origin = "https://${context.packageName}"
     val view = WebView(context)
+    private val diagnosticAttempt = diagnostics?.begin(video.id, origin, view.settings.userAgentString)
 
     init {
         // WebView's content-height mode collapses relative HTML/iframe heights.
@@ -103,6 +104,7 @@ internal class VideoBrowser(context: Context, video: YouTubeVideo, fixture: Stri
                 return true
             }
             override fun shouldInterceptRequest(web: WebView, request: WebResourceRequest): WebResourceResponse? {
+                diagnostics?.request(diagnosticAttempt, request)
                 if (fixture == null || request.url.toString() != "https://www.youtube.com/iframe_api") return null
                 // Debug-only replacement at the provider boundary. No Saito or wallet
                 // data is forwarded, and release builds cannot configure this endpoint.
@@ -164,10 +166,13 @@ internal class VideoBrowser(context: Context, video: YouTubeVideo, fixture: Stri
         if (closed || result.length > 1024) return null
         return try {
             val status = JsonParser.parseString(JsonParser.parseString(result).asString).asJsonObject
-            when (status.get("state")?.asString) {
+            val state = status.get("state")?.asString.orEmpty()
+            val code = status.get("code")?.asInt ?: 5
+            diagnostics?.status(diagnosticAttempt, state, code)
+            when (state) {
                 "ready" -> VideoStatus.READY
                 "playing" -> VideoStatus.PLAYING
-                "error" -> VideoStatus.error(status.get("code")?.asInt ?: 5)
+                "error" -> VideoStatus.error(code)
                 else -> null
             }
         } catch (_: Exception) { null }

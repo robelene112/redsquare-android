@@ -42,7 +42,9 @@ class PublicYouTubeReadTest {
         peer.start().use { server ->
             // No provider fixture: this uses the real API/iframe and its public controls.
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
-                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                .putExtra("publicVideoDiagnostics", true)).use { scenario ->
+                var primaryFailure: Throwable? = null
                 try {
                     ui.waitUntil(20_000) { peer.requests.get() >= 2 && ui.onAllNodesWithText("Loading posts…").fetchSemanticsNodes().isEmpty() }
                     if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
@@ -68,8 +70,18 @@ class PublicYouTubeReadTest {
                     assertTrue(peer.transactions.isEmpty())
                     peer.assertHealthy()
                 } catch (failure: Throwable) {
+                    primaryFailure = failure
                     try { capture("public-failure") } catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
                     throw failure
+                } finally {
+                    try {
+                        var snapshot: String? = null
+                        scenario.onActivity { snapshot = it.videoDiagnosticsSnapshot() }
+                        File(context.cacheDir, "video-evidence/public-native-diagnostic.json")
+                            .apply { parentFile?.mkdirs() }.writeText(requireNotNull(snapshot))
+                    } catch (diagnostic: Throwable) {
+                        primaryFailure?.addSuppressed(diagnostic) ?: throw diagnostic
+                    }
                 }
             }
         }
