@@ -189,3 +189,13 @@ bubble. Correctedcompile/runtimepending. Stalehandoffproductionqualifierfixed.
 
 Groupcorrection320b5cad separateSpec0/Standards0. Local13877ACTIVE/focused10run
 38673764737 exact320b5cad ACTIVE. No duplicaterun; cancellationGREENpending.
+
+Correctedlocal13877compileDebugKotlin PASS1m27s. Exactfocusedgroupcancelruntime
+38673764737 stillACTIVE, no groupGREENclaimed. Existingunrelatedimagewarningonly.
+
+GroupcancelGREEN10run38673764737 exact320b5cad:8PASS135.049s. GroupofflineSend/
+Queued/recreate/Cancel/exactdraft/noordinaryhistory/priorcreationoriginal,status,
+key/zeroRawRelay6s allpass; private7unchangedpass. Rootoriginalqueued/restoredseen.
+Retainedgroup-cancel-green-android10. Local13877PASS1m27s. Nextnativebackground
+tracerrequiresexactoriginalRawRelay/currentmember/decode/history+key/FWDwhile
+Lifecycle.CREATED thenRESUMED. No automaticgroupminimumyet; first9caseREDpending.
