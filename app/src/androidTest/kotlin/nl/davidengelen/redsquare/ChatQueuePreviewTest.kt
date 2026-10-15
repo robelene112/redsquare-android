@@ -168,7 +168,30 @@ class ChatQueuePreviewTest {
                             ui.onAllNodes(actionError).fetchSemanticsNodes().isNotEmpty()}
                         ui.onNodeWithText(context.getString(R.string.wallet_backup_reminder)).assertIsDisplayed()
                         // Reachability applies even while the existing safety guard disables cancellation.
-                        physicalQueueCancellation(scenario,"three-warnings")
+                        physicalChatAction(scenario,"three-warnings")
+                        val queuedBeforeScroll=requireNotNull(requireNotNull(store.load(key.publicKey)).queuedMessage).candidate.envelope()
+                        val status=ui.onNodeWithContentDescription("Group status and actions")
+                        listOf("action" to actionError,
+                            "history" to hasText(context.getString(R.string.group_history_error)),
+                            "live" to hasText(context.getString(R.string.group_live_error))).forEach { (name,warning)->
+                            status.performScrollToNode(warning)
+                            ui.onNode(warning).assertIsDisplayed()
+                            captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/group-cancel-warning-$name.png"))
+                        }
+                        status.performScrollToNode(hasText("Members") and hasClickAction())
+                        val members=physicalChatAction(scenario,"members-action",action="Members")
+                        val device=androidx.test.uiautomator.UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+                        check(device.click(members.centerX(),members.centerY()))
+                        val member=hasText(wallet.publicKey) and hasAnyAncestor(isDialog())
+                        ui.waitUntil(10_000){displayed(member)}
+                        ui.onNode(member).assertIsDisplayed()
+                        captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/group-cancel-members-open.png"))
+                        ui.onNode(hasText("Done") and hasClickAction() and hasAnyAncestor(isDialog())).performClick()
+                        ui.waitUntil(10_000){ui.onAllNodes(isDialog()).fetchSemanticsNodes().isEmpty()}
+                        val afterScroll=requireNotNull(store.load(key.publicKey))
+                        check(afterScroll.queuedMessage?.candidate?.envelope()==queuedBeforeScroll&&
+                            afterScroll.candidate?.envelope()==creation.envelope()&&afterScroll.messages.isEmpty())
+                        check(alternate.transactions.isEmpty()&&alternate.relayedMessages.isEmpty())
                     }
                     checkpoint("before-recreation")
                     scenario.recreate();open();waitFor("Queued")
@@ -178,7 +201,7 @@ class ChatQueuePreviewTest {
                         ui.waitUntil(30_000){warnings.all{resource->
                             ui.onAllNodesWithText(context.getString(resource)).fetchSemanticsNodes().isNotEmpty()}}
                         ui.onNodeWithText("Cancel queued message").assertIsEnabled()
-                        val target=physicalQueueCancellation(scenario,"reopened")
+                        val target=physicalChatAction(scenario,"reopened")
                         val device=androidx.test.uiautomator.UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
                         check(device.click(target.centerX(),target.centerY()))
                         captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/group-cancel-viewport-tapped.png"))
@@ -295,7 +318,7 @@ class ChatQueuePreviewTest {
             {val edit=prefs.edit();if(offered==null)edit.remove("offered") else edit.putBoolean("offered",offered);check(edit.commit())})}
     }
 
-    private fun physicalQueueCancellation(scenario:ActivityScenario<MainActivity>,stage:String,kind:String="group"):android.graphics.Rect {
+    private fun physicalChatAction(scenario:ActivityScenario<MainActivity>,stage:String,kind:String="group",action:String="Cancel queued message"):android.graphics.Rect {
         val instrumentation=InstrumentationRegistry.getInstrumentation()
         val context=instrumentation.targetContext
         val device=androidx.test.uiautomator.UiDevice.getInstance(instrumentation)
@@ -306,16 +329,33 @@ class ChatQueuePreviewTest {
             top=bars?.top ?: 0;bottom=bars?.bottom ?: 0
         }
         captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/$kind-cancel-viewport-$stage.png"))
-        var target=requireNotNull(device.findObject(androidx.test.uiautomator.By.text("Cancel queued message"))) {
-            "Queued cancellation must have a physical target beneath the offline warnings"
+        var target=requireNotNull(device.findObject(androidx.test.uiautomator.By.text(action))) {
+            "Chat action must have a physical target beneath the offline warnings: $action"
         }
-        while(!target.isClickable)target=requireNotNull(target.parent){"Cancellation has no clickable ancestor"}
+        while(!target.isClickable)target=requireNotNull(target.parent){"Chat action has no clickable ancestor: $action"}
         val bounds=target.visibleBounds
         val minimumHeight=kotlin.math.round(48*context.resources.displayMetrics.density).toInt()
         check(bounds.width()>0&&bounds.height()>=minimumHeight&&bounds.top>=top&&bounds.bottom<=device.displayHeight-bottom) {
-            "Full cancellation target must stay inside the usable screen: $bounds, minimum=$minimumHeight, bars=$top/$bottom"
+            "Full Chat action target must stay inside the usable screen: $bounds, minimum=$minimumHeight, bars=$top/$bottom"
         }
         return bounds
+    }
+
+    private fun scrollQueuedPreviewToEnd() {
+        val preview=ui.onNodeWithContentDescription("Queued message preview")
+        fun range():Pair<Float,Float> {
+            val axis=preview.fetchSemanticsNode().config[SemanticsProperties.VerticalScrollAxisRange]
+            return ui.runOnIdle { axis.value() to axis.maxValue() }
+        }
+        ui.waitUntil(5_000){val (value,max)=range();value.isFinite()&&max.isFinite()&&max>0f}
+        val until=android.os.SystemClock.elapsedRealtime()+8_000
+        var position=range()
+        while(position.second-position.first>1f&&android.os.SystemClock.elapsedRealtime()<until) {
+            val step=minOf(position.second-position.first,maxOf(1f,preview.fetchSemanticsNode().boundsInRoot.height*0.8f))
+            preview.performSemanticsAction(SemanticsActions.ScrollBy){scroll->check(scroll(0f,step))}
+            position=range()
+        }
+        check(position.second-position.first<=1f){"Complete queued preview must scroll to its finite end: $position"}
     }
 
     private enum class PrivateQueueCase { CANCEL, BACKGROUND, BACKEND, IDENTITY, ARCHIVED, WRONG_ARCHIVE, STORAGE }
@@ -424,12 +464,18 @@ Line 12 stays in the saved message.""" else "Keep my offline private message ðŸ˜
                         }
                         ui.waitUntil(30_000){ui.onAllNodesWithText(context.getString(R.string.chat_load_error)).fetchSemanticsNodes().isNotEmpty()}
                         ui.onNodeWithText(context.getString(R.string.wallet_backup_reminder)).assertIsDisplayed()
-                        physicalQueueCancellation(scenario,"long-message",kind="private")
+                        physicalChatAction(scenario,"long-message",kind="private")
+                        val queuedWork=nl.davidengelen.redsquare.chat.ChatWorkStore(context,wallet,SaitoBackend.OWNER,contact)
+                        val beforeScroll=requireNotNull(queuedWork.load().transaction).envelope()
+                        scrollQueuedPreviewToEnd()
+                        physicalChatAction(scenario,"preview-end",kind="private")
+                        check(queuedWork.load().transaction?.envelope()==beforeScroll)
+                        check(PrivateChat.read(wallet,beforeScroll,contact).text==text)
                     }
                     waitFor("Queued")
                     captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/private-$label-queued.png"))
                     scenario.recreate();open(queued=cancel)
-                    val cancellation=if(cancel)physicalQueueCancellation(scenario,"reopened",kind="private") else null
+                    val cancellation=if(cancel)physicalChatAction(scenario,"reopened",kind="private") else null
                     waitFor("Queued")
                     val originalCandidate=requireNotNull(nl.davidengelen.redsquare.chat.ChatWorkStore(context,wallet,SaitoBackend.OWNER,contact).load().transaction)
                     if(cancel) {
