@@ -13,114 +13,49 @@ migration pause recorded below. Commit/push each ticket and keep signed reviews
 available. Do not pause after the next ticket or ask routine approvals.
 
 **ACTIVE #30: Send and view images in private and group Chat.**
-Reviewbase8826000edf59174793749abc7b207610ad52e3a8, dependencies15/25/26 closed,
-assigned@me. Shared strictphoto viewer source756a13ba reviewed0/0. Focused10
-run38714126017 exactfce27570 SUCCESS2cases12.054s: actual inline+expandedRGB,
-emptyArchive cachedreopening, exactunsentdraft/fullidentity/backend/no-wire/
-restoration privateandgroup. Retained16hash6XML; root6originalPNGsseen. Earlier
-RED/failedattempt/cancelledrun retainedandqualified. No17/compose/failure/full
-acceptance inferred. Signed19current, no20reserved/noownedlocalbuild.
+Reviewbase8826000edf59174793749abc7b207610ad52e3a8. Dependencies15/25/26 closed.
+Implementing all remaining issues sequentially remains authorized. Canonical
+chronology: docs/research/NATIVE_CHAT_IMAGES_VERIFICATION.md. Protected untracked
+NATIVE_GROUP_CHAT_CONTRACT.md remains untouched.
 
-Privatephoto drafttracer7dfe actualRED10run38714801378 FAILED3cases2PASS1FAIL
-33.118s missingAddphoto; retained6hash1XML/rootseen. Fixture963b actualJPEGpixels
-reviewed0/0. Productionminimum0438be5b source reviewedStandards0, Specautosavegap
-fixed79f8e12d reviewed0/0. Native0438run38715743979 FAILED3cases2PASS1FAIL36.616s:
-photoRGBPASS thenexactdisplayedcaptionwaitfails, clippedcomposer. Compact100dp
-preview/hideAddwhileattached/4linefield ace4d018 reviewed0/0. Native38716715709
-FAILED3cases2PASS1FAIL36.86s samecaptionmatcherafterRGB; PNGnowcompactfield+Send
-visible, parsedXMLenabledEditText equalsliteralexactly, preciseComposecause
-unproved. Bothattemptsretained6hash1XMLeach/rootoriginalsseen.
+Production source last changed2199295e. Private/group native photo picker,
+normalization, safely escaped exact captions, previews/removal, protected drafts,
+explicit Send, compatible view/expansion, cached history, queue/cancel and failure
+recovery implemented. Real pinned web private crypto/receiver/dedup, group A/B
+constructor envelope equality and both browser sanitizers/offline DOM/pixels
+pass. No live production writes, FileShare or Giphy credential borrowing.
 
-Fixture55e528e0 comparesEditableText.text exactliteral ratherthanstyledobject,
-keepsenabled/displayed20s/raster/no-wire; furtherfailureretainsunmergedsemantics.
-Run38717605044 exact55e FAILEDtestcompilemissingsemantics.getOrNull import116,
-no runtimecaseexecuted; retained3hashcompileevidence. Importcorrected788ffb8c.
-Focused10run38718053451 exact788f SUCCESS3PASS17.506s: privatephoto selected/
-actualJPEGpixels/exactcaption/Back/reopen/recreate/no-wire pass, bothviewersPASS.
-Retained20hash8XML; root2newdraftPNGsseen. Nextgroupdrafttracer hasmissingAddphoto,
-actualRED38718728322 exact068 FAILED4cases3PASS1FAIL36.699s missingAddphoto155.
-Retained6hash1XML/rootPNGseen. Navfixture00a97cc9 reviewed0/0. Groupminimum now
-reusessharedphoto/canonicalcaption/nativepreview/existingdraft+queue, preparation
-guards+autosaveresume. Groupminimumdbd reviewed0/0; actual10run38719455482
-SUCCESS4PASS21.366s. Retained24hash10XML/root2newgroupdraftPNGsseen. Noownedlocalbuild. Neverduplicateactivesame-scoperun.
-Noownedlocalbuild. Strictphoto/canonicalescapeddivcaption+nativepicker/private
-composer nowimplemented, no storage/queueprotocolchanges. ActualpinnedA/B
-Browser.sanitize+offlineChromiumDOM/RGB exactcaption proof PASS, retained3hashes
-caption-web; helpers committedb54b1a73 reviewed0/0. PrivateSendproof is recordedbelow.
-PrivateSend regression8ce9d04a source reviewed0/0, actual10run38720282977
-SUCCESS5PASS27.357s. One raw+Relay sameoriginal/visibleexactcaption/emptycomposer/
-identity/backend/noreports/restoration +priorfourcasesPASS. Retained31hash13XML,
-rootnewoutgoingPNGseen. ActualindependentWASM/browserECDH-AES/exactcaption/pinned
-receiver+dedup+A-Bmethodequality andsanitizer/ChromiumDOM/JPEGRGB PASS, separate
-4hashinteroprecord. Initialreferencefilepermissionfailure resolvedbyreadable
-publicfixturecopy, no bytes/nodechanges. Noownedlocalbuild.
+Growing private/group history uses legacy-compatible bounded encrypted parts
+with atomic encrypted index; global5MiB per-file bound unchanged, no pruning.
+CapacityREDs and failed fixture attempts retained honestly. Strict companion
+scopes preserve original files in process fixtures; named fresh-scope fixtures
+refuse orphan parts. Queued group composer hides while already unusable, leaving
+queued photo/status/cancel visible, and returns after cancellation/forwarding.
 
-NextgroupSend regression sameexistingpipeline/currentmemberRelayrouting/native
-caption/emptycomposer andunsafeenvelopecapture. Groupgenerator explicitnative
-mode requires independent actualA/Bconstructors signedenvelopebyteequality;
-defaultgroupmessagegeneratorreexecutedbyteidentical. Sanitizer explicitgroup
-nativeproofinput no claimofgroupdecryption. FirstgroupSend10run38721331728 exactc71e FAILED6cases5PASS1FAIL29.808s after
-one raw+Relay sameoriginal atwrongrecipientorderassert185. Retained6hash1XML/
-rootPNGseen; no capturedgroupenvelope/finaltail. Fixture5f85b5e1 expects exact
-signer-first[wallet,contact], reviewed0/0; no prodchange. Corrected10run38721940218 exactff707 SUCCESS6PASS27.184s. BothSend/fulloriginal/
-currentRelay/visiblecaption/emptycomposer/identity/restoration +priorfourPASS.
-Retained38hash16XML/rootnewgroupoutgoingPNGseen. ActualA/Bconstructors independent
-signedenvelopebyteequality andsanitizer/DOM/JPEGRGB+exactcaptionPASS, 4hashgroup
-interop, sameenvelopeSHAallstages. No encryption/liveadmissionclaim.
-Canonical NATIVE_CHAT_IMAGES_VERIFICATION.md.
+Focused10run38733114111 exact2199295e SUCCESS:10UI79.278s; actual private/group
+photo PID recoveries preserve same signed original and emit it once via raw/Relay,
+exact body/pixels/history/full identity/backend and independent restoration.
+Group PID7603to7971,2originalPNGs root-inspected/2XML parsed. History2PASS52.532s
+includes12private/16group+growth/contact discovery/positive and negative work
+checks, device-only big→small→complete multipart restoration. API29 no.newfault
+explicitly qualified. Separate17storage38731840587 exact7cbbe810 SUCCESS2PASS
+124.148s proves actual.new commitfailure/prior originals+draft/retrysuccess,
+before later nested restoration fixture. No full acceptance inferred yet.
 
-Nextregression stalledprivatephotoprovider: native15sreadtimeout, editduring
-preparation past300msautosavewindow, exactprotectedDraftAPIretentionbeforeany
-navigation thenrecreate/no-wire. TestAPKonlysyntheticpipe/no privatefiles.
-Firsttimeout10run38722937990 exacta836 FAILED7cases6PASS1FAIL53.514: no
-opened+Preparing20s/164; originaltext/errorvisible, actualrouteunlogged, no
-productiondefectinferred. Retained6hash1XML/rootPNGseen. AOSPsourceidentified
-fixtureasset/typedassetdefaultdispatchgap: explicitcancellableoverridesnowroute
-tosamepipe/signal/UNKNOWN_LENGTH, ownwritergenerationcancel+failurecounters.
-Correctedprivate10run38723816443 exactcc8 SUCCESS7PASS49.767s: realopenedpipe/
-Preparing/Senddisabled/editpast300ms/boundedtimeout/error/pickerreenabled/exact
-protectedDraftAPIbeforeanynavigation/recreate/no-wire/fullidentity/restoration.
-Retained42hash18XML/root2neworiginalsseen. No actualPIDdeathinferred. Nextgroup
-timeoutregression078 source0/0, actual10run38724498528 SUCCESS8PASS70.692s.
-BothlatestprotectedDraftAPIretentionbeforeanynav/recreate/no-wire/identity pass.
-Retained46hash20XML/root2newgroupPNGsseen. ActualPIDdeathstillseparate. Next
-privatephotoqueue/cancelregression: actualpicker/recoverdraft, controlledpeer
-503newhandshakes+closeonlyownedauths, explicitSendQUEUEDsameoriginal/offline
-recreate/cancelrestoreexactdraft+JPEGpixels/caption/reconnect+2squietno-wire.
-Existingpipeline only, default-offcontrolledpeerflag. Actual10run38725474049
-exactd728 SUCCESS9PASS78.252s, retained25XML/root3originalsseen. Group equivalent
-9636 run38726319972 SUCCESS10PASS80.299s, retained30XML/root3groupPNGsseen.
-Private photo actualPID and12-photo practical history tracer9424ed90 reviewed0/0,
-run38727023023 FAILED instrumentation compile missing AndroidBackendStore import,
-no runtime. Import corrected, run38727427707 exact238fa5d1 FAILED actualprivate
-history5MiB8.681s, priors/draftpreserved. EarlierUI10PASS85.824 andprivatephoto
-PID6855to7124 exactoriginal/rawRelay/pixels/history/identity/restoration PASS,
-retainedseparatefailedrunqualifiedrecords/root2PNGseen. Private encryptedparts
-minimum b38e1e01 reviewed0/0, run38728298869 SUCCESS unchanged12photoPASS14.938s
-plus10UI/privatePID. Retainedcapacity5hash. Next regression private index-write
-fault/retry+contact discovery andgroup16capacity: run38729320505 groupPID
-initialmethod120stimeout, onlycase-start/no retainedqueuedcheckpoint/killproof,
-restorationPASS. Safephase diagnostics213 reviewedfindingindependentstopfix772
-reviewed0/0; ownedphoto38730549642 exact213active. Storage-only38730369758
-exact634 FAILED2cases32.835: actualgroup5MiBRED andineffectiveprivate.newfault
-onAPI29. OfficialAOSPbase/.bak vs30+.new confirmed; faultnowonly30+explicit
-qualification10, capacityunchanged. Groupstorageadapterminimum nowimplemented
-withstrictsidecarignorehasWork/cacheonlyregression. Actualstorage10
-38731107784 exact96 SUCCESS2PASS71.705s;12private/16group+growth/contact/cacheonly
-workguard/identityrestoration PASS. Explicit10nofault;17actualcommitfault/retry
-38731840587 exact7cb SUCCESS2PASS124.148s retained5hashes. Laterpositivework
-andnestedmultipartinstallationrestoration811 notyetexercised. Whole-reviewSpec
-foundroot-onlyprocesssnapshots unsafeformultipart; commonexactsidecar snapshot/
-setupremoval/restore4fixtures fixed811, nestedbig→small→restoreAPIregression.
-Furthernamednonprocessfreshguards refuseorphans andownedcleanup fixes219/a72.
-Photo213timeoutphasequeued-persisted; directed7cb run38731727266 FAILEDgroup
-positive-listdisplay20s/24.595s, PNGseen/XMLshowszeroqueuedviewportduetostatus+
-disabledcomposer. Productminimum219 hidesonlyqueueddisabledcomposer/status+
-cancelpreserved; queue/PIDreadinessMessageorQueued. Owned38733114111 exact219
-active. Finalfull10/17/release20pending. Nootherownedruns/localbuild.
-Noownedlocalbuild. Nextslices queue/
-failure/practical5MiBhistorybound/process/finalfull10+17 stillrequired. Protected
-untracked NATIVE_GROUP_CHAT_CONTRACT.md untouched. Continue allissues.
+Final whole-source review8826..78bc9b70: Standards0, Spec0, both earlier fixture
+preservation findings resolved. Full10run38734343806 and full17run38734348294
+are ACTIVE at same78bc9b70d6639a97c8c979baeeef3475d0801824 with explicit public
+feed reads and immutable signed update checks. Never duplicate either active
+scope. Local ignored retainer .scratch/retain-chat30-final-full.py expects new
+image/history/PID gates and two additional actual process deaths over29.
+
+Signed20/0.1.20 is RESERVED and BUILDING from immutable detached78bc9b70 at
+/mnt/storage/redsquare-android-artifacts/chat30-review-source. Owned local exec
+session1549, log.scratch/review20-build.log there. Do not edit that checkout's
+app/core/tests while build/container runs. Shared Gradle cache, no other local
+owned build. Public signed19 remains current. Publish20 only after full gates,
+review fixes and direct metadata/hash/package/certificate/immutable19 checks.
+Continue to later issues after30, do not pause or ask routine approval.
 
 **#29 COMPLETE and CLOSED, 2026-10-15T09:08:20Z:**
 Persistent private/group conversation mute keeps messages readable and explains
