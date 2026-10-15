@@ -393,3 +393,10 @@ successfully. Also observes contact discovery through multipart history.
 Nextgroup capacity tracer requires16ordinary samebounded validPNG originals
 exceeding5MiB, exacthistory/draft/installedidentity through protected APIs.
 Group storage unchanged, actualREDpending. Nextbuild also includes groupPID.
+
+Added explicit chat-image-storage / chat-image-storage-android17 scopes for
+capacity and atomic-write regression iteration. They run the same protected
+history class with the same180s bound and source/core checks, omit already
+verified picker/timeout/PID cases, and explicitly label this limited scope.
+Existing chat-images and full scopes still include all image gates. No new
+acceptance exception or duplicate dispatch of the active predecessor.

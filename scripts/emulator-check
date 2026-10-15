@@ -119,12 +119,20 @@ verify_group_chat_native() {
         > "$evidence/$capture.tar" || true
     [[ "$native_exit" == 0 ]] && grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/$prefix-ui.txt"
 }
+verify_chat_image_storage() {
+    verify_group_chat_native ChatImageHistoryStorageTest 180 chat-image-history chat-image-history-evidence
+}
 verify_chat_images() {
     verify_group_chat_native ChatImagesPreviewTest 120 chat-images chat-images-evidence
     python3 "$repo_dir/scripts/chat-queue-process-check" --kind private --photo --evidence "$evidence/chat-photo-private-process"
     python3 "$repo_dir/scripts/chat-queue-process-check" --kind group --photo --evidence "$evidence/chat-photo-group-process"
-    verify_group_chat_native ChatImageHistoryStorageTest 180 chat-image-history chat-image-history-evidence
+    verify_chat_image_storage
 }
+if [[ "${TEST_SCOPE:-full}" == chat-image-storage* ]]; then
+    verify_chat_image_storage
+    printf '%s\n' 'Focused protected Chat image history only; native picker/process and full acceptance not run.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == chat-images* ]]; then
     verify_chat_images
     printf '%s\n' 'Focused native Chat images only; full acceptance not run.' > "$evidence/scope.txt"
