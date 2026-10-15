@@ -11,3 +11,10 @@ production writes, physical-device claims or provider credentials.
 First RED and minimum implementation pending. Groups, automatic/background
 resumption, backend/identity isolation, immutable uncertain Retry/reconciliation,
 failed saving, actual process death and final full10/17 review remain unaccepted.
+
+FirsttracerSpecfoundreachablepeerdefaultRedSquareArchivehandlerinvalidforprivate
+Chat field3-only queries; corrected6bf41c3c explicit emptyresponse, bothreviewaxes0.
+Localcompileinitial2m5s/corrected1m48s. ActualRED10run38661648643 at6bf failed
+onecase24.199s at50missingQueued afteractualSend; originalPNG/XMLrootseen shows
+unknown/genericerror/Retry. Retainedprivate-cancel-red-android10. Recreate/cancel/
+draft/no-wire tails unexecuted. Minimum durableQueued/cancel correction next.

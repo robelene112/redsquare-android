@@ -56,6 +56,15 @@ internal class ChatHistoryStore(context: Context, private val wallet: SaitoWalle
         read(retained)
     }
 
+    /** Called only while the guarded work record still proves no socket claim. */
+    fun discardUnsent(envelope:String):Read = synchronized(SaitoLocalState.lock) {
+        val message=PrivateChat.read(wallet,envelope,counterparty)
+        require(message.author==wallet.publicKey)
+        val retained=originals().filter{authenticated(it).id!=message.id}
+        file.save(EncryptedLocalFile.Contents(1,JsonArray().apply{retained.forEach(::add)}.toString()))
+        read(retained)
+    }
+
     companion object {
         private val gson = GsonBuilder().setStrictness(Strictness.STRICT).create()
         data class Contacts(val accounts: List<String>, val unreadable: Boolean, val unavailable: Boolean)

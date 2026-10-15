@@ -406,6 +406,8 @@
     <string name="chat_copy_error">Could not copy this message. Try again.</string>
     <string name="chat_send">Send</string>
     <string name="chat_send_unknown">Send status unknown. Your message is saved on this device.</string>
+    <string name="chat_queued">Queued</string>
+    <string name="chat_cancel_queued">Cancel queued message</string>
     <string name="chat_send_submitted">Submitted. Delivery is not confirmed.</string>
     <string name="chat_send_forwarded">Forwarded. Delivery is not confirmed.</string>
     <string name="chat_send_error">Could not complete sending or saving this message. Check your connection. Saved messages are not sent again automatically.</string>

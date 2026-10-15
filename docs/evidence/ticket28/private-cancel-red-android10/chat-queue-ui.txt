@@ -1,0 +1,56 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ChatQueuePreviewTest:
+INSTRUMENTATION_STATUS: test=anOfflinePrivateMessageRemainsCancellableAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.waitFor(ChatQueuePreviewTest.kt:73)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.anOfflinePrivateMessageRemainsCancellableAfterReopening$lambda$12$lambda$11(ChatQueuePreviewTest.kt:50)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.$r8$lambda$PsOQCtAGAcwR_atOEnhcya4bCkk(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.anOfflinePrivateMessageRemainsCancellableAfterReopening(ChatQueuePreviewTest.kt:41)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anOfflinePrivateMessageRemainsCancellableAfterReopening(nl.davidengelen.redsquare.ChatQueuePreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.waitFor(ChatQueuePreviewTest.kt:73)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.anOfflinePrivateMessageRemainsCancellableAfterReopening$lambda$12$lambda$11(ChatQueuePreviewTest.kt:50)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.$r8$lambda$PsOQCtAGAcwR_atOEnhcya4bCkk(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.anOfflinePrivateMessageRemainsCancellableAfterReopening(ChatQueuePreviewTest.kt:41)
+
+INSTRUMENTATION_STATUS: test=anOfflinePrivateMessageRemainsCancellableAfterReopening
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 24.199
+There was 1 failure:
+1) anOfflinePrivateMessageRemainsCancellableAfterReopening(nl.davidengelen.redsquare.ChatQueuePreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.waitFor(ChatQueuePreviewTest.kt:73)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.anOfflinePrivateMessageRemainsCancellableAfterReopening$lambda$12$lambda$11(ChatQueuePreviewTest.kt:50)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.$r8$lambda$PsOQCtAGAcwR_atOEnhcya4bCkk(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.anOfflinePrivateMessageRemainsCancellableAfterReopening(ChatQueuePreviewTest.kt:41)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

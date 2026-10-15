@@ -10,8 +10,10 @@ import nl.davidengelen.redsquare.saito.*
 /** A saved original and its attempt state survive reopening; loading never transmits. */
 internal class ChatWorkStore(private val context: Context, private val wallet: SaitoWallet,
     private val backend: SaitoBackend, private val contact: String) {
-    enum class Status { NONE, UNKNOWN, SUBMITTED, FORWARDED }
-    data class Saved(val draft: String = "", val transaction: SaitoTransaction? = null, val status: Status = Status.NONE)
+    enum class Status { NONE, QUEUED, UNKNOWN, SUBMITTED, FORWARDED }
+    data class Saved(val draft: String = "", val transaction: SaitoTransaction? = null, val status: Status = Status.NONE) {
+        val frozen:Boolean get()=status==Status.QUEUED||status==Status.UNKNOWN
+    }
     private val file = EncryptedLocalFile(context,
         "chatwork.${backend.id}.${wallet.publicKey}.${PrivateChat.conversationId(wallet.publicKey, contact)}.v1",
         "redsquare.chatwork.v1", "chatwork.")
@@ -23,15 +25,26 @@ internal class ChatWorkStore(private val context: Context, private val wallet: S
 
     fun saveDraft(text: String): Saved = synchronized(SaitoLocalState.lock) {
         val previous = load()
-        check(previous.status != Status.UNKNOWN)
+        check(!previous.frozen)
         save(previous.copy(draft = text))
     }
 
-    fun prepare(transaction: SaitoTransaction): Saved = synchronized(SaitoLocalState.lock) {
+    fun prepare(transaction: SaitoTransaction, queued:Boolean=false): Saved = synchronized(SaitoLocalState.lock) {
         assertSelected()
-        check(load().status != Status.UNKNOWN)
+        check(!load().frozen)
         require(PrivateChat.read(wallet, transaction.envelope(), contact).author == wallet.publicKey)
-        save(Saved("", transaction, Status.UNKNOWN))
+        save(Saved("", transaction, if(queued)Status.QUEUED else Status.UNKNOWN))
+    }
+
+    /** Cancellation and socket claim share the identity/selection lock. */
+    fun cancelQueued(id:String):Saved = synchronized(SaitoLocalState.lock) {
+        assertSelected()
+        val previous=load()
+        val candidate=requireNotNull(previous.transaction)
+        check(candidate.id==id&&previous.status==Status.QUEUED)
+        val text=PrivateChat.read(wallet,candidate.envelope(),contact).text
+        ChatHistoryStore(context,wallet,backend,contact).discardUnsent(candidate.envelope())
+        save(Saved(draft=text))
     }
 
     fun prepareRetry(id: String): Saved = synchronized(SaitoLocalState.lock) {
@@ -48,7 +61,9 @@ internal class ChatWorkStore(private val context: Context, private val wallet: S
 
     fun claim(id: String) = synchronized(SaitoLocalState.lock) {
         assertSelected()
-        check(load().let { it.transaction?.id == id && it.status == Status.UNKNOWN })
+        val previous=load()
+        check(previous.transaction?.id == id && previous.frozen)
+        if(previous.status==Status.QUEUED)save(previous.copy(status=Status.UNKNOWN))
     }
 
     fun record(id: String, status: Status): Saved = synchronized(SaitoLocalState.lock) {
