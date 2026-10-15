@@ -25,7 +25,7 @@ class GroupChatPreviewTest {
         val retained=SaitoWallet.fromPrivateKey("0".repeat(63)+"3").publicKey
         val key=SaitoWallet.fromPrivateKey("0".repeat(63)+"9")
         val filename="groupchat.${SaitoBackend.OWNER.id}.${fixture.publicKey}.${key.publicKey}.v1"
-        synchronized(SaitoLocalState.lock){check(listOf(filename,"$filename.bak","$filename.new").none{File(context.noBackupFilesDir,it).exists()})}
+        synchronized(SaitoLocalState.lock){check(processFixtureFiles(context,setOf(filename,"$filename.bak","$filename.new")).none{File(context.noBackupFilesDir,it).exists()})}
         var primary:Throwable?=null
         try {
             walletStore.replace(original,fixture)
@@ -613,7 +613,7 @@ class GroupChatPreviewTest {
         val filename="groupchat.${activeBackend.id}.${fixture.publicKey}.${key.publicKey}.v1"
         val ownedNames=listOf(filename)+if(importing)listOf("groupchat.${activeBackend.id}.${fixture.publicKey}.${unavailable.publicKey}.v1")else emptyList()
         synchronized(SaitoLocalState.lock){
-            check(ownedNames.flatMap{listOf(it,"$it.bak","$it.new")}.none{File(context.noBackupFilesDir,it).exists()})
+            check(processFixtureFiles(context,ownedNames.flatMap{listOf(it,"$it.bak","$it.new")}.toSet()).none{File(context.noBackupFilesDir,it).exists()})
         }
         val preferences=listOf("wallet-backup-reminders" to "hidden:${fixture.publicKey}","notification-permission" to "offered").map{(name,keyName)->
             val prefs=context.getSharedPreferences(name,0)
@@ -873,7 +873,7 @@ class GroupChatPreviewTest {
         val filename="groupchat.${backend.id}.${wallet.publicKey}.${key.publicKey}.v1"
         val groupStore=nl.davidengelen.redsquare.chat.GroupChatStore(context,wallet,backend)
         synchronized(SaitoLocalState.lock){
-            check(listOf(filename,"$filename.bak","$filename.new").none{File(context.noBackupFilesDir,it).exists()})
+            check(processFixtureFiles(context,setOf(filename,"$filename.bak","$filename.new")).none{File(context.noBackupFilesDir,it).exists()})
         }
         check(groupStore.load(key.publicKey)==null)
         val before=wallet.exportJson()
@@ -903,7 +903,7 @@ class GroupChatPreviewTest {
             check(groupStore.load(key.publicKey)?.group?.creationEnvelope==creation.envelope())
         }catch(failure:Throwable){primary=failure;throw failure}
         finally{cleanupAfterTest(primary,{synchronized(SaitoLocalState.lock){
-            context.noBackupFilesDir.listFiles()!!.filter{it.name==filename||it.name=="$filename.bak"||it.name=="$filename.new"}.forEach{check(it.delete())}
+            processFixtureFiles(context,setOf(filename,"$filename.bak","$filename.new")).forEach{check(File(context.noBackupFilesDir,it).delete())}
         }})}
     }
 
@@ -943,7 +943,7 @@ class GroupChatPreviewTest {
             check(AndroidWalletStore(context).loadExisting().exportJson()==wallet.exportJson())
         } catch(failure:Throwable){primary=failure;throw failure}
         finally {cleanupAfterTest(primary,{AndroidBackendStore(context).save(selected)},{synchronized(SaitoLocalState.lock){
-            context.noBackupFilesDir.listFiles()!!.filter{it.name==prefix||it.name=="$prefix.bak"||it.name=="$prefix.new"}.forEach{check(it.delete())}
+            processFixtureFiles(context,setOf(prefix,"$prefix.bak","$prefix.new")).forEach{check(File(context.noBackupFilesDir,it).delete())}
         }})}
     }
 
@@ -968,7 +968,7 @@ class GroupChatPreviewTest {
             check(AndroidWalletStore(context).loadExisting().exportJson()==wallet.exportJson())
         } catch(failure:Throwable){primary=failure;throw failure}
         finally{cleanupAfterTest(primary,{synchronized(SaitoLocalState.lock){
-            context.noBackupFilesDir.listFiles()!!.filter{it.name==filename||it.name=="$filename.bak"||it.name=="$filename.new"}.forEach{check(it.delete())}
+            processFixtureFiles(context,setOf(filename,"$filename.bak","$filename.new")).forEach{check(File(context.noBackupFilesDir,it).delete())}
         }})}
     }
 
@@ -1011,7 +1011,7 @@ class GroupChatPreviewTest {
             check(AndroidWalletStore(context).loadExisting().exportJson()==wallet.exportJson())
         } catch(failure:Throwable){primary=failure;throw failure}
         finally{cleanupAfterTest(primary,{synchronized(SaitoLocalState.lock){
-            context.noBackupFilesDir.listFiles()!!.filter{it.name==filename||it.name=="$filename.bak"||it.name=="$filename.new"}.forEach{check(it.delete())}
+            processFixtureFiles(context,setOf(filename,"$filename.bak","$filename.new")).forEach{check(File(context.noBackupFilesDir,it).delete())}
         }})}
     }
 

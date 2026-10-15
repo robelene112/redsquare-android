@@ -470,3 +470,23 @@ history, snapshots device-only, removes only scoped roots/parts, writes/reads
 small replacement, restores, then requires all originalphoto envelopes/draft
 and full installedidentity/backend. No actualPID claim for that nested fixture
 regression; existing separate PID gates stillrequired. Runtimepending.
+
+Corrected directedphoto run38731727266 exact7cbbe810 FAILED group initialcase
+1FAIL24.595s: positivelyscoped message list not displayed20s, phasequeued-
+persisted. RootfailurePNGseen/XMLparsed: stacked outage details plus disabled
+photo/text composer consume the viewport; queuedmessage list has no visible
+area. Actual UI layoutdefect now evidenced, no kill/recoveryclaim. Minimum
+hides only the already-disabled composer while a group message is queued,
+matching private frozenqueue behavior. Queue/original/cancel/status remain
+visible, cancel restores the same composer/draft. Group readiness observers
+accept positive Queued while its input is absent, keeping all exactoriginal/
+pixel/cancel/identity assertions. No membership/admin/notification changes.
+
+Whole-source remainingfreshscopefinding: named-root nonprocess fixtures must
+also refuse orphan canonical parts before mutating. Expanded mixed/actions/
+admin/named-group guards and ownedcleanup through the same scoped helper.
+Prefix snapshotfixtures already retainparts. Runtimefixreviewpending.
+Storage17run38731840587 exact7cbbe810 SUCCESS2PASS124.148s, actual.newwrite
+failure/priorallhistory+draft/retrysuccess both private/group. New nested
+multipart installation-restoration regression is later81167de0, not exercised
+by that run; no suchclaim. Finalfull10/17/review20 stillrequired.

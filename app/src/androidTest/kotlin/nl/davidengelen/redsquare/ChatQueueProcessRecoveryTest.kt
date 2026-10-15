@@ -203,7 +203,7 @@ class ChatQueueProcessRecoveryTest {
         ui.waitUntil(20_000){displayed(hasText("Groups"))||displayed(chat)}
         if(!displayed(hasText("Groups")))ui.onNode(chat).performClick()
         if(kind=="group"){click("Groups");click(groupName)}else click(other.publicKey)
-        waitFor("Message")
+        ui.waitUntil(20_000){displayed(hasText("Message"))||displayed(hasText("Queued"))}
     }
     private fun assertPhoto(inHistory:Boolean=false) {
         val image=hasContentDescription("Image 1 of 1")

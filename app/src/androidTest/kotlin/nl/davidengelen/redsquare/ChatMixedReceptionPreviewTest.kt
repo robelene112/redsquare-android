@@ -39,7 +39,7 @@ class ChatMixedReceptionPreviewTest {
             "chatwork.${backend.id}.${fixture.publicKey}.$conversation.v1",
             "chatreactions.${backend.id}.${fixture.publicKey}.$conversation.v1")
         val names=bases.flatMap{listOf(it,"$it.bak","$it.new")}
-        synchronized(SaitoLocalState.lock){check(names.none{File(context.noBackupFilesDir,it).exists()})}
+        synchronized(SaitoLocalState.lock){check(processFixtureFiles(context,names.toSet()).none{File(context.noBackupFilesDir,it).exists()})}
         val preferences=listOf("wallet-backup-reminders" to "hidden:${fixture.publicKey}","notification-permission" to "offered").map{(name,key)->
             val prefs=context.getSharedPreferences(name,0);Triple(prefs,key,if(prefs.contains(key))prefs.getBoolean(key,false)else null)
         }
@@ -112,7 +112,7 @@ class ChatMixedReceptionPreviewTest {
             }}
         }catch(failure:Throwable){primary=failure;throw failure}
         finally{cleanupAfterTest(primary,
-            {synchronized(SaitoLocalState.lock){names.forEach{val file=File(context.noBackupFilesDir,it);check(!file.exists()||file.delete())}}},
+            {synchronized(SaitoLocalState.lock){processFixtureFiles(context,names.toSet()).forEach{val file=File(context.noBackupFilesDir,it);check(!file.exists()||file.delete())}}},
             {wallets.replace(wallets.loadExisting(),original)},
             *preferences.map{(prefs,key,value)->{check(prefs.edit().apply{if(value==null)remove(key)else putBoolean(key,value)}.commit());Unit}}.toTypedArray())}
     }

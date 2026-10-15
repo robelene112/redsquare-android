@@ -339,7 +339,7 @@ class GroupAdminPreviewTest {
         val fixture=SaitoWallet.fromPrivateKey("0".repeat(63)+"1").withNamedChatGroup(key.publicKey,name,key)
         val filename="groupchat.${backend.id}.${fixture.publicKey}.${key.publicKey}.v1"
         val names=listOf(filename,"$filename.bak","$filename.new")
-        synchronized(SaitoLocalState.lock){check(names.none{File(context.noBackupFilesDir,it).exists()})}
+        synchronized(SaitoLocalState.lock){check(processFixtureFiles(context,names.toSet()).none{File(context.noBackupFilesDir,it).exists()})}
         val preferences=listOf("wallet-backup-reminders" to "hidden:${fixture.publicKey}","notification-permission" to "offered").map{(prefsName,keyName)->
             val prefs=context.getSharedPreferences(prefsName,0)
             Triple(prefs,keyName,if(prefs.contains(keyName))prefs.getBoolean(keyName,false)else null)
@@ -361,7 +361,7 @@ class GroupAdminPreviewTest {
             }}
         }catch(failure:Throwable){primary=failure;throw failure}
         finally{cleanupAfterTest(primary,
-            {synchronized(SaitoLocalState.lock){names.forEach{val file=File(context.noBackupFilesDir,it);check(!file.exists()||file.delete())}}},
+            {synchronized(SaitoLocalState.lock){processFixtureFiles(context,names.toSet()).forEach{val file=File(context.noBackupFilesDir,it);check(!file.exists()||file.delete())}}},
             {wallets.replace(wallets.loadExisting(),original)},
             *preferences.map{(prefs,keyName,value)->{check(prefs.edit().apply{if(value==null)remove(keyName)else putBoolean(keyName,value)}.commit());Unit}}.toTypedArray())}
     }
@@ -387,7 +387,7 @@ class GroupAdminPreviewTest {
         val key=SaitoWallet.fromPrivateKey("0".repeat(63)+groupScalar)
         val filename="groupchat.${backend.id}.${wallet.publicKey}.${key.publicKey}.v1"
         val names=listOf(filename,"$filename.bak","$filename.new")
-        synchronized(SaitoLocalState.lock){check(names.none{File(context.noBackupFilesDir,it).exists()})}
+        synchronized(SaitoLocalState.lock){check(processFixtureFiles(context,names.toSet()).none{File(context.noBackupFilesDir,it).exists()})}
         var primary:Throwable?=null
         try {
             wallets.replace(original,wallet)
@@ -403,7 +403,7 @@ class GroupAdminPreviewTest {
             peer.start().use{server->scenario(AdminDelivery(wallets,AndroidBackendStore(context),backend,wallet,member,key,store,candidate,peer,"ws://127.0.0.1:${server.port}/wsopen"))}
         }catch(failure:Throwable){primary=failure;throw failure}
         finally{cleanupAfterTest(primary,
-            {synchronized(SaitoLocalState.lock){names.forEach{val file=File(context.noBackupFilesDir,it);check(!file.exists()||file.delete())}}},
+            {synchronized(SaitoLocalState.lock){processFixtureFiles(context,names.toSet()).forEach{val file=File(context.noBackupFilesDir,it);check(!file.exists()||file.delete())}}},
             {wallets.replace(wallets.loadExisting(),original)})}
     }
 

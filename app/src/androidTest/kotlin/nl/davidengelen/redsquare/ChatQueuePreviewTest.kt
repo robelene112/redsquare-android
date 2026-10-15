@@ -94,7 +94,7 @@ class ChatQueuePreviewTest {
                         if(!displayed(hasText("Groups")))ui.onNode(chat).performClick()
                         clickWhenReady("Groups")
                         clickWhenReady(name)
-                        waitFor("Message")
+                        ui.waitUntil(20_000){displayed(hasText("Message"))||displayed(hasText("Queued"))}
                     }
                     open()
                     ui.waitUntil(20_000){displayed(hasSetTextAction() and isEnabled())}
