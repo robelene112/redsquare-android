@@ -29,8 +29,15 @@ exec60806 completed0 in4m22s; no owned local Gradle remains. Log
 Same-index pair checkpoint and verified-name/identity/no-registration checks pass.
 Root viewed each success PNG and parsed XML; exact original recovery/explicit
 Retry passes. Retained ticket19/late-callback-green. Fresh native public read
-run38785785214 ACTIVE; verify its exact source/status before retention. Focused
-results are not public readiness. No complete final suite dispatched yet.
+run38785785214 ACTIVE at5aec6036. Focused results are not public readiness.
+Both complete final scopes now ACTIVE at exactly
+45ff40f6931e3491a65e3145e789c3f453c2c4fe:10run38786261883 and17run38786267845,
+public_feed_read=true each. Do not duplicate/cancel active scopes. Job ceiling
+now75minutes for single full SDK,120combined,60source/focused; both reviews0/0,
+per-request/assertion/class deadlines unchanged. Expected schema only:366reported/
+86records/27deaths on10,367/87/27 on17, NOT actual outcomes. Retainer prepared
+.scratch/retain-registry19-final-full.py, syntax checked only; no final acceptance.
+No owned local build currently. Public22 remains current.
 Research proposal REGISTRY_LATE_CALLBACK_DESIGN_2026_10_15.md explains the narrow
 transport coupling. Protected untracked group contract remains untouched.
 
