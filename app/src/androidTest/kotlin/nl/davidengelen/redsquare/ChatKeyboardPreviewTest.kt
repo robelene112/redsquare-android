@@ -105,39 +105,61 @@ class ChatKeyboardPreviewTest {
                         ui.onNode(editor).performClick()
                         val imeBottom = AtomicInteger()
                         val statusTop = AtomicInteger()
-                        ui.waitUntil(10_000) {
+                        val device = UiDevice.getInstance(instrumentation)
+                        val exactDraft = editor and SemanticsMatcher("Exact multiline draft") {
+                            it.config.getOrNull(SemanticsProperties.EditableText)?.text == draft
+                        }
+                        fun observeKeyboard(): Boolean {
                             scenario.onActivity { activity ->
                                 val insets = ViewCompat.getRootWindowInsets(activity.window.decorView)
                                 statusTop.set(insets?.getInsets(WindowInsetsCompat.Type.systemBars())?.top ?: 0)
                                 imeBottom.set(if (insets?.isVisible(WindowInsetsCompat.Type.ime()) == true)
                                     insets.getInsets(WindowInsetsCompat.Type.ime()).bottom else 0)
                             }
-                            imeBottom.get() > 0
+                            return imeBottom.get() > 0
                         }
-                        val exactDraft = editor and SemanticsMatcher("Exact multiline draft") {
-                            it.config.getOrNull(SemanticsProperties.EditableText)?.text == draft
+                        fun readySend(): android.graphics.Rect {
+                            ui.waitUntil(10_000) { observeKeyboard() }
+                            ui.waitUntil(10_000) { displayed(exactDraft) }
+                            ui.onNode(exactDraft).assertIsDisplayed()
+                            val send = hasText("Send") and hasClickAction() and isEnabled()
+                            ui.waitUntil(10_000) { displayed(send) }
+                            ui.onNode(send).assertIsDisplayed()
+                            val bounds = requireNotNull(device.findObject(androidx.test.uiautomator.By.text("Send"))).visibleBounds
+                            check(bounds.width() > 0 && bounds.height() > 0 && bounds.top >= 0 &&
+                                bounds.bottom <= device.displayHeight - imeBottom.get()) {
+                                "Send must remain above the visible system keyboard: $bounds, keyboard=${imeBottom.get()}"
+                            }
+                            val privacy = requireNotNull(device.findObject(androidx.test.uiautomator.By.text(
+                                context.getString(if (group) R.string.group_privacy else R.string.chat_private)))).visibleBounds
+                            check(privacy.height() > 0 && privacy.top >= statusTop.get()) {
+                                "Chat privacy indication must remain below the status bar: $privacy"
+                            }
+                            return bounds
                         }
-                        ui.waitUntil(10_000) { displayed(exactDraft) }
-                        ui.onNode(exactDraft).assertIsDisplayed()
-                        val send = hasText("Send") and hasClickAction() and isEnabled()
-                        ui.waitUntil(10_000) { displayed(send) }
-                        ui.onNode(send).assertIsDisplayed()
-                        val device = UiDevice.getInstance(instrumentation)
-                        val bounds = requireNotNull(device.findObject(androidx.test.uiautomator.By.text("Send"))).visibleBounds
-                        check(bounds.width() > 0 && bounds.height() > 0 && bounds.top >= 0 &&
-                            bounds.bottom <= device.displayHeight - imeBottom.get()) {
-                            "Send must remain above the visible system keyboard: $bounds, keyboard=${imeBottom.get()}"
+                        fun restoredChrome() {
+                            ui.waitUntil(10_000) { displayed(hasText("Wallet") and hasClickAction()) }
+                            if (!photo) {
+                                ui.waitUntil(10_000) { displayed(hasText(context.getString(R.string.wallet_backup_reminder))) }
+                                check(!context.getSharedPreferences("wallet-backup-reminders", 0)
+                                    .getBoolean("hidden:${wallet.publicKey}", true))
+                            }
+                            if (group) ui.waitUntil(10_000) { displayed(hasText("Members") and hasClickAction()) }
                         }
-                        val privacy = requireNotNull(device.findObject(androidx.test.uiautomator.By.text(
-                            context.getString(if (group) R.string.group_privacy else R.string.chat_private)))).visibleBounds
-                        check(privacy.height() > 0 && privacy.top >= statusTop.get()) {
-                            "Chat privacy indication must remain below the status bar: $privacy"
-                        }
+                        readySend()
                         captureNativeScreen(File(folder, "$kind-keyboard-open.png"))
-                        scenario.onActivity { activity ->
-                            check(ViewCompat.getRootWindowInsets(activity.window.decorView)
-                                ?.isVisible(WindowInsetsCompat.Type.ime()) == true)
-                        }
+                        // Ordinary Back should dismiss the IME, preserve the exact draft,
+                        // and reveal the same reminder and conversation controls again.
+                        check(device.pressBack())
+                        ui.waitUntil(10_000) { !observeKeyboard() }
+                        restoredChrome()
+                        ui.onNode(exactDraft).assertIsDisplayed()
+                        if (photo) ui.onNodeWithContentDescription("Image 1 of 1").assertIsDisplayed()
+                        check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
+                        captureNativeScreen(File(folder, "$kind-keyboard-dismissed-unsent.png"))
+                        ui.onNode(editor).performClick()
+                        val bounds = readySend()
+                        check(observeKeyboard())
                         check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
                         check(device.click(bounds.centerX(), bounds.centerY()))
                         ui.waitUntil(20_000) { peer.transactions.size == 1 && peer.relayedMessages.size == 1 }
@@ -150,6 +172,8 @@ class ChatKeyboardPreviewTest {
                         ui.waitUntil(20_000) { displayed(editor and SemanticsMatcher("Empty sent draft") {
                             it.config.getOrNull(SemanticsProperties.EditableText)?.text == ""
                         }) }
+                        ui.waitUntil(10_000) { !observeKeyboard() }
+                        restoredChrome()
                         captureNativeScreen(File(folder, "$kind-explicitly-sent.png"))
                         check(wallets.loadExisting().exportJson() == wallet.exportJson() && backends.load() == SaitoBackend.OWNER)
                         check(peer.clientKeys.isNotEmpty() && peer.clientKeys.all { it == wallet.publicKey })

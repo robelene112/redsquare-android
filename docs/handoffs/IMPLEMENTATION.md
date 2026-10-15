@@ -51,8 +51,12 @@ Current working app correction: explicitadjustResize, root retains sole safeDraw
 inset owner; secondary global chrome/reminders temporarily hide whileIME, return
 without dismissal. Chat keeps privacy; hides redundant history/empty guidance and
 group membership buttons whiletyping, photo preview72vs100dp. Actual data/signing/
-queues unchanged. Local compile active `.scratch/keyboard40-layout-compile.log`,
-exec46029; do not edit app/core/test until it ends. No native corrected run yet.
+queues unchanged. Local compile PASS3m38s; exec46029 ended. Focused corrected10run38757131128 and
+17run38757136280 at720e2007 active, do not duplicate scopes. Source/evidence
+candidate reviews0/0. Further fixture-only coverage now also dismisses/reopens
+actualIME with Back, preserves draft/photo, restores header/reminder/groupbuttons
+and verifies one later explicit send. No extra test cases/budget increase.
+Do not claim corrected runtime until the actual results are inspected.
 Next compile/review correction and focused10/17, then both complete full suites
 and signed22 publication. Public21 remains current. Protected group contract
 untracked and untouched. Continue independent remaining tickets afterward.
