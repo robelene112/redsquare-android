@@ -98,8 +98,14 @@ PID6855to7124 exactoriginal/rawRelay/pixels/history/identity/restoration PASS,
 retainedseparatefailedrunqualifiedrecords/root2PNGseen. Private encryptedparts
 minimum b38e1e01 reviewed0/0, run38728298869 SUCCESS unchanged12photoPASS14.938s
 plus10UI/privatePID. Retainedcapacity5hash. Next regression private index-write
-fault/retry+contact discovery andgroup16photo capacityRED; groupPIDenabled in
-nextbuild. Group storage unchanged until actualRED.
+fault/retry+contact discovery andgroup16capacity: run38729320505 groupPID
+initialmethod120stimeout, onlycase-start/no retainedqueuedcheckpoint/killproof,
+restorationPASS. Safephase diagnostics213 reviewedfindingindependentstopfix772
+reviewed0/0; ownedphoto38730549642 exact213active. Storage-only38730369758
+exact634 FAILED2cases32.835: actualgroup5MiBRED andineffectiveprivate.newfault
+onAPI29. OfficialAOSPbase/.bak vs30+.new confirmed; faultnowonly30+explicit
+qualification10, capacityunchanged. Groupstorageadapterminimum nowimplemented
+withstrictsidecarignorehasWork/cacheonlyregression, runtimepending.
 Noownedlocalbuild. Nextslices queue/
 failure/practical5MiBhistorybound/process/finalfull10+17 stillrequired. Protected
 untracked NATIVE_GROUP_CHAT_CONTRACT.md untouched. Continue allissues.

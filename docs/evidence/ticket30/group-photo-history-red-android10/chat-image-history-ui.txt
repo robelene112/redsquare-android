@@ -1,0 +1,95 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatImageHistoryStorageTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ChatImageHistoryStorageTest:
+INSTRUMENTATION_STATUS: test=sixteenOrdinaryGroupPhotosRemainAvailableWithoutLosingEarlierHistoryOrDrafts
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatImageHistoryStorageTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=nl.davidengelen.redsquare.chat.GroupChatStorageException: Group records require local recovery
+	at nl.davidengelen.redsquare.chat.GroupChatStore.save(GroupChatStore.kt:380)
+	at nl.davidengelen.redsquare.chat.GroupChatStore.retainReplay(GroupChatStore.kt:200)
+	at nl.davidengelen.redsquare.chat.GroupChatStore.receive(GroupChatStore.kt:188)
+	at nl.davidengelen.redsquare.ChatImageHistoryStorageTest.exercise$saveHistory(ChatImageHistoryStorageTest.kt:63)
+	at nl.davidengelen.redsquare.ChatImageHistoryStorageTest.exercise(ChatImageHistoryStorageTest.kt:69)
+	at nl.davidengelen.redsquare.ChatImageHistoryStorageTest.sixteenOrdinaryGroupPhotosRemainAvailableWithoutLosingEarlierHistoryOrDrafts(ChatImageHistoryStorageTest.kt:23)
+	... 31 trimmed
+Caused by: java.lang.IllegalArgumentException: Failed requirement.
+	at nl.davidengelen.redsquare.saito.EncryptedLocalFile.save(EncryptedLocalFile.kt:67)
+	at nl.davidengelen.redsquare.saito.EncryptedLocalFile.save$default(EncryptedLocalFile.kt:61)
+	at nl.davidengelen.redsquare.chat.GroupChatStore.save(GroupChatStore.kt:372)
+	... 37 more
+
+INSTRUMENTATION_STATUS: stream=
+Error in sixteenOrdinaryGroupPhotosRemainAvailableWithoutLosingEarlierHistoryOrDrafts(nl.davidengelen.redsquare.ChatImageHistoryStorageTest):
+nl.davidengelen.redsquare.chat.GroupChatStorageException: Group records require local recovery
+	at nl.davidengelen.redsquare.chat.GroupChatStore.save(GroupChatStore.kt:380)
+	at nl.davidengelen.redsquare.chat.GroupChatStore.retainReplay(GroupChatStore.kt:200)
+	at nl.davidengelen.redsquare.chat.GroupChatStore.receive(GroupChatStore.kt:188)
+	at nl.davidengelen.redsquare.ChatImageHistoryStorageTest.exercise$saveHistory(ChatImageHistoryStorageTest.kt:63)
+	at nl.davidengelen.redsquare.ChatImageHistoryStorageTest.exercise(ChatImageHistoryStorageTest.kt:69)
+	at nl.davidengelen.redsquare.ChatImageHistoryStorageTest.sixteenOrdinaryGroupPhotosRemainAvailableWithoutLosingEarlierHistoryOrDrafts(ChatImageHistoryStorageTest.kt:23)
+	... 31 trimmed
+Caused by: java.lang.IllegalArgumentException: Failed requirement.
+	at nl.davidengelen.redsquare.saito.EncryptedLocalFile.save(EncryptedLocalFile.kt:67)
+	at nl.davidengelen.redsquare.saito.EncryptedLocalFile.save$default(EncryptedLocalFile.kt:61)
+	at nl.davidengelen.redsquare.chat.GroupChatStore.save(GroupChatStore.kt:372)
+	... 37 more
+
+INSTRUMENTATION_STATUS: test=sixteenOrdinaryGroupPhotosRemainAvailableWithoutLosingEarlierHistoryOrDrafts
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatImageHistoryStorageTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=twelveOrdinaryPrivatePhotosRemainAvailableWithoutLosingEarlierHistoryOrDrafts
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatImageHistoryStorageTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.ChatImageHistoryStorageTest.exercise(ChatImageHistoryStorageTest.kt:89)
+	at nl.davidengelen.redsquare.ChatImageHistoryStorageTest.twelveOrdinaryPrivatePhotosRemainAvailableWithoutLosingEarlierHistoryOrDrafts(ChatImageHistoryStorageTest.kt:21)
+
+INSTRUMENTATION_STATUS: stream=
+Error in twelveOrdinaryPrivatePhotosRemainAvailableWithoutLosingEarlierHistoryOrDrafts(nl.davidengelen.redsquare.ChatImageHistoryStorageTest):
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.ChatImageHistoryStorageTest.exercise(ChatImageHistoryStorageTest.kt:89)
+	at nl.davidengelen.redsquare.ChatImageHistoryStorageTest.twelveOrdinaryPrivatePhotosRemainAvailableWithoutLosingEarlierHistoryOrDrafts(ChatImageHistoryStorageTest.kt:21)
+
+INSTRUMENTATION_STATUS: test=twelveOrdinaryPrivatePhotosRemainAvailableWithoutLosingEarlierHistoryOrDrafts
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 32.835
+There were 2 failures:
+1) sixteenOrdinaryGroupPhotosRemainAvailableWithoutLosingEarlierHistoryOrDrafts(nl.davidengelen.redsquare.ChatImageHistoryStorageTest)
+nl.davidengelen.redsquare.chat.GroupChatStorageException: Group records require local recovery
+	at nl.davidengelen.redsquare.chat.GroupChatStore.save(GroupChatStore.kt:380)
+	at nl.davidengelen.redsquare.chat.GroupChatStore.retainReplay(GroupChatStore.kt:200)
+	at nl.davidengelen.redsquare.chat.GroupChatStore.receive(GroupChatStore.kt:188)
+	at nl.davidengelen.redsquare.ChatImageHistoryStorageTest.exercise$saveHistory(ChatImageHistoryStorageTest.kt:63)
+	at nl.davidengelen.redsquare.ChatImageHistoryStorageTest.exercise(ChatImageHistoryStorageTest.kt:69)
+	at nl.davidengelen.redsquare.ChatImageHistoryStorageTest.sixteenOrdinaryGroupPhotosRemainAvailableWithoutLosingEarlierHistoryOrDrafts(ChatImageHistoryStorageTest.kt:23)
+	... 31 trimmed
+Caused by: java.lang.IllegalArgumentException: Failed requirement.
+	at nl.davidengelen.redsquare.saito.EncryptedLocalFile.save(EncryptedLocalFile.kt:67)
+	at nl.davidengelen.redsquare.saito.EncryptedLocalFile.save$default(EncryptedLocalFile.kt:61)
+	at nl.davidengelen.redsquare.chat.GroupChatStore.save(GroupChatStore.kt:372)
+	... 37 more
+2) twelveOrdinaryPrivatePhotosRemainAvailableWithoutLosingEarlierHistoryOrDrafts(nl.davidengelen.redsquare.ChatImageHistoryStorageTest)
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.ChatImageHistoryStorageTest.exercise(ChatImageHistoryStorageTest.kt:89)
+	at nl.davidengelen.redsquare.ChatImageHistoryStorageTest.twelveOrdinaryPrivatePhotosRemainAvailableWithoutLosingEarlierHistoryOrDrafts(ChatImageHistoryStorageTest.kt:21)
+
+FAILURES!!!
+Tests run: 2,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

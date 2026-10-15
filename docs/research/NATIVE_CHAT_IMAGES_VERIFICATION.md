@@ -415,3 +415,19 @@ The stop now runs independently, preserving primaryfailure and recording any
 stopfailure. Bothreviews1findingeach, correctedfixreviewpending. No existing
 timeouts/assertions/productionchange. Preparedcheckpoint may have existed in
 failedrun; no queuedcheckpoint/deliberatekill proof was retained.
+
+Storage-only38730369758 exact634dd820 FAILED2cases/2failures32.835s. Group
+actualcapacityRED at5MiB: previous accepted originals/draft remain. Private
+12capacity/contact discovery pass then ineffective.new faultassert89fails: save
+actuallysucceeded, no rollbackacceptance. [AOSP Android10 AtomicFile](https://android.googlesource.com/platform/frameworks/base/+/refs/heads/android10-release/core/java/android/util/AtomicFile.java)
+writesbase/.bak, whereas [current AtomicFile](https://android.googlesource.com/platform/frameworks/base/+/refs/heads/main/core/java/android/util/AtomicFile.java)
+writes.new. Official source fetched read-only after web extraction unavailable.
+Fixture now explicitly runs.new fault onlyAPI30+ and emits an API29 scope
+qualification while preserving all capacity/growth/identity/draft assertions.
+17 must prove actual writefailure/retry; no10 writefault claim.
+
+Group minimum nowuses the same legacy-compatible encryptedparts/index adapter.
+Discovery still finds rootrecords; hasWork ignores only strict sidecar names so
+ordinary largecachedhistory is not mislabeled unsentwork, while malformed files
+remain conservative. Regression clears/restores its draft once and requires
+cache-only group hasWorkfalse. No new protocol/storecap/pruning. Runtimepending.

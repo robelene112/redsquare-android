@@ -22,9 +22,9 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
     }
     private val prefix = "groupchat.${backend.id}.${wallet.publicKey}."
 
-    private fun file(id: String): EncryptedLocalFile {
+    private fun file(id: String): EncryptedChatRecord {
         require(SaitoWallet.isPublicKey(id) && id != wallet.publicKey)
-        return EncryptedLocalFile(context,"$prefix$id.v1","redsquare.groupchat.v1","groupchat.")
+        return EncryptedChatRecord(context,"$prefix$id.v1","redsquare.groupchat.v1","groupchat.")
     }
 
     private fun requireNewRecord(id:String) {
@@ -389,7 +389,8 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
                 val prefix="groupchat.${backend.id}.${wallet.publicKey}."
                 val names=requireNotNull(context.noBackupFilesDir.listFiles()).map{it.name}.filter{it.startsWith(prefix)}
                 val pattern=Regex("${Regex.escape(prefix)}([1-9A-HJ-NP-Za-km-z]{43,45})\\.v1(?:\\.bak|\\.new)?")
-                if(names.any{pattern.matchEntire(it)==null || it.endsWith(".new")}) return@synchronized true
+                val parts=Regex("${Regex.escape(prefix)}[1-9A-HJ-NP-Za-km-z]{43,45}\\.v1\\.part\\.[0-9a-f]{64}(?:\\.bak|\\.new)?")
+                if(names.any{!parts.matches(it)&&(pattern.matchEntire(it)==null || it.endsWith(".new"))}) return@synchronized true
                 GroupChatStore(context,wallet,backend).entries().any{it.hasPendingAction || it.stoppedActions.isNotEmpty() || it.draft.isNotBlank()}
             } catch(_:Exception){true}
         }

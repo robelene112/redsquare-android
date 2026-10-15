@@ -78,18 +78,27 @@ class ChatImageHistoryStorageTest {
             assertEquals(originals,loadHistory())
             assertEquals(draft,loadDraft())
             if(!group)assertEquals(listOf(other.publicKey),ChatHistoryStore.contacts(context,wallet,scope).accounts)
-            // Reject the atomic index write after new parts are durable. Original installation bytes stay device-only.
+            if(group) {
+                groups.saveDraft(groupId,"")
+                check(!GroupChatStore.hasWork(context,wallet,scope))
+                groups.saveDraft(groupId,draft)
+            }
+            // API29 writes the base/.bak pair, not .new. Exercise the .new write fault only where it is effective.
             val record=if(group)"groupchat.${scope.id}.${wallet.publicKey}.$groupId.v1"
                 else "chat.${scope.id}.${wallet.publicKey}.${PrivateChat.conversationId(wallet.publicKey,other.publicKey)}.v1"
             val blocker=java.io.File(context.noBackupFilesDir,"$record.new")
-            check(blocker.mkdir())
             val extra=message(count+1)
-            try {
-                java.io.File(blocker,"held-by-fixture").writeText("Synthetic write fault")
-                check(runCatching{saveHistory(extra)}.isFailure)
-            } finally {check(blocker.deleteRecursively())}
-            assertEquals(originals,loadHistory())
-            assertEquals(draft,loadDraft())
+            if(Build.VERSION.SDK_INT>=30) {
+                check(blocker.mkdir())
+                try {
+                    java.io.File(blocker,"held-by-fixture").writeText("Synthetic write fault")
+                    check(runCatching{saveHistory(extra)}.isFailure)
+                } finally {check(blocker.deleteRecursively())}
+                assertEquals(originals,loadHistory())
+                assertEquals(draft,loadDraft())
+            } else InstrumentationRegistry.getInstrumentation().sendStatus(0,android.os.Bundle().apply {
+                putString("stream","\nAPI29: capacity/growth covered; .new atomic write fault requires API30+.\n")
+            })
             saveHistory(extra)
             assertEquals(originals+extra,loadHistory())
             assertEquals(draft,loadDraft())
