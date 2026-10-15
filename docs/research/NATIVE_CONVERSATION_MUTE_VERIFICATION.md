@@ -220,3 +220,8 @@ redeliveryACK780/oneUI/silent, newfreshACK781+actualgenericOSalertafterrepair.
 Existingfailclosedroutealreadyimplemented, no falseREDclaim. Hostclassbudget
 300sfor7cases basedpriorSDK17fourcase88.570s andSDK10sixcase67.603s; individual
 20sUI/RPC assertionsunchanged. No duplicate/native/localbuildactive.
+
+Unreadablepolicytracer9fc36231 Standards0, Spec1helpercleanup couldmaskprimary
+assertionifbadfiledeletionfailed. Correctedhelper uses existingcleanupAfterTest
+withretainedprimary, matchingouterindependentfixturecleanup. Noactualcriterion/
+productionchange. Ownedfirst7-case38700873867 exact9fc ACTIVE; no duplicate.

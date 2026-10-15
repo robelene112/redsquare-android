@@ -278,6 +278,7 @@ class ChatMutePreviewTest {
             check(listOf(file, File(file.path + ".bak"), File(file.path + ".new")).none { it.exists() })
             file.writeBytes(byteArrayOf(1, 2, 3, 4))
         }
+        var primary: Throwable? = null
         try {
             peer.sendIncoming(retained.bytes, requestId = 779)
             ui.waitUntil(20_000) { peer.incomingAcknowledgements.any {
@@ -286,8 +287,9 @@ class ChatMutePreviewTest {
             showMessage(retained.text)
             alerts.assertSilence()
             capture("private-unreadable-policy-incoming-retained")
-        } finally {
-            synchronized(SaitoLocalState.lock) { check(file.delete()) }
+        } catch (failure: Throwable) { primary = failure; throw failure }
+        finally {
+            cleanupAfterTest(primary, { synchronized(SaitoLocalState.lock) { check(file.delete()) } })
         }
         assertRedeliveryStaysSilent(peer, retained.bytes, retained.text, alerts,
             "private-repaired-policy-original-stays-silent", requestId = 780)
