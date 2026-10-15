@@ -66,8 +66,9 @@ class ChatQueuePreviewTest {
             ActivityScenario.launch<MainActivity>(Intent(intent).putExtra("feedOfficialPeerUrl","ws://127.0.0.1:${alternateServer.port}/wsopen")).use{scenario->
                 withFailureCapture({captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/private-$label-failure.png"))}) {
                     fun open(){
-                        waitFor("Chat");ui.onNodeWithText("Chat").performClick()
-                        waitFor(contact);ui.onNodeWithText(contact).performClick()
+                        clickWhenReady("Chat")
+                        waitFor("Groups")
+                        clickWhenReady(contact)
                         waitFor("Message")
                     }
                     open()
@@ -186,4 +187,11 @@ class ChatQueuePreviewTest {
             {val edit=prefs.edit();if(offered==null)edit.remove("offered") else edit.putBoolean("offered",offered);check(edit.commit())})}
     }
     private fun waitFor(text:String)=ui.waitUntil(20_000){ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()}
+    private fun clickWhenReady(text:String) {
+        val target=hasText(text) and hasClickAction() and isEnabled()
+        ui.waitUntil(20_000){
+            try{ui.onNode(target).assertIsDisplayed();true}catch(_:AssertionError){false}
+        }
+        ui.onNode(target).assertIsDisplayed().assertIsEnabled().performClick()
+    }
 }
