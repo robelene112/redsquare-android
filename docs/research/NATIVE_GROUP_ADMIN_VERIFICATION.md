@@ -267,3 +267,27 @@ correctionddfda0af compilePASS1m43 and separateparityreviews0/0.
 Minimum modalcorrection nowworkingtree: existing generic failure text is shown
 inside Stop dialog; no status/persistence/transport changes. Compile27247active.
 Next exactsource fullAndroid10/17 will verifyall twelve plus2PID andeverypriorgate.
+
+Finalproduction/testsource0aafe3867fca303497424fe73f8f65b3b5459d2a localcompile
+27247PASS2m48s/debug/test. Whole source reviews7979...0a both0 remainingfindings.
+Finalfull10run38656003934 and17run38656006821 dispatched/verified exactsameSHA,
+public_feed_read=true, release/lint/fullcore/devicegates including12admincases and
+2newactualPIDjourneys. Sourcepush38656004328 active. No finalacceptance yet.
+
+Sourcepush38656004328 at0aafe386 SUCCESS core/release/lint; final10/17runtime
+stillactive. Signedphonepreview preparation nowstarted fromsamefrozen production
+source; do notpublish until finalacceptance/reviews. Signing material staysoutside
+Git/publichosting; previewcounter mayleave a gap ifcorrectionrequiresanotherbuild.
+
+Prepared signed17/0.1.17 at exact0aafe386, releasebuild3m12s. Directlocal APKhash,
+cert/application/version/min29 verified; sha4b82d787746f2b6e74ccf21e101054f66e78740ce8530f813a9850e5c585fb6f.
+Public-only records signed-preview17-prepared; NOT published. Full10/17 and final
+reviews remainpending. Signing secrets stayoutsideGit/public. No ownedbuildactive.
+
+Final exact0aafe386 full10run38656003934 and17run38656006821 SUCCESS.
+10:318reported317PASS+oneexistingprofileassumption/71records22actualdeaths;
+17:319PASS/72records22actualdeaths. Both core114/release/lint andallprevious
+application/publicread gates pass;12admincases42.492s/50.222s plusbothadminPID
+exactrecovery/explicitidenticalRetry/restoration. Root inspected actualerrorinside
+Stop,newworkuncertainty andprotected-draftrecovery originals. Retainedfinal-full;
+698/703hashes247/249XML. Final evidence reviews pending; signed17 NOTpublished.

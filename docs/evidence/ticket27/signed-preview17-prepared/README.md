@@ -1,0 +1,1 @@
+Prepared signed17/0.1.17 at exact0aafe3867fca303497424fe73f8f65b3b5459d2a; build3m12s. Same application/certificate,minSDK29 and localAPKhash verified. NOT published. Full10/17 runtime and final evidence reviews remain pending. No signing key or passwords copied.

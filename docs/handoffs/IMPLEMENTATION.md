@@ -30,48 +30,58 @@ Signed15immutable preserved. recordsdocs/evidence/ticket39, no ownedlocalbuildac
 
 Current sequential issue27: admin promotion and member removal, assigned@me.
 Review base7979c655164257e08b184834810de03a80d92b67; prerequisite26 closed.
-Current accepted production source fd926d5d0c2e9a9b89b6869ff2c3a980c7eeb726;
-check Git for latest documentation/tracer commits. Remote main lastpushedc58a99c3; currentcommittedddfda0af plusmodalfixworkingtree. only protected untracked contract untouched.
-Four focused core cases plus independent A/B constructor/receiver references pass.
-Focused17run38652150530 at48b1410a SUCCESS:ten admin/controller cases75.149s,
-including current authority at both send gates, visible refusal and exact Retry.
-Both actual-process promotion/removal journeys PASS: protected continuity,
-zero autosend, explicit Retry original once and exact installation restoration.
-Retainednative-admin-green-android17; root original Retry capture inspected.
-Focused10attempt38651748924 at3e532776 failed combineddraft/key88 after visible
-stale guidance passed; six othercasesPASS,22.099s. Cause/operand unestablished;
-originaltypedtext retained. Process stages unexecuted. Same15s durable-draft setup
-wait added before incoming change, finalassertions unchanged; reviews0/0.
-Whole source at48b: Standards0; Spec1 stale pending promotion blocks all future
-work without deliberate local recovery. New native stale-stop tracer nowcommitted
-f80, compilePASS1m32 beforetestonlywait/literalUIadditions hostedverificationpending.
-First11caseRED10run38652588023 atf80 FAILED11cases10PASS1failure47.576s: absent
-stale-stop guidance at107, stop/reopen/new-work tail and PIDstages unexecuted.
-Corrected draft setup/final old assertionsPASS; earlierfailedoperand/causeunproved.
-Retainednative-stale-stop-red-android10 and root original inspected.
-Stop correction nowAPPLIED inworkingtree: localSTOPPED status, retained uncertain
-original history/priorstatus, fresh protectedstaleclassification/UIconfirmation,
-restored composition without transmission; walletreplacementdisclosure remains
-conservative for stopped uncertain actions. Build81893PASS3m7s/core4/debug/test. Classification now shares actualsendvalidator
-perStandardsfinding; correctionreviewsSpec0/Standards0. Native11case+PID GREEN10
-run38653588969 SUCCESSatfd926d5d; hostedcompile/runtimepassed. Currentmodalfixcompile27247active.
-Ignored .scratch/implement-group27-stale-stop.py is OBSOLETE/APPLIED; DO NOT rerun.
-11case10GREEN38653588969 atfd926d5d nowSUCCESS33.271s plusbothPIDjourneys;
-retainednative-stale-stop-green-android10. Root newworkcaptureinspected.
-Follow-upSpec1 hiddenStop-modal failure, plusseparateSUBMITTEDhistoryverificationgap.
-New12thnativecase implementedworkingtree; compile62422PASS3m5s/debug/test. It requires actual
-raw thenrefusedRelay, freshselectionchange/visibleerrorinsideDialog/preservedstate,
-selectionrestore/Stop/reopen/newmessage/priorSUBMITTEDhistory. UNKNOWNtestalsoadds
-explicitprior-status/historyassertions. FirstRED17run38654864195 c58 FAILED12cases11PASS1failure97.764s at176missing
-inDialogerror. ActualRaw/noRelaypassed; lateStop/preservation/newwork/PIDtail
-unexecuted. Retainednative-submitted-stop-red-android17, rootnotice-onlycapture
-inspected. Callbacksharingddfda0afcompilePASS1m43/reviews0/0.
-Minimumexistinggroup_error nowvisibleinsideStopworkingtree; compile27247active.
-Next exactsource finalfull10/17 verifies12cases/2newPID/everypriorgate.
-Current17GREEN does notaccept newStop/recovery or latesttestfixtures.
-Whole27 stillopen: stale-stop RED/GREEN, correction/finalreviews, full10/17,
-nextsignedphonepreview andclosure. Stablebeta remains signed16.
+Current final production/test source and remote main:
+0aafe3867fca303497424fe73f8f65b3b5459d2a. No owned local build active. Prepared signed17/0.1.17, NOT published.
+Source exact0aafe386, APKsha4b82d787746f2b6e74ccf21e101054f66e78740ce8530f813a9850e5c585fb6f;
+certificate unchanged6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2,
+appIDnl.davidengelen.redsquare/min29. Local.scratch/review-builds/17; public-only
+preparedrecordsdocs/evidence/ticket27/signed-preview17-prepared.
+Never publish until both fulls/final reviews accepted.
+
+Final whole-source reviews at0aafe386: Spec0, Standards0. Independent pinned A/B
+promotion/removal constructors and receivers, four focused core cases and the
+native successful/authority/stale/refusal/recovery work are implemented. Durable
+STOPPED history retains exact originals and prior UNKNOWN/SUBMITTED status,
+local uncertainty, restored permitted work and conservative wallet disclosure.
+The last concrete failure was hidden Stop-modal error; its actual RED17c58 is
+retained and qualified, and existing error copy is now visible inside the dialog.
+Local final debug/test compile27247PASS2m48s. Both full runs below compile/test
+exactsource again, including all core tests, release assembly and lint.
+
+Final full10 run38656003934 and full17 run38656006821 SUCCESS at exact0aafe386,
+public_feed_read=true. Android10:318reported317PASS+oneexistingAPI30profile
+assumption/71records22actualdeaths. Android17:319PASS/72records22actualdeaths.
+Core114/release/lint, all12admincases (42.492s/50.222s), both new actual-process
+admin Retry/restoration journeys and all previous application/public-feed gates
+pass. Exact signed17 remains prepared and NOT published pending final evidence
+reviews. Source push38656004328 SUCCESS. Root selected originals inspected;
+retained docs/evidence/ticket27/final-full. No physical Pixel performance claimed.
+
+Most recent scoped actualacceptance: native-stale-stop-green-android10 atfd926d5d,
+run38653588969,11PASS33.271s plusboth adminPID/Retry/restoration. Two reviews verify
+50hashes15XML. Earlier native-admin-green-android17 at48b1410a,run38652150530,
+10PASS75.149s plusbothPID;46hashes13XML. These qualify their exactsource only.
+Original REDs/failed attempts remain retained with precise unexecuted tails;
+the prior10 combineddraft/key cause/operand remains unproved. Final12thcase now
+checks actualoneRaw/refusedRelay, protectedwalletmetadata change, error inside
+isDialog(), unchangedSUBMITTED, selectionrestore/Stop/reopen/newwork/priorhistory.
+Its firstRED17run38654864195 c58:12cases11PASS1missingerror176/97.764s, tails/PID
+unexecuted. Finalsource correction and sharedcallbackparity reviews are clear.
+
+NEXT: monitor both owned fulls, inspect actualraw gates/captures and retain exact
+qualified evidence. Large artifacts go to /mnt/storage/redsquare-android-artifacts.
+Retainer .scratch/retain-admin-final-full.py ROOT OUT META SHA RUN 12 verifies all
+old+new gates/checkpoints. Never retain before download exit0. Fresh final separate
+source/evidence reviews/fixes, then signed preview17 (nextreservedcounter), exact
+public manifest/APKhash/cert/package/min29/prior16immutable verification, commit/
+push/trackerclose27. CONTINUE sequentially28 andall remaining issues withoutstop.
+Phone stablebeta remains signed16 at https://davidengelen.nl/redsquare/.
+Scratch apply/refactor scripts alreadyAPPLIED are obsolete, never rerun them.
 Canonical chronology docs/research/NATIVE_GROUP_ADMIN_VERIFICATION.md.
+Read-only prep28: native blockers11/25/26 allclosed; no claim or code yet. PostQueue
+uses durable scoped originals, guarded claim/cancel/reconcile, WorkManager network
+constraints and foregroundsessions. Chat still has no queue; preserve27stopped
+uncertain history and distinguish explicit messages from admin/control operations.
 Then28 through36 and parked16/17/19 from native dependencies.16 requires Android-
 authorized Giphy credentials/URLretention;17 publicprovider playbackrefused despite
 controlledplayerGREEN;19 Registryavailabilityunproved. Research concrete newevidence,

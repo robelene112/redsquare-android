@@ -172,3 +172,12 @@ scenarioassertions andcleanup. CompilePASS1m43; runtime sourceparity nextfull.
 SubmittedStopRED17 atc58 failed onlymissinginDialogerror176; other11casesPASS,
 latepreservation/recovery/newwork andPID tails remainunexecuted. Minimumexisting
 failurecopy nowplacedinsideStop popup, compile27247active; fullacceptancepending.
+
+## Final whole source review
+
+7979c655...0aafe386: Spec0 remaining source findings, Standards0 actionable findings.
+The final modal correction displays existing failure copy inside Stop without
+changing persistence/status/transport. All24 REDhashes/10XML match12cases1failure
+97.764s atc58; originalnotice-onlymodal inspected. Unexecuted SUBMITTED/recovery/
+newwork/PID tail remains unaccepted. LocalfinalcompilePASS2m48. Exactsource full10
+38656003934/full17 38656006821 bothactive withpublicreads; finalruntimepending.
