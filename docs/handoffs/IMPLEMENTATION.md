@@ -7,11 +7,11 @@ one question at a time when a material choice really needs the owner.
 
 ## Current work
 
-**ACTIVE #41:** independent Chat warning-stack viewport defect from#35, native child of35 and blocked only by CLOSED40. Review base09a424dc792ea0bac33a31b3081e4f55837a04cc. #17 diagnostic/source is frozen pending38791958201; #19 final scopes/source/prepared23 stay frozen separately. One implementation writer, no parallel ticket source work. Strengthen existing group CANCEL native case (still13queuecases): keep first-use backup reminder, wait actual group/history/live errors, require cancellation physical bounds outside system bars and tap actual screen coordinates before existing exact draft/original/no-send/recreation assertions. Scoped captures group-cancel-viewport-ready/tapped and existing failure. Only fixture changed; actual RED and layout minimum pending. Source f903bbb1 reviews Spec0/Standards0. Localcompile67069 COMPLETE0 testAPK1m54s; no owned Gradle remains. Do not claim41/35 acceptance.
+**ACTIVE #41:** independent Chat warning-stack viewport defect from#35, native child of35 and blocked only by CLOSED40. Review base09a424dc792ea0bac33a31b3081e4f55837a04cc. #17 diagnostic/source is frozen with retained failure38791958201; #19 final scopes/source/prepared23 stay frozen separately. One implementation writer, no parallel ticket source work. Strengthen existing group CANCEL native case (still13queuecases): keep first-use backup reminder, wait actual group/history/live errors, require cancellation physical bounds outside system bars and tap actual screen coordinates before existing exact draft/original/no-send/recreation assertions. Scoped captures group-cancel-viewport-ready/tapped and existing failure. Only fixture changed; actual RED and layout minimum pending. Source f903bbb1 reviews Spec0/Standards0. Localcompile67069 COMPLETE0 testAPK1m54s; no owned Gradle remains. Actual RED Android17run38793297219 atf32c1dc5cabfd26e4a8b62bf59338b4944a6bc1a ACTIVE. Do not duplicate; minimum not applied. Do not claim41/35 acceptance.
 
 
-**#17 diagnostic awaiting immutable public result:** review base6a7b2a652e50ead7791fa73caf701684409154fd. #19 app/test implementation frozen at45ff40f6; its final10/17 scopes continue unchanged and prepared23 remains unpublished. New #17 work records numeric player error before mapping/browser teardown and allowlisted child embed request metadata before navigation. Explicit DEBUG/emulator/public-fixture opt-in, bounded in-memory Activity-owned collector; no wallet/provider-secret data. Existing deliberate Play, actual Playing, no-autoplay and zero Saito submission assertions remain. This is observation of the previously failing real-provider seam, no production playback fix or success claim.
-Local core/debug/test build15591 COMPLETE0 in3m38s; both source-review axes0 through64a4d8db. No owned local Gradle remains. Actual Android17 public diagnostic run38791958201 at17dd2a8b4946b827291930050c9d3ce7de566e1b FAILED:1case60.553s/Playing wait66. New retained diagnostic shows error150 afterready and realPlay, childGET Referer+origin both correct installed .dev origin. WebView145.0.7632.218. Root viewed ready/failure originals+parsedXML; ticket17/native-diagnostic-oct15/android17. This is no missing-Referer or cause/attestation proof; no playback acceptance. Do not rerun unchanged probe. Collector .scratch/retain-video17-native-diagnostic.py prepared/syntax checked, not executed.
+**#17 diagnostic completed; public playback unresolved:** review base6a7b2a652e50ead7791fa73caf701684409154fd. #19 app/test implementation frozen at45ff40f6; its final10/17 scopes continue unchanged and prepared23 remains unpublished. New #17 work records numeric player error before mapping/browser teardown and allowlisted child embed request metadata before navigation. Explicit DEBUG/emulator/public-fixture opt-in, bounded in-memory Activity-owned collector; no wallet/provider-secret data. Existing deliberate Play, actual Playing, no-autoplay and zero Saito submission assertions remain. This is observation of the previously failing real-provider seam, no production playback fix or success claim.
+Local core/debug/test build15591 COMPLETE0 in3m38s; both source-review axes0 through64a4d8db. No owned local Gradle remains. Actual Android17 public diagnostic run38791958201 at17dd2a8b4946b827291930050c9d3ce7de566e1b FAILED:1case60.553s/Playing wait66. New retained diagnostic shows error150 afterready and realPlay, childGET Referer+origin both correct installed .dev origin. WebView145.0.7632.218. Root viewed ready/failure originals+parsedXML; ticket17/native-diagnostic-oct15/android17. This is no missing-Referer or cause/attestation proof; no playback acceptance. Do not rerun unchanged probe. Collector .scratch/retain-video17-native-diagnostic.py executed successfully on that actual failed run;14hashes verified and both evidence-review axes0.
 
 
 
@@ -45,12 +45,11 @@ Owner still times out on both namechecks despite working auth/key-map reads.
 See ticket19/native-public-after-fix/android10 for limits. This is not Owner
 readiness, registration or a Settings interaction. Focused results remain
 controlled-peer evidence.
-Both complete final scopes now ACTIVE at exactly
+Complete final scopes at exactly
 45ff40f6931e3491a65e3145e789c3f453c2c4fe:10run38786261883 and17run38786267845,
-public_feed_read=true each. Do not duplicate/cancel active scopes. Job ceiling
+public_feed_read=true each. Android10 is now SUCCESS:366reported/365PASS plus soleexistingprofileassumption,86records27deaths; username16PASS110.649s/PID11642to11744. Strict retainer passed,13originalPNGs viewed/allXMLparsed; fresh final-full-oct15/android10. Android17 remainsACTIVE. Do not duplicate/cancel active scope. Job ceiling
 now75minutes for single full SDK,120combined,60source/focused; both reviews0/0,
-per-request/assertion/class deadlines unchanged. Expected schema only:366reported/
-86records/27deaths on10,367/87/27 on17, NOT actual outcomes. Retainer prepared
+per-request/assertion/class deadlines unchanged. Expected Android17 schema only:367reported/87records/27deaths, NOT its actual outcome yet. Android10 actuals are above. Retainer prepared
 .scratch/retain-registry19-final-full.py, whole helper syntax checked. Use NEW
 docs/evidence/ticket19/final-full-oct15/android10 and android17 targets. Old
 ticket19/final-full contains historical Search evidence and must not be overwritten.
@@ -58,7 +57,7 @@ Collector now rejects any existing output directory before copying. Its added
 late-proof/username-recovery block passes against both actual focused artifacts:
 exact public1/1/0 checkpoint, original success PNG/XML and changed PID/identical
 author/backend/signature/frame/envelope, interrupted/recovered/continuity logs.
-Collector correction reviewed0; no actual complete-run output or acceptance yet.
+Collector correction reviewed0; actual complete Android10 retention is now recorded above; Android17/finalreview remain pending.
 Signed23 BUILT/VERIFIED, UNPUBLISHED. Immutable source45ff40f6, exact final-run
 source. Local exec59740 completed0; release build4m10s. Artifact
 /mnt/storage/redsquare-android-artifacts/registry19-review23-source/.scratch/review-builds/23.
