@@ -548,3 +548,14 @@ lastcachedCopycaptureat55s/rootPNGseen/XMLparsed, nocausalcompletionclaim.
 27074841 scrollsreactionandaddsphase+separatetimeoutwindowdiagnosticswithout
 budgetincrease. Newgroup10/17runs38738539710/38738543254 andqueue17bdd38738706055
 active. Allfourattemptfamiliesretainedqualified. No fullacceptance yet.
+
+Correctedqueue17bddrun38738706055 SUCCESS13PASS300.099s. Retained32XMLparsed,
+rootprivatecancelqueuedPNGseen. Correctedgroup10 270run38738539710 SUCCESS
+actions1PASS12.786/mixed1PASS8.931/group22PASS138.3s, actualreactionPID12926to13302
++restorationPASS, rootbothoriginalPIDPNGseen/allXMLparsed. Group17 270run
+38738543254 actions1PASS47.107/mixed1PASS23.711,group21PASS1FAIL146.411s at
+archivefaultSendwithIMEopen/rawwait. RootfailurePNGseen/XMLparsed, no proof
+Sendinvoked. Fixtureef58dc7fIMEclose+positiveSendtarget atbothsites, allwire/
+original/archiveassertions retained,review0/0. New17group38739842394ACTIVE.
+Full10run38739678542 ACTIVE23603b1d/publicreadstrue, no duplicate. Final17full
+requiredafterfocusedgreen. Noappchangesafterdc28, signed21b42productequivalent.
