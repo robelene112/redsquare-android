@@ -23,9 +23,14 @@ import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.SaitoWallet
 
 /** Shared semantics for social content/notifications and the later incoming Chat flow. */
-internal data class PersonalPolicy(val muted: Set<String> = emptySet(), val blocked: Set<String> = emptySet()) {
+internal data class PersonalPolicy(val muted: Set<String> = emptySet(), val blocked: Set<String> = emptySet(),
+    val mutedConversations: Set<String> = emptySet()) {
     fun hidesSocial(author: String) = author in muted || author in blocked
     fun hidesIncomingChat(author: String) = author in blocked
+
+    companion object {
+        fun isConversationId(value: String) = value.matches(Regex("[0-9a-f]{64}"))
+    }
 }
 
 /** Device-local personal choices for one public identity, shared by both servers. */
@@ -72,21 +77,26 @@ internal class PersonalControls(private val context: Context, private val owner:
     }
 
     fun setMuted(author: String, mute: Boolean) {
-        save(author, policy.copy(muted = if (mute) muted + author else muted - author))
+        save(policy.copy(muted = if (mute) muted + author else muted - author)) { SaitoWallet.isPublicKey(author) }
     }
 
     fun setBlocked(author: String, block: Boolean) {
-        save(author, policy.copy(blocked = if (block) blocked + author else blocked - author))
+        save(policy.copy(blocked = if (block) blocked + author else blocked - author)) { SaitoWallet.isPublicKey(author) }
     }
 
-    private fun save(author: String, updated: PersonalPolicy) {
+    fun setConversationMuted(conversation: String, mute: Boolean) {
+        save(policy.copy(mutedConversations = if (mute) policy.mutedConversations + conversation else
+            policy.mutedConversations - conversation)) { PersonalPolicy.isConversationId(conversation) }
+    }
+
+    private fun save(updated: PersonalPolicy, validateTarget: () -> Boolean) {
         if (owner == null || !ready || saving) return
         val previous = policy
         saving = true
         scope.launch {
             try {
                 withContext(Dispatchers.IO) {
-                    require(SaitoWallet.isPublicKey(author))
+                    require(validateTarget())
                     requireNotNull(storage).save(previous, updated)
                 }
                 policy = updated

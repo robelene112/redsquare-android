@@ -280,6 +280,9 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                 Text(stringResource(R.string.browse_back))
             }
             Text(stringResource(R.string.chat_title), Modifier.weight(1f), style = MaterialTheme.typography.titleLarge)
+            counterparty?.let { contact ->
+                ConversationMuteButton(remember(wallet.publicKey, contact) { PrivateChat.conversationId(wallet.publicKey, contact) })
+            }
             TextButton(onClick = { refresh++ }, enabled = !loading) { Text(stringResource(R.string.feed_refresh)) }
         }
         Text(stringResource(R.string.chat_private), style = MaterialTheme.typography.bodySmall,

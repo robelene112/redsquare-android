@@ -16,3 +16,19 @@ unsent text retained, incoming independently signed compatible private message
 through authenticated controlled Relay remains readable, mute survives recreation,
 and unmute retains cached history without outgoing messages. Uses existing
 independent web private reference, not production writes. Actual RED pending.
+
+First tracer40f28872...1a08d695 reviewed Spec0/Standards0. Actual focusedAndroid10
+run38689427606 owns exact1a08d6950f0c0e7028efd76e9127d25374ae399e, ACTIVE. Local55693
+compileDebugAndroidTestKotlin stillactive; no app/test edits until complete. No
+actualRED/GREEN claimed yet. No duplicated native dispatch.
+
+Local55693 compileDebugAndroidTestKotlin PASS1m31s exact1a08d695. No ownedlocalbuild.
+Focused10run38689427606 stillactive, no duplicate. ActualRED stillpending.
+
+ActualfirstRED10run38689427606 exact1a08d695:1failure26.538s, missingMutecontrol74
+onreadyprivateconversationwith exactdraft. RootoriginalPNG/separateXMLseen;
+retainedprivate-control-red-android10(6hash1XML). Dialog/incoming/recreate/unmute/
+no-wiretailunexecuted. Privatecontrolminimum nowaddsheaderbell/dialog, guarded
+wallet-local mutedConversations policy field(defaultemptyforlegacyrecords), exact
+commit/recoveryreuse andsavedchoicepublicationonlyaftercommit. Groupcontrols and
+actualnotificationfilteringstillnotimplemented. Compile/reviews/GREENpending.

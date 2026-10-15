@@ -108,6 +108,7 @@ internal class AndroidPersonalControls(private val context: Context, private val
             addProperty("owner", owner)
             add("muted", JsonArray().apply { policy.muted.sorted().forEach(::add) })
             add("blocked", JsonArray().apply { policy.blocked.sorted().forEach(::add) })
+            add("mutedConversations", JsonArray().apply { policy.mutedConversations.sorted().forEach(::add) })
         }
         return EncryptedLocalFile.Contents(1, record.toString())
     }
@@ -116,20 +117,23 @@ internal class AndroidPersonalControls(private val context: Context, private val
         require(saved.version == 1.toByte())
         val record = JsonParser.parseString(saved.text).asJsonObject
         require(record.get("version").asInt == 1 && record.get("owner").asString == owner)
-        fun accounts(name: String): Set<String> {
+        fun choices(name: String): Set<String> {
             val values = record.getAsJsonArray(name).map { it.asString }
-            require(values.size <= MAX_ACCOUNTS && values.distinct().size == values.size)
+            require(values.size <= MAX_CHOICES && values.distinct().size == values.size)
             return values.toSet()
         }
-        return PersonalPolicy(accounts("muted"),
-            if (record.has("blocked")) accounts("blocked") else emptySet()).also(::validate)
+        return PersonalPolicy(choices("muted"),
+            if (record.has("blocked")) choices("blocked") else emptySet(),
+            if (record.has("mutedConversations")) choices("mutedConversations") else emptySet()).also(::validate)
     }
 
     private fun validate(policy: PersonalPolicy) {
-        require(SaitoWallet.isPublicKey(owner) && policy.muted.size <= MAX_ACCOUNTS && policy.blocked.size <= MAX_ACCOUNTS)
+        require(SaitoWallet.isPublicKey(owner) && policy.muted.size <= MAX_CHOICES && policy.blocked.size <= MAX_CHOICES &&
+            policy.mutedConversations.size <= MAX_CHOICES)
         require((policy.muted + policy.blocked).all(SaitoWallet::isPublicKey))
+        require(policy.mutedConversations.all(PersonalPolicy::isConversationId))
     }
 
     class RecoveryRequired(cause: Exception) : IOException("Personal controls require recovery", cause)
-    private companion object { const val MAX_ACCOUNTS = 1000 }
+    private companion object { const val MAX_CHOICES = 1000 }
 }

@@ -491,4 +491,9 @@
     <string name="group_stop_confirm">Stop on this device</string>
     <string name="group_stopped">Stopped on this device. Earlier delivery is uncertain.</string>
     <string name="group_stopped_history">Stopped group actions remain saved here. Their earlier delivery is uncertain.</string>
+    <string name="chat_mute_conversation">Mute conversation</string>
+    <string name="chat_unmute_conversation">Unmute conversation</string>
+    <string name="chat_conversation_notifications">Conversation notifications</string>
+    <string name="chat_conversation_mute_detail">Messages stay visible. Account mute hides posts and notifications. Blocking also hides incoming Chat messages. This choice is saved on this phone for this wallet.</string>
+    <string name="chat_conversation_unmute">Unmute</string>
 </resources>

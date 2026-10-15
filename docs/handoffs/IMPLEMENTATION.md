@@ -89,7 +89,14 @@ and actual17→18deviceupdate remain35, not inferred from emulator metadata.
 Spec0/Standards0,6hashes/publicdownload/immutable17 independentlyverified.
 ACTIVE #29 conversation mute, assigned@me, reviewbase40f28872. Blockers25/26closed.
 First native private mute/readable compatible incoming/recreation/draft tracer
-next; no application change or RED claimed yet. Canonical research
+1a08d695 reviewedSpec0/Standards0. FocusedAndroid10run38689427606 ACTIVE exact
+1a08d6950f0c0e7028efd76e9127d25374ae399e. Local55693 testcompilePASS1m31s,
+log.scratch/chat29-first-tracer-compile.txt; no ownedlocalbuild.
+ActualRED10run38689427606:1failure26.538s missingMutecontrol74, readyChat/exact
+draft originalPNG/XMLseen; laterincoming/recreationtailunrun. Retainedticket29/
+private-control-red-android10. Privatecontrolminimum applied: headerbell/dialog,
+wallet-local encrypted mutedConversations/defaultlegacyempty/sharedguardcommit.
+No groupcontrol or actualnotificationfiltering yet. Compile/review/GREEN next. Canonical research
 NATIVE_CONVERSATION_MUTE_VERIFICATION.md. Implement controls/notification filtering,
 private+group/failures/isolation/recovery and finalreview/signednext beforeclosure. Owner authorizes allremainingissues,
 no pause or routineconfirmation. Read-only next-ticket orientation is locally
