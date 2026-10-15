@@ -390,3 +390,17 @@ causeunproved. GrouprestorationPASS0.135s. Fullstopsbeforelatergates; nofullacce
 Retainedfull17-process-tap-attempt. PIDfixture nowclosesIMEthenusesits existing
 visibleenabledclick helper, same20s/assertions unchanged. No appchange. Full10
 38679330339stillactive, preserveifpasses; correctedoutstanding17required.
+
+PID Send correction b00079f9...827bf82e reviewed Spec0/Standards0. Both independently
+verify85hashes35XML, all13nativequeuePASS/privateactualPIDcontinuity and qualified
+grouppreparationfailure. No productchange or fullacceptance inferred. Local87100
+compileDebugAndroidTestKotlin active; wait for completion before app/test changes.
+
+Local compile87100 attached client ended143 while its owned Docker build822b31b3132f
+continued. Followed the same container with docker wait7890: actual build exit0.
+No second local build or source edit overlapped it. Corrected full17 dispatched
+on827bf82e after both reviews; verify run ID/source before recording ownership.
+
+Corrected full17 ownership verified:38682943156 exact827bf82e06e5740250fadafcdeace70ed59a93b8,
+ACTIVE/public_feed_read=true. No source differences in app/core from e3edf successful
+source gates. Existing full10run38679330339 stillactive; no duplicated10 dispatch.

@@ -168,9 +168,12 @@ Corrected full17run38681573465 at c3c99d25 FAILED after all13queuecases PASS
 restorationPASS. GroupPIDpreparation failedfirstSend→Queued76,1case25.335s;
 noactualgroupdeath/recoverytail. Originalopenkeyboard/shiftedwindowseen, precise
 causeunproved. GrouprestorationPASS0.135s, laterfullgatesunrun. Retained
-full17-process-tap-attempt,85hash35XML. PIDfixtureclosesIMEthenexistingvisible
-enabledclickSendhelper,same20s/allassertions. Noappchange. Correctionreview/
-compile/newoutstanding17fullpending.
+full17-process-tap-attempt,85hash35XML, boundedreviewsSpec0/Standards0.
+PIDfixtureclosesIMEthenexistingvisibleenabledclickSendhelper,same20s/allassertions.
+Noappchange. Corrected827bf82e06e5740250fadafcdeace70ed59a93b8 full17run38682943156
+ACTIVE public_feed_read=true. Localcompile actualDocker822b31b3132f exit0 verified
+via dockerwait7890 after client87100 ended143. Noownedlocalbuild or overlapping
+sourceedits; don'trerunduplicatecompile. Outstanding17full owns827bf82e.
 Full10 run38679330339 remains active on e3edf1c9. Production source is unchanged
 from87accb13 across both acceptance revisions. Retain a passed10 if only the
 17 test fixture changes, as allowed by WORKFLOW.md. No duplicate dispatch.
