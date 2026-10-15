@@ -60,8 +60,8 @@ Package nl.davidengelen.redsquare, minimum API29. Direct public page/latest/
 immutable22/APK hash, certificate, package/version/min29 and unchanged immutable21
 checks pass. Public-only records: signed-preview22-published. Artifact:
 /mnt/storage/redsquare-android-artifacts/keyboard40-review22-source/.scratch/review-builds/22.
-No owned build/device run is active. Publication-record review and issue closure
-remain pending at this checkpoint; finish those, then continue#19 sequentially.
+No owned build/device run is active. Publication-record reviews report Spec0/Standards0. Close#40 with this record,
+then continue#19 sequentially.
 Do not stop after40. No node/configuration/service/wallet/chain/store operation.
 Physical Pixel and final integrated#35 remain separate.
 

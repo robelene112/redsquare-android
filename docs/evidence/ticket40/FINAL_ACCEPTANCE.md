@@ -40,8 +40,7 @@ Established certificate:
 Package nl.davidengelen.redsquare, minimum API29. Direct public page/latest/
 immutable22/APK GETs, exact hash, apksigner and aapt checks pass. Immutable21
 retains its previous hash. APKs stay outside Git; counter22 was not reset.
-Public records are in signed-preview22-published. Publication metadata review
-is pending at this checkpoint.
+Public records are in signed-preview22-published. Final publication metadata reviews report Spec0 and Standards0.
 
 This completes bounded #40, not integrated #35 or physical Pixel performance/
 installation/update acceptance. Keyboard-closed warning stacks, all font/rotation
