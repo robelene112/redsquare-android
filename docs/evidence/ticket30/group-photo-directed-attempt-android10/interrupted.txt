@@ -1,0 +1,59 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest:
+INSTRUMENTATION_STATUS: test=terminateAfterExplicitOfflineSendWithItsOriginalStillQueued
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest.assertPhoto(ChatQueueProcessRecoveryTest.kt:212)
+	at nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest.terminateAfterExplicitOfflineSendWithItsOriginalStillQueued$lambda$14(ChatQueueProcessRecoveryTest.kt:99)
+	at nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest.$r8$lambda$wRAS82rL0Y6ajg3knx5edBPnbbQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest.launch(ChatQueueProcessRecoveryTest.kt:199)
+	at nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest.terminateAfterExplicitOfflineSendWithItsOriginalStillQueued(ChatQueueProcessRecoveryTest.kt:88)
+
+INSTRUMENTATION_STATUS: stream=
+Error in terminateAfterExplicitOfflineSendWithItsOriginalStillQueued(nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest.assertPhoto(ChatQueueProcessRecoveryTest.kt:212)
+	at nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest.terminateAfterExplicitOfflineSendWithItsOriginalStillQueued$lambda$14(ChatQueueProcessRecoveryTest.kt:99)
+	at nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest.$r8$lambda$wRAS82rL0Y6ajg3knx5edBPnbbQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest.launch(ChatQueueProcessRecoveryTest.kt:199)
+	at nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest.terminateAfterExplicitOfflineSendWithItsOriginalStillQueued(ChatQueueProcessRecoveryTest.kt:88)
+
+INSTRUMENTATION_STATUS: test=terminateAfterExplicitOfflineSendWithItsOriginalStillQueued
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 24.595
+There was 1 failure:
+1) terminateAfterExplicitOfflineSendWithItsOriginalStillQueued(nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest.assertPhoto(ChatQueueProcessRecoveryTest.kt:212)
+	at nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest.terminateAfterExplicitOfflineSendWithItsOriginalStillQueued$lambda$14(ChatQueueProcessRecoveryTest.kt:99)
+	at nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest.$r8$lambda$wRAS82rL0Y6ajg3knx5edBPnbbQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest.launch(ChatQueueProcessRecoveryTest.kt:199)
+	at nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest.terminateAfterExplicitOfflineSendWithItsOriginalStillQueued(ChatQueueProcessRecoveryTest.kt:88)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

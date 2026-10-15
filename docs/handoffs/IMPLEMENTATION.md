@@ -108,9 +108,16 @@ qualification10, capacityunchanged. Groupstorageadapterminimum nowimplemented
 withstrictsidecarignorehasWork/cacheonlyregression. Actualstorage10
 38731107784 exact96 SUCCESS2PASS71.705s;12private/16group+growth/contact/cacheonly
 workguard/identityrestoration PASS. Explicit10nofault;17actualcommitfault/retry
-pending38731840587 exact7cb. PhotoPID213attempt38730549642 FAILEDstagequeued-
-persisted120s; noqueuedraster/killproof. Knownseconditemscopedobserver7cb reviewed
-0/0; ownedphoto38731727266 exact7cb active. Nootherownedruns/localbuild.
+38731840587 exact7cb SUCCESS2PASS124.148s retained5hashes. Laterpositivework
+andnestedmultipartinstallationrestoration811 notyetexercised. Whole-reviewSpec
+foundroot-onlyprocesssnapshots unsafeformultipart; commonexactsidecar snapshot/
+setupremoval/restore4fixtures fixed811, nestedbig→small→restoreAPIregression.
+Furthernamednonprocessfreshguards refuseorphans andownedcleanup fixes219/a72.
+Photo213timeoutphasequeued-persisted; directed7cb run38731727266 FAILEDgroup
+positive-listdisplay20s/24.595s, PNGseen/XMLshowszeroqueuedviewportduetostatus+
+disabledcomposer. Productminimum219 hidesonlyqueueddisabledcomposer/status+
+cancelpreserved; queue/PIDreadinessMessageorQueued. Owned38733114111 exact219
+active. Finalfull10/17/release20pending. Nootherownedruns/localbuild.
 Noownedlocalbuild. Nextslices queue/
 failure/practical5MiBhistorybound/process/finalfull10+17 stillrequired. Protected
 untracked NATIVE_GROUP_CHAT_CONTRACT.md untouched. Continue allissues.

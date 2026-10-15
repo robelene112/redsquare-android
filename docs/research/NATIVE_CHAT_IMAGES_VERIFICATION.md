@@ -490,3 +490,9 @@ Storage17run38731840587 exact7cbbe810 SUCCESS2PASS124.148s, actual.newwrite
 failure/priorallhistory+draft/retrysuccess both private/group. New nested
 multipart installation-restoration regression is later81167de0, not exercised
 by that run; no suchclaim. Finalfull10/17/review20 stillrequired.
+
+RetaineddirectedviewportRED8hash1XML/rootPNGseen and17storage5hashes. Actual
+17fault/retry PASS remains at7cb before later nestedmultipart fixture restore
+andpositiveworkassertions. Productqueuedcomposer minimum219 andguardcleanup
+a72 reviewpending; owned38733114111 tests219 includingnestedrestoration811.
+Onlyoneownedrun active, no local build, signed19current/no20reserved.
