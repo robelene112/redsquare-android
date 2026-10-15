@@ -7,16 +7,18 @@ const pins=[['9a4ca7e9442eb5e872168ced361ce741d7d139d7','browser-A.ts','e85b67cc
 const caption='Photo caption 😀 <&> "quoted"\nA second line';
 const escape=text=>text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 const image=JSON.parse(fs.readFileSync('/reference/images-reference.json','utf8')).images.red;
-const message=`<img class="img-prev" src="${image}">\n<div>${escape(caption)}</div>`;
+const native=process.argv.includes('--native-photo')?JSON.parse(fs.readFileSync('/reference/native-private-photo-proof.json','utf8')):null;
+if(native){assert.equal(native.independentWasmSignatureMatches,true);assert.equal(native.existingCryptoRecipientDecrypts,true);assert.equal(native.existingChatReceiverAcceptsNativePlaintext,true);assert.equal(native.nativePhoto.caption,caption);}
+const message=native?native.nativePhoto.message:`<img class="img-prev" src="${image}">\n<div>${escape(caption)}</div>`;
 const vectors=[];
 for(const [pin,file,expected] of pins){
  const source=fs.readFileSync('/reference/'+file,'utf8');assert.equal(crypto.createHash('sha256').update(source).digest('hex'),expected);
  const ast=ts.createSourceFile(file,source,ts.ScriptTarget.ES2022,true),cls=ast.statements.find(node=>ts.isClassDeclaration(node)&&node.name.text==='Browser');assert(cls);
  const browser={};for(const name of methods){const method=cls.members.find(node=>ts.isMethodDeclaration(node)&&node.name.getText(ast)===name);assert(method,name);browser[name]=vm.runInNewContext(`({${method.getText(ast)}}).${name}`,{marked,sanitizeHtml,sanitizer,emoji,console,URL});}
- const sanitized=browser.sanitize(message,true);assert(sanitized.includes('class="img-prev"'));assert(sanitized.includes(image));
+ const sanitized=browser.sanitize(message,true);assert(sanitized.includes('class="img-prev"'));if(!native)assert(sanitized.includes(image));
  // returnChatBody performs this newline conversion after the actual sanitize call.
  const html=sanitized.split('\n').join('<br>');
  vectors.push({pin,browserSha256:expected,message,caption,html});
 }
 assert.equal(vectors[0].html,vectors[1].html);
-console.log(JSON.stringify({scope:'Actual pinned Browser.sanitize(msg,true), followed by inspected returnChatBody newline conversion. No transport/signature or initialized Saito app claim.',vectors},null,2));
+console.log(JSON.stringify({scope:'Actual pinned Browser.sanitize(msg,true), followed by inspected returnChatBody newline conversion. No initialized Saito app claim.',...(native?{nativeEnvelopeSha256:native.nativeEnvelopeSha256}:{}),vectors},null,2));

@@ -74,11 +74,12 @@ const groupId = crypto.hash(Object.values(publicKeys).sort().join('_'));
 assert.equal(process.version, 'v24.13.0');
 
 // Consume only the public unsafe scalar2 -> scalar1 transaction captured by the native UI fixture.
-if (['--check-native-send', '--check-native-reply-send', '--check-native-zero-reply-send'].includes(process.argv[2])) {
-  const replySend = process.argv[2] !== '--check-native-send';
+if (['--check-native-send', '--check-native-reply-send', '--check-native-zero-reply-send', '--check-native-photo-send'].includes(process.argv[2])) {
+  const photoSend = process.argv[2] === '--check-native-photo-send';
+  const replySend = !photoSend && process.argv[2] !== '--check-native-send';
   const zeroReply = process.argv[2] === '--check-native-zero-reply-send';
   const expectedReply = replySend ? JSON.parse(fs.readFileSync('/reference/reply-compose-reference.json')).replyFormat[zeroReply ? 'compositionZero' : 'composition'] : null;
-  const expectedMessage = replySend ? expectedReply.prefix + expectedReply.body : 'Native private message 😀 <&>\nsecond line';
+  let expectedMessage = replySend ? expectedReply.prefix + expectedReply.body : 'Native private message 😀 <&>\nsecond line';
   const expectedMentions = replySend ? expectedReply.mentioned : [];
   const input = fs.readFileSync('/reference/native-sent-envelope.json');
   const envelope = JSON.parse(input);
@@ -100,6 +101,12 @@ if (['--check-native-send', '--check-native-reply-send', '--check-native-zero-re
   assert.equal(transaction.signature, independent.sig);
   const secret = crypto.generateSharedSecret('0'.repeat(63) + '1', publicKeys['2']);
   const plaintext = JSON.parse(crypto.aesDecrypt(ciphertext, secret));
+  const photoCaption = 'Photo caption 😀 <&> "quoted"\nA second line';
+  if (photoSend) {
+    const photo = /^<img class="img-prev" src="(data:image\/jpeg;base64,[A-Za-z0-9+/]+={0,2})">\n<div>Photo caption 😀 &lt;&amp;&gt; &quot;quoted&quot;\nA second line<\/div>$/.exec(plaintext.message);
+    assert(photo, 'Known native fixture photo and exact escaped caption');
+    expectedMessage = `<img class="img-prev" src="${photo[1]}">\n<div>Photo caption 😀 &lt;&amp;&gt; &quot;quoted&quot;\nA second line</div>`;
+  }
   assert.deepEqual(plaintext, {
     module: 'Chat', request: 'chat message', group_id: groupId,
     message: expectedMessage,
@@ -116,6 +123,16 @@ if (['--check-native-send', '--check-native-reply-send', '--check-native-zero-re
   const receiverMethod = chatClass.members.find(node => ts.isMethodDeclaration(node) &&
     node.name.getText(chatAst) === 'addTransactionToGroup');
   assert(receiverMethod);
+  if (photoSend) {
+    const otherSource = fs.readFileSync('/reference/chat-B.js', 'utf8');
+    assert.equal(sha256(otherSource), '28a8609343e75dec7982498c0bafd7aa99be0a499156f43c5a543435426209eb');
+    const otherAst = ts.createSourceFile('chat-B.js', otherSource, ts.ScriptTarget.ES2022, true);
+    const otherClass = otherAst.statements.find(node => ts.isClassDeclaration(node) && node.name.text === 'Chat');
+    assert(otherClass);
+    const otherReceiver = otherClass.members.find(node => ts.isMethodDeclaration(node) && node.name.getText(otherAst) === 'addTransactionToGroup');
+    assert(otherReceiver);
+    assert.equal(receiverMethod.getText(chatAst), otherReceiver.getText(otherAst));
+  }
   const receive = vm.runInNewContext(`({${receiverMethod.getText(chatAst)}}).addTransactionToGroup`, {});
   const receivedTransaction = {
     signature: transaction.signature, timestamp: Number(transaction.timestamp),
@@ -157,6 +174,7 @@ if (['--check-native-send', '--check-native-reply-send', '--check-native-zero-re
     chatSourceSha256, existingChatReceiverAcceptsNativePlaintext: true,
     existingChatReceiverSuppressesDuplicateSignature: true,
     browserStorageNotificationBoundariesAdapted: true,
+    ...(photoSend ? {pinnedReceiverMethodsIdentical:true,nativePhoto:{message:plaintext.message,caption:photoCaption}} : {}),
   }, null, 2));
   process.exit(0);
 }

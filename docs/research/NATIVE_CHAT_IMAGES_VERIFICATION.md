@@ -213,3 +213,21 @@ enablesphoto-onlySend and blocksactions/navigation whilepreparing; caption
 autosave resumes afterpreparationends. Text/creation/membership/encryption/
 queue/storageprotocol unchanged. Sourcecompile/review/nativeGREENpending.
 ActualSend/queue/failure/process/historybound/17/finals stillremain.
+
+Actualgroupdraftminimum10run38719455482 exactdbd0d42f SUCCESS4PASS21.366s.
+Private/group selectedphoto actualJPEGpixels+exactcaption surviveBack/reopen/
+recreate withfullidentity/backend/no-wire/restoration. BothincomingviewersPASS.
+Retained24hash10XML; root2newgroupdraftoriginalsseen. Sourcegroupminimumreview0/0.
+
+Next regression exercises existingprivateSend after recoveringthephotodraft,
+asserts one raw+oneRelay identicaloriginal, visibleexactcaption andemptycomposer,
+and retains only the publicfixture signedenvelope. No fabricated missing-Send
+RED: ordinarySend/queuealreadyexists andnewphotocaptionusesit. PhotoFlow enum
+replaces intersecting testbooleans andcapturesareflow-distinct. Independent
+reference helper adds --check-native-photo-send, verifying realWASM/Elliptic
+signature and browserECDH/AESdecrypt plus exactliteralcaption/wrapper andactual
+Chatreceiver/dedup forsender/recipient. PinnedA/B receivermethods equality is
+asserted. Sanitizer/DOMhelpers add explicitnativeproofinput and JPEGtolerance5
+only fornative-normalizedraster; previousPNGcriterionremainsRGBexact. Default
+privateimageasset was reexecuted byteidentical andsanitizervectorsunchanged.
+Actualnativeoutbound/reference executionpending; productionunchanged.

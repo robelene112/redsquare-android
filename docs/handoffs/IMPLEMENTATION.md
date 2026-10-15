@@ -41,17 +41,19 @@ Retained20hash8XML; root2newdraftPNGsseen. Nextgroupdrafttracer hasmissingAddpho
 actualRED38718728322 exact068 FAILED4cases3PASS1FAIL36.699s missingAddphoto155.
 Retained6hash1XML/rootPNGseen. Navfixture00a97cc9 reviewed0/0. Groupminimum now
 reusessharedphoto/canonicalcaption/nativepreview/existingdraft+queue, preparation
-guards+autosaveresume. Compile/review/GREENpending, noownedlocalbuild. Neverduplicateactivesame-scoperun.
+guards+autosaveresume. Groupminimumdbd reviewed0/0; actual10run38719455482
+SUCCESS4PASS21.366s. Retained24hash10XML/root2newgroupdraftPNGsseen. Noownedlocalbuild. Neverduplicateactivesame-scoperun.
 Noownedlocalbuild. Strictphoto/canonicalescapeddivcaption+nativepicker/private
 composer nowimplemented, no storage/queueprotocolchanges. ActualpinnedA/B
 Browser.sanitize+offlineChromiumDOM/RGB exactcaption proof PASS, retained3hashes
 caption-web; helpers committedb54b1a73 reviewed0/0. No signednativeSendproofyet.
-Three uncommitted helperedits prepare explicit --check-native-photo-send and
---native-photo verification modes for nextactualsendtracer; do notstagewithout
-that slice. Default privateimageasset byteidentical/sanitizervectorsunchanged
-reexecuted. Canonical NATIVE_CHAT_IMAGES_VERIFICATION.md.
+Nextregression actualprivateSend afterphotodraftrecovery, one raw+Relay identical
+original, visiblecaption+emptycomposer, publicunsafe signedenvelopecapture for
+independentWASM/browsercrypto/actualreceiver A-Bmethod equality andDOM/JPEGRGB.
+Explicithelpermodesnowincludedinthisslice; defaultprivateimageassetbyteidentical
+anddefaultsanitizervectorsunchanged. Canonical NATIVE_CHAT_IMAGES_VERIFICATION.md.
 
-Nextslice aftergroupGREEN: actualsend/queue/
+Nextslices actualprivate/groupSend/queue/
 failure/practical5MiBhistorybound/process/finalfull10+17 stillrequired. Protected
 untracked NATIVE_GROUP_CHAT_CONTRACT.md untouched. Continue allissues.
 

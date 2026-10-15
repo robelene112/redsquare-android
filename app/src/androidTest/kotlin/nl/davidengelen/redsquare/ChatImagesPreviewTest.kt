@@ -25,21 +25,25 @@ import java.util.concurrent.atomic.AtomicInteger
 
 class ChatImagesPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
+    private enum class PhotoFlow { VIEW, DRAFT, SEND }
 
     @Test fun aCompatiblePrivatePhotoIsVisibleExpandableAndRetainedWhenTheServerNoLongerHasIt() = exercisePhoto(group = false)
 
     @Test fun aCompatibleGroupPhotoIsVisibleExpandableAndRetainedWhenTheServerNoLongerHasIt() = exercisePhoto(group = true)
 
-    @Test fun aSelectedPrivatePhotoAndItsTextSurviveReopeningBeforeExplicitSend() = exercisePhoto(group = false, composing = true)
+    @Test fun aSelectedPrivatePhotoAndItsTextSurviveReopeningBeforeExplicitSend() = exercisePhoto(group = false, flow = PhotoFlow.DRAFT)
 
-    @Test fun aSelectedGroupPhotoAndItsTextSurviveReopeningBeforeExplicitSend() = exercisePhoto(group = true, composing = true)
+    @Test fun aSelectedGroupPhotoAndItsTextSurviveReopeningBeforeExplicitSend() = exercisePhoto(group = true, flow = PhotoFlow.DRAFT)
 
-    private fun exercisePhoto(group: Boolean, composing: Boolean = false) {
+    @Test fun aRecoveredPrivatePhotoAndItsCaptionUseTheExistingSignedChatSendPath() = exercisePhoto(group = false, flow = PhotoFlow.SEND)
+
+    private fun exercisePhoto(group: Boolean, flow: PhotoFlow = PhotoFlow.VIEW) {
+        val composing = flow != PhotoFlow.VIEW
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
         val kind = if (group) "group" else "private"
-        val prefix = if (composing) "$kind-draft" else kind
+        val prefix = when (flow) { PhotoFlow.VIEW -> kind; PhotoFlow.DRAFT -> "$kind-draft"; PhotoFlow.SEND -> "$kind-send" }
         val reference = instrumentation.context.assets.open("native-${if (group) "group" else "private"}-chat-image-reference.json").bufferedReader()
             .use { JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject }
         val contact = reference.get(if (group) "author" else "sender").asString
@@ -165,17 +169,40 @@ class ChatImagesPreviewTest {
                                     }
                                     assertPreparedPhoto(); assertDraft()
                                     check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
-                                    capture("$kind-photo-selected-unsent")
+                                    capture("$prefix-photo-selected-unsent")
                                     ui.onNode(hasText("Back") and hasClickAction()).performClick()
                                     open(); scenario.recreate(); open()
                                     assertPreparedPhoto(); assertDraft()
                                     check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
-                                    capture("$kind-photo-draft-reopened")
+                                    capture("$prefix-photo-draft-reopened")
+                                    if (flow == PhotoFlow.SEND) {
+                                        ui.onNode(hasText("Send") and hasClickAction() and isEnabled()).performClick()
+                                        ui.waitUntil(20_000) { peer.transactions.size == 1 && peer.relayedMessages.size == 1 }
+                                        val sent = postingTransaction(peer.transactions.single())
+                                        check(SaitoEnvelope.fromSignedJson(peer.relayedMessages.single()) == sent.envelope())
+                                        val message = PrivateChat.read(wallet, sent.envelope(), contact)
+                                        check(message.author == wallet.publicKey)
+                                        val caption = hasText(draft)
+                                        ui.waitUntil(20_000) {
+                                            if (!displayed(caption)) {
+                                                try { ui.onNode(hasScrollAction()).performScrollToNode(caption) }
+                                                catch (_: AssertionError) { /* Delivery can precede UI publication. */ }
+                                            }
+                                            displayed(caption)
+                                        }
+                                        ui.waitUntil(20_000) { displayed(hasSetTextAction() and isEnabled() and
+                                            SemanticsMatcher("Empty sent composer") {
+                                                it.config.getOrNull(SemanticsProperties.EditableText)?.text == ""
+                                            }) }
+                                        File(context.cacheDir, "chat-images-evidence/native-private-photo-envelope.json").writeText(sent.envelope())
+                                        capture("private-photo-explicitly-sent")
+                                    }
                                 } finally { Intents.release() }
                             } finally { check(context.contentResolver.delete(uri, null, null) == 1) }
                             check(wallets.loadExisting().exportJson() == wallet.exportJson() && backends.load() == SaitoBackend.OWNER)
                             check(peer.clientKeys.isNotEmpty() && peer.clientKeys.all { it == wallet.publicKey })
-                            check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty() && peer.reports.isEmpty())
+                            check(peer.transactions.size == (if (flow == PhotoFlow.SEND) 1 else 0) &&
+                                peer.relayedMessages.size == (if (flow == PhotoFlow.SEND) 1 else 0) && peer.reports.isEmpty())
                             peer.assertHealthy()
                             return@withFailureCapture
                         }
