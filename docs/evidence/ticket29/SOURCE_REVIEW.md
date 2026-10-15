@@ -47,3 +47,10 @@ Evidence checkpoint56b3c17e...010454a1 also clears both axes. Reviewers verified
 records259-byte guard metadata and PID6413 to6890; prepared19 production
 equivalence and qualified compile failure are verified. Final full results and
 public publication remain pending.
+
+Both final SDK evidence reviews also report Spec0/Standards0. Android10 proof
+893 hashes/329 XML and Android17 proof898 hashes/331 XML confirm all expected
+class records,25 deaths per SDK and separate six cold/update observers. Both
+complete workflows succeeded at56b3c17e. Publication/direct checks are retained
+in signed-preview19-published; actual physical/closed-app/store gates remain
+with their existing tickets.

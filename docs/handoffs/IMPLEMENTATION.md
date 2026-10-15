@@ -12,44 +12,38 @@ implementation issues are complete. This explicit resume supersedes the storage
 migration pause recorded below. Commit/push each ticket and keep signed reviews
 available. Do not pause after the next ticket or ask routine approvals.
 
-**Latest #29 checkpoint, supersedes dated ACTIVE notes below:**
-Current source56b3c17e34bf60b08d2011acd6a4d042ca3fe4b9, whole source review
-40f28872...3a964944 Spec0/Standards0 and bounded compile correction56b0/0.
-Reports docs/evidence/ticket29/SOURCE_REVIEW.md. All production/private/group
-mute and live notification/draft/policy requirements implemented. Actual8case
-Android10 ace run38702369456 GREEN100.478s (74hash35XML); actualfocused56b
-run38703489486 SUCCESS8PASS95.831s plus process6413gone→6890, guard259bytes,
-bothmutes/exactdrafts/cache/freshsignedACK950/951/readable/2ssilence/fullidentity/
-backend/no-wire and installationrestoration. Newprocessretained16hash3XML,
-root3originalsseen; current8regression74hash35XML. Earlier compilefailure3a
-retained/qualified, no device claim. Canonical NATIVE_CONVERSATION_MUTE_VERIFICATION.
+**#29 COMPLETE, 2026-10-15, administrative closure follows this record:**
+Persistent private/group conversation mute keeps messages readable and explains
+account mute/block. Wallet-local encrypted choices span both fixed backends.
+Actual generic live Android alerts, signed-original dedup, fresh policy/group
+membership filtering, draft recreation and failure/process recovery verified.
+Reviewbase40f28872; final source56b3c17e34bf60b08d2011acd6a4d042ca3fe4b9.
+Full10run38704251435 SUCCESS345reported/344PASS+existingprofileassumption,
+79records25actualdeaths. Full17run38704254979 SUCCESS346PASS/80records25deaths.
+Both core114/release/lint/allpriorgates/bothpublicfeeds/coldwallet/signed5-to8/
+finaldiagnostic pass. Mute8cases98.636s/104.901s; realinterruptedmutePID6522→6921
+and5025→5137 retainbothchoices/drafts/cache/freshACK/readable/silence/fullwallet/
+backend/no-wire/restoration. Bothfinal source/evidence reviews Spec0/Standards0.
+Retainedfinals893/898hashes329/331XML, root10selectedoriginalspersdkseen. Earlier
+compile failure retained/qualified. docs/evidence/ticket29/FINAL_ACCEPTANCE.md.
 
-Finalfull10run38704251435 exact56b SUCCESS,345reported/344PASS plus existing
-profileassumption/79records25actualdeaths/core114/release/lint/allgates/bothpublic
-feeds. Mute8PASS98.636s/process6522gone→6921/allchoices/drafts/cache/freshincoming/
-ACK/silence/restoration. Queue13PASS250.602s; coldwallet2+signed5→8four native
-observers/finaldiagnostic alsoPASS. Retained893hash329XML, root10originalsseen.
-Final17run38704254979 SUCCESS same56b,346PASS/80records25deaths/core114/release/
-lint/allpriorgates/bothpublicfeeds. Mute8PASS104.901s/PID5025gone→5137/guard259/
-bothchoices/drafts/cache/freshACK/silence/restoration, queue13PASS276.153s, six
-native cold/update observers/finaldiagnosticPASS. Root10neworiginalsseen/all331
-XMLparsed. Final10evidence reviews Spec0/Standards0. Final17evidence review,
-signed19publication/directverification andclose29 remain. No full run active. No duplicatefull. Inspect actual finished evidence/counts/allgates,
-retain with .scratch/retain-chat29-final-full.py ROOT OUT META SOURCE RUN 12.
-Expected new8muteclass +2processcompletionrecords/+1actualdeath, six wallet
-observer .log invocations remain distinct from applicationcounts. Base28 full
-335/336reported,76/77records24deaths. Do not infer full acceptance from focus.
+Signed19/0.1.19 published https://davidengelen.nl/redsquare/. Exactsource3a964944
+product-identical to56b; localbuildPASS4m36s, no ownedbuild/nativeactive. Public
+page/latest/release19/APKdownloadhash/directcertificate/package19/min29 verified.
+APKsha82ed82795eda62dd4c064603cea022869063184175e12c4147cc4e5d031a2de4;
+cert6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2.
+Immutable18hashunchanged. Artifacts onSSD mute29-review-source/.scratch/review-
+builds/19. No node/service/ingress/store change. Closed-apppush32–34 andphysical
+Pixel/currentupdate35 remain separate. Protected untrackedgroupcontractuntouched.
 
-Signed19 PREPARED, not published. IsolatedSSD build37852 exit0/PASS4m36s,
-no owned localbuild active. Sourceworktree /mnt/storage/redsquare-android-artifacts/
-mute29-review-source at3a964944 (product identical to56b), artifacts .scratch/
-review-builds/19, log .scratch/review19-build.txt there. Cert/package/min29 verified,
-APKsha82ed82795eda62dd4c064603cea022869063184175e12c4147cc4e5d031a2de4.
-Public18 unchanged until full acceptance/review, then publish19/verifypublic/
-close29/continue30 and all remaining issues. Protected untracked group contract
-untouched. No production node/wallet writes. Current host no /dev/kvm; native CI.
+NEXT: close29 once finalrecord pushed, then claim30 sequentially and continueall
+remaining issues. Read .scratch/chat30-readonly-scope-notes.md andnext-chat-ticket-
+orientation.txt: webimg-prev ordinary Chat messages; shared native raster/picker
+mechanisms exist. Preserve composed work/queue semantics and note current5MiB
+per encrypted record limit when exercising media history. No30code/test/claimyet.
+Currenthost no /dev/kvm, nativeproofGitHub. Userresumeuntilallissuestillactive.
 
-Twenty-four of the original35 tickets are complete (#2 through#15,#18,#20 through#28).
+Twenty-five of the original35 tickets are complete (#2 through#15,#18,#20 through#29).
 Issue39 group Chat visual polish COMPLETE, signed16/0.1.16 published at
 https://davidengelen.nl/redsquare/. Source95e089699c6192abaea0d9dbacb7dbf4af04e69e,
 reviewbase8528893a; shared bubbles/avatars/names/timestamps/wrapping actions,
