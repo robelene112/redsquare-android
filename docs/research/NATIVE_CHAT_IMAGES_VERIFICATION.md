@@ -511,3 +511,22 @@ package20/0.1.20/min29/establishedcert. Retained4hash publicmetadata, APKoutside
 Git, no signingsecretoutput. Pythonpublicmetadata403, curlGETthenvalidJSON
 expectedimmutable19hashPASS; no hostingchange. Full10/17 stillactive;20unpublished,
 no local build active.
+
+Finalfulls78bc BOTH FAILED, retained with originalconclusions. Android17
+38734348294 new10photoUI89.025s/history2PASS94.314s and actual photoPID5082to5153
+private/5265to5340group/restoration passed; queue13reported7PASS6FAIL271.748s
+visibleQueued wait. RootcancelPNGseen/all6XMLparsed. Keyboardopen queuedbubble
+withstatus/canceloutsideviewport; no exactcandidateclaim forfailedcases.
+Android10 38734343806 new10photoUI/history2 and actualphotoPID7352to7614private/
+7884to8263group/restoration passed, queue13PASS280.708s. LaterGroupChatActions
+1FAIL6.992s Copy below viewport afterscrolltobody. RootfailurePNGseen/XMLparsed.
+Both later application/publicread/update tails not accepted. API29modern.new
+fault still explicitly unexercised. Retainedfailurefamilies eachhashmanifest.
+
+Productiondc28f780 hidesprivatealready-disabledqueuedform, preservingbubble/
+status/cancel/draftrestoration; explicitSendclearsfocus/hideskeyboardbothchat
+screens. Queuereadiness nowpositiveMessageORQueued, originalqueue/wire/identity
+assertions unchanged. Review Standards0/Spec0. Fixturef1bbeb82 scrolls existing
+cachedgroupCopy/Replyactions beforeassert/click. Focusedqueue10/17 andgroupUI10/17
+ownedruns active. Freshfullbothrequired forproductionchange. Signed20remains
+builtunpublishedoldsource; nextbuild21 afterfix,19publiccurrent.

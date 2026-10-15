@@ -42,19 +42,31 @@ explicitly qualified. Separate17storage38731840587 exact7cbbe810 SUCCESS2PASS
 124.148s proves actual.new commitfailure/prior originals+draft/retrysuccess,
 before later nested restoration fixture. No full acceptance inferred yet.
 
-Final whole-source review8826..78bc9b70: Standards0, Spec0, both earlier fixture
-preservation findings resolved. Full10run38734343806 and full17run38734348294
-are ACTIVE at same78bc9b70d6639a97c8c979baeeef3475d0801824 with explicit public
-feed reads and immutable signed update checks. Never duplicate either active
-scope. Local ignored retainer .scratch/retain-chat30-final-full.py expects new
-image/history/PID gates and two additional actual process deaths over29.
+Previous whole-source review8826..78bc9b70: Standards0/Spec0. Final fulls at
+78bc9b70 BOTH FAILED, retained honestly in ticket30/full-attempt-android10-actions
+and full-attempt-android17-queue. New photo10UI, history2 and both actual photo
+PID/restoration gates passed in both; no complete acceptance inferred.
+Android17run38734348294:6private queue cases fail visibleQueued after Send with
+keyboard open. Android10run38734343806:queue13PASS, later group Copy action
+below clipped message viewport. Root originalPNG per failurefamily seen, XML
+parsed. Later application/public-read/update tails not accepted.
 
-Signed20/0.1.20 is BUILT/VERIFIED, UNPUBLISHED from immutable detached78bc9b70 at
-/mnt/storage/redsquare-android-artifacts/chat30-review-source. Owned local exec1549 completed0, releaseSUCCESS4m25s; no local owned build.
-APKsha8602915d8ae3686ffaa53f6ea23027e4ac432f596cd9d33baf892dad594e0828,
-establishedcert/package20/min29 verified. Log.scratch/review20-build.log there. Public signed19 remains current. Publish20 only after full gates,
-review fixes and direct metadata/hash/package/certificate/immutable19 checks.
-Continue to later issues after30, do not pause or ask routine approval.
+Current production dc28f780 clears focus/hides keyboard on explicit Send for
+private/group and hides private already-disabled queued form, retaining bubble,
+status/cancel. Private open readiness Message OR Queued, actual assertions
+unchanged. Review Standards0/Spec0. Fixture-only f1bbeb82 scrolls cached group
+Copy/Reply controls before using; root evidence supports missing viewportscroll.
+Focused10/17queue38737081528/38737085717 atdc28 and groupUI38737249746/
+38737253681 atf1bb ACTIVE. No same-scope duplicates. Fresh full10/17 on final
+production required after focusedgreen; existing fullretainer available.
+
+Signed20/0.1.20 BUILT/VERIFIED, UNPUBLISHED from isolated78bc9b70 at
+/mnt/storage/redsquare-android-artifacts/chat30-review-source. Exec1549 completed0;
+releaseSUCCESS4m25s, APKsha8602915d8ae3686ffaa53f6ea23027e4ac432f596cd9d33baf892dad594e0828.
+It predates productionkeyboardfix, so keep unpublished. Next reserved build21,
+never resetcounter/overwriteimmutable20. Public signed19 remains current.
+No ownedlocalbuild. Publish final review only after gates/review/direct public
+metadata/hash/package/certificate/immutable19 checks. Continue laterissues after30.
 
 **#29 COMPLETE and CLOSED, 2026-10-15T09:08:20Z:**
 Persistent private/group conversation mute keeps messages readable and explains
