@@ -34,45 +34,65 @@ Unpublished20 stays unpublished. No owned build/device run active.
 #31 remains blocked by native #16: authorized Android Giphy key still unavailable;
 updated both tracker comments to narrow the old blanket reference-retention claim.
 
-**ACTIVE #40: bounded keyboard-open Chat usability under #35.** Basea35ff6c1.
-Native child35, not final integrated/physical acceptance. Initial17run38754302286
-atd63de718 SUCCESS2PASS51.341s with backup dismissed. Retained baseline-text-
-android17, root saw two keyboard-open originals, interim reviews0/0.
-Expanded17run38755418301 at6bcb3794 FAILED4/4 in46.395s, immediate exact-editor
-visibility after IME reportedvisible, before Send/privacy/wire. All four original
-PNGs show panning/hiddencomposer; separate earlier XML has non-atomic coordinates.
-Timing alternative explicitly qualified, next tracer uses10s displayed wait.
-Retained expanded-baseline-android17. No send acceptance inferred.
+**ACTIVE #40: keyboard-open Chat usability, native child of #35.**
+Review base a35ff6c1. Production last changed720e2007: explicit adjustResize,
+existing single root safeDrawing owner, temporary secondary chrome/reminder and
+history/group-control compaction while typing,72dp photo preview. Privacy,
+wallet/backend, draft and message/queue semantics remain. Compile PASS3m38s.
 
-Spec review found photo-readiness race, fixedeca4e7b9:20s actual knownred raster
-wait before keyboard. Fixreviews0/0. Four-case class allowance180s corresponds to
-doubling2cases/90s, individual waits not increased except explicit transitionwait.
-Current working app correction: explicitadjustResize, root retains sole safeDrawing
-inset owner; secondary global chrome/reminders temporarily hide whileIME, return
-without dismissal. Chat keeps privacy; hides redundant history/empty guidance and
-group membership buttons whiletyping, photo preview72vs100dp. Actual data/signing/
-queues unchanged. Local compile PASS3m38s; exec46029 ended. Focused corrected10run38757131128 SUCCESS4PASS16.168s and
-17run38757136280 SUCCESS4PASS52.248s at720e2007, core114/debug/test assembly.
-Retained focused-green-android10/17; root saw4original keyboard-open PNGs each,
-8XML each parsed. These precede Back/reopen checks, not their acceptance. Source/evidence
-candidate reviews0/0. Further fixture-only coverage now also dismisses/reopens
-actualIME with Back, preserves draft/photo, restores header/reminder/groupbuttons
-and verifies one later explicit send. No extra test cases/budget increase.
-Both final fulls dispatched atc0b143eb after focused gates ended:
-10run38758235562 and17run38758240578, separately public_feed_read=true.
-They include stronger4 keyboard cases and all earlier app/public/recovery gates,
-release/lint/core. Both currently ACTIVE; never dispatch a duplicate scope.
-No local Gradle build active. No signed22 build yet. Public21 remains current.
-Next compile/review correction and focused10/17, then both complete full suites
-and signed22 publication. Public21 remains current. Protected group contract
-untracked and untouched. Continue independent remaining tickets afterward.
-Do not pause or request routine approval. Protected untracked group contract stays
-untouched. Physical performance/current update and keyboard-open acceptance remain35.
+Focused candidate10run38757131128 PASS4/4 in16.168s,17run38757136280 PASS4/4
+in52.248s at720e2007, core114/debug/test. Root saw four original keyboard-open
+PNGs each,16XML and42hashes independently reviewed Spec0/Standards0. These
+predate stronger Back/reopen checks and are not complete acceptance.
 
-Keyboard-open usability is separately #35, not proved by keyboard-closing fixtures.
-`ANDROID_CHAT_KEYBOARD_LAYOUT_2026_10_15.md`: theme already enables edge-to-edge,
-root safeDrawing includes IME. First candidate explicitadjustResize, runtime and
-constrained-height compaction still unproved. No layout implementation changed.
+Initial reminder-dismissed text baseline17run38754302286 PASS2/2 in51.341s.
+Expanded first-use/photo baseline17run38755418301 FAILED4/4 in46.395s at
+immediate exact-editor visibility; non-atomic PNG/XML and transition timing
+qualified. Retained baseline-text-android17 and expanded-baseline-android17.
+
+Stronger full10run38758235562 and17run38758240578 atc0b143eb BOTH FAILED.
+10:4/4 fail56.98s;17:1PASS/3FAIL69.043s (group photo completed). Every failure
+is second readySend waiting10s for reopened IME after a semantics click.
+First IME/privacy/Send bounds, actual Back dismissal, exact draft/photo,
+restored chrome/reminder/group controls and no outgoing work passed beforehand.
+Later Send and downstream full gates are unexecuted in failed cases. Root saw
+2/4 selected originals;12XML each parsed. full-reopen-attempt records preserve
+failed conclusions. Selection toolbar is observed; precise touch cause unproved.
+
+Fixture-only129d0901 replaces second semantics click with physical UiDevice tap
+inside positive native editor visible bounds, trailing padding away from handles.
+No app, assertion, deadline or class-budget change. Fix reviews Spec0/Standards0.
+OWNED focused correction10run38759985609 and17run38760340721 ACTIVE at129d0901.
+Never duplicate a running scope. No full run currently active; after focused
+correction succeeds, dispatch both complete fulls with public_feed_read=true.
+
+Signed22/0.1.22 BUILT/VERIFIED, UNPUBLISHED. Immutable detachedc0b143eb, product-
+identical to720e2007/current129d0901. Local build PASS4m29s, exec21423 ended0.
+Artifact /mnt/storage/redsquare-android-artifacts/keyboard40-review22-source/
+.scratch/review-builds/22. SHA5d4081c587c53575987890390fb042b34fc30b19d5e17c9d17f10905e910ef6d,
+established certificate6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2,
+package nl.davidengelen.redsquare/22/0.1.22/min29. Counter22; no local build active.
+Metadata review22-build pending review. Public21 remains current; publish22 only
+after complete gates and final review. Prepared .scratch/verify-review22-public.py
+must run only AFTER publication; validates direct public artifacts and immutable21.
+Final retainer .scratch/retain-keyboard40-final-full.py validates exact class set
+plus4, same27 actual deaths, all old gates and portable permission qualification.
+
+Read-only research completed in YOUTUBE_PLAYBACK_DIAGNOSIS_2026_10_15.md and
+REGISTRY_READINESS_DIAGNOSIS_2026_10_15.md; no other agent implementation/CI.
+YouTube identity follows docs; retain numeric onError before teardown and actual
+initial embed Referer. Old10 WebView74 cannot explain17's refusal with145.
+Registry A/B callback fallback can precede valid late response, native consumes
+first index; actual21-byte body not retained, so correlation is not live cause.
+Next19 diagnostic should observe bounded first/late same-index responses while
+preserving strict proof/registration and12s deadline, before any workaround.
+Research review/tracker updates pending. No node/credential changes.
+
+Finish40, then continue remaining original issues without routine permission.
+Physical Pixel, final integrated35 and Play remain separate. Protected untracked
+NATIVE_GROUP_CHAT_CONTRACT.md remains untouched. Dated keyboard-layout research
+predates40; do not repeat its old claim that no layout implementation changed.
+
 Fresh push prerequisites in `NATIVE_CLOSED_APP_PUSH_REQUIREMENTS_2026_10_15.md`
 correct old token guidance and qualify chain/Relay/delegated-session coverage.
 No Firebase client/gateway implementation or deployment occurred. Owner Giphy/
