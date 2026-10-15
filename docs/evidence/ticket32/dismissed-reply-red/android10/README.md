@@ -9,18 +9,28 @@ where zero is required. The remainder of that silence interval, success capture
 and later no-write tail in this failing case are unexecuted. Independent fixture
 cleanup runs; the separate original case subsequently passes its own complete tail.
 
-Root viewed all three original PNGs by actual bytes and parsed all three XMLs.
-The original-case reply-alert.png shows Red Square/Replied to your post. The
-new-case initial dismissed-reply.png is mostly black with a clock and does not
-visually establish its loaded alert; its hierarchy contains the reply text.
-The failure bitmap shows system notices without a Red Square row, despite the
-earlier manager count1. Screenshot and hierarchy sampling are not atomic with
-the manager observation. Do not describe these two new-case bitmaps as proof of
-visible reappearance, settled transition timing or an exact Android scheduling
-cause. Raw assertions establish positive dismissal and later manager reappearance;
-source still invokes notify on every accepted replay without a durable ledger.
-An earlier retained-alert replay also occurs before dismissal, so no sole causal
-attribution to the final call or settled earlier OS update is claimed.
+Root forwarded all three originals by actual bytes and parsed all three XMLs.
+Rendered previews conflicted between root and independent reviewers. A separate
+network-disabled, read-only Chromium canvas decode resolves the file content:
+both initial images, dismissed-reply.png and reply-alert.png, have the exact same
+RGBA notification-card region (x0..319,y180..316) as the earlier first-GREEN
+reply-alert.png, which shows Red Square/Replied to your post. All three regions
+hash1644fa3bb8dac18cc9d85bab0475ade5af15bac784093141f5fc49667d9019e3.
+They are not black in that region. Original file hashes and pixel measurements
+are in png-pixel-observations.jsonl; inspect-png-pixels.cjs is the read-only
+reproducer, run with named evidence/tools mounts in Playwright1.63.0, networknone,
+CPU1/memory768MiB. A separate stdlib PNG decode agrees on region white counts.
+No image was edited or regenerated. The cause of conflicting rendered previews
+is unproved; do not describe a black app frame from those previews.
+
+The failure original shows system notices without a Red Square row, despite the
+earlier manager count1; its card-region hash differs. Screenshot and hierarchy
+sampling are not atomic with the manager observation. Do not describe that
+bitmap as proof of visible reappearance, settled timing or exact Android
+scheduling cause. Raw assertions establish positive dismissal and later manager
+reappearance; source invokes notify on every accepted replay without a durable
+ledger. An earlier retained-alert replay also occurs before dismissal, so no
+sole causal attribution to the final call or settled earlier OS update is claimed.
 
 Core114/debug/test assembly pass; release/lint and full scopes are unexecuted.
 Instrumentation shell0 is not a JUnit pass. Scope.txt is not reached after failure.
