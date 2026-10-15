@@ -1,6 +1,7 @@
 package nl.davidengelen.redsquare
 
 import android.content.Intent
+import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.*
@@ -93,7 +94,13 @@ class ChatKeyboardPreviewTest {
                         ui.onNode(row, useUnmergedTree = true).performClick()
                         val editor = hasSetTextAction() and isEnabled()
                         ui.waitUntil(20_000) { displayed(editor) && reads.get() > 0 }
-                        if (photo) ui.onNodeWithContentDescription("Image 1 of 1").assertIsDisplayed()
+                        if (photo) ui.waitUntil(20_000) {
+                            try {
+                                val bitmap = ui.onNodeWithContentDescription("Image 1 of 1")
+                                    .assertIsDisplayed().captureToImage().asAndroidBitmap()
+                                bitmap.getPixel(bitmap.width / 2, bitmap.height / 2) == 0xffdc1e28.toInt()
+                            } catch (_: AssertionError) { false }
+                        }
                         ui.onNode(editor).performTextReplacement(draft)
                         ui.onNode(editor).performClick()
                         val imeBottom = AtomicInteger()
