@@ -56,9 +56,18 @@ private/group and hides private already-disabled queued form, retaining bubble,
 status/cancel. Private open readiness Message OR Queued, actual assertions
 unchanged. Review Standards0/Spec0. Fixture-only f1bbeb82 scrolls cached group
 Copy/Reply controls before using; root evidence supports missing viewportscroll.
-Focused10/17queue38737081528/38737085717 atdc28 and groupUI38737249746/
-38737253681 atf1bb ACTIVE. No same-scope duplicates. Fresh full10/17 on final
-production required after focusedgreen; existing fullretainer available.
+Focusedqueue10run38737081528dc28 SUCCESS13PASS262.904s. Same17run38737085717
+FAIL13reported/8PASS5FAIL307.115s, stillprivateQueuedwait. Rootcapturesshow
+keyboardopen/pannedapp, no proof physicaltapinvokedSend. Privatefixturebdd07ed0
+nowcloseskeyboard+readyAction beforephysicaltap, matchingexistinggroupfixture;
+allactualqueue/wire assertionsunchanged. New17run38738706055 ACTIVE.
+GroupUI10run38737249746f1bb overallFAIL butactions1PASS11.104s/mixed1PASS8.251s/
+group22PASS126.68s. LateroldreactionPIDprep1likebelow34pxviewport;killunreached,
+restorationPASS. GroupUI17run38737253681f1bb timeout60exit124, onlylastsuccessful
+cachedCopycaptureknown, no causeinferred. Fixture27074841scrollstolike andadds
+phase/independenttimeoutcaptures, no budgetschange. Newgroup10/17runs38738539710/
+38738543254 ACTIVE. Freshfullbothstillrequired. Keyboard-opencompositionusability
+explicitlytrackedfor35, keyboard-closedqueuefixturesdonotproveit.
 
 Signed20/0.1.20 BUILT/VERIFIED, UNPUBLISHED from isolated78bc9b70 at
 /mnt/storage/redsquare-android-artifacts/chat30-review-source. Exec1549 completed0;

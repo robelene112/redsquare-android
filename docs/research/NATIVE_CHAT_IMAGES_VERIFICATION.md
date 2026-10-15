@@ -535,3 +535,16 @@ Signed21/0.1.21 built isolatedimmutableb42e4e2f SUCCESS3m59s, exec46570exit0.
 DirectAPKhash/package21/min29/establishedcertificateverified. Fourhashsafe
 metadata record ticket30/review21-build; APK/signingsecrets outsideGit.
 21unpublishedpendingtests;20oldsourceunpublished,19publiccurrent.
+
+Correctedqueue10dc28run38737081528 SUCCESS13PASS262.904s. Same17run38737085717
+FAIL5privateQueuedwait13reported307.115s. RootfailurecancelPNGseen/5XMLparsed:
+keyboardopen/pannedapp, noproofSendtapinvokedaction. PrivatefixturebddclosesIME
+andpositivereadySendbeforephysicaltap, matchingexistinggroupfixture; keepsall
+queue/original/wirechecks. Keyboard-opencompositionpolishtrackedseparately35.
+GroupUI10f1bb38737249746 overallFAIL butactions1PASS11.104/mixed1PASS8.251/
+group22PASS126.68s, thenoldreactionPIDprep1likeoffscreen,killunreached/restored1PASS.
+RootPNGseen/XMLparsed34pxviewport. GroupUI17f1bb38737253681 timeout60exit124,
+lastcachedCopycaptureat55s/rootPNGseen/XMLparsed, nocausalcompletionclaim.
+27074841 scrollsreactionandaddsphase+separatetimeoutwindowdiagnosticswithout
+budgetincrease. Newgroup10/17runs38738539710/38738543254 andqueue17bdd38738706055
+active. Allfourattemptfamiliesretainedqualified. No fullacceptance yet.

@@ -1,0 +1,56 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatProcessRecoveryTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.GroupChatProcessRecoveryTest:
+INSTRUMENTATION_STATUS: test=terminateWithGroupKeyHistoryDraftAndUncertainOriginal
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatProcessRecoveryTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains '1 like' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.GroupChatProcessRecoveryTest.assertUi(GroupChatProcessRecoveryTest.kt:188)
+	at nl.davidengelen.redsquare.GroupChatProcessRecoveryTest.terminateWithGroupKeyHistoryDraftAndUncertainOriginal$lambda$19$lambda$18(GroupChatProcessRecoveryTest.kt:108)
+	at nl.davidengelen.redsquare.GroupChatProcessRecoveryTest.$r8$lambda$HOzugKLybHVwZzp2Fqgye5mLgxw(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupChatProcessRecoveryTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupChatProcessRecoveryTest.launch(GroupChatProcessRecoveryTest.kt:199)
+	at nl.davidengelen.redsquare.GroupChatProcessRecoveryTest.terminateWithGroupKeyHistoryDraftAndUncertainOriginal(GroupChatProcessRecoveryTest.kt:88)
+
+INSTRUMENTATION_STATUS: stream=
+Error in terminateWithGroupKeyHistoryDraftAndUncertainOriginal(nl.davidengelen.redsquare.GroupChatProcessRecoveryTest):
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains '1 like' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.GroupChatProcessRecoveryTest.assertUi(GroupChatProcessRecoveryTest.kt:188)
+	at nl.davidengelen.redsquare.GroupChatProcessRecoveryTest.terminateWithGroupKeyHistoryDraftAndUncertainOriginal$lambda$19$lambda$18(GroupChatProcessRecoveryTest.kt:108)
+	at nl.davidengelen.redsquare.GroupChatProcessRecoveryTest.$r8$lambda$HOzugKLybHVwZzp2Fqgye5mLgxw(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupChatProcessRecoveryTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupChatProcessRecoveryTest.launch(GroupChatProcessRecoveryTest.kt:199)
+	at nl.davidengelen.redsquare.GroupChatProcessRecoveryTest.terminateWithGroupKeyHistoryDraftAndUncertainOriginal(GroupChatProcessRecoveryTest.kt:88)
+
+INSTRUMENTATION_STATUS: test=terminateWithGroupKeyHistoryDraftAndUncertainOriginal
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 5.104
+There was 1 failure:
+1) terminateWithGroupKeyHistoryDraftAndUncertainOriginal(nl.davidengelen.redsquare.GroupChatProcessRecoveryTest)
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains '1 like' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.GroupChatProcessRecoveryTest.assertUi(GroupChatProcessRecoveryTest.kt:188)
+	at nl.davidengelen.redsquare.GroupChatProcessRecoveryTest.terminateWithGroupKeyHistoryDraftAndUncertainOriginal$lambda$19$lambda$18(GroupChatProcessRecoveryTest.kt:108)
+	at nl.davidengelen.redsquare.GroupChatProcessRecoveryTest.$r8$lambda$HOzugKLybHVwZzp2Fqgye5mLgxw(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupChatProcessRecoveryTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupChatProcessRecoveryTest.launch(GroupChatProcessRecoveryTest.kt:199)
+	at nl.davidengelen.redsquare.GroupChatProcessRecoveryTest.terminateWithGroupKeyHistoryDraftAndUncertainOriginal(GroupChatProcessRecoveryTest.kt:88)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
