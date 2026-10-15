@@ -89,7 +89,7 @@ class GroupChatActionsPreviewTest {
                         scenario.recreate();open();waitFor(body)
                         ui.onNodeWithContentDescription("Group messages").performScrollToNode(hasText(body))
                         ui.onNodeWithText(body).assertIsDisplayed()
-                        ui.onAllNodesWithText("Copy").onLast().assertIsDisplayed().performClick()
+                        ui.onAllNodesWithText("Copy").onLast().performScrollTo().assertIsDisplayed().performClick()
                         check(clipboard.primaryClip!!.getItemAt(0).text.toString()==body)
                         check(clipboard.primaryClipDescription!!.extras!!.getBoolean("android.content.extra.IS_SENSITIVE"))
                         val reopened=requireNotNull(store.load(key.publicKey))
@@ -98,7 +98,7 @@ class GroupChatActionsPreviewTest {
                         check(wallets.loadExisting().exportJson()==fixture.exportJson()&&AndroidBackendStore(context).load()==backend)
                         check(peer.transactions.size==1&&peer.relayedMessages.size==1)
                         captureNativeScreen(File(context.cacheDir,"group-chat-actions-evidence/reply-cached-copy.png"),body)
-                        ui.onAllNodesWithText("Reply").onLast().assertIsDisplayed().assertIsEnabled().performClick()
+                        ui.onAllNodesWithText("Reply").onLast().performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
                         waitFor("Remove reply")
                         val ownBody="Replying to my own message"
                         ui.onNodeWithText("Message").performTextInput(ownBody)
