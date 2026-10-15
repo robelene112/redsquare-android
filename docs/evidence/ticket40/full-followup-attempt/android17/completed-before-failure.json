@@ -1,0 +1,68 @@
+[
+  {
+    "log": "appearance-ui.txt",
+    "result": [
+      "OK (1 test)"
+    ]
+  },
+  {
+    "log": "chat-image-history-ui.txt",
+    "result": [
+      "OK (2 tests)"
+    ]
+  },
+  {
+    "log": "chat-images-ui.txt",
+    "result": [
+      "OK (10 tests)"
+    ]
+  },
+  {
+    "log": "chat-keyboard-ui.txt",
+    "result": [
+      "OK (4 tests)"
+    ]
+  },
+  {
+    "log": "chat-mute-process/recovered.txt",
+    "result": [
+      "OK (1 test)"
+    ]
+  },
+  {
+    "log": "chat-mute-process/restored.txt",
+    "result": [
+      "OK (1 test)"
+    ]
+  },
+  {
+    "log": "chat-mute-ui.txt",
+    "result": [
+      "OK (8 tests)"
+    ]
+  },
+  {
+    "log": "chat-photo-group-process/recovered.txt",
+    "result": [
+      "OK (1 test)"
+    ]
+  },
+  {
+    "log": "chat-photo-group-process/restored.txt",
+    "result": [
+      "OK (1 test)"
+    ]
+  },
+  {
+    "log": "chat-photo-private-process/recovered.txt",
+    "result": [
+      "OK (1 test)"
+    ]
+  },
+  {
+    "log": "chat-photo-private-process/restored.txt",
+    "result": [
+      "OK (1 test)"
+    ]
+  }
+]
