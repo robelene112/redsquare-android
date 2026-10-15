@@ -112,9 +112,8 @@ class ChatQueuePreviewTest {
                             android.os.SystemClock.sleep(6_000)
                             check(peer.transactions.isEmpty()&&peer.relayedMessages.isEmpty())
                         } else if(archived) {
-                            ui.waitUntil(60_000){peer.transactions.isNotEmpty()}
+                            ui.waitUntil(60_000){peer.transactions.isNotEmpty()&&indexed.get()!=null}
                             check(indexed.get()==originalCandidate.envelope())
-                            peer.disconnectAfterTransaction=false
                             scenario.moveToState(androidx.lifecycle.Lifecycle.State.RESUMED)
                             ui.waitUntil(20_000) {
                                 check(peer.transactions.size==1){"Archived original was broadcast again: ${peer.transactions.size} raw operations"}
