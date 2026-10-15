@@ -1,0 +1,193 @@
+{
+  "probe": "public-registry-first-late-host-observation",
+  "nodeVersion": "v24.13.0",
+  "wasmSha256": "f59be69dbb949368ce1fc7ef47d414cbe0281a86a206fe4bfb1128a4d087e01e",
+  "deadlineMs": 12000,
+  "productionStateModified": false,
+  "nativeAppExecution": false,
+  "results": [
+    {
+      "endpoint": "wss://saito.davidengelen.nl/wsopen",
+      "observedAt": "2026-10-15T16:36:12.100Z",
+      "readOnly": true,
+      "publicFixtureIdentity": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+      "requests": [
+        {
+          "index": 1,
+          "body": {
+            "request": "registry query",
+            "data": {
+              "request": "registry namecheck",
+              "identifier": "NativeReadOnlyProbe20261015@saito"
+            }
+          },
+          "windowMs": 12000,
+          "observedMs": 12000,
+          "windowCompleted": true,
+          "replies": [
+            {
+              "ordinal": 1,
+              "type": 13,
+              "elapsedMs": 7.026,
+              "bytes": 21,
+              "sha256": "42421fac2271e452f6e4aede4ef17c7b1829a91edcb1dc4a768e53dcd12361e3",
+              "classification": "exact-dispatcher-fallback",
+              "body": {
+                "err": "no response"
+              }
+            }
+          ],
+          "dropped": 0,
+          "afterDeadline": 0
+        },
+        {
+          "index": 2,
+          "body": {
+            "request": "registry query",
+            "data": {
+              "request": "registry namecheck",
+              "identifier": "Saitoverse@saito"
+            }
+          },
+          "windowMs": 12000,
+          "observedMs": 12000,
+          "windowCompleted": true,
+          "replies": [
+            {
+              "ordinal": 1,
+              "type": 13,
+              "elapsedMs": 7.495,
+              "bytes": 21,
+              "sha256": "42421fac2271e452f6e4aede4ef17c7b1829a91edcb1dc4a768e53dcd12361e3",
+              "classification": "exact-dispatcher-fallback",
+              "body": {
+                "err": "no response"
+              }
+            }
+          ],
+          "dropped": 0,
+          "afterDeadline": 0
+        }
+      ],
+      "services": [
+        "arcade",
+        "archive",
+        "chat",
+        "Explorer",
+        "relay",
+        "redsquare",
+        "registry"
+      ],
+      "authenticatedPeer": "tRFyaSvHix3HDHguPRcb7cLooiTnBKquFgahkuScxfrg",
+      "observationCompleted": true,
+      "disconnectedReason": "socket-closed"
+    },
+    {
+      "endpoint": "wss://saito.io/wsopen",
+      "observedAt": "2026-10-15T16:36:12.140Z",
+      "readOnly": true,
+      "publicFixtureIdentity": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+      "requests": [
+        {
+          "index": 1,
+          "body": {
+            "request": "registry query",
+            "data": {
+              "request": "registry namecheck",
+              "identifier": "NativeReadOnlyProbe20261015@saito"
+            }
+          },
+          "windowMs": 12000,
+          "observedMs": 12000,
+          "windowCompleted": true,
+          "replies": [
+            {
+              "ordinal": 1,
+              "type": 13,
+              "elapsedMs": 169.672,
+              "bytes": 21,
+              "sha256": "42421fac2271e452f6e4aede4ef17c7b1829a91edcb1dc4a768e53dcd12361e3",
+              "classification": "exact-dispatcher-fallback",
+              "body": {
+                "err": "no response"
+              }
+            },
+            {
+              "ordinal": 2,
+              "type": 13,
+              "elapsedMs": 173.334,
+              "bytes": 2,
+              "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "classification": "array",
+              "rowCount": 0
+            }
+          ],
+          "dropped": 0,
+          "afterDeadline": 0
+        },
+        {
+          "index": 2,
+          "body": {
+            "request": "registry query",
+            "data": {
+              "request": "registry namecheck",
+              "identifier": "Saitoverse@saito"
+            }
+          },
+          "windowMs": 12000,
+          "observedMs": 12000,
+          "windowCompleted": true,
+          "replies": [
+            {
+              "ordinal": 1,
+              "type": 13,
+              "elapsedMs": 169.735,
+              "bytes": 21,
+              "sha256": "42421fac2271e452f6e4aede4ef17c7b1829a91edcb1dc4a768e53dcd12361e3",
+              "classification": "exact-dispatcher-fallback",
+              "body": {
+                "err": "no response"
+              }
+            },
+            {
+              "ordinal": 2,
+              "type": 13,
+              "elapsedMs": 173.382,
+              "bytes": 431,
+              "sha256": "476ad908fbc8c9f9efe5a8989a3a14ff5a0205739935ea5629868e2d20d1290e",
+              "classification": "array",
+              "rowCount": 1
+            }
+          ],
+          "dropped": 0,
+          "afterDeadline": 0
+        }
+      ],
+      "services": [
+        "arcade",
+        "archive",
+        "bugs",
+        "chat",
+        "egld",
+        "Explorer",
+        "faucet",
+        "giphy",
+        "graffiti: board",
+        "league",
+        "mailrelay",
+        "mixin",
+        "modtools",
+        "popup",
+        "recovery",
+        "redsquare",
+        "registry",
+        "relay",
+        "stack",
+        "Store",
+        "vault"
+      ],
+      "authenticatedPeer": "wnUrrEMtWhwwpULFdeWBto8McZzcydqvpJpfEgLQJx2g",
+      "observationCompleted": true
+    }
+  ]
+}
