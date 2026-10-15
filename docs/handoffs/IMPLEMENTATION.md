@@ -33,7 +33,9 @@ unproved. Bothattemptsretained6hash1XMLeach/rootoriginalsseen.
 
 Fixture55e528e0 comparesEditableText.text exactliteral ratherthanstyledobject,
 keepsenabled/displayed20s/raster/no-wire; furtherfailureretainsunmergedsemantics.
-Ownedfocus10run38717605044 ACTIVE exact55e; neverdispatchsame-scopeuntilcomplete.
+Run38717605044 exact55e FAILEDtestcompilemissingsemantics.getOrNull import116,
+no runtimecaseexecuted; retained3hashcompileevidence. Importcorrected788ffb8c.
+Ownedfocus10run38718053451 ACTIVE exact788f; neverdispatchsame-scopeuntilcomplete.
 Noownedlocalbuild. Strictphoto/canonicalescapeddivcaption+nativepicker/private
 composer nowimplemented, no storage/queueprotocolchanges. ActualpinnedA/B
 Browser.sanitize+offlineChromiumDOM/RGB exactcaption proof PASS, retained3hashes
