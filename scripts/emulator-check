@@ -66,6 +66,41 @@ verify_appearance() {
         > "$evidence/appearance-evidence.tar" || true
     [[ "$appearance_exit" == 0 ]] && grep -q 'OK (1 test)' "$evidence/appearance-ui.txt"
 }
+verify_final_diagnostic() {
+    adb shell am start -n nl.davidengelen.redsquare.dev/nl.davidengelen.redsquare.CompatibilityActivity
+    # Software emulation can briefly show a System UI boot ANR. Dismiss only that
+    # system dialog; an application ANR remains a failure, never a successful check.
+    for ((attempt=0; attempt<12; attempt++)); do
+        sleep 3
+        timeout 60 adb shell uiautomator dump /sdcard/redsquare-ui.xml >/dev/null || continue
+        adb pull /sdcard/redsquare-ui.xml "$evidence/before.xml" >/dev/null
+        action=$(python3 "$repo_dir/scripts/diagnostic-ui.py" "$evidence/before.xml")
+        read -r kind x y <<< "$action"
+        if [[ "$kind" == run ]]; then adb shell input tap "$x" "$y"; break; fi
+        if [[ "$kind" == system-wait ]]; then adb shell input tap "$x" "$y"; fi
+    done
+    [[ "${kind:-}" == run ]] || { echo 'Diagnostic action is missing' >&2; exit 1; }
+    for ((attempt=0; attempt<30; attempt++)); do
+        adb shell uiautomator dump /sdcard/redsquare-ui.xml >/dev/null
+        adb pull /sdcard/redsquare-ui.xml "$evidence/after.xml" >/dev/null
+        if grep -q 'Identity created and signature verified' "$evidence/after.xml"; then break; fi
+        sleep 1
+    done
+    grep -q 'Identity created and signature verified' "$evidence/after.xml"
+    adb exec-out screencap -p > "$evidence/diagnostic.png"
+    adb shell getprop ro.build.version.sdk > "$evidence/sdk.txt"
+    echo "PASS: native diagnostic on Android SDK $(tr -d '\r\n' < "$evidence/sdk.txt")"
+}
+# A retained full run may need only its unchanged legacy-update/diagnostic tail.
+# This opt-in scope is never a substitute for the complete application proof.
+if [[ "${TEST_SCOPE:-full}" == release-tail* ]]; then
+    python3 "$repo_dir/scripts/wallet-device-check" --evidence "$evidence/wallet-cold-launch"
+    [[ "${TEST_PUBLIC_SIGNED_UPDATE:-0}" == 1 ]]
+    python3 "$repo_dir/scripts/ci-review-update" 5 8 --evidence "$evidence/signed-update"
+    verify_final_diagnostic
+    printf '%s\n' 'Release tail only: cold wallet, immutable signed5-to8 update and diagnostic. Requires separately retained full application acceptance.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == beta-ui* ]]; then
     verify_appearance
     printf '%s\n' 'Focused native appearance only; full beta acceptance not run.' > "$evidence/scope.txt"
@@ -898,26 +933,4 @@ verify_preview_update
 if [[ "${TEST_PUBLIC_SIGNED_UPDATE:-0}" == 1 ]]; then
     python3 "$repo_dir/scripts/ci-review-update" 5 8 --evidence "$evidence/signed-update"
 fi
-adb shell am start -n nl.davidengelen.redsquare.dev/nl.davidengelen.redsquare.CompatibilityActivity
-# Software emulation can briefly show a System UI boot ANR. Dismiss only that
-# system dialog; an application ANR remains a failure, never a successful check.
-for ((attempt=0; attempt<12; attempt++)); do
-    sleep 3
-    timeout 60 adb shell uiautomator dump /sdcard/redsquare-ui.xml >/dev/null || continue
-    adb pull /sdcard/redsquare-ui.xml "$evidence/before.xml" >/dev/null
-    action=$(python3 "$repo_dir/scripts/diagnostic-ui.py" "$evidence/before.xml")
-    read -r kind x y <<< "$action"
-    if [[ "$kind" == run ]]; then adb shell input tap "$x" "$y"; break; fi
-    if [[ "$kind" == system-wait ]]; then adb shell input tap "$x" "$y"; fi
-done
-[[ "${kind:-}" == run ]] || { echo 'Diagnostic action is missing' >&2; exit 1; }
-for ((attempt=0; attempt<30; attempt++)); do
-    adb shell uiautomator dump /sdcard/redsquare-ui.xml >/dev/null
-    adb pull /sdcard/redsquare-ui.xml "$evidence/after.xml" >/dev/null
-    if grep -q 'Identity created and signature verified' "$evidence/after.xml"; then break; fi
-    sleep 1
-done
-grep -q 'Identity created and signature verified' "$evidence/after.xml"
-adb exec-out screencap -p > "$evidence/diagnostic.png"
-adb shell getprop ro.build.version.sdk > "$evidence/sdk.txt"
-echo "PASS: native diagnostic on Android SDK $(tr -d '\r\n' < "$evidence/sdk.txt")"
+verify_final_diagnostic

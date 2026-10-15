@@ -108,6 +108,15 @@ the owner chooses whether to start it. It is not required for every app-wide gri
    release assembly/lint and the entire device suite; record both runs, unchanged
    acceptance assertions and production source equivalence. Production changes
    require fresh full acceptance on both versions.
+   If a full run has completed every application class, protected recovery and
+   public-read gate, but fails only in the later observer of immutable public
+   preview updates or final diagnostic, retain that failed run with its actual
+   conclusion. A fixture-only observer correction may finish those tail checks
+   in `release-tail` or `release-tail-android17`, which also runs core/release/lint. Record both
+   runs, prove unchanged production and application assertions, and review the
+   combined complete evidence. The original failed run never becomes SUCCESS.
+   This exception does not cover application failures, missing application gates,
+   changed production, or weakened acceptance assertions.
    Alternatively, dispatch `full-android10` and `full-android17` for the same
    commit concurrently. Each runs source/core/release/lint and the complete
    selected SDK suite, mapped to the harness's `full` scope. Record and inspect

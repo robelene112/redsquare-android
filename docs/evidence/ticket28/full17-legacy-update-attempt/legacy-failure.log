@@ -1,0 +1,35 @@
+native-proof	Verify Android 17 runtime	2026-10-15T04:48:38.4974775Z Success
+native-proof	Verify Android 17 runtime	2026-10-15T04:48:39.6357396Z Performing Streamed Install
+native-proof	Verify Android 17 runtime	2026-10-15T04:48:39.6358282Z Success
+native-proof	Verify Android 17 runtime	2026-10-15T05:01:45.0754203Z PASS: posting process interruption and cold reconciliation
+native-proof	Verify Android 17 runtime	2026-10-15T05:03:29.7976477Z PASS: queued posting process interruption and cold delivery
+native-proof	Verify Android 17 runtime	2026-10-15T05:04:58.1212757Z PASS: social action process interruption and cold reconciliation
+native-proof	Verify Android 17 runtime	2026-10-15T05:05:42.5860867Z PASS: quote process interruption and cold reconciliation
+native-proof	Verify Android 17 runtime	2026-10-15T05:06:39.4584609Z PASS: author edit process interruption and cold reconciliation
+native-proof	Verify Android 17 runtime	2026-10-15T05:06:47.9734816Z PASS: author delete process interruption and cold reconciliation
+native-proof	Verify Android 17 runtime	2026-10-15T05:07:46.3779299Z PASS: image draft and candidate process recovery
+native-proof	Verify Android 17 runtime	2026-10-15T05:07:55.4510077Z PASS: queued posting process interruption and cold delivery
+native-proof	Verify Android 17 runtime	2026-10-15T05:10:45.9859230Z PASS: profile draft and candidate process recovery
+native-proof	Verify Android 17 runtime	2026-10-15T05:12:27.0695548Z PASS: cold Registry request recovery
+native-proof	Verify Android 17 runtime	2026-10-15T05:14:57.3880160Z PASS: cold personal-controls recovery
+native-proof	Verify Android 17 runtime	2026-10-15T05:16:57.4051233Z PASS: cold report recovery
+native-proof	Verify Android 17 runtime	2026-10-15T05:19:03.2984668Z PASS: cold authenticated payment recovery
+native-proof	Verify Android 17 runtime	2026-10-15T05:21:26.9015808Z PASS: cold notification recovery
+native-proof	Verify Android 17 runtime	2026-10-15T05:23:24.6395755Z PASS: pending export process interruption and authenticated recovery
+native-proof	Verify Android 17 runtime	2026-10-15T05:28:06.3669514Z PASS: replacement process interruption and cold wallet recovery
+native-proof	Verify Android 17 runtime	2026-10-15T05:28:29.2640099Z PASS: cached feed after cold process launch
+native-proof	Verify Android 17 runtime	2026-10-15T05:29:22.6078337Z PASS: wallet UI continuity
+native-proof	Verify Android 17 runtime	2026-10-15T05:30:54.6815360Z Traceback (most recent call last):
+native-proof	Verify Android 17 runtime	2026-10-15T05:30:54.6816298Z   File "/home/runner/work/redsquare-android/redsquare-android/scripts/wallet-device-check", line 92, in <module>
+native-proof	Verify Android 17 runtime	2026-10-15T05:30:54.6817004Z     if open_address() != address:
+native-proof	Verify Android 17 runtime	2026-10-15T05:30:54.6817237Z        ^^^^^^^^^^^^^^
+native-proof	Verify Android 17 runtime	2026-10-15T05:30:54.6817642Z   File "/home/runner/work/redsquare-android/redsquare-android/scripts/wallet-device-check", line 75, in open_address
+native-proof	Verify Android 17 runtime	2026-10-15T05:30:54.6818097Z     raise AssertionError("Wallet did not open")
+native-proof	Verify Android 17 runtime	2026-10-15T05:30:54.6818640Z AssertionError: Wallet did not open
+native-proof	Verify Android 17 runtime	2026-10-15T05:30:54.7264571Z Traceback (most recent call last):
+native-proof	Verify Android 17 runtime	2026-10-15T05:30:54.7265156Z   File "/home/runner/work/redsquare-android/redsquare-android/scripts/ci-review-update", line 50, in <module>
+native-proof	Verify Android 17 runtime	2026-10-15T05:30:54.7265741Z     subprocess.run(["python3", str(repo / "scripts/wallet-device-check"), "--before", str(apks[0]),
+native-proof	Verify Android 17 runtime	2026-10-15T05:30:54.7266393Z   File "/usr/lib/python3.12/subprocess.py", line 571, in run
+native-proof	Verify Android 17 runtime	2026-10-15T05:30:54.7269093Z     raise CalledProcessError(retcode, process.args,
+native-proof	Verify Android 17 runtime	2026-10-15T05:30:54.7270546Z subprocess.CalledProcessError: Command '['python3', '/home/runner/work/redsquare-android/redsquare-android/scripts/wallet-device-check', '--before', '/home/runner/work/redsquare-android/redsquare-android/.scratch/update-artifacts/5.apk', '--after', '/home/runner/work/redsquare-android/redsquare-android/.scratch/update-artifacts/8.apk', '--evidence', '/home/runner/work/redsquare-android/redsquare-android/.scratch/device-evidence/api-37.0/signed-update']' returned non-zero exit status 1.
+native-proof	Verify Android 17 runtime	2026-10-15T05:30:54.7441633Z ##[error]Process completed with exit code 1.

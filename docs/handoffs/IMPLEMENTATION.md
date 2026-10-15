@@ -1,6 +1,6 @@
 # Sequential implementation handoff
 
-Updated 2026-10-14. The owner authorized implementing all 35 proposed
+Updated 2026-10-15. The owner authorized implementing all 35 proposed
 tickets sequentially, committing after each, and reviewing the app at the end.
 Continue without routine permission requests or a grill per ticket. Ask only
 one question at a time when a material choice really needs the owner.
@@ -48,166 +48,81 @@ exacthash/directsignature/package/version/min29 andimmutable16 verified. Public-
 records docs/evidence/ticket27/signed-preview17-published. Preparedrecordsremain
 historical. No ownedlocalbuild/proofactive. No node/service/ingress/storechanges.
 
-Current sequential #28 offline private/group Chat queue, assigned@me.
-Reviewbase09e0c58d7f51dcc334a35d7ac28ecc77a61d48ef; nativeblockers11/25/26closed.
-First actualRED10run38661648643 at6bf41c3c:onefail24.199s missingQueued50 after
-actualSend; originalunknown/error/Retry image inspected, laterrecreate/cancel/draft/
-no-wiretailunexecuted. Retained docs/evidence/ticket28/private-cancel-red-android10.
-FirstprivateQUEUEDminimum1ac274ab compile20120PASS3m35; historymergefindingcorrected
-28714c2151e72a544cb39f5ff8a093a8e9855041. Unclaimedoriginalstaysexclusivelyinwork,
-pendingbubbleonly; RawclaimedUNKNOWN, submittedthenordinarycache. Guardedcancel
-restorestextwithoutcacheentry. SeparatecorrectionSpec0/Standards0.
-CorrectedprivatecancelGREEN10run38663341602 atac5c8608:1PASS15.786s,
-productidentical28714c21. ExactEditableText/cancel/noordinarybubble/reachablepeer
-zeroRaw/Relay/wallet/backendpreservation pass; originalcancelleddraftseen.
-Priorlabelattempt38662611803 1fail7.354s remainsqualified/retained; notdeliveryproof.
-BackgroundRED10run38663935309 at056d2f4a:2cases1PASS(cancel)/1FAIL123.147s,
-noRelay77within60s afterQueued/recreate/retainedoriginal/Lifecycle.CREATED.
-ExactRaw/Relay/decrypt/FWD/counttailunexecuted; originalQueued/backgroundwindowseen,
-retainedprivate-background-red-android10. Minimume158 automaticflagdefaultfalse,
-onlyQueuedenabled, WorkManagerCONNECTED/publicmetadata/guardedoriginals, foreground
-session andsharedDeliveryAttempts. ReviewSpecprogressracedroppedwhilesending and
-Standardsworkercontextdup corrected9aca19a214aeb8cc259849fa64ca201365885cda;
-separateboundedreviews0/0. Local8046FAILED1m4 missingauthor/profileoldlockrefs,
-allcorrected. Correctedlocal15564PASS3m29s. Nativefocused10run38665208539 SUCCESS exact9aca19a2:
-2PASS47.426s backgroundsameoriginalRaw/Relay/decrypt/FWD/oneeach pluscancelallpass.
-Originalresumedcaptureseen, retainedprivate-background-green-android10. No owned
-localbuild. Backendregression10run38665893967 SUCCESS atd81d4532:3PASS32.44s. ActualSettings
-bothservers/originalOWNERbinding/zeroRawRelaywhileOFFICIAL/identicaloneafterreturn
-pass; originalbackendresultseen. Productionunchanged9aca19a2. Identityregression10run38666517499 SUCCESS atc9d282bc:4PASS70.353s, protected
-replacement1to3/oldQueuehidden/zeroRawRelay/retainedoriginal+pendingwarning,
-restore1oneidenticalRawRelay/FWD andallpreviouscasespass. Originalidentityresult
-seen. NoUIimportacceptanceclaimed. Productionunchanged9aca19a2. ArchiveRED10run38667380351 at82d5215d:5cases4PASS/1FAIL105.288s at119 actual
-secondRaw afterfirstindexed/disconnected; originalSUBMITTED/unconfirmed/Retryseen.
-Available/query/noRelay/recreatetailunexecuted. Retainedprivate-archive-red-android10.
-Minimum e4a27da4 exactsignature+conversation/limit1, verifiessignedpayloadmatch,
-wrong/malformedaborts, emptyallowsidenticalretry, matchAVAILABLE/unconfirmed,
-finishedworkexcluded. Local35066PASS3m24s/debug/test. Bothreviewaxes0additional
-findings; rootknownoldgenericautoRetrycopy correctedwithdedicatedautomaticresource,
-legacycopyunchanged. CorrectedArchiveGREEN10run38668414092 SUCCESS exact313f2e76:5PASS78.289s, oneRaw/
-exactsiglookup/authenticoriginal/AVAILABLE/unconfirmed/noRelay/noextraRaw/recreate,
-allpriorcasespass. Originalarchivedresultseen. Bothsource/evidenceaxesqualifyknown
-residualSpecfinding: explicitautomaticRetryerrorcanstayafterlaterworkercompletion.
-WrongArchiveRED10run38669048659 exact369395c9:6cases5PASS/1FAIL118.004s at140
-oldautomaticerrorafterAVAILABLE. Actualwrongrowrefusal/original/noRawRelay,
-explicitRetryerror, Archive repairAVAILABLEreached; originalshowscontradiction.
-Laterfinalquery/noRelay/recreatetailunexecutedforthiscase; otherfivepass. Retained
-private-wrong-archive-red-android10. ProposedRetryorderinghypothesisdidnotblockthis
-run, noothercausalclaim. Minimumcompletionerrorfixnowapplied: clearonmatching
-incomplete→completeprogress, accuratecopyforpendingauto andrace-completedRetry;
-newSend/savefailureagainstoldercompletedrecordstaysvisible. Correction2d0ca6a7251277a35ac2ea3372c36681c1cde3fb separateSpec0/Standards0.
-Local61826PASS3m12s. Focusednative10run38670045027 exact2d0ca6a7 FAILED6cases
-5PASS/1FAIL164.035s, backendcaseopen70contactwait BEFOREfirstSend. Originalfeed
-PNG/XMLseen; disabled-wallet navigation/readinesshypothesisnotprovedcause.
-WrongArchive/completioncasePASSalltail, originalAvailablewithoutoldErrorseen.
-Otherfourcasespass. Retainedprivate-completion-navigation-attempt-android10.
-Fixture2f8ecec1 requiresdisplayed/enabledclicktarget+positiveGroupsdestination,
-same20s gates, noappchange. New7thSTORAGEregression obstructsprotectedfixturefile
-onlyafterdurabledraft, Sendmustpreservetext/noQueued; encryptedbytesrestoredfinally,
-repair/reopenmustnotautosend. No productionchange. RestoredChatnavigationfixa662f5edf5eb6d8adf432da93a84ede64d7196e2 Spec0/Standards0:
-recognizeGroupsorreadyfeednav, do notclickplainrestoredheading. Seven-case10run
-38671197348 FAILED:6PASS/1FAIL148.439s, onlyStorage92 SetTextselector missesdisabled
-field. OriginalPNG/XMLexactdraftpreserved/errorseen. Laterrepair/noWiretailunexecuted.
-Retainedprivate-storage-selector-attempt-android10. Selector-onlyEditableTextfix
-keepssameexactvalue/alltailasserts. Selectorab30b201 Spec0/Standards0; focused10run38672255585 SUCCESS7PASS153.121s.
-Storageexactdisabledtext/noQueued/repair/enabledexactdraft/noautomatic/noWirepass.
-Retainedprivate-seven-green-android10. Grouptracer8c61c3f8 Spec0/Standards0 after
-asyncCancelreadinesscorrection; focused10run38672887644 FAILED8cases7privatePASS/1groupFAIL173.562s.
-NoQueued75afterfirstSend; originalunknown/groupErrorseen. Latercanceltailunexecuted.
-Retainedgroup-cancel-red-android10. Groupcancelminimumseparatequeuedoriginal/
-causalpreparationmembership/noordinaryhistoryuntilclaim/currentmembershipguard/
-exactdraftCancel/preservedpriorstatus+key nowapplied; defaultmanualAPIunchanged.
-No groupautomaticresume. Correction320b5cad Spec0/Standards0 carriesvalidated
-messageforrender/requiredonQuote. Local13877PASS1m27s/compileDebugKotlin, focused10run38673764737
-exact320b5cad SUCCESS8PASS135.049s, groupCancel/allprivate7pass.
-Retainedgroup-cancel-green-android10/rootoriginalsseen. New9thgroupbackground
-tracercorrection49fb917d Spec0/Standards0. Focused10run38674561631 exact49fb917d
-FAILED9cases8PASS/1FAIL287.766s at101 noRelay+durableFWDwithin60swhileCREATED.
-Exactwire/history/key/FWDtailunexecuted. Retainedgroup-background-red-android10.
-Groupautominimum nowusesexistingworker/guard/singleflight, durableautomaticflag
-defaultfalse/controlreset, sharedexactArchiveoriginal/private+groupcallers and
-progressobservingUI. Local77294PASS1m33s/compileDebugKotlin. Focused10run38675689342 exact65c57b5c
-FAILED9cases8PASS/1FAIL240.366s at104 wrongrecipientexpectationonlymember.
-ActualRelay+durableFWDwhileCREATED/exactRawRelayoriginalreached. Factory+existing
-independentgroupcasesrequires[sender,member]; exactassertioncorrected/noappchange.
-Laterhistory/key/resumedUItailunexecuted. Retainedgroup-background-attempt-android10.
-Focusedgroup2scope308e0f4e Spec0/Standards0, full9unchanged. Correctedruntimepending;
-Focusedgroup2run38676639132 FAILED1cancelPASS/1backgroundFAIL17.487s
-at78 beforefirstedit/Send, emptyMessagefielddisabled(originalseen). Preciseinitial
-causeunproved; addpositiveenabledSetTextinitialreadinesssame20s, noappchanges.
-Retainedgroup-background-second-attempt-android10. Correctione402a0ef
-Spec0/Standards0; focusedgroup2run38677143631 SUCCESS2PASS51.392s.
-ActualbackgroundexactRawRelay/outputs/decode/history/key/FWD/resumedUIpassand
-cancelpass. Retainedgroup-background-green-android10/rootresultseen. Added2
-regressions forexistingfreshselfremoval+Cancel andexactArchivegrouporiginal
-reconciliation, noappchange. Focusedgroup4/normalclass11firstexecutionpending.
-Group4run38677817471 exact846440f8 SUCCESS4PASS112.294s. Removedauthor
-zeroWire/Cancel andexactArchivegroupsig/reconcile/no2ndRaw/noRelay/recreatepass;
-retainedgroup-four-green-android10/rootoriginalsseen. Local28656testcompilePASS
-1m27s on3e8d62bd/equivalent31bed. Exact31bedfocusedgroup6run38678478161 ACTIVE
-FAILED5PASS/1storageFAIL122.916s at105 Senddisabledbeforetap. Other5inclidentity/
-backendisolationpass. Retainedgroup-six-attempt-android10; fixturefaultcorrected
-activatewithactualenabledSendsemanticsaction/lockbeforeasyncpersist, unchanged
-asserts/restoration/noappchanges. Actualprocessrun38678479983 SUCCESSprivatePID
-3213→3645/group4008→4309, continuity/exactoriginalonce/history/key/decode/FWDUI/
-installationrestorationpass. Retainedqueued-process-green-android10/rootoriginalsseen.
-Whole28sourcereview09e0...31bedSpec0/Standards0(all22changedsourcefiles). Newfixture
-correction0dfa721b Spec0/Standards0, process26hash4XML/groupattempt30hash13XML
-verified. Smallpendingbubbleordering/oncepositionUIcorrection87accb13 applied,
-no protocol/persistencechange. Local47712app+testcompilePASS2m53sexact87accb13/equivalente3edf. Noownedbuild. BoundedUI87accSpec0/Standards0. Exacte3edf1c9 finalfulls
-10run38679330339 ACTIVE/17run38679332827 FAILED13queuecases8PASS5FAIL276.461s.
-AllfivegroupregularinitialSend→Queued131timeout, private7+groupstoragepass.
-Originalkeyboardopen/shiftedwindowseen, specificcauseunproved. Retained
-full17-queue-tap-attempt. TestonlyIMEclose+positivevisibleenabledSendcorrection,
-same20s/allassertions. SharedstorageSendreadyandfaultatomic. Fullqueuechecks
-nowimmediatelyafterappearance(beforeoldChat)tofailfast, allgatesunchanged.
-Corrected fixture c3c99d25b94909a6745cd40824002c456f0007cf reviewed Spec0 and
-Standards0, including 55 hashes and 25 XML from the first full17 attempt.
-Corrected full17run38681573465 at c3c99d25 FAILED after all13queuecases PASS
-271.344s and privateactualPID5422→5500/exactoriginalonce/fullcontinuity/FWDUI/
-restorationPASS. GroupPIDpreparation failedfirstSend→Queued76,1case25.335s;
-noactualgroupdeath/recoverytail. Originalopenkeyboard/shiftedwindowseen, precise
-causeunproved. GrouprestorationPASS0.135s, laterfullgatesunrun. Retained
-full17-process-tap-attempt,85hash35XML, boundedreviewsSpec0/Standards0.
-PIDfixtureclosesIMEthenexistingvisibleenabledclickSendhelper,same20s/allassertions.
-Noappchange. Corrected827bf82e06e5740250fadafcdeace70ed59a93b8 full17run38682943156
-ACTIVE public_feed_read=true. Localcompile actualDocker822b31b3132f exit0 verified
-via dockerwait7890 after client87100 ended143. Noownedlocalbuild or overlapping
-sourceedits; don'trerunduplicatecompile. Outstanding17full owns827bf82e.
-Full10run38679330339 at e3edf1c9 SUCCESS:335reported/334PASS+oneexistingAPI30
-profileassumption,76records24actualdeaths,core114/release/lint/allpriorgates and
-bothpublicfeeds pass.13queuePASS245.744s, actualprivatePID371→555/group838→1173,
-exactoriginalautomaticRawRelayonce/history/fullwalletbackend/groupkeyorigin/
-restorationpass. Rootoriginalsseen; retainedfinal-full/android10,786hash283XML,
-no secretmarkers. Boundedfinal10evidenceSpec0/Standards0, both independently verified. Production source is unchanged
-from87accb13 across both acceptance revisions. Retain a passed10 if only the
-17 test fixture changes, as allowed by WORKFLOW.md. No duplicate dispatch.
-All13 queue cases, both actual queued PID journeys and previous gates remain
-required. Full retainer: .scratch/retain-chat28-final-full.py. Final counts pending.
+## Active #28: offline private and group Chat queue
 
-Unsigned preview18 cache build16011 PASS3m40s at exact e3edf in detached worktree
-/mnt/storage/redsquare-android-artifacts/queue28-review-source. No version reserved,
-no signature or publication. No owned local build. Move that worktree to the final
-acceptance revision before running review-build after acceptance. Worktree now827bf82e. Signing preparation1254 PASS, release assembly20s from cache. Exact827bf82e
-signed18/0.1.18 exists in worktree .scratch/review-builds/18; SHA48386e0e461666f9e14e70feb947624dba8fcc689c4fd27890ed846980b58d2c,
-established certificate/package/min29 unchanged. Public prepared metadata retained
-signed-preview18-prepared. No owned local build. Publication remains held for
-final17 acceptance. Public17 unchanged.
+Assigned @me. Review base09e0c58d7f51dcc334a35d7ac28ecc77a61d48ef;
+native blockers11/25/26 closed. Canonical implementation and verification
+chronology: docs/research/NATIVE_CHAT_QUEUE_VERIFICATION.md. Earlier failures,
+corrections and bounded reviews remain there and under docs/evidence/ticket28.
+Do not repeat already accepted focused checks.
 
-NEXT: inspect both complete full runs, retain original evidence, two-axis final
-evidence review, signed18 publication/direct verification and #28 closure. Then
-continue #29 and remaining issues sequentially without another owner confirmation.
-Do not claim next ticket before #28 completion. Protected preexisting untracked
-NATIVE_GROUP_CHAT_CONTRACT.md remains untouched.
+Production source last changed87accb13725f81fcc34baa2e7100527a31313aa4.
+Whole source09e0...31bed Spec0/Standards0; subsequent fault fixture0dfa and
+pending-bubble ordering87acc corrections also Spec0/Standards0. Queues retain
+original identity/backend, cancel to exact draft before claim, resume through
+existing worker/foreground guard, reconcile exact authenticated Archive original,
+and enforce fresh group authority. Legacy manual attempts are not admitted.
+Only explicitly sent messages auto-resume, never admin actions/reactions/transfers.
 
-Independent read-only rechecks, exact e3edf1c9, downloaded on additional disk:
-Registry10run38681076101 SUCCESS means its report completed. Actual readiness:
-both authenticated backends return zero key-map hints; both namechecks per backend
-are unusable 21-byte responses. Registration availability is still unproved.
-YouTube second-reference10run38681078177 FAILED waiting for Playing at line64,
-52.838s total. Inspect its player capture before assigning a cause. Neither run
-changes app/node/wallet/registration state or counts toward #28 acceptance.
-Retain qualified results for parked #19/#17. No duplicate dispatch.
+**Android10 final accepted:** run38679330339 SUCCESS at exact
+ e3edf1c971c25f49d5b793d98cfb2de85dd70aac, public_feed_read=true.335reported cases:
+334PASS plus one existing API30 profile assumption;76records24actual deaths;
+core114/debug/test/release/lint/allprevious gates/both publicfeeds PASS.
+Queue13PASS245.744s. PrivatePID371→555/group838→1173 prove cold automatic
+identical raw/Relay once, exact history/full wallet/backend and group key/origin,
+truthful Forwarded UI and restoration. Retained final-full/android10,
+786hash283XML, no secretmarkers. Root originals inspected; final evidence
+Spec0/Standards0, independently recounted and verified by both reviewers.
+
+**Android17 application proof complete, release tail outstanding:**
+run38682943156 FAILED at827bf82e06e5740250fadafcdeace70ed59a93b8, but ALL336
+applicationcases/77records24actualdeaths/core114/release/lint/allpriorgates/both
+publicfeeds PASS.13queue280.698s, actualprivatePID5199→5268/group5372→5443,
+exactoriginalautomaticonce/fullwalletbackend/history/groupkeyorigin/restoration.
+Laterimmutablepublic5→8observerfailsfinalcoldWalletopening, lastXMLshowsChrome
+first-usepage. No failurePNG; stalehostcoordinateshypothesisonly, causeunproved.
+Retainedfull17-legacy-update-attempt790hash286XML. Rootoriginalsseen.
+Signedupdatecompletion/finaldiagnostic remainunaccepted; do not relabelrunSUCCESS.
+
+Fixture correction nowusesnativeUiObject2liveWallet/positiveaddress insteadof
+hostdumpcoordinates; ownslaunchafterinstrumentationrestart, capturespublicUI/logs.
+Opt-in release-tail/17 rechecks coldwallet/immutable5→8/finaldiagnostic andsource/
+core/release/lint. Regularfullstillallgates. Workflowexception permitscombinedproof
+onlyafterverifiedcompleteapplicationgate set/equivalentprod/assertions/separate
+review. Correctionnotyetcommitted/compiled/reviewed/run. Do not rerun336appcases
+without an application/source concern. Noownedlocalbuild currently. Signed18held.
+Earlierfirst17Sendfailures remainqualified incanonicalresearch/evidence.
+
+**Signed18 prepared, unpublished:** exact-source detached worktree
+/mnt/storage/redsquare-android-artifacts/queue28-review-source at827bf82e.
+Canonical review-build1254 PASS, release20s from cache; version18/0.1.18,
+package nl.davidengelen.redsquare/min29 and established cert unchanged.
+APK .scratch/review-builds/18/redsquare.apk in that worktree;
+SHA48386e0e461666f9e14e70feb947624dba8fcc689c4fd27890ed846980b58d2c.
+Public metadata retained signed-preview18-prepared. Public17 remains unchanged.
+Hold publication until full17 acceptance. Prepared public verifier:
+.scratch/verify-chat28-public18.py, not executed. Notes .scratch/chat28-preview18-notes.txt.
+
+NEXT: inspect completed17, download to additional disk, retain all gates via
+.scratch/retain-chat28-final-full.py, original captures/hash/XML/raw-count checks,
+two-axis final evidence/artifact review, publish signed18 and directly verify
+public page/manifest/APK/signature/package/min29 plus immutable17. Record/close28,
+then continue29 and remaining issues sequentially without another confirmation.
+No whole28/physical/store acceptance before those steps. No next ticket claimed.
+Protected preexisting untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md untouched.
+
+Read-only independent external rechecks at e3edf, both reviewed0/0:
+Registry10run38681076101 report PASS1/1.853s, but both authenticated backends have
+zero hints and unusable21-byte namecheck responses. #19 registration unproved.
+YouTube10run38681078177 fails Playing after public Play;1failure52.838s. Original
+refusal copy maps101/150, numeric code/cause unproved. #17 playback unaccepted.
+Retained ticket19/public-oct15-recheck/android10 (4hash) and equivalent ticket17
+(11hash2XML). No production writes; neither counts as28 acceptance. No redispatch.
+Read-only follow-on orientation .scratch/next-chat-ticket-orientation.txt and
+current Google primary policy notes .scratch/play-oct15-orientation.md remain local.
+16/31 need Android Giphy authorization/retention;32–34 need actual closed-app
+infrastructure, not a permission-only proof.35 needs physical Pixel;36 actual
+Play account/setup and reviewable release package.38 branding is not a release blocker.
 
 Storage migration observed Docker data now bind-mounted from /mnt/storage/docker;
 repo/.scratch remains on the system disk,63GiB free versus158GiB onadditional disk.

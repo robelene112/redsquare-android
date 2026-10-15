@@ -427,3 +427,22 @@ Signed18 preparation1254 PASS, release20s cached, exact827bf82e/0.1.18/min29/
 establishedcert/packageverified; APKsha48386e0e461666f9e14e70feb947624dba8fcc689c4fd27890ed846980b58d2c.
 Retainedsigned-preview18-prepared(publicmetadataonly). Noownedlocalbuild. Still
 notpublished, pendingfinal17 acceptance. Version17publicunchanged.
+
+Thirdfull17run38682943156 exact827bf82e completesALL336applicationcases/77records/
+24actualdeaths/core114/release/lint/allpriorgates/bothpublicfeeds.13queue280.698s,
+privatePID5199→5268/group5372→5443 automaticexactoriginalonce/history/fullwallet/
+backend/keyorigin/restorationpass. Laterimmutablepublic5→8observerfails finalcold
+Walletopening; lastsignedupdateXMLshowsChromefirst-usepage. No failurePNGwas
+captured. Stalehostcoordinatehypothesisonly, exactcauseunproved. Fullrunconclusion
+remainsFAILED; signedupdatecompletion/finaldiagnosticunaccepted. Retained
+full17-legacy-update-attempt790hash286XML; root4queuedPIDoriginals+2publicfeedsseen.
+
+Correction switches hostwalletobserverfromoldXMLcoordinatestoUiObject2liveWallet
+andpositivepublicaddress, sameidentitycomparisons. Capturesperobservationpublic
+screen+XML/rawlog; nativehelper ownsamstart afterinstrumentationrestart. Isolated
+emulatorandpackageguards preserved. Opt-in release-tail/17 executes coldwallet,
+immutable5→8 andsamefinaldiagnostic, pluscore/release/lint. Regularfullstillallgates.
+WORKFLOW permitscombinedacceptanceonlywhenallapplicationgatesalreadycomplete,
+unchangedprod/assertionsandreviewedbothactualruns; never relabelFAILEDfullSUCCESS.
+This avoidsrepeating336alreadyacceptedcasesforanoldimmutableAPKobserverfailure.
+Newobserver/tailruntime andtwo-axisreviewpending; signed18stillheld.
