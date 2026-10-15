@@ -180,3 +180,8 @@ literalcaption exactly. Precise Compose matchercause remainsunproved. Retained
 styledAnnotatedStringobject equality, retainingenabled/displayed/20s/pixels/
 no-wirecriteria; furtherfailurecapturesunmergedpublicfixturesemantics. No
 productionchange or textlossinference. Layoutcorrectionace4 reviewed0/0.
+
+Captionfixture55e528e0 reviewed0/0, butrun38717605044 failedtestcompilation116:
+missingsemantics.getOrNull import. Core/productiondebugcompilepassed, no native
+caseexecuted. Retained3hashcompileevidence. Importcorrected, no criteria or
+productionchange; correctednativeverificationpending.

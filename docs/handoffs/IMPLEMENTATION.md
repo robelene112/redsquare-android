@@ -21,17 +21,29 @@ restoration privateandgroup. Retained16hash6XML; root6originalPNGsseen. Earlier
 RED/failedattempt/cancelledrun retainedandqualified. No17/compose/failure/full
 acceptance inferred. Signed19current, no20reserved/noownedlocalbuild.
 
-Selectedprivatephoto drafttracer7dfe8685 actualRED10run38714801378 FAILED:
-3cases2PASS1FAIL33.118s, noAddphoto within20s at142. Retained6hash1XML/rootPNGseen. Fixture
-correction963b1675 actualnormalizedJPEG centerRGB tolerance5 within20s after
-selectionandBack/recreation, exactcaption/clientidentity/no-wire. Reviewed0/0.
-Canonical NATIVE_CHAT_IMAGES_VERIFICATION.md. ActualpinnedA/B Browser.sanitize
-exec accepts image+escapedcaption, offlineChromiumDOM/raster proof PASS, local
-.scratch/chat30-caption-web-reference.json / chat30-caption-browser-proof.json;
-canonical helpers committedb54b1a73. Not signednativeoutboundproof.
+Privatephoto drafttracer7dfe actualRED10run38714801378 FAILED3cases2PASS1FAIL
+33.118s missingAddphoto; retained6hash1XML/rootseen. Fixture963b actualJPEGpixels
+reviewed0/0. Productionminimum0438be5b source reviewedStandards0, Specautosavegap
+fixed79f8e12d reviewed0/0. Native0438run38715743979 FAILED3cases2PASS1FAIL36.616s:
+photoRGBPASS thenexactdisplayedcaptionwaitfails, clippedcomposer. Compact100dp
+preview/hideAddwhileattached/4linefield ace4d018 reviewed0/0. Native38716715709
+FAILED3cases2PASS1FAIL36.86s samecaptionmatcherafterRGB; PNGnowcompactfield+Send
+visible, parsedXMLenabledEditText equalsliteralexactly, preciseComposecause
+unproved. Bothattemptsretained6hash1XMLeach/rootoriginalsseen.
 
-Nextminimum preserve singleencryptedcomposedstring/ordinaryqueue; boundednative
-photo preparation with no genericHTML/WebView. Composition/group/send/queue/
+Fixture55e528e0 comparesEditableText.text exactliteral ratherthanstyledobject,
+keepsenabled/displayed20s/raster/no-wire; furtherfailureretainsunmergedsemantics.
+Ownedfocus10run38717605044 ACTIVE exact55e; neverdispatchsame-scopeuntilcomplete.
+Noownedlocalbuild. Strictphoto/canonicalescapeddivcaption+nativepicker/private
+composer nowimplemented, no storage/queueprotocolchanges. ActualpinnedA/B
+Browser.sanitize+offlineChromiumDOM/RGB exactcaption proof PASS, retained3hashes
+caption-web; helpers committedb54b1a73 reviewed0/0. No signednativeSendproofyet.
+Three uncommitted helperedits prepare explicit --check-native-photo-send and
+--native-photo verification modes for nextactualsendtracer; do notstagewithout
+that slice. Default privateimageasset byteidentical/sanitizervectorsunchanged
+reexecuted. Canonical NATIVE_CHAT_IMAGES_VERIFICATION.md.
+
+Nextslice afterprivateGREEN: nativegroupcomposition, thenactualsend/queue/
 failure/practical5MiBhistorybound/process/finalfull10+17 stillrequired. Protected
 untracked NATIVE_GROUP_CHAT_CONTRACT.md untouched. Continue allissues.
 
