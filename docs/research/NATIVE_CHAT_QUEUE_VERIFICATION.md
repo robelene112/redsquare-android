@@ -28,3 +28,9 @@ observable no-cancelled-bubble assertion; priorassertions/deadlinesunchanged.
 Boundedcorrection Spec0/Standards0. ExactsourceCIrun38662611803 runningchat-queue10;
 no GREENorwhole28acceptanceyet. Oldmanual UNKNOWN/SUBMITTED Retry behavior retained;
 automatic/background/groupdelivery remainnextslices.
+
+Attempt10run38662611803 at28714c21 failedonecase7.354s at55 fieldassertTextEquals:
+EditableText exactintendedtext, Text includeslabelMessage. OriginalQueued/cancelled
+capturesrootseen; recreate/cancelreached, laterno-bubble/reachablepeer/no-wiretail
+unexecuted. Correctonly exactEditableText matcher; no app/deadlinechange. Retained
+private-cancel-label-attempt-android10. CorrectedGREENpending.

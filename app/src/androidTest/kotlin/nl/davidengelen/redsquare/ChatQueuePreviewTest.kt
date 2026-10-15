@@ -3,6 +3,8 @@ package nl.davidengelen.redsquare
 import android.content.Intent
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.text.AnnotatedString
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import nl.davidengelen.redsquare.saito.*
@@ -52,7 +54,7 @@ class ChatQueuePreviewTest {
                     scenario.recreate();open();waitFor("Queued")
                     ui.onNodeWithText("Cancel queued message").assertIsEnabled().performClick()
                     ui.waitUntil(15_000){ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty()}
-                    ui.onNode(hasSetTextAction() and isEnabled()).assertTextEquals(text)
+                    ui.onNode(hasSetTextAction() and isEnabled()).assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText,AnnotatedString(text)))
                     ui.onAllNodes(hasText(text) and !hasSetTextAction()).assertCountEquals(0)
                     val peer=ControlledFeedPeer("[]",advertisedServices="archive||;relay||",archiveResponse={"[]"})
                     peer.start(port).use {
