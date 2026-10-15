@@ -129,7 +129,16 @@ bind/before-recreate/failure; assert distinctports before Activity launch. No
 hypothesizedrouting fix or timeout change. Source reviews0/0; local testAPKcompile
 PASS2m36s, exec53159 COMPLETE0, no owned local Gradle. Corrected focused profile10
 and diagnostic groupqueue17 dispatched at78cd1471: profiles10run38771450430,
-groupqueue17run38771453775 ACTIVE; actual group result pending.
+groupqueue17run38771453775 SUCCESS6PASS163.851s/core114/debug/test.11 public
+checkpoints: all6 boundports distinct,5 prerecreate queuedIDs/historyempty/alternate
+rawRelayzero. Original prematureForwarded cause remainsunproved. Root sawarchived
+Queued/Availableoriginals,2XML parsed; retainedgroup-diagnostic-green-android17.
+Its Queued screenshot showslongkeyboard-closederrorstack/lowercontrolsbelow640px;
+notwholeconstrained-height/outage acceptance, which remains#35.
+Fixture40474853 now allocatesofflineport AFTER livealternatebind forbothprivate/
+group, retaininginequalityguards andoldbehaviorassertions. Noapp/budgetchange;
+newallocation stillrequiresfinalruntime. Bothcompletefulls mustbe dispatched
+onlyaftercorrectionreview; nonecurrentlyactive.
 Profiles10run38771450430 at78 SUCCESS:7/5/2/2reported,15PASS+existingAPI29
 modern-fault assumption;37.895/27/19.826/27.43s. Core114/debug/test and two actual
 profile deaths/recovery pass. Root saw3 originals,3XML parsed; retained profile-
