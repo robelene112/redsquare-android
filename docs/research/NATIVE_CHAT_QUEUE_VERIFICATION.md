@@ -84,3 +84,11 @@ ArchiveRED10run38667380351 at82d5215d:5cases4PASS/1FAIL105.288s at119 secondactu
 Raw afterfirstRawindexed/disconnected. OriginalshowsSUBMITTED/deliveryunconfirmed/
 Retry. Available/exactsigquery/noRelay/recreate tailunexecuted. Allfourpriorcases
 pass. Retainedprivate-archive-red-android10. ExactverifiedArchive minimum next.
+
+Archive minimume4a27da4: exactsig+conversation/limit1 request underfreshselection,
+authenticatedfullpayloadmatchagainstownedoriginal; wrong/malformedrowaborts,
+emptyallowsidenticalretry, matchretainsownedoriginal+AVAILABLE/unconfirmed and
+excludesfutureautomaticwork. Local35066PASS3m24s/debug/test. Sourcebothreviewaxes
+0additionalfindings; rootidentifiedoldgenericerrorcopycontradictsautomaticretry.
+Correctionselectsdedicatedautomaticcopyonlywhenautomatictrue, legacycopyunchanged.
+ExactcorrectedCI/runtimeGREENpending; no complete28acceptance.

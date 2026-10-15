@@ -117,7 +117,11 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
             ChatWorkStore.Status.AVAILABLE -> Text(stringResource(R.string.chat_send_available))
             ChatWorkStore.Status.NONE -> Unit
         }
-        if (failed) Text(stringResource(if (ready) R.string.chat_send_error else R.string.chat_work_read_error))
+        if (failed) Text(stringResource(when {
+            !ready -> R.string.chat_work_read_error
+            saved.automatic -> R.string.chat_automatic_send_error
+            else -> R.string.chat_send_error
+        }))
         if (quote != null) {
             Text(quote.quote, style = MaterialTheme.typography.bodyMedium)
             TextButton(enabled = editable, onClick = { text = typed }) {

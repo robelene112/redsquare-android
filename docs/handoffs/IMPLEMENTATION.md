@@ -77,14 +77,17 @@ bothservers/originalOWNERbinding/zeroRawRelaywhileOFFICIAL/identicaloneafterretu
 pass; originalbackendresultseen. Productionunchanged9aca19a2. Identityregression10run38666517499 SUCCESS atc9d282bc:4PASS70.353s, protected
 replacement1to3/oldQueuehidden/zeroRawRelay/retainedoriginal+pendingwarning,
 restore1oneidenticalRawRelay/FWD andallpreviouscasespass. Originalidentityresult
-seen. NoUIimportacceptanceclaimed. Productionunchanged9aca19a2. NewfifthArchive
-tracer disconnectsafteroneactualRaw, serves exactoriginalonboundsig+field3query,
-requiresAvailable/notconfirmed withoutsecondRaworRelay/recreate. Archivehandling
-absent deliberately; firstREDpending. BothpinnedArchiveprimarysourcesreverified
-againstrawGitHub/hashforquerycontract. No ownedbuild. Groups/storage/process/full28
-stillpending.
+seen. NoUIimportacceptanceclaimed. Productionunchanged9aca19a2. ArchiveRED10run38667380351 at82d5215d:5cases4PASS/1FAIL105.288s at119 actual
+secondRaw afterfirstindexed/disconnected; originalSUBMITTED/unconfirmed/Retryseen.
+Available/query/noRelay/recreatetailunexecuted. Retainedprivate-archive-red-android10.
+Minimum e4a27da4 exactsignature+conversation/limit1, verifiessignedpayloadmatch,
+wrong/malformedaborts, emptyallowsidenticalretry, matchAVAILABLE/unconfirmed,
+finishedworkexcluded. Local35066PASS3m24s/debug/test. Bothreviewaxes0additional
+findings; rootknownoldgenericautoRetrycopy correctedwithdedicatedautomaticresource,
+legacycopyunchanged. CorrectedGREENexecutionpending. No ownedbuild. Groups,
+storage/process/full28stillpending.
 
-NEXT: firstArchiveRED, minimumverifiedexactoriginalreconciliation, thenstoragefailure,
+NEXT: correctedArchiveGREEN, thenstoragefailure/rejectedArchiveproof,
 groupqueuewithfreshmembership, actualprocessdeath, finalfull10/17/reviews/signed
 nextbeta/closure28. Parent1approvedapplication/controlledpeer/protectedrecoveryseams.
 Queueonlyexplicitmessages,noadmin/reaction/transferautosends. Continue28through36
