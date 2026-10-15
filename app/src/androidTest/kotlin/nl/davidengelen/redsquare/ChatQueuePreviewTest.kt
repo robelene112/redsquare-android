@@ -23,11 +23,14 @@ class ChatQueuePreviewTest {
 
     @Test fun replacingTheWalletPausesItsQueuedMessageUntilTheOriginalIdentityReturns() = exercisePrivateQueue(PrivateQueueCase.IDENTITY)
 
-    private enum class PrivateQueueCase { CANCEL, BACKGROUND, BACKEND, IDENTITY }
+    @Test fun anArchivedQueuedOriginalReconcilesWithoutAnotherBroadcastOrClaimedDelivery() = exercisePrivateQueue(PrivateQueueCase.ARCHIVED)
+
+    private enum class PrivateQueueCase { CANCEL, BACKGROUND, BACKEND, IDENTITY, ARCHIVED }
     private fun exercisePrivateQueue(case:PrivateQueueCase) {
         val cancel=case==PrivateQueueCase.CANCEL
         val switchBackend=case==PrivateQueueCase.BACKEND
         val switchIdentity=case==PrivateQueueCase.IDENTITY
+        val archived=case==PrivateQueueCase.ARCHIVED
         val label=case.name.lowercase()
         val context=InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName=="nl.davidengelen.redsquare.dev")
@@ -86,16 +89,42 @@ class ChatQueuePreviewTest {
                         waitFor("saito.io");ui.onNodeWithText("saito.io").performClick()
                         ui.waitUntil(20_000){alternate.requests.get()>0}
                     } else scenario.moveToState(androidx.lifecycle.Lifecycle.State.CREATED)
-                    val peer=ControlledFeedPeer("[]",advertisedServices="archive||;relay||",archiveResponse={"[]"},relayResponse={signed->
+                    val indexed=java.util.concurrent.atomic.AtomicReference<String?>()
+                    val archiveChecks=java.util.concurrent.atomic.AtomicInteger()
+                    val peer=ControlledFeedPeer("[]",advertisedServices="archive||;relay||",archiveResponse={criteria->
+                        if(archived&&criteria.has("sig")) {
+                            check(criteria.get("sig").asString==originalCandidate.id)
+                            check(criteria.get("field3").asString==PrivateChat.conversationId(wallet.publicKey,contact))
+                            archiveChecks.incrementAndGet()
+                            indexed.get()?.let{original->com.google.gson.JsonArray().apply{add(com.google.gson.JsonObject().apply{addProperty("tx",original)})}.toString()} ?: "[]"
+                        } else "[]"
+                    },onTransaction={frame->
+                        if(archived)indexed.set(postingTransaction(frame).envelope())
+                    },relayResponse={signed->
                         val receiver=SaitoWallet.fromPrivateKey("0".repeat(63)+"2") // Public unsafe fixture only.
                         check(PrivateChat.read(receiver,signed,wallet.publicKey).text==text)
                         "{\"err\":\"\",\"success\":1}"
                     })
+                    peer.disconnectAfterTransaction=archived
                     peer.start(port).use {
                         if(cancel) {
                             ui.waitUntil(20_000){peer.requests.get()>0}
                             android.os.SystemClock.sleep(6_000)
                             check(peer.transactions.isEmpty()&&peer.relayedMessages.isEmpty())
+                        } else if(archived) {
+                            ui.waitUntil(60_000){peer.transactions.isNotEmpty()}
+                            check(indexed.get()==originalCandidate.envelope())
+                            peer.disconnectAfterTransaction=false
+                            scenario.moveToState(androidx.lifecycle.Lifecycle.State.RESUMED)
+                            ui.waitUntil(20_000) {
+                                check(peer.transactions.size==1){"Archived original was broadcast again: ${peer.transactions.size} raw operations"}
+                                ui.onAllNodesWithText("Available on this server. Delivery is not confirmed.").fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()
+                            }
+                            check(archiveChecks.get()>0&&peer.relayedMessages.isEmpty())
+                            check(postingTransaction(peer.transactions.single()).envelope()==originalCandidate.envelope())
+                            scenario.recreate();open()
+                            waitFor("Available on this server. Delivery is not confirmed.")
+                            check(peer.transactions.size==1&&peer.relayedMessages.isEmpty())
                         } else {
                             if(switchIdentity) {
                                 android.os.SystemClock.sleep(7_000)

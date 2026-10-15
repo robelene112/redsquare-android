@@ -74,14 +74,17 @@ allcorrected. Correctedlocal15564PASS3m29s. Nativefocused10run38665208539 SUCCES
 Originalresumedcaptureseen, retainedprivate-background-green-android10. No owned
 localbuild. Backendregression10run38665893967 SUCCESS atd81d4532:3PASS32.44s. ActualSettings
 bothservers/originalOWNERbinding/zeroRawRelaywhileOFFICIAL/identicaloneafterreturn
-pass; originalbackendresultseen. Productionunchanged9aca19a2. Newfourthidentity
-regression replacesprotectedfixturewallet1with3/recreatesUI, hidesoldQueued,
-requireszeroRawRelaywithoriginalserverreachable/unchangedoriginal/pendingwork
-warning retained, restoreswallet1/recreates thenforwardsoneidenticalRawRelay.
-Fixtureprotectedreplacementonly, notnewwalletimportUIacceptance. Firstexecution
-pending. No ownedbuild. Groups/reconciliation/storage/process/full28pending.
+pass; originalbackendresultseen. Productionunchanged9aca19a2. Identityregression10run38666517499 SUCCESS atc9d282bc:4PASS70.353s, protected
+replacement1to3/oldQueuehidden/zeroRawRelay/retainedoriginal+pendingwarning,
+restore1oneidenticalRawRelay/FWD andallpreviouscasespass. Originalidentityresult
+seen. NoUIimportacceptanceclaimed. Productionunchanged9aca19a2. NewfifthArchive
+tracer disconnectsafteroneactualRaw, serves exactoriginalonboundsig+field3query,
+requiresAvailable/notconfirmed withoutsecondRaworRelay/recreate. Archivehandling
+absent deliberately; firstREDpending. BothpinnedArchiveprimarysourcesreverified
+againstrawGitHub/hashforquerycontract. No ownedbuild. Groups/storage/process/full28
+stillpending.
 
-NEXT: review/verify identitypause, then exactArchive-reconciliation/storagefailure,
+NEXT: firstArchiveRED, minimumverifiedexactoriginalreconciliation, thenstoragefailure,
 groupqueuewithfreshmembership, actualprocessdeath, finalfull10/17/reviews/signed
 nextbeta/closure28. Parent1approvedapplication/controlledpeer/protectedrecoveryseams.
 Queueonlyexplicitmessages,noadmin/reaction/transferautosends. Continue28through36

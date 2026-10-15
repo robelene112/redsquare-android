@@ -66,3 +66,16 @@ switch, zeroRaw/RelaybothwhileOFFICIALselected/OWNERreachable, unchangedoriginal
 returnOWNERoneidenticaloriginal/FWD. Cancellation/backgroundunchangedpass. Original
 backend-resultseen; productionunchanged9aca19a2. Identityscope regression next;
 no whole28 acceptance. Retainedprivate-backend-green-android10.
+
+IdentityregressionGREEN10run38666517499 atc9d282bc:4PASS70.353s, protectedreplace
+1to3/recreate hidesQueued/zeroRawRelay/preservesoriginal+hasWork, restore1oneexact
+RawRelay/FWD. Allpreviouscasespass, originalidentity-resultseen. This isprotected
+fixture replacement, notimportUI. Productionunchanged9aca19a2. Retainedprivate-
+identity-green-android10; remaining28unaccepted.
+
+Archive primarysource reverified read-only exact rawGitHub pinsA9a4ca7e/B214504ec:
+node/mods/archive/archive.js SHAe1bd400f035979461070a34b9887d09b50866417057d06940661b78119d80743
+and63b7ed07fb5c065bcbb14b8ad66aa19bdb4e0ee1eb2426806f6309d0548af436.
+Bothschema includes sig/field3, loadTransactions builds exactboundequality forschema
+keys with limit. Existing Chat history usesfield3. Next nativeuncertaintytracer
+willrequireexactsiglookup andverifiedoriginalbeforeavoidingre-broadcast. No livewrite.
