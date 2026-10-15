@@ -76,6 +76,7 @@ class ChatQueuePreviewTest {
                     captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/group-cancel-queued.png"))
                     scenario.recreate();open();waitFor("Queued")
                     ui.onNodeWithText("Cancel queued message").assertIsEnabled().performClick()
+                    ui.waitUntil(15_000){displayed(hasSetTextAction() and isEnabled())}
                     ui.onNode(hasSetTextAction() and isEnabled()).assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText,AnnotatedString(text)))
                     ui.onAllNodes(hasText(text) and !hasSetTextAction()).assertCountEquals(0)
                     val saved=requireNotNull(store.load(key.publicKey))

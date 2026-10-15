@@ -160,3 +160,7 @@ forwarded, offlineexplicitSend→Queued→recreate→Cancel→exactdraft/noordin
 priorcreationoriginal/status/keypreserved, peerreturnszeroRaw/Relay. Full scoped
 record/wallet/backend/preferencecleanup. UsesactualUI, no groupminimum added.
 FirstRED pending; private7focusedrun38672255585 stillowned/active atab30b201.
+
+Pre-runtimeSpecfinding: groupCancel asyncpersistence needspositiveenabledfield
+completionobservationbeforeexactdraftassert. Addedexisting15s cancellationbound
+matchingprivatecase; no prodchange/newlongerdeadline. FirstgroupREDstillpending.
