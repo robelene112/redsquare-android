@@ -75,9 +75,16 @@ keyboard already closed/photo/draft; later guards unexecuted for that case.
 Retained reopen-injector-attempt-android17,11XML parsed/root failurePNGseen.
 Fixture-only39dcc708 logs injector ack and retains physical Back plus ALL actual
 IME/draft/photo/restored controls/reopen/Send/wire checks and original deadlines.
-Fixreviews Spec0/Standards0. OWNED corrected focus17run38761787929 at39dcc708
-ACTIVE; after actual success dispatch full17 with separately enabled publicreads.
-No full17 currently active. No local Gradle/build process active. Production
+Fixreviews Spec0/Standards0. Corrected focus17run38761787929 at39dcc708
+FAILED before emulator/app execution: SDKmanager unpacking x86_64-37.0_r06.zip
+Error reading Zip content from a SeekableByteChannel. No keyboard result exists.
+Source/core/debug/test build passed. Retained sdk-image-attempt-android17;
+raw failed log .scratch/keyboard40-reopen17-ack-failed.log. Cause unproved.
+One unchanged fresh-runner focus17 retry38762861549 at108e241b ACTIVE, after
+predecessor ended. Do not duplicate. After actual success dispatch full17 with
+separately enabled publicreads.
+No full17 currently active. Full10run38760924822 at286 remainsACTIVE.
+No local Gradle/build process active. Production
 remains identical to720e2007/c0/prepared22; do not rebuild/re-reserve unnecessarily.
 
 Signed22/0.1.22 BUILT/VERIFIED, UNPUBLISHED. Immutable detachedc0b143eb, product-
