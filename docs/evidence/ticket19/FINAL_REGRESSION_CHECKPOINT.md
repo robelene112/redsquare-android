@@ -14,3 +14,7 @@ Both core114/0failures/0ignored, release assembly/lint, expected application cla
 One bounded public Owner peer projection found zero published-registrar verified rows at19:06:46UTC. Effective authority, forwarding cause, services and repair remain unestablished. Initial wrong-wrapper attempt stays a separate schema failure. No node/configuration/service/wallet/database/log inspection or writer change followed from this public-status check. Exact public source-file hashes are disk observations only.
 
 Frozen production/build inputs match minimum/focused/final and prepared signed23; focused/final instrumentation is identical. Current #17 diagnostic source is outside this comparison. Signed23 is built/verified at exact45ff40f6, SHA2595a8ebab86928c59cfbaa6b1047654c6f7408ae9543a0e8f501bf681d4a3f7, established certificate, package/min29. At this checkpoint it remains UNPUBLISHED pending final evidence review. Public22 stays current; publication will be retained separately. #41 is the sole active layout implementation. No physical Pixel, Giphy, closed-app push, YouTube playback or store acceptance is claimed.
+
+## Subsequent verified publication
+
+Both final evidence reviews report Spec0/Standards0. Signed23 is now PUBLISHED at https://davidengelen.nl/redsquare/. Direct public page/latest/immutable23/APK hash/certificate/package/min29 and unchanged immutable22 checks pass. Retained public-only publication records: signed-preview23-published. #19 remains OPEN for Owner readiness; #41 remains the sole implementation.

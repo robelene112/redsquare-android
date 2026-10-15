@@ -10,13 +10,16 @@ one question at a time when a material choice really needs the owner.
 **ACTIVE #41:** independent Chat warning-stack viewport defect from#35, native child of35 and blocked only by CLOSED40. Review base09a424dc792ea0bac33a31b3081e4f55837a04cc. #17 diagnostic/source is frozen with retained failure38791958201; #19 final scopes/source/prepared23 stay frozen separately. One implementation writer, no parallel ticket source work. Strengthen existing group CANCEL native case (still13queuecases): keep first-use backup reminder, wait actual group/history/live errors, require cancellation physical bounds outside system bars and tap actual screen coordinates before existing exact draft/original/no-send/recreation assertions. Scoped captures group-cancel-viewport-ready/tapped and existing failure. Only fixture changed; actual RED and layout minimum pending. Source f903bbb1 reviews Spec0/Standards0. Localcompile67069 COMPLETE0 testAPK1m54s; no owned Gradle remains. Actual RED Android17run38793297219 atf32c1dc5cabfd26e4a8b62bf59338b4944a6bc1a ACTIVE. Do not duplicate; minimum not applied. Do not claim41/35 acceptance.
 
 
-**#17 diagnostic completed; public playback unresolved:** review base6a7b2a652e50ead7791fa73caf701684409154fd. #19 app/test implementation frozen at45ff40f6; its final10/17 scopes continue unchanged and prepared23 remains unpublished. New #17 work records numeric player error before mapping/browser teardown and allowlisted child embed request metadata before navigation. Explicit DEBUG/emulator/public-fixture opt-in, bounded in-memory Activity-owned collector; no wallet/provider-secret data. Existing deliberate Play, actual Playing, no-autoplay and zero Saito submission assertions remain. This is observation of the previously failing real-provider seam, no production playback fix or success claim.
+**#17 diagnostic completed; public playback unresolved:** review base6a7b2a652e50ead7791fa73caf701684409154fd. #19 app/test implementation frozen at45ff40f6; its final10/17 scopes have both passed and frozen signed23 is now published. New #17 work records numeric player error before mapping/browser teardown and allowlisted child embed request metadata before navigation. Explicit DEBUG/emulator/public-fixture opt-in, bounded in-memory Activity-owned collector; no wallet/provider-secret data. Existing deliberate Play, actual Playing, no-autoplay and zero Saito submission assertions remain. This is observation of the previously failing real-provider seam, no production playback fix or success claim.
 Local core/debug/test build15591 COMPLETE0 in3m38s; both source-review axes0 through64a4d8db. No owned local Gradle remains. Actual Android17 public diagnostic run38791958201 at17dd2a8b4946b827291930050c9d3ce7de566e1b FAILED:1case60.553s/Playing wait66. New retained diagnostic shows error150 afterready and realPlay, childGET Referer+origin both correct installed .dev origin. WebView145.0.7632.218. Root viewed ready/failure originals+parsedXML; ticket17/native-diagnostic-oct15/android17. This is no missing-Referer or cause/attestation proof; no playback acceptance. Do not rerun unchanged probe. Collector .scratch/retain-video17-native-diagnostic.py executed successfully on that actual failed run;14hashes verified and both evidence-review axes0.
 
 
 
-**#19 pending final frozen verification and Owner readiness:** review basef6c97baccb0a95d51748160f965b5e6e9c1c016b.
-Public22 is current;40closed. Final app/test source is frozen at45ff40f6; no further #19 implementation is active. Continue independent #17 diagnostics sequentially while these immutable final scopes finish, then return to final evidence review/public23 publication. #19 remains open for Owner readiness. A bounded public GET at19:06:46Z found zero published-registrar rows in Owner's verified-peer snapshot; effective authority and timeout cause remain unproved. Both attempts and limits are retained under owner-public-peer-projection(-corrected). No live node changes.
+**#19 frozen correction verified/published23; Owner readiness remains OPEN:** review basef6c97baccb0a95d51748160f965b5e6e9c1c016b.
+Public23 is current;40closed. #19 final app/test source45ff40f6 has both full SDK SUCCESS and final evidence reviews Spec0/Standards0. No further #19 implementation is active; keep #19 open for Owner readiness. A bounded public GET at19:06:46Z found zero published-registrar rows in Owner's verified-peer snapshot; effective authority and timeout cause remain unproved. Both public attempts and limits are retained under owner-public-peer-projection(-corrected). No live node changes. Continue #41; do not rerun frozen19.
+
+Public23/0.1.23: https://davidengelen.nl/redsquare/, exact45ff40f6. SHA2595a8ebab86928c59cfbaa6b1047654c6f7408ae9543a0e8f501bf681d4a3f7, establishedcert6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2, package/min29. Direct public page/latest/release/APK/hash/cert/package/min29 and unchanged immutable22 passed. Public-only evidence signed-preview23-published,8hashes. Canonical FINAL_REGRESSION_CHECKPOINT.md. No physicalPixel/store/whole19 completion.
+
 
  Tracer611232a3 reviews0/0, local testAPK2m12s.
 Actual native RED38782610994 at611232a382a8e9af03d48cbb42cc01ab2f56819c:
@@ -47,7 +50,7 @@ readiness, registration or a Settings interaction. Focused results remain
 controlled-peer evidence.
 Complete final scopes at exactly
 45ff40f6931e3491a65e3145e789c3f453c2c4fe:10run38786261883 and17run38786267845,
-public_feed_read=true each. Android10 is now SUCCESS:366reported/365PASS plus soleexistingprofileassumption,86records27deaths; username16PASS110.649s/PID11642to11744. Strict retainer passed,13originalPNGs viewed/allXMLparsed; fresh final-full-oct15/android10. Android17 SUCCESS367PASS/87records27deaths, username16PASS121.876s/PID14105to14185. Strict retention passed;13originals viewed/allXMLparsed. Both complete scopes finished; final17/evidencecheckpoint review pending, no further run needed for frozen19. Job ceiling
+public_feed_read=true each. Android10 is now SUCCESS:366reported/365PASS plus soleexistingprofileassumption,86records27deaths; username16PASS110.649s/PID11642to11744. Strict retainer passed,13originalPNGs viewed/allXMLparsed; fresh final-full-oct15/android10. Android17 SUCCESS367PASS/87records27deaths, username16PASS121.876s/PID14105to14185. Strict retention passed;13originals viewed/allXMLparsed. Both complete scopes finished; final17/paired evidence reviews0/0, no further run needed for frozen19. Job ceiling
 now75minutes for single full SDK,120combined,60source/focused; both reviews0/0,
 per-request/assertion/class deadlines unchanged. Both SDK actuals now recorded above; no expected-only outcome is being used. Retainer prepared
 .scratch/retain-registry19-final-full.py, whole helper syntax checked. Use NEW
@@ -57,13 +60,13 @@ Collector now rejects any existing output directory before copying. Its added
 late-proof/username-recovery block passes against both actual focused artifacts:
 exact public1/1/0 checkpoint, original success PNG/XML and changed PID/identical
 author/backend/signature/frame/envelope, interrupted/recovered/continuity logs.
-Collector correction reviewed0; actual complete retention for both SDKs is above; final17/checkpoint review remains pending.
-Signed23 BUILT/VERIFIED, UNPUBLISHED. Immutable source45ff40f6, exact final-run
+Collector correction reviewed0; actual complete retention for both SDKs and final reviews0/0 are above.
+Signed23 BUILT/VERIFIED and subsequently PUBLISHED as recorded above. Immutable source45ff40f6, exact final-run
 source. Local exec59740 completed0; release build4m10s. Artifact
 /mnt/storage/redsquare-android-artifacts/registry19-review23-source/.scratch/review-builds/23.
 Metadata docs/evidence/ticket19/review23-build, reviews0/0; counter23, established certificate,
 package/min29 retained. Do not reset/rebuild. No owned local Gradle remains.
-Public22 remains current; both fulls now SUCCESS, final17/checkpoint review must precede publication. Canonical record docs/evidence/ticket19/FINAL_REGRESSION_CHECKPOINT.md, #19 stillopen forOwnerreadiness.
+Public23 is current; both fulls and final reviews0/0 completed before publication. Canonical record docs/evidence/ticket19/FINAL_REGRESSION_CHECKPOINT.md, #19 stillopen forOwnerreadiness.
 Research proposal REGISTRY_LATE_CALLBACK_DESIGN_2026_10_15.md explains the narrow
 transport coupling. Protected untracked group contract remains untouched.
 
