@@ -156,3 +156,10 @@ Send/navigation wait for normalization. Other incomingmarkup remainsliteral;
 only canonical roundtrip-escaped caption wrapper decodes. No storage/queue
 protocol changes or automaticSend. Compile/review/GREENpending; groupcomposer
 and actualSend/failure/process/5MiBbound remain nextslices.
+
+Private draftminimum0438be5b Standards0, Spec1: edits duringphoto normalization
+canmissautosave if preparationfails afterthetext-keyed effectskippedpersistence.
+Autosave nowalso keys on preparingPhoto and resumes after either success/failure.
+Existingtext remainseditable whilepreparing; Send/navigation remainblocked.
+Explicit failedpreparation/processretention verification remainsrequired. Active
+GREEN38715743979 stilltests0438; no duplicate/cancelled dispatch.

@@ -91,8 +91,8 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
             }
         }
     }
-    LaunchedEffect(ready, text) {
-        if (!ready || sending || saved.frozen) return@LaunchedEffect
+    LaunchedEffect(ready, text, preparingPhoto) {
+        if (!ready || sending || preparingPhoto || saved.frozen) return@LaunchedEffect
         delay(300)
         persist()
     }
