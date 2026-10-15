@@ -257,3 +257,10 @@ Relaytransactionprependswalletsigner. Fixture nowexpects exact[wallet2,admin1]
 forbothcontexts, retainingexactmembership/oneRelay/originalandallUIcriteria.
 No productionroutingdefectinferred. Active38721331728 stilltests c71e; await
 completionbeforecorrecteddispatch. Actualgroupreferenceexecutionpending.
+
+ActualgroupSend10run38721331728 exactc71e FAILED6cases5PASS1FAIL29.808s, group
+one raw+Relay sameoriginal thenwrongrecipientorderassert185. Actualarraynot
+logged. RootfailurePNG/parsedXMLshowQueuedbeforeasynchronousUIpublication; no
+publicationdefectinferred. Caption/emptyfield/envelopecapture/finaltailunexecuted,
+no groupinteropinputproduced. Retained6hash1XML. Correction5f85b5e1 reviewed0/0,
+no productionchange. Correctednativeverificationpending.

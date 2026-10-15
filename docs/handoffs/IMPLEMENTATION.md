@@ -59,7 +59,10 @@ NextgroupSend regression sameexistingpipeline/currentmemberRelayrouting/native
 caption/emptycomposer andunsafeenvelopecapture. Groupgenerator explicitnative
 mode requires independent actualA/Bconstructors signedenvelopebyteequality;
 defaultgroupmessagegeneratorreexecutedbyteidentical. Sanitizer explicitgroup
-nativeproofinput no claimofgroupdecryption. ActualgroupSend/referencepending.
+nativeproofinput no claimofgroupdecryption. FirstgroupSend10run38721331728 exactc71e FAILED6cases5PASS1FAIL29.808s after
+one raw+Relay sameoriginal atwrongrecipientorderassert185. Retained6hash1XML/
+rootPNGseen; no capturedgroupenvelope/finaltail. Fixture5f85b5e1 expects exact
+signer-first[wallet,contact], reviewed0/0; no prodchange. Correctedrun/referencepending.
 Canonical NATIVE_CHAT_IMAGES_VERIFICATION.md.
 
 Nextslices groupSend/queue/
