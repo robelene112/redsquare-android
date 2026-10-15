@@ -295,3 +295,12 @@ asset/typedassetopeningtoitsownpipe, UNKNOWN_LENGTH, preserveCancellationSignal.
 This sourceidentifieddispatchgap matchesfailure butruntimepathwasnotcaptured.
 Safeopened/asset/typedcounters nowemitonfailure; cancelonlyclosesitsownwriter
 generation. Productionandacceptancecriteriaunchanged. Correctedruntimepending.
+
+Correctedprivatetimeout10run38723816443 exactcc8e2ceb SUCCESS7PASS49.767s.
+Realpipeopened+Preparing, Senddisabled, editswhileblockedpast300ms, bounded
+readtimeout/error/re-enabledpicker, exactlatesttext throughChatWorkStore.load
+BEFOREnavigation, recreation/exactvisibletext/noattachment/fullidentity/no-wire/
+restoration PASS. Prior6casesPASS. Retained42hash18XML/root2neworiginalsseen.
+No actualprocessdeathinferred. Nextgrouptimeoutregression usesGroupsameflow
+andobservesGroupChatStore.load().draft beforeanynavigation. Existinggroup
+preparation/autosaveguardsalreadyimplemented; no fabricatedRED. Runtimepending.

@@ -42,6 +42,9 @@ class ChatImagesPreviewTest {
     @Test fun editsDuringATimedOutPrivatePhotoPreparationRemainDurableWithoutNavigation() =
         exercisePhoto(group = false, flow = PhotoFlow.FAILED_PREPARATION)
 
+    @Test fun editsDuringATimedOutGroupPhotoPreparationRemainDurableWithoutNavigation() =
+        exercisePhoto(group = true, flow = PhotoFlow.FAILED_PREPARATION)
+
     private fun exercisePhoto(group: Boolean, flow: PhotoFlow = PhotoFlow.VIEW) {
         val composing = flow != PhotoFlow.VIEW
         val instrumentation = InstrumentationRegistry.getInstrumentation()
@@ -173,7 +176,10 @@ class ChatImagesPreviewTest {
                                 assertDraft()
                                 // Observe the agreed protected draft API before Back/recreation could save it for us.
                                 ui.waitUntil(20_000) {
-                                    nl.davidengelen.redsquare.chat.ChatWorkStore(context, wallet, SaitoBackend.OWNER, contact).load().draft == draft
+                                    val retainedDraft = if (group) nl.davidengelen.redsquare.chat.GroupChatStore(
+                                        context, wallet, SaitoBackend.OWNER).load(groupId)?.draft
+                                    else nl.davidengelen.redsquare.chat.ChatWorkStore(context, wallet, SaitoBackend.OWNER, contact).load().draft
+                                    retainedDraft == draft
                                 }
                                 ui.onAllNodesWithContentDescription("Image 1 of 1").assertCountEquals(0)
                                 capture("$prefix-text-durably-retained")
