@@ -89,12 +89,13 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     fun changeMessage(value:String){message=value;draftMemory.text=value}
     var draftReady by remember(store,selected){mutableStateOf(false)}
     var draftFailed by remember(wallet.publicKey,backend,selected){mutableStateOf(false)}
+    var preparingPhoto by remember(wallet.publicKey,backend,selected){mutableStateOf(false)}
     var savingForNavigation by remember(wallet.publicKey,backend,selected){mutableStateOf(false)}
     val draftWrites=draftMemory.writes
     val navigation=requireNotNull(nl.davidengelen.redsquare.feed.LocalPostNavigation.current)
     suspend fun persistDraft(allowBusy:Boolean=false):Boolean = withContext(Dispatchers.Main.immediate) {
         draftWrites.withLock {
-            if(busy&&!allowBusy)return@withLock false
+            if(preparingPhoto || (busy&&!allowBusy))return@withLock false
             val id=selected ?: return@withLock true
             if(!draftReady)return@withLock true
             if(entries.firstOrNull{it.group.id==id}?.hasPendingAction!=false)return@withLock true
@@ -127,13 +128,13 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         } catch(cancelled:CancellationException){throw cancelled}
         catch(_:Exception){draftFailed=true}
     }
-    LaunchedEffect(draftReady,message) {
-        if(!draftReady||busy)return@LaunchedEffect
+    LaunchedEffect(draftReady,message,preparingPhoto) {
+        if(!draftReady||busy||preparingPhoto)return@LaunchedEffect
         delay(300)
         persistDraft()
     }
     fun act(operation:suspend()->Unit) {
-        if(busy||savingForNavigation)return
+        if(busy||savingForNavigation||preparingPhoto)return
         busy=true;sendFailed=false
         scope.launch {
             try{if(persistDraft(allowBusy=true))operation()}
@@ -404,7 +405,8 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                 (it.author==wallet.publicKey || !personal.policy.hidesIncomingChat(it.author))}
             val editable=personal?.ready==true&&draftReady&&!busy&&!savingForNavigation&&
                 !entry.hasPendingAction&&entry.group.memberRoles[wallet.publicKey]?.active==true
-            val permitted=editable&&loaded&&!readFailed
+            val attachmentPermitted=editable&&loaded&&!readFailed
+            val permitted=attachmentPermitted&&!preparingPhoto
             LazyColumn(Modifier.weight(1f).semantics{contentDescription=messagesLabel},
                 state=messageList,verticalArrangement=Arrangement.spacedBy(8.dp)) {
                 items(visible,key={it.id}){item->
@@ -444,15 +446,20 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                 if(entry.queuedMessage!=null)messageList.scrollToItem(visible.size)
             }
             val quote=remember(message){privateReply(message)}
-            val typed=quote?.body ?: message
+            val body=quote?.body ?: message
+            val photo=remember(body){chatPhoto(body)}
+            val typed=photo?.text ?: body
             if(quote!=null){
                 Text(quote.quote,style=MaterialTheme.typography.bodyMedium)
-                TextButton(enabled=editable,onClick={changeMessage(typed)}){Text(stringResource(R.string.chat_remove_reply))}
+                TextButton(enabled=editable,onClick={changeMessage(body)}){Text(stringResource(R.string.chat_remove_reply))}
             }
+            ChatPhotoAttachment("group:${wallet.publicKey}:${backend.id}:${entry.group.id}",body,backend,attachmentPermitted,
+                beforePicker={persistDraft()},onPreparing={preparingPhoto=it},
+                onChange={changeMessage((quote?.prefix ?: "")+it)})
             Row(verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(8.dp)){
-                OutlinedTextField(typed,{changeMessage((quote?.prefix ?: "")+it)},Modifier.weight(1f),
+                OutlinedTextField(typed,{value->changeMessage((quote?.prefix ?: "")+(photo?.let{composeChatPhoto(it.source,value)} ?: value))},Modifier.weight(1f),
                     label={Text(stringResource(R.string.chat_message))},enabled=editable,maxLines=4)
-                Button(enabled=permitted&&typed.isNotBlank(),onClick={
+                Button(enabled=permitted&&(typed.isNotBlank()||photo!=null),onClick={
                     act {
                         val mentioned=quote?.author?.let{listOf(it)}.orEmpty()
                         val candidate=withContext(Dispatchers.IO){GroupChat.message(wallet,entry.group,message,System.currentTimeMillis(),mentioned)}

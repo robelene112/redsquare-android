@@ -38,7 +38,10 @@ no runtimecaseexecuted; retained3hashcompileevidence. Importcorrected788ffb8c.
 Focused10run38718053451 exact788f SUCCESS3PASS17.506s: privatephoto selected/
 actualJPEGpixels/exactcaption/Back/reopen/recreate/no-wire pass, bothviewersPASS.
 Retained20hash8XML; root2newdraftPNGsseen. Nextgroupdrafttracer hasmissingAddphoto,
-actualREDpending. Noownedlocalbuild. Neverduplicateactivesame-scoperun.
+actualRED38718728322 exact068 FAILED4cases3PASS1FAIL36.699s missingAddphoto155.
+Retained6hash1XML/rootPNGseen. Navfixture00a97cc9 reviewed0/0. Groupminimum now
+reusessharedphoto/canonicalcaption/nativepreview/existingdraft+queue, preparation
+guards+autosaveresume. Compile/review/GREENpending, noownedlocalbuild. Neverduplicateactivesame-scoperun.
 Noownedlocalbuild. Strictphoto/canonicalescapeddivcaption+nativepicker/private
 composer nowimplemented, no storage/queueprotocolchanges. ActualpinnedA/B
 Browser.sanitize+offlineChromiumDOM/RGB exactcaption proof PASS, retained3hashes
@@ -48,7 +51,7 @@ Three uncommitted helperedits prepare explicit --check-native-photo-send and
 that slice. Default privateimageasset byteidentical/sanitizervectorsunchanged
 reexecuted. Canonical NATIVE_CHAT_IMAGES_VERIFICATION.md.
 
-Nextslice afterprivateGREEN: nativegroupcomposition, thenactualsend/queue/
+Nextslice aftergroupGREEN: actualsend/queue/
 failure/practical5MiBhistorybound/process/finalfull10+17 stillrequired. Protected
 untracked NATIVE_GROUP_CHAT_CONTRACT.md untouched. Continue allissues.
 

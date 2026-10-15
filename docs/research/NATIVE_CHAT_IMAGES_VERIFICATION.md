@@ -201,3 +201,15 @@ then openssameexactrow. FreshArchive/readiness/pixels/exactcaption/no-wire
 unchanged. ActiveRED38718728322 still068 and missingAddphotocriterionunchanged.
 No duplicate/cancelleddispatch. ReadonlyASTinspection alsofindsA/B actual
 addTransactionToGroup methodsbyte-identical3892characters, notliveproof.
+
+ActualgroupdraftRED10run38718728322 exact06814f6e FAILED4cases3PASS1FAIL36.699s,
+absentAddphoto20s at155. RootoriginalfailurePNGseen/XMLparsed; captionretained,
+selection/recoverytailunexecuted. Retained6hash1XML. Navfixture00a97cc9 reviewed
+Spec0/Standards0 butnotexecutedbythisearlierrun.
+
+Groupminimum reusesthesame nativePhotoAttachment/canonicalcaptionstring in
+existing GroupChatStore draft/queue. It retainsphoto oncaptionedit/removereply,
+enablesphoto-onlySend and blocksactions/navigation whilepreparing; caption
+autosave resumes afterpreparationends. Text/creation/membership/encryption/
+queue/storageprotocol unchanged. Sourcecompile/review/nativeGREENpending.
+ActualSend/queue/failure/process/historybound/17/finals stillremain.
