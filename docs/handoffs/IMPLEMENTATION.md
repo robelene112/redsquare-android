@@ -25,28 +25,45 @@ Completed native Android10 evidence:
   full wallet/backend invariants and independent installation restoration pass.
   Local corrected core/debug/test build46983 also completed0 in1m51s.
 
-No owned local Gradle process remains active. Actual corrected tap tracer run
-38829625275 at `0359cd914e524941fcd02145ec42825f20ee459b` is ACTIVE; await its
-actual result and retain fresh run-specific evidence before changing route code.
-Read-only watcher80544 writes `.scratch/push32-tap-red-watch.log`. Focused scopes run
-core/debug/test only. New hot-class wallet/backend assertions at3010896e/cfb7c198
-have not run in the process-only scope. Android publication and disk acknowledgement
-are not atomic; no exactly-once or all-interruption-window claim.
+No owned local Gradle process remains active. Focused scopes run core/debug/test
+only. Android publication and disk acknowledgement are not atomic; no exactly-once
+or all-interruption-window claim.
 
-Process evidence reviews are complete: Spec0/Standards0 at628e6189.
-Actual system-tap tracer5598e92e is added; corrected35da963a preserves validated
-DEBUG/emulator transport metadata across the notification launch and explicitly
-finishes test-created Activities. Initial run38829039090 was cancelled before
-build/runtime; cancellation metadata is retained separately. Local corrected
-core/debug/test build88815 completed0 in3m12s. A further
-cleanup guard prevents installation restoration when an Activity has not stopped.
-Both corrected source review axes report0 at0359cd91. Actual native RED is
-pending in run38829625275; no result is inferred. It is followed
-by implementation of system-notification navigation while preserving unsent work. Read
-[the tap proposal](../research/SOCIAL_PUSH_TAP_ROUTE_2026_10_15.md) before edits.
+Actual tap RED is retained at
+[reply-tap-red](../evidence/ticket32/reply-tap-red/android10/README.md): run38829625275
+at0359cd91 FAILURE3cases2PASS1FAIL33.001s. Actual shade click followed by15s
+Conversation timeout; failure PNG/XML show owner feed/root. Both hot journeys pass
+new active wallet/backend/no-TX tails. Tap-specific later work/scope/no-TX assertions
+were unexecuted. Both evidence reviews0 at230c348d.
+
+First tap minimum08e1a6f2 adds canonical public pending-route state/generations,
+onNewIntent without replacing launch configuration, fresh signed target+owner-parent
+proof and guarded post save/recheck/commit. Legacy forms defer with Retry. Source
+Spec0; Standards found untrusted Intent extras enter the default SavedStateHandle
+through pinned Activity1.10.1. This finding remains OPEN. No native tap GREEN yet.
+Local minimum core/debug/test92647 PASS3m30s.
+
+Current security tracer8a93aec8228b26879461fe4a6359b03c1e6eb110 adds actual
+exported launch with valid URI but malformed social.generation/social.pending.
+Focus social-push-input invokes only that method; a crash means later assertions
+and in-process cleanup are unexecuted. Both source tracer reviews0. Local44142
+PASS1m51s. Actual Android10 run38831067405 ACTIVE at8a93aec8, watcher54225 writes
+`.scratch/push32-input-red-watch.log`. Do not duplicate dispatch or infer result.
+The original post-tap scope now includes4cases because this input method is added.
+
+After actual result: retain fresh run-specific public evidence, inspect AndroidRuntime
+cause against exact pinned source. Only after demonstrated RED, apply the prepared
+`.scratch/apply-push32-route-input-fix.py` (NOT APPLIED): copy default creation extras
+and replace DEFAULT_ARGS_KEY with empty Bundle while preserving registry/owner
+restoration keys. Exact Lifecycle2.9.4 APIs verified by reader: three-argument
+ViewModelProvider takes viewModelStore, factory, extras. Then compile, review fix,
+verify same input case and full focused social-push four-case navigation on bothSDKs.
+
+Further tap work includes cold/recreation, latest-input races, save refusal and
+private/group/other mounted forms. Read
+[the tap proposal](../research/SOCIAL_PUSH_TAP_ROUTE_2026_10_15.md) before changes.
 Fresh verification precedes a guard covering final form save, scope/policy recheck
-and navigation commit. Keep initial Activity launch configuration separate from
-notification intents. Test real cold/warm taps, save failure and stale bindings.
+and navigation commit. Original launch intent configuration remains separate.
 
 Remaining#32: mentions with independent registration proof, negative policy/scope/
 permission/forgery/expiry/fault cases, optional registration UI, real FCM/gateway,
