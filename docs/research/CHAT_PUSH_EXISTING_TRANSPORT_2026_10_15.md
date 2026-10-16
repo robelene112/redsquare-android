@@ -11,7 +11,8 @@ source revision, not a verified saito.io deployment identity. Existing public
 A/B Chat copies, Relay, public module tree and first-party pinned sources were
 read. A named `/opt/saito/node/mods/ntfy/ntfy.js` source-only read reconfirmed
 its publisher flow through a network-disabled/read-only container; the module
-was never initialized. No saved options, environment values, keys, DB data,
+was never initialized. That named-file observation recorded no file hash or Git
+provenance, so it does not independently attest the A revision. No saved options, environment values, keys, DB data,
 service state, backend probes, app edits, builds, CI or production writes.
 
 ## What exists
@@ -32,8 +33,9 @@ service state, backend probes, app edits, builds, CI or production writes.
   text, and POSTs recipient-public-key topics. The POST supplies no authorization
   header; user/password fields are unused there. No native registration,
   subscription challenge, FCM token binding, VAPID endpoint or reliable retry
-  appears. Initialization itself publishes a startup notice. A's inspected
-  source has this same flow; B adds alpha status metadata.
+  appears. Initialization itself publishes a startup notice. The named deployed
+  file observation has this flow; B has alpha status metadata. That comparison
+  does not prove the deployed file's Git revision.
 - [Chat A's NTFY hook, L715-751](https://github.com/SaitoTech/saito/blob/9a4ca7e9442eb5e872168ced361ce741d7d139d7/node/mods/chat/chat.js#L715-L751)
   rejects nonplaintext `msg.module` before its encrypted-message branch and
   assigns `tx.to.length = 2`. Both defects persist in
