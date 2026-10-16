@@ -47,7 +47,14 @@ No intended navigation RED yet; new editing/publication/tap/tail steps did not r
 retains 35 original PNG/XML pairs; root viewed its failure original and parsed all
 XMLs. The next correction asserts the Chat photo directly and retains post scrolling
 and the same raster check. Chat opening dismisses the keyboard before selecting
-the displayed navigation item. Corrected compilation and runtime remain pending.
+the displayed navigation item. Local compilation passed in 1m 40s.
+The specification review found zero issues. Standards review identified one
+source-supported readiness gap: private photo decoding is asynchronous, so editor
+readiness alone does not imply a visible image. The next correction waits up to
+15 seconds for that actual image before the unchanged visibility/raster assertions.
+Cancellation was requested for run 38966824893 at 6dd2d8ac before source build or
+runtime began. Its completed status must be checked before any result claim.
+The readiness correction still needs local/source/runtime verification and review.
 Separate source run 38965756141 passed release assembly/lint at f80b035a.
 
 

@@ -311,6 +311,7 @@ class SocialPushTapPreviewTest {
 
     private fun draftPhoto(privateChat: Boolean): SemanticsNodeInteraction {
         val image = ui.onNodeWithContentDescription("Image 1 of 1")
+        if (privateChat) ui.waitUntil(15_000) { image.isDisplayed() }
         return (if (privateChat) image else image.performScrollTo()).assertIsDisplayed()
     }
 
