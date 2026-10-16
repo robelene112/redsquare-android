@@ -1,0 +1,5 @@
+# Private Chat tap tracer: fixture assertion failure
+
+Android10 run38964755858 at `a8a30ceb89a8487d9fbff1d435f97ef5bde703b0` completed FAILURE: nine cases, eight passed, one failed,66.962s. The new case fails at line194 before editing, publication or tapping. `assertTextEquals` includes the Chat field’s Message label alongside its exact Earlier saved text editable value. This does not establish the intended missing-navigation RED or an application defect. The eight preceding existing social cases passed. The new case’s alert, destination, restored draft and final invariants remain unexecuted.
+
+The correction observes the exact EditableText property, avoiding the unrelated label. Source compilation passed locally in1m39s; separate push run38964723509 passed source/release/lint at the same revision. Neither compilation nor the old cases establish the new user journey. Raw log, metadata and original PNG/XML captures remain intact. Instrumentation command exit0 does not make the harness result a success.

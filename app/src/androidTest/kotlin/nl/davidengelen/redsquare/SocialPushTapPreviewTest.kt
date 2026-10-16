@@ -3,6 +3,8 @@ package nl.davidengelen.redsquare
 import android.app.NotificationManager
 import android.content.Intent
 import androidx.compose.ui.graphics.asAndroidBitmap
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
@@ -191,7 +193,7 @@ class SocialPushTapPreviewTest {
                                 ui.onNode(hasText("New post") and hasClickAction()).performClick()
                             }
                             waitFor(hasSetTextAction() and isEnabled())
-                            ui.onNode(hasSetTextAction()).assertTextEquals("Earlier saved text")
+                            assertEditorText("Earlier saved text")
                             ui.onNodeWithContentDescription("Image 1 of 1").performScrollTo().assertIsDisplayed()
                             ui.onNode(hasSetTextAction()).performTextReplacement(latest)
                             if (journey == Journey.ANDROID_SETTINGS_REPLY) {
@@ -204,7 +206,7 @@ class SocialPushTapPreviewTest {
                                 }
                                 recreateCurrentActivity()
                                 waitFor(hasSetTextAction() and isEnabled())
-                                ui.onNode(hasSetTextAction()).assertTextEquals(latest)
+                                assertEditorText(latest)
                                 ui.onNodeWithContentDescription("Image 1 of 1").performScrollTo().assertIsDisplayed()
                                 captureNativeScreen(File(context.cacheDir, "social-push-evidence/tap-android-returned.png"))
                             }
@@ -254,7 +256,7 @@ class SocialPushTapPreviewTest {
                             openPrivateChat(contact)
                         } else ui.onNode(hasText("New post") and hasClickAction()).performClick()
                         waitFor(hasSetTextAction() and isEnabled())
-                        ui.onNode(hasSetTextAction()).assertTextEquals(latest)
+                        assertEditorText(latest)
                         val bitmap = ui.onNodeWithContentDescription("Image 1 of 1").performScrollTo()
                             .assertIsDisplayed().captureToImage().asAndroidBitmap()
                         assertEquals(0xffdc1e28.toInt(), bitmap.getPixel(bitmap.width / 2, bitmap.height / 2))
@@ -306,6 +308,11 @@ class SocialPushTapPreviewTest {
             } }
             cleanupFailure?.let { if (primary != null) primary!!.addSuppressed(it) else throw it }
         }
+    }
+
+    private fun assertEditorText(text: String) {
+        ui.onNode(hasSetTextAction()).assert(SemanticsMatcher.expectValue(
+            SemanticsProperties.EditableText, AnnotatedString(text)))
     }
 
     private fun openPrivateChat(contact: String) {

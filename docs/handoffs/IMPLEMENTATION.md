@@ -29,8 +29,14 @@ a physical system tap to the exact signed reply, then checks unsigned saved Chat
 work, recreation/reopening and the actual image pixels. Post draft, full wallet,
 backend, no outgoing writes and installation restoration stay asserted. Both
 tracer review axes report zero findings. Local core/debug/test assembly passed
-in1m39s. Intended Android10 RED run38964755858 is pending at exact a8a30ceb;
-no production guard change or runtime result is claimed yet.
+in1m39s. Run38964755858 completed FAILURE at exact a8a30ceb: nine cases, eight passed,
+one failed,66.962s. The new case stops before editing/tap because assertTextEquals
+also sees the Message label. This is a fixture failure, not intended feature RED.
+[Raw evidence](../evidence/ticket32/private-chat-tracer-fixture-failure/android10/README.md)
+retains35 original PNG/XML pairs; root viewed the new failure image and parsed all
+XMLs. The corrected tracer observes exact EditableText, leaving expected user text
+unchanged. Local corrected compilation is pending. No production guard change yet.
+Separate source run38964723509 passed release assembly/lint at a8a30ceb.
 
 The preceding documentation push run38964130150 failed during Android Emulator
 package extraction, before build/runtime. Raw metadata/log and qualifications are
