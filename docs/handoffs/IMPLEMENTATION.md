@@ -70,24 +70,27 @@ a closing keyword followed by#32. Root reopened it: acceptance is incomplete,
 and the owner did not request closing it. Avoid closing keywords next to issue
 numbers in interim commit messages.
 
-Current ordinary lifecycle verification is added at e552efbc: shared warm fixture
-plus actual notification tap with no MainActivity, Activity recreation, Back/feed
-recreation and2s consumed-route observation, then original saved text/photo and
-wallet/backend/no-TX assertions. Instrumentation remains alive, no FCM claim.
-Local core/debug/test34171 PASS2m24s. Both reviews found only manual-close error
-replacement; nullable scenario.use now preserves the original failure. Corrected
-source reviews report0/0. Ordinary focused Android10 run38931710840 and
-Android17 run38931756109 are active at exact source
-182d38433d36131184837fbd3681cddfa2378b1c. No outcome is inferred. No owned local
-Gradle build is active. Focused runs execute
-core/debug/test only, without release/lint or full suites. Public beta24 remains
-current and no new version is reserved. Next ordinary slice: actual system tap
-when no MainActivity is open, followed by screen recreation/return checks. This
-remains injected local delivery with instrumentation alive, not FCM wake-up.
-Read [tap route context](../research/SOCIAL_PUSH_TAP_ROUTE_2026_10_15.md) for lifecycle
-and draft guard details, applying latest owner scope above.
+Ordinary no-Activity tap/recreation is verified at exact corrected source
+182d38433d36131184837fbd3681cddfa2378b1c. Android10 run38931710840 SUCCESS,
+4cases27.376s; Android17 run38931756109 SUCCESS,4cases57.257s. The current
+four cases are alert, dismissal, warm tap and no-Activity tap, all ordinary
+functionality. Local pre-correction core/debug/test34171 PASS2m24s; both corrected
+source reviews0/0, and CI compiles/tests the exact correction before native runs.
+[Android10 evidence](../evidence/ticket32/reply-cold-tap-green/android10/README.md)
+and [Android17 evidence](../evidence/ticket32/reply-cold-tap-green/android17/README.md)
+retain original logs, metadata and11PNG/XML pairs perSDK (27hashes each). Root
+viewed all five cold captures perSDK and parsed all22XMLs. Exact destination,
+Activity recreation, Back/feed recreation and2s consumed-route absence pass;
+saved text/photo, unsigned/unqueued work, full wallet/backend and no-TX invariants
+pass. Android10 destination/recreated captures and Android17 initial destination
+still show Loading replies; target is visible, but no full-thread claim there.
+Separate ordinary evidence reviews are pending. No local Gradle/native run is
+active. Focused checks omit release/lint/full suites. Instrumentation and fixture
+peer remain alive, so this is not process-death/FCM wake-up. Public beta24 stays
+current with no new version reserved. Next ordinary slice can cover mentions or
+notification choices; existing transport and other-form work remain.
 
-Remaining#32 includes ordinary cold/warm lifecycle, saving/retry and other forms,
+Remaining#32 includes saving/retry and other forms,
 mentions/registration proof, optional notification settings, real transport and
 full Android acceptance. Firebase project/IAM and gateway setup remain external;
 the existing owner question stays pending. Do not repeat it. Local injection
