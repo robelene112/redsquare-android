@@ -189,10 +189,12 @@ d6d98bb03b5841d542bb22fb358d87413d75df06. Both fail at the first OS-package
 observation, line256. [Retained failures](../evidence/ticket32/android-category-opening-failure/)
 include50/51hashes and23PNG/XML pairs perSDK. Root viewed both failure originals
 and parsed46XMLs: app Settings remains visible with an enabled shortcut and no
-open-error text. Exact runtime cause is unproved. A Compose-aware bounded wait
-is the next fixture correction because the asynchronous callback currently
-hands directly to UIAutomator without advancing the test clock. No native GREEN
-is inferred. No owned local Gradle build is active. Beta24 unchanged.
+open-error text. Exact runtime cause is unproved. Correctionb71b1396 now uses a Compose-aware wait for the identical actual
+OS-package predicate within the same10second bound. The failed fixture handed
+directly to UIAutomator without advancing the Compose test clock. Exact pinned
+Compose source confirms that scheduling hazard, not those failed runs' runtime
+cause. Local core/debug/test22793 is running; corrected native checks are pending.
+No native GREEN is inferred. No owned local Gradle build is active. Beta24 unchanged.
 
 Remaining#32 includes saving/retry and other forms,
 mentions/registration proof, optional notification settings, real transport and
