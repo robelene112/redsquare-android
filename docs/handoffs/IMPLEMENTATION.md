@@ -126,10 +126,14 @@ uses no seeded consent: real Settings defaultOff -> enable -> recreationOn,
 existing warm reply tap/latest post/photo, then disable and a distinct independently
 signed parentIndexedReply must remain silent2s. Fresh signature/mapping is separate
 from the prior receipt. Both source review axes0/0; local core/debug/test95724
-PASS2m1s. Android10 run38936586595 is active at exact source
-107439c5c991336ba1bae9a609b4134a2b37cead,6ordinary cases in social-push scope.
-No native result inferred. No Settings production switch exists yet.
-No owned local Gradle build is active.
+PASS2m1s. Android10 run38936586595 at107439c5c991336ba1bae9a609b4134a2b37cead
+is FAILURE6cases5PASS1FAIL50.936s: wait15s for the missing enabled alert switch
+inside Settings (openAlertChoice line235). Later choice assertions did not run.
+[Choice RED](../evidence/ticket32/alert-choice-red/android10/README.md) retains
+38hashes/17PNG/XML pairs; root viewed actual Settings failure and parsed17XML.
+adbexit0 is preserved; harness/runtime fail correctly. No scope.txt on failure.
+Minimum UI implementation and source/evidence review are next. No native GREEN
+for this choice is observed, and no owned local Gradle/native run is active.
 
 Remaining#32 includes saving/retry and other forms,
 mentions/registration proof, optional notification settings, real transport and

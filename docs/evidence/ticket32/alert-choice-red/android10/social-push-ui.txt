@@ -1,0 +1,133 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.SocialPushPreviewTest:
+INSTRUMENTATION_STATUS: test=aPhysicallyDismissedReplyStaysSilentWhenItsReferenceIsRedelivered
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aPhysicallyDismissedReplyStaysSilentWhenItsReferenceIsRedelivered
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anAvailableSignedReplyShowsOneAndroidReplyAlertAfterVerifyingItsParent
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anAvailableSignedReplyShowsOneAndroidReplyAlertAfterVerifyingItsParent
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.SocialPushTapPreviewTest:
+INSTRUMENTATION_STATUS: test=tappingAReplyPreservesTheLatestUnsentPostAndPhotoAndOpensTheExactConversation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=tappingAReplyPreservesTheLatestUnsentPostAndPhotoAndOpensTheExactConversation
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=theReplyAndMentionAlertChoiceCanBeEnabledAndDisabledInSettings
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.waitFor(SocialPushTapPreviewTest.kt:266)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.openAlertChoice(SocialPushTapPreviewTest.kt:235)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.tapJourney$lambda$13$lambda$12$lambda$11(SocialPushTapPreviewTest.kt:121)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.$r8$lambda$kiVS2QX3EKkPPbViVBul5umPEDs(Unknown Source:0)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.tapJourney(SocialPushTapPreviewTest.kt:115)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.theReplyAndMentionAlertChoiceCanBeEnabledAndDisabledInSettings(SocialPushTapPreviewTest.kt:39)
+
+INSTRUMENTATION_STATUS: stream=
+Error in theReplyAndMentionAlertChoiceCanBeEnabledAndDisabledInSettings(nl.davidengelen.redsquare.SocialPushTapPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.waitFor(SocialPushTapPreviewTest.kt:266)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.openAlertChoice(SocialPushTapPreviewTest.kt:235)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.tapJourney$lambda$13$lambda$12$lambda$11(SocialPushTapPreviewTest.kt:121)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.$r8$lambda$kiVS2QX3EKkPPbViVBul5umPEDs(Unknown Source:0)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.tapJourney(SocialPushTapPreviewTest.kt:115)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.theReplyAndMentionAlertChoiceCanBeEnabledAndDisabledInSettings(SocialPushTapPreviewTest.kt:39)
+
+INSTRUMENTATION_STATUS: test=theReplyAndMentionAlertChoiceCanBeEnabledAndDisabledInSettings
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aReplyTapOpensWithoutAnActivityAndIsConsumedAcrossScreenRecreation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aReplyTapOpensWithoutAnActivityAndIsConsumedAcrossScreenRecreation
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aPublicKeyMentionShowsAMentionAlertAndOpensItsPost
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aPublicKeyMentionShowsAMentionAlertAndOpensItsPost
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 50.936
+There was 1 failure:
+1) theReplyAndMentionAlertChoiceCanBeEnabledAndDisabledInSettings(nl.davidengelen.redsquare.SocialPushTapPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.waitFor(SocialPushTapPreviewTest.kt:266)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.openAlertChoice(SocialPushTapPreviewTest.kt:235)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.tapJourney$lambda$13$lambda$12$lambda$11(SocialPushTapPreviewTest.kt:121)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.$r8$lambda$kiVS2QX3EKkPPbViVBul5umPEDs(Unknown Source:0)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.tapJourney(SocialPushTapPreviewTest.kt:115)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.theReplyAndMentionAlertChoiceCanBeEnabledAndDisabledInSettings(SocialPushTapPreviewTest.kt:39)
+
+FAILURES!!!
+Tests run: 6,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
