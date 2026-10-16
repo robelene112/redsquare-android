@@ -3,7 +3,9 @@
 Bounded local[#32](https://github.com/robelene112/redsquare-android/issues/32) slice.
 SocialPushWorker now retains opaque public routing references in WorkManager,
 waits for connectivity and retries selected-Archive failures with10s minimum
-exponential backoff. It bounds a receipt to7days and reuses the existing fresh
+exponential backoff. On execution it expires processing after7days since receipt, conservatively
+retaining it across clock rollback; this is not a promise to delete WorkManager
+history at that age. It reuses the existing fresh
 wallet/backend/permission/policy/signed-content/receipt-ledger checks. Cancellation
 propagates; the verifier's own timeout is mapped to retry only if the parent stays
 active. This last timeout path is not yet exercised by the current native fixture.
@@ -16,6 +18,7 @@ No message body or wallet secret is put into scheduler inputs.
 | GREEN10 |c69a1896 /38981302625 SUCCESS, old11PASS84.608s plus worker1PASS12.005s |
 | GREEN17 |c69a1896 /38981305637 SUCCESS, old11PASS96.847s plus worker1PASS11.792s |
 | Tracer release/lint |ee1bc69b /38980190232 SUCCESS |
+| Minimum release/lint |c69a1896 /38981302496 SUCCESS |
 
 [Failed first attempt](../scheduled-receipt-group-observation-failure/android10/README.md),
 [intended RED](../scheduled-receipt-red/android10/README.md),
@@ -43,6 +46,5 @@ compatibility proof. Each core report confirms114/0/0.
 This accepts local scheduled processing/retry/redelivery only. Whole#32 remains
 OPEN: native timeout observation, process recovery/autonomous wakeup, actual
 Firebase registration/transport, viable integration for both backends and integrated
-acceptance remain. No production deployment, new beta or Pixel result. Source
-minimum38981302496 is still pending at this record; do not infer release/lint from
-the native runs. Public signed beta24 is unchanged.
+acceptance remain. No production deployment, new beta or Pixel result. Source minimum38981302496 completed SUCCESS with release/lint; its exact metadata
+is retained separately. Native runtime and source checks remain distinct. Public signed beta24 is unchanged.

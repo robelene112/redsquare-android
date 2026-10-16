@@ -22,78 +22,68 @@ Do not invent one. Repository state was verified before ordinary app work resume
 
 ## Current bounded work
 
-Verified username recognition is implemented and both SDK local alert/tap flows
-pass. [Bounded acceptance](../evidence/ticket32/username-mention-green/README.md)
-links intended RED38975655606, first minimum failure38976627865 (username passed,
-group exact editor observation failed before publication), corrected Android10
-38977710046 at78e4172d11PASS81.609s, Android17 38976630590 at7824504111PASS124.127s,
-and notification compatibility38976632886/38976636125. Compatibility includes32
-read cases each, applicable permission choices and real read-history recovery
-PIDs6113→6203 and5326→5398. Production tree equivalence78245041→78e4172d is retained.
-Local minimum3m18s; source38976622437 release/lintSUCCESS. Corrected source run
-38977709969 SUCCESS includes release/lint. Both source reviews0/0 at990739b8,
-fixture/failure reviews0/0 at78e4172d; final combined evidence reviews Standards0/
-Spec0 at3f3c5bb4. The verified-name local slice is accepted.
+The current #32 slice is scheduled social receipt through real WorkManager,
+selected-Archive retry and an actual Android alert without an Activity.
+[Canonical verification](../evidence/ticket32/scheduled-receipt-green/README.md)
+records both passing SDKs at exactc69a1896d01b23c6bb41b3f9e248410517017ac7:
+- Android10 run38981302625: old11PASS84.608s plus worker1PASS12.005s.
+- Android17 run38981305637: old11PASS96.847s plus worker1PASS11.792s.
+- Source38981302496 SUCCESS includes release/lint; both native runs core114/0/0.
+- Root viewed6new GREEN originals and parsed6XML. Earlier11 screenshots are not
+  duplicated; their exact passing raw logs remain retained.
 
-Root parsed all new XML and viewed ten username originals, corrected10 group
-draft and five permission/recovery originals. Loading/failed conversation history
-is qualified. The bounded15s same-value wait does not prove an earlier failure
-cause. Earlier failed runs stay failures. Whole#32 remains OPEN; beta24 unchanged.
+Minimum uses CONNECTED/10s exponential backoff, an execution-time7day processing
+expiry and the shared receiver's fresh wallet/backend/policy/signed-Archive/ledger
+checks. Clock rollback conservatively retains processing; this does not establish
+WorkManager-history deletion after7days. Enqueue returns the actual persisted
+unique-work UUID, including pending duplicates. A shared execution mutex is drained
+after owned cancellation before fixture files/preferences/wallet/backend restore.
+The native journey checks pending duplicate identity, actual recovered alert,
+completed duplicate's unchanged OS postTime, no Activity, fullwallet/backend,
+zero outgoing writes and scoped restoration.
 
-Active next same-ticket vertical slice is durable scheduled local receipt with
-WorkManager, selected Archive retry and actual Android alert without an Activity.
-Plan `.scratch/push32-durable-receipt-plan.txt` records the already accepted native
-controlled-peer/system-alert seam. Tracer source is prepared with an initially nonpublishing worker,
-and its initial local core/debug/test compilation PASSED3m37s, log
-`.scratch/push32-durable-tracer-build.log`. Review base for this bounded slice is
-8e6498a2. Existing social-push scope now also runs its one ordinary scheduler case
-with its own150s ceiling; existing11cases/180s are unchanged. The tracer must show
-a real runtime RED before receipt implementation. Root has not dispatched it yet. Tracer reviews found cancellation/restoration
-and duplicate-alert oracle gaps. The correction keeps ownership before enqueue
-acknowledgement, drains the actual worker execution Mutex after cancelling the
-exact unique work, gates restoration on that barrier, and checks unchanged OS
-notification postTime after completed redelivery. Worker remains nonpublishing
-until the actual intended RED. Corrected local core/debug/test compilation PASSED3m28s in exec10303, log
-`.scratch/push32-durable-tracer-corrected-build.log`. Both corrected tracer
-reviews ataaefcbc7 have0 outstanding findings. Attempt38979224052 at67293afb FAILED in the earlier group final editor
-assertion before scheduled-receipt execution:11cases10PASS1FAIL82.607s. Worker
-tracer unexecuted, no intended RED yet. Source38979223612 SUCCESS release/lint.
-[Failure](../evidence/ticket32/scheduled-receipt-group-observation-failure/android10/README.md)
-retains44PNG/XML; root viewed group failure and parsed allXML. Exact prior same-value
-wait returned before final assertion failed; actual predicate-time mismatch remains
-unknown. The wait did not resolve this repeated observation. Current fixture correction
-compares exact full EditableText.text instead of AnnotatedString annotations, keeping
-text,15s and finalassert pluspersisteddraft/photo checks. This IS a predicate change,
-not an identical-assertion retry or established IME cause. Both corrected source/failure reviews atbd482f8c report0 findings. The pinned
-ui-text-android1.11.4 bytecode also confirms annotated equality includes metadata
-and toString omits it; this is not runtime cause proof. [Intended worker RED](../evidence/ticket32/scheduled-receipt-red/android10/README.md)
-38980190191 at ee1bc69b FAILURE: existing11PASS, new1FAIL1.88s at108, no-op worker
-finished SUCCEEDED without required retry. Later newcase tails unexecuted, root
-viewed original launcher/parsedXML. Minimum now adds CONNECTED/10s exponential
-backoff, bounded7day receipt lifetime, strict reference/input selection and shared
-SocialPush.receive result mapping under the same cancellation/drain Mutex. It
-freshly rechecks protected identity/backend/policies through the existing receiver.
-No SDK/service/gateway/deployment or expedited FCM scheduling yet. Cancellation
-propagates. Initial minimum source reviews identified the KEEP-returned-UUID gap and stale
-build status. Correction now queries the actual persisted unique WorkInfo after
-acknowledgement, returns its real UUID, and the same native case checks a duplicate
-while retry is pending. Worker also maps its verifier's own15s timeout to retry
-after ensuring the parent context remains active; true worker cancellation still
-propagates. This timeout path needs its own native observation before claiming it
-tested. The current case uses malformed/unavailable Archive data, not timeout.
-Both corrected minimum source reviews at1a62909d report0 findings. Fresh exact-source Android10/17 GREEN runs38981302625/38981305637 SUCCESS
-atc69a1896d01b23c6bb41b3f9e248410517017ac7: old11PASS84.608s/96.847s, plus
-worker1PASS12.005s/11.792s. Root6neworiginals/6XML. Final evidence review next;
-[bounded record](../evidence/ticket32/scheduled-receipt-green/README.md) retains
-actual pending/completed duplicate handles+OSpostTime, noActivity, fullwallet/backend,
-noWrites and execution-drain/scopedrestoration. Source38981302496 is stillpending.
-Nativepass is not release/lint, timeout/process/FCM/whole32 acceptance.
-No further local rebuild for the small review correction: exact CI compiles core/
-debug/test before runtime. Tracer source38980190232 SUCCESS release/lint retained.
-Do not claim GREEN or actual process-death/FCM acceptance. No owned local Gradle build remains after the pre-review minimum passed3m20s
-in exec76439, log `.scratch/push32-durable-minimum-build.log`. No SDK, gateway or live changes
-have been made. Its eventual live-process pass must not be called killed-process
-or FCM delivery. External Firebase setup question stays pending, do not repeat it.
+[First attempt](../evidence/ticket32/scheduled-receipt-group-observation-failure/android10/README.md)
+38979224052 remains FAILURE:10/11PASS82.607s, group editor observation before the
+worker case. The correction explicitly compares exact full EditableText.text
+rather than AnnotatedString metadata, keeping15s/finalassert and persisted
+text/photo checks. Installed1.11.4 bytecode confirms those comparisons differ;
+the actual old predicate-time cause remains unknown.
+[Intended RED](../evidence/ticket32/scheduled-receipt-red/android10/README.md)
+38980190191 at ee1bc69b: old11PASS83.64s, worker1FAIL1.88s rejecting the no-op
+worker's SUCCEEDED state. Later newcase tails did not execute in that failed run.
+
+Corrected source reviews0/0 at1a62909d; pre-review minimum local core/debug/test
+PASS3m20s (exec76439 ended). The simple review fix is compiled by exact-source CI.
+No owned local Gradle build remains. Bounded review base8e6498a2; minimum base
+ee1bc69b. Final evidence review at2fd7079e found only stale current-handoff wording;
+this rewrite resolves that finding. Final confirmation is next.
+
+Next ordinary observation is the verifier's own15s timeout-to-retry path, currently
+NOT exercised by the malformed-response fixture. Its code checks parent activity
+before retry, preserving genuine cancellation. Plan
+`.scratch/push32-timeout-native-validation-plan.txt` stays at the existing native
+controlled-peer/system-alert seam with no new dispatch choice. Do not implement
+a second ticket in parallel. This slice is live-process scheduling, not actual
+process death/autonomous wakeup/FCM/locked/Doze/Pixel or full#32 acceptance.
+
+A source-only[process-boundary proposal](../research/NATIVE_SCHEDULED_RECEIPT_PROCESS_BOUNDARY_2026_10_16.md)
+recommends reusing the existing JVM peer outside the target process via owned
+adb reverse. No shared-fixture move, host launcher, build hook or process test
+has been implemented. No SDK/client config/service/gateway/node change was made.
+The existing owner Firebase setup question remains pending, do not repeat it.
+Public signed beta24 is unchanged.
+
+## Earlier accepted username slice
+
+[Verified username acceptance](../evidence/ticket32/username-mention-green/README.md)
+retains intended RED38975655606, first minimum failure38976627865 (username passed,
+group observation failed), corrected10 run38977710046/78e4172d11PASS81.609s and17
+38976630590/7824504111PASS124.127s. Both notification compatibility runs
+38976632886/38976636125 pass32read cases, applicable permission choices and actual
+read-history recovery PIDs6113→6203/5326→5398. Production equivalence782→78 and
+source release/lint38976622437/38977709969 are retained. Final evidence reviews0/0
+at3f3c5bb4. Root10username originals+groupdraft+5permission/recovery originals,
+allXML parsed. Loading/failed history and earlier failed-run tails remain qualified.
 
 ## Accepted bounded #32 work
 
