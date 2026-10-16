@@ -1,0 +1,9 @@
+# Android 10: username PASS, earlier group editor observation FAILURE
+
+Run38976627865 at `78245041c64c2fddaaa039cf7d076c6e477c5802` completed FAILURE: eleven cases, ten PASS and one group case failure,84.613s. The new verified-username case completes successfully, including actual Mentions alert/tap/exact post, recreation/consumed route, draft/photo and final invariants. The run itself remains FAILURE.
+
+The group case fails at SocialPushTapPreviewTest.kt:266, asserting latest EditableText immediately after replacement, before group edited capture, social publication or tap. Later group destination/protected-draft/recreation/raster/final tails are unexecuted. The failure diagnostic prints the expected and a subsequently observed semantic text identically; the failure PNG/XML show the latest text and photo with the keyboard. These later observations do not establish what the failed predicate read or its exact cause. No app guard, optional name lookup or protocol regression is established by this pre-publication observation.
+
+Root viewed the group failure original and parsed all44XMLs. The new username originals remain retained for separate visual inspection. Source38976622437 SUCCESS at the same source includes release assembly/lint; local minimum core/debug/test PASS3m18s. Prior intended username RED remains a separate FAILURE. adbexit0 does not relabel this JUnit/harness failure; no success scope.txt is invented.
+
+A fixture-only correction adds the existing bounded15s positive wait for the exact same EditableText AnnotatedString predicate, followed by the unchanged assertion. It changes no expected value, app source, persistence wait or180s class limit. Successful later verification would not prove this failure's cause. This is local injected transport, not FCM, closed-process push, full#32 or Pixel acceptance. Public beta24 stays unchanged.

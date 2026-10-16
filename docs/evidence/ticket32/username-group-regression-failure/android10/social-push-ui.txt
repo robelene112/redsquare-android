@@ -1,0 +1,257 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.SocialPushPreviewTest:
+INSTRUMENTATION_STATUS: test=aPhysicallyDismissedReplyStaysSilentWhenItsReferenceIsRedelivered
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aPhysicallyDismissedReplyStaysSilentWhenItsReferenceIsRedelivered
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anAvailableSignedReplyShowsOneAndroidReplyAlertAfterVerifyingItsParent
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anAvailableSignedReplyShowsOneAndroidReplyAlertAfterVerifyingItsParent
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.SocialPushTapPreviewTest:
+INSTRUMENTATION_STATUS: test=tappingAReplyPreservesTheLatestUnsentPostAndPhotoAndOpensTheExactConversation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=tappingAReplyPreservesTheLatestUnsentPostAndPhotoAndOpensTheExactConversation
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=theReplyAndMentionAlertChoiceCanBeEnabledAndDisabledInSettings
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=theReplyAndMentionAlertChoiceCanBeEnabledAndDisabledInSettings
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aReplyTapOpensWithoutAnActivityAndIsConsumedAcrossScreenRecreation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aReplyTapOpensWithoutAnActivityAndIsConsumedAcrossScreenRecreation
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aReplyTapPreservesTheLatestUnsentGroupChatAndPhoto
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (EditableText = 'Latest unsent post 🌱
+Keep the photo and this last edit')
+Semantics of the node:
+Node #1625 at (l=12.0, t=277.0, r=220.0, b=390.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = 'Latest unsent post 🌱
+Keep the photo and this last edit'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@6e28b11'
+Focused = 'true'
+ImeAction = 'Default'
+InputText = 'Latest unsent post 🌱
+Keep the photo and this last edit'
+IsEditable = 'true'
+Text = '[Message]'
+TextSelectionRange = 'TextRange(55, 55)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, MagnifierPositionInRoot, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 9 siblings
+Selector used: (SetText is defined)
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.assertEditorText(SocialPushTapPreviewTest.kt:387)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.tapJourney$lambda$21$lambda$20$lambda$19(SocialPushTapPreviewTest.kt:266)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.$r8$lambda$yGCklkpEVIyz0TVC_XmAUYof6I4(Unknown Source:0)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest$$ExternalSyntheticLambda18.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.tapJourney(SocialPushTapPreviewTest.kt:205)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.aReplyTapPreservesTheLatestUnsentGroupChatAndPhoto(SocialPushTapPreviewTest.kt:56)
+
+INSTRUMENTATION_STATUS: stream=
+Error in aReplyTapPreservesTheLatestUnsentGroupChatAndPhoto(nl.davidengelen.redsquare.SocialPushTapPreviewTest):
+java.lang.AssertionError: Failed to assert the following: (EditableText = 'Latest unsent post 🌱
+Keep the photo and this last edit')
+Semantics of the node:
+Node #1625 at (l=12.0, t=277.0, r=220.0, b=390.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = 'Latest unsent post 🌱
+Keep the photo and this last edit'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@6e28b11'
+Focused = 'true'
+ImeAction = 'Default'
+InputText = 'Latest unsent post 🌱
+Keep the photo and this last edit'
+IsEditable = 'true'
+Text = '[Message]'
+TextSelectionRange = 'TextRange(55, 55)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, MagnifierPositionInRoot, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 9 siblings
+Selector used: (SetText is defined)
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.assertEditorText(SocialPushTapPreviewTest.kt:387)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.tapJourney$lambda$21$lambda$20$lambda$19(SocialPushTapPreviewTest.kt:266)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.$r8$lambda$yGCklkpEVIyz0TVC_XmAUYof6I4(Unknown Source:0)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest$$ExternalSyntheticLambda18.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.tapJourney(SocialPushTapPreviewTest.kt:205)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.aReplyTapPreservesTheLatestUnsentGroupChatAndPhoto(SocialPushTapPreviewTest.kt:56)
+
+INSTRUMENTATION_STATUS: test=aReplyTapPreservesTheLatestUnsentGroupChatAndPhoto
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aPublicKeyMentionShowsAMentionAlertAndOpensItsPost
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aPublicKeyMentionShowsAMentionAlertAndOpensItsPost
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aReplyTapPreservesTheLatestUnsentPrivateChatAndPhoto
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aReplyTapPreservesTheLatestUnsentPrivateChatAndPhoto
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=androidNotificationCategoriesCanBeOpenedWithoutLosingTheLatestPost
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=androidNotificationCategoriesCanBeOpenedWithoutLosingTheLatestPost
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=enablingSocialAlertsWorksEvenAfterTheGeneralAndroidPromptWasOffered
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=enablingSocialAlertsWorksEvenAfterTheGeneralAndroidPromptWasOffered
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aVerifiedUsernameMentionShowsAMentionAlertAndOpensItsPost
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aVerifiedUsernameMentionShowsAMentionAlertAndOpensItsPost
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 84.613
+There was 1 failure:
+1) aReplyTapPreservesTheLatestUnsentGroupChatAndPhoto(nl.davidengelen.redsquare.SocialPushTapPreviewTest)
+java.lang.AssertionError: Failed to assert the following: (EditableText = 'Latest unsent post 🌱
+Keep the photo and this last edit')
+Semantics of the node:
+Node #1625 at (l=12.0, t=277.0, r=220.0, b=390.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = 'Latest unsent post 🌱
+Keep the photo and this last edit'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@6e28b11'
+Focused = 'true'
+ImeAction = 'Default'
+InputText = 'Latest unsent post 🌱
+Keep the photo and this last edit'
+IsEditable = 'true'
+Text = '[Message]'
+TextSelectionRange = 'TextRange(55, 55)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, MagnifierPositionInRoot, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 9 siblings
+Selector used: (SetText is defined)
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.assertEditorText(SocialPushTapPreviewTest.kt:387)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.tapJourney$lambda$21$lambda$20$lambda$19(SocialPushTapPreviewTest.kt:266)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.$r8$lambda$yGCklkpEVIyz0TVC_XmAUYof6I4(Unknown Source:0)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest$$ExternalSyntheticLambda18.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.tapJourney(SocialPushTapPreviewTest.kt:205)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.aReplyTapPreservesTheLatestUnsentGroupChatAndPhoto(SocialPushTapPreviewTest.kt:56)
+
+FAILURES!!!
+Tests run: 11,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

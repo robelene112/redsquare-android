@@ -44,9 +44,29 @@ time. Cancellation propagates; unavailable optional name cache behaves as no nam
 matching NotificationsScreen, so public-key/list mentions still work. Owned-parent
 reply priority stays before name lookup. No network lookup/registration/wallet or
 protocol-format change. Both ordinary source/RED-evidence reviews report zero findings at990739b8.
-Local core/debug/test compilation is active; no native GREEN or whole#32 result
-is claimed. Next actual checks are social11cases and existing notification
-compatibility on both Android versions at one exact source.
+Local core/debug/test compilation PASS3m18s. At exact
+78245041c64c2fddaaa039cf7d076c6e477c5802:
+- Social10 run38976627865 FAILURE11cases10PASS1FAIL84.613s. New username case
+  PASSES; earlier group case fails immediate latest EditableText assertion at266
+  before group publication/tap. [Failure](../evidence/ticket32/username-group-regression-failure/android10/README.md)
+  retains44PNG/XMLs. Root viewed group failure/parsed44XMLs. Expected and later
+  diagnostic/captured text look identical; exact predicate-time cause unknown.
+  Later group tails unexecuted, no new guard/name/protocol regression established.
+- Social17 run38976630590 SUCCESS, all11cases. Raw retrieval/retention is underway.
+- Notifications10 38976632886 and17 38976636125 SUCCESS: existing32read cases,
+  applicableOSchoices and actual read-history process recovery. Original retention
+  and selected visual inspection are underway; not receiver-after-denial/FCM proof.
+- Separate source38976622437 SUCCESS includes release/lint.
+
+Fixture-only correction now waits at most15s for the SAME exact EditableText
+AnnotatedString predicate before the unchanged assertion. No expected value,
+production/persistence behavior or180s class ceiling changes. This addresses a
+possible observation transition, not a proven failure cause. Both fixture-source
+and failed-evidence reviews precede a fresh corrected Android10 social run. No
+unchanged Android17/notification rerun is needed if combined unchanged-production
+and final evidence review supports acceptance. No owned local build remains;
+exact CI compiles the simple helper correction before runtime. Do not claim
+complete username acceptance or whole#32 yet.
 
 Plan `.scratch/push32-username-minimum-plan.txt`; retention helper
 `.scratch/retain-push32-username.py` validates11cases. Large artifacts remain under

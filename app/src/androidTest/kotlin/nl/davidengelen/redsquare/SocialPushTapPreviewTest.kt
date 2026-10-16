@@ -384,8 +384,9 @@ class SocialPushTapPreviewTest {
     }
 
     private fun assertEditorText(text: String) {
-        ui.onNode(hasSetTextAction()).assert(SemanticsMatcher.expectValue(
-            SemanticsProperties.EditableText, AnnotatedString(text)))
+        val expected = SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(text))
+        waitFor(hasSetTextAction() and expected)
+        ui.onNode(hasSetTextAction()).assert(expected)
     }
 
     private fun openChat(label: String, group: Boolean = false) {
