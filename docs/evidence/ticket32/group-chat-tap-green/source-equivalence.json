@@ -1,0 +1,20 @@
+{
+  "meaning": "Test fixture, core and group store objects unchanged from intended RED through group guard minimum and actual GREEN source. Production GroupChatScreen intentionally changes.",
+  "objects": {
+    "app/src/androidTest": {
+      "771abdf3524eee719c7bce6da5a267a138a3296c": "78fc00b51fa472a3859c55737f9c9786dcfac2bd",
+      "0b5dc394": "78fc00b51fa472a3859c55737f9c9786dcfac2bd",
+      "4419fd1a2ac07bbd084f95578a136bf38ec590eb": "78fc00b51fa472a3859c55737f9c9786dcfac2bd"
+    },
+    "core": {
+      "771abdf3524eee719c7bce6da5a267a138a3296c": "8eb7e93dc1580b9285ce9edab1512c34387ecee5",
+      "0b5dc394": "8eb7e93dc1580b9285ce9edab1512c34387ecee5",
+      "4419fd1a2ac07bbd084f95578a136bf38ec590eb": "8eb7e93dc1580b9285ce9edab1512c34387ecee5"
+    },
+    "app/src/main/kotlin/nl/davidengelen/redsquare/chat/GroupChatStore.kt": {
+      "771abdf3524eee719c7bce6da5a267a138a3296c": "9b6af2c87aece9777da2f7815be36da286dc61cc",
+      "0b5dc394": "9b6af2c87aece9777da2f7815be36da286dc61cc",
+      "4419fd1a2ac07bbd084f95578a136bf38ec590eb": "9b6af2c87aece9777da2f7815be36da286dc61cc"
+    }
+  }
+}

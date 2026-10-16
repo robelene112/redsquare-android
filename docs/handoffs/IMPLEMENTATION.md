@@ -116,9 +116,25 @@ refuses busy/picker/loading/dialog states and freezes edits/operations/navigatio
 Back marks its existing save interval synchronously to defer concurrent social
 navigation. Registration cleanup is identity-bound. No protocol/store format change.
 Both ordinary minimum source/RED-evidence reviews report zero findings at0b5dc394.
-Local minimum compilation is active; native GREEN is not yet observed. Separate
-tracer source push38972750011 SUCCESS includes release assembly and lint. Plan `.scratch/push32-group-guard-minimum-plan.txt`. Public beta24
-unchanged. Whole #32 remains open.
+Local minimum core/debug/test compilation PASS3m45s. Separate tracer push38972750011
+and minimum push38973706184 SUCCESS include release assembly/lint.
+At exact4419fd1a2ac07bbd084f95578a136bf38ec590eb, all four focused native runs
+now SUCCESS: social10 38973726401 ten cases78.837s; social17 38973729273 ten cases
+103.434s; group-ui10 38973732283 and group-ui17 38973734828 each actions1/mixed1/
+group22/recovery1/restoration1. Actual recovery PIDs13930→14322 /5236→5318 retain
+exact protected originals/key/draft/fullwallet/backend and no automatic send.
+[Group slice evidence](../evidence/ticket32/group-chat-tap-green/README.md) retains
+all original results. Root viewed14 originals and parsed167XMLs. Destinations still
+show Loading replies, forwarded replies delivery unconfirmed, unavailable-history
+recovery cases qualified. Test fixture/core/group store blobs unchanged between
+RED, minimum and GREEN source. Final GREEN evidence review is pending.
+No owned local Gradle or native run is active. Public beta24 unchanged. Full #32,
+actual FCM/closed-process push and physical Pixel acceptance remain outstanding.
+Retention helpers `.scratch/retain-push32-group-tap.py` (ten cases) and
+`.scratch/retain-push32-group-regression.py` (26 completions) remain ignored.
+Do not start another ticket. Next bounded #32 gap selection follows final review;
+username/native-listed mentions, ordinary receipt permission/category controls,
+other mounted forms and real transport remain as documented below.
 
 ## Verified #32 slices
 
