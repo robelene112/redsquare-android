@@ -249,8 +249,7 @@ class SocialPushTapPreviewTest {
     private fun alertChoice() = hasText("Replies and mentions") and isToggleable()
 
     private fun visitAndroidCategories(device: UiDevice, appPackage: String, cache: File, verifySavedWork: () -> Unit) {
-        waitFor(hasText("Settings") and hasClickAction() and isEnabled())
-        ui.onNode(hasText("Settings") and hasClickAction()).performClick()
+        openSettings()
         val shortcut = hasText("Android notification settings") and hasClickAction() and isEnabled()
         waitFor(shortcut)
         ui.onNode(shortcut).performScrollTo().performClick()
@@ -271,10 +270,24 @@ class SocialPushTapPreviewTest {
     }
 
     private fun openAlertChoice(): SemanticsNodeInteraction {
-        waitFor(hasText("Settings") and hasClickAction() and isEnabled())
-        ui.onNode(hasText("Settings") and hasClickAction()).performClick()
+        openSettings()
         waitFor(alertChoice() and isEnabled())
         return ui.onNode(alertChoice()).performScrollTo()
+    }
+
+    private fun openSettings() {
+        val activity = activeMainActivities().single()
+        InstrumentationRegistry.getInstrumentation().runOnMainSync {
+            activity.getSystemService(android.view.inputmethod.InputMethodManager::class.java)
+                .hideSoftInputFromWindow(activity.window.decorView.windowToken, 0)
+        }
+        val button = hasText("Settings") and hasClickAction() and isEnabled()
+        waitFor(button)
+        ui.waitUntil(15_000) { ui.onNode(button).isDisplayed() }
+        ui.onNode(button).assertIsDisplayed().performClick()
+        val title = hasText("Settings") and hasAnyAncestor(isDialog())
+        waitFor(title)
+        ui.waitUntil(15_000) { ui.onNode(title).isDisplayed() }
     }
 
     private fun recreateCurrentActivity() {

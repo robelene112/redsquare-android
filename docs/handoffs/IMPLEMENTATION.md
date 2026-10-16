@@ -163,9 +163,16 @@ transaction/unqueued while OS Settings is foreground, before Back or any later
 notification navigation. Return/recreation and the existing reply journey remain.
 Both corrected source axes0/0. Local pre-correction11273 PASS1m50s; corrected
 core/debug/test91029 PASS1m44s. No shortcut is implemented yet. Actual Android10
-run38940489331 is active at exact sourced10df7f052ce22bbdd3e4d54f28321826a9e42db,
-social-push scope with7ordinary cases. RED/outcome not inferred. No owned local
-Gradle build is active.
+run38940489331 atd10df7f052ce22bbdd3e4d54f28321826a9e42db is FAILURE7cases,
+6PASS1FAIL58.97s at shortcutwaitline252. This is a fixture navigation failure,
+not intended feature RED: original PNG/XML show the post/IME and no Settings
+dialog. [Retained navigation failure](../evidence/ticket32/android-category-navigation-failure/android10/README.md)
+has50hashes/23PNG/XML. Root viewed failure and parsedall23XMLs. Later OS/durability/
+tap tails unexecuted. Correction now dismissesIME, waits displayed header, clicks
+and positively observes the Settings title inside Dialog before looking for the
+shortcut. Same genuine category/durability assertions retained. No production
+shortcut exists yet; intended native RED remains pending. Source/evidence review
+and local compile are pending, with no native run active.
 
 Remaining#32 includes saving/retry and other forms,
 mentions/registration proof, optional notification settings, real transport and
