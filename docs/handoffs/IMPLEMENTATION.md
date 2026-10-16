@@ -55,8 +55,9 @@ worker's SUCCEEDED state. Later newcase tails did not execute in that failed run
 Corrected source reviews0/0 at1a62909d; pre-review minimum local core/debug/test
 PASS3m20s (exec76439 ended). The simple review fix is compiled by exact-source CI.
 No owned local Gradle build remains. Bounded review base8e6498a2; minimum base
-ee1bc69b. Final evidence review at2fd7079e found only stale current-handoff wording;
-this rewrite resolves that finding. Final confirmation is next.
+ee1bc69b. Final evidence review at2fd7079e found only stale current-handoff wording,
+resolved at81624363 with final Standards0/Spec0. This bounded local slice is
+accepted; actual timeout/process/external gates below remain.
 
 Next ordinary observation is the verifier's own15s timeout-to-retry path, currently
 NOT exercised by the malformed-response fixture. Its code checks parent activity
