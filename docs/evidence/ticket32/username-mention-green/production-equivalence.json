@@ -1,0 +1,18 @@
+{
+  "compared": {
+    "78245041c64c2fddaaa039cf7d076c6e477c5802": {
+      "app/src/main": "58045fff8f3e6e6e60315a11c6953033f4af3c69",
+      "core/src/main": "89854000f1d88fb3d8f6c5c93d1de7ef4a00de81",
+      "app/build.gradle.kts": "9baa8ecb0643924c8c787aabfc8832c54d5ddc88",
+      "core/build.gradle.kts": "6cc3e84064c2186ba8ae5d64a4edb13b9b19eaa7"
+    },
+    "78e4172d39f23cffe32b0ec1a9dcd3c97cf8fabb": {
+      "app/src/main": "58045fff8f3e6e6e60315a11c6953033f4af3c69",
+      "core/src/main": "89854000f1d88fb3d8f6c5c93d1de7ef4a00de81",
+      "app/build.gradle.kts": "9baa8ecb0643924c8c787aabfc8832c54d5ddc88",
+      "core/build.gradle.kts": "6cc3e84064c2186ba8ae5d64a4edb13b9b19eaa7"
+    }
+  },
+  "meaning": "The fixture-only exact EditableText wait changes neither production source nor these module build definitions. Android17 and both notification regressions remain evidence for the same production trees; Android10 requires its fresh corrected run.",
+  "limits": "This does not turn run38976627865 into a success or establish the earlier observation failure cause."
+}

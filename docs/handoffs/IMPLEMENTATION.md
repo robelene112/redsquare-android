@@ -22,56 +22,29 @@ Do not invent one. Repository state was verified before ordinary app work resume
 
 ## Current bounded work
 
-Current #32 slice: recognize verified Saito username mentions through the shared
-social receiver/tap classifier. Tracer d96245e0 and target-data correction70f6a4fc
-have final ordinary source reviews0/0. Pre-correction local core/debug/test
-PASS3m41s; corrected exact-source CI compiles core/debug/test before runtime.
-The established synthetic Registry proof is restricted to explicit debug emulator
-loopback fixtures. Normal builds/backends always use official authority. There is
-no new user backend or registrar setting. Scoped name-cache state is restored.
+Verified username recognition is implemented and both SDK local alert/tap flows
+pass. [Bounded acceptance](../evidence/ticket32/username-mention-green/README.md)
+links intended RED38975655606, first minimum failure38976627865 (username passed,
+group exact editor observation failed before publication), corrected Android10
+38977710046 at78e4172d11PASS81.609s, Android17 38976630590 at7824504111PASS124.127s,
+and notification compatibility38976632886/38976636125. Compatibility includes32
+read cases each, applicable permission choices and real read-history recovery
+PIDs6113→6203 and5326→5398. Production tree equivalence78245041→78e4172d is retained.
+Local minimum3m18s; source38976622437 release/lintSUCCESS. Corrected source run
+38977709969 still pending at this handoff edit. Both source reviews0/0 at990739b8,
+fixture/failure reviews0/0 at78e4172d. Final combined evidence review is next.
 
-[Intended RED](../evidence/ticket32/username-mention-red/android10/README.md):
-run38975655606 at70f6a4fc5b1393f60c0f951dec07293008cfc3af FAILURE11cases10PASS/
-1FAIL80.705s, PUBLISHED expected but SUPPRESSED at288 after valid owner proof/cache
-setup. Root viewed launcher original and parsed43XMLs. New alert/tap/recreation/
-saved-work tails did not run. Source38975652167 SUCCESS includes release/lint.
-The prior documentation-only push38975132047 was superseded/cancelled, no app claim.
+Root parsed all new XML and viewed ten username originals, corrected10 group
+draft and five permission/recovery originals. Loading/failed conversation history
+is qualified. The bounded15s same-value wait does not prove an earlier failure
+cause. Earlier failed runs stay failures. Whole#32 remains OPEN; beta24 unchanged.
 
-Minimum now adds RegisteredNameStore.load()?.name to verifiedEvent, using the
-existing signed-owner/active-proof validation and RedSquareFeed.readMentions.
-Receive and tap freshly use the same optional cache at their own classification
-time. Cancellation propagates; unavailable optional name cache behaves as no name,
-matching NotificationsScreen, so public-key/list mentions still work. Owned-parent
-reply priority stays before name lookup. No network lookup/registration/wallet or
-protocol-format change. Both ordinary source/RED-evidence reviews report zero findings at990739b8.
-Local core/debug/test compilation PASS3m18s. At exact
-78245041c64c2fddaaa039cf7d076c6e477c5802:
-- Social10 run38976627865 FAILURE11cases10PASS1FAIL84.613s. New username case
-  PASSES; earlier group case fails immediate latest EditableText assertion at266
-  before group publication/tap. [Failure](../evidence/ticket32/username-group-regression-failure/android10/README.md)
-  retains44PNG/XMLs. Root viewed group failure/parsed44XMLs. Expected and later
-  diagnostic/captured text look identical; exact predicate-time cause unknown.
-  Later group tails unexecuted, no new guard/name/protocol regression established.
-- Social17 run38976630590 SUCCESS, all11cases. Raw retrieval/retention is underway.
-- Notifications10 38976632886 and17 38976636125 SUCCESS: existing32read cases,
-  applicableOSchoices and actual read-history process recovery. Original retention
-  and selected visual inspection are underway; not receiver-after-denial/FCM proof.
-- Separate source38976622437 SUCCESS includes release/lint.
-
-Fixture-only correction now waits at most15s for the SAME exact EditableText
-AnnotatedString predicate before the unchanged assertion. No expected value,
-production/persistence behavior or180s class ceiling changes. This addresses a
-possible observation transition, not a proven failure cause. Both fixture-source
-and failed-evidence reviews precede a fresh corrected Android10 social run. No
-unchanged Android17/notification rerun is needed if combined unchanged-production
-and final evidence review supports acceptance. No owned local build remains;
-exact CI compiles the simple helper correction before runtime. Do not claim
-complete username acceptance or whole#32 yet.
-
-Plan `.scratch/push32-username-minimum-plan.txt`; retention helper
-`.scratch/retain-push32-username.py` validates11cases. Large artifacts remain under
-`/mnt/storage/redsquare-android-artifacts/push32-username-*`. Do not run unchanged
-retries or implement another ticket in parallel.
+Next planned same-ticket vertical slice is durable scheduled local receipt with
+WorkManager, selected Archive retry and actual Android alert without an Activity.
+Plan `.scratch/push32-durable-receipt-plan.txt` records the already accepted native
+controlled-peer/system-alert seam. No worker source, SDK, gateway or live changes
+have been made yet. Its eventual live-process pass must not be called killed-process
+or FCM delivery. External Firebase setup question stays pending, do not repeat it.
 
 ## Accepted bounded #32 work
 
@@ -108,7 +81,7 @@ instrumentation status0 diagnostic messages are progress, not extra passing case
 
 ## Remaining #32
 
-Username/native-listed mention proof, receipt permission/category controls and
+Native-listed mention proof, receipt permission/category controls and
 recovery, other mounted forms, registration, real transport and full Android10/17
 acceptance remain. Legacy unguarded forms retain work with Retry. Local injection
 cannot close#32; no production caller invokes the local social receiver yet.
