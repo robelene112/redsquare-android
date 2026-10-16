@@ -105,8 +105,11 @@ retains28hashes and12original PNG/XML pairs; root viewed failure launcher and
 parsedall12XMLs. adbexit0 is retained despite harness/runtime failure, no scope.txt
 on failure. Ordinary evidence/spec review0, standards found only stale handoff
 status, corrected here. Minimum source review has no production finding. Local
-core/debug/test9820 PASS3m33s; corrected handoff review and ordinary native
-Android10/17 verification are next. Native GREEN is not yet observed. Username
+core/debug/test9820 PASS3m33s. Both final ordinary source/evidence reviews0/0
+afteree3de80c corrected the status. Actual Android10 run38934678371 and
+Android17 run38934687199 are active at exact source
+ee3de80cd0f90b126da7d7ab4fc75e453c608df1, scope social-push / social-push-android17,
+5ordinary cases each. No outcomes inferred. No local Gradle build remains active. Username
 mentions, registration/choices and actual external transport remain outstanding. Existing
 transport, notification choices and other-form work remain.
 
