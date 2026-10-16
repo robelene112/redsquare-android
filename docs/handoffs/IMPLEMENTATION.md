@@ -115,8 +115,9 @@ execute. Production minimum now registers group guard around persist+commit,
 refuses busy/picker/loading/dialog states and freezes edits/operations/navigation.
 Back marks its existing save interval synchronously to defer concurrent social
 navigation. Registration cleanup is identity-bound. No protocol/store format change.
-Minimum compilation and source/RED-evidence reviews are next; native GREEN is not
-yet observed. Plan `.scratch/push32-group-guard-minimum-plan.txt`. Public beta24
+Both ordinary minimum source/RED-evidence reviews report zero findings at0b5dc394.
+Local minimum compilation is active; native GREEN is not yet observed. Separate
+tracer source push38972750011 SUCCESS includes release assembly and lint. Plan `.scratch/push32-group-guard-minimum-plan.txt`. Public beta24
 unchanged. Whole #32 remains open.
 
 ## Verified #32 slices
