@@ -138,9 +138,18 @@ state and Retry. It writes existing explicit consent only; no registration,
 Android permission/category shortcut or FCM transport claim. The mounted settings
 modal keeps existing push-route deferral. Both ordinary source/RED evidence
 reviews0/0 atdf331f8a. Local core/debug/test89082 PASS3m24s. No native GREEN
-for the choice is observed. Actual Android10 run38937947396 and Android17
-run38937958934 are active at exact sourceaebfb3c6d276e64b343834e5612d3cd2f1a43b84,
-6ordinary cases perSDK (social-push / social-push-android17). No outcome inferred.
+for the choice was observed before dispatch. Actual Android10 run38937947396 is
+now SUCCESS6cases46.172s and Android17 run38937958934 SUCCESS6cases71.808s, both
+at exact sourceaebfb3c6d276e64b343834e5612d3cd2f1a43b84.
+[Choice GREEN10](../evidence/ticket32/alert-choice-green/android10/README.md) and
+[GREEN17](../evidence/ticket32/alert-choice-green/android17/README.md) retain49/50
+original hashes and22PNG/XML pairs perSDK. Root viewed six Settings journey PNGs
+perSDK and parsed44XMLs; parent switchfalse/true/false independently checked.
+DefaultOff, UIenable/recreationOn, actual replytap/exact destination/latest draft,
+UIdisable and distinct fresh reply silence2s all pass, as do wallet/backend/no-write
+invariants. Destination still says Loading replies; no loaded-thread claim.
+Permission pregranted, no OSpermission/category/IOerror recovery/FCM proof.
+Both ordinary GREEN evidence reviews are pending. No native run is active.
 AppearancePreviewTest already scrolls to theme choices; no fixture change needed.
 No owned local Gradle build remains active.
 
