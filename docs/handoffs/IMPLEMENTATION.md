@@ -64,7 +64,10 @@ wait returned before final assertion failed; actual predicate-time mismatch rema
 unknown. The wait did not resolve this repeated observation. Current fixture correction
 compares exact full EditableText.text instead of AnnotatedString annotations, keeping
 text,15s and finalassert pluspersisteddraft/photo checks. This IS a predicate change,
-not an identical-assertion retry or established IME cause. Corrected review/CI next. No owned local Gradle build remains. No SDK, gateway or live changes
+not an identical-assertion retry or established IME cause. Both corrected source/failure reviews atbd482f8c report0 findings. The pinned
+ui-text-android1.11.4 bytecode also confirms annotated equality includes metadata
+and toString omits it; this is not runtime cause proof. Exact-source CI compiles
+the small fixture correction before a fresh Android10 worker RED attempt. No owned local Gradle build remains. No SDK, gateway or live changes
 have been made. Its eventual live-process pass must not be called killed-process
 or FCM delivery. External Firebase setup question stays pending, do not repeat it.
 
