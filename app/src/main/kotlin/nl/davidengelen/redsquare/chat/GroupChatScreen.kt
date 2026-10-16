@@ -113,14 +113,6 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             catch(_:Exception){draftFailed=true;false}
         }
     }
-    DisposableEffect(store,selected,navigation) {
-        val save:suspend()->Boolean={
-            savingForNavigation=true
-            try{persistDraft()}finally{savingForNavigation=false}
-        }
-        navigation.saveCurrent=save
-        onDispose{if(navigation.saveCurrent===save)navigation.saveCurrent=null}
-    }
     LaunchedEffect(store,selected,refresh) {
         if(draftReady)return@LaunchedEffect // Refresh must not replace unsaved edited text.
         val id=selected ?: return@LaunchedEffect
@@ -139,7 +131,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         persistDraft()
     }
     fun act(operation:suspend()->Unit) {
-        if(busy||savingForNavigation||preparingPhoto)return
+        if(busy||savingForNavigation||preparingPhoto||navigation.transitioning)return
         busy=true;sendFailed=false
         scope.launch {
             try{if(persistDraft(allowBusy=true))operation()}
@@ -172,9 +164,35 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     var removing by remember(selected) { mutableStateOf<String?>(null) }
     var leaving by remember(selected) { mutableStateOf(false) }
     var inviting by remember(selected) { mutableStateOf(false) }
+    DisposableEffect(store,selected,navigation) {
+        val save:suspend()->Boolean={
+            savingForNavigation=true
+            try{persistDraft()}finally{savingForNavigation=false}
+        }
+        val guarded:suspend(suspend()->Boolean)->Boolean={commit->
+            if(navigation.saveCurrent!==save || !loaded || readFailed || busy || preparingPhoto ||
+                savingForNavigation || (selected!=null&&!draftReady) || creating || joining || members ||
+                promoting!=null || stopping || removing!=null || leaving || inviting) false
+            else {
+                savingForNavigation=true
+                try{persistDraft() && navigation.saveCurrent===save && commit()}
+                finally{savingForNavigation=false}
+            }
+        }
+        navigation.saveCurrent=save
+        navigation.guardedCurrent=guarded
+        onDispose{
+            if(navigation.saveCurrent===save)navigation.saveCurrent=null
+            if(navigation.guardedCurrent===guarded)navigation.guardedCurrent=null
+        }
+    }
     fun back() {
-        if(busy||savingForNavigation)return
-        scope.launch{if(navigation.save()){if(selected==null)onBack() else selected=null}}
+        if(busy||savingForNavigation||navigation.transitioning)return
+        savingForNavigation=true
+        scope.launch{
+            try{if(persistDraft()){if(selected==null)onBack() else selected=null}}
+            finally{savingForNavigation=false}
+        }
     }
     BackHandler { back() }
     LaunchedEffect(store,refresh) {
@@ -310,11 +328,11 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     val statusMaxHeight=maxHeight/3
     Column(Modifier.fillMaxSize(),verticalArrangement=Arrangement.spacedBy(8.dp)) {
         Row(verticalAlignment=Alignment.CenterVertically) {
-            TextButton(enabled=!busy,onClick={back()}) { Text(stringResource(R.string.browse_back)) }
+            TextButton(enabled=!busy&&!navigation.transitioning,onClick={back()}) { Text(stringResource(R.string.browse_back)) }
             Text(entry?.group?.name ?: stringResource(R.string.group_title),Modifier.weight(1f),style=MaterialTheme.typography.titleLarge,
                 maxLines=2,overflow=TextOverflow.Ellipsis)
             entry?.let { ConversationMuteButton(it.group.id) }
-            TextButton(enabled=!busy&&!paging,onClick={refresh++}) { Text(stringResource(R.string.feed_refresh)) }
+            TextButton(enabled=!busy&&!paging&&!navigation.transitioning,onClick={if(!navigation.transitioning)refresh++}) { Text(stringResource(R.string.feed_refresh)) }
         }
         Text(stringResource(R.string.group_privacy),style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
         // Full status text stays scrollable while queued controls keep their space.
@@ -334,10 +352,10 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                 if(!keyboardVisible&&entry.group.confirmedInvitation!=null) Text(stringResource(R.string.group_invitation_origin),
                     style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
                 if (!keyboardVisible) FlowRow {
-                    TextButton(onClick={members=true}) { Text(stringResource(R.string.group_members)) }
+                    TextButton(enabled=!navigation.transitioning,onClick={if(!navigation.transitioning)members=true}) { Text(stringResource(R.string.group_members)) }
                     if(entry.group.memberRoles[wallet.publicKey]?.active==true) {
-                        TextButton(enabled=!busy&&entry.group.memberRoles.values.any{it==ChatGroupRole.ADMIN},onClick={inviting=true}) { Text(stringResource(R.string.group_invite)) }
-                        TextButton(enabled=!busy&&!entry.hasPendingAction,onClick={leaving=true}) { Text(stringResource(R.string.group_leave)) }
+                        TextButton(enabled=!busy&&!navigation.transitioning&&entry.group.memberRoles.values.any{it==ChatGroupRole.ADMIN},onClick={if(!navigation.transitioning)inviting=true}) { Text(stringResource(R.string.group_invite)) }
+                        TextButton(enabled=!busy&&!navigation.transitioning&&!entry.hasPendingAction,onClick={if(!navigation.transitioning)leaving=true}) { Text(stringResource(R.string.group_leave)) }
                     }
                 }
                 if(entry.queuedMessage==null) Text(stringResource(when(entry.status) {
@@ -351,11 +369,11 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                 val staleAction=store.isStaleAdminAction(entry)
                 if(staleAction) {
                     Text(stringResource(R.string.group_stale_action),color=MaterialTheme.colorScheme.error)
-                    TextButton(enabled=loaded&&!busy&&!readFailed,onClick={stopping=true}){Text(stringResource(R.string.group_stop_action))}
+                    TextButton(enabled=loaded&&!busy&&!readFailed&&!navigation.transitioning,onClick={if(!navigation.transitioning)stopping=true}){Text(stringResource(R.string.group_stop_action))}
                 }
                 if(entry.stoppedActions.isNotEmpty()&&entry.status!=GroupChatStore.Status.STOPPED)
                     Text(stringResource(R.string.group_stopped_history),style=MaterialTheme.typography.bodySmall)
-                if(entry.hasPendingAction&&entry.queuedMessage==null) TextButton(enabled=loaded&&!busy&&!readFailed&&!staleAction,onClick={
+                if(entry.hasPendingAction&&entry.queuedMessage==null) TextButton(enabled=loaded&&!busy&&!readFailed&&!staleAction&&!navigation.transitioning,onClick={
                     act {
                         val pending=requireNotNull(entry.candidate)
                         withContext(NonCancellable){publish{store.prepareRetry(entry.group.id,pending.id);store.entries()}}
@@ -368,22 +386,22 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                     }
                 }){Text(stringResource(R.string.group_retry))}
                 if(entry.group.memberRoles[wallet.publicKey]==ChatGroupRole.LEFT) Text(stringResource(R.string.group_left))
-                if(hasOlder&&olderCursor!=null) TextButton(enabled=!busy&&!paging,onClick={if(!initialLoading&&!olderLoading&&!busy){olderLoading=true;olderRequest++}}){
+                if(hasOlder&&olderCursor!=null) TextButton(enabled=!busy&&!paging&&!navigation.transitioning,onClick={if(!initialLoading&&!olderLoading&&!busy&&!navigation.transitioning){olderLoading=true;olderRequest++}}){
                     Text(stringResource(R.string.chat_load_older))
                 }
             }
         }
         if(entry==null) {
             Row(horizontalArrangement=Arrangement.spacedBy(8.dp)) {
-                Button(enabled=loaded&&!busy,onClick={creating=true}) { Text(stringResource(R.string.group_create)) }
-                OutlinedButton(enabled=loaded&&!busy,onClick={joining=true}) { Text(stringResource(R.string.group_join)) }
+                Button(enabled=loaded&&!busy&&!navigation.transitioning,onClick={if(!navigation.transitioning)creating=true}) { Text(stringResource(R.string.group_create)) }
+                OutlinedButton(enabled=loaded&&!busy&&!navigation.transitioning,onClick={if(!navigation.transitioning)joining=true}) { Text(stringResource(R.string.group_join)) }
             }
-            if(discoveryHasOlder&&discoveryCursor!=null)TextButton(enabled=!busy&&!discoveryLoading,onClick={discoveryRequest++}){
+            if(discoveryHasOlder&&discoveryCursor!=null)TextButton(enabled=!busy&&!discoveryLoading&&!navigation.transitioning,onClick={if(!navigation.transitioning)discoveryRequest++}){
                 Text(stringResource(R.string.group_discovery_older))
             }
             LazyColumn(Modifier.weight(1f)) {
                 items(entries,key={it.group.id}) { row ->
-                    TextButton(enabled=!busy,onClick={selected=row.group.id},modifier=Modifier.fillMaxWidth()) {
+                    TextButton(enabled=!busy&&!navigation.transitioning,onClick={if(!navigation.transitioning)selected=row.group.id},modifier=Modifier.fillMaxWidth()) {
                         Column(Modifier.fillMaxWidth().padding(vertical=8.dp)) {
                             ChatIdentityRow(row.group.id,row.group.name,stringResource(R.string.group_unencrypted))
                         }
@@ -405,7 +423,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                 Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically,
                     horizontalArrangement=Arrangement.SpaceBetween) {
                     Text(stringResource(R.string.chat_queued))
-                    TextButton(enabled=loaded&&!busy&&!readFailed,onClick={
+                    TextButton(enabled=loaded&&!busy&&!readFailed&&!navigation.transitioning,onClick={
                         act {
                             draftWrites.withLock {
                                 withContext(NonCancellable){
@@ -423,7 +441,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             val messageList=rememberLazyListState()
             val visible=entry.messages.filter{personal?.ready==true &&
                 (it.author==wallet.publicKey || !personal.policy.hidesIncomingChat(it.author))}
-            val editable=personal?.ready==true&&draftReady&&!busy&&!savingForNavigation&&
+            val editable=personal?.ready==true&&draftReady&&!busy&&!savingForNavigation&&!navigation.transitioning&&
                 !entry.hasPendingAction&&entry.group.memberRoles[wallet.publicKey]?.active==true
             val attachmentPermitted=editable&&loaded&&!readFailed
             val permitted=attachmentPermitted&&!preparingPhoto
@@ -450,7 +468,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                             }
                         }){Text(stringResource(if(wallet.publicKey in likedBy)R.string.chat_unlike else R.string.chat_like))}
                         TextButton(enabled=permitted&&replyPrefix!=null,onClick={
-                            replyPrefix?.let{changeMessage(it+privateMessageBody(message))}
+                            if(!navigation.transitioning)replyPrefix?.let{changeMessage(it+privateMessageBody(message))}
                         }){Text(stringResource(R.string.post_reply))}
                         TextButton(onClick={copyFailed=!copyPrivateMessage(context,item.text)}){Text(stringResource(R.string.chat_copy))}
                         }
@@ -479,14 +497,14 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                             .semantics{contentDescription=previewLabel},verticalArrangement=Arrangement.spacedBy(8.dp)) {
                             if(quote!=null){
                                 Text(quote.quote,style=MaterialTheme.typography.bodyMedium)
-                                TextButton(enabled=editable,onClick={changeMessage(body)}){Text(stringResource(R.string.chat_remove_reply))}
+                                TextButton(enabled=editable,onClick={if(!navigation.transitioning)changeMessage(body)}){Text(stringResource(R.string.chat_remove_reply))}
                             }
                             ChatPhotoAttachment("group:${wallet.publicKey}:${backend.id}:${entry.group.id}",body,backend,attachmentPermitted,
-                                beforePicker={persistDraft()},onPreparing={preparingPhoto=it},
-                                onChange={changeMessage((quote?.prefix ?: "")+it)})
+                                beforePicker={!navigation.transitioning&&persistDraft()&&!navigation.transitioning},onPreparing={preparingPhoto=it},
+                                onChange={if(!navigation.transitioning)changeMessage((quote?.prefix ?: "")+it)})
                         }
                         Row(verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(8.dp)){
-                            OutlinedTextField(typed,{value->changeMessage((quote?.prefix ?: "")+(photo?.let{composeChatPhoto(it.source,value)} ?: value))},Modifier.weight(1f),
+                            OutlinedTextField(typed,{value->if(!navigation.transitioning)changeMessage((quote?.prefix ?: "")+(photo?.let{composeChatPhoto(it.source,value)} ?: value))},Modifier.weight(1f),
                                 label={Text(stringResource(R.string.chat_message))},enabled=editable,maxLines=4)
                             Button(enabled=permitted&&(typed.isNotBlank()||photo!=null),onClick={
                                 focus.clearFocus()

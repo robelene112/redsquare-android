@@ -103,11 +103,21 @@ This does not establish why the earlier OOM reported 16 MiB. Diagnostic status0
 messages are progress, not extra passing tests. Source push 38971334056 SUCCESS
 includes release assembly and lint. Both final ordinary evidence reviews report zero findings at 904bceac. No full #32, actual FCM or closed-process delivery claim. Public beta24 unchanged.
 
-Current ordinary vertical slice: preserve a group
-Chat draft/photo on actual social tap. Plan `.scratch/push32-group-draft-next-plan.txt`.
-Tracer adds owner key1 and a separately created/invited group, actual UI edit/system tap,
-protected draft/recreation/photo and complete invariants. One intended RED then
-minimum. No production group guard is implemented yet. Local tracer compilation and source review are next.
+Current ordinary vertical slice: preserve a group Chat draft/photo on actual
+social tap. Tracer771abdf3 uses independently created/invited group and existing
+controlled Android seam; local core/debug/test PASS 1m49s and both tracer source
+reviews0/0. [Intended RED](../evidence/ticket32/group-chat-tap-red/android10/README.md)
+run38972750722 at exact771abdf3 FAILURE10cases9PASS/1FAIL92.268s: actual reply
+publication/tap succeeds, then missing Conversation at267. Root viewed all three
+new originals and parsed41XMLs. Group+Retry/photo remains; XML retains latest
+caption, while failure PNG clips editor behind IME. Later new-case tails did not
+execute. Production minimum now registers group guard around persist+commit,
+refuses busy/picker/loading/dialog states and freezes edits/operations/navigation.
+Back marks its existing save interval synchronously to defer concurrent social
+navigation. Registration cleanup is identity-bound. No protocol/store format change.
+Minimum compilation and source/RED-evidence reviews are next; native GREEN is not
+yet observed. Plan `.scratch/push32-group-guard-minimum-plan.txt`. Public beta24
+unchanged. Whole #32 remains open.
 
 ## Verified #32 slices
 

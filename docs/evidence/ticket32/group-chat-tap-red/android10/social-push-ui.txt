@@ -1,0 +1,186 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.SocialPushPreviewTest:
+INSTRUMENTATION_STATUS: test=aPhysicallyDismissedReplyStaysSilentWhenItsReferenceIsRedelivered
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aPhysicallyDismissedReplyStaysSilentWhenItsReferenceIsRedelivered
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anAvailableSignedReplyShowsOneAndroidReplyAlertAfterVerifyingItsParent
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anAvailableSignedReplyShowsOneAndroidReplyAlertAfterVerifyingItsParent
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.SocialPushTapPreviewTest:
+INSTRUMENTATION_STATUS: test=tappingAReplyPreservesTheLatestUnsentPostAndPhotoAndOpensTheExactConversation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=tappingAReplyPreservesTheLatestUnsentPostAndPhotoAndOpensTheExactConversation
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=theReplyAndMentionAlertChoiceCanBeEnabledAndDisabledInSettings
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=theReplyAndMentionAlertChoiceCanBeEnabledAndDisabledInSettings
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aReplyTapOpensWithoutAnActivityAndIsConsumedAcrossScreenRecreation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aReplyTapOpensWithoutAnActivityAndIsConsumedAcrossScreenRecreation
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aReplyTapPreservesTheLatestUnsentGroupChatAndPhoto
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.waitFor(SocialPushTapPreviewTest.kt:469)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.tapJourney$lambda$19$lambda$18$lambda$17(SocialPushTapPreviewTest.kt:267)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.$r8$lambda$PXuhNW38LQDhmCUDosbce6A5_w4(Unknown Source:0)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest$$ExternalSyntheticLambda18.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.tapJourney(SocialPushTapPreviewTest.kt:175)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.aReplyTapPreservesTheLatestUnsentGroupChatAndPhoto(SocialPushTapPreviewTest.kt:54)
+
+INSTRUMENTATION_STATUS: stream=
+Error in aReplyTapPreservesTheLatestUnsentGroupChatAndPhoto(nl.davidengelen.redsquare.SocialPushTapPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.waitFor(SocialPushTapPreviewTest.kt:469)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.tapJourney$lambda$19$lambda$18$lambda$17(SocialPushTapPreviewTest.kt:267)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.$r8$lambda$PXuhNW38LQDhmCUDosbce6A5_w4(Unknown Source:0)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest$$ExternalSyntheticLambda18.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.tapJourney(SocialPushTapPreviewTest.kt:175)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.aReplyTapPreservesTheLatestUnsentGroupChatAndPhoto(SocialPushTapPreviewTest.kt:54)
+
+INSTRUMENTATION_STATUS: test=aReplyTapPreservesTheLatestUnsentGroupChatAndPhoto
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aPublicKeyMentionShowsAMentionAlertAndOpensItsPost
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aPublicKeyMentionShowsAMentionAlertAndOpensItsPost
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aReplyTapPreservesTheLatestUnsentPrivateChatAndPhoto
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aReplyTapPreservesTheLatestUnsentPrivateChatAndPhoto
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=androidNotificationCategoriesCanBeOpenedWithoutLosingTheLatestPost
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=androidNotificationCategoriesCanBeOpenedWithoutLosingTheLatestPost
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=enablingSocialAlertsWorksEvenAfterTheGeneralAndroidPromptWasOffered
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=enablingSocialAlertsWorksEvenAfterTheGeneralAndroidPromptWasOffered
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 92.268
+There was 1 failure:
+1) aReplyTapPreservesTheLatestUnsentGroupChatAndPhoto(nl.davidengelen.redsquare.SocialPushTapPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.waitFor(SocialPushTapPreviewTest.kt:469)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.tapJourney$lambda$19$lambda$18$lambda$17(SocialPushTapPreviewTest.kt:267)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.$r8$lambda$PXuhNW38LQDhmCUDosbce6A5_w4(Unknown Source:0)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest$$ExternalSyntheticLambda18.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.tapJourney(SocialPushTapPreviewTest.kt:175)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.aReplyTapPreservesTheLatestUnsentGroupChatAndPhoto(SocialPushTapPreviewTest.kt:54)
+
+FAILURES!!!
+Tests run: 10,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
