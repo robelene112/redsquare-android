@@ -2,7 +2,10 @@ package nl.davidengelen.redsquare.notifications
 
 import android.content.Context
 import androidx.work.CoroutineWorker
+import androidx.work.BackoffPolicy
+import androidx.work.Constraints
 import androidx.work.ExistingWorkPolicy
+import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
@@ -25,6 +28,8 @@ internal object SocialPushScheduling {
     suspend fun enqueue(context: Context, payload: String, endpoint: String? = null): UUID = withContext(Dispatchers.IO) {
         val reference = SocialPushReference.parse(payload)
         val request = OneTimeWorkRequestBuilder<SocialPushWorker>()
+            .setConstraints(Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
+            .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 10, TimeUnit.SECONDS)
             .setInputData(workDataOf("reference" to payload, "endpoint" to (endpoint ?: reference.backend.peerUrl),
                 "receivedAt" to System.currentTimeMillis()))
             .build()
@@ -50,10 +55,27 @@ internal object SocialPushScheduling {
         "social:${reference.backend.id}:${reference.owner}:${reference.signature}"
 }
 
-/** Tracer: scheduled receipt exists; actual verification/publication follows its native RED. */
+/** Reuse the receipt verifier with fresh local choices each time durable work executes. */
 class SocialPushWorker(context: Context, parameters: WorkerParameters) : CoroutineWorker(context, parameters) {
-    override suspend fun doWork(): Result = receiptExecution.withLock {
-        currentCoroutineContext().ensureActive()
-        if (isStopped) Result.failure() else Result.success()
+    override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
+        receiptExecution.withLock {
+            currentCoroutineContext().ensureActive()
+            if (isStopped) return@withLock Result.failure()
+            val payload = inputData.getString("reference") ?: return@withLock Result.failure()
+            val reference = try { SocialPushReference.parse(payload) }
+            catch (_: IllegalArgumentException) { return@withLock Result.failure() }
+            val receivedAt = inputData.getLong("receivedAt", -1)
+            if (receivedAt < 0) return@withLock Result.failure()
+            val now = System.currentTimeMillis()
+            // A clock rollback conservatively retains the receipt; the signed event has its own age check.
+            if (now >= receivedAt && now - receivedAt > RECEIPT_LIFETIME) return@withLock Result.success()
+            val endpoint = inputData.getString("endpoint") ?: reference.backend.peerUrl
+            when (SocialPush.receive(applicationContext, payload, endpoint, now)) {
+                SocialPushResult.PUBLISHED, SocialPushResult.SUPPRESSED -> Result.success()
+                SocialPushResult.RETRY -> Result.retry()
+            }
+        }
     }
+
+    private companion object { const val RECEIPT_LIFETIME = 7 * 24 * 60 * 60 * 1000L }
 }

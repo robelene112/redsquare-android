@@ -1,0 +1,68 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.SocialPushWorkPreviewTest:
+INSTRUMENTATION_STATUS: test=aScheduledReplyRetriesAnUnavailableArchiveThenAlertsOnceWithoutAnActivity
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Unavailable Archive receipt finished as SUCCEEDED
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.aScheduledReplyRetriesAnUnavailableArchiveThenAlertsOnceWithoutAnActivity$lambda$23$lambda$22$lambda$13(SocialPushWorkPreviewTest.kt:108)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.$r8$lambda$eEJKWm2dc0PBiKgIzIziJbs_vLw(Unknown Source:0)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.aScheduledReplyRetriesAnUnavailableArchiveThenAlertsOnceWithoutAnActivity$awaitState(SocialPushWorkPreviewTest.kt:91)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.aScheduledReplyRetriesAnUnavailableArchiveThenAlertsOnceWithoutAnActivity$lambda$23$lambda$22(SocialPushWorkPreviewTest.kt:106)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.$r8$lambda$2vHpthHwxx053mLDggOJp1TwVeI(Unknown Source:0)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.aScheduledReplyRetriesAnUnavailableArchiveThenAlertsOnceWithoutAnActivity(SocialPushWorkPreviewTest.kt:101)
+
+INSTRUMENTATION_STATUS: stream=
+Error in aScheduledReplyRetriesAnUnavailableArchiveThenAlertsOnceWithoutAnActivity(nl.davidengelen.redsquare.SocialPushWorkPreviewTest):
+java.lang.AssertionError: Unavailable Archive receipt finished as SUCCEEDED
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.aScheduledReplyRetriesAnUnavailableArchiveThenAlertsOnceWithoutAnActivity$lambda$23$lambda$22$lambda$13(SocialPushWorkPreviewTest.kt:108)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.$r8$lambda$eEJKWm2dc0PBiKgIzIziJbs_vLw(Unknown Source:0)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.aScheduledReplyRetriesAnUnavailableArchiveThenAlertsOnceWithoutAnActivity$awaitState(SocialPushWorkPreviewTest.kt:91)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.aScheduledReplyRetriesAnUnavailableArchiveThenAlertsOnceWithoutAnActivity$lambda$23$lambda$22(SocialPushWorkPreviewTest.kt:106)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.$r8$lambda$2vHpthHwxx053mLDggOJp1TwVeI(Unknown Source:0)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.aScheduledReplyRetriesAnUnavailableArchiveThenAlertsOnceWithoutAnActivity(SocialPushWorkPreviewTest.kt:101)
+
+INSTRUMENTATION_STATUS: test=aScheduledReplyRetriesAnUnavailableArchiveThenAlertsOnceWithoutAnActivity
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 1.88
+There was 1 failure:
+1) aScheduledReplyRetriesAnUnavailableArchiveThenAlertsOnceWithoutAnActivity(nl.davidengelen.redsquare.SocialPushWorkPreviewTest)
+java.lang.AssertionError: Unavailable Archive receipt finished as SUCCEEDED
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.aScheduledReplyRetriesAnUnavailableArchiveThenAlertsOnceWithoutAnActivity$lambda$23$lambda$22$lambda$13(SocialPushWorkPreviewTest.kt:108)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.$r8$lambda$eEJKWm2dc0PBiKgIzIziJbs_vLw(Unknown Source:0)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.aScheduledReplyRetriesAnUnavailableArchiveThenAlertsOnceWithoutAnActivity$awaitState(SocialPushWorkPreviewTest.kt:91)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.aScheduledReplyRetriesAnUnavailableArchiveThenAlertsOnceWithoutAnActivity$lambda$23$lambda$22(SocialPushWorkPreviewTest.kt:106)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.$r8$lambda$2vHpthHwxx053mLDggOJp1TwVeI(Unknown Source:0)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.aScheduledReplyRetriesAnUnavailableArchiveThenAlertsOnceWithoutAnActivity(SocialPushWorkPreviewTest.kt:101)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

@@ -66,8 +66,15 @@ compares exact full EditableText.text instead of AnnotatedString annotations, ke
 text,15s and finalassert pluspersisteddraft/photo checks. This IS a predicate change,
 not an identical-assertion retry or established IME cause. Both corrected source/failure reviews atbd482f8c report0 findings. The pinned
 ui-text-android1.11.4 bytecode also confirms annotated equality includes metadata
-and toString omits it; this is not runtime cause proof. Exact-source CI compiles
-the small fixture correction before a fresh Android10 worker RED attempt. No owned local Gradle build remains. No SDK, gateway or live changes
+and toString omits it; this is not runtime cause proof. [Intended worker RED](../evidence/ticket32/scheduled-receipt-red/android10/README.md)
+38980190191 at ee1bc69b FAILURE: existing11PASS, new1FAIL1.88s at108, no-op worker
+finished SUCCEEDED without required retry. Later newcase tails unexecuted, root
+viewed original launcher/parsedXML. Minimum now adds CONNECTED/10s exponential
+backoff, bounded7day receipt lifetime, strict reference/input selection and shared
+SocialPush.receive result mapping under the same cancellation/drain Mutex. It
+freshly rechecks protected identity/backend/policies through the existing receiver.
+No SDK/service/gateway/deployment or expedited FCM scheduling yet. Cancellation
+propagates. Minimum source review/local compile are next; do not claim GREEN. No owned local Gradle build remains. No SDK, gateway or live changes
 have been made. Its eventual live-process pass must not be called killed-process
 or FCM delivery. External Firebase setup question stays pending, do not repeat it.
 
