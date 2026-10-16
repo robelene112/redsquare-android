@@ -1,6 +1,7 @@
 package nl.davidengelen.redsquare.feed
 
 import nl.davidengelen.redsquare.registry.registeredIdentity
+import nl.davidengelen.redsquare.registry.LocalRegistryAuthority
 import nl.davidengelen.redsquare.moderation.LocalPersonalControls
 import nl.davidengelen.redsquare.moderation.PersonalControlsStatus
 import androidx.activity.ComponentActivity
@@ -118,11 +119,12 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
     fun back() { if (navigation.isNotEmpty()) navigation.removeAt(navigation.lastIndex) }
     val position = rememberLazyListState()
     val formNavigation = requireNotNull(LocalPostNavigation.current)
+    val registrar = LocalRegistryAuthority.current
     val pendingTap by socialRoutes?.pending?.collectAsState() ?: remember { mutableStateOf<android.os.Bundle?>(null) }
     var tapRetry by remember { mutableIntStateOf(0) }
     var tapFailed by remember(pendingTap) { mutableStateOf(false) }
     LaunchedEffect(pendingTap, wallet?.publicKey, personal?.ready, personal?.saving, allowPushRoute,
-        formNavigation.saveCurrent, tapRetry) {
+        formNavigation.saveCurrent, registrar, tapRetry) {
         val delivery = pendingTap ?: return@LaunchedEffect
         val routes = socialRoutes ?: return@LaunchedEffect
         val currentWallet = wallet ?: return@LaunchedEffect
@@ -134,7 +136,8 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                 tapFailed = true
                 return@LaunchedEffect
             }
-            val target = SocialPush.resolveTap(context, reference, endpoint)
+            val target = SocialPush.resolveTap(context, reference, endpoint,
+                fixtureRegistrar = registrar != SaitoRegistry.REGISTRAR)
             if (target == null || !routes.current(delivery)) { tapFailed = true; return@LaunchedEffect }
             val opened = formNavigation.navigate {
                 currentCoroutineContext().ensureActive()

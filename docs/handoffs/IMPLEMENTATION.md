@@ -132,9 +132,17 @@ No owned local Gradle or native run is active. Public beta24 unchanged. Full #32
 actual FCM/closed-process push and physical Pixel acceptance remain outstanding.
 Retention helpers `.scratch/retain-push32-group-tap.py` (ten cases) and
 `.scratch/retain-push32-group-regression.py` (26 completions) remain ignored.
-Do not start another ticket. Next bounded #32 gap selection follows final review;
-username/native-listed mentions, ordinary receipt permission/category controls,
-other mounted forms and real transport remain as documented below.
+Current next bounded #32 slice is verified username mentions. New tracer seeds
+existing independently signed Registry proof through the established emulator-only
+synthetic registrar, then requires actual Mentions alert/no-Activity tap/exact post,
+recreation/consumed route and existing saved-post/photo/full invariants. Its public
+name cache is scoped and restored. The existing registrar gate is shared with
+receiver/tap, defaults to official authority, and remains restricted to explicit
+debug/emulator/loopback fixtures. This is fixture configuration, not custom user
+backend/authority support. Classifier still has no knownName lookup, so no username
+minimum or native result is claimed. Tracer compilation/review precede actual RED.
+Ordinary receipt permission/category controls, other mounted forms and real
+transport remain as documented below.
 
 ## Verified #32 slices
 

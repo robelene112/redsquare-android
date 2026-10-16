@@ -24,6 +24,8 @@ import nl.davidengelen.redsquare.chat.GroupChatStore
 import nl.davidengelen.redsquare.chat.ChatWorkStore
 import nl.davidengelen.redsquare.chat.composeChatPhoto
 import nl.davidengelen.redsquare.feed.PostDraftStore
+import nl.davidengelen.redsquare.registry.RegisteredNameStore
+import nl.davidengelen.redsquare.registry.RegistryAuthority
 import nl.davidengelen.redsquare.notifications.SocialPush
 import nl.davidengelen.redsquare.notifications.SocialPushResult
 import nl.davidengelen.redsquare.notifications.SocialPushSettings
@@ -53,11 +55,14 @@ class SocialPushTapPreviewTest {
 
     @Test fun aReplyTapPreservesTheLatestUnsentGroupChatAndPhoto() = tapJourney(Journey.GROUP_CHAT_REPLY)
 
-    private enum class Journey { WARM_REPLY, COLD_REPLY, COLD_MENTION, SETTINGS_REPLY, ANDROID_SETTINGS_REPLY, ONBOARDING_REPLY, PRIVATE_CHAT_REPLY, GROUP_CHAT_REPLY }
+    @Test fun aVerifiedUsernameMentionShowsAMentionAlertAndOpensItsPost() = tapJourney(Journey.COLD_USERNAME_MENTION)
+
+    private enum class Journey { WARM_REPLY, COLD_REPLY, COLD_MENTION, SETTINGS_REPLY, ANDROID_SETTINGS_REPLY, ONBOARDING_REPLY, PRIVATE_CHAT_REPLY, GROUP_CHAT_REPLY, COLD_USERNAME_MENTION }
 
     private fun tapJourney(journey: Journey = Journey.WARM_REPLY) {
-        val cold = journey == Journey.COLD_REPLY || journey == Journey.COLD_MENTION
-        val mention = journey == Journey.COLD_MENTION
+        val username = journey == Journey.COLD_USERNAME_MENTION
+        val mention = journey == Journey.COLD_MENTION || username
+        val cold = journey == Journey.COLD_REPLY || mention
         val settings = journey == Journey.SETTINGS_REPLY
         val onboarding = journey == Journey.ONBOARDING_REPLY
         val privateChat = journey == Journey.PRIVATE_CHAT_REPLY
@@ -84,12 +89,21 @@ class SocialPushTapPreviewTest {
         }
         val owner = wallet.publicKey
         val root = fixture.getAsJsonObject("root")
-        val target = fixture.getAsJsonObject(if (mention) "incomingMention" else "incomingReply")
-        val signature = if (mention)
-            "58d6074e3fabb5391b8523626775eb94c475a4c8d4a3d06fd91e28b1afc8058e68621d17676e499258742523ff2f9170829d0e93699cf8c51546601dfb9fb7b1"
-        else "4626eafbb90d66fd650de2a943864198e3daeae0b8876b4c224625b4a438113508e44287fee31d34d117356565d67036537c65dbcc66d8589ea300e2fb414526"
-        val targetText = if (mention) "Hello @jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR, mention reference"
-            else "Reply notification reference"
+        val target = fixture.getAsJsonObject(when {
+            username -> "usernameMention"
+            mention -> "incomingMention"
+            else -> "incomingReply"
+        })
+        val signature = when {
+            username -> "d632b334c6e66178f524e621c4b1740f93945e319725e3570d338ca12c7c759053600197a800b9d52ad37f00e3c43f4c487d9e051b587b4cf1f7dca28ffdebac"
+            mention -> "58d6074e3fabb5391b8523626775eb94c475a4c8d4a3d06fd91e28b1afc8058e68621d17676e499258742523ff2f9170829d0e93699cf8c51546601dfb9fb7b1"
+            else -> "4626eafbb90d66fd650de2a943864198e3daeae0b8876b4c224625b4a438113508e44287fee31d34d117356565d67036537c65dbcc66d8589ea300e2fb414526"
+        }
+        val targetText = when {
+            username -> "Hello @NativeCase7@saito, username mention reference"
+            mention -> "Hello @jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR, mention reference"
+            else -> "Reply notification reference"
+        }
         val alertText = if (mention) "Mentioned you" else "Replied to your post"
         val freshReply = fixture.getAsJsonObject("parentIndexedReply")
         val freshSignature = "1991d496005db8cb234ddd8482f1b8cc01cb75a9d38fd3ff904f000144e7a6bd22da22068460a5b0f7d5f9d524ae3ac8e2a4a531bad7a2ce46f10149d2abc64b"
@@ -113,16 +127,18 @@ class SocialPushTapPreviewTest {
         val backends = AndroidBackendStore(context)
         val previousBackend = backends.load()
         val retained = ChatFixtureState(context, listOf("socialpush.$owner.", "personal.$owner.",
-            "postdraft.owner.$owner") + if (chatDraft) SaitoBackend.entries.flatMap { backend ->
+            "postdraft.owner.$owner") + (if (username) listOf("namemap.$owner.") else emptyList()) +
+            (if (chatDraft) SaitoBackend.entries.flatMap { backend ->
                 listOf("chat.${backend.id}.$owner.", "chatwork.${backend.id}.$owner.",
                     "chatreactions.${backend.id}.$owner.", "groupchat.${backend.id}.$owner.")
-            } else emptyList(), owner)
+            } else emptyList()), owner)
         val manager = context.getSystemService(NotificationManager::class.java)
         val priorAlerts = manager.activeNotifications.map { it.tag to it.id }.toSet()
         val device = UiDevice.getInstance(instrumentation)
         val latest = if (cold) "Earlier saved text" else "Latest unsent post 🌱\nKeep the photo and this last edit"
         val capturePrefix = when (journey) {
             Journey.COLD_MENTION -> "tap-mention"
+            Journey.COLD_USERNAME_MENTION -> "tap-username"
             Journey.COLD_REPLY -> "tap-cold"
             Journey.WARM_REPLY -> "tap-post"
             Journey.SETTINGS_REPLY -> "tap-settings"
@@ -168,6 +184,19 @@ class SocialPushTapPreviewTest {
             }
             peer.start().use { server ->
                 val endpoint = "ws://127.0.0.1:${server.port}/wsopen"
+                if (username) {
+                    val registry = instrumentation.context.assets.open("native-registry-reference.json").bufferedReader()
+                        .use { JsonParser.parseReader(it).asJsonObject }
+                    val registrar = RegistryAuthority.forPeer(endpoint, fixtureRegistrar = true)
+                    assertEquals(registry.get("registrar").asString, registrar)
+                    val name = requireNotNull(SaitoRegistry.readNamecheck(registry.getAsJsonArray("rows").toString(),
+                        "NativeCase7@saito", registrar))
+                    assertEquals(owner, name.publicKey)
+                    RegisteredNameStore(context, owner, registrar).apply {
+                        save(name, SaitoBackend.OWNER)
+                        assertEquals(name, requireNotNull(load()).name)
+                    }
+                }
                 // The cold case has no MainActivity. Instrumentation/fixture transport remains alive.
                 val scenario = if (cold) null else ActivityScenario.launch<MainActivity>(
                     Intent(context, MainActivity::class.java).putExtra("feedPeerUrl", endpoint))
@@ -256,7 +285,7 @@ class SocialPushTapPreviewTest {
                             addProperty("backend", "owner"); addProperty("signature", signature)
                         }.toString()
                         assertEquals(SocialPushResult.PUBLISHED, runBlocking(Dispatchers.IO) {
-                            SocialPush.receive(context, payload, endpoint, 1700000001000)
+                            SocialPush.receive(context, payload, endpoint, 1700000001000, fixtureRegistrar = username)
                         })
                         val published = manager.activeNotifications.single { (it.tag to it.id) !in priorAlerts }
                         assertEquals(if (mention) "mentions" else "replies", published.notification.channelId)

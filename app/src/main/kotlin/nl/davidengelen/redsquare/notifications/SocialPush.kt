@@ -24,6 +24,7 @@ import nl.davidengelen.redsquare.MainActivity
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.feed.AndroidPostRevisions
 import nl.davidengelen.redsquare.moderation.AndroidPersonalControls
+import nl.davidengelen.redsquare.registry.RegistryAuthority
 import nl.davidengelen.redsquare.saito.*
 import java.net.URI
 
@@ -69,11 +70,12 @@ internal object SocialPush {
     }
 
     suspend fun receive(context: Context, payload: String, endpoint: String,
-        now: Long = System.currentTimeMillis()): SocialPushResult = withContext(Dispatchers.IO) {
+        now: Long = System.currentTimeMillis(), fixtureRegistrar: Boolean = false): SocialPushResult = withContext(Dispatchers.IO) {
         val reference = try { SocialPushReference.parse(payload) } catch (_: Exception) {
             return@withContext SocialPushResult.SUPPRESSED
         }
         if (!allowedEndpoint(endpoint, reference.backend)) return@withContext SocialPushResult.SUPPRESSED
+        val registrar = RegistryAuthority.forPeer(endpoint, fixtureRegistrar)
         try {
             val ledger = SocialPushLedger(context, reference)
             val wallet = synchronized(SaitoLocalState.lock) {
@@ -84,7 +86,7 @@ internal object SocialPush {
             } ?: return@withContext SocialPushResult.SUPPRESSED
             val event = withTimeout(15_000) {
                 SaitoPeer(wallet, endpoint).use { peer ->
-                    verifiedEvent(peer, reference, now)
+                    verifiedEvent(peer, reference, now, registrar)
                 }
             } ?: return@withContext SocialPushResult.SUPPRESSED
             val post = event.post
@@ -116,6 +118,7 @@ internal object SocialPush {
                 // a real notification launch. Destination routing still verifies the selected Archive.
                 if (BuildConfig.DEBUG && Build.HARDWARE in listOf("ranchu", "goldfish") && endpoint != reference.backend.peerUrl) {
                     open.putExtra(if (reference.backend == SaitoBackend.OWNER) "feedPeerUrl" else "feedOfficialPeerUrl", endpoint)
+                    if (registrar != SaitoRegistry.REGISTRAR) open.putExtra("usernameFixtureRegistrar", true)
                 }
                 val pending = PendingIntent.getActivity(context, 0, open,
                     PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
@@ -138,7 +141,8 @@ internal object SocialPush {
     }
 
     /** A user tap can open an older displayed alert, but still requires fresh selected-Archive proof. */
-    suspend fun resolveTap(context: Context, reference: SocialPushReference, endpoint: String): FeedPost? =
+    suspend fun resolveTap(context: Context, reference: SocialPushReference, endpoint: String,
+        fixtureRegistrar: Boolean = false): FeedPost? =
         withContext(Dispatchers.IO) {
             if (!allowedEndpoint(endpoint, reference.backend)) return@withContext null
             val wallet = synchronized(SaitoLocalState.lock) {
@@ -148,7 +152,9 @@ internal object SocialPush {
                 }
             } ?: return@withContext null
             withTimeout(15_000) {
-                SaitoPeer(wallet, endpoint).use { verifiedEvent(it, reference, null)?.post }
+                SaitoPeer(wallet, endpoint).use {
+                    verifiedEvent(it, reference, null, RegistryAuthority.forPeer(endpoint, fixtureRegistrar))?.post
+                }
             }
         }
 
@@ -163,7 +169,7 @@ internal object SocialPush {
             }
         }
 
-    private suspend fun verifiedEvent(peer: SaitoPeer, reference: SocialPushReference, now: Long?): Event? {
+    private suspend fun verifiedEvent(peer: SaitoPeer, reference: SocialPushReference, now: Long?, registrar: String): Event? {
         val candidate = exactPost(peer, reference.signature) ?: return null
         if (candidate.author == reference.owner ||
             SaitoEnvelope.decode(candidate.envelope).body.get("request").asString != "create tweet") return null
@@ -172,7 +178,7 @@ internal object SocialPush {
             return Event(candidate, Kind.REPLY)
         }
         val signedPost = JsonArray().apply { add(JsonObject().apply { addProperty("tx", candidate.envelope) }) }
-        return if (RedSquareFeed.readMentions(signedPost.toString(), reference.owner).posts.singleOrNull()?.id == candidate.id)
+        return if (RedSquareFeed.readMentions(signedPost.toString(), reference.owner, registrar = registrar).posts.singleOrNull()?.id == candidate.id)
             Event(candidate, Kind.MENTION) else null
     }
 
