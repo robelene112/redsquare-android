@@ -253,7 +253,9 @@ class SocialPushTapPreviewTest {
         val shortcut = hasText("Android notification settings") and hasClickAction() and isEnabled()
         waitFor(shortcut)
         ui.onNode(shortcut).performScrollTo().performClick()
-        assertTrue(device.wait(Until.hasObject(By.pkg("com.android.settings")), 10_000))
+        // Saving the draft and opening Settings resume on the Compose test dispatcher.
+        // Keep its clock advancing while observing the external Activity.
+        ui.waitUntil(10_000) { device.hasObject(By.pkg("com.android.settings")) }
         assertTrue(device.wait(Until.hasObject(By.text("Red Square")), 10_000))
         for ((label, name) in listOf("Replies" to "replies", "Mentions" to "mentions")) {
             if (!device.hasObject(By.text(label))) {
