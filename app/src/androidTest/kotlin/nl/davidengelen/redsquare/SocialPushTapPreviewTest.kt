@@ -30,11 +30,17 @@ import java.io.File
 class SocialPushTapPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
 
-    @Test fun tappingAReplyPreservesTheLatestUnsentPostAndPhotoAndOpensTheExactConversation() = replyJourney()
+    @Test fun tappingAReplyPreservesTheLatestUnsentPostAndPhotoAndOpensTheExactConversation() = tapJourney()
 
-    @Test fun aReplyTapOpensWithoutAnActivityAndIsConsumedAcrossScreenRecreation() = replyJourney(cold = true)
+    @Test fun aReplyTapOpensWithoutAnActivityAndIsConsumedAcrossScreenRecreation() = tapJourney(Journey.COLD_REPLY)
 
-    private fun replyJourney(cold: Boolean = false) {
+    @Test fun aPublicKeyMentionShowsAMentionAlertAndOpensItsPost() = tapJourney(Journey.COLD_MENTION)
+
+    private enum class Journey { WARM_REPLY, COLD_REPLY, COLD_MENTION }
+
+    private fun tapJourney(journey: Journey = Journey.WARM_REPLY) {
+        val cold = journey != Journey.WARM_REPLY
+        val mention = journey == Journey.COLD_MENTION
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" &&
@@ -48,13 +54,18 @@ class SocialPushTapPreviewTest {
         val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Published unsafe fixture only.
         val owner = wallet.publicKey
         val root = fixture.getAsJsonObject("root")
-        val reply = fixture.getAsJsonObject("incomingReply")
-        val signature = "4626eafbb90d66fd650de2a943864198e3daeae0b8876b4c224625b4a438113508e44287fee31d34d117356565d67036537c65dbcc66d8589ea300e2fb414526"
-        assertEquals(signature, reply.get("sig").asString)
+        val target = fixture.getAsJsonObject(if (mention) "incomingMention" else "incomingReply")
+        val signature = if (mention)
+            "58d6074e3fabb5391b8523626775eb94c475a4c8d4a3d06fd91e28b1afc8058e68621d17676e499258742523ff2f9170829d0e93699cf8c51546601dfb9fb7b1"
+        else "4626eafbb90d66fd650de2a943864198e3daeae0b8876b4c224625b4a438113508e44287fee31d34d117356565d67036537c65dbcc66d8589ea300e2fb414526"
+        val targetText = if (mention) "Hello @jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR, mention reference"
+            else "Reply notification reference"
+        val alertText = if (mention) "Mentioned you" else "Replied to your post"
+        assertEquals(signature, target.get("sig").asString)
         val peer = ControlledFeedPeer("[$root]", archiveResponse = { criteria ->
             when {
                 criteria.has("sig") -> when (criteria.get("sig").asString) {
-                    signature -> "[$reply]"
+                    signature -> "[$target]"
                     root.get("sig").asString -> "[$root]"
                     else -> "[]"
                 }
@@ -73,7 +84,11 @@ class SocialPushTapPreviewTest {
         val priorAlerts = manager.activeNotifications.map { it.tag to it.id }.toSet()
         val device = UiDevice.getInstance(instrumentation)
         val latest = if (cold) "Earlier saved text" else "Latest unsent post 🌱\nKeep the photo and this last edit"
-        val capturePrefix = if (cold) "tap-cold" else "tap-post"
+        val capturePrefix = when (journey) {
+            Journey.COLD_MENTION -> "tap-mention"
+            Journey.COLD_REPLY -> "tap-cold"
+            Journey.WARM_REPLY -> "tap-post"
+        }
         var primary: Throwable? = null
         try {
             retained.prepare()
@@ -108,20 +123,22 @@ class SocialPushTapPreviewTest {
                         assertEquals(SocialPushResult.PUBLISHED, runBlocking(Dispatchers.IO) {
                             SocialPush.receive(context, payload, endpoint, 1700000001000)
                         })
+                        val published = manager.activeNotifications.single { (it.tag to it.id) !in priorAlerts }
+                        assertEquals(if (mention) "mentions" else "replies", published.notification.channelId)
                         assertTrue(device.openNotification())
-                        val alert = requireNotNull(device.wait(Until.findObject(By.text("Replied to your post")), 10_000))
-                        captureNativeScreen(File(context.cacheDir, "social-push-evidence/$capturePrefix-alert.png"), "Replied to your post")
+                        val alert = requireNotNull(device.wait(Until.findObject(By.text(alertText)), 10_000))
+                        captureNativeScreen(File(context.cacheDir, "social-push-evidence/$capturePrefix-alert.png"), alertText)
                         alert.click()
                         waitFor(hasText("Conversation"))
-                        waitFor(hasText("Reply notification reference"))
-                        ui.onNodeWithText("Reply notification reference").assertIsDisplayed()
-                        captureNativeScreen(File(context.cacheDir, "social-push-evidence/$capturePrefix-conversation.png"), "Reply notification reference")
+                        waitFor(hasText(targetText))
+                        ui.onNodeWithText(targetText).assertIsDisplayed()
+                        captureNativeScreen(File(context.cacheDir, "social-push-evidence/$capturePrefix-conversation.png"), targetText)
                         if (cold) {
                             recreateCurrentActivity()
                             waitFor(hasText("Conversation"))
-                            waitFor(hasText("Reply notification reference"))
-                            ui.onNodeWithText("Reply notification reference").assertIsDisplayed()
-                            captureNativeScreen(File(context.cacheDir, "social-push-evidence/tap-cold-recreated.png"), "Reply notification reference")
+                            waitFor(hasText(targetText))
+                            ui.onNodeWithText(targetText).assertIsDisplayed()
+                            captureNativeScreen(File(context.cacheDir, "social-push-evidence/$capturePrefix-recreated.png"), targetText)
                         }
                         ui.onNodeWithText("Back").performClick()
                         waitFor(hasText("New post") and hasClickAction() and isEnabled())
@@ -133,7 +150,7 @@ class SocialPushTapPreviewTest {
                                 ui.onAllNodesWithText("Conversation").assertCountEquals(0)
                                 android.os.SystemClock.sleep(50)
                             } while (android.os.SystemClock.elapsedRealtime() < until)
-                            captureNativeScreen(File(context.cacheDir, "social-push-evidence/tap-cold-consumed.png"))
+                            captureNativeScreen(File(context.cacheDir, "social-push-evidence/$capturePrefix-consumed.png"))
                         }
                         ui.onNode(hasText("New post") and hasClickAction()).performClick()
                         waitFor(hasSetTextAction() and isEnabled())
