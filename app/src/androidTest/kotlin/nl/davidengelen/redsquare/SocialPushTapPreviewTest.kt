@@ -140,7 +140,13 @@ class SocialPushTapPreviewTest {
                             ui.onNodeWithContentDescription("Image 1 of 1").performScrollTo().assertIsDisplayed()
                             ui.onNode(hasSetTextAction()).performTextReplacement(latest)
                             if (journey == Journey.ANDROID_SETTINGS_REPLY) {
-                                visitAndroidCategories(device, context.packageName, context.cacheDir)
+                                visitAndroidCategories(device, context.packageName, context.cacheDir) {
+                                    val retainedDraft = PostDraftStore(context, owner, SaitoBackend.OWNER).load()
+                                    assertEquals(latest, retainedDraft.text)
+                                    assertEquals(listOf(photo), retainedDraft.images)
+                                    assertNull(retainedDraft.transaction)
+                                    assertFalse(retainedDraft.queued)
+                                }
                                 recreateCurrentActivity()
                                 waitFor(hasSetTextAction() and isEnabled())
                                 ui.onNode(hasSetTextAction()).assertTextEquals(latest)
@@ -242,7 +248,7 @@ class SocialPushTapPreviewTest {
 
     private fun alertChoice() = hasText("Replies and mentions") and isToggleable()
 
-    private fun visitAndroidCategories(device: UiDevice, appPackage: String, cache: File) {
+    private fun visitAndroidCategories(device: UiDevice, appPackage: String, cache: File, verifySavedWork: () -> Unit) {
         waitFor(hasText("Settings") and hasClickAction() and isEnabled())
         ui.onNode(hasText("Settings") and hasClickAction()).performClick()
         val shortcut = hasText("Android notification settings") and hasClickAction() and isEnabled()
@@ -258,6 +264,8 @@ class SocialPushTapPreviewTest {
             assertTrue(device.hasObject(By.text(label)))
             captureNativeScreen(File(cache, "social-push-evidence/tap-android-$name.png"), label)
         }
+        assertEquals("com.android.settings", device.currentPackageName)
+        verifySavedWork()
         device.pressBack()
         ui.waitUntil(10_000) { device.currentPackageName == appPackage }
     }
