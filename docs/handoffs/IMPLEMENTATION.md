@@ -81,9 +81,13 @@ while retry is pending. Worker also maps its verifier's own15s timeout to retry
 after ensuring the parent context remains active; true worker cancellation still
 propagates. This timeout path needs its own native observation before claiming it
 tested. The current case uses malformed/unavailable Archive data, not timeout.
-Both corrected minimum source reviews at1a62909d report0 findings. Fresh
-exact-source Android10/17 GREEN is next; no sourcecheck/build success counts as
-actual runtime acceptance.
+Both corrected minimum source reviews at1a62909d report0 findings. Fresh exact-source Android10/17 GREEN runs38981302625/38981305637 SUCCESS
+atc69a1896d01b23c6bb41b3f9e248410517017ac7: old11PASS84.608s/96.847s, plus
+worker1PASS12.005s/11.792s. Root6neworiginals/6XML. Final evidence review next;
+[bounded record](../evidence/ticket32/scheduled-receipt-green/README.md) retains
+actual pending/completed duplicate handles+OSpostTime, noActivity, fullwallet/backend,
+noWrites and execution-drain/scopedrestoration. Source38981302496 is stillpending.
+Nativepass is not release/lint, timeout/process/FCM/whole32 acceptance.
 No further local rebuild for the small review correction: exact CI compiles core/
 debug/test before runtime. Tracer source38980190232 SUCCESS release/lint retained.
 Do not claim GREEN or actual process-death/FCM acceptance. No owned local Gradle build remains after the pre-review minimum passed3m20s
