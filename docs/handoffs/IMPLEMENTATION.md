@@ -171,8 +171,10 @@ has50hashes/23PNG/XML. Root viewed failure and parsedall23XMLs. Later OS/durabil
 tap tails unexecuted. Correction now dismissesIME, waits displayed header, clicks
 and positively observes the Settings title inside Dialog before looking for the
 shortcut. Same genuine category/durability assertions retained. No production
-shortcut exists yet; intended native RED remains pending. Source/evidence review
-and local compile are pending, with no native run active.
+shortcut exists yet; intended native RED remains pending. Both final ordinary
+source/navigation-evidence reviews0/0 at57fada72. Corrected local core/debug/test
+98760 PASS1m41s. A fresh Android10 run is next; no outcome inferred and no
+owned local Gradle/native run is active.
 
 Remaining#32 includes saving/retry and other forms,
 mentions/registration proof, optional notification settings, real transport and
