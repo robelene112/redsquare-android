@@ -8,9 +8,17 @@ import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeout
 import java.util.UUID
 import java.util.concurrent.TimeUnit
+
+// A cancellation acknowledgement alone does not mean a running receipt has stopped.
+private val receiptExecution = Mutex()
 
 /** Durable receipt boundary. Only public routing references enter WorkManager. */
 internal object SocialPushScheduling {
@@ -21,13 +29,31 @@ internal object SocialPushScheduling {
                 "receivedAt" to System.currentTimeMillis()))
             .build()
         WorkManager.getInstance(context).enqueueUniqueWork(
-            "social:${reference.backend.id}:${reference.owner}:${reference.signature}", ExistingWorkPolicy.KEEP, request)
+            workName(reference), ExistingWorkPolicy.KEEP, request)
             .result.get(5, TimeUnit.SECONDS)
         request.id
     }
+
+    /** Cancel this reference, then wait for any executing receipt to leave its effect boundary. */
+    suspend fun cancelAndAwait(context: Context, payload: String) = withContext(Dispatchers.IO) {
+        val name = workName(SocialPushReference.parse(payload))
+        val manager = WorkManager.getInstance(context)
+        manager.cancelUniqueWork(name).result.get(5, TimeUnit.SECONDS)
+        withTimeout(20_000) {
+            receiptExecution.withLock {
+                check(manager.getWorkInfosForUniqueWork(name).get(5, TimeUnit.SECONDS).all { it.state.isFinished })
+            }
+        }
+    }
+
+    private fun workName(reference: SocialPushReference) =
+        "social:${reference.backend.id}:${reference.owner}:${reference.signature}"
 }
 
 /** Tracer: scheduled receipt exists; actual verification/publication follows its native RED. */
 class SocialPushWorker(context: Context, parameters: WorkerParameters) : CoroutineWorker(context, parameters) {
-    override suspend fun doWork(): Result = Result.success()
+    override suspend fun doWork(): Result = receiptExecution.withLock {
+        currentCoroutineContext().ensureActive()
+        if (isStopped) Result.failure() else Result.success()
+    }
 }

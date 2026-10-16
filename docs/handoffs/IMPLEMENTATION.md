@@ -44,11 +44,16 @@ Active next same-ticket vertical slice is durable scheduled local receipt with
 WorkManager, selected Archive retry and actual Android alert without an Activity.
 Plan `.scratch/push32-durable-receipt-plan.txt` records the already accepted native
 controlled-peer/system-alert seam. Tracer source is prepared with an initially nonpublishing worker,
-and its local core/debug/test compilation is active in exec38296, log
+and its initial local core/debug/test compilation PASSED3m37s, log
 `.scratch/push32-durable-tracer-build.log`. Review base for this bounded slice is
 8e6498a2. Existing social-push scope now also runs its one ordinary scheduler case
 with its own150s ceiling; existing11cases/180s are unchanged. The tracer must show
-a real runtime RED before receipt implementation. Root has not dispatched it yet. No SDK, gateway or live changes
+a real runtime RED before receipt implementation. Root has not dispatched it yet. Tracer reviews found cancellation/restoration
+and duplicate-alert oracle gaps. The correction keeps ownership before enqueue
+acknowledgement, drains the actual worker execution Mutex after cancelling the
+exact unique work, gates restoration on that barrier, and checks unchanged OS
+notification postTime after completed redelivery. Worker remains nonpublishing
+until the actual intended RED. Corrected compile/reviews are next. No SDK, gateway or live changes
 have been made. Its eventual live-process pass must not be called killed-process
 or FCM delivery. External Firebase setup question stays pending, do not repeat it.
 

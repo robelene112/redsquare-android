@@ -75,7 +75,11 @@ class SocialPushWorkPreviewTest {
         val previousBackend = backends.load()
         val retained = ChatFixtureState(context, listOf("socialpush.${wallet.publicKey}.", "personal.${wallet.publicKey}."), wallet.publicKey)
         val work = WorkManager.getInstance(context)
-        val jobs = mutableListOf<UUID>()
+        // Retain ownership before enqueue acknowledgement, including its timeout/failure path.
+        val payload = JsonObject().apply {
+            addProperty("version", 1); addProperty("wallet", wallet.publicKey)
+            addProperty("backend", "owner"); addProperty("signature", reply.id)
+        }.toString()
         val manager = context.getSystemService(NotificationManager::class.java)
         val tag = "social:${wallet.publicKey}:owner:${reply.id}"
         check(manager.activeNotifications.none { it.tag == tag })
@@ -95,13 +99,9 @@ class SocialPushWorkPreviewTest {
             SocialPushSettings(context, wallet.publicKey).setEnabled(true)
             peer.start().use { server ->
                 withFailureCapture({ capture("scheduled-reply-failure") }) {
-                    val payload = JsonObject().apply {
-                        addProperty("version", 1); addProperty("wallet", wallet.publicKey)
-                        addProperty("backend", "owner"); addProperty("signature", reply.id)
-                    }.toString()
                     fun schedule(): UUID = runBlocking(Dispatchers.IO) {
                         SocialPushScheduling.enqueue(context, payload, "ws://127.0.0.1:${server.port}/wsopen")
-                    }.also(jobs::add)
+                    }
                     val first = schedule()
                     awaitState("Unavailable Archive must leave a scheduled retry, not a successful empty receipt") {
                         info(first)?.let {
@@ -120,9 +120,15 @@ class SocialPushWorkPreviewTest {
                     assertTrue(device.wait(Until.hasObject(By.text("Replied to your post")), 15_000))
                     capture("scheduled-reply-alert")
                     assertNoActivity()
+                    val firstPostTime = manager.activeNotifications.single { it.tag == tag }.postTime
+                    awaitState("Separate the completed redelivery from the first OS publication time") {
+                        System.currentTimeMillis() > firstPostTime
+                    }
                     val duplicate = schedule()
                     awaitState("Completed receipt redelivery must finish") { info(duplicate)?.state == WorkInfo.State.SUCCEEDED }
                     assertEquals(1, manager.activeNotifications.count { it.tag == tag })
+                    assertEquals("Redelivery must not replace or re-alert the OS notification", firstPostTime,
+                        manager.activeNotifications.single { it.tag == tag }.postTime)
                     assertEquals(wallet.exportJson(), wallets.loadExisting().exportJson())
                     assertEquals(SaitoBackend.OWNER, backends.load())
                     assertTrue(peer.transactions.isEmpty() && peer.reports.isEmpty() && peer.relayedMessages.isEmpty())
@@ -133,14 +139,15 @@ class SocialPushWorkPreviewTest {
             }
         } catch (failure: Throwable) { primary = failure; throw failure }
         finally {
+            var stopped = false
             val cleanup = listOf<() -> Unit>(
-                { jobs.forEach { work.cancelWorkById(it).result.get(5, TimeUnit.SECONDS) } },
+                { runBlocking(Dispatchers.IO) { SocialPushScheduling.cancelAndAwait(context, payload) }; stopped = true },
                 { manager.cancel(tag, 0) },
                 { device.pressBack() },
-                { retained.restoreFiles() },
-                { retained.restorePreferences() },
-                { wallets.replace(wallets.loadExisting(), previous); check(wallets.loadExisting().exportJson() == previousJson) },
-                { backends.save(previousBackend); check(backends.load() == previousBackend) })
+                { if (stopped) retained.restoreFiles() },
+                { if (stopped) retained.restorePreferences() },
+                { if (stopped) { wallets.replace(wallets.loadExisting(), previous); check(wallets.loadExisting().exportJson() == previousJson) } },
+                { if (stopped) { backends.save(previousBackend); check(backends.load() == previousBackend) } })
             var cleanupFailure: Throwable? = null
             cleanup.forEach { action -> try { action() } catch (failure: Throwable) {
                 if (cleanupFailure == null) cleanupFailure = failure else cleanupFailure!!.addSuppressed(failure)
