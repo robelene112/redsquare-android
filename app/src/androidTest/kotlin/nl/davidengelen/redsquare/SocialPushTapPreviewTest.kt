@@ -80,7 +80,7 @@ class SocialPushTapPreviewTest {
             wallets.replace(previous, wallet)
             backends.save(SaitoBackend.OWNER)
             SocialPushSettings(context, owner).setEnabled(true)
-            // Existing encrypted draft boundary supplies a normalized photo. The latest text is typed in the UI.
+            // The encrypted draft supplies the photo; the warm journey edits its latest text in the UI.
             PostDraftStore(context, owner, SaitoBackend.OWNER).save(
                 PostDraftStore.Saved("Earlier saved text", images = listOf(photo)))
             peer.start().use { server ->
@@ -88,7 +88,7 @@ class SocialPushTapPreviewTest {
                 // The cold case has no MainActivity. Instrumentation/fixture transport remains alive.
                 val scenario = if (cold) null else ActivityScenario.launch<MainActivity>(
                     Intent(context, MainActivity::class.java).putExtra("feedPeerUrl", endpoint))
-                try {
+                scenario.use {
                     withFailureCapture({
                         captureNativeScreen(File(context.cacheDir, "social-push-evidence/$capturePrefix-failure.png"))
                     }) {
@@ -152,7 +152,7 @@ class SocialPushTapPreviewTest {
                         assertTrue(peer.transactions.isEmpty() && peer.reports.isEmpty() && peer.relayedMessages.isEmpty())
                         peer.assertHealthy()
                     }
-                } finally { scenario?.close() }
+                }
             }
         } catch (failure: Throwable) { primary = failure; throw failure }
         finally {

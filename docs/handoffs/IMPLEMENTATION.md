@@ -52,8 +52,8 @@ all14 XMLs. Android17 destination capture still says Loading replies with the
 exact target already visible; do not claim a fully loaded thread at capture time.
 [source-equivalence.json](../evidence/ticket32/reply-tap-green/source-equivalence.json)
 proves unchanged production and retained functional assertions after scope removal.
-Evidence reviews found only two stale documentation claims, now corrected; request
-bounded confirmation of those fixes before recording final0/0.
+Evidence reviews found two stale documentation claims, corrected at0364f4f8;
+both reviewers confirmed final0/0. Ordinary source removal and evidence are pushed.
 
 First tap minimum08e1a6f2 and route-state factory correction52f6cf0d are committed.
 Production source reviews0/0 after the correction. Pending public route generations
@@ -64,7 +64,14 @@ retain their screen with Retry pending their ordinary integration. No production
 entry point invokes the local receiver. Full tap lifecycle behavior is not yet
 verified. Corrected local core/debug/test29634 completed0 in3m21s.
 
-No owned local Gradle or native CI verification is active. Focused runs execute
+Current ordinary lifecycle verification is added at e552efbc: shared warm fixture
+plus actual notification tap with no MainActivity, Activity recreation, Back/feed
+recreation and2s consumed-route observation, then original saved text/photo and
+wallet/backend/no-TX assertions. Instrumentation remains alive, no FCM claim.
+Local core/debug/test34171 PASS2m24s. Both reviews found only manual-close error
+replacement; nullable scenario.use now preserves the original failure. Corrected
+source review then ordinary focused Android10/17 runs are next. No owned local
+Gradle or native CI verification is active. Focused runs execute
 core/debug/test only, without release/lint or full suites. Public beta24 remains
 current and no new version is reserved. Next ordinary slice: actual system tap
 when no MainActivity is open, followed by screen recreation/return checks. This
