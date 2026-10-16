@@ -252,9 +252,13 @@ explicit disabled choice without changing stored format.
 Fixtures preserve the new owner offer preference and permission-test social files;
 OS waits advance Compose while awaiting the new IO path. The notification history
 process fixture explicitly marks offers handled because its seam is read recovery,
-not first use. No social consent is enabled by that setup. Local compilation, source/
-RED evidence review and native GREEN of the minimum remain pending. Concrete local
-integration notes: .scratch/push32-consent-integration-plan.txt.
+not first use. No social consent is enabled by that setup. Correctionf9ac43f9
+keeps reading available with a passive message if Skip persistence fails; Enable
+failure retains retry controls. Separate messages distinguish persistence and
+subsequent OS-controls launch failure. Both final ordinary minimum/source/RED
+evidence reviews report0/0. Local core/debug/test1582 PASS3m53s. Native GREEN
+and existing permission/read-history regression remain pending. No owned local
+build is active. Concrete notes: .scratch/push32-consent-integration-plan.txt.
 
 Remaining#32 includes saving/retry and other forms,
 mentions/registration proof, optional notification settings, real transport and
