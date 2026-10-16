@@ -140,7 +140,12 @@ name cache is scoped and restored. The existing registrar gate is shared with
 receiver/tap, defaults to official authority, and remains restricted to explicit
 debug/emulator/loopback fixtures. This is fixture configuration, not custom user
 backend/authority support. Classifier still has no knownName lookup, so no username
-minimum or native result is claimed. Tracer compilation/review precede actual RED.
+minimum or native result is claimed. Pre-correction local core/debug/test compilation PASS3m41s. Spec review0 and
+standards0hard/one nonblocking repeated-selection judgment atd96245e0. That fixture
+selection is now grouped into TapTarget with unchanged independent literals; exact
+correction source review and CI compilation precede actual RED. No owned local
+Gradle run remains; no unchanged local rebuild is dispatched for this simple
+fixture grouping because exact-source CI compiles core/debug/test before runtime.
 Ordinary receipt permission/category controls, other mounted forms and real
 transport remain as documented below.
 

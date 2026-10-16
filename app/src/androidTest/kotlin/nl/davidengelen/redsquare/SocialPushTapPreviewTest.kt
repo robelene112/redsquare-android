@@ -59,6 +59,8 @@ class SocialPushTapPreviewTest {
 
     private enum class Journey { WARM_REPLY, COLD_REPLY, COLD_MENTION, SETTINGS_REPLY, ANDROID_SETTINGS_REPLY, ONBOARDING_REPLY, PRIVATE_CHAT_REPLY, GROUP_CHAT_REPLY, COLD_USERNAME_MENTION }
 
+    private data class TapTarget(val fixtureKey: String, val signature: String, val text: String)
+
     private fun tapJourney(journey: Journey = Journey.WARM_REPLY) {
         val username = journey == Journey.COLD_USERNAME_MENTION
         val mention = journey == Journey.COLD_MENTION || username
@@ -89,21 +91,20 @@ class SocialPushTapPreviewTest {
         }
         val owner = wallet.publicKey
         val root = fixture.getAsJsonObject("root")
-        val target = fixture.getAsJsonObject(when {
-            username -> "usernameMention"
-            mention -> "incomingMention"
-            else -> "incomingReply"
-        })
-        val signature = when {
-            username -> "d632b334c6e66178f524e621c4b1740f93945e319725e3570d338ca12c7c759053600197a800b9d52ad37f00e3c43f4c487d9e051b587b4cf1f7dca28ffdebac"
-            mention -> "58d6074e3fabb5391b8523626775eb94c475a4c8d4a3d06fd91e28b1afc8058e68621d17676e499258742523ff2f9170829d0e93699cf8c51546601dfb9fb7b1"
-            else -> "4626eafbb90d66fd650de2a943864198e3daeae0b8876b4c224625b4a438113508e44287fee31d34d117356565d67036537c65dbcc66d8589ea300e2fb414526"
+        val expected = when {
+            username -> TapTarget("usernameMention",
+                "d632b334c6e66178f524e621c4b1740f93945e319725e3570d338ca12c7c759053600197a800b9d52ad37f00e3c43f4c487d9e051b587b4cf1f7dca28ffdebac",
+                "Hello @NativeCase7@saito, username mention reference")
+            mention -> TapTarget("incomingMention",
+                "58d6074e3fabb5391b8523626775eb94c475a4c8d4a3d06fd91e28b1afc8058e68621d17676e499258742523ff2f9170829d0e93699cf8c51546601dfb9fb7b1",
+                "Hello @jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR, mention reference")
+            else -> TapTarget("incomingReply",
+                "4626eafbb90d66fd650de2a943864198e3daeae0b8876b4c224625b4a438113508e44287fee31d34d117356565d67036537c65dbcc66d8589ea300e2fb414526",
+                "Reply notification reference")
         }
-        val targetText = when {
-            username -> "Hello @NativeCase7@saito, username mention reference"
-            mention -> "Hello @jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR, mention reference"
-            else -> "Reply notification reference"
-        }
+        val target = fixture.getAsJsonObject(expected.fixtureKey)
+        val signature = expected.signature
+        val targetText = expected.text
         val alertText = if (mention) "Mentioned you" else "Replied to your post"
         val freshReply = fixture.getAsJsonObject("parentIndexedReply")
         val freshSignature = "1991d496005db8cb234ddd8482f1b8cc01cb75a9d38fd3ff904f000144e7a6bd22da22068460a5b0f7d5f9d524ae3ac8e2a4a531bad7a2ce46f10149d2abc64b"
