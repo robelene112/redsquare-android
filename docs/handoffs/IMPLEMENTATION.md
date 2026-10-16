@@ -258,7 +258,14 @@ failure retains retry controls. Separate messages distinguish persistence and
 subsequent OS-controls launch failure. Both final ordinary minimum/source/RED
 evidence reviews report0/0. Local core/debug/test1582 PASS3m53s. Native GREEN
 and existing permission/read-history regression remain pending. No owned local
-build is active. Concrete notes: .scratch/push32-consent-integration-plan.txt.
+build is active. At source495fb72cd066aef4fd0f154bcb52779d79a906c9 the actual
+focused dispatches are social Android10 run38962211627, social Android17
+run38962215407, existing notifications Android10 run38962218678 and existing
+notifications Android17 run38962222453. They are active/queued; no native result
+is inferred. Notifications scope covers the existing read UI, actual OS allow/deny
+choices as applicable and history process recovery. All focused scopes omit
+release/lint/full acceptance; the separate push source workflow includes release/lint.
+Concrete notes: .scratch/push32-consent-integration-plan.txt.
 
 Remaining#32 includes saving/retry and other forms,
 mentions/registration proof, optional notification settings, real transport and
