@@ -114,6 +114,8 @@ class SocialPushPreviewTest {
                     }
                     assertTrue(peer.transactions.isEmpty() && peer.reports.isEmpty() && peer.relayedMessages.isEmpty())
                     peer.assertHealthy()
+                    check(wallets.loadExisting().exportJson() == wallet.exportJson()) { "Active fixture wallet changed" }
+                    assertEquals(SaitoBackend.OWNER, backends.load())
                 }
             }
         } catch (failure: Throwable) { primary = failure; throw failure }

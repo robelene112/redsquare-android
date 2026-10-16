@@ -1,0 +1,67 @@
+#!/usr/bin/env python3
+"""Verify dismissed reply suppression across actual app death, with fresh-reply liveness and device-only restoration."""
+import argparse
+import json
+from pathlib import Path
+import re
+import subprocess
+from process_check_utils import ProcessInstrumentation, assert_process_gone, finish_process_fixture
+
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--evidence', type=Path, required=True)
+args = parser.parse_args()
+package = 'nl.davidengelen.redsquare.dev'
+runner = package + '.test/androidx.test.runner.AndroidJUnitRunner'
+checkpoint = 'cache/social-push-process-checkpoint.json'
+
+
+def adb(*arguments, check=True, timeout=60):
+    return subprocess.run(['adb', *arguments], capture_output=True, text=True, check=check, timeout=timeout)
+
+
+instrument = ProcessInstrumentation(adb, args.evidence,
+                                    'nl.davidengelen.redsquare.SocialPushProcessRecoveryTest', runner).run
+if not adb('get-serialno').stdout.strip().startswith('emulator-'):
+    raise SystemExit('An isolated emulator is required')
+args.evidence.mkdir(parents=True, exist_ok=True)
+primary = None
+try:
+    result = instrument('terminateAfterPublishingAndPhysicallyDismissingAReply', 'interrupted.txt', check=False)
+    if 'FAILURES!!!' in result.stdout or 'Process crashed.' not in result.stdout:
+        raise AssertionError('Reply fixture did not reach deliberate process termination')
+    row = json.loads(adb('exec-out', 'run-as', package, 'cat', checkpoint).stdout)
+    if row['phase'] != 'published-and-dismissed' or row['backend'] != 'owner':
+        raise AssertionError('Missing published-and-dismissed checkpoint')
+    if not re.fullmatch(r'[1-9A-HJ-NP-Za-km-z]{43,45}', row['owner']):
+        raise AssertionError('Invalid public fixture owner')
+    if any(not re.fullmatch(r'[0-9a-f]{64}', row[field]) for field in ('walletDigest', 'originalWalletDigest')):
+        raise AssertionError('Invalid public wallet digest')
+    if not isinstance(row['pid'], int) or row['pid'] <= 0:
+        raise AssertionError('Invalid original process ID')
+    ledger = 'no_backup/socialpush.' + row['owner'] + '.owner.ledger.v1'
+    metadata = adb('exec-out', 'run-as', package, 'stat', '-c', '%s', ledger, check=False)
+    (args.evidence / 'ledger-metadata.txt').write_text(
+        f'returncode={metadata.returncode}\n' + metadata.stdout + metadata.stderr)
+    if metadata.returncode != 0 or not metadata.stdout.strip().isdecimal() or int(metadata.stdout.strip()) <= 0:
+        raise AssertionError('No positive encrypted ledger file before death')
+    assert_process_gone(adb, package, row['pid'])
+    (args.evidence / 'dismissed-checkpoint.json').write_text(json.dumps(row, indent=2) + '\n')
+    adb('shell', 'am', 'force-stop', package)
+    result = instrument('coldReplayStaysSilentWhileAnotherSignedReplyStillShows', 'recovered.txt')
+    if 'OK (1 test)' not in result.stdout:
+        raise AssertionError('Cold replay suppression or fresh reply liveness failed')
+    recovered = json.loads(adb('exec-out', 'run-as', package, 'cat', checkpoint).stdout)
+    if recovered != dict(row, phase='recovered', recoveredPid=recovered['recoveredPid']):
+        raise AssertionError('Recovery checkpoint changed unexpectedly')
+    if not isinstance(recovered['recoveredPid'], int) or recovered['recoveredPid'] <= 0 or recovered['recoveredPid'] == row['pid']:
+        raise AssertionError('Recovery did not use a different process')
+    (args.evidence / 'recovered-checkpoint.json').write_text(json.dumps(recovered, indent=2) + '\n')
+    (args.evidence / 'continuity.txt').write_text(
+        'PASS: actual process death after physical dismissal; cold duplicate suppressed, independent fresh signed reply '
+        'visibly alerts; full wallet/backend retained and original encrypted installation restored independently. '
+        'Local transport only, no FCM or public closed-app claim.\n')
+except BaseException as failure:
+    primary = failure
+    raise
+finally:
+    finish_process_fixture(instrument, args.evidence, package, 'social-push-process-evidence', primary)
