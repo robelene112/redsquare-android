@@ -55,8 +55,16 @@ exact unique work, gates restoration on that barrier, and checks unchanged OS
 notification postTime after completed redelivery. Worker remains nonpublishing
 until the actual intended RED. Corrected local core/debug/test compilation PASSED3m28s in exec10303, log
 `.scratch/push32-durable-tracer-corrected-build.log`. Both corrected tracer
-reviews ataaefcbc7 have0 outstanding findings. Next is actual Android10 RED
-in existing social-push scope. No owned local Gradle build remains. No SDK, gateway or live changes
+reviews ataaefcbc7 have0 outstanding findings. Attempt38979224052 at67293afb FAILED in the earlier group final editor
+assertion before scheduled-receipt execution:11cases10PASS1FAIL82.607s. Worker
+tracer unexecuted, no intended RED yet. Source38979223612 SUCCESS release/lint.
+[Failure](../evidence/ticket32/scheduled-receipt-group-observation-failure/android10/README.md)
+retains44PNG/XML; root viewed group failure and parsed allXML. Exact prior same-value
+wait returned before final assertion failed; actual predicate-time mismatch remains
+unknown. The wait did not resolve this repeated observation. Current fixture correction
+compares exact full EditableText.text instead of AnnotatedString annotations, keeping
+text,15s and finalassert pluspersisteddraft/photo checks. This IS a predicate change,
+not an identical-assertion retry or established IME cause. Corrected review/CI next. No owned local Gradle build remains. No SDK, gateway or live changes
 have been made. Its eventual live-process pass must not be called killed-process
 or FCM delivery. External Firebase setup question stays pending, do not repeat it.
 
@@ -109,6 +117,9 @@ Transport references: [local seam](../research/SOCIAL_PUSH_LOCAL_SEAM_2026_10_15
 [Archive discovery](../research/SOCIAL_PUSH_ARCHIVE_DISCOVERY_2026_10_15.md),
 [future Chat transport](../research/CHAT_PUSH_EXISTING_TRANSPORT_2026_10_15.md).
 No public/private wallet data or live-node changes are authorized by fixture work.
+Later source-only[FCM API observation](../research/FCM_ANDROID_API_2026_10_16.md)
+confirms new FID APIs in current Messaging26.0.0 and server fid target, superseding
+only the dated token API observation. No SDK/config/service added.
 
 ## Current public build
 

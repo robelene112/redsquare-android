@@ -4,7 +4,6 @@ import android.app.NotificationManager
 import android.content.Intent
 import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.semantics.SemanticsProperties
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
@@ -384,7 +383,10 @@ class SocialPushTapPreviewTest {
     }
 
     private fun assertEditorText(text: String) {
-        val expected = SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(text))
+        // The saved-work contract is exact plain text, independent of editor formatting annotations.
+        val expected = SemanticsMatcher("EditableText.text equals '$text'") {
+            it.config.getOrNull(SemanticsProperties.EditableText)?.text == text
+        }
         waitFor(hasSetTextAction() and expected)
         ui.onNode(hasSetTextAction()).assert(expected)
     }
