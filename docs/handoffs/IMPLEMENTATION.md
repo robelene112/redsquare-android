@@ -273,8 +273,9 @@ permission/cold originals and parsed96XMLs.106/111hashes retained. Denial keeps
 in-app reading available; no receiver-after-denial proof from those cases. Read
 recovery shows the intended server-read error while retaining NoUnread/actor.
 Separate source push38962198525 succeeds at the same495source, including release/
-lint. Focused scopes omit those and full acceptance. Final evidence review is
-next; public beta24 is unchanged and #32 remains open.
+lint. Focused scopes omit those and full acceptance. Both final ordinary evidence
+review axes report0/0 at e236bd4a, including all363 hashes and163 XMLs.
+Public beta24 is unchanged and #32 remains open.
 Concrete notes: .scratch/push32-consent-integration-plan.txt.
 
 Remaining#32 includes saving/retry and other forms,
