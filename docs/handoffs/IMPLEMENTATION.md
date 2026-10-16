@@ -85,11 +85,18 @@ Activity recreation, Back/feed recreation and2s consumed-route absence pass;
 saved text/photo, unsigned/unqueued work, full wallet/backend and no-TX invariants
 pass. Android10 destination/recreated captures and Android17 initial destination
 still show Loading replies; target is visible, but no full-thread claim there.
-Separate ordinary evidence reviews are pending. No local Gradle/native run is
+Both ordinary evidence reviews report0/0. No local Gradle/native run is
 active. Focused checks omit release/lint/full suites. Instrumentation and fixture
 peer remain alive, so this is not process-death/FCM wake-up. Public beta24 stays
-current with no new version reserved. Next ordinary slice can cover mentions or
-notification choices; existing transport and other-form work remain.
+current with no new version reserved.
+
+Next ordinary mention tracer is added ataa96b120. Shared Journey enum preserves
+both reply cases and adds an independently signed public-key mention with actual
+mentions-channel alert, system tap to the exact post, recreation/consumed-route
+and original saved text/photo invariants. Local core/debug/test38028 PASS2m10s;
+both source review axes0/0. Production still classifies replies only. Actual
+Android10 RED is next, not yet observed. No CI outcome is inferred. Existing
+transport, notification choices and other-form work remain.
 
 Remaining#32 includes saving/retry and other forms,
 mentions/registration proof, optional notification settings, real transport and
