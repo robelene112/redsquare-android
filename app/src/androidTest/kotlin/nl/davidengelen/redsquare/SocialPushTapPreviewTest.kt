@@ -42,12 +42,15 @@ class SocialPushTapPreviewTest {
 
     @Test fun androidNotificationCategoriesCanBeOpenedWithoutLosingTheLatestPost() = tapJourney(Journey.ANDROID_SETTINGS_REPLY)
 
-    private enum class Journey { WARM_REPLY, COLD_REPLY, COLD_MENTION, SETTINGS_REPLY, ANDROID_SETTINGS_REPLY }
+    @Test fun enablingSocialAlertsWorksEvenAfterTheGeneralAndroidPromptWasOffered() = tapJourney(Journey.ONBOARDING_REPLY)
+
+    private enum class Journey { WARM_REPLY, COLD_REPLY, COLD_MENTION, SETTINGS_REPLY, ANDROID_SETTINGS_REPLY, ONBOARDING_REPLY }
 
     private fun tapJourney(journey: Journey = Journey.WARM_REPLY) {
         val cold = journey == Journey.COLD_REPLY || journey == Journey.COLD_MENTION
         val mention = journey == Journey.COLD_MENTION
         val settings = journey == Journey.SETTINGS_REPLY
+        val onboarding = journey == Journey.ONBOARDING_REPLY
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" &&
@@ -101,13 +104,14 @@ class SocialPushTapPreviewTest {
             Journey.WARM_REPLY -> "tap-post"
             Journey.SETTINGS_REPLY -> "tap-settings"
             Journey.ANDROID_SETTINGS_REPLY -> "tap-android"
+            Journey.ONBOARDING_REPLY -> "tap-onboarding"
         }
         var primary: Throwable? = null
         try {
             retained.prepare()
             wallets.replace(previous, wallet)
             backends.save(SaitoBackend.OWNER)
-            if (!settings) SocialPushSettings(context, owner).setEnabled(true)
+            if (!settings && !onboarding) SocialPushSettings(context, owner).setEnabled(true)
             // The encrypted draft supplies the photo; the warm journey edits its latest text in the UI.
             PostDraftStore(context, owner, SaitoBackend.OWNER).save(
                 PostDraftStore.Saved("Earlier saved text", images = listOf(photo)))
@@ -122,6 +126,33 @@ class SocialPushTapPreviewTest {
                     }) {
                         if (cold) check(activeMainActivities().isEmpty())
                         else {
+                            if (onboarding) {
+                                assertTrue(context.getSharedPreferences("notification-permission", 0).getBoolean("offered", false))
+                                if (android.os.Build.VERSION.SDK_INT >= 33) assertEquals(
+                                    android.content.pm.PackageManager.PERMISSION_GRANTED,
+                                    context.checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS))
+                                waitFor(hasText("Notifications") and hasClickAction() and isEnabled())
+                                ui.onNode(hasText("Notifications") and hasClickAction()).performClick()
+                                waitFor(hasText("Android notification alerts"))
+                                captureNativeScreen(File(context.cacheDir, "social-push-evidence/tap-onboarding-offer.png"), "Enable alerts")
+                                ui.onNodeWithText("Enable alerts").performClick()
+                                if (android.os.Build.VERSION.SDK_INT < 33) {
+                                    ui.waitUntil(15_000) { device.hasObject(By.pkg("com.android.settings")) }
+                                    captureNativeScreen(File(context.cacheDir, "social-push-evidence/tap-onboarding-system.png"))
+                                    device.pressBack()
+                                }
+                                waitFor(hasText("Refresh") and isEnabled())
+                                ui.waitUntil(15_000) {
+                                    ui.onAllNodesWithText("Not now").fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty()
+                                }
+                                recreateCurrentActivity()
+                                waitFor(hasText("Refresh") and isEnabled())
+                                ui.onAllNodesWithText("Not now").assertCountEquals(0)
+                                ui.onNodeWithText("Back").performClick()
+                                openAlertChoice().assertIsOn()
+                                captureNativeScreen(File(context.cacheDir, "social-push-evidence/tap-onboarding-enabled.png"), "Replies and mentions")
+                                ui.onNodeWithText("Done").performClick()
+                            }
                             if (settings) {
                                 openAlertChoice().assertIsOff()
                                 captureNativeScreen(File(context.cacheDir, "social-push-evidence/tap-settings-initial.png"), "Replies and mentions")
