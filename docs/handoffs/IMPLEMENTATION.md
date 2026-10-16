@@ -94,15 +94,20 @@ Next ordinary mention tracer is added ataa96b120. Shared Journey enum preserves
 both reply cases and adds an independently signed public-key mention with actual
 mentions-channel alert, system tap to the exact post, recreation/consumed-route
 and original saved text/photo invariants. Local core/debug/test38028 PASS2m10s;
-both source review axes0/0. Production still classifies replies only. Actual
+both tracer source review axes0/0. The minimum implementation is now committed
+at5dc0d048: fresh signed public-key/list mentions use the Mentions category and
+the same classifier on tap, while owned replies retain priority. Actual
 Android10 run38933228336 at8d803b4822abd3e06d5baf3a6377ca4aef64a87a is
 FAILURE5cases4PASS1FAIL28.173s. Mention result is SUPPRESSED where PUBLISHED
 was required atSocialPushTapPreviewTest.kt:123; later mention UI/invariant tails
 did not execute. Four prior reply cases pass. [RED evidence](../evidence/ticket32/mention-alert-red/android10/README.md)
 retains28hashes and12original PNG/XML pairs; root viewed failure launcher and
 parsedall12XMLs. adbexit0 is retained despite harness/runtime failure, no scope.txt
-on failure. Ordinary evidence review is pending. Minimum mention classification
-and channel implementation is next; native GREEN is not yet observed. Existing
+on failure. Ordinary evidence/spec review0, standards found only stale handoff
+status, corrected here. Minimum source review has no production finding. Local
+core/debug/test9820 PASS3m33s; corrected handoff review and ordinary native
+Android10/17 verification are next. Native GREEN is not yet observed. Username
+mentions, registration/choices and actual external transport remain outstanding. Existing
 transport, notification choices and other-form work remain.
 
 Remaining#32 includes saving/retry and other forms,
