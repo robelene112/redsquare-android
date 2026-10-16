@@ -74,15 +74,23 @@ also retained with passing assertions/logs. Source reviews0/0 at0f50c2a4; final
 evidence reviews at9663f3a5 report Standards0/Spec0. The bounded timeout
 observation is accepted. No owned local Gradle build or SDK/config/live change.
 
-Next same-ticket work is the actual scheduled-receipt process boundary below.
-No source for it is implemented yet. Remain sequential. Current passes are live
+Current same-ticket work is the actual scheduled-receipt process boundary below.
+Source preparation is in progress; native behavior remains unverified. Remain sequential. Current passes are live
 process with noActivity, not process death/autonomous restart/FCM/locked/Doze/
 Pixel or full#32 acceptance.
 
 A source-only[process-boundary proposal](../research/NATIVE_SCHEDULED_RECEIPT_PROCESS_BOUNDARY_2026_10_16.md)
 recommends reusing the existing JVM peer outside the target process via owned
-adb reverse. No shared-fixture move, host launcher, build hook or process test
-has been implemented. No SDK/client config/service/gateway/node change was made.
+adb reverse. The existing peer now moves unchanged to shared test-only sources, compiled by
+core.test and app.androidTest. A bounded host JVM launcher, runtime-classpath build
+hook, device-only snapshot fixture and Python supervisor are prepared. The existing
+social-push-process scope first retains its dismissal-replay check, then attempts
+an autonomous scheduled-receipt observation. The supervisor keeps setup
+instrumentation alive, kills the verified PID, and observes a distinct PID, new
+peer reads and exact system alert before any target relaunch. Cleanup then stops
+the target, independently cancels/drains owned work and restores originals. This
+is additional verification of the accepted worker, not a new RED claim. Local
+compilation is running; no runtime or feasibility pass is claimed yet. No SDK/client config/service/gateway/node change was made.
 The existing owner Firebase setup question remains pending, do not repeat it.
 Public signed beta24 is unchanged.
 

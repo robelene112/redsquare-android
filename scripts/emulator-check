@@ -157,6 +157,9 @@ verify_social_push() {
     fi
     if [[ "${TEST_SCOPE:-full}" == social-push-process* ]]; then
         python3 "$repo_dir/scripts/social-push-process-check" --evidence "$evidence/social-push-process" || native_exit=$?
+        if [[ "$native_exit" == 0 ]]; then
+            python3 "$repo_dir/scripts/social-push-scheduled-process-check" --evidence "$evidence/social-push-scheduled-process" || native_exit=$?
+        fi
     else
         verify_group_chat_native "SocialPushPreviewTest,nl.davidengelen.redsquare.SocialPushTapPreviewTest" 180 social-push social-push-evidence || native_exit=$?
         if [[ "$native_exit" == 0 ]]; then

@@ -85,9 +85,9 @@ jobs:
           VERIFICATION_SCOPE: ${{ inputs.scope || 'source' }}
         run: |
           if [[ "$VERIFICATION_SCOPE" == full* || "$VERIFICATION_SCOPE" == source || "$VERIFICATION_SCOPE" == release-tail* ]]; then
-            ./gradlew --no-daemon --console=plain :core:test :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease :app:lintDebug
+            ./gradlew --no-daemon --console=plain :core:test :core:writeHostPeerClasspath :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease :app:lintDebug
           else
-            ./gradlew --no-daemon --console=plain :core:test :app:assembleDebug :app:assembleDebugAndroidTest
+            ./gradlew --no-daemon --console=plain :core:test :core:writeHostPeerClasspath :app:assembleDebug :app:assembleDebugAndroidTest
           fi
       - name: Retain Gradle task outputs before device tests
         if: steps.build.outcome == 'success' && steps.task-cache.outputs.cache-hit != 'true'

@@ -21,6 +21,7 @@ android {
             applicationIdSuffix = ".dev"
         }
     }
+    sourceSets.getByName("androidTest").java.srcDir(rootProject.file("test-fixtures/kotlin"))
     packaging.resources.excludes += "META-INF/versions/9/OSGI-INF/MANIFEST.MF"
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
