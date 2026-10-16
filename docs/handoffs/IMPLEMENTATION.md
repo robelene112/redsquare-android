@@ -63,7 +63,15 @@ protected draft check before Back, phase/timing in the existing private/group ph
 preparation case, and effective device/runtime memory properties in storage tests.
 No pre-alert forced save or disk-persistence wait is added. Production is unchanged
 from 84eb9704. Local observation core/debug/test assembly passed in 1m 54s; shell
-syntax passed. Observation source/evidence reviews and native results are pending.
+syntax passed. Standards review reports zero findings. The specification review
+found one documentation qualification: failure PNG was observed as feed, while its
+non-atomic XML still contains Conversation/Loading. This distinction is now explicit
+in the failed run README; no cause is inferred. Final correction review is pending.
+Observation source is 1487ed1b26ac9ee960367c114cd30ee7b9c405fb; pending runs:
+- Social Android 17: 38970014218.
+- Existing Chat photos Android 17: 38970017629.
+- Protected photo history Android 10: 38970020926.
+No native diagnostic result is claimed yet.
 Do not dispatch unchanged retries or claim #32/private slice complete.
 
 ## Verified #32 slices
