@@ -136,8 +136,9 @@ The minimum UI is now added: wallet-scoped Replies and mentions switch in the
 existing Settings dialog, off by default, IO read/write with unavailable/error
 state and Retry. It writes existing explicit consent only; no registration,
 Android permission/category shortcut or FCM transport claim. The mounted settings
-modal keeps existing push-route deferral. Source/evidence review and local build
-are next. No native GREEN for the choice is observed.
+modal keeps existing push-route deferral. Both ordinary source/RED evidence
+reviews0/0 atdf331f8a. Local core/debug/test89082 PASS3m24s. No native GREEN
+for the choice is observed; Android10/17 focused verification is next.
 
 Remaining#32 includes saving/retry and other forms,
 mentions/registration proof, optional notification settings, real transport and
