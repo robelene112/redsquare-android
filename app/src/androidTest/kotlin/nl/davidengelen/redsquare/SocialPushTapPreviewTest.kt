@@ -194,7 +194,7 @@ class SocialPushTapPreviewTest {
                             }
                             waitFor(hasSetTextAction() and isEnabled())
                             assertEditorText("Earlier saved text")
-                            ui.onNodeWithContentDescription("Image 1 of 1").performScrollTo().assertIsDisplayed()
+                            draftPhoto(privateChat)
                             ui.onNode(hasSetTextAction()).performTextReplacement(latest)
                             if (journey == Journey.ANDROID_SETTINGS_REPLY) {
                                 visitAndroidCategories(device, context.packageName, context.cacheDir) {
@@ -207,7 +207,7 @@ class SocialPushTapPreviewTest {
                                 recreateCurrentActivity()
                                 waitFor(hasSetTextAction() and isEnabled())
                                 assertEditorText(latest)
-                                ui.onNodeWithContentDescription("Image 1 of 1").performScrollTo().assertIsDisplayed()
+                                draftPhoto(privateChat)
                                 captureNativeScreen(File(context.cacheDir, "social-push-evidence/tap-android-returned.png"))
                             }
                         }
@@ -257,8 +257,7 @@ class SocialPushTapPreviewTest {
                         } else ui.onNode(hasText("New post") and hasClickAction()).performClick()
                         waitFor(hasSetTextAction() and isEnabled())
                         assertEditorText(latest)
-                        val bitmap = ui.onNodeWithContentDescription("Image 1 of 1").performScrollTo()
-                            .assertIsDisplayed().captureToImage().asAndroidBitmap()
+                        val bitmap = draftPhoto(privateChat).captureToImage().asAndroidBitmap()
                         assertEquals(0xffdc1e28.toInt(), bitmap.getPixel(bitmap.width / 2, bitmap.height / 2))
                         captureNativeScreen(File(context.cacheDir, "social-push-evidence/$capturePrefix-draft-restored.png"))
                         val saved = PostDraftStore(context, owner, SaitoBackend.OWNER).load()
@@ -310,12 +309,18 @@ class SocialPushTapPreviewTest {
         }
     }
 
+    private fun draftPhoto(privateChat: Boolean): SemanticsNodeInteraction {
+        val image = ui.onNodeWithContentDescription("Image 1 of 1")
+        return (if (privateChat) image else image.performScrollTo()).assertIsDisplayed()
+    }
+
     private fun assertEditorText(text: String) {
         ui.onNode(hasSetTextAction()).assert(SemanticsMatcher.expectValue(
             SemanticsProperties.EditableText, AnnotatedString(text)))
     }
 
     private fun openPrivateChat(contact: String) {
+        androidx.test.espresso.Espresso.closeSoftKeyboard()
         val chat = hasText("Chat") and hasClickAction() and isEnabled()
         waitFor(chat)
         ui.waitUntil(15_000) { ui.onNode(chat).isDisplayed() }

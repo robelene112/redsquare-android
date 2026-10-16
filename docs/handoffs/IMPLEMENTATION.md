@@ -39,6 +39,17 @@ unchanged. Corrected local core/debug/test assembly passed in 1m 37s. Both
 correction/evidence reviews report zero findings at 1df4835a. No production guard
 change yet; corrected intended RED still needs Android execution.
 Separate source run38964723509 passed release assembly/lint at a8a30ceb.
+Corrected run 38965766119 at f80b035a also completed FAILURE: nine cases, eight
+passed, one failed, 68.261 s. It passes exact EditableText, then the post-specific
+performScrollTo fails on an already visible, non-scrollable Chat photo at line 197.
+No intended navigation RED yet; new editing/publication/tap/tail steps did not run.
+[Raw scrolling failure](../evidence/ticket32/private-chat-tracer-scroll-failure/android10/README.md)
+retains 35 original PNG/XML pairs; root viewed its failure original and parsed all
+XMLs. The next correction asserts the Chat photo directly and retains post scrolling
+and the same raster check. Chat opening dismisses the keyboard before selecting
+the displayed navigation item. Corrected compilation and runtime remain pending.
+Separate source run 38965756141 passed release assembly/lint at f80b035a.
+
 
 The preceding documentation push run38964130150 failed during Android Emulator
 package extraction, before build/runtime. Raw metadata/log and qualifications are
