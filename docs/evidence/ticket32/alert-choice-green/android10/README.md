@@ -27,8 +27,8 @@ Destination still says Loading replies: this establishes exact navigation,
 not a fully loaded thread. PNG/XML sampling is not atomic. SHA256SUMS retains
 49original-file hashes; this interpretation README is outside the manifest.
 
-Android permission is pregranted by the fixture. This case does not exercise a
-permission prompt/denial, Android categories or storage-error/Retry recovery.
+System alerts are enabled. Android10 has no POST_NOTIFICATIONS runtime prompt;
+this case does not exercise permission denial, Android categories or storage-error/Retry recovery.
 Those, registration and other forms remain separate work. Instrumentation and
 controlled Archive remain alive, so no FCM/public delivery, process wake-up,
 physical Pixel timing or whole#32 acceptance is claimed. Earlier RED stays

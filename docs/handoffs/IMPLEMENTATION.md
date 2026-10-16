@@ -148,7 +148,8 @@ perSDK and parsed44XMLs; parent switchfalse/true/false independently checked.
 DefaultOff, UIenable/recreationOn, actual replytap/exact destination/latest draft,
 UIdisable and distinct fresh reply silence2s all pass, as do wallet/backend/no-write
 invariants. Destination still says Loading replies; no loaded-thread claim.
-Permission pregranted, no OSpermission/category/IOerror recovery/FCM proof.
+System alerts enabled, runtime permission pregranted onAPI33+ only. No
+OSpermission/category/IOerror recovery/FCM proof.
 Both ordinary GREEN evidence reviews are pending. No native run is active.
 AppearancePreviewTest already scrolls to theme choices; no fixture change needed.
 No owned local Gradle build remains active.
