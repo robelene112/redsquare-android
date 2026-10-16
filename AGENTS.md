@@ -20,6 +20,10 @@ the skill is absent from its picker, read those files directly and follow them.
   for that phase; explain the next phase rather than silently advancing to it.
 - Implement one ticket at a time. Ralph and parallel ticket implementation are
   out of scope. Review subagents permitted by `code-review` remain available.
+- The owner has asked to stop separate cybersecurity research and targeted
+  cybersecurity test campaigns. Do not request Daybreak or other cybersecurity
+  services/access. Continue ordinary app functionality, correctness checks and
+  the existing development workflow within the authorized scope.
 - For Saito integration or node access, read [operations](docs/OPERATIONS.md).
 
 ### Issue tracker

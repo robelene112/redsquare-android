@@ -1,5 +1,24 @@
 # Current implementation handoff
 
+## Latest owner steering, 2026-10-16 09:16UTC
+
+The owner explicitly asked to stop cybersecurity requests. No Daybreak application
+or cybersecurity service/account request was submitted. Stop separate cybersecurity
+research and targeted campaigns; continue ordinary app features and correctness.
+The optional exported-state test and its dedicated workflow choices are removed
+from future runs. Existing app fixes remain. No retry or renaming of blocked work.
+
+Both previously dispatched four-case Android runs completed SUCCESS before root's
+attempt to stop the remaining run: Android10 38878791927 and Android17 38878803838,
+exact source027c6b90b27a1123cc80791acf58653d2b6ef98a. GitHub refused cancellation of
+Android17 because it had already completed; it is not a cancelled run. Root has
+not yet downloaded/inspected their actual logs/images, so no detailed acceptance
+claim. Preserve historical records honestly, focus review on ordinary reply display,
+dismissal and post/photo tap behavior. Current regular class returns to3cases.
+
+The older checkpoints below still describe the preceding phase; latest owner
+scope above takes precedence. Reconcile current result pointers after inspection.
+
 Updated2026-10-16. Owner authorizes continuing all remaining issues sequentially.
 Use [workflow](../WORKFLOW.md) and the project skills. #32 is the sole active
 implementation. Preserve unrelated untracked
