@@ -53,7 +53,10 @@ and duplicate-alert oracle gaps. The correction keeps ownership before enqueue
 acknowledgement, drains the actual worker execution Mutex after cancelling the
 exact unique work, gates restoration on that barrier, and checks unchanged OS
 notification postTime after completed redelivery. Worker remains nonpublishing
-until the actual intended RED. Corrected compile/reviews are next. No SDK, gateway or live changes
+until the actual intended RED. Corrected local core/debug/test compilation PASSED3m28s in exec10303, log
+`.scratch/push32-durable-tracer-corrected-build.log`. Both corrected tracer
+reviews ataaefcbc7 have0 outstanding findings. Next is actual Android10 RED
+in existing social-push scope. No owned local Gradle build remains. No SDK, gateway or live changes
 have been made. Its eventual live-process pass must not be called killed-process
 or FCM delivery. External Firebase setup question stays pending, do not repeat it.
 
