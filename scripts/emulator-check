@@ -155,7 +155,10 @@ verify_social_push() {
             granted_for_test=1
         fi
     fi
-    if [[ "${TEST_SCOPE:-full}" == social-push-process* ]]; then
+    if [[ "${TEST_SCOPE:-full}" == social-push-input* ]]; then
+        verify_group_chat_native 'SocialPushTapPreviewTest#anExportedLaunchIgnoresMalformedNotificationStateExtras' 90 social-push-input social-push-evidence || native_exit=$?
+        adb shell logcat -d -s AndroidRuntime:E > "$evidence/social-push-input-runtime.txt" || native_exit=1
+    elif [[ "${TEST_SCOPE:-full}" == social-push-process* ]]; then
         python3 "$repo_dir/scripts/social-push-process-check" --evidence "$evidence/social-push-process" || native_exit=$?
     else
         verify_group_chat_native "SocialPushPreviewTest,nl.davidengelen.redsquare.SocialPushTapPreviewTest" 180 social-push social-push-evidence || native_exit=$?

@@ -145,6 +145,56 @@ class SocialPushTapPreviewTest {
         }
     }
 
+    @Test fun anExportedLaunchIgnoresMalformedNotificationStateExtras() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        check(context.packageName == "nl.davidengelen.redsquare.dev" &&
+            android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
+        check(activeMainActivities().isEmpty())
+        val wallets = AndroidWalletStore(context)
+        val wallet = wallets.loadOrCreate()
+        val backend = AndroidBackendStore(context).load()
+        val fixture = instrumentation.context.assets.open("native-notification-reference.json").bufferedReader()
+            .use { JsonParser.parseReader(it).asJsonObject }
+        val peer = ControlledFeedPeer("[${fixture.getAsJsonObject("root")}]")
+        val manager = context.getSystemService(NotificationManager::class.java)
+        val alerts = manager.activeNotifications.map { it.tag to it.id }.toSet()
+        peer.start().use { server ->
+            val intent = Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                .putExtra("social.initialized", false)
+                .putExtra("social.generation", "External generation is not a number")
+                .putExtra("social.pending", "External pending state must not be used")
+                .setData(android.net.Uri.Builder().scheme("redsquare").authority("social")
+                    .appendPath(backend.id).appendPath(wallet.publicKey)
+                    .appendPath("4626eafbb90d66fd650de2a943864198e3daeae0b8876b4c224625b4a438113508e44287fee31d34d117356565d67036537c65dbcc66d8589ea300e2fb414526").build())
+            var primary: Throwable? = null
+            try {
+                ActivityScenario.launch<MainActivity>(intent).use {
+                    withFailureCapture({ captureNativeScreen(File(context.cacheDir, "social-push-evidence/external-state-failure.png")) }) {
+                        waitFor(hasText("New post") and hasClickAction() and isEnabled())
+                        // This unrelated wallet has not opted in. A real validated route is retained safely,
+                        // rather than accepting external saved-state keys or silently ignoring the URI.
+                        val unavailable = context.getString(R.string.social_push_open_failed)
+                        waitFor(hasText(unavailable))
+                        ui.onNodeWithText(unavailable).assertExists()
+                        captureNativeScreen(File(context.cacheDir, "social-push-evidence/external-state-rejected.png"))
+                        check(wallets.loadExisting().exportJson() == wallet.exportJson()) { "Active installation wallet changed" }
+                        assertEquals(backend, AndroidBackendStore(context).load())
+                        assertEquals(alerts, manager.activeNotifications.map { it.tag to it.id }.toSet())
+                        assertTrue(peer.transactions.isEmpty() && peer.reports.isEmpty() && peer.relayedMessages.isEmpty())
+                        peer.assertHealthy()
+                    }
+                }
+            } catch (failure: Throwable) { primary = failure; throw failure }
+            finally {
+                try { finishFixtureActivities() }
+                catch (failure: Throwable) { if (primary != null) primary!!.addSuppressed(failure) else throw failure }
+            }
+        }
+    }
+
     private fun activeMainActivities(): List<MainActivity> {
         var result = emptyList<MainActivity>()
         InstrumentationRegistry.getInstrumentation().runOnMainSync {
