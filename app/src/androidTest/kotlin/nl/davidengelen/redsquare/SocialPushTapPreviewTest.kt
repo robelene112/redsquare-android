@@ -11,6 +11,8 @@ import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
 import androidx.test.runner.lifecycle.Stage
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
+import androidx.test.uiautomator.UiScrollable
+import androidx.test.uiautomator.UiSelector
 import androidx.test.uiautomator.Until
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
@@ -38,7 +40,9 @@ class SocialPushTapPreviewTest {
 
     @Test fun theReplyAndMentionAlertChoiceCanBeEnabledAndDisabledInSettings() = tapJourney(Journey.SETTINGS_REPLY)
 
-    private enum class Journey { WARM_REPLY, COLD_REPLY, COLD_MENTION, SETTINGS_REPLY }
+    @Test fun androidNotificationCategoriesCanBeOpenedWithoutLosingTheLatestPost() = tapJourney(Journey.ANDROID_SETTINGS_REPLY)
+
+    private enum class Journey { WARM_REPLY, COLD_REPLY, COLD_MENTION, SETTINGS_REPLY, ANDROID_SETTINGS_REPLY }
 
     private fun tapJourney(journey: Journey = Journey.WARM_REPLY) {
         val cold = journey == Journey.COLD_REPLY || journey == Journey.COLD_MENTION
@@ -96,6 +100,7 @@ class SocialPushTapPreviewTest {
             Journey.COLD_REPLY -> "tap-cold"
             Journey.WARM_REPLY -> "tap-post"
             Journey.SETTINGS_REPLY -> "tap-settings"
+            Journey.ANDROID_SETTINGS_REPLY -> "tap-android"
         }
         var primary: Throwable? = null
         try {
@@ -134,6 +139,14 @@ class SocialPushTapPreviewTest {
                             ui.onNode(hasSetTextAction()).assertTextEquals("Earlier saved text")
                             ui.onNodeWithContentDescription("Image 1 of 1").performScrollTo().assertIsDisplayed()
                             ui.onNode(hasSetTextAction()).performTextReplacement(latest)
+                            if (journey == Journey.ANDROID_SETTINGS_REPLY) {
+                                visitAndroidCategories(device, context.packageName, context.cacheDir)
+                                recreateCurrentActivity()
+                                waitFor(hasSetTextAction() and isEnabled())
+                                ui.onNode(hasSetTextAction()).assertTextEquals(latest)
+                                ui.onNodeWithContentDescription("Image 1 of 1").performScrollTo().assertIsDisplayed()
+                                captureNativeScreen(File(context.cacheDir, "social-push-evidence/tap-android-returned.png"))
+                            }
                         }
                         val payload = JsonObject().apply {
                             addProperty("version", 1); addProperty("wallet", owner)
@@ -228,6 +241,26 @@ class SocialPushTapPreviewTest {
     }
 
     private fun alertChoice() = hasText("Replies and mentions") and isToggleable()
+
+    private fun visitAndroidCategories(device: UiDevice, appPackage: String, cache: File) {
+        waitFor(hasText("Settings") and hasClickAction() and isEnabled())
+        ui.onNode(hasText("Settings") and hasClickAction()).performClick()
+        val shortcut = hasText("Android notification settings") and hasClickAction() and isEnabled()
+        waitFor(shortcut)
+        ui.onNode(shortcut).performScrollTo().performClick()
+        assertTrue(device.wait(Until.hasObject(By.pkg("com.android.settings")), 10_000))
+        assertTrue(device.wait(Until.hasObject(By.text("Red Square")), 10_000))
+        for ((label, name) in listOf("Replies" to "replies", "Mentions" to "mentions")) {
+            if (!device.hasObject(By.text(label))) {
+                assertTrue("Android must offer the $label category",
+                    UiScrollable(UiSelector().scrollable(true)).scrollTextIntoView(label))
+            }
+            assertTrue(device.hasObject(By.text(label)))
+            captureNativeScreen(File(cache, "social-push-evidence/tap-android-$name.png"), label)
+        }
+        device.pressBack()
+        ui.waitUntil(10_000) { device.currentPackageName == appPackage }
+    }
 
     private fun openAlertChoice(): SemanticsNodeInteraction {
         waitFor(hasText("Settings") and hasClickAction() and isEnabled())
