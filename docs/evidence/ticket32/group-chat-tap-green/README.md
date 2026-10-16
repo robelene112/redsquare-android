@@ -6,7 +6,7 @@ The new group guard at0b5dc394 is verified at exact4419fd1a2ac07bbd084f95578a136
 - [Android17 social](android17/README.md), run38973729273: all10 cases PASS,103.434s.
 - [Android10 group compatibility](../group-chat-tap-regression/android10/README.md), run38973732283: actions1, mixed1, group22, actual recovery1 and restoration1 PASS; PID13930 to14322.
 - [Android17 group compatibility](../group-chat-tap-regression/android17/README.md), run38973734828: same26 reported completions PASS; PID5236 to5318.
-- Separate push38973706184 SUCCESS includes core/debug/test/release assembly and lint at the same source. Local minimum core/debug/test compilation passed3m45s. Source/RED-evidence reviews report0/0 at0b5dc394; final GREEN evidence review is subsequent.
+- Separate push38973706184 SUCCESS includes core/debug/test/release assembly and lint at the same source. Local minimum core/debug/test compilation passed3m45s. Source/RED-evidence reviews report0/0 at0b5dc394; both final ordinary GREEN evidence reviews report zero findings at041de29f.
 
 Root individually viewed14 selected originals across these four packages (four new social captures and three group regression captures perSDK), and parsed all167 XMLs. Exact notification destinations appear while Loading replies remains visible; this is exact-target proof, not exhaustive history. The restored group draft text/photo and unencrypted-group notice are visible. Existing forwarded replies remain delivery-unconfirmed; deliberately unavailable-history/process cases retain their qualified recovery states.
 

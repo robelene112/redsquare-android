@@ -127,7 +127,7 @@ exact protected originals/key/draft/fullwallet/backend and no automatic send.
 all original results. Root viewed14 originals and parsed167XMLs. Destinations still
 show Loading replies, forwarded replies delivery unconfirmed, unavailable-history
 recovery cases qualified. Test fixture/core/group store blobs unchanged between
-RED, minimum and GREEN source. Final GREEN evidence review is pending.
+RED, minimum and GREEN source. Both final ordinary GREEN evidence reviews report zero findings at041de29f.
 No owned local Gradle or native run is active. Public beta24 unchanged. Full #32,
 actual FCM/closed-process push and physical Pixel acceptance remain outstanding.
 Retention helpers `.scratch/retain-push32-group-tap.py` (ten cases) and
