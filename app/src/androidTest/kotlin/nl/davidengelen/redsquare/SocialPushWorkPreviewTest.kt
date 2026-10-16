@@ -25,7 +25,6 @@ import java.util.UUID
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicInteger
-import java.util.concurrent.atomic.AtomicLong
 
 /** Real scheduler, selected Archive and Android alert. The external transport alone is injected. */
 class SocialPushWorkPreviewTest {
@@ -64,11 +63,9 @@ class SocialPushWorkPreviewTest {
         }
         val recovering = AtomicBoolean(false)
         val failedReads = AtomicInteger()
-        val firstFailureAt = AtomicLong()
         val peer = ControlledFeedPeer("[]", archiveResponse = { criteria ->
             require(criteria.get("field1").asString == "RedSquare" && criteria.get("flagged_ne").asInt == 1)
             if (!recovering.get()) {
-                firstFailureAt.compareAndSet(0, SystemClock.elapsedRealtime())
                 failedReads.incrementAndGet()
                 "{}"
             }
@@ -113,6 +110,7 @@ class SocialPushWorkPreviewTest {
                     fun schedule(): UUID = runBlocking(Dispatchers.IO) {
                         SocialPushScheduling.enqueue(context, payload, "ws://127.0.0.1:${server.port}/wsopen")
                     }
+                    val submittedAt = SystemClock.elapsedRealtime()
                     val first = schedule()
                     awaitState("Unavailable Archive must leave a scheduled retry, not a successful empty receipt") {
                         info(first)?.let {
@@ -121,8 +119,8 @@ class SocialPushWorkPreviewTest {
                         } == true
                     }
                     assertTrue(failedReads.get() > 0)
-                    if (withhold) assertTrue("A withheld response must exercise the real request wait, not an immediate error",
-                        SystemClock.elapsedRealtime() - firstFailureAt.get() >= 10_000)
+                    if (withhold) assertTrue("A withheld response must reach the real request deadline before retry",
+                        SystemClock.elapsedRealtime() - submittedAt >= 10_000)
                     assertEquals("A duplicate during retry must return the persisted existing task", first, schedule())
                     assertTrue(manager.activeNotifications.none { it.tag == tag })
                     assertNoActivity()

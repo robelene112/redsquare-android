@@ -65,7 +65,9 @@ class now has two full journeys: malformed response and an authenticated server
 that prepares but withholds its Archive reply until recovery. New fixture flag
 defaultfalse leaves all prior peer behavior unchanged. Its existing callback
 records the actual request, and the withheld case requires at least10s real
-elapsed wait before the scheduled retry. The existing peer request timer is12s
+elapsed time from initial submission before the scheduled retry. This includes
+authentication, as does the real peer request deadline; it does not assert a
+minimum server-response-only interval. The existing peer request timer is12s
 inside the receiver's15s overall bound; do not claim the outer15s specifically
 fired. All pending/completed duplicate, actual alert/postTime, noActivity, full
 wallet/backend/noWrites and cancel/drain/restoration assertions remain. Captures
