@@ -138,7 +138,11 @@ state and Retry. It writes existing explicit consent only; no registration,
 Android permission/category shortcut or FCM transport claim. The mounted settings
 modal keeps existing push-route deferral. Both ordinary source/RED evidence
 reviews0/0 atdf331f8a. Local core/debug/test89082 PASS3m24s. No native GREEN
-for the choice is observed; Android10/17 focused verification is next.
+for the choice is observed. Actual Android10 run38937947396 and Android17
+run38937958934 are active at exact sourceaebfb3c6d276e64b343834e5612d3cd2f1a43b84,
+6ordinary cases perSDK (social-push / social-push-android17). No outcome inferred.
+AppearancePreviewTest already scrolls to theme choices; no fixture change needed.
+No owned local Gradle build remains active.
 
 Remaining#32 includes saving/retry and other forms,
 mentions/registration proof, optional notification settings, real transport and
