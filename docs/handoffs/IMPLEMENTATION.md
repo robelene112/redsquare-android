@@ -101,14 +101,13 @@ storage observation run 38971341246 at 9e2dcd18 passes both cases in 77.581 s an
 records effective maxMemory 512 MiB, memoryClass/largeMemoryClass 512, PID 3297.
 This does not establish why the earlier OOM reported 16 MiB. Diagnostic status0
 messages are progress, not extra passing tests. Source push 38971334056 SUCCESS
-includes release assembly and lint. Final evidence review is pending before moving
-on. No full #32, actual FCM or closed-process delivery claim. Public beta24 unchanged.
+includes release assembly and lint. Both final ordinary evidence reviews report zero findings at 904bceac. No full #32, actual FCM or closed-process delivery claim. Public beta24 unchanged.
 
-Next ordinary vertical slice after final private evidence review: preserve a group
+Current ordinary vertical slice: preserve a group
 Chat draft/photo on actual social tap. Plan `.scratch/push32-group-draft-next-plan.txt`.
-Keep owner key1 and a separately created/invited group, actual UI edit/system tap,
+Tracer adds owner key1 and a separately created/invited group, actual UI edit/system tap,
 protected draft/recreation/photo and complete invariants. One intended RED then
-minimum. Do not start another ticket or group implementation before that review.
+minimum. No production group guard is implemented yet. Local tracer compilation and source review are next.
 
 ## Verified #32 slices
 
