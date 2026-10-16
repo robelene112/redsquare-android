@@ -76,7 +76,13 @@ import nl.davidengelen.redsquare.ui.RedSquareTheme
 
 class MainActivity : ComponentActivity() {
     private val socialRoutes by lazy {
-        androidx.lifecycle.ViewModelProvider(this)[nl.davidengelen.redsquare.notifications.SocialPushRoutes::class.java]
+        // This exported Activity's Intent extras are untrusted, not saved route defaults.
+        // Keep registry/owner restoration support while admitting only our own route state.
+        val arguments = androidx.lifecycle.viewmodel.MutableCreationExtras(defaultViewModelCreationExtras).apply {
+            this[androidx.lifecycle.DEFAULT_ARGS_KEY] = Bundle()
+        }
+        val provider = androidx.lifecycle.ViewModelProvider(viewModelStore, defaultViewModelProviderFactory, arguments)
+        provider[nl.davidengelen.redsquare.notifications.SocialPushRoutes::class.java]
     }
 
     override fun onNewIntent(intent: Intent) {

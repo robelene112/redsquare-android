@@ -1,0 +1,28 @@
+--------- beginning of main
+--------- beginning of system
+--------- beginning of crash
+10-16 00:47:35.888  3351  3351 E AndroidRuntime: FATAL EXCEPTION: main
+10-16 00:47:35.888  3351  3351 E AndroidRuntime: Process: nl.davidengelen.redsquare.dev, PID: 3351
+10-16 00:47:35.888  3351  3351 E AndroidRuntime: java.lang.RuntimeException: Unable to start activity ComponentInfo{nl.davidengelen.redsquare.dev/nl.davidengelen.redsquare.MainActivity}: java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Long
+10-16 00:47:35.888  3351  3351 E AndroidRuntime: 	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:3270)
+10-16 00:47:35.888  3351  3351 E AndroidRuntime: 	at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:3409)
+10-16 00:47:35.888  3351  3351 E AndroidRuntime: 	at android.app.servertransaction.LaunchActivityItem.execute(LaunchActivityItem.java:83)
+10-16 00:47:35.888  3351  3351 E AndroidRuntime: 	at android.app.servertransaction.TransactionExecutor.executeCallbacks(TransactionExecutor.java:135)
+10-16 00:47:35.888  3351  3351 E AndroidRuntime: 	at android.app.servertransaction.TransactionExecutor.execute(TransactionExecutor.java:95)
+10-16 00:47:35.888  3351  3351 E AndroidRuntime: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2016)
+10-16 00:47:35.888  3351  3351 E AndroidRuntime: 	at android.os.Handler.dispatchMessage(Handler.java:107)
+10-16 00:47:35.888  3351  3351 E AndroidRuntime: 	at android.os.Looper.loop(Looper.java:214)
+10-16 00:47:35.888  3351  3351 E AndroidRuntime: 	at android.app.ActivityThread.main(ActivityThread.java:7356)
+10-16 00:47:35.888  3351  3351 E AndroidRuntime: 	at java.lang.reflect.Method.invoke(Native Method)
+10-16 00:47:35.888  3351  3351 E AndroidRuntime: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:492)
+10-16 00:47:35.888  3351  3351 E AndroidRuntime: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:930)
+10-16 00:47:35.888  3351  3351 E AndroidRuntime: Caused by: java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Long
+10-16 00:47:35.888  3351  3351 E AndroidRuntime: 	at nl.davidengelen.redsquare.notifications.SocialPushRoutes.enqueue(SocialPushRoutes.kt:22)
+10-16 00:47:35.888  3351  3351 E AndroidRuntime: 	at nl.davidengelen.redsquare.notifications.SocialPushRoutes.initialize(SocialPushRoutes.kt:17)
+10-16 00:47:35.888  3351  3351 E AndroidRuntime: 	at nl.davidengelen.redsquare.MainActivity.onCreate(MainActivity.kt:111)
+10-16 00:47:35.888  3351  3351 E AndroidRuntime: 	at android.app.Activity.performCreate(Activity.java:7802)
+10-16 00:47:35.888  3351  3351 E AndroidRuntime: 	at android.app.Activity.performCreate(Activity.java:7791)
+10-16 00:47:35.888  3351  3351 E AndroidRuntime: 	at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1299)
+10-16 00:47:35.888  3351  3351 E AndroidRuntime: 	at androidx.test.runner.MonitoringInstrumentation.callActivityOnCreate(MonitoringInstrumentation.java:766)
+10-16 00:47:35.888  3351  3351 E AndroidRuntime: 	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:3245)
+10-16 00:47:35.888  3351  3351 E AndroidRuntime: 	... 11 more

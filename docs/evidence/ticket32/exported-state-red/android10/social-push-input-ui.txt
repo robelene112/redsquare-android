@@ -1,0 +1,60 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.SocialPushTapPreviewTest:
+INSTRUMENTATION_STATUS: test=anExportedLaunchIgnoresMalformedNotificationStateExtras
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Long
+	at nl.davidengelen.redsquare.notifications.SocialPushRoutes.enqueue(SocialPushRoutes.kt:22)
+	at nl.davidengelen.redsquare.notifications.SocialPushRoutes.initialize(SocialPushRoutes.kt:17)
+	at nl.davidengelen.redsquare.MainActivity.onCreate(MainActivity.kt:111)
+	at android.app.Activity.performCreate(Activity.java:7802)
+	at android.app.Activity.performCreate(Activity.java:7791)
+	at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1299)
+	at androidx.test.runner.MonitoringInstrumentation.callActivityOnCreate(MonitoringInstrumentation.java:766)
+	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:3245)
+	at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:3409)
+	at android.app.servertransaction.LaunchActivityItem.execute(LaunchActivityItem.java:83)
+	at android.app.servertransaction.TransactionExecutor.executeCallbacks(TransactionExecutor.java:135)
+	at android.app.servertransaction.TransactionExecutor.execute(TransactionExecutor.java:95)
+	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2016)
+	at android.os.Handler.dispatchMessage(Handler.java:107)
+	at android.os.Looper.loop(Looper.java:214)
+	at android.app.ActivityThread.main(ActivityThread.java:7356)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:492)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:930)
+
+INSTRUMENTATION_STATUS: stream=
+Process crashed while executing anExportedLaunchIgnoresMalformedNotificationStateExtras(nl.davidengelen.redsquare.SocialPushTapPreviewTest):
+java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Long
+	at nl.davidengelen.redsquare.notifications.SocialPushRoutes.enqueue(SocialPushRoutes.kt:22)
+	at nl.davidengelen.redsquare.notifications.SocialPushRoutes.initialize(SocialPushRoutes.kt:17)
+	at nl.davidengelen.redsquare.MainActivity.onCreate(MainActivity.kt:111)
+	at android.app.Activity.performCreate(Activity.java:7802)
+	at android.app.Activity.performCreate(Activity.java:7791)
+	at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1299)
+	at androidx.test.runner.MonitoringInstrumentation.callActivityOnCreate(MonitoringInstrumentation.java:766)
+	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:3245)
+	at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:3409)
+	at android.app.servertransaction.LaunchActivityItem.execute(LaunchActivityItem.java:83)
+	at android.app.servertransaction.TransactionExecutor.executeCallbacks(TransactionExecutor.java:135)
+	at android.app.servertransaction.TransactionExecutor.execute(TransactionExecutor.java:95)
+	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2016)
+	at android.os.Handler.dispatchMessage(Handler.java:107)
+	at android.os.Looper.loop(Looper.java:214)
+	at android.app.ActivityThread.main(ActivityThread.java:7356)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:492)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:930)
+
+INSTRUMENTATION_STATUS: test=anExportedLaunchIgnoresMalformedNotificationStateExtras
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: shortMsg=Process crashed.
+INSTRUMENTATION_CODE: 0
