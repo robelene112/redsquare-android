@@ -78,7 +78,8 @@ functionality. Local pre-correction core/debug/test34171 PASS2m24s; both correct
 source reviews0/0, and CI compiles/tests the exact correction before native runs.
 [Android10 evidence](../evidence/ticket32/reply-cold-tap-green/android10/README.md)
 and [Android17 evidence](../evidence/ticket32/reply-cold-tap-green/android17/README.md)
-retain original logs, metadata and11PNG/XML pairs perSDK (27hashes each). Root
+retain original logs, metadata and11PNG/XML pairs perSDK (27hashes onAndroid10,
+28onAndroid17 including permission metadata). Root
 viewed all five cold captures perSDK and parsed all22XMLs. Exact destination,
 Activity recreation, Back/feed recreation and2s consumed-route absence pass;
 saved text/photo, unsigned/unqueued work, full wallet/backend and no-TX invariants
