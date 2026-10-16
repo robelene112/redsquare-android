@@ -221,17 +221,24 @@ run38958312719 SUCCESS7cases96.046s at exact3ae3127536197dd4c04821abd741a6b467cc
 Both actual OS categories, before-return stored latest text/photo, return/recreation,
 replytap and saved-work/wallet/backend/no-write invariants pass. Root viewed category,
 Conversation and final draft originals perSDK and parsed56XMLs.61/62hashes retained;
-Conversation still Loading replies, no completed-thread claim. Final GREEN evidence
-review is next. No owned local build is active. Public beta24 unchanged.
+Conversation still Loading replies, no completed-thread claim. Both final ordinary GREEN evidence review axes report0/0 at efd0d3aa.
+Public beta24 unchanged.
 
 Next ordinary spec gap confirmed by review: NotificationPermissionPrompt's Enable
 alerts requests OS permission/records global offered only, never enables wallet
 SocialPushSettings. Pregranted Android permission or visiting Chat first also skips
 the global prompt. Settings consent works, but the first-use action is disconnected.
-The next tracer will verify an explicit wallet-scoped social offer even with the
-global prompt already offered, including Android permission already granted, then
-actual reply publication/tap and original saved-work invariants. No new tracer or
-production correction for this gap is committed yet.
+Tracer309124e7, corrected33f89f53, adds ONBOARDING_REPLY at the existing approved
+Android/controlled-peer seam. It leaves social consent unseeded, verifies the
+global prompt already offered and Android permission pregranted onAPI33+, then
+requires an explicit offer in Notifications, enable, actual OS page onAPI29,
+recreation with no repeated offer for2s, Settings consentOn and the existing warm
+replytap/latest draft/photo/full invariants. Positive displayed navigation target
+and distinct non-clickable Notifications heading precede missing-offer assertions
+and identify the screen after return/recreation. Both corrected source reviews0/0.
+Pre-correction local81769 PASS1m47s; corrected local19596 PASS1m38s. Native RED
+and production correction for this gap remain pending. The seven prior cases
+are unchanged.
 
 Remaining#32 includes saving/retry and other forms,
 mentions/registration proof, optional notification settings, real transport and
