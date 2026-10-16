@@ -71,7 +71,8 @@ The peer timer is12s inside15s verification, not proof the outer15s specifically
 fired. Same150s/180s class limits, no fake clock or shortened deadline. Production
 trees c69→546 exactly equal. Root6timeout originals/12XML; malformed-mode captures
 also retained with passing assertions/logs. Source reviews0/0 at0f50c2a4; final
-evidence review is next. No owned local Gradle build or SDK/config/live change.
+evidence reviews at9663f3a5 report Standards0/Spec0. The bounded timeout
+observation is accepted. No owned local Gradle build or SDK/config/live change.
 
 Next same-ticket work is the actual scheduled-receipt process boundary below.
 No source for it is implemented yet. Remain sequential. Current passes are live

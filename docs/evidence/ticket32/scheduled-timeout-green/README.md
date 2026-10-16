@@ -28,7 +28,8 @@ outer deadline fired. Existing11/180s and worker-class150s ceilings remain.
 [Production equivalence](production-equivalence.json) proves unchanged app/core
 source/build trees from the accepted c69a1896 minimum. Both source reviews at
 0f50c2a4 report0 findings. No additional local rebuild was claimed: exact-source
-CI compiles before both native observations.
+CI compiles before both native observations. Final committed-evidence reviews
+at9663f3a5 report Standards0/Spec0 (44 hashes and12 XMLs checked).
 
 Earlier failed attempts, their unknown group-editor cause and unexecuted tails
 remain qualified in[scheduled receipt acceptance](../scheduled-receipt-green/README.md).
