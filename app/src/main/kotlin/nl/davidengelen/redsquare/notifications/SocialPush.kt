@@ -25,6 +25,7 @@ import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.feed.AndroidPostRevisions
 import nl.davidengelen.redsquare.moderation.AndroidPersonalControls
 import nl.davidengelen.redsquare.registry.RegistryAuthority
+import nl.davidengelen.redsquare.registry.RegisteredNameStore
 import nl.davidengelen.redsquare.saito.*
 import java.net.URI
 
@@ -86,7 +87,7 @@ internal object SocialPush {
             } ?: return@withContext SocialPushResult.SUPPRESSED
             val event = withTimeout(15_000) {
                 SaitoPeer(wallet, endpoint).use { peer ->
-                    verifiedEvent(peer, reference, now, registrar)
+                    verifiedEvent(context, peer, reference, now, registrar)
                 }
             } ?: return@withContext SocialPushResult.SUPPRESSED
             val post = event.post
@@ -153,7 +154,7 @@ internal object SocialPush {
             } ?: return@withContext null
             withTimeout(15_000) {
                 SaitoPeer(wallet, endpoint).use {
-                    verifiedEvent(it, reference, null, RegistryAuthority.forPeer(endpoint, fixtureRegistrar))?.post
+                    verifiedEvent(context, it, reference, null, RegistryAuthority.forPeer(endpoint, fixtureRegistrar))?.post
                 }
             }
         }
@@ -169,7 +170,7 @@ internal object SocialPush {
             }
         }
 
-    private suspend fun verifiedEvent(peer: SaitoPeer, reference: SocialPushReference, now: Long?, registrar: String): Event? {
+    private suspend fun verifiedEvent(context: Context, peer: SaitoPeer, reference: SocialPushReference, now: Long?, registrar: String): Event? {
         val candidate = exactPost(peer, reference.signature) ?: return null
         if (candidate.author == reference.owner ||
             SaitoEnvelope.decode(candidate.envelope).body.get("request").asString != "create tweet") return null
@@ -178,7 +179,10 @@ internal object SocialPush {
             return Event(candidate, Kind.REPLY)
         }
         val signedPost = JsonArray().apply { add(JsonObject().apply { addProperty("tx", candidate.envelope) }) }
-        return if (RedSquareFeed.readMentions(signedPost.toString(), reference.owner, registrar = registrar).posts.singleOrNull()?.id == candidate.id)
+        val name = try { RegisteredNameStore(context, reference.owner, registrar).load()?.name }
+        catch (cancelled: CancellationException) { throw cancelled }
+        catch (_: Exception) { null }
+        return if (RedSquareFeed.readMentions(signedPost.toString(), reference.owner, name, registrar).posts.singleOrNull()?.id == candidate.id)
             Event(candidate, Kind.MENTION) else null
     }
 
