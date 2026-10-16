@@ -59,13 +59,26 @@ ee1bc69b. Final evidence review at2fd7079e found only stale current-handoff word
 resolved at81624363 with final Standards0/Spec0. This bounded local slice is
 accepted; actual timeout/process/external gates below remain.
 
-Next ordinary observation is the verifier's own15s timeout-to-retry path, currently
-NOT exercised by the malformed-response fixture. Its code checks parent activity
-before retry, preserving genuine cancellation. Plan
-`.scratch/push32-timeout-native-validation-plan.txt` stays at the existing native
-controlled-peer/system-alert seam with no new dispatch choice. Do not implement
-a second ticket in parallel. This slice is live-process scheduling, not actual
-process death/autonomous wakeup/FCM/locked/Doze/Pixel or full#32 acceptance.
+Active next observation is a real selected-Archive request timeout through the
+already-reviewed worker retry handler. Source base7c921aee. The existing worker
+class now has two full journeys: malformed response and an authenticated server
+that prepares but withholds its Archive reply until recovery. New fixture flag
+defaultfalse leaves all prior peer behavior unchanged. Its existing callback
+records the actual request, and the withheld case requires at least10s real
+elapsed wait before the scheduled retry. The existing peer request timer is12s
+inside the receiver's15s overall bound; do not claim the outer15s specifically
+fired. All pending/completed duplicate, actual alert/postTime, noActivity, full
+wallet/backend/noWrites and cancel/drain/restoration assertions remain. Captures
+are separately scoped under malformed/timeout. Same existing social-push scope
+and150s worker-class ceiling; existing11/180s unchanged.
+
+This is additional native verification of the already-reviewed timeout mapping,
+not a new implementation or a claim that the earlier malformed RED exercised
+timeout. No source deadline was shortened or fake clock added. Its source review
+and exact-source CI are next; do not claim it passed yet. Plan
+`.scratch/push32-timeout-native-validation-plan.txt`. No local build is active.
+This remains live-process scheduling, not actual process death/autonomous wakeup/
+FCM/locked/Doze/Pixel or full#32 acceptance.
 
 A source-only[process-boundary proposal](../research/NATIVE_SCHEDULED_RECEIPT_PROCESS_BOUNDARY_2026_10_16.md)
 recommends reusing the existing JVM peer outside the target process via owned

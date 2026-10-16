@@ -25,10 +25,15 @@ import java.util.UUID
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicInteger
+import java.util.concurrent.atomic.AtomicLong
 
 /** Real scheduler, selected Archive and Android alert. The external transport alone is injected. */
 class SocialPushWorkPreviewTest {
-    @Test fun aScheduledReplyRetriesAnUnavailableArchiveThenAlertsOnceWithoutAnActivity() {
+    @Test fun aScheduledReplyRetriesAnUnavailableArchiveThenAlertsOnceWithoutAnActivity() = scheduledReplyJourney()
+
+    @Test fun aScheduledReplyRetriesWhenTheArchiveDoesNotAnswerAndAlertsAfterRecovery() = scheduledReplyJourney(withhold = true)
+
+    private fun scheduledReplyJourney(withhold: Boolean = false) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" && Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -59,15 +64,20 @@ class SocialPushWorkPreviewTest {
         }
         val recovering = AtomicBoolean(false)
         val failedReads = AtomicInteger()
+        val firstFailureAt = AtomicLong()
         val peer = ControlledFeedPeer("[]", archiveResponse = { criteria ->
             require(criteria.get("field1").asString == "RedSquare" && criteria.get("flagged_ne").asInt == 1)
-            if (!recovering.get()) { failedReads.incrementAndGet(); "{}" }
+            if (!recovering.get()) {
+                firstFailureAt.compareAndSet(0, SystemClock.elapsedRealtime())
+                failedReads.incrementAndGet()
+                "{}"
+            }
             else when (criteria.get("sig").asString) {
                 reply.id -> "[$row]"
                 parent -> "[$root]"
                 else -> "[]"
             }
-        })
+        }).apply { withholdArchiveReply = withhold }
         val wallets = AndroidWalletStore(context)
         val previous = wallets.loadOrCreate()
         val previousJson = previous.exportJson()
@@ -84,7 +94,8 @@ class SocialPushWorkPreviewTest {
         val tag = "social:${wallet.publicKey}:owner:${reply.id}"
         check(manager.activeNotifications.none { it.tag == tag })
         val device = UiDevice.getInstance(instrumentation)
-        fun capture(name: String) = captureNativeScreen(File(context.cacheDir, "social-push-work-evidence/$name.png"))
+        val captureDirectory = if (withhold) "timeout" else "malformed"
+        fun capture(name: String) = captureNativeScreen(File(context.cacheDir, "social-push-work-evidence/$captureDirectory/$name.png"))
         fun info(id: UUID) = work.getWorkInfoById(id).get(5, TimeUnit.SECONDS)
         fun awaitState(label: String, predicate: () -> Boolean) {
             val deadline = SystemClock.elapsedRealtime() + 60_000
@@ -110,11 +121,14 @@ class SocialPushWorkPreviewTest {
                         } == true
                     }
                     assertTrue(failedReads.get() > 0)
+                    if (withhold) assertTrue("A withheld response must exercise the real request wait, not an immediate error",
+                        SystemClock.elapsedRealtime() - firstFailureAt.get() >= 10_000)
                     assertEquals("A duplicate during retry must return the persisted existing task", first, schedule())
                     assertTrue(manager.activeNotifications.none { it.tag == tag })
                     assertNoActivity()
                     capture("archive-retry-pending")
                     recovering.set(true)
+                    peer.withholdArchiveReply = false
                     awaitState("Recovered Archive must finish the scheduled receipt") { info(first)?.state == WorkInfo.State.SUCCEEDED }
                     assertEquals(tag, manager.activeNotifications.single { it.tag == tag }.tag)
                     assertTrue(device.openNotification())

@@ -29,6 +29,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     @Volatile var disconnectAfterTransaction = false
     @Volatile var disconnectAfterReport = false
     @Volatile var withholdReportReply = false
+    @Volatile var withholdArchiveReply = false
     @Volatile var reportReplyIsError = false
     @Volatile var rejectNewConnections = false
     private val peer = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public test material only.
@@ -221,7 +222,9 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                             require(criteria.get("flagged_ne").asInt == 1)
                             rows
                         }
-                        webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) + response.toByteArray()).toByteString())
+                        if (!withholdArchiveReply) {
+                            webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) + response.toByteArray()).toByteString())
+                        }
                         requests.incrementAndGet()
                         received.countDown()
                     }
