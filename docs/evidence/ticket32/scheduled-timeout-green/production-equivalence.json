@@ -1,0 +1,17 @@
+{
+  "compared": {
+    "c69a1896d01b23c6bb41b3f9e248410517017ac7": {
+      "app/src/main": "9782311622f9253dae0e32591d15f6eacaaeb6f0",
+      "core/src/main": "89854000f1d88fb3d8f6c5c93d1de7ef4a00de81",
+      "app/build.gradle.kts": "9baa8ecb0643924c8c787aabfc8832c54d5ddc88",
+      "core/build.gradle.kts": "6cc3e84064c2186ba8ae5d64a4edb13b9b19eaa7"
+    },
+    "5463170d091ed58f3ad90686c184ca0875cea08f": {
+      "app/src/main": "9782311622f9253dae0e32591d15f6eacaaeb6f0",
+      "core/src/main": "89854000f1d88fb3d8f6c5c93d1de7ef4a00de81",
+      "app/build.gradle.kts": "9baa8ecb0643924c8c787aabfc8832c54d5ddc88",
+      "core/build.gradle.kts": "6cc3e84064c2186ba8ae5d64a4edb13b9b19eaa7"
+    }
+  },
+  "meaning": "Only controlled native test/fixture and documentation changes; app/core production and module build definitions are identical."
+}

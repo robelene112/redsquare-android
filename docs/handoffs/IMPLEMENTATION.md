@@ -59,28 +59,24 @@ ee1bc69b. Final evidence review at2fd7079e found only stale current-handoff word
 resolved at81624363 with final Standards0/Spec0. This bounded local slice is
 accepted; actual timeout/process/external gates below remain.
 
-Active next observation is a real selected-Archive request timeout through the
-already-reviewed worker retry handler. Source base7c921aee. The existing worker
-class now has two full journeys: malformed response and an authenticated server
-that prepares but withholds its Archive reply until recovery. New fixture flag
-defaultfalse leaves all prior peer behavior unchanged. Its existing callback
-records the actual request, and the withheld case requires at least10s real
-elapsed time from initial submission before the scheduled retry. This includes
-authentication, as does the real peer request deadline; it does not assert a
-minimum server-response-only interval. The existing peer request timer is12s
-inside the receiver's15s overall bound; do not claim the outer15s specifically
-fired. All pending/completed duplicate, actual alert/postTime, noActivity, full
-wallet/backend/noWrites and cancel/drain/restoration assertions remain. Captures
-are separately scoped under malformed/timeout. Same existing social-push scope
-and150s worker-class ceiling; existing11/180s unchanged.
+The additional[unanswered-Archive observation](../evidence/ticket32/scheduled-timeout-green/README.md)
+now passes on both SDKs at5463170d091ed58f3ad90686c184ca0875cea08f:
+10run38982505303 old11PASS90.863s+worker2PASS35.448s;17run38982507198
+old11PASS128.618s+worker2PASS35.981s. Source38982505012 SUCCESS release/lint.
+Default-false withholding suppresses only actual Archive response emission after
+its normal callback observed/validated the request. The withheld case checks real
+≥10s elapsed from submission to retry, then full recovery/duplicate/alert and
+restoration assertions; scheduling/authentication are included in that interval.
+The peer timer is12s inside15s verification, not proof the outer15s specifically
+fired. Same150s/180s class limits, no fake clock or shortened deadline. Production
+trees c69→546 exactly equal. Root6timeout originals/12XML; malformed-mode captures
+also retained with passing assertions/logs. Source reviews0/0 at0f50c2a4; final
+evidence review is next. No owned local Gradle build or SDK/config/live change.
 
-This is additional native verification of the already-reviewed timeout mapping,
-not a new implementation or a claim that the earlier malformed RED exercised
-timeout. No source deadline was shortened or fake clock added. Both source reviews at0f50c2a4 report0 findings. Fresh exact-source CI on
-Android10/17 is next; do not claim it passed yet. Plan
-`.scratch/push32-timeout-native-validation-plan.txt`. No local build is active.
-This remains live-process scheduling, not actual process death/autonomous wakeup/
-FCM/locked/Doze/Pixel or full#32 acceptance.
+Next same-ticket work is the actual scheduled-receipt process boundary below.
+No source for it is implemented yet. Remain sequential. Current passes are live
+process with noActivity, not process death/autonomous restart/FCM/locked/Doze/
+Pixel or full#32 acceptance.
 
 A source-only[process-boundary proposal](../research/NATIVE_SCHEDULED_RECEIPT_PROCESS_BOUNDARY_2026_10_16.md)
 recommends reusing the existing JVM peer outside the target process via owned
