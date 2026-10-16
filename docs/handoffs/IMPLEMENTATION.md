@@ -116,7 +116,8 @@ recreation, consumed navigation, saved text/photo and wallet/backend/no-write
 assertions pass. Destination captures alternate Loading replies and Some
 conversation entries could not be read. No fully loaded/error-free history claim
 or warning cause is inferred. These are local injected public-key mentions with
-instrumentation alive, not FCM delivery. GREEN evidence reviews are pending.
+instrumentation alive, not FCM delivery. Both final ordinary GREEN evidence
+reviews report0/0 at53025d7c.
 No local Gradle/native verification is active. Public beta24 remains current.
 Username mentions, registration/choices, other forms and real transport remain.
 
