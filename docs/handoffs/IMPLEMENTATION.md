@@ -20,6 +20,23 @@ cannot switch that platform notice off or guarantee absence, and pointed to offi
 feedback guidance. A screenshot does not identify an exact rejected tool action.
 Do not invent one. Repository state was verified before ordinary app work resumed.
 
+## Current bounded work
+
+Private Chat draft preservation on a social notification tap is next. Tracer
+`a8a30ceb89a8487d9fbff1d435f97ef5bde703b0` adds one ordinary Android/controlled-peer
+journey to `SocialPushTapPreviewTest`. It edits a seeded Chat photo draft, requires
+a physical system tap to the exact signed reply, then checks unsigned saved Chat
+work, recreation/reopening and the actual image pixels. Post draft, full wallet,
+backend, no outgoing writes and installation restoration stay asserted. Both
+tracer review axes report zero findings. Local core/debug/test assembly passed
+in1m39s. Intended Android10 RED run38964755858 is pending at exact a8a30ceb;
+no production guard change or runtime result is claimed yet.
+
+The preceding documentation push run38964130150 failed during Android Emulator
+package extraction, before build/runtime. Raw metadata/log and qualifications are
+in [the setup-failure record](../evidence/ticket32/consent-source-setup-failure/README.md).
+Do not describe it as a passed check or an application failure.
+
 ## Verified #32 slices
 
 - [First reply RED](../evidence/ticket32/reply-alert-red/android10/README.md) and
