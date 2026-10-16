@@ -162,7 +162,9 @@ class ChatImagesPreviewTest {
                         ui.onNode(hasSetTextAction() and isEnabled()).performTextReplacement(draft)
                         androidx.test.espresso.Espresso.closeSoftKeyboard()
                         if (flow == PhotoFlow.FAILED_PREPARATION) {
-                            fun trace(phase: String) = println("Chat photo $prefix: $phase at ${android.os.SystemClock.elapsedRealtime()} ms")
+                            fun trace(phase: String) = instrumentation.sendStatus(0, android.os.Bundle().apply {
+                                putString("stream", "\nChat photo $prefix: $phase at ${android.os.SystemClock.elapsedRealtime()} ms\n")
+                            })
                             val uri = android.net.Uri.parse("content://nl.davidengelen.redsquare.dev.test.chat-photo-faults/stalled.png")
                             fun provider(action: String) = requireNotNull(context.contentResolver.call(uri, action, null, null))
                             provider("reset")

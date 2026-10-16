@@ -1,0 +1,5 @@
+# Android 17 private draft observation: reopening helper failure
+
+Run 38970014218 at `1487ed1b26ac9ee960367c114cd30ee7b9c405fb` completed FAILURE: nine cases, eight passed, one failed, 121.607 s. The new case now positively observes the latest editable text before publication, opens the exact Conversation by a physical reply-alert tap, and passes both protected latest-draft/null-transaction/NONE-status checks, before and after Back. It then recreates the Activity and fails in the opening helper at line 266: Espresso.closeSoftKeyboard times out at line 334. Reopened editor/photo pixels and final wallet/backend/no-write invariants remain unexecuted.
+
+Root viewed the edited-caption and failure originals and parsed all 37 XMLs. The failure XML shows the feed without an input-method package. The correction reuses the existing Settings helper’s actual-Activity keyboard-hide request, retaining the bounded displayed Chat navigation observation and all subsequent recovery assertions. The keyboard callback timeout’s precise cause and the earlier persisted-caption mismatch remain unproved. Production source is unchanged. No FCM or full acceptance is claimed.

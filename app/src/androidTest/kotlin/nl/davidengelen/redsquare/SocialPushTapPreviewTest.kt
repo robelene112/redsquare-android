@@ -331,7 +331,7 @@ class SocialPushTapPreviewTest {
     }
 
     private fun openPrivateChat(contact: String) {
-        androidx.test.espresso.Espresso.closeSoftKeyboard()
+        hideKeyboard()
         val chat = hasText("Chat") and hasClickAction() and isEnabled()
         waitFor(chat)
         ui.waitUntil(15_000) { ui.onNode(chat).isDisplayed() }
@@ -386,12 +386,16 @@ class SocialPushTapPreviewTest {
         return ui.onNode(alertChoice()).performScrollTo()
     }
 
-    private fun openSettings() {
+    private fun hideKeyboard() {
         val activity = activeMainActivities().single()
         InstrumentationRegistry.getInstrumentation().runOnMainSync {
             activity.getSystemService(android.view.inputmethod.InputMethodManager::class.java)
                 .hideSoftInputFromWindow(activity.window.decorView.windowToken, 0)
         }
+    }
+
+    private fun openSettings() {
+        hideKeyboard()
         val button = hasText("Settings") and hasClickAction() and isEnabled()
         waitFor(button)
         ui.waitUntil(15_000) { ui.onNode(button).isDisplayed() }

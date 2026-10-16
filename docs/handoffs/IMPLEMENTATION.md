@@ -63,15 +63,30 @@ protected draft check before Back, phase/timing in the existing private/group ph
 preparation case, and effective device/runtime memory properties in storage tests.
 No pre-alert forced save or disk-persistence wait is added. Production is unchanged
 from 84eb9704. Local observation core/debug/test assembly passed in 1m 54s; shell
-syntax passed. Standards review reports zero findings. The specification review
-found one documentation qualification: failure PNG was observed as feed, while its
-non-atomic XML still contains Conversation/Loading. This distinction is now explicit
-in the failed run README; no cause is inferred. Final correction review is pending.
-Observation source is 1487ed1b26ac9ee960367c114cd30ee7b9c405fb; pending runs:
-- Social Android 17: 38970014218.
-- Existing Chat photos Android 17: 38970017629.
-- Protected photo history Android 10: 38970020926.
-No native diagnostic result is claimed yet.
+syntax passed. Both observation review axes are now zero after the b2e77822
+PNG/XML wording correction. At exact 1487ed1b26ac9ee960367c114cd30ee7b9c405fb:
+- [Social Android 17 helper failure](../evidence/ticket32/private-chat-reopen-helper-failure/android17/README.md),
+  run 38970014218: eight PASS, one failure, 121.607 s. Pre-alert latest EditableText
+  and BOTH protected-draft checks pass. After recreation, unconditional Espresso
+  closeSoftKeyboard times out. Reopened photo/final invariants remain unexecuted.
+- [Photo Android 17 follow-up](../evidence/ticket32/private-chat-photo-regression-followup/android17/README.md),
+  run 38970017629 SUCCESS: ten UI cases 103.91 s, private/group actual recovery
+  PIDs 4940 to 5011 / 5120 to 5196, and both history cases 73.503 s.
+- [Storage Android 10 follow-up](../evidence/ticket32/private-chat-photo-regression-followup/android10-storage/README.md),
+  run 38970020926 SUCCESS: both unchanged history cases 82.302 s. Device heapsize
+  512m, heapgrowthlimit blank; effective process memory values were not retained.
+- Source push 38969988576 SUCCESS includes release assembly and lint.
+
+The added println diagnostics are absent from instrumentation logs. Their observation
+transport is now changed to sendStatus stream messages, preserving all counts,
+assertions and deadlines. The native photo-history class takes no screenshots;
+its failed best-effort capture retrieval output stays raw and makes no visual claim.
+The private opening helper now reuses the existing actual-Activity keyboard-hide
+request plus positive displayed-navigation wait, avoiding an unconditional Espresso
+callback wait. Existing reopening and exact photo assertions remain.
+Local stream-fix compilation passed 2m 1s; combined keyboard/stream compilation
+is pending. Production remains unchanged from 84eb9704. Both prior failure causes
+remain unproved; no native result for these latest fixture corrections is claimed.
 Do not dispatch unchanged retries or claim #32/private slice complete.
 
 ## Verified #32 slices

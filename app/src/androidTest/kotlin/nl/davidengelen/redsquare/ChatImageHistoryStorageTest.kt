@@ -27,9 +27,11 @@ class ChatImageHistoryStorageTest {
         check(context.packageName=="nl.davidengelen.redsquare.dev"&&Build.HARDWARE in listOf("ranchu","goldfish"))
         val runtime=Runtime.getRuntime()
         val manager=context.getSystemService(android.app.ActivityManager::class.java)
-        fun memory(phase:String) = println("Chat photo history group=$group phase=$phase pid=${android.os.Process.myPid()} " +
-            "max=${runtime.maxMemory()} total=${runtime.totalMemory()} free=${runtime.freeMemory()} " +
-            "memoryClass=${manager.memoryClass} largeMemoryClass=${manager.largeMemoryClass} flags=${context.applicationInfo.flags}")
+        fun memory(phase:String) = InstrumentationRegistry.getInstrumentation().sendStatus(0,android.os.Bundle().apply {
+            putString("stream", "\nChat photo history group=$group phase=$phase pid=${android.os.Process.myPid()} " +
+                "max=${runtime.maxMemory()} total=${runtime.totalMemory()} free=${runtime.freeMemory()} " +
+                "memoryClass=${manager.memoryClass} largeMemoryClass=${manager.largeMemoryClass} flags=${context.applicationInfo.flags}\n")
+        })
         memory("entry")
         val wallets=AndroidWalletStore(context)
         val original=wallets.loadOrCreate().exportJson()
