@@ -163,7 +163,9 @@ transaction/unqueued while OS Settings is foreground, before Back or any later
 notification navigation. Return/recreation and the existing reply journey remain.
 Both corrected source axes0/0. Local pre-correction11273 PASS1m50s; corrected
 core/debug/test91029 PASS1m44s. No shortcut is implemented yet. Actual Android10
-RED is next, no native result inferred. No local Gradle/native run is active.
+run38940489331 is active at exact sourced10df7f052ce22bbdd3e4d54f28321826a9e42db,
+social-push scope with7ordinary cases. RED/outcome not inferred. No owned local
+Gradle build is active.
 
 Remaining#32 includes saving/retry and other forms,
 mentions/registration proof, optional notification settings, real transport and
