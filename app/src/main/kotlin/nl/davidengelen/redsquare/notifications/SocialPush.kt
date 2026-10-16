@@ -11,6 +11,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import com.google.gson.GsonBuilder
+import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.Strictness
 import kotlinx.coroutines.CancellationException
@@ -51,8 +52,14 @@ internal data class SocialPushReference(val owner: String, val backend: SaitoBac
 
 internal enum class SocialPushResult { PUBLISHED, SUPPRESSED, RETRY }
 
-/** Local reply receiver. FCM registration and transport entry points are separate integration work. */
+/** Local social receiver. FCM registration and transport entry points are separate integration work. */
 internal object SocialPush {
+    private enum class Kind(val channel: String, val channelName: Int, val message: Int) {
+        REPLY("replies", R.string.notifications_replies_channel, R.string.notifications_reply_own),
+        MENTION("mentions", R.string.notifications_mentions_channel, R.string.notifications_mention)
+    }
+    private data class Event(val post: FeedPost, val kind: Kind)
+
     suspend fun receive(context: Context, payload: String, endpoint: String,
         now: Long = System.currentTimeMillis()): SocialPushResult = withContext(Dispatchers.IO) {
         val reference = try { SocialPushReference.parse(payload) } catch (_: Exception) {
@@ -67,11 +74,12 @@ internal object SocialPush {
                         SocialPushSettings(context, reference.owner).enabled() && !ledger.wasPublished(now)
                 }
             } ?: return@withContext SocialPushResult.SUPPRESSED
-            val post = withTimeout(15_000) {
+            val event = withTimeout(15_000) {
                 SaitoPeer(wallet, endpoint).use { peer ->
-                    verifiedReply(peer, reference, now)
+                    verifiedEvent(peer, reference, now)
                 }
             } ?: return@withContext SocialPushResult.SUPPRESSED
+            val post = event.post
             synchronized(SaitoLocalState.lock) {
                 if (AndroidWalletStore(context).loadExisting().publicKey != reference.owner ||
                     AndroidBackendStore(context).load() != reference.backend ||
@@ -87,9 +95,9 @@ internal object SocialPush {
                     PackageManager.PERMISSION_GRANTED) return@synchronized SocialPushResult.SUPPRESSED
                 val manager = context.getSystemService(NotificationManager::class.java)
                 if (!manager.areNotificationsEnabled()) return@synchronized SocialPushResult.SUPPRESSED
-                manager.createNotificationChannel(NotificationChannel("replies", context.getString(R.string.notifications_replies_channel),
+                manager.createNotificationChannel(NotificationChannel(event.kind.channel, context.getString(event.kind.channelName),
                     NotificationManager.IMPORTANCE_DEFAULT))
-                if (manager.getNotificationChannel("replies").importance == NotificationManager.IMPORTANCE_NONE) {
+                if (manager.getNotificationChannel(event.kind.channel).importance == NotificationManager.IMPORTANCE_NONE) {
                     return@synchronized SocialPushResult.SUPPRESSED
                 }
                 val open = Intent(context, MainActivity::class.java)
@@ -98,15 +106,15 @@ internal object SocialPush {
                     .authority("social").appendPath(reference.backend.id).appendPath(reference.owner)
                     .appendPath(reference.signature).build())
                 // Preserve only the already validated emulator transport configuration across
-                // a real notification launch. This does not implement destination navigation.
+                // a real notification launch. Destination routing still verifies the selected Archive.
                 if (BuildConfig.DEBUG && Build.HARDWARE in listOf("ranchu", "goldfish") && endpoint != reference.backend.peerUrl) {
                     open.putExtra(if (reference.backend == SaitoBackend.OWNER) "feedPeerUrl" else "feedOfficialPeerUrl", endpoint)
                 }
                 val pending = PendingIntent.getActivity(context, 0, open,
                     PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
-                val notification = Notification.Builder(context, "replies")
+                val notification = Notification.Builder(context, event.kind.channel)
                     .setSmallIcon(R.drawable.ic_notifications).setContentTitle(context.getString(R.string.app_name))
-                    .setContentText(context.getString(R.string.notifications_reply_own))
+                    .setContentText(context.getString(event.kind.message))
                     .setCategory(Notification.CATEGORY_SOCIAL).setVisibility(Notification.VISIBILITY_PRIVATE)
                     .setOnlyAlertOnce(true).setAutoCancel(true).setContentIntent(pending).build()
                 // Recheck after the network suspension. Concurrent receipts share this lock.
@@ -133,7 +141,7 @@ internal object SocialPush {
                 }
             } ?: return@withContext null
             withTimeout(15_000) {
-                SaitoPeer(wallet, endpoint).use { verifiedReply(it, reference, null) }
+                SaitoPeer(wallet, endpoint).use { verifiedEvent(it, reference, null)?.post }
             }
         }
 
@@ -148,13 +156,17 @@ internal object SocialPush {
             }
         }
 
-    private suspend fun verifiedReply(peer: SaitoPeer, reference: SocialPushReference, now: Long?): FeedPost? {
+    private suspend fun verifiedEvent(peer: SaitoPeer, reference: SocialPushReference, now: Long?): Event? {
         val candidate = exactPost(peer, reference.signature) ?: return null
-        if (candidate.author == reference.owner || candidate.parentId.isEmpty()) return null
+        if (candidate.author == reference.owner ||
+            SaitoEnvelope.decode(candidate.envelope).body.get("request").asString != "create tweet") return null
         if (now != null && (now < candidate.createdAt || now - candidate.createdAt > MAX_AGE)) return null
-        val parent = exactPost(peer, candidate.parentId) ?: return null
-        return candidate.takeIf { parent.author == reference.owner &&
-            SaitoEnvelope.decode(candidate.envelope).body.get("request").asString == "create tweet" }
+        if (candidate.parentId.isNotEmpty() && exactPost(peer, candidate.parentId)?.author == reference.owner) {
+            return Event(candidate, Kind.REPLY)
+        }
+        val signedPost = JsonArray().apply { add(JsonObject().apply { addProperty("tx", candidate.envelope) }) }
+        return if (RedSquareFeed.readMentions(signedPost.toString(), reference.owner).posts.singleOrNull()?.id == candidate.id)
+            Event(candidate, Kind.MENTION) else null
     }
 
     private suspend fun exactPost(peer: SaitoPeer, signature: String): FeedPost? {
