@@ -129,12 +129,14 @@ class SocialPushTapPreviewTest {
             }
         } catch (failure: Throwable) { primary = failure; throw failure }
         finally {
+            var activitiesStopped = false
+            fun requireStopped() = check(activitiesStopped) { "Installation restoration deferred because a fixture Activity remains active" }
             val cleanup = listOf<() -> Unit>(
-                { finishFixtureActivities() },
+                { finishFixtureActivities(); activitiesStopped = true },
                 { manager.activeNotifications.filter { (it.tag to it.id) !in priorAlerts }.forEach { manager.cancel(it.tag, it.id) } },
-                { retained.restoreFiles() }, { retained.restorePreferences() },
-                { wallets.replace(wallets.loadExisting(), previous); check(wallets.loadExisting().exportJson() == previousJson) },
-                { backends.save(previousBackend); check(backends.load() == previousBackend) })
+                { requireStopped(); retained.restoreFiles() }, { requireStopped(); retained.restorePreferences() },
+                { requireStopped(); wallets.replace(wallets.loadExisting(), previous); check(wallets.loadExisting().exportJson() == previousJson) },
+                { requireStopped(); backends.save(previousBackend); check(backends.load() == previousBackend) })
             var cleanupFailure: Throwable? = null
             cleanup.forEach { action -> try { action() } catch (failure: Throwable) {
                 if (cleanupFailure == null) cleanupFailure = failure else cleanupFailure!!.addSuppressed(failure)

@@ -30,8 +30,15 @@ core/debug/test only. New hot-class wallet/backend assertions at3010896e/cfb7c19
 have not run in the process-only scope. Android publication and disk acknowledgement
 are not atomic; no exactly-once or all-interruption-window claim.
 
-Next: review the retained process evidence, then implement actual system-notification
-navigation while preserving unsent work. Read
+Process evidence reviews are complete: Spec0/Standards0 at628e6189.
+Actual system-tap tracer5598e92e is added; corrected35da963a preserves validated
+DEBUG/emulator transport metadata across the notification launch and explicitly
+finishes test-created Activities. Initial run38829039090 was cancelled before
+build/runtime; cancellation metadata is retained separately. Local corrected
+core/debug/test build88815 completed0 (see scratch log for duration). A further
+cleanup guard prevents installation restoration when an Activity has not stopped.
+Source review and actual native RED for the corrected tracer are next, followed
+by implementation of system-notification navigation while preserving unsent work. Read
 [the tap proposal](../research/SOCIAL_PUSH_TAP_ROUTE_2026_10_15.md) before edits.
 Fresh verification precedes a guard covering final form save, scope/policy recheck
 and navigation commit. Keep initial Activity launch configuration separate from
