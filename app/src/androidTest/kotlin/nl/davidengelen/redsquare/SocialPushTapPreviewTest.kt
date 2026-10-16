@@ -30,7 +30,11 @@ import java.io.File
 class SocialPushTapPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
 
-    @Test fun tappingAReplyPreservesTheLatestUnsentPostAndPhotoAndOpensTheExactConversation() {
+    @Test fun tappingAReplyPreservesTheLatestUnsentPostAndPhotoAndOpensTheExactConversation() = replyJourney()
+
+    @Test fun aReplyTapOpensWithoutAnActivityAndIsConsumedAcrossScreenRecreation() = replyJourney(cold = true)
+
+    private fun replyJourney(cold: Boolean = false) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" &&
@@ -68,7 +72,8 @@ class SocialPushTapPreviewTest {
         val manager = context.getSystemService(NotificationManager::class.java)
         val priorAlerts = manager.activeNotifications.map { it.tag to it.id }.toSet()
         val device = UiDevice.getInstance(instrumentation)
-        val latest = "Latest unsent post 🌱\nKeep the photo and this last edit"
+        val latest = if (cold) "Earlier saved text" else "Latest unsent post 🌱\nKeep the photo and this last edit"
+        val capturePrefix = if (cold) "tap-cold" else "tap-post"
         var primary: Throwable? = null
         try {
             retained.prepare()
@@ -80,17 +85,22 @@ class SocialPushTapPreviewTest {
                 PostDraftStore.Saved("Earlier saved text", images = listOf(photo)))
             peer.start().use { server ->
                 val endpoint = "ws://127.0.0.1:${server.port}/wsopen"
-                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
-                    .putExtra("feedPeerUrl", endpoint)).use {
+                // The cold case has no MainActivity. Instrumentation/fixture transport remains alive.
+                val scenario = if (cold) null else ActivityScenario.launch<MainActivity>(
+                    Intent(context, MainActivity::class.java).putExtra("feedPeerUrl", endpoint))
+                try {
                     withFailureCapture({
-                        captureNativeScreen(File(context.cacheDir, "social-push-evidence/tap-post-failure.png"))
+                        captureNativeScreen(File(context.cacheDir, "social-push-evidence/$capturePrefix-failure.png"))
                     }) {
-                        waitFor(hasText("New post") and hasClickAction() and isEnabled())
-                        ui.onNode(hasText("New post") and hasClickAction()).performClick()
-                        waitFor(hasSetTextAction() and isEnabled())
-                        ui.onNode(hasSetTextAction()).assertTextEquals("Earlier saved text")
-                        ui.onNodeWithContentDescription("Image 1 of 1").performScrollTo().assertIsDisplayed()
-                        ui.onNode(hasSetTextAction()).performTextReplacement(latest)
+                        if (cold) check(activeMainActivities().isEmpty())
+                        else {
+                            waitFor(hasText("New post") and hasClickAction() and isEnabled())
+                            ui.onNode(hasText("New post") and hasClickAction()).performClick()
+                            waitFor(hasSetTextAction() and isEnabled())
+                            ui.onNode(hasSetTextAction()).assertTextEquals("Earlier saved text")
+                            ui.onNodeWithContentDescription("Image 1 of 1").performScrollTo().assertIsDisplayed()
+                            ui.onNode(hasSetTextAction()).performTextReplacement(latest)
+                        }
                         val payload = JsonObject().apply {
                             addProperty("version", 1); addProperty("wallet", owner)
                             addProperty("backend", "owner"); addProperty("signature", signature)
@@ -100,21 +110,38 @@ class SocialPushTapPreviewTest {
                         })
                         assertTrue(device.openNotification())
                         val alert = requireNotNull(device.wait(Until.findObject(By.text("Replied to your post")), 10_000))
-                        captureNativeScreen(File(context.cacheDir, "social-push-evidence/tap-post-alert.png"), "Replied to your post")
+                        captureNativeScreen(File(context.cacheDir, "social-push-evidence/$capturePrefix-alert.png"), "Replied to your post")
                         alert.click()
                         waitFor(hasText("Conversation"))
                         waitFor(hasText("Reply notification reference"))
                         ui.onNodeWithText("Reply notification reference").assertIsDisplayed()
-                        captureNativeScreen(File(context.cacheDir, "social-push-evidence/tap-post-conversation.png"), "Reply notification reference")
+                        captureNativeScreen(File(context.cacheDir, "social-push-evidence/$capturePrefix-conversation.png"), "Reply notification reference")
+                        if (cold) {
+                            recreateCurrentActivity()
+                            waitFor(hasText("Conversation"))
+                            waitFor(hasText("Reply notification reference"))
+                            ui.onNodeWithText("Reply notification reference").assertIsDisplayed()
+                            captureNativeScreen(File(context.cacheDir, "social-push-evidence/tap-cold-recreated.png"), "Reply notification reference")
+                        }
                         ui.onNodeWithText("Back").performClick()
                         waitFor(hasText("New post") and hasClickAction() and isEnabled())
+                        if (cold) {
+                            recreateCurrentActivity()
+                            waitFor(hasText("New post") and hasClickAction() and isEnabled())
+                            val until = android.os.SystemClock.elapsedRealtime() + 2_000
+                            do {
+                                ui.onAllNodesWithText("Conversation").assertCountEquals(0)
+                                android.os.SystemClock.sleep(50)
+                            } while (android.os.SystemClock.elapsedRealtime() < until)
+                            captureNativeScreen(File(context.cacheDir, "social-push-evidence/tap-cold-consumed.png"))
+                        }
                         ui.onNode(hasText("New post") and hasClickAction()).performClick()
                         waitFor(hasSetTextAction() and isEnabled())
                         ui.onNode(hasSetTextAction()).assertTextEquals(latest)
                         val bitmap = ui.onNodeWithContentDescription("Image 1 of 1").performScrollTo()
                             .assertIsDisplayed().captureToImage().asAndroidBitmap()
                         assertEquals(0xffdc1e28.toInt(), bitmap.getPixel(bitmap.width / 2, bitmap.height / 2))
-                        captureNativeScreen(File(context.cacheDir, "social-push-evidence/tap-post-draft-restored.png"))
+                        captureNativeScreen(File(context.cacheDir, "social-push-evidence/$capturePrefix-draft-restored.png"))
                         val saved = PostDraftStore(context, owner, SaitoBackend.OWNER).load()
                         assertEquals(latest, saved.text)
                         assertEquals(listOf(photo), saved.images)
@@ -125,7 +152,7 @@ class SocialPushTapPreviewTest {
                         assertTrue(peer.transactions.isEmpty() && peer.reports.isEmpty() && peer.relayedMessages.isEmpty())
                         peer.assertHealthy()
                     }
-                }
+                } finally { scenario?.close() }
             }
         } catch (failure: Throwable) { primary = failure; throw failure }
         finally {
@@ -142,6 +169,14 @@ class SocialPushTapPreviewTest {
                 if (cleanupFailure == null) cleanupFailure = failure else cleanupFailure!!.addSuppressed(failure)
             } }
             cleanupFailure?.let { if (primary != null) primary!!.addSuppressed(it) else throw it }
+        }
+    }
+
+    private fun recreateCurrentActivity() {
+        val previous = activeMainActivities().single()
+        InstrumentationRegistry.getInstrumentation().runOnMainSync { previous.recreate() }
+        ui.waitUntil(15_000) {
+            activeMainActivities().singleOrNull()?.let { it !== previous } == true
         }
     }
 
