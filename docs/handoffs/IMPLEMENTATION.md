@@ -52,9 +52,13 @@ The specification review found zero issues. Standards review identified one
 source-supported readiness gap: private photo decoding is asynchronous, so editor
 readiness alone does not imply a visible image. The next correction waits up to
 15 seconds for that actual image before the unchanged visibility/raster assertions.
-Cancellation was requested for run 38966824893 at 6dd2d8ac before source build or
-runtime began. Its completed status must be checked before any result claim.
-The readiness correction still needs local/source/runtime verification and review.
+Run 38966824893 at 6dd2d8ac completed CANCELLED; SDK setup, source build and both
+runtime steps were skipped. [Cancellation metadata](../evidence/ticket32/private-chat-tracer-cancelled/README.md)
+retains the request snapshot and final state. No application assertion ran.
+The readiness correction bbb3db3a has both review axes at zero outstanding findings
+and local core/debug/test assembly passed in 1m 41s. Intended Android 10 RED
+38967008873 is pending at exact bbb3db3a42dd6f05cc99b4587ce9ef47f38475ec.
+No production guard change or intended feature RED is claimed yet.
 Separate source run 38965756141 passed release assembly/lint at f80b035a.
 
 
