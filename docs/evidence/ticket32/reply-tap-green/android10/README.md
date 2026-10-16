@@ -17,8 +17,9 @@ occur. Controlled peer health and independent installation cleanup pass.
 Root viewed the original tap alert, Conversation and reopened-draft PNG separately,
 and parsed all seven retained XMLs. The alert, exact target, latest text and red
 photo are visible. Screenshot/hierarchy are separate samples, not atomic frames.
-The historical class also included an additional targeted method that had already
-completed before the owner's stop instruction. Its existing raw record is retained
+The historical class also included an additional targeted method. Both jobs had
+completed when cancellation was attempted; exact method timing relative to the
+owner's stop instruction is not established. Its existing raw record is retained
 without rewriting the run count. The owner then asked to stop that extra work;
 it and its dedicated dispatch choices were removed at50ac874d. No further run or
 separate analysis of that method is requested. The three ordinary cases and their

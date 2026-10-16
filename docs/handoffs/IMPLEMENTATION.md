@@ -1,120 +1,88 @@
 # Current implementation handoff
 
-## Latest owner steering, 2026-10-16 09:16UTC
+Updated2026-10-16. Owner authorizes continuing remaining issues sequentially.
+#32 is the sole implementation, review base
+`dd89bc9108eb002bb260eee709c656cd45348940`, dependency#24 closed.
+Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`.
+
+## Latest owner scope
 
 The owner explicitly asked to stop cybersecurity requests. No Daybreak application
-or cybersecurity service/account request was submitted. Stop separate cybersecurity
-research and targeted campaigns; continue ordinary app features and correctness.
-The optional exported-state test and its dedicated workflow choices are removed
-from future runs. Existing app fixes remain. No retry or renaming of blocked work.
+or cybersecurity service/account request was submitted. Stop separate research
+and targeted campaigns in that area; continue ordinary app functionality and
+correctness. The optional extra test and dedicated dispatch choices were removed
+at50ac874d. Current regular notification scope has3cases. Keep existing app fixes.
+Do not retry, rename or reroute blocked work. AGENTS.md records this instruction.
 
-Both previously dispatched four-case Android runs completed SUCCESS before root's
-attempt to stop the remaining run: Android10 38878791927 and Android17 38878803838,
-exact source027c6b90b27a1123cc80791acf58653d2b6ef98a. GitHub refused cancellation of
-Android17 because it had already completed; it is not a cancelled run. Root has
-not yet downloaded/inspected their actual logs/images, so no detailed acceptance
-claim. Preserve historical records honestly, focus review on ordinary reply display,
-dismissal and post/photo tap behavior. Current regular class returns to3cases.
+The ChatGPT interface displayed a content-blocked notice. Root explained that it
+cannot switch that platform notice off or guarantee absence, and pointed to official
+feedback guidance. A screenshot does not identify an exact rejected tool action.
+Do not invent one. Repository state was verified before ordinary app work resumed.
 
-The older checkpoints below still describe the preceding phase; latest owner
-scope above takes precedence. Reconcile current result pointers after inspection.
+## Verified #32 slices
 
-Updated2026-10-16. Owner authorizes continuing all remaining issues sequentially.
-Use [workflow](../WORKFLOW.md) and the project skills. #32 is the sole active
-implementation. Preserve unrelated untracked
-`docs/research/NATIVE_GROUP_CHAT_CONTRACT.md` without adding or editing it.
-
-## Resume #32
-
-Review base: `dd89bc9108eb002bb260eee709c656cd45348940`. Dependency#24 is closed.
-Production receiver/consent/receipt ledger: `86e408ee5a257e9817885c3286bd6b9ba6580b57`.
-It handles verified replies locally, with encrypted wallet/backend-scoped opt-in,
-fresh signed candidate/owner-parent reads, current policy/OS checks and stable
-Android alert identity. No existing production entry point invokes the receiver.
-
-Completed native Android10 evidence:
-
-- First reply: [RED](../evidence/ticket32/reply-alert-red/android10/README.md) and
+- [First reply RED](../evidence/ticket32/reply-alert-red/android10/README.md) and
   [GREEN](../evidence/ticket32/reply-alert-green/android10/README.md).
-- Physically dismissed replay: [RED](../evidence/ticket32/dismissed-reply-red/android10/README.md)
+- [Dismissed replay RED](../evidence/ticket32/dismissed-reply-red/android10/README.md)
   and [GREEN](../evidence/ticket32/dismissed-reply-green/android10/README.md).
-- [Actual process death and recovery](../evidence/ticket32/dismissed-reply-process-green/android10/README.md):
-  run38827943929 at `cfb7c19816411940e430d946b3aa67798420e1ea` SUCCESS.
-  PIDs3447→3632, duplicate stays silent, independent fresh reply visibly alerts,
-  full wallet/backend invariants and independent installation restoration pass.
-  Local corrected core/debug/test build46983 also completed0 in1m51s.
+- [Actual process recovery](../evidence/ticket32/dismissed-reply-process-green/android10/README.md):
+  Android10 run38827943929/cfb7c198 SUCCESS, PIDs3447→3632, duplicate silence,
+  independent fresh-reply liveness, full wallet/backend and installation restoration.
+  Both evidence review axes0. This is after completed publication/dismissal;
+  Android publication and disk acknowledgement are not atomic.
+- [Actual reply tap RED](../evidence/ticket32/reply-tap-red/android10/README.md):
+  run38829625275/0359cd91 FAILURE3cases2PASS1FAIL33.001s. Physical tap returns
+  owner feed instead of Conversation. Both evidence review axes0.
+- [Reply tap GREEN Android10](../evidence/ticket32/reply-tap-green/android10/README.md),
+  run38878791927 SUCCESS20.256s, and
+  [Android17](../evidence/ticket32/reply-tap-green/android17/README.md),
+  run38878803838 SUCCESS51.896s, both at
+  `027c6b90b27a1123cc80791acf58653d2b6ef98a`.
+  Historical raw totals are4cases and remain unchanged. Both runs had completed
+  when cancellation was attempted; Android17 could not be cancelled. Exact method
+  timing relative to the owner's instruction is not established. No further run
+  or separate analysis of the removed extra method is requested.
 
-No owned local Gradle process remains active. Focused scopes run core/debug/test
-only. Android publication and disk acknowledgement are not atomic; no exactly-once
-or all-interruption-window claim.
+The three retained ordinary cases pass on both SDKs: actual reply alert, dismissed
+replay silence and physical tap to the exact signed reply. Latest unsent text and
+photo survive returning/reopening; persisted draft remains unsigned/unqueued;
+full wallet/backend and zero outgoing transaction/report/Relay assertions pass.
+Root viewed alert, destination and restored-draft originals on both SDKs and parsed
+all14 XMLs. Android17 destination capture still says Loading replies with the
+exact target already visible; do not claim a fully loaded thread at capture time.
+[source-equivalence.json](../evidence/ticket32/reply-tap-green/source-equivalence.json)
+proves unchanged production and retained functional assertions after scope removal.
+Evidence reviews found only two stale documentation claims, now corrected; request
+bounded confirmation of those fixes before recording final0/0.
 
-Actual tap RED is retained at
-[reply-tap-red](../evidence/ticket32/reply-tap-red/android10/README.md): run38829625275
-at0359cd91 FAILURE3cases2PASS1FAIL33.001s. Actual shade click followed by15s
-Conversation timeout; failure PNG/XML show owner feed/root. Both hot journeys pass
-new active wallet/backend/no-TX tails. Tap-specific later work/scope/no-TX assertions
-were unexecuted. Both evidence reviews0 at230c348d.
+First tap minimum08e1a6f2 and route-state factory correction52f6cf0d are committed.
+Production source reviews0/0 after the correction. Pending public route generations
+survive ordinary screen recreation without replacing original launch configuration.
+Fresh selected-Archive candidate/owner-parent verification precedes guarded post
+save, current scope/policy recheck and navigation commit. Legacy mounted forms
+retain their screen with Retry pending their ordinary integration. No production
+entry point invokes the local receiver. Full tap lifecycle behavior is not yet
+verified. Corrected local core/debug/test29634 completed0 in3m21s.
 
-First tap minimum08e1a6f2 adds canonical public pending-route state/generations,
-onNewIntent without replacing launch configuration, fresh signed target+owner-parent
-proof and guarded post save/recheck/commit. Legacy forms defer with Retry.
-Local minimum core/debug/test92647 PASS3m30s. No native tap GREEN yet.
+No owned local Gradle or native CI verification is active. Focused runs execute
+core/debug/test only, without release/lint or full suites. Public beta24 remains
+current and no new version is reserved. Next ordinary slice: actual system tap
+when no MainActivity is open, followed by screen recreation/return checks. This
+remains injected local delivery with instrumentation alive, not FCM wake-up.
+Read [tap route context](../research/SOCIAL_PUSH_TAP_ROUTE_2026_10_15.md) for lifecycle
+and draft guard details, applying latest owner scope above.
 
-The Standards default-SavedStateHandle input finding was demonstrated by actual
-Android10 run38831067405 at8a93aec8228b26879461fe4a6359b03c1e6eb110. One method
-fails before UI with String→Long cast in route enqueue22/Main.onCreate111;
-independent AndroidRuntime PID3351 confirms. All later assertions/cleanup were
-unexecuted. [Raw RED evidence](../evidence/ticket32/exported-state-red/android10/README.md)
-retains5 public hashes, no reached captures. Both evidence review axes0.
-Tracer local44142 PASS1m51s. Normal social-push now includes4cases, input-only
-scopes invoke just this malformed exported-launch method.
-
-Fix52f6cf0d copies default creation extras and replaces only DEFAULT_ARGS_KEY
-with empty Bundle, preserving registry/owner restoration and original launch
-Intent configuration. Source Spec0/Standards0. The prepared scratch fix script
-is APPLIED/obsolete, do not rerun it. Local corrected core/debug/test29634 completed0 in3m21s,
-log `.scratch/push32-route-input-fix-compile.log`. No owned local Gradle remains.
-
-Current native verification, both at exact reviewed source
-`027c6b90b27a1123cc80791acf58653d2b6ef98a`:
-
-- Android10 social-push run38878791927 ACTIVE, watcher27274 writes
-  `.scratch/push32-tap-green10-watch.log`.
-- Android17 social-push-android17 run38878803838 ACTIVE, watcher72754 writes
-  `.scratch/push32-tap-green17-watch.log`.
-
-The same four-case class combines malformed-input recovery, original hot2 and actual
-post/photo tap navigation. No separate redundant input GREEN is needed. Await actual
-results; do not duplicate dispatches or infer success. Retain fresh run-specific
-public evidence, inspect original images/XML and review evidence. Prepared
-`.scratch/retain-push32-tap-green.py` supports exactly4passing cases and SDK29/37.0;
-old3case collector is only for the earlier RED and must not retain these runs.
-
-Owner reported the ChatGPT interface showing a content-blocked notice. Root answered
-that this platform notice cannot be switched off or guaranteed away; official docs
-acknowledge false positives and suggest feedback. No attempt to bypass the notice.
-The code/repo state and completed build were checked before ordinary app verification
-resumed. UI screenshot does not identify an exact rejected tool action; do not invent
-one. Current app tests above were accepted and are independently observable onGitHub.
-
-Further tap work includes cold/recreation, latest-input races, save refusal and
-private/group/other mounted forms. Read
-[the tap proposal](../research/SOCIAL_PUSH_TAP_ROUTE_2026_10_15.md) before changes.
-Fresh verification precedes a guard covering final form save, scope/policy recheck
-and navigation commit. Original launch intent configuration remains separate.
-
-Remaining#32: mentions with independent registration proof, negative policy/scope/
-permission/forgery/expiry/fault cases, optional registration UI, real FCM/gateway,
-full SDK acceptance. Firebase project/IAM and concrete gateway setup remain external
-requirements; the existing owner question stays pending. Local injection cannot
-close this issue. Live node changes and gateway deployment need a concrete bounded
-separate authorization. See
+Remaining#32 includes ordinary cold/warm lifecycle, saving/retry and other forms,
+mentions/registration proof, optional notification settings, real transport and
+full Android acceptance. Firebase project/IAM and gateway setup remain external;
+the existing owner question stays pending. Do not repeat it. Local injection
+cannot close#32. Gateway deployment and production node changes require a concrete
+bounded separate authorization. Existing transport context:
 [local seam](../research/SOCIAL_PUSH_LOCAL_SEAM_2026_10_15.md),
 [closed-app requirements](../research/NATIVE_CLOSED_APP_PUSH_REQUIREMENTS_2026_10_15.md),
-[observer](../research/SOCIAL_PUSH_GATEWAY_OBSERVER_2026_10_15.md) and
-[Archive discovery](../research/SOCIAL_PUSH_ARCHIVE_DISCOVERY_2026_10_15.md).
-Future Chat push transport gaps are traced in
-[the source audit](../research/CHAT_PUSH_EXISTING_TRANSPORT_2026_10_15.md).
+[observer](../research/SOCIAL_PUSH_GATEWAY_OBSERVER_2026_10_15.md),
+[Archive discovery](../research/SOCIAL_PUSH_ARCHIVE_DISCOVERY_2026_10_15.md),
+[future Chat transport](../research/CHAT_PUSH_EXISTING_TRANSPORT_2026_10_15.md).
 
 ## Current public build
 
