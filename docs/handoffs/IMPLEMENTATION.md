@@ -25,7 +25,10 @@ Completed native Android10 evidence:
   full wallet/backend invariants and independent installation restoration pass.
   Local corrected core/debug/test build46983 also completed0 in1m51s.
 
-No owned local Gradle process or CI run remains active. Focused scopes run
+No owned local Gradle process remains active. Actual corrected tap tracer run
+38829625275 at `0359cd914e524941fcd02145ec42825f20ee459b` is ACTIVE; await its
+actual result and retain fresh run-specific evidence before changing route code.
+Read-only watcher80544 writes `.scratch/push32-tap-red-watch.log`. Focused scopes run
 core/debug/test only. New hot-class wallet/backend assertions at3010896e/cfb7c198
 have not run in the process-only scope. Android publication and disk acknowledgement
 are not atomic; no exactly-once or all-interruption-window claim.
@@ -35,9 +38,10 @@ Actual system-tap tracer5598e92e is added; corrected35da963a preserves validated
 DEBUG/emulator transport metadata across the notification launch and explicitly
 finishes test-created Activities. Initial run38829039090 was cancelled before
 build/runtime; cancellation metadata is retained separately. Local corrected
-core/debug/test build88815 completed0 (see scratch log for duration). A further
+core/debug/test build88815 completed0 in3m12s. A further
 cleanup guard prevents installation restoration when an Activity has not stopped.
-Source review and actual native RED for the corrected tracer are next, followed
+Both corrected source review axes report0 at0359cd91. Actual native RED is
+pending in run38829625275; no result is inferred. It is followed
 by implementation of system-notification navigation while preserving unsent work. Read
 [the tap proposal](../research/SOCIAL_PUSH_TAP_ROUTE_2026_10_15.md) before edits.
 Fresh verification precedes a guard covering final form save, scope/policy recheck
