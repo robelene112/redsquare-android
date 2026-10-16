@@ -212,7 +212,9 @@ content-desc, expands the positively observed OS expander if Replies is absent,
 and retains actual Replies/Mentions assertions. The first hot case additionally
 requires PUBLISHED, then waits up to5s for Android's actual active alert before
 the unchanged exact count/content/shade checks. No production changes. Corrected
-local/native verification is pending. Public beta24 unchanged.
+local core/debug/test84915 PASS1m42s; native verification is pending.
+Both ordinary source/evidence review axes report0/0 atbbdbc884. Public beta24
+unchanged.
 
 Remaining#32 includes saving/retry and other forms,
 mentions/registration proof, optional notification settings, real transport and
