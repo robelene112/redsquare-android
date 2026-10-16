@@ -40,11 +40,15 @@ draft and five permission/recovery originals. Loading/failed conversation histor
 is qualified. The bounded15s same-value wait does not prove an earlier failure
 cause. Earlier failed runs stay failures. Whole#32 remains OPEN; beta24 unchanged.
 
-Next planned same-ticket vertical slice is durable scheduled local receipt with
+Active next same-ticket vertical slice is durable scheduled local receipt with
 WorkManager, selected Archive retry and actual Android alert without an Activity.
 Plan `.scratch/push32-durable-receipt-plan.txt` records the already accepted native
-controlled-peer/system-alert seam. Tracer source is now being prepared with an initially nonpublishing worker,
-and its local core/debug/test compilation is active. No SDK, gateway or live changes
+controlled-peer/system-alert seam. Tracer source is prepared with an initially nonpublishing worker,
+and its local core/debug/test compilation is active in exec38296, log
+`.scratch/push32-durable-tracer-build.log`. Review base for this bounded slice is
+8e6498a2. Existing social-push scope now also runs its one ordinary scheduler case
+with its own150s ceiling; existing11cases/180s are unchanged. The tracer must show
+a real runtime RED before receipt implementation. Root has not dispatched it yet. No SDK, gateway or live changes
 have been made. Its eventual live-process pass must not be called killed-process
 or FCM delivery. External Firebase setup question stays pending, do not repeat it.
 

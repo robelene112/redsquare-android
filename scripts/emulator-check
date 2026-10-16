@@ -159,6 +159,9 @@ verify_social_push() {
         python3 "$repo_dir/scripts/social-push-process-check" --evidence "$evidence/social-push-process" || native_exit=$?
     else
         verify_group_chat_native "SocialPushPreviewTest,nl.davidengelen.redsquare.SocialPushTapPreviewTest" 180 social-push social-push-evidence || native_exit=$?
+        if [[ "$native_exit" == 0 ]]; then
+            verify_group_chat_native SocialPushWorkPreviewTest 150 social-push-work social-push-work-evidence || native_exit=$?
+        fi
     fi
     if [[ "$granted_for_test" == 1 ]]; then
         adb shell pm revoke nl.davidengelen.redsquare.dev android.permission.POST_NOTIFICATIONS || return 1
