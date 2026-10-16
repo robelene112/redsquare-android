@@ -11,6 +11,7 @@ import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.sync.Mutex
@@ -27,16 +28,18 @@ private val receiptExecution = Mutex()
 internal object SocialPushScheduling {
     suspend fun enqueue(context: Context, payload: String, endpoint: String? = null): UUID = withContext(Dispatchers.IO) {
         val reference = SocialPushReference.parse(payload)
+        val manager = WorkManager.getInstance(context)
+        val name = workName(reference)
         val request = OneTimeWorkRequestBuilder<SocialPushWorker>()
             .setConstraints(Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
             .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 10, TimeUnit.SECONDS)
             .setInputData(workDataOf("reference" to payload, "endpoint" to (endpoint ?: reference.backend.peerUrl),
                 "receivedAt" to System.currentTimeMillis()))
             .build()
-        WorkManager.getInstance(context).enqueueUniqueWork(
-            workName(reference), ExistingWorkPolicy.KEEP, request)
-            .result.get(5, TimeUnit.SECONDS)
-        request.id
+        manager.enqueueUniqueWork(name, ExistingWorkPolicy.KEEP, request).result.get(5, TimeUnit.SECONDS)
+        // KEEP may retain an unfinished request instead of inserting this builder's UUID.
+        // This scheduler creates one-time work, never chains under this unique reference.
+        manager.getWorkInfosForUniqueWork(name).get(5, TimeUnit.SECONDS).single().id
     }
 
     /** Cancel this reference, then wait for any executing receipt to leave its effect boundary. */
@@ -70,7 +73,13 @@ class SocialPushWorker(context: Context, parameters: WorkerParameters) : Corouti
             // A clock rollback conservatively retains the receipt; the signed event has its own age check.
             if (now >= receivedAt && now - receivedAt > RECEIPT_LIFETIME) return@withLock Result.success()
             val endpoint = inputData.getString("endpoint") ?: reference.backend.peerUrl
-            when (SocialPush.receive(applicationContext, payload, endpoint, now)) {
+            val result = try { SocialPush.receive(applicationContext, payload, endpoint, now) }
+            catch (_: TimeoutCancellationException) {
+                // Retry the verifier's own timeout, while preserving actual worker/parent cancellation.
+                currentCoroutineContext().ensureActive()
+                SocialPushResult.RETRY
+            }
+            when (result) {
                 SocialPushResult.PUBLISHED, SocialPushResult.SUPPRESSED -> Result.success()
                 SocialPushResult.RETRY -> Result.retry()
             }

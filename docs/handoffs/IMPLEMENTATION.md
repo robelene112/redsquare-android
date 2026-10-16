@@ -74,7 +74,18 @@ backoff, bounded7day receipt lifetime, strict reference/input selection and shar
 SocialPush.receive result mapping under the same cancellation/drain Mutex. It
 freshly rechecks protected identity/backend/policies through the existing receiver.
 No SDK/service/gateway/deployment or expedited FCM scheduling yet. Cancellation
-propagates. Minimum source review/local compile are next; do not claim GREEN. No owned local Gradle build remains. No SDK, gateway or live changes
+propagates. Initial minimum source reviews identified the KEEP-returned-UUID gap and stale
+build status. Correction now queries the actual persisted unique WorkInfo after
+acknowledgement, returns its real UUID, and the same native case checks a duplicate
+while retry is pending. Worker also maps its verifier's own15s timeout to retry
+after ensuring the parent context remains active; true worker cancellation still
+propagates. This timeout path needs its own native observation before claiming it
+tested. The current case uses malformed/unavailable Archive data, not timeout.
+Corrected minimum source reviews and exact-source Android10/17 GREEN are next.
+No further local rebuild for the small review correction: exact CI compiles core/
+debug/test before runtime. Tracer source38980190232 SUCCESS release/lint retained.
+Do not claim GREEN or actual process-death/FCM acceptance. No owned local Gradle build remains after the pre-review minimum passed3m20s
+in exec76439, log `.scratch/push32-durable-minimum-build.log`. No SDK, gateway or live changes
 have been made. Its eventual live-process pass must not be called killed-process
 or FCM delivery. External Firebase setup question stays pending, do not repeat it.
 

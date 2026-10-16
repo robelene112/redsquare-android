@@ -21,7 +21,9 @@ The failed prior attempt38979224052 remains separately retained and never reache
 this case. The intervening fixture predicate explicitly changed from annotated
 equality to exact plain-text equality, preserving all characters,15s wait, final
 assertion and persisted-draft/photo checks. No runtime cause for that old mismatch
-is established. Source checks and actual transport acceptance remain distinct.
+is established. Source check38980190232 at the exact tracer source SUCCESS includes release/lint;
+its metadata is retained in source-check-run.json. Source checks and actual
+transport acceptance remain distinct.
 
 This proves only sensitivity of the controlled native scheduler/Android boundary
 to missing processing. No FCM, killed-process receiver, backend gateway, Pixel

@@ -110,6 +110,7 @@ class SocialPushWorkPreviewTest {
                         } == true
                     }
                     assertTrue(failedReads.get() > 0)
+                    assertEquals("A duplicate during retry must return the persisted existing task", first, schedule())
                     assertTrue(manager.activeNotifications.none { it.tag == tag })
                     assertNoActivity()
                     capture("archive-retry-pending")
