@@ -256,7 +256,14 @@ class SocialPushTapPreviewTest {
         // Saving the draft and opening Settings resume on the Compose test dispatcher.
         // Keep its clock advancing while observing the external Activity.
         ui.waitUntil(10_000) { device.hasObject(By.pkg("com.android.settings")) }
-        assertTrue(device.wait(Until.hasObject(By.text("Red Square")), 10_000))
+        ui.waitUntil(10_000) {
+            device.hasObject(By.pkg("com.android.settings").text("Red Square")) ||
+                device.hasObject(By.pkg("com.android.settings").desc("Red Square"))
+        }
+        // Android 17 initially collapses the app's categories under Other.
+        if (!device.hasObject(By.text("Replies"))) {
+            device.findObject(By.res("com.android.settings", "expand_icon"))?.click()
+        }
         for ((label, name) in listOf("Replies" to "replies", "Mentions" to "mentions")) {
             if (!device.hasObject(By.text(label))) {
                 assertTrue("Android must offer the $label category",

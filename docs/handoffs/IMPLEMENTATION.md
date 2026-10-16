@@ -193,9 +193,26 @@ open-error text. Exact runtime cause is unproved. Correctionb71b1396 now uses a 
 OS-package predicate within the same10second bound. The failed fixture handed
 directly to UIAutomator without advancing the Compose test clock. Exact pinned
 Compose source confirms that scheduling hazard, not those failed runs' runtime
-cause. Local core/debug/test22793 PASS1m48s; corrected native checks are pending.
-Both ordinary source/failure-evidence review axes report0/0 afterdb39da49.
-No native GREEN is inferred. Beta24 unchanged.
+cause. Local core/debug/test22793 PASS1m48s. Both ordinary source/failure-evidence
+review axes report0/0 afterdb39da49. At exact9de0ff39a3012f00e555986d6b58603b7db6ca23,
+[Android10 run38957001646](../evidence/ticket32/android-category-green/android10/README.md)
+SUCCESS7cases57.246s demonstrates both OS categories, exact persisted text/photo
+while OS foreground, return/recreation and subsequent replytap/draft invariants.
+Root viewed six new-case originals and parsed28XMLs; destination still Loading
+replies, not a fully loaded thread.
+[Android17 run38957004756](../evidence/ticket32/android-category-platform-failure/android17/README.md)
+FAILURE7cases5PASS/2FAIL95.491s. The first case observes0alerts immediately after
+receive without checking its result; exact cause is unknown. The category case
+reaches actual OS Settings but fails exact text Red Square at259: XML exposes
+the visible title as content-desc, and categories are collapsed under Other.
+Root viewed both failure originals and parsed22XMLs. Later category/durability/
+newcase tails and first-case dismissal tails are unexecuted.49hashes retained.
+Current fixture-only correction accepts the same app label through text or
+content-desc, expands the positively observed OS expander if Replies is absent,
+and retains actual Replies/Mentions assertions. The first hot case additionally
+requires PUBLISHED, then waits up to5s for Android's actual active alert before
+the unchanged exact count/content/shade checks. No production changes. Corrected
+local/native verification is pending. Public beta24 unchanged.
 
 Remaining#32 includes saving/retry and other forms,
 mentions/registration proof, optional notification settings, real transport and

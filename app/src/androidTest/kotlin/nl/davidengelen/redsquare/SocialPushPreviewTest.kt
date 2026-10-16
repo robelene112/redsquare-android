@@ -11,6 +11,7 @@ import com.google.gson.JsonParser
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import nl.davidengelen.redsquare.notifications.SocialPush
+import nl.davidengelen.redsquare.notifications.SocialPushResult
 import nl.davidengelen.redsquare.notifications.SocialPushSettings
 import nl.davidengelen.redsquare.saito.*
 import org.junit.Assert.*
@@ -76,7 +77,12 @@ class SocialPushPreviewTest {
                     device.openNotification()
                     captureNativeScreen(File(context.cacheDir, "social-push-evidence/$evidenceName-failure.png"))
                 }) {
-                    runBlocking(Dispatchers.IO) { SocialPush.receive(context, payload, endpoint, 1700000001000) }
+                    assertEquals(SocialPushResult.PUBLISHED, runBlocking(Dispatchers.IO) {
+                        SocialPush.receive(context, payload, endpoint, 1700000001000)
+                    })
+                    val publishedBy = android.os.SystemClock.elapsedRealtime() + 5_000
+                    while (manager.activeNotifications.none { (it.tag to it.id) !in priorAlerts } &&
+                        android.os.SystemClock.elapsedRealtime() < publishedBy) android.os.SystemClock.sleep(25)
                     val alerts = manager.activeNotifications.filter { (it.tag to it.id) !in priorAlerts }
                     assertEquals("The verified reply must publish an actual Android alert", 1, alerts.size)
                     val alert = alerts.single().notification
