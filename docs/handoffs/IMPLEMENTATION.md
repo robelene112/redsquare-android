@@ -182,8 +182,10 @@ category discovery without resetting Android choices. Save/open controls disable
 while busy, with explicit failure feedback. No OSpermission request, Chat category
 or registration/FCM claim. Source/RED evidence Spec0; Standards found only the stale
 handoff active label, corrected here. Local core/debug/test19809 PASS3m29s.
-Corrected handoff review and focused Android10/17 verification are next; no native
-GREEN is inferred and no owned local Gradle/native run is active. Beta24 unchanged.
+Both final ordinary source/RED evidence reviews0/0 afterd6d98bb0. Actual focused
+Android10 run38943302756 and Android17 run38943314879 are active at exact source
+d6d98bb03b5841d542bb22fb358d87413d75df06,7ordinary cases each. No native GREEN
+inferred. No owned local Gradle build is active. Beta24 unchanged.
 
 Remaining#32 includes saving/retry and other forms,
 mentions/registration proof, optional notification settings, real transport and
