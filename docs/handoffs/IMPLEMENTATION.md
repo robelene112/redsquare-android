@@ -76,8 +76,8 @@ and150s worker-class ceiling; existing11/180s unchanged.
 
 This is additional native verification of the already-reviewed timeout mapping,
 not a new implementation or a claim that the earlier malformed RED exercised
-timeout. No source deadline was shortened or fake clock added. Its source review
-and exact-source CI are next; do not claim it passed yet. Plan
+timeout. No source deadline was shortened or fake clock added. Both source reviews at0f50c2a4 report0 findings. Fresh exact-source CI on
+Android10/17 is next; do not claim it passed yet. Plan
 `.scratch/push32-timeout-native-validation-plan.txt`. No local build is active.
 This remains live-process scheduling, not actual process death/autonomous wakeup/
 FCM/locked/Doze/Pixel or full#32 acceptance.
