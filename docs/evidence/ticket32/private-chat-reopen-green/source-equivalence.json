@@ -1,0 +1,25 @@
+{
+  "meaning": "Exact production Git tree listings are unchanged across minimum and observation/helper sources. Test fixture observations differ; actual results retain their own exact source.",
+  "tree_listing_sha256": {
+    "app/src/main": {
+      "84eb9704729182442210566bc1e341d505637eee": "99e867509f5a60db50a60e21f93a0a1bc59bda75c680d330991bf1239ab79972",
+      "1487ed1b26ac9ee960367c114cd30ee7b9c405fb": "99e867509f5a60db50a60e21f93a0a1bc59bda75c680d330991bf1239ab79972",
+      "9e2dcd180852a31104e821703f5765fa555989e2": "99e867509f5a60db50a60e21f93a0a1bc59bda75c680d330991bf1239ab79972"
+    },
+    "core/src/main": {
+      "84eb9704729182442210566bc1e341d505637eee": "2a1bed4555fabd9a3f4473029b75f0cbd9f5117820d072a7941d0b358570392b",
+      "1487ed1b26ac9ee960367c114cd30ee7b9c405fb": "2a1bed4555fabd9a3f4473029b75f0cbd9f5117820d072a7941d0b358570392b",
+      "9e2dcd180852a31104e821703f5765fa555989e2": "2a1bed4555fabd9a3f4473029b75f0cbd9f5117820d072a7941d0b358570392b"
+    },
+    "app/src/main/AndroidManifest.xml": {
+      "84eb9704729182442210566bc1e341d505637eee": "adcab8699ed9fa1af53557952bda545a17f6b595de8a5610a05ec1adfdcd918d",
+      "1487ed1b26ac9ee960367c114cd30ee7b9c405fb": "adcab8699ed9fa1af53557952bda545a17f6b595de8a5610a05ec1adfdcd918d",
+      "9e2dcd180852a31104e821703f5765fa555989e2": "adcab8699ed9fa1af53557952bda545a17f6b595de8a5610a05ec1adfdcd918d"
+    },
+    "app/build.gradle.kts": {
+      "84eb9704729182442210566bc1e341d505637eee": "1d2af22119159f1e3688ae1bcb65bcc8948cbf2da48a1d6ad5e97fd80fefb3e1",
+      "1487ed1b26ac9ee960367c114cd30ee7b9c405fb": "1d2af22119159f1e3688ae1bcb65bcc8948cbf2da48a1d6ad5e97fd80fefb3e1",
+      "9e2dcd180852a31104e821703f5765fa555989e2": "1d2af22119159f1e3688ae1bcb65bcc8948cbf2da48a1d6ad5e97fd80fefb3e1"
+    }
+  }
+}

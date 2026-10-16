@@ -84,10 +84,31 @@ its failed best-effort capture retrieval output stays raw and makes no visual cl
 The private opening helper now reuses the existing actual-Activity keyboard-hide
 request plus positive displayed-navigation wait, avoiding an unconditional Espresso
 callback wait. Existing reopening and exact photo assertions remain.
-Local stream-fix compilation passed 2m 1s; combined keyboard/stream compilation
-is pending. Production remains unchanged from 84eb9704. Both prior failure causes
-remain unproved; no native result for these latest fixture corrections is claimed.
-Do not dispatch unchanged retries or claim #32/private slice complete.
+Combined keyboard/stream local core/debug/test compilation passed 1m 53s. Both
+source/evidence reviews report zero findings at 9e2dcd18. Actual Android 17 social
+run 38971338531 at that exact source now SUCCESS: nine cases, 112.585 s. Root viewed
+all four private originals and parsed 37 XMLs. Latest caption, both protected-draft
+checks, actual tap/exact destination, Back, recreation/reopened text/photo and all
+final invariants pass. Destination has Refresh enabled plus available-history
+notice, not proof of exhaustive history. Earlier failures remain failures with
+unproved causes.
+
+[Private slice acceptance](../evidence/ticket32/private-chat-reopen-green/README.md)
+combines Android 10 social GREEN and actual photo UI/process recovery with passing
+storage follow-ups, plus Android 17 social and photo regression GREEN. Exact Git
+production-tree comparisons prove unchanged production since 84eb9704. Android 10
+storage observation run 38971341246 at 9e2dcd18 passes both cases in 77.581 s and
+records effective maxMemory 512 MiB, memoryClass/largeMemoryClass 512, PID 3297.
+This does not establish why the earlier OOM reported 16 MiB. Diagnostic status0
+messages are progress, not extra passing tests. Source push 38971334056 SUCCESS
+includes release assembly and lint. Final evidence review is pending before moving
+on. No full #32, actual FCM or closed-process delivery claim. Public beta24 unchanged.
+
+Next ordinary vertical slice after final private evidence review: preserve a group
+Chat draft/photo on actual social tap. Plan `.scratch/push32-group-draft-next-plan.txt`.
+Keep owner key1 and a separately created/invited group, actual UI edit/system tap,
+protected draft/recreation/photo and complete invariants. One intended RED then
+minimum. Do not start another ticket or group implementation before that review.
 
 ## Verified #32 slices
 

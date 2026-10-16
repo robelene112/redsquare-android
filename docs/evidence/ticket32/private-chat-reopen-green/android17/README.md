@@ -1,0 +1,7 @@
+# Private Chat social tap: Android 17 GREEN
+
+Run 38971338531 at `9e2dcd180852a31104e821703f5765fa555989e2` completed SUCCESS: all nine cases pass in 112.585 s. The new private Chat case positively observes the latest editable caption before publication, physically taps the actual reply alert and opens the exact signed Conversation. Protected latest text/photo, null transaction and unqueued status pass both before and after Back. Activity recreation, reopening Chat and exact caption/photo pixels pass, together with independent post draft, full wallet/backend, zero outgoing writes and installation restoration.
+
+Root viewed all four new originals and parsed all 37 XMLs. The destination shows the target and Refresh enabled, with an available-history notice. This proves the exact target, not exhaustive history. The reopened private chat shows the exact draft/photo and no available messages. The fixture helper now requests keyboard hiding through the actual Activity instead of an unconditional Espresso callback wait. Production remains unchanged from 84eb9704. Earlier failures stay recorded separately; this pass does not establish their causes.
+
+This is local controlled injection with instrumentation alive, not actual FCM or closed-process delivery. Separate source run 38971334056 passed release assembly and lint at the same source. Android 10 social evidence is the earlier passing run 38968037239; photo regressions and storage observations are linked by source equivalence in the parent package. Whole #32 remains open.
