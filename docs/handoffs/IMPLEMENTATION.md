@@ -155,6 +155,16 @@ Android10 permission wording. No native run is active.
 AppearancePreviewTest already scrolls to theme choices; no fixture change needed.
 No owned local Gradle build remains active.
 
+The next ordinary Android-category shortcut tracer is committed ate5f5c268,
+corrected074938aa after both reviews found Activity memory could mask missing
+before-leave persistence. It positively observes Android Settings/package/appname
+and Replies/Mentions categories, then verifies exact saved text/photo with null
+transaction/unqueued while OS Settings is foreground, before Back or any later
+notification navigation. Return/recreation and the existing reply journey remain.
+Both corrected source axes0/0. Local pre-correction11273 PASS1m50s; corrected
+core/debug/test91029 PASS1m44s. No shortcut is implemented yet. Actual Android10
+RED is next, no native result inferred. No local Gradle/native run is active.
+
 Remaining#32 includes saving/retry and other forms,
 mentions/registration proof, optional notification settings, real transport and
 full Android acceptance. Firebase project/IAM and gateway setup remain external;
