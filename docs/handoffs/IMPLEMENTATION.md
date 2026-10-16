@@ -236,9 +236,14 @@ recreation with no repeated offer for2s, Settings consentOn and the existing war
 replytap/latest draft/photo/full invariants. Positive displayed navigation target
 and distinct non-clickable Notifications heading precede missing-offer assertions
 and identify the screen after return/recreation. Both corrected source reviews0/0.
-Pre-correction local81769 PASS1m47s; corrected local19596 PASS1m38s. Native RED
-and production correction for this gap remain pending. The seven prior cases
-are unchanged.
+Pre-correction local81769 PASS1m47s; corrected local19596 PASS1m38s. Actual
+[consent RED](../evidence/ticket32/social-consent-red/android10/README.md)
+run38960006823 atf5e824dcc06ecdf02a53387bb4d784f6f98613b8 FAILED8cases7PASS/1FAIL
+68.437s, waiting15s for the missing offer atline139 after positive Notifications
+screen display. Root viewed failure PNG and parsed29XMLs; actual Notifications
+has no offer.62hashes retained. Later new-case consent/OS/recreation/tap/final
+tails are unexecuted. Seven prior cases pass. Production correction remains
+pending. Concrete local integration notes: .scratch/push32-consent-integration-plan.txt.
 
 Remaining#32 includes saving/retry and other forms,
 mentions/registration proof, optional notification settings, real transport and
