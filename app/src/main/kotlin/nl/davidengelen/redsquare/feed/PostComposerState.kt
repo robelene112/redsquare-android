@@ -214,6 +214,7 @@ internal class PostComposerState(
         }
     }
     fun edit(value: String) {
+        if (!ready || saving || sending || transaction != null) return
         text = value
         memory.text = value
         validationError = false

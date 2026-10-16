@@ -39,6 +39,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.isActive
+import kotlinx.coroutines.ensureActive
+import nl.davidengelen.redsquare.notifications.SocialPush
+import nl.davidengelen.redsquare.notifications.SocialPushRoutes
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.*
 import java.text.DateFormat
@@ -46,8 +49,9 @@ import java.util.Date
 import java.util.Locale
 
 @Composable
-fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: String, backend: SaitoBackend,
-    lifecycle: Lifecycle, modifier: Modifier, onWalletMetadata: suspend (SaitoWallet, SaitoWallet) -> Unit,
+internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: String, backend: SaitoBackend,
+    lifecycle: Lifecycle, modifier: Modifier, socialRoutes: SocialPushRoutes? = null, allowPushRoute: Boolean = true,
+    onWalletMetadata: suspend (SaitoWallet, SaitoWallet) -> Unit,
     onDrawn: () -> Unit) {
     val activity = requireNotNull(LocalActivity.current) as ComponentActivity
     val context = activity.applicationContext
@@ -113,6 +117,57 @@ fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: Strin
     }
     fun back() { if (navigation.isNotEmpty()) navigation.removeAt(navigation.lastIndex) }
     val position = rememberLazyListState()
+    val formNavigation = requireNotNull(LocalPostNavigation.current)
+    val pendingTap by socialRoutes?.pending?.collectAsState() ?: remember { mutableStateOf<android.os.Bundle?>(null) }
+    var tapRetry by remember { mutableIntStateOf(0) }
+    var tapFailed by remember(pendingTap) { mutableStateOf(false) }
+    LaunchedEffect(pendingTap, wallet?.publicKey, personal?.ready, personal?.saving, allowPushRoute,
+        formNavigation.saveCurrent, tapRetry) {
+        val delivery = pendingTap ?: return@LaunchedEffect
+        val routes = socialRoutes ?: return@LaunchedEffect
+        val currentWallet = wallet ?: return@LaunchedEffect
+        if (!allowPushRoute || personal?.ready != true || personal.saving) return@LaunchedEffect
+        val reference = SocialPushRoutes.reference(delivery) ?: return@LaunchedEffect
+        tapFailed = false
+        try {
+            if (reference.owner != currentWallet.publicKey || reference.backend != backend) {
+                tapFailed = true
+                return@LaunchedEffect
+            }
+            val target = SocialPush.resolveTap(context, reference, endpoint)
+            if (target == null || !routes.current(delivery)) { tapFailed = true; return@LaunchedEffect }
+            val opened = formNavigation.navigate {
+                currentCoroutineContext().ensureActive()
+                if (!routes.current(delivery) || !allowPushRoute || personal.saving || personal.hidesPosts(target.author)) false
+                else {
+                    val permitted = withContext(Dispatchers.IO) { SocialPush.canOpen(context, reference, target) }
+                    currentCoroutineContext().ensureActive()
+                    if (!permitted || !routes.current(delivery) || personal.saving || personal.hidesPosts(target.author)) false
+                    else {
+                        composing = false; reviewingChat = false; reviewingQueue = false; reviewingChanges = false
+                        navigation.add(BrowseDestination.Conversation(target))
+                        routes.consume(delivery)
+                        true
+                    }
+                }
+            }
+            tapFailed = !opened
+        } catch (cancelled: CancellationException) { throw cancelled }
+        catch (_: Exception) { tapFailed = true }
+    }
+    if (pendingTap != null && tapFailed) {
+        Column {
+            Text(stringResource(R.string.social_push_open_failed))
+            Row {
+                TextButton(enabled = !formNavigation.transitioning, onClick = { tapRetry++ }) {
+                    Text(stringResource(R.string.retry))
+                }
+                TextButton(enabled = !formNavigation.transitioning, onClick = { pendingTap?.let { socialRoutes?.consume(it) } }) {
+                    Text(stringResource(R.string.social_push_dismiss))
+                }
+            }
+        }
+    }
 
     LaunchedEffect(cache) {
         val saved = withContext(Dispatchers.IO) { cache.load() }

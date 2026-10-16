@@ -69,12 +69,7 @@ internal object SocialPush {
             } ?: return@withContext SocialPushResult.SUPPRESSED
             val post = withTimeout(15_000) {
                 SaitoPeer(wallet, endpoint).use { peer ->
-                    val candidate = exactPost(peer, reference.signature) ?: return@use null
-                    if (candidate.author == reference.owner || candidate.parentId.isEmpty() ||
-                        now < candidate.createdAt || now - candidate.createdAt > MAX_AGE) return@use null
-                    val parent = exactPost(peer, candidate.parentId) ?: return@use null
-                    candidate.takeIf { parent.author == reference.owner &&
-                        SaitoEnvelope.decode(candidate.envelope).body.get("request").asString == "create tweet" }
+                    verifiedReply(peer, reference, now)
                 }
             } ?: return@withContext SocialPushResult.SUPPRESSED
             synchronized(SaitoLocalState.lock) {
@@ -97,7 +92,9 @@ internal object SocialPush {
                 if (manager.getNotificationChannel("replies").importance == NotificationManager.IMPORTANCE_NONE) {
                     return@synchronized SocialPushResult.SUPPRESSED
                 }
-                val open = Intent(context, MainActivity::class.java).setData(Uri.Builder().scheme("redsquare")
+                val open = Intent(context, MainActivity::class.java)
+                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                    .setData(Uri.Builder().scheme("redsquare")
                     .authority("social").appendPath(reference.backend.id).appendPath(reference.owner)
                     .appendPath(reference.signature).build())
                 // Preserve only the already validated emulator transport configuration across
@@ -123,6 +120,41 @@ internal object SocialPush {
             }
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { SocialPushResult.RETRY }
+    }
+
+    /** A user tap can open an older displayed alert, but still requires fresh selected-Archive proof. */
+    suspend fun resolveTap(context: Context, reference: SocialPushReference, endpoint: String): FeedPost? =
+        withContext(Dispatchers.IO) {
+            if (!allowedEndpoint(endpoint, reference.backend)) return@withContext null
+            val wallet = synchronized(SaitoLocalState.lock) {
+                AndroidWalletStore(context).loadExisting().takeIf {
+                    it.publicKey == reference.owner && AndroidBackendStore(context).load() == reference.backend &&
+                        SocialPushSettings(context, reference.owner).enabled()
+                }
+            } ?: return@withContext null
+            withTimeout(15_000) {
+                SaitoPeer(wallet, endpoint).use { verifiedReply(it, reference, null) }
+            }
+        }
+
+    fun canOpen(context: Context, reference: SocialPushReference, post: FeedPost): Boolean =
+        synchronized(SaitoLocalState.lock) {
+            if (AndroidWalletStore(context).loadExisting().publicKey != reference.owner ||
+                AndroidBackendStore(context).load() != reference.backend ||
+                !SocialPushSettings(context, reference.owner).enabled() ||
+                AndroidPersonalControls(context, reference.owner).load().hidesSocial(post.author)) false
+            else AndroidPostRevisions(context, reference.backend).apply(listOf(post)).let {
+                !it.unreadable && !it.deleted && it.posts.singleOrNull() != null
+            }
+        }
+
+    private suspend fun verifiedReply(peer: SaitoPeer, reference: SocialPushReference, now: Long?): FeedPost? {
+        val candidate = exactPost(peer, reference.signature) ?: return null
+        if (candidate.author == reference.owner || candidate.parentId.isEmpty()) return null
+        if (now != null && (now < candidate.createdAt || now - candidate.createdAt > MAX_AGE)) return null
+        val parent = exactPost(peer, candidate.parentId) ?: return null
+        return candidate.takeIf { parent.author == reference.owner &&
+            SaitoEnvelope.decode(candidate.envelope).body.get("request").asString == "create tweet" }
     }
 
     private suspend fun exactPost(peer: SaitoPeer, signature: String): FeedPost? {

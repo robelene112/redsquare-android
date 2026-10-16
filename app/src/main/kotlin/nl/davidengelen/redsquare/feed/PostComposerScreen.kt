@@ -102,11 +102,25 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
     }
     DisposableEffect(state) {
         val save: suspend () -> Boolean = { state.persist() }
+        val guarded: suspend (suspend () -> Boolean) -> Boolean = { commit ->
+            if (navigation.saveCurrent !== save || !state.ready || state.saving || state.sending ||
+                state.preparingImages || pickingFor != null || selectedImages.isNotEmpty()) false
+            else {
+                state.saving = true
+                try {
+                    if (state.persist() && navigation.saveCurrent === save) commit() else false
+                } finally { state.saving = false }
+            }
+        }
         navigation.saveCurrent = save
-        onDispose { if (navigation.saveCurrent === save) navigation.saveCurrent = null }
+        navigation.guardedCurrent = guarded
+        onDispose {
+            if (navigation.saveCurrent === save) navigation.saveCurrent = null
+            if (navigation.guardedCurrent === guarded) navigation.guardedCurrent = null
+        }
     }
     with(state) {
-        BackHandler { if (!sending) { if (ready) saveAndClose(onClose) else onClose() } }
+        BackHandler { if (!sending && !saving) { if (ready) saveAndClose(onClose) else onClose() } }
         Column(modifier.imePadding()) {
             Row {
                 TextButton(enabled = !saving && !sending, onClick = { if (ready) saveAndClose(onClose) else onClose() }) {

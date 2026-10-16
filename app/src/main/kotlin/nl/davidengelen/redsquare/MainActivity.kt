@@ -75,6 +75,16 @@ import nl.davidengelen.redsquare.ui.Appearance
 import nl.davidengelen.redsquare.ui.RedSquareTheme
 
 class MainActivity : ComponentActivity() {
+    private val socialRoutes by lazy {
+        androidx.lifecycle.ViewModelProvider(this)[nl.davidengelen.redsquare.notifications.SocialPushRoutes::class.java]
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        // Preserve the original launch configuration, including controlled peer endpoints.
+        socialRoutes.enqueue(intent.data)
+    }
+
     private var videoDiagnostics: VideoDiagnostics? = null
     internal fun videoDiagnosticsSnapshot(): String? = videoDiagnostics?.snapshot()
 
@@ -98,6 +108,7 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalLayoutApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        socialRoutes.initialize(intent.data)
         videoDiagnostics = VideoDiagnostics.fromIntent(this, intent)
         setContent {
             val appearanceStore = remember { AndroidAppearanceStore(applicationContext) }
@@ -261,11 +272,12 @@ class MainActivity : ComponentActivity() {
                             Text(stringResource(R.string.app_name), Modifier.weight(1f).padding(start = 8.dp),
                                 style = MaterialTheme.typography.titleLarge, maxLines = 1)
                             TextButton(contentPadding = PaddingValues(horizontal = 6.dp),
-                                onClick = { walletExport.clearMessage(); walletImport.clearMessage(); walletOpen = true }) {
+                                onClick = { if (!postNavigation.transitioning) { walletExport.clearMessage(); walletImport.clearMessage(); walletOpen = true } }) {
                                 Text(stringResource(R.string.wallet), style = MaterialTheme.typography.labelMedium)
                             }
                             TextButton(contentPadding = PaddingValues(horizontal = 6.dp),
-                                onClick = { settingsOpen = true }, enabled = backendReady && !savingBackend) {
+                                onClick = { if (!postNavigation.transitioning) settingsOpen = true },
+                                enabled = backendReady && !savingBackend && !postNavigation.transitioning) {
                                 Text(stringResource(R.string.settings), style = MaterialTheme.typography.labelMedium)
                             }
                         }
@@ -286,16 +298,16 @@ class MainActivity : ComponentActivity() {
                                 color = MaterialTheme.colorScheme.onSurfaceVariant)
                             Row(Modifier.fillMaxWidth()) {
                                 TextButton(modifier = Modifier.weight(1f), contentPadding = PaddingValues(horizontal = 2.dp),
-                                    onClick = { walletExport.clearMessage(); walletImport.clearMessage(); walletOpen = true }) {
+                                    onClick = { if (!postNavigation.transitioning) { walletExport.clearMessage(); walletImport.clearMessage(); walletOpen = true } }) {
                                     Text(stringResource(R.string.wallet_back_up), style = MaterialTheme.typography.labelMedium)
                                 }
                                 TextButton(modifier = Modifier.weight(1f), contentPadding = PaddingValues(horizontal = 2.dp),
-                                    onClick = dismissBackupReminder) {
+                                    onClick = { if (!postNavigation.transitioning) dismissBackupReminder() }) {
                                     Text(stringResource(R.string.later), style = MaterialTheme.typography.labelMedium)
                                 }
                                 TextButton(modifier = Modifier.weight(2f), contentPadding = PaddingValues(horizontal = 2.dp),
-                                    enabled = wallet != null && !walletExport.busy && !walletImport.busy,
-                                    onClick = { walletExport.clearMessage(); walletOpen = true; walletImport.start() }) {
+                                    enabled = wallet != null && !walletExport.busy && !walletImport.busy && !postNavigation.transitioning,
+                                    onClick = { if (!postNavigation.transitioning) { walletExport.clearMessage(); walletOpen = true; walletImport.start() } }) {
                                     Text(stringResource(R.string.wallet_import_existing), style = MaterialTheme.typography.labelMedium)
                                 }
                             }
@@ -326,7 +338,11 @@ class MainActivity : ComponentActivity() {
                                         LocalRegistryAuthority provides RegistryAuthority.fromIntent(intent, feedEndpoint)) {
                                     RegisteredIdentityScope(wallet, feedEndpoint, selected) {
                                         FeedScreen(wallet, failed, feedEndpoint, selected,
-                                            lifecycle, Modifier.weight(1f), onWalletMetadata = { previous, updated ->
+                                            lifecycle, Modifier.weight(1f), socialRoutes = socialRoutes,
+                                            allowPushRoute = !settingsOpen && !personalControlsOpen && !usernameOpen &&
+                                                !walletOpen && !walletBalanceOpen && !walletTransferOpen && !recoveryGuideOpen &&
+                                                !savingBackend && !walletImport.busy && !walletExport.busy,
+                                            onWalletMetadata = { previous, updated ->
                                                 check(wallet === previous && updated.publicKey == previous.publicKey)
                                                 withContext(NonCancellable) {
                                                     val result = withContext(Dispatchers.IO) {
