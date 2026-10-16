@@ -42,20 +42,49 @@ no exactAndroidscheduling/finalcall-onlycauseclaimed. Managerpositiveabsence→1
 and sourcewithoutledger establishboundedmissingdedupRED. No imageschanged.
 Watch16837 exited1, download11012/retentiondone; do not redispatch thatRED.
 
-CURRENT MINIMUM86e408ee5a257e9817885c3286bd6b9ba6580b57 committed/pushed:
-encrypted owner/backend receipt ledger,1000unexpiredcapacityfailclosed,7dayretention,
-clockrollbackretains. Checks published receipts before network after consent/scope;
-preparepending beforeAndroid and acknowledgepublication afterward under final
-SaitoLocalState lock. Currentpolicy/scope/permission/channel guardsunchanged.
-Stabletag/onlyAlertOnce preserved; Android/disk commit notatomic, especially if
-userdismisses whileacknowledgementfails. No exactly-once/processdurabilityclaim.
-SourceSpec0/Standards0. Local core/debug/test12225 ACTIVE at
-.scratch/push32-dismiss-minimum-compile.log, so no sourceedits until completes.
-Actual focused10 run38826410844 at86e408ee ACTIVE; do not inferGREEN orduplicate.
-.scratch/retain-push32-dismiss.py prepared/syntaxchecked handlesactual2caseRED/GREEN
-intoFRESHoutdirs. Awaitoutcome,retain/inspect/review, then nextverticalslice.
-Dismissed processdeath, faults, mentions and exacttap/saveinputguard remain.
-Public24 current, no new signedbuild reserved. All32release/externalgatesincomplete.
+DURABLE MINIMUM86e408ee5a257e9817885c3286bd6b9ba6580b57 sourceSpec0/Standards0:
+encrypted owner/backend receipt ledger,1000unexpiredcapfailclosed,7dayretention,
+rollbackretains; initialpublishedcheckafterconsent/scope plusfinalpreparepending,
+Androidnotify andpublicationack underlock. Stabletag/onlyAlertOnce retained;
+Android/diskacknotatomic, noexactlyonceclaim. Local12225 COMPLETE0/3m13s.
+Actual focused10 38826410844 SUCCESS2PASS12.552s at86: physicaldismissal,
+replay2ssilence, originalactualalert/noTXtails pass. Retained
+`docs/evidence/ticket32/dismissed-reply-green/android10`,14hashes/3XML/3originalPNGs.
+Rootindividuallyviewedloadedinitialcardsandsystemonlyfinal, ROcanvaspixelmetadata
+retained. FinalreviewsSpec0/Standards0 aftera624ce1c correction: old86testscheck
+scopeSETUP/restoration, NOT unchanged activeidentity/backend beforecleanup.
+No processdurability/FCM/tap/full/Android17claim. Watch53194/download93573 done0.
+
+CURRENT VERIFICATION3010896e→cfb7c19816411940e430d946b3aa67798420e1ea:
+NOproductionchange. Added `SocialPushProcessRecoveryTest` +
+`scripts/social-push-process-check`, focused social-push-process/17 choices.
+Actualselfkill AFTERpublicationack+physicaldismissal; hostprovesoldPIDgone;
+newprocesscoldduplicateSUPPRESSED/2ssilence then independentfreshsigned
+parentIndexedReply actualvisiblealert toprovereceiverliveness. Exactfullwallet
+SHA/backend/sourcezeroTXchecks, positiveencryptedledgerfilesizeonly pulled.
+Originalencryptedsnapshotstaysdeviceonlybehindexplicitallowlist+copying/prepared
+checkpointguard; independentrestorerchecksoriginalwalletdigest/backend before
+removingownedcopies/checkpoint. No privatecontentsinhostartifacts.
+Addedhotcaseactualpostreceivewallet/backendinvariantsforFUTUREruns only.
+
+Bothsourceaxes0 aftercfb7c198 fixes: positive5s manager-zero readiness after
+physicalswipe/textgone beforefirst2ssilence; continuityPASS ONLYAFTERfinally's
+independentrestorersucceeds. No weakeningofcoldabsenceoracle. Originallocal81983
+COMPLETE0/1m57s. Correctedlocal46983 ACTIVE (.scratch/push32-process-verification-corrected-compile.log),
+so no sourceeditsuntilfinished. Actual focused10 run38827943929 atcfb7c198 ACTIVE;
+NOprocessresultinferred, do notduplicate. Need actualjoboutcome/newPIDs/checkpoints,
+strictpublic-onlyretention/rootoriginalinspection/evidencereviews, then nextslice.
+Processscope doesnotexecutehotclassoritsnewinvariants, release/lint orfulls.
+Public24 current/no newreviewcounter. Ownerbackendonlyforinitialprocesstrace.
+Allremaining32external/public/FCM/mentions/tap/negative/fault gatesoutstanding.
+
+Additionalreadonlyresearch CHAT_PUSH_EXISTING_TRANSPORT_2026_10_15.md committed
+4b517c53/f4383947, bothaxes0. PUBLICpins/sourcegap, notdeployedfeatureabsenceproof:
+no establishedclosed-nativewake/subscriptionprotocolbothbackends; connectedRelay
+andblockNTFYdo notcoverallprivateoffchaintraffic. NameddeployedNTFYreadwasRO,
+nohash/Gitattestation; officialBsourceandpublictemplatesindependentlyverified.
+No Saito.io cooperation assumed, scopeunchanged, anyactualnodehook/deployment
+needsconcreteboundedseparateauthorization. Nootherfeatureimplementationstarted.
 
 Prepared next plan .scratch/push32-next-slice-plan.md; bounded read-only proposal
 `docs/research/SOCIAL_PUSH_TAP_ROUTE_2026_10_15.md` adds exact lifecycle/navigation
