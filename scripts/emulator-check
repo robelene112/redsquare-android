@@ -158,7 +158,7 @@ verify_social_push() {
     if [[ "${TEST_SCOPE:-full}" == social-push-process* ]]; then
         python3 "$repo_dir/scripts/social-push-process-check" --evidence "$evidence/social-push-process" || native_exit=$?
     else
-        verify_group_chat_native SocialPushPreviewTest 120 social-push social-push-evidence || native_exit=$?
+        verify_group_chat_native "SocialPushPreviewTest,nl.davidengelen.redsquare.SocialPushTapPreviewTest" 180 social-push social-push-evidence || native_exit=$?
     fi
     if [[ "$granted_for_test" == 1 ]]; then
         adb shell pm revoke nl.davidengelen.redsquare.dev android.permission.POST_NOTIFICATIONS || return 1
