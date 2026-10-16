@@ -6,9 +6,11 @@ lint, complete SDK scopes and Android17 are unexecuted in this focused run.
 The unchanged original alert journey passes. The second physically swipes away
 its alert, observes text disappearance and manager0, redelivers the same reference,
 and maintains manager0 throughout a two-second interval. Exact candidate/parent,
-identity/backend, generic category/text, retained-alert replay and no outgoing
+generic category/text, retained-alert replay and no outgoing
 transaction/report/Relay assertions pass. Independent scoped cleanup restores
-wallet/backend/files/preferences and removes only new own alerts.
+wallet/backend/files/preferences and removes only new own alerts. Fixture setup
+binds the wallet/server; source enforces scope. This version does not assert
+unchanged active identity/backend after receive before restoration.
 
 Root viewed three original PNGs individually using actual bytes/path/SHA and
 parsed all three XMLs. Both initial captures show the reply alert; the final
