@@ -150,7 +150,8 @@ UIdisable and distinct fresh reply silence2s all pass, as do wallet/backend/no-w
 invariants. Destination still says Loading replies; no loaded-thread claim.
 System alerts enabled, runtime permission pregranted onAPI33+ only. No
 OSpermission/category/IOerror recovery/FCM proof.
-Both ordinary GREEN evidence reviews are pending. No native run is active.
+Both final ordinary GREEN evidence reviews report0/0 after57b36304 corrected
+Android10 permission wording. No native run is active.
 AppearancePreviewTest already scrolls to theme choices; no fixture change needed.
 No owned local Gradle build remains active.
 
