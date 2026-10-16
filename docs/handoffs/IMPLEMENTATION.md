@@ -35,7 +35,9 @@ also sees the Message label. This is a fixture failure, not intended feature RED
 [Raw evidence](../evidence/ticket32/private-chat-tracer-fixture-failure/android10/README.md)
 retains35 original PNG/XML pairs; root viewed the new failure image and parsed all
 XMLs. The corrected tracer observes exact EditableText, leaving expected user text
-unchanged. Local corrected compilation is pending. No production guard change yet.
+unchanged. Corrected local core/debug/test assembly passed in 1m 37s. Both
+correction/evidence reviews report zero findings at 1df4835a. No production guard
+change yet; corrected intended RED still needs Android execution.
 Separate source run38964723509 passed release assembly/lint at a8a30ceb.
 
 The preceding documentation push run38964130150 failed during Android Emulator
