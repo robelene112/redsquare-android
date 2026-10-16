@@ -27,17 +27,19 @@ internal fun NotificationPermissionPrompt(needsConsent: Boolean = false,
     val preferences = remember { context.getSharedPreferences("notification-permission", 0) }
     var open by remember(needsConsent) { mutableStateOf(needsConsent || (!preferences.getBoolean("offered", false) &&
         (Build.VERSION.SDK_INT < 33 || context.checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED))) }
-    var saveFailed by remember { mutableStateOf(false) }
+    var failure by remember { mutableStateOf<Int?>(null) }
     var saving by remember { mutableStateOf(false) }
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { }
     fun choose(allow: Boolean) {
         if (saving) return
         saving = true
-        saveFailed = false
+        failure = null
         scope.launch {
+            var recorded = false
             try {
                 if (allow) onEnable() else onSkip()
                 check(withContext(Dispatchers.IO) { preferences.edit().putBoolean("offered", true).commit() })
+                recorded = true
                 open = false
                 if (allow) {
                     if (Build.VERSION.SDK_INT >= 33) {
@@ -48,15 +50,19 @@ internal fun NotificationPermissionPrompt(needsConsent: Boolean = false,
                         .putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName))
                 }
             } catch (cancelled: CancellationException) { throw cancelled }
-            catch (_: Exception) { saveFailed = true; open = true }
+            catch (_: Exception) {
+                failure = if (recorded) R.string.notifications_controls_open_error else R.string.notifications_permission_save_error
+                open = allow
+            }
             finally { saving = false }
         }
     }
+    if (!open) failure?.let { Text(stringResource(it)) }
     if (open) AlertDialog(onDismissRequest = { if (!saving) choose(false) },
         title = { Text(stringResource(R.string.notifications_permission_title)) },
         text = { Column {
             Text(stringResource(detail))
-            if (saveFailed) Text(stringResource(R.string.notifications_permission_save_error))
+            failure?.let { Text(stringResource(it)) }
         } },
         confirmButton = {
             TextButton(enabled = !saving, onClick = { choose(true) }) { Text(stringResource(R.string.notifications_permission_enable)) }
