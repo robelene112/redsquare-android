@@ -180,8 +180,14 @@ preconditions pass; original failure PNG/XML show Settings with the alert switch
 and no shortcut. [Intended RED](../evidence/ticket32/android-category-red/android10/README.md)
 retains50hashes/23PNG/XML; root viewed failure and parsedall23XML. OS/category/
 persistence-before-return and later new-case tails are unexecuted. Earlier
-navigation failure remains separate. Minimum shortcut/channel initialization and
-source/evidence review are next; no native GREEN or local build is active.
+navigation failure remains separate. Minimum is now added: the Settings button
+uses PostNavigation.navigate to save/freeze the mounted post through channel
+initialization and app-specific Android Settings launch. Existing Replies/Mentions
+channel definitions are centralized for first-visit discovery; existing Android
+category choices are not reset. Opening/saving UI controls disable during the
+transition, with an explicit error message on failure. No OSpermission request,
+Chat-channel or FCM registration work is claimed. Source/RED evidence review
+and local build are pending; no native GREEN is inferred.
 
 Remaining#32 includes saving/retry and other forms,
 mentions/registration proof, optional notification settings, real transport and

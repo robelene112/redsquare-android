@@ -60,6 +60,14 @@ internal object SocialPush {
     }
     private data class Event(val post: FeedPost, val kind: Kind)
 
+    fun ensureChannels(context: Context) {
+        val manager = context.getSystemService(NotificationManager::class.java)
+        Kind.entries.forEach { kind ->
+            manager.createNotificationChannel(NotificationChannel(kind.channel, context.getString(kind.channelName),
+                NotificationManager.IMPORTANCE_DEFAULT))
+        }
+    }
+
     suspend fun receive(context: Context, payload: String, endpoint: String,
         now: Long = System.currentTimeMillis()): SocialPushResult = withContext(Dispatchers.IO) {
         val reference = try { SocialPushReference.parse(payload) } catch (_: Exception) {
@@ -95,8 +103,7 @@ internal object SocialPush {
                     PackageManager.PERMISSION_GRANTED) return@synchronized SocialPushResult.SUPPRESSED
                 val manager = context.getSystemService(NotificationManager::class.java)
                 if (!manager.areNotificationsEnabled()) return@synchronized SocialPushResult.SUPPRESSED
-                manager.createNotificationChannel(NotificationChannel(event.kind.channel, context.getString(event.kind.channelName),
-                    NotificationManager.IMPORTANCE_DEFAULT))
+                ensureChannels(context)
                 if (manager.getNotificationChannel(event.kind.channel).importance == NotificationManager.IMPORTANCE_NONE) {
                     return@synchronized SocialPushResult.SUPPRESSED
                 }

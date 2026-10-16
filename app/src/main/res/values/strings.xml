@@ -509,6 +509,8 @@
     <string name="notifications_social_choice">Replies and mentions</string>
     <string name="notifications_social_choice_detail">Allow these alerts for this wallet on this phone. Android permissions and category settings also apply.</string>
     <string name="notifications_social_choice_error">Could not read or save your alert choice. Try again.</string>
+    <string name="notifications_android_settings">Android notification settings</string>
+    <string name="notifications_android_settings_error">Could not open Android notification settings. Save any unfinished work and try again.</string>
     <string name="social_push_open_failed">Could not open this notification here. Your current work is still here. Check the selected wallet and server, then try again.</string>
     <string name="social_push_dismiss">Dismiss notification link</string>
 </resources>

@@ -18,13 +18,15 @@ import nl.davidengelen.redsquare.R
 
 /** Wallet-scoped app consent, separate from Android permission and categories. */
 @Composable
-internal fun SocialAlertChoice(owner: String) {
+internal fun SocialAlertChoice(owner: String, openAndroidSettings: suspend () -> Boolean) {
     val context = LocalContext.current.applicationContext
     val settings = remember(context, owner) { SocialPushSettings(context, owner) }
     val scope = rememberCoroutineScope()
     var choice by remember(owner) { mutableStateOf<Boolean?>(null) }
     var saving by remember(owner) { mutableStateOf(false) }
     var failed by remember(owner) { mutableStateOf(false) }
+    var opening by remember(owner) { mutableStateOf(false) }
+    var openFailed by remember(owner) { mutableStateOf(false) }
     var retry by remember(owner) { mutableIntStateOf(0) }
     LaunchedEffect(settings, retry) {
         choice = null
@@ -36,7 +38,7 @@ internal fun SocialAlertChoice(owner: String) {
     }
     Text(stringResource(R.string.notifications_title), style = MaterialTheme.typography.titleSmall)
     Row(Modifier.fillMaxWidth().heightIn(min = 48.dp).toggleable(
-        value = choice == true, enabled = choice != null && !saving, role = Role.Switch,
+        value = choice == true, enabled = choice != null && !saving && !opening, role = Role.Switch,
         onValueChange = { requested ->
             saving = true
             scope.launch {
@@ -50,11 +52,22 @@ internal fun SocialAlertChoice(owner: String) {
             }
         }), verticalAlignment = Alignment.CenterVertically) {
         Text(stringResource(R.string.notifications_social_choice), Modifier.weight(1f))
-        Switch(checked = choice == true, onCheckedChange = null, enabled = choice != null && !saving)
+        Switch(checked = choice == true, onCheckedChange = null, enabled = choice != null && !saving && !opening)
     }
     Text(stringResource(R.string.notifications_social_choice_detail), style = MaterialTheme.typography.bodySmall)
     if (failed) {
         Text(stringResource(R.string.notifications_social_choice_error))
-        TextButton(enabled = !saving, onClick = { retry++ }) { Text(stringResource(R.string.retry)) }
+        TextButton(enabled = !saving && !opening, onClick = { retry++ }) { Text(stringResource(R.string.retry)) }
     }
+    TextButton(enabled = !saving && !opening, onClick = {
+        opening = true
+        openFailed = false
+        scope.launch {
+            try { openFailed = !openAndroidSettings() }
+            catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { openFailed = true }
+            finally { opening = false }
+        }
+    }) { Text(stringResource(R.string.notifications_android_settings)) }
+    if (openFailed) Text(stringResource(R.string.notifications_android_settings_error))
 }
