@@ -131,8 +131,11 @@ class SocialPushTapPreviewTest {
                                 if (android.os.Build.VERSION.SDK_INT >= 33) assertEquals(
                                     android.content.pm.PackageManager.PERMISSION_GRANTED,
                                     context.checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS))
-                                waitFor(hasText("Notifications") and hasClickAction() and isEnabled())
-                                ui.onNode(hasText("Notifications") and hasClickAction()).performClick()
+                                val notifications = hasText("Notifications") and hasClickAction() and isEnabled()
+                                waitFor(notifications)
+                                ui.waitUntil(15_000) { ui.onNode(notifications).isDisplayed() }
+                                ui.onNode(notifications).assertIsDisplayed().performClick()
+                                waitForNotificationsScreen()
                                 waitFor(hasText("Android notification alerts"))
                                 captureNativeScreen(File(context.cacheDir, "social-push-evidence/tap-onboarding-offer.png"), "Enable alerts")
                                 ui.onNodeWithText("Enable alerts").performClick()
@@ -141,13 +144,19 @@ class SocialPushTapPreviewTest {
                                     captureNativeScreen(File(context.cacheDir, "social-push-evidence/tap-onboarding-system.png"))
                                     device.pressBack()
                                 }
+                                waitForNotificationsScreen()
                                 waitFor(hasText("Refresh") and isEnabled())
                                 ui.waitUntil(15_000) {
                                     ui.onAllNodesWithText("Not now").fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty()
                                 }
                                 recreateCurrentActivity()
+                                waitForNotificationsScreen()
                                 waitFor(hasText("Refresh") and isEnabled())
-                                ui.onAllNodesWithText("Not now").assertCountEquals(0)
+                                val offeredAgainUntil = android.os.SystemClock.elapsedRealtime() + 2_000
+                                do {
+                                    ui.onAllNodesWithText("Not now").assertCountEquals(0)
+                                    android.os.SystemClock.sleep(50)
+                                } while (android.os.SystemClock.elapsedRealtime() < offeredAgainUntil)
                                 ui.onNodeWithText("Back").performClick()
                                 openAlertChoice().assertIsOn()
                                 captureNativeScreen(File(context.cacheDir, "social-push-evidence/tap-onboarding-enabled.png"), "Replies and mentions")
@@ -278,6 +287,12 @@ class SocialPushTapPreviewTest {
     }
 
     private fun alertChoice() = hasText("Replies and mentions") and isToggleable()
+
+    private fun waitForNotificationsScreen() {
+        val heading = hasText("Notifications") and !hasClickAction()
+        waitFor(heading)
+        ui.waitUntil(15_000) { ui.onNode(heading).isDisplayed() }
+    }
 
     private fun visitAndroidCategories(device: UiDevice, appPackage: String, cache: File, verifySavedWork: () -> Unit) {
         openSettings()
