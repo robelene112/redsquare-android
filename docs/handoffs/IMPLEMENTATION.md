@@ -38,26 +38,31 @@ were unexecuted. Both evidence reviews0 at230c348d.
 
 First tap minimum08e1a6f2 adds canonical public pending-route state/generations,
 onNewIntent without replacing launch configuration, fresh signed target+owner-parent
-proof and guarded post save/recheck/commit. Legacy forms defer with Retry. Source
-Spec0; Standards found untrusted Intent extras enter the default SavedStateHandle
-through pinned Activity1.10.1. This finding remains OPEN. No native tap GREEN yet.
-Local minimum core/debug/test92647 PASS3m30s.
+proof and guarded post save/recheck/commit. Legacy forms defer with Retry.
+Local minimum core/debug/test92647 PASS3m30s. No native tap GREEN yet.
 
-Current security tracer8a93aec8228b26879461fe4a6359b03c1e6eb110 adds actual
-exported launch with valid URI but malformed social.generation/social.pending.
-Focus social-push-input invokes only that method; a crash means later assertions
-and in-process cleanup are unexecuted. Both source tracer reviews0. Local44142
-PASS1m51s. Actual Android10 run38831067405 ACTIVE at8a93aec8, watcher54225 writes
-`.scratch/push32-input-red-watch.log`. Do not duplicate dispatch or infer result.
-The original post-tap scope now includes4cases because this input method is added.
+The Standards default-SavedStateHandle input finding was demonstrated by actual
+Android10 run38831067405 at8a93aec8228b26879461fe4a6359b03c1e6eb110. One method
+fails before UI with String→Long cast in route enqueue22/Main.onCreate111;
+independent AndroidRuntime PID3351 confirms. All later assertions/cleanup were
+unexecuted. [Raw RED evidence](../evidence/ticket32/exported-state-red/android10/README.md)
+retains5 public hashes, no reached captures. Both evidence review axes0.
+Tracer local44142 PASS1m51s. Normal social-push now includes4cases, input-only
+scopes invoke just this malformed exported-launch method.
 
-After actual result: retain fresh run-specific public evidence, inspect AndroidRuntime
-cause against exact pinned source. Only after demonstrated RED, apply the prepared
-`.scratch/apply-push32-route-input-fix.py` (NOT APPLIED): copy default creation extras
-and replace DEFAULT_ARGS_KEY with empty Bundle while preserving registry/owner
-restoration keys. Exact Lifecycle2.9.4 APIs verified by reader: three-argument
-ViewModelProvider takes viewModelStore, factory, extras. Then compile, review fix,
-verify same input case and full focused social-push four-case navigation on bothSDKs.
+Fix52f6cf0d copies default creation extras and replaces only DEFAULT_ARGS_KEY
+with empty Bundle, preserving registry/owner restoration and original launch
+Intent configuration. Source Spec0/Standards0. The prepared scratch fix script
+is APPLIED/obsolete, do not rerun it. Local corrected core/debug/test29634 ACTIVE,
+log `.scratch/push32-route-input-fix-compile.log`; no source edits until it ends.
+
+Next: after local build outcome, push exact reviewed source and run social-push
+Android10 and Android17. The same four-case class combines malformed-input GREEN,
+original hot2 and actual post/photo tap navigation. No separate redundant input
+GREEN run is needed. Verify exact remote SHA before dispatch; await actual result,
+retain fresh run-specific evidence, inspect original images/XML, review evidence.
+Original .scratch/retain-push32-tap.py expects3cases and MUST be adapted for4 before
+retaining the next combined run. No owned native verification is currently active.
 
 Further tap work includes cold/recreation, latest-input races, save refusal and
 private/group/other mounted forms. Read
