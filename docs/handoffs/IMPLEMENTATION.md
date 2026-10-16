@@ -95,7 +95,8 @@ both reply cases and adds an independently signed public-key mention with actual
 mentions-channel alert, system tap to the exact post, recreation/consumed-route
 and original saved text/photo invariants. Local core/debug/test38028 PASS2m10s;
 both source review axes0/0. Production still classifies replies only. Actual
-Android10 RED is next, not yet observed. No CI outcome is inferred. Existing
+Android10 run38933228336 is active at8d803b4822abd3e06d5baf3a6377ca4aef64a87a
+(scope social-push,5ordinary cases). RED is not yet observed. No CI outcome is inferred. Existing
 transport, notification choices and other-form work remain.
 
 Remaining#32 includes saving/retry and other forms,
