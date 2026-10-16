@@ -256,15 +256,25 @@ not first use. No social consent is enabled by that setup. Correctionf9ac43f9
 keeps reading available with a passive message if Skip persistence fails; Enable
 failure retains retry controls. Separate messages distinguish persistence and
 subsequent OS-controls launch failure. Both final ordinary minimum/source/RED
-evidence reviews report0/0. Local core/debug/test1582 PASS3m53s. Native GREEN
-and existing permission/read-history regression remain pending. No owned local
-build is active. At source495fb72cd066aef4fd0f154bcb52779d79a906c9 the actual
+evidence reviews report0/0. Local core/debug/test1582 PASS3m53s. No owned local build is active. At source495fb72cd066aef4fd0f154bcb52779d79a906c9 the actual
 focused dispatches are social Android10 run38962211627, social Android17
 run38962215407, existing notifications Android10 run38962218678 and existing
-notifications Android17 run38962222453. They are active/queued; no native result
-is inferred. Notifications scope covers the existing read UI, actual OS allow/deny
-choices as applicable and history process recovery. All focused scopes omit
-release/lint/full acceptance; the separate push source workflow includes release/lint.
+notifications Android17 run38962222453. All four now succeed. [Social consent GREEN](../evidence/ticket32/social-consent-green/)
+records Android10 eight cases68.043s and Android17 eight cases87.529s. Root viewed
+six/five new originals and parsed67XMLs, checked the exact social-switch parentsOn.
+73/72hashes retained. Explicit offer despite prior global history/pregranted API33+
+permission, enable/recreation/no-repeat2s and actual replytap/latest draft/photo/
+full invariants pass. Android10 destination is still Loading replies; Android17
+capture has Refresh enabled, no exhaustive-history claim.
+[Compatibility regression](../evidence/ticket32/social-consent-regression/README.md)
+records32 read cases perSDK (157.814s/137.688s), one/two actual OS permission
+cases and history process recovery PIDs6386→6473 /5338→5411. Root viewed eight
+permission/cold originals and parsed96XMLs.106/111hashes retained. Denial keeps
+in-app reading available; no receiver-after-denial proof from those cases. Read
+recovery shows the intended server-read error while retaining NoUnread/actor.
+Separate source push38962198525 succeeds at the same495source, including release/
+lint. Focused scopes omit those and full acceptance. Final evidence review is
+next; public beta24 is unchanged and #32 remains open.
 Concrete notes: .scratch/push32-consent-integration-plan.txt.
 
 Remaining#32 includes saving/retry and other forms,
