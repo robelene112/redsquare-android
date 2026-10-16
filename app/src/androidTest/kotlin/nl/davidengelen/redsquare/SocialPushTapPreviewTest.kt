@@ -7,6 +7,8 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
+import androidx.test.runner.lifecycle.Stage
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.Until
@@ -33,6 +35,7 @@ class SocialPushTapPreviewTest {
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" &&
             android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
+        check(activeMainActivities().isEmpty()) { "The tap fixture requires no pre-existing MainActivity" }
         val fixture = instrumentation.context.assets.open("native-notification-reference.json").bufferedReader()
             .use { JsonParser.parseReader(it).asJsonObject }
         val images = instrumentation.context.assets.open("native-images-reference.json").bufferedReader()
@@ -127,7 +130,7 @@ class SocialPushTapPreviewTest {
         } catch (failure: Throwable) { primary = failure; throw failure }
         finally {
             val cleanup = listOf<() -> Unit>(
-                { device.pressBack() },
+                { finishFixtureActivities() },
                 { manager.activeNotifications.filter { (it.tag to it.id) !in priorAlerts }.forEach { manager.cancel(it.tag, it.id) } },
                 { retained.restoreFiles() }, { retained.restorePreferences() },
                 { wallets.replace(wallets.loadExisting(), previous); check(wallets.loadExisting().exportJson() == previousJson) },
@@ -138,6 +141,24 @@ class SocialPushTapPreviewTest {
             } }
             cleanupFailure?.let { if (primary != null) primary!!.addSuppressed(it) else throw it }
         }
+    }
+
+    private fun activeMainActivities(): List<MainActivity> {
+        var result = emptyList<MainActivity>()
+        InstrumentationRegistry.getInstrumentation().runOnMainSync {
+            val monitor = ActivityLifecycleMonitorRegistry.getInstance()
+            result = Stage.values().filter { it != Stage.DESTROYED }
+                .flatMap { monitor.getActivitiesInStage(it) }.filterIsInstance<MainActivity>().distinct()
+        }
+        return result
+    }
+
+    private fun finishFixtureActivities() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val activities = activeMainActivities()
+        instrumentation.runOnMainSync { activities.forEach { it.finish() } }
+        instrumentation.waitForIdleSync()
+        ui.waitUntil(5_000) { activeMainActivities().isEmpty() }
     }
 
     private fun waitFor(matcher: SemanticsMatcher) {

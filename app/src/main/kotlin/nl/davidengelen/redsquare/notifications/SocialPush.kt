@@ -100,6 +100,11 @@ internal object SocialPush {
                 val open = Intent(context, MainActivity::class.java).setData(Uri.Builder().scheme("redsquare")
                     .authority("social").appendPath(reference.backend.id).appendPath(reference.owner)
                     .appendPath(reference.signature).build())
+                // Preserve only the already validated emulator transport configuration across
+                // a real notification launch. This does not implement destination navigation.
+                if (BuildConfig.DEBUG && Build.HARDWARE in listOf("ranchu", "goldfish") && endpoint != reference.backend.peerUrl) {
+                    open.putExtra(if (reference.backend == SaitoBackend.OWNER) "feedPeerUrl" else "feedOfficialPeerUrl", endpoint)
+                }
                 val pending = PendingIntent.getActivity(context, 0, open,
                     PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
                 val notification = Notification.Builder(context, "replies")
