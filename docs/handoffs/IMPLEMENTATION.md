@@ -132,8 +132,12 @@ inside Settings (openAlertChoice line235). Later choice assertions did not run.
 [Choice RED](../evidence/ticket32/alert-choice-red/android10/README.md) retains
 38hashes/17PNG/XML pairs; root viewed actual Settings failure and parsed17XML.
 adbexit0 is preserved; harness/runtime fail correctly. No scope.txt on failure.
-Minimum UI implementation and source/evidence review are next. No native GREEN
-for this choice is observed, and no owned local Gradle/native run is active.
+The minimum UI is now added: wallet-scoped Replies and mentions switch in the
+existing Settings dialog, off by default, IO read/write with unavailable/error
+state and Retry. It writes existing explicit consent only; no registration,
+Android permission/category shortcut or FCM transport claim. The mounted settings
+modal keeps existing push-route deferral. Source/evidence review and local build
+are next. No native GREEN for the choice is observed.
 
 Remaining#32 includes saving/retry and other forms,
 mentions/registration proof, optional notification settings, real transport and

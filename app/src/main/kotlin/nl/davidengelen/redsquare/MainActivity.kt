@@ -390,6 +390,7 @@ class MainActivity : ComponentActivity() {
                                         } finally { savingBackend = false }
                                     }
                                 }) { Text(stringResource(R.string.username_settings)) }
+                                wallet?.publicKey?.let { nl.davidengelen.redsquare.notifications.SocialAlertChoice(it) }
                                 Text(stringResource(R.string.server_choice))
                                 Text(stringResource(R.string.server_history_hint), style = MaterialTheme.typography.bodySmall)
                                 if (backendSaveError) Text(stringResource(R.string.backend_save_error))
