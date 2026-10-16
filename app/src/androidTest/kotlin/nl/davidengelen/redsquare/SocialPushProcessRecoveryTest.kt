@@ -75,6 +75,11 @@ class SocialPushProcessRecoveryTest {
                 val y = visible.visibleBounds.centerY()
                 assertTrue(device.swipe(device.displayWidth / 4, y, device.displayWidth - 2, y, 20))
                 assertTrue(device.wait(Until.gone(By.text("Replied to your post")), 5_000))
+                val dismissedBy = android.os.SystemClock.elapsedRealtime() + 5_000
+                while (alerts().isNotEmpty() && android.os.SystemClock.elapsedRealtime() < dismissedBy) {
+                    android.os.SystemClock.sleep(25)
+                }
+                assertTrue("Android must finish the physical dismissal before silence is measured", alerts().isEmpty())
                 assertSilent()
                 capture("dismissed-before-death")
                 assertFixture(row)

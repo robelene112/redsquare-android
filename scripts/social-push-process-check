@@ -56,12 +56,14 @@ try:
     if not isinstance(recovered['recoveredPid'], int) or recovered['recoveredPid'] <= 0 or recovered['recoveredPid'] == row['pid']:
         raise AssertionError('Recovery did not use a different process')
     (args.evidence / 'recovered-checkpoint.json').write_text(json.dumps(recovered, indent=2) + '\n')
-    (args.evidence / 'continuity.txt').write_text(
-        'PASS: actual process death after physical dismissal; cold duplicate suppressed, independent fresh signed reply '
-        'visibly alerts; full wallet/backend retained and original encrypted installation restored independently. '
-        'Local transport only, no FCM or public closed-app claim.\n')
 except BaseException as failure:
     primary = failure
     raise
 finally:
     finish_process_fixture(instrument, args.evidence, package, 'social-push-process-evidence', primary)
+
+# A continuity success includes the independent restorer above, never merely the recovery case.
+(args.evidence / 'continuity.txt').write_text(
+    'PASS: actual process death after physical dismissal; cold duplicate suppressed, independent fresh signed reply '
+    'visibly alerts; full wallet/backend retained and original encrypted installation restored independently. '
+    'Local transport only, no FCM or public closed-app claim.\n')
