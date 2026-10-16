@@ -81,7 +81,9 @@ while retry is pending. Worker also maps its verifier's own15s timeout to retry
 after ensuring the parent context remains active; true worker cancellation still
 propagates. This timeout path needs its own native observation before claiming it
 tested. The current case uses malformed/unavailable Archive data, not timeout.
-Corrected minimum source reviews and exact-source Android10/17 GREEN are next.
+Both corrected minimum source reviews at1a62909d report0 findings. Fresh
+exact-source Android10/17 GREEN is next; no sourcecheck/build success counts as
+actual runtime acceptance.
 No further local rebuild for the small review correction: exact CI compiles core/
 debug/test before runtime. Tracer source38980190232 SUCCESS release/lint retained.
 Do not claim GREEN or actual process-death/FCM acceptance. No owned local Gradle build remains after the pre-review minimum passed3m20s
