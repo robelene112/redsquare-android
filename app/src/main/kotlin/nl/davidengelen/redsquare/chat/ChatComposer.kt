@@ -68,8 +68,16 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
     }
     DisposableEffect(work, navigation) {
         val save: suspend () -> Boolean = { persist() }
+        val guarded: suspend (suspend () -> Boolean) -> Boolean = { commit ->
+            if (navigation.saveCurrent !== save || !ready || sending || preparingPhoto) false
+            else if (persist() && navigation.saveCurrent === save) commit() else false
+        }
         navigation.saveCurrent = save
-        onDispose { if (navigation.saveCurrent === save) navigation.saveCurrent = null }
+        navigation.guardedCurrent = guarded
+        onDispose {
+            if (navigation.saveCurrent === save) navigation.saveCurrent = null
+            if (navigation.guardedCurrent === guarded) navigation.guardedCurrent = null
+        }
     }
     LaunchedEffect(work) {
         try {
@@ -104,10 +112,10 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
         delay(300)
         persist()
     }
-    val editable = ready && !sending && !saved.frozen
+    val editable = ready && !sending && !saved.frozen && !navigation.transitioning
     val replyAction = remember(work) {
         { message: PrivateChatMessage ->
-            if (ready && !sending && !saved.frozen &&
+            if (ready && !sending && !saved.frozen && !navigation.transitioning &&
                 message.author in setOf(wallet.publicKey, contact)) {
                 privateReplyPrefix(message)?.let { prefix -> changeText(prefix + privateMessageBody(text)) }
             }
@@ -136,7 +144,8 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
                         Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically,
                             horizontalArrangement=Arrangement.SpaceBetween) {
                             Text(stringResource(R.string.chat_queued))
-                            TextButton(enabled=ready&&!sending,onClick={
+                            TextButton(enabled=ready&&!sending&&!navigation.transitioning,onClick=cancel@{
+                                if (navigation.transitioning || sending) return@cancel
                                 sending=true
                                 scope.launch {
                                     try {
@@ -177,21 +186,24 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
                         .semantics{contentDescription=previewLabel}) {
                         if (quote != null) {
                             Text(quote.quote, style = MaterialTheme.typography.bodyMedium)
-                            TextButton(enabled = editable, onClick = { changeText(body) }) {
+                            TextButton(enabled = editable, onClick = { if (!navigation.transitioning) changeText(body) }) {
                                 Text(stringResource(R.string.chat_remove_reply))
                             }
                         }
                         ChatPhotoAttachment("${wallet.publicKey}:${backend.id}:$contact", body, backend, editable && permitted,
-                            beforePicker = { persist() }, onPreparing = { preparingPhoto = it },
-                            onChange = { changeText((quote?.prefix ?: "") + it) })
+                            beforePicker = { !navigation.transitioning && persist() && !navigation.transitioning },
+                            onPreparing = { preparingPhoto = it },
+                            onChange = { if (!navigation.transitioning) changeText((quote?.prefix ?: "") + it) })
                     }
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         OutlinedTextField(value = typed, onValueChange = { value ->
-                            changeText((quote?.prefix ?: "") + (photo?.let { composeChatPhoto(it.source, value) } ?: value))
+                            if (!navigation.transitioning)
+                                changeText((quote?.prefix ?: "") + (photo?.let { composeChatPhoto(it.source, value) } ?: value))
                         }, label = { Text(stringResource(R.string.chat_message)) },
                             modifier = Modifier.weight(1f), enabled = editable, maxLines = 4)
-                        Button(enabled = permitted && ready && !sending && !preparingPhoto && saved.status!=ChatWorkStore.Status.QUEUED && (retrying || typed.isNotBlank() || photo != null),
-                            onClick = {
+                        Button(enabled = permitted && ready && !sending && !preparingPhoto && !navigation.transitioning && saved.status!=ChatWorkStore.Status.QUEUED && (retrying || typed.isNotBlank() || photo != null),
+                            onClick = send@ {
+                                if (navigation.transitioning || sending || preparingPhoto || !ready) return@send
                                 focus.clearFocus()
                                 keyboard?.hide()
                                 sending = true

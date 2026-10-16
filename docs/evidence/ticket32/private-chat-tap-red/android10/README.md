@@ -1,0 +1,7 @@
+# Actual private Chat draft tap RED
+
+Android 10 run 38967008873 at `bbb3db3a42dd6f05cc99b4587ce9ef47f38475ec` completed FAILURE: nine cases, eight passed, one failed, 85.741 s. The private journey positively opens its contact and photo draft, edits the caption, publishes an actual Replies alert and physically taps it. It then times out after 15 seconds waiting for Conversation at line 227. The original alert capture shows Replied to your post. The failure capture shows Chat retained with Retry and the photo; its XML retains the exact latest editable text, which is clipped in the PNG by the keyboard/layout.
+
+This is the intended missing-navigation RED. Current private Chat registers saveCurrent without guardedCurrent, so PostNavigation.navigate refuses the mounted form. The destination, protected-draft inspection, recreation/reopening, final raster and final wallet/backend/no-write assertions are unexecuted in this new case. Existing eight social cases pass. Cleanup still runs independently. Actual FCM, dead-process delivery and full Android acceptance are outside this local fixture result.
+
+Root viewed both new-case originals and parsed all 36 XML files. Raw metadata, logs, original PNG/XML and core result are retained. The instrumentation command exit 0 does not change harness FAILURE. Separate source push 38966996156 succeeds at the same source, including release assembly and lint.

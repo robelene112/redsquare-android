@@ -37,9 +37,11 @@ internal fun ChatPhotoAttachment(session: String, body: String, backend: SaitoBa
     val currentEnabled by rememberUpdatedState(enabled)
     val change by rememberUpdatedState(onChange)
     val preparation by rememberUpdatedState(onPreparing)
+    // Restored pickers and returned URIs also keep navigation waiting.
+    SideEffect { preparation(preparing || pickingFor != null || selected != null) }
     val photo = remember(body) { chatPhoto(body) }
     val picker = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-        if (pickingFor == session) { pickingFor = null; selected = uri }
+        if (pickingFor == session) { pickingFor = null; selected = uri; preparation(uri != null) }
     }
     LaunchedEffect(selected) {
         val uri = selected ?: return@LaunchedEffect
@@ -61,10 +63,11 @@ internal fun ChatPhotoAttachment(session: String, body: String, backend: SaitoBa
                 try {
                     if (beforePicker() && currentEnabled) {
                         pickingFor = session
+                        preparation(true)
                         picker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
                     }
                 } catch (cancelled: CancellationException) { throw cancelled }
-                catch (_: Exception) { pickingFor = null; failed = true }
+                catch (_: Exception) { pickingFor = null; preparation(false); failed = true }
             }
         }) { Text(stringResource(R.string.chat_add_photo)) }
         if (preparing) Text(stringResource(R.string.image_preparing))

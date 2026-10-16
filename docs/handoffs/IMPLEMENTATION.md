@@ -57,8 +57,21 @@ runtime steps were skipped. [Cancellation metadata](../evidence/ticket32/private
 retains the request snapshot and final state. No application assertion ran.
 The readiness correction bbb3db3a has both review axes at zero outstanding findings
 and local core/debug/test assembly passed in 1m 41s. Intended Android 10 RED
-38967008873 is pending at exact bbb3db3a42dd6f05cc99b4587ce9ef47f38475ec.
-No production guard change or intended feature RED is claimed yet.
+38967008873 at exact bbb3db3a42dd6f05cc99b4587ce9ef47f38475ec completed FAILURE:
+nine cases, eight passed, one failed, 85.741 s. This is the intended missing
+Conversation RED after actual reply alert/tap from the edited private photo draft.
+[RED evidence](../evidence/ticket32/private-chat-tap-red/android10/README.md) retains
+36 original PNG/XML pairs; root viewed both new-case originals and parsed all XML.
+Failure shows Chat/Retry/photo and exact latest editable caption in XML. Destination,
+protected-draft checks, reopening/raster and final invariants did not run in the new
+case. Separate source push 38966996156 succeeds with release assembly/lint.
+
+The bounded minimum registers a private Chat guard, using existing navigation
+transition state to freeze composer changes/send/cancel/Back across persist+commit.
+Picker/returned-URI busy state also reaches the existing attachment callback,
+including restored pickers; no draft/signing/send format changes. Local minimum
+compilation is running; source review and Android 10/17 GREEN remain pending.
+The shared photo callback makes existing Chat photo regression scopes relevant.
 Separate source run 38965756141 passed release assembly/lint at f80b035a.
 
 

@@ -85,7 +85,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     }
     LaunchedEffect(reactionState) { reactionState?.load() }
     fun close() {
-        if (closing) return
+        if (closing || navigation.transitioning) return
         closing = true
         scope.launch {
             try {
@@ -280,7 +280,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     val keyboardVisible = WindowInsets.isImeVisible
     Column(modifier.fillMaxSize()) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            TextButton(enabled = !closing, onClick = { close() }) {
+            TextButton(enabled = !closing && !navigation.transitioning, onClick = { close() }) {
                 Text(stringResource(R.string.browse_back))
             }
             Text(stringResource(R.string.chat_title), Modifier.weight(1f), style = MaterialTheme.typography.titleLarge)
