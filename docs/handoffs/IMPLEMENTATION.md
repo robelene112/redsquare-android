@@ -11,7 +11,8 @@ The owner explicitly asked to stop cybersecurity requests. No Daybreak applicati
 or cybersecurity service/account request was submitted. Stop separate research
 and targeted campaigns in that area; continue ordinary app functionality and
 correctness. The optional extra test and dedicated dispatch choices were removed
-at50ac874d. Current regular notification scope has3cases. Keep existing app fixes.
+at50ac874d. The current regular scope has4 ordinary cases after adding the
+cold-tap lifecycle case. Keep existing app fixes.
 Do not retry, rename or reroute blocked work. AGENTS.md records this instruction.
 
 The ChatGPT interface displayed a content-blocked notice. Root explained that it
@@ -64,14 +65,21 @@ retain their screen with Retry pending their ordinary integration. No production
 entry point invokes the local receiver. Full tap lifecycle behavior is not yet
 verified. Corrected local core/debug/test29634 completed0 in3m21s.
 
+GitHub had automatically closed#32 because an interim commit subject contained
+a closing keyword followed by#32. Root reopened it: acceptance is incomplete,
+and the owner did not request closing it. Avoid closing keywords next to issue
+numbers in interim commit messages.
+
 Current ordinary lifecycle verification is added at e552efbc: shared warm fixture
 plus actual notification tap with no MainActivity, Activity recreation, Back/feed
 recreation and2s consumed-route observation, then original saved text/photo and
 wallet/backend/no-TX assertions. Instrumentation remains alive, no FCM claim.
 Local core/debug/test34171 PASS2m24s. Both reviews found only manual-close error
 replacement; nullable scenario.use now preserves the original failure. Corrected
-source review then ordinary focused Android10/17 runs are next. No owned local
-Gradle or native CI verification is active. Focused runs execute
+source reviews report0/0. Ordinary focused Android10 run38931710840 and
+Android17 run38931756109 are active at exact source
+182d38433d36131184837fbd3681cddfa2378b1c. No outcome is inferred. No owned local
+Gradle build is active. Focused runs execute
 core/debug/test only, without release/lint or full suites. Public beta24 remains
 current and no new version is reserved. Next ordinary slice: actual system tap
 when no MainActivity is open, followed by screen recreation/return checks. This
