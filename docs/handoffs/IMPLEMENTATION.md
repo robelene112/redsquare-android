@@ -11,8 +11,8 @@ The owner explicitly asked to stop cybersecurity requests. No Daybreak applicati
 or cybersecurity service/account request was submitted. Stop separate research
 and targeted campaigns in that area; continue ordinary app functionality and
 correctness. The optional extra test and dedicated dispatch choices were removed
-at50ac874d. The current regular scope has4 ordinary cases after adding the
-cold-tap lifecycle case. Keep existing app fixes.
+at50ac874d. Subsequent cases cover ordinary app functionality. Keep existing
+app fixes.
 Do not retry, rename or reroute blocked work. AGENTS.md records this instruction.
 
 The ChatGPT interface displayed a content-blocked notice. Root explained that it
@@ -155,39 +155,35 @@ Android10 permission wording. No native run is active.
 AppearancePreviewTest already scrolls to theme choices; no fixture change needed.
 No owned local Gradle build remains active.
 
-The next ordinary Android-category shortcut tracer is committed ate5f5c268,
-corrected074938aa after both reviews found Activity memory could mask missing
-before-leave persistence. It positively observes Android Settings/package/appname
-and Replies/Mentions categories, then verifies exact saved text/photo with null
-transaction/unqueued while OS Settings is foreground, before Back or any later
-notification navigation. Return/recreation and the existing reply journey remain.
-Both corrected source axes0/0. Local pre-correction11273 PASS1m50s; corrected
-core/debug/test91029 PASS1m44s. No shortcut is implemented yet. Actual Android10
-run38940489331 atd10df7f052ce22bbdd3e4d54f28321826a9e42db is FAILURE7cases,
-6PASS1FAIL58.97s at shortcutwaitline252. This is a fixture navigation failure,
-not intended feature RED: original PNG/XML show the post/IME and no Settings
-dialog. [Retained navigation failure](../evidence/ticket32/android-category-navigation-failure/android10/README.md)
-has50hashes/23PNG/XML. Root viewed failure and parsedall23XMLs. Later OS/durability/
-tap tails unexecuted. Correction now dismissesIME, waits displayed header, clicks
-and positively observes the Settings title inside Dialog before looking for the
-shortcut. Same genuine category/durability assertions retained. No production
-shortcut exists yet; intended native RED remains pending. Both final ordinary
-source/navigation-evidence reviews0/0 at57fada72. Corrected local core/debug/test
-98760 PASS1m41s. Fresh Android10 run38941694304 is active at exact source
-152395ae32c1f25896834f426c846824ff6e9d58 completed FAILURE7cases6PASS1FAIL61.348s
-at missing shortcutwaitline254. Displayed header and positive Settings-dialog
-preconditions pass; original failure PNG/XML show Settings with the alert switch
-and no shortcut. [Intended RED](../evidence/ticket32/android-category-red/android10/README.md)
-retains50hashes/23PNG/XML; root viewed failure and parsedall23XML. OS/category/
-persistence-before-return and later new-case tails are unexecuted. Earlier
-navigation failure remains separate. Minimum is now added: the Settings button
-uses PostNavigation.navigate to save/freeze the mounted post through channel
-initialization and app-specific Android Settings launch. Existing Replies/Mentions
-channel definitions are centralized for first-visit discovery; existing Android
-category choices are not reset. Opening/saving UI controls disable during the
-transition, with an explicit error message on failure. No OSpermission request,
-Chat-channel or FCM registration work is claimed. Source/RED evidence review
-and local build are pending; no native GREEN is inferred.
+Current ordinary slice: Android notification category shortcut, tracer
+e5f5c268 /074938aa /57fada72. It verifies actual OS Settings/app/categories,
+exact persisted text/photo with null transaction/unqueued while OS Settings is
+foreground, then return/recreation and existing reply navigation. The stored-work
+assertion was added because Activity memory could mask an omitted pre-launch save.
+Local tracer11273 PASS1m50s, corrected91029 PASS1m44s, visible-navigation98760
+PASS1m41s. Corrected tracer and navigation-evidence reviews0/0.
+
+- [Navigation failure](../evidence/ticket32/android-category-navigation-failure/android10/README.md):
+  run38940489331 /d10df7f0 FAILURE7cases6PASS1FAIL58.97s. Failure PNG/XML show
+  editor/IME without Settings. It is not accepted intended feature RED. Fix reused
+  existing IME dismissal and added displayed-header/positive-Dialog preconditions;
+  exact click timing/cause was not established.50hashes/23PNG/XML retained.
+- [Intended shortcut RED](../evidence/ticket32/android-category-red/android10/README.md):
+  run38941694304 /152395ae32c1f25896834f426c846824ff6e9d58 completed FAILURE,
+  7cases6PASS1FAIL61.348s at shortcutwaitline254 after positive Settings display.
+  PNG/XML show Settings with the alert choice and no shortcut.50hashes/23PNG/XML
+  retained; root viewed failure and parsedall23XMLs. Later OS/category/persistence
+  and new-case replytap/final tails are unexecuted. Six established cases pass.
+
+Minimum c101dc31 now adds the Settings button using PostNavigation.navigate to
+save/freeze the mounted post through IO initialization and app-specific Android
+Settings launch. Replies/Mentions channel definitions are reused for first-visit
+category discovery without resetting Android choices. Save/open controls disable
+while busy, with explicit failure feedback. No OSpermission request, Chat category
+or registration/FCM claim. Source/RED evidence Spec0; Standards found only the stale
+handoff active label, corrected here. Local core/debug/test19809 PASS3m29s.
+Corrected handoff review and focused Android10/17 verification are next; no native
+GREEN is inferred and no owned local Gradle/native run is active. Beta24 unchanged.
 
 Remaining#32 includes saving/retry and other forms,
 mentions/registration proof, optional notification settings, real transport and
