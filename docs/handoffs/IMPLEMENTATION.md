@@ -43,8 +43,10 @@ Receive and tap freshly use the same optional cache at their own classification
 time. Cancellation propagates; unavailable optional name cache behaves as no name,
 matching NotificationsScreen, so public-key/list mentions still work. Owned-parent
 reply priority stays before name lookup. No network lookup/registration/wallet or
-protocol-format change. Compilation and source/RED-evidence review are next;
-no native GREEN or whole#32 result is claimed.
+protocol-format change. Both ordinary source/RED-evidence reviews report zero findings at990739b8.
+Local core/debug/test compilation is active; no native GREEN or whole#32 result
+is claimed. Next actual checks are social11cases and existing notification
+compatibility on both Android versions at one exact source.
 
 Plan `.scratch/push32-username-minimum-plan.txt`; retention helper
 `.scratch/retain-push32-username.py` validates11cases. Large artifacts remain under
