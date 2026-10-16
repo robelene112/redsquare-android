@@ -146,23 +146,58 @@ verify_group_chat_native() {
     [[ "$native_exit" == 0 ]] && grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/$prefix-ui.txt"
 }
 verify_social_push() {
-    local push_api granted_for_test=0 native_exit=0
+    local push_api granted_for_test=0 native_exit=0 push_uid rule_added4=0 rule_added6=0
+    [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; return 1; }
+    # A broken notification launch can discard its controlled endpoint. Keep every
+    # Activity in this disposable app UID confined to the loopback fixture peers.
+    adb root > "$evidence/social-push-adb-root.txt" || return 1
+    adb wait-for-device || return 1
+    [[ "$(adb shell id -u | tr -d '\r')" == 0 ]] || return 1
+    push_uid=$(adb shell cmd package list packages -U nl.davidengelen.redsquare.dev | tr -d '\r' |
+        sed -n 's/^package:nl\.davidengelen\.redsquare\.dev uid:\([0-9][0-9]*\)$/\1/p')
+    [[ "$push_uid" =~ ^[0-9]+$ && "$push_uid" -ge 10000 ]] || return 1
+    if adb shell iptables -I OUTPUT 1 -m owner --uid-owner "$push_uid" ! -d 127.0.0.0/8 \
+        -m comment --comment redsquare-social-push-test -j REJECT; then rule_added4=1; else native_exit=1; fi
+    if [[ "$native_exit" == 0 ]]; then
+        if adb shell ip6tables -I OUTPUT 1 -m owner --uid-owner "$push_uid" ! -d ::1/128 \
+            -m comment --comment redsquare-social-push-test -j REJECT; then rule_added6=1; else native_exit=1; fi
+    fi
+    if [[ "$native_exit" == 0 ]]; then
+        adb shell iptables -C OUTPUT -m owner --uid-owner "$push_uid" ! -d 127.0.0.0/8 \
+            -m comment --comment redsquare-social-push-test -j REJECT || native_exit=1
+        adb shell ip6tables -C OUTPUT -m owner --uid-owner "$push_uid" ! -d ::1/128 \
+            -m comment --comment redsquare-social-push-test -j REJECT || native_exit=1
+    fi
+    printf 'uid=%s\nipv4_rule_added=%s\nipv6_rule_added=%s\nsetup_status=%s\n' \
+        "$push_uid" "$rule_added4" "$rule_added6" "$native_exit" > "$evidence/social-push-network.txt"
     push_api="$(adb shell getprop ro.build.version.sdk | tr -d '\r')"
-    if [[ "$push_api" -ge 33 ]]; then
+    if [[ "$native_exit" == 0 && "$push_api" -ge 33 ]]; then
         adb shell dumpsys package nl.davidengelen.redsquare.dev > "$evidence/social-push-permission-before.txt"
         if ! grep -Fq 'android.permission.POST_NOTIFICATIONS: granted=true' "$evidence/social-push-permission-before.txt"; then
-            adb shell pm grant nl.davidengelen.redsquare.dev android.permission.POST_NOTIFICATIONS || return 1
-            granted_for_test=1
+            if adb shell pm grant nl.davidengelen.redsquare.dev android.permission.POST_NOTIFICATIONS; then
+                granted_for_test=1
+            else native_exit=1; fi
         fi
     fi
-    if [[ "${TEST_SCOPE:-full}" == social-push-process* ]]; then
-        python3 "$repo_dir/scripts/social-push-process-check" --evidence "$evidence/social-push-process" || native_exit=$?
-    else
-        verify_group_chat_native "SocialPushPreviewTest,nl.davidengelen.redsquare.SocialPushTapPreviewTest" 180 social-push social-push-evidence || native_exit=$?
+    if [[ "$native_exit" == 0 ]]; then
+        if [[ "${TEST_SCOPE:-full}" == social-push-process* ]]; then
+            python3 "$repo_dir/scripts/social-push-process-check" --evidence "$evidence/social-push-process" || native_exit=$?
+        else
+            verify_group_chat_native "SocialPushPreviewTest,nl.davidengelen.redsquare.SocialPushTapPreviewTest" 180 social-push social-push-evidence || native_exit=$?
+        fi
     fi
     if [[ "$granted_for_test" == 1 ]]; then
-        adb shell pm revoke nl.davidengelen.redsquare.dev android.permission.POST_NOTIFICATIONS || return 1
+        adb shell pm revoke nl.davidengelen.redsquare.dev android.permission.POST_NOTIFICATIONS || native_exit=1
     fi
+    if [[ "$rule_added4" == 1 ]]; then
+        adb shell iptables -D OUTPUT -m owner --uid-owner "$push_uid" ! -d 127.0.0.0/8 \
+            -m comment --comment redsquare-social-push-test -j REJECT || native_exit=1
+    fi
+    if [[ "$rule_added6" == 1 ]]; then
+        adb shell ip6tables -D OUTPUT -m owner --uid-owner "$push_uid" ! -d ::1/128 \
+            -m comment --comment redsquare-social-push-test -j REJECT || native_exit=1
+    fi
+    printf 'final_status=%s\n' "$native_exit" >> "$evidence/social-push-network.txt"
     return "$native_exit"
 }
 if [[ "${TEST_SCOPE:-full}" == social-push* ]]; then
