@@ -174,8 +174,14 @@ shortcut. Same genuine category/durability assertions retained. No production
 shortcut exists yet; intended native RED remains pending. Both final ordinary
 source/navigation-evidence reviews0/0 at57fada72. Corrected local core/debug/test
 98760 PASS1m41s. Fresh Android10 run38941694304 is active at exact source
-152395ae32c1f25896834f426c846824ff6e9d58, social-push scope/7ordinary cases.
-No outcome inferred; no owned local Gradle build is active.
+152395ae32c1f25896834f426c846824ff6e9d58 completed FAILURE7cases6PASS1FAIL61.348s
+at missing shortcutwaitline254. Displayed header and positive Settings-dialog
+preconditions pass; original failure PNG/XML show Settings with the alert switch
+and no shortcut. [Intended RED](../evidence/ticket32/android-category-red/android10/README.md)
+retains50hashes/23PNG/XML; root viewed failure and parsedall23XML. OS/category/
+persistence-before-return and later new-case tails are unexecuted. Earlier
+navigation failure remains separate. Minimum shortcut/channel initialization and
+source/evidence review are next; no native GREEN or local build is active.
 
 Remaining#32 includes saving/retry and other forms,
 mentions/registration proof, optional notification settings, real transport and
