@@ -173,8 +173,9 @@ and positively observes the Settings title inside Dialog before looking for the
 shortcut. Same genuine category/durability assertions retained. No production
 shortcut exists yet; intended native RED remains pending. Both final ordinary
 source/navigation-evidence reviews0/0 at57fada72. Corrected local core/debug/test
-98760 PASS1m41s. A fresh Android10 run is next; no outcome inferred and no
-owned local Gradle/native run is active.
+98760 PASS1m41s. Fresh Android10 run38941694304 is active at exact source
+152395ae32c1f25896834f426c846824ff6e9d58, social-push scope/7ordinary cases.
+No outcome inferred; no owned local Gradle build is active.
 
 Remaining#32 includes saving/retry and other forms,
 mentions/registration proof, optional notification settings, real transport and
