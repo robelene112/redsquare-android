@@ -18,6 +18,8 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
+import nl.davidengelen.redsquare.chat.ChatWorkStore
+import nl.davidengelen.redsquare.chat.composeChatPhoto
 import nl.davidengelen.redsquare.feed.PostDraftStore
 import nl.davidengelen.redsquare.notifications.SocialPush
 import nl.davidengelen.redsquare.notifications.SocialPushResult
@@ -44,13 +46,16 @@ class SocialPushTapPreviewTest {
 
     @Test fun enablingSocialAlertsWorksEvenAfterTheGeneralAndroidPromptWasOffered() = tapJourney(Journey.ONBOARDING_REPLY)
 
-    private enum class Journey { WARM_REPLY, COLD_REPLY, COLD_MENTION, SETTINGS_REPLY, ANDROID_SETTINGS_REPLY, ONBOARDING_REPLY }
+    @Test fun aReplyTapPreservesTheLatestUnsentPrivateChatAndPhoto() = tapJourney(Journey.PRIVATE_CHAT_REPLY)
+
+    private enum class Journey { WARM_REPLY, COLD_REPLY, COLD_MENTION, SETTINGS_REPLY, ANDROID_SETTINGS_REPLY, ONBOARDING_REPLY, PRIVATE_CHAT_REPLY }
 
     private fun tapJourney(journey: Journey = Journey.WARM_REPLY) {
         val cold = journey == Journey.COLD_REPLY || journey == Journey.COLD_MENTION
         val mention = journey == Journey.COLD_MENTION
         val settings = journey == Journey.SETTINGS_REPLY
         val onboarding = journey == Journey.ONBOARDING_REPLY
+        val privateChat = journey == Journey.PRIVATE_CHAT_REPLY
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" &&
@@ -61,7 +66,9 @@ class SocialPushTapPreviewTest {
         val images = instrumentation.context.assets.open("native-images-reference.json").bufferedReader()
             .use { JsonParser.parseReader(it).asJsonObject }
         val photo = images.getAsJsonObject("images").get("red").asString
-        val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Published unsafe fixture only.
+        val contact = SaitoWallet.fromPrivateKey("0".repeat(63) + "2").publicKey // Published unsafe fixture only.
+        val identity = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Published unsafe fixture only.
+        val wallet = if (privateChat) identity.withChatContact(contact) else identity
         val owner = wallet.publicKey
         val root = fixture.getAsJsonObject("root")
         val target = fixture.getAsJsonObject(if (mention) "incomingMention" else "incomingReply")
@@ -75,7 +82,7 @@ class SocialPushTapPreviewTest {
         val freshSignature = "1991d496005db8cb234ddd8482f1b8cc01cb75a9d38fd3ff904f000144e7a6bd22da22068460a5b0f7d5f9d524ae3ac8e2a4a531bad7a2ce46f10149d2abc64b"
         assertEquals(signature, target.get("sig").asString)
         assertEquals(freshSignature, freshReply.get("sig").asString)
-        val peer = ControlledFeedPeer("[$root]", archiveResponse = { criteria ->
+        val peer = ControlledFeedPeer("[$root]", advertisedServices = if (privateChat) "archive||;relay||" else null, archiveResponse = { criteria ->
             when {
                 criteria.has("sig") -> when (criteria.get("sig").asString) {
                     signature -> "[$target]"
@@ -93,7 +100,10 @@ class SocialPushTapPreviewTest {
         val backends = AndroidBackendStore(context)
         val previousBackend = backends.load()
         val retained = ChatFixtureState(context, listOf("socialpush.$owner.", "personal.$owner.",
-            "postdraft.owner.$owner"), owner)
+            "postdraft.owner.$owner") + if (privateChat) SaitoBackend.entries.flatMap { backend ->
+                listOf("chat.${backend.id}.$owner.", "chatwork.${backend.id}.$owner.",
+                    "chatreactions.${backend.id}.$owner.", "groupchat.${backend.id}.$owner.")
+            } else emptyList(), owner)
         val manager = context.getSystemService(NotificationManager::class.java)
         val priorAlerts = manager.activeNotifications.map { it.tag to it.id }.toSet()
         val device = UiDevice.getInstance(instrumentation)
@@ -105,6 +115,7 @@ class SocialPushTapPreviewTest {
             Journey.SETTINGS_REPLY -> "tap-settings"
             Journey.ANDROID_SETTINGS_REPLY -> "tap-android"
             Journey.ONBOARDING_REPLY -> "tap-onboarding"
+            Journey.PRIVATE_CHAT_REPLY -> "tap-private"
         }
         var primary: Throwable? = null
         try {
@@ -115,6 +126,8 @@ class SocialPushTapPreviewTest {
             // The encrypted draft supplies the photo; the warm journey edits its latest text in the UI.
             PostDraftStore(context, owner, SaitoBackend.OWNER).save(
                 PostDraftStore.Saved("Earlier saved text", images = listOf(photo)))
+            if (privateChat) ChatWorkStore(context, wallet, SaitoBackend.OWNER, contact)
+                .saveDraft(composeChatPhoto(photo, "Earlier saved text"))
             peer.start().use { server ->
                 val endpoint = "ws://127.0.0.1:${server.port}/wsopen"
                 // The cold case has no MainActivity. Instrumentation/fixture transport remains alive.
@@ -173,8 +186,10 @@ class SocialPushTapPreviewTest {
                                 captureNativeScreen(File(context.cacheDir, "social-push-evidence/tap-settings-enabled.png"), "Replies and mentions")
                                 ui.onNodeWithText("Done").performClick()
                             }
-                            waitFor(hasText("New post") and hasClickAction() and isEnabled())
-                            ui.onNode(hasText("New post") and hasClickAction()).performClick()
+                            if (privateChat) openPrivateChat(contact) else {
+                                waitFor(hasText("New post") and hasClickAction() and isEnabled())
+                                ui.onNode(hasText("New post") and hasClickAction()).performClick()
+                            }
                             waitFor(hasSetTextAction() and isEnabled())
                             ui.onNode(hasSetTextAction()).assertTextEquals("Earlier saved text")
                             ui.onNodeWithContentDescription("Image 1 of 1").performScrollTo().assertIsDisplayed()
@@ -230,7 +245,14 @@ class SocialPushTapPreviewTest {
                             } while (android.os.SystemClock.elapsedRealtime() < until)
                             captureNativeScreen(File(context.cacheDir, "social-push-evidence/$capturePrefix-consumed.png"))
                         }
-                        ui.onNode(hasText("New post") and hasClickAction()).performClick()
+                        if (privateChat) {
+                            val retainedChat = ChatWorkStore(context, wallet, SaitoBackend.OWNER, contact).load()
+                            assertEquals(composeChatPhoto(photo, latest), retainedChat.draft)
+                            assertNull(retainedChat.transaction)
+                            assertEquals(ChatWorkStore.Status.NONE, retainedChat.status)
+                            recreateCurrentActivity()
+                            openPrivateChat(contact)
+                        } else ui.onNode(hasText("New post") and hasClickAction()).performClick()
                         waitFor(hasSetTextAction() and isEnabled())
                         ui.onNode(hasSetTextAction()).assertTextEquals(latest)
                         val bitmap = ui.onNodeWithContentDescription("Image 1 of 1").performScrollTo()
@@ -238,7 +260,7 @@ class SocialPushTapPreviewTest {
                         assertEquals(0xffdc1e28.toInt(), bitmap.getPixel(bitmap.width / 2, bitmap.height / 2))
                         captureNativeScreen(File(context.cacheDir, "social-push-evidence/$capturePrefix-draft-restored.png"))
                         val saved = PostDraftStore(context, owner, SaitoBackend.OWNER).load()
-                        assertEquals(latest, saved.text)
+                        assertEquals(if (privateChat) "Earlier saved text" else latest, saved.text)
                         assertEquals(listOf(photo), saved.images)
                         assertNull(saved.transaction)
                         assertFalse(saved.queued)
@@ -284,6 +306,17 @@ class SocialPushTapPreviewTest {
             } }
             cleanupFailure?.let { if (primary != null) primary!!.addSuppressed(it) else throw it }
         }
+    }
+
+    private fun openPrivateChat(contact: String) {
+        val chat = hasText("Chat") and hasClickAction() and isEnabled()
+        waitFor(chat)
+        ui.waitUntil(15_000) { ui.onNode(chat).isDisplayed() }
+        ui.onNode(chat).assertIsDisplayed().performClick()
+        val row = hasClickAction() and isEnabled() and hasAnyDescendant(hasText(contact))
+        ui.waitUntil(15_000) { ui.onNode(row, useUnmergedTree = true).isDisplayed() }
+        ui.onNode(row, useUnmergedTree = true).assertIsDisplayed().performClick()
+        waitFor(hasSetTextAction() and isEnabled())
     }
 
     private fun alertChoice() = hasText("Replies and mentions") and isToggleable()
