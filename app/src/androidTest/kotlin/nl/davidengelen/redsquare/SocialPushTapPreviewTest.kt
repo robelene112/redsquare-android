@@ -196,6 +196,10 @@ class SocialPushTapPreviewTest {
                             assertEditorText("Earlier saved text")
                             draftPhoto(privateChat)
                             ui.onNode(hasSetTextAction()).performTextReplacement(latest)
+                            if (privateChat) {
+                                assertEditorText(latest)
+                                captureNativeScreen(File(context.cacheDir, "social-push-evidence/tap-private-edited.png"))
+                            }
                             if (journey == Journey.ANDROID_SETTINGS_REPLY) {
                                 visitAndroidCategories(device, context.packageName, context.cacheDir) {
                                     val retainedDraft = PostDraftStore(context, owner, SaitoBackend.OWNER).load()
@@ -228,6 +232,12 @@ class SocialPushTapPreviewTest {
                         waitFor(hasText(targetText))
                         ui.onNodeWithText(targetText).assertIsDisplayed()
                         captureNativeScreen(File(context.cacheDir, "social-push-evidence/$capturePrefix-conversation.png"), targetText)
+                        if (privateChat) {
+                            val retainedChat = ChatWorkStore(context, wallet, SaitoBackend.OWNER, contact).load()
+                            assertEquals(composeChatPhoto(photo, latest), retainedChat.draft)
+                            assertNull(retainedChat.transaction)
+                            assertEquals(ChatWorkStore.Status.NONE, retainedChat.status)
+                        }
                         if (cold) {
                             recreateCurrentActivity()
                             waitFor(hasText("Conversation"))

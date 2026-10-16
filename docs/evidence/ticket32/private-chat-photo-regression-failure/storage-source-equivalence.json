@@ -1,0 +1,48 @@
+{
+  "passingFullSource": "33d7f942c3a1755d1536a81c5545550c36692f96",
+  "currentSource": "84eb9704729182442210566bc1e341d505637eee",
+  "files": [
+    {
+      "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatImageHistoryStorageTest.kt",
+      "passingFullAndroid10Blob": "0f29882ef66f192139569d17e8ab6a1978a68230",
+      "currentFailedBlob": "0f29882ef66f192139569d17e8ab6a1978a68230",
+      "equal": true
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/saito/EncryptedLocalFile.kt",
+      "passingFullAndroid10Blob": "7aac6a7f0204ce6b2e0ed24e9a3b858bbcef5613",
+      "currentFailedBlob": "7aac6a7f0204ce6b2e0ed24e9a3b858bbcef5613",
+      "equal": true
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/chat/EncryptedChatRecord.kt",
+      "passingFullAndroid10Blob": "32795ff93b9de1fcbc72f9f9a2f63b0396df4dd2",
+      "currentFailedBlob": "32795ff93b9de1fcbc72f9f9a2f63b0396df4dd2",
+      "equal": true
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/chat/ChatHistoryStore.kt",
+      "passingFullAndroid10Blob": "6bb444e46366b65c58c7e90e1643e4762a864834",
+      "currentFailedBlob": "6bb444e46366b65c58c7e90e1643e4762a864834",
+      "equal": true
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/chat/GroupChatStore.kt",
+      "passingFullAndroid10Blob": "9b6af2c87aece9777da2f7815be36da286dc61cc",
+      "currentFailedBlob": "9b6af2c87aece9777da2f7815be36da286dc61cc",
+      "equal": true
+    },
+    {
+      "path": "app/src/main/AndroidManifest.xml",
+      "passingFullAndroid10Blob": "d10cf261f794635c6d1170d5a09ab6bb905a27c3",
+      "currentFailedBlob": "d10cf261f794635c6d1170d5a09ab6bb905a27c3",
+      "equal": true
+    },
+    {
+      "path": "app/build.gradle.kts",
+      "passingFullAndroid10Blob": "9baa8ecb0643924c8c787aabfc8832c54d5ddc88",
+      "currentFailedBlob": "9baa8ecb0643924c8c787aabfc8832c54d5ddc88",
+      "equal": true
+    }
+  ]
+}

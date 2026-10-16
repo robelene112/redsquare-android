@@ -1,0 +1,7 @@
+# Private Chat tap: Android 17 persisted caption mismatch
+
+Run 38968041531 at `84eb9704729182442210566bc1e341d505637eee` completed FAILURE: nine cases, eight passed, one failed, 111.601 s. The private case publishes and physically taps its Replies alert, positively opens the exact Conversation, goes Back, then fails its protected-store assertion at line 252. Expected latest caption is absent from the saved draft, which still contains Earlier saved text. Exact cause is unproved: the fixture has no positive latest-text observation before alert publication and no immediate stored-draft observation before Back.
+
+The new case’s null-transaction/status checks, recreation/reopening, final raster and final wallet/backend/no-write assertions remain unexecuted. The eight existing cases pass; cleanup executes independently. Root viewed alert, Conversation and failure originals and parsed all 36 XMLs. The Conversation capture still shows Loading replies. The failure capture is the feed after Back. No FCM or full acceptance is claimed.
+
+The next observation adds an exact latest EditableText assertion and original editor capture before publication, then a protected-draft check after Conversation and before Back, retaining the existing later assertion. It does not explicitly save or await disk persistence before publication. No production change or failure cause is inferred from that refinement.

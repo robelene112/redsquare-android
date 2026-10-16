@@ -162,6 +162,7 @@ class ChatImagesPreviewTest {
                         ui.onNode(hasSetTextAction() and isEnabled()).performTextReplacement(draft)
                         androidx.test.espresso.Espresso.closeSoftKeyboard()
                         if (flow == PhotoFlow.FAILED_PREPARATION) {
+                            fun trace(phase: String) = println("Chat photo $prefix: $phase at ${android.os.SystemClock.elapsedRealtime()} ms")
                             val uri = android.net.Uri.parse("content://nl.davidengelen.redsquare.dev.test.chat-photo-faults/stalled.png")
                             fun provider(action: String) = requireNotNull(context.contentResolver.call(uri, action, null, null))
                             provider("reset")
@@ -173,16 +174,20 @@ class ChatImagesPreviewTest {
                                     hasAction("com.google.android.gms.provider.action.PICK_IMAGES")))
                                     .respondWith(Instrumentation.ActivityResult(Activity.RESULT_OK, Intent().setData(uri)))
                                 val add = hasText("Add photo") and hasClickAction() and isEnabled()
+                                trace("picker-launch")
                                 ui.onNode(add).performClick()
                                 ui.waitUntil(20_000) { provider("status").getBoolean("opened") && displayed(hasText("Preparing images...")) }
+                                trace("provider-opened")
                                 ui.onNode(hasText("Send") and hasClickAction()).assertIsNotEnabled()
                                 draft = "Edited while photo preparation was blocked 😀 <&>"
                                 ui.onNode(hasSetTextAction() and isEnabled()).performTextReplacement(draft)
                                 androidx.test.espresso.Espresso.closeSoftKeyboard()
+                                trace("draft-edited")
                                 // Keep the source blocked past the existing 300ms autosave window.
                                 val afterAutosaveWindow = android.os.SystemClock.elapsedRealtime() + 500
                                 ui.waitUntil(2_000) { android.os.SystemClock.elapsedRealtime() >= afterAutosaveWindow }
                                 ui.waitUntil(20_000) { displayed(hasText("Could not prepare or save the images. Your draft is still here.")) && displayed(add) }
+                                trace("preparation-error-observed")
                                 assertDraft()
                                 // Observe the agreed protected draft API before Back/recreation could save it for us.
                                 ui.waitUntil(20_000) {
@@ -192,9 +197,13 @@ class ChatImagesPreviewTest {
                                     retainedDraft == draft
                                 }
                                 ui.onAllNodesWithContentDescription("Image 1 of 1").assertCountEquals(0)
+                                trace("draft-durable-capture-enter")
                                 capture("$prefix-text-durably-retained")
-                                scenario.recreate(); open(); assertDraft()
+                                trace("draft-durable-capture-return")
+                                scenario.recreate(); trace("recreated"); open(); assertDraft()
+                                trace("reopened-capture-enter")
                                 capture("$prefix-text-reopened")
+                                trace("reopened-capture-return")
                                 assertIdentityAndOutgoing(0)
                             } catch (failure: Throwable) {
                                 faultFailure = failure
@@ -204,7 +213,11 @@ class ChatImagesPreviewTest {
                                 } catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
                                 throw failure
                             }
-                            finally { cleanupAfterTest(faultFailure, { Intents.release() }, { provider("reset") }) }
+                            finally {
+                                trace("cleanup-enter")
+                                cleanupAfterTest(faultFailure, { Intents.release() }, { provider("reset") })
+                                trace("cleanup-return")
+                            }
                             return@withFailureCapture
                         }
                         if (composing) {

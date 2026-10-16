@@ -1,0 +1,7 @@
+# Android 10 photo regression: storage memory failure
+
+Run 38968045554 at `84eb9704729182442210566bc1e341d505637eee` completed FAILURE. All ten ChatImages UI cases pass (76.331 s), including both normal picker/draft/send flows, cancellation and preparation-error recovery. Actual queued-photo process recovery and restoration pass: private PID 7326 to 7607, group 7895 to 8261. Both use the same explicit queued original and controlled raw/Relay path, preserve full wallet/backend/history and photo pixels, and keep delivery unconfirmed. Root viewed both forwarded-process originals.
+
+The final two ChatImageHistoryStorageTest cases fail in 1.412 s with OutOfMemoryError allocating 5,242,928 bytes at EncryptedLocalFile.load line 37, process growth limit 16 MiB. Their capacity/recovery acceptance tails do not complete. The unchanged loader allocates a maximum-sized buffer for each read. The emulator boot property says heapsize 512m; that does not establish the effective process growth limit. The same emulator version/build, fixture and storage source previously passed full Android 10. A cause or new Chat guard regression is not established.
+
+No heap, history count or assertion is changed. The next diagnostic records effective VM properties and entry/save-loop memory values. Raw UI/storage/process logs, public checkpoints, original captures and emulator log are retained. No encrypted installation originals are copied. All 34 retained XMLs parse. No full acceptance is claimed.

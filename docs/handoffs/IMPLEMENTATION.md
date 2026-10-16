@@ -22,63 +22,49 @@ Do not invent one. Repository state was verified before ordinary app work resume
 
 ## Current bounded work
 
-Private Chat draft preservation on a social notification tap is next. Tracer
-`a8a30ceb89a8487d9fbff1d435f97ef5bde703b0` adds one ordinary Android/controlled-peer
-journey to `SocialPushTapPreviewTest`. It edits a seeded Chat photo draft, requires
-a physical system tap to the exact signed reply, then checks unsigned saved Chat
-work, recreation/reopening and the actual image pixels. Post draft, full wallet,
-backend, no outgoing writes and installation restoration stay asserted. Both
-tracer review axes report zero findings. Local core/debug/test assembly passed
-in1m39s. Run38964755858 completed FAILURE at exact a8a30ceb: nine cases, eight passed,
-one failed,66.962s. The new case stops before editing/tap because assertTextEquals
-also sees the Message label. This is a fixture failure, not intended feature RED.
-[Raw evidence](../evidence/ticket32/private-chat-tracer-fixture-failure/android10/README.md)
-retains35 original PNG/XML pairs; root viewed the new failure image and parsed all
-XMLs. The corrected tracer observes exact EditableText, leaving expected user text
-unchanged. Corrected local core/debug/test assembly passed in 1m 37s. Both
-correction/evidence reviews report zero findings at 1df4835a. No production guard
-change yet; corrected intended RED still needs Android execution.
-Separate source run38964723509 passed release assembly/lint at a8a30ceb.
-Corrected run 38965766119 at f80b035a also completed FAILURE: nine cases, eight
-passed, one failed, 68.261 s. It passes exact EditableText, then the post-specific
-performScrollTo fails on an already visible, non-scrollable Chat photo at line 197.
-No intended navigation RED yet; new editing/publication/tap/tail steps did not run.
-[Raw scrolling failure](../evidence/ticket32/private-chat-tracer-scroll-failure/android10/README.md)
-retains 35 original PNG/XML pairs; root viewed its failure original and parsed all
-XMLs. The next correction asserts the Chat photo directly and retains post scrolling
-and the same raster check. Chat opening dismisses the keyboard before selecting
-the displayed navigation item. Local compilation passed in 1m 40s.
-The specification review found zero issues. Standards review identified one
-source-supported readiness gap: private photo decoding is asynchronous, so editor
-readiness alone does not imply a visible image. The next correction waits up to
-15 seconds for that actual image before the unchanged visibility/raster assertions.
-Run 38966824893 at 6dd2d8ac completed CANCELLED; SDK setup, source build and both
-runtime steps were skipped. [Cancellation metadata](../evidence/ticket32/private-chat-tracer-cancelled/README.md)
-retains the request snapshot and final state. No application assertion ran.
-The readiness correction bbb3db3a has both review axes at zero outstanding findings
-and local core/debug/test assembly passed in 1m 41s. Intended Android 10 RED
-38967008873 at exact bbb3db3a42dd6f05cc99b4587ce9ef47f38475ec completed FAILURE:
-nine cases, eight passed, one failed, 85.741 s. This is the intended missing
-Conversation RED after actual reply alert/tap from the edited private photo draft.
-[RED evidence](../evidence/ticket32/private-chat-tap-red/android10/README.md) retains
-36 original PNG/XML pairs; root viewed both new-case originals and parsed all XML.
-Failure shows Chat/Retry/photo and exact latest editable caption in XML. Destination,
-protected-draft checks, reopening/raster and final invariants did not run in the new
-case. Separate source push 38966996156 succeeds with release assembly/lint.
+Private Chat draft preservation on a social tap remains active within #32.
+Tracer a8a30ceb needed two fixture corrections: exact EditableText instead of the
+Message label, then direct Chat photo visibility with a bounded decode wait.
+The original failures remain in `private-chat-tracer-fixture-failure` and
+`private-chat-tracer-scroll-failure`; superseded run 38966824893 is CANCELLED,
+with no app assertions. All are under `docs/evidence/ticket32/`.
 
-The bounded minimum registers a private Chat guard, using existing navigation
-transition state to freeze composer changes/send/cancel/Back across persist+commit.
-Picker/returned-URI busy state also reaches the existing attachment callback,
-including restored pickers; no draft/signing/send format changes. Local minimum
-compilation is running; source review and Android 10/17 GREEN remain pending.
-The shared photo callback makes existing Chat photo regression scopes relevant.
-Separate source run 38965756141 passed release assembly/lint at f80b035a.
+[Actual intended RED](../evidence/ticket32/private-chat-tap-red/android10/README.md):
+run 38967008873 at bbb3db3a, nine cases, eight PASS, one missing-Conversation failure
+at line 227 after actual alert/tap, 85.741 s. Minimum 84eb9704 registers the private
+Chat guard and freezes edits/send/cancel/Back using existing transition state.
+The shared photo callback also covers pending/restored pickers and returned URIs.
+Both source/RED reviews report zero findings; local core/debug/test passed 3m 39s.
 
+At exact source `84eb9704729182442210566bc1e341d505637eee`:
+- [Android 10 social GREEN](../evidence/ticket32/private-chat-tap-green/android10/README.md),
+  run 38968037239: all nine cases PASS, 72.148 s, latest draft/photo and invariants.
+- [Android 17 social failure](../evidence/ticket32/private-chat-draft-failure/android17/README.md),
+  run 38968041531: eight PASS, one persisted-caption mismatch after Conversation
+  and Back, 111.601 s. Latest caption application before alert was not observed.
+- [Android 10 photo failure](../evidence/ticket32/private-chat-photo-regression-failure/android10/README.md),
+  run 38968045554: ten UI cases PASS, private/group actual recovery PASS
+  (PIDs 7326 to 7607 / 7895 to 8261), then both storage cases OOM at 16 MiB.
+- [Android 17 photo timeout](../evidence/ticket32/private-chat-photo-regression-failure/android17/README.md),
+  run 38968049213: seven UI cases PASS, case eight interrupted at class limit 120s.
+  Unique empty capture XMLs support reaching the durable-capture boundary but do
+  not establish the stall cause. Later process/storage phases did not run.
+- Source push 38968018508 SUCCESS includes release assembly and lint.
 
-The preceding documentation push run38964130150 failed during Android Emulator
-package extraction, before build/runtime. Raw metadata/log and qualifications are
-in [the setup-failure record](../evidence/ticket32/consent-source-setup-failure/README.md).
-Do not describe it as a passed check or an application failure.
+Storage fixture/loader/cache/manifest/build source is byte-identical to passing
+full Android 10 source 33d7f942; emulator version/build is also the same. Boot
+heapsize 512m does not establish normal process growth limit. No cause, production
+regression, increased heap or longer assertion/class deadline is justified yet.
+Root viewed six social originals, two process originals and the timeout original,
+and parsed all 130 XMLs across these four result packages.
+
+Next changes are observations only: exact latest UI caption/capture before alert,
+protected draft check before Back, phase/timing in the existing private/group photo
+preparation case, and effective device/runtime memory properties in storage tests.
+No pre-alert forced save or disk-persistence wait is added. Production is unchanged
+from 84eb9704. Local observation core/debug/test assembly passed in 1m 54s; shell
+syntax passed. Observation source/evidence reviews and native results are pending.
+Do not dispatch unchanged retries or claim #32/private slice complete.
 
 ## Verified #32 slices
 

@@ -1,0 +1,7 @@
+# Android 17 photo regression: interrupted private preparation case
+
+Run 38968049213 at `84eb9704729182442210566bc1e341d505637eee` completed FAILURE. The host reports class timeout exit 124 at the unchanged 120-second limit. Seven UI cases report PASS; test eight (private preparation timeout recovery) starts but does not report completion. The remaining UI cases and all later photo-process/storage phases do not run.
+
+The original tar contains empty 84-byte XMLs for private-failed-preparation-text-durably-retained and the subsequent failure capture, with no matching PNGs. Inference from their unique source locations: the case reached the durable-capture boundary after its error/text/store/no-photo assertions, then attempted failure capture. This does not prove which capture/cleanup step stalled or that the class ceiling was merely too short. The later, separate host timeout PNG/XML shows edited private Chat, Preparing images and disabled controls. Root viewed that original; all 23 retained XMLs parse, including those two empty hierarchies.
+
+The next observation adds phase/timing output around existing error/store/capture/recreation/cleanup steps. Existing assertions, per-step deadlines and class ceiling remain unchanged. No emulator-upgrade explanation or application regression is established. Raw partial log, exit, timeout PNG/XML, original tar captures and source metadata remain retained. No full acceptance is claimed.

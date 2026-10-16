@@ -25,6 +25,12 @@ class ChatImageHistoryStorageTest {
     private fun exercise(group:Boolean) {
         val context=InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName=="nl.davidengelen.redsquare.dev"&&Build.HARDWARE in listOf("ranchu","goldfish"))
+        val runtime=Runtime.getRuntime()
+        val manager=context.getSystemService(android.app.ActivityManager::class.java)
+        fun memory(phase:String) = println("Chat photo history group=$group phase=$phase pid=${android.os.Process.myPid()} " +
+            "max=${runtime.maxMemory()} total=${runtime.totalMemory()} free=${runtime.freeMemory()} " +
+            "memoryClass=${manager.memoryClass} largeMemoryClass=${manager.largeMemoryClass} flags=${context.applicationInfo.flags}")
+        memory("entry")
         val wallets=AndroidWalletStore(context)
         val original=wallets.loadOrCreate().exportJson()
         val backend=AndroidBackendStore(context).load()
@@ -65,7 +71,9 @@ class ChatImageHistoryStorageTest {
                 else ChatHistoryStore(context,wallet,scope,other.publicKey).load().entries.map{it.envelope}
             fun loadDraft()=if(group)requireNotNull(groups.load(groupId)).draft else work.load().draft
             val accepted=mutableListOf<String>()
+            memory("originals-ready")
             for(envelope in originals) {
+                memory("before-photo-${accepted.size+1}")
                 try {saveHistory(envelope)}
                 catch(failure:Exception) {
                     assertEquals(accepted,loadHistory())
