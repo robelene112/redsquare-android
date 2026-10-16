@@ -193,7 +193,8 @@ open-error text. Exact runtime cause is unproved. Correctionb71b1396 now uses a 
 OS-package predicate within the same10second bound. The failed fixture handed
 directly to UIAutomator without advancing the Compose test clock. Exact pinned
 Compose source confirms that scheduling hazard, not those failed runs' runtime
-cause. Local core/debug/test22793 is running; corrected native checks are pending.
+cause. Local core/debug/test22793 PASS1m48s; corrected native checks are pending.
+Both ordinary source/failure-evidence review axes report0/0 afterdb39da49.
 No native GREEN is inferred. Beta24 unchanged.
 
 Remaining#32 includes saving/retry and other forms,
