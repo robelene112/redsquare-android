@@ -31,8 +31,9 @@ and notification compatibility38976632886/38976636125. Compatibility includes32
 read cases each, applicable permission choices and real read-history recovery
 PIDs6113→6203 and5326→5398. Production tree equivalence78245041→78e4172d is retained.
 Local minimum3m18s; source38976622437 release/lintSUCCESS. Corrected source run
-38977709969 still pending at this handoff edit. Both source reviews0/0 at990739b8,
-fixture/failure reviews0/0 at78e4172d. Final combined evidence review is next.
+38977709969 SUCCESS includes release/lint. Both source reviews0/0 at990739b8,
+fixture/failure reviews0/0 at78e4172d; final combined evidence reviews Standards0/
+Spec0 at3f3c5bb4. The verified-name local slice is accepted.
 
 Root parsed all new XML and viewed ten username originals, corrected10 group
 draft and five permission/recovery originals. Loading/failed conversation history
@@ -42,8 +43,9 @@ cause. Earlier failed runs stay failures. Whole#32 remains OPEN; beta24 unchange
 Next planned same-ticket vertical slice is durable scheduled local receipt with
 WorkManager, selected Archive retry and actual Android alert without an Activity.
 Plan `.scratch/push32-durable-receipt-plan.txt` records the already accepted native
-controlled-peer/system-alert seam. No worker source, SDK, gateway or live changes
-have been made yet. Its eventual live-process pass must not be called killed-process
+controlled-peer/system-alert seam. Tracer source is now being prepared with an initially nonpublishing worker,
+and its local core/debug/test compilation is active. No SDK, gateway or live changes
+have been made. Its eventual live-process pass must not be called killed-process
 or FCM delivery. External Firebase setup question stays pending, do not repeat it.
 
 ## Accepted bounded #32 work

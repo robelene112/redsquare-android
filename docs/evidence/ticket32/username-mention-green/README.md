@@ -14,7 +14,7 @@ registrar setting or protocol-format change was added.
 | Minimum17 |78245041 /38976630590 SUCCESS,11PASS124.127s |
 | Notification compatibility10 |78245041 /38976632886 SUCCESS,32 reading,1 permission,1 actual read-history recovery |
 | Notification compatibility17 |78245041 /38976636125 SUCCESS,32 reading,2 permission,1 actual read-history recovery |
-| Source release/lint |78245041 /38976622437 SUCCESS |
+| Source release/lint |78245041 /38976622437 SUCCESS;78e4172d /38977709969 SUCCESS |
 
 [Intended RED](../username-mention-red/android10/README.md),
 [first failed minimum](../username-group-regression-failure/android10/README.md),
@@ -42,3 +42,7 @@ This accepts verified-name recognition and its local Android alert/tap flow.
 Actual Firebase transport/registration, viable backend integration and full#32
 acceptance remain unfinished. No new beta, Pixel result or whole-ticket completion
 is claimed. Public signed beta24 is unchanged.
+
+Final combined evidence reviews report Standards0/Spec0 at3f3c5bb4. The later
+corrected-source push check38977709969 also completed SUCCESS, including release
+assembly/lint. Its exact metadata is retained in corrected-source-run.json.
