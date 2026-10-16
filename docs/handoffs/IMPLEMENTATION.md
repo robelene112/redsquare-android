@@ -213,8 +213,25 @@ and retains actual Replies/Mentions assertions. The first hot case additionally
 requires PUBLISHED, then waits up to5s for Android's actual active alert before
 the unchanged exact count/content/shade checks. No production changes. Corrected
 local core/debug/test84915 PASS1m42s; native verification is pending.
-Both ordinary source/evidence review axes report0/0 atbbdbc884. Public beta24
-unchanged.
+Both ordinary source/evidence review axes report0/0 atbbdbc884. Actual corrected
+[Android10](../evidence/ticket32/android-category-controls-green/android10/README.md)
+run38958309170 SUCCESS7cases52.423s and
+[Android17](../evidence/ticket32/android-category-controls-green/android17/README.md)
+run38958312719 SUCCESS7cases96.046s at exact3ae3127536197dd4c04821abd741a6b467cc9d5e.
+Both actual OS categories, before-return stored latest text/photo, return/recreation,
+replytap and saved-work/wallet/backend/no-write invariants pass. Root viewed category,
+Conversation and final draft originals perSDK and parsed56XMLs.61/62hashes retained;
+Conversation still Loading replies, no completed-thread claim. Final GREEN evidence
+review is next. No owned local build is active. Public beta24 unchanged.
+
+Next ordinary spec gap confirmed by review: NotificationPermissionPrompt's Enable
+alerts requests OS permission/records global offered only, never enables wallet
+SocialPushSettings. Pregranted Android permission or visiting Chat first also skips
+the global prompt. Settings consent works, but the first-use action is disconnected.
+The next tracer will verify an explicit wallet-scoped social offer even with the
+global prompt already offered, including Android permission already granted, then
+actual reply publication/tap and original saved-work invariants. No new tracer or
+production correction for this gap is committed yet.
 
 Remaining#32 includes saving/retry and other forms,
 mentions/registration proof, optional notification settings, real transport and
