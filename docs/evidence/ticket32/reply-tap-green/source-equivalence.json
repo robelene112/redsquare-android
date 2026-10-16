@@ -1,0 +1,18 @@
+{
+  "verifiedSource": "027c6b90b27a1123cc80791acf58653d2b6ef98a",
+  "ownerScopeRevision": "50ac874d6320dc586804f27d5c6eb8d7e74c5eb4",
+  "productionPathsUnchanged": [
+    "app/src/main",
+    "core/src/main",
+    "app/build.gradle.kts",
+    "core/build.gradle.kts",
+    "build.gradle.kts",
+    "settings.gradle.kts",
+    "gradle.properties",
+    "gradle"
+  ],
+  "ordinaryReplyTestsUnchanged": true,
+  "ordinaryTapTestUnchanged": true,
+  "onlyRemovedTapClassMethod": "anExportedLaunchIgnoresMalformedNotificationStateExtras",
+  "note": "Completed historical runs contain4 tests; current regular scope retains the unchanged3 functional cases. No new run of removed method."
+}
