@@ -36,11 +36,14 @@ class SocialPushTapPreviewTest {
 
     @Test fun aPublicKeyMentionShowsAMentionAlertAndOpensItsPost() = tapJourney(Journey.COLD_MENTION)
 
-    private enum class Journey { WARM_REPLY, COLD_REPLY, COLD_MENTION }
+    @Test fun theReplyAndMentionAlertChoiceCanBeEnabledAndDisabledInSettings() = tapJourney(Journey.SETTINGS_REPLY)
+
+    private enum class Journey { WARM_REPLY, COLD_REPLY, COLD_MENTION, SETTINGS_REPLY }
 
     private fun tapJourney(journey: Journey = Journey.WARM_REPLY) {
-        val cold = journey != Journey.WARM_REPLY
+        val cold = journey == Journey.COLD_REPLY || journey == Journey.COLD_MENTION
         val mention = journey == Journey.COLD_MENTION
+        val settings = journey == Journey.SETTINGS_REPLY
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" &&
@@ -61,11 +64,15 @@ class SocialPushTapPreviewTest {
         val targetText = if (mention) "Hello @jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR, mention reference"
             else "Reply notification reference"
         val alertText = if (mention) "Mentioned you" else "Replied to your post"
+        val freshReply = fixture.getAsJsonObject("parentIndexedReply")
+        val freshSignature = "1991d496005db8cb234ddd8482f1b8cc01cb75a9d38fd3ff904f000144e7a6bd22da22068460a5b0f7d5f9d524ae3ac8e2a4a531bad7a2ce46f10149d2abc64b"
         assertEquals(signature, target.get("sig").asString)
+        assertEquals(freshSignature, freshReply.get("sig").asString)
         val peer = ControlledFeedPeer("[$root]", archiveResponse = { criteria ->
             when {
                 criteria.has("sig") -> when (criteria.get("sig").asString) {
                     signature -> "[$target]"
+                    freshSignature -> "[$freshReply]"
                     root.get("sig").asString -> "[$root]"
                     else -> "[]"
                 }
@@ -88,13 +95,14 @@ class SocialPushTapPreviewTest {
             Journey.COLD_MENTION -> "tap-mention"
             Journey.COLD_REPLY -> "tap-cold"
             Journey.WARM_REPLY -> "tap-post"
+            Journey.SETTINGS_REPLY -> "tap-settings"
         }
         var primary: Throwable? = null
         try {
             retained.prepare()
             wallets.replace(previous, wallet)
             backends.save(SaitoBackend.OWNER)
-            SocialPushSettings(context, owner).setEnabled(true)
+            if (!settings) SocialPushSettings(context, owner).setEnabled(true)
             // The encrypted draft supplies the photo; the warm journey edits its latest text in the UI.
             PostDraftStore(context, owner, SaitoBackend.OWNER).save(
                 PostDraftStore.Saved("Earlier saved text", images = listOf(photo)))
@@ -109,6 +117,17 @@ class SocialPushTapPreviewTest {
                     }) {
                         if (cold) check(activeMainActivities().isEmpty())
                         else {
+                            if (settings) {
+                                openAlertChoice().assertIsOff()
+                                captureNativeScreen(File(context.cacheDir, "social-push-evidence/tap-settings-initial.png"), "Replies and mentions")
+                                ui.onNode(alertChoice()).performClick()
+                                waitFor(alertChoice() and isOn())
+                                ui.onNodeWithText("Done").performClick()
+                                recreateCurrentActivity()
+                                openAlertChoice().assertIsOn()
+                                captureNativeScreen(File(context.cacheDir, "social-push-evidence/tap-settings-enabled.png"), "Replies and mentions")
+                                ui.onNodeWithText("Done").performClick()
+                            }
                             waitFor(hasText("New post") and hasClickAction() and isEnabled())
                             ui.onNode(hasText("New post") and hasClickAction()).performClick()
                             waitFor(hasSetTextAction() and isEnabled())
@@ -164,6 +183,25 @@ class SocialPushTapPreviewTest {
                         assertEquals(listOf(photo), saved.images)
                         assertNull(saved.transaction)
                         assertFalse(saved.queued)
+                        if (settings) {
+                            openAlertChoice().assertIsOn().performClick()
+                            waitFor(alertChoice() and isOff())
+                            captureNativeScreen(File(context.cacheDir, "social-push-evidence/tap-settings-disabled.png"), "Replies and mentions")
+                            ui.onNodeWithText("Done").performClick()
+                            val fresh = JsonObject().apply {
+                                addProperty("version", 1); addProperty("wallet", owner)
+                                addProperty("backend", "owner"); addProperty("signature", freshSignature)
+                            }.toString()
+                            assertEquals(SocialPushResult.SUPPRESSED, runBlocking(Dispatchers.IO) {
+                                SocialPush.receive(context, fresh, endpoint, 1700000001001)
+                            })
+                            val until = android.os.SystemClock.elapsedRealtime() + 2_000
+                            do {
+                                assertTrue("A different unread reply must stay silent after alerts are disabled",
+                                    manager.activeNotifications.none { (it.tag to it.id) !in priorAlerts })
+                                android.os.SystemClock.sleep(50)
+                            } while (android.os.SystemClock.elapsedRealtime() < until)
+                        }
                         check(wallets.loadExisting().exportJson() == wallet.exportJson()) { "Active fixture wallet changed" }
                         assertEquals(SaitoBackend.OWNER, backends.load())
                         assertTrue(peer.transactions.isEmpty() && peer.reports.isEmpty() && peer.relayedMessages.isEmpty())
@@ -187,6 +225,15 @@ class SocialPushTapPreviewTest {
             } }
             cleanupFailure?.let { if (primary != null) primary!!.addSuppressed(it) else throw it }
         }
+    }
+
+    private fun alertChoice() = hasText("Replies and mentions") and isToggleable()
+
+    private fun openAlertChoice(): SemanticsNodeInteraction {
+        waitFor(hasText("Settings") and hasClickAction() and isEnabled())
+        ui.onNode(hasText("Settings") and hasClickAction()).performClick()
+        waitFor(alertChoice() and isEnabled())
+        return ui.onNode(alertChoice()).performScrollTo()
     }
 
     private fun recreateCurrentActivity() {
