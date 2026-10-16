@@ -53,16 +53,30 @@ scopes invoke just this malformed exported-launch method.
 Fix52f6cf0d copies default creation extras and replaces only DEFAULT_ARGS_KEY
 with empty Bundle, preserving registry/owner restoration and original launch
 Intent configuration. Source Spec0/Standards0. The prepared scratch fix script
-is APPLIED/obsolete, do not rerun it. Local corrected core/debug/test29634 ACTIVE,
-log `.scratch/push32-route-input-fix-compile.log`; no source edits until it ends.
+is APPLIED/obsolete, do not rerun it. Local corrected core/debug/test29634 completed0 in3m21s,
+log `.scratch/push32-route-input-fix-compile.log`. No owned local Gradle remains.
 
-Next: after local build outcome, push exact reviewed source and run social-push
-Android10 and Android17. The same four-case class combines malformed-input GREEN,
-original hot2 and actual post/photo tap navigation. No separate redundant input
-GREEN run is needed. Verify exact remote SHA before dispatch; await actual result,
-retain fresh run-specific evidence, inspect original images/XML, review evidence.
-Original .scratch/retain-push32-tap.py expects3cases and MUST be adapted for4 before
-retaining the next combined run. No owned native verification is currently active.
+Current native verification, both at exact reviewed source
+`027c6b90b27a1123cc80791acf58653d2b6ef98a`:
+
+- Android10 social-push run38878791927 ACTIVE, watcher27274 writes
+  `.scratch/push32-tap-green10-watch.log`.
+- Android17 social-push-android17 run38878803838 ACTIVE, watcher72754 writes
+  `.scratch/push32-tap-green17-watch.log`.
+
+The same four-case class combines malformed-input recovery, original hot2 and actual
+post/photo tap navigation. No separate redundant input GREEN is needed. Await actual
+results; do not duplicate dispatches or infer success. Retain fresh run-specific
+public evidence, inspect original images/XML and review evidence. Prepared
+`.scratch/retain-push32-tap-green.py` supports exactly4passing cases and SDK29/37.0;
+old3case collector is only for the earlier RED and must not retain these runs.
+
+Owner reported the ChatGPT interface showing a content-blocked notice. Root answered
+that this platform notice cannot be switched off or guaranteed away; official docs
+acknowledge false positives and suggest feedback. No attempt to bypass the notice.
+The code/repo state and completed build were checked before ordinary app verification
+resumed. UI screenshot does not identify an exact rejected tool action; do not invent
+one. Current app tests above were accepted and are independently observable onGitHub.
 
 Further tap work includes cold/recreation, latest-input races, save refusal and
 private/group/other mounted forms. Read
