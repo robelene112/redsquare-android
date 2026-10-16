@@ -374,7 +374,7 @@
     <string name="notifications_permission_detail">Choose whether to allow alerts on this phone. You can skip and keep reading notifications here.</string>
     <string name="notifications_permission_enable">Enable alerts</string>
     <string name="notifications_permission_skip">Not now</string>
-    <string name="notifications_permission_save_error">Your notification choice could not be saved.</string>
+    <string name="notifications_permission_save_error">Could not finish your notification choice. Try again.</string>
     <string name="notifications_unread_count">%1$d unread</string>
     <string name="notifications_read_none">No unread activity</string>
     <string name="notifications_mark_read">Mark all as read</string>
@@ -509,6 +509,7 @@
     <string name="notifications_social_choice">Replies and mentions</string>
     <string name="notifications_social_choice_detail">Allow these alerts for this wallet on this phone. Android permissions and category settings also apply.</string>
     <string name="notifications_social_choice_error">Could not read or save your alert choice. Try again.</string>
+    <string name="notifications_social_offer_detail">Receive replies and mentions for this wallet as Android notifications on this phone. You can skip and keep reading here.</string>
     <string name="notifications_android_settings">Android notification settings</string>
     <string name="notifications_android_settings_error">Could not open Android notification settings. Save any unfinished work and try again.</string>
     <string name="social_push_open_failed">Could not open this notification here. Your current work is still here. Check the selected wallet and server, then try again.</string>

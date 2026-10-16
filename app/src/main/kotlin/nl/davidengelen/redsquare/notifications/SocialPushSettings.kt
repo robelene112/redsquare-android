@@ -13,8 +13,10 @@ internal class SocialPushSettings(context: Context, owner: String) {
     private val pending = File(context.noBackupFilesDir, "$name.new")
     private val file = EncryptedLocalFile(context, name, "redsquare.socialpush.$owner", "socialpush.$owner.")
 
-    fun enabled(): Boolean = synchronized(SaitoLocalState.lock) {
-        val contents = file.load() ?: run { check(!pending.exists()); return@synchronized false }
+    fun enabled(): Boolean = choice() == true
+
+    fun choice(): Boolean? = synchronized(SaitoLocalState.lock) {
+        val contents = file.load() ?: run { check(!pending.exists()); return@synchronized null }
         require(contents.version == 1.toByte() && contents.text in listOf("enabled", "disabled"))
         contents.text == "enabled"
     }

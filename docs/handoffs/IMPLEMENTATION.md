@@ -242,8 +242,19 @@ run38960006823 atf5e824dcc06ecdf02a53387bb4d784f6f98613b8 FAILED8cases7PASS/1FAI
 68.437s, waiting15s for the missing offer atline139 after positive Notifications
 screen display. Root viewed failure PNG and parsed29XMLs; actual Notifications
 has no offer.62hashes retained. Later new-case consent/OS/recreation/tap/final
-tails are unexecuted. Seven prior cases pass. Production correction remains
-pending. Concrete local integration notes: .scratch/push32-consent-integration-plan.txt.
+tails are unexecuted. Seven prior cases pass. The minimum correction is now
+written: a feature-local wallet-scoped offer independent of global Chat/Android
+offer history, explicit encrypted consent on Enable, owner offer flag on Skip,
+and Android permission requested only when needed. Generic Chat usage remains
+no-argument. The shared prompt serializes choice persistence before OS interaction
+with busy/error feedback. An absent encrypted choice stays distinct from an
+explicit disabled choice without changing stored format.
+Fixtures preserve the new owner offer preference and permission-test social files;
+OS waits advance Compose while awaiting the new IO path. The notification history
+process fixture explicitly marks offers handled because its seam is read recovery,
+not first use. No social consent is enabled by that setup. Local compilation, source/
+RED evidence review and native GREEN of the minimum remain pending. Concrete local
+integration notes: .scratch/push32-consent-integration-plan.txt.
 
 Remaining#32 includes saving/retry and other forms,
 mentions/registration proof, optional notification settings, real transport and

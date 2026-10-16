@@ -29,6 +29,9 @@ class NotificationProcessRecoveryTest {
     @Test fun terminateAfterActivityAndReadStatusAreCommitted() {
         val owner = AndroidWalletStore(context).loadOrCreate().publicKey
         val backend = AndroidBackendStore(context).load()!!
+        // This fixture measures read-history recovery, independently of first-use offers.
+        check(context.getSharedPreferences("notification-permission", 0).edit()
+            .putBoolean("offered", true).putBoolean("social-offered:$owner", true).commit())
         // Exact isolated public fixture families only; no wallet, personal policy or keystore reset.
         listOf("notifications.${backend.id}.$owner.v1", "notificationread.${backend.id}.$owner.v1").forEach { base ->
             synchronized(PublicStringStore.lock) {

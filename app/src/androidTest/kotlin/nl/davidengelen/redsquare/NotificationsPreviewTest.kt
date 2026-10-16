@@ -871,6 +871,10 @@ class NotificationsPreviewTest {
         val priorBackend = AndroidBackendStore(context).load()
         val permission = context.getSharedPreferences("notification-permission", 0)
         val priorOffer: Boolean? = if (permission.contains("offered")) permission.getBoolean("offered", false) else null
+        val priorSocialOffers = listOf(owner, otherOwner).associate { identity ->
+            val key = "social-offered:$identity"
+            key to if (permission.contains(key)) permission.getBoolean(key, false) else null
+        }
         val registry = instrumentation.context.assets.open("native-registry-reference.json")
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
         val missing = mode in listOf(Mode.MISSING, Mode.MISSING_REPOST, Mode.MISSING_QUOTE_LIKE, Mode.MISSING_REPLY, Mode.MISSING_QUOTE)
@@ -1117,6 +1121,7 @@ class NotificationsPreviewTest {
         try {
             historyFiles.reset()
             if (mode == Mode.WALLET) {
+                check(permission.edit().putBoolean("social-offered:$otherOwner", true).commit())
                 otherHistoryFiles.reset(); otherReadFiles.reset(); otherPersonalFiles.reset()
                 otherFollowingFiles.reset(); otherNameFiles.reset()
                 val device = UiDevice.getInstance(instrumentation)
@@ -1232,6 +1237,9 @@ class NotificationsPreviewTest {
             }, { AndroidBackendStore(context).save(priorBackend) }, {
                 val edit = permission.edit()
                 if (priorOffer == null) edit.remove("offered") else edit.putBoolean("offered", priorOffer)
+                priorSocialOffers.forEach { (key, value) ->
+                    if (value == null) edit.remove(key) else edit.putBoolean(key, value)
+                }
                 check(edit.commit())
                 check(if (priorOffer == null) !permission.contains("offered") else permission.getBoolean("offered", !priorOffer) == priorOffer)
             }, {

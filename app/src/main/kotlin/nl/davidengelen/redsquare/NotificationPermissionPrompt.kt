@@ -5,48 +5,62 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.provider.Settings
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.compose.LocalActivity
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import kotlinx.coroutines.Dispatchers
-import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-/** Device-level permission choice. In-app reading never depends on Android alerts. */
+/** Optional feature consent before Android permission. In-app reading remains available. */
 @Composable
-internal fun NotificationPermissionPrompt() {
+internal fun NotificationPermissionPrompt(needsConsent: Boolean = false,
+    detail: Int = R.string.notifications_permission_detail,
+    onEnable: suspend () -> Unit = {}, onSkip: suspend () -> Unit = {}) {
     val context = LocalContext.current
-    val activity = LocalActivity.current as? ComponentActivity
+    val scope = rememberCoroutineScope()
     val preferences = remember { context.getSharedPreferences("notification-permission", 0) }
-    var open by remember { mutableStateOf(!preferences.getBoolean("offered", false) &&
-        (Build.VERSION.SDK_INT < 33 || context.checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED)) }
+    var open by remember(needsConsent) { mutableStateOf(needsConsent || (!preferences.getBoolean("offered", false) &&
+        (Build.VERSION.SDK_INT < 33 || context.checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED))) }
     var saveFailed by remember { mutableStateOf(false) }
-    fun recordOffer() {
-        open = false
-        if (activity == null) { saveFailed = true; return }
-        activity.lifecycleScope.launch {
-            saveFailed = !withContext(Dispatchers.IO) { preferences.edit().putBoolean("offered", true).commit() }
-        }
-    }
-    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { recordOffer() }
-    if (saveFailed) Text(stringResource(R.string.notifications_permission_save_error))
-    if (open) AlertDialog(onDismissRequest = { recordOffer() },
-        title = { Text(stringResource(R.string.notifications_permission_title)) },
-        text = { Text(stringResource(R.string.notifications_permission_detail)) },
-        confirmButton = {
-            TextButton(onClick = {
-                if (Build.VERSION.SDK_INT >= 33) launcher.launch(Manifest.permission.POST_NOTIFICATIONS)
-                else {
-                    recordOffer()
-                    context.startActivity(Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+    var saving by remember { mutableStateOf(false) }
+    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { }
+    fun choose(allow: Boolean) {
+        if (saving) return
+        saving = true
+        saveFailed = false
+        scope.launch {
+            try {
+                if (allow) onEnable() else onSkip()
+                check(withContext(Dispatchers.IO) { preferences.edit().putBoolean("offered", true).commit() })
+                open = false
+                if (allow) {
+                    if (Build.VERSION.SDK_INT >= 33) {
+                        if (context.checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                            launcher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                        }
+                    } else context.startActivity(Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
                         .putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName))
                 }
-            }) { Text(stringResource(R.string.notifications_permission_enable)) }
-        }, dismissButton = { TextButton(onClick = { recordOffer() }) { Text(stringResource(R.string.notifications_permission_skip)) } })
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { saveFailed = true; open = true }
+            finally { saving = false }
+        }
+    }
+    if (open) AlertDialog(onDismissRequest = { if (!saving) choose(false) },
+        title = { Text(stringResource(R.string.notifications_permission_title)) },
+        text = { Column {
+            Text(stringResource(detail))
+            if (saveFailed) Text(stringResource(R.string.notifications_permission_save_error))
+        } },
+        confirmButton = {
+            TextButton(enabled = !saving, onClick = { choose(true) }) { Text(stringResource(R.string.notifications_permission_enable)) }
+        }, dismissButton = {
+            TextButton(enabled = !saving, onClick = { choose(false) }) { Text(stringResource(R.string.notifications_permission_skip)) }
+        })
 }

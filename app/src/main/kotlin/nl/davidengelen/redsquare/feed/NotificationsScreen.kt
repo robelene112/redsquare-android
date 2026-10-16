@@ -21,7 +21,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
-import nl.davidengelen.redsquare.NotificationPermissionPrompt
+import nl.davidengelen.redsquare.notifications.SocialNotificationPermissionPrompt
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.moderation.LocalPersonalControls
 import nl.davidengelen.redsquare.moderation.PersonalControlsStatus
@@ -333,5 +333,5 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
             }
         }
     }
-    NotificationPermissionPrompt()
+    wallet?.publicKey?.let { SocialNotificationPermissionPrompt(it) }
 }

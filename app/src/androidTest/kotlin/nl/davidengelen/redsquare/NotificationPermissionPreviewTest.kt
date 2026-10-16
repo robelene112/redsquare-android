@@ -10,7 +10,6 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
-import androidx.test.uiautomator.Until
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
@@ -35,7 +34,7 @@ class NotificationPermissionPreviewTest {
         val original = wallet.exportJson()
         val reads = AtomicInteger()
         val preferences = context.getSharedPreferences("notification-permission", 0)
-        val offered = if (preferences.contains("offered")) preferences.getBoolean("offered", false) else null
+        val retained = ChatFixtureState(context, listOf("socialpush.${wallet.publicKey}."), wallet.publicKey)
         val peer = ControlledFeedPeer("[]", archiveResponse = { criteria ->
             if (criteria.get("field1").asString == "RedSquareLike") {
                 check(criteria.get("field3").asString == wallet.publicKey)
@@ -45,6 +44,7 @@ class NotificationPermissionPreviewTest {
         }, quoteArchiveResponse = { "[]" })
         var primary: Throwable? = null
         try {
+            retained.prepare()
             check(preferences.edit().remove("offered").commit())
             if (Build.VERSION.SDK_INT >= 33) assertEquals(PackageManager.PERMISSION_DENIED,
                 context.checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS))
@@ -63,16 +63,14 @@ class NotificationPermissionPreviewTest {
                         if (Build.VERSION.SDK_INT >= 33) {
                             val button = if (allow) "permission_allow_button" else "permission_deny_button"
                             val selector = By.res("com.android.permissioncontroller", button)
-                            assertTrue("Android must display its real notification permission choice",
-                                device.wait(Until.hasObject(selector), 15_000))
+                            ui.waitUntil(15_000) { device.hasObject(selector) }
                             captureNativeScreen(File(context.cacheDir,
                                 "notification-permission-evidence/${if (allow) "allow" else "deny"}-system.png"))
                             device.findObject(selector).click()
                             ui.waitUntil(15_000) { context.checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) ==
                                 if (allow) PackageManager.PERMISSION_GRANTED else PackageManager.PERMISSION_DENIED }
                         } else {
-                            assertTrue("Android10 must open actual notification settings",
-                                device.wait(Until.hasObject(By.pkg("com.android.settings")), 15_000))
+                            ui.waitUntil(15_000) { device.hasObject(By.pkg("com.android.settings")) }
                             captureNativeScreen(File(context.cacheDir, "notification-permission-evidence/settings-system.png"))
                             device.pressBack()
                         }
@@ -105,9 +103,9 @@ class NotificationPermissionPreviewTest {
         } catch (failure: Throwable) { primary = failure; throw failure }
         finally {
             cleanupAfterTest(primary, {
-                val edit = preferences.edit()
-                if (offered == null) edit.remove("offered") else edit.putBoolean("offered", offered)
-                check(edit.commit())
+                retained.restoreFiles()
+            }, {
+                retained.restorePreferences()
             }, { check(original == store.loadOrCreate().exportJson()) { "Permission choice must preserve the wallet" } })
         }
     }

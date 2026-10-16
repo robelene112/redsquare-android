@@ -10,12 +10,15 @@ internal class ChatFixtureState(private val context: android.content.Context,
         context.noBackupFilesDir.listFiles()!!.filter { file -> prefixes.any(file.name::startsWith) }
             .associate { check(it.isFile); it.name to it.readBytes() }
     }
-    private val preferences = listOf("notification-permission" to "offered", "wallet-backup-reminders" to "hidden:$owner")
+    private val preferences = listOf("notification-permission" to "offered",
+        "notification-permission" to "social-offered:$owner", "wallet-backup-reminders" to "hidden:$owner")
         .map { (name, key) -> val prefs = context.getSharedPreferences(name, 0)
             Triple(prefs, key, if (prefs.contains(key)) prefs.getBoolean(key, false) else null) }
     fun prepare() {
         synchronized(SaitoLocalState.lock) { files.keys.forEach { check(File(context.noBackupFilesDir, it).delete()) } }
-        preferences.forEach { (prefs, key, _) -> check(prefs.edit().putBoolean(key, true).commit()) }
+        preferences.forEach { (prefs, key, _) -> check(prefs.edit().apply {
+            if (key.startsWith("social-offered:")) remove(key) else putBoolean(key, true)
+        }.commit()) }
     }
     fun restoreFiles() {
         synchronized(SaitoLocalState.lock) {
