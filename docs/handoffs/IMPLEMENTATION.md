@@ -121,6 +121,14 @@ reviews report0/0 at53025d7c.
 No local Gradle/native verification is active. Public beta24 remains current.
 Username mentions, registration/choices, other forms and real transport remain.
 
+The next ordinary alert-choice tracer is committed atfad2adf0. SETTINGS_REPLY
+uses no seeded consent: real Settings defaultOff -> enable -> recreationOn,
+existing warm reply tap/latest post/photo, then disable and a distinct independently
+signed parentIndexedReply must remain silent2s. Fresh signature/mapping is separate
+from the prior receipt. Both source review axes0/0; local core/debug/test95724
+PASS2m1s. Actual Android10 RED is next; no native result inferred. No Settings
+production switch exists yet. No owned local Gradle/native run is active.
+
 Remaining#32 includes saving/retry and other forms,
 mentions/registration proof, optional notification settings, real transport and
 full Android acceptance. Firebase project/IAM and gateway setup remain external;
