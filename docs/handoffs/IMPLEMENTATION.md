@@ -106,12 +106,19 @@ parsedall12XMLs. adbexit0 is retained despite harness/runtime failure, no scope.
 on failure. Ordinary evidence/spec review0, standards found only stale handoff
 status, corrected here. Minimum source review has no production finding. Local
 core/debug/test9820 PASS3m33s. Both final ordinary source/evidence reviews0/0
-afteree3de80c corrected the status. Actual Android10 run38934678371 and
-Android17 run38934687199 are active at exact source
-ee3de80cd0f90b126da7d7ab4fc75e453c608df1, scope social-push / social-push-android17,
-5ordinary cases each. No outcomes inferred. No local Gradle build remains active. Username
-mentions, registration/choices and actual external transport remain outstanding. Existing
-transport, notification choices and other-form work remain.
+afteree3de80c corrected the status. Actual Android10 run38934678371 SUCCESS,
+5cases35.523s, and Android17 run38934687199 SUCCESS,5cases65.788s, both at exact
+sourceee3de80cd0f90b126da7d7ab4fc75e453c608df1. [Android10 GREEN](../evidence/ticket32/mention-alert-green/android10/README.md)
+and [Android17 GREEN](../evidence/ticket32/mention-alert-green/android17/README.md)
+retain37/38hashes,16PNG/XML pairs perSDK. Root viewed all five mention PNGs
+perSDK and parsedall32XMLs. Actual Mentions category/card, physical tap/exact post,
+recreation, consumed navigation, saved text/photo and wallet/backend/no-write
+assertions pass. Destination captures alternate Loading replies and Some
+conversation entries could not be read. No fully loaded/error-free history claim
+or warning cause is inferred. These are local injected public-key mentions with
+instrumentation alive, not FCM delivery. GREEN evidence reviews are pending.
+No local Gradle/native verification is active. Public beta24 remains current.
+Username mentions, registration/choices, other forms and real transport remain.
 
 Remaining#32 includes saving/retry and other forms,
 mentions/registration proof, optional notification settings, real transport and
