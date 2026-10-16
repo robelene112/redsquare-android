@@ -183,9 +183,16 @@ while busy, with explicit failure feedback. No OSpermission request, Chat catego
 or registration/FCM claim. Source/RED evidence Spec0; Standards found only the stale
 handoff active label, corrected here. Local core/debug/test19809 PASS3m29s.
 Both final ordinary source/RED evidence reviews0/0 afterd6d98bb0. Actual focused
-Android10 run38943302756 and Android17 run38943314879 are active at exact source
-d6d98bb03b5841d542bb22fb358d87413d75df06,7ordinary cases each. No native GREEN
-inferred. No owned local Gradle build is active. Beta24 unchanged.
+Android10 run38943302756 FAILED7cases6PASS/1FAIL58.659s and Android17
+run38943314879 FAILED7cases6PASS/1FAIL104.842s at exact source
+d6d98bb03b5841d542bb22fb358d87413d75df06. Both fail at the first OS-package
+observation, line256. [Retained failures](../evidence/ticket32/android-category-opening-failure/)
+include50/51hashes and23PNG/XML pairs perSDK. Root viewed both failure originals
+and parsed46XMLs: app Settings remains visible with an enabled shortcut and no
+open-error text. Exact runtime cause is unproved. A Compose-aware bounded wait
+is the next fixture correction because the asynchronous callback currently
+hands directly to UIAutomator without advancing the test clock. No native GREEN
+is inferred. No owned local Gradle build is active. Beta24 unchanged.
 
 Remaining#32 includes saving/retry and other forms,
 mentions/registration proof, optional notification settings, real transport and
