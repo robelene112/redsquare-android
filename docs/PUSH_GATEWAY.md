@@ -1,12 +1,12 @@
 # Isolated notification gateway
 
 Work in open[#42](https://github.com/robelene112/redsquare-android/issues/42), supporting
-#32–34. The current first slice is a loopback Kotlin/JVM17 runtime with durable
-subscription binding/status/retirement. It is not a deployed gateway or a complete
-observer/sender. The public interface is `PushGateway(stateDirectory, publicOrigin)`;
-`start()`, `port` and `close()` support the owned HTTP fixture. The optional
-constructor port defaults to0; all listeners remain IPv4 loopback. The Android binding adapter has controlled acceptance; a callable reply-event/resolver/sender pass is implemented. Continuous observer
-and operational acceptance remain later work. No account, credentials or live node state is used.
+#32–34. The standalone Kotlin/JVM17 runtime implements durable subscription and
+opaque event storage, signed public-chain/Archive observation, recipient resolution
+and an external FCM sender adapter. It is not deployed. Configured Google/device
+acceptance remains in#32 and its successors. Public interface:
+`PushGateway(stateDirectory, publicOrigin)` with `start()`, `port`, `close()`;
+optional port defaults to0 and all listeners remain IPv4 loopback.
 
 ## Local command
 
@@ -93,11 +93,12 @@ At most2048 active subscriptions,2048 retirement records and2048 pending challen
 state is at most4MiB. Requests are at most8192bytes. HTTP work uses four threads and
 a32-entry queue. A nonce is removed after its successful binding commit. Exact
 retransmission is idempotent; a retired ID returns410 while its retirement record is retained.
-Retirement records have7day expiry. Expired records are pruned on mutation;
-expired events are also pruned on mutation. Automatic physical retention cleanup
-is not yet implemented or claimed. HTTP
-request-body timeouts and operational process/hosting supervision also remain
-before deployment readiness. No permanently retained history is promised.
+Retirement records have7day expiry. Expired records are pruned on mutation and by a startup/60second maintenance task
+while the process is running. Physical removal can lag expiry by one interval
+plus current journal work. Stopped processes do not clean files; startup catches
+up. This does not manage independent backups, logs or filesystem snapshots.
+HTTP request-body timeouts and operational process/hosting supervision remain
+separate hosting requirements. No permanent history is promised.
 
 ## Verification status
 
@@ -199,8 +200,8 @@ The gateway does not receive subscriber signing keys or broadcast transactions.
 roots and replies, without recipient filtering. Original signed content is decoded
 using the shared feed reader. This head read can discover newly inserted backdated
 posts but cannot guarantee exhaustive history or recovery beyond the bounded head.
-Exact candidate/parent availability is now checked before reply queuing. Durable chain cursors and explicit outage/pruning/reorganization gaps
-remain continuous-observer work.
+Exact candidate/parent availability is checked before reply queuing. Durable chain
+cursors and recent coverage warnings are described below.
 
 [Controlled evidence](evidence/ticket42/archive-green/README.md) at9967ff40:
 gateway5/0/0, including the new0.888second journey completing both selector loops;
@@ -215,14 +216,18 @@ name, a retry delay, structured UNREGISTERED or terminal HTTP rejection. The
 caller must persist the same logical wake and own bounded retries, backoff/jitter,
 expiry and conditional retirement of the exact target generation. Acceptance is
 not a delivery receipt. The callable gateway pass now persists pending events and retry deadlines;
-standalone continuous polling remains unwired.
+standalone observation is explicitly enabled as described below.
 
 OAuth metadata is requested afresh per attempt. Expiry and whole-second Android
 TTL are checked after credential retrieval. Payloads contain no wallet, backend,
 content or notification template. Send HTTP has5second connect/15second read/
 20second call timeouts, no redirects and a64KiB response bound. Credential retrieval
-uses the supplied Google SDK provider; the HTTP deadline does not bound that
-provider's own refresh. Retry-After is honored,429 has at least60seconds and
+uses the supplied Google SDK provider in one owned daemon task. Caller wait is
+at most12seconds per attempt; a timed-out task is retained and drained on retry
+rather than multiplied. ADC discovery is lazy inside that task. Cancellation
+cannot guarantee an arbitrary provider terminates: one provider task may remain
+until it returns, but it cannot mutate gateway state or perform the FCM send.
+Normal attempts request fresh metadata after the previous task is consumed. Retry-After is honored,429 has at least60seconds and
 other server/network failures at least10seconds. Successful bodies need a valid
 message name; only an explicit structured404 marks a target unregistered.
 
@@ -301,7 +306,7 @@ reason preserves its original since-time while it remains retained. These are
 recent coverage warnings, not a complete event audit or proof of a current outage.
 Older latest-only snapshots retain only the warning they actually contained;
 missing historical warnings are never invented. Expired records are filtered
-from status and pruned on mutation. Periodic physical cleanup remains open.
+from status and pruned on mutation. Periodic physical cleanup now runs on startup and every60seconds while running.
 Name lookup failures use `name-proof-unavailable`; observer coverage adds the
 chain/bootstrap/archive reasons described below.
 
@@ -338,7 +343,7 @@ skipping a block. Callers fetch/process blocks individually to bound memory.
 These checks establish supported block identity, not consensus admission/finality.
 
 The callable observer now persists candidate outcomes before a processed cursor.
-Reorg recovery and continuous standalone polling remain unfinished.
+Reorg recovery and autonomous processing are implemented later in the checkpoints below.
 Its[controlled chain evidence](evidence/ticket42/chain-green/README.md) passes
 both selector loops; no exhaustive-history claim. Source review requires matching
 final tip identity, with the conflict guard reviewed rather than separately fixture-tested.
@@ -389,3 +394,42 @@ passes both selectors, including a positive HTTP retained-anchor precondition,
 replacement block processing and fresh-instance Full continuation. Source3e9a3784
 reviews Standards0/Spec0; owned build PASS1m42s/gateway9/0/0. This is cursor
 recovery only, with the social-event withdrawal limitation above.
+
+## Explicit autonomous operation and lifecycle
+
+The six-argument command above runs HTTP and retention only. To enable observation,
+append `--observe --project PROJECT_ID`, replacing PROJECT_ID with the authorized
+Firebase project identifier. This starts one completion-based30second loop per
+approved backend, serialized at gateway processing. Each pass reconstructs and
+closes its own selected chain/Archive readers. It does not switch subscribers
+between backends. The gateway creates an ephemeral, unfunded signing identity
+in process memory; it rotates on restart and never uses a subscriber secret.
+
+The operator must separately provision supported Application Default Credentials
+with the messaging scope and `cloudmessaging.messages.create` on that target
+project, matching the app's configured Firebase project/FID contract. Credentials
+stay outside the repository/APK. This documentation does not create accounts,
+grant permissions, configure the owner app, authorize hosting or claim Google
+acceptance. Default HTTP mode never loads ADC.
+
+A processing round reads at most8 full blocks and stops before starting another
+block after90seconds. Exact Archive proof collection has a45second budget checked
+between requests, plus one in-flight request's12second deadline. Optional names
+are cached within a proof pass and limited to50 distinct lookups across it; missing
+budget records unavailable name eligibility while preserving exact reply evidence.
+Delivery examines at most32 due events and stops before another attempt after
+30seconds, plus one in-flight authorization/send. These are work limits, not a
+promise to recover arbitrary historical bursts. Unprocessed cursor continuation
+and retained coverage warnings remain explicit. Head backfill only runs after
+chain ancestry is reconciled; it cannot bypass a stopped chain pass.
+
+Shutdown first signals every observer and cancels shared sending, then awaits
+observer termination before closing HTTP/state. Owned chain/Archive calls are
+cancelled. Cleanup attempts all stages and restores interruption. A valid pending
+wake remains retryable during shutdown. Provider termination and every exceptional
+shutdown interleaving are source-reviewed limits, not claimed device/cloud tests.
+
+Current autonomous tracer is under correction/review. It requires verified
+re-inclusion to restore the same wake, a second owned FCM attempt and another Full
+range request. Initial no-op RED and the superseded first minimum are retained;
+no whole42 acceptance is implied by those earlier records.

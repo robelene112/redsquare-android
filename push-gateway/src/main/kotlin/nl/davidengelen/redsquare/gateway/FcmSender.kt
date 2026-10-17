@@ -45,7 +45,8 @@ class FcmSender(private val project: String, private val credentials: GoogleCred
 
     fun send(fid: String, wake: String, expiresAt: Long): Result {
         require(fid.matches(Regex("[A-Za-z0-9_-]{1,256}")) && wake.matches(Regex("[0-9a-f]{64}")))
-        if (closed.get() || expiresAt <= clock.millis()) return Result.Rejected(410)
+        if (expiresAt <= clock.millis()) return Result.Rejected(410)
+        if (closed.get()) return Result.Retry(10_000)
         return try {
             // Refreshable Google credentials obtain fresh metadata for each attempt; never cache a bearer here.
             val authorization = authorization()
@@ -63,7 +64,7 @@ class FcmSender(private val project: String, private val credentials: GoogleCred
             val call = client.newCall(request)
             if (!active.compareAndSet(null, call)) return Result.Retry(10_000)
             try {
-                if (closed.get()) { call.cancel(); return Result.Rejected(410) }
+                if (closed.get()) { call.cancel(); return Result.Retry(10_000) }
                 call.execute().use { response ->
                 // Status and retry headers are usable even when an error body is absent or unreadable.
                 if (response.code == 429 || response.code >= 500) return Result.Retry(retryAfter(response.header("Retry-After"),

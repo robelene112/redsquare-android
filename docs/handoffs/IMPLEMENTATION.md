@@ -7,6 +7,30 @@ open. Its earlier overall review base was dd89bc9108eb002bb260eee709c656cd453489
 dependency#24 remains closed.
 Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`.
 
+## Active autonomous runtime
+
+Chain-social checkpoint810fa14c accepted/pushed. SourceCI39000330915 SUCCESS;
+retention of its raw source evidence remains to do. Sole42 staysopen.
+Runtime tracerf1539825 actualFAIL1m49s/gateway10/1/new8.592s at193 no automatic
+requests after complete manual OWNER recovery; later/OFFICIALunexecuted.
+[RED](../evidence/ticket42/runtime-red/README.md),10hashes/22sources. Standards0/
+Spec1 evidence-scope: counters alone prove polling. Strengthened source now
+requires automatic re-inclusion→samewake secondFCM/200/original-alt-original
+blocks, then another Full request. No separate strengthenedRED claim.
+Firsteb6982d9 PASS1m48/new7.443/coreUPTODATE/installDist, superseded source lifecycle
+findings: eagerADC/closepublication, sequentialobserverstop, earlycleanupfailure,
+headpollbypassesunresolvedancestry. [Retained](../evidence/ticket42/runtime-first-minimum/README.md),10hashes/22sources.
+Correctionfc97c62f returns chain-reconciled Boolean, signalsallobservers/cancels
+senderbeforeawaitingany, sharedcompletecleanup/restoredinterrupt, synchronized
+subscriptionclose/statefileclosedguard, lazyADCinsideboundedmetadatafuture.
+Owned86941 endedPASS1m49/gateway10/0/0/coreUPTODATE/installDist. [Retained](../evidence/ticket42/runtime-second-minimum/README.md),10hashes/23sources.
+Spec0/Standards1: closure wronglypermanentlyrejectsvalidpendingwake. Current
+sourcefix makesclosed sender Retry10s; actualexpiry remains410. No build yet.
+Periodiccleanup/limits/CLI/shutdowninterleavings source-reviewed, not separately
+executedfaultcases. No actualADC/Google/production/Androidchange. Protectedgroupdocuntouched.
+NextafterruntimeGREEN: missing parent/history/unknownancestor recovery and whole42
+review/verification/operatingdocs beforeclosure. Do not close42/32 prematurely.
+
 ## Active chain-social event withdrawal
 
 Accepted gap checkpoint5302304d is pushed. Earlier non-social reorg source
