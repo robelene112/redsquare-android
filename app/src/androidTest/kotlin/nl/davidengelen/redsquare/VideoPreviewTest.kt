@@ -181,6 +181,22 @@ class VideoPreviewTest {
                 }};
                 onYouTubeIframeAPIReady();
             """.trimIndent()).build())
+            api.enqueue(MockResponse.Builder().setHeader("Content-Type", "application/javascript").body("""
+                window.YT={Player:function(element,options){
+                  var target=this,root=document.getElementById(element);
+                  target.cueVideoById=function(id){if(id!=='M7lc1UVf-VE')throw Error('Wrong reference');};
+                  target.pauseVideo=function(){};
+                  var button=document.createElement('button');button.innerText='Play controlled refused video';
+                  root.appendChild(button);
+                  button.onclick=function(event){
+                    if(!event.isTrusted)return;
+                    options.events.onError({data:150});
+                    setTimeout(function(){root.style.color='white';root.innerText='Controlled provider explanation remains visible.';},1200);
+                  };
+                  setTimeout(function(){options.events.onReady({target:target});},20);
+                }};
+                onYouTubeIframeAPIReady();
+            """.trimIndent()).build())
             api.enqueue(readyResponse())
             api.start(java.net.InetAddress.getByName("127.0.0.1"), 0)
             peer.start().use { server ->
@@ -211,6 +227,15 @@ class VideoPreviewTest {
                             ui.onNodeWithText("Retry").performClick()
                             ui.waitUntil(20_000) { ui.onAllNodesWithText("Use the player controls to start playback.").fetchSemanticsNodes().isNotEmpty() }
                             assertEquals(3, api.requestCount)
+                            val device = UiDevice.getInstance(instrumentation)
+                            requireNotNull(device.wait(Until.findObject(By.text("Play controlled refused video")), 10_000)).click()
+                            ui.waitUntil(10_000) { ui.onAllNodesWithText("Retry").fetchSemanticsNodes().isNotEmpty() }
+                            assertTrue("The provider explanation must remain visible after an embedding refusal",
+                                device.wait(Until.hasObject(By.text("Controlled provider explanation remains visible.")), 5_000))
+                            capture("video-evidence/embed-refused-explanation.png")
+                            ui.onNodeWithText("Retry").performClick()
+                            ui.waitUntil(20_000) { ui.onAllNodesWithText("Use the player controls to start playback.").fetchSemanticsNodes().isNotEmpty() }
+                            assertEquals(4, api.requestCount)
                             ui.onNodeWithText("Close video").performClick()
                             ui.onNodeWithText("Conversation").assertIsDisplayed()
                             ui.onNodeWithText(postText).assertExists()
