@@ -108,12 +108,12 @@ Optional malformed credits do not discard text/images. PostImages shows provider
 brand and available credits, including its viewer; signed Saito payload remains
 only original URLs. Source-link navigation persists current work first, reusing
 picker persistence. Metadata source reviews and local/native checks passed at
-the checkpoint below. Fresh-Activity restoration and signed post/reply/quote
-interoperability verification remain pending; complete
-Android10/17 and recovery/failure acceptance. Live authorized Giphy remains a
+the checkpoint below. Fresh-Activity restoration and controlled signed
+post/reply/quote checks now pass, with the documented pinned-web text limitation.
+Complete remaining search/recovery and Android10/17 acceptance. Live authorized Giphy remains a
 separate external gate. #16 and #31 stay open. Beta24 unchanged, no new APK.
 Protected untracked group contract stays untouched. Latest issue16 comment
-6230461462; latest tracker comment is not full acceptance.
+6230874630 predates the newest runtime checkpoint and is not full acceptance.
 
 ## Historical gateway checkpoint records
 
@@ -840,13 +840,11 @@ editing; it is not a pass. Corrected source reviews Standards0/Spec0; local buil
 Corrected native metadata checkpoint passed in39010198233, as recorded below.
 Separate source39009396879 SUCCESS at tracerb377c2e1, not new metadata acceptance.
 
-Remaining GIF acceptance should include a fresh Activity/ViewModel launch when
-reopening the saved draft, without inspecting internal storage/VM state. Current
-tracer proves activity recreation plus codec readback, not actual process death.
-Also complete controlled search/empty/rate-limit/retry/query handling and signed
-post/reply/quote interoperability at existing UI/HTTP/Saito seams, with final
-Android10/17 verification. Avoid expanding into unrelated node/provider work.
-
+Remaining GIF acceptance covers controlled search/empty/rate-limit/retry/query
+handling and final Android10/17 verification. Fresh Activity/ViewModel reopening
+and signed post/reply/quote checks now pass at the checkpoint below. Actual
+process death is not proved by the fresh-Activity journey. Avoid unrelated
+node/provider work.
 
 ## Current GIF verification checkpoint
 
