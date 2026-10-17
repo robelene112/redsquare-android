@@ -16,7 +16,7 @@ campaigns, provider-access services or safeguard bypass work.
 [Issue47](https://github.com/robelene112/redsquare-android/issues/47) is OPEN,
 assigned to root's owner and labelled ready-for-agent. Native blocker46 is CLOSED;
 zero OPEN blockers verified. Child of34, under specification1. Review base is
-`d6a64a256ffb77b51d3c565e19f46e49f31eb40c`. Initial gateway code exists; whole47/native acceptance remains pending.
+`d6a64a256ffb77b51d3c565e19f46e49f31eb40c`. Gateway and native subscription code exist; whole47/native receiver acceptance remains pending.
 
 Deliver group interests through the authenticated shared subscription, opaque
 wakes and actual native worker/notification/history boundaries. Group messages
@@ -25,8 +25,8 @@ current retained membership and preserve LEFT/REMOVED decisions, shared ordinary
 background durable deduplication, generic group alerts and exact unencrypted group
 entry. Keep current wallet/backend/category/account/conversation controls and the
 union of consenting Social/private/group demand. Existing controlled peer/gateway/
-FCM and Android seams are approved; do not ask again. Start with one actual group
-wire/HTTP journey RED before the minimum implementation. Reuse independent pinned
+FCM and Android seams are approved; do not ask again. The first group wire/HTTP
+RED and minimum are already retained below. Reuse independent pinned
 group vectors; fresh transport fixtures are not new cross-client evidence.
 
 First traceraf40014ba is actual RED1failure/2.160s: group binding HTTP400 expected201,
@@ -40,9 +40,9 @@ decode400instead503; actualHTTP RED retained1failure/2.404s. Corrected/refactore
 source d820ad996 passes all16gateway cases; both reviewers report0residual source
 findings. A missing persisted group list separately reproduced503expected/410actual;
 corrected focused group journeys both pass in1m5s. Both RED/GREEN packets retained.
-A separate compile failure is retained without acceptance. Next is the
-actual Android group-consent/interest reconciliation RED in39078383744 at8762f20d3; client demand/native group receiver,
-actual alerts, membership/policy/identity/dedup/PID and full SDK acceptance remain.
+A separate compile failure is retained without acceptance. Native subscription
+reconciliation has advanced as recorded below. The group receiver, actual group
+alerts, membership/policy/identity/dedup/PID and full SDK acceptance still remain.
 
 Native group-consent RED39078383744 at8762f20d3 is retained:11cases/10PASS/1FAIL,
 153.292s, subscription operation unavailable; rejected status/body not recorded.
