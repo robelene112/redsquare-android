@@ -1,10 +1,12 @@
 {
   "sources": {
     "apk": "9a37c19ba5182b8f0f26f7c2947ec6a511a457f9",
-    "focused": "8113a0386a6925bc7f6d299ac257b2af439b8427",
+    "focusedAlerts": "598dd89ffa4f65a86ef9b5ab9e3e3884d382d94b",
+    "focusedSettings": "8113a0386a6925bc7f6d299ac257b2af439b8427",
     "focusedDismissal": "f7395a26a7981be3d7c259b480c86a07c8ef2662",
-    "fullAndroid10": "d68c30d3998546f02ac96d6216494d46a36a56a2",
-    "fullAndroid17": "4f0d7ce1af31564e7b212752e2ecab3545e5265b"
+    "finalFixtures": "16a0c1bc6636983b806c93c1ed4443dddae3bfc4",
+    "fullAndroid10": "16a0c1bc6636983b806c93c1ed4443dddae3bfc4",
+    "fullAndroid17": "16a0c1bc6636983b806c93c1ed4443dddae3bfc4"
   },
   "productionAndBuildObjects": {
     "apk": {
@@ -18,7 +20,18 @@
       "push-gateway/src/main": "30fb7c25bd4ae266cb0b4d4865becfea4a918d3d",
       "push-gateway/build.gradle.kts": "517dcc470f27fb27f9bdfc758dfd81a473192f90"
     },
-    "focused": {
+    "focusedAlerts": {
+      "app/src/main": "5341391aeb02f62e793c417ccff231160ecdab8c",
+      "app/build.gradle.kts": "04b2afc380b894a6b055d40dba9619591e4f71c3",
+      "core/src/main": "786679f6635267ca0757ff35369a995979bdf3de",
+      "core/build.gradle.kts": "ee89e44c57ab26d38036ab92575baa08c24d4df6",
+      "build.gradle.kts": "f3fc17c4fa2c66d6f11cc3545bf3b86bed466fb8",
+      "settings.gradle.kts": "0095b7ade761bc539b703724c717ece3a9d1879b",
+      "gradle.properties": "412c76af0b073a46f92cae8d5a3fcc8202b9612c",
+      "push-gateway/src/main": "30fb7c25bd4ae266cb0b4d4865becfea4a918d3d",
+      "push-gateway/build.gradle.kts": "517dcc470f27fb27f9bdfc758dfd81a473192f90"
+    },
+    "focusedSettings": {
       "app/src/main": "5341391aeb02f62e793c417ccff231160ecdab8c",
       "app/build.gradle.kts": "04b2afc380b894a6b055d40dba9619591e4f71c3",
       "core/src/main": "786679f6635267ca0757ff35369a995979bdf3de",
@@ -30,6 +43,17 @@
       "push-gateway/build.gradle.kts": "517dcc470f27fb27f9bdfc758dfd81a473192f90"
     },
     "focusedDismissal": {
+      "app/src/main": "5341391aeb02f62e793c417ccff231160ecdab8c",
+      "app/build.gradle.kts": "04b2afc380b894a6b055d40dba9619591e4f71c3",
+      "core/src/main": "786679f6635267ca0757ff35369a995979bdf3de",
+      "core/build.gradle.kts": "ee89e44c57ab26d38036ab92575baa08c24d4df6",
+      "build.gradle.kts": "f3fc17c4fa2c66d6f11cc3545bf3b86bed466fb8",
+      "settings.gradle.kts": "0095b7ade761bc539b703724c717ece3a9d1879b",
+      "gradle.properties": "412c76af0b073a46f92cae8d5a3fcc8202b9612c",
+      "push-gateway/src/main": "30fb7c25bd4ae266cb0b4d4865becfea4a918d3d",
+      "push-gateway/build.gradle.kts": "517dcc470f27fb27f9bdfc758dfd81a473192f90"
+    },
+    "finalFixtures": {
       "app/src/main": "5341391aeb02f62e793c417ccff231160ecdab8c",
       "app/build.gradle.kts": "04b2afc380b894a6b055d40dba9619591e4f71c3",
       "core/src/main": "786679f6635267ca0757ff35369a995979bdf3de",
@@ -63,28 +87,49 @@
       "push-gateway/build.gradle.kts": "517dcc470f27fb27f9bdfc758dfd81a473192f90"
     }
   },
-  "correctedFixtureObjects": {
-    "focused": {
-      "app/src/androidTest": "5ca0b04a6b7b2117ac462ea8c75f2ac787704652",
+  "finalFixtureObjects": {
+    "finalFixtures": {
+      "app/src/androidTest": "69f81b9ebec7a803d698dcee0e06385511170af8",
+      "test-fixtures": "937f38709f43bb8094a56efce841ff1176b3737b",
+      "scripts/emulator-check": "d34ed55cf471747b17bc86bb525b7bb0b7823430",
+      ".github/workflows/android-proof.yml": "d4888125e763f582f2342353911f9c1b243426ea"
+    },
+    "fullAndroid10": {
+      "app/src/androidTest": "69f81b9ebec7a803d698dcee0e06385511170af8",
       "test-fixtures": "937f38709f43bb8094a56efce841ff1176b3737b",
       "scripts/emulator-check": "d34ed55cf471747b17bc86bb525b7bb0b7823430",
       ".github/workflows/android-proof.yml": "d4888125e763f582f2342353911f9c1b243426ea"
     },
     "fullAndroid17": {
-      "app/src/androidTest": "5ca0b04a6b7b2117ac462ea8c75f2ac787704652",
+      "app/src/androidTest": "69f81b9ebec7a803d698dcee0e06385511170af8",
       "test-fixtures": "937f38709f43bb8094a56efce841ff1176b3737b",
       "scripts/emulator-check": "d34ed55cf471747b17bc86bb525b7bb0b7823430",
       ".github/workflows/android-proof.yml": "d4888125e763f582f2342353911f9c1b243426ea"
     }
   },
   "productionEquivalent": true,
-  "correctedFixturesEquivalent": true,
-  "fullSdkFixtureDifference": {
-    "from": "4f0d7ce1af31564e7b212752e2ecab3545e5265b",
-    "to": "d68c30d3998546f02ac96d6216494d46a36a56a2",
-    "files": [
-      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SocialPushProcessRecoveryTest.kt"
+  "finalFixturesEquivalent": true,
+  "correctionsSinceApk": {
+    "changedFixtureFiles": [
+      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/BackendPreviewTest.kt",
+      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatMutePreviewTest.kt",
+      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatQueuePreviewTest.kt",
+      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/FollowingPreviewTest.kt",
+      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ImageLoadingTest.kt",
+      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/NotificationsPreviewTest.kt",
+      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PersonalControlsPreviewTest.kt",
+      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PostPreviewTest.kt",
+      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PostQueuePreviewTest.kt",
+      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PrivateChatHistoryFixture.kt",
+      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/QuotePreviewTest.kt",
+      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ReportPreviewTest.kt",
+      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SearchPreviewTest.kt",
+      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SocialPreviewTest.kt",
+      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SocialPushProcessRecoveryTest.kt",
+      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/UsernamePreviewTest.kt",
+      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/WalletImportPreviewTest.kt",
+      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/WalletTransferStatusTest.kt"
     ],
-    "reason": "One UiObject2-bound physical reply-card swipe instead of cached coordinate injection; observable assertions and deadlines unchanged."
+    "acceptance": "Existing Settings radio choices scroll into view before click. The existing actual-dismissal process fixture uses one UiObject2-bound physical swipe. Acceptance assertions and deadlines remain unchanged."
   }
 }
