@@ -52,14 +52,21 @@ current native category union; localcore114/gateway16 and debug/testAPK build
 PASS6m25s. Both reviewers caught unrelated receipt dependence on group storage.
 Correctedb61cbdfdd separates identity preflight from registration-only enumeration,
 retains conservative registration retry and adds an orphan group .new to the
-existing private worker-first fixture. Both source reviews0. Native GREEN
-39079544898 and source39079543130 are currently running atb61cbdfdd.
+existing private worker-first fixture. Both source reviews0. Actual Android17
+GREEN39079544898 atb61cbdfdd passes all11cases/136.591s, plus the private process
+proof:4939→4987→5050, SAMEUUIDd85f7aac-7695-4b00-a323-f877603f4069,0expired requests,
+physical dismissal/quiet duplicate/exact history/identity/restoration. SourceCI
+39079543130 also SUCCESS (release/lint included). Twenty-hash native-consent-green
+packet retained, root viewed all three selected original captures. Focused17 only;
+whole47/native group receiver and full10/17 remain pending.
 
 First actual group-worker tracer is now prepared asGroupPushWorkPreviewTest,
 with isolated `group-push` SDK scopes; full and Chat scopes retain original checks
 and add its separate180second class. Production is unchanged fromb61cbdfdd.
-No group receiver code exists yet. Dispatch the isolated group trace for actual
-RED before implementing the missing group-reference/original/history path.
+No group receiver code exists yet. Isolated group RED39080033398 is running at
+61b4c3be8; sourceCI39080028621 also running. Do not implement the missing group
+receiver until the actual RED is inspected and retained. Source/tracer/harness
+reviews have0 residual findings; production/build files matchb61cbdfdd exactly.
 
 Temporary work: /tmp/redsquare-group47-work-20261017. No owned local Gradle job.
 Original32/34 retain configured Google/hosting/deployment/physical gates. Published
