@@ -165,8 +165,8 @@ Fixture-only2da44ac9 nowPASS41s/gateway6/0/0, new1.897s, coreUPTODATE.
 [Retained GREEN](../evidence/ticket42/sender-green/README.md),7hashes/12sourcehashes.
 Owned55910endedexit0, no owned local build. Final fixture/evidence reviews at981d1248 report Standards0/Spec0. Pushed;
 source CI38996214676 SUCCESS, [retained](../evidence/ticket42/archive-sender-source-ci/README.md).
-No actual Google/ADC/cloud/account use. Durable event/resolver and send scheduling
-remain next; do not close42/32 or claim device delivery. Beta24 unchanged.
+No actual Google/ADC/cloud/account use. The durable callable event/resolver/send pass is now implemented below;
+continuous runtime/chain/name-proof work remains. Do not close42/32 or claim delivery. Beta24 unchanged.
 
 ## Current durable reply pass
 
@@ -180,7 +180,8 @@ Correction6bc3d712 fresh durable reread per send, current FID/generation and ser
 passes; Standards0, Spec documentation contradiction corrected in current docs.
 Owned51625 ended PASS1m1s/gateway7/0/0/coreUPTODATE, no owned local build.
 [Retained GREEN](../evidence/ticket42/delivery-green/README.md),8hashes/13sourcehashes.
-Final evidence/Spec reviews pending. The concurrency interleaving, retry branch,
+Final Spec0; Standards found one stale preceding next-step sentence, now corrected.
+The concurrency interleaving, retry branch,
 expiry and pubkey mentions are source-reviewed, not exercised by this reply case.
 Next: interrupted-send recovery, verified-name mentions, chain/gaps/cleanup/runtime.
 No full42/32, production deployment or Google/Pixel claim. Beta24 unchanged.
