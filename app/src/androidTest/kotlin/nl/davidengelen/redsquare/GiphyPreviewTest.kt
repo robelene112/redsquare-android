@@ -104,7 +104,7 @@ class GiphyPreviewTest {
         val attempts = java.util.concurrent.atomic.AtomicInteger()
         val oldStarted = java.util.concurrent.CountDownLatch(1)
         val releaseOld = java.util.concurrent.CountDownLatch(1)
-        val oldFinished = java.util.concurrent.CountDownLatch(1)
+        val oldDispatched = java.util.concurrent.CountDownLatch(1)
         val query = "Cats & dogs + café 🐈"
         MockWebServer().use { provider ->
             provider.start(java.net.InetAddress.getByName("127.0.0.1"), 0)
@@ -126,7 +126,7 @@ class GiphyPreviewTest {
                             "Old cats" -> {
                                 oldStarted.countDown()
                                 try { check(releaseOld.await(15, TimeUnit.SECONDS)); result("Older result") }
-                                finally { oldFinished.countDown() }
+                                finally { oldDispatched.countDown() }
                             }
                             "New cats 🐈" -> result("Newer result")
                             else -> MockResponse.Builder().code(404).build()
@@ -173,10 +173,15 @@ class GiphyPreviewTest {
                             ui.onNode(hasSetTextAction()).performTextReplacement("New cats 🐈")
                             ui.waitUntil(10_000) { ui.onAllNodesWithText("Newer result").fetchSemanticsNodes().isNotEmpty() }
                             releaseOld.countDown()
-                            ui.waitUntil(10_000) { oldFinished.count == 0L }
-                            ui.waitForIdle()
-                            ui.onNodeWithText("Newer result").assertIsDisplayed()
-                            ui.onNodeWithText("Older result").assertDoesNotExist()
+                            ui.waitUntil(10_000) { oldDispatched.count == 0L }
+                            // Dispatcher completion precedes the socket write. Observe the UI over
+                            // a bounded interval, without claiming direct transport cancellation.
+                            val observeUntil = android.os.SystemClock.uptimeMillis() + 1500
+                            ui.waitUntil(3000) {
+                                ui.onNodeWithText("Newer result").assertIsDisplayed()
+                                ui.onNodeWithText("Older result").assertDoesNotExist()
+                                android.os.SystemClock.uptimeMillis() >= observeUntil
+                            }
                             assertEquals(listOf("Old cats", "New cats 🐈"), requests.toList().drop(3).map { it.url.queryParameter("q") })
                             capture("search-newer-result")
                             ui.onNodeWithText("Close GIF search").performClick()
