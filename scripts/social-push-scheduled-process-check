@@ -47,7 +47,11 @@ def public_checkpoint():
     result = adb('exec-out', 'run-as', package, 'cat', checkpoint, check=False)
     if result.returncode:
         return None
-    row = json.loads(result.stdout)
+    try:
+        row = json.loads(result.stdout)
+    except json.JSONDecodeError:
+        # API29 AtomicFile exposes its base during a valid write. Keep the existing deadline.
+        return None
     return row if row['phase'] == 'pending' else None
 
 
@@ -97,7 +101,6 @@ with (control / 'host.log').open('w') as host_log, (args.evidence / 'interrupted
         if not re.fullmatch(r'[0-9a-f]{128}', signature) or row['tag'] != f"social:{row['owner']}:owner:{signature}":
             raise AssertionError('Invalid exact notification identity')
         (args.evidence / 'pending-checkpoint.json').write_text(json.dumps(row, indent=2) + '\n')
-        before = json.loads((control / 'observed.json').read_text())
         adb('shell', 'run-as', package, 'kill', '-9', str(pid))
         assert_process_gone(adb, package, pid)
         setup.wait(timeout=15)
@@ -115,7 +118,8 @@ with (control / 'host.log').open('w') as host_log, (args.evidence / 'interrupted
             if pid in pids:
                 raise AssertionError('Original PID unexpectedly still exists')
             observed = json.loads((control / 'observed.json').read_text())
-            if not pids or observed['requests'] <= before['requests']:
+            # available mode is enabled only after death, avoiding a stale-counter baseline.
+            if not pids or observed['availableReads'] < 2:
                 return None
             dump = adb('shell', 'dumpsys', 'notification', '--noredact').stdout
             records = re.split(r'(?=NotificationRecord\()', dump)
@@ -130,17 +134,17 @@ with (control / 'host.log').open('w') as host_log, (args.evidence / 'interrupted
         (args.evidence / 'notification-after.txt').write_text(dump)
         activities = adb('shell', 'dumpsys', 'activity', 'activities').stdout
         (args.evidence / 'activities-after.txt').write_text(activities)
-        if any(package + '/nl.davidengelen.redsquare.MainActivity' in line for line in activities.splitlines()
+        if any(package + '/' in line and 'MainActivity' in line for line in activities.splitlines()
                if 'ActivityRecord{' in line):
             raise AssertionError('A target Activity appeared during autonomous recovery')
         adb('shell', 'cmd', 'statusbar', 'expand-notifications')
-        with (args.evidence / 'autonomous-alert.png').open('wb') as output:
-            subprocess.run(['adb', 'exec-out', 'screencap', '-p'], stdout=output, check=True, timeout=15)
         adb('shell', 'uiautomator', 'dump', '/sdcard/redsquare-scheduled-alert.xml')
         adb('pull', '/sdcard/redsquare-scheduled-alert.xml', str(args.evidence / 'autonomous-alert.xml'))
         nodes = list(ET.parse(args.evidence / 'autonomous-alert.xml').iter('node'))
         if not any(node.get('text') == 'Replied to your post' for node in nodes):
             raise AssertionError('The actual system shade did not display the recovered reply alert')
+        with (args.evidence / 'autonomous-alert.png').open('wb') as output:
+            subprocess.run(['adb', 'exec-out', 'screencap', '-p'], stdout=output, check=True, timeout=15)
     except BaseException as failure:
         primary = failure
         raise
@@ -149,8 +153,23 @@ with (control / 'host.log').open('w') as host_log, (args.evidence / 'interrupted
         cleanup_failures = []
         try:
             adb('shell', 'am', 'force-stop', package)
+        except BaseException as failure:
+            cleanup_failures.append(failure)
+        try:
             if setup is not None and setup.poll() is None:
-                setup.wait(timeout=15)
+                try:
+                    setup.wait(timeout=15)
+                except subprocess.TimeoutExpired as failure:
+                    cleanup_failures.append(failure)
+                    setup.terminate()
+                    try:
+                        setup.wait(timeout=5)
+                    except subprocess.TimeoutExpired:
+                        setup.kill()
+                        setup.wait(timeout=5)
+        except BaseException as failure:
+            cleanup_failures.append(failure)
+        try:
             if target_pids():
                 raise AssertionError('Target remained live before independent restoration')
             finish_process_fixture(instrument, args.evidence, package, 'social-push-scheduled-evidence', primary)
@@ -168,11 +187,16 @@ with (control / 'host.log').open('w') as host_log, (args.evidence / 'interrupted
                 if host.wait(timeout=10) != 0:
                     raise AssertionError('Host fixture rejected the observed journey; see host.log')
             except BaseException as failure:
-                host.kill()
-                host.wait(timeout=10)
                 cleanup_failures.append(failure)
+                try:
+                    host.kill()
+                    host.wait(timeout=10)
+                except BaseException as fallback_failure:
+                    cleanup_failures.append(fallback_failure)
         if cleanup_failures:
             if primary is None:
+                for failure in cleanup_failures[1:]:
+                    cleanup_failures[0].add_note('Cleanup also failed: ' + str(failure))
                 raise cleanup_failures[0]
             for failure in cleanup_failures:
                 primary.add_note('Cleanup also failed: ' + str(failure))

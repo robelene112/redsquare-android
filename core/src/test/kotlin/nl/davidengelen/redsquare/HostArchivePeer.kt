@@ -14,10 +14,12 @@ object HostArchivePeer {
         val root = JsonParser.parseString(File(arguments[1]).readText()).asJsonObject.getAsJsonObject("root")
         val mode = File(directory, "mode")
         val replyFile = File(directory, "reply.json")
+        val availableReads = java.util.concurrent.atomic.AtomicInteger()
         val peer = ControlledFeedPeer("[]", archiveResponse = { criteria ->
             require(criteria.get("field1").asString == "RedSquare" && criteria.get("flagged_ne").asInt == 1 &&
                 criteria.get("limit").asInt == 1)
             if (mode.readText().trim() != "available") "{}" else {
+                availableReads.incrementAndGet()
                 val reply = JsonParser.parseString(replyFile.readText()).asJsonObject
                 val signature = criteria.get("sig").asString
                 when (signature) {
@@ -42,6 +44,7 @@ object HostArchivePeer {
                 check(peer.transactions.isEmpty() && peer.reports.isEmpty() && peer.relayedMessages.isEmpty())
                 publish("observed.json", JsonObject().apply {
                     addProperty("requests", peer.requests.get())
+                    addProperty("availableReads", availableReads.get())
                     addProperty("authenticatedConnections", peer.servedChallenges.get())
                     addProperty("outgoingWrites", 0)
                 })
@@ -49,6 +52,7 @@ object HostArchivePeer {
             }
             check(mode.readText().trim() == "stop") { "Host fixture lifetime exceeded" }
             peer.assertHealthy()
+            check(peer.transactions.isEmpty() && peer.reports.isEmpty() && peer.relayedMessages.isEmpty())
         }
     }
 }

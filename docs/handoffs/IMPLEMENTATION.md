@@ -89,8 +89,12 @@ an autonomous scheduled-receipt observation. The supervisor keeps setup
 instrumentation alive, kills the verified PID, and observes a distinct PID, new
 peer reads and exact system alert before any target relaunch. Cleanup then stops
 the target, independently cancels/drains owned work and restores originals. This
-is additional verification of the accepted worker, not a new RED claim. Local
-compilation is running; no runtime or feasibility pass is claimed yet. No SDK/client config/service/gateway/node change was made.
+is additional verification of the accepted worker, not a new RED claim. Initial local core/debug/test build passes5m32s with114 core cases. Source review
+found cleanup-client lifetime and concurrent-checkpoint parsing risks; corrections
+retain bounded polling, independently attempt restoration and aggregate cleanup
+failures. Positive available-mode reads avoid a stale host counter baseline; the
+shade capture follows visible XML confirmation. Corrected source review and
+exact-source CI/native verification remain pending; no runtime pass is claimed. No SDK/client config/service/gateway/node change was made.
 The existing owner Firebase setup question remains pending, do not repeat it.
 Public signed beta24 is unchanged.
 

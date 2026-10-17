@@ -114,14 +114,19 @@ class SocialPushScheduledProcessTest {
         runBlocking(Dispatchers.IO) { SocialPushScheduling.cancelAndAwait(context, row.get("payload").asString) }
         manager.cancel(row.get("tag").asString, 0)
         val pendingIdentityPreserved = row.get("phase").asString != "pending" ||
-            (row.get("walletDigest").asString == digest(AndroidWalletStore(context).loadExisting().exportJson()) &&
-                AndroidBackendStore(context).load() == SaitoBackend.OWNER)
+            runCatching {
+                row.get("walletDigest").asString == digest(AndroidWalletStore(context).loadExisting().exportJson()) &&
+                    AndroidBackendStore(context).load() == SaitoBackend.OWNER
+            }.getOrDefault(false)
         if (row.get("phase").asString != "copying") {
             restoreProcessFixtureFiles(context, originals, names(), row.getAsJsonArray("savedFiles"))
         }
         assertEquals(row.get("originalWalletDigest").asString, digest(AndroidWalletStore(context).loadExisting().exportJson()))
         assertEquals(row.get("originalBackend").asString, AndroidBackendStore(context).load().id)
-        if (originals.exists()) check(originals.deleteRecursively())
+        if (originals.exists()) {
+            check(originals.isDirectory && originals.listFiles()!!.all { it.isFile && it.name in names() })
+            check(originals.deleteRecursively())
+        }
         AtomicFile(checkpoint).delete()
         UiDevice.getInstance(instrumentation).pressBack()
         assertTrue("Scheduled recovery must preserve the full fixture wallet and selected backend", pendingIdentityPreserved)
