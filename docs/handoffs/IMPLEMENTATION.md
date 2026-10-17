@@ -65,7 +65,8 @@ regressions now pass on both SDKs; see[the current checkpoint](../evidence/ticke
 Owned local build59382 completed PASS3m28s: core test task UP-TO-DATE, debug and
 test APK assembly. Log `.scratch/gif16-buffer-published-credits-build.log`.
 Readiness-fixture test build73696 completed PASS1m49s. No owned local build active.
-Signed beta25 at19e is prepared, unpublished.
+Signed beta25 at19e is prepared, unpublished. Final combined evidence reviews
+at c365a5f4 are Standards0/Spec0; next action is publication of that exact APK.
 Its Gradle build completed PASS3m26s and final signature/manifest steps ran, but
 outer exec3548 reported143. Independent APK hash/signature/certificate/package/
 version/source checks passed; do not call that wrapper exit0. Logs are

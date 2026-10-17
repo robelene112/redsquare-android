@@ -52,14 +52,13 @@ diagnostic status0 packets without class/test fields are not counted as passes.
 
 Whole source reviews at5154 and both fixture corrections have no outstanding
 Standards/Spec findings. Corrected full17 evidence and its source-link caption
-also have no outstanding findings. Final combined full10 evidence review is
-pending at this checkpoint. No app source changed during final regression.
+also have no outstanding findings. Final combined evidence reviews at c365a5f4 are Standards0/Spec0. No app source changed during final regression.
 
 Signed25/0.1.25 is prepared from19e with the established certificate and package.
 APK SHA2562eb5f4ffc021e4fc87672e25f7f5ca207b2d19d49a96453a5a422abe10d536c8.
 Gradle/signature/manifest checks passed, but its wrapper reported143; independent
 repeated APK signature/package/version/hash verification passed. Do not claim
-the wrapper exited0. It remains unpublished pending final evidence review.
+the wrapper exited0. It remains unpublished, with final evidence reviews complete.
 This checkpoint does not establish Pixel performance/update continuity, real
 YouTube playback, Owner Registry registration, Google closed-app delivery,
 provider/operator declarations or Play approval. Beta24 remains published.
