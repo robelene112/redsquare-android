@@ -22,7 +22,7 @@ Do not invent one. Repository state was verified before ordinary app work resume
 
 ## Current bounded work
 
-The current #32 slice is scheduled social receipt through real WorkManager,
+The accepted scheduled-receipt foundation uses real WorkManager,
 selected-Archive retry and an actual Android alert without an Activity.
 [Canonical verification](../evidence/ticket32/scheduled-receipt-green/README.md)
 records both passing SDKs at exactc69a1896d01b23c6bb41b3f9e248410517017ac7:
@@ -102,24 +102,40 @@ native rerun is needed; final full#32 acceptance remains required.
 
 Local initial build5m32s/corrected2m27s/core114 and isolated host readiness/stop smoke
 pass. Later marker source is compiled by exact CI. No owned local build remains.
-Next same-ticket work is actual incoming transport, not another local receipt
-permutation. [Lifecycle preparation](../research/NATIVE_PUSH_TRANSPORT_ENTRY_POINTS_2026_10_17.md)
-and ignored .scratch/push32-next-transport-slice.txt record options, not implementation.
-An opaque-wake tracer is now being prepared: an owned local HTTP gateway sees only
-version/wake, initially503, then resolves the public reference; the existing signed
-Archive verifier must publish the actual alert and preserve duplicate/wallet/backend
-invariants. It extends the existing worker journey and150s class scope. The new
-worker is deliberately no-op until its intended missing-processing RED is observed.
-Initial local tracer build fails2m26s on the fixture request body
-being nullable. The correction requires a body, compares the complete expected
-version/wake request and surfaces callback failures. Source reviews at553df5b0
-report0/0; correction reviews atdc48e398 report0/0. Corrected local core/debug/test
-build passes1m47s. Intended native RED is next; no runtime pass is claimed.
-Next review base68e420ee. Existing consent,
-wallet/backend choices, strict app fixture endpoints and scoped cancellation/restore
-remain. No Firebase SDK/client config/service or deployed gateway/node/account change. Existing
-owner Firebase setup question stays pending, do not repeat it. Local autonomous
-scheduling does not prove incoming FCM/locked/Doze/Pixel or whole#32. Beta24 unchanged.
+## Current opaque wake processing
+
+Same-ticket transport step, review base68e420ee. [Intended RED](../evidence/ticket32/opaque-wake-red/android10/README.md)
+38986422596 at4f56e70e: existing11PASS87.424s; worker3 reports2PASS/1FAIL37.422s,
+new opaque case rejects no-op SUCCEEDED. Existing Archive journeys pass. New
+request/auth/recovery/alert/dedup/preservation tails are unexecuted in this RED;
+recipient-proof assertions452f4595 were added afterward, not proven by that run.
+The21 hashes/7XML are retained; root viewed only the new failure original. Its
+PNG IHDR is320x640 and XML records Launcher; preview showed only a thin statusbar,
+so no rendering cause is inferred. Source38986388089 SUCCESS release/lint/core114.
+
+Minimum861e795c now resolves the opaque wake over HTTP, using a local recipient
+signature over literal domain/full resolver URL/wake. The future gateway must
+match signer to wake recipient before returning the strict public reference.
+Body remains onlyversion/wake. It retries outages, bounds response1024/HTTP12s,
+checks current consent/identity/backend, then reuses the existing signed selected-
+Archive verifier and shared publication mutex. Processing expiry7days, fresh
+policy/cancellation checks, HTTPS/no redirects, debug+emulator127 fixtures only;
+archive overrides are fixture-only. No new user-configurable backend.
+
+Source reviews find0 source defects, only stale current-handoff text now corrected.
+Local minimum core/debug/test build is active (log .scratch/push32-opaque-minimum-build.log,
+exec74616); native GREEN remains pending. Tracer local compile failed2m26s at
+nullable request body, corrected1m47s pass. Tracer/correction reviews at553df5b0,
+dc48e398/452f4595 report0/0. Existing150s worker class retains both Archive journeys.
+
+[Lifecycle preparation](../research/NATIVE_PUSH_TRANSPORT_ENTRY_POINTS_2026_10_17.md)
+and[manual Firebase setup](../research/FCM_MANUAL_INITIALIZATION_2026_10_17.md)
+are source-only proposals/API facts. The service/SDK, opt-in registration, gateway
+binding/observer/deployment and actual Google delivery remain unimplemented.
+Existing owner Firebase setup question stays pending, do not repeat it. No
+SDK/client config/service, deployed gateway/node/account mutation or beta change.
+Future push data is planned to carry only opaque wake/version, no wallet/text.
+Local scheduling/resolution cannot prove incoming FCM/locked/Doze/Pixel or full#32.
 
 ## Earlier accepted username slice
 
@@ -230,20 +246,3 @@ session IDs, read [historical checkpoints](IMPLEMENTATION_HISTORY_2026_10_16.md)
 The snapshot before the username minimum preserves the previous handoff verbatim.
 Historical active/pending labels are not current authority.
 
-## Current opaque transport tracer
-
-Intended RED38986422596 at4f56e70e: existing11PASS87.424s; worker3 reports2PASS/
-1FAIL37.422s, new opaque case rejects no-op SUCCEEDED. Existing Archive journeys
-pass. New gateway/auth/recovery/alert/dedup/preservation tails unexecuted. Later
-recipient-proof assertions452f4595 were not in this runtime. [Retained RED](../evidence/ticket32/opaque-wake-red/android10/README.md)
-has21 hashes/7 XMLs; root viewed only the new failure original, with no rendering
-cause inferred. Source38986388089 SUCCESS release/lint, core114/0/0. Tracer local
-compile failure2m26s and corrected1m47s pass remain recorded. Source reviews at
-553df5b0/dc48e398/452f4595 report0/0. No owned local build remains. Minimum is next.
-
-The local resolver request contract is POST /v1/wakes/resolve, body onlyversion/wake,
-recipient public key and local signature in headers over literal domain/full URL/
-wake. The future gateway must match verified signer to wake recipient. A wake
-alone is insufficient to resolve its wallet/backend link. Keys stay on-device;
-Google data is still only opaque wake/version. This is normal app read behavior,
-not an implemented/deployed server or an independent protocol-vector claim.
