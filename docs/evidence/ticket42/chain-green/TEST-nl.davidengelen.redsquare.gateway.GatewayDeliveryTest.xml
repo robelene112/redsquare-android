@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.gateway.GatewayDeliveryTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-10-17T03:17:09" hostname="f495164c1b65" time="30.455">
+  <properties/>
+  <testcase name="selectedArchiveReplyRetainsOneWakeAcrossLostSendAcknowledgementRestartAndOptOut" classname="nl.davidengelen.redsquare.gateway.GatewayDeliveryTest" time="27.84"/>
+  <testcase name="registrarConfirmedUsernameMentionProducesARecipientBoundWake" classname="nl.davidengelen.redsquare.gateway.GatewayDeliveryTest" time="2.615"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

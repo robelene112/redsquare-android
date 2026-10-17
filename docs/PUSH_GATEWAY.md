@@ -307,3 +307,33 @@ fixture. Empty current ownership suppresses the username wake, valid current pro
 permits it, and unavailable name evidence leaves the owned-parent reply working.
 It retains the prior same-wake/restart/opt-out journey. This does not establish
 live public Registry availability or the source-reviewed disconnect interleaving.
+
+
+## Chain references and full-block reader
+
+`GatewayChain(identity, backend)` shares the authenticated transport implementation
+with Archive access, using a separate owned connection. `range(cursor)` bootstraps
+with the source-supported recent SPV window, then requests Full continuation from
+the explicit processed cursor. The111byte request contains zero extra keys. Chain
+responses have no request ID, so one may be outstanding; an uncertain outcome
+retires that connection. Authentication/response budget is12seconds.
+
+A range contains at most128 references. The reader verifies header bounds, strictly
+increasing heights, serializer-supported golden flags and matching final tip
+identity when heights coincide. Height gaps remain visible. Empty bounds describe
+the advertised tip, which does not alone prove the caller has processed that tip.
+The ancestor full hash and a durable local journal must govern later reorg choices;
+a fork-ID hint is not ancestry proof.
+
+`block(reference)` fetches one full block over the selected backend's HTTP origin,
+with no redirects,20second call timeout and8MiB limit. The existing shared parser
+checks creator/header, framing and Merkle content; height/hash/timestamp must match
+the exact reference. SPV relevance and Full transaction-count fields never justify
+skipping a block. Callers fetch/process blocks individually to bound memory.
+These checks establish supported block identity, not consensus admission/finality.
+
+The current slice remains separate from durable cursor advancement, event
+processing, retained ancestry/reorg handling and continuous standalone polling.
+Its[controlled chain evidence](evidence/ticket42/chain-green/README.md) passes
+both selector loops; no exhaustive-history claim. Source review requires matching
+final tip identity, with the conflict guard reviewed rather than separately fixture-tested.

@@ -7,9 +7,30 @@ open. Its earlier overall review base was dd89bc9108eb002bb260eee709c656cd453489
 dependency#24 remains closed.
 Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`.
 
+## Active chain range/full-block slice
+
+CurrentHEAD319365f8, remoteaccepted8fc2bd9b. Name checkpoint final0/0 pushed;
+sourceCI38997783597 SUCCESS, retainedname-source-ci2hashes. Sole ticket42stillopen.
+Chaintracera1ec2bb8 extractsunchangedGatewayPeer andaddsGatewayChainstubs+owned
+WS/HTTPjourneywithpinnedindependentfullblocks. ActualRED1m27s/new0.011s at103
+expected2/got0, firstOWNER, prior8PASS/coreUPTODATE. Downloads/continuation/
+OFFICIALunexecuted. [Retained](../evidence/ticket42/chain-red/README.md),9hashes/
+18sourcehashes (wire/fullblock included). Tracerreviews0/0.
+Minimum699397f4 adds111bytecorewire request, oneinflightchainfuture/retireuncertain
+connection, boundedrangeparser, individualfullblockfetch<=8MiB andexisting
+creator/Merkle/referenceidentityverification. Standards0/Spec1: finalreferenceat
+tipheightmustalsoequaladvertisedtiphash. Initial699397f4 PASS2m11s/gateway9/0/0/new0.901s bothselectors/coretestfresh;
+[retained superseded](../evidence/ticket42/chain-first-minimum/README.md),9hashes/18sources.
+Fix319365f8 addsmatchingtipidentity; sourceStandards0/Spec0. Owned51253 endedexit0.
+Correctedowned74343 endedPASS1m30s/gateway9/0/0/coreUPTODATE, no ownedbuild.
+[Retained GREEN](../evidence/ticket42/chain-green/README.md),9hashes/18sources.
+Finalevidence/docsreview thenpush pending. No durabledatacursor,
+chain/eventintegration or whole42acceptance yet. Nextsourceworkmustimplementdurable
+observer/gaps/cursorprocessing ratherthanmoreprotocolresearch. Protectedgroupdocuntouched.
+
 ## Active name-proof correction
 
-Current sourcead8a226a; remoteacceptedf9983893. #42 remains sole implementation.
+Accepted sourcead8a226a, accepted/pushed8fc2bd9b. #42 remains sole implementation.
 Acceptedlost-ack fixtureaea14801/d4342e90 final reviews0/0, not yetpushed.
 Nametracer216882ee RED1m25s at192 missingOWNERwake, old7PASS/coreUPTODATE;
 [name-red](../evidence/ticket42/name-red/README.md),8hashes/13sourcehashes.
@@ -29,7 +50,7 @@ reads. Two-phasead8a226a completesALLexactArchivecandidate/parent reads beforeAN
 optionalRegistrylookup. Transportdisconnectis source-reviewed only, notexecuted.
 Source Spec0/Standards0. Owned27444 endedPASS1m27s/gateway8/0/0/coreUPTODATE,
 no owned build. [Retained GREEN](../evidence/ticket42/name-green/README.md),
-8hashes/13sourcehashes. Final evidence/docsreviews atbc76dd81 report0/0. Accepted name checkpoint is ready to push. No new native source, node/cloud/accountoperations.
+8hashes/13sourcehashes. Final evidence/docsreviews atbc76dd81 report0/0. Accepted name checkpoint pushed at8fc2bd9b; sourceCI38997783597SUCCESS. No new native source, node/cloud/accountoperations.
 Protectedgroupcontractuntrackeduntouched. No whole42/32claim.
 
 ## Latest owner scope
