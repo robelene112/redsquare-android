@@ -105,7 +105,14 @@ pass. Later marker source is compiled by exact CI. No owned local build remains.
 Next same-ticket work is actual incoming transport, not another local receipt
 permutation. [Lifecycle preparation](../research/NATIVE_PUSH_TRANSPORT_ENTRY_POINTS_2026_10_17.md)
 and ignored .scratch/push32-next-transport-slice.txt record options, not implementation.
-No Firebase SDK/client config/service/gateway/node/account change was made. Existing
+An opaque-wake tracer is now being prepared: an owned local HTTP gateway sees only
+version/wake, initially503, then resolves the public reference; the existing signed
+Archive verifier must publish the actual alert and preserve duplicate/wallet/backend
+invariants. It extends the existing worker journey and150s class scope. The new
+worker is deliberately no-op until its intended missing-processing RED is observed.
+No runtime/source-compilation claim yet; next review base68e420ee. Existing consent,
+wallet/backend choices, strict app fixture endpoints and scoped cancellation/restore
+remain. No Firebase SDK/client config/service or deployed gateway/node/account change. Existing
 owner Firebase setup question stays pending, do not repeat it. Local autonomous
 scheduling does not prove incoming FCM/locked/Doze/Pixel or whole#32. Beta24 unchanged.
 

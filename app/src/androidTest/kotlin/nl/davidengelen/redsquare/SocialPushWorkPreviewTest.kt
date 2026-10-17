@@ -16,6 +16,7 @@ import com.google.gson.JsonParser
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import nl.davidengelen.redsquare.notifications.SocialPushScheduling
+import nl.davidengelen.redsquare.notifications.SocialPushWakeScheduling
 import nl.davidengelen.redsquare.notifications.SocialPushSettings
 import nl.davidengelen.redsquare.saito.*
 import org.junit.Assert.*
@@ -32,7 +33,9 @@ class SocialPushWorkPreviewTest {
 
     @Test fun aScheduledReplyRetriesWhenTheArchiveDoesNotAnswerAndAlertsAfterRecovery() = scheduledReplyJourney(withhold = true)
 
-    private fun scheduledReplyJourney(withhold: Boolean = false) {
+    @Test fun anOpaqueWakeRetriesTheGatewayThenVerifiesTheReplyAndAlertsOnce() = scheduledReplyJourney(wake = true)
+
+    private fun scheduledReplyJourney(withhold: Boolean = false, wake: Boolean = false) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" && Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -87,11 +90,26 @@ class SocialPushWorkPreviewTest {
             addProperty("version", 1); addProperty("wallet", wallet.publicKey)
             addProperty("backend", "owner"); addProperty("signature", reply.id)
         }.toString()
+        val opaque = "ab".repeat(32) // Public transport fixture, never a real installation/event capability.
+        val gatewayReads = AtomicInteger()
+        val gateway = if (wake) mockwebserver3.MockWebServer().apply {
+            dispatcher = object : mockwebserver3.Dispatcher() {
+                override fun dispatch(request: mockwebserver3.RecordedRequest): mockwebserver3.MockResponse {
+                    require(request.method == "POST" && request.url.encodedPath == "/v1/wakes/resolve")
+                    val body = JsonParser.parseString(request.body.utf8()).asJsonObject
+                    require(body.keySet() == setOf("version", "wake") && body.get("version").asInt == 1 &&
+                        body.get("wake").asString == opaque)
+                    gatewayReads.incrementAndGet()
+                    return if (!recovering.get()) mockwebserver3.MockResponse.Builder().code(503).build()
+                    else mockwebserver3.MockResponse.Builder().code(200).body(payload).build()
+                }
+            }
+        } else null
         val manager = context.getSystemService(NotificationManager::class.java)
         val tag = "social:${wallet.publicKey}:owner:${reply.id}"
         check(manager.activeNotifications.none { it.tag == tag })
         val device = UiDevice.getInstance(instrumentation)
-        val captureDirectory = if (withhold) "timeout" else "malformed"
+        val captureDirectory = if (wake) "opaque" else if (withhold) "timeout" else "malformed"
         fun capture(name: String) = captureNativeScreen(File(context.cacheDir, "social-push-work-evidence/$captureDirectory/$name.png"))
         fun info(id: UUID) = work.getWorkInfoById(id).get(5, TimeUnit.SECONDS)
         fun awaitState(label: String, predicate: () -> Boolean) {
@@ -106,25 +124,29 @@ class SocialPushWorkPreviewTest {
             backends.save(SaitoBackend.OWNER)
             SocialPushSettings(context, wallet.publicKey).setEnabled(true)
             peer.start().use { server ->
+                gateway?.start(java.net.InetAddress.getByName("127.0.0.1"), 0)
                 withFailureCapture({ capture("scheduled-reply-failure") }) {
                     fun schedule(): UUID = runBlocking(Dispatchers.IO) {
-                        SocialPushScheduling.enqueue(context, payload, "ws://127.0.0.1:${server.port}/wsopen")
+                        if (wake) SocialPushWakeScheduling.enqueue(context, opaque,
+                            "http://127.0.0.1:${requireNotNull(gateway).port}/v1/wakes/resolve",
+                            "ws://127.0.0.1:${server.port}/wsopen")
+                        else SocialPushScheduling.enqueue(context, payload, "ws://127.0.0.1:${server.port}/wsopen")
                     }
                     val submittedAt = SystemClock.elapsedRealtime()
                     val first = schedule()
-                    awaitState("Unavailable Archive must leave a scheduled retry, not a successful empty receipt") {
+                    awaitState("Unavailable notification source must leave a scheduled retry, not a successful empty receipt") {
                         info(first)?.let {
-                            assertFalse("Unavailable Archive receipt finished as ${it.state}", it.state.isFinished)
+                            assertFalse("Unavailable ${if (wake) "gateway" else "Archive"} receipt finished as ${it.state}", it.state.isFinished)
                             it.state == WorkInfo.State.ENQUEUED && it.runAttemptCount >= 1
                         } == true
                     }
-                    assertTrue(failedReads.get() > 0)
+                    assertTrue(if (wake) gatewayReads.get() > 0 else failedReads.get() > 0)
                     if (withhold) assertTrue("A withheld response must reach the real request deadline before retry",
                         SystemClock.elapsedRealtime() - submittedAt >= 10_000)
                     assertEquals("A duplicate during retry must return the persisted existing task", first, schedule())
                     assertTrue(manager.activeNotifications.none { it.tag == tag })
                     assertNoActivity()
-                    capture("archive-retry-pending")
+                    capture(if (wake) "gateway-retry-pending" else "archive-retry-pending")
                     recovering.set(true)
                     peer.withholdArchiveReply = false
                     awaitState("Recovered Archive must finish the scheduled receipt") { info(first)?.state == WorkInfo.State.SUCCEEDED }
@@ -154,7 +176,11 @@ class SocialPushWorkPreviewTest {
         finally {
             var stopped = false
             val cleanup = listOf<() -> Unit>(
-                { runBlocking(Dispatchers.IO) { SocialPushScheduling.cancelAndAwait(context, payload) }; stopped = true },
+                { runBlocking(Dispatchers.IO) {
+                    if (wake) SocialPushWakeScheduling.cancelAndAwait(context, opaque)
+                    SocialPushScheduling.cancelAndAwait(context, payload)
+                }; stopped = true },
+                { gateway?.close() },
                 { manager.cancel(tag, 0) },
                 { device.pressBack() },
                 { if (stopped) retained.restoreFiles() },
