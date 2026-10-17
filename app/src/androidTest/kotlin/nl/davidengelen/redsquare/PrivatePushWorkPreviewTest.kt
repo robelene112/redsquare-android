@@ -18,6 +18,7 @@ import com.google.gson.JsonParser
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import nl.davidengelen.redsquare.chat.ChatHistoryStore
+import nl.davidengelen.redsquare.chat.receiveChat
 import nl.davidengelen.redsquare.notifications.ChatPushSettings
 import nl.davidengelen.redsquare.notifications.SocialPushWakeScheduling
 import nl.davidengelen.redsquare.saito.*
@@ -31,7 +32,11 @@ import java.util.concurrent.atomic.AtomicReference
 
 /** Actual worker, recipient-proof HTTP, encrypted history and Android shade; opaque wake injection only. */
 class PrivatePushWorkPreviewTest {
-    @Test fun chatOnlyConsentReceivesAndDecryptsAnOpaqueWakeWithoutAnActivityAndDoesNotReAlertAfterDismissal() {
+    @Test fun chatOnlyConsentReceivesAndDecryptsAnOpaqueWakeWithoutAnActivityAndDoesNotReAlertAfterDismissal() = privateJourney()
+
+    @Test fun ordinaryPrivateReceiptDoesNotReAlertWhenItsOpaqueWakeArrivesLater() = privateJourney(ordinaryFirst = true)
+
+    private fun privateJourney(ordinaryFirst: Boolean = false) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" && Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -47,7 +52,7 @@ class PrivatePushWorkPreviewTest {
         val sender = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
         val text = "Keep this private text on the receiving device"
         val original = PrivateChat.create(sender, wallet.publicKey, text, System.currentTimeMillis())
-        val opaque = "46".repeat(32)
+        val opaque = (if (ordinaryFirst) "47" else "46").repeat(32)
         val wallets = AndroidWalletStore(context)
         val previous = wallets.loadOrCreate()
         val previousJson = previous.exportJson()
@@ -91,7 +96,8 @@ class PrivatePushWorkPreviewTest {
         val tag = "chat:${wallet.publicKey}:owner:${original.id}"
         check(manager.activeNotifications.none { it.tag == tag })
         val device = UiDevice.getInstance(instrumentation)
-        fun capture(name: String) = captureNativeScreen(File(context.cacheDir, "chat-alert-evidence/private-worker-$name.png"))
+        val capturePrefix = if (ordinaryFirst) "ordinary-first" else "worker"
+        fun capture(name: String) = captureNativeScreen(File(context.cacheDir, "chat-alert-evidence/private-$capturePrefix-$name.png"))
         fun await(id: UUID) {
             val deadline = SystemClock.elapsedRealtime() + 40_000
             while (SystemClock.elapsedRealtime() < deadline) {
@@ -116,14 +122,16 @@ class PrivatePushWorkPreviewTest {
             withFailureCapture({ capture("failure") }) {
                 fun schedule() = runBlocking(Dispatchers.IO) { SocialPushWakeScheduling.enqueue(context, opaque,
                     "http://127.0.0.1:${gateway.port}/v1/wakes/resolve") }
-                await(schedule())
+                if (ordinaryFirst) receiveChat(context, wallet, SaitoBackend.OWNER,
+                    original.applicationRequest(1).drop(5).toByteArray())
+                else await(schedule())
                 assertNoActivity()
                 val publishedBy = SystemClock.elapsedRealtime() + 5_000
                 while (manager.activeNotifications.none { it.tag == tag } && SystemClock.elapsedRealtime() < publishedBy)
                     SystemClock.sleep(25)
                 val alert = manager.activeNotifications.singleOrNull { it.tag == tag }
                 assertNotNull("Chat-only consent must resolve, decrypt, retain and display its private alert", alert)
-                assertTrue(resolves.get() > 0 && originals.get() > 0)
+                if (!ordinaryFirst) assertTrue(resolves.get() > 0 && originals.get() > 0)
                 assertEquals("private-chats", alert!!.notification.channelId)
                 assertEquals("New message", alert.notification.extras.getCharSequence(Notification.EXTRA_TEXT).toString())
                 val saved = ChatHistoryStore(context, wallet, SaitoBackend.OWNER, sender.publicKey).load().entries
@@ -152,6 +160,7 @@ class PrivatePushWorkPreviewTest {
                     assertTrue("Redelivery must not re-alert a dismissed private message", manager.activeNotifications.none { it.tag == tag })
                     SystemClock.sleep(50)
                 } while (SystemClock.elapsedRealtime() < silentUntil)
+                assertTrue(resolves.get() > 0 && originals.get() > 0)
                 assertEquals(1, ChatHistoryStore(context, wallet, SaitoBackend.OWNER, sender.publicKey).load().entries.size)
                 assertEquals(wallet.exportJson(), wallets.loadExisting().exportJson())
                 assertEquals(SaitoBackend.OWNER, backends.load())
