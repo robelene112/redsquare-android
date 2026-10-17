@@ -72,6 +72,11 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.4")
     implementation("androidx.work:work-runtime-ktx:2.12.0")
     implementation("com.google.firebase:firebase-messaging:26.0.0")
+    constraints {
+        implementation("androidx.fragment:fragment:1.8.9") {
+            because("Play services brings Fragment1.1, incompatible with ActivityResult wallet documents")
+        }
+    }
     androidTestImplementation("androidx.test:runner:1.7.0")
     androidTestImplementation("androidx.test.uiautomator:uiautomator:2.4.0")
     androidTestImplementation("androidx.test.ext:junit:1.3.0")

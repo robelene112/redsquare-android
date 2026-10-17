@@ -162,10 +162,19 @@ choice, permission result, startup/resume, wallet import/recovery and backend st
 No signing wallet material is retained in installation registration storage.
 
 Initial local build FAIL23s at Gradle java.net name shadowing, corrected explicit
-URI import. Corrected core/debug/test/release/lint build is active in exec77684,
-log .scratch/push32-sdk-client-build-corrected.log. Merged debug manifest confirms
+URI import. Corrected build compiled debug/test code, then release lint failed on old
+transitive Fragment1.1.0 at existing wallet ActivityResult calls. The remaining
+owned build was stopped (exit143), not claimed PASS; log
+.scratch/push32-sdk-client-build-corrected.log. Fragment constrained1.8.9 for
+compatibility with current Activity/Lifecycle, no lint suppression. Merged debug manifest confirms
 service/metadata and removal of FirebaseInitProvider; no runtime result claimed.
-Source reviews and native unconfigured regressions are pending. This is source
+Initial source reviews at258ec4f7 found Standards1/Spec2: latest demand blocked
+by APPEND retry backoff and waiting timeout releasing an unfinished SDK Task.
+Correction uses REPLACE for current demand, matching-callback suppression and a
+retained outstanding Task drained under the execution lock before another SDK
+operation. Durable phases survive process loss, but remote completion/recovery
+still needs configured-runtime proof. Corrected reviews/build and native
+unconfigured regressions are pending. This is source
 preparation, not a new TDD RED/GREEN or configured Google delivery proof. No new
 mock SDK/internal tests were added in place of actual external transport.
 

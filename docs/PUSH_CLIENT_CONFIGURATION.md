@@ -43,9 +43,15 @@ Android permission from durable state, without creating a wallet. It stores only
 installation registration phase/FID/time in encrypted device-only storage. Pending
 phases precede SDK requests so an interrupted registration still needs opt-out.
 Startup/resume, committed social consent, permission response, wallet import and
-backend changes request reconciliation. Daily work refreshes registration. Fresh
+backend changes replace obsolete scheduled retries with current reconciliation.
+The execution lock and retained in-process outstanding Task prevent opposite SDK
+operations from overlapping after a waiting timeout or worker cancellation. A
+replacement drains that Task before reading fresh demand or starting another.
+Process loss destroys this in-memory Task; durable pending phases and actual SDK
+callback/registration recovery must be verified with the configured project. Daily work refreshes registration. Fresh
 state is reread after SDK completion. SDK callbacks request reconciliation rather
-than blindly replacing state; matching registered state avoids callback loops.
+than blindly replacing state; matching pending/completed callbacks avoid cancelling
+their own awaited operation and avoid callback loops.
 Late callbacks can force a corrective registration/unregistration for the current
 choice. Failures retry independently of reading and consent persistence.
 
@@ -72,3 +78,13 @@ not a gateway subscription. Chat must join the shared consent calculation before
 using this installation transport, so one module cannot unregister another.
 Full Android10/17 and physical Pixel/locked/Doze acceptance remain outstanding.
 Public beta24 is unchanged.
+
+## Dependency compatibility
+
+Firebase's resolved Play-services-base POM requests Fragment1.1.0. The first build
+compiled debug/test code but release lint rejected that old transitive version at
+the existing wallet ActivityResult calls. The app constrains this transitive
+dependency to[Fragment1.8.9](https://developer.android.com/jetpack/androidx/releases/fragment#1.8.9),
+keeping its current Activity/Lifecycle pins. Current Fragment1.9.1 was observed in
+the official release notes; a wider AndroidX upgrade is outside this bounded SDK
+integration. This is a dependency correction, not a lint suppression.

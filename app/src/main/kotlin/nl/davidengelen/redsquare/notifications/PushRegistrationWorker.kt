@@ -15,6 +15,7 @@ import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
 import com.google.android.gms.tasks.Tasks
+import com.google.android.gms.tasks.Task
 import com.google.firebase.installations.FirebaseInstallations
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.CancellationException
@@ -33,7 +34,26 @@ import nl.davidengelen.redsquare.saito.SaitoLocalState
 import java.io.File
 import java.util.concurrent.TimeUnit
 
-private val registrationExecution = Mutex()
+/** A waiting timeout/cancellation does not stop the underlying Google Task. */
+private object RegistrationExecution {
+    val lock = Mutex()
+    private var outstanding: Task<*>? = null
+
+    fun drain() {
+        val task = outstanding ?: return
+        try { Tasks.await(task, 20, TimeUnit.SECONDS) }
+        catch (failure: Exception) { if (!task.isComplete) throw failure }
+        finally { if (task.isComplete) outstanding = null }
+    }
+
+    fun <T> await(start: () -> Task<T>): T {
+        check(outstanding == null)
+        val task = start()
+        outstanding = task
+        try { return Tasks.await(task, 20, TimeUnit.SECONDS) }
+        finally { if (task.isComplete) outstanding = null }
+    }
+}
 
 /** Shared installation transport. Chat must join its consent calculation before using this SDK. */
 internal object PushRegistration {
@@ -43,7 +63,8 @@ internal object PushRegistration {
         if (!BuildConfig.PUSH_CONFIGURED) return
         try {
             val manager = WorkManager.getInstance(context)
-            manager.enqueueUniqueWork("push-registration", ExistingWorkPolicy.APPEND_OR_REPLACE,
+            // A new committed choice must not sit behind an old exponential retry.
+            manager.enqueueUniqueWork("push-registration", ExistingWorkPolicy.REPLACE,
                 OneTimeWorkRequestBuilder<PushRegistrationWorker>().setConstraints(connected)
                     .setInputData(workDataOf("observed" to observedRegistration?.toString()))
                     .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 10, TimeUnit.SECONDS).build())
@@ -55,62 +76,77 @@ internal object PushRegistration {
             Log.w("PushTransport", "Push registration scheduling unavailable")
         }
     }
+
+    fun observed(context: Context, registered: Boolean, fid: String = "") {
+        if (!BuildConfig.PUSH_CONFIGURED) return
+        val matches = try {
+            val demand = registrationDemand(context)
+            val saved = RegistrationStore(context).load()
+            if (registered) demand != null && (saved?.phase == Phase.REGISTERING ||
+                (saved?.phase == Phase.REGISTERED && saved.fid == fid))
+            else demand == null && saved?.phase in listOf(Phase.UNREGISTERING, Phase.UNREGISTERED)
+        } catch (_: Exception) { false }
+        // Matching SDK callbacks must not cancel the worker awaiting that same operation.
+        if (!matches) request(context, observedRegistration = registered)
+    }
 }
 
 /** Only this worker invokes register/unregister; callbacks request reconciliation without mutating state. */
 class PushRegistrationWorker(context: Context, parameters: WorkerParameters) : CoroutineWorker(context, parameters) {
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
-        registrationExecution.withLock {
+        RegistrationExecution.lock.withLock {
             if (!BuildConfig.PUSH_CONFIGURED) return@withLock Result.success()
             if (!PushTransport.initialize(applicationContext)) return@withLock Result.retry()
             try {
+                RegistrationExecution.drain()
                 currentCoroutineContext().ensureActive()
                 val store = RegistrationStore(applicationContext)
                 val saved = store.load()
-                val desired = desired()
+                val desired = registrationDemand(applicationContext)
                 val messaging = FirebaseMessaging.getInstance()
                 if (desired == null) {
                     if ((saved == null || saved.phase == Phase.UNREGISTERED) &&
                         inputData.getString("observed") != "true") return@withLock Result.success()
                     store.save(RegistrationRecord(Phase.UNREGISTERING))
-                    Tasks.await(messaging.unregister(), 20, TimeUnit.SECONDS)
+                    RegistrationExecution.await { messaging.unregister() }
                     currentCoroutineContext().ensureActive()
                     store.save(RegistrationRecord(Phase.UNREGISTERED))
                 } else {
                     val now = System.currentTimeMillis()
-                    val current = Tasks.await(FirebaseInstallations.getInstance().id, 20, TimeUnit.SECONDS)
+                    val current = RegistrationExecution.await { FirebaseInstallations.getInstance().id }
+                    currentCoroutineContext().ensureActive()
                     val fresh = saved?.phase == Phase.REGISTERED && saved.fid == current &&
                         now >= saved.registeredAt && now - saved.registeredAt < DAY &&
                         inputData.getString("observed") != "false"
                     if (!fresh) {
                         // An interrupted request must still be unregistered after a later opt-out.
                         store.save(RegistrationRecord(Phase.REGISTERING))
-                        Tasks.await(messaging.register(), 20, TimeUnit.SECONDS)
+                        RegistrationExecution.await { messaging.register() }
                         currentCoroutineContext().ensureActive()
-                        val fid = Tasks.await(FirebaseInstallations.getInstance().id, 20, TimeUnit.SECONDS)
+                        val fid = RegistrationExecution.await { FirebaseInstallations.getInstance().id }
                         currentCoroutineContext().ensureActive()
                         store.save(RegistrationRecord(Phase.REGISTERED, fid, System.currentTimeMillis()))
                     }
                 }
                 // Import, server/permission changes and opt-out can race an asynchronous SDK task.
-                if (desired() == desired) Result.success() else Result.retry()
+                if (registrationDemand(applicationContext) == desired) Result.success() else Result.retry()
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { Result.retry() }
         }
     }
 
-    private data class Demand(val owner: String, val backend: SaitoBackend)
-
-    private fun desired(): Demand? {
-        if (!applicationContext.getSystemService(NotificationManager::class.java).areNotificationsEnabled()) return null
-        return synchronized(SaitoLocalState.lock) {
-            val wallet = AndroidWalletStore(applicationContext).loadExisting()
-            val backend = AndroidBackendStore(applicationContext).load()
-            if (SocialPushSettings(applicationContext, wallet.publicKey).enabled()) Demand(wallet.publicKey, backend) else null
-        }
-    }
-
     private companion object { const val DAY = 24 * 60 * 60 * 1000L }
+}
+
+private data class RegistrationDemand(val owner: String, val backend: SaitoBackend)
+
+private fun registrationDemand(context: Context): RegistrationDemand? {
+    if (!context.getSystemService(NotificationManager::class.java).areNotificationsEnabled()) return null
+    return synchronized(SaitoLocalState.lock) {
+        val wallet = AndroidWalletStore(context).loadExisting()
+        val backend = AndroidBackendStore(context).load()
+        if (SocialPushSettings(context, wallet.publicKey).enabled()) RegistrationDemand(wallet.publicKey, backend) else null
+    }
 }
 
 private enum class Phase { REGISTERING, REGISTERED, UNREGISTERING, UNREGISTERED }

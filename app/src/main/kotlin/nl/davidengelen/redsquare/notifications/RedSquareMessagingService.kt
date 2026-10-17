@@ -22,11 +22,11 @@ class RedSquareMessagingService : FirebaseMessagingService() {
     }
 
     override fun onRegistered(installationId: String) {
-        PushRegistration.request(applicationContext, observedRegistration = true)
+        PushRegistration.observed(applicationContext, registered = true, fid = installationId)
     }
 
     override fun onUnregistered(installationId: String) {
         // Reconcile actual desired state instead of erasing a newer local registration.
-        PushRegistration.request(applicationContext, observedRegistration = false)
+        PushRegistration.observed(applicationContext, registered = false)
     }
 }
