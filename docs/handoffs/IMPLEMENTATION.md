@@ -63,10 +63,21 @@ whole47/native group receiver and full10/17 remain pending.
 First actual group-worker tracer is now prepared asGroupPushWorkPreviewTest,
 with isolated `group-push` SDK scopes; full and Chat scopes retain original checks
 and add its separate180second class. Production is unchanged fromb61cbdfdd.
-No group receiver code exists yet. Isolated group RED39080033398 is running at
-61b4c3be8; sourceCI39080028621 also running. Do not implement the missing group
-receiver until the actual RED is inspected and retained. Source/tracer/harness
-reviews have0 residual findings; production/build files matchb61cbdfdd exactly.
+Actual group-worker RED39080033398 at61b4c3be8 fails1case/7.645s:
+WorkInfoFAILED expectedSUCCEEDED. History/shade/dismiss/dedup tails unexecuted;
+raw request counters/worker exception cause not separately retained. Seven-hash
+packet native-worker-first-red and original failure PNG viewed. SourceCI
+39080028621 SUCCESS (test/routing only; production matchesb61cbdfdd).
+
+Minimumcf755f1fb adds typed shared Chat reference routing and existing bounded
+original retrieval dispatch. GroupChatPush validates signature/module/request/group/
+age, requires known active local membership, retains before generic alert and
+skips cached duplicates. No automatic group creation/join or membership override.
+Both source reviews0. Local compile PASS1m58s; three-hash packet retained. Actual
+focused group GREEN39080458000 and sourceCI39080455619 are running atcf755f1fb.
+No owned local Gradle job. Whole47 still requires durable pending publication/
+shared ordinary receipt recovery, broader current control/tap/legacy/PID checks,
+final full10/17 and signed successor. Do not claim these from the first minimum.
 
 Temporary work: /tmp/redsquare-group47-work-20261017. No owned local Gradle job.
 Original32/34 retain configured Google/hosting/deployment/physical gates. Published
