@@ -11,79 +11,47 @@ Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`.
 
 ## Active native Chat GIF slice (#43)
 
-Latest: exact7d8c3ac31 Android17 run39025987948 SUCCESS4/0/81.897s.
-OFFICIAL private GIF selection/offline queue/reopen/cancel/reconnect silence/
-explicit Send passes. Root viewed7PNGs/parsed7XML; independent actual-envelope
-and pinned A/B web rendering checks pass in
-`docs/evidence/ticket43/official-private-queue-green/android17`.
-Next sole tracer extends this journey to OFFICIAL group queue recovery.
-Local private tracer66616 PASS2m40s; group tracer build currently running.
-No APK26, live key or node change. Whole-child review base remains06e4ef27.
+Sole implementation is #43, bounded native child of #31, review base
+06e4ef27f55042f59bb79f3db9a97ebafeff4f78. Owner renewed continue-all authorization
+after beta25. The accepted native #16 provider/renderer supplies its source
+prerequisite; #31 remains OPEN with its #16 dependency and live-key gate intact.
+No Android Giphy properties have been supplied. No repeated setup question.
 
-Owner renewed continue-all authorization after beta25. Sole implementation is
-now #43, a bounded child of #31, review base06e4ef27f55042f59bb79f3db9a97ebafeff4f78.
-The already reviewed/tested native16 provider and animation paths satisfy its
-actual source prerequisite. Live-key acceptance remains outside this child;
-#31 stays OPEN with its16 dependency unchanged. No dependency is removed.
-First tracer: private Chat provider failure, explicit retry/cancel and exact
-text restored after reopening, through existing approved native UI/owned peers.
-Observed RED at6141f5c2, Android17 run39022059808 FAILURE1/1/31.603s:
-missing enabled Add GIF within10s at77, exact text/Add photo visible. Root viewed
-originalPNG and parsedXML; five original hashes in ticket43/first-red/android17.
-Local tracer build PASS2m23s, Standards0/Spec0. Provider/retry/reopen tails
-unexecuted. Current minimum adds separate Chat configuration, shared picker and
-private draft commit before dismissal; group and retained credits are later
-tracers, not yet complete. Local picker build16461 PASS4m48s, both bounded reviews0/0. Unchanged private
-recovery tracer39022580631 atdc320ec1 SUCCESS1/0/26.011s. Root viewed2PNGs,
-parsed2XMLs, eight hashed originals in ticket43/recovery-green/android17.
-Next tracer adds actual selection, two motion colors, displayed/reopened/sent
-credits, canonical exact-query HTML and explicit signed-send proof. Its initial
-local build26696 was deliberately stopped143 before a known fixture scrolling
-correction; no application/compiler failure claimed. Corrected tracer build28271 PASS2m47s. Pre-dispatch reviews found only two
-fixture gaps: offscreen Use GIF readiness before scrolling and missing explicit
-outgoing signer/final identity/write assertions. Both are corrected without
-changing deadlines; hosted build/runtime will compile and run the corrected test.
-Selection RED at04ef0dab in39023335733:2cases/1pass/1failure/45.506s,
-creator/source missing at125/131 after actual selection/caption/two nativecolors.
-Canonical HTML, fresh-Activity and signed-send tails unexecuted. Root viewed
-2originalPNGs/parsed2XMLs, seven hashes in ticket43/selection-red/android17.
-Current private correction adds optional encrypted per-work credits, carries
-those through preparation/cancel/retry, saves wallet-local sent credits before
-transmission, and bounds/scrolls the attachment preview. Source URL HTML entities
-now follow pinned DOM outerHTML; exact original/query is decoded for viewing.
-Both pinned A/B sanitize/newline outputs independently pass offline Chromium
-exactURL/caption and ownedGIF16x16 decode (scratchchat43-gif-web*); no native
-frame/live-client claim yet. Existing caption observer gains ordinary history
-scrolling like the accepted photo-send fixture, retaining20s/identity/write checks.
-Local credits build43700 PASS4m39s (core UP-TO-DATE). Both source reviews0/0.
-Exactc4433ebe private native39023907089 SUCCESS2/0/44.372s, including actual
-selection/credits/fresh-Activity/exact canonical HTML/signedSend. Root viewed6PNG,
-parsed6XML. Actual emitted fixture envelope passes independent WASM signature,
-pinned recipientCrypto and A/B Chat receiver/duplicate suppression; A/B sanitize
-and offline Chromium exactURL/caption/ownedGIF16x16 decode pass. No live-client
-claim. Initial cross-origin canvas observer failure retained; corrected GIF
-observer uses only DOM/decode, no origin change. Legacy photo compatibility
-matches; historical scope-only JSON comparison difference explicitly recorded.
-Canonical ticket43/private-green/android17. Group tracer atfe8893b1 in39024586467 FAILED3cases/2pass/1failure/47.604s:
-missing enabled Add GIF at130 after signed group open/exact caption. Group tails
-unexecuted. Root viewed failurePNG/parsedXML; five original hashes in
- ticket43/group-red/android17. Build86825 PASS2m20s; both pre-dispatch reviews0/0.
-Current minimum adds group picker with same draft-before-dismissal behavior,
-optional encrypted group credits across prepare/cancel/retry, shared reply/GIF
-composition and sent credit commit before transmission. Group UI keeps explicit
-unencrypted label and membership/selection guards. Local90956 build PASS4m36s (core UP-TO-DATE); bounded reviews Standards0/Spec0.
-Group reference helper now supports expected exact GIF messages; its existing
-native-photo constructor output is independently JSON-identical. Exact15dbae02 group native39025226571 SUCCESS3/0/60.283s, both private cases
-still pass. Root viewed4groupPNGs/parsed4XML;19 hashes in
- ticket43/group-green/android17. Actual group envelope independently matches
-both pinned Saito constructors/WASM signature; A/B sanitize and offline browser
-exactURL/caption/ownedGIF16x16 decode pass. Source navigation, actual process
-death/live group/provider acceptance unclaimed. Next one-tracer case exercises
-OFFICIAL private selection, offline queue, same original after recreation,
-cancel restoring exact draft/credits, reconnect silence, then explicit single
-send. Existing three cases remain. Local tracer build66616 is running.
-No real key, live provider query, production write or node/account change.
-Preserve protected untracked group contract. Keep one ticket in implementation.
+Current production15dbae02405a18bd0e2a1c32938a31d35160d00e provides separate Chat
+configuration, shared private/group picker, durable exact URL/query/caption and
+credits, canonical img.img-prev HTML, reply-prefix preservation, encrypted work
+storage and sent credit retention. Membership, identity/backend and explicit
+Send guards remain. Native source and focused acceptance are not whole-child
+completion or live provider acceptance.
+
+| Checkpoint | Canonical packet | Actual result |
+| --- | --- | --- |
+| Initial private provider tracer | `docs/evidence/ticket43/first-red/android17` | 39022059808 at6141f5c2 FAILURE1/1/31.603s, missing Add GIF. |
+| Provider failure/retry/cancel/reopen | `docs/evidence/ticket43/recovery-green/android17` | 39022580631 atdc320ec1 SUCCESS1/0/26.011s. |
+| Selected-credit tracer | `docs/evidence/ticket43/selection-red/android17` | 39023335733 at04ef0dab FAILURE2cases/1failure/45.506s, missing creator/source. Later tails unexecuted. |
+| Private selection/send/interoperability | `docs/evidence/ticket43/private-green/android17` | 39023907089 atc4433ebe SUCCESS2/0/44.372s,27hashes/6pairs. |
+| Group selection tracer | `docs/evidence/ticket43/group-red/android17` | 39024586467 atfe8893b1 FAILURE3cases/1failure/47.604s, missing Add GIF. Group tails unexecuted. |
+| Group selection/send/interoperability | `docs/evidence/ticket43/group-green/android17` | 39025226571 at15dbae02 SUCCESS3/0/60.283s,19hashes/4pairs. |
+| OFFICIAL private queue/cancel/reconnect/Send | `docs/evidence/ticket43/official-private-queue-green/android17` | 39025987948 at7d8c3ac31 SUCCESS4/0/81.897s,25hashes/7pairs. |
+
+Root viewed the named original PNG pairs and parsed their XMLs. Native GIF
+motion assertions check two literal colors; credit captures sometimes show
+only a thin scrolled preview. Actual private envelopes pass independent WASM
+signature, pinned recipient Crypto and both Chat receivers/duplicate checks;
+group envelope matches both pinned constructors/signature. A/B sanitization
+and offline Chromium preserve exact URL/query/caption and decode owned16x16 GIF.
+Reference helper hashes identify each revision. Initial cross-origin canvas
+observer failure is retained; corrected GIF observer uses DOM/decode only.
+Legacy photo output compatibility remains checked. No live delivery, browser
+motion, routing-hop proof or actual process-death claim from these journeys.
+
+Current one-tracer work extends OFFICIAL queue recovery to group messages,
+retaining every prior assertion and the180s class limit. Private tracer local
+build66616 PASS2m40s; group tracer local build running. Bounded source reviews
+before that tracer were0/0. Whole-child reply/media gaps, final full Android10/17,
+whole-base reviews and signed preview remain. Do not reserve26 prematurely.
+Public beta25 unchanged. No real key, provider query, production writes or
+node/account changes. Preserve protected untracked group contract.
 
 ## Accepted gateway, returning to app frontier
 
