@@ -34,6 +34,7 @@ import java.net.SocketAddress
 import java.security.MessageDigest
 import java.util.UUID
 import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicReference
 import javax.net.ServerSocketFactory
 
@@ -57,6 +58,7 @@ class PrivatePushProcessTest {
     private val work get() = WorkManager.getInstance(context)
     private val device get() = UiDevice.getInstance(instrumentation)
     private val gatewayFailure = AtomicReference<Throwable?>()
+    private val expiredRequests = AtomicInteger()
 
     @Test fun terminateWithAnActuallyRetainedPendingWorkerReceipt() {
         check(!checkpoint.exists() && !originals.exists())
@@ -115,7 +117,7 @@ class PrivatePushProcessTest {
         assertEquals("pending", row.get("phase").asString)
         assertNotEquals(row.get("pid").asInt, Process.myPid())
         assertIdentity(row); assertHistory(row); assertNoActivity()
-        gateway(row).use { gateway ->
+        gateway(row, expired = true).use { gateway ->
             val port = row.get("port").asInt
             gateway.start(InetAddress.getByName("127.0.0.1"), port)
             assertEquals(port, gateway.port)
@@ -129,6 +131,7 @@ class PrivatePushProcessTest {
                     true
                 }
             }
+            row.addProperty("expiredRequests", expiredRequests.get()); write(row)
             await("recovered private Android alert", 5_000) { manager.activeNotifications.any { it.tag == tag(row) } }
             val alert = manager.activeNotifications.single { it.tag == tag(row) }.notification
             assertEquals("private-chats", alert.channelId)
@@ -191,7 +194,7 @@ class PrivatePushProcessTest {
         device.pressBack(); assertNoActivity()
     }
 
-    private fun gateway(row: JsonObject) = mockwebserver3.MockWebServer().apply {
+    private fun gateway(row: JsonObject, expired: Boolean = false) = mockwebserver3.MockWebServer().apply {
         // Pinned MockWebServer resets reuse after creating a port-zero socket.
         // Apply it at bind so both the initial and recovering generations retain it.
         serverSocketFactory = object : ServerSocketFactory() {
@@ -219,6 +222,10 @@ class PrivatePushProcessTest {
                 }
                 require(SaitoWallet.verify("Saito push $operation v1\n${request.url}\n$wake".toByteArray(),
                     requireNotNull(request.headers["X-Saito-Signature"]), wallet.publicKey))
+                if (expired) {
+                    expiredRequests.incrementAndGet()
+                    return mockwebserver3.MockResponse.Builder().code(410).build()
+                }
                 mockwebserver3.MockResponse.Builder().body(JsonObject().apply {
                     addProperty("version", 1)
                     if (operation == "resolve") {

@@ -55,6 +55,10 @@ try:
     (args.evidence / 'verified-checkpoint.json').write_text(json.dumps(final, indent=2) + '\n')
 except BaseException as failure:
     primary = failure
+    try:
+        (args.evidence / 'failure-checkpoint.json').write_text(json.dumps(read_checkpoint(), indent=2) + '\n')
+    except BaseException as diagnostic:
+        failure.add_note('Fixture checkpoint diagnostic unavailable: ' + type(diagnostic).__name__)
     raise
 finally:
     finish_process_fixture(instrument, args.evidence, package, 'private-push-process-evidence', primary)
