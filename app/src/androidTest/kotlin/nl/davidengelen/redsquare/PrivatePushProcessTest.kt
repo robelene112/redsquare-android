@@ -28,10 +28,13 @@ import org.junit.Assert.*
 import org.junit.Test
 import java.io.File
 import java.net.InetAddress
+import java.net.InetSocketAddress
+import java.net.ServerSocket
 import java.security.MessageDigest
 import java.util.UUID
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicReference
+import javax.net.ServerSocketFactory
 
 /** Host-initiated cold recovery of the real worker, with original installation snapshots kept device-only. */
 class PrivatePushProcessTest {
@@ -188,6 +191,15 @@ class PrivatePushProcessTest {
     }
 
     private fun gateway(row: JsonObject) = mockwebserver3.MockWebServer().apply {
+        // Both generations opt in before bind, so accepted connections from the killed
+        // process cannot prevent the same owned endpoint from recovering immediately.
+        serverSocketFactory = object : ServerSocketFactory() {
+            override fun createServerSocket() = ServerSocket().apply { reuseAddress = true }
+            override fun createServerSocket(port: Int) = createServerSocket(port, 50)
+            override fun createServerSocket(port: Int, backlog: Int) = createServerSocket(port, backlog, null)
+            override fun createServerSocket(port: Int, backlog: Int, address: InetAddress?) =
+                createServerSocket().apply { bind(InetSocketAddress(address, port), backlog) }
+        }
         dispatcher = object : mockwebserver3.Dispatcher() {
             override fun dispatch(request: mockwebserver3.RecordedRequest): mockwebserver3.MockResponse = try {
                 require(request.method == "POST" && request.headers["X-Saito-Owner"] == wallet.publicKey)
