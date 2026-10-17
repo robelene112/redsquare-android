@@ -78,11 +78,13 @@ private fun notifyChat(context: Context, wallet: SaitoWallet, backend: SaitoBack
     }
 }
 
+private val unsupportedPreviewContent = Regex("""<[/!?A-Za-z]|\bdata:[^\s;,]*[;,]""", RegexOption.IGNORE_CASE)
+
 /** Interpret only the existing reply/photo wrappers; attachment source data never becomes preview text. */
 private fun privateNotificationPreview(original: String): String? {
     val body = privateMessageBody(original)
     val photo = chatPhoto(body)
-    if (photo == null && (body.contains("<img", ignoreCase = true) || body.contains("data:image", ignoreCase = true))) {
+    if (photo == null && unsupportedPreviewContent.containsMatchIn(body)) {
         return null
     }
     val text = (photo?.text ?: body).trim().takeIf { it.isNotEmpty() } ?: return null

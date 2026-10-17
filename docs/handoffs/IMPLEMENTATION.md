@@ -52,7 +52,14 @@ unexecuted.15hashes/5XML, root vieweddefaultshade/Settingsfailure PNGs, other
 3warm PNGs retained. New preview source now adds separate encrypted wallet-local
 choice, truthful retry/error UI, defaultgeneric vs opt-in text/caption excerpt,
 and withdrawal of existing private alerts when disabled. Social consent/group
-content remain separate. Local preview build6695 RUNNING, no GREEN claim.
+content remain separate. Local preview build6695 PASS4m40s, core UP-TO-DATE; no owned build.
+Bounded Standards0/Spec1 sourcefinding: unsupported non-image attachment markup
+could become previewtext. Correction classifies unparsed markup/data URI bodies
+as generic and extends the same actual-alert journey with one unsupported video
+wrapper. The earlier defaultgeneric alert is cleared after observation so later
+preview rows stay individually visible; actual opt-in previews remain for the
+disable-withdrawal assertion. Hosted CI will compile this small correction.
+Fix review/native GREEN pending, no whole44 acceptance.
 No whole44/full acceptance. Group/cold slices
 remain. Same approved UI/controlled-peer/notification/persistence seams; no new
 grill or matrix. Focused chat-alerts scopes retain180s class/20s observations.

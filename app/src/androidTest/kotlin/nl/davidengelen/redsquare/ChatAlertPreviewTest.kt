@@ -93,6 +93,8 @@ class ChatAlertPreviewTest {
                         capture(if (previews) "private-previews-default-alert" else "private-warm-alert")
                         if (previews) {
                             device.pressBack()
+                            // Keep later preview rows individually visible after observing the generic alert.
+                            notifications.cancel(alert.tag, alert.id)
                             previewChoice(scenario, peer, sender, wallet, notifications, existingAlerts)
                         } else {
                             visible.click()
@@ -174,6 +176,8 @@ class ChatAlertPreviewTest {
         }
         published(composeChatPhoto(photo, "A caption without image markup"), 1700000140200, 803,
             "A caption without image markup", "private-previews-caption-alert")
+        published("<video src=\"https://example.invalid/clip.mp4\"></video>", 1700000140250, 805,
+            "New message", "private-previews-unsupported-generic")
         choice().assertIsOn().performClick()
         ui.waitUntil(20_000) {
             try {
