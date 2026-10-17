@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.saito.GroupAdminTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-10-17T18:29:39" hostname="5b6ffc4d10c9" time="1.065">
+  <properties/>
+  <testcase name="removalRequiresCurrentAdminAndAnOrdinaryActiveMember" classname="nl.davidengelen.redsquare.saito.GroupAdminTest" time="0.896"/>
+  <testcase name="adminRemovalMatchesBothPinnedWebConstructorsAndSurvivesReplay" classname="nl.davidengelen.redsquare.saito.GroupAdminTest" time="0.096"/>
+  <testcase name="promotionRequiresCurrentAdminAndAnOrdinaryActiveMember" classname="nl.davidengelen.redsquare.saito.GroupAdminTest" time="0.011"/>
+  <testcase name="adminPromotionMatchesBothPinnedWebConstructors" classname="nl.davidengelen.redsquare.saito.GroupAdminTest" time="0.061"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

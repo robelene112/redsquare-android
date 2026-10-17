@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.saito.SaitoWalletTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-10-17T18:29:43" hostname="5b6ffc4d10c9" time="0.116">
+  <properties/>
+  <testcase name="invalid or mismatched backup keys fail before restoring an identity" classname="nl.davidengelen.redsquare.saito.SaitoWalletTest" time="0.084"/>
+  <testcase name="independently signed Saito messages verify and altered messages fail" classname="nl.davidengelen.redsquare.saito.SaitoWalletTest" time="0.004"/>
+  <testcase name="a maximum length Saito username remains an outgoing wallet replacement risk after backup import" classname="nl.davidengelen.redsquare.saito.SaitoWalletTest" time="0.001"/>
+  <testcase name="a new private contact survives compatible wallet export without replacing identity or module data" classname="nl.davidengelen.redsquare.saito.SaitoWalletTest" time="0.001"/>
+  <testcase name="fresh local identities are independently created and survive compatible backup restoration" classname="nl.davidengelen.redsquare.saito.SaitoWalletTest" time="0.009"/>
+  <testcase name="an imported null keychain accepts a first private contact without changing original options" classname="nl.davidengelen.redsquare.saito.SaitoWalletTest" time="0.002"/>
+  <testcase name="web backup round trip retains identity and unknown Chat and module options" classname="nl.davidengelen.redsquare.saito.SaitoWalletTest" time="0.0"/>
+  <testcase name="noncanonical and malformed signatures are refused as in the Saito runtime" classname="nl.davidengelen.redsquare.saito.SaitoWalletTest" time="0.001"/>
+  <testcase name="an existing Saito private key restores its independently verified public identity" classname="nl.davidengelen.redsquare.saito.SaitoWalletTest" time="0.0"/>
+  <testcase name="namedGroupHintsSurviveFullBackupWithoutBecomingPrivateContactsOrChangingIdentity" classname="nl.davidengelen.redsquare.saito.SaitoWalletTest" time="0.009"/>
+  <testcase name="UTF8 and published binary messages reproduce independent compact signatures" classname="nl.davidengelen.redsquare.saito.SaitoWalletTest" time="0.002"/>
+  <testcase name="null-valued wallet and module backup fields survive re-export" classname="nl.davidengelen.redsquare.saito.SaitoWalletTest" time="0.001"/>
+  <testcase name="cached Bound slips remain unknown assets even without separate NFT module metadata" classname="nl.davidengelen.redsquare.saito.SaitoWalletTest" time="0.0"/>
+  <testcase name="an empty message signs exactly as the independently checked Saito runtime" classname="nl.davidengelen.redsquare.saito.SaitoWalletTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

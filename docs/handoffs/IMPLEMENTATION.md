@@ -53,12 +53,20 @@ Added28e1f24af same-stream coverage PASS2/0in6.590s: both logical backends,
 first original repeated then a distinct second original over the same authenticated
 connection; exactly two opaque requests and exact second resolve/fetch/decrypt.
 Three hashed records in gateway-stream. No new RED or encryption interop claim.
-No reconnect/media-capacity/process-death claim yet. Native consent tracer now
-added to existing chat-alerts scope; production Android remains unchanged.
-Initial local fixture compilation found a fixture variable typed as MockWebServer
-instead of ControlledFeedPeer; corrected before runtime. This is not behavior RED.
-Next: run actual Settings consent RED, implement union binding, then
-native worker/receipt integration; final full SDKs,
+No reconnect/media-capacity/process-death claim yet. Native consent tracer added to existing chat-alerts scope. Initial local compile
+fixture type error corrected before runtime, not a behavior RED. Actual Android10
+CI39057745908 at935c7787d fails first missing Settings Chat alerts when closed
+choice after20s; five prior alerts PASS, no union assertions reached. Seven hashed
+records in native-consent-red retain raw outcomes/PNG/XML/exact source metadata.
+Fixture861a5b219 preserves original failures and guards restoration with an Activity
+shutdown barrier; both correction reviews zero remaining findings.
+Productionb2600cda6 adds wallet-local defaultoff background consent, new Settings
+row/existing skippable Chat prompt callback and shared social/private category
+union with a common Core/gateway category validator. Local build PASS5m10s,
+core114/0 and gateway13/0across10suites, native/test Kotlin compilation. Thirteen
+hashed raw/source records in native-consent-local. Bounded consent source reviews
+and runtime GREEN39058689594 pending. No worker/private receipts implemented yet.
+Next: complete consent GREEN/review, then native worker/receipt integration; final full SDKs,
 both reviews and next signed update are still required before native46 acceptance.
 Preserve unrelated untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md.
 

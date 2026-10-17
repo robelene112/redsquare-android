@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.saito.RedSquareAuthorActionsTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-10-17T18:29:42" hostname="5b6ffc4d10c9" time="0.2">
+  <properties/>
+  <testcase name="unrelated wrong target and damaged edits preserve the authenticated original" classname="nl.davidengelen.redsquare.saito.RedSquareAuthorActionsTest" time="0.017"/>
+  <testcase name="archived delete commands do not become unreadable posts or prove target removal" classname="nl.davidengelen.redsquare.saito.RedSquareAuthorActionsTest" time="0.015"/>
+  <testcase name="unsigned edit timestamp cannot change signed edit ordering" classname="nl.davidengelen.redsquare.saito.RedSquareAuthorActionsTest" time="0.008"/>
+  <testcase name="restored authorized deletion prevents stale history from resurrecting the original" classname="nl.davidengelen.redsquare.saito.RedSquareAuthorActionsTest" time="0.062"/>
+  <testcase name="deletion requires the verified original author and exact target" classname="nl.davidengelen.redsquare.saito.RedSquareAuthorActionsTest" time="0.015"/>
+  <testcase name="restored verified edit updates stale views without adding unrelated history" classname="nl.davidengelen.redsquare.saito.RedSquareAuthorActionsTest" time="0.009"/>
+  <testcase name="independently signed authorized edit changes display without replacing original identity" classname="nl.davidengelen.redsquare.saito.RedSquareAuthorActionsTest" time="0.003"/>
+  <testcase name="native edit and delete signatures match independently signed vectors" classname="nl.davidengelen.redsquare.saito.RedSquareAuthorActionsTest" time="0.005"/>
+  <testcase name="stale and unauthenticated updates cannot replace the newest verified edit" classname="nl.davidengelen.redsquare.saito.RedSquareAuthorActionsTest" time="0.007"/>
+  <testcase name="explicitly rebased edit can proceed past the same conflicting server version" classname="nl.davidengelen.redsquare.saito.RedSquareAuthorActionsTest" time="0.057"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
