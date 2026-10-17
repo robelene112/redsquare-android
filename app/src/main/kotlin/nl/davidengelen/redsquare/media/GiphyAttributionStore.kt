@@ -44,7 +44,7 @@ internal class GiphyAttributionStore(context: Context, owner: String) {
         }
         // Oldest-first on disk, so later sends retain the most recent references.
         val ordered = JsonObject().apply { record.entrySet().toList().asReversed().forEach { add(it.key, it.value) } }
-        if (previous == decode(ordered)) return@synchronized
+        if (previous.entries.toList() == decode(ordered).entries.toList()) return@synchronized
         file.save(EncryptedLocalFile.Contents(1, ordered.toString()))
         changes.value += 1
     }
