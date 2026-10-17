@@ -6,6 +6,7 @@ import android.os.Process
 import android.util.AtomicFile
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
+import androidx.test.uiautomator.Direction
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.Until
 import com.google.gson.JsonObject
@@ -79,8 +80,9 @@ class SocialPushProcessRecoveryTest {
                     bounds.left >= 0 && bounds.right <= device.displayWidth &&
                         bounds.top >= 0 && bounds.bottom <= device.displayHeight &&
                         bounds.width() > device.displayWidth / 2 && bounds.height() > 16)
-                // One physical gesture across the card, rather than a screen-quarter/text-row path.
-                assertTrue(device.swipe(bounds.left + 8, bounds.centerY(), bounds.right - 8, bounds.centerY(), 20))
+                // Resolve the card's current gesture bounds through UiAutomator at injection time.
+                card.setGestureMargin(8)
+                card.swipe(Direction.RIGHT, 1.0f)
                 assertTrue(device.wait(Until.gone(By.text("Replied to your post")), 5_000))
                 val dismissedBy = android.os.SystemClock.elapsedRealtime() + 5_000
                 while (alerts().isNotEmpty() && android.os.SystemClock.elapsedRealtime() < dismissedBy) {
