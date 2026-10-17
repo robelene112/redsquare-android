@@ -148,7 +148,7 @@ Minimum9967ff40 adds owned-identity authenticated read-only WebSocket requests,
 bounded service/response handling, strict UTF8 and signed root/reply/mention
 parsing. Its owned local build52476 finished PASS50s, gateway5/0/0 including both
 selector loops (new0.888s); core UP-TO-DATE. [Retained](../evidence/ticket42/archive-green/README.md).
-Independent source reviews are pending.
+Independent source9967ff40 and evidence d6619625 reviews report Standards0/Spec0.
 No continuous observer, candidate eligibility, durable event or delivery claim.
 
 ## Accepted #32 foundation

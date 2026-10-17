@@ -185,3 +185,23 @@ and source-build success are separate. Corrected source17fb7260 reviews Standard
 succeed. Final independent evidence reviews report Standards0/Spec0 after the handoff
 wording correction9c0e9168. A controlled synthetic FID is not SDK registration,
 actual identifier rotation or Google delivery.
+
+## Bounded social Archive discovery
+
+`GatewayArchive(gatewayIdentity, backend)` reads with the gateway's own wallet,
+using only the two approved backend endpoints. Each request has a12second total
+connection/authentication/service/read budget. Close it after use; reconstruct
+on connection failure. The optional HTTP loopback override is for owned fixtures.
+The gateway does not receive subscriber signing keys or broadcast transactions.
+
+`recentSocial()` loads at most100 available unflagged RedSquare rows, including
+roots and replies, without recipient filtering. Original signed content is decoded
+using the shared feed reader. This head read can discover newly inserted backdated
+posts but cannot guarantee exhaustive history or recovery beyond the bounded head.
+Candidate eligibility, exact parent/name proof, durable cursors and explicit
+outage/pruning/reorganization gaps remain continuous-observer work.
+
+[Controlled evidence](evidence/ticket42/archive-green/README.md) at9967ff40:
+gateway5/0/0, including the new0.888second journey completing both selector loops;
+core task up-to-date, build50s. Independent source and evidence reviews report
+Standards0/Spec0. This is not a current public-backend availability claim.
