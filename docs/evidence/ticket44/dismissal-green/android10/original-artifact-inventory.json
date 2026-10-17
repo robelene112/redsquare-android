@@ -1,0 +1,156 @@
+{
+  "files": [
+    {
+      "path": "emulator.log",
+      "bytes": 5583,
+      "sha256": "28126163c852cd0f19a4e10c15ab768043a62dc7373c94002f9106f303552f2b"
+    },
+    {
+      "path": "scope.txt",
+      "bytes": 95,
+      "sha256": "41b5cfb5ce4c312acdece2d143c9af4bc0c6e078751a4599f82da382c644f0e5"
+    },
+    {
+      "path": "social-push-process/capture-status.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "social-push-process/continuity.txt",
+      "bytes": 273,
+      "sha256": "cd5c51f73dc6f9f8651d3615b980c40f131fc6f32ba60af0e460f2e70a6ea04e"
+    },
+    {
+      "path": "social-push-process/dismissed-checkpoint.json",
+      "bytes": 386,
+      "sha256": "2ff2be22b6f27f7e00b92f6e1993b4cfb1fc83dbd3006156707b06b8c542fba8"
+    },
+    {
+      "path": "social-push-process/images.tar",
+      "bytes": 434688,
+      "sha256": "4538fb5fd768d6f63f57690aa0456115a0ca4fc5094150c30b73bcc72564b3fc"
+    },
+    {
+      "path": "social-push-process/interrupted.txt",
+      "bytes": 478,
+      "sha256": "ee693d52f30cbe59eefededb3b7992b7062bca5ccdad1639e63711cf3a206a78"
+    },
+    {
+      "path": "social-push-process/ledger-metadata.txt",
+      "bytes": 17,
+      "sha256": "d5664ce3ff4611164a30a853a04abb3d7b0493fb80da6800ac1324796657ff21"
+    },
+    {
+      "path": "social-push-process/recovered-checkpoint.json",
+      "bytes": 396,
+      "sha256": "1f717fa9cfccc0ddc05803d5d7b18fcca3be4a83463bcdafb034a1a1959d3488"
+    },
+    {
+      "path": "social-push-process/recovered.txt",
+      "bytes": 839,
+      "sha256": "52256732befbfdf592c6cc07fc34028a12b29c2346386927afba0029bdd8dfa4"
+    },
+    {
+      "path": "social-push-process/restored.txt",
+      "bytes": 813,
+      "sha256": "9b4baacaf3b19a09af1cbb779511cb1974c21dacd2361c713fb0e578ae18bbe6"
+    },
+    {
+      "path": "social-push-scheduled-process/activities-after.txt",
+      "bytes": 5826,
+      "sha256": "2a02ffc25e9baa6dfdc96fbb6e256ee1b5c8c57ccb1c3ce0bc9529e2fe4cd9b4"
+    },
+    {
+      "path": "social-push-scheduled-process/autonomous-alert.png",
+      "bytes": 63099,
+      "sha256": "c1144e6b217a74c857c84b1c3cae890c0fadbabf6ff98b669c5540c969b556d4"
+    },
+    {
+      "path": "social-push-scheduled-process/autonomous-alert.xml",
+      "bytes": 40966,
+      "sha256": "86d42e4cb1869d6ca02b85f4bce3bebed374a32af6bfa6388d8abbf93e1534cf"
+    },
+    {
+      "path": "social-push-scheduled-process/capture-status.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "social-push-scheduled-process/continuity.txt",
+      "bytes": 290,
+      "sha256": "e5192d27fbda87db5b5dd5a2b58b75cb7f556cc7888990c49746dd45ef834c0a"
+    },
+    {
+      "path": "social-push-scheduled-process/host-peer/host.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "social-push-scheduled-process/host-peer/mode",
+      "bytes": 4,
+      "sha256": "6c45cb72a36e63d522aa54ed8adbd7a29a989474f2f77e0458af8800564ef3cb"
+    },
+    {
+      "path": "social-push-scheduled-process/host-peer/observed.json",
+      "bytes": 81,
+      "sha256": "617ba206226c0996564f20f69d6dea73c42aac38cc85f295605e644e7d228267"
+    },
+    {
+      "path": "social-push-scheduled-process/host-peer/ready.json",
+      "bytes": 14,
+      "sha256": "8e2a794cdd49f5ac138df6f3e19b315454178d214ea3824ba2f0f608782d2d58"
+    },
+    {
+      "path": "social-push-scheduled-process/host-peer/reply.json",
+      "bytes": 1098,
+      "sha256": "39c302e7ca196abc147b2c43c7792615d9a300ff36db79a7c3b1ac9966ccbcf1"
+    },
+    {
+      "path": "social-push-scheduled-process/images.tar",
+      "bytes": 129024,
+      "sha256": "b52588500a0c2be93cd547e72ae84309f97b522d017bd1363528977a33e6341d"
+    },
+    {
+      "path": "social-push-scheduled-process/interrupted.txt",
+      "bytes": 483,
+      "sha256": "af2ebe4b52c323bdf84f2598ca2f094c4b26e139701e801746a9aca9b163cb93"
+    },
+    {
+      "path": "social-push-scheduled-process/notification-after.txt",
+      "bytes": 59944,
+      "sha256": "4bac24235cd1bcf078eaa5e111c74cc73eea0c8c8baae36481bf73520bdd8bba"
+    },
+    {
+      "path": "social-push-scheduled-process/pending-checkpoint.json",
+      "bytes": 2026,
+      "sha256": "9fb422cf7bd59e878995d17ce160a5ed4ee9f28285ff25fd32f0aaa980671e9d"
+    },
+    {
+      "path": "social-push-scheduled-process/recovered-observation.json",
+      "bytes": 307,
+      "sha256": "373df19e5d2487e58660086e52bbd1e04860602e14e5871fbdc8f9a66268931a"
+    },
+    {
+      "path": "social-push-scheduled-process/restored.txt",
+      "bytes": 816,
+      "sha256": "f4bdcf210359b407a5900024fd13b05a047ba8b6a15e6422eaa7ae9cfbb6ec3c"
+    },
+    {
+      "path": "social-push-scheduled-process/reverse-after.txt",
+      "bytes": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "social-push-scheduled-process/reverse-before.txt",
+      "bytes": 29,
+      "sha256": "ef57d792aaad3d1202d819fb0c92579fac0e156785e11021af764c694d435795"
+    },
+    {
+      "path": "social-push-scheduled-process/termination-request.json",
+      "bytes": 69,
+      "sha256": "2c5b4212fbfb6d47daecb7566787903195c02b5a8a9540022ed25faaf8cdc525"
+    }
+  ],
+  "archive_xmls_parsed": 5,
+  "archive_pngs": 5
+}

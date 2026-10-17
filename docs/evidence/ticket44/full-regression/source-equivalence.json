@@ -2,7 +2,9 @@
   "sources": {
     "apk": "9a37c19ba5182b8f0f26f7c2947ec6a511a457f9",
     "focused": "8113a0386a6925bc7f6d299ac257b2af439b8427",
-    "full": "4f0d7ce1af31564e7b212752e2ecab3545e5265b"
+    "full": "4f0d7ce1af31564e7b212752e2ecab3545e5265b",
+    "focusedDismissal": "f7395a26a",
+    "fullAndroid10": "d68c30d3998546f02ac96d6216494d46a36a56a2"
   },
   "productionAndBuildObjects": {
     "apk": {
@@ -37,6 +39,28 @@
       "gradle.properties": "412c76af0b073a46f92cae8d5a3fcc8202b9612c",
       "push-gateway/src/main": "30fb7c25bd4ae266cb0b4d4865becfea4a918d3d",
       "push-gateway/build.gradle.kts": "517dcc470f27fb27f9bdfc758dfd81a473192f90"
+    },
+    "focusedDismissal": {
+      "app/src/main": "5341391aeb02f62e793c417ccff231160ecdab8c",
+      "app/build.gradle.kts": "04b2afc380b894a6b055d40dba9619591e4f71c3",
+      "core/src/main": "786679f6635267ca0757ff35369a995979bdf3de",
+      "core/build.gradle.kts": "ee89e44c57ab26d38036ab92575baa08c24d4df6",
+      "build.gradle.kts": "f3fc17c4fa2c66d6f11cc3545bf3b86bed466fb8",
+      "settings.gradle.kts": "0095b7ade761bc539b703724c717ece3a9d1879b",
+      "gradle.properties": "412c76af0b073a46f92cae8d5a3fcc8202b9612c",
+      "push-gateway/src/main": "30fb7c25bd4ae266cb0b4d4865becfea4a918d3d",
+      "push-gateway/build.gradle.kts": "517dcc470f27fb27f9bdfc758dfd81a473192f90"
+    },
+    "fullAndroid10": {
+      "app/src/main": "5341391aeb02f62e793c417ccff231160ecdab8c",
+      "app/build.gradle.kts": "04b2afc380b894a6b055d40dba9619591e4f71c3",
+      "core/src/main": "786679f6635267ca0757ff35369a995979bdf3de",
+      "core/build.gradle.kts": "ee89e44c57ab26d38036ab92575baa08c24d4df6",
+      "build.gradle.kts": "f3fc17c4fa2c66d6f11cc3545bf3b86bed466fb8",
+      "settings.gradle.kts": "0095b7ade761bc539b703724c717ece3a9d1879b",
+      "gradle.properties": "412c76af0b073a46f92cae8d5a3fcc8202b9612c",
+      "push-gateway/src/main": "30fb7c25bd4ae266cb0b4d4865becfea4a918d3d",
+      "push-gateway/build.gradle.kts": "517dcc470f27fb27f9bdfc758dfd81a473192f90"
     }
   },
   "correctedFixtureObjects": {
@@ -54,5 +78,13 @@
     }
   },
   "productionEquivalent": true,
-  "correctedFixturesEquivalent": true
+  "correctedFixturesEquivalent": true,
+  "fullSdkFixtureDifference": {
+    "from": "4f0d7ce1af31564e7b212752e2ecab3545e5265b",
+    "to": "d68c30d3998546f02ac96d6216494d46a36a56a2",
+    "files": [
+      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SocialPushProcessRecoveryTest.kt"
+    ],
+    "reason": "One UiObject2-bound physical reply-card swipe instead of cached coordinate injection; observable assertions and deadlines unchanged."
+  }
 }
