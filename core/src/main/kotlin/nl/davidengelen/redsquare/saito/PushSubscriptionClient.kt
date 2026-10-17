@@ -36,8 +36,12 @@ class PushSubscriptionClient(origin: String, private val journal: Journal, priva
         var state = load()
         val previous = state?.get("binding")?.takeUnless { it.isJsonNull }?.asJsonObject
         val initial = currentDemand()
-        if (previous != null && (initial == null || text(previous, "owner") != initial.wallet.publicKey ||
+        if (previous != null && (text(previous, "phase") == "retiring" || initial == null ||
+                text(previous, "owner") != initial.wallet.publicKey ||
                 text(previous, "origin") != origin)) {
+            // A lost revoke acknowledgement must finish retirement before any later opt-in.
+            previous.addProperty("phase", "retiring")
+            save(state!!)
             val reply = response(http.post(text(previous, "origin"), "/v1/subscriptions/revoke",
                 JsonObject().apply {
                     addProperty("version", 1); addProperty("subscription", text(previous, "subscription"))
@@ -45,16 +49,22 @@ class PushSubscriptionClient(origin: String, private val journal: Journal, priva
                 }.toString(), null), 200, setOf("version", "active"))
             check(reply.get("active").isJsonPrimitive && reply.getAsJsonPrimitive("active").isBoolean &&
                 !reply.get("active").asBoolean)
-            state!!.add("binding", JsonNull.INSTANCE)
+            state.add("binding", JsonNull.INSTANCE)
             save(state)
         }
-        val desired = currentDemand() ?: return
+        val desired = currentDemand() ?: run {
+            if (state?.get("binding")?.isJsonNull == false) {
+                throw IOException("Push demand changed during reconciliation")
+            }
+            return
+        }
         if (state == null) state = JsonObject().apply {
             addProperty("version", 1); addProperty("installation", UUID.randomUUID().toString())
             add("binding", JsonNull.INSTANCE)
         }
         val binding = state.get("binding").takeUnless { it.isJsonNull }?.asJsonObject ?: JsonObject().apply {
             addProperty("origin", origin); addProperty("owner", desired.wallet.publicKey)
+            addProperty("phase", "binding")
             addProperty("subscription", randomHex()); addProperty("revocationSecret", randomHex())
             state.add("binding", this)
         }
@@ -106,7 +116,8 @@ class PushSubscriptionClient(origin: String, private val journal: Journal, priva
             require(UUID.fromString(installation).toString() == installation)
             if (!state.get("binding").isJsonNull) {
                 val binding = state.getAsJsonObject("binding")
-                require(binding.keySet() == setOf("origin", "owner", "subscription", "revocationSecret"))
+                require(binding.keySet() == setOf("origin", "owner", "subscription", "revocationSecret", "phase"))
+                require(text(binding, "phase") in listOf("binding", "retiring"))
                 require(canonicalOrigin(text(binding, "origin")) == text(binding, "origin"))
                 require(SaitoWallet.isPublicKey(text(binding, "owner")))
                 hex(binding, "subscription"); hex(binding, "revocationSecret")

@@ -80,8 +80,18 @@ new1FAIL atSubscriptionClientTest:64. Placeholder performed no HTTP, so dropped
 ack/recovery tails unexecuted. [Retained RED](../evidence/ticket42/client-red/README.md),
 sixhashes/eleven source hashes. Portable minimum now persists installation/retirement
 authority before binding, retires old owner/origin before replacement, and checks
-fresh demand around binding. Owned local core/gateway build64223 active, no pass
-inferred. Source review pending. Native adapter is not wired yet.
+fresh demand around binding. First minimum d71defab PASS1m24s, corefresh114/gateway4/0/0; exec64223 ended.
+Source review Standards1/Spec2: lost retirement acknowledgement needs durable
+retiring intent; fresh null demand must retry instead of silently succeeding; final
+opt-out assertion must target newest binding. Strengthened tracer226530ee actual
+FAIL35s atSubscriptionClientTest:46 expected201/got410 on same-wallet opt-in after
+lost revoke acknowledgement. [Retained](../evidence/ticket42/client-retirement-red/README.md),
+fivehashes/eleven source hashes; previous tails through lost revoke ran, later
+reenable/newestoptout tails unexecuted. Correction persists retiring phase before
+request, completes it before opt-in and signals retry on fresh null demand with
+retained authority. Corrected core/gateway build23936 active, no pass inferred.
+Source review pending. Native adapter is not wired yet. Earlier standalone CI
+38992493829 atc71038b3 SUCCESS, separately retained; no client CI claim.
 
 No Android gateway binding, resolver, observer,
 FCM sender, physical retention cleanup or whole#42 acceptance yet. Existing owner

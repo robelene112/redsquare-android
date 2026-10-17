@@ -138,8 +138,9 @@ secret before a request can bind them. The journal contains public owner/origin
 and installation retirement authority, never an outgoing wallet signing key.
 If a bind acknowledgement is lost, a newly constructed client can retire the
 uncertain old binding with a replacement wallet or no wallet. It retires the old
-owner/origin before binding a different one. Opt-out retains authority until the
-server confirms retirement. A same-owner invocation renews with a fresh signed
+owner/origin before binding a different one. Opt-out persists a retiring phase before its request and retains authority until
+the server confirms retirement. A lost retirement acknowledgement is completed
+before a later same-wallet opt-in allocates a fresh subscription ID. A same-owner invocation renews with a fresh signed
 challenge, current FID/backend/categories and six-day expiry. Fresh demand is
 checked again before binding and after its acknowledgement; changed demand
 requires another reconciliation. It does not roll back a user choice.
@@ -147,6 +148,12 @@ requires another reconciliation. It does not roll back a user choice.
 The controlled client journey uses actual gateway HTTP, a durable owned filesystem
 journal and an intentionally dropped acknowledgement after server commit. The no-op
 client first fails1m26s, old3PASS/new1FAIL at the missing-operation assertion; none
-of its HTTP/recovery tails ran then. Minimum verification and review are pending.
+of its HTTP/recovery tails ran then. First minimum passes1m24s/corefresh114/gateway4.
+Review found missing durable retirement intent, a silent return if consent changed
+between reads, and an opt-out assertion that could observe an older binding. The
+strengthened journey reproduces lost retirement acknowledgement as FAIL35s:
+same-wallet opt-in gets410 instead of201. The correction persists retirement phase,
+signals retry for fresh null demand with a retained binding, and requires final
+opt-out to target the newest ID. Corrected verification and review are pending.
 This is not Android Keystore, actual Firebase registration/rotation, cloud delivery
 or a real client-process crash proof. Native SDK and device acceptance stay open.
