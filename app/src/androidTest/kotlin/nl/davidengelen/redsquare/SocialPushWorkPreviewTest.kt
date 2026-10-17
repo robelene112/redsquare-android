@@ -99,6 +99,11 @@ class SocialPushWorkPreviewTest {
                     require(request.method == "POST" && request.url.encodedPath == "/v1/wakes/resolve")
                     val body = JsonParser.parseString(requireNotNull(request.body).utf8()).asJsonObject
                     require(body == JsonParser.parseString("{\"version\":1,\"wake\":\"$opaque\"}"))
+                    // Only the recipient may resolve the wake. The push provider does not receive this proof.
+                    require(request.headers["X-Saito-Owner"] == wallet.publicKey)
+                    val proof = requireNotNull(request.headers["X-Saito-Signature"])
+                    val intent = "Saito push resolve v1\n${request.url}\n$opaque"
+                    require(SaitoWallet.verify(intent.toByteArray(Charsets.UTF_8), proof, wallet.publicKey))
                     gatewayReads.incrementAndGet()
                     if (!recovering.get()) mockwebserver3.MockResponse.Builder().code(503).build()
                     else mockwebserver3.MockResponse.Builder().code(200).body(payload).build()
