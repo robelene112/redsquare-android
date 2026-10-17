@@ -82,8 +82,12 @@ private object GiphyImages {
         slots.withPermit {
             val bytes = GiphyHttp.read(source.toHttpUrl(), 8 * 1024 * 1024)
             currentCoroutineContext().ensureActive()
-            // API28 ByteBuffer source remains immutable for AnimatedImageDrawable's lifetime.
-            val drawable = ImageDecoder.decodeDrawable(ImageDecoder.createSource(ByteBuffer.wrap(bytes))) { decoder, info, _ ->
+            // Android10's animated heap-array stream reads through JNI on its native
+            // decoder thread. A direct, immutable buffer uses the memory stream instead.
+            val encoded = ByteBuffer.allocateDirect(bytes.size)
+            encoded.put(bytes)
+            (encoded as java.nio.Buffer).rewind()
+            val drawable = ImageDecoder.decodeDrawable(ImageDecoder.createSource(encoded.asReadOnlyBuffer())) { decoder, info, _ ->
                 val width = info.size.width
                 val height = info.size.height
                 require(width in 1..16_384 && height in 1..16_384 && width.toLong() * height <= 100_000_000)
