@@ -102,7 +102,12 @@ with (control / 'host.log').open('w') as host_log, (args.evidence / 'interrupted
             raise AssertionError('Invalid exact notification identity')
         (args.evidence / 'pending-checkpoint.json').write_text(json.dumps(row, indent=2) + '\n')
         # Ask only this waiting test fixture to terminate itself, as established fixtures do.
-        adb('shell', 'run-as', package, 'touch', 'cache/social-push-scheduled-stop-' + str(pid))
+        requested = adb('shell', 'run-as', package, 'touch', 'cache/social-push-scheduled-stop-' + str(pid), check=False)
+        (args.evidence / 'termination-request.json').write_text(json.dumps({
+            'pid': pid, 'returncode': requested.returncode, 'stdout': requested.stdout, 'stderr': requested.stderr
+        }, indent=2) + '\n')
+        if requested.returncode:
+            raise AssertionError('Fixture termination request failed; see termination-request.json')
         wait_for('Requested target process death', lambda: pid not in target_pids(), 10, host)
         assert_process_gone(adb, package, pid)
         setup.wait(timeout=15)
