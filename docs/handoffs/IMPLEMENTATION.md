@@ -48,11 +48,17 @@ state writes and uses an existing-cache fast path. Full cache parsing is reserve
 for scheduled cleanup or capacity reclamation. Docs distinguish retrieval expiry
 from physical removal after successful cleanup (may lag/fail/stopped). Corrected
 local core/gateway/installDist PASS2m8s, gateway12/0in10suites/coreUPTODATE114.
-Thirteen records in gateway-reviewed-full; corrected reviews pending.
-This is gateway minimum only. No second
-stream/reconnect/media-capacity/process-death claim from the one private case.
-Next: gateway source review/corrections and needed persistence coverage, then
-native worker/consent/receipt integration; final full SDKs,
+Thirteen records in gateway-reviewed-full; corrected reviews both zero actionable findings.
+Added28e1f24af same-stream coverage PASS2/0in6.590s: both logical backends,
+first original repeated then a distinct second original over the same authenticated
+connection; exactly two opaque requests and exact second resolve/fetch/decrypt.
+Three hashed records in gateway-stream. No new RED or encryption interop claim.
+No reconnect/media-capacity/process-death claim yet. Native consent tracer now
+added to existing chat-alerts scope; production Android remains unchanged.
+Initial local fixture compilation found a fixture variable typed as MockWebServer
+instead of ControlledFeedPeer; corrected before runtime. This is not behavior RED.
+Next: run actual Settings consent RED, implement union binding, then
+native worker/receipt integration; final full SDKs,
 both reviews and next signed update are still required before native46 acceptance.
 Preserve unrelated untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md.
 
