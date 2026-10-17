@@ -21,3 +21,5 @@ old ancestry. The anchor's predecessor block has not been processed.
 Blocks are non-social. This does not prove pending-event withdrawal, chain-triggered
 social delivery, interrupted cursor writes, continuous runtime or actual Google/
 device delivery. Full gap retention/cleanup and whole42/32 remain unfinished.
+
+Final evidence/doc reviews at9f6f8f0f report Standards0/Spec0.

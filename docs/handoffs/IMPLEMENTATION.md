@@ -21,7 +21,7 @@ persists the verified bootstrap predecessor as processed=false, then permits
 rewind only to a retained full height/hash, saving before replacement processing.
 Owned build43816 endedPASS1m42s, gateway9/0/0/chain8.246s/coreUPTODATE.
 Source reviews at3e9a3784 Standards0/Spec0. [Retained GREEN](../evidence/ticket42/reorg-green/README.md),9hashes/18sources.
-No owned local build. Final evidence review pending.
+No owned local build. Final evidence reviews at9f6f8f0f Standards0/Spec0.
 This is non-social cursor recovery. Social event provenance/withdrawal, complete
 retained gap coverage, chain-triggered social proof and continuous standalone
 runtime/cleanup remain unfinished. Do not close42/32. No node/cloud/deployment.
