@@ -855,3 +855,17 @@ No selectedmetadata sidecar, signedpost/reply/quote fixture or livekey acceptanc
 yet; these are later increments, not scope deferrals. Localbuild13621
 PASS3m36s (coreUP-TO-DATE); both source reviews Standards0/Spec0.
 NativeGREEN pending, no result inferred. No newAPK; beta24unchanged.
+
+
+## Selection animation passes, visual clipping correction next
+
+Exact40588d70 Android17 run39007775320 SUCCESS2/0/29.539s, including two
+literal frames after selection/recreation and fresh unchanged originalURL/query.
+[Selection checkpoint](../evidence/ticket16/selection-green/android17/README.md)
+retains13originals; root viewed4PNGs/parsed4XML. Actual PNGs show crop overdraw
+outside nativeImageView bounds, obscuring title/text. No layout acceptance.
+New boundary tracer samples window pixels8px above/below actual semantic image
+bounds, without changing prior animation/exactURL assertions. It is not yet
+native executed; no RED inferred. SourceCI39007775786 pending at collection.
+Next correct ImageView clipping after actual boundary RED, then metadata and
+signed post/reply/quote acceptance. Still sole16; protected groupdoc untouched.

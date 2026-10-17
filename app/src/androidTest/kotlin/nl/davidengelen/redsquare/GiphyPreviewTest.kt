@@ -148,12 +148,14 @@ class GiphyPreviewTest {
                             val bitmap = preview.captureToImage().asAndroidBitmap()
                             bitmap.getPixel(bitmap.width / 2, bitmap.height / 2) == 0xffdc1e28.toInt()
                         }
+                        assertGifContained("GIF preview: Owned two-frame GIF", "search-preview")
                         capture("search-preview")
                         paths.clear()
                         ui.onNodeWithText("Use GIF").performScrollTo().assertIsDisplayed().performClick()
                         ui.waitUntil(10_000) { ui.onAllNodesWithText("Close GIF search").fetchSemanticsNodes().isEmpty() }
                         ui.onNode(hasSetTextAction()).assert(hasText("My animated GIF draft"))
                         assertAnimation("Image 1 of 1")
+                        assertGifContained("Image 1 of 1", "selected-image")
                         assertTrue(paths.contains(originalPath))
                         ui.onNodeWithText("Save draft").performClick()
                         ui.waitUntil(10_000) { ui.onAllNodes(hasText("New post") and hasClickAction()).fetchSemanticsNodes().isNotEmpty() }
@@ -165,6 +167,7 @@ class GiphyPreviewTest {
                         ui.onNode(hasSetTextAction()).assert(hasText("My animated GIF draft"))
                         assertAnimation("Image 1 of 1")
                         assertTrue("Restoration must freshly load the exact original URL", paths.contains(originalPath))
+                        assertGifContained("Image 1 of 1", "restored-image")
                         capture("animated-restored-draft")
                         ui.onNodeWithText("Remove image 1").performScrollTo().performClick()
                         ui.waitUntil(10_000) { ui.onAllNodesWithContentDescription("Image 1 of 1").fetchSemanticsNodes().isEmpty() }
@@ -178,6 +181,25 @@ class GiphyPreviewTest {
                 }
             }
         }
+    }
+
+    private fun assertGifContained(label: String, name: String) {
+        ui.waitForIdle()
+        val bounds = ui.onNodeWithContentDescription(label).assertIsDisplayed().fetchSemanticsNode().boundsInWindow
+        capture("$name-bounds")
+        val screenshot = android.graphics.BitmapFactory.decodeFile(File(context.cacheDir, "giphy-evidence/$name-bounds.png").path)
+        try {
+            val x = bounds.center.x.toInt()
+            for (y in listOf(bounds.top.toInt() - 8, bounds.bottom.toInt() + 8)) {
+                assertTrue("The image boundary sample must be visible", y in 0 until screenshot.height)
+                val pixel = screenshot.getPixel(x, y)
+                val red = kotlin.math.abs(Color.red(pixel) - 220) <= 5 &&
+                    kotlin.math.abs(Color.green(pixel) - 30) <= 5 && kotlin.math.abs(Color.blue(pixel) - 40) <= 5
+                val blue = kotlin.math.abs(Color.red(pixel) - 20) <= 5 &&
+                    kotlin.math.abs(Color.green(pixel) - 60) <= 5 && kotlin.math.abs(Color.blue(pixel) - 220) <= 5
+                assertFalse("GIF pixels must stay inside the image bounds ($label, y=$y, bounds=$bounds)", red || blue)
+            }
+        } finally { screenshot.recycle() }
     }
 
     private fun assertAnimation(label: String) {
