@@ -1,0 +1,76 @@
+{
+  "files": [
+    {
+      "path": "chat-mute-evidence.tar",
+      "bytes": 2659328,
+      "sha256": "9764032ab1c14bd1985f722bf2e67ed835b6db7b40253229f1bd165d01a590ee"
+    },
+    {
+      "path": "chat-mute-process/capture-status.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "chat-mute-process/continuity.txt",
+      "bytes": 213,
+      "sha256": "e27922bc074343ada7638a5b52bb16f20904a55e4c9dab83897eed4e8d4e850f"
+    },
+    {
+      "path": "chat-mute-process/guard-metadata.txt",
+      "bytes": 17,
+      "sha256": "e7d43e637d6a2871b415094b18184bfb65f9c7a9cfef919eb69e0d663c4f5d8b"
+    },
+    {
+      "path": "chat-mute-process/images.tar",
+      "bytes": 230912,
+      "sha256": "5d61c6e333c3c3a1cbbaf9230ad7d9099ed097417e382e56ca6b99cfd32d688c"
+    },
+    {
+      "path": "chat-mute-process/interrupted.txt",
+      "bytes": 474,
+      "sha256": "a2bfc0aca03cd07fb3b8ec98a9efb81be39a78738578e138387c62f798cfb52a"
+    },
+    {
+      "path": "chat-mute-process/pending-checkpoint.json",
+      "bytes": 561,
+      "sha256": "24d5a3d6661acf8f215e992455483484e5fe686739000cc378163aad5a28c3ec"
+    },
+    {
+      "path": "chat-mute-process/recovered-checkpoint.json",
+      "bytes": 587,
+      "sha256": "7fe7a46b2bdd9ab9791312733f3fb0ca999c86c5afe7185be21ee01948aacbfb"
+    },
+    {
+      "path": "chat-mute-process/recovered.txt",
+      "bytes": 848,
+      "sha256": "253ce2cc489045f03d417d9e203ad36082f9169e7e3b35374f84dcfd99d19886"
+    },
+    {
+      "path": "chat-mute-process/restored.txt",
+      "bytes": 807,
+      "sha256": "1b377aeca09f88ce9054aff415e5badaea7c89471500bdb072e079aaf7f7f74c"
+    },
+    {
+      "path": "chat-mute-ui-exit.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "chat-mute-ui.txt",
+      "bytes": 5742,
+      "sha256": "5df37e209fcbf21af09a1d2392be5f09eefdf64f127e26f9c68f7545d93c1b6b"
+    },
+    {
+      "path": "emulator.log",
+      "bytes": 5645,
+      "sha256": "ec798b95b6e6dafad74390fe0fd39a02c520e25305bee5af2dcbad35a9e940ab"
+    },
+    {
+      "path": "scope.txt",
+      "bytes": 84,
+      "sha256": "e585838be6603267c3c3f4eae092f1eeac0f4b7d93fc51dae407ebb7c0020cd2"
+    }
+  ],
+  "xmls_parsed": 38,
+  "pngs_including_tar_entries": 38
+}

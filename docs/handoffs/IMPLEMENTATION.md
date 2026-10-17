@@ -76,7 +76,14 @@ Failure XMLs show Settings/Owner row, Official belowviewport; Android10 PNG view
 Fixture-only8113a0386 scrolls the existing backend options before clicking across
 all same Settings selectors, preserving assertions and deadlines. Both bounded
 source reviews report Standards0/Spec0. Focused chat-mute39046322617 at exact8113
-is PENDING. Fresh full pair required on both SDKs after this correction.
+SUCCESS: UI8/0/95.265s, actual policy process recovery1/0/12.708s (PID6796to7265),
+restoration1/0/0.081s, core114/0/0. Canonical settings-scroll-green/android10
+retains19hashes/inventory38XML38PNG. New alert-specific process death is not proved.
+Fresh full pair exact4f0d7ce1af31564e7b212752e2ecab3545e5265b is PENDING:
+Android10 run39046444313 andAndroid17 run39046446190, public_feed_read=true.
+Both source/release/lint stages passed, native suites running. Source-equivalence
+in full-regression proves APK9a/focused8113/full4f0 production/build equality and
+corrected fixture equality8113/full4f0. Root viewed both first-failure Settings PNGs.
 
 Signed27/0.1.27 is prepared, NOT published, source9a37c19ba. Wrapper0/GradlePASS
 4m38s and independent certificate/package/min29/hash checks pass. APK SHA256
@@ -87,8 +94,7 @@ correction; do not rebuild/reserve a new version for test-only changes. Artifact
 /mnt/storage/redsquare-android-artifacts/chat44-review27-prepared. Public26 unchanged.
 No owned local build. Same approved seams/180s new alert class/20s observations.
 Original33/34 and real32 blockers remain unchanged. No Google or physical/process-
-death claim from focused alert journeys. Next: focused correction, actual full
-Android10/17 acceptance, final evidence reviews, signed27 publication, close44.
+death claim from focused alert journeys. Next: actual full Android10/17 acceptance, final evidence reviews, signed27 publication, close44.
 Temporary work stays outside checkout /tmp/redsquare-chat44-work-20261017; large
 original artifacts /mnt/storage/redsquare-android-artifacts. Preserve unrelated
 untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md.

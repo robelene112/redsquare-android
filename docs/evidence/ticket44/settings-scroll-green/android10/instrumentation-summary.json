@@ -1,0 +1,126 @@
+{
+  "root": "/mnt/storage/redsquare-android-artifacts/chat44-settings-green-39046322617/.scratch/device-evidence/api-29",
+  "status_codes": {
+    "0": 10
+  },
+  "totals": {
+    "completion_records": 3,
+    "reported_ok_test_counts": 10,
+    "crash_outputs": 1,
+    "explicit_failed_files": 0
+  },
+  "excluded_exact_aggregates": [],
+  "files": [
+    {
+      "path": "chat-mute-process/interrupted.txt",
+      "sha256": "a2bfc0aca03cd07fb3b8ec98a9efb81be39a78738578e138387c62f798cfb52a",
+      "statuses": {},
+      "cases": [],
+      "junit_ok": [],
+      "junit_times": [],
+      "deliberate_or_unexplained_crash": true,
+      "explicit_failures": false
+    },
+    {
+      "path": "chat-mute-process/recovered.txt",
+      "sha256": "253ce2cc489045f03d417d9e203ad36082f9169e7e3b35374f84dcfd99d19886",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.ChatMuteProcessRecoveryTest",
+          "test": "coldRecoveryRetainsBothChoicesDraftsAndReadableSilentIncoming",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "12.708"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "chat-mute-process/restored.txt",
+      "sha256": "1b377aeca09f88ce9054aff415e5badaea7c89471500bdb072e079aaf7f7f74c",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.ChatMuteProcessRecoveryTest",
+          "test": "restoreOriginalEncryptedInstallationFiles",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "0.081"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "chat-mute-ui.txt",
+      "sha256": "5df37e209fcbf21af09a1d2392be5f09eefdf64f127e26f9c68f7545d93c1b6b",
+      "statuses": {
+        "0": 8
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.ChatMutePreviewTest",
+          "test": "groupConversationMuteKeepsCompatibleMessagesAndTheDraftAfterReopening",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatMutePreviewTest",
+          "test": "anUnmutedGroupMessageShowsAGenericAndroidNotification",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatMutePreviewTest",
+          "test": "aFailedGroupUnmuteKeepsReadableMessagesSilentAndAllowsRepair",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatMutePreviewTest",
+          "test": "conversationChoicesFollowTheBackendAndRemainIsolatedWhenTheWalletChanges",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatMutePreviewTest",
+          "test": "anUnmutedPrivateMessageShowsAGenericAndroidNotification",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatMutePreviewTest",
+          "test": "unreadablePersonalChoicesRetainIncomingWithoutAlertsAndRecoverWithoutRetrospectiveAlerts",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatMutePreviewTest",
+          "test": "privateConversationMuteKeepsIncomingMessagesAndTheDraftAfterReopening",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatMutePreviewTest",
+          "test": "aFailedPrivateUnmuteKeepsReadableMessagesSilentAndAllowsRepair",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        8
+      ],
+      "junit_times": [
+        "95.265"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    }
+  ]
+}
