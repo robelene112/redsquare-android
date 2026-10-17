@@ -22,6 +22,7 @@ import org.junit.Test
 import org.junit.rules.TemporaryFolder
 import java.net.InetAddress
 import java.net.URI
+import java.nio.file.Files
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
 import java.net.http.HttpResponse
@@ -34,7 +35,12 @@ import java.util.concurrent.atomic.AtomicReference
 class GatewayGroupChatDeliveryTest {
     @get:Rule val directory = TemporaryFolder()
 
-    @Test(timeout = 30_000) fun aConsentingGroupInterestReceivesAnOpaqueWakeAndRetrievesTheSignedGroupOriginal() {
+    @Test(timeout = 30_000) fun aConsentingGroupInterestReceivesAnOpaqueWakeAndRetrievesTheSignedGroupOriginal() = groupJourney()
+
+    @Test(timeout = 30_000) fun malformedStoredGroupInterestsReportUnavailableRatherThanInvalidRequest() =
+        groupJourney(corruptStoredGroups = true)
+
+    private fun groupJourney(corruptStoredGroups: Boolean = false) {
         // Published unsafe fixture identities. Never fund or use outside owned fixtures.
         val recipient = SaitoWallet.fromPrivateKey("0".repeat(63) + "1")
         val author = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
@@ -81,7 +87,8 @@ class GatewayGroupChatDeliveryTest {
                     fcm.start(InetAddress.getByName("127.0.0.1"), 0)
                     FcmSender("owned-fixture", GoogleCredentials.create(AccessToken("synthetic-owned-oauth", Date(now + 3_600_000))),
                         "http://127.0.0.1:${fcm.port}").use { sender ->
-                        PushGateway(directory.newFolder(backend.id).toPath(), origin).use { gateway ->
+                        val stateDirectory = directory.newFolder(backend.id).toPath()
+                        PushGateway(stateDirectory, origin).use { gateway ->
                             gateway.start()
                             val connection = HttpClient.newBuilder().connectTimeout(java.time.Duration.ofSeconds(3)).build()
                             fun post(path: String, body: JsonObject, signature: String? = null, status: Int = 200): JsonObject {
@@ -127,9 +134,9 @@ class GatewayGroupChatDeliveryTest {
                                 assertEquals("1", data.get("version").asString)
                                 val wake = data.get("wake").asString
                                 assertTrue(wake.matches(Regex("[0-9a-f]{64}")))
-                                fun resolve(operation: String) = post("/v1/wakes/$operation", JsonObject().apply {
+                                fun resolve(operation: String, status: Int = 200) = post("/v1/wakes/$operation", JsonObject().apply {
                                     addProperty("version", 1); addProperty("wake", wake)
-                                }, recipient.sign("Saito push $operation v1\n$origin/v1/wakes/$operation\n$wake".toByteArray()))
+                                }, recipient.sign("Saito push $operation v1\n$origin/v1/wakes/$operation\n$wake".toByteArray()), status)
                                 val resolved = resolve("resolve")
                                 assertEquals(setOf("version", "wallet", "backend", "signature", "kind"), resolved.keySet())
                                 assertEquals("group-chat", resolved.get("kind").asString)
@@ -144,6 +151,16 @@ class GatewayGroupChatDeliveryTest {
                                 assertEquals(group.id, received.groupId)
                                 assertEquals(text, received.text)
                                 assertEquals(1, fcm.requestCount)
+                                if (corruptStoredGroups) {
+                                    // Owned disk-fault injection only; observe the public HTTP error contract.
+                                    val stateFile = stateDirectory.resolve("subscriptions.v1.json")
+                                    val state = JsonParser.parseString(Files.readString(stateFile)).asJsonObject
+                                    state.getAsJsonObject("subscriptions").getAsJsonObject(subscription)
+                                        .addProperty("groups", "unreadable-group-interests")
+                                    Files.writeString(stateFile, state.toString())
+                                    resolve("resolve", 503)
+                                    resolve("original", 503)
+                                }
                             }
                         }
                     }
