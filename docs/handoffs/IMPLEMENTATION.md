@@ -44,6 +44,13 @@ until the user closes or retries. This is user-visible error handling, not a
 special diagnostic delay or provider workaround. First extend the existing
 controlled thread/provider recovery journey to prove delayed error text survives,
 then apply the minimum source correction and verify both Android versions.
+Tracer ed0afa190977191237fe7c7ac78e7148f92099ed is now pushed, local debug/test
+APK passed1m45s and source reviews0/0. Controlled `videos-android17` RED candidate
+39003354073 FAILED at that exact source:4cases/1failure/68.276s at delayed
+explanation assertion233, after third ready/trusted150. Later method tails were
+unexecuted; the other three cases pass. SourceCI39003354360 SUCCESS is separate.
+RED packet `docs/evidence/ticket17/error-surface-red/android17/` has8hashes; root
+viewed the failurePNG/parsedXML. Production is unchanged at this RED checkpoint.
 Actual public playback acceptance remains separate and unchanged. Giphy source
 research is available for a later sequential #16 preparation; no second ticket
 implementation has begun. Pending configuration questions are not repeated.
