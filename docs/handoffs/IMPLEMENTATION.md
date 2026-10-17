@@ -72,8 +72,22 @@ root viewed actual Settings PNG. This is bounded consent acceptance only.
 Next tracer ec0917c5b adds PrivatePushWorkPreviewTest to existing chat-alerts scope:
 Chat-only consent, no-Activity real WorkManager, recipient-proof original fetch,
 local decrypt/history, real generic shade and dismissed-redelivery suppression.
-Actual worker RED39059204747 pending; production worker/receipts remain unchanged.
-Next: worker RED then implementation and persistence/control coverage; final full SDKs,
+Actual worker RED39059204747 at ec:7run/1FAIL61.023s after taskSuccess but
+missing private alert; earlier6PASS. No history/shade/dedup reached; source still
+social-only preflight, not an observed unsupported-kind failure. Six hashed records
+in native-worker-red; root viewed launcher PNG. Sharpened d6ce0e06 adds bounded
+actual publication, physical card dismissal/positive removal/continuous2s silence;
+both fixture reviews zero residual findings.
+Firstreceiver8c09aa207 uses union preflight/typedprivatehint/sameorigin bounded
+recipient-proof originals/localverifydecrypt/history/pending/publication receipts
+and existing generic alert with result enum. NotificationReceiptLedger generalizes
+Social storage while preserving exact social filename/keyalias/prefix/schema.
+Localnative/testcompile PASS3m29s, seven source hashes plus build in
+native-worker-first-local. Runtime GREEN39059977863 and Social regression39059979882,
+and bounded firstreceiver source reviews, pending. Ordinary foreground-first then
+cloud duplicate is a known next integration gap, not completed acceptance.
+Next: first worker GREEN, foreground/cloud dedup, pendinghistory/retry/process
+recovery and preview/tap/current policy/identity coverage; final full SDKs,
 both reviews and next signed update are still required before native46 acceptance.
 Preserve unrelated untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md.
 
