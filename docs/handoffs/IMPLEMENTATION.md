@@ -159,9 +159,29 @@ case:384individualPASS including4partialclass cases,81completions/29interruption
 26PASScontinuity; Chat11PASS108.570s/privateprocessPASS. No failedstatus, butmissing
 latergates andnoSDK/finalrecords. Not acceptance andno proven slowdowncause.
 Packet full-regression/android17-timeout retains10hashes/original317inventory.
-Fresh fullAndroid17 retry39074540031 SAME1cfa source/publicreads/unchanged75minute
-ceiling isactive. Beta28 stillunpublished. Preparedpacket6hashes/235sourceobjects
-reviewStandards0/Spec0. Public27 unchanged.
+Same-source retry39074540031 is finalCANCELLED after being superseded by the
+reviewed CI partition topology; no acceptance claim. FullAndroid17 matrix39074852266
+atf97271918162e6848d6032a78d09727c6a83533b isACTIVE: three independently required
+chat/social/wallet jobs, distinctartifacts andcompletionmarkers, fail-fastfalse.
+Everyoldfullgate anddeadline preserved; defaults/focused/Android10 unchanged.
+CI464219e31 routing0/0; bash-n/actionlint1.7.12/diffcheckPASS. Sourcecheck39074850964
+isalsoactive. Production/build235objects remain identical to prepared28/accepted10
+at1cfa. Current#46sourcebase remains4703fabeccb0ba86be0b7711ff546226b0f50a83.
+Partition-plan fixes419expected executedidentities BEFORE newexecution: oldaccepted17
+411 plus8added current10vsold10, nooldremoved. Canonicalreadonly verifier retains
+path/class/test/multiplicity, requires3distinctcompletionmarkers, exactidentityunion.
+InitialSpec1 aggregate-verificationgap fixed d4dafab0d: proveexact4logconcat before
+aggregateexclusion. Reproduction419unchanged; actualbaseline16profileIDsaccepted and
+alteredaggregate rejected. Bothresidualreviews0. Separatefullfailure/classcompletion/
+continuity/publictail/visual/sourcechecks remainrequired. No singlepartition accepts.
+Temporarypromotionhelper /tmp/redsquare-private46-work-20261017/promote_partitions.py
+expects actualmatrixSUCCESS/all3 and419/99completion/31interrupt/31continuity,
+independentlyverified235sourceobjects, completepublictails andoriginalinventories.
+Do not run beforeactualartifacts. Artifactdownloadroot planned
+/mnt/storage/redsquare-android-artifacts/private46-full17-partitions-39074852266,
+with android-native-proof-{chat,social,wallet} subdirectories.
+Beta28 stillunpublished. Preparedpacket6hashes/235sourceobjects review0/0.
+Public27 unchanged.
 Earlier145 fullruns39069177182/39069178823 finalCANCELLED; packet retainsbothinitial
 inprogress andactualfinalmetadata. Noacceptanceclaimfromtheseearlierruns.
 Signed28 canonicalreview-build PASS4m13s/exit0, session10829fullydrained, log
