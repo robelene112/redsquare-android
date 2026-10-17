@@ -1,0 +1,27 @@
+{
+  "source": "60d00271f59332a5257d03246cf2e14df5814a7c",
+  "sourceFiles": {
+    "push-gateway/build.gradle.kts": "656b101556b7a8cf7ede3caf39b7ed857c5ce2b3e1964963c96b19ff3e56c0ef",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayStateFile.kt": "ccfca1ef81432f6bb120ed3761f992defc673fc25cdb14d356cacdd95b3d05da",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewaySubscriptions.kt": "d429c071a09605fb02ca7fe2e4ddbb075e71fb6f3e1519b11799ce47d8696a65",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/PushGateway.kt": "5bdd5aa3bb2cbd021b98cd127a5b6597fe83b8ee6dbaa144bb0dfc245706e96b",
+    "push-gateway/src/test/kotlin/nl/davidengelen/redsquare/gateway/SubscriptionLifecycleTest.kt": "7eb80723924d153cc18fec2cd724dbba5547c7d0d14d20c9a628693954811cc0",
+    "settings.gradle.kts": "b51e2c01f7af1f5130711b70ae4dad8f12c153d0302d63b4fe7a54f2a0ee7794",
+    ".github/workflows/android-proof.yml": "2d38ce49c253f6e00ad76114c5684bc83756df9c8312a680d51ae914a768e976",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayMain.kt": "5ea700303605f1514b3c736df6854f3c4857569e1999853894e74dde154a4d3b",
+    "push-gateway/src/test/kotlin/nl/davidengelen/redsquare/gateway/GatewayProcessTest.kt": "51378efa38ae74f21216a6eaabac19cbdc8d256760db1bbdff24c397392f8af0",
+    "core/src/main/kotlin/nl/davidengelen/redsquare/saito/PushSubscriptionClient.kt": "84b01c5ee2358890393e2f07231c73f0f1d8f16159dbf533bcc5c66a4099aa74",
+    "push-gateway/src/test/kotlin/nl/davidengelen/redsquare/gateway/SubscriptionClientTest.kt": "cf22233d63e3e5f8e4c8e19e34137e456272a979884314f4e09f0d2c8ebaf9ec",
+    "app/build.gradle.kts": "0a183f1670f83b4cb19855105795852ef5006595727f67fbf042a1e3060fac81",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/notifications/PushGatewayBinding.kt": "c9e90cc060a50b4531da10de6630b6c5db077354e4ccd52f5570284d36356620",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PushBindingPreviewTest.kt": "2d4bf4fb2499a48fa029c30b17dcb7ae1bcaae16bb3bd5447e86151ab0cc25fb",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatFixtureState.kt": "44d0e53e31b41c9f3000aa5f1bfdbaee1d00bb020ba20d2550409dccd7a29d84",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/notifications/PushRegistrationWorker.kt": "725bc3ce59d80681803a81ceeab6cf3f1d2479b645107ff25625991b0ba8b4ca",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/notifications/PushTransport.kt": "9d26421eef13917795a5185588bd6750b76b3efddac0becd4456d2380601febe",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/notifications/SocialPushSettings.kt": "18a832f5ddbc40806730dace8d906bed4f080bf4a5816a4d21be502fc686f19f",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/saito/EncryptedLocalFile.kt": "05070139065994ec1cc2172a4c26063d47d24aef68079f638aa3fbcb64eda042",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/saito/AndroidBackendStore.kt": "226e3dd42df4b0635816eceeeae7e6a5abae1ce32ac81c65b9e684246a86e684",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/AndroidWalletStore.kt": "63562df06db96e2f3403770d4e6667f6fd72a9eb888f7572dc60d432d16cd802",
+    "scripts/emulator-check": "aaf03b0cb782922b6ff1616c855130f98330d68b066a6ebd2fdd06e05fd7345d"
+  }
+}

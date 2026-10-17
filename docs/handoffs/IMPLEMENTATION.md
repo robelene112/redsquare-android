@@ -98,9 +98,12 @@ fail-fast PUSH_CONFIGURED=false now precedes fixture mutation, so consent writes
 cannot schedule real SDK work. The one-line correction awaits actual CI compile.
 No owned local build. Client source CI38993005106 at724a8455 SUCCESS, retained
 at../evidence/ticket42/client-source-ci (2hashes). Corrected tracer60d00271 now
-reports Standards0/Spec0 and is remote main. Source CI38993468005 and intended
-Android10 RED38993468083 (social-push) are active at exact60d00271. No native RED
-result inferred. Do not implement native minimum until actual intended failure.
+reports Standards0/Spec0 and is remote main. Source CI38993468005 SUCCESS, exact60d00271. Android10 intended RED38993468083
+FAILURE0.205s atPushBindingPreviewTest:103, missing existing-wallet binding.
+Resultphase initial-binding/binds0/revocations0/SDK29. Old11UI/worker3 and later
+new wallet/backend/FID/opt-out tails unexecuted behind first gate. ADBexit0 is not
+JUnitpass. [Retained](../evidence/ticket42/native-binding-red/android10/README.md),
+7hashes/22sourcehashes; sourceCI separately retained. Native minimum is next.
 New ordinary API research FCM_GATEWAY_SENDER_2026_10_17.md records FID payload,
 ADC scope/permission, error/retry semantics and candidate auth library1.54.0;
 no dependency, credentials or account operations yet. Prior native UI11/worker3 assertions unchanged behind new gate.
