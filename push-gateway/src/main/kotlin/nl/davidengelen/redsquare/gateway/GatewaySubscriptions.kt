@@ -322,11 +322,11 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
                     savedText(it, "signature") == signed.id
             } }) continue
             if (events.size() >= 4096) throw IOException("Gateway event capacity reached")
-            chatOriginals.save(backend, signed.id, envelope, expiresAt, now)
+            val originalExpiresAt = chatOriginals.save(backend, signed.id, envelope, expiresAt, now)
             events.add(ByteArray(32).also(SecureRandom()::nextBytes).hex(), JsonObject().apply {
                 addProperty("subscription", subscription); addProperty("owner", owner)
                 addProperty("backend", backend.id); addProperty("signature", signed.id); addProperty("category", "private-chats")
-                addProperty("expiresAt", minOf(expiresAt, savedNumber(binding, "expiresAt")))
+                addProperty("expiresAt", minOf(originalExpiresAt, savedNumber(binding, "expiresAt")))
                 addProperty("retainUntil", signed.createdAt + LIFETIME)
                 addProperty("state", "pending"); addProperty("attempts", 0); addProperty("nextAttempt", 0)
             })

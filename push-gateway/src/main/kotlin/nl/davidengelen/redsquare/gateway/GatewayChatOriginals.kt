@@ -18,13 +18,13 @@ internal class GatewayChatOriginals(private val directory: Path) {
     private val gson = GsonBuilder().setStrictness(Strictness.STRICT).create()
     private data class Original(val envelope: String, val expiresAt: Long)
 
-    fun save(backend: SaitoBackend, signature: String, envelope: String, expiresAt: Long, now: Long) {
+    fun save(backend: SaitoBackend, signature: String, envelope: String, expiresAt: Long, now: Long): Long {
         require(envelope.toByteArray(Charsets.UTF_8).size <= MAX_ORIGINAL && expiresAt > now)
         Files.createDirectories(directory)
         Files.setPosixFilePermissions(directory, PosixFilePermissions.fromString("rwx------"))
         cleanup(now)
         val target = path(backend, signature)
-        if (Files.exists(target)) { read(target); sync(); return }
+        if (Files.exists(target)) { val retained = read(target); sync(); return retained.expiresAt }
         val contents = JsonObject().apply {
             addProperty("version", 1); addProperty("expiresAt", expiresAt); addProperty("envelope", envelope)
         }.toString().toByteArray(Charsets.UTF_8)
@@ -42,6 +42,7 @@ internal class GatewayChatOriginals(private val directory: Path) {
         Files.move(pending, target, ATOMIC_MOVE, REPLACE_EXISTING)
         sync()
         check(read(target) == Original(envelope, expiresAt))
+        return expiresAt
     }
 
     fun load(backend: SaitoBackend, signature: String, now: Long): String? {

@@ -16,13 +16,15 @@ object GatewayMain {
         val port = args[5].toInt().also { require(it in 0..65535) }
         val gateway = PushGateway(Path.of(args[1]), args[3], port)
         val observers = mutableListOf<GatewayObserver>()
+        val chatObservers = mutableListOf<GatewayChatObserver>()
         var sender: FcmSender? = null
         val closed = AtomicBoolean()
         val stopped = CountDownLatch(1)
         fun close() {
             if (!closed.compareAndSet(false, true)) return
-            val actions = observers.map { observer -> { observer.stop() } } +
-                listOf({ sender?.close(); Unit }) + observers.map { observer -> { observer.close() } } + listOf({ gateway.close() })
+            val actions = observers.map { observer -> { observer.stop() } } + chatObservers.map { observer -> { observer.stop() } } +
+                listOf({ sender?.close(); Unit }) + observers.map { observer -> { observer.close() } } +
+                chatObservers.map { observer -> { observer.close() } } + listOf({ gateway.close() })
             finishCleanup(*actions.toTypedArray())
         }
         val hook = Thread({ try { close() } finally { stopped.countDown() } }, "gateway-shutdown")
@@ -32,10 +34,13 @@ object GatewayMain {
                 sender = configured
                 val identity = SaitoWallet.create() // Ephemeral gateway identity, never a subscriber's signing key.
                 SaitoBackend.entries.forEach { observers.add(GatewayObserver(gateway, identity, it, configured)) }
+                // Private streams must not compete with social or each other for a same-key socket mapping.
+                SaitoBackend.entries.forEach { chatObservers.add(GatewayChatObserver(gateway, SaitoWallet.create(), it, configured)) }
             }
             Runtime.getRuntime().addShutdownHook(hook)
             gateway.start()
             observers.forEach(GatewayObserver::start)
+            chatObservers.forEach(GatewayChatObserver::start)
             println("listening=127.0.0.1:${gateway.port}")
             stopped.await()
         } finally {
