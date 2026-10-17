@@ -358,10 +358,20 @@ from the peer's advertised tip. The first supported recent bootstrap records
 ranges or an unproven empty response record `chain-history-unavailable`; unavailable
 chain/full-block reads and unsupported ancestry have separate current reasons.
 Advancement stops at unsupported ancestry or missing consecutive references.
-Rewinding to a retained common ancestor and recovering a new branch remain open.
+The implementation can rewind only to a matching full height/hash already in
+that retained history, trimming abandoned points and saving a reorganization
+warning before replacement processing. The verified first block's predecessor
+is explicitly retained as `processed:false`: its hash is authenticated by that
+header, but its block has not been processed. Unknown ancestors stop advancement.
+This bounded journal cannot recover an arbitrary old fork. Social-event source
+provenance and withdrawal still remain unfinished.
 
 Gap status is only the latest bounded recent coverage warning per backend, with
 reason-specific since-time. It is not a complete retained list of every gap kind.
 The current non-social fixture establishes durable position and actual Full
 continuation after a server-instance restart. It does not establish chain-triggered
-social delivery, interrupted cursor writes, reorg recovery or continuous operation.
+social delivery, interrupted cursor writes or continuous operation. The[non-social reorganization journey](evidence/ticket42/reorg-green/README.md)
+passes both selectors, including a positive HTTP retained-anchor precondition,
+replacement block processing and fresh-instance Full continuation. Source3e9a3784
+reviews Standards0/Spec0; owned build PASS1m42s/gateway9/0/0. This is cursor
+recovery only, with the social-event withdrawal limitation above.

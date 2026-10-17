@@ -7,9 +7,29 @@ open. Its earlier overall review base was dd89bc9108eb002bb260eee709c656cd453489
 dependency#24 remains closed.
 Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`.
 
+## Active reorganization recovery
+
+Accepted durable-cursor checkpoint aad0e8d1 is pushed. Source CI38999026430 is
+still running and covers that checkpoint only. Sole issue42 remains open.
+Reorg tracer75fa37a7 actualFAIL1m18s, gateway9/1failure/new2.597s at154:
+OWNER fifth response observed chain-ancestry-unavailable instead of
+chain-reorganization. Replacement cursor/download, later restart and OFFICIAL
+were unexecuted. [Retained RED](../evidence/ticket42/reorg-red/README.md),
+9hashes/18sources. Tracer Standards0/Spec1: missing positive retained-anchor
+precondition. Current minimum3e9a3784 strengthens HTTP history observation and
+persists the verified bootstrap predecessor as processed=false, then permits
+rewind only to a retained full height/hash, saving before replacement processing.
+Owned build43816 endedPASS1m42s, gateway9/0/0/chain8.246s/coreUPTODATE.
+Source reviews at3e9a3784 Standards0/Spec0. [Retained GREEN](../evidence/ticket42/reorg-green/README.md),9hashes/18sources.
+No owned local build. Final evidence review pending.
+This is non-social cursor recovery. Social event provenance/withdrawal, complete
+retained gap coverage, chain-triggered social proof and continuous standalone
+runtime/cleanup remain unfinished. Do not close42/32. No node/cloud/deployment.
+Protected untracked group contract remains untouched.
+
 ## Active durable observer processing
 
-CurrentHEADb93bda92, remoteacceptedc35d4fe5. Chaincheckpoint319365f8 final0/0,
+Historical cursor sourceb93bda92, accepted/pushedaad0e8d1. Chaincheckpoint319365f8 final0/0,
 pushedc35d4fe5; sourceCI38998360212 SUCCESS, retainedchain-source-ci2hashes.
 Sole implementation42stillopen. Tracera15df1d6 actualFAIL1m31s/new1.364s at145
 missingHTTPcursor, OWNERrawprotocolpassed, restart/OFFICIALunexecuted.
@@ -23,7 +43,7 @@ Correctionb93bda92 collectsALLexactblockevidence beforeANYoptionalnames (inputbo
 65_536, actualArchivequerylimitsunchanged), sharesreason-matchedrecordGap and
 private deliverPending. Source0/0. Ownedlocal56817 endedPASS1m35s/gateway9/0/0/coreUPTODATE. No ownedbuild.
 [Retained GREEN](../evidence/ticket42/observer-green/README.md),9hashes/18sources.
-Finaldocs/evidencereview at17ffe38b reportsStandards0/Spec0. Acceptedcursorcheckpoint ready to push.
+Finaldocs/evidencereview at17ffe38b reportsStandards0/Spec0. Acceptedcursorcheckpoint pushed as aad0e8d1.
 Pinnedcursorfixtureblocksnon-social: chain-triggeredsocialeventnotprovenyet.
 Next REALsourcework: reorg/ancestryrecovery, unavailablegapcoverage andcontinuous
 standaloneruntime/cleanup; finalchain-socialproofstillneeded. Do not close42/32.
