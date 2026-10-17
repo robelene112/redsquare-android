@@ -42,9 +42,12 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     onWalletMetadata: suspend (SaitoWallet, SaitoWallet) -> Unit, initialContact: String? = null, initialGroup: String? = null,
     onBack: () -> Unit) {
     nl.davidengelen.redsquare.NotificationPermissionPrompt()
+    var groupDestination by remember(wallet.publicKey,backend) { mutableStateOf(initialGroup) }
     var reviewingGroups by remember(wallet.publicKey,backend) { mutableStateOf(initialGroup != null) }
     if (reviewingGroups) {
-        GroupChatScreen(wallet,endpoint,backend,modifier,onWalletMetadata,initialGroup) { reviewingGroups=false }
+        GroupChatScreen(wallet,endpoint,backend,modifier,onWalletMetadata,groupDestination) {
+            reviewingGroups=false; groupDestination=null
+        }
         return
     }
 

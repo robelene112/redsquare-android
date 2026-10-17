@@ -126,6 +126,13 @@ class ChatAlertPreviewTest {
                             ui.waitUntil(20_000) { displayed(restoredDraft) }
                             ui.onNode(restoredDraft).assertIsDisplayed()
                             capture("$capturePrefix-draft-restored")
+                            if (groupAlert) {
+                                click(hasText("Back"))
+                                click(hasText("Groups"))
+                                ui.waitUntil(20_000) { displayed(hasText("Create group") and hasClickAction()) }
+                                ui.onAllNodesWithText(incomingText).assertCountEquals(0)
+                                capture("group-warm-normal-list")
+                            }
                         }
                         assertEquals(wallet.exportJson(), wallets.loadExisting().exportJson())
                         assertEquals(SaitoBackend.OWNER, backends.load())

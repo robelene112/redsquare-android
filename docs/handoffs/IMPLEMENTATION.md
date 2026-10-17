@@ -74,7 +74,14 @@ Minimal group route now binds group/original and rechecks membership/author poli
 opens existing group UI through shared draft guard. Fixture preloads legitimate
 known-group metadata so normal watch-metadata learning cannot alter exact wallet
 assertion; candidate/message/no-write assertions unchanged. Shared helper renamed
-chatAlertJourney per nonblocking Standards naming observation. Native GREEN pending.
+chatAlertJourney per nonblocking Standards naming observation. First bounded group reviews both identify1sourcefinding: initialGroup reapplied
+on normal Groups re-entry. Corrected source clears the one-shot seed when leaving
+groups; same journey now requires ordinary Create group list and absent alerted
+message after recovering the prior private draft. Initial64038 run39039390627
+was explicitly CANCELLED before native acceptance to avoid testing known-bad source.
+Local wrapper1823 ended143, but its owned Docker build completed independently
+with exit0/BUILD SUCCESSFUL4m45s, retained container log. No owned local build.
+Corrected native GREEN pending.
 No owned local build. No whole44 acceptance.
 No whole44/full acceptance. Group/cold slices
 remain. Same approved UI/controlled-peer/notification/persistence seams; no new
@@ -1048,16 +1055,15 @@ current client preparation is described above.
 
 ## Current public build
 
-#41 is CLOSED. Canonical [final acceptance](../evidence/ticket41/FINAL_ACCEPTANCE.md)
-records full Android10/17 gates and final review results.
-Signed beta25/0.1.25 is published and independently verified at https://davidengelen.nl/redsquare/.
-APK SHA256 `2eb5f4ffc021e4fc87672e25f7f5ca207b2d19d49a96453a5a422abe10d536c8`.
-Source19e1083d, established certificate, minimum SDK29. Immutable24 is unchanged;
-physical owner installation/continuity remains unobserved. Publication bookend
-735974db reviews are Standards0/Spec0. Tracker16 comment6232363432 records the
-final full results and published25 while leaving acceptance OPEN.
-Keep signing material outside Git. Use
-[review-build operations](../REVIEW_BUILDS.md) for the next authorized publication.
+Signed beta26/0.1.26 is published and independently verified at https://davidengelen.nl/redsquare/.
+Canonical #43 signed-preview26-published evidence retains thirteen hashed records,
+HTTPS manifest/APK identity, package/minimum29 and immutable25 checks. Source
+is e8b337a30edd70246404cf91d5ae1ca55d779aee, established certificate unchanged.
+APK SHA256 c7f4c4f00262f35a4a92ea2253b4e78989c0438751fb655df51a66b8627b17a7.
+Publication bookend2fff4587e has Standards0/Spec0. #43 is closed; #31 remains open
+for actual configured-provider acceptance. #44 changes have not been published.
+Physical owner installation/continuity remains unobserved. Signing material stays
+outside Git. Follow [review-build operations](../REVIEW_BUILDS.md) for the next publication.
 
 ## Other remaining issues
 
