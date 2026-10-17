@@ -22,8 +22,9 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
 internal val LocalGiphyConfiguration = staticCompositionLocalOf { GiphyConfiguration.production() }
+internal val LocalChatGiphyConfiguration = staticCompositionLocalOf { GiphyConfiguration.chatProduction() }
 
-/** The app's public Android/Posts API option, never a Saito server's browser key. */
+/** The app's public Android/section API option, never a Saito server's browser key. */
 internal data class GiphyConfiguration(val apiKey: String, val apiBase: HttpUrl, val fixtureOrigin: HttpUrl? = null) {
     val configured get() = apiKey.isNotEmpty()
 
@@ -40,9 +41,12 @@ internal data class GiphyConfiguration(val apiKey: String, val apiBase: HttpUrl,
 
     companion object {
         fun production() = GiphyConfiguration(BuildConfig.GIPHY_POSTS_API_KEY, "https://api.giphy.com/".toHttpUrl())
-        fun fromIntent(intent: Intent?): GiphyConfiguration {
-            if (!BuildConfig.DEBUG || android.os.Build.HARDWARE !in listOf("ranchu", "goldfish")) return production()
-            val input = intent?.getStringExtra("giphyFixtureUrl") ?: return production()
+        fun chatProduction() = GiphyConfiguration(BuildConfig.GIPHY_CHAT_API_KEY, "https://api.giphy.com/".toHttpUrl())
+        fun fromIntent(intent: Intent?) = fromIntent(intent, "giphyFixtureUrl", production())
+        fun chatFromIntent(intent: Intent?) = fromIntent(intent, "giphyChatFixtureUrl", chatProduction())
+        private fun fromIntent(intent: Intent?, extra: String, production: GiphyConfiguration): GiphyConfiguration {
+            if (!BuildConfig.DEBUG || android.os.Build.HARDWARE !in listOf("ranchu", "goldfish")) return production
+            val input = intent?.getStringExtra(extra) ?: return production
             val url = input.toHttpUrlOrNull()
             return if (url != null && url.scheme == "http" && url.host == "127.0.0.1" && url.port in 1..65535 &&
                 url.encodedPath == "/" && url.username.isEmpty() && url.password.isEmpty() && url.query == null && url.fragment == null)

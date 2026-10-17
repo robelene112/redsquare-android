@@ -33,10 +33,12 @@ fun com.android.build.api.dsl.ApplicationBuildType.configurePush(variant: String
     }
 }
 fun com.android.build.api.dsl.ApplicationBuildType.configureGiphy(variant: String) {
-    val key = providers.gradleProperty("giphy${variant}PostsApiKey").orElse("").get()
-    require(key.length <= 256 && key.none { it.isWhitespace() || it.code < 32 }) { "Invalid Giphy Android/Posts API option" }
-    val literal = "\"" + key.replace("\\", "\\\\").replace("\"", "\\\"") + "\""
-    buildConfigField("String", "GIPHY_POSTS_API_KEY", literal)
+    for (section in listOf("Posts", "Chat")) {
+        val key = providers.gradleProperty("giphy${variant}${section}ApiKey").orElse("").get()
+        require(key.length <= 256 && key.none { it.isWhitespace() || it.code < 32 }) { "Invalid Giphy Android/$section API option" }
+        val literal = "\"" + key.replace("\\", "\\\\").replace("\"", "\\\"") + "\""
+        buildConfigField("String", "GIPHY_${section.uppercase()}_API_KEY", literal)
+    }
 }
 android {
     namespace = "nl.davidengelen.redsquare"

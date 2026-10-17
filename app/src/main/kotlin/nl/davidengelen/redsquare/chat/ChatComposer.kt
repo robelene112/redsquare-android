@@ -193,7 +193,26 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
                         ChatPhotoAttachment("${wallet.publicKey}:${backend.id}:$contact", body, backend, editable && permitted,
                             beforePicker = { !navigation.transitioning && persist() && !navigation.transitioning },
                             onPreparing = { preparingPhoto = it },
-                            onChange = { if (!navigation.transitioning) changeText((quote?.prefix ?: "") + it) })
+                            onChange = { if (!navigation.transitioning) changeText((quote?.prefix ?: "") + it) },
+                            onSelectGif = { item ->
+                                writes.withLock {
+                                    if (!ready || sending || saved.frozen || !permitted || navigation.transitioning) false
+                                    else {
+                                        val currentReply = privateReply(text)
+                                        val currentBody = currentReply?.body ?: text
+                                        if (chatPhoto(currentBody) != null) false
+                                        else {
+                                            val next = (currentReply?.prefix ?: "") + composeChatPhoto(item.originalUrl, currentBody)
+                                            withContext(NonCancellable) {
+                                                saved = withContext(Dispatchers.IO) { work.assertSelected(); work.saveDraft(next) }
+                                                changeText(next)
+                                            }
+                                            failed = false
+                                            true
+                                        }
+                                    }
+                                }
+                            })
                     }
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         OutlinedTextField(value = typed, onValueChange = { value ->

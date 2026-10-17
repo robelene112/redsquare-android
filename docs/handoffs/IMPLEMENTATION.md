@@ -18,7 +18,14 @@ actual source prerequisite. Live-key acceptance remains outside this child;
 #31 stays OPEN with its16 dependency unchanged. No dependency is removed.
 First tracer: private Chat provider failure, explicit retry/cancel and exact
 text restored after reopening, through existing approved native UI/owned peers.
-Observe RED before adding the Chat entry point; then selection/send/recovery.
+Observed RED at6141f5c2, Android17 run39022059808 FAILURE1/1/31.603s:
+missing enabled Add GIF within10s at77, exact text/Add photo visible. Root viewed
+originalPNG and parsedXML; five original hashes in ticket43/first-red/android17.
+Local tracer build PASS2m23s, Standards0/Spec0. Provider/retry/reopen tails
+unexecuted. Current minimum adds separate Chat configuration, shared picker and
+private draft commit before dismissal; group and retained credits are later
+tracers, not yet complete. Local picker build16461 is running. Next run the
+unchanged private recovery tracer, then selection/send/recovery.
 No real key, live provider query, production write or node/account change.
 Preserve protected untracked group contract. Keep one ticket in implementation.
 

@@ -254,7 +254,10 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
         if (posts.isNotEmpty() && personal?.ready == true) { withFrameNanos { }; withFrameNanos { }; onDrawn() }
     }
     if (reviewingChat && wallet != null) {
-        nl.davidengelen.redsquare.chat.ChatScreen(wallet, endpoint, backend, modifier, onWalletMetadata) { reviewingChat = false }
+        CompositionLocalProvider(nl.davidengelen.redsquare.media.LocalGiphyConfiguration provides
+            nl.davidengelen.redsquare.media.LocalChatGiphyConfiguration.current) {
+            nl.davidengelen.redsquare.chat.ChatScreen(wallet, endpoint, backend, modifier, onWalletMetadata) { reviewingChat = false }
+        }
         return
     }
     if (reviewingQueue && wallet != null) {

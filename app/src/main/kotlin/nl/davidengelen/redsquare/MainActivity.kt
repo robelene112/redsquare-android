@@ -265,6 +265,7 @@ class MainActivity : ComponentActivity() {
                 CompositionLocalProvider(LocalVideoFixture provides VideoFixture.fromIntent(intent),
                     LocalVideoDiagnostics provides videoDiagnostics,
                     LocalGiphyConfiguration provides GiphyConfiguration.fromIntent(intent),
+                    nl.davidengelen.redsquare.media.LocalChatGiphyConfiguration provides GiphyConfiguration.chatFromIntent(intent),
                     nl.davidengelen.redsquare.media.LocalGiphyAttributions provides giphyAttributions) {
                 VideoPlaybackHost(address, backend) {
                 PersonalControlsScope(address, commitDirectorySync = { descriptor ->

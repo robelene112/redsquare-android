@@ -17,6 +17,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
+import nl.davidengelen.redsquare.media.GiphyItem
+import nl.davidengelen.redsquare.media.GiphyPicker
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.feed.PostImagePreparation
 import nl.davidengelen.redsquare.feed.PostImages
@@ -26,19 +28,22 @@ import nl.davidengelen.redsquare.saito.SaitoBackend
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun ChatPhotoAttachment(session: String, body: String, backend: SaitoBackend, enabled: Boolean,
-    beforePicker: suspend () -> Boolean, onPreparing: (Boolean) -> Unit, onChange: (String) -> Unit) = key(session) {
+    beforePicker: suspend () -> Boolean, onPreparing: (Boolean) -> Unit, onChange: (String) -> Unit, onSelectGif: (suspend (GiphyItem) -> Boolean)? = null) = key(session) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     var pickingFor by rememberSaveable(session) { mutableStateOf<String?>(null) }
     var selected by remember { mutableStateOf<Uri?>(null) }
     var preparing by remember { mutableStateOf(false) }
+    var gifOpen by remember { mutableStateOf(false) }
+    var selectingGif by remember { mutableStateOf(false) }
+    val selectGif by rememberUpdatedState(onSelectGif)
     var failed by remember { mutableStateOf(false) }
     val currentBody by rememberUpdatedState(body)
     val currentEnabled by rememberUpdatedState(enabled)
     val change by rememberUpdatedState(onChange)
     val preparation by rememberUpdatedState(onPreparing)
     // Restored pickers and returned URIs also keep navigation waiting.
-    SideEffect { preparation(preparing || pickingFor != null || selected != null) }
+    SideEffect { preparation(preparing || pickingFor != null || selected != null || selectingGif) }
     val photo = remember(body) { chatPhoto(body) }
     val picker = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
         if (pickingFor == session) { pickingFor = null; selected = uri; preparation(uri != null) }
@@ -70,6 +75,29 @@ internal fun ChatPhotoAttachment(session: String, body: String, backend: SaitoBa
                 catch (_: Exception) { pickingFor = null; preparation(false); failed = true }
             }
         }) { Text(stringResource(R.string.chat_add_photo)) }
+        if (photo == null && onSelectGif != null) TextButton(enabled = enabled && !preparing && pickingFor == null && !selectingGif,
+            onClick = {
+                scope.launch {
+                    try { if (beforePicker() && currentEnabled) { failed = false; gifOpen = true } }
+                    catch (cancelled: CancellationException) { throw cancelled }
+                    catch (_: Exception) { failed = true }
+                }
+            }) { Text(stringResource(R.string.giphy_add)) }
+        if (gifOpen) GiphyPicker(onClose = { if (!selectingGif) gifOpen = false },
+            selectionEnabled = enabled && !selectingGif, selectionError = failed, onSelect = { item ->
+                if (!selectingGif && currentEnabled) {
+                    selectingGif = true; preparation(true)
+                    scope.launch {
+                        try {
+                            val accepted = selectGif?.invoke(item) == true
+                            failed = !accepted
+                            if (accepted) gifOpen = false
+                        } catch (cancelled: CancellationException) { throw cancelled }
+                        catch (_: Exception) { failed = true }
+                        finally { selectingGif = false; preparation(false) }
+                    }
+                }
+            })
         if (preparing) Text(stringResource(R.string.image_preparing))
         if (failed) Text(stringResource(R.string.image_prepare_failed))
     }
