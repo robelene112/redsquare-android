@@ -537,7 +537,10 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
 
     private fun savedText(body: JsonObject, name: String): String = try { text(body, name) }
         catch (failure: Exception) { throw IOException("Gateway state unavailable", failure) }
-    private fun savedGroups(body: JsonObject): List<String> = try { boundGroups(body) }
+    private fun savedGroups(body: JsonObject): List<String> = try {
+        require(body.has("groups"))
+        boundGroups(body)
+    }
         catch (failure: Exception) { throw IOException("Gateway state unavailable", failure) }
     private fun savedNumber(body: JsonObject, name: String): Long = try { number(body, name) }
         catch (failure: Exception) { throw IOException("Gateway state unavailable", failure) }

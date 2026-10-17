@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.gateway.GatewayGroupChatDeliveryTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2026-10-17T23:20:23" hostname="164a030e75ee" time="2.467">
+  <properties/>
+  <testcase name="malformedStoredGroupInterestsReportUnavailableRatherThanInvalidRequest" classname="nl.davidengelen.redsquare.gateway.GatewayGroupChatDeliveryTest" time="2.467">
+    <failure message="java.lang.AssertionError: HTTP /v1/wakes/resolve expected:&lt;503&gt; but was:&lt;410&gt;" type="java.lang.AssertionError">java.lang.AssertionError: HTTP /v1/wakes/resolve expected:&lt;503&gt; but was:&lt;410&gt;
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at nl.davidengelen.redsquare.gateway.GatewayGroupChatDeliveryTest.groupJourney$lambda$11$lambda$10$lambda$9$lambda$8$post(GatewayGroupChatDeliveryTest.kt:100)
+	at nl.davidengelen.redsquare.gateway.GatewayGroupChatDeliveryTest.groupJourney$lambda$11$lambda$10$lambda$9$lambda$8$lambda$7$resolve(GatewayGroupChatDeliveryTest.kt:137)
+	at nl.davidengelen.redsquare.gateway.GatewayGroupChatDeliveryTest.groupJourney(GatewayGroupChatDeliveryTest.kt:165)
+	at nl.davidengelen.redsquare.gateway.GatewayGroupChatDeliveryTest.malformedStoredGroupInterestsReportUnavailableRatherThanInvalidRequest(GatewayGroupChatDeliveryTest.kt:41)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.FailOnTimeout$CallableStatement.call(FailOnTimeout.java:299)
+	at org.junit.internal.runners.statements.FailOnTimeout$CallableStatement.call(FailOnTimeout.java:293)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+</failure>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
