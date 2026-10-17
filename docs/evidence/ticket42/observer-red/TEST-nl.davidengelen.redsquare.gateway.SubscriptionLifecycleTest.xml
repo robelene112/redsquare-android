@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.gateway.SubscriptionLifecycleTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-10-17T03:22:28" hostname="d595d896dba7" time="4.81">
+  <properties/>
+  <testcase name="aWalletSubscriptionSurvivesServerRestartAndCanBeRetiredWithoutItsWalletKey" classname="nl.davidengelen.redsquare.gateway.SubscriptionLifecycleTest" time="2.23"/>
+  <testcase name="renewalKeepsTheLatestBackendWhenAnOlderRequestArrivesLate" classname="nl.davidengelen.redsquare.gateway.SubscriptionLifecycleTest" time="2.58"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -77,8 +77,9 @@ class GatewayChainTest {
                                         21 -> {
                                             require(frame.size == 111 && frame.copyOfRange(107, 111).all { it == 0.toByte() })
                                             require(frame.copyOfRange(74, 107).contentEquals(requireNotNull(peerKey.get())))
-                                            reads.incrementAndGet()
+                                            val sequence = reads.incrementAndGet()
                                             val continuation = ByteBuffer.wrap(frame, 1, 8).long != 0L
+                                            require(sequence in 1..4 && continuation == (sequence == 2 || sequence == 4))
                                             if (!continuation) {
                                                 require(frame.copyOfRange(1, 73).all { it == 0.toByte() } && frame[73] == 1.toByte())
                                             } else {
