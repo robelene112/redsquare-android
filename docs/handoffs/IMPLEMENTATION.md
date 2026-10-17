@@ -164,6 +164,8 @@ Whole integration reviews at5154e89b Standards0/Spec0; source39014520955 SUCCESS
 Full Android17 39013783536 SUCCESS at19e:400PASS/95records/29interrupted outputs,
 no assumptions. Exact profile aggregate is excluded, not counted twice.
 [Current full17 evidence](../evidence/ticket16/full-regression/android17/README.md).
+Root clarified that published Source text is visible but its clickable parent
+is clipped at the viewport bottom; complete target/navigation is not proved.
 Corrected full Android10 39014622109 failed later at UsernamePreviewTest443:
 owned Archive not observed in5s while feed still loads,15/16class cases pass.
 [Second retained failure](../evidence/ticket16/full-regression-red/android10-username/README.md).

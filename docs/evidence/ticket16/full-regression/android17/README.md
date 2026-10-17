@@ -21,8 +21,9 @@ not repeat or broaden those pinned-client claims. Known quoted-text omission
 and live-provider limitations remain. Android10 complete acceptance is separate.
 
 Root viewed all6 retained GIF PNGs and parsed their XMLs. Selected/restored and
-fresh published credits are visible; the published Source control is fully
-above navigation in these captures. Selected draft text is partly above the
+fresh published credits are visible. Published Source text is above navigation, but its clickable parent
+is clipped to[70,524][138,555] in the hierarchy. Complete touch-target visibility
+and source navigation are not established by these captures. Selected draft text is partly above the
 viewport with the IME present. Restored animation precedes full-credit scrolling.
 The search-result keyboard hides lower card controls, so screenshot-based search
 selection is not claimed. Native frame assertions, not static images, prove
