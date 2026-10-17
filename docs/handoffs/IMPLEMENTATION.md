@@ -125,7 +125,14 @@ archive overrides are fixture-only. No new user-configurable backend.
 Source reviews at861e795c find0 source defects; the handoff correction5aac5d04
 now reports Standards0/Spec0. Local minimum core/debug/test build passes3m10s
 (log .scratch/push32-opaque-minimum-build.log, exec74616 completed). No owned local
-build remains. Exact-source Android10/17 GREEN and release/lint checks are next. Tracer local compile failed2m26s at
+build remains. Exact2685f5fc Android10 run38987459024 SUCCESS: old11PASS86.777s,
+worker3PASS46.679s. Android17 run38987461150 SUCCESS: old11PASS124.78s,
+worker3PASS47.545s. Both core114/0/0; source38987439730 SUCCESS release/lint.
+[Combined evidence](../evidence/ticket32/opaque-wake-green/README.md) retains51
+per-device hashes/18XML plus source metadata. Root viewed6 new opaque originals;
+12 earlier-mode originals retained without claiming new visual inspection. Full
+native assertions and scoped restoration pass. Final combined evidence review
+remains pending. Tracer local compile failed2m26s at
 nullable request body, corrected1m47s pass. Tracer/correction reviews at553df5b0,
 dc48e398/452f4595 report0/0. Existing150s worker class retains both Archive journeys.
 
