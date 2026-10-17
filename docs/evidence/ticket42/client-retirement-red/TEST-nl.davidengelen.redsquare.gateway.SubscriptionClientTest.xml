@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.gateway.SubscriptionClientTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2026-10-17T01:54:24" hostname="93b2c53d9f83" time="1.549">
+  <properties/>
+  <testcase name="walletReplacementRetiresAnUncertainBindingWithoutTheOldWallet" classname="nl.davidengelen.redsquare.gateway.SubscriptionClientTest" time="1.549">
+    <failure message="java.lang.AssertionError: The real gateway must accept the client's signed contract expected:&lt;201&gt; but was:&lt;410&gt;" type="java.lang.AssertionError">java.lang.AssertionError: The real gateway must accept the client's signed contract expected:&lt;201&gt; but was:&lt;410&gt;
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at nl.davidengelen.redsquare.gateway.SubscriptionClientTest.walletReplacementRetiresAnUncertainBindingWithoutTheOldWallet$lambda$6$lambda$0(SubscriptionClientTest.kt:46)
+	at nl.davidengelen.redsquare.saito.PushSubscriptionClient.reconcile(PushSubscriptionClient.kt:86)
+	at nl.davidengelen.redsquare.gateway.SubscriptionClientTest.walletReplacementRetiresAnUncertainBindingWithoutTheOldWallet(SubscriptionClientTest.kt:95)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.FailOnTimeout$CallableStatement.call(FailOnTimeout.java:299)
+	at org.junit.internal.runners.statements.FailOnTimeout$CallableStatement.call(FailOnTimeout.java:293)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+</failure>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

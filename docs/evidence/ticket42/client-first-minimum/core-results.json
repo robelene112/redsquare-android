@@ -1,0 +1,145 @@
+{
+  "task": "executed in first minimum",
+  "results": [
+    {
+      "file": "TEST-nl.davidengelen.redsquare.saito.GroupAdminTest.xml",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "sha256": "c2b8d57ad1bcc124b5895f03b1343ea87cf5daef2e9e928b02dcf784364e3040"
+    },
+    {
+      "file": "TEST-nl.davidengelen.redsquare.saito.GroupChatTest.xml",
+      "tests": 20,
+      "failures": 0,
+      "errors": 0,
+      "sha256": "47ab26c00f557dff0d5de240f260861f9ac303d1951af0b77c8c1cdc7ae12a9a"
+    },
+    {
+      "file": "TEST-nl.davidengelen.redsquare.saito.GroupInvitationTest.xml",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "sha256": "a063cf1b5f025e77ea77143f1b8d9fce3d3633a29288770371e8d581949be92f"
+    },
+    {
+      "file": "TEST-nl.davidengelen.redsquare.saito.PrivateChatTest.xml",
+      "tests": 10,
+      "failures": 0,
+      "errors": 0,
+      "sha256": "dfc271b0b1a4ae8bbfee08bc90670c92ab9bca7d7c9cddbedab1fe0e5aae3ddb"
+    },
+    {
+      "file": "TEST-nl.davidengelen.redsquare.saito.RedSquareActionsTest.xml",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "sha256": "128288e7ff65207bd9a44593f99b7445268d34279856b11e1a0ebd8f7cb8233c"
+    },
+    {
+      "file": "TEST-nl.davidengelen.redsquare.saito.RedSquareAuthorActionsTest.xml",
+      "tests": 10,
+      "failures": 0,
+      "errors": 0,
+      "sha256": "622c6e313d59a9d6ff2d034fc2b0e58bd26ca2493c4e28e8c20bf856c7fb7852"
+    },
+    {
+      "file": "TEST-nl.davidengelen.redsquare.saito.RedSquareFeedTest.xml",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "sha256": "b87967634db0a2098c75ec52dcbc9b64ba289413fae7f749ddeb2a6dcb1810c8"
+    },
+    {
+      "file": "TEST-nl.davidengelen.redsquare.saito.RedSquareImagesTest.xml",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "sha256": "f1e7b54fd44930b22f4f72cc730dbd7dc1a05dc18a60f25173d2a7d1ef6823d5"
+    },
+    {
+      "file": "TEST-nl.davidengelen.redsquare.saito.RedSquareNotificationsTest.xml",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "sha256": "fa3a238b0c5aaba956ee1c29bd87dc6e52d6d1a3ae411f564ebcce2f648eb8e4"
+    },
+    {
+      "file": "TEST-nl.davidengelen.redsquare.saito.RedSquareQuotesTest.xml",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "sha256": "2a49427fc40e1eb061e5bbb6404b6d0f20e3f0f46b3ede155e517a07dd8d6229"
+    },
+    {
+      "file": "TEST-nl.davidengelen.redsquare.saito.RedSquareVideoTest.xml",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "sha256": "3c0f1a7d04fcff500d70234955512662a862295cf37cba0adb5a9d4722eebf0b"
+    },
+    {
+      "file": "TEST-nl.davidengelen.redsquare.saito.SaitoFullBlockTest.xml",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "sha256": "234933f191382ac0d5d895590934d8ab88ac071eba04e4ded7f0411311a69c99"
+    },
+    {
+      "file": "TEST-nl.davidengelen.redsquare.saito.SaitoIdenticonTest.xml",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "sha256": "1e60da9cceafa1fcc57bcfdb2a83a8b8f5c5589a41ef3ebfd902c9f2006fb4bf"
+    },
+    {
+      "file": "TEST-nl.davidengelen.redsquare.saito.SaitoPaymentChainTest.xml",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "sha256": "ce06b921f423b9c404c6fe7c09ad3ed0660f282cf4648485430fa1a2733238a7"
+    },
+    {
+      "file": "TEST-nl.davidengelen.redsquare.saito.SaitoPaymentTest.xml",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "sha256": "bb3fc0b2026f3f670da8f9f6c400aaeeb89d6ff18ffb46b22f5db147fc30ec4b"
+    },
+    {
+      "file": "TEST-nl.davidengelen.redsquare.saito.SaitoProfilesTest.xml",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "sha256": "5b008736f8304193976fcda663bf4681996bd5e0b7a407fc4455e6b0faa9d02c"
+    },
+    {
+      "file": "TEST-nl.davidengelen.redsquare.saito.SaitoRegistryTest.xml",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "sha256": "8f43a7c3f366836ee3327912bc40a0896ba21ef4fe51d4f0cf5799cda15ee113"
+    },
+    {
+      "file": "TEST-nl.davidengelen.redsquare.saito.SaitoTransactionTest.xml",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "sha256": "fd152b65dd53313b2f1570eb1d833a15c79385935f7fd79ae98937a38e5d69dc"
+    },
+    {
+      "file": "TEST-nl.davidengelen.redsquare.saito.SaitoWalletTest.xml",
+      "tests": 14,
+      "failures": 0,
+      "errors": 0,
+      "sha256": "ded841ca3469a66cc52d61cf63da4ba6672f5dcb93125de9e0aa436ac34a5d3f"
+    },
+    {
+      "file": "TEST-nl.davidengelen.redsquare.saito.SaitoWireTest.xml",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "sha256": "fbdf8df347f95f8f8223d6f81403a94218fead3ff3d9e5bb30a35afdd3251915"
+    }
+  ]
+}
