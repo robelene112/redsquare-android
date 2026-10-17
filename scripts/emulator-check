@@ -147,6 +147,7 @@ verify_group_chat_native() {
 }
 verify_social_push() {
     local push_api granted_for_test=0 native_exit=0
+    local push_scope=${1:-${TEST_SCOPE:-full}}
     push_api="$(adb shell getprop ro.build.version.sdk | tr -d '\r')"
     if [[ "$push_api" -ge 33 ]]; then
         adb shell dumpsys package nl.davidengelen.redsquare.dev > "$evidence/social-push-permission-before.txt"
@@ -155,7 +156,7 @@ verify_social_push() {
             granted_for_test=1
         fi
     fi
-    if [[ "${TEST_SCOPE:-full}" == social-push-process* ]]; then
+    if [[ "$push_scope" == social-push-process* ]]; then
         python3 "$repo_dir/scripts/social-push-process-check" --evidence "$evidence/social-push-process" || native_exit=$?
         if [[ "$native_exit" == 0 ]]; then
             python3 "$repo_dir/scripts/social-push-scheduled-process-check" --evidence "$evidence/social-push-scheduled-process" || native_exit=$?
@@ -175,6 +176,10 @@ if [[ "${TEST_SCOPE:-full}" == social-push* ]]; then
     verify_social_push
     printf '%s\n' 'Injected social wake-up transport only; no FCM, closed-app public delivery or full acceptance.' > "$evidence/scope.txt"
     exit 0
+fi
+if [[ "${TEST_SCOPE:-full}" == full ]]; then
+    verify_social_push social-push
+    verify_social_push social-push-process
 fi
 if [[ "${TEST_SCOPE:-full}" == chat-viewport* ]]; then
     verify_group_chat_native 'ChatQueuePreviewTest#anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending,nl.davidengelen.redsquare.ChatQueuePreviewTest#anOfflinePrivateMessageRemainsCancellableAfterReopening' 180 chat-viewport chat-queue-evidence
