@@ -342,7 +342,7 @@ the exact reference. SPV relevance and Full transaction-count fields never justi
 skipping a block. Callers fetch/process blocks individually to bound memory.
 These checks establish supported block identity, not consensus admission/finality.
 
-The callable observer now persists candidate outcomes before a processed cursor.
+The callable observer persists candidate outcomes and processed cursor together in one atomic snapshot.
 Reorg recovery and autonomous processing are implemented later in the checkpoints below.
 Its[controlled chain evidence](evidence/ticket42/chain-green/README.md) passes
 both selector loops; no exhaustive-history claim. Source review requires matching
@@ -382,8 +382,9 @@ accepted sends cannot be recalled. The[controlled social path](evidence/ticket42
 passes both approved selectors with a hidden Archive head, exact reply/parent
 verification before FCM503, durable200 before reorg, then410/no-send across restart
 beyond the retry deadline. Exactaadad53f build PASS1m46s/gateway10/0/0; source
-reviews Standards0/Spec0. Interrupted commit and re-inclusion remain source-reviewed;
-no actual Google/device delivery or consensus/finality acceptance.
+reviews Standards0/Spec0. At that checkpoint interrupted commits and re-inclusion
+were source-reviewed; automatic re-inclusion has later evidence below. No actual
+Google/device delivery or consensus/finality acceptance.
 
 Gap status includes the latest warning and retained recent warnings per reason,
 with reason-specific since-times. It is not a complete historical audit.
@@ -429,7 +430,10 @@ cancelled. Cleanup attempts all stages and restores interruption. A valid pendin
 wake remains retryable during shutdown. Provider termination and every exceptional
 shutdown interleaving are source-reviewed limits, not claimed device/cloud tests.
 
-Current autonomous tracer is under correction/review. It requires verified
-re-inclusion to restore the same wake, a second owned FCM attempt and another Full
-range request. Initial no-op RED and the superseded first minimum are retained;
-no whole42 acceptance is implied by those earlier records.
+[Autonomous processing acceptance](evidence/ticket42/runtime-green/README.md)
+passes both approved selectors: verified re-inclusion restores the same wake,
+a second owned FCM attempt and another Full range request. Exact7394d9f8 owned
+build PASS1m52s/gateway10/0/0 plus installDist. Source reviews have no outstanding
+code findings. Initial RED and superseded passing minima remain retained with
+their limits. Missing-history recovery and parent-proof availability remain open;
+no whole42 acceptance is claimed.

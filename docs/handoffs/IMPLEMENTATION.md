@@ -10,7 +10,7 @@ Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`.
 ## Active autonomous runtime
 
 Chain-social checkpoint810fa14c accepted/pushed. SourceCI39000330915 SUCCESS;
-retention of its raw source evidence remains to do. Sole42 staysopen.
+retained chain-social-source-ci(2hashes), exact810fa14c only. Sole42 staysopen.
 Runtime tracerf1539825 actualFAIL1m49s/gateway10/1/new8.592s at193 no automatic
 requests after complete manual OWNER recovery; later/OFFICIALunexecuted.
 [RED](../evidence/ticket42/runtime-red/README.md),10hashes/22sources. Standards0/
@@ -25,7 +25,10 @@ senderbeforeawaitingany, sharedcompletecleanup/restoredinterrupt, synchronized
 subscriptionclose/statefileclosedguard, lazyADCinsideboundedmetadatafuture.
 Owned86941 endedPASS1m49/gateway10/0/0/coreUPTODATE/installDist. [Retained](../evidence/ticket42/runtime-second-minimum/README.md),10hashes/23sources.
 Spec0/Standards1: closure wronglypermanentlyrejectsvalidpendingwake. Current
-sourcefix makesclosed sender Retry10s; actualexpiry remains410. No build yet.
+source7394d9f8 makesclosed sender Retry10s; actualexpiry remains410.
+Owned97230 endedPASS1m52s/gateway10/0/0/new7.498s/coreUPTODATE/installDist.
+[GREEN](../evidence/ticket42/runtime-green/README.md),10hashes/23sources; no ownedbuild.
+SourceSpec0/Standards0, one staleatomic-docsentence nowfixed; final reviews pending.
 Periodiccleanup/limits/CLI/shutdowninterleavings source-reviewed, not separately
 executedfaultcases. No actualADC/Google/production/Androidchange. Protectedgroupdocuntouched.
 NextafterruntimeGREEN: missing parent/history/unknownancestor recovery and whole42
