@@ -63,7 +63,44 @@ class PushGateway(stateDirectory: Path, publicOrigin: String, port: Int = 0) : C
     }
 
     /** Process one selected chain range before advancing its durable cursor. */
-    fun observe(chain: GatewayChain, archive: GatewayArchive, sender: FcmSender) = Unit
+    @Synchronized fun observe(chain: GatewayChain, archive: GatewayArchive, sender: FcmSender) {
+        require(chain.backend == archive.backend)
+        val backend = chain.backend
+        var cursor = subscriptions.cursor(backend)
+        val page = try { chain.range(cursor) } catch (failure: Exception) {
+            subscriptions.gap(backend, "chain-unavailable"); throw failure
+        }
+        if (cursor != null && (page.ancestorHeight != cursor.height || page.ancestorHash != cursor.hash)) {
+            subscriptions.gap(backend, "chain-ancestry-unavailable"); return
+        }
+        if (page.references.isEmpty() && (cursor == null || page.tip.height != cursor.height || page.tip.hash != cursor.hash)) {
+            subscriptions.gap(backend, "chain-history-unavailable")
+        }
+        for (reference in page.references) {
+            if (cursor != null && reference.height != cursor.height + java.math.BigInteger.ONE) {
+                subscriptions.gap(backend, "chain-history-unavailable"); return
+            }
+            val block = try { chain.block(reference) } catch (failure: Exception) {
+                subscriptions.gap(backend, "full-block-unavailable"); throw failure
+            }
+            if (cursor != null && block.previousHash != cursor.hash) {
+                subscriptions.gap(backend, "chain-ancestry-unavailable"); return
+            }
+            if (cursor == null && block.height > java.math.BigInteger.ONE) subscriptions.gap(backend, "bootstrap-history-unavailable")
+            val signatures = block.applicationMessages().filter { message ->
+                message.body.get("module")?.let { it.isJsonPrimitive && it.asJsonPrimitive.isString && it.asString == "RedSquare" } == true &&
+                    message.body.get("request")?.let { it.isJsonPrimitive && it.asJsonPrimitive.isString && it.asString == "create tweet" } == true
+            }.map { it.id }
+            val candidates = signatures.chunked(100).flatMap { archive.verifiedSocial(it) }
+            if (candidates.size != signatures.distinct().size) subscriptions.gap(backend, "archive-candidate-unavailable")
+            subscriptions.processed(backend, block, page.tip.forkId, candidates)
+            cursor = GatewayChain.Cursor(block.height, block.hash, page.tip.forkId)
+        }
+        for (queued in subscriptions.pending(backend)) {
+            val delivery = subscriptions.current(queued) ?: continue
+            subscriptions.complete(delivery, sender.send(delivery.fid, delivery.wake, delivery.expiresAt))
+        }
+    }
 
     fun start() = server.start()
     override fun close() {

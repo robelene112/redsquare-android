@@ -3,6 +3,8 @@ package nl.davidengelen.redsquare.gateway
 import com.google.gson.JsonObject
 import com.google.gson.JsonArray
 import nl.davidengelen.redsquare.saito.RedSquareFeed
+import nl.davidengelen.redsquare.saito.SaitoFullBlock
+import java.math.BigInteger
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import java.io.Closeable
@@ -50,10 +52,12 @@ internal class GatewaySubscriptions(directory: Path, origin: String) : Closeable
             "/v1/observer/status" -> {
                 fields(body, setOf("version", "backend"))
                 val backend = text(body, "backend").also { value -> require(SaitoBackend.entries.any { it.id == value }) }
-                val gap = store.load().getAsJsonObject("gaps").get(backend)?.asJsonObject
+                val state = store.load()
+                val gap = state.getAsJsonObject("gaps").get(backend)?.asJsonObject
                     ?.takeIf { savedNumber(it, "expiresAt") > now }
                 GatewayReply(200, JsonObject().apply {
                     addProperty("version", 1); addProperty("backend", backend); add("gap", gap)
+                    add("cursor", state.getAsJsonObject("chains").get(backend))
                 })
             }
             "/v1/wakes/resolve" -> resolve(body, signature, recipient, now)
@@ -146,6 +150,45 @@ internal class GatewaySubscriptions(directory: Path, origin: String) : Closeable
                 addProperty("expiresAt", savedNumber(active, "expiresAt"))
             }
         })
+    }
+
+    @Synchronized fun cursor(backend: SaitoBackend): GatewayChain.Cursor? = try {
+        store.load().getAsJsonObject("chains").get(backend.id)?.asJsonObject?.let {
+            GatewayChain.Cursor(BigInteger(savedText(it, "height")), savedText(it, "hash"), savedText(it, "forkId"))
+        }
+    } catch (failure: Exception) { throw IOException("Gateway chain cursor unavailable", failure) }
+
+    /** Candidate records commit first. An interrupted cursor commit only causes safe rediscovery. */
+    @Synchronized fun processed(backend: SaitoBackend, block: SaitoFullBlock, forkId: String,
+        candidates: List<GatewayArchive.VerifiedSocial>) {
+        val previous = cursor(backend)
+        if (previous != null && (block.height != previous.height + BigInteger.ONE || block.previousHash != previous.hash)) {
+            throw IOException("Processed block does not extend retained cursor")
+        }
+        enqueue(backend, candidates)
+        val state = store.load()
+        val chains = state.getAsJsonObject("chains")
+        val history = chains.get(backend.id)?.asJsonObject?.getAsJsonArray("history") ?: JsonArray()
+        history.add(JsonObject().apply { addProperty("height", block.height.toString()); addProperty("hash", block.hash) })
+        while (history.size() > 128) history.remove(0)
+        chains.add(backend.id, JsonObject().apply {
+            addProperty("height", block.height.toString()); addProperty("hash", block.hash)
+            addProperty("forkId", forkId); add("history", history)
+        })
+        store.save(state)
+    }
+
+    @Synchronized fun gap(backend: SaitoBackend, reason: String) {
+        val state = store.load()
+        val now = System.currentTimeMillis()
+        prune(state, now)
+        val previous = state.getAsJsonObject("gaps").get(backend.id)?.asJsonObject
+        state.getAsJsonObject("gaps").add(backend.id, JsonObject().apply {
+            addProperty("reason", reason)
+            addProperty("since", previous?.takeIf { savedText(it, "reason") == reason }?.let { savedNumber(it, "since") } ?: now)
+            addProperty("lastAt", now); addProperty("expiresAt", now + LIFETIME)
+        })
+        store.save(state)
     }
 
     /** Verified originals are supplied only by the selected read-only Archive adapter. */

@@ -36,6 +36,13 @@ class SaitoFullBlock private constructor(val height: BigInteger, val timestamp: 
         }
     }
 
+    /** Supported original signed JSON-object messages; opaque/system/encrypted payloads are not application objects. */
+    fun applicationMessages(): List<SignedSaitoMessage> = transactions.mapNotNull { wire ->
+        if (wire[92] != 0.toByte()) return@mapNotNull null
+        try { SaitoEnvelope.decode(SaitoEnvelope.unverifiedNetworkEnvelope(wire)) }
+        catch (_: Exception) { null }
+    }
+
     companion object {
         // Local resource bounds. Unsupported representations must remain unknown to callers.
         const val MAX_BYTES = 8 * 1024 * 1024

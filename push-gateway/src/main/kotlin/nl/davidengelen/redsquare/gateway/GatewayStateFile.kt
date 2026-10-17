@@ -34,14 +34,14 @@ internal class GatewayStateFile(private val directory: Path, private val origin:
     private fun readState(): JsonObject {
         if (!Files.exists(file)) return JsonObject().apply {
             addProperty("version", 1); addProperty("origin", origin)
-            add("subscriptions", JsonObject()); add("retired", JsonObject()); add("events", JsonObject()); add("gaps", JsonObject())
+            add("subscriptions", JsonObject()); add("retired", JsonObject()); add("events", JsonObject()); add("gaps", JsonObject()); add("chains", JsonObject())
         }
         require(Files.size(file) in 1..MAX_BYTES)
         val state = Files.newBufferedReader(file, Charsets.UTF_8).use {
             requireNotNull(GsonBuilder().setStrictness(Strictness.STRICT).create().fromJson(it, JsonObject::class.java))
         }
         require(state.keySet().containsAll(setOf("version", "origin", "subscriptions", "retired")) &&
-            state.keySet().all { it in setOf("version", "origin", "subscriptions", "retired", "events", "gaps") } &&
+            state.keySet().all { it in setOf("version", "origin", "subscriptions", "retired", "events", "gaps", "chains") } &&
             state.get("version").asBigDecimal.intValueExact() == 1 && state.get("origin").asString == origin)
         for (name in listOf("subscriptions", "retired")) {
             val records = state.getAsJsonObject(name)
@@ -56,6 +56,10 @@ internal class GatewayStateFile(private val directory: Path, private val origin:
         })
         if (!state.has("gaps")) state.add("gaps", JsonObject())
         require(state.getAsJsonObject("gaps").entrySet().all {
+            it.key in setOf("owner", "official") && it.value.isJsonObject
+        })
+        if (!state.has("chains")) state.add("chains", JsonObject())
+        require(state.getAsJsonObject("chains").entrySet().all {
             it.key in setOf("owner", "official") && it.value.isJsonObject
         })
         // Also resolves the uncertain directory-sync outcome of a previous attempted commit.

@@ -19,10 +19,12 @@ class GatewayArchive(identity: SaitoWallet, val backend: SaitoBackend,
     internal data class VerifiedSocial(val post: FeedPost, val parentAuthor: String?, val namedRecipients: Set<String>, val unavailableNames: Boolean)
 
     /** Head rows are discovery hints. Exact candidate and parent reads establish current availability. */
-    internal fun verifiedSocial(): List<VerifiedSocial> {
+    internal fun verifiedSocial(signatures: List<String>? = null): List<VerifiedSocial> {
         // Complete independent Archive evidence first. Registry shares this socket and may disconnect it.
-        val verified = recentSocial().posts.mapNotNull { hint ->
-            val post = exact(hint.id) ?: return@mapNotNull null
+        val discovered = signatures ?: recentSocial().posts.map { it.id }
+        require(discovered.size <= 100 && discovered.all { it.matches(Regex("[0-9a-f]{128}")) })
+        val verified = discovered.distinct().mapNotNull { signature ->
+            val post = exact(signature) ?: return@mapNotNull null
             if (SaitoEnvelope.decode(post.envelope).body.get("request").asString != "create tweet") return@mapNotNull null
             VerifiedSocial(post, post.parentId.takeIf { it.isNotEmpty() }?.let { exact(it)?.author }, emptySet(), false)
         }
