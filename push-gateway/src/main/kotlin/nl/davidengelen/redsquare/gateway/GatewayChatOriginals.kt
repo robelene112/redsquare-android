@@ -13,7 +13,7 @@ import java.nio.file.StandardCopyOption.*
 import java.nio.file.StandardOpenOption.*
 import java.nio.file.attribute.PosixFilePermissions
 
-/** Ciphertext originals live outside the small subscription journal, once per backend/signature. */
+/** Signed originals live outside the journal: private ciphertext or unencrypted group messages. */
 internal class GatewayChatOriginals(private val directory: Path) {
     private val gson = GsonBuilder().setStrictness(Strictness.STRICT).create()
     private data class Original(val envelope: String, val expiresAt: Long)

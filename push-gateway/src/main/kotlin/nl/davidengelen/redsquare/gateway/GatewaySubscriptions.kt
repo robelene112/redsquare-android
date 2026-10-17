@@ -8,7 +8,9 @@ import java.math.BigInteger
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.saito.PrivateChat
+import nl.davidengelen.redsquare.saito.GroupChat
 import nl.davidengelen.redsquare.saito.SaitoEnvelope
+import nl.davidengelen.redsquare.saito.SignedSaitoMessage
 import java.io.Closeable
 import java.io.IOException
 import java.net.URI
@@ -74,8 +76,9 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
     }
 
     private fun bind(body: JsonObject, signature: String?, now: Long): GatewayReply {
+        val hasGroups = body.has("groups")
         fields(body, setOf("version", "nonce", "subscription", "installation", "fid", "owner",
-            "backend", "categories", "expiresAt", "revocationHash"))
+            "backend", "categories", "expiresAt", "revocationHash") + if (hasGroups) setOf("groups") else emptySet())
         val nonce = hex(body, "nonce")
         val id = hex(body, "subscription")
         val installation = text(body, "installation").also { require(UUID.fromString(it).toString() == it) }
@@ -85,10 +88,13 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
         val categories = text(body, "categories").also { value ->
             nl.davidengelen.redsquare.saito.PushCategories.requireCanonical(value)
         }
+        require(hasGroups == ("group-chats" in categories.split(',')))
+        val groups = boundGroups(body)
         val expiresAt = number(body, "expiresAt").also { require(it > now && it - now <= LIFETIME) }
         val revocation = hex(body, "revocationHash")
         val intent = "Saito push bind v1\n$origin/v1/subscriptions/bind\n$nonce\n$id\n$installation\n" +
-            "${sha256(fid)}\n$owner\n$backend\n$categories\n$expiresAt\n$revocation"
+            "${sha256(fid)}\n$owner\n$backend\n$categories\n$expiresAt\n$revocation" +
+            if (hasGroups) "\n${groups.joinToString(",")}" else ""
         if (signature == null || !SaitoWallet.verify(intent.toByteArray(Charsets.UTF_8), signature, owner)) {
             throw GatewayProblem(401)
         }
@@ -337,6 +343,69 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
         store.save(state)
     }
 
+    /** Group interests are explicit delivery choices, not server-side proof of group membership. */
+    @Synchronized fun enqueueGroup(backend: SaitoBackend, wire: ByteArray) {
+        val envelope = try { GroupChat.originalEnvelope(wire) } catch (_: Exception) { return }
+        val signed = try { groupMessage(envelope) } catch (_: Exception) { return }
+        val group = text(signed.body, "group_id")
+        val now = clock.millis()
+        if (signed.createdAt > now || now - signed.createdAt >= LIFETIME) return
+        val state = store.load()
+        prune(state, now)
+        val events = state.getAsJsonObject("events")
+        val recipients = state.getAsJsonObject("subscriptions").entrySet().filter { (subscription, value) ->
+            val binding = value.asJsonObject
+            savedText(binding, "backend") == backend.id && savedNumber(binding, "expiresAt") > now &&
+                "group-chats" in savedText(binding, "categories").split(',') &&
+                savedText(binding, "owner") != signed.author && group in boundGroups(binding) &&
+                events.entrySet().none { (_, event) -> event.asJsonObject.let {
+                    savedText(it, "subscription") == subscription && savedText(it, "backend") == backend.id &&
+                        savedText(it, "signature") == signed.id
+                } }
+        }
+        if (recipients.isEmpty()) return
+        if (events.size() + recipients.size > 4096) throw IOException("Gateway event capacity reached")
+        val expiresAt = minOf(now + GatewayChatOriginals.RETENTION, signed.createdAt + LIFETIME)
+        val originalExpiresAt = chatOriginals.save(backend, signed.id, envelope, expiresAt, now)
+        for ((subscription, value) in recipients) {
+            val binding = value.asJsonObject
+            events.add(ByteArray(32).also(SecureRandom()::nextBytes).hex(), JsonObject().apply {
+                addProperty("subscription", subscription); addProperty("owner", savedText(binding, "owner"))
+                addProperty("backend", backend.id); addProperty("signature", signed.id)
+                addProperty("category", "group-chats"); addProperty("group", group)
+                addProperty("expiresAt", minOf(originalExpiresAt, savedNumber(binding, "expiresAt")))
+                addProperty("retainUntil", signed.createdAt + LIFETIME)
+                addProperty("state", "pending"); addProperty("attempts", 0); addProperty("nextAttempt", 0)
+            })
+        }
+        store.save(state)
+    }
+
+    private fun boundGroups(binding: JsonObject): List<String> {
+        if (!binding.has("groups")) return emptyList()
+        val array = binding.get("groups")
+        require(array.isJsonArray && array.asJsonArray.size() <= 100)
+        val groups = array.asJsonArray.map {
+            require(it.isJsonPrimitive && it.asJsonPrimitive.isString)
+            it.asString.also { key -> require(SaitoWallet.isPublicKey(key) && key != text(binding, "owner")) }
+        }
+        require(groups.distinct().sorted() == groups)
+        return groups
+    }
+
+    private fun groupMessage(envelope: String): SignedSaitoMessage {
+        val signed = SaitoEnvelope.decode(envelope)
+        val body = signed.body
+        require(text(body, "module") == "Chat" && text(body, "request") == "chat message")
+        val group = text(body, "group_id")
+        require(SaitoWallet.isPublicKey(group) && group in signed.recipients && signed.recipients.all(SaitoWallet::isPublicKey))
+        require(text(body, "message").isNotBlank())
+        val timestamp = body.get("timestamp")
+        require(timestamp != null && timestamp.isJsonPrimitive && timestamp.asJsonPrimitive.isNumber &&
+            timestamp.asString.matches(Regex("[0-9]{1,19}")) && timestamp.asString.toLong() >= 0)
+        return signed
+    }
+
     internal data class Delivery(val wake: String, val subscription: String, val generation: String,
         val fid: String, val expiresAt: Long)
 
@@ -395,7 +464,8 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
         return binding.takeIf {
             savedNumber(it, "expiresAt") > now && savedText(it, "owner") == savedText(event, "owner") &&
                 savedText(it, "backend") == savedText(event, "backend") &&
-                savedText(event, "category") in savedText(it, "categories").split(',')
+                savedText(event, "category") in savedText(it, "categories").split(',') &&
+                (savedText(event, "category") != "group-chats" || savedText(event, "group") in boundGroups(it))
         }
     }
 
@@ -414,12 +484,15 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
         if (savedText(event, "state") == "withdrawn" || savedNumber(event, "expiresAt") <= now ||
             currentBinding(state, event, now) == null) throw GatewayProblem(410)
         if (original) {
-            if (savedText(event, "category") != "private-chats") throw GatewayProblem(404)
+            val category = savedText(event, "category")
+            if (category !in setOf("private-chats", "group-chats")) throw GatewayProblem(404)
             val backend = SaitoBackend.entries.single { it.id == savedText(event, "backend") }
             val envelope = chatOriginals.load(backend, savedText(event, "signature"), now) ?: throw GatewayProblem(410)
             try {
                 val signed = SaitoEnvelope.decodePayload(envelope)
-                require(signed.id == savedText(event, "signature") && recipient in signed.recipients && signed.author != recipient)
+                require(signed.id == savedText(event, "signature") && signed.author != recipient)
+                if (category == "private-chats") require(recipient in signed.recipients)
+                else require(text(groupMessage(envelope).body, "group_id") == savedText(event, "group"))
             } catch (failure: Exception) { throw IOException("Retained Chat original unavailable", failure) }
             return GatewayReply(200, JsonObject().apply { addProperty("version", 1); addProperty("envelope", envelope) })
         }
@@ -427,6 +500,7 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
             addProperty("version", 1); addProperty("wallet", recipient)
             addProperty("backend", savedText(event, "backend")); addProperty("signature", savedText(event, "signature"))
             if (savedText(event, "category") == "private-chats") addProperty("kind", "private-chat")
+            if (savedText(event, "category") == "group-chats") addProperty("kind", "group-chat")
         })
     }
 

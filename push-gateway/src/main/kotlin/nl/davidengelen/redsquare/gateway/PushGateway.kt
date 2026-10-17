@@ -123,7 +123,10 @@ class PushGateway(stateDirectory: Path, publicOrigin: String, port: Int = 0, clo
     @Synchronized fun privateCandidate(backend: nl.davidengelen.redsquare.saito.SaitoBackend,
         wire: ByteArray?, sender: FcmSender) {
         if (Thread.currentThread().isInterrupted) throw InterruptedException()
-        if (wire != null) subscriptions.enqueuePrivate(backend, wire)
+        if (wire != null) {
+            subscriptions.enqueuePrivate(backend, wire)
+            subscriptions.enqueueGroup(backend, wire)
+        }
         deliverPending(backend, sender)
     }
 

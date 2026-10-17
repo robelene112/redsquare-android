@@ -4,7 +4,7 @@ package nl.davidengelen.redsquare.saito
 object PushCategories {
     fun requireCanonical(value: String) {
         val parts = value.split(',')
-        require(parts.all { it in setOf("mentions", "private-chats", "replies") } &&
+        require(parts.all { it in setOf("group-chats", "mentions", "private-chats", "replies") } &&
             parts.distinct().sorted().joinToString(",") == value)
     }
 }
