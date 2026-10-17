@@ -1,7 +1,7 @@
 # Isolated notification gateway
 
-Work in open[#42](https://github.com/robelene112/redsquare-android/issues/42), supporting
-#32–34. The standalone Kotlin/JVM17 runtime implements durable subscription and
+Gateway foundation[#42](https://github.com/robelene112/redsquare-android/issues/42)
+is accepted. Current group integration is in open#47, supporting#32–34. The standalone Kotlin/JVM17 runtime implements durable subscription and
 opaque event storage, signed public-chain/Archive observation, recipient resolution
 and an external FCM sender adapter. It is not deployed. Configured Google/device
 acceptance remains in#32 and its successors. Public interface:
@@ -47,8 +47,11 @@ requires a separately reviewed hosting configuration and explicit authorization.
 Bind fields: version, nonce, subscription, installation, fid, owner, backend,
 categories, expiresAt and revocationHash. IDs/nonce/hash are64lowerhex; installation
 is a canonical UUID. The FID contains1–256 ASCII letters/digits/underscore/hyphen.
-Backend is `owner` or `official`. Categories are exactly `mentions`, `replies` or
-`mentions,replies`. Expiry must be future and at most7days from the server clock.
+Backend is `owner` or `official`. Categories are a nonempty, distinct, sorted
+comma-separated subset of `group-chats`, `mentions`, `private-chats`, `replies`.
+Exactly when `group-chats` is selected, bind also includes a `groups` array of
+at most100 distinct, sorted Saito public group keys, excluding the owner key.
+An empty array is valid. These are delivery interests, not membership proofs. Expiry must be future and at most7days from the server clock.
 A fresh signed challenge renews the same subscription with a changed FID, backend,
 categories or expiry. Owner, installation and revocation hash stay fixed. A later
 issued challenge supersedes an earlier one, so a delayed older request returns409.
@@ -73,6 +76,12 @@ Saito push bind v1
 <expiresAt decimal milliseconds>
 <revocationHash>
 ```
+
+If the binding includes `groups`, append one final newline followed by those
+keys joined with commas, with no trailing newline after a nonempty list. An empty
+list therefore adds one final newline. The signed line sequence for bindings
+without group delivery remains exactly unchanged. Group interests renew with the
+same challenge/sequence rules as other demand.
 
 revocationHash is SHA256 of the64hex secret's UTF-8 text. Send the secret only
 for retirement/status over the configured gateway transport; never through FCM.
@@ -403,10 +412,11 @@ recovery only, with the social-event withdrawal limitation above.
 
 ## Explicit autonomous operation and lifecycle
 
-Private Chat integration is in progress under#46. Public beta27 does not yet
-register private background demand or consume private wakes. The server minimum
-accepts canonical combinations of `mentions`, `private-chats` and `replies`.
-An explicit --observe process also creates independent gateway-owned private
+Private Chat native integration#46 is accepted and published in beta28. Actual
+configured Google delivery remains open under#32/#33. Group integration#47 is
+in progress: the gateway accepts signed group interests and group originals,
+while Android group registration/receipt acceptance is still pending.
+An explicit --observe process also creates independent gateway-owned Chat
 stream identities for both backends; none competes with a Social identity or
 authenticates as a user. Ordinary propagated transaction frames are candidates,
 not a subscription to recipient-only Relay or a complete history source.
@@ -417,7 +427,8 @@ returns the thin reference with `kind: private-chat`; separate
 `Saito push original v1\nORIGIN/v1/wakes/original\nWAKE` and returns version/envelope.
 The device must authenticate participants and decrypt/verify Chat locally before
 any alert. The gateway never receives a participant's private/decryption key.
-Original ciphertext is stored once per backend/signature in private files outside
+Original private ciphertext or unencrypted group content is stored once per
+backend/signature in private filesystem files outside
 the4MiB subscription journal. Each retained record expires for retrieval within
 24hours. The cache bounds are4096 files,
 128MiB total and8MiB per original; new wake expiry cannot exceed retained expiry.
@@ -487,6 +498,26 @@ Reset binding/event combinations and interior suffix trimming are source-reviewe
 both selectors: unavailable exact parent suppresses the reply and records a gap;
 restoration requires fresh proofs before sending. Exactddfd7005 full gateway10/0/0,
 PASS1m53s plus installDist; source0/0. Whole42 integrated acceptance remains pending.
+
+## Group original selection
+
+A signed ordinary group Chat message addresses its group key, not every member.
+The gateway requires the signed `Chat` / `chat message` body, group destination,
+nonblank message and bounded nonnegative timestamp. It selects current consenting
+bindings with that explicit group interest and excludes the message author.
+FCM remains exactly the opaque version/wake pair. Resolution returns `kind: group-chat`;
+original retrieval revalidates the stored signature/group destination. The device
+must independently check known retained membership and current controls. A wake
+cannot establish membership or create/join a group.
+
+Group events share the existing4096event budget,24hour original cache, seven-day
+receipt retention and expiry/retry lifecycle. Both queued delivery and recipient
+resolution re-read the current category/group interest, so dropping an interest
+suppresses an old queued wake. Invalid request interests return400; unreadable
+stored interests return503, preserving the state for recovery. The two-backend
+wire/HTTP journey passes, and corrected d820ad996 passes16gateway cases. See
+[evidence](evidence/ticket47/stored-groups-green/source.json). This is controlled
+gateway acceptance, not completed native group reception or Google delivery.
 
 ## Stalled observation limit
 
