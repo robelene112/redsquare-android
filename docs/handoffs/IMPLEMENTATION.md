@@ -105,22 +105,33 @@ qualifiedproof. Source39064310741/39064767481 succeed release/lint; no exactTCPs
 cause or autonomousrestart/Google claim. Next e3c92b201 strengthens samephase2
 ownedgateway to410 onlyafter signedrequestvalidation, recordsrequestcount after
 workerterminalstate and capturesfailurecheckpoint before independentrestoration.
-Its boundedsource reviews0/0, actualRED39065733802 pending.
+Its boundedsource reviews0/0;39065733802 fails only fixture compilation
+(earlyreturn in expressionbody), no emulator. Correction7555d85 usesif/else.
+ActualRED39065953373 at7555: old9PASS73.419s, actualpending/death, sameUUID
+SUCCESS after1 proof-validated410, then missingalertFAIL11.467s. Protectedrestore
+PASS1.588s, no continuityPASS. Packet native-expired-red retains11hashedrecords
+including earliercompilefailure and actualfailedrecovery checkpoint.
 
-Whole production review through51f: Standards0, Spec2 OPEN. First: worker always
-re-resolves/refetches before pending local history; later gateway404/410 can strand
-an eligible retained message. Persist verified wake-to-local-original association
-before background retention and resume with fresh identity/consent/policy/age.
-Second: blocked-author early return skips clearing already-pending history, so a
-later unblock/replay can retrospectively alert. Fix sequentially with actual
-tracers; normal/available-gateway process proof does not resolve these findings.
+Whole production review through51f: Standards0, Spec2. Cached-expiry source finding
+now resolved indcb22e274: PrivateChatWakeRoute commits encrypted verified
+wallet/backend/wake→signature/counterparty/expiry BEFORE background history;
+1000pending/7dayeligibility, expiredhistorypending completion before route cleanup,
+unreadable records preserved. Resume precedes network and checks associated scope
+before signing any replacement-wallet request; current consent/verification/
+decryption/policy/age still apply. Exact cached original query added. Route removed
+after durable terminal shared retention; cleanup failures retry through dedup.
+Per-wake files avoid poisoning unrelated Social wakes. Process snapshots include
+exactroute+bak/new; other Chat fixture prefix captures already cover the family.
+Actual local native/test assemblydcb passes5m10s/exit0, fullydrained. No owned local
+build remains. Exact runtime39066680641 pending. Both bounded source reviews0.
 
-Next: observe expired-remote RED39065733802, implement durable verified local routing; then
-blocked-pending suppression. Actual background preview/exacttap/currentpolicy/
-identity and applicable gateway persistence/reconnect remain. Final full10/17,
-core/gateway/release/lint, both source/evidence reviews and signed28 remain before
-native46 completion. No current local build. Public beta27 unchanged; controlled
-injection never establishes real Google closed-app delivery.
+OPEN Spec finding: blocked-author early return skips clearing already-pending
+history, so later unblock/replay can retrospectively alert. Next after cachedroute
+GREEN: actual blocked-pending tracer, smallest correction, fresh focused result.
+Actual background preview/exacttap/currentpolicy/identity and applicable gateway
+persistence/reconnect remain. Final full10/17, core/gateway/release/lint, both final
+source/evidence reviews and signed28 remain before native46 completion. Public
+beta27 unchanged; controlled injection never establishes Google closed-app delivery.
 
 
 ## Accepted gateway session compatibility (#45)
