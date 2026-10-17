@@ -5,7 +5,7 @@ Work in open[#42](https://github.com/robelene112/redsquare-android/issues/42), s
 subscription binding/status/retirement. It is not a deployed gateway or a complete
 observer/sender. The public interface is `PushGateway(stateDirectory, publicOrigin)`;
 `start()`, `port` and `close()` support the owned HTTP fixture. The optional
-constructor port defaults to0; all listeners remain IPv4 loopback. An Android binding client, resolver, observer, FCM sender and operational
+constructor port defaults to0; all listeners remain IPv4 loopback. An Android binding adapter, resolver, observer, FCM sender and operational
 acceptance remain later work. No account, credentials or live node state is used.
 
 ## Local command
@@ -125,3 +125,28 @@ Run the owned protocol/core checks with
 `scripts/android-build :core:test :push-gateway:test`. CI includes the gateway
 test task in source and focused/full builds, with its build file included in
 dependency cache keys. No new hosted dispatch choice is added.
+
+## Portable client reconciliation
+
+`core` now has `PushSubscriptionClient`, with an external HTTP boundary and a
+journal whose adapter must durably replace its contents. The Android adapter is
+not connected yet. The caller serializes access to one installation journal and
+supplies fresh demand from durable wallet/backend/consent/permission state.
+
+The client retains a random installation UUID and subscription ID/revocation
+secret before a request can bind them. The journal contains public owner/origin
+and installation retirement authority, never an outgoing wallet signing key.
+If a bind acknowledgement is lost, a newly constructed client can retire the
+uncertain old binding with a replacement wallet or no wallet. It retires the old
+owner/origin before binding a different one. Opt-out retains authority until the
+server confirms retirement. A same-owner invocation renews with a fresh signed
+challenge, current FID/backend/categories and six-day expiry. Fresh demand is
+checked again before binding and after its acknowledgement; changed demand
+requires another reconciliation. It does not roll back a user choice.
+
+The controlled client journey uses actual gateway HTTP, a durable owned filesystem
+journal and an intentionally dropped acknowledgement after server commit. The no-op
+client first fails1m26s, old3PASS/new1FAIL at the missing-operation assertion; none
+of its HTTP/recovery tails ran then. Minimum verification and review are pending.
+This is not Android Keystore, actual Firebase registration/rotation, cloud delivery
+or a real client-process crash proof. Native SDK and device acceptance stay open.

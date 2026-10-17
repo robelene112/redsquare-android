@@ -75,6 +75,13 @@ sixhashes/ninesourcehashes. Final evidence reviews atc71038b3 report Standards0/
 Next tracer is a portable client against the real owned HTTP gateway: dropped
 bind acknowledgement, reconstructed journal, replacement wallet and keyless
 retirement/opt-out. It is not Android Keystore or actual Firebase proof.
+Client tracer9c77b33a, actualcore/gateway FAIL1m26s: corefresh114/0/0, gatewayold3PASS/
+new1FAIL atSubscriptionClientTest:64. Placeholder performed no HTTP, so dropped
+ack/recovery tails unexecuted. [Retained RED](../evidence/ticket42/client-red/README.md),
+sixhashes/eleven source hashes. Portable minimum now persists installation/retirement
+authority before binding, retires old owner/origin before replacement, and checks
+fresh demand around binding. Owned local core/gateway build64223 active, no pass
+inferred. Source review pending. Native adapter is not wired yet.
 
 No Android gateway binding, resolver, observer,
 FCM sender, physical retention cleanup or whole#42 acceptance yet. Existing owner
