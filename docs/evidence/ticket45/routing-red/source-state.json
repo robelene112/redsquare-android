@@ -1,0 +1,18 @@
+{
+  "reviewBase": "6a9b749ad16f91810334c369bbf29cd647a9cf0c",
+  "command": "scripts/android-build :push-gateway:test --tests nl.davidengelen.redsquare.gateway.GatewaySessionDeliveryTest",
+  "exitCode": 1,
+  "sourceSha256": {
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayObserver.kt": "b39ab6cfb28be6086534e72abe5eaeeeb88c7b6f14cd3f5707d9b09603b281f5",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayPeer.kt": "8d0c60e75170d9e3fe2d4b59bb53d58a811f99d9d4218a2e05bdb59bebac3024",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayChain.kt": "7940ca7bc49f4b43130ca1416bfc5e7f62b2dc6668bcd763024662328e67919b",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayArchive.kt": "402aacececc5563f722d2493aa409fe6262887ab1cc614c902cc842c34a5a27d",
+    "push-gateway/src/test/kotlin/nl/davidengelen/redsquare/gateway/GatewaySessionDeliveryTest.kt": "7a7950c8905d6081fef1a6435b9300e69fe767bc72aad8b748969c46cbd5721e"
+  },
+  "upstreamCommit": "214504ecece76d1cd20a245fe4468eccbfca2951",
+  "upstreamSha256": {
+    "node_lib_saito_modules.ts": "947ef341106fe0dfd27a8b203ab34409b07c6327f2f481b6b56f280ac4eee720",
+    "rust_saito-js_saito.ts": "208035092c29bc6afa2683a2c2db2bbdc0639bd33f10fb8004e70b75acbcdd09",
+    "rust_saito-js_shared_methods.server.ts": "6f2ed4ed9f4a1e08689851bba8e70f97e884268f1e3c9075ed695e8885380b1d"
+  }
+}

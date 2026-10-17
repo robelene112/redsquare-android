@@ -9,6 +9,24 @@ Google/device acceptance; its native dependency42 is now closed. Its earlier ove
 dependency#24 remains closed.
 Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`.
 
+## Active gateway session compatibility (#45)
+
+Sole writer root; #45 assigned/unblocked, native server child of#32, which retains
+its configured Google/device gates. Review base6a9b749ad16f91810334c369bbf29cd647a9cf0c.
+No app/build change or production deployment. Public beta27 remains unchanged.
+Existing controlled external gateway/peer/FCM seams apply.
+
+First tracer reproduces competing gateway-owned connections under the pinned
+Saito public-key API reply routing and peer-ID chain routing. The first handshake
+is delayed250ms so the second authenticates first. Local RED49s, onecase/onefailure
+7.538s: expected verified reply never reaches FCM within5s; two connections and one
+Archive reply positively routed to the other socket. Owner binding only reached;
+Official and later delivery/privacy assertions remain unexecuted. Raw log/XML and
+source/upstream hashes in docs/evidence/ticket45/routing-red (3hashedrecords).
+An earlier fixture compile error is not this behavioral RED; it was corrected
+before the recorded run. No node or Google was contacted. Next: minimal shared
+session correction, gateway/core acceptance and both reviews. No owned local build.
+
 ## Accepted native Chat alert presentation (#44)
 
 GitHub44 CLOSED2026-10-17T17:24:38Z, native child33, related34.
