@@ -1,0 +1,18 @@
+{
+  "commit": "5c0392b4b265ee38ed5577f23457e33999693732",
+  "counts": {
+    "core": {
+      "tests": 114,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "push-gateway": {
+      "tests": 16,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "scope": "Core/gateway and debug/test APK assembly only. Native GREEN pending. Review identified group-storage coupling to independent receipt preflight; this build does not accept that behavior."
+}

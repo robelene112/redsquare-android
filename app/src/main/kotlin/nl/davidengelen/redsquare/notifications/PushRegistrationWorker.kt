@@ -151,10 +151,13 @@ class PushRegistrationWorker(context: Context, parameters: WorkerParameters) : C
 
 private data class RegistrationDemand(val owner: String, val backend: SaitoBackend, val categories: String, val groups: List<String>)
 
-private fun registrationDemand(context: Context): RegistrationDemand? =
-    pushIdentity(context)?.let { RegistrationDemand(it.wallet.publicKey, it.backend, it.categories, it.groups) }
+private fun registrationDemand(context: Context): RegistrationDemand? = synchronized(SaitoLocalState.lock) {
+    pushIdentity(context)?.let {
+        RegistrationDemand(it.wallet.publicKey, it.backend, it.categories, pushGroupInterests(context, it))
+    }
+}
 
-internal class PushIdentity(val wallet: SaitoWallet, val backend: SaitoBackend, val categories: String, val groups: List<String>)
+internal class PushIdentity(val wallet: SaitoWallet, val backend: SaitoBackend, val categories: String)
 
 /** One fresh consent/permission/identity calculation is shared by SDK and gateway reconciliation. */
 internal fun pushIdentity(context: Context): PushIdentity? {
@@ -169,12 +172,15 @@ internal fun pushIdentity(context: Context): PushIdentity? {
             listOf("group-chats", "private-chats").filter {
                 manager.getNotificationChannel(it)?.importance != android.app.NotificationManager.IMPORTANCE_NONE
             } else emptyList()
-        val groups = if ("group-chats" in chat) GroupChatStore(context, wallet, backend).entries()
-            .filter { it.group.memberRoles[wallet.publicKey]?.active == true }.map { it.group.id }.sorted() else emptyList()
         (social + chat).distinct().sorted().joinToString(",").takeIf { it.isNotEmpty() }
-            ?.let { PushIdentity(wallet, backend, it, groups) }
+            ?.let { PushIdentity(wallet, backend, it) }
     }
 }
+
+/** Registration preserves unavailable group interests for retry; independent wake preflight never reads them. */
+internal fun pushGroupInterests(context: Context, identity: PushIdentity): List<String> =
+    if ("group-chats" in identity.categories.split(',')) GroupChatStore(context, identity.wallet, identity.backend).entries()
+        .filter { it.group.memberRoles[identity.wallet.publicKey]?.active == true }.map { it.group.id }.sorted() else emptyList()
 
 private enum class Phase { REGISTERING, REGISTERED, UNREGISTERING, UNREGISTERED }
 private data class RegistrationRecord(val phase: Phase, val fid: String = "", val registeredAt: Long = 0)

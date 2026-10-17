@@ -92,7 +92,7 @@ class PrivatePushWorkPreviewTest {
         val previousBackend = backends.load()
         val retained = ChatFixtureState(context, listOf("chatpush.${wallet.publicKey}.", "socialpush.${wallet.publicKey}.",
             "chat.${backend.id}.${wallet.publicKey}.", "chatwork.${backend.id}.${wallet.publicKey}.",
-            "chatreactions.${backend.id}.${wallet.publicKey}.", "chat-alerts.${wallet.publicKey}.", "personal.${wallet.publicKey}."), wallet.publicKey)
+            "chatreactions.${backend.id}.${wallet.publicKey}.", "groupchat.${backend.id}.${wallet.publicKey}.", "chat-alerts.${wallet.publicKey}.", "personal.${wallet.publicKey}."), wallet.publicKey)
         val failure = AtomicReference<Throwable?>()
         val resolves = AtomicInteger()
         val originals = AtomicInteger()
@@ -160,6 +160,11 @@ class PrivatePushWorkPreviewTest {
             retained.prepare()
             wallets.replace(previous, wallet); backends.save(backend)
             ChatPushSettings(context, wallet.publicKey).setEnabled(true)
+            if (journey == Journey.WORKER_FIRST) {
+                // Independent private delivery must survive an unfinished protected group record.
+                val group = SaitoWallet.fromPrivateKey("0".repeat(63) + "9").publicKey
+                check(File(context.noBackupFilesDir, "groupchat.${backend.id}.${wallet.publicKey}.$group.v1.new").createNewFile())
+            }
             peerServer = peer?.start()
             gateway.start(java.net.InetAddress.getByName("127.0.0.1"), 0)
             withFailureCapture({ capture("failure") }) {
