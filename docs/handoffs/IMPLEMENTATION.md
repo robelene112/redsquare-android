@@ -11,10 +11,9 @@ unread and untouched. Root is the sole implementation writer. Review subagents
 are permitted; parallel ticket implementation is not. No separate cybersecurity
 campaigns, provider-access services or safeguard bypass work.
 
-## Active issue46: private Chat background transport
+## Accepted issue46: private Chat background transport
 
-[Issue46](https://github.com/robelene112/redsquare-android/issues/46) is assigned
-and OPEN, a native child of33 after closed45. Whole review base remains
+[Issue46](https://github.com/robelene112/redsquare-android/issues/46) is verified CLOSED2026-10-17T23:00:05Z, a native child of33 after closed45. Whole review base remains
 `4703fabeccb0ba86be0b7711ff546226b0f50a83`. Application production last changed
 at3059423af; final application/test source before CI partitioning is
 `1cfa16a57ca7da95bca82aad4c320443c479ddf3`.
@@ -81,7 +80,7 @@ packets: `gateway-lifecycle`, `native-muted-green`, `native-process-green`,
   pass. Root viewed seven selected originals, with bounded pixel comparison for
   incomplete viewer previews. Source check39074850964 is SUCCESS. Full235-object
   production/build sets and191 fixture objects equal prepared28/accepted10 source.
-  Final combined95cb40952 reviews0/0; signed28 published/independently verified. Publication bookend review and final46 closure remain pending. No owned local build.
+  Final combined95cb40952 reviews0/0; signed28 published/independently verified. Publication bookend9148ecabb reviews0/0 and46 verified CLOSED. No owned local build.
 
 CI-only464219e31 preserves every original assertion/deadline and full dispatch
 through the three partitions. Android10, combined full/all and focused routes
@@ -101,16 +100,11 @@ public-tail, source and visual inspection.
 
 Next actions:
 
-1. Complete publication bookend reviews of signed28 records and current acceptance
-   status. [Complete native acceptance](../evidence/ticket46/NATIVE_ACCEPTANCE.md)
-   at95cb40952 has both axes0. All artifacts are downloaded/inspected. Temporary work remains under
-   `/tmp/redsquare-private46-work-20261017`; original matrix artifacts are under
-   `/mnt/storage/redsquare-android-artifacts/private46-full17-partitions-39074852266`.
-2. Publisher exited0; public page/latest/immutable28/actualAPK/hash/certificate/
-   package/min29 pass, immutable27 metadata/APK unchanged. Publication packet has
-   13 hashes. After zero residual bookend findings, close46 with actual native
-   acceptance/publication. Keep original32/33 OPEN.
-3. Verify47 is unblocked, read its issue/spec, claim it and implement sequentially.
+1. Issue46 accepted checkpoint: https://github.com/robelene112/redsquare-android/issues/46#issuecomment-6242725149 .
+   Complete source/evidence95cb40952 and publication9148ecabb both report0/0.
+   Original32/33 remain OPEN for their genuine external criteria.
+2. Verify47 has zero OPEN native blockers, claim it, read issue/spec and implement
+   sequentially, starting with one actual group gateway wire/HTTP RED. No47 code yet.
 
 ## Published beta28
 
@@ -119,7 +113,7 @@ and independently downloaded/verified. Canonical publisher0, page/latest/immutab
 metadata and actual APK/hash/certificate/package/min29 PASS. Immutable27 metadata
 and actual APK remain unchanged. [Publication records](../evidence/ticket46/signed-preview28-published/README.md)
 retain13 hashes. Both complete SDK/source evidence and prepared-artifact reviews0/0;
-publication bookend review and final46 closure remain pending.
+publication bookend9148ecabb reviews0/0 and46 verified CLOSED.
 
 Source1cfa16a57ca7da95bca82aad4c320443c479ddf3; package nl.davidengelen.redsquare;
 APK SHA256444f718e56fcb16a2166e6afe0fd08d6380b77df6204c48671bd20372634fed8;
@@ -143,7 +137,7 @@ blocker. Fetch current state before reporting counts or changing dependencies.
 |17| Frozen app recovery sourcec9b114a8, review basec0f2da7e. Controlled10/17 recovery passes; actual public run39004585910 shows provider sign-in/bot check, Playing unproved. No unchanged reruns, cookie/proxy/UA workarounds or invented cause. |
 |19| Owner Registry checks time out; Official works. Native callback checkpoint accepted. No blind node update or unchanged public probe. See `ticket19/FINAL_REGRESSION_CHECKPOINT.md`. |
 |32| Native gateway/client children42/45 accepted. Actual Firebase/GCP Android app/project/sender, authorized hosting/deployment and physical closed-app delivery remain. Configuration question is already pending. |
-|33| Native46 active above; configured Google delivery and original32 dependency remain. |
+|33| Native46 accepted/closed above; configured Google delivery and original32 dependency remain. |
 |34| Native child47 is prepared, UNASSIGNED and blocked by46. Parent34 also retains its genuine33 and native dependencies. No47 implementation yet. |
 |35| Integrated release/device acceptance. An isolated release-equivalent performance variant is still actual code preparation: current Gradle only has debug/release. Follow `FEED_PERFORMANCE_PROTOCOL.md`: five cached Pixel7 launches≤2000ms, five fresh isolated installs≤5000ms, normal animations/stableWi-Fi/no debugger; never clear the owner's wallet. Physical installation/update/data continuity also remain. |
 |36| Real publisher/account/test-track/legal/contact/retention/declaration facts and reviewable Play submission preparation remain. Do not invent facts or submit without the applicable final authorization. |
