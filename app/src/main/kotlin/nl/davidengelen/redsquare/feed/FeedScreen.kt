@@ -41,6 +41,7 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.flow.first
 import nl.davidengelen.redsquare.notifications.SocialPush
 import nl.davidengelen.redsquare.notifications.NotificationRoutes
 import nl.davidengelen.redsquare.R
@@ -146,6 +147,10 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                     tapFailed = true
                     return@LaunchedEffect
                 }
+                // A restarted effect can arrive before the cancelled attempt's finally releases navigation.
+                snapshotFlow { formNavigation.transitioning }.first { !it }
+                currentCoroutineContext().ensureActive()
+                if (!routes.current(delivery)) return@LaunchedEffect
                 chatRouteObservation("entry busy=" + formNavigation.transitioning +
                     " saver=" + (formNavigation.saveCurrent?.javaClass?.name ?: "none") +
                     " guarded=" + (formNavigation.guardedCurrent != null))

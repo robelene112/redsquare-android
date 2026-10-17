@@ -44,6 +44,7 @@ parse and PNG signatures validate; raw originals remain hashed.
 |39040413257 /442c98500|cold-red/android17|FAIL4cases/1failure/91.514s, Official cold target opens then recreation loses it; initial PI refresh uncontrolled.|
 |39041093920 /bc3168854|cold-minimum/android17|FAIL4cases/2failures/95.112s, group return141 and cold first target126; cold cause unknown.|
 |39041907742 /6c64ee7b9|cold-diagnosis/android17|FAIL4cases/1failure/87.052s, group fixed; cold pre-tap persistence/binding/policy pass, admission refuses before commit.|
+|39042667158 /f4f20e0f8|cold-admission/android17|FAIL4cases/1failure/85.59s, overlapping idle/busy cold entries with no form, diagnostic Retry opens but original failure retained.|
 
 Source reviews found/fixed unsupported preview markup, initial group seed reuse,
 transient-null wallet reset and missing fixture Activity shutdown barrier. Their
@@ -51,18 +52,21 @@ bounded fixes each reached Standards0/Spec0; this is not native acceptance.
 Known-bad intermediate39039390627/64038 and39040935051/798 were explicitly
 CANCELLED before native acceptance after review findings.
 
-Current diagnostic run39041907742 at6c64ee7b9 FAILED4cases/1failure/87.052s.
-Group readiness/positive intermediate-list correction passes. Cold retained
-incoming/id/author/text/currentidentity/backend/policy checks pass, but actual
-shade tap fails first target141. Debug phase is navigation-refused, with no inner
-commit or exception phase, narrowing it to admission but not its specific gate.
-39hash17XML in cold-diagnosis/android17; root viewed ordinary group list and cold
-failed banner, other15 retained. Both preceding bounded reviews Standards0/Spec0.
-Next same-journey diagnostics record admission busy/saver-class/guard-presence
-and optional UI Retry only inside failure capture. Even a successful diagnostic
-Retry retains the original first-open failure and leaves later cold tails
-unexecuted. Debug observations contain no identity/message/URI/error content;
-status2 remains diagnostic. Native diagnosis pending.
+Latest39042667158/f4f20e0f8 FAILED4cases/1failure/85.59s. Earlier3cases and cold
+pre-tap persistence/binding/policy checks pass. Admission logs show first cold
+entry idle/no saver/no guard, then another entry busy/no saver/no guard followed
+by refusal. Diagnostic actual Retry later enters idle/no saver/no guard and opens
+cached target; original first-open failure remains failure, cold tails unexecuted.
+41hash18XML in cold-admission/android17; root viewed failure/diagnosticRetry
+originals, other16 retained; Loading messages qualified. Two status2 records are
+diagnostic only. This establishes overlapping attempts/busy refusal; exact effect
+key causing restart remains unproved. Bounded observation reviews0/0.
+
+Minimal correction now awaits snapshotFlow navigation idle before invoking the
+existing guarded navigate for the current generation. Cancellation and identity/
+policy/form checks remain; no timer retry or deadline/assertion relaxation. A
+restarted effect no longer races the previous attempt's cancellation cleanup.
+Corrected hosted source/native verification PENDING. No owned local build.
 
 Next: inspect that actual outcome, resolve cold refusal with evidence, then group
 cold/current-membership coverage as required, one final full Android10/17 pair,
