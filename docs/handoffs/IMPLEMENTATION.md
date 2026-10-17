@@ -125,8 +125,12 @@ exactroute+bak/new; other Chat fixture prefix captures already cover the family.
 Actual local native/test assemblydcb passes5m10s/exit0, fullydrained. No owned local
 build remains. Exact runtime39066680641 SUCCESS:9cases83.315s plus process7189→7407→7583, sameUUID recovery without gateway access (expiredRequests0), actualcard/physicaldismissal/quietduplicate/history/contact/identity and protectedrestorePASS. Packet native-expired-green retains18hashedrecords; root viewedgenericcard. Both bounded source reviews0.
 
-OPEN Spec finding: blocked-author early return skips clearing already-pending
-history, so later unblock/replay can retrospectively alert. Actual blocked-pending tracer7c9381c0e running39067365128; source unchanged until RED. Both bounded fixture reviews0. Then smallest correction and fresh focused result.
+Blocked-pending actualRED39067365128 at7c9381c0e:10run1FAIL83.178s, old9PASS,
+postunblock notification returns. Processharness not reached after classfailure.
+Packet native-blocked-red retains8hashedrecords. Minimum3059423af clears existing
+pending eligibility and removes wake association before blockedSUPPRESSED; history
+and newblockednonretention unchanged, storagefailuresRETRY. Spec source0 afterfix;
+fresh exact runtime39067742356 pending. Both bounded fixture reviews0.
 Actual background preview/exacttap/currentpolicy/identity and applicable gateway
 persistence/reconnect remain. Final full10/17, core/gateway/release/lint, both final
 source/evidence reviews and signed28 remain before native46 completion. Public

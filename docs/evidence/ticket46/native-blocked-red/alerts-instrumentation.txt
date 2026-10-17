@@ -1,0 +1,187 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatAlertPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ChatAlertPreviewTest:
+INSTRUMENTATION_STATUS: test=aPrivateAlertOpensItsConversationAndPreservesTheLatestOtherConversationDraft
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatAlertPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aPrivateAlertOpensItsConversationAndPreservesTheLatestOtherConversationDraft
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatAlertPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aColdGroupAlertUsesCachedHistoryDuringAnOutageAndRechecksMembershipOnOfficial
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatAlertPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aColdGroupAlertUsesCachedHistoryDuringAnOutageAndRechecksMembershipOnOfficial
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatAlertPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aGroupAlertOpensItsGroupAndPreservesTheLatestPrivateDraft
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatAlertPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aGroupAlertOpensItsGroupAndPreservesTheLatestPrivateDraft
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatAlertPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=privatePreviewsRequireOptInPersistAndReturnToGenericWhenDisabled
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatAlertPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=privatePreviewsRequireOptInPersistAndReturnToGenericWhenDisabled
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatAlertPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aColdPrivateAlertOnOfficialKeepsItsDestinationAcrossRecreation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatAlertPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aColdPrivateAlertOnOfficialKeepsItsDestinationAcrossRecreation
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatPushConsentPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ChatPushConsentPreviewTest:
+INSTRUMENTATION_STATUS: test=backgroundChatConsentPersistsAndEitherFeatureCanKeepTheSharedSubscription
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatPushConsentPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=backgroundChatConsentPersistsAndEitherFeatureCanKeepTheSharedSubscription
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivatePushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PrivatePushWorkPreviewTest:
+INSTRUMENTATION_STATUS: test=ordinaryChatRetainsItsMessageWhenAlertBookkeepingIsUnavailableAndItsWakeCanRecover
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivatePushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=ordinaryChatRetainsItsMessageWhenAlertBookkeepingIsUnavailableAndItsWakeCanRecover
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivatePushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=ordinaryPrivateReceiptDoesNotReAlertWhenItsOpaqueWakeArrivesLater
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivatePushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=ordinaryPrivateReceiptDoesNotReAlertWhenItsOpaqueWakeArrivesLater
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivatePushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aPendingPrivateMessageSuppressedWhileBlockedDoesNotAlertAfterUnblocking
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivatePushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Unblocking must not revive an old suppressed private notification
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.PrivatePushWorkPreviewTest.privateJourney$assertSilent(PrivatePushWorkPreviewTest.kt:115)
+	at nl.davidengelen.redsquare.PrivatePushWorkPreviewTest.privateJourney$lambda$16(PrivatePushWorkPreviewTest.kt:168)
+	at nl.davidengelen.redsquare.PrivatePushWorkPreviewTest.$r8$lambda$ntqVX27VtiyVnidjrko8YMD-iUE(Unknown Source:0)
+	at nl.davidengelen.redsquare.PrivatePushWorkPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PrivatePushWorkPreviewTest.privateJourney(PrivatePushWorkPreviewTest.kt:140)
+	at nl.davidengelen.redsquare.PrivatePushWorkPreviewTest.aPendingPrivateMessageSuppressedWhileBlockedDoesNotAlertAfterUnblocking(PrivatePushWorkPreviewTest.kt:44)
+
+INSTRUMENTATION_STATUS: stream=
+Error in aPendingPrivateMessageSuppressedWhileBlockedDoesNotAlertAfterUnblocking(nl.davidengelen.redsquare.PrivatePushWorkPreviewTest):
+java.lang.AssertionError: Unblocking must not revive an old suppressed private notification
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.PrivatePushWorkPreviewTest.privateJourney$assertSilent(PrivatePushWorkPreviewTest.kt:115)
+	at nl.davidengelen.redsquare.PrivatePushWorkPreviewTest.privateJourney$lambda$16(PrivatePushWorkPreviewTest.kt:168)
+	at nl.davidengelen.redsquare.PrivatePushWorkPreviewTest.$r8$lambda$ntqVX27VtiyVnidjrko8YMD-iUE(Unknown Source:0)
+	at nl.davidengelen.redsquare.PrivatePushWorkPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PrivatePushWorkPreviewTest.privateJourney(PrivatePushWorkPreviewTest.kt:140)
+	at nl.davidengelen.redsquare.PrivatePushWorkPreviewTest.aPendingPrivateMessageSuppressedWhileBlockedDoesNotAlertAfterUnblocking(PrivatePushWorkPreviewTest.kt:44)
+
+INSTRUMENTATION_STATUS: test=aPendingPrivateMessageSuppressedWhileBlockedDoesNotAlertAfterUnblocking
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivatePushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=chatOnlyConsentReceivesAndDecryptsAnOpaqueWakeWithoutAnActivityAndDoesNotReAlertAfterDismissal
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivatePushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=chatOnlyConsentReceivesAndDecryptsAnOpaqueWakeWithoutAnActivityAndDoesNotReAlertAfterDismissal
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 83.178
+There was 1 failure:
+1) aPendingPrivateMessageSuppressedWhileBlockedDoesNotAlertAfterUnblocking(nl.davidengelen.redsquare.PrivatePushWorkPreviewTest)
+java.lang.AssertionError: Unblocking must not revive an old suppressed private notification
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.PrivatePushWorkPreviewTest.privateJourney$assertSilent(PrivatePushWorkPreviewTest.kt:115)
+	at nl.davidengelen.redsquare.PrivatePushWorkPreviewTest.privateJourney$lambda$16(PrivatePushWorkPreviewTest.kt:168)
+	at nl.davidengelen.redsquare.PrivatePushWorkPreviewTest.$r8$lambda$ntqVX27VtiyVnidjrko8YMD-iUE(Unknown Source:0)
+	at nl.davidengelen.redsquare.PrivatePushWorkPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PrivatePushWorkPreviewTest.privateJourney(PrivatePushWorkPreviewTest.kt:140)
+	at nl.davidengelen.redsquare.PrivatePushWorkPreviewTest.aPendingPrivateMessageSuppressedWhileBlockedDoesNotAlertAfterUnblocking(PrivatePushWorkPreviewTest.kt:44)
+
+FAILURES!!!
+Tests run: 10,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
