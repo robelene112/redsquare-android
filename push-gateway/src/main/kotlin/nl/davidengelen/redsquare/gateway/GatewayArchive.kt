@@ -31,7 +31,7 @@ import java.util.concurrent.atomic.AtomicInteger
  * a failed connection is not reusable. A bounded head read does not promise complete history.
  * localOrigin is restricted to an owned loopback HTTP fixture, not another backend choice.
  */
-class GatewayArchive(private val identity: SaitoWallet, backend: SaitoBackend,
+class GatewayArchive(private val identity: SaitoWallet, val backend: SaitoBackend,
     localOrigin: String? = null) : Closeable {
     private val ready = CompletableFuture<Unit>()
     private val services = CompletableFuture<Set<String>>()

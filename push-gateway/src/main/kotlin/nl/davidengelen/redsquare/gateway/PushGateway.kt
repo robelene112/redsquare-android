@@ -52,6 +52,9 @@ class PushGateway(stateDirectory: Path, publicOrigin: String, port: Int = 0) : C
         }
     }
 
+    /** One bounded read/queue/delivery pass for this explicitly selected backend. */
+    fun poll(archive: GatewayArchive, sender: FcmSender) = Unit
+
     fun start() = server.start()
     override fun close() {
         server.stop(1)
