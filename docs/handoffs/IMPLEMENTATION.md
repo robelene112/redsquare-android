@@ -54,7 +54,9 @@ source checkpoint is frozen; claim the next sequential source preparation.
 
 Sole writer root, assigned @me, native blockers0. Fixed review base
 `0e577ab066e9849647dfd53c3766b96c5cb7af7b`. Current app source
-`39e0c24594fcd8f9f90918210701517687eeb5f8` is pushed; no local build active.
+`32d0c22c97456a39e4e1330c4ba31c1e61cc17b8` is the reviewed minimum, awaiting
+its first native metadata result. Corrected local build42514 completed successfully;
+no owned local build remains active.
 The Android-authorized key remains pending. Do not repeat its question or borrow
 backend web keys. Use [primary preparation](../research/GIPHY_SOURCE_PREPARATION_2026_10_17.md)
 and existing GIF contracts. No real provider/key/node/account/live-write change.
@@ -82,7 +84,7 @@ source/tracers/packets with0 outstanding findings after corrections. Earlier
 observer runs39008263619 and39008310559 were deliberately CANCELLED for
 window/screen coordinate and blank-bitmap oracle fixes; neither is app RED.
 
-Current one-line fix39e0c245 enables ImageView.cropToPadding with zero padding,
+Accepted clipping fix39e0c245 enables ImageView.cropToPadding with zero padding,
 retaining CENTER_CROP/URLs/decoder policy. Both bounded source reviews0/0;
 **Android17 run39008861337 SUCCESS2/0/49.277s**; source39008861427 SUCCESS.
 [Clipping GREEN](../evidence/ticket16/clipping-green/android17/README.md) retains
@@ -830,7 +832,16 @@ Historical active/pending labels are not current authority.
 
 
 Selected-credit source review3a07e0c1: Standards0, Spec1 because queue view
-omitted its already-available saved metadata. Corrected one PostImages binding.
+omitted its already-available saved metadata. Corrected one PostImages binding
+at32d0c22c; both bounded fix reviews now Standards0/Spec0.
 Obsolete local build88421 was uniquely inspected/retired with exit143 before
-editing; it is not a pass. Corrected source review/build/runtime remain required.
+editing; it is not a pass. Corrected source reviews Standards0/Spec0; local build42514 PASS.
+Corrected native metadata acceptance remains pending.
 Separate source39009396879 SUCCESS at tracerb377c2e1, not new metadata acceptance.
+
+Remaining GIF acceptance should include a fresh Activity/ViewModel launch when
+reopening the saved draft, without inspecting internal storage/VM state. Current
+tracer proves activity recreation plus codec readback, not actual process death.
+Also complete controlled search/empty/rate-limit/retry/query handling and signed
+post/reply/quote interoperability at existing UI/HTTP/Saito seams, with final
+Android10/17 verification. Avoid expanding into unrelated node/provider work.
