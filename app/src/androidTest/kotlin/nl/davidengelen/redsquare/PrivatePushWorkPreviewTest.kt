@@ -8,6 +8,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
 import androidx.test.runner.lifecycle.Stage
 import androidx.test.uiautomator.By
+import androidx.test.uiautomator.Direction
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.Until
 import androidx.work.WorkInfo
@@ -117,6 +118,9 @@ class PrivatePushWorkPreviewTest {
                     "http://127.0.0.1:${gateway.port}/v1/wakes/resolve") }
                 await(schedule())
                 assertNoActivity()
+                val publishedBy = SystemClock.elapsedRealtime() + 5_000
+                while (manager.activeNotifications.none { it.tag == tag } && SystemClock.elapsedRealtime() < publishedBy)
+                    SystemClock.sleep(25)
                 val alert = manager.activeNotifications.singleOrNull { it.tag == tag }
                 assertNotNull("Chat-only consent must resolve, decrypt, retain and display its private alert", alert)
                 assertTrue(resolves.get() > 0 && originals.get() > 0)
@@ -128,10 +132,26 @@ class PrivatePushWorkPreviewTest {
                 assertTrue(device.openNotification())
                 assertNotNull(device.wait(Until.findObject(By.text("New message")), 10_000))
                 capture("generic-alert")
+                val card = requireNotNull(device.wait(Until.findObject(
+                    By.res("android", "status_bar_latest_event_content").hasDescendant(By.text("New message"))), 5_000))
+                val bounds = card.visibleBounds
+                assertTrue("The actual private card must be fully visible before swiping",
+                    bounds.left >= 0 && bounds.right <= device.displayWidth && bounds.top >= 0 &&
+                        bounds.bottom <= device.displayHeight && bounds.width() > device.displayWidth / 2 && bounds.height() > 16)
+                card.setGestureMargin(8)
+                card.swipe(Direction.RIGHT, 1.0f)
+                assertTrue(device.wait(Until.gone(By.text("New message")), 5_000))
+                val dismissedBy = SystemClock.elapsedRealtime() + 5_000
+                while (manager.activeNotifications.any { it.tag == tag } && SystemClock.elapsedRealtime() < dismissedBy)
+                    SystemClock.sleep(25)
+                assertTrue("Android must observe the physical dismissal before redelivery", manager.activeNotifications.none { it.tag == tag })
                 device.pressBack()
-                manager.cancel(tag, 0)
                 await(schedule())
-                assertTrue("Redelivery must not re-alert a dismissed private message", manager.activeNotifications.none { it.tag == tag })
+                val silentUntil = SystemClock.elapsedRealtime() + 2_000
+                do {
+                    assertTrue("Redelivery must not re-alert a dismissed private message", manager.activeNotifications.none { it.tag == tag })
+                    SystemClock.sleep(50)
+                } while (SystemClock.elapsedRealtime() < silentUntil)
                 assertEquals(1, ChatHistoryStore(context, wallet, SaitoBackend.OWNER, sender.publicKey).load().entries.size)
                 assertEquals(wallet.exportJson(), wallets.loadExisting().exportJson())
                 assertEquals(SaitoBackend.OWNER, backends.load())
