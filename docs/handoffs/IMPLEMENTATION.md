@@ -107,12 +107,14 @@ preserving every assertion/deadline. Both bounded source reviews0/0; README and
 push configuration docs now describe current native launch/review/presentation
 without claiming Google Chat transport. Production/build sources are unchanged.
 Current acceptance PENDING, all at16a0c1bc6636983b806c93c1ed4443dddae3bfc4:
-- Focused chat-actions17 run39048726834.
+- Focused chat-actions17 run39048726834 SUCCESS10/0/78.258s, core114/0/0;
+  dynamic-settings-green/android17 retains14hashrecords and four raw pairs.
+  Namespace case uses both logical bindings on one owned peer. No new visual claim.
 - Full Android10 run39048729211, public_feed_read=true.
 - Full Android17 run39048730979, public_feed_read=true.
-Retain actual results, then final evidence review and publication. Update the
-full-regression/source-equivalence matrix with this final fixture revision;
-prepared27 still has exactly matching production/build objects.
+Retain actual results, then final evidence review and publication. The full-regression/source-equivalence matrix proves63 matching production/build
+objects across7roles,12identical final fixture objects and18fixture-only changed
+files since the APK source. Prepared27 still has matching production/build objects.
 
 Signed27/0.1.27 is prepared, NOT published, source9a37c19ba. Wrapper0/GradlePASS
 4m38s and independent certificate/package/min29/hash checks pass. APK SHA256

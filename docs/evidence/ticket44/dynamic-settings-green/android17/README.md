@@ -1,0 +1,7 @@
+# Dynamic Settings backend correction
+
+[Android17 run39048726834](https://github.com/robelene112/redsquare-android/actions/runs/39048726834) completed SUCCESS at exact16a0c1bc6636983b806c93c1ed4443dddae3bfc4. The existing private Chat actions class reports10PASS/0failures/78.258s, one successful JUnit completion, no interrupted output. Core114/0/0 and debug/test assembly pass; release/lint and the full suites are separate pending runs.
+
+The previously failed backend reaction journey now scrolls the dynamically named Settings radio before clicking. It verifies unchanged uncertain/forwarded reaction isolation, selected backend and wallet, and a recreated Activity. The logical Owner/Official bindings share the existing owned peer and independent original for this namespace case; this is not a claim of different live endpoints. Four original PNG/XML pairs are retained. XMLs parse and PNG signatures validate, without a new visual-inspection claim. The original inventory covers all device files and archive captures.
+
+The same ordinary scroll correction covers dynamic post and transfer selectors; those paths await the pending complete SDK runs39048729211/39048730979 at this exact source. Literal selector and physical-swipe corrections retain their earlier qualified focused acceptance. Both bounded code reviews report0findings. Production/build objects match the prepared27 source; no new app build or publication is claimed. Earlier failures and the withdrawn10 run remain failed/cancelled.
