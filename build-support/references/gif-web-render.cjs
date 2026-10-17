@@ -64,6 +64,8 @@ for (const pin of ['A', 'B']) {
     assert.equal(tweet.embedded.text, proof.original.body.data.text);
     assert.deepEqual(Array.from(tweet.embedded.images), proof.original.body.data.images);
     expectedImages.push(...proof.original.body.data.images);
+    assert(html.includes(`data-id="${proof.original.signature}"`));
+    assert(html.includes(proof.original.body.data.text));
   }
   const renderedImages = [...html.matchAll(/<img\b[^>]*src="([^"]*)"/g)].map(match => match[1].replaceAll('&amp;', '&'))
     .filter(src => src === proof.outer.body.data.images[0] || src.startsWith('data:image/'));

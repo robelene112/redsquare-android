@@ -855,7 +855,7 @@ Exactd423666d Android17 run39010198233 SUCCESS2/0/36.558s. Canonical
 13 originals, root viewed four PNGs/parsed four XMLs. UI display assertions prove
 selected/recreated credits and removal; captures precede credit scrolling and
 are not a complete visual credit proof. Local42514 PASS3m46s; obsolete88421
-retired143. Source39010198373 pending at collection. No local build active.
+retired143. Source39010198373 was pending at collection and is now verified SUCCESS atd423666d. No local build active.
 
 Next verification keeps production unchanged: saved GIF reopens through an
 actually fresh Activity/VM using normal launch/close, explicit credit PNG/XML
@@ -865,5 +865,7 @@ Existing image posting/read paths are reused; no missing-feature RED is claimed
 for this verification extension. Each UI class retains its180second bound.
 First verification local build55226 PASS2m7s. Review caught the official fixture
 endpoint extra missing; corrected before any push/native execution. Both backend
-cases now select their explicit owned peer extra. Corrected review/build/runtime
-still required; full16 is not accepted.
+cases now select their explicit owned peer extra. Corrected source reviews Standards0/Spec0; build30442 PASS1m47s. Native runtime
+remains pending; full16 is not accepted. Offline frame/template compatibility
+checks are prepared, not yet executed. The bounded duplication smell in the
+new frame verifier is deferred to keep earlier accepted proof scripts unchanged.
