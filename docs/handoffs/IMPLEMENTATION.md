@@ -31,7 +31,7 @@ observer/gaps/cursorprocessing ratherthanmoreprotocolresearch. Protectedgroupdoc
 ## Active name-proof correction
 
 Accepted sourcead8a226a, accepted/pushed8fc2bd9b. #42 remains sole implementation.
-Acceptedlost-ack fixtureaea14801/d4342e90 final reviews0/0, not yetpushed.
+Acceptedlost-ack fixtureaea14801/d4342e90 final reviews0/0, included in pushed8fc2bd9b.
 Nametracer216882ee RED1m25s at192 missingOWNERwake, old7PASS/coreUPTODATE;
 [name-red](../evidence/ticket42/name-red/README.md),8hashes/13sourcehashes.
 Orderingoraclegap corrected299817e1. Minimumf6238c51 thenPASS1m30s/gateway8/0/0,
