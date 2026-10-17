@@ -7,6 +7,21 @@ open. Its earlier overall review base was dd89bc9108eb002bb260eee709c656cd453489
 dependency#24 remains closed.
 Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`.
 
+## Whole gateway acceptance candidate
+
+Latest code ddfd7005 fullownedbuild28732 PASS1m53/gateway10/0/0/coreUPTODATE/
+installDist; parent evidence at48537b27 accepted0/0. Whole42 source base5a048524:
+Spec1staleclientdoc corrected48537b27, finalSpec0/Standards0. Stalled unreadable/
+unsupportedblock or repeatedArchivebudget limit explicitly retained inPUSH_GATEWAY.
+All gateway sources currently committed; no owned localbuild. Candidate
+[FINAL_ACCEPTANCE](../evidence/ticket42/FINAL_ACCEPTANCE.md) maps42requirements to
+controlledevidence andlimits. Integrated final sourceCI/evidence review pending;
+do notclose42yet. #32 actualconfiguredGoogle/device staysopen, no deployment.
+NativebindingAndroid10/17 evidence is the earlier pinned17fb7260 ownedcontractpeer
+acceptance; no unchangednative rerun claimed or necessary forlatergateway-only
+changes. PortableJVMclient usesactualgateway. Parent/sender/runtime/history controlled
+protocols pass currentfullsuite. Protectedgroupdoc remainsuntrackeduntouched.
+
 ## Active missing-parent availability
 
 History checkpoint1c62eb31 accepted/pushed; source CI for that push pending.
