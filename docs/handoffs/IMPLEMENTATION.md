@@ -122,9 +122,10 @@ Archive verifier and shared publication mutex. Processing expiry7days, fresh
 policy/cancellation checks, HTTPS/no redirects, debug+emulator127 fixtures only;
 archive overrides are fixture-only. No new user-configurable backend.
 
-Source reviews find0 source defects, only stale current-handoff text now corrected.
-Local minimum core/debug/test build is active (log .scratch/push32-opaque-minimum-build.log,
-exec74616); native GREEN remains pending. Tracer local compile failed2m26s at
+Source reviews at861e795c find0 source defects; the handoff correction5aac5d04
+now reports Standards0/Spec0. Local minimum core/debug/test build passes3m10s
+(log .scratch/push32-opaque-minimum-build.log, exec74616 completed). No owned local
+build remains. Exact-source Android10/17 GREEN and release/lint checks are next. Tracer local compile failed2m26s at
 nullable request body, corrected1m47s pass. Tracer/correction reviews at553df5b0,
 dc48e398/452f4595 report0/0. Existing150s worker class retains both Archive journeys.
 
