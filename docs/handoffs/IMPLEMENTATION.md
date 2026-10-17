@@ -101,11 +101,19 @@ external run-as kill command (exit1, stderr not retained, exact cause unknown).
 The new fixture reaches pending work/PID3819; recovery tails remain unexecuted.
 Independent restoration passes. The earlier dismissal journey passes PID3440→3630.
 [Retained failure](../evidence/ticket32/scheduled-process-stop-failure/android10/README.md)
-includes32 hashes,5 XMLs and the new pending original viewed by root. Android17
-and source checks are still running. The correction uses a PID-specific marker
+includes32 hashes,5 XMLs and the new pending original viewed by root. Android17 run38984566019 succeeds at57ffd6f8: scheduled PID4482→4741,
+peer1/0→3/2 total/available reads, actual system alert, no target relaunch,
+independent restoration0.835s. Earlier dismissal PID3072→4241 also passes.
+[Exact17 evidence](../evidence/ticket32/scheduled-process-green/android17/README.md)
+retains41 hashes/6 XMLs; root viewed both new originals. Source38984556683
+SUCCESS includes release/lint. This is original57 source, not the later fixture.  The correction uses a PID-specific marker
 for the waiting native fixture's own Process.killProcess, matching established
 fixtures; actual gone-PID and unchanged autonomous observation gates remain.
-Corrected review/compilation/native verification are pending; no restart pass. No SDK/client config/service/gateway/node change was made.
+Corrected source reviews at1738159f and diagnostic follow-up794d145c both
+report Standards0/Spec0. Compilation/native verification of the fixture correction
+remain pending on Android10;17 retains its original actual pass. Production
+source/build trees from57 are unchanged. No new17 rerun is needed for this bounded
+fixture correction; final full#32 acceptance remains required. No SDK/client config/service/gateway/node change was made.
 The existing owner Firebase setup question remains pending, do not repeat it.
 Public signed beta24 is unchanged.
 
