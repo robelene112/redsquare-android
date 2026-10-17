@@ -46,6 +46,7 @@ parse and PNG signatures validate; raw originals remain hashed.
 |39041907742 /6c64ee7b9|cold-diagnosis/android17|FAIL4cases/1failure/87.052s, group fixed; cold pre-tap persistence/binding/policy pass, admission refuses before commit.|
 |39042667158 /f4f20e0f8|cold-admission/android17|FAIL4cases/1failure/85.59s, overlapping idle/busy cold entries with no form, diagnostic Retry opens but original failure retained.|
 |39043283518 /44f5a34b3|cold-green/android17|PASS4/0/89.02s, first Official cold target/recreate/durable draft/UIreturn/consumed recreation/identity/no outgoing. Reserved limits in README.|
+|39044052719 /598dd89ff|group-cold-green/android17|PASS5/0/101.527s, Official group cold503/cache/recreate/privatework, retained stale alert refused after signed removal/Dismiss/consumed recreation.|
 
 Source reviews found/fixed unsupported preview markup, initial group seed reuse,
 transient-null wallet reset and missing fixture Activity shutdown barrier. Their
@@ -53,31 +54,28 @@ bounded fixes each reached Standards0/Spec0; this is not native acceptance.
 Known-bad intermediate39039390627/64038 and39040935051/798 were explicitly
 CANCELLED before native acceptance after review findings.
 
-Latest39043283518 exact44f5a34b3ef31b904f2f1dc7081321cd97b8ba04 SUCCESS4/0/89.02s.
-Idle snapshotFlow wait corrects observed overlapping admission without timers or
-bypassing guards. First Official no-Activity private target, recreation, durable
-prior private draft, UI recovery, consumed-target recreation and final identity/
-no-outgoing checks pass. Both bounded source-fix reviews Standards0/Spec0.
-45hash20XML in cold-green/android17; root viewed4cold originals. Opened/recreated
-PNGs byte-identical despite first renderer contradiction, see README. Cached
-content/loading qualified, other16retained. No owned local build.
+Latest39044052719 exact598dd89ffa4f65a86ef9b5ab9e3e3884d382d94b SUCCESS5/0/101.527s.
+All five private/group/preview/no-Activity journeys pass. The final Official group
+journey covers controlled503outage with cached target/window/private draft recovery,
+then signed membership removal with original still retained, actual stale shade
+tap refusal, durable draft and Dismiss recovery, consumed-target recreation,
+exact wallet/backend and zero outgoing collections. Earlier private cold first
+opening uses no diagnostic Retry. Core114/0/0/debug/test assembly pass.
+61hash28XML in group-cold-green/android17; root viewed6group cold originals, other22
+retained. Two PNG pairs byte-identical despite renderer differences; title crop
+and truthful unavailable history/live status qualified. See canonical README.
+Both whole-source reviews FIXED2fff4587e...598dd89ff are Standards0/Spec0.
 
-Next same-boundary fifth journey: Official group no-Activity launch during a
-controlled selected-backend outage, target/window/draft recovery, then actual
-stale generic group alert after signed membership removal must refuse while
-preserving the mounted private draft and allow Dismiss. Cached target remains
-retained so rejection specifically checks current membership. Finish with
-consumed-route recreation, exact wallet/backend and zero outgoing collections.
-Existing four journeys,180s class/20s observations remain. Native result PENDING.
-
-Next: inspect that actual outcome, resolve cold refusal with evidence, then group
-cold/current-membership coverage as required, one final full Android10/17 pair,
-whole reviews from fixed2fff base and signed review publication. Same approved
-UI/controlled-receipt/shade/persistence/recovery seams; class180s and observation
-20s bounds unchanged. No new grill or broad matrix. Temporary current work is
-outside checkout at /tmp/redsquare-chat44-work-20261017; large original artifacts
-on /mnt/storage/redsquare-android-artifacts. Do not bulk-clean older task files or
+Production source frozen at44f5a34b3, final native fixture598dd89ff. Next: one full
+Android10/17 pair for the same exact committed checkpoint with public_feed_read
+explicitly enabled, inspect/retain actual complete outcomes, final evidence review,
+signed review publication and #44 close only then. Original33/34 and real32 blockers
+remain unchanged. No Google or physical/process-death claim from these focused
+journeys. No owned local build. Same approved seams/180s class/20s observations.
+Temporary work outside checkout /tmp/redsquare-chat44-work-20261017; large original
+artifacts /mnt/storage/redsquare-android-artifacts. Do not bulk-clean older files or
 touch unrelated untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md.
+
 
 ## Accepted native Chat GIF slice (#43)
 
