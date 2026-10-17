@@ -7,10 +7,24 @@ open. Its earlier overall review base was dd89bc9108eb002bb260eee709c656cd453489
 dependency#24 remains closed.
 Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`.
 
+## Active retained coverage warnings
+
+Reorganization checkpoint e53aef47 is accepted/pushed. Its source CI is separate
+from successful38999026430 at earlier aad0e8d1; that earlier source run is now
+retained in observer-source-ci (2hashes). #42 remains the sole implementation.
+Gap tracer3b37d485 actualFAIL1m17s/new1.934s/9tests1failure at156, missingHTTPgaps.
+The preceding latest-warning assertion passed; retained-reason/downloading tail,
+later fresh-instance and OFFICIAL were unexecuted. [RED](../evidence/ticket42/gap-history-red/README.md),9hashes/18sources, tracer0/0.
+Current minimum2ebd6d2f keeps one recent record per supported reason, preserves
+legacy latest-warning shape and adds HTTP gaps, filtering expiry and pruning on
+mutation. Owned18561 endedPASS1m41s/gateway9/0/0/new8.157s/coreUPTODATE.
+Source2ebd6d2f Standards0/Spec0. [GREEN](../evidence/ticket42/gap-history-green/README.md),9hashes/18sources.
+No owned build. Final evidence review pending.
+Periodic physical cleanup remains open. No new app/native/node/cloud/deployment.
+
 ## Active reorganization recovery
 
-Accepted durable-cursor checkpoint aad0e8d1 is pushed. Source CI38999026430 is
-still running and covers that checkpoint only. Sole issue42 remains open.
+Accepted durable-cursor checkpoint aad0e8d1 is pushed. Source CI38999026430 SUCCESS covers that earlier checkpoint only. Sole issue42 remains open.
 Reorg tracer75fa37a7 actualFAIL1m18s, gateway9/1failure/new2.597s at154:
 OWNER fifth response observed chain-ancestry-unavailable instead of
 chain-reorganization. Replacement cursor/download, later restart and OFFICIAL

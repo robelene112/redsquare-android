@@ -293,13 +293,17 @@ disconnect cannot discard candidate/parent evidence already collected first.
 No claim is made that this specific disconnect interleaving has been fixture-tested.
 
 POST `/v1/observer/status` accepts `{version:1,backend}` for either approved backend
-and returns version/backend/gap. The bounded latest gap contains reason, since, lastAt and expiresAt.
+and returns version/backend/cursor/gap/gaps. The legacy latest gap contains reason,
+since, lastAt and expiresAt. `gaps` retains one recent warning per supported
+reason, so bootstrap history loss remains visible beside a later reorganization.
+A warning expires seven days after its latest observation; repeating that same
+reason preserves its original since-time while it remains retained. These are
+recent coverage warnings, not a complete event audit or proof of a current outage.
+Older latest-only snapshots retain only the warning they actually contained;
+missing historical warnings are never invented. Expired records are filtered
+from status and pruned on mutation. Periodic physical cleanup remains open.
 Name lookup failures use `name-proof-unavailable`; observer coverage adds the
-chain/bootstrap/archive reasons described below. One record per backend is
-kept for seven days since its latest observation; it is a recent coverage warning,
-not a complete audit trail or proof of a current outage. Old snapshots acquire
-an empty optional gaps map. Gap cleanup currently occurs on mutation. Full chain,
-pruning/outage/reorganization coverage and periodic physical cleanup remain open.
+chain/bootstrap/archive reasons described below.
 
 
 [Name acceptance](evidence/ticket42/name-green/README.md) completes both approved
@@ -366,8 +370,8 @@ header, but its block has not been processed. Unknown ancestors stop advancement
 This bounded journal cannot recover an arbitrary old fork. Social-event source
 provenance and withdrawal still remain unfinished.
 
-Gap status is only the latest bounded recent coverage warning per backend, with
-reason-specific since-time. It is not a complete retained list of every gap kind.
+Gap status includes the latest warning and retained recent warnings per reason,
+with reason-specific since-times. It is not a complete historical audit.
 The current non-social fixture establishes durable position and actual Full
 continuation after a server-instance restart. It does not establish chain-triggered
 social delivery, interrupted cursor writes or continuous operation. The[non-social reorganization journey](evidence/ticket42/reorg-green/README.md)
