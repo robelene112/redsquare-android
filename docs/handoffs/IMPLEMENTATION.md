@@ -1,9 +1,9 @@
 # Current implementation handoff
 
 Updated2026-10-17. Owner authorizes continuing remaining issues sequentially.
-#42 is the sole implementation, review base
-`5a048524d8681781c1763f850cc3e0773b8e753c`. #32 depends natively on#42 and stays
-open. Its earlier overall review base was dd89bc9108eb002bb260eee709c656cd45348940;
+#42 is CLOSED with complete server-code acceptance. #17 is the sole app work,
+review base`c0f2da7e3de00b15c1953db26416f90ed427899b`. #32 staysopen for configured
+Google/device acceptance; its native dependency42 is now closed. Its earlier overall review base was dd89bc9108eb002bb260eee709c656cd45348940;
 dependency#24 remains closed.
 Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`.
 
@@ -12,7 +12,8 @@ Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`.
 #42servercode is complete: latestimplementationddfd7005, wholebase5a048524,
 fullownedgateway10/0/0/coreUPTODATE/installDist, sourceCI39001786605 SUCCESS at
 fad81a03. Finalintegratedreviewsb84b5903 Standards0/Spec0. [Canonical acceptance](../evidence/ticket42/FINAL_ACCEPTANCE.md).
-Bookendpush/issueclose are the current final bookkeeping actions. #32 configured
+Bookendc0f2da7e pushed; GitHub42 verified CLOSED at04:19:43UTC, comment6229558881.
+#32 verifiedOPEN/nativeblockers0. #32 configured
 SDK/Google/closed-app/Pixel and deployment stayopen. No account/IAM/node/hosting
 change, beta24unchanged. No ownedlocalbuild, protectedgroupdocuntouched.
 Nextsoleappwork: #17existingactualnativeYouTube150. ReadfrozenOct15evidence and
@@ -22,6 +23,12 @@ seam can resolve missingnativecauseinformation; preservePlaying/noautoplay/
 close/feed/zeroSaitowrites. No unchangedretry, header/identityspoofing, proxy or
 providerbypass. Otherblockedinputs (Firebase/Giphy/physical/store) remainpending;
 no repeatedownerquestions. Read issue/currentparent beforeclaiming17.
+
+## Historical gateway checkpoint records
+
+The remaining gateway sections preserve dated implementation/review stages.
+Their active/pending labels are historical, superseded by the accepted entry above
+and the canonical FINAL_ACCEPTANCE. Do not treat them as current open work.
 
 ## Whole gateway acceptance candidate
 

@@ -605,7 +605,7 @@ verify_videos() {
     adb logcat -c
     local video_diagnostic_pid=
     if [[ "$public_video_read" == 1 ]]; then
-        timeout 90 node "$repo_dir/build-support/video-browser-diagnostics.cjs" "$evidence" \
+        timeout 150 node "$repo_dir/build-support/video-browser-diagnostics.cjs" "$evidence" --provider-error \
             > "$evidence/video-browser-tool.txt" 2>&1 &
         video_diagnostic_pid=$!
     fi

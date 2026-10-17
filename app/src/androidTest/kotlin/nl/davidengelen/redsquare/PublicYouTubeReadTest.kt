@@ -37,6 +37,15 @@ class PublicYouTubeReadTest {
         val alternate = InstrumentationRegistry.getArguments().getString("publicVideoReference") == "1"
         val row = if (alternate) reference.getAsJsonArray("candidates")[3].asJsonObject else reference.getAsJsonObject("linked")
         val postText = if (alternate) "https://youtu.be/M7lc1UVf-VE https://youtu.be/bHQqvYy5KYo" else "Explicit signed YouTube link"
+        val observerRequest = File(context.cacheDir, "video-evidence/provider-observer-request.json").apply { parentFile?.mkdirs() }
+        val observerReady = File(context.cacheDir, "video-evidence/provider-observer-ready.json")
+        observerReady.delete()
+        val request = com.google.gson.JsonObject().apply {
+            addProperty("version", 1); addProperty("pid", android.os.Process.myPid())
+            addProperty("videoId", if (alternate) "bHQqvYy5KYo" else "M7lc1UVf-VE")
+            addProperty("nonce", java.util.UUID.randomUUID().toString())
+        }
+        observerRequest.writeText(request.toString())
         val peer = ControlledFeedPeer("[$row]")
         val device = UiDevice.getInstance(instrumentation)
         peer.start().use { server ->
@@ -59,6 +68,11 @@ class PublicYouTubeReadTest {
                     capture("public-ready")
                     ui.onNodeWithText("Use the player controls to start playback.").assertIsDisplayed()
                     ui.onNodeWithText("Playing YouTube video.").assertDoesNotExist()
+                    ui.waitUntil(15_000) {
+                        try { observerReady.isFile && observerReady.length() <= 512 &&
+                            com.google.gson.JsonParser.parseString(observerReady.readText()) == request }
+                        catch (_: Exception) { false }
+                    }
                     val label = Pattern.compile("Play(?: video)?", Pattern.CASE_INSENSITIVE)
                     val play = device.wait(Until.findObject(By.desc(label)), 15_000)
                         ?: device.wait(Until.findObject(By.text(label)), 5_000)
@@ -74,6 +88,7 @@ class PublicYouTubeReadTest {
                     try { capture("public-failure") } catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
                     throw failure
                 } finally {
+                    observerRequest.delete(); observerReady.delete()
                     try {
                         var snapshot: String? = null
                         scenario.onActivity { snapshot = it.videoDiagnosticsSnapshot() }
