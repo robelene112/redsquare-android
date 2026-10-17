@@ -7,6 +7,22 @@ open. Its earlier overall review base was dd89bc9108eb002bb260eee709c656cd453489
 dependency#24 remains closed.
 Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`.
 
+## Accepted gateway, returning to app frontier
+
+#42servercode is complete: latestimplementationddfd7005, wholebase5a048524,
+fullownedgateway10/0/0/coreUPTODATE/installDist, sourceCI39001786605 SUCCESS at
+fad81a03. Finalintegratedreviewsb84b5903 Standards0/Spec0. [Canonical acceptance](../evidence/ticket42/FINAL_ACCEPTANCE.md).
+Bookendpush/issueclose are the current final bookkeeping actions. #32 configured
+SDK/Google/closed-app/Pixel and deployment stayopen. No account/IAM/node/hosting
+change, beta24unchanged. No ownedlocalbuild, protectedgroupdocuntouched.
+Nextsoleappwork: #17existingactualnativeYouTube150. ReadfrozenOct15evidence and
+.scratch/video17-next-native-observation.md beforechanges. A bounded prearmed
+visibleprovidererror-text capture on the existing owned-emulator/public-fixture
+seam can resolve missingnativecauseinformation; preservePlaying/noautoplay/
+close/feed/zeroSaitowrites. No unchangedretry, header/identityspoofing, proxy or
+providerbypass. Otherblockedinputs (Firebase/Giphy/physical/store) remainpending;
+no repeatedownerquestions. Read issue/currentparent beforeclaiming17.
+
 ## Whole gateway acceptance candidate
 
 Latest code ddfd7005 fullownedbuild28732 PASS1m53/gateway10/0/0/coreUPTODATE/

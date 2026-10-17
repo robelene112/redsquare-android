@@ -1,11 +1,11 @@
-# Gateway server-code acceptance candidate
+# Gateway server-code acceptance
 
 Issue[#42](https://github.com/robelene112/redsquare-android/issues/42) supports
 #32–34. Whole review base5a048524d8681781c1763f850cc3e0773b8e753c.
 Latest implementationddfd7005cd20c4c75d04bbe12b9a2fe595fe7d36. Source, individual
-evidence and[final source CI](final-source-ci/README.md) are accepted. Integrated
-final evidence review is pending; do not close42 until it finishes. Configured
-cloud/device acceptance stays#32.
+evidence and[final source CI](final-source-ci/README.md) are accepted. Final
+integrated reviews atb84b5903 report Standards0/Spec0. Server-code scope is complete;
+configured cloud/device acceptance stays#32.
 
 | Requirement | Controlled evidence |
 | --- | --- |
@@ -30,13 +30,13 @@ not presented as new native execution after the later gateway-only changes.
 
 Whole-source audit atddfd7005: no new documented breaches or actionable heuristic
 smells. The stalled-observation limit received an explicit operational disposition.
-Parent evidence/docs review at48537b27:0 findings. Final integrated review pending.
+Parent evidence/docs review at48537b27:0 findings. Final integrated review atb84b5903:0 findings.
 
 ## Spec
 
 Whole-source audit atddfd7005 found one stale client-configuration paragraph;
 48537b27 corrects it. Final source/documentation disposition at48537b27:0 outstanding
-findings. Parent evidence accepted. Final integrated review pending.
+findings. Parent evidence accepted. Final integrated review atb84b5903:0 findings.
 
 ## Practical limits and external acceptance
 
