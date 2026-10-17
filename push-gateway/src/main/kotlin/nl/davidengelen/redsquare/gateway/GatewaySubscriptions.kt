@@ -4,6 +4,7 @@ import com.google.gson.JsonObject
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import java.io.Closeable
+import java.io.IOException
 import java.net.URI
 import java.nio.file.Path
 import java.security.MessageDigest
@@ -71,13 +72,13 @@ internal class GatewaySubscriptions(directory: Path, origin: String) : Closeable
         val subscriptions = state.getAsJsonObject("subscriptions")
         val digest = sha256(intent)
         if (subscriptions.has(id)) {
-            if (text(subscriptions.getAsJsonObject(id), "intentHash") != digest) throw GatewayProblem(409)
+            if (savedText(subscriptions.getAsJsonObject(id), "intentHash") != digest) throw GatewayProblem(409)
             // Exact retransmission acknowledges the same operation without consuming another nonce.
         } else {
             val challenge = challenges[nonce]
             if (challenge == null || challenge.owner != owner || challenge.expiresAt <= now) throw GatewayProblem(410)
             if (subscriptions.size() >= CAPACITY) throw GatewayProblem(503)
-            if (subscriptions.entrySet().any { text(it.value.asJsonObject, "installation") == installation }) {
+            if (subscriptions.entrySet().any { savedText(it.value.asJsonObject, "installation") == installation }) {
                 throw GatewayProblem(409) // Retire the previous installation binding first.
             }
             subscriptions.add(id, body.deepCopy().apply { addProperty("intentHash", digest) })
@@ -98,7 +99,7 @@ internal class GatewaySubscriptions(directory: Path, origin: String) : Closeable
         val retired = state.getAsJsonObject("retired")
         val active = subscriptions.get(id)?.asJsonObject
         val previous = retired.get(id)?.asJsonObject
-        val expected = active?.let { text(it, "revocationHash") } ?: previous?.let { text(it, "revocationHash") }
+        val expected = active?.let { savedText(it, "revocationHash") } ?: previous?.let { savedText(it, "revocationHash") }
         if (expected != null && !MessageDigest.isEqual(expected.toByteArray(), hash.toByteArray())) throw GatewayProblem(401)
         if (path.endsWith("/revoke")) {
             prune(state, now)
@@ -113,10 +114,10 @@ internal class GatewaySubscriptions(directory: Path, origin: String) : Closeable
         }
         if (expected == null) throw GatewayProblem(404)
         return GatewayReply(200, JsonObject().apply {
-            addProperty("version", 1); addProperty("active", active != null && number(active, "expiresAt") > now)
+            addProperty("version", 1); addProperty("active", active != null && savedNumber(active, "expiresAt") > now)
             if (active != null) {
-                addProperty("owner", text(active, "owner")); addProperty("backend", text(active, "backend"))
-                addProperty("expiresAt", number(active, "expiresAt"))
+                addProperty("owner", savedText(active, "owner")); addProperty("backend", savedText(active, "backend"))
+                addProperty("expiresAt", savedNumber(active, "expiresAt"))
             }
         })
     }
@@ -124,11 +125,16 @@ internal class GatewaySubscriptions(directory: Path, origin: String) : Closeable
     private fun prune(state: JsonObject, now: Long) {
         for (name in listOf("subscriptions", "retired")) {
             val records = state.getAsJsonObject(name)
-            records.entrySet().removeIf { number(it.value.asJsonObject, "expiresAt") <= now }
+            records.entrySet().removeIf { savedNumber(it.value.asJsonObject, "expiresAt") <= now }
         }
     }
 
     override fun close() = store.close()
+
+    private fun savedText(body: JsonObject, name: String): String = try { text(body, name) }
+        catch (failure: Exception) { throw IOException("Gateway state unavailable", failure) }
+    private fun savedNumber(body: JsonObject, name: String): Long = try { number(body, name) }
+        catch (failure: Exception) { throw IOException("Gateway state unavailable", failure) }
 
     private companion object {
         const val CAPACITY = 2048
@@ -144,7 +150,8 @@ internal class GatewaySubscriptions(directory: Path, origin: String) : Closeable
         fun number(body: JsonObject, name: String): Long {
             val value = requireNotNull(body.get(name))
             require(value.isJsonPrimitive && value.asJsonPrimitive.isNumber)
-            return value.asBigDecimal.longValueExact()
+            return try { value.asBigDecimal.longValueExact() }
+                catch (failure: ArithmeticException) { throw IllegalArgumentException("Expected an integer", failure) }
         }
         fun hex(body: JsonObject, name: String): String = text(body, name).also { require(it.matches(Regex("[0-9a-f]{64}"))) }
         fun sha256(value: String): String = MessageDigest.getInstance("SHA-256").digest(value.toByteArray(Charsets.UTF_8)).hex()
