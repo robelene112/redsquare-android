@@ -107,8 +107,10 @@ ordinary photo adds and source navigation, dropping removed-image metadata.
 Optional malformed credits do not discard text/images. PostImages shows provider
 brand and available credits, including its viewer; signed Saito payload remains
 only original URLs. Source-link navigation persists current work first, reusing
-picker persistence. Metadata source reviews and local/native checks passed at
-the checkpoint below. Fresh-Activity restoration and controlled signed
+picker persistence. Draft metadata source reviews and local/native checks passed
+at the checkpoint below. Whole integration review found that published views lose
+selected creator/source metadata after the disposable composer is cleared; this
+is an open implementation finding. Fresh-Activity restoration and controlled signed
 post/reply/quote checks now pass, with the documented pinned-web text limitation.
 Complete remaining search/recovery and Android10/17 acceptance. Live authorized Giphy remains a
 separate external gate. #16 and #31 stay open. Beta24 unchanged, no new APK.
@@ -879,3 +881,31 @@ is not direct transport-cancellation proof. Native execution is still pending.
 No owned local build remains. Whole16 remains open for remaining controlled,
 Android10/17 and authorized live-provider acceptance. Latest tracker comment
 6230874630 predates this latest runtime checkpoint. Beta24 unchanged.
+
+
+## Active published-credit and Android10 corrections
+
+Whole source review0e577ab0...a2753fe8: Standards0, Spec1. Published feed,
+conversation/profile/search/quoted views currently receive no selected attribution,
+and confirmed drafts are disposable. Preserve the already-selected presentation
+metadata independently and supply it to those views, without changing signed
+payloads or inventing historical credits. Native tracer24787e68 extends only
+ownerGifPost: visible published creator/source, cleared composer, fresh Activity
+and same posted credits. Both tracer reviews0/0; expected RED not observed yet.
+No production fix has been written.
+
+Focused a275 Android10 run39011893710 FAILED: recovery method passes, selection
+starts then Process crashed, no final JUnit summary. Search and posting unexecuted.
+[12 originals](../evidence/ticket16/android10-first-crash/README.md), root viewed4
+PNGs/parsed4 XMLs. Existing output does not establish the crash cause. Harness
+1b7ecb93 now retains the device crash buffer on failure; reviews0/0, bash -n PASS.
+A changed diagnostic run is pending; do not guess an application fix.
+
+Focused a275 Android17 run39011891934 FAILED3/1/50.923s: recovery and fresh
+selection pass; search fails151 because SetText matches composer and modal.
+[Five originals](../evidence/ticket16/search-selector-failure/android17/README.md),
+root viewed PNG/parsed XML. Correction046a892c targets the visible Search GIFs
+label for all four modal query edits. Values/assertions/deadlines unchanged,
+reviews0/0; later search behavior and posting remain unexecuted in that run.
+This selector failure is not an application RED. Separate a275 source39011892199
+SUCCESS. No owned local build; no new APK or production/key/node change.

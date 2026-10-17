@@ -1,0 +1,165 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GiphyPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.GiphyPreviewTest:
+INSTRUMENTATION_STATUS: test=providerFailureCanRetryAndCloseWithoutLosingTheDraft
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GiphyPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=providerFailureCanRetryAndCloseWithoutLosingTheDraft
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GiphyPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=selectedAnimatedGifSurvivesSavedDraftAndFreshActivity
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GiphyPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=selectedAnimatedGifSurvivesSavedDraftAndFreshActivity
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GiphyPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=searchCanRetryAndReplaceAnOlderRequestWithoutLosingAuthoredWork
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GiphyPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to perform text input.
+Reason: Expected exactly '1' node but found '2' nodes that satisfy: (SetText is defined)
+Nodes found:
+1) Node #1054 at (l=12.0, t=273.0, r=308.0, b=433.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = 'My text survives changing GIF searches'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@b89f470'
+Focused = 'false'
+ImeAction = 'Default'
+InputText = 'My text survives changing GIF searches'
+IsEditable = 'true'
+TextSelectionRange = 'TextRange(38, 38)'
+Actions = [GetTextLayoutResult, InsertTextAtCursor, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText]
+MergeDescendants = 'true'
+Has 3 siblings
+2) Node #1083 at (l=12.0, t=60.0, r=308.0, b=125.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = ''
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@d763e9'
+Focused = 'false'
+ImeAction = 'Default'
+InputText = ''
+IsEditable = 'true'
+Text = '[Search GIFs]'
+TextSelectionRange = 'TextRange(0, 0)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 4 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.TextActionsKt.getNodeAndFocus(TextActions.kt:124)
+	at androidx.compose.ui.test.TextActionsKt.getNodeAndFocus$default(TextActions.kt:119)
+	at androidx.compose.ui.test.TextActionsKt.performTextReplacement(TextActions.kt:82)
+	at nl.davidengelen.redsquare.GiphyPreviewTest.searchCanRetryAndReplaceAnOlderRequestWithoutLosingAuthoredWork(GiphyPreviewTest.kt:151)
+
+INSTRUMENTATION_STATUS: stream=
+Error in searchCanRetryAndReplaceAnOlderRequestWithoutLosingAuthoredWork(nl.davidengelen.redsquare.GiphyPreviewTest):
+java.lang.AssertionError: Failed to perform text input.
+Reason: Expected exactly '1' node but found '2' nodes that satisfy: (SetText is defined)
+Nodes found:
+1) Node #1054 at (l=12.0, t=273.0, r=308.0, b=433.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = 'My text survives changing GIF searches'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@b89f470'
+Focused = 'false'
+ImeAction = 'Default'
+InputText = 'My text survives changing GIF searches'
+IsEditable = 'true'
+TextSelectionRange = 'TextRange(38, 38)'
+Actions = [GetTextLayoutResult, InsertTextAtCursor, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText]
+MergeDescendants = 'true'
+Has 3 siblings
+2) Node #1083 at (l=12.0, t=60.0, r=308.0, b=125.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = ''
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@d763e9'
+Focused = 'false'
+ImeAction = 'Default'
+InputText = ''
+IsEditable = 'true'
+Text = '[Search GIFs]'
+TextSelectionRange = 'TextRange(0, 0)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 4 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.TextActionsKt.getNodeAndFocus(TextActions.kt:124)
+	at androidx.compose.ui.test.TextActionsKt.getNodeAndFocus$default(TextActions.kt:119)
+	at androidx.compose.ui.test.TextActionsKt.performTextReplacement(TextActions.kt:82)
+	at nl.davidengelen.redsquare.GiphyPreviewTest.searchCanRetryAndReplaceAnOlderRequestWithoutLosingAuthoredWork(GiphyPreviewTest.kt:151)
+
+INSTRUMENTATION_STATUS: test=searchCanRetryAndReplaceAnOlderRequestWithoutLosingAuthoredWork
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 50.923
+There was 1 failure:
+1) searchCanRetryAndReplaceAnOlderRequestWithoutLosingAuthoredWork(nl.davidengelen.redsquare.GiphyPreviewTest)
+java.lang.AssertionError: Failed to perform text input.
+Reason: Expected exactly '1' node but found '2' nodes that satisfy: (SetText is defined)
+Nodes found:
+1) Node #1054 at (l=12.0, t=273.0, r=308.0, b=433.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = 'My text survives changing GIF searches'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@b89f470'
+Focused = 'false'
+ImeAction = 'Default'
+InputText = 'My text survives changing GIF searches'
+IsEditable = 'true'
+TextSelectionRange = 'TextRange(38, 38)'
+Actions = [GetTextLayoutResult, InsertTextAtCursor, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText]
+MergeDescendants = 'true'
+Has 3 siblings
+2) Node #1083 at (l=12.0, t=60.0, r=308.0, b=125.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = ''
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@d763e9'
+Focused = 'false'
+ImeAction = 'Default'
+InputText = ''
+IsEditable = 'true'
+Text = '[Search GIFs]'
+TextSelectionRange = 'TextRange(0, 0)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 4 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.TextActionsKt.getNodeAndFocus(TextActions.kt:124)
+	at androidx.compose.ui.test.TextActionsKt.getNodeAndFocus$default(TextActions.kt:119)
+	at androidx.compose.ui.test.TextActionsKt.performTextReplacement(TextActions.kt:82)
+	at nl.davidengelen.redsquare.GiphyPreviewTest.searchCanRetryAndReplaceAnOlderRequestWithoutLosingAuthoredWork(GiphyPreviewTest.kt:151)
+
+FAILURES!!!
+Tests run: 3,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
